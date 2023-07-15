@@ -2,106 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C940754852
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jul 2023 12:57:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C2A6754A00
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jul 2023 18:08:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0164784B;
-	Sat, 15 Jul 2023 12:56:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0164784B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE64A4C;
+	Sat, 15 Jul 2023 18:07:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE64A4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689418661;
-	bh=j2MtOqbhEzDLtpmcegFLXKKaISp7ldEUg4hOZTFjgPA=;
-	h=Date:To:Cc:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1689437329;
+	bh=8oOGkGNISyNt3Hc5eyw3rD3cYxiiHT7r0QPfVVEJXzQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=EW6ui8J2g5/eB/Nx60ew2RAwK4Ig7Ai6wQwDoo+bI48JnRV5VSuGaWcEltul+EH5r
-	 bv49A6kiWyEG7ZS+iTDz0GTjCqwnUPvQwDqlA3rdfYRMB73Ql9fo7CN3QtQsUCbsmN
-	 LxiC+sh/U28XTam69Inyz7Broq0guY5sAEBhQxU0=
+	b=ZmbkWa8Bx128+fY2eW9PhB4O+IX55SeMLMy4pZhy3w3wzVwUiPSMX4n1zrUj0WNiK
+	 aJJpV3ZkFypx6AJTWhftCtWahhR+THojSQNxeEf0oe0GkocrLWafXf35QwH+ixygDy
+	 /TFzOPyDCA/wndqQhxASPx5eHR07iSkIi7t+hi3s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44352F8027B; Sat, 15 Jul 2023 12:56:50 +0200 (CEST)
+	id 16637F8024E; Sat, 15 Jul 2023 18:07:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD82CF80236;
-	Sat, 15 Jul 2023 12:56:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AC2BF80236;
+	Sat, 15 Jul 2023 18:07:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE13FF80249; Sat, 15 Jul 2023 12:56:44 +0200 (CEST)
+	id 73D87F80249; Sat, 15 Jul 2023 18:07:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8D96F80093
-	for <alsa-devel@alsa-project.org>; Sat, 15 Jul 2023 12:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D96F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=aiu0XVxZ
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-6687096c6ddso1835789b3a.0
-        for <alsa-devel@alsa-project.org>;
- Sat, 15 Jul 2023 03:56:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689418587; x=1692010587;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZERGPzw5TZLiZLEYlC5ABDoHNPFEd4U3QPZl/a2G3cU=;
-        b=aiu0XVxZD6ByP16P8lg4JKH7/qKR+UkZBlpoXGfmezQ7plwJyCZXb2OgYwF4SprvGy
-         wCyYi0VdzubWp2PDhl6cE4i3if1SmsOGjWqC1jTioEtu/NR6dvNpYmsgXEkGhm9CKDYn
-         fwed1zjwHcxpzJoagUXDN7x+4YcdHf5sycQjdMkgn/PMy/2IVLOBWQWLQvVPMU9II7Lf
-         AHZ4zjU7on6HuQ3WqP7w4xzQBSucZJdnHok8Bzr+axCGubh7PaY3NvFIfCtuscXUGMRv
-         9wRavQd5wFBVP6E7ezEYVldbdbepV+s5MOFNtGBYXH3ozfRVf9Oqa6xgTreka5vt0wXF
-         YUMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689418587; x=1692010587;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZERGPzw5TZLiZLEYlC5ABDoHNPFEd4U3QPZl/a2G3cU=;
-        b=GFfsx7UmWET/qUCDS1QNwQC2AnNgcuvH5jzVNJ8ghpJV+MhVFZvNIbZiR4DJEtrJsI
-         30VladxcolA07TJ3dp3TpxxHP/i5AdIviMYuNiWmwxxi7KXzo7HFo/IeTBfmTH/VGU6R
-         SMaosG4ihvly4Ts6zOBsb22ETu9q3yCxn7EZP+zN7IbhWraesdcIlnDx+RK0KZoF1vri
-         tpTBRZttb6+mmF07IvUU6z9xjkp+MlotDdgQ1drpr4oVjXPu2Aa/1bIFcM5m/xwDnbwJ
-         aWhauk4fGx1yymnh2WYGljWULowXReraPrIsdZiXGegaB9l2zXyPiwfKgHKEwCC+p4U4
-         kdSQ==
-X-Gm-Message-State: ABy/qLYkCzwIKWCE/2hGMP2NTvr/XYquC36h8RCjyMAOlssSQim9h3mE
-	Cf8whpP9YLh4tuvGxmfi4L0=
-X-Google-Smtp-Source: 
- APBJJlGOj8jl6PdCasGb35nlcC959eyVAjJa1/5upVEezCQMd7k/PX89IwG7inbwwmhtZGyUjoKl9Q==
-X-Received: by 2002:a05:6a20:3d5:b0:128:fce6:dd8b with SMTP id
- 21-20020a056a2003d500b00128fce6dd8bmr4130662pzu.39.1689418586644;
-        Sat, 15 Jul 2023 03:56:26 -0700 (PDT)
-Received: from [192.168.0.104] ([103.131.18.64])
-        by smtp.gmail.com with ESMTPSA id
- j10-20020a170902da8a00b001b895336435sm9264398plx.21.2023.07.15.03.56.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 15 Jul 2023 03:56:26 -0700 (PDT)
-Message-ID: <3ee79b53-5c1b-1542-ceea-e51141e3ab74@gmail.com>
-Date: Sat, 15 Jul 2023 17:56:19 +0700
+	by alsa1.perex.cz (Postfix) with ESMTPS id CBA76F800E4
+	for <alsa-devel@alsa-project.org>; Sat, 15 Jul 2023 18:07:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBA76F800E4
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id CFB2A23EE2;
+	Sat, 15 Jul 2023 12:07:39 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
+	id 1qKho2-N1d-00; Sat, 15 Jul 2023 18:07:38 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH v2] ALSA: emu10k1: track loss of external clock on E-MU cards
+Date: Sat, 15 Jul 2023 18:07:38 +0200
+Message-Id: <20230715160738.326832-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Iyer <cydiaimpactor2003@gmail.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Regressions <regressions@lists.linux.dev>,
- Linux ALSA Development <alsa-devel@alsa-project.org>
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Fwd: 6.4 and higher causes audio distortion
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: PKAR7TG4YQVEOI3O6ER6C44ECH2SX4UG
-X-Message-ID-Hash: PKAR7TG4YQVEOI3O6ER6C44ECH2SX4UG
-X-MailFrom: bagasdotme@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: NEKXRMY5JAHKOWPYZWG6CBZZO7MWVRW3
+X-Message-ID-Hash: NEKXRMY5JAHKOWPYZWG6CBZZO7MWVRW3
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +66,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKAR7TG4YQVEOI3O6ER6C44ECH2SX4UG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NEKXRMY5JAHKOWPYZWG6CBZZO7MWVRW3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,68 +75,188 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+This uses IRQs to track spontaneous changes to the word clock source
+register.
 
-I notice a regression report on Bugzilla [1]. Quoting from it:
+FWIW, that this can happen in the first place is the reason why it is
+futile to lock the clock source mixer setting while the device is open -
+we can't consistently control the rate anyway. Though arguably, we
+should reset any open streams when that happens, as they become
+corrupted anyway.
 
-> I have a Lenovo ThinkPad X1 Yoga Gen 7 running Arch Linux. Linux 6.4 and higher, cause audio distortion. Sometimes, this occurs to the point that nearly nothing is discernible. This carries over to wired headphones. The issue occurs on the entire mainline 6.4.x kernel series and also the 6.4.3 stable and 6.5 RC1 kernel, which are the latest at the time of writing. The issue occurs on both the Arch distributed kernels, and the mainline kernels.
-> 
-> Linux kernels 6.3.x are not affected and neither is the 6.1 LTS kernel series which is what I am temporarily using. On Windows 10/11 too, the audio works as it should. This indicates that my hardware is not at fault. Bluetooth audio is not impacted from my testing, either.
-> 
-> The distortion doesn't start immediately. It either occurs automatically after a random amount of time, or when I increase/decrease the volume, or when I skip forward/backward to a section. In order to stop the distortion, I have to either increase/decrease the volume until it stops, or skip forward/backward until it stops, or restart Pipewire via systemd, however it starts again due to one of the aforementioned reasons.
-> 
-> At the time of this report, I am running Pipewire 0.3.74 and Wireplumber 0.4.14. This also doesn't seem like a Pipewire/Wireplumber issue, since these same versions work fine on the 6.1 LTS kernels without causing any audio distortion.
-> 
-> I wrote about this on the Arch Linux forums, too, and seems like at least two other people are facing this issue. Here's the forum post: https://bbs.archlinux.org/viewtopic.php?id=287068
-> 
-> Furthermore, I filed a bug report on the Arch Linux Bug Reporter, where they suggested that the issue is a kernel regression and should be reported upstream, here. Here's the bug report that I filed on the Arch Linux Bug Reporter for anyone interested: https://bugs.archlinux.org/task/79081?project=1&pagenum=10
-> 
-> I have attached the dmesg outputs of the mainline 6.5 RC1 kernel.
-> 
-> Here's some audio related hardware information from my device:
-> 
-> inxi -A
-> 
-> Audio:
-> Device-1: Intel Alder Lake PCH-P High Definition Audio
-> driver: sof-audio-pci-intel-tgl
-> API: ALSA v: k6.5.0-rc1-1-mainline status: kernel-api
-> 
-> 
-> pactl info
-> 
-> Server String: /run/user/1000/pulse/native
-> Library Protocol Version: 35
-> Server Protocol Version: 35
-> Is Local: yes
-> Client Index: 138
-> Tile Size: 65472
-> User Name: tux
-> Host Name: NSA-Terminal-4
-> Server Name: PulseAudio (on PipeWire 0.3.74)
-> Server Version: 15.0.0
-> Default Sample Specification: float32le 2ch 48000Hz
-> Default Channel Map: front-left,front-right
-> Default Sink: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink
-> Default Source: alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_6__source
-> Cookie: f9dc:5e7a
-> 
-> 
-> I can't figure out why this is happening. Kindly ask for any more information that is necessary. Thank you.
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-See Bugzilla for the full thread and attached dmesg.
+---
+v2:
+- use driver-local lock instead of core's control_rwsem
 
-Anyway, I'm adding it to regzbot so that it doesn't fall through
-cracks unnoticed:
+---
+FIXME? while i'm not sure, i think this won't notice seamless switches
+between 44.1 and 48 kHz. assuming that's the case, this seems like a
+minor issue: firstly, just about nothing actually produces such a
+seamless switch - my only device that can even do that is the e-mu card
+itself, but the driver disrupts that by temporarily muting the output.
+secondly, the user is unlikely to select an external source before
+setting it up properly. and the easy workaround is actually never doing
+that.
+regardless, to actually test that i'd need a second e-mu card.
+---
+ include/sound/emu10k1.h          |  5 +++++
+ sound/pci/emu10k1/emu10k1.c      |  1 +
+ sound/pci/emu10k1/emu10k1_main.c | 30 +++++++++++++++++++++++++++++-
+ sound/pci/emu10k1/emumixer.c     | 12 ++++++++----
+ 4 files changed, 43 insertions(+), 5 deletions(-)
 
-#regzbot introduced: v6.3..v6.4 https://bugzilla.kernel.org/show_bug.cgi?id=217673
-#regzbot title: PipeWire + Wireplumber audio distortion on Lenovo ThinkPad X1 Yoga Gen 7
-#regzbot link: https://bbs.archlinux.org/viewtopic.php?id=287068
-#regzbot link: https://bugs.archlinux.org/task/79081?project=1&pagenum=10
-
-Thanks.
-
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=217673
-
+diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
+index 43c097952c3c..7c55a8244747 100644
+--- a/include/sound/emu10k1.h
++++ b/include/sound/emu10k1.h
+@@ -992,6 +992,9 @@ SUB_REG_NC(A_EHC, A_I2S_CAPTURE_RATE, 0x00000e00)  /* This sets the capture PCM
+ #define EMU_HANA_WCLOCK_4X		0x10
+ #define EMU_HANA_WCLOCK_MULT_RESERVED	0x18
+ 
++// If the selected external clock source is/becomes invalid or incompatible
++// with the clock multiplier, the clock source is reset to this value, and
++// a WCLK_CHANGED interrupt is raised.
+ #define EMU_HANA_DEFCLOCK	0x06	/* 000000x  1 bits Default Word Clock  */
+ #define EMU_HANA_DEFCLOCK_48K		0x00
+ #define EMU_HANA_DEFCLOCK_44_1K		0x01
+@@ -1679,6 +1682,7 @@ struct snd_emu1010 {
+ 	unsigned int optical_in; /* 0:SPDIF, 1:ADAT */
+ 	unsigned int optical_out; /* 0:SPDIF, 1:ADAT */
+ 	struct work_struct firmware_work;
++	struct work_struct clock_work;
+ };
+ 
+ struct snd_emu10k1 {
+@@ -1753,6 +1757,7 @@ struct snd_emu10k1 {
+ 	struct snd_kcontrol *ctl_efx_send_routing;
+ 	struct snd_kcontrol *ctl_efx_send_volume;
+ 	struct snd_kcontrol *ctl_efx_attn;
++	struct snd_kcontrol *ctl_clock_source;
+ 
+ 	void (*hwvol_interrupt)(struct snd_emu10k1 *emu, unsigned int status);
+ 	void (*capture_interrupt)(struct snd_emu10k1 *emu, unsigned int status);
+diff --git a/sound/pci/emu10k1/emu10k1.c b/sound/pci/emu10k1/emu10k1.c
+index 1a13c086e86c..421053569aa0 100644
+--- a/sound/pci/emu10k1/emu10k1.c
++++ b/sound/pci/emu10k1/emu10k1.c
+@@ -192,6 +192,7 @@ static int snd_emu10k1_suspend(struct device *dev)
+ 	emu->suspend = 1;
+ 
+ 	cancel_work_sync(&emu->emu1010.firmware_work);
++	cancel_work_sync(&emu->emu1010.clock_work);
+ 
+ 	snd_ac97_suspend(emu->ac97);
+ 
+diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
+index a11fcba4b9af..604645bfc908 100644
+--- a/sound/pci/emu10k1/emu10k1_main.c
++++ b/sound/pci/emu10k1/emu10k1_main.c
+@@ -789,6 +789,30 @@ static void emu1010_firmware_work(struct work_struct *work)
+ 	}
+ }
+ 
++static void emu1010_clock_work(struct work_struct *work)
++{
++	struct snd_emu10k1 *emu;
++	struct snd_ctl_elem_id id;
++
++	emu = container_of(work, struct snd_emu10k1,
++			   emu1010.clock_work);
++	if (emu->card->shutdown)
++		return;
++#ifdef CONFIG_PM_SLEEP
++	if (emu->suspend)
++		return;
++#endif
++
++	spin_lock_irq(&emu->reg_lock);
++	// This is the only thing that can actually happen.
++	emu->emu1010.clock_source = emu->emu1010.clock_fallback;
++	emu->emu1010.wclock = 1 - emu->emu1010.clock_source;
++	snd_emu1010_update_clock(emu);
++	spin_unlock_irq(&emu->reg_lock);
++	snd_ctl_build_ioff(&id, emu->ctl_clock_source, 0);
++	snd_ctl_notify(emu->card, SNDRV_CTL_EVENT_MASK_VALUE, &id);
++}
++
+ static void emu1010_interrupt(struct snd_emu10k1 *emu)
+ {
+ 	u32 sts;
+@@ -802,6 +826,8 @@ static void emu1010_interrupt(struct snd_emu10k1 *emu)
+ 	} else if (sts & EMU_HANA_IRQ_DOCK) {
+ 		schedule_work(&emu->emu1010.firmware_work);
+ 	}
++	if (sts & EMU_HANA_IRQ_WCLK_CHANGED)
++		schedule_work(&emu->emu1010.clock_work);
+ }
+ 
+ /*
+@@ -901,7 +927,7 @@ static int snd_emu10k1_emu1010_init(struct snd_emu10k1 *emu)
+ 	emu->gpio_interrupt = emu1010_interrupt;
+ 	// Note: The Audigy INTE is set later
+ 	snd_emu1010_fpga_write(emu, EMU_HANA_IRQ_ENABLE,
+-			       EMU_HANA_IRQ_DOCK | EMU_HANA_IRQ_DOCK_LOST);
++			       EMU_HANA_IRQ_DOCK | EMU_HANA_IRQ_DOCK_LOST | EMU_HANA_IRQ_WCLK_CHANGED);
+ 	snd_emu1010_fpga_read(emu, EMU_HANA_IRQ_STATUS, &reg);  // Clear pending IRQs
+ 
+ 	emu->emu1010.clock_source = 1;  /* 48000 */
+@@ -943,6 +969,7 @@ static void snd_emu10k1_free(struct snd_card *card)
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_PWR, 0);
+ 	}
+ 	cancel_work_sync(&emu->emu1010.firmware_work);
++	cancel_work_sync(&emu->emu1010.clock_work);
+ 	release_firmware(emu->firmware);
+ 	release_firmware(emu->dock_fw);
+ 	snd_util_memhdr_free(emu->memhdr);
+@@ -1522,6 +1549,7 @@ int snd_emu10k1_create(struct snd_card *card,
+ 	emu->synth = NULL;
+ 	emu->get_synth_voice = NULL;
+ 	INIT_WORK(&emu->emu1010.firmware_work, emu1010_firmware_work);
++	INIT_WORK(&emu->emu1010.clock_work, emu1010_clock_work);
+ 	/* read revision & serial */
+ 	emu->revision = pci->revision;
+ 	pci_read_config_dword(pci, PCI_SUBSYSTEM_VENDOR_ID, &emu->serial);
+diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
+index 9a94f08f2463..f39025748072 100644
+--- a/sound/pci/emu10k1/emumixer.c
++++ b/sound/pci/emu10k1/emumixer.c
+@@ -986,17 +986,21 @@ static int snd_emu1010_clock_source_put(struct snd_kcontrol *kcontrol,
+ 	val = ucontrol->value.enumerated.item[0] ;
+ 	if (val >= emu_ci->num)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.clock_source != val);
+ 	if (change) {
+ 		emu->emu1010.clock_source = val;
+ 		emu->emu1010.wclock = emu_ci->vals[val];
++		snd_emu1010_update_clock(emu);
+ 
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_UNMUTE, EMU_MUTE);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_WCLOCK, emu->emu1010.wclock);
++		spin_unlock_irq(&emu->reg_lock);
++
+ 		msleep(10);  // Allow DLL to settle
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_UNMUTE, EMU_UNMUTE);
+-
+-		snd_emu1010_update_clock(emu);
++	} else {
++		spin_unlock_irq(&emu->reg_lock);
+ 	}
+ 	return change;
+ }
+@@ -2336,8 +2340,8 @@ int snd_emu10k1_mixer(struct snd_emu10k1 *emu,
+ 				emu1010_map_source(emu_ri, emu_ri->out_dflts[i]);
+ 		snd_emu1010_apply_sources(emu);
+ 
+-		err = snd_ctl_add(card,
+-			snd_ctl_new1(&snd_emu1010_clock_source, emu));
++		kctl = emu->ctl_clock_source = snd_ctl_new1(&snd_emu1010_clock_source, emu);
++		err = snd_ctl_add(card, kctl);
+ 		if (err < 0)
+ 			return err;
+ 		err = snd_ctl_add(card,
 -- 
-An old man doll... just what I always wanted! - Clara
+2.40.0.152.g15d061e6df
+

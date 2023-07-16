@@ -2,86 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C52754EAD
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 14:53:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFEAF754EBF
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 15:08:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAE54E0F;
-	Sun, 16 Jul 2023 14:52:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAE54E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFF07DEB;
+	Sun, 16 Jul 2023 15:07:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFF07DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689511996;
-	bh=6Ah7bT014+0EnYhqIBI4z9U9khMOfEK4P7UjUPWCSxU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1689512923;
+	bh=WiIqbD/NzqJJszvO1N9enMMHatBX+E/8PXNtOTBB5xE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G+9J3ZNkkgxaAy9AfVhBXkXObLRuDd8Ri5MlvD4DDZ/c7DWKMIIjpWy5C56nkh4Nd
-	 mN40s6cQmnDWSheojmC9itLpYK5Uk1nZt70XUjmwL4qbR+PiFQPjEv0GSWz4ajNcuQ
-	 aSAOh01XnljVVbC6CFaQHxBre0RFouigUUCrqKtk=
+	b=Cz+ZYRwoRl8ax7Lahj9kY+wAAYcj5fT4p8t/lTI1tW6dWqTYsP29kjOxhau30IIER
+	 Xr9K5ciLfiEIv1RY1SJ3UASzVflXa7XpHtLUY08krHdC0ZEGUWlorrXbOdmLCltwx0
+	 CPcNsSbFmO9Xk6xj9mOPOX0MBqi1lg9Ot1A/yuUc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 449DDF8057C; Sun, 16 Jul 2023 14:51:39 +0200 (CEST)
+	id 523B5F80520; Sun, 16 Jul 2023 15:07:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6798F80571;
-	Sun, 16 Jul 2023 14:51:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2ECEF8032D;
+	Sun, 16 Jul 2023 15:07:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E889BF80564; Sun, 16 Jul 2023 14:51:33 +0200 (CEST)
+	id DF1D2F8047D; Sun, 16 Jul 2023 15:07:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9AA3EF8055B
-	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 14:51:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AA3EF8055B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D85C8F8027B
+	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 15:07:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D85C8F8027B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=E+h/Ukdh
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=hQ3EqsRw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=p4paIBZq
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CF91C60CF5;
-	Sun, 16 Jul 2023 12:51:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6C1C433C7;
-	Sun, 16 Jul 2023 12:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689511889;
-	bh=6Ah7bT014+0EnYhqIBI4z9U9khMOfEK4P7UjUPWCSxU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=E+h/UkdhumcoJ4HqBmsPIMeTwkRDFC4ycuUsfi8iRjo/ubUHjkhxpR1K2ShJQKkOc
-	 GyXh7yw1tRMQ0rqEn42E0GF/lTImLi092PC9i71UtK5av2xpe+uLzPKPsSA9vCJSFM
-	 X5cWzUTrORe/FZu77NEXTP+32YWBXrBLWypDOESqxOqoDeR8gTcxpH5BrgSE159a1N
-	 bPymxy4PXNuNVCteg5eFUcHlzXVJJSm0gNB/xD0fEUB9AmyoXAQabxl2JsyXNDdl0V
-	 ErAvexHeNAjgpPNYUdff8BJpiLVnsDtkAyu7rv+s53wdf2MZ0OHAJRNLjaDisrrCo9
-	 InxxOfbrJHd2A==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Rob Herring <robh@kernel.org>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230707221725.1071292-1-robh@kernel.org>
-References: <20230707221725.1071292-1-robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: audio-graph-card2: Drop incomplete
- example
-Message-Id: <168951188735.111741.5556934067507918696.b4-ty@kernel.org>
-Date: Sun, 16 Jul 2023 13:51:27 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: 5UE72D6DGWQU7TA5T3UJ2E73YO6SF3D3
-X-Message-ID-Hash: 5UE72D6DGWQU7TA5T3UJ2E73YO6SF3D3
-X-MailFrom: broonie@kernel.org
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 30A8A218F2;
+	Sun, 16 Jul 2023 13:07:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1689512844;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7AtYK9H6OEFphuJ+7xGg8FXecY+/gGpOOXHIVq4Nm0Y=;
+	b=hQ3EqsRwAhiMBD02CyvRlJD10ouY1Gg7CTjKztqt3HmuqJdPadnsfF5rIIxLzqNx9qMfdq
+	52NHfjiOTnGMzhefq2LRccYKaazu5394f45vmpGtpsTVoD5luiQPMHiPE+kgn9EeTNjRV3
+	l6pttHqRko0QCWUXAKldY/Tf3P0j8cg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1689512844;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7AtYK9H6OEFphuJ+7xGg8FXecY+/gGpOOXHIVq4Nm0Y=;
+	b=p4paIBZq6Eq6jnI8esXqfm/daNrNu+5LvAY9EcswEOpkFVjsHrUIjZrogi64S83jLkwAGI
+	LBMUAzEO1E68RpBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 097C113252;
+	Sun, 16 Jul 2023 13:07:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id ndCCAYzrs2T2fwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 16 Jul 2023 13:07:24 +0000
+Date: Sun, 16 Jul 2023 15:07:23 +0200
+Message-ID: <87v8ekattg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: syzbot <syzbot+cf8e7fa4eeec59b3d485@syzkaller.appspotmail.com>
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	perex@perex.cz,
+	syzkaller-bugs@googlegroups.com,
+	tiwai@suse.com
+Subject: Re: [syzbot] [alsa?] memory leak in snd_seq_create_port
+In-Reply-To: <00000000000098ed3a0600965f89@google.com>
+References: <00000000000098ed3a0600965f89@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: GN66YFA5XT3OIWCPBJWV7OAKTMLBVNLO
+X-Message-ID-Hash: GN66YFA5XT3OIWCPBJWV7OAKTMLBVNLO
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UE72D6DGWQU7TA5T3UJ2E73YO6SF3D3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GN66YFA5XT3OIWCPBJWV7OAKTMLBVNLO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,39 +120,109 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 07 Jul 2023 16:17:25 -0600, Rob Herring wrote:
-> The example in audio-graph-card2 binding is incomplete, uses
-> undocumented compatibles strings, and doesn't follow typical .dts
-> formatting. Rather than try to fix with what would probably be a lengthy
-> example, just drop the example.
+On Sun, 16 Jul 2023 10:21:49 +0200,
+syzbot wrote:
 > 
+> Hello,
 > 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    3f01e9fed845 Merge tag 'linux-watchdog-6.5-rc2' of git://w..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=14b07344a80000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=75da4f0a455bdbd3
+> dashboard link: https://syzkaller.appspot.com/bug?extid=cf8e7fa4eeec59b3d485
+> compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15877dc2a80000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12905004a80000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/441fb7ea58b8/disk-3f01e9fe.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/8fa7790ba0c3/vmlinux-3f01e9fe.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/5e7a6471dadf/bzImage-3f01e9fe.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+cf8e7fa4eeec59b3d485@syzkaller.appspotmail.com
+> 
+> Warning: Permanently added '10.128.1.1' (ED25519) to the list of known hosts.
+> executing program
+> executing program
+> BUG: memory leak
+> unreferenced object 0xffff888100877000 (size 512):
+>   comm "syz-executor257", pid 5012, jiffies 4294941742 (age 12.790s)
+>   hex dump (first 32 bytes):
+>     80 ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>   backtrace:
+>     [<ffffffff8154bf94>] kmalloc_trace+0x24/0x90 mm/slab_common.c:1076
+>     [<ffffffff83d29e28>] kmalloc include/linux/slab.h:582 [inline]
+>     [<ffffffff83d29e28>] kzalloc include/linux/slab.h:703 [inline]
+>     [<ffffffff83d29e28>] snd_seq_create_port+0x78/0x300 sound/core/seq/seq_ports.c:135
+>     [<ffffffff83d1f681>] snd_seq_ioctl_create_port+0xe1/0x2a0 sound/core/seq/seq_clientmgr.c:1324
+>     [<ffffffff83d20e5e>] snd_seq_ioctl+0x13e/0x290 sound/core/seq/seq_clientmgr.c:2327
+>     [<ffffffff81685173>] vfs_ioctl fs/ioctl.c:51 [inline]
+>     [<ffffffff81685173>] __do_sys_ioctl fs/ioctl.c:870 [inline]
+>     [<ffffffff81685173>] __se_sys_ioctl fs/ioctl.c:856 [inline]
+>     [<ffffffff81685173>] __x64_sys_ioctl+0x103/0x140 fs/ioctl.c:856
+>     [<ffffffff84a77ff9>] do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+>     [<ffffffff84a77ff9>] do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
+>     [<ffffffff84c0008b>] entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> 
+> BUG: memory leak
+> unreferenced object 0xffff888106742c00 (size 512):
+>   comm "syz-executor257", pid 5013, jiffies 4294942276 (age 7.450s)
+>   hex dump (first 32 bytes):
+>     80 ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>   backtrace:
+>     [<ffffffff8154bf94>] kmalloc_trace+0x24/0x90 mm/slab_common.c:1076
+>     [<ffffffff83d29e28>] kmalloc include/linux/slab.h:582 [inline]
+>     [<ffffffff83d29e28>] kzalloc include/linux/slab.h:703 [inline]
+>     [<ffffffff83d29e28>] snd_seq_create_port+0x78/0x300 sound/core/seq/seq_ports.c:135
+>     [<ffffffff83d1f681>] snd_seq_ioctl_create_port+0xe1/0x2a0 sound/core/seq/seq_clientmgr.c:1324
+>     [<ffffffff83d20e5e>] snd_seq_ioctl+0x13e/0x290 sound/core/seq/seq_clientmgr.c:2327
+>     [<ffffffff81685173>] vfs_ioctl fs/ioctl.c:51 [inline]
+>     [<ffffffff81685173>] __do_sys_ioctl fs/ioctl.c:870 [inline]
+>     [<ffffffff81685173>] __se_sys_ioctl fs/ioctl.c:856 [inline]
+>     [<ffffffff81685173>] __x64_sys_ioctl+0x103/0x140 fs/ioctl.c:856
+>     [<ffffffff84a77ff9>] do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+>     [<ffffffff84a77ff9>] do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
+>     [<ffffffff84c0008b>] entry_SYSCALL_64_after_hwframe+0x63/0xcd
 
-Applied to
+Likely a forgotten kfree() at the error path.
+The patch below should fix it.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+Takashi
 
-[1/1] ASoC: dt-bindings: audio-graph-card2: Drop incomplete example
-      commit: c65b21f8aeac86768d387a86dfcbec5980480b6a
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: seq: Fix memory leak at error path in
+ snd_seq_create_port()
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+We forgot to release a newly allocated item at the error path in
+snd_seq_create_port().  This patch fixes it.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Reported-by: syzbot+cf8e7fa4eeec59b3d485@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/r/00000000000098ed3a0600965f89@google.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq/seq_ports.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
+index 9b80f8275026..f3f14ff0f80f 100644
+--- a/sound/core/seq/seq_ports.c
++++ b/sound/core/seq/seq_ports.c
+@@ -149,6 +149,7 @@ int snd_seq_create_port(struct snd_seq_client *client, int port,
+ 	write_lock_irq(&client->ports_lock);
+ 	list_for_each_entry(p, &client->ports_list_head, list) {
+ 		if (p->addr.port == port) {
++			kfree(new_port);
+ 			num = -EBUSY;
+ 			goto unlock;
+ 		}
+-- 
+2.35.3
 

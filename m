@@ -2,92 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11C79754EBA
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 15:00:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938D3754E99
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 14:35:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88C08DED;
-	Sun, 16 Jul 2023 15:00:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88C08DED
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1DC7A4D;
+	Sun, 16 Jul 2023 14:34:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1DC7A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689512450;
-	bh=p+P/WbbuoEGaUjF+Tn7R1hULJ23c/3mcMJnAj/KCtTw=;
-	h=Date:Subject:From:To:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jq1gFmJSlEsHpRzNYBuzpewtiea0fmkB5pVDz6EqbHAqMOXWc2OKxqDDuhGapxbqG
-	 qxaEfrnOg+beLZ9LhAJCLt+FhkLIPcoZWcEFiEuNtPGHBYMDo3DIFJzo0XSh9ZaQpM
-	 Y3sPhM+ih3tQMSe07VFu8xFim0gtUjkeMXPdEDjY=
+	s=default; t=1689510941;
+	bh=yvtuhWLQ+EExarWsHG2awiTbIVsOuHEaffBfimuWLNo=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=jKylzYpVk0zL7themyWNmWLTuXVwCr8XHJqqt0KeT1pIzlIWm5BmLA2MjUMmngqtw
+	 kFDzHXpcbK7x47FYi7isIeQxZXGB/cZScMTKtiow8HtVQzlFeFn7tiW2F7cn1sA9bx
+	 tLHktGB8vom+6EcnRupp1kukima8d3tByWqOt5qM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D38F5F80548; Sun, 16 Jul 2023 14:58:34 +0200 (CEST)
+	id F3694F804DA; Sun, 16 Jul 2023 14:34:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9465DF8047D;
-	Sun, 16 Jul 2023 14:58:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 218ABF8032D;
+	Sun, 16 Jul 2023 14:34:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59055F8047D; Sun, 16 Jul 2023 10:21:53 +0200 (CEST)
+	id 75B82F8047D; Sun, 16 Jul 2023 14:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=FROM_LOCAL_HEX,
-	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-oi1-f205.google.com (mail-oi1-f205.google.com
- [209.85.167.205])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4734BF8027B
-	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 10:21:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4734BF8027B
-Received: by mail-oi1-f205.google.com with SMTP id
- 5614622812f47-39fb9cce400so5404501b6e.1
-        for <alsa-devel@alsa-project.org>;
- Sun, 16 Jul 2023 01:21:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689495709; x=1692087709;
-        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Z/9vVWmFMMeqNG0xDcaixSejDntCvADQME2O0gHEl4Q=;
-        b=jvWeT9AYMXe/alDW6yXd+azG/7SRgt4aFKVbVqwhWkajGa7NArcEd19nI7afi+D3cW
-         dO0ZCi5lTwCP1Y1sJ0fsHnnXcVJyv5tzCihIvKeBV1VrSC7+SYP6J7YmxA7nJjBOXYlE
-         YPDVqSomP6BZv0PKXK0fj2YsDi0cKGe1Q5pBTboXI19Mi8ciG+C2kwwRAEa3o24h4Dcp
-         tBGc1bhYaQTnhZ88BjdE7n1NChOYy9Cy/NeTiCwxsqOddl35WLzu3lIaC3egRVT9w9OA
-         qOtZv7c/9HrO89vWztr0v1g+2OypBiJCfXEn74k9Qyk0hlE51+9fEy07f+kqUds4sGNd
-         ng6Q==
-X-Gm-Message-State: ABy/qLYUyfzY00wABVoFwOP8r2fvVgovbTRVhMbEN0bQpemcz2k5rmd4
-	iPj6sTw8jWu/BAxJ5maEaDSsrSLzl+YEbF84UyWs+/UX93Br1cTnfg==
-X-Google-Smtp-Source: 
- APBJJlEddIYY1oNa9o+XsPUUVXCVS1PtHLHzqRRrNf18e45dUc9ZoAKM+2PZ+09CLYXBZYmkLMUll3a4gL/uvKPgU5GrvrrUSbk5
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F652F8027B
+	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 14:33:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F652F8027B
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14c4:b0:39e:de07:a6b7 with SMTP id
- f4-20020a05680814c400b0039ede07a6b7mr12516901oiw.1.1689495709214; Sun, 16 Jul
- 2023 01:21:49 -0700 (PDT)
-Date: Sun, 16 Jul 2023 01:21:49 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000098ed3a0600965f89@google.com>
-Subject: [syzbot] [alsa?] memory leak in snd_seq_create_port
-From: syzbot <syzbot+cf8e7fa4eeec59b3d485@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, perex@perex.cz,
-	syzkaller-bugs@googlegroups.com, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
-X-MailFrom: 
- 3naizZAkbAOgcijUKVVObKZZSN.QYYQVOecObMYXdOXd.MYW@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1689510816799805164-webhooks-bot@alsa-project.org>
+References: <1689510816799805164-webhooks-bot@alsa-project.org>
+Subject: speaker-test: inconsistent behaviour of --buffer option.
+Message-Id: <20230716123342.75B82F8047D@alsa1.perex.cz>
+Date: Sun, 16 Jul 2023 14:33:42 +0200 (CEST)
+Message-ID-Hash: 7TJIF4DRRJC6MDR7ZMMI5X4H2TC4GKTW
+X-Message-ID-Hash: 7TJIF4DRRJC6MDR7ZMMI5X4H2TC4GKTW
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: IDES4JUJHAJXRQCMPF5BQDEAI5RU3KRL
-X-Message-ID-Hash: IDES4JUJHAJXRQCMPF5BQDEAI5RU3KRL
-X-Mailman-Approved-At: Sun, 16 Jul 2023 12:58:31 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDES4JUJHAJXRQCMPF5BQDEAI5RU3KRL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TJIF4DRRJC6MDR7ZMMI5X4H2TC4GKTW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,95 +69,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello,
+alsa-project/alsa-utils issue #224 was opened from AndrewAmmerlaan:
 
-syzbot found the following issue on:
+Without specifying the `--buffer` option `speaker-test returns this:
 
-HEAD commit:    3f01e9fed845 Merge tag 'linux-watchdog-6.5-rc2' of git://w..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14b07344a80000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=75da4f0a455bdbd3
-dashboard link: https://syzkaller.appspot.com/bug?extid=cf8e7fa4eeec59b3d485
-compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15877dc2a80000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12905004a80000
+```
+andrew@andrew-gentoo-pc ~ % speaker-test -c2 -twav -Dplughw:CARD=PCH,DEV=3
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/441fb7ea58b8/disk-3f01e9fe.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/8fa7790ba0c3/vmlinux-3f01e9fe.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5e7a6471dadf/bzImage-3f01e9fe.xz
+speaker-test 1.2.9
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+cf8e7fa4eeec59b3d485@syzkaller.appspotmail.com
+Playback device is plughw:CARD=PCH,DEV=3
+Stream parameters are 48000Hz, S16_LE, 2 channels
+WAV file(s)
+Rate set to 48000Hz (requested 48000Hz)
+Buffer size range from 64 to 1048576
+Period size range from 32 to 524288
+Using max buffer size 1048576
+Periods = 4
+was set period_size = 262144
+was set buffer_size = 1048576
+0 - Front Left
+1 - Front Right
+Write error: -77,File descriptor in bad state
+xrun_recovery failed: -77,File descriptor in bad state
+Transfer failed: File descriptor in bad state
+```
 
-Warning: Permanently added '10.128.1.1' (ED25519) to the list of known hosts.
-executing program
-executing program
-BUG: memory leak
-unreferenced object 0xffff888100877000 (size 512):
-  comm "syz-executor257", pid 5012, jiffies 4294941742 (age 12.790s)
-  hex dump (first 32 bytes):
-    80 ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace:
-    [<ffffffff8154bf94>] kmalloc_trace+0x24/0x90 mm/slab_common.c:1076
-    [<ffffffff83d29e28>] kmalloc include/linux/slab.h:582 [inline]
-    [<ffffffff83d29e28>] kzalloc include/linux/slab.h:703 [inline]
-    [<ffffffff83d29e28>] snd_seq_create_port+0x78/0x300 sound/core/seq/seq_ports.c:135
-    [<ffffffff83d1f681>] snd_seq_ioctl_create_port+0xe1/0x2a0 sound/core/seq/seq_clientmgr.c:1324
-    [<ffffffff83d20e5e>] snd_seq_ioctl+0x13e/0x290 sound/core/seq/seq_clientmgr.c:2327
-    [<ffffffff81685173>] vfs_ioctl fs/ioctl.c:51 [inline]
-    [<ffffffff81685173>] __do_sys_ioctl fs/ioctl.c:870 [inline]
-    [<ffffffff81685173>] __se_sys_ioctl fs/ioctl.c:856 [inline]
-    [<ffffffff81685173>] __x64_sys_ioctl+0x103/0x140 fs/ioctl.c:856
-    [<ffffffff84a77ff9>] do_syscall_x64 arch/x86/entry/common.c:50 [inline]
-    [<ffffffff84a77ff9>] do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
-    [<ffffffff84c0008b>] entry_SYSCALL_64_after_hwframe+0x63/0xcd
+Note that it says `Using max buffer size 1048576`. But now if we try to explicitly specify this maximum buffer size:
 
-BUG: memory leak
-unreferenced object 0xffff888106742c00 (size 512):
-  comm "syz-executor257", pid 5013, jiffies 4294942276 (age 7.450s)
-  hex dump (first 32 bytes):
-    80 ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace:
-    [<ffffffff8154bf94>] kmalloc_trace+0x24/0x90 mm/slab_common.c:1076
-    [<ffffffff83d29e28>] kmalloc include/linux/slab.h:582 [inline]
-    [<ffffffff83d29e28>] kzalloc include/linux/slab.h:703 [inline]
-    [<ffffffff83d29e28>] snd_seq_create_port+0x78/0x300 sound/core/seq/seq_ports.c:135
-    [<ffffffff83d1f681>] snd_seq_ioctl_create_port+0xe1/0x2a0 sound/core/seq/seq_clientmgr.c:1324
-    [<ffffffff83d20e5e>] snd_seq_ioctl+0x13e/0x290 sound/core/seq/seq_clientmgr.c:2327
-    [<ffffffff81685173>] vfs_ioctl fs/ioctl.c:51 [inline]
-    [<ffffffff81685173>] __do_sys_ioctl fs/ioctl.c:870 [inline]
-    [<ffffffff81685173>] __se_sys_ioctl fs/ioctl.c:856 [inline]
-    [<ffffffff81685173>] __x64_sys_ioctl+0x103/0x140 fs/ioctl.c:856
-    [<ffffffff84a77ff9>] do_syscall_x64 arch/x86/entry/common.c:50 [inline]
-    [<ffffffff84a77ff9>] do_syscall_64+0x39/0xb0 arch/x86/entry/common.c:80
-    [<ffffffff84c0008b>] entry_SYSCALL_64_after_hwframe+0x63/0xcd
+```
+andrew@andrew-gentoo-pc ~ % speaker-test -c2 -twav -Dplughw:CARD=PCH,DEV=3 --buffer 1048576
 
+speaker-test 1.2.9
 
+Playback device is plughw:CARD=PCH,DEV=3
+Stream parameters are 48000Hz, S16_LE, 2 channels
+WAV file(s)
+Rate set to 48000Hz (requested 48000Hz)
+Buffer size range from 64 to 1048576
+Period size range from 32 to 524288
+Requested buffer time 1000000 us
+Periods = 4
+was set period_size = 12000
+was set buffer_size = 48000
+0 - Front Left
+1 - Front Right
+Time per period = 2.251287
+```
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Note that now we get `Requested buffer time 1000000 us` which is less then what we actually specified. In fact this will happen with any `--buffer` parameter larger then `1000000`:
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+```
+andrew@andrew-gentoo-pc ~ % speaker-test -c2 -twav -Dplughw:CARD=PCH,DEV=3 --buffer 1000001
 
-If the bug is already fixed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+speaker-test 1.2.9
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Playback device is plughw:CARD=PCH,DEV=3
+Stream parameters are 48000Hz, S16_LE, 2 channels
+WAV file(s)
+Rate set to 48000Hz (requested 48000Hz)
+Buffer size range from 64 to 1048576
+Period size range from 32 to 524288
+Requested buffer time 1000000 us
+Periods = 4
+was set period_size = 12000
+was set buffer_size = 48000
+0 - Front Left
+1 - Front Right
+Time per period = 2.251042
+```
 
-If you want to change bug's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Leading me to believe that despite what `speaker-test` claims, `1000000` is actually the maximum, not `1048576`.
 
-If the bug is a duplicate of another bug, reply with:
-#syz dup: exact-subject-of-another-report
+Discovered while debugging https://gitlab.freedesktop.org/drm/intel/-/issues/8462
+This behaviour of `speaker-test` is confusing though and feels to me like a separate issue.
 
-If you want to undo deduplication, reply with:
-#syz undup
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/224
+Repository URL: https://github.com/alsa-project/alsa-utils

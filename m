@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 938D3754E99
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 14:35:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C3A754E9A
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 14:36:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1DC7A4D;
-	Sun, 16 Jul 2023 14:34:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1DC7A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E83D7AE8;
+	Sun, 16 Jul 2023 14:35:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83D7AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689510941;
-	bh=yvtuhWLQ+EExarWsHG2awiTbIVsOuHEaffBfimuWLNo=;
+	s=default; t=1689510962;
+	bh=0x2P08+l/pbfhSxnyHHr/kyN6kNudGpOV24p+zWSWFk=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=jKylzYpVk0zL7themyWNmWLTuXVwCr8XHJqqt0KeT1pIzlIWm5BmLA2MjUMmngqtw
-	 kFDzHXpcbK7x47FYi7isIeQxZXGB/cZScMTKtiow8HtVQzlFeFn7tiW2F7cn1sA9bx
-	 tLHktGB8vom+6EcnRupp1kukima8d3tByWqOt5qM=
+	b=Fy+b+XzupX30XbROfzeOZ7zmYwu+6dPDCxcIGXTjBvqzRjaqgvqmG0TfMLTxDnZh1
+	 SWIMpLnbykSsw6Vlu/4CqUKwGxgnZHO/FA6hvBoBjaXsoGzyl3QTy5wNk+O8WFUVZo
+	 qaqr6+ii8snUfi045G/gxu9EkT/qI7xT0FpsyJeQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3694F804DA; Sun, 16 Jul 2023 14:34:50 +0200 (CEST)
+	id 1C88EF8053B; Sun, 16 Jul 2023 14:34:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 218ABF8032D;
+	by alsa1.perex.cz (Postfix) with ESMTP id C9F91F8027B;
 	Sun, 16 Jul 2023 14:34:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75B82F8047D; Sun, 16 Jul 2023 14:33:42 +0200 (CEST)
+	id 57FD3F8047D; Sun, 16 Jul 2023 14:33:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F652F8027B
-	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 14:33:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F652F8027B
+	by alsa1.perex.cz (Postfix) with ESMTP id E5986F8027B
+	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 14:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5986F8027B
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1689510816799805164-webhooks-bot@alsa-project.org>
-References: <1689510816799805164-webhooks-bot@alsa-project.org>
+In-Reply-To: <1689510822921379566-webhooks-bot@alsa-project.org>
+References: <1689510822921379566-webhooks-bot@alsa-project.org>
 Subject: speaker-test: inconsistent behaviour of --buffer option.
-Message-Id: <20230716123342.75B82F8047D@alsa1.perex.cz>
-Date: Sun, 16 Jul 2023 14:33:42 +0200 (CEST)
-Message-ID-Hash: 7TJIF4DRRJC6MDR7ZMMI5X4H2TC4GKTW
-X-Message-ID-Hash: 7TJIF4DRRJC6MDR7ZMMI5X4H2TC4GKTW
+Message-Id: <20230716123344.57FD3F8047D@alsa1.perex.cz>
+Date: Sun, 16 Jul 2023 14:33:44 +0200 (CEST)
+Message-ID-Hash: 23C4LHHMSFRNFJ3P2N26PHNZ4ROBNDLS
+X-Message-ID-Hash: 23C4LHHMSFRNFJ3P2N26PHNZ4ROBNDLS
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TJIF4DRRJC6MDR7ZMMI5X4H2TC4GKTW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/23C4LHHMSFRNFJ3P2N26PHNZ4ROBNDLS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,9 +69,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #224 was opened from AndrewAmmerlaan:
+alsa-project/alsa-utils issue #224 was edited from AndrewAmmerlaan:
 
-Without specifying the `--buffer` option `speaker-test returns this:
+Without specifying the `--buffer` option `speaker-test` returns this:
 
 ```
 andrew@andrew-gentoo-pc ~ % speaker-test -c2 -twav -Dplughw:CARD=PCH,DEV=3

@@ -2,110 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 486D075650B
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 15:33:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD03E75659A
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 15:55:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C541AEA;
-	Mon, 17 Jul 2023 15:32:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C541AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4B09AE9;
+	Mon, 17 Jul 2023 15:54:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4B09AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689600806;
-	bh=2hYQ0Tw0w7193xNuoM73FFWflNMshY0N2gluujKeRMs=;
+	s=default; t=1689602143;
+	bh=FrmhMcGq6Yw5RIRrByo036Ctus6slD2drwf6+eTiVSs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o0Ez6DA43l4dp94wB3ha4BA14uk7Kg1HC/cHPd6M9kZA2NAzQlNrbbLLZmK5qL6+c
-	 OTyEO9PzMK6B1aOYVu02ePUde9thORdDqR/f7NlL30l2Q/rSFng9MoPA4iSUIC38IL
-	 0IahW5GTr0OEz/xDbA+pk75Iyo4PanX8ytcRn8yg=
+	b=fIgv6n1NQmtv13sJ7Z26aS7dXfLaxRhPLanXXXLLVy6gXZ8cjg6+VNrTgF08zLwXW
+	 JTZv8Mp7i6Dot/1w+jOCRUSyv3ctCdGyramHfTqYBSFVIMMeQA5+P41Vp+Yu2ahTbF
+	 IFq1fjxFPtLbNWBu7S0wR/iHC78jOfbfBV6UGoao=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FCCCF800D2; Mon, 17 Jul 2023 15:32:09 +0200 (CEST)
+	id 09F57F8053B; Mon, 17 Jul 2023 15:54:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70C88F8032D;
-	Mon, 17 Jul 2023 15:32:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 904FAF8032D;
+	Mon, 17 Jul 2023 15:54:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B026FF8047D; Mon, 17 Jul 2023 15:32:05 +0200 (CEST)
+	id AD932F8047D; Mon, 17 Jul 2023 15:54:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A6CD9F800D2
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 15:32:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6CD9F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3DED3F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 15:54:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DED3F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=be5tQN6K
-Received: by mail-ot1-x32b.google.com with SMTP id
- 46e09a7af769-6b9defb366eso122305a34.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 17 Jul 2023 06:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689600719; x=1692192719;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HT77U7HJK6Ne07wYJYzEak7BW7vkZwxv/+cQcW7DBkk=;
-        b=be5tQN6KGAdAfUJmeDhExzBFM8EOh5k/7tzfVJxZKpjczg1JhNoEFgVHZbufXeYg5/
-         pzaRs68Lg/91rSyDfucteQrNgPvkEJ9cgon1Onxe6MGhOtkQUqVAh3Y4KpSlZT97jLyD
-         UPrj+1HyuobM4E4AlsgOPGHDOwU/xrDlZeJhE7kAF0ji0MTzb5SK8euk4R4d2zQ+ZSSI
-         uZmJ5TWsen/rWm06bOBWkUzKDntUn3MzTFC4njFS75EIEHKrzSF/fHklCG8GVHs9ac2j
-         Ys7trc5NmCkOUlmZL2d9PH6LZ9zvgOEK/kNGMPJSzoxQbBHlKtw4+1ATu+KUiywNp22Z
-         E0Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689600719; x=1692192719;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HT77U7HJK6Ne07wYJYzEak7BW7vkZwxv/+cQcW7DBkk=;
-        b=JUvchhix6xhykZtLKyzNGJoOGKTPPY9jw7syC7u5qe8Kikjv8RjJcVrf7kJaiQJaYO
-         nkmul9l3O4JBFz12hm9aYgNpxwa0l/sQeP3F+Lh9rphTZoRmHfN88tB1tFA+JIhBnGMm
-         x2dc0O2huQBplGY/DRoQmWvqaQa8Izyy7I1FIbvuNx3OGmSAGC9lRzJBiKRvAwdwzI0s
-         Pff1l9MZl2iR45/rD53nYt16Wxz4MzvSfR6Xtz2ybUt1TL69aPXhUZRlgT7ZgrY3dHJf
-         YOqv67ISdLmrO5QDMhBUDLKTo6VBEAxAJKYBOSg2n7bhv9OG5oqTMDzQ/Pdp+A1hynF8
-         RgMw==
-X-Gm-Message-State: ABy/qLbHZTYOnl0q+CBdWkvUEjMTxJeyOFD9X3WTP2Wsd+JM89EYBlkS
-	jhrsnurTDcMUslUnWPLiWiw=
-X-Google-Smtp-Source: 
- APBJJlGHMmNMYTGgeA0Hvxt+cNiOjgAJkMxCjSEqSK46oy7eiHT43tMOmXQSBUsE3Pjvo+1kADQvGQ==
-X-Received: by 2002:a05:6808:138a:b0:3a4:2545:1cec with SMTP id
- c10-20020a056808138a00b003a425451cecmr14491390oiw.38.1689600719717;
-        Mon, 17 Jul 2023 06:31:59 -0700 (PDT)
-Received: from geday ([2804:7f2:8006:9379:516e:42c5:d582:55d9])
-        by smtp.gmail.com with ESMTPSA id
- k7-20020a0568080e8700b003a3b321712fsm6821296oil.35.2023.07.17.06.31.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Jul 2023 06:31:59 -0700 (PDT)
-Date: Mon, 17 Jul 2023 10:31:54 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Dmitry Vyukov <dvyukov@google.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	syzbot <syzbot+cf8e7fa4eeec59b3d485@syzkaller.appspotmail.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	perex@perex.cz, syzkaller-bugs@googlegroups.com, tiwai@suse.com,
-	syzkaller <syzkaller@googlegroups.com>
-Subject: Re: [syzbot] [alsa?] memory leak in snd_seq_create_port
-Message-ID: <ZLVCyk17wzowxRo7@geday>
-References: <00000000000098ed3a0600965f89@google.com>
- <87v8ekattg.wl-tiwai@suse.de>
- <ZLQ/zKgTGMHy/6Jn@geday>
- <CACT4Y+bXLZf9iAgiLcxo7coNsOCsn_1C26zuvNBa48qLp2Juxg@mail.gmail.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=C+CHlg0m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689602085; x=1721138085;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=FrmhMcGq6Yw5RIRrByo036Ctus6slD2drwf6+eTiVSs=;
+  b=C+CHlg0mL0oDrj2+qX6DNZxX8gKKPFNF+eTbH9OKkxT2EUgKf7adxw4b
+   VoEK0+nPj5d/0DWWJh3XXW25t5lCsioDCbu4IoBUeTvrg6bdjZ049eX0n
+   yccabE27oGKf4qeaFqcvr59AriMpoPIlbMSGLUt1FXpLyb2Bi9IuWBY7y
+   BH3JsP+PrkdJXtWu0bw5TX2LQA2ChEj2Ea1Q1jVGMFnhwlpGYkvvI/sjD
+   mVtth2uve8MVXKFylum4UyOFC2b57/wJ48D/DvRZKcHNaPxpwZwRCuCds
+   c8tkK23B0uvFCTnJvramadImgR5D3yFd2LbVcqSrvyRKd7xCp+STJ9ssH
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="345525867"
+X-IronPort-AV: E=Sophos;i="6.01,211,1684825200";
+   d="scan'208";a="345525867"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2023 06:54:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="752903299"
+X-IronPort-AV: E=Sophos;i="6.01,211,1684825200";
+   d="scan'208";a="752903299"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga008.jf.intel.com with ESMTP; 17 Jul 2023 06:54:36 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@intel.com>)
+	id 1qLOgM-00H3tq-1u;
+	Mon, 17 Jul 2023 16:54:34 +0300
+Date: Mon, 17 Jul 2023 16:54:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v4 01/15] PCI: Sort Intel PCI IDs by number
+Message-ID: <ZLVIGlpoNsr0RRGE@smile.fi.intel.com>
+References: <20230717114511.484999-1-amadeuszx.slawinski@linux.intel.com>
+ <20230717114511.484999-2-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: 
- <CACT4Y+bXLZf9iAgiLcxo7coNsOCsn_1C26zuvNBa48qLp2Juxg@mail.gmail.com>
-Message-ID-Hash: 3G22HKG47VR27KCF752IUBEHTYJ7TWNM
-X-Message-ID-Hash: 3G22HKG47VR27KCF752IUBEHTYJ7TWNM
-X-MailFrom: geraldogabriel@gmail.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230717114511.484999-2-amadeuszx.slawinski@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: YCKU7CSVCJ3XKXS4D2PIECENB7KDWIFF
+X-Message-ID-Hash: YCKU7CSVCJ3XKXS4D2PIECENB7KDWIFF
+X-MailFrom: andriy.shevchenko@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3G22HKG47VR27KCF752IUBEHTYJ7TWNM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCKU7CSVCJ3XKXS4D2PIECENB7KDWIFF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,20 +116,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 17, 2023 at 09:02:07AM +0200, Dmitry Vyukov wrote:
-> 
-> Hi Geraldo,
-> 
-> What exactly is cryptic in the report? Is there anything that can be
-> done to make it less cryptic?
->
+On Mon, Jul 17, 2023 at 01:44:57PM +0200, Amadeusz Sławiński wrote:
+> Some of the PCI IDs are not sorted correctly, reorder them by growing ID
+> number.
 
-Hi Dmitry,
+Hmm... I don't see a cover letter...
 
-It's cryptic for a novice only, of course, in the same sense that kernel
-stack traces are a pain for a novice do decode. Unfortunately I believe
-it's only AI/LLMs that will make it easier to abstract the low-level
-details and give a high-level explanation of the bug.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks,
-Geraldo Nascimento
+

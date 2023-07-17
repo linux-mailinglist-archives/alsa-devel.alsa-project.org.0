@@ -2,76 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE8807551DC
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 22:01:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5D4755A20
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 05:35:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC190A4D;
-	Sun, 16 Jul 2023 22:00:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC190A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91380AE8;
+	Mon, 17 Jul 2023 05:34:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91380AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689537662;
-	bh=eaNUoDwZ6iBZFvxf1d4N49taGj/Kytxfi6GFZisrmjY=;
+	s=default; t=1689564949;
+	bh=QjDnB89hjRx55s7EDZuB9ho6HsYGvnAnuBjm0bhJJIQ=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Wg7JclQ75fQvaFkKKq++/DObsT8d8U5vb2dDS+uH2O6+XkjeZCGDw0I/IvOgEdmPK
-	 HphY4kcGZbgeQ62v4ENkhsHSdmxfUZFa0rythFu+5w4wUN1UhkCqypjgrGF4oqIkPO
-	 DAlhYRParCvavSSOc7I2FTUgHUxy8mIxIM0Isldo=
+	b=EAb+pzEUsryvjEcVqeBT33B6cLxcbYVRfI9Xywi/0grXOstsDoPTrnFSEL26X8pTn
+	 V8wQUFKuvSBIE7UdGwfCCJ2OUr00s8D+N+MMuO0rlzFnXT8LCYAvcQBFZ096Bmb0dJ
+	 wXbTXk8zPe+U/z+ht5NWH9fjDuyZmsZeUZQQMzjM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DE64F80494; Sun, 16 Jul 2023 22:00:11 +0200 (CEST)
+	id 4BACAF80494; Mon, 17 Jul 2023 05:34:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0F01F8032D;
-	Sun, 16 Jul 2023 22:00:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D490F8032D;
+	Mon, 17 Jul 2023 05:34:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3D3EF8047D; Sun, 16 Jul 2023 22:00:05 +0200 (CEST)
+	id BDA7DF80527; Mon, 17 Jul 2023 05:32:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A2D7F800D2
-	for <alsa-devel@alsa-project.org>; Sun, 16 Jul 2023 21:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A2D7F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 163EDF800D2
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 05:32:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 163EDF800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=c/3ieDGj
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5551160E88;
-	Sun, 16 Jul 2023 19:59:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32C2C433C9;
-	Sun, 16 Jul 2023 19:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689537593;
-	bh=eaNUoDwZ6iBZFvxf1d4N49taGj/Kytxfi6GFZisrmjY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=c/3ieDGjhl+RtVQDhULg93CxdfqMTtgjgpZ4+Z/faZkNkUN5UH/tASZJybCe+MjRv
-	 rLu7BjyYSWXLyjJoRvYnULbWq1byn2POhUXA2tt8ooXljHHGFEUdlPKwllshRrzcSG
-	 YnwyU+nnFFnjxuurW2dhLbRK62aTKsVY5D1jjdnrTpK9jB2PMIguH8oOA9/vcuYsLk
-	 +AIxbxTu/WCZzktIsLmkwWUkN3eZ8Yf8b+D7aYpXfFOHGornpkhYBek9Z2hiQI6Ahu
-	 JAxqdv+hmr75+MbQrzwpAGOZlrOzxBQGx70B9IRVFspl5U7ag/8kZST4xcsMKklkDJ
-	 3kRcLDez8azjg==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.5-rc1
-Date: Sun, 16 Jul 2023 20:59:45 +0100
-Message-Id: <20230716195952.C32C2C433C9@smtp.kernel.org>
-Message-ID-Hash: HA5LHXQ5M4TBJMDQ7BGEYIE4VK2TROXO
-X-Message-ID-Hash: HA5LHXQ5M4TBJMDQ7BGEYIE4VK2TROXO
-X-MailFrom: broonie@kernel.org
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=IaGBK371
+Received: by mail-ot1-x32c.google.com with SMTP id
+ 46e09a7af769-6b9b89627c3so1711407a34.1
+        for <alsa-devel@alsa-project.org>;
+ Sun, 16 Jul 2023 20:32:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689564749; x=1692156749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OSQ/EF4eTeZehLtAwdrrxfniB7LkpUpWRgcBFX06IoY=;
+        b=IaGBK371AH+W28iGujdqp77Jk3e+29UkB3k1JOp5WVxrMN6WTt9jDC8EiaJJC0UT6x
+         YR5yP+fgIBFiOJVOvPgwjmbPpcY49fYKymEAAUQKMZvl5JDMDMWxxUQcbEhhYe+wkLW7
+         yTINTNsvKAgxhlAWPGr5S+eUFKZEnw8ZfQNL1JgjsOnntGRXqzqQaGCqRfiUXMi0Yag/
+         RZbaQ6w84fiPntEd1bcBL4smJxndGlhxfU5aOkHLme0PVTv+qT6EPuPt595ERQe9Rv+7
+         nGbQv3r8BE2qVwkbH6oqwCRJ4m/fMIx6L9MxrlFhRzVQm3+7m6ucTY60QNKQMrPMfEYu
+         Akyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689564749; x=1692156749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OSQ/EF4eTeZehLtAwdrrxfniB7LkpUpWRgcBFX06IoY=;
+        b=VFfRM0jBFePZLB3V3KyHHsHhM1msEFR/c9RjunyZ+1z422Ads7PXhwkUwz1fCOgiLG
+         GiLLT+YP8IUYe4lk2Y2tSFe3iUYEKSecWIHkJ8/O4mQNUhwAwk2MXtHeL3bPqc3VqyEs
+         AjW1o48UI6v/6GDw+uNTRIlpVUfoDeWnSFgXJ0ntYKTGGhb9aPM+r8KJBOTeCXzEaGNO
+         ZERdrOp0Hg6Mi3580sR7H/BTQrp25Eg7Y80a9gDhW5CS1bx2dXWNKei1H8+1cwWYLfBH
+         YN9OGGBIDIw1pO+AJKthkwWJ5CwiRHyboYN4KWQN2OCYvuozNZa6xhMtRqH2GBriuUYH
+         6HmQ==
+X-Gm-Message-State: ABy/qLa+Bu6tZB47sUKoSZ89+fKiFCvoCJ8/w6LSTFmrlSik/osr444B
+	XBT5w7kkby0mMQd8SKNkHLXZfTrMwdSoZExQ
+X-Google-Smtp-Source: 
+ APBJJlGg8JYNaTcEI4w4FmPP+UoihsWazxN4PnsVp22P5uh5MAU2lthLhzuKclMyf3+e/7VZG0/cZw==
+X-Received: by 2002:a05:6830:148:b0:6b9:c869:862c with SMTP id
+ j8-20020a056830014800b006b9c869862cmr3382128otp.1.1689564748854;
+        Sun, 16 Jul 2023 20:32:28 -0700 (PDT)
+Received: from a-VirtualBox.. ([116.233.75.15])
+        by smtp.gmail.com with ESMTPSA id
+ a28-20020a63705c000000b00528513c6bbcsm11647509pgn.28.2023.07.16.20.32.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Jul 2023 20:32:28 -0700 (PDT)
+From: Zhu Ning <zhuning0077@gmail.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: pierre-louis.bossart@linux.intel.com,
+	tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com,
+	Zhu Ning <zhuning0077@gmail.com>
+Subject: [PATCH v2 1/5] ASoC: codecs: ES8326: Change Hp_detect register names
+Date: Mon, 17 Jul 2023 11:32:19 +0800
+Message-Id: <20230717033223.42506-1-zhuning0077@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: NH3DZORNQJTELWNPVS5S6JTRZXR37IBU
+X-Message-ID-Hash: NH3DZORNQJTELWNPVS5S6JTRZXR37IBU
+X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -83,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HA5LHXQ5M4TBJMDQ7BGEYIE4VK2TROXO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NH3DZORNQJTELWNPVS5S6JTRZXR37IBU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,128 +121,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 2d0cad0473bd1ffbc5842be0b9f2546265acb011:
+The old register naming method is confusing. The reg 0x57 decides
+the default headset hardware connection type, and the reg 0xfb is
+the headset detection status register, which changes during headset
+insertion. Change the name to ES8326_HPDET_TYPE and ES8326_HPDET_STA.
 
-  ASoC: core: Always store of_node when getting DAI link component (2023-06-23 22:09:00 +0100)
+Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
+---
+ sound/soc/codecs/es8326.c | 10 +++++-----
+ sound/soc/codecs/es8326.h | 13 ++++++++-----
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-are available in the Git repository at:
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index 4399ba36aee2..e953c0157ba0 100644
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -159,7 +159,7 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+ };
+ 
+ static const struct regmap_range es8326_volatile_ranges[] = {
+-	regmap_reg_range(ES8326_HP_DETECT, ES8326_HP_DETECT),
++	regmap_reg_range(ES8326_HPDET_STA, ES8326_HPDET_STA),
+ };
+ 
+ static const struct regmap_access_table es8326_volatile_table = {
+@@ -519,7 +519,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
+ 		return;
+ 
+ 	mutex_lock(&es8326->lock);
+-	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
++	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	switch (iface) {
+ 	case 0x93:
+ 		/* pause button detected */
+@@ -578,7 +578,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 	unsigned int iface;
+ 
+ 	mutex_lock(&es8326->lock);
+-	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
++	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
+ 	if ((iface & ES8326_HPINSERT_FLAG) == 0) {
+ 		/* Jack unplugged or spurious IRQ */
+@@ -651,7 +651,7 @@ static int es8326_resume(struct snd_soc_component *component)
+ 	regmap_write(es8326->regmap, ES8326_ADC1_SRC, es8326->mic1_src);
+ 	regmap_write(es8326->regmap, ES8326_ADC2_SRC, es8326->mic2_src);
+ 	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0x88);
+-	regmap_write(es8326->regmap, ES8326_HP_DET,
++	regmap_write(es8326->regmap, ES8326_HPDET_TYPE,
+ 		     ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol);
+ 	regmap_write(es8326->regmap, ES8326_INT_SOURCE, es8326->interrupt_src);
+ 	regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
+@@ -743,7 +743,7 @@ static void es8326_enable_jack_detect(struct snd_soc_component *component,
+ 
+ 	mutex_lock(&es8326->lock);
+ 	if (es8326->jd_inverted)
+-		snd_soc_component_update_bits(component, ES8326_HP_DET,
++		snd_soc_component_update_bits(component, ES8326_HPDET_TYPE,
+ 					      ES8326_HP_DET_JACK_POL, ~es8326->jack_pol);
+ 	es8326->jack = jack;
+ 
+diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
+index 3f8f7da58062..cd04d11a88d9 100644
+--- a/sound/soc/codecs/es8326.h
++++ b/sound/soc/codecs/es8326.h
+@@ -73,15 +73,19 @@
+ #define ES8326_DRC_RECOVERY	0x53
+ #define ES8326_DRC_WINSIZE	0x54
+ #define ES8326_HPJACK_TIMER	0x56
+-#define ES8326_HP_DET		0x57
++#define ES8326_HPDET_TYPE	0x57
+ #define ES8326_INT_SOURCE	0x58
+ #define ES8326_INTOUT_IO	0x59
+ #define ES8326_SDINOUT1_IO	0x5A
+ #define ES8326_SDINOUT23_IO	0x5B
+ #define ES8326_JACK_PULSE	0x5C
+ 
++#define ES8326_HP_MISC		0xF7
++#define ES8326_CTIA_OMTP_STA	0xF8
+ #define ES8326_PULLUP_CTL	0xF9
+-#define ES8326_HP_DETECT	0xFB
++#define ES8326_CSM_I2C_STA	0xFA
++#define ES8326_HPDET_STA	0xFB
++#define ES8326_CSM_MUTE_STA	0xFC
+ #define ES8326_CHIP_ID1		0xFD
+ #define ES8326_CHIP_ID2		0xFE
+ #define ES8326_CHIP_VERSION	0xFF
+@@ -146,7 +150,7 @@
+ #define ES8326_ADC3_SHIFT 0
+ #define ES8326_ADC4_SHIFT 3
+ 
+-/* ES8326_HP_DET */
++/* ES8326_HPDET_TYPE */
+ #define ES8326_HP_DET_SRC_PIN27 (1 << 5)
+ #define ES8326_HP_DET_SRC_PIN9 (1 << 4)
+ #define ES8326_HP_DET_JACK_POL (1 << 3)
+@@ -174,7 +178,7 @@
+ #define ES8326_SDINOUT2_SHIFT 4
+ #define ES8326_SDINOUT3_SHIFT 0
+ 
+-/* ES8326_HP_DETECT */
++/* ES8326_HPDET_STA */
+ #define ES8326_HPINSERT_FLAG (1 << 1)
+ #define ES8326_HPBUTTON_FLAG (1 << 0)
+ 
+@@ -182,4 +186,3 @@
+ #define ES8326_VERSION_B (1 << 0)
+ 
+ #endif
+-
+-- 
+2.34.1
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc1
-
-for you to fetch changes up to e8bf1741c14eb8e4a4e1364d45aeeab66660ab9b:
-
-  MAINTAINERS: Redo addition of ssm3515 to APPLE SOUND (2023-07-15 13:07:32 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.5
-
-A lot of fixes here for the Qualcomm CODEC drivers, there was quite a
-bit of fragility with the SoundWire probe due to the combined DT and
-hotplug approach that the bus has which Johan Hovold fixed along with a
-bunch of other issues that came up in the process.  Srivinvas Kandagatla
-also fixed some separate issues that have been lurking for a while in
-the Qualcomm AP side, and there's a good set of AMD fixes from Vijendar
-Mukunda too.
-
-----------------------------------------------------------------
-Derek Fang (1):
-      ASoC: rt5640: Fix the issue of speaker noise
-
-Fabio Estevam (1):
-      ASoC: fsl_sai: Revert "ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode"
-
-Geert Uytterhoeven (1):
-      ASoC: codecs: SND_SOC_WCD934X should select REGMAP_IRQ
-
-Johan Hovold (15):
-      ASoC: codecs: wcd938x: fix codec initialisation race
-      ASoC: codecs: wcd938x: fix mbhc impedance loglevel
-      ASoC: codecs: wcd938x: drop inline keywords
-      ASoC: codecs: wcd938x: use dev_printk() for impedance logging
-      ASoC: codecs: wcd934x: demote impedance printk
-      ASoC: codecs: wcd934x: drop inline keywords
-      ASoC: codecs: wcd938x: fix soundwire initialisation race
-      ASoC: codecs: wcd938x: fix missing mbhc init error handling
-      ASoC: qdsp6: audioreach: fix topology probe deferral
-      ASoC: codecs: wcd938x: fix missing clsh ctrl error handling
-      ASoC: codecs: wcd938x: fix resource leaks on component remove
-      ASoC: codecs: wcd934x: fix resource leaks on component remove
-      ASoC: codecs: wcd-mbhc-v2: fix resource leaks on component remove
-      ASoC: topology: suppress probe deferral errors
-      ASoC: core: suppress probe deferral errors
-
-Mario Limonciello (1):
-      ASoC: amd: ps: Fix extraneous error messages
-
-Mark Brown (2):
-      ASoC: codecs: wcd938x/wcd934x: loglevel fix and
-      ASoC/soundwire/qdsp6/wcd: fix leaks and probe deferral
-
-Martin Povišer (1):
-      MAINTAINERS: Redo addition of ssm3515 to APPLE SOUND
-
-Mastan Katragadda (1):
-      ASoC: SOF: amd: add revision check for sending sha dma completion command
-
-Matthias Reichl (1):
-      ASoC: hdmi-codec: fix channel info for compressed formats
-
-Nathan Chancellor (1):
-      ASoC: cs35l45: Select REGMAP_IRQ
-
-Rob Herring (1):
-      ASoC: dt-bindings: audio-graph-card2: Drop incomplete example
-
-Rohit kumar (1):
-      ASoC: dt-bindings: Update maintainer email id
-
-Sameer Pujar (1):
-      ASoC: rt5640: Fix sleep in atomic context
-
-Sheetal (2):
-      ASoC: tegra: Fix AMX byte map
-      ASoC: tegra: Fix ADX byte map
-
-Shuming Fan (1):
-      ASoC: rt5645: check return value after reading device id
-
-Srinivas Kandagatla (4):
-      ASoC: qdsp6: q6apm: use dai link pcm id as pcm device number
-      ASoC: qcom: q6afe-dai: fix Display Port Playback stream name
-      ASoC: codecs: wcd938x: fix dB range for HPHL and HPHR
-      ASoC: qcom: q6apm: do not close GPR port before closing graph
-
-Vijendar Mukunda (6):
-      ASoC: amd: ps: add comments for DMA irq bits mapping
-      ASoC: amd: ps: add fix for dma irq mask for rx streams for SDW0 instance
-      ASoC: amd: ps: fix for position register set for AUDIO0 RX stream
-      ASoC: amd: ps: add comments for DMA register mapping
-      ASoC: amd: ps: fix byte count return value for invalid SoundWire manager instance
-      ASoC: amd: acp: fix for invalid dai id handling in acp_get_byte_count()
-
- .../bindings/sound/audio-graph-card2.yaml          | 20 +----
- .../bindings/sound/google,sc7180-trogdor.yaml      |  2 +-
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  |  2 +-
- MAINTAINERS                                        |  2 +
- sound/soc/amd/acp/amd.h                            |  7 +-
- sound/soc/amd/ps/acp63.h                           | 22 ++++-
- sound/soc/amd/ps/pci-ps.c                          |  4 +-
- sound/soc/amd/ps/ps-sdw-dma.c                      | 16 +++-
- sound/soc/codecs/Kconfig                           |  2 +
- sound/soc/codecs/hdmi-codec.c                      | 36 +++++---
- sound/soc/codecs/rt5640.c                          | 13 +--
- sound/soc/codecs/rt5645.c                          |  6 +-
- sound/soc/codecs/wcd-mbhc-v2.c                     | 57 +++++++++----
- sound/soc/codecs/wcd934x.c                         | 20 ++++-
- sound/soc/codecs/wcd938x.c                         | 99 ++++++++++++++++++----
- sound/soc/fsl/fsl_sai.c                            |  6 --
- sound/soc/qcom/qdsp6/q6afe-dai.c                   |  2 +-
- sound/soc/qcom/qdsp6/q6apm-dai.c                   |  1 +
- sound/soc/qcom/qdsp6/q6apm.c                       |  7 +-
- sound/soc/qcom/qdsp6/topology.c                    |  4 +-
- sound/soc/soc-core.c                               |  6 +-
- sound/soc/soc-topology.c                           | 10 ++-
- sound/soc/sof/amd/acp.c                            | 10 ++-
- sound/soc/tegra/tegra210_adx.c                     | 34 +++++---
- sound/soc/tegra/tegra210_amx.c                     | 40 +++++----
- 25 files changed, 294 insertions(+), 134 deletions(-)

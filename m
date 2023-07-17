@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5D4755A20
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 05:35:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FB7A755A22
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 05:36:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91380AE8;
-	Mon, 17 Jul 2023 05:34:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91380AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9469DF5;
+	Mon, 17 Jul 2023 05:35:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9469DF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689564949;
-	bh=QjDnB89hjRx55s7EDZuB9ho6HsYGvnAnuBjm0bhJJIQ=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=EAb+pzEUsryvjEcVqeBT33B6cLxcbYVRfI9Xywi/0grXOstsDoPTrnFSEL26X8pTn
-	 V8wQUFKuvSBIE7UdGwfCCJ2OUr00s8D+N+MMuO0rlzFnXT8LCYAvcQBFZ096Bmb0dJ
-	 wXbTXk8zPe+U/z+ht5NWH9fjDuyZmsZeUZQQMzjM=
+	s=default; t=1689565007;
+	bh=KCAnswSABYr2ITXy8z4k/eFmHYY+VeqKD+NeQuMer60=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ubvhnlLd8VrMIrCihqfYP/vUZi3zvSkIR7IBufm2PcglxnpW8l/t3n2gN+uXtxZG9
+	 gJK47Ez7fpDr2Rj0LakPN1GVjkX+Mt3AQ5SYie1PWVxR73fy5RzRtEft6J+6VLfvzN
+	 7HLtiWzXUxnvD4ihEZSsztmU1wZpT2jmdJ7k/y2M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BACAF80494; Mon, 17 Jul 2023 05:34:57 +0200 (CEST)
+	id 03523F8056F; Mon, 17 Jul 2023 05:34:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D490F8032D;
-	Mon, 17 Jul 2023 05:34:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1E11F8055C;
+	Mon, 17 Jul 2023 05:34:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDA7DF80527; Mon, 17 Jul 2023 05:32:44 +0200 (CEST)
+	id 69E74F804DA; Mon, 17 Jul 2023 05:33:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 163EDF800D2
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 05:32:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 163EDF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3571F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 05:32:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3571F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=IaGBK371
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-6b9b89627c3so1711407a34.1
+ header.s=20221208 header.b=llYatUmB
+Received: by mail-oi1-x22e.google.com with SMTP id
+ 5614622812f47-3a36b30aa7bso3002335b6e.3
         for <alsa-devel@alsa-project.org>;
- Sun, 16 Jul 2023 20:32:31 -0700 (PDT)
+ Sun, 16 Jul 2023 20:32:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689564749; x=1692156749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OSQ/EF4eTeZehLtAwdrrxfniB7LkpUpWRgcBFX06IoY=;
-        b=IaGBK371AH+W28iGujdqp77Jk3e+29UkB3k1JOp5WVxrMN6WTt9jDC8EiaJJC0UT6x
-         YR5yP+fgIBFiOJVOvPgwjmbPpcY49fYKymEAAUQKMZvl5JDMDMWxxUQcbEhhYe+wkLW7
-         yTINTNsvKAgxhlAWPGr5S+eUFKZEnw8ZfQNL1JgjsOnntGRXqzqQaGCqRfiUXMi0Yag/
-         RZbaQ6w84fiPntEd1bcBL4smJxndGlhxfU5aOkHLme0PVTv+qT6EPuPt595ERQe9Rv+7
-         nGbQv3r8BE2qVwkbH6oqwCRJ4m/fMIx6L9MxrlFhRzVQm3+7m6ucTY60QNKQMrPMfEYu
-         Akyg==
+        d=gmail.com; s=20221208; t=1689564751; x=1692156751;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PvI0P+9cSyZtkmqCZIS8QCJlA+e7eXnlLRhnl2WbHKY=;
+        b=llYatUmBkNw2Zh+iPmtnUZwca/Y2fmO8hm1PmpcbID/cgpc3HXN2KLRjsVofnN1mU5
+         orM6Kr9pTHQHnR9AjZbvp8siVl17mQt+Zhd/hrwRN02bWF/QA8bCL2uM8BvtoWaOVpr9
+         eciuQwMGEfDZFJUCuY4UOt4xtlK12/nG6AZPAChqWxTm7xkGwYl35MimhKFgXPVGaase
+         r26wfTSehVvzE2QLz8X4AZ7ms/QtSE/+2wZWkPoLGN80+PvKN870JW8oyXh4u/Vb4IrA
+         1VatLeBy1dnZMWf8cNIjJq7RhEL5BNoM5e0SaXUUT+jSwh2JTDLPrei2qKs0dZvP6JOW
+         s8Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689564749; x=1692156749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OSQ/EF4eTeZehLtAwdrrxfniB7LkpUpWRgcBFX06IoY=;
-        b=VFfRM0jBFePZLB3V3KyHHsHhM1msEFR/c9RjunyZ+1z422Ads7PXhwkUwz1fCOgiLG
-         GiLLT+YP8IUYe4lk2Y2tSFe3iUYEKSecWIHkJ8/O4mQNUhwAwk2MXtHeL3bPqc3VqyEs
-         AjW1o48UI6v/6GDw+uNTRIlpVUfoDeWnSFgXJ0ntYKTGGhb9aPM+r8KJBOTeCXzEaGNO
-         ZERdrOp0Hg6Mi3580sR7H/BTQrp25Eg7Y80a9gDhW5CS1bx2dXWNKei1H8+1cwWYLfBH
-         YN9OGGBIDIw1pO+AJKthkwWJ5CwiRHyboYN4KWQN2OCYvuozNZa6xhMtRqH2GBriuUYH
-         6HmQ==
-X-Gm-Message-State: ABy/qLa+Bu6tZB47sUKoSZ89+fKiFCvoCJ8/w6LSTFmrlSik/osr444B
-	XBT5w7kkby0mMQd8SKNkHLXZfTrMwdSoZExQ
+        d=1e100.net; s=20221208; t=1689564751; x=1692156751;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PvI0P+9cSyZtkmqCZIS8QCJlA+e7eXnlLRhnl2WbHKY=;
+        b=CQL/cEoRySWKNaqMKEmqPCzE6Vbm1W4mWWapSk2oOZEOTnb/zIFq8z4G/KF4XyHUoX
+         cGii4ngBLUODhZtlbMv38JwZ5B4fuyyBwguDTao1u8yvhixg3X3uZf2g7S3zkQO37uFd
+         qLaYERfNictk3WcYjD7AVETYp/JgP/A22wdwI6VSbwm7r6yPAK/dmseDFgcLXAsXsMA1
+         LWpH2U1cBBckyftb5I9Dksqztdo+DEOKEZRp4jfBxjAftrH4NhmyNcHa2hUbCUePuDbe
+         vM/vot+38VNh3swJYECykyzRwXlsjR15/aMfk1C/1rrLC3H4lonXWDBW2jAU7FesPJ4p
+         4gJw==
+X-Gm-Message-State: ABy/qLYkYs/1th1wSMMbpxKEfbGVjQUj6uHyJHIsvWGGdIg0S6cvJUtC
+	Skc+fKMYkZVijEw+fYuvPyxedZaB4WkmEGOm
 X-Google-Smtp-Source: 
- APBJJlGg8JYNaTcEI4w4FmPP+UoihsWazxN4PnsVp22P5uh5MAU2lthLhzuKclMyf3+e/7VZG0/cZw==
-X-Received: by 2002:a05:6830:148:b0:6b9:c869:862c with SMTP id
- j8-20020a056830014800b006b9c869862cmr3382128otp.1.1689564748854;
-        Sun, 16 Jul 2023 20:32:28 -0700 (PDT)
+ APBJJlE364QYoS3zNEs1g16WFN6Bf0gfUSUbnfVkniNh035K/c03wk8RBm5/TNXiqfrc8cGF9bCBKg==
+X-Received: by 2002:a05:6808:1283:b0:3a4:31ee:da6a with SMTP id
+ a3-20020a056808128300b003a431eeda6amr12654821oiw.55.1689564751040;
+        Sun, 16 Jul 2023 20:32:31 -0700 (PDT)
 Received: from a-VirtualBox.. ([116.233.75.15])
         by smtp.gmail.com with ESMTPSA id
- a28-20020a63705c000000b00528513c6bbcsm11647509pgn.28.2023.07.16.20.32.26
+ a28-20020a63705c000000b00528513c6bbcsm11647509pgn.28.2023.07.16.20.32.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Jul 2023 20:32:28 -0700 (PDT)
+        Sun, 16 Jul 2023 20:32:30 -0700 (PDT)
 From: Zhu Ning <zhuning0077@gmail.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
@@ -92,14 +94,16 @@ Cc: pierre-louis.bossart@linux.intel.com,
 	yangxiaohua@everest-semi.com,
 	zhuning@everest-semi.com,
 	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH v2 1/5] ASoC: codecs: ES8326: Change Hp_detect register names
-Date: Mon, 17 Jul 2023 11:32:19 +0800
-Message-Id: <20230717033223.42506-1-zhuning0077@gmail.com>
+Subject: [PATCH v2 2/5] ASoC: codecs: ES8326: Change Volatile Reg function
+Date: Mon, 17 Jul 2023 11:32:20 +0800
+Message-Id: <20230717033223.42506-2-zhuning0077@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230717033223.42506-1-zhuning0077@gmail.com>
+References: <20230717033223.42506-1-zhuning0077@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NH3DZORNQJTELWNPVS5S6JTRZXR37IBU
-X-Message-ID-Hash: NH3DZORNQJTELWNPVS5S6JTRZXR37IBU
+Message-ID-Hash: 3M423Y3RFZYHX6LAKTN6RLEAQT2LVCH7
+X-Message-ID-Hash: 3M423Y3RFZYHX6LAKTN6RLEAQT2LVCH7
 X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -112,124 +116,62 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NH3DZORNQJTELWNPVS5S6JTRZXR37IBU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3M423Y3RFZYHX6LAKTN6RLEAQT2LVCH7/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The old register naming method is confusing. The reg 0x57 decides
-the default headset hardware connection type, and the reg 0xfb is
-the headset detection status register, which changes during headset
-insertion. Change the name to ES8326_HPDET_TYPE and ES8326_HPDET_STA.
+The new calibration and headphone detection function
+require reading new volatile registers. Add them in
+the volatile register function.
 
 Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
 ---
- sound/soc/codecs/es8326.c | 10 +++++-----
- sound/soc/codecs/es8326.h | 13 ++++++++-----
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ sound/soc/codecs/es8326.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
 diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 4399ba36aee2..e953c0157ba0 100644
+index e953c0157ba0..7cfe535e0b6d 100644
 --- a/sound/soc/codecs/es8326.c
 +++ b/sound/soc/codecs/es8326.c
-@@ -159,7 +159,7 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+@@ -158,20 +158,25 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+ 	{"HPOR", NULL, "RHPMIX"},
  };
  
- static const struct regmap_range es8326_volatile_ranges[] = {
--	regmap_reg_range(ES8326_HP_DETECT, ES8326_HP_DETECT),
-+	regmap_reg_range(ES8326_HPDET_STA, ES8326_HPDET_STA),
- };
- 
- static const struct regmap_access_table es8326_volatile_table = {
-@@ -519,7 +519,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 		return;
- 
- 	mutex_lock(&es8326->lock);
--	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
-+	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
- 	switch (iface) {
- 	case 0x93:
- 		/* pause button detected */
-@@ -578,7 +578,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 	unsigned int iface;
- 
- 	mutex_lock(&es8326->lock);
--	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
-+	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
- 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
- 	if ((iface & ES8326_HPINSERT_FLAG) == 0) {
- 		/* Jack unplugged or spurious IRQ */
-@@ -651,7 +651,7 @@ static int es8326_resume(struct snd_soc_component *component)
- 	regmap_write(es8326->regmap, ES8326_ADC1_SRC, es8326->mic1_src);
- 	regmap_write(es8326->regmap, ES8326_ADC2_SRC, es8326->mic2_src);
- 	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0x88);
--	regmap_write(es8326->regmap, ES8326_HP_DET,
-+	regmap_write(es8326->regmap, ES8326_HPDET_TYPE,
- 		     ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol);
- 	regmap_write(es8326->regmap, ES8326_INT_SOURCE, es8326->interrupt_src);
- 	regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
-@@ -743,7 +743,7 @@ static void es8326_enable_jack_detect(struct snd_soc_component *component,
- 
- 	mutex_lock(&es8326->lock);
- 	if (es8326->jd_inverted)
--		snd_soc_component_update_bits(component, ES8326_HP_DET,
-+		snd_soc_component_update_bits(component, ES8326_HPDET_TYPE,
- 					      ES8326_HP_DET_JACK_POL, ~es8326->jack_pol);
- 	es8326->jack = jack;
- 
-diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
-index 3f8f7da58062..cd04d11a88d9 100644
---- a/sound/soc/codecs/es8326.h
-+++ b/sound/soc/codecs/es8326.h
-@@ -73,15 +73,19 @@
- #define ES8326_DRC_RECOVERY	0x53
- #define ES8326_DRC_WINSIZE	0x54
- #define ES8326_HPJACK_TIMER	0x56
--#define ES8326_HP_DET		0x57
-+#define ES8326_HPDET_TYPE	0x57
- #define ES8326_INT_SOURCE	0x58
- #define ES8326_INTOUT_IO	0x59
- #define ES8326_SDINOUT1_IO	0x5A
- #define ES8326_SDINOUT23_IO	0x5B
- #define ES8326_JACK_PULSE	0x5C
- 
-+#define ES8326_HP_MISC		0xF7
-+#define ES8326_CTIA_OMTP_STA	0xF8
- #define ES8326_PULLUP_CTL	0xF9
--#define ES8326_HP_DETECT	0xFB
-+#define ES8326_CSM_I2C_STA	0xFA
-+#define ES8326_HPDET_STA	0xFB
-+#define ES8326_CSM_MUTE_STA	0xFC
- #define ES8326_CHIP_ID1		0xFD
- #define ES8326_CHIP_ID2		0xFE
- #define ES8326_CHIP_VERSION	0xFF
-@@ -146,7 +150,7 @@
- #define ES8326_ADC3_SHIFT 0
- #define ES8326_ADC4_SHIFT 3
- 
--/* ES8326_HP_DET */
-+/* ES8326_HPDET_TYPE */
- #define ES8326_HP_DET_SRC_PIN27 (1 << 5)
- #define ES8326_HP_DET_SRC_PIN9 (1 << 4)
- #define ES8326_HP_DET_JACK_POL (1 << 3)
-@@ -174,7 +178,7 @@
- #define ES8326_SDINOUT2_SHIFT 4
- #define ES8326_SDINOUT3_SHIFT 0
- 
--/* ES8326_HP_DETECT */
-+/* ES8326_HPDET_STA */
- #define ES8326_HPINSERT_FLAG (1 << 1)
- #define ES8326_HPBUTTON_FLAG (1 << 0)
- 
-@@ -182,4 +186,3 @@
- #define ES8326_VERSION_B (1 << 0)
- 
- #endif
+-static const struct regmap_range es8326_volatile_ranges[] = {
+-	regmap_reg_range(ES8326_HPDET_STA, ES8326_HPDET_STA),
+-};
 -
+-static const struct regmap_access_table es8326_volatile_table = {
+-	.yes_ranges = es8326_volatile_ranges,
+-	.n_yes_ranges = ARRAY_SIZE(es8326_volatile_ranges),
+-};
++static bool es8326_volatile_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case ES8326_HPL_OFFSET_INI:
++	case ES8326_HPR_OFFSET_INI:
++	case ES8326_HPDET_STA:
++	case ES8326_CTIA_OMTP_STA:
++	case ES8326_CSM_MUTE_STA:
++		return true;
++	default:
++		return false;
++	}
++}
+ 
+ static const struct regmap_config es8326_regmap_config = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+ 	.max_register = 0xff,
+-	.volatile_table = &es8326_volatile_table,
++	.volatile_reg = es8326_volatile_register,
+ 	.cache_type = REGCACHE_RBTREE,
+ };
+ 
 -- 
 2.34.1
 

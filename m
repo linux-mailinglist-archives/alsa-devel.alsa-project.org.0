@@ -2,68 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E83756814
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 17:33:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 057F7756BA3
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 20:16:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A8E5AE8;
-	Mon, 17 Jul 2023 17:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A8E5AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C013AE8;
+	Mon, 17 Jul 2023 20:15:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C013AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689608038;
-	bh=qd/6xtXuVXk+2PzZA6dPg/LkyDXpaZpLY86hMD7oack=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689617789;
+	bh=Lm7z2hIma39ARJyVJMfmqyTST1nReetRguMkdQ0eFTk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=db6HnBZbwO55OwT7bNb48ilEXjxItCzC3D9KHc7eofRjUWuh+j2K6jgEaZRUPR5xZ
-	 yxPxcwGROu+1SLdF6WyKtzevPZbSWqokAfxOn/fJAdYC+v14vhnANbUvK14TAc1sHc
-	 FS8MrnfsOUD4bhdJViezsl/byuHY2LTJiQxaUxIM=
+	b=rOgIv31cz7EP3U2jZcsMu0vf5iOgTFrQlJAFIyRrMjxOKq3aRqbu3xiBvbtDv+W/w
+	 /ADcuSBZ4ST8mJ0p2IjF0vHmH7AN8uQPzcJFTojPj9cb8hO2bf9Xkf+/2ZKGW9fZxc
+	 Rb16+dz+3ye389UsSDaDLgZTPaRcSFLE2pnt6+lM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBDC8F80494; Mon, 17 Jul 2023 17:33:07 +0200 (CEST)
+	id 40618F804DA; Mon, 17 Jul 2023 20:15:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5872CF8032D;
-	Mon, 17 Jul 2023 17:33:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3478AF800D2;
+	Mon, 17 Jul 2023 20:15:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C4CAF8047D; Mon, 17 Jul 2023 17:33:02 +0200 (CEST)
+	id 6D8B0F80494; Mon, 17 Jul 2023 20:15:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5BBF4F8027B
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 17:32:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BBF4F8027B
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 292DD23EE2;
-	Mon, 17 Jul 2023 11:32:51 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qLQDS-jJm-00; Mon, 17 Jul 2023 17:32:50 +0200
-Date: Mon, 17 Jul 2023 17:32:50 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2 0/8] ALSA: emu10k1: add support for high-bitrate modes
- of E-MU cards
-Message-ID: <ZLVfIkljpthcLgnd@ugly>
-References: <20230630144542.664190-1-oswald.buddenhagen@gmx.de>
- <87sf9vyfer.wl-tiwai@suse.de>
- <ZK0rw5j5BbyppXZ/@ugly>
- <87mt02wvsa.wl-tiwai@suse.de>
- <ZLUVxVUHtUJvcuZQ@ugly>
- <87ilaiwvgg.wl-tiwai@suse.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 43A77F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 20:14:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43A77F800D2
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bkHWjO6g
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F3B17611DF;
+	Mon, 17 Jul 2023 18:14:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B056C433C8;
+	Mon, 17 Jul 2023 18:14:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689617692;
+	bh=Lm7z2hIma39ARJyVJMfmqyTST1nReetRguMkdQ0eFTk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=bkHWjO6gX3C4QljixgWueiP0/OdOcvFrH1VZ5UexKowPLJ6w9cL+Jy1nNXZE9LoLg
+	 +QopuLyfpoXqgkIqs7nyfhEyka4U9q+X/ypDkzJlpa+gHMNOZHSX3Sz88GUajWUCGA
+	 AEJ1yhKl+OiKg5Jrm2KTtFcXMaB1RtUlj4htDvcnPZYf462/+Krfsk1xNotmkHvkSG
+	 /Q+sGwUdt9kwLsXzlkUTZx/tBAeTrEcsvyznyYISq3U2jyIgCAST0nTvg87IVXI6h2
+	 2sQPckLy7iwh0wT35nSVoqWdty7PKNw3fzOOj7evesWFEOrt2cUXi+HsT5P7Q2gCRt
+	 JfMGoupTzSe9w==
+From: Mark Brown <broonie@kernel.org>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20230713112112.778576-1-thomas.petazzoni@bootlin.com>
+References: <20230713112112.778576-1-thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH] ASoC: cs42l51: fix driver to properly autoload with
+ automatic module loading
+Message-Id: <168961769002.448315.10905813350142726607.b4-ty@kernel.org>
+Date: Mon, 17 Jul 2023 19:14:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <87ilaiwvgg.wl-tiwai@suse.de>
-Message-ID-Hash: KY2NQI3JKCEYODCIGSFM2FVTKWGTTYGR
-X-Message-ID-Hash: KY2NQI3JKCEYODCIGSFM2FVTKWGTTYGR
-X-MailFrom: ossi@kde.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: K7JFS6D7M2FGDJKZ6TVPFWFGLMH2ZX5V
+X-Message-ID-Hash: K7JFS6D7M2FGDJKZ6TVPFWFGLMH2ZX5V
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -75,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KY2NQI3JKCEYODCIGSFM2FVTKWGTTYGR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K7JFS6D7M2FGDJKZ6TVPFWFGLMH2ZX5V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -84,36 +105,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 17, 2023 at 02:53:19PM +0200, Takashi Iwai wrote:
->On Mon, 17 Jul 2023 12:19:49 +0200,
->Oswald Buddenhagen wrote:
->> 
->> you want me to spend additional time
->> on a driver barely anyone still cares about
->> to actively degrade the (my!) user experience
->> to avoid hypothetical / likely obsolete crashes
->> that would happen upon a rare user-controlled event
->> in unspecified buggy (mixer? (!)) applications,
->> while a known-good fallback exists (alsamixer).
->
->Simply put, YES.
->
-well, your priorities don't align with the needs of actual users (that 
-would be me, in this case).
+On Thu, 13 Jul 2023 13:21:12 +0200, Thomas Petazzoni wrote:
+> In commit 2cb1e0259f50 ("ASoC: cs42l51: re-hook of_match_table
+> pointer"), 9 years ago, some random guy fixed the cs42l51 after it was
+> split into a core part and an I2C part to properly match based on a
+> Device Tree compatible string.
+> 
+> However, the fix in this commit is wrong: the MODULE_DEVICE_TABLE(of,
+> ....) is in the core part of the driver, not the I2C part. Therefore,
+> automatic module loading based on module.alias, based on matching with
+> the DT compatible string, loads the core part of the driver, but not
+> the I2C part. And threfore, the i2c_driver is not registered, and the
+> codec is not known to the system, nor matched with a DT node with the
+> corresponding compatible string.
+> 
+> [...]
 
->If you've ever programmed applications that deal with ALSA
->mixer/control stuff by yourself, you'll notice that it's really tough
->to deal with the dynamic deletion/addition.
->
-hot-plugging always requires some care to handle. i don't consider this 
-a showstopper, esp. in the year 2023, when udev and pulseaudio/pipewire 
-go all crazy on us (and yes, that crashed kmix - big deal). i don't 
-think it's sane to set the bar at 1995 standards. even less so when the 
-class of potentially affected apps holds no user data of note.
+Applied to
 
->alsamixer can accept it in the limited manner,
->but it's no fallback for everything, of course.
->
-i have no clue what point you're trying to make.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-regards
+Thanks!
+
+[1/1] ASoC: cs42l51: fix driver to properly autoload with automatic module loading
+      commit: e51df4f81b02bcdd828a04de7c1eb6a92988b61e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

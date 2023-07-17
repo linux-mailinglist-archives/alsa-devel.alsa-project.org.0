@@ -2,167 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8237B75673F
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 17:12:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57E83756814
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 17:33:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E51BDF4;
-	Mon, 17 Jul 2023 17:11:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E51BDF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A8E5AE8;
+	Mon, 17 Jul 2023 17:33:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A8E5AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689606756;
-	bh=LzllU2/yBiBhADWUGDAIgWA+6y7DJpb2vZYBRhElAsA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689608038;
+	bh=qd/6xtXuVXk+2PzZA6dPg/LkyDXpaZpLY86hMD7oack=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DtUgbRCpgtgVMM+Pes+zHnjM4E/TsjWS6+VgOOmLi8j7sbJNkFA+k0iKH7vM0D0DE
-	 NHHTVa7E57HEsCpcFwMzu5g5rH9rjJvH9r/DXqfgEjTPfht9hJpXeT6XHcvmwIcHgZ
-	 n7JZUtMnSvTj3lsPAqnE8g8Ms4kvsQsgM3Abuolo=
+	b=db6HnBZbwO55OwT7bNb48ilEXjxItCzC3D9KHc7eofRjUWuh+j2K6jgEaZRUPR5xZ
+	 yxPxcwGROu+1SLdF6WyKtzevPZbSWqokAfxOn/fJAdYC+v14vhnANbUvK14TAc1sHc
+	 FS8MrnfsOUD4bhdJViezsl/byuHY2LTJiQxaUxIM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34056F80549; Mon, 17 Jul 2023 17:11:03 +0200 (CEST)
+	id DBDC8F80494; Mon, 17 Jul 2023 17:33:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFC83F8055A;
-	Mon, 17 Jul 2023 17:11:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5872CF8032D;
+	Mon, 17 Jul 2023 17:33:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC0F0F8047D; Mon, 17 Jul 2023 16:30:14 +0200 (CEST)
+	id 1C4CAF8047D; Mon, 17 Jul 2023 17:33:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_HOTMAIL_RCVD2,
-	FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from AUS01-SY4-obe.outbound.protection.outlook.com
- (mail-sy4aus01olkn20827.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7005::827])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bluemchen.kde.org (bluemchen.kde.org
+ [IPv6:2001:470:142:8::100])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8418F8007E
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 16:30:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8418F8007E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256
- header.s=selector1 header.b=RziVVtCC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DbP72IGzkGDOuOto7V5IViy705BNc8kDqpSKsVJZvtui7RAAtHIkCQJZ+DpqpBfqnpCVXVYhxA8Y+uPMdQ1PKtBIgnim405Z8o1ZiQen7+V0cEAmbxDmZV0dC0fvlO+5odMZB6vgto3YGZMf4J4oKAmN1kuP9pQIh/lwHW5kA62WdAP5gnJAgxx53nsVTBci2We0GOfDX44pcNxHcNMozICTNx0WlNAnhNaN5cY8vsor0ZvDtGcoFgmDj7nLNepp4qvSOuhXyU8EyGcjbtY4kfjv/LP3JZ1wE34n9u4gHP68ZAPPZWHkJ068wGXgeY4l2/LbIRj2muJb7pGrAAGJRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aNutQxeykakhsApaqiQIxLaH4ug2Q7LWEYAUrTQxLpg=;
- b=Zyncv0H8o2FCSYG4o4M0iVnJ4V97eNi6AZO6xGyi+k9fgcvugw3YmxmyjBoJVNWKD+43uiT6HRixlAHF/y1/WsNtyPwFl7Q1MIXsG3wTOu5gATeRHVUvMEQ+ALAmXQDH6k9g+8ZiD7M3V49gSkrxxqqcVhLQ3y4w/P6GROKgfuhGAmfM21kbGPBZ4GscOvJCe8jDoFUc0mnkfdGx42Os+uAbfjh0RILlJkE0b1wmT7kZ0psbeNj6sr7mKucdliTsKIcYmIWZqYzFFkLGbDUk/AZFzaccx9R6q9WlVgqOQvVnYF9G7lnnGZ4T828KndkZ9BOlXmF7NR+oUVlbVxpVtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aNutQxeykakhsApaqiQIxLaH4ug2Q7LWEYAUrTQxLpg=;
- b=RziVVtCCpaxpGlZ1Ahq8KvTjlRXoUI2j+s/9raNIJZDXn84hsT1EecdQtysw07+8hQtQ1sYLUH84reUrE3w7o+qgbU0S2FkfFl/M+RtJCxX9vcuOp++dO12kXIynFPG8pWwj6dMLtpLasmHrvkgO9IcA64ej4qrUK8g6u3X33Wq0ARfDvuqyVikpKPyXu/hyJy8B/kR/Ca/lxBs0EcWpfq6x2D8oDUOuzJXiuGItbxYMgnx97b/mDZmAsx06paenjPsIjB+8Mco3vBvgREUPBBiQzYhZo4NcHx6axcUyR9KAq4MGujA9zl73FHBA699co8TNDFQvMlKFyQrPdnwrUQ==
-Received: from SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:c2::7) by
- ME3P282MB3307.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:134::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.32; Mon, 17 Jul 2023 14:29:53 +0000
-Received: from SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM
- ([fe80::42d9:eaab:e6bf:1f81]) by SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM
- ([fe80::42d9:eaab:e6bf:1f81%5]) with mapi id 15.20.6588.031; Mon, 17 Jul 2023
- 14:29:53 +0000
-From: David Xu <xuwd1@hotmail.com>
-To: stuarth@opensource.cirrus.com
-Cc: alsa-devel@alsa-project.org,
-	andy.chi@canonical.com,
-	david.rhodes@cirrus.com,
-	james.schulman@cirrus.com,
-	kasper93@gmail.com,
-	linux-kernel@vger.kernel.org,
-	luke@ljones.dev,
-	p.jungkamp@gmx.net,
-	patches@opensource.cirrus.com,
-	perex@perex.cz,
-	rf@opensource.cirrus.com,
-	ruinairas1992@gmail.com,
-	sbinding@opensource.cirrus.com,
-	tcrawford@system76.com,
-	tiwai@suse.com,
-	tiwai@suse.de,
-	xuwd1@hotmail.com,
-	yangyingliang@huawei.com,
-	yangyuchi66@gmail.com
-Subject: Re: [PATCH 0/2] Fix CSC3551 speaker sound problem for machines
- without a valid ACPI _DSD
-Date: Mon, 17 Jul 2023 22:29:37 +0800
-Message-ID: 
- <SY4P282MB183569D8139CA53D7BB3B29DE03BA@SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <6a5d7b94-4762-5e71-dc39-c9f10ee98c6f@opensource.cirrus.com>
-References: <6a5d7b94-4762-5e71-dc39-c9f10ee98c6f@opensource.cirrus.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-TMN: [h5LFkkV86jcuiZwddhsHfEOgV2BeiB+L]
-X-ClientProxiedBy: SG2PR02CA0105.apcprd02.prod.outlook.com
- (2603:1096:4:92::21) To SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:c2::7)
-X-Microsoft-Original-Message-ID: <20230717142937.164744-1-xuwd1@hotmail.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BBF4F8027B
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 17:32:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BBF4F8027B
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 292DD23EE2;
+	Mon, 17 Jul 2023 11:32:51 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
+	id 1qLQDS-jJm-00; Mon, 17 Jul 2023 17:32:50 +0200
+Date: Mon, 17 Jul 2023 17:32:50 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2 0/8] ALSA: emu10k1: add support for high-bitrate modes
+ of E-MU cards
+Message-ID: <ZLVfIkljpthcLgnd@ugly>
+References: <20230630144542.664190-1-oswald.buddenhagen@gmx.de>
+ <87sf9vyfer.wl-tiwai@suse.de>
+ <ZK0rw5j5BbyppXZ/@ugly>
+ <87mt02wvsa.wl-tiwai@suse.de>
+ <ZLUVxVUHtUJvcuZQ@ugly>
+ <87ilaiwvgg.wl-tiwai@suse.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY4P282MB1835:EE_|ME3P282MB3307:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0e46f65-eee2-41b2-6c01-08db86d24933
-X-MS-Exchange-SLBlob-MailProps: 
-	YfhX3sd/0TWYnBBcTvvGLleK17hkRWRiEi7TiiQqLg0D6R9JLKbnMz/FILM+omj+ZPvVuaXe5lSNadSwbxY3s6gqPnH+u2qSLcihDiFBtfTtUNitAH8cMdqhV9+fpJRr0QqUktZxMA1l9grSLuI8INR57gcJCVdxIwbXqJLs6vYvMG4kTdkroOAm0XStoFF2sf4Fd/hcbGEKJ99KqDYQe6LIvvhE7R8j1wOewQ1iZj9zQXJDr2Uee0ZxWiCscWVvA2Gj21Fl5kzr+yc3BR6vRVulmmQK75ZftcF/9RBjFatmtVjYHr8x+XCT7Mg0Oi+mxnPqNtvoQjHFrMjRpSgBLk6q8WhZFJetWAy1ztLf4g4pmGM2v4hhhdApKVZDQcuujzBMU6Qbl5LMbqDSltBxeQ5QaT0iCu/n3pzGWpKcQloHQUYncgbM61dHCEUOvqpJECQSmXC1mBUfn+tDFLZKbjOyiG22o3NwzScI1NRlgYqGUGQDJ5ghttfo/ZsKBmMWJFZW/l1fYouUumrS90lAYmgmuh040VgpOU+zPoIsIomdR/l1T9cpm27/msOaoyP11OYhOarWVTY8HABJtqty9amapA0V13u6d8f4yUiTs+wv7BtvN70XDFObB7xJYrolqaf3/IN83e/TK33nWybnepNq27OAR1TIFhJKroaiyKVyYJYWWx6O/hHJOMYIAmpFS1vzHUpChZE66sGguMLXeK569If7JyoF7pGJCzdHXsX4e9SGb7xW5LJD/8QRp3Wp5rVmAWi0ttMJKHADhP2DRejjzbgU2laYOJP8irAivVE=
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	hr1RV5t9vso6elpd/8Yd3RBdrSiOSz29c/j+R0fdX9QveHNAVCeWI/HI/6B6rCNyIVZliYbkxsDLM7TFn+e388I92j4tGFhSnzOWkfucuTI2JbcQ1picooPzrmNqwEvUEdNqTNK3zWbtdEsOoU60U1fXw7Ax5/1KsFkXNDIfvjg9Z9D8ufS7hGWwubLQwmG1q4TKP9ZmcblfjWCXsDzbwrkv7bPy/6Et1uytFzcKYNKL2Arwyew+s8dOkSi9Np4ZAqnDDkoZHB2TDF1U3VieDIKyyXDC8flkEc32fbHY/CKzjsmapnQHPb51UMr9C/kMBjQ5FCnkOFPiKkZ+68JX7No134GIyUtCKQhtA++YprJDqmiQOpt+daUqzF5EpUAKyZk8QTOqPN8dTvSpkik1qrDM4Lw2HVhdvKS4LkyZk41en/MVHJP3jGFyguwerghtNhKe/DOj0F8Gag7u8whwkmq7qCgFmEvWLAw3HuL8Oq71FsLLBvytShDz5DGnOKmE7lrwcDhd1dgpje/qeo1F5v8XGPA2ljDgGAjYs/Lg5+0stp2wCZ/ioQ3f5VQKXmMt3Q6stX5O5gWw8iekU0ObmLWnSliKQGZnxHBsJ1Vn6Clau9m4qucK9VkrwrCZPwmE
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?V2AH5y0WznlSixmo5wPFaJuIXSrDPF7/jxE83zTgEyRWiavmcWZ6uB3T/OrD?=
- =?us-ascii?Q?XdgnYlhan/9YvduiOG2rHRkPMFCussPqOG8QFCIzszSsjyOjRbjHAjgD+8Xh?=
- =?us-ascii?Q?aEZxV2DqgldihPqOzMGqoKr3wvFF8r23MD/3VFs739NVlKmcbjQdDuHSkMMW?=
- =?us-ascii?Q?3lk4xIF6Q5bYk2fiUnSxM9akQnRO5GnHapg+Ii0ZkoWcbv1gCWc1zolwKtHV?=
- =?us-ascii?Q?H62iuOtmPUwzS7CaORdjBCchnG7or286W73EqCqfJ7J1vwBMBf1MA+KaMnE+?=
- =?us-ascii?Q?nmv4beNBrWek9OKkjk5aBAJ2gC9kLu21lBFwwRo0tlx4mf9nJVdfSG3RIrVb?=
- =?us-ascii?Q?xjNOycakxvZOtMpl7mVDBDSAUldExJoV4VDTP8+5cVeH27EeEwK4YpS7QjFf?=
- =?us-ascii?Q?E9fYgVA8h7nHGwRy8Xybb9iKkUqFzlcQIzYLkXXJdTNlDuOFg5+Z3CcXJR32?=
- =?us-ascii?Q?x/fRNIY1hL+Z4MrQzL1hbmvutf6iJsS47cZb8pUJGVv1zwC0LMuWIO2dfbE9?=
- =?us-ascii?Q?+n+vMWHn6iVr/FW1RAltjezeZjPuTvJ5a0aBu/+tLisf8f7JJ6gvs98dibEL?=
- =?us-ascii?Q?tLmD1UYxEPm898PumcMSzbjcMa2KoqISyn6G1OFB+GUSJd3arMqLzdzPHD3e?=
- =?us-ascii?Q?JggBzv5HMLRB9TlXInCsOjbndXptHF+MxGByWmj5pR92687EaS0jJqGd0udh?=
- =?us-ascii?Q?YL9FeYQz7BU2RnAbizIdd8SvARGYqFxkXTVHPUXwWVdziy7ArhdHSk8tne6K?=
- =?us-ascii?Q?wY4m7/Vtn4gcXHwyOoPNEApYPiqxLlXUz/0jVRqRCfD/gnAk4hunBwZ+balu?=
- =?us-ascii?Q?13NMVUypW/V8ibLVz9ukeOWFPVniGQTOmSixY2unnBQeY75LMMb9FHi8nPzn?=
- =?us-ascii?Q?Xn0QJc6eOP/LqfRry6l3NhsMTf9qbLYsrZT7db1v0hMlnHtSF53mCedNa39y?=
- =?us-ascii?Q?HSOvEYjrg7/o3UsT6X+7G0h/JF3pF+8C4cITo33IUGJeXZtW+Rkd6v4YYJHm?=
- =?us-ascii?Q?VeHR73lBomi5jWHSwe5IW49yHHAZnGlfJLpm9MYjE2iKQLtgQUJ3UDLGYNTy?=
- =?us-ascii?Q?QWJEk7YWp2zNsxPMpfgcMsMSeX4GS6GcqI1xaRqHeUDj99+YQFbakyepnD/X?=
- =?us-ascii?Q?7GILTtkNQ08jH5Ju4tFGir8VvWzLqzjOyc/4SGIb2rQdKLHl76gK1Mp7eya+?=
- =?us-ascii?Q?gUcoDWGJ2AKe0AVpmrsCM5IbjtiTDEwOcvD3Sg=3D=3D?=
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-746f3.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d0e46f65-eee2-41b2-6c01-08db86d24933
-X-MS-Exchange-CrossTenant-AuthSource: SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 14:29:53.5405
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME3P282MB3307
-X-MailFrom: xuwd1@hotmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87ilaiwvgg.wl-tiwai@suse.de>
+Message-ID-Hash: KY2NQI3JKCEYODCIGSFM2FVTKWGTTYGR
+X-Message-ID-Hash: KY2NQI3JKCEYODCIGSFM2FVTKWGTTYGR
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CHLX4QVKDIUVTQTBTLSZDVHDIJEC6J6R
-X-Message-ID-Hash: CHLX4QVKDIUVTQTBTLSZDVHDIJEC6J6R
-X-Mailman-Approved-At: Mon, 17 Jul 2023 15:10:58 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVNVER5SGPSTWZ5M6IAO3IUQFSS3UT2C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KY2NQI3JKCEYODCIGSFM2FVTKWGTTYGR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,93 +84,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 17 Jul 2023 13:48:28 +0100, Stuart Henderson wrote:
-> On 16/07/2023 13:49, Takashi Iwai wrote:
-> > On Thu, 13 Jul 2023 18:29:53 +0200,
-> > David Xu wrote:
-> >>
-> >> As the comments added in commit 4d4c4bff4f8ed79d95e05 ("ALSA: hda:
-> >> cs35l41: Clarify support for CSC3551 without _DSD Properties"), CSC3551
-> >> requires a valid _DSD to work and the current implementation just
-> >> fails when no _DSD can be found for CSC3551. However it is a fact
-> >> that many OEMs hardcoded the configurations needed by CSC3551 into their
-> >> proprietary software for various 2022 and later laptop models,
-> >> and this makes the Linux installations on these models cannot make
-> >> any speaker sound. Meanwhile, at this point of time, we see no hope
-> >> that these OEMs would ever fix this problem via a BIOS update.
-> >>
-> >> To address the problem, this patch series contains two patches:
-> >>
-> >> Patch 1 for cs35l41 hda driver: a fixup mechanism is introduced that
-> >> when the driver found there is no valid _DSD that contains the
-> >> configurations, a fixup function would try to find a fixup entry that
-> >> contains a proper cs35l41 configuration from a pre-defined fixup table
-> >> by matching the CSC3551 ACPI _SUB id. If found, the fixup function
-> >> would apply the cs35l41 configurations retrived from the entry.
-> >> In this patch the fixup table only contains some entries for three
-> >> Lenovo laptop models: namely 16IAH7, 16IAX7 and 16ARHA7. However
-> >> as is known, several other laptop models from ASUS and HP also suffer
-> >> from this no valid _DSD problem and could have it addressed with this
-> >> fixup mechanism when proper fixup entries are inserted.
-> >>
-> >>
-> >> Patch 2 for realtek hda driver: add quirks for Lenovo 16IAH7, 16IAX7
-> >> and 16ARHA7 so that cs35l41 playback hook could be registered. Please
-> >> note that for these quirks to work patch 1 has to be applied.
-> > Thanks for the patches.
-> >
-> > I've seen the lots of pains with CS35L41 codec stuff on the recent
-> > machines.  But, first of all, it still needs to be agreed by Cirrus
-> > people whether this approach is acceptable.  Judging from the current
-> > situation, such workaround appears inevitable, but we need a
-> > consensus.
-> >
-> > So, Cirrus people, please check this.
-> >
-> >
-> > Also, some ideas about the current patch set:
-> >
-> > - Do we need yet another listing and check of each ID in another
-> >    place?  The existing entry in the SSID quirk table is already unique
-> >    enough to identify which configuration is taken, I suppose.
-> >
-> > - The quirk entries can be gathered in patch_realtek.c, and the hw_cfg
-> >    and other items are overwritten in cs35l41_no_acpi_dsd() when no
-> >    _DSD is found.  In that way, we can avoid fixing two places for each
-> >    update.
-> >
-> > - The workaround is a workaround, and it's fundamentally dangerous.
-> >    We should warn it in a kernel message.
-> >
-> >
-> > Takashi
-> 
-> Hi David, Takashi,
-> We're looking into supporting some of these older devices at the moment, 
-> and have a patch chain in development at the moment.
-> The approach we've taken is a lot closer to the one taken by the github 
-> Luke links through to elsewhere in this chain, which we think might be a 
-> cleaner approach.  We do have concerns about the current approach of 
-> identifying the SPI device though, as we've seen "spi1" become "spi2" as 
-> additional devices become supported in the kernel and more SPI 
-> controllers come into use.  We'll look into this more and hopefully get 
-> a patch chain up in the coming weeks.
-> This patch chain looks like it might also be missing support for 
-> different boost configurations.
-> I wouldn't recommend this patch be merged.
-> Thanks,
-> Stu
+On Mon, Jul 17, 2023 at 02:53:19PM +0200, Takashi Iwai wrote:
+>On Mon, 17 Jul 2023 12:19:49 +0200,
+>Oswald Buddenhagen wrote:
+>> 
+>> you want me to spend additional time
+>> on a driver barely anyone still cares about
+>> to actively degrade the (my!) user experience
+>> to avoid hypothetical / likely obsolete crashes
+>> that would happen upon a rare user-controlled event
+>> in unspecified buggy (mixer? (!)) applications,
+>> while a known-good fallback exists (alsamixer).
+>
+>Simply put, YES.
+>
+well, your priorities don't align with the needs of actual users (that 
+would be me, in this case).
 
-Hi Stuart,
+>If you've ever programmed applications that deal with ALSA
+>mixer/control stuff by yourself, you'll notice that it's really tough
+>to deal with the dynamic deletion/addition.
+>
+hot-plugging always requires some care to handle. i don't consider this 
+a showstopper, esp. in the year 2023, when udev and pulseaudio/pipewire 
+go all crazy on us (and yes, that crashed kmix - big deal). i don't 
+think it's sane to set the bar at 1995 standards. even less so when the 
+class of potentially affected apps holds no user data of note.
 
-Thank you for replying. I am looking forward to your work for fixing
-this problem and hopefully I could see it in the following weeks. In 
-addtion I'd like to justify this lack of support for boost configurations
-as without a valid _DSD, it is nearly impossible for us users to know the 
-correct and safe configuartion for internal boosting. The current situation
-is that without this boosting config, we indeed get a quite low speaker
-sound. It would be much appreciated if you could also solve this problem. 
+>alsamixer can accept it in the limited manner,
+>but it's no fallback for everything, of course.
+>
+i have no clue what point you're trying to make.
 
-Regards,
-
-David
+regards

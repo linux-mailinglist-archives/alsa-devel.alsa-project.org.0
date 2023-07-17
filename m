@@ -2,101 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8430755CF2
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 09:33:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 777EB755CF9
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 09:33:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4A91868;
-	Mon, 17 Jul 2023 09:32:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4A91868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CA55AEA;
+	Mon, 17 Jul 2023 09:32:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CA55AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689579191;
-	bh=S1XUJ4vXHy3Re5SfrgdQEiA611RB1ezLcB08n3RMj0w=;
+	s=default; t=1689579225;
+	bh=00fVRbXSjZKsDPwm/FW9iemnpUdZPQCOR+U5Hr4xzIw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pex+e2K/ewd/4E/Ii8FVKvg44hvLzxsItVBtHP8VzlpyEA9up8CT4hlJhsoyMA8DP
-	 MLZNz7UmvMCF6efcs+4KpPFcSH+gORy2wnnIhXiVQGPJnCtnDB5H+RBJiS5T6aJ+u5
-	 Pmui3RWctme34rHv+Mq5k4FBN414EJIUqlZ6C0ak=
+	b=GluNpi8Mg5qe28wLCfrjimdlh0w0joIGCjk8FfexWdb+P0GLLjSpXBbSKg89pxm5w
+	 e8XBplchg/gzqTGpKP58ngbIIuPJLFtjzmwL04Jf0rCnQ+Ca7RnsquNPGRNQwktG5l
+	 Z/xW26/miO1HQYYAXVEVbkFSKYjLMItAKQGUjh+I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BEE10F80494; Mon, 17 Jul 2023 09:32:20 +0200 (CEST)
+	id 56BC0F80553; Mon, 17 Jul 2023 09:32:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 768E4F8027B;
-	Mon, 17 Jul 2023 09:32:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04D8DF80551;
+	Mon, 17 Jul 2023 09:32:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B288F8047D; Mon, 17 Jul 2023 09:32:10 +0200 (CEST)
+	id 0351AF8047D; Mon, 17 Jul 2023 09:32:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B4612F800D2
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 09:32:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4612F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D476F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 09:32:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D476F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ZoFRw27I;
+ header.s=susede2_rsa header.b=zvsulv3N;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=U0PmJCqz
+ header.s=susede2_ed25519 header.b=DF5Rb7W9
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B942821979;
-	Mon, 17 Jul 2023 07:31:59 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C5A3D1FD9B;
+	Mon, 17 Jul 2023 07:32:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1689579119;
+	t=1689579131;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Kwf5PJ5yYfG6d3GoOoValETQZ687TvFao+QYA+jhedo=;
-	b=ZoFRw27IvG4xobe++1BxEimsf+hWP+AEKaVAuuYX+LrwyhbZHr6bI0NwX8LYlqPizF1FG3
-	xYJ6Kxy7iPZPtNW0eh4GrzVRhF7XVjwVVFzzkerncBU/2f9wo/5KeH3EhaRWLA++CB52o8
-	4dl0kBhCPYb6GZLCmAnEZ5UWgFdZDIA=
+	bh=Z668I7/BFf3zkZbTBn553FcqQXEMvzoeY5VN3mCDvsc=;
+	b=zvsulv3Nz225yTXZ7BIC1Hxur8wHJfCfFjhoih0EbDMAC9QG4JotwjVKUT8CRkoU9wGT/i
+	rPA60iatWERM6D2VKoMmz7GugDTPnfl1sB4tZUaXRTnP+oZnY2OS/uCq/MuHA2eBltHhMj
+	I3Fx2a/zNWMf8dUdVZqFcHY+U4XWtvU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689579119;
+	s=susede2_ed25519; t=1689579131;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Kwf5PJ5yYfG6d3GoOoValETQZ687TvFao+QYA+jhedo=;
-	b=U0PmJCqz4sb6xXdObJWJJAIQuT9WV1uMDTv2Tzv69ftsE+xhgMr2TzvtDtUt+Y51FmmSpo
-	oxkpGY+3LXYpuOCg==
+	bh=Z668I7/BFf3zkZbTBn553FcqQXEMvzoeY5VN3mCDvsc=;
+	b=DF5Rb7W9WCw2N54LFnGKVTfwh7l9C4DUiaJdROVu6NJg2BvdOJDMIBdAks5x3kRyNlR1JN
+	Ok87RTtD2axyCbAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93831138F8;
-	Mon, 17 Jul 2023 07:31:59 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A7DC6138F8;
+	Mon, 17 Jul 2023 07:32:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 0VQeI2/utGSiCgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 17 Jul 2023 07:31:59 +0000
-Date: Mon, 17 Jul 2023 09:31:59 +0200
-Message-ID: <87sf9nj8nk.wl-tiwai@suse.de>
+	id n6sgKHvutGS+CgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 17 Jul 2023 07:32:11 +0000
+Date: Mon, 17 Jul 2023 09:32:11 +0200
+Message-ID: <87r0p7j8n8.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 Cc: alsa-devel@alsa-project.org,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2] ALSA: emu10k1: track loss of external clock on E-MU
- cards
-In-Reply-To: <20230715160738.326832-1-oswald.buddenhagen@gmx.de>
-References: <20230715160738.326832-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH v3] ALSA: emu10k1: set the "no filtering" bits on PCM
+ voices on Audigy
+In-Reply-To: <20230715160802.326872-1-oswald.buddenhagen@gmx.de>
+References: <20230715160802.326872-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: OKOOUQR5Y3LXY7AWZD7MMOUAE62ULYYC
-X-Message-ID-Hash: OKOOUQR5Y3LXY7AWZD7MMOUAE62ULYYC
+Message-ID-Hash: ZMWAZIZ6MALXOREH64PQOAA3N46RI7C4
+X-Message-ID-Hash: ZMWAZIZ6MALXOREH64PQOAA3N46RI7C4
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OKOOUQR5Y3LXY7AWZD7MMOUAE62ULYYC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZMWAZIZ6MALXOREH64PQOAA3N46RI7C4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,38 +119,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 15 Jul 2023 18:07:38 +0200,
+On Sat, 15 Jul 2023 18:08:02 +0200,
 Oswald Buddenhagen wrote:
 > 
-> This uses IRQs to track spontaneous changes to the word clock source
-> register.
+> Given that the filter is already set to neutral for PCM voices, the
+> only observable effect is that the Z1/Z2/FXBUS registers don't have a
+> stray bit set for negative numbers anymore. The bit is below the ones
+> significant for output, but it would mess with 32-bit sample
+> recombination, which we intend to add.
 > 
-> FWIW, that this can happen in the first place is the reason why it is
-> futile to lock the clock source mixer setting while the device is open -
-> we can't consistently control the rate anyway. Though arguably, we
-> should reset any open streams when that happens, as they become
-> corrupted anyway.
+> kX-project does that, but I had to figure out myself why.
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 > 
 > ---
-> v2:
-> - use driver-local lock instead of core's control_rwsem
-> 
-> ---
-> FIXME? while i'm not sure, i think this won't notice seamless switches
-> between 44.1 and 48 kHz. assuming that's the case, this seems like a
-> minor issue: firstly, just about nothing actually produces such a
-> seamless switch - my only device that can even do that is the e-mu card
-> itself, but the driver disrupts that by temporarily muting the output.
-> secondly, the user is unlikely to select an external source before
-> setting it up properly. and the easy workaround is actually never doing
-> that.
-> regardless, to actually test that i'd need a second e-mu card.
+> v3:
+> - simplify, as this is actually unrelated to the interpolator
 
-The code change itself looks sane, so I took the patch as is now.
+Applied now.  Thanks.
 
-
-thanks,
 
 Takashi

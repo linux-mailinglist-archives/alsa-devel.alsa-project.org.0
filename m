@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 777EB755CF9
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 09:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1647755CFA
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 09:34:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CA55AEA;
-	Mon, 17 Jul 2023 09:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CA55AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D9BBDF4;
+	Mon, 17 Jul 2023 09:33:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D9BBDF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689579225;
-	bh=00fVRbXSjZKsDPwm/FW9iemnpUdZPQCOR+U5Hr4xzIw=;
+	s=default; t=1689579243;
+	bh=DsEo2O8cv0Akxxr4ZWZPcfilntE2fFkfU32rnF9bBi8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GluNpi8Mg5qe28wLCfrjimdlh0w0joIGCjk8FfexWdb+P0GLLjSpXBbSKg89pxm5w
-	 e8XBplchg/gzqTGpKP58ngbIIuPJLFtjzmwL04Jf0rCnQ+Ca7RnsquNPGRNQwktG5l
-	 Z/xW26/miO1HQYYAXVEVbkFSKYjLMItAKQGUjh+I=
+	b=o8UKhyKuOMOO4m2WTJKYHo7UvyV5H0e5hiJGrZ0dNh71y4NthVHD3ZutgAm8VgP5D
+	 s4QJSUzSpcCoEpmdbhr3vLKcOc8L0pCDHSH3U8ylR1tRjaY0pfp7dajLef4vcUDcNn
+	 iCkrWPokRoWcIbQm5deDGZhjPa86K6cel9O+cbCE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56BC0F80553; Mon, 17 Jul 2023 09:32:21 +0200 (CEST)
+	id AAF7CF80567; Mon, 17 Jul 2023 09:32:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04D8DF80551;
-	Mon, 17 Jul 2023 09:32:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E53AF8055C;
+	Mon, 17 Jul 2023 09:32:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0351AF8047D; Mon, 17 Jul 2023 09:32:15 +0200 (CEST)
+	id 7C451F80563; Mon, 17 Jul 2023 09:32:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,66 +38,65 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D476F800D2
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 09:32:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D476F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id D9746F8055B
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 09:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9746F8055B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=zvsulv3N;
+ header.s=susede2_rsa header.b=sDBoZF+d;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=DF5Rb7W9
+ header.s=susede2_ed25519 header.b=O8jhCIhO
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C5A3D1FD9B;
-	Mon, 17 Jul 2023 07:32:11 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8F6A31FD9B;
+	Mon, 17 Jul 2023 07:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1689579131;
+	t=1689579147;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Z668I7/BFf3zkZbTBn553FcqQXEMvzoeY5VN3mCDvsc=;
-	b=zvsulv3Nz225yTXZ7BIC1Hxur8wHJfCfFjhoih0EbDMAC9QG4JotwjVKUT8CRkoU9wGT/i
-	rPA60iatWERM6D2VKoMmz7GugDTPnfl1sB4tZUaXRTnP+oZnY2OS/uCq/MuHA2eBltHhMj
-	I3Fx2a/zNWMf8dUdVZqFcHY+U4XWtvU=
+	bh=W4EEtug6iDFTIAfXpHmtAyC4ryV+KYV0KTYGOPD08ac=;
+	b=sDBoZF+dmX6BlYAbGELazYAaURaqxVWTylQFNIcbT5zPA9x2hFIcQ64n91YJOU1QusMxfI
+	eyq5lnDB/+tL+gVKJ6d/V1l72y/CRNVAVTcV+R9bryKuJqac12bRccZM64U49T9y+6Ay5f
+	upSkkJYyvUwkeXqIrLscvjy6ib5yEvY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689579131;
+	s=susede2_ed25519; t=1689579147;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Z668I7/BFf3zkZbTBn553FcqQXEMvzoeY5VN3mCDvsc=;
-	b=DF5Rb7W9WCw2N54LFnGKVTfwh7l9C4DUiaJdROVu6NJg2BvdOJDMIBdAks5x3kRyNlR1JN
-	Ok87RTtD2axyCbAQ==
+	bh=W4EEtug6iDFTIAfXpHmtAyC4ryV+KYV0KTYGOPD08ac=;
+	b=O8jhCIhOQV7nbZO5kRfEa1GgeAi5kNiPk+L0VLBg5o5+/89OobVj8g6klvTRC2oOwRss3H
+	9OFW6l2Mq6gs2bAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A7DC6138F8;
-	Mon, 17 Jul 2023 07:32:11 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6FE99138F8;
+	Mon, 17 Jul 2023 07:32:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id n6sgKHvutGS+CgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 17 Jul 2023 07:32:11 +0000
-Date: Mon, 17 Jul 2023 09:32:11 +0200
-Message-ID: <87r0p7j8n8.wl-tiwai@suse.de>
+	id voBaGovutGTuCgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 17 Jul 2023 07:32:27 +0000
+Date: Mon, 17 Jul 2023 09:32:26 +0200
+Message-ID: <87pm4rj8mt.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 Cc: alsa-devel@alsa-project.org,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v3] ALSA: emu10k1: set the "no filtering" bits on PCM
- voices on Audigy
-In-Reply-To: <20230715160802.326872-1-oswald.buddenhagen@gmx.de>
-References: <20230715160802.326872-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 1/2] ALSA: emu10k1: clean up driver status comments
+In-Reply-To: <20230715160839.326978-1-oswald.buddenhagen@gmx.de>
+References: <20230715160839.326978-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ZMWAZIZ6MALXOREH64PQOAA3N46RI7C4
-X-Message-ID-Hash: ZMWAZIZ6MALXOREH64PQOAA3N46RI7C4
+Message-ID-Hash: W7JUJIEU5UBK22LWIZ2DZ3M7THL5AZQF
+X-Message-ID-Hash: W7JUJIEU5UBK22LWIZ2DZ3M7THL5AZQF
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZMWAZIZ6MALXOREH64PQOAA3N46RI7C4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7JUJIEU5UBK22LWIZ2DZ3M7THL5AZQF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,24 +118,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 15 Jul 2023 18:08:02 +0200,
+On Sat, 15 Jul 2023 18:08:38 +0200,
 Oswald Buddenhagen wrote:
 > 
-> Given that the filter is already set to neutral for PCM voices, the
-> only observable effect is that the Z1/Z2/FXBUS registers don't have a
-> stray bit set for negative numbers anymore. The bit is below the ones
-> significant for output, but it would mess with 32-bit sample
-> recombination, which we intend to add.
+> Empty BUGS and TODO sections don't really help anyone, so remove them.
 > 
-> kX-project does that, but I had to figure out myself why.
+> Version information is chronically outdated, and not really useful in a
+> git world anyway, so remove it as well.
+> 
+> Also remove duplicated (and outdated, of course) status section from
+> p16v.h (the one in p16v.c is in better shape).
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-> 
-> ---
-> v3:
-> - simplify, as this is actually unrelated to the interpolator
 
-Applied now.  Thanks.
+Applied both patches.  Thanks.
 
 
 Takashi

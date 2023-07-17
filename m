@@ -2,115 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12C9A756E2A
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 22:25:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0C6B756E4E
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 22:34:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84A2BBC0;
-	Mon, 17 Jul 2023 22:24:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A2BBC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9662AAE9;
+	Mon, 17 Jul 2023 22:33:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9662AAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689625516;
-	bh=RzlAtXeTP2DByvra2ai81HQL226V9xT/WyWThWxv+MA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=eWyB00BSfU/5523vbFt4/xk0+bQyi7VHZp915pD8cc+e0MmpUaweZu+AOSMnk2+e3
-	 lZYqdw7NxgCI4b2l3b17Mb3nwCT7R76khSPXwrsvtPTbDFokw+gnE6JxZRyCvue2d+
-	 8g1xCA1WMAVm47FkdE8Iur/LA30xlHgPpiDp9kts=
+	s=default; t=1689626056;
+	bh=0L4rzdFIpNjuoVjGBLJeqycUXeNM9eoCxaTwaIYNRAw=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=pQy8FXJIUd9TddBwL2rESjQNtitgW8em3TBPwc+xJH6fKw/ayVCa+OU8AjVhSRy09
+	 aQrX/TxYjet7yYPCsqCdg3r7E4JNWObzB0BHaqeUftq8v+/uPatW6rhB8NZZlyFGip
+	 A0Twba2Sx6nqBj56m+bi9LItnCDyk6MXEHTG/Xmg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7C32F8032D; Mon, 17 Jul 2023 22:24:19 +0200 (CEST)
+	id DF5F3F80548; Mon, 17 Jul 2023 22:33:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 118FDF8032D;
-	Mon, 17 Jul 2023 22:24:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 886C5F80494;
+	Mon, 17 Jul 2023 22:33:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84B42F8047D; Mon, 17 Jul 2023 22:24:13 +0200 (CEST)
+	id 52067F80520; Mon, 17 Jul 2023 22:33:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87353F8007E
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 22:24:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87353F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 06975F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 22:33:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06975F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Q8fqmZj/
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fa16c6a85cso7787695e87.3
-        for <alsa-devel@alsa-project.org>;
- Mon, 17 Jul 2023 13:24:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1689625443; x=1692217443;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WPmxEAn98qat39xVVQIKzAUFqZtNFTpShvS5B+Il20g=;
-        b=Q8fqmZj/nwim2uqP9c4Pq+vL0vXAHQcvTm9SN8fMiI2W7vtxtSmYu5UyI1msnJ/ybM
-         eAGpk94XUc2OZv6QdcBatakQRuq6Pfg+j7YdglFlux67eJeBgGGLX6zxgzBxnQ9mtULz
-         g7egOxbpkMRADaYHVqLg5mbGgGSZG27jnrhwdwRuCE3gTL5Rc+2vxOb/zn8FQxY9ySSK
-         cwHaQd3v+m5N/siROLzDjA5fwLj8w4yZCx6gj4ZWv63SlfLa5bTNSqfgVGjjgIHcM9ea
-         VMJmC4K7i2cnKRyF7FLWu3e+TmiC7ozwYIsiIlzY/rf+ecDJs4rLj1cz4UixFw/0j5zr
-         yhog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689625443; x=1692217443;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WPmxEAn98qat39xVVQIKzAUFqZtNFTpShvS5B+Il20g=;
-        b=WjtERMSvHpxfDjvtLjJHbaQQNOoVafCaGU1qQ/nVhLMvuLYxYX8KGb5DzDQeczn5CA
-         QiVaJBoHaZ+QV0yJicKnB8m4cGItzS/gErtE3+dtwMQgwmIL7n7HfdMqoUuewVS6Bba2
-         0qmK6vJ0/LDA8wU/rgNbpVIlzjGo5WunVGMBkhDANUwxPEfIUQKlZjVAudtvWYVuoSy5
-         6C6GkEJjYnRhNWpoP02l7DwXKv4evQxVcDpdxgyXcp/CTQs8D3Hn5vYY0dDL6W4ltcsX
-         hsMSehIbii84oi/24xFQJ+mCc0F8zTMccbXXZHZkSghDnYvwu1aNxmPZZ9wDvnZ498TJ
-         bnEg==
-X-Gm-Message-State: ABy/qLaONm6pp9xRJCn2B6gq95wnmQEkdc+Ows3tNHunBeMvx2xTJdeW
-	bQO82TjQ41jppf9qMUhi8TS4Ug==
-X-Google-Smtp-Source: 
- APBJJlEtcmakKntg4CRzzMflCj8rCNgTL3VCRsDKprRKPbcDg7cEv/oMh5h8oGw8JyePosIHuY7FSQ==
-X-Received: by 2002:ac2:4f12:0:b0:4fd:c78d:5419 with SMTP id
- k18-20020ac24f12000000b004fdc78d5419mr1637394lfr.8.1689625443174;
-        Mon, 17 Jul 2023 13:24:03 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
-        by smtp.gmail.com with ESMTPSA id
- v16-20020a056402185000b0051bfc85afaasm87535edy.86.2023.07.17.13.24.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Jul 2023 13:24:02 -0700 (PDT)
-Message-ID: <192fa604-5fe6-c5c2-7fca-10f3a271b640@linaro.org>
-Date: Mon, 17 Jul 2023 22:23:59 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=PDpdFcda
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1F5DB611E4;
+	Mon, 17 Jul 2023 20:33:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D6AC433C8;
+	Mon, 17 Jul 2023 20:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689625993;
+	bh=0L4rzdFIpNjuoVjGBLJeqycUXeNM9eoCxaTwaIYNRAw=;
+	h=From:Subject:Date:To:Cc:From;
+	b=PDpdFcdaknv61TrHPQ/5C9nDPuEEK2ndUzBVRaBxijNxZgoMyvDHARmVIybFy1gDT
+	 dnfv0KIrV4b2fUdNTv9GhFCe8ysEtpfF3myopX1N4faB/C1VtjQSHQDOo9znPC6I8l
+	 UsJvHSc61gKL674glSJMpJonW0qiLpC57jEEBcL0hXUqKM1G5b/04pZIZpX9/t5y66
+	 pI8xWl/wpvJ8c+OLIRIf+W43U919hOHQoThgrYUVnP0guRpfq5pOaSnMJ8UKAPf+AY
+	 6RjHEn5IIsZ9zMQQ0vL869P9no49FGFhSffnY+PdGG92n2rfauJWrXzlL5nPJzsIha
+	 uNVMcnsa3gKTQ==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/3] regmap: Add interface for checking if a register is
+ cached
+Date: Mon, 17 Jul 2023 21:33:02 +0100
+Message-Id: <20230717-regmap-cache-check-v1-0-73ef688afae3@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH V1 5/5] ASoC: dt-bindings: Add schema for "awinic,aw88261"
-To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.co,
- shumingf@realtek.com, herve.codina@bootlin.com, flatmax@flatmax.com,
- ckeepax@opensource.cirrus.com, doug@schmorgal.com, fido_max@inbox.ru,
- pierre-louis.bossart@linux.intel.com, kiseok.jo@irondevice.com,
- liweilei@awinic.com, colin.i.king@gmail.com, trix@redhat.com,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: yijiangtao@awinic.com, zhangjianming@awinic.com
-References: <20230717115845.297991-1-wangweidong.a@awinic.com>
- <20230717115845.297991-6-wangweidong.a@awinic.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230717115845.297991-6-wangweidong.a@awinic.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: EK7P3PJXHNIJQVRPIEBW26MYLDMKBSKC
-X-Message-ID-Hash: EK7P3PJXHNIJQVRPIEBW26MYLDMKBSKC
-X-MailFrom: krzysztof.kozlowski@linaro.org
+X-B4-Tracking: v=1; b=H4sIAH6ltWQC/x2MywqAIBAAf0X23EL2MOxXooPYqktkoRCB9O9Jh
+ znMYaZApsSUYRYFEt2c+YxVZCPABhM9IW/VoWu7vp2kwkT+MBdaYwNhxe6onNK9doOkbYQaXok
+ cP/90Wd/3A5kJhLlkAAAA
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.13-dev-099c9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=838; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0L4rzdFIpNjuoVjGBLJeqycUXeNM9eoCxaTwaIYNRAw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBktaWE0PV8fiHE+4Js3G/p5QP5gwc0nXg+zpR5Q
+ cIX5iLcBMeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZLWlhAAKCRAk1otyXVSH
+ 0GQSB/wMO/T1ZL7PngGGld7rnQe97ZB9EseO7p1nbUMPZxoz9RF6gc9ICtFFjCSEmpWI6n6iNQZ
+ J2bjge8lUMQbBtBbfWmBSsPnEdxk2B6Du3FqPEdVLF0W52B3IoG+DqDxleJ4/8qSLqgLmfbzFss
+ CN/grgcymOgblRULNSQrkBi1wGp+nHCa5jdAsTzpqL4CGLlp1JuzUW7fh5kiClLdIXC11nSXsnm
+ bvQMmyPRlr3QiZH8sxraheQliy/rMJQUadAwwdmpmhSeAEQ5vm1tn2YBOBHrlm8W7vVrSxceteJ
+ hhqm+Edq1zSG2DhbWQvtx1STt4cDMaqx5fxv4s5QrkHdXcH8
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: KSK54IAKNRRZ3Q24NBZ72SWCLT23L6WB
+X-Message-ID-Hash: KSK54IAKNRRZ3Q24NBZ72SWCLT23L6WB
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EK7P3PJXHNIJQVRPIEBW26MYLDMKBSKC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KSK54IAKNRRZ3Q24NBZ72SWCLT23L6WB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,37 +111,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/07/2023 13:58, wangweidong.a@awinic.com wrote:
-> From: Weidong Wang <wangweidong.a@awinic.com>
-> 
-> Add a DT schema for describing Awinic aw88261 audio amplifiers. They are
-> controlled using I2C.
-> 
-> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+HDA has a use case for checking if a register is present in the cache
+which it awkwardly open codes with use of _cache_only() and a read,
+provide a direct API for this.
 
-...
+---
+Mark Brown (3):
+      regmap: Let users check if a register is cached
+      regmap: Provide test for regcache_reg_present()
+      ALSA: hda: Use regcache_reg_cached() rather than open coding
 
-> +  compatible:
-> +    const: awinic,aw88261
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#sound-dai-cells'
-> +  - reset-gpios
-
-I don't see any differences against AW88395. Add the compatible to that
-schema.
+ drivers/base/regmap/regcache.c     | 23 ++++++++++++++++++++++
+ drivers/base/regmap/regmap-kunit.c | 40 ++++++++++++++++++++++++++++++++++++++
+ include/linux/regmap.h             |  1 +
+ sound/hda/hdac_regmap.c            |  9 +++------
+ 4 files changed, 67 insertions(+), 6 deletions(-)
+---
+base-commit: 3953d5c79c21defa716624a8623c4157c0f2fee0
+change-id: 20230716-regmap-cache-check-6f6939f41ed5
 
 Best regards,
-Krzysztof
+-- 
+Mark Brown <broonie@kernel.org>
 

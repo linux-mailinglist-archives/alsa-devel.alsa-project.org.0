@@ -2,91 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAC7E756BA6
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 20:16:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C9A756E2A
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jul 2023 22:25:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A200DEE;
-	Mon, 17 Jul 2023 20:16:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A200DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84A2BBC0;
+	Mon, 17 Jul 2023 22:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A2BBC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689617812;
-	bh=OmMKDjWAGS0CdP7PK45ZzftVRbXmwhJuz0GNS0T+drM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1689625516;
+	bh=RzlAtXeTP2DByvra2ai81HQL226V9xT/WyWThWxv+MA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=U/XgDw2xO2GE75RbCSgdOZqCKuRdRdn7a4Noioi1ZtljtWd2sG0X/LAl7hDcyiDKn
-	 wUtBRTkYLSq0Ud8sojxerfKhKOX40Gm/tDR9IPY5qW1/ZSwSvASnvy6NGMbco8I+hI
-	 6oaItZy62T6rUu5sDlo30KyXT39P4XEP/1X0V5XM=
+	b=eWyB00BSfU/5523vbFt4/xk0+bQyi7VHZp915pD8cc+e0MmpUaweZu+AOSMnk2+e3
+	 lZYqdw7NxgCI4b2l3b17Mb3nwCT7R76khSPXwrsvtPTbDFokw+gnE6JxZRyCvue2d+
+	 8g1xCA1WMAVm47FkdE8Iur/LA30xlHgPpiDp9kts=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11B12F80494; Mon, 17 Jul 2023 20:15:13 +0200 (CEST)
+	id A7C32F8032D; Mon, 17 Jul 2023 22:24:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6465AF80494;
-	Mon, 17 Jul 2023 20:15:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 118FDF8032D;
+	Mon, 17 Jul 2023 22:24:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4859DF8032D; Mon, 17 Jul 2023 20:15:08 +0200 (CEST)
+	id 84B42F8047D; Mon, 17 Jul 2023 22:24:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD1CCF8027B;
-	Mon, 17 Jul 2023 20:14:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD1CCF8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87353F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jul 2023 22:24:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87353F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=vL3kOgoX
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0ABD7611C0;
-	Mon, 17 Jul 2023 18:14:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC103C433C9;
-	Mon, 17 Jul 2023 18:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689617695;
-	bh=OmMKDjWAGS0CdP7PK45ZzftVRbXmwhJuz0GNS0T+drM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=vL3kOgoXcNqDwcsiB4NA1MXYnWRLMa2oZrr86MKOBFytI6r6L73O/YDOyRITDNQ0m
-	 S0Lii6T7KprSe6hRT/AXA/tyYAw5S8Y6fjtZ1Ikk3kQ2gixv0qIDQUbuBqtNzgJJhy
-	 fVuMqgNffOTO8XOtPOqEcfDFmmltxBqlByqLr8FuBI+ovuZ/VFnBBO9MXGsfXz2goD
-	 mbAnj35sgywOib+DkXucQQYVu/2VJZTlfwb7l6/Mx8/VplihpDMxlc2FDP2waWomOl
-	 UEeZDbjtHJNrYc/L0S51KA6Z3dbKPUtIaxXbLZ1+q70RfaaQ6t7nTfg7bMDAS2Gj2F
-	 +U/tuEB2sEogQ==
-From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org
-In-Reply-To: <74148292-ce4d-4e01-a1a7-921e6767da14@moroto.mountain>
-References: <74148292-ce4d-4e01-a1a7-921e6767da14@moroto.mountain>
-Subject: Re: [PATCH] ASoC: SOF: ipc3-dtrace: uninitialized data in
- dfsentry_trace_filter_write()
-Message-Id: <168961769268.448315.12624204835673463699.b4-ty@kernel.org>
-Date: Mon, 17 Jul 2023 19:14:52 +0100
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=Q8fqmZj/
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4fa16c6a85cso7787695e87.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 17 Jul 2023 13:24:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1689625443; x=1692217443;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WPmxEAn98qat39xVVQIKzAUFqZtNFTpShvS5B+Il20g=;
+        b=Q8fqmZj/nwim2uqP9c4Pq+vL0vXAHQcvTm9SN8fMiI2W7vtxtSmYu5UyI1msnJ/ybM
+         eAGpk94XUc2OZv6QdcBatakQRuq6Pfg+j7YdglFlux67eJeBgGGLX6zxgzBxnQ9mtULz
+         g7egOxbpkMRADaYHVqLg5mbGgGSZG27jnrhwdwRuCE3gTL5Rc+2vxOb/zn8FQxY9ySSK
+         cwHaQd3v+m5N/siROLzDjA5fwLj8w4yZCx6gj4ZWv63SlfLa5bTNSqfgVGjjgIHcM9ea
+         VMJmC4K7i2cnKRyF7FLWu3e+TmiC7ozwYIsiIlzY/rf+ecDJs4rLj1cz4UixFw/0j5zr
+         yhog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689625443; x=1692217443;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WPmxEAn98qat39xVVQIKzAUFqZtNFTpShvS5B+Il20g=;
+        b=WjtERMSvHpxfDjvtLjJHbaQQNOoVafCaGU1qQ/nVhLMvuLYxYX8KGb5DzDQeczn5CA
+         QiVaJBoHaZ+QV0yJicKnB8m4cGItzS/gErtE3+dtwMQgwmIL7n7HfdMqoUuewVS6Bba2
+         0qmK6vJ0/LDA8wU/rgNbpVIlzjGo5WunVGMBkhDANUwxPEfIUQKlZjVAudtvWYVuoSy5
+         6C6GkEJjYnRhNWpoP02l7DwXKv4evQxVcDpdxgyXcp/CTQs8D3Hn5vYY0dDL6W4ltcsX
+         hsMSehIbii84oi/24xFQJ+mCc0F8zTMccbXXZHZkSghDnYvwu1aNxmPZZ9wDvnZ498TJ
+         bnEg==
+X-Gm-Message-State: ABy/qLaONm6pp9xRJCn2B6gq95wnmQEkdc+Ows3tNHunBeMvx2xTJdeW
+	bQO82TjQ41jppf9qMUhi8TS4Ug==
+X-Google-Smtp-Source: 
+ APBJJlEtcmakKntg4CRzzMflCj8rCNgTL3VCRsDKprRKPbcDg7cEv/oMh5h8oGw8JyePosIHuY7FSQ==
+X-Received: by 2002:ac2:4f12:0:b0:4fd:c78d:5419 with SMTP id
+ k18-20020ac24f12000000b004fdc78d5419mr1637394lfr.8.1689625443174;
+        Mon, 17 Jul 2023 13:24:03 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+        by smtp.gmail.com with ESMTPSA id
+ v16-20020a056402185000b0051bfc85afaasm87535edy.86.2023.07.17.13.24.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Jul 2023 13:24:02 -0700 (PDT)
+Message-ID: <192fa604-5fe6-c5c2-7fca-10f3a271b640@linaro.org>
+Date: Mon, 17 Jul 2023 22:23:59 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH V1 5/5] ASoC: dt-bindings: Add schema for "awinic,aw88261"
+To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.co,
+ shumingf@realtek.com, herve.codina@bootlin.com, flatmax@flatmax.com,
+ ckeepax@opensource.cirrus.com, doug@schmorgal.com, fido_max@inbox.ru,
+ pierre-louis.bossart@linux.intel.com, kiseok.jo@irondevice.com,
+ liweilei@awinic.com, colin.i.king@gmail.com, trix@redhat.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: yijiangtao@awinic.com, zhangjianming@awinic.com
+References: <20230717115845.297991-1-wangweidong.a@awinic.com>
+ <20230717115845.297991-6-wangweidong.a@awinic.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230717115845.297991-6-wangweidong.a@awinic.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: WEKYB4FPVA5BB26SMY2STW6HPLZXILBW
-X-Message-ID-Hash: WEKYB4FPVA5BB26SMY2STW6HPLZXILBW
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: EK7P3PJXHNIJQVRPIEBW26MYLDMKBSKC
+X-Message-ID-Hash: EK7P3PJXHNIJQVRPIEBW26MYLDMKBSKC
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WEKYB4FPVA5BB26SMY2STW6HPLZXILBW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EK7P3PJXHNIJQVRPIEBW26MYLDMKBSKC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,44 +131,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 07 Jul 2023 14:25:23 +0300, Dan Carpenter wrote:
-> This doesn't check how many bytes the simple_write_to_buffer() writes to
-> the buffer.  The only thing that we know is that the first byte is
-> initialized and the last byte of the buffer is set to NUL.  However
-> the middle bytes could be uninitialized.
+On 17/07/2023 13:58, wangweidong.a@awinic.com wrote:
+> From: Weidong Wang <wangweidong.a@awinic.com>
 > 
-> There is no need to use simple_write_to_buffer().  This code does not
-> support partial writes but instead passes "pos = 0" as the starting
-> offset regardless of what the user passed as "*ppos".  Just use the
-> copy_from_user() function and initialize the whole buffer.
+> Add a DT schema for describing Awinic aw88261 audio amplifiers. They are
+> controlled using I2C.
 > 
-> [...]
+> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
 
-Applied to
+...
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> +  compatible:
+> +    const: awinic,aw88261
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#sound-dai-cells':
+> +    const: 0
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#sound-dai-cells'
+> +  - reset-gpios
 
-Thanks!
+I don't see any differences against AW88395. Add the compatible to that
+schema.
 
-[1/1] ASoC: SOF: ipc3-dtrace: uninitialized data in dfsentry_trace_filter_write()
-      commit: 469e2f28c2cbee2430058c1c9bb6d1675d7195fb
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+Krzysztof
 

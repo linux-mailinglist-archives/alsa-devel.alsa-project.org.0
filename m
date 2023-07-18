@@ -2,101 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED9F275833D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 19:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 764CB758342
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 19:13:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEE571E9;
-	Tue, 18 Jul 2023 19:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEE571E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86AD311C;
+	Tue, 18 Jul 2023 19:12:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86AD311C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689700154;
-	bh=LowChJyNpWySLgzTtjQDu+vchcaLd6zgP20alhFs/kY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1689700413;
+	bh=cvVUmF/Byj7QkQwX2hARx4Q85YlvO7HOrgCzgrNcXhI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hFaHvDAanwwZAVUn2UVEEtx0jqRe2gxVxP3Ra174ST2tK/xa3AWVGgqR06dDkGGYX
-	 xG7IbTMQPxY0cW6J9pvr6au+1Y9yICLJvDR9GU1sjwMnquovqpoFfcKBc5h3yd5AO8
-	 Y8fSYKWKOhAVF04cn17Fuly0zvApPqtZrkBMAJHY=
+	b=J9mYRbaYHmjLe7t2v2RlqeJCL3Q0eoTLWqOMWhJo8+RnzuDsA8f7+nDKr1hZ01aXk
+	 md1hFGAXCmbsosF5ej9aRaxVIM4nbCY/6G0qOEpEpi5i77paYREScQOxhxOTrYAg83
+	 1DDd8EkXiX4d5YsN4Td0StYMXFqzMpnlNsZXsMwk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 561F1F8032D; Tue, 18 Jul 2023 19:08:23 +0200 (CEST)
+	id EE008F804DA; Tue, 18 Jul 2023 19:12:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B03DCF8027B;
-	Tue, 18 Jul 2023 19:08:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A47D4F8027B;
+	Tue, 18 Jul 2023 19:12:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0F89F8032D; Tue, 18 Jul 2023 19:08:20 +0200 (CEST)
+	id E40CFF8032D; Tue, 18 Jul 2023 19:12:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 306F9F80153;
-	Tue, 18 Jul 2023 19:08:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 306F9F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 692DCF80153
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 19:12:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 692DCF80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=HWN8FBlv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689700094; x=1721236094;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=LowChJyNpWySLgzTtjQDu+vchcaLd6zgP20alhFs/kY=;
-  b=HWN8FBlv9qJoApVlrxCHy2cJOlTZGMrNdD5z2FEOj35MvEChPqm8t7Qk
-   A0izz7358eVO/QbgGEiD46e/rhQyXo7162BDiVUCLW323HkH+AQq9ghHr
-   kFxA4L/7XMFj56WP1qFRDfbR4maa/JplwaMe3/YyV3MBFevq3wTStmCMG
-   6OSGcU6D/Wre+K/uqlAvJMuoL3q+YmyDN8t7xmZde2YaOocsjOZTDxL7B
-   /PKZlVVmcayQW2wQT9qPGLzolvu+e9r/pZeYnPBrNQ7HJJHga8+zppYmN
-   lCd7xAT0nXUjMZJ/Fbyv6DHep+ZCY/U21tWq3VmY34Cm1l2Vwk8Jic20t
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="430025056"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200";
-   d="scan'208";a="430025056"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 10:08:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="717674959"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200";
-   d="scan'208";a="717674959"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 10:08:00 -0700
-Date: Tue, 18 Jul 2023 20:04:41 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-cc: Alsa-devel <alsa-devel@alsa-project.org>,
-    sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
-    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-    Cezary Rojewski <cezary.rojewski@intel.com>,
-    Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-    Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-    Bard Liao <yung-chuan.liao@linux.intel.com>,
-    Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-    Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-    Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
-    Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [PATCH 6/7] ASoC: SOF: Intel: Remove deferred probe for SOF
-In-Reply-To: <20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
-Message-ID: 
- <alpine.DEB.2.22.394.2307181922160.3532114@eliteleevi.tm.intel.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
- <20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=VIp4yZQM
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-566e793e0a0so3664315eaf.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 18 Jul 2023 10:12:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689700349; x=1692292349;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WxoAmWOTGmAK0C29Jv3+VEC9cR+TydcbEvA8jm7tkyg=;
+        b=VIp4yZQMRPlbSNg6mg9zGnAsNuBqWWfMpO6sB2p/FLgH59S6H784MsN68s1MKEBScG
+         nTMM5qf2TjlvFztuBCsRll+sw7WQEKFK0Kh5IbU3o1/7onMuALRUt9fq0c7hA/ElbQ/W
+         Zhq7gFwIkpeBeFYIqmMbGV5aGTZ3LXHJS7yFiJ7Yto0WbOxU0/B7JqZFKip9KHg5VUGz
+         4BpJOqSgQM+U4vZLVzsIEQ8RerKAxx0FtwfBzhCVoknijh7K+sxEtwkMafPDJzVF9I8Z
+         ++UKIpgYBq6gTnd8m+EGEsFJIUSY8o0P2tyWerIMhL+HZCTBBkgmP084CFUP/XjBwaQR
+         +gcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689700349; x=1692292349;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WxoAmWOTGmAK0C29Jv3+VEC9cR+TydcbEvA8jm7tkyg=;
+        b=Y27Y7kmd2n0NScO1YuuBdM+0nVFzGid73mPEXs6UrIJ0f1ZLg/CvQmMm6iq2xA6mos
+         cTF9JFypwubchFbrpY9R4f0usO/fUdIo39WSOsE2kst/vtscPRhrSEAEdfFTbDxQd5PR
+         4X3A9DwmTo3/P9U97SjX8OtQ42L5eEMvcoTpkfxqaqxoyibBuAiKHhLbFx9P/nPuWvMt
+         +ClABcdjBY5b6M8AYvb98SgPQm156hVW9GjPQMxJmARzzxHHCdUeEJlzucZ3G1TQkJoY
+         nh1S7LmIn19VYfOfq/vY5a8uxuGzBKoGhWAmulzxvQih8eXrQ4MgtlGPw3tZagROWnIX
+         Ax/Q==
+X-Gm-Message-State: ABy/qLZeKWVaEzGq9RizwIzRzAwZpwcTtCl09aZI4/W5/87ol+kF6fzo
+	p207QHvsC6ovZZ1ZM1OeZ4w=
+X-Google-Smtp-Source: 
+ APBJJlG7tsW7gJScTgOTQtEv9ydQ+UzhnmoGi8ye3rz0jCicMnIViu92XqH0tkTQgljLapY2ZdhDeQ==
+X-Received: by 2002:a4a:d20b:0:b0:566:fba5:e51b with SMTP id
+ c11-20020a4ad20b000000b00566fba5e51bmr7605774oos.7.1689700348895;
+        Tue, 18 Jul 2023 10:12:28 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:a438:f194:617f:f5b4:cc70])
+        by smtp.gmail.com with ESMTPSA id
+ h66-20020a4a5e45000000b0056665a16536sm1000760oob.30.2023.07.18.10.12.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Jul 2023 10:12:28 -0700 (PDT)
+Date: Tue, 18 Jul 2023 14:12:26 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Ico Bukvic <ico@vt.edu>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: Fwd: Odd issue with ALSA connecting directly to HDMI audio output
+Message-ID: <ZLbH+qC2j9FQ5pTE@geday>
+References: 
+ <CAJrgGbZfPYHhf+p1TJO_LQe=pxkxDtAMPsY6sXOh1xVxq0b69w@mail.gmail.com>
+ <CAJrgGbbg-WQ1iAqsG9fe559FvOQUz-hmxj08wcP1oDPTXUyeqQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: J2BVU5GSVHLO5URZXC5TFRDFECAVXD6J
-X-Message-ID-Hash: J2BVU5GSVHLO5URZXC5TFRDFECAVXD6J
-X-MailFrom: kai.vehmanen@linux.intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: 
+ <CAJrgGbbg-WQ1iAqsG9fe559FvOQUz-hmxj08wcP1oDPTXUyeqQ@mail.gmail.com>
+Message-ID-Hash: PEKALJCCMXICQR4WSWSV5ZQQGXWJ5SZZ
+X-Message-ID-Hash: PEKALJCCMXICQR4WSWSV5ZQQGXWJ5SZZ
+X-MailFrom: geraldogabriel@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2BVU5GSVHLO5URZXC5TFRDFECAVXD6J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PEKALJCCMXICQR4WSWSV5ZQQGXWJ5SZZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,64 +123,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+On Tue, Jul 18, 2023 at 12:22:35PM -0400, Ico Bukvic wrote:
+> Hi all,
 
-thank you Maarten for doing the series! I think a lot of people will be 
-happy to get rid of the 60sec timeout. 
+Hi Ico and friends,
 
-I kicked off a CI run SOF public infra for the whole series at
-https://github.com/thesofproject/linux/pull/4478
-Some results still in progress but so far so good.
+> 
+> I have a consumer-level setup audio question. My research project uses a
+> Raspberry Pi in conjunction with a small portable monitor that has built-in
+> loudspeakers that are to be used via HDMI connection. The goal here is
+> portability and minimal cost.
+> 
+> Curiously, when trying to connect to monitor's loudspeakers (via HDMI)
+> using ALSA, no matter what settings I pick, at worst I cannot get
+> audio out, and at best, get a buzzy sound whose waveform is in the attached
+> image. The sound is clearly periodic and impulse-like. It happens every 59
+> samples. Changing sample rate increases pitch, suggesting 59 samples remain
+> constant regardless of the sampling rate. When playing the actual audio,
+> you can hear it in the background, but this buzz is easily overpowering it.
+> 
 
-Some concerns inline:
+Ico, just a wild guess but are you sure you are not capturing the raw SPDIF
+signal going through HDMI instead of Linear PCM audio signal?
 
-On Tue, 18 Jul 2023, Maarten Lankhorst wrote:
+> Changing sample rate or bit depth, or buffering, makes no difference.
+> Selecting 8 channels for output (one of HDMI's standards, as far as I can
+> tell), sometimes manages to output a tiny chunk of a good audio sample, and
+> then goes silent.
+> 
+> Now, even more curiously, when using the portaudio backend and connecting
+> to the default pulseaudio sink, works just fine. What could be causing this
+> discrepancy?
 
-> This was only used to allow modprobing i915, by converting to the
-> -EPROBE_DEFER mechanism, it can be completely removed, and is in
-> fact counterproductive since -EPROBE_DEFER otherwise won't be
-> handled correctly.
+Perhaps PortAudio is forcing the Linear PCM bits on the underlying ALSA
+backend somehow, see for example:
+https://fossies.org/linux/alsa-lib/src/conf/pcm/iec958.conf
+But this is just wild speculation, it may or may not be the case with
+your report. It's best if you ask Takashi Iwai and Jaroslav Kysela
+directly through the list with Cc: in case nobody else has any more
+ideas of what could be the root cause of your report.
 
-We actually have a request_module() for the regular HDA codec drivers as 
-well (sof_probe_continue() -> snd_sof_probe() -> hda_dsp_probe() -> 
-hda_init_caps() -> hda_codec_probe_bus(). But right, this is not 
-necessarily a problem on its own, so it looks we indeed can drop the work 
-queue. Nice!
+Good luck,
+Geraldo Nascimento
 
-> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-> index f1fd5b44aaac9..344b61576c0e3 100644
-> --- a/sound/soc/sof/intel/hda-codec.c
-> +++ b/sound/soc/sof/intel/hda-codec.c
-> @@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
->  		return 0;
->  
->  	/* i915 exposes a HDA codec for HDMI audio */
-> -	ret = snd_hdac_i915_init(bus, true);
-> +	ret = snd_hdac_i915_init(bus, false);
->  	if (ret < 0)
->  		return ret;
+> 
+> Best,
+> 
+> Ico
+> 
+> -- 
+> Ivica Ico Bukvic, D.M.A.
+> Director, Creativity + Innovation
+> Director, Human-Centered Design iPhD
+> Institute for Creativity, Arts, and Technology
+> 
+> Virginia Tech
+> Creative Technologies in Music
+> School of Performing Arts – 0141
+> Blacksburg, VA 24061
+> (540) 231-6139
+> ico@vt.edu
+> 
+> ci.icat.vt.edu
+> l2ork.icat.vt.edu
+> ico.bukvic.net
 
-My only bigger concern is corner cases where the display PCI device is on 
-the bus and visible to kernel, but for some reason there is no working 
-driver in the system or it is disabled.
 
-With this patch, not having a workign display driver means that there is 
-also no audio in the system as the SOF driver will never get probed.
-
-In current mainline, one will get the 60sec timeout warning and then
-audio driver will proceed to probe and you'll have audio support (minus 
-HDMI/DP).
-
-This is mostly an issue with very new hardware (e.g. hw is still 
-behind force_probe flag in xe/i915 driver), but we've had some odd
-cases with e.g. systems with both Intel IGFX and other vendors' DGPU. 
-Audio drivers see the Intel VGA controller in system and will
-call snd_hdac_i915_init(), but the audio component bind will never
-succeed if the the Intel IGFX is not in actual use.
-
-Will need a bit of time to think about possible scenarios. Possibly this 
-is not an issue outside early development systems. In theory if IGFX is 
-disabled in BIOS, and not visible to OS, we are good, and if it's visible, 
-the i915/xe driver should be loaded, so we are good again.
-
-Br, Kai

@@ -2,82 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76F4375791E
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:17:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C497757920
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:17:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C94B1E7C;
-	Tue, 18 Jul 2023 12:16:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94B1E7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B732DF3;
+	Tue, 18 Jul 2023 12:16:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B732DF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689675446;
-	bh=KSKs5NPuQc2LlQdFymp7482kzoHFSMAQAjUcRnG07zY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689675463;
+	bh=h23blyzLZM8WfIrl+W2qO1dGdAETHSt/JxQf4KYOqX4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VNJ6UuecVapOPM+vAdcZGGJ3x6URQJFRuOKyNjtC5UpY16xMItzxaVewL/FGMAJHh
-	 Fzvw1flES/8nq/ZtphedLVP5kdUAMgCOjlSbAPHneWlnJr/cCLze+sQsTJdEodP5OL
-	 WOQww0EXOsiUmME3S6mb3/XmBi8DT5UV75tiBKE4=
+	b=dD1WxM1BSeS/UBigodOL1S7ulTu2/w1d51/SraScDbXoKtDex1VKVH8poszhK+wb6
+	 0NKCexbqcCAJKbg4eoVdkQiN5ZYwh3sa7hxjNsEr8/1iK2zdr72sjvsHVwxtmkRCI8
+	 MYUV1ClQCKYSytYBjYyQFCHMh6lqTNu2/EOxiG50=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3793F805D5; Tue, 18 Jul 2023 12:14:18 +0200 (CEST)
+	id BE466F805E2; Tue, 18 Jul 2023 12:14:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54473F805D6;
-	Tue, 18 Jul 2023 12:14:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C000F805E2;
+	Tue, 18 Jul 2023 12:14:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C969F8047D; Tue, 18 Jul 2023 10:46:13 +0200 (CEST)
+	id 9F083F8047D; Tue, 18 Jul 2023 11:03:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-15.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 277E2F8032D;
-	Tue, 18 Jul 2023 10:46:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 277E2F8032D
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: sound-open-firmware@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Subject: [PATCH 7/7] ALSA: hda/i915: Remove extra argument from
- snd_hdac_i915_init
-Date: Tue, 18 Jul 2023 10:45:22 +0200
-Message-Id: <20230718084522.116952-8-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5017F80153
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5017F80153
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20221208 header.b=dLqELBzB
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-3fbb07e7155so69845e9.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 18 Jul 2023 02:03:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1689671020; x=1692263020;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=kIOGzQrQNwwpGZ53gcNEFR8ayiSZ7NVB6/3m58G4xrM=;
+        b=dLqELBzBthd+Q+CwV6uPtGtMVd0/kwAjwWWOu8BX8rYWu3O2Z+bZuwR7zB3isVoIvv
+         oxgX555O4kJzl6Y5Dw6BcVR1wvaWznTKVTsvMeduBOHlFGu7AaV2Qo5ckl3TSsplXkEi
+         OUfSixeSgARYuUke0xVhdKD6JYuVvIAu5m+rz0szaZ1S9ZhMCKIlO4gc6w5kDL+Wtc28
+         cHyJXElM8G/4hyoDEk4q6v473+0954czcYzeD0Rp6W2HTK7PDFidB2EKtJiLd13ujBnI
+         DuVCKZ2pKPR5cDMy5l/WJffYIAVXAccKv19/QY5rTF/eAPz/8WuW9LCbUdEJaVdgNYM7
+         VhFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689671020; x=1692263020;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kIOGzQrQNwwpGZ53gcNEFR8ayiSZ7NVB6/3m58G4xrM=;
+        b=Xm66Trh6811wBqxXHEKIBmfaCjWJlsdFfCVBVpeB+u8Ih71Is/6YNyb8ju5P6GMFbd
+         bXBIRSnvDnERLToWL40kShlRfzSnQPC8RSIny8/Mu2/S6JIDpSNdBZcKik87cSTlm1r8
+         wuCgewx+Wgl7wGbD2/B8UPTh03DA2RWOCLRMAMrK4hTCcTSFTi8VQzqG2MNWW08jo6Su
+         VArEAE3wBL+Enr+dPIelDro7bvXyWJnnpk1dteMBzxCGZZMu3ab3KPWPp6iIUuJC7cQN
+         5+XSOTkUaZG4aZkqCuU22FvxFi1w2IWvoOpV64SqtJItkA47ck3PtIyb07V9ijXGBKmR
+         kPAA==
+X-Gm-Message-State: ABy/qLZoONFKmJr5DznO5kzUYPisV3YCEOM888SY2hA2MrEbYweYLaRy
+	WsaWdB6As9/34OVQw7SsFRrtXpTVIoS/QBZOJYtAUA==
+X-Google-Smtp-Source: 
+ APBJJlEhIN82ETjhMNVU+3kG/yISm0CnrlIrrSeNDSYNi9ZIblw2P1wBfFAI7v4HuaNP1DrIaioPeWtFsqgKXdej4Qc=
+X-Received: by 2002:a05:600c:358d:b0:3f1:73b8:b5fe with SMTP id
+ p13-20020a05600c358d00b003f173b8b5femr56294wmq.3.1689671020609; Tue, 18 Jul
+ 2023 02:03:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: mlankhorst@mblankhorst.nl
+References: <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-1-0ee11e662b92@kernel.org>
+In-Reply-To: 
+ <20230718-asoc-topology-kunit-enable-v2-1-0ee11e662b92@kernel.org>
+From: David Gow <davidgow@google.com>
+Date: Tue, 18 Jul 2023 17:03:27 +0800
+Message-ID: 
+ <CABVgOS=pfVkNFT5E0ERgEpCeCoaYi4dmCBjG2H3=w1Eddgh7_g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] driver core: Provide stubs for !IOMEM builds
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ Brendan Higgins <brendan.higgins@linux.dev>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+	alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256;
+	boundary="000000000000fe2fc10600bf30bb"
+X-MailFrom: davidgow@google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: Y4KLM4EA57GTS7UUCHCXDPRTRHZIPNL5
-X-Message-ID-Hash: Y4KLM4EA57GTS7UUCHCXDPRTRHZIPNL5
-X-Mailman-Approved-At: Tue, 18 Jul 2023 10:13:56 +0000
+Message-ID-Hash: X3J7PAZWOW542XQHGNQM7SV424ZG5OLU
+X-Message-ID-Hash: X3J7PAZWOW542XQHGNQM7SV424ZG5OLU
+X-Mailman-Approved-At: Tue, 18 Jul 2023 10:14:06 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y4KLM4EA57GTS7UUCHCXDPRTRHZIPNL5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X3J7PAZWOW542XQHGNQM7SV424ZG5OLU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,127 +124,167 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now that all drivers have moved from modprobe loading to
-handling -EPROBE_DEFER, we can remove the argument again.
+--000000000000fe2fc10600bf30bb
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
----
- include/sound/hda_i915.h        |  4 ++--
- sound/hda/hdac_i915.c           | 17 +++--------------
- sound/pci/hda/hda_intel.c       |  2 +-
- sound/soc/intel/avs/core.c      |  2 +-
- sound/soc/intel/skylake/skl.c   |  2 +-
- sound/soc/sof/intel/hda-codec.c |  2 +-
- 6 files changed, 9 insertions(+), 20 deletions(-)
+On Tue, 18 Jul 2023 at 08:29, Mark Brown <broonie@kernel.org> wrote:
+>
+> The various _ioremap_resource functions are not built when
+> CONFIG_HAS_IOMEM is disabled but no stubs are provided. Given how
+> widespread IOMEM usage is in drivers and how rare !IOMEM configurations
+> are in practical use let's just provide some stubs so users will build
+> without having to add explicit dependencies on HAS_IOMEM.
+>
+> The most likely use case is builds with UML for KUnit testing.
+>
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
 
-diff --git a/include/sound/hda_i915.h b/include/sound/hda_i915.h
-index f91bd66360865..6b79614a893b9 100644
---- a/include/sound/hda_i915.h
-+++ b/include/sound/hda_i915.h
-@@ -9,12 +9,12 @@
- 
- #ifdef CONFIG_SND_HDA_I915
- void snd_hdac_i915_set_bclk(struct hdac_bus *bus);
--int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe);
-+int snd_hdac_i915_init(struct hdac_bus *bus);
- #else
- static inline void snd_hdac_i915_set_bclk(struct hdac_bus *bus)
- {
- }
--static inline int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
-+static inline int snd_hdac_i915_init(struct hdac_bus *bus)
- {
- 	return -ENODEV;
- }
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index c88f251388e80..1637dc6e630a6 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -146,7 +146,7 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
-  *
-  * Returns zero for success or a negative error code.
-  */
--int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
-+int snd_hdac_i915_init(struct hdac_bus *bus)
- {
- 	struct drm_audio_component *acomp;
- 	int err;
-@@ -162,21 +162,10 @@ int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
- 	acomp = bus->audio_component;
- 	if (!acomp)
- 		return -ENODEV;
--	if (allow_modprobe && !acomp->ops) {
--		if (!IS_ENABLED(CONFIG_MODULES) ||
--		    !request_module("i915")) {
--			/* 60s timeout */
--			wait_for_completion_killable_timeout(&acomp->master_bind_complete,
--							     msecs_to_jiffies(60 * 1000));
--		}
--	}
- 	if (!acomp->ops) {
--		if (allow_modprobe)
--			dev_info(bus->dev, "couldn't bind with audio component\n");
--		else
--			dev_dbg(bus->dev, "couldn't bind with audio component\n");
-+		dev_dbg(bus->dev, "couldn't bind with audio component\n");
- 		snd_hdac_acomp_exit(bus);
--		return allow_modprobe ? -ENODEV : -EPROBE_DEFER;
-+		return -EPROBE_DEFER;
- 	}
- 	return 0;
- }
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index d40345a0088d8..0959e86b9a165 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2176,7 +2176,7 @@ static int azx_probe(struct pci_dev *pci,
- #ifdef CONFIG_SND_HDA_I915
- 	/* bind with i915 if needed */
- 	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT) {
--		err = snd_hdac_i915_init(azx_bus(chip), false);
-+		err = snd_hdac_i915_init(azx_bus(chip));
- 		if (err < 0) {
- 			/* if the controller is bound only with HDMI/DP
- 			 * (for HSW and BDW), we need to abort the probe;
-diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
-index d3a7f42387e9b..bd1caf8cf90c4 100644
---- a/sound/soc/intel/avs/core.c
-+++ b/sound/soc/intel/avs/core.c
-@@ -461,7 +461,7 @@ static int avs_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
- 	pci_set_drvdata(pci, bus);
- 	device_disable_async_suspend(dev);
- 
--	ret = snd_hdac_i915_init(bus, false);
-+	ret = snd_hdac_i915_init(bus);
- 	if (ret == -EPROBE_DEFER)
- 		goto err_unmaster;
- 	else if (ret < 0)
-diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index ff80d83a9fb72..49147ee3a76db 100644
---- a/sound/soc/intel/skylake/skl.c
-+++ b/sound/soc/intel/skylake/skl.c
-@@ -1056,7 +1056,7 @@ static int skl_probe(struct pci_dev *pci,
- 	}
- 
- 	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)) {
--		err = snd_hdac_i915_init(bus, false);
-+		err = snd_hdac_i915_init(bus);
- 		if (err < 0)
- 			goto out_dmic_unregister;
- 	}
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 344b61576c0e3..8a5e99a898ecb 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
- 		return 0;
- 
- 	/* i915 exposes a HDA codec for HDMI audio */
--	ret = snd_hdac_i915_init(bus, false);
-+	ret = snd_hdac_i915_init(bus);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.39.2
+This is really nice, thanks: we've definitely wasted^W spent a lot of
+time adding the appropriate IOMEM dependencies when trying to setup
+KUnit configs, so I'm looking forward to not worrying about that
+again.
 
+We have considered implementing fake versions of these specifically
+aimed at testing, and are looking into the PCI-over-virtio
+implementation in UML's LOGIC_IOMEM feature, which allows redirecting
+IOMEM accesses to something more test-friendly.
+
+Neither of those conflict with this as a fallback, though, and I'm all for it.
+
+Reviewed-by: David Gow <davidgow@google.com>
+
+Cheers,
+-- David
+
+
+>  include/linux/device.h | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+>
+> diff --git a/include/linux/device.h b/include/linux/device.h
+> index bbaeabd04b0d..6731d7dc1a2a 100644
+> --- a/include/linux/device.h
+> +++ b/include/linux/device.h
+> @@ -349,6 +349,7 @@ unsigned long devm_get_free_pages(struct device *dev,
+>                                   gfp_t gfp_mask, unsigned int order);
+>  void devm_free_pages(struct device *dev, unsigned long addr);
+>
+> +#ifdef CONFIG_HAS_IOMEM
+>  void __iomem *devm_ioremap_resource(struct device *dev,
+>                                     const struct resource *res);
+>  void __iomem *devm_ioremap_resource_wc(struct device *dev,
+> @@ -357,6 +358,31 @@ void __iomem *devm_ioremap_resource_wc(struct device *dev,
+>  void __iomem *devm_of_iomap(struct device *dev,
+>                             struct device_node *node, int index,
+>                             resource_size_t *size);
+> +#else
+> +
+> +static inline
+> +void __iomem *devm_ioremap_resource(struct device *dev,
+> +                                   const struct resource *res)
+> +{
+> +       return ERR_PTR(-EINVAL);
+> +}
+> +
+> +static inline
+> +void __iomem *devm_ioremap_resource_wc(struct device *dev,
+> +                                      const struct resource *res)
+> +{
+> +       return ERR_PTR(-EINVAL);
+> +}
+> +
+> +static inline
+> +void __iomem *devm_of_iomap(struct device *dev,
+> +                           struct device_node *node, int index,
+> +                           resource_size_t *size)
+> +{
+> +       return ERR_PTR(-EINVAL);
+> +}
+> +
+> +#endif
+>
+>  /* allows to add/remove a custom action to devres stack */
+>  void devm_remove_action(struct device *dev, void (*action)(void *), void *data);
+>
+> --
+> 2.39.2
+>
+
+--000000000000fe2fc10600bf30bb
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIIPnwYJKoZIhvcNAQcCoIIPkDCCD4wCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ggz5MIIEtjCCA56gAwIBAgIQeAMYYHb81ngUVR0WyMTzqzANBgkqhkiG9w0BAQsFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMzETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMDA3MjgwMDAwMDBaFw0yOTAzMTgwMDAwMDBaMFQxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSowKAYDVQQDEyFHbG9iYWxTaWduIEF0bGFz
+IFIzIFNNSU1FIENBIDIwMjAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCvLe9xPU9W
+dpiHLAvX7kFnaFZPuJLey7LYaMO8P/xSngB9IN73mVc7YiLov12Fekdtn5kL8PjmDBEvTYmWsuQS
+6VBo3vdlqqXZ0M9eMkjcKqijrmDRleudEoPDzTumwQ18VB/3I+vbN039HIaRQ5x+NHGiPHVfk6Rx
+c6KAbYceyeqqfuJEcq23vhTdium/Bf5hHqYUhuJwnBQ+dAUcFndUKMJrth6lHeoifkbw2bv81zxJ
+I9cvIy516+oUekqiSFGfzAqByv41OrgLV4fLGCDH3yRh1tj7EtV3l2TngqtrDLUs5R+sWIItPa/4
+AJXB1Q3nGNl2tNjVpcSn0uJ7aFPbAgMBAAGjggGKMIIBhjAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0l
+BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFHzM
+CmjXouseLHIb0c1dlW+N+/JjMB8GA1UdIwQYMBaAFI/wS3+oLkUkrk1Q+mOai97i3Ru8MHsGCCsG
+AQUFBwEBBG8wbTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AyLmdsb2JhbHNpZ24uY29tL3Jvb3Ry
+MzA7BggrBgEFBQcwAoYvaHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvcm9vdC1y
+My5jcnQwNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9yb290LXIz
+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
+9IGQSBx2i4m+hGXJpET+MEwGA1UdIARFMEMwQQYJKwYBBAGgMgEoMDQwMgYIKwYBBQUHAgEWJmh0
+dHBzOi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAwGA1UdEwEB/wQCMAAwgZoGCCsG
+AQUFBwEBBIGNMIGKMD4GCCsGAQUFBzABhjJodHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9jYS9n
+c2F0bGFzcjNzbWltZWNhMjAyMDBIBggrBgEFBQcwAoY8aHR0cDovL3NlY3VyZS5nbG9iYWxzaWdu
+LmNvbS9jYWNlcnQvZ3NhdGxhc3Izc21pbWVjYTIwMjAuY3J0MB8GA1UdIwQYMBaAFHzMCmjXouse
+LHIb0c1dlW+N+/JjMEYGA1UdHwQ/MD0wO6A5oDeGNWh0dHA6Ly9jcmwuZ2xvYmFsc2lnbi5jb20v
+Y2EvZ3NhdGxhc3Izc21pbWVjYTIwMjAuY3JsMA0GCSqGSIb3DQEBCwUAA4IBAQCRI3Z4cAidgFcv
+Usqdz765x6KMZSfg/WtFrYg8ewsP2NpCxVM2+EhPyyEQ0k0DhtzdtGoI/Ug+jdFDyCKB9P2+EPLh
+iMjMnFILp7Zs4r18ECHlvZuDZfH9m0BchXIxu5jLIuQyKUWrCRDZZEDNr510ZhhVfYSFPA8ms1nk
+jyzYFOHYQyv5IfML/3IBFKlON5OZa+V8EZYULYcNkp03DdWglafj7SXZ1/XgAbVYrC381UvrsYN8
+jndVvoa1GWwe+NVlIIK7Q3uAjV3qLEDQpaNPg1rr0oAn6YmvTccjVMqj2YNwN+RHhKNzgRGxY5ct
+FaN+8fXZhRhpv3bVbAWuPZXoMYICajCCAmYCAQEwaDBUMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQ
+R2xvYmFsU2lnbiBudi1zYTEqMCgGA1UEAxMhR2xvYmFsU2lnbiBBdGxhcyBSMyBTTUlNRSBDQSAy
+MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCBu
+vqDJUxTytrhJE2bob91KhgkIv/9swMczMBWhkF+rdzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
+MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNDBaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
+BAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEKMAsG
+CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAekEp47TivOGaMtuI6rfL
+P5wj5Xf0f6E5iAM/I7TkUsZyeWTXZTpHz9Z9F9mJ2VZi+iyS4ornFx8dXd0jigYMpmnafeH3vVNz
+UNZfsbiZQXjAVySm2Ptz/kUQElI3eup8TOQorg3q4PKgM7TThToAncyiL58nWP5E7gAKsJ6zN6Rp
+i7/fgsHmNqOfYZZ/f/tkUQHsF/DoVYwITbzmEO1dOne/kpKrAndLlbMCiQbtz+v5usZGU6CNrxl4
+eraVauB4RrInENubyHnAi+VsFq93RM4ro6ROuP+32J/kFFvvKfjgvhxYasL2LwcpCTJ+dIhIjtoQ
+pPzWphHaFgpH2/t2KA==
+--000000000000fe2fc10600bf30bb--

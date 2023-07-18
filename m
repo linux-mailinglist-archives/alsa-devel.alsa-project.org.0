@@ -2,85 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79017757BB3
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 14:22:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D443C757B67
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 14:07:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93588DEC;
-	Tue, 18 Jul 2023 14:21:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93588DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4C7D846;
+	Tue, 18 Jul 2023 14:06:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4C7D846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689682940;
-	bh=5dCL3lDSxIdcSu7OovkLTdDkIjmpDhADik8BCbJVh8k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1689682048;
+	bh=lvdwykiQgs9pSoXQtwOY5v2GzaAVhK0yDEcIDDKcLdk=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GckLGInO5+4CIpi+sSCjHfF1k4jF7gbMl4TnWaNl/7+gCilbMNAo6bLjluVTEtMH0
-	 95wr13k3Zhv5wqwTE+v32DFk5h4U6d73g/XRFU63RHNaQIuf7QAwGfrL4ZZn1Wa9rr
-	 qCdTRm0+FobC20HivobOfZlOJSQR/M66o/fZcOr4=
+	b=mH2Z9dlQDg89rG9y0Zu+IEF2cp+ta5uCB0RbGE6H4oVZtrDWMephfD4JLsBErZs9V
+	 2+QpWBUu5AiDdDXg7LtDpl+iGXDwPb8nRAnubAAaAiRcPnBSZ4O0mV30P+GEKZnrUK
+	 CDp542I9KQP7N5OBZQd78YBdhhLnGuxM5cRcUAZ0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EAA6F80548; Tue, 18 Jul 2023 14:20:41 +0200 (CEST)
+	id A646BF800D2; Tue, 18 Jul 2023 14:06:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7953EF8053B;
-	Tue, 18 Jul 2023 14:20:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EB64F8027B;
+	Tue, 18 Jul 2023 14:06:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A06EAF8032D; Tue, 18 Jul 2023 13:59:04 +0200 (CEST)
+	id DDDF5F8032D; Tue, 18 Jul 2023 14:06:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5928F80153;
-	Tue, 18 Jul 2023 13:59:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5928F80153
-Message-ID: <812760a8-11c4-83af-7071-c16bee3e6900@linux.intel.com>
-Date: Tue, 18 Jul 2023 13:58:58 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 728F0F80153
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 14:06:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728F0F80153
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=n7SI5jip
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 36I7kHqv024058;
+	Tue, 18 Jul 2023 07:06:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=h/j6RN76Y6wzf07
+	sHUCKEfs/1PbBu/pEI42hq5R1L/0=; b=n7SI5jip1UpXaL5b7ujgEoREJDVMLYy
+	jtFSHykALWOhrjhvxj2nnc7NSL99VOxbzro3nLVNR3BwiKVv38MFg0U9GnAIFO0J
+	hCGezhZiYQUE1nO1vkbHvc2xuQxgwRoieD4yMeatWhRu6ZI85s/PnZLZzJwYxBrD
+	Ijj68FtLpo4QzKmtzOybcTg/05s1Ex5msmEWOL+p9X789/9M47SOLhQ6kTCITTl2
+	1SGgf+G1x+Qnb+drI2lFsDvUGJ4cCEBmHKxTCl1pkbtqYc5CwkVAbrI50+KFEmtP
+	bYSKrGig+x7xvYt0jy5tHgmrUBKvfde3Fza4f/ePVVF5L7GvUtspSSg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3rus62u75n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Jul 2023 07:06:02 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 18 Jul
+ 2023 13:06:00 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
+ Transport; Tue, 18 Jul 2023 13:06:00 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 420FB15B6;
+	Tue, 18 Jul 2023 12:06:00 +0000 (UTC)
+Date: Tue, 18 Jul 2023 12:06:00 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Liam Girdwood <lgirdwood@gmail.com>,
+        James Schulman
+	<james.schulman@cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>,
+        Martin =?utf-8?Q?Povi=C5=A1er?=
+	<povik+lin@cutebit.org>,
+        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
+        <asahi@lists.linux.dev>
+Subject: Re: [PATCH 02/48] ASoC: cs35l41: Update to use maple tree register
+ cache
+Message-ID: <20230718120600.GE103419@ediswmail.ad.cirrus.com>
+References: <20230713-asoc-cirrus-maple-v1-0-a62651831735@kernel.org>
+ <20230713-asoc-cirrus-maple-v1-2-a62651831735@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: [v2 PATCH 2/2] ALSA: hda/intel: Move snd_hdac_i915_init to before
- probe_work.
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, sound-open-firmware@alsa-project.org,
- linux-kernel@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
- <20230718084522.116952-6-maarten.lankhorst@linux.intel.com>
- <87h6q1o82l.wl-tiwai@suse.de>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <87h6q1o82l.wl-tiwai@suse.de>
-X-MailFrom: maarten.lankhorst@linux.intel.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230713-asoc-cirrus-maple-v1-2-a62651831735@kernel.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: McruDD6PXvtZKstOk9pGNgXVKfivOFka
+X-Proofpoint-ORIG-GUID: McruDD6PXvtZKstOk9pGNgXVKfivOFka
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3T6WMFOIFTQWZJS2SKNNV6E6VPQLX3SL
+X-Message-ID-Hash: 3T6WMFOIFTQWZJS2SKNNV6E6VPQLX3SL
+X-MailFrom: prvs=2563600699=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DR3CY4ALLE4HXDKLOPPZQN27ISFADKOE
-X-Message-ID-Hash: DR3CY4ALLE4HXDKLOPPZQN27ISFADKOE
-X-Mailman-Approved-At: Tue, 18 Jul 2023 12:20:35 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DR3CY4ALLE4HXDKLOPPZQN27ISFADKOE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3T6WMFOIFTQWZJS2SKNNV6E6VPQLX3SL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,66 +120,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Tm93IHRoYXQgd2UgY2FuIHVzZSAtRVBST0JFX0RFRkVSLCBpdCdzIG5vIGxvbmdlciByZXF1aXJl
-ZCB0byBzcGluIG9mZg0KdGhlIHNuZF9oZGFjX2k5MTVfaW5pdCBpbnRvIGEgd29ya3F1ZXVlLg0K
-DQpVc2UgdGhlIC1FUFJPQkVfREVGRVIgbWVjaGFuaXNtIGluc3RlYWQsIHdoaWNoIG11c3QgYmUg
-cmV0dXJuZWQgaW4gdGhlDQpwcm9iZSBmdW5jdGlvbi4NCg0KQ2hhbmdlcyBzaW5jZSB2MToNCi0g
-VXNlIGRldl9lcnJfcHJvYmUoKQ0KLSBEb24ndCBtb3ZlIHByb2JlZF9kZXZzIGJpdG1hcCB1bm5l
-Y2Vzc2FyaWx5LiAodGl3YWkpDQotIFVzZSBnb3RvIG91dF9henhfZnJlZSBhZnRlciBjbGVhbnVw
-IG9mIGVycm9yIHBhdGguICh0aXdhaSkNCi0gTW92ZSBzbmRfaGRhY19pOTE1X2luaXQgc2xpZ2h0
-bHkgdXB3YXJkLCB0byBlbnN1cmUNCiAgIGl0J3MgYWx3YXlzIGluaXRpYWxpc2VkIGJlZm9yZSB2
-Z2Etc3dpdGNoZXJvbyBpcyBjYWxsZWQuDQoNClNpZ25lZC1vZmYtYnk6IE1hYXJ0ZW4gTGFua2hv
-cnN0PG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4NCi0tLQ0KICBzb3VuZC9wY2kv
-aGRhL2hkYV9pbnRlbC5jIHwgNjAgKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0t
-LS0tDQogIDEgZmlsZSBjaGFuZ2VkLCAzMSBpbnNlcnRpb25zKCspLCAyOSBkZWxldGlvbnMoLSkN
-Cg0KZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvaGRhX2ludGVsLmMgYi9zb3VuZC9wY2kvaGRh
-L2hkYV9pbnRlbC5jDQppbmRleCAxOTZjYTc2YWM0M2FkLi41OTAzOWExZjAxMDM1IDEwMDY0NA0K
-LS0tIGEvc291bmQvcGNpL2hkYS9oZGFfaW50ZWwuYw0KKysrIGIvc291bmQvcGNpL2hkYS9oZGFf
-aW50ZWwuYw0KQEAgLTIxNDcsNiArMjE0NywzNiBAQCBzdGF0aWMgaW50IGF6eF9wcm9iZShzdHJ1
-Y3QgcGNpX2RldiAqcGNpLA0KICANCiAgCXBjaV9zZXRfZHJ2ZGF0YShwY2ksIGNhcmQpOw0KICAN
-CisjaWZkZWYgQ09ORklHX1NORF9IREFfSTkxNQ0KKwkvKiBiaW5kIHdpdGggaTkxNSBpZiBuZWVk
-ZWQgKi8NCisJaWYgKGNoaXAtPmRyaXZlcl9jYXBzICYgQVpYX0RDQVBTX0k5MTVfQ09NUE9ORU5U
-KSB7DQorCQllcnIgPSBzbmRfaGRhY19pOTE1X2luaXQoYXp4X2J1cyhjaGlwKSwgZmFsc2UpOw0K
-KwkJaWYgKGVyciA8IDApIHsNCisJCQkvKiBpZiB0aGUgY29udHJvbGxlciBpcyBib3VuZCBvbmx5
-IHdpdGggSERNSS9EUA0KKwkJCSAqIChmb3IgSFNXIGFuZCBCRFcpLCB3ZSBuZWVkIHRvIGFib3J0
-IHRoZSBwcm9iZTsNCisJCQkgKiBmb3Igb3RoZXIgY2hpcHMsIHN0aWxsIGNvbnRpbnVlIHByb2Jp
-bmcgYXMgb3RoZXINCisJCQkgKiBjb2RlY3MgY2FuIGJlIG9uIHRoZSBzYW1lIGxpbmsuDQorCQkJ
-ICovDQorCQkJaWYgKENPTlRST0xMRVJfSU5fR1BVKHBjaSkpIHsNCisJCQkJZGV2X2Vycl9wcm9i
-ZShjYXJkLT5kZXYsIGVyciwNCisJCQkJCSAgICAgIkhTVy9CRFcgSEQtYXVkaW8gSERNSS9EUCBy
-ZXF1aXJlcyBiaW5kaW5nIHdpdGggZ2Z4IGRyaXZlclxuIik7DQorDQorCQkJCWdvdG8gb3V0X2F6
-eF9mcmVlOw0KKwkJCX0gZWxzZSB7DQorCQkJCS8qIGRvbid0IGJvdGhlciBhbnkgbG9uZ2VyICov
-DQorCQkJCWNoaXAtPmRyaXZlcl9jYXBzICY9IH5BWlhfRENBUFNfSTkxNV9DT01QT05FTlQ7DQor
-CQkJfQ0KKwkJfQ0KKw0KKwkJLyogSFNXL0JEVyBjb250cm9sbGVycyBuZWVkIHRoaXMgcG93ZXIg
-Ki8NCisJCWlmIChDT05UUk9MTEVSX0lOX0dQVShwY2kpKQ0KKwkJCWhkYS0+bmVlZF9pOTE1X3Bv
-d2VyID0gdHJ1ZTsNCisJfQ0KKyNlbHNlDQorCWlmIChDT05UUk9MTEVSX0lOX0dQVShwY2kpKQ0K
-KwkJZGV2X2VycihjYXJkLT5kZXYsICJIYXN3ZWxsL0Jyb2Fkd2VsbCBIRE1JL0RQIG11c3QgYnVp
-bGQgaW4gQ09ORklHX1NORF9IREFfSTkxNVxuIik7DQorI2VuZGlmDQorDQogIAllcnIgPSByZWdp
-c3Rlcl92Z2Ffc3dpdGNoZXJvbyhjaGlwKTsNCiAgCWlmIChlcnIgPCAwKSB7DQogIAkJZGV2X2Vy
-cihjYXJkLT5kZXYsICJFcnJvciByZWdpc3RlcmluZyB2Z2Ffc3dpdGNoZXJvbyBjbGllbnRcbiIp
-Ow0KQEAgLTIxNzQsMTEgKzIyMDUsNiBAQCBzdGF0aWMgaW50IGF6eF9wcm9iZShzdHJ1Y3QgcGNp
-X2RldiAqcGNpLA0KICAJfQ0KICAjZW5kaWYgLyogQ09ORklHX1NORF9IREFfUEFUQ0hfTE9BREVS
-ICovDQogIA0KLSNpZm5kZWYgQ09ORklHX1NORF9IREFfSTkxNQ0KLQlpZiAoQ09OVFJPTExFUl9J
-Tl9HUFUocGNpKSkNCi0JCWRldl9lcnIoY2FyZC0+ZGV2LCAiSGFzd2VsbC9Ccm9hZHdlbGwgSERN
-SS9EUCBtdXN0IGJ1aWxkIGluIENPTkZJR19TTkRfSERBX0k5MTVcbiIpOw0KLSNlbmRpZg0KLQ0K
-ICAJaWYgKHNjaGVkdWxlX3Byb2JlKQ0KICAJCXNjaGVkdWxlX2RlbGF5ZWRfd29yaygmaGRhLT5w
-cm9iZV93b3JrLCAwKTsNCiAgDQpAQCAtMjI3NywzMCArMjMwMyw2IEBAIHN0YXRpYyBpbnQgYXp4
-X3Byb2JlX2NvbnRpbnVlKHN0cnVjdCBhenggKmNoaXApDQogIAl0b19oZGFfYnVzKGJ1cyktPmJ1
-c19wcm9iaW5nID0gMTsNCiAgCWhkYS0+cHJvYmVfY29udGludWVkID0gMTsNCiAgDQotCS8qIGJp
-bmQgd2l0aCBpOTE1IGlmIG5lZWRlZCAqLw0KLQlpZiAoY2hpcC0+ZHJpdmVyX2NhcHMgJiBBWlhf
-RENBUFNfSTkxNV9DT01QT05FTlQpIHsNCi0JCWVyciA9IHNuZF9oZGFjX2k5MTVfaW5pdChidXMs
-IHRydWUpOw0KLQkJaWYgKGVyciA8IDApIHsNCi0JCQkvKiBpZiB0aGUgY29udHJvbGxlciBpcyBi
-b3VuZCBvbmx5IHdpdGggSERNSS9EUA0KLQkJCSAqIChmb3IgSFNXIGFuZCBCRFcpLCB3ZSBuZWVk
-IHRvIGFib3J0IHRoZSBwcm9iZTsNCi0JCQkgKiBmb3Igb3RoZXIgY2hpcHMsIHN0aWxsIGNvbnRp
-bnVlIHByb2JpbmcgYXMgb3RoZXINCi0JCQkgKiBjb2RlY3MgY2FuIGJlIG9uIHRoZSBzYW1lIGxp
-bmsuDQotCQkJICovDQotCQkJaWYgKENPTlRST0xMRVJfSU5fR1BVKHBjaSkpIHsNCi0JCQkJZGV2
-X2VycihjaGlwLT5jYXJkLT5kZXYsDQotCQkJCQkiSFNXL0JEVyBIRC1hdWRpbyBIRE1JL0RQIHJl
-cXVpcmVzIGJpbmRpbmcgd2l0aCBnZnggZHJpdmVyXG4iKTsNCi0JCQkJZ290byBvdXRfZnJlZTsN
-Ci0JCQl9IGVsc2Ugew0KLQkJCQkvKiBkb24ndCBib3RoZXIgYW55IGxvbmdlciAqLw0KLQkJCQlj
-aGlwLT5kcml2ZXJfY2FwcyAmPSB+QVpYX0RDQVBTX0k5MTVfQ09NUE9ORU5UOw0KLQkJCX0NCi0J
-CX0NCi0NCi0JCS8qIEhTVy9CRFcgY29udHJvbGxlcnMgbmVlZCB0aGlzIHBvd2VyICovDQotCQlp
-ZiAoQ09OVFJPTExFUl9JTl9HUFUocGNpKSkNCi0JCQloZGEtPm5lZWRfaTkxNV9wb3dlciA9IHRy
-dWU7DQotCX0NCi0NCiAgCS8qIFJlcXVlc3QgZGlzcGxheSBwb3dlciB3ZWxsIGZvciB0aGUgSERB
-IGNvbnRyb2xsZXIgb3IgY29kZWMuIEZvcg0KICAJICogSGFzd2VsbC9Ccm9hZHdlbGwsIGJvdGgg
-dGhlIGRpc3BsYXkgSERBIGNvbnRyb2xsZXIgYW5kIGNvZGVjIG5lZWQNCiAgCSAqIHRoaXMgcG93
-ZXIuIEZvciBvdGhlciBwbGF0Zm9ybXMsIGxpa2UgQmF5dHJhaWwvQnJhc3dlbGwsIG9ubHkgdGhl
-DQotLSANCjIuMzkuMg0KDQo=
+On Thu, Jul 13, 2023 at 01:13:15AM +0100, Mark Brown wrote:
+> The maple tree register cache is based on a much more modern data structure
+> than the rbtree cache and makes optimisation choices which are probably
+> more appropriate for modern systems than those made by the rbtree cache. In
+> v6.5 it has also acquired the ability to generate multi-register writes in
+> sync operations, bringing performance up to parity with the rbtree cache
+> there.
+> 
+> Update the cs35l41 driver to use the more modern data structure.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+
+Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles

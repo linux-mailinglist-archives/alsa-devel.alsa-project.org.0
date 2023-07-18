@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72554757B83
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 14:11:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4F1C757B8B
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 14:11:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6254AAE8;
-	Tue, 18 Jul 2023 14:10:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6254AAE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B2E0DF1;
+	Tue, 18 Jul 2023 14:10:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B2E0DF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689682261;
-	bh=V6di/B4ZAfW2u2f1Bzd8w/Tf9RIgqyJ/kQdBxgkubrc=;
+	s=default; t=1689682301;
+	bh=Bwi6+hxv+njlD1feI8RZMPqKlUapw7YCTAxkf6ATuhw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ArQ7M22KR28dqOkQ2AJIJvBOCLZT15qVyD4Kih7wy/kJkX386obqMS8ZdeNOMO7tV
-	 ZXUz+1DfQXtZ8I1lVXB7jqrvYVuxTF0Z64XzVoCbujhoMcpqyNcDF9l33gV15Lt17U
-	 ltBZVopboi0dXSbPI1HXBwHifyVsAjgPHISDgj3k=
+	b=ONpjqQjSMdnYE5o72PXb85xj8DOPba//JU0RWgA7/LqK9Uld09DJo2k8thKvJypwX
+	 3hO5Xs34SqLliHwKpYuVqdrrgpuh96/xdofoi0ATSEpsE4uIFiQ+6BMlccMrYMy6yb
+	 vwyDvL1A7zd3PqtTX9tzlS0R9HT1KgwqDbxsIj+4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 788D2F804DA; Tue, 18 Jul 2023 14:10:10 +0200 (CEST)
+	id 4E86DF8055A; Tue, 18 Jul 2023 14:10:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31E2FF8027B;
-	Tue, 18 Jul 2023 14:10:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0E59F80544;
+	Tue, 18 Jul 2023 14:10:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F3A8F8047D; Tue, 18 Jul 2023 14:10:06 +0200 (CEST)
+	id 045A5F8032D; Tue, 18 Jul 2023 14:10:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,50 +36,53 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62A31F800D2
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 14:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62A31F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 17093F80153
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 14:10:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17093F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Sf7vWdX1
+ header.s=k20201202 header.b=SQVguFhE
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 61016614E5;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id ACF1C6154E;
+	Tue, 18 Jul 2023 12:10:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6476AC433CA;
 	Tue, 18 Jul 2023 12:10:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E9CC433C8;
-	Tue, 18 Jul 2023 12:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689682199;
-	bh=V6di/B4ZAfW2u2f1Bzd8w/Tf9RIgqyJ/kQdBxgkubrc=;
+	s=k20201202; t=1689682203;
+	bh=Bwi6+hxv+njlD1feI8RZMPqKlUapw7YCTAxkf6ATuhw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Sf7vWdX1a6624BUSaOUhW9eyplHm+fnqZkg4twslS78JkwOQjs4AI4P0MNA4tp5BY
-	 uSj21FEn4oy+HJhNXXMh5UiQ/f/Q3MJh0pXIDwiXcZhokn+IavrW0DWKUpMPctGwzo
-	 DwSWIq7J+TxTes1Gyh6KeN8c6mhb0tjWwlFQfHQOnhyEJ4vhmVcc3fE0GmV60z45DM
-	 /6iPmt5QHi3Hvvu1HUfimDE7qf8EluKib2ono/CFu3vzFOuD5neB7jSRZAQk98UzeE
-	 SQbLnv1fFt+YlLxGNgOsN/9OsJENDouyQ8i3L/wyCOPuqAbmYh4Nqt4dHgzJLKfOiu
-	 e2SU37V3ixjJg==
+	b=SQVguFhEExz6ZaiyvqImE9Y5tzDDd9cS8Oqp3xWI+3BHvcZ1S/fWg0cp/zisODT8s
+	 SUUXsPv2BtkZDB+sYjPd9PjuhZYBvsQwOxpbG15GgIklVR14n587oAkPMAuHW8VZQ+
+	 PmlXbPoRw8M6On/lXN+aHXBsgJisTiaRkKrosKzxrQJPa1N+LqwvJVza33HOLxq8kU
+	 IRhVJMecozYtWQG7uCc1Gehj+OPcIWCnMcWUuTcXBBH+ZgQoPWOaSVkXPat17eME5N
+	 Exy1txTw1eU/j6dd+iiDtXvBYZHJUcGssUiePQlKIiq/y4Zj+kVgVrgxH8EJCMUCNX
+	 XWyLvgN5p9Hcg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- ssabakar@amd.com, akondave@amd.com, mastan.katragadda@amd.com
-In-Reply-To: 
- <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
-References: 
- <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
-Subject: Re: [PATCH 0/3] Add Probe functionality support for amd platforms.
-Message-Id: <168968219772.40723.11230865441248631321.b4-ty@kernel.org>
-Date: Tue, 18 Jul 2023 13:09:57 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Vladimir Oltean <olteanv@gmail.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ =?utf-8?q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>,
+ Wolfram Sang <wsa@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Cc: imx@lists.linux.dev, shengjiu.wang@nxp.com
+In-Reply-To: <20230713222513.1636591-1-Frank.Li@nxp.com>
+References: <20230713222513.1636591-1-Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] ASoC: codec: wm8960: add additional probe check
+ for codec identification
+Message-Id: <168968220008.40723.6109543633673896312.b4-ty@kernel.org>
+Date: Tue, 18 Jul 2023 13:10:00 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: X3TAA7GPDG3EO6QMN3DVIVEF3SLH5JHK
-X-Message-ID-Hash: X3TAA7GPDG3EO6QMN3DVIVEF3SLH5JHK
+Message-ID-Hash: XWAQL7O2UTD7GIH3EJGVNAGCUMWLPQ7K
+X-Message-ID-Hash: XWAQL7O2UTD7GIH3EJGVNAGCUMWLPQ7K
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X3TAA7GPDG3EO6QMN3DVIVEF3SLH5JHK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWAQL7O2UTD7GIH3EJGVNAGCUMWLPQ7K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,19 +104,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 13 Jul 2023 18:27:06 +0530, V sujith kumar Reddy wrote:
-> The Patch series consists of probe functionality support for amd
-> platforms.
+On Thu, 13 Jul 2023 18:25:12 -0400, Frank Li wrote:
+> The wm8960 codec is not readable, resulting in a NACK for address 0x3d (8-bit).
+> This can partially indicate it. For example: wm8962 codec use the same address
+> but is readable. This additional probe check will help prevent loading the wm8960
+> module incorrectly on wm8962 hardware.
 > 
 > 
-> V sujith kumar Reddy (3):
->   ASoC: SOF: amd: Add Probe functionality support for amd platforms.
->   ASoC: SOF: Add acp-probe id to sof probe client driver for
->     registration.
->   ASoC: SOF: amd: Add Probe register offset for renoir and rembrandt
->     platform.
-> 
-> [...]
 
 Applied to
 
@@ -121,12 +118,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: SOF: amd: Add Probe functionality support for amd platforms.
-      commit: 1a74b21ce59f4343e8bf64ec4c20bcbbaea96c5f
-[2/3] ASoC: SOF: Add acp-probe id to sof probe client driver for registration.
-      commit: 5e1c5df5048b320adffcb03e0cdfc6027364ed30
-[3/3] ASoC: SOF: amd: Add Probe register offset for renoir and rembrandt platform.
-      commit: 8278aa8edb4037ca5050a1b0bf32b38ef9fa59bc
+[1/1] ASoC: codec: wm8960: add additional probe check for codec identification
+      commit: 8b30cdbe0b911562fc1496078162dc9547b69be5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

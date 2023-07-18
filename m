@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C497757920
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:17:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A2C757923
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:17:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B732DF3;
-	Tue, 18 Jul 2023 12:16:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B732DF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0660FE76;
+	Tue, 18 Jul 2023 12:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0660FE76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689675463;
-	bh=h23blyzLZM8WfIrl+W2qO1dGdAETHSt/JxQf4KYOqX4=;
+	s=default; t=1689675474;
+	bh=WDTHrUsPymrO8nmJpxbWUaYcxSURmjngaV8JANnGwHU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dD1WxM1BSeS/UBigodOL1S7ulTu2/w1d51/SraScDbXoKtDex1VKVH8poszhK+wb6
-	 0NKCexbqcCAJKbg4eoVdkQiN5ZYwh3sa7hxjNsEr8/1iK2zdr72sjvsHVwxtmkRCI8
-	 MYUV1ClQCKYSytYBjYyQFCHMh6lqTNu2/EOxiG50=
+	b=hU5WnjR8lQWtoFgfgt+JBQ6l187ISNiLggVLilnBmFpi6cE3lGdk8alRRtUWpyhEy
+	 PwR0MYkik5DSpPHl1Po4ZmFu+iapgujCaOLZWp4qjrziKNpJQsnXLKngRUsn4F+bUt
+	 y/drOlK2MKTePuFdeGHNFHVWPDuCrk0m0yBR3sY8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE466F805E2; Tue, 18 Jul 2023 12:14:21 +0200 (CEST)
+	id A990EF805EA; Tue, 18 Jul 2023 12:14:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C000F805E2;
-	Tue, 18 Jul 2023 12:14:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11C43F805EA;
+	Tue, 18 Jul 2023 12:14:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F083F8047D; Tue, 18 Jul 2023 11:03:47 +0200 (CEST)
+	id 44652F8032D; Tue, 18 Jul 2023 11:03:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
 	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5017F80153
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5017F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 50314F8027B
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50314F8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=dLqELBzB
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-3fbb07e7155so69845e9.0
+ header.s=20221208 header.b=udPdgY2z
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-3fbb07e7155so69885e9.0
         for <alsa-devel@alsa-project.org>;
- Tue, 18 Jul 2023 02:03:42 -0700 (PDT)
+ Tue, 18 Jul 2023 02:03:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1689671020; x=1692263020;
+        d=google.com; s=20221208; t=1689671024; x=1692263024;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=kIOGzQrQNwwpGZ53gcNEFR8ayiSZ7NVB6/3m58G4xrM=;
-        b=dLqELBzBthd+Q+CwV6uPtGtMVd0/kwAjwWWOu8BX8rYWu3O2Z+bZuwR7zB3isVoIvv
-         oxgX555O4kJzl6Y5Dw6BcVR1wvaWznTKVTsvMeduBOHlFGu7AaV2Qo5ckl3TSsplXkEi
-         OUfSixeSgARYuUke0xVhdKD6JYuVvIAu5m+rz0szaZ1S9ZhMCKIlO4gc6w5kDL+Wtc28
-         cHyJXElM8G/4hyoDEk4q6v473+0954czcYzeD0Rp6W2HTK7PDFidB2EKtJiLd13ujBnI
-         DuVCKZ2pKPR5cDMy5l/WJffYIAVXAccKv19/QY5rTF/eAPz/8WuW9LCbUdEJaVdgNYM7
-         VhFw==
+        bh=m8n9C2+1ceNWNK8B4V9UVVJZlEjMqzJB4jI9qIEqfis=;
+        b=udPdgY2zlwbUOAFnoZhByyU8vgrjQSKqYVoWpeYwTTEcBh60QZSUHkHTR2TmnE+J8X
+         nGXedDrSNpEKQ4GNtJQXSrayaJ0yhnVD3C0qfV0yBtkKmM3Z7CcW6aLdPD1+rWqUVyy7
+         71RbpRuMc/Ftn44khxLW6Tt2rQyMszQtdmKGfjcYaki2lRQd2Aboj5j47u9bF2cp1e7G
+         fXgPaa2ZFblK37dvSO3hwsju3ccBrSrhGfWPXR9pHYAdiPMdM/2840t7b3YxCG/qjxjz
+         UzXqcC4lu6ymABrCv02VKkwvSZoIsvC0Y8H+QR3GrNeY0Efi/+QIreDS0YBKfzKsr/UU
+         pf/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689671020; x=1692263020;
+        d=1e100.net; s=20221208; t=1689671024; x=1692263024;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kIOGzQrQNwwpGZ53gcNEFR8ayiSZ7NVB6/3m58G4xrM=;
-        b=Xm66Trh6811wBqxXHEKIBmfaCjWJlsdFfCVBVpeB+u8Ih71Is/6YNyb8ju5P6GMFbd
-         bXBIRSnvDnERLToWL40kShlRfzSnQPC8RSIny8/Mu2/S6JIDpSNdBZcKik87cSTlm1r8
-         wuCgewx+Wgl7wGbD2/B8UPTh03DA2RWOCLRMAMrK4hTCcTSFTi8VQzqG2MNWW08jo6Su
-         VArEAE3wBL+Enr+dPIelDro7bvXyWJnnpk1dteMBzxCGZZMu3ab3KPWPp6iIUuJC7cQN
-         5+XSOTkUaZG4aZkqCuU22FvxFi1w2IWvoOpV64SqtJItkA47ck3PtIyb07V9ijXGBKmR
-         kPAA==
-X-Gm-Message-State: ABy/qLZoONFKmJr5DznO5kzUYPisV3YCEOM888SY2hA2MrEbYweYLaRy
-	WsaWdB6As9/34OVQw7SsFRrtXpTVIoS/QBZOJYtAUA==
+        bh=m8n9C2+1ceNWNK8B4V9UVVJZlEjMqzJB4jI9qIEqfis=;
+        b=jPBMQshicfJBMvn/KkA6pOnzFiMHrUs5geiHw9LzPQdpauaOKqOiIQyEIxjwHHbmTo
+         q9FPwyhBXyN7aN67SKsUTM6iGXtkeogYBBkeb/+Xy1u4RFRsb9OGJc6DNJlvnR2o2bHE
+         ZfZk65AlkqzxHUVr3wfHGAQYaHt6GPH4BD2Jr/FjztI36ITmZxR+4/vr5ylRzxPfeR0M
+         I+2TMTKmUV3xo/G28m3J6pF1PhU2HWznkFMl367HoFUA1+5aCecC7HMNdfGXpep+VuCW
+         BtucJWlIfWUK1qnN1WdG3Y5GLK1UQVfDSEDjstCtpURtluKy0M0mjIJNFZgy48Sc5Zhb
+         xH0g==
+X-Gm-Message-State: ABy/qLaD7t+IOrJVMNrUZwtaUACwVkrDUxK1zP8Lxi6gzSImH7OcHH6r
+	taVAe30BYa2uL39y6SE2mAVjqd6bzlvbBJS2C90pNA==
 X-Google-Smtp-Source: 
- APBJJlEhIN82ETjhMNVU+3kG/yISm0CnrlIrrSeNDSYNi9ZIblw2P1wBfFAI7v4HuaNP1DrIaioPeWtFsqgKXdej4Qc=
-X-Received: by 2002:a05:600c:358d:b0:3f1:73b8:b5fe with SMTP id
- p13-20020a05600c358d00b003f173b8b5femr56294wmq.3.1689671020609; Tue, 18 Jul
- 2023 02:03:40 -0700 (PDT)
+ APBJJlFwA4Qq1OA920SlL9F6tV87OJ6V11uYnPfKqCDWS5TF/aY8HmJaJScUFCm7V4x76DNnJSTEmZYpzziWwMiMdiU=
+X-Received: by 2002:a05:600c:3ac5:b0:3f7:e463:a0d6 with SMTP id
+ d5-20020a05600c3ac500b003f7e463a0d6mr83943wms.0.1689671024232; Tue, 18 Jul
+ 2023 02:03:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
- <20230718-asoc-topology-kunit-enable-v2-1-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-2-0ee11e662b92@kernel.org>
 In-Reply-To: 
- <20230718-asoc-topology-kunit-enable-v2-1-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-2-0ee11e662b92@kernel.org>
 From: David Gow <davidgow@google.com>
-Date: Tue, 18 Jul 2023 17:03:27 +0800
+Date: Tue, 18 Jul 2023 17:03:32 +0800
 Message-ID: 
- <CABVgOS=pfVkNFT5E0ERgEpCeCoaYi4dmCBjG2H3=w1Eddgh7_g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] driver core: Provide stubs for !IOMEM builds
+ <CABVgOSnWkjr8HfHCwf+qCe0gu1SA2pZHXbwpPd76sh=_ebd5Rg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] platform: Provide stubs for !HAS_IOMEM builds
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
  Brendan Higgins <brendan.higgins@linux.dev>,
@@ -100,22 +100,22 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	kunit-dev@googlegroups.com
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
  micalg=sha-256;
-	boundary="000000000000fe2fc10600bf30bb"
+	boundary="0000000000003521dc0600bf3140"
 X-MailFrom: davidgow@google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: X3J7PAZWOW542XQHGNQM7SV424ZG5OLU
-X-Message-ID-Hash: X3J7PAZWOW542XQHGNQM7SV424ZG5OLU
+Message-ID-Hash: 4XPLQED7ZSQSO7RR4NKXGVOEDXHXPCU5
+X-Message-ID-Hash: 4XPLQED7ZSQSO7RR4NKXGVOEDXHXPCU5
 X-Mailman-Approved-At: Tue, 18 Jul 2023 10:14:06 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X3J7PAZWOW542XQHGNQM7SV424ZG5OLU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4XPLQED7ZSQSO7RR4NKXGVOEDXHXPCU5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,33 +124,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---000000000000fe2fc10600bf30bb
+--0000000000003521dc0600bf3140
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 18 Jul 2023 at 08:29, Mark Brown <broonie@kernel.org> wrote:
+On Tue, 18 Jul 2023 at 08:30, Mark Brown <broonie@kernel.org> wrote:
 >
 > The various _ioremap_resource functions are not built when
 > CONFIG_HAS_IOMEM is disabled but no stubs are provided. Given how
 > widespread IOMEM usage is in drivers and how rare !IOMEM configurations
 > are in practical use let's just provide some stubs so users will build
-> without having to add explicit dependencies on HAS_IOMEM.
+> without having to add explicit dependencies on IOMEM.
 >
 > The most likely use case is builds with UML for KUnit testing.
 >
 > Signed-off-by: Mark Brown <broonie@kernel.org>
 > ---
 
-This is really nice, thanks: we've definitely wasted^W spent a lot of
-time adding the appropriate IOMEM dependencies when trying to setup
-KUnit configs, so I'm looking forward to not worrying about that
-again.
-
-We have considered implementing fake versions of these specifically
-aimed at testing, and are looking into the PCI-over-virtio
-implementation in UML's LOGIC_IOMEM feature, which allows redirecting
-IOMEM accesses to something more test-friendly.
-
-Neither of those conflict with this as a fallback, though, and I'm all for it.
+As with the previous patch, I'm all for this.
 
 Reviewed-by: David Gow <davidgow@google.com>
 
@@ -158,59 +148,61 @@ Cheers,
 -- David
 
 
->  include/linux/device.h | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
+>  include/linux/platform_device.h | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
 >
-> diff --git a/include/linux/device.h b/include/linux/device.h
-> index bbaeabd04b0d..6731d7dc1a2a 100644
-> --- a/include/linux/device.h
-> +++ b/include/linux/device.h
-> @@ -349,6 +349,7 @@ unsigned long devm_get_free_pages(struct device *dev,
->                                   gfp_t gfp_mask, unsigned int order);
->  void devm_free_pages(struct device *dev, unsigned long addr);
->
+> diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
+> index b845fd83f429..7a41c72c1959 100644
+> --- a/include/linux/platform_device.h
+> +++ b/include/linux/platform_device.h
+> @@ -63,6 +63,8 @@ extern struct resource *platform_get_mem_or_io(struct platform_device *,
+>  extern struct device *
+>  platform_find_device_by_driver(struct device *start,
+>                                const struct device_driver *drv);
+> +
 > +#ifdef CONFIG_HAS_IOMEM
->  void __iomem *devm_ioremap_resource(struct device *dev,
->                                     const struct resource *res);
->  void __iomem *devm_ioremap_resource_wc(struct device *dev,
-> @@ -357,6 +358,31 @@ void __iomem *devm_ioremap_resource_wc(struct device *dev,
->  void __iomem *devm_of_iomap(struct device *dev,
->                             struct device_node *node, int index,
->                             resource_size_t *size);
+>  extern void __iomem *
+>  devm_platform_get_and_ioremap_resource(struct platform_device *pdev,
+>                                 unsigned int index, struct resource **res);
+> @@ -72,6 +74,32 @@ devm_platform_ioremap_resource(struct platform_device *pdev,
+>  extern void __iomem *
+>  devm_platform_ioremap_resource_byname(struct platform_device *pdev,
+>                                       const char *name);
 > +#else
 > +
-> +static inline
-> +void __iomem *devm_ioremap_resource(struct device *dev,
-> +                                   const struct resource *res)
+> +static inline void __iomem *
+> +devm_platform_get_and_ioremap_resource(struct platform_device *pdev,
+> +                               unsigned int index, struct resource **res)
 > +{
 > +       return ERR_PTR(-EINVAL);
 > +}
 > +
-> +static inline
-> +void __iomem *devm_ioremap_resource_wc(struct device *dev,
-> +                                      const struct resource *res)
+> +
+> +static inline void __iomem *
+> +devm_platform_ioremap_resource(struct platform_device *pdev,
+> +                              unsigned int index)
 > +{
 > +       return ERR_PTR(-EINVAL);
 > +}
 > +
-> +static inline
-> +void __iomem *devm_of_iomap(struct device *dev,
-> +                           struct device_node *node, int index,
-> +                           resource_size_t *size)
+> +static inline void __iomem *
+> +devm_platform_ioremap_resource_byname(struct platform_device *pdev,
+> +                                     const char *name)
 > +{
 > +       return ERR_PTR(-EINVAL);
 > +}
 > +
 > +#endif
->
->  /* allows to add/remove a custom action to devres stack */
->  void devm_remove_action(struct device *dev, void (*action)(void *), void *data);
+> +
+>  extern int platform_get_irq(struct platform_device *, unsigned int);
+>  extern int platform_get_irq_optional(struct platform_device *, unsigned int);
+>  extern int platform_irq_count(struct platform_device *);
 >
 > --
 > 2.39.2
 >
 
---000000000000fe2fc10600bf30bb
+--0000000000003521dc0600bf3140
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -277,14 +269,14 @@ jyzYFOHYQyv5IfML/3IBFKlON5OZa+V8EZYULYcNkp03DdWglafj7SXZ1/XgAbVYrC381UvrsYN8
 jndVvoa1GWwe+NVlIIK7Q3uAjV3qLEDQpaNPg1rr0oAn6YmvTccjVMqj2YNwN+RHhKNzgRGxY5ct
 FaN+8fXZhRhpv3bVbAWuPZXoMYICajCCAmYCAQEwaDBUMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQ
 R2xvYmFsU2lnbiBudi1zYTEqMCgGA1UEAxMhR2xvYmFsU2lnbiBBdGxhcyBSMyBTTUlNRSBDQSAy
-MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCBu
-vqDJUxTytrhJE2bob91KhgkIv/9swMczMBWhkF+rdzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
-MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNDBaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
+MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCAm
+7a8ArzfNH1yZUp5jfhdSe5s+mh/8cntVE8bqbNAVEzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
+MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNDRaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
 BAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEKMAsG
-CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAekEp47TivOGaMtuI6rfL
-P5wj5Xf0f6E5iAM/I7TkUsZyeWTXZTpHz9Z9F9mJ2VZi+iyS4ornFx8dXd0jigYMpmnafeH3vVNz
-UNZfsbiZQXjAVySm2Ptz/kUQElI3eup8TOQorg3q4PKgM7TThToAncyiL58nWP5E7gAKsJ6zN6Rp
-i7/fgsHmNqOfYZZ/f/tkUQHsF/DoVYwITbzmEO1dOne/kpKrAndLlbMCiQbtz+v5usZGU6CNrxl4
-eraVauB4RrInENubyHnAi+VsFq93RM4ro6ROuP+32J/kFFvvKfjgvhxYasL2LwcpCTJ+dIhIjtoQ
-pPzWphHaFgpH2/t2KA==
---000000000000fe2fc10600bf30bb--
+CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAGE7reL51zx706cJGn5Af
+2SMgHXcE+A48pY/8PBmyvAqoVBh6kklIvq9+NZhOacgdVvledgrnmFxHEQKCf/pHyJ8sOgTyr0oI
+/j258ZKH+mdY7ZOFBK/RVS5cPJuGer4rVpJCQvxw1x1ZCSjF2KmQ/pSQEQ3a1DWklHZCZUasNIMT
+reIDRlxeI57pt08q+RHGfsH4tihFNrfU6Gf1+/uHfszmDj7GJYrcvfSpf+QmkKNb8B+q6176P9dE
+LemavtHJZS8vyLYpfCmLPjM6ZA0s8yhkPh0ZME0CEKT6WQAG2OKd8OAM5/ZGtvY7g+UMLPIpV3Z4
+mGN97Z7sW2YT+QgFaw==
+--0000000000003521dc0600bf3140--

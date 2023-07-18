@@ -2,34 +2,34 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35242757F32
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 16:16:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EAD0757F2C
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 16:15:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 528AE203;
-	Tue, 18 Jul 2023 16:15:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 528AE203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23908112;
+	Tue, 18 Jul 2023 16:14:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23908112
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689689762;
-	bh=FnfHNZB4xLMItHMZnT+AUkBCGr69HgX1xgz8HT0IcjM=;
+	s=default; t=1689689714;
+	bh=lnc2KoUgRG3lwpxDCiPgnX5sIJoytStqVfE8awnvY3w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YC/upxaOp/RzFeiviMmmF4ADJjYiLsisSgTJIUOYx6rFzq4X2KXPbbeK20o5hFiqj
-	 V3mTGAEuaFhboYCgYILAMAi0w5+Ze36fuIg3+jAN5o9/NdPwVcpGAvipDrImdL++so
-	 RYh7KaYD3/2zKIQt9LtlO+e31BQ0MASMnREDjgfg=
+	b=AXBsNF44dvRPWPqIYvcDbRtTl/TNeP6foZ4McKtIfXk26xQGtCw2Pu/pS3kB/oEqA
+	 WHFJ3fTVly+TvmLqmmrwMKXXd4S39Yeetgz6syVliTgVGoutpV7CDaXrJqRZ6JxQBM
+	 aUXRBBY10tQFgzbj+lYebr8H09BZeZR+jTL+mQN0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED6E6F805C5; Tue, 18 Jul 2023 16:13:48 +0200 (CEST)
+	id B1BFBF805AA; Tue, 18 Jul 2023 16:13:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA3F8F805C1;
-	Tue, 18 Jul 2023 16:13:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA35FF80552;
+	Tue, 18 Jul 2023 16:13:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80EA5F805AF; Tue, 18 Jul 2023 16:13:38 +0200 (CEST)
+	id 2A071F80587; Tue, 18 Jul 2023 16:13:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from smtp-out1.suse.de (smtp-out1.suse.de
@@ -38,21 +38,21 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7EC39F804DA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F383F80557
 	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 16:13:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EC39F804DA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F383F80557
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=S9g6KJcY;
+ header.s=susede2_rsa header.b=UmSnC/8N;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZzeMQ6/8
+ header.s=susede2_ed25519 header.b=a/c7sDuO
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7062121923;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8EE8E2192D;
 	Tue, 18 Jul 2023 14:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -61,44 +61,44 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=X3dadz9YFV/57Y8KoPgWlMnUM+i3sNjo6CMXkSSDwek=;
-	b=S9g6KJcYEOgqis9Z3nyqJZWCPWb89ARCCsZ4TOZMW//Qr7f61AgjRjZ7Ja0fz1CYFX31i+
-	4BSECgizKyB4LZRnuUT9L73R9h13N4pRFa3xzaWLE5PW8wbN+n/0TOAZJjGk0UKTmEAHvi
-	nck0ibwU4UnY7ko1Zw4KWsi9lptsvSI=
+	bh=iIrqHue+vf3qZavIkbDu6YFbh1oK68e6yOjrTSxU3IQ=;
+	b=UmSnC/8NupZsC/KIEJ9gNG2ZE83GjoMJoBbgO4yltuTTWJJBRbWLl0nUjDTitR4EwqIWOD
+	KDgCLACIldUCzk08FzVdBMklTwYy9b8/OPcC2o4Ux9yls7e2R15QM7WAhDq0jVFq8pBzBe
+	L4wqTV41IN0QuDesqe4NM2DCm/6eZf0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1689689596;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=X3dadz9YFV/57Y8KoPgWlMnUM+i3sNjo6CMXkSSDwek=;
-	b=ZzeMQ6/8SKgsVHC6dlQ9iRg70F6kCyfabF8vSfyJIo8TMgN5eFWXmyB9nj9uVe99u5GCz+
-	cqZowo8bP0tTzcDA==
+	bh=iIrqHue+vf3qZavIkbDu6YFbh1oK68e6yOjrTSxU3IQ=;
+	b=a/c7sDuOlNCLRxlfs8P//U8PXrTOr5Cwu2/f+PP4azQ1Hx9X/mHEc6/bNDiGMpdq4Jg9vi
+	24Me/ZZwMVajUwCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55D69138EC;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 74A4D134B0;
 	Tue, 18 Jul 2023 14:13:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id aNYWFPydtmQ8AQAAMHmgww
+	id cGGfG/ydtmQ8AQAAMHmgww
 	(envelope-from <tiwai@suse.de>); Tue, 18 Jul 2023 14:13:16 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 10/11] ALSA: control: Take lock in snd_ctl_find_id() and
- snd_ctl_find_numid()
-Date: Tue, 18 Jul 2023 16:13:03 +0200
-Message-Id: <20230718141304.1032-11-tiwai@suse.de>
+Subject: [PATCH 11/11] ALSA: emu10k1: Go back and simplify with
+ snd_ctl_find_id()
+Date: Tue, 18 Jul 2023 16:13:04 +0200
+Message-Id: <20230718141304.1032-12-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230718141304.1032-1-tiwai@suse.de>
 References: <20230718141304.1032-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NIJ7KTNQCGYF3TIIMDSJLU3OXMJAHW7I
-X-Message-ID-Hash: NIJ7KTNQCGYF3TIIMDSJLU3OXMJAHW7I
+Message-ID-Hash: 7TFSXAXS3QEYXIS3KLSQAHRJKG3D7PT3
+X-Message-ID-Hash: 7TFSXAXS3QEYXIS3KLSQAHRJKG3D7PT3
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,8 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TFSXAXS3QEYXIS3KLSQAHRJKG3D7PT3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,77 +120,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now all needed callers have been replaced with *_locked() versions,
-let's turn on the locking in snd_ctl_find_id() and
-snd_ctl_find_numid().
-
-This patch also adds the lockdep assertions for debugging, too.
+Now that snd_ctl_find_id() takes the locking itself, we can get rid of
+the messy locking in the caller side in snd_emu10k1_verify_controls().
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/control.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ sound/pci/emu10k1/emufx.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 30741293708d..e13e9d6b3b89 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -836,6 +836,7 @@ snd_ctl_find_numid_locked(struct snd_card *card, unsigned int numid)
- {
- 	if (snd_BUG_ON(!card || !numid))
- 		return NULL;
-+	lockdep_assert_held(&card->controls_rwsem);
- #ifdef CONFIG_SND_CTL_FAST_LOOKUP
- 	return xa_load(&card->ctl_numids, numid);
- #else
-@@ -852,11 +853,18 @@ EXPORT_SYMBOL(snd_ctl_find_numid_locked);
-  * Finds the control instance with the given number-id from the card.
-  *
-  * Return: The pointer of the instance if found, or %NULL if not.
-+ *
-+ * Note that this function takes card->controls_rwsem lock internally.
-  */
- struct snd_kcontrol *snd_ctl_find_numid(struct snd_card *card,
- 					unsigned int numid)
- {
--	return snd_ctl_find_numid_locked(card, numid);
-+	struct snd_kcontrol *kctl;
-+
-+	down_read(&card->controls_rwsem);
-+	kctl = snd_ctl_find_numid_locked(card, numid);
-+	up_read(&card->controls_rwsem);
-+	return kctl;
- }
- EXPORT_SYMBOL(snd_ctl_find_numid);
- 
-@@ -879,6 +887,7 @@ struct snd_kcontrol *snd_ctl_find_id_locked(struct snd_card *card,
- 
- 	if (snd_BUG_ON(!card || !id))
- 		return NULL;
-+	lockdep_assert_held(&card->controls_rwsem);
- 	if (id->numid != 0)
- 		return snd_ctl_find_numid_locked(card, id->numid);
- #ifdef CONFIG_SND_CTL_FAST_LOOKUP
-@@ -905,11 +914,18 @@ EXPORT_SYMBOL(snd_ctl_find_id_locked);
-  * Finds the control instance with the given id from the card.
-  *
-  * Return: The pointer of the instance if found, or %NULL if not.
-+ *
-+ * Note that this function takes card->controls_rwsem lock internally.
-  */
- struct snd_kcontrol *snd_ctl_find_id(struct snd_card *card,
- 				     const struct snd_ctl_elem_id *id)
- {
--	return snd_ctl_find_id_locked(card, id);
-+	struct snd_kcontrol *kctl;
-+
-+	down_read(&card->controls_rwsem);
-+	kctl = snd_ctl_find_id_locked(card, id);
-+	up_read(&card->controls_rwsem);
-+	return kctl;
- }
- EXPORT_SYMBOL(snd_ctl_find_id);
- 
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 318a064f2cec..f114bda25eea 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -799,13 +799,10 @@ static int snd_emu10k1_verify_controls(struct snd_emu10k1 *emu,
+ 		if (snd_emu10k1_look_for_ctl(emu, &gctl->id))
+ 			continue;
+ 		gctl_id = (struct snd_ctl_elem_id *)&gctl->id;
+-		down_read(&emu->card->controls_rwsem);
+-		if (snd_ctl_find_id_locked(emu->card, gctl_id)) {
+-			up_read(&emu->card->controls_rwsem);
++		if (snd_ctl_find_id(emu->card, gctl_id)) {
+ 			err = -EEXIST;
+ 			goto __error;
+ 		}
+-		up_read(&emu->card->controls_rwsem);
+ 		if (gctl_id->iface != SNDRV_CTL_ELEM_IFACE_MIXER &&
+ 		    gctl_id->iface != SNDRV_CTL_ELEM_IFACE_PCM) {
+ 			err = -EINVAL;
 -- 
 2.35.3
 

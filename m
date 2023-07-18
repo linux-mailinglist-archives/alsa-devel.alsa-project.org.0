@@ -2,98 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2FDF75832F
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 19:01:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED9F275833D
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 19:09:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D8541EB;
-	Tue, 18 Jul 2023 19:01:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D8541EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEE571E9;
+	Tue, 18 Jul 2023 19:08:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEE571E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689699712;
-	bh=1nN5KZQU59IYFu0fMrxOts32BUrOZ9aeEx7CyVvVNFo=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689700154;
+	bh=LowChJyNpWySLgzTtjQDu+vchcaLd6zgP20alhFs/kY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YCin3UZJGoDY7waV+mEPIY7Z1gJDyE+mvgRGOVFl+4yqaDsNnZZagpBi3IfIO8pef
-	 hqjttW9SYda2KQjLxSv3ikdBZNgnM+x61FiPOGdQRk1lgb6DdC99ydeR+eQI+VDu96
-	 lLzGseEhg5sHKEMVubFYg6nIgQlGjBzB9O0V5w2A=
+	b=hFaHvDAanwwZAVUn2UVEEtx0jqRe2gxVxP3Ra174ST2tK/xa3AWVGgqR06dDkGGYX
+	 xG7IbTMQPxY0cW6J9pvr6au+1Y9yICLJvDR9GU1sjwMnquovqpoFfcKBc5h3yd5AO8
+	 Y8fSYKWKOhAVF04cn17Fuly0zvApPqtZrkBMAJHY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50AB8F80527; Tue, 18 Jul 2023 19:01:01 +0200 (CEST)
+	id 561F1F8032D; Tue, 18 Jul 2023 19:08:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD2B6F8027B;
-	Tue, 18 Jul 2023 19:01:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B03DCF8027B;
+	Tue, 18 Jul 2023 19:08:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEF01F8032D; Tue, 18 Jul 2023 19:00:56 +0200 (CEST)
+	id E0F89F8032D; Tue, 18 Jul 2023 19:08:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62B46F80153
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 19:00:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B46F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 306F9F80153;
+	Tue, 18 Jul 2023 19:08:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 306F9F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=aaKfbvwS
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 36IFT7Co026098;
-	Tue, 18 Jul 2023 12:00:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=avk9x2TyXLa/GzB
-	pQ9T1QsBhP7RZDyZTYnijr+uAJw0=; b=aaKfbvwSpxz1hZVS2T3+q4eK5royMS3
-	uXc4vs2V3e+ohQ6lEeW7oL1q/5StMhF9oFT23HbHi8Fa7cSmkYoBxE8eVP44HVAP
-	5L7GqpCKqdnO+WFcIeapg4LDPXEwPsqaJQzDTHzt75u4DZn90LA7qKT8jtjvoCZA
-	aSH+AbOxbW9I7/MRLP4lu71g74I22OaWX3PZHWD8TyTOSySTMiMDDXcumaZikLFc
-	vO1oVg8+ANwpA66U3E4VjDwgOdGmdrfHJ1XBK2yiYnhLt2uwXXM6nKux/tt+9WAb
-	wHKwWg0whH1W/FUwiB8ra1bmvyLaNeWERz5OyCTIBmNJY7aYFq1it4g==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3rus62uj61-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Jul 2023 12:00:37 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 18 Jul
- 2023 18:00:35 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.30 via Frontend Transport; Tue, 18 Jul 2023 18:00:35 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2172B3563;
-	Tue, 18 Jul 2023 17:00:35 +0000 (UTC)
-Date: Tue, 18 Jul 2023 17:00:35 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Richard Fitzgerald <rf@opensource.cirrus.com>, Lee Jones <lee@kernel.org>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 08/11] mfd: wm5110: Update to use maple tree register
- cache
-Message-ID: <20230718170035.GH103419@ediswmail.ad.cirrus.com>
-References: <20230713-mfd-cirrus-maple-v1-0-16dacae402a8@kernel.org>
- <20230713-mfd-cirrus-maple-v1-8-16dacae402a8@kernel.org>
- <20230718154200.GG103419@ediswmail.ad.cirrus.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=HWN8FBlv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689700094; x=1721236094;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=LowChJyNpWySLgzTtjQDu+vchcaLd6zgP20alhFs/kY=;
+  b=HWN8FBlv9qJoApVlrxCHy2cJOlTZGMrNdD5z2FEOj35MvEChPqm8t7Qk
+   A0izz7358eVO/QbgGEiD46e/rhQyXo7162BDiVUCLW323HkH+AQq9ghHr
+   kFxA4L/7XMFj56WP1qFRDfbR4maa/JplwaMe3/YyV3MBFevq3wTStmCMG
+   6OSGcU6D/Wre+K/uqlAvJMuoL3q+YmyDN8t7xmZde2YaOocsjOZTDxL7B
+   /PKZlVVmcayQW2wQT9qPGLzolvu+e9r/pZeYnPBrNQ7HJJHga8+zppYmN
+   lCd7xAT0nXUjMZJ/Fbyv6DHep+ZCY/U21tWq3VmY34Cm1l2Vwk8Jic20t
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="430025056"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200";
+   d="scan'208";a="430025056"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2023 10:08:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="717674959"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200";
+   d="scan'208";a="717674959"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2023 10:08:00 -0700
+Date: Tue, 18 Jul 2023 20:04:41 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+cc: Alsa-devel <alsa-devel@alsa-project.org>,
+    sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
+    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+    Cezary Rojewski <cezary.rojewski@intel.com>,
+    Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+    Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+    Bard Liao <yung-chuan.liao@linux.intel.com>,
+    Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+    Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+    Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+    Matthew Auld <matthew.auld@intel.com>
+Subject: Re: [PATCH 6/7] ASoC: SOF: Intel: Remove deferred probe for SOF
+In-Reply-To: <20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
+Message-ID: 
+ <alpine.DEB.2.22.394.2307181922160.3532114@eliteleevi.tm.intel.com>
+References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
+ <20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230718154200.GG103419@ediswmail.ad.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: 2oNCQVsR5BNEka5hZfPsczLbs1DOAJi_
-X-Proofpoint-ORIG-GUID: 2oNCQVsR5BNEka5hZfPsczLbs1DOAJi_
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: PT7FK76YT5RSUJ6UIZLSUO7WVPNHT2SN
-X-Message-ID-Hash: PT7FK76YT5RSUJ6UIZLSUO7WVPNHT2SN
-X-MailFrom: prvs=2563600699=ckeepax@opensource.cirrus.com
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: J2BVU5GSVHLO5URZXC5TFRDFECAVXD6J
+X-Message-ID-Hash: J2BVU5GSVHLO5URZXC5TFRDFECAVXD6J
+X-MailFrom: kai.vehmanen@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PT7FK76YT5RSUJ6UIZLSUO7WVPNHT2SN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2BVU5GSVHLO5URZXC5TFRDFECAVXD6J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,55 +117,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 18, 2023 at 03:42:00PM +0000, Charles Keepax wrote:
-> On Thu, Jul 13, 2023 at 01:49:26AM +0100, Mark Brown wrote:
-> > The maple tree register cache is based on a much more modern data structure
-> > than the rbtree cache and makes optimisation choices which are probably
-> > more appropriate for modern systems than those made by the rbtree cache. In
-> > v6.5 it has also acquired the ability to generate multi-register writes in
-> > sync operations, bringing performance up to parity with the rbtree cache
-> > there.
-> > 
-> > Update the wm5110 driver to use the more modern data structure.
-> > 
-> > Signed-off-by: Mark Brown <broonie@kernel.org>
-> > ---
-> >  drivers/mfd/wm5110-tables.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/mfd/wm5110-tables.c b/drivers/mfd/wm5110-tables.c
-> > index 65b9b1d6daec..eba324875afd 100644
-> > --- a/drivers/mfd/wm5110-tables.c
-> > +++ b/drivers/mfd/wm5110-tables.c
-> > @@ -3218,7 +3218,7 @@ const struct regmap_config wm5110_i2c_regmap = {
-> >  	.readable_reg = wm5110_readable_register,
-> >  	.volatile_reg = wm5110_volatile_register,
-> >  
-> > -	.cache_type = REGCACHE_RBTREE,
-> > +	.cache_type = REGCACHE_MAPLE,
-> >  	.reg_defaults = wm5110_reg_default,
-> >  	.num_reg_defaults = ARRAY_SIZE(wm5110_reg_default),
-> >  };
-> > 
-> > -- 
-> > 2.39.2
-> > 
-> 
-> This one appears to cause me some issues, seems to get the IRQs
-> into a weird state when doing compressed stream stuff. The
-> issue seems to also require commit bfa0b38c1483 ("regmap:
-> maple: Implement block sync for the maple tree cache") to be
-> present. So it definitely seems to relate to the cache sync,
-> but not sure if it is something todo with the device itself,
-> or the maple tree stuff yet.
-> 
+Hi,
 
-Ah... I think I see the regcache_sync sets async=true, but then
-the maple tree code immediately deletes the buffer after calling
-_regmap_raw_write. So its a racy use after free.
+thank you Maarten for doing the series! I think a lot of people will be 
+happy to get rid of the 60sec timeout. 
 
-How would we feel about having the maple tree code, clear async
-again?
+I kicked off a CI run SOF public infra for the whole series at
+https://github.com/thesofproject/linux/pull/4478
+Some results still in progress but so far so good.
 
-Thanks,
-Charles
+Some concerns inline:
+
+On Tue, 18 Jul 2023, Maarten Lankhorst wrote:
+
+> This was only used to allow modprobing i915, by converting to the
+> -EPROBE_DEFER mechanism, it can be completely removed, and is in
+> fact counterproductive since -EPROBE_DEFER otherwise won't be
+> handled correctly.
+
+We actually have a request_module() for the regular HDA codec drivers as 
+well (sof_probe_continue() -> snd_sof_probe() -> hda_dsp_probe() -> 
+hda_init_caps() -> hda_codec_probe_bus(). But right, this is not 
+necessarily a problem on its own, so it looks we indeed can drop the work 
+queue. Nice!
+
+> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+> index f1fd5b44aaac9..344b61576c0e3 100644
+> --- a/sound/soc/sof/intel/hda-codec.c
+> +++ b/sound/soc/sof/intel/hda-codec.c
+> @@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
+>  		return 0;
+>  
+>  	/* i915 exposes a HDA codec for HDMI audio */
+> -	ret = snd_hdac_i915_init(bus, true);
+> +	ret = snd_hdac_i915_init(bus, false);
+>  	if (ret < 0)
+>  		return ret;
+
+My only bigger concern is corner cases where the display PCI device is on 
+the bus and visible to kernel, but for some reason there is no working 
+driver in the system or it is disabled.
+
+With this patch, not having a workign display driver means that there is 
+also no audio in the system as the SOF driver will never get probed.
+
+In current mainline, one will get the 60sec timeout warning and then
+audio driver will proceed to probe and you'll have audio support (minus 
+HDMI/DP).
+
+This is mostly an issue with very new hardware (e.g. hw is still 
+behind force_probe flag in xe/i915 driver), but we've had some odd
+cases with e.g. systems with both Intel IGFX and other vendors' DGPU. 
+Audio drivers see the Intel VGA controller in system and will
+call snd_hdac_i915_init(), but the audio component bind will never
+succeed if the the Intel IGFX is not in actual use.
+
+Will need a bit of time to think about possible scenarios. Possibly this 
+is not an issue outside early development systems. In theory if IGFX is 
+disabled in BIOS, and not visible to OS, we are good, and if it's visible, 
+the i915/xe driver should be loaded, so we are good again.
+
+Br, Kai

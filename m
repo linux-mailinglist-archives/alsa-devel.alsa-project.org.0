@@ -2,88 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F1C757B8B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 14:11:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6085D757BA3
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 14:19:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B2E0DF1;
-	Tue, 18 Jul 2023 14:10:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B2E0DF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C69FAE8;
+	Tue, 18 Jul 2023 14:18:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C69FAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689682301;
-	bh=Bwi6+hxv+njlD1feI8RZMPqKlUapw7YCTAxkf6ATuhw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1689682744;
+	bh=fMRSVg/Lxjchh257ZeJ6r5vcPqTs5Cbp/lHd/4v9vlA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ONpjqQjSMdnYE5o72PXb85xj8DOPba//JU0RWgA7/LqK9Uld09DJo2k8thKvJypwX
-	 3hO5Xs34SqLliHwKpYuVqdrrgpuh96/xdofoi0ATSEpsE4uIFiQ+6BMlccMrYMy6yb
-	 vwyDvL1A7zd3PqtTX9tzlS0R9HT1KgwqDbxsIj+4=
+	b=VqSXG+6/VIt0VZBFpugipP0v+KpBz8wmrDn0xBRStiaeMAnUOdRGytzbqDgvMc1Bx
+	 xraiHU83G3fuWnDuEFTTjWI+SLRozdInoIpIQhbDK74z7BA++LalrOv2e+d86QDEv0
+	 VybjH9qOUZtcKIAWXuGWgqfS8IfQ8ifosVDprESA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E86DF8055A; Tue, 18 Jul 2023 14:10:12 +0200 (CEST)
+	id 9EC4BF8032D; Tue, 18 Jul 2023 14:17:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0E59F80544;
-	Tue, 18 Jul 2023 14:10:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D65F8F8027B;
+	Tue, 18 Jul 2023 14:17:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 045A5F8032D; Tue, 18 Jul 2023 14:10:08 +0200 (CEST)
+	id 3A096F8032D; Tue, 18 Jul 2023 14:17:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 17093F80153
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 14:10:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17093F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9D350F800D2;
+	Tue, 18 Jul 2023 14:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D350F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SQVguFhE
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=xynSjjn5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=6vItAQ41
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id ACF1C6154E;
-	Tue, 18 Jul 2023 12:10:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6476AC433CA;
-	Tue, 18 Jul 2023 12:10:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689682203;
-	bh=Bwi6+hxv+njlD1feI8RZMPqKlUapw7YCTAxkf6ATuhw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=SQVguFhEExz6ZaiyvqImE9Y5tzDDd9cS8Oqp3xWI+3BHvcZ1S/fWg0cp/zisODT8s
-	 SUUXsPv2BtkZDB+sYjPd9PjuhZYBvsQwOxpbG15GgIklVR14n587oAkPMAuHW8VZQ+
-	 PmlXbPoRw8M6On/lXN+aHXBsgJisTiaRkKrosKzxrQJPa1N+LqwvJVza33HOLxq8kU
-	 IRhVJMecozYtWQG7uCc1Gehj+OPcIWCnMcWUuTcXBBH+ZgQoPWOaSVkXPat17eME5N
-	 Exy1txTw1eU/j6dd+iiDtXvBYZHJUcGssUiePQlKIiq/y4Zj+kVgVrgxH8EJCMUCNX
-	 XWyLvgN5p9Hcg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Vladimir Oltean <olteanv@gmail.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- =?utf-8?q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>,
- Wolfram Sang <wsa@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Cc: imx@lists.linux.dev, shengjiu.wang@nxp.com
-In-Reply-To: <20230713222513.1636591-1-Frank.Li@nxp.com>
-References: <20230713222513.1636591-1-Frank.Li@nxp.com>
-Subject: Re: [PATCH 1/1] ASoC: codec: wm8960: add additional probe check
- for codec identification
-Message-Id: <168968220008.40723.6109543633673896312.b4-ty@kernel.org>
-Date: Tue, 18 Jul 2023 13:10:00 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: XWAQL7O2UTD7GIH3EJGVNAGCUMWLPQ7K
-X-Message-ID-Hash: XWAQL7O2UTD7GIH3EJGVNAGCUMWLPQ7K
-X-MailFrom: broonie@kernel.org
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1345221954;
+	Tue, 18 Jul 2023 12:17:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1689682656;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4TdEhciiSwsv5vinAbnDrmrQzodZb9a+RU42WAAQt0M=;
+	b=xynSjjn5vO58svXXYtRPzXTmqfuY8J/pBE2ZwCwpX6QGrZsy64IEF81aYnFjt8ghkcL1I2
+	8nVyxCoz1z+tHbV4Tx/r2p4j1ZihUw244OmvgBT7HvA9Fdjy9GHF/dm76wrUedFQc0CvWA
+	6bdeul9ncCG8FKuQnj7GzkBMPot/VxU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1689682656;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4TdEhciiSwsv5vinAbnDrmrQzodZb9a+RU42WAAQt0M=;
+	b=6vItAQ41n5VLJt25wmWVdXqagnbDSsn7dzfymZpluHCe/p20Cnhrn/aFlX86UgESy2LzkJ
+	ZDrcARvCW4EKOlAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7127134B0;
+	Tue, 18 Jul 2023 12:17:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id FhivK9+CtmTnQAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 18 Jul 2023 12:17:35 +0000
+Date: Tue, 18 Jul 2023 14:17:35 +0200
+Message-ID: <877cqxo1ls.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,
+	sound-open-firmware@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown
+ <broonie@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Subject: Re: [v2 PATCH 1/2] ALSA: hda/intel: Fix error handling in azx_probe()
+In-Reply-To: <2a727311-46d8-e999-1461-2ed2f1b704e0@linux.intel.com>
+References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
+	<20230718084522.116952-6-maarten.lankhorst@linux.intel.com>
+	<87h6q1o82l.wl-tiwai@suse.de>
+	<2a727311-46d8-e999-1461-2ed2f1b704e0@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ITXQZ2NTZJUENETCJEAAD4SBXRG7WQ37
+X-Message-ID-Hash: ITXQZ2NTZJUENETCJEAAD4SBXRG7WQ37
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWAQL7O2UTD7GIH3EJGVNAGCUMWLPQ7K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ITXQZ2NTZJUENETCJEAAD4SBXRG7WQ37/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,39 +133,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 13 Jul 2023 18:25:12 -0400, Frank Li wrote:
-> The wm8960 codec is not readable, resulting in a NACK for address 0x3d (8-bit).
-> This can partially indicate it. For example: wm8962 codec use the same address
-> but is readable. This additional probe check will help prevent loading the wm8960
-> module incorrectly on wm8962 hardware.
+On Tue, 18 Jul 2023 13:57:33 +0200,
+Maarten Lankhorst wrote:
 > 
 > 
+> Make sure azx is freed after azx_create() succeeded and an error was
+> encountered.
+> 
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> ---
+>  sound/pci/hda/hda_intel.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> index 5af1138e745bc..196ca76ac43ad 100644
+> --- a/sound/pci/hda/hda_intel.c
+> +++ b/sound/pci/hda/hda_intel.c
+> @@ -2150,7 +2150,7 @@ static int azx_probe(struct pci_dev *pci,
+>                       err = register_vga_switcheroo(chip);
+>                       if (err < 0) {
+>                                             dev_err(card->dev, "Error registering vga_switcheroo client\n");
+> -                                           goto out_free;
+> +                                           goto out_azx_free;
+>                       }
+>  
+>                       if (check_hdmi_disabled(pci)) {
+> @@ -2169,7 +2169,7 @@ static int azx_probe(struct pci_dev *pci,
+>                                                                                                                     &pci->dev, GFP_KERNEL, card,
+>                                                                                                                     azx_firmware_cb);
+>                                             if (err < 0)
+> -                                                                 goto out_free;
+> +                                                                 goto out_azx_free;
+>                                             schedule_probe = false; /* continued in azx_firmware_cb() */
+>                       }
+>  #endif /* CONFIG_SND_HDA_PATCH_LOADER */
+> @@ -2187,6 +2187,9 @@ static int azx_probe(struct pci_dev *pci,
+>                                             complete_all(&hda->probe_wait);
+>                       return 0;
+>  
+> +out_azx_free:
+> +                     azx_free(chip);
 
-Applied to
+This is superfluous.  Once when azx_create() succeeds, azx_free() is
+called from snd_card_free().  That is...
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> +                     pci_set_drvdata(pci, NULL);
 
-Thanks!
+... only this call was missing.  And this can be put under out_free 
+label, as this is safe to call at any exit path.  So, it'll be a
+oneliner patch.
 
-[1/1] ASoC: codec: wm8960: add additional probe check for codec identification
-      commit: 8b30cdbe0b911562fc1496078162dc9547b69be5
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+thanks,
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Takashi
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+>  out_free:
+>                       snd_card_free(card);
+>                       return err;
+> -- 
+> 2.39.2
+> 

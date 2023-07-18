@@ -2,53 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 675B8757DA4
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 15:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB2B7757DC3
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 15:36:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E15F21DF;
-	Tue, 18 Jul 2023 15:29:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E15F21DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BB4D4E;
+	Tue, 18 Jul 2023 15:35:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BB4D4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689687025;
-	bh=z8ya5br1+CW5NfNyF2ATJ/rpXEOQIuxPP4f6zXr11ZE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=DUHhX6YdZon30oqm9u1c27pOKnCSbaX1gEAt+BdykwZ8ZlpRWRQJpoX51hb74xYd4
-	 EC9G/13OIFzpZmEmxLp3YipAYo5om6MAMFstQjY3lv8xpkRHBd8mQ1HP2yjlZPazei
-	 2Tpzgq1lvuU4xyXDrEQW3U5ScaUo6RAalWtI3ruY=
+	s=default; t=1689687377;
+	bh=87x/ZiICR+wjR2rxh0LCkN4th6j+MlFTVrqott7G8JI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=K5tV4CmEVQ4SuKC5Hgnc3d+MTRn/8brXalOFr2MUNTyMKr7oiZ8xSxv2oPrr3uDKR
+	 tleU74+emLaCfnEDZ/DwvqxiE5JsVovTNUD0vfGtm/TmszgZo+h2IAQ5YhrdbwdFJe
+	 ijWLaEj5GlCcxKh27Np4doaTAL8Zkxk4mxSKEpKs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B5EBF80549; Tue, 18 Jul 2023 15:29:34 +0200 (CEST)
+	id 5BF3DF8027B; Tue, 18 Jul 2023 15:35:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB7F7F8027B;
-	Tue, 18 Jul 2023 15:29:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD3A4F8027B;
+	Tue, 18 Jul 2023 15:35:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3CF8EF8032D; Tue, 18 Jul 2023 15:29:28 +0200 (CEST)
+	id 108C4F8032D; Tue, 18 Jul 2023 15:35:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEDCEF80153
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 15:29:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEDCEF80153
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id A482BF800D2
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 15:35:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A482BF800D2
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=Gw9YXTCx
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id EC3886157A;
+	Tue, 18 Jul 2023 13:35:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABEAC433C9;
+	Tue, 18 Jul 2023 13:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1689687312;
+	bh=87x/ZiICR+wjR2rxh0LCkN4th6j+MlFTVrqott7G8JI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Gw9YXTCxOIGRmdlzFeIxvMZpmglLv3KMDBtgMHMqX5xa+LT3ujlhNLKB1AUCE2LCW
+	 shvyT4eaxIqTQoU/fhQGMOEZNc/Lv9+kNA0ZSXQQRxCHI3jbiKA+fmQ5r2irqSIbTR
+	 PTwXRkrdu1EQoVygN47SgtA3iexsKIeQvxXu6I/A=
+Date: Tue, 18 Jul 2023 15:35:06 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@google.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	alsa-devel@alsa-project.org, linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com
+Subject: Re: [PATCH v2 2/5] platform: Provide stubs for !HAS_IOMEM builds
+Message-ID: <2023071855-decimal-sarcastic-65b9@gregkh>
+References: <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-2-0ee11e662b92@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1689686960191447973-webhooks-bot@alsa-project.org>
-References: <1689686960191447973-webhooks-bot@alsa-project.org>
-Subject: X13s volume fixes
-Message-Id: <20230718132928.3CF8EF8032D@alsa1.perex.cz>
-Date: Tue, 18 Jul 2023 15:29:28 +0200 (CEST)
-Message-ID-Hash: YRZSYXBQOJ6MA4WAQNNJW7OJ5KAGOTF5
-X-Message-ID-Hash: YRZSYXBQOJ6MA4WAQNNJW7OJ5KAGOTF5
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <20230718-asoc-topology-kunit-enable-v2-2-0ee11e662b92@kernel.org>
+Message-ID-Hash: 2UKOBD2FPJIUCFL57ETVT4NQIVBXZUKC
+X-Message-ID-Hash: 2UKOBD2FPJIUCFL57ETVT4NQIVBXZUKC
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YRZSYXBQOJ6MA4WAQNNJW7OJ5KAGOTF5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UKOBD2FPJIUCFL57ETVT4NQIVBXZUKC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,10 +101,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #335 was opened from Srinivas-Kandagatla:
+On Tue, Jul 18, 2023 at 01:28:43AM +0100, Mark Brown wrote:
+> The various _ioremap_resource functions are not built when
+> CONFIG_HAS_IOMEM is disabled but no stubs are provided. Given how
+> widespread IOMEM usage is in drivers and how rare !IOMEM configurations
+> are in practical use let's just provide some stubs so users will build
+> without having to add explicit dependencies on IOMEM.
+> 
+> The most likely use case is builds with UML for KUnit testing.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+>  include/linux/platform_device.h | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
 
-This patchset fixes some of the Volume issues that are seen on X13s, most of the existing ucm was controlling Digital Gains instead of Analog Gains. With this patchset the volume on both speakers are much better and not saturated.
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/335
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/335.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>

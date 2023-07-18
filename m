@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A2C757923
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:17:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7570E757925
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:18:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0660FE76;
-	Tue, 18 Jul 2023 12:17:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0660FE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2ED7E74;
+	Tue, 18 Jul 2023 12:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2ED7E74
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689675474;
-	bh=WDTHrUsPymrO8nmJpxbWUaYcxSURmjngaV8JANnGwHU=;
+	s=default; t=1689675487;
+	bh=VL1j3O0Q04VgiaPuaZDUXw3HMOuYnE00jHz1oEj0dlk=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hU5WnjR8lQWtoFgfgt+JBQ6l187ISNiLggVLilnBmFpi6cE3lGdk8alRRtUWpyhEy
-	 PwR0MYkik5DSpPHl1Po4ZmFu+iapgujCaOLZWp4qjrziKNpJQsnXLKngRUsn4F+bUt
-	 y/drOlK2MKTePuFdeGHNFHVWPDuCrk0m0yBR3sY8=
+	b=RXq3tUxIVxZBAjIaktr2Dm35gNY4dKEjWuf309x4d2+BRbMsDtRLKZYIOqtLp/twP
+	 grMEFbnxrBUi31qWU/EQdZTlz9bBKj+oVSJCYy0Q2rMusYRmXITArcQt2kpdM1KS2M
+	 z40GZAiNMqoKCo3griq0nnzZAjw+gmHPP2jBFGoM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A990EF805EA; Tue, 18 Jul 2023 12:14:23 +0200 (CEST)
+	id 793F2F805F8; Tue, 18 Jul 2023 12:14:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11C43F805EA;
-	Tue, 18 Jul 2023 12:14:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16ED9F805F4;
+	Tue, 18 Jul 2023 12:14:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44652F8032D; Tue, 18 Jul 2023 11:03:49 +0200 (CEST)
+	id 32ECEF8032D; Tue, 18 Jul 2023 11:03:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
 	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50314F8027B
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50314F8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id F19B2F804DA
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F19B2F804DA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=udPdgY2z
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-3fbb07e7155so69885e9.0
+ header.s=20221208 header.b=UocW8hid
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-3fbd200d354so47195e9.1
         for <alsa-devel@alsa-project.org>;
- Tue, 18 Jul 2023 02:03:45 -0700 (PDT)
+ Tue, 18 Jul 2023 02:03:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1689671024; x=1692263024;
+        d=google.com; s=20221208; t=1689671028; x=1692263028;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=m8n9C2+1ceNWNK8B4V9UVVJZlEjMqzJB4jI9qIEqfis=;
-        b=udPdgY2zlwbUOAFnoZhByyU8vgrjQSKqYVoWpeYwTTEcBh60QZSUHkHTR2TmnE+J8X
-         nGXedDrSNpEKQ4GNtJQXSrayaJ0yhnVD3C0qfV0yBtkKmM3Z7CcW6aLdPD1+rWqUVyy7
-         71RbpRuMc/Ftn44khxLW6Tt2rQyMszQtdmKGfjcYaki2lRQd2Aboj5j47u9bF2cp1e7G
-         fXgPaa2ZFblK37dvSO3hwsju3ccBrSrhGfWPXR9pHYAdiPMdM/2840t7b3YxCG/qjxjz
-         UzXqcC4lu6ymABrCv02VKkwvSZoIsvC0Y8H+QR3GrNeY0Efi/+QIreDS0YBKfzKsr/UU
-         pf/A==
+        bh=0EvPzuVM27XFUaw33jSWEX5QGKMhCOrUck8/cGtVCmc=;
+        b=UocW8hid+w5go/q3O2K4oXnUhSvMi2hOp596znx2lNj493eaJM+wl1m7itit9gm7FE
+         91LpqkH77iX77PG6JW2Q6IwjbEBfbyf6qnC498nOl36WCkVBpkfAHWbe2IN8fK5xCt0S
+         Xni/TaPYEvOSVhdyBY5yjc49aQ0Oz3+D6DbaOeN8OoRHtqVFjjKqu1gj08gjTqyRa3ih
+         zagsCcEY1oJeAIw5Ixqi/V0PvzC3gPTnreSf+dLe8MXDGzu0AyLwimR0XG2sea0CESR8
+         +tYq5Pe1MkufJgoGSWTWL64d/KWve929AJs5qrYG/sOisjvaq3S2o6TdR1rqPNl6WsWq
+         ZNPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689671024; x=1692263024;
+        d=1e100.net; s=20221208; t=1689671028; x=1692263028;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=m8n9C2+1ceNWNK8B4V9UVVJZlEjMqzJB4jI9qIEqfis=;
-        b=jPBMQshicfJBMvn/KkA6pOnzFiMHrUs5geiHw9LzPQdpauaOKqOiIQyEIxjwHHbmTo
-         q9FPwyhBXyN7aN67SKsUTM6iGXtkeogYBBkeb/+Xy1u4RFRsb9OGJc6DNJlvnR2o2bHE
-         ZfZk65AlkqzxHUVr3wfHGAQYaHt6GPH4BD2Jr/FjztI36ITmZxR+4/vr5ylRzxPfeR0M
-         I+2TMTKmUV3xo/G28m3J6pF1PhU2HWznkFMl367HoFUA1+5aCecC7HMNdfGXpep+VuCW
-         BtucJWlIfWUK1qnN1WdG3Y5GLK1UQVfDSEDjstCtpURtluKy0M0mjIJNFZgy48Sc5Zhb
-         xH0g==
-X-Gm-Message-State: ABy/qLaD7t+IOrJVMNrUZwtaUACwVkrDUxK1zP8Lxi6gzSImH7OcHH6r
-	taVAe30BYa2uL39y6SE2mAVjqd6bzlvbBJS2C90pNA==
+        bh=0EvPzuVM27XFUaw33jSWEX5QGKMhCOrUck8/cGtVCmc=;
+        b=JI+5G14wIptneIYrgOVN9cBvY35kbN+fM2WRAL0kVY4G6WHcHcxoGzfr1oSGf1tBiR
+         AUdCS2BBQbmykArG92rNB4WSc10U5NxOzbbJiYIRwQjfPSOSYrDLokt64bbJ3b+61EPR
+         J3HMDi9odOgStnt4WiEZidr6iQvYSsLyP6QnRIGnq+C+HABnrrgM09tWYYXA33WKUbHX
+         wM3v89lYKqxsh9pepCaE9jst0PVCqFkHzKzKLD9D00aw/DLl98fQ6Fk87wJhohBBb3HM
+         48yLGBE+J8Ad7QVHoMG33Kl76KfzYZ/zEKH/OQq1RMwmlvwfYmmukvIbLalPBrynEUQ3
+         7GuQ==
+X-Gm-Message-State: ABy/qLZCuqdLTWREJybd/GzgBuzKUgpD2rv/Ed4U3GYb3u/1zVtdhR39
+	wtUP3FuFd+JKcEsRI/yAZbchPwRJE/HnCdtXsb/5hg==
 X-Google-Smtp-Source: 
- APBJJlFwA4Qq1OA920SlL9F6tV87OJ6V11uYnPfKqCDWS5TF/aY8HmJaJScUFCm7V4x76DNnJSTEmZYpzziWwMiMdiU=
-X-Received: by 2002:a05:600c:3ac5:b0:3f7:e463:a0d6 with SMTP id
- d5-20020a05600c3ac500b003f7e463a0d6mr83943wms.0.1689671024232; Tue, 18 Jul
- 2023 02:03:44 -0700 (PDT)
+ APBJJlGosrwaYRnxxumaPEki54Xk1ftUTjhUOX5RuvDKnY/mKfUFiDpEwVbFjqcH2h40f0EaaXJpvYotzJA3IVBbUG4=
+X-Received: by 2002:a05:600c:3c92:b0:3fc:75d:8f85 with SMTP id
+ bg18-20020a05600c3c9200b003fc075d8f85mr84492wmb.6.1689671028113; Tue, 18 Jul
+ 2023 02:03:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
- <20230718-asoc-topology-kunit-enable-v2-2-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-3-0ee11e662b92@kernel.org>
 In-Reply-To: 
- <20230718-asoc-topology-kunit-enable-v2-2-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-3-0ee11e662b92@kernel.org>
 From: David Gow <davidgow@google.com>
-Date: Tue, 18 Jul 2023 17:03:32 +0800
+Date: Tue, 18 Jul 2023 17:03:36 +0800
 Message-ID: 
- <CABVgOSnWkjr8HfHCwf+qCe0gu1SA2pZHXbwpPd76sh=_ebd5Rg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] platform: Provide stubs for !HAS_IOMEM builds
+ <CABVgOS=W81BCVWFg7OPiu4i5pJ9_4jSu+rKG7eY6TDMB2KQ3nw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] ALSA: Enable build with UML
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
  Brendan Higgins <brendan.higgins@linux.dev>,
@@ -100,22 +100,22 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	kunit-dev@googlegroups.com
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
  micalg=sha-256;
-	boundary="0000000000003521dc0600bf3140"
+	boundary="0000000000006f2c230600bf31aa"
 X-MailFrom: davidgow@google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 4XPLQED7ZSQSO7RR4NKXGVOEDXHXPCU5
-X-Message-ID-Hash: 4XPLQED7ZSQSO7RR4NKXGVOEDXHXPCU5
+Message-ID-Hash: L4ZRI2BO6V5RQWMNASWWBW344RZEK23S
+X-Message-ID-Hash: L4ZRI2BO6V5RQWMNASWWBW344RZEK23S
 X-Mailman-Approved-At: Tue, 18 Jul 2023 10:14:06 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4XPLQED7ZSQSO7RR4NKXGVOEDXHXPCU5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4ZRI2BO6V5RQWMNASWWBW344RZEK23S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,85 +124,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---0000000000003521dc0600bf3140
+--0000000000006f2c230600bf31aa
 Content-Type: text/plain; charset="UTF-8"
 
 On Tue, 18 Jul 2023 at 08:30, Mark Brown <broonie@kernel.org> wrote:
 >
-> The various _ioremap_resource functions are not built when
-> CONFIG_HAS_IOMEM is disabled but no stubs are provided. Given how
-> widespread IOMEM usage is in drivers and how rare !IOMEM configurations
-> are in practical use let's just provide some stubs so users will build
-> without having to add explicit dependencies on IOMEM.
->
-> The most likely use case is builds with UML for KUnit testing.
+> In order to facilitate testing using KUnit allow ALSA to build with UML,
+> it's not super useful at runtime but that's a user problem rather than
+> an actual dependency.  The apparent reason for the dependency was the
+> widespread use of iomem APIs in ALSA drivers, earlier patches in this
+> series have provided stubs for these APIs so that there are no build
+> time issues even without individual drivers having IOMEM dependencies
+> added.
 >
 > Signed-off-by: Mark Brown <broonie@kernel.org>
 > ---
 
-As with the previous patch, I'm all for this.
+This works well here, and I'd love to see it go through. I'll leave it
+to the ALSA folks in case there are other issues with UML they're
+worried about, though.
 
-Reviewed-by: David Gow <davidgow@google.com>
+Tested-by: David Gow <davidgow@google.com>
 
 Cheers,
 -- David
 
 
->  include/linux/platform_device.h | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
+>  sound/Kconfig | 4 ----
+>  1 file changed, 4 deletions(-)
 >
-> diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
-> index b845fd83f429..7a41c72c1959 100644
-> --- a/include/linux/platform_device.h
-> +++ b/include/linux/platform_device.h
-> @@ -63,6 +63,8 @@ extern struct resource *platform_get_mem_or_io(struct platform_device *,
->  extern struct device *
->  platform_find_device_by_driver(struct device *start,
->                                const struct device_driver *drv);
-> +
-> +#ifdef CONFIG_HAS_IOMEM
->  extern void __iomem *
->  devm_platform_get_and_ioremap_resource(struct platform_device *pdev,
->                                 unsigned int index, struct resource **res);
-> @@ -72,6 +74,32 @@ devm_platform_ioremap_resource(struct platform_device *pdev,
->  extern void __iomem *
->  devm_platform_ioremap_resource_byname(struct platform_device *pdev,
->                                       const char *name);
-> +#else
-> +
-> +static inline void __iomem *
-> +devm_platform_get_and_ioremap_resource(struct platform_device *pdev,
-> +                               unsigned int index, struct resource **res)
-> +{
-> +       return ERR_PTR(-EINVAL);
-> +}
-> +
-> +
-> +static inline void __iomem *
-> +devm_platform_ioremap_resource(struct platform_device *pdev,
-> +                              unsigned int index)
-> +{
-> +       return ERR_PTR(-EINVAL);
-> +}
-> +
-> +static inline void __iomem *
-> +devm_platform_ioremap_resource_byname(struct platform_device *pdev,
-> +                                     const char *name)
-> +{
-> +       return ERR_PTR(-EINVAL);
-> +}
-> +
-> +#endif
-> +
->  extern int platform_get_irq(struct platform_device *, unsigned int);
->  extern int platform_get_irq_optional(struct platform_device *, unsigned int);
->  extern int platform_irq_count(struct platform_device *);
+> diff --git a/sound/Kconfig b/sound/Kconfig
+> index 0ddfb717b81d..f0e15822e858 100644
+> --- a/sound/Kconfig
+> +++ b/sound/Kconfig
+> @@ -39,8 +39,6 @@ config SOUND_OSS_CORE_PRECLAIM
+>
+>  source "sound/oss/dmasound/Kconfig"
+>
+> -if !UML
+> -
+>  menuconfig SND
+>         tristate "Advanced Linux Sound Architecture"
+>         help
+> @@ -103,8 +101,6 @@ source "sound/virtio/Kconfig"
+>
+>  endif # SND
+>
+> -endif # !UML
+> -
+>  endif # SOUND
+>
+>  config AC97_BUS
 >
 > --
 > 2.39.2
 >
 
---0000000000003521dc0600bf3140
+--0000000000006f2c230600bf31aa
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -269,14 +247,14 @@ jyzYFOHYQyv5IfML/3IBFKlON5OZa+V8EZYULYcNkp03DdWglafj7SXZ1/XgAbVYrC381UvrsYN8
 jndVvoa1GWwe+NVlIIK7Q3uAjV3qLEDQpaNPg1rr0oAn6YmvTccjVMqj2YNwN+RHhKNzgRGxY5ct
 FaN+8fXZhRhpv3bVbAWuPZXoMYICajCCAmYCAQEwaDBUMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQ
 R2xvYmFsU2lnbiBudi1zYTEqMCgGA1UEAxMhR2xvYmFsU2lnbiBBdGxhcyBSMyBTTUlNRSBDQSAy
-MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCAm
-7a8ArzfNH1yZUp5jfhdSe5s+mh/8cntVE8bqbNAVEzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
-MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNDRaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
+MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCAT
+YfhAoJw9f0lI+iJkcuGhd1aveq7AEBmqZayrBjdU1DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
+MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNDhaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
 BAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEKMAsG
-CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAGE7reL51zx706cJGn5Af
-2SMgHXcE+A48pY/8PBmyvAqoVBh6kklIvq9+NZhOacgdVvledgrnmFxHEQKCf/pHyJ8sOgTyr0oI
-/j258ZKH+mdY7ZOFBK/RVS5cPJuGer4rVpJCQvxw1x1ZCSjF2KmQ/pSQEQ3a1DWklHZCZUasNIMT
-reIDRlxeI57pt08q+RHGfsH4tihFNrfU6Gf1+/uHfszmDj7GJYrcvfSpf+QmkKNb8B+q6176P9dE
-LemavtHJZS8vyLYpfCmLPjM6ZA0s8yhkPh0ZME0CEKT6WQAG2OKd8OAM5/ZGtvY7g+UMLPIpV3Z4
-mGN97Z7sW2YT+QgFaw==
---0000000000003521dc0600bf3140--
+CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAQcunZtkOLIfnWXsLHViO
+6oe/HoLmms6VW1vlD8CIEiv4FMvaJFMLPpiUrnGNYIlRX2zkoB0UtXr6rlOpETZWvG1Qt3js4LPq
+VUL74p5ZqgQ6kx96+MrjNg8rmL4XIQ/DkpEFO2agp2m2Mc0ywKyZj87Oyj4wsGEbwF5D7EaAdy8a
+8KNrkdpkm64KrUaHt901kDS7djh8BzNZbk9Cwx1mhR09XixRgBsb9Ul4Tf8o+G6UOxUjko8EmKWx
+K6HdqB/mXek7EZZBo4vl//ztm8KIAShnL9RvUX/uquf0GbqA215GLw5tb7H5mZXuyE/uO7rfbZ8E
+bkrgMgUdUy1OSabeVQ==
+--0000000000006f2c230600bf31aa--

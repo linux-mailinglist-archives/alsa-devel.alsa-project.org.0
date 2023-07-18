@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7570E757925
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C214757927
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 12:18:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2ED7E74;
-	Tue, 18 Jul 2023 12:17:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2ED7E74
+	by alsa0.perex.cz (Postfix) with ESMTPS id B57C8DF8;
+	Tue, 18 Jul 2023 12:17:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B57C8DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689675487;
-	bh=VL1j3O0Q04VgiaPuaZDUXw3HMOuYnE00jHz1oEj0dlk=;
+	s=default; t=1689675499;
+	bh=30+cHA5S7zRTTVgMYrGfBvMak8JmBCNgYjuJxOL1vkE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RXq3tUxIVxZBAjIaktr2Dm35gNY4dKEjWuf309x4d2+BRbMsDtRLKZYIOqtLp/twP
-	 grMEFbnxrBUi31qWU/EQdZTlz9bBKj+oVSJCYy0Q2rMusYRmXITArcQt2kpdM1KS2M
-	 z40GZAiNMqoKCo3griq0nnzZAjw+gmHPP2jBFGoM=
+	b=JWDJ5bvQAleqXARWRFSCJyqODe9f5O/WXquIN6Og3AkeweBt+Z1sjg+g9MywqYXKk
+	 vrgxNkOuiz+MUpPNXjzFDXrUZSYKBJ/et8NvRgtI2F0W/1mghc4tsTeGUgMms8hkzt
+	 0uomz1E+eqie5g26CDpVJDKy/NSjNqrfYNcFGF3w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 793F2F805F8; Tue, 18 Jul 2023 12:14:25 +0200 (CEST)
+	id 29B03F80601; Tue, 18 Jul 2023 12:14:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16ED9F805F4;
-	Tue, 18 Jul 2023 12:14:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF238F805FB;
+	Tue, 18 Jul 2023 12:14:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32ECEF8032D; Tue, 18 Jul 2023 11:03:53 +0200 (CEST)
+	id 312D1F8047D; Tue, 18 Jul 2023 11:03:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-15.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
@@ -39,57 +39,57 @@ Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F19B2F804DA
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F19B2F804DA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1475FF8027B
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 11:03:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1475FF8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=UocW8hid
+ header.s=20221208 header.b=1Ov8w5zs
 Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-3fbd200d354so47195e9.1
+ 5b1f17b1804b1-3fbb07e7155so69955e9.0
         for <alsa-devel@alsa-project.org>;
- Tue, 18 Jul 2023 02:03:49 -0700 (PDT)
+ Tue, 18 Jul 2023 02:03:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1689671028; x=1692263028;
+        d=google.com; s=20221208; t=1689671032; x=1692263032;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0EvPzuVM27XFUaw33jSWEX5QGKMhCOrUck8/cGtVCmc=;
-        b=UocW8hid+w5go/q3O2K4oXnUhSvMi2hOp596znx2lNj493eaJM+wl1m7itit9gm7FE
-         91LpqkH77iX77PG6JW2Q6IwjbEBfbyf6qnC498nOl36WCkVBpkfAHWbe2IN8fK5xCt0S
-         Xni/TaPYEvOSVhdyBY5yjc49aQ0Oz3+D6DbaOeN8OoRHtqVFjjKqu1gj08gjTqyRa3ih
-         zagsCcEY1oJeAIw5Ixqi/V0PvzC3gPTnreSf+dLe8MXDGzu0AyLwimR0XG2sea0CESR8
-         +tYq5Pe1MkufJgoGSWTWL64d/KWve929AJs5qrYG/sOisjvaq3S2o6TdR1rqPNl6WsWq
-         ZNPg==
+        bh=cZ7209PQgbYgQTR65k1k2Zl5Dyso4SJRqPX4Y5IaN+0=;
+        b=1Ov8w5zsUqp+N5Y3Db5oUEsfNKvXSXO4itdYoPXCmcgsZafNPosOn3LCQ4SiAclx9W
+         K1YMr7jGoIwMvwkRJEtcQujg2zbxZuRcAfICkaWpTjlah15Pdr7Z96TBQg6xmL8Gmxl5
+         HnL0DdP3LyVMeMRg7+4EC3BAK4Go97ADk4sBN0Ht91GMOJ2gUUbZruPx6velVXpYLHAN
+         SEu9C/4c38TdZ7HSX/LgMhyTn8PDiqJgYKD/h7Y5JrfhzY2Cw7N+MhfJjNLqLfN+gF1B
+         zyhIi4wu4aW7aq/8FthdkqfwUx6FuQzEUyMY9oa5VSw3ASmK6EYKkzdsVrIjQGH/N/iS
+         wqQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689671028; x=1692263028;
+        d=1e100.net; s=20221208; t=1689671032; x=1692263032;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0EvPzuVM27XFUaw33jSWEX5QGKMhCOrUck8/cGtVCmc=;
-        b=JI+5G14wIptneIYrgOVN9cBvY35kbN+fM2WRAL0kVY4G6WHcHcxoGzfr1oSGf1tBiR
-         AUdCS2BBQbmykArG92rNB4WSc10U5NxOzbbJiYIRwQjfPSOSYrDLokt64bbJ3b+61EPR
-         J3HMDi9odOgStnt4WiEZidr6iQvYSsLyP6QnRIGnq+C+HABnrrgM09tWYYXA33WKUbHX
-         wM3v89lYKqxsh9pepCaE9jst0PVCqFkHzKzKLD9D00aw/DLl98fQ6Fk87wJhohBBb3HM
-         48yLGBE+J8Ad7QVHoMG33Kl76KfzYZ/zEKH/OQq1RMwmlvwfYmmukvIbLalPBrynEUQ3
-         7GuQ==
-X-Gm-Message-State: ABy/qLZCuqdLTWREJybd/GzgBuzKUgpD2rv/Ed4U3GYb3u/1zVtdhR39
-	wtUP3FuFd+JKcEsRI/yAZbchPwRJE/HnCdtXsb/5hg==
+        bh=cZ7209PQgbYgQTR65k1k2Zl5Dyso4SJRqPX4Y5IaN+0=;
+        b=NN5veLYuiWPBzou7JP+jVOhG09x9NDb606ihh5MelerGnh731Lp/vrwvH0EywTSx6H
+         jhB8Gy4YiH/OKAVnA9vlcRotl6ZG0hl+0A04udBlVD+hN4VqiSrkff0wsPvmef+5KbAt
+         fFO+hlQ+NV0P6ERuS2ushgY3Qz05kMfdMJZ8fJf/KCVLoE2NfhS8lintg6MRiB0UWomu
+         okvubLJO1OqmZZIx5DKXxG5qW5l5ZAQaKuybznbaLW07uLv9qN+ohzxaR2Vpe/FiK1HN
+         zlZSyBs//aMZrWsTwsAQ/Sbop5W1yfYR6hmGiilxwDrwvqWPXPbOUVT8PcrOzcbKMn7u
+         7s2Q==
+X-Gm-Message-State: ABy/qLby/tT0iSeJxRh2shEgkNYfA0lMKPOP//faYuwtDV9rs0xqDDWq
+	GuA/XJeQk9lsUN6cC2BJsBQTEuThVFZ3GEuipo9Rcg==
 X-Google-Smtp-Source: 
- APBJJlGosrwaYRnxxumaPEki54Xk1ftUTjhUOX5RuvDKnY/mKfUFiDpEwVbFjqcH2h40f0EaaXJpvYotzJA3IVBbUG4=
-X-Received: by 2002:a05:600c:3c92:b0:3fc:75d:8f85 with SMTP id
- bg18-20020a05600c3c9200b003fc075d8f85mr84492wmb.6.1689671028113; Tue, 18 Jul
- 2023 02:03:48 -0700 (PDT)
+ APBJJlHzArV2QXKYgA0t/tMpHektEc9XvleJFYO5Jycq9SutDVZ7cVY0PIL4w5F/KfUe0rAC0x+iTEAq8f0TIrcvl10=
+X-Received: by 2002:a05:600c:a39e:b0:3fb:ccae:cd4b with SMTP id
+ hn30-20020a05600ca39e00b003fbccaecd4bmr80956wmb.2.1689671032449; Tue, 18 Jul
+ 2023 02:03:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
- <20230718-asoc-topology-kunit-enable-v2-3-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-4-0ee11e662b92@kernel.org>
 In-Reply-To: 
- <20230718-asoc-topology-kunit-enable-v2-3-0ee11e662b92@kernel.org>
+ <20230718-asoc-topology-kunit-enable-v2-4-0ee11e662b92@kernel.org>
 From: David Gow <davidgow@google.com>
-Date: Tue, 18 Jul 2023 17:03:36 +0800
+Date: Tue, 18 Jul 2023 17:03:41 +0800
 Message-ID: 
- <CABVgOS=W81BCVWFg7OPiu4i5pJ9_4jSu+rKG7eY6TDMB2KQ3nw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] ALSA: Enable build with UML
+ <CABVgOSkJ9KASn9zxWMr23xh0U61er0WUPwQprjq1ADY67oxX8g@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] kunit: Enable ASoC in all_tests.config
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
  Brendan Higgins <brendan.higgins@linux.dev>,
@@ -100,22 +100,22 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	kunit-dev@googlegroups.com
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
  micalg=sha-256;
-	boundary="0000000000006f2c230600bf31aa"
+	boundary="000000000000b1a7e70600bf3129"
 X-MailFrom: davidgow@google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: L4ZRI2BO6V5RQWMNASWWBW344RZEK23S
-X-Message-ID-Hash: L4ZRI2BO6V5RQWMNASWWBW344RZEK23S
+Message-ID-Hash: RCTYGPQFF7KLNZUKCIS4N2CSNU2ONS67
+X-Message-ID-Hash: RCTYGPQFF7KLNZUKCIS4N2CSNU2ONS67
 X-Mailman-Approved-At: Tue, 18 Jul 2023 10:14:06 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4ZRI2BO6V5RQWMNASWWBW344RZEK23S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCTYGPQFF7KLNZUKCIS4N2CSNU2ONS67/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,63 +124,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---0000000000006f2c230600bf31aa
+--000000000000b1a7e70600bf3129
 Content-Type: text/plain; charset="UTF-8"
 
 On Tue, 18 Jul 2023 at 08:30, Mark Brown <broonie@kernel.org> wrote:
 >
-> In order to facilitate testing using KUnit allow ALSA to build with UML,
-> it's not super useful at runtime but that's a user problem rather than
-> an actual dependency.  The apparent reason for the dependency was the
-> widespread use of iomem APIs in ALSA drivers, earlier patches in this
-> series have provided stubs for these APIs so that there are no build
-> time issues even without individual drivers having IOMEM dependencies
-> added.
+> There are KUnit tests for some of the ASoC utility functions which are
+> not enabled in the KUnit all_tests.config, do so.
 >
 > Signed-off-by: Mark Brown <broonie@kernel.org>
 > ---
 
-This works well here, and I'd love to see it go through. I'll leave it
-to the ALSA folks in case there are other issues with UML they're
-worried about, though.
+If the other patches go through, this is great for me. (I've already
+used it to test some in-progress changes with the struct device
+handling.)
 
-Tested-by: David Gow <davidgow@google.com>
+I'm happy to take this via the KUnit tree, but if it's easier to take
+all of these via ALSA or another tree, let me know.
+
+Reviewed-by: David Gow <davidgow@google.com>
 
 Cheers,
 -- David
 
 
->  sound/Kconfig | 4 ----
->  1 file changed, 4 deletions(-)
+>  tools/testing/kunit/configs/all_tests.config | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/sound/Kconfig b/sound/Kconfig
-> index 0ddfb717b81d..f0e15822e858 100644
-> --- a/sound/Kconfig
-> +++ b/sound/Kconfig
-> @@ -39,8 +39,6 @@ config SOUND_OSS_CORE_PRECLAIM
+> diff --git a/tools/testing/kunit/configs/all_tests.config b/tools/testing/kunit/configs/all_tests.config
+> index 0393940c706a..13d15bc693fb 100644
+> --- a/tools/testing/kunit/configs/all_tests.config
+> +++ b/tools/testing/kunit/configs/all_tests.config
+> @@ -35,3 +35,7 @@ CONFIG_DAMON_DBGFS=y
 >
->  source "sound/oss/dmasound/Kconfig"
->
-> -if !UML
-> -
->  menuconfig SND
->         tristate "Advanced Linux Sound Architecture"
->         help
-> @@ -103,8 +101,6 @@ source "sound/virtio/Kconfig"
->
->  endif # SND
->
-> -endif # !UML
-> -
->  endif # SOUND
->
->  config AC97_BUS
+>  CONFIG_SECURITY=y
+>  CONFIG_SECURITY_APPARMOR=y
+> +
+> +CONFIG_SOUND=y
+> +CONFIG_SND=y
+> +CONFIG_SND_SOC=y
 >
 > --
 > 2.39.2
 >
 
---0000000000006f2c230600bf31aa
+--000000000000b1a7e70600bf3129
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -247,14 +235,14 @@ jyzYFOHYQyv5IfML/3IBFKlON5OZa+V8EZYULYcNkp03DdWglafj7SXZ1/XgAbVYrC381UvrsYN8
 jndVvoa1GWwe+NVlIIK7Q3uAjV3qLEDQpaNPg1rr0oAn6YmvTccjVMqj2YNwN+RHhKNzgRGxY5ct
 FaN+8fXZhRhpv3bVbAWuPZXoMYICajCCAmYCAQEwaDBUMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQ
 R2xvYmFsU2lnbiBudi1zYTEqMCgGA1UEAxMhR2xvYmFsU2lnbiBBdGxhcyBSMyBTTUlNRSBDQSAy
-MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCAT
-YfhAoJw9f0lI+iJkcuGhd1aveq7AEBmqZayrBjdU1DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
-MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNDhaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
+MDIwAhABAz5xDls09r2CKyYRqnNbMA0GCWCGSAFlAwQCAQUAoIHUMC8GCSqGSIb3DQEJBDEiBCCF
+sYO2UYX/gHmix0YPXh2VEw4AHvbkwusegwfPsgnKmjAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcB
+MBwGCSqGSIb3DQEJBTEPFw0yMzA3MTgwOTAzNTJaMGkGCSqGSIb3DQEJDzFcMFowCwYJYIZIAWUD
 BAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEKMAsG
-CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAQcunZtkOLIfnWXsLHViO
-6oe/HoLmms6VW1vlD8CIEiv4FMvaJFMLPpiUrnGNYIlRX2zkoB0UtXr6rlOpETZWvG1Qt3js4LPq
-VUL74p5ZqgQ6kx96+MrjNg8rmL4XIQ/DkpEFO2agp2m2Mc0ywKyZj87Oyj4wsGEbwF5D7EaAdy8a
-8KNrkdpkm64KrUaHt901kDS7djh8BzNZbk9Cwx1mhR09XixRgBsb9Ul4Tf8o+G6UOxUjko8EmKWx
-K6HdqB/mXek7EZZBo4vl//ztm8KIAShnL9RvUX/uquf0GbqA215GLw5tb7H5mZXuyE/uO7rfbZ8E
-bkrgMgUdUy1OSabeVQ==
---0000000000006f2c230600bf31aa--
+CSqGSIb3DQEBBzALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEALG6ZrOhvkpDokYbc2aaz
+YqAZZIWcv+jZTYOhpKrQREFA1XDaRxDFsN+HKaycw+KrXpHU4z1uWym7CoE5sT67oStrV/xQdoOK
+pMialboDhCoxibS80ei0IwQZZyIC+lzHINy4P3aQtIpZ+k/m+C4AgFOk8dHw8r8MGOSwu8Q5lcZS
+qL7aAAebTmWd8XVD+ExJ64ZD16ew1pW5iQBqH645S+Q3VDvkg1n6noYBmRn8nQFZ282Zx22GzYOu
+J7Vp1Apzuy1hOaof9KGdoBU/g5/G5pRkJmqF3MrrhQusEShSWUg4Q3l2gky5HJMPdkQMwBX+k5vi
+eN+3Mx43UvxSlZeW3g==
+--000000000000b1a7e70600bf3129--

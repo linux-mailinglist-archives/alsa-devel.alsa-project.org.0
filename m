@@ -2,103 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54FEF757362
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 07:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E73B6757374
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 07:53:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA17DA4E;
-	Tue, 18 Jul 2023 07:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA17DA4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41D12AEA;
+	Tue, 18 Jul 2023 07:52:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41D12AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689659392;
-	bh=vuN4lkpGSh6DU3cppUBr1q8WfVHLVfoJLfMo0WGQwHI=;
+	s=default; t=1689659590;
+	bh=+S6VN0CEl3gnUHVaGn8b8f/RfU2Q/EC/9mVkNK/eJOo=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HGkZk5scblux+nxrwnD0tXSAt2hdlq4Pi8HNOqxlaH0R1dm5RXCxUrRTnOhn1u1Ob
-	 HYcWnOo1DpGf4t6hV0iACTYYEa3Ye6wANDfFNhZM8Sy9cWAnDphjkU+/2W8fEuh0O7
-	 OWSYxhrAU0QY392q35L3cbZcyK5SBWlR48ywNcrA=
+	b=XNYUsfjZdvpqmt+eF5FPDwLwprXn86mMtRuf4G4jhReGapId7cwuBuzRMfHkNkxgd
+	 XihIOYUe4PBxHDbSFTMTmBldNfc3j8CtFKa6R7mjglbrMEsCDggmTu+z6gJo/LIecx
+	 4RLSJiRXp9UEB96Vr6VDE444m9vE3Yz2QwY0dIoY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CAE2F8027B; Tue, 18 Jul 2023 07:49:00 +0200 (CEST)
+	id DB3F2F800D2; Tue, 18 Jul 2023 07:52:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55665F8027B;
-	Tue, 18 Jul 2023 07:49:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63F60F8032D;
+	Tue, 18 Jul 2023 07:52:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC03CF8032D; Tue, 18 Jul 2023 07:47:04 +0200 (CEST)
+	id 68248F8047D; Tue, 18 Jul 2023 07:52:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C340DF800D2
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 07:46:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C340DF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id D68FDF8027B
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 07:52:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D68FDF8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=hYixx3PT;
+ header.s=susede2_rsa header.b=X5ddLOyl;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=BdBtupAG
+ header.s=susede2_ed25519 header.b=UixYD5s7
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D8D3C1FDBC;
-	Tue, 18 Jul 2023 05:46:42 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3FD92218F9;
+	Tue, 18 Jul 2023 05:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1689659202;
+	t=1689659520;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Cx2ONDrSig1akU3irvmkBb2E7FUH6YZZVPsynoP1+dQ=;
-	b=hYixx3PTttEtD+kKR/6ISUKvYvOSPmCL+DtiO0WjplUn85fMgGAtMF3nAM1cHuGOduG4ap
-	WmN76o0gYr562MFKy6PESnRoB5coOFH7yN2ivAtaWrp6F7uJ9cJ2+swLcYIvw+5LEMaV96
-	eyQkpzLx+fYaMi2c9R0vGG++OqbP+O0=
+	bh=GKTCHsPZDxJHkQIHvvHyKTZbXmSt1k7/MALwL+L6NSA=;
+	b=X5ddLOylPh4ISr9lzuTnDKSUSVATs36cH384xGmMFhjBfI6UFttBSxnCZco4R//zrNKNqD
+	rKlWh6z9B6YuN8rB3hbt31yZtQiW8TwtKMUvVbRVsVce8rnI13UTVlv8k5yYBvApROi6AJ
+	qfp9vs3tGPZQ1pL0ZlteJkIGpG2XYwk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689659202;
+	s=susede2_ed25519; t=1689659520;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Cx2ONDrSig1akU3irvmkBb2E7FUH6YZZVPsynoP1+dQ=;
-	b=BdBtupAGUDTe/JmB/XV4+eoX9iqTBpNsR7wElqGZjEuGEUQfZEiIYJbVZxaROQeQnwijde
-	4GQQGNlEl+meY/DA==
+	bh=GKTCHsPZDxJHkQIHvvHyKTZbXmSt1k7/MALwL+L6NSA=;
+	b=UixYD5s7eSu6lwcq/9BddjWZVV92ZcA/yqFgbimriQ9jGg6DH50rNPhxDJKkSbbRfeJDxy
+	wPeEyL155JxVqEBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A5979134B0;
-	Tue, 18 Jul 2023 05:46:42 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EBD02133FE;
+	Tue, 18 Jul 2023 05:51:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id c59dJ0IntmQxdAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 18 Jul 2023 05:46:42 +0000
-Date: Tue, 18 Jul 2023 07:46:42 +0200
-Message-ID: <871qh5py9p.wl-tiwai@suse.de>
+	id 29gNOH8otmQ/dgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 18 Jul 2023 05:51:59 +0000
+Date: Tue, 18 Jul 2023 07:51:59 +0200
+Message-ID: <87zg3tojgg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@google.com>,
+	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
 	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] regmap: Add interface for checking if a register is
- cached
-In-Reply-To: <20230717-regmap-cache-check-v1-0-73ef688afae3@kernel.org>
-References: <20230717-regmap-cache-check-v1-0-73ef688afae3@kernel.org>
+	linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com
+Subject: Re: [PATCH v2 0/5] ASoC: Improve coverage in default KUnit runs
+In-Reply-To: 
+ <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
+References: <20230718-asoc-topology-kunit-enable-v2-0-0ee11e662b92@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: HPD37YPQMDKM72JBWDNBUZXRY5V6GN6S
-X-Message-ID-Hash: HPD37YPQMDKM72JBWDNBUZXRY5V6GN6S
+Message-ID-Hash: KI7KP7QWJRRLKV32EHDTIYEA63EHYRMS
+X-Message-ID-Hash: KI7KP7QWJRRLKV32EHDTIYEA63EHYRMS
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HPD37YPQMDKM72JBWDNBUZXRY5V6GN6S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KI7KP7QWJRRLKV32EHDTIYEA63EHYRMS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,39 +127,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 17 Jul 2023 22:33:02 +0200,
+On Tue, 18 Jul 2023 02:28:41 +0200,
 Mark Brown wrote:
 > 
-> HDA has a use case for checking if a register is present in the cache
-> which it awkwardly open codes with use of _cache_only() and a read,
-> provide a direct API for this.
+> We have some KUnit tests for ASoC but they're not being run as much as
+> they should be since ASoC isn't enabled in the configs used by default
+> with KUnit and in the case of the topology tests there is no way to
+> enable them without enabling drivers that use them.  This series
+> provides a Kconfig option which KUnit can use directly rather than worry
+> about drivers.
+> 
+> Further, since KUnit is typically run in UML but ALSA prevents build
+> with UML we need to remove that Kconfig conflict.  As far as I can tell
+> the motiviation for this is that many ALSA drivers use iomem APIs which
+> are not available under UML and it's more trouble than it's worth to go
+> through and add per driver dependencies.  In order to avoid these issues
+> we also provide stubs for these APIs so there are no build time issues
+> if a driver relies on iomem but does not depend on it.  With these stubs
+> I am able to build all the sound drivers available in a UML defconfig
+> (UML allmodconfig appears to have substantial other issues in a quick
+> test).
+> 
+> With this series I am able to run the topology KUnit tests as part of a
+> kunit --alltests run.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+> Changes in v2:
+> - Add support for building ALSA with UML.
+> - Link to v1: https://lore.kernel.org/r/20230712-asoc-topology-kunit-enable-v1-0-b9f2da9dca23@kernel.org
 > 
 > ---
-> Mark Brown (3):
->       regmap: Let users check if a register is cached
->       regmap: Provide test for regcache_reg_present()
->       ALSA: hda: Use regcache_reg_cached() rather than open coding
+> Mark Brown (5):
+>       driver core: Provide stubs for !IOMEM builds
+>       platform: Provide stubs for !HAS_IOMEM builds
+>       ALSA: Enable build with UML
+>       kunit: Enable ASoC in all_tests.config
+>       ASoC: topology: Add explicit build option
+
+Those look like sensible changes.
 
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
-
-I suppose you'll take those from regmap.git?
 
 
 thanks,
 
 Takashi
-
-> 
->  drivers/base/regmap/regcache.c     | 23 ++++++++++++++++++++++
->  drivers/base/regmap/regmap-kunit.c | 40 ++++++++++++++++++++++++++++++++++++++
->  include/linux/regmap.h             |  1 +
->  sound/hda/hdac_regmap.c            |  9 +++------
->  4 files changed, 67 insertions(+), 6 deletions(-)
-> ---
-> base-commit: 3953d5c79c21defa716624a8623c4157c0f2fee0
-> change-id: 20230716-regmap-cache-check-6f6939f41ed5
-> 
-> Best regards,
-> -- 
-> Mark Brown <broonie@kernel.org>
-> 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D09758844
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 00:09:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC515758862
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 00:25:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 748C01DF;
-	Wed, 19 Jul 2023 00:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 748C01DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05A4E1D9;
+	Wed, 19 Jul 2023 00:24:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05A4E1D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689718196;
-	bh=BcSJ+APt15bxTEa2qIWY+dbSjXSa6zCDNvGS//Pq2Bw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689719113;
+	bh=TVSaMHy6xqrGvah1BP5eyrd/c06CocVOjTmlLYNQoU0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eYjKtnMii79R/Pg7AnEHrap48oA5HN4heQQohzwqAwSxgq9dlAGlY3cBySlxPPTx+
-	 qjVdlLc2Ut/5R/hoxSVT2zCxQFWRoISHqpVRVt2JZMo22jw/feWRkLDGf4Rw1qYY5h
-	 CGl02mVNkm8qrF2+w/iaO85ijSGoEaS8CntvXhNo=
+	b=FtiagoHes+LFsmnycqlu+5gkzpe98vYS+TlfOUh+F4kNSfivhuPNdYUVinyGNppr1
+	 kngpd8bA29YM9sLcOXwPGVLojKosQdrOtQBF5jxrvegDWZcux89S6fghmlLvylu8uG
+	 YDcmCzzSPtkSeYrO24PrkQq5xVv6A7I7m+9jhkmc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04E84F80520; Wed, 19 Jul 2023 00:09:05 +0200 (CEST)
+	id 59D4CF800D2; Wed, 19 Jul 2023 00:23:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58EE1F8032D;
-	Wed, 19 Jul 2023 00:09:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE875F8032D;
+	Wed, 19 Jul 2023 00:23:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 286F0F8047D; Wed, 19 Jul 2023 00:08:58 +0200 (CEST)
+	id 5EDF7F8047D; Wed, 19 Jul 2023 00:23:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,63 +35,49 @@ X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B7B6FF800D2
-	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 00:08:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7B6FF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8E416F800D2
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 00:23:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E416F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Mrz2Gd2A
+ header.s=k20201202 header.b=MIWWC72R
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0CFFF6123E;
-	Tue, 18 Jul 2023 22:08:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9CECC433C7;
-	Tue, 18 Jul 2023 22:08:44 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 76F5260CE8;
+	Tue, 18 Jul 2023 22:23:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F29C433C8;
+	Tue, 18 Jul 2023 22:23:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689718126;
-	bh=BcSJ+APt15bxTEa2qIWY+dbSjXSa6zCDNvGS//Pq2Bw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mrz2Gd2AHkJMrJ6fkA1itsrLXUW7EkYGZ0A0UFy/PU40f2AVA4OvFVWYJYmZrX1GL
-	 fuDhQK+hM7XWG0gIqwYoWOQuvpKPWE3s2Cm2o8aBFO2sd2kZN5o9aqWuunbxoSS2ey
-	 yXiooGgGiNovpynYnVnQ3ea1VDeh2tmZlSjnRHCNNqMWPQ6fRwN2N6J7b5bIzBlURK
-	 wub6eymDeU1uRAyRbWXe2rzwv8gOJRt41q47jm90N77uC6309g2YfXf0LbVwjhgN2f
-	 eSsaZZ/ni74+OpmzyDoB/S73mm7utxpptKLuw8qcYVxJN+lLLByWSlf8Xh1vxRnZ42
-	 zib9oxJRH4Z0w==
-Received: (nullmailer pid 1979772 invoked by uid 1000);
-	Tue, 18 Jul 2023 22:08:43 -0000
-Date: Tue, 18 Jul 2023 16:08:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Maxim Kochetkov <fido_max@inbox.ru>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, Astrid Rost <astrid.rost@axis.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Herve Codina <herve.codina@bootlin.com>,
- Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: dt-bindings: simple-card: add triggers
- properties
-Message-ID: <20230718220843.GA1944897-robh@kernel.org>
-References: <20230715083046.108674-1-fido_max@inbox.ru>
- <20230715083046.108674-3-fido_max@inbox.ru>
+	s=k20201202; t=1689719024;
+	bh=TVSaMHy6xqrGvah1BP5eyrd/c06CocVOjTmlLYNQoU0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=MIWWC72RM+yQhMhQw9zkYVYXzn5160svXESkw6jq4k+WW5F9LL2u/IysPVWlQk6AF
+	 V3rI0cngCPbWxhl+/snMBW5QJ2AU+FawiXX6Bvda89jEQG0qm7Ai01Tj8hKAwReOJY
+	 vrbE36AblheOnTurtf22nWNrKzqso8GfasUSIvd24ChxAN/fxskjJTeSnZtrZwiwWb
+	 qsFhAE6f4nh8UKlvIJiktdan1oxt+4xGNmtYcg09MUVZohlPbiXRECC9I8bmaQokWl
+	 iLHcEgUxluwCtt5G4g3ptxDChPRDAwp+P48i7oZHKYF4xFaqhnuKv+NWVV6SFaJqeo
+	 ayIYRnffamPRA==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+In-Reply-To: <20230718144625.39634-1-rf@opensource.cirrus.com>
+References: <20230718144625.39634-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs35l56: Patch soft registers to defaults
+Message-Id: <168971902372.127447.16837220353075580193.b4-ty@kernel.org>
+Date: Tue, 18 Jul 2023 23:23:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230715083046.108674-3-fido_max@inbox.ru>
-Message-ID-Hash: Z5RKGR56G6JXBILZWYNC6UI3QG5BBEZF
-X-Message-ID-Hash: Z5RKGR56G6JXBILZWYNC6UI3QG5BBEZF
-X-MailFrom: SRS0=7L2B=DE=robh_at_kernel.org=rob@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: FT7274YWGCU2DDQSK5XIO6MRQVYAGNKY
+X-Message-ID-Hash: FT7274YWGCU2DDQSK5XIO6MRQVYAGNKY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,95 +89,50 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5RKGR56G6JXBILZWYNC6UI3QG5BBEZF/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FT7274YWGCU2DDQSK5XIO6MRQVYAGNKY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Jul 15, 2023 at 11:30:43AM +0300, Maxim Kochetkov wrote:
-> The trigger-start/stop properties allows to specify DAI link
-> trigger ordering method.
-
-Obviously. Why do you need these? What problem does it solve?
-
-I don't think these belong in simple-card. What's next? What if you need 
-delays between each step? This is the problem with 'simple' or 'generic' 
-bindings. It's a never ending addition of properties which are not well 
-thought out.
-
+On Tue, 18 Jul 2023 15:46:25 +0100, Richard Fitzgerald wrote:
+> The soft (firmware) registers for volume/mute/posture are not reset by
+> a chip soft-reset, so use a regmap patch to set them to defaults.
 > 
-> Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
-> ---
->  .../bindings/sound/simple-card.yaml           | 31 +++++++++++++++++++
->  1 file changed, 31 insertions(+)
+> cs35l56_reread_firmware_registers() has been removed. Its intent was to
+> use whatever the firmware set as a default. But the driver now patches the
+> defaults to the registers.
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
-> index 59ac2d1d1ccf..f1878d470d83 100644
-> --- a/Documentation/devicetree/bindings/sound/simple-card.yaml
-> +++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
-> @@ -99,6 +99,28 @@ definitions:
->      description: the widget names for which pin switches must be created.
->      $ref: /schemas/types.yaml#/definitions/string-array
->  
-> +  trigger-start:
-> +    description: |-
-> +      Start trigger ordering method:
-> +      default: Link->Component->DAI
-> +      ldc: Link->DAI->Component
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    items:
-> +      enum:
-> +        - default
+> [...]
 
-Why do you need a value of 'default'? What's the default when the 
-property is not present?
+Applied to
 
-> +        - ldc
-> +
-> +  trigger-stop:
-> +    description: |-
-> +      Stop trigger ordering method:
-> +      default: DAI->Component->Link
-> +      ldc: Component->DAI->Link
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    items:
-> +      enum:
-> +        - default
-> +        - ldc
-> +
->    format:
->      description: audio format.
->      items:
-> @@ -210,6 +232,10 @@ properties:
->      maxItems: 1
->    simple-audio-card,mic-det-gpio:
->      maxItems: 1
-> +  simple-audio-card,trigger-start:
-> +    $ref: "#/definitions/trigger-start"
-> +  simple-audio-card,trigger-stop:
-> +    $ref: "#/definitions/trigger-stop"
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Don't continue this 'simple-audio-card,' prefix pattern. With it, no 
-other binding can use these properties.
+Thanks!
 
->  
->  patternProperties:
->    "^simple-audio-card,cpu(@[0-9a-f]+)?$":
-> @@ -259,6 +285,11 @@ patternProperties:
->          maxItems: 1
->        mic-det-gpio:
->          maxItems: 1
-> +      trigger-start:
-> +        $ref: "#/definitions/trigger-start"
-> +      trigger-stop:
-> +        $ref: "#/definitions/trigger-stop"
-> +
->  
->      patternProperties:
->        "^cpu(-[0-9]+)?$":
-> -- 
-> 2.40.1
-> 
+[1/1] ASoC: cs35l56: Patch soft registers to defaults
+      commit: df4167d658d45946677f91d84e9d40570c875cb8
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

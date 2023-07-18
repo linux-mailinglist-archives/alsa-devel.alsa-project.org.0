@@ -2,121 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79CC9758011
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 16:48:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D51B757FFF
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jul 2023 16:47:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 855B6203;
-	Tue, 18 Jul 2023 16:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 855B6203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E3A01D9;
+	Tue, 18 Jul 2023 16:46:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E3A01D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689691713;
-	bh=nntp6Z+Ep86PUlXEipRd0P/YkBhZWRuQ9y0VhLJYKOg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tTJ/YhwQi0Cudfhzhr+hdWIuobDTglo7b8xLYwYe5/J0geVDi4DA7jVGlokveR3dP
-	 Cx7QkKJabgPlRDxxbvJrI14/30rDXHsZeAWN2p919WRzkZIhBw5soIgT2YzWgRmMfA
-	 xo/ruI+pxu48qlpP/gg7pmRDSVQG+hSO8BHjd1ZU=
+	s=default; t=1689691665;
+	bh=qUIeHByOOABhazgK9uLD7rW2K/z0/dp/IZ15RZZuOgM=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=saqIhXORzBIILKRtOurVjKdHOW8OSmYLPb7JKxvqtOZMSSuoYHnzYN22rDWtih9YF
+	 fuU2KdMYFkLWh20ymloVd/sVEKsXGSKLBXVbMpEEPiSaSohlzQT7gvZyPUXJV2VGy8
+	 OvY8h3wA86BYfLArD1unTeHDA/kfApkfhp1s5LKA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1F8CF80557; Tue, 18 Jul 2023 16:47:04 +0200 (CEST)
+	id 5837BF8007E; Tue, 18 Jul 2023 16:46:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70CF0F80520;
-	Tue, 18 Jul 2023 16:47:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18FB5F8027B;
+	Tue, 18 Jul 2023 16:46:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43844F8032D; Tue, 18 Jul 2023 16:45:46 +0200 (CEST)
+	id 54012F8032D; Tue, 18 Jul 2023 16:46:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FROM_FMBLA_NEWDOM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C86FF8027B
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 16:45:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C86FF8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA702F80153
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jul 2023 16:46:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA702F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256
- header.s=google header.b=Lezb0Ief
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2b7430bda8bso94303421fa.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 18 Jul 2023 07:45:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1689691534; x=1692283534;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=W2zwwCfkIozFWwLnA5jFpijFmfmyvTaUAGYURu2s/po=;
-        b=Lezb0Ief4c6JjTpxuohSz0hqGuHGjxf1QdXV8geVM+D9npulzjiNanxjBN2RcCVPeY
-         djlpd2XF1VdRmEv8mpvAx7Ff9LSQllankGgUDxyn3fgzOaqstufwOC6Dd9soUa7HBq/w
-         Uipm1fiYHJJ3WEyrGgrZpKRzw8hfM4DYqRusHsKZE+MMyquSstz5Cr3uslwA5R3pxHIX
-         3wxsOsQuGs3E+8ZEN4qtAsAbRX14EyJrgHhRPDa1hZnNZvwjCI/uE1w5cwxiWev5q/ZM
-         o8ZEmRbqkj+47wYDwykmhTh1UffOPnhzgUeDT7GzBTxbgMrORoary4r/mzJZiedx2Zcl
-         UZbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689691534; x=1692283534;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W2zwwCfkIozFWwLnA5jFpijFmfmyvTaUAGYURu2s/po=;
-        b=AOAL6JzuODOjMWONOFWKriigoDvH+Yt0FKg2qqCLh3XrrqYP+Bpd+YCZ9OTtu2MRHa
-         3TOXw1CgYlbF4bQ9sBNRFqwFkFlSuXDUD3Wc6Xzjho1D6+CI4GLw+bQIvdar3k5F5xWI
-         2zIv6nHDVK4gzIBK4eph/zYIFHQGDZ5N7XGP6cAEDjW6FbYj29zbeRPXKR4hVLTpnn+V
-         bWFAPCsCoaih/WCwMQ8RvSrBh6asxt78lnOtS5o2CH+ywaoZoMXdmK2hD3Cul9dRFck6
-         ittCX/JkIQoQrpu8Eb1p2UP+RXEjOPWgk0xNFLb428eHdbtvZhKSi6Rw4DanMyyiS16n
-         VPag==
-X-Gm-Message-State: ABy/qLZBZe53C95llRaDp5UnkoKj3MuIy0X9IHkZg9kVAywgabl834j4
-	iY9jFJqyP6j41Kj6RRhQIivctQ==
-X-Google-Smtp-Source: 
- APBJJlFt0um57HKV5iqSG5EAXXpTWqaxofl4/V8vxgmyPC9LAmOpuZWYnpdgbjb096PF/AK8UK3ZmA==
-X-Received: by 2002:a2e:a0cd:0:b0:2b9:412a:111d with SMTP id
- f13-20020a2ea0cd000000b002b9412a111dmr5641714ljm.42.1689691534470;
-        Tue, 18 Jul 2023 07:45:34 -0700 (PDT)
-Received: from [10.0.2.15] ([82.78.167.79])
-        by smtp.gmail.com with ESMTPSA id
- l13-20020a17090615cd00b00993150e5325sm1121623ejd.60.2023.07.18.07.45.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Jul 2023 07:45:34 -0700 (PDT)
-Message-ID: <485f05e3-75a4-4cda-7a40-8efdeb3da9d7@tuxon.dev>
-Date: Tue, 18 Jul 2023 17:45:32 +0300
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=PNb+OnjB
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 36I7kHxC024058;
+	Tue, 18 Jul 2023 09:46:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=0
+	G3ywaHiTI2K4Iq59zz0mJoTcYfX+05Q6H/h75rm73M=; b=PNb+OnjBag/MGfHC0
+	00o37F5KNsBH6vj9JJBzi0ZTOSPfCd/vnL5fP6WVxBwBGf5SZM/WNp7wT39BgF/C
+	FbJakYU0eTtdFtRdhpp0mKO3wlASiMcK53/M38xm2pO22gLlAfXgFVB2EqcN1EFN
+	nfj9WuabIF/loeXPWNDm/fP7pvTwq0pycnPrOS6IxXCs34pfzl4VCIHKuxSj2XKF
+	yOvWb9qGcjgiDTSDunXwESK/9GxufHlX2jrJXBDd2SS4cz74ktBd9Ft4BDP2NyN8
+	vfAD8t4DvpT4pCNmHUrDBV4kKk9alBYLfDeu5LduWqMzklVmF8v8qC5Jp5Bi79Oa
+	cNGpA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3rus62ucu7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Jul 2023 09:46:41 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 18 Jul
+ 2023 15:46:29 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
+ Transport; Tue, 18 Jul 2023 15:46:29 +0100
+Received: from work-debian.ad.cirrus.com (unknown [198.61.65.142])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E77DD11AB;
+	Tue, 18 Jul 2023 14:46:28 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l56: Patch soft registers to defaults
+Date: Tue, 18 Jul 2023 15:46:25 +0100
+Message-ID: <20230718144625.39634-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 03/11] ASoC: atmel: mchp-pdmc: Use snd_ctl_remove_id()
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-Cc: Claudiu Beznea <claudiu.beznea@microchip.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230718141304.1032-1-tiwai@suse.de>
- <20230718141304.1032-4-tiwai@suse.de>
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20230718141304.1032-4-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: claudiu.beznea@tuxon.dev
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: v5oVImHN2qJH3UiahHtCUQ8k9EC0bKRg
+X-Proofpoint-ORIG-GUID: v5oVImHN2qJH3UiahHtCUQ8k9EC0bKRg
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: LS6NPLESGJY5JXPHPNOBFEARHCBCKO4X
+X-Message-ID-Hash: LS6NPLESGJY5JXPHPNOBFEARHCBCKO4X
+X-MailFrom: prvs=2563f3668e=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: EEQQINCM6LOWTFIZXZBMYU4GNACPM33T
-X-Message-ID-Hash: EEQQINCM6LOWTFIZXZBMYU4GNACPM33T
-X-Mailman-Approved-At: Tue, 18 Jul 2023 14:47:02 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EEQQINCM6LOWTFIZXZBMYU4GNACPM33T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LS6NPLESGJY5JXPHPNOBFEARHCBCKO4X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,49 +109,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18.07.2023 17:12, Takashi Iwai wrote:
-> Use the standard snd_ctl_remove_id() helper instead of open code for
-> removing a kctl.  This helps for avoiding possible races.
-> 
-> Cc: Claudiu Beznea <claudiu.beznea@microchip.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+The soft (firmware) registers for volume/mute/posture are not reset by
+a chip soft-reset, so use a regmap patch to set them to defaults.
 
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+cs35l56_reread_firmware_registers() has been removed. Its intent was to
+use whatever the firmware set as a default. But the driver now patches the
+defaults to the registers.
 
-> ---
->   sound/soc/atmel/mchp-pdmc.c | 12 ++----------
->   1 file changed, 2 insertions(+), 10 deletions(-)
-> 
-> diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
-> index c79c73e6791e..1a069f4cdcda 100644
-> --- a/sound/soc/atmel/mchp-pdmc.c
-> +++ b/sound/soc/atmel/mchp-pdmc.c
-> @@ -386,7 +386,6 @@ static int mchp_pdmc_open(struct snd_soc_component *component,
->   	for (i = 0; i < ARRAY_SIZE(mchp_pdmc_snd_controls); i++) {
->   		const struct snd_kcontrol_new *control = &mchp_pdmc_snd_controls[i];
->   		struct snd_ctl_elem_id id;
-> -		struct snd_kcontrol *kctl;
->   		int err;
->   
->   		if (component->name_prefix)
-> @@ -400,17 +399,10 @@ static int mchp_pdmc_open(struct snd_soc_component *component,
->   		id.device = control->device;
->   		id.subdevice = control->subdevice;
->   		id.index = control->index;
-> -		kctl = snd_ctl_find_id(component->card->snd_card, &id);
-> -		if (!kctl) {
-> -			dev_err(component->dev, "Failed to find %s\n", control->name);
-> -			continue;
-> -		}
-> -		err = snd_ctl_remove(component->card->snd_card, kctl);
-> -		if (err < 0) {
-> +		err = snd_ctl_remove_id(component->card->snd_card, &id);
-> +		if (err < 0)
->   			dev_err(component->dev, "%d: Failed to remove %s\n", err,
->   				control->name);
-> -			continue;
-> -		}
->   	}
->   
->   	return 0;
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ include/sound/cs35l56.h           |  2 +-
+ sound/soc/codecs/cs35l56-shared.c | 38 +++++++++++++------------------
+ sound/soc/codecs/cs35l56.c        |  5 ++--
+ 3 files changed, 20 insertions(+), 25 deletions(-)
+
+diff --git a/include/sound/cs35l56.h b/include/sound/cs35l56.h
+index 1f9713d7ca76..ec672daa36cf 100644
+--- a/include/sound/cs35l56.h
++++ b/include/sound/cs35l56.h
+@@ -260,7 +260,7 @@ extern const struct cs_dsp_region cs35l56_dsp1_regions[CS35L56_NUM_DSP_REGIONS];
+ extern const char * const cs35l56_tx_input_texts[CS35L56_NUM_INPUT_SRC];
+ extern const unsigned int cs35l56_tx_input_values[CS35L56_NUM_INPUT_SRC];
+ 
+-void cs35l56_reread_firmware_registers(struct device *dev, struct regmap *regmap);
++int cs35l56_set_patch(struct regmap *regmap);
+ int cs35l56_get_bclk_freq_id(unsigned int freq);
+ void cs35l56_fill_supply_names(struct regulator_bulk_data *data);
+ 
+diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
+index 60da8c75b7b9..7126f06b8047 100644
+--- a/sound/soc/codecs/cs35l56-shared.c
++++ b/sound/soc/codecs/cs35l56-shared.c
+@@ -11,6 +11,19 @@
+ 
+ #include "cs35l56.h"
+ 
++static const struct reg_sequence cs35l56_patch[] = {
++	/* These are not reset by a soft-reset, so patch to defaults. */
++	{ CS35L56_MAIN_RENDER_USER_MUTE,	0x00000000 },
++	{ CS35L56_MAIN_RENDER_USER_VOLUME,	0x00000000 },
++	{ CS35L56_MAIN_POSTURE_NUMBER,		0x00000000 },
++};
++
++int cs35l56_set_patch(struct regmap *regmap)
++{
++	return regmap_register_patch(regmap, cs35l56_patch, ARRAY_SIZE(cs35l56_patch));
++}
++EXPORT_SYMBOL_NS_GPL(cs35l56_set_patch, SND_SOC_CS35L56_SHARED);
++
+ static const struct reg_default cs35l56_reg_defaults[] = {
+ 	{ CS35L56_ASP1_ENABLES1,		0x00000000 },
+ 	{ CS35L56_ASP1_CONTROL1,		0x00000028 },
+@@ -35,9 +48,9 @@ static const struct reg_default cs35l56_reg_defaults[] = {
+ 	{ CS35L56_IRQ1_MASK_8,			0xfc000fff },
+ 	{ CS35L56_IRQ1_MASK_18,			0x1f7df0ff },
+ 	{ CS35L56_IRQ1_MASK_20,			0x15c00000 },
+-	/* CS35L56_MAIN_RENDER_USER_MUTE - soft register, no default	*/
+-	/* CS35L56_MAIN_RENDER_USER_VOLUME - soft register, no default	*/
+-	/* CS35L56_MAIN_POSTURE_NUMBER - soft register, no default	*/
++	{ CS35L56_MAIN_RENDER_USER_MUTE,	0x00000000 },
++	{ CS35L56_MAIN_RENDER_USER_VOLUME,	0x00000000 },
++	{ CS35L56_MAIN_POSTURE_NUMBER,		0x00000000 },
+ };
+ 
+ static bool cs35l56_is_dsp_memory(unsigned int reg)
+@@ -181,25 +194,6 @@ static bool cs35l56_volatile_reg(struct device *dev, unsigned int reg)
+ 	}
+ }
+ 
+-static const u32 cs35l56_firmware_registers[] = {
+-	CS35L56_MAIN_RENDER_USER_MUTE,
+-	CS35L56_MAIN_RENDER_USER_VOLUME,
+-	CS35L56_MAIN_POSTURE_NUMBER,
+-};
+-
+-void cs35l56_reread_firmware_registers(struct device *dev, struct regmap *regmap)
+-{
+-	int i;
+-	unsigned int val;
+-
+-	for (i = 0; i < ARRAY_SIZE(cs35l56_firmware_registers); i++) {
+-		regmap_read(regmap, cs35l56_firmware_registers[i], &val);
+-		dev_dbg(dev, "%s: %d: %#x: %#x\n", __func__,
+-			i, cs35l56_firmware_registers[i], val);
+-	}
+-}
+-EXPORT_SYMBOL_NS_GPL(cs35l56_reread_firmware_registers, SND_SOC_CS35L56_SHARED);
+-
+ const struct cs_dsp_region cs35l56_dsp1_regions[] = {
+ 	{ .type = WMFW_HALO_PM_PACKED,	.base = CS35L56_DSP1_PMEM_0 },
+ 	{ .type = WMFW_HALO_XM_PACKED,	.base = CS35L56_DSP1_XMEM_PACKED_0 },
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index c03f9d3c9a13..e046fdd26b74 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -1572,8 +1572,9 @@ int cs35l56_init(struct cs35l56_private *cs35l56)
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Populate soft registers in the regmap cache */
+-	cs35l56_reread_firmware_registers(cs35l56->dev, cs35l56->regmap);
++	ret = cs35l56_set_patch(cs35l56->regmap);
++	if (ret)
++		return ret;
+ 
+ 	/* Registers could be dirty after soft reset or SoundWire enumeration */
+ 	regcache_sync(cs35l56->regmap);
+-- 
+2.30.2
+

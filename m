@@ -2,122 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA98075C0C2
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:05:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8E775C0C7
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:06:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 158D0201;
-	Fri, 21 Jul 2023 10:05:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 158D0201
+	by alsa0.perex.cz (Postfix) with ESMTPS id 191331EF;
+	Fri, 21 Jul 2023 10:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 191331EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689926751;
-	bh=iHiERc0MUOj9x+Yv42yz0WTp6ckuoH3/JUwCM+MO/TE=;
+	s=default; t=1689926802;
+	bh=z6h69GluYK7rZ3f48ZDX8mdHy0EcK56C2B/mGh/yiak=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=KMlfbzaaW41FdpaQ9Nm+kK7Hp3EHErwFP+U8S9zrUkR5bs1bbZaSEZU+6QiCBk5HG
-	 63xXFYgrYvejcmrJD9658/yLsqeaRQOHgKn48kGCQo0/sGAuMWtD8/IqGUL4z8NIhg
-	 M5UOHDCsq/UQz3wWa212/Zx8sFyoagVymWukUqsU=
+	b=U8pO1jx3q6WINTn8nF1xUussjTtkenE+/asw6oFJvU6ZpRqoUkTaCJbKDlaXqXEZG
+	 AGqmSkWJsiwbXNwdp3P1YZq9keuhvlZm5VVIqLC3UlEFWVP8FUZcfMgxG70N+mZ0hB
+	 JB9WdbZhAXOywsPabW6Az1l/DZQjK49AJgPWreAc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A22D2F80552; Fri, 21 Jul 2023 10:04:29 +0200 (CEST)
+	id BFEFCF80527; Fri, 21 Jul 2023 10:05:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A003F80548;
-	Fri, 21 Jul 2023 10:04:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0DC1F8007E;
+	Fri, 21 Jul 2023 10:05:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E583F8047D; Wed, 19 Jul 2023 18:33:06 +0200 (CEST)
+	id F0A79F80535; Wed, 19 Jul 2023 18:41:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E3D2F8007E
-	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 18:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E3D2F8007E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=Ai77xjd4
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-99364ae9596so995491066b.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 19 Jul 2023 09:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689784374; x=1692376374;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ezYh9TdYf9SPGlHOq/YkmRIkBcOvB6bLPP8t0cvosPU=;
-        b=Ai77xjd4Papa7mIdUTLLLOt0HjEVd4UaRKKLVWju83yIoffIwGYoOAGpHNGPTBkW7R
-         xzjBMM3CdMTo9T4RB9oSbJ75u9EW9fTtiCbZN8tfdNpmmrilnk8lNUNQTUFeECk61y56
-         jkeI/OeVa4PUEAV7qe9J6W64tzVgBxb/uOUch8GEPWxL83j9+7RYdDFueAzwh9u3s9ET
-         JrqViZoYcaeJku2l6lKHWbFdDFIwVlXGoDaG72e33Rrlz9B097nXYrVup6zSuA9iomFI
-         yhl7MOnt+FU3nyXRgZWaikNNV3lKagEaqODe+zmbirKNVvfNK+S8rUpIgAFCDfSRXVdo
-         3Fpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689784374; x=1692376374;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ezYh9TdYf9SPGlHOq/YkmRIkBcOvB6bLPP8t0cvosPU=;
-        b=YBKFltETZ5iTw3ssJh8gc+wvMG9ImOpzNZ7jT087iWtSdU4MSPf/ZuCmC3qgo0SEvX
-         LYLsuVLj9+Uu/oAWDRw1KcAyk1qKKjJEAvIX5CnaA+0E4rfmTeyMEt4pZdbkFYL6DYgn
-         flEeeJZwD27gmZfyiqTZUvROwSBm2XYlfQCDcHZHVfUsgTp3+3+pqsqIF4eDDteaCb27
-         PoBpdfDS5EDfVbig3S70X99neQoLwhlx8WKPud3pJvcHvzc5RAKPhERfcGp8dv0RPNX8
-         6bakFfh1yddrTWcHYoZRJwK539tftyx8qBGaPPOREVTRMAa6FKjATwOtJI0n4ANzEoch
-         EcYg==
-X-Gm-Message-State: ABy/qLbLRhGsSyTIO1EsNXn0rRXZ1TbmcAgqWzeoJMoXLt2clx9FfZXU
-	bxKjolqk7pssILDsx+zZ9dM=
-X-Google-Smtp-Source: 
- APBJJlHZwwjBvT87CgsBUjDjYtMiifOSzfmRfPiW+vi01bUGZ/rvbUobuTctzgwoF66GEBo+mJgTOA==
-X-Received: by 2002:a17:906:290:b0:999:37ff:be94 with SMTP id
- 16-20020a170906029000b0099937ffbe94mr2432672ejf.71.1689784373757;
-        Wed, 19 Jul 2023 09:32:53 -0700 (PDT)
-Received: from localhost.localdomain
- ([2a01:c844:242b:b300:215:5dff:fe9c:4c81])
-        by smtp.gmail.com with ESMTPSA id
- o21-20020a17090637d500b0098e025cda3bsm2571044ejc.141.2023.07.19.09.32.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Jul 2023 09:32:53 -0700 (PDT)
-From: Matus Gajdos <matuszpd@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 339C2F8007E;
+	Wed, 19 Jul 2023 18:41:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 339C2F8007E
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Cc: sound-open-firmware@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Matus Gajdos <matuszpd@gmail.com>,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: fsl_spdif: Add support for 22.05 kHz sample rate
-Date: Wed, 19 Jul 2023 18:31:53 +0200
-Message-Id: <20230719163154.19492-1-matuszpd@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Subject: [PATCH v2 0/9] sound: Use -EPROBE_DEFER instead of i915 module
+ loading.
+Date: Wed, 19 Jul 2023 18:41:32 +0200
+Message-Id: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: matuszpd@gmail.com
+X-MailFrom: mlankhorst@mblankhorst.nl
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OI5IY2D7YC5NN3W6MVKUCIYC3K2CEILF
-X-Message-ID-Hash: OI5IY2D7YC5NN3W6MVKUCIYC3K2CEILF
-X-Mailman-Approved-At: Fri, 21 Jul 2023 08:04:26 +0000
+Message-ID-Hash: UPHQSMZUUHCDJY4N657OHNRTR7TLCW7Y
+X-Message-ID-Hash: UPHQSMZUUHCDJY4N657OHNRTR7TLCW7Y
+X-Mailman-Approved-At: Fri, 21 Jul 2023 08:05:47 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OI5IY2D7YC5NN3W6MVKUCIYC3K2CEILF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UPHQSMZUUHCDJY4N657OHNRTR7TLCW7Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,71 +84,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add support for 22.05 kHz sample rate for TX.
+Explicitly loading i915 becomes a problem when upstreaming the new intel driver
+for Tiger Lake and higher graphics (xe). By loading i915, it doesn't wait for
+driver load of xe, and will fail completely before it loads.
 
-Signed-off-by: Matus Gajdos <matuszpd@gmail.com>
+-EPROBE_DEFER has to be returned before any device is created in probe(),
+otherwise the removal of the device will cause EPROBE_DEFER to try again
+in an infinite loop.
+
+The conversion is done in gradual steps. First I add an argument to
+snd_hdac_i915_init to allow for -EPROBE_DEFER so I can convert each driver
+separately. Then I convert each driver to move snd_hdac_i915_init out of the
+workqueue. Finally I drop the ability to choose modprobe behavior after the
+last user is converted.
+
+I suspect the avs and skylake drivers used snd_hdac_i915_init purely for the
+modprobe, but I don't have the hardware to test if it can be safely removed.
+It can still be done easily in a followup patch to simplify probing.
+
 ---
- sound/soc/fsl/fsl_spdif.c | 8 ++++++--
- sound/soc/fsl/fsl_spdif.h | 6 ++++--
- 2 files changed, 10 insertions(+), 4 deletions(-)
+New since first version:
 
-diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
-index 015c3708aa04..95e639711eba 100644
---- a/sound/soc/fsl/fsl_spdif.c
-+++ b/sound/soc/fsl/fsl_spdif.c
-@@ -514,6 +514,10 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
- 	int ret;
- 
- 	switch (sample_rate) {
-+	case 22050:
-+		rate = SPDIF_TXRATE_22050;
-+		csfs = IEC958_AES3_CON_FS_22050;
-+		break;
- 	case 32000:
- 		rate = SPDIF_TXRATE_32000;
- 		csfs = IEC958_AES3_CON_FS_32000;
-@@ -1422,7 +1426,7 @@ static u32 fsl_spdif_txclk_caldiv(struct fsl_spdif_priv *spdif_priv,
- 				struct clk *clk, u64 savesub,
- 				enum spdif_txrate index, bool round)
- {
--	static const u32 rate[] = { 32000, 44100, 48000, 88200, 96000, 176400,
-+	static const u32 rate[] = { 22050, 32000, 44100, 48000, 88200, 96000, 176400,
- 				    192000, };
- 	bool is_sysclk = clk_is_match(clk, spdif_priv->sysclk);
- 	u64 rate_ideal, rate_actual, sub;
-@@ -1483,7 +1487,7 @@ static u32 fsl_spdif_txclk_caldiv(struct fsl_spdif_priv *spdif_priv,
- static int fsl_spdif_probe_txclk(struct fsl_spdif_priv *spdif_priv,
- 				enum spdif_txrate index)
- {
--	static const u32 rate[] = { 32000, 44100, 48000, 88200, 96000, 176400,
-+	static const u32 rate[] = { 22050, 32000, 44100, 48000, 88200, 96000, 176400,
- 				    192000, };
- 	struct platform_device *pdev = spdif_priv->pdev;
- 	struct device *dev = &pdev->dev;
-diff --git a/sound/soc/fsl/fsl_spdif.h b/sound/soc/fsl/fsl_spdif.h
-index 75b42a692c90..2bc1b10c17d4 100644
---- a/sound/soc/fsl/fsl_spdif.h
-+++ b/sound/soc/fsl/fsl_spdif.h
-@@ -175,7 +175,8 @@ enum spdif_gainsel {
- 
- /* SPDIF tx rate */
- enum spdif_txrate {
--	SPDIF_TXRATE_32000 = 0,
-+	SPDIF_TXRATE_22050 = 0,
-+	SPDIF_TXRATE_32000,
- 	SPDIF_TXRATE_44100,
- 	SPDIF_TXRATE_48000,
- 	SPDIF_TXRATE_88200,
-@@ -191,7 +192,8 @@ enum spdif_txrate {
- #define SPDIF_QSUB_SIZE			(SPDIF_UBITS_SIZE / 8)
- 
- 
--#define FSL_SPDIF_RATES_PLAYBACK	(SNDRV_PCM_RATE_32000 |	\
-+#define FSL_SPDIF_RATES_PLAYBACK	(SNDRV_PCM_RATE_22050 |	\
-+					 SNDRV_PCM_RATE_32000 |	\
- 					 SNDRV_PCM_RATE_44100 |	\
- 					 SNDRV_PCM_RATE_48000 |	\
- 					 SNDRV_PCM_RATE_88200 | \
+- snd_hda_core.gpu_bind is added as a mechanism to force gpu binding,
+  for testing. snd_hda_core.gpu_bind=0 forces waiting for GPU bind to
+  off, snd_hda_core.gpu_bind=1 forces waiting for gpu bind. Default
+  setting depends on whether kernel booted with nomodeset.
+- Incorporated all feedback review.
+
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: sound-open-firmware@alsa-project.org
+
+Maarten Lankhorst (9):
+  ALSA: hda/intel: Fix error handling in azx_probe()
+  ALSA: hda/i915: Allow override of gpu binding.
+  ALSA: hda/i915: Add an allow_modprobe argument to snd_hdac_i915_init
+  ALSA: hda/i915: Allow xe as match for i915_component_master_match
+  ASoC: Intel: avs: Move snd_hdac_i915_init to before probe_work.
+  ASoC: Intel: Skylake: Move snd_hdac_i915_init to before probe_work.
+  ALSA: hda/intel: Move snd_hdac_i915_init to before probe_work.
+  ASoC: SOF: Intel: Remove deferred probe for SOF
+  ALSA: hda/i915: Remove extra argument from snd_hdac_i915_init
+
+ sound/hda/hdac_i915.c         | 25 ++++++++-------
+ sound/pci/hda/hda_intel.c     | 60 ++++++++++++++++++-----------------
+ sound/soc/intel/avs/core.c    | 13 +++++---
+ sound/soc/intel/skylake/skl.c | 31 ++++++------------
+ sound/soc/sof/Kconfig         | 19 -----------
+ sound/soc/sof/core.c          | 38 ++--------------------
+ sound/soc/sof/intel/Kconfig   |  1 -
+ sound/soc/sof/intel/hda.c     | 32 +++++++++++--------
+ sound/soc/sof/sof-pci-dev.c   |  3 +-
+ sound/soc/sof/sof-priv.h      |  5 ---
+ 10 files changed, 85 insertions(+), 142 deletions(-)
+
 -- 
-2.25.1
+2.39.2
 

@@ -2,89 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9ABA75C0C1
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:05:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA98075C0C2
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:05:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE5C2112;
-	Fri, 21 Jul 2023 10:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE5C2112
+	by alsa0.perex.cz (Postfix) with ESMTPS id 158D0201;
+	Fri, 21 Jul 2023 10:05:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 158D0201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689926717;
-	bh=u7pl41cx1E9pSqKdR5uyMPbKntCtWP0OWuxw4zXSz0s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SV61UUZEZx+/VPhVmENtyJAJgSZ2gO2Wv4VJ7gTv9aZc4So9fvEBal+Y7Hk42XRR5
-	 09a54jTsaKCZsRrhVL85rNSkPGpMgUC6yDjsgLOk7FYawNh55Lk68rgbji4p+gNrDs
-	 y7lsnZL6Rk8ZscCjnPABIrwAaUvG+hUK+e19pSw8=
+	s=default; t=1689926751;
+	bh=iHiERc0MUOj9x+Yv42yz0WTp6ckuoH3/JUwCM+MO/TE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KMlfbzaaW41FdpaQ9Nm+kK7Hp3EHErwFP+U8S9zrUkR5bs1bbZaSEZU+6QiCBk5HG
+	 63xXFYgrYvejcmrJD9658/yLsqeaRQOHgKn48kGCQo0/sGAuMWtD8/IqGUL4z8NIhg
+	 M5UOHDCsq/UQz3wWa212/Zx8sFyoagVymWukUqsU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18E96F80494; Fri, 21 Jul 2023 10:04:26 +0200 (CEST)
+	id A22D2F80552; Fri, 21 Jul 2023 10:04:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2A8DF8032D;
-	Fri, 21 Jul 2023 10:04:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A003F80548;
+	Fri, 21 Jul 2023 10:04:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E96FF8032D; Wed, 19 Jul 2023 18:00:02 +0200 (CEST)
+	id 0E583F8047D; Wed, 19 Jul 2023 18:33:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1B84CF8007E;
-	Wed, 19 Jul 2023 17:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B84CF8007E
-Message-ID: <5cd0d41b-8307-9db3-fb4f-037b181a390d@linux.intel.com>
-Date: Wed, 19 Jul 2023 17:59:52 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E3D2F8007E
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 18:32:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E3D2F8007E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=Ai77xjd4
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-99364ae9596so995491066b.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 19 Jul 2023 09:32:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689784374; x=1692376374;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ezYh9TdYf9SPGlHOq/YkmRIkBcOvB6bLPP8t0cvosPU=;
+        b=Ai77xjd4Papa7mIdUTLLLOt0HjEVd4UaRKKLVWju83yIoffIwGYoOAGpHNGPTBkW7R
+         xzjBMM3CdMTo9T4RB9oSbJ75u9EW9fTtiCbZN8tfdNpmmrilnk8lNUNQTUFeECk61y56
+         jkeI/OeVa4PUEAV7qe9J6W64tzVgBxb/uOUch8GEPWxL83j9+7RYdDFueAzwh9u3s9ET
+         JrqViZoYcaeJku2l6lKHWbFdDFIwVlXGoDaG72e33Rrlz9B097nXYrVup6zSuA9iomFI
+         yhl7MOnt+FU3nyXRgZWaikNNV3lKagEaqODe+zmbirKNVvfNK+S8rUpIgAFCDfSRXVdo
+         3Fpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689784374; x=1692376374;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ezYh9TdYf9SPGlHOq/YkmRIkBcOvB6bLPP8t0cvosPU=;
+        b=YBKFltETZ5iTw3ssJh8gc+wvMG9ImOpzNZ7jT087iWtSdU4MSPf/ZuCmC3qgo0SEvX
+         LYLsuVLj9+Uu/oAWDRw1KcAyk1qKKjJEAvIX5CnaA+0E4rfmTeyMEt4pZdbkFYL6DYgn
+         flEeeJZwD27gmZfyiqTZUvROwSBm2XYlfQCDcHZHVfUsgTp3+3+pqsqIF4eDDteaCb27
+         PoBpdfDS5EDfVbig3S70X99neQoLwhlx8WKPud3pJvcHvzc5RAKPhERfcGp8dv0RPNX8
+         6bakFfh1yddrTWcHYoZRJwK539tftyx8qBGaPPOREVTRMAa6FKjATwOtJI0n4ANzEoch
+         EcYg==
+X-Gm-Message-State: ABy/qLbLRhGsSyTIO1EsNXn0rRXZ1TbmcAgqWzeoJMoXLt2clx9FfZXU
+	bxKjolqk7pssILDsx+zZ9dM=
+X-Google-Smtp-Source: 
+ APBJJlHZwwjBvT87CgsBUjDjYtMiifOSzfmRfPiW+vi01bUGZ/rvbUobuTctzgwoF66GEBo+mJgTOA==
+X-Received: by 2002:a17:906:290:b0:999:37ff:be94 with SMTP id
+ 16-20020a170906029000b0099937ffbe94mr2432672ejf.71.1689784373757;
+        Wed, 19 Jul 2023 09:32:53 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a01:c844:242b:b300:215:5dff:fe9c:4c81])
+        by smtp.gmail.com with ESMTPSA id
+ o21-20020a17090637d500b0098e025cda3bsm2571044ejc.141.2023.07.19.09.32.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Jul 2023 09:32:53 -0700 (PDT)
+From: Matus Gajdos <matuszpd@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Matus Gajdos <matuszpd@gmail.com>,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl_spdif: Add support for 22.05 kHz sample rate
+Date: Wed, 19 Jul 2023 18:31:53 +0200
+Message-Id: <20230719163154.19492-1-matuszpd@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] ASoC: SOF: Intel: Remove deferred probe for SOF
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>, Alsa-devel <alsa-devel@alsa-project.org>,
- sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Matthew Auld <matthew.auld@intel.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
- <20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
- <alpine.DEB.2.22.394.2307181922160.3532114@eliteleevi.tm.intel.com>
- <874jm0modf.wl-tiwai@suse.de>
- <66d22637-069f-5262-2249-6041ef9d4614@linux.intel.com>
- <875y6g5feo.wl-tiwai@suse.de>
- <2ed288d0-c8fe-1856-dbe9-74f4f7c075ba@linux.intel.com>
- <04ed7ed8-8a8d-427a-84e1-a326feee5547@sirena.org.uk>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <04ed7ed8-8a8d-427a-84e1-a326feee5547@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: maarten.lankhorst@linux.intel.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: matuszpd@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UEBSUYOFZILBB2PU2FTYHVG63IT4LCZ7
-X-Message-ID-Hash: UEBSUYOFZILBB2PU2FTYHVG63IT4LCZ7
-X-Mailman-Approved-At: Fri, 21 Jul 2023 08:04:22 +0000
+Message-ID-Hash: OI5IY2D7YC5NN3W6MVKUCIYC3K2CEILF
+X-Message-ID-Hash: OI5IY2D7YC5NN3W6MVKUCIYC3K2CEILF
+X-Mailman-Approved-At: Fri, 21 Jul 2023 08:04:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UEBSUYOFZILBB2PU2FTYHVG63IT4LCZ7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OI5IY2D7YC5NN3W6MVKUCIYC3K2CEILF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,50 +126,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hey,
+Add support for 22.05 kHz sample rate for TX.
 
-On 2023-07-19 14:39, Mark Brown wrote:
-> On Wed, Jul 19, 2023 at 02:13:59PM +0200, Maarten Lankhorst wrote:
->>
->> On 2023-07-19 13:06, Takashi Iwai wrote:
->>> On Wed, 19 Jul 2023 11:48:06 +0200,
->>> Maarten Lankhorst wrote:
->>>>
->>>>       The 60 seconds timeout is a thing "better than complete disablement",
->>>>       so it's not ideal, either.  Maybe we can add something like the
->>>>       following:
->>>>       - Check when the deferred probe takes too long, and warn it
->>>>       - Provide some runtime option to disable the component binding, so
->>>>         that user can work around it if needed
->>>> A module option to snd_hdac_i915_init would probably be the least of all evils
->>>> here.
->>>
->>> Yes, probably it's the easiest option and sufficient.
->>>
->>>
->>> thanks,
->>>
->>> Takashi
->> Hey,
->>
->> Patch below, can be applied immediately iresspective of the other patches.
->>
->> ---->8----------
->>
->> Selecting CONFIG_DRM selects CONFIG_VIDEO_NOMODESET, which exports
->> video_firmware_drivers_only(). This can be used as a first approximation
->> on whether i915 will be available. It's safe to use as this is only built
-> 
-> Please don't bury new patches in the middle of mails, it just makes it
-> hard to apply the patch since tooling doesn't understand what's going
-> on.
-> 
-> Please don't send new patches in reply to old patches or serieses, this
-> makes it harder for both people and tools to understand what is going
-> on - it can bury things in mailboxes and make it difficult to keep track
-> of what current patches are, both for the new patches and the old ones.
-I will send a new version in a bit, with all comments addressed.
+Signed-off-by: Matus Gajdos <matuszpd@gmail.com>
+---
+ sound/soc/fsl/fsl_spdif.c | 8 ++++++--
+ sound/soc/fsl/fsl_spdif.h | 6 ++++--
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-I need to finish testing first.
+diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+index 015c3708aa04..95e639711eba 100644
+--- a/sound/soc/fsl/fsl_spdif.c
++++ b/sound/soc/fsl/fsl_spdif.c
+@@ -514,6 +514,10 @@ static int spdif_set_sample_rate(struct snd_pcm_substream *substream,
+ 	int ret;
+ 
+ 	switch (sample_rate) {
++	case 22050:
++		rate = SPDIF_TXRATE_22050;
++		csfs = IEC958_AES3_CON_FS_22050;
++		break;
+ 	case 32000:
+ 		rate = SPDIF_TXRATE_32000;
+ 		csfs = IEC958_AES3_CON_FS_32000;
+@@ -1422,7 +1426,7 @@ static u32 fsl_spdif_txclk_caldiv(struct fsl_spdif_priv *spdif_priv,
+ 				struct clk *clk, u64 savesub,
+ 				enum spdif_txrate index, bool round)
+ {
+-	static const u32 rate[] = { 32000, 44100, 48000, 88200, 96000, 176400,
++	static const u32 rate[] = { 22050, 32000, 44100, 48000, 88200, 96000, 176400,
+ 				    192000, };
+ 	bool is_sysclk = clk_is_match(clk, spdif_priv->sysclk);
+ 	u64 rate_ideal, rate_actual, sub;
+@@ -1483,7 +1487,7 @@ static u32 fsl_spdif_txclk_caldiv(struct fsl_spdif_priv *spdif_priv,
+ static int fsl_spdif_probe_txclk(struct fsl_spdif_priv *spdif_priv,
+ 				enum spdif_txrate index)
+ {
+-	static const u32 rate[] = { 32000, 44100, 48000, 88200, 96000, 176400,
++	static const u32 rate[] = { 22050, 32000, 44100, 48000, 88200, 96000, 176400,
+ 				    192000, };
+ 	struct platform_device *pdev = spdif_priv->pdev;
+ 	struct device *dev = &pdev->dev;
+diff --git a/sound/soc/fsl/fsl_spdif.h b/sound/soc/fsl/fsl_spdif.h
+index 75b42a692c90..2bc1b10c17d4 100644
+--- a/sound/soc/fsl/fsl_spdif.h
++++ b/sound/soc/fsl/fsl_spdif.h
+@@ -175,7 +175,8 @@ enum spdif_gainsel {
+ 
+ /* SPDIF tx rate */
+ enum spdif_txrate {
+-	SPDIF_TXRATE_32000 = 0,
++	SPDIF_TXRATE_22050 = 0,
++	SPDIF_TXRATE_32000,
+ 	SPDIF_TXRATE_44100,
+ 	SPDIF_TXRATE_48000,
+ 	SPDIF_TXRATE_88200,
+@@ -191,7 +192,8 @@ enum spdif_txrate {
+ #define SPDIF_QSUB_SIZE			(SPDIF_UBITS_SIZE / 8)
+ 
+ 
+-#define FSL_SPDIF_RATES_PLAYBACK	(SNDRV_PCM_RATE_32000 |	\
++#define FSL_SPDIF_RATES_PLAYBACK	(SNDRV_PCM_RATE_22050 |	\
++					 SNDRV_PCM_RATE_32000 |	\
+ 					 SNDRV_PCM_RATE_44100 |	\
+ 					 SNDRV_PCM_RATE_48000 |	\
+ 					 SNDRV_PCM_RATE_88200 | \
+-- 
+2.25.1
 
-~Maarten

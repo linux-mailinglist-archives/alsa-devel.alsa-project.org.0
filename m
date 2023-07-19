@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3088E75969A
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 15:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F2B759508
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 14:20:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE581FC;
-	Wed, 19 Jul 2023 15:24:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE581FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CE071FC;
+	Wed, 19 Jul 2023 14:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CE071FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689773125;
-	bh=ZLLTSx0IzKCM/an51/aXKuOB95zBOZBM8T9n0lJWTy0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=k1w93Hk83ZmE0dbwkRKazaET/tGY02XKCA1wtNZYrxO/0tA8tuz+BYZEjEr4grozA
-	 /GZtB8ngZfwYyaelfK8xzKLAzP9IYHhE6HZSBv06nAQGXFQs3tndomb0Mt1BMQQNya
-	 hN9ZMOlLxmzjtnlM/Ax9KG25iSRyQqG850IsJFq4=
+	s=default; t=1689769228;
+	bh=w8QgN80szna0uniayEpqCFNgVNaPz9uDgGXR6mVopZk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=h7bi97xfr+1ywuvM+hlqrggkBxBHdIgBC6lMm2F9MB3TwRt+z2CVvurC6glaoLXiD
+	 jU5e9C3hvSIoWQn8cmcoEjfbzmX2hKBw3jHmof5I3XHXukoZj9cGYaDGUJnPKc09y3
+	 RIg78Fe18HzEkMbyU7oya/8Er2ENNapGlZc85l3I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 221ABF80557; Wed, 19 Jul 2023 15:23:50 +0200 (CEST)
+	id 868BAF8053B; Wed, 19 Jul 2023 14:19:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C07B0F80548;
-	Wed, 19 Jul 2023 15:23:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10346F8032D;
+	Wed, 19 Jul 2023 14:19:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82B58F8047D; Wed, 19 Jul 2023 14:14:12 +0200 (CEST)
+	id 2976EF8047D; Wed, 19 Jul 2023 14:19:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail11.truemail.it (mail11.truemail.it
+ [IPv6:2001:4b7e:0:8::81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C93CDF800D2;
-	Wed, 19 Jul 2023 14:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C93CDF800D2
-Message-ID: <2ed288d0-c8fe-1856-dbe9-74f4f7c075ba@linux.intel.com>
-Date: Wed, 19 Jul 2023 14:13:59 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id A21D0F800D2
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 14:19:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A21D0F800D2
+Received: from francesco-nb.pivistrello.it (93-49-2-63.ip317.fastwebnet.it
+ [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 6AD99209A8;
+	Wed, 19 Jul 2023 14:19:23 +0200 (CEST)
+From: Francesco Dolcini <francesco@dolcini.it>
+To: alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	patches@opensource.cirrus.com
+Subject: [PATCH v1] ASoC: dt-bindings: wm8904: Convert to dtschema
+Date: Wed, 19 Jul 2023 14:19:18 +0200
+Message-Id: <20230719121918.247397-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: [PATCH] ASoC: SOF: Intel: Remove deferred probe for SOF
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Alsa-devel <alsa-devel@alsa-project.org>,
- sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- Matthew Auld <matthew.auld@intel.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
- <20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
- <alpine.DEB.2.22.394.2307181922160.3532114@eliteleevi.tm.intel.com>
- <874jm0modf.wl-tiwai@suse.de>
- <66d22637-069f-5262-2249-6041ef9d4614@linux.intel.com>
- <875y6g5feo.wl-tiwai@suse.de>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <875y6g5feo.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: maarten.lankhorst@linux.intel.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: PL44M4YCALHKJAZCCBN5YPQVOS2ITXXP
+X-Message-ID-Hash: PL44M4YCALHKJAZCCBN5YPQVOS2ITXXP
+X-MailFrom: francesco@dolcini.it
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: IT62ZFUE7436KRXVMCS2CQLYCXBEMNLL
-X-Message-ID-Hash: IT62ZFUE7436KRXVMCS2CQLYCXBEMNLL
-X-Mailman-Approved-At: Wed, 19 Jul 2023 13:23:45 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IT62ZFUE7436KRXVMCS2CQLYCXBEMNLL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PL44M4YCALHKJAZCCBN5YPQVOS2ITXXP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,66 +83,142 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-On 2023-07-19 13:06, Takashi Iwai wrote:
-> On Wed, 19 Jul 2023 11:48:06 +0200,
-> Maarten Lankhorst wrote:
->>
->>      The 60 seconds timeout is a thing "better than complete disablement",
->>      so it's not ideal, either.  Maybe we can add something like the
->>      following:
->>      
->>      - Check when the deferred probe takes too long, and warn it
->>      - Provide some runtime option to disable the component binding, so
->>        that user can work around it if needed
->>      
->> A module option to snd_hdac_i915_init would probably be the least of all evils
->> here.
-> 
-> Yes, probably it's the easiest option and sufficient.
-> 
-> 
-> thanks,
-> 
-> Takashi
-Hey,
+Convert the WM8904 audio CODEC bindings to DT schema.
 
-Patch below, can be applied immediately iresspective of the other patches.
+Compared to the original binding #sound-dai-cells and the missing power
+supplies are added. The latter are all required as described in the
+datasheet.
 
----->8----------
-
-Selecting CONFIG_DRM selects CONFIG_VIDEO_NOMODESET, which exports 
-video_firmware_drivers_only(). This can be used as a first approximation
-on whether i915 will be available. It's safe to use as this is only 
-built when CONFIG_SND_HDA_I915 is selected by CONFIG_I915.
-
-It's not completely fool proof, as you can boot with "nomodeset 
-i915.modeset=1" to make i915 load regardless, or use
-"i915.force_probe=!*" to never load i915, but the common case of booting
-with nomodeset to disable all GPU drivers this will work as intended.
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Datasheet: https://statics.cirrus.com/pubs/proDatasheet/WM8904_Rev4.1.pdf
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index 1637dc6e630a6..90bcf84f7b2ce 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -11,6 +11,8 @@
-  #include <sound/hda_i915.h>
-  #include <sound/hda_register.h>
+ .../devicetree/bindings/sound/wlf,wm8904.yaml | 74 +++++++++++++++++++
+ .../devicetree/bindings/sound/wm8904.txt      | 33 ---------
+ 2 files changed, 74 insertions(+), 33 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/wm8904.txt
 
-+#include <video/nomodeset.h>
+diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
+new file mode 100644
+index 000000000000..329260cf0fa0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/wlf,wm8904.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-  #define IS_HSW_CONTROLLER(pci) (((pci)->device == 0x0a0c) || \
-  				((pci)->device == 0x0c0c) || \
-  				((pci)->device == 0x0d0c) || \
-@@ -122,6 +124,9 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
-  {
-  	struct pci_dev *display_dev = NULL;
++title: Wolfson WM8904/WM8912 audio codecs
++
++maintainers:
++  - patches@opensource.cirrus.com
++
++description: |
++  Pins on the device (for linking into audio routes):
++  IN1L, IN1R, IN2L, IN2R, IN3L, IN3R, HPOUTL, HPOUTR, LINEOUTL, LINEOUTR,
++  MICBIAS
++
++properties:
++  compatible:
++    enum:
++      - wlf,wm8904
++      - wlf,wm8912
++
++  reg:
++    maxItems: 1
++
++  "#sound-dai-cells":
++    const: 0
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: mclk
++
++  AVDD-supply: true
++  CPVDD-supply: true
++  DBVDD-supply: true
++  DCVDD-supply: true
++  MICVDD-supply: true
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - AVDD-supply
++  - CPVDD-supply
++  - DBVDD-supply
++  - DCVDD-supply
++  - MICVDD-supply
++
++allOf:
++  - $ref: dai-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        codec@1a {
++            compatible = "wlf,wm8904";
++            reg = <0x1a>;
++            clocks = <&pck0>;
++            clock-names = "mclk";
++            AVDD-supply = <&reg_1p8v>;
++            CPVDD-supply = <&reg_1p8v>;
++            DBVDD-supply = <&reg_1p8v>;
++            DCVDD-supply = <&reg_1p8v>;
++            MICVDD-supply = <&reg_1p8v>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/sound/wm8904.txt b/Documentation/devicetree/bindings/sound/wm8904.txt
+deleted file mode 100644
+index 66bf261423b9..000000000000
+--- a/Documentation/devicetree/bindings/sound/wm8904.txt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-WM8904 audio CODEC
+-
+-This device supports I2C only.
+-
+-Required properties:
+-  - compatible: "wlf,wm8904" or "wlf,wm8912"
+-  - reg: the I2C address of the device.
+-  - clock-names: "mclk"
+-  - clocks: reference to
+-    <Documentation/devicetree/bindings/clock/clock-bindings.txt>
+-
+-Pins on the device (for linking into audio routes):
+-
+-  * IN1L
+-  * IN1R
+-  * IN2L
+-  * IN2R
+-  * IN3L
+-  * IN3R
+-  * HPOUTL
+-  * HPOUTR
+-  * LINEOUTL
+-  * LINEOUTR
+-  * MICBIAS
+-
+-Examples:
+-
+-codec: wm8904@1a {
+-	compatible = "wlf,wm8904";
+-	reg = <0x1a>;
+-	clocks = <&pck0>;
+-	clock-names = "mclk";
+-};
+-- 
+2.25.1
 
-+	if (video_firmware_drivers_only())
-+		return false;
-+
-  	for_each_pci_dev(display_dev) {
-  		if (display_dev->vendor == PCI_VENDOR_ID_INTEL &&
-  		    (display_dev->class >> 16) == PCI_BASE_CLASS_DISPLAY &&

@@ -2,128 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99055758DC1
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 08:26:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC65758F2C
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 09:36:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D84C0200;
-	Wed, 19 Jul 2023 08:25:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D84C0200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64E5B844;
+	Wed, 19 Jul 2023 09:35:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64E5B844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689747962;
-	bh=K1AOcBsxzaW7FIM6Rwid3kVFunpcZnvCPv0vTyhGTxU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=p8eI7F4pazbcHTZ15Qg+mIoUA/kOvrIi1zn8NqxyK2tLoKeMixQWNuVJXjq7SX5GF
-	 rAPPcVGIrqvf8mLzAnGFhnwASm8ssl7uyK2xtU5kpcH1EpE/HbCGRqFU7SwP8WoH5X
-	 HhIrbnqsrbIMB0B5MTEggMOwPzUFQ3mC3/tqdK9E=
+	s=default; t=1689752209;
+	bh=X/1ZCuslfAylC6Y0bWPaqrKyGgqVTjSKO5g69PlLyUU=;
+	h=Subject:From:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=cOppacSqDx2yFDTnpS618zK8qtGkKJsvNWJmRLBmwfDqBxdfI4TkB/cEz7c0ZgFZo
+	 XsR+AlK+5pvsp/6kHyxtSS/GyXD26HPQR2dsQ4+NwZYxhe14Id42uO5UlICIZLGhMj
+	 QRyKHiagq6gymrLTN93f/s36UIYUSxZqBM2RBuIA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83A30F8053B; Wed, 19 Jul 2023 08:24:51 +0200 (CEST)
+	id 515C3F8057D; Wed, 19 Jul 2023 09:35:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3071CF8032D;
-	Wed, 19 Jul 2023 08:24:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13935F80570;
+	Wed, 19 Jul 2023 09:35:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F4C9F8047D; Wed, 19 Jul 2023 08:24:47 +0200 (CEST)
+	id 954CEF8047D; Wed, 19 Jul 2023 09:10:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sender11-of-o51.zoho.eu (sender11-of-o51.zoho.eu
+ [31.186.226.237])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7F54AF80153
-	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 08:24:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F54AF80153
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ve4angk7
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-52164adea19so7158843a12.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 18 Jul 2023 23:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1689747882; x=1692339882;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ccyKM4c4UEqeSLzEinIny4sZDE5dNDTL0N9N17eCxtE=;
-        b=ve4angk7F91LhVNlCl1qkrEK7LFpZTU/+7owB4XDF2ZVdh+Lc+uK2tw1TEUV70KrSX
-         wF7Q7BQOc0UTlYil0POfFquiw0pzfSTKHpUdGRAaVcz3NKxzaCllxGlgE9rjde76/FIe
-         kam3I+BV4TaI4YJ9zvkkx1wGBJWCX+A4vD0WKhv/oPuQ6u3E+AKw6cgPpLrA+VekMP9o
-         WVmLc2mm+N6o1Xw8zGdh4h/nlBpyALWjXQPJy64ysqExD6nFZrHzXBqLKg2KYCO5LRUO
-         IWagxcOGY+6Gn3GwjcKFTCZp3Qaohzce1zdo48rkOZe5q8KP1Aey6V1URTGEJvj05O0J
-         MItA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689747882; x=1692339882;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ccyKM4c4UEqeSLzEinIny4sZDE5dNDTL0N9N17eCxtE=;
-        b=NhFeVCgd6M+CoRd8f/HfG6TPx8RUSzNlYHgy0g7i19RqWk7nnRz0i1iOJkkQtnH8zB
-         ph7kZIivtbEu9zgT3GqcFB2Z6VE7UZjIu15bkz8ijPjZEsdwBpkV9NiWsQ4JOcb2tY+M
-         VwJkEFd9hc9McIHw9XHI1/IAGivAG32lUfRkEqcE6jFSJBzAae4CibWz6Xswq15uOceM
-         13YRmbmeZdOQwT5EM+LGNUFsnXxoxnlolXXcBYjrS9YWD9pDcdFbGw0c/YvSwZFJ04Y+
-         D852U13RBpatoU6F+fRry9QNtrqaWV6YP54IZgwxTeGR7HIwcNghJshQ/qgg8ijSHGAg
-         23nw==
-X-Gm-Message-State: ABy/qLZwUXqv1NJsiFdo2e9X3NalO1SCaKzs/Ylz7CHkrGKlAR+LIwM9
-	tCZ8N6ywaNOYRgBMzxfptkjtdg==
-X-Google-Smtp-Source: 
- APBJJlG0SJESoICmsz810RgoxjW57d1zLBusGoGAMt4TEGBP2HcOV3sxDWwzLWhu8xl61MKTC25u6g==
-X-Received: by 2002:aa7:c944:0:b0:51d:f3b2:87b8 with SMTP id
- h4-20020aa7c944000000b0051df3b287b8mr1450218edt.0.1689747882319;
-        Tue, 18 Jul 2023 23:24:42 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
-        by smtp.gmail.com with ESMTPSA id
- g21-20020a056402115500b0051de52f8adesm2288656edw.32.2023.07.18.23.24.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Jul 2023 23:24:41 -0700 (PDT)
-Message-ID: <4096c968-aa77-5638-7f67-2a478d41ded3@linaro.org>
-Date: Wed, 19 Jul 2023 08:24:39 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5FD29F80153
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 09:10:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FD29F80153
+ARC-Seal: i=1; a=rsa-sha256; t=1689750615; cv=none;
+	d=zohomail.eu; s=zohoarc;
+	b=Igeq9c9KOSyZIthJBMc8P6YtghWo0Kl1+taDH626cbYMOzD9jLig4RQth4RlNwrL3BnDHxTZUO+c0//5s9GPk/ftzv2zQhb2KD3YjrNDscdnxHZNZlC5IGqexEUIb7G/wOBCEI8NhhuReYuo0Yc47ivi/AiuBkraFnUPX40QG0A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc;
+	t=1689750615;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To;
+	bh=YvDjjLFAyG93iZxzoWrPxDhqqLNn6CjgW1bKwcUdgDc=;
+	b=WvKw8NDkrj0eZpxfUOxuZ7O998oeLRs51L3USCQatl34WV3vW3SJhMUqRoZcogcJaBYzXnoG5LCVXSJlY1wApf6ZO9F+2ZQngS07TPlFuVx2wwtvn6pgpJ5LKUW7UuUcmGdLurGYJUiyNn/Ob3O7Bpgo5vFd/o9QSal0DUSglFk=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	spf=pass  smtp.mailfrom=carl@uvos.xyz;
+	dmarc=pass header.from=<carl@uvos.xyz>
+Received: from [10.0.0.2] (ip-037-201-241-223.um10.pools.vodafone-ip.de
+ [37.201.241.223]) by mx.zoho.eu
+	with SMTPS id 1689750613569366.34620689097324;
+ Wed, 19 Jul 2023 09:10:13 +0200 (CEST)
+Message-ID: <dde0a305793ad7ddbd9e001e463207a84c2afcc9.camel@uvos.xyz>
+Subject: [BUG REPORT] sound: pci: ctxfi: htimestamp dose not work on EMU20k
+ during recording
+From: Carl Klemm <carl@uvos.xyz>
+To: tiwai@suse.de
+Cc: alsa-devel@alsa-project.org, alsa-devel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Date: Wed, 19 Jul 2023 09:10:12 +0200
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH V1 2/5] ASoC: codecs: aw88261 function for ALSA Audio
- Driver
-Content-Language: en-US
-To: wangweidong.a@awinic.com
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- ckeepax@opensource.cirrus.com, colin.i.king@gmail.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, doug@schmorgal.com, fido_max@inbox.ru,
- flatmax@flatmax.com, herve.codina@bootlin.com, kiseok.jo@irondevice.com,
- krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, liweilei@awinic.com, perex@perex.cz,
- pierre-louis.bossart@linux.intel.com, rf@opensource.cirrus.com,
- robh+dt@kernel.org, shumingf@realtek.com, tiwai@suse.com, trix@redhat.com,
- yijiangtao@awinic.com, zhangjianming@awinic.com
-References: <4ef0d83e-b0c9-1f6e-c1a4-24d650630fe4@linaro.org>
- <20230719030955.41489-1-wangweidong.a@awinic.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230719030955.41489-1-wangweidong.a@awinic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: SGFOGU4V5W42FYO27GWNRMNESNZZAPNQ
-X-Message-ID-Hash: SGFOGU4V5W42FYO27GWNRMNESNZZAPNQ
-X-MailFrom: krzysztof.kozlowski@linaro.org
+X-ZohoMailClient: External
+X-MailFrom: carl@uvos.xyz
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: TJZSGH6GR4MVWGJFLYLBH4YGJMYZG5ZQ
+X-Message-ID-Hash: TJZSGH6GR4MVWGJFLYLBH4YGJMYZG5ZQ
+X-Mailman-Approved-At: Wed, 19 Jul 2023 07:35:11 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SGFOGU4V5W42FYO27GWNRMNESNZZAPNQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TJZSGH6GR4MVWGJFLYLBH4YGJMYZG5ZQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,77 +92,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 19/07/2023 05:09, wangweidong.a@awinic.com wrote:
-> Hi, Krzysztof,
-> Thank you very much for your advice, 
->  but I have a few questions I'd like to discuss with you
-> 
-> On 18/07/2023 16:58, krzysztof.kozlowski@linaro.org wrote:
->> On 17/07/2023 13:58, wangweidong.a@awinic.com wrote:
->>> From: Weidong Wang <wangweidong.a@awinic.com>
->>>
->>> The AW88261 is an I2S/TDM input, high efficiency
->>> digital Smart K audio amplifier with an integrated 10.25V
->>> smart boost convert
-> 
->> It's the same as in patch before. This does not help and does not
->> justify having one driver split into two.
-> 
-> I will modify the commit information and differentiate the commit 
->  information for each file
-> 
->>>
-> 
-> ...
-> 
->>> +
->>> +static void aw_dev_i2s_tx_enable(struct aw_device *aw_dev, bool flag)
->>> +{
->>> +	int ret;
->>> +
->>> +	if (flag) {
->>> +		ret = regmap_update_bits(aw_dev->regmap, AW88261_I2SCFG1_REG,
->>> +			~AW88261_I2STXEN_MASK, AW88261_I2STXEN_ENABLE_VALUE);
->>> +	} else {
->>> +		ret = regmap_update_bits(aw_dev->regmap, AW88261_I2SCFG1_REG,
->>> +			~AW88261_I2STXEN_MASK, AW88261_I2STXEN_DISABLE_VALUE);
->>> +	}
-> 
->> You should not need {} here and in multiple other places.
-> 
-> I will delete {} as suggested
-> 
->>> +	if (ret)
->>> +		dev_dbg(aw_dev->dev, "%s failed", __func__);
-> 
->> Why you are not handling the errors properly?
-> 
-> Do you need to use dev_err instead?
+Hi,
 
-No, return err and handle it somehow (if it is reasonable).
+see https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3352
+htimestamp returns nonesensical values when recording is active on a
+EMU20k device
 
-..
 
->>> +	} else {
->>> +		if (aw_dev->prof_cur != aw_dev->prof_index) {
->>> +			ret = aw88261_dev_fw_update(aw_dev);
->>> +			if (ret < 0)
->>> +				return ret;
->>> +		}
->>> +	}
->>> +
->>> +	aw_dev->prof_cur = aw_dev->prof_index;
->>> +
->>> +	return ret;
->>> +}
->>> +EXPORT_SYMBOL_GPL(aw88261_dev_reg_update);
-> 
->> Same question. And in all other places as well.
-> 
-> This function will be called in aw88261.c, can I keep it?
+lspci:
+03:00.0 Audio device: Creative Labs EMU20k2 [Sound Blaster X-Fi
+Titanium Series] (rev 03)
+        Subsystem: Creative Labs EMU20k2 [Sound Blaster X-Fi Titanium
+Series]
+        Flags: bus master, fast devsel, latency 0, IRQ 17
+        Memory at d1200000 (64-bit, non-prefetchable) [size=3D64K]
+        Memory at d1000000 (64-bit, non-prefetchable) [size=3D2M]
+        Memory at d0000000 (64-bit, non-prefetchable) [size=3D16M]
+        Capabilities: <access denied>
+        Kernel driver in use: snd_ctxfi
+        Kernel modules: snd_ctxfi
 
-Not really. Being used in other unit does not mean you need export.
-
-Best regards,
-Krzysztof
+With regards,
+Carl Klemm
 

@@ -2,87 +2,155 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B1F75890B
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 01:27:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7C07589F4
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 02:13:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D552F1EB;
-	Wed, 19 Jul 2023 01:26:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D552F1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B35D1E9;
+	Wed, 19 Jul 2023 02:12:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B35D1E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689722862;
-	bh=nvvw5vLzvyT+g9nDympQREpx5x4EtYJxfB0fnvV4dnk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1689725600;
+	bh=UoIjqlxe3Mh+q0KLT2fFgE9DZCj7tKlsEmRuWQYqbSw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kh/v6sBVfOGAGt7Mk7+tkzDWvPg5o+TCKmSfE7rYJaYmfAmclcctIjnmUnC0P5uTJ
-	 ZLQvH2U//IO/k1invnZEVSNHfHeWpCKSQtNrFFEhT86AY2smwoxHAIlspV4nTpEH2D
-	 n+UbTMa/eEO5XH+PJ63ZCK1L39VnKpZkDQWDyXxw=
+	b=H5khCLBYSs6TvJeagLZJzDnn+4L/lJpbwGMZYYIQ0apvkLP/6s+otd/PDFiWaAQdm
+	 3rBd09LPum/cHzvrOkGYQl0fpORLgKHqDpSsgpmOkJxwd2DWuylp9Liz1nVJOHast6
+	 MpJDQiScOVl6Do4GeSWbbJxWZ4JB12arlAw8r6+Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 535B5F80520; Wed, 19 Jul 2023 01:26:52 +0200 (CEST)
+	id 44443F80520; Wed, 19 Jul 2023 02:12:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D37A9F8032D;
-	Wed, 19 Jul 2023 01:26:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DE15F80153;
+	Wed, 19 Jul 2023 02:12:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5845BF8047D; Wed, 19 Jul 2023 01:26:46 +0200 (CEST)
+	id F27D2F8047D; Wed, 19 Jul 2023 02:12:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20715.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::715])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AE754F80153
-	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 01:26:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE754F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id C697DF8007E
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 02:12:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C697DF8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BSVtMvLq
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0A3C1612DC;
-	Tue, 18 Jul 2023 23:26:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59D9C433C8;
-	Tue, 18 Jul 2023 23:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689722794;
-	bh=nvvw5vLzvyT+g9nDympQREpx5x4EtYJxfB0fnvV4dnk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=BSVtMvLq+GO0IChSbpv2jVpS9Q2xzLtvM/lR+6iSDx2ycV5+RB3fZ3CopoaIo4+n/
-	 Oj8G2IfWrVb3/K0IlJ0Rb7DBbKzsavBbZsXqXs0yEnj1xGs3WmBufkhgJF7lbZkMTH
-	 ui2tj7neURWCdHSoRoLDdVQzgAAZEQmtGnGe9Zs8+z2z9mUwIeIJ5fr3OwpiF1H3fA
-	 oFwCa1mhxFxHHfXzK8MB3Yc53g8eeF6N49AhfCQESjWy/r6nyVHPITkvGy+REZ0pxh
-	 d67AnhI1Y1lkLdzJy1iGxrgEMt7Q08zHZ4ea7O7EOmONnTToQ9HQNMKYIItzWjANnt
-	 NJ4NEHku5GJug==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Mark Brown <broonie@kernel.org>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- asahi@lists.linux.dev
-In-Reply-To: <20230713-asoc-cirrus-maple-v1-0-a62651831735@kernel.org>
-References: <20230713-asoc-cirrus-maple-v1-0-a62651831735@kernel.org>
-Subject: Re: [PATCH 00/48] ASoC: cirrus: Use the maple tree register cache
-Message-Id: <168972279238.134634.6122845641864577538.b4-ty@kernel.org>
-Date: Wed, 19 Jul 2023 00:26:32 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=GziQRFx+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kdJw+liiZKZNFSK8UDHxJ+5/EVM/ZA9eqiNftOFNeMA39EDZaK8dddbnlzk/JEXG3bOWilX3looLIL7ggdIsamsRnIrnjVt19/8ICMgIpHI/KHtTbddVu734tnfIyU9yeC0X+6TFvO2wuxmNLPXaMmwBdMf10XA6zVf1dPJYJfFWtJJzG93o7tbWeX5ma3ovnZA9H0jT3Lb7tSdWYJAuES3ln3g5RQRe5WKDfEQCEkoo46h7pvXI0mvXueSfI7s0hNEH4mWrQjRxxR4J7TYsK2y9UYPAIdKzn75fG6NGGB/SY95BeUo+V4kiktsLQZiv1Dd7lUzDPQjJLkpPLeT4jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fCHOEyXWME3T4OUcdO6bBCBVmKMxAcV71smILCDDJzg=;
+ b=ACZGmiWX1qFLD436m+fC2jf6ozYWKez0yxAEvJAvRak94Ru7llqdhtKKzbejdrwSbF0L/Mi6DdJc+JResGggZ9PpcCkTYESQsOuTsrLK/DYkBAhoO8d1adkLP0XBOfF6TUdtlUrg48E6jYxqll7K25J+8/SDkb7kuygtWqUh9gfQ6sGLoJIHLvF3lu5k+nrAY7N3ynwWxRrsnEvnXerdV9as6bGbgPGELi9qRSR3UNdHsspQXq1hAm26Qutz4+zQ7Fv/+c9NFAbrtMquHOldHAjONTWX6Tawlq30jxrNNzYfPaByjn2JJiPkIuK8p5xjSqkhrKJPyScWzawwJ8BAdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fCHOEyXWME3T4OUcdO6bBCBVmKMxAcV71smILCDDJzg=;
+ b=GziQRFx+PN7O7kZxBtv6XRO6HyB3IclX6eVjlfRjkexNeHzDXpfmIoVevano0PCsb1DFVElBC24Gp6LFDi/S7ryRwd9iixIjDlRNbk3l2ufXDiWoo/BHVmBM5khHrvIetBbh0f8kQSJlB52+397gzH6rD2kdS+uvhxHRmpR3Rbw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYCPR01MB6208.jpnprd01.prod.outlook.com (2603:1096:400:7b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 19 Jul
+ 2023 00:11:58 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::a3a7:e0b8:ca7:bdb4]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::a3a7:e0b8:ca7:bdb4%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
+ 00:11:58 +0000
+Message-ID: <87h6q0iwtu.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>,	Cezary Rojewski
+ <cezary.rojewski@intel.com>,	Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>,	=?ISO-8859-2?Q?=22Amadeusz_S=B3aw?=
+ =?ISO-8859-2?Q?i=F1ski=22?= <amadeuszx.slawinski@linux.intel.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,	Linux-ALSA
+ <alsa-devel@alsa-project.org>,	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 14/15] ASoC: dt-bindings: renesas,rsnd.yaml: add common
+ port-def
+In-Reply-To: <20230714144245.GA3492124-robh@kernel.org>
+References: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
+	<87351wo921.wl-kuninori.morimoto.gx@renesas.com>
+	<20230710151956.GA1992791-robh@kernel.org>
+	<87lefn8gh9.wl-kuninori.morimoto.gx@renesas.com>
+	<20230714144245.GA3492124-robh@kernel.org>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Jul 2023 00:11:57 +0000
+X-ClientProxiedBy: TYCP286CA0179.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::7) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: 4TKBZEFZKDEPXEC7R6ZIGAGRUYRCNSLN
-X-Message-ID-Hash: 4TKBZEFZKDEPXEC7R6ZIGAGRUYRCNSLN
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB6208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c256c8c-24f2-4f46-ae0c-08db87ecc44e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	l9ZPmw+z7W2BDfTnQ4pyzHnLmrSnGv4gZQfMZ49JPY65Zjusa896osVjatya22zUNnJnIWTY1lepTgWDAJxz7AbEqvYa+TCHnbR/8i4m4GqfETQv6R6vHHPx+EysNRkuMEw4l71acQ97hKn6rGwjlh5xtD/IDjBbUWwOCpJJWjBq/uHJjAg5FDYbgkXg+vO3Z47DvzSnQEecwNkDz9JYp8o1GQgIFTRiKq94jf4q4ILjtcWDbLDPrCvwuvtsNaBkIiELkjn56XOMZO6aqfrrpryrp0XXzYkvLPu3cDu8sKNq12DL+5TULbAybOgf87MhHwaA2ESJ8nF/QipBEVCXf7V362XKrxppJ5Gf5fHDuzYL1CizheGoj6lEdvVTagLo31JCg7dhaqGrodGVOQfP06OIYCfEiTMCd6JEtFkvgxtwBvZ6Oh9ZNjB4LqZO0CmF9NE8bPsmmOGVVDmNuuy6X0iffnwJvB3NjooyyZUHrDzlN3d+JzSgbmaqM73ZWAfIoMOQHXFGAcEj2smNeQnXEFByLo3z/OFx8J2t61xjpFRL01aBJsjCou+K8FR6CWdcc/hpXRrnpaQCbvYckDUuAFfvZ69lFtwoW/KqRHUwSp6n2rlpjL8m3e2kkFAgQVr9
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(346002)(376002)(39860400002)(136003)(396003)(451199021)(4744005)(2906002)(54906003)(478600001)(66899021)(41300700001)(8936002)(8676002)(5660300002)(66476007)(66556008)(66946007)(6916009)(4326008)(316002)(52116002)(38350700002)(2616005)(36756003)(86362001)(186003)(26005)(6506007)(6486002)(6512007)(38100700002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?QEarvnAYKfgMYvK68qHw4Koikg7I/kKGcYr1C1iXoVp5KG9wmDWaBK430Qe9?=
+ =?us-ascii?Q?J/gBjBMwKKcxSQn9OdZRHNC0EiJUeXmAO0+kb00WtUEkdlr7nh8rCzVr/vWJ?=
+ =?us-ascii?Q?oKhyP4AVyIKJgxf5GqisAy9f61nHMsY5wTfR5FLNl/kY6I9nOau4RX7gJVzf?=
+ =?us-ascii?Q?0reCzkEnfngyfs7oNdX6+QXimNMQgRqMLhsfAlVnAGUBnQ7Sk6gf5ZyDL7B7?=
+ =?us-ascii?Q?FBt6mOXfhzcs7LSZGwWQ+GHkdM+drJJcFmQ5RcD+wJ3LHK3/CqAYzbAnOE6N?=
+ =?us-ascii?Q?U8/NiYfwfCtfLRcmhlp5ccSgL3pbx2YGeJQsET+/7/DsRPwgnQMLS2OVBoMQ?=
+ =?us-ascii?Q?UW7QC8HxDvB7YXc1CWgC/nMRdojUjMHULxV4T7PeZog/UD81/mPuUOEMUi0a?=
+ =?us-ascii?Q?ANxcAwgT/YzlDcPTagLfShzf/hMRdfZ4UTJkJBSL4H9XGm7f1XvLmCiaAjay?=
+ =?us-ascii?Q?TI2+YVbAyFt3+y2yhYRuuu+N3m1PlmVLnnCBYwkJ9N++zQbEIWY/mKfa8DkR?=
+ =?us-ascii?Q?7SDfKn3dWm518PIww65X59pTRuhBLT4ESFYkcQ1d/2HyHnC+02NnIhANj8/h?=
+ =?us-ascii?Q?cTM6poBfWDU5KsWkjKndWDl7DOwHHYr1nAyMSvimuhzgMTc9tK/VlBytNxNU?=
+ =?us-ascii?Q?IzOKaSQZg/WZys3CKR+VsmE6fDOV6NqKy39Kk4Xx8IHYl80XIMVPjV4W+2WH?=
+ =?us-ascii?Q?3cd2sTqBKsMQVQP//Pz5UD1c5ICVu/cFpq+x2aMVSpqRSoECOOZ1QCMWxjt4?=
+ =?us-ascii?Q?xDBZuH/UFz38BLc0O9q2mcjhvF52BDjfdUBEcKPpOMJG2yPusq0gkLY+tCvR?=
+ =?us-ascii?Q?luetmC9JSxY/BNk52ALDD+MbmbROXjUyQq3Z1VJE0qt2VxNVTukTFciZGXdM?=
+ =?us-ascii?Q?66Pi9mlVjZIWIk2rsobMatggr1Fwtvy7i8vC/fQNjLNTXzNaoXeg9VFxCP7L?=
+ =?us-ascii?Q?Q4A131BXu2CwZXBWHZHg4nuhOJLj0suiu5EBCelvZa7jGnKTtGWV/yhlAVQq?=
+ =?us-ascii?Q?dfdXGPWPZNoP24cMnNqEZWQEEk58Nto1F/Dy4SjVX0RaFWB8xsvDVtnKMrqv?=
+ =?us-ascii?Q?rxRA2CO0SkMpxY12Pkh+TljuTaefYVwOLENJWgcBkKzyqLLHDHkMLPGUIJGn?=
+ =?us-ascii?Q?77JttIgbH1+9dmqi+vHy11yFT109iVTXLe0dGf6XmqVBZ9t9GZIrzL3iMuIn?=
+ =?us-ascii?Q?rl9QSbit68j/tGPRcBQFT+9sKjNBILSabZOIICupG2wNH3v699PEI2yEgBIw?=
+ =?us-ascii?Q?ygVu9iWcpzpHenfHgrnTzV1jx71j71Lf1x3oqIUIeNkL69ckg8aZLEOsrNui?=
+ =?us-ascii?Q?962Hu68tLkMAc3EZ/MWmSRTce5plLy/Zklp+tsx1Ay5GvxKBoORu5NzdAZAh?=
+ =?us-ascii?Q?YUc84EDJjFzGYcznUgikni4x2k6r7c3bStaYFJJRsShtvxEnxFK2Yy1TmZSX?=
+ =?us-ascii?Q?V4CiYHIpYL6mH7SRGHvwiW8t6d6wiJ3l7ma8+pimYBmpn3wYt5Rv6q0U3hht?=
+ =?us-ascii?Q?h3ng0uTtpIgSUoBDwx+6QW3kiVkNiVJHwMW1t8Nq5+10OdN8I1vvl9jqDW4d?=
+ =?us-ascii?Q?omBq7g2wy59hyrlG8BQaoYBkvA0WKxmhPBoBklbVdd4dPM+9rm4rs0RgV6hG?=
+ =?us-ascii?Q?2gB6dygfCKpA3NdmQpv1nmg=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 9c256c8c-24f2-4f46-ae0c-08db87ecc44e
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 00:11:57.9396
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ rcaJSwwPaJ96+dTZOaoIodlA7XBl2WI0DrZVKsaoxxwW83R2JZ0gcVqzIK1vJGwGellfiJVnkC31uU+I0zNm1+5jQeUW0IkDlMp8SBIqc2/Wtemg8cKF9Na9ByNg0f39
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6208
+Message-ID-Hash: SRA4DJNDOCSWKQUND5GZP76RN7LIAYAQ
+X-Message-ID-Hash: SRA4DJNDOCSWKQUND5GZP76RN7LIAYAQ
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +162,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4TKBZEFZKDEPXEC7R6ZIGAGRUYRCNSLN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SRA4DJNDOCSWKQUND5GZP76RN7LIAYAQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,132 +171,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 13 Jul 2023 01:13:13 +0100, Mark Brown wrote:
-> The maple tree register register cache is now able to generate multi
-> register writes which was the last big feature of the rbtree cache that
-> it didn't support so let's update drivers to use the cache with the more
-> modern data structure.
-> 
 
-Applied to
+Hi Rob
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> > > $defs
+> >=20
+> > Hmm... many drivers are using "definitions" ?
+>=20
+> Patches welcome to change them. I don't think it's many (not counting=20
+> types.yaml). Use of "definitions" or "$defs" is an exception.
 
-Thanks!
+OK, let's use "$defs" in v3
 
-[01/48] ASoC: cs35l36: Update to use maple tree register cache
-        commit: 317af09e296f70e4fb55b17f49655e103a794172
-[02/48] ASoC: cs35l41: Update to use maple tree register cache
-        commit: 78138627acc014dc3a23cb6f29f53a025544743f
-[03/48] ASoC: cs35l45: Update to use maple tree register cache
-        commit: f9ad18b24c24b06820fcd72975f1b08b1d466168
-[04/48] ASoC: cs35l56: Update to use maple tree register cache
-        commit: faa48c9bdaa1625b008d07ce08660d56f198592c
-[05/48] ASoC: cs42l51: Update to use maple tree register cache
-        commit: b5a0e5e4bf96de3d34f3d36afc32b3e9cd0376c2
-[06/48] ASoC: cs4265: Update to use maple tree register cache
-        commit: b0a0e231abb5c3753d479d49d62308c7a1b20838
-[07/48] ASoC: cs4270: Update to use maple tree register cache
-        commit: 7a2827ad082cb70bb7884e5630b58503e41b2932
-[08/48] ASoC: cs42l52: Update to use maple tree register cache
-        commit: 99d2c7b8e50458bb620bb7b3d2ed809484a7ecd3
-[09/48] ASoC: cs42l56: Update to use maple tree register cache
-        commit: cb8ac2658f8ae2a3a921b0c4f3400922e361597f
-[10/48] ASoC: cs42xx8: Update to use maple tree register cache
-        commit: e3753fd3b362e01c9faabbea4412d6eae24cfdff
-[11/48] ASoC: cs4349: Update to use maple tree register cache
-        commit: a4ccfe889dfe1eb1b6304402169b140fc329f535
-[12/48] ASoC: wm2200: Update to use maple tree register cache
-        commit: 4c04586a7962598933313fd08f19ed76138c1fd9
-[13/48] ASoC: wm5100: Update to use maple tree register cache
-        commit: 4f2e3688abee076f49b78b5d4fca67bb37dbe375
-[14/48] ASoC: wm9081: Update to use maple tree register cache
-        commit: 1a37aa4195e2169f2ad6d74608bfcaa95697c9f8
-[15/48] ASoC: wm9090: Update to use maple tree register cache
-        commit: b028b1efe7103e5a2a01d7ca087fd43c2d4977e6
-[16/48] ASoC: wm8510: Update to use maple tree register cache
-        commit: d3c4ba7dbe15e5268ba07f2dcefafd274d110e80
-[17/48] ASoC: wm8523: Update to use maple tree register cache
-        commit: 247c6960bfdabeae5088b4ecf5e06a68b1ae492a
-[18/48] ASoC: wm8580: Update to use maple tree register cache
-        commit: 43bc153d2e684dcbd23311899c136b183ba21840
-[19/48] ASoC: wm8711: Update to use maple tree register cache
-        commit: 368a233bc3cf590bea7f27774cc94ff121addd65
-[20/48] ASoC: wm8728: Update to use maple tree register cache
-        commit: 9a2abf70e2635a59fde1806994387a79fb351308
-[21/48] ASoC: wm8731: Update to use maple tree register cache
-        commit: 59bd5113d8ca0765e8f12307a4b1ac0e3daa91f4
-[22/48] ASoC: wm8737: Update to use maple tree register cache
-        commit: ee8169f94985e5c88d2c4e9daed0b5f8345032b1
-[23/48] ASoC: wm8741: Update to use maple tree register cache
-        commit: 5dd4ddde85586f4b53be219f27cac2cd15e02417
-[24/48] ASoC: wm8750: Update to use maple tree register cache
-        commit: ef1589123dbb7102b49f9997c5b31b0721aff242
-[25/48] ASoC: wm8753: Update to use maple tree register cache
-        commit: 3c884cb5c28c45197b81bbdcf2d41a37649ee895
-[26/48] ASoC: wm8770: Update to use maple tree register cache
-        commit: 7aa7ab713b71fddc71603b9b3c9ab963fd9831a4
-[27/48] ASoC: wm8776: Update to use maple tree register cache
-        commit: 080c82a56659fd5cbf811007193bf04d3c31922e
-[28/48] ASoC: wm8804: Update to use maple tree register cache
-        commit: 200ba27767702c11f965e619b43ebfe9989a1996
-[29/48] ASoC: wm8900: Update to use maple tree register cache
-        commit: 2c609c6b42c911df772d97c4ddf10d9374607e0c
-[30/48] ASoC: wm8903: Update to use maple tree register cache
-        commit: 7de380eeba5b616a4bf08acbbc5aa6e76bcb4299
-[31/48] ASoC: wm8904: Update to use maple tree register cache
-        commit: 9bd4bc4cb48927d581ff2886bf701bfdb4735724
-[32/48] ASoC: wm8960: Update to use maple tree register cache
-        commit: 11e1354036391054f496aa4c4e724e160dfcded2
-[33/48] ASoC: wm8961: Update to use maple tree register cache
-        commit: d643047ec77ed17fef7b2ce76ecd5e88b3b5f7d8
-[34/48] ASoC: wm8962: Update to use maple tree register cache
-        commit: 3a17f8d71bba92538165a5b55f095b7cb0e71529
-[35/48] ASoC: wm8991: Update to use maple tree register cache
-        commit: 3aceedcda294273bedf7af7836e2457a98836b09
-[36/48] ASoC: wm8993: Update to use maple tree register cache
-        commit: 663aa3325f5b971596b08c768bc705cc6f49dd18
-[37/48] ASoC: wm8995: Update to use maple tree register cache
-        commit: ae394355be78c6be4da1a6f18da8b588215aaa2c
-[38/48] ASoC: wm8996: Update to use maple tree register cache
-        commit: a4b6c6ec975c9f871cbde1f30a554665475498ef
-[39/48] ASoC: wm8940: Update to use maple tree register cache
-        commit: 9bed789c4f14bd607892ff31d9164b5ed544ebaf
-[40/48] ASoC: wm8955: Update to use maple tree register cache
-        commit: 6066d156a3a36139feb0c80645dddadae2ddaf01
-[41/48] ASoC: wm8971: Update to use maple tree register cache
-        commit: 97f93367cd735813aa5bf0d7ef64c956a7ac8013
-[42/48] ASoC: wm8978: Update to use maple tree register cache
-        commit: 5891932208f76375940a2a96b113fd328b70ddd1
-[43/48] ASoC: wm8983: Update to use maple tree register cache
-        commit: 20dbc7a892ffe6aa20a4b1eaf0353cdf4c762fcb
-[44/48] ASoC: wm8985: Update to use maple tree register cache
-        commit: 2fa0213ed798bee59fa815171d3855dcc133a416
-[45/48] ASoC: wm8988: Update to use maple tree register cache
-        commit: fb60b65a65b038f1881a3f1a0146c07e22f647d0
-[46/48] ASoC: wm9705: Update to use maple tree register cache
-        commit: 7e510925e00d1daea10f9474505b4f1b9ec24433
-[47/48] ASoC: wm9712: Update to use maple tree register cache
-        commit: 2e3a4ee07211b047881b3f2e944453cdd4deaf96
-[48/48] ASoC: wm9713: Update to use maple tree register cache
-        commit: 8bfb4c81b9c896448e5d7229f1849bd0ad7c2f20
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> > > It would be better if users just always used "ports { port {}; };" ev=
+en=20
+> > > in the single port case.
+> >=20
+> > "ports" support is added, we can't modify past.
+>=20
+> I don't understand. The graph APIs all work the same with or without=20
+> 'ports'. Changing the DT shouldn't affect the ABI.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+But, the driver didn't have "ports" handling code, "port" only.
+>From "DT point of view" changing port -> ports { port {}; }; is no problem,
+but "driver code point of view", it is big problem.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Thank you for your help !!
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Best regards
+---
+Kuninori Morimoto

@@ -2,117 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37331758D6A
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 08:05:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5999758DBA
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 08:24:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 082EAF0;
-	Wed, 19 Jul 2023 08:05:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 082EAF0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AA731F6;
+	Wed, 19 Jul 2023 08:23:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AA731F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689746750;
-	bh=k2HJCh+21yJtPbmW70H9LOJWiPuybfZ5y1AL/7vp3UI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1689747868;
+	bh=/xKTE6XfwdWM2bbNnIkqvk9JLaQ075xXUt4gqb1KQyk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=J4ahjmo/G7c9bo9FzoK/9PwiINpoHYAnYiiQXYz2JVsMrkyk47TrfBb5cOl7S3Nid
-	 J/OmNluqqBJQZr/DqjNGL9pDWKteoK3txfDuZ796cnhsVTZyZejzniJhhtDYzxdNdE
-	 rFaz6mebqcnvGOQofPcDt/SxfTccaGK8b5mELLzA=
+	b=C6SNw6L5tqsnu38zqNdXnitQQ79plJ8HKdCvDGlM8JOoCkgv0kDlXm/XYLDgKdPRQ
+	 NWepvWQ5MDPcO1DpxkyL2rOrXZ/qodRCx0axXYs/uRshaCWNmnYP4D46FqVtlkUmgN
+	 rxrpC2cAVcZWMVCTNiEOxjYnXZjdKlg4K2KqZA/4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83D3FF804DA; Wed, 19 Jul 2023 08:04:59 +0200 (CEST)
+	id F2A6EF8053B; Wed, 19 Jul 2023 08:23:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 216D5F8032D;
-	Wed, 19 Jul 2023 08:04:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD31EF8032D;
+	Wed, 19 Jul 2023 08:23:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8F28F8047D; Wed, 19 Jul 2023 08:01:40 +0200 (CEST)
+	id 8173DF8047D; Wed, 19 Jul 2023 08:23:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7C72DF8007E;
-	Wed, 19 Jul 2023 08:01:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C72DF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26933F80153
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 08:23:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26933F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=h+0Ruqz2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=OngDeZ4S
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0918D218FE;
-	Wed, 19 Jul 2023 06:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1689746462;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dgQgxlFcepDaInfoxrsHrXxt5AXoVTbhkF6IGVf5cpg=;
-	b=h+0Ruqz2CalI1XiDmKNvlyGndFSw7ERXP+PZjYhItCW7Wa8qHRlYAyS+ImQm6rKrLeis8T
-	7Qs1ZGhvKdfO801WdT2Wa4eWTt2q1LoAFabYJnIOz5qXgTySXpm71BOtQoxv0TQg1lDKfb
-	2hanErmJryg7pAGehHTL75Q4sLrVXJ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689746462;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dgQgxlFcepDaInfoxrsHrXxt5AXoVTbhkF6IGVf5cpg=;
-	b=OngDeZ4SaqRjusrxyHy6gBD4FR6gZjmfsTpJ87Z+foKyZS0MV5RgCVILNvMK/W4hD76mOR
-	zHOm9Lfjp21/A+DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A311C1361C;
-	Wed, 19 Jul 2023 06:01:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id eALPJh18t2TXMgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 19 Jul 2023 06:01:01 +0000
-Date: Wed, 19 Jul 2023 08:01:00 +0200
-Message-ID: <874jm0modf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Alsa-devel <alsa-devel@alsa-project.org>,
-	sound-open-firmware@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Matthew Auld <matthew.auld@intel.com>
-Subject: Re: [PATCH 6/7] ASoC: SOF: Intel: Remove deferred probe for SOF
-In-Reply-To: 
- <alpine.DEB.2.22.394.2307181922160.3532114@eliteleevi.tm.intel.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
-	<20230718084522.116952-7-maarten.lankhorst@linux.intel.com>
-	<alpine.DEB.2.22.394.2307181922160.3532114@eliteleevi.tm.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: PDLZONL7D4436VZFU7NYHHNGSL2SIPKD
-X-Message-ID-Hash: PDLZONL7D4436VZFU7NYHHNGSL2SIPKD
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=voWti/7a
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-992acf67388so798460066b.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 18 Jul 2023 23:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1689747806; x=1692339806;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RIa0Hkz4zg5vgRvGLwOuJtJFIr5nGFfRCpnkZR03fTc=;
+        b=voWti/7atLoFZWFQegJqLCU9w61gHPdnyLVig2A/dgRT3tR02XF6g7s5rvo8miv864
+         aR6P4vqeytQXWziZhuF8+mH1GP3xBugbEVed1Ih8yrBBiMS4CWkn933gWgmzGlYVeVJY
+         bRttEMDb68diMN6ReN0iD+XYLCcuKFVnoGTfa4YoEmikhgyGRK4eBnikIZILkL+RRemy
+         NlD7ZL9kh1hCK8U3IDxO2hXEzXtEsMsswLg0dh5+v327OZt6jmTTlOmBRXzjjj0Pw7W7
+         fzkmao4Yxs6UDkjpQNfBbb/DMTzcg0pqTpWj3b4uMwFfgDX5Fava5XmS9E0fOjd1XMSq
+         MbRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689747806; x=1692339806;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RIa0Hkz4zg5vgRvGLwOuJtJFIr5nGFfRCpnkZR03fTc=;
+        b=NEebicd5kYD9nQ32HMO3Vw4lOy8NN+HgWWALHybuMQM1eZdtHi1UlERJYZV8pLSyYq
+         BNdzCtZexJNK9nkVUdTr9i77Sj/DJXEGxAZopJNDqGa0+Xn3/E013HiUNO0eW6DIS+gh
+         f+D88usrHU6Mg7hheW85CIr51rnbAZKJANrqJWrGbIihICiS0MbnPI3o5qjZGl1iFDO6
+         UWIk2CQBYPJFK0awYX0InKzoFInLnxhLPQnt9CKBry5jIceBGqu2X61w9DbtjW1iOqUb
+         eWr6QHUFL8t7MbpExdfBwBXHmTTfbxLWevnPVMYnitmFaADCaNuTXId+XJ09maIw7sFS
+         wmFA==
+X-Gm-Message-State: ABy/qLZXOe6jjA19p46D1EFtqtSrndqDm13hb1PGbcw7joRxgx+3IIc3
+	/RntpRbWm47GmfYJ5q9fRZ1Wjw==
+X-Google-Smtp-Source: 
+ APBJJlG7cCiluAgY4jExllMOrTl4i8ynGNChlKio+c2e78qOjAQfmMHRg70ShDHjrVGM4r+Y/yAHlw==
+X-Received: by 2002:a17:906:d9dc:b0:969:f433:9b54 with SMTP id
+ qk28-20020a170906d9dc00b00969f4339b54mr1488849ejb.39.1689747806501;
+        Tue, 18 Jul 2023 23:23:26 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+        by smtp.gmail.com with ESMTPSA id
+ r22-20020a170906351600b00992f8110a2bsm1851382eja.150.2023.07.18.23.23.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Jul 2023 23:23:26 -0700 (PDT)
+Message-ID: <0ffec87a-976d-5a7e-bdce-418dbe817ed9@linaro.org>
+Date: Wed, 19 Jul 2023 08:23:23 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH V1 3/5] ASoC: codecs: ACF bin parsing and check library
+ file for aw88261
+Content-Language: en-US
+To: wangweidong.a@awinic.com
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ ckeepax@opensource.cirrus.com, colin.i.king@gmail.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, doug@schmorgal.com, fido_max@inbox.ru,
+ flatmax@flatmax.com, herve.codina@bootlin.com, kiseok.jo@irondevice.com,
+ krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, liweilei@awinic.com, perex@perex.cz,
+ pierre-louis.bossart@linux.intel.com, rf@opensource.cirrus.com,
+ robh+dt@kernel.org, shumingf@realtek.com, tiwai@suse.com, trix@redhat.com,
+ yijiangtao@awinic.com, zhangjianming@awinic.com
+References: <98292541-8435-53cb-22d9-716ed6541485@linaro.org>
+ <20230719031237.41530-1-wangweidong.a@awinic.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230719031237.41530-1-wangweidong.a@awinic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: DRQT4UNNFEA6SBGZQUILERBVPEJOPJJU
+X-Message-ID-Hash: DRQT4UNNFEA6SBGZQUILERBVPEJOPJJU
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PDLZONL7D4436VZFU7NYHHNGSL2SIPKD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DRQT4UNNFEA6SBGZQUILERBVPEJOPJJU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,58 +132,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 18 Jul 2023 19:04:41 +0200,
-Kai Vehmanen wrote:
+On 19/07/2023 05:12, wangweidong.a@awinic.com wrote:
+> ...
 > 
-> > diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-> > index f1fd5b44aaac9..344b61576c0e3 100644
-> > --- a/sound/soc/sof/intel/hda-codec.c
-> > +++ b/sound/soc/sof/intel/hda-codec.c
-> > @@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
-> >  		return 0;
-> >  
-> >  	/* i915 exposes a HDA codec for HDMI audio */
-> > -	ret = snd_hdac_i915_init(bus, true);
-> > +	ret = snd_hdac_i915_init(bus, false);
-> >  	if (ret < 0)
-> >  		return ret;
+>>> +EXPORT_SYMBOL_GPL(aw88261_dev_load_acf_check);
 > 
-> My only bigger concern is corner cases where the display PCI device is on 
-> the bus and visible to kernel, but for some reason there is no working 
-> driver in the system or it is disabled.
+>> Why?
 > 
-> With this patch, not having a workign display driver means that there is 
-> also no audio in the system as the SOF driver will never get probed.
-> 
-> In current mainline, one will get the 60sec timeout warning and then
-> audio driver will proceed to probe and you'll have audio support (minus 
-> HDMI/DP).
+> This function is also called in the aw88261.c file
 
-Yeah, that was a concern in the past, too.  e.g. when you pass
-"nomodeset" boot option, the driver will become unusable, even if the
-bus is used generically for both analog and HDMI codecs.
+Is aw88261.c a different module? If yes, then why?
 
-> This is mostly an issue with very new hardware (e.g. hw is still 
-> behind force_probe flag in xe/i915 driver), but we've had some odd
-> cases with e.g. systems with both Intel IGFX and other vendors' DGPU. 
-> Audio drivers see the Intel VGA controller in system and will
-> call snd_hdac_i915_init(), but the audio component bind will never
-> succeed if the the Intel IGFX is not in actual use.
-> 
-> Will need a bit of time to think about possible scenarios. Possibly this 
-> is not an issue outside early development systems. In theory if IGFX is 
-> disabled in BIOS, and not visible to OS, we are good, and if it's visible, 
-> the i915/xe driver should be loaded, so we are good again.
+Best regards,
+Krzysztof
 
-The 60 seconds timeout is a thing "better than complete disablement",
-so it's not ideal, either.  Maybe we can add something like the
-following:
-
-- Check when the deferred probe takes too long, and warn it
-- Provide some runtime option to disable the component binding, so
-  that user can work around it if needed
-
-
-thanks,
-
-Takashi

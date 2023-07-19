@@ -2,86 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76885759F33
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 22:02:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D27A759F3C
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jul 2023 22:04:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7D21F0;
-	Wed, 19 Jul 2023 22:02:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7D21F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFF044E;
+	Wed, 19 Jul 2023 22:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFF044E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689796974;
-	bh=w2xExNL6EbofhaPL7HrdC2dQl+hHtjTWHi8Iv1ep0XM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=m32XE/ZYfwKlFhli+hd2h19lM2snuZfWrmIWYfSw+u58qYqxOAXhLqY5rxVrVyG52
-	 bJrJMK226ETGBFe4NLpl9aFPG5mmiQx74M8YTBNpYFYSDGP5OXqSuFbC3jwnJey4aT
-	 UkeRyONe2dpE/41cg6WFWmkzkppPn0KubxL+IJ28=
+	s=default; t=1689797082;
+	bh=YhWcwADv1PmexVyGSD+wzZo5vH7wl1ARcGUgEcfxtZE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VxGu4sdloH7y1Aw/l+15wEXubHM1uMrrFzdsqRwYlMbK0y9SApr1WEmXwdMUZ4oYG
+	 35ORjIB2zfd9dLN4DW//mLg581LArCHmpcgrnnFVEF5G5jvMfJOxus/CfpVQoaE5wT
+	 kVy0eaTJ7enoOsnY7dQ+EevWD9PWblUgJ9OzLp6E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 433E3F80544; Wed, 19 Jul 2023 22:02:04 +0200 (CEST)
+	id 7C35BF804DA; Wed, 19 Jul 2023 22:03:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E03BAF8032D;
-	Wed, 19 Jul 2023 22:02:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52CACF8032D;
+	Wed, 19 Jul 2023 22:03:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81FF2F8047D; Wed, 19 Jul 2023 22:01:57 +0200 (CEST)
+	id 8B0CAF8047D; Wed, 19 Jul 2023 22:03:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED29FF80153
-	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 22:01:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED29FF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73A28F80153
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jul 2023 22:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73A28F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bcTlPpPY
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 66556617D6;
-	Wed, 19 Jul 2023 20:01:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9B31C433C8;
-	Wed, 19 Jul 2023 20:01:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689796907;
-	bh=w2xExNL6EbofhaPL7HrdC2dQl+hHtjTWHi8Iv1ep0XM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=bcTlPpPYAYmB2sS5fUgqGZUU3FJICfaHN5WbE7TGHrxRYFbYb08wO2sohI7OddFUT
-	 pwKL5HrnkJPeEpRx3gngzC63J27H+jVm1ZhEqqFCeZ4T7vR8Ea3fvm4/GOICqQ4mqK
-	 NHLz6DQ2xvaokv+q7OVorcg5ORkWMbT0MU5y9TuLd9qt1G/8qQnmFEt5DWUiv/ULgg
-	 l6nYmC5JAWfo3Tfl7wFAXkvaXvm7D4qXK2lE3S+VxFSRrMGB9omCjpsfDUZ5HgDhNn
-	 BedXC2DS3xEVCLkKF8mEw7Xsh/XqC79MMe4Y+AbMWACLcGez8yBsTZlvGez+jUma+s
-	 thMkIBC5WTkwA==
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matus Gajdos <matuszpd@gmail.com>
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230719163154.19492-1-matuszpd@gmail.com>
-References: <20230719163154.19492-1-matuszpd@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_spdif: Add support for 22.05 kHz sample rate
-Message-Id: <168979690540.180044.4033002873442934544.b4-ty@kernel.org>
-Date: Wed, 19 Jul 2023 21:01:45 +0100
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=Wjxt1zwN
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1ba2e911c24so70042fac.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 19 Jul 2023 13:03:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689797020; x=1692389020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qWSsNFba9oUv/FScx3zdSbWldRujPp4lpJvUZYeuiSU=;
+        b=Wjxt1zwNO5cM+fN0gsoUnLeecCGrjqeRSyY2c7z0gRycqeSv3jSSKvVlyjU/98wiTk
+         JyMAUd/rM0kh+Rklnlu6b7NE3fD/NWk95f0E1uQ/Hujs/HNnvGi19p73ycgiYadwcym3
+         Vlzdrceion6WI/4k9LGb54YCMQy1Nbt/AnhHeEwsQWikLe5cCo6ge/nSVT23STI7pzze
+         L/bO1aJkBnFbdWQAPZRj/f4CZkgXIiF41FeJVtygl4/XZDA7LGj+RgaxCTinJpKvUX6B
+         hI37VlghRURpiGPCE2CPzOBlBS9UOoHJihTInm8LDjm9aAAUN91bdqsfsWD61gfAybT7
+         RLNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689797020; x=1692389020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qWSsNFba9oUv/FScx3zdSbWldRujPp4lpJvUZYeuiSU=;
+        b=IA2e+mj8WdcCu4UHoDPpd/F/oHv5VJDiRqNcSijQOwILKj4gjm/PN/9vmtC+pq2DOZ
+         z98nA50sXJCh/VR2QCIj99DznST9YOmswf9VdEY+4y7V+Rm8gnTIIhjtTlW9dRU5TyJ4
+         BZp2hrUEqgMdDfo8PXBC2FScDabUp9b84SA/mQci1WvQfim7n5OeBw97UN+9Rj1Ui/c6
+         okxEmiM0XwFCPJ3ZOYeSclyKAs16iS6gY/yW+lZNE8ldntmIOgpGoe6O6pqp2II9Miyx
+         own9PQVbzgnECruruHj6P7ITrFyEDPxw4ajpQa9NBIX4b0Z1QOLUN23hmIKcFBShkeAa
+         zTqg==
+X-Gm-Message-State: ABy/qLb+fq9CD+IGPYyh8r5PiCYiQ2N8KB/zjv167KZGUDGu3xf2S1Z7
+	MIgNJByygE1Z//ab4Z/MtXo=
+X-Google-Smtp-Source: 
+ APBJJlHVHGWOAVllrZYZzwR6gn4Ncl+JjHNugXsy56HPiv8isZ/45/aboLGsJABGZtS4EM7dsVSpBw==
+X-Received: by 2002:a05:6870:e391:b0:1b0:1225:ffb5 with SMTP id
+ x17-20020a056870e39100b001b01225ffb5mr2461352oad.16.1689797019957;
+        Wed, 19 Jul 2023 13:03:39 -0700 (PDT)
+Received: from policorp.cardumecowork.local ([177.91.232.53])
+        by smtp.gmail.com with ESMTPSA id
+ y4-20020a056870388400b001b3538afd01sm2238749oan.51.2023.07.19.13.03.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Jul 2023 13:03:39 -0700 (PDT)
+From: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>
+To: lgirdwood@gmail.com
+Cc: broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	wtli@nuvoton.com,
+	u.kleine-koenig@pengutronix.de,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	edson.drosdeck@gmail.com
+Subject: [PATCH] ASoC: nau8821: Add DMI quirk mechanism for active-high
+ jack-detect
+Date: Wed, 19 Jul 2023 17:02:41 -0300
+Message-Id: <20230719200241.4865-1-edson.drosdeck@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: CF5UZV4U4JFCDX5JPONDD7H2FIDDCJOT
-X-Message-ID-Hash: CF5UZV4U4JFCDX5JPONDD7H2FIDDCJOT
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5BXZSSNHGUH43ZPCDPLFCFE2UPQWLCZY
+X-Message-ID-Hash: 5BXZSSNHGUH43ZPCDPLFCFE2UPQWLCZY
+X-MailFrom: edson.drosdeck@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CF5UZV4U4JFCDX5JPONDD7H2FIDDCJOT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5BXZSSNHGUH43ZPCDPLFCFE2UPQWLCZY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,36 +123,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 19 Jul 2023 18:31:53 +0200, Matus Gajdos wrote:
-> Add support for 22.05 kHz sample rate for TX.
-> 
-> 
+Add a quirk mechanism to allow specifying that active-high jack-detection
+should be used on platforms where this info is not available in devicetree.
 
-Applied to
+And add an entry for the Positivo CW14Q01P-V2 to the DMI table, so that
+jack-detection will work properly on this laptop.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Signed-off-by: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>
+---
+ sound/soc/codecs/nau8821.c | 41 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-Thanks!
-
-[1/1] ASoC: fsl_spdif: Add support for 22.05 kHz sample rate
-      commit: 65bc25b8d0904e0aff66b1c3a9dd4c0dcb8efbf1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
+index 96d75882b33a..ca6beb2d2649 100644
+--- a/sound/soc/codecs/nau8821.c
++++ b/sound/soc/codecs/nau8821.c
+@@ -10,6 +10,7 @@
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
++#include <linux/dmi.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+@@ -25,6 +26,13 @@
+ #include <sound/tlv.h>
+ #include "nau8821.h"
+ 
++#define NAU8821_JD_ACTIVE_HIGH			BIT(0)
++
++static int nau8821_quirk;
++static int quirk_override = -1;
++module_param_named(quirk, quirk_override, uint, 0444);
++MODULE_PARM_DESC(quirk, "Board-specific quirk override");
++
+ #define NAU_FREF_MAX 13500000
+ #define NAU_FVCO_MAX 100000000
+ #define NAU_FVCO_MIN 90000000
+@@ -1792,6 +1800,33 @@ static int nau8821_setup_irq(struct nau8821 *nau8821)
+ 	return 0;
+ }
+ 
++/* Please keep this list alphabetically sorted */
++static const struct dmi_system_id nau8821_quirk_table[] = {
++	{
++		/* Positivo CW14Q01P-V2 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Positivo Tecnologia SA"),
++			DMI_MATCH(DMI_BOARD_NAME, "CW14Q01P-V2"),
++		},
++		.driver_data = (void *)(NAU8821_JD_ACTIVE_HIGH),
++	},
++	{}
++};
++
++static void nau8821_check_quirks(void)
++{
++	const struct dmi_system_id *dmi_id;
++
++	if (quirk_override != -1) {
++		nau8821_quirk = quirk_override;
++		return;
++	}
++
++	dmi_id = dmi_first_match(nau8821_quirk_table);
++	if (dmi_id)
++		nau8821_quirk = (unsigned long)dmi_id->driver_data;
++}
++
+ static int nau8821_i2c_probe(struct i2c_client *i2c)
+ {
+ 	struct device *dev = &i2c->dev;
+@@ -1812,6 +1847,12 @@ static int nau8821_i2c_probe(struct i2c_client *i2c)
+ 
+ 	nau8821->dev = dev;
+ 	nau8821->irq = i2c->irq;
++
++	nau8821_check_quirks();
++
++	if (nau8821_quirk & NAU8821_JD_ACTIVE_HIGH)
++		nau8821->jkdet_polarity = 0;
++
+ 	nau8821_print_device_properties(nau8821);
+ 
+ 	nau8821_reset_chip(nau8821->regmap);
+-- 
+2.39.2
 

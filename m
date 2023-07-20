@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C62E75C169
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:22:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A553C75C21F
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:54:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB140E72;
-	Fri, 21 Jul 2023 10:21:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB140E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE62193A;
+	Fri, 21 Jul 2023 10:53:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE62193A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689927731;
-	bh=x1b/Kn4xAh0mSF7S+pKuRE6+qHyJYw+n6Z+ETzmtY78=;
+	s=default; t=1689929663;
+	bh=Jwb+NIIyfhlr04cBvj4QbShaBQondg1D/B6oWBJYado=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AMJLeknuLaVjxDhbexl415aAxbYCzSuyPdvwesbnlALafGiWni9l9rNDkp3AWj7kj
-	 j3VduWPXmSJzsGgO+ovugSv5OHvccDvu3Tn0reGQbP5Ogflj/ykb+/npCdCFEvtK91
-	 afr+06s0bRHQijsGdpOJGvwn9nAh0O030tLvMQaU=
+	b=HupvcI8W/ktNtRz5+SwIU+sE8r5AdmpN111UEGxpW7i3adm4+y8S5Q1LjW8zZCfyE
+	 nbFxhvMrYjKZuhrOOla9GeKKPKHyKRz5DrhK8RIi0sTYphggsNpXcutsum2EYnrLq2
+	 OqVUFCJcxKkF3w4FIeGwk9RAD5MGIs0VSERNAOXY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE328F805EC; Fri, 21 Jul 2023 10:12:35 +0200 (CEST)
+	id D8986F8053B; Fri, 21 Jul 2023 10:53:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33D47F805EF;
-	Fri, 21 Jul 2023 10:12:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E364BF8007E;
+	Fri, 21 Jul 2023 10:53:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69524F8032D; Thu, 20 Jul 2023 10:31:10 +0200 (CEST)
+	id 790FBF80520; Thu, 20 Jul 2023 10:31:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4F917F80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id E0D01F8057E
 	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 10:30:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F917F80587
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0D01F8057E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EvKIYlio
+ header.s=k20201202 header.b=slZUc4n5
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 853A161C81;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E949E61CAD;
 	Thu, 20 Jul 2023 08:30:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D4275C00915;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E4549C0091C;
 	Thu, 20 Jul 2023 08:29:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689841798;
-	bh=x1b/Kn4xAh0mSF7S+pKuRE6+qHyJYw+n6Z+ETzmtY78=;
+	s=k20201202; t=1689841799;
+	bh=Jwb+NIIyfhlr04cBvj4QbShaBQondg1D/B6oWBJYado=;
 	h=From:Date:Subject:References:In-Reply-To:List-Id:To:Cc:Reply-To:
 	 From;
-	b=EvKIYlioIP68yzd/YxVZ7lnQDh1sIkxB+vWyAhqHxqVMCxQTmNIIUulu7PA3cSHB0
-	 mwSeq6gWqyLSy4vwIxOO8oQh7LKit1Uu+4elv/aIpk+Ppx15FN/YEpFKIIZV0nnQ3m
-	 2rj34f9tplCOcQQgAuUNoGi2crS6M5+QtlmwFAgbhH1pAuJZc/sBbhVSd7KqSr5xoo
-	 EEor9bMoZUtbI7wiu2+SML/n29ySCsufAggSzeBHDKmEKtR+x4WqevHq1lRXfhIlYk
-	 1EtmmYVxLetoLNJ2W7uLAbDTy2RU54NGDFWmcgaGMV29TYJOyjJl1ArsPH8bh24SGY
-	 wLbmhiryYBv1g==
+	b=slZUc4n5c34/I8/5je4GOexeeECLoJ8+l4TO4l8UQxDpjKohPzPBWrs1eNKYkK+sa
+	 VE/ax+SCXoP+AHzt2sk7G9yLzjw/naG0HkOV8YzRgKTvpsbH75M8Yj0J2rrwbMZ1Ug
+	 LWciIAwAbH6K6PHWG29odPMGCK61PgVbKMytkqjV1G80z+S9Npu5JpGFpr6gJs23Pt
+	 tBNCgfY4rcNSMhR53W0UvFJoBJ5qtjICzGlmGyOa1U1hbyiE5mCFXaNsbSyIgwH05k
+	 mG++S+8JRzbxDv+HOXqKo5Retjwebeztf6/2o1I7ofCFzn2FygOX0ZIFpA4bkWItgP
+	 wYeQoJK0mX8sQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9C90C25B74;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7E9AC10F19;
 	Thu, 20 Jul 2023 08:29:58 +0000 (UTC)
 From: 
  Nikita Shubin via B4 Relay <devnull+nikita.shubin.maquefel.me@kernel.org>
-Date: Thu, 20 Jul 2023 14:29:36 +0300
-Subject: [PATCH v3 36/42] ARM: ep93xx: DT for the Cirrus ep93xx SoC
- platforms
+Date: Thu, 20 Jul 2023 14:29:37 +0300
+Subject: [PATCH v3 37/42] pwm: ep93xx: drop legacy pinctrl
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230605-ep93xx-v3-36-3d63a5f1103e@maquefel.me>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20230605-ep93xx-v3-37-3d63a5f1103e@maquefel.me>
 References: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
 In-Reply-To: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
 To: Hartley Sweeten <hsweeten@visionengravers.com>,
@@ -116,11 +115,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-ide@vger.kernel.org,
  linux-input@vger.kernel.org, alsa-devel@alsa-project.org
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1689852591; l=3077;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1689852591; l=4334;
  i=nikita.shubin@maquefel.me; s=20230718; h=from:subject:message-id;
- bh=LUqUfEyd9NJUel2yKVUkZUKAloLn0lR2WIXsqjtamgw=; =?utf-8?q?b=3Dzjs1scrJJBZA?=
- =?utf-8?q?VcanfJF1vglijajwtHzebC2iAdKdPKRDQVOGSj1v+asIrAwOuwDRiN/0IgMnnfjg?=
- 7fD8dlz+CJh/ZtZzDAO6Qa8hRKLvPkvdTge59bPVyVJCCy/ZekCU
+ bh=WBzTz0y9WETmbwEPUNlS3vfiPeT6Yq9Stg5hAL8clMU=; =?utf-8?q?b=3DnNg8cNkDVXnF?=
+ =?utf-8?q?soK72XlvRIwEWps36Li8bfOpmvDiUHH0efPgenKhJQcZelGD4ChSs+Uw+hR8Jbq8?=
+ y+R6UivIAmvCscuMj8oUcEpbo5aFvY6lp65Ppw+qptddRIyC2hFf
 X-Developer-Key: i=nikita.shubin@maquefel.me; a=ed25519;
  pk=vqf5YIUJ7BJv3EJFaNNxWZgGuMgDH6rwufTLflwU9ac=
 X-Endpoint-Received: 
@@ -132,16 +131,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 7ZTMHGF65F5RPNM5YOYOFUPH7IMNIEV5
-X-Message-ID-Hash: 7ZTMHGF65F5RPNM5YOYOFUPH7IMNIEV5
-X-Mailman-Approved-At: Fri, 21 Jul 2023 08:11:53 +0000
+Message-ID-Hash: V3K26K6E6RTAZMZBTEULC4YJBJN5MOZ3
+X-Message-ID-Hash: V3K26K6E6RTAZMZBTEULC4YJBJN5MOZ3
+X-Mailman-Approved-At: Fri, 21 Jul 2023 08:53:19 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 Reply-To: nikita.shubin@maquefel.me
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ZTMHGF65F5RPNM5YOYOFUPH7IMNIEV5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V3K26K6E6RTAZMZBTEULC4YJBJN5MOZ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,105 +151,135 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Nikita Shubin <nikita.shubin@maquefel.me>
 
-This adds compulsory device tree support to the Cirrus ep93xx ARMv4
-platform.
-
-- We select PINCTRL_EP93xx
-- We select COMMON_CLK_EP93XX, as clock driver moved out of platform
-  code
-- We select ARCH_HAS_RESET_CONTROLLER
-
-And also we need ARM_ATAG_DTB_COMPAT to update device tree with
-information about memory passed from bootloader.
-
-We have to leave all MACH options as they are used for board checking
-before decomp, to turn off watchdog and ethernet DMA.
+Drop legacy gpio request/free since we are using
+pinctrl for this now.
 
 Signed-off-by: Nikita Shubin <nikita.shubin@maquefel.me>
+Acked-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
- arch/arm/Makefile             |  1 -
- arch/arm/mach-ep93xx/Kconfig  | 20 ++++++++++----------
- arch/arm/mach-ep93xx/Makefile | 11 -----------
- 3 files changed, 10 insertions(+), 22 deletions(-)
+ arch/arm/mach-ep93xx/core.c       | 42 ---------------------------------------
+ drivers/pwm/pwm-ep93xx.c          | 18 -----------------
+ include/linux/soc/cirrus/ep93xx.h |  4 ----
+ 3 files changed, 64 deletions(-)
 
-diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-index 547e5856eaa0..0e3d637cae6c 100644
---- a/arch/arm/Makefile
-+++ b/arch/arm/Makefile
-@@ -179,7 +179,6 @@ machine-$(CONFIG_ARCH_CLPS711X)		+= clps711x
- machine-$(CONFIG_ARCH_DAVINCI)		+= davinci
- machine-$(CONFIG_ARCH_DIGICOLOR)	+= digicolor
- machine-$(CONFIG_ARCH_DOVE)		+= dove
--machine-$(CONFIG_ARCH_EP93XX)		+= ep93xx
- machine-$(CONFIG_ARCH_EXYNOS)		+= exynos
- machine-$(CONFIG_ARCH_FOOTBRIDGE)	+= footbridge
- machine-$(CONFIG_ARCH_GEMINI)		+= gemini
-diff --git a/arch/arm/mach-ep93xx/Kconfig b/arch/arm/mach-ep93xx/Kconfig
-index 703f3d232a60..812b71dcf60e 100644
---- a/arch/arm/mach-ep93xx/Kconfig
-+++ b/arch/arm/mach-ep93xx/Kconfig
-@@ -3,27 +3,27 @@ menuconfig ARCH_EP93XX
- 	bool "EP93xx-based"
- 	depends on ATAGS
- 	depends on ARCH_MULTI_V4T
-+	# CONFIG_ARCH_MULTI_V7 is not set
- 	depends on CPU_LITTLE_ENDIAN
-+	select ARCH_HAS_RESET_CONTROLLER
- 	select ARCH_SPARSEMEM_ENABLE
- 	select ARM_AMBA
- 	select ARM_VIC
-+	select ARM_APPENDED_DTB # Old Redboot bootloaders deployed
-+	select ARM_ATAG_DTB_COMPAT # we need this to update dt memory node
-+	select COMMON_CLK_EP93XX
-+	select EP93XX_TIMER
- 	select CLKSRC_MMIO
- 	select CPU_ARM920T
- 	select GPIOLIB
-+	select PINCTRL
-+	select PINCTRL_EP93XX
- 	help
- 	  This enables support for the Cirrus EP93xx series of CPUs.
+diff --git a/arch/arm/mach-ep93xx/core.c b/arch/arm/mach-ep93xx/core.c
+index c60a9d3632dd..9afc6095d1c1 100644
+--- a/arch/arm/mach-ep93xx/core.c
++++ b/arch/arm/mach-ep93xx/core.c
+@@ -576,48 +576,6 @@ void __init ep93xx_register_pwm(int pwm0, int pwm1)
+ 		platform_device_register(&ep93xx_pwm1_device);
+ }
  
- if ARCH_EP93XX
- 
--menu "Cirrus EP93xx Implementation Options"
+-int ep93xx_pwm_acquire_gpio(struct platform_device *pdev)
+-{
+-	int err;
 -
--config EP93XX_SOC_COMMON
--	bool
--	default y
--	select SOC_BUS
--	select LEDS_GPIO_REGISTER
+-	if (pdev->id == 0) {
+-		err = 0;
+-	} else if (pdev->id == 1) {
+-		err = gpio_request(EP93XX_GPIO_LINE_EGPIO14,
+-				   dev_name(&pdev->dev));
+-		if (err)
+-			return err;
+-		err = gpio_direction_output(EP93XX_GPIO_LINE_EGPIO14, 0);
+-		if (err)
+-			goto fail;
 -
--comment "EP93xx Platforms"
-+# menu "EP93xx Platforms"
- 
- config MACH_BK3
- 	bool "Support Liebherr BK3.1"
-@@ -103,6 +103,6 @@ config MACH_VISION_EP9307
- 	  Say 'Y' here if you want your kernel to support the
- 	  Vision Engraving Systems EP9307 SoM.
- 
--endmenu
-+# endmenu
- 
- endif
-diff --git a/arch/arm/mach-ep93xx/Makefile b/arch/arm/mach-ep93xx/Makefile
-deleted file mode 100644
-index 62e37403df14..000000000000
---- a/arch/arm/mach-ep93xx/Makefile
-+++ /dev/null
-@@ -1,11 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--#
--# Makefile for the linux kernel.
--#
--obj-y			:= core.o clock.o timer-ep93xx.o
+-		/* PWM 1 output on EGPIO[14] */
+-		ep93xx_devcfg_set_bits(EP93XX_SYSCON_DEVCFG_PONG);
+-	} else {
+-		err = -ENODEV;
+-	}
 -
--obj-$(CONFIG_EP93XX_DMA)	+= dma.o
+-	return err;
 -
--obj-$(CONFIG_MACH_EDB93XX)	+= edb93xx.o
--obj-$(CONFIG_MACH_TS72XX)	+= ts72xx.o
--obj-$(CONFIG_MACH_VISION_EP9307)+= vision_ep9307.o
+-fail:
+-	gpio_free(EP93XX_GPIO_LINE_EGPIO14);
+-	return err;
+-}
+-EXPORT_SYMBOL(ep93xx_pwm_acquire_gpio);
+-
+-void ep93xx_pwm_release_gpio(struct platform_device *pdev)
+-{
+-	if (pdev->id == 1) {
+-		gpio_direction_input(EP93XX_GPIO_LINE_EGPIO14);
+-		gpio_free(EP93XX_GPIO_LINE_EGPIO14);
+-
+-		/* EGPIO[14] used for GPIO */
+-		ep93xx_devcfg_clear_bits(EP93XX_SYSCON_DEVCFG_PONG);
+-	}
+-}
+-EXPORT_SYMBOL(ep93xx_pwm_release_gpio);
+-
+-
+ /*************************************************************************
+  * EP93xx video peripheral handling
+  *************************************************************************/
+diff --git a/drivers/pwm/pwm-ep93xx.c b/drivers/pwm/pwm-ep93xx.c
+index 361984ef4c0b..ac08bd0e7572 100644
+--- a/drivers/pwm/pwm-ep93xx.c
++++ b/drivers/pwm/pwm-ep93xx.c
+@@ -27,8 +27,6 @@
+ 
+ #include <asm/div64.h>
+ 
+-#include <linux/soc/cirrus/ep93xx.h>	/* for ep93xx_pwm_{acquire,release}_gpio() */
+-
+ #define EP93XX_PWMx_TERM_COUNT	0x00
+ #define EP93XX_PWMx_DUTY_CYCLE	0x04
+ #define EP93XX_PWMx_ENABLE	0x08
+@@ -45,20 +43,6 @@ static inline struct ep93xx_pwm *to_ep93xx_pwm(struct pwm_chip *chip)
+ 	return container_of(chip, struct ep93xx_pwm, chip);
+ }
+ 
+-static int ep93xx_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
+-{
+-	struct platform_device *pdev = to_platform_device(chip->dev);
+-
+-	return ep93xx_pwm_acquire_gpio(pdev);
+-}
+-
+-static void ep93xx_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+-{
+-	struct platform_device *pdev = to_platform_device(chip->dev);
+-
+-	ep93xx_pwm_release_gpio(pdev);
+-}
+-
+ static int ep93xx_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+ 			    const struct pwm_state *state)
+ {
+@@ -157,8 +141,6 @@ static int ep93xx_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+ }
+ 
+ static const struct pwm_ops ep93xx_pwm_ops = {
+-	.request = ep93xx_pwm_request,
+-	.free = ep93xx_pwm_free,
+ 	.apply = ep93xx_pwm_apply,
+ 	.owner = THIS_MODULE,
+ };
+diff --git a/include/linux/soc/cirrus/ep93xx.h b/include/linux/soc/cirrus/ep93xx.h
+index 43b1f11526e4..ed94e4390b98 100644
+--- a/include/linux/soc/cirrus/ep93xx.h
++++ b/include/linux/soc/cirrus/ep93xx.h
+@@ -12,8 +12,6 @@ struct regmap;
+ #define EP93XX_CHIP_REV_E2	7
+ 
+ #if defined(CONFIG_EP93XX_SOC_COMMON)
+-int ep93xx_pwm_acquire_gpio(struct platform_device *pdev);
+-void ep93xx_pwm_release_gpio(struct platform_device *pdev);
+ int ep93xx_ide_acquire_gpio(struct platform_device *pdev);
+ void ep93xx_ide_release_gpio(struct platform_device *pdev);
+ int ep93xx_i2s_acquire(void);
+@@ -21,8 +19,6 @@ void ep93xx_i2s_release(void);
+ unsigned int ep93xx_chip_revision(void);
+ 
+ #else
+-static inline int ep93xx_pwm_acquire_gpio(struct platform_device *pdev) { return 0; }
+-static inline void ep93xx_pwm_release_gpio(struct platform_device *pdev) {}
+ static inline int ep93xx_ide_acquire_gpio(struct platform_device *pdev) { return 0; }
+ static inline void ep93xx_ide_release_gpio(struct platform_device *pdev) {}
+ static inline int ep93xx_i2s_acquire(void) { return 0; }
 
 -- 
 2.39.2

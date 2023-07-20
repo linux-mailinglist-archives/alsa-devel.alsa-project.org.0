@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0497975B0D4
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jul 2023 16:08:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB6E175B0E7
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jul 2023 16:12:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE6031F3;
-	Thu, 20 Jul 2023 16:07:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE6031F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBC921F6;
+	Thu, 20 Jul 2023 16:11:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBC921F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689862092;
-	bh=BS0X5yzg72EX3G7E13uL0WPBPoREFNzMn83URNwQ8Mw=;
+	s=default; t=1689862330;
+	bh=G8euv+WfQDtkbWySwB4rZDIeP/Tk4RHlZrv1viz5hVM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i5FNSGOGLsmrvJ66cxXaf1rKzc/pAcEDgE/0DITCiJzcSjT5QOJKn1kLFR45XeZS8
-	 6tBcloZj57+zHWk+jeXNlvhTibNagaIV9gv33gVqJWH2l8Mtn8fkcvqgHlfhShTbTF
-	 bTdtipDX9CLaIsqME4T9JMqrek+G/yuUs4heq2cs=
+	b=cM7SzrhtPjNAMdj0rHnxdR5CmEbFfjT07kDrSXSFgugQwD9hdy4yuXNNXgIrJ7Jhf
+	 bIMMS5S7OQQ0Gx07Jvdc3t5g2HkuNk5gAFNUb8Rq5zG77I168pUChquh4MYVBnbevC
+	 9z0BsklC4wgwCasRcoSAbn/iXcf7Y3yVhvrez4Ns=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E93FF8032D; Thu, 20 Jul 2023 16:07:21 +0200 (CEST)
+	id 170BCF8032D; Thu, 20 Jul 2023 16:11:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF95DF800D2;
-	Thu, 20 Jul 2023 16:07:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B52F9F8032D;
+	Thu, 20 Jul 2023 16:11:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9BC77F8047D; Thu, 20 Jul 2023 16:07:16 +0200 (CEST)
+	id B7EB1F8047D; Thu, 20 Jul 2023 16:11:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,50 +34,52 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 26933F80153
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 16:07:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26933F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 58652F80153
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 16:11:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58652F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FpZ5rlZ9
+ header.s=k20201202 header.b=ifyMOxLs
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9FEE561AF8;
-	Thu, 20 Jul 2023 14:07:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E34C433C9;
-	Thu, 20 Jul 2023 14:07:09 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5362261B05;
+	Thu, 20 Jul 2023 14:11:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC06C433C7;
+	Thu, 20 Jul 2023 14:11:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689862030;
-	bh=BS0X5yzg72EX3G7E13uL0WPBPoREFNzMn83URNwQ8Mw=;
+	s=k20201202; t=1689862268;
+	bh=G8euv+WfQDtkbWySwB4rZDIeP/Tk4RHlZrv1viz5hVM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FpZ5rlZ9kq4emjeId0Khb5Rh8Rx+OQyXV4RI+hL7Uoj2BXCqpOkZRm8Fs/IXialJi
-	 /dX1USOXstaVwWbuzUhcgX31PbRZX6hTgFN5Y3r4EZP45X3GCz8LH4pVIzaeS3ILt3
-	 0cSca4U+znkD0x0HAfZmOPC/CxTCxy94w/N0sjkear1qLDKgVe9Zuvl+CSN5cy8mv6
-	 E6Z2WBfww3F52NqtQFlFbk1GyL4jYnene0fIpnct3aKYAAWQUw7XM52uKXtzBysEIw
-	 G/tcn2a8C74P30yH4k5FZZ95T9YmpIZuaAmG2mrAnkUxXYLjSrkPDuHiJk2o42m3l3
-	 ZbC5ELI62p2+w==
-Date: Thu, 20 Jul 2023 15:07:06 +0100
+	b=ifyMOxLspguRukAdTr0+Jg4UA5BvKsQrOw7Xkq1XGN397PzpCgrjUEx8BJL9Hu9Pt
+	 iUaIzumQsLWzupbQDDW8t4JDOWT12cogKuy4hUgpyAey/6AM8jt1ILIf6p6h+fuzqm
+	 qxFZ0GTaaa2a/IwIC8onB3RPm3aZHbH/ksvtqo5fIcuLU+u9t/kFHscGpLoTp63kxo
+	 bt2tOntVwhS/lu/U0R56IrJg9RzGS79U/izn6uU1CbuIlHWvSGW2LFmQ5eBZ9YyVCT
+	 7sMST+Y0YaeA3PoFxpBqfMbxA8aNbF55/eU2y9N7o0C7wuJH44uCJ0JSfPuCfUxwst
+	 fMlOw23wSnLMg==
+Date: Thu, 20 Jul 2023 15:11:04 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.5-rc1-2
-Message-ID: <3cda87c3-f502-4034-99a5-394c8e4195cc@sirena.org.uk>
-References: <20230720130519.D1DFEC433C7@smtp.kernel.org>
- <87351ik9da.wl-tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH v1 01/11] ALSA: cs35l41: Use mbox command to enable
+ speaker output for external boost
+Message-ID: <56e50829-b93d-48ef-9691-5c78229a4b5c@sirena.org.uk>
+References: <20230720133147.1294337-1-sbinding@opensource.cirrus.com>
+ <20230720133147.1294337-2-sbinding@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="F9zDDvvWegZUNHXD"
+	protocol="application/pgp-signature"; boundary="6K/jTXohBWi27Iqj"
 Content-Disposition: inline
-In-Reply-To: <87351ik9da.wl-tiwai@suse.de>
+In-Reply-To: <20230720133147.1294337-2-sbinding@opensource.cirrus.com>
 X-Cookie: Ginger snap.
-Message-ID-Hash: NPVLD5752H7UGBX7GM3WDNTKQMHMYMWW
-X-Message-ID-Hash: NPVLD5752H7UGBX7GM3WDNTKQMHMYMWW
+Message-ID-Hash: CPPROIJERN3K5MBEQEBTN2I7WIJPVVFX
+X-Message-ID-Hash: CPPROIJERN3K5MBEQEBTN2I7WIJPVVFX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPVLD5752H7UGBX7GM3WDNTKQMHMYMWW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CPPROIJERN3K5MBEQEBTN2I7WIJPVVFX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,38 +102,39 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---F9zDDvvWegZUNHXD
+--6K/jTXohBWi27Iqj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Jul 20, 2023 at 03:20:17PM +0200, Takashi Iwai wrote:
-> On Thu, 20 Jul 2023 15:05:08 +0200,
+On Thu, Jul 20, 2023 at 02:31:37PM +0100, Stefan Binding wrote:
+> To enable the speaker output in external boost mode, 2 registers must
+> be set, one after another. The longer the time between the writes of
+> the two registers, the more likely, and more loudly a pop may occur.
+> To minimize this, an mbox command can be used to allow the firmware
+> to perform this action, minimizing any delay between write, thus
+> minimizing any pop or click as a result. The old method will remain
+> when running without firmware.
 
-> The shortlog is confusing as if this contains so many changes,
-> although it's basically only three no-merge commits.
+> In addition, to ensure the chip has correctly powered up or down,
+> the driver will now poll a register, rather than wait a fixed delay.
 
-It got confused since I sent you an earlier pull request that hasn't
-gone to Linus yet - not sure what the best way of handling that is, just
-using your branch as the base blows up badly if I merge Linus' tree to
-get platform fixes.
+That should probably be a separate patch.
 
-> In anyway, I pulled now.  Thanks.
+Acked-by: Mark Brown <broonie@kernel.org>
 
-Thanks.
-
---F9zDDvvWegZUNHXD
+--6K/jTXohBWi27Iqj
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmS5P4kACgkQJNaLcl1U
-h9DUjQf7B9WimS8lw3j3sRkx2i/gLRDbzE33Arz+62gdUOsW0W3wbj/XK19vtWxs
-odiZ7GNeCcoJ/tB6A/+gIOkJQqZPBQ2aX2cTpt7tK+30+S49xPYlxsNfQYf/lrox
-a4lsawT4OlHrGMw9EGjgK2wc3qvX2IRzdd1r+ccWGWRSWezXHhz2qUOu8f5tRDF7
-Y/cIqkYb0wBxyRvPkUgHipr2hmklE0Q1UqXu/2Ipyw48fIpY6qMF/xRpbgUV6JoE
-7WL6NGQ5yIGSB1l5lOoPRxyVIWwaLMGhyA34LTBWdRfdR+PtKR6XMjuC5K2IkOlY
-lbzhGg34vVxY+szikjX10GO4QIE6sA==
-=oM/2
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmS5QHcACgkQJNaLcl1U
+h9CSggf/fWKATarmWnlKrAg5ClZia9/eeWSg0KKHc06sQbmmP/KEhtCBpkvFTBOP
+I15i7IhT3RoZgCuxf7TnbYKKJa5kfk38EIjVALr8tFA2JdhZduFP8uT25kcAoeMO
+G6o5abKdyupUKaB0Aw40lDDZ125HszaGVkN7iz/xDGTdtnPnpvhL1Py6r9jBbxDk
+YdOAxE0V3shZLMfpeKa1zPjlS/yg0PF+jIuYW/nb3Ebp8GuNaF5bSxI1Zqaq9u4s
+7ecg09LG+cVWG2DcrJ2O559FEQ0Apvx3bvVBDX2vG0ZuO7tDPFgrZrfKpmXnGW56
+RWZlhomLpsJYb82MQVGLNzSLd7gIng==
+=b/2M
 -----END PGP SIGNATURE-----
 
---F9zDDvvWegZUNHXD--
+--6K/jTXohBWi27Iqj--

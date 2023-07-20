@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D806875C234
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9BD275C239
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:56:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56352E91;
-	Fri, 21 Jul 2023 10:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56352E91
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A252EA3;
+	Fri, 21 Jul 2023 10:56:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A252EA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689929806;
-	bh=xvA7y/eCrupa50qseaa9FX3ipib93gpl7K6y8JYe4nU=;
+	s=default; t=1689929816;
+	bh=XVecn2lUrs7lVoynuoh7e1nM0qfFUB5y8w/Ra7kHBAU=;
 	h=Subject:To:CC:References:From:Date:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tfmU3A4ryP0wg7/vBU4kjZohfD/fBTv/JujE+LdiXQxHAQ870fzmUcjRZg3iiKiKm
-	 OzSBEggtcOw10UVe3ltmB4qS19Nj8rMJLeaxA7UIU2pzCB70D4LNOgg6bcLa3zb+IF
-	 IbGSdXV+FvQMMhT2n7yaZcYVUl6ov442oPDSkIGo=
+	b=cvRtFiWePbBtVIJ5HWPEh2ORT51ixFts7pp/DfevGe9Gtouzhkx2HRmW/rb+4sFLJ
+	 tB+ZHb8niIk6Tjx12iFLZSeg9ZuaGJNrdHFwH1xGIiYmgfszghhRAYbZ8+/CZoebFd
+	 EqYn/b5H8oFJzmPNvfTZ/6nqe50Cw/AvMQGaDPs8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32A8CF804DA; Fri, 21 Jul 2023 10:53:49 +0200 (CEST)
+	id CAA11F805EC; Fri, 21 Jul 2023 10:53:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41907F805D9;
-	Fri, 21 Jul 2023 10:53:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CEEFF805E6;
+	Fri, 21 Jul 2023 10:53:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C99DF8047D; Thu, 20 Jul 2023 11:40:34 +0200 (CEST)
+	id 3C22FF8047D; Thu, 20 Jul 2023 11:46:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No,
@@ -35,14 +35,14 @@ X-Spam-Status: No,
 Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36D38F80153
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 11:40:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36D38F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68DFBF8027B
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 11:46:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68DFBF8027B
 Received: from [192.168.1.103] (178.176.74.113) by msexch01.omp.ru
  (10.188.4.12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.14; Thu, 20 Jul
- 2023 12:40:10 +0300
-Subject: Re: [PATCH v3 38/42] ata: pata_ep93xx: remove legacy pinctrl use
+ 2023 12:45:57 +0300
+Subject: Re: [PATCH v3 26/42] ata: pata_ep93xx: add device tree support
 To: <nikita.shubin@maquefel.me>, Hartley Sweeten
 	<hsweeten@visionengravers.com>, Lennert Buytenhek <kernel@wantstofly.org>,
 	Alexander Sverdlin <alexander.sverdlin@gmail.com>, Russell King
@@ -76,15 +76,15 @@ CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<linux-mtd@lists.infradead.org>, <linux-ide@vger.kernel.org>,
 	<linux-input@vger.kernel.org>, <alsa-devel@alsa-project.org>
 References: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
- <20230605-ep93xx-v3-38-3d63a5f1103e@maquefel.me>
+ <20230605-ep93xx-v3-26-3d63a5f1103e@maquefel.me>
 From: Sergey Shtylyov <s.shtylyov@omp.ru>
 Organization: Open Mobile Platform
-Message-ID: <6316072a-f055-166d-df27-5e3ceb0e68a1@omp.ru>
-Date: Thu, 20 Jul 2023 12:40:06 +0300
+Message-ID: <e7350d62-8dc2-8bae-e514-3b99c3abaf74@omp.ru>
+Date: Thu, 20 Jul 2023 12:45:54 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20230605-ep93xx-v3-38-3d63a5f1103e@maquefel.me>
+In-Reply-To: <20230605-ep93xx-v3-26-3d63a5f1103e@maquefel.me>
 Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -93,11 +93,11 @@ X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
  (10.188.4.12)
 X-KSE-ServerInfo: msexch01.omp.ru, 9
 X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 5.9.59, Database issued on: 07/20/2023 09:02:28
+X-KSE-AntiSpam-Version: 5.9.59, Database issued on: 07/20/2023 09:27:01
 X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
 X-KSE-AntiSpam-Method: none
 X-KSE-AntiSpam-Rate: 59
-X-KSE-AntiSpam-Info: Lua profiles 178740 [Jul 20 2023]
+X-KSE-AntiSpam-Info: Lua profiles 178742 [Jul 20 2023]
 X-KSE-AntiSpam-Info: Version: 5.9.59.0
 X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
 X-KSE-AntiSpam-Info: LuaCore: 524 524 9753033d6953787301affc41bead8ed49c47b39d
@@ -108,7 +108,7 @@ X-KSE-AntiSpam-Info: {SMTP from is not routable}
 X-KSE-AntiSpam-Info: {Found in DNSBL: 178.176.74.113 in (user)
  b.barracudacentral.org}
 X-KSE-AntiSpam-Info: 
-	127.0.0.199:7.1.2;omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;178.176.74.113:7.4.1,7.7.3
+	d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;omp.ru:7.1.1;178.176.74.113:7.7.3,7.4.1,7.1.2
 X-KSE-AntiSpam-Info: {iprep_blacklist}
 X-KSE-AntiSpam-Info: ApMailHostAddress: 178.176.74.113
 X-KSE-AntiSpam-Info: {DNS response errors}
@@ -120,7 +120,7 @@ X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
 X-KSE-Antiphishing-Info: Clean
 X-KSE-Antiphishing-ScanningType: Heuristic
 X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 07/20/2023 09:10:00
+X-KSE-Antiphishing-Bases: 07/20/2023 09:32:00
 X-KSE-Antivirus-Interceptor-Info: scan successful
 X-KSE-Antivirus-Info: Clean, bases: 7/20/2023 4:32:00 AM
 X-KSE-Attachment-Filter-Triggered-Rules: Clean
@@ -134,15 +134,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: JSZDDFUZCU2JQVAQMQYMHG4L6QVKS4BE
-X-Message-ID-Hash: JSZDDFUZCU2JQVAQMQYMHG4L6QVKS4BE
+Message-ID-Hash: 2PZ2GXPUO2SZUHJOXPUGOXV742C5ZTUF
+X-Message-ID-Hash: 2PZ2GXPUO2SZUHJOXPUGOXV742C5ZTUF
 X-Mailman-Approved-At: Fri, 21 Jul 2023 08:53:21 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JSZDDFUZCU2JQVAQMQYMHG4L6QVKS4BE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2PZ2GXPUO2SZUHJOXPUGOXV742C5ZTUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -151,19 +151,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello!
-
 On 7/20/23 2:29 PM, Nikita Shubin via B4 Relay wrote:
 
 > From: Nikita Shubin <nikita.shubin@maquefel.me>
 > 
-> Drop legacy acquire/release since we are using pinctrl for this now.
+> - Add OF ID match table
+> - Drop ep93xx_chip_revision and use soc_device_match instead
 > 
 > Signed-off-by: Nikita Shubin <nikita.shubin@maquefel.me>
+> ---
+>  drivers/ata/pata_ep93xx.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/ata/pata_ep93xx.c b/drivers/ata/pata_ep93xx.c
+> index c6e043e05d43..a88824dfc5fa 100644
+> --- a/drivers/ata/pata_ep93xx.c
+> +++ b/drivers/ata/pata_ep93xx.c
+[...]
+> @@ -910,6 +912,12 @@ static struct ata_port_operations ep93xx_pata_port_ops = {
+>  	.port_start		= ep93xx_pata_port_start,
+>  };
+>  
+> +static const struct soc_device_attribute ep93xx_soc_table[] = {
+> +	{ .revision = "E1", .data = (void *)ATA_UDMA3 },
+> +	{ .revision = "E2", .data = (void *)ATA_UDMA4 },
+> +	{ /* sentinel */ }
+> +};
+> +
+>  static int ep93xx_pata_probe(struct platform_device *pdev)
+>  {
+>  	struct ep93xx_pata_data *drv_data;
+> @@ -939,7 +947,7 @@ static int ep93xx_pata_probe(struct platform_device *pdev)
+>  
+>  	drv_data = devm_kzalloc(&pdev->dev, sizeof(*drv_data), GFP_KERNEL);
+>  	if (!drv_data) {
+> -		err = -ENXIO;
+> +		err = -ENOMEM;
+>  		goto err_rel_gpio;
+>  	}
+>  
 
-   I think I've already given you my:
+   Hm, deserves its own patch. And even for this one, you should've documented it
+in the patch secription...
 
-Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
+> @@ -976,12 +984,11 @@ static int ep93xx_pata_probe(struct platform_device *pdev)
+>  	 * so this driver supports only UDMA modes.
+>  	 */
+>  	if (drv_data->dma_rx_channel && drv_data->dma_tx_channel) {
+> -		int chip_rev = ep93xx_chip_revision();
+> +		const struct soc_device_attribute *match;
+>  
+> -		if (chip_rev == EP93XX_CHIP_REV_E1)
+> -			ap->udma_mask = ATA_UDMA3;
+> -		else if (chip_rev == EP93XX_CHIP_REV_E2)
+> -			ap->udma_mask = ATA_UDMA4;
+> +		match = soc_device_match(ep93xx_soc_table);
+> +		if (match)
+> +			ap->udma_mask = (unsigned int) match->data;
+>  		else
+>  			ap->udma_mask = ATA_UDMA2;
+>  	}
+
+   This one also looks as it could have been done separately -- before the DT
+conversion?
 
 [...]
 

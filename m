@@ -2,103 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D88B75B148
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jul 2023 16:32:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9EEE75B1DF
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jul 2023 16:59:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE6711F2;
-	Thu, 20 Jul 2023 16:31:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE6711F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAF871F7;
+	Thu, 20 Jul 2023 16:59:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAF871F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689863560;
-	bh=CqO5YWBbw8n1P1faXZyvg5hy+Qco7+T6ja3vCyoQb7E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1689865193;
+	bh=qxKeQvTECMKxvq5IMqE5PREBh1O7Gw1sWWfsqCi8Hlk=;
+	h=Date:Subject:From:To:CC:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AuH5C1thEaQtMk5Bx7+OoE6tqnYHLIvDX19WtSoV/Xssqgwfz4LXub7WosBlKXzoU
-	 DqlZKqvyNcpxsakoo1SbPBELzoPxOEuANR+2BKRX3wHRQJlaSOVgnk1pehm2jeSOIX
-	 uIRY9RgEo7Pz05K8ldlXJK8PuWYyptP1diTgdT/Q=
+	b=oU+XlXj1NUzyGXUFTbjSiLnYuJvs3qxkCVMOWgGrS2TGMMTxt9VdgIPZRv8QUKeXm
+	 Lny33A3wJ0zi9M6HJzOevh7aOrEmnNmjlbDqS95L8mY+5HT2kyqChe+pCnXSznFYmY
+	 mb5IGkRzKRtof4ApJ7Fh3HaSe6EvbCrxKQAp6+3s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2848F80535; Thu, 20 Jul 2023 16:31:49 +0200 (CEST)
+	id 90967F80527; Thu, 20 Jul 2023 16:59:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6155DF8032D;
-	Thu, 20 Jul 2023 16:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDC73F8032D;
+	Thu, 20 Jul 2023 16:59:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDEDCF8047D; Thu, 20 Jul 2023 16:31:44 +0200 (CEST)
+	id D1DA8F8047D; Thu, 20 Jul 2023 16:58:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 380E8F8027B
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 16:31:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 380E8F8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D22A7F8027B
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jul 2023 16:58:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D22A7F8027B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ymE+5yww;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NT9tS8Vm
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A958E2069D;
-	Thu, 20 Jul 2023 14:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1689863498;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FVLUkyWn20vHpC6jEqLeH59z1mg9rTbYpOdnXjKAqk8=;
-	b=ymE+5yww3+AmRHeq68rZv1MlkoA37+/7WT9uIKVBz0g4QnVbxOi14KzXDZxIF3b/7stdmC
-	zXggOrolIOJbrLNJYeoUbpKVIVHyKhSnVRrNxnt8zRL8MF4njzBskHZ0Mp9DJJWxiOPUqE
-	GesfIYVKcXtjy1nQNJdQk6OBmPf11A8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689863498;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FVLUkyWn20vHpC6jEqLeH59z1mg9rTbYpOdnXjKAqk8=;
-	b=NT9tS8VmZdn4iPp3JF0B0izeNsTPyF8vl5YzL5Nbwa7elwdoM1PooQp14jEHQbkRijyHaT
-	PqsAYHWWRRqNsLDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 85E6C138EC;
-	Thu, 20 Jul 2023 14:31:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id VOfUH0pFuWQMdgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 20 Jul 2023 14:31:38 +0000
-Date: Thu, 20 Jul 2023 16:31:37 +0200
-Message-ID: <87sf9iirhy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.5-rc1-2
-In-Reply-To: <3cda87c3-f502-4034-99a5-394c8e4195cc@sirena.org.uk>
-References: <20230720130519.D1DFEC433C7@smtp.kernel.org>
-	<87351ik9da.wl-tiwai@suse.de>
-	<3cda87c3-f502-4034-99a5-394c8e4195cc@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: KC3IUFXX3KXHBROKVSZCBLLRAVUBY4OH
-X-Message-ID-Hash: KC3IUFXX3KXHBROKVSZCBLLRAVUBY4OH
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=jUavRcjf
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36KDEMW4005310;
+	Thu, 20 Jul 2023 16:58:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : from : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=SYqAZNLeldZI4p+biE8tneewU0+ZDnqH4LOdjLzjgN8=;
+ b=jUavRcjf10fWnyG/wp+8u2MmRxgf7Nau1Hi8Vx5pJPGO2qt4zchHRsjOF4JN/Ye8bku8
+ 3z6aslHsYvo40WzBDaJ77ggRurfKGzanxCkxsq6qXRHHTN9fD7yxaf7D76Hft81ji7Ye
+ jKqVn9+yrsNxpMk1A4g44p0AulYO2GKb4Hns+c+GcNX/C6Ev0zwsz89HNZ3EnnsiTAbr
+ Jtsiq2Fbk3fLE+YQbV3HfTb3AETmZ4kU8CnVfudntwk4xkNL6LQRHBJK4M+FXWQSfHJz
+ qrmW3p1PsXqtjzXcU+1i/XqL4Rnw7iVkHEuJ0i1ibEAAKP794mz2ceHz//xwuY2kAW6r mA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ry5mt0nem-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 20 Jul 2023 16:58:45 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E0FE210003A;
+	Thu, 20 Jul 2023 16:58:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8024A23C698;
+	Thu, 20 Jul 2023 16:58:42 +0200 (CEST)
+Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 20 Jul
+ 2023 16:58:40 +0200
+Message-ID: <6edb1d1e-ae6b-486a-9548-4b2e0353f3dc@foss.st.com>
+Date: Thu, 20 Jul 2023 16:58:35 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 02/10] dt-bindings: bus: add device tree bindings for
+ RIFSC
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+        <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
+        <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
+        <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
+        <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
+        <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
+        <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>
+CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-3-gatien.chevallier@foss.st.com>
+ <e871ad32-dfa4-067d-4f2c-207ffd42aafd@linaro.org>
+ <1ac0f2e0-4ec1-3871-d0a3-3ccc2eb687e5@foss.st.com>
+In-Reply-To: <1ac0f2e0-4ec1-3871-d0a3-3ccc2eb687e5@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-20_08,2023-07-20_01,2023-05-22_02
+Message-ID-Hash: GRB46EE5NG5RHKUHE4KFKL267BW7GISI
+X-Message-ID-Hash: GRB46EE5NG5RHKUHE4KFKL267BW7GISI
+X-MailFrom: prvs=5565f8306a=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,33 +129,241 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KC3IUFXX3KXHBROKVSZCBLLRAVUBY4OH/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GRB46EE5NG5RHKUHE4KFKL267BW7GISI/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Jul 2023 16:07:06 +0200,
-Mark Brown wrote:
+Hello Krzysztof,
+
+On 7/6/23 11:29, Gatien CHEVALLIER wrote:
+> Hello Krzysztof,
 > 
-> On Thu, Jul 20, 2023 at 03:20:17PM +0200, Takashi Iwai wrote:
-> > On Thu, 20 Jul 2023 15:05:08 +0200,
+> Firstly, I will correct the bindings error pointed by Rob's robot.
+> Obviously, I did not pass the bindings check the proper way or maybe I'm 
+> running an old version.
 > 
-> > The shortlog is confusing as if this contains so many changes,
-> > although it's basically only three no-merge commits.
+> On 7/6/23 08:28, Krzysztof Kozlowski wrote:
+>> On 05/07/2023 19:27, Gatien Chevallier wrote:
+>>> Document RIFSC (RIF security controller). RIFSC is a firewall controller
+>>> composed of different kinds of hardware resources.
+>>>
+>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>
+>> A nit, subject: drop second/last, redundant "device tree bindings for".
+>> The "dt-bindings" prefix is already stating that these are bindings. 4
+>> words of your 6 word subject is meaningless...
 > 
-> It got confused since I sent you an earlier pull request that hasn't
-> gone to Linus yet - not sure what the best way of handling that is, just
-> using your branch as the base blows up badly if I merge Linus' tree to
-> get platform fixes.
+> Ack, I will rephrase, it is indeed redundant
+> 
+>>
+>>> ---
+>>>   .../bindings/bus/st,stm32-rifsc.yaml          | 101 ++++++++++++++++++
+>>>   1 file changed, 101 insertions(+)
+>>>   create mode 100644 
+>>> Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
+>>>
+>>> diff --git 
+>>> a/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml 
+>>> b/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
+>>> new file mode 100644
+>>> index 000000000000..68d585ed369c
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
+>>
+>> Filename like compatible, unless you know list of compatibles will
+>> grow... but then add them.
+>>
+>>> @@ -0,0 +1,101 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/bus/st,stm32-rifsc.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: STM32 Resource isolation framework security controller bindings
+>>
+>> Drop bindings
+> 
+> Ack
+> 
+>>
+>>> +
+>>> +maintainers:
+>>> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>> +
+>>> +description: |
+>>> +  Resource isolation framework (RIF) is a comprehensive set of 
+>>> hardware blocks
+>>> +  designed to enforce and manage isolation of STM32 hardware 
+>>> resources like
+>>> +  memory and peripherals.
+>>> +
+>>> +  The RIFSC (RIF security controller) is composed of three sets of 
+>>> registers,
+>>> +  each managing a specific set of hardware resources:
+>>> +    - RISC registers associated with RISUP logic (resource isolation 
+>>> device unit
+>>> +      for peripherals), assign all non-RIF aware peripherals to 
+>>> zero, one or
+>>> +      any security domains (secure, privilege, compartment).
+>>> +    - RIMC registers: associated with RIMU logic (resource isolation 
+>>> master
+>>> +      unit), assign all non RIF-aware bus master to one security 
+>>> domain by
+>>> +      setting secure, privileged and compartment information on the 
+>>> system bus.
+>>> +      Alternatively, the RISUP logic controlling the device port 
+>>> access to a
+>>> +      peripheral can assign target bus attributes to this peripheral 
+>>> master port
+>>> +      (supported attribute: CID).
+>>> +    - RISC registers associated with RISAL logic (resource isolation 
+>>> device unit
+>>> +      for address space - Lite version), assign address space 
+>>> subregions to one
+>>> +      security domains (secure, privilege, compartment).
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: st,stm32mp25-rifsc
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  "#address-cells":
+>>> +    const: 1
+>>> +
+>>> +  "#size-cells":
+>>> +    const: 1
+>>> +
+>>> +  "#feature-domain-cells":
+>>> +    const: 1
+>>> +
+>>> +  ranges: true
+>>> +
+>>> +  feature-domain-controller: true
+>>> +
+>>> +patternProperties:
+>>> +  "^.*@[0-9a-f]+$":
+>>> +    description: Peripherals
+>>> +    type: object
+>>> +    properties:
+>>> +      feature-domains:
+>>> +        minItems: 1
+>>> +        maxItems: 2
+>>> +        description:
+>>> +          The first argument must always be a phandle that 
+>>> references to the
+>>> +          firewall controller of the peripheral. The second can 
+>>> contain the
+>>> +          platform specific firewall ID of the peripheral.
+>>
+>> It does not make much sense to me to have hierarchy parent-child and via
+>> phandle at the same time. You express the similar relationship twice
+> Thank you for pointing this out.
+> 
+> About the parent-child relation:
+> 
+> The bus-like device tree architecture allows a bus-probe mechanism with 
+> which we want to check accesses of peripherals before probing their 
+> driver. This has several advantages:
+> -This bus architecture provides a clearer view of the hardware.
+> -No peripheral driver modifications as it is fully handled by the 
+> firewall drivers.
+> -Drivers for devices that aren't accessible will not even be probed => 
+> no probe fail.
+> 
+> It would be possible to manage this mechanism another way by handling 
+> probe deferrals in drivers. But it would mean modifying every driver 
+> with a check on ST firewall that we probe and some of them aren't from 
+> STMicroelectronics.
+> 
+> About the phandle relation:
+> 
+> I agree on the fact that this double expression of the relationship is 
+> redundant.
+> 
+> I've done it this way because there will be other nodes outside the 
+> RIFSC node that will need to reference it as their feature-domain 
+> controller. I kept the same information in the property to be coherent 
+> between all.
+> 
+> For nodes under the RIFSC, the phandle is indeed useless and could be 
+> removed, just to leave the firewall ID. And I'm inclined to do so. I 
+> just have one worry on the YAML binding files where I will have a 
+> pattern property in the RIFSC that will state something and maybe 
+> another description in the peripheral YAML files. What is your take on 
+> that?
+> 
 
-It's no big problem, but it'd be helpful if you can tell me that for
-avoiding a surprise at the next time.
+Looking back at it, feature-domains is a phandle-array. I guess I can't
+derogate to the following architecture:
 
+items:
+   - items:
+       - description: A phandle
+       - description: 1st arg cell
+       - description: 2nd arg cell
 
-thanks,
+can I?
 
-Takashi
+Some devices' nodes that are not subnodes of the firewall controllers
+will need the phandle reference. Should I keep the redundant information
+then?
+
+Best regards,
+Gatien
+
+>>
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - "#address-cells"
+>>> +  - "#size-cells"
+>>> +  - feature-domain-controller
+>>> +  - "#feature-domain-cells"
+>>> +  - ranges
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    // In this example, the usart2 device refers to rifsc as its domain
+>>> +    // controller.
+>>> +    // Access rights are verified before creating devices.
+>>> +
+>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>> +
+>>> +    rifsc: rifsc-bus@42080000 {
+>>> +        compatible = "st,stm32mp25-rifsc";
+>>> +        reg = <0x42080000 0x1000>;
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <1>;
+>>> +        ranges;
+>>> +        feature-domain-controller;
+>>> +        #feature-domain-cells = <1>;
+>>> +
+>>> +        usart2: serial@400e0000 {
+>>> +            compatible = "st,stm32h7-uart";
+>>> +            reg = <0x400e0000 0x400>;
+>>> +            interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+>>> +            clocks = <&ck_flexgen_08>;
+>>> +            feature-domains = <&rifsc 32>;
+>>> +            status = "disabled";
+>>
+>> No status in the examples.
+>>
+>>> +        };
+>>> +    };
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
+> Best regards,
+> Gatien

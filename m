@@ -2,91 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FBEF75C8A4
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 15:58:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92E2775C8C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 16:00:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C83F8201;
-	Fri, 21 Jul 2023 15:57:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C83F8201
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB3C91FE;
+	Fri, 21 Jul 2023 15:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB3C91FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689947880;
-	bh=drF6apj2Xqlsdca/3CHoYQLp4/cf0R6BLagVcKHVxbk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689948012;
+	bh=zqjR6hm055Hl9z3dKM2WeMRqxZN0OBDSyb3Rxgd4HGM=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JQu81P0E9L99SdycpQUnj6NJr20JCGBElbuD2BFKJOivGl+dG41od37PzmSH+EFxo
-	 5roDBk9WY8smznaFaq0S5jCsvh0bs3ZVuJk/rT/zjHf+SBTZ2a/c1YRE1SvNHosMoF
-	 wMCszoicSlrnUKSpmEChdqR9EYM2hnRlNwE6Anxw=
+	b=TmKoarM7+FovJmYX7pinL3mO9v/8nIwFMpxQpHoswJfIu9tGMKTDXS1Sh/r1wHlue
+	 wPPbCal8TFa51lJxs6js2qNtSn61dQ6feDQp5f9AEF+sX7Akx7gdf6Zt6sJBLLpC83
+	 ebYDop8fQqU/oHG7fTssTrtiSxQNe+7NdCE+RRzs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29DFDF80551; Fri, 21 Jul 2023 15:56:21 +0200 (CEST)
+	id ECC1CF80535; Fri, 21 Jul 2023 15:59:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3CBAF80548;
-	Fri, 21 Jul 2023 15:56:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F1BEF8032D;
+	Fri, 21 Jul 2023 15:59:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47EA1F80494; Fri, 21 Jul 2023 15:56:17 +0200 (CEST)
+	id DD435F8047D; Fri, 21 Jul 2023 15:58:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=1.0 required=5.0 tests=PDS_BAD_THREAD_QP_64,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3DDC4F8032D
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 15:56:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DDC4F8032D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=UOkfmq0E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689947774; x=1721483774;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=drF6apj2Xqlsdca/3CHoYQLp4/cf0R6BLagVcKHVxbk=;
-  b=UOkfmq0EPjxyicl5o6IK7N5UesQSJm81EtQnCB5WSiPy+2IoT/JGO4sJ
-   3FBZK25JE8rUMTp0oZqxq3ErlA7cFYPVVvwVzBydab3+LfID9hpRlh2ct
-   +Vxgx22H6GdcVCve0J6RnJwunShHV0GpnKuse8q6YuVU9Ya6PAbMei2XC
-   rRFQ9vue3zVMbx7ZQcVoP5+cjcTLtQbxyGu97UwKKkZnmSuGQElEgWs+M
-   O+sQUWpKhWwRpB/qVepfaTJKifVmAQPmlszE/C5YG5Kqgjnhst5bhYsco
-   XshDO3md4kNiT7Ea5KwD9BlMQShhvEQ/o4FGOrc5LRjtsEVu4SzsiI0yk
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="370630904"
-X-IronPort-AV: E=Sophos;i="6.01,220,1684825200";
-   d="scan'208";a="370630904"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 06:56:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="724877910"
-X-IronPort-AV: E=Sophos;i="6.01,220,1684825200";
-   d="scan'208";a="724877910"
-Received: from dhardfel-mobl1.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.223.78])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 06:56:10 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: kai.vehmanen@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: hda: add HDMI codec ID for Intel LNL
-Date: Fri, 21 Jul 2023 16:57:22 +0300
-Message-ID: <20230721135722.31288-3-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230721135722.31288-1-peter.ujfalusi@linux.intel.com>
-References: <20230721135722.31288-1-peter.ujfalusi@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E777F8027B
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 15:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E777F8027B
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-27-tUZJkKfjPuSYNBamH4xjCA-1; Fri, 21 Jul 2023 14:58:54 +0100
+X-MC-Unique: tUZJkKfjPuSYNBamH4xjCA-1
+Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
+ (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Fri, 21 Jul
+ 2023 14:58:53 +0100
+Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
+ id 15.00.1497.048; Fri, 21 Jul 2023 14:58:52 +0100
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Andy Shevchenko' <andriy.shevchenko@linux.intel.com>, Takashi Iwai
+	<tiwai@suse.de>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Jaroslav
+ Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Dan Williams
+	<dan.j.williams@intel.com>
+Subject: RE: [PATCH v1 1/1] ALSA: korg1212: Re-use sockptr_t and respective
+ APIs
+Thread-Topic: [PATCH v1 1/1] ALSA: korg1212: Re-use sockptr_t and respective
+ APIs
+Thread-Index: AQHZu8ALiLW3NE9rpEyBJunRSGnWfK/EPjVA
+Date: Fri, 21 Jul 2023 13:58:52 +0000
+Message-ID: <b8e6f7ae1e684f85902cb3a787436bd9@AcuMS.aculab.com>
+References: <20230721100146.67293-1-andriy.shevchenko@linux.intel.com>
+ <878rb9h901.wl-tiwai@suse.de> <ZLphAJG4Tz8zLUSN@smile.fi.intel.com>
+In-Reply-To: <ZLphAJG4Tz8zLUSN@smile.fi.intel.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IWSPRXG2W2MSWAESBBWEZ75ONPVJ7NFX
-X-Message-ID-Hash: IWSPRXG2W2MSWAESBBWEZ75ONPVJ7NFX
-X-MailFrom: peter.ujfalusi@linux.intel.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: AXR3FSKPZ4CNVWGUFUGDJQJLG5KAGWJ6
+X-Message-ID-Hash: AXR3FSKPZ4CNVWGUFUGDJQJLG5KAGWJ6
+X-MailFrom: david.laight@aculab.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWSPRXG2W2MSWAESBBWEZ75ONPVJ7NFX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXR3FSKPZ4CNVWGUFUGDJQJLG5KAGWJ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,31 +102,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Andy Shevchenko
+> Sent: 21 July 2023 11:42
+>=20
+> On Fri, Jul 21, 2023 at 12:08:46PM +0200, Takashi Iwai wrote:
+> > On Fri, 21 Jul 2023 12:01:46 +0200,
+> > Andy Shevchenko wrote:
+> > >
+> > > The sockptr_t (despite the naming) is a generic type to hold kernel
+> > > or user pointer and there are respective APIs to copy data to or
+> > > from it. Replace open coded variants in the driver by them.
+> >
+> > While I see the benefit, I feel this is very confusing.  If we use the
+> > API for a generic use, it should be renamed at first.
+> >
+> > Also, the current function actually follows the call pattern, and we
+> > know in the caller side whether it's called for a kernel pointer or a
+> > user pointer.  So, if any, the PCM core callbacks should be revised to
+> > use a generic pointer instead of fiddling in each driver side.
+>=20
+> Any suggestion for the name?
+> And I believe for the bigger series the new callback should be added firs=
+t.
 
-Add HDMI codec ID for Intel Lunar Lake platform.
+It would also be better to replace the current sockptr_t with
+a structure that contains separate user and kernel addresses
+(instead of a union of the pointer types and a flag).
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/pci/hda/patch_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+The size of the structure wouldn't change and the code might
+even come out better.
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 5139b6e087b3..1cde2a69bdb4 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -4634,6 +4634,7 @@ HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
- HDA_CODEC_ENTRY(0x8086281c, "Alderlake-P HDMI", patch_i915_adlp_hdmi),
- HDA_CODEC_ENTRY(0x8086281d, "Meteor Lake HDMI",	patch_i915_adlp_hdmi),
- HDA_CODEC_ENTRY(0x8086281f, "Raptor Lake P HDMI",	patch_i915_adlp_hdmi),
-+HDA_CODEC_ENTRY(0x80862820, "Lunar Lake HDMI",	patch_i915_adlp_hdmi),
- HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
- HDA_CODEC_ENTRY(0x80862882, "Valleyview2 HDMI",	patch_i915_byt_hdmi),
- HDA_CODEC_ENTRY(0x80862883, "Braswell HDMI",	patch_i915_byt_hdmi),
--- 
-2.41.0
+There is also scope for adding a length and passing the structure
+by reference instead of by value.
+
+=09David
+
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
+PT, UK
+Registration No: 1397386 (Wales)
 

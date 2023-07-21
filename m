@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF1275DDA0
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jul 2023 19:09:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B0775DDA1
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jul 2023 19:10:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A7021EF;
-	Sat, 22 Jul 2023 19:09:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A7021EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE7AC7F4;
+	Sat, 22 Jul 2023 19:09:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE7AC7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690045794;
-	bh=KlCzjhFLukfeZnOnpjy/KkOZvbc+rgx6PI/Oz6Jcafc=;
+	s=default; t=1690045811;
+	bh=tv6F0l9imbUYWe4XOjxkKdPC/V51E5Aacb2AhEaUldg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i93OdsxMQzEL0byBVJCkSyzmUV6peIvtwMBve0tBUfzJ0iJA+uFwuju3o0n/91HXO
-	 D7uXrWUepeivlcxXl3iaPMlScyz7F/6p3QZjIb0m/2nzhYm1Y0i7Zxf6UerHaHlpi7
-	 9GDVVpzQfudixJBnCzTmmK3wDp5wYnD0PdWjuq+U=
+	b=ne0+z8g8nPyTNuvzywbFeH+zT0o8oGHRCUCkshkXzPRxThHWb5mTSpwPu3nzhihzY
+	 y8wFQ2D58RjX+iV5xFfavqiEkxzDtnRva90onohFJhVQTH1gwLrt+KzLBwb2gHy4UA
+	 74wKhOXawS/t+Bbsgc3OadiL/GC6dcyMJPhVhYX8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 266D8F805F7; Sat, 22 Jul 2023 19:05:57 +0200 (CEST)
+	id C1517F80606; Sat, 22 Jul 2023 19:05:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B47CFF805F7;
-	Sat, 22 Jul 2023 19:05:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56A6AF80600;
+	Sat, 22 Jul 2023 19:05:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA19EF8027B; Fri, 21 Jul 2023 16:16:49 +0200 (CEST)
+	id E7F8DF8053B; Fri, 21 Jul 2023 16:22:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 970E6F8007E
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 16:16:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 970E6F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id AE1BFF8007E
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 16:22:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE1BFF8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=c5IPu3l7
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-3fd0f000f1cso12582755e9.1
+ header.s=google header.b=xRkeCtCO
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-3fb4146e8ceso17105125e9.0
         for <alsa-devel@alsa-project.org>;
- Fri, 21 Jul 2023 07:16:46 -0700 (PDT)
+ Fri, 21 Jul 2023 07:22:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1689949004; x=1690553804;
+        d=linaro.org; s=google; t=1689949364; x=1690554164;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dVWIG+zijfB5XhEq5zqARsQ/CZyE7I/cG3PK9Bqxgac=;
-        b=c5IPu3l7Sljsuw8jE0dZSGTgwVaAaA15v8daFob2kFib1Kge23eCgMtTLUlSK2+3nr
-         PhJjEf2k48l0PgLeujngSROlbV7nmbipQxuFV3YtQwrf4lT3QrD3ncnmj+kCl1Wg1jRB
-         toc5x/2xxrOAk1NjWtBbN6z0hkbIKuAm8Hc4PhBm1jeeJEDSJauYMjQoEkd1oDNOIv9w
-         ToV4lUwRuJ22MJRff09zYDpvlEzKnuk3wVkHH4Irz6Pl08wBA5xKMC/KCKm5yogWxDRc
-         ya8nD4hZKqjhgz5KzQypLrv57FgjUxaRXCKYTbv24tKi31JvRYvzhhTTYlLWm8aF8rxG
-         /4qw==
+        bh=VDX19vDEIXyu3IFb94kHKgIM7QuqKWcHAhwogKCp3HA=;
+        b=xRkeCtCOHRy6PlqUYvtoT21Emi/YIis3tpnx2n/9B8tsJb7DUOmRf+4YdlSTo4YmHL
+         8Be2Yd9uvZL+FsIPLjGTeuz1LhYRJ2LmTUYtGe1cPUj/+2l+fFrp6z94IMje8ZH5nnKJ
+         0oR4ie8KwSA7ItvHO8Q8isNQlqBFXRaMHxzhwAa7BEUztIHMjsgDc/GkSGYloFdAfdR/
+         aE4EIESoy8zMrcnZaGGmbCkfr64ffZcxJkLS+JeepwSHs5PdC0zcrspU6EkyteqYzBFY
+         HhzUHmfO4DNRF8jlHt3i1k0Rg153t74cc1c1qw/SwbmX+VvSe8s6GAYTD/gyaO2i1BJv
+         QH/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689949004; x=1690553804;
+        d=1e100.net; s=20221208; t=1689949364; x=1690554164;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dVWIG+zijfB5XhEq5zqARsQ/CZyE7I/cG3PK9Bqxgac=;
-        b=SZTDLH/gOQq53zq7DzsEYBKDXs3NwGY72ppb+Kko0YSKRfBFE1uKNzjVLWkTlxD7qM
-         K1X/VSzvfdvJUInLHfk6jCuhIXMttTcQtvsm/kIIu01cFNRRWvfY83+t1TTgXq9a8twC
-         P8YUjvCPeOAMEnPmZDqJ572+jI2Vzsw5NApir9SNveM3BCY0pF3LZAIqvjr0Ll69JQKw
-         9O65rRl9jWtoLqCL8i29XJMpz59YexSAX9jIEzItejytGt58diMjUSxi0jO8ERId7V1i
-         PCI9jb7PnycdeCZmffMNQem3IYaRaI+S0U41vSXaCPT6sMSvxP89ePY2hen89YtF/bB4
-         OiTQ==
-X-Gm-Message-State: ABy/qLb9gVCv35YySy7XKpWO4GEtjaN+gqMpSI7iC4BK3yxHdrShQxPi
-	HESgaYzx++Kxq5N4ninermvZbA==
+        bh=VDX19vDEIXyu3IFb94kHKgIM7QuqKWcHAhwogKCp3HA=;
+        b=Ky2nFD3TF/2QA7OYxktlNleKu3SYuHbmlYrBRreiAK0cEQXQ8PHKqeLeAqzOp9XJ1R
+         6CdCiLM1m4JVfQ5NGqEf7r/FqyloMOwEymLooxO1nSkf+EsjyIghTqH/vhXd09Y5DIV7
+         0kp7k4+QlhYYIyk3Vc8b0QT+0SAlUDoYr7t4GxuXMCSx3+seGQ8Bff1NjRpAszFDnOOB
+         U0fLFwsXQa9/+di6UVOfT8dAmZDdLElp9Y8/l5psvmM5sFbeYL6dUK7dyzg4bUOYEHzD
+         ia/4CRJ4KxYBOkbHwlY/wEBt36RSVPWXgQ3x3rB2udruzoQIiwiBEMbTUUrJWsEzsr6o
+         eGwg==
+X-Gm-Message-State: ABy/qLZQBvRhA7FAWBJ8AFenMLEF9xExxIYYTK1vuysA1JUrucfeXvFg
+	iViu3XjkIsANRb3o5y5y+XgwDw==
 X-Google-Smtp-Source: 
- APBJJlEn7W+o2Bc6tyoiQSmNE/IQp4AIiomxaKVG4rHFx1ctjSGpFRRBne+e459IpFKtG8dU4OnJ2w==
-X-Received: by 2002:a1c:770a:0:b0:3f6:d90:3db with SMTP id
- t10-20020a1c770a000000b003f60d9003dbmr1919079wmi.3.1689949004610;
-        Fri, 21 Jul 2023 07:16:44 -0700 (PDT)
+ APBJJlH7uQOeBsgKWGvO5Rmly7OItltRcCFNbXEVqWnWKB44qAlI8c74MMOCZZ4OQhY6Wj7y/LID/Q==
+X-Received: by 2002:a1c:7518:0:b0:3fc:85c:5ef7 with SMTP id
+ o24-20020a1c7518000000b003fc085c5ef7mr1575647wmc.22.1689949363637;
+        Fri, 21 Jul 2023 07:22:43 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.104])
         by smtp.gmail.com with ESMTPSA id
- a21-20020a05600c225500b003fbb8c7c799sm6229313wmm.30.2023.07.21.07.16.40
+ f12-20020a7bcc0c000000b003fc0062f0f8sm3513929wmh.9.2023.07.21.07.22.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Jul 2023 07:16:43 -0700 (PDT)
-Message-ID: <283c68a9-fdb5-8813-a68b-b2bdbaa51e26@linaro.org>
-Date: Fri, 21 Jul 2023 16:16:40 +0200
+        Fri, 21 Jul 2023 07:22:42 -0700 (PDT)
+Message-ID: <0ec81b89-4d4c-4e13-5ea0-697f5c0af835@linaro.org>
+Date: Fri, 21 Jul 2023 16:22:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH v3 41/42] ARM: dts: ep93xx: Add EDB9302 DT
+Subject: Re: [PATCH v3 07/42] soc: Add SoC driver for Cirrus ep93xx
 Content-Language: en-US
 To: nikita.shubin@maquefel.me, Hartley Sweeten
  <hsweeten@visionengravers.com>, Lennert Buytenhek <kernel@wantstofly.org>,
@@ -128,9 +128,9 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-ide@vger.kernel.org,
  linux-input@vger.kernel.org, alsa-devel@alsa-project.org
 References: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
- <20230605-ep93xx-v3-41-3d63a5f1103e@maquefel.me>
+ <20230605-ep93xx-v3-7-3d63a5f1103e@maquefel.me>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230605-ep93xx-v3-41-3d63a5f1103e@maquefel.me>
+In-Reply-To: <20230605-ep93xx-v3-7-3d63a5f1103e@maquefel.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-MailFrom: krzysztof.kozlowski@linaro.org
@@ -141,15 +141,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: UH4E26KUV5CDWZS5T5D7RLTM2D237L2D
-X-Message-ID-Hash: UH4E26KUV5CDWZS5T5D7RLTM2D237L2D
+Message-ID-Hash: 2CYTJIOPBUQ7GBXGF5CFE3FW6Y5USZ6C
+X-Message-ID-Hash: 2CYTJIOPBUQ7GBXGF5CFE3FW6Y5USZ6C
 X-Mailman-Approved-At: Sat, 22 Jul 2023 17:04:41 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UH4E26KUV5CDWZS5T5D7RLTM2D237L2D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CYTJIOPBUQ7GBXGF5CFE3FW6Y5USZ6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,69 +159,345 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 20/07/2023 13:29, Nikita Shubin via B4 Relay wrote:
-> From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> From: Nikita Shubin <nikita.shubin@maquefel.me>
 > 
-> Add device tree for Cirrus EDB9302.
+> This adds an SoC driver for the ep93xx. Currently there
+> is only one thing not fitting into any other framework,
+> and that is the swlock setting.
 > 
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> It's used for clock settings and restart.
+> 
 > Signed-off-by: Nikita Shubin <nikita.shubin@maquefel.me>
+> Tested-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> Acked-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 > ---
->  arch/arm/boot/dts/cirrus/Makefile           |   1 +
->  arch/arm/boot/dts/cirrus/ep93xx-edb9302.dts | 178 ++++++++++++++++++++++++++++
->  2 files changed, 179 insertions(+)
+>  drivers/soc/Kconfig               |   1 +
+>  drivers/soc/Makefile              |   1 +
+>  drivers/soc/cirrus/Kconfig        |  12 ++
+>  drivers/soc/cirrus/Makefile       |   2 +
+>  drivers/soc/cirrus/soc-ep93xx.c   | 231 ++++++++++++++++++++++++++++++++++++++
+>  include/linux/soc/cirrus/ep93xx.h |  18 ++-
+>  6 files changed, 264 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm/boot/dts/cirrus/Makefile b/arch/arm/boot/dts/cirrus/Makefile
-> index 211a7e2f2115..e6015983e464 100644
-> --- a/arch/arm/boot/dts/cirrus/Makefile
-> +++ b/arch/arm/boot/dts/cirrus/Makefile
-> @@ -4,5 +4,6 @@ dtb-$(CONFIG_ARCH_CLPS711X) += \
->  dtb-$(CONFIG_ARCH_CLPS711X) += \
->  	ep7211-edb7211.dtb
->  dtb-$(CONFIG_ARCH_EP93XX) += \
-> +	ep93xx-edb9302.dtb \
->  	ep93xx-bk3.dtb \
->  	ep93xx-ts7250.dtb
-> diff --git a/arch/arm/boot/dts/cirrus/ep93xx-edb9302.dts b/arch/arm/boot/dts/cirrus/ep93xx-edb9302.dts
+> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+> index 4e176280113a..16327b63b773 100644
+> --- a/drivers/soc/Kconfig
+> +++ b/drivers/soc/Kconfig
+> @@ -8,6 +8,7 @@ source "drivers/soc/aspeed/Kconfig"
+>  source "drivers/soc/atmel/Kconfig"
+>  source "drivers/soc/bcm/Kconfig"
+>  source "drivers/soc/canaan/Kconfig"
+> +source "drivers/soc/cirrus/Kconfig"
+>  source "drivers/soc/fsl/Kconfig"
+>  source "drivers/soc/fujitsu/Kconfig"
+>  source "drivers/soc/imx/Kconfig"
+> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+> index 3b0f9fb3b5c8..b76a03fe808e 100644
+> --- a/drivers/soc/Makefile
+> +++ b/drivers/soc/Makefile
+> @@ -9,6 +9,7 @@ obj-y				+= aspeed/
+>  obj-$(CONFIG_ARCH_AT91)		+= atmel/
+>  obj-y				+= bcm/
+>  obj-$(CONFIG_SOC_CANAAN)	+= canaan/
+> +obj-$(CONFIG_EP93XX_SOC)        += cirrus/
+>  obj-$(CONFIG_ARCH_DOVE)		+= dove/
+>  obj-$(CONFIG_MACH_DOVE)		+= dove/
+>  obj-y				+= fsl/
+> diff --git a/drivers/soc/cirrus/Kconfig b/drivers/soc/cirrus/Kconfig
 > new file mode 100644
-> index 000000000000..b048fd131aa5
+> index 000000000000..408f3343a265
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/cirrus/ep93xx-edb9302.dts
-> @@ -0,0 +1,178 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +++ b/drivers/soc/cirrus/Kconfig
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +if ARCH_EP93XX
+> +
+> +config EP93XX_SOC
+> +	bool "Cirrus EP93xx chips SoC"
+> +	select SOC_BUS
+> +	default y if !EP93XX_SOC_COMMON
+> +	help
+> +	  Support SoC for Cirrus EP93xx chips.
+> +
+> +endif
+> diff --git a/drivers/soc/cirrus/Makefile b/drivers/soc/cirrus/Makefile
+> new file mode 100644
+> index 000000000000..ed6752844c6f
+> --- /dev/null
+> +++ b/drivers/soc/cirrus/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +obj-y	+= soc-ep93xx.o
+> diff --git a/drivers/soc/cirrus/soc-ep93xx.c b/drivers/soc/cirrus/soc-ep93xx.c
+> new file mode 100644
+> index 000000000000..2fd48d900f24
+> --- /dev/null
+> +++ b/drivers/soc/cirrus/soc-ep93xx.c
+> @@ -0,0 +1,231 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * Device Tree file for Cirrus Logic EDB9302 board based on EP9302 SoC
+> + * SoC driver for Cirrus EP93xx chips.
+> + * Copyright (C) 2022 Nikita Shubin <nikita.shubin@maquefel.me>
+> + *
+> + * Based on a rewrite of arch/arm/mach-ep93xx/core.c
+> + * Copyright (C) 2006 Lennert Buytenhek <buytenh@wantstofly.org>
+> + * Copyright (C) 2007 Herbert Valerio Riedel <hvr@gnu.org>
+> + *
+> + * Thanks go to Michael Burian and Ray Lehtiniemi for their key
+> + * role in the ep93xx Linux community
 > + */
-> +/dts-v1/;
-> +#include "ep93xx.dtsi"
-> +#include <dt-bindings/dma/cirrus,ep93xx-dma.h>
 > +
-> +/ {
-> +	#address-cells = <1>;
-> +	#size-cells = <1>;
-> +	compatible = "cirrus,edb9302", "cirrus,ep9301";
-> +	model = "cirrus,edb9302";
+> +#include <linux/clk-provider.h>
+> +#include <linux/init.h>
+> +#include <linux/kernel.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +#include <linux/slab.h>
+> +#include <linux/sys_soc.h>
+> +#include <linux/soc/cirrus/ep93xx.h>
 > +
-> +	chosen {
-> +	};
+> +#define EP93XX_EXT_CLK_RATE		14745600
 > +
-> +	memory@0 {
-> +		device_type = "memory";
-> +		/* should be set from ATAGS */
-> +		reg = <0x0000000 0x800000>,
-> +		      <0x1000000 0x800000>,
-> +		      <0x4000000 0x800000>,
-> +		      <0x5000000 0x800000>;
-> +	};
+> +#define EP93XX_SYSCON_DEVCFG		0x80
 > +
-> +	flash@60000000 {
+> +#define EP93XX_SWLOCK_MAGICK		0xaa
+> +#define EP93XX_SYSCON_SWLOCK		0xc0
+> +#define EP93XX_SYSCON_SYSCFG		0x9c
+> +#define EP93XX_SYSCON_SYSCFG_REV_MASK	0xf0000000
+> +#define EP93XX_SYSCON_SYSCFG_REV_SHIFT	28
+> +
+> +#define EP93XX_SYSCON_CLKSET1		0x20
+> +#define EP93XX_SYSCON_CLKSET1_NBYP1	BIT(23)
+> +#define EP93XX_SYSCON_CLKSET2		0x24
+> +#define EP93XX_SYSCON_CLKSET2_NBYP2	BIT(19)
+> +#define EP93XX_SYSCON_CLKSET2_PLL2_EN	BIT(18)
+> +
+> +static DEFINE_SPINLOCK(ep93xx_swlock);
+> +
+> +/* EP93xx System Controller software locked register write */
+> +void ep93xx_syscon_swlocked_write(struct regmap *map, unsigned int reg, unsigned int val)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&ep93xx_swlock, flags);
+> +
+> +	regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK);
+> +	regmap_write(map, reg, val);
+> +
+> +	spin_unlock_irqrestore(&ep93xx_swlock, flags);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(ep93xx_syscon_swlocked_write, EP93XX_SOC);
 
-Same problems - it's root, not soc bus.
+I doubt that your code compiles. Didn't you add a user of this in some
+earlier patch?
 
-> +		compatible = "cfi-flash";
-> +		reg = <0x60000000 0x1000000>;
-> +		bank-width = <2>;
-> +	};
+Anyway, no, drop it, don't export some weird calls from core initcall to
+drivers. You violate layering and driver encapsulation. There is no
+dependency/probe ordering.
+
+There is no even need for this, because this code does not use it!
+
 > +
+> +void ep93xx_devcfg_set_clear(struct regmap *map, unsigned int set_bits, unsigned int clear_bits)
+> +{
+> +	unsigned long flags;
+> +	unsigned int val;
+> +
+> +	spin_lock_irqsave(&ep93xx_swlock, flags);
+> +
+> +	regmap_read(map, EP93XX_SYSCON_DEVCFG, &val);
+> +	val &= ~clear_bits;
+> +	val |= set_bits;
+> +	regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK);
+> +	regmap_write(map, EP93XX_SYSCON_DEVCFG, val);
+> +
+> +	spin_unlock_irqrestore(&ep93xx_swlock, flags);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(ep93xx_devcfg_set_clear, EP93XX_SOC);
+
+No.
+
+> +
+> +void ep93xx_swlocked_update_bits(struct regmap *map, unsigned int reg,
+> +				 unsigned int mask, unsigned int val)
+> +{
+> +	unsigned long flags;
+> +	unsigned int tmp, orig;
+> +
+> +	spin_lock_irqsave(&ep93xx_swlock, flags);
+> +
+> +	regmap_read(map, EP93XX_SYSCON_DEVCFG, &orig);
+> +	tmp = orig & ~mask;
+> +	tmp |= val & mask;
+> +	if (tmp != orig) {
+> +		regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK);
+> +		regmap_write(map, reg, tmp);
+> +	}
+> +
+> +	spin_unlock_irqrestore(&ep93xx_swlock, flags);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(ep93xx_swlocked_update_bits, EP93XX_SOC);
+
+No.
+
+
+> +
+> +unsigned int __init ep93xx_chip_revision(struct regmap *map)
+
+Why this is visible outside? This should be static.
+
+
+> +{
+> +	unsigned int val;
+> +
+> +	regmap_read(map, EP93XX_SYSCON_SYSCFG, &val);
+> +	val &= EP93XX_SYSCON_SYSCFG_REV_MASK;
+> +	val >>= EP93XX_SYSCON_SYSCFG_REV_SHIFT;
+> +	return val;
+> +}
+
+
+> +
+> +static const char __init *ep93xx_get_soc_rev(struct regmap *map)
+> +{
+> +	int rev = ep93xx_chip_revision(map);
+> +
+> +	switch (rev) {
+> +	case EP93XX_CHIP_REV_D0:
+> +		return "D0";
+> +	case EP93XX_CHIP_REV_D1:
+> +		return "D1";
+> +	case EP93XX_CHIP_REV_E0:
+> +		return "E0";
+> +	case EP93XX_CHIP_REV_E1:
+> +		return "E1";
+> +	case EP93XX_CHIP_REV_E2:
+> +		return "E2";
+> +	default:
+> +		return "unknown";
+> +	}
+> +}
+> +
+> +/*
+> + * PLL rate = 14.7456 MHz * (X1FBD + 1) * (X2FBD + 1) / (X2IPD + 1) / 2^PS
+> + */
+> +static unsigned long __init calc_pll_rate(u64 rate, u32 config_word)
+> +{
+> +	rate *= ((config_word >> 11) & GENMASK(4, 0)) + 1;	/* X1FBD */
+> +	rate *= ((config_word >> 5) & GENMASK(5, 0)) + 1;	/* X2FBD */
+> +	do_div(rate, (config_word & GENMASK(4, 0)) + 1);	/* X2IPD */
+> +	rate >>= ((config_word >> 16) & 3);			/* PS */
+> +
+> +	return rate;
+> +}
+> +
+> +static int __init ep93xx_soc_init(void)
+> +{
+> +	struct soc_device_attribute *attrs;
+> +	struct soc_device *soc_dev;
+> +	struct device_node *np;
+> +	struct regmap *map;
+> +	struct clk_hw *hw;
+> +	unsigned long clk_pll1_rate, clk_pll2_rate;
+> +	unsigned int clk_f_div, clk_h_div, clk_p_div, clk_usb_div;
+> +	const char fclk_divisors[] = { 1, 2, 4, 8, 16, 1, 1, 1 };
+> +	const char hclk_divisors[] = { 1, 2, 4, 5, 6, 8, 16, 32 };
+> +	const char pclk_divisors[] = { 1, 2, 4, 8 };
+> +	const char *machine = NULL;
+> +	u32 value;
+> +
+> +	/* Multiplatform guard, only proceed on ep93xx */
+> +	if (!of_machine_is_compatible("cirrus,ep9301"))
+> +		return 0;
+
+This should already be a warning sign for you...
+
+> +
+> +	map = syscon_regmap_lookup_by_compatible("cirrus,ep9301-syscon");
+> +	if (IS_ERR(map))
+> +		return PTR_ERR(map);
+
+No, not-reusable. Use devices and device nodes.
+
+> +
+> +	/* Determine the bootloader configured pll1 rate */
+> +	regmap_read(map, EP93XX_SYSCON_CLKSET1, &value);
+> +	if (!(value & EP93XX_SYSCON_CLKSET1_NBYP1))
+> +		clk_pll1_rate = EP93XX_EXT_CLK_RATE;
+> +	else
+> +		clk_pll1_rate = calc_pll_rate(EP93XX_EXT_CLK_RATE, value);
+> +
+> +	hw = clk_hw_register_fixed_rate(NULL, "pll1", "xtali", 0, clk_pll1_rate);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
+> +
+> +	/* Initialize the pll1 derived clocks */
+> +	clk_f_div = fclk_divisors[(value >> 25) & 0x7];
+> +	clk_h_div = hclk_divisors[(value >> 20) & 0x7];
+> +	clk_p_div = pclk_divisors[(value >> 18) & 0x3];
+> +
+> +	hw = clk_hw_register_fixed_factor(NULL, "fclk", "pll1", 0, 1, clk_f_div);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
+> +
+> +	hw = clk_hw_register_fixed_factor(NULL, "hclk", "pll1", 0, 1, clk_h_div);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
+> +
+> +	hw = clk_hw_register_fixed_factor(NULL, "pclk", "hclk", 0, 1, clk_p_div);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
+> +
+> +	/* Determine the bootloader configured pll2 rate */
+> +	regmap_read(map, EP93XX_SYSCON_CLKSET2, &value);
+> +	if (!(value & EP93XX_SYSCON_CLKSET2_NBYP2))
+> +		clk_pll2_rate = EP93XX_EXT_CLK_RATE;
+> +	else if (value & EP93XX_SYSCON_CLKSET2_PLL2_EN)
+> +		clk_pll2_rate = calc_pll_rate(EP93XX_EXT_CLK_RATE, value);
+> +	else
+> +		clk_pll2_rate = 0;
+> +
+> +	hw = clk_hw_register_fixed_rate(NULL, "pll2", "xtali", 0, clk_pll2_rate);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
+> +
+> +	regmap_read(map, EP93XX_SYSCON_CLKSET2, &value);
+> +	clk_usb_div = (((value >> 28) & GENMASK(3, 0)) + 1);
+> +	hw = clk_hw_register_fixed_factor(NULL, "usb_clk", "pll2", 0, 1, clk_usb_div);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
+> +
+> +	attrs = kzalloc(sizeof(*attrs), GFP_KERNEL);
+> +	if (!attrs)
+> +		return -ENOMEM;
+> +
+> +	np = of_find_node_by_path("/");
+> +	of_property_read_string(np, "model", &machine);
+> +	if (machine)
+> +		attrs->machine = kstrdup(machine, GFP_KERNEL);
+> +	of_node_put(np);
+> +
+> +	attrs->family = "Cirrus Logic EP93xx";
+> +	attrs->revision = ep93xx_get_soc_rev(map);
+> +
+> +	soc_dev = soc_device_register(attrs);
+> +	if (IS_ERR(soc_dev)) {
+> +		kfree(attrs->soc_id);
+> +		kfree(attrs->serial_number);
+> +		kfree(attrs);
+> +		return PTR_ERR(soc_dev);
+> +	}
+> +
+> +	pr_info("EP93xx SoC revision %s\n", attrs->revision);
+> +
+> +	return 0;
+> +}
+> +core_initcall(ep93xx_soc_init);
+
+That's not the way to add soc driver. You need a proper driver for it
 
 Best regards,
 Krzysztof

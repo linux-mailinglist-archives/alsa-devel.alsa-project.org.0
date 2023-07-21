@@ -2,84 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D81D75C0AF
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:02:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7FE475BF82
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 09:22:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C0811EF;
-	Fri, 21 Jul 2023 10:01:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C0811EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9BB01F7;
+	Fri, 21 Jul 2023 09:21:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9BB01F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689926547;
-	bh=B/wkicaUvd7cyO3AUH9zd+w0EAiPAvu9OUwEnEXC4cM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AktZE9Qj/3ntr08lARxdYyXxiSdkNGNv9LfqZevCf8FyVr0WGWZoSG2/1ekwa/21o
-	 jjCdObMzOxqFgX9D0AijMC65W2B1PjagbFXO4KhgTH+jBwGVrRVBgOripbYbvYnRMy
-	 BbPC1qLsmaIelJI40eBRgg/CPCuFljhvByaZPVRc=
+	s=default; t=1689924140;
+	bh=qL7QxbxFCaP4mZldKskbjYppg/qkhneHem+jWoW6wbY=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nRNdfiYrXpE5kbTEWvAU49vqqu3nYItrnEX7EBwh6zYxu91DMASe2GefyE2tGittc
+	 3PTpC11LdIzdg7cmt8fhC7AUKRR37XuTpBCAcBQ5X8MnBuwDOnLkib3LwrEzC2dMED
+	 Q9w/H5Ch/iAhD0joWfBAUgWMcqOGjT8YoYIL0zWU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A7D5F8027B; Fri, 21 Jul 2023 10:01:37 +0200 (CEST)
+	id 6EA61F80588; Fri, 21 Jul 2023 09:20:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D50A5F8032D;
-	Fri, 21 Jul 2023 10:01:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 281D2F80563;
+	Fri, 21 Jul 2023 09:20:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35675F8032D; Wed, 19 Jul 2023 17:54:46 +0200 (CEST)
+	id 0C7D9F8032D; Fri, 21 Jul 2023 09:17:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6A82F800D2;
-	Wed, 19 Jul 2023 17:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A82F800D2
-Message-ID: <a913df90-174c-7132-bbfa-bf30f0664d9c@linux.intel.com>
-Date: Wed, 19 Jul 2023 17:54:34 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4A3AF8007E
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 09:17:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4A3AF8007E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=ZQjZBNAn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=3zPZt7zv
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B68131FFDE;
+	Fri, 21 Jul 2023 07:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1689923827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=IUxv/KVtFCYVsCs/qDEXGCMMwfd55CTKjVbLFhIukf0=;
+	b=ZQjZBNAnJ4i6TqdDjBNIAhh61KyWji9zmh/F9ChUrHPvkAbzkstSUbOS43mBjDjYwQi4Gg
+	74KJRGd8rTcv83KO+BYKECPirf+y4xaEm6GvpWWJ0OR0hdKtlJkJ5YpIW34eniG80bWLn6
+	ewflh5+nQLoU6c/p9RW68zAXMfZeLA0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1689923827;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=IUxv/KVtFCYVsCs/qDEXGCMMwfd55CTKjVbLFhIukf0=;
+	b=3zPZt7zvpF1NUNcUHYnXRMBM7m5oH+XgK/gFYhgeF2rq3lrdSj71h/V7JhOXEiyXLgS4ja
+	fOEfslCnTebcDUCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 98DCA134B0;
+	Fri, 21 Jul 2023 07:17:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id emJBJPMwumRdLgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 21 Jul 2023 07:17:07 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/4] ALSA: Cleanup with snd_ctl_add_followers()
+Date: Fri, 21 Jul 2023 09:16:39 +0200
+Message-Id: <20230721071643.3631-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 3/7] ASoC: Intel: avs: Move snd_hdac_i915_init to before
- probe_work.
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
-References: <20230718084522.116952-1-maarten.lankhorst@linux.intel.com>
- <20230718084522.116952-4-maarten.lankhorst@linux.intel.com>
- <18fb40b9-f5b4-60d8-79df-e0719cf48231@intel.com>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <18fb40b9-f5b4-60d8-79df-e0719cf48231@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MailFrom: maarten.lankhorst@linux.intel.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: 43SXV2N3KWZBEASJ2CZOWE7LATR7YKZX
+X-Message-ID-Hash: 43SXV2N3KWZBEASJ2CZOWE7LATR7YKZX
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XRKF33OL6NTEBFTWPMT7Z5TTFA4EA6YW
-X-Message-ID-Hash: XRKF33OL6NTEBFTWPMT7Z5TTFA4EA6YW
-X-Mailman-Approved-At: Fri, 21 Jul 2023 08:01:33 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XRKF33OL6NTEBFTWPMT7Z5TTFA4EA6YW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/43SXV2N3KWZBEASJ2CZOWE7LATR7YKZX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,70 +111,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hey,
+This is another set of cleanup patches: introduce a new standard
+helper for adding vmaster control elements, and replace the open code
+in a few drivers with it.
 
-On 2023-07-19 17:26, Cezary Rojewski wrote:
-> On 2023-07-18 10:45 AM, Maarten Lankhorst wrote:
->> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
->> the snd_hdac_i915_init into a workqueue. It's likely the whole workqueue
->> can be destroyed, but I don't have the means to test this.
->>
->> Removing the workqueue would simplify init even further, but is left
->> as exercise for the reviewer.
->>
->> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> ---
->>   sound/soc/intel/avs/core.c | 13 +++++++++----
->>   1 file changed, 9 insertions(+), 4 deletions(-)
->>
->> diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
->> index 3311a6f142001..d3a7f42387e9b 100644
->> --- a/sound/soc/intel/avs/core.c
->> +++ b/sound/soc/intel/avs/core.c
->> @@ -191,10 +191,6 @@ static void avs_hda_probe_work(struct work_struct 
->> *work)
->>       pm_runtime_set_active(bus->dev); /* clear runtime_error flag */
->> -    ret = snd_hdac_i915_init(bus, true);
->> -    if (ret < 0)
->> -        dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
->> -
->>       snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
->>       avs_hdac_bus_init_chip(bus, true);
->>       avs_hdac_bus_probe_codecs(bus);
->> @@ -465,10 +461,19 @@ static int avs_pci_probe(struct pci_dev *pci, 
->> const struct pci_device_id *id)
->>       pci_set_drvdata(pci, bus);
->>       device_disable_async_suspend(dev);
->> +    ret = snd_hdac_i915_init(bus, false);
->> +    if (ret == -EPROBE_DEFER)
->> +        goto err_unmaster;
->> +    else if (ret < 0)
->> +        dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
->> +
-> 
-> While our tests are currently passing I have my doubts about 
-> EPROBE_DEFER. We do want to have audio functionality there even if some 
-> problems with HDMI arise along the way - some audio is better than no 
-> audio. Here, i915 may ruin the day for a platform equipped with 
-> hda/hdmi/i2c/dmic chips simultaneously.
-> 
-> Also, why call snd_hdac_i915_init() _after_ setting drvdata?
 
-I wanted to make the most cautious change. The previous flow called the 
-function immediately from probe_work, so I moved it to right before the 
-scheduling of probe_work
+Takashi
 
->>       schedule_work(&adev->probe_work);
->>       return 0;
->> +err_unmaster:
->> +    pci_clear_master(pci);
->> +    pci_set_drvdata(pci, NULL);
-> 
-> Not a fan. It's hard to grasp entire error-step within name of a single 
-> label. Thus I'd suggest "err_<cause>" naming pattern instead. Even here, 
-> under "unmaster" you hid clearing master and drvdata both. Let's do 
-> "err_i915_init" instead.
-> 
-Ok, will rename.
+===
 
-~Maarten
+v1->v2: Cleanup of ac97 patch to drop unnecessary check of the error
+        condition
+
+===
+
+Takashi Iwai (4):
+  ALSA: vmaster: Add snd_ctl_add_followers() helper
+  ALSA: ac97: Use the standard snd_ctl_add_followers() helper
+  ALSA: ca0106: Use the standard snd_ctl_add_followers() helper
+  ALSA: ice1712: Use the standard snd_ctl_add_followers() helper
+
+ include/sound/control.h         |  3 +++
+ sound/core/vmaster.c            | 28 ++++++++++++++++++++++++++++
+ sound/pci/ac97/ac97_patch.c     | 16 +---------------
+ sound/pci/ca0106/ca0106_mixer.c | 19 ++++++-------------
+ sound/pci/ice1712/juli.c        | 19 +++----------------
+ sound/pci/ice1712/quartet.c     | 15 +++------------
+ 6 files changed, 44 insertions(+), 56 deletions(-)
+
+-- 
+2.35.3
+

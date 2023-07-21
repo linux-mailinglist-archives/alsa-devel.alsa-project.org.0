@@ -2,86 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92E2775C8C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 16:00:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1898D75C9C1
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 16:23:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB3C91FE;
-	Fri, 21 Jul 2023 15:59:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB3C91FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CDEE1F7;
+	Fri, 21 Jul 2023 16:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CDEE1F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689948012;
-	bh=zqjR6hm055Hl9z3dKM2WeMRqxZN0OBDSyb3Rxgd4HGM=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1689949380;
+	bh=GXoU49u331ZCgqrK7scBm8Umfv/IALDjPgcyLcgvb4k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TmKoarM7+FovJmYX7pinL3mO9v/8nIwFMpxQpHoswJfIu9tGMKTDXS1Sh/r1wHlue
-	 wPPbCal8TFa51lJxs6js2qNtSn61dQ6feDQp5f9AEF+sX7Akx7gdf6Zt6sJBLLpC83
-	 ebYDop8fQqU/oHG7fTssTrtiSxQNe+7NdCE+RRzs=
+	b=ACvRNwNNUq7SU6rc0rxWYvcka5y8FMkVDJAdtPdqgMv0xp16c7IPY2qrJjamrgqd5
+	 EzhyDuZMvHqsE0Rkcj+xV2776MtKdEDOGuoeajSvg6vE3whru37hC1HCw6wSBsQzX7
+	 eQ7iJKY2X22JwAMLexAt3Non5iBQG4xnIqaM0jCc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ECC1CF80535; Fri, 21 Jul 2023 15:59:01 +0200 (CEST)
+	id 41CD7F80535; Fri, 21 Jul 2023 16:22:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F1BEF8032D;
-	Fri, 21 Jul 2023 15:59:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D4B1F8032D;
+	Fri, 21 Jul 2023 16:22:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD435F8047D; Fri, 21 Jul 2023 15:58:57 +0200 (CEST)
+	id 69E52F8047D; Fri, 21 Jul 2023 16:21:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=PDS_BAD_THREAD_QP_64,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5E777F8027B
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 15:58:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E777F8027B
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-27-tUZJkKfjPuSYNBamH4xjCA-1; Fri, 21 Jul 2023 14:58:54 +0100
-X-MC-Unique: tUZJkKfjPuSYNBamH4xjCA-1
-Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
- (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Fri, 21 Jul
- 2023 14:58:53 +0100
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.048; Fri, 21 Jul 2023 14:58:52 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Andy Shevchenko' <andriy.shevchenko@linux.intel.com>, Takashi Iwai
-	<tiwai@suse.de>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Jaroslav
- Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Dan Williams
-	<dan.j.williams@intel.com>
-Subject: RE: [PATCH v1 1/1] ALSA: korg1212: Re-use sockptr_t and respective
+	by alsa1.perex.cz (Postfix) with ESMTPS id ABBACF8007E
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 16:21:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABBACF8007E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=UUujr/pt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=OFnCMSO9
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B66AD21846;
+	Fri, 21 Jul 2023 14:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1689949311;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ysAjf4LaAMYK81D2vTaHAE6f/DlMCudpo3ZriX8GUwA=;
+	b=UUujr/pt9EUeSV0flxzGlho75ibuqAHQ5eyLqBuvPQu+buTyk9lVNB4Cmv6neDEZ+Q55po
+	VPqib/jyIWoXbNwdi3Vo1hDmWF26yzcTg+sVjVMUOcZn2gkvQbVBLfgehymq3/aL3DMzqg
+	DZTYmhgA0iZ38CRqI9DWd+Tqfe+oPRE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1689949311;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ysAjf4LaAMYK81D2vTaHAE6f/DlMCudpo3ZriX8GUwA=;
+	b=OFnCMSO95Dml0FqzVI/VLkaZkkbmwKijXB4em4Y2GimQYV3QHr3iQZwKzUytxHGozsJG/C
+	59a/j1JTozvD8NBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 86D37134BA;
+	Fri, 21 Jul 2023 14:21:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id EpQEIH+UumRWCgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 21 Jul 2023 14:21:51 +0000
+Date: Fri, 21 Jul 2023 16:21:51 +0200
+Message-ID: <875y6dfips.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [PATCH v1 1/1] ALSA: korg1212: Re-use sockptr_t and respective
  APIs
-Thread-Topic: [PATCH v1 1/1] ALSA: korg1212: Re-use sockptr_t and respective
- APIs
-Thread-Index: AQHZu8ALiLW3NE9rpEyBJunRSGnWfK/EPjVA
-Date: Fri, 21 Jul 2023 13:58:52 +0000
-Message-ID: <b8e6f7ae1e684f85902cb3a787436bd9@AcuMS.aculab.com>
+In-Reply-To: <ZLqA3f8tdqxzZn/k@smile.fi.intel.com>
 References: <20230721100146.67293-1-andriy.shevchenko@linux.intel.com>
- <878rb9h901.wl-tiwai@suse.de> <ZLphAJG4Tz8zLUSN@smile.fi.intel.com>
-In-Reply-To: <ZLphAJG4Tz8zLUSN@smile.fi.intel.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: AXR3FSKPZ4CNVWGUFUGDJQJLG5KAGWJ6
-X-Message-ID-Hash: AXR3FSKPZ4CNVWGUFUGDJQJLG5KAGWJ6
-X-MailFrom: david.laight@aculab.com
+	<878rb9h901.wl-tiwai@suse.de>
+	<ZLphAJG4Tz8zLUSN@smile.fi.intel.com>
+	<87y1j9fs55.wl-tiwai@suse.de>
+	<ZLqA3f8tdqxzZn/k@smile.fi.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: MFULSWVBPBJZRFAPNJBXTMDBHJL3QKDV
+X-Message-ID-Hash: MFULSWVBPBJZRFAPNJBXTMDBHJL3QKDV
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXR3FSKPZ4CNVWGUFUGDJQJLG5KAGWJ6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MFULSWVBPBJZRFAPNJBXTMDBHJL3QKDV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,43 +125,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Andy Shevchenko
-> Sent: 21 July 2023 11:42
->=20
-> On Fri, Jul 21, 2023 at 12:08:46PM +0200, Takashi Iwai wrote:
-> > On Fri, 21 Jul 2023 12:01:46 +0200,
+On Fri, 21 Jul 2023 14:58:05 +0200,
+Andy Shevchenko wrote:
+> 
+> On Fri, Jul 21, 2023 at 12:58:14PM +0200, Takashi Iwai wrote:
+> > On Fri, 21 Jul 2023 12:42:08 +0200,
 > > Andy Shevchenko wrote:
-> > >
-> > > The sockptr_t (despite the naming) is a generic type to hold kernel
-> > > or user pointer and there are respective APIs to copy data to or
-> > > from it. Replace open coded variants in the driver by them.
-> >
-> > While I see the benefit, I feel this is very confusing.  If we use the
-> > API for a generic use, it should be renamed at first.
-> >
-> > Also, the current function actually follows the call pattern, and we
-> > know in the caller side whether it's called for a kernel pointer or a
-> > user pointer.  So, if any, the PCM core callbacks should be revised to
-> > use a generic pointer instead of fiddling in each driver side.
->=20
-> Any suggestion for the name?
-> And I believe for the bigger series the new callback should be added firs=
-t.
+> > > On Fri, Jul 21, 2023 at 12:08:46PM +0200, Takashi Iwai wrote:
+> > > > On Fri, 21 Jul 2023 12:01:46 +0200,
+> > > > Andy Shevchenko wrote:
+> 
+> ...
+> 
+> > > > While I see the benefit, I feel this is very confusing.  If we use the
+> > > > API for a generic use, it should be renamed at first.
+> 
+> > > Any suggestion for the name?
+> > 
+> > It's a universal pointer...  uniptr_t?
+> > Or a generic pointer, genptr_t?
+> > 
+> > I'm not good at naming, and I'm open for it.
+> 
+> It seems it's already spread enough with this name, I would rather stick with
+> it for now (besides net it's used in crypto, nvme, and security).
+> 
+> The (new) callback though makes a lot of sense on its own.
 
-It would also be better to replace the current sockptr_t with
-a structure that contains separate user and kernel addresses
-(instead of a union of the pointer types and a flag).
+OK, fair enough.
 
-The size of the structure wouldn't change and the code might
-even come out better.
+> What do you think?
 
-There is also scope for adding a length and passing the structure
-by reference instead of by value.
+Yes, we can go with it.
 
-=09David
+Basically we need to add a new "copy" callback to take sockptr_t and
+use it instead of the old "copy_kernel" and "copy_user" callbacks.
+It's used only in sound/core/pcm_lib.c, so it shouldn't be too
+difficult, I suppose.
+Then replace the defined callbacks in each driver, and finally
+deprecate old callbacks.
 
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
 
+thanks,
+
+Takashi

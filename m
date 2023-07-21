@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE6CD75C852
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 15:51:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98C2A75C89D
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 15:57:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AE8D1F4;
-	Fri, 21 Jul 2023 15:50:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AE8D1F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B55FA1FC;
+	Fri, 21 Jul 2023 15:56:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B55FA1FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689947472;
-	bh=YsQzXX3Iw4UgmsXP3jpsMX5rLlr+D3/qJOyXveoe34g=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=NIQ66HcAsewoCl+GamxqXkn75gY18la7vVcFg0WVUX0hrq6WX+airEkZxUYNzruqW
-	 FHvSpQsVGDRubHZq548LKp0/FqJx85GI5f5gHygsRUjPMpsmyFL/OscVruCDwRVywD
-	 JgpRSEMvwsfemDQiTBznZ++FP4aiMsQoG1l6i0aY=
+	s=default; t=1689947830;
+	bh=3MSckVn5qsO7bfLBe8ow7Ordiut8gzU7sy2GOa487Lo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=PHty8/57JDhRNOq8rtuzM13YrwWq8sCanC5KWU+5HgfizBH/uWUjApjNE7KtMEErh
+	 NaDQZFs8371GSidFlLIvmRv0R2NMBP9eWBlIotjybHXPWWO2sds4LX9eN0d7UvDxiC
+	 +QWq5X6ZGeZh5B8/UdXSo7cWKoAuVOTZe1TSNhRs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 674D9F8032D; Fri, 21 Jul 2023 15:50:21 +0200 (CEST)
+	id D7316F8027B; Fri, 21 Jul 2023 15:56:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3337F8032D;
-	Fri, 21 Jul 2023 15:50:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52E6EF8032D;
+	Fri, 21 Jul 2023 15:56:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B89A7F8047D; Fri, 21 Jul 2023 15:50:16 +0200 (CEST)
+	id 6E8CAF804DA; Fri, 21 Jul 2023 15:56:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3D70F8027B
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 15:50:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D70F8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 334DEF8027B
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 15:56:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 334DEF8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=fwELfVEu
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3844E61B23;
-	Fri, 21 Jul 2023 13:50:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93751C433C7;
-	Fri, 21 Jul 2023 13:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689947409;
-	bh=YsQzXX3Iw4UgmsXP3jpsMX5rLlr+D3/qJOyXveoe34g=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=fwELfVEuxyxClMKPH1dG7QgyZxtfj91aX+6/L5bchj2GmldVYbN7x7mFpfswsmShj
-	 jXbi4PsTBDpp2UbuIDZI/xBC0sdllU5uRJFYYfCcC+285Kf3z1cdQjvK0+JqFd/Ahn
-	 QUvNmLq31RY5dXM2FyKlujUvMS8D0HWyU3gg1F5RQWZzJGGbXrf+GaPwDUTpRz3oHX
-	 OmSJSWrYyu3XEe9zKqo76zZQAUla4vtc94XOqv+nx+7EMxKS/P4y0dfZYO+8JKrm2d
-	 RwMtd46frJAfAzBxmGCexFAbsuVESE37SUTG/jsiXFc531gNZSygD7T2dRc2BWJcmC
-	 N+p9pM/GFhmlQ==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1689927842-21165-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1689927842-21165-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: wm8960: Add DAC filter characteristics
- selection
-Message-Id: <168994740616.98802.14306640760170381648.b4-ty@kernel.org>
-Date: Fri, 21 Jul 2023 14:50:06 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=kSamCIr+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689947772; x=1721483772;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=3MSckVn5qsO7bfLBe8ow7Ordiut8gzU7sy2GOa487Lo=;
+  b=kSamCIr+6Jxe1hNqk62MZk7JDyONvJphhAYXfa6X+zJ+F67rcyiyppjz
+   lnwe+DY9344MwNsNXl0KeXQ46R+4aQfa5QANzIQffOeKUNezfX8n53ahS
+   OdEgs14b8Kt9JcFxaYEdLy2awkjkla5n4YEODFLe7IzjQoBYeYK7ir3LN
+   Yl1gKvlojm9PqznZiXq1Xs02/+3FY8EghoWiPLAZGLPQndDlMSo96pGGF
+   mbX90ELgXMvovqY6l7WkUEzemS6wYkwgzNP/vWlo/0cno+7nvAo5C9hbf
+   KoYE69rNTMmOAnWubuBFTU5EfP8rDwTdNGxn7QC+bNv1vGcQXr484nA5j
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="370630876"
+X-IronPort-AV: E=Sophos;i="6.01,220,1684825200";
+   d="scan'208";a="370630876"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 06:56:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="724877891"
+X-IronPort-AV: E=Sophos;i="6.01,220,1684825200";
+   d="scan'208";a="724877891"
+Received: from dhardfel-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.223.78])
+  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 06:56:05 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: kai.vehmanen@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	alsa-devel@alsa-project.org
+Subject: [PATCH 0/2] ALSA: hda/hdmi: Add Intel Lunar Lake support
+Date: Fri, 21 Jul 2023 16:57:20 +0300
+Message-ID: <20230721135722.31288-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: YOIRTQREIBTWUTAPMUCEVAFDQSXQIVNJ
-X-Message-ID-Hash: YOIRTQREIBTWUTAPMUCEVAFDQSXQIVNJ
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MJPXQH27OUE44YP7TY24JTQBPDUQTNGZ
+X-Message-ID-Hash: MJPXQH27OUE44YP7TY24JTQBPDUQTNGZ
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOIRTQREIBTWUTAPMUCEVAFDQSXQIVNJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJPXQH27OUE44YP7TY24JTQBPDUQTNGZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,38 +104,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 21 Jul 2023 16:24:02 +0800, Shengjiu Wang wrote:
-> Support DAC filter characteristics selection: Normal mode
-> and Sloping stopband. Sloping stopband may have
-> better frequency response.
-> 
-> 
+Hi,
 
-Applied to
+after fixing the ordering, add the HDMI codec ID for LNL
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Regards,
+Peter
+---
+Kai Vehmanen (2):
+  ALSA: hda/hdmi: keep codec entries in numerical order
+  ALSA: hda: add HDMI codec ID for Intel LNL
 
-Thanks!
+ sound/pci/hda/patch_hdmi.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-[1/1] ASoC: wm8960: Add DAC filter characteristics selection
-      commit: 8cf2e3b1961e59dabc75e9e917d58439164a8f84
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.41.0
 

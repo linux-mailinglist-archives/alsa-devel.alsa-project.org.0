@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79B0775DDA1
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jul 2023 19:10:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D1FA75DDA2
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jul 2023 19:10:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE7AC7F4;
-	Sat, 22 Jul 2023 19:09:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE7AC7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84FF31D9;
+	Sat, 22 Jul 2023 19:09:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84FF31D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690045811;
-	bh=tv6F0l9imbUYWe4XOjxkKdPC/V51E5Aacb2AhEaUldg=;
+	s=default; t=1690045823;
+	bh=7dziFjCtztxNjCNE813qmiRCOaFOcSiZTpR/1AZBP/E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ne0+z8g8nPyTNuvzywbFeH+zT0o8oGHRCUCkshkXzPRxThHWb5mTSpwPu3nzhihzY
-	 y8wFQ2D58RjX+iV5xFfavqiEkxzDtnRva90onohFJhVQTH1gwLrt+KzLBwb2gHy4UA
-	 74wKhOXawS/t+Bbsgc3OadiL/GC6dcyMJPhVhYX8=
+	b=D6xYLOqHCjoGqR2KV+2UnZSu+rakUEVTU0TN6YVMoSbC733VRjxAa1xMDZatyL3MH
+	 WdGWnSRk+BGA0MQyFgSUs2fWhmSy57dKD0e5l4Aw/qKHXk3G7Dgnv4JPol2pBalMqc
+	 efTklFkDyl+C5qDMEoKnPJ0QYUaNLhLpgUs+76bQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1517F80606; Sat, 22 Jul 2023 19:05:58 +0200 (CEST)
+	id 729E1F80608; Sat, 22 Jul 2023 19:06:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56A6AF80600;
-	Sat, 22 Jul 2023 19:05:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7BA9F80609;
+	Sat, 22 Jul 2023 19:06:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7F8DF8053B; Fri, 21 Jul 2023 16:22:53 +0200 (CEST)
+	id 9FE46F8047D; Fri, 21 Jul 2023 16:25:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AE1BFF8007E
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 16:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE1BFF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE39EF8007E
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 16:25:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE39EF8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=xRkeCtCO
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-3fb4146e8ceso17105125e9.0
+ header.s=google header.b=qIJ3m7pu
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-3fbef8ad9bbso17815565e9.0
         for <alsa-devel@alsa-project.org>;
- Fri, 21 Jul 2023 07:22:45 -0700 (PDT)
+ Fri, 21 Jul 2023 07:25:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1689949364; x=1690554164;
+        d=linaro.org; s=google; t=1689949510; x=1690554310;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VDX19vDEIXyu3IFb94kHKgIM7QuqKWcHAhwogKCp3HA=;
-        b=xRkeCtCOHRy6PlqUYvtoT21Emi/YIis3tpnx2n/9B8tsJb7DUOmRf+4YdlSTo4YmHL
-         8Be2Yd9uvZL+FsIPLjGTeuz1LhYRJ2LmTUYtGe1cPUj/+2l+fFrp6z94IMje8ZH5nnKJ
-         0oR4ie8KwSA7ItvHO8Q8isNQlqBFXRaMHxzhwAa7BEUztIHMjsgDc/GkSGYloFdAfdR/
-         aE4EIESoy8zMrcnZaGGmbCkfr64ffZcxJkLS+JeepwSHs5PdC0zcrspU6EkyteqYzBFY
-         HhzUHmfO4DNRF8jlHt3i1k0Rg153t74cc1c1qw/SwbmX+VvSe8s6GAYTD/gyaO2i1BJv
-         QH/w==
+        bh=nsB9IpIa7yRoJhopQrOjvBc0s3b3yy++co3a2B1PcYw=;
+        b=qIJ3m7pumTVMjEg+kn7UzsmtHcvDLZMe1tywd8h4kIEFsV1IUMrLWSP7L1Gefi6ja3
+         JBnA+rcRqypgsH7goHOUSHZMKZ550EJ6VKVD5dUqYgKEkPNc0iL/P3ucMWjqHbEFD/T0
+         wpz6/3MqeieB5gRPCUiu4XZk3Zcu+o+NiGcka0anh/l9hHDrOL+VgYR/KE3ZF2zZOnUD
+         MAb1XtMCn/3lpC4gapmNe+wJJXmYQVNJ5+2pOFPrvODAU/4zuO7v13RiM6wLSxsILcjv
+         9HuP4O5p+Mpx4YbyqytkaZCphFp9jaYoEi2g4JOc8CmYsngHzwdRUEDe9eA+ql9xnfQE
+         Ybww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689949364; x=1690554164;
+        d=1e100.net; s=20221208; t=1689949510; x=1690554310;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VDX19vDEIXyu3IFb94kHKgIM7QuqKWcHAhwogKCp3HA=;
-        b=Ky2nFD3TF/2QA7OYxktlNleKu3SYuHbmlYrBRreiAK0cEQXQ8PHKqeLeAqzOp9XJ1R
-         6CdCiLM1m4JVfQ5NGqEf7r/FqyloMOwEymLooxO1nSkf+EsjyIghTqH/vhXd09Y5DIV7
-         0kp7k4+QlhYYIyk3Vc8b0QT+0SAlUDoYr7t4GxuXMCSx3+seGQ8Bff1NjRpAszFDnOOB
-         U0fLFwsXQa9/+di6UVOfT8dAmZDdLElp9Y8/l5psvmM5sFbeYL6dUK7dyzg4bUOYEHzD
-         ia/4CRJ4KxYBOkbHwlY/wEBt36RSVPWXgQ3x3rB2udruzoQIiwiBEMbTUUrJWsEzsr6o
-         eGwg==
-X-Gm-Message-State: ABy/qLZQBvRhA7FAWBJ8AFenMLEF9xExxIYYTK1vuysA1JUrucfeXvFg
-	iViu3XjkIsANRb3o5y5y+XgwDw==
+        bh=nsB9IpIa7yRoJhopQrOjvBc0s3b3yy++co3a2B1PcYw=;
+        b=fUFeQjFQWC58Ctlqo0BcaG0tuImy+LSfiymW1OeBIlxvl4JaCoxg1Qn+8uoZ1thyCn
+         vmQNWl4rd3ZQMkuzG4751WewESa27twyWnAj8wboy0Tb94BAG5hUjyNKOpjGW5tcl2Y3
+         thDz93fQ4/onUDi+2DDGY0JvB1x6yYbxwnH0LmQK0zEi4Ra3vlUZFb+WidJxYFG9W3Je
+         cryuo1Vi07rnxzjrY+XD+81T4+PRUsY6W5TpCI3X5P/Tn2eZI5CaK0o7hdKfjlmHSfht
+         qbsBiGEbwQa+Rkg0MQsD5qFzgm6fLBjh/jMxhBNFmXyJsW8D3P7gnXyQIMMz/guuzu95
+         2smw==
+X-Gm-Message-State: ABy/qLY1WInNslY6/M8Uf9ttng7/c6C25HfZ4lZvScVeirKF79nGTGg5
+	vyrg7sBtbShRb/2s7azOEH6wQg==
 X-Google-Smtp-Source: 
- APBJJlH7uQOeBsgKWGvO5Rmly7OItltRcCFNbXEVqWnWKB44qAlI8c74MMOCZZ4OQhY6Wj7y/LID/Q==
-X-Received: by 2002:a1c:7518:0:b0:3fc:85c:5ef7 with SMTP id
- o24-20020a1c7518000000b003fc085c5ef7mr1575647wmc.22.1689949363637;
-        Fri, 21 Jul 2023 07:22:43 -0700 (PDT)
+ APBJJlHgaQ/Hte4XJbr1gx4ukptPaEvJZwQtCDry0efXozCJTjG5+/5hX3FKNFwXVDpSO/L62wwYsQ==
+X-Received: by 2002:a1c:4b0e:0:b0:3fb:a576:3212 with SMTP id
+ y14-20020a1c4b0e000000b003fba5763212mr1443887wma.39.1689949509998;
+        Fri, 21 Jul 2023 07:25:09 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.104])
         by smtp.gmail.com with ESMTPSA id
- f12-20020a7bcc0c000000b003fc0062f0f8sm3513929wmh.9.2023.07.21.07.22.36
+ q9-20020adff789000000b003142439c7bcsm4349281wrp.80.2023.07.21.07.25.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Jul 2023 07:22:42 -0700 (PDT)
-Message-ID: <0ec81b89-4d4c-4e13-5ea0-697f5c0af835@linaro.org>
-Date: Fri, 21 Jul 2023 16:22:35 +0200
+        Fri, 21 Jul 2023 07:25:09 -0700 (PDT)
+Message-ID: <4313820e-9ddf-0a34-0cca-e356a4314c61@linaro.org>
+Date: Fri, 21 Jul 2023 16:25:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH v3 07/42] soc: Add SoC driver for Cirrus ep93xx
+Subject: Re: [PATCH v3 00/42] ep93xx device tree conversion
 Content-Language: en-US
 To: nikita.shubin@maquefel.me, Hartley Sweeten
  <hsweeten@visionengravers.com>, Lennert Buytenhek <kernel@wantstofly.org>,
@@ -126,11 +126,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-pwm@vger.kernel.org, linux-spi@vger.kernel.org,
  netdev@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-ide@vger.kernel.org,
- linux-input@vger.kernel.org, alsa-devel@alsa-project.org
+ linux-input@vger.kernel.org, alsa-devel@alsa-project.org,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Andrew Lunn <andrew@lunn.ch>
 References: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
- <20230605-ep93xx-v3-7-3d63a5f1103e@maquefel.me>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230605-ep93xx-v3-7-3d63a5f1103e@maquefel.me>
+In-Reply-To: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-MailFrom: krzysztof.kozlowski@linaro.org
@@ -141,15 +141,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: 2CYTJIOPBUQ7GBXGF5CFE3FW6Y5USZ6C
-X-Message-ID-Hash: 2CYTJIOPBUQ7GBXGF5CFE3FW6Y5USZ6C
+Message-ID-Hash: K42CF5JV5YVADHESQYSOZHSBZDWXOPYY
+X-Message-ID-Hash: K42CF5JV5YVADHESQYSOZHSBZDWXOPYY
 X-Mailman-Approved-At: Sat, 22 Jul 2023 17:04:41 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CYTJIOPBUQ7GBXGF5CFE3FW6Y5USZ6C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K42CF5JV5YVADHESQYSOZHSBZDWXOPYY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,345 +159,16 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 20/07/2023 13:29, Nikita Shubin via B4 Relay wrote:
-> From: Nikita Shubin <nikita.shubin@maquefel.me>
+> This series aims to convert ep93xx from platform to full device tree support.
 > 
-> This adds an SoC driver for the ep93xx. Currently there
-> is only one thing not fitting into any other framework,
-> and that is the swlock setting.
+> The main goal is to receive ACK's to take it via Arnd's arm-soc branch.
 > 
-> It's used for clock settings and restart.
-> 
-> Signed-off-by: Nikita Shubin <nikita.shubin@maquefel.me>
-> Tested-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-> Acked-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-> ---
->  drivers/soc/Kconfig               |   1 +
->  drivers/soc/Makefile              |   1 +
->  drivers/soc/cirrus/Kconfig        |  12 ++
->  drivers/soc/cirrus/Makefile       |   2 +
->  drivers/soc/cirrus/soc-ep93xx.c   | 231 ++++++++++++++++++++++++++++++++++++++
->  include/linux/soc/cirrus/ep93xx.h |  18 ++-
->  6 files changed, 264 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-> index 4e176280113a..16327b63b773 100644
-> --- a/drivers/soc/Kconfig
-> +++ b/drivers/soc/Kconfig
-> @@ -8,6 +8,7 @@ source "drivers/soc/aspeed/Kconfig"
->  source "drivers/soc/atmel/Kconfig"
->  source "drivers/soc/bcm/Kconfig"
->  source "drivers/soc/canaan/Kconfig"
-> +source "drivers/soc/cirrus/Kconfig"
->  source "drivers/soc/fsl/Kconfig"
->  source "drivers/soc/fujitsu/Kconfig"
->  source "drivers/soc/imx/Kconfig"
-> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-> index 3b0f9fb3b5c8..b76a03fe808e 100644
-> --- a/drivers/soc/Makefile
-> +++ b/drivers/soc/Makefile
-> @@ -9,6 +9,7 @@ obj-y				+= aspeed/
->  obj-$(CONFIG_ARCH_AT91)		+= atmel/
->  obj-y				+= bcm/
->  obj-$(CONFIG_SOC_CANAAN)	+= canaan/
-> +obj-$(CONFIG_EP93XX_SOC)        += cirrus/
->  obj-$(CONFIG_ARCH_DOVE)		+= dove/
->  obj-$(CONFIG_MACH_DOVE)		+= dove/
->  obj-y				+= fsl/
-> diff --git a/drivers/soc/cirrus/Kconfig b/drivers/soc/cirrus/Kconfig
-> new file mode 100644
-> index 000000000000..408f3343a265
-> --- /dev/null
-> +++ b/drivers/soc/cirrus/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +if ARCH_EP93XX
-> +
-> +config EP93XX_SOC
-> +	bool "Cirrus EP93xx chips SoC"
-> +	select SOC_BUS
-> +	default y if !EP93XX_SOC_COMMON
-> +	help
-> +	  Support SoC for Cirrus EP93xx chips.
-> +
-> +endif
-> diff --git a/drivers/soc/cirrus/Makefile b/drivers/soc/cirrus/Makefile
-> new file mode 100644
-> index 000000000000..ed6752844c6f
-> --- /dev/null
-> +++ b/drivers/soc/cirrus/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +obj-y	+= soc-ep93xx.o
-> diff --git a/drivers/soc/cirrus/soc-ep93xx.c b/drivers/soc/cirrus/soc-ep93xx.c
-> new file mode 100644
-> index 000000000000..2fd48d900f24
-> --- /dev/null
-> +++ b/drivers/soc/cirrus/soc-ep93xx.c
-> @@ -0,0 +1,231 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * SoC driver for Cirrus EP93xx chips.
-> + * Copyright (C) 2022 Nikita Shubin <nikita.shubin@maquefel.me>
-> + *
-> + * Based on a rewrite of arch/arm/mach-ep93xx/core.c
-> + * Copyright (C) 2006 Lennert Buytenhek <buytenh@wantstofly.org>
-> + * Copyright (C) 2007 Herbert Valerio Riedel <hvr@gnu.org>
-> + *
-> + * Thanks go to Michael Burian and Ray Lehtiniemi for their key
-> + * role in the ep93xx Linux community
-> + */
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/of.h>
-> +#include <linux/regmap.h>
-> +#include <linux/slab.h>
-> +#include <linux/sys_soc.h>
-> +#include <linux/soc/cirrus/ep93xx.h>
-> +
-> +#define EP93XX_EXT_CLK_RATE		14745600
-> +
-> +#define EP93XX_SYSCON_DEVCFG		0x80
-> +
-> +#define EP93XX_SWLOCK_MAGICK		0xaa
-> +#define EP93XX_SYSCON_SWLOCK		0xc0
-> +#define EP93XX_SYSCON_SYSCFG		0x9c
-> +#define EP93XX_SYSCON_SYSCFG_REV_MASK	0xf0000000
-> +#define EP93XX_SYSCON_SYSCFG_REV_SHIFT	28
-> +
-> +#define EP93XX_SYSCON_CLKSET1		0x20
-> +#define EP93XX_SYSCON_CLKSET1_NBYP1	BIT(23)
-> +#define EP93XX_SYSCON_CLKSET2		0x24
-> +#define EP93XX_SYSCON_CLKSET2_NBYP2	BIT(19)
-> +#define EP93XX_SYSCON_CLKSET2_PLL2_EN	BIT(18)
-> +
-> +static DEFINE_SPINLOCK(ep93xx_swlock);
-> +
-> +/* EP93xx System Controller software locked register write */
-> +void ep93xx_syscon_swlocked_write(struct regmap *map, unsigned int reg, unsigned int val)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&ep93xx_swlock, flags);
-> +
-> +	regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK);
-> +	regmap_write(map, reg, val);
-> +
-> +	spin_unlock_irqrestore(&ep93xx_swlock, flags);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ep93xx_syscon_swlocked_write, EP93XX_SOC);
 
-I doubt that your code compiles. Didn't you add a user of this in some
-earlier patch?
+This approach makes patchset trickier to review with absolutely huge
+Cc-list and inter-dependencies. I don't think this is correct approach.
+This should be split per subsystem whenever possible.
 
-Anyway, no, drop it, don't export some weird calls from core initcall to
-drivers. You violate layering and driver encapsulation. There is no
-dependency/probe ordering.
-
-There is no even need for this, because this code does not use it!
-
-> +
-> +void ep93xx_devcfg_set_clear(struct regmap *map, unsigned int set_bits, unsigned int clear_bits)
-> +{
-> +	unsigned long flags;
-> +	unsigned int val;
-> +
-> +	spin_lock_irqsave(&ep93xx_swlock, flags);
-> +
-> +	regmap_read(map, EP93XX_SYSCON_DEVCFG, &val);
-> +	val &= ~clear_bits;
-> +	val |= set_bits;
-> +	regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK);
-> +	regmap_write(map, EP93XX_SYSCON_DEVCFG, val);
-> +
-> +	spin_unlock_irqrestore(&ep93xx_swlock, flags);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ep93xx_devcfg_set_clear, EP93XX_SOC);
-
-No.
-
-> +
-> +void ep93xx_swlocked_update_bits(struct regmap *map, unsigned int reg,
-> +				 unsigned int mask, unsigned int val)
-> +{
-> +	unsigned long flags;
-> +	unsigned int tmp, orig;
-> +
-> +	spin_lock_irqsave(&ep93xx_swlock, flags);
-> +
-> +	regmap_read(map, EP93XX_SYSCON_DEVCFG, &orig);
-> +	tmp = orig & ~mask;
-> +	tmp |= val & mask;
-> +	if (tmp != orig) {
-> +		regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK);
-> +		regmap_write(map, reg, tmp);
-> +	}
-> +
-> +	spin_unlock_irqrestore(&ep93xx_swlock, flags);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ep93xx_swlocked_update_bits, EP93XX_SOC);
-
-No.
-
-
-> +
-> +unsigned int __init ep93xx_chip_revision(struct regmap *map)
-
-Why this is visible outside? This should be static.
-
-
-> +{
-> +	unsigned int val;
-> +
-> +	regmap_read(map, EP93XX_SYSCON_SYSCFG, &val);
-> +	val &= EP93XX_SYSCON_SYSCFG_REV_MASK;
-> +	val >>= EP93XX_SYSCON_SYSCFG_REV_SHIFT;
-> +	return val;
-> +}
-
-
-> +
-> +static const char __init *ep93xx_get_soc_rev(struct regmap *map)
-> +{
-> +	int rev = ep93xx_chip_revision(map);
-> +
-> +	switch (rev) {
-> +	case EP93XX_CHIP_REV_D0:
-> +		return "D0";
-> +	case EP93XX_CHIP_REV_D1:
-> +		return "D1";
-> +	case EP93XX_CHIP_REV_E0:
-> +		return "E0";
-> +	case EP93XX_CHIP_REV_E1:
-> +		return "E1";
-> +	case EP93XX_CHIP_REV_E2:
-> +		return "E2";
-> +	default:
-> +		return "unknown";
-> +	}
-> +}
-> +
-> +/*
-> + * PLL rate = 14.7456 MHz * (X1FBD + 1) * (X2FBD + 1) / (X2IPD + 1) / 2^PS
-> + */
-> +static unsigned long __init calc_pll_rate(u64 rate, u32 config_word)
-> +{
-> +	rate *= ((config_word >> 11) & GENMASK(4, 0)) + 1;	/* X1FBD */
-> +	rate *= ((config_word >> 5) & GENMASK(5, 0)) + 1;	/* X2FBD */
-> +	do_div(rate, (config_word & GENMASK(4, 0)) + 1);	/* X2IPD */
-> +	rate >>= ((config_word >> 16) & 3);			/* PS */
-> +
-> +	return rate;
-> +}
-> +
-> +static int __init ep93xx_soc_init(void)
-> +{
-> +	struct soc_device_attribute *attrs;
-> +	struct soc_device *soc_dev;
-> +	struct device_node *np;
-> +	struct regmap *map;
-> +	struct clk_hw *hw;
-> +	unsigned long clk_pll1_rate, clk_pll2_rate;
-> +	unsigned int clk_f_div, clk_h_div, clk_p_div, clk_usb_div;
-> +	const char fclk_divisors[] = { 1, 2, 4, 8, 16, 1, 1, 1 };
-> +	const char hclk_divisors[] = { 1, 2, 4, 5, 6, 8, 16, 32 };
-> +	const char pclk_divisors[] = { 1, 2, 4, 8 };
-> +	const char *machine = NULL;
-> +	u32 value;
-> +
-> +	/* Multiplatform guard, only proceed on ep93xx */
-> +	if (!of_machine_is_compatible("cirrus,ep9301"))
-> +		return 0;
-
-This should already be a warning sign for you...
-
-> +
-> +	map = syscon_regmap_lookup_by_compatible("cirrus,ep9301-syscon");
-> +	if (IS_ERR(map))
-> +		return PTR_ERR(map);
-
-No, not-reusable. Use devices and device nodes.
-
-> +
-> +	/* Determine the bootloader configured pll1 rate */
-> +	regmap_read(map, EP93XX_SYSCON_CLKSET1, &value);
-> +	if (!(value & EP93XX_SYSCON_CLKSET1_NBYP1))
-> +		clk_pll1_rate = EP93XX_EXT_CLK_RATE;
-> +	else
-> +		clk_pll1_rate = calc_pll_rate(EP93XX_EXT_CLK_RATE, value);
-> +
-> +	hw = clk_hw_register_fixed_rate(NULL, "pll1", "xtali", 0, clk_pll1_rate);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	/* Initialize the pll1 derived clocks */
-> +	clk_f_div = fclk_divisors[(value >> 25) & 0x7];
-> +	clk_h_div = hclk_divisors[(value >> 20) & 0x7];
-> +	clk_p_div = pclk_divisors[(value >> 18) & 0x3];
-> +
-> +	hw = clk_hw_register_fixed_factor(NULL, "fclk", "pll1", 0, 1, clk_f_div);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	hw = clk_hw_register_fixed_factor(NULL, "hclk", "pll1", 0, 1, clk_h_div);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	hw = clk_hw_register_fixed_factor(NULL, "pclk", "hclk", 0, 1, clk_p_div);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	/* Determine the bootloader configured pll2 rate */
-> +	regmap_read(map, EP93XX_SYSCON_CLKSET2, &value);
-> +	if (!(value & EP93XX_SYSCON_CLKSET2_NBYP2))
-> +		clk_pll2_rate = EP93XX_EXT_CLK_RATE;
-> +	else if (value & EP93XX_SYSCON_CLKSET2_PLL2_EN)
-> +		clk_pll2_rate = calc_pll_rate(EP93XX_EXT_CLK_RATE, value);
-> +	else
-> +		clk_pll2_rate = 0;
-> +
-> +	hw = clk_hw_register_fixed_rate(NULL, "pll2", "xtali", 0, clk_pll2_rate);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	regmap_read(map, EP93XX_SYSCON_CLKSET2, &value);
-> +	clk_usb_div = (((value >> 28) & GENMASK(3, 0)) + 1);
-> +	hw = clk_hw_register_fixed_factor(NULL, "usb_clk", "pll2", 0, 1, clk_usb_div);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	attrs = kzalloc(sizeof(*attrs), GFP_KERNEL);
-> +	if (!attrs)
-> +		return -ENOMEM;
-> +
-> +	np = of_find_node_by_path("/");
-> +	of_property_read_string(np, "model", &machine);
-> +	if (machine)
-> +		attrs->machine = kstrdup(machine, GFP_KERNEL);
-> +	of_node_put(np);
-> +
-> +	attrs->family = "Cirrus Logic EP93xx";
-> +	attrs->revision = ep93xx_get_soc_rev(map);
-> +
-> +	soc_dev = soc_device_register(attrs);
-> +	if (IS_ERR(soc_dev)) {
-> +		kfree(attrs->soc_id);
-> +		kfree(attrs->serial_number);
-> +		kfree(attrs);
-> +		return PTR_ERR(soc_dev);
-> +	}
-> +
-> +	pr_info("EP93xx SoC revision %s\n", attrs->revision);
-> +
-> +	return 0;
-> +}
-> +core_initcall(ep93xx_soc_init);
-
-That's not the way to add soc driver. You need a proper driver for it
+Expect more grunts and complains from 50-other people you Cc-ed.
 
 Best regards,
 Krzysztof

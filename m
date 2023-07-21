@@ -2,110 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3687F75CAEC
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 17:06:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59D3075CB74
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 17:20:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 187071F6;
-	Fri, 21 Jul 2023 17:05:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187071F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 988111FA;
+	Fri, 21 Jul 2023 17:19:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 988111FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689951999;
-	bh=O86D9qWX4fj6OF+4HTLNl7+5ZBUltxqkilpPBKzUWkI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=P/ZMYJ3uE8n+ME+nWjSN7ZqqDF2CHBIXL2Trlmo42Xo1k/FElH/fljspB5gRn5SUJ
-	 90uhN5G86LfXuCv8JudZNzlfwpTbMHClMbQHNmzjOe7IvN3qzg0kR1mBGBj3yvXUVd
-	 DYaCQ22+TFpxzZV5sKOhN3bN/X9Fl2J2tUEXOfc4=
+	s=default; t=1689952846;
+	bh=2Meav8bP/+wPjpX5WwOSOtJZZKP1DLrJ+AXczzjWYRQ=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=vNSRHTDZeL6e+cZWOP4UhyXxGCqJLBxb437ij/w9M5paa7UBvEidwMqThk6hoID0U
+	 ymVcNdTqzINH1+/4sHDBWMdRgvbQgbbp84Q8GyOCXI1gYFiCMXflVJGc9+haq+RNte
+	 sKDi9LDiqhE9Ohj/ZIPov0ebo9w2ok2EJj253oHI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC6A1F8007E; Fri, 21 Jul 2023 17:05:48 +0200 (CEST)
+	id B5BDDF8057F; Fri, 21 Jul 2023 17:18:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACAC7F8047D;
-	Fri, 21 Jul 2023 17:05:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92383F8057F;
+	Fri, 21 Jul 2023 17:18:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 635E4F80494; Fri, 21 Jul 2023 17:05:45 +0200 (CEST)
+	id 51A79F8055C; Fri, 21 Jul 2023 17:18:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06B5FF8007E
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 17:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06B5FF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9E323F8007E
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 17:18:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E323F8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=t4gEHRUn;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=w6JhbvP0
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AE4BE218B0;
-	Fri, 21 Jul 2023 15:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1689951942;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FNa2Ga/vdBWuEamymR1djSQjbjCUdeP1tyXN5hm2If8=;
-	b=t4gEHRUn/4R1W1nvw16UePnaCr7czzXy/iJLYd2r+M3+434Q0UFdraRXzjH8hTOP6DE+oH
-	WPeuxmi61S3jX50XqOk28s0nZfZUoqzC7seehhRj6HZyk+KjIBK1Rj/8PvWo8ADZy1BdZK
-	mMqSV7HQMLxnGGdzkmtnVepqnUXrlbs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689951942;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FNa2Ga/vdBWuEamymR1djSQjbjCUdeP1tyXN5hm2If8=;
-	b=w6JhbvP0+FjcIugs7BlpcG0tVg43PKwHZg8p7vEm8rkRhu+vgkf29KvGOvwHqpCUemJF74
-	9F2WxABiH/6v9+Bg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 79021134BA;
-	Fri, 21 Jul 2023 15:05:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ZSWVHMaeumQ2IQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 21 Jul 2023 15:05:42 +0000
-Date: Fri, 21 Jul 2023 17:05:42 +0200
-Message-ID: <875y6dz4mx.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi
- Iwai <tiwai@suse.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH v1 10/11] ALSA: hda: cs35l41: Add device_link between HDA
- and cs35l41_hda
-In-Reply-To: <bf6b5496-bcf9-771d-5921-fe137fa3bec0@opensource.cirrus.com>
-References: <20230720133147.1294337-1-sbinding@opensource.cirrus.com>
-	<20230720133147.1294337-11-sbinding@opensource.cirrus.com>
-	<87v8eeiryp.wl-tiwai@suse.de>
-	<bf6b5496-bcf9-771d-5921-fe137fa3bec0@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: GFMENYZSPUKZPO6UUGHAL3MXKF4MM6DP
-X-Message-ID-Hash: GFMENYZSPUKZPO6UUGHAL3MXKF4MM6DP
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=hG97G1q0
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 36LDppwg011284;
+	Fri, 21 Jul 2023 10:18:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=q
+	LMLNLcgrkd2GN4RsPHG93N6pllAVjaH9PciQbGF2GI=; b=hG97G1q0jmVRFcCEu
+	ipDMdI45xiz0n5K6P42Ka3Ks6pJm912kVIRkgQuzZ0MOdU9RmOaTMZA5xH+jHUce
+	tPoqOmRL1tBazSuD6jqHgVeziGrnmM5kj7qpPlzBt53srqyUxJUv4TN9lBIDq0+S
+	ZvZLTrpjDfa3A1anL0pCGntGeruHAGYOISYSa7dojd08pncB2DrIhN8qY35vUo6u
+	5KYiQxMY1ar9TxiOCw7fGGX7LeJIjuai05NHNMms15mUwN3ImWtI/VblS8qmMjjR
+	x/HSqiJbetT+8ux0sn6j8uHTShLlckFSxa58KA0Lb289+P8zWl9b7zz84PzeErBb
+	D1vng==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3rus62y8g5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 21 Jul 2023 10:18:27 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 21 Jul
+ 2023 16:18:25 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
+ Transport; Fri, 21 Jul 2023 16:18:25 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.219])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6CC2946B;
+	Fri, 21 Jul 2023 15:18:25 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi
+ Iwai <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Stefan Binding
+	<sbinding@opensource.cirrus.com>
+Subject: [PATCH v2 00/11] Fix support for System Suspend for CS35L41 HDA
+Date: Fri, 21 Jul 2023 16:18:05 +0100
+Message-ID: <20230721151816.2080453-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: em39YRvIjjJex4WMzgHbAZ1cq77NiW6z
+X-Proofpoint-ORIG-GUID: em39YRvIjjJex4WMzgHbAZ1cq77NiW6z
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: XJOCNMIQM4I54EE4AR3OOLLW26R4ENT2
+X-Message-ID-Hash: XJOCNMIQM4I54EE4AR3OOLLW26R4ENT2
+X-MailFrom: prvs=2566513517=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GFMENYZSPUKZPO6UUGHAL3MXKF4MM6DP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XJOCNMIQM4I54EE4AR3OOLLW26R4ENT2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,54 +111,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 21 Jul 2023 16:55:43 +0200,
-Stefan Binding wrote:
-> 
-> 
-> On 20/07/2023 15:21, Takashi Iwai wrote:
-> > On Thu, 20 Jul 2023 15:31:46 +0200,
-> > Stefan Binding wrote:
-> >> To ensure consistency between the HDA core and the CS35L41 HDA
-> >> driver, add a device_link between them. This ensures that the
-> >> HDA core will suspend first, and resume second, meaning the
-> >> amp driver will not miss any events from the playback hook from
-> >> the HDA core during system suspend and resume.
-> >> 
-> >> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-> >> ---
-> >>   sound/pci/hda/cs35l41_hda.c | 13 ++++++++++++-
-> >>   1 file changed, 12 insertions(+), 1 deletion(-)
-> >> 
-> >> diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-> >> index 70aa819cfbd64..175378cdf9dfa 100644
-> >> --- a/sound/pci/hda/cs35l41_hda.c
-> >> +++ b/sound/pci/hda/cs35l41_hda.c
-> >> @@ -1063,6 +1063,7 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
-> >>   {
-> >>   	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
-> >>   	struct hda_component *comps = master_data;
-> >> +	unsigned int sleep_flags;
-> >>   	int ret = 0;
-> >>     	if (!comps || cs35l41->index < 0 || cs35l41->index >=
-> >> HDA_MAX_COMPONENTS)
-> >> @@ -1102,6 +1103,11 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
-> >>     	mutex_unlock(&cs35l41->fw_mutex);
-> >>   +	sleep_flags = lock_system_sleep();
-> >> +	if (!device_link_add(&comps->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
-> >> +		dev_warn(dev, "Unable to create device link\n");
-> >> +	unlock_system_sleep(sleep_flags);
-> > Is lock_system_sleep() mandatory for device_link_add()?  The function
-> > takes its rw lock for the race, I suppose.
-> 
-> I believe this is mandatory, to ensure we don't try to add the device
-> link during a suspend/resume transition.
-> Its probably unlikely that that would occur during the component bind,
-> but just in case.
+There have been a couple of customer reports of intermittant issues after
+system resume, where sometimes the DSP firmware stops responding.
+Investigations into this issue show that there is a race between receiving
+a prepare from the HDA core, and the firmware reload which is started by
+the system resume. This can causes the Global Enable on the CS35L41 to be
+enabled during the firmware load, which can sometimes cause issues in the
+DSP.
 
-OK, it seems needed in this case.  I found the description in
-device_link.rst, too.
+The existing system resume behaviour also did not resume the audio, if
+audio was previously playing when it was suspended.
+In addition, during investigation, it was found there were additional
+problems in the System Resume sequence, as well as the Playback sequence
+with External Boost, where the driver does not correctly follow its
+enable sequence for this mode. This can cause additional issues such as
+pops and clicks.
 
+This chain intends to correct the sequences for playback and system
+suspend/resume so that the driver: obeys the external boost enable sequence;
+resumes audio on system resume; and avoids the race condition on firmware
+load and playback during system resume.
 
-thanks,
+Changes since v1:
+- Split patch 1 into 2 separate patches
+- Combine Patches 6 and 9
 
-Takashi
+Stefan Binding (11):
+  ALSA: cs35l41: Use mbox command to enable speaker output for external
+    boost
+  ALSA: cs35l41: Poll for Power Up/Down rather than waiting a fixed
+    delay
+  ALSA: hda: cs35l41: Check mailbox status of pause command after
+    firmware load
+  ALSA: hda: cs35l41: Ensure we correctly re-sync regmap before system
+    suspending.
+  ALSA: hda: cs35l41: Ensure we pass up any errors during system
+    suspend.
+  ALSA: hda: cs35l41: Move Play and Pause into separate functions
+  ALSA: hda: hda_component: Add pre and post playback hooks to
+    hda_component
+  ALSA: hda: cs35l41: Use pre and post playback hooks
+  ALSA: hda: cs35l41: Rework System Suspend to ensure correct call
+    separation
+  ALSA: hda: cs35l41: Add device_link between HDA and cs35l41_hda
+  ALSA: hda: cs35l41: Ensure amp is only unmuted during playback
+
+ include/sound/cs35l41.h        |   5 +-
+ sound/pci/hda/cs35l41_hda.c    | 288 +++++++++++++++++++++++++--------
+ sound/pci/hda/hda_component.h  |   2 +
+ sound/pci/hda/patch_realtek.c  |  10 +-
+ sound/soc/codecs/cs35l41-lib.c | 118 ++++++++++++--
+ sound/soc/codecs/cs35l41.c     |  18 +--
+ 6 files changed, 343 insertions(+), 98 deletions(-)
+
+-- 
+2.34.1
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B88775C51C
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 12:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08FBF75C51B
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 12:56:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 935B2844;
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1A39851;
 	Fri, 21 Jul 2023 12:55:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 935B2844
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1A39851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689936995;
-	bh=UfcFzCnVYie6vKPWZ/3LUMZroWuNQRGTQy9ESlj0NHU=;
+	s=default; t=1689936996;
+	bh=GqMqpNt1ykUMAT67xmcy7JW79ykixqQxUJAP3ZLHy7Y=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kZKymDAFYyWoKKL03QsMv8KRsL7JRUBGb5F17aQOQMTSuBP90IUGF9EsIHzb0Qzoc
-	 AlS3OwOCDN8pPdTf8nNdBD5oZ49XQkbHLWq/skIEJ8SBfUddeW7rp17jHu7TcLG9Mm
-	 J4hqI+9hfPtuhVmwfahwRNewPQ+j4u0fLMySU8zM=
+	b=E/r4JCOm7z/1TzdIsj4X2SWCnCrv4AmEO9iWKim4T8dCrYb3TZAInwiR3R1ir6Pr0
+	 5X7CHFXH7qROp/owK4teMsJXytxWo2Dfr3Xv57zfTUAxeKgtUq3bLpQmRnYLHw5eKj
+	 9Pap4g/peoVdqluOHTmW9ehoDV9VF+AkEzODaYxQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B6D5F80558; Fri, 21 Jul 2023 12:54:56 +0200 (CEST)
+	id 9EF35F8056F; Fri, 21 Jul 2023 12:54:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62301F80520;
-	Fri, 21 Jul 2023 12:54:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56BCAF8055A;
+	Fri, 21 Jul 2023 12:54:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99436F80494; Fri, 21 Jul 2023 12:54:52 +0200 (CEST)
+	id F0BB9F80549; Fri, 21 Jul 2023 12:54:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,49 +36,55 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 17C35F8027B
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 12:54:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17C35F8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 391E2F8032D
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 12:54:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 391E2F8032D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IR/vYx+K
+ header.s=k20201202 header.b=H6oKC7Rn
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4AA58619BA;
-	Fri, 21 Jul 2023 10:54:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859E1C433CB;
-	Fri, 21 Jul 2023 10:54:42 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id DD336619E6;
+	Fri, 21 Jul 2023 10:54:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 137D2C433CA;
+	Fri, 21 Jul 2023 10:54:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689936884;
-	bh=UfcFzCnVYie6vKPWZ/3LUMZroWuNQRGTQy9ESlj0NHU=;
+	s=k20201202; t=1689936887;
+	bh=GqMqpNt1ykUMAT67xmcy7JW79ykixqQxUJAP3ZLHy7Y=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=IR/vYx+KcC+hY+nU/jBsHbvgzog6GaJSP477Jv0KUAo2tunuo3bs4qjxToAeSC3H/
-	 z9A8Br+SJFAQbLpL6TbphmOS8ZYQ0t9VLNMMV+0gxN9m08VMnmBLv/B2UjFQNpsloX
-	 wQHhrAkKv2USg2YU/kVi58sRBGUKv4qf9OQJXG2MVbwzTbZpBD1kMzwyCtJQArX+0I
-	 bAPQGOBCUePagTvQOSAMqFDXFdRxbVQ6UclSvyLeR8GIxlMQjTvhpHPXvHa2wHQ79O
-	 cMPdiinCAifFKS96Q3B2qB4+xxgnUX6oJI0BXw0eqnMc3m36A85ivjIWOgB9wd3tyw
-	 Dnx3RCI9IgydA==
+	b=H6oKC7RnJUObIQkeWee7W1FwQF/unFVJ6PUyFra3PektbsEnuWJpN3aIT9DWNHkAT
+	 HE61fRsuAA1DFbxHzjKcjJ/h78pRhYedwbtyGa76cBciYQ2n6ha6+D6cLzHwxnUaBM
+	 ZRZyjXTaOE5a6XwmVuIH6118nrz8wHNPz8Z4eFXwv9ezB4rZ6/IZWeR+MYfU6p6CDU
+	 SI88R/eecOlzLiyiFlMiFIGTUMJ9vB9PNDSMyzwwHHgtaOxOldFtQ270YXykzba6XA
+	 wNKxzYr8KKPPG0SyUzrzEyxL4M2+Qwg7hdhpNGKaKICjDQAQ8bJ74tiTG9zD46Ykcy
+	 DM/Wg0FHwNwtg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Francesco Dolcini <francesco@dolcini.it>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+To: Stephan Gerhold <stephan@gerhold.net>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com
-In-Reply-To: <20230719121918.247397-1-francesco@dolcini.it>
-References: <20230719121918.247397-1-francesco@dolcini.it>
-Subject: Re: [PATCH v1] ASoC: dt-bindings: wm8904: Convert to dtschema
-Message-Id: <168993688226.20527.6554353152363123006.b4-ty@kernel.org>
-Date: Fri, 21 Jul 2023 11:54:42 +0100
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
+In-Reply-To: <20230718-pm8916-mclk-v1-0-4b4a58b4240a@gerhold.net>
+References: <20230718-pm8916-mclk-v1-0-4b4a58b4240a@gerhold.net>
+Subject: Re: (subset) [PATCH 0/6] ASoC: codecs: msm8916-wcd-analog: Cleanup
+ DT bindings
+Message-Id: <168993688478.20527.15549284339710004321.b4-ty@kernel.org>
+Date: Fri, 21 Jul 2023 11:54:44 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: JY6LGV7MSNTZ5AV2BNTBRHRAVJHOMEZT
-X-Message-ID-Hash: JY6LGV7MSNTZ5AV2BNTBRHRAVJHOMEZT
+Message-ID-Hash: ZSUKAUGY5BQDDSFNS43FZ3DSCZJEU3V4
+X-Message-ID-Hash: ZSUKAUGY5BQDDSFNS43FZ3DSCZJEU3V4
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JY6LGV7MSNTZ5AV2BNTBRHRAVJHOMEZT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZSUKAUGY5BQDDSFNS43FZ3DSCZJEU3V4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,15 +106,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 19 Jul 2023 14:19:18 +0200, Francesco Dolcini wrote:
-> Convert the WM8904 audio CODEC bindings to DT schema.
-> 
-> Compared to the original binding #sound-dai-cells and the missing power
-> supplies are added. The latter are all required as described in the
-> datasheet.
+On Tue, 18 Jul 2023 13:40:12 +0200, Stephan Gerhold wrote:
+> Drop the redundant reg-names and mclk from the PM8916 analog codec.
+> Having the mclk on the analog codec is incorrect because only the
+> digital codec consumes it directly.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -116,8 +119,16 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: wm8904: Convert to dtschema
-      commit: 83759352fd0b941c3ab3d365bf5f754b9e2f1af9
+[1/6] ASoC: dt-bindings: pm8916-analog-codec: Fix misleading example
+      commit: 944b5c7146fbd0a68f501d9a8a87c3fc5767a3de
+[2/6] ASoC: dt-bindings: pm8916-analog-codec: Drop pointless reg-names
+      commit: dfc491e55255a96b2d43cdb74db10d4222890769
+[3/6] ASoC: dt-bindings: pm8916-analog-codec: Drop invalid mclk
+      commit: 469c6d9cd1cfb468f01a15f940272504a6b5d083
+[4/6] ASoC: codecs: msm8916-wcd-analog: Drop invalid mclk
+      commit: 97f29c1a6143762626f4f9bd9fc2f8a2282b9dcd
+[5/6] ASoC: codecs: msm8916-wcd-analog: Properly handle probe errors
+      commit: 5c0f9652da47061ed3f7815c1dfeb205c545ce54
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

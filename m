@@ -2,85 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C8C75C5C6
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 13:19:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92A8375C5E8
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 13:32:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B766D3E7;
-	Fri, 21 Jul 2023 13:18:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B766D3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5D4E1F7;
+	Fri, 21 Jul 2023 13:32:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5D4E1F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689938357;
-	bh=gRBC20aytk4E+AsRAk9j6F+lTwb9bh9QTjEPh9fGdQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689939171;
+	bh=dXgGdDZe21q+A6YjKZPUfJZVifU9r1MKAmEsUXEnEPo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MIn63ApQipXzOFwITL/Pw52xsD+e2JBUdlCic+UfyixX9xVMdP0YnhrjycYAL6XHX
-	 7du61pLAEd76iCbAcHFZNhIla9GihJOlU8I7GWaaacogQKXNnrmC9dGxaA6IvINjMA
-	 3o2QLQLFHaoRyN42MHu/YBFx58a4VxMOaWSIz8D0=
+	b=LnoUhSU8wqgcY+piNiYixZ7bWtB1Alems3H4lLc8knEQ0ovFR4oaqoqalFncwDZPK
+	 lXxJ9JwwvAfxrxH6YVOEora9SQSv2MG8w70LPDuRV9+bB8mQU/QvEdHU3a2ZVp4P2s
+	 GMk3V1TzOQ5+g+WZUtGELemcPmiNOYTh7jRrFi94=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36399F8053B; Fri, 21 Jul 2023 13:18:26 +0200 (CEST)
+	id A94D7F80552; Fri, 21 Jul 2023 13:32:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF732F8032D;
-	Fri, 21 Jul 2023 13:18:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C58D0F8032D;
+	Fri, 21 Jul 2023 13:31:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B404F8047D; Fri, 21 Jul 2023 13:18:22 +0200 (CEST)
+	id 46D1DF8047D; Fri, 21 Jul 2023 13:31:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 17D4EF8027B
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 13:18:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D4EF8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id E0328F8007E;
+	Fri, 21 Jul 2023 13:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0328F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UO4rQ8af
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 7046C619FD;
-	Fri, 21 Jul 2023 11:18:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BC9FC433C7;
-	Fri, 21 Jul 2023 11:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689938294;
-	bh=gRBC20aytk4E+AsRAk9j6F+lTwb9bh9QTjEPh9fGdQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UO4rQ8afYUVEpProtHudVeGKOWgeKgnqS18pT0C+07gEmNbqIuzEY6ZGb/+QRNuOh
-	 6HjHqVDAP2N+QQqBCUeQTetuFU166XcowHP/WwYsPply77qu0xCGDRBVntskyvwq+e
-	 V0fOb1/kuawGsgeH2oxhaIfZa6YVVaTAivP+7E9DbPM1jkQDYoIylBABSyrDoZHnZ8
-	 bHOYUNyN6sMp35q9GhZKHA4pJK51G/IpYTkgrdSM6GQ+2ImSkpHcB+Pj+FZ1MUwFbz
-	 1nuo1a7V8WG0ysgSVJ7DqVyIgixfEOWPoB/g3bkQjdYAOow6ZJJhA2MgP8/Iz/fnMR
-	 CJ5yHk5sCow3A==
-Date: Fri, 21 Jul 2023 12:18:08 +0100
-From: Mark Brown <broonie@kernel.org>
-To: shumingf@realtek.com
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org, lars@metafoo.de,
-	flove@realtek.com, oder_chiou@realtek.com, jack.yu@realtek.com,
-	derek.fang@realtek.com, Vijendar.Mukunda@amd.com
-Subject: Re: [PATCH 2/2] ASoC: rt1316: fix key tone missing
-Message-ID: <3f407d2e-fe11-4ad1-8fb3-561053d343a9@sirena.org.uk>
-References: <20230721081807.113125-1-shumingf@realtek.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=dTTTfDlA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689939106; x=1721475106;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=dXgGdDZe21q+A6YjKZPUfJZVifU9r1MKAmEsUXEnEPo=;
+  b=dTTTfDlApnlIV2AzHmPgabb0FWpbOOehr+xA1VWAISNDpzgoTGr6+aNt
+   3ctIkt4rZpY68keWJIDHA0+otCws9lQHAPLSqzx5XgzYmYXYZWX7+FZy3
+   HfErIbMkk9qJoJckUxOxt59uaDOyal9nf23OupcRGekzP7COxkZX+e13R
+   UdX3xlSjP7EH2m1AxL/SwyW7dO/cPQ8nk5I03ehuMcOOay0A5ICjYmAJJ
+   GzrF9sIQB8EAzxESciqa8ePUT2FtC5lAb2ObbO3woNY9T7a833GyfeVRY
+   bla5Fv5b8dlZ/TTXeRuGIYli8398nnGYQnbUlRPzZXpLw2fU3+diNWky+
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="433230778"
+X-IronPort-AV: E=Sophos;i="6.01,220,1684825200";
+   d="scan'208";a="433230778"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 04:31:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
+   d="scan'208";a="868217214"
+Received: from dhardfel-mobl1.ger.corp.intel.com (HELO [10.251.223.78])
+ ([10.251.223.78])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 04:31:36 -0700
+Message-ID: <a01b804f-345b-153f-1112-b7057400e8c8@linux.intel.com>
+Date: Fri, 21 Jul 2023 14:32:54 +0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aXITDXCFiAwgHOY5"
-Content-Disposition: inline
-In-Reply-To: <20230721081807.113125-1-shumingf@realtek.com>
-X-Cookie: Do, or do not
-Message-ID-Hash: BS5Z3RAC7LSPOPS4GKDHDLTCKAQRCFYV
-X-Message-ID-Hash: BS5Z3RAC7LSPOPS4GKDHDLTCKAQRCFYV
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v2 3/9] ALSA: hda/i915: Add an allow_modprobe argument to
+ snd_hdac_i915_init
+Content-Language: en-US
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
+References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+ <20230719164141.228073-4-maarten.lankhorst@linux.intel.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230719164141.228073-4-maarten.lankhorst@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: QPMJWMB3NBHNBQZ5LBUM3FBU5YYOCYDR
+X-Message-ID-Hash: QPMJWMB3NBHNBQZ5LBUM3FBU5YYOCYDR
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BS5Z3RAC7LSPOPS4GKDHDLTCKAQRCFYV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QPMJWMB3NBHNBQZ5LBUM3FBU5YYOCYDR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,38 +117,68 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---aXITDXCFiAwgHOY5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 21, 2023 at 04:18:07PM +0800, shumingf@realtek.com wrote:
-> From: Shuming Fan <shumingf@realtek.com>
->=20
-> This patch disables the soft ramp to output immediately.
+On 19/07/2023 19:41, Maarten Lankhorst wrote:
+> Xe is a new GPU driver that re-uses the display (and sound) code from
+> i915. It's no longer possible to load i915, as the GPU can be driven
+> by the xe driver instead.
+> 
+> The new behavior will return -EPROBE_DEFER, and wait for a compatible
+> driver to be loaded instead of modprobing i915.
+> 
+> Converting all drivers at the same time is a lot of work, instead we
+> will convert each user one by one.
+> 
+> Changes since v1:
+> - Use dev_err_probe to set a probe reason for debugfs' deferred_devices.
+> 
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> ---
+>  include/sound/hda_i915.h        | 4 ++--
+>  sound/hda/hdac_i915.c           | 8 ++++----
+>  sound/pci/hda/hda_intel.c       | 2 +-
+>  sound/soc/intel/avs/core.c      | 2 +-
+>  sound/soc/intel/skylake/skl.c   | 2 +-
+>  sound/soc/sof/intel/hda-codec.c | 2 +-
+>  6 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
+> index c32709fa4115f..961fcd3397f40 100644
+> --- a/sound/hda/hdac_i915.c
+> +++ b/sound/hda/hdac_i915.c
+> @@ -155,7 +155,7 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
+>   *
+>   * Returns zero for success or a negative error code.
+>   */
+> -int snd_hdac_i915_init(struct hdac_bus *bus)
+> +int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
+>  {
+>  	struct drm_audio_component *acomp;
+>  	int err;
+> @@ -171,7 +171,7 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
+>  	acomp = bus->audio_component;
+>  	if (!acomp)
+>  		return -ENODEV;
+> -	if (!acomp->ops) {
+> +	if (allow_modprobe && !acomp->ops) {
+>  		if (!IS_ENABLED(CONFIG_MODULES) ||
+>  		    !request_module("i915")) {
+>  			/* 60s timeout */
+> @@ -180,9 +180,9 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
+>  		}
+>  	}
+>  	if (!acomp->ops) {
+> -		dev_info(bus->dev, "couldn't bind with audio component\n");
+> +		int err = allow_modprobe ? -ENODEV : -EPROBE_DEFER;
 
->  	{ 0xc09d, 0x80 },
->  	{ 0xc0b0, 0x77 },
-> -	{ 0xc010, 0xa5 },
-> +	{ 0xc010, 0x25 },
->  	{ 0xc050, 0x83 },
+Add one blank line here.
 
-This should probably be an actual control not something patched into the
-registers - some users might prefer toe soft ramp.
+>  		snd_hdac_acomp_exit(bus);
+> -		return -ENODEV;
+> +		return dev_err_probe(bus->dev, err, "couldn't bind with audio component\n");
+>  	}
+>  	return 0;
+>  }
 
---aXITDXCFiAwgHOY5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmS6aW8ACgkQJNaLcl1U
-h9AcYQf/b64J64j/TVoPr5gX2o9mxb6FLOxSX5S2mOBTXfRdeRcyoxjdT6c48fjn
-im/uTQG7viTcZ7KQ4A6Q0reG2I8m+Yo68CwkJZNHVNW/JSuqEi1NQtJwu8RZ8CxD
-E023FEHOOWC3Yk84Y6izmLUHzNEMUZI729Qs72yrydbiqFz/Hhhuy4wUc+mZKYiE
-y9CRHObQMyPGWU1nQcUVgNqcdaf8S8Daw3sS4ccUMoLYHnfMeOSEk3Lu8jtI4OUg
-XdZ1qj9ZiXgKkL1v2mC3f5N1lLu/o7mg2eokYv4IKKLk1IU1SSZ3rR9eKfTB989K
-E8LVSsQ6d2iD1dxwgO+D8gjF2sBB1g==
-=QABC
------END PGP SIGNATURE-----
-
---aXITDXCFiAwgHOY5--
+-- 
+Péter

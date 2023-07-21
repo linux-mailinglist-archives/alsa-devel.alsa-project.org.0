@@ -2,100 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87C6975C19F
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:28:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A1375C1C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jul 2023 10:35:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C8DFEBB;
-	Fri, 21 Jul 2023 10:27:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C8DFEBB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1736DF9;
+	Fri, 21 Jul 2023 10:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1736DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689928118;
-	bh=8BmxWIGg9jNFR6BeLXvoH5ZT3bQ9G/FM+7vijWpaXIg=;
+	s=default; t=1689928505;
+	bh=SqgXEsE2D6tyo9YYmsi6Y3SzeB/jYdUnxxrnUSWVbg4=;
 	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t6AbTzaWtcY/0e390kUdG/ILN30X08uyjLwNQJWkF5dpoPQfFuosLYJZgkWD7KNHl
-	 fGuTgEVsrNhEOUT1KDjGv58OvfsFYhyQP9Cb1D24gtxhHWJ+O/m+cDhTD5JQDx0/mf
-	 4fd2Sl/xZR+/f7M+D5FXdMtotmumVtEz2mRO4R3E=
+	b=TYFe0ysXZ0JYHUJPcjgpgjGc3LIulRdmM0t53l4VcDEm40pmZoJTL/yRiJdYOu8sF
+	 zVAcmiDwC71Y/3bDd/zRCBxt4ok6bGw0P23p9ggpLpbNB5M5XC/ccJtjCCYXURroFZ
+	 tpMV1JqbYvATT57mvOnw34yCydWvrTKIZ4eGU2Eo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1FE0F80552; Fri, 21 Jul 2023 10:27:47 +0200 (CEST)
+	id 44985F8047D; Fri, 21 Jul 2023 10:34:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50C9DF804DA;
-	Fri, 21 Jul 2023 10:27:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 589D9F8027B;
+	Fri, 21 Jul 2023 10:34:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABC00F804DA; Fri, 21 Jul 2023 10:27:40 +0200 (CEST)
+	id A5639F8032D; Fri, 21 Jul 2023 10:34:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8AEDF80520
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 10:27:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8AEDF80520
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA548F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jul 2023 10:34:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA548F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=nVL5zMcO
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 36L6lJk1006552;
-	Fri, 21 Jul 2023 03:27:34 -0500
+ header.s=PODMain02222019 header.b=qdw/l4ur
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 36L7C3TY012776;
+	Fri, 21 Jul 2023 03:34:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
 	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=TigA1hY1Lp5dH2f
-	/AfywKcjJbfyrqtGA9PlhZpcqZG0=; b=nVL5zMcOd5WBpNgxVuyBhfKt948VOiU
-	jqxO8lP+vlbPvbPsGiXxvESXQt1eUBGWYLMcyodW4nnEQ+P4wwpNx5pFMI+ORLII
-	3iwS43SO3qOVFbTW4EJaLCt3i1JVGJSueZt85AYIgiPzUuL1ERQ7b2tWdUBBroRR
-	0rvSVVfiyfpxeIqV9dN4WF1ZklKETAKq9HEctUWZjM6sHX8IIaf4J/PjBMgJq8n9
-	eXIq2rfjUmBQaAQVX5RNvbHow+K6Afg/ax7zZp4gF81KFcXAMchZrqDCmeHy+uQd
-	dg8507KSYsaEq7IxteO4BniTXffNe822AH+n3Z0jG2IzcVGAeHuPPig==
+	:content-type:in-reply-to; s=PODMain02222019; bh=4X5Vk5GzjGOeC6P
+	vbgtdeu+U2bY+ZOvoDw8i1UzpoY4=; b=qdw/l4urdIy5Rc9CFCJL018s2IiY4lL
+	E+lGszxaV51jy8xdOtJTAxswZupRQT1mornimEQZft28kr7bqqaGiJhEMhVTcVU3
+	/QmT6J1zQox2THnOZiOLOGeoYnNMaVIqfFpK/hj89Hj3354JqjWegWjgzlhTLwb7
+	Sw2eJSbqTNMtICQYSoRhE+DP5GJijsulZOlDiQdb+aJPna/wBjARAffzNsf3sztS
+	FsFm87fWIppIJcjriMB/uqzeyRYmLN9gKX+wIekRbwYDlgukeDMlpX8F9FDKyxK+
+	B3a1zUQNCTkRA+bfjV+Lf+8t5sTUj3Ap4Nt+cubOy1rTv9dvED+29Og==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3rus6gy9c9-1
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3rus62xvn4-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 21 Jul 2023 03:27:34 -0500 (CDT)
+	Fri, 21 Jul 2023 03:34:02 -0500 (CDT)
 Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 21 Jul
- 2023 09:27:32 +0100
+ 2023 09:34:00 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
- Transport; Fri, 21 Jul 2023 09:27:32 +0100
+ Transport; Fri, 21 Jul 2023 09:34:00 +0100
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
  [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C586445;
-	Fri, 21 Jul 2023 08:27:32 +0000 (UTC)
-Date: Fri, 21 Jul 2023 08:27:32 +0000
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3E6143560;
+	Fri, 21 Jul 2023 08:34:00 +0000 (UTC)
+Date: Fri, 21 Jul 2023 08:34:00 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lee Jones <lee@kernel.org>, <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <linus.walleij@linaro.org>, <robh+dt@kernel.org>,
-        <conor+dt@kernel.org>, <lgirdwood@gmail.com>,
-        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+CC: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+        <tiwai@suse.com>, <kuninori.morimoto.gx@renesas.com>,
+        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
         <linux-kernel@vger.kernel.org>
-Subject: Re: (subset) [PATCH v5 0/6] Add cs42l43 PC focused SoundWire CODEC
-Message-ID: <20230721082732.GJ103419@ediswmail.ad.cirrus.com>
-References: <20230619095623.1987742-1-ckeepax@opensource.cirrus.com>
- <168992615492.1924396.13464534208592126033.b4-ty@kernel.org>
+Subject: Re: [PATCH] ASoC: wm8960: Add DAC filter characteristics selection
+Message-ID: <20230721083400.GK103419@ediswmail.ad.cirrus.com>
+References: <1689925948-21001-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <168992615492.1924396.13464534208592126033.b4-ty@kernel.org>
+In-Reply-To: <1689925948-21001-1-git-send-email-shengjiu.wang@nxp.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: yt4HPd4fkRFLiLXN7DRn-CNz-muYc-e7
-X-Proofpoint-GUID: yt4HPd4fkRFLiLXN7DRn-CNz-muYc-e7
+X-Proofpoint-GUID: KKA1_9swrhuJ-ghUBfoWBjL1c7-345QA
+X-Proofpoint-ORIG-GUID: KKA1_9swrhuJ-ghUBfoWBjL1c7-345QA
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: YVJZ4ISPB4WJFNIVMPMM3I4PXEKHC4N4
-X-Message-ID-Hash: YVJZ4ISPB4WJFNIVMPMM3I4PXEKHC4N4
+Message-ID-Hash: 467ZFQSVVBJ3G4QFFPKM57OA2M54PIAO
+X-Message-ID-Hash: 467ZFQSVVBJ3G4QFFPKM57OA2M54PIAO
 X-MailFrom: prvs=25666256d8=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YVJZ4ISPB4WJFNIVMPMM3I4PXEKHC4N4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/467ZFQSVVBJ3G4QFFPKM57OA2M54PIAO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,35 +112,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jul 21, 2023 at 08:55:54AM +0100, Lee Jones wrote:
-> On Mon, 19 Jun 2023 10:56:17 +0100, Charles Keepax wrote:
-> > This patch chain adds support for the Cirrus Logic cs42l43 PC focused
-> > SoundWire CODEC. The chain is currently based of Lee's for-mfd-next
-> > branch.
-> > 
-> > Thanks,
-> > Charles
-> > 
-> > [...]
+On Fri, Jul 21, 2023 at 03:52:28PM +0800, Shengjiu Wang wrote:
+> Support DAC filter characteristics selection: Normal mode
+> and Sloping stopband. Sloping stopband may have
+> better frequency response.
 > 
-> Applied, thanks!
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  sound/soc/codecs/wm8960.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> [2/6] dt-bindings: mfd: cirrus,cs42l43: Add initial DT binding
->       commit: e62ba8443b11f12b45c61444249458a2f8c2f4ef
-> [3/6] mfd: cs42l43: Add support for cs42l43 core driver
->       commit: 843079209e1506c94fde797fc0ff914e2c9e6645
-> [4/6] pinctrl: cs42l43: Add support for the cs42l43
->       commit: 85f034dd7ff0a66aded653cc91dbc406fba7cf1a
-> 
+> diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
+> index 366f5d769d6d..ff1355306b43 100644
+> --- a/sound/soc/codecs/wm8960.c
+> +++ b/sound/soc/codecs/wm8960.c
+> @@ -155,6 +155,7 @@ static const char *wm8960_adc_data_output_sel[] = {
+>  	"Left Data = Right ADC; Right Data = Left ADC",
+>  };
+>  static const char *wm8960_dmonomix[] = {"Stereo", "Mono"};
+> +static const char *wm8960_dacslope[] = {"Normal", "Sloping"};
+>  
+>  static const struct soc_enum wm8960_enum[] = {
+>  	SOC_ENUM_SINGLE(WM8960_DACCTL1, 5, 4, wm8960_polarity),
+> @@ -165,6 +166,7 @@ static const struct soc_enum wm8960_enum[] = {
+>  	SOC_ENUM_SINGLE(WM8960_ALC3, 8, 2, wm8960_alcmode),
+>  	SOC_ENUM_SINGLE(WM8960_ADDCTL1, 2, 4, wm8960_adc_data_output_sel),
+>  	SOC_ENUM_SINGLE(WM8960_ADDCTL1, 4, 2, wm8960_dmonomix),
+> +	SOC_ENUM_SINGLE(WM8960_DACCTL2, 1, 2, wm8960_dacslope),
+>  };
+>  
+>  static const int deemph_settings[] = { 0, 32000, 44100, 48000 };
+> @@ -307,6 +309,7 @@ SOC_SINGLE_TLV("Right Output Mixer RINPUT3 Volume",
+>  
+>  SOC_ENUM("ADC Data Output Select", wm8960_enum[6]),
+>  SOC_ENUM("DAC Mono Mix", wm8960_enum[7]),
+> +SOC_ENUM("DAC filter characteristics", wm8960_enum[8]),
 
-Only slight hiccup here is there is a build dependency between
-the MFD and SoundWire patch. So without the SoundWire patch
-the SoundWire part of the MFD won't build.
+Be nice to capitalise, to match the other controls but otherwise
+looks good to me:
 
-Vinod, would be really good if you could have a look at the
-SoundWire patch would be great to get this moving, this part is
-seeing a fair amount of deployment at the moment so getting this
-into mainline would be very helpful.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
 Thanks,
 Charles

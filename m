@@ -2,107 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC3B275F0BF
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 11:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BFB875F567
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 13:47:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F5686C1;
-	Mon, 24 Jul 2023 11:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F5686C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E74E210;
+	Mon, 24 Jul 2023 13:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E74E210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690192408;
-	bh=scpBJ577mRimOo62TKgu6+oiwI4ovv5AJtXfkH9zf/A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690199244;
+	bh=fhZel62+8xGqW7JvNVoWADK8SmdGZHFTifhbfTYCCcI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BGNhgVcqun+6ypN9sF3I92aPzsWX0YKEkWFITv7LRzgtonlWBYlFK8I7ldVUL0hf0
-	 K5wy3Q+5WZEiaSdqy36bd1UJjF0UlKEcnuIKvRTWfNzd1hWuw0I6QckGIE4LUsPicp
-	 oOAFIFake9UmdhcegpTCBmDe+trCSkKf0tQyUXBs=
+	b=mIpM5FJf0OmzfQ0rhTAbgsawWVcGuAdFmIRn4HGRXL4pdHE2N3cZAQOKvuhOq7Ul+
+	 FeyoTf+p+ccCP9GT3ora2FC+pTTr2SCbr1d3G5m2L21OsdyuFZfHSPvSM74CKcI9y7
+	 3shm78V8e6BJq8jv/sKdt6esDqhOQUSHAyIi4zGQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D826DF80153; Mon, 24 Jul 2023 11:52:35 +0200 (CEST)
+	id 731CBF80520; Mon, 24 Jul 2023 13:46:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5695EF80163;
-	Mon, 24 Jul 2023 11:52:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90A36F802E8;
+	Mon, 24 Jul 2023 13:46:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B14C0F8019B; Mon, 24 Jul 2023 11:52:31 +0200 (CEST)
+	id 3461BF801F5; Mon, 24 Jul 2023 13:46:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 576A9F80153
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 11:52:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 576A9F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E9CEF800C7;
+	Mon, 24 Jul 2023 13:46:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E9CEF800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ElY+n5lc
+ header.s=Intel header.b=VbiSf4jt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690192346; x=1721728346;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=scpBJ577mRimOo62TKgu6+oiwI4ovv5AJtXfkH9zf/A=;
-  b=ElY+n5lcUTxH0BORpya4YGnwQM7Jzpi1fvsJ+rLTayQpN86oKh+p7PBn
-   dPU/NXKzPhJrQmQBM7MGe7E6MNaYxZPWRyptIjMC0C6h50phsQE8JVEdq
-   dlqT9bYQ/MvJPRCsKpDH0/2zSjYtp3RI53S/nCw4BOQtP76aLyuHJlMvP
-   3kPs6sF3Q58cPDQrWBU/Q5I0tbX10MG1cAMhttzNzzk+U+NuD4aAjcreo
-   uxkw1PMmWP9EnlkkSm60zx6xaQWoIlt+chN8cBByqVz/F3c2BNvbGFUIG
-   wPGHzfLUash9hCC5s5VXyoM77YK7xW+kXz6ASOuZV+CuyaMfIObPk5WS1
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="367423784"
+  t=1690199173; x=1721735173;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fhZel62+8xGqW7JvNVoWADK8SmdGZHFTifhbfTYCCcI=;
+  b=VbiSf4jtEX+T7GRKgWri7tL6atE1h/JFHyhAUmtCdAsyFYZ45POSnic0
+   7OJ25ewLGtlLcZ/DTB9QNxCswujJamUH83Uy02drfVyPgI/joOxPms0tw
+   /GOmvmy2MBa2CvHTXAHOE0DlhvPDEJg1OnuJyH6EHVHVacKmUE9KZZjQA
+   KvgWXyIXALYojHjNZjVDcdWlLpKjG2yuQfdvO1N+0lHH/3NEZqKmYghpD
+   CtJ8zRQO7xphITmZskpE5Nvz9DmKBzAtSIbDi5iBTBB891uWFtQhiPaqH
+   4OQNmoO3qnkdv572pEsewXkv2PsddwuFwp/NxKCQkZJVAmP1aUh0IDZod
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="398322161"
 X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
-   d="scan'208";a="367423784"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2023 02:52:20 -0700
+   d="scan'208";a="398322161"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 04:46:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="972201808"
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="760761948"
 X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
-   d="scan'208";a="972201808"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga006.fm.intel.com with ESMTP; 24 Jul 2023 02:52:16 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qNsEg-007Lw4-1L;
-	Mon, 24 Jul 2023 12:52:14 +0300
-Date: Mon, 24 Jul 2023 12:52:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-	Yong Zhi <yong.zhi@intel.com>,
-	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
-	Uday M Bhat <uday.m.bhat@intel.com>,
-	Terry Cheong <htcheong@chromium.org>,
-	Mac Chiang <mac.chiang@intel.com>,
-	"Dharageswari . R" <dharageswari.r@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 1/2] ASoC: Intel: maxim-common: get codec number from ACPI
-Message-ID: <ZL5Jzod5NBETv9Dp@smile.fi.intel.com>
-References: <20230720092628.758834-1-brent.lu@intel.com>
- <20230720092628.758834-2-brent.lu@intel.com>
- <dc6de509-6984-1434-b53f-9600e8bc7c49@linux.intel.com>
+   d="scan'208";a="760761948"
+Received: from sosterlu-mobl.ger.corp.intel.com (HELO [10.249.37.56])
+ ([10.249.37.56])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 04:46:03 -0700
+Message-ID: <10216a8e-c29c-fc24-e4b5-240743fadd5e@linux.intel.com>
+Date: Mon, 24 Jul 2023 12:15:16 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dc6de509-6984-1434-b53f-9600e8bc7c49@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: XPMYFLXFUFAUJOE3XGLGX7V3FWGLTT46
-X-Message-ID-Hash: XPMYFLXFUFAUJOE3XGLGX7V3FWGLTT46
-X-MailFrom: andriy.shevchenko@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v2 1/9] ALSA: hda/intel: Fix error handling in azx_probe()
+Content-Language: en-US
+To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
+References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+ <20230719164141.228073-2-maarten.lankhorst@linux.intel.com>
+ <98af3d56-0efe-8b35-246e-0fa28cf6966b@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <98af3d56-0efe-8b35-246e-0fa28cf6966b@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: TZUHYSRZFLSMVI6MOO5TXQYULK4I4AGJ
+X-Message-ID-Hash: TZUHYSRZFLSMVI6MOO5TXQYULK4I4AGJ
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XPMYFLXFUFAUJOE3XGLGX7V3FWGLTT46/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TZUHYSRZFLSMVI6MOO5TXQYULK4I4AGJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,45 +118,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 24, 2023 at 11:08:17AM +0200, Pierre-Louis Bossart wrote:
-> On 7/20/23 11:26, Brent Lu wrote:
 
-...
 
-> > +/* helper function to get the number of specific codec */
-
-...and leak a lot of reference counts...
-
-> > +static int get_num_codecs(const char *hid)
-> > +{
-> > +	struct acpi_device *adev = NULL;
-> > +	int dev_num = 0;
-> > +
-> > +	do {
-> > +		adev = acpi_dev_get_next_match_dev(adev, hid, NULL, -1);
+On 7/21/23 13:34, Péter Ujfalusi wrote:
 > 
-> Humm, I am a bit worried about reference counts.
 > 
-> See
-> https://elixir.bootlin.com/linux/latest/source/drivers/acpi/utils.c#L916,
-> it's not clear to me where the get() is done.
+> On 19/07/2023 19:41, Maarten Lankhorst wrote:
+>> Add missing pci_set_drv to NULL call on error.
+>>
+>> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> ---
+>>  sound/pci/hda/hda_intel.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+>> index ef831770ca7da..0d2d6bc6c75ef 100644
+>> --- a/sound/pci/hda/hda_intel.c
+>> +++ b/sound/pci/hda/hda_intel.c
+>> @@ -2188,6 +2188,7 @@ static int azx_probe(struct pci_dev *pci,
+>>  	return 0;
+>>  
+>>  out_free:
+>> +	pci_set_drvdata(pci, NULL);
+> The original patch added this:
+> f4c482a4d0b3 ("ALSA: hda - Fix yet another race of vga_switcheroo registration")
 > 
-> Adding Andy to make sure this is done right.
+> but got removed later by:
+> 20a24225d8f9 ("ALSA: PCI: Remove superfluous pci_set_drvdata(pci, NULL) at remove")
+> 
+> and partially added back (to azx_remove) by:
+> e81478bbe7a1 ("ALSA: hda: fix general protection fault in azx_runtime_idle")
+> 
+> I guess, it should do not harm to add it back...
+> 
+>>  	snd_card_free(card);
+>>  	return err;
+>>  }
+> 
+> Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-Thank you for Cc'ing.
-
-Yes, the above code is problematic. One has to use the respective for_each
-macro (defined nearby the used API).
-
-> > +		if (adev)
-> > +			dev_num++;
-> > +	} while (adev != NULL);
-> > +
-> > +	return dev_num;
-> > +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 

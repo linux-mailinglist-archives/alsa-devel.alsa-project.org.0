@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1027A75E76D
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:28:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC26875E78A
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:28:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31F3983B;
-	Mon, 24 Jul 2023 03:27:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31F3983B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A278E73;
+	Mon, 24 Jul 2023 03:27:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A278E73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690162102;
-	bh=sBhbt8uzCKA9A2iTjhFHhhqHH3IHMBsBCpiHJkgpwXU=;
+	s=default; t=1690162124;
+	bh=MwMIh/DIkAYw2TNf/kQq/X2ozOSXM0i7Hocz7raKL/o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XEvTMOvaNrvc+SVBat1PKc1rWQmVbzl+HiwXnM2If1NGpudk5RD09W9HjAq4q1B/U
-	 gthKputC4cla1U03UR1LA0EtCkTivJD1NyEAORdPsmY93miS0D5f1PeFWpCUHuyXe3
-	 dz0plLseo4ay1AQfatuwCUi2ENWJnvQJ8sJVBSUo=
+	b=OD4IhALAhaWntXip8xrTRZ8B98aF3NHDDWmFM+XHJT1Pf/uf2owey/82jNOFGUG5S
+	 d7fhzwOvxdNzTUNoDijESYUJ/3m+5CL0bRaEoGcGh1Lq76jtNMtZPEdaHJf4QbT34S
+	 6ojFB9LhzlpzLTN9YvthF/XPeAIlBC3RneVgzs4g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F9B9F80580; Mon, 24 Jul 2023 03:24:51 +0200 (CEST)
+	id DB57AF80612; Mon, 24 Jul 2023 03:24:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B161F80580;
-	Mon, 24 Jul 2023 03:24:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A360F8060C;
+	Mon, 24 Jul 2023 03:24:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E9ADF80580; Mon, 24 Jul 2023 03:24:45 +0200 (CEST)
+	id AE7E1F8060A; Mon, 24 Jul 2023 03:24:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,61 +36,54 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3CDB6F805C8
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CDB6F805C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44B91F8053B
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44B91F8053B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QVVWoUt5
+ header.s=k20201202 header.b=RrUEgAbV
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1AA9360DFE;
-	Mon, 24 Jul 2023 01:24:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17788C433C8;
-	Mon, 24 Jul 2023 01:24:36 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 254E160F6F;
+	Mon, 24 Jul 2023 01:24:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0165C433CB;
+	Mon, 24 Jul 2023 01:24:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690161877;
-	bh=sBhbt8uzCKA9A2iTjhFHhhqHH3IHMBsBCpiHJkgpwXU=;
+	s=k20201202; t=1690161886;
+	bh=MwMIh/DIkAYw2TNf/kQq/X2ozOSXM0i7Hocz7raKL/o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QVVWoUt5TlchygaX136TCg1lOcFet/ZuFPyqTdx/tRCBNiSlbcvpQNsz1DR45lvvr
-	 X+tGS/YrKLmSuxzqIh8rO+rFMw/vhLS7GMjsuXs02u4X85mbx5F4OMRLIOZXcZ4GQD
-	 FZ02DoxwJozFUwSQnHrnqEOGXBYoWMuxmVMxaIXQ8FM576R9VvDsgLoBzeePPYS5go
-	 nwcVfBMJ17zYKg4CE/nS3FgMJtz3KVVPIPFQ+H7eCYuhuwN0eXWmAVEubCKa7T7XpS
-	 XLhLheK8twDhw1udSBJzZVtkkERpojCoqm6WQW7ICncNxLPSjJufZYhxpBrLYzKt6I
-	 J4ApAsH7Myo/Q==
+	b=RrUEgAbVyHPy9th1ZZrt0Ldj65TkWeIR/gOdWIMfREFt4CokJC6NaKRY6naY8uA7S
+	 70x0TsLV0fYRrYqGuSFd89aiDQgHk0ENnL9IonEG364nPs4FN/1hMr2PXBpNAOvSqv
+	 FRQiRIydXVSAC3iq5JM37iypylemnhCKYiR7Hbc0WkfMKpptax6rVoSdQbgfFoltH/
+	 uf6Qfo8pBFPCW+oLqdoyilo6efMvi2QOm8O2btdWAk99Lgc8QReyQSetKm48eXArCg
+	 cKi6yfL6T7otfT5+eokesVC4xQEnknGRuYndhcbdcT1YiUtSSdLyaYHaladBSlVTPK
+	 cy9YgS0Oc1bgw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Yanteng Si <siyanteng@loongson.cn>,
-	Huacai Chen <chenhuacai@loongson.cn>,
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	bhelgaas@google.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	gregkh@linuxfoundation.org,
-	kai.vehmanen@linux.intel.com,
-	mkumard@nvidia.com,
-	nmahale@nvidia.com,
-	linux-pci@vger.kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.10 11/22] ALSA: hda: Add Loongson LS7A HD-Audio
- support
-Date: Sun, 23 Jul 2023 21:24:08 -0400
-Message-Id: <20230724012419.2317649-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 02/12] ALSA: emu10k1: roll up loops in DSP setup
+ code for Audigy
+Date: Sun, 23 Jul 2023 21:24:20 -0400
+Message-Id: <20230724012442.2317868-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230724012419.2317649-1-sashal@kernel.org>
-References: <20230724012419.2317649-1-sashal@kernel.org>
+In-Reply-To: <20230724012442.2317868-1-sashal@kernel.org>
+References: <20230724012442.2317868-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.10.186
+X-stable-base: Linux 5.4.249
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YYXKKHEUFPZJBKCZUNK2MEPRLD5YIGZL
-X-Message-ID-Hash: YYXKKHEUFPZJBKCZUNK2MEPRLD5YIGZL
+Message-ID-Hash: MYMWFIDMLYHZNNAOOULM5A3YI5B3DWS5
+X-Message-ID-Hash: MYMWFIDMLYHZNNAOOULM5A3YI5B3DWS5
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YYXKKHEUFPZJBKCZUNK2MEPRLD5YIGZL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MYMWFIDMLYHZNNAOOULM5A3YI5B3DWS5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,95 +105,151 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Yanteng Si <siyanteng@loongson.cn>
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[ Upstream commit 28bd137a3c8e105587ba8c55b68ef43b519b270f ]
+[ Upstream commit 8cabf83c7aa54530e699be56249fb44f9505c4f3 ]
 
-Add the new PCI ID 0x0014 0x7a07 and the new PCI ID 0x0014 0x7a37
-Loongson HDA controller.
+There is no apparent reason for the massive code duplication.
 
-Signed-off-by: Yanteng Si <siyanteng@loongson.cn>
-Acked-by: Huacai Chen <chenhuacai@loongson.cn>
-Link: https://lore.kernel.org/r/993587483b9509796b29a416f257fcfb4b15c6ea.1686128807.git.siyanteng@loongson.cn
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Link: https://lore.kernel.org/r/20230510173917.3073107-3-oswald.buddenhagen@gmx.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/pci_ids.h    | 3 +++
- sound/hda/hdac_device.c    | 1 +
- sound/pci/hda/hda_intel.c  | 7 +++++++
- sound/pci/hda/patch_hdmi.c | 1 +
- 4 files changed, 12 insertions(+)
+ sound/pci/emu10k1/emufx.c | 112 +++-----------------------------------
+ 1 file changed, 9 insertions(+), 103 deletions(-)
 
-diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index 4b34a5c125999..84cb7b32aa26f 100644
---- a/include/linux/pci_ids.h
-+++ b/include/linux/pci_ids.h
-@@ -153,6 +153,9 @@
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index e053f0d58bdd0..2f3cfcfcdb9a3 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -1536,14 +1536,8 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
+ 	gpr += 2;
  
- #define PCI_VENDOR_ID_LOONGSON		0x0014
+ 	/* Master volume (will be renamed later) */
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+0+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+0+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+1+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+1+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+2+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+2+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+3+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+3+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+4+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+4+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+5+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+5+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+6+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+6+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+7+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+7+SND_EMU10K1_PLAYBACK_CHANNELS));
++	for (z = 0; z < 8; z++)
++		A_OP(icode, &ptr, iMAC0, A_GPR(playback+z+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+z+SND_EMU10K1_PLAYBACK_CHANNELS));
+ 	snd_emu10k1_init_mono_control(&controls[nctl++], "Wave Master Playback Volume", gpr, 0);
+ 	gpr += 2;
  
-+#define PCI_DEVICE_ID_LOONGSON_HDA      0x7a07
-+#define PCI_DEVICE_ID_LOONGSON_HDMI     0x7a37
-+
- #define PCI_VENDOR_ID_TTTECH		0x0357
- #define PCI_DEVICE_ID_TTTECH_MC322	0x000a
+@@ -1627,102 +1621,14 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
+ 			dev_dbg(emu->card->dev, "emufx.c: gpr=0x%x, tmp=0x%x\n",
+ 			       gpr, tmp);
+ 			*/
+-			/* For the EMU1010: How to get 32bit values from the DSP. High 16bits into L, low 16bits into R. */
+-			/* A_P16VIN(0) is delayed by one sample,
+-			 * so all other A_P16VIN channels will need to also be delayed
+-			 */
+-			/* Left ADC in. 1 of 2 */
+ 			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_P16VIN(0x0), A_FXBUS2(0) );
+-			/* Right ADC in 1 of 2 */
+-			gpr_map[gpr++] = 0x00000000;
+-			/* Delaying by one sample: instead of copying the input
+-			 * value A_P16VIN to output A_FXBUS2 as in the first channel,
+-			 * we use an auxiliary register, delaying the value by one
+-			 * sample
+-			 */
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(2) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x1), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(4) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x2), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(6) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x3), A_C_00000000, A_C_00000000);
+-			/* For 96kHz mode */
+-			/* Left ADC in. 2 of 2 */
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0x8) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x4), A_C_00000000, A_C_00000000);
+-			/* Right ADC in 2 of 2 */
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xa) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x5), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xc) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x6), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xe) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x7), A_C_00000000, A_C_00000000);
+-			/* Pavel Hofman - we still have voices, A_FXBUS2s, and
+-			 * A_P16VINs available -
+-			 * let's add 8 more capture channels - total of 16
+-			 */
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x10));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x8),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x12));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x9),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x14));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xa),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x16));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xb),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x18));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xc),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x1a));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xd),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x1c));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xe),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x1e));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xf),
+-			     A_C_00000000, A_C_00000000);
++			/* A_P16VIN(0) is delayed by one sample, so all other A_P16VIN channels
++			 * will need to also be delayed; we use an auxiliary register for that. */
++			for (z = 1; z < 0x10; z++) {
++				snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr), A_FXBUS2(z * 2) );
++				A_OP(icode, &ptr, iACC3, A_GPR(gpr), A_P16VIN(z), A_C_00000000, A_C_00000000);
++				gpr_map[gpr++] = 0x00000000;
++			}
+ 		}
  
-diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-index bfd8585776767..5315a3eb114ee 100644
---- a/sound/hda/hdac_device.c
-+++ b/sound/hda/hdac_device.c
-@@ -645,6 +645,7 @@ struct hda_vendor_id {
- };
- 
- static const struct hda_vendor_id hda_vendor_ids[] = {
-+	{ 0x0014, "Loongson" },
- 	{ 0x1002, "ATI" },
- 	{ 0x1013, "Cirrus Logic" },
- 	{ 0x1057, "Motorola" },
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 1f641712233ef..13226f4f2d119 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -274,6 +274,7 @@ enum {
- 	AZX_DRIVER_CTHDA,
- 	AZX_DRIVER_CMEDIA,
- 	AZX_DRIVER_ZHAOXIN,
-+	AZX_DRIVER_LOONGSON,
- 	AZX_DRIVER_GENERIC,
- 	AZX_NUM_DRIVERS, /* keep this as last entry */
- };
-@@ -397,6 +398,7 @@ static const char * const driver_short_names[] = {
- 	[AZX_DRIVER_CTHDA] = "HDA Creative",
- 	[AZX_DRIVER_CMEDIA] = "HDA C-Media",
- 	[AZX_DRIVER_ZHAOXIN] = "HDA Zhaoxin",
-+	[AZX_DRIVER_LOONGSON] = "HDA Loongson",
- 	[AZX_DRIVER_GENERIC] = "HD-Audio Generic",
- };
- 
-@@ -2838,6 +2840,11 @@ static const struct pci_device_id azx_ids[] = {
- 	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_ATI_HDMI },
- 	/* Zhaoxin */
- 	{ PCI_DEVICE(0x1d17, 0x3288), .driver_data = AZX_DRIVER_ZHAOXIN },
-+	/* Loongson HDAudio*/
-+	{PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, PCI_DEVICE_ID_LOONGSON_HDA),
-+	  .driver_data = AZX_DRIVER_LOONGSON },
-+	{PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, PCI_DEVICE_ID_LOONGSON_HDMI),
-+	  .driver_data = AZX_DRIVER_LOONGSON },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, azx_ids);
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index c19afe4861949..5ff7e93024154 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -4307,6 +4307,7 @@ static int patch_gf_hdmi(struct hda_codec *codec)
-  * patch entries
-  */
- static const struct hda_device_id snd_hda_id_hdmi[] = {
-+HDA_CODEC_ENTRY(0x00147a47, "Loongson HDMI",	patch_generic_hdmi),
- HDA_CODEC_ENTRY(0x1002793c, "RS600 HDMI",	patch_atihdmi),
- HDA_CODEC_ENTRY(0x10027919, "RS600 HDMI",	patch_atihdmi),
- HDA_CODEC_ENTRY(0x1002791a, "RS690/780 HDMI",	patch_atihdmi),
+ #if 0
 -- 
 2.39.2
 

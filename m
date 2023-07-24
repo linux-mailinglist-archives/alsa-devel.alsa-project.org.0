@@ -2,112 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79DB175F4C2
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 13:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 470FF75F56E
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 13:48:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A57797F8;
-	Mon, 24 Jul 2023 13:16:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A57797F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5322E204;
+	Mon, 24 Jul 2023 13:48:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5322E204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690197461;
-	bh=qrAfN4pFwmKEkCyDG2aU1NgUas7wKrBSvcRpy76R1jI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690199333;
+	bh=PxaN+6W271Cyw9sPYyy9VqsWusr4rxCuxxEhtCzeMqo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=u+8ebUXK2sEXH1F2pHaGLHqhpNFBZS6chF2nFg5MY1cl62v7ySzlRmrNW58eV5K7I
-	 kZvz90z+RNUpLfD1g/kDYs/Rb73ZDSVYK28GUBsshn5pdHgoIqHmLoPgYcl4FUNf0T
-	 IhyQrzoxVeAQ4TzhGS2MCy2CNahoso8AI5u1O2ds=
+	b=aihJc1RkGDd7GD26s5xhTs7lNEVm1QTC6cvfBeQ1N2MUP40p92YKRYNjD293R5ORm
+	 Tz9LOp1sYzaKJVMBAVsalekzHHXRL4RBEiOLuIAxU/T0JtCiep8Tpa2cIjO5u3/n1I
+	 cw4Fe1XqkkfyZDYeLU9LH2ocEh8nbc77W4d5iDYc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2ABCF8053B; Mon, 24 Jul 2023 13:16:43 +0200 (CEST)
+	id A2EFFF805C1; Mon, 24 Jul 2023 13:46:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA0AAF80163;
-	Mon, 24 Jul 2023 13:16:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02A44F805B5;
+	Mon, 24 Jul 2023 13:46:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FE4EF8019B; Mon, 24 Jul 2023 13:16:37 +0200 (CEST)
+	id 9E8B6F805BB; Mon, 24 Jul 2023 13:46:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D132F80153
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 13:16:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D132F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4192DF80544;
+	Mon, 24 Jul 2023 13:46:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4192DF80544
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lXUfPz3n
+ header.s=Intel header.b=kaoO14+i
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690197393; x=1721733393;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qrAfN4pFwmKEkCyDG2aU1NgUas7wKrBSvcRpy76R1jI=;
-  b=lXUfPz3nq1RxBelKOMte0msTgF8hkjnenJcI/2i7IfBkb/YiPLi0bNYl
-   HJfhjfgE1CuAA9TsDUMNnf8nKJesJUY6ZIPPXXGSU1QqCJu6lkAyXa06N
-   pbkr7dAUVIb2B8AWDONO2cV/I13FjBb6P3byNfXiTNod5Ko5z2oA6GRKY
-   Vh0G//53yiKLWR4II0ExoQvgONfFvnpQ49PqX0PGDIzMvmkTGxcIjOSJ+
-   C2OM+vKVVM9/uyybAq62OqbLEMzHudUyzipgNnoBWY4WINqkv7GjFLEi0
-   GVPt4VJfOa/vymPberqCKwhOJtmNjQsNINvn12ZG4ghQ9TnhYZp6wIWQk
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="371012551"
+  t=1690199192; x=1721735192;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=PxaN+6W271Cyw9sPYyy9VqsWusr4rxCuxxEhtCzeMqo=;
+  b=kaoO14+ib6pcMltBCsYPhsghdmBn45X2v9yE9pH3UqBY7/HC3Hjhouw0
+   jJZk6x0MvxWEiLKW2AQxADbAzjMdFIA482A2KOE1nTnTMBi6/CxmC49F0
+   EQHaYsZemQoLcpE3hW2ZquIXogYtKSMlkCksxs0m70Zfp6lOZ/zm4lV3u
+   d4bNqryRvtbujPHWWH+VVsJPIZks1xpFkF1LJTVpV/YJAjyQGx2t5zHGt
+   DnEMVwiHdtFskB3smhevr61RKs+ZBl5aGgMHW+Bm/86TWc5kqh/gQHGuR
+   b0yvArob8k0jQ5xlzJV3t1wC2e2KcCwK8G1vIXPyPLdvpYpoXWsgmkgId
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="398322253"
 X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
-   d="scan'208";a="371012551"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2023 04:16:29 -0700
+   d="scan'208";a="398322253"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 04:46:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="728873056"
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="760761966"
 X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
-   d="scan'208";a="728873056"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga007.fm.intel.com with ESMTP; 24 Jul 2023 04:16:25 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qNtY7-00AGs2-0G;
-	Mon, 24 Jul 2023 14:16:23 +0300
-Date: Mon, 24 Jul 2023 14:16:22 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Lu, Brent" <brent.lu@intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"Rojewski, Cezary" <cezary.rojewski@intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Zhi, Yong" <yong.zhi@intel.com>,
-	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
-	"Bhat, Uday M" <uday.m.bhat@intel.com>,
-	Terry Cheong <htcheong@chromium.org>,
-	"Chiang, Mac" <mac.chiang@intel.com>,
-	"R, Dharageswari" <dharageswari.r@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 1/2] ASoC: Intel: maxim-common: get codec number from ACPI
-Message-ID: <ZL5dhosg28uIpcFd@smile.fi.intel.com>
-References: <20230720092628.758834-1-brent.lu@intel.com>
- <20230720092628.758834-2-brent.lu@intel.com>
- <dc6de509-6984-1434-b53f-9600e8bc7c49@linux.intel.com>
- <ZL5Jzod5NBETv9Dp@smile.fi.intel.com>
- <CY5PR11MB62579D3B679BB437017529D79702A@CY5PR11MB6257.namprd11.prod.outlook.com>
+   d="scan'208";a="760761966"
+Received: from sosterlu-mobl.ger.corp.intel.com (HELO [10.249.37.56])
+ ([10.249.37.56])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 04:46:25 -0700
+Message-ID: <03d5abcd-53a6-bf61-227e-d608c5fbfe70@linux.intel.com>
+Date: Mon, 24 Jul 2023 13:32:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: 
- <CY5PR11MB62579D3B679BB437017529D79702A@CY5PR11MB6257.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: DTWPJJ2A4ST63XKZ5VR3FYRZJZN75R7D
-X-Message-ID-Hash: DTWPJJ2A4ST63XKZ5VR3FYRZJZN75R7D
-X-MailFrom: andriy.shevchenko@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v2 8/9] ASoC: SOF: Intel: Remove deferred probe for SOF
+Content-Language: en-US
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Matthew Auld <matthew.auld@intel.com>
+References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+ <20230719164141.228073-9-maarten.lankhorst@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230719164141.228073-9-maarten.lankhorst@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: Y4R7E3KEQIPAF2TJDRNQLXQ45BYWQ4Q2
+X-Message-ID-Hash: Y4R7E3KEQIPAF2TJDRNQLXQ45BYWQ4Q2
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DTWPJJ2A4ST63XKZ5VR3FYRZJZN75R7D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y4R7E3KEQIPAF2TJDRNQLXQ45BYWQ4Q2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,68 +118,301 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 24, 2023 at 11:06:02AM +0000, Lu, Brent wrote:
-> > > > +/* helper function to get the number of specific codec */
-> > 
-> > ...and leak a lot of reference counts...
-> > 
-> > > > +static int get_num_codecs(const char *hid) {
-> > > > +	struct acpi_device *adev = NULL;
-> > > > +	int dev_num = 0;
-> > > > +
-> > > > +	do {
-> > > > +		adev = acpi_dev_get_next_match_dev(adev, hid, NULL, -1);
-> > >
-> > > Humm, I am a bit worried about reference counts.
-> > >
-> > > See
-> > > https://elixir.bootlin.com/linux/latest/source/drivers/acpi/utils.c#L9
-> > > 16, it's not clear to me where the get() is done.
-> > >
-> > > Adding Andy to make sure this is done right.
-> > 
-> > Thank you for Cc'ing.
-> > 
-> > Yes, the above code is problematic. One has to use the respective for_each macro
-> > (defined nearby the used API).
-> > 
-> > > > +		if (adev)
-> > > > +			dev_num++;
-> > > > +	} while (adev != NULL);
-> > > > +
-> > > > +	return dev_num;
-> > > > +}
 
-> Each invocation of acpi_dev_get_next_match_dev() calls acpi_dev_put() to release the
-> adev from previous call. And the last call returns NULL. It seems to me the reference count
-> should be fine. Is my understanding correct?
 
-Ah, right. sorry for the confusion. That's why we have a macro
-to not think about these details :-)
+On 7/19/23 18:41, Maarten Lankhorst wrote:
+> This was only used to allow modprobing i915, by converting to the
+> -EPROBE_DEFER mechanism, it can be completely removed, and is in
+> fact counterproductive since -EPROBE_DEFER otherwise won't be
+> handled correctly.
 
-> I saw the macro for_each_acpi_dev_match and re-write the function as follow. Thanks for
-> suggesting using the macro.
+I personally remember only that the request_module("i915") was the main
+motivation for the use of the workqueue, but when it comes to the
+HDaudio codec management we don't even know what we don't know.
+
+I am a bit worried that the snd-hda-intel driver keeps the workqueue for
+HDaudio codec initialization, and this patch removes the workqueue
+completely for SOF. That doesn't seem right. Either both drivers need a
+workqueue or none need a workqueue.
+
+Maybe what we need is to move the i915/xe initialization out of the
+workqueue, and see in a second pass if that workqueue can be safely
+removed from the SOF driver?
+
+
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Acked-by: Matthew Auld <matthew.auld@intel.com>
+> Acked-by: Mark Brown <broonie@kernel.org>
+> ---
+>  sound/soc/sof/Kconfig           | 19 -----------------
+>  sound/soc/sof/core.c            | 38 ++-------------------------------
+>  sound/soc/sof/intel/Kconfig     |  1 -
+>  sound/soc/sof/intel/hda-codec.c |  2 +-
+>  sound/soc/sof/intel/hda.c       | 32 ++++++++++++++++-----------
+>  sound/soc/sof/sof-pci-dev.c     |  3 +--
+>  sound/soc/sof/sof-priv.h        |  5 -----
+>  7 files changed, 23 insertions(+), 77 deletions(-)
 > 
-> /* helper function to get the number of specific codec */
-> static int get_num_codecs(const char *hid) {
-> 	struct acpi_device *adev;
+> diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+> index 80361139a49ad..8ee39e5558062 100644
+> --- a/sound/soc/sof/Kconfig
+> +++ b/sound/soc/sof/Kconfig
+> @@ -82,17 +82,6 @@ config SND_SOC_SOF_DEVELOPER_SUPPORT
+>  
+>  if SND_SOC_SOF_DEVELOPER_SUPPORT
+>  
+> -config SND_SOC_SOF_FORCE_PROBE_WORKQUEUE
+> -	bool "SOF force probe workqueue"
+> -	select SND_SOC_SOF_PROBE_WORK_QUEUE
+> -	help
+> -	  This option forces the use of a probe workqueue, which is only used
+> -	  when HDaudio is enabled due to module dependencies. Forcing this
+> -	  option is intended for debug only, but this should not add any
+> -	  functional issues in nominal cases.
+> -	  Say Y if you are involved in SOF development and need this option.
+> -	  If not, select N.
+> -
+>  config SND_SOC_SOF_NOCODEC
+>  	tristate
+>  
+> @@ -271,14 +260,6 @@ config SND_SOC_SOF
+>  	  module dependencies but since the module or built-in type is decided
+>  	  at the top level it doesn't matter.
+>  
+> -config SND_SOC_SOF_PROBE_WORK_QUEUE
+> -	bool
+> -	help
+> -	  This option is not user-selectable but automagically handled by
+> -	  'select' statements at a higher level.
+> -	  When selected, the probe is handled in two steps, for example to
+> -	  avoid lockdeps if request_module is used in the probe.
+> -
+>  # Supported IPC versions
+>  config SND_SOC_SOF_IPC3
+>  	bool
+> diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+> index 30db685cc5f4b..cdf86dc4a8a87 100644
+> --- a/sound/soc/sof/core.c
+> +++ b/sound/soc/sof/core.c
+> @@ -191,7 +191,8 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+>  	/* probe the DSP hardware */
+>  	ret = snd_sof_probe(sdev);
+>  	if (ret < 0) {
+> -		dev_err(sdev->dev, "error: failed to probe DSP %d\n", ret);
+> +		if (ret != -EPROBE_DEFER)
+> +			dev_err(sdev->dev, "error: failed to probe DSP %d\n", ret);
+>  		goto probe_err;
+>  	}
+>  
+> @@ -309,8 +310,6 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+>  	if (plat_data->sof_probe_complete)
+>  		plat_data->sof_probe_complete(sdev->dev);
+>  
+> -	sdev->probe_completed = true;
+> -
+>  	return 0;
+>  
+>  sof_machine_err:
+> @@ -336,19 +335,6 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+>  	return ret;
+>  }
+>  
+> -static void sof_probe_work(struct work_struct *work)
+> -{
+> -	struct snd_sof_dev *sdev =
+> -		container_of(work, struct snd_sof_dev, probe_work);
+> -	int ret;
+> -
+> -	ret = sof_probe_continue(sdev);
+> -	if (ret < 0) {
+> -		/* errors cannot be propagated, log */
+> -		dev_err(sdev->dev, "error: %s failed err: %d\n", __func__, ret);
+> -	}
+> -}
+> -
+>  int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+>  {
+>  	struct snd_sof_dev *sdev;
+> @@ -436,33 +422,16 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+>  
+>  	sof_set_fw_state(sdev, SOF_FW_BOOT_NOT_STARTED);
+>  
+> -	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE)) {
+> -		INIT_WORK(&sdev->probe_work, sof_probe_work);
+> -		schedule_work(&sdev->probe_work);
+> -		return 0;
+> -	}
+> -
+>  	return sof_probe_continue(sdev);
+>  }
+>  EXPORT_SYMBOL(snd_sof_device_probe);
+>  
+> -bool snd_sof_device_probe_completed(struct device *dev)
+> -{
+> -	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+> -
+> -	return sdev->probe_completed;
+> -}
+> -EXPORT_SYMBOL(snd_sof_device_probe_completed);
+> -
+>  int snd_sof_device_remove(struct device *dev)
+>  {
+>  	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+>  	struct snd_sof_pdata *pdata = sdev->pdata;
+>  	int ret;
+>  
+> -	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+> -		cancel_work_sync(&sdev->probe_work);
+> -
+>  	/*
+>  	 * Unregister any registered client device first before IPC and debugfs
+>  	 * to allow client drivers to be removed cleanly
+> @@ -501,9 +470,6 @@ int snd_sof_device_shutdown(struct device *dev)
+>  {
+>  	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
+>  
+> -	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+> -		cancel_work_sync(&sdev->probe_work);
+> -
+>  	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE) {
+>  		sof_fw_trace_free(sdev);
+>  		return snd_sof_shutdown(sdev);
+> diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+> index 69c1a370d3b61..d9e87a91670a3 100644
+> --- a/sound/soc/sof/intel/Kconfig
+> +++ b/sound/soc/sof/intel/Kconfig
+> @@ -293,7 +293,6 @@ config SND_SOC_SOF_HDA_LINK
+>  config SND_SOC_SOF_HDA_AUDIO_CODEC
+>  	bool "SOF support for HDAudio codecs"
+>  	depends on SND_SOC_SOF_HDA_LINK
+> -	select SND_SOC_SOF_PROBE_WORK_QUEUE
+>  	help
+>  	  This adds support for HDAudio codecs with Sound Open Firmware
+>  	  for Intel(R) platforms.
+> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+> index f1fd5b44aaac9..344b61576c0e3 100644
+> --- a/sound/soc/sof/intel/hda-codec.c
+> +++ b/sound/soc/sof/intel/hda-codec.c
+> @@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
+>  		return 0;
+>  
+>  	/* i915 exposes a HDA codec for HDMI audio */
+> -	ret = snd_hdac_i915_init(bus, true);
+> +	ret = snd_hdac_i915_init(bus, false);
+>  	if (ret < 0)
+>  		return ret;
+>  
+> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+> index 64bebe1a72bbc..a8b7a68142c05 100644
+> --- a/sound/soc/sof/intel/hda.c
+> +++ b/sound/soc/sof/intel/hda.c
+> @@ -801,8 +801,11 @@ static int hda_init(struct snd_sof_dev *sdev)
+>  
+>  	/* init i915 and HDMI codecs */
+>  	ret = hda_codec_i915_init(sdev);
+> -	if (ret < 0)
+> -		dev_warn(sdev->dev, "init of i915 and HDMI codec failed\n");
+> +	if (ret < 0) {
+> +		if (ret != -EPROBE_DEFER)
+> +			dev_warn(sdev->dev, "init of i915 and HDMI codec failed: %i\n", ret);
+> +		return ret;
+> +	}
+>  
+>  	/* get controller capabilities */
+>  	ret = hda_dsp_ctrl_get_caps(sdev);
+> @@ -1115,14 +1118,6 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>  	sdev->pdata->hw_pdata = hdev;
+>  	hdev->desc = chip;
+>  
+> -	hdev->dmic_dev = platform_device_register_data(sdev->dev, "dmic-codec",
+> -						       PLATFORM_DEVID_NONE,
+> -						       NULL, 0);
+> -	if (IS_ERR(hdev->dmic_dev)) {
+> -		dev_err(sdev->dev, "error: failed to create DMIC device\n");
+> -		return PTR_ERR(hdev->dmic_dev);
+> -	}
+> -
+>  	/*
+>  	 * use position update IPC if either it is forced
+>  	 * or we don't have other choice
+> @@ -1142,6 +1137,15 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>  	if (ret < 0)
+>  		goto hdac_bus_unmap;
+>  
+> +	hdev->dmic_dev = platform_device_register_data(sdev->dev, "dmic-codec",
+> +						       PLATFORM_DEVID_NONE,
+> +						       NULL, 0);
+> +	if (IS_ERR(hdev->dmic_dev)) {
+> +		dev_err(sdev->dev, "error: failed to create DMIC device\n");
+> +		ret = PTR_ERR(hdev->dmic_dev);
+> +		goto hdac_exit;
+> +	}
+> +
 
-> 	int dev_num = 0;
+I am not following why we have to move dmic-related code, can we try to
+move this in a separate patch?
 
-size_t here or at least unsigned int is more correct.
-
-> 	for_each_acpi_dev_match(adev, hid, NULL, -1)
-> 		dev_num++;
-> 
-> 	return dev_num;
-> }
-
-Otherwise, yes, that's what I have in mind.
-
-> Will test it in next few days.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+>  	if (sdev->dspless_mode_selected)
+>  		goto skip_dsp_setup;
+>  
+> @@ -1150,7 +1154,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>  	if (!sdev->bar[HDA_DSP_BAR]) {
+>  		dev_err(sdev->dev, "error: ioremap error\n");
+>  		ret = -ENXIO;
+> -		goto hdac_bus_unmap;
+> +		goto platform_unreg;
+>  	}
+>  
+>  	sdev->mmio_bar = HDA_DSP_BAR;
+> @@ -1248,10 +1252,12 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>  /* dsp_unmap: not currently used */
+>  	if (!sdev->dspless_mode_selected)
+>  		iounmap(sdev->bar[HDA_DSP_BAR]);
+> -hdac_bus_unmap:
+> +platform_unreg:
+>  	platform_device_unregister(hdev->dmic_dev);
+> -	iounmap(bus->remap_addr);
+> +hdac_exit:
+>  	hda_codec_i915_exit(sdev);
+> +hdac_bus_unmap:
+> +	iounmap(bus->remap_addr);
+>  err:
+>  	return ret;
+>  }
+> diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+> index f5ece43d0ec24..0fa424613082e 100644
+> --- a/sound/soc/sof/sof-pci-dev.c
+> +++ b/sound/soc/sof/sof-pci-dev.c
+> @@ -339,8 +339,7 @@ void sof_pci_remove(struct pci_dev *pci)
+>  	snd_sof_device_remove(&pci->dev);
+>  
+>  	/* follow recommendation in pci-driver.c to increment usage counter */
+> -	if (snd_sof_device_probe_completed(&pci->dev) &&
+> -	    !(sof_pci_debug & SOF_PCI_DISABLE_PM_RUNTIME))
+> +	if (!(sof_pci_debug & SOF_PCI_DISABLE_PM_RUNTIME))
+>  		pm_runtime_get_noresume(&pci->dev);
+>  
+>  	/* release pci regions and disable device */
+> diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+> index d4f6702e93dcb..71db636cfdccc 100644
+> --- a/sound/soc/sof/sof-priv.h
+> +++ b/sound/soc/sof/sof-priv.h
+> @@ -564,10 +564,6 @@ struct snd_sof_dev {
+>  	enum sof_fw_state fw_state;
+>  	bool first_boot;
+>  
+> -	/* work queue in case the probe is implemented in two steps */
+> -	struct work_struct probe_work;
+> -	bool probe_completed;
+> -
+>  	/* DSP HW differentiation */
+>  	struct snd_sof_pdata *pdata;
+>  
+> @@ -675,7 +671,6 @@ struct snd_sof_dev {
+>  int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data);
+>  int snd_sof_device_remove(struct device *dev);
+>  int snd_sof_device_shutdown(struct device *dev);
+> -bool snd_sof_device_probe_completed(struct device *dev);
+>  
+>  int snd_sof_runtime_suspend(struct device *dev);
+>  int snd_sof_runtime_resume(struct device *dev);

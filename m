@@ -2,102 +2,199 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CADC075F56B
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 13:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 112AC75F473
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 13:07:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 011FB868;
-	Mon, 24 Jul 2023 13:47:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 011FB868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41C02207;
+	Mon, 24 Jul 2023 13:06:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41C02207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690199292;
-	bh=VOs3zQoPAAHTESws9SXZpe783/xBPR/wE76kHJu8Rmg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690196835;
+	bh=WCzzU2U2k6F1eG9R9CIKeDTOXRIzcFemTU+IkQqP0Qs=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uMgdNgwxEk35t3eKDaTaB8jrj1YEj5eAlQVKpZJXtjJAwxQkRW9xngSGG9J1+DTkh
-	 DoQLSRtPZoOzRQtbCvVr7Jz+zo9jhOz356c0c/1v3I/sGYFxkwdVjaDDWvJwa27kcg
-	 yBEHjlDrYn/ZVDoR7rXWVvhovWRSPDnPROe7iR/M=
+	b=LYL/BW9UIiWb3FLLFvC/3idPV8z2PNDcLjNE6ZnSL/pr4heja3vM537FFSj0ooHy6
+	 jA9aM88+Tl+4rLsjk8OCd8hR1u1b+YJSyNxR7i3DFJsaRZtFjymowIuCyAECs42zhy
+	 bBMyGuECi1/0kVe6L1VBc9ZjWVmGmb02+klXsVpo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11F34F80567; Mon, 24 Jul 2023 13:46:36 +0200 (CEST)
+	id 94BF5F801F5; Mon, 24 Jul 2023 13:06:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F670F80570;
-	Mon, 24 Jul 2023 13:46:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B4B0F800D2;
+	Mon, 24 Jul 2023 13:06:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FEFBF80552; Mon, 24 Jul 2023 13:46:30 +0200 (CEST)
+	id 6A312F8019B; Mon, 24 Jul 2023 13:06:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C7F8F800C7;
-	Mon, 24 Jul 2023 13:46:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C7F8F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 77753F80153
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 13:06:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77753F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dl9wb98U
+ header.s=Intel header.b=IbC4qNYw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690199186; x=1721735186;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=VOs3zQoPAAHTESws9SXZpe783/xBPR/wE76kHJu8Rmg=;
-  b=dl9wb98UXnMNrwKAPM8jqaXw1qY7CZ5coua2WYRxFb01f6rwhvsp+GR8
-   /M6Xrt9cShXoWMH6zpCZZ/3/41+NGytvejEC78+2mXUi0ee0nukPHpcWX
-   wa0RZK88FISJZrOCkSYnWaaFIqfKyFEv6s2HvQcAaNm1lg+N8O4REg3Wc
-   CEEL6B9GmZ9BqLpNpIO1/pjqOnW99M6c/9lTw+hZBuGavQKnp6siD0jRn
-   hFPSS1/ItZ4+AKDpPD/18tAbcpQ32GJTi2ed4VdwbZN7j+r9uFs6SmSsc
-   RxeH87n1+B+mhr7A5la0qfd3lb1I16EGaWzGPBb0sFqf2Sslcap1o0Y+L
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="398322231"
+  t=1690196771; x=1721732771;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=WCzzU2U2k6F1eG9R9CIKeDTOXRIzcFemTU+IkQqP0Qs=;
+  b=IbC4qNYw0Q7ouNNpKl5YHzg9GK+iMxz1PhsS1P05OIxoqv2qUpQAXDfH
+   KCn8F+hd3B2o4WkXKEYGdWfXsPXdeVHOG37mOqEjn2xTI0+CtSCIBhrT/
+   Ik5fuimNIWMnqWFURmD+WLj+VgEIAIlkyeZuduu/EK7yvBOiW5BEKwfyf
+   cIYyGSUXUIe3Nd/97ELQENwuf8Af+U2fPcQ4MG9/+kt0usfTyAOJPKAB7
+   DrO+5WVYOKtIq2DnS4SYx93EfX1FhNEo5itEn/f+Z7okQ1gQWREesp5en
+   snQ+20+iFK6vco789VhFDrhIYNM9bBGBNMJzg8+653OvrxlUW74l79ngp
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="431206780"
 X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
-   d="scan'208";a="398322231"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2023 04:46:23 -0700
+   d="scan'208";a="431206780"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 04:06:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="760761962"
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="972219342"
 X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
-   d="scan'208";a="760761962"
-Received: from sosterlu-mobl.ger.corp.intel.com (HELO [10.249.37.56])
- ([10.249.37.56])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2023 04:46:20 -0700
-Message-ID: <a895de13-5320-953b-3d1c-34cee259d1d2@linux.intel.com>
-Date: Mon, 24 Jul 2023 12:58:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v2 7/9] ALSA: hda/intel: Move snd_hdac_i915_init to before
- probe_work.
+   d="scan'208";a="972219342"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+  by fmsmga006.fm.intel.com with ESMTP; 24 Jul 2023 04:06:05 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Mon, 24 Jul 2023 04:06:04 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Mon, 24 Jul 2023 04:06:04 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Mon, 24 Jul 2023 04:06:04 -0700
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.105)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.27; Mon, 24 Jul 2023 04:06:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dlk+BEdcuk53H72u5UwAHeODzOJhGxhhU7EQ7YiClgBfDGckahYz3cBqqowjTgzee6CY0Ph+ssVR9Tb5tGsOxajFI4veRZ+lMnhVwV5U4oxS/RJr2pp5AntCqXJbha25PZUECmeeRxOwZSs3V0sDsntfrTL1y0CTOyHWawzVwl/d3KGaFk+rbxtrAHct9/wkyEWYHTmpebh1BVppEv0cUVCHsx4V/dzt2e9ZKNQqytYi0f5VduS9iAN3iS+HK0IvT3HUTk518uEfh/Y5+H8LjkYmUALaRx8u1Qaq6rqYO1CC5SZjOOsS4c9SNRmj4XhDwBIdWiScPhXwo20lnoXKnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9BiO0l+VOjqoMg30VggF4g5UO3GT7rC2xOu7krujmJ0=;
+ b=HsZfsGpHe1mfLH9GeLz6bmZO6AMeegKvAPeG8lL7qb85XrGIp1e/U/HfzKKXpXYNrmKVCRtFuEhvoosGtVQTNvhmvrVF8tfiaGMaB9/4ZJjN6aQRZ7QVLKligNTK2Pjag2l4wN8qGhdoaqvWugabdAn/LvCUEZeSik4h72USEIeZGHmDOOowJHsPG0hSN2Z7fZ9mRRVSg/14ktrcof9tb9eb/R+Tw87vvHw8UqBoNTTiHRjMZOLR4l+6aNHCJouZvQQjkNeFnJAW+vOWQI3J//1kjaTUO6IDzA2v41LDOw2MbIgrCMBBzxLOB359Q1ouZv9f3lMZRGvHKRo0GjwNAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CY5PR11MB6257.namprd11.prod.outlook.com (2603:10b6:930:26::22)
+ by CH0PR11MB5218.namprd11.prod.outlook.com (2603:10b6:610:e1::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.32; Mon, 24 Jul
+ 2023 11:06:02 +0000
+Received: from CY5PR11MB6257.namprd11.prod.outlook.com
+ ([fe80::12c9:6f97:4016:eabb]) by CY5PR11MB6257.namprd11.prod.outlook.com
+ ([fe80::12c9:6f97:4016:eabb%7]) with mapi id 15.20.6609.032; Mon, 24 Jul 2023
+ 11:06:02 +0000
+From: "Lu, Brent" <brent.lu@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.intel.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, Liam Girdwood
+	<liam.r.girdwood@linux.intel.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>, Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>, Mark Brown <broonie@kernel.org>, "Jaroslav
+ Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zhi, Yong"
+	<yong.zhi@intel.com>, Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+	"Bhat, Uday M" <uday.m.bhat@intel.com>, Terry Cheong <htcheong@chromium.org>,
+	"Chiang, Mac" <mac.chiang@intel.com>, "R, Dharageswari"
+	<dharageswari.r@intel.com>, Kuninori Morimoto
+	<kuninori.morimoto.gx@renesas.com>
+Subject: RE: [PATCH 1/2] ASoC: Intel: maxim-common: get codec number from ACPI
+Thread-Topic: [PATCH 1/2] ASoC: Intel: maxim-common: get codec number from
+ ACPI
+Thread-Index: AQHZuqoaXCiyShA7oEmUALJNRLZwbK/Ip3CAgAAMRwCAABEQ8A==
+Date: Mon, 24 Jul 2023 11:06:02 +0000
+Message-ID: 
+ <CY5PR11MB62579D3B679BB437017529D79702A@CY5PR11MB6257.namprd11.prod.outlook.com>
+References: <20230720092628.758834-1-brent.lu@intel.com>
+ <20230720092628.758834-2-brent.lu@intel.com>
+ <dc6de509-6984-1434-b53f-9600e8bc7c49@linux.intel.com>
+ <ZL5Jzod5NBETv9Dp@smile.fi.intel.com>
+In-Reply-To: <ZL5Jzod5NBETv9Dp@smile.fi.intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
-References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
- <20230719164141.228073-8-maarten.lankhorst@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230719164141.228073-8-maarten.lankhorst@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: US7OW6IGTCA2QMHVMHV2NQCXLZ43OM3N
-X-Message-ID-Hash: US7OW6IGTCA2QMHVMHV2NQCXLZ43OM3N
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR11MB6257:EE_|CH0PR11MB5218:EE_
+x-ms-office365-filtering-correlation-id: 85e80954-0870-4cc8-1322-08db8c35f7d9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ XY7mr4Y2dXj0Utifi+2SOKm10Db1Mmg+qX5NK1/DUoQXTSxecMuT8UPdlyb0ndSItPUymTQftLdUJLA6Z40QM0mUy5QJUEy+fNg4LKalsiNXvQveSa6G46MwLZpxuuo9vxw4fIKPvdmr1ikuCoObUgCx9+QLX5Uv8jsra8S90B17DsuLbYqwdnqfjRdc3FsmP65WVi1bYyNB37LcchHZR8HqoRPcufGBFZdisOXiXr33M5ZZq89zKIwuM6eaNE0heAj9l6Y++lm9DWaCxkXuH+3Oeg2xttUEhll+pHRmrcNrGOGgH4hE/EdjjEBL6UYkPZfm+cHLoHE9fX0maBwa8RCO7Shn7Fb7+lJVzgDZTQTflDxcocWqxlME3F0vPHWZKRMANawCodNAu0rqgtCbmih05Smn0BIPoSkkmrDAakEUC+CwYert0QJ8NKunDiIrApvLr+PbpDOILN98XzosSmveKvATnRmjbHtL2PaL+oGmPMBhGxbWVFJEjmxT4xaaotD6hqMAofSOEfKiGfSf52oWacx5uoxzNUm5+V0iytyPeNlopumBW+p7gqcMBUP0/+NHFZBnQivpWg2huELcw6+f8P79NB20aZwsKIIrvtQLJ11P37prfyvqGq5l6Mxr
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6257.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(346002)(136003)(39860400002)(376002)(451199021)(7696005)(71200400001)(55016003)(122000001)(82960400001)(478600001)(54906003)(110136005)(7416002)(8936002)(8676002)(52536014)(2906002)(5660300002)(33656002)(86362001)(38070700005)(38100700002)(4326008)(76116006)(66446008)(64756008)(66946007)(66556008)(66476007)(41300700001)(316002)(6506007)(26005)(9686003)(186003)(966005)(11716005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?yoQXSjFXpIOs0Vk+/igd7KoDCp4tCQr+w2voDRHImDNI8jDCbatAZ8ZyFIsN?=
+ =?us-ascii?Q?B3zi7TpqhElo8S8IXD6EMLuRA2nl0uINwjmeooA6ittH4j9euM3NtMYb2VrL?=
+ =?us-ascii?Q?8ENHdxFGV3nBBFaTxJK/4dSE0rKvtSibN1Sz+1Q3n261xAmXUDAeEtrDPaUs?=
+ =?us-ascii?Q?ygYC/1uzN1Tbq1luDeUd2pXaDzBKyLeHDzVtwed64NIQc1ocZMK8B7FjClPM?=
+ =?us-ascii?Q?ksQPY96CjlgblmuoC3IP2XOcEZIRHIan7kvDPmquIoqVGKNJEkbTnN9MW5i1?=
+ =?us-ascii?Q?QGjrWPDln0FVdkz2ajZf62jP2tjCzSYwkfSYBy00UtczM5VE6AISX0T/M6eq?=
+ =?us-ascii?Q?Yr4faHi+NDEuMDGpBO16xcVOC5YLmXnOeoDefCrAZNYRticK4/zGzS5aHaCu?=
+ =?us-ascii?Q?ov1jC4veQoUQhTkb6k5T+BLIw/e1eFfBDipD4MBvGS7lCNlSlWWziiur6u1+?=
+ =?us-ascii?Q?pjXcqRXpgfEyGKr7paEfr2HX/9UtJEhyO2cizLQJ/kV/3Sa2kooukyWrfLH7?=
+ =?us-ascii?Q?CI7qK5fWJ7GUj5yBR+QfvxN3PjNLvxRC3r3brcnsVKmAvZVpPBV8IEP7VXqN?=
+ =?us-ascii?Q?MTSblc2uUVQ5TrrjT2W5aeMqAoquO64W6g9ODF2rrNcUGrZw+d+zphuyypTc?=
+ =?us-ascii?Q?AnN4+unD5l0tTpVB6UntPhj8IFc4YaVlTRXvmhojSrR1PSM3r7o2FULYbVhm?=
+ =?us-ascii?Q?7vofybl2ZvO9oDfoWD7O+xe/BTD3+CBmbOnikCs3ZFKXSslQLQxzYiP5ZzBz?=
+ =?us-ascii?Q?gFvG1DH/gr0wwTDLKE6GDAbDQGwx8qk+JO/RjXLCk4Z0kHTS0g2ndkDuDmmN?=
+ =?us-ascii?Q?2uvh+U6rEmmAkyIGRbXPAv5/ZUT3AFE/Akbp3LeVMTXDvgpI6gNuTcbuaDTj?=
+ =?us-ascii?Q?8tMLLycvXWLz+cNoLGfdnkLaShvJNwUBTuAYdSNiqNaOWUMrlk3P37j3Tn5e?=
+ =?us-ascii?Q?k9Ik8B17DYu/a2XXu9xP/yu1MJd3jE1+ljxHuEzDjEFCbASb8k4LgYsmLAix?=
+ =?us-ascii?Q?NETqo4QOMwYtrWXyZD6tIXaUIZmns13UpekpS9t9fLY6U1/+i/fQJ3EVTtPs?=
+ =?us-ascii?Q?6IK2jA/L9plillvpgdDbNgoDqAYtfj9YXabIVWVRjw5FHqS3lB5MMzDKz/kT?=
+ =?us-ascii?Q?WDOqJMxlApmG7oy/Sq6SftYKLmH8laySI4jJ2ch+QGd57uImlq1ImcBAjHus?=
+ =?us-ascii?Q?rEBQIpAoZJCCaVGmcIBUGg5vomAoypx1YtjkD5tkbyYsMbcvVxIOebWB3uAM?=
+ =?us-ascii?Q?ibkYQeUrTMHXwLRZTCd6U72upyql/2LT+FpTtc4EdRpt9jj2X4bEcFRrxy96?=
+ =?us-ascii?Q?+QHMD5xYbcczIlTyAKxrMtx4yP6USnn2Fg8hYjVMIhfxWcqbXojKNSbsQfkP?=
+ =?us-ascii?Q?BahQKYmXSYpm6nNxviMDIvce2owA2cr7Uac3zn4HatyEG0cBZgHw9X4vKw7u?=
+ =?us-ascii?Q?0Bn3PfvzuIA40djvK/eXnuj+MYDEbsMEc0RGiYi9sZot+DLe8LkACpO9hvMw?=
+ =?us-ascii?Q?7W4HK2Vriwys3ZecfTksc4WjUUUBFTLj4YpTrRUpCFZthbIhUjEx7XOnQOlC?=
+ =?us-ascii?Q?UIti6ynPQcb5FiGwpCg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6257.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 85e80954-0870-4cc8-1322-08db8c35f7d9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2023 11:06:02.1903
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ JoCIJTTLjMeW3CoNIIkg219rKXCOy1UcvYg0ndGzaWy64uK/MUgMmbrpmwI2Z7IWGSoBifc0+fBul0dsKMd7og==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5218
+X-OriginatorOrg: intel.com
+Message-ID-Hash: DEWNJKEXKNKMLDPDUEDEL6LBKLYRND4Z
+X-Message-ID-Hash: DEWNJKEXKNKMLDPDUEDEL6LBKLYRND4Z
+X-MailFrom: brent.lu@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +206,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/US7OW6IGTCA2QMHVMHV2NQCXLZ43OM3N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DEWNJKEXKNKMLDPDUEDEL6LBKLYRND4Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,120 +216,68 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+> > > +/* helper function to get the number of specific codec */
+>=20
+> ...and leak a lot of reference counts...
+>=20
+> > > +static int get_num_codecs(const char *hid) {
+> > > +	struct acpi_device *adev =3D NULL;
+> > > +	int dev_num =3D 0;
+> > > +
+> > > +	do {
+> > > +		adev =3D acpi_dev_get_next_match_dev(adev, hid, NULL, -1);
+> >
+> > Humm, I am a bit worried about reference counts.
+> >
+> > See
+> > https://elixir.bootlin.com/linux/latest/source/drivers/acpi/utils.c#L9
+> > 16, it's not clear to me where the get() is done.
+> >
+> > Adding Andy to make sure this is done right.
+>=20
+> Thank you for Cc'ing.
+>=20
+> Yes, the above code is problematic. One has to use the respective for_eac=
+h macro
+> (defined nearby the used API).
+>=20
+> > > +		if (adev)
+> > > +			dev_num++;
+> > > +	} while (adev !=3D NULL);
+> > > +
+> > > +	return dev_num;
+> > > +}
+>=20
+> --
+> With Best Regards,
+> Andy Shevchenko
+>=20
+Hi Andy,
 
-On 7/19/23 18:41, Maarten Lankhorst wrote:
-> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
-> the snd_hdac_i915_init into a workqueue.
-> 
-> Use the -EPROBE_DEFER mechanism instead, which must be returned in the
-> probe function.
-> 
-> Changes since v1:
-> - Use dev_err_probe()
-> - Don't move probed_devs bitmap unnecessarily. (tiwai)
-> - Move snd_hdac_i915_init slightly upward, to ensure
->   it's always initialised before vga-switcheroo is called.
-> 
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> ---
->  sound/pci/hda/hda_intel.c | 59 ++++++++++++++++++++-------------------
->  1 file changed, 30 insertions(+), 29 deletions(-)
-> 
-> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> index 11cf9907f039f..e3128d7d742e7 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -2147,6 +2147,36 @@ static int azx_probe(struct pci_dev *pci,
->  
->  	pci_set_drvdata(pci, card);
->  
-> +#ifdef CONFIG_SND_HDA_I915
-> +	/* bind with i915 if needed */
-> +	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT) {
-> +		err = snd_hdac_i915_init(azx_bus(chip), false);
-> +		if (err < 0) {
-> +			/* if the controller is bound only with HDMI/DP
-> +			 * (for HSW and BDW), we need to abort the probe;
-> +			 * for other chips, still continue probing as other
-> +			 * codecs can be on the same link.
-> +			 */
-> +			if (CONTROLLER_IN_GPU(pci)) {
-> +				dev_err_probe(card->dev, err,
-> +					     "HSW/BDW HD-audio HDMI/DP requires binding with gfx driver\n");
-> +
-> +				goto out_free;
-> +			} else {
-> +				/* don't bother any longer */
-> +				chip->driver_caps &= ~AZX_DCAPS_I915_COMPONENT;
-> +			}
-> +		}
-> +
-> +		/* HSW/BDW controllers need this power */
-> +		if (CONTROLLER_IN_GPU(pci))
-> +			hda->need_i915_power = true;
-> +	}
-> +#else
-> +	if (CONTROLLER_IN_GPU(pci))
-> +		dev_err(card->dev, "Haswell/Broadwell HDMI/DP must build in CONFIG_SND_HDA_I915\n");
-> +#endif
+Each invocation of acpi_dev_get_next_match_dev() calls acpi_dev_put() to re=
+lease the
+adev from previous call. And the last call returns NULL. It seems to me the=
+ reference count
+should be fine. Is my understanding correct?
 
-Is it intentional that the display_power() is left in the probe workqueue?
+I saw the macro for_each_acpi_dev_match and re-write the function as follow=
+. Thanks for
+suggesting using the macro.
 
-this piece of code follows the stuff above in the existing code?
+/* helper function to get the number of specific codec */
+static int get_num_codecs(const char *hid) {
+	struct acpi_device *adev;
+	int dev_num =3D 0;
 
-/* Request display power well for the HDA controller or codec. For
- * Haswell/Broadwell, both the display HDA controller and codec need
- * this power. For other platforms, like Baytrail/Braswell, only the
- * display codec needs the power and it can be released after probe.
- */
-display_power(chip, true);
+	for_each_acpi_dev_match(adev, hid, NULL, -1)
+		dev_num++;
+
+	return dev_num;
+}
+
+Will test it in next few days.
+
+Regards,
+Brent
 
 
-
-> +
->  	err = register_vga_switcheroo(chip);
->  	if (err < 0) {
->  		dev_err(card->dev, "Error registering vga_switcheroo client\n");
-> @@ -2174,11 +2204,6 @@ static int azx_probe(struct pci_dev *pci,
->  	}
->  #endif /* CONFIG_SND_HDA_PATCH_LOADER */
->  
-> -#ifndef CONFIG_SND_HDA_I915
-> -	if (CONTROLLER_IN_GPU(pci))
-> -		dev_err(card->dev, "Haswell/Broadwell HDMI/DP must build in CONFIG_SND_HDA_I915\n");
-> -#endif
-> -
->  	if (schedule_probe)
->  		schedule_delayed_work(&hda->probe_work, 0);
->  
-> @@ -2275,30 +2300,6 @@ static int azx_probe_continue(struct azx *chip)
->  	to_hda_bus(bus)->bus_probing = 1;
->  	hda->probe_continued = 1;
->  
-> -	/* bind with i915 if needed */
-> -	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT) {
-> -		err = snd_hdac_i915_init(bus, true);
-> -		if (err < 0) {
-> -			/* if the controller is bound only with HDMI/DP
-> -			 * (for HSW and BDW), we need to abort the probe;
-> -			 * for other chips, still continue probing as other
-> -			 * codecs can be on the same link.
-> -			 */
-> -			if (CONTROLLER_IN_GPU(pci)) {
-> -				dev_err(chip->card->dev,
-> -					"HSW/BDW HD-audio HDMI/DP requires binding with gfx driver\n");
-> -				goto out_free;
-> -			} else {
-> -				/* don't bother any longer */
-> -				chip->driver_caps &= ~AZX_DCAPS_I915_COMPONENT;
-> -			}
-> -		}
-> -
-> -		/* HSW/BDW controllers need this power */
-> -		if (CONTROLLER_IN_GPU(pci))
-> -			hda->need_i915_power = true;
-> -	}
-> -
->  	/* Request display power well for the HDA controller or codec. For
->  	 * Haswell/Broadwell, both the display HDA controller and codec need
->  	 * this power. For other platforms, like Baytrail/Braswell, only the

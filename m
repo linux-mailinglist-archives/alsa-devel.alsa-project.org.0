@@ -2,90 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6F375E752
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:27:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C65EC75E759
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:27:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3BFAFA;
-	Mon, 24 Jul 2023 03:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3BFAFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13667E12;
+	Mon, 24 Jul 2023 03:26:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13667E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690162022;
-	bh=GxB0HATsm3F2ApFTP3FB7yVVDEKsxs8lPV+ztvhG9iU=;
+	s=default; t=1690162041;
+	bh=ymCCvCYmQlg/znA9eNYVAZq5QI1ZGy4/cF3lYth5HBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MV7kCFhIXOTFHqxIisYgnofysmJY0tJtATY+26caHxhOMROamFb/DOQtVwSEeIHPW
-	 R30kF36qhaJ8Yv/okbLW2MH46BPeB24+r6r+ZNXd6BbUoHJbxbQqoBu9Bx+1/r7XqD
-	 SxmWxRXuivyKV6Vg981VRllJTztYDZMOWpwDpiyA=
+	b=CZ+KYG3wpgr7bnmcpToSTvoc+VNjdqYhALDQCKz+Ry51sOfwvgPGGSqSRH4aahys5
+	 gy/djVTL4EbSfJCB+nV4LWB8EMPT3ZA0XDhXglipcHP/kBU1Dyw9g7mEuDSnmnvFrj
+	 HljuiXadzzJT5v4QyufAE0AX25MCNPWUuweawQ0A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE143F805BE; Mon, 24 Jul 2023 03:24:20 +0200 (CEST)
+	id 71276F805C6; Mon, 24 Jul 2023 03:24:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 720E4F805E3;
-	Mon, 24 Jul 2023 03:24:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D574EF80310;
+	Mon, 24 Jul 2023 03:24:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 01636F805E3; Mon, 24 Jul 2023 03:24:17 +0200 (CEST)
+	id 055A2F805C4; Mon, 24 Jul 2023 03:24:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D617DF805B5
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D617DF805B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9DEB2F8057C
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DEB2F8057C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aiH4FKOH
+ header.s=k20201202 header.b=AprypV+2
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C9AFC60F19;
-	Mon, 24 Jul 2023 01:24:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C669C433C7;
-	Mon, 24 Jul 2023 01:24:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8098660F54;
+	Mon, 24 Jul 2023 01:24:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725FCC433CA;
+	Mon, 24 Jul 2023 01:24:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690161853;
-	bh=GxB0HATsm3F2ApFTP3FB7yVVDEKsxs8lPV+ztvhG9iU=;
+	s=k20201202; t=1690161863;
+	bh=ymCCvCYmQlg/znA9eNYVAZq5QI1ZGy4/cF3lYth5HBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aiH4FKOHQtmAukuCSRK2ahyhteT9JQWHztgXsHQY16qmagSAOpXP+A9YDmGwC03be
-	 1ugebkYYqNzTu0UI3obMojf+hFJrtOrLcvDVTABkSaYXIihZAJBOyNBeCUFwCmDqY7
-	 w6Y6DFQxKq6AxG5JeNvTIv6ccT9hOyLY1hHjzlhfFhMLvxuwgi8g672pLVgp1ny1ah
-	 eL7l4rUGWfwNOT2aajEl7Jd3N0rZC/tFIWOR+GQDkYXavdtB+t6+tbf88A2q3EKQ1T
-	 bV11Hwbc6tWj86HaS6fS4G/o3inHuYVBTGJpUvII6wINiQdtob/2sCtQ879ORmmW2O
-	 owUlVLVv0TQ1w==
+	b=AprypV+2XOT1s664ytNkyzUwKOrl3yqmumrJFR1UOElPzaR7ADOz5KvVx9sWKXyT8
+	 ckK7Yb/taU70UQCMlVwIxWm+koY37GQswIK3O2AKSylonvd83Vo/XsCtdtEPCAJvY1
+	 4uyhsAaswU6N16tpbPKth4eq50Bf2ijYoCb9HUfxzt3SGkQ0tQou4mPL4s/v10o35p
+	 GSgLFN4wAThjLs8QNXSbG0m0E3CHUs2/91QWWxAfvOYR5TsXztmHUCt9jHKPEShMn0
+	 FMDzdbSBQcBeMst2Hl0myZ/NJvvG2LSmV/M0wiq3ALueTNQ8AmdnhDMx8qDj48QLL0
+	 pmpS0Is6NLLIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Matthew Anderson <ruinairas1992@gmail.com>,
-	Philip Mueller <philm@manjaro.org>,
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.15 19/23] ALSA: hda/realtek: Add quirks for ROG ALLY
- CS35l41 audio
-Date: Sun, 23 Jul 2023 21:23:30 -0400
-Message-Id: <20230724012334.2317140-19-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 02/22] ALSA: emu10k1: roll up loops in DSP setup
+ code for Audigy
+Date: Sun, 23 Jul 2023 21:23:59 -0400
+Message-Id: <20230724012419.2317649-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230724012334.2317140-1-sashal@kernel.org>
-References: <20230724012334.2317140-1-sashal@kernel.org>
+In-Reply-To: <20230724012419.2317649-1-sashal@kernel.org>
+References: <20230724012419.2317649-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.121
+X-stable-base: Linux 5.10.186
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XRZH3VEBELAI7E2OXSCZAMJIQSUCANIC
-X-Message-ID-Hash: XRZH3VEBELAI7E2OXSCZAMJIQSUCANIC
+Message-ID-Hash: 74374VCNB64GHRXLOXLS2LZMKRTWBAM7
+X-Message-ID-Hash: 74374VCNB64GHRXLOXLS2LZMKRTWBAM7
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XRZH3VEBELAI7E2OXSCZAMJIQSUCANIC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/74374VCNB64GHRXLOXLS2LZMKRTWBAM7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,94 +105,151 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Matthew Anderson <ruinairas1992@gmail.com>
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[ Upstream commit 724418b84e6248cd27599607b7e5fac365b8e3f5 ]
+[ Upstream commit 8cabf83c7aa54530e699be56249fb44f9505c4f3 ]
 
-This requires a patched ACPI table or a firmware from ASUS to work because
-the system does not come with the _DSD field for the CSC3551.
+There is no apparent reason for the massive code duplication.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=217550
-Signed-off-by: Matthew Anderson <ruinairas1992@gmail.com>
-Tested-by: Philip Mueller <philm@manjaro.org>
-Link: https://lore.kernel.org/r/20230621161714.9442-1-ruinairas1992@gmail.com
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Link: https://lore.kernel.org/r/20230510173917.3073107-3-oswald.buddenhagen@gmx.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 46 +++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+ sound/pci/emu10k1/emufx.c | 112 +++-----------------------------------
+ 1 file changed, 9 insertions(+), 103 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 22f0d1b359f0f..42a1446a43eed 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6921,6 +6921,10 @@ enum {
- 	ALC294_FIXUP_ASUS_DUAL_SPK,
- 	ALC285_FIXUP_THINKPAD_X1_GEN7,
- 	ALC285_FIXUP_THINKPAD_HEADSET_JACK,
-+	ALC294_FIXUP_ASUS_ALLY,
-+	ALC294_FIXUP_ASUS_ALLY_PINS,
-+	ALC294_FIXUP_ASUS_ALLY_VERBS,
-+	ALC294_FIXUP_ASUS_ALLY_SPEAKER,
- 	ALC294_FIXUP_ASUS_HPE,
- 	ALC294_FIXUP_ASUS_COEF_1B,
- 	ALC294_FIXUP_ASUS_GX502_HP,
-@@ -8183,6 +8187,47 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC294_FIXUP_SPK2_TO_DAC1
- 	},
-+	[ALC294_FIXUP_ASUS_ALLY] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_two,
-+		.chained = true,
-+		.chain_id = ALC294_FIXUP_ASUS_ALLY_PINS
-+	},
-+	[ALC294_FIXUP_ASUS_ALLY_PINS] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x19, 0x03a11050 },
-+			{ 0x1a, 0x03a11c30 },
-+			{ 0x21, 0x03211420 },
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC294_FIXUP_ASUS_ALLY_VERBS
-+	},
-+	[ALC294_FIXUP_ASUS_ALLY_VERBS] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x45 },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x5089 },
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x46 },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0004 },
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x47 },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0xa47a },
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x49 },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0049},
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x4a },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x201b },
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x6b },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x4278},
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC294_FIXUP_ASUS_ALLY_SPEAKER
-+	},
-+	[ALC294_FIXUP_ASUS_ALLY_SPEAKER] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_speaker2_to_dac1,
-+	},
- 	[ALC285_FIXUP_THINKPAD_X1_GEN7] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_thinkpad_x1_gen7,
-@@ -9107,6 +9152,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA", ALC295_FIXUP_ASUS_DACS),
- 	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
-+	SND_PCI_QUIRK(0x1043, 0x17f3, "ROG Ally RC71L_RC71L", ALC294_FIXUP_ASUS_ALLY),
- 	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 4e76ed0e91d5d..e17b93b25d2ff 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -1560,14 +1560,8 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
+ 	gpr += 2;
+ 
+ 	/* Master volume (will be renamed later) */
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+0+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+0+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+1+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+1+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+2+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+2+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+3+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+3+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+4+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+4+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+5+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+5+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+6+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+6+SND_EMU10K1_PLAYBACK_CHANNELS));
+-	A_OP(icode, &ptr, iMAC0, A_GPR(playback+7+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+7+SND_EMU10K1_PLAYBACK_CHANNELS));
++	for (z = 0; z < 8; z++)
++		A_OP(icode, &ptr, iMAC0, A_GPR(playback+z+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+z+SND_EMU10K1_PLAYBACK_CHANNELS));
+ 	snd_emu10k1_init_mono_control(&controls[nctl++], "Wave Master Playback Volume", gpr, 0);
+ 	gpr += 2;
+ 
+@@ -1651,102 +1645,14 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
+ 			dev_dbg(emu->card->dev, "emufx.c: gpr=0x%x, tmp=0x%x\n",
+ 			       gpr, tmp);
+ 			*/
+-			/* For the EMU1010: How to get 32bit values from the DSP. High 16bits into L, low 16bits into R. */
+-			/* A_P16VIN(0) is delayed by one sample,
+-			 * so all other A_P16VIN channels will need to also be delayed
+-			 */
+-			/* Left ADC in. 1 of 2 */
+ 			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_P16VIN(0x0), A_FXBUS2(0) );
+-			/* Right ADC in 1 of 2 */
+-			gpr_map[gpr++] = 0x00000000;
+-			/* Delaying by one sample: instead of copying the input
+-			 * value A_P16VIN to output A_FXBUS2 as in the first channel,
+-			 * we use an auxiliary register, delaying the value by one
+-			 * sample
+-			 */
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(2) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x1), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(4) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x2), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(6) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x3), A_C_00000000, A_C_00000000);
+-			/* For 96kHz mode */
+-			/* Left ADC in. 2 of 2 */
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0x8) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x4), A_C_00000000, A_C_00000000);
+-			/* Right ADC in 2 of 2 */
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xa) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x5), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xc) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x6), A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xe) );
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x7), A_C_00000000, A_C_00000000);
+-			/* Pavel Hofman - we still have voices, A_FXBUS2s, and
+-			 * A_P16VINs available -
+-			 * let's add 8 more capture channels - total of 16
+-			 */
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x10));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x8),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x12));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x9),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x14));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xa),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x16));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xb),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x18));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xc),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x1a));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xd),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x1c));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xe),
+-			     A_C_00000000, A_C_00000000);
+-			gpr_map[gpr++] = 0x00000000;
+-			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
+-								  bit_shifter16,
+-								  A_GPR(gpr - 1),
+-								  A_FXBUS2(0x1e));
+-			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xf),
+-			     A_C_00000000, A_C_00000000);
++			/* A_P16VIN(0) is delayed by one sample, so all other A_P16VIN channels
++			 * will need to also be delayed; we use an auxiliary register for that. */
++			for (z = 1; z < 0x10; z++) {
++				snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr), A_FXBUS2(z * 2) );
++				A_OP(icode, &ptr, iACC3, A_GPR(gpr), A_P16VIN(z), A_C_00000000, A_C_00000000);
++				gpr_map[gpr++] = 0x00000000;
++			}
+ 		}
+ 
+ #if 0
 -- 
 2.39.2
 

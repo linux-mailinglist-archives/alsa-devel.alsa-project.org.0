@@ -2,102 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B1A75EB85
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 08:31:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DBCD75EC78
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 09:26:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF0D9208;
-	Mon, 24 Jul 2023 08:30:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF0D9208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26B70207;
+	Mon, 24 Jul 2023 09:25:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26B70207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690180287;
-	bh=gcHOCENVExHIbG+cMt5X8pZXEix2pfeXF1dWfwSQfRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JHUEjGd0B8pSjAiL6adWeWh6gNQW0Lz3SnhcnkPr/+K5/snv6vtlUAS99bwtKIi8u
-	 5sj+uGBmngH4I49SJffv9jF8TQ1hX4hCL0/nzkACRDCYCAqX5botm3nUHkI9TLSEQ5
-	 leIGfUdTCEkJXIrhHYoMXbBhsIsdRPL4GFMYICSg=
+	s=default; t=1690183572;
+	bh=TrQp1nMY82Bv2CjInG+EcmCoASx8N7ozBRd3u5Nd3oY=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=KpeikedCxOAs+saqbv+7FfAoEDCqCl+eEkxjVtXvTuQQF2ajiAcjUEYnixEBce+Mx
+	 lMkQJQnbeoZX0/RT39mFZH9JBsBBdwQnZ4dqbYuikz3PLbNibfo/3VqSRXclp0tJfB
+	 Iu+g4d+CeF65CUQrra7o0ttDDZL5RJYfN8mraEN0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7713EF800C7; Mon, 24 Jul 2023 08:30:37 +0200 (CEST)
+	id BA876F80153; Mon, 24 Jul 2023 09:25:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17A89F8019B;
-	Mon, 24 Jul 2023 08:30:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AD32F80163;
+	Mon, 24 Jul 2023 09:25:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73E36F8019B; Mon, 24 Jul 2023 05:01:21 +0200 (CEST)
+	id 008DBF8019B; Mon, 24 Jul 2023 09:25:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by alsa1.perex.cz (Postfix) with ESMTP id 825C8F800D2
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 05:00:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 825C8F800D2
-Received: from loongson.cn (unknown [112.20.109.108])
-	by gateway (Coremail) with SMTP id _____8BxY_A+6b1kUPwIAA--.22698S3;
-	Mon, 24 Jul 2023 11:00:15 +0800 (CST)
-Received: from [192.168.100.8] (unknown [112.20.109.108])
-	by localhost.localdomain (Coremail) with SMTP id
- AQAAf8CxF8w56b1ki2U4AA--.48015S3;
-	Mon, 24 Jul 2023 11:00:12 +0800 (CST)
-Message-ID: <d7b825d7-0430-50b0-514a-8685362b640c@loongson.cn>
-Date: Mon, 24 Jul 2023 11:00:09 +0800
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id D375FF80153
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 09:25:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D375FF80153
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=I0ybHvy1
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-4fa48b5dc2eso5849807e87.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 24 Jul 2023 00:25:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690183507; x=1690788307;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6To1AmJfKZALXGlXmCdcpZQBhgwdO8DUFybmC0BfNuI=;
+        b=I0ybHvy1YLSUttFE8O1Qh6SjnmxzSFnmFPbj/00XHoyRTeHaQiLC6TZ6ZFlHQzVzWW
+         Xv8slB0FYNivzUusyeUO7ItxNy/ydzn0hVu9dRvkgmFUIFCaA7fDjv1/FOUadboyKaky
+         bmwaUp/gQoVCLxIlWWsSGXbTT+zapkwh7JZRaGA1AiF7fXvCVHvrNz9rIsPwZ2BbCUc3
+         55nDdbJFyfK6jGOUN+h1BkkuEeDs6Cp0PLocKbZ1UaLl6UebMz6B2yQmvFi8CuV+ugi3
+         UM6Ggq16DU8nO6K03iMt9pdlowN4a3IAXpVb3oggruIEH8ieOncYGw4L4x8+2OMYos/D
+         KJnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690183507; x=1690788307;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6To1AmJfKZALXGlXmCdcpZQBhgwdO8DUFybmC0BfNuI=;
+        b=XgvBK6sPl6LTyBQLcine0yHTZ04b01C+pKQadvPnMzip1QqWGaKx84cDvRauQ+y5QH
+         gwNWlCF7ynX5HlgO7qhcT8IhGjbcyhPyWyI74xUpRPOc6KbvDGOYpQuzhd7aUG4p5Rht
+         OP6HhELbLi4bsjaAK8Pb3InhlDaDEFhM0OsraTxgS9E30p1Josn6Oxp4HBry8JerYizL
+         9FQYPlNXJm3NAWFlAT/vIfrYivyc3dViwuuWeRgnZN3M56x6TNHCatxkxdIiSkZFsTS1
+         2ACDdP0bhzQgm32Mk9XwLA6C3sGHo9qHo/MjtntzeNuXSG6oMoNrhmlyRoq+fnsou+S/
+         EFpA==
+X-Gm-Message-State: ABy/qLZDL2tQQm9r5xtCWVrFO+TiVWlmm9QKpgaQMCnTF1piftzmK6KK
+	DXhRdOrKvJiaq4WEh66Xtt55GA==
+X-Google-Smtp-Source: 
+ APBJJlF4c3ReKDhvLfkhVwoWeOuz74evpUCZ2CgKvSJySQdVz2fjNjGVbLZ0rhlEWgW66p+rwRWCxQ==
+X-Received: by 2002:a19:7508:0:b0:4ed:cc6d:61fe with SMTP id
+ y8-20020a197508000000b004edcc6d61femr4842985lfe.24.1690183507175;
+        Mon, 24 Jul 2023 00:25:07 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+        by smtp.gmail.com with ESMTPSA id
+ t8-20020a056402020800b0052239012c65sm303432edv.82.2023.07.24.00.25.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Jul 2023 00:25:06 -0700 (PDT)
+Message-ID: <ae570cbb-08ad-5a7c-8dc9-4ad9f41d6e7f@linaro.org>
+Date: Mon, 24 Jul 2023 09:25:04 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH AUTOSEL 6.4 28/58] ALSA: hda: Add Loongson LS7A HD-Audio
- support
-To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Cc: Huacai Chen <chenhuacai@loongson.cn>, Takashi Iwai <tiwai@suse.de>,
- bhelgaas@google.com, perex@perex.cz, tiwai@suse.com, rafael@kernel.org,
- chenhuacai@kernel.org, gregkh@linuxfoundation.org,
- pierre-louis.bossart@linux.intel.com, mengyingkun@loongson.cn,
- fred.oh@linux.intel.com, kai.vehmanen@linux.intel.com, jasontao@glenfly.com,
- amadeuszx.slawinski@linux.intel.com, mkumard@nvidia.com,
- linux-pci@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20230724011338.2298062-1-sashal@kernel.org>
- <20230724011338.2298062-28-sashal@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v2 0/7] ASoC: mediatek: Add support for MT7986 SoC
 Content-Language: en-US
-From: Yanteng Si <siyanteng@loongson.cn>
-In-Reply-To: <20230724011338.2298062-28-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: =?UTF-8?B?TWFzbyBIdWFuZyAo6buD5Yqg56u5KQ==?= <Maso.Huang@mediatek.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ =?UTF-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsik=?=
+ <Allen-KH.Cheng@mediatek.com>, "broonie@kernel.org" <broonie@kernel.org>,
+ "renzhijie2@huawei.com" <renzhijie2@huawei.com>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>, "tiwai@suse.com"
+ <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "perex@perex.cz" <perex@perex.cz>, =?UTF-8?B?SmlheGluIFl1ICjkv57lrrbpkasp?=
+ <Jiaxin.Yu@mediatek.com>,
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <20230626023501.11120-1-maso.huang@mediatek.com>
+ <04a1a53ebd9df265da780c644a0db86952cde8db.camel@mediatek.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <04a1a53ebd9df265da780c644a0db86952cde8db.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8CxF8w56b1ki2U4AA--.48015S3
-X-CM-SenderInfo: pvl1t0pwhqwqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxWF1DAr43Jr1UZr47KryUurX_yoWrGrW8pr
-	s5ZryjkFZ7tryYvFsrG3W7Kr97u3WDA3ZF9rW29w1xZFnavw1Sgas8ur4YvFWavry5WrW3
-	WFWqk34xAayUtwcCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	kF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
-	MxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
-	0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
-	14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20x
-	vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWU
-	JVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7hiSDUUUU
-X-MailFrom: siyanteng@loongson.cn
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: CZU6RVBTAC3ZKUTYAOGV4XKVNL53QZBI
+X-Message-ID-Hash: CZU6RVBTAC3ZKUTYAOGV4XKVNL53QZBI
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: GW3UOCSGGYJUN43AZETHBXSXMXI5RW22
-X-Message-ID-Hash: GW3UOCSGGYJUN43AZETHBXSXMXI5RW22
-X-Mailman-Approved-At: Mon, 24 Jul 2023 06:27:26 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GW3UOCSGGYJUN43AZETHBXSXMXI5RW22/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CZU6RVBTAC3ZKUTYAOGV4XKVNL53QZBI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,105 +141,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 24/07/2023 08:17, Maso Huang (黃加竹) wrote:
+> Gentle ping :)
+> 
+> Hi Rob and Angelo,
+> 
+> Can you help to check this latest series and share your thoughts if
+> any?
 
-Hi Sasha,
+You got comments to fix! Implement what you were asked to do.
 
-在 2023/7/24 09:12, Sasha Levin 写道:
-> From: Yanteng Si <siyanteng@loongson.cn>
->
-> [ Upstream commit 28bd137a3c8e105587ba8c55b68ef43b519b270f ]
->
-> Add the new PCI ID 0x0014 0x7a07 and the new PCI ID 0x0014 0x7a37
-> Loongson HDA controller.
->
-> Signed-off-by: Yanteng Si <siyanteng@loongson.cn>
-> Acked-by: Huacai Chen <chenhuacai@loongson.cn>
-> Link: https://lore.kernel.org/r/993587483b9509796b29a416f257fcfb4b15c6ea.1686128807.git.siyanteng@loongson.cn
-Loongson HDA can't work if AUTOSEL only ports this one patch, because 
-6.4 also needs the other three patches inside this thread. Also, 6.1, 
-5.15, and 5.10 have the same problem.
-
-Give me a shout if you need anything.
-
-Thanks,
-Yanteng
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   include/linux/pci_ids.h    | 3 +++
->   sound/hda/hdac_device.c    | 1 +
->   sound/pci/hda/hda_intel.c  | 7 +++++++
->   sound/pci/hda/patch_hdmi.c | 1 +
->   4 files changed, 12 insertions(+)
->
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index 95f33dadb2be2..c0c4ca8e28510 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -158,6 +158,9 @@
->   
->   #define PCI_VENDOR_ID_LOONGSON		0x0014
->   
-> +#define PCI_DEVICE_ID_LOONGSON_HDA      0x7a07
-> +#define PCI_DEVICE_ID_LOONGSON_HDMI     0x7a37
-> +
->   #define PCI_VENDOR_ID_TTTECH		0x0357
->   #define PCI_DEVICE_ID_TTTECH_MC322	0x000a
->   
-> diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-> index 6c043fbd606f1..bbf7bcdb449a8 100644
-> --- a/sound/hda/hdac_device.c
-> +++ b/sound/hda/hdac_device.c
-> @@ -645,6 +645,7 @@ struct hda_vendor_id {
->   };
->   
->   static const struct hda_vendor_id hda_vendor_ids[] = {
-> +	{ 0x0014, "Loongson" },
->   	{ 0x1002, "ATI" },
->   	{ 0x1013, "Cirrus Logic" },
->   	{ 0x1057, "Motorola" },
-> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> index 3226691ac923c..9c353dc7740c4 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -237,6 +237,7 @@ enum {
->   	AZX_DRIVER_CTHDA,
->   	AZX_DRIVER_CMEDIA,
->   	AZX_DRIVER_ZHAOXIN,
-> +	AZX_DRIVER_LOONGSON,
->   	AZX_DRIVER_GENERIC,
->   	AZX_NUM_DRIVERS, /* keep this as last entry */
->   };
-> @@ -360,6 +361,7 @@ static const char * const driver_short_names[] = {
->   	[AZX_DRIVER_CTHDA] = "HDA Creative",
->   	[AZX_DRIVER_CMEDIA] = "HDA C-Media",
->   	[AZX_DRIVER_ZHAOXIN] = "HDA Zhaoxin",
-> +	[AZX_DRIVER_LOONGSON] = "HDA Loongson",
->   	[AZX_DRIVER_GENERIC] = "HD-Audio Generic",
->   };
->   
-> @@ -2809,6 +2811,11 @@ static const struct pci_device_id azx_ids[] = {
->   	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_ATI_HDMI },
->   	/* Zhaoxin */
->   	{ PCI_DEVICE(0x1d17, 0x3288), .driver_data = AZX_DRIVER_ZHAOXIN },
-> +	/* Loongson HDAudio*/
-> +	{PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, PCI_DEVICE_ID_LOONGSON_HDA),
-> +	  .driver_data = AZX_DRIVER_LOONGSON },
-> +	{PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, PCI_DEVICE_ID_LOONGSON_HDMI),
-> +	  .driver_data = AZX_DRIVER_LOONGSON },
->   	{ 0, }
->   };
->   MODULE_DEVICE_TABLE(pci, azx_ids);
-> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-> index 5c0b1a09fd57c..260d3e64f6589 100644
-> --- a/sound/pci/hda/patch_hdmi.c
-> +++ b/sound/pci/hda/patch_hdmi.c
-> @@ -4505,6 +4505,7 @@ static int patch_gf_hdmi(struct hda_codec *codec)
->    * patch entries
->    */
->   static const struct hda_device_id snd_hda_id_hdmi[] = {
-> +HDA_CODEC_ENTRY(0x00147a47, "Loongson HDMI",	patch_generic_hdmi),
->   HDA_CODEC_ENTRY(0x1002793c, "RS600 HDMI",	patch_atihdmi),
->   HDA_CODEC_ENTRY(0x10027919, "RS600 HDMI",	patch_atihdmi),
->   HDA_CODEC_ENTRY(0x1002791a, "RS690/780 HDMI",	patch_atihdmi),
+Best regards,
+Krzysztof
 

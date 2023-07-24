@@ -2,85 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEBC875E74E
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:26:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B6F375E752
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:27:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B0D6843;
-	Mon, 24 Jul 2023 03:25:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B0D6843
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3BFAFA;
+	Mon, 24 Jul 2023 03:26:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3BFAFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690162009;
-	bh=iqD2z/IVhDi0WM/KEjgSh/ZYzgqFhIE1K7YNkIMHOS8=;
+	s=default; t=1690162022;
+	bh=GxB0HATsm3F2ApFTP3FB7yVVDEKsxs8lPV+ztvhG9iU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UNKbRJBKAUlOkc6md0qHtNIsAeMx3kCC6VNE6swBsNL+iT5PGtp2Cq8s9WpUBxGWr
-	 9gd+EVpIvlTi2+kgmOa5PsQ3KhatNxFq0beO1+LQb+gkld7IJKQUYGIisylAdVHjU9
-	 D/2qNTVVVQjq+WHtWx9lWhLcYtpySEHLum7D2ak8=
+	b=MV7kCFhIXOTFHqxIisYgnofysmJY0tJtATY+26caHxhOMROamFb/DOQtVwSEeIHPW
+	 R30kF36qhaJ8Yv/okbLW2MH46BPeB24+r6r+ZNXd6BbUoHJbxbQqoBu9Bx+1/r7XqD
+	 SxmWxRXuivyKV6Vg981VRllJTztYDZMOWpwDpiyA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54122F805C2; Mon, 24 Jul 2023 03:24:16 +0200 (CEST)
+	id EE143F805BE; Mon, 24 Jul 2023 03:24:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E49DEF805C2;
-	Mon, 24 Jul 2023 03:24:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 720E4F805E3;
+	Mon, 24 Jul 2023 03:24:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C98C3F805C2; Mon, 24 Jul 2023 03:24:12 +0200 (CEST)
+	id 01636F805E3; Mon, 24 Jul 2023 03:24:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E45CAF805B5
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E45CAF805B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id D617DF805B5
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D617DF805B5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Y1TDVwOJ
+ header.s=k20201202 header.b=aiH4FKOH
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D4EB760F23;
-	Mon, 24 Jul 2023 01:24:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0E35C433C8;
-	Mon, 24 Jul 2023 01:24:07 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C9AFC60F19;
+	Mon, 24 Jul 2023 01:24:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C669C433C7;
+	Mon, 24 Jul 2023 01:24:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690161849;
-	bh=iqD2z/IVhDi0WM/KEjgSh/ZYzgqFhIE1K7YNkIMHOS8=;
+	s=k20201202; t=1690161853;
+	bh=GxB0HATsm3F2ApFTP3FB7yVVDEKsxs8lPV+ztvhG9iU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Y1TDVwOJTPOROGaypI7iKNFB/XIFNdRmAVmClEL5U6KEbipbeI27do2rCggdVLmRe
-	 NUJUpFWeKxVjiVFlQqUEN9HiPuTNd4ELsWZG0MdBRTPqhVnlN8OcqaKnF8dhN887jC
-	 1fPl+sWu3uuv1JEYXMA/10baoq7IfsvhJsf4DiSdUApkeWwjWsBToEkMb73I/Nd0ce
-	 ml2yvGi1uFI9xP7exBXffk8tuUFKK9L0Gl8YM9MaaaM/uiPkRZWtZF+VaqTGB5xDqr
-	 8NgZMTbC7OnmdeXMs+VTKUvB/y7ypvSvsv5gOMqYOvDspwCE7Y0I01W4Rr80FT6AY/
-	 DdcdR1RHi1olA==
+	b=aiH4FKOHQtmAukuCSRK2ahyhteT9JQWHztgXsHQY16qmagSAOpXP+A9YDmGwC03be
+	 1ugebkYYqNzTu0UI3obMojf+hFJrtOrLcvDVTABkSaYXIihZAJBOyNBeCUFwCmDqY7
+	 w6Y6DFQxKq6AxG5JeNvTIv6ccT9hOyLY1hHjzlhfFhMLvxuwgi8g672pLVgp1ny1ah
+	 eL7l4rUGWfwNOT2aajEl7Jd3N0rZC/tFIWOR+GQDkYXavdtB+t6+tbf88A2q3EKQ1T
+	 bV11Hwbc6tWj86HaS6fS4G/o3inHuYVBTGJpUvII6wINiQdtob/2sCtQ879ORmmW2O
+	 owUlVLVv0TQ1w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Rander Wang <rander.wang@intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Matthew Anderson <ruinairas1992@gmail.com>,
+	Philip Mueller <philm@manjaro.org>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.15 16/23] ASoC: SOF: core: Free the firmware trace
- before calling snd_sof_shutdown()
-Date: Sun, 23 Jul 2023 21:23:27 -0400
-Message-Id: <20230724012334.2317140-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 19/23] ALSA: hda/realtek: Add quirks for ROG ALLY
+ CS35l41 audio
+Date: Sun, 23 Jul 2023 21:23:30 -0400
+Message-Id: <20230724012334.2317140-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230724012334.2317140-1-sashal@kernel.org>
 References: <20230724012334.2317140-1-sashal@kernel.org>
@@ -89,8 +84,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 5.15.121
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: F2QBNHIUL3JNHW72U4Z42XXNSNQFWKBJ
-X-Message-ID-Hash: F2QBNHIUL3JNHW72U4Z42XXNSNQFWKBJ
+Message-ID-Hash: XRZH3VEBELAI7E2OXSCZAMJIQSUCANIC
+X-Message-ID-Hash: XRZH3VEBELAI7E2OXSCZAMJIQSUCANIC
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F2QBNHIUL3JNHW72U4Z42XXNSNQFWKBJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XRZH3VEBELAI7E2OXSCZAMJIQSUCANIC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,52 +107,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Matthew Anderson <ruinairas1992@gmail.com>
 
-[ Upstream commit d389dcb3a48cec4f03c16434c0bf98a4c635372a ]
+[ Upstream commit 724418b84e6248cd27599607b7e5fac365b8e3f5 ]
 
-The shutdown is called on reboot/shutdown of the machine.
-At this point the firmware tracing cannot be used anymore but in case of
-IPC3 it is using and keeping a DMA channel active (dtrace).
+This requires a patched ACPI table or a firmware from ASUS to work because
+the system does not come with the _DSD field for the CSC3551.
 
-For Tiger Lake platforms we have a quirk in place to fix rare reboot issues
-when a DMA was active before rebooting the system.
-If the tracing is enabled this quirk will be always used and a print
-appears on the kernel log which might be misleading or not even correct.
-
-Release the fw tracing before executing the shutdown to make sure that this
-known DMA user is cleared away.
-
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20230616100039.378150-4-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=217550
+Signed-off-by: Matthew Anderson <ruinairas1992@gmail.com>
+Tested-by: Philip Mueller <philm@manjaro.org>
+Link: https://lore.kernel.org/r/20230621161714.9442-1-ruinairas1992@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/pci/hda/patch_realtek.c | 46 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index 59d0d7b2b55c8..5f8e89da7b578 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -406,8 +406,10 @@ int snd_sof_device_shutdown(struct device *dev)
- 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
- 		cancel_work_sync(&sdev->probe_work);
- 
--	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
-+	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE) {
-+		sof_fw_trace_free(sdev);
- 		return snd_sof_shutdown(sdev);
-+	}
- 
- 	return 0;
- }
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 22f0d1b359f0f..42a1446a43eed 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6921,6 +6921,10 @@ enum {
+ 	ALC294_FIXUP_ASUS_DUAL_SPK,
+ 	ALC285_FIXUP_THINKPAD_X1_GEN7,
+ 	ALC285_FIXUP_THINKPAD_HEADSET_JACK,
++	ALC294_FIXUP_ASUS_ALLY,
++	ALC294_FIXUP_ASUS_ALLY_PINS,
++	ALC294_FIXUP_ASUS_ALLY_VERBS,
++	ALC294_FIXUP_ASUS_ALLY_SPEAKER,
+ 	ALC294_FIXUP_ASUS_HPE,
+ 	ALC294_FIXUP_ASUS_COEF_1B,
+ 	ALC294_FIXUP_ASUS_GX502_HP,
+@@ -8183,6 +8187,47 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC294_FIXUP_SPK2_TO_DAC1
+ 	},
++	[ALC294_FIXUP_ASUS_ALLY] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = cs35l41_fixup_i2c_two,
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_ALLY_PINS
++	},
++	[ALC294_FIXUP_ASUS_ALLY_PINS] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x03a11050 },
++			{ 0x1a, 0x03a11c30 },
++			{ 0x21, 0x03211420 },
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_ALLY_VERBS
++	},
++	[ALC294_FIXUP_ASUS_ALLY_VERBS] = {
++		.type = HDA_FIXUP_VERBS,
++		.v.verbs = (const struct hda_verb[]) {
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x45 },
++			{ 0x20, AC_VERB_SET_PROC_COEF, 0x5089 },
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x46 },
++			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0004 },
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x47 },
++			{ 0x20, AC_VERB_SET_PROC_COEF, 0xa47a },
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x49 },
++			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0049},
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x4a },
++			{ 0x20, AC_VERB_SET_PROC_COEF, 0x201b },
++			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x6b },
++			{ 0x20, AC_VERB_SET_PROC_COEF, 0x4278},
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_ALLY_SPEAKER
++	},
++	[ALC294_FIXUP_ASUS_ALLY_SPEAKER] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc285_fixup_speaker2_to_dac1,
++	},
+ 	[ALC285_FIXUP_THINKPAD_X1_GEN7] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc285_fixup_thinkpad_x1_gen7,
+@@ -9107,6 +9152,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA", ALC295_FIXUP_ASUS_DACS),
+ 	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
++	SND_PCI_QUIRK(0x1043, 0x17f3, "ROG Ally RC71L_RC71L", ALC294_FIXUP_ASUS_ALLY),
+ 	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
+ 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
 -- 
 2.39.2
 

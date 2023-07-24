@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 484EE75E7D6
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:35:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4D4375E7E7
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:36:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4460E89;
-	Mon, 24 Jul 2023 03:34:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4460E89
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB731DFA;
+	Mon, 24 Jul 2023 03:35:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB731DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690162548;
-	bh=8hK+dgPatDV1HxA1X+qNNVXvqz6JBIppiONjrSHEvsc=;
+	s=default; t=1690162584;
+	bh=jq8SHtkpLjhWwKStwEjQuJaMiOn/KEjf21wr7/La3vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SdG7G82pO5KUi3dWqN3tYgGV9v7ghq7/jtZEhfjxuESi3ENUmcVttr/9x/7ICw9m9
-	 migN2Zlew1cgBEyK0gY8LgMIVsuYqXSuPdsoTl50U6dvzsaL6gZ1fZmNadBfxjTwZl
-	 3IvR6vbPqSv+YvKdD79+DpsjEacefHZ1uVBcr3Cg=
+	b=C1xqFb7Xh07FSN2/Z9EtnErfORzyCJ1cuUjgRayDvCnPuHhhjMN2fLdUxX+HcX/H4
+	 gtLL98f5Ro7LmuAdWQIrDS3enSwVbqUqRikbL3N9CGUEvNi02E0+JnbzGQwTsY1U+F
+	 jd4czmOaPz7l2XT37aUSRmhP+ZFsTB+TGTXCjtdY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1397F805C9; Mon, 24 Jul 2023 03:33:26 +0200 (CEST)
+	id 871E7F8053B; Mon, 24 Jul 2023 03:33:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EE3AF8019B;
-	Mon, 24 Jul 2023 03:33:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B8EBF805D7;
+	Mon, 24 Jul 2023 03:33:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA845F805C0; Mon, 24 Jul 2023 03:33:21 +0200 (CEST)
+	id 4B348F805C4; Mon, 24 Jul 2023 03:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,44 +36,45 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C1087F80310
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:33:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1087F80310
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A695F80535
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:33:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A695F80535
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=l931QGT4
+ header.s=k20201202 header.b=hYKev9Eh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6DD0F60FFD;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D59D460F7A;
+	Mon, 24 Jul 2023 01:33:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63FF9C433C7;
 	Mon, 24 Jul 2023 01:33:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B91C433CA;
-	Mon, 24 Jul 2023 01:33:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690162397;
-	bh=8hK+dgPatDV1HxA1X+qNNVXvqz6JBIppiONjrSHEvsc=;
+	s=k20201202; t=1690162399;
+	bh=jq8SHtkpLjhWwKStwEjQuJaMiOn/KEjf21wr7/La3vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=l931QGT4mrpSpmVU8Wt4ZkAwHxAvLVjy8QAS+NXlvckMfD/R5S0VsQy6ylsDxfNSR
-	 kdTvsOkxfOumN6VPXng+zVMNtKp8hF1DtGK3wJEwHLkMmn3/yERPdjRRjNH/f0gBP2
-	 jiA4FY2wlkvKcdbTowaFHBXMJyxFyqFJqRHNCmtZiCszDsM1NJ7qa8eamLlMv+2ymg
-	 FZ7e/xoWhUKRFOqsl3+xzdE1XKMV0TU80oaIzbaLlmAGkjs/cuFPCZBC/PqRcwFBKd
-	 7E4pEuHmNE6XypCroYpV0QobYOfxXhbYfqlUY7tp10JGXrr+CpMu1PU1EjLyMFJ7Ge
-	 EoiQEvJT2xE2g==
+	b=hYKev9EhxgfE5h7LJSo21/Vvtibqb7koGVUDpGtoHoWbtrn/tiVlSCFkWDYIzj4hG
+	 Pr5No6D6GAwhmMKnLBvGoQE+HfggtzKrQQoKK0d61l3P+iY1gNorO0iySFh/gwLLc5
+	 i7PuoomWTX9msgEdqq62dPHU1A2+PF0F0y4Fj5waKEN9pPtoHDO29hHt/tvapkNKJQ
+	 iBRlNeG24GKLHkPGtKKjfqTblm1ykcSVLXBA6uAEW2qS9AyP8RfGxAduHaIALr23e3
+	 kBrQc1KJbEemJdoyeKAodo+vTQpUgcw2QACzQksvXe2GQab+AXHwoWkQ860HCbGWCI
+	 wPkv/93zgPFKg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: dengxiang <dengxiang@nfschina.com>,
+Cc: Tuo Li <islituo@gmail.com>,
+	BassCheck <bass@buaa.edu.cn>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.1 29/34] ALSA: hda/realtek: Add quirks for Unis H3C
- Desktop B760 & Q760
-Date: Sun, 23 Jul 2023 21:32:32 -0400
-Message-Id: <20230724013238.2329166-29-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 30/34] ALSA: hda: fix a possible null-pointer
+ dereference due to data race in snd_hdac_regmap_sync()
+Date: Sun, 23 Jul 2023 21:32:33 -0400
+Message-Id: <20230724013238.2329166-30-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230724013238.2329166-1-sashal@kernel.org>
 References: <20230724013238.2329166-1-sashal@kernel.org>
@@ -82,8 +83,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.40
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4F6XRBXOOBKTDUQRBGFBMKIIGUPXMFVU
-X-Message-ID-Hash: 4F6XRBXOOBKTDUQRBGFBMKIIGUPXMFVU
+Message-ID-Hash: KR4Z5QKJQOK6UDTYSZHNBBZUD2JIB45N
+X-Message-ID-Hash: KR4Z5QKJQOK6UDTYSZHNBBZUD2JIB45N
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,66 +97,67 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4F6XRBXOOBKTDUQRBGFBMKIIGUPXMFVU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KR4Z5QKJQOK6UDTYSZHNBBZUD2JIB45N/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: dengxiang <dengxiang@nfschina.com>
+From: Tuo Li <islituo@gmail.com>
 
-[ Upstream commit 73f1c75d5e6bd8ce2a887ef493a66ad1b16ed704 ]
+[ Upstream commit 1f4a08fed450db87fbb5ff5105354158bdbe1a22 ]
 
-These models use NSIWAY amplifiers for internal speaker, but cannot put
-sound outside from these amplifiers. So eapd verbs are needed to initialize
-the amplifiers. They can be added during boot to get working sound out
-of internal speaker.
+The variable codec->regmap is often protected by the lock
+codec->regmap_lock when is accessed. However, it is accessed without
+holding the lock when is accessed in snd_hdac_regmap_sync():
 
-Signed-off-by: dengxiang <dengxiang@nfschina.com>
-Link: https://lore.kernel.org/r/20230703021751.2945750-1-dengxiang@nfschina.com
+  if (codec->regmap)
+
+In my opinion, this may be a harmful race, because if codec->regmap is
+set to NULL right after the condition is checked, a null-pointer
+dereference can occur in the called function regcache_sync():
+
+  map->lock(map->lock_arg); --> Line 360 in drivers/base/regmap/regcache.c
+
+To fix this possible null-pointer dereference caused by data race, the
+mutex_lock coverage is extended to protect the if statement as well as the
+function call to regcache_sync().
+
+[ Note: the lack of the regmap_lock itself is harmless for the current
+  codec driver implementations, as snd_hdac_regmap_sync() is only for
+  PM runtime resume that is prohibited during the codec probe.
+  But the change makes the whole code more consistent, so it's merged
+  as is -- tiwai ]
+
+Reported-by: BassCheck <bass@buaa.edu.cn>
+Signed-off-by: Tuo Li <islituo@gmail.com>
+Link: https://lore.kernel.org/r/20230703031016.1184711-1-islituo@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ sound/hda/hdac_regmap.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index eb049014f87ac..ce560129e2faa 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -11235,6 +11235,7 @@ enum {
- 	ALC897_FIXUP_HP_HSMIC_VERB,
- 	ALC897_FIXUP_LENOVO_HEADSET_MODE,
- 	ALC897_FIXUP_HEADSET_MIC_PIN2,
-+	ALC897_FIXUP_UNIS_H3C_X500S,
- };
- 
- static const struct hda_fixup alc662_fixups[] = {
-@@ -11674,6 +11675,13 @@ static const struct hda_fixup alc662_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC897_FIXUP_LENOVO_HEADSET_MODE
- 	},
-+	[ALC897_FIXUP_UNIS_H3C_X500S] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			{ 0x14, AC_VERB_SET_EAPD_BTLENABLE, 0 },
-+			{}
-+		},
-+	},
- };
- 
- static const struct snd_pci_quirk alc662_fixup_tbl[] = {
-@@ -11835,6 +11843,7 @@ static const struct hda_model_fixup alc662_fixup_models[] = {
- 	{.id = ALC662_FIXUP_USI_HEADSET_MODE, .name = "usi-headset"},
- 	{.id = ALC662_FIXUP_LENOVO_MULTI_CODECS, .name = "dual-codecs"},
- 	{.id = ALC669_FIXUP_ACER_ASPIRE_ETHOS, .name = "aspire-ethos"},
-+	{.id = ALC897_FIXUP_UNIS_H3C_X500S, .name = "unis-h3c-x500s"},
- 	{}
- };
- 
+diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+index fe3587547cfec..39610a15bcc98 100644
+--- a/sound/hda/hdac_regmap.c
++++ b/sound/hda/hdac_regmap.c
+@@ -597,10 +597,9 @@ EXPORT_SYMBOL_GPL(snd_hdac_regmap_update_raw_once);
+  */
+ void snd_hdac_regmap_sync(struct hdac_device *codec)
+ {
+-	if (codec->regmap) {
+-		mutex_lock(&codec->regmap_lock);
++	mutex_lock(&codec->regmap_lock);
++	if (codec->regmap)
+ 		regcache_sync(codec->regmap);
+-		mutex_unlock(&codec->regmap_lock);
+-	}
++	mutex_unlock(&codec->regmap_lock);
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_regmap_sync);
 -- 
 2.39.2
 

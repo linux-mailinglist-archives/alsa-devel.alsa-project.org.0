@@ -2,105 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A5675EB80
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 08:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03B1A75EB85
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 08:31:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 801BE83E;
-	Mon, 24 Jul 2023 08:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 801BE83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF0D9208;
+	Mon, 24 Jul 2023 08:30:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF0D9208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690180169;
-	bh=F2V6LJZ0KVEg7UWFdZRvsEqJC/Sh63fRdPzTceE5Gd0=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=oqI5nm8Gd922V2dzndEDrwT1mxrkqKpku0DhD37Fr2rJrG7V48jiZS9QT+xBfsv9t
-	 JpGhbjW9eoXSU2ylQQbIM18UV9uqyyjyQk9duKLJuoVsNSJGZN2kHf3Re39X/wrk33
-	 +ma1REJb6+Tgfrf/rHiNIYB9TfAP/7jZ8JbYzqcs=
+	s=default; t=1690180287;
+	bh=gcHOCENVExHIbG+cMt5X8pZXEix2pfeXF1dWfwSQfRI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=JHUEjGd0B8pSjAiL6adWeWh6gNQW0Lz3SnhcnkPr/+K5/snv6vtlUAS99bwtKIi8u
+	 5sj+uGBmngH4I49SJffv9jF8TQ1hX4hCL0/nzkACRDCYCAqX5botm3nUHkI9TLSEQ5
+	 leIGfUdTCEkJXIrhHYoMXbBhsIsdRPL4GFMYICSg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBA6DF8055B; Mon, 24 Jul 2023 08:27:50 +0200 (CEST)
+	id 7713EF800C7; Mon, 24 Jul 2023 08:30:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBC8CF80310;
-	Mon, 24 Jul 2023 08:27:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17A89F8019B;
+	Mon, 24 Jul 2023 08:30:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CED5F8019B; Sun, 23 Jul 2023 09:23:36 +0200 (CEST)
+	id 73E36F8019B; Mon, 24 Jul 2023 05:01:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,
-	RCVD_IN_DNSWL_HI,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com
- [203.205.221.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2CBF4F800D2
-	for <alsa-devel@alsa-project.org>; Sun, 23 Jul 2023 09:23:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CBF4F800D2
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256
- header.s=s201512 header.b=HR8t/7nZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1690096984;
-	bh=uA1bQ6F3ScWTXuQJewjURf1TMDBQ+1aeSJ31bGjC9EM=;
-	h=From:To:Cc:Subject:Date;
-	b=HR8t/7nZch5w/7x3CAlnp0uundcxkao+AUPmUW36B/pU9csOicHC7B91ilPd70pFs
-	 xuOxx8KRD0LOQNnaJHP5aDlEmN763xLnjec3df/u+fx4ls41nmeUnD5H0+Mwx/M7Mm
-	 HKdM4XAQQZI72xjMNgdMBx7cwDajgNe95yuQkpz8=
-Received: from localhost.ust.hk ([175.159.123.184])
-	by newxmesmtplogicsvrszb6-0.qq.com (NewEsmtp) with SMTP
-	id 5C20A80A; Sun, 23 Jul 2023 15:23:02 +0800
-X-QQ-mid: xmsmtpt1690096982tdwknz5eh
-Message-ID: <tencent_F05F5B0860B41E180AA0A88B1279376CB508@qq.com>
-X-QQ-XMAILINFO: NyTsQ4JOu2J2rgist0z0wskKoEKHyOVxX9Znkpt5bRhyb9VtAdlhIo6i1JhRyg
-	 85XVjr7LzqQo2hEvAHNer49d4uxQ88lRWNu2DBWPx/apGj1htvBM9b39kq4WGUwjmpbS7+F02Ela
-	 4Pj9yaYx6k/2fG9n017Eurar/JQdprpZAlckyqkjl9Fij8eY3c14jwVbjD9qjUDJf7ny7QrCQGcC
-	 dZZlqF/ScYLAwKa/jFhk7aO6ahmyjNI7GSGMB9Yt5c0TPVXP8y6g+WZ5okYDfcH0o+cn0KayxY+g
-	 wDICZtJmz14b9XRWpGLX1JCC9U2dPJJpbTw+13STSNpfZO2Pi2hjVyKq2JyuIqi6bR44TFTtevqV
-	 JolNeNAc2qWl5TYG2SR7pihCnKahwWkJy2LQrI4LYe65p/B25enCeBrwh5O3AE4UrN5bcmJVmxiv
-	 o3MLjpSSiZQ9Ckz4I3Sb7h5f0fXHe207Ew2qewUPrMnI1kohVI9QQ+dHv4aZDJrAHTe5Ro8XQKxh
-	 ue8+vLNKuAeciSgz3+jgyIh6XcnWeeKtC9A9HA7/jfrZh3O67j8rIOgvk7b3Ena9SNYMlyb7xrPm
-	 blS30s0AVXNN0d3lOFJxOVejmqI04DHSLwjiwHoRxDF+8Amlri0sHdoQwmxuXyk/Zm7JEIY9Xvo0
-	 Km2cgdM7gIm4aUA512Nu7fja0lcEatO76b3oZ9BHIf8Q8xaXOOvXugR7Qp3tuoZYowoBLnBeT5zm
-	 0SPi6lZdFBOcbeJNIkAwg8tC6LUJNQwkqxGXxaVVqBQ6/yKZ9hKdP0cSroP98+uetd4Fv/YfKDrw
-	 dEhQAW3Jq1ZXIFA3WvoXM5kfd+k/BU6l4Cr098EzrnGRD//nc/hqTRo9KLRBTsS+QE/wYHdMQAgK
-	 nepDWb81U6x9HL8ODKEY38Q8MS07KI5UfoiUeWzteNsTXh0YhNzTCkCD8pwa11gKZnetZkwlt1NP
-	 J9HKq5GilOccBRXSTwzW2C2DihRBsZQRpSwqGMaRAGD79UOr1C7ui0sOPtYJL1pjgT0DkxdWIz2X
-	 GiKSkujIgCutDdrN7+
-X-QQ-XMRINFO: NyFYKkN4Ny6FSmKK/uo/jdU=
-From: Zhang Shurong <zhang_shurong@foxmail.com>
-To: oder_chiou@realtek.com
-Cc: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Shurong <zhang_shurong@foxmail.com>
-Subject: [PATCH] ASoC: rt5668: add missed regulator_bulk_disable
-Date: Sun, 23 Jul 2023 15:23:01 +0800
-X-OQ-MSGID: <20230723072301.10106-1-zhang_shurong@foxmail.com>
-X-Mailer: git-send-email 2.41.0
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id 825C8F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 05:00:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 825C8F800D2
+Received: from loongson.cn (unknown [112.20.109.108])
+	by gateway (Coremail) with SMTP id _____8BxY_A+6b1kUPwIAA--.22698S3;
+	Mon, 24 Jul 2023 11:00:15 +0800 (CST)
+Received: from [192.168.100.8] (unknown [112.20.109.108])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxF8w56b1ki2U4AA--.48015S3;
+	Mon, 24 Jul 2023 11:00:12 +0800 (CST)
+Message-ID: <d7b825d7-0430-50b0-514a-8685362b640c@loongson.cn>
+Date: Mon, 24 Jul 2023 11:00:09 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH AUTOSEL 6.4 28/58] ALSA: hda: Add Loongson LS7A HD-Audio
+ support
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Cc: Huacai Chen <chenhuacai@loongson.cn>, Takashi Iwai <tiwai@suse.de>,
+ bhelgaas@google.com, perex@perex.cz, tiwai@suse.com, rafael@kernel.org,
+ chenhuacai@kernel.org, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, mengyingkun@loongson.cn,
+ fred.oh@linux.intel.com, kai.vehmanen@linux.intel.com, jasontao@glenfly.com,
+ amadeuszx.slawinski@linux.intel.com, mkumard@nvidia.com,
+ linux-pci@vger.kernel.org, alsa-devel@alsa-project.org
+References: <20230724011338.2298062-1-sashal@kernel.org>
+ <20230724011338.2298062-28-sashal@kernel.org>
+Content-Language: en-US
+From: Yanteng Si <siyanteng@loongson.cn>
+In-Reply-To: <20230724011338.2298062-28-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MailFrom: zhang_shurong@foxmail.com
+X-CM-TRANSID: AQAAf8CxF8w56b1ki2U4AA--.48015S3
+X-CM-SenderInfo: pvl1t0pwhqwqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWF1DAr43Jr1UZr47KryUurX_yoWrGrW8pr
+	s5ZryjkFZ7tryYvFsrG3W7Kr97u3WDA3ZF9rW29w1xZFnavw1Sgas8ur4YvFWavry5WrW3
+	WFWqk34xAayUtwcCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
+	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	kF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
+	MxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
+	0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
+	14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20x
+	vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWU
+	JVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7hiSDUUUU
+X-MailFrom: siyanteng@loongson.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZV3GZVNWKMXM54AYV5MBMKKI7NK6I6B6
-X-Message-ID-Hash: ZV3GZVNWKMXM54AYV5MBMKKI7NK6I6B6
-X-Mailman-Approved-At: Mon, 24 Jul 2023 06:27:21 +0000
+Message-ID-Hash: GW3UOCSGGYJUN43AZETHBXSXMXI5RW22
+X-Message-ID-Hash: GW3UOCSGGYJUN43AZETHBXSXMXI5RW22
+X-Mailman-Approved-At: Mon, 24 Jul 2023 06:27:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZV3GZVNWKMXM54AYV5MBMKKI7NK6I6B6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GW3UOCSGGYJUN43AZETHBXSXMXI5RW22/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,46 +106,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The driver forgets to call regulator_bulk_disable()
 
-Add the missed call to fix it.
+Hi Sasha,
 
-Fixes: d59fb2856223 ("ASoC: rt5668: add rt5668B codec driver")
-Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
----
- sound/soc/codecs/rt5668.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+在 2023/7/24 09:12, Sasha Levin 写道:
+> From: Yanteng Si <siyanteng@loongson.cn>
+>
+> [ Upstream commit 28bd137a3c8e105587ba8c55b68ef43b519b270f ]
+>
+> Add the new PCI ID 0x0014 0x7a07 and the new PCI ID 0x0014 0x7a37
+> Loongson HDA controller.
+>
+> Signed-off-by: Yanteng Si <siyanteng@loongson.cn>
+> Acked-by: Huacai Chen <chenhuacai@loongson.cn>
+> Link: https://lore.kernel.org/r/993587483b9509796b29a416f257fcfb4b15c6ea.1686128807.git.siyanteng@loongson.cn
+Loongson HDA can't work if AUTOSEL only ports this one patch, because 
+6.4 also needs the other three patches inside this thread. Also, 6.1, 
+5.15, and 5.10 have the same problem.
 
-diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
-index f04c810fd710..d66c9e9b9185 100644
---- a/sound/soc/codecs/rt5668.c
-+++ b/sound/soc/codecs/rt5668.c
-@@ -2452,6 +2452,13 @@ static void rt5668_calibrate(struct rt5668_priv *rt5668)
- 
- }
- 
-+static void rt5668_i2c_disable_regulators(void *data)
-+{
-+	struct rt5668_priv *rt5668 = data;
-+
-+	regulator_bulk_disable(ARRAY_SIZE(rt5668->supplies), rt5668->supplies);
-+}
-+
- static int rt5668_i2c_probe(struct i2c_client *i2c)
- {
- 	struct rt5668_platform_data *pdata = dev_get_platdata(&i2c->dev);
-@@ -2490,6 +2497,11 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
- 		return ret;
- 	}
- 
-+	ret = devm_add_action_or_reset(&i2c->dev, rt5668_i2c_disable_regulators,
-+			rt5668);
-+	if (ret)
-+		return ret;
-+
- 	ret = regulator_bulk_enable(ARRAY_SIZE(rt5668->supplies),
- 				    rt5668->supplies);
- 	if (ret != 0) {
--- 
-2.41.0
+Give me a shout if you need anything.
+
+Thanks,
+Yanteng
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   include/linux/pci_ids.h    | 3 +++
+>   sound/hda/hdac_device.c    | 1 +
+>   sound/pci/hda/hda_intel.c  | 7 +++++++
+>   sound/pci/hda/patch_hdmi.c | 1 +
+>   4 files changed, 12 insertions(+)
+>
+> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+> index 95f33dadb2be2..c0c4ca8e28510 100644
+> --- a/include/linux/pci_ids.h
+> +++ b/include/linux/pci_ids.h
+> @@ -158,6 +158,9 @@
+>   
+>   #define PCI_VENDOR_ID_LOONGSON		0x0014
+>   
+> +#define PCI_DEVICE_ID_LOONGSON_HDA      0x7a07
+> +#define PCI_DEVICE_ID_LOONGSON_HDMI     0x7a37
+> +
+>   #define PCI_VENDOR_ID_TTTECH		0x0357
+>   #define PCI_DEVICE_ID_TTTECH_MC322	0x000a
+>   
+> diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+> index 6c043fbd606f1..bbf7bcdb449a8 100644
+> --- a/sound/hda/hdac_device.c
+> +++ b/sound/hda/hdac_device.c
+> @@ -645,6 +645,7 @@ struct hda_vendor_id {
+>   };
+>   
+>   static const struct hda_vendor_id hda_vendor_ids[] = {
+> +	{ 0x0014, "Loongson" },
+>   	{ 0x1002, "ATI" },
+>   	{ 0x1013, "Cirrus Logic" },
+>   	{ 0x1057, "Motorola" },
+> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> index 3226691ac923c..9c353dc7740c4 100644
+> --- a/sound/pci/hda/hda_intel.c
+> +++ b/sound/pci/hda/hda_intel.c
+> @@ -237,6 +237,7 @@ enum {
+>   	AZX_DRIVER_CTHDA,
+>   	AZX_DRIVER_CMEDIA,
+>   	AZX_DRIVER_ZHAOXIN,
+> +	AZX_DRIVER_LOONGSON,
+>   	AZX_DRIVER_GENERIC,
+>   	AZX_NUM_DRIVERS, /* keep this as last entry */
+>   };
+> @@ -360,6 +361,7 @@ static const char * const driver_short_names[] = {
+>   	[AZX_DRIVER_CTHDA] = "HDA Creative",
+>   	[AZX_DRIVER_CMEDIA] = "HDA C-Media",
+>   	[AZX_DRIVER_ZHAOXIN] = "HDA Zhaoxin",
+> +	[AZX_DRIVER_LOONGSON] = "HDA Loongson",
+>   	[AZX_DRIVER_GENERIC] = "HD-Audio Generic",
+>   };
+>   
+> @@ -2809,6 +2811,11 @@ static const struct pci_device_id azx_ids[] = {
+>   	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_ATI_HDMI },
+>   	/* Zhaoxin */
+>   	{ PCI_DEVICE(0x1d17, 0x3288), .driver_data = AZX_DRIVER_ZHAOXIN },
+> +	/* Loongson HDAudio*/
+> +	{PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, PCI_DEVICE_ID_LOONGSON_HDA),
+> +	  .driver_data = AZX_DRIVER_LOONGSON },
+> +	{PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, PCI_DEVICE_ID_LOONGSON_HDMI),
+> +	  .driver_data = AZX_DRIVER_LOONGSON },
+>   	{ 0, }
+>   };
+>   MODULE_DEVICE_TABLE(pci, azx_ids);
+> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+> index 5c0b1a09fd57c..260d3e64f6589 100644
+> --- a/sound/pci/hda/patch_hdmi.c
+> +++ b/sound/pci/hda/patch_hdmi.c
+> @@ -4505,6 +4505,7 @@ static int patch_gf_hdmi(struct hda_codec *codec)
+>    * patch entries
+>    */
+>   static const struct hda_device_id snd_hda_id_hdmi[] = {
+> +HDA_CODEC_ENTRY(0x00147a47, "Loongson HDMI",	patch_generic_hdmi),
+>   HDA_CODEC_ENTRY(0x1002793c, "RS600 HDMI",	patch_atihdmi),
+>   HDA_CODEC_ENTRY(0x10027919, "RS600 HDMI",	patch_atihdmi),
+>   HDA_CODEC_ENTRY(0x1002791a, "RS690/780 HDMI",	patch_atihdmi),
 

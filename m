@@ -2,78 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65EC75E759
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:27:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BC675E76A
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 03:27:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13667E12;
-	Mon, 24 Jul 2023 03:26:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13667E12
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2163DF9;
+	Mon, 24 Jul 2023 03:26:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2163DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690162041;
-	bh=ymCCvCYmQlg/znA9eNYVAZq5QI1ZGy4/cF3lYth5HBc=;
+	s=default; t=1690162067;
+	bh=xD6kS3i3cakEYlp+H0DnsPIgxxpklw9jnkMzhsFp3I0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CZ+KYG3wpgr7bnmcpToSTvoc+VNjdqYhALDQCKz+Ry51sOfwvgPGGSqSRH4aahys5
-	 gy/djVTL4EbSfJCB+nV4LWB8EMPT3ZA0XDhXglipcHP/kBU1Dyw9g7mEuDSnmnvFrj
-	 HljuiXadzzJT5v4QyufAE0AX25MCNPWUuweawQ0A=
+	b=Yu/ff67GSvLnlrP+zfDhDsM/+qItgPK1PgeCBpx/15s/LPd52lzhgsVM5BBU90rMF
+	 fPkx4czn5iLGg+OsHlkOqFlKZkjY3I2SDU0SFVmvazcz3IRcHzm4sfpHNM23yKgpw7
+	 faGwsURitB+6E6uOq6bmhwyJPHAuShUBfL40qWpA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71276F805C6; Mon, 24 Jul 2023 03:24:33 +0200 (CEST)
+	id E0439F80601; Mon, 24 Jul 2023 03:24:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D574EF80310;
-	Mon, 24 Jul 2023 03:24:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20B5BF800C7;
+	Mon, 24 Jul 2023 03:24:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 055A2F805C4; Mon, 24 Jul 2023 03:24:29 +0200 (CEST)
+	id AFFE2F80570; Mon, 24 Jul 2023 03:24:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9DEB2F8057C
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DEB2F8057C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 78B37F805E3
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 03:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78B37F805E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AprypV+2
+ header.s=k20201202 header.b=P+Y7+lNi
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8098660F54;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6CEEE60F2F;
+	Mon, 24 Jul 2023 01:24:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C31C433C8;
 	Mon, 24 Jul 2023 01:24:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725FCC433CA;
-	Mon, 24 Jul 2023 01:24:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690161863;
-	bh=ymCCvCYmQlg/znA9eNYVAZq5QI1ZGy4/cF3lYth5HBc=;
+	s=k20201202; t=1690161864;
+	bh=xD6kS3i3cakEYlp+H0DnsPIgxxpklw9jnkMzhsFp3I0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AprypV+2XOT1s664ytNkyzUwKOrl3yqmumrJFR1UOElPzaR7ADOz5KvVx9sWKXyT8
-	 ckK7Yb/taU70UQCMlVwIxWm+koY37GQswIK3O2AKSylonvd83Vo/XsCtdtEPCAJvY1
-	 4uyhsAaswU6N16tpbPKth4eq50Bf2ijYoCb9HUfxzt3SGkQ0tQou4mPL4s/v10o35p
-	 GSgLFN4wAThjLs8QNXSbG0m0E3CHUs2/91QWWxAfvOYR5TsXztmHUCt9jHKPEShMn0
-	 FMDzdbSBQcBeMst2Hl0myZ/NJvvG2LSmV/M0wiq3ALueTNQ8AmdnhDMx8qDj48QLL0
-	 pmpS0Is6NLLIQ==
+	b=P+Y7+lNiK4myv8S0MTiblNoUnt9wUAE8q1tVIw0qutRJH9QGbu7KPD72I1UlWgPPY
+	 WUNH1S7lmbqonUY/AfQyG2FcxT0OT6hytfutnBXw5yhDzXHiFHDtDfZdSyqOAU7znG
+	 LA9XERNtW3YjzASitP/I/c+veGTwgM0JaC9SeH272MuUH2GJsxQHED4zXZhxW7t2ik
+	 1Z2lkbBQ6SnHbPHkiJTZDUu4g4MHLQuUtnqvUawk4gNvai2Iatup5jUAdwDFj3QxPY
+	 algkved+rDrJpAnYvW7+dJ3E2Jhuc7JJLLOOSl8r/MxxPxAT71EKqDgNg7FLHULu1K
+	 KZ3kE3cdNwAuw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.10 02/22] ALSA: emu10k1: roll up loops in DSP setup
- code for Audigy
-Date: Sun, 23 Jul 2023 21:23:59 -0400
-Message-Id: <20230724012419.2317649-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 03/22] ASoC: Intel: sof_sdw: add quirk for MTL
+ RVP
+Date: Sun, 23 Jul 2023 21:24:00 -0400
+Message-Id: <20230724012419.2317649-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230724012419.2317649-1-sashal@kernel.org>
 References: <20230724012419.2317649-1-sashal@kernel.org>
@@ -82,8 +84,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 5.10.186
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 74374VCNB64GHRXLOXLS2LZMKRTWBAM7
-X-Message-ID-Hash: 74374VCNB64GHRXLOXLS2LZMKRTWBAM7
+Message-ID-Hash: A2YZT4EP7O6GPCZ5IC4WEWZZ47425ZBQ
+X-Message-ID-Hash: A2YZT4EP7O6GPCZ5IC4WEWZZ47425ZBQ
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/74374VCNB64GHRXLOXLS2LZMKRTWBAM7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2YZT4EP7O6GPCZ5IC4WEWZZ47425ZBQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,151 +107,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 8cabf83c7aa54530e699be56249fb44f9505c4f3 ]
+[ Upstream commit 289e1df00e49a229a1c924c059242e759a552f01 ]
 
-There is no apparent reason for the massive code duplication.
+We should use RT711_JD2_100K for on board rt711.
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Link: https://lore.kernel.org/r/20230510173917.3073107-3-oswald.buddenhagen@gmx.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
+Link: https://lore.kernel.org/r/20230512173305.65399-4-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/emu10k1/emufx.c | 112 +++-----------------------------------
- 1 file changed, 9 insertions(+), 103 deletions(-)
+ sound/soc/intel/boards/sof_sdw.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
-index 4e76ed0e91d5d..e17b93b25d2ff 100644
---- a/sound/pci/emu10k1/emufx.c
-+++ b/sound/pci/emu10k1/emufx.c
-@@ -1560,14 +1560,8 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
- 	gpr += 2;
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index f5d8f7951cfc3..91a7cb33042d8 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -199,6 +199,14 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 					SOF_RT715_DAI_ID_FIX |
+ 					SOF_SDW_PCH_DMIC),
+ 	},
++	{
++		.callback = sof_sdw_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Meteor Lake Client Platform"),
++		},
++		.driver_data = (void *)(RT711_JD2_100K),
++	},
+ 	{}
+ };
  
- 	/* Master volume (will be renamed later) */
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+0+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+0+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+1+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+1+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+2+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+2+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+3+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+3+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+4+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+4+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+5+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+5+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+6+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+6+SND_EMU10K1_PLAYBACK_CHANNELS));
--	A_OP(icode, &ptr, iMAC0, A_GPR(playback+7+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+7+SND_EMU10K1_PLAYBACK_CHANNELS));
-+	for (z = 0; z < 8; z++)
-+		A_OP(icode, &ptr, iMAC0, A_GPR(playback+z+SND_EMU10K1_PLAYBACK_CHANNELS), A_C_00000000, A_GPR(gpr), A_GPR(playback+z+SND_EMU10K1_PLAYBACK_CHANNELS));
- 	snd_emu10k1_init_mono_control(&controls[nctl++], "Wave Master Playback Volume", gpr, 0);
- 	gpr += 2;
- 
-@@ -1651,102 +1645,14 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
- 			dev_dbg(emu->card->dev, "emufx.c: gpr=0x%x, tmp=0x%x\n",
- 			       gpr, tmp);
- 			*/
--			/* For the EMU1010: How to get 32bit values from the DSP. High 16bits into L, low 16bits into R. */
--			/* A_P16VIN(0) is delayed by one sample,
--			 * so all other A_P16VIN channels will need to also be delayed
--			 */
--			/* Left ADC in. 1 of 2 */
- 			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_P16VIN(0x0), A_FXBUS2(0) );
--			/* Right ADC in 1 of 2 */
--			gpr_map[gpr++] = 0x00000000;
--			/* Delaying by one sample: instead of copying the input
--			 * value A_P16VIN to output A_FXBUS2 as in the first channel,
--			 * we use an auxiliary register, delaying the value by one
--			 * sample
--			 */
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(2) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x1), A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(4) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x2), A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(6) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x3), A_C_00000000, A_C_00000000);
--			/* For 96kHz mode */
--			/* Left ADC in. 2 of 2 */
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0x8) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x4), A_C_00000000, A_C_00000000);
--			/* Right ADC in 2 of 2 */
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xa) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x5), A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xc) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x6), A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr - 1), A_FXBUS2(0xe) );
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x7), A_C_00000000, A_C_00000000);
--			/* Pavel Hofman - we still have voices, A_FXBUS2s, and
--			 * A_P16VINs available -
--			 * let's add 8 more capture channels - total of 16
--			 */
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x10));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x8),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x12));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0x9),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x14));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xa),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x16));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xb),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x18));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xc),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x1a));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xd),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x1c));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xe),
--			     A_C_00000000, A_C_00000000);
--			gpr_map[gpr++] = 0x00000000;
--			snd_emu10k1_audigy_dsp_convert_32_to_2x16(icode, &ptr, tmp,
--								  bit_shifter16,
--								  A_GPR(gpr - 1),
--								  A_FXBUS2(0x1e));
--			A_OP(icode, &ptr, iACC3, A_GPR(gpr - 1), A_P16VIN(0xf),
--			     A_C_00000000, A_C_00000000);
-+			/* A_P16VIN(0) is delayed by one sample, so all other A_P16VIN channels
-+			 * will need to also be delayed; we use an auxiliary register for that. */
-+			for (z = 1; z < 0x10; z++) {
-+				snd_emu10k1_audigy_dsp_convert_32_to_2x16( icode, &ptr, tmp, bit_shifter16, A_GPR(gpr), A_FXBUS2(z * 2) );
-+				A_OP(icode, &ptr, iACC3, A_GPR(gpr), A_P16VIN(z), A_C_00000000, A_C_00000000);
-+				gpr_map[gpr++] = 0x00000000;
-+			}
- 		}
- 
- #if 0
 -- 
 2.39.2
 

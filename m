@@ -2,135 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1717675EECC
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 11:13:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC3B275F0BF
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jul 2023 11:53:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 503FE7F4;
-	Mon, 24 Jul 2023 11:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 503FE7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F5686C1;
+	Mon, 24 Jul 2023 11:52:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F5686C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690190018;
-	bh=wz3bTrUNMqokyUiP1XN6QbRVv0hbnaVJdbcU9j9Sy0M=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1690192408;
+	bh=scpBJ577mRimOo62TKgu6+oiwI4ovv5AJtXfkH9zf/A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NP5JOY1u5cx4tc87UdN5UQRCOU69d/JGe4HTedCfdXP+1rlpMufOKZ7cgFmxYVi/N
-	 02okdpbwlZf6LSLyfTdPW2ubqb4NhKwyXknQ5V7HIP5Y03XBjJ8ToouWk96uh8gwri
-	 ysb4WklzNA9sT/Jtv/WT+xivnfR6IxZA7FtgGeCs=
+	b=BGNhgVcqun+6ypN9sF3I92aPzsWX0YKEkWFITv7LRzgtonlWBYlFK8I7ldVUL0hf0
+	 K5wy3Q+5WZEiaSdqy36bd1UJjF0UlKEcnuIKvRTWfNzd1hWuw0I6QckGIE4LUsPicp
+	 oOAFIFake9UmdhcegpTCBmDe+trCSkKf0tQyUXBs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F464F80535; Mon, 24 Jul 2023 11:12:47 +0200 (CEST)
+	id D826DF80153; Mon, 24 Jul 2023 11:52:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5961BF80163;
-	Mon, 24 Jul 2023 11:12:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5695EF80163;
+	Mon, 24 Jul 2023 11:52:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3CB1F8019B; Mon, 24 Jul 2023 11:12:43 +0200 (CEST)
+	id B14C0F8019B; Mon, 24 Jul 2023 11:52:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7C5CAF800D2
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 11:12:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C5CAF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 576A9F80153
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jul 2023 11:52:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 576A9F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=k7sd9ry9
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-993d1f899d7so727243666b.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 24 Jul 2023 02:12:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690189954; x=1690794754;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Fh4EDpkUKXX0i2jSGB1PBtJy0KS6P9QG8sx5m74zofM=;
-        b=k7sd9ry9f7KEkVokM1xv+AAbCPIUgxP9XVqzO2oMvoiFvG/KjABl32DheQa3U+CUC4
-         FiNKfOU4mjEp9GJcI0Im9xwYFtPAIZbXJzoxBZ/rr6RF5MlQJ0kJAVrUTUTeDxI9XkQy
-         qWGaACOxgXzHWqRKbhJnXkE+kOdZMIe41i0vCaZUNjm760cbJH+6w5Ty3z/OHyDLnvEN
-         0EPDsV6gNixv/DBpu2SVDzffU4PrMSt6DhSna0c1zR0eAOASjDQZI/BWq7g2AcuTy7jr
-         2bgX4+HoikeVPH6/aaWveSXFCU0WTMON9pJ61shYVBFC1X5Oxw9lu+khduMMptAw9RbC
-         lGkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690189954; x=1690794754;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Fh4EDpkUKXX0i2jSGB1PBtJy0KS6P9QG8sx5m74zofM=;
-        b=NbQSSaNLTlaSf5YrQDYoYPyxquFgiYpIlu1j9Zqv8TVjEDZ/ZrnEdb30onuyB3Fp8f
-         QyFr2Lp08AJJx2wOjT5pXbgeoOdTYvcy9VAC8BIWBv8uH5jqJp9oaqrF2WIDd/JIegqp
-         yGuHVM7CMzG05FxbcwOTNPGgXZ8eM2EW/jZijlbGJUOZyiyMm742G3NaG/P40xl7voqI
-         VPCw4i5oOv55rfaPvQZAuV8RSYxwdcAN4P3LgrxjNtcdaaqdJlOKL5KaKsAo8DZnNHnA
-         FKELoZGRGV6DZHREIQ5Qtt+Mxm5z67bwSvdrg91Kd4rfzV/99SI7UpplO6BxR3A5lR4u
-         eauA==
-X-Gm-Message-State: ABy/qLaG3q0eWEl5mpxNo6OpGQHUMHyr0A82n68X+4BM9e9oh3RGkdb4
-	saNQ8ZaGoMP3H+R6mFVgtLtMEg==
-X-Google-Smtp-Source: 
- APBJJlFyiqbyrtae4oPoU8c9essn66hxwhB/tZ54efWazcZSBJL34UATeiWbByL1xXKVtIQgz5XF7Q==
-X-Received: by 2002:a17:906:64d2:b0:993:d6a7:13b with SMTP id
- p18-20020a17090664d200b00993d6a7013bmr10019595ejn.22.1690189954456;
-        Mon, 24 Jul 2023 02:12:34 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
-        by smtp.gmail.com with ESMTPSA id
- j15-20020a170906254f00b00992d122af63sm6445656ejb.89.2023.07.24.02.12.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Jul 2023 02:12:33 -0700 (PDT)
-Message-ID: <4d8143bc-03db-4f6b-9833-44cbaf95ecac@linaro.org>
-Date: Mon, 24 Jul 2023 11:12:30 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ElY+n5lc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690192346; x=1721728346;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=scpBJ577mRimOo62TKgu6+oiwI4ovv5AJtXfkH9zf/A=;
+  b=ElY+n5lcUTxH0BORpya4YGnwQM7Jzpi1fvsJ+rLTayQpN86oKh+p7PBn
+   dPU/NXKzPhJrQmQBM7MGe7E6MNaYxZPWRyptIjMC0C6h50phsQE8JVEdq
+   dlqT9bYQ/MvJPRCsKpDH0/2zSjYtp3RI53S/nCw4BOQtP76aLyuHJlMvP
+   3kPs6sF3Q58cPDQrWBU/Q5I0tbX10MG1cAMhttzNzzk+U+NuD4aAjcreo
+   uxkw1PMmWP9EnlkkSm60zx6xaQWoIlt+chN8cBByqVz/F3c2BNvbGFUIG
+   wPGHzfLUash9hCC5s5VXyoM77YK7xW+kXz6ASOuZV+CuyaMfIObPk5WS1
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="367423784"
+X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
+   d="scan'208";a="367423784"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 02:52:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="972201808"
+X-IronPort-AV: E=Sophos;i="6.01,228,1684825200";
+   d="scan'208";a="972201808"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by fmsmga006.fm.intel.com with ESMTP; 24 Jul 2023 02:52:16 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qNsEg-007Lw4-1L;
+	Mon, 24 Jul 2023 12:52:14 +0300
+Date: Mon, 24 Jul 2023 12:52:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+	Yong Zhi <yong.zhi@intel.com>,
+	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+	Uday M Bhat <uday.m.bhat@intel.com>,
+	Terry Cheong <htcheong@chromium.org>,
+	Mac Chiang <mac.chiang@intel.com>,
+	"Dharageswari . R" <dharageswari.r@intel.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 1/2] ASoC: Intel: maxim-common: get codec number from ACPI
+Message-ID: <ZL5Jzod5NBETv9Dp@smile.fi.intel.com>
+References: <20230720092628.758834-1-brent.lu@intel.com>
+ <20230720092628.758834-2-brent.lu@intel.com>
+ <dc6de509-6984-1434-b53f-9600e8bc7c49@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 09/11] dt-bindings: arm: msm: kpss-acc: Make the optional
- reg truly optional
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- cros-qcom-dts-watchers@chromium.org, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Benjamin Li <benl@squareup.com>, James Willcox <jwillcox@squareup.com>,
- Joseph Gates <jgates@squareup.com>, Stephan Gerhold <stephan@gerhold.net>,
- Zac Crosby <zac@squareup.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xu Yang
- <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>, Jun Nie <jun.nie@linaro.org>,
- Max Chen <mchen@squareup.com>, Shawn Guo <shawn.guo@linaro.org>,
- Vivek Gautam <vivek.gautam@codeaurora.org>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Vincent Knecht <vincent.knecht@mailoo.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>, alsa-devel@alsa-project.org,
- iommu@lists.linux.dev, linux-usb@vger.kernel.org,
- Leo Yan <leo.yan@linaro.org>, Rob Herring <robh@kernel.org>,
- Andy Gross <andy.gross@linaro.org>
-References: <20230627-topic-more_bindings-v1-0-6b4b6cd081e5@linaro.org>
- <20230627-topic-more_bindings-v1-9-6b4b6cd081e5@linaro.org>
- <c52ee94f-f60b-f8f0-f93c-221beec0224a@linaro.org>
-Content-Language: en-US
-In-Reply-To: <c52ee94f-f60b-f8f0-f93c-221beec0224a@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: KALYNSLZAJJTA6GTZJZYEPDDKI2QNKQK
-X-Message-ID-Hash: KALYNSLZAJJTA6GTZJZYEPDDKI2QNKQK
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dc6de509-6984-1434-b53f-9600e8bc7c49@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: XPMYFLXFUFAUJOE3XGLGX7V3FWGLTT46
+X-Message-ID-Hash: XPMYFLXFUFAUJOE3XGLGX7V3FWGLTT46
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -142,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KALYNSLZAJJTA6GTZJZYEPDDKI2QNKQK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XPMYFLXFUFAUJOE3XGLGX7V3FWGLTT46/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -151,25 +123,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24/07/2023 11:05, Krzysztof Kozlowski wrote:
-> On 27/06/2023 18:24, Konrad Dybcio wrote:
->> The description of reg[1] says that register is optional. Adjust
->> minItems to make it truly optional.
->>
->> Fixes: 12f40018b6a9 ("dt-bindings: arm: msm: Convert kpss-acc driver Documentation to yaml")
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
->> ---
+On Mon, Jul 24, 2023 at 11:08:17AM +0200, Pierre-Louis Bossart wrote:
+> On 7/20/23 11:26, Brent Lu wrote:
+
+...
+
+> > +/* helper function to get the number of specific codec */
+
+...and leak a lot of reference counts...
+
+> > +static int get_num_codecs(const char *hid)
+> > +{
+> > +	struct acpi_device *adev = NULL;
+> > +	int dev_num = 0;
+> > +
+> > +	do {
+> > +		adev = acpi_dev_get_next_match_dev(adev, hid, NULL, -1);
 > 
-> This patch does not make sense. It wasn't also tested. The code
-> (minItems) is already there.
+> Humm, I am a bit worried about reference counts.
+> 
+> See
+> https://elixir.bootlin.com/linux/latest/source/drivers/acpi/utils.c#L916,
+> it's not clear to me where the get() is done.
+> 
+> Adding Andy to make sure this is done right.
 
+Thank you for Cc'ing.
 
-What's more - there is no such commit as 12f40018b6a9!
+Yes, the above code is problematic. One has to use the respective for_each
+macro (defined nearby the used API).
 
-Bjorn,
-You might find this useful (fake Fixes tag should be detected):
-https://github.com/krzk/tools/blob/master/linux/git-hooks-post-commit
+> > +		if (adev)
+> > +			dev_num++;
+> > +	} while (adev != NULL);
+> > +
+> > +	return dev_num;
+> > +}
 
-Best regards,
-Krzysztof
+-- 
+With Best Regards,
+Andy Shevchenko
+
 

@@ -2,102 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C52EC76182A
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 14:22:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D32A76182D
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 14:23:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C81114F8;
-	Tue, 25 Jul 2023 14:21:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C81114F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C59AC153E;
+	Tue, 25 Jul 2023 14:22:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C59AC153E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690287730;
-	bh=7xgOiu87vVE54cMzP3fE+oENEH43UBbaJ3jiEKFyxtM=;
+	s=default; t=1690287823;
+	bh=OY4RIEKRmH/OUjwk7D+uSkz4J2UjzDto2mtexabyhFI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VqkmqveJddGJxAEt7EtjW/Q3Hr72v/7HF9K6D1JxAp1e7e5VcLEHSEgx/fBHNUmeg
-	 j4PtArPbCnXLxWCAol5lDANIvmwCuruw5K9RQQsBqkj+gZLySrPMIKJC7284sC2aLd
-	 yBQ1KNY/wAcAyOSjOOuoModhjzs76H1YwU59/E94=
+	b=XK9poyYqogpY57nVWGAKMLI7aQC50gl0kFj4vPcI70futQpLrRgeOJXq9Jg1qOZIO
+	 x0xYMg89lf4hSG0bQY6JtRJoADYaFfbgdBkIEc5f31CKfoGVBYZ/8CWIiXNXkbQQpf
+	 VR8XZ4vzxvmAaD9IJYZQSqfasDcFqnTDQZ3gMg8M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F371F8019B; Tue, 25 Jul 2023 14:20:59 +0200 (CEST)
+	id 3CD42F80544; Tue, 25 Jul 2023 14:22:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB815F80163;
-	Tue, 25 Jul 2023 14:20:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80FDEF80149;
+	Tue, 25 Jul 2023 14:22:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6CD6F8019B; Tue, 25 Jul 2023 14:20:54 +0200 (CEST)
+	id B0E01F8019B; Tue, 25 Jul 2023 14:22:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD00AF800C7
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 14:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD00AF800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D535F80149
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 14:22:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D535F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=fuGo+Wnb;
+ header.s=susede2_rsa header.b=YmI4XbYK;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=hFAfCo3Q
+ header.s=susede2_ed25519 header.b=ks2yrlyR
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3E95C1F88D;
-	Tue, 25 Jul 2023 12:20:51 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 11A9F22290;
+	Tue, 25 Jul 2023 12:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1690287651;
+	t=1690287734;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NCXEKYBK/uIixAwgck2MSvCyZzbV5oTYQG/tmUo7SE4=;
-	b=fuGo+WnbiF8SH9rU7QsbHmLgxMelZDWuDT5TSWNXmNIlTvP03vUMGCJ6kwcycpbWpDiiIU
-	rScgLZKfPPdIfHU/0roUR6gPk95ztPA1+ijdKyU88EfdkreZCrGQn2GJgOOQ5CC1a/tRIb
-	QV5xoleLMzKO6NdHFxe9lOFR5PwHbxE=
+	bh=xUfc+ECUhcyXeAWf0ZyshtXgvn08uhUVXSwQr5laYoA=;
+	b=YmI4XbYK06n6qh+EvLZZ7eTKszKScpQYTpRk5pCLSLImY8jc9bmMonnBvnv3/J35HeBqVf
+	Qx+GZNFDvnYeXWY9u6MvvwApaz1rDWRgD9zUkP77IplbhKN9INyZki6c3FIjvrhUj2AheB
+	mCbFkWcGS0+ARSW0WvMcs7yPQL0HN1c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690287651;
+	s=susede2_ed25519; t=1690287734;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NCXEKYBK/uIixAwgck2MSvCyZzbV5oTYQG/tmUo7SE4=;
-	b=hFAfCo3QfMT964HXHzP0MfZ9cE/3KUB81A12KY35KGeqUYQYljGIiEVwuJ8w2Txsv/CwAu
-	bQerKW/oKP58apCw==
+	bh=xUfc+ECUhcyXeAWf0ZyshtXgvn08uhUVXSwQr5laYoA=;
+	b=ks2yrlyRXL0aAZml6YeuTrMp0xCPCz/FPo7ZkYVf4fEm5JlfeXxzlvclN1CjBmi+yEC5u+
+	UiveF1IRZqCUF/DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1133313342;
-	Tue, 25 Jul 2023 12:20:51 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE4FA13342;
+	Tue, 25 Jul 2023 12:22:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id swj7AiO+v2QMPAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 25 Jul 2023 12:20:51 +0000
-Date: Tue, 25 Jul 2023 14:20:50 +0200
-Message-ID: <87zg3krxlp.wl-tiwai@suse.de>
+	id yL44NXW+v2SxPAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 25 Jul 2023 12:22:13 +0000
+Date: Tue, 25 Jul 2023 14:22:13 +0200
+Message-ID: <87y1j4rxje.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Luka Guzenko <l.guzenko@web.de>
-Cc: tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/relatek: Enable Mute LED on HP 250 G8
-In-Reply-To: <20230725111509.623773-1-l.guzenko@web.de>
-References: <20230725111509.623773-1-l.guzenko@web.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC updates for v6.6-early
+In-Reply-To: <20230725115558.EA7ABC433C8@smtp.kernel.org>
+References: <20230725115558.EA7ABC433C8@smtp.kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: M74DJKOZDNO3CJO6OVZMBW6GGOD2UMKQ
-X-Message-ID-Hash: M74DJKOZDNO3CJO6OVZMBW6GGOD2UMKQ
+Message-ID-Hash: 2W4MQJXDOA5RK4HMR3DMFWVJFY3JAOFO
+X-Message-ID-Hash: 2W4MQJXDOA5RK4HMR3DMFWVJFY3JAOFO
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M74DJKOZDNO3CJO6OVZMBW6GGOD2UMKQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2W4MQJXDOA5RK4HMR3DMFWVJFY3JAOFO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,15 +118,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 25 Jul 2023 13:15:09 +0200,
-Luka Guzenko wrote:
+On Tue, 25 Jul 2023 13:55:45 +0200,
+Mark Brown wrote:
 > 
-> This HP Notebook used ALC236 codec with COEF 0x07 idx 1 controlling
-> the mute LED. Enable already existing quirk for this device.
+> The following changes since commit 6eaae198076080886b9e7d57f4ae06fa782f90ef:
 > 
-> Signed-off-by: Luka Guzenko <l.guzenko@web.de>
+>   Linux 6.5-rc3 (2023-07-23 15:24:10 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.6-early
+> 
+> for you to fetch changes up to 85d12eda2382cd5b93eed720b5a08f39d42cfef4:
+> 
+>   ALSA: hda: Adding support for CS35L56 on HDA (2023-07-24 18:42:26 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Updates for v6.6
+> 
+> Here's an initial batch of updates for ASoC for this release cycle.
+> We've got a bunch of new drivers in here, a bit of core work from
+> Morimoto-san and quite a lot of janitorial work.  There's several
+> updates that pull in changes from other subsystems in order to build
+> on them:
+> 
+>  - An adaptor to allow use of IIO DACs and ADCs in ASoC which pulls in
+>    some IIO changes.
+>  - Create a library function for intlog10() and use it in the NAU8825
+>    driver.
+>  - Include the ASoC tests, including the topology tests, in the default
+>    KUnit full test coverage.  This also involves enabling UML builds of
+>    ALSA since that's the default KUnit test environment which pulls in
+>    the addition of some stubs to the driver.
+>  - More factoring out from Morimoto-san.
+>  - Convert a lot of drivers to use the more modern maple tree register
+>    cache.
+>  - Support for AMD machines with MAX98388 and NAU8821, Cirrus Logic
+>    CS35L36, Intel AVS machines with ES8336 and RT5663 and NXP i.MX93.
 
-Thanks, applied now.
+Thanks, pulled now.
 
 
 Takashi

@@ -2,103 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2486476181B
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 14:19:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF835761803
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 14:06:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E731152E;
-	Tue, 25 Jul 2023 14:18:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E731152E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A8F3152E;
+	Tue, 25 Jul 2023 14:06:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A8F3152E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690287545;
-	bh=+Ocevg64N0aIV9rG69RXaUubDlT2/mkhIyMR1Q1WkzY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Gmn2mgjLkUEitKLUkiRg5U961XBtdR8GZPL/rrVo1eayu3gzeA+YE6XOg8TYrbM/N
-	 AKG3B1B5NHFWmpgD25vKGSjO9E+6D2+PD8pgp28GtczKpIUiejfw0AOz0JXYWbg/4a
-	 LWO//9Jpq8HAg/mLOT4UymHeMO0ngbUy6YiKz+uk=
+	s=default; t=1690286818;
+	bh=J+tBGuQ0eU9onlKlCOCPlRcHCX8QbZAC8Axq0IXaty4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=oJO3QgA64shfXeL1DubUrmRokzQi8Yf0tpR7qaZOrkjkb7gJdcjTX0ECv5FKfRjCX
+	 04SL9dXhjS41mm+UL5fBpgvxvvq4f4dfqgjhvRFlG7ZVaBVYWh96GdvrvvT8qGOrJQ
+	 kJupKbXsP417mQXTl1gFhujr9Z3pGCwITHu234Bs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E61EF802E8; Tue, 25 Jul 2023 14:18:13 +0200 (CEST)
+	id C30FCF80149; Tue, 25 Jul 2023 14:05:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8566AF80163;
-	Tue, 25 Jul 2023 14:18:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77714F80163;
+	Tue, 25 Jul 2023 14:05:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 782EBF8019B; Tue, 25 Jul 2023 14:18:09 +0200 (CEST)
+	id 380DEF8019B; Tue, 25 Jul 2023 14:05:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EE622F80149;
-	Tue, 25 Jul 2023 14:18:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE622F80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lsHFyz4K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690287487; x=1721823487;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+Ocevg64N0aIV9rG69RXaUubDlT2/mkhIyMR1Q1WkzY=;
-  b=lsHFyz4K+fdESzgYfgsT8DS4UAGqgxAdjyzzlmgzBoHsBApuRK4KFlmD
-   Wlzq4pw8u3YSIeulg/s5dckgtipUnGzUT+K8R9Z0Sje0Q86U0Y5dpJLcU
-   zgsfI8Vrv5fF2Wy7uit3XLnY3cD8FnPJRJ8h28z8iQKOU5I6wlfGOv0bB
-   +8uhZm6EypsvdQrXA585FWdJEqqw0Xfs2ARPUqBCS4wFZZUdMFWL8/HK1
-   Oauh6p9uUmKOL0nWJ7lImH8x/dmweT5zQgj6DVSJJ8m9I/yyqpi6v0g/G
-   qeovcvS+aSl+r+6U++6+lEF9CGECspFEkJ9R7RrsLqzzwxI5pJo4dRUU8
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="352601905"
-X-IronPort-AV: E=Sophos;i="6.01,230,1684825200";
-   d="scan'208";a="352601905"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 05:17:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="791367909"
-X-IronPort-AV: E=Sophos;i="6.01,230,1684825200";
-   d="scan'208";a="791367909"
-Received: from mongola-mobl.ger.corp.intel.com (HELO [10.249.37.129])
- ([10.249.37.129])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 05:17:56 -0700
-Message-ID: <b0037097-b917-9069-7d8f-07e0317d6b9f@linux.intel.com>
-Date: Tue, 25 Jul 2023 13:52:32 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0B71EF800C7;
+	Tue, 25 Jul 2023 14:05:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B71EF800C7
+Received: from dggpemm500020.china.huawei.com (unknown [172.30.72.53])
+	by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4R9Fxq4LlczCrJq;
+	Tue, 25 Jul 2023 20:01:51 +0800 (CST)
+Received: from dggpemm500007.china.huawei.com (7.185.36.183) by
+ dggpemm500020.china.huawei.com (7.185.36.49) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Tue, 25 Jul 2023 20:05:13 +0800
+Received: from huawei.com (10.175.103.91) by dggpemm500007.china.huawei.com
+ (7.185.36.183) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 25 Jul
+ 2023 20:05:13 +0800
+From: Yang Yingliang <yangyingliang@huawei.com>
+To: <sound-open-firmware@alsa-project.org>, <alsa-devel@alsa-project.org>
+CC: <pierre-louis.bossart@linux.intel.com>, <lgirdwood@gmail.com>,
+	<peter.ujfalusi@linux.intel.com>, <yung-chuan.liao@linux.intel.com>,
+	<ranjani.sridharan@linux.intel.com>, <daniel.baluta@nxp.com>,
+	<kai.vehmanen@linux.intel.com>, <broonie@kernel.org>, <perex@perex.cz>,
+	<tiwai@suse.com>, <yangyingliang@huawei.com>
+Subject: [PATCH -next] ASoC: SOF: ipc3-dtrace: Switch to memdup_user_nul()
+ helper
+Date: Tue, 25 Jul 2023 20:02:47 +0800
+Message-ID: <20230725120247.509422-1-yangyingliang@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v2 2/9] ALSA: hda/i915: Allow override of gpu binding.
-Content-Language: en-US
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
-References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
- <20230719164141.228073-3-maarten.lankhorst@linux.intel.com>
- <9b285ede-eaeb-40a2-086d-30cf74185784@linux.intel.com>
- <d75c1902-b715-4a33-1965-ec06d625e3ac@linux.intel.com>
- <932c4293-375f-685c-2cfd-0bc80fd80683@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <932c4293-375f-685c-2cfd-0bc80fd80683@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: B6Q7QN522MKU4DQJ6CTB4OMBC44K475A
-X-Message-ID-Hash: B6Q7QN522MKU4DQJ6CTB4OMBC44K475A
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm500007.china.huawei.com (7.185.36.183)
+X-CFilter-Loop: Reflected
+Message-ID-Hash: X34NAB3B33GNN5FMO6BMIEFGIA6ZRPR2
+X-Message-ID-Hash: X34NAB3B33GNN5FMO6BMIEFGIA6ZRPR2
+X-MailFrom: yangyingliang@huawei.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6Q7QN522MKU4DQJ6CTB4OMBC44K475A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X34NAB3B33GNN5FMO6BMIEFGIA6ZRPR2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,43 +90,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Use memdup_user_nul() helper instead of open-coding to
+simplify the code.
 
->>>> @@ -121,6 +128,9 @@ static int i915_gfx_present(struct pci_dev
->>>> *hdac_pci)
->>>>   {
->>>>       struct pci_dev *display_dev = NULL;
->>>>   +    if (!gpu_bind || (gpu_bind < 0 &&
->>>> video_firmware_drivers_only()))
->>>> +        return false;
->>
->>
->> Bear with me since I am just going back to work mode but I can't figure
->> out what the second part of the test does
->>
->> bool video_firmware_drivers_only(void)
->> {
->>     return video_nomodeset;
->> }
->> EXPORT_SYMBOL(video_firmware_drivers_only);
->>
->> and video_nomodeset=1 by default, so why would we return false when
->> gpu_bind = -1?
->>
->> This seems to be a change of functionality, what am I missing?
-> video_nomodeset is 0 by default, only when nomodeset is given as
-> argument is it set to 1. :-)
+Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+---
+ sound/soc/sof/ipc3-dtrace.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
+diff --git a/sound/soc/sof/ipc3-dtrace.c b/sound/soc/sof/ipc3-dtrace.c
+index 35da85a45a9a..bd07f0472efd 100644
+--- a/sound/soc/sof/ipc3-dtrace.c
++++ b/sound/soc/sof/ipc3-dtrace.c
+@@ -196,15 +196,9 @@ static ssize_t dfsentry_trace_filter_write(struct file *file, const char __user
+ 		return -EINVAL;
+ 	}
+ 
+-	string = kmalloc(count + 1, GFP_KERNEL);
+-	if (!string)
+-		return -ENOMEM;
+-
+-	if (copy_from_user(string, from, count)) {
+-		ret = -EFAULT;
+-		goto error;
+-	}
+-	string[count] = '\0';
++	string = memdup_user_nul(from, count);
++	if (IS_ERR(string))
++		return PTR_ERR(string);
+ 
+ 	ret = trace_filter_parse(sdev, string, &num_elems, &elems);
+ 	if (ret < 0)
+-- 
+2.25.1
 
-I must be missing something on how the default is handled.
-
-bool video_firmware_drivers_only(void)
-{
-	return video_nomodeset;
-}
-EXPORT_SYMBOL(video_firmware_drivers_only);
-
-static int __init disable_modeset(char *str)
-{
-	video_nomodeset = true;
-
-isn't default 'true' then?

@@ -2,122 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C8F7761B08
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 16:09:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D34761CEB
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 17:08:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97C3620C;
-	Tue, 25 Jul 2023 16:08:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97C3620C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E8813E7;
+	Tue, 25 Jul 2023 17:07:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E8813E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690294150;
-	bh=9xXrJDn/sDL5JrJpw98LN2+HOnDf1NQgJysgmro+dPo=;
-	h=Date:Subject:From:To:CC:References:In-Reply-To:List-Id:
+	s=default; t=1690297691;
+	bh=sUGaRQn5xNJpl3dZktBMpO6/PA+14CYJb7CJBGNJ1uM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EX0nb1CB30BHWDe1nVRYpq/+fzlzI7oA/29ySWNdcqLkZOfsJPRDxV/nXtm2YzGPs
-	 wWb9z5OtCEgoiY6rtJqDcqwkp0Prz/lm91yhAYjSEQIP/rzOVTXJqtSdyGWNbNHw5w
-	 YDk4FFVReOvjA8VoZvON/kYfsYKLF4Yv3p/lqgEo=
+	b=V09WnruKxsyyZ7exDXP1Biex3f5bp2wVI8x2ZoVPpFieZpup5OpQLKWsqPckbMDKq
+	 yobrRb95uPNgYynfO9jiwwBcmBcAu/cmpn3jfPkf78joXaZPKwROXkLQfHsjtaDBzv
+	 19Bl5Ucp3g7xMoZqh+6+nF1pQfjxYh8yVgU+1wi0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFA70F802E8; Tue, 25 Jul 2023 16:08:19 +0200 (CEST)
+	id C16B3F80535; Tue, 25 Jul 2023 17:07:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F57EF80163;
-	Tue, 25 Jul 2023 16:08:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5272DF80163;
+	Tue, 25 Jul 2023 17:07:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44F83F8019B; Tue, 25 Jul 2023 16:08:15 +0200 (CEST)
+	id 82BDFF8019B; Tue, 25 Jul 2023 17:07:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63928F80153
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 16:08:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63928F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8FF7AF80153
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 17:07:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FF7AF80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=4sFWeFLR
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36PDXDMu010531;
-	Tue, 25 Jul 2023 16:08:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : from : to : cc : references : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=aKox1fifr/MD7CscnSNaYClzgh1MKEowYV/1CFbHY8Q=;
- b=4sFWeFLREgJioc9H+rODp72hj3AVdLAeXn//m7QoqBPjLcHM3h6ErPmn4WA399Y/aITY
- Es+zEl+7c1OuNWP/mY/sYFUWBgIrS0ZnwoA5voqLfap1MOnNtJ/zdQsJH70zP6mKb4It
- up4nrSg6m/QvGFbwtP1STGuEVZLJ00BGoK2EjvjlEjCcZJFyhQQwWBxUeAAPCbeV4q3h
- 6aBJcowFMNfbDdrNiVfgGpJZ6jk6/MU4C0knjVH4EQXo3oCJXoEvofraY3JZmoYetI5I
- ZcYWT0tL9hA+ODD+fHxyfM0nlDUmDa3FOMio5gfyLhC4I0CiM1Tbi4NIEhA6R3rIQpjx iw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s2bkbhv00-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 25 Jul 2023 16:08:01 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B9F8E100048;
-	Tue, 25 Jul 2023 16:07:56 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5ACB4241EF6;
-	Tue, 25 Jul 2023 16:07:56 +0200 (CEST)
-Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 25 Jul
- 2023 16:07:54 +0200
-Message-ID: <1faa5511-a341-9c17-5e2a-974f8139d1d6@foss.st.com>
-Date: Tue, 25 Jul 2023 16:07:49 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=jfFSsQiN
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-51d95aed33aso8051877a12.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 25 Jul 2023 08:07:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1690297625; x=1690902425;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NZUa3uDyejgNax81C3rf+wIL3cUgqBQKB2P7I+aBclw=;
+        b=jfFSsQiNnzJ+lyJWWV6a2xy21nmU2zy74dzTnquz3sf8lMDZiZ9HEOqsbPVSh5k8S6
+         l4KQGoPMa9r1DogsMfb9a1iS56IqXEy9PMUfxQniUC01fWf+WLtOrqnG87kPM49VRvid
+         JP3aRRXncxD8r5ERwGf1Hu0Rh8va5Ut7MqBjQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690297625; x=1690902425;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NZUa3uDyejgNax81C3rf+wIL3cUgqBQKB2P7I+aBclw=;
+        b=blKlYcWRHgaEFWXq2EwgWIMaJbdB+sj9pdD4XZANtnmtSz4F9B5a6Djdo1m755AzA2
+         xNWzfvDENxcBWIt75X8PqeUuv5hqkjkgNpE9WL2G+qyt1jKEfZZSuvFJY3ylE05M7fE9
+         daV9GsRMjBMGN5SpsnrOnO0t94u5svuzkS3L5Otb3m7fjSbxrK808EvGB7yQYrsIz65H
+         StSRKeRxVyCENuyU9Y8/VJj0QiPBp0b2/QHww5bNlw+l4ptAvc4qr7Q+WIPYZXtxnOWU
+         Z/PlFosp3ExgxfFoEMNxT6hF4dMCWWdvLzdojvhIC/DSOWPiaorTLqfGZqgyJedcBQnr
+         lqiw==
+X-Gm-Message-State: ABy/qLZEhaPQfEYlplJqR1PKZ/qUJ1FCGOtQhpDRelLVfKLTV7tMSEoG
+	aKVHKLaMlu6cTkPGtsRmc728IVlBdBaSByBuL/LBunS1
+X-Google-Smtp-Source: 
+ APBJJlGM2G2snT4pFo9ivxcSFvIrdNWiYqqpvDBY6lgN4ckJGR/sXtTgOTrflgbiDT+Kjm+mr+g/Vw==
+X-Received: by 2002:a17:906:7485:b0:989:21e4:6c6e with SMTP id
+ e5-20020a170906748500b0098921e46c6emr12920909ejl.53.1690297625003;
+        Tue, 25 Jul 2023 08:07:05 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com.
+ [209.85.208.44])
+        by smtp.gmail.com with ESMTPSA id
+ m6-20020a17090607c600b0099293cdbc98sm8418725ejc.145.2023.07.25.08.07.04
+        for <alsa-devel@alsa-project.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Jul 2023 08:07:04 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-51e24210395so13757a12.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 25 Jul 2023 08:07:04 -0700 (PDT)
+X-Received: by 2002:a50:d55c:0:b0:51e:16c5:2004 with SMTP id
+ f28-20020a50d55c000000b0051e16c52004mr113153edj.6.1690297603084; Tue, 25 Jul
+ 2023 08:06:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 07/10] arm64: dts: st: add RIFSC as a domain controller
- for STM32MP25x boards
-Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
-        <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
-        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <conor+dt@kernel.org>, <vkoul@kernel.org>, <jic23@kernel.org>,
-        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
-        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
-        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
-        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
-        <catalin.marinas@arm.com>, <arnd@kernel.org>,
-        <richardcochran@gmail.com>
-CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>,
-        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>
-References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
- <20230705172759.1610753-8-gatien.chevallier@foss.st.com>
- <61d93738-4ffd-411d-d32c-912c14eea56d@foss.st.com>
- <997780a9-1cbc-46a2-2743-7fd493682278@foss.st.com>
-In-Reply-To: <997780a9-1cbc-46a2-2743-7fd493682278@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.201.21.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-25_08,2023-07-25_01,2023-05-22_02
-Message-ID-Hash: 6QULYAINEMUOR7WL57YHPXAXSZ7OEFR4
-X-Message-ID-Hash: 6QULYAINEMUOR7WL57YHPXAXSZ7OEFR4
-X-MailFrom: prvs=557065b4ce=gatien.chevallier@foss.st.com
+References: <20230627-topic-more_bindings-v1-0-6b4b6cd081e5@linaro.org>
+ <20230627-topic-more_bindings-v1-1-6b4b6cd081e5@linaro.org>
+In-Reply-To: <20230627-topic-more_bindings-v1-1-6b4b6cd081e5@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 25 Jul 2023 08:06:25 -0700
+X-Gmail-Original-Message-ID: 
+ <CAD=FV=WsWyTWk8W23PEgw7vXWpLDCih1kGZHkqYCNHLFOPrkGw@mail.gmail.com>
+Message-ID: 
+ <CAD=FV=WsWyTWk8W23PEgw7vXWpLDCih1kGZHkqYCNHLFOPrkGw@mail.gmail.com>
+Subject: Re: [PATCH 01/11] arm64: dts: qcom: sc7180: Fix DSI0_PHY reg-names
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Cc: cros-qcom-dts-watchers@chromium.org, Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Benjamin Li <benl@squareup.com>,
+	James Willcox <jwillcox@squareup.com>, Joseph Gates <jgates@squareup.com>,
+	Stephan Gerhold <stephan@gerhold.net>, Zac Crosby <zac@squareup.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lee Jones <lee@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+	Jun Nie <jun.nie@linaro.org>, Max Chen <mchen@squareup.com>,
+	Shawn Guo <shawn.guo@linaro.org>, Vivek Gautam <vivek.gautam@codeaurora.org>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Vincent Knecht <vincent.knecht@mailoo.org>,
+ "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, alsa-devel@alsa-project.org,
+ iommu@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Leo Yan <leo.yan@linaro.org>,
+	Rob Herring <robh@kernel.org>, Andy Gross <andy.gross@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: CY65V37GG4BKAS3H4JGZ63HMSZAOYUX4
+X-Message-ID-Hash: CY65V37GG4BKAS3H4JGZ63HMSZAOYUX4
+X-MailFrom: dianders@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +151,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6QULYAINEMUOR7WL57YHPXAXSZ7OEFR4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CY65V37GG4BKAS3H4JGZ63HMSZAOYUX4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,79 +160,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Alex,
+Hi,
 
-On 7/6/23 11:30, Gatien CHEVALLIER wrote:
-> Hi Alex,
-> 
-> On 7/6/23 11:25, Alexandre TORGUE wrote:
->> Hi Gatien
->>
->> On 7/5/23 19:27, Gatien Chevallier wrote:
->>> RIFSC is a firewall controller. Change its compatible so that is matches
->>> the documentation and reference RIFSC as a feature-domain-controller.
->>>
->>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->>> ---
->>>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 5 ++++-
->>>   1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi 
->>> b/arch/arm64/boot/dts/st/stm32mp251.dtsi
->>> index 5268a4321841..62101084cab8 100644
->>> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
->>> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
->>> @@ -106,17 +106,20 @@ soc@0 {
->>>           ranges = <0x0 0x0 0x0 0x80000000>;
->>>           rifsc: rifsc-bus@42080000 {
->>> -            compatible = "simple-bus";
->>> +            compatible = "st,stm32mp25-rifsc";
->>
->> You could keep "simple-bus" compatible (in second position). In case 
->> of the RIFSC is not probed, the platform will be able to boot. If you 
->> agree you can use the same for ETZPC.
->>
->> Cheers
->> Alex
-> 
-> Sure, good point.
-> 
-> I'll change that in V2
-> 
-> Best regards,
-> Gatien
+On Tue, Jun 27, 2023 at 9:24=E2=80=AFAM Konrad Dybcio <konrad.dybcio@linaro=
+.org> wrote:
+>
+> Commit 2b616f86d51b ("arm64: dts: qcom: sc7180: rename labels for DSI
+> nodes") broke reg-names, possibly with search-and-replace. Fix it.
+>
+> Fixes: 2b616f86d51b ("arm64: dts: qcom: sc7180: rename labels for DSI nod=
+es")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/q=
+com/sc7180.dtsi
+> index 34eff97f8630..b9640574e73b 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+> @@ -3120,8 +3120,8 @@ mdss_dsi0_phy: phy@ae94400 {
+>                                 reg =3D <0 0x0ae94400 0 0x200>,
+>                                       <0 0x0ae94600 0 0x280>,
+>                                       <0 0x0ae94a00 0 0x1e0>;
+> -                               reg-names =3D "dsi0_phy",
+> -                                           "dsi0_phy_lane",
+> +                               reg-names =3D "dsi_phy",
+> +                                           "dsi_phy_lane",
 
-Actually, it would be a bad idea to keep "simple-bus" as a compatible.
+I noticed that this patch got applied [1], but I think it got put into
+a branch targeting 6.6 instead of 6.5. Specifically I see it in
+"arm64-for-6.6" but not "arm64-fixes-for-6.5". Any chance it could be
+landed in a "Fixes" tree and get sent out sooner rather than later?
+v6.5 will be pretty broken without it and it would be nice to see it
+in Linus's tree sooner rather than later.
 
-Practical example:
-1) Firewall controller forbids a device probe by marking the device's
-node as populated (OF_POPULATED flag).
-2) The simple-bus, which is simple, populates all the devices
-from the device tree data, overriding what the firewall bus has done.
-3)=>Forbidden device's driver will be probed.
+[1] https://lore.kernel.org/r/168896565982.1376307.13166434967387866925.b4-=
+ty@kernel.org
 
-I think it's best to keep one compatible. If someone wants these drivers
-as external modules, then it'll be best to handle this differently.
-I'll resubmit with a single compatible for V2, please do not
-hesitate to comment on the V2 if you're not okay with this.
+Thanks!
 
-Best regards,
-Gatien
-
->>
->>>               reg = <0x42080000 0x1000>;
->>>               #address-cells = <1>;
->>>               #size-cells = <1>;
->>>               ranges;
->>> +            feature-domain-controller;
->>> +            #feature-domain-cells = <1>;
->>>               usart2: serial@400e0000 {
->>>                   compatible = "st,stm32h7-uart";
->>>                   reg = <0x400e0000 0x400>;
->>>                   interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
->>>                   clocks = <&ck_flexgen_08>;
->>> +                feature-domains = <&rifsc 32>;
->>>                   status = "disabled";
->>>               };
->>>           };
->>
+-Doug

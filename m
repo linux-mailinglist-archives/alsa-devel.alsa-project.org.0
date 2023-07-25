@@ -2,94 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2322C760CC9
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 10:16:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F171760E58
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 11:19:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DFC5EB3;
-	Tue, 25 Jul 2023 10:15:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DFC5EB3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7286BED7;
+	Tue, 25 Jul 2023 11:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7286BED7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690272963;
-	bh=W8mV1wjIqvrGQnvQyNg9bRQ5AyE3RsOi23YmwOJilmM=;
+	s=default; t=1690276798;
+	bh=LKtaiWNgDWK8U+v+CSkjSmMLNgc+6CwnEmQrVA3o6hk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uORoWNJ+gXwTl49hnzajM6Ozi2PEKGkOhattOyo6P6gHTw1yua5M9WyMDOB2toO/K
-	 7wQ422YQsPBKNXO7od0geb+tAreG70ntjfw0m6yHfSpOwj7DBCOzR3PKKO1+uN0sVD
-	 M6lamjVAC7XfYqWugFBYYPu+d2VJaNhiLZ8KzgQ8=
+	b=Il2f/elzgfZfxj5VBwKuP7PnVMqp/A2soPf7XdfRxPbKzdANgSrZTI4hDfPusUa2N
+	 mnwY9t/6EyD+qncE48OFoui/PEmAm/ceV8vXKfLkHvZmcyN1DYpVPLwzpcEUYbhIa0
+	 aOQbCZeazT/o0mSfF0FN7mUPHNxkeoanBXUfsmPs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E879F800C7; Tue, 25 Jul 2023 10:15:12 +0200 (CEST)
+	id 04DE4F80153; Tue, 25 Jul 2023 11:18:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1488F80163;
-	Tue, 25 Jul 2023 10:15:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 671B6F80153;
+	Tue, 25 Jul 2023 11:18:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1609BF8019B; Tue, 25 Jul 2023 10:15:06 +0200 (CEST)
+	id 55D1FF80549; Tue, 25 Jul 2023 11:18:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 271D7F80149
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 10:14:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 271D7F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0FE86F80153
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 11:18:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FE86F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lNBxKXh0
+ header.s=Intel header.b=e863I8Jp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690272899; x=1721808899;
+  t=1690276718; x=1721812718;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=W8mV1wjIqvrGQnvQyNg9bRQ5AyE3RsOi23YmwOJilmM=;
-  b=lNBxKXh0BP0UecsdH61DaxyogrSUtMntN4Qg0dCpR8pYeujcnDSisQBW
-   KCQBYQDytuA0FgedyTD39hAwkemB7xeLvb4UhQdfifBX5OakCi1JLlKzE
-   uqRFXRRIa2+jcXGQkqgVOpASHRd5QxNBnHEhtfvZ/NG8vR3asVyMQKxij
-   Mhk1dH96+ctMYDS8o9lyqbMlneSNXeCIkfKjrYcwGBnN0GkkcOu8FpLN4
-   LHKM411V3UzgoUpu8ddk28Qfx3bq1Fh7aFci7+f3igJeEvbPqxH47wpc3
-   RYiExbfLXkpwzw9MTG7vb/dnBkcbmrQ10cRzgwRm6Dl38+b5vYYuPrBjH
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="347926623"
+  bh=LKtaiWNgDWK8U+v+CSkjSmMLNgc+6CwnEmQrVA3o6hk=;
+  b=e863I8JpgRIGBHGEW5jZmcDrPQqWIY7BhshJNFBAUcgBNz7Gk/W064At
+   jocZeCUAqDk6Q+yQt+xfF5WnnWASUFRSGwzxWwx7XlJFzhWOhUbmcQKnO
+   9vzqqqmLpNy8CSlRbDyRK/vmSXac4ZXLMPQrYTin8xuqrKrSAF8lbWkRk
+   aRXsr3NuQwGr31Riu2yHOVsBAJM/Cd8LRtMdJK9/JaWsoYMlpLszCZEZd
+   WoI4ptkzRqLxh6v8IhMu+mmGnRw0WOODW+dhdpRleormIVFDapyc6xOPe
+   z2ZsvzcejGKni1lapHleodSLQnDbL3UuEYexMdPEVbzMEmGEZt6F05Uvv
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="454048841"
 X-IronPort-AV: E=Sophos;i="6.01,230,1684825200";
-   d="scan'208";a="347926623"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 01:14:53 -0700
+   d="scan'208";a="454048841"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2023 02:18:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="729262924"
+X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="719980312"
 X-IronPort-AV: E=Sophos;i="6.01,230,1684825200";
-   d="scan'208";a="729262924"
-Received: from dmacnerl-mobl1.amr.corp.intel.com (HELO [10.252.34.151])
- ([10.252.34.151])
-  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 01:14:51 -0700
-Message-ID: <01518d81-0b1d-6190-631c-01cc00da2bb6@linux.intel.com>
-Date: Tue, 25 Jul 2023 11:16:10 +0300
+   d="scan'208";a="719980312"
+Received: from mongola-mobl.ger.corp.intel.com (HELO [10.249.37.129])
+ ([10.249.37.129])
+  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2023 02:18:28 -0700
+Message-ID: <eb1c679b-f50b-1f20-c7c8-da3f4857bec1@linux.intel.com>
+Date: Tue, 25 Jul 2023 10:27:00 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: fix application of sizeof to
- pointer
-To: sunran001@208suo.com, perex@perex.cz, tiwai@suse.com
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230720073836.3285-1-xujianghui@cdjrlc.com>
- <74739aaaa05f52084757b526bc8348c8@208suo.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v4 08/32] ASoC: qcom: qdsp6: Introduce USB AFE port to
+ q6dsp
 Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <74739aaaa05f52084757b526bc8348c8@208suo.com>
+To: Wesley Cheng <quic_wcheng@quicinc.com>, agross@kernel.org,
+ andersson@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ conor+dt@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+ mathias.nyman@intel.com, gregkh@linuxfoundation.org, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ Thinh.Nguyen@synopsys.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-usb@vger.kernel.org, alsa-devel@alsa-project.org,
+ quic_jackp@quicinc.com, oneukum@suse.com, albertccwang@google.com,
+ o-takashi@sakamocchi.jp
+References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
+ <20230725023416.11205-9-quic_wcheng@quicinc.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230725023416.11205-9-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YOX3URYM7G7REX6LGINLTHV7VHDDNILJ
-X-Message-ID-Hash: YOX3URYM7G7REX6LGINLTHV7VHDDNILJ
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ZUVHFIFGEJ7QLFYYU66Y7XCGASM4SYPG
+X-Message-ID-Hash: ZUVHFIFGEJ7QLFYYU66Y7XCGASM4SYPG
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOX3URYM7G7REX6LGINLTHV7VHDDNILJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUVHFIFGEJ7QLFYYU66Y7XCGASM4SYPG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,43 +119,156 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+> +static const struct snd_soc_dai_ops q6usb_ops = {
+> +	.prepare	= q6afe_dai_prepare,
+> +	.hw_params	= q6usb_hw_params,
+> +	.shutdown	= q6afe_dai_shutdown,
 
-On 20/07/2023 11:43, sunran001@208suo.com wrote:
-> The coccinelle check report:
-> ./drivers/scsi/csiostor/csio_mb.c:1554:46-52: ERROR: application of
-> sizeof to pointer
+it's a bit odd to see a .shutdown without a .startup?
 
-Please include the maintainers for patches to enusre they reach the
-correct audience, if in doubt who should be on TO/CC, use the
-scripts/get_maintainer.pl <patch file>
+Is this intentional and should a comment be added?
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-> Signed-off-by: Ran Sun <sunran001@208suo.com>
-> ---
->  sound/soc/sof/ipc4-topology.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-> index a4e1a70b607d..2dbe87dbd239 100644
-> --- a/sound/soc/sof/ipc4-topology.c
-> +++ b/sound/soc/sof/ipc4-topology.c
-> @@ -218,7 +218,7 @@ static int sof_ipc4_get_audio_fmt(struct
-> snd_soc_component *scomp,
-> 
->      ret = sof_update_ipc_object(scomp, available_fmt,
->                      SOF_AUDIO_FMT_NUM_TOKENS, swidget->tuples,
-> -                    swidget->num_tuples, sizeof(available_fmt), 1);
-> +                    swidget->num_tuples, sizeof(*available_fmt), 1);
+> +/* device token of actual end USB aduio device */
 
-The second last parameter is in essence unused since we only update a
-single item.
-The patch is correct in a semantic way but the original code worked
-correctly.
+audio
 
->      if (ret) {
->          dev_err(scomp->dev, "Failed to parse audio format token count\n");
->          return ret;
+> +	u32                  dev_token;
+> +/* endianness of this interface */
+> +	u32                   endian;
+> +/* service interval */
+> +	u32                  service_interval;
+> +} __packed;
+> +
+> +/**
+> + * struct afe_param_id_usb_audio_dev_params
+> + * @cfg_minor_version: Minor version used for tracking USB audio device
+> + * configuration.
+> + * Supported values:
+> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
+> + * @dev_token: device token of actual end USB aduio device
 
--- 
-Péter
+audio. please run a spell-checker.
+
+
+> +	svc_int.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
+> +	svc_int.svc_interval = pcfg->usb_cfg.service_interval;
+> +	ret = q6afe_port_set_param_v2(port, &svc_int,
+> +				      AFE_PARAM_ID_USB_AUDIO_SVC_INTERVAL,
+> +				      AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(svc_int));
+> +	if (ret) {
+> +		dev_err(port->afe->dev, "%s: AFE device param cmd svc_interval failed %d\n",
+> +			__func__, ret);
+> +		ret = -EINVAL;
+
+why do you override the return value?
+
+> +		goto exit;
+
+not necessary, this is a jump to the next line. Looks like copy-paste ...
+
+> +	}
+> +exit:
+> +	return ret;
+> +}
+> +
+> +/**
+> + * q6afe_usb_port_prepare() - Prepare usb afe port.
+> + *
+> + * @port: Instance of afe port
+> + * @cfg: USB configuration for the afe port
+> + *
+> + */
+> +void q6afe_usb_port_prepare(struct q6afe_port *port,
+> +			     struct q6afe_usb_cfg *cfg)
+> +{
+> +	union afe_port_config *pcfg = &port->port_cfg;
+> +
+> +	pcfg->usb_cfg.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
+> +	pcfg->usb_cfg.sample_rate = cfg->sample_rate;
+> +	pcfg->usb_cfg.num_channels = cfg->num_channels;
+> +	pcfg->usb_cfg.bit_width = cfg->bit_width;
+> +
+> +	afe_port_send_usb_dev_param(port, cfg);
+> +}
+> +EXPORT_SYMBOL_GPL(q6afe_usb_port_prepare);
+> +
+>  /**
+>   * q6afe_hdmi_port_prepare() - Prepare hdmi afe port.
+>   *
+> @@ -1611,7 +1791,10 @@ struct q6afe_port *q6afe_port_get_from_id(struct device *dev, int id)
+>  		break;
+>  	case AFE_PORT_ID_WSA_CODEC_DMA_RX_0 ... AFE_PORT_ID_RX_CODEC_DMA_RX_7:
+>  		cfg_type = AFE_PARAM_ID_CODEC_DMA_CONFIG;
+> -	break;
+> +		break;
+> +	case AFE_PORT_ID_USB_RX:
+> +		cfg_type = AFE_PARAM_ID_USB_AUDIO_CONFIG;
+> +		break;
+>  	default:
+>  		dev_err(dev, "Invalid port id 0x%x\n", port_id);
+>  		return ERR_PTR(-EINVAL);
+> diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
+> index 30fd77e2f458..e098a3e15135 100644
+> --- a/sound/soc/qcom/qdsp6/q6afe.h
+> +++ b/sound/soc/qcom/qdsp6/q6afe.h
+> @@ -5,7 +5,7 @@
+>  
+>  #include <dt-bindings/sound/qcom,q6afe.h>
+>  
+> -#define AFE_PORT_MAX		129
+> +#define AFE_PORT_MAX		130
+>  
+>  #define MSM_AFE_PORT_TYPE_RX 0
+>  #define MSM_AFE_PORT_TYPE_TX 1
+> @@ -205,6 +205,47 @@ struct q6afe_cdc_dma_cfg {
+>  	u16	active_channels_mask;
+>  };
+>  
+> +/**
+> + * struct q6afe_usb_cfg
+> + * @cfg_minor_version: Minor version used for tracking USB audio device
+> + * configuration.
+> + * Supported values:
+> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
+> + * @sample_rate: Sampling rate of the port
+> + *    Supported values:
+> + *      AFE_PORT_SAMPLE_RATE_8K
+> + *      AFE_PORT_SAMPLE_RATE_11025
+> + *      AFE_PORT_SAMPLE_RATE_12K
+> + *      AFE_PORT_SAMPLE_RATE_16K
+> + *      AFE_PORT_SAMPLE_RATE_22050
+> + *      AFE_PORT_SAMPLE_RATE_24K
+> + *      AFE_PORT_SAMPLE_RATE_32K
+> + *      AFE_PORT_SAMPLE_RATE_44P1K
+> + *      AFE_PORT_SAMPLE_RATE_48K
+> + *      AFE_PORT_SAMPLE_RATE_96K
+> + *      AFE_PORT_SAMPLE_RATE_192K
+> + * @bit_width: Bit width of the sample.
+> + *    Supported values: 16, 24
+> + * @num_channels: Number of channels
+> + *    Supported values: 1, 2
+> + * @data_format: Data format supported by the USB
+> + *    Supported values: 0
+> + * @reserved: this field must be 0
+> + * @dev_token: device token of actual end USB audio device
+> + * @endian: endianness of this interface
+> + * @service_interval: service interval
+> + **/
+> +struct q6afe_usb_cfg {
+> +	u32	cfg_minor_version;
+> +	u32     sample_rate;
+> +	u16	bit_width;
+> +	u16	num_channels;
+> +	u16	data_format;
+> +	u16	reserved;
+> +	u32	dev_token;
+> +	u32	endian;
+> +	u32	service_interval;
+> +};
+
+this definition looks exactly the same as
+struct afe_param_id_usb_cfg
+??
+
+

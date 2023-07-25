@@ -2,85 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23E757617AF
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 13:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CCB776103D
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 12:06:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54262152F;
-	Tue, 25 Jul 2023 13:52:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54262152F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B5491487;
+	Tue, 25 Jul 2023 12:05:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B5491487
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690286027;
-	bh=wt30PyyiUGKguLZ/4q3Z0Vuj8Tz6MCttN0LhOD4lre0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690279605;
+	bh=WK1FB3qI9Kca+XdK/NcT0nrym8JzqNJv1nRC+lhao+o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=krDcTync3iNtLr+P85X7IkEg8p0FkMuu9tbIch6FwZERnmrVwS5uXifMiaKmS+Ttk
-	 oQYvd/dOzvBDuTO4HmuPA0ly6M1DjiqpwFJ+pLkxN28c/7gDmUOhd2b9GAXB2gq21A
-	 LGKYrvY05H9M2xhgd21x/6dDTIUwSJTZesSMjBdY=
+	b=Elc+vWPL4J01pM2aJr7t75jaKnoielqHk1oRHanGppZv7Ie6tzw48nyHbDZrddD3e
+	 uJ+ndGwqhCLynp+I6id3w/YqAiI1XNqaii+kV8H3x54oBw1inEopxnDTrdE69yzUEF
+	 O4Keuj8Ql2N0N7abrOLEfOts3zJ2tqGoasRF1+rc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 130C9F8057C; Tue, 25 Jul 2023 13:51:46 +0200 (CEST)
+	id 81BA3F80535; Tue, 25 Jul 2023 12:05:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7068DF80571;
-	Tue, 25 Jul 2023 13:51:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84353F80153;
+	Tue, 25 Jul 2023 12:05:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E5D8F80163; Tue, 25 Jul 2023 12:04:27 +0200 (CEST)
+	id 633D6F80163; Tue, 25 Jul 2023 12:05:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62B43F80149;
-	Tue, 25 Jul 2023 12:04:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B43F80149
-Message-ID: <bf495f63-0dcb-e680-4b74-0c4d1ff3463e@linux.intel.com>
-Date: Tue, 25 Jul 2023 12:04:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 4/9] ALSA: hda/i915: Allow xe as match for
- i915_component_master_match
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
-References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
- <20230719164141.228073-5-maarten.lankhorst@linux.intel.com>
- <518bb7a9-3a85-2c13-68bf-63baaff176ef@linux.intel.com>
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <518bb7a9-3a85-2c13-68bf-63baaff176ef@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: maarten.lankhorst@linux.intel.com
-X-Mailman-Rule-Hits: nonmember-moderation
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B109F80149
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 12:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B109F80149
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=kLqHOoKW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=1Og+a5iQ
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9359B1F74D;
+	Tue, 25 Jul 2023 10:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690279540;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ffIVx/0irLZ6QeL71Ci+G/BkmbsNoisvAqsp8tTW3Dc=;
+	b=kLqHOoKW5NmQwYDantmrqvXJmW9Uq1Spb/ZdrAyxHXulidqW/zNSNTdpictKuCRL2hHhUF
+	pZ7sE7bErPMEPsgh2VtZHdlzrjjHDJeo+nI/wm1DOLrXOiVPCbxFMcOs7odYHr18DZbOPZ
+	lSV6xhSm23EkAHwPaWL8S871gV47/CY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690279540;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ffIVx/0irLZ6QeL71Ci+G/BkmbsNoisvAqsp8tTW3Dc=;
+	b=1Og+a5iQVu1ykX6tlxy5davGFwJnqgaXQ9zxBkyoCZKXOzWlhjZ1RlujAnuCLdsWHZdYzn
+	HQw2b0SqfTo3khBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5243D13342;
+	Tue, 25 Jul 2023 10:05:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 2JvSEnSev2SIbwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 25 Jul 2023 10:05:40 +0000
+Date: Tue, 25 Jul 2023 12:05:39 +0200
+Message-ID: <87sf9ctifg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Robert Lee <lerobert@google.com>
+Cc: vkoul@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: compress: add opus codec define
+In-Reply-To: <20230725093005.3499455-1-lerobert@google.com>
+References: <20230725093005.3499455-1-lerobert@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: UA2HNH4EUVPZL6RKD22DHVDAHEYPGZZE
+X-Message-ID-Hash: UA2HNH4EUVPZL6RKD22DHVDAHEYPGZZE
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: GK2YQGJV3ZTW6MZUU5JPAZBLPQSPAPCZ
-X-Message-ID-Hash: GK2YQGJV3ZTW6MZUU5JPAZBLPQSPAPCZ
-X-Mailman-Approved-At: Tue, 25 Jul 2023 11:51:33 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GK2YQGJV3ZTW6MZUU5JPAZBLPQSPAPCZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UA2HNH4EUVPZL6RKD22DHVDAHEYPGZZE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,33 +120,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hey,
-
-On 2023-07-24 12:28, Pierre-Louis Bossart wrote:
+On Tue, 25 Jul 2023 11:30:05 +0200,
+Robert Lee wrote:
 > 
+> Add to support decode Opus codec in Ogg container.
 > 
-> On 7/19/23 18:41, Maarten Lankhorst wrote:
->> xe is a new driver for intel GPU's that shares the sound related code
->> with i915.
->>
->> Don't allow it to be modprobed though; the module is not upstream yet
->> and we should exclusively use the EPROBE_DEFER mechanism.
+> Signed-off-by: Robert Lee <lerobert@google.com>
+
+The change makes sense only when it's really used.  So usually it's
+better to put into a series that actually implements its usage.
+
+
+thanks,
+
+Takashi
+
+> ---
+>  include/uapi/sound/compress_params.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> I can't figure out what this comment means.
+> diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
+> index ddc77322d571..bac5797bcb02 100644
+> --- a/include/uapi/sound/compress_params.h
+> +++ b/include/uapi/sound/compress_params.h
+> @@ -43,7 +43,8 @@
+>  #define SND_AUDIOCODEC_BESPOKE               ((__u32) 0x0000000E)
+>  #define SND_AUDIOCODEC_ALAC                  ((__u32) 0x0000000F)
+>  #define SND_AUDIOCODEC_APE                   ((__u32) 0x00000010)
+> -#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_APE
+> +#define SND_AUDIOCODEC_OPUS                  ((__u32) 0x00000011)
+> +#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_OPUS
+>  
+>  /*
+>   * Profile and modes are listed with bit masks. This allows for a
+> -- 
+> 2.41.0.487.g6d72f3e995-goog
 > 
-> how would the -EPROBE_DEFER mechanism help if the driver that will
-> trigger a new probe is not upstream?
-> 
-> Not following at all what you intended to explain.
-
-What I mean is that there is code inside the current code that does 
-request_module("i915"), the comment meant I didn't try to add any logic 
-for request_module("xe"), as the driver is not merged yet.
-
-Additionally I am removing the request_module logic, but this comment 
-was written when I first tried the simple solution of request_module("xe").
-
-Turns out telepathy is hard, and using -EPROBE_DEFER is much simpler. :-)
-
-Cheers,
-~Maarten

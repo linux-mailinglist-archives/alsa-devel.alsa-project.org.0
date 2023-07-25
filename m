@@ -2,96 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8229761A09
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 15:34:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C8F7761B08
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 16:09:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FEB4843;
-	Tue, 25 Jul 2023 15:33:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FEB4843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97C3620C;
+	Tue, 25 Jul 2023 16:08:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97C3620C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690292045;
-	bh=gLALJ7DCyDDaQ4tRL9rexxxeXGa8duCLz2XXdGj67F0=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690294150;
+	bh=9xXrJDn/sDL5JrJpw98LN2+HOnDf1NQgJysgmro+dPo=;
+	h=Date:Subject:From:To:CC:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Cq2vZZyh9XwVcdUAKy/0hmIoSBNx/WtwVfF/GWFY5N/0yud0kyKecixaNdLcJhzF/
-	 FPbVlKjmpKP44MPQuhTCl25HJxVg6IbbEPjSTs582irxUnN6NNfq1G60ExzdKju+6A
-	 MEfi1cK5IyyUovIdcmVTn7asvqjycPA/K9SlGN/k=
+	b=EX0nb1CB30BHWDe1nVRYpq/+fzlzI7oA/29ySWNdcqLkZOfsJPRDxV/nXtm2YzGPs
+	 wWb9z5OtCEgoiY6rtJqDcqwkp0Prz/lm91yhAYjSEQIP/rzOVTXJqtSdyGWNbNHw5w
+	 YDk4FFVReOvjA8VoZvON/kYfsYKLF4Yv3p/lqgEo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15E30F802E8; Tue, 25 Jul 2023 15:32:47 +0200 (CEST)
+	id EFA70F802E8; Tue, 25 Jul 2023 16:08:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0F9DF80163;
-	Tue, 25 Jul 2023 15:32:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F57EF80163;
+	Tue, 25 Jul 2023 16:08:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E855F8019B; Tue, 25 Jul 2023 15:32:43 +0200 (CEST)
+	id 44F83F8019B; Tue, 25 Jul 2023 16:08:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23647F800C7
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 15:32:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23647F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63928F80153
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 16:08:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63928F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=p9BOac5J
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 36PCqECZ016074;
-	Tue, 25 Jul 2023 08:32:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=Rvzlab3T/LDmq3i
-	1JUmRbgKAL1E8yhOvWBWw0r2ZLI4=; b=p9BOac5JKRru7ukoTWlfSIbWqB5FN8b
-	wvCW34kmstv4FwrKrjrYgzS1MCSloEiWPOlkFKM231451N4yVDOUaIymA62UovZD
-	AHd8YTSYEOoae6Uk7wSgcPLmHSgEsC7yuQJ/Ckd6jzsyBnRkSqC1hMhtpTmuPj0h
-	sH5XezuXb6SGgnsM1akb3iPP9o98vxbpBcnF2ReEshgBkv7k73M6lX4FCz4oe/7+
-	MoU5kem5abwXD8jIP4blcC0or61d/wzDYgegkEI7EvUkTn1GxGmyZYgmkXtIkpnb
-	fD6wx87TymfG5NFCU37VOlQKTXDNPv2APDir09mNnt1hlWVNUSpatLg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3s1nm99k12-1
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=4sFWeFLR
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36PDXDMu010531;
+	Tue, 25 Jul 2023 16:08:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : from : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=aKox1fifr/MD7CscnSNaYClzgh1MKEowYV/1CFbHY8Q=;
+ b=4sFWeFLREgJioc9H+rODp72hj3AVdLAeXn//m7QoqBPjLcHM3h6ErPmn4WA399Y/aITY
+ Es+zEl+7c1OuNWP/mY/sYFUWBgIrS0ZnwoA5voqLfap1MOnNtJ/zdQsJH70zP6mKb4It
+ up4nrSg6m/QvGFbwtP1STGuEVZLJ00BGoK2EjvjlEjCcZJFyhQQwWBxUeAAPCbeV4q3h
+ 6aBJcowFMNfbDdrNiVfgGpJZ6jk6/MU4C0knjVH4EQXo3oCJXoEvofraY3JZmoYetI5I
+ ZcYWT0tL9hA+ODD+fHxyfM0nlDUmDa3FOMio5gfyLhC4I0CiM1Tbi4NIEhA6R3rIQpjx iw==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s2bkbhv00-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 25 Jul 2023 08:32:29 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 25 Jul
- 2023 14:32:28 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.30 via Frontend Transport; Tue, 25 Jul 2023 14:32:28 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 184003560;
-	Tue, 25 Jul 2023 13:32:28 +0000 (UTC)
-Date: Tue, 25 Jul 2023 13:32:28 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Yang Yingliang <yangyingliang@huawei.com>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <james.schulman@cirrus.com>, <david.rhodes@cirrus.com>,
-        <rf@opensource.cirrus.com>, <lgirdwood@gmail.com>,
-        <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>
-Subject: Re: [PATCH -next] ASoC: cs42l51: change cs42l51_of_match to static
-Message-ID: <20230725133228.GM103419@ediswmail.ad.cirrus.com>
-References: <20230725120917.513064-1-yangyingliang@huawei.com>
+	Tue, 25 Jul 2023 16:08:01 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B9F8E100048;
+	Tue, 25 Jul 2023 16:07:56 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5ACB4241EF6;
+	Tue, 25 Jul 2023 16:07:56 +0200 (CEST)
+Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 25 Jul
+ 2023 16:07:54 +0200
+Message-ID: <1faa5511-a341-9c17-5e2a-974f8139d1d6@foss.st.com>
+Date: Tue, 25 Jul 2023 16:07:49 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230725120917.513064-1-yangyingliang@huawei.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: f3y17RVjdfFMZeOpSIJY108tRnhI8qJJ
-X-Proofpoint-GUID: f3y17RVjdfFMZeOpSIJY108tRnhI8qJJ
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: OH5V3AJ4RXID4XERWMNMWW2ZLIV6OLNT
-X-Message-ID-Hash: OH5V3AJ4RXID4XERWMNMWW2ZLIV6OLNT
-X-MailFrom: prvs=2570f46236=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 07/10] arm64: dts: st: add RIFSC as a domain controller
+ for STM32MP25x boards
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+        <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <vkoul@kernel.org>, <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>
+CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-8-gatien.chevallier@foss.st.com>
+ <61d93738-4ffd-411d-d32c-912c14eea56d@foss.st.com>
+ <997780a9-1cbc-46a2-2743-7fd493682278@foss.st.com>
+In-Reply-To: <997780a9-1cbc-46a2-2743-7fd493682278@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-25_08,2023-07-25_01,2023-05-22_02
+Message-ID-Hash: 6QULYAINEMUOR7WL57YHPXAXSZ7OEFR4
+X-Message-ID-Hash: 6QULYAINEMUOR7WL57YHPXAXSZ7OEFR4
+X-MailFrom: prvs=557065b4ce=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OH5V3AJ4RXID4XERWMNMWW2ZLIV6OLNT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6QULYAINEMUOR7WL57YHPXAXSZ7OEFR4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,14 +138,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 25, 2023 at 08:09:17PM +0800, Yang Yingliang wrote:
-> cs42l51_of_match is only used in cs42l51-i2c.c now,
-> change it to static.
+Hi Alex,
+
+On 7/6/23 11:30, Gatien CHEVALLIER wrote:
+> Hi Alex,
 > 
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> ---
+> On 7/6/23 11:25, Alexandre TORGUE wrote:
+>> Hi Gatien
+>>
+>> On 7/5/23 19:27, Gatien Chevallier wrote:
+>>> RIFSC is a firewall controller. Change its compatible so that is matches
+>>> the documentation and reference RIFSC as a feature-domain-controller.
+>>>
+>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>> ---
+>>>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 5 ++++-
+>>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi 
+>>> b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+>>> index 5268a4321841..62101084cab8 100644
+>>> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+>>> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+>>> @@ -106,17 +106,20 @@ soc@0 {
+>>>           ranges = <0x0 0x0 0x0 0x80000000>;
+>>>           rifsc: rifsc-bus@42080000 {
+>>> -            compatible = "simple-bus";
+>>> +            compatible = "st,stm32mp25-rifsc";
+>>
+>> You could keep "simple-bus" compatible (in second position). In case 
+>> of the RIFSC is not probed, the platform will be able to boot. If you 
+>> agree you can use the same for ETZPC.
+>>
+>> Cheers
+>> Alex
+> 
+> Sure, good point.
+> 
+> I'll change that in V2
+> 
+> Best regards,
+> Gatien
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Actually, it would be a bad idea to keep "simple-bus" as a compatible.
 
-Thanks,
-Charles
+Practical example:
+1) Firewall controller forbids a device probe by marking the device's
+node as populated (OF_POPULATED flag).
+2) The simple-bus, which is simple, populates all the devices
+from the device tree data, overriding what the firewall bus has done.
+3)=>Forbidden device's driver will be probed.
+
+I think it's best to keep one compatible. If someone wants these drivers
+as external modules, then it'll be best to handle this differently.
+I'll resubmit with a single compatible for V2, please do not
+hesitate to comment on the V2 if you're not okay with this.
+
+Best regards,
+Gatien
+
+>>
+>>>               reg = <0x42080000 0x1000>;
+>>>               #address-cells = <1>;
+>>>               #size-cells = <1>;
+>>>               ranges;
+>>> +            feature-domain-controller;
+>>> +            #feature-domain-cells = <1>;
+>>>               usart2: serial@400e0000 {
+>>>                   compatible = "st,stm32h7-uart";
+>>>                   reg = <0x400e0000 0x400>;
+>>>                   interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+>>>                   clocks = <&ck_flexgen_08>;
+>>> +                feature-domains = <&rifsc 32>;
+>>>                   status = "disabled";
+>>>               };
+>>>           };
+>>

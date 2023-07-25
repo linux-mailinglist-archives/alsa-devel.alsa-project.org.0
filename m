@@ -2,102 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D32A76182D
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 14:23:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB16761838
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 14:25:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C59AC153E;
-	Tue, 25 Jul 2023 14:22:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C59AC153E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A3A91531;
+	Tue, 25 Jul 2023 14:24:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A3A91531
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690287823;
-	bh=OY4RIEKRmH/OUjwk7D+uSkz4J2UjzDto2mtexabyhFI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690287935;
+	bh=xYLKNNf8Q4oEz+gG5+vPutrOal+CLGfXv1UQ/HXrqUI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XK9poyYqogpY57nVWGAKMLI7aQC50gl0kFj4vPcI70futQpLrRgeOJXq9Jg1qOZIO
-	 x0xYMg89lf4hSG0bQY6JtRJoADYaFfbgdBkIEc5f31CKfoGVBYZ/8CWIiXNXkbQQpf
-	 VR8XZ4vzxvmAaD9IJYZQSqfasDcFqnTDQZ3gMg8M=
+	b=N48i6g6vRY5YdFA/GK1R8lofQ9pczWIMdTPaFaUhbreXMLuoVhkbPlgPJVzrAo5r7
+	 ibcarCcWlVREMRhgAIqmcjIU3z93ToerRmIprI9EfSPXT7BgZS6eU/dx4GyRigpIlo
+	 Dbk/kxMmWD79p3ZF6dTFvlVXqP1qIk7gSAtdQEA0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3CD42F80544; Tue, 25 Jul 2023 14:22:20 +0200 (CEST)
+	id E457FF80163; Tue, 25 Jul 2023 14:24:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80FDEF80149;
-	Tue, 25 Jul 2023 14:22:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90B1DF80163;
+	Tue, 25 Jul 2023 14:24:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0E01F8019B; Tue, 25 Jul 2023 14:22:16 +0200 (CEST)
+	id BCE60F8019B; Tue, 25 Jul 2023 14:24:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D535F80149
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 14:22:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D535F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id C34C5F80149
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 14:24:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C34C5F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YmI4XbYK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ks2yrlyR
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 11A9F22290;
-	Tue, 25 Jul 2023 12:22:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690287734;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xUfc+ECUhcyXeAWf0ZyshtXgvn08uhUVXSwQr5laYoA=;
-	b=YmI4XbYK06n6qh+EvLZZ7eTKszKScpQYTpRk5pCLSLImY8jc9bmMonnBvnv3/J35HeBqVf
-	Qx+GZNFDvnYeXWY9u6MvvwApaz1rDWRgD9zUkP77IplbhKN9INyZki6c3FIjvrhUj2AheB
-	mCbFkWcGS0+ARSW0WvMcs7yPQL0HN1c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690287734;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xUfc+ECUhcyXeAWf0ZyshtXgvn08uhUVXSwQr5laYoA=;
-	b=ks2yrlyRXL0aAZml6YeuTrMp0xCPCz/FPo7ZkYVf4fEm5JlfeXxzlvclN1CjBmi+yEC5u+
-	UiveF1IRZqCUF/DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE4FA13342;
-	Tue, 25 Jul 2023 12:22:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id yL44NXW+v2SxPAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 25 Jul 2023 12:22:13 +0000
-Date: Tue, 25 Jul 2023 14:22:13 +0200
-Message-ID: <87y1j4rxje.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC updates for v6.6-early
-In-Reply-To: <20230725115558.EA7ABC433C8@smtp.kernel.org>
-References: <20230725115558.EA7ABC433C8@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 2W4MQJXDOA5RK4HMR3DMFWVJFY3JAOFO
-X-Message-ID-Hash: 2W4MQJXDOA5RK4HMR3DMFWVJFY3JAOFO
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=oG/p44ha
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-4fdddf92b05so8105588e87.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 25 Jul 2023 05:24:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690287876; x=1690892676;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ks3nUOn/9qR1jrhxbqY2QCJrSfWExHFhLwuG1z7B3TE=;
+        b=oG/p44haSlMMr+HRlqE79VaQqZhwEwmSo8ZjOOxune3yqh629GMwSMWSfjhBRB6e1N
+         Ty+ROSaV6OoS+5cfAdwcbR95051XyeG62lmnXUG5w3qZ+zOQtg5qQjfL+4WJDxj78FFu
+         OFMo5tqWAXhiRMT6YtLLFlxatsASqPfnU0ENTThzCY6Wm9Ojz4JrWgVquG0QToNSLubx
+         121/JSosd5nylMRCQ8nabStMWVBxe4A8MnsaqCqMH5g+9cQJ3S9SQ71cnWg/XON5GSny
+         MIphdr8uB18GYn4a7e85ZU/DHzuPYZ/d+rNC/Xlmh/E7Z11Vls1o6jQny4kJnAcuS+/Q
+         jXqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690287876; x=1690892676;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ks3nUOn/9qR1jrhxbqY2QCJrSfWExHFhLwuG1z7B3TE=;
+        b=euVq+w5afxT/5ndenv6RWbhusAmHpLiVq3URVWp8X5xYbcBi+sCkKqZfZmel+PPqy3
+         U/Q/JLOLNIIfBAmvqHaJgsnC+wsOiiSk6DLlHnRyAqvgpNKf87jwBS7E/jRhP29dl0xp
+         avGvTqCqiWKxouXXN1id/J7BXeWuZsekQa52pnR341YXPq7v8Iyo8eXC6n6ho9aX3ytD
+         BQZ8yq40PyHNp0PRi7G+UavE8wn2UyHmVnKPXmTps/bVrr+hiqnbcGFXw4aUHo/g/HRf
+         RhIT3OBdXaG9ID+vmYcCcoxo8+ox92hAaYFcvBhu+8QC92F3BaxBUMU1/eYVz2fVYvOE
+         B1aQ==
+X-Gm-Message-State: ABy/qLb4RWUmYsdKw4Nvd8HQL9hE7U7J7+LrkSZSXPESgKdb1fd484lT
+	tPeg0udYVS3IjaVqz+Uhz+yEow==
+X-Google-Smtp-Source: 
+ APBJJlGqYyD2TAEiCN22VeSTnnKHBifqwY0pQj3pRX2YJUU6lNpsvdxSXZzil9Y7DBLk3s87zMs/hw==
+X-Received: by 2002:ac2:5e2c:0:b0:4fb:92a9:cbe8 with SMTP id
+ o12-20020ac25e2c000000b004fb92a9cbe8mr6559105lfg.18.1690287875901;
+        Tue, 25 Jul 2023 05:24:35 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+        by smtp.gmail.com with ESMTPSA id
+ j11-20020aa7c0cb000000b00522274c3775sm3771264edp.68.2023.07.25.05.24.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Jul 2023 05:24:35 -0700 (PDT)
+Message-ID: <c6e8c950-9d1f-099a-b48a-2b838ed04ac7@linaro.org>
+Date: Tue, 25 Jul 2023 14:24:32 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH V2 1/4] ASoC: codecs: Add code for bin parsing compatible
+ with aw88261
+Content-Language: en-US
+To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.com,
+ shumingf@realtek.com, povik+lin@cutebit.org, 13916275206@139.com,
+ herve.codina@bootlin.com, ryans.lee@analog.com,
+ ckeepax@opensource.cirrus.com, ajye_huang@compal.corp-partner.google.com,
+ sebastian.reichel@collabora.com, yijiangtao@awinic.com, trix@redhat.com,
+ colin.i.king@gmail.com, liweilei@awinic.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: zhangjianming@awinic.com
+References: <20230725115649.67560-1-wangweidong.a@awinic.com>
+ <20230725115649.67560-2-wangweidong.a@awinic.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230725115649.67560-2-wangweidong.a@awinic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 2A3EGZBIZ737DQCGVRJ7B5H2W6DPKNTJ
+X-Message-ID-Hash: 2A3EGZBIZ737DQCGVRJ7B5H2W6DPKNTJ
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2W4MQJXDOA5RK4HMR3DMFWVJFY3JAOFO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2A3EGZBIZ737DQCGVRJ7B5H2W6DPKNTJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,45 +132,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 25 Jul 2023 13:55:45 +0200,
-Mark Brown wrote:
+On 25/07/2023 13:56, wangweidong.a@awinic.com wrote:
+> From: Weidong Wang <wangweidong.a@awinic.com>
 > 
-> The following changes since commit 6eaae198076080886b9e7d57f4ae06fa782f90ef:
+> Add the awinic,aw88261 property to the awinic,aw88395.yaml file
+> Add aw88395_lib.c file compatible with aw88261 bin file parsing code
 > 
->   Linux 6.5-rc3 (2023-07-23 15:24:10 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.6-early
-> 
-> for you to fetch changes up to 85d12eda2382cd5b93eed720b5a08f39d42cfef4:
-> 
->   ALSA: hda: Adding support for CS35L56 on HDA (2023-07-24 18:42:26 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Updates for v6.6
-> 
-> Here's an initial batch of updates for ASoC for this release cycle.
-> We've got a bunch of new drivers in here, a bit of core work from
-> Morimoto-san and quite a lot of janitorial work.  There's several
-> updates that pull in changes from other subsystems in order to build
-> on them:
-> 
->  - An adaptor to allow use of IIO DACs and ADCs in ASoC which pulls in
->    some IIO changes.
->  - Create a library function for intlog10() and use it in the NAU8825
->    driver.
->  - Include the ASoC tests, including the topology tests, in the default
->    KUnit full test coverage.  This also involves enabling UML builds of
->    ALSA since that's the default KUnit test environment which pulls in
->    the addition of some stubs to the driver.
->  - More factoring out from Morimoto-san.
->  - Convert a lot of drivers to use the more modern maple tree register
->    cache.
->  - Support for AMD machines with MAX98388 and NAU8821, Cirrus Logic
->    CS35L36, Intel AVS machines with ES8336 and RT5663 and NXP i.MX93.
+> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+> ---
+>  .../bindings/sound/awinic,aw88395.yaml        |   4 +-
+>  sound/soc/codecs/aw88395/aw88395_lib.c        | 194 ++++++++++++++++--
+>  sound/soc/codecs/aw88395/aw88395_reg.h        |   1 +
+>  3 files changed, 181 insertions(+), 18 deletions(-)
 
-Thanks, pulled now.
+Bindings are always separate patches.
 
+Please run scripts/checkpatch.pl and fix reported warnings. Some
+warnings can be ignored, but the code here looks like it needs a fix.
+Feel free to get in touch if the warning is not clear.
 
-Takashi
+Best regards,
+Krzysztof
+

@@ -2,84 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07454761F86
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 18:51:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6EE2762090
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 19:51:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F7A8886;
-	Tue, 25 Jul 2023 18:50:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F7A8886
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABE18828;
+	Tue, 25 Jul 2023 19:50:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABE18828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690303868;
-	bh=1F7griQ+z3bvllj2m8OXOd5aUu8hpTnYOGJgxms+w/Q=;
+	s=default; t=1690307494;
+	bh=WJL53er2hn/3EEx4DOJfAbOjXZnKjKBtRagFrtg05jg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S+1BAMhtVpOLVsMEKV2RTP3rBJ3RPcf9gcJi48edkZoG12E3ipfnipvGGWlzVpPPm
-	 A2ebLu/Se6JGy5bkHC+NDS1gjl2vLQ2KS1voHbeR8VM6QK2lxmeAhIxOmHtSuVr6Qs
-	 dFcjQ8BSD5iIgonaQZJ6baN6aJxzmV0q5wgBXPSI=
+	b=N1w0u+as+G7X4/TpYW4ZipoJdpXZUq5nx7mEtHhtyQaLQft8dqi/dfyar0MMxSRbA
+	 MhPer/HFxrNsD6tg75uaGzIgcSOHtvbgMH5hivjfPRgdm4PT2+5khN0GxdV20AglMR
+	 VOnIeJ4iBsUxv3d+6zQUcWsAoH03WUBJe5I9cR9I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63411F8056F; Tue, 25 Jul 2023 18:49:26 +0200 (CEST)
+	id 22EB4F80553; Tue, 25 Jul 2023 19:49:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8F3EF8055C;
-	Tue, 25 Jul 2023 18:49:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61BEEF801F5;
+	Tue, 25 Jul 2023 19:49:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9145F8019B; Tue, 25 Jul 2023 18:49:20 +0200 (CEST)
+	id 6996EF801F5; Tue, 25 Jul 2023 19:49:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74BA6F800C7
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 18:49:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74BA6F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2449F800C7
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 19:49:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2449F800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gfN2Yb5q
+ header.s=k20201202 header.b=CPO6RMRP
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5B99A6181D;
-	Tue, 25 Jul 2023 16:49:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE4AC433C7;
-	Tue, 25 Jul 2023 16:49:15 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B7DB561851;
+	Tue, 25 Jul 2023 17:49:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6AB4C433CA;
+	Tue, 25 Jul 2023 17:49:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690303756;
-	bh=1F7griQ+z3bvllj2m8OXOd5aUu8hpTnYOGJgxms+w/Q=;
+	s=k20201202; t=1690307375;
+	bh=WJL53er2hn/3EEx4DOJfAbOjXZnKjKBtRagFrtg05jg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=gfN2Yb5qnFZhfS7QoywqxwZbY/GgJaljlE/TeJL42bf1B4d7S+c8Dzr9ZoGUCZ1ru
-	 caQeMpyyi+CYAWaeBWWaf1O7kaqFKLMNBPulmx2gMWPESRYqyXE3nyR1aENY35ZjMD
-	 R7zXSdGODLBG9EzhxUfUSlA70MeFPcCDCSTPAOGk0yC189yXwDTfwcSIp93y3cRoAT
-	 TlL9J3Yrm+2yMgfRmsk8UijAWhkXWZYmoNEspJ4jlOTHFV0njQbKUAMrDjrOeDzg3u
-	 Ama2eMDAqeS0NkSNCgtRR5zanDWZTR5ghu445OMNq+sD+g2H3Zv/hLSXQXPVvTC9KB
-	 3mEpHUJClS/jA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Peter Suti <peter.suti@streamunlimited.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230713095258.3393827-1-peter.suti@streamunlimited.com>
-References: <20230713095258.3393827-1-peter.suti@streamunlimited.com>
-Subject: Re: [RFC PATCH] ASoC: soc-dai: don't call PCM audio ops if the
- stream is not supported
-Message-Id: <169030375511.1462400.7618926843800056957.b4-ty@kernel.org>
-Date: Tue, 25 Jul 2023 17:49:15 +0100
-MIME-Version: 1.0
+	b=CPO6RMRPaMRtVah/1RA1wO5FXxmP2DhlHptZXjtjeJZn524snzFNmGkI4PM2ckIo6
+	 7FXzBD4qXePRo3PzLIkOFhZGyDj+4aolBAs7lhubS+/sugRBmEv5uwY2APQucc4EIz
+	 1nGGt64bGnlel2IpehCbvoOPhAXT8wnt5XPyu8AhkROpI7dA7thAncucJtelJljMnw
+	 atiZpLOBvBZ0F/r5WTJZfurX5L65y1q7LeSvDTjmcEUXR6SWW06bn+O1CXh/QQgkcV
+	 FpqLMVfkRM4VMT0UlbHKmPRIUz4d0EWFPpNeyuIHEERTM60aZDTVat5SY/xyjqL5hf
+	 qQXqITOBkCDlA==
+Received: (nullmailer pid 3497939 invoked by uid 1000);
+	Tue, 25 Jul 2023 17:49:25 -0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: MGCSJMPUBJNC7K3M3CCU4SUAQLGVABZ4
-X-Message-ID-Hash: MGCSJMPUBJNC7K3M3CCU4SUAQLGVABZ4
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Cc: kuba@kernel.org, lee@kernel.org, andi.shyti@kernel.org,
+ alsa-devel@alsa-project.org, linux-i2c@vger.kernel.org,
+ richardcochran@gmail.com, linux-mmc@vger.kernel.org,
+ arnaud.pouliquen@foss.st.com, olivier.moysan@foss.st.com, vkoul@kernel.org,
+ linux-serial@vger.kernel.org, robh+dt@kernel.org,
+ alexandre.torgue@foss.st.com, krzysztof.kozlowski+dt@linaro.org,
+ ulf.hansson@linaro.org, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, hugues.fruchet@foss.st.com,
+ mchehab@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-phy@lists.infradead.org, pabeni@redhat.com, devicetree@vger.kernel.org,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ edumazet@google.com, linux-crypto@vger.kernel.org, jic23@kernel.org,
+ Frank Rowand <frowand.list@gmail.com>, arnd@kernel.org,
+ linux-usb@vger.kernel.org, catalin.marinas@arm.com,
+ linux-iio@vger.kernel.org, davem@davemloft.net, Oleksii_Moisieiev@epam.com,
+ will@kernel.org, dmaengine@vger.kernel.org, netdev@vger.kernel.org,
+ fabrice.gasnier@foss.st.com, linux-spi@vger.kernel.org, conor+dt@kernel.org,
+ herbert@gondor.apana.org.au
+In-Reply-To: <20230725164104.273965-4-gatien.chevallier@foss.st.com>
+References: <20230725164104.273965-1-gatien.chevallier@foss.st.com>
+ <20230725164104.273965-4-gatien.chevallier@foss.st.com>
+Message-Id: <169030736534.3497905.9507005013968358402.robh@kernel.org>
+Subject: Re: [PATCH v2 03/11] dt-bindings: bus: document ETZPC
+Date: Tue, 25 Jul 2023 11:49:25 -0600
+Message-ID-Hash: TTIFJGCVBNVVMIAPEWMDTFSRTNMRTNSD
+X-Message-ID-Hash: TTIFJGCVBNVVMIAPEWMDTFSRTNMRTNSD
+X-MailFrom: SRS0=nS92=DL=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGCSJMPUBJNC7K3M3CCU4SUAQLGVABZ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TTIFJGCVBNVVMIAPEWMDTFSRTNMRTNSD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,41 +116,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 13 Jul 2023 11:52:58 +0200, Peter Suti wrote:
-> PCM audio ops may be called when the stream is not supported.
-> We should not call the ops in that case to avoid unexpected behavior.
+
+On Tue, 25 Jul 2023 18:40:56 +0200, Gatien Chevallier wrote:
+> Document ETZPC (Extended TrustZone protection controller). ETZPC is a
+> firewall controller.
 > 
-> hw_params is handled already in soc-pcm.c
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
 > 
-> [0] https://lore.kernel.org/alsa-devel/ae06b00a-f3f7-f9d1-0b58-4d71f3394416@linux.intel.com/T/#t
+> Changes in V2:
+> 	- Corrected errors highlighted by Rob's robot
+> 	- No longer define the maxItems for the "feature-domains"
+> 	  property
+> 	- Fix example (node name, status)
+> 	- Declare "feature-domain-names" as an optional
+> 	  property for child nodes
+> 	- Fix description of "feature-domains" property
+> 	- Reorder the properties so it matches RIFSC
+> 	- Add missing "feature-domain-controller" property
 > 
-> [...]
+>  .../bindings/bus/st,stm32-etzpc.yaml          | 96 +++++++++++++++++++
+>  1 file changed, 96 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
+> 
 
-Applied to
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+yamllint warnings/errors:
 
-Thanks!
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/bus/st,stm32-etzpc.example.dtb: serial@4c001000: Unevaluated properties are not allowed ('feature-domains' was unexpected)
+	from schema $id: http://devicetree.org/schemas/serial/st,stm32-uart.yaml#
 
-[1/1] ASoC: soc-dai: don't call PCM audio ops if the stream is not supported
-      commit: 4005d1ba0a7e5cf32f669bf0014dca0dd12c2a44
+doc reference errors (make refcheckdocs):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230725164104.273965-4-gatien.chevallier@foss.st.com
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+pip3 install dtschema --upgrade
 
-Thanks,
-Mark
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 

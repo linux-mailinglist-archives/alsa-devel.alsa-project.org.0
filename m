@@ -2,97 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3DC77606E9
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 05:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9014760886
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 06:28:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2C6BE0E;
-	Tue, 25 Jul 2023 05:55:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2C6BE0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 877ABDFA;
+	Tue, 25 Jul 2023 06:27:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 877ABDFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690257393;
-	bh=Pw7sd5Zd7PdTD1y6i+HDbWOUji3W5qNcLTnQLDle9Zo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1690259295;
+	bh=4U1uopwM9UsL7OEd1qy66ef7kIJFN2/ulrs7WZhjSmk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rSUrqEo/zhzC9rd98xEjhDUDz/fCBftuX1Zjj701I2bw1+MUDEx2vTZCCQwzlRZcY
-	 LFdbEGdE6/HLuu9Ag1l+Wf2tCZGzMadwrjykSd2Cf4Q5kVLBg1Tywlb//tlnL2BfT5
-	 oFg6lDf90Z2pfh1Nwa6hEg9irhk4aKVzcKdonweI=
+	b=YfB+Drc3IMfT8GfnGTPRvWuIaBrU9BpsRE5NBX0vICoV8Ll9aanhHlZx0THGlJ1QS
+	 QiIAeZ1ypMjj2HQ2HMGwCwLS96ZtAh7iiQ4qftFVgR1EsYhdc+F3y5CbWk7aFUXi+k
+	 44+FVdSe3NOl/gmBtgzIDBM70p1t1XYE/F4jpHks=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4237F8055B; Tue, 25 Jul 2023 05:54:51 +0200 (CEST)
+	id A456EF80520; Tue, 25 Jul 2023 06:27:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82A6AF80551;
-	Tue, 25 Jul 2023 05:54:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5296DF80163;
+	Tue, 25 Jul 2023 06:27:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5A5EBF802E8; Tue, 25 Jul 2023 05:53:53 +0200 (CEST)
+	id 2A789F8019B; Tue, 25 Jul 2023 06:27:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8EAC2F8019B
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 05:53:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EAC2F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8B51F800C7
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 06:27:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8B51F800C7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=OMWeT1oJ
-X-UUID: c44580c62a9e11ee9cb5633481061a41-20230725
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=gONoyYGqUthFPlaKdbJW2eC+ZSAtro5ZoEGI13r9DF4=;
-	b=OMWeT1oJmtcW+B157FTONcMuXcPqp1/bjqyZ2wzcgfEn+aYeSgfZ3SRh7bQaGYhZvVEr31K/sLm693qtnCrbtg3eXFzjVF29t0SM+a72kgY2Zpz6hezjvF9PAMH881bWBmc1UHb+L4AJFSu3N03z7q1huU0f4lJBkIF5kaD7Cl8=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.29,REQID:242e2a4d-2b3c-4777-a6b4-9874f8d7324a,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7562a7,CLOUDID:3c08c0b3-a467-4aa9-9e04-f584452e3794,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
-	DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: c44580c62a9e11ee9cb5633481061a41-20230725
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw01.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 175947070; Tue, 25 Jul 2023 11:53:08 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Tue, 25 Jul 2023 11:53:06 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Tue, 25 Jul 2023 11:53:06 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <trevor.wu@mediatek.com>, <alsa-devel@alsa-project.org>,
-	<linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 3/3] ASoC: mediatek: mt8188-mt6359: add SOF support
-Date: Tue, 25 Jul 2023 11:53:04 +0800
-Message-ID: <20230725035304.2864-4-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230725035304.2864-1-trevor.wu@mediatek.com>
-References: <20230725035304.2864-1-trevor.wu@mediatek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qixjZFGz
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BC75361526;
+	Tue, 25 Jul 2023 04:27:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1564CC433C7;
+	Tue, 25 Jul 2023 04:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690259222;
+	bh=4U1uopwM9UsL7OEd1qy66ef7kIJFN2/ulrs7WZhjSmk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=qixjZFGzQqxoITmGdgCkX7e9DMt4esefg/kSinr9nMy8fHu1vqhVpqniBTx/ljSQu
+	 buiN4vKHghU7YZjlfkdXJQ/ZPSX0vftMe01poahGOOthCdLxGCa/JG2Dgy38Z0w7mO
+	 EuUXlfroBEvgwnt6fqph1uxCIsg9LL07FaCQTqA7ycEyIFFaDbNATivmbc5cx+S15V
+	 7yq06T1sgYZwtc/3gmvwzf7uD5GV3djvF9zuXVmjuygJH8M0qnF8vIfpkf9X4FHKJj
+	 mX0XlQQ37vanHNX5eSBzciVXdTb6FneLNYCg1cn/Ddazdw3oP11zvLYA/0vdpb1QD3
+	 U/X54U7OW8gjQ==
+Received: (nullmailer pid 1869529 invoked by uid 1000);
+	Tue, 25 Jul 2023 04:26:59 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Message-ID-Hash: EP4LOAIXEPZHCH2ZC37JWRPVFEYH3CI3
-X-Message-ID-Hash: EP4LOAIXEPZHCH2ZC37JWRPVFEYH3CI3
-X-MailFrom: trevor.wu@mediatek.com
+From: Rob Herring <robh@kernel.org>
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: broonie@kernel.org, oneukum@suse.com,
+ linux-arm-kernel@lists.infradead.org, quic_jackp@quicinc.com,
+ devicetree@vger.kernel.org, catalin.marinas@arm.com, o-takashi@sakamocchi.jp,
+ mathias.nyman@intel.com, conor+dt@kernel.org, bgoswami@quicinc.com,
+ linux-usb@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ pierre-louis.bossart@linux.intel.com, srinivas.kandagatla@linaro.org,
+ albertccwang@google.com, will@kernel.org, alsa-devel@alsa-project.org,
+ andersson@kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, perex@perex.cz, linux-arm-msm@vger.kernel.org,
+ Thinh.Nguyen@synopsys.com, tiwai@suse.com, agross@kernel.org,
+ gregkh@linuxfoundation.org
+In-Reply-To: <20230725023416.11205-25-quic_wcheng@quicinc.com>
+References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
+ <20230725023416.11205-25-quic_wcheng@quicinc.com>
+Message-Id: <169025921911.1869485.17693463435324220177.robh@kernel.org>
+Subject: Re: [PATCH v4 24/32] ASoC: dt-bindings: Update example for
+ enabling USB offload on SM8250
+Date: Mon, 24 Jul 2023 22:26:59 -0600
+Message-ID-Hash: FY77DVT5CLMGP53AH34TPDFSMJLAVCV7
+X-Message-ID-Hash: FY77DVT5CLMGP53AH34TPDFSMJLAVCV7
+X-MailFrom: SRS0=nS92=DL=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EP4LOAIXEPZHCH2ZC37JWRPVFEYH3CI3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FY77DVT5CLMGP53AH34TPDFSMJLAVCV7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,377 +110,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SOF is enabled when adsp phandle is assigned to "mediatek,adsp".
-The required callback will be assigned when SOF is enabled.
 
-Additionally, "mediatek,dai-link" is introduced to decide the supported
-dai links for a project, so user can reuse the machine driver regardless
-of dai link combination.
+On Mon, 24 Jul 2023 19:34:08 -0700, Wesley Cheng wrote:
+> Add an example on enabling of USB offload for the Q6DSP.  The routing can
+> be done by the mixer, which can pass the multimedia stream to the USB
+> backend.
+> 
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>  .../devicetree/bindings/sound/qcom,sm8250.yaml    | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- sound/soc/mediatek/mt8188/mt8188-mt6359.c | 217 ++++++++++++++++++++--
- 1 file changed, 205 insertions(+), 12 deletions(-)
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-index 667d79f33bf2..e205de2899a9 100644
---- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-@@ -19,6 +19,8 @@
- #include "../../codecs/mt6359.h"
- #include "../common/mtk-afe-platform-driver.h"
- #include "../common/mtk-soundcard-driver.h"
-+#include "../common/mtk-dsp-sof-common.h"
-+#include "../common/mtk-soc-card.h"
- 
- #define CKSYS_AUD_TOP_CFG	0x032c
-  #define RG_TEST_ON		BIT(0)
-@@ -45,6 +47,11 @@
-  */
- #define NAU8825_CODEC_DAI  "nau8825-hifi"
- 
-+#define SOF_DMA_DL2 "SOF_DMA_DL2"
-+#define SOF_DMA_DL3 "SOF_DMA_DL3"
-+#define SOF_DMA_UL4 "SOF_DMA_UL4"
-+#define SOF_DMA_UL5 "SOF_DMA_UL5"
-+
- /* FE */
- SND_SOC_DAILINK_DEFS(playback2,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("DL2")),
-@@ -176,6 +183,49 @@ SND_SOC_DAILINK_DEFS(ul_src,
- 						   "dmic-hifi")),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
-+SND_SOC_DAILINK_DEFS(AFE_SOF_DL2,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL2")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_DL3,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL3")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_UL4,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL4")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_UL5,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL5")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+static const struct sof_conn_stream g_sof_conn_streams[] = {
-+	{
-+		.sof_link = "AFE_SOF_DL2",
-+		.sof_dma = SOF_DMA_DL2,
-+		.stream_dir = SNDRV_PCM_STREAM_PLAYBACK
-+	},
-+	{
-+		.sof_link = "AFE_SOF_DL3",
-+		.sof_dma = SOF_DMA_DL3,
-+		.stream_dir = SNDRV_PCM_STREAM_PLAYBACK
-+	},
-+	{
-+		.sof_link = "AFE_SOF_UL4",
-+		.sof_dma = SOF_DMA_UL4,
-+		.stream_dir = SNDRV_PCM_STREAM_CAPTURE
-+	},
-+	{
-+		.sof_link = "AFE_SOF_UL5",
-+		.sof_dma = SOF_DMA_UL5,
-+		.stream_dir = SNDRV_PCM_STREAM_CAPTURE
-+	},
-+};
-+
- struct mt8188_mt6359_priv {
- 	struct snd_soc_jack dp_jack;
- 	struct snd_soc_jack hdmi_jack;
-@@ -246,6 +296,10 @@ static const struct snd_soc_dapm_widget mt8188_mt6359_widgets[] = {
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_SINK("HDMI"),
- 	SND_SOC_DAPM_SINK("DP"),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_DL3, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_UL4, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_UL5, SND_SOC_NOPM, 0, 0, NULL, 0),
- 
- 	/* dynamic pinctrl */
- 	SND_SOC_DAPM_PINCTRL("ETDM_SPK_PIN", "aud_etdm_spk_on", "aud_etdm_spk_off"),
-@@ -266,6 +320,19 @@ static const struct snd_kcontrol_new mt8188_nau8825_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- };
- 
-+static const struct snd_soc_dapm_route mt8188_mt6359_routes[] = {
-+	/* SOF Uplink */
-+	{SOF_DMA_UL4, NULL, "O034"},
-+	{SOF_DMA_UL4, NULL, "O035"},
-+	{SOF_DMA_UL5, NULL, "O036"},
-+	{SOF_DMA_UL5, NULL, "O037"},
-+	/* SOF Downlink */
-+	{"I070", NULL, SOF_DMA_DL2},
-+	{"I071", NULL, SOF_DMA_DL2},
-+	{"I020", NULL, SOF_DMA_DL3},
-+	{"I021", NULL, SOF_DMA_DL3},
-+};
-+
- static int mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_component *cmpnt_afe =
-@@ -471,8 +538,17 @@ enum {
- 	DAI_LINK_ETDM3_OUT_BE,
- 	DAI_LINK_PCM1_BE,
- 	DAI_LINK_UL_SRC_BE,
-+	DAI_LINK_REGULAR_LAST = DAI_LINK_UL_SRC_BE,
-+	DAI_LINK_SOF_START,
-+	DAI_LINK_SOF_DL2_BE = DAI_LINK_SOF_START,
-+	DAI_LINK_SOF_DL3_BE,
-+	DAI_LINK_SOF_UL4_BE,
-+	DAI_LINK_SOF_UL5_BE,
-+	DAI_LINK_SOF_END = DAI_LINK_SOF_UL5_BE,
- };
- 
-+#define	DAI_LINK_REGULAR_NUM	(DAI_LINK_REGULAR_LAST + 1)
-+
- static int mt8188_dptx_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
- {
-@@ -503,7 +579,8 @@ static int mt8188_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 
- static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret = 0;
- 
-@@ -528,7 +605,8 @@ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
- 
- static int mt8188_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret = 0;
- 
-@@ -648,7 +726,8 @@ static int mt8188_max98390_codec_init(struct snd_soc_pcm_runtime *rtd)
- static int mt8188_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct snd_soc_jack *jack = &priv->headset_jack;
- 	int ret;
-@@ -733,6 +812,33 @@ static int mt8188_nau8825_hw_params(struct snd_pcm_substream *substream,
- static const struct snd_soc_ops mt8188_nau8825_ops = {
- 	.hw_params = mt8188_nau8825_hw_params,
- };
-+
-+static int mt8188_sof_be_hw_params(struct snd_pcm_substream *substream,
-+				   struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_component *cmpnt_afe = NULL;
-+	struct snd_soc_pcm_runtime *runtime;
-+
-+	/* find afe component */
-+	for_each_card_rtds(rtd->card, runtime) {
-+		cmpnt_afe = snd_soc_rtdcom_lookup(runtime, AFE_PCM_NAME);
-+		if (cmpnt_afe)
-+			break;
-+	}
-+
-+	if (cmpnt_afe && !pm_runtime_active(cmpnt_afe->dev)) {
-+		dev_err(rtd->dev, "afe pm runtime is not active!!\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops mt8188_sof_be_ops = {
-+	.hw_params = mt8188_sof_be_hw_params,
-+};
-+
- static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 	/* FE */
- 	[DAI_LINK_DL2_FE] = {
-@@ -1003,6 +1109,36 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		.dpcm_capture = 1,
- 		SND_SOC_DAILINK_REG(ul_src),
- 	},
-+
-+	/* SOF BE */
-+	[DAI_LINK_SOF_DL2_BE] = {
-+		.name = "AFE_SOF_DL2",
-+		.no_pcm = 1,
-+		.dpcm_playback = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_DL2),
-+	},
-+	[DAI_LINK_SOF_DL3_BE] = {
-+		.name = "AFE_SOF_DL3",
-+		.no_pcm = 1,
-+		.dpcm_playback = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_DL3),
-+	},
-+	[DAI_LINK_SOF_UL4_BE] = {
-+		.name = "AFE_SOF_UL4",
-+		.no_pcm = 1,
-+		.dpcm_capture = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_UL4),
-+	},
-+	[DAI_LINK_SOF_UL5_BE] = {
-+		.name = "AFE_SOF_UL5",
-+		.no_pcm = 1,
-+		.dpcm_capture = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_UL5),
-+	},
- };
- 
- static struct snd_kcontrol *ctl_find(struct snd_card *card, const char *name)
-@@ -1017,7 +1153,8 @@ static struct snd_kcontrol *ctl_find(struct snd_card *card, const char *name)
- 
- static void mt8188_fixup_controls(struct snd_soc_card *card)
- {
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct mt8188_card_data *card_data = (struct mt8188_card_data *)priv->private_data;
- 	struct snd_kcontrol *kctl;
- 
-@@ -1045,6 +1182,8 @@ static struct snd_soc_card mt8188_mt6359_soc_card = {
- 	.num_links = ARRAY_SIZE(mt8188_mt6359_dai_links),
- 	.dapm_widgets = mt8188_mt6359_widgets,
- 	.num_dapm_widgets = ARRAY_SIZE(mt8188_mt6359_widgets),
-+	.dapm_routes = mt8188_mt6359_routes,
-+	.num_dapm_routes = ARRAY_SIZE(mt8188_mt6359_routes),
- 	.controls = mt8188_mt6359_controls,
- 	.num_controls = ARRAY_SIZE(mt8188_mt6359_controls),
- 	.fixup_controls = mt8188_fixup_controls,
-@@ -1054,6 +1193,8 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = &mt8188_mt6359_soc_card;
- 	struct device_node *platform_node;
-+	struct device_node *adsp_node;
-+	struct mtk_soc_card_data *soc_card_data;
- 	struct mt8188_mt6359_priv *priv;
- 	struct mt8188_card_data *card_data;
- 	struct snd_soc_dai_link *dai_link;
-@@ -1074,21 +1215,64 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 	if (!card->name)
- 		card->name = card_data->name;
- 
--	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv)
--		return  -ENOMEM;
--
- 	if (of_property_read_bool(pdev->dev.of_node, "audio-routing")) {
- 		ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
- 		if (ret)
- 			return ret;
- 	}
- 
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	soc_card_data = devm_kzalloc(&pdev->dev, sizeof(*card_data), GFP_KERNEL);
-+	if (!soc_card_data)
-+		return -ENOMEM;
-+
-+	soc_card_data->mach_priv = priv;
-+
-+	adsp_node = of_parse_phandle(pdev->dev.of_node, "mediatek,adsp", 0);
-+	if (adsp_node) {
-+		struct mtk_sof_priv *sof_priv;
-+
-+		sof_priv = devm_kzalloc(&pdev->dev, sizeof(*sof_priv), GFP_KERNEL);
-+		if (!sof_priv) {
-+			ret = -ENOMEM;
-+			goto err_adsp_node;
-+		}
-+		sof_priv->conn_streams = g_sof_conn_streams;
-+		sof_priv->num_streams = ARRAY_SIZE(g_sof_conn_streams);
-+		soc_card_data->sof_priv = sof_priv;
-+		card->probe = mtk_sof_card_probe;
-+		card->late_probe = mtk_sof_card_late_probe;
-+		if (!card->topology_shortname_created) {
-+			snprintf(card->topology_shortname, 32, "sof-%s", card->name);
-+			card->topology_shortname_created = true;
-+		}
-+		card->name = card->topology_shortname;
-+	}
-+
-+	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
-+		ret = mtk_sof_dailink_parse_of(card, pdev->dev.of_node,
-+					       "mediatek,dai-link",
-+					       mt8188_mt6359_dai_links,
-+					       ARRAY_SIZE(mt8188_mt6359_dai_links));
-+		if (ret) {
-+			dev_err_probe(&pdev->dev, ret, "Parse dai-link fail\n");
-+			goto err_adsp_node;
-+		}
-+	} else {
-+		if (!adsp_node)
-+			card->num_links = DAI_LINK_REGULAR_NUM;
-+	}
-+
- 	platform_node = of_parse_phandle(pdev->dev.of_node,
- 					 "mediatek,platform", 0);
- 	if (!platform_node) {
- 		ret = -EINVAL;
--		return dev_err_probe(&pdev->dev, ret, "Property 'platform' missing or invalid\n");
-+		dev_err_probe(&pdev->dev, ret, "Property 'platform' missing or invalid\n");
-+		goto err_platform_node;
-+
- 	}
- 
- 	ret = parse_dai_link_info(card);
-@@ -1096,8 +1280,12 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 		goto err;
- 
- 	for_each_card_prelinks(card, i, dai_link) {
--		if (!dai_link->platforms->name)
--			dai_link->platforms->of_node = platform_node;
-+		if (!dai_link->platforms->name) {
-+			if (!strncmp(dai_link->name, "AFE_SOF", strlen("AFE_SOF")) && adsp_node)
-+				dai_link->platforms->of_node = adsp_node;
-+			else
-+				dai_link->platforms->of_node = platform_node;
-+		}
- 
- 		if (strcmp(dai_link->name, "DPTX_BE") == 0) {
- 			if (strcmp(dai_link->codecs->dai_name, "snd-soc-dummy-dai"))
-@@ -1140,7 +1328,7 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 	}
- 
- 	priv->private_data = card_data;
--	snd_soc_card_set_drvdata(card, priv);
-+	snd_soc_card_set_drvdata(card, soc_card_data);
- 
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret)
-@@ -1149,6 +1337,11 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- err:
- 	of_node_put(platform_node);
- 	clean_card_reference(card);
-+
-+err_adsp_node:
-+err_platform_node:
-+	of_node_put(adsp_node);
-+
- 	return ret;
- }
- 
--- 
-2.18.0
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Error: Documentation/devicetree/bindings/sound/qcom,sm8250.example.dts:97.44-45 syntax error
+FATAL ERROR: Unable to parse input tree
+make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1500: dt_binding_check] Error 2
+make: *** [Makefile:234: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230725023416.11205-25-quic_wcheng@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 

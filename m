@@ -2,90 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB979761D1F
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 17:16:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DD8A761E88
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 18:30:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD3F87F4;
-	Tue, 25 Jul 2023 17:15:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD3F87F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 360556C1;
+	Tue, 25 Jul 2023 18:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360556C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690298163;
-	bh=FTx+qssLzMG049h8sxtXK9Dspo0+WZdbrUZdjlHbyKw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690302631;
+	bh=8V3JU6dJEtGUWklvo/YnWOtYSGFsSMLIx1oBF8E8QBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C9HrNiqYfvZxSatWH9Vi81y5bOYaoOgA6bnTa00y//i1Vb1LliUWGWY6c1TBrf+Cp
-	 Z9hHOJD/n5RxaZIv0hCEazprDRBO3oU13igxPISZmJVe8/v4f48KhYKjb3YvU8lvNU
-	 jTvqgO0UOBvE0Fcf/Z1BzSK6HzskLFHPnkEm7NSg=
+	b=VMhqUZYlcDkgdos7qWEq2fTRsbTjPuhFjkaOkS9tU/6g3WcjlxStJSciHtVN4o8SD
+	 ptl56aUEdcklyYdC+9lG5+2/A+rxGuN1CSGemECcsIA8b6gVlWuFZ/j6JILCESa9Fl
+	 ForT69EhH6ree7rtJ1oCjjnSlzeA0JW4sBo5/Q34=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04CFDF80535; Tue, 25 Jul 2023 17:15:12 +0200 (CEST)
+	id 4C5C3F802E8; Tue, 25 Jul 2023 18:29:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8257FF80163;
-	Tue, 25 Jul 2023 17:15:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8FBCF80163;
+	Tue, 25 Jul 2023 18:29:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5A572F8019B; Tue, 25 Jul 2023 17:15:08 +0200 (CEST)
+	id 41D59F8019B; Tue, 25 Jul 2023 18:29:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9BA2DF80153
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 17:14:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BA2DF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6829F800C7
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 18:29:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6829F800C7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=infradead.org header.i=@infradead.org
- header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Z0QafXBY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=mYmfoCdflZ9uHA5txqbILukt8Ar2VVGNn6p5XL0M74c=; b=Z0QafXBY9g7/F8RhSqaEe5YZJH
-	VwZdQaj/KqdXcx4sTag58JbhWnT09v8dwx1+7N816ztPp4sVJISvCg1ZxCvXwmUhSginMUOmuCZMS
-	GY6lVyPtJYpRb9BPB+xhggWXjYetlOshGlx8DbNqHEjChWsq1LFY83hSGZXJ1U/IB9Ev8X6nXEHz0
-	CHAG2uRdHea8Zxbs9SgTk56p9eaDV5E+/NnZyGKc1aaV59zbV40ky/EhuXXM3BPvQpRDwOWMhOE8Y
-	2lO1jGhdlKyumMevKErHr9G73KY/LsqECnQwPb7Oo3VmqUT7zCHa9tlMvf9XNp+te9kf4x21+rERw
-	WWN7NQBw==;
-Received: from [2601:1c2:980:9ec0::2764]
-	by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
-	id 1qOJjv-007taN-1z;
-	Tue, 25 Jul 2023 15:14:19 +0000
-Message-ID: <6cc4f622-0e83-cd49-73d7-06ad90a3f5d8@infradead.org>
-Date: Tue, 25 Jul 2023 08:14:17 -0700
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=xI9jD8nP
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CD1B7617B9;
+	Tue, 25 Jul 2023 16:29:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7A2C433C7;
+	Tue, 25 Jul 2023 16:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1690302555;
+	bh=8V3JU6dJEtGUWklvo/YnWOtYSGFsSMLIx1oBF8E8QBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=xI9jD8nPfS4CfSdJJIQFbHgjwL9Yw2WTfzkz9O+8d8Y9G7GVLu5eq0/yHQDCnemYE
+	 myFhEYy+2bV3bPmQ4pmvClerAqtdAxo1h4Tuwkg5ECziImuJURePjk0teHaq2dGvti
+	 GFoqRC5T/SFiQnEUGCBpYMwGGHObIj3j4obIoCP8=
+Date: Tue, 25 Jul 2023 18:29:08 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] usb: Add USB MIDI 2.0 Gadget Function Driver
+Message-ID: <2023072550-refocus-depth-1086@gregkh>
+References: <20230725062206.9674-1-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH V2 4/4] ASoC: codecs: aw88261 chip register file, Kconfig
- and Makefile
-Content-Language: en-US
-To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.com,
- shumingf@realtek.com, povik+lin@cutebit.org, 13916275206@139.com,
- herve.codina@bootlin.com, ryans.lee@analog.com,
- ckeepax@opensource.cirrus.com, ajye_huang@compal.corp-partner.google.com,
- sebastian.reichel@collabora.com, yijiangtao@awinic.com, trix@redhat.com,
- colin.i.king@gmail.com, liweilei@awinic.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: zhangjianming@awinic.com
-References: <20230725115649.67560-1-wangweidong.a@awinic.com>
- <20230725115649.67560-5-wangweidong.a@awinic.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230725115649.67560-5-wangweidong.a@awinic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 6Y4H6VUNR3L4XQZG4SE477Y4EWRZIQ4C
-X-Message-ID-Hash: 6Y4H6VUNR3L4XQZG4SE477Y4EWRZIQ4C
-X-MailFrom: rdunlap@infradead.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230725062206.9674-1-tiwai@suse.de>
+Message-ID-Hash: 5AGKDA6RMZOQO2E4S5L3DGRYVWFOXSJQ
+X-Message-ID-Hash: 5AGKDA6RMZOQO2E4S5L3DGRYVWFOXSJQ
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6Y4H6VUNR3L4XQZG4SE477Y4EWRZIQ4C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5AGKDA6RMZOQO2E4S5L3DGRYVWFOXSJQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,39 +94,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, Jul 25, 2023 at 08:21:59AM +0200, Takashi Iwai wrote:
+> Hi,
+> 
+> This is a patch set for adding a USB gadget function driver for USB
+> MIDI 2.0 interface.  The MIDI 2.0 support in the host side was already
+> enabled since 6.5 kernel in snd-usb-audio driver.  Now, this provides
+> a similar gadget functionality using the existing ALSA UMP helper
+> functions.
+> 
+> The gadget driver provides both MIDI 2.0 and MIDI 1.0 fallback
+> interfaces with one or more loopback UMP rawmidi devices.  The
+> configfs implementation is flexible enough to allow users to set up
+> multiple UMP Endpoints and Function Blocks.
+> 
+> The first patch adds the bare f_midi2 driver without configfs support,
+> followed by the configfs support, MIDI 1.0 interface support and a few
+> other extensions and documentation.
+> 
 
+Very cool, thanks for doing this!  All now queued up, let's see what the
+builders say...
 
-On 7/25/23 04:56, wangweidong.a@awinic.com wrote:
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index c2de4ee72183..ab21ad20978f 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -55,6 +55,7 @@ config SND_SOC_ALL_CODECS
->  	imply SND_SOC_ALC5632
->  	imply SND_SOC_AW8738
->  	imply SND_SOC_AW88395
-> +	imply SND_SOC_AW88261
->  	imply SND_SOC_BT_SCO
->  	imply SND_SOC_BD28623
->  	imply SND_SOC_CHV3_CODEC
-> @@ -640,6 +641,18 @@ config SND_SOC_AW88395
->  	  digital Smart K audio amplifier with an integrated 10V
->  	  smart boost convert.
->  
-> +config SND_SOC_AW88261
-> +	tristate "Soc Audio for awinic aw88261"
-> +	depends on I2C
-> +	select CRC8
-> +	select REGMAP_I2C
-> +	select GPIOLIB
-> +	select SND_SOC_AW88395_LIB
-> +	help
-> +	  this option enables support for aw88261 Smart PA.
-
-	  This
-
-> +	  The awinic AW88261 is an I2S/TDM input, high efficiency
-> +	  digital Smart K audio amplifier.
-
--- 
-~Randy
+greg k-h

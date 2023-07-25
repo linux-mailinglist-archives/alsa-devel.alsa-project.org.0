@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569E17620AE
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 19:56:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43421762223
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 21:21:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3626AE8;
-	Tue, 25 Jul 2023 19:55:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3626AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F0801DD;
+	Tue, 25 Jul 2023 21:20:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F0801DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690307800;
-	bh=a8zTgQQOTRE+oCkaLUuvxSOVuhcsBaidITzLOZP5xGc=;
+	s=default; t=1690312896;
+	bh=dVWK6brqJ72lP1284WQbt7Kmdk3X5561r/T6mn5079w=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RWVCg06juXB17CDAqkXz2WxPEZfpqD7P8mLHZYfAdYTMFK2Oy2FA9RoeyXjdS9ZGw
-	 ROR+abD7Q7/hbJqfIzeT0HIXADd18fEbUfmSZ/q7kVHQifCPWcnuQIdI5qiOhCz4fG
-	 5GgqwyxfcVDWLay3pabvVIMhVbw4NQhG92CVp+TA=
+	b=JzNYeNQfYHxb7m+Lakr+Eg/ZAVk7I2ZyCDSDFKPWNHyOv3WHX6z2YnZsAyUcNotYs
+	 sgkE6k2eqjc77ZkHPAwsFwTwkTj3NmxBlwfoLxsTJPYJLODqOPAybX2oG2GcLd6Dg7
+	 C/bte2ld+qgSCmB6xCVqwtfaSurlenwXmEnHaPNk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A98B7F805B2; Tue, 25 Jul 2023 19:54:22 +0200 (CEST)
+	id 9E12DF80548; Tue, 25 Jul 2023 21:20:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40B25F805AB;
-	Tue, 25 Jul 2023 19:54:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 442FBF80163;
+	Tue, 25 Jul 2023 21:20:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2989F80589; Tue, 25 Jul 2023 19:54:17 +0200 (CEST)
+	id 53315F8019B; Tue, 25 Jul 2023 21:20:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,50 +35,51 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07E61F80587
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 19:54:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07E61F80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45B7CF80153
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 21:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45B7CF80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EfJ04aIU
+ header.s=k20201202 header.b=RJaWbK7Q
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E49516184D;
-	Tue, 25 Jul 2023 17:54:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C4DC433C9;
-	Tue, 25 Jul 2023 17:54:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E3A5B617B9;
+	Tue, 25 Jul 2023 19:20:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99110C433C7;
+	Tue, 25 Jul 2023 19:20:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690307654;
-	bh=a8zTgQQOTRE+oCkaLUuvxSOVuhcsBaidITzLOZP5xGc=;
+	s=k20201202; t=1690312832;
+	bh=dVWK6brqJ72lP1284WQbt7Kmdk3X5561r/T6mn5079w=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=EfJ04aIUZcWp+pTQaMh2aECwzSUV38BgzYcKGXKFvFYjlfVnUN7KDAHrhjCvdVc1K
-	 btT+9D59Ci5hRHH3HxMHLp/G+He9i/VnJ/XZFdIJmYzHQM/eHr06CMRcN2m+dvkO83
-	 30Y3w/kssvzOooWCje8FJR2IlGGVOMYHV7frIwz3zfI/9wY/3ZE/3K/Uynh7ePv9wg
-	 gPGY7+VL+rtWaYN1WrQ0Q6NCpyoxDvvhakJgVzR2MvWJUCAIRhYM4kBJWCAUvk3sxf
-	 /MDvqMbue24iSDZ3fVIqkWlb2FW1R3UUDtsfD2bFyTY2mQCTDPaHqmpMnRRFvmoLdd
-	 9rSwZNWACg3AA==
+	b=RJaWbK7QcOAJxh2RZQRztRDP0htTyO2DToOGfhruJ7UOdqBOipiczbclTD6jIwnfH
+	 GZ/aPx/c5gZCGLp/RdPoka4di92GkOfeJmM+X29h9taf1NhS1c/a/SUniH2z3yPDlL
+	 2DqiolqW7P35Oxv7Mdp9IFZkhxf1EdIL3SjfBeNq5ZdTzIQg0fM8UMTiy+8MO722uB
+	 dY80HjDyesiCPQMLOxDLWIb0OE/FCp55DOrzJxT3eo/OYc9ZZADVsnE8zof78k5VTL
+	 WjS5QS0B5tmqXIl7J2XlWR3EW73lX22y6hGPUTDUfUuglF+Pl4zbG8+gU96uNbfuLR
+	 NtObxTgYs9aEw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, shumingf@realtek.com
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- Vijendar.Mukunda@amd.com, pierre-louis.bossart@linux.intel.com
-In-Reply-To: <20230721090732.128282-1-shumingf@realtek.com>
-References: <20230721090732.128282-1-shumingf@realtek.com>
-Subject: Re: [PATCH v2 5/5] ASoC: rt722-sdca: fix for JD event handling in
- ClockStop Mode0
-Message-Id: <169030765185.1533302.8296935616469460558.b4-ty@kernel.org>
-Date: Tue, 25 Jul 2023 18:54:11 +0100
+To: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Yang Yingliang <yangyingliang@huawei.com>
+Cc: james.schulman@cirrus.com, david.rhodes@cirrus.com,
+ rf@opensource.cirrus.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com
+In-Reply-To: <20230725120917.513064-1-yangyingliang@huawei.com>
+References: <20230725120917.513064-1-yangyingliang@huawei.com>
+Subject: Re: [PATCH -next] ASoC: cs42l51: change cs42l51_of_match to static
+Message-Id: <169031283035.1609546.17602518073851310377.b4-ty@kernel.org>
+Date: Tue, 25 Jul 2023 20:20:30 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: KS2XL5RTW5TX65FO77F2I46XONZ4IGZD
-X-Message-ID-Hash: KS2XL5RTW5TX65FO77F2I46XONZ4IGZD
+Message-ID-Hash: BU6PTZF2KVWOYS3GSOLUAZLLHFEU6MMB
+X-Message-ID-Hash: BU6PTZF2KVWOYS3GSOLUAZLLHFEU6MMB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KS2XL5RTW5TX65FO77F2I46XONZ4IGZD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BU6PTZF2KVWOYS3GSOLUAZLLHFEU6MMB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,11 +101,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 21 Jul 2023 17:07:32 +0800, shumingf@realtek.com wrote:
-> When the system suspends, peripheral SDCA interrupts are disabled.
-> When system level resume is invoked, the peripheral SDCA interrupts
-> should be enabled to handle JD events.
-> Enable SDCA interrupts in resume sequence when ClockStop Mode0 is applied.
+On Tue, 25 Jul 2023 20:09:17 +0800, Yang Yingliang wrote:
+> cs42l51_of_match is only used in cs42l51-i2c.c now,
+> change it to static.
 > 
 > 
 
@@ -114,8 +113,8 @@ Applied to
 
 Thanks!
 
-[5/5] ASoC: rt722-sdca: fix for JD event handling in ClockStop Mode0
-      commit: a0b7c59ac1a9bae015a9b90dfda28158586006c8
+[1/1] ASoC: cs42l51: change cs42l51_of_match to static
+      commit: df8d014edd646692302f3e8ef0bd63a041f4547f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

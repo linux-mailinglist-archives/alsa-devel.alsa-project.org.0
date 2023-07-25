@@ -2,86 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A546760B3A
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 09:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD602760BBE
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 09:28:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A59F3EC1;
-	Tue, 25 Jul 2023 09:11:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A59F3EC1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AADECEC5;
+	Tue, 25 Jul 2023 09:27:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AADECEC5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690269168;
-	bh=TBERhvLdPc8uWltVuzDZjIEgfcEavQOsWwBq+KgJp7Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690270108;
+	bh=iwxnDoMneQZpurojbGWHQQCagkeq9KwO0EjAFmmCjRc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lJBnosErYoWINuqU5uoQNO4aCzt6+eDSrCU1xqFwVs3odG4TRdlUZrWHUukao/go+
-	 rH1V2BgHPJUyoSTudD2bIb+DEsrp4ebq9ngLJbsVrg1Y9Ok0Fqa4uaVo/yHenhakjN
-	 1aUROqKaUGbZQK1b5CbfgK9NKQ+U0sica3fQVTGE=
+	b=Yv+eFYDZb+NCp5JtQH2t9IUww6EXEpFPDoah2/kE2Xzyb9q2fj6EQYowl0D7UsDlS
+	 dPmOIwo08mUn4g/H/zaAQKGhXb9scPkUPS7C5cq+e2XWGnnIEXPS79cUhPRx7rCxIN
+	 Clpq6IX7FvH0jbDYuiGM3LKYSy5tk6QL0yhgRoKw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3971AF800C7; Tue, 25 Jul 2023 09:11:31 +0200 (CEST)
+	id 36911F8053B; Tue, 25 Jul 2023 09:27:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D792F80163;
-	Tue, 25 Jul 2023 09:11:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58AAFF80163;
+	Tue, 25 Jul 2023 09:27:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B74EF8019B; Tue, 25 Jul 2023 09:11:27 +0200 (CEST)
+	id 8E05BF8019B; Tue, 25 Jul 2023 09:27:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 186EDF80153
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 09:11:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 186EDF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id C89C8F800C7
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 09:26:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C89C8F800C7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=mD+Uz3nO
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=dUBWqyHb;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=fPskUvas
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 4C28F6606FD7;
-	Tue, 25 Jul 2023 08:11:20 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1690269080;
-	bh=TBERhvLdPc8uWltVuzDZjIEgfcEavQOsWwBq+KgJp7Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mD+Uz3nOsR3b9E5rsLGabusAUlnF9IiuDNmpgN2XPa4e1jWPIOQmOmPqxWiJ8g7RN
-	 ZEpZ2C90f3O/URkirjOXjZmVkso2JhW0j/qEOMKpVZgB6Mn3mxYpsD8F/jwLJEo1Z6
-	 yVHF5sYSfPtAWV0miOFY7wcBAUfPe+lyXAxD74O7LP+XSaLMlykcHKB9ngSooBzQC4
-	 vuxhdiGLP/1QqDVcZDvMprPVPiRWj4PfOISc4i9OqubrH1XeNiIdeHPC7VkarBWXfy
-	 4xuZQ3WAX9MAhioH2e5YUSLyIxUPYRxazeOXTs7kHKhiBcsUAmXSof5hmO4uOrPOvA
-	 BmoNUCfSB9JPw==
-Message-ID: <229d6df5-9abb-64be-a095-dd6f5fbc3c77@collabora.com>
-Date: Tue, 25 Jul 2023 09:11:18 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 3/3] ASoC: mediatek: mt8188-mt6359: add SOF support
-Content-Language: en-US
-To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, matthias.bgg@gmail.com
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20230725035304.2864-1-trevor.wu@mediatek.com>
- <20230725035304.2864-4-trevor.wu@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230725035304.2864-4-trevor.wu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QVVWZWF5DYFJJJ5ZMT7GLBUPLNLBP4LJ
-X-Message-ID-Hash: QVVWZWF5DYFJJJ5ZMT7GLBUPLNLBP4LJ
-X-MailFrom: angelogioacchino.delregno@collabora.com
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 29D9C1F8B3;
+	Tue, 25 Jul 2023 07:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690270018;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7Xc+x3bm0aDx5lBbs4AFmDsPjM7vKL6WtyoQNR4tK/E=;
+	b=dUBWqyHbQwKYt2wSpE/zBet21VuJXKX0vml+r+fr2TY7T0eNHKfjOMemkdeLEOF3L8t7tD
+	6HYrViDDuEocyARFPTuFhzfMHOJHE0vbuvYbxVmAqeI6bwngqbxoa0Tjnd/7Qcg3CuRNh0
+	kHIUixZr03XkU2opCeRtl5ZU0EyhlpM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690270018;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7Xc+x3bm0aDx5lBbs4AFmDsPjM7vKL6WtyoQNR4tK/E=;
+	b=fPskUvashiZyTcb/ryCu/ZVCVXchmvSf2JCtlKNdPCRNZFa5H3oOqKqkTxEVVkooX0Rx2q
+	Y4nZGIVy99swIbAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9CED513487;
+	Tue, 25 Jul 2023 07:26:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id /chyJUF5v2SZFAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 25 Jul 2023 07:26:57 +0000
+Date: Tue, 25 Jul 2023 09:26:57 +0200
+Message-ID: <87bkg0v4ce.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: <agross@kernel.org>,
+	<andersson@kernel.org>,
+	<robh+dt@kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>,
+	<conor+dt@kernel.org>,
+	<catalin.marinas@arm.com>,
+	<will@kernel.org>,
+	<mathias.nyman@intel.com>,
+	<gregkh@linuxfoundation.org>,
+	<lgirdwood@gmail.com>,
+	<broonie@kernel.org>,
+	<perex@perex.cz>,
+	<tiwai@suse.com>,
+	<srinivas.kandagatla@linaro.org>,
+	<bgoswami@quicinc.com>,
+	<Thinh.Nguyen@synopsys.com>,
+	<linux-arm-msm@vger.kernel.org>,
+	<devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-usb@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>,
+	<quic_jackp@quicinc.com>,
+	<pierre-louis.bossart@linux.intel.com>,
+	<oneukum@suse.com>,
+	<albertccwang@google.com>,
+	<o-takashi@sakamocchi.jp>
+Subject: Re: [PATCH v4 18/32] sound: usb: Introduce QC USB SND offloading
+ support
+In-Reply-To: <20230725023416.11205-19-quic_wcheng@quicinc.com>
+References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
+	<20230725023416.11205-19-quic_wcheng@quicinc.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 3NY5VYSYZZ44OEKFHQPZFMDFWX6F35T2
+X-Message-ID-Hash: 3NY5VYSYZZ44OEKFHQPZFMDFWX6F35T2
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QVVWZWF5DYFJJJ5ZMT7GLBUPLNLBP4LJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NY5VYSYZZ44OEKFHQPZFMDFWX6F35T2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,139 +144,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 25/07/23 05:53, Trevor Wu ha scritto:
-> SOF is enabled when adsp phandle is assigned to "mediatek,adsp".
-> The required callback will be assigned when SOF is enabled.
+On Tue, 25 Jul 2023 04:34:02 +0200,
+Wesley Cheng wrote:
 > 
-> Additionally, "mediatek,dai-link" is introduced to decide the supported
-> dai links for a project, so user can reuse the machine driver regardless
-> of dai link combination.
-> 
-> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-> ---
->   sound/soc/mediatek/mt8188/mt8188-mt6359.c | 217 ++++++++++++++++++++--
->   1 file changed, 205 insertions(+), 12 deletions(-)
-> 
-> diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> index 667d79f33bf2..e205de2899a9 100644
-> --- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> +++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+> --- a/sound/usb/Kconfig
+> +++ b/sound/usb/Kconfig
+> @@ -165,6 +165,21 @@ config SND_BCD2000
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called snd-bcd2000.
+>  
+> +config QC_USB_AUDIO_OFFLOAD
+> +	tristate "Qualcomm Audio Offload driver"
+> +	depends on QCOM_QMI_HELPERS
+> +	select SND_PCM
 
-..snip..
+So the driver can be enabled without CONFIG_SND_USB_AUDIO?  It makes
+little sense without it.
+Or is it set so intentionally for testing purpose?
 
-> @@ -1074,21 +1215,64 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
->   	if (!card->name)
->   		card->name = card_data->name;
->   
-> -	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> -	if (!priv)
-> -		return  -ENOMEM;
-> -
->   	if (of_property_read_bool(pdev->dev.of_node, "audio-routing")) {
->   		ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
->   		if (ret)
->   			return ret;
->   	}
->   
-> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
+About the code:
+
+> +/* Offloading IOMMU management */
+> +static unsigned long uaudio_get_iova(unsigned long *curr_iova,
+> +	size_t *curr_iova_size, struct list_head *head, size_t size)
+> +{
+> +	struct iova_info *info, *new_info = NULL;
+> +	struct list_head *curr_head;
+> +	unsigned long va = 0;
+> +	size_t tmp_size = size;
+> +	bool found = false;
 > +
-> +	soc_card_data = devm_kzalloc(&pdev->dev, sizeof(*card_data), GFP_KERNEL);
-> +	if (!soc_card_data)
-> +		return -ENOMEM;
+> +	if (size % PAGE_SIZE) {
+> +		dev_err(uaudio_qdev->dev, "size %zu is not page size multiple\n",
+> +			size);
+> +		goto done;
+
+This can be easily triggered by user-space as it's passed directly
+from the mmap call, and it implies that you can fill up the messages
+easily.  It's safer to make it debug message or add the rate limit.
+
+Ditto for other error messages.
+
+> +static void disable_audio_stream(struct snd_usb_substream *subs)
+> +{
+> +	struct snd_usb_audio *chip = subs->stream->chip;
 > +
-> +	soc_card_data->mach_priv = priv;
+> +	if (subs->data_endpoint || subs->sync_endpoint) {
+> +		close_endpoints(chip, subs);
 > +
-> +	adsp_node = of_parse_phandle(pdev->dev.of_node, "mediatek,adsp", 0);
-> +	if (adsp_node) {
-> +		struct mtk_sof_priv *sof_priv;
-> +
-> +		sof_priv = devm_kzalloc(&pdev->dev, sizeof(*sof_priv), GFP_KERNEL);
-> +		if (!sof_priv) {
-> +			ret = -ENOMEM;
-> +			goto err_adsp_node;
-> +		}
-> +		sof_priv->conn_streams = g_sof_conn_streams;
-> +		sof_priv->num_streams = ARRAY_SIZE(g_sof_conn_streams);
-> +		soc_card_data->sof_priv = sof_priv;
-> +		card->probe = mtk_sof_card_probe;
-> +		card->late_probe = mtk_sof_card_late_probe;
-> +		if (!card->topology_shortname_created) {
-> +			snprintf(card->topology_shortname, 32, "sof-%s", card->name);
-> +			card->topology_shortname_created = true;
-> +		}
-> +		card->name = card->topology_shortname;
+> +		mutex_lock(&chip->mutex);
+> +		subs->cur_audiofmt = NULL;
+> +		mutex_unlock(&chip->mutex);
 > +	}
+
+Now looking at this and...
+
+> +static int enable_audio_stream(struct snd_usb_substream *subs,
+> +				snd_pcm_format_t pcm_format,
+> +				unsigned int channels, unsigned int cur_rate,
+> +				int datainterval)
+> +{
+
+... this implementation, I wonder whether it'd be better to modify and
+export  snd_usb_hw_params() snd snd_usb_hw_free() to fit with qcom
+driver.  Then you can avoid lots of open code.
+
+In general, if you see a direct use of chip->mutex, it can be often
+done better in a different form.  The use of an internal lock or such
+from an external driver is always fragile and error-prone.
+
+Also, the current open-code misses the potential race against the
+disconnection during the operation.  In snd-usb-audio, it protects
+with snd_usb_lock_shutdown() and snd_usb_unlock_shutdown() pairs.
+
+> +static int __init qc_usb_audio_offload_init(void)
+> +{
+> +	struct uaudio_qmi_svc *svc;
+> +	int ret;
 > +
-> +	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
-> +		ret = mtk_sof_dailink_parse_of(card, pdev->dev.of_node,
-> +					       "mediatek,dai-link",
-> +					       mt8188_mt6359_dai_links,
-> +					       ARRAY_SIZE(mt8188_mt6359_dai_links));
-> +		if (ret) {
-> +			dev_err_probe(&pdev->dev, ret, "Parse dai-link fail\n");
-> +			goto err_adsp_node;
-> +		}
-> +	} else {
-> +		if (!adsp_node)
-> +			card->num_links = DAI_LINK_REGULAR_NUM;
-> +	}
+> +	ret = snd_usb_register_platform_ops(&offload_ops);
+> +	if (ret < 0)
+> +		return ret;
+
+Registering the ops at the very first opens a potential access to the
+uninitialized stuff.  Imagine a suspend happens right after this
+point.  As the ops is already registered, it'll enter to the
+suspend_cb callback and straight to Oops.
+
+> +static void __exit qc_usb_audio_offload_exit(void)
+> +{
+> +	struct uaudio_qmi_svc *svc = uaudio_svc;
 > +
->   	platform_node = of_parse_phandle(pdev->dev.of_node,
->   					 "mediatek,platform", 0);
->   	if (!platform_node) {
->   		ret = -EINVAL;
-> -		return dev_err_probe(&pdev->dev, ret, "Property 'platform' missing or invalid\n");
-> +		dev_err_probe(&pdev->dev, ret, "Property 'platform' missing or invalid\n");
+> +	qmi_handle_release(svc->uaudio_svc_hdl);
+> +	flush_workqueue(svc->uaudio_wq);
+> +	destroy_workqueue(svc->uaudio_wq);
+> +	kfree(svc);
+> +	uaudio_svc = NULL;
+> +	snd_usb_unregister_platform_ops();
 
-We could shorten this with
-
-ret = dev_err_probe(&pdev->dev, -EINVAL, "Property ....");
-goto err_adsp_node;
-
-...but I don't have strong opinions about that, it's your choice.
-
-> +		goto err_platform_node;
-> +
->   	}
->   
->   	ret = parse_dai_link_info(card);
-> @@ -1096,8 +1280,12 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
->   		goto err;
->   
->   	for_each_card_prelinks(card, i, dai_link) {
-> -		if (!dai_link->platforms->name)
-> -			dai_link->platforms->of_node = platform_node;
-> +		if (!dai_link->platforms->name) {
-> +			if (!strncmp(dai_link->name, "AFE_SOF", strlen("AFE_SOF")) && adsp_node)
-> +				dai_link->platforms->of_node = adsp_node;
-> +			else
-> +				dai_link->platforms->of_node = platform_node;
-> +		}
->   
->   		if (strcmp(dai_link->name, "DPTX_BE") == 0) {
->   			if (strcmp(dai_link->codecs->dai_name, "snd-soc-dummy-dai"))
-> @@ -1140,7 +1328,7 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
->   	}
->   
->   	priv->private_data = card_data;
-> -	snd_soc_card_set_drvdata(card, priv);
-> +	snd_soc_card_set_drvdata(card, soc_card_data);
->   
->   	ret = devm_snd_soc_register_card(&pdev->dev, card);
->   	if (ret)
-> @@ -1149,6 +1337,11 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
->   err:
->   	of_node_put(platform_node);
->   	clean_card_reference(card);
-> +
-> +err_adsp_node:
-> +err_platform_node:
-
-Just one label is enough. Keep err_adsp_node, remove err_platform_node.
-
-Regards,
-Angelo
+Similarly, the unregister order has to be careful, too.
 
 
+thanks,
+
+Takashi

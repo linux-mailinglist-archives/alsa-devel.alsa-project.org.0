@@ -2,116 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CCB776103D
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 12:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 672137617B4
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 13:54:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B5491487;
-	Tue, 25 Jul 2023 12:05:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B5491487
+	by alsa0.perex.cz (Postfix) with ESMTPS id B55B31507;
+	Tue, 25 Jul 2023 13:53:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B55B31507
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690279605;
-	bh=WK1FB3qI9Kca+XdK/NcT0nrym8JzqNJv1nRC+lhao+o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690286051;
+	bh=XUKOZQeLBW7kgaR9Ww++9u71TXdB2qXHA0yT42XGoao=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Elc+vWPL4J01pM2aJr7t75jaKnoielqHk1oRHanGppZv7Ie6tzw48nyHbDZrddD3e
-	 uJ+ndGwqhCLynp+I6id3w/YqAiI1XNqaii+kV8H3x54oBw1inEopxnDTrdE69yzUEF
-	 O4Keuj8Ql2N0N7abrOLEfOts3zJ2tqGoasRF1+rc=
+	b=cxd7+veiaqi1tra/8khNmhfrdJdlpGP+9nfEerejBu/x7pv//+kInP2TxtjUlFqKf
+	 7D8ZHieSGRoG5K77RPlkc6FlP7q7y+b1ZofBt3NqkNwZxjN2CFkhk3eZHr5au/yH5W
+	 WAmqtnO3NsZieDcXNtjH2vwwRkdZh+QLD5bLWYEs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81BA3F80535; Tue, 25 Jul 2023 12:05:49 +0200 (CEST)
+	id 3B98DF805AC; Tue, 25 Jul 2023 13:51:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84353F80153;
-	Tue, 25 Jul 2023 12:05:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6154F805A1;
+	Tue, 25 Jul 2023 13:51:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 633D6F80163; Tue, 25 Jul 2023 12:05:44 +0200 (CEST)
+	id BF241F80163; Tue, 25 Jul 2023 12:13:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No,
+ score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3B109F80149
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 12:05:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B109F80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=kLqHOoKW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=1Og+a5iQ
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9359B1F74D;
-	Tue, 25 Jul 2023 10:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690279540;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ffIVx/0irLZ6QeL71Ci+G/BkmbsNoisvAqsp8tTW3Dc=;
-	b=kLqHOoKW5NmQwYDantmrqvXJmW9Uq1Spb/ZdrAyxHXulidqW/zNSNTdpictKuCRL2hHhUF
-	pZ7sE7bErPMEPsgh2VtZHdlzrjjHDJeo+nI/wm1DOLrXOiVPCbxFMcOs7odYHr18DZbOPZ
-	lSV6xhSm23EkAHwPaWL8S871gV47/CY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690279540;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ffIVx/0irLZ6QeL71Ci+G/BkmbsNoisvAqsp8tTW3Dc=;
-	b=1Og+a5iQVu1ykX6tlxy5davGFwJnqgaXQ9zxBkyoCZKXOzWlhjZ1RlujAnuCLdsWHZdYzn
-	HQw2b0SqfTo3khBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5243D13342;
-	Tue, 25 Jul 2023 10:05:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 2JvSEnSev2SIbwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 25 Jul 2023 10:05:40 +0000
-Date: Tue, 25 Jul 2023 12:05:39 +0200
-Message-ID: <87sf9ctifg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Robert Lee <lerobert@google.com>
-Cc: vkoul@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: compress: add opus codec define
-In-Reply-To: <20230725093005.3499455-1-lerobert@google.com>
-References: <20230725093005.3499455-1-lerobert@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: UA2HNH4EUVPZL6RKD22DHVDAHEYPGZZE
-X-Message-ID-Hash: UA2HNH4EUVPZL6RKD22DHVDAHEYPGZZE
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F948F80149;
+	Tue, 25 Jul 2023 12:13:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F948F80149
+Message-ID: <35720f76-e8b0-578b-e326-ebfce536be04@linux.intel.com>
+Date: Tue, 25 Jul 2023 12:13:20 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 7/9] ALSA: hda/intel: Move snd_hdac_i915_init to before
+ probe_work.
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Cc: sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>
+References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+ <20230719164141.228073-8-maarten.lankhorst@linux.intel.com>
+ <a895de13-5320-953b-3d1c-34cee259d1d2@linux.intel.com>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <a895de13-5320-953b-3d1c-34cee259d1d2@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: maarten.lankhorst@linux.intel.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: KGTJ7DKYNTTEJK67OAIDXY2PADJVD34N
+X-Message-ID-Hash: KGTJ7DKYNTTEJK67OAIDXY2PADJVD34N
+X-Mailman-Approved-At: Tue, 25 Jul 2023 11:51:33 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UA2HNH4EUVPZL6RKD22DHVDAHEYPGZZE/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,39 +87,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 25 Jul 2023 11:30:05 +0200,
-Robert Lee wrote:
+Hey,
+
+On 2023-07-24 12:58, Pierre-Louis Bossart wrote:
 > 
-> Add to support decode Opus codec in Ogg container.
 > 
-> Signed-off-by: Robert Lee <lerobert@google.com>
-
-The change makes sense only when it's really used.  So usually it's
-better to put into a series that actually implements its usage.
-
-
-thanks,
-
-Takashi
-
-> ---
->  include/uapi/sound/compress_params.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> On 7/19/23 18:41, Maarten Lankhorst wrote:
+>> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
+>> the snd_hdac_i915_init into a workqueue.
+>>
+>> Use the -EPROBE_DEFER mechanism instead, which must be returned in the
+>> probe function.
+>>
+>> Changes since v1:
+>> - Use dev_err_probe()
+>> - Don't move probed_devs bitmap unnecessarily. (tiwai)
+>> - Move snd_hdac_i915_init slightly upward, to ensure
+>>    it's always initialised before vga-switcheroo is called.
+>>
+>> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> ---
+>>   sound/pci/hda/hda_intel.c | 59 ++++++++++++++++++++-------------------
+>>   1 file changed, 30 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+>> index 11cf9907f039f..e3128d7d742e7 100644
+>> --- a/sound/pci/hda/hda_intel.c
+>> +++ b/sound/pci/hda/hda_intel.c
+>> @@ -2147,6 +2147,36 @@ static int azx_probe(struct pci_dev *pci,
+>>   
+>>   	pci_set_drvdata(pci, card);
+>>   
+>> +#ifdef CONFIG_SND_HDA_I915
+>> +	/* bind with i915 if needed */
+>> +	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT) {
+>> +		err = snd_hdac_i915_init(azx_bus(chip), false);
+>> +		if (err < 0) {
+>> +			/* if the controller is bound only with HDMI/DP
+>> +			 * (for HSW and BDW), we need to abort the probe;
+>> +			 * for other chips, still continue probing as other
+>> +			 * codecs can be on the same link.
+>> +			 */
+>> +			if (CONTROLLER_IN_GPU(pci)) {
+>> +				dev_err_probe(card->dev, err,
+>> +					     "HSW/BDW HD-audio HDMI/DP requires binding with gfx driver\n");
+>> +
+>> +				goto out_free;
+>> +			} else {
+>> +				/* don't bother any longer */
+>> +				chip->driver_caps &= ~AZX_DCAPS_I915_COMPONENT;
+>> +			}
+>> +		}
+>> +
+>> +		/* HSW/BDW controllers need this power */
+>> +		if (CONTROLLER_IN_GPU(pci))
+>> +			hda->need_i915_power = true;
+>> +	}
+>> +#else
+>> +	if (CONTROLLER_IN_GPU(pci))
+>> +		dev_err(card->dev, "Haswell/Broadwell HDMI/DP must build in CONFIG_SND_HDA_I915\n");
+>> +#endif
 > 
-> diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
-> index ddc77322d571..bac5797bcb02 100644
-> --- a/include/uapi/sound/compress_params.h
-> +++ b/include/uapi/sound/compress_params.h
-> @@ -43,7 +43,8 @@
->  #define SND_AUDIOCODEC_BESPOKE               ((__u32) 0x0000000E)
->  #define SND_AUDIOCODEC_ALAC                  ((__u32) 0x0000000F)
->  #define SND_AUDIOCODEC_APE                   ((__u32) 0x00000010)
-> -#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_APE
-> +#define SND_AUDIOCODEC_OPUS                  ((__u32) 0x00000011)
-> +#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_OPUS
->  
->  /*
->   * Profile and modes are listed with bit masks. This allows for a
-> -- 
-> 2.41.0.487.g6d72f3e995-goog
+> Is it intentional that the display_power() is left in the probe workqueue?
 > 
+> this piece of code follows the stuff above in the existing code?
+> 
+> /* Request display power well for the HDA controller or codec. For
+>   * Haswell/Broadwell, both the display HDA controller and codec need
+>   * this power. For other platforms, like Baytrail/Braswell, only the
+>   * display codec needs the power and it can be released after probe.
+>   */
+> display_power(chip, true);
+
+I think for the binding itself, there isn't any harm. We are not poking 
+any hardware when binding,
+only software. This appears to be true on the i915 side as well.
+
+Cheers,
+~Maarten

@@ -2,102 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44B86762092
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 19:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A375F7620A3
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 19:54:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16C7184C;
-	Tue, 25 Jul 2023 19:50:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16C7184C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FCFD7F8;
+	Tue, 25 Jul 2023 19:54:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FCFD7F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690307497;
-	bh=RU1yt+0Cu3kvPsoECxJVmwUh0wZQeJo4rj4qI+5pd+0=;
+	s=default; t=1690307696;
+	bh=11L2pPSUZPkoFKldi8nLvqGWfgLnUcHEt/G9YMShSks=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Qp1f77nedShxeSTGK39HCJlTcjeYpyCpRxNzF7COl1nweYCMJ244a/iqgW4qXrgvg
-	 x4uxxzSp3pbX3MFXL260Pon6uBPtZ+o4pjGkpsV4dZNFkXIfXAcaWY+D+SR6Cy/C0m
-	 q/COF22Ch0gBp7cvyGXMy/cbejwIVSrKCyqTMWb0=
+	b=pjovjasBFGTE+9I39f0gowSNwkWwo97vIBrBw75J+RwZPhk4FV+BDm3o7QH7ybRE5
+	 rKc7P6a+5uKtxikKIM/RZPtJjOaPHhJA0/gbEYJY1+wMBNvG/hCdiif29it83/D+cJ
+	 sh4LihB0OCLMEO5WdaHIZJ+nKugwyJs8WR5P/z1A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E2ACF8056F; Tue, 25 Jul 2023 19:49:58 +0200 (CEST)
+	id 1FDBBF80535; Tue, 25 Jul 2023 19:54:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75941F8055B;
-	Tue, 25 Jul 2023 19:49:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD33CF8019B;
+	Tue, 25 Jul 2023 19:54:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C505FF80163; Tue, 25 Jul 2023 19:49:50 +0200 (CEST)
+	id 90AEFF8019B; Tue, 25 Jul 2023 19:54:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CF2AF8019B
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 19:49:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CF2AF8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5763BF80149
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 19:54:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5763BF80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
+	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=luJ/sojL
+ header.s=k20201202 header.b=E+guE5Gj
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D9178616E0;
-	Tue, 25 Jul 2023 17:49:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89EBC433C9;
-	Tue, 25 Jul 2023 17:49:36 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 38C2161777;
+	Tue, 25 Jul 2023 17:54:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F91C433C7;
+	Tue, 25 Jul 2023 17:53:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690307380;
-	bh=RU1yt+0Cu3kvPsoECxJVmwUh0wZQeJo4rj4qI+5pd+0=;
+	s=k20201202; t=1690307639;
+	bh=11L2pPSUZPkoFKldi8nLvqGWfgLnUcHEt/G9YMShSks=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=luJ/sojL/eju59UKvv7KPRUv5zpARMbC8f1KoW1mcTCaBI95NpBwjsFS+jjMlnEra
-	 UwRBdCUoOpeQ+PRT23Y9eKuLemPcL8WAUCKUwypqaKayAms4+JmGoK7UpHX8glvsqL
-	 WcsQ5CafV2BdB6y5os43l4smEcGY8FPjbW0ZYz7uYTYdwzTmoReIhsKN7y/IaCuWHd
-	 8qSOXqN6EeKAJ8r6RE1UO/5CxmHKtnm4hVP4txEBXkBTttne30yHuWBkHkKp6A9S5q
-	 HMCvrugtwMy1R9TziQ8J6Ie10YG/5nmHIJBy++pNRTbOPeVG/gsG31kFEfY1eZUmIN
-	 uGJVoAGjxh2PQ==
-Received: (nullmailer pid 3497937 invoked by uid 1000);
-	Tue, 25 Jul 2023 17:49:25 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	b=E+guE5GjajLb7/o620LDhj8smQ4MLfEQOkrXRoVHieikIsJLLCAOOPldygK3R6YTO
+	 h4Ysqd9aALbr29Ue84OF7dpVuNzXSAnN6okM2DZnhWeSJzx1Z5UFyxYEFvtQJG5ESS
+	 UX16pL4c4DA/KlEgXjzIyqnapx6NXUkylTyWFxI2H42Mc0Oq/tVlkG9scLVy60Y7Od
+	 0v7ZuMDeJ6hSJze5AxTI9cQODcQmUczOgSpaK+NsrwzUMFY27d7Ihe4ej/1xSz/C8O
+	 9JcpP+Rn76Q/Fa7qHGVD5XkoSYF8gYl3jsVnucW1vzyRquCqkXPhAcBcrGBaUddDrZ
+	 DN5oE2xGF7Mnw==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Edgar <ljijcj@163.com>
+Cc: yangxiaohua@everest-semi.com, zhuning@everest-semi.com
+In-Reply-To: <20230719054722.401954-1-ljijcj@163.com>
+References: <20230719054722.401954-1-ljijcj@163.com>
+Subject: Re: [PATCH] ASoc: codecs: ES8316: Fix DMIC config
+Message-Id: <169030763850.1533302.8809616718160850718.b4-ty@kernel.org>
+Date: Tue, 25 Jul 2023 18:53:58 +0100
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Cc: Oleksii_Moisieiev@epam.com, linux-media@vger.kernel.org,
-	linux-usb@vger.kernel.org, hugues.fruchet@foss.st.com,
-	herbert@gondor.apana.org.au, devicetree@vger.kernel.org,
-	mchehab@kernel.org, robh+dt@kernel.org, pabeni@redhat.com,
-	davem@davemloft.net, lee@kernel.org, will@kernel.org,
-	Frank Rowand <frowand.list@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kuba@kernel.org,
-	olivier.moysan@foss.st.com, arnd@kernel.org,
-	dmaengine@vger.kernel.org, alexandre.torgue@foss.st.com,
-	linux-iio@vger.kernel.org, ulf.hansson@linaro.org,
-	edumazet@google.com, linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	alsa-devel@alsa-project.org, linux-spi@vger.kernel.org,
-	gregkh@linuxfoundation.org, linux-crypto@vger.kernel.org,
-	netdev@vger.kernel.org, andi.shyti@kernel.org,
-	arnaud.pouliquen@foss.st.com, fabrice.gasnier@foss.st.com,
-	vkoul@kernel.org, conor+dt@kernel.org, richardcochran@gmail.com,
-	jic23@kernel.org, linux-i2c@v, ger.kernel.org@alsa-project.org,
-	linux-serial@vger.kernel.org, catalin.marinas@arm.com,
-	krzysztof.kozlowski+dt@linaro.org
-In-Reply-To: <20230725164104.273965-3-gatien.chevallier@foss.st.com>
-References: <20230725164104.273965-1-gatien.chevallier@foss.st.com>
- <20230725164104.273965-3-gatien.chevallier@foss.st.com>
-Message-Id: <169030736432.3497864.4682647411146090051.robh@kernel.org>
-Subject: Re: [PATCH v2 02/11] dt-bindings: bus: document RIFSC
-Date: Tue, 25 Jul 2023 11:49:25 -0600
-Message-ID-Hash: FUCVJM2XF5N2DTZETLYRDCW2W7OE6TMQ
-X-Message-ID-Hash: FUCVJM2XF5N2DTZETLYRDCW2W7OE6TMQ
-X-MailFrom: SRS0=nS92=DL=robh_at_kernel.org=rob@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: OOQJSDTXNE4QSGF3IB25MQIY6DEAFBQF
+X-Message-ID-Hash: OOQJSDTXNE4QSGF3IB25MQIY6DEAFBQF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FUCVJM2XF5N2DTZETLYRDCW2W7OE6TMQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOQJSDTXNE4QSGF3IB25MQIY6DEAFBQF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,51 +96,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Tue, 25 Jul 2023 18:40:55 +0200, Gatien Chevallier wrote:
-> Document RIFSC (RIF security controller). RIFSC is a firewall controller
-> composed of different kinds of hardware resources.
+On Wed, 19 Jul 2023 13:47:22 +0800, Edgar wrote:
+> According to the datasheet, the DMIC config should
+> be changed to { 0, 2 ,3 }
 > 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
-> 
-> Changes in V2:
-> 	- Corrected errors highlighted by Rob's robot
-> 	- No longer define the maxItems for the "feature-domains"
-> 	  property
-> 	- Fix example (node name, status)
-> 	- Declare "feature-domain-names" as an optional
-> 	  property for child nodes
-> 	- Fix description of "feature-domains" property
-> 
->  .../bindings/bus/st,stm32mp25-rifsc.yaml      | 105 ++++++++++++++++++
->  1 file changed, 105 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
 > 
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Applied to
 
-yamllint warnings/errors:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.example.dtb: serial@400e0000: Unevaluated properties are not allowed ('feature-domains' was unexpected)
-	from schema $id: http://devicetree.org/schemas/serial/st,stm32-uart.yaml#
+Thanks!
 
-doc reference errors (make refcheckdocs):
+[1/1] ASoc: codecs: ES8316: Fix DMIC config
+      commit: d20d35d1ad62c6cca36368c1e8f29335a068659e
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230725164104.273965-3-gatien.chevallier@foss.st.com
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-pip3 install dtschema --upgrade
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Thanks,
+Mark
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F171760E58
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 11:19:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE87E760E5D
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jul 2023 11:20:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7286BED7;
-	Tue, 25 Jul 2023 11:19:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7286BED7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A297EEA;
+	Tue, 25 Jul 2023 11:19:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A297EEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690276798;
-	bh=LKtaiWNgDWK8U+v+CSkjSmMLNgc+6CwnEmQrVA3o6hk=;
+	s=default; t=1690276825;
+	bh=cEx0YFjbS+47DP8snw5II73lOU4UjH+3LeeDhBenEk8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Il2f/elzgfZfxj5VBwKuP7PnVMqp/A2soPf7XdfRxPbKzdANgSrZTI4hDfPusUa2N
-	 mnwY9t/6EyD+qncE48OFoui/PEmAm/ceV8vXKfLkHvZmcyN1DYpVPLwzpcEUYbhIa0
-	 aOQbCZeazT/o0mSfF0FN7mUPHNxkeoanBXUfsmPs=
+	b=fWNjMQLUmwgGszHR7K2a7dA2OXkvDJ9GnTCnp8oB5zLEHTEaXD3BcJ4vMcVK0fcJh
+	 ikQRZAeVf2cMLQpiol7lYpNwijqgmVojzpouaUB8Arn9sWdJpQLJxxAuPoDnieLDNw
+	 8GCp5HYtS3Tv9EXhBxizZmiAXOSUDP3oi2LfVvec=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04DE4F80153; Tue, 25 Jul 2023 11:18:46 +0200 (CEST)
+	id D582DF8057C; Tue, 25 Jul 2023 11:18:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 671B6F80153;
-	Tue, 25 Jul 2023 11:18:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97D7FF80568;
+	Tue, 25 Jul 2023 11:18:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55D1FF80549; Tue, 25 Jul 2023 11:18:42 +0200 (CEST)
+	id B5E61F8056F; Tue, 25 Jul 2023 11:18:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,47 +35,46 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0FE86F80153
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 11:18:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FE86F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1E8E4F80558
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jul 2023 11:18:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E8E4F80558
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=e863I8Jp
+ header.s=Intel header.b=D0S/g7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690276718; x=1721812718;
+  t=1690276728; x=1721812728;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=LKtaiWNgDWK8U+v+CSkjSmMLNgc+6CwnEmQrVA3o6hk=;
-  b=e863I8JpgRIGBHGEW5jZmcDrPQqWIY7BhshJNFBAUcgBNz7Gk/W064At
-   jocZeCUAqDk6Q+yQt+xfF5WnnWASUFRSGwzxWwx7XlJFzhWOhUbmcQKnO
-   9vzqqqmLpNy8CSlRbDyRK/vmSXac4ZXLMPQrYTin8xuqrKrSAF8lbWkRk
-   aRXsr3NuQwGr31Riu2yHOVsBAJM/Cd8LRtMdJK9/JaWsoYMlpLszCZEZd
-   WoI4ptkzRqLxh6v8IhMu+mmGnRw0WOODW+dhdpRleormIVFDapyc6xOPe
-   z2ZsvzcejGKni1lapHleodSLQnDbL3UuEYexMdPEVbzMEmGEZt6F05Uvv
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="454048841"
+  bh=cEx0YFjbS+47DP8snw5II73lOU4UjH+3LeeDhBenEk8=;
+  b=D0S/g7F1MLNwco6xLcUUwvoMq5gEPloFgN3w7/50yVHw0TMM5UaRu04+
+   w3S30llbJL0dmVMZ1WDGHaoL/ckbeJ1VVDpIHGBBEp0k98OhuJXGXSRhL
+   IgGaq7q1w4aTCw+uxk+3COrvH/NENlsOE4pknW+66q4VS8vhcF9BbAEkk
+   9ghKz9SqgJN544tcmFFmjCbizozH7AQUMud5qUutcFOmnumq/wTjLUk1v
+   t459Atzo7SuQQ9JFKhpL37m4elMjARsLnF0xlvZmbJTkvpRC4e1IUTL6V
+   KubfWVDqclCmSWfd/DlTD7W3X3jOxc1KUbBLcq3lWNnRRhfNKSAocvVE1
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="454048898"
 X-IronPort-AV: E=Sophos;i="6.01,230,1684825200";
-   d="scan'208";a="454048841"
+   d="scan'208";a="454048898"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 02:18:34 -0700
+ 25 Jul 2023 02:18:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="719980312"
+X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="719980363"
 X-IronPort-AV: E=Sophos;i="6.01,230,1684825200";
-   d="scan'208";a="719980312"
+   d="scan'208";a="719980363"
 Received: from mongola-mobl.ger.corp.intel.com (HELO [10.249.37.129])
  ([10.249.37.129])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2023 02:18:28 -0700
-Message-ID: <eb1c679b-f50b-1f20-c7c8-da3f4857bec1@linux.intel.com>
-Date: Tue, 25 Jul 2023 10:27:00 +0200
+ 25 Jul 2023 02:18:37 -0700
+Message-ID: <37018459-ee43-d853-1d73-3c6234a265b2@linux.intel.com>
+Date: Tue, 25 Jul 2023 10:45:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v4 08/32] ASoC: qcom: qdsp6: Introduce USB AFE port to
- q6dsp
+Subject: Re: [PATCH v4 10/32] ASoC: qcom: Add USB backend ASoC driver for Q6
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, agross@kernel.org,
  andersson@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
@@ -90,13 +89,13 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  quic_jackp@quicinc.com, oneukum@suse.com, albertccwang@google.com,
  o-takashi@sakamocchi.jp
 References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
- <20230725023416.11205-9-quic_wcheng@quicinc.com>
+ <20230725023416.11205-11-quic_wcheng@quicinc.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230725023416.11205-9-quic_wcheng@quicinc.com>
+In-Reply-To: <20230725023416.11205-11-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZUVHFIFGEJ7QLFYYU66Y7XCGASM4SYPG
-X-Message-ID-Hash: ZUVHFIFGEJ7QLFYYU66Y7XCGASM4SYPG
+Message-ID-Hash: 253HPLJJCGJFGG666OKV6GQSMFEQSO2H
+X-Message-ID-Hash: 253HPLJJCGJFGG666OKV6GQSMFEQSO2H
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUVHFIFGEJ7QLFYYU66Y7XCGASM4SYPG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/253HPLJJCGJFGG666OKV6GQSMFEQSO2H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,156 +118,125 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-> +static const struct snd_soc_dai_ops q6usb_ops = {
-> +	.prepare	= q6afe_dai_prepare,
-> +	.hw_params	= q6usb_hw_params,
-> +	.shutdown	= q6afe_dai_shutdown,
+> +struct q6usb_port_data {
+> +	struct q6afe_usb_cfg usb_cfg;
+> +	struct snd_soc_usb *usb;
+> +	struct q6usb_offload priv;
+> +	int active_idx;
 
-it's a bit odd to see a .shutdown without a .startup?
-
-Is this intentional and should a comment be added?
-
-
-> +/* device token of actual end USB aduio device */
-
-audio
-
-> +	u32                  dev_token;
-> +/* endianness of this interface */
-> +	u32                   endian;
-> +/* service interval */
-> +	u32                  service_interval;
-> +} __packed;
-> +
-> +/**
-> + * struct afe_param_id_usb_audio_dev_params
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + * @dev_token: device token of actual end USB aduio device
-
-audio. please run a spell-checker.
+what is an 'active_idx' ?
 
 
-> +	svc_int.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
-> +	svc_int.svc_interval = pcfg->usb_cfg.service_interval;
-> +	ret = q6afe_port_set_param_v2(port, &svc_int,
-> +				      AFE_PARAM_ID_USB_AUDIO_SVC_INTERVAL,
-> +				      AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(svc_int));
-> +	if (ret) {
-> +		dev_err(port->afe->dev, "%s: AFE device param cmd svc_interval failed %d\n",
-> +			__func__, ret);
-> +		ret = -EINVAL;
-
-why do you override the return value?
-
-> +		goto exit;
-
-not necessary, this is a jump to the next line. Looks like copy-paste ...
-
-> +	}
-> +exit:
-> +	return ret;
-> +}
-> +
-> +/**
-> + * q6afe_usb_port_prepare() - Prepare usb afe port.
-> + *
-> + * @port: Instance of afe port
-> + * @cfg: USB configuration for the afe port
-> + *
-> + */
-> +void q6afe_usb_port_prepare(struct q6afe_port *port,
-> +			     struct q6afe_usb_cfg *cfg)
+> +static int q6usb_alsa_connection_cb(struct snd_soc_usb *usb, int card_idx,
+> +			int connected)
 > +{
-> +	union afe_port_config *pcfg = &port->port_cfg;
+> +	struct snd_soc_dapm_context *dapm;
+> +	struct q6usb_port_data *data;
 > +
-> +	pcfg->usb_cfg.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
-> +	pcfg->usb_cfg.sample_rate = cfg->sample_rate;
-> +	pcfg->usb_cfg.num_channels = cfg->num_channels;
-> +	pcfg->usb_cfg.bit_width = cfg->bit_width;
+> +	dapm = snd_soc_component_get_dapm(usb->component);
+> +	data = dev_get_drvdata(usb->component->dev);
+
+shouldn't you test that 'dapm' and 'data' are not NULL ?
+
 > +
-> +	afe_port_send_usb_dev_param(port, cfg);
+> +	if (connected) {
+
+this goes back to my earlier comment that you treat 'connected' as a
+boolean.
+
+> +		snd_soc_dapm_enable_pin(dapm, "USB_RX_BE");
+> +		/* We only track the latest USB headset plugged in */
+> +		data->active_idx = card_idx;
+> +	} else {
+> +		snd_soc_dapm_disable_pin(dapm, "USB_RX_BE");
+> +	}
+> +	snd_soc_dapm_sync(dapm);
+> +
+> +	return 0;
 > +}
-> +EXPORT_SYMBOL_GPL(q6afe_usb_port_prepare);
 > +
->  /**
->   * q6afe_hdmi_port_prepare() - Prepare hdmi afe port.
->   *
-> @@ -1611,7 +1791,10 @@ struct q6afe_port *q6afe_port_get_from_id(struct device *dev, int id)
->  		break;
->  	case AFE_PORT_ID_WSA_CODEC_DMA_RX_0 ... AFE_PORT_ID_RX_CODEC_DMA_RX_7:
->  		cfg_type = AFE_PARAM_ID_CODEC_DMA_CONFIG;
-> -	break;
-> +		break;
-> +	case AFE_PORT_ID_USB_RX:
-> +		cfg_type = AFE_PARAM_ID_USB_AUDIO_CONFIG;
-> +		break;
->  	default:
->  		dev_err(dev, "Invalid port id 0x%x\n", port_id);
->  		return ERR_PTR(-EINVAL);
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
-> index 30fd77e2f458..e098a3e15135 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.h
-> +++ b/sound/soc/qcom/qdsp6/q6afe.h
-> @@ -5,7 +5,7 @@
->  
->  #include <dt-bindings/sound/qcom,q6afe.h>
->  
-> -#define AFE_PORT_MAX		129
-> +#define AFE_PORT_MAX		130
->  
->  #define MSM_AFE_PORT_TYPE_RX 0
->  #define MSM_AFE_PORT_TYPE_TX 1
-> @@ -205,6 +205,47 @@ struct q6afe_cdc_dma_cfg {
->  	u16	active_channels_mask;
->  };
->  
-> +/**
-> + * struct q6afe_usb_cfg
-> + * @cfg_minor_version: Minor version used for tracking USB audio device
-> + * configuration.
-> + * Supported values:
-> + *     AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG
-> + * @sample_rate: Sampling rate of the port
-> + *    Supported values:
-> + *      AFE_PORT_SAMPLE_RATE_8K
-> + *      AFE_PORT_SAMPLE_RATE_11025
-> + *      AFE_PORT_SAMPLE_RATE_12K
-> + *      AFE_PORT_SAMPLE_RATE_16K
-> + *      AFE_PORT_SAMPLE_RATE_22050
-> + *      AFE_PORT_SAMPLE_RATE_24K
-> + *      AFE_PORT_SAMPLE_RATE_32K
-> + *      AFE_PORT_SAMPLE_RATE_44P1K
-> + *      AFE_PORT_SAMPLE_RATE_48K
-> + *      AFE_PORT_SAMPLE_RATE_96K
-> + *      AFE_PORT_SAMPLE_RATE_192K
-> + * @bit_width: Bit width of the sample.
-> + *    Supported values: 16, 24
-> + * @num_channels: Number of channels
-> + *    Supported values: 1, 2
-> + * @data_format: Data format supported by the USB
-> + *    Supported values: 0
-> + * @reserved: this field must be 0
-> + * @dev_token: device token of actual end USB audio device
-> + * @endian: endianness of this interface
-> + * @service_interval: service interval
-> + **/
-> +struct q6afe_usb_cfg {
-> +	u32	cfg_minor_version;
-> +	u32     sample_rate;
-> +	u16	bit_width;
-> +	u16	num_channels;
-> +	u16	data_format;
-> +	u16	reserved;
-> +	u32	dev_token;
-> +	u32	endian;
-> +	u32	service_interval;
+> +static int q6usb_component_probe(struct snd_soc_component *component)
+> +{
+> +	struct q6usb_port_data *data = dev_get_drvdata(component->dev);
+> +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
+> +
+> +	snd_soc_dapm_disable_pin(dapm, "USB_RX_BE");
+> +	snd_soc_dapm_sync(dapm);
+> +
+> +	data->usb = snd_soc_usb_add_port(component->dev, &data->priv, q6usb_alsa_connection_cb);
+> +	if (IS_ERR(data->usb)) {
+> +		dev_err(component->dev, "failed to add usb port\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	data->usb->component = component;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct snd_soc_component_driver q6usb_dai_component = {
+> +	.probe = q6usb_component_probe,
+
+erm, if you have a .probe that adds a port, don't you need a remove that
+removes the same port, and sets the pin state as well?
+
+> +	.name = "q6usb-dai-component",
+> +	.dapm_widgets = q6usb_dai_widgets,
+> +	.num_dapm_widgets = ARRAY_SIZE(q6usb_dai_widgets),
+> +	.dapm_routes = q6usb_dapm_routes,
+> +	.num_dapm_routes = ARRAY_SIZE(q6usb_dapm_routes),
+> +	.of_xlate_dai_name = q6usb_audio_ports_of_xlate_dai_name,
 > +};
+> +
+> +static int q6usb_dai_dev_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *node = pdev->dev.of_node;
+> +	struct q6usb_port_data *data;
+> +	struct device *dev = &pdev->dev;
+> +	struct of_phandle_args args;
+> +	int ret;
+> +
+> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	ret = of_property_read_u32(node, "qcom,usb-audio-intr-num",
+> +				&data->priv.intr_num);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "failed to read intr num.\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
+> +	if (ret < 0)
+> +		data->priv.sid = -1;
+> +	else
+> +		data->priv.sid = args.args[0] & SID_MASK;
+> +
+> +	data->priv.domain = iommu_get_domain_for_dev(&pdev->dev);
+> +
+> +	data->priv.dev = dev;
+> +	dev_set_drvdata(dev, data);
+> +
+> +	ret = devm_snd_soc_register_component(dev, &q6usb_dai_component,
+> +					q6usb_be_dais, ARRAY_SIZE(q6usb_be_dais));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
 
-this definition looks exactly the same as
-struct afe_param_id_usb_cfg
-??
+return devm_snd_soc_register_component
 
+> +}
+> +
+> +static int q6usb_dai_dev_remove(struct platform_device *pdev)
+> +{
+> +	snd_soc_usb_remove_port(&pdev->dev);
+
+that seems wrong, the port is added in the component probe, not the
+platform device probe.
+
+> +
+> +	return 0;
+> +}> +
 

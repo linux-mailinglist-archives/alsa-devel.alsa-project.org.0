@@ -2,94 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7913763D95
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 19:21:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D99CD763E25
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 20:06:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E2A9844;
-	Wed, 26 Jul 2023 19:20:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E2A9844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8955983B;
+	Wed, 26 Jul 2023 20:06:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8955983B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690392067;
-	bh=efegVLS2xrCv7gYTENHX0ser7GsusM7cYHZ9iIN3WP0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690394812;
+	bh=tvvFJh7UTz+OF+Wp1rw16oXH0ZUv9lOKfrPzk+FlYs8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eNmpsMH87cOC5FW7pQaKISY6bYgMb1L5hAJi8sfPVrG/p+i178C7YUFyaJxgNnE9S
-	 LZ3TTfB245bWjFuBhlTd+AbRZgI2BwkECSbPHx7D16gPNmylMIxH/6xGVQ64fSH5et
-	 /t0lg351pjZtIBL3iRMlD6nU78p2fPMQvjW7mVqs=
+	b=AOxIFgQQ7henaXyx3U2tA0FBgA9fFtVGoT3GKZMFzzWRFd88Wy4962mdElQminxD2
+	 xpm9FRQ3dtUVdnKg3BDdAFQiNWKrmAJQM60Q5YOtYsmeg/PhQXgu72VIOq/bhW5JhB
+	 fehSROe2k7ocPJ4cn6c3hwTg3OiAuEz6UARQhoUo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3714BF800D2; Wed, 26 Jul 2023 19:19:56 +0200 (CEST)
+	id 2519CF80520; Wed, 26 Jul 2023 20:06:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B465CF80153;
-	Wed, 26 Jul 2023 19:19:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3BB8F80149;
+	Wed, 26 Jul 2023 20:06:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F5CBF8019B; Wed, 26 Jul 2023 19:19:53 +0200 (CEST)
+	id 5CEDFF8019B; Wed, 26 Jul 2023 20:05:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2CE8F800D2
-	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 19:19:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2CE8F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 171E2F80149
+	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 20:05:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 171E2F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UFMC/66v
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=SGcEyltF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=PJRHvmU9
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C91A261C12;
-	Wed, 26 Jul 2023 17:19:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17F78C433C8;
-	Wed, 26 Jul 2023 17:19:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690391978;
-	bh=efegVLS2xrCv7gYTENHX0ser7GsusM7cYHZ9iIN3WP0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UFMC/66vrykLxmuvfSwz5durhy5zwQjCCF/Q8MicmwmbzBD9vgxyOyFJgXlHtyLyd
-	 KVzSJgJWm6WOc7yByCR7iylIiKi5ErzAYd0TqVZ95Fb4WWzWOA6J74hj9enuUA84Qh
-	 2h2gLZVq5pFC2G6Y7wNjndQnL7psbNmFaFd2A03ThpvSS3GfnyXZL8F0rAgKx+d0s/
-	 kezOuuTjSd4LJczr8KQJDXItyGidwx45qZC7wBA+CVlBvHK1AEI/2nJZlCLNrAKhF4
-	 k8oOfOthqlO0H+eybNglKRkwjKwfiFmYgGZLs9gmH9bZam8E2xkBsE2cMh5EJ9gI1R
-	 rNnH/WuOT9vqw==
-Received: (nullmailer pid 1675716 invoked by uid 1000);
-	Wed, 26 Jul 2023 17:19:34 -0000
-Date: Wed, 26 Jul 2023 11:19:34 -0600
-From: Rob Herring <robh@kernel.org>
-To: Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: agross@kernel.org, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- catalin.marinas@arm.com, will@kernel.org, mathias.nyman@intel.com,
- gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@linaro.org,
- bgoswami@quicinc.com, Thinh.Nguyen@synopsys.com,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-usb@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_jackp@quicinc.com, pierre-louis.bossart@linux.intel.com,
- oneukum@suse.com, albertccwang@google.com, o-takashi@sakamocchi.jp
-Subject: Re: [PATCH v4 13/32] dt-bindings: usb: dwc3: Add
- snps,num-hc-interrupters definition
-Message-ID: <20230726171934.GA1654540-robh@kernel.org>
-References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
- <20230725023416.11205-14-quic_wcheng@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230725023416.11205-14-quic_wcheng@quicinc.com>
-Message-ID-Hash: 6ZL2Z3G7TK3LLGWE3ML3UKJEQ3EYU7RP
-X-Message-ID-Hash: 6ZL2Z3G7TK3LLGWE3ML3UKJEQ3EYU7RP
-X-MailFrom: SRS0=X1iT=DM=robh_at_kernel.org=rob@kernel.org
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5942B21CC0;
+	Wed, 26 Jul 2023 18:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690394750;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zaRHc55sdv5RzQOYJEG8c+bbzLqq8sNUvSgqDPWpH9A=;
+	b=SGcEyltFgP4xnvX/aK+/wcSO46inKqngHOXtu/eWjzNQFOXMyTU7HPPTom/I7f7tqs+mKr
+	yZJR+OySwHSOix3Beb36lcofTiQHtbiHEvu9b8oGJFXfxwkyq+x66yUkEPwk3nQJPhwpWG
+	cCU77YanS0NimsRqQt95loVYXTc69KQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690394750;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zaRHc55sdv5RzQOYJEG8c+bbzLqq8sNUvSgqDPWpH9A=;
+	b=PJRHvmU9jgzcQJxTwPBW58vAJSGmGmdsCjv0L60W85CtABQ1RbRbxJXd0wY+tD3ywwKJqv
+	BpUx3cH1vLkdt2Dg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36246139BD;
+	Wed, 26 Jul 2023 18:05:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id BlOGC35gwWQ9cwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 26 Jul 2023 18:05:50 +0000
+Date: Wed, 26 Jul 2023 20:05:49 +0200
+Message-ID: <87zg3i5z0i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jussi Laako <jussi@sonarnerd.net>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: usb-audio: Update for native DSD support quirks
+In-Reply-To: <20230726165645.404311-1-jussi@sonarnerd.net>
+References: <20230726165645.404311-1-jussi@sonarnerd.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: QWXP63TUTMRJECV7KEQ5EDWKYNUSVWUS
+X-Message-ID-Hash: QWXP63TUTMRJECV7KEQ5EDWKYNUSVWUS
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6ZL2Z3G7TK3LLGWE3ML3UKJEQ3EYU7RP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QWXP63TUTMRJECV7KEQ5EDWKYNUSVWUS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,42 +117,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 24, 2023 at 07:33:57PM -0700, Wesley Cheng wrote:
-> Add a new definition for specifying how many XHCI secondary interrupters
-> can be allocated.  XHCI in general can potentially support up to 1024
-> interrupters, which some uses may want to limit depending on how many
-> users utilize the interrupters.
-
-Why does this belong in DT? What 'uses' determines the value? Who wants 
-to change this and when?
-
+On Wed, 26 Jul 2023 18:56:45 +0200,
+Jussi Laako wrote:
 > 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
->  .../devicetree/bindings/usb/snps,dwc3.yaml          | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+> Maintenance patch for native DSD support.
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
-> index 50edc4da780e..cc6012e922e0 100644
-> --- a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
-> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
-> @@ -376,6 +376,19 @@ properties:
->      items:
->        enum: [1, 4, 8, 16, 32, 64, 128, 256]
->  
-> +  snps,num-hc-interrupters:
-> +    description:
-> +      Defines the maximum number of XHCI host controller interrupters that can
-> +      be supported.  The XHCI host controller has support to allocate multiple
-> +      event rings, which can be assigned to different clients/users.  The DWC3
-> +      controller has a maximum of 8 interrupters.  If this is not defined then
-> +      the value will be defaulted to 1.  This parameter is used only when
-> +      operating in host mode.
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    minimum: 1
-> +    maximum: 8
-> +    default: 1
-> +
->    port:
->      $ref: /schemas/graph.yaml#/properties/port
->      description:
+> Remove incorrect T+A device quirks. Move set of device quirks to vendor
+> quirks. Add set of missing device and vendor quirks.
+> 
+> Signed-off-by: Jussi Laako <jussi@sonarnerd.net>
+
+Thanks, applied now.
+
+
+Takashi

@@ -2,204 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 273AD762FF3
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 10:35:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705B776300E
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 10:40:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D4F07F8;
-	Wed, 26 Jul 2023 10:34:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D4F07F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 973BD844;
+	Wed, 26 Jul 2023 10:39:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 973BD844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690360530;
-	bh=aNpBrU15hb71BP1UnsIrUOdwQVX5V7i76dUxWNFKOY8=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bthqR5TaYuZOvonG1HEI7kWVd/Sak5j4iU34fUeizNPziowIGDgXMsuP3NS4FKXqc
-	 qm22IAAb6YXWoaj28cfhrTcEPp733sN9cRli+NbO0EKo4B4eJ+nfd0WG1ckYcRru2D
-	 5t6ad6CvFZfSPo1ZAh4Yk085HzFUOriMHegCcjl0=
+	s=default; t=1690360814;
+	bh=m8xiPHOnJtEw9ksRSrPbomXO3h/A764rPHeshuvYXno=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=H5py9KtnZ49YhmbBc9im0n7m88PSlOHE9RLoogU0L6CrZaBHbPQ7p08TrmwzGEpc0
+	 BNNhXeP0D2Pba46LwaaLFJyiVV+mjO6b/6Vcmvp3RzUeL3jczdjARHmu6Bxarqa7xa
+	 swemHPxY5wl/YqPEZNAubibZwlqRSiuXaz2q4n/0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E21BF8019B; Wed, 26 Jul 2023 10:34:38 +0200 (CEST)
+	id 1225FF80557; Wed, 26 Jul 2023 10:38:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96424F800C7;
-	Wed, 26 Jul 2023 10:34:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B406F80549;
+	Wed, 26 Jul 2023 10:38:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 863B5F8019B; Wed, 26 Jul 2023 10:34:33 +0200 (CEST)
+	id 89260F801F5; Wed, 26 Jul 2023 10:38:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2485EF800C7
-	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 10:34:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2485EF800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACBC1F800D2
+	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 10:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACBC1F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JMFgrY+h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690360465; x=1721896465;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=aNpBrU15hb71BP1UnsIrUOdwQVX5V7i76dUxWNFKOY8=;
-  b=JMFgrY+h3DD/RjshBNiyqLeFWHdWWQ2jOunKvsxHir09TVsq7NNqzxmM
-   Ny2bKuRMkYfOk+ZqsvwxBu7Yhtzdk33LXlW37jqPMswsDxitf+cS4bGks
-   mRWzNoOVk2zkmOLQIkVPuLYKW+IrfmKk6Zb/jIEyKXqz7H5cG1V+tQCyU
-   NOcRLCOGCfjjJR+gr9wjPnQiVAf3RNLQPht5+YhrPWxI0aRJe1wZjlDQs
-   awOg3OoR6frgAKziBKr9/FiXwTw/R4UFdLg03boCQyXXSgRKEjGIBXhGr
-   qzn2fya0Ra0dkrhTc/EQ1W/QXOr9BUmVwBajlRfqYccrI/Ic1H+u4w3u3
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="348233936"
-X-IronPort-AV: E=Sophos;i="6.01,231,1684825200";
-   d="scan'208";a="348233936"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2023 01:34:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="676589020"
-X-IronPort-AV: E=Sophos;i="6.01,231,1684825200";
-   d="scan'208";a="676589020"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
-  by orsmga003.jf.intel.com with ESMTP; 26 Jul 2023 01:34:06 -0700
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Wed, 26 Jul 2023 01:34:06 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27 via Frontend Transport; Wed, 26 Jul 2023 01:34:06 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.104)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.27; Wed, 26 Jul 2023 01:34:06 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IMXNM9wjCuGHxcajj/9wHQQgofaAgqYrYcKyFb4W1ndHnyrEdqlUgkVYxprryu2abhDXe++RduqolVIO8P0rtb3SB218JX/Gj0dqAOAV/byyqA6C8BDTLhRiZ5StXZzCnreKiwL5evxyvZw9DDUgy72fAam+usoAskw9yzb2hX5sGfnA5Ky61JKCklD/LsRaS21YskjW56EG7woxNZIQ/GKWZk393U+WoH8modSpDmgcpM7BgEw4roPtyqQc5MU/Z1tM8X9qVPf172PbhZKc4EAivQzDrcjef0PYgZit+kGs8dPdUDtLcjYeH+g/Pga+0lWb/ekcszlRMDSWsgfoNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aNpBrU15hb71BP1UnsIrUOdwQVX5V7i76dUxWNFKOY8=;
- b=PGJRPr7qLnyhR8r4BSknxj0LoDQRUahMI5EMUEhuuYgez13HIYGNK7cpf+TBghWSRtUTEiJ1nZU5hvF6HFQhN6xi21Neb42QP/l2PsF5JxnnFFYqOnf0cZGq43O/2O2TfI3+DOvXSkb4XCnUdrTxpvA+TYIFuZ2KT8FusFIhwc64KUnhBNIWYvruG4WsxL2sNd7JQ6qtsC+UUtfHtiExTCOs3P5oYenxZYHf+o3WKH6OQ4I8TegbJOvZvu3exUu8E/Dpcab5uVYGOUbAo06eiEGDTankHokx4kLVx2rgwvN0ZuEvliTNx1kvAANhDEpChRecr87Owg/bu0zLgBouZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CY5PR11MB6257.namprd11.prod.outlook.com (2603:10b6:930:26::22)
- by PH7PR11MB6474.namprd11.prod.outlook.com (2603:10b6:510:1f2::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Wed, 26 Jul
- 2023 08:33:58 +0000
-Received: from CY5PR11MB6257.namprd11.prod.outlook.com
- ([fe80::12c9:6f97:4016:eabb]) by CY5PR11MB6257.namprd11.prod.outlook.com
- ([fe80::12c9:6f97:4016:eabb%7]) with mapi id 15.20.6631.026; Wed, 26 Jul 2023
- 08:33:58 +0000
-From: "Lu, Brent" <brent.lu@intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-CC: "Rojewski, Cezary" <cezary.rojewski@intel.com>, Liam Girdwood
-	<liam.r.girdwood@linux.intel.com>, Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>, Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>, Mark Brown <broonie@kernel.org>, "Jaroslav
- Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Ajye Huang
-	<ajye_huang@compal.corp-partner.google.com>, "Zhi, Yong"
-	<yong.zhi@intel.com>, Terry Cheong <htcheong@chromium.org>, "Bhat, Uday M"
-	<uday.m.bhat@intel.com>, "Chiang, Mac" <mac.chiang@intel.com>, "R,
- Dharageswari" <dharageswari.r@intel.com>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, ye xingchen <ye.xingchen@zte.com.cn>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: RE: [PATCH v2 1/2] ASoC: Intel: maxim-common: get codec number from
- ACPI
-Thread-Topic: [PATCH v2 1/2] ASoC: Intel: maxim-common: get codec number from
- ACPI
-Thread-Index: AQHZv4iOElXQr78YhkykGlIThIMz5K/Ls3wAgAADvOA=
-Date: Wed, 26 Jul 2023 08:33:58 +0000
-Message-ID: 
- <CY5PR11MB625741E8CCBA25EAA82739579700A@CY5PR11MB6257.namprd11.prod.outlook.com>
-References: <20230726140848.2267568-1-brent.lu@intel.com>
- <20230726140848.2267568-2-brent.lu@intel.com>
- <7349d6f4-4866-6fb3-57c9-9ce2d6989576@linux.intel.com>
-In-Reply-To: <7349d6f4-4866-6fb3-57c9-9ce2d6989576@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR11MB6257:EE_|PH7PR11MB6474:EE_
-x-ms-office365-filtering-correlation-id: 30532ed4-14a7-47a2-3e7e-08db8db30e73
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- IQNXgyTqRdkmO9UkgsBTlCGh/SqYVmU2yIpc3O0yAJOFYCAIdgmE/MtezZVM7yanO1pE7S06/yvnsm7zS625qGBHZ61aR0vz0JKtrOB6kcBjUYdu7DMg+vbW2858u697gCVMUHqFPVAIqihu9cLphX5Zm7bbrG0gHFiH/pRpkZdNd2iSFBDocZTdfHt9wT/ClO5WjhT3oOGeNgHQIH9lPa/LDUExtpDTuQSqr5zKXCAxjs/la0sx7gUz248KWrQRrhbidkD/DnHCYFlCwxUSa0Trkrpjcma4I7poyGqLbFEwA8pqgDXvfIofuTZItQOF0Xay1cuhpASmyY8kk6VTvs9KKi7t0XqT3+MCk+kMT0TFOdb/5YhFXhzDKhvkR03pjcn3nVJ64fJH3cxhib+FjwM/SGjr5I70z6FGDA2pEFrJkw/GU7C4HBORIr15hDPLVcnHtE0j3vmExKjZu+++7dV5IBDFJczuqZtWQXlsfQXiZkASnSoXuIPxpOy4OGlxc3jb8FhvFxmTs9ikxwFsjTjquVkqWMMnUhkr/cVajBuPlALyge/yXAiPVtVU5BNsbjhuPhf9FjswlqhTKvT5ebDhLQufeoIuBxuYFWv9qbGJ+Vxb/ZyhS+Ky9M6TPZj3uj7s2rGIw9VLYXiXgLENuw==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6257.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(376002)(39860400002)(346002)(136003)(451199021)(122000001)(52536014)(86362001)(478600001)(110136005)(41300700001)(5660300002)(8676002)(8936002)(7416002)(33656002)(4326008)(316002)(66556008)(54906003)(7696005)(76116006)(9686003)(66476007)(64756008)(66946007)(66446008)(26005)(6506007)(186003)(82960400001)(38100700002)(71200400001)(38070700005)(55016003)(2906002)(11716005);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?eWlOR0xEVWRkZGl3cVIwL2tzR2duS2RRdFprNDFOZDc3UEluN2dLemdCd2lu?=
- =?utf-8?B?L2NCSHNXcjRmYm8vN0E4TjBkQjAwSG0xZjg0MlhEWWpRalZGQit4Z1cvK0Vt?=
- =?utf-8?B?Q1NGdnRWT2ZhbW01MmF0cTExem5kYWJ0RHRBa0FnbGovUWprZGVlZk85bzJk?=
- =?utf-8?B?LzEzczVydG1LTXQ4d0FDa3c1cndEQWtPYWQ4MFlRVEFmbVFOY25BY3hQV24r?=
- =?utf-8?B?cXNLekdVcE9SZzdYVExDaG9FblFqRE1sZUZrVFhFaXJwekwvTkZXRHpqUmZ1?=
- =?utf-8?B?SDJHMXN5MVQ2em9HOUsyMUxnTUQxM21CeFVIWW1iMzgvcXpOTjBNMERPd1VB?=
- =?utf-8?B?Y2FERlFqejVOa3paMEorZi8xc3piWWRnYTN5RGZVVWdkclRjN08xRXgyY2hE?=
- =?utf-8?B?KzJGcHVOdU9NU0hyRnhIeDRrMnhOWXY4U09WUWNFcnU1amxsMGR1dEdSMm1O?=
- =?utf-8?B?YWhpUmxhUnlMZlBzaW5JeDNSdExyaXFIM3FIa1JLZ0hON2dOUWhzaGhJRncx?=
- =?utf-8?B?K2xVNjNSOGpLZWhrZXdFNVB2c25UeDZmWU1lM0R4bVRIRm1ldnVHSkF1Mkd0?=
- =?utf-8?B?S2RieURyeGkrVXZINlJ2enB6byt0ZFBTVG9xZmEvR1htSm8xUjJXQTFTT3RS?=
- =?utf-8?B?ZkFWSFlOdjMvSk15VFhtdzJ2OVdhZm1JR1dwOEhYS25Za2VxWFl6Zlp1MVBC?=
- =?utf-8?B?d29XV1hmaFhTT1dhZ1owWmN5MkRkZ0dxQXkvb280N3lSQVo2L2dpS2pzVnVi?=
- =?utf-8?B?aDdhWEhOVlRzZHVLUlFaeWVGKzk5bU9RU0pQc1lWdFFlL1R6TlBybmxDN0dE?=
- =?utf-8?B?dnlOVHRMd0hrdU9haHFzTFJpNWtLbitCNWpaZDBzQkNzUlBjTWIrMnZ5Q2JO?=
- =?utf-8?B?Sy9kZWJOTGtSRG5TUXRVcDg0NDRqRkpncVZLbUREVmNLdTlwQXRkZG9wdm5O?=
- =?utf-8?B?Vnp4b2xnNnZXckNFMy9XQllpMXNLZGh3eDZzdjNBOFd1aDFHT2tkRU5UeTM1?=
- =?utf-8?B?RStxbkw4VmRYNnJEZkpoV00rWFp0bDlDTmp3U2RkSjJlS2lNQzUvQW1IbjNj?=
- =?utf-8?B?Ykp0U0wwVm1DQTAzRHVmMncydU03c2NoZlBnbWVxRWpSdmxscFp1WWFCazhR?=
- =?utf-8?B?VmVtZW9wQXZCd0pBcFZQMU82VUo0MU5VbGUxa3RQM2NydGpWRE5qMlhaK00v?=
- =?utf-8?B?dEVIZXlqeGlHdG9JbXExZUxJT1FWaWFhL2JYUXRQOWZ1ZDBqRk9ER3RaZmRm?=
- =?utf-8?B?Nk5oK1FJVDVjaXRod2g0ZHJTaStRVTJoZWtkMVR5NVNVaSt6Szc5YmdTZXNs?=
- =?utf-8?B?NVdFSFRSdkpVLzBWVnRPd1hzQTVvK0tpbVpWVzByblQxVEkzNmFlVE85MDg2?=
- =?utf-8?B?VWplSkYvUzJJL3Q2d1JhN3FKa2JnNUVVM3dBQU1vUGkveWNITW11dFRZeEFE?=
- =?utf-8?B?aUZBMXhNb1oycUNpSEFDUmlXZ0c5Ny8vM09abDJyUjNrSFBMbElpYnFkd2tL?=
- =?utf-8?B?eFZLaWovQ2NsdjdWTzVlK0pLYi9FRmtKQXcwNFo1ajVLL2xrc0JmdHdzVFBC?=
- =?utf-8?B?UjBUbFJOYUR2SmcwR29aZVdtSzZSREVJbktNTWhjTmZrMXdLaXpHeUErTmJB?=
- =?utf-8?B?Umh1OWY5OFhoOHZ1emErcG95cVJTWHNrYVZFOGZTUS9zZm5kaXJJcS9ZVEh6?=
- =?utf-8?B?cy9ZWHdYd3ZlWFVTRkx1UEdCODZpS0VLWXBaMDl1MmllNEpvUTRaWFVOS2tJ?=
- =?utf-8?B?RG9wZlhoNDNWeXZjUjNqZUxEYW1uY0VLZVNSMGprdHBpK0FkSG1NaTJ3WGJB?=
- =?utf-8?B?bHVOVHZLb25hUGNlSjFDNE82VXRDbzhLRk9XbmU1cEtRUjljYXlSSTAvNnV3?=
- =?utf-8?B?ZlN4c3VVN0l1WHh6aUhxdEwvZGFVVUtnc0VhYlJjc3p6cVk0bDNyK2ZUeVo3?=
- =?utf-8?B?L1FvOHphbldlRUZKMDl3Mzd4NGR0QVBFOC9LTGx3a0VScWY3clFNV2NkaTFq?=
- =?utf-8?B?TnFPVG5WK1VtRzkzTTdkeEtCc2pPS0ZHNEpmWEJrcm81NW9tV25sQUFOaEZ6?=
- =?utf-8?B?bC81aTYvL0s0UUt5MjlCckduS21uZUwyaWVLZlhadG1BVjBhMnVkRXJCd2JH?=
- =?utf-8?Q?pano=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=N5B8z6sk
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36Q7mqi5023360;
+	Wed, 26 Jul 2023 10:38:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=3y1gAN+mwjFX0mmcob0coJ1SCFHX1T8V+14qzBSgYoA=;
+ b=N5B8z6sk0DqG0iOyKAz2AgU4noJ9XPHD2+5T5iX27bPzgHrFXh4Wd6QQV5NHYARnLYuy
+ FfsXC/y/WcOC67Y+a3/L07jxhG/OR21dxTEiruRaurn/OkFZuo3FYWVp2FE0NNwct8nV
+ y1Si+mWfmOcNhUDx8HXHu5gX1+AsG3abuw8f2Ygnt4AQwHzzATrwf0dI1BF5aIKnX4hL
+ d45Ca8DCN6Uo3UKf+YOzquRvgPuriEc/KaJFA7PJuuyyNpQohLqe4Wi3eo1hPKLxAvfQ
+ WZD1ACjnWZG4T46QzsFGCdtskRLGSf5ZzHw0NTxy8ApAgOe+Bspe33wVnVJWzUwANJUi qg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s2ye8gd3h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Jul 2023 10:38:18 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3861F100048;
+	Wed, 26 Jul 2023 10:38:16 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C6EB020FA39;
+	Wed, 26 Jul 2023 10:38:16 +0200 (CEST)
+Received: from localhost (10.201.21.121) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 26 Jul
+ 2023 10:38:16 +0200
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
+        <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
+        <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
+        <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
+        <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
+        <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>
+CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>,
+        Gatien Chevallier
+	<gatien.chevallier@foss.st.com>
+Subject: [PATCH v3 00/11] Introduce STM32 Firewall framework
+Date: Wed, 26 Jul 2023 10:37:59 +0200
+Message-ID: <20230726083810.232100-1-gatien.chevallier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6257.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 30532ed4-14a7-47a2-3e7e-08db8db30e73
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2023 08:33:58.3838
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- KuYbjf+PVABGMUN2gYiju9GsZpJe01FD3x9USoiWDTBXZyvOww8ukM8PF6k2wzia0VL5fSWQm6NiIMi/utfbUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6474
-X-OriginatorOrg: intel.com
-Message-ID-Hash: UYRBFOFWUKU2NHH733QGI63HFO5MYTA6
-X-Message-ID-Hash: UYRBFOFWUKU2NHH733QGI63HFO5MYTA6
-X-MailFrom: brent.lu@intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-26_01,2023-07-25_01,2023-05-22_02
+Message-ID-Hash: POMJ5FDEJLSNU4DY2XTD6VLMCNWJAEXY
+X-Message-ID-Hash: POMJ5FDEJLSNU4DY2XTD6VLMCNWJAEXY
+X-MailFrom: prvs=5571ed6ca5=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -211,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UYRBFOFWUKU2NHH733QGI63HFO5MYTA6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POMJ5FDEJLSNU4DY2XTD6VLMCNWJAEXY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -220,25 +130,185 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQo+ID4gICBjb25zdCBzdHJ1Y3Qgc25kX3NvY19kYXBtX3JvdXRlIG1heF85ODM3M19kYXBtX3Jv
-dXRlc1tdID0geyBAQA0KPiA+IC0xNjgsMTcgKzE4MSw2IEBAIHN0YXRpYyBzdHJ1Y3Qgc25kX3Nv
-Y19jb2RlY19jb25mIG1heF85ODM5MF9jb2RlY19jb25mW10NCj4gPSB7DQo+ID4gICAJCS5kbGMg
-PSBDT01QX0NPREVDX0NPTkYoTUFYXzk4MzkwX0RFVjFfTkFNRSksDQo+ID4gICAJCS5uYW1lX3By
-ZWZpeCA9ICJMZWZ0IiwNCj4gPiAgIAl9LA0KPiA+IC19Ow0KPiA+IC0NCj4gPiAtc3RhdGljIHN0
-cnVjdCBzbmRfc29jX2NvZGVjX2NvbmYgbWF4Xzk4MzkwXzRzcGtfY29kZWNfY29uZltdID0gew0K
-PiA+IC0Jew0KPiA+IC0JCS5kbGMgPSBDT01QX0NPREVDX0NPTkYoTUFYXzk4MzkwX0RFVjBfTkFN
-RSksDQo+ID4gLQkJLm5hbWVfcHJlZml4ID0gIlJpZ2h0IiwNCj4gPiAtCX0sDQo+ID4gLQl7DQo+
-ID4gLQkJLmRsYyA9IENPTVBfQ09ERUNfQ09ORihNQVhfOTgzOTBfREVWMV9OQU1FKSwNCj4gPiAt
-CQkubmFtZV9wcmVmaXggPSAiTGVmdCIsDQo+ID4gLQl9LA0KPiANCj4gaWYgeW91IHJlbW92ZSB0
-aGUgY29kZWMgY29uZiwgZG9lc24ndCB0aGlzIGltcGFjdCB0aGUgS2NvbnRyb2xzIG5hbWVzPw0K
-PiBEb2VzIHRoaXMgYnJlYWsgZXhpc3RpbmcgVUNNIGZpbGVzPw0KPiANCj4gSXQncyByYXRoZXIg
-aGFyZCB0byByZXZpZXcgd2l0aCBqdXN0IHRoZSBkaWZmLg0KPiANCg0KSSBqdXN0IG1lcmdlIHR3
-byBhcnJheXMsIG1heF85ODM3M19kYXBtX3JvdXRlcyBhbmQgbWF4Xzk4MzkwXzRzcGtfY29kZWNf
-Y29uZiwNCnNpbmNlIHRoZSBmaXJzdCB0d28gZW50cmllcyBhcmUgdGhlIHNhbWUuDQoNCkxhdGVy
-IGluIG1heF85ODM5MF9zZXRfY29kZWNfY29uZigpIGZ1bmN0aW9uIHdlIHdpbGwgc2V0IHRoZSBu
-dW1fY29uZmlncyB3aXRoDQpudW1iZXIgb2YgYW1wbGlmaWVycy4NCg0Kdm9pZCBtYXhfOTgzOTBf
-c2V0X2NvZGVjX2NvbmYoc3RydWN0IHNuZF9zb2NfY2FyZCAqY2FyZCkNCnsNCgl1bnNpZ25lZCBp
-bnQgbnVtX2NvZGVjcyA9IGdldF9udW1fY29kZWNzKE1BWF85ODM5MF9BQ1BJX0hJRCk7DQoNCglj
-YXJkLT5jb2RlY19jb25mID0gbWF4Xzk4MzkwX2NvZGVjX2NvbmY7DQoNCglzd2l0Y2ggKG51bV9j
-b2RlY3MpIHsNCgljYXNlIDI6DQoJY2FzZSA0Og0KCQljYXJkLT5udW1fY29uZmlncyA9IG51bV9j
-b2RlY3M7DQoNClJlZ2FyZHMsDQpCcmVudA0KDQo=
+Introduce STM32 Firewall framework for STM32MP1x and STM32MP2x
+platforms. STM32MP1x(ETZPC) and STM32MP2x(RIFSC) Firewall controllers
+register to the framework to offer firewall services such as access
+granting.
+
+This series of patches is a new approach on the previous STM32 system
+bus, history is available here:
+https://lore.kernel.org/lkml/20230127164040.1047583/
+
+The need for such framework arises from the fact that there are now
+multiple hardware firewalls implemented across multiple products.
+Drivers are shared between different products, using the same code.
+When it comes to firewalls, the purpose mostly stays the same: Protect
+hardware resources. But the implementation differs, and there are
+multiple types of firewalls: peripheral, memory, ... 
+
+Some hardware firewall controllers such as the RIFSC implemented on
+STM32MP2x platforms may require to take ownership of a resource before
+being able to use it, hence the requirement for firewall services to
+take/release the ownership of such resources.
+
+On the other hand, hardware firewall configurations are becoming
+more and more complex. These mecanisms prevent platform crashes
+or other firewall-related incoveniences by denying access to some
+resources.
+
+The stm32 firewall framework offers an API that is defined in
+firewall controllers drivers to best fit the specificity of each
+firewall.
+
+For every peripherals protected by either the ETZPC or the RIFSC, the
+firewall framework checks the firewall controlelr registers to see if
+the peripheral's access is granted to the Linux kernel. If not, the
+peripheral is configured as secure, the node is marked populated,
+so that the driver is not probed for that device.
+
+The firewall framework relies on the feature-domain-controller device
+tree bindings: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b.
+It is used by peripherals to reference a domain controller, in this
+case a firewall feature domain. The bus uses the ID referenced by
+the feature-domains property to know where to look in the firewall
+to get the security configuration for the peripheral. This allows
+a device tree description rather than a hardcoded peripheral table
+in the bus driver.
+
+The STM32 ETZPC device is responsible for filtering accesses based on
+security level, or co-processor isolation for any resource connected
+to it.
+
+The RIFSC is responsible for filtering accesses based on Compartment
+ID / security level / privilege level for any resource connected to
+it.
+
+STM32MP13/15/25 SoC device tree files are updated in this series to
+implement this mecanism.
+
+Changes in V2:
+
+	generic:
+		- Add fw_devlink dependency for "feature-domains"
+		  property.
+
+	bindings:
+		- Corrected YAMLS errors highlighted by Rob's robot
+		- Firewall controllers YAMLs no longer define the
+		  maxItems for the "feature-domains" property
+		- Renamed st,stm32-rifsc.yaml to
+		  st,stm32mp25-rifsc.yaml
+		- Fix examples in YAML files
+		- Change feature-domains maxItems to 2 in firewall
+		  consumer files as there should not be more than
+		  2 entries for now
+		- Declare "feature-domain-names" as an optional
+		  property for firewall controllers child nodes.
+		- Add missing "feature-domains" property declaration
+		  in bosch,m_can.yaml and st,stm32-cryp.yaml files
+
+	firewall framework:
+		- Support multiple entries for "feature-domains"
+		  property
+		- Better handle the device-tree parsing using
+		  phandle+args APIs
+		- Remove "resource firewall" type
+		- Add a field for the name of the firewall entry
+		- Fix licenses
+	
+	RIFSC:
+		- Add controller name
+		- Driver is now a module_platform_driver
+		- Fix license
+
+	ETZPC:
+		- Add controller name
+		- Driver is now a module_platform_driver
+		- Fix license
+
+	Device trees:
+		- Fix rifsc node name
+		- Move the "ranges" property under the
+		  "feature-domains" one
+
+Changes in V3:
+
+	Change incorrect ordering for bindings commits leading
+	to an error while running
+	"make DT_CHECKER_FLAGS=-m dt_binding_check"
+
+Oleksii Moisieiev (1):
+  dt-bindings: Document common device controller bindings
+
+Gatien Chevallier (10):
+  dt-bindings: treewide: add feature-domains description
+  dt-bindings: bus: document RIFSC
+  dt-bindings: bus: document ETZPC
+  firewall: introduce stm32_firewall framework
+  of: property: fw_devlink: Add support for "feature-domains"
+  bus: rifsc: introduce RIFSC firewall controller driver
+  arm64: dts: st: add RIFSC as a domain controller for STM32MP25x boards
+  bus: etzpc: introduce ETZPC firewall controller driver
+  ARM: dts: stm32: add ETZPC as a system bus for STM32MP15x boards
+  ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards
+
+ .../bindings/bus/st,stm32-etzpc.yaml          |   96 +
+ .../bindings/bus/st,stm32mp25-rifsc.yaml      |  105 +
+ .../bindings/crypto/st,stm32-cryp.yaml        |    4 +
+ .../bindings/crypto/st,stm32-hash.yaml        |    4 +
+ .../devicetree/bindings/dma/st,stm32-dma.yaml |    4 +
+ .../bindings/dma/st,stm32-dmamux.yaml         |    4 +
+ .../feature-domain-controller.yaml            |   84 +
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml |    4 +
+ .../bindings/iio/adc/st,stm32-adc.yaml        |    4 +
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |    4 +
+ .../bindings/iio/dac/st,stm32-dac.yaml        |    4 +
+ .../bindings/media/cec/st,stm32-cec.yaml      |    4 +
+ .../bindings/media/st,stm32-dcmi.yaml         |    4 +
+ .../memory-controllers/st,stm32-fmc2-ebi.yaml |    4 +
+ .../bindings/mfd/st,stm32-lptimer.yaml        |    4 +
+ .../bindings/mfd/st,stm32-timers.yaml         |    5 +
+ .../devicetree/bindings/mmc/arm,pl18x.yaml    |    4 +
+ .../bindings/net/can/bosch,m_can.yaml         |    4 +
+ .../devicetree/bindings/net/stm32-dwmac.yaml  |    4 +
+ .../bindings/phy/phy-stm32-usbphyc.yaml       |    4 +
+ .../bindings/regulator/st,stm32-vrefbuf.yaml  |    4 +
+ .../devicetree/bindings/rng/st,stm32-rng.yaml |    4 +
+ .../bindings/serial/st,stm32-uart.yaml        |    4 +
+ .../bindings/sound/st,stm32-i2s.yaml          |    4 +
+ .../bindings/sound/st,stm32-sai.yaml          |    4 +
+ .../bindings/sound/st,stm32-spdifrx.yaml      |    4 +
+ .../bindings/spi/st,stm32-qspi.yaml           |    4 +
+ .../devicetree/bindings/spi/st,stm32-spi.yaml |    4 +
+ .../devicetree/bindings/usb/dwc2.yaml         |    4 +
+ MAINTAINERS                                   |    7 +
+ arch/arm/boot/dts/st/stm32mp131.dtsi          | 1027 +++---
+ arch/arm/boot/dts/st/stm32mp133.dtsi          |   51 +-
+ arch/arm/boot/dts/st/stm32mp13xc.dtsi         |   19 +-
+ arch/arm/boot/dts/st/stm32mp13xf.dtsi         |   19 +-
+ arch/arm/boot/dts/st/stm32mp151.dtsi          | 2757 +++++++++--------
+ arch/arm/boot/dts/st/stm32mp153.dtsi          |   52 +-
+ arch/arm/boot/dts/st/stm32mp15xc.dtsi         |   19 +-
+ arch/arm64/Kconfig.platforms                  |    1 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |    7 +-
+ drivers/bus/Kconfig                           |    9 +
+ drivers/bus/Makefile                          |    1 +
+ drivers/bus/stm32_etzpc.c                     |  141 +
+ drivers/bus/stm32_firewall.c                  |  288 ++
+ drivers/bus/stm32_firewall.h                  |   83 +
+ drivers/bus/stm32_rifsc.c                     |  252 ++
+ drivers/of/property.c                         |    2 +
+ include/linux/bus/stm32_firewall_device.h     |  140 +
+ 47 files changed, 3346 insertions(+), 1919 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
+ create mode 100644 Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
+ create mode 100644 drivers/bus/stm32_etzpc.c
+ create mode 100644 drivers/bus/stm32_firewall.c
+ create mode 100644 drivers/bus/stm32_firewall.h
+ create mode 100644 drivers/bus/stm32_rifsc.c
+ create mode 100644 include/linux/bus/stm32_firewall_device.h
+
+-- 
+2.25.1
+

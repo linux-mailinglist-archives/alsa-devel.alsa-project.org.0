@@ -2,106 +2,204 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42EFD762F70
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 10:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273AD762FF3
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 10:35:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62973820;
-	Wed, 26 Jul 2023 10:15:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62973820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D4F07F8;
+	Wed, 26 Jul 2023 10:34:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D4F07F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690359409;
-	bh=3PBwGmmLNo5LsDc6Vk46BAUMhYfkHnDVYn22klH3w7w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690360530;
+	bh=aNpBrU15hb71BP1UnsIrUOdwQVX5V7i76dUxWNFKOY8=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OPBLQCl+ScerQdm8SW3+fJOh2vSOBPLpHbE+VzB46nV51ze3VWT2zyRDRAdExXahw
-	 I2peDsPTwhVXJRloSXLR73fWMEfMp0AuTsVpH2t7hOW3zLau/s10IqVf3huOTWK4u3
-	 LwB6X8rbeMwab24UnfSpp9vCVRF168m462yj6ZxQ=
+	b=bthqR5TaYuZOvonG1HEI7kWVd/Sak5j4iU34fUeizNPziowIGDgXMsuP3NS4FKXqc
+	 qm22IAAb6YXWoaj28cfhrTcEPp733sN9cRli+NbO0EKo4B4eJ+nfd0WG1ckYcRru2D
+	 5t6ad6CvFZfSPo1ZAh4Yk085HzFUOriMHegCcjl0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B02AF80544; Wed, 26 Jul 2023 10:15:49 +0200 (CEST)
+	id 3E21BF8019B; Wed, 26 Jul 2023 10:34:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 749F0F80153;
-	Wed, 26 Jul 2023 10:15:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96424F800C7;
+	Wed, 26 Jul 2023 10:34:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8013F800C7; Wed, 26 Jul 2023 10:15:44 +0200 (CEST)
+	id 863B5F8019B; Wed, 26 Jul 2023 10:34:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B5B3F800C7
-	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 10:15:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B5B3F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2485EF800C7
+	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 10:34:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2485EF800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IkFHo/Hq
+ header.s=Intel header.b=JMFgrY+h
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690359335; x=1721895335;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=3PBwGmmLNo5LsDc6Vk46BAUMhYfkHnDVYn22klH3w7w=;
-  b=IkFHo/HqHMKMPN1P2VeMV8lmOFzT8jSxTqH7LTszpQTi0PkonVZLJGAH
-   VotirYwLDgb03z7CjbdEtJKLyunBQZGL5UvP28TphZgvO2jlIvHWxuHM5
-   D17WCU37ALGW0YULjJHh4ZH8ZjZcSGqAv+WmsUOHeG+ZqkjLhGdhEqVoC
-   wYHgRHsZvyMUqXsUydGFexPG0hNYi3fSBJ6lC8TSIfo0anFRpTRx4whxU
-   cgSaLpyQvlD1E/KuzyKwa+Z4pAR3BzckpJduog8nx9gSiDCg0GbWtbUVa
-   NCUjJG95mIUaAR2et77fzKlV4equUM5d8yoGw0M07t8VXUeLnKu8U15Y5
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="431752634"
+  t=1690360465; x=1721896465;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=aNpBrU15hb71BP1UnsIrUOdwQVX5V7i76dUxWNFKOY8=;
+  b=JMFgrY+h3DD/RjshBNiyqLeFWHdWWQ2jOunKvsxHir09TVsq7NNqzxmM
+   Ny2bKuRMkYfOk+ZqsvwxBu7Yhtzdk33LXlW37jqPMswsDxitf+cS4bGks
+   mRWzNoOVk2zkmOLQIkVPuLYKW+IrfmKk6Zb/jIEyKXqz7H5cG1V+tQCyU
+   NOcRLCOGCfjjJR+gr9wjPnQiVAf3RNLQPht5+YhrPWxI0aRJe1wZjlDQs
+   awOg3OoR6frgAKziBKr9/FiXwTw/R4UFdLg03boCQyXXSgRKEjGIBXhGr
+   qzn2fya0Ra0dkrhTc/EQ1W/QXOr9BUmVwBajlRfqYccrI/Ic1H+u4w3u3
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="348233936"
 X-IronPort-AV: E=Sophos;i="6.01,231,1684825200";
-   d="scan'208";a="431752634"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2023 01:15:31 -0700
+   d="scan'208";a="348233936"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2023 01:34:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="840179540"
+X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="676589020"
 X-IronPort-AV: E=Sophos;i="6.01,231,1684825200";
-   d="scan'208";a="840179540"
-Received: from csmokx-mobl.ger.corp.intel.com (HELO [10.252.35.206])
- ([10.252.35.206])
-  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2023 01:15:21 -0700
-Message-ID: <7349d6f4-4866-6fb3-57c9-9ce2d6989576@linux.intel.com>
-Date: Wed, 26 Jul 2023 10:15:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-Subject: Re: [PATCH v2 1/2] ASoC: Intel: maxim-common: get codec number from
+   d="scan'208";a="676589020"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+  by orsmga003.jf.intel.com with ESMTP; 26 Jul 2023 01:34:06 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Wed, 26 Jul 2023 01:34:06 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Wed, 26 Jul 2023 01:34:06 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.104)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.27; Wed, 26 Jul 2023 01:34:06 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IMXNM9wjCuGHxcajj/9wHQQgofaAgqYrYcKyFb4W1ndHnyrEdqlUgkVYxprryu2abhDXe++RduqolVIO8P0rtb3SB218JX/Gj0dqAOAV/byyqA6C8BDTLhRiZ5StXZzCnreKiwL5evxyvZw9DDUgy72fAam+usoAskw9yzb2hX5sGfnA5Ky61JKCklD/LsRaS21YskjW56EG7woxNZIQ/GKWZk393U+WoH8modSpDmgcpM7BgEw4roPtyqQc5MU/Z1tM8X9qVPf172PbhZKc4EAivQzDrcjef0PYgZit+kGs8dPdUDtLcjYeH+g/Pga+0lWb/ekcszlRMDSWsgfoNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aNpBrU15hb71BP1UnsIrUOdwQVX5V7i76dUxWNFKOY8=;
+ b=PGJRPr7qLnyhR8r4BSknxj0LoDQRUahMI5EMUEhuuYgez13HIYGNK7cpf+TBghWSRtUTEiJ1nZU5hvF6HFQhN6xi21Neb42QP/l2PsF5JxnnFFYqOnf0cZGq43O/2O2TfI3+DOvXSkb4XCnUdrTxpvA+TYIFuZ2KT8FusFIhwc64KUnhBNIWYvruG4WsxL2sNd7JQ6qtsC+UUtfHtiExTCOs3P5oYenxZYHf+o3WKH6OQ4I8TegbJOvZvu3exUu8E/Dpcab5uVYGOUbAo06eiEGDTankHokx4kLVx2rgwvN0ZuEvliTNx1kvAANhDEpChRecr87Owg/bu0zLgBouZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CY5PR11MB6257.namprd11.prod.outlook.com (2603:10b6:930:26::22)
+ by PH7PR11MB6474.namprd11.prod.outlook.com (2603:10b6:510:1f2::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Wed, 26 Jul
+ 2023 08:33:58 +0000
+Received: from CY5PR11MB6257.namprd11.prod.outlook.com
+ ([fe80::12c9:6f97:4016:eabb]) by CY5PR11MB6257.namprd11.prod.outlook.com
+ ([fe80::12c9:6f97:4016:eabb%7]) with mapi id 15.20.6631.026; Wed, 26 Jul 2023
+ 08:33:58 +0000
+From: "Lu, Brent" <brent.lu@intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+CC: "Rojewski, Cezary" <cezary.rojewski@intel.com>, Liam Girdwood
+	<liam.r.girdwood@linux.intel.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>, Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>, Mark Brown <broonie@kernel.org>, "Jaroslav
+ Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Ajye Huang
+	<ajye_huang@compal.corp-partner.google.com>, "Zhi, Yong"
+	<yong.zhi@intel.com>, Terry Cheong <htcheong@chromium.org>, "Bhat, Uday M"
+	<uday.m.bhat@intel.com>, "Chiang, Mac" <mac.chiang@intel.com>, "R,
+ Dharageswari" <dharageswari.r@intel.com>, Kuninori Morimoto
+	<kuninori.morimoto.gx@renesas.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: RE: [PATCH v2 1/2] ASoC: Intel: maxim-common: get codec number from
  ACPI
-Content-Language: en-US
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Yong Zhi <yong.zhi@intel.com>, Terry Cheong <htcheong@chromium.org>,
- Uday M Bhat <uday.m.bhat@intel.com>, Mac Chiang <mac.chiang@intel.com>,
- "Dharageswari . R" <dharageswari.r@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- ye xingchen <ye.xingchen@zte.com.cn>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Thread-Topic: [PATCH v2 1/2] ASoC: Intel: maxim-common: get codec number from
+ ACPI
+Thread-Index: AQHZv4iOElXQr78YhkykGlIThIMz5K/Ls3wAgAADvOA=
+Date: Wed, 26 Jul 2023 08:33:58 +0000
+Message-ID: 
+ <CY5PR11MB625741E8CCBA25EAA82739579700A@CY5PR11MB6257.namprd11.prod.outlook.com>
 References: <20230726140848.2267568-1-brent.lu@intel.com>
  <20230726140848.2267568-2-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230726140848.2267568-2-brent.lu@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GGELTJWSUBGVQCLFZQCGCQOJUDIGLXPP
-X-Message-ID-Hash: GGELTJWSUBGVQCLFZQCGCQOJUDIGLXPP
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+ <7349d6f4-4866-6fb3-57c9-9ce2d6989576@linux.intel.com>
+In-Reply-To: <7349d6f4-4866-6fb3-57c9-9ce2d6989576@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR11MB6257:EE_|PH7PR11MB6474:EE_
+x-ms-office365-filtering-correlation-id: 30532ed4-14a7-47a2-3e7e-08db8db30e73
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ IQNXgyTqRdkmO9UkgsBTlCGh/SqYVmU2yIpc3O0yAJOFYCAIdgmE/MtezZVM7yanO1pE7S06/yvnsm7zS625qGBHZ61aR0vz0JKtrOB6kcBjUYdu7DMg+vbW2858u697gCVMUHqFPVAIqihu9cLphX5Zm7bbrG0gHFiH/pRpkZdNd2iSFBDocZTdfHt9wT/ClO5WjhT3oOGeNgHQIH9lPa/LDUExtpDTuQSqr5zKXCAxjs/la0sx7gUz248KWrQRrhbidkD/DnHCYFlCwxUSa0Trkrpjcma4I7poyGqLbFEwA8pqgDXvfIofuTZItQOF0Xay1cuhpASmyY8kk6VTvs9KKi7t0XqT3+MCk+kMT0TFOdb/5YhFXhzDKhvkR03pjcn3nVJ64fJH3cxhib+FjwM/SGjr5I70z6FGDA2pEFrJkw/GU7C4HBORIr15hDPLVcnHtE0j3vmExKjZu+++7dV5IBDFJczuqZtWQXlsfQXiZkASnSoXuIPxpOy4OGlxc3jb8FhvFxmTs9ikxwFsjTjquVkqWMMnUhkr/cVajBuPlALyge/yXAiPVtVU5BNsbjhuPhf9FjswlqhTKvT5ebDhLQufeoIuBxuYFWv9qbGJ+Vxb/ZyhS+Ky9M6TPZj3uj7s2rGIw9VLYXiXgLENuw==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6257.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(376002)(39860400002)(346002)(136003)(451199021)(122000001)(52536014)(86362001)(478600001)(110136005)(41300700001)(5660300002)(8676002)(8936002)(7416002)(33656002)(4326008)(316002)(66556008)(54906003)(7696005)(76116006)(9686003)(66476007)(64756008)(66946007)(66446008)(26005)(6506007)(186003)(82960400001)(38100700002)(71200400001)(38070700005)(55016003)(2906002)(11716005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?eWlOR0xEVWRkZGl3cVIwL2tzR2duS2RRdFprNDFOZDc3UEluN2dLemdCd2lu?=
+ =?utf-8?B?L2NCSHNXcjRmYm8vN0E4TjBkQjAwSG0xZjg0MlhEWWpRalZGQit4Z1cvK0Vt?=
+ =?utf-8?B?Q1NGdnRWT2ZhbW01MmF0cTExem5kYWJ0RHRBa0FnbGovUWprZGVlZk85bzJk?=
+ =?utf-8?B?LzEzczVydG1LTXQ4d0FDa3c1cndEQWtPYWQ4MFlRVEFmbVFOY25BY3hQV24r?=
+ =?utf-8?B?cXNLekdVcE9SZzdYVExDaG9FblFqRE1sZUZrVFhFaXJwekwvTkZXRHpqUmZ1?=
+ =?utf-8?B?SDJHMXN5MVQ2em9HOUsyMUxnTUQxM21CeFVIWW1iMzgvcXpOTjBNMERPd1VB?=
+ =?utf-8?B?Y2FERlFqejVOa3paMEorZi8xc3piWWRnYTN5RGZVVWdkclRjN08xRXgyY2hE?=
+ =?utf-8?B?KzJGcHVOdU9NU0hyRnhIeDRrMnhOWXY4U09WUWNFcnU1amxsMGR1dEdSMm1O?=
+ =?utf-8?B?YWhpUmxhUnlMZlBzaW5JeDNSdExyaXFIM3FIa1JLZ0hON2dOUWhzaGhJRncx?=
+ =?utf-8?B?K2xVNjNSOGpLZWhrZXdFNVB2c25UeDZmWU1lM0R4bVRIRm1ldnVHSkF1Mkd0?=
+ =?utf-8?B?S2RieURyeGkrVXZINlJ2enB6byt0ZFBTVG9xZmEvR1htSm8xUjJXQTFTT3RS?=
+ =?utf-8?B?ZkFWSFlOdjMvSk15VFhtdzJ2OVdhZm1JR1dwOEhYS25Za2VxWFl6Zlp1MVBC?=
+ =?utf-8?B?d29XV1hmaFhTT1dhZ1owWmN5MkRkZ0dxQXkvb280N3lSQVo2L2dpS2pzVnVi?=
+ =?utf-8?B?aDdhWEhOVlRzZHVLUlFaeWVGKzk5bU9RU0pQc1lWdFFlL1R6TlBybmxDN0dE?=
+ =?utf-8?B?dnlOVHRMd0hrdU9haHFzTFJpNWtLbitCNWpaZDBzQkNzUlBjTWIrMnZ5Q2JO?=
+ =?utf-8?B?Sy9kZWJOTGtSRG5TUXRVcDg0NDRqRkpncVZLbUREVmNLdTlwQXRkZG9wdm5O?=
+ =?utf-8?B?Vnp4b2xnNnZXckNFMy9XQllpMXNLZGh3eDZzdjNBOFd1aDFHT2tkRU5UeTM1?=
+ =?utf-8?B?RStxbkw4VmRYNnJEZkpoV00rWFp0bDlDTmp3U2RkSjJlS2lNQzUvQW1IbjNj?=
+ =?utf-8?B?Ykp0U0wwVm1DQTAzRHVmMncydU03c2NoZlBnbWVxRWpSdmxscFp1WWFCazhR?=
+ =?utf-8?B?VmVtZW9wQXZCd0pBcFZQMU82VUo0MU5VbGUxa3RQM2NydGpWRE5qMlhaK00v?=
+ =?utf-8?B?dEVIZXlqeGlHdG9JbXExZUxJT1FWaWFhL2JYUXRQOWZ1ZDBqRk9ER3RaZmRm?=
+ =?utf-8?B?Nk5oK1FJVDVjaXRod2g0ZHJTaStRVTJoZWtkMVR5NVNVaSt6Szc5YmdTZXNs?=
+ =?utf-8?B?NVdFSFRSdkpVLzBWVnRPd1hzQTVvK0tpbVpWVzByblQxVEkzNmFlVE85MDg2?=
+ =?utf-8?B?VWplSkYvUzJJL3Q2d1JhN3FKa2JnNUVVM3dBQU1vUGkveWNITW11dFRZeEFE?=
+ =?utf-8?B?aUZBMXhNb1oycUNpSEFDUmlXZ0c5Ny8vM09abDJyUjNrSFBMbElpYnFkd2tL?=
+ =?utf-8?B?eFZLaWovQ2NsdjdWTzVlK0pLYi9FRmtKQXcwNFo1ajVLL2xrc0JmdHdzVFBC?=
+ =?utf-8?B?UjBUbFJOYUR2SmcwR29aZVdtSzZSREVJbktNTWhjTmZrMXdLaXpHeUErTmJB?=
+ =?utf-8?B?Umh1OWY5OFhoOHZ1emErcG95cVJTWHNrYVZFOGZTUS9zZm5kaXJJcS9ZVEh6?=
+ =?utf-8?B?cy9ZWHdYd3ZlWFVTRkx1UEdCODZpS0VLWXBaMDl1MmllNEpvUTRaWFVOS2tJ?=
+ =?utf-8?B?RG9wZlhoNDNWeXZjUjNqZUxEYW1uY0VLZVNSMGprdHBpK0FkSG1NaTJ3WGJB?=
+ =?utf-8?B?bHVOVHZLb25hUGNlSjFDNE82VXRDbzhLRk9XbmU1cEtRUjljYXlSSTAvNnV3?=
+ =?utf-8?B?ZlN4c3VVN0l1WHh6aUhxdEwvZGFVVUtnc0VhYlJjc3p6cVk0bDNyK2ZUeVo3?=
+ =?utf-8?B?L1FvOHphbldlRUZKMDl3Mzd4NGR0QVBFOC9LTGx3a0VScWY3clFNV2NkaTFq?=
+ =?utf-8?B?TnFPVG5WK1VtRzkzTTdkeEtCc2pPS0ZHNEpmWEJrcm81NW9tV25sQUFOaEZ6?=
+ =?utf-8?B?bC81aTYvL0s0UUt5MjlCckduS21uZUwyaWVLZlhadG1BVjBhMnVkRXJCd2JH?=
+ =?utf-8?Q?pano=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6257.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 30532ed4-14a7-47a2-3e7e-08db8db30e73
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2023 08:33:58.3838
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ KuYbjf+PVABGMUN2gYiju9GsZpJe01FD3x9USoiWDTBXZyvOww8ukM8PF6k2wzia0VL5fSWQm6NiIMi/utfbUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6474
+X-OriginatorOrg: intel.com
+Message-ID-Hash: UYRBFOFWUKU2NHH733QGI63HFO5MYTA6
+X-Message-ID-Hash: UYRBFOFWUKU2NHH733QGI63HFO5MYTA6
+X-MailFrom: brent.lu@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +211,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGELTJWSUBGVQCLFZQCGCQOJUDIGLXPP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UYRBFOFWUKU2NHH733QGI63HFO5MYTA6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,306 +220,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 7/26/23 4:08 PM, Brent Lu wrote:
-> Implement a helper function to get number of codecs from ACPI
-> subsystem to remove the need of quirk flag in machine driver.
-> 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
-> ---
->   sound/soc/intel/boards/sof_maxim_common.c | 171 +++++++++++++---------
->   sound/soc/intel/boards/sof_maxim_common.h |  21 ++-
->   2 files changed, 110 insertions(+), 82 deletions(-)
-> 
-> diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
-> index 112e89951da0..1fdd66f5adc2 100644
-> --- a/sound/soc/intel/boards/sof_maxim_common.c
-> +++ b/sound/soc/intel/boards/sof_maxim_common.c
-> @@ -4,6 +4,7 @@
->   #include <linux/module.h>
->   #include <linux/string.h>
->   #include <sound/pcm.h>
-> +#include <sound/pcm_params.h>
->   #include <sound/soc.h>
->   #include <sound/soc-acpi.h>
->   #include <sound/soc-dai.h>
-> @@ -11,6 +12,18 @@
->   #include <uapi/sound/asound.h>
->   #include "sof_maxim_common.h"
->   
-> +/* helper function to get the number of specific codec */
-> +static unsigned int get_num_codecs(const char *hid)
-> +{
-> +	struct acpi_device *adev;
-> +	unsigned int dev_num = 0;
-> +
-> +	for_each_acpi_dev_match(adev, hid, NULL, -1)
-> +		dev_num++;
-> +
-> +	return dev_num;
-> +}
-> +
->   #define MAX_98373_PIN_NAME 16
->   
->   const struct snd_soc_dapm_route max_98373_dapm_routes[] = {
-> @@ -168,17 +181,6 @@ static struct snd_soc_codec_conf max_98390_codec_conf[] = {
->   		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
->   		.name_prefix = "Left",
->   	},
-> -};
-> -
-> -static struct snd_soc_codec_conf max_98390_4spk_codec_conf[] = {
-> -	{
-> -		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
-> -		.name_prefix = "Right",
-> -	},
-> -	{
-> -		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
-> -		.name_prefix = "Left",
-> -	},
-
-if you remove the codec conf, doesn't this impact the Kcontrols names? 
-Does this break existing UCM files?
-
-It's rather hard to review with just the diff.
-
->   	{
->   		.dlc = COMP_CODEC_CONF(MAX_98390_DEV2_NAME),
->   		.name_prefix = "Tweeter Right",
-> @@ -189,19 +191,7 @@ static struct snd_soc_codec_conf max_98390_4spk_codec_conf[] = {
->   	},
->   };
->   
-> -struct snd_soc_dai_link_component max_98390_components[] = {
-> -	{
-> -		.name = MAX_98390_DEV0_NAME,
-> -		.dai_name = MAX_98390_CODEC_DAI,
-> -	},
-> -	{
-> -		.name = MAX_98390_DEV1_NAME,
-> -		.dai_name = MAX_98390_CODEC_DAI,
-> -	},
-> -};
-> -EXPORT_SYMBOL_NS(max_98390_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-> -
-> -struct snd_soc_dai_link_component max_98390_4spk_components[] = {
-> +static struct snd_soc_dai_link_component max_98390_components[] = {
->   	{
->   		.name = MAX_98390_DEV0_NAME,
->   		.dai_name = MAX_98390_CODEC_DAI,
-> @@ -219,62 +209,56 @@ struct snd_soc_dai_link_component max_98390_4spk_components[] = {
->   		.dai_name = MAX_98390_CODEC_DAI,
->   	},
->   };
-> -EXPORT_SYMBOL_NS(max_98390_4spk_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-> +
-> +static const struct {
-> +	unsigned int tx;
-> +	unsigned int rx;
-> +} max_98390_tdm_mask[] = {
-> +	{.tx = 0x01, .rx = 0x3},
-> +	{.tx = 0x02, .rx = 0x3},
-> +	{.tx = 0x04, .rx = 0x3},
-> +	{.tx = 0x08, .rx = 0x3},
-> +};
->   
->   static int max_98390_hw_params(struct snd_pcm_substream *substream,
->   			       struct snd_pcm_hw_params *params)
->   {
->   	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
->   	struct snd_soc_dai *codec_dai;
-> -	int i;
-> +	int i, ret = 0;
->   
->   	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> -		if (i >= ARRAY_SIZE(max_98390_4spk_components)) {
-> +		if (i >= ARRAY_SIZE(max_98390_tdm_mask)) {
->   			dev_err(codec_dai->dev, "invalid codec index %d\n", i);
->   			return -ENODEV;
->   		}
->   
-> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV0_NAME)) {
-> -			/* DEV0 tdm slot configuration Right */
-> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x01, 3, 4, 32);
-> -		}
-> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV1_NAME)) {
-> -			/* DEV1 tdm slot configuration Left */
-> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x02, 3, 4, 32);
-> -		}
-> -
-> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV2_NAME)) {
-> -			/* DEVi2 tdm slot configuration Tweeter Right */
-> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x04, 3, 4, 32);
-> -		}
-> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV3_NAME)) {
-> -			/* DEV3 tdm slot configuration Tweeter Left */
-> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x08, 3, 4, 32);
-> +		ret = snd_soc_dai_set_tdm_slot(codec_dai, max_98390_tdm_mask[i].tx,
-> +					       max_98390_tdm_mask[i].rx, 4,
-> +					       params_width(params));
-> +		if (ret < 0) {
-> +			dev_err(codec_dai->dev, "fail to set tdm slot, ret %d\n",
-> +				ret);
-> +			return ret;
->   		}
->   	}
->   	return 0;
->   }
->   
-> -int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
-> +static int max_98390_init(struct snd_soc_pcm_runtime *rtd)
->   {
->   	struct snd_soc_card *card = rtd->card;
-> +	unsigned int num_codecs = get_num_codecs(MAX_98390_ACPI_HID);
->   	int ret;
->   
-> -	/* add regular speakers dapm route */
-> -	ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
-> -				      ARRAY_SIZE(max_98390_dapm_routes));
-> -	if (ret) {
-> -		dev_err(rtd->dev, "unable to add Left/Right Speaker dapm, ret %d\n", ret);
-> -		return ret;
-> -	}
-> -
-> -	/* add widgets/controls/dapm for tweeter speakers */
-> -	if (acpi_dev_present("MX98390", "3", -1)) {
-> +	switch (num_codecs) {
-> +	case 4:
-> +		/* add widgets/controls/dapm for tweeter speakers */
->   		ret = snd_soc_dapm_new_controls(&card->dapm, max_98390_tt_dapm_widgets,
->   						ARRAY_SIZE(max_98390_tt_dapm_widgets));
-> -
->   		if (ret) {
-> -			dev_err(rtd->dev, "unable to add tweeter dapm controls, ret %d\n", ret);
-> +			dev_err(rtd->dev, "unable to add tweeter dapm widgets, ret %d\n",
-> +				ret);
->   			/* Don't need to add routes if widget addition failed */
->   			return ret;
->   		}
-> @@ -282,33 +266,80 @@ int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
->   		ret = snd_soc_add_card_controls(card, max_98390_tt_kcontrols,
->   						ARRAY_SIZE(max_98390_tt_kcontrols));
->   		if (ret) {
-> -			dev_err(rtd->dev, "unable to add tweeter card controls, ret %d\n", ret);
-> +			dev_err(rtd->dev, "unable to add tweeter controls, ret %d\n",
-> +				ret);
->   			return ret;
->   		}
->   
->   		ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_tt_dapm_routes,
->   					      ARRAY_SIZE(max_98390_tt_dapm_routes));
-> -		if (ret)
-> -			dev_err(rtd->dev,
-> -				"unable to add Tweeter Left/Right Speaker dapm, ret %d\n", ret);
-> +		if (ret) {
-> +			dev_err(rtd->dev, "unable to add tweeter dapm routes, ret %d\n",
-> +				ret);
-> +			return ret;
-> +		}
-> +
-> +		fallthrough;
-> +	case 2:
-> +		/* add regular speakers dapm route */
-> +		ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
-> +					      ARRAY_SIZE(max_98390_dapm_routes));
-> +		if (ret) {
-> +			dev_err(rtd->dev, "unable to add dapm routes, ret %d\n",
-> +				ret);
-> +			return ret;
-> +		}
-> +		break;
-> +	default:
-> +		dev_err(rtd->dev, "invalid codec number %d\n", num_codecs);
-> +		ret = -EINVAL;
-> +		break;
->   	}
-> +
->   	return ret;
->   }
-> -EXPORT_SYMBOL_NS(max_98390_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
->   
-> -const struct snd_soc_ops max_98390_ops = {
-> +static const struct snd_soc_ops max_98390_ops = {
->   	.hw_params = max_98390_hw_params,
->   };
-> -EXPORT_SYMBOL_NS(max_98390_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
->   
-> -void max_98390_set_codec_conf(struct snd_soc_card *card, int ch)
-> +void max_98390_dai_link(struct snd_soc_dai_link *link)
-> +{
-> +	unsigned int num_codecs = get_num_codecs(MAX_98390_ACPI_HID);
-> +
-> +	link->codecs = max_98390_components;
-> +
-> +	switch (num_codecs) {
-> +	case 2:
-> +	case 4:
-> +		link->num_codecs = num_codecs;
-> +		break;
-> +	default:
-> +		pr_err("invalid codec number %d for %s\n", num_codecs,
-> +			MAX_98390_ACPI_HID);
-> +		break;
-> +	}
-> +
-> +	link->init = max_98390_init;
-> +	link->ops = &max_98390_ops;
-> +}
-> +EXPORT_SYMBOL_NS(max_98390_dai_link, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-> +
-> +void max_98390_set_codec_conf(struct snd_soc_card *card)
->   {
-> -	if (ch == ARRAY_SIZE(max_98390_4spk_codec_conf)) {
-> -		card->codec_conf = max_98390_4spk_codec_conf;
-> -		card->num_configs = ARRAY_SIZE(max_98390_4spk_codec_conf);
-> -	} else {
-> -		card->codec_conf = max_98390_codec_conf;
-> -		card->num_configs = ARRAY_SIZE(max_98390_codec_conf);
-> +	unsigned int num_codecs = get_num_codecs(MAX_98390_ACPI_HID);
-> +
-> +	card->codec_conf = max_98390_codec_conf;
-> +
-> +	switch (num_codecs) {
-> +	case 2:
-> +	case 4:
-> +		card->num_configs = num_codecs;
-> +		break;
-> +	default:
-> +		pr_err("invalid codec number %d for %s\n", num_codecs,
-> +			MAX_98390_ACPI_HID);
-> +		break;
->   	}
->   }
->   EXPORT_SYMBOL_NS(max_98390_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-> diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
-> index 7a8c53049e4d..a3676d68cc12 100644
-> --- a/sound/soc/intel/boards/sof_maxim_common.h
-> +++ b/sound/soc/intel/boards/sof_maxim_common.h
-> @@ -27,18 +27,15 @@ int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
->   /*
->    * Maxim MAX98390
->    */
-> -#define MAX_98390_CODEC_DAI     "max98390-aif1"
-> -#define MAX_98390_DEV0_NAME     "i2c-MX98390:00"
-> -#define MAX_98390_DEV1_NAME     "i2c-MX98390:01"
-> -#define MAX_98390_DEV2_NAME     "i2c-MX98390:02"
-> -#define MAX_98390_DEV3_NAME     "i2c-MX98390:03"
-> -
-> -extern struct snd_soc_dai_link_component max_98390_components[2];
-> -extern struct snd_soc_dai_link_component max_98390_4spk_components[4];
-> -extern const struct snd_soc_ops max_98390_ops;
-> -
-> -void max_98390_set_codec_conf(struct snd_soc_card *card, int ch);
-> -int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
-> +#define MAX_98390_ACPI_HID	"MX98390"
-> +#define MAX_98390_CODEC_DAI	"max98390-aif1"
-> +#define MAX_98390_DEV0_NAME	"i2c-MX98390:00"
-> +#define MAX_98390_DEV1_NAME	"i2c-MX98390:01"
-> +#define MAX_98390_DEV2_NAME	"i2c-MX98390:02"
-> +#define MAX_98390_DEV3_NAME	"i2c-MX98390:03"
-> +
-> +void max_98390_dai_link(struct snd_soc_dai_link *link);
-> +void max_98390_set_codec_conf(struct snd_soc_card *card);
->   
->   /*
->    * Maxim MAX98357A/MAX98360A
-
+DQo+ID4gICBjb25zdCBzdHJ1Y3Qgc25kX3NvY19kYXBtX3JvdXRlIG1heF85ODM3M19kYXBtX3Jv
+dXRlc1tdID0geyBAQA0KPiA+IC0xNjgsMTcgKzE4MSw2IEBAIHN0YXRpYyBzdHJ1Y3Qgc25kX3Nv
+Y19jb2RlY19jb25mIG1heF85ODM5MF9jb2RlY19jb25mW10NCj4gPSB7DQo+ID4gICAJCS5kbGMg
+PSBDT01QX0NPREVDX0NPTkYoTUFYXzk4MzkwX0RFVjFfTkFNRSksDQo+ID4gICAJCS5uYW1lX3By
+ZWZpeCA9ICJMZWZ0IiwNCj4gPiAgIAl9LA0KPiA+IC19Ow0KPiA+IC0NCj4gPiAtc3RhdGljIHN0
+cnVjdCBzbmRfc29jX2NvZGVjX2NvbmYgbWF4Xzk4MzkwXzRzcGtfY29kZWNfY29uZltdID0gew0K
+PiA+IC0Jew0KPiA+IC0JCS5kbGMgPSBDT01QX0NPREVDX0NPTkYoTUFYXzk4MzkwX0RFVjBfTkFN
+RSksDQo+ID4gLQkJLm5hbWVfcHJlZml4ID0gIlJpZ2h0IiwNCj4gPiAtCX0sDQo+ID4gLQl7DQo+
+ID4gLQkJLmRsYyA9IENPTVBfQ09ERUNfQ09ORihNQVhfOTgzOTBfREVWMV9OQU1FKSwNCj4gPiAt
+CQkubmFtZV9wcmVmaXggPSAiTGVmdCIsDQo+ID4gLQl9LA0KPiANCj4gaWYgeW91IHJlbW92ZSB0
+aGUgY29kZWMgY29uZiwgZG9lc24ndCB0aGlzIGltcGFjdCB0aGUgS2NvbnRyb2xzIG5hbWVzPw0K
+PiBEb2VzIHRoaXMgYnJlYWsgZXhpc3RpbmcgVUNNIGZpbGVzPw0KPiANCj4gSXQncyByYXRoZXIg
+aGFyZCB0byByZXZpZXcgd2l0aCBqdXN0IHRoZSBkaWZmLg0KPiANCg0KSSBqdXN0IG1lcmdlIHR3
+byBhcnJheXMsIG1heF85ODM3M19kYXBtX3JvdXRlcyBhbmQgbWF4Xzk4MzkwXzRzcGtfY29kZWNf
+Y29uZiwNCnNpbmNlIHRoZSBmaXJzdCB0d28gZW50cmllcyBhcmUgdGhlIHNhbWUuDQoNCkxhdGVy
+IGluIG1heF85ODM5MF9zZXRfY29kZWNfY29uZigpIGZ1bmN0aW9uIHdlIHdpbGwgc2V0IHRoZSBu
+dW1fY29uZmlncyB3aXRoDQpudW1iZXIgb2YgYW1wbGlmaWVycy4NCg0Kdm9pZCBtYXhfOTgzOTBf
+c2V0X2NvZGVjX2NvbmYoc3RydWN0IHNuZF9zb2NfY2FyZCAqY2FyZCkNCnsNCgl1bnNpZ25lZCBp
+bnQgbnVtX2NvZGVjcyA9IGdldF9udW1fY29kZWNzKE1BWF85ODM5MF9BQ1BJX0hJRCk7DQoNCglj
+YXJkLT5jb2RlY19jb25mID0gbWF4Xzk4MzkwX2NvZGVjX2NvbmY7DQoNCglzd2l0Y2ggKG51bV9j
+b2RlY3MpIHsNCgljYXNlIDI6DQoJY2FzZSA0Og0KCQljYXJkLT5udW1fY29uZmlncyA9IG51bV9j
+b2RlY3M7DQoNClJlZ2FyZHMsDQpCcmVudA0KDQo=

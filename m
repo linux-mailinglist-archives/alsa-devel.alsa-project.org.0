@@ -2,117 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17392762F01
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 10:01:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BA6E762B43
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jul 2023 08:18:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A3057F4;
-	Wed, 26 Jul 2023 10:01:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A3057F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32E8C207;
+	Wed, 26 Jul 2023 08:17:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32E8C207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690358510;
-	bh=wnGTcF05GhLGa2Lq/PkYkmIXWvLVUZRJ7AocCs+7P7c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fTE6QERJLkjYuU8ej6srdGYkVM3mlIh7cg3eDtd5UepJL1MOgBuGrr3Zu9JXTgr/P
-	 DdkId5Ptd7rAEzffiieci0iAK3LFcz9lUxd/I80luvR7p2fYBk+RiJhnnOuMo6nd+1
-	 YINhToRdnQc40BBAZ3gN8uZdvRbb051IcdVRDKDU=
+	s=default; t=1690352322;
+	bh=js5eLjuH8dKH2vHgVoNL1hwwICaDvEgaMk24LXytU+c=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=syJZOQJLHcvcKEt4+IabARitToSUCLdPZIgAszH1CqsaQ5AGZG8aj8mq5WYLj6uu/
+	 xdRPc/8fwdCLXjI/sQ7JZrYOAcmTYXpfBC+lbwmlPgwi64xNUNt9pmJoiDBl4WgLkY
+	 JT9Qriw8wEYmHMbIOBQlI6/K715bKqWs5Ht7hM04=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8793F802E8; Wed, 26 Jul 2023 10:00:59 +0200 (CEST)
+	id A0EA8F80520; Wed, 26 Jul 2023 08:17:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40F6EF80153;
-	Wed, 26 Jul 2023 10:00:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40E78F80153;
+	Wed, 26 Jul 2023 08:17:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 894C0F8019B; Wed, 26 Jul 2023 10:00:55 +0200 (CEST)
+	id 65C20F800C7; Wed, 26 Jul 2023 08:15:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61FE5F800C7
-	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 10:00:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61FE5F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36106F800C7
+	for <alsa-devel@alsa-project.org>; Wed, 26 Jul 2023 08:15:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36106F800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=O0IeSms8
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-99b78fda9a8so746813566b.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 26 Jul 2023 01:00:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690358444; x=1690963244;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gBi4DXkLkJk2Dg/EkHSHB5+DOP2xfu33PAuJukEQqto=;
-        b=O0IeSms8+KrpFhWEWODiOcZPWu7XE/w7h3JOelgJ1u+V9ps8nlSF+lr+InbxFPs6XS
-         5nvks7NbBBTFP2kfFdwkLuFRlzvMd5WpBYuvWxZs2FPikTsRGX8CgpzMGrq3SDbW7/g/
-         cb+kDdUrgtqK7QEaDferyxoNRuu6OLW4vYujM9WN1+AXTaRlt0rsTDFZ4cTizKHLpNbg
-         4HMoyv718YERB/ONenjnlfdCd643YpVN60h2L5dy7AEfdiVG9B/NQhfXXeQe3dhMQXGU
-         MnlajdbDA63LmK4GWKRGcGxHSTIuhETxZ2M/Olf28mMWyJuJzV7koTwGJAWHtWb71u2i
-         9+hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690358444; x=1690963244;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gBi4DXkLkJk2Dg/EkHSHB5+DOP2xfu33PAuJukEQqto=;
-        b=WmyK8+IHVS5KEUyisqaHF8rdepiKsfq9SCxKcooyBYP5sTr3+3M4Fd/g1K4oAs/94f
-         zaFIKBFgrSkwvaQwmDrygTXkcfyvc956qLJbuGbf7hpA1GC1HNpqlht8TozljxOsfcG1
-         ivPZEmiZigD70mOqYyFTWP9LtyAZSPzBIqk1QTsNdKdC8NPwvKH7wrjkT3h0GyTGPUgK
-         LZkJX1ozJJUpU85ZtFZsk5J860wWUXETPfPCkcCTaJo7A97IzbzxG/YJ815X/vy63Hsw
-         c/fn7pitxTtHsZ0CvEWoEsZ4sb29WeJn3SCXrawA1G3RE/zJiiwL61vQgwT+685+yK0K
-         N2Ow==
-X-Gm-Message-State: ABy/qLa/Mk7XqnJtFMWABTrh4FmxE+K97WqMMNJOWGfotce67gJD4xtM
-	jbGUMbew3Y9Vr4xzj4p1aiLPRA==
-X-Google-Smtp-Source: 
- APBJJlEy6J8EY+FQdZGq40ZDRrTuULzJoDlHK38119KLstNODFT2nRCtqILtEmSUP2tSfvA4Ge7tJg==
-X-Received: by 2002:a17:906:7795:b0:991:c9da:70da with SMTP id
- s21-20020a170906779500b00991c9da70damr1212478ejm.61.1690358444448;
-        Wed, 26 Jul 2023 01:00:44 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
-        by smtp.gmail.com with ESMTPSA id
- si1-20020a170906cec100b00992d70f8078sm9302120ejb.106.2023.07.26.01.00.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Jul 2023 01:00:44 -0700 (PDT)
-Message-ID: <b030ce33-afd1-7b11-db38-7d48f81690d6@linaro.org>
-Date: Wed, 26 Jul 2023 10:00:41 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=hoq/8oKx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690352106; x=1721888106;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=js5eLjuH8dKH2vHgVoNL1hwwICaDvEgaMk24LXytU+c=;
+  b=hoq/8oKx15GooU8PdZsL8CCSZ1MZhjmrK+IN33MY107YjLsmi4qaM8dn
+   Cm1SP+pVneG+L5gws7WNeIS3emo4SNO773n/9qKGop/oOzvsuBUqHy/6n
+   wAlRV8BmW2FIZmldDtS/QW5eClURVyCC8vE9xVMQxuJgmSZ6P/NDujPWe
+   ZT9lwINYqs1QDjdVolcOsT8OL/fBPWbTRGaw90QBTJ6CTJTpAwSCf0Ms6
+   jVwkEY7bHdV3J7S6Qh4LaYsMNxpBO6WV/bA/K3LoZ/pKOVJY7zDyfbDCx
+   phhfi7NhXcq2PGclQxpzyPZBhnYPgWzCG4MZBwrVIlTvr9Hl+6lxVkoxq
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="367950241"
+X-IronPort-AV: E=Sophos;i="6.01,231,1684825200";
+   d="scan'208";a="367950241"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2023 23:14:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10782"; a="703606278"
+X-IronPort-AV: E=Sophos;i="6.01,231,1684825200";
+   d="scan'208";a="703606278"
+Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
+  by orsmga006.jf.intel.com with ESMTP; 25 Jul 2023 23:14:54 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Brent Lu <brent.lu@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+	Yong Zhi <yong.zhi@intel.com>,
+	Terry Cheong <htcheong@chromium.org>,
+	Uday M Bhat <uday.m.bhat@intel.com>,
+	Mac Chiang <mac.chiang@intel.com>,
+	"Dharageswari . R" <dharageswari.r@intel.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	ye xingchen <ye.xingchen@zte.com.cn>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 0/2] Intel: sof_rt5682: remove quirk flag
+Date: Wed, 26 Jul 2023 22:08:46 +0800
+Message-Id: <20230726140848.2267568-1-brent.lu@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v4 23/32] ASoC: dt-bindings: Add Q6USB backend bindings
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, agross@kernel.org,
- andersson@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, catalin.marinas@arm.com, will@kernel.org,
- mathias.nyman@intel.com, gregkh@linuxfoundation.org, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
- Thinh.Nguyen@synopsys.com
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-usb@vger.kernel.org, alsa-devel@alsa-project.org,
- quic_jackp@quicinc.com, pierre-louis.bossart@linux.intel.com,
- oneukum@suse.com, albertccwang@google.com, o-takashi@sakamocchi.jp
-References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
- <20230725023416.11205-24-quic_wcheng@quicinc.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230725023416.11205-24-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: CHOGUSEAFYPK6TWQQ7DLG6FTJ7U3N4GR
-X-Message-ID-Hash: CHOGUSEAFYPK6TWQQ7DLG6FTJ7U3N4GR
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: NIJRFCYUS4NB3S5G23R53RVGHAJBEO34
+X-Message-ID-Hash: NIJRFCYUS4NB3S5G23R53RVGHAJBEO34
+X-MailFrom: brent.lu@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,70 +110,40 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CHOGUSEAFYPK6TWQQ7DLG6FTJ7U3N4GR/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NIJRFCYUS4NB3S5G23R53RVGHAJBEO34/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 25/07/2023 04:34, Wesley Cheng wrote:
-> Add a dt-binding to describe the definition of enabling the Q6 USB backend
-> device for audio offloading.  The node carries information, which is passed
-> along to the QC USB SND class driver counterpart.  These parameters will be
-> utilized during QMI stream enable requests.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+We add a helper function to detect amplifier number according to device instance
+in ACPI table so the SOF_MAX98390_TWEETER_SPEAKER_PRESENT flag and a dmi quirk
+for 4-amplifier configuration could be safely removed.
 
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
+Also refactor the max_98390_hw_params() function to use an array to handle the
+TDM parameter.
 
-> ---
->  .../bindings/sound/qcom,q6usb-dais.yaml       | 49 +++++++++++++++++++
->  1 file changed, 49 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6usb-dais.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6usb-dais.yaml b/Documentation/devicetree/bindings/sound/qcom,q6usb-dais.yaml
-> new file mode 100644
-> index 000000000000..77bc9b4c3c90
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,q6usb-dais.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,q6usb-dais.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm ASoC DPCM USB backend DAI
-> +
-> +maintainers:
-> +  - Wesley Cheng <quic_wcheng@quicinc.com>
-> +
-> +description:
-> +  The USB port is a supported AFE path on the Q6 DSP.  This ASoC DPCM
-> +  backend DAI driver will communicate the required settings to the QC USB SND
-> +  class driver for properly enabling the audio stream.  Parameters defined
-> +  under this node will carry settings, which will be passed along during
-> +  the QMI stream enable request.
+Amplifier number detection and TDM parameter are tested on two Chromebooks. One
+with 2 MAX98390 and one with 4 MAX98390 amplifier.
 
-You still refer to the drivers. I said this should be rephrased and you
-confirmed that "driver" here means Linux. If you are adding bindings for
-Linux drivers, then it won't work. Bindings are for hardware.
+V2 Changes:
+- fix some typos in cover letter
+- use for_each_acpi_dev_match() macro to simplify the codec
+- use 'unsign int' for codec number variable
 
+Brent Lu (2):
+  ASoC: Intel: maxim-common: get codec number from ACPI
+  ASoC: Intel: sof_rt5682: remove SOF_MAX98390_TWEETER_SPEAKER_PRESENT
+    flag
 
-Also, missing $ref to dai-common.yaml
+ sound/soc/intel/boards/sof_maxim_common.c | 171 +++++++++++++---------
+ sound/soc/intel/boards/sof_maxim_common.h |  21 ++-
+ sound/soc/intel/boards/sof_rt5682.c       |  37 +----
+ 3 files changed, 112 insertions(+), 117 deletions(-)
 
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,q6usb
-> +
-
-
-Best regards,
-Krzysztof
+-- 
+2.34.1
 

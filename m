@@ -2,114 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7A07654A7
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 15:12:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3984C765811
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 17:53:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D70FF843;
-	Thu, 27 Jul 2023 15:11:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D70FF843
+	by alsa0.perex.cz (Postfix) with ESMTPS id B42E583A;
+	Thu, 27 Jul 2023 17:53:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B42E583A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690463526;
-	bh=vUmENAs/1cTT+DGAYGPlCtIT+JAbd069Wvnn2YfAKdU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690473232;
+	bh=V2aH0vwTvDcXMuV7cQlSjt46toCvcqNWtjA04RTm5Bw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Hde3n3zIPGxnEHOtlSU23KgmxV4xarUr75lbhr3FbyAiaxqGwKAbMEvkDTgUKHPza
-	 PUzQvzHK1WxOC9KdtJ8DiJSZlLZL2QKPpp3Nt4XNxLM+oL0HrepJG66K3Vwv5axDVC
-	 Wi8Zr2tgaXGUiESN0dR/slV8iMK5U9dXtstsQOqU=
+	b=XJQnfdzZpMAuMHqDWRJWLfREiRLplRZ9BJJ+qjwuDLODPF8pXEjBf/v1BPE7fb73X
+	 Uxd4yHQwAk0WsgPLKES18yht5HKDcCMlS1BLqU4hdWc36ZZVKy/BckWXVG2FP32bTC
+	 5ZMSWseQJHC7f4sz5tryxrsODwo9Nso5HkTrtRLI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2367AF80163; Thu, 27 Jul 2023 15:11:14 +0200 (CEST)
+	id 18A9CF801F5; Thu, 27 Jul 2023 17:53:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50F90F80163;
-	Thu, 27 Jul 2023 15:11:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3E91F800D2;
+	Thu, 27 Jul 2023 17:53:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86A24F8019B; Thu, 27 Jul 2023 15:11:09 +0200 (CEST)
+	id 671A0F8019B; Thu, 27 Jul 2023 11:51:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from out-113.mta0.migadu.com (out-113.mta0.migadu.com
+ [91.218.175.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8E92F800D2
-	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 15:10:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8E92F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3D3FEF80153
+	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 11:50:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D3FEF80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=E2WkFIu1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bcrgDnKL
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CBE7321AED;
-	Thu, 27 Jul 2023 13:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690463445;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key,
+ unprotected) header.d=jookia.org header.i=@jookia.org header.a=rsa-sha256
+ header.s=key1 header.b=T298/Bwh
+Date: Thu, 27 Jul 2023 19:50:36 +1000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jookia.org; s=key1;
+	t=1690451455;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=01qV6FkBa+XL0T32UsVWy/unfABT93niNV9gpO0mV/Q=;
-	b=E2WkFIu1doyNi567RiuonW2XY/V0Wp67hezRJ86kW565L1zWdqWoM8ynzFYp9CicyrTnGO
-	YE5dUBmvPC8p15jQGPkVrQpW1sCpIkkYZtzdypa2631kg8FMR6RbJrsovLakyvHkT3dvvi
-	9o+igPFJREDGIdVhUjoV1xVpRGDJCjg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690463445;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=01qV6FkBa+XL0T32UsVWy/unfABT93niNV9gpO0mV/Q=;
-	b=bcrgDnKLsd/InBCS99eYvNLPT9TLbwImOKBCtTiT23dibce61n3OesFRmACVAxarUFJK9I
-	F3CDds8HpIP2tLCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE72F13902;
-	Thu, 27 Jul 2023 13:10:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id izeOKdVswmTTZAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 27 Jul 2023 13:10:45 +0000
-Date: Thu, 27 Jul 2023 15:10:45 +0200
-Message-ID: <87y1j14i0a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.5-rc3
-In-Reply-To: <20230727121944.556C6C433C7@smtp.kernel.org>
-References: <20230727121944.556C6C433C7@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 2NYLZHXYGJBTEIDN3ISI2HF2YS4XQMNK
-X-Message-ID-Hash: 2NYLZHXYGJBTEIDN3ISI2HF2YS4XQMNK
-X-MailFrom: tiwai@suse.de
+	bh=tpGulMNGBLGeCQsQWgv21Wi66CtJAGM5/rQdNeGYsjk=;
+	b=T298/BwhHCdJVHBlfM6PVWLwOt80cn2rGyCcxgdCQ6KysXhzJdQ1dV3DRe/cbt1nmcJLaY
+	dRZRQITmJX4FXoI2L4w89dmtjTyhVh6QqnQ5aCELttROQKKMLZWOm4gXTERY7qcNIf94ie
+	g7at2lL6PRWvXkLK9WhJSw9g/bg4dn+zf22UuiGcZHIAeB73sVfh9eKjEGo8+eDQhZFUnX
+	UQX3jyUsVRM/B+si6VZ1foMb0XXXDDAduG2dpbXXHoAHsLZY5w3MeHnBatB0K56Z7MbZYk
+	MaG8J5TAfuFAp0o3DUG5fcI+H5RW5JLePVB8mFeGBs2QuM8qC6Lhx/TONmOP0w==
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: John Watts <contact@jookia.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: How do I set up multiple codecs on one I2S - without TDM?
+Message-ID: <ZMI97Pk0giYpLFdv@titan>
+References: <ZMBRMnv0GQF4wyfQ@titan>
+ <c2f5a9ec-2927-f9bf-86a1-3388d0bac015@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c2f5a9ec-2927-f9bf-86a1-3388d0bac015@linux.intel.com>
+X-Migadu-Flow: FLOW_OUT
+X-MailFrom: contact@jookia.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: NJLNSEPZUCWRKB7VMSJW4ASQNWDBRROQ
+X-Message-ID-Hash: NJLNSEPZUCWRKB7VMSJW4ASQNWDBRROQ
+X-Mailman-Approved-At: Thu, 27 Jul 2023 15:52:58 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2NYLZHXYGJBTEIDN3ISI2HF2YS4XQMNK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJLNSEPZUCWRKB7VMSJW4ASQNWDBRROQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,29 +94,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 27 Jul 2023 14:19:31 +0200,
-Mark Brown wrote:
+On Thu, Jul 27, 2023 at 11:45:01AM +0200, Pierre-Louis Bossart wrote:
+> On 7/26/23 12:48 AM, John Watts wrote:
+> > Hello there!
+> > 
+> > I have an interesting problem that I'm trying to solve. It will require
+> > writing adding driver support but right now I'm struggling to understand
+> > how I should go about it all.
+> > 
+> > As a background, this is with the Allwinner D1 or T113. It has a 16
+> > channel I2S controller and each channel can be configured to use a
+> > specific pin and TDM time slice. Even channels are low LRCLK, odd are
+> > high LRCLK.
+> > 
+> > So for my situation I want to have six channels:
+> > 
+> > - Channel 0: Timeslot 0, Pin 0, LRCLK 0 -> ADC 1
+> > - Channel 1: Timeslot 0, Pin 0, LRCLK 1 -> ADC 1
+> > - Channel 2: Timeslot 0, Pin 1, LRCLK 0 -> ADC 2
+> > - Channel 3: Timeslot 0, Pin 1, LRCLK 1 -> ADC 2
+> > - Channel 4: Timeslot 0, Pin 2, LRCLK 0 -> ADC 3
+> > - Channel 5: Timeslot 0, Pin 2, LRCLK 1 -> ADC 3
 > 
-> The following changes since commit 6eaae198076080886b9e7d57f4ae06fa782f90ef:
+> It would help if you described what those different 'channels' are supposed
+> to transmit. Usually channels mean a group of data that is rendered at the
+> same time. It looks like you plan on transmitting independent streams that
+> may be enabled/disabled separately.
 > 
->   Linux 6.5-rc3 (2023-07-23 15:24:10 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc3
-> 
-> for you to fetch changes up to f85739c0b2b0d98a32f5ca4fcc5501d2b76df4f6:
-> 
->   ASoC: atmel: Fix the 8K sample parameter in I2SC master (2023-07-25 12:10:00 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.5
-> 
-> A collection of device specific fixes, none particularly remarkable.
-> There's a set of repetitive fixes for the RealTek drivers fixing an
-> issue with suspend that was replicated in multiple drivers.
+> Also you should describe if there are independent clocks or if all those 6
+> 'channels' are transmitted with a single pair of bit/frame clocks? That
+> completely changes the model, in the former case you could represent
+> independent DAIs/dailinks but in the latter case you really have a single
+> muxed stream.
 
-Pulled now.  Thanks.
+Hello,
 
+These channels are intended for measuring vibration at various points in a
+vehicle. Each channel is a vibration measurement.
 
-Takashi
+These all use the same I2S clock, multiplexing is handled by having each ADC
+connected to a different I2S pin.
+
+John.

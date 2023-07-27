@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B7AC765E80
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 23:54:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 330CE765EF7
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 00:10:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB36A828;
-	Thu, 27 Jul 2023 23:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB36A828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4384683E;
+	Fri, 28 Jul 2023 00:10:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4384683E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690494883;
-	bh=2DV18A5LAIbHOz8+4mF5Dz/H6ijYF+f0DqJHiw+O6Z8=;
+	s=default; t=1690495857;
+	bh=oD0r9GQJcI4a0oPPFKD+f4eCazsB8WXRECfFQ/3Qn80=;
 	h=Date:Subject:From:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ai58jAiH5RRk2CI2OZ11D30d06cOCoil7f5KJ8ugcGp56rKH/87VYaCE4H8nuRkSR
-	 Z1qNCZr4ZCy3VV26fcy7RvpBe91nn4JsOxQvSh0fryeoC4OuZnPZG6q/dk7ONJ4D5Q
-	 2iNEBJylWOO1cm8SYmyCtFH58tG/t5av1DQDhNbM=
+	b=iwazfRXcU607HQa4kY9/IUWYqo4OGDboowMm6Auc9vG8CRumIdiyMz2z8pSBSipay
+	 sKGVQ7caauRPYjGVeW8FFHImHrxD82MXIkZLohNwr83KF/V91+4XjIbo6hBoVIKdD5
+	 6c1AzmsZ7hGF9nBBHDSURVeYUBCPMsLs92FboPwo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E23B2F80310; Thu, 27 Jul 2023 23:53:52 +0200 (CEST)
+	id 3E84EF8019B; Fri, 28 Jul 2023 00:09:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F8CEF80163;
-	Thu, 27 Jul 2023 23:53:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB1ACF80163;
+	Fri, 28 Jul 2023 00:09:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07E98F8019B; Thu, 27 Jul 2023 23:53:47 +0200 (CEST)
+	id 86E4BF8019B; Fri, 28 Jul 2023 00:09:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
@@ -37,75 +37,72 @@ Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4DDDEF800D2
-	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 23:53:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DDDEF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id DB253F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 00:09:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB253F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=YRH0Rand
+ header.s=20221208 header.b=fE74tUBj
 Received: by mail-yb1-xb4a.google.com with SMTP id
- 3f1490d57ef6-d1ef7a6abacso1239371276.2
+ 3f1490d57ef6-d1c693a29a0so1352898276.1
         for <alsa-devel@alsa-project.org>;
- Thu, 27 Jul 2023 14:53:35 -0700 (PDT)
+ Thu, 27 Jul 2023 15:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1690494814; x=1691099614;
+        d=google.com; s=20221208; t=1690495775; x=1691100575;
         h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=+IrV9GMRSdZPt30c7KcILm3qep9zKx/623+6CGNnSZI=;
-        b=YRH0RandNbmWOsNbix1juf2j32ITK9Uvj67kgr3R72979X637zKHH8KZguOPLopzPy
-         fjkQbcWwTfMo1Hqb4p+zc/kFemN21RJ6rTyJtcMQ/oEKwjHKIFtmzqeJZgnBmRq/79FF
-         Q1T9puk7xzNEdjIV/igXmV4UFIlev2+Onajgaupn8iFIWwD+LDMaU7Rqh6Y/qZ8WNZcQ
-         EbYgsmXlOOtwiPgFmIy/5TsvUTsSImKFRVPRiBPAtXKPd4wWKkCURJYYWadAtcEjnXsQ
-         ZCgI9IcqtCntKz8lcvSlVTtTRikw2cRxyKs3v6SBQpDYBNM+kCas8jJKyEbxblWbQEXw
-         lu9A==
+        bh=k4cN8fzY539FysYzQlSA0Pbs/oY5p0DEsZqLCjbwVvw=;
+        b=fE74tUBj82E0tSa/0hBOCShqg7o01vF5y2SbmNJ/juHndnAg1YyQmejY/pw6orggQN
+         ytb3Tzb063ewn66GTGD+efAdkYGfs4WPpu7H130YDhEbKK142c+EUjrDNvBdygYTR7Kh
+         Cp/1++qI2LkJPyYq2Eg9jUbnkUI8257/3SWou5EpGsXM6+ws9j5KNwFdRsHYKtfAi1W7
+         F68Mi+8DAmp7aJC8NGkqxNDy5TmgFsbM3Om90MD5TQ3w1/zPiJz3ES+hFSGi20w9OwOl
+         bRr8yn1DpzQqRscRfWZBI4YtPs9FaZSWvqGPYgHdB01Sm9K4zaR1aHpu68QSa+Fe33Hg
+         oNWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690494814; x=1691099614;
+        d=1e100.net; s=20221208; t=1690495775; x=1691100575;
         h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+IrV9GMRSdZPt30c7KcILm3qep9zKx/623+6CGNnSZI=;
-        b=G85OY3GZ9DyKVlodFFuyjnmg0EdkRVv6rn4VIQ539e1xHJG8kgIvak4vH2PSa72jn1
-         1GFzoODJOX952pB9DQ44CW8oXGiwT2URfNpr7/UrIDen4upu481eeCMF7VRYbRhmLod7
-         A9Kvq7SKlNDwGrZRGyrNTiHBYwC/ByuZBPlX/LexGJZ4OF3hD9FL7Sm9nZ9bFVk+3A+Y
-         10JtXnZLiHqvB3Dya5ctdeAy9SUMmiMCPcBm/UVg63MrKtI1xVu9zCG2FMkBYWgnK7Jk
-         ZNpa3Nm6fcEaW8Ht8YsuuZ4k4r7RNeBI+MbSxBbSYtQmadqyEsq/Z+Cjdcz6mZ5kfp8j
-         WuzA==
-X-Gm-Message-State: ABy/qLZSIOKzQZYJhky5D5YZ0zbKijIhanMl+UhtFhhj52pjAmoYwoV/
-	wpS3Nl9hRgCFSS1ZoVQaYjZgPgO5CdPQVcu/zQ==
+        bh=k4cN8fzY539FysYzQlSA0Pbs/oY5p0DEsZqLCjbwVvw=;
+        b=gdf8k5u5JIOgIHLEZXhqkZzyS4jkecSSK81LBG3wq5XXVuW1uV6QOHPWiWh0FIexAS
+         jv8xfDfEDMX6BBpd4xGnm9bZIW3kKfIxmfkwc8d9e66ZV+IdQaiUPx+Yb9NP6xGVLypt
+         P7Q3dzTRF58EKTCOBbzlZERDvrmaG3TVVOSnjKHDs+SScYNmGcqVGfCuo3ZNfn6YXnce
+         lgLbyI3qBS5Tt/BL9kXKQfmF69J4ereBk/xeuD5TgSFfqG5WbCzD+HkzkLodXYWp/O+0
+         UC8N+yNAkLQbRhFUCAanQ5Z/yC2Ok3oF3K0ENJ/XTELeNfMLkb+G6jayALncgzxZ96CE
+         bRQQ==
+X-Gm-Message-State: ABy/qLZWqmZttD0DjIkDONbkY+6cAyFeWMnZK4dtaC9pfP1luU7xr73E
+	C22lnqqA25jxPKW+TLIIlmf8FVtsU9oWtRgG7A==
 X-Google-Smtp-Source: 
- APBJJlHXF3DAQ7oQ2+0tdvzkYP1VoY7GsOUMjOE+/Vdzmdw/tfkvYZ+dZ1a3XDRmAV0OnKJAbEafFAFp/DwKM5StMA==
+ APBJJlGukc9SZ2I7uyCQYm11/HQDHfMQPVp2DWNDs8mAqGReE456fsavrd53NHvvDfPo0YNTJ/yH8S9Sb7Il8EZ2bg==
 X-Received: from jstitt-linux1.c.googlers.com
  ([fda3:e722:ac3:cc00:2b:ff92:c0a8:23b5])
- (user=justinstitt job=sendgmr) by 2002:a25:ab13:0:b0:cfe:74cf:e61a with SMTP
- id u19-20020a25ab13000000b00cfe74cfe61amr4397ybi.6.1690494813865; Thu, 27 Jul
- 2023 14:53:33 -0700 (PDT)
-Date: Thu, 27 Jul 2023 21:53:24 +0000
+ (user=justinstitt job=sendgmr) by 2002:a25:abf2:0:b0:d07:f1ed:521a with SMTP
+ id v105-20020a25abf2000000b00d07f1ed521amr3818ybi.4.1690495774661; Thu, 27
+ Jul 2023 15:09:34 -0700 (PDT)
+Date: Thu, 27 Jul 2023 22:09:29 +0000
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAFPnwmQC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI2MDcyNz3eL80rwU3YrUPF1jS4tkS0sj8yTjFAsloPqCotS0zAqwWdGxtbU
- AfC3LdVsAAAA=
+X-B4-Tracking: v=1; b=H4sIABjrwmQC/x3MQQqEMAxG4atI1gZ+6zCiVxEXrY1jNlUaFEG8u
+ 2WW3+K9m0yyitFQ3ZTlVNMtFTR1RfPq009YYzE5uBad69i2I0U+LHCYowPAHyC0+ML3S0+l27M
+ sev2f4/Q8L8MihdBjAAAA
 X-Developer-Key: i=justinstitt@google.com; a=ed25519;
  pk=tC3hNkJQTpNX/gLKxTNQKDmiQl6QjBNCGKJINqAdJsE=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1690494812; l=3106;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1690495773; l=2722;
  i=justinstitt@google.com; s=20230717; h=from:subject:message-id;
- bh=2DV18A5LAIbHOz8+4mF5Dz/H6ijYF+f0DqJHiw+O6Z8=;
- b=vopO06Wm0zYSnDpTC9r5I+EsMsCZYRVtZWxLb5Dfivdpz4dFnQc4/MROOoOi/9uBOTysUrbZO
- B8mJVXUSQDcCy59jXa+eGsPlPBt2oonSrkqDfkKPfBHRnmLmfyW1zgm
+ bh=oD0r9GQJcI4a0oPPFKD+f4eCazsB8WXRECfFQ/3Qn80=;
+ b=RMEEkMB9gj5yDuIGuIqJVfiAW714ytVo21T7+/g2zrDgaM+Trm12x329hvrQ6qpkXQkBKdNp7
+ h1YTuOzeph4DYE6Y7PJqPk4FGt00qNiQKla88lXSQoet8fLsPbVG5Uu
 X-Mailer: b4 0.12.3
-Message-ID: <20230727-sound-xen-v1-1-89dd161351f1@google.com>
-Subject: [PATCH] ALSA: xen-front: refactor deprecated strncpy
+Message-ID: <20230727-sound-usb-bcd2000-v1-1-0dc73684b2f0@google.com>
+Subject: [PATCH] ALSA: bcd2000: refactor deprecated strncpy
 From: Justin Stitt <justinstitt@google.com>
-To: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: xen-devel@lists.xenproject.org, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
 	Justin Stitt <justinstitt@google.com>
 Content-Type: text/plain; charset="utf-8"
-Message-ID-Hash: SLNOJR4VNIDVRVDUQXL2UL6J46Z4ND4U
-X-Message-ID-Hash: SLNOJR4VNIDVRVDUQXL2UL6J46Z4ND4U
+Message-ID-Hash: JPNJW45AVVDIABF3ZBWFCFFA3NYHBH7U
+X-Message-ID-Hash: JPNJW45AVVDIABF3ZBWFCFFA3NYHBH7U
 X-MailFrom: 
- 3XefCZAsKCmQLWUVKPUVKVVIQQING.EQOCNUC-FGXGNCNUC-RTQLGEV.QTI@flex--justinstitt.bounces.google.com
+ 3HuvCZAsKCi0SdbcRWbcRccPXXPUN.LXVJUbJ-MNeNUJUbJ-YaXSNLc.XaP@flex--justinstitt.bounces.google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SLNOJR4VNIDVRVDUQXL2UL6J46Z4ND4U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JPNJW45AVVDIABF3ZBWFCFFA3NYHBH7U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,52 +141,41 @@ Technically, my patch yields subtly different behavior. The original
 implementation with `strncpy` would fill the entire destination buffer
 with null bytes [3] while `strscpy` will leave the junk, uninitialized
 bytes trailing after the _mandatory_ NUL-termination. So, if somehow
-`pcm->name` or `card->driver/shortname/longname` require this
-NUL-padding behavior then `strscpy_pad` should be used. My
-interpretation, though, is that the aforementioned fields are just fine
-as NUL-terminated strings. Please correct my assumptions if needed and
-I'll send in a v2.
+`card->driver` or `card->shortname` require this NUL-padding behavior
+then `strscpy_pad` should be used. My interpretation, though, is that
+the aforementioned fields are just fine as NUL-terminated strings.
+Please correct my assumptions if needed and I'll send in a v2.
 
 [1]: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings
 [2]: manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html
 [3]: https://linux.die.net/man/3/strncpy
 
 Link: https://github.com/KSPP/linux/issues/90
+Link: https://lore.kernel.org/r/20230727-sound-xen-v1-1-89dd161351f1@google.com (related ALSA patch)
 Signed-off-by: Justin Stitt <justinstitt@google.com>
 ---
- sound/xen/xen_snd_front_alsa.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/usb/bcd2000/bcd2000.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/xen/xen_snd_front_alsa.c b/sound/xen/xen_snd_front_alsa.c
-index db917453a473..7a3dfce97c15 100644
---- a/sound/xen/xen_snd_front_alsa.c
-+++ b/sound/xen/xen_snd_front_alsa.c
-@@ -783,7 +783,7 @@ static int new_pcm_instance(struct xen_snd_front_card_info *card_info,
- 	pcm->info_flags = 0;
- 	/* we want to handle all PCM operations in non-atomic context */
- 	pcm->nonatomic = true;
--	strncpy(pcm->name, "Virtual card PCM", sizeof(pcm->name));
-+	strscpy(pcm->name, "Virtual card PCM", sizeof(pcm->name));
+diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
+index 7aec0a95c609..392b4d8e9e76 100644
+--- a/sound/usb/bcd2000/bcd2000.c
++++ b/sound/usb/bcd2000/bcd2000.c
+@@ -395,8 +395,8 @@ static int bcd2000_probe(struct usb_interface *interface,
  
- 	if (instance_cfg->num_streams_pb)
- 		snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK,
-@@ -835,9 +835,9 @@ int xen_snd_front_alsa_init(struct xen_snd_front_info *front_info)
- 			goto fail;
- 	}
+ 	snd_card_set_dev(card, &interface->dev);
  
--	strncpy(card->driver, XENSND_DRIVER_NAME, sizeof(card->driver));
--	strncpy(card->shortname, cfg->name_short, sizeof(card->shortname));
--	strncpy(card->longname, cfg->name_long, sizeof(card->longname));
-+	strscpy(card->driver, XENSND_DRIVER_NAME, sizeof(card->driver));
-+	strscpy(card->shortname, cfg->name_short, sizeof(card->shortname));
-+	strscpy(card->longname, cfg->name_long, sizeof(card->longname));
- 
- 	ret = snd_card_register(card);
- 	if (ret < 0)
+-	strncpy(card->driver, "snd-bcd2000", sizeof(card->driver));
+-	strncpy(card->shortname, "BCD2000", sizeof(card->shortname));
++	strscpy(card->driver, "snd-bcd2000", sizeof(card->driver));
++	strscpy(card->shortname, "BCD2000", sizeof(card->shortname));
+ 	usb_make_path(bcd2k->dev, usb_path, sizeof(usb_path));
+ 	snprintf(bcd2k->card->longname, sizeof(bcd2k->card->longname),
+ 		    "Behringer BCD2000 at %s",
 
 ---
 base-commit: 57012c57536f8814dec92e74197ee96c3498d24e
-change-id: 20230727-sound-xen-398c9927b3d8
+change-id: 20230727-sound-usb-bcd2000-400b3060a9f9
 
 Best regards,
 --

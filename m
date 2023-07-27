@@ -2,102 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49FCD764F85
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 11:23:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC94765019
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 11:46:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 607D9844;
-	Thu, 27 Jul 2023 11:22:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 607D9844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7591183B;
+	Thu, 27 Jul 2023 11:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7591183B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690449820;
-	bh=brE446l0NnbsBdNTMz1eRg2anjy9QOxiUBOilEyPeeg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jDTlDWX271X8OPkH1juq22gAhNvwhx1mDBdcLMSmzscwLhg3QRk3nEJH9+9XHxFth
-	 cTVMLBQFUb+nHncrwpAqpbksg72oXfVvquShdT469QyByF7WhP8IlyKxmcGbJ4rPUb
-	 mqcBu94r/Iq0xWoxhu4CQmRb8yJ41M786X5zVAbc=
+	s=default; t=1690451168;
+	bh=g6SJFzfR1u7gEVgXQN74QXtzHLJDaFdmGc9pRr2lg4Q=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=XbBzXgAO/rr3oDnKYtiVlsJN02O8+cF2ClCi/25QyU08Cx62n/ZM7TWNEiv4fX02t
+	 evS6dEpQQoOoVjao42dnjzsSPY0pweocor5sduQ0F4HIk8zUjOXAHaGNLNoHFDa4QU
+	 VIRQfviTmXMmj7KKMWIAcP3A/Ei5Hne/Vll+vwaA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 279DAF8019B; Thu, 27 Jul 2023 11:22:29 +0200 (CEST)
+	id E99C2F80310; Thu, 27 Jul 2023 11:45:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B098CF80163;
-	Thu, 27 Jul 2023 11:22:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C3A5F80163;
+	Thu, 27 Jul 2023 11:45:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 642CCF8019B; Thu, 27 Jul 2023 11:22:25 +0200 (CEST)
+	id 2730DF8019B; Thu, 27 Jul 2023 11:45:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (unknown [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CB20F80149
-	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 11:22:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CB20F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5AD33F80153
+	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 11:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AD33F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YRHlRDEe
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AD68E61DE1;
-	Thu, 27 Jul 2023 09:22:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5763DC433C7;
-	Thu, 27 Jul 2023 09:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690449738;
-	bh=brE446l0NnbsBdNTMz1eRg2anjy9QOxiUBOilEyPeeg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YRHlRDEeh2LbCOuSCaecwWzcjh/d/VRacQTDWyJZtGVeSclDSuaWppMwW2Jwuabcz
-	 j5H7GBDTiQkLArSUNoX7MVpsKX2Jx4U81JMF9wSXoAGyrU/kkr9qOadAHd7qFHtqXe
-	 lEuJpA10KIyKZn+bcTrj2P56hBcPXOsombqB+jeAX8sEO+SUUW1IBVCbkYO/j8vZmJ
-	 MKJ3XXz6A0l3S/S3CuGJyywmVXvgaHYFDFetAI+ylH2b/wCW/iE/B/E4CklyuK25pG
-	 U3/MVc260hsoEO5Fn78tyPIrcubBH49N5rNivS/jrIZsL6vBuu7n2qVTMKCFErFDvn
-	 8kVC0m+MhinKQ==
-Date: Thu, 27 Jul 2023 10:22:09 +0100
-From: Lee Jones <lee@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Qiang Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 22/28] mfd: core: Ensure disabled devices are skiped
- without aborting
-Message-ID: <20230727092209.GA8175@google.com>
-References: <20230726150225.483464-1-herve.codina@bootlin.com>
- <20230726150225.483464-23-herve.codina@bootlin.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Zx05V47M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690451108; x=1721987108;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=g6SJFzfR1u7gEVgXQN74QXtzHLJDaFdmGc9pRr2lg4Q=;
+  b=Zx05V47MDWlNdGTRXrsQqtfN0S5LrJ+fhcfPu+9ozIXrD0tAM1nFxAMR
+   EckxpmGkz0f5RufpFgza7HeVeR9m8XLpCbFe90J/i0s0AkHf2Dh7nMIj6
+   0IvBLQoFf16uqAz6eN6Zqi9jT2SRTZSijc1ivX14aJuIMG9xOP38Iwv60
+   o7YTW+gzwynKruOY4u2sWOngOCHXwo7jfpNicfuazNRdYeGSMH+gFUzTc
+   cWDX8PRnnBME+2cOcvp53AX2KlYtHDQ0BxENWT1Iimi0FIQg4NA0zF/5V
+   MphEmqq4JslNFMMbBniaeKFjhEdguZBcGsnBJemquQwXrLVkWVIc3GW8x
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10783"; a="399200669"
+X-IronPort-AV: E=Sophos;i="6.01,234,1684825200";
+   d="scan'208";a="399200669"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2023 02:45:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10783"; a="704114697"
+X-IronPort-AV: E=Sophos;i="6.01,234,1684825200";
+   d="scan'208";a="704114697"
+Received: from rbirkl-mobl.ger.corp.intel.com (HELO [10.249.38.108])
+ ([10.249.38.108])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jul 2023 02:45:03 -0700
+Message-ID: <c2f5a9ec-2927-f9bf-86a1-3388d0bac015@linux.intel.com>
+Date: Thu, 27 Jul 2023 11:45:01 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230726150225.483464-23-herve.codina@bootlin.com>
-Message-ID-Hash: XKNVHFDBDZZAN2BNP47REW6JJYIONDPJ
-X-Message-ID-Hash: XKNVHFDBDZZAN2BNP47REW6JJYIONDPJ
-X-MailFrom: lee@kernel.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.13.0
+Subject: Re: How do I set up multiple codecs on one I2S - without TDM?
+Content-Language: en-US
+To: John Watts <contact@jookia.org>, alsa-devel@alsa-project.org
+References: <ZMBRMnv0GQF4wyfQ@titan>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ZMBRMnv0GQF4wyfQ@titan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: QJ5ZSR6QT2N2Z37HX4ZEIWMCI352E2DZ
+X-Message-ID-Hash: QJ5ZSR6QT2N2Z37HX4ZEIWMCI352E2DZ
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XKNVHFDBDZZAN2BNP47REW6JJYIONDPJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJ5ZSR6QT2N2Z37HX4ZEIWMCI352E2DZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,82 +106,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 26 Jul 2023, Herve Codina wrote:
-
-> The loop searching for a matching device based on its compatible
-> string is aborted when a matching disabled device is found.
-> This abort avoid to add devices as soon as one disabled device
-> is found.
+On 7/26/23 12:48 AM, John Watts wrote:
+> Hello there!
 > 
-> Continue searching for an other device instead of aborting on the
-> first disabled one fixes the issue.
+> I have an interesting problem that I'm trying to solve. It will require
+> writing adding driver support but right now I'm struggling to understand
+> how I should go about it all.
 > 
-> Fixes: 22380b65dc70 ("mfd: mfd-core: Ensure disabled devices are ignored without error")
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  drivers/mfd/mfd-core.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
+> As a background, this is with the Allwinner D1 or T113. It has a 16
+> channel I2S controller and each channel can be configured to use a
+> specific pin and TDM time slice. Even channels are low LRCLK, odd are
+> high LRCLK.
 > 
-> diff --git a/drivers/mfd/mfd-core.c b/drivers/mfd/mfd-core.c
-> index 0ed7c0d7784e..bcc26e64639a 100644
-> --- a/drivers/mfd/mfd-core.c
-> +++ b/drivers/mfd/mfd-core.c
-> @@ -146,6 +146,7 @@ static int mfd_add_device(struct device *parent, int id,
->  	struct platform_device *pdev;
->  	struct device_node *np = NULL;
->  	struct mfd_of_node_entry *of_entry, *tmp;
-> +	bool disabled;
->  	int ret = -ENOMEM;
->  	int platform_id;
->  	int r;
-> @@ -181,13 +182,13 @@ static int mfd_add_device(struct device *parent, int id,
->  		goto fail_res;
->  
->  	if (IS_ENABLED(CONFIG_OF) && parent->of_node && cell->of_compatible) {
-> +		disabled = false;
-
-This does not appear to reside in a loop.
-
-Why not set it to false on declaration?
-
->  		for_each_child_of_node(parent->of_node, np) {
->  			if (of_device_is_compatible(np, cell->of_compatible)) {
-> -				/* Ignore 'disabled' devices error free */
-> +				/* Skip 'disabled' devices */
->  				if (!of_device_is_available(np)) {
-> -					of_node_put(np);
-
-Doesn't this result in a resource leak?
-
-> -					ret = 0;
-> -					goto fail_alias;
-> +					disabled = true;
-> +					continue;
->  				}
->  
->  				ret = mfd_match_of_node_to_dev(pdev, np, cell);
-> @@ -197,10 +198,17 @@ static int mfd_add_device(struct device *parent, int id,
->  				if (ret)
->  					goto fail_alias;
->  
-> -				break;
-> +				goto match;
->  			}
->  		}
->  
-> +		if (disabled) {
-> +			/* Ignore 'disabled' devices error free */
-> +			ret = 0;
-> +			goto fail_alias;
-> +		}
-> +
-> +match:
->  		if (!pdev->dev.of_node)
->  			pr_warn("%s: Failed to locate of_node [id: %d]\n",
->  				cell->name, platform_id);
-> -- 
-> 2.41.0
+> So for my situation I want to have six channels:
 > 
+> - Channel 0: Timeslot 0, Pin 0, LRCLK 0 -> ADC 1
+> - Channel 1: Timeslot 0, Pin 0, LRCLK 1 -> ADC 1
+> - Channel 2: Timeslot 0, Pin 1, LRCLK 0 -> ADC 2
+> - Channel 3: Timeslot 0, Pin 1, LRCLK 1 -> ADC 2
+> - Channel 4: Timeslot 0, Pin 2, LRCLK 0 -> ADC 3
+> - Channel 5: Timeslot 0, Pin 2, LRCLK 1 -> ADC 3
 
--- 
-Lee Jones [李琼斯]
+It would help if you described what those different 'channels' are 
+supposed to transmit. Usually channels mean a group of data that is 
+rendered at the same time. It looks like you plan on transmitting 
+independent streams that may be enabled/disabled separately.
+
+Also you should describe if there are independent clocks or if all those 
+6 'channels' are transmitted with a single pair of bit/frame clocks? 
+That completely changes the model, in the former case you could 
+represent independent DAIs/dailinks but in the latter case you really 
+have a single muxed stream.
+
+

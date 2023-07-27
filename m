@@ -2,97 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A146764F65
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 11:21:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49FCD764F85
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 11:23:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D400844;
-	Thu, 27 Jul 2023 11:20:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D400844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 607D9844;
+	Thu, 27 Jul 2023 11:22:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 607D9844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690449667;
-	bh=gd3ayQw/dJJcn8kl2zzcAC5TgMRVoWsvg5Rh3UpT4Ew=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690449820;
+	bh=brE446l0NnbsBdNTMz1eRg2anjy9QOxiUBOilEyPeeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nLwT6vsy2UBOYVHF2Y4n+Usp8ZXbTaKXLMWNvhFKLaKoFC2lfoPYrHBmSXRyOykFs
-	 1dUNMH6HZHM2lKZ5De2rp9um5bcAhX+Y52/FNXh/bu6IXqqs+9cBK4MjU1e0gh8FlV
-	 kbkhbjpgdJwhA1Jn9Zer5cI340Ij/53/gUW+jKW4=
+	b=jDTlDWX271X8OPkH1juq22gAhNvwhx1mDBdcLMSmzscwLhg3QRk3nEJH9+9XHxFth
+	 cTVMLBQFUb+nHncrwpAqpbksg72oXfVvquShdT469QyByF7WhP8IlyKxmcGbJ4rPUb
+	 mqcBu94r/Iq0xWoxhu4CQmRb8yJ41M786X5zVAbc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7E67F80153; Thu, 27 Jul 2023 11:20:08 +0200 (CEST)
+	id 279DAF8019B; Thu, 27 Jul 2023 11:22:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9B17F80163;
-	Thu, 27 Jul 2023 11:20:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B098CF80163;
+	Thu, 27 Jul 2023 11:22:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4236DF8019B; Thu, 27 Jul 2023 11:20:04 +0200 (CEST)
+	id 642CCF8019B; Thu, 27 Jul 2023 11:22:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::227])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4D317F80149
-	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 11:20:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D317F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CB20F80149
+	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 11:22:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CB20F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=PWL77lXo
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 0FF5120009;
-	Thu, 27 Jul 2023 09:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1690449599;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c5uC+Ma0+GEtuYByV1fh5wNUb6P+Qvr99RmBUDDugXA=;
-	b=PWL77lXoaqzqWHDfFIl9jdKdv1M4MuRzjjxUGyq7w0BvAYoX3gBbaTeU5NM2l5MhMLkRlB
-	8Qc/C0E21db1XjGM/LWuV5Bj7nKFIgG6tObRGld5USHJ0Pu9/09eNFltserlLCc+0QRfod
-	4UB45gpmXCPKsJsQV3ekLDhlsSgr5UHkjj3htsrfjNdmwYc+SnTrWkoHiO5mF7G0E5vz+4
-	mmPH7kW2lmk4+Aa6SZuxQXNnb6Zu7inndp5s2/t1YafIK5XA0Pcx5pjnqwsmpk/zP61pn8
-	RIvivFsxuBkNmUPozqTqQeCifCJZ/iII6VSnwNSdw00aHZzQ5xSykuJAwf4yqQ==
-Date: Thu, 27 Jul 2023 11:19:55 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang
- Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Christophe
- Leroy <christophe.leroy@csgroup.eu>, Randy Dunlap <rdunlap@infradead.org>,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 27/28] dt-bindings: net: fsl,qmc-hdlc: Add framer
- support
-Message-ID: <20230727111955.43571766@bootlin.com>
-In-Reply-To: <20230727-jailer-recede-a62ab2238581@spud>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YRHlRDEe
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id AD68E61DE1;
+	Thu, 27 Jul 2023 09:22:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5763DC433C7;
+	Thu, 27 Jul 2023 09:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690449738;
+	bh=brE446l0NnbsBdNTMz1eRg2anjy9QOxiUBOilEyPeeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YRHlRDEeh2LbCOuSCaecwWzcjh/d/VRacQTDWyJZtGVeSclDSuaWppMwW2Jwuabcz
+	 j5H7GBDTiQkLArSUNoX7MVpsKX2Jx4U81JMF9wSXoAGyrU/kkr9qOadAHd7qFHtqXe
+	 lEuJpA10KIyKZn+bcTrj2P56hBcPXOsombqB+jeAX8sEO+SUUW1IBVCbkYO/j8vZmJ
+	 MKJ3XXz6A0l3S/S3CuGJyywmVXvgaHYFDFetAI+ylH2b/wCW/iE/B/E4CklyuK25pG
+	 U3/MVc260hsoEO5Fn78tyPIrcubBH49N5rNivS/jrIZsL6vBuu7n2qVTMKCFErFDvn
+	 8kVC0m+MhinKQ==
+Date: Thu, 27 Jul 2023 10:22:09 +0100
+From: Lee Jones <lee@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Qiang Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 22/28] mfd: core: Ensure disabled devices are skiped
+ without aborting
+Message-ID: <20230727092209.GA8175@google.com>
 References: <20230726150225.483464-1-herve.codina@bootlin.com>
-	<20230726150225.483464-28-herve.codina@bootlin.com>
-	<20230727-jailer-recede-a62ab2238581@spud>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+ <20230726150225.483464-23-herve.codina@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: ZOHGCWUOPDYSNMWJCA3TNCMI73LHMY5Q
-X-Message-ID-Hash: ZOHGCWUOPDYSNMWJCA3TNCMI73LHMY5Q
-X-MailFrom: herve.codina@bootlin.com
+In-Reply-To: <20230726150225.483464-23-herve.codina@bootlin.com>
+Message-ID-Hash: XKNVHFDBDZZAN2BNP47REW6JJYIONDPJ
+X-Message-ID-Hash: XKNVHFDBDZZAN2BNP47REW6JJYIONDPJ
+X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZOHGCWUOPDYSNMWJCA3TNCMI73LHMY5Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XKNVHFDBDZZAN2BNP47REW6JJYIONDPJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,61 +118,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Conor,
+On Wed, 26 Jul 2023, Herve Codina wrote:
 
-On Thu, 27 Jul 2023 09:12:01 +0100
-Conor Dooley <conor@kernel.org> wrote:
-
-> On Wed, Jul 26, 2023 at 05:02:23PM +0200, Herve Codina wrote:
-> > A framer can be connected to the QMC HDLC.
-> > If present, this framer is the interface between the TDM used by the QMC
-> > HDLC and the E1/T1 line.
-> > The QMC HDLC can use this framer to get information about the line and
-> > configure the line.
-> > 
-> > Add an optional framer property to reference the framer itself.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
+> The loop searching for a matching device based on its compatible
+> string is aborted when a matching disabled device is found.
+> This abort avoid to add devices as soon as one disabled device
+> is found.
 > 
-> Why not fully describe the hardware in one patch in this series, rather
-> than split this over two different ones?
-
-I agree, this can be squashed with a previous commit.
-My intention was to keep things separated in this first series.
-
-The framer property makes sense only if the stuff related the generic framer
-(previous patches) are accepted whereas the QMC HDLC previous binding can be
-accepted without this framer property.
-I though it would be easier to review the full series with separated
-modifications.
-
-That's said, I will squash this patch with the patch 5 ("dt-bindings: net:
-Add support for QMC HDLC") in the next iteration.
-
-Best regards,
-Hervé
-
+> Continue searching for an other device instead of aborting on the
+> first disabled one fixes the issue.
 > 
-> > ---
-> >  Documentation/devicetree/bindings/net/fsl,qmc-hdlc.yaml | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/net/fsl,qmc-hdlc.yaml b/Documentation/devicetree/bindings/net/fsl,qmc-hdlc.yaml
-> > index 8bb6f34602d9..bf29863ab419 100644
-> > --- a/Documentation/devicetree/bindings/net/fsl,qmc-hdlc.yaml
-> > +++ b/Documentation/devicetree/bindings/net/fsl,qmc-hdlc.yaml
-> > @@ -27,6 +27,11 @@ properties:
-> >        Should be a phandle/number pair. The phandle to QMC node and the QMC
-> >        channel to use.
-> >  
-> > +  framer:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > +    description:
-> > +      phandle to the framer node
-> > +
-> >  required:
-> >    - compatible
-> >    - fsl,qmc-chan
-> > -- 
-> > 2.41.0
-> >   
+> Fixes: 22380b65dc70 ("mfd: mfd-core: Ensure disabled devices are ignored without error")
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> ---
+>  drivers/mfd/mfd-core.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/mfd/mfd-core.c b/drivers/mfd/mfd-core.c
+> index 0ed7c0d7784e..bcc26e64639a 100644
+> --- a/drivers/mfd/mfd-core.c
+> +++ b/drivers/mfd/mfd-core.c
+> @@ -146,6 +146,7 @@ static int mfd_add_device(struct device *parent, int id,
+>  	struct platform_device *pdev;
+>  	struct device_node *np = NULL;
+>  	struct mfd_of_node_entry *of_entry, *tmp;
+> +	bool disabled;
+>  	int ret = -ENOMEM;
+>  	int platform_id;
+>  	int r;
+> @@ -181,13 +182,13 @@ static int mfd_add_device(struct device *parent, int id,
+>  		goto fail_res;
+>  
+>  	if (IS_ENABLED(CONFIG_OF) && parent->of_node && cell->of_compatible) {
+> +		disabled = false;
+
+This does not appear to reside in a loop.
+
+Why not set it to false on declaration?
+
+>  		for_each_child_of_node(parent->of_node, np) {
+>  			if (of_device_is_compatible(np, cell->of_compatible)) {
+> -				/* Ignore 'disabled' devices error free */
+> +				/* Skip 'disabled' devices */
+>  				if (!of_device_is_available(np)) {
+> -					of_node_put(np);
+
+Doesn't this result in a resource leak?
+
+> -					ret = 0;
+> -					goto fail_alias;
+> +					disabled = true;
+> +					continue;
+>  				}
+>  
+>  				ret = mfd_match_of_node_to_dev(pdev, np, cell);
+> @@ -197,10 +198,17 @@ static int mfd_add_device(struct device *parent, int id,
+>  				if (ret)
+>  					goto fail_alias;
+>  
+> -				break;
+> +				goto match;
+>  			}
+>  		}
+>  
+> +		if (disabled) {
+> +			/* Ignore 'disabled' devices error free */
+> +			ret = 0;
+> +			goto fail_alias;
+> +		}
+> +
+> +match:
+>  		if (!pdev->dev.of_node)
+>  			pr_warn("%s: Failed to locate of_node [id: %d]\n",
+>  				cell->name, platform_id);
+> -- 
+> 2.41.0
+> 
+
+-- 
+Lee Jones [李琼斯]

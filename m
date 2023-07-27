@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D42765295
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 13:37:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CBF76537F
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jul 2023 14:21:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5B9B83B;
-	Thu, 27 Jul 2023 13:36:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5B9B83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF2B883E;
+	Thu, 27 Jul 2023 14:20:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF2B883E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690457844;
-	bh=ivBrfnksuev81Xr0vG/orlS3M87dt7cmsHbn47jqyjY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=W4onemSF7BzFh0FUC4SZjjtM3YcMk1x5iR4Dm9lwjqvtSqVDFDZizRPu/m3KZOq9X
-	 8qqyuIc1UpvGCqATUGUTIUlqisv0nkDapDQWIHbhI9KZvNtfqj6DsM3UzonnJvdgjp
-	 VQvhun4nYlkbyCAAsZ3kLFETadn5qcajTEg1b7ek=
+	s=default; t=1690460467;
+	bh=aEPI4qdrTaTdJioOBLORZkYwgd5kOZkSyOD+kYBEa+Y=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=QymWdT0CSguaEVgANiudZULgVP7LEILSE83d2WiHQR/lGGn7Ns7GPpkcy31kfqO6K
+	 nr6Xz2CP9E88O+7LaWXEkNRBqf57ux8UMIAC4v+Xvc5csyxCyrY6Pf63S5Vo4j7JzW
+	 v9BTH6A7GbE8VDs8X+hEuHMc3EGKilao+C7bjKCY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 001DFF80544; Thu, 27 Jul 2023 13:36:33 +0200 (CEST)
+	id 5C341F80310; Thu, 27 Jul 2023 14:20:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A654EF80163;
-	Thu, 27 Jul 2023 13:36:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18121F80163;
+	Thu, 27 Jul 2023 14:20:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D16DCF8019B; Thu, 27 Jul 2023 13:36:29 +0200 (CEST)
+	id 1EDCFF8019B; Thu, 27 Jul 2023 14:20:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -38,67 +37,40 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 09126F800D2
-	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 13:36:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09126F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0457EF80149
+	for <alsa-devel@alsa-project.org>; Thu, 27 Jul 2023 14:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0457EF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OMMqvdh9
+ header.s=k20201202 header.b=kV9CL+ZE
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 33B0F61E2F;
-	Thu, 27 Jul 2023 11:36:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D22C433C7;
-	Thu, 27 Jul 2023 11:36:16 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 44A9161E2F;
+	Thu, 27 Jul 2023 12:19:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556C6C433C7;
+	Thu, 27 Jul 2023 12:19:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690457780;
-	bh=ivBrfnksuev81Xr0vG/orlS3M87dt7cmsHbn47jqyjY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OMMqvdh9u+wKoVfc+WgyxCN9r/p/0N5jVJqEex7ccZUBXlRWeIZMI94RRlbF+WOef
-	 nGJY8EwrJDZL7VikRRPcFdBDbvaFcBw3KRhC/7uYrf2WjhWzxJm4Lid3dptY4Bpeva
-	 JKgwm3ze7geXOnO/v0wILzdpxrfwulH7OLKwzJno4gbNW4XBq9IdAbvO92XYGqIS5Z
-	 kY3xc0LxdpgQu4tcAd/0eM8vns0auZdMVjWdk35Vc8kv65jIcKXHOylrdxdXYZ05/5
-	 bkr5Bkz9X04Aqr4khQDsiDhm9PCa4KJU7wX/eR2Q1D8C1aKqvAipU/Z1AfTqNmI0lU
-	 TCbCkNK15NDpg==
-Date: Thu, 27 Jul 2023 12:36:13 +0100
+	s=k20201202; t=1690460384;
+	bh=aEPI4qdrTaTdJioOBLORZkYwgd5kOZkSyOD+kYBEa+Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=kV9CL+ZEOShDEGRbvZ6dXm3S5hpXfWmk8rPMAzi1c0cNsUoJPbnEn5UtJYCiF2+x4
+	 bsgRI5WtG5hYZBDfysx1Ip+QC8Jf2s9u1sJq8Fiu2Oq75YoNNEcHv0m5PpPPIP17Yv
+	 ESacG5KkLGFZGWSJWiAGQJ5BsoQ1D9XkQTJTByK4M4caRBELvOIbztHeIb9bUyogT1
+	 AgxowUvdq4/A+fPQ0FTiNHsrXFZak+14s07fBeEcjbhyXXlI5DrtfotPVvuDdMN9gX
+	 Xn+ZmJG3C/GQQT+zRLilob0quuErun1j+WW7Y7sF5VPj9pevA+22c7wUn4IiZM1HKV
+	 5QriVddHqmQRA==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: "Liao, Bard" <yung-chuan.liao@linux.intel.com>,
-	"Lu, Brent" <brent.lu@intel.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"Rojewski, Cezary" <cezary.rojewski@intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Zhi, Yong" <yong.zhi@intel.com>,
-	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
-	"Bhat, Uday M" <uday.m.bhat@intel.com>,
-	Terry Cheong <htcheong@chromium.org>,
-	"Chiang, Mac" <mac.chiang@intel.com>,
-	"R, Dharageswari" <dharageswari.r@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 1/2] ASoC: Intel: maxim-common: get codec number from ACPI
-Message-ID: <1b5c0524-bdd5-41e2-8799-b699525b7a56@sirena.org.uk>
-References: <20230720092628.758834-1-brent.lu@intel.com>
- <20230720092628.758834-2-brent.lu@intel.com>
- <ff55e63f-1c17-12ef-57e6-144a5bea4480@linux.intel.com>
- <CY5PR11MB6257FF6D92D524D389B734C19701A@CY5PR11MB6257.namprd11.prod.outlook.com>
- <c1aadbcf-78ab-0566-84e5-8eaa7b418d50@linux.intel.com>
- <bbf9baf1-d55b-b846-740f-1ed8976b82b4@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0nZ4EJfE/aVtFY7z"
-Content-Disposition: inline
-In-Reply-To: <bbf9baf1-d55b-b846-740f-1ed8976b82b4@linux.intel.com>
-X-Cookie: Go 'way!  You're bothering me!
-Message-ID-Hash: QEHUMTTCAFJWA6II6ZGGEJDC34VF7GZF
-X-Message-ID-Hash: QEHUMTTCAFJWA6II6ZGGEJDC34VF7GZF
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.5-rc3
+Date: Thu, 27 Jul 2023 13:19:31 +0100
+Message-Id: <20230727121944.556C6C433C7@smtp.kernel.org>
+Message-ID-Hash: BBIEWWSQ2CILTHYXMFLGL7VZSRLFYHPB
+X-Message-ID-Hash: BBIEWWSQ2CILTHYXMFLGL7VZSRLFYHPB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +83,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QEHUMTTCAFJWA6II6ZGGEJDC34VF7GZF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BBIEWWSQ2CILTHYXMFLGL7VZSRLFYHPB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,38 +92,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The following changes since commit 6eaae198076080886b9e7d57f4ae06fa782f90ef:
 
---0nZ4EJfE/aVtFY7z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+  Linux 6.5-rc3 (2023-07-23 15:24:10 -0700)
 
-On Thu, Jul 27, 2023 at 07:41:53AM +0200, Pierre-Louis Bossart wrote:
-> On 7/27/23 5:21 AM, Liao, Bard wrote:
+are available in the Git repository at:
 
-> > The point is that if you remove them and they are still used somewhere,
-> >=20
-> > you will break the build. i.e. Kernel will not compile if we apply the
-> >=20
-> > first patch only.
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc3
 
-> IOW git bisect is broken and that's a big no-no.
+for you to fetch changes up to f85739c0b2b0d98a32f5ca4fcc5501d2b76df4f6:
 
-Yes, I build test every patch so I'll notice.
+  ASoC: atmel: Fix the 8K sample parameter in I2SC master (2023-07-25 12:10:00 +0100)
 
---0nZ4EJfE/aVtFY7z
-Content-Type: application/pgp-signature; name="signature.asc"
+----------------------------------------------------------------
+ASoC: Fixes for v6.5
 
------BEGIN PGP SIGNATURE-----
+A collection of device specific fixes, none particularly remarkable.
+There's a set of repetitive fixes for the RealTek drivers fixing an
+issue with suspend that was replicated in multiple drivers.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTCVqEACgkQJNaLcl1U
-h9C/hQf+LxkQQHutKl7/U3u1expUOoh4rffkGKzdDOF3cFMYvuZXpC1LQ31kZKCM
-wpRU3R7I+4jSwfpl1ukj5FbIFpFUygT9+pBnSsLM5zulec3Jn5cHWd6Pj0oMrl5x
-74qfSFzDLOqNIBvt53SugOqY/yP22ivlVQaKG+IkUKxTKibfwEUcbLEu5by99XgY
-5FEtU3hKA2ujGY+pGo4W3LPcDHEl8/tliRx4+wKmNa4nsoZcUJWpFx2i1CJzXgkQ
-AyCLagEE5q41Lk59zOqSlLUYDWTNsX6bzDi4P/pijZFFOuT4q7vpdoOMDjJk7Q2M
-cFT5uzzwQWiq6yeCz3WR+3J01CQb6g==
-=8BNm
------END PGP SIGNATURE-----
+----------------------------------------------------------------
+Dmytro Maluka (2):
+      ASoC: da7219: Flush pending AAD IRQ when suspending
+      ASoC: da7219: Check for failure reading AAD IRQ events
 
---0nZ4EJfE/aVtFY7z--
+Edgar (1):
+      ASoc: codecs: ES8316: Fix DMIC config
+
+Edson Juliano Drosdeck (1):
+      ASoC: nau8821: Add DMI quirk mechanism for active-high jack-detect
+
+Guiting Shen (1):
+      ASoC: atmel: Fix the 8K sample parameter in I2SC master
+
+Mark Brown (3):
+      ASoC: Merge up fixes from mainline
+      ASoC: da7219: Patches related to a spurious AAD IRQ
+      ASoC: wm8904: Fill the cache for WM8904_ADC_TEST_0 register
+
+Matus Gajdos (1):
+      ASoC: fsl_spdif: Silence output on stop
+
+Shuming Fan (5):
+      ASoC: rt5682-sdw: fix for JD event handling in ClockStop Mode0
+      ASoC: rt712-sdca: fix for JD event handling in ClockStop Mode0
+      ASoC: rt722-sdca: fix for JD event handling in ClockStop Mode0
+      ASoC: rt711: fix for JD event handling in ClockStop Mode0
+      ASoC: rt711-sdca: fix for JD event handling in ClockStop Mode0
+
+ sound/soc/atmel/atmel-i2s.c       |  5 ++++-
+ sound/soc/codecs/da7219-aad.c     | 12 +++++++++---
+ sound/soc/codecs/es8316.c         |  2 +-
+ sound/soc/codecs/nau8821.c        | 41 +++++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/rt5682-sdw.c     |  9 ++++++++-
+ sound/soc/codecs/rt711-sdca-sdw.c | 10 +++++++++-
+ sound/soc/codecs/rt711-sdw.c      |  9 ++++++++-
+ sound/soc/codecs/rt712-sdca-sdw.c | 10 +++++++++-
+ sound/soc/codecs/rt722-sdca-sdw.c | 10 +++++++++-
+ sound/soc/codecs/wm8904.c         |  3 +++
+ sound/soc/fsl/fsl_spdif.c         |  2 ++
+ 11 files changed, 103 insertions(+), 10 deletions(-)

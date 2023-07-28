@@ -2,108 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21683766620
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 10:00:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEEA87667BF
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 10:53:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6710820;
-	Fri, 28 Jul 2023 10:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6710820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BF06207;
+	Fri, 28 Jul 2023 10:52:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BF06207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690531255;
-	bh=wBBH3gqbXCrh7QelufOhMJJH4FrCjV1SMUdKELkqQFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690534399;
+	bh=vlJpUCrv2ALxslQErLAhvVvaZrwz4OsGjEvmf2Y+iu0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nkzd0NSc72wwwnNGBZZ3ckXVYqdAy4jmpFv7OBsMJGWonrqs18Vph4qZre7AptMd+
-	 M3eC6JLWLJMN28i3u7qFx85g3n0L+raUEPBmD8gMZBr/YgWHzFavaIlQBX3S53Ceh7
-	 qnyrQeX+IjbidYA5UapzjAS8o9xP7WFCzpmQA97c=
+	b=kKPawCy3zyr7+fKGr8R/5GlrFOkE2Ca5kJlpEfBF6SC3JgiLGwsbQtBjvOfLKGD2W
+	 jIPXSNAFeRt//0eSbSesGntWHHLpWYBvSlCh8ZwjjdxLg3/2C4Uq/4ssHkxMuBj6xx
+	 tQCqTSJmm/uDRzTbFtcadY9kOxb+itTjGffiVri8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6399F800C7; Fri, 28 Jul 2023 10:00:04 +0200 (CEST)
+	id 683A3F800C7; Fri, 28 Jul 2023 10:52:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6DBAF800D2;
-	Fri, 28 Jul 2023 10:00:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE0DEF80163;
+	Fri, 28 Jul 2023 10:52:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDD4CF8019B; Fri, 28 Jul 2023 09:59:56 +0200 (CEST)
+	id 47ED3F8019B; Fri, 28 Jul 2023 10:52:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C355F800C7
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 09:59:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C355F800C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 10D87F800C7
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 10:52:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10D87F800C7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=Z8kZRvxm
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-1bb119be881so14969565ad.3
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CBi6cn4L
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E771C62062
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 08:52:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5850BC433C9
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 08:52:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690534325;
+	bh=vlJpUCrv2ALxslQErLAhvVvaZrwz4OsGjEvmf2Y+iu0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=CBi6cn4Lj2WE+3ndu8ojTuLCbCpK7Pkmx9A6xtinX0HCBOZXhEZF98ugJzTOeLFAu
+	 +0XMAZNEYpti4YI8V6nchFBp+xpcfTWTHZps6mKo9/8VGwdADXksAATF9qh3LJsTTB
+	 /h1qfr19Z4W4JEDvguLAMduLZRTpPYOcqcmk0arqtOaHQwE4cvmDthraAt5bzOw9M1
+	 aVv1xh2gTuR7awDFF4SXPauublFBaHAFoLy+vhYC3DRRLSTVPs3IJz2RFLX2+HnKdc
+	 qKaF7MGOAQHIF057Hd7Wa1bbsBT16hXTF2FulnhU0N3iOGJXgPcvq03ROV6GFoLYK6
+	 tIfGzXbc2MbVA==
+Received: by mail-oi1-f170.google.com with SMTP id
+ 5614622812f47-3a412653335so1461555b6e.1
         for <alsa-devel@alsa-project.org>;
- Fri, 28 Jul 2023 00:59:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1690531178; x=1691135978;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZAC8GWSOo8cve/hM1VkCzIEiPbm2ig4aFGae87JXrxw=;
-        b=Z8kZRvxm7w824QlilmSyaK2PJTCY32fZbzCFog2wPpOIe0JX2fNtmApiwbjftJjLHS
-         9HynblVn33NI1qKV+nOGkz59n7WkMtGHDKoszY2XAwBWPWJCKKaoutehdZpSnwLfWZO5
-         OdAR2lX1c9/JL4/SEMXHKctWxKYstOSaFhpRw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690531178; x=1691135978;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZAC8GWSOo8cve/hM1VkCzIEiPbm2ig4aFGae87JXrxw=;
-        b=aVaynaE3wKPtgdGkTz9GLo8oX59Vxjsoyxxfur7QqX7DEgEudn687MCwIFev7e+R3B
-         xRj7xf2f9Dq3B324Tkr1Z8GQP8l9mjOTyfwUxxikfez9H0Z/d7g+A9D8lKi8zvoLPFc1
-         NJ6Mty1GBJWRejYYQb6gT+vK5d6f437iYxuTpfi2vL24dwZVlrL8/9kQ29Q98sFY1Yut
-         zpV747GJi/dHy8n4+9IycMeZXZmJx5Pt+ONi+FmRy5LqyQLrAc6WHb/3DOl/Ng4v3PH8
-         sTOQMZunotIkNB3WSzzX2dWtjjBS81x6PUP3yOrjraNSo9EG1teLNO5IHqJEU1UguDzF
-         rBIw==
-X-Gm-Message-State: ABy/qLbEG5YsML9gw3ucdpO7fXDi53kke46F0nz8z04vP6pqFxAI3iBw
-	j+HaJNI5jwp+OkxSv5qF4BYWAQ==
+ Fri, 28 Jul 2023 01:52:05 -0700 (PDT)
+X-Gm-Message-State: ABy/qLauZq7XcqjlWBdlaD/eRs1cWioYEL+aXEbmWcJ0NL3bMl1taovj
+	ZOayiitVA10H8yEK7hUIqsnzsgSI9GNpRlb8fU0=
 X-Google-Smtp-Source: 
- APBJJlH4mI2Omk1DcOdKutNzScp34xtvYi3HHNmhNZ2QhrNdFOBuREyX2R2XSVTwwN7nsNztCFYpaQ==
-X-Received: by 2002:a17:902:bd85:b0:1b8:a389:43ef with SMTP id
- q5-20020a170902bd8500b001b8a38943efmr986252pls.24.1690531177545;
-        Fri, 28 Jul 2023 00:59:37 -0700 (PDT)
-Received: from chromium.org (0.223.81.34.bc.googleusercontent.com.
- [34.81.223.0])
-        by smtp.gmail.com with ESMTPSA id
- e21-20020a170902d39500b001b8959fb293sm2936997pld.125.2023.07.28.00.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Jul 2023 00:59:37 -0700 (PDT)
-Date: Fri, 28 Jul 2023 07:59:33 +0000
-From: Tomasz Figa <tfiga@chromium.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: hverkuil@xs4all.nl, sakari.ailus@iki.fi, m.szyprowski@samsung.com,
-	mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
-	tiwai@suse.com, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [RFC PATCH v2 4/7] media: v4l2: Add audio capture and output
- support
-Message-ID: <20230728075933.pdepqspznenazs5f@chromium.org>
-References: <1690265540-25999-1-git-send-email-shengjiu.wang@nxp.com>
- <1690265540-25999-5-git-send-email-shengjiu.wang@nxp.com>
+ APBJJlHDe8hfWrxF/nfBaQSGuEQ6bNQXuA7hrJmGUDKgzOxljYyC1ls87OOK7YRy0OrT3TlhYCmy7eRtQ7kYiLbq06Q=
+X-Received: by 2002:a54:400b:0:b0:3a3:ed22:6b51 with SMTP id
+ x11-20020a54400b000000b003a3ed226b51mr2282641oie.50.1690534324598; Fri, 28
+ Jul 2023 01:52:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1690265540-25999-5-git-send-email-shengjiu.wang@nxp.com>
-Message-ID-Hash: MVT4J5N6FJDXCMU6CP62CRFHHQG6WVXH
-X-Message-ID-Hash: MVT4J5N6FJDXCMU6CP62CRFHHQG6WVXH
-X-MailFrom: tfiga@chromium.org
+References: <20230728043013.27776-1-rdunlap@infradead.org>
+In-Reply-To: <20230728043013.27776-1-rdunlap@infradead.org>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Fri, 28 Jul 2023 17:51:27 +0900
+X-Gmail-Original-Message-ID: 
+ <CAK7LNAR4BkAKhZZ8+Zybed3Jm3omxzzdgus-Nqj-9MjWAeSmiA@mail.gmail.com>
+Message-ID: 
+ <CAK7LNAR4BkAKhZZ8+Zybed3Jm3omxzzdgus-Nqj-9MjWAeSmiA@mail.gmail.com>
+Subject: Re: [PATCH v3] um/drivers: fix hostaudio build errors
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+	Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>, linux-um@lists.infradead.org,
+	Tejun Heo <tj@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ Jaroslav Kysela <perex@perex.cz>,
+	Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+	Nicolas Schier <nicolas@fjasle.eu>, linux-kbuild@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: U5D4HXFT3BLQ3LMVTDGPF4XLEEHEZGG5
+X-Message-ID-Hash: U5D4HXFT3BLQ3LMVTDGPF4XLEEHEZGG5
+X-MailFrom: masahiroy@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MVT4J5N6FJDXCMU6CP62CRFHHQG6WVXH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U5D4HXFT3BLQ3LMVTDGPF4XLEEHEZGG5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,394 +119,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Shengjiu,
-
-On Tue, Jul 25, 2023 at 02:12:17PM +0800, Shengjiu Wang wrote:
-> Audio signal processing has the requirement for memory to
-> memory similar as Video.
-> 
-> This patch is to add this support in v4l2 framework, defined
-> new buffer type V4L2_BUF_TYPE_AUDIO_CAPTURE and
-> V4L2_BUF_TYPE_AUDIO_OUTPUT, defined new format v4l2_audio_format
-> for audio case usage.
-> 
-> The created audio device is named "/dev/audioX".
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+On Fri, Jul 28, 2023 at 1:30=E2=80=AFPM Randy Dunlap <rdunlap@infradead.org=
+> wrote:
+>
+> Use "select"s to ensure that the required kconfig symbols are set
+> as expected.
+> Drop HOSTAUDIO since it is now equivalent to UML_SOUND.
+>
+> Allow SOUND with UML regardless of HAS_IOMEM. Otherwise there is a
+> kconfig warning for unmet dependencies. (This was not an issue when
+> SOUND was defined in arch/um/drivers/Kconfig. I have done 50 randconfig
+> builds and didn't find any issues.)
+>
+> This fixes build errors when CONFIG_SOUND is not set:
+>
+> ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_cleanup_modu=
+le':
+> hostaudio_kern.c:(.exit.text+0xa): undefined reference to `unregister_sou=
+nd_mixer'
+> ld: hostaudio_kern.c:(.exit.text+0x15): undefined reference to `unregiste=
+r_sound_dsp'
+> ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_init_module'=
+:
+> hostaudio_kern.c:(.init.text+0x19): undefined reference to `register_soun=
+d_dsp'
+> ld: hostaudio_kern.c:(.init.text+0x31): undefined reference to `register_=
+sound_mixer'
+> ld: hostaudio_kern.c:(.init.text+0x49): undefined reference to `unregiste=
+r_sound_dsp'
+>
+> and this kconfig warning:
+> WARNING: unmet direct dependencies detected for SOUND
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: d886e87cb82b ("sound: make OSS sound core optional")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Link: lore.kernel.org/r/202307141416.vxuRVpFv-lkp@intel.com
+> Cc: Richard Weinberger <richard@nod.at>
+> Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+> Cc: Johannes Berg <johannes@sipsolutions.net>
+> Cc: linux-um@lists.infradead.org
+> Cc: Tejun Heo <tj@kernel.org>
+> Cc: Takashi Iwai <tiwai@suse.de>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Masahiro Yamada <masahiroy@kernel.org>
+> Cc: Nathan Chancellor <nathan@kernel.org>
+> Cc: Nick Desaulniers <ndesaulniers@google.com>
+> Cc: Nicolas Schier <nicolas@fjasle.eu>
+> Cc: linux-kbuild@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
 > ---
->  .../media/common/videobuf2/videobuf2-v4l2.c   |  4 ++
->  drivers/media/v4l2-core/v4l2-dev.c            | 17 ++++++
->  drivers/media/v4l2-core/v4l2-ioctl.c          | 52 +++++++++++++++++++
->  include/media/v4l2-dev.h                      |  2 +
->  include/media/v4l2-ioctl.h                    | 34 ++++++++++++
->  include/uapi/linux/videodev2.h                | 19 +++++++
->  6 files changed, 128 insertions(+)
-> 
+> v2: don't delete the HOSTAUDIO Kconfig entry (Masahiro)
+> v3: drop HOSTAUDIO and use CONFIG_UML_SOUND for it in Makefile (Takashi);
+>     add SOUND depends on "|| UML" to HAS_IOMEM
+>
+>  arch/um/drivers/Kconfig  |   14 ++------------
+>  arch/um/drivers/Makefile |    2 +-
+>  sound/Kconfig            |    2 +-
+>  3 files changed, 4 insertions(+), 14 deletions(-)
+>
+> diff -- a/arch/um/drivers/Kconfig b/arch/um/drivers/Kconfig
+> --- a/arch/um/drivers/Kconfig
+> +++ b/arch/um/drivers/Kconfig
+> @@ -111,24 +111,14 @@ config SSL_CHAN
+>
+>  config UML_SOUND
+>         tristate "Sound support"
+> +       select SOUND
 
-Thanks for the patch! Please check my comments inline.
 
-> diff --git a/drivers/media/common/videobuf2/videobuf2-v4l2.c b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> index c7a54d82a55e..12f2be2773a2 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> @@ -785,6 +785,10 @@ int vb2_create_bufs(struct vb2_queue *q, struct v4l2_create_buffers *create)
->  	case V4L2_BUF_TYPE_META_OUTPUT:
->  		requested_sizes[0] = f->fmt.meta.buffersize;
->  		break;
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		requested_sizes[0] = f->fmt.audio.buffersize;
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> index f81279492682..67484f4c6eaf 100644
-> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> @@ -553,6 +553,7 @@ static void determine_valid_ioctls(struct video_device *vdev)
->  	bool is_tch = vdev->vfl_type == VFL_TYPE_TOUCH;
->  	bool is_meta = vdev->vfl_type == VFL_TYPE_VIDEO &&
->  		       (vdev->device_caps & meta_caps);
-> +	bool is_audio = vdev->vfl_type == VFL_TYPE_AUDIO;
->  	bool is_rx = vdev->vfl_dir != VFL_DIR_TX;
->  	bool is_tx = vdev->vfl_dir != VFL_DIR_RX;
->  	bool is_io_mc = vdev->device_caps & V4L2_CAP_IO_MC;
-> @@ -664,6 +665,19 @@ static void determine_valid_ioctls(struct video_device *vdev)
->  		SET_VALID_IOCTL(ops, VIDIOC_S_FMT, vidioc_s_fmt_meta_out);
->  		SET_VALID_IOCTL(ops, VIDIOC_TRY_FMT, vidioc_try_fmt_meta_out);
->  	}
-> +	if (is_audio && is_rx) {
-> +		/* audio capture specific ioctls */
-> +		SET_VALID_IOCTL(ops, VIDIOC_ENUM_FMT, vidioc_enum_fmt_audio_cap);
-> +		SET_VALID_IOCTL(ops, VIDIOC_G_FMT, vidioc_g_fmt_audio_cap);
-> +		SET_VALID_IOCTL(ops, VIDIOC_S_FMT, vidioc_s_fmt_audio_cap);
-> +		SET_VALID_IOCTL(ops, VIDIOC_TRY_FMT, vidioc_try_fmt_audio_cap);
-> +	} else if (is_audio && is_tx) {
-> +		/* audio output specific ioctls */
-> +		SET_VALID_IOCTL(ops, VIDIOC_ENUM_FMT, vidioc_enum_fmt_audio_out);
-> +		SET_VALID_IOCTL(ops, VIDIOC_G_FMT, vidioc_g_fmt_audio_out);
-> +		SET_VALID_IOCTL(ops, VIDIOC_S_FMT, vidioc_s_fmt_audio_out);
-> +		SET_VALID_IOCTL(ops, VIDIOC_TRY_FMT, vidioc_try_fmt_audio_out);
-> +	}
->  	if (is_vbi) {
->  		/* vbi specific ioctls */
->  		if ((is_rx && (ops->vidioc_g_fmt_vbi_cap ||
-> @@ -927,6 +941,9 @@ int __video_register_device(struct video_device *vdev,
->  	case VFL_TYPE_TOUCH:
->  		name_base = "v4l-touch";
->  		break;
-> +	case VFL_TYPE_AUDIO:
-> +		name_base = "audio";
+This would be the only instance that select's SOUND.
+Perhaps, this could be 'depends on SOUND'.
+(in that case, arch/um/configs/*_defconfig needs modification).
 
-I think it was mentioned before that "audio" could be confusing. Wasn't
-there actually some other kind of /dev/audio device long ago?
+Just my two cents.
 
-Seems like for touch, "v4l-touch" was introduced. Maybe it would also
-make sense to call it "v4l-audio" for audio?
 
-> +		break;
->  	default:
->  		pr_err("%s called with unknown type: %d\n",
->  		       __func__, type);
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-> index 01ba27f2ef87..aa9d872bba8d 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -188,6 +188,8 @@ const char *v4l2_type_names[] = {
->  	[V4L2_BUF_TYPE_SDR_OUTPUT]         = "sdr-out",
->  	[V4L2_BUF_TYPE_META_CAPTURE]       = "meta-cap",
->  	[V4L2_BUF_TYPE_META_OUTPUT]	   = "meta-out",
-> +	[V4L2_BUF_TYPE_AUDIO_CAPTURE]      = "audio-cap",
-> +	[V4L2_BUF_TYPE_AUDIO_OUTPUT]	   = "audio-out",
->  };
->  EXPORT_SYMBOL(v4l2_type_names);
->  
-> @@ -276,6 +278,7 @@ static void v4l_print_format(const void *arg, bool write_only)
->  	const struct v4l2_sliced_vbi_format *sliced;
->  	const struct v4l2_window *win;
->  	const struct v4l2_meta_format *meta;
-> +	const struct v4l2_audio_format *audio;
->  	u32 pixelformat;
->  	u32 planes;
->  	unsigned i;
-> @@ -346,6 +349,12 @@ static void v4l_print_format(const void *arg, bool write_only)
->  		pr_cont(", dataformat=%p4cc, buffersize=%u\n",
->  			&pixelformat, meta->buffersize);
->  		break;
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		audio = &p->fmt.audio;
-> +		pr_cont(", rate=%u, format=%u, channels=%u, buffersize=%u\n",
-> +			audio->rate, audio->format, audio->channels, audio->buffersize);
-> +		break;
->  	}
->  }
->  
-> @@ -927,6 +936,7 @@ static int check_fmt(struct file *file, enum v4l2_buf_type type)
->  	bool is_tch = vfd->vfl_type == VFL_TYPE_TOUCH;
->  	bool is_meta = vfd->vfl_type == VFL_TYPE_VIDEO &&
->  		       (vfd->device_caps & meta_caps);
-> +	bool is_audio = vfd->vfl_type == VFL_TYPE_AUDIO;
->  	bool is_rx = vfd->vfl_dir != VFL_DIR_TX;
->  	bool is_tx = vfd->vfl_dir != VFL_DIR_RX;
->  
-> @@ -992,6 +1002,14 @@ static int check_fmt(struct file *file, enum v4l2_buf_type type)
->  		if (is_meta && is_tx && ops->vidioc_g_fmt_meta_out)
->  			return 0;
->  		break;
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +		if (is_audio && is_rx && ops->vidioc_g_fmt_audio_cap)
-> +			return 0;
-> +		break;
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		if (is_audio && is_tx && ops->vidioc_g_fmt_audio_out)
-> +			return 0;
-> +		break;
->  	default:
->  		break;
->  	}
-> @@ -1594,6 +1612,16 @@ static int v4l_enum_fmt(const struct v4l2_ioctl_ops *ops,
->  			break;
->  		ret = ops->vidioc_enum_fmt_meta_out(file, fh, arg);
->  		break;
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +		if (unlikely(!ops->vidioc_enum_fmt_audio_cap))
-> +			break;
-> +		ret = ops->vidioc_enum_fmt_audio_cap(file, fh, arg);
-> +		break;
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		if (unlikely(!ops->vidioc_enum_fmt_audio_out))
-> +			break;
-> +		ret = ops->vidioc_enum_fmt_audio_out(file, fh, arg);
-> +		break;
->  	}
->  	if (ret == 0)
->  		v4l_fill_fmtdesc(p);
-> @@ -1670,6 +1698,10 @@ static int v4l_g_fmt(const struct v4l2_ioctl_ops *ops,
->  		return ops->vidioc_g_fmt_meta_cap(file, fh, arg);
->  	case V4L2_BUF_TYPE_META_OUTPUT:
->  		return ops->vidioc_g_fmt_meta_out(file, fh, arg);
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +		return ops->vidioc_g_fmt_audio_cap(file, fh, arg);
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		return ops->vidioc_g_fmt_audio_out(file, fh, arg);
->  	}
->  	return -EINVAL;
->  }
-> @@ -1781,6 +1813,16 @@ static int v4l_s_fmt(const struct v4l2_ioctl_ops *ops,
->  			break;
->  		memset_after(p, 0, fmt.meta);
->  		return ops->vidioc_s_fmt_meta_out(file, fh, arg);
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +		if (unlikely(!ops->vidioc_s_fmt_audio_cap))
-> +			break;
-> +		memset_after(p, 0, fmt.audio);
-> +		return ops->vidioc_s_fmt_audio_cap(file, fh, arg);
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		if (unlikely(!ops->vidioc_s_fmt_audio_out))
-> +			break;
-> +		memset_after(p, 0, fmt.audio);
-> +		return ops->vidioc_s_fmt_audio_out(file, fh, arg);
->  	}
->  	return -EINVAL;
->  }
-> @@ -1889,6 +1931,16 @@ static int v4l_try_fmt(const struct v4l2_ioctl_ops *ops,
->  			break;
->  		memset_after(p, 0, fmt.meta);
->  		return ops->vidioc_try_fmt_meta_out(file, fh, arg);
-> +	case V4L2_BUF_TYPE_AUDIO_CAPTURE:
-> +		if (unlikely(!ops->vidioc_try_fmt_audio_cap))
-> +			break;
-> +		memset_after(p, 0, fmt.audio);
-> +		return ops->vidioc_try_fmt_audio_cap(file, fh, arg);
-> +	case V4L2_BUF_TYPE_AUDIO_OUTPUT:
-> +		if (unlikely(!ops->vidioc_try_fmt_audio_out))
-> +			break;
-> +		memset_after(p, 0, fmt.audio);
-> +		return ops->vidioc_try_fmt_audio_out(file, fh, arg);
->  	}
->  	return -EINVAL;
->  }
-> diff --git a/include/media/v4l2-dev.h b/include/media/v4l2-dev.h
-> index e0a13505f88d..0924e6d1dab1 100644
-> --- a/include/media/v4l2-dev.h
-> +++ b/include/media/v4l2-dev.h
-> @@ -30,6 +30,7 @@
->   * @VFL_TYPE_SUBDEV:	for V4L2 subdevices
->   * @VFL_TYPE_SDR:	for Software Defined Radio tuners
->   * @VFL_TYPE_TOUCH:	for touch sensors
-> + * @VFL_TYPE_AUDIO:	for audio input/output devices
->   * @VFL_TYPE_MAX:	number of VFL types, must always be last in the enum
->   */
->  enum vfl_devnode_type {
-> @@ -39,6 +40,7 @@ enum vfl_devnode_type {
->  	VFL_TYPE_SUBDEV,
->  	VFL_TYPE_SDR,
->  	VFL_TYPE_TOUCH,
-> +	VFL_TYPE_AUDIO,
->  	VFL_TYPE_MAX /* Shall be the last one */
->  };
->  
-> diff --git a/include/media/v4l2-ioctl.h b/include/media/v4l2-ioctl.h
-> index edb733f21604..f840cf740ce1 100644
-> --- a/include/media/v4l2-ioctl.h
-> +++ b/include/media/v4l2-ioctl.h
-> @@ -45,6 +45,12 @@ struct v4l2_fh;
->   * @vidioc_enum_fmt_meta_out: pointer to the function that implements
->   *	:ref:`VIDIOC_ENUM_FMT <vidioc_enum_fmt>` ioctl logic
->   *	for metadata output
-> + * @vidioc_enum_fmt_audio_cap: pointer to the function that implements
-> + *	:ref:`VIDIOC_ENUM_FMT <vidioc_enum_fmt>` ioctl logic
-> + *	for audio capture
-> + * @vidioc_enum_fmt_audio_out: pointer to the function that implements
-> + *	:ref:`VIDIOC_ENUM_FMT <vidioc_enum_fmt>` ioctl logic
-> + *	for audio output
->   * @vidioc_g_fmt_vid_cap: pointer to the function that implements
->   *	:ref:`VIDIOC_G_FMT <vidioc_g_fmt>` ioctl logic for video capture
->   *	in single plane mode
-> @@ -79,6 +85,10 @@ struct v4l2_fh;
->   *	:ref:`VIDIOC_G_FMT <vidioc_g_fmt>` ioctl logic for metadata capture
->   * @vidioc_g_fmt_meta_out: pointer to the function that implements
->   *	:ref:`VIDIOC_G_FMT <vidioc_g_fmt>` ioctl logic for metadata output
-> + * @vidioc_g_fmt_audio_cap: pointer to the function that implements
-> + *	:ref:`VIDIOC_G_FMT <vidioc_g_fmt>` ioctl logic for audio capture
-> + * @vidioc_g_fmt_audio_out: pointer to the function that implements
-> + *	:ref:`VIDIOC_G_FMT <vidioc_g_fmt>` ioctl logic for audio output
->   * @vidioc_s_fmt_vid_cap: pointer to the function that implements
->   *	:ref:`VIDIOC_S_FMT <vidioc_g_fmt>` ioctl logic for video capture
->   *	in single plane mode
-> @@ -113,6 +123,10 @@ struct v4l2_fh;
->   *	:ref:`VIDIOC_S_FMT <vidioc_g_fmt>` ioctl logic for metadata capture
->   * @vidioc_s_fmt_meta_out: pointer to the function that implements
->   *	:ref:`VIDIOC_S_FMT <vidioc_g_fmt>` ioctl logic for metadata output
-> + * @vidioc_s_fmt_audio_cap: pointer to the function that implements
-> + *	:ref:`VIDIOC_S_FMT <vidioc_g_fmt>` ioctl logic for audio capture
-> + * @vidioc_s_fmt_audio_out: pointer to the function that implements
-> + *	:ref:`VIDIOC_S_FMT <vidioc_g_fmt>` ioctl logic for audio output
->   * @vidioc_try_fmt_vid_cap: pointer to the function that implements
->   *	:ref:`VIDIOC_TRY_FMT <vidioc_g_fmt>` ioctl logic for video capture
->   *	in single plane mode
-> @@ -149,6 +163,10 @@ struct v4l2_fh;
->   *	:ref:`VIDIOC_TRY_FMT <vidioc_g_fmt>` ioctl logic for metadata capture
->   * @vidioc_try_fmt_meta_out: pointer to the function that implements
->   *	:ref:`VIDIOC_TRY_FMT <vidioc_g_fmt>` ioctl logic for metadata output
-> + * @vidioc_try_fmt_audio_cap: pointer to the function that implements
-> + *	:ref:`VIDIOC_TRY_FMT <vidioc_g_fmt>` ioctl logic for audio capture
-> + * @vidioc_try_fmt_audio_out: pointer to the function that implements
-> + *	:ref:`VIDIOC_TRY_FMT <vidioc_g_fmt>` ioctl logic for audio output
->   * @vidioc_reqbufs: pointer to the function that implements
->   *	:ref:`VIDIOC_REQBUFS <vidioc_reqbufs>` ioctl
->   * @vidioc_querybuf: pointer to the function that implements
-> @@ -315,6 +333,10 @@ struct v4l2_ioctl_ops {
->  					struct v4l2_fmtdesc *f);
->  	int (*vidioc_enum_fmt_meta_out)(struct file *file, void *fh,
->  					struct v4l2_fmtdesc *f);
-> +	int (*vidioc_enum_fmt_audio_cap)(struct file *file, void *fh,
-> +					 struct v4l2_fmtdesc *f);
-> +	int (*vidioc_enum_fmt_audio_out)(struct file *file, void *fh,
-> +					 struct v4l2_fmtdesc *f);
->  
->  	/* VIDIOC_G_FMT handlers */
->  	int (*vidioc_g_fmt_vid_cap)(struct file *file, void *fh,
-> @@ -345,6 +367,10 @@ struct v4l2_ioctl_ops {
->  				     struct v4l2_format *f);
->  	int (*vidioc_g_fmt_meta_out)(struct file *file, void *fh,
->  				     struct v4l2_format *f);
-> +	int (*vidioc_g_fmt_audio_cap)(struct file *file, void *fh,
-> +				      struct v4l2_format *f);
-> +	int (*vidioc_g_fmt_audio_out)(struct file *file, void *fh,
-> +				      struct v4l2_format *f);
->  
->  	/* VIDIOC_S_FMT handlers */
->  	int (*vidioc_s_fmt_vid_cap)(struct file *file, void *fh,
-> @@ -375,6 +401,10 @@ struct v4l2_ioctl_ops {
->  				     struct v4l2_format *f);
->  	int (*vidioc_s_fmt_meta_out)(struct file *file, void *fh,
->  				     struct v4l2_format *f);
-> +	int (*vidioc_s_fmt_audio_cap)(struct file *file, void *fh,
-> +				      struct v4l2_format *f);
-> +	int (*vidioc_s_fmt_audio_out)(struct file *file, void *fh,
-> +				      struct v4l2_format *f);
->  
->  	/* VIDIOC_TRY_FMT handlers */
->  	int (*vidioc_try_fmt_vid_cap)(struct file *file, void *fh,
-> @@ -405,6 +435,10 @@ struct v4l2_ioctl_ops {
->  				       struct v4l2_format *f);
->  	int (*vidioc_try_fmt_meta_out)(struct file *file, void *fh,
->  				       struct v4l2_format *f);
-> +	int (*vidioc_try_fmt_audio_cap)(struct file *file, void *fh,
-> +					struct v4l2_format *f);
-> +	int (*vidioc_try_fmt_audio_out)(struct file *file, void *fh,
-> +					struct v4l2_format *f);
->  
->  	/* Buffer handlers */
->  	int (*vidioc_reqbufs)(struct file *file, void *fh,
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-> index 3af6a82d0cad..e5051410928a 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -153,6 +153,8 @@ enum v4l2_buf_type {
->  	V4L2_BUF_TYPE_SDR_OUTPUT           = 12,
->  	V4L2_BUF_TYPE_META_CAPTURE         = 13,
->  	V4L2_BUF_TYPE_META_OUTPUT	   = 14,
-> +	V4L2_BUF_TYPE_AUDIO_CAPTURE        = 15,
-> +	V4L2_BUF_TYPE_AUDIO_OUTPUT         = 16,
->  	/* Deprecated, do not use */
->  	V4L2_BUF_TYPE_PRIVATE              = 0x80,
->  };
-> @@ -169,6 +171,7 @@ enum v4l2_buf_type {
->  	 || (type) == V4L2_BUF_TYPE_VBI_OUTPUT			\
->  	 || (type) == V4L2_BUF_TYPE_SLICED_VBI_OUTPUT		\
->  	 || (type) == V4L2_BUF_TYPE_SDR_OUTPUT			\
-> +	 || (type) == V4L2_BUF_TYPE_AUDIO_OUTPUT		\
->  	 || (type) == V4L2_BUF_TYPE_META_OUTPUT)
->  
->  #define V4L2_TYPE_IS_CAPTURE(type) (!V4L2_TYPE_IS_OUTPUT(type))
-> @@ -2415,6 +2418,20 @@ struct v4l2_meta_format {
->  	__u32				buffersize;
->  } __attribute__ ((packed));
->  
-> +/**
-> + * struct v4l2_audio_format - audio data format definition
-> + * @rate:		sample rate
-> + * @format:		sample format
-> + * @channels:		channel numbers
-> + * @buffersize:		maximum size in bytes required for data
-> + */
-> +struct v4l2_audio_format {
-> +	__u32				rate;
-> +	__u32				format;
+Reviewed-by: Masahiro Yamada <masahiroy@kernel.org>
 
-What are the values for the rate and format fields? Since they are part
-of the UAPI, they need to be defined.
 
-Best regards,
-Tomasz
 
-> +	__u32				channels;
-> +	__u32				buffersize;
-> +} __attribute__ ((packed));
-> +
->  /**
->   * struct v4l2_format - stream data format
->   * @type:	enum v4l2_buf_type; type of the data stream
-> @@ -2423,6 +2440,7 @@ struct v4l2_meta_format {
->   * @win:	definition of an overlaid image
->   * @vbi:	raw VBI capture or output parameters
->   * @sliced:	sliced VBI capture or output parameters
-> + * @audio:	definition of an audio format
->   * @raw_data:	placeholder for future extensions and custom formats
->   * @fmt:	union of @pix, @pix_mp, @win, @vbi, @sliced, @sdr, @meta
->   *		and @raw_data
-> @@ -2437,6 +2455,7 @@ struct v4l2_format {
->  		struct v4l2_sliced_vbi_format	sliced;  /* V4L2_BUF_TYPE_SLICED_VBI_CAPTURE */
->  		struct v4l2_sdr_format		sdr;     /* V4L2_BUF_TYPE_SDR_CAPTURE */
->  		struct v4l2_meta_format		meta;    /* V4L2_BUF_TYPE_META_CAPTURE */
-> +		struct v4l2_audio_format	audio;   /* V4L2_BUF_TYPE_AUDIO_CAPTURE */
->  		__u8	raw_data[200];                   /* user-defined */
->  	} fmt;
->  };
-> -- 
-> 2.34.1
-> 
+
+
+
+
+
+--=20
+Best Regards
+Masahiro Yamada

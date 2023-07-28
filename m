@@ -2,119 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2776769186
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:21:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2F21769187
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:21:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7ABEF845;
-	Mon, 31 Jul 2023 11:20:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ABEF845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1433E832;
+	Mon, 31 Jul 2023 11:20:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1433E832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690795259;
-	bh=b/8rCtKTsPMdR8vfXKLyvqSx5yYDLPF1qMJXM9bPWYs=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qADAVo8KfpEspyUtM+Ej9xfIVKI0X/pdG/FkouDacprzVp1hhNGQwu2cYAsF6vWx8
-	 MqOYNR87+ollCC55gRAGe/Y1M9y1bIl/bMMUJqrovEy5E1JFGUoJnHbH4bdOe+CpSo
-	 PulxFm2sqcAs2PxjlRtSIzgm+pj2+kknHO7fPutc=
+	s=default; t=1690795277;
+	bh=UoywkU2z5PUFwZqyn1H/+6DtaE/kYe+OTAC03fuk89g=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=b4XoELUAeLF3gLltvxk5ESRM0GEqtJy+WbilNhOJjEfHIJRCChNyww0cFh1pifiW2
+	 VA30/AztwlXLoAJDU6Vyqy/xTRMC+36Jgz+Og58nNaqvQcXHrno28694t6O3uUaNdB
+	 v00vT8LDaJ1jhTD5SXgktm4LOuMjXjTreZHNSTuk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F0A31F805E5; Mon, 31 Jul 2023 11:17:55 +0200 (CEST)
+	id 5550AF805F0; Mon, 31 Jul 2023 11:17:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BC53F805DA;
-	Mon, 31 Jul 2023 11:17:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C8E4F805EB;
+	Mon, 31 Jul 2023 11:17:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AC071F801F5; Fri, 28 Jul 2023 11:10:09 +0200 (CEST)
+	id D96D5F801F5; Fri, 28 Jul 2023 12:23:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D6EEF802E8
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 11:09:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D6EEF802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 29EF0F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 12:23:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29EF0F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=tSnG0mEn
-X-UUID: 624ea3fe2d2611ee9cb5633481061a41-20230728
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=bbjmhOdykU83KPH/M1QU2kpF8BWkVdXUxY/Ht/Ui5AU=;
-	b=tSnG0mEnekHzsFk17sSgTIP4t+PRhtlfhANIyvqkVvfZ4B0WqbmByf85A6TpHU6HYjQJAyCNBB9tSuyOjio5FBTmC5OanaHQN+wKQPBZ5vFwYDT1qMI+sJpu1Vuv4zlpOZcPQ+MlvoI94NF04sJTItP7All/B5+LrLpMCFb7k+M=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.30,REQID:ff804065-7364-424e-afc2-8894d3728ea9,IP:0,U
-	RL:25,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:95
-X-CID-INFO: VERSION:1.1.30,REQID:ff804065-7364-424e-afc2-8894d3728ea9,IP:0,URL
-	:25,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACT
-	ION:quarantine,TS:95
-X-CID-META: VersionHash:1fcc6f8,CLOUDID:fc39a2a0-0933-4333-8d4f-6c3c53ebd55b,B
-	ulkID:230728170858FLODCKLR,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
-	C:nil,Content:0,EDM:-3,IP:nil,URL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SDM,TF_CID_SPAM_ASC,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,
-	TF_CID_SPAM_ULN,TF_CID_SPAM_SNR
-X-UUID: 624ea3fe2d2611ee9cb5633481061a41-20230728
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com
-	(envelope-from <maso.huang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 2124003612; Fri, 28 Jul 2023 17:08:57 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Fri, 28 Jul 2023 17:08:56 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Fri, 28 Jul 2023 17:08:56 +0800
-From: Maso Huang <maso.huang@mediatek.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Trevor Wu <trevor.wu@mediatek.com>, Arnd
- Bergmann <arnd@arndb.de>, Mars Chen
-	<chenxiangrui@huaqin.corp-partner.google.com>, Allen-KH Cheng
-	<allen-kh.cheng@mediatek.com>, <alsa-devel@alsa-project.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Maso Huang <maso.huang@mediatek.com>
-Subject: [PATCH v3 6/6] ASoC: dt-bindings: mediatek,mt7986-afe: add audio afe
- document
-Date: Fri, 28 Jul 2023 17:08:19 +0800
-Message-ID: <20230728090819.18038-7-maso.huang@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230728090819.18038-1-maso.huang@mediatek.com>
-References: <20230728090819.18038-1-maso.huang@mediatek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=cTDtAp8R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1690539788; x=1722075788;
+  h=from:to:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=UoywkU2z5PUFwZqyn1H/+6DtaE/kYe+OTAC03fuk89g=;
+  b=cTDtAp8RSLJ9zgeTixSE7q5rcYryU0+QvrdiubVExZygPHMwlljf3aes
+   9LRBmyiRA8c3UwomeDFRtgQWr40TZAtWiPdZN3AS/OsfXrMQch3CPHLbh
+   zEp/mOymctPNsZLuQBeKK7ENOMgXifKkJURWTwIM84UGjUAO0sbsVkjSc
+   /U7Fxx1iu4cL9bOpmty4Y4FZ+UUZvso1jWZR8zqF9kslkZs2er3ttMu8N
+   1ZHowB+JEmEV/+SV0L0uAqv7p1uAj1UhFraZotyyD4PZypPsnd3/2y1E8
+   mpDStYvgWqQuowIUhQL2W+8p8u4q2hrLGG52bn2yoaQJMlh1FnIksTDvR
+   A==;
+X-IronPort-AV: E=Sophos;i="6.01,237,1684825200";
+   d="scan'208";a="227046811"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 28 Jul 2023 03:22:59 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Fri, 28 Jul 2023 03:22:55 -0700
+Received: from che-lt-i67070.amer.actel.com (10.10.115.15) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.21 via Frontend Transport; Fri, 28 Jul 2023 03:22:30 -0700
+From: Varshini Rajendran <varshini.rajendran@microchip.com>
+To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@microchip.com>,
+	<mturquette@baylibre.com>, <sboyd@kernel.org>, <herbert@gondor.apana.org.au>,
+	<davem@davemloft.net>, <vkoul@kernel.org>, <andi.shyti@kernel.org>,
+	<tglx@linutronix.de>, <maz@kernel.org>, <lee@kernel.org>,
+	<ulf.hansson@linaro.org>, <tudor.ambarus@linaro.org>,
+	<miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
+	<edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<linus.walleij@linaro.org>, <sre@kernel.org>, <p.zabel@pengutronix.de>,
+	<olivia@selenic.com>, <a.zummo@towertech.it>, <radu_nicolae.pirea@upb.ro>,
+	<richard.genoud@gmail.com>, <gregkh@linuxfoundation.org>,
+	<lgirdwood@gmail.com>, <broonie@kernel.org>, <wim@linux-watchdog.org>,
+	<linux@roeck-us.net>, <linux@armlinux.org.uk>,
+	<durai.manickamkr@microchip.com>, <varshini.rajendran@microchip.com>,
+	<andrew@lunn.ch>, <jerry.ray@microchip.com>, <andre.przywara@arm.com>,
+	<mani@kernel.org>, <alexandre.torgue@st.com>, <gregory.clement@bootlin.com>,
+	<arnd@arndb.de>, <rientjes@google.com>, <deller@gmx.de>,
+	<42.hyeyoo@gmail.com>, <vbabka@suse.cz>, <mripard@kernel.org>,
+	<mihai.sain@microchip.com>, <codrin.ciubotariu@microchip.com>,
+	<eugen.hristev@collabora.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-clk@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+	<linux-mmc@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
+	<netdev@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
+	<linux-spi@vger.kernel.org>, <linux-serial@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>, <linux-usb@vger.kernel.org>,
+	<linux-watchdog@vger.kernel.org>
+Subject: [PATCH v3 00/50] Add support for sam9x7 SoC family
+Date: Fri, 28 Jul 2023 15:52:23 +0530
+Message-ID: <20230728102223.265216-1-varshini.rajendran@microchip.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MailFrom: maso.huang@mediatek.com
+X-MailFrom: Varshini.Rajendran@microchip.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: RXS6BLPDBHFLS5Q4HIWXCVI42QN6OCVR
-X-Message-ID-Hash: RXS6BLPDBHFLS5Q4HIWXCVI42QN6OCVR
-X-Mailman-Approved-At: Mon, 31 Jul 2023 09:17:25 +0000
+Message-ID-Hash: G2QLGNPAXTZSP2ANNT66UESZURB3BINX
+X-Message-ID-Hash: G2QLGNPAXTZSP2ANNT66UESZURB3BINX
+X-Mailman-Approved-At: Mon, 31 Jul 2023 09:17:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RXS6BLPDBHFLS5Q4HIWXCVI42QN6OCVR/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,109 +129,171 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add mt7986 audio afe document.
+This patch series adds support for the new SoC family - sam9x7.
+ - The device tree, configs and drivers are added
+ - Clock driver for sam9x7 is added
+ - Support for basic peripherals is added
+ - Target board SAM9X75 Curiosity is added
 
-Signed-off-by: Maso Huang <maso.huang@mediatek.com>
----
- .../bindings/sound/mediatek,mt7986-afe.yaml   | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
+ Changes in v3:
+ --------------
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
-new file mode 100644
-index 000000000000..ebb151c6400f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mediatek,mt7986-afe.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek AFE PCM controller for MT7986
-+
-+maintainers:
-+  - Maso Huang <maso.huang@mediatek.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: mediatek,mt7986-afe
-+      - items:
-+          - enum:
-+              - mediatek,mt7981-afe
-+              - mediatek,mt7988-afe
-+          - const: mediatek,mt7986-afe
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 5
-+    items:
-+      - description: audio bus clock
-+      - description: audio 26M clock
-+      - description: audio intbus clock
-+      - description: audio hopping clock
-+      - description: audio pll clock
-+      - description: mux for pcm_mck
-+      - description: audio i2s/pcm mck
-+
-+  clock-names:
-+    minItems: 5
-+    items:
-+      - const: bus_ck
-+      - const: 26m_ck
-+      - const: l_ck
-+      - const: aud_ck
-+      - const: eg2_ck
-+      - const: sel
-+      - const: i2s_m
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - assigned-clocks
-+  - assigned-clock-parents
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/clock/mt7986-clk.h>
-+
-+    afe@11210000 {
-+        compatible = "mediatek,mt7986-afe";
-+        reg = <0x11210000 0x9000>;
-+        interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&infracfg_ao CLK_INFRA_AUD_BUS_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_26M_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_L_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_AUD_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_EG2_CK>;
-+        clock-names = "bus_ck",
-+                      "26m_ck",
-+                      "l_ck",
-+                      "aud_ck",
-+                      "eg2_ck";
-+        assigned-clocks = <&topckgen CLK_TOP_A1SYS_SEL>,
-+                          <&topckgen CLK_TOP_AUD_L_SEL>,
-+                          <&topckgen CLK_TOP_A_TUNER_SEL>;
-+        assigned-clock-parents = <&topckgen CLK_TOP_APLL2_D4>,
-+                                 <&apmixedsys CLK_APMIXED_APLL2>,
-+                                 <&topckgen CLK_TOP_APLL2_D4>;
-+    };
-+
-+...
+ - Fixed the DT documentation errors pointed out in v2.
+ - Dropped Acked-by tag in tcb DT doc patch as it had to be adapted
+   according to sam9x7 correctly.
+ - Picked by the previously missed tags.
+ - Dropped this patch "dt-bindings: usb: generic-ehci: Document clock-names
+   property" as the warning was not found while validating DT-schema for
+   at91-sam9x75_curiosity.dtb.
+ - Dropped redundant words in the commit message.
+ - Fixed the CHECK_DTBS warnings validated against
+   at91-sam9x75_curiosity.dtb.
+ - Renamed dt nodes according to naming convention.
+ - Dropped unwanted status property in dts.
+ - Removed nodes that are not in use from the board dts.
+ - Removed spi DT doc patch from the series as it was already applied
+   and a fix patch was applied subsequently. Added a patch to remove the
+   compatible to adapt sam9x7.
+ - Added sam9x7 compatibles in usb dt documentation.
+
+
+ Changes in v2:
+ --------------
+
+ - Added sam9x7 specific compatibles in DT with fallbacks
+ - Documented all the newly added DT compatible strings
+ - Added device tree for the target board sam9x75 curiosity and
+   documented the same in the DT bindings documentation
+ - Removed the dt nodes that are not supported at the moment
+ - Removed the configs added by previous version that are not supported
+   at the moment
+ - Fixed all the corrections in the commit message
+ - Changed all the instances of copyright year to 2023
+ - Added sam9x7 flag in PIT64B configuration
+ - Moved macro definitions to header file
+ - Added another divider in mck characteristics in the pmc driver
+ - Fixed the memory leak in the pmc driver
+ - Dropped patches that are no longer needed
+ - Picked up Acked-by and Reviewed-by tags
+
+
+Hari Prasath (1):
+  irqchip/atmel-aic5: Add support for sam9x7 aic
+
+Varshini Rajendran (49):
+  dt-bindings: microchip: atmel,at91rm9200-tcb: add sam9x60, sam9x7
+    compatible
+  dt-bindings: usb: ehci: Add atmel at91sam9g45-ehci compatible
+  dt-bindings: net: cdns,macb: add sam9x7 ethernet interface
+  dt-bindings: clk: at91: add sam9x7
+  dt-bindings: clk: at91: add sam9x7 clock controller
+  dt-bindings: reset: atmel,at91sam9260-reset: add sam9x7
+  dt-bindings: power: reset: atmel,sama5d2-shdwc: add sam9x7
+  dt-bindings: atmel-sysreg: add sam9x7
+  dt-bindings: crypto: add sam9x7 in Atmel AES
+  dt-bindings: crypto: add sam9x7 in Atmel SHA
+  dt-bindings: crypto: add sam9x7 in Atmel TDES
+  dt-bindings: dmaengine: at_xdmac: add compatible with microchip,sam9x7
+  dt-bindings: i2c: at91: Add sam9x7 compatible string
+  dt-bindings: mfd: at91: Add SAM9X7 compatible string
+  dt-bindings: atmel-gpbr: add microchip,sam9x7-gpbr
+  dt-bindings: atmel-matrix: add microchip,sam9x7-matrix
+  dt-bindings: atmel-smc: add microchip,sam9x7-smc
+  dt-bindings: atmel-ssc: add microchip,sam9x7-ssc
+  dt-bindings: sdhci-of-at91: add microchip,sam9x7-sdhci
+  dt-bindings: atmel-nand: add microchip,sam9x7-pmecc
+  dt-bindings: pinctrl: at91: add sam9x7
+  dt-bindings: rng: atmel,at91-trng: add sam9x7 TRNG
+  dt-bindings: rtc: at91rm9200: add sam9x7 compatible
+  dt-bindings: rtt: at91rm9260: add sam9x7 compatible
+  dt-bindings: serial: atmel,at91-usart: add compatible for sam9x7
+  dt-bindings: atmel-classd: add sam9x7 compatible
+  dt-bindings: usb: atmel: add sam9x7
+  dt-bindings: watchdog: sama5d4-wdt: add compatible for sam9x7-wdt
+  dt-bindings: irqchip/atmel-aic5: Add support for sam9x7 aic
+  spi: dt-bindings: atmel,at91rm9200-spi: remove 9x60 compatible from
+    list
+  ASoC: dt-bindings: microchip: add sam9x7
+  dt-bindings: usb: ehci: Add sam9x7
+  dt-bindings: usb: add sam9x7
+  ARM: at91: pm: add support for sam9x7 SoC family
+  ARM: at91: pm: add sam9x7 SoC init config
+  ARM: at91: add support in SoC driver for new sam9x7
+  clk: at91: clk-sam9x60-pll: re-factor to support individual core freq
+    outputs
+  clk: at91: sam9x7: add support for HW PLL freq dividers
+  clk: at91: sama7g5: move mux table macros to header file
+  clk: at91: sam9x7: Allow PLLs to be exported and referenced in DT
+  clk: at91: sam9x7: add sam9x7 pmc driver
+  power: reset: at91-poweroff: lookup for proper pmc dt node for sam9x7
+  power: reset: at91-reset: add reset support for sam9x7 SoC
+  power: reset: at91-reset: add sdhwc support for sam9x7 SoC
+  ARM: at91: Kconfig: add config flag for SAM9X7 SoC
+  ARM: configs: at91: enable config flags for sam9x7 SoC family
+  ARM: dts: at91: sam9x7: add device tree for SoC
+  dt-bindings: arm: add sam9x75 curiosity board
+  ARM: dts: at91: sam9x75_curiosity: add sam9x75 curiosity board
+
+ .../devicetree/bindings/arm/atmel-at91.yaml   |    6 +
+ .../devicetree/bindings/arm/atmel-sysregs.txt |    7 +-
+ .../bindings/clock/atmel,at91rm9200-pmc.yaml  |    1 +
+ .../bindings/clock/atmel,at91sam9x5-sckc.yaml |    3 +
+ .../crypto/atmel,at91sam9g46-aes.yaml         |    6 +-
+ .../crypto/atmel,at91sam9g46-sha.yaml         |    6 +-
+ .../crypto/atmel,at91sam9g46-tdes.yaml        |    6 +-
+ .../devicetree/bindings/dma/atmel-xdma.txt    |    3 +-
+ .../bindings/i2c/atmel,at91sam-i2c.yaml       |    4 +
+ .../interrupt-controller/atmel,aic.txt        |    2 +-
+ .../devicetree/bindings/mfd/atmel-flexcom.txt |    1 +
+ .../devicetree/bindings/mfd/atmel-gpbr.txt    |    1 +
+ .../devicetree/bindings/mfd/atmel-matrix.txt  |    1 +
+ .../devicetree/bindings/mfd/atmel-smc.txt     |    1 +
+ .../devicetree/bindings/misc/atmel-ssc.txt    |    1 +
+ .../devicetree/bindings/mmc/sdhci-atmel.txt   |    4 +-
+ .../devicetree/bindings/mtd/atmel-nand.txt    |    1 +
+ .../devicetree/bindings/net/cdns,macb.yaml    |    6 +
+ .../bindings/pinctrl/atmel,at91-pinctrl.txt   |    2 +
+ .../power/reset/atmel,sama5d2-shdwc.yaml      |    3 +
+ .../reset/atmel,at91sam9260-reset.yaml        |    4 +
+ .../bindings/rng/atmel,at91-trng.yaml         |    4 +
+ .../bindings/rtc/atmel,at91rm9200-rtc.yaml    |   18 +-
+ .../bindings/rtc/atmel,at91sam9260-rtt.yaml   |    3 +
+ .../bindings/serial/atmel,at91-usart.yaml     |    9 +
+ .../soc/microchip/atmel,at91rm9200-tcb.yaml   |   21 +-
+ .../bindings/sound/atmel,sama5d2-classd.yaml  |    7 +-
+ .../sound/microchip,sama7g5-i2smcc.yaml       |   11 +-
+ .../bindings/spi/atmel,at91rm9200-spi.yaml    |    1 -
+ .../devicetree/bindings/usb/atmel-usb.txt     |   11 +-
+ .../devicetree/bindings/usb/generic-ehci.yaml |    7 +
+ .../devicetree/bindings/usb/generic-ohci.yaml |    6 +
+ .../bindings/watchdog/atmel,sama5d4-wdt.yaml  |   15 +-
+ arch/arm/boot/dts/microchip/Makefile          |    5 +
+ .../dts/microchip/at91-sam9x75_curiosity.dts  |  311 +++++
+ arch/arm/boot/dts/microchip/sam9x7.dtsi       | 1238 +++++++++++++++++
+ arch/arm/configs/at91_dt_defconfig            |    1 +
+ arch/arm/mach-at91/Kconfig                    |   23 +-
+ arch/arm/mach-at91/Makefile                   |    1 +
+ arch/arm/mach-at91/generic.h                  |    2 +
+ arch/arm/mach-at91/pm.c                       |   35 +
+ arch/arm/mach-at91/sam9x7.c                   |   34 +
+ drivers/clk/at91/Makefile                     |    1 +
+ drivers/clk/at91/clk-sam9x60-pll.c            |   50 +-
+ drivers/clk/at91/pmc.h                        |   18 +
+ drivers/clk/at91/sam9x60.c                    |    7 +
+ drivers/clk/at91/sam9x7.c                     |  946 +++++++++++++
+ drivers/clk/at91/sama7g5.c                    |   42 +-
+ drivers/irqchip/irq-atmel-aic5.c              |   10 +
+ drivers/power/reset/Kconfig                   |    4 +-
+ drivers/power/reset/at91-sama5d2_shdwc.c      |    1 +
+ drivers/soc/atmel/soc.c                       |   23 +
+ drivers/soc/atmel/soc.h                       |    9 +
+ include/dt-bindings/clock/at91.h              |    4 +
+ 54 files changed, 2871 insertions(+), 76 deletions(-)
+ create mode 100644 arch/arm/boot/dts/microchip/at91-sam9x75_curiosity.dts
+ create mode 100644 arch/arm/boot/dts/microchip/sam9x7.dtsi
+ create mode 100644 arch/arm/mach-at91/sam9x7.c
+ create mode 100644 drivers/clk/at91/sam9x7.c
+
 -- 
-2.18.0
+2.25.1
 

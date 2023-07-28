@@ -2,81 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A1587671E9
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 18:36:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA93C7671FE
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 18:37:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8D40207;
-	Fri, 28 Jul 2023 18:35:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8D40207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 623F9845;
+	Fri, 28 Jul 2023 18:36:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 623F9845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690562184;
-	bh=xrqCJGqg9GSk7yIgP9HX1dUpZQzOD1ks7daCXe0tR8Y=;
+	s=default; t=1690562235;
+	bh=DoVwk5cw4lHeorzGw8TinHHfK83bjvPZo1PlOG1eoZA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=D1MFbwnXOf49tU1qmrn/xQDMkkGwY/qASvTrbNN/eiNGVXNueqIGoDPtFNNa0yj29
-	 Kk18fK9df2kh9wAO2RIRM0rxFqFIz315+XgCqe+L17HKUCXfd3fD8oTARxJXLfzewz
-	 xAIQP5NIdOThq4DBEuUaLBU4Eb8Hjaor9xWj0PuI=
+	b=qvwFS9sikaJlLAXMK20pj0hB94Pltq6ZFgup5tcbJdIUvdYtNz1t4h+Eb8AGAQIhE
+	 XZJoaUw1SIDT+Q1ZscGNzDCDMy0S6cOFtpQVNbteNd7LVAYU+oXL8VgiMPsdFEx55d
+	 GBwIj/o8IqKoA8+EAVlqe+WeHNrwcWtE0+2f7QNs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E459CF801F5; Fri, 28 Jul 2023 18:35:33 +0200 (CEST)
+	id 9697BF80549; Fri, 28 Jul 2023 18:35:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED507F80163;
-	Fri, 28 Jul 2023 18:35:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF6B8F80548;
+	Fri, 28 Jul 2023 18:35:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDB04F801F5; Fri, 28 Jul 2023 18:35:27 +0200 (CEST)
+	id 4C650F8019B; Fri, 28 Jul 2023 18:35:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CACFFF80153
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 18:35:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CACFFF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2911F800C7
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 18:35:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2911F800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lInnsgVg
+ header.s=k20201202 header.b=iBVanlns
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 84978617A1;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F34AC6219E;
+	Fri, 28 Jul 2023 16:35:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D2BC433C8;
 	Fri, 28 Jul 2023 16:35:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82637C433C7;
-	Fri, 28 Jul 2023 16:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690562115;
-	bh=xrqCJGqg9GSk7yIgP9HX1dUpZQzOD1ks7daCXe0tR8Y=;
+	s=k20201202; t=1690562118;
+	bh=DoVwk5cw4lHeorzGw8TinHHfK83bjvPZo1PlOG1eoZA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=lInnsgVg0s6gCJmt2W7LegK//i6KTblUiWJ9oAi4PZeguVbV82PEAidBzMjYUA6N4
-	 2VlK1heX36m7f37VLx9OYCNLC6KESeWvI7wvjblJ9AB16pHN3ywYiWNNzR7esDRwT0
-	 aJAY3QMeR6SwQtb3JweSqf3oSicT5k8kRjdSI9iaPjHFIOvHDV61bPYaMsRYX+O9+H
-	 J7sZ5qJ5oVxkXcGyOqvb2Oht980wec+uh6qmFpX4zMI8CwEBp/QkMNqAzYwiQJf7Ve
-	 BvBn1OWiXgGpVsoc4JMd+Agf33X/fZO3yujSMJlpvbTfg8hMPglipA3o8rHpWFkWEl
-	 RiNH4hcuYHjTw==
+	b=iBVanlnsFj/wWIQupGmfXwv38rePffMDw9duJTNhoGjp/yiz18q6e5BcufHfGtgh2
+	 2N244UZ2chau5lMu7XQ8jTAC1s2cYly8XbF8Zy9GTnEvmF73kZE9YcC9SUSvc2jtA+
+	 pzosk9DlCMwjOnksou7E8IpSWQsuyw5LGDwlwjtFA8jGZcb8QgJzClc4f1pXeZ4dwh
+	 5gYtUGQBb7lx+mPpvBYh2AET5Qyn5GzER6N+3M5l6uI8PzeYzO+C+Z/40xX6Rcinz+
+	 cymDQ7AcaoZ7CwOBUv4eP/wZVrmAJuY/sguf7a806Ct9ZClvJiqffRQ7KrXS5X6TB7
+	 n9JGg+2gV6D4w==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, Justin Stitt <justinstitt@google.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Kees Cook <keescook@chromium.org>
-In-Reply-To: <20230727-sound-soc-codecs-v1-1-562fa2836bf4@google.com>
-References: <20230727-sound-soc-codecs-v1-1-562fa2836bf4@google.com>
-Subject: Re: [PATCH] ASoC: 88pm860x: refactor deprecated strncpy
-Message-Id: <169056211423.208880.7188858639779288535.b4-ty@kernel.org>
-Date: Fri, 28 Jul 2023 17:35:14 +0100
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>
+In-Reply-To: <20230727-sound-soc-fsl-v1-1-4fc0ed7e0366@google.com>
+References: <20230727-sound-soc-fsl-v1-1-4fc0ed7e0366@google.com>
+Subject: Re: [PATCH] ASoC: fsl_micfil: refactor deprecated strncpy
+Message-Id: <169056211617.208880.10400351966983316793.b4-ty@kernel.org>
+Date: Fri, 28 Jul 2023 17:35:16 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: TZMGZCPICE6QS3ZVGFH7EUDBPJ26U7PA
-X-Message-ID-Hash: TZMGZCPICE6QS3ZVGFH7EUDBPJ26U7PA
+Message-ID-Hash: 4WCMUJTBE4AUR2YYTBDZ4UDMGEFSHR52
+X-Message-ID-Hash: 4WCMUJTBE4AUR2YYTBDZ4UDMGEFSHR52
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TZMGZCPICE6QS3ZVGFH7EUDBPJ26U7PA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4WCMUJTBE4AUR2YYTBDZ4UDMGEFSHR52/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,18 +102,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 27 Jul 2023 22:46:13 +0000, Justin Stitt wrote:
+On Thu, 27 Jul 2023 22:26:41 +0000, Justin Stitt wrote:
 > `strncpy` is deprecated for use on NUL-terminated destination strings [1].
 > 
 > A suitable replacement is `strscpy` [2] due to the fact that it
 > guarantees NUL-termination on its destination buffer argument which is
 > _not_ always the case for `strncpy`!
 > 
-> In this case, though, there was care taken to ensure that the
-> destination buffer would be NUL-terminated. The destination buffer is
-> zero-initialized and each `pm860x->name[i]` has a size of
-> `MAX_NAME_LENGTH + 1`. This means that there is unlikely to be a bug
-> here.
+> In this case, though, there was great care taken to ensure that the
+> destination buffer would be NUL-terminated through the use of `len - 1`
+> ensuring that the previously zero-initialized buffer would not overwrite
+> the last NUL byte. This means that there's no bug here.
 > 
 > [...]
 
@@ -119,8 +122,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: 88pm860x: refactor deprecated strncpy
-      commit: a9a65b87a5553a4ecabad7093ef6a1088bb71b88
+[1/1] ASoC: fsl_micfil: refactor deprecated strncpy
+      commit: 7eb10bfbbae6025cb7b4bba3db0c1281eac05862
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,119 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658D6766D9F
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 14:52:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40969766DEA
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 15:14:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A45183B;
-	Fri, 28 Jul 2023 14:51:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A45183B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FD60827;
+	Fri, 28 Jul 2023 15:13:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FD60827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690548746;
-	bh=JzdEukCtt8cZhLWRKlkkqjM0UmtZtQUt+RZ3eXG9C1A=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=PEG22r8b/8ZeGqWavDDnVJ3ulr0Hy7Gariueb2lqvXrkaJnUl4cB/ErRZgBr6Bw5O
-	 p5RpE+j453fu7rWJgOTpAoyIC9440ro+Z7noPDhcPlK93LDIGTGPa3YxvF7jB7eWlM
-	 DGiVeGyT24n9HElSWVMoiC3SgMFaC/MFebDKAEmU=
+	s=default; t=1690550071;
+	bh=okov4bn0e+e7NVtVp6ykizZqgLz71XkFxjjZrZyDd1s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rYVktrOmp2i/nZd0TdGNsyBNq2CVKbYuVQ0LGbRBzVFi++tFQcO58Z9ktZG4apLa4
+	 vLVCmNbod3R/QAJ5XkDP+EdS58imr3g5fO94BZa9YKbJGb+dtNvWGMBbtuigk6NRxT
+	 XuyF3COT81e4dcRg4ptse4mMamFcOYVKdjemsyNs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49FEDF801F5; Fri, 28 Jul 2023 14:51:36 +0200 (CEST)
+	id 7FDDCF800C7; Fri, 28 Jul 2023 15:13:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCDC2F80163;
-	Fri, 28 Jul 2023 14:51:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB746F80163;
+	Fri, 28 Jul 2023 15:13:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 053FDF8019B; Fri, 28 Jul 2023 14:51:33 +0200 (CEST)
+	id D8379F8019B; Fri, 28 Jul 2023 15:13:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,PDS_OTHER_BAD_TLD,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0AB00F80153
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 14:51:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AB00F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6A9BF800C7
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 15:13:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6A9BF800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=wZkbNGqQ
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-9923833737eso284080066b.3
-        for <alsa-devel@alsa-project.org>;
- Fri, 28 Jul 2023 05:51:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690548689; x=1691153489;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gedJLHyl9jYC/USPCijx0sE3um9fSLBbzPsw2ixUmqY=;
-        b=wZkbNGqQ3uw7mcIwc1dl7W5fqIdyvKuQUlDtB8gOcchltE1RNPokOIfX3a/CvA/g5t
-         mw2xEn50S9OLn2pNFVCuTMP86YFrvZKsDIBDutAbKKuSiTQPY8/b4MCrKdJQYFfOKVv/
-         Ty3Lw8A0HAfx+lgEd/6uJxOqks62xu8+dJP4KoIOWfeIZFIK1rb2giVKIpibsczYWqqU
-         7k0zJTnEguhscCH+pXhGphDy2A0CNjWyoqyxlXMi54Vl+hVfx6m9a3Zt8jdwrObAQcnt
-         S/tQrXjg6JBJYzZih7sFc1ERLc5iEP5Uq26CzNJrJcWUunD0PCgjfVnRAEgG4GAUcgk3
-         KGSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690548689; x=1691153489;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gedJLHyl9jYC/USPCijx0sE3um9fSLBbzPsw2ixUmqY=;
-        b=JNw5B3oxrFYM6jbTWhgWAy0AORmy0BwWIGAXTdyGge9X+JWwH1DzZYcjZ48ctz7vRa
-         lBMuFM9OuxNGVOTcwixe1ecXPKBExCVps3XFXhf+xdvCdY3TYo0tE5HSQQVf5HpH/9Xn
-         oiXmPJVxTws7Wnlre9JpU8QI87DH6RB8B8nYPYD7oiXawul2h6zAcDkXIygpHRn0Tfdt
-         Q1Tdc2EP3uTnFaYO2jxNz+hzcgrFuc92YTGrRs8GcDQ7agaynndPPZgSyZb/V33rVkHL
-         zrh8j1JvXUYYj3q+7aCVoe9MUnY4n3z5AuFwwanLGqKtrgNwWcouqfzhNA6+RUNmiLwV
-         gD7A==
-X-Gm-Message-State: ABy/qLaXPAMPrb9Gu+sCUIBovB44r5fXksyIkcI2d6brtXvEziAjvaHf
-	DujC2Zh1AcUtFC0iQKmkt70n9A==
-X-Google-Smtp-Source: 
- APBJJlHax6AsxJudUM5VqzR8XMQAFX9jqhmnuuAP0jJ/YQ0xu9Ni7Sg1fWIzJHA9rNtfwWtbo3ixhQ==
-X-Received: by 2002:a17:906:319a:b0:994:34a2:8727 with SMTP id
- 26-20020a170906319a00b0099434a28727mr2157378ejy.41.1690548688933;
-        Fri, 28 Jul 2023 05:51:28 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
-        by smtp.gmail.com with ESMTPSA id
- sd26-20020a170906ce3a00b0099bc08862b6sm2054522ejb.171.2023.07.28.05.51.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Jul 2023 05:51:28 -0700 (PDT)
-Message-ID: <a4f071a0-9e41-4de1-6721-f8d47475f41e@linaro.org>
-Date: Fri, 28 Jul 2023 14:51:26 +0200
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm3 header.b=YBRasAVW;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=sYNw8/vZ
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailout.nyi.internal (Postfix) with ESMTP id 6A5155C0181;
+	Fri, 28 Jul 2023 09:13:13 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute4.internal (MEProxy); Fri, 28 Jul 2023 09:13:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to;
+	 s=fm3; t=1690549993; x=1690636393; bh=ZToFlheVlRcgWlBoH2hLUJMku
+	MkpsEscckf149EpPOI=; b=YBRasAVW8ZvbobnrkoEDHC10/nfYiF5bNa2aK+dCz
+	W/YWoTVj2gbwcXtjT0r/aLsiK75tOQ/dHONhQualKTlo1B/nV4Y722yCQmx1JdT7
+	prqzPkZwno/pjdLcNMA23AcitiDUcpqZaMTtqJl5f05TBHivcqPWT3p2B50JI1Eq
+	HPIrAI/2ZzHjPKsE8AMZNDHum0oK671hCAqllU7TsfWy3FJpd0Ucbd/HyNb6nFMb
+	625W24QNiJDMVK6zQFE6iTyIi6oAC6AOypInbrmmwy8ZQz61V7GqqL+ULIRgG0IX
+	egYYyLLDjmFg7tjWMrvmRfwO1xm8nFe3vJU32AUtrBBOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1690549993; x=1690636393; bh=ZToFlheVlRcgWlBoH2hLUJMkuMkpsEscckf
+	149EpPOI=; b=sYNw8/vZndAKqqR4gVzpr/xCbpLe89Wzd1vJJPAdgBaLYKTkmvB
+	Aowsi/mY+WE7jwgHuO7ynTNXO51OOXnK57SnMKhSuSaB2dY0hxQT6ieqSBDbqhDp
+	A6czbsnDmUVGRQPD+Ic7vaT8R4SBspuI5Q1QH2SKYYeNNEQKyzmTOi59VLm0UNh/
+	5RgbPLrmz5wiTfT/WL/gUon+4iw23whMYmgRsNIQsVN2/XR6kOrDvi1Xe9Sh0Lxx
+	h9lp7BN4HrclB+P/u6kyRqTBmLMn1xG89Zm4RAdoK6k2Ph7ANNhBYIEOJrFjd3wk
+	yTO3CuTqkwYCMNQ9Kk67CJfXfVV3o/1V98A==
+X-ME-Sender: <xms:6L7DZAU_AavQ4spAOGx-2GN4OSxRgZoagKxEB4RkLLsiDad6bWUOBg>
+    <xme:6L7DZElvuKQv7feVF-poVakdhcI-eBqZTf5bJVAgR6o176xc3mLetUOk9ksC-5IMj
+    QDcjeXN5vcPZPBW1S4>
+X-ME-Received: 
+ <xmr:6L7DZEZQL7Ptba4zaEpd9k_qBv3SdKd29K0vNDPGaKIEr-8QOnmC_3UFg8Q1XcZTvvgz9voK3zH0uEBLvL1t89ZB0_t-rP148oU>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedviedrieeigdehlecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtudenucfhrhhomhepvfgrkhgr
+    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+    hjpheqnecuggftrfgrthhtvghrnhepffdvudejvdevgfetheduueelhfelteejgfeujefg
+    vdejgfeiheetuedttddvjefgnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpkhgvrh
+    hnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:6b7DZPV9r8bSHwHeZ-4kzzb6DpbJ6fVd3PcS4lH_0VpfENHzBQ67uw>
+    <xmx:6b7DZKmDAhSMRPDs-SRm_iD3MgOlZWDuSrFyF_QDwyA1JOVGwtpKSg>
+    <xmx:6b7DZEeBDjb2bKqAxPUmX4pFF_qhtMSyPLI2yeZz8e-bXm60TzrH2Q>
+    <xmx:6b7DZPz8UN_2t-yPqe6dnbXGICllF1T60fgmJ-R6NbI2JtmcyBoZdg>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Jul 2023 09:13:11 -0400 (EDT)
+Date: Fri, 28 Jul 2023 22:13:08 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Michele Perrone <michele.perrone@weiss.ch>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Rolf Anderegg <rolf.anderegg@weiss.ch>
+Subject: Re: [PATCH] ALSA: dice: add stream format parameters for Weiss
+ devices
+Message-ID: <20230728131308.GA142765@workstation.local>
+Mail-Followup-To: Michele Perrone <michele.perrone@weiss.ch>,
+	Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Rolf Anderegg <rolf.anderegg@weiss.ch>
+References: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 6/6] ASoC: dt-bindings: mediatek,mt7986-afe: add audio
- afe document
-Content-Language: en-US
-To: Maso Huang <maso.huang@mediatek.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Arnd Bergmann <arnd@arndb.de>,
- Mars Chen <chenxiangrui@huaqin.corp-partner.google.com>,
- Allen-KH Cheng <allen-kh.cheng@mediatek.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20230728090819.18038-1-maso.huang@mediatek.com>
- <20230728090819.18038-7-maso.huang@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230728090819.18038-7-maso.huang@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3T4CA6VL3XNOOOCMGIPZ2CLOIQZFALSH
-X-Message-ID-Hash: 3T4CA6VL3XNOOOCMGIPZ2CLOIQZFALSH
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
+Message-ID-Hash: JWKQZL7BYZWHRIV4B3QSJI6SMPEBW7RY
+X-Message-ID-Hash: JWKQZL7BYZWHRIV4B3QSJI6SMPEBW7RY
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3T4CA6VL3XNOOOCMGIPZ2CLOIQZFALSH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JWKQZL7BYZWHRIV4B3QSJI6SMPEBW7RY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,34 +140,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28/07/2023 11:08, Maso Huang wrote:
-> Add mt7986 audio afe document.
+ei,
+
+On Fri, Jul 28, 2023 at 11:16:11AM +0200, Michele Perrone wrote:
+> Hard-coded stream format parameters are added for Weiss Engineering
+> FireWire devices. When the device vendor and model match, the parameters
+> are copied into the stream format cache. This allows for setting all
+> supported sampling rates up to 192kHz, and consequently adjusting the
+> number of available I/O channels.
 > 
-> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
+> Signed-off-by: Rolf Anderegg <rolf.anderegg@weiss.ch>
+> Signed-off-by: Michele Perrone <michele.perrone@weiss.ch>
+> ---
+>  sound/firewire/dice/Makefile     |   2 +-
+>  sound/firewire/dice/dice-weiss.c | 120 +++++++++++++++++++++++++++++++
+>  sound/firewire/dice/dice.c       |  72 +++++++++++++++++++
+>  3 files changed, 193 insertions(+), 1 deletion(-)
+>  create mode 100644 sound/firewire/dice/dice-weiss.c
 
-Thank you for your patch. There is something to discuss/improve.
+Thanks for the patch. I've been waiting so long for such patches to
+support Weiss models. I welcome them.
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - assigned-clocks
-> +  - assigned-clock-parents
+As long as reviewing, I found some format and technical issues on the
+patches:
 
-You should constrain your clocks per variants. I doubt that they are
-really so flexible/optional on each SoC... or maybe missing clocks are
-result of unimplemented parts in the driver? But then this should not
-really affect bindings. Bindings still should require such clocks. Your
-DTS can always provide a <0>, if needed.
+Format issues:
+1.unexpected line break
+2.tab indentations are replaced with spaces
+
+Technical issues:
+3.build error due to missing snd_dice_detect_weiss_formats()
+  * prototype of snd_dice_detect_weiss_formats() should be in dice.c
+4. category_id in GUID
+5.stream formats for INT202
+
+I can correct 1st, 2nd, and 3rd issues. You can find the revised patch
+in the top-most of my remote repository[1].
+
+Let me confirm the 4th issue. TCAT defines 'category_id' field in GUID
+value of devices. As long as I know, Weiss engineers uses 0x00 in the
+field[2]. Is it still correct for the devices supported in the patch?
+
+Next, let us discuss about INT202 stream formats.
+
++
++/* Weiss INT202: 192kHz unidirectional 2-channel digital Firewire interface
+*/
++static const struct dice_weiss_spec int202 = {
++    .tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
++    .rx_pcm_chs = {{0, 0, 0}, {0, 0, 0} },
++    .has_midi   = false
++};
+
+(tx/rx should be device-oriented, tx = from device, rx = to device,
+please correct)
+
+I assume all of the DICE devices transmit isochronous packets to deliver
+presentation time stamp and events (= PCM frames). Then driver software
+utilizes the presentation time stamp and the amount of events to construct
+payload of isochronous packets into the device.
+
+I program ALSA dice driver based on the assumption, thus ALSA dice driver
+doesn't work well without receiving any isochronous packet from the
+device. However, the stream formats for INT202 device looks to support
+uni-directional operation. Weiss engineers really use DICE chipset like
+that? If so, I need to integrate the driver to support the case.
 
 
-> +
-> +additionalProperties: false
+As another topic. I make collection of configuration ROMs[3] to make better
+support for the devices in Linux system[4]. I'm pleased if you pick them
+up from your devices and dedicate them for the collection.
+
+[1] https://github.com/takaswie/sound/tree/topic/dice/weiss-support
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/tree/sound/firewire/dice/dice.c?h=v6.4#n59
+[3] https://github.com/takaswie/am-config-roms/
+[4] https://github.com/systemd/systemd/blob/main/hwdb.d/80-ieee1394-unit-function.hwdb
 
 
-Best regards,
-Krzysztof
+Thanks
 
+Takashi Sakamoto

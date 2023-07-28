@@ -2,114 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0686766460
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 08:41:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ACAD76654C
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 09:27:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF17B827;
-	Fri, 28 Jul 2023 08:40:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF17B827
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0CD6844;
+	Fri, 28 Jul 2023 09:26:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0CD6844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690526481;
-	bh=nvjEvYWC818S/gK9ndRKLk27Dao+Ey1nPAZw2eSJY2U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690529242;
+	bh=jcImtnLwcUfLeQIU1OvOi7H26D0RUYzhnoSlDqyoMtY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jx3YSM/zDqFNUItIJnrvP2S1Feose43ah781jnMPvACa8PeyzdsibNlX0PFpnxr19
-	 VPgjBhaU8Tl2j4Y+xRlwMjtASMZr+ZwLjvpHlYNvM0pr52vU3WoTYfm7Vl89qTZ5ZO
-	 WrAhUdttl+y4FtfUa5+bM4gP6JtG+L1esCPP4cBE=
+	b=IGvYSSg6U+3l6eZaEulX1rrFvOU3LewgIdtcEvx2XxMwL+y5cvo14LixCRSEa32rZ
+	 LWljtQqZUu0U+49VYQuKHnxJo4xHuLlDik2odyoZJ6MIZ1PYxpLqGDhee87RWpp8/M
+	 cfKDKyuc6uA+im1QmYq/Ga2TmbrEfoGpJ1FdpC3M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08B39F802E8; Fri, 28 Jul 2023 08:40:30 +0200 (CEST)
+	id E45D0F8019B; Fri, 28 Jul 2023 09:26:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 842CEF80163;
-	Fri, 28 Jul 2023 08:40:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53E54F80163;
+	Fri, 28 Jul 2023 09:26:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B9E6F8019B; Fri, 28 Jul 2023 08:40:25 +0200 (CEST)
+	id DF179F8019B; Fri, 28 Jul 2023 09:26:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,RDNS_NONE,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (unknown [134.134.136.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CBA8CF80153
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 08:40:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBA8CF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 504EAF800C7
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 09:25:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 504EAF800C7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=eBpRklMf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=R1b0Ocgu
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id EB07721A20;
-	Fri, 28 Jul 2023 06:40:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690526413;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XlKgVuBwxhBrU+hJz3skBfkXqX/gjlpigbuPenxR+bc=;
-	b=eBpRklMf4kgW3llIiRyhrQExSIw1EJ8BDlWkHRseOATFi/5nhpNeNB2sNrMaZ3Zo1WtwKt
-	gtfN8bEJUHdri7VSAX9P7vkEcxfcTbInPnzfrz7B0D97SMZ3TuuKvn32u5HWUqPRJd+J5D
-	PlMx4gEuNmSj2wvrx1u/QMknhzhZGnU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690526413;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XlKgVuBwxhBrU+hJz3skBfkXqX/gjlpigbuPenxR+bc=;
-	b=R1b0Ocgu31yF3wBLbFHlfoCbniug7+w05J6NxZE3jfL/mRtBH2LyQOXVz/FLfS+J5dZrgC
-	3CC9RIYLgyf1icAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A7EA133F7;
-	Fri, 28 Jul 2023 06:40:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id n5WvJM1iw2RzMgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 28 Jul 2023 06:40:13 +0000
-Date: Fri, 28 Jul 2023 08:40:13 +0200
-Message-ID: <871qgs4jzm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-um@lists.infradead.org,
-	Tejun Heo <tj@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nicolas Schier <nicolas@fjasle.eu>,
-	linux-kbuild@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH v3] um/drivers: fix hostaudio build errors
-In-Reply-To: <20230728043013.27776-1-rdunlap@infradead.org>
-References: <20230728043013.27776-1-rdunlap@infradead.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: EUIMQIQIIOSD3JC3I2RRQNHK4ECYOCYS
-X-Message-ID-Hash: EUIMQIQIIOSD3JC3I2RRQNHK4ECYOCYS
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=BXZKh4I+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690529155; x=1722065155;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=jcImtnLwcUfLeQIU1OvOi7H26D0RUYzhnoSlDqyoMtY=;
+  b=BXZKh4I+WYGr4o78j2fNEaFFmTp6VOkioxMvG5/f4HkI7X08uJOfUJDG
+   PbgATUA1Jer4DnnoWcAyFeLQOZ/EZweDFKMks3eHvD3sLYxP5x56u/RPW
+   ggWq29rfRID5XuM1a807l8I40NbSEmTYf4Onh4OByu4V0iHEVKP1VFXQO
+   G6+AFIws0VYicpQkCofmk3oryp0kRkZ4n9J4EFse0CxebdD7DqIbZPZt+
+   kXtG2/RoG4n4+6mjvrEvjB4sD8CGqsyv3VMyVCugoOciAMRjPZIVdp2NN
+   +/mugpSAjGS+Qp/E0plUO0ew8rp7F+p7TAP2EqPIL5X3l0/o6cCC+LYIZ
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="353434716"
+X-IronPort-AV: E=Sophos;i="6.01,236,1684825200";
+   d="scan'208";a="353434716"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2023 00:25:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="973949477"
+X-IronPort-AV: E=Sophos;i="6.01,236,1684825200";
+   d="scan'208";a="973949477"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2023 00:25:27 -0700
+Message-ID: <402a7a63-5584-ef79-e42f-e2102f42b9aa@linux.intel.com>
+Date: Fri, 28 Jul 2023 09:25:24 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] ASoC: Intel: Skylake: replace deprecated strncpy with
+ strscpy
+Content-Language: en-US
+To: Kees Cook <keescook@chromium.org>, justinstitt@google.com
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Nathan Chancellor <nathan@kernel.org>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: 
+ <20230726-asoc-intel-skylake-remove-deprecated-strncpy-v1-1-020e04184c7d@google.com>
+ <202307261532.3EFCF04F1@keescook>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <202307261532.3EFCF04F1@keescook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: HH5JL7JJI65HO7EZEXC7CDDYHV7J62BJ
+X-Message-ID-Hash: HH5JL7JJI65HO7EZEXC7CDDYHV7J62BJ
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EUIMQIQIIOSD3JC3I2RRQNHK4ECYOCYS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HH5JL7JJI65HO7EZEXC7CDDYHV7J62BJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,57 +119,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 28 Jul 2023 06:30:13 +0200,
-Randy Dunlap wrote:
+On 7/27/2023 12:34 AM, Kees Cook wrote:
+> On Wed, Jul 26, 2023 at 09:12:18PM +0000, justinstitt@google.com wrote:
+>> `strncpy` is deprecated for use on NUL-terminated destination strings [1].
+>>
+>> A suitable replacement is `strscpy` [2] due to the fact that it
+>> guarantees NUL-termination on its destination buffer argument which is
+>> _not_ the case for `strncpy`!
+>>
+>> It was pretty difficult, in this case, to try and figure out whether or
+>> not the destination buffer was zero-initialized. If it is and this
+>> behavior is relied on then perhaps `strscpy_pad` is the preferred
+>> option here.
+>>
+>> Kees was able to help me out and identify the following code snippet
+>> which seems to show that the destination buffer is zero-initialized.
+>>
+>> |       skl = devm_kzalloc(&pci->dev, sizeof(*skl), GFP_KERNEL);
+>>
+>> With this information, I opted for `strscpy` since padding is seemingly
+>> not required.
 > 
-> Use "select"s to ensure that the required kconfig symbols are set
-> as expected.
-> Drop HOSTAUDIO since it is now equivalent to UML_SOUND.
+> We did notice that str_elem->string is 44 bytes, but
+> skl->lib_info[ref_count].name is 128 bytes. If str_elem->string isn't
+> NUL-terminated, this can still hit an over-read condition (though
+> CONFIG_FORTIFY_SOURCE would have caught it both before with strncpy()
+> and now with strscpy()). So I assume it is expected to be
+> NUL-terminated?
 > 
-> Allow SOUND with UML regardless of HAS_IOMEM. Otherwise there is a
-> kconfig warning for unmet dependencies. (This was not an issue when
-> SOUND was defined in arch/um/drivers/Kconfig. I have done 50 randconfig
-> builds and didn't find any issues.)
-> 
-> This fixes build errors when CONFIG_SOUND is not set:
-> 
-> ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_cleanup_module':
-> hostaudio_kern.c:(.exit.text+0xa): undefined reference to `unregister_sound_mixer'
-> ld: hostaudio_kern.c:(.exit.text+0x15): undefined reference to `unregister_sound_dsp'
-> ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_init_module':
-> hostaudio_kern.c:(.init.text+0x19): undefined reference to `register_sound_dsp'
-> ld: hostaudio_kern.c:(.init.text+0x31): undefined reference to `register_sound_mixer'
-> ld: hostaudio_kern.c:(.init.text+0x49): undefined reference to `unregister_sound_dsp'
-> 
-> and this kconfig warning:
-> WARNING: unmet direct dependencies detected for SOUND
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Fixes: d886e87cb82b ("sound: make OSS sound core optional")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Link: lore.kernel.org/r/202307141416.vxuRVpFv-lkp@intel.com
-> Cc: Richard Weinberger <richard@nod.at>
-> Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-> Cc: Johannes Berg <johannes@sipsolutions.net>
-> Cc: linux-um@lists.infradead.org
-> Cc: Tejun Heo <tj@kernel.org>
-> Cc: Takashi Iwai <tiwai@suse.de>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Masahiro Yamada <masahiroy@kernel.org>
-> Cc: Nathan Chancellor <nathan@kernel.org>
-> Cc: Nick Desaulniers <ndesaulniers@google.com>
-> Cc: Nicolas Schier <nicolas@fjasle.eu>
-> Cc: linux-kbuild@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Yes it is a filename of additional library which can be loaded, topology 
+UAPI only allows for passing 44 bytes long strings per string token (see 
+snd_soc_tplg_vendor_array -> union -> string flex array -> 
+snd_soc_tplg_vendor_string_elem -> SNDRV_CTL_ELEM_ID_NAME_MAXLEN), so we 
+could also change length of
+skl->lib_info[ref_count].name and potentially save few bytes. And 
+looking at it again I also think that we should not copy destination 
+size number of bytes, by which I mean 
+ARRAY_SIZE(skl->lib_info[ref_count].name), which is 128 in this case... 
+so either need to change destination buffer size to be same as topology 
+field or calculate it differently.
 
 
-I'm not sure who should take it.  If it's preferred through sound.git
-tree, let me know.
-
-
-thanks,
-
-Takashi

@@ -2,100 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77DF1767301
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 19:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8488767593
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 20:39:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2258E827;
-	Fri, 28 Jul 2023 19:11:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2258E827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3919582A;
+	Fri, 28 Jul 2023 20:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3919582A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690564358;
-	bh=eoQ6QIQA0eurvt4IsYsxuOVhy6X7PCzpPdYc+so7TII=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690569556;
+	bh=V6GfwiwZhhAo9EKxw9F08iud7qpwpey7vDzyT3dCeJs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f8HIlb6lHKVE3l0VJt75kG7mPY44VbLXAVD2Deog9iFo2tlDCLFOOtEyKHlEgs/hk
-	 yswikN2ASEe0bFoawp6IBo/cI/D0F6amLGDbru1gT3AjZHIjpvKj9OUwOAFJNlMJYj
-	 Qlyh32GG0QfTTIHbxpYlH9IBPMUKKZFjEgDAqOV4=
+	b=fhjuQNTuAJL4p27FX5z8eEIW+tVZ9yEvfSxjvKECLbUChIxce25jH5QdSsiYZD9hU
+	 4ZQUnaUkCtweKkVJIHE0mLtFlAnBlvSSF5GdsmQecMf6U6bxXR1J3U+hqLqcmXKVzH
+	 hSWfcJmof8BwRNyAieptP/wfWDX6gwgdmcg/PaLM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61843F802E8; Fri, 28 Jul 2023 19:11:47 +0200 (CEST)
+	id 9F674F80535; Fri, 28 Jul 2023 20:38:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F724F80163;
-	Fri, 28 Jul 2023 19:11:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46A51F80153;
+	Fri, 28 Jul 2023 20:38:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCB02F8019B; Fri, 28 Jul 2023 19:11:43 +0200 (CEST)
+	id 80672F8019B; Fri, 28 Jul 2023 20:38:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (unknown [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 771AEF80153
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 19:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 771AEF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 727B3F80153
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 20:38:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 727B3F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZPU5OxAz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690564299; x=1722100299;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=eoQ6QIQA0eurvt4IsYsxuOVhy6X7PCzpPdYc+so7TII=;
-  b=ZPU5OxAzPHZ8MzpqPWlfqUEMC2XOZNrzw64i3LziC44Ej0+auR0mP9Xg
-   DIuv0zWo3qBZ/72FguJVUAhn1IXboYAtMoE3FIsKkMOB3z7+l+bSV1ZXQ
-   tp2lv77N9WzCzkTc3Pg8JRg6jTrXTB58A0VQqcJYOBmXfXZt5izpcAEUO
-   910t/dH+5KOtiDQcJL1F+gbM9Mv+wSOWtoypdJJ1yqjlGRBscPe+4Iygy
-   o1sng5KLphY3WpeGX+2Qg3/HJv7atR/6FWaeu1dAiUVtfx/pgzDQhn2+l
-   1XjlSt+RhokARrpm2+pjUcpuCVKAZHwfpzrJrq90z2U6yLT26O0T7ZSL7
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="399580350"
-X-IronPort-AV: E=Sophos;i="6.01,238,1684825200";
-   d="scan'208";a="399580350"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2023 10:11:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="841384724"
-X-IronPort-AV: E=Sophos;i="6.01,238,1684825200";
-   d="scan'208";a="841384724"
-Received: from shuaibah-mobl.amr.corp.intel.com (HELO [10.212.30.166])
- ([10.212.30.166])
-  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2023 10:11:33 -0700
-Message-ID: <db5f1478-8aca-fb57-c3fc-aa09071a0829@linux.intel.com>
-Date: Fri, 28 Jul 2023 18:44:45 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=AGp+sPPY
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-1bbc64f9a91so19523975ad.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 28 Jul 2023 11:38:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1690569492; x=1691174292;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=33rFVY7OX9UkeWBGFwT8EclqMxrl4R8dedNz9bKvxDQ=;
+        b=AGp+sPPYuUqVRuwsfE9zLwd/0wQ1PyqWr/E+SShiflsTRolH7KQFms0vp6Iz18yg5l
+         yyXkofuwxadnA24u9OFXuqrKvomEco71UnJ2hvZYlItq6Bt+J9FHpI7vN7XoZs1xpm+x
+         bPy7O3JcgiU891wJkhPj+/1ZkSAP1bBRrfaNg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690569492; x=1691174292;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=33rFVY7OX9UkeWBGFwT8EclqMxrl4R8dedNz9bKvxDQ=;
+        b=ErCi6DEZcWNdDIBsox1c49pDbo/N4vA/va30WhJnueqjL2tuti0DmxFA7wftYher+6
+         R0o2VpEdXa0jcVXrpL7XbMW2DiGzfUtDaKvcqVT0H4J5JcSS0eTcC8xJQPdraG3bcC3H
+         PJTGVgfZ8mIJEI+K/z9qak+Q8l/mwaktHqxxGf1h1vpyrYpaA1JKI9QcaVuxOMb3b8Qj
+         ORMzOXaPSu7PfyX0uuSHe8pnMuoX77tFd6N0jspgbhbQU3N1wAr9aXPN2L7ejRmmr74t
+         TZU9Cd6vfpOc9GvOS+UEg0S78ycN3bD7LREtfRR+0fMxBUqcpt9zpxs3znGkq39OJ+v4
+         r4/w==
+X-Gm-Message-State: ABy/qLY8ZWAk5Apzc1QE2gYU7hUiyl3JfZIe4nkJTwkloDSoblMT+Wwx
+	NQHLL6BXgUY/xJfCqnaL2VCEB4662tVYWsowCAU=
+X-Google-Smtp-Source: 
+ APBJJlGs+KiAjovc4Ff5bXdv+1247KNp4pAQW/e6jaoOH3v88JUN99m0BT5bc653vOVDiJeYTmDZgA==
+X-Received: by 2002:a17:903:248:b0:1b9:cf52:2bcf with SMTP id
+ j8-20020a170903024800b001b9cf522bcfmr2621118plh.0.1690569491651;
+        Fri, 28 Jul 2023 11:38:11 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241])
+        by smtp.gmail.com with ESMTPSA id
+ ix13-20020a170902f80d00b001b9d7c8f44dsm3907903plb.182.2023.07.28.11.38.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Jul 2023 11:38:11 -0700 (PDT)
+Date: Fri, 28 Jul 2023 11:38:09 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Justin Stitt <justinstitt@google.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	xen-devel@lists.xenproject.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: xen-front: refactor deprecated strncpy
+Message-ID: <202307281133.16D4305@keescook>
+References: <20230727-sound-xen-v1-1-89dd161351f1@google.com>
+ <ZMNILDgqHEGf8fNF@mattapan.m5p.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v6 1/6] soundwire: bus: Allow SoundWire peripherals to
- register IRQ handlers
-Content-Language: en-US
-To: Lee Jones <lee@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, vkoul@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- linus.walleij@linaro.org, lgirdwood@gmail.com,
- yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20230725102532.2567580-1-ckeepax@opensource.cirrus.com>
- <20230725102532.2567580-2-ckeepax@opensource.cirrus.com>
- <20230728151818.GL8175@google.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230728151818.GL8175@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: XDPDPC7WS7CMBPEASBTXVQSWNXQE6C4J
-X-Message-ID-Hash: XDPDPC7WS7CMBPEASBTXVQSWNXQE6C4J
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZMNILDgqHEGf8fNF@mattapan.m5p.com>
+Message-ID-Hash: NBSUNOHS5I6FAHSONCOZBA2CQOA7D3R5
+X-Message-ID-Hash: NBSUNOHS5I6FAHSONCOZBA2CQOA7D3R5
+X-MailFrom: keescook@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XDPDPC7WS7CMBPEASBTXVQSWNXQE6C4J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NBSUNOHS5I6FAHSONCOZBA2CQOA7D3R5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,32 +121,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 7/28/23 17:18, Lee Jones wrote:
-> Vinod, Bard, Pierre-Louis, Sanyog,
+On Thu, Jul 27, 2023 at 09:46:36PM -0700, Elliott Mitchell wrote:
+> On Thu, Jul 27, 2023 at 09:53:24PM +0000, Justin Stitt wrote:
+> > Technically, my patch yields subtly different behavior. The original
+> > implementation with `strncpy` would fill the entire destination buffer
+> > with null bytes [3] while `strscpy` will leave the junk, uninitialized
+> > bytes trailing after the _mandatory_ NUL-termination. So, if somehow
+> > `pcm->name` or `card->driver/shortname/longname` require this
+> > NUL-padding behavior then `strscpy_pad` should be used. My
+> > interpretation, though, is that the aforementioned fields are just fine
+> > as NUL-terminated strings. Please correct my assumptions if needed and
+> > I'll send in a v2.
 > 
-> This has been on the list for some time now.
-> 
-> Would one of you please review this, so we can get it merged?
+> "uninitialized bytes" => "leak of sensitive information" => "security hole"
 
-Sorry, I thought I provided my tag on an earlier version, but apparently
-that never reached the ML. All my earlier feedback was taken into
-account so no objections from me - just one typo below...
+For xen_snd_front_alsa_init(), "card" is already zero-initialized in
+snd_card_new().
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+For new_pcm_instance(), "pcm" is already zero-initialized in
+_snd_pcm_new().
 
-> On Tue, 25 Jul 2023, Charles Keepax wrote:
-> 
->> From: Lucas Tanure <tanureal@opensource.cirrus.com>
->>
->> Currently the in-band alerts for SoundWire peripherals can only
->> be communicated to the driver through the interrupt_callback
->> function. This however is slightly inconvient for devices that wish to
+So things look good to me!
 
-inconvenient
+Reviewed-by: Kees Cook <keescook@chromium.org>
 
->> share IRQ handling code between SoundWire and I2C/SPI, the later would
->> normally register an IRQ handler with the IRQ subsystem. However there
->> is no reason the SoundWire in-band IRQs can not also be communicated
->> as an actual IRQ to the driver.
+-- 
+Kees Cook

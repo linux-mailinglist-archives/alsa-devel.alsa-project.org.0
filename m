@@ -2,102 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB4B769189
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:21:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FAB76918A
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:22:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A7F06C0;
-	Mon, 31 Jul 2023 11:20:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A7F06C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25B4F845;
+	Mon, 31 Jul 2023 11:21:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25B4F845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690795308;
-	bh=HWrdd9pLnOMwuwU7EGPxFgfJcPWwAXMfj31MXLpYoBY=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=WcLxFuMJfq+LaaKQbAwRkr0JZAdTRLZN8GY5Ck03puhUh7d16KXk1Di5nhFlw8WDa
-	 51bUzGWboVH/2/+fNCN50HNJee2Z7nWHlhRNnFPS3WZVpMBjE3vuaZ7pDDqya+opf2
-	 r6vbXmXyWeuyJAQK1LAgwWrItDLJgz8H4oshOO9w=
+	s=default; t=1690795323;
+	bh=zPG4Qt6VuQfR3v7rK7emO9iGxhMFJxqELpMfRZzV99Y=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=acM4RY4gLuxSYjPLOQ283fvy+o6hUQIG194KxoLoGQNMr3bz3REPMqgbY2lYt+nEo
+	 lKOfkOKp/NwY7CirfeaM3MCwReGrPtLazUjqsEaS8T+dSnJg6YtXWhcExJf7zjwZf7
+	 Duoj4/yaAiBn50YRDZaL9Kxhkx6ixUTH8AuFby74=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FE5AF805FF; Mon, 31 Jul 2023 11:18:17 +0200 (CEST)
+	id 167C3F80603; Mon, 31 Jul 2023 11:18:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FD20F805F7;
-	Mon, 31 Jul 2023 11:18:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C359BF801D5;
+	Mon, 31 Jul 2023 11:18:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5555F8019B; Fri, 28 Jul 2023 12:28:41 +0200 (CEST)
+	id E1B19F8019B; Fri, 28 Jul 2023 13:32:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97EA2F800D2
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 12:28:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97EA2F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 701DCF800C7
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 13:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 701DCF800C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=Q8eZYgRU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1690540119; x=1722076119;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=HWrdd9pLnOMwuwU7EGPxFgfJcPWwAXMfj31MXLpYoBY=;
-  b=Q8eZYgRUxitj/NRcAKkQucS6aI47I7BT2dZhDoFndIgqRAbIPqgXLENG
-   YFMG9ska14csDdhzt6CbxgtBUsxa+9Sv3kZTpe/aYC8+aSIjMMbJL3DYt
-   pSUkIIRBGlpnlFk+kVpD+aOh2KTajeq7qEaHsQR1tKP9xPWTDIMmI//eW
-   GIhlY34yJ6fZ1Z97HTjznFHRbfiVQ8X7NyUNEl7Y5BVnkyDj5eT8qk2Xm
-   /yzk9SvG12ZA++P7B9PMwBsF5JA2KAHkygiEX/iUq2a8ajg+aUWSL077/
-   ZRHtXaXk42mKl+BebnEM0v1UxnzmQF+izzzI6QmXWNM5pADO1550i6WJK
-   w==;
-X-IronPort-AV: E=Sophos;i="6.01,237,1684825200";
-   d="scan'208";a="238401621"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 28 Jul 2023 03:28:35 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 28 Jul 2023 03:28:35 -0700
-Received: from che-lt-i67070.amer.actel.com (10.10.115.15) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Fri, 28 Jul 2023 03:28:30 -0700
-From: Varshini Rajendran <varshini.rajendran@microchip.com>
-To: <claudiu.beznea@microchip.com>, <lgirdwood@gmail.com>,
-	<broonie@kernel.org>, <robh+dt@kernel.org>,
-	<krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-	<codrin.ciubotariu@microchip.com>, <alsa-devel@alsa-project.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <varshini.rajendran@microchip.com>
-Subject: [PATCH v3 31/50] ASoC: dt-bindings: microchip: add sam9x7
-Date: Fri, 28 Jul 2023 15:58:28 +0530
-Message-ID: <20230728102828.266861-1-varshini.rajendran@microchip.com>
-X-Mailer: git-send-email 2.25.1
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=AMnkE9Wu
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-3fc02a92dcfso20729955e9.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 28 Jul 2023 04:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690543937; x=1691148737;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+F++azjWGXR/zzwHylDS5zKIIkHfazjhU13uoVBCItI=;
+        b=AMnkE9WuW7Szt2FbkP+Jy7gImGXicajY9/8nwcsWkrUwhvEUvP7ntHlB4esXk3K8U4
+         0i6OvKn+5MRV/VvX72hQyI3+TxZnb6cRN+AlFwW7eoAEroux8iHcBnUojCtWchKA78jl
+         SY5zsDpCGe7jFTiAVJefedCk62+1uRl1DCOGCwjHw3AcI7lBvwuS6yZmpan72Z124GkA
+         HzuwDVmYWrxvejLrwD5DxuP7Te8Jagm+rkOkbxUiWNpEVTWGGoMyhL+3cuwlWbXGDr0B
+         nKgA+tN0Fx8WjnGsZEpQTGxaPoJXDju/pS2BVUhj93heIIMcoWmwxaaXx1t90HNC7HAh
+         LaVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690543937; x=1691148737;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+F++azjWGXR/zzwHylDS5zKIIkHfazjhU13uoVBCItI=;
+        b=IG51taGzu3fSQ7l0Qb59ukcGhHZUX12m/ekfM7v1/SlG/z6doU1+msjTQsVOVa+90q
+         RFLnwvgKG3kev+0vE/pVtsB7fQijgbDJcvNLvyeJFsu7oiB4IqG1ozNjc+GPiHiBJ/Q7
+         6QLE3mwuGOaa/0t18nCecqWTZ8L5IKebsgVkvpBO2PUOeKfQkVDB9+Jfz9B8YrdAvcqs
+         zC7quCTxkU/kDFRssA3jnl9Q2F7KQAYz0V8WRKOXl49DBT8EfvYXbWRCIP5kRZA5LPp+
+         kgfn46tReuzLS2fZ2BLbuhbjf7NIcypO/3aYObVtjzVa3FN9SR3HwnVSfmHMwo38E/CO
+         zwBQ==
+X-Gm-Message-State: ABy/qLaynnbqLpXJEFxx9iMu2spw6t9Azp0jAkyXczQ4lnf+0jK9kfPC
+	WuHEObq3/n4NAlYZnlO+yCJqeA==
+X-Google-Smtp-Source: 
+ APBJJlGEkskLn7KheQI/2hh6B8RIJum6fk3h7Nk91C/s4cct7x2FxIqw26uj1lGmelJK6ucVYjt8Ng==
+X-Received: by 2002:adf:e94f:0:b0:314:3611:3e54 with SMTP id
+ m15-20020adfe94f000000b0031436113e54mr1907446wrn.9.1690543937250;
+        Fri, 28 Jul 2023 04:32:17 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.104])
+        by smtp.gmail.com with ESMTPSA id
+ m14-20020adffa0e000000b003177e9b2e64sm4508524wrr.90.2023.07.28.04.32.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 28 Jul 2023 04:32:16 -0700 (PDT)
+Message-ID: <c0792cfd-db4f-7153-0775-824912277908@linaro.org>
+Date: Fri, 28 Jul 2023 13:32:12 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MailFrom: Varshini.Rajendran@microchip.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3 00/50] Add support for sam9x7 SoC family
+Content-Language: en-US
+To: Varshini Rajendran <varshini.rajendran@microchip.com>,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ claudiu.beznea@microchip.com, mturquette@baylibre.com, sboyd@kernel.org,
+ herbert@gondor.apana.org.au, davem@davemloft.net, vkoul@kernel.org,
+ andi.shyti@kernel.org, tglx@linutronix.de, maz@kernel.org, lee@kernel.org,
+ ulf.hansson@linaro.org, tudor.ambarus@linaro.org, miquel.raynal@bootlin.com,
+ richard@nod.at, vigneshr@ti.com, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, linus.walleij@linaro.org, sre@kernel.org,
+ p.zabel@pengutronix.de, olivia@selenic.com, a.zummo@towertech.it,
+ radu_nicolae.pirea@upb.ro, richard.genoud@gmail.com,
+ gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
+ wim@linux-watchdog.org, linux@roeck-us.net, linux@armlinux.org.uk,
+ durai.manickamkr@microchip.com, andrew@lunn.ch, jerry.ray@microchip.com,
+ andre.przywara@arm.com, mani@kernel.org, alexandre.torgue@st.com,
+ gregory.clement@bootlin.com, arnd@arndb.de, rientjes@google.com,
+ deller@gmx.de, 42.hyeyoo@gmail.com, vbabka@suse.cz, mripard@kernel.org,
+ mihai.sain@microchip.com, codrin.ciubotariu@microchip.com,
+ eugen.hristev@collabora.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
+ netdev@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-serial@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+References: <20230728102223.265216-1-varshini.rajendran@microchip.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230728102223.265216-1-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-MailFrom: krzysztof.kozlowski@linaro.org
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: EEO6AT7E7HKNRAJAN3GCK6XWUCET7UEG
-X-Message-ID-Hash: EEO6AT7E7HKNRAJAN3GCK6XWUCET7UEG
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: RUFQ4OQIGHRM5I7P7MQ2GTDJJEBQTDO7
+X-Message-ID-Hash: RUFQ4OQIGHRM5I7P7MQ2GTDJJEBQTDO7
 X-Mailman-Approved-At: Mon, 31 Jul 2023 09:18:12 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EEO6AT7E7HKNRAJAN3GCK6XWUCET7UEG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUFQ4OQIGHRM5I7P7MQ2GTDJJEBQTDO7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,35 +150,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add sam9x7 compatible in the DT documentation.
+On 28/07/2023 12:22, Varshini Rajendran wrote:
+> This patch series adds support for the new SoC family - sam9x7.
+>  - The device tree, configs and drivers are added
+>  - Clock driver for sam9x7 is added
+>  - Support for basic peripherals is added
+>  - Target board SAM9X75 Curiosity is added
+> 
 
-Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
----
- .../bindings/sound/microchip,sama7g5-i2smcc.yaml      | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Your threading is absolutely broken making it difficult to review and apply.
 
-diff --git a/Documentation/devicetree/bindings/sound/microchip,sama7g5-i2smcc.yaml b/Documentation/devicetree/bindings/sound/microchip,sama7g5-i2smcc.yaml
-index 651f61c7c25a..fb630a184350 100644
---- a/Documentation/devicetree/bindings/sound/microchip,sama7g5-i2smcc.yaml
-+++ b/Documentation/devicetree/bindings/sound/microchip,sama7g5-i2smcc.yaml
-@@ -24,9 +24,14 @@ properties:
-     const: 0
- 
-   compatible:
--    enum:
--      - microchip,sam9x60-i2smcc
--      - microchip,sama7g5-i2smcc
-+    oneOf:
-+      - enum:
-+          - microchip,sam9x60-i2smcc
-+          - microchip,sama7g5-i2smcc
-+      - items:
-+          - enum:
-+              - microchip,sam9x7-i2smcc
-+          - const: microchip,sam9x60-i2smcc
- 
-   reg:
-     maxItems: 1
--- 
-2.25.1
+Best regards,
+Krzysztof
 

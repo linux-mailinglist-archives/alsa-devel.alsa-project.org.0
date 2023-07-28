@@ -2,120 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B82767614
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 21:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB19676776A
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jul 2023 23:06:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 149A5845;
-	Fri, 28 Jul 2023 21:11:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 149A5845
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5050207;
+	Fri, 28 Jul 2023 23:05:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5050207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690571565;
-	bh=FztGtLjuoljT9BuTpmG2cccQBvz8m1jinN22J6JFzbM=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1690578370;
+	bh=fM81EFU44QhwGDq58u7wvc20lqw8qPOrKhxpm5B8mTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IbpDxH5e1hDfX0ptBYr6+j7UNB6tx4L1EZ2MM2a+EG+jmmXZ7IoiBQ4zkjwSz8taB
-	 IWx0KZn9Ns/X8iRC1CKo669lQWJrD2sOsFO5VGXGu79CvYvrJ6K7a1rOOKo3uGXK0o
-	 Fa0Ad1FVQHdj0EyKW/hgXlRpUeIyW9sV8sEGXn5s=
+	b=Yn5jXoEd5juzZV2KeAKyJKdzSr1IaHgln2FXCm6oRIle0l0Hev75q2rgrJM5m53Ag
+	 Z7d8w1xbkCLVq8YSCwmXdgDmx4ZTZnKKdfM7Kswlo3S1Ibi8jLdPqx3vl2ublTIZHA
+	 tvuZ8s4t2gwdxdqsg99Do8mWV2ow7OV/zzxPAfek=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BABBF80535; Fri, 28 Jul 2023 21:11:54 +0200 (CEST)
+	id 0DAA8F800D2; Fri, 28 Jul 2023 23:05:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D1EBF80163;
-	Fri, 28 Jul 2023 21:11:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AFCBF80163;
+	Fri, 28 Jul 2023 23:05:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 806F2F8019B; Fri, 28 Jul 2023 21:11:49 +0200 (CEST)
+	id 63844F8019B; Fri, 28 Jul 2023 23:05:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
- [IPv6:2607:f8b0:4864:20::1149])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5175F80153
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 21:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5175F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0593AF80153
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jul 2023 23:05:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0593AF80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=bbabpIxG
-Received: by mail-yw1-x1149.google.com with SMTP id
- 00721157ae682-58440eb872aso26192167b3.3
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=DUzSJHWX
+Received: by mail-pj1-x102d.google.com with SMTP id
+ 98e67ed59e1d1-2680eee423aso1468653a91.2
         for <alsa-devel@alsa-project.org>;
- Fri, 28 Jul 2023 12:11:45 -0700 (PDT)
+ Fri, 28 Jul 2023 14:05:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1690571503; x=1691176303;
-        h=cc:to:from:subject:message-id:status:references:mime-version:lines
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FztGtLjuoljT9BuTpmG2cccQBvz8m1jinN22J6JFzbM=;
-        b=bbabpIxGO3boIg9vf5YobCjg0n52L+Fr49fpDJnaZuPkxc8D8pdzd9HafgJTaPtd5R
-         rRJzAK01EWmDhXibwwSQ4JqcG5p4vsJ0yFAB6MFo73hfX//zqYZ6NoX+9XALYzBMTwlx
-         KRaGNXiBbDtliwxlSHd19kDDVUGka5xYGmxAHA8ShtRWnLBZs6Wx66zBMyigalhYV6NU
-         8mQ53Kjm94wOLo02pMITqaBIBLc7+3yDMs6ynDvqHJeXOhAx2GgHlxbCrBb4taJnSGQ7
-         Rs3ie2zMU2KfvBnyM+NK1Ui+aAteLeNr6txejrKgQTW7n25byv1vLMzQUDZq2sM860Yc
-         DBZg==
+        d=chromium.org; s=google; t=1690578304; x=1691183104;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=mzLjWb2IvKpNxetuxpIL5OUHvXbEPP7sO5JHMTXgoFM=;
+        b=DUzSJHWXkFm+UzMm4dk0GxmM2lh2CU0cXH7uio1EOVxzROxMN7PSytZUTv1i3Fc6C/
+         QYKcvelkqpaycnCFRoG9PCzQj62E5541Mh6NnAQ2Y+sSq+1L2mIq4t2+1j081dAuDtvH
+         Bx/QPVhFvOADdzXk9Rl9p0j13NdbQZKN2REAU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690571503; x=1691176303;
-        h=cc:to:from:subject:message-id:status:references:mime-version:lines
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20221208; t=1690578304; x=1691183104;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FztGtLjuoljT9BuTpmG2cccQBvz8m1jinN22J6JFzbM=;
-        b=j5rIgsWXpdk5217a3EbGU18WXQ6IOaNpUfji/1bA1YOW7r2aK4hSQ0AWX3aJfTTaeG
-         0Zqnt3CZ4oXGJFyltlyyUJY5RrOvjIhDzjVABYHpby6Cytvzg2QhqPB129F3lvi2i0p7
-         MkBdbfCwKcoLCNew2s1iM8TUYIwqeXDrkG+k34fwQV7HUHqUB+RrEuI1UvrlKn0dvZ1x
-         Pzozzrg7wky2Xr3EnBUg0dNikniw4Tqz2r2Amp0CK9AB6UclLD9PMKA3FhUr8tChEdS6
-         dPxtxgjXyd0UzSFo3HzmPb+a4zfkNyPQuwUF6HyQO9P1Axdicr7lnOrUrP7QFLkv/9u8
-         yz5w==
-X-Gm-Message-State: ABy/qLZ5lXapEItJRKL83fivYvUdtUtn1ihFi9By7IriPkM2C2CRt1OW
-	ZsM2LQev+7+6VFs5VN3C4FcYBtHHDqhhUr6ILQ==
+        bh=mzLjWb2IvKpNxetuxpIL5OUHvXbEPP7sO5JHMTXgoFM=;
+        b=d9EOqOeVErTlHKF77hPzS/dO+rxZaj9bPGEE6lHla8N+abumwJP/4qHz/xFbxg5ziT
+         BQkgOk0VOPb+R/KCwzcRu04QBdPedKqr54+NAZPcCLDezSOzU5xLrJxqOcrC6wWA+x+G
+         VGlAvgvtrIKjgrNk+8DQnTMNL96G/xzVM+G2g9K8mIIuPEBQCv11mlxDseyQ9TZs7O3c
+         V9csrw2f9Z3W3t5KkucfHEOkiLkR+bae5aakONmBM8H7jgTNoRHWhUu9nm0umyQl6I72
+         kW+JCzqHtJbQJkz8Cc7XndLarT72owU5dFdKZpsSVnN+WBJuOQ/yj/GShP3iQgBgC94q
+         bTDw==
+X-Gm-Message-State: ABy/qLbKNFIpk32o06LjN4Y1GWf71+2GGWdC0Ld26uKpBoyp0f4hNflf
+	T9yYuw8veGR6VM2ymeZe5OJupmydd8nWwx3pp/o=
 X-Google-Smtp-Source: 
- APBJJlGvcJRtoJfjVKE/syeC8RCxktDOWFE3YH6pPAx6gyI5gJlFbY4kk9jWpk6q50Qa/rLwGAKwPpoMFZFK0JoifA==
-X-Received: from jstitt-linux1.c.googlers.com
- ([fda3:e722:ac3:cc00:2b:ff92:c0a8:23b5])
- (user=justinstitt job=sendgmr) by 2002:a25:2d0d:0:b0:d06:3c3c:17eb with SMTP
- id t13-20020a252d0d000000b00d063c3c17ebmr14344ybt.5.1690571503198; Fri, 28
- Jul 2023 12:11:43 -0700 (PDT)
-Date: Fri, 28 Jul 2023 19:11:18 +0000
-In-Reply-To: <202307281153.B9D0831710@keescook>
-Lines: 25
-Mime-Version: 1.0
-References: 
- <20230726-asoc-intel-skylake-remove-deprecated-strncpy-v1-1-020e04184c7d@google.com>
- <20230727-asoc-intel-skylake-remove-deprecated-strncpy-v2-1-152830093921@google.com>
- <f0f0ebe4-55fb-4861-a94c-77c82ec600c5@sirena.org.uk>
- <202307281153.B9D0831710@keescook>
-Status: RO
-X-Mailer: git-send-email 2.41.0.585.gd2178a4bd4-goog
-X-Mutt-Fcc: ~/sent
-X-Mutt-References: <202307281153.B9D0831710@keescook>
-Message-ID: <20230728191121.4092351-1-justinstitt@google.com>
-Subject: Re: [PATCH v2] ASoC: Intel: Skylake: replace deprecated strncpy with
- strscpy
-From: Justin Stitt <justinstitt@google.com>
-To: Kees Cook <keescook@chromium.org>
-Cc: Justin Stitt <justinstitt@google.com>, Mark Brown <broonie@kernel.org>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Nathan Chancellor <nathan@kernel.org>,
- alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Message-ID-Hash: PWULK35NI74H32YIYOJD2XG4BDSUQF2G
-X-Message-ID-Hash: PWULK35NI74H32YIYOJD2XG4BDSUQF2G
-X-MailFrom: 
- 37xLEZAsKClI3ECD27CD2DD08805y.w86u5Cu-xyFy5u5Cu-9B83ywD.8B0@flex--justinstitt.bounces.google.com
+ APBJJlE/Bj0YDv8/cqAifhSQW91oOrA1CcZeDO76w2S84U8EV7YhttyyW5XGorEq/S0odyjPHkgqcg==
+X-Received: by 2002:a17:90b:4c0f:b0:268:553f:1938 with SMTP id
+ na15-20020a17090b4c0f00b00268553f1938mr2398856pjb.4.1690578304059;
+        Fri, 28 Jul 2023 14:05:04 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241])
+        by smtp.gmail.com with ESMTPSA id
+ 9-20020a17090a19c900b00267f7405a3csm3176140pjj.32.2023.07.28.14.05.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Jul 2023 14:05:03 -0700 (PDT)
+Date: Fri, 28 Jul 2023 14:05:02 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Justin Stitt <justinstitt@google.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: 88pm860x: refactor deprecated strncpy
+Message-ID: <202307281205.175FD2FC@keescook>
+References: <20230727-sound-soc-codecs-v1-1-562fa2836bf4@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230727-sound-soc-codecs-v1-1-562fa2836bf4@google.com>
+Message-ID-Hash: M457JADH5JE2D5DO4MNSIMIFSKPK4KNO
+X-Message-ID-Hash: M457JADH5JE2D5DO4MNSIMIFSKPK4KNO
+X-MailFrom: keescook@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PWULK35NI74H32YIYOJD2XG4BDSUQF2G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M457JADH5JE2D5DO4MNSIMIFSKPK4KNO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,29 +118,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jul 28, 2023 at 11:56:08AM -0700, Kees Cook wrote:
-> On Fri, Jul 28, 2023 at 12:27:24AM +0100, Mark Brown wrote:
-> > On Thu, Jul 27, 2023 at 08:30:18PM +0000, Justin Stitt wrote:
-> > > `strncpy` is deprecated for use on NUL-terminated destination strings [1].
-> > >
-> > > A suitable replacement is `strscpy` [2] due to the fact that it
-> > > guarantees NUL-termination on its destination buffer argument which is
-> > > _not_ the case for `strncpy`!
-> >
-> > Please don't send new patches in reply to old patches or serieses, this
-> > makes it harder for both people and tools to understand what is going
-> > on - it can bury things in mailboxes and make it difficult to keep track
-> > of what current patches are, both for the new patches and the old ones.
->
-> Hm, I see "X-Mailer: b4 0.12.3". Is this a default behavior of b4? (If
-> so, that needs fixing.)
+On Thu, Jul 27, 2023 at 10:46:13PM +0000, Justin Stitt wrote:
+> `strncpy` is deprecated for use on NUL-terminated destination strings [1].
+> 
+> A suitable replacement is `strscpy` [2] due to the fact that it
+> guarantees NUL-termination on its destination buffer argument which is
+> _not_ always the case for `strncpy`!
+> 
+> In this case, though, there was care taken to ensure that the
+> destination buffer would be NUL-terminated. The destination buffer is
+> zero-initialized and each `pm860x->name[i]` has a size of
+> `MAX_NAME_LENGTH + 1`. This means that there is unlikely to be a bug
+> here.
+> 
+> However, in an attempt to eliminate the usage of the `strncpy` API as
+> well as disambiguate implementations, replacements such as: `strscpy`,
+> `strscpy_pad`, `strtomem` and `strtomem_pad` should be preferred.
+> 
+> We are able to eliminate the need for `len + 1` since `strscpy`
+> guarantees NUL-termination for its destination buffer as per its
+> implementation [3]:
+> 
+> |       /* Hit buffer length without finding a NUL; force NUL-termination. */
+> |       if (res)
+> | 	        dest[res-1] = '\0';
+> 
+> [1]: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings
+> [2]: manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html
+> [3]: https://elixir.bootlin.com/linux/v6.3/source/lib/string.c#L183
+> 
+> Link: https://github.com/KSPP/linux/issues/90
+> Signed-off-by: Justin Stitt <justinstitt@google.com>
+> ---
+>  sound/soc/codecs/88pm860x-codec.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/88pm860x-codec.c b/sound/soc/codecs/88pm860x-codec.c
+> index 3574c68e0dda..d99b674d574b 100644
+> --- a/sound/soc/codecs/88pm860x-codec.c
+> +++ b/sound/soc/codecs/88pm860x-codec.c
+> @@ -143,7 +143,7 @@ struct pm860x_priv {
+>  	struct pm860x_det	det;
+>  
+>  	int			irq[4];
+> -	unsigned char		name[4][MAX_NAME_LEN+1];
+> +	unsigned char		name[4][MAX_NAME_LEN];
+>  };
+>  
+>  /* -9450dB to 0dB in 150dB steps ( mute instead of -9450dB) */
+> @@ -1373,7 +1373,7 @@ static int pm860x_codec_probe(struct platform_device *pdev)
+>  			return -EINVAL;
+>  		}
+>  		pm860x->irq[i] = res->start + chip->irq_base;
+> -		strncpy(pm860x->name[i], res->name, MAX_NAME_LEN);
+> +		strscpy(pm860x->name[i], res->name, MAX_NAME_LEN);
 
-I don't believe this is the default behavior of b4 but somehow it
-happened. I believe I did a dry-run of this v2 before sending it and
-somehow it replied to the top-level thread? I have no idea but I'll
-double check before I attempt sending a vN next time.
+res->name is (perhaps) unbounded in length:
 
->
-> --
-> Kees Cook
+struct resource {
+	...
+        const char *name;
+	...
+};
 
+So reducing struct pm860x_priv::name's size _might_ have a user-visible
+effect, but probably not.
+
+Reviewed-by: Kees Cook <keescook@chromium.org>
+
+-Kees
+
+-- 
+Kees Cook

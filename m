@@ -2,103 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817E1767EF8
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jul 2023 14:02:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E4876817E
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jul 2023 21:43:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 231CE83E;
-	Sat, 29 Jul 2023 14:01:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 231CE83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D9A91F4;
+	Sat, 29 Jul 2023 21:42:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D9A91F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690632159;
-	bh=m1lj8KGB4cab2cFik1XUimkWDhFGvnyBF0LPPesnjq0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=PBaOPW1OlF770fbH7EEkih6Wvl66MqxaqPaPi/bqbhZP8d9pNwRpqpRY9nl9NySUb
-	 WW394VvcQV5BUM06xdKoHAbII/NYweJYfCygb4RJnQv3ibkIlP67R9eV9qsou5SpOe
-	 i4G3o4FAchdxabk/jBg4+ANSiVGwm+pNxF4fFNr0=
+	s=default; t=1690659825;
+	bh=qZhttz150FWvMuUpAIOLsD6rs0C/wbnCPcwMZ84s010=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=h1On/EOReGeI2SN0u1FAJ1f43lXiaehQZHhgz6qnPKMLoCxjfXEu7XnDdPR5DT/9f
+	 SKqsk8a7CZtkGdr4Lcb5hNoJ2wwuCk++boWFIngsmnRLdTG3K65jh3WYPeVq+xpi6x
+	 8BZoMbJYX1zlOabtvbN+psPxlmoLPkTzizsB1rko=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E40F1F80557; Sat, 29 Jul 2023 14:01:03 +0200 (CEST)
+	id 620E1F80310; Sat, 29 Jul 2023 21:42:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63E2DF80310;
-	Sat, 29 Jul 2023 14:01:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30D79F80163;
+	Sat, 29 Jul 2023 21:42:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 092E6F80548; Sat, 29 Jul 2023 14:00:59 +0200 (CEST)
+	id 5B555F8019B; Sat, 29 Jul 2023 21:41:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33372F80310
-	for <alsa-devel@alsa-project.org>; Sat, 29 Jul 2023 14:00:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33372F80310
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=fOj76iqA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=X11RbWgL
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9798F1F8A3;
-	Sat, 29 Jul 2023 12:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690632056;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=egMCYOG2uWRf43Q/bpZk0mUrDdU/hmHB0oSczsRgcao=;
-	b=fOj76iqAakewDDQVg3ERFYSUceIt7FXI6JlQ6lqVO8CyUdWR40ud7wy+cFCKChbnaVTTWe
-	z7MW6lpyDYO9CKnXZIu84EKiuJBQaQhrJEMq+wgVxj8qI0av88N04uEPa/8X62OhCYYUWP
-	MemmXjpHbJMWduN8ubdjPZQpVMoJbMw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690632056;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=egMCYOG2uWRf43Q/bpZk0mUrDdU/hmHB0oSczsRgcao=;
-	b=X11RbWgLVHaVFMDD4fs+yMbTOlkTBvvV3L7WBcl8wn9fAfvlWx62BvCqodWUbixJ6Ye9SG
-	8+NF8hp2N8kibeDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F00013596;
-	Sat, 29 Jul 2023 12:00:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +cUlGnj/xGT+ewAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 29 Jul 2023 12:00:56 +0000
-Date: Sat, 29 Jul 2023 14:00:55 +0200
-Message-ID: <87leezc4g8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Justin Stitt <justinstitt@google.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: bcd2000: refactor deprecated strncpy
-In-Reply-To: <20230727-sound-usb-bcd2000-v1-1-0dc73684b2f0@google.com>
-References: <20230727-sound-usb-bcd2000-v1-1-0dc73684b2f0@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: LP32QXIN56RPBBZ7W35XFS4DM5ANM6DP
-X-Message-ID-Hash: LP32QXIN56RPBBZ7W35XFS4DM5ANM6DP
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 73ED1F800C7
+	for <alsa-devel@alsa-project.org>; Sat, 29 Jul 2023 21:41:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73ED1F800C7
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1690659704510955572-webhooks-bot@alsa-project.org>
+References: <1690659704510955572-webhooks-bot@alsa-project.org>
+Subject: ALC3306 beeing registered as ALC287 on Lenovo Yoga
+Message-Id: <20230729194154.5B555F8019B@alsa1.perex.cz>
+Date: Sat, 29 Jul 2023 21:41:54 +0200 (CEST)
+Message-ID-Hash: LRQJ7TOXCUXIXIGNQFKFNIJSJKK2KEH3
+X-Message-ID-Hash: LRQJ7TOXCUXIXIGNQFKFNIJSJKK2KEH3
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LP32QXIN56RPBBZ7W35XFS4DM5ANM6DP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LRQJ7TOXCUXIXIGNQFKFNIJSJKK2KEH3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,41 +69,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 28 Jul 2023 00:09:29 +0200,
-Justin Stitt wrote:
-> 
-> `strncpy` is deprecated for use on NUL-terminated destination strings [1].
-> 
-> A suitable replacement is `strscpy` [2] due to the fact that it
-> guarantees NUL-termination on its destination buffer argument which is
-> _not_ always the case for `strncpy`!
-> 
-> It should be noted that, in this case, the destination buffer has a
-> length strictly greater than the source string. Moreover, the source
-> string is NUL-terminated (and so is the destination) which means there
-> was no real bug happening here. Nonetheless, this patch would get us one
-> step closer to eliminating the `strncpy` API in the kernel, as its use
-> is too ambiguous. We need to favor less ambiguous replacements such as:
-> strscpy, strscpy_pad, strtomem and strtomem_pad (amongst others).
-> 
-> Technically, my patch yields subtly different behavior. The original
-> implementation with `strncpy` would fill the entire destination buffer
-> with null bytes [3] while `strscpy` will leave the junk, uninitialized
-> bytes trailing after the _mandatory_ NUL-termination. So, if somehow
-> `card->driver` or `card->shortname` require this NUL-padding behavior
-> then `strscpy_pad` should be used. My interpretation, though, is that
-> the aforementioned fields are just fine as NUL-terminated strings.
-> Please correct my assumptions if needed and I'll send in a v2.
-> 
-> [1]: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings
-> [2]: manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html
-> [3]: https://linux.die.net/man/3/strncpy
-> 
-> Link: https://github.com/KSPP/linux/issues/90
-> Link: https://lore.kernel.org/r/20230727-sound-xen-v1-1-89dd161351f1@google.com (related ALSA patch)
-> Signed-off-by: Justin Stitt <justinstitt@google.com>
+alsa-project/alsa-lib issue #339 was opened from InfinityRed-Code:
 
-Applied now.  Thanks.
+I have a Lenovo Yoga 7 16IAP7 with Fedora Workstation 38 installed.
 
+Kernel Verion: Linux 6.4.6-200.fc38.x86_64
+alsa-lib version: alsa-lib-1.2.9-1.fc38.x86_64
 
-Takashi
+I installed alsa-tools and went into hdajackretask to see what is going on. Then I noticed that my System is telling me that I have an ALC287 installed but actually it is a ALC3306. Sound is horrible and several fixes with ALC 287 for Legion Models did nit work. In the Settings I can see as well, that only 2 of the 4 integrated speakers are getting noticed.
+
+Is there any known fix?
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/339
+Repository URL: https://github.com/alsa-project/alsa-lib

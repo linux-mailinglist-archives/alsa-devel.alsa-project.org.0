@@ -2,95 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8BFE767EA3
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jul 2023 13:24:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A35C767EB1
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Jul 2023 13:29:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2F191F4;
-	Sat, 29 Jul 2023 13:24:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2F191F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70731200;
+	Sat, 29 Jul 2023 13:28:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70731200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690629891;
-	bh=e3EKzvEjJifQ1cOQfLlDcrTEKE14puKXF/Ejs96UAKg=;
+	s=default; t=1690630180;
+	bh=BCE0FU/Gw21tqHBzk0MlRvWt7UFwCOEurmakdYqdQZE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o8aPCdckDNui7/3edbemAqCzAPP7Fs8AZ5b4pSYzXANoK2w2Wqv/eB7MvL0EDqeEp
-	 wD5P5kGgVbKgzqQf6y0oezbhynU0NXkEVDONNgxTEYzc6C76aB3+fd2ZLqcEI0800Y
-	 EPHifpueFUWIQO7iXHO4KkA4GcaZT4xMquB4p6T4=
+	b=CPXOt0XyYnCW1Ib2mXg0Q/UswiQ6m9I3hK4ivTZDR8/XLU+JZM1GSHvEyXkDIH9sL
+	 HF0czc5aSWC60gmSXN8aJD0ngb+TPgO3LqVh5BugpveTYyO+hTed0ezc0q5ZeFXh2I
+	 ZdDBFmjgxtyQvOvk4xtQgWk4rOpNeOZpAjEvlTOw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4539EF800D2; Sat, 29 Jul 2023 13:24:01 +0200 (CEST)
+	id E0D01F802E8; Sat, 29 Jul 2023 13:28:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3518F80163;
-	Sat, 29 Jul 2023 13:24:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 950FCF80163;
+	Sat, 29 Jul 2023 13:28:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5D96EF8019B; Sat, 29 Jul 2023 13:22:20 +0200 (CEST)
+	id A1597F8019B; Sat, 29 Jul 2023 13:28:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BDF03F80149
-	for <alsa-devel@alsa-project.org>; Sat, 29 Jul 2023 13:22:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDF03F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3312F800D2
+	for <alsa-devel@alsa-project.org>; Sat, 29 Jul 2023 13:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3312F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=uo8TjsgI
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-31768ce2e81so3149214f8f.1
+ header.s=google header.b=siffDaiP
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-317744867a6so2878786f8f.1
         for <alsa-devel@alsa-project.org>;
- Sat, 29 Jul 2023 04:22:15 -0700 (PDT)
+ Sat, 29 Jul 2023 04:28:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690629734; x=1691234534;
+        d=linaro.org; s=google; t=1690630114; x=1691234914;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RFFnLWbiAASTwG9g6JIbmGpXHzsejEBtY6kS8fXW54Y=;
-        b=uo8TjsgIf8ew2ldpBB/wyE+LXVyLMHjFckbMuyTC4NP0HAhl0fScoMGY/OI8WX/EZj
-         REnumD54/hZH7TlDBDGMHHi0NFyuFkB5bXLRQ7/jufWLvhnibJN1P05BaVN2fNfM6IA4
-         uwoqSBN4hcn75SFimJkGWZ5X/95f0U1TnSERST+KL1JYGY4p2L23kN3iziaX3L64KHpK
-         bbT+quW8OHlIJZtmoriGRXfBYH/0ZnQIKkEUEWP4+Kn2GtVT/y8bttHl1g8qgeRWk2JM
-         8yeZlvH+5iZt0nEjKLL4qQJGw7UyF2Ip+ChMph8FO9qwS3uSEMMK0J6jeCeEcqhL8BBC
-         Xn4Q==
+        bh=pRDwWAB/tb7083VSEGzmcpz2Ehv9nbqjUHEzV2waCS0=;
+        b=siffDaiP9GP62trwaRl80GYOruJzb5ssaxEiXM03DawB+eazWxT+Cy+j+AajVYkgBH
+         VmEQ+z7js5Z/L7vy/RZGN/7LvmTfgE9JHW/mn6zwt1dnyxQj+oXOvv1l6nlgPZnAKB6C
+         cH1VviRJ/xyIqCt/jgEyRT6TWGbgJLqr+M5opNVhfMZuvsp5m4lNacF9PpFRtZlRhNFw
+         0GPF3lkv9cXU0r9rvEWgbwy8f0iZzgiad0Xfi0UsxYy7fmrLzFLRhpxL0XuL0zEkdkGl
+         gAfP/mdYquJgZ12qvxiD316gaT9AxZtu6Yliy8MEKVJT0nVHN8FVr7bC1fXMvU1p/89B
+         QbgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690629734; x=1691234534;
+        d=1e100.net; s=20221208; t=1690630114; x=1691234914;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RFFnLWbiAASTwG9g6JIbmGpXHzsejEBtY6kS8fXW54Y=;
-        b=iq5YgWveIMH6v/3pb5H90OpNJmGikRCjVKYLzSSWbpwvFpWysFfciQ9Uj3VWJIhxV5
-         hNxuD07p40D6dgQbQyGzPpWO3Okc3EtrtBn6xg/f52sjDxX694Ys1Zz6UmB8iUPqAlJZ
-         0QrUIGvlekeRtFrmJ+bqemdb1ci3RmHQJXlbIFV91nZdhQHF7VWt+4snQWfBKwXw+/PS
-         0HmTBRbCHznKzr5fxatJ0PEvRE3f4X5OyDkDWQp/CJe/WgYFcolKjLmyviiBITy3ZuzA
-         tjO7AEfYvSqcNABSzQFzktjjXccpld3CBuKCOoW3iplZt5UGhQXK9/ckHqacLJFYT2Iz
-         gFag==
-X-Gm-Message-State: ABy/qLal0LHRbhXzA6WZDEh0iF0gM+B9Va9sMZMJDlQCfyb0XSBqIAoU
-	RVuV+eS/g78RHInmrR6lkqqGVg==
+        bh=pRDwWAB/tb7083VSEGzmcpz2Ehv9nbqjUHEzV2waCS0=;
+        b=ZhGmlVsovRVJoBuOBepRB5vYaGO/ozjxG3bxMUH8yBhaReNFXfXIQuglgigL5nXRZS
+         lB/7weldeVv1xmUxbzW9b51hQfzd2usRtMmKc05bvyWegjoZ0KuL62dnxDIXXHdAIXya
+         zyDXYv8eDojmKT7tMPUbWiZNzYM+UAznTu0cHTel6o+QRoFnGa+QBL8gbOev9e/2mXaj
+         QCZo/muI1s7q62Z9uiwAmOi2PiGktsT4yRxQiE3mzXjqI7BFv5AuACDXHrpLbd9AjXVR
+         ougLwyDkiFr6T/l+QhDPUS8fq8za5DyYJY4rxMIIU5j3f2ISkTjvkNwI9k5yc+F8cS7q
+         uY6Q==
+X-Gm-Message-State: ABy/qLbB/+fOmp0Ht4a/3d2fU1Xuw0VkHwM8MGyBNHfDyMEykCQe5IXi
+	xHz3rpTx/XMxlq0M1MKyogFrZg==
 X-Google-Smtp-Source: 
- APBJJlFEDyilq7HGdoCJmHpSP8r9K25PBw2ACJ//6QDGMNM1rZ1ZB8mH7EeVf6kPHbWdcI710Hw2CQ==
-X-Received: by 2002:a5d:4c8e:0:b0:317:58a8:baa with SMTP id
- z14-20020a5d4c8e000000b0031758a80baamr3924860wrs.28.1690629734443;
-        Sat, 29 Jul 2023 04:22:14 -0700 (PDT)
+ APBJJlFwn53/NAUi96jua9lUrHCesB4IPoDQQN2ncMi0AMKL8ZcCwfTB7YJFxsSfzxbxL4HsLXcoXg==
+X-Received: by 2002:adf:f512:0:b0:30f:c5b1:23ef with SMTP id
+ q18-20020adff512000000b0030fc5b123efmr3631974wro.41.1690630114310;
+        Sat, 29 Jul 2023 04:28:34 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.104])
         by smtp.gmail.com with ESMTPSA id
- n21-20020aa7d055000000b0051e26c7a154sm2784738edo.18.2023.07.29.04.22.12
+ r16-20020a0560001b9000b0031769585da4sm7214702wru.57.2023.07.29.04.28.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 29 Jul 2023 04:22:13 -0700 (PDT)
-Message-ID: <4d822ff6-b7e6-20e2-6087-78941488a3cf@linaro.org>
-Date: Sat, 29 Jul 2023 13:22:11 +0200
+        Sat, 29 Jul 2023 04:28:33 -0700 (PDT)
+Message-ID: <7cdd4825-c0da-f60e-bbef-970bea48dc95@linaro.org>
+Date: Sat, 29 Jul 2023 13:28:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH V3 3/5] ASoC: codecs: Add aw88261 amplifier driver
+Subject: Re: [PATCH V3 4/5] ASoC: codecs: aw88261 device related operation
+ functions
 Content-Language: en-US
 To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
  robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
@@ -103,13 +104,13 @@ To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
  linux-kernel@vger.kernel.org
 Cc: zhangjianming@awinic.com
 References: <20230729091223.193466-1-wangweidong.a@awinic.com>
- <20230729091223.193466-4-wangweidong.a@awinic.com>
+ <20230729091223.193466-5-wangweidong.a@awinic.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230729091223.193466-4-wangweidong.a@awinic.com>
+In-Reply-To: <20230729091223.193466-5-wangweidong.a@awinic.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 45RFC5MP4Q33QRMV5HDPCJAHNDHFLTQP
-X-Message-ID-Hash: 45RFC5MP4Q33QRMV5HDPCJAHNDHFLTQP
+Message-ID-Hash: PZMM353IT46C7LRRQT6TDYULN3VR4IWJ
+X-Message-ID-Hash: PZMM353IT46C7LRRQT6TDYULN3VR4IWJ
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/45RFC5MP4Q33QRMV5HDPCJAHNDHFLTQP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PZMM353IT46C7LRRQT6TDYULN3VR4IWJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,164 +135,276 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On 29/07/2023 11:12, wangweidong.a@awinic.com wrote:
 > From: Weidong Wang <wangweidong.a@awinic.com>
 > 
-> Add i2c and amplifier registration for
-> aw88261 and their associated operation functions.
+> Operate the aw88261 chip, including device initialization,
+> chip power-on and power-off, control volume, etc.
 > 
 > Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
 > ---
->  sound/soc/codecs/aw88261/aw88261.c | 517 +++++++++++++++++++++++++++++
->  sound/soc/codecs/aw88261/aw88261.h |  52 +++
->  2 files changed, 569 insertions(+)
->  create mode 100644 sound/soc/codecs/aw88261/aw88261.c
->  create mode 100644 sound/soc/codecs/aw88261/aw88261.h
+>  sound/soc/codecs/aw88261/aw88261_device.c | 877 ++++++++++++++++++++++
+>  sound/soc/codecs/aw88261/aw88261_device.h |  79 ++
+>  2 files changed, 956 insertions(+)
+>  create mode 100644 sound/soc/codecs/aw88261/aw88261_device.c
+>  create mode 100644 sound/soc/codecs/aw88261/aw88261_device.h
 > 
 
+...
 
 > +
-> +static int aw88261_request_firmware_file(struct aw88261 *aw88261)
+> +int aw88261_dev_stop(struct aw88261_device *aw_dev)
 > +{
-> +	const struct firmware *cont = NULL;
-> +	int ret;
-> +
-> +	aw88261->aw_pa->aw88261_base->fw_status = AW88261_DEV_FW_FAILED;
-> +
-> +	ret = request_firmware(&cont, AW88261_ACF_FILE, aw88261->aw_pa->dev);
-> +	if (ret < 0) {
-> +		dev_err_probe(aw88261->aw_pa->dev, ret, "load [%s] failed!", AW88261_ACF_FILE);
-> +		return ret;
-
-That's not how you use dev_err_probe. Instead: return dev_err_probe
-
+> +	if (aw_dev->aw88261_base->status == AW88261_DEV_PW_OFF) {
+> +		dev_info(aw_dev->aw88261_base->dev, "already power off");
+> +		return 0;
 > +	}
 > +
-> +	dev_info(aw88261->aw_pa->dev, "loaded %s - size: %zu\n",
-> +			AW88261_ACF_FILE, cont ? cont->size : 0);
+> +	aw_dev->aw88261_base->status = AW88261_DEV_PW_OFF;
 > +
-> +	aw88261->aw_cfg = devm_kzalloc(aw88261->aw_pa->dev, cont->size + sizeof(int), GFP_KERNEL);
-> +	if (!aw88261->aw_cfg) {
-> +		release_firmware(cont);
+> +	/* clear inturrupt */
+> +	aw_dev_clear_int_status(aw_dev);
+> +
+> +	aw88261_dev_uls_hmute(aw_dev, true);
+> +	/* set mute */
+> +	aw88261_dev_mute(aw_dev, true);
+> +
+> +	/* close tx feedback */
+> +	aw_dev_i2s_tx_enable(aw_dev, false);
+> +	usleep_range(AW88261_1000_US, AW88261_1000_US + 100);
+> +
+> +	/* enable amppd */
+> +	aw_dev_amppd(aw_dev, true);
+> +
+> +	/* set power down */
+> +	aw_dev_pwd(aw_dev, true);
+> +
+> +	dev_dbg(aw_dev->dev, "pa stop success\n");
+
+No for debug replacing tracing. We have tracing for this.
+
+> +
+> +	return 0;
+> +}
+> +
+> +int aw88261_dev_init(struct aw88261_device *aw_dev, struct aw_container *aw_cfg)
+
+You already used this function in patch #3, so your order of patches is
+confusing.
+
+> +{
+> +	int ret;
+> +
+> +	if ((!aw_dev) || (!aw_cfg)) {
+> +		pr_err("aw_dev is NULL or aw_cfg is NULL");
+
+Is this possible? If so, why?
+
 > +		return -ENOMEM;
 > +	}
-> +	aw88261->aw_cfg->len = (int)cont->size;
-> +	memcpy(aw88261->aw_cfg->data, cont->data, cont->size);
-> +	release_firmware(cont);
 > +
-> +	ret = aw88395_dev_load_acf_check(aw88261->aw_pa->aw88261_base, aw88261->aw_cfg);
-> +	if (ret < 0) {
-> +		dev_err_probe(aw88261->aw_pa->dev, ret, "load [%s] failed !", AW88261_ACF_FILE);
-> +		return ret;
-
-return dev_err_probe
-
+> +	ret = aw88395_dev_cfg_load(aw_dev->aw88261_base, aw_cfg);
+> +	if (ret) {
+> +		dev_err(aw_dev->dev, "aw_dev acf parse failed");
+> +		return -EINVAL;
 > +	}
 > +
-> +	mutex_lock(&aw88261->lock);
-> +	/* aw device init */
-> +	ret = aw88261_dev_init(aw88261->aw_pa, aw88261->aw_cfg);
+> +	ret = regmap_write(aw_dev->aw88261_base->regmap, AW88261_ID_REG, AW88261_SOFT_RESET_VALUE);
 > +	if (ret < 0)
-> +		dev_err(aw88261->aw_pa->dev, "dev init failed");
-> +	mutex_unlock(&aw88261->lock);
+> +		return ret;
 > +
-> +	return ret;
+> +	aw_dev->aw88261_base->fade_in_time = AW88261_1000_US / 10;
+> +	aw_dev->aw88261_base->fade_out_time = AW88261_1000_US >> 1;
+> +	aw_dev->aw88261_base->prof_cur = AW_INIT_PROFILE;
+> +	aw_dev->aw88261_base->prof_index = AW_INIT_PROFILE;
+> +
+> +	ret = aw_dev_fw_update(aw_dev);
+> +	if (ret) {
+> +		dev_err(aw_dev->dev, "fw update failed ret = %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = aw_frcset_check(aw_dev);
+> +	if (ret) {
+> +		dev_err(aw_dev->dev, "aw_frcset_check failed ret = %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	aw_dev_clear_int_status(aw_dev);
+> +
+> +	aw88261_dev_uls_hmute(aw_dev, true);
+> +
+> +	aw88261_dev_mute(aw_dev, true);
+> +
+> +	aw_dev_i2s_tx_enable(aw_dev, false);
+> +
+> +	usleep_range(AW88261_1000_US, AW88261_1000_US + 100);
+> +
+> +	aw_dev_amppd(aw_dev, true);
+> +
+> +	aw_dev_pwd(aw_dev, true);
+> +
+> +	return 0;
 > +}
 > +
-> +static int aw88261_codec_probe(struct snd_soc_component *component)
+> +static void aw_parse_channel_dt(struct aw88261_device *aw_dev)
 > +{
-> +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
-> +	struct aw88261 *aw88261 = snd_soc_component_get_drvdata(component);
+> +	struct device_node *np = aw_dev->aw88261_base->dev->of_node;
+> +	u32 channel_value;
+> +	u32 sync_enable;
 > +	int ret;
 > +
-> +	INIT_DELAYED_WORK(&aw88261->start_work, aw88261_startup_work);
+> +	ret = of_property_read_u32(np, "sound-channel", &channel_value);
+> +	if (ret)
+> +		channel_value = AW88261_DEV_DEFAULT_CH;
 > +
-> +	ret = aw88261_request_firmware_file(aw88261);
-> +	if (ret < 0) {
-> +		dev_err_probe(aw88261->aw_pa->dev, ret, "aw88261_request_firmware_file failed\n");
-> +		return ret;
+> +	ret = of_property_read_u32(np, "sync-flag", &sync_enable);
+> +	if (ret)
+> +		sync_enable = false;
+> +
+> +	dev_dbg(aw_dev->dev,  "sync flag is %d", sync_enable);
 
-return dev_err_probe
+Fix style - only one space after ,
 
+> +	dev_dbg(aw_dev->dev, "read sound-channel value is: %d", channel_value);
+> +
+> +	aw_dev->aw88261_base->channel = channel_value;
+> +	aw_dev->phase_sync = sync_enable;
+> +}
+> +
+> +static int aw_dev_init(struct aw88261_device *aw_dev)
+> +{
+> +	aw_dev->aw88261_base->chip_id = AW88261_CHIP_ID;
+> +	/* call aw device init func */
+> +	aw_dev->aw88261_base->acf = NULL;
+> +	aw_dev->aw88261_base->prof_info.prof_desc = NULL;
+> +	aw_dev->aw88261_base->prof_info.count = 0;
+> +	aw_dev->aw88261_base->prof_info.prof_type = AW88395_DEV_NONE_TYPE_ID;
+> +	aw_dev->aw88261_base->channel = 0;
+> +	aw_dev->aw88261_base->fw_status = AW88261_DEV_FW_FAILED;
+> +
+> +	aw_dev->aw88261_base->fade_step = AW88261_VOLUME_STEP_DB;
+> +	aw_dev->aw88261_base->volume_desc.ctl_volume = AW88261_VOL_DEFAULT_VALUE;
+> +	aw_dev->aw88261_base->volume_desc.mute_volume = AW88261_MUTE_VOL;
+> +	aw_parse_channel_dt(aw_dev);
+> +
+> +	return 0;
+> +}
+> +
+> +int aw88261_dev_set_profile_index(struct aw88261_device *aw_dev, int index)
+> +{
+> +	struct aw_device *aw88261_base = aw_dev->aw88261_base;
+> +
+> +	/* check the index whether is valid */
+> +	if ((index >= aw88261_base->prof_info.count) || (index < 0))
+> +		return -EINVAL;
+> +	/* check the index whether change */
+> +	if (aw88261_base->prof_index == index)
+> +		return -EINVAL;
+> +
+> +	aw88261_base->prof_index = index;
+> +
+> +	return 0;
+> +}
+> +
+> +char *aw88261_dev_get_prof_name(struct aw88261_device *aw_dev, int index)
+> +{
+> +	struct aw_prof_info *prof_info = &aw_dev->aw88261_base->prof_info;
+> +	struct aw_prof_desc *prof_desc;
+> +
+> +	if ((index >= aw_dev->aw88261_base->prof_info.count) || (index < 0)) {
+> +		dev_err(aw_dev->dev, "index[%d] overflow count[%d]",
+> +			index, aw_dev->aw88261_base->prof_info.count);
+> +		return NULL;
 > +	}
 > +
-> +	/* add widgets */
-> +	ret = snd_soc_dapm_new_controls(dapm, aw88261_dapm_widgets,
-> +							ARRAY_SIZE(aw88261_dapm_widgets));
-> +	if (ret < 0)
-> +		return ret;
+> +	prof_desc = &aw_dev->aw88261_base->prof_info.prof_desc[index];
 > +
-> +	/* add route */
-> +	ret = snd_soc_dapm_add_routes(dapm, aw88261_audio_map,
-> +							ARRAY_SIZE(aw88261_audio_map));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = snd_soc_add_component_controls(component, aw88261_controls,
-> +							ARRAY_SIZE(aw88261_controls));
-> +
-> +	return ret;
+> +	return prof_info->prof_name_list[prof_desc->id];
 > +}
 > +
-> +static void aw88261_codec_remove(struct snd_soc_component *aw_codec)
+> +int aw88261_dev_get_prof_data(struct aw88261_device *aw_dev, int index,
+> +			struct aw_prof_desc **prof_desc)
 > +{
-> +	struct aw88261 *aw88261 = snd_soc_component_get_drvdata(aw_codec);
+> +	if ((index >= aw_dev->aw88261_base->prof_info.count) || (index < 0)) {
+> +		dev_err(aw_dev->dev, "%s: index[%d] overflow count[%d]\n",
+> +				__func__, index, aw_dev->aw88261_base->prof_info.count);
+> +		return -EINVAL;
+> +	}
 > +
-> +	cancel_delayed_work_sync(&aw88261->start_work);
+> +	*prof_desc = &aw_dev->aw88261_base->prof_info.prof_desc[index];
+> +
+> +	return 0;
 > +}
 > +
-> +static const struct snd_soc_component_driver soc_codec_dev_aw88261 = {
-> +	.probe = aw88261_codec_probe,
-> +	.remove = aw88261_codec_remove,
-> +};
-> +
-> +static void aw88261_hw_reset(struct aw88261 *aw88261)
+> +int aw88261_init(struct aw88261_device **aw_dev, struct i2c_client *i2c, struct regmap *regmap)
+
+You already used this function in patch #3, so your order of patches is
+confusing.
+
 > +{
-> +	gpiod_set_value_cansleep(aw88261->reset_gpio, 0);
-> +	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
-> +	gpiod_set_value_cansleep(aw88261->reset_gpio, 1);
-> +	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
-> +}
-> +
-> +static int aw88261_i2c_probe(struct i2c_client *i2c)
-> +{
-> +	struct aw88261 *aw88261;
+> +	unsigned int chip_id;
 > +	int ret;
 > +
-> +	ret = i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C);
-> +	if (!ret) {
-> +		dev_err_probe(&i2c->dev, ret, "check_functionality failed");
-> +		return -ENXIO;
+> +	if (*aw_dev) {
+> +		dev_info(&i2c->dev, "it should be initialized here.\n");
 
-return dev_err_probe
+How is this possible?
 
+
+> +	} else {
+> +		*aw_dev = devm_kzalloc(&i2c->dev, sizeof(struct aw88261_device), GFP_KERNEL);
+
+sizeof(**)
+
+> +		if (!(*aw_dev))
+> +			return -ENOMEM;
 > +	}
 > +
-> +	aw88261 = devm_kzalloc(&i2c->dev, sizeof(struct aw88261), GFP_KERNEL);
+> +	(*aw_dev)->aw88261_base =
+> +			devm_kzalloc(&i2c->dev, sizeof(struct aw_device), GFP_KERNEL);
 
 sizeof(*)
-
-> +	if (!aw88261)
+> +	if (!(*aw_dev)->aw88261_base)
 > +		return -ENOMEM;
 > +
-> +	mutex_init(&aw88261->lock);
+> +	(*aw_dev)->aw88261_base->i2c = i2c;
+
+I propose to use some local variable, to simplify all these assignments.
+
+> +	(*aw_dev)->aw88261_base->dev = &i2c->dev;
+> +	(*aw_dev)->aw88261_base->regmap = regmap;
+> +	(*aw_dev)->dev = &i2c->dev;
+
+In how many places do you need to store &i2c->dev?
+
 > +
-> +	i2c_set_clientdata(i2c, aw88261);
-> +
-> +	aw88261->reset_gpio = devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(aw88261->reset_gpio))
-> +		dev_info(&i2c->dev, "reset gpio not defined\n");
-> +	else
-> +		aw88261_hw_reset(aw88261);
-> +
-> +	aw88261->regmap = devm_regmap_init_i2c(i2c, &aw88261_remap_config);
-> +	if (IS_ERR(aw88261->regmap)) {
-> +		ret = PTR_ERR(aw88261->regmap);
-> +		dev_err_probe(&i2c->dev, ret, "failed to init regmap: %d\n", ret);
+> +	/* read chip id */
+> +	ret = regmap_read((*aw_dev)->aw88261_base->regmap, AW88261_CHIP_ID_REG, &chip_id);
+> +	if (ret) {
+> +		dev_err((*aw_dev)->dev, "%s read chipid error. ret = %d", __func__, ret);
 > +		return ret;
+> +	}
+> +	dev_info((*aw_dev)->dev, "chip id = %x\n", chip_id);
 
-return dev_err_probe
+"(*aw_dev)->dev" all over this function is not really readable.
 
-I asked you about this in your first version. I explicitly wrote "return
-dev_err_probe", not some other syntax.
+> +
+> +	switch (chip_id) {
+> +	case AW88261_CHIP_ID:
+> +		ret = aw_dev_init((*aw_dev));
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		dev_err((*aw_dev)->dev, "unsupported device");
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +MODULE_DESCRIPTION("AW88261 device");
+> +MODULE_LICENSE("GPL v2");
 
+Wait, is this a module? Does not look complete. I already saw one
+module, so what is this for? For which module?
 
 Best regards,
 Krzysztof

@@ -2,105 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A72C768392
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jul 2023 05:06:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DCB876852F
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jul 2023 13:57:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA7C7827;
-	Sun, 30 Jul 2023 05:05:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA7C7827
+	by alsa0.perex.cz (Postfix) with ESMTPS id E217E4E;
+	Sun, 30 Jul 2023 13:56:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E217E4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690686409;
-	bh=NmFqw3ClJC8ZKIW+Ntxv/sD5fiIGSbDFCpUH4Trv+Kw=;
-	h=Date:To:Cc:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1690718221;
+	bh=zx3hN+Up5QAZ/q/aPY364O/Y+TzNTFnUms5KkfFCuSU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=AHpWfBd0EsRfrBLF5XiXsOQf5S0rYv7JQOq+yZLaHxcv1uJSYxCpcmssHQUTyZ7YI
-	 9bM/onYssIFn8qDORECULhbpU3vJP/zTlu33DCU7V60cp/2cuALbfoo2J/o1hq1NjL
-	 fQekBVvhfGqAc0hxUIpjtE7A5hLxXWLownCIKElU=
+	b=p4WT8zEToB7hYJyV9bowd9UU1s5Y1k6nzn3MyY2HjOf311xWQ3/3JjnfxazAakAyj
+	 zi1waDsWA3dZTiIaKTzY5+2GmBcXymY5Hi6DkNg1Lyz70V/7Ii05FODNIEhlFzsn7f
+	 eUzaPYAsfXxrrhJ3j1LbFZ7pV+WtX2gJgLI35/bE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B796F80520; Sun, 30 Jul 2023 05:05:58 +0200 (CEST)
+	id 4D393F80425; Sun, 30 Jul 2023 13:56:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1571F80163;
-	Sun, 30 Jul 2023 05:05:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14C3AF80163;
+	Sun, 30 Jul 2023 13:56:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DB44F8016D; Sun, 30 Jul 2023 05:04:55 +0200 (CEST)
+	id D92FCF8016D; Sun, 30 Jul 2023 13:52:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_DYNAMIC,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from ixit.cz (ip-89-177-23-149.bb.vodafone.cz [89.177.23.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 987A8F80149
-	for <alsa-devel@alsa-project.org>; Sun, 30 Jul 2023 05:04:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 987A8F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1847F80153
+	for <alsa-devel@alsa-project.org>; Sun, 30 Jul 2023 13:52:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1847F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=V80Q/pOE
-Received: by mail-pg1-x531.google.com with SMTP id
- 41be03b00d2f7-55b22f82ac8so2947170a12.1
-        for <alsa-devel@alsa-project.org>;
- Sat, 29 Jul 2023 20:04:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690686284; x=1691291084;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZNcYqtQlXpQKPqeWxLmdg5dB7w855CQ3qgqSePzZ6Tg=;
-        b=V80Q/pOE5gi31O/Ld769fJM8GVmaqF7lBAFN8Aal93hLdUFkmtWzREJmQuqyANl1J0
-         B+ZCnnTsWtu2q8OLTaNRS7fF8gYn6oOO8/fYQ5GTyH+k5nUKayJCj6sVLHomDE4dTrst
-         AJv7tJokbaBnzaasAzokAPT8BekdY6YOwKrtri1I9vFgKWyLtcfeS1YTjacsTDoHbdZI
-         E8ox6wHB3q9dlnmC/MvvsFO0D8KQG0nAVG/OKgpQaIrap0CTn34J+nY3gTkCE8vnNIGg
-         HclzpcPbqkpSJGH8g44BjcTf576rEHl2rpjMnfOM5gSSB1GW7UaIPNprCgfnNamyhAIC
-         AO2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690686284; x=1691291084;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZNcYqtQlXpQKPqeWxLmdg5dB7w855CQ3qgqSePzZ6Tg=;
-        b=iHBGPioo31DdoKZdOxZ7YbQCsFBFjgIhp0ZFCvY1e64nmigMWLKwmXq1ixFzjW/l0p
-         8IbuZd6h+9G+j8VJy+Eojufcl+nWNlpAekdxptN5sO39UJRRQOZpr0UjbZgS9iZHDbwn
-         lngzNFiENlQ/n7cLbKYwZM9v/tdQ+DY7Cerk2FmLqwRsv5lK0ejtfTevQY+whgsUBn0l
-         kVzUknT44j2MnN8zonG9Wmn2RKut9nEU4InFyQbT/V9SRY4lou+EmdEV2s+h0fxTrGi5
-         /OmqdUjzgAlf/xnbBTUd0x0NpUqCtbN5Lw0DMjsItcZTDI5ZSRKVs/QBW02mo3epqx1O
-         8Vxg==
-X-Gm-Message-State: ABy/qLb3ttV+zRmdJzwfAh0L4LBdhKwyYmB5i+XmkUH5FOtPuAUV8jj4
-	GrAUbGrkwNZfhotBgHHX3ow=
-X-Google-Smtp-Source: 
- APBJJlEpO6/wwlipyMenNK9nps6iI6rK9vIpM7B0kVPpxXFeMalJXL1819lt+kwARIorHBfFhk7fuw==
-X-Received: by 2002:a17:90b:3e83:b0:268:4716:d0cc with SMTP id
- rj3-20020a17090b3e8300b002684716d0ccmr7274474pjb.22.1690686283632;
-        Sat, 29 Jul 2023 20:04:43 -0700 (PDT)
-Received: from [192.168.0.105] ([103.131.18.64])
-        by smtp.gmail.com with ESMTPSA id
- jd6-20020a170903260600b001b7feed285csm5899909plb.36.2023.07.29.20.04.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 29 Jul 2023 20:04:42 -0700 (PDT)
-Message-ID: <9759f20c-cb24-dde4-cca6-f893033b7802@gmail.com>
-Date: Sun, 30 Jul 2023 10:04:39 +0700
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256
+ header.s=dkim header.b=hQdlEPrk
+Received: from localhost.localdomain (fhswifi.lu.lv [5.179.19.237])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 0903716048A;
+	Sun, 30 Jul 2023 13:52:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1690717966;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Ovt4Qpvn4486eU5bed4MB8D25IRv5/81RC376BDybAA=;
+	b=hQdlEPrkpgDa6aIXfcQWbw2CR+KTbZVVhBkSxutv6kddE9G/tgb7Ma7w2p29tWk60Iqroj
+	KTAaza/AnTQNnE+MNkClBGhSugpdIlJYM50Vk59qgDH4RSaHREppXORX1+xz6PZiiWlAuL
+	u4GHnW34uZAvkrYqRzdwcRDUFnjOdlk=
+From: David Heidelberg <david@ixit.cz>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	- <kernel@puri.sm>
+Cc: David Heidelberg <david@ixit.cz>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND v2] dt-bindings: sound: gtm601: convert to YAML
+Date: Sun, 30 Jul 2023 14:51:50 +0300
+Message-Id: <20230730115150.38887-1-david@ixit.cz>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Conan <formyneeds2@tutanota.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ALSA Development <alsa-devel@alsa-project.org>
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Fwd: Lenovo Thinkpad T490 Microphone Noise
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZJEBHBTIK272MU6AAT6KJJHV7KWVKAJV
-X-Message-ID-Hash: ZJEBHBTIK272MU6AAT6KJJHV7KWVKAJV
-X-MailFrom: bagasdotme@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: QAWVJDRUQVEE75UP5CB7RJOS7WGLIW6L
+X-Message-ID-Hash: QAWVJDRUQVEE75UP5CB7RJOS7WGLIW6L
+X-MailFrom: david@ixit.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +89,8 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QAWVJDRUQVEE75UP5CB7RJOS7WGLIW6L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,33 +99,89 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Convert GTM601 binding to the YAML format.
 
-I notice a bug report on Bugzilla [1]. Quoting from it:
+Signed-off-by: David Heidelberg <david@ixit.cz>
 
-> I have reported this issue to the Arch but they redirected me to here.
-> https://bugs.archlinux.org/task/79245
-> 
-> 
-> Description:
-> When I use microphone for online meetings, my sound reaches them with a high noise that prevent it from being understood. I tested the microphone on my own and yes the noise is there. I tried pulseaudio and pipewire, but neither has solved the problem. This problem is not stemming from hardware since I do not have this issue with Windows 10.
-> 
-> Additional info:
-> * pulseaudio: 16.1-6, piprewire: 1:0.3.75-2, kernel: 6.4.6-arch1-1
-> 
-> Steps to reproduce:
-> 1 - Open a chat app/website or online meeting tool like, Whatsapp, Signal, Zoom, etc.
-> 2 - Speak to the microphone. You can use Whatsapp and Signal to listen your microphone sound.
+Cc: kernel@puri.sm
+---
+v2:
+ - add #sound-dai-cells
+ - put kernel@puri.sm into maintainers
 
-See Bugzilla for the full thread.
+ .../devicetree/bindings/sound/gtm601.txt      | 19 ----------
+ .../devicetree/bindings/sound/gtm601.yaml     | 36 +++++++++++++++++++
+ 2 files changed, 36 insertions(+), 19 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/gtm601.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/gtm601.yaml
 
-The reporter chose the incorrect component when this bug was being filed
-on Bugzilla (only generic `Kernel`), hence missing sound maintainers
-and I had to forward it to the mailing list instead.
-
-Thanks.
-
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=217730
-
+diff --git a/Documentation/devicetree/bindings/sound/gtm601.txt b/Documentation/devicetree/bindings/sound/gtm601.txt
+deleted file mode 100644
+index efa32a486c4a..000000000000
+--- a/Documentation/devicetree/bindings/sound/gtm601.txt
++++ /dev/null
+@@ -1,19 +0,0 @@
+-GTM601 UMTS modem audio interface CODEC
+-
+-This device has no configuration interface. The sample rate and channels are
+-based on the compatible string
+-	"option,gtm601" = 8kHz mono
+-	"broadmobi,bm818" = 48KHz stereo
+-
+-Required properties:
+-
+-  - compatible : one of
+-	"option,gtm601"
+-	"broadmobi,bm818"
+-
+-
+-Example:
+-
+-codec: gtm601_codec {
+-	compatible = "option,gtm601";
+-};
+diff --git a/Documentation/devicetree/bindings/sound/gtm601.yaml b/Documentation/devicetree/bindings/sound/gtm601.yaml
+new file mode 100644
+index 000000000000..e81a6aa75522
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/gtm601.yaml
+@@ -0,0 +1,36 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/gtm601.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: GTM601 UMTS modem audio interface CODEC
++
++maintainers:
++  - kernel@puri.sm
++
++description: >
++  This device has no configuration interface. The sample rate and channels are
++  based on the compatible string
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: broadmobi,bm818
++          - const: option,gtm601
++      - items:
++          - enum:
++              - broadmobi,bm818  # 48 kHz stereo
++              - option,gtm601  # 8 kHz mono
++
++  '#sound-dai-cells':
++    const: 0
++
++additionalProperties: false
++
++examples:
++  - |
++    gtm601_codec {
++        compatible = "option,gtm601";
++    };
 -- 
-An old man doll... just what I always wanted! - Clara
+2.40.1
+

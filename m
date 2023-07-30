@@ -2,110 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EE787686EC
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jul 2023 19:56:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10964768716
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jul 2023 20:12:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDD01827;
-	Sun, 30 Jul 2023 19:55:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDD01827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49A7F84D;
+	Sun, 30 Jul 2023 20:11:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49A7F84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690739761;
-	bh=750oJ2P+yYUlPVA1010tF5T1woaedYv0DopTLIEhLAs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=g6TMz3N6CgKBCu3qZ1imDhKxg8T50mnwQSBtIFhZsLdSIsdryh9Y29FLlY8eXeEqO
-	 MSuhofK2z77rQuU5Y/kYhL9JmictxShYZafNMXfY4yMkhvfm/ocbIYAd0DbtejvzBY
-	 GhETvklqyvxT7BtfcrqMJnJyIjysEQXjYnvdjXpI=
+	s=default; t=1690740727;
+	bh=RHYPyUr6d2I4aCfpzs9hErLd1Pqz+fTS2xI/1muWTVU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ls25aJ67yx/eYQbf6fBNKc47s3suJWrpN0EYIeEA6NiGkaRq5NeEBv2F/CwznfzvO
+	 NA+wCtX5+6vHNEK6KDvgTBKM1BWqq/b9S5aLkBFY1lAw89o3ETxvxrGZfkZk9ugdH2
+	 ZyAAaQBFTi6xFdj6QqR+7pF2rgP9PtjVpH3iEFIA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0802F80087; Sun, 30 Jul 2023 19:55:10 +0200 (CEST)
+	id E3A9FF80571; Sun, 30 Jul 2023 20:10:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18C6FF80163;
-	Sun, 30 Jul 2023 19:55:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9378BF80579;
+	Sun, 30 Jul 2023 20:10:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72C36F8016D; Sun, 30 Jul 2023 19:55:03 +0200 (CEST)
+	id A4696F8016D; Sun, 30 Jul 2023 20:08:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85DFAF80087
-	for <alsa-devel@alsa-project.org>; Sun, 30 Jul 2023 19:54:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85DFAF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC65BF80153
+	for <alsa-devel@alsa-project.org>; Sun, 30 Jul 2023 20:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC65BF80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=P6jbYQ5c
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-99bed101b70so415749366b.3
-        for <alsa-devel@alsa-project.org>;
- Sun, 30 Jul 2023 10:54:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690739691; x=1691344491;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mbjS6TBC9NtU6oekBePBL31Nw/0x/d6yu4TOb6mnKIY=;
-        b=P6jbYQ5csvD+4BbInxE1FPGjPTs2AnewX7WnsbjMJJTq1EGfetuG3xSy0ZMuXtqCJ3
-         o9AoI1/Lw/WQKNpVpn6emK3roLzIW+M7xKJ5eBsnY93SBI0uUd2XF2jERi7d5g9NdzzF
-         KbHkXXv8jBA5YtV/6F2dpt6+44XF/NjeovU8WmQqfZ1LnjvBORzorbZoI4SvePFazmMV
-         WbG9QJ5j4f6RIz0GG0k285iwJDjNxAKLEolpuk9RD+r0d6Y7U6wmLc5PBPizOp+SkLCc
-         CjuOvYnzSY5xhj1flC3DiycTNUatTKTkPYl34xm6+SmW8rO4K/jdz09gOQIZMdKX/NLd
-         eSmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690739691; x=1691344491;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mbjS6TBC9NtU6oekBePBL31Nw/0x/d6yu4TOb6mnKIY=;
-        b=fhxEe4FgdCrbV3wGyrPIxjzSjbgERaAdzAQ+K7H4eS+Gt9BJU8mlQZiLr/PxuhYz+Z
-         KJhkO71RRXsGgaeeEtQ+5+mGSSGNTMUIT1J4wNoK8/RedlGBnWo/zAJGuOn38FyExV0V
-         YBdVoIPqle9MTHKcbztF1fCZVv6BQDSP2uit7uzifS3Avhtmo52dp+rvUwTFjn9aeU87
-         KD9zci0Fhd2nn731C+fBBAtPjhC15ZnPerJp0CpZmWRKPUFePtnQfZuXpdEGqFvDq6+Z
-         +VTYaqBbtYlxuW3lH0485jkqxGJil3Rkn0hPBdoK8G9KIXxbII3t/tmlcDonC9Ag9iVj
-         l6cw==
-X-Gm-Message-State: ABy/qLYxb3Nd6PJ5XTTuiNGASCEOlIZfd3coGdoQrcFSiIW+yYV6lxX/
-	/p8qa8/IQ1U47phZyKDlgNRrgA==
-X-Google-Smtp-Source: 
- APBJJlGKotrJF4ynR3yW3bafZKtRVjvSfy65pHmi1rA3GyhmcmsJZikumlPXSdF9eBN8iCEA/B9qfA==
-X-Received: by 2002:a17:907:7711:b0:99b:d1cb:5add with SMTP id
- kw17-20020a170907771100b0099bd1cb5addmr5645098ejc.35.1690739691213;
-        Sun, 30 Jul 2023 10:54:51 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.222.183])
-        by smtp.gmail.com with ESMTPSA id
- t7-20020a1709063e4700b0098d15d170a0sm4875349eji.202.2023.07.30.10.54.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Jul 2023 10:54:50 -0700 (PDT)
-Message-ID: <acd8e4ea-0d8f-3dc2-16ef-4c1deee281d8@linaro.org>
-Date: Sun, 30 Jul 2023 19:54:49 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=K4DX7c3m
+X-UUID: 091c3b542f0411ee9cb5633481061a41-20230731
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=o5kGfhLmlrtKS7cC4Khfr9xNCiQ6ZJrY8LYyZM/NxME=;
+	b=K4DX7c3mv/zN85/j2lmKCTmbQiNPK5J1slwfzBJC3+zmS4/fSQGuMxw9WdX+JWhARXv5sbgB0RN37Mj0Ah0NvEfson/5EoHjlbO57vH4MpvT6Z21bCZfGrK9v/ESD1f9qeib0xGwm2E2JfekDbj0LSvoUJadmGDSH9DlkJjL2Zw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.30,REQID:593ec220-921f-418c-9461-31e94d195dbf,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:1fcc6f8,CLOUDID:46e79c42-d291-4e62-b539-43d7d78362ba,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:1,EDM:-3,IP:nil,U
+	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
+	DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: 091c3b542f0411ee9cb5633481061a41-20230731
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
+ mailgw01.mediatek.com
+	(envelope-from <jiaxin.yu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1768640190; Mon, 31 Jul 2023 02:08:07 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Mon, 31 Jul 2023 02:08:05 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Mon, 31 Jul 2023 02:08:05 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <andrzej.hajda@intel.com>,
+	<neil.armstrong@linaro.org>, <robert.foss@linaro.org>,
+	<Laurent.pinchart@ideasonboard.com>, <kuninori.morimoto.gx@renesas.com>,
+	<angelogioacchino.delregno@collabora.com>, <nfraprado@collabora.com>
+CC: <chunxu.li@mediatek.com>, <ajye_huang@compal.corp-partner.google.com>,
+	<allen-kh.cheng@mediatek.com>, <dri-devel@lists.freedesktop.org>,
+	<alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Jiaxin Yu
+	<jiaxin.yu@mediatek.com>
+Subject: [v3 0/3] ASoC: mediatek:mt8186: fix both the speaker and hdmi
+Date: Mon, 31 Jul 2023 02:08:00 +0800
+Message-ID: <20230730180803.22570-1-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH RESEND v2] dt-bindings: sound: gtm601: convert to YAML
-Content-Language: en-US
-To: David Heidelberg <david@ixit.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, - <kernel@puri.sm>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20230730115150.38887-1-david@ixit.cz>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230730115150.38887-1-david@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: IHS3CZFQURXBI7ZTZR6NLCJGMR6W6PHG
-X-Message-ID-Hash: IHS3CZFQURXBI7ZTZR6NLCJGMR6W6PHG
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: JIFUGMWR7C5EASBNPN3HZVXVCIWY5FB4
+X-Message-ID-Hash: JIFUGMWR7C5EASBNPN3HZVXVCIWY5FB4
+X-MailFrom: jiaxin.yu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHS3CZFQURXBI7ZTZR6NLCJGMR6W6PHG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JIFUGMWR7C5EASBNPN3HZVXVCIWY5FB4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,113 +115,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30/07/2023 13:51, David Heidelberg wrote:
-> Convert GTM601 binding to the YAML format.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> 
+The speaker and hdmi of mt8186 platform are shared the same port of I2S,
+when connect the external display, use build-in speakers to play audio,
+they both playback at the same time. So we want to manage the playback
+device through DAPM events.
 
-No need for blank line between tags.
+Jiaxin Yu (3):
+  ASoC: hdmi-codec: Add event handler for hdmi TX
+  ASoC: mediatek: mt8186: correct the HDMI widgets
+  drm/bridge: it6505: Add audio support
 
-> Cc: kernel@puri.sm
-> ---
-> v2:
->  - add #sound-dai-cells
->  - put kernel@puri.sm into maintainers
-> 
->  .../devicetree/bindings/sound/gtm601.txt      | 19 ----------
->  .../devicetree/bindings/sound/gtm601.yaml     | 36 +++++++++++++++++++
+ drivers/gpu/drm/bridge/ite-it6505.c           | 81 +++++++++++++++++--
+ include/sound/hdmi-codec.h                    |  6 ++
+ sound/soc/codecs/hdmi-codec.c                 | 32 +++++++-
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    |  2 +-
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     |  2 +-
+ 5 files changed, 113 insertions(+), 10 deletions(-)
 
-Filename like compatible, please, so option,gtm601.yaml
-
->  2 files changed, 36 insertions(+), 19 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/gtm601.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/gtm601.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/gtm601.txt b/Documentation/devicetree/bindings/sound/gtm601.txt
-> deleted file mode 100644
-> index efa32a486c4a..000000000000
-> --- a/Documentation/devicetree/bindings/sound/gtm601.txt
-> +++ /dev/null
-> @@ -1,19 +0,0 @@
-> -GTM601 UMTS modem audio interface CODEC
-> -
-> -This device has no configuration interface. The sample rate and channels are
-> -based on the compatible string
-> -	"option,gtm601" = 8kHz mono
-> -	"broadmobi,bm818" = 48KHz stereo
-> -
-> -Required properties:
-> -
-> -  - compatible : one of
-> -	"option,gtm601"
-> -	"broadmobi,bm818"
-> -
-> -
-> -Example:
-> -
-> -codec: gtm601_codec {
-> -	compatible = "option,gtm601";
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/gtm601.yaml b/Documentation/devicetree/bindings/sound/gtm601.yaml
-> new file mode 100644
-> index 000000000000..e81a6aa75522
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/gtm601.yaml
-> @@ -0,0 +1,36 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/gtm601.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: GTM601 UMTS modem audio interface CODEC
-> +
-> +maintainers:
-> +  - kernel@puri.sm
-> +
-> +description: >
-> +  This device has no configuration interface. The sample rate and channels are
-> +  based on the compatible string
-> +
-
-Missing $ref to dai-common.yaml
-
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - const: broadmobi,bm818
-> +          - const: option,gtm601
-> +      - items:
-
-No "items" needed here, just use enum.
-
-> +          - enum:
-> +              - broadmobi,bm818  # 48 kHz stereo
-> +              - option,gtm601  # 8 kHz mono
-
-This does not make much sense. bm818 is either compatible with gtm601 or
-is not. Cannot be both.
-
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    gtm601_codec {
-
-No underscores, generic names, so "codec" or "audio-codec".
-
-> +        compatible = "option,gtm601";
-
-Add dai cells also to the example to make it complete.
-
-> +    };
-
-Best regards,
-Krzysztof
+-- 
+2.25.1
 

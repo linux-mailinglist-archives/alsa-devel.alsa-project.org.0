@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85AFF7687DD
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jul 2023 22:20:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25BDB7687E1
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Jul 2023 22:20:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16336827;
-	Sun, 30 Jul 2023 22:19:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16336827
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA12184B;
+	Sun, 30 Jul 2023 22:19:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA12184B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690748403;
-	bh=0OfLB55r5UQz2HHwy0hMlyQCxbEzZMGMdYO+rmeY7ng=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=FN8ickH9r8BjHHeFmXeSCcgkoBdKGjQJEJlQ59Xt5rWWL93KO+ESZj0XUfI95cWVu
-	 MFDDz+kwCX7U2zO7iiBXlbnE/TvT3E3KaqrfCO3W80wPSRGanZuDc6E7uXljI/eKRZ
-	 tnOW/SLQxDTG3eQDJIvd//8hIm4EDaq/bhmVz5ks=
+	s=default; t=1690748431;
+	bh=7cJUJ1i8wxX+r7BXxtaoNdzn2bcpFdUA014KLcJn2nA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=OG9q2luOikb7CQYa8ZFXrxscce5My3el7/ezxEVnSDCzTVLbGwceANkuRT+jotN4A
+	 BVFlvAA6EXwkhxTbBs/Xd3GqeGhfglP3TrMrmee5vwipKWn7AOR3jhe7u3Xg4uVcNw
+	 mGwZsPkG5yMX1XFGkFqQTHqZ/GqBSPZdJ2ZM93RI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FC65F80544; Sun, 30 Jul 2023 22:18:49 +0200 (CEST)
+	id D8BD3F8057C; Sun, 30 Jul 2023 22:18:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19A37F8016D;
-	Sun, 30 Jul 2023 22:18:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C672F8056F;
+	Sun, 30 Jul 2023 22:18:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 346A4F8016D; Sun, 30 Jul 2023 22:18:45 +0200 (CEST)
+	id CF210F80549; Sun, 30 Jul 2023 22:18:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A160CF80153
-	for <alsa-devel@alsa-project.org>; Sun, 30 Jul 2023 22:18:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A160CF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 552C0F80425
+	for <alsa-devel@alsa-project.org>; Sun, 30 Jul 2023 22:18:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 552C0F80425
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=e657nhBC
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-9891c73e0fbso803682266b.1
+ header.s=google header.b=YepRCYQA
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-99bccc9ec02so609393066b.2
         for <alsa-devel@alsa-project.org>;
- Sun, 30 Jul 2023 13:18:40 -0700 (PDT)
+ Sun, 30 Jul 2023 13:18:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690748320; x=1691353120;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WAez7RCqnvhN3o9TDW5VQ2Z834aythwp7RK5oyByXnk=;
-        b=e657nhBCfJ7PUVp7OQBIBgh/S+iHhVv6moDSczAdlz5+QRdsZvBtXQ46OtbhLAUYCr
-         sYGvgP/xzbmvISotm/Zobs8iZ4HK2MY1z7V1c13o8bMo069d8h/njFQpccO2VUtne1AD
-         /zA9+dykn1XDfqauIh8HpPl6Vh3CfMZukAyulRT1tACCiOO7sQikadr4+F117eEFY5Kp
-         yTFYKSswNbqqqFeR9iBrt+DzAi7Nj/f9fQs3varG2JsGQHXTS3MM2iM574wOkiUX+9fP
-         wxDhV+yosRTztiCziOBPTqRj/2IUR2apovYOd+oEiXcSFOlVY3rU+q8fiJ4hYVPcZT0i
-         v84w==
+        d=linaro.org; s=google; t=1690748321; x=1691353121;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oxhyfb9b6r+ILlCqox+06L7O4WmZ3Hats0OpcMu4s50=;
+        b=YepRCYQAwQdrVTDwU7YVpyPnL7NUxDA+DobhsTWMKIIwA2gO6FYhbuDWQMJu7picnV
+         gy/Q0/Rlol83kBrb9fgsavYXr05RES9yl/4dlvM3QW8i4ntQYGRqTadzMbKIdIknAjxg
+         vmImxA4gCJGkc9aKab0lkOau7E0nYhj8wwx7arVtxHzjhbqHRg9KpKCjC3oFgiWgY+9k
+         eLfrK2THa3I7oS47S4boREa4BsUIKLKCGnp9nroSxYjEIGpxr1WOS+2d7TM2xoA0NbyQ
+         CcQ+9Yxim8xq1swBTOWQXNhHwDd/1c5WdkXISuZPm0OHYZ1vKRMzayHrWamZbqopiSdc
+         avYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690748320; x=1691353120;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WAez7RCqnvhN3o9TDW5VQ2Z834aythwp7RK5oyByXnk=;
-        b=fQWNz896Hy2jFH+ogWMsOAdXIwKtlxha1IRzIkhOSi69vnnl/XfD80q1I8bW0xWXMo
-         2rVDNapitv271Gl5A1JIwyHcR1w6WeqlqaA44kNk/qmdsqCOZkNXxp7z/GsRRH//Ch6f
-         YOcIa5NQIbiuEw5C7gEV4Up8qq0Mp6i2khsDNtUns59Gq/V6N3QfVM2v+oqaDdq2xnhC
-         +kGRpnuKftB0KCXhMIvdBRykyGvTaRsVTSXmS7EBf6JdiZdWkw7ii0geinyAKlv86w74
-         QdPOkC8R1EO4DD3OE/Mgvn9I9Mj6FQ0rXz8WhIET4Xr5KFDXDCsc7rmVFqYH2fpNB8EP
-         64Mg==
-X-Gm-Message-State: ABy/qLar+wcyMtjnrd6NrL7bGmWzeYcdel7JPttQNlNjvyOT1ktNOPOo
-	mYV91LuO07hPbh/oXQ0e3sdHHQ==
+        d=1e100.net; s=20221208; t=1690748321; x=1691353121;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oxhyfb9b6r+ILlCqox+06L7O4WmZ3Hats0OpcMu4s50=;
+        b=X2J+2ibwl2iHxFAtdGEGFjgXnEqtKh7j3TfVt8zo7CSSrd7GcnqYQZYXS4Kyp+yCsa
+         B9uZt6Z+ma2IpqbMBzCjKmY+pCqRVJ5DzPuLnGFn8oufDDgg4Ix2MEXSt+2qW3L9kjco
+         B4JRl2crw6TLRVW/b0XplLyIX4892Njx1XacQrdFJ/r1KgJOOloprc76uT0UQS5hA9Nu
+         ttmt0PHXi+GzBjimoPpcAtbu38rjRx4M5SXfxqyWwrBlfI7nTlOmYYWOzyyXFJtyJ3d9
+         K1qOHNEYl1bLpNrIqvgF/A/ZFpwfmgzRIe2qw4e7ZPAC8BP+iV3VxDYAI0EBjO9A6SB0
+         v2qg==
+X-Gm-Message-State: ABy/qLYnoDibjM05TJTudWOyNkdbbEVDpH8cNGXaAX8RFyr6v2MdjbGW
+	14b4EaLenGnc0c3BYohXk5NJx/H3tpd2apib+Tg=
 X-Google-Smtp-Source: 
- APBJJlHKxckTZptUQgKm0YPbWSMHzXEBVWdUoVkv3Mr3l/+Mm59AxKGUk/4BDv4haqYWxgJrrOcAnw==
-X-Received: by 2002:a17:906:1003:b0:992:ef60:aadd with SMTP id
- 3-20020a170906100300b00992ef60aaddmr5345101ejm.13.1690748319618;
-        Sun, 30 Jul 2023 13:18:39 -0700 (PDT)
+ APBJJlHbOz+/n4AI/6SYfqrEB8zYSBe7Knxn3NRarnbhGtG2M1XiPE2Af2V+juzo5GvzhjS+BVrB6A==
+X-Received: by 2002:a17:906:77d0:b0:99b:ef9c:e634 with SMTP id
+ m16-20020a17090677d000b0099bef9ce634mr5124535ejn.65.1690748321625;
+        Sun, 30 Jul 2023 13:18:41 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.222.183])
         by smtp.gmail.com with ESMTPSA id
- va16-20020a17090711d000b0099bc0daf3d7sm5115533ejb.182.2023.07.30.13.18.37
+ va16-20020a17090711d000b0099bc0daf3d7sm5115533ejb.182.2023.07.30.13.18.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Jul 2023 13:18:39 -0700 (PDT)
+        Sun, 30 Jul 2023 13:18:41 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -96,14 +98,17 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v2 1/3] ASoC: dt-bindings: Convert maxim,max98925 to DT schema
-Date: Sun, 30 Jul 2023 22:18:24 +0200
-Message-Id: <20230730201826.70453-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 2/3] ASoC: codecs: max9892x: Unify interleave mode OF
+ property
+Date: Sun, 30 Jul 2023 22:18:25 +0200
+Message-Id: <20230730201826.70453-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230730201826.70453-1-krzysztof.kozlowski@linaro.org>
+References: <20230730201826.70453-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IN6N4S7I4U4PRHGPYOPNDFKZJPAG3OVZ
-X-Message-ID-Hash: IN6N4S7I4U4PRHGPYOPNDFKZJPAG3OVZ
+Message-ID-Hash: OPBJEVULPBKHKQNMA4IOX6YQXVPOGLFP
+X-Message-ID-Hash: OPBJEVULPBKHKQNMA4IOX6YQXVPOGLFP
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -116,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IN6N4S7I4U4PRHGPYOPNDFKZJPAG3OVZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPBJEVULPBKHKQNMA4IOX6YQXVPOGLFP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,183 +130,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the Maxim Integrated MAX98925/MAX98926/MAX98927 speaker
-amplifier bindings to DT schema format.  Changes during conversion:
-1. Add "sound-dai-cells", already used by DTS.
-2. Use "maxim,interleave-mode" instead previous "interleave-mode" and
-   undocumented but used interleave_mode.
+MAX98926 and MAX98927 are quite similar and use the same bindings,
+although drivers were not implementing them in the same way:
+MAX98926 has boolean "interleave-mode" but MAX98927 has uint32
+"interleave_mode".  Unify them under maxim,interleave-mode, already used
+in other Maxim device.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
 
 Changes in v2:
-1. Use maxim,interleave-mode as bool.
-
-Ryan,
-As original author, I added you as bindings maintainer. Is that okay or
-maybe someone else from Maxim should take care about the bindings?
+1. New patch
 ---
- .../devicetree/bindings/sound/max9892x.txt    | 44 ---------
- .../bindings/sound/maxim,max98925.yaml        | 98 +++++++++++++++++++
- 2 files changed, 98 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/max9892x.txt
- create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98925.yaml
+ sound/soc/codecs/max98926.c |  3 ++-
+ sound/soc/codecs/max98927.c | 16 ++++++++--------
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/max9892x.txt b/Documentation/devicetree/bindings/sound/max9892x.txt
-deleted file mode 100644
-index 98cb9ba5b328..000000000000
---- a/Documentation/devicetree/bindings/sound/max9892x.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--Maxim Integrated MAX98925/MAX98926/MAX98927 Speaker Amplifier
--
--This device supports I2C.
--
--Required properties:
--
--  - compatible : should be one of the following
--    - "maxim,max98925"
--    - "maxim,max98926"
--    - "maxim,max98927"
--
--  - vmon-slot-no : slot number used to send voltage information
--                   or in inteleave mode this will be used as
--                   interleave slot.
--                   MAX98925/MAX98926 slot range : 0 ~ 30,  Default : 0
--                   MAX98927 slot range : 0 ~ 15,  Default : 0
--
--  - imon-slot-no : slot number used to send current information
--                   MAX98925/MAX98926 slot range : 0 ~ 30,  Default : 0
--                   MAX98927 slot range : 0 ~ 15,  Default : 0
--
--  - interleave-mode : When using two MAX9892X in a system it is
--                   possible to create ADC data that that will
--                   overflow the frame size. Digital Audio Interleave
--                   mode provides a means to output VMON and IMON data
--                   from two devices on a single DOUT line when running
--                   smaller frames sizes such as 32 BCLKS per LRCLK or
--                   48 BCLKS per LRCLK.
--                   Range : 0 (off), 1 (on),  Default : 0
--
--  - reg : the I2C address of the device for I2C
--
--Optional properties:
--  - reset-gpios : GPIO to reset the device
--
--Example:
--
--codec: max98927@3a {
--   compatible = "maxim,max98927";
--   vmon-slot-no = <0>;
--   imon-slot-no = <1>;
--   interleave-mode = <0>;
--   reg = <0x3a>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/maxim,max98925.yaml b/Documentation/devicetree/bindings/sound/maxim,max98925.yaml
-new file mode 100644
-index 000000000000..32fd86204a7a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/maxim,max98925.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/maxim,max98925.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Maxim Integrated MAX98925/MAX98926/MAX98927 speaker amplifier
-+
-+maintainers:
-+  - Ryan Lee <ryans.lee@maximintegrated.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - maxim,max98925
-+      - maxim,max98926
-+      - maxim,max98927
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  vmon-slot-no:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 30
-+    default: 0
-+    description:
-+      Slot number used to send voltage information or in inteleave mode this
-+      will be used as interleave slot.
-+
-+  imon-slot-no:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 30
-+    default: 0
-+    description:
-+      Slot number used to send current information.
-+
-+  maxim,interleave-mode:
-+    type: boolean
-+    description:
-+      When using two MAX9892X in a system it is possible to create ADC data
-+      that will overflow the frame size. When enabled, the Digital Audio
-+      Interleave mode provides a means to output VMON and IMON data from two
-+      devices on a single DOUT line when running smaller frames sizes such as
-+      32 BCLKS per LRCLK or 48 BCLKS per LRCLK.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - maxim,max98927
-+    then:
-+      properties:
-+        vmon-slot-no:
-+          minimum: 0
-+          maximum: 15
-+
-+        imon-slot-no:
-+          minimum: 0
-+          maximum: 15
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        #include <dt-bindings/gpio/gpio.h>
-+        audio-codec@3a {
-+            compatible = "maxim,max98927";
-+            reg = <0x3a>;
-+            #sound-dai-cells = <0>;
-+
-+            pinctrl-0 = <&speaker_default>;
-+            pinctrl-names = "default";
-+
-+            reset-gpios = <&tlmm 69 GPIO_ACTIVE_LOW>;
-+
-+            vmon-slot-no = <1>;
-+            imon-slot-no = <0>;
-+        };
-+    };
+diff --git a/sound/soc/codecs/max98926.c b/sound/soc/codecs/max98926.c
+index bdc508e23e59..922ce0dc4e60 100644
+--- a/sound/soc/codecs/max98926.c
++++ b/sound/soc/codecs/max98926.c
+@@ -528,7 +528,8 @@ static int max98926_i2c_probe(struct i2c_client *i2c)
+ 				"Failed to allocate regmap: %d\n", ret);
+ 		goto err_out;
+ 	}
+-	if (of_property_read_bool(i2c->dev.of_node, "interleave-mode"))
++	if (of_property_read_bool(i2c->dev.of_node, "maxim,interleave-mode") ||
++	    of_property_read_bool(i2c->dev.of_node, "interleave-mode"))
+ 		max98926->interleave_mode = true;
+ 
+ 	if (!of_property_read_u32(i2c->dev.of_node, "vmon-slot-no", &value)) {
+diff --git a/sound/soc/codecs/max98927.c b/sound/soc/codecs/max98927.c
+index 0aaf2e6ae78d..e20aa5b1bce9 100644
+--- a/sound/soc/codecs/max98927.c
++++ b/sound/soc/codecs/max98927.c
+@@ -879,14 +879,14 @@ static int max98927_i2c_probe(struct i2c_client *i2c)
+ 	i2c_set_clientdata(i2c, max98927);
+ 
+ 	/* update interleave mode info */
+-	if (!of_property_read_u32(i2c->dev.of_node,
+-		"interleave_mode", &value)) {
+-		if (value > 0)
+-			max98927->interleave_mode = true;
+-		else
+-			max98927->interleave_mode = false;
+-	} else
+-		max98927->interleave_mode = false;
++	if (of_property_read_bool(i2c->dev.of_node, "maxim,interleave-mode")) {
++		max98927->interleave_mode = true;
++	} else {
++		if (!of_property_read_u32(i2c->dev.of_node, "interleave_mode",
++					  &value))
++			if (value > 0)
++				max98927->interleave_mode = true;
++	}
+ 
+ 	/* regmap initialization */
+ 	max98927->regmap
 -- 
 2.34.1
 

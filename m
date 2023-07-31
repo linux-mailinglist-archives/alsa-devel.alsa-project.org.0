@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50FF276953D
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 13:50:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C23769543
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 13:51:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E56B4823;
-	Mon, 31 Jul 2023 13:50:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E56B4823
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2A36832;
+	Mon, 31 Jul 2023 13:51:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2A36832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690804253;
-	bh=SgDUQH8eOtk8xqtJy24Xh5Nz0JqsaOtoEzl8ZmCr9gs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1690804316;
+	bh=AOWwhYv+t8CDvyhND2LxS4NNrNKJuWikV9QiBFJH92s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WzqTRKUpUL+j4zILAPTw5ZCTzV/61EpRI7Nb0KJqe7hx5HI8bH7+I+aGGGgQVxyER
-	 GP9pfKLPsL+8m2Sw3vqxmYiydEelaW+AgMFDlrXqoZYrAmIQ5ByrCsDcWBkShlBceU
-	 1afhsPRJjTwacfI5UoLmRO5e2yaiaEFI4S9GKEPI=
+	b=ddAtwBGl8ow/BUm9aCm+8WDy6FD1FM4cvEZG23u+HKGjXlQByKrscb/ZsiJHPzbxh
+	 LeifcPyLUcQMFRXzNDoOqsnlKfzfjyy9sm/odnanso07YeOghmjrkWdls4XAX6LyBv
+	 vKgY2xFj/sPmkEKIRrydwrp0KsuxyWgr8A/IcfSo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A369F80153; Mon, 31 Jul 2023 13:50:01 +0200 (CEST)
+	id 6D503F8053B; Mon, 31 Jul 2023 13:51:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 752CBF80163;
-	Mon, 31 Jul 2023 13:50:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1C92F80163;
+	Mon, 31 Jul 2023 13:51:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D826FF8016D; Mon, 31 Jul 2023 13:49:57 +0200 (CEST)
+	id 8353FF8016D; Mon, 31 Jul 2023 13:51:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from phobos.denx.de (phobos.denx.de
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7192F8015B
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 13:49:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7192F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07882F8015B
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 13:50:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07882F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
- header.s=phobos-20191101 header.b=OSEqc+Ww
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=uL2XhCM5
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	(Authenticated sender: marex@denx.de)
-	by phobos.denx.de (Postfix) with ESMTPSA id 51889869DE;
-	Mon, 31 Jul 2023 13:49:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
-	s=phobos-20191101; t=1690804188;
-	bh=5YdrhcvpRE4z7qmJuIymjcAWrX64KhH0ogyWQYQjweo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OSEqc+WwGwp1Ja1MLjJKFxrsf4S/M9qUN1VnDtJLD+KuJmV6gjgywrQ8tWNv6tiOW
-	 Hjms9yKmk7K1JqDRsWCMwg7E+x1Ouc03aS2NwIRbwfFkrb0PMpdMGdU2Aio1A6M9Tg
-	 RpSbM603GxR9QoMKaZnwcadLozAfs+DRmYZprVH4EAIdZPijgr6xhId6t7s9jEYVVv
-	 rg69SO3ZL2Lj/8eVEz22WANX8k26idgpqAd2OmSGn4oHXssTOQLhTmBuUudvxOPUSE
-	 0gmlMHMgnmW06/SKLb5J149J4hr9woKamWqAlMbEJjpIu1H7Cwr1KmGyAxsYWIjaCv
-	 AvvjtORPe1+xg==
-Message-ID: <63adce9a-df65-b462-9055-0ece5216d680@denx.de>
-Date: Mon, 31 Jul 2023 13:49:46 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C64776105A;
+	Mon, 31 Jul 2023 11:50:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE103C433C8;
+	Mon, 31 Jul 2023 11:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690804255;
+	bh=AOWwhYv+t8CDvyhND2LxS4NNrNKJuWikV9QiBFJH92s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uL2XhCM5GgiizRO+1NueJqOprVve9jG9ZNiTVFaZmlT0Q/zpwS7OIGkH1wOpYJzo7
+	 qRZ3NRfxvT0zTMbGLyJBm8HEDAzDE1VXzpskPjW9Z6koCwUQOj5yZKHR+1uBw6j1rn
+	 mqu+TreQdXB+3DlMYLWHSARGlScVJQ5XQf3CG4lN2fqdQjsYkmtsO0n1jAABoOItNk
+	 yTG4BJbMlq8NUZhH6CTPE2kfSEIYlVlVwkzKKeY73KOAAHsw1WyQH8K/e84e2ePbqv
+	 RtzsDIHhnQ3Ulw1hrtEaBMOf8RZPDpmzuEN04Y89w3ZWgWgoU4pF2vlmlUFYS+g80n
+	 kWNXkGQ/y6fjg==
+Date: Mon, 31 Jul 2023 12:50:48 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+	robert.foss@linaro.org, Laurent.pinchart@ideasonboard.com,
+	kuninori.morimoto.gx@renesas.com,
+	angelogioacchino.delregno@collabora.com, nfraprado@collabora.com,
+	chunxu.li@mediatek.com, ajye_huang@compal.corp-partner.google.com,
+	allen-kh.cheng@mediatek.com, dri-devel@lists.freedesktop.org,
+	alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Project_Global_Chrome_Upstream_Group@mediatek.com
+Subject: Re: [v3 2/3] ASoC: mediatek: mt8186: correct the HDMI widgets
+Message-ID: <25e6ab45-ecad-4bc3-bf4d-983243c939ad@sirena.org.uk>
+References: <20230730180803.22570-1-jiaxin.yu@mediatek.com>
+ <20230730180803.22570-3-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Jeff LaBundy <jeff@labundy.com>, linux-input@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Manuel Traut <manuel.traut@mt.com>, Thierry Reding
- <thierry.reding@gmail.com>, linux-pwm@vger.kernel.org,
- alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20230512185551.183049-1-marex@denx.de> <ZF7kCjKGVjsxK8ec@nixie71>
- <0ef98ec1-6191-c72e-2362-310db7f09b84@denx.de>
- <06379f26-ab24-85f9-783f-0c49d4291b23@denx.de> <ZMdIZiC453onyeHh@google.com>
- <873514d2ju.wl-tiwai@suse.de>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <873514d2ju.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Message-ID-Hash: XNDDQWQPZDEYIYWPJWJK5TRC3C4YUWI7
-X-Message-ID-Hash: XNDDQWQPZDEYIYWPJWJK5TRC3C4YUWI7
-X-MailFrom: marex@denx.de
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m510aG4cVtaJEGRZ"
+Content-Disposition: inline
+In-Reply-To: <20230730180803.22570-3-jiaxin.yu@mediatek.com>
+X-Cookie: Single tasking: Just Say No.
+Message-ID-Hash: W2PPN7AKM4IYPHAEAXS3ZXYH535MRJWH
+X-Message-ID-Hash: W2PPN7AKM4IYPHAEAXS3ZXYH535MRJWH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNDDQWQPZDEYIYWPJWJK5TRC3C4YUWI7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W2PPN7AKM4IYPHAEAXS3ZXYH535MRJWH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,114 +108,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 7/31/23 08:21, Takashi Iwai wrote:
-> On Mon, 31 Jul 2023 07:36:38 +0200,
-> Dmitry Torokhov wrote:
->>
->> On Sat, May 13, 2023 at 11:02:30PM +0200, Marek Vasut wrote:
->>> On 5/13/23 03:51, Marek Vasut wrote:
->>>> On 5/13/23 03:12, Jeff LaBundy wrote:
->>>>> Hi Marek,
->>>>
->>>> Hi,
->>>>
->>>>> On Fri, May 12, 2023 at 08:55:51PM +0200, Marek Vasut wrote:
->>>>>> The PWM beeper volume can be controlled by adjusting the PWM duty cycle,
->>>>>> expose volume setting via sysfs, so users can make the beeper quieter.
->>>>>> This patch adds sysfs attribute 'volume' in range 0..50000, i.e. from 0
->>>>>> to 50% in 1/1000th of percent steps, this resolution should be
->>>>>> sufficient.
->>>>>>
->>>>>> The reason for 50000 cap on volume or PWM duty cycle is because
->>>>>> duty cycle
->>>>>> above 50% again reduces the loudness, the PWM wave form is inverted wave
->>>>>> form of the one for duty cycle below 50% and the beeper gets quieter the
->>>>>> closer the setting is to 100% . Hence, 50% cap where the wave
->>>>>> form yields
->>>>>> the loudest result.
->>>>>>
->>>>>> Signed-off-by: Marek Vasut <marex@denx.de>
->>>>>> ---
->>>>>> An alternative option would be to extend the userspace input
->>>>>> ABI, e.g. by
->>>>>> using SND_TONE top 16bits to encode the duty cycle in 0..50000
->>>>>> range, and
->>>>>> bottom 16bit to encode the existing frequency in Hz . Since frequency in
->>>>>> Hz is likely to be below some 25 kHz for audible bell, this fits
->>>>>> in 16bits
->>>>>> just fine. Thoughts ?
->>>>>> ---
->>>>>
->>>>> Thanks for the patch; this seems like a useful feature.
->>>>>
->>>>> My first thought is that 50000 seems like an oddly specific limit to
->>>>> impose
->>>>> upon user space. Ideally, user space need not even care that the
->>>>> beeper is
->>>>> implemented via PWM and why 50000 is significant.
->>>>>
->>>>> Instead, what about accepting 0..255 as the LED subsystem does for
->>>>> brightness,
->>>>> then map these values to 0..50000 internally? In fact, the leds-pwm
->>>>> driver
->>>>> does something similar.
->>>>
->>>> The pwm_set_relative_duty_cycle() function can map whatever range to
->>>> whatever other range of the PWM already, so that's not an issues here.
->>>> It seems to me the 0..127 or 0..255 range is a bit too limiting . I
->>>> think even for the LEDs the reason for that limit is legacy design, but
->>>> here I might be wrong.
->>>>
->>>>> I'm also curious as to whether this function should be a rogue sysfs
->>>>> control
->>>>> limited to this driver, or a generic operation in input. For
->>>>> example, input
->>>>> already allows user space to specify the magnitude of an FF effect;
->>>>> perhaps
->>>>> something similar is warranted here?
->>>>
->>>> See the "An alternative ..." part above, I was wondering about this too,
->>>> whether this can be added into the input ABI, but I am somewhat
->>>> reluctant to fiddle with the ABI.
->>>
->>> Thinking about this further, we could try and add some
->>>
->>> EV_SND SND_TONE_WITH_VOLUME
->>>
->>> to avoid overloading EV_SND SND_TONE , and at the same time allow the user
->>> to set both frequency and volume for the tone without any race condition
->>> between the two.
->>>
->>> The EV_SND SND_TONE_WITH_VOLUME would still take one 32bit parameter, except
->>> this time the parameter 16 LSbits would be the frequency and 16 MSbits would
->>> be the volume.
->>>
->>> But again, here I would like input from the maintainers.
->>
->> Beeper was supposed to be an extremely simple device with minimal
->> controls. I wonder if there is need for volume controls, etc, etc are we
->> not better moving it over to the sound subsystem. We already have:
->>
->> 	sound/drivers/pcsp/pcsp.c
->>
->> and
->>
->> 	sound/pci/hda/hda_beep.c
->>
->> there, can we have other "advanced" beepers there as well? Adding sound
->> maintainers to CC...
-> 
-> I don't mind it put to sound/*.  But, note that pcsp.c you pointed in
-> the above is a PCM tone generator driver with a PC beep device, and it
-> provides the normal SND_BEEP input only for compatibility.
-> 
-> Indeed there have been already many sound drivers providing the beep
-> capability, and they bind with the input device using SND_BEEP.  And,
-> for the beep volume, "Beep Playback Volume" mixer control is provided,
-> too.
 
-Uh, I don't need a full sound device to emit beeps, that's not even 
-possible with this hardware. I only need to control loudness of the 
-beeper that is controlled by PWM output. That's why I am trying to 
-extend the pwm-beeper driver, which seems the best fit for such a 
-device, it is only missing this one feature (loudness control).
+--m510aG4cVtaJEGRZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Jul 31, 2023 at 02:08:02AM +0800, Jiaxin Yu wrote:
+
+> Use SND_SOC_DAPM_LINE instead of SND_SOC_DAPM_OUTPUT to trigger
+> DAPM events to hdmi-codec when userspace control the DPAM pin.
+
+Why?
+
+--m510aG4cVtaJEGRZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTHoBcACgkQJNaLcl1U
+h9DXVgf9HxthKv6tquZ80eqHswbBmda73YJgF+PneFtfjX5EUD8siEFTvhlHJOPb
+itkNuLs0xwuvU/ocou1TJ3JVkd4SlhXF2AQUB2MKqUJlOMYiEthVhAj2RWNMEMWb
+M6hNPAHydcz2O6rmMD0wknYpUUHLE+1Xv3EXeMZEKYLh8qZlrfstrqI1s/fhuQaJ
+TmQTCMTZ8AmSRgZ9ENPYon30oN6/7qeEvKbyW+PnOTCqSv/Zhz1pOVf21YoY2nhO
+94QnTgSNXrSZINA/rfNDUwEvG2W/OY4N/hb+gKf6qbraNOVxbw1o//Cc2tfTTWlL
+P2wCPNxJJXNDAizWmcN9zeH3ZZ4Iqg==
+=H16t
+-----END PGP SIGNATURE-----
+
+--m510aG4cVtaJEGRZ--

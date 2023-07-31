@@ -2,91 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B521276A2F2
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 23:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5CD76A30E
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 23:38:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D218985D;
-	Mon, 31 Jul 2023 23:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D218985D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 948B47F8;
+	Mon, 31 Jul 2023 23:37:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 948B47F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690839352;
-	bh=o5+u+aXtqWZYYh0DiPq7Vb3s8bYdtiMpfZN9dpGMVIg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1690839504;
+	bh=vj96umHy5Xr60cLrlkkEJA8m1Xb97ziR4gGWBgDzPh4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aIzZkDGoPuS9SZ71Lj6/sU5v7lQhpyH6hOyDzgqC0DwLjcI0Ea95g6+krTmIA83Lp
-	 Y/1JilerX8HeaXUJFG621sMOwodaHXKEHKH6i7YO4Irv4y2dtrxPph4b8qYgXqy2j2
-	 qVpI/K5q06iXYVbRzNZIVn2Oi+wLptI+sPdpHg1E=
+	b=AgBzjLd5r7ewEfE+GoeGrIcGpSJzW+CIGIuDnNlJJDM/f3Q2DNjBQ/2wrFgYjZd/j
+	 LTBhDyE87BXYBDb7nJDBzceQYgZBJGswsFevnhA3kkzUlSQU+DVu3DNbUNEi856nbG
+	 9YYo6lSaEscnmYtd8Jdwd0lwP1BoQrbb0pIzipsc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CEE4F80544; Mon, 31 Jul 2023 23:34:53 +0200 (CEST)
+	id 5255AF80520; Mon, 31 Jul 2023 23:37:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9939BF80544;
-	Mon, 31 Jul 2023 23:34:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C39D5F80163;
+	Mon, 31 Jul 2023 23:37:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E226AF801D5; Mon, 31 Jul 2023 23:34:47 +0200 (CEST)
+	id EA49CF80163; Mon, 31 Jul 2023 23:37:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,RDNS_NONE,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (unknown [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 035BEF80425
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 23:33:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 035BEF80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD086F80153
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 23:37:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD086F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=kdGd5aq1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690839191; x=1722375191;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=o5+u+aXtqWZYYh0DiPq7Vb3s8bYdtiMpfZN9dpGMVIg=;
-  b=kdGd5aq1uVfR605sVB9CQ7xlmmybdzeRa2cnIwGo8QS7xym7XF1gq77q
-   B+FQMQHuyElnSksKYi2npuccgYY7FZdYhdfnP0/bNhe2fDyK4vMJrMn0O
-   7x6Vc+QPWhvnZ8hzhWZE7gLjfBylTgYEbkYRKJs5vJ0j0SeqWGmmpFeO5
-   d3oq929UmaRurrN+6cFMmG99IZQ62QJ2SNY67zUAxYcml309y7HptcXSs
-   hZU55oomzzWXjUza9RgA12kiI5cVkxxDWpWl5NVvlY7EMC+i83rF195md
-   zgqWhW4FExlOcJ66dcoZ/T/ixW8SjKnB384kcOveJMONt/FWLmPG457hf
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="435447541"
-X-IronPort-AV: E=Sophos;i="6.01,245,1684825200";
-   d="scan'208";a="435447541"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 14:33:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="731708915"
-X-IronPort-AV: E=Sophos;i="6.01,245,1684825200";
-   d="scan'208";a="731708915"
-Received: from youngnic-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.209.180.66])
-  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 14:33:08 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	broonie@kernel.org,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=terM4GAk
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F04D2612D6;
+	Mon, 31 Jul 2023 21:37:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02452C433C7;
+	Mon, 31 Jul 2023 21:37:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690839443;
+	bh=vj96umHy5Xr60cLrlkkEJA8m1Xb97ziR4gGWBgDzPh4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=terM4GAkenKnKwMxYm59xOR8nbrUnzYoqSRgOYru0Bgs80HMy9f9Jjj1m9cWZTWRC
+	 xfjiFK01X/H6U9Sij/YZ7OSsRZkbFUSyehypVKHg1Ur3GPALDjTG0UEkC3tflfzcPn
+	 mGClDNZ7FXjPbOoSpgzCCcm9blbPjcc9NPbwUcGuwCN8IJwhwjjqfyqIQ17rCHBJNX
+	 kOQWToFCcw1LHQOGotL8tTOc1VHRrh8wHRUgiinZSPoBQNOaI1qhjYOEYN7pC3HWBO
+	 bOCHKXOeTBrp76VKz/uvhgZ4idxEt6Reqirk0VdsuU6nU3MNxFncqkdsMGgdN1TiNW
+	 QkfFyxNdqNrTQ==
+Date: Mon, 31 Jul 2023 22:37:18 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
 	Trevor Wu <trevor.wu@mediatek.com>,
 	Yaochun Hung <yc.hung@mediatek.com>,
 	Kuan-Hsun Cheng <Allen-KH.Cheng@mediatek.com>
-Subject: [PATCH 6/6] ASoC: SOF: mediatek: mt8186 modify dram type as non-cache
-Date: Mon, 31 Jul 2023 16:32:42 -0500
-Message-Id: <20230731213242.434594-7-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230731213242.434594-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 6/6] ASoC: SOF: mediatek: mt8186 modify dram type as
+ non-cache
+Message-ID: <db547382-40f8-4dd9-962c-deedd7fdd50a@sirena.org.uk>
 References: <20230731213242.434594-1-pierre-louis.bossart@linux.intel.com>
+ <20230731213242.434594-7-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4FYWEJVAR2S3R32GTDHH2UAKXDJF3DCD
-X-Message-ID-Hash: 4FYWEJVAR2S3R32GTDHH2UAKXDJF3DCD
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OeYtHYc1queCO9jV"
+Content-Disposition: inline
+In-Reply-To: <20230731213242.434594-7-pierre-louis.bossart@linux.intel.com>
+X-Cookie: Single tasking: Just Say No.
+Message-ID-Hash: I5IEMTYTAB4WLLJVYBN5BFJO36R66ODH
+X-Message-ID-Hash: I5IEMTYTAB4WLLJVYBN5BFJO36R66ODH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4FYWEJVAR2S3R32GTDHH2UAKXDJF3DCD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I5IEMTYTAB4WLLJVYBN5BFJO36R66ODH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,87 +104,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Trevor Wu <trevor.wu@mediatek.com>
 
-To prevent incorrect access between the host and DSP sides, we need to
-modify DRAM as a non-cache memory type. Additionally, we can retrieve
-the size of shared DMA from the device tree.
+--OeYtHYc1queCO9jV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
-Reviewed-by: Kuan-Hsun Cheng <Allen-KH.Cheng@mediatek.com>
----
- sound/soc/sof/mediatek/mt8186/mt8186.c | 40 +++++++++++++++-----------
- 1 file changed, 23 insertions(+), 17 deletions(-)
+On Mon, Jul 31, 2023 at 04:32:42PM -0500, Pierre-Louis Bossart wrote:
+> From: Trevor Wu <trevor.wu@mediatek.com>
+>=20
+> To prevent incorrect access between the host and DSP sides, we need to
+> modify DRAM as a non-cache memory type. Additionally, we can retrieve
+> the size of shared DMA from the device tree.
+>=20
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
+> Reviewed-by: Kuan-Hsun Cheng <Allen-KH.Cheng@mediatek.com>
+> ---
 
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c b/sound/soc/sof/mediatek/mt8186/mt8186.c
-index 3e0ea0e109e2..f587edf9e0a7 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.c
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
-@@ -111,6 +111,14 @@ static int platform_parse_resource(struct platform_device *pdev, void *data)
- 
- 	dev_dbg(dev, "DMA %pR\n", &res);
- 
-+	adsp->pa_shared_dram = (phys_addr_t)res.start;
-+	adsp->shared_size = resource_size(&res);
-+	if (adsp->pa_shared_dram & DRAM_REMAP_MASK) {
-+		dev_err(dev, "adsp shared dma memory(%#x) is not 4K-aligned\n",
-+			(u32)adsp->pa_shared_dram);
-+		return -EINVAL;
-+	}
-+
- 	ret = of_reserved_mem_device_init(dev);
- 	if (ret) {
- 		dev_err(dev, "of_reserved_mem_device_init failed\n");
-@@ -244,23 +252,18 @@ static int adsp_shared_base_ioremap(struct platform_device *pdev, void *data)
- {
- 	struct device *dev = &pdev->dev;
- 	struct mtk_adsp_chip_info *adsp = data;
--	u32 shared_size;
- 
- 	/* remap shared-dram base to be non-cachable */
--	shared_size = TOTAL_SIZE_SHARED_DRAM_FROM_TAIL;
--	adsp->pa_shared_dram = adsp->pa_dram + adsp->dramsize - shared_size;
--	if (adsp->va_dram) {
--		adsp->shared_dram = adsp->va_dram + DSP_DRAM_SIZE - shared_size;
--	} else {
--		adsp->shared_dram = devm_ioremap(dev, adsp->pa_shared_dram,
--						 shared_size);
--		if (!adsp->shared_dram) {
--			dev_err(dev, "ioremap failed for shared DRAM\n");
--			return -ENOMEM;
--		}
-+	adsp->shared_dram = devm_ioremap(dev, adsp->pa_shared_dram,
-+					 adsp->shared_size);
-+	if (!adsp->shared_dram) {
-+		dev_err(dev, "failed to ioremap base %pa size %#x\n",
-+			adsp->shared_dram, adsp->shared_size);
-+		return -ENOMEM;
- 	}
--	dev_dbg(dev, "shared-dram vbase=%p, phy addr :%pa, size=%#x\n",
--		adsp->shared_dram, &adsp->pa_shared_dram, shared_size);
-+
-+	dev_dbg(dev, "shared-dram vbase=%p, phy addr :%pa,  size=%#x\n",
-+		adsp->shared_dram, &adsp->pa_shared_dram, adsp->shared_size);
- 
- 	return 0;
- }
-@@ -307,9 +310,12 @@ static int mt8186_dsp_probe(struct snd_sof_dev *sdev)
- 		return -ENOMEM;
- 	}
- 
--	sdev->bar[SOF_FW_BLK_TYPE_SRAM] = devm_ioremap_wc(sdev->dev,
--							  priv->adsp->pa_dram,
--							  priv->adsp->dramsize);
-+	priv->adsp->va_sram = sdev->bar[SOF_FW_BLK_TYPE_IRAM];
-+
-+	sdev->bar[SOF_FW_BLK_TYPE_SRAM] = devm_ioremap(sdev->dev,
-+						       priv->adsp->pa_dram,
-+						       priv->adsp->dramsize);
-+
- 	if (!sdev->bar[SOF_FW_BLK_TYPE_SRAM]) {
- 		dev_err(sdev->dev, "failed to ioremap base %pa size %#x\n",
- 			&priv->adsp->pa_dram, priv->adsp->dramsize);
--- 
-2.39.2
 
+You've not provided a Signed-off-by for this so I can't do anything with
+it, please see Documentation/process/submitting-patches.rst for details
+on what this is and why it's important.
+
+--OeYtHYc1queCO9jV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTIKY4ACgkQJNaLcl1U
+h9BEBgf+IIYwz7Jj0zZ1Vb/qVb6scrjfzWEFRX2j0qNbCJmxZu6WxODt32OrtBzW
+cdvytbXrkUVGtcPvIF94wivLWvR+UG9/xE/Ozl6aBGpi/kLsNISI6wH98Wz1Lems
+mLlrBKOKwnptMI/h7eJ8yfV1tXjpEDe28mjlFJjLuEzgOqw+1xHTgyb73pEqBLVf
+EBhLvw9j85MIfpV5SeAAOvpPk0qPYwvavwcwXqb9+h7VzTHE5uxq7/y4IkFFGQTp
+K9j2MwEIQy86uhoskfiuXtBOFgM9NntvXpKrnzpQhlalWs1gLjNAZY5VJhr3LB/Q
+GGjY/be2zsncOIX9ZIXtV/tIdWCqdA==
+=tb0j
+-----END PGP SIGNATURE-----
+
+--OeYtHYc1queCO9jV--

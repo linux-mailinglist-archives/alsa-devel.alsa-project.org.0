@@ -2,94 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225E976A0F7
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 21:15:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5369676A14C
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 21:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0059F7F4;
-	Mon, 31 Jul 2023 21:15:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0059F7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B753D6C0;
+	Mon, 31 Jul 2023 21:30:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B753D6C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690830956;
-	bh=SyJU7Qt2aBIN4OyFcC5oEmHd0DxKwQmqDlVAGFvHAGo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690831898;
+	bh=zzuGJk4xWMsyNXrxwteru5fzBPfT1VViZZ32J4yvkIU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EC2P/8jlMPzlGwhEuOg8aY2wmhfK15G7jNSsnQHlGBvC7MRn0H31L8JaqqOn6aSYx
-	 ygPAMmK8VetM4nPuyz/4fwwyd+SCLMpASZ8VCtG9Y4t3HGqJhkJw7AzNkhvVm+S49d
-	 pYNS89j9ysRIZNSh1iCa2P35eal+E1okt5QKOqjI=
+	b=e7rSrYTo8T+vw/tgbhTM0aEXlPY/nTS0huXYu05P1qgmZJZ3movK6/Dj36pwRIHsk
+	 kDiUymau6Im/19YpG8v2q+vZhFt6YtbGp2hTgMgnQkniPmPPnf5DeH2PZEJDZq/c0o
+	 xwjuq2c/qYQ06CCtblpSI6dVXczmTvGUbK1Sj73c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40D2FF80520; Mon, 31 Jul 2023 21:15:05 +0200 (CEST)
+	id 25D15F80548; Mon, 31 Jul 2023 21:30:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA1FEF8015B;
-	Mon, 31 Jul 2023 21:15:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADD31F80163;
+	Mon, 31 Jul 2023 21:30:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D129F8016D; Mon, 31 Jul 2023 21:14:58 +0200 (CEST)
+	id BEA11F8016D; Mon, 31 Jul 2023 21:30:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 44FAAF80149
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 21:14:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44FAAF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2D277F8015B
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 21:30:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D277F8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mfZY9Gbn
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=wfOQ7CjF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Qd4OrjEG
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CB22761276;
-	Mon, 31 Jul 2023 19:14:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32AE9C433C7;
-	Mon, 31 Jul 2023 19:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1690830885;
-	bh=SyJU7Qt2aBIN4OyFcC5oEmHd0DxKwQmqDlVAGFvHAGo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mfZY9GbnMx+aOUhNak8hhNx+W4RQngWJkELmDVGW8q222cnSMnvbobDN1oms+zhPq
-	 cbVaocl89DiKxBWlHYimi8lIVjOKKdGuWYEqGxdADX6HTYgNkF/bhaNpRm+5thXsSY
-	 95pSQw5/dAnIbHeWNjq0VSi+To/RKfwFY9qNzU6d/4/eUCt6xAJXOAcUW5q+AntKar
-	 0ORk/O7jvBbHgP4x2jVPEcuU93ljKLAk2vQDp2COzlYpPQo/dsMr+jYANsNy2HLrST
-	 UBrBWz75Wxw3pzn3gUxpb0wnlkuByXvUEP/1l3Fv5WdcsVQuTaTpKYdvVRdwI4VJOk
-	 N5mKreLQOiTOQ==
-Date: Mon, 31 Jul 2023 20:14:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Hal Feng <hal.feng@starfivetech.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 62B401F8B9;
+	Mon, 31 Jul 2023 19:30:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690831830;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u7USeY0/jtJxkYj9/QN1XyAb2M3n3eeaiC5yDhmFdY8=;
+	b=wfOQ7CjFJqQePEa7OdDroF7echFEOEHR/6vLvlCgaHsMGc5p3jgEArAk5dc0jkq2W2SGSy
+	GfcClBPxAOQ6E6Gw1fQREbSQEwYnUAY2Evc0hsf6IqB3iyr3y0XmXAGuhNYxL7mMHBbSJS
+	2BCLtuk3fcVYke+aItcBz9RgRJ2HhEM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690831830;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u7USeY0/jtJxkYj9/QN1XyAb2M3n3eeaiC5yDhmFdY8=;
+	b=Qd4OrjEGeQ8Yv2c20NXO+uRfjaHL2ARq+fEgYKcKp+AaD4GHakZdhSu2htPkHeqG/+cw+Y
+	6ecdtJBy3k+qWYAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F4174133F7;
+	Mon, 31 Jul 2023 19:30:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 4dSvOtULyGTxYAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 19:30:29 +0000
+Date: Mon, 31 Jul 2023 21:30:29 +0200
+Message-ID: <87h6pjj2ui.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andrey Utkin <andrey_utkin@fastmail.com>,
+	Anton Sviridenko <anton@corp.bluecherry.net>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
 	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Walker Chen <walker.chen@starfivetech.com>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] ASoC: starfive: Add JH7110 PWM-DAC driver
-Message-ID: <9b03c7ed-845c-494b-8c40-10d1fe923b15@sirena.org.uk>
-References: <20230731032829.127864-1-hal.feng@starfivetech.com>
- <20230731032829.127864-3-hal.feng@starfivetech.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7WRSfejFGo+r56WO"
-Content-Disposition: inline
-In-Reply-To: <20230731032829.127864-3-hal.feng@starfivetech.com>
-X-Cookie: Single tasking: Just Say No.
-Message-ID-Hash: 37YMOFB5ZG5MEDWJJHOCXMCZNKP3YGJ7
-X-Message-ID-Hash: 37YMOFB5ZG5MEDWJJHOCXMCZNKP3YGJ7
-X-MailFrom: broonie@kernel.org
+	Ismael Luceno <ismael@iodev.co.uk>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	linux-media@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
+In-Reply-To: <b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
+References: <20230731154718.31048-1-tiwai@suse.de>
+	<b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: O64Z4GV7N7FQCKKVE7BXV4BZ25NVIKIR
+X-Message-ID-Hash: O64Z4GV7N7FQCKKVE7BXV4BZ25NVIKIR
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37YMOFB5ZG5MEDWJJHOCXMCZNKP3YGJ7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O64Z4GV7N7FQCKKVE7BXV4BZ25NVIKIR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,79 +132,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, 31 Jul 2023 19:20:54 +0200,
+Mark Brown wrote:
+> 
+> On Mon, Jul 31, 2023 at 05:46:54PM +0200, Takashi Iwai wrote:
+> 
+> > this is a patch set to clean up the PCM copy ops using sockptr_t as a
+> > "universal" pointer, inspired by the recent patch from Andy
+> > Shevchenko:
+> >   https://lore.kernel.org/r/20230721100146.67293-1-andriy.shevchenko@linux.intel.com
+> 
+> > Even though it sounds a bit weird, sockptr_t is a generic type that is
+> > used already in wide ranges, and it can fit our purpose, too.  With
+> > sockptr_t, the former split of copy_user and copy_kernel PCM ops can
+> > be unified again gracefully.
+> 
+> It really feels like we ought to rename, or add an alias for, the type
+> if we're going to start using it more widely - it's not helping to make
+> the code clearer.
 
---7WRSfejFGo+r56WO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Jul 31, 2023 at 11:28:28AM +0800, Hal Feng wrote:
-
-> +static const struct jh7110_ct_pwmdac pwmdac_ct_data_shift[] = {
-> +	{ .name = "left 0 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_0 },
-> +	{ .name = "left 1 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_1 },
-> +	{ .name = "left 2 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_2 },
-> +	{ .name = "left 3 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_3 },
-> +	{ .name = "left 4 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_4 },
-> +	{ .name = "left 5 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_5 },
-> +	{ .name = "left 6 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_6 },
-> +	{ .name = "left 7 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_7 }
-> +};
-
-It's not clear to me why this is user selectable - what does the control
-do?
-
-> +static int jh7110_pwmdac_put(struct snd_kcontrol *kcontrol,
-> +			     struct snd_ctl_elem_value *ucontrol,
-> +			     int pwmdac_ct)
-> +{
-> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-> +	struct jh7110_pwmdac_dev *dev = snd_soc_component_get_drvdata(component);
-> +	int sel = ucontrol->value.enumerated.item[0];
-> +	unsigned int items;
-
-> +	if (pwmdac_ct == PWMDAC_CT_SHIFT)
-> +		dev->shift = pwmdac_ct_shift[sel].vals;
-> +	else if (pwmdac_ct == PWMDAC_CT_DUTY_CYCLE)
-> +		dev->duty_cycle = pwmdac_ct_duty_cycle[sel].vals;
-> +	else if (pwmdac_ct == PWMDAC_CT_DATA_CHANGE)
-> +		dev->data_change = pwmdac_ct_data_change[sel].vals;
-> +	else if (pwmdac_ct == PWMDAC_CT_DATA_MODE)
-> +		dev->data_mode = pwmdac_ct_data_mode[sel].vals;
-> +	else if (pwmdac_ct == PWMDAC_CT_DATA_SHIFT)
-> +		dev->data_shift = pwmdac_ct_data_shift[sel].vals;
-> +
-> +	return 0;
-> +}
-
-_put() operations should return 1 if the control value changes so event
-generation works - please test a card using this driver with the
-mixer-test selftest, it'll identify this and a bunch of other potential
-issues.
-
-> +static int jh7110_pwmdac_component_probe(struct snd_soc_component *component)
-> +{
-> +	snd_soc_add_component_controls(component, jh7110_pwmdac_snd_controls,
-> +				       ARRAY_SIZE(jh7110_pwmdac_snd_controls));
-> +	return 0;
-> +}
-
-The driver can just point to the controls from the _driver struct and
-skip having a probe() function.
+That was my very first impression, too, but I changed my mind after
+seeing the already used code.  An alias might work, either typedef or
+define genptr_t or such as sockptr_t.  But we'll need to copy the
+bunch of helper functions, too...
 
 
---7WRSfejFGo+r56WO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTICB4ACgkQJNaLcl1U
-h9Bkogf7B5sn9Y3g1mTAAspid/NHj9EJnpyylKVFcCH8D0UOo11qJLylO7cb8DQw
-3M6ifjvdgMPSgZiwoshQnv3dS0yPr422sWUV65Dnm9pI0lwju9mFo4mh6i0zexdi
-AvQWj6reLoNjF1zn3ZSLU0qkqSTxaOebz1O9RkldqqmbcVixM4sLJOoDzhb5K76O
-lfD2y7zU3/GBt/+OwRObmMLz/AlrPbPkT2YF+0txEYEIitxWHgMoqJFWJI9cdg9I
-8WBjG+5nh/yKozj2EYOEGhKNjBegDGOOp/7sqWdUMdrkRNdtczS3sp5/jRHLv6ph
-1AMqKDncC9OfgKfFLfJy2saNmIxWlg==
-=JSoy
------END PGP SIGNATURE-----
-
---7WRSfejFGo+r56WO--
+Takashi

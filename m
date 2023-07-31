@@ -2,104 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35A3769358
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 12:46:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E3CE76936E
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 12:49:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E2A3836;
-	Mon, 31 Jul 2023 12:45:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E2A3836
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9684851;
+	Mon, 31 Jul 2023 12:48:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9684851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690800362;
-	bh=/xy20Cx4V6EcMmCM8zDIAQr6l+aYKGfHtIlKmzg8S3o=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=bKCe+v6kiZemkECwcJGZtlw6fvVqqPrwzRL56LiaNLBkZ5cMp2ufxeFMB4psSv1EU
-	 /drlP4QTxrFAk/Y54vNKW6BpIiATCvlln1l9CkJhTJTeW2CfXCsYwVxNRzOQzGlpEj
-	 78nC0XR/gQm6quRUCXfgy2GpNtUVNkbX47qh4drg=
+	s=default; t=1690800547;
+	bh=ItT7al2kLjWBYdbBXx0GhyFJpTHNsPm5yEH1Oa3IPGA=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iyWIpur9V9RU9M68D04kZjrcvzGEty95DHp/Krce42clcsTxQPdV9Aw1dSpALI5Co
+	 GOWvmBrrafgLMX14cLs/Qmn9u5kuKj/2FdcNYjJfh0ucTotFbvQmwbhv9o2+PEJntq
+	 +6jbtobV5EZbbzxOfati4RTzwHnBz9FXz0/4c1y8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5C54F80425; Mon, 31 Jul 2023 12:45:11 +0200 (CEST)
+	id 4D8D0F80567; Mon, 31 Jul 2023 12:47:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70F9BF80163;
-	Mon, 31 Jul 2023 12:45:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF405F8055B;
+	Mon, 31 Jul 2023 12:47:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5C95F8016D; Mon, 31 Jul 2023 12:45:07 +0200 (CEST)
+	id 5C306F80548; Mon, 31 Jul 2023 12:47:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 954BAF8015B
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 12:45:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 954BAF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 54E68F8016D
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 12:47:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E68F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=kH/YeZhu
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=k1qORWVJ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 2B4106606EF9;
-	Mon, 31 Jul 2023 11:45:01 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1690800302;
-	bh=/xy20Cx4V6EcMmCM8zDIAQr6l+aYKGfHtIlKmzg8S3o=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=kH/YeZhuGKaOtHqLEoRX/qQ2/e9rZ3Jpmfi9GcY3R2995jNbEbKVZNs/UqnReqGu2
-	 ZylGZdK8yb8QsXtB7Y9/rJjINZBL/056DWM1UZBL6KTZlWt23VcctporE2HHOURKSi
-	 EABlVob6ZwWjO92I4tZkaDXN5YJaBNTVCZgwU0x93VUzmRWLo0xI+nqPOcOz052+lh
-	 NPi0RsiUYDXKeSTpCE2ePfHEXRxuyjXP68dPEAzT2oKn2ZyUrkg+TFfhsTJdaQzSYv
-	 q53//+H1ZZ4GdwywQjETz+n9DH+zSqAFm3o7ZTfRMDyssICFVBePj7hTQq/5M4GvfD
-	 eOSJmovLnmX3w==
-Message-ID: <fc142ae5-bc96-ca95-eb96-e54d6d9cdb22@collabora.com>
-Date: Mon, 31 Jul 2023 12:44:58 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 702C46100B;
+	Mon, 31 Jul 2023 10:47:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0ECC433C7;
+	Mon, 31 Jul 2023 10:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690800429;
+	bh=ItT7al2kLjWBYdbBXx0GhyFJpTHNsPm5yEH1Oa3IPGA=;
+	h=From:Subject:Date:To:Cc:From;
+	b=k1qORWVJ72bX6Z5XRWBae/S3rzJChNbP/1e6RpNV4KWMsqT3LJc4gvmFSBI9cPuxN
+	 IwpoaO+DqWGsNEnle9kojh8J4YGlV0L0XE5F/61iBtHxU2fk/0M0mEYw9Ah+Cb3dra
+	 665yWUl2pwvefNQKgrM0WywDKxNtGwsm/Rp2r991w/Sv/HHABN6bXyIPlcp2xHjCeI
+	 SFgBu9kqPJZD/itEwWFSZ/IGZ/pkpgCS6qgtsQqbpcX3fVq3yzBNjYSIw+CMfDNNmr
+	 UOFv6Ck1YhD/V5MDJoVKHfd+okeMNvVU+rxJNbYPMU5OUwIzA7k4P7/vKT0Kwww7rX
+	 hMPYxdjIIS/tw==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/2] ASoC: wm8960: Clocking tweaks
+Date: Mon, 31 Jul 2023 11:47:01 +0100
+Message-Id: <20230731-asoc-wm8960-clk-v1-0-69f9ffa2b10a@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 5/6] ASoC: dt-bindings: mediatek,mt7986-wm8960: add
- mt7986-wm8960 document
-Content-Language: en-US
-To: =?UTF-8?B?TWFzbyBIdWFuZyAo6buD5Yqg56u5KQ==?= <Maso.Huang@mediatek.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "chenxiangrui@huaqin.corp-partner.google.com"
- <chenxiangrui@huaqin.corp-partner.google.com>,
- =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- =?UTF-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsik=?=
- <Allen-KH.Cheng@mediatek.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, "tiwai@suse.com"
- <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "perex@perex.cz" <perex@perex.cz>, "arnd@arndb.de" <arnd@arndb.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <20230728090819.18038-1-maso.huang@mediatek.com>
- <20230728090819.18038-6-maso.huang@mediatek.com>
- <8e207baf-4a85-71f1-8ea3-08eab438b7cd@collabora.com>
- <ebfc016f57ec50ea8026efdce575813a75676b5c.camel@mediatek.com>
- <4aa7dd33239d568cfdf46f1e403bdeeef947726a.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <4aa7dd33239d568cfdf46f1e403bdeeef947726a.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3XY6UIGBZ6A3Z5QS33UH3KIUSMPDKI5N
-X-Message-ID-Hash: 3XY6UIGBZ6A3Z5QS33UH3KIUSMPDKI5N
-X-MailFrom: angelogioacchino.delregno@collabora.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACWRx2QC/x3MQQ5AMBBA0as0szZJFS2uIhbUYIKSNkEi7q6xf
+ Iv/HwjkmQLU4gFPJwfeXUSaCLBz5yZCHqJBSZVJk0nswm7x2spKS7TrgtqaPC2IlOpziNXhaeT
+ 7Pzbt+35vJYT0YQAAAA==
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.13-dev-099c9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=598; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ItT7al2kLjWBYdbBXx0GhyFJpTHNsPm5yEH1Oa3IPGA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkx5EpgWXWV98NW60roVRK8eWTgIbE5ZqLI0sVf
+ AkX38Rxmx2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZMeRKQAKCRAk1otyXVSH
+ 0H7dB/4zEuAuIb7XTusuLQ2NskvHRq2v3Eh+FmYBsn2pailwlv7SCdchAwds1R1J04lXtmPEgy8
+ V874V+MzK7fCcoR9MW7pfK5SdL0LLM9JMVAST7CaEtyBbPYiG8UCsJZzmM2N948Hp48Q5YZ8XvF
+ wa7AZM12qtd0xSsFu3TcW5Hm4QY2Z/0mH3O7uVCuQ+IMHYXUv3A7H8hF4FH1A8EnN1pWWO4I2XP
+ pQIft9ph9DruV63Lw1QDgHqlEq1bMZLRFfvZyXEpgysPFve678GRknGmh0ZXFVLSCeHnZT5807u
+ ApETXMpmH/4zhetCviznbAvmtwKsKFa36aPmW1dTRF8w+mUF
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: 7CE6FWVIKVKDYQYJ4TXDGHYIVKKOY2EF
+X-Message-ID-Hash: 7CE6FWVIKVKDYQYJ4TXDGHYIVKKOY2EF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3XY6UIGBZ6A3Z5QS33UH3KIUSMPDKI5N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7CE6FWVIKVKDYQYJ4TXDGHYIVKKOY2EF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,88 +110,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 31/07/23 08:42, Maso Huang (黃加竹) ha scritto:
-> On Fri, 2023-07-28 at 18:16 +0800, Maso Huang wrote:
->> On Fri, 2023-07-28 at 11:55 +0200, AngeloGioacchino Del Regno wrote:
->>> Il 28/07/23 11:08, Maso Huang ha scritto:
->>>> Add document for mt7986 board with wm8960.
->>>>
->>>> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
->>>> ---
->>>>    .../sound/mediatek,mt7986-wm8960.yaml         | 53
->>>> +++++++++++++++++++
->>>>    1 file changed, 53 insertions(+)
->>>>    create mode 100644
->>>> Documentation/devicetree/bindings/sound/mediatek,mt7986-
->>>> wm8960.yaml
->>>>
->>>> diff --git
->>>> a/Documentation/devicetree/bindings/sound/mediatek,mt7986-
->>>> wm8960.yaml
->>>> b/Documentation/devicetree/bindings/sound/mediatek,mt7986-
->>>> wm8960.yaml
->>>> new file mode 100644
->>>> index 000000000000..76394f7e5502
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-
->>>> wm8960.yaml
->>>> @@ -0,0 +1,53 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id:
->>>>
-> https://urldefense.com/v3/__http://devicetree.org/schemas/sound/mediatek,mt7986-wm8960.yaml*__;Iw!!CTRNKA9wMg0ARbw!lu4Z6pJeRiL7-8l4T3ptqUCM54FnHTBiyh5KWBNqSjl6mOOI7WmzHpWEd-ZSZ-2NJ4Cs9PPaAF_75ywo2SKW16MPPRaROt0$
->>>>   
->>>>   
->>>> +$schema:
->>>>
-> https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!CTRNKA9wMg0ARbw!lu4Z6pJeRiL7-8l4T3ptqUCM54FnHTBiyh5KWBNqSjl6mOOI7WmzHpWEd-ZSZ-2NJ4Cs9PPaAF_75ywo2SKW16MPttZILAo$
->>>>   
->>>>   
->>>> +
->>>> +title: MediaTek MT7986 sound card with WM8960 codec
->>>> +
->>>> +maintainers:
->>>> +  - Maso Huang <maso.huang@mediatek.com>
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: mediatek,mt7986-wm8960-machine
->>>
->>> mediatek,mt7986-wm8960-sound looks better.
->>>
->>> After which,
->>>
->>> Reviewed-by: AngeloGioacchino Del Regno <
->>> angelogioacchino.delregno@collabora.com>
->>>
->>>
->>
->> Hi Angelo,
->>
->> Thanks for your review.
->> I'll change the compatible to "mediatek,mt7986-wm8960-sound" in v4
->> patch.
->>
->> Best regards,
->> Maso
->>
-> 
-> Hi Angelo,
-> 
-> One more question for this compatible.
-> 
-> The suffix "machine" means alsa machine driver for mt7986-wm8960. It
-> might be better to use "machine" here.
-> 
-> Or you prefer "sound" than "machine"?
-> 
-> Best regards,
-> Maso
+A couple of minor clocking improvements that make the wm8960 driver work
+a bit better with generic cards.
 
-I prefer "sound" because of consistency with other MediaTek machine driver
-compatible strings.
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Mark Brown (2):
+      ASoC: wm8960: Read initial MCLK rate from clock API
+      ASoC: wm8960: Make automatic the default clocking mode
 
-Regards,
-Angelo
+ sound/soc/codecs/wm8960.c | 8 ++++++++
+ sound/soc/codecs/wm8960.h | 4 ++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+---
+base-commit: 5d0c230f1de8c7515b6567d9afba1f196fb4e2f4
+change-id: 20230730-asoc-wm8960-clk-6c7415ee22b4
+
+Best regards,
+-- 
+Mark Brown <broonie@kernel.org>
+

@@ -2,110 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569F3768BE2
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 08:22:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC55768C1E
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 08:40:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 760BE823;
-	Mon, 31 Jul 2023 08:21:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 760BE823
+	by alsa0.perex.cz (Postfix) with ESMTPS id E812C82A;
+	Mon, 31 Jul 2023 08:40:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E812C82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690784534;
-	bh=pKmKxdUqG/IxFCGRitIBOZeQgBLZ/Q/Z4mnXbF+6kf4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690785655;
+	bh=yKOoemBkNhBqe1lat60jHoj1gVqYWoXUcENXkBR7yCY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iXnCCJ65mfSWwKqtzEP1uhS/u6R9fYVSIzkAbh8Rf1YZEjLx7vBzXwhlIhMPt4YVw
-	 WQJqmkHlS3o2ZFkNIaM0xpLr2PfSrz7RhDW4C1zkNtM36Dhaprlp/ujvRrcqaALGL9
-	 Np9UMWVMoCfAvOXtA8fkwUxm+Bqr97tn0Iv3EqxU=
+	b=BGYXBWLfvMZ3f+Y05dhtAMsY2NLC1iSoEtWx+DSTxHfoDKOjQ3uJPqBNE79jOl6wV
+	 BF4mP78DkX6oRMFfeHUQZddi/ITarLQ7GdMTve0g9XQjfYh/l9GmoQv4f1n7fPnsRX
+	 3RXLVKteMcDwDjHR5I+LUOhGu2Fa21uwjoeaBScA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C63CAF80149; Mon, 31 Jul 2023 08:21:23 +0200 (CEST)
+	id 3E540F801D5; Mon, 31 Jul 2023 08:39:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FC4AF80163;
-	Mon, 31 Jul 2023 08:21:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 448F3F80163;
+	Mon, 31 Jul 2023 08:39:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D08E4F8016D; Mon, 31 Jul 2023 08:21:17 +0200 (CEST)
+	id 73D4BF8016D; Mon, 31 Jul 2023 08:39:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-1.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com
+ [115.124.28.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD82EF80153
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 08:21:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD82EF80153
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=P3quShTI;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eJ9CnDvP
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 00F4B1F749;
-	Mon, 31 Jul 2023 06:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690784470;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8uz9UreL669MhgY12mZE3fMA6oQ2OnCJzzU3AJy8+Mo=;
-	b=P3quShTI/SP9802brh982beWhEVRti+Mlin4ocYqCpfbtLL81e+KRY9kaqVg0H4beLHSQv
-	ZcZiYyi2Iaz7p1ChGiOruATUsnxtoj47MiEfKLC6Ib3CvqAAS+3Y9IDOrkbQgv+h7Zl+LN
-	yF1rmZltUCMQ2tIzOYPdE+wjhvuqJiQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690784470;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8uz9UreL669MhgY12mZE3fMA6oQ2OnCJzzU3AJy8+Mo=;
-	b=eJ9CnDvPEYmi+XuAA5musIwZy53yH95HKgw3o1VvJU5kw+sia3Ep1x7GBiGPJ/fn9Dz4o4
-	wnJYrnwEY7dCsYCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC4EF133F7;
-	Mon, 31 Jul 2023 06:21:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id NI35KNVSx2TaYQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 06:21:09 +0000
-Date: Mon, 31 Jul 2023 08:21:09 +0200
-Message-ID: <873514d2ju.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Marek Vasut <marex@denx.de>,	Jeff LaBundy <jeff@labundy.com>,
-	linux-input@vger.kernel.org,	Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
- <u.kleine-koenig@pengutronix.de>,	Frieder Schrempf
- <frieder.schrempf@kontron.de>,	Manuel Traut <manuel.traut@mt.com>,	Thierry
- Reding <thierry.reding@gmail.com>,	linux-pwm@vger.kernel.org,
-	alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai
- <tiwai@suse.com>
-Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
-In-Reply-To: <ZMdIZiC453onyeHh@google.com>
-References: <20230512185551.183049-1-marex@denx.de>
-	<ZF7kCjKGVjsxK8ec@nixie71>
-	<0ef98ec1-6191-c72e-2362-310db7f09b84@denx.de>
-	<06379f26-ab24-85f9-783f-0c49d4291b23@denx.de>
-	<ZMdIZiC453onyeHh@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: KBGUDD7Y7CNLYAR6GX4H66STQNNP7Y7K
-X-Message-ID-Hash: KBGUDD7Y7CNLYAR6GX4H66STQNNP7Y7K
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08E83F80149
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 08:39:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08E83F80149
+X-Alimail-AntiSpam: 
+ AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00400371-0.000150313-0.995846;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047205;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=26;RT=26;SR=0;TI=SMTPD_---.U4bHBGG_1690785547;
+Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.U4bHBGG_1690785547)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Jul 2023 14:39:10 +0800
+From: wangweidong.a@awinic.com
+To: krzysztof.kozlowski@linaro.org
+Cc: 13916275206@139.com,
+	alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	ckeepax@opensource.cirrus.com,
+	colin.i.king@gmail.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	doug@schmorgal.com,
+	fido_max@inbox.ru,
+	herve.codina@bootlin.com,
+	krzysztof.kozlowski+dt@linaro.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liweilei@awinic.com,
+	perex@perex.cz,
+	povik+lin@cutebit.org,
+	rf@opensource.cirrus.com,
+	robh+dt@kernel.org,
+	ryans.lee@analog.com,
+	shumingf@realtek.com,
+	tiwai@suse.com,
+	trix@redhat.com,
+	wangweidong.a@awinic.com,
+	yijiangtao@awinic.com,
+	zhangjianming@awinic.com
+Subject: Re: [PATCH V3 3/5] ASoC: codecs: Add aw88261 amplifier driver
+Date: Mon, 31 Jul 2023 14:39:07 +0800
+Message-ID: <20230731063907.4097-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <4d822ff6-b7e6-20e2-6087-78941488a3cf@linaro.org>
+References: <4d822ff6-b7e6-20e2-6087-78941488a3cf@linaro.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VCBNLETKKDM6MNGH7M3A4H4OXJFGHPUK
+X-Message-ID-Hash: VCBNLETKKDM6MNGH7M3A4H4OXJFGHPUK
+X-MailFrom: wangweidong.a@awinic.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBGUDD7Y7CNLYAR6GX4H66STQNNP7Y7K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VCBNLETKKDM6MNGH7M3A4H4OXJFGHPUK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,112 +105,185 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 31 Jul 2023 07:36:38 +0200,
-Dmitry Torokhov wrote:
-> 
-> On Sat, May 13, 2023 at 11:02:30PM +0200, Marek Vasut wrote:
-> > On 5/13/23 03:51, Marek Vasut wrote:
-> > > On 5/13/23 03:12, Jeff LaBundy wrote:
-> > > > Hi Marek,
-> > > 
-> > > Hi,
-> > > 
-> > > > On Fri, May 12, 2023 at 08:55:51PM +0200, Marek Vasut wrote:
-> > > > > The PWM beeper volume can be controlled by adjusting the PWM duty cycle,
-> > > > > expose volume setting via sysfs, so users can make the beeper quieter.
-> > > > > This patch adds sysfs attribute 'volume' in range 0..50000, i.e. from 0
-> > > > > to 50% in 1/1000th of percent steps, this resolution should be
-> > > > > sufficient.
-> > > > > 
-> > > > > The reason for 50000 cap on volume or PWM duty cycle is because
-> > > > > duty cycle
-> > > > > above 50% again reduces the loudness, the PWM wave form is inverted wave
-> > > > > form of the one for duty cycle below 50% and the beeper gets quieter the
-> > > > > closer the setting is to 100% . Hence, 50% cap where the wave
-> > > > > form yields
-> > > > > the loudest result.
-> > > > > 
-> > > > > Signed-off-by: Marek Vasut <marex@denx.de>
-> > > > > ---
-> > > > > An alternative option would be to extend the userspace input
-> > > > > ABI, e.g. by
-> > > > > using SND_TONE top 16bits to encode the duty cycle in 0..50000
-> > > > > range, and
-> > > > > bottom 16bit to encode the existing frequency in Hz . Since frequency in
-> > > > > Hz is likely to be below some 25 kHz for audible bell, this fits
-> > > > > in 16bits
-> > > > > just fine. Thoughts ?
-> > > > > ---
-> > > > 
-> > > > Thanks for the patch; this seems like a useful feature.
-> > > > 
-> > > > My first thought is that 50000 seems like an oddly specific limit to
-> > > > impose
-> > > > upon user space. Ideally, user space need not even care that the
-> > > > beeper is
-> > > > implemented via PWM and why 50000 is significant.
-> > > > 
-> > > > Instead, what about accepting 0..255 as the LED subsystem does for
-> > > > brightness,
-> > > > then map these values to 0..50000 internally? In fact, the leds-pwm
-> > > > driver
-> > > > does something similar.
-> > > 
-> > > The pwm_set_relative_duty_cycle() function can map whatever range to
-> > > whatever other range of the PWM already, so that's not an issues here.
-> > > It seems to me the 0..127 or 0..255 range is a bit too limiting . I
-> > > think even for the LEDs the reason for that limit is legacy design, but
-> > > here I might be wrong.
-> > > 
-> > > > I'm also curious as to whether this function should be a rogue sysfs
-> > > > control
-> > > > limited to this driver, or a generic operation in input. For
-> > > > example, input
-> > > > already allows user space to specify the magnitude of an FF effect;
-> > > > perhaps
-> > > > something similar is warranted here?
-> > > 
-> > > See the "An alternative ..." part above, I was wondering about this too,
-> > > whether this can be added into the input ABI, but I am somewhat
-> > > reluctant to fiddle with the ABI.
-> > 
-> > Thinking about this further, we could try and add some
-> > 
-> > EV_SND SND_TONE_WITH_VOLUME
-> > 
-> > to avoid overloading EV_SND SND_TONE , and at the same time allow the user
-> > to set both frequency and volume for the tone without any race condition
-> > between the two.
-> > 
-> > The EV_SND SND_TONE_WITH_VOLUME would still take one 32bit parameter, except
-> > this time the parameter 16 LSbits would be the frequency and 16 MSbits would
-> > be the volume.
-> > 
-> > But again, here I would like input from the maintainers.
-> 
-> Beeper was supposed to be an extremely simple device with minimal
-> controls. I wonder if there is need for volume controls, etc, etc are we
-> not better moving it over to the sound subsystem. We already have:
-> 
-> 	sound/drivers/pcsp/pcsp.c
-> 
-> and
-> 
-> 	sound/pci/hda/hda_beep.c
-> 
-> there, can we have other "advanced" beepers there as well? Adding sound
-> maintainers to CC...
+Thank you very much for your review, but I have a few questions
+I'd like to discuss with you
 
-I don't mind it put to sound/*.  But, note that pcsp.c you pointed in
-the above is a PCM tone generator driver with a PC beep device, and it
-provides the normal SND_BEEP input only for compatibility.
-
-Indeed there have been already many sound drivers providing the beep
-capability, and they bind with the input device using SND_BEEP.  And,
-for the beep volume, "Beep Playback Volume" mixer control is provided,
-too.
+On 29/07/2023 19:22, krzysztof.kozlowski@linaro.org wrote:
+> On 29/07/2023 11:12, wangweidong.a@awinic.com wrote:
+>> From: Weidong Wang <wangweidong.a@awinic.com>
+>> 
+>> Add i2c and amplifier registration for
+>> aw88261 and their associated operation functions.
+>> 
+>> Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
+>> ---
+>>  sound/soc/codecs/aw88261/aw88261.c | 517 +++++++++++++++++++++++++++++
+>>  sound/soc/codecs/aw88261/aw88261.h |  52 +++
+>>  2 files changed, 569 insertions(+)
+>>  create mode 100644 sound/soc/codecs/aw88261/aw88261.c
+>>  create mode 100644 sound/soc/codecs/aw88261/aw88261.h
+>> 
 
 
-thanks,
+>> +
+>> +static int aw88261_request_firmware_file(struct aw88261 *aw88261)
+>> +{
+>> +	const struct firmware *cont = NULL;
+>> +	int ret;
+>> +
+>> +	aw88261->aw_pa->aw88261_base->fw_status = AW88261_DEV_FW_FAILED;
+>> +
+>> +	ret = request_firmware(&cont, AW88261_ACF_FILE, aw88261->aw_pa->dev);
+>> +	if (ret < 0) {
+>> +		dev_err_probe(aw88261->aw_pa->dev, ret, "load [%s] failed!", AW88261_ACF_FILE);
+>> +		return ret;
 
-Takashi
+> That's not how you use dev_err_probe. Instead: return dev_err_probe
+
+Thank you very much. I will changed it to
+"return dev_err_probe(aw88261->aw_pa->dev, ret, "load [%s] failed!", AW88261_ACF_FILE)".
+
+>> +	}
+>> +
+>> +	dev_info(aw88261->aw_pa->dev, "loaded %s - size: %zu\n",
+>> +			AW88261_ACF_FILE, cont ? cont->size : 0);
+>> +
+>> +	aw88261->aw_cfg = devm_kzalloc(aw88261->aw_pa->dev, cont->size + sizeof(int), GFP_KERNEL);
+>> +	if (!aw88261->aw_cfg) {
+>> +		release_firmware(cont);
+>> +		return -ENOMEM;
+>> +	}
+>> +	aw88261->aw_cfg->len = (int)cont->size;
+>> +	memcpy(aw88261->aw_cfg->data, cont->data, cont->size);
+>> +	release_firmware(cont);
+>> +
+>> +	ret = aw88395_dev_load_acf_check(aw88261->aw_pa->aw88261_base, aw88261->aw_cfg);
+>> +	if (ret < 0) {
+>> +		dev_err_probe(aw88261->aw_pa->dev, ret, "load [%s] failed !", AW88261_ACF_FILE);
+>> +		return ret;
+
+> return dev_err_probe
+
+I want to use "dev_err" here, Because the aw88395_dev_load_acf_check
+function only checks the bin file, it does not involve the application of resources
+
+>> +	}
+>> +
+>> +	mutex_lock(&aw88261->lock);
+>> +	/* aw device init */
+>> +	ret = aw88261_dev_init(aw88261->aw_pa, aw88261->aw_cfg);
+>> +	if (ret < 0)
+>> +		dev_err(aw88261->aw_pa->dev, "dev init failed");
+>> +	mutex_unlock(&aw88261->lock);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static int aw88261_codec_probe(struct snd_soc_component *component)
+>> +{
+>> +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
+>> +	struct aw88261 *aw88261 = snd_soc_component_get_drvdata(component);
+>> +	int ret;
+>> +
+>> +	INIT_DELAYED_WORK(&aw88261->start_work, aw88261_startup_work);
+>> +
+>> +	ret = aw88261_request_firmware_file(aw88261);
+>> +	if (ret < 0) {
+>> +		dev_err_probe(aw88261->aw_pa->dev, ret, "aw88261_request_firmware_file failed\n");
+>> +		return ret;
+
+> return dev_err_probe
+
+Thank you very much. I'll change it to "return dev_err_probe"
+
+>> +	}
+>> +
+>> +	/* add widgets */
+>> +	ret = snd_soc_dapm_new_controls(dapm, aw88261_dapm_widgets,
+>> +							ARRAY_SIZE(aw88261_dapm_widgets));
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	/* add route */
+>> +	ret = snd_soc_dapm_add_routes(dapm, aw88261_audio_map,
+>> +							ARRAY_SIZE(aw88261_audio_map));
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	ret = snd_soc_add_component_controls(component, aw88261_controls,
+>> +							ARRAY_SIZE(aw88261_controls));
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static void aw88261_codec_remove(struct snd_soc_component *aw_codec)
+>> +{
+>> +	struct aw88261 *aw88261 = snd_soc_component_get_drvdata(aw_codec);
+>> +
+>> +	cancel_delayed_work_sync(&aw88261->start_work);
+>> +}
+>> +
+>> +static const struct snd_soc_component_driver soc_codec_dev_aw88261 = {
+>> +	.probe = aw88261_codec_probe,
+>> +	.remove = aw88261_codec_remove,
+>> +};
+>> +
+>> +static void aw88261_hw_reset(struct aw88261 *aw88261)
+>> +{
+>> +	gpiod_set_value_cansleep(aw88261->reset_gpio, 0);
+>> +	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
+>> +	gpiod_set_value_cansleep(aw88261->reset_gpio, 1);
+>> +	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
+>> +}
+>> +
+>> +static int aw88261_i2c_probe(struct i2c_client *i2c)
+>> +{
+>> +	struct aw88261 *aw88261;
+>> +	int ret;
+>> +
+>> +	ret = i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C);
+>> +	if (!ret) {
+>> +		dev_err_probe(&i2c->dev, ret, "check_functionality failed");
+>> +		return -ENXIO;
+
+> return dev_err_probe
+
+Thank you very much. I'll change it to "return dev_err_probe"
+
+>> +	}
+>> +
+>> +	aw88261 = devm_kzalloc(&i2c->dev, sizeof(struct aw88261), GFP_KERNEL);
+
+> sizeof(*)
+
+Thank you very much. I will change it to 
+"devm_kzalloc(&i2c->dev, sizeof(*aw88261), GFP_KERNEL)".
+
+>> +	if (!aw88261)
+>> +		return -ENOMEM;
+>> +
+>> +	mutex_init(&aw88261->lock);
+>> +
+>> +	i2c_set_clientdata(i2c, aw88261);
+>> +
+>> +	aw88261->reset_gpio = devm_gpiod_get_optional(&i2c->dev, "reset", GPIOD_OUT_LOW);
+>> +	if (IS_ERR(aw88261->reset_gpio))
+>> +		dev_info(&i2c->dev, "reset gpio not defined\n");
+>> +	else
+>> +		aw88261_hw_reset(aw88261);
+>> +
+>> +	aw88261->regmap = devm_regmap_init_i2c(i2c, &aw88261_remap_config);
+>> +	if (IS_ERR(aw88261->regmap)) {
+>> +		ret = PTR_ERR(aw88261->regmap);
+>> +		dev_err_probe(&i2c->dev, ret, "failed to init regmap: %d\n", ret);
+>> +		return ret;
+
+> return dev_err_probe
+
+> I asked you about this in your first version. I explicitly wrote "return
+> dev_err_probe", not some other syntax.
+
+Thank you very much. I'll change it to "return dev_err_probe"
+
+Best regards,
+Weidong Wang

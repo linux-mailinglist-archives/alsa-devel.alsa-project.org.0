@@ -2,105 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4F1768FAD
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 10:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC55768FCF
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 10:15:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBD3A828;
-	Mon, 31 Jul 2023 10:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD3A828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A88C823;
+	Mon, 31 Jul 2023 10:14:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A88C823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690791046;
-	bh=p2Rvfw2SQhBfkZaMV8APah4QsQbk8URNr6pqE768AY4=;
-	h=Date:Subject:To:References:Cc:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=NAwBRYAJsgMplIWYL8Y4oA45P1hcNUv1FlZwNLiSYibEO3YIKWqWnuUa3HCOIj6Nv
-	 aJryhLSvOF7b5Hp5Ne+5fXPlrFv6qIaSGCKYBSEapYkqt9brZaDbrGu10Zv6zTVYsi
-	 Ojve4JuW+MFnQAR1vlWPA7qci414ITbk0UfQdxVc=
+	s=default; t=1690791326;
+	bh=3PD36y9crYcVbmBKlcqUT9WweOtIyMFBC2i870IXZsE=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=EZ91/qxVDZfNh4SrdMA+pS8xvv3bZnCrexqIcI43bUgEtklPtNFgPhKqffIagi7Gf
+	 rHk6zh8627cd9+dlw43AsH2yMvfAJrgM0no/UrecpGwSRcifYCoPnEVSpNCBaMicd+
+	 J//2iKAAECZ9cTuSglXI569K65XH4nNNZXBKuP8k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58F7EF80520; Mon, 31 Jul 2023 10:09:34 +0200 (CEST)
+	id 1AC67F8016D; Mon, 31 Jul 2023 10:14:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF2DFF80149;
-	Mon, 31 Jul 2023 10:09:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BE1EF80149;
+	Mon, 31 Jul 2023 10:14:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BDE5F8016D; Mon, 31 Jul 2023 10:09:28 +0200 (CEST)
+	id AA780F8016D; Mon, 31 Jul 2023 10:14:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=PDS_OTHER_BAD_TLD,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from asave03.hostfactory.ch (asave03.hostfactory.ch
- [185.16.174.135])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BE70AF8015B
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 10:09:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE70AF8015B
-Received: from server11.hostfactory.ch ([185.117.169.60])
-	by asave03.hostfactory.ch with esmtps (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <michele.perrone@weiss.ch>)
-	id 1qQNxr-0002nm-TE; Mon, 31 Jul 2023 10:09:18 +0200
-Received: from [192.168.0.84]
- (156.14.3.213.static.wline.lns.sme.cust.swisscom.ch [213.3.14.156])
-	(Authenticated sender: michele.perrone@weiss.ch)
-	by server11.hostfactory.ch (Postfix) with ESMTPSA id 709534992C743;
-	Mon, 31 Jul 2023 10:09:14 +0200 (CEST)
-Message-ID: <7a0cf3fd-9e31-45e1-7aa4-97cab27dafa7@weiss.ch>
-Date: Mon, 31 Jul 2023 10:09:14 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8653F80149
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 10:14:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8653F80149
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=QTPoqYTC
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-51a52a7d859so11345579a12.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 31 Jul 2023 01:14:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690791265; x=1691396065;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=p6rcZPwVJBWeYJ6kXZi9yA1FdLwGokDC5tlnkatV15w=;
+        b=QTPoqYTCsActNvpiAsIPcOEkIha2cz1+i9EOrcWeVuAQqRzbD3Hp5oHPMMY04ggq1M
+         nb4yyl+8vcvkiM6/JOorvvZp1HReTdhzm49qyaeTOLRzfaMpTO4kCqEAGSwHnglglu7G
+         9efwAZ/KTTYT8NhsP5q9zsmcKy9sM9ibjUTw9OgEU/xN4eSet842XCNdRIIRxyp2oEig
+         tbjADNqkvsW8eaHlK4e5rhJXARqmxaouqn18YdFDGrB/qOvJsVXwvURJ3rJWoljvkiJi
+         LtdI+5aozZY/3fJ/P1e9EGUJlFFbUGv/9IKS2naDnAYj3UtTLw3Egf3fPWziZJlEi0ZP
+         +Bmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690791265; x=1691396065;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=p6rcZPwVJBWeYJ6kXZi9yA1FdLwGokDC5tlnkatV15w=;
+        b=D5ugACLZ/eXtoMKzMup12r7IzMqNZ1F/6qpwpdJzuwkXFi8Nr674ytJsS3hbCBP8w9
+         u282b8QC2k2edZZ8L5XCWB76YYxczhLD7VIVrX4EJqENJUaWBAgEiTROawSIbdCgEPYY
+         Xjgths/KLfESDyZpWV/3nLH1XI5ss8aWmY740/E0jwrKxN098lEPHmD6/vx0mTggbgxs
+         LWTYxwh2HeYTmxelgteQmQ0fO8Cr7YB5/KXx5e16Wv9bc5f88cOLQpIOMkbpPs7zKFDT
+         EDliPvHVkpUf1ALr1L2/jJ1yNr3YD5qsfKHa7OWQ9hXLB62bIc4mgezM4q0dYJ+gNkbG
+         n+0g==
+X-Gm-Message-State: ABy/qLYOuLJ3zEeFabGweH1YGkxKZhpn0k7LbG8KmjdBDoZNlZnmz2CS
+	pcNtyX8D5DnUb3pszNXKXwsmGA==
+X-Google-Smtp-Source: 
+ APBJJlEcpNtkDOqJUGvWGXqCV6phd4Pm6wZGFOPble3FSFbPOjaBdJp/J199LjmDjTErsa3F80PoGg==
+X-Received: by 2002:a05:6402:3508:b0:51d:cf7b:c9f0 with SMTP id
+ b8-20020a056402350800b0051dcf7bc9f0mr13989833edd.12.1690791265071;
+        Mon, 31 Jul 2023 01:14:25 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.222.183])
+        by smtp.gmail.com with ESMTPSA id
+ w5-20020aa7d285000000b005227ead61d0sm5095073edq.83.2023.07.31.01.14.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Jul 2023 01:14:24 -0700 (PDT)
+Message-ID: <ab66c8a4-6a5e-651b-8f77-047980ebc238@linaro.org>
+Date: Mon, 31 Jul 2023 10:14:22 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ALSA: dice: add stream format parameters for Weiss
- devices
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: [PATCH v3 5/6] ASoC: dt-bindings: mediatek,mt7986-wm8960: add
+ mt7986-wm8960 document
 Content-Language: en-US
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
- <20230728131308.GA142765@workstation.local>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Rolf Anderegg <rolf.anderegg@weiss.ch>,
- Isabelle Kernhof <isabelle.kernhof@weiss.ch>
-From: Michele Perrone <michele.perrone@weiss.ch>
-In-Reply-To: <20230728131308.GA142765@workstation.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: =?UTF-8?B?TWFzbyBIdWFuZyAo6buD5Yqg56u5KQ==?= <Maso.Huang@mediatek.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "chenxiangrui@huaqin.corp-partner.google.com"
+ <chenxiangrui@huaqin.corp-partner.google.com>,
+ =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ =?UTF-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsik=?=
+ <Allen-KH.Cheng@mediatek.com>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "perex@perex.cz" <perex@perex.cz>, "arnd@arndb.de" <arnd@arndb.de>,
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <20230728090819.18038-1-maso.huang@mediatek.com>
+ <20230728090819.18038-6-maso.huang@mediatek.com>
+ <7d70f893-ee75-d355-4b4c-4afe7a72cd7c@linaro.org>
+ <5f794f6d3595e845433aab3c48eb47ec7962c929.camel@mediatek.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <5f794f6d3595e845433aab3c48eb47ec7962c929.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <169079095479.15375.221983064967477986@server11.hostfactory.ch>
-X-PPP-Vhost: weiss.ch
-X-Originating-IP: 185.117.169.60
-X-SpamExperts-Domain: outboundprotection.hostfactory.ch
-X-SpamExperts-Username: 185.117.169.60
-Authentication-Results: hostfactory.ch;
- auth=pass smtp.auth=185.117.169.60@outboundprotection.hostfactory.ch
-X-SpamExperts-Outgoing-Class: ham
-X-SpamExperts-Outgoing-Evidence: Combined (0.03)
-X-Recommended-Action: accept
-X-Filter-ID: 
- Pt3MvcO5N4iKaDQ5O6lkdGlMVN6RH8bjRMzItlySaT/v5gw5Bj8X7znB33xs9AkSPUtbdvnXkggZ
- 3YnVId/Y5jcf0yeVQAvfjHznO7+bT5ynOqv5wVH0VS/etXvrFNNzaJlM0GUlwLkcZrRacppWhTh3
- wKoTBNAKgp9qBcKLgDljPyzCxIJm7qFlTroi9VKv/7Rl0Dd5eFQ0eM8i42SsSUGlz8CJSOMrvzx9
- TVg3RkWy7Ls4xhzpxJSfEMyKpBejp8jZ4AoGBlDR94YkH0RjFcsS2wyX4wFvfD5xwAerAR9lOVrL
- YTpDlVt2LhrK2BfEQs6EgGedxeuvfrMrARjFPJ3lBFw+LV6wnDcfFauiy+Lk/agSvtgte2zCXW1J
- lwXnj0ssQ2zaCgcDlOW2+OI0GErqhy+tapdwJ8uKml1tG0Pt3JsC5e/DlYVV9jqBtc/t9a3fvBg8
- I7q5hFKojyxxcVkDWpg3cUqnTXK7+jR2jt1xuwt6BW/LqWzUw+fkjzpuRAwX31WVY5lWjWxuGSRu
- xdeJD5/Wl4aBF+CY0mxh2pSR7yU2QIWCTCd5A9CNaN6pRWtLR0Mn2ASypXTCTfApisVZPVE5xgLw
- XEbnvqUcIYd16SviU/hmLrTy1VycMwgpTs2BZNjhN1NaK5LAGwujj33UzKaibcXCMztdU5OxbHAz
- rxMg36Jn7L4UIiMZgOGil2hsR99u5gXb6tWyU4Ig+a0jiD6XqsJZtjQxlyCdseymPsqA/MgizJkV
- qUxNFwNbUVQZ8xQOuo4fYBRy2FkvJmCmBVe5XMOAlSRlbQZgZJ1j0ghCgB3AKCQEmRSv27dfKvwb
- djke7SVxrvd2rXpB6h10JasFF7nZ+HZyDM5LbjKLBDMrD7q/cJogwbqzsuokElxJQcW/WnRbTnfF
- ZOkvKQEIPw6tv9DLy61IWO0M+Bi2lDCA27D0U+E3L7MVZDzO36h/+jrJDtL4ordoQsktTiG7X+t1
- TW39Ja77LGPpOwAp9N5KNpiiRi8pDUA3EXwVZsUrO1pQLFulr+0XJFLCc5JBDg/DuVS+6bxvXd/7
- letIjrtpibSb/SyV2tgPvU99YyY/YbCBRYqzuKqmj3A3J8ouFAUyHyD8hLK/N/PWsNsAev5dTaeU
- 7SGsgkr4dGkXW6U4t9vNE4trlxFztZQ7GV5HQgbCLag5FuwzUW6yemp60T2QcASMfkrWmSkl0pF8
- dj8luXC7km26QtXP9s02LA==
-X-Report-Abuse-To: spam@asave01.hostfactory.ch
-Message-ID-Hash: LZX5B42ALESGDYBWP4CQPNMY6CDHK6K4
-X-Message-ID-Hash: LZX5B42ALESGDYBWP4CQPNMY6CDHK6K4
-X-MailFrom: michele.perrone@weiss.ch
+Message-ID-Hash: NLBEQ6ZQZZZKRU2IBCSLVVQ2NR4IYSIR
+X-Message-ID-Hash: NLBEQ6ZQZZZKRU2IBCSLVVQ2NR4IYSIR
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LZX5B42ALESGDYBWP4CQPNMY6CDHK6K4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NLBEQ6ZQZZZKRU2IBCSLVVQ2NR4IYSIR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,147 +145,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Dear Mr. Sakamoto,
-
-thank you very much for the prompt feedback, and also for your 
-contributions to
-the Linux audio Firewire stack during the last decade.
-
-We at Weiss Engineering would like to improve Linux support for our Firewire
-devices in order to extend their lifetimes. We have also occasionally 
-received
-requests for Linux compatibility from some customers.
-
-This is also motivated by the fact that the old DICE Apple driver, which was
-originally developed by TCAT, is not maintained anymore and does not work on
-Apple Silicon computers. Therefore, we would like to give the alternative of
-running our devices on Linux if the customers decide to do.
-
-We are also working on a update for our old music archive network player
-(MAN301), which uses a DICE chip to interface with its DAC; so it seemed 
-only
-fair that owners of all Weiss devices based on DICE benefited from this.
-
-Sorry for mistakes 1, 2, and 3 (you can tell it's my first kernel patch).
-And I indeed forgot to include the snd_dice_detect_weiss_formats() prototype
-into the patch submittal.
-
-About the 4th issue, yes, the 'category_id' is still correct [1].
-
-About the 5th issue, you are right both about the wrong tx/rx direction and
-the absence of isochronous packets from the device. I checked the DICE
-firmware code for the INT202 and we are indeed sending isochronous 
-packets from
-the device. Therefore, the correct stream formats should look like this:
-
-+/* Weiss INT202: 192kHz unidirectional 2-channel digital Firewire interface
-*/
-+static const struct dice_weiss_spec int202 = {
-+    .tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-+    .rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-+    .has_midi   = false
-+};
-
-I tested this configuration with XLR and RCA outputs, and it works 
-correctly.
-Sorry for the mistake, I don't have a deep knowledge about the old DICE
-firmware because I've started working at Weiss Engineering only recently.
-
-About the configuration ROMs, that shouldn't be an issue; let me get back to
-you as soon as I speak with my colleague, Rolf Anderegg. He has worked 
-on our
-DICE devices in the past but he's on vacation right now.
-
-Yet another topic is AVC support. We used to have support for it for the 
-DICE
-driver in the 3.x kernel, and we are in the process of re-adapting that 
-code.
-But this should be probably discussed in a separate e-mail.
-
-[1]: 
-https://github.com/torvalds/linux/commit/a471fcde8c2c4b65f110bb4210af3513ee4deeb8
-
-Kind regards,
-Michele Perrone
-
-
-On 28/07/23 15:13, Takashi Sakamoto wrote:
-> ei,
->
-> On Fri, Jul 28, 2023 at 11:16:11AM +0200, Michele Perrone wrote:
->> Hard-coded stream format parameters are added for Weiss Engineering
->> FireWire devices. When the device vendor and model match, the parameters
->> are copied into the stream format cache. This allows for setting all
->> supported sampling rates up to 192kHz, and consequently adjusting the
->> number of available I/O channels.
+On 31/07/2023 09:31, Maso Huang (黃加竹) wrote:
+> On Fri, 2023-07-28 at 14:49 +0200, Krzysztof Kozlowski wrote:
+>>  	 
+>> External email : Please do not click links or open attachments until
+>> you have verified the sender or the content.
+>>  On 28/07/2023 11:08, Maso Huang wrote:
+>>> Add document for mt7986 board with wm8960.
+>>>
+>>> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
+>>> ---
+>>>  .../sound/mediatek,mt7986-wm8960.yaml         | 53
+>> +++++++++++++++++++
+>>>  1 file changed, 53 insertions(+)
+>>>  create mode 100644
+>> Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
+>>>
+>>> diff --git
+>> a/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml 
+>> b/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
+>>> new file mode 100644
+>>> index 000000000000..76394f7e5502
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-
+>> wm8960.yaml
+>>> @@ -0,0 +1,53 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: 
+>> http://devicetree.org/schemas/sound/mediatek,mt7986-wm8960.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: MediaTek MT7986 sound card with WM8960 codec
+>>> +
+>>> +maintainers:
+>>> +  - Maso Huang <maso.huang@mediatek.com>
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: mediatek,mt7986-wm8960-machine
+>>> +
+>>> +  mediatek,platform:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description: The phandle of MT7986 platform.
+>>> +
+>>> +  audio-routing:
+>>> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>>> +    description:
+>>> +      A list of the connections between audio components. Each
+>> entry is a
+>>> +      sink/source pair of strings. Valid names could be the input
+>> or output
+>>> +      widgets of audio components, power supplies, MicBias of
+>> codec and the
+>>> +      software switch.
+>>> +
+>>> +  mediatek,audio-codec:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description: The phandle of wm8960 codec.
+>>> +
 >>
->> Signed-off-by: Rolf Anderegg <rolf.anderegg@weiss.ch>
->> Signed-off-by: Michele Perrone <michele.perrone@weiss.ch>
->> ---
->>   sound/firewire/dice/Makefile     |   2 +-
->>   sound/firewire/dice/dice-weiss.c | 120 +++++++++++++++++++++++++++++++
->>   sound/firewire/dice/dice.c       |  72 +++++++++++++++++++
->>   3 files changed, 193 insertions(+), 1 deletion(-)
->>   create mode 100644 sound/firewire/dice/dice-weiss.c
-> Thanks for the patch. I've been waiting so long for such patches to
-> support Weiss models. I welcome them.
->
-> As long as reviewing, I found some format and technical issues on the
-> patches:
->
-> Format issues:
-> 1.unexpected line break
-> 2.tab indentations are replaced with spaces
->
-> Technical issues:
-> 3.build error due to missing snd_dice_detect_weiss_formats()
->    * prototype of snd_dice_detect_weiss_formats() should be in dice.c
-> 4. category_id in GUID
-> 5.stream formats for INT202
->
-> I can correct 1st, 2nd, and 3rd issues. You can find the revised patch
-> in the top-most of my remote repository[1].
->
-> Let me confirm the 4th issue. TCAT defines 'category_id' field in GUID
-> value of devices. As long as I know, Weiss engineers uses 0x00 in the
-> field[2]. Is it still correct for the devices supported in the patch?
->
-> Next, let us discuss about INT202 stream formats.
->
-> +
-> +/* Weiss INT202: 192kHz unidirectional 2-channel digital Firewire interface
-> */
-> +static const struct dice_weiss_spec int202 = {
-> +    .tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +    .rx_pcm_chs = {{0, 0, 0}, {0, 0, 0} },
-> +    .has_midi   = false
-> +};
->
-> (tx/rx should be device-oriented, tx = from device, rx = to device,
-> please correct)
->
-> I assume all of the DICE devices transmit isochronous packets to deliver
-> presentation time stamp and events (= PCM frames). Then driver software
-> utilizes the presentation time stamp and the amount of events to construct
-> payload of isochronous packets into the device.
->
-> I program ALSA dice driver based on the assumption, thus ALSA dice driver
-> doesn't work well without receiving any isochronous packet from the
-> device. However, the stream formats for INT202 device looks to support
-> uni-directional operation. Weiss engineers really use DICE chipset like
-> that? If so, I need to integrate the driver to support the case.
->
->
-> As another topic. I make collection of configuration ROMs[3] to make better
-> support for the devices in Linux system[4]. I'm pleased if you pick them
-> up from your devices and dedicate them for the collection.
->
-> [1] https://github.com/takaswie/sound/tree/topic/dice/weiss-support
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/tree/sound/firewire/dice/dice.c?h=v6.4#n59
-> [3] https://github.com/takaswie/am-config-roms/
-> [4] https://github.com/systemd/systemd/blob/main/hwdb.d/80-ieee1394-unit-function.hwdb
->
->
-> Thanks
->
-> Takashi Sakamoto
+>> How did you implement Rob's comment? Or did you just ignore it?
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
+> Hi Krzysztof,
+> 
+> Sorry, I did not mean to ignore Rob's comment.
+> I waited for some suggestion in mail below, but it seems Rob was a
+> little busy.
+> 
+> https://lore.kernel.org/lkml/8c6316e79e40406e4d46709f602dcb14a4c00562.camel@mediatek.com/
+> 
+> After gentle ping last week and receiving your advice, I thought that
+> means to send the v3 patch and might discuss dtbingding in v3 series.
+> 
+> So sorry for misunderstanding it, I'll check the details with Rob in v3
+> series then refine it in v4.
+
+The problem is that you did not reference in this patch any ongoing
+discussion and further questions, so comment looks like addressed, while
+it was not.
+
+Rob said:
+"in a common schema and reference them "
+You said:
+"common part yaml and reference to it"
+so I think you both agreed on the same.
+
+The advice would be to create common binding which is then referenced by
+other and your bindings. However if you start doing it, you will notice
+that it is impossible, because you have conflicting types for
+"audio-codec", so you cannot have one definition.
+
+This leads to the point - property is probably wrong and you need
+dai-link with sound-dai property, just like most cards are doing.
+
+Best regards,
+Krzysztof
+

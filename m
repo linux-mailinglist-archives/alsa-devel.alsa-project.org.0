@@ -2,91 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F53C7690AE
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 10:47:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8943176920C
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:44:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21C9F6C0;
-	Mon, 31 Jul 2023 10:46:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21C9F6C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57ADC82B;
+	Mon, 31 Jul 2023 11:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57ADC82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690793253;
-	bh=q8SJvmTRN/QrgEBLtmSIU3TUp+MWJ40CCg6CQ8CCKx0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WYaOCKsztfkoYDA6fgZ2i/OWynKp+CLfx/O0Wm43JNAmUDd6GPsyteaeZ0hCH2p2X
-	 N+YBKm05hOfJV3ou/dV3+/wkBtfrhzbcuSAhPIXbkrL2v/ybKmuUDjvXClbVOz4mB2
-	 YyMuWoxjWx4OmeUWE/GMHIrXD1Mogz7864kRdaFA=
+	s=default; t=1690796655;
+	bh=9ln7pdZlK75IyVn7AJylDrsXhRxK3CfcNNSZ+7BgHOg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iiZSwCZMHhIrXa2OgP7OrvXvu1y8I/absse+36lQCC9+2T5yWd1KfprXCVFkgRegN
+	 wJpdLBZLw9j4KGRMMm18cFmmxtoHOTkrkdaIbUlkpw5OjIO9+N+wMO2wY/sH119aqf
+	 GCihOdYjZMM2MGjE5Waxj/7Mj47mO1GmIaGr/BQk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92EEEF80163; Mon, 31 Jul 2023 10:45:49 +0200 (CEST)
+	id EA805F8053B; Mon, 31 Jul 2023 11:43:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52DFEF80579;
-	Mon, 31 Jul 2023 10:45:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7036DF8016D;
+	Mon, 31 Jul 2023 11:43:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19ADBF8055C; Mon, 31 Jul 2023 10:45:45 +0200 (CEST)
+	id C2196F8016D; Mon, 31 Jul 2023 11:43:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (unknown [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 288B7F80163
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 10:45:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 288B7F80163
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5552BF80149
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 11:43:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5552BF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XPYF09tZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690793131; x=1722329131;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=q8SJvmTRN/QrgEBLtmSIU3TUp+MWJ40CCg6CQ8CCKx0=;
-  b=XPYF09tZObQ9Jk/cjTwhNzv/IEk0evfSigBooWCA3fFTw3oCcyTi2qmO
-   p4uJC6hx7o1dZkXrS6oIMVKAIrWTPV6PD08lJ+BWRTp7QvfxU0odcLtti
-   1E/CRR3xq3sXfMH6mCxA2q79os2YV/XvkpiwGmlrX/XfyszpolxCWTHBA
-   zS1ZS82B74WbTH5SGoLuhMUiXKcPEPmQsevUSusvO8Pj7qf/49AVaKJev
-   fHE4WXKirsiu4dxvTh18dMj5T9F521ZRokV5LYEmOGYM1qIW7TOvGzkni
-   ZOReYT7byJfmwHS2YSK2BjCFeElJEaH2MpcldgER7iM61rtC51qgfXDhR
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="348557536"
-X-IronPort-AV: E=Sophos;i="6.01,244,1684825200";
-   d="scan'208";a="348557536"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 01:45:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="678232351"
-X-IronPort-AV: E=Sophos;i="6.01,244,1684825200";
-   d="scan'208";a="678232351"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2023 01:45:25 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Cc: vinod.koul@linaro.org,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=JRaT/+kf
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-4fe28f92d8eso2275774e87.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 31 Jul 2023 02:43:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690796592; x=1691401392;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kdDSWpR2PwAaVc6xrPLUrP7cY8hR/WC31iRh9xFaQkU=;
+        b=JRaT/+kfL9uh8R15DPTFuDwkvjklHTznvty/KmRSZmAoyGr1+CR9ocuL4kvmw/UjGk
+         DJBS0rdn4ScZW5MInEzcVFhbv9GKdTDpJaBzNw0+/WzGByly5NW1xh/6u8bLsw9mtejZ
+         +rpLlG+09SagscOFEVnloXPJDybDA5EO57eet55qG0VZVuYHDpeI8C60dzhPYcWcUpSX
+         uW2370rK4gNIz6U2gPWBqCl5MRXooZ9CoM7efLE+ynZNjnJlunqSxScERrES7yClxhNT
+         37irKwNHH3pa2PC1EXEellvCP2cqF/V5/7TLqTXj/ZTgIkZtTQj025MlucYHe8QE+A1G
+         KT3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690796592; x=1691401392;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kdDSWpR2PwAaVc6xrPLUrP7cY8hR/WC31iRh9xFaQkU=;
+        b=BBMEJu5KEAdB5RB7aqMIzG/k3caL96QtrP69h4Z+YuqKIuztNKMq6MOi8BbFNHnarR
+         bT5CaDHdD+l3aNYxgG4Orb2ZSvsx1fJb9sKBsAncn1cKK+WkAAgRQfCvg0zwr/uhqd3n
+         LTYtk67pGGQTOzly7XnzMqeI4sKWyKOLcIynWCG25ZetJOACsxc0h4GJi2AWutegqxhD
+         SG2XVfPfQvCVPLxCzfKqaaASIfQ3QdqLy+IX8iboA2Cnas0AysZux7ziqH+BJDYxsvk4
+         57Bxp6OHW7TJsi/vozo//2fuQbmHPDQg642H9yreePeqO+4txX7JOtxqTydeixGTKhV6
+         PI9A==
+X-Gm-Message-State: ABy/qLb4MPUmm7AbwiycXoPddhmksuBLUiM0A2rSjuC8hjm1mzf9o8Hg
+	0QS1LUCsYjF3hG+uHqQ1MJCi7w==
+X-Google-Smtp-Source: 
+ APBJJlGki+SUDXYM8c3BbgK1LnBv0fjF2tGeoHiwrwf2124G5mJuEpJE4OQC/hLu1Gd0rntkBAJgrQ==
+X-Received: by 2002:a05:6512:1c5:b0:4f8:766f:8dc3 with SMTP id
+ f5-20020a05651201c500b004f8766f8dc3mr4904749lfp.32.1690796591857;
+        Mon, 31 Jul 2023 02:43:11 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.222.183])
+        by smtp.gmail.com with ESMTPSA id
+ z17-20020a170906815100b0099bcdfff7cbsm5867547ejw.160.2023.07.31.02.43.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Jul 2023 02:43:11 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Jerome Brunet <jbrunet@baylibre.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	NXP Linux Team <linux-imx@nxp.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Rohit kumar <quic_rohkumar@quicinc.com>,
+	Cheng-Yi Chiang <cychiang@chromium.org>,
+	Rao Mandadapu <srivasam@codeaurora.org>,
+	Judy Hsiao <judyhsiao@chromium.org>,
+	Trevor Wu <trevor.wu@mediatek.com>,
+	Jonathan Bakker <xc-racer2@live.ca>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH v2 3/3] soundwire: intel_auxdevice: add hybrid IDA-based
- device_number allocation
-Date: Mon, 31 Jul 2023 17:13:33 +0800
-Message-Id: <20230731091333.3593132-4-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230731091333.3593132-1-yung-chuan.liao@linux.intel.com>
-References: <20230731091333.3593132-1-yung-chuan.liao@linux.intel.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 00/12] ASoC: dt-bindings: Add sound-card-common.yaml
+Date: Mon, 31 Jul 2023 11:42:51 +0200
+Message-Id: <20230731094303.185067-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Q7MJF34O6RVWIY7JQ5QK7WPP53SQHYKD
-X-Message-ID-Hash: Q7MJF34O6RVWIY7JQ5QK7WPP53SQHYKD
-X-MailFrom: yung-chuan.liao@linux.intel.com
+Message-ID-Hash: C5ZFHMCV5JJWBWZFBDIDUMOVNONK6QEP
+X-Message-ID-Hash: C5ZFHMCV5JJWBWZFBDIDUMOVNONK6QEP
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q7MJF34O6RVWIY7JQ5QK7WPP53SQHYKD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5ZFHMCV5JJWBWZFBDIDUMOVNONK6QEP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,171 +142,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Hi,
 
-The IDA-based allocation is useful to simplify debug, but it was also
-introduced as a prerequisite to deal with the Intel Lunar Lake
-hardware programming sequences: the wake-ups have to be handled with a
-system-unique SDI address at the HDaudio controller level.
+Almost every board machine / sound cards has "audio-routing" and "model"
+properties, so we can make things simpler by introducing one common
+binding.  It is also expected that given property has only one definition.
 
-At the time, the restriction introduced by the IDA to 8 devices total
-seemed perfectly fine, but recently hardware vendors created
-configurations with more than 8 devices.
+If the patchset looks good, then the next steps will be:
+1. Convert more vendor audio-routing properties to audio-routing,
+2. Add dai-links children to common binding.
 
-Add a new allocation strategy to allow for more than 8 devices using
-information on the type of devices, and only use the IDA-based
-allocation for devices capable of generating a wake.
+Best regards,
+Krzysztof
 
-In theory the information on wake capabilities should come from
-firmware, but none of the existing ACPI tables provide it. The drivers
-set the 'wake_capable' property, but this cannot be used reliably: if
-the driver probe happens *after* the enumeration, then that property
-is not initialized yet. Trying to modify the device_number on-the-fly
-proved to be an impossible task generating race conditions left and
-right.
+Krzysztof Kozlowski (12):
+  ASoC: dt-bindings: amlogic,gx-sound-card: correct maxItems constraints
+  ASoC: dt-bindings: Add common sound card properties
+  ASoC: dt-bindings: mediatek,mt8188-mt6359: use common sound card
+  ASoC: dt-bindings: samsung,aries-wm8994: use common sound card
+  ASoC: dt-bindings: samsung,midas-audio: use common sound card
+  ASoC: dt-bindings: samsung,odroid: use common sound card
+  ASoC: dt-bindings: samsung,tm2: use common sound card
+  ASoC: samsung: odroid: use of_property_present to check for property
+  ASoC: samsung: aries_wm8994: parse audio-routing
+  ASoC: samsung: midas_wm1811: parse audio-routing
+  ASoC: samsung: odroid: parse audio-routing
+  ASoC: samsung: tm2_wm5110: parse audio-routing
 
-The only reliable work-around to control the enumeration is to add a
-quirk table. It's ugly but until platform firmware improves, hopefully as a
-result of MIPI/SDCA stardization, we can expect that quirk table to
-grow for each new headset or microphone codec.
+ .../sound/amlogic,axg-sound-card.yaml         | 15 +++--------
+ .../bindings/sound/amlogic,gx-sound-card.yaml | 16 +++++------
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml  | 17 +++---------
+ .../bindings/sound/google,sc7180-trogdor.yaml | 17 +++---------
+ .../sound/google,sc7280-herobrine.yaml        | 17 +++---------
+ .../bindings/sound/imx-audio-card.yaml        | 18 +++----------
+ .../sound/mediatek,mt8188-mt6359.yaml         | 17 +++++-------
+ .../bindings/sound/samsung,aries-wm8994.yaml  | 16 +++++------
+ .../bindings/sound/samsung,midas-audio.yaml   | 16 +++++------
+ .../bindings/sound/samsung,odroid.yaml        | 14 +++++-----
+ .../bindings/sound/samsung,tm2.yaml           | 16 +++++------
+ .../bindings/sound/sound-card-common.yaml     | 27 +++++++++++++++++++
+ sound/soc/samsung/aries_wm8994.c              | 10 ++++---
+ sound/soc/samsung/midas_wm1811.c              | 10 ++++---
+ sound/soc/samsung/odroid.c                    | 15 ++++++-----
+ sound/soc/samsung/tm2_wm5110.c                | 10 ++++---
+ 16 files changed, 119 insertions(+), 132 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/sound-card-common.yaml
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/intel_auxdevice.c | 72 +++++++++++++++++++++++++----
- include/linux/soundwire/sdw_intel.h |  7 +++
- 2 files changed, 69 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
-index 9d998a010162..238025a0e35c 100644
---- a/drivers/soundwire/intel_auxdevice.c
-+++ b/drivers/soundwire/intel_auxdevice.c
-@@ -23,9 +23,6 @@
- #include "intel.h"
- #include "intel_auxdevice.h"
- 
--/* IDA min selected to avoid conflicts with HDaudio/iDISP SDI values */
--#define INTEL_DEV_NUM_IDA_MIN           4
--
- #define INTEL_MASTER_SUSPEND_DELAY_MS	3000
- 
- /*
-@@ -44,6 +41,39 @@ static int md_flags;
- module_param_named(sdw_md_flags, md_flags, int, 0444);
- MODULE_PARM_DESC(sdw_md_flags, "SoundWire Intel Master device flags (0x0 all off)");
- 
-+struct wake_capable_part {
-+	const u16 mfg_id;
-+	const u16 part_id;
-+};
-+
-+static struct wake_capable_part wake_capable_list[] = {
-+	{0x025d, 0x5682},
-+	{0x025d, 0x700},
-+	{0x025d, 0x711},
-+	{0x025d, 0x1712},
-+	{0x025d, 0x1713},
-+	{0x025d, 0x1716},
-+	{0x025d, 0x1717},
-+	{0x025d, 0x712},
-+	{0x025d, 0x713},
-+	{0x025d, 0x714},
-+	{0x025d, 0x715},
-+	{0x025d, 0x716},
-+	{0x025d, 0x717},
-+	{0x025d, 0x722},
-+};
-+
-+static bool is_wake_capable(struct sdw_slave *slave)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(wake_capable_list); i++)
-+		if (slave->id.part_id == wake_capable_list[i].part_id &&
-+		    slave->id.mfg_id == wake_capable_list[i].mfg_id)
-+			return true;
-+	return false;
-+}
-+
- static int generic_pre_bank_switch(struct sdw_bus *bus)
- {
- 	struct sdw_cdns *cdns = bus_to_cdns(bus);
-@@ -66,14 +96,26 @@ static void generic_new_peripheral_assigned(struct sdw_bus *bus,
- {
- 	struct sdw_cdns *cdns = bus_to_cdns(bus);
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
-+	int dev_num_min;
-+	int dev_num_max;
-+	bool wake_capable = slave->prop.wake_capable || is_wake_capable(slave);
-+
-+	if (wake_capable) {
-+		dev_num_min = SDW_INTEL_DEV_NUM_IDA_MIN;
-+		dev_num_max = SDW_MAX_DEVICES;
-+	} else {
-+		dev_num_min = 1;
-+		dev_num_max = SDW_INTEL_DEV_NUM_IDA_MIN - 1;
-+	}
- 
- 	/* paranoia check, this should never happen */
--	if (dev_num < INTEL_DEV_NUM_IDA_MIN || dev_num > SDW_MAX_DEVICES)  {
--		dev_err(bus->dev, "%s: invalid dev_num %d\n", __func__, dev_num);
-+	if (dev_num < dev_num_min || dev_num > dev_num_max)  {
-+		dev_err(bus->dev, "%s: invalid dev_num %d, wake supported %d\n",
-+			__func__, dev_num, slave->prop.wake_capable);
- 		return;
- 	}
- 
--	if (sdw->link_res->hw_ops->program_sdi)
-+	if (sdw->link_res->hw_ops->program_sdi && wake_capable)
- 		sdw->link_res->hw_ops->program_sdi(sdw, dev_num);
- }
- 
-@@ -129,14 +171,24 @@ static DEFINE_IDA(intel_peripheral_ida);
- 
- static int intel_get_device_num_ida(struct sdw_bus *bus, struct sdw_slave *slave)
- {
--	return ida_alloc_range(&intel_peripheral_ida,
--			       INTEL_DEV_NUM_IDA_MIN, SDW_MAX_DEVICES,
--			       GFP_KERNEL);
-+	int bit;
-+
-+	if (slave->prop.wake_capable || is_wake_capable(slave))
-+		return ida_alloc_range(&intel_peripheral_ida,
-+				       SDW_INTEL_DEV_NUM_IDA_MIN, SDW_MAX_DEVICES,
-+				       GFP_KERNEL);
-+
-+	bit = find_first_zero_bit(slave->bus->assigned, SDW_MAX_DEVICES);
-+	if (bit == SDW_MAX_DEVICES)
-+		return -ENODEV;
-+
-+	return bit;
- }
- 
- static void intel_put_device_num_ida(struct sdw_bus *bus, struct sdw_slave *slave)
- {
--	return ida_free(&intel_peripheral_ida, slave->dev_num);
-+	if (slave->prop.wake_capable || is_wake_capable(slave))
-+		ida_free(&intel_peripheral_ida, slave->dev_num);
- }
- 
- static struct sdw_master_ops sdw_intel_ops = {
-diff --git a/include/linux/soundwire/sdw_intel.h b/include/linux/soundwire/sdw_intel.h
-index 11fc88fb0d78..3a824cae7379 100644
---- a/include/linux/soundwire/sdw_intel.h
-+++ b/include/linux/soundwire/sdw_intel.h
-@@ -433,4 +433,11 @@ struct sdw_intel_hw_ops {
- extern const struct sdw_intel_hw_ops sdw_intel_cnl_hw_ops;
- extern const struct sdw_intel_hw_ops sdw_intel_lnl_hw_ops;
- 
-+/*
-+ * IDA min selected to allow for 5 unconstrained devices per link,
-+ * and 6 system-unique Device Numbers for wake-capable devices.
-+ */
-+
-+#define SDW_INTEL_DEV_NUM_IDA_MIN           6
-+
- #endif
 -- 
-2.25.1
+2.34.1
 

@@ -2,129 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC55768FCF
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 10:15:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D4476909E
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 10:46:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A88C823;
-	Mon, 31 Jul 2023 10:14:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A88C823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31C45827;
+	Mon, 31 Jul 2023 10:45:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31C45827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690791326;
-	bh=3PD36y9crYcVbmBKlcqUT9WweOtIyMFBC2i870IXZsE=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=EZ91/qxVDZfNh4SrdMA+pS8xvv3bZnCrexqIcI43bUgEtklPtNFgPhKqffIagi7Gf
-	 rHk6zh8627cd9+dlw43AsH2yMvfAJrgM0no/UrecpGwSRcifYCoPnEVSpNCBaMicd+
-	 J//2iKAAECZ9cTuSglXI569K65XH4nNNZXBKuP8k=
+	s=default; t=1690793190;
+	bh=LNv+VnT3QZhrJhTeH4mAsNhZCJHGfzshQLFDmQm7ORQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Fs7VDd4X3o4yAt/BD7DsvE0qtBbDUYsEKRg18b41cg78jk2fP4XVarCUM0nn9ZHZM
+	 +/8VnEJ/9x/bZbPvWw2jEq5pSeVxtENYdf7upDv+6HirX64rBhlRA6HSCdJq1j6ioU
+	 IVj0szkDf15wt5PqrmAUswTFzRQF2SkOMN6280HU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AC67F8016D; Mon, 31 Jul 2023 10:14:35 +0200 (CEST)
+	id 1F7FFF80544; Mon, 31 Jul 2023 10:45:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BE1EF80149;
-	Mon, 31 Jul 2023 10:14:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63F35F801D5;
+	Mon, 31 Jul 2023 10:45:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA780F8016D; Mon, 31 Jul 2023 10:14:32 +0200 (CEST)
+	id DD9C3F80425; Mon, 31 Jul 2023 10:45:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (unknown [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8653F80149
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 10:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8653F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id BFEC6F8015B
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 10:45:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFEC6F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QTPoqYTC
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-51a52a7d859so11345579a12.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 31 Jul 2023 01:14:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690791265; x=1691396065;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=p6rcZPwVJBWeYJ6kXZi9yA1FdLwGokDC5tlnkatV15w=;
-        b=QTPoqYTCsActNvpiAsIPcOEkIha2cz1+i9EOrcWeVuAQqRzbD3Hp5oHPMMY04ggq1M
-         nb4yyl+8vcvkiM6/JOorvvZp1HReTdhzm49qyaeTOLRzfaMpTO4kCqEAGSwHnglglu7G
-         9efwAZ/KTTYT8NhsP5q9zsmcKy9sM9ibjUTw9OgEU/xN4eSet842XCNdRIIRxyp2oEig
-         tbjADNqkvsW8eaHlK4e5rhJXARqmxaouqn18YdFDGrB/qOvJsVXwvURJ3rJWoljvkiJi
-         LtdI+5aozZY/3fJ/P1e9EGUJlFFbUGv/9IKS2naDnAYj3UtTLw3Egf3fPWziZJlEi0ZP
-         +Bmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690791265; x=1691396065;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=p6rcZPwVJBWeYJ6kXZi9yA1FdLwGokDC5tlnkatV15w=;
-        b=D5ugACLZ/eXtoMKzMup12r7IzMqNZ1F/6qpwpdJzuwkXFi8Nr674ytJsS3hbCBP8w9
-         u282b8QC2k2edZZ8L5XCWB76YYxczhLD7VIVrX4EJqENJUaWBAgEiTROawSIbdCgEPYY
-         Xjgths/KLfESDyZpWV/3nLH1XI5ss8aWmY740/E0jwrKxN098lEPHmD6/vx0mTggbgxs
-         LWTYxwh2HeYTmxelgteQmQ0fO8Cr7YB5/KXx5e16Wv9bc5f88cOLQpIOMkbpPs7zKFDT
-         EDliPvHVkpUf1ALr1L2/jJ1yNr3YD5qsfKHa7OWQ9hXLB62bIc4mgezM4q0dYJ+gNkbG
-         n+0g==
-X-Gm-Message-State: ABy/qLYOuLJ3zEeFabGweH1YGkxKZhpn0k7LbG8KmjdBDoZNlZnmz2CS
-	pcNtyX8D5DnUb3pszNXKXwsmGA==
-X-Google-Smtp-Source: 
- APBJJlEcpNtkDOqJUGvWGXqCV6phd4Pm6wZGFOPble3FSFbPOjaBdJp/J199LjmDjTErsa3F80PoGg==
-X-Received: by 2002:a05:6402:3508:b0:51d:cf7b:c9f0 with SMTP id
- b8-20020a056402350800b0051dcf7bc9f0mr13989833edd.12.1690791265071;
-        Mon, 31 Jul 2023 01:14:25 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.222.183])
-        by smtp.gmail.com with ESMTPSA id
- w5-20020aa7d285000000b005227ead61d0sm5095073edq.83.2023.07.31.01.14.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Jul 2023 01:14:24 -0700 (PDT)
-Message-ID: <ab66c8a4-6a5e-651b-8f77-047980ebc238@linaro.org>
-Date: Mon, 31 Jul 2023 10:14:22 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=h1wLBBd4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690793127; x=1722329127;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=LNv+VnT3QZhrJhTeH4mAsNhZCJHGfzshQLFDmQm7ORQ=;
+  b=h1wLBBd4wMWxDsjAcg0BA/ulBlqEm7rQh+IJn7GR1JT2oSqwSJcoReP/
+   KfVcjjvOCy0P1NS6krBGmgAeWRJtYENv7MDIxLNaAWIgkiTStWD+dWxLn
+   vxsk9R8pzB5lAelzmA78WNUQlSEtjuTMXIUcxC3L5B0/clDYOPT5lAVsn
+   ARbVrh4Z0VGdbJvJCJTbueBF0o1ROsDrTbKlfKnhpTR0t44STq0tIOb17
+   HUpOlX8osB4zlEMwZzSvp99h49mMoGqoJS8IF/2jO5nxrzPIJ8aw0ytYh
+   k7fjK78VpcmIGT6fCbkRtJy64kySQVodQ6j/Y0fwQ51J/KogLYE11btkv
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="348557425"
+X-IronPort-AV: E=Sophos;i="6.01,244,1684825200";
+   d="scan'208";a="348557425"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2023 01:45:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="678232190"
+X-IronPort-AV: E=Sophos;i="6.01,244,1684825200";
+   d="scan'208";a="678232190"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2023 01:45:19 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Cc: vinod.koul@linaro.org,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	bard.liao@intel.com
+Subject: [PATCH v2 0/3] soundwire: allow for more than 8 devices,
+ keep IDA for wake-capable devices
+Date: Mon, 31 Jul 2023 17:13:30 +0800
+Message-Id: <20230731091333.3593132-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH v3 5/6] ASoC: dt-bindings: mediatek,mt7986-wm8960: add
- mt7986-wm8960 document
-Content-Language: en-US
-To: =?UTF-8?B?TWFzbyBIdWFuZyAo6buD5Yqg56u5KQ==?= <Maso.Huang@mediatek.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "chenxiangrui@huaqin.corp-partner.google.com"
- <chenxiangrui@huaqin.corp-partner.google.com>,
- =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- =?UTF-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsik=?=
- <Allen-KH.Cheng@mediatek.com>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "perex@perex.cz" <perex@perex.cz>, "arnd@arndb.de" <arnd@arndb.de>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <20230728090819.18038-1-maso.huang@mediatek.com>
- <20230728090819.18038-6-maso.huang@mediatek.com>
- <7d70f893-ee75-d355-4b4c-4afe7a72cd7c@linaro.org>
- <5f794f6d3595e845433aab3c48eb47ec7962c929.camel@mediatek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <5f794f6d3595e845433aab3c48eb47ec7962c929.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NLBEQ6ZQZZZKRU2IBCSLVVQ2NR4IYSIR
-X-Message-ID-Hash: NLBEQ6ZQZZZKRU2IBCSLVVQ2NR4IYSIR
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Message-ID-Hash: J766G5LMPFW6262UPTTCAWIWQWXN37HH
+X-Message-ID-Hash: J766G5LMPFW6262UPTTCAWIWQWXN37HH
+X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NLBEQ6ZQZZZKRU2IBCSLVVQ2NR4IYSIR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J766G5LMPFW6262UPTTCAWIWQWXN37HH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,105 +104,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 31/07/2023 09:31, Maso Huang (黃加竹) wrote:
-> On Fri, 2023-07-28 at 14:49 +0200, Krzysztof Kozlowski wrote:
->>  	 
->> External email : Please do not click links or open attachments until
->> you have verified the sender or the content.
->>  On 28/07/2023 11:08, Maso Huang wrote:
->>> Add document for mt7986 board with wm8960.
->>>
->>> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
->>> ---
->>>  .../sound/mediatek,mt7986-wm8960.yaml         | 53
->> +++++++++++++++++++
->>>  1 file changed, 53 insertions(+)
->>>  create mode 100644
->> Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
->>>
->>> diff --git
->> a/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml 
->> b/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
->>> new file mode 100644
->>> index 000000000000..76394f7e5502
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-
->> wm8960.yaml
->>> @@ -0,0 +1,53 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: 
->> http://devicetree.org/schemas/sound/mediatek,mt7986-wm8960.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: MediaTek MT7986 sound card with WM8960 codec
->>> +
->>> +maintainers:
->>> +  - Maso Huang <maso.huang@mediatek.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: mediatek,mt7986-wm8960-machine
->>> +
->>> +  mediatek,platform:
->>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>> +    description: The phandle of MT7986 platform.
->>> +
->>> +  audio-routing:
->>> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->>> +    description:
->>> +      A list of the connections between audio components. Each
->> entry is a
->>> +      sink/source pair of strings. Valid names could be the input
->> or output
->>> +      widgets of audio components, power supplies, MicBias of
->> codec and the
->>> +      software switch.
->>> +
->>> +  mediatek,audio-codec:
->>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>> +    description: The phandle of wm8960 codec.
->>> +
->>
->> How did you implement Rob's comment? Or did you just ignore it?
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> Hi Krzysztof,
-> 
-> Sorry, I did not mean to ignore Rob's comment.
-> I waited for some suggestion in mail below, but it seems Rob was a
-> little busy.
-> 
-> https://lore.kernel.org/lkml/8c6316e79e40406e4d46709f602dcb14a4c00562.camel@mediatek.com/
-> 
-> After gentle ping last week and receiving your advice, I thought that
-> means to send the v3 patch and might discuss dtbingding in v3 series.
-> 
-> So sorry for misunderstanding it, I'll check the details with Rob in v3
-> series then refine it in v4.
+This series suggests a hybrid strategy for device number allocation, where
+only wake-capable devices use a system-unique Device Number which will be
+used on LunarLake to handle wake-ups using the HDaudio WAKEEN and WAKESTS.
 
-The problem is that you did not reference in this patch any ongoing
-discussion and further questions, so comment looks like addressed, while
-it was not.
+Pierre-Louis Bossart (3):
+  soundwire: extend parameters of new_peripheral_assigned() callback
+  soundwire: bus: add callbacks for device_number allocation
+  soundwire: intel_auxdevice: add hybrid IDA-based device_number
+    allocation
 
-Rob said:
-"in a common schema and reference them "
-You said:
-"common part yaml and reference to it"
-so I think you both agreed on the same.
+v2:
+ - Move the device numver allocation from bus.c to intel_auxdevice.c
+ - List the codecs with wake capability in a quirk table, and assign device
+   number according to that quirk table. 
 
-The advice would be to create common binding which is then referenced by
-other and your bindings. However if you start doing it, you will notice
-that it is impossible, because you have conflicting types for
-"audio-codec", so you cannot have one definition.
+ drivers/soundwire/bus.c             | 18 +++---
+ drivers/soundwire/intel_auxdevice.c | 85 ++++++++++++++++++++++++++---
+ include/linux/soundwire/sdw.h       | 12 ++--
+ include/linux/soundwire/sdw_intel.h |  7 +++
+ 4 files changed, 99 insertions(+), 23 deletions(-)
 
-This leads to the point - property is probably wrong and you need
-dai-link with sound-dai property, just like most cards are doing.
-
-Best regards,
-Krzysztof
+-- 
+2.25.1
 

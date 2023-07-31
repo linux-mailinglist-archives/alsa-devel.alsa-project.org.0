@@ -2,129 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32566769906
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 16:08:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2313276994F
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 16:21:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6511A82A;
-	Mon, 31 Jul 2023 16:07:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6511A82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F7D37F8;
+	Mon, 31 Jul 2023 16:20:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F7D37F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690812520;
-	bh=IE4yyzEXtsHxCRraziINIfpy8FcZOw4hwE48/I4Z/4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1690813288;
+	bh=mNn0VOizETzOFA7yu7fdFC7iBUnSeAbizNAcflxS6UA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GmpF+hfgtOW/joBWvZEDT3z4LV28G0i+/UDCzQLqvUHaG0xwhbP4OcxsW1y0E6UsC
-	 2W0x5RjMMbrjqWDZgR/EV7LJ+7NNvlU4PvEqncT/YYicDyyBQHFivTX0AB1CxfDmD+
-	 7EHj1Yqehz/h3DXbaCanwarL7Nm+06Q39rTl7EcA=
+	b=oqmRM6saIxHD0jpkpc0rULhCoIc06nVVRx++Eg+WtaEYDMKfWdCgOexjL1/P2dWtl
+	 aumyDbsfgr+supPlJaeNS9tSWDrJzjTYmLywJCv6ihKa7dDCosOihOkP+NnExtPNiF
+	 wRGyn8Li7IhCk/TS0ifegXGXX9Xn6k4rNPA++q0Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50BA8F80520; Mon, 31 Jul 2023 16:07:28 +0200 (CEST)
+	id 72A9DF8016D; Mon, 31 Jul 2023 16:20:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB670F80163;
-	Mon, 31 Jul 2023 16:07:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E6BBF80163;
+	Mon, 31 Jul 2023 16:20:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D6F5F8016D; Mon, 31 Jul 2023 16:07:25 +0200 (CEST)
+	id DE4CAF8016D; Mon, 31 Jul 2023 16:20:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EDDE7F80153
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 16:07:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDDE7F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91B37F80153
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 16:20:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91B37F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm3 header.b=GzxK9bCH;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=pceFhPHw
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.nyi.internal (Postfix) with ESMTP id 6A4045C009A;
-	Mon, 31 Jul 2023 10:07:00 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute3.internal (MEProxy); Mon, 31 Jul 2023 10:07:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to;
-	 s=fm3; t=1690812420; x=1690898820; bh=en0QkfmTEV4mg1m2nXM5ooY2O
-	mHXOV5R2PM4BGiLb0s=; b=GzxK9bCHKPI5xqAneuGB4EAQM4S3TCnZIct03rh7e
-	O//drPF9f7pfYG6fXS5hgHJ5YbAS4QPotYqm7DnaxHTJZYnByVbBFe+1c7i00Fn0
-	qBvUmFmw13MP06aIRQucFQaKr5qHPP/a7oV55DA4QucBGyQv1OqpF11u55BflmSD
-	YHycJ2gmhbkqfziWC32sKVT6tdoKSuRKTttA21HQ9LGkpsxcAdB68tS0k0NRvLci
-	c5w6dSLSZ4clz0c5f/HBhp9TXtMBsTcAhKryJ9DkbCw5tXNeLj3PBIq1gSgiVNjo
-	DHNo5uFOYzwlwQRSW7+mvYHkHSM97MF/sVvzsm1k4r1vQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1690812420; x=1690898820; bh=en0QkfmTEV4mg1m2nXM5ooY2OmHXOV5R2PM
-	4BGiLb0s=; b=pceFhPHwRanWS6UVGCcDx0pgWOkN8xV3agsw939i13dgEfIqHow
-	pVArjrpAE0yTfH3PCc+F2Z+DVuMiwQxA75pVXnXC5YqWHDZ+Hc2j23fJECFZjMwh
-	JqUEJQSTdD/osgicSwPLFzUv+M0jNJcKi6MLCQTDPL+X+vgjNO5Cdq8DOazqX5kM
-	haJCXE0xlBAGeJ8NP13VgJF7da4tOYOvO0nEkoLo1//B6RDRLL9M4nPOLyl39v1O
-	7Z2S7FZqbI/IHFiI9E5EIH0Nr7dr4ErtTIpS3mN1ihvOvZwJkwouoSXcGteHhA1H
-	eYxYxK2mA+HBz4uB4YyQT22CoNfhlj8Jcrg==
-X-ME-Sender: <xms:A8DHZCDGpcxLQD-T0rTQygJhnuUmEaBgcu1xVrT7QmxX7HTiS2p5wA>
-    <xme:A8DHZMg3DMBOhNacU0aTH4nhcS1XFBb5aPkd-yOqAnzEzqjqJo0YZ1fw8L85D_ia8
-    om4ozvv-i3d0f6QfJg>
-X-ME-Received: 
- <xmr:A8DHZFnIEZMZX_SUybI5nq0D7cJ220GZvJDaTetYMvZ30Ri7R1roL4CUS9nSg0WDL8VqXMhkqzGS4O6nrPDlSEAlFYFAAbej_ow>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedviedrjeeggdeglecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtudenucfhrhhomhepvfgrkhgr
-    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
-    hjpheqnecuggftrfgrthhtvghrnhepjeejkeelffevteeikeffgeeileefkeeiudfggfei
-    jeegvdetgedvueejtedvheejnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpphhhoh
-    hrohhnihigrdgtohhmpdhgihhthhhusgdrtghomhdpughotghsrdhrshenucevlhhushht
-    vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhise
-    hsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:A8DHZAywgb0qPVARD2syeGhe6JpCV3W41XgEtQY3pRuB0MmlM7DWyg>
-    <xmx:A8DHZHSBtiO_WFn4JA9EZvNljByTz-qTicVg8_FBMPuDt0B7Cm9mWQ>
-    <xmx:A8DHZLby2ZyN5SHyftT1Hkd2h3_jbAWZd2G_n2tI970uiBzR8G_j-w>
-    <xmx:BMDHZBe5zZkQEuy0g3ZdpK3sB2jChIftfSSYT1_WtlvRdfRAcoFHAA>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Jul 2023 10:06:58 -0400 (EDT)
-Date: Mon, 31 Jul 2023 23:06:55 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Michele Perrone <michele.perrone@weiss.ch>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
-	Rolf Anderegg <rolf.anderegg@weiss.ch>,
-	Isabelle Kernhof <isabelle.kernhof@weiss.ch>
-Subject: Re: [PATCH] ALSA: dice: add stream format parameters for Weiss
- devices
-Message-ID: <20230731140655.GA367100@workstation.local>
-Mail-Followup-To: Michele Perrone <michele.perrone@weiss.ch>,
-	Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
-	Rolf Anderegg <rolf.anderegg@weiss.ch>,
-	Isabelle Kernhof <isabelle.kernhof@weiss.ch>
-References: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
- <20230728131308.GA142765@workstation.local>
- <7a0cf3fd-9e31-45e1-7aa4-97cab27dafa7@weiss.ch>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7a0cf3fd-9e31-45e1-7aa4-97cab27dafa7@weiss.ch>
-Message-ID-Hash: SW5S3Z3V57I7A6YUKXB6NVUQ6EVQD3E4
-X-Message-ID-Hash: SW5S3Z3V57I7A6YUKXB6NVUQ6EVQD3E4
-X-MailFrom: o-takashi@sakamocchi.jp
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=UkZy0YhT;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=VqS67/tP
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1BD3121AC3;
+	Mon, 31 Jul 2023 14:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690813210;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v5ccKt4H9G3+ieHTtJa59zRFAawTGeN0W2eKNb7uRU4=;
+	b=UkZy0YhTNu7nvWDDwk3Mu8GTYIv9u48JbLNgyxNQqyrB6aZnQD8+s4oOIwUP77sydV0ZUk
+	8IQ40jlvRNGJK8lVw/7YQHvX/CbFH9PeoFEsoMrLzkNid3RHpGr3a3N1l8FOR7N6O1eOTS
+	dwVA8rmdX2MLxrBm1FmgGsZN02tZsAA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690813210;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v5ccKt4H9G3+ieHTtJa59zRFAawTGeN0W2eKNb7uRU4=;
+	b=VqS67/tPI21wdGpKQDTmX+lQ1Zlb0jdWGNv5E8Y07BL2NwyYfowO3leIcH1Ua7pBvM0KB4
+	9DhWYYARTw0L+CAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD0C71322C;
+	Mon, 31 Jul 2023 14:20:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id XOL9MBnDx2QkUwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 14:20:09 +0000
+Date: Mon, 31 Jul 2023 16:20:09 +0200
+Message-ID: <87h6pkjh7q.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Marek Vasut <marex@denx.de>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,	Jeff LaBundy
+ <jeff@labundy.com>,	linux-input@vger.kernel.org,	Uwe =?ISO-8859-1?Q?Klein?=
+ =?ISO-8859-1?Q?e-K=F6nig?= <u.kleine-koenig@pengutronix.de>,	Frieder
+ Schrempf <frieder.schrempf@kontron.de>,	Manuel Traut <manuel.traut@mt.com>,
+	Thierry Reding <thierry.reding@gmail.com>,	linux-pwm@vger.kernel.org,
+	alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai
+ <tiwai@suse.com>
+Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
+In-Reply-To: <0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de>
+References: <20230512185551.183049-1-marex@denx.de>
+	<ZF7kCjKGVjsxK8ec@nixie71>
+	<0ef98ec1-6191-c72e-2362-310db7f09b84@denx.de>
+	<06379f26-ab24-85f9-783f-0c49d4291b23@denx.de>
+	<ZMdIZiC453onyeHh@google.com>
+	<873514d2ju.wl-tiwai@suse.de>
+	<63adce9a-df65-b462-9055-0ece5216d680@denx.de>
+	<87tttkjmyu.wl-tiwai@suse.de>
+	<0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: DIV6ICLIVCRD5YCPQSV6KU66YSFPHQLM
+X-Message-ID-Hash: DIV6ICLIVCRD5YCPQSV6KU66YSFPHQLM
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SW5S3Z3V57I7A6YUKXB6NVUQ6EVQD3E4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DIV6ICLIVCRD5YCPQSV6KU66YSFPHQLM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,112 +131,181 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mr. Michele,
-
-On Mon, Jul 31, 2023 at 10:09:14AM +0200, Michele Perrone wrote:
-> Dear Mr. Sakamoto,
+On Mon, 31 Jul 2023 16:05:18 +0200,
+Marek Vasut wrote:
 > 
-> thank you very much for the prompt feedback, and also for your
-> contributions to the Linux audio Firewire stack during the last decade.
-
-Thanks. Nowadays I also maintain Linux FireWire subsystem itself[1][2][3].
-
-> We at Weiss Engineering would like to improve Linux support for our
-> Firewire devices in order to extend their lifetimes. We have also
-> occasionally received requests for Linux compatibility from some
-> customers.
->
-> This is also motivated by the fact that the old DICE Apple driver, which was
-> originally developed by TCAT, is not maintained anymore and does not work on
-> Apple Silicon computers. Therefore, we would like to give the alternative of
-> running our devices on Linux if the customers decide to do.
-
-I know that no driver for 1394 OHCI hardware itself is included in recent
-MacOS anymore, regardless of hardware (x86_64/arm64). Your customer has no
-choice when continuing using their Weiss products.
-
-> We are also working on a update for our old music archive network player
-> (MAN301), which uses a DICE chip to interface with its DAC; so it seemed
-> only fair that owners of all Weiss devices based on DICE benefited from
-> this.
-
-That sounds great... However, let me note that the maintenance of Linux
-FireWire subsystem will be end in 2029, 6 years later (see the first
-reference link).
-
-> Sorry for mistakes 1, 2, and 3 (you can tell it's my first kernel patch).
-> And I indeed forgot to include the snd_dice_detect_weiss_formats() prototype
-> into the patch submittal.
->
-> About the 4th issue, yes, the 'category_id' is still correct [1].
-
-Okay. ALSA dice driver has the mechanism to check category_id field
-against known values, while the check is skipped for explicit device
-entries which the patch adds. So this is just from my curiosity
-(I forgot the mechanism in the last message).
-
-> About the 5th issue, you are right both about the wrong tx/rx direction and
-> the absence of isochronous packets from the device. I checked the DICE
-> firmware code for the INT202 and we are indeed sending isochronous packets
-> from
-> the device. Therefore, the correct stream formats should look like this:
+> On 7/31/23 14:15, Takashi Iwai wrote:
+> > On Mon, 31 Jul 2023 13:49:46 +0200,
+> > Marek Vasut wrote:
+> >> 
+> >> On 7/31/23 08:21, Takashi Iwai wrote:
+> >>> On Mon, 31 Jul 2023 07:36:38 +0200,
+> >>> Dmitry Torokhov wrote:
+> >>>> 
+> >>>> On Sat, May 13, 2023 at 11:02:30PM +0200, Marek Vasut wrote:
+> >>>>> On 5/13/23 03:51, Marek Vasut wrote:
+> >>>>>> On 5/13/23 03:12, Jeff LaBundy wrote:
+> >>>>>>> Hi Marek,
+> >>>>>> 
+> >>>>>> Hi,
+> >>>>>> 
+> >>>>>>> On Fri, May 12, 2023 at 08:55:51PM +0200, Marek Vasut wrote:
+> >>>>>>>> The PWM beeper volume can be controlled by adjusting the PWM duty cycle,
+> >>>>>>>> expose volume setting via sysfs, so users can make the beeper quieter.
+> >>>>>>>> This patch adds sysfs attribute 'volume' in range 0..50000, i.e. from 0
+> >>>>>>>> to 50% in 1/1000th of percent steps, this resolution should be
+> >>>>>>>> sufficient.
+> >>>>>>>> 
+> >>>>>>>> The reason for 50000 cap on volume or PWM duty cycle is because
+> >>>>>>>> duty cycle
+> >>>>>>>> above 50% again reduces the loudness, the PWM wave form is inverted wave
+> >>>>>>>> form of the one for duty cycle below 50% and the beeper gets quieter the
+> >>>>>>>> closer the setting is to 100% . Hence, 50% cap where the wave
+> >>>>>>>> form yields
+> >>>>>>>> the loudest result.
+> >>>>>>>> 
+> >>>>>>>> Signed-off-by: Marek Vasut <marex@denx.de>
+> >>>>>>>> ---
+> >>>>>>>> An alternative option would be to extend the userspace input
+> >>>>>>>> ABI, e.g. by
+> >>>>>>>> using SND_TONE top 16bits to encode the duty cycle in 0..50000
+> >>>>>>>> range, and
+> >>>>>>>> bottom 16bit to encode the existing frequency in Hz . Since frequency in
+> >>>>>>>> Hz is likely to be below some 25 kHz for audible bell, this fits
+> >>>>>>>> in 16bits
+> >>>>>>>> just fine. Thoughts ?
+> >>>>>>>> ---
+> >>>>>>> 
+> >>>>>>> Thanks for the patch; this seems like a useful feature.
+> >>>>>>> 
+> >>>>>>> My first thought is that 50000 seems like an oddly specific limit to
+> >>>>>>> impose
+> >>>>>>> upon user space. Ideally, user space need not even care that the
+> >>>>>>> beeper is
+> >>>>>>> implemented via PWM and why 50000 is significant.
+> >>>>>>> 
+> >>>>>>> Instead, what about accepting 0..255 as the LED subsystem does for
+> >>>>>>> brightness,
+> >>>>>>> then map these values to 0..50000 internally? In fact, the leds-pwm
+> >>>>>>> driver
+> >>>>>>> does something similar.
+> >>>>>> 
+> >>>>>> The pwm_set_relative_duty_cycle() function can map whatever range to
+> >>>>>> whatever other range of the PWM already, so that's not an issues here.
+> >>>>>> It seems to me the 0..127 or 0..255 range is a bit too limiting . I
+> >>>>>> think even for the LEDs the reason for that limit is legacy design, but
+> >>>>>> here I might be wrong.
+> >>>>>> 
+> >>>>>>> I'm also curious as to whether this function should be a rogue sysfs
+> >>>>>>> control
+> >>>>>>> limited to this driver, or a generic operation in input. For
+> >>>>>>> example, input
+> >>>>>>> already allows user space to specify the magnitude of an FF effect;
+> >>>>>>> perhaps
+> >>>>>>> something similar is warranted here?
+> >>>>>> 
+> >>>>>> See the "An alternative ..." part above, I was wondering about this too,
+> >>>>>> whether this can be added into the input ABI, but I am somewhat
+> >>>>>> reluctant to fiddle with the ABI.
+> >>>>> 
+> >>>>> Thinking about this further, we could try and add some
+> >>>>> 
+> >>>>> EV_SND SND_TONE_WITH_VOLUME
+> >>>>> 
+> >>>>> to avoid overloading EV_SND SND_TONE , and at the same time allow the user
+> >>>>> to set both frequency and volume for the tone without any race condition
+> >>>>> between the two.
+> >>>>> 
+> >>>>> The EV_SND SND_TONE_WITH_VOLUME would still take one 32bit parameter, except
+> >>>>> this time the parameter 16 LSbits would be the frequency and 16 MSbits would
+> >>>>> be the volume.
+> >>>>> 
+> >>>>> But again, here I would like input from the maintainers.
+> >>>> 
+> >>>> Beeper was supposed to be an extremely simple device with minimal
+> >>>> controls. I wonder if there is need for volume controls, etc, etc are we
+> >>>> not better moving it over to the sound subsystem. We already have:
+> >>>> 
+> >>>> 	sound/drivers/pcsp/pcsp.c
+> >>>> 
+> >>>> and
+> >>>> 
+> >>>> 	sound/pci/hda/hda_beep.c
+> >>>> 
+> >>>> there, can we have other "advanced" beepers there as well? Adding sound
+> >>>> maintainers to CC...
+> >>> 
+> >>> I don't mind it put to sound/*.  But, note that pcsp.c you pointed in
+> >>> the above is a PCM tone generator driver with a PC beep device, and it
+> >>> provides the normal SND_BEEP input only for compatibility.
+> >>> 
+> >>> Indeed there have been already many sound drivers providing the beep
+> >>> capability, and they bind with the input device using SND_BEEP.  And,
+> >>> for the beep volume, "Beep Playback Volume" mixer control is provided,
+> >>> too.
+> >> 
+> >> Uh, I don't need a full sound device to emit beeps, that's not even
+> >> possible with this hardware.
+> > 
+> > Heh, I also don't recommend that route, either :)
+> > (Though, it must be possible to create a sound device with that beep
+> > control in theory)
 > 
-> +/* Weiss INT202: 192kHz unidirectional 2-channel digital Firewire interface
-> */
-> +static const struct dice_weiss_spec int202 = {
-> +    .tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +    .rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +    .has_midi   = false
-> +};
+> I mean, I can imagine one could possibly use PCM DMA to cook samples
+> to feed some of the PWM devices so they could possibly be used to
+> generate low quality audio, as a weird limited DAC, but ... that's not
+> really generic, and not what I want.
+
+Oh I see how the misunderstanding came; I didn't mean the PCM
+implementation like pcsp driver.  The pcsp driver is a real hack and
+it's there just for fun, not for any real practical use.  
+What I meant was rather that you can create a sound device containing
+a mixer volume control that serves exactly like the sysfs or whatever
+other interface, without any PCM stream or other interface.
+
+> >> I only need to control loudness of the
+> >> beeper that is controlled by PWM output. That's why I am trying to
+> >> extend the pwm-beeper driver, which seems the best fit for such a
+> >> device, it is only missing this one feature (loudness control).
+> > 
+> > So the question is what's expected from user-space POV.  If a more
+> > generic control of beep volume is required, e.g. for desktop-like
+> > usages, an implementation of sound driver wouldn't be too bad.
+> > OTOH, for other specific use-cases, it doesn't matter much in which
+> > interface it's implemented, and sysfs could be an easy choice.
 > 
-> I tested this configuration with XLR and RCA outputs, and it works
-> correctly.
+> The whole discussion above has been exactly about this. Basically the
+> thing is, we can either have:
+> - SND_TONE (via some /dev/input/eventX) + sysfs volume control
+>   -> This is simple, but sounds racy between input and sysfs accesses
 
-Good. I revised the patch and force-pushed to the remote repository
-(747ddada9f4f).
+Hmm, how can it be racy if you do proper locking?
 
-> Sorry for the mistake, I don't have a deep knowledge about the old DICE
-> firmware because I've started working at Weiss Engineering only
-> recently.
- 
-You would have more resources about DICE chipset, and get more helps from
-your colleague than me. No worry about it, I guess. 
+> - SND_TONE + SND_TONE_SET_VOLUME
+>   -> User needs to do two ioctls, hum
+> - some new SND_TONE_WITH_VOLUME
+>   -> Probably the best option, user sets both tone frequency and volume
+>      in one go, and it also only extends the IOCTL interface, so older
+>      userspace won't have issues
 
-The rest of my concern is that TCAT protocol extension (EAP) support. In
-the extension, software can retrieve all of available stream format
-from the target device without switching mode of transmission frequency.
-If the device supports EAP, we do not necessarily to add hard-coded stream
-formats (please refer to the device entry with
-'snd_dice_detect_extension_formats()'). I would like you to check
-specification of each Weiss product whether EAP is supported or not.
+Those are "extensions" I have mentioned, and I'm not a big fan for
+that, honestly speaking.
 
-> About the configuration ROMs, that shouldn't be an issue; let me get
-> back to you as soon as I speak with my colleague, Rolf Anderegg. He has
-> worked on our DICE devices in the past but he's on vacation right now.
+The fact that the beep *output* stuff is provided by the *input*
+device is already confusing (it was so just because of historical
+reason), and yet you start implementing more full-featured mixer
+control.  I'd rather keep fingers away.
 
-Once connecting device to IEEE 1394 bus, the content of configuration
-ROM is exposed in sysfs node of Linux system. You can make a file to
-contain it by redirecting the output to the file, like:
+Again, if user-space requires the compatible behavior like the
+existing desktop usages, it can be implemented in a similar way like
+the existing ones; i.e. provide a mixer control with a proper sound
+device.  The sound device doesn't need to provide a PCM interface but
+just with a mixer interface.
 
-$ cat /sys/bus/firewire/devices/fw1/config_rom > rom.img
-
-> Yet another topic is AVC support. We used to have support for it for the
-> DICE driver in the 3.x kernel, and we are in the process of re-adapting
-> that code.
-> But this should be probably discussed in a separate e-mail.
- 
-Okay. For your information, I write user space program names as
-'snd-dice-ctl-service' as the part of 'snd-firewire-ctl-services'[4]. At
-present, it has no support for Weiss products[5], so I'm pleased if getting
-any help in your side.
-
-[1] https://git.kernel.org/torvalds/c/f3948874c340
-[2] https://www.phoronix.com/news/Linux-Firewire-New-Maintainer
-[3] https://www.phoronix.com/news/Linux-6.5-Firewire
-[4] https://github.com/alsa-project/snd-firewire-ctl-services
-[5] https://docs.rs/firewire-dice-protocols/0.2.0/firewire_dice_protocols/
+Or, if the purpose of your target device is a special usage, you don't
+need to consider too much about the existing interface, and try to
+keep the change as minimal as possible without too intrusive API
+changes.
 
 
-Thanks
-
-Takashi Sakamoto
+Takashi

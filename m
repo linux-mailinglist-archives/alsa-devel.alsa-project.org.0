@@ -2,102 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB0C768B79
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 08:01:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 569F3768BE2
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 08:22:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DC466C0;
-	Mon, 31 Jul 2023 08:00:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DC466C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 760BE823;
+	Mon, 31 Jul 2023 08:21:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 760BE823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690783276;
-	bh=DygkmzsxxhU5C3eG2i+4vQ0IFfDUXWh8EslLXGcMwMg=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BUv60nX4I4wcnQ+LZ869PkbJBBqhjSDbFNMlwDnQE6ssYtJOL6lHXicEjcPNyhnR5
-	 yNA9tTBFfdrjcMSXG1Aw20aPbXPUxyOauEGSFVLEElu8cfdjaPBrp2hCQV+QNcarqE
-	 IRawbuQ0sOKAPJx8ER29c9fDvllgJTd4szDkg5G0=
+	s=default; t=1690784534;
+	bh=pKmKxdUqG/IxFCGRitIBOZeQgBLZ/Q/Z4mnXbF+6kf4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=iXnCCJ65mfSWwKqtzEP1uhS/u6R9fYVSIzkAbh8Rf1YZEjLx7vBzXwhlIhMPt4YVw
+	 WQJqmkHlS3o2ZFkNIaM0xpLr2PfSrz7RhDW4C1zkNtM36Dhaprlp/ujvRrcqaALGL9
+	 Np9UMWVMoCfAvOXtA8fkwUxm+Bqr97tn0Iv3EqxU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43A8EF80544; Mon, 31 Jul 2023 08:00:25 +0200 (CEST)
+	id C63CAF80149; Mon, 31 Jul 2023 08:21:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90AB3F80163;
-	Mon, 31 Jul 2023 08:00:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FC4AF80163;
+	Mon, 31 Jul 2023 08:21:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8AB0CF8016D; Mon, 31 Jul 2023 08:00:16 +0200 (CEST)
+	id D08E4F8016D; Mon, 31 Jul 2023 08:21:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx1.zhaoxin.com (mx1.zhaoxin.com [210.0.225.12])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F38DF8015B
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 07:59:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F38DF8015B
-X-ASG-Debug-ID: 1690783173-086e23186c02d30001-UKjUFf
-Received: from ZXSHMBX3.zhaoxin.com (ZXSHMBX3.zhaoxin.com [10.28.252.165]) by
- mx1.zhaoxin.com with ESMTP id eLJcoea6GwdQb7d8 (version=TLSv1.2
- cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
- Mon, 31 Jul 2023 13:59:33 +0800 (CST)
-X-Barracuda-Envelope-From: TonyWWang-oc@zhaoxin.com
-X-Barracuda-RBL-Trusted-Forwarder: 10.28.252.165
-Received: from zxbjmbx1.zhaoxin.com (10.29.252.163) by ZXSHMBX3.zhaoxin.com
- (10.28.252.165) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Mon, 31 Jul
- 2023 13:59:33 +0800
-Received: from tony-HX002EA.zhaoxin.com (10.32.65.162) by zxbjmbx1.zhaoxin.com
- (10.29.252.163) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Mon, 31 Jul
- 2023 13:59:31 +0800
-X-Barracuda-RBL-Trusted-Forwarder: 10.28.252.165
-From: Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>
-X-Barracuda-RBL-Trusted-Forwarder: 10.29.252.163
-To: <perex@perex.cz>, <tiwai@suse.com>,
-	<pierre-louis.bossart@linux.intel.com>, <zhangyiqun@phytium.com.cn>,
-	<peter.ujfalusi@linux.intel.com>, <broonie@kernel.org>,
-	<TonyWWang-oc@zhaoxin.com>, <chenhuacai@kernel.org>,
-	<cezary.rojewski@intel.com>, <siyanteng@loongson.cn>,
-	<amadeuszx.slawinski@linux.intel.com>, <evan.quan@amd.com>,
-	<jasontao@glenfly.com>, <kai.vehmanen@linux.intel.com>,
-	<ranjani.sridharan@linux.intel.com>, <mkumard@nvidia.com>,
-	<alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-CC: <CobeChen@zhaoxin.com>, <TimGuo@zhaoxin.com>, <LeoLiu-oc@zhaoxin.com>
-Subject: [PATCH] ALSA: hda: Zhaoxin: Add HDAC PCI IDs and HDMI Codec Vendor
- IDs
-Date: Mon, 31 Jul 2023 13:59:32 +0800
-X-ASG-Orig-Subj: [PATCH] ALSA: hda: Zhaoxin: Add HDAC PCI IDs and HDMI Codec
- Vendor IDs
-Message-ID: <20230731055932.4336-1-TonyWWang-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.32.65.162]
-X-ClientProxiedBy: zxbjmbx1.zhaoxin.com (10.29.252.163) To
- zxbjmbx1.zhaoxin.com (10.29.252.163)
-X-Barracuda-Connect: ZXSHMBX3.zhaoxin.com[10.28.252.165]
-X-Barracuda-Start-Time: 1690783173
-X-Barracuda-Encrypted: ECDHE-RSA-AES128-GCM-SHA256
-X-Barracuda-URL: https://10.28.252.35:4443/cgi-mod/mark.cgi
-X-Virus-Scanned: by bsmtpd at zhaoxin.com
-X-Barracuda-Scan-Msg-Size: 8603
-X-Barracuda-BRTS-Status: 0
-X-Barracuda-Bayes: INNOCENT GLOBAL 0.0000 1.0000 -2.0210
-X-Barracuda-Spam-Score: -2.02
-X-Barracuda-Spam-Status: No,
- SCORE=-2.02 using global scores of TAG_LEVEL=1000.0 QUARANTINE_LEVEL=1000.0
- KILL_LEVEL=9.0 tests=
-X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.112108
-	Rule breakdown below
-	 pts rule name              description
-	---- ----------------------
- --------------------------------------------------
-Message-ID-Hash: N3RGHMAIKG5MU36E34X4SO6MHLJK2QRQ
-X-Message-ID-Hash: N3RGHMAIKG5MU36E34X4SO6MHLJK2QRQ
-X-MailFrom: TonyWWang-oc@zhaoxin.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id DD82EF80153
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 08:21:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD82EF80153
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=P3quShTI;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=eJ9CnDvP
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 00F4B1F749;
+	Mon, 31 Jul 2023 06:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690784470;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8uz9UreL669MhgY12mZE3fMA6oQ2OnCJzzU3AJy8+Mo=;
+	b=P3quShTI/SP9802brh982beWhEVRti+Mlin4ocYqCpfbtLL81e+KRY9kaqVg0H4beLHSQv
+	ZcZiYyi2Iaz7p1ChGiOruATUsnxtoj47MiEfKLC6Ib3CvqAAS+3Y9IDOrkbQgv+h7Zl+LN
+	yF1rmZltUCMQ2tIzOYPdE+wjhvuqJiQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690784470;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8uz9UreL669MhgY12mZE3fMA6oQ2OnCJzzU3AJy8+Mo=;
+	b=eJ9CnDvPEYmi+XuAA5musIwZy53yH95HKgw3o1VvJU5kw+sia3Ep1x7GBiGPJ/fn9Dz4o4
+	wnJYrnwEY7dCsYCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC4EF133F7;
+	Mon, 31 Jul 2023 06:21:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id NI35KNVSx2TaYQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 06:21:09 +0000
+Date: Mon, 31 Jul 2023 08:21:09 +0200
+Message-ID: <873514d2ju.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Marek Vasut <marex@denx.de>,	Jeff LaBundy <jeff@labundy.com>,
+	linux-input@vger.kernel.org,	Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ <u.kleine-koenig@pengutronix.de>,	Frieder Schrempf
+ <frieder.schrempf@kontron.de>,	Manuel Traut <manuel.traut@mt.com>,	Thierry
+ Reding <thierry.reding@gmail.com>,	linux-pwm@vger.kernel.org,
+	alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai
+ <tiwai@suse.com>
+Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
+In-Reply-To: <ZMdIZiC453onyeHh@google.com>
+References: <20230512185551.183049-1-marex@denx.de>
+	<ZF7kCjKGVjsxK8ec@nixie71>
+	<0ef98ec1-6191-c72e-2362-310db7f09b84@denx.de>
+	<06379f26-ab24-85f9-783f-0c49d4291b23@denx.de>
+	<ZMdIZiC453onyeHh@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: KBGUDD7Y7CNLYAR6GX4H66STQNNP7Y7K
+X-Message-ID-Hash: KBGUDD7Y7CNLYAR6GX4H66STQNNP7Y7K
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N3RGHMAIKG5MU36E34X4SO6MHLJK2QRQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBGUDD7Y7CNLYAR6GX4H66STQNNP7Y7K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,230 +126,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add newer HD Audio PCI IDs, and HDMI codec vendor IDs for Zhaoxin.
+On Mon, 31 Jul 2023 07:36:38 +0200,
+Dmitry Torokhov wrote:
+> 
+> On Sat, May 13, 2023 at 11:02:30PM +0200, Marek Vasut wrote:
+> > On 5/13/23 03:51, Marek Vasut wrote:
+> > > On 5/13/23 03:12, Jeff LaBundy wrote:
+> > > > Hi Marek,
+> > > 
+> > > Hi,
+> > > 
+> > > > On Fri, May 12, 2023 at 08:55:51PM +0200, Marek Vasut wrote:
+> > > > > The PWM beeper volume can be controlled by adjusting the PWM duty cycle,
+> > > > > expose volume setting via sysfs, so users can make the beeper quieter.
+> > > > > This patch adds sysfs attribute 'volume' in range 0..50000, i.e. from 0
+> > > > > to 50% in 1/1000th of percent steps, this resolution should be
+> > > > > sufficient.
+> > > > > 
+> > > > > The reason for 50000 cap on volume or PWM duty cycle is because
+> > > > > duty cycle
+> > > > > above 50% again reduces the loudness, the PWM wave form is inverted wave
+> > > > > form of the one for duty cycle below 50% and the beeper gets quieter the
+> > > > > closer the setting is to 100% . Hence, 50% cap where the wave
+> > > > > form yields
+> > > > > the loudest result.
+> > > > > 
+> > > > > Signed-off-by: Marek Vasut <marex@denx.de>
+> > > > > ---
+> > > > > An alternative option would be to extend the userspace input
+> > > > > ABI, e.g. by
+> > > > > using SND_TONE top 16bits to encode the duty cycle in 0..50000
+> > > > > range, and
+> > > > > bottom 16bit to encode the existing frequency in Hz . Since frequency in
+> > > > > Hz is likely to be below some 25 kHz for audible bell, this fits
+> > > > > in 16bits
+> > > > > just fine. Thoughts ?
+> > > > > ---
+> > > > 
+> > > > Thanks for the patch; this seems like a useful feature.
+> > > > 
+> > > > My first thought is that 50000 seems like an oddly specific limit to
+> > > > impose
+> > > > upon user space. Ideally, user space need not even care that the
+> > > > beeper is
+> > > > implemented via PWM and why 50000 is significant.
+> > > > 
+> > > > Instead, what about accepting 0..255 as the LED subsystem does for
+> > > > brightness,
+> > > > then map these values to 0..50000 internally? In fact, the leds-pwm
+> > > > driver
+> > > > does something similar.
+> > > 
+> > > The pwm_set_relative_duty_cycle() function can map whatever range to
+> > > whatever other range of the PWM already, so that's not an issues here.
+> > > It seems to me the 0..127 or 0..255 range is a bit too limiting . I
+> > > think even for the LEDs the reason for that limit is legacy design, but
+> > > here I might be wrong.
+> > > 
+> > > > I'm also curious as to whether this function should be a rogue sysfs
+> > > > control
+> > > > limited to this driver, or a generic operation in input. For
+> > > > example, input
+> > > > already allows user space to specify the magnitude of an FF effect;
+> > > > perhaps
+> > > > something similar is warranted here?
+> > > 
+> > > See the "An alternative ..." part above, I was wondering about this too,
+> > > whether this can be added into the input ABI, but I am somewhat
+> > > reluctant to fiddle with the ABI.
+> > 
+> > Thinking about this further, we could try and add some
+> > 
+> > EV_SND SND_TONE_WITH_VOLUME
+> > 
+> > to avoid overloading EV_SND SND_TONE , and at the same time allow the user
+> > to set both frequency and volume for the tone without any race condition
+> > between the two.
+> > 
+> > The EV_SND SND_TONE_WITH_VOLUME would still take one 32bit parameter, except
+> > this time the parameter 16 LSbits would be the frequency and 16 MSbits would
+> > be the volume.
+> > 
+> > But again, here I would like input from the maintainers.
+> 
+> Beeper was supposed to be an extremely simple device with minimal
+> controls. I wonder if there is need for volume controls, etc, etc are we
+> not better moving it over to the sound subsystem. We already have:
+> 
+> 	sound/drivers/pcsp/pcsp.c
+> 
+> and
+> 
+> 	sound/pci/hda/hda_beep.c
+> 
+> there, can we have other "advanced" beepers there as well? Adding sound
+> maintainers to CC...
 
-The quirk of AZX_DCAPS_RIRB_PRE_DELAY implies that write response
-from codec to memory needs delay when synchronized to memory after
-interrupt happened. For KX-5000 needs raising the priority of write
-cycles additionally, so add specific register setting codes for it.
+I don't mind it put to sound/*.  But, note that pcsp.c you pointed in
+the above is a PCM tone generator driver with a PC beep device, and it
+provides the normal SND_BEEP input only for compatibility.
 
-Because Zhaoxin hardware limitation, set BDL position to 128 to
-increase interrupt interval.
+Indeed there have been already many sound drivers providing the beep
+capability, and they bind with the input device using SND_BEEP.  And,
+for the beep volume, "Beep Playback Volume" mixer control is provided,
+too.
 
-Because Zhaoxin HDMI codec need driver to do actual clean-ups for
-the linked codec when switch from one codec to another, set
-no_sticky_stream for Zhaoxin HDMI codec too.
 
-Signed-off-by: Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>
----
- sound/pci/hda/hda_controller.c | 17 +++++++++++-
- sound/pci/hda/hda_controller.h |  2 ++
- sound/pci/hda/hda_intel.c      | 51 +++++++++++++++++++++++++++++++++-
- sound/pci/hda/patch_hdmi.c     | 13 +++++++++
- 4 files changed, 81 insertions(+), 2 deletions(-)
+thanks,
 
-diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
-index 406779625fb5..7b7a7735c482 100644
---- a/sound/pci/hda/hda_controller.c
-+++ b/sound/pci/hda/hda_controller.c
-@@ -1044,6 +1044,16 @@ void azx_stop_chip(struct azx *chip)
- }
- EXPORT_SYMBOL_GPL(azx_stop_chip);
- 
-+static void azx_rirb_zxdelay(struct azx *chip, int enable)
-+{
-+	if (chip->remap_diu_addr) {
-+		if (!enable)
-+			writel(0x0, (char *)chip->remap_diu_addr + 0x490a8);
-+		else
-+			writel(0x1000000, (char *)chip->remap_diu_addr + 0x490a8);
-+	}
-+}
-+
- /*
-  * interrupt handler
-  */
-@@ -1103,9 +1113,14 @@ irqreturn_t azx_interrupt(int irq, void *dev_id)
- 			azx_writeb(chip, RIRBSTS, RIRB_INT_MASK);
- 			active = true;
- 			if (status & RIRB_INT_RESPONSE) {
--				if (chip->driver_caps & AZX_DCAPS_CTX_WORKAROUND)
-+				if ((chip->driver_caps & AZX_DCAPS_CTX_WORKAROUND) ||
-+					(chip->driver_caps & AZX_DCAPS_RIRB_PRE_DELAY)) {
-+					azx_rirb_zxdelay(chip, 1);
- 					udelay(80);
-+				}
- 				snd_hdac_bus_update_rirb(bus);
-+				if (chip->driver_caps & AZX_DCAPS_RIRB_PRE_DELAY)
-+					azx_rirb_zxdelay(chip, 0);
- 			}
- 		}
- 	} while (active && ++repeat < 10);
-diff --git a/sound/pci/hda/hda_controller.h b/sound/pci/hda/hda_controller.h
-index 8556031bcd68..ba51e33329c1 100644
---- a/sound/pci/hda/hda_controller.h
-+++ b/sound/pci/hda/hda_controller.h
-@@ -45,6 +45,7 @@
- #define AZX_DCAPS_CORBRP_SELF_CLEAR (1 << 28)	/* CORBRP clears itself after reset */
- #define AZX_DCAPS_NO_MSI64      (1 << 29)	/* Stick to 32-bit MSIs */
- #define AZX_DCAPS_SEPARATE_STREAM_TAG	(1 << 30) /* capture and playback use separate stream tag */
-+#define AZX_DCAPS_RIRB_PRE_DELAY (1 << 31)	/* RIRB need delay */
- 
- enum {
- 	AZX_SNOOP_TYPE_NONE,
-@@ -145,6 +146,7 @@ struct azx {
- 
- 	/* GTS present */
- 	unsigned int gts_present:1;
-+	void __iomem *remap_diu_addr;
- 
- #ifdef CONFIG_SND_HDA_DSP_LOADER
- 	struct azx_dev saved_azx_dev;
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 176567f0d0e0..d5dce7e7ef4a 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -238,6 +238,7 @@ enum {
- 	AZX_DRIVER_CMEDIA,
- 	AZX_DRIVER_ZHAOXIN,
- 	AZX_DRIVER_LOONGSON,
-+	AZX_DRIVER_ZHAOXINHDMI,
- 	AZX_DRIVER_GENERIC,
- 	AZX_NUM_DRIVERS, /* keep this as last entry */
- };
-@@ -350,6 +351,7 @@ static const char * const driver_short_names[] = {
- 	[AZX_DRIVER_CMEDIA] = "HDA C-Media",
- 	[AZX_DRIVER_ZHAOXIN] = "HDA Zhaoxin",
- 	[AZX_DRIVER_LOONGSON] = "HDA Loongson",
-+	[AZX_DRIVER_ZHAOXINHDMI] = "HDA Zhaoxin HDMI",
- 	[AZX_DRIVER_GENERIC] = "HD-Audio Generic",
- };
- 
-@@ -371,6 +373,29 @@ static void update_pci_byte(struct pci_dev *pci, unsigned int reg,
- 	pci_write_config_byte(pci, reg, data);
- }
- 
-+static int azx_init_pci_zx(struct azx *chip)
-+{
-+	struct snd_card *card = chip->card;
-+	unsigned int diu_reg;
-+	struct pci_dev *diu_pci = NULL;
-+
-+	diu_pci = pci_get_device(PCI_VENDOR_ID_ZHAOXIN, 0x3a03, NULL);
-+	if (!diu_pci) {
-+		dev_err(card->dev, "hda no KX-5000 device.\n");
-+		return -ENXIO;
-+	}
-+	pci_read_config_dword(diu_pci, PCI_BASE_ADDRESS_0, &diu_reg);
-+	chip->remap_diu_addr = ioremap(diu_reg, 0x50000);
-+	dev_info(card->dev, "hda %x %p\n", diu_reg, chip->remap_diu_addr);
-+	return 0;
-+}
-+
-+static void azx_free_pci_zx(struct azx *chip)
-+{
-+	if (chip->remap_diu_addr)
-+		iounmap(chip->remap_diu_addr);
-+}
-+
- static void azx_init_pci(struct azx *chip)
- {
- 	int snoop_type = azx_get_snoop_type(chip);
-@@ -1360,6 +1385,10 @@ static void azx_free(struct azx *chip)
- 	hda->init_failed = 1; /* to be sure */
- 	complete_all(&hda->probe_wait);
- 
-+	if (chip->driver_type == AZX_DRIVER_ZHAOXINHDMI) {
-+		azx_free_pci_zx(chip);
-+	}
-+
- 	if (use_vga_switcheroo(hda)) {
- 		if (chip->disabled && hda->probe_continued)
- 			snd_hda_unlock_devices(&chip->bus);
-@@ -1743,10 +1772,11 @@ static int default_bdl_pos_adj(struct azx *chip)
- 
- 	switch (chip->driver_type) {
- 	/*
--	 * increase the bdl size for Glenfly Gpus for hardware
-+	 * increase the bdl size for Glenfly/Zhaoxin Gpus for hardware
- 	 * limitation on hdac interrupt interval
- 	 */
- 	case AZX_DRIVER_GFHDMI:
-+	case AZX_DRIVER_ZHAOXINHDMI:
- 		return 128;
- 	case AZX_DRIVER_ICH:
- 	case AZX_DRIVER_PCH:
-@@ -1876,6 +1906,10 @@ static int azx_first_init(struct azx *chip)
- 		bus->access_sdnctl_in_dword = 1;
- 	}
- 
-+	chip->remap_diu_addr = NULL;
-+	if (chip->driver_type == AZX_DRIVER_ZHAOXINHDMI)
-+		azx_init_pci_zx(chip);
-+
- 	err = pcim_iomap_regions(pci, 1 << 0, "ICH HD audio");
- 	if (err < 0)
- 		return err;
-@@ -1977,6 +2011,7 @@ static int azx_first_init(struct azx *chip)
- 			chip->capture_streams = ATIHDMI_NUM_CAPTURE;
- 			break;
- 		case AZX_DRIVER_GFHDMI:
-+		case AZX_DRIVER_ZHAOXINHDMI:
- 		case AZX_DRIVER_GENERIC:
- 		default:
- 			chip->playback_streams = ICH6_NUM_PLAYBACK;
-@@ -2739,6 +2774,20 @@ static const struct pci_device_id azx_ids[] = {
- 	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_ATI_HDMI },
- 	/* Zhaoxin */
- 	{ PCI_VDEVICE(ZHAOXIN, 0x3288), .driver_data = AZX_DRIVER_ZHAOXIN },
-+	{ PCI_VDEVICE(ZHAOXIN, 0x9141),
-+	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_NO_64BIT },
-+	{ PCI_VDEVICE(ZHAOXIN, 0x9142),
-+	  .driver_data = AZX_DRIVER_ZHAOXINHDMI | AZX_DCAPS_POSFIX_LPIB |
-+	  AZX_DCAPS_NO_MSI | AZX_DCAPS_RIRB_PRE_DELAY | AZX_DCAPS_NO_64BIT },
-+	{ PCI_VDEVICE(ZHAOXIN, 0x9144),
-+	  .driver_data = AZX_DRIVER_ZHAOXINHDMI | AZX_DCAPS_POSFIX_LPIB |
-+	  AZX_DCAPS_NO_MSI | AZX_DCAPS_RIRB_PRE_DELAY | AZX_DCAPS_NO_64BIT },
-+	{ PCI_VDEVICE(ZHAOXIN, 0x9145),
-+	  .driver_data = AZX_DRIVER_ZHAOXINHDMI | AZX_DCAPS_POSFIX_LPIB |
-+	  AZX_DCAPS_NO_MSI | AZX_DCAPS_RIRB_PRE_DELAY | AZX_DCAPS_NO_64BIT },
-+	{ PCI_VDEVICE(ZHAOXIN, 0x9146),
-+	  .driver_data = AZX_DRIVER_ZHAOXINHDMI | AZX_DCAPS_POSFIX_LPIB |
-+	  AZX_DCAPS_NO_MSI | AZX_DCAPS_RIRB_PRE_DELAY | AZX_DCAPS_NO_64BIT },
- 	/* Loongson HDAudio*/
- 	{ PCI_VDEVICE(LOONGSON, PCI_DEVICE_ID_LOONGSON_HDA),
- 	  .driver_data = AZX_DRIVER_LOONGSON },
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 1cde2a69bdb4..58ae77aa1ad9 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -4501,6 +4501,8 @@ static int patch_gf_hdmi(struct hda_codec *codec)
- 	return 0;
- }
- 
-+static int patch_zx_hdmi(struct hda_codec *codec) { return patch_gf_hdmi(codec); }
-+
- /*
-  * patch entries
-  */
-@@ -4607,6 +4609,17 @@ HDA_CODEC_ENTRY(0x11069f80, "VX900 HDMI/DP",	patch_via_hdmi),
- HDA_CODEC_ENTRY(0x11069f81, "VX900 HDMI/DP",	patch_via_hdmi),
- HDA_CODEC_ENTRY(0x11069f84, "VX11 HDMI/DP",	patch_generic_hdmi),
- HDA_CODEC_ENTRY(0x11069f85, "VX11 HDMI/DP",	patch_generic_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f86, "ZX-100S HDMI/DP",	patch_generic_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f87, "ZX-100S HDMI/DP",	patch_generic_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f88, "KX-5000 HDMI/DP",	patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f89, "KX-5000 HDMI/DP",	patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f8a, "KX-6000 HDMI/DP",	patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f8b, "KX-6000 HDMI/DP",	patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f8c, "KX-6000G HDMI/DP",	patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f8d, "KX-6000G HDMI/DP",	patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f8e, "KX-8000 HDMI/DP", patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f8f, "KX-8000 HDMI/DP", patch_zx_hdmi),
-+HDA_CODEC_ENTRY(0x1d179f90, "KX-8000 HDMI/DP", patch_zx_hdmi),
- HDA_CODEC_ENTRY(0x80860054, "IbexPeak HDMI",	patch_i915_cpt_hdmi),
- HDA_CODEC_ENTRY(0x80862800, "Geminilake HDMI",	patch_i915_glk_hdmi),
- HDA_CODEC_ENTRY(0x80862801, "Bearlake HDMI",	patch_generic_hdmi),
--- 
-2.17.1
-
+Takashi

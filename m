@@ -2,103 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8820F769B55
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 17:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E312D769B77
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 17:55:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A26E83A;
-	Mon, 31 Jul 2023 17:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A26E83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5607DF2;
+	Mon, 31 Jul 2023 17:54:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5607DF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690818769;
-	bh=TnPlhSxqlROyzSBHtNWdR5Cnz38t0TXqINiKDh/UoiY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1690818943;
+	bh=ueceRC8emkG4kPVnpSpTSaxXlJmbVu7DzzHm5DQT3yA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bpYpSQnsdXbN7X5K9IxlP0vWalltnFZ7Wr92jJswNtZl1XD51HeVFQMThE3d/w11T
-	 VB0cmTfBWVx2gpqwC0QFekKXLMPyNDxZI3tP3qQteR3ogP+wXGWRYwnbVZxLxJahF9
-	 okBpPmIE6ADTtZfIQ8QxGL7zg86lFQjQlK+mfdDc=
+	b=Q8gCpFotWDmEECocoyRsrut2ofRblxHUlgsPWfjWQAjM+N4OWrXKXwP6R30E340LP
+	 8iEen6wF3sm09/tfbBdjzRS0hVU9A4G38Ve3+qgKY9UeH0hSH5wnyCw3b+2ITuSK31
+	 vMbbiH0XNDDdLsNSbQNRFUc8RAJHST0ujEQDQT7A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B98FF80617; Mon, 31 Jul 2023 17:48:29 +0200 (CEST)
+	id EFC0DF8057A; Mon, 31 Jul 2023 17:52:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E19EEF80616;
-	Mon, 31 Jul 2023 17:48:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82451F80557;
+	Mon, 31 Jul 2023 17:52:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0619F80163; Mon, 31 Jul 2023 17:48:21 +0200 (CEST)
+	id AA10EF8055B; Mon, 31 Jul 2023 17:52:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 484B8F80163
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 17:47:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 484B8F80163
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6A54F80153;
+	Mon, 31 Jul 2023 17:51:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6A54F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=mNBFkpwc;
+ header.s=susede2_rsa header.b=rCaCGA62;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=EEnH7mPL
+ header.s=susede2_ed25519 header.b=5TUHmTvG
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 736C6221DF;
-	Mon, 31 Jul 2023 15:47:27 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A68FC221BF;
+	Mon, 31 Jul 2023 15:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1690818447;
+	t=1690818718;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UTZsiUon4MyqacTn+bvjQe32AeuuhNqmUBxuxc7XiqM=;
-	b=mNBFkpwck945PDxWfuluIzMcCj46kHrVnh8UmJJYObyFlI0a9UudS+SDPsX8BnS+dJ8fIK
-	t5f943UEaDbzk99OjYv7cPs2KgGRVqLJojw0lyqC9G0R53SqJB+M2zKO3K7TVUHJzmN1/Y
-	n0bn4TR2GbqDZVwEFNIeTVfwmtLr+0M=
+	bh=2u0dLn7hjxy/youRd5pKqbthQhRipuIEteybjBKpN4E=;
+	b=rCaCGA62SE/QwvolETdgLfypTGMcJovoyoslABstBWyEUmBEvGP18X+VhPVlPgrHJu4um/
+	zAcRBAZypKa8zzZOhSuXw5J3z0LO6d48L3GpK0De3Q5lO/k/PwwmdHeHOkyPFGBMixhD6F
+	aZIDmE8hVbkWvS1EEbIPBu04oH9EBC8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690818447;
+	s=susede2_ed25519; t=1690818718;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UTZsiUon4MyqacTn+bvjQe32AeuuhNqmUBxuxc7XiqM=;
-	b=EEnH7mPLp/uracpMKtbYSqhgJM+egmKBvCm3Hoip4hvxdTtqPUyCiXaVeSEqSs5FUt3XAf
-	KmNOGVqelYhwvIAA==
+	bh=2u0dLn7hjxy/youRd5pKqbthQhRipuIEteybjBKpN4E=;
+	b=5TUHmTvGfr9XRNykMv51Iya5erMQ673fMYetRY8lG+u3mmaBSMW3Ur/MCvpeyP86sMUQly
+	vZjayjD7xdF7WODA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 585C0138EE;
-	Mon, 31 Jul 2023 15:47:27 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BEC651322C;
+	Mon, 31 Jul 2023 15:51:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id GEe0FI/Xx2Q3fwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 15:47:27 +0000
+	id RgGHLZ3Yx2TqAgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 31 Jul 2023 15:51:57 +0000
+Date: Mon, 31 Jul 2023 17:51:57 +0200
+Message-ID: <87r0oohyea.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 24/24] ALSA: pcm: Drop obsoleted PCM copy_user and copy_kernel
- ops
-Date: Mon, 31 Jul 2023 17:47:18 +0200
-Message-Id: <20230731154718.31048-25-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230731154718.31048-1-tiwai@suse.de>
-References: <20230731154718.31048-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LN2JVNQOEAWMLTR4D6YQ7KO6OQ34KUPA
-X-Message-ID-Hash: LN2JVNQOEAWMLTR4D6YQ7KO6OQ34KUPA
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,
+	sound-open-firmware@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Subject: Re: [PATCH v2 0/9] sound: Use -EPROBE_DEFER instead of i915 module
+ loading.
+In-Reply-To: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+References: <20230719164141.228073-1-maarten.lankhorst@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: QEWY6IS3XNOBUJSSWK6ZM3CV35SEO24G
+X-Message-ID-Hash: QEWY6IS3XNOBUJSSWK6ZM3CV35SEO24G
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LN2JVNQOEAWMLTR4D6YQ7KO6OQ34KUPA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QEWY6IS3XNOBUJSSWK6ZM3CV35SEO24G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,79 +130,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Finally all users have been converted to the new PCM copy ops, let's
-drop the obsoleted copy_kernel and copy_user ops completely.
+On Wed, 19 Jul 2023 18:41:32 +0200,
+Maarten Lankhorst wrote:
+> 
+> Explicitly loading i915 becomes a problem when upstreaming the new intel driver
+> for Tiger Lake and higher graphics (xe). By loading i915, it doesn't wait for
+> driver load of xe, and will fail completely before it loads.
+> 
+> -EPROBE_DEFER has to be returned before any device is created in probe(),
+> otherwise the removal of the device will cause EPROBE_DEFER to try again
+> in an infinite loop.
+> 
+> The conversion is done in gradual steps. First I add an argument to
+> snd_hdac_i915_init to allow for -EPROBE_DEFER so I can convert each driver
+> separately. Then I convert each driver to move snd_hdac_i915_init out of the
+> workqueue. Finally I drop the ability to choose modprobe behavior after the
+> last user is converted.
+> 
+> I suspect the avs and skylake drivers used snd_hdac_i915_init purely for the
+> modprobe, but I don't have the hardware to test if it can be safely removed.
+> It can still be done easily in a followup patch to simplify probing.
+> 
+> ---
+> New since first version:
+> 
+> - snd_hda_core.gpu_bind is added as a mechanism to force gpu binding,
+>   for testing. snd_hda_core.gpu_bind=0 forces waiting for GPU bind to
+>   off, snd_hda_core.gpu_bind=1 forces waiting for gpu bind. Default
+>   setting depends on whether kernel booted with nomodeset.
+> - Incorporated all feedback review.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/pcm.h     |  5 -----
- sound/core/pcm_lib.c    | 16 ----------------
- sound/core/pcm_native.c |  2 +-
- 3 files changed, 1 insertion(+), 22 deletions(-)
+Maarten, are you working on v3 patch set?
+Or, for moving forward, should we merge v2 now and fix the rest based
+on that later?
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 9b7054f0cea0..2700ca1c9db8 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -71,11 +71,6 @@ struct snd_pcm_ops {
- 			    unsigned long pos, unsigned long bytes);
- 	int (*copy)(struct snd_pcm_substream *substream, int channel,
- 		    unsigned long pos, sockptr_t buf, unsigned long bytes);
--	int (*copy_user)(struct snd_pcm_substream *substream, int channel,
--			 unsigned long pos, void __user *buf,
--			 unsigned long bytes);
--	int (*copy_kernel)(struct snd_pcm_substream *substream, int channel,
--			   unsigned long pos, void *buf, unsigned long bytes);
- 	struct page *(*page)(struct snd_pcm_substream *substream,
- 			     unsigned long offset);
- 	int (*mmap)(struct snd_pcm_substream *substream, struct vm_area_struct *vma);
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 1dd630cd22a7..1d10de7eeac6 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -2031,19 +2031,6 @@ static int default_read_copy(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--/* a wrapper for calling old copy_kernel or copy_user ops */
--static int call_old_copy(struct snd_pcm_substream *substream,
--			 int channel, unsigned long hwoff,
--			 sockptr_t buf, unsigned long bytes)
--{
--	if (sockptr_is_kernel(buf))
--		return substream->ops->copy_kernel(substream, channel, hwoff,
--						   buf.kernel, bytes);
--	else
--		return substream->ops->copy_user(substream, channel, hwoff,
--						 buf.user, bytes);
--}
--
- /* create a sockptr_t */
- static inline sockptr_t make_sockptr(void *p, bool in_kernel)
- {
-@@ -2241,9 +2228,6 @@ snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 	} else {
- 		if (substream->ops->copy)
- 			transfer = substream->ops->copy;
--		else if ((in_kernel && substream->ops->copy_kernel) ||
--			 (!in_kernel && substream->ops->copy_user))
--			transfer = call_old_copy;
- 		else
- 			transfer = is_playback ?
- 				default_write_copy : default_read_copy;
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 34efd4d198d6..bd9ddf412b46 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -809,7 +809,7 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
- 		runtime->boundary *= 2;
- 
- 	/* clear the buffer for avoiding possible kernel info leaks */
--	if (runtime->dma_area && !substream->ops->copy && !substream->ops->copy_user) {
-+	if (runtime->dma_area && !substream->ops->copy) {
- 		size_t size = runtime->dma_bytes;
- 
- 		if (runtime->info & SNDRV_PCM_INFO_MMAP)
--- 
-2.35.3
 
+thanks,
+
+Takashi

@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17444769225
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:46:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 239A7769227
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Jul 2023 11:46:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBEB7DEF;
-	Mon, 31 Jul 2023 11:45:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBEB7DEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DDB6DF3;
+	Mon, 31 Jul 2023 11:45:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DDB6DF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690796777;
-	bh=JJigWmNi95mxaRSM1xDuz92qO962fQQCFs75vL7A6yk=;
+	s=default; t=1690796791;
+	bh=REehE87nb+g7GaPzLF4Ma60SBpcowFLXv8nY0KVOdbk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JrkPvjLTTHrVxbUkEE14ajwVjl9i02ceg4ZnwD8E3Q5yAKR7VSlvwYTs3Lmf5segB
-	 +s07AmdQz2N3CvkH+zM3ETmcIUoL3/5q3jCLksmeEt7iDBgIKndN9oPZVU3xrZVEl3
-	 4CnWDFfmVjIjfcjm8Xg0vGyrlH3mgtwNwpwDVS2M=
+	b=RHlzayJ/U01h83PEs7qbnw96mgx30rhZ9GbMmsOK7zwuDDGcdeT8HnwfDzktjCx3W
+	 LgELT1v9K4N9pv6h3YYnB3hAIrAFio5JiOrUNl0kMQq/c5zFErx1DKIIO4LO2en1dR
+	 0EQKU20hPIr1IJRmoJS7ablGwb+j7JdTqdEeLUsQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99404F805C3; Mon, 31 Jul 2023 11:43:43 +0200 (CEST)
+	id 12DF5F805D2; Mon, 31 Jul 2023 11:43:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9638F805BB;
-	Mon, 31 Jul 2023 11:43:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BC7AF805C5;
+	Mon, 31 Jul 2023 11:43:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8251F80579; Mon, 31 Jul 2023 11:43:31 +0200 (CEST)
+	id 176FDF805AC; Mon, 31 Jul 2023 11:43:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6C76DF80570
-	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 11:43:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C76DF80570
+	by alsa1.perex.cz (Postfix) with ESMTPS id 14900F80570
+	for <alsa-devel@alsa-project.org>; Mon, 31 Jul 2023 11:43:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14900F80570
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=mBBfShQZ
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-99bcf2de59cso687515966b.0
+ header.s=google header.b=uoOLAF+G
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5221f3affe4so5795866a12.0
         for <alsa-devel@alsa-project.org>;
- Mon, 31 Jul 2023 02:43:28 -0700 (PDT)
+ Mon, 31 Jul 2023 02:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1690796608; x=1691401408;
+        d=linaro.org; s=google; t=1690796611; x=1691401411;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lwoyTPSO3cjBsRDQcDo5mpbjNKMn5OZoqnqGWdyjQow=;
-        b=mBBfShQZv6XkwK8DnO85tXUWcVxUGA70V8N35lmh4HqedyJgROliBumCPfl4HCc7kZ
-         ZCiRe3k62XNvWAeb7DquDbRAEx8I8tdOT7FsETyG0ubi+s4xm3Tf6ddfaEgtpSaQ4xsA
-         QtbMe6OaGPb66nAkX8cz0CsQhgeSvuntlD4l8wW4cIe5eWVVuTFWRToaGWaJ3ihg9DcF
-         oQVPpdEB7MSm4H6KpxQdW/JXZP0eH6h4GhbOTLpjBa9FpJZMT1w+67c90pYhqEnVnwxL
-         bGI6uFmMUVdTD+q43fD1KjEdyMRZl4LSqwYcXUZVw56Oxr5mNEDZjBXuYWgYM6fVIQgk
-         98UQ==
+        bh=nDlAiDCsa5OyQV1o1rM++WZe4Dne9dcJk7rWwMzlcwg=;
+        b=uoOLAF+GuBMic8HTce18DnIFS64ebzdbM2EqcooL5fF8d9NfvcCA2EsZ9DH2ZW+2vq
+         JAp06pifF/KwIrU7D2KX8hkW4YFSelrfKCthdZrMTpunL77cpbWyXm7pOLULH0GbcxsX
+         xiGijdmOXAIqny29Ln1PeOYEQvyoBdFfNos/61um7aaWB8N4/9CaNnAQ+vDzK86Ca0+i
+         8xVL7FLjTyEhrNWZ6/XSYwCLys8HXLJzXe9pUTeonmVyQjCleDAUC2I8tt4UfyKx/WJh
+         RPgBvG90IsjMLgdDH68+yzCieqA443GpBQOUDy+dJbCx0b2NhnHhyMdTyccm7P4UxJRt
+         7VFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690796608; x=1691401408;
+        d=1e100.net; s=20221208; t=1690796611; x=1691401411;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=lwoyTPSO3cjBsRDQcDo5mpbjNKMn5OZoqnqGWdyjQow=;
-        b=TAK0Dz6WCnDs0eoRHMMhRP0k4Mbtc3j0X3STo83/ZHaV2f1ZFLJP7HN3uzzojFdtSu
-         EsyqB0AuqTgler3rfS/IHRLtLvTtJt6w+gzuVjuXvqb7whI4FKamNGKskbDuUVanTRjm
-         tTcu6Pz2v4iCmiH5i4rfUK12wQ1FvZNeooCZCTFXTF/PE8WPEGJ9WzNu5i3Bsk6FdqD+
-         UM+KKu0xvrmYNMneU2lZ1r26CsoeoHOY1/FPPX+yNFaHJisHW0R1sOV8FAc0Ah6TQKbv
-         6AMGaw/w9+LJJHNnzpX5sQVJxNPMfyHa6wPKnID4pH5lyMqTCeQAWP2q8fiVaXGE51fV
-         vWEw==
-X-Gm-Message-State: ABy/qLYadU4T/FZ+Qmz/DS+NYXyCGbpfGso7uHH58ibbBGidtfbK4TaJ
-	3YHYzkeVIFGieYrsicA1T7Khqw==
+        bh=nDlAiDCsa5OyQV1o1rM++WZe4Dne9dcJk7rWwMzlcwg=;
+        b=OaspXtUAyudu07Ulfvi3PGjhpW8WErOOwVWczo6ecjVl91CkHs8E1PkY0rM26F2/Mf
+         rgtDWCDO6I8y9JAwjGGPMW5HT3ZYrphMLJSktgALauQqOCWWNk+ovE6B5FtYPiyRKEeF
+         1huxrf3X5MU++qggiycVhlzFzzyCsakoonNkpslyZhw/k4QZJQzfhXKLMVFnkBgHESNU
+         nB0TcXWAPNl4L2SfFAp7SPaJYVUihUQJ2nlne/Twab9/AsSEDfZyflD3YfUyKVUv2CP5
+         tVLWcE746iPFnyJHEN4PPTPRriT2bvOT/BCN90tZ1Q9U0Fs8Sxip/GMZPY+UzlW/R+Xr
+         N7PA==
+X-Gm-Message-State: ABy/qLYXOyc8eMA/S0oaRWOSAoqH1zM9DDB2K7kN1z9MGGurWt+vTsIe
+	SApu1typFzX2j5Ri3GB6SOP+Nw==
 X-Google-Smtp-Source: 
- APBJJlHnjE7lUFjr1kQuePn5Ep3sLsZ6zzGI1CqSZq88oGyF32DzMVr0h+kgor4ak965TKVsqVQgiA==
-X-Received: by 2002:a17:906:5d:b0:99b:4b4f:c9de with SMTP id
- 29-20020a170906005d00b0099b4b4fc9demr6736292ejg.36.1690796608017;
-        Mon, 31 Jul 2023 02:43:28 -0700 (PDT)
+ APBJJlHPZE8l2UiavjYohAlal1BncG7+low027lOhN5gE0MMRSv0AOJLmfRkvZE/XcvYn+EHfGTb/A==
+X-Received: by 2002:a17:907:2c77:b0:993:d75b:63ea with SMTP id
+ ib23-20020a1709072c7700b00993d75b63eamr5408717ejc.16.1690796610988;
+        Mon, 31 Jul 2023 02:43:30 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.222.183])
         by smtp.gmail.com with ESMTPSA id
- z17-20020a170906815100b0099bcdfff7cbsm5867547ejw.160.2023.07.31.02.43.25
+ z17-20020a170906815100b0099bcdfff7cbsm5867547ejw.160.2023.07.31.02.43.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Jul 2023 02:43:27 -0700 (PDT)
+        Mon, 31 Jul 2023 02:43:30 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Jerome Brunet <jbrunet@baylibre.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -115,17 +115,16 @@ To: Jerome Brunet <jbrunet@baylibre.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 06/12] ASoC: dt-bindings: samsung,odroid: use common sound
- card
-Date: Mon, 31 Jul 2023 11:42:57 +0200
-Message-Id: <20230731094303.185067-7-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 07/12] ASoC: dt-bindings: samsung,tm2: use common sound card
+Date: Mon, 31 Jul 2023 11:42:58 +0200
+Message-Id: <20230731094303.185067-8-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230731094303.185067-1-krzysztof.kozlowski@linaro.org>
 References: <20230731094303.185067-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: O5KFHV52GF7NLE4NNCVXTP7J3AS4WIUA
-X-Message-ID-Hash: O5KFHV52GF7NLE4NNCVXTP7J3AS4WIUA
+Message-ID-Hash: QSIBKA7RDHD3WTLZZQLKRITFARIFYBYW
+X-Message-ID-Hash: QSIBKA7RDHD3WTLZZQLKRITFARIFYBYW
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -138,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O5KFHV52GF7NLE4NNCVXTP7J3AS4WIUA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSIBKA7RDHD3WTLZZQLKRITFARIFYBYW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,13 +153,13 @@ cards.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/sound/samsung,odroid.yaml  | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ .../devicetree/bindings/sound/samsung,tm2.yaml   | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-index c6751c40e63f..b77284e3e26a 100644
---- a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-+++ b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
+diff --git a/Documentation/devicetree/bindings/sound/samsung,tm2.yaml b/Documentation/devicetree/bindings/sound/samsung,tm2.yaml
+index 491e08019c04..760592599143 100644
+--- a/Documentation/devicetree/bindings/sound/samsung,tm2.yaml
++++ b/Documentation/devicetree/bindings/sound/samsung,tm2.yaml
 @@ -10,6 +10,9 @@ maintainers:
    - Krzysztof Kozlowski <krzk@kernel.org>
    - Sylwester Nawrocki <s.nawrocki@samsung.com>
@@ -170,55 +169,48 @@ index c6751c40e63f..b77284e3e26a 100644
 +
  properties:
    compatible:
-     oneOf:
-@@ -24,10 +27,6 @@ properties:
-       - const: samsung,odroid-xu4-audio
-         deprecated: true
+     const: samsung,tm2-audio
+@@ -32,6 +35,8 @@ properties:
+       being the connection's source; valid names for sources and sinks are the
+       WM5110's and MAX98504's pins and the jacks on the board: HP, SPK, Main
+       Mic, Sub Mic, Third Mic, Headset Mic.
++      Deprecated, use audio-routing.
++    deprecated: true
+     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+ 
+   i2s-controller:
+@@ -44,20 +49,15 @@ properties:
+   mic-bias-gpios:
+     description: GPIO pin that enables the Main Mic bias regulator.
  
 -  model:
--    $ref: /schemas/types.yaml#/definitions/string
 -    description: The user-visible name of this sound complex.
+-    $ref: /schemas/types.yaml#/definitions/string
 -
-   assigned-clock-parents: true
-   assigned-clock-rates: true
-   assigned-clocks: true
-@@ -52,6 +51,7 @@ properties:
- 
-   samsung,audio-routing:
-     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    deprecated: true
-     description: |
-       List of the connections between audio
-       components;  each entry is a pair of strings, the first being the
-@@ -61,6 +61,7 @@ properties:
-       For Odroid X2: "Headphone Jack", "Mic Jack", "DMIC"
-       For Odroid U3, XU3: "Headphone Jack", "Speakers"
-       For Odroid XU4: no entries
-+      Deprecated, use audio-routing.
- 
-   samsung,audio-widgets:
-     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-@@ -70,18 +71,17 @@ properties:
- 
  required:
    - compatible
+   - audio-amplifier
+   - audio-codec
+-  - samsung,audio-routing
++  - audio-routing
+   - i2s-controller
+   - mic-bias-gpios
 -  - model
-   - cpu
-   - codec
  
 -additionalProperties: false
 +unevaluatedProperties: false
  
  examples:
    - |
-     sound {
-         compatible = "hardkernel,odroid-xu3-audio";
-         model = "Odroid-XU3";
--        samsung,audio-routing =
-+        audio-routing =
-                 "Headphone Jack", "HPL",
-                 "Headphone Jack", "HPR",
-                 "IN1", "Mic Jack",
+@@ -70,7 +70,7 @@ examples:
+         audio-amplifier = <&max98504>;
+         mic-bias-gpios = <&gpr3 2 GPIO_ACTIVE_HIGH>;
+         model = "wm5110";
+-        samsung,audio-routing = "HP", "HPOUT1L",
++        audio-routing = "HP", "HPOUT1L",
+                                 "HP", "HPOUT1R",
+                                 "SPK", "SPKOUT",
+                                 "SPKOUT", "HPOUT2L",
 -- 
 2.34.1
 

@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19F2376B201
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 12:36:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C97076B21B
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 12:45:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 346EF7F8;
-	Tue,  1 Aug 2023 12:35:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 346EF7F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 656606C0;
+	Tue,  1 Aug 2023 12:44:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 656606C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690886193;
-	bh=2J8qj07PsH6/fhghr/Ils/YRhqI7VzCDTj6pXTQu0HU=;
+	s=default; t=1690886704;
+	bh=8X1IhBdHmOt2KLDApVFaghTRm8o0NX5o3XUVnKOkhmw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kIebAYn202DAdjzjR1SHhGrb/Yma3YWNss0dtBc3nS2+uS7OvDjqNMnbjmV1vYAxj
-	 Gsqi1EFZu0OwB39lu17qQ/WY1aOtey2IPpytwd3pEeafRm+ADPCOOad7wkkJghxpxQ
-	 YRFpQqgwPYGiACcYinuGbr20OOLQiHX6tvy6Z0/U=
+	b=Ff2KPbbrv5znFQh0Nn2NVCC/A+jnvSheqB3W+lWkW80W52Mw/7MYSY/5jw8aBTME7
+	 g+Ttc4R/TEkTMnbMly6U8LPGVrsw5RS4Z9+fG+0LDJOAD3FWVJM414v8ZtlydiZqBb
+	 JUjDUVjTPvsGWBHB2QLfCD95x36DOCHDay/SNj9s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF099F80087; Tue,  1 Aug 2023 12:35:42 +0200 (CEST)
+	id B729FF80520; Tue,  1 Aug 2023 12:44:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4153EF801D5;
-	Tue,  1 Aug 2023 12:35:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DEB7F8016D;
+	Tue,  1 Aug 2023 12:44:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BC83F80558; Tue,  1 Aug 2023 12:35:39 +0200 (CEST)
+	id 010D1F801D5; Tue,  1 Aug 2023 12:44:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::224])
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::226])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8B63EF80549
-	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 12:35:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B63EF80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D0FEF8015B
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 12:44:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D0FEF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=HuQzMwky
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3B8CDE0003;
-	Tue,  1 Aug 2023 10:35:31 +0000 (UTC)
+ header.s=gm1 header.b=ZDFUSJCb
+Received: by mail.gandi.net (Postfix) with ESMTPSA id EC711C000B;
+	Tue,  1 Aug 2023 10:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1690886135;
+	t=1690886645;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+SvrVZjf5OnwSU9GuipBXCgEg/NuLuQSUax9kncJoss=;
-	b=HuQzMwkymqd89YQoEOX2hMmEco1BS/rW1obWm9cNvo095SSLNpGDkjCz4UJ3BLDfoE9k4R
-	zp6KVAzYGP/2qHBCb4o10LhoepouFfTms8w662mMV28RDhnCwvJmkHWYJ9BenFcSakmPvx
-	FIb1TDkkeh6zFUNFCbsBC0CtVvmjR4CV9TWZG0vX63qv7Ohi+d/V747j0aBktlrPD1SEOh
-	UNofMfWXUwklIq9B+lA9UP0VitUrBr6kYB1ARn1gptVhxnGSAoqPaz+5E2ELot8RfdcQ5/
-	wnDuKt6RwwmpUwi1m19cZlmAcWrcpgYWun/8LKtFIdE4GE6cXVlVpF3MRMr2wg==
-Date: Tue, 1 Aug 2023 12:35:30 +0200
+	bh=oEKysH7Y2t6RfT3AfGBp54HWpVEF5LkKbUS/QMB1QqY=;
+	b=ZDFUSJCbj6fA75RKgaU5KyPEubtFY3VzZOU8PdM1aCEbn6YSr+BqKTYpbhrc46wMcH0s0L
+	xbOm3AV2jxN5pU9+f/y8A9D3ioPgJhEd+sVK5My40QUl79HhUIbpj8Z6FNyH6QoT4nLscV
+	NdL3KC+I6mGLCCwmwgWymKieJnjUTwOHTLIXhRkwbL6P451XEVX4DF5rLwP5jH755aRr5A
+	FyunbjnU1zJ4gkeAKrjHmbUWqnP/x6TUa+mZakYm+Nj1ODX7z5jLVFZXmNjXbfvfW8mk1Z
+	CpC9vyGyEVAFqeoF0/BJLsYkRWxGBKUslX0/qHv6q48CI5T1qUFNPHFyVl0vlQ==
+Date: Tue, 1 Aug 2023 12:44:01 +0200
 From: Herve Codina <herve.codina@bootlin.com>
 To: Andrew Lunn <andrew@lunn.ch>
 Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
@@ -76,21 +76,21 @@ Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
  linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  alsa-devel@alsa-project.org, Thomas Petazzoni
  <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 21/28] dt-bindings: net: Add the Lantiq PEF2256
- E1/T1/J1 framer
-Message-ID: <20230801123530.3f92f5da@bootlin.com>
-In-Reply-To: <1f5fbf0a-90fe-491a-91c6-31fefd4b786f@lunn.ch>
+Subject: Re: [PATCH v2 23/28] net: wan: framer: Add support for the Lantiq
+ PEF2256 framer
+Message-ID: <20230801124401.3883d16c@bootlin.com>
+In-Reply-To: <4adae593-c428-4910-882e-7247727cf501@lunn.ch>
 References: <20230726150225.483464-1-herve.codina@bootlin.com>
-	<20230726150225.483464-22-herve.codina@bootlin.com>
-	<1f5fbf0a-90fe-491a-91c6-31fefd4b786f@lunn.ch>
+	<20230726150225.483464-24-herve.codina@bootlin.com>
+	<4adae593-c428-4910-882e-7247727cf501@lunn.ch>
 Organization: Bootlin
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: KR44N6UAY6BKZHOEAVLWRKBFLAMOBB5J
-X-Message-ID-Hash: KR44N6UAY6BKZHOEAVLWRKBFLAMOBB5J
+Message-ID-Hash: LFRHVJESYX7VW6UEM54ISRUP3PILNYQ7
+X-Message-ID-Hash: LFRHVJESYX7VW6UEM54ISRUP3PILNYQ7
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KR44N6UAY6BKZHOEAVLWRKBFLAMOBB5J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LFRHVJESYX7VW6UEM54ISRUP3PILNYQ7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,30 +112,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 1 Aug 2023 12:05:07 +0200
+On Tue, 1 Aug 2023 12:22:39 +0200
 Andrew Lunn <andrew@lunn.ch> wrote:
 
-> > +  clocks:
-> > +    items:
-> > +      - description: Master clock
-> > +      - description: Receive System Clock
-> > +      - description: Transmit System Clock
+> > +static inline u8 pef2256_read8(struct pef2256 *pef2256, int offset)
+> > +{
+> > +	int val;
 > > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: mclk
-> > +      - const: sclkr
-> > +      - const: sclkx  
+> > +	regmap_read(pef2256->regmap, offset, &val);
+> > +	return val;
+> > +}
+> > +
+> > +static inline void pef2256_write8(struct pef2256 *pef2256, int offset, u8 val)
+> > +{
+> > +	regmap_write(pef2256->regmap, offset, val);
+> > +}  
 > 
-> Nit pick, but "Receive System Clock", but "sclkr'. Maybe "System Clock
-> Receive" so you have the same word order?
-> 
+> More cases of inline functions in .C files. Please let the compiler
+> decide.
 
-Will also change the 'Transmit System Clock' to 'System Clock Transmit'
+Will be changed.
+
+> 
+> > +static void pef2256_isr_default_handler(struct pef2256 *pef2256, u8 nbr, u8 isr)
+> > +{
+> > +	dev_warn(pef2256->dev, "ISR%u: 0x%02x not handled\n", nbr, isr);
+> > +}  
+> 
+> Should this be rate limited? It is going to be very noise if it gets
+> called once per frame time.
+
+This function should not be called.
+It is wired on some interrupts and these interrupts should not be triggered.
+It they fired, something was wrong.
+
+I would prefer to keep this dev_warn() to keep the user informed about the
+problem.
 
 Regards,
 Hervé
-
 
 
 -- 

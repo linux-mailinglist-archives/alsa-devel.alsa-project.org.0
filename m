@@ -2,98 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7832F76F857
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 05:21:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 382AC76FD7F
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:38:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EC047F4;
-	Fri,  4 Aug 2023 05:20:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EC047F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8B2D1E2;
+	Fri,  4 Aug 2023 11:37:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8B2D1E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691119272;
-	bh=KMopAtCn67fdLSnPvCGkPIrhm4B/qxG9zoA1XjL7/xA=;
+	s=default; t=1691141907;
+	bh=APvmFx+ixVZPNNg9SQLgbVZGoledUVf4eez0op5aHUo=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jbL04WOeHNCvHNkHje4X+B4v/YmxzF5x+KQF13LGbYq1lQquuKbNq3ovm/iks1oJG
-	 DD9bzUrap5vS9pMnkW+1aMU+6+R9Rw2foTZfV1sDsFOSFMCdy1Aaea37rAnT7QcAEV
-	 NX9k4pQ6MzOPORDVzr9pa0lrVfvg0v5RoVDfQBsY=
+	b=tNig7QnOSSK9ObpzzQpEDohEdXlXLgBk7YJeI3d8c6Tj79KhscKJr8JQ9d/r2ESog
+	 fYkitoaiUERHAQ4tBXj3hsazk+dMSwaCZN5FSi1OudLLpR1Jqmo68vzbMogaVts2xs
+	 8R7mvcSwYQyuU7BcvUjrFmPuYo/l3WwV7muwZnP4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79BF6F8053B; Fri,  4 Aug 2023 05:20:00 +0200 (CEST)
+	id AB659F8015B; Fri,  4 Aug 2023 11:37:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80BACF801D5;
-	Fri,  4 Aug 2023 05:19:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 982C5F801D5;
+	Fri,  4 Aug 2023 11:37:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC031F8025A; Fri,  4 Aug 2023 05:19:47 +0200 (CEST)
+	id C8F7AF801D5; Tue,  1 Aug 2023 18:06:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RDNS_DYNAMIC,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com
+ [162.62.58.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 569F6F8015B
-	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 05:19:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 569F6F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 05E63F80087
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 18:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05E63F80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OoIgh32l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691119180; x=1722655180;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=KMopAtCn67fdLSnPvCGkPIrhm4B/qxG9zoA1XjL7/xA=;
-  b=OoIgh32lQx55tW53tNktOVAch8WtmQBj5N3A7UZBkC5zsTYpfkoYbuqW
-   kQPGGDmqSCFSkemy7lodo7HIkAdoEKHvaqxsTIb/EOBiIClLvmE9+7cd0
-   HWtKcXFazuqI5D595pxYa6anqLhECKLhUF0T4pSgvv6airKh4yEFyxjVj
-   wsCaw0zCqZS6R75UpNcOIS2SIF/GaxgFP7Ds8NWjH+i7Aib5keLcARoM3
-   GRzkfvdEAB1LCSD+D/PEkH/G8ItyPO8WtWbubtTwlfB0SQhFrJDCXMADQ
-   sXb19NS55D9mMw2oI145b3c54wb1tC6NPrO4qpm/kwiCYGeJdIeuk+3oK
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10791"; a="350357686"
-X-IronPort-AV: E=Sophos;i="6.01,253,1684825200";
-   d="scan'208";a="350357686"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2023 20:19:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10791"; a="759368739"
-X-IronPort-AV: E=Sophos;i="6.01,253,1684825200";
-   d="scan'208";a="759368739"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2023 20:19:13 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256
+ header.s=s201512 header.b=v/etJO1I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1690905931;
+	bh=OMeXsTEoSV37i5q3b+jlJxSVQJjMWTEe0h/gT1sAYts=;
+	h=From:To:Cc:Subject:Date;
+	b=v/etJO1I/XGgjVtV8dSMgQo6NExGr6Mj4/9tGODLapml58371/LsVKjsvfxvUmICU
+	 X+riAjxSNERN7vidUO7Rt2koXHfGcnRiLILH2xA3onspNA2typQgjGE8LSPsNJ7P1P
+	 Lh61wCIwkKXw4/4C+c/ZWwnZnCKOTwl/cC1IpklE=
+Received: from KernelDevBox.byted.org ([180.184.51.134])
+	by newxmesmtplogicsvrsza10-0.qq.com (NewEsmtp) with SMTP
+	id ECCB1097; Tue, 01 Aug 2023 23:59:12 +0800
+X-QQ-mid: xmsmtpt1690905552tyfhwer0f
+Message-ID: <tencent_A560D01E3E0A00A85A12F137E4B5205B3508@qq.com>
+X-QQ-XMAILINFO: NGS5xw3DVfAMV/jfbZlCf9owjwKZJdc3ehD5Gs0w53jsUCSTCupG6mehI+9XiQ
+	 uXUUz5H8aBY/XIKy9L6NsIq/3YoujfAQN2JwExL7Kl2PVe1wmxQtqGeXQjWXMd+lxX7p6tm1mXix
+	 MkMo4Mmm4aFi/v4OD2ANDG5xylKl9J6H6HNvY/WmuudbwgVRDSswAJi5svJFF6dOFWkIEAz7IVjZ
+	 74yYk9MkQli4YXGENrXXJXfONnFxdxoiPO988ZMSaZS0l7GiLStQIy/lY9dZoiedHvts0gczYPZY
+	 BWPgLq3mlLYK6iAxiH4xAlY2KkPGNA8Xv9LObpMyRqqwSLrsblrxrvLhxL53U/96utkUSD6iMIeo
+	 nsVcfQwXKOQlP/B9wGjaxVtc0N6y7FYmB/5flfRfQW6KANAsH7jv7CwTjIadrDnYCsvHpjUro5rR
+	 0IlZ8+yXg3KG44KrXMPFWdxYHvibSXIw85NkJ+/xYQ5anwyuGAe0scJO8uYgrjOTaN5MvyRD1dST
+	 Rr7TjrHTHF2su1kXAPnnyq04g83Ozp9iyLqmBpBp3oPvIYPhI5BimwcZUodKMnIk3WAnohowjV7Z
+	 zOcMK/hepZQVDukqM7kMOU9osC0fXBrk9hdehVk7qHSsTjEx1UHESFUEWubSuvggn9qGdHIFY7tA
+	 RY3ireifn37EbPmjUdUIgpxv+6n0y7Rq1Xeg+ZLIlQqNeuW6Es49rv4JS8dcs+kWe1OwE6FI3uCa
+	 S+BSS8vSydaExCqfqIrBmBNAqdg4mdd9AJf32mYXm4uSEnEIEo7jZT0OnfhHkzhGJ/LzaoLroXc7
+	 xZcupIy4mk0KJPSb/Zpect3SvgzKAdPNEbA3H+p5puq3ajD33g63C67af2PuJjWpWe/3myNAWn0W
+	 oknMsFGurP/K0TrKyzq46RFZRL8H2qIND38vVntWugtZqbWUPXF0NZMLL1oD48afO5HwBBSVAO/x
+	 cyyty2ptUVyMYqLeSeucMT/SYpTdHUe97ZWEOUpCUGt9Rqj4/dHqjkRlICiedJhSEiMAwKyg6kH6
+	 gNZ5kf+Q==
+X-QQ-XMRINFO: NS+P29fieYNw95Bth2bWPxk=
+From: Zhang Shurong <zhang_shurong@foxmail.com>
 To: broonie@kernel.org,
-	tiwai@suse.de
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH] ASoC: max98363: don't return on success reading revision ID
-Date: Fri,  4 Aug 2023 11:47:34 +0800
-Message-Id: <20230804034734.3848227-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+	oder_chiou@realtek.com
+Cc: lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Zhang Shurong <zhang_shurong@foxmail.com>
+Subject: [PATCH v2] ASoC: rt5665: add missed regulator_bulk_disable
+Date: Tue,  1 Aug 2023 23:59:11 +0800
+X-OQ-MSGID: <20230801155911.372244-1-zhang_shurong@foxmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YOMH5GMRG6ZHAG4REPE66JSQTVFJOGAA
-X-Message-ID-Hash: YOMH5GMRG6ZHAG4REPE66JSQTVFJOGAA
-X-MailFrom: yung-chuan.liao@linux.intel.com
+X-MailFrom: zhang_shurong@foxmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: HKSJSGJ5FIA7U7VA3MJZU6YJWMQRCO7U
+X-Message-ID-Hash: HKSJSGJ5FIA7U7VA3MJZU6YJWMQRCO7U
+X-Mailman-Approved-At: Fri, 04 Aug 2023 09:37:28 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOMH5GMRG6ZHAG4REPE66JSQTVFJOGAA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HKSJSGJ5FIA7U7VA3MJZU6YJWMQRCO7U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,48 +109,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-max98363_io_init needs to keep going when we read revision ID
-successfully.
+The driver forgets to call regulator_bulk_disable()
 
-Fixes: 18c0af945fa3 ("ASoC: max98363: add soundwire amplifier driver")
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Add the missed call to fix it.
+
+Fixes: 33ada14a26c8 ("ASoC: add rt5665 codec driver")
+Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
 ---
- sound/soc/codecs/max98363.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Changes in v2:
+ - move regulator_bulk_disable() in rt5665_remove() 
 
-diff --git a/sound/soc/codecs/max98363.c b/sound/soc/codecs/max98363.c
-index b5c69bba0e48..2dfaf4fcfbd3 100644
---- a/sound/soc/codecs/max98363.c
-+++ b/sound/soc/codecs/max98363.c
-@@ -185,10 +185,10 @@ static int max98363_io_init(struct sdw_slave *slave)
- 	pm_runtime_get_noresume(dev);
+ sound/soc/codecs/rt5665.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
+index 83c367af91da..525713c33d71 100644
+--- a/sound/soc/codecs/rt5665.c
++++ b/sound/soc/codecs/rt5665.c
+@@ -4472,6 +4472,8 @@ static void rt5665_remove(struct snd_soc_component *component)
+ 	struct rt5665_priv *rt5665 = snd_soc_component_get_drvdata(component);
  
- 	ret = regmap_read(max98363->regmap, MAX98363_R21FF_REV_ID, &reg);
--	if (!ret) {
-+	if (!ret)
- 		dev_info(dev, "Revision ID: %X\n", reg);
--		return ret;
--	}
-+	else
-+		goto out;
- 
- 	if (max98363->first_hw_init) {
- 		regcache_cache_bypass(max98363->regmap, false);
-@@ -198,10 +198,11 @@ static int max98363_io_init(struct sdw_slave *slave)
- 	max98363->first_hw_init = true;
- 	max98363->hw_init = true;
- 
-+out:
- 	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_put_autosuspend(dev);
- 
--	return 0;
-+	return ret;
+ 	regmap_write(rt5665->regmap, RT5665_RESET, 0);
++
++	regulator_bulk_disable(ARRAY_SIZE(rt5665->supplies), rt5665->supplies);
  }
  
- #define MAX98363_RATES SNDRV_PCM_RATE_8000_192000
+ #ifdef CONFIG_PM
 -- 
-2.25.1
+2.30.2
 

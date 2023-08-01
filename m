@@ -2,118 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4072A76B4B7
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 14:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28D0276B530
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 14:52:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 953204E;
-	Tue,  1 Aug 2023 14:26:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 953204E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D73263E7;
+	Tue,  1 Aug 2023 14:51:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D73263E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690892819;
-	bh=cbF+CzQu1id8oTj1j1IcmzenVP7M6+84aov+5mV673A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690894348;
+	bh=H4u99nnJ3hxpt8jAH1/glvCHocmwrYqfl5e3KPQYcXA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bsrEHRtt57FT2Lma1N9J3HTYqj1Aj0i1sqACNY3pTbrHREucU6fkDUQxn8n2MqBLt
-	 gCRZEKsgAgTXOBoWGOcLbddspcyX10vjC3SbGcrt7yIR2SMyhETCt0EqH4W666k18s
-	 wRkXEDuzC5RyNEqExRBHkrvqMSTragFUxi9Wc1M0=
+	b=cpwm3zBXZQ1/Ev+6TXlChxvhxFoCHF0l7rUWHzl4kJHk/gQfImh+Zh0+pV19vzQ+g
+	 Kzt18sIbzYs/8WLlKYYsSUDrKA9v5tPiOoabDJdnlRdZoPq99RqBiGXNHIXRePcffO
+	 eFD61CY8DePC4LsHiu7CiB4fjYsbxqmG0wSEd7ug=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F22BF8015B; Tue,  1 Aug 2023 14:26:08 +0200 (CEST)
+	id 370C4F8016D; Tue,  1 Aug 2023 14:51:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AC11F8016D;
-	Tue,  1 Aug 2023 14:26:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27E27F8016D;
+	Tue,  1 Aug 2023 14:51:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59362F801D5; Tue,  1 Aug 2023 14:26:04 +0200 (CEST)
+	id CAA3FF801D5; Tue,  1 Aug 2023 14:51:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DA7CEF80149
-	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 14:25:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA7CEF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 50107F80149
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 14:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50107F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YHw3JlcX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=SOVmpaCK
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=DrJ5Z2vw
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B871C21DD8;
-	Tue,  1 Aug 2023 12:25:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690892751;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kGdgBDpVcLHjgibNhVGenQNLekAy0HDW6Uu4MmoOkcM=;
-	b=YHw3JlcXopF+LwUNbjQ8B+DERx/HTfzDR4vY31suYXo8pR/R5Xi+0mki6ABzPbB7MgH1uY
-	VbYRO48goMnGmr/tYoyJMtxeXo+Y6n0x3PSqYafjBDeYO/JwUbghi4KsbDLg4ecx/cAnzG
-	KEvDhtfCLlhFnC4pl2H6jx47mDoYJls=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690892751;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kGdgBDpVcLHjgibNhVGenQNLekAy0HDW6Uu4MmoOkcM=;
-	b=SOVmpaCKysyUzh5On5T+1kQquAL9C0rF5qxnRAomJJj/EsgiwdGIsfD19B04VHLaCHFehU
-	1KJTBmhfLO+R19DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7690E139BD;
-	Tue,  1 Aug 2023 12:25:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id YgEfHM/5yGTkJAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 01 Aug 2023 12:25:51 +0000
-Date: Tue, 01 Aug 2023 14:25:50 +0200
-Message-ID: <87tttjeypd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marek Vasut <marex@denx.de>
-Cc: Jeff LaBundy <jeff@labundy.com>,	Dmitry Torokhov
- <dmitry.torokhov@gmail.com>,	linux-input@vger.kernel.org,	Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,	Frieder
- Schrempf <frieder.schrempf@kontron.de>,	Manuel Traut <manuel.traut@mt.com>,
-	Thierry Reding <thierry.reding@gmail.com>,	linux-pwm@vger.kernel.org,
-	alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai
- <tiwai@suse.com>
-Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
-In-Reply-To: <ce419a1e-bf1a-1087-a7ee-37f85a11c596@denx.de>
-References: <06379f26-ab24-85f9-783f-0c49d4291b23@denx.de>
-	<ZMdIZiC453onyeHh@google.com>
-	<873514d2ju.wl-tiwai@suse.de>
-	<63adce9a-df65-b462-9055-0ece5216d680@denx.de>
-	<87tttkjmyu.wl-tiwai@suse.de>
-	<0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de>
-	<87h6pkjh7q.wl-tiwai@suse.de>
-	<618add56-3675-4efe-5b20-665c10040e03@denx.de>
-	<ZMfgJ3o00nApkXGp@google.com>
-	<f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de>
-	<ZMh0Sa9s25JHhWw5@nixie71>
-	<87a5vbi96v.wl-tiwai@suse.de>
-	<ce419a1e-bf1a-1087-a7ee-37f85a11c596@denx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: SW7QAGAAGS6V2W7KZKVILH7R47SCUXJA
-X-Message-ID-Hash: SW7QAGAAGS6V2W7KZKVILH7R47SCUXJA
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9EEEE61583;
+	Tue,  1 Aug 2023 12:51:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5902DC433C7;
+	Tue,  1 Aug 2023 12:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690894283;
+	bh=H4u99nnJ3hxpt8jAH1/glvCHocmwrYqfl5e3KPQYcXA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=DrJ5Z2vwflEqiKxoZoTQ1vSNjjdvRwFsQfuoY0ytcjn7VCYPVV+1Toi9ik5h5KK4r
+	 zP8frjZME+08LGXxwXjAijSLU0AKFb+tp0gU3kCTpACdKs432GoGHDwSCv3Hrkynaj
+	 kqcqZmeEYUVJnNxj+004NjV0vID4ZNZN+yxYIsY3PqDoj3QoKi/jbTmCG7mowE+f5y
+	 7zSzvLsHHagHqPHz8o/YUb7rQVdPwnaINIz/j9Je7HM5j4WkWpPsuxsl0ufuqh2BVU
+	 oGTbEEgDYy/Hdv3xR3QcwW+FmWNr+SR/GFjK0bydetz5tjUsEZjYQ2obmFNFmLUTAA
+	 yCTAYO9wpPH1A==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de
+In-Reply-To: <20230731213748.440285-1-pierre-louis.bossart@linux.intel.com>
+References: <20230731213748.440285-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/8] ASoC/SOF/Intel/AMD: cleanups for GCC11 -fanalyzer
+ checks
+Message-Id: <169089428206.43850.2574740654929620237.b4-ty@kernel.org>
+Date: Tue, 01 Aug 2023 13:51:22 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: FUR2NSAP5AB53BPV3SCAPL6S4DAFBSOL
+X-Message-ID-Hash: FUR2NSAP5AB53BPV3SCAPL6S4DAFBSOL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SW7QAGAAGS6V2W7KZKVILH7R47SCUXJA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FUR2NSAP5AB53BPV3SCAPL6S4DAFBSOL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,172 +99,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 01 Aug 2023 13:38:54 +0200,
-Marek Vasut wrote:
+On Mon, 31 Jul 2023 16:37:40 -0500, Pierre-Louis Bossart wrote:
+> GCC11 provides an '-fanalyzer' static analysis option which does not
+> provide too many false-positives. This patch cleans-up known
+> problematic code paths to help enable this capability in CI. We've
+> used this for about a month already.
 > 
-> On 8/1/23 08:11, Takashi Iwai wrote:
-> > On Tue, 01 Aug 2023 04:56:09 +0200,
-> > Jeff LaBundy wrote:
-> >> 
-> >> Hi all,
-> >> 
-> >> On Mon, Jul 31, 2023 at 07:49:50PM +0200, Marek Vasut wrote:
-> >>> On 7/31/23 18:24, Dmitry Torokhov wrote:
-> >>>> On Mon, Jul 31, 2023 at 04:36:01PM +0200, Marek Vasut wrote:
-> >>>>> On 7/31/23 16:20, Takashi Iwai wrote:
-> >>>>> 
-> >>>>> [...]
-> >>>>> 
-> >>>>>>>>> Uh, I don't need a full sound device to emit beeps, that's not even
-> >>>>>>>>> possible with this hardware.
-> >>>>>>>> 
-> >>>>>>>> Heh, I also don't recommend that route, either :)
-> >>>>>>>> (Though, it must be possible to create a sound device with that beep
-> >>>>>>>> control in theory)
-> >>>>>>> 
-> >>>>>>> I mean, I can imagine one could possibly use PCM DMA to cook samples
-> >>>>>>> to feed some of the PWM devices so they could possibly be used to
-> >>>>>>> generate low quality audio, as a weird limited DAC, but ... that's not
-> >>>>>>> really generic, and not what I want.
-> >>>>>> 
-> >>>>>> Oh I see how the misunderstanding came; I didn't mean the PCM
-> >>>>>> implementation like pcsp driver.  The pcsp driver is a real hack and
-> >>>>>> it's there just for fun, not for any real practical use.
-> >>>>> 
-> >>>>> Ah :)
-> >>>>> 
-> >>>>>> What I meant was rather that you can create a sound device containing
-> >>>>>> a mixer volume control that serves exactly like the sysfs or whatever
-> >>>>>> other interface, without any PCM stream or other interface.
-> >>>>> 
-> >>>>> Ahhh, hum, I still feel like this might be a bit overkill here.
-> >>>>> 
-> >>>>>>>>> I only need to control loudness of the
-> >>>>>>>>> beeper that is controlled by PWM output. That's why I am trying to
-> >>>>>>>>> extend the pwm-beeper driver, which seems the best fit for such a
-> >>>>>>>>> device, it is only missing this one feature (loudness control).
-> >>>>>>>> 
-> >>>>>>>> So the question is what's expected from user-space POV.  If a more
-> >>>>>>>> generic control of beep volume is required, e.g. for desktop-like
-> >>>>>>>> usages, an implementation of sound driver wouldn't be too bad.
-> >>>>>>>> OTOH, for other specific use-cases, it doesn't matter much in which
-> >>>>>>>> interface it's implemented, and sysfs could be an easy choice.
-> >>>>>>> 
-> >>>>>>> The whole discussion above has been exactly about this. Basically the
-> >>>>>>> thing is, we can either have:
-> >>>>>>> - SND_TONE (via some /dev/input/eventX) + sysfs volume control
-> >>>>>>>      -> This is simple, but sounds racy between input and sysfs accesses
-> >>>>>> 
-> >>>>>> Hmm, how can it be racy if you do proper locking?
-> >>>>> 
-> >>>>> I can imagine two applications can each grab one of the controls and that
-> >>>>> makes the interface a bit not nice. That would require extra synchronization
-> >>>>> in userspace and so on.
-> >>>>> 
-> >>>>>>> - SND_TONE + SND_TONE_SET_VOLUME
-> >>>>>>>      -> User needs to do two ioctls, hum
-> >>>>>>> - some new SND_TONE_WITH_VOLUME
-> >>>>>>>      -> Probably the best option, user sets both tone frequency and volume
-> >>>>>>>         in one go, and it also only extends the IOCTL interface, so older
-> >>>>>>>         userspace won't have issues
-> >>>>>> 
-> >>>>>> Those are "extensions" I have mentioned, and I'm not a big fan for
-> >>>>>> that, honestly speaking.
-> >>>>>> 
-> >>>>>> The fact that the beep *output* stuff is provided by the *input*
-> >>>>>> device is already confusing
-> >>>>> 
-> >>>>> I agree, this confused me as well.
-> >>>> 
-> >>>> This comes from the times when keyboards themselves were capable of
-> >>>> emitting bells (SUN, DEC, etc). In hindsight it was not the best way of
-> >>>> structuring things, same with the keyboard LEDs (that are now plugged
-> >>>> into the LED subsystem, but still allow be driven through input).
-> >>>> 
-> >>>> And in the same vein I wonder if we should bite the bullet and pay with
-> >>>> a bit of complexity but move sound-related things to sound subsystem.
-> >>> 
-> >>> I am not sure that's the right approach here, since the device cannot do PCM
-> >>> playback, just bleeps.
-> >>> 
-> >>>>>> (it was so just because of historical
-> >>>>>> reason), and yet you start implementing more full-featured mixer
-> >>>>>> control.  I'd rather keep fingers away.
-> >>>>>> 
-> >>>>>> Again, if user-space requires the compatible behavior like the
-> >>>>>> existing desktop usages
-> >>>>> 
-> >>>>> It does not. These pwm-beeper devices keep showing up in various embedded
-> >>>>> devices these days.
-> >>>>> 
-> >>>>>> , it can be implemented in a similar way like
-> >>>>>> the existing ones; i.e. provide a mixer control with a proper sound
-> >>>>>> device.  The sound device doesn't need to provide a PCM interface but
-> >>>>>> just with a mixer interface.
-> >>>>>> 
-> >>>>>> Or, if the purpose of your target device is a special usage, you don't
-> >>>>>> need to consider too much about the existing interface, and try to
-> >>>>>> keep the change as minimal as possible without too intrusive API
-> >>>>>> changes.
-> >>>>> 
-> >>>>> My use case is almost perfectly matched by the current input pwm-beeper
-> >>>>> driver, the only missing bit is the ability to control the loudness at
-> >>>>> runtime. I think adding the SND_TONE_WITH_VOLUME parameter would cover it,
-> >>>>> with least intrusive API changes.
-> >>>>> 
-> >>>>> The SND_TONE already supports configuring tone frequency in Hz as its
-> >>>>> parameter. Since anything above 64 kHz is certainly not hearable by humans,
-> >>>>> I would say the SND_TONE_WITH_VOLUME could use 16 LSbits for frequency (so
-> >>>>> up to 65535 Hz , 0 is OFF), and 16 MSbits for volume .
-> >>>>> 
-> >>>>> I'm hesitant to overcomplicate something which can currently be controlled
-> >>>>> via single ioctl by pulling in sound subsystem into the picture.
-> >>>> 
-> >>>> Can you tell a bit more about your use case? What needs to control the
-> >>>> volume of beeps? Is this the only source of sounds on the system?
-> >>> 
-> >>> Custom user space application. The entire userspace is custom built in this
-> >>> case.
-> >>> 
-> >>> In this case, it is a single-use device (think e.g. the kind of thermometer
-> >>> you stick in your ear when you're ill, to find out how warm you are).
-> >>> 
-> >>> The beeper there is used to do just that, bleep (with different frequencies
-> >>> to indicate different stuff), and that works. What I need in addition to
-> >>> that is control the volume of the bleeps from the application, so it isn't
-> >>> too noisy. And that needs to be user-controllable at runtime, so not
-> >>> something that goes in DT.
-> >>> 
-> >>> Right now there is just the bleeper , yes.
-> >> 
-> >> It sounds like we essentially need an option within pcsp to drive PWM
-> >> instead of PCM, but input already has pwm-beeper; it seems harmless to
-> >> gently extend the latter for this use-case as opposed to reworking the
-> >> former.
-> > 
-> > Nah, please forget pcsp driver.  As mentioned earlier, it's a driver
-> > that is present just for fun.
-> > 
-> > I believe what we need is a simple sound card instance providing a
-> > mixer control for the beep volume, something like a patch like below
-> > (totally untested!)
+> Pierre-Louis Bossart (8):
+>   ASoC: SOF: sof-client-probes-ipc4: add checks to prevent static
+>     analysis warnings
+>   ASoC: SOF: ipc3: add checks to prevent static analysis warnings
+>   ASoC: SOF: topology: simplify code to prevent static analysis warnings
+>   ASoC: SOF: imx: remove error checks on NULL ipc
+>   ASoC: SOF: mediatek: remove error checks on NULL ipc
+>   ASoC: Intel: bdw_rt286: add checks to avoid static analysis warnings
+>   ASoC: Intel: atom: remove static analysis false positive
+>   ASoC: amd: acp5x-mach:add checks to avoid static analysis warnings
 > 
-> Do we really want to add dependency on the entire sound subsystem
-> (which is currently not needed on the device I care about) only to
-> configure one single tunable of the PWM beeper ? It seems to add too
-> much bloat to me.
+> [...]
 
-That really depends on the use case.  If the driver is supposed to be
-used generically as seen in the desktop scenes, it's worth to have a
-support of the standard interface like others.  OTOH, if the driver is
-for limited situations and better to be as slim as possible, a
-tailored interface like sysfs would be the way to go.  My proposal was
-under assumption of the former -- a generic usage.  If the latter
-scene is expected, a sysfs implementation can be the right way, IMO.
+Applied to
 
-OTOH, we really need to be careful about the blind extension of API.
-Although adding a new input event type sounds easy, the influence
-could be much more than seen there...
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
 
-Takashi
+[1/8] ASoC: SOF: sof-client-probes-ipc4: add checks to prevent static analysis warnings
+      commit: 390e7066db29b985c5142513955797c1166b623a
+[2/8] ASoC: SOF: ipc3: add checks to prevent static analysis warnings
+      commit: e44222c213678d6ef646d72cbb9a2eda52f6dc22
+[3/8] ASoC: SOF: topology: simplify code to prevent static analysis warnings
+      commit: 55cb3dc271d81f1982c949a2ac483a6daf613b92
+[4/8] ASoC: SOF: imx: remove error checks on NULL ipc
+      commit: e302f8d9f799af57a61a7456451c28f2647e9751
+[5/8] ASoC: SOF: mediatek: remove error checks on NULL ipc
+      commit: 8cf5286216dcfb942f0e4d7c23ebe06c2ebc1bed
+[6/8] ASoC: Intel: bdw_rt286: add checks to avoid static analysis warnings
+      commit: 64778b022e629b8ffa97d23a9adbf670aa3bb1d8
+[7/8] ASoC: Intel: atom: remove static analysis false positive
+      commit: 71d76768fbe72aa70dd61d5714a5579dc4ca61cb
+[8/8] ASoC: amd: acp5x-mach:add checks to avoid static analysis warnings
+      commit: 871861f6ad6d43b49caade3f42b9d40ca1413e79
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

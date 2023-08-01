@@ -2,51 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62F4C76A7E9
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 06:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 911E676A8C8
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 08:13:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EA85827;
-	Tue,  1 Aug 2023 06:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EA85827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 089127F4;
+	Tue,  1 Aug 2023 08:12:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 089127F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690864254;
-	bh=HgwNk8i424sdyrzIQQMCoZUVZOhQhaYc1sTQcIylMTk=;
-	h=Subject:From:To:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=ShPGEMDQXxWDpPz06YCoQSyc+8p6+ABk5Mry/dDvWS9u4cVB9co4gZhR5YTuh1GNU
-	 vPuL8tjdkxuRx8sK6Hx4PSZH57RaxUPGrhx/dN0H9BTkq6lsQBLvmeg7seNjABi36K
-	 hARqJdQbN3zcADuChypH/qztbYKXr6P4RUHntvt4=
+	s=default; t=1690870422;
+	bh=RAFl+roU4Bn5a5NFxU1N2klqHKEyZS5ehXYxCurXRXQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=A8D3QBe7QnfF99Zf/YWFMI+fGNXk5IKo2QTtbsA5fDsnU5FKm96s6Ky6iwfppE85c
+	 0Yjlntd+r4yl9VPsbZgJMponH32Je7+mHE9hfe9quniEwm7yPJraX9n4N5QTAdX8Be
+	 Fnc6NzCjJVQsMH9ATjIn7tQbkua4KVvPGaote/5k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FBD8F80544; Tue,  1 Aug 2023 06:29:55 +0200 (CEST)
+	id 22A15F8053B; Tue,  1 Aug 2023 08:12:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C63DF8016D;
-	Tue,  1 Aug 2023 06:29:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB3B8F8016D;
+	Tue,  1 Aug 2023 08:12:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09452F801D5; Tue,  1 Aug 2023 06:28:41 +0200 (CEST)
-Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
- [10.254.200.11])
-	by alsa1.perex.cz (Postfix) with ESMTP id 099C1F80087
-	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 06:28:39 +0200 (CEST)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/7] usb: Add USB MIDI 2.0 Gadget Function Driver
-From: "Symbolic Debugger" <happy.debugging@gmail.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 01 Aug 2023 04:28:39 -0000
-Message-ID: 
- <169086411982.22.10844351304855044996@mailman-web.alsa-project.org>
-In-Reply-To: 
- <169080763901.22.11665243983550346032@mailman-web.alsa-project.org>
-References: 
- <169080763901.22.11665243983550346032@mailman-web.alsa-project.org>
-User-Agent: HyperKitty on https://mailman.alsa-project.org/
-Message-ID-Hash: 2NS4OIOWOSM5BLMZF7EANEAQGWALSAO6
-X-Message-ID-Hash: 2NS4OIOWOSM5BLMZF7EANEAQGWALSAO6
-X-MailFrom: happy.debugging@gmail.com
+	id 16939F801D5; Tue,  1 Aug 2023 08:11:38 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 803CEF8015B
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 08:11:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 803CEF8015B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=MqCIiy0x;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=h+T9V/Ue
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9542621E50;
+	Tue,  1 Aug 2023 06:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1690870265;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fdJTYqhdHyFSYpY5y6RQJQGLe9d83A/vO6eFw4zlLVU=;
+	b=MqCIiy0xuDG9ACWVMMBUfhQg34RA+KNZqZ8sQUMHxm1q00dMofH4GDv2p2s6ijlY+vUVs/
+	74FZcP72tE6nExTxhmgyLXDfQ+tukLGcVqeA0we1TR1oesNntpEBtYkl+4crdWoAiAJYfJ
+	PRPl8526KdeqQld5NHySaxFXfv3VYtA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1690870265;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fdJTYqhdHyFSYpY5y6RQJQGLe9d83A/vO6eFw4zlLVU=;
+	b=h+T9V/Ueu9iXSQjcjILxyPcNF2I1sFuPGcKidtmxfcHikAtOuVypmDQt01AwJbps8uuxP4
+	h8SzBv5EmJFWWNCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 10B47139BD;
+	Tue,  1 Aug 2023 06:11:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id YvAbAfmhyGTQWwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 01 Aug 2023 06:11:05 +0000
+Date: Tue, 01 Aug 2023 08:11:04 +0200
+Message-ID: <87a5vbi96v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jeff LaBundy <jeff@labundy.com>
+Cc: Marek Vasut <marex@denx.de>,	Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>,	linux-input@vger.kernel.org,	Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,	Frieder
+ Schrempf <frieder.schrempf@kontron.de>,	Manuel Traut <manuel.traut@mt.com>,
+	Thierry Reding <thierry.reding@gmail.com>,	linux-pwm@vger.kernel.org,
+	alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai
+ <tiwai@suse.com>
+Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
+In-Reply-To: <ZMh0Sa9s25JHhWw5@nixie71>
+References: <06379f26-ab24-85f9-783f-0c49d4291b23@denx.de>
+	<ZMdIZiC453onyeHh@google.com>
+	<873514d2ju.wl-tiwai@suse.de>
+	<63adce9a-df65-b462-9055-0ece5216d680@denx.de>
+	<87tttkjmyu.wl-tiwai@suse.de>
+	<0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de>
+	<87h6pkjh7q.wl-tiwai@suse.de>
+	<618add56-3675-4efe-5b20-665c10040e03@denx.de>
+	<ZMfgJ3o00nApkXGp@google.com>
+	<f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de>
+	<ZMh0Sa9s25JHhWw5@nixie71>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: QNYIGFFQHX4PS45GQI6CQ3ASWMEBWQTR
+X-Message-ID-Hash: QNYIGFFQHX4PS45GQI6CQ3ASWMEBWQTR
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -58,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T3NVHZ7MS3XIMLOLOHQMIG7BRG56KDA4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNYIGFFQHX4PS45GQI6CQ3ASWMEBWQTR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -67,4 +133,283 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Never mind. Got the notice about 6.6 . Looking forward to see it in 6.5 next or the next merge window.
+On Tue, 01 Aug 2023 04:56:09 +0200,
+Jeff LaBundy wrote:
+> 
+> Hi all,
+> 
+> On Mon, Jul 31, 2023 at 07:49:50PM +0200, Marek Vasut wrote:
+> > On 7/31/23 18:24, Dmitry Torokhov wrote:
+> > > On Mon, Jul 31, 2023 at 04:36:01PM +0200, Marek Vasut wrote:
+> > > > On 7/31/23 16:20, Takashi Iwai wrote:
+> > > > 
+> > > > [...]
+> > > > 
+> > > > > > > > Uh, I don't need a full sound device to emit beeps, that's not even
+> > > > > > > > possible with this hardware.
+> > > > > > > 
+> > > > > > > Heh, I also don't recommend that route, either :)
+> > > > > > > (Though, it must be possible to create a sound device with that beep
+> > > > > > > control in theory)
+> > > > > > 
+> > > > > > I mean, I can imagine one could possibly use PCM DMA to cook samples
+> > > > > > to feed some of the PWM devices so they could possibly be used to
+> > > > > > generate low quality audio, as a weird limited DAC, but ... that's not
+> > > > > > really generic, and not what I want.
+> > > > > 
+> > > > > Oh I see how the misunderstanding came; I didn't mean the PCM
+> > > > > implementation like pcsp driver.  The pcsp driver is a real hack and
+> > > > > it's there just for fun, not for any real practical use.
+> > > > 
+> > > > Ah :)
+> > > > 
+> > > > > What I meant was rather that you can create a sound device containing
+> > > > > a mixer volume control that serves exactly like the sysfs or whatever
+> > > > > other interface, without any PCM stream or other interface.
+> > > > 
+> > > > Ahhh, hum, I still feel like this might be a bit overkill here.
+> > > > 
+> > > > > > > > I only need to control loudness of the
+> > > > > > > > beeper that is controlled by PWM output. That's why I am trying to
+> > > > > > > > extend the pwm-beeper driver, which seems the best fit for such a
+> > > > > > > > device, it is only missing this one feature (loudness control).
+> > > > > > > 
+> > > > > > > So the question is what's expected from user-space POV.  If a more
+> > > > > > > generic control of beep volume is required, e.g. for desktop-like
+> > > > > > > usages, an implementation of sound driver wouldn't be too bad.
+> > > > > > > OTOH, for other specific use-cases, it doesn't matter much in which
+> > > > > > > interface it's implemented, and sysfs could be an easy choice.
+> > > > > > 
+> > > > > > The whole discussion above has been exactly about this. Basically the
+> > > > > > thing is, we can either have:
+> > > > > > - SND_TONE (via some /dev/input/eventX) + sysfs volume control
+> > > > > >     -> This is simple, but sounds racy between input and sysfs accesses
+> > > > > 
+> > > > > Hmm, how can it be racy if you do proper locking?
+> > > > 
+> > > > I can imagine two applications can each grab one of the controls and that
+> > > > makes the interface a bit not nice. That would require extra synchronization
+> > > > in userspace and so on.
+> > > > 
+> > > > > > - SND_TONE + SND_TONE_SET_VOLUME
+> > > > > >     -> User needs to do two ioctls, hum
+> > > > > > - some new SND_TONE_WITH_VOLUME
+> > > > > >     -> Probably the best option, user sets both tone frequency and volume
+> > > > > >        in one go, and it also only extends the IOCTL interface, so older
+> > > > > >        userspace won't have issues
+> > > > > 
+> > > > > Those are "extensions" I have mentioned, and I'm not a big fan for
+> > > > > that, honestly speaking.
+> > > > > 
+> > > > > The fact that the beep *output* stuff is provided by the *input*
+> > > > > device is already confusing
+> > > > 
+> > > > I agree, this confused me as well.
+> > > 
+> > > This comes from the times when keyboards themselves were capable of
+> > > emitting bells (SUN, DEC, etc). In hindsight it was not the best way of
+> > > structuring things, same with the keyboard LEDs (that are now plugged
+> > > into the LED subsystem, but still allow be driven through input).
+> > > 
+> > > And in the same vein I wonder if we should bite the bullet and pay with
+> > > a bit of complexity but move sound-related things to sound subsystem.
+> > 
+> > I am not sure that's the right approach here, since the device cannot do PCM
+> > playback, just bleeps.
+> > 
+> > > > > (it was so just because of historical
+> > > > > reason), and yet you start implementing more full-featured mixer
+> > > > > control.  I'd rather keep fingers away.
+> > > > > 
+> > > > > Again, if user-space requires the compatible behavior like the
+> > > > > existing desktop usages
+> > > > 
+> > > > It does not. These pwm-beeper devices keep showing up in various embedded
+> > > > devices these days.
+> > > > 
+> > > > > , it can be implemented in a similar way like
+> > > > > the existing ones; i.e. provide a mixer control with a proper sound
+> > > > > device.  The sound device doesn't need to provide a PCM interface but
+> > > > > just with a mixer interface.
+> > > > > 
+> > > > > Or, if the purpose of your target device is a special usage, you don't
+> > > > > need to consider too much about the existing interface, and try to
+> > > > > keep the change as minimal as possible without too intrusive API
+> > > > > changes.
+> > > > 
+> > > > My use case is almost perfectly matched by the current input pwm-beeper
+> > > > driver, the only missing bit is the ability to control the loudness at
+> > > > runtime. I think adding the SND_TONE_WITH_VOLUME parameter would cover it,
+> > > > with least intrusive API changes.
+> > > > 
+> > > > The SND_TONE already supports configuring tone frequency in Hz as its
+> > > > parameter. Since anything above 64 kHz is certainly not hearable by humans,
+> > > > I would say the SND_TONE_WITH_VOLUME could use 16 LSbits for frequency (so
+> > > > up to 65535 Hz , 0 is OFF), and 16 MSbits for volume .
+> > > > 
+> > > > I'm hesitant to overcomplicate something which can currently be controlled
+> > > > via single ioctl by pulling in sound subsystem into the picture.
+> > > 
+> > > Can you tell a bit more about your use case? What needs to control the
+> > > volume of beeps? Is this the only source of sounds on the system?
+> > 
+> > Custom user space application. The entire userspace is custom built in this
+> > case.
+> > 
+> > In this case, it is a single-use device (think e.g. the kind of thermometer
+> > you stick in your ear when you're ill, to find out how warm you are).
+> > 
+> > The beeper there is used to do just that, bleep (with different frequencies
+> > to indicate different stuff), and that works. What I need in addition to
+> > that is control the volume of the bleeps from the application, so it isn't
+> > too noisy. And that needs to be user-controllable at runtime, so not
+> > something that goes in DT.
+> > 
+> > Right now there is just the bleeper , yes.
+> 
+> It sounds like we essentially need an option within pcsp to drive PWM
+> instead of PCM, but input already has pwm-beeper; it seems harmless to
+> gently extend the latter for this use-case as opposed to reworking the
+> former.
+
+Nah, please forget pcsp driver.  As mentioned earlier, it's a driver
+that is present just for fun.
+
+I believe what we need is a simple sound card instance providing a
+mixer control for the beep volume, something like a patch like below
+(totally untested!)
+
+
+Takashi
+
+--- a/drivers/input/misc/Kconfig
++++ b/drivers/input/misc/Kconfig
+@@ -595,6 +595,13 @@ config INPUT_PWM_BEEPER
+ 	  To compile this driver as a module, choose M here: the module will be
+ 	  called pwm-beeper.
+ 
++config INPUT_PWM_BEEPER_MIXER
++	bool "Mixer volume support for PWM beeper"
++	depends on INPUT_PWM_BEEPER
++	depends on SND=y || INPUT_PWM_BEEPER=SND
++	help
++	  Say Y here to enable sound mixer for PWM beeper volume.
++
+ config INPUT_PWM_VIBRA
+ 	tristate "PWM vibrator support"
+ 	depends on PWM
+--- a/drivers/input/misc/pwm-beeper.c
++++ b/drivers/input/misc/pwm-beeper.c
+@@ -14,6 +14,8 @@
+ #include <linux/pwm.h>
+ #include <linux/slab.h>
+ #include <linux/workqueue.h>
++#include <sound/core.h>
++#include <sound/control.h>
+ 
+ struct pwm_beeper {
+ 	struct input_dev *input;
+@@ -21,6 +23,7 @@ struct pwm_beeper {
+ 	struct regulator *amplifier;
+ 	struct work_struct work;
+ 	unsigned long period;
++	unsigned long duty_cycle;
+ 	unsigned int bell_frequency;
+ 	bool suspended;
+ 	bool amplifier_on;
+@@ -37,7 +40,7 @@ static int pwm_beeper_on(struct pwm_beeper *beeper, unsigned long period)
+ 
+ 	state.enabled = true;
+ 	state.period = period;
+-	pwm_set_relative_duty_cycle(&state, 50, 100);
++	pwm_set_relative_duty_cycle(&state, beeper->duty_cycle, 100000);
+ 
+ 	error = pwm_apply_state(beeper->pwm, &state);
+ 	if (error)
+@@ -112,6 +115,66 @@ static void pwm_beeper_stop(struct pwm_beeper *beeper)
+ 	pwm_beeper_off(beeper);
+ }
+ 
++#ifdef CONFIG_INPUT_PWM_BEEPER_MIXER
++static int pwm_beeper_mixer_info(struct snd_kcontrol *kcontrol,
++				 struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 50000;
++	return 0;
++}
++
++static int pwm_beeper_mixer_get(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct pwm_beeper *beeper = snd_kcontrol_chip(kcontrol);
++
++	ucontrol->value.integer.value[0] = beeper->duty_cycle;
++	return 0;
++}
++
++static int pwm_beeper_mixer_put(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct pwm_beeper *beeper = snd_kcontrol_chip(kcontrol);
++	unsigned long val = ucontrol->value.integer.value[0];
++
++	val = min(val, 50000UL);
++	if (beeper->duty_cycle == val)
++		return 0;
++	beeper->duty_cycle = val;
++	if (!beeper->suspended)
++		schedule_work(&beeper->work);
++	return 1;
++}
++
++static const struct snd_kcontrol_new pwm_beeper_mixer_ctl = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name =	"Beep Playback Switch",
++	.info = pwm_beeper_mixer_info,
++	.get = pwm_beeper_mixer_get,
++	.put = pwm_beeper_mixer_put,
++};
++
++static int pwm_beeper_mixer_attach(struct device *dev, struct pwm_beeper *beeper)
++{
++	struct snd_card *card;
++	int err;
++
++	err = snd_devm_card_new(dev, 0, NULL, THIS_MODULE, 0, &card);
++	if (err)
++		return err;
++
++	err = snd_ctl_add(card, snd_ctl_new1(&pwm_beeper_mixer_ctl, beeper));
++	if (err)
++		return err;
++
++	return snd_card_register(card);
++}
++#endif /* CONFIG_INPUT_PWM_BEEPER_MIXER */
++
+ static void pwm_beeper_close(struct input_dev *input)
+ {
+ 	struct pwm_beeper *beeper = input_get_drvdata(input);
+@@ -189,6 +252,7 @@ static int pwm_beeper_probe(struct platform_device *pdev)
+ 
+ 	beeper->input->event = pwm_beeper_event;
+ 	beeper->input->close = pwm_beeper_close;
++	beeper->duty_cycle = 50000;
+ 
+ 	input_set_drvdata(beeper->input, beeper);
+ 
+@@ -200,6 +264,11 @@ static int pwm_beeper_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, beeper);
+ 
++#ifdef CONFIG_INPUT_PWM_BEEPER_MIXER
++	error = pwm_beeper_mixer_attach(dev, beeper);
++	if (error)
++		return error;
++#endif
+ 	return 0;
+ }
+ 

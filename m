@@ -2,118 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6988A76B541
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 14:56:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E04DC76B636
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 15:49:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7DFD210;
-	Tue,  1 Aug 2023 14:55:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7DFD210
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1B36210;
+	Tue,  1 Aug 2023 15:48:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B36210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690894575;
-	bh=6piI5+jLQqmUPGf4e2pKrr8nmCqt0tsAVNhm0IOtOmg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1690897742;
+	bh=X9LL4W/E66IAZckgliz0F6R+X+6Qomu9XzplGsb3Pyo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JhTOEetidxhkcc3g8VPZnD74XRTrJvUi1zsJMOWE5vAQtdc+IlyUX4PtkiGEXMcHZ
-	 1g11GWe92RS/gZcXMVIFuomu6Y0ZxUApk5klMa3G6g6b1HpT+J2IvyY272tDEBGQb+
-	 kVlR0cMulkjhqW6KMdqcodd1eE6qERskbgYp51YU=
+	b=Pyc6omQ0/RLtfWbeP/b8FQ1ly+MECGZKKeLioEr8U1dq+aJJFOFHOWA8SBL01CHvV
+	 oT1tkQk9iH+UhiWyvd0jfaLe+hIJKirnVIbFL/J2WRZ8uUd8qP676QBVJ4ua1eKC1m
+	 lzC0a4hspx5h123TNm7HTyJdXrZ9p2tvLUAlOCJY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8674F8053B; Tue,  1 Aug 2023 14:55:03 +0200 (CEST)
+	id 467D0F802BE; Tue,  1 Aug 2023 15:48:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06CFBF80149;
-	Tue,  1 Aug 2023 14:55:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0ED9F8016D;
+	Tue,  1 Aug 2023 15:48:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 344AFF801D5; Tue,  1 Aug 2023 14:54:58 +0200 (CEST)
+	id E6191F801D5; Tue,  1 Aug 2023 15:48:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (unknown [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 96BCBF8015B
-	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 14:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96BCBF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1FD95F80149
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 15:47:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FD95F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=t7s75b7D;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=L/+EhMg6
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BBEB01FD7C;
-	Tue,  1 Aug 2023 12:54:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1690894486;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1+eWlQeeVC2euHUSOeWbcjmCz76Xb9mTKJnw2WhwjLg=;
-	b=t7s75b7DrHPYfkCXw7FDYSyFbZ+eFfBMn15m7OYOVuSyyLrlrCbVEtuSsgMFKIyIvv5Ho5
-	CXs2jrmvNmzRG22y9IPvSJeuTYeoARHIdanewOkoZNAj1zOai/qIhM0+qzi/l1cfU0dgBj
-	nlIvHEHnHQqn+SrpvAfOym8rWB7ZtPY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1690894486;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1+eWlQeeVC2euHUSOeWbcjmCz76Xb9mTKJnw2WhwjLg=;
-	b=L/+EhMg6JTslMiA7SDZmOv5ox9H011tP9374Q3zbVOlIKn4lUfyKLSfdapnaVSEAMmM1w9
-	gR5xSz+JTBsoWoDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 600F1139BD;
-	Tue,  1 Aug 2023 12:54:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id sr9XFpYAyWQSNAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 01 Aug 2023 12:54:46 +0000
-Date: Tue, 01 Aug 2023 14:54:45 +0200
-Message-ID: <87leeugbxm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bs656whv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690897672; x=1722433672;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=X9LL4W/E66IAZckgliz0F6R+X+6Qomu9XzplGsb3Pyo=;
+  b=bs656whv+7mo6Iqt8a+4he0oUa9M7FpEyVAJoYi3PspFoKGvZ82t4l+q
+   XVGPk8Z1OIi6Ty9ZAd4CyvLFj0l0ifnIPsmLM7unZKUx3yXjMW3dteUJ1
+   +2602OWI/i98LU81GYZWc0XVOHVpnIDvv1So15khCBeCK9XHJhs4q1Uxq
+   AWoPKzJL3EnCrAYj3NpsPMRzzlyR2LlQ+yUdR+CSDNoTaZJqtEwO7Bs0X
+   LRzXG8V2lGypAAzHlHdHSRlcvb8vraUhWsIHHDNbBgqGHn029p2R3HlH7
+   1CA8AlkSG0R3qIKVrANXED3UEojiRxYGwt3/n3v5eBnIEl+rhdmzzXj7v
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="348901520"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200";
+   d="scan'208";a="348901520"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 06:47:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="758352467"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200";
+   d="scan'208";a="758352467"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga008.jf.intel.com with ESMTP; 01 Aug 2023 06:47:25 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qQpic-0050DO-2l;
+	Tue, 01 Aug 2023 16:47:22 +0300
+Date: Tue, 1 Aug 2023 16:47:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Brent Lu <brent.lu@intel.com>
 Cc: alsa-devel@alsa-project.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andrey Utkin <andrey_utkin@fastmail.com>,
-	Anton Sviridenko <anton@corp.bluecherry.net>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Ismael Luceno <ismael@iodev.co.uk>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	linux-media@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 00/24] ALSA: Generic PCM copy ops using sockptr_t
-In-Reply-To: <a02cf5c3-1fac-4ec6-9d9c-f8e8d0c067e0@sirena.org.uk>
-References: <20230731154718.31048-1-tiwai@suse.de>
-	<b906d60b-ece4-45b5-8167-2046c8dc00f4@sirena.org.uk>
-	<87h6pjj2ui.wl-tiwai@suse.de>
-	<a02cf5c3-1fac-4ec6-9d9c-f8e8d0c067e0@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: GWAS2EBPDZFQBIJVSPDNGT5GODRFR2BD
-X-Message-ID-Hash: GWAS2EBPDZFQBIJVSPDNGT5GODRFR2BD
-X-MailFrom: tiwai@suse.de
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+	Yong Zhi <yong.zhi@intel.com>, Terry Cheong <htcheong@chromium.org>,
+	Uday M Bhat <uday.m.bhat@intel.com>,
+	Mac Chiang <mac.chiang@intel.com>,
+	"Dharageswari . R" <dharageswari.r@intel.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	ye xingchen <ye.xingchen@zte.com.cn>
+Subject: Re: [PATCH v4 1/1] ASoC: Intel: maxim-common: get codec number from
+ ACPI table
+Message-ID: <ZMkM6l8IqFBFItBk@smile.fi.intel.com>
+References: <20230731103419.2536036-1-brent.lu@intel.com>
+ <20230731103419.2536036-2-brent.lu@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230731103419.2536036-2-brent.lu@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: MLPKLESIHYSLLLZCNV2VV5UB7NI2GQRO
+X-Message-ID-Hash: MLPKLESIHYSLLLZCNV2VV5UB7NI2GQRO
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GWAS2EBPDZFQBIJVSPDNGT5GODRFR2BD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MLPKLESIHYSLLLZCNV2VV5UB7NI2GQRO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,311 +124,391 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 31 Jul 2023 21:40:20 +0200,
-Mark Brown wrote:
+On Mon, Jul 31, 2023 at 06:34:19PM +0800, Brent Lu wrote:
+> We implement a helper function to get number of codecs from ACPI
+> subsystem instead of using quirk flag in machine driver. Also refactor
+> module interface by adding max_98390_dai_link() function.
 > 
-> On Mon, Jul 31, 2023 at 09:30:29PM +0200, Takashi Iwai wrote:
-> > Mark Brown wrote:
+> On the sof_rt5682 machine driver side, we remove the quirk flag
+> SOF_MAX98390_TWEETER_SPEAKER_PRESENT and use the new interface of
+> max98390 to setup dai link.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+from ACPI utilization point of view.
+
+The long standing issue with the entire ASoC subsystem, though, is the device
+instance name in use, which is _strictly speaking_ fragile: The device
+enumeration order was never guaranteed as far as I know, it just happened
+to work because ACPICA & ACPI glue layer code doesn't change this, but it
+very well has a right to.
+
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>  sound/soc/intel/boards/sof_maxim_common.c | 170 +++++++++++++---------
+>  sound/soc/intel/boards/sof_maxim_common.h |  21 ++-
+>  sound/soc/intel/boards/sof_rt5682.c       |  37 +----
+>  3 files changed, 111 insertions(+), 117 deletions(-)
 > 
-> > > It really feels like we ought to rename, or add an alias for, the type
-> > > if we're going to start using it more widely - it's not helping to make
-> > > the code clearer.
+> diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
+> index 112e89951da0..628b6d5d3ee4 100644
+> --- a/sound/soc/intel/boards/sof_maxim_common.c
+> +++ b/sound/soc/intel/boards/sof_maxim_common.c
+> @@ -4,6 +4,7 @@
+>  #include <linux/module.h>
+>  #include <linux/string.h>
+>  #include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+>  #include <sound/soc.h>
+>  #include <sound/soc-acpi.h>
+>  #include <sound/soc-dai.h>
+> @@ -11,6 +12,18 @@
+>  #include <uapi/sound/asound.h>
+>  #include "sof_maxim_common.h"
+>  
+> +/* helper function to get the number of specific codec */
+> +static unsigned int get_num_codecs(const char *hid)
+> +{
+> +	struct acpi_device *adev;
+> +	unsigned int dev_num = 0;
+> +
+> +	for_each_acpi_dev_match(adev, hid, NULL, -1)
+> +		dev_num++;
+> +
+> +	return dev_num;
+> +}
+> +
+>  #define MAX_98373_PIN_NAME 16
+>  
+>  const struct snd_soc_dapm_route max_98373_dapm_routes[] = {
+> @@ -168,17 +181,6 @@ static struct snd_soc_codec_conf max_98390_codec_conf[] = {
+>  		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
+>  		.name_prefix = "Left",
+>  	},
+> -};
+> -
+> -static struct snd_soc_codec_conf max_98390_4spk_codec_conf[] = {
+> -	{
+> -		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
+> -		.name_prefix = "Right",
+> -	},
+> -	{
+> -		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
+> -		.name_prefix = "Left",
+> -	},
+>  	{
+>  		.dlc = COMP_CODEC_CONF(MAX_98390_DEV2_NAME),
+>  		.name_prefix = "Tweeter Right",
+> @@ -189,19 +191,7 @@ static struct snd_soc_codec_conf max_98390_4spk_codec_conf[] = {
+>  	},
+>  };
+>  
+> -struct snd_soc_dai_link_component max_98390_components[] = {
+> -	{
+> -		.name = MAX_98390_DEV0_NAME,
+> -		.dai_name = MAX_98390_CODEC_DAI,
+> -	},
+> -	{
+> -		.name = MAX_98390_DEV1_NAME,
+> -		.dai_name = MAX_98390_CODEC_DAI,
+> -	},
+> -};
+> -EXPORT_SYMBOL_NS(max_98390_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+> -
+> -struct snd_soc_dai_link_component max_98390_4spk_components[] = {
+> +static struct snd_soc_dai_link_component max_98390_components[] = {
+>  	{
+>  		.name = MAX_98390_DEV0_NAME,
+>  		.dai_name = MAX_98390_CODEC_DAI,
+> @@ -219,62 +209,56 @@ struct snd_soc_dai_link_component max_98390_4spk_components[] = {
+>  		.dai_name = MAX_98390_CODEC_DAI,
+>  	},
+>  };
+> -EXPORT_SYMBOL_NS(max_98390_4spk_components, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+> +
+> +static const struct {
+> +	unsigned int tx;
+> +	unsigned int rx;
+> +} max_98390_tdm_mask[] = {
+> +	{.tx = 0x01, .rx = 0x3},
+> +	{.tx = 0x02, .rx = 0x3},
+> +	{.tx = 0x04, .rx = 0x3},
+> +	{.tx = 0x08, .rx = 0x3},
+> +};
+>  
+>  static int max_98390_hw_params(struct snd_pcm_substream *substream,
+>  			       struct snd_pcm_hw_params *params)
+>  {
+>  	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+>  	struct snd_soc_dai *codec_dai;
+> -	int i;
+> +	int i, ret;
+>  
+>  	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> -		if (i >= ARRAY_SIZE(max_98390_4spk_components)) {
+> +		if (i >= ARRAY_SIZE(max_98390_tdm_mask)) {
+>  			dev_err(codec_dai->dev, "invalid codec index %d\n", i);
+>  			return -ENODEV;
+>  		}
+>  
+> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV0_NAME)) {
+> -			/* DEV0 tdm slot configuration Right */
+> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x01, 3, 4, 32);
+> -		}
+> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV1_NAME)) {
+> -			/* DEV1 tdm slot configuration Left */
+> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x02, 3, 4, 32);
+> -		}
+> -
+> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV2_NAME)) {
+> -			/* DEVi2 tdm slot configuration Tweeter Right */
+> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x04, 3, 4, 32);
+> -		}
+> -		if (!strcmp(codec_dai->component->name, MAX_98390_DEV3_NAME)) {
+> -			/* DEV3 tdm slot configuration Tweeter Left */
+> -			snd_soc_dai_set_tdm_slot(codec_dai, 0x08, 3, 4, 32);
+> +		ret = snd_soc_dai_set_tdm_slot(codec_dai, max_98390_tdm_mask[i].tx,
+> +					       max_98390_tdm_mask[i].rx, 4,
+> +					       params_width(params));
+> +		if (ret < 0) {
+> +			dev_err(codec_dai->dev, "fail to set tdm slot, ret %d\n",
+> +				ret);
+> +			return ret;
+>  		}
+>  	}
+>  	return 0;
+>  }
+>  
+> -int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
+> +static int max_98390_init(struct snd_soc_pcm_runtime *rtd)
+>  {
+>  	struct snd_soc_card *card = rtd->card;
+> +	unsigned int num_codecs = get_num_codecs(MAX_98390_ACPI_HID);
+>  	int ret;
+>  
+> -	/* add regular speakers dapm route */
+> -	ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
+> -				      ARRAY_SIZE(max_98390_dapm_routes));
+> -	if (ret) {
+> -		dev_err(rtd->dev, "unable to add Left/Right Speaker dapm, ret %d\n", ret);
+> -		return ret;
+> -	}
+> -
+> -	/* add widgets/controls/dapm for tweeter speakers */
+> -	if (acpi_dev_present("MX98390", "3", -1)) {
+> +	switch (num_codecs) {
+> +	case 4:
+> +		/* add widgets/controls/dapm for tweeter speakers */
+>  		ret = snd_soc_dapm_new_controls(&card->dapm, max_98390_tt_dapm_widgets,
+>  						ARRAY_SIZE(max_98390_tt_dapm_widgets));
+> -
+>  		if (ret) {
+> -			dev_err(rtd->dev, "unable to add tweeter dapm controls, ret %d\n", ret);
+> +			dev_err(rtd->dev, "unable to add tweeter dapm widgets, ret %d\n",
+> +				ret);
+>  			/* Don't need to add routes if widget addition failed */
+>  			return ret;
+>  		}
+> @@ -282,33 +266,79 @@ int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
+>  		ret = snd_soc_add_card_controls(card, max_98390_tt_kcontrols,
+>  						ARRAY_SIZE(max_98390_tt_kcontrols));
+>  		if (ret) {
+> -			dev_err(rtd->dev, "unable to add tweeter card controls, ret %d\n", ret);
+> +			dev_err(rtd->dev, "unable to add tweeter controls, ret %d\n",
+> +				ret);
+>  			return ret;
+>  		}
+>  
+>  		ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_tt_dapm_routes,
+>  					      ARRAY_SIZE(max_98390_tt_dapm_routes));
+> -		if (ret)
+> -			dev_err(rtd->dev,
+> -				"unable to add Tweeter Left/Right Speaker dapm, ret %d\n", ret);
+> +		if (ret) {
+> +			dev_err(rtd->dev, "unable to add tweeter dapm routes, ret %d\n",
+> +				ret);
+> +			return ret;
+> +		}
+> +
+> +		fallthrough;
+> +	case 2:
+> +		/* add regular speakers dapm route */
+> +		ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
+> +					      ARRAY_SIZE(max_98390_dapm_routes));
+> +		if (ret) {
+> +			dev_err(rtd->dev, "unable to add dapm routes, ret %d\n",
+> +				ret);
+> +			return ret;
+> +		}
+> +		break;
+> +	default:
+> +		dev_err(rtd->dev, "invalid codec number %d\n", num_codecs);
+> +		return -EINVAL;
+>  	}
+> +
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL_NS(max_98390_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+>  
+> -const struct snd_soc_ops max_98390_ops = {
+> +static const struct snd_soc_ops max_98390_ops = {
+>  	.hw_params = max_98390_hw_params,
+>  };
+> -EXPORT_SYMBOL_NS(max_98390_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+>  
+> -void max_98390_set_codec_conf(struct snd_soc_card *card, int ch)
+> +void max_98390_dai_link(struct device *dev, struct snd_soc_dai_link *link)
+> +{
+> +	unsigned int num_codecs = get_num_codecs(MAX_98390_ACPI_HID);
+> +
+> +	link->codecs = max_98390_components;
+> +
+> +	switch (num_codecs) {
+> +	case 2:
+> +	case 4:
+> +		link->num_codecs = num_codecs;
+> +		break;
+> +	default:
+> +		dev_err(dev, "invalid codec number %d for %s\n", num_codecs,
+> +			MAX_98390_ACPI_HID);
+> +		break;
+> +	}
+> +
+> +	link->init = max_98390_init;
+> +	link->ops = &max_98390_ops;
+> +}
+> +EXPORT_SYMBOL_NS(max_98390_dai_link, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+> +
+> +void max_98390_set_codec_conf(struct device *dev, struct snd_soc_card *card)
+>  {
+> -	if (ch == ARRAY_SIZE(max_98390_4spk_codec_conf)) {
+> -		card->codec_conf = max_98390_4spk_codec_conf;
+> -		card->num_configs = ARRAY_SIZE(max_98390_4spk_codec_conf);
+> -	} else {
+> -		card->codec_conf = max_98390_codec_conf;
+> -		card->num_configs = ARRAY_SIZE(max_98390_codec_conf);
+> +	unsigned int num_codecs = get_num_codecs(MAX_98390_ACPI_HID);
+> +
+> +	card->codec_conf = max_98390_codec_conf;
+> +
+> +	switch (num_codecs) {
+> +	case 2:
+> +	case 4:
+> +		card->num_configs = num_codecs;
+> +		break;
+> +	default:
+> +		dev_err(dev, "invalid codec number %d for %s\n", num_codecs,
+> +			MAX_98390_ACPI_HID);
+> +		break;
+>  	}
+>  }
+>  EXPORT_SYMBOL_NS(max_98390_set_codec_conf, SND_SOC_INTEL_SOF_MAXIM_COMMON);
+> diff --git a/sound/soc/intel/boards/sof_maxim_common.h b/sound/soc/intel/boards/sof_maxim_common.h
+> index 7a8c53049e4d..a095b47b856b 100644
+> --- a/sound/soc/intel/boards/sof_maxim_common.h
+> +++ b/sound/soc/intel/boards/sof_maxim_common.h
+> @@ -27,18 +27,15 @@ int max_98373_trigger(struct snd_pcm_substream *substream, int cmd);
+>  /*
+>   * Maxim MAX98390
+>   */
+> -#define MAX_98390_CODEC_DAI     "max98390-aif1"
+> -#define MAX_98390_DEV0_NAME     "i2c-MX98390:00"
+> -#define MAX_98390_DEV1_NAME     "i2c-MX98390:01"
+> -#define MAX_98390_DEV2_NAME     "i2c-MX98390:02"
+> -#define MAX_98390_DEV3_NAME     "i2c-MX98390:03"
+> -
+> -extern struct snd_soc_dai_link_component max_98390_components[2];
+> -extern struct snd_soc_dai_link_component max_98390_4spk_components[4];
+> -extern const struct snd_soc_ops max_98390_ops;
+> -
+> -void max_98390_set_codec_conf(struct snd_soc_card *card, int ch);
+> -int max_98390_spk_codec_init(struct snd_soc_pcm_runtime *rtd);
+> +#define MAX_98390_ACPI_HID	"MX98390"
+> +#define MAX_98390_CODEC_DAI	"max98390-aif1"
+> +#define MAX_98390_DEV0_NAME	"i2c-" MAX_98390_ACPI_HID ":00"
+> +#define MAX_98390_DEV1_NAME	"i2c-" MAX_98390_ACPI_HID ":01"
+> +#define MAX_98390_DEV2_NAME	"i2c-" MAX_98390_ACPI_HID ":02"
+> +#define MAX_98390_DEV3_NAME	"i2c-" MAX_98390_ACPI_HID ":03"
+> +
+> +void max_98390_dai_link(struct device *dev, struct snd_soc_dai_link *link);
+> +void max_98390_set_codec_conf(struct device *dev, struct snd_soc_card *card);
+>  
+>  /*
+>   * Maxim MAX98357A/MAX98360A
+> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> index b4f07bdcf8b4..0af1e0c3a9db 100644
+> --- a/sound/soc/intel/boards/sof_rt5682.c
+> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> @@ -59,7 +59,6 @@
+>  #define SOF_SSP_BT_OFFLOAD_PRESENT		BIT(22)
+>  #define SOF_RT5682S_HEADPHONE_CODEC_PRESENT	BIT(23)
+>  #define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
+> -#define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
+>  #define SOF_RT1019_SPEAKER_AMP_PRESENT	BIT(26)
+>  #define SOF_RT5650_HEADPHONE_CODEC_PRESENT	BIT(27)
+>  
+> @@ -195,23 +194,6 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
+>  					SOF_RT5682_SSP_AMP(2) |
+>  					SOF_RT5682_NUM_HDMIDEV(4)),
+>  	},
+> -	{
+> -		.callback = sof_rt5682_quirk_cb,
+> -		.matches = {
+> -			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Brya"),
+> -			DMI_MATCH(DMI_OEM_STRING, "AUDIO-MAX98390_ALC5682I_I2S_4SPK"),
+> -		},
+> -		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
+> -					SOF_RT5682_SSP_CODEC(0) |
+> -					SOF_SPEAKER_AMP_PRESENT |
+> -					SOF_MAX98390_SPEAKER_AMP_PRESENT |
+> -					SOF_MAX98390_TWEETER_SPEAKER_PRESENT |
+> -					SOF_RT5682_SSP_AMP(1) |
+> -					SOF_RT5682_NUM_HDMIDEV(4) |
+> -					SOF_BT_OFFLOAD_SSP(2) |
+> -					SOF_SSP_BT_OFFLOAD_PRESENT),
+> -
+> -	},
+>  	{
+>  		.callback = sof_rt5682_quirk_cb,
+>  		.matches = {
+> @@ -850,17 +832,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+>  			sof_rt1011_dai_link(&links[id]);
+>  		} else if (sof_rt5682_quirk &
+>  				SOF_MAX98390_SPEAKER_AMP_PRESENT) {
+> -			if (sof_rt5682_quirk &
+> -				SOF_MAX98390_TWEETER_SPEAKER_PRESENT) {
+> -				links[id].codecs = max_98390_4spk_components;
+> -				links[id].num_codecs = ARRAY_SIZE(max_98390_4spk_components);
+> -			} else {
+> -				links[id].codecs = max_98390_components;
+> -				links[id].num_codecs = ARRAY_SIZE(max_98390_components);
+> -			}
+> -			links[id].init = max_98390_spk_codec_init;
+> -			links[id].ops = &max_98390_ops;
+> -
+> +			max_98390_dai_link(dev, &links[id]);
+>  		} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
+>  			links[id].codecs = &rt5650_components[1];
+>  			links[id].num_codecs = 1;
+> @@ -1019,12 +991,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+>  	else if (sof_rt5682_quirk & SOF_RT1015P_SPEAKER_AMP_PRESENT)
+>  		sof_rt1015p_codec_conf(&sof_audio_card_rt5682);
+>  	else if (sof_rt5682_quirk & SOF_MAX98390_SPEAKER_AMP_PRESENT) {
+> -		if (sof_rt5682_quirk & SOF_MAX98390_TWEETER_SPEAKER_PRESENT)
+> -			max_98390_set_codec_conf(&sof_audio_card_rt5682,
+> -						 ARRAY_SIZE(max_98390_4spk_components));
+> -		else
+> -			max_98390_set_codec_conf(&sof_audio_card_rt5682,
+> -						 ARRAY_SIZE(max_98390_components));
+> +		max_98390_set_codec_conf(&pdev->dev, &sof_audio_card_rt5682);
+>  	}
+>  
+>  	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
+> -- 
+> 2.34.1
 > 
-> > That was my very first impression, too, but I changed my mind after
-> > seeing the already used code.  An alias might work, either typedef or
-> > define genptr_t or such as sockptr_t.  But we'll need to copy the
-> > bunch of helper functions, too...
-> 
-> I would predict that if the type becomes more widely used that'll happen
-> eventually and the longer it's left the more work it'll be.
 
-That's true.  The question is how more widely it'll be used, then.
-
-Is something like below what you had in mind, too?
-
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] Introduce uniptr_t as replacement of sockptr_t
-
-Although sockptr_t is used already in several places as a "universal"
-pointer, it's still too confusing as if were related with network
-stuff.
-
-Make a more generic type, uniptr_t, that does exactly as same as
-sockptr_t for a wider use.  sockptr_t becomes now alias to uniptr_t.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/linux/sockptr.h | 124 +++++-----------------------------------
- include/linux/uniptr.h  | 117 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 132 insertions(+), 109 deletions(-)
- create mode 100644 include/linux/uniptr.h
-
-diff --git a/include/linux/sockptr.h b/include/linux/sockptr.h
-index bae5e2369b4f..dc803989a4d6 100644
---- a/include/linux/sockptr.h
-+++ b/include/linux/sockptr.h
-@@ -1,118 +1,24 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
-- * Copyright (c) 2020 Christoph Hellwig.
-- *
-- * Support for "universal" pointers that can point to either kernel or userspace
-- * memory.
-+ * Aliases for the old sockptr_t and its helpers for the new uniptr_t
-  */
- #ifndef _LINUX_SOCKPTR_H
- #define _LINUX_SOCKPTR_H
- 
--#include <linux/slab.h>
--#include <linux/uaccess.h>
-+#include <linux/uniptr.h>
- 
--typedef struct {
--	union {
--		void		*kernel;
--		void __user	*user;
--	};
--	bool		is_kernel : 1;
--} sockptr_t;
--
--static inline bool sockptr_is_kernel(sockptr_t sockptr)
--{
--	return sockptr.is_kernel;
--}
--
--static inline sockptr_t KERNEL_SOCKPTR(void *p)
--{
--	return (sockptr_t) { .kernel = p, .is_kernel = true };
--}
--
--static inline sockptr_t USER_SOCKPTR(void __user *p)
--{
--	return (sockptr_t) { .user = p };
--}
--
--static inline bool sockptr_is_null(sockptr_t sockptr)
--{
--	if (sockptr_is_kernel(sockptr))
--		return !sockptr.kernel;
--	return !sockptr.user;
--}
--
--static inline int copy_from_sockptr_offset(void *dst, sockptr_t src,
--		size_t offset, size_t size)
--{
--	if (!sockptr_is_kernel(src))
--		return copy_from_user(dst, src.user + offset, size);
--	memcpy(dst, src.kernel + offset, size);
--	return 0;
--}
--
--static inline int copy_from_sockptr(void *dst, sockptr_t src, size_t size)
--{
--	return copy_from_sockptr_offset(dst, src, 0, size);
--}
--
--static inline int copy_to_sockptr_offset(sockptr_t dst, size_t offset,
--		const void *src, size_t size)
--{
--	if (!sockptr_is_kernel(dst))
--		return copy_to_user(dst.user + offset, src, size);
--	memcpy(dst.kernel + offset, src, size);
--	return 0;
--}
--
--static inline int copy_to_sockptr(sockptr_t dst, const void *src, size_t size)
--{
--	return copy_to_sockptr_offset(dst, 0, src, size);
--}
--
--static inline void *memdup_sockptr(sockptr_t src, size_t len)
--{
--	void *p = kmalloc_track_caller(len, GFP_USER | __GFP_NOWARN);
--
--	if (!p)
--		return ERR_PTR(-ENOMEM);
--	if (copy_from_sockptr(p, src, len)) {
--		kfree(p);
--		return ERR_PTR(-EFAULT);
--	}
--	return p;
--}
--
--static inline void *memdup_sockptr_nul(sockptr_t src, size_t len)
--{
--	char *p = kmalloc_track_caller(len + 1, GFP_KERNEL);
--
--	if (!p)
--		return ERR_PTR(-ENOMEM);
--	if (copy_from_sockptr(p, src, len)) {
--		kfree(p);
--		return ERR_PTR(-EFAULT);
--	}
--	p[len] = '\0';
--	return p;
--}
--
--static inline long strncpy_from_sockptr(char *dst, sockptr_t src, size_t count)
--{
--	if (sockptr_is_kernel(src)) {
--		size_t len = min(strnlen(src.kernel, count - 1) + 1, count);
--
--		memcpy(dst, src.kernel, len);
--		return len;
--	}
--	return strncpy_from_user(dst, src.user, count);
--}
--
--static inline int check_zeroed_sockptr(sockptr_t src, size_t offset,
--				       size_t size)
--{
--	if (!sockptr_is_kernel(src))
--		return check_zeroed_user(src.user + offset, size);
--	return memchr_inv(src.kernel + offset, 0, size) == NULL;
--}
-+#define sockptr_t		uniptr_t
-+#define sockptr_is_kernel	uniptr_is_kernel
-+#define KERNEL_SOCKPTR		KERNEL_UNIPTR
-+#define USER_SOCKPTR		USER_UNIPTR
-+#define sockptr_is_null		uniptr_is_null
-+#define copy_from_sockptr_offset copy_from_uniptr_offset
-+#define copy_from_sockptr	copy_from_uniptr
-+#define copy_to_sockptr_offset	copy_to_uniptr_offset
-+#define copy_to_sockptr		copy_to_uniptr
-+#define memdup_sockptr		memdup_uniptr
-+#define memdup_sockptr_nul	memdup_uniptr_nul
-+#define strncpy_from_sockptr	strncpy_from_uniptr
-+#define check_zeroed_sockptr	check_zeroed_uniptr
- 
- #endif /* _LINUX_SOCKPTR_H */
-diff --git a/include/linux/uniptr.h b/include/linux/uniptr.h
-new file mode 100644
-index 000000000000..3ca9fc8eab4e
---- /dev/null
-+++ b/include/linux/uniptr.h
-@@ -0,0 +1,117 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2020 Christoph Hellwig.
-+ *
-+ * Support for "universal" pointers that can point to either kernel or userspace
-+ * memory.
-+ */
-+#ifndef _LINUX_UNIPTR_H
-+#define _LINUX_UNIPTR_H
-+
-+#include <linux/slab.h>
-+#include <linux/uaccess.h>
-+
-+typedef struct {
-+	union {
-+		void		*kernel;
-+		void __user	*user;
-+	};
-+	bool		is_kernel : 1;
-+} uniptr_t;
-+
-+static inline bool uniptr_is_kernel(uniptr_t uniptr)
-+{
-+	return uniptr.is_kernel;
-+}
-+
-+static inline uniptr_t KERNEL_UNIPTR(void *p)
-+{
-+	return (uniptr_t) { .kernel = p, .is_kernel = true };
-+}
-+
-+static inline uniptr_t USER_UNIPTR(void __user *p)
-+{
-+	return (uniptr_t) { .user = p };
-+}
-+
-+static inline bool uniptr_is_null(uniptr_t uniptr)
-+{
-+	if (uniptr_is_kernel(uniptr))
-+		return !uniptr.kernel;
-+	return !uniptr.user;
-+}
-+
-+static inline int copy_from_uniptr_offset(void *dst, uniptr_t src,
-+					  size_t offset, size_t size)
-+{
-+	if (!uniptr_is_kernel(src))
-+		return copy_from_user(dst, src.user + offset, size);
-+	memcpy(dst, src.kernel + offset, size);
-+	return 0;
-+}
-+
-+static inline int copy_from_uniptr(void *dst, uniptr_t src, size_t size)
-+{
-+	return copy_from_uniptr_offset(dst, src, 0, size);
-+}
-+
-+static inline int copy_to_uniptr_offset(uniptr_t dst, size_t offset,
-+					const void *src, size_t size)
-+{
-+	if (!uniptr_is_kernel(dst))
-+		return copy_to_user(dst.user + offset, src, size);
-+	memcpy(dst.kernel + offset, src, size);
-+	return 0;
-+}
-+
-+static inline int copy_to_uniptr(uniptr_t dst, const void *src, size_t size)
-+{
-+	return copy_to_uniptr_offset(dst, 0, src, size);
-+}
-+
-+static inline void *memdup_uniptr(uniptr_t src, size_t len)
-+{
-+	void *p = kmalloc_track_caller(len, GFP_USER | __GFP_NOWARN);
-+
-+	if (!p)
-+		return ERR_PTR(-ENOMEM);
-+	if (copy_from_uniptr(p, src, len)) {
-+		kfree(p);
-+		return ERR_PTR(-EFAULT);
-+	}
-+	return p;
-+}
-+
-+static inline void *memdup_uniptr_nul(uniptr_t src, size_t len)
-+{
-+	char *p = kmalloc_track_caller(len + 1, GFP_KERNEL);
-+
-+	if (!p)
-+		return ERR_PTR(-ENOMEM);
-+	if (copy_from_uniptr(p, src, len)) {
-+		kfree(p);
-+		return ERR_PTR(-EFAULT);
-+	}
-+	p[len] = '\0';
-+	return p;
-+}
-+
-+static inline long strncpy_from_uniptr(char *dst, uniptr_t src, size_t count)
-+{
-+	if (uniptr_is_kernel(src)) {
-+		size_t len = min(strnlen(src.kernel, count - 1) + 1, count);
-+
-+		memcpy(dst, src.kernel, len);
-+		return len;
-+	}
-+	return strncpy_from_user(dst, src.user, count);
-+}
-+
-+static inline int check_zeroed_uniptr(uniptr_t src, size_t offset, size_t size)
-+{
-+	if (!uniptr_is_kernel(src))
-+		return check_zeroed_user(src.user + offset, size);
-+	return memchr_inv(src.kernel + offset, 0, size) == NULL;
-+}
-+
-+#endif /* _LINUX_UNIPTR_H */
 -- 
-2.35.3
+With Best Regards,
+Andy Shevchenko
 
 

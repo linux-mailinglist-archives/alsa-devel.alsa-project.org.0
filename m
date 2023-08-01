@@ -2,118 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 261E876AA08
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 09:32:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2DDD76AAE8
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 10:26:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CC8C210;
-	Tue,  1 Aug 2023 09:31:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CC8C210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04D6B823;
+	Tue,  1 Aug 2023 10:25:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04D6B823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690875133;
-	bh=WppVxbzD0zAW0oEaO+zRMR0lMwaO0EpYErMv0uP7Hug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Yw3q4EwDs30vp3J3Ic6M98BN5yqT3+krXSKX1Gx5SP1CX5REipmhVG54DdTagyslE
-	 Jgxhy9hkEHL6V2SY/FVwRT33ZOABC/+M84XprUDytm1jFsi/zk4Ow5+nGnJXbVtrtF
-	 YoV90+ENSChJxfXnQ/qLN7G2teU63umOojWevi9A=
+	s=default; t=1690878381;
+	bh=O6tX+xSMAwOWUTEedvaspx1RKUJy6tdWGWxgZ8b5NuY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Qwbf5XVnMQjoy+N0C3z+dfgJokoBy7uk61pe/vGCcrWrPkwAQj7R+b7o4J2DltOop
+	 jzwPU1zzF+ypMcfVKYuqI7oxeCMieDTiVXt7ENUUmN4olvAJjIafzcRt0uwSaWKTrq
+	 0wSCiyFdd9ySWZEsC5ThYAkq79+74lVtOW9eIvEU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEF4DF8025A; Tue,  1 Aug 2023 09:31:22 +0200 (CEST)
+	id 38D24F8016D; Tue,  1 Aug 2023 10:25:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83F16F8016D;
-	Tue,  1 Aug 2023 09:31:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F143BF8016D;
+	Tue,  1 Aug 2023 10:25:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 16FD8F801D5; Tue,  1 Aug 2023 09:28:49 +0200 (CEST)
+	id 19777F802BE; Tue,  1 Aug 2023 10:25:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FSL_HELO_FAKE,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,
+	T_SPF_PERMERROR shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe1e::62f])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 02640F80149
-	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 09:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02640F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE0A1F80149
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 10:24:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE0A1F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=juO4Yk9a
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-686fc0d3c92so3332500b3a.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 01 Aug 2023 00:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690874913; x=1691479713;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=19fkat+AwmoIDmk7TMp4T2FCh4hY7EdvW+uqAE+YRjE=;
-        b=juO4Yk9afn0VTy18or87R1uPLi1F1tC+NR2Qr5M5jo5aZ+aCxMXkQJMnZ/o74rIlPR
-         NAHNgt0stjKMMIj5s4xUTTv6by2qrUVH1OwFt2sh3LGXDpS2UAXkBM7CAFku9e+AfbWA
-         pbkH/+RagAjQzESjKt7Ea94GAcmrfrS3HUaiIYusletQCtsOzJ2VxDOzYPQuhtMuc5YI
-         maQ4AuwovU2HXb52vntQc1ulFPEpEl+50sKDdS8eV8BBVooQwNptiN5+qxbzsD1CLOKD
-         1Rc6r4BCDsEo8XD/UqxAvCu0d6pDooqkm5tBldp5+XlfWqOBUv+90jRlAzmiVHe1VXn3
-         jZxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690874913; x=1691479713;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=19fkat+AwmoIDmk7TMp4T2FCh4hY7EdvW+uqAE+YRjE=;
-        b=IEz+Oin5mh4+/EjxBxQWM2gterPXX8eWIacu94s8b9slrPWDS2mYWwL8oEexvCeBfV
-         n+g4z7LrcjvmJ0WlS7pyW3R3FdCetwZzZ/9PaMCr8/xKRV8J0sx0bLNFBa6F2Sh07RIB
-         Sksd7FCpX06W2xAPo9Fi8Zqr8MYYtRRQPXMWypjcnTMsfXtqQw1+Td5j6oZkrRTf+nWJ
-         l57GgeDZkznnrr/3xso2gJoDMBaCOg//z8HKr/fzEWDIZMoSkCwdNg0FmMTEL+PNqvHR
-         zk9nAfbo1ZGqZ+NM6M5mwqfLwU8TDVkHoD0pPTisZSeoYvt4aeJp29Cr7+HvPo2gdXCq
-         Ww/g==
-X-Gm-Message-State: ABy/qLY7/t2GSr7t3uQvPS7eoEsFFLmws69vJZne5ZAS08a8ZJ3yKNUk
-	Tpa/LuMY8n1vn4XxG/gK7xA=
-X-Google-Smtp-Source: 
- APBJJlELLqDFM+PStFjKGXZPFUWsqqqPnh+1/CHn6w1eOq56smmbSNaPHOrgV6k3Z94uAO6TsZLjqA==
-X-Received: by 2002:a05:6a00:1782:b0:687:38aa:9461 with SMTP id
- s2-20020a056a00178200b0068738aa9461mr5899107pfg.26.1690874912454;
-        Tue, 01 Aug 2023 00:28:32 -0700 (PDT)
-Received: from google.com ([2620:15c:9d:2:e9c5:ca03:62a0:85ae])
-        by smtp.gmail.com with ESMTPSA id
- e18-20020a62aa12000000b006875493da1fsm530162pff.10.2023.08.01.00.28.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Aug 2023 00:28:32 -0700 (PDT)
-Date: Tue, 1 Aug 2023 00:28:29 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jeff LaBundy <jeff@labundy.com>
-Cc: Marek Vasut <marex@denx.de>, Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	Manuel Traut <manuel.traut@mt.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	linux-pwm@vger.kernel.org, alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
-Message-ID: <ZMi0HT/yaTo9uTyi@google.com>
-References: <ZMdIZiC453onyeHh@google.com>
- <873514d2ju.wl-tiwai@suse.de>
- <63adce9a-df65-b462-9055-0ece5216d680@denx.de>
- <87tttkjmyu.wl-tiwai@suse.de>
- <0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de>
- <87h6pkjh7q.wl-tiwai@suse.de>
- <618add56-3675-4efe-5b20-665c10040e03@denx.de>
- <ZMfgJ3o00nApkXGp@google.com>
- <f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de>
- <ZMh0Sa9s25JHhWw5@nixie71>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-NXP1-onmicrosoft-com header.b=XK02OkTf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZiyYx6ipXOydNvv3N1KIG3NeE8dHh9IBenYdgDZGdPIRyj+12IUobZXAp6DkEQOwlxgiOxiS7XEXSZ4WMPo5+LPItOjjqp8vxC35EOOJ6BorSpQCyqldNpt8o+4KYe3wBJp1WuxfgxkdcV2zLi4X6byvZgW6DSbS+RNGG33mAB8IWMv3gQCPjnB42qQWVHxVliARJFAscDs9KOfxy2AyA1xgnSYTYYPCvCk7Rf12HziSq79FovXqsgENVVPhIMLSv8T/e1gSJ69+phs9BjxiSR0+UD8IZVgPhdodHz3se+P6MVzX2nUSVyDvhV61b0WVr4pNV9I2yew/82cqnU5HnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YNPNdQ0UYtaqcGqQmsY0QWUUgfKvH5BZddxo3RIb6ts=;
+ b=OPWwM1dbmYQJ8c3aCNdPkPOSqpg2VJicEPom+v9guS/pYm88IsWrQBDV6PyNjmfBhjMiYVhRHsjkmwCtiwDNSdG3XeADv4mcpSmVguxM2w2c/5rjIKRcanoF7cu7kOK2/eVg0dLggioJ3VRYiuePGYkfIcAMebBgiFOjHrbOaROHGdXCDnma5u6iM+9XZVSg8qcu0Wtr4tpkm26UNXBLapHfIcVNm3cDx2fXCuUPbKfz2rRF5aGZHbGEFbPzC5ayd+NOHCxTPu8OhaEQLe0baqVyZHJ/lcPr67upwc5GY6MhagkRXibIKBsXG4ZvQSDrBaEq/agvA1u/iOlIhVc3mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YNPNdQ0UYtaqcGqQmsY0QWUUgfKvH5BZddxo3RIb6ts=;
+ b=XK02OkTfoAlvj4jYDfY13E/LqmT9yRq7aEOzMaAqrSHhuUZ0DF7ULKClFs8T/Go+AePf1hZRZbb1OwBDXdMo2OQpQgTpKLp6q7/oQjIseHsan+2RRdHWhVXvmUgBCty1kQUMrEDX/Kura2aWSGn40ywMqnYIBwPT2z8V0BnsLrA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
+ by PA4PR04MB7917.eurprd04.prod.outlook.com (2603:10a6:102:cd::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 1 Aug
+ 2023 08:24:49 +0000
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::d4e4:973a:b085:de93]) by VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::d4e4:973a:b085:de93%7]) with mapi id 15.20.6631.043; Tue, 1 Aug 2023
+ 08:24:49 +0000
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+To: broonie@kernel.org,
+	alsa-devel@alsa-project.org,
+	robh+dt@kernel.org
+Cc: kuninori.morimoto.gx@renesas.com,
+	spujar@nvidia.com,
+	tiwai@suse.com,
+	perex@perex.cz,
+	linux-kernel@vger.kernel.org,
+	linux-imx@nxp.com,
+	devicetree@vger.kernel.org,
+	daniel.baluta@gmail.com
+Subject: [PATCH 0/2] ASoC: simple-card: Introduce playback-only/capture-only
+ DAI link flags
+Date: Tue,  1 Aug 2023 11:24:31 +0300
+Message-Id: <20230801082433.548206-1-daniel.baluta@oss.nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MR2P264CA0057.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:31::21) To VI1PR04MB5151.eurprd04.prod.outlook.com
+ (2603:10a6:803:61::28)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZMh0Sa9s25JHhWw5@nixie71>
-Message-ID-Hash: XYO5BCWGG7GZS2GADFFFP72EI5F4KGRO
-X-Message-ID-Hash: XYO5BCWGG7GZS2GADFFFP72EI5F4KGRO
-X-MailFrom: dmitry.torokhov@gmail.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5151:EE_|PA4PR04MB7917:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1fce1c0d-8758-4474-1fb1-08db9268c55e
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	HB+e1WwwNGSSu7VnQKCLm6+CbGrHdUMV2waHPmsazu0E7HT23V7NkV7zN476avTzBxNJb8WbravmdLc9M5456VXpYgZKQbzezTrRQpNyqDVSS7BbawJUFU9ry2FL0G9ISjoThaU0fPcuDpEZ+uVDPVLpqAQuBs0W+itvXM/Tez9ssMVYKF9VIuhw13NwVjB4TJpKA+NisSIJ46N4+ZFFa2LSH+rgbEdcgDbz82Im1TD33812Q2YSOfKHDFStvwCnI6mF/7gStvbJae2RpTyHhNz9SoQbvtDlRIlXZsFK4uM8YXaPBjruMrvoHZZslB6UyKbyyI+nv7Ov5PiKAAlaHEx4u869ixdw0jjOUiqbzlEPE8VMejk/k6BBE4TtE4hj2PHVoKeD9CW49ROwv+K2tzF04iIN93n5R0WUhq9Vuz3LikgvCT26j9DRgtaSH9OhoivQsOsOsf0k8y1PkaXbL9PWoB8x0ca7rVpMGqQ1sY5MdOcEJ2gAKBbopDaoLrKQz6cqyOgluJDI/rW/VyZGgEtk7CDGY88Fau9bkMQmkRvXsbVZ+nmEZ8E4T8mEocYODa1gmsEKT/yI+1BTdlFFSWOgctmxFEESdvGLb3X6BDAtrGARV+DlpO0WpZYI68Ej
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5151.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(346002)(39860400002)(396003)(136003)(451199021)(66556008)(66476007)(66946007)(52116002)(2616005)(6512007)(6486002)(86362001)(38350700002)(38100700002)(26005)(478600001)(1076003)(186003)(6666004)(4744005)(6506007)(316002)(41300700001)(2906002)(8936002)(5660300002)(7416002)(4326008)(44832011)(8676002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?6+loaax8o1wvasaL+REMM3yV+NrL5PTNYPu2l8+cTZyfum/4xZX59O2AG6QK?=
+ =?us-ascii?Q?oIr43D0gyGXInoIIHjLy0woUSeAm1zCyhbf3m8m/Al04bpsSFEgdrRuCxX0h?=
+ =?us-ascii?Q?1L1Gaxqx97o3EGxfWmMfYkOVsZ2b8kOXu64s7srfpOYYL58LvMF/DxlXTZcp?=
+ =?us-ascii?Q?S3GJdMjQ8sJWJldhiUyjaSVhWh9UE7QUD06K3TlPAy9RbwBAB+O4veo74F/U?=
+ =?us-ascii?Q?mwPzkx17NoXgrb2S9/P7CLCIi9RJyE0wd3iZo1a34oQOd+wkyVN9QuOTi+3r?=
+ =?us-ascii?Q?8EYHMllhn5PXjrAsOJ9VwAKrxJ6RFD215KMl87F6SFmsNMXWma2pGsSQUGq8?=
+ =?us-ascii?Q?qARTOnSnsczGXUEXOeC5BJAYD6spj/L0qgSWZNGcXy2Vbt3w9vQxi2BY2h4o?=
+ =?us-ascii?Q?6qbB7loSHQ2LQUv1pHGyH10UYfe0f6hyXYLvNRV+KKBPq2bhYfRfflLlj0gk?=
+ =?us-ascii?Q?YOR1R91NuEKhgyCn4KRZG2Xca2Q5COj9G2AT7Yt1Bg9Xj2cyBfVTEg+cUBNO?=
+ =?us-ascii?Q?TABzpSip88BVMOE2tN5h12w7+3SUFlCJgVKq5QUucVnXQlResF4UZ1mkHXhB?=
+ =?us-ascii?Q?4rx5IdSRFP56msXFxDkeGhdY3pf8gPm2hLUP1bITTpRYo5BLZri4qLwfcDTH?=
+ =?us-ascii?Q?Hb2M2SqZ3T6mPRsG45wZcKSu8xF6liVKjeZeQxPhi2zG20qlZerV+INZnaOw?=
+ =?us-ascii?Q?jIbhF6r+9o8OuKNkg5274X78DSclmFzyf5ilLFE8A8rdRqauNO/ro3EAgpbO?=
+ =?us-ascii?Q?jUTxkeSv2UB8Sfr1O1S7LHoIahTCStBG71znXYLyJXkRZ7xsWPg7O2phBOM8?=
+ =?us-ascii?Q?gEinGNjNuCKWbWm5uHOllWKEhYD8g30ChDTrIpOSaAzDLY3WeMSwKcOCBu2S?=
+ =?us-ascii?Q?vk28jfwxc9wmrdc/2pOf6OrP6h11GBc9W55uhxHuhQOQIjqyugSn13lfFL+E?=
+ =?us-ascii?Q?R7AbUW9qCz5OZQZb5SchCpEU3HWagYqgIlum06HB2Me8P7OW/ZNligKjhS9j?=
+ =?us-ascii?Q?pKUkuMCx3+7dSswURmaHsBx5QHuVSl7Whl2tcn8cWvlaj+vNeOKIKqc/EgeR?=
+ =?us-ascii?Q?4lWmjG84COtiMmHk++8KNw8lkxOB7/i7vQ19JCOTUwQNQ0IDUKzVd0Mg1mXF?=
+ =?us-ascii?Q?JvCkdfOjYC8xKwf+asEv1USH8xMAszJchrKhPoPwvCL9SJ4WVeUGXji5BmWR?=
+ =?us-ascii?Q?Mbj/hwmb2o7m9SzXD5QSxymPcoxLSeSJ7KjbXdXz9V6uaUFGnD6cpVZmq3hv?=
+ =?us-ascii?Q?ETOkFdQemKZIRG1ShG4ivwFhDgGE6j3IGwHaZTQ2D1ic2rY6Qf1QHrGL9vxH?=
+ =?us-ascii?Q?Btm5Fg3RaPZzYbG5/ezQwPKCXy6JV6TRXP5/8qlrSP9LtsLSKuLFFtNpyDys?=
+ =?us-ascii?Q?3Fmsf0reTBN9DEG3h9B7IeFuFB6H6VDFPS+shyzDNV4wBeI76yuqdGRNqxPL?=
+ =?us-ascii?Q?Z6qUG0Rc9fgWdjfYQToyK22phUEmR5Nd3hBFzEhP7ZAdf1ZrVgbyf5xKOaah?=
+ =?us-ascii?Q?IpHZeoBXCF+3TQS2kiOOFHWB+Qpes45cqtFJ7WcFfA3AuDqh34smb93mGu2x?=
+ =?us-ascii?Q?6NoUN3Zkqp2Cw6zRNaPfzOjI58ZWMz5L4lHZmaLJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 1fce1c0d-8758-4474-1fb1-08db9268c55e
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2023 08:24:49.2346
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 3K4QsyY40xjJTAlKA/x5sofrsTK2ZR6tZEknvcqayCTXfpz+aCg1p4JTl6hkvQfsQNez9Efs6ShdRMiv7qDeEg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7917
+Message-ID-Hash: T4KJVUT32BXYP7FKC6CXZPOGYUDYGVUR
+X-Message-ID-Hash: T4KJVUT32BXYP7FKC6CXZPOGYUDYGVUR
+X-MailFrom: daniel.baluta@oss.nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +160,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XYO5BCWGG7GZS2GADFFFP72EI5F4KGRO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T4KJVUT32BXYP7FKC6CXZPOGYUDYGVUR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,169 +169,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 31, 2023 at 09:56:09PM -0500, Jeff LaBundy wrote:
-> Hi all,
-> 
-> On Mon, Jul 31, 2023 at 07:49:50PM +0200, Marek Vasut wrote:
-> > On 7/31/23 18:24, Dmitry Torokhov wrote:
-> > > On Mon, Jul 31, 2023 at 04:36:01PM +0200, Marek Vasut wrote:
-> > > > On 7/31/23 16:20, Takashi Iwai wrote:
-> > > > 
-> > > > [...]
-> > > > 
-> > > > > > > > Uh, I don't need a full sound device to emit beeps, that's not even
-> > > > > > > > possible with this hardware.
-> > > > > > > 
-> > > > > > > Heh, I also don't recommend that route, either :)
-> > > > > > > (Though, it must be possible to create a sound device with that beep
-> > > > > > > control in theory)
-> > > > > > 
-> > > > > > I mean, I can imagine one could possibly use PCM DMA to cook samples
-> > > > > > to feed some of the PWM devices so they could possibly be used to
-> > > > > > generate low quality audio, as a weird limited DAC, but ... that's not
-> > > > > > really generic, and not what I want.
-> > > > > 
-> > > > > Oh I see how the misunderstanding came; I didn't mean the PCM
-> > > > > implementation like pcsp driver.  The pcsp driver is a real hack and
-> > > > > it's there just for fun, not for any real practical use.
-> > > > 
-> > > > Ah :)
-> > > > 
-> > > > > What I meant was rather that you can create a sound device containing
-> > > > > a mixer volume control that serves exactly like the sysfs or whatever
-> > > > > other interface, without any PCM stream or other interface.
-> > > > 
-> > > > Ahhh, hum, I still feel like this might be a bit overkill here.
-> > > > 
-> > > > > > > > I only need to control loudness of the
-> > > > > > > > beeper that is controlled by PWM output. That's why I am trying to
-> > > > > > > > extend the pwm-beeper driver, which seems the best fit for such a
-> > > > > > > > device, it is only missing this one feature (loudness control).
-> > > > > > > 
-> > > > > > > So the question is what's expected from user-space POV.  If a more
-> > > > > > > generic control of beep volume is required, e.g. for desktop-like
-> > > > > > > usages, an implementation of sound driver wouldn't be too bad.
-> > > > > > > OTOH, for other specific use-cases, it doesn't matter much in which
-> > > > > > > interface it's implemented, and sysfs could be an easy choice.
-> > > > > > 
-> > > > > > The whole discussion above has been exactly about this. Basically the
-> > > > > > thing is, we can either have:
-> > > > > > - SND_TONE (via some /dev/input/eventX) + sysfs volume control
-> > > > > >     -> This is simple, but sounds racy between input and sysfs accesses
-> > > > > 
-> > > > > Hmm, how can it be racy if you do proper locking?
-> > > > 
-> > > > I can imagine two applications can each grab one of the controls and that
-> > > > makes the interface a bit not nice. That would require extra synchronization
-> > > > in userspace and so on.
-> > > > 
-> > > > > > - SND_TONE + SND_TONE_SET_VOLUME
-> > > > > >     -> User needs to do two ioctls, hum
-> > > > > > - some new SND_TONE_WITH_VOLUME
-> > > > > >     -> Probably the best option, user sets both tone frequency and volume
-> > > > > >        in one go, and it also only extends the IOCTL interface, so older
-> > > > > >        userspace won't have issues
-> > > > > 
-> > > > > Those are "extensions" I have mentioned, and I'm not a big fan for
-> > > > > that, honestly speaking.
-> > > > > 
-> > > > > The fact that the beep *output* stuff is provided by the *input*
-> > > > > device is already confusing
-> > > > 
-> > > > I agree, this confused me as well.
-> > > 
-> > > This comes from the times when keyboards themselves were capable of
-> > > emitting bells (SUN, DEC, etc). In hindsight it was not the best way of
-> > > structuring things, same with the keyboard LEDs (that are now plugged
-> > > into the LED subsystem, but still allow be driven through input).
-> > > 
-> > > And in the same vein I wonder if we should bite the bullet and pay with
-> > > a bit of complexity but move sound-related things to sound subsystem.
-> > 
-> > I am not sure that's the right approach here, since the device cannot do PCM
-> > playback, just bleeps.
-> > 
-> > > > > (it was so just because of historical
-> > > > > reason), and yet you start implementing more full-featured mixer
-> > > > > control.  I'd rather keep fingers away.
-> > > > > 
-> > > > > Again, if user-space requires the compatible behavior like the
-> > > > > existing desktop usages
-> > > > 
-> > > > It does not. These pwm-beeper devices keep showing up in various embedded
-> > > > devices these days.
-> > > > 
-> > > > > , it can be implemented in a similar way like
-> > > > > the existing ones; i.e. provide a mixer control with a proper sound
-> > > > > device.  The sound device doesn't need to provide a PCM interface but
-> > > > > just with a mixer interface.
-> > > > > 
-> > > > > Or, if the purpose of your target device is a special usage, you don't
-> > > > > need to consider too much about the existing interface, and try to
-> > > > > keep the change as minimal as possible without too intrusive API
-> > > > > changes.
-> > > > 
-> > > > My use case is almost perfectly matched by the current input pwm-beeper
-> > > > driver, the only missing bit is the ability to control the loudness at
-> > > > runtime. I think adding the SND_TONE_WITH_VOLUME parameter would cover it,
-> > > > with least intrusive API changes.
-> > > > 
-> > > > The SND_TONE already supports configuring tone frequency in Hz as its
-> > > > parameter. Since anything above 64 kHz is certainly not hearable by humans,
-> > > > I would say the SND_TONE_WITH_VOLUME could use 16 LSbits for frequency (so
-> > > > up to 65535 Hz , 0 is OFF), and 16 MSbits for volume .
-> > > > 
-> > > > I'm hesitant to overcomplicate something which can currently be controlled
-> > > > via single ioctl by pulling in sound subsystem into the picture.
-> > > 
-> > > Can you tell a bit more about your use case? What needs to control the
-> > > volume of beeps? Is this the only source of sounds on the system?
-> > 
-> > Custom user space application. The entire userspace is custom built in this
-> > case.
-> > 
-> > In this case, it is a single-use device (think e.g. the kind of thermometer
-> > you stick in your ear when you're ill, to find out how warm you are).
-> > 
-> > The beeper there is used to do just that, bleep (with different frequencies
-> > to indicate different stuff), and that works. What I need in addition to
-> > that is control the volume of the bleeps from the application, so it isn't
-> > too noisy. And that needs to be user-controllable at runtime, so not
-> > something that goes in DT.
-> > 
-> > Right now there is just the bleeper , yes.
-> 
-> It sounds like we essentially need an option within pcsp to drive PWM
-> instead of PCM, but input already has pwm-beeper; it seems harmless to
-> gently extend the latter for this use-case as opposed to reworking the
-> former.
-> 
-> I agree that we should not invest too heavily in a legacy ABI, however
-> something like SND_BELL_VOL seems like a low-cost addition that doesn't
-> work against extending pcsp in the future. In fact, input already has
-> precedent for this exact same thing by way of FF rumble effects, which
-> are often PWM-based themselves.
-> 
-> If SND_BELL_VOL or similar is not acceptable, then the original sysfs
-> approach seems like the next-best compromise. My only issue with it was
-> that I felt the range was not abstracted enough.
+From: Daniel Baluta <daniel.baluta@nxp.com>
 
-If we want to extend the API we will need to define exactly how it will
-all work. I.e. what happens if userspace mixes the old SND_TONE and
-SND_BELL with the new SND_BELL_VOL or whatever. Does it play with
-previously set volume? The default one? How to set the default one? How
-to figure out what the current volume is if we decide to make volume
-"sticky"?
+This patch series introduces capture-only/playback-only DAI link
+properties for simple-card.
 
-As far as userspace I expect it is more common to have one program (or
-component of a program) to set volume and then something else requests
-sound, so having one-shot API is of dubious value to me.
+Daniel Baluta (2):
+  ASoC: simple-card: Introduce playback-only/capture only DAI link flags
+  ASoC: dt-bindings: simple-card: Document new DAI flags
+    playback-only/capture-only
 
-I hope we can go with Takashi's proposal downthread, but if not I wonder
-if the sysfs approach is not the simplest one. Do we expect more beepers
-that can control volume besides pwm-beeper?
-
-Thanks.
+ .../bindings/sound/simple-card.yaml           |  8 ++++++
+ include/sound/simple_card_utils.h             |  5 ++++
+ sound/soc/generic/simple-card-utils.c         | 27 +++++++++++++++++++
+ sound/soc/generic/simple-card.c               | 10 +++++++
+ 4 files changed, 50 insertions(+)
 
 -- 
-Dmitry
+2.25.1
+

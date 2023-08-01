@@ -2,110 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1388D76B922
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 17:52:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2918176B82F
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Aug 2023 17:02:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32282DEB;
-	Tue,  1 Aug 2023 17:51:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32282DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 501C83E7;
+	Tue,  1 Aug 2023 17:02:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 501C83E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690905164;
-	bh=tbSP3eWsnNqPs6+P9TAcg1XK2yOUVpI7mgBG7MfEbBU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fAlcduOI8DCKfKYTivRcTDRgkoXPsWa39t5EqaRqp90OEcKDvH/p8PpclfULi/GIA
-	 ka35+Nf4WTorUExv54u7vKr1hfPCN5Q/PgOy1R1s8e8GXFBGuXnpyd65DjOiWZgIdI
-	 axTPlmUgv0Bsvk27139yoR67oHefapO380FveLLU=
+	s=default; t=1690902171;
+	bh=aEx++5ZStYjeR5ZjZMNxNmR+5jWzNH9PPrI3Jp4NvQo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=YCutjK0ARBXVupBNAxwnmwz8rs3NPeXXP1MeLfkuVJByV6Wmo0If+mC7TDQYlSekt
+	 Njanpf8F0SWSgc/B6RZFugcJzjIhx1db7ltSCNrfKvfTXntc5f/qn4K8Uk6ys9QDB/
+	 JAG1cRvl7toRdeSdf7KEwqISkG1gCwbYoKPse9A8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0644BF805D4; Tue,  1 Aug 2023 17:49:53 +0200 (CEST)
+	id 92124F801D5; Tue,  1 Aug 2023 17:01:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB014F805C7;
-	Tue,  1 Aug 2023 17:49:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B69EF8016D;
+	Tue,  1 Aug 2023 17:01:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A2AFF801D5; Tue,  1 Aug 2023 16:20:05 +0200 (CEST)
+	id 84AD1F801D5; Tue,  1 Aug 2023 16:47:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L4,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.216])
-	by alsa1.perex.cz (Postfix) with ESMTP id C25AEF80149
-	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 16:20:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C25AEF80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=KWfE4OH3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=D/tnD
-	hhtLKuYANELtN6YERyXJ7QVSlBim2KcElYcYng=; b=KWfE4OH3C92BlkD6a54Ib
-	FYCeBlSrcf9beeHBCkjXqQMXfAq3KGyNeHuE2w/Xhs4LeS9Dl9iS4dwWAJqujvht
-	SCuisXctUQbC98MXB4ebu0V0KxMnkB14hpCEdQh0pjtBADvFToPPj72t4AWDaidX
-	UKTqfZg7PLqCZusIgvaYYU=
-Received: from lml-Birman-PHX.. (unknown [112.96.224.101])
-	by zwqz-smtp-mta-g5-0 (Coremail) with SMTP id
- _____wB3f0OKFMlkldd6Bw--.12472S3;
-	Tue, 01 Aug 2023 22:19:58 +0800 (CST)
-From: "Baojun.Xu" <jim_monkey@163.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: shenghao-ding@ti.com,
-	kevin-lu@ti.com,
-	krzysztof.kozlowski@linaro.org,
-	rf@opensource.cirrus.com,
-	shumingf@realtek.com,
-	herve.codina@bootlin.com,
-	povik+lin@cutebit.org,
-	ryans.lee@analog.com,
-	ckeepax@opensource.cirrus.com,
-	sebastian.reichel@collabora.com,
-	fido_max@inbox.ru,
-	wangweidong.a@awinic.com,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	peeyush@ti.com,
-	navada@ti.com,
-	tiwai@suse.de,
-	mengdong.lin@intel.com,
-	Baojun Xu <baojun.xu@ti.com>
-Subject: [PATCH v1 2/2] MAINTAINERS: Add the MAINTAINERS entries for TEXAS
- INSTRUMENTS AUDIO DRIVERS
-Date: Tue,  1 Aug 2023 22:18:58 +0800
-Message-Id: <20230801141858.130745-2-jim_monkey@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230801141858.130745-1-jim_monkey@163.com>
-References: <20230801141858.130745-1-jim_monkey@163.com>
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7FE17F80149
+	for <alsa-devel@alsa-project.org>; Tue,  1 Aug 2023 16:45:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FE17F80149
+Received: from canpemm500007.china.huawei.com (unknown [172.30.72.57])
+	by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RFd9H64BSzNmYd;
+	Tue,  1 Aug 2023 22:41:55 +0800 (CST)
+Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
+ (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 1 Aug
+ 2023 22:45:21 +0800
+From: Yue Haibing <yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, Yue Haibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] ALSA: usb-audio: Remove unused function declaration
+Date: Tue, 1 Aug 2023 22:45:12 +0800
+Message-ID: <20230801144512.18716-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wB3f0OKFMlkldd6Bw--.12472S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4UXr1ftw15Ar4kGr4DJwb_yoW8uw1rpa
-	1kCFZ5tFy7JF12k3yfK3W8Gw1rWry8uF42kasFqw1DtF1DJFsY9w13tr1DXFWvvFWUGFZx
-	Jry3uw4rGrZxZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ja_M-UUUUU=
-X-Originating-IP: [112.96.224.101]
-X-CM-SenderInfo: 5mlpsz5rqnv5i6rwjhhfrp/1tbiMRC+82NfshHiVgAAsH
-X-MailFrom: jim_monkey@163.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ canpemm500007.china.huawei.com (7.192.104.62)
+X-CFilter-Loop: Reflected
+Message-ID-Hash: BHO5JNXOMHRCJ6OUQUQNJ2G7HIM2IDDX
+X-Message-ID-Hash: BHO5JNXOMHRCJ6OUQUQNJ2G7HIM2IDDX
+X-MailFrom: yuehaibing@huawei.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CDTNCF5ZFEKKFBBNNZ3SVD4SCXK6UKL6
-X-Message-ID-Hash: CDTNCF5ZFEKKFBBNNZ3SVD4SCXK6UKL6
-X-Mailman-Approved-At: Tue, 01 Aug 2023 15:47:42 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CDTNCF5ZFEKKFBBNNZ3SVD4SCXK6UKL6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BHO5JNXOMHRCJ6OUQUQNJ2G7HIM2IDDX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,62 +80,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Baojun Xu <baojun.xu@ti.com>
+Commit 68e67f40b734 ("ALSA: snd-usb: move calls to usb_set_interface")
+leave this unused declaration.
 
-Add the MAINTAINERS entries for TEXAS INSTRUMENTS AUDIO DRIVERS.
-
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
-
+Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
 ---
-Change in v1:
- - Add the MAINTAINERS entries for TI.
----
- MAINTAINERS | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ sound/usb/endpoint.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 53b7ca804465..2c16168167e2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21063,6 +21063,38 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
- F:	sound/soc/ti/
+diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+index c09f68ce08b1..ba70f52f6860 100644
+--- a/sound/usb/endpoint.h
++++ b/sound/usb/endpoint.h
+@@ -44,7 +44,6 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep);
+ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep, bool keep_pending);
+ void snd_usb_endpoint_sync_pending_stop(struct snd_usb_endpoint *ep);
+ void snd_usb_endpoint_suspend(struct snd_usb_endpoint *ep);
+-int  snd_usb_endpoint_activate(struct snd_usb_endpoint *ep);
+ void snd_usb_endpoint_release(struct snd_usb_endpoint *ep);
+ void snd_usb_endpoint_free_all(struct snd_usb_audio *chip);
  
-+TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS
-+M:	Shenghao Ding <shenghao-ding@ti.com>
-+M:	Kevin Lu <kevin-lu@ti.com>
-+M:	Baojun Xu <baojun.xu@ti.com>
-+L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/tas2552.txt
-+F:	Documentation/devicetree/bindings/sound/tas2562.yaml
-+F:	Documentation/devicetree/bindings/sound/tas2770.yaml
-+F:	Documentation/devicetree/bindings/sound/tas27xx.yaml
-+F:	Documentation/devicetree/bindings/sound/ti,pcm1681.txt
-+F:	Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
-+F:	Documentation/devicetree/bindings/sound/ti,tlv320*.yaml
-+F:	Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-+F:	Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
-+F:	Documentation/devicetree/bindings/sound/tpa6130a2.txt
-+F:	include/sound/tas2*.h
-+F:	include/sound/tlv320*.h
-+F:	include/sound/tpa6130a2-plat.h
-+F:	sound/soc/codecs/pcm1681.c
-+F:	sound/soc/codecs/pcm1789*.*
-+F:	sound/soc/codecs/pcm179x*.*
-+F:	sound/soc/codecs/pcm186x*.*
-+F:	sound/soc/codecs/pcm3008.*
-+F:	sound/soc/codecs/pcm3060*.*
-+F:	sound/soc/codecs/pcm3168a*.*
-+F:	sound/soc/codecs/pcm5102a.c
-+F:	sound/soc/codecs/pcm512x*.*
-+F:	sound/soc/codecs/tas2*.*
-+F:	sound/soc/codecs/tlv320*.*
-+F:	sound/soc/codecs/tpa6130a2.*
-+
- TEXAS INSTRUMENTS DMA DRIVERS
- M:	Peter Ujfalusi <peter.ujfalusi@gmail.com>
- L:	dmaengine@vger.kernel.org
 -- 
 2.34.1
 

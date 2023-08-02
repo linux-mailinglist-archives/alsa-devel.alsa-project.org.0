@@ -2,146 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D12476C1CE
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 03:01:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A35E376C1CF
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 03:01:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C125593A;
-	Wed,  2 Aug 2023 03:00:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C125593A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23B6F868;
+	Wed,  2 Aug 2023 03:01:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23B6F868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690938094;
-	bh=RkmO/PPvSq/I9/GU18f2hF+h8DVtGJQTPjqni3Qk6Sg=;
+	s=default; t=1690938116;
+	bh=XoYDp1EwOo9Ng7NFdmIwngSeM6WuXRz/+1MouyvuuYs=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cT6W4SODyOGJGWW9JGK+KJE+rkmeI1GsbhFfv3cFQW1traQKnDWdBNVIEN4+odMNM
-	 UoQ6qGAZh5eEZJtrdKsZi5JFzjEkRoZMuCrcQaA/DVcy1p0Eva8Q1ZPojxbMkdcF+4
-	 4Vl9SSZJDchYuc6gvfkZzA+n6YaMlmsS4xbrswaw=
+	b=V429Au/+xTZ1oj8BpzxEcycQPdpNGOROAheZV0D4cKmjv/JyHgvT58pziOsi+VJ0A
+	 /1DUxlxanQdWQdJvzAA4Ui6fyGl32IpKkbH8iscs0rubjCuz034I77/Snk9XcGFqtI
+	 XpGjIAyVTZrpB3j6Zpr1w0DvMP09gr3Qq5f8su0Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52D6AF805A0; Wed,  2 Aug 2023 02:57:31 +0200 (CEST)
+	id 0EA19F80649; Wed,  2 Aug 2023 02:57:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB364F80588;
-	Wed,  2 Aug 2023 02:57:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EB18F805F3;
+	Wed,  2 Aug 2023 02:57:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 186BFF805A9; Wed,  2 Aug 2023 02:57:28 +0200 (CEST)
+	id 026ADF805A0; Wed,  2 Aug 2023 02:57:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20702.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::702])
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2072f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::72f])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 83507F80544
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 02:57:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83507F80544
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3FAF0F8055A
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 02:57:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FAF0F8055A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=TUllrFcI
+ header.s=selector1 header.b=ejblM9vj
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d4FOIIRZFbjWHrPrOcV9H++fxGJdQpIc2mWnMGxhiNInUeZ4qL1169pauOOFNERd+VNkHbxX+9nZIM2FZ7qQ/Gj26FIwWDfMejROXmpvD1lIicwt5ycI23CLIZ7GY9zTE7G2+U4rtXhsY02AbLuCFi3N/dbaCjeaVY9ynQGHkXDuIsNCGXNpFwdAdY008ApYaQ0k6D1eAQ8dT0xxLZUw3ROeBWqiGpnOIxE/Igh7soSbaievWfIe1iu3Uvu/ZLQ23Pbr+SmUpGH+ah3SdnIclUNJGxXvWI0XecYlNtjcOOtl1wXqKTcZxoYF0Bizv3RYL4CTb0TcQXbJrJNMEUvkcw==
+ b=fC8L0ClWXokAYmRVod0IAdtmoJs66xHNtFClDBZxtvV5anZfwJmCe2rfV7Tcbf25JYHmiDQLt9afWt/PGASpCqh3wL4s37P5skNGWqB26VDojTT7tmDEWQfn7F/PT4kmvwrys1YhaIXjbutSADCAhVT74EeHI6NwSuNBASj19cemDzc9pSaJRQdMTkMNKuS70rBC0rsqB1G8yVU3psHMwxyQ/VC5Uqd15P6gQ/SUO3Rf6JRhpMDK75R6jZLx74LKsykghA9fYIyEF0h8N22OhF2RTiILRM+V5geXgArzVJbmwS5mvEaZjNKfJNU8c+gmDcw5d2SzBW3Z3LnIIfYURw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=up1e8zvfZVYET72K1BxMUcVZSIMEu0rdYz7BlRXTx18=;
- b=Y6XIZTZeRsttS/V+heU9O9olXCAilJXYve5FpS8QFpWQtLEDpGfMfMLZF6JuH6Y5BywnT3Q2T5mSqIbstVW+3MG4vEg/djPf2Q8UVp50i9YPbE8BfbfkLb1b5z/EVA7VQiXMD6ExZlYf0E0nngeaZHFGFRCGVQLXpMGGIcHxlqUS0G2UFT9O/W59Z1Nf7f8D8YG/j/vItWMU+Iu2Kj6guSNrrMbU895X/p56oWRCTPFrsUXc4L2UiNhPf3bqCTtBixbR6hXb8Xpb0tLCIzOkBK4MwWZAYLOA209h/EBw4ds167nGpl1DMPEb1FNB1IEsTWyhxQ+XM7R3YrD62ZH3hg==
+ bh=1ByWVe4/WRQiC9WEzhMU2FX3yKBmb+HLj0PFpqKTgXM=;
+ b=QX48LSEGlHNns8cMZFtV2eTZtzXaYCrDGuvCiwvvQ+dEQFy62fejGq4lED/gwjVWSwoLIk9LFp1JIAPyi7eFncA+ME3eWspKXCE3auTwceE+jpGcfc+qE32kMR0TJnq4iM4NIOx855BwbH+tF4k+O5+bcXO3k/0Hea4RnLlHg+teNc9c4JOD/Y6iTSKbNRVsl9QoWJsgaq6NwDefx6ytSFwIi80nQDXucQExlkbPzNCOsK6s+dtcm/g+TaIBzqibFolZQb/6JqKpajD7Knwv98JnHnYIaMIUz8lDdPZfsHeFqE/oyTCaRaTU7JMzaAkd7Pw7eRTZlAObtw8dejXmDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=up1e8zvfZVYET72K1BxMUcVZSIMEu0rdYz7BlRXTx18=;
- b=TUllrFcIpUdr4n20YQSyz3/2XKghq85PlMxb9fBSD2igj1Ot5A3we+ZlLHrbWPzpYGREWWqy5oBSJuBEbhw0ZqxGos90TxEmhprM1vHro5W30WkozEt/sC298f/VoEAmHiqvhlbNldrEXW9yquUSdr6qS6AU+jXkA7IpOeaZwPw=
+ bh=1ByWVe4/WRQiC9WEzhMU2FX3yKBmb+HLj0PFpqKTgXM=;
+ b=ejblM9vj/uBj8jAdm3HNIFlQdsRa4r6ji03xt2LmtLqUtaYwfdkC+Q1LG4FZ6kdbMJ4QFeweVH4kj181ZUdM99W/u4NHRwaR1ZnEOTjrCh9TMfdFqOYV0HlU4AbmWoD6ZagKG6UOe3cg76490+YCSumJB2ZLfdhDF0LGEe8WC40=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
  by TYCPR01MB7797.jpnprd01.prod.outlook.com (2603:1096:400:17b::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45; Wed, 2 Aug
- 2023 00:57:18 +0000
+ 2023 00:57:24 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::e6db:c2b4:3f89:e3a5]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::e6db:c2b4:3f89:e3a5%3]) with mapi id 15.20.6631.045; Wed, 2 Aug 2023
- 00:57:17 +0000
-Message-ID: <874jlitg5u.wl-kuninori.morimoto.gx@renesas.com>
+ 00:57:24 +0000
+Message-ID: <873512tg5n.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Jaroslav Kysela <perex@perex.cz>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Takashi Iwai <tiwai@suse.com>
+To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Yingkun Meng <mengyingkun@loongson.cn>
 Cc: alsa-devel@alsa-project.org
-Subject: [PATCH 29/38] ASoC: uniphier: merge DAI call back functions into ops
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Subject: [PATCH 30/38] ASoC: loongson: merge DAI call back functions into ops
 In-Reply-To: <87a5vauuzg.wl-kuninori.morimoto.gx@renesas.com>
 References: <87a5vauuzg.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 2 Aug 2023 00:57:17 +0000
-X-ClientProxiedBy: TYCP286CA0254.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:456::8) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Wed, 2 Aug 2023 00:57:24 +0000
+X-ClientProxiedBy: TYAPR01CA0116.jpnprd01.prod.outlook.com
+ (2603:1096:404:2a::32) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB7797:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f852f3d-a6e6-49a0-9d9d-08db92f36b43
+X-MS-Office365-Filtering-Correlation-Id: 3ac9e017-911a-4c18-b080-08db92f36f76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	srQe3BuXbci0aBVVO7Fj3wJCYnHAie86gZoIrQHcGClO4GKfC9eyW7iPc8l6E7yQk9NasZIaP4ij5AjzXrrO9RzdYB6WuiAIMNe25Rh0fiajDBhH73KJwm5iVBB2HNHL8bS5DrKf1LvherqyZGDb96YjJqOh7O6icU48Qet3G3DsJWxLQPxwp1H+d+Bss6HxLRKY6jETqYCH8y9GMBNjEaEyZkuksGt5YLri4YJTtIG3oQ8QNyzPR+AOMjjUcPpf7jVYN7BoOJvMYvJTzk/xBzxrIWbPJDYvPuq/czWa75ApMjhKmLGR/tWfc2Tv+kMfNgMwrlYT6ykDbR6vpGBtRpTGNnyO/8JIHhP4xCChfjU6m8hg8co4U1Ah0jUzYca6P6a+U0DJPvdpwz2qAA5DL/LYhLwGtz4ND/uMWaEesoeBJ2DYEpHCeWxut6EZqbvJLoTycOVtazL1jzXGf4lhwEjxDDzyCUTdCzhoKrg/wxsIF15lBwubEqRtIc7vwPMYcJPitM/s/6yWvUPn/RhJKWwH7uJcExYQkrhyx/M13GxoNrAoKebjPiHlX06HHbCOg5jZa0smil6X1WlOLsF4T2fq2o/fjYcK8JQOo1f5/1awg+jsOIKh+qxVUF2kL52V
+	vRZpWgiQ7auoDbYAFf0W7zJIKm5RL+6AGNRJkZAfylBhZqLZ94I4myJduMyu0lNMUz1jPNU2Qd21KxXlQVbZwIl3t5z38qwUrT7pzpK07/u8RMu7AWd+vtpjpdp0vhrxOlJm4wx/OJTCQdY54oN0+9/BaSjfM6U22df+K8OKIf2JYMDPvPEvNkz2PO2XM2bk8v9/ncPIw6faKgvAbQ0NPH2l4IniNifXKPSiSzmnLz/S34mrqZgA0h2qnR7z79AY2zKALqXWGypDOE4tc4DIoOhqQ1fm9FN4BqA9GFdpx8ia8aTcmiLtM0+HiQA4MJBwpVwC/h/eBIIfSrdX/IkZzm2DgkvY3J5+DFSTdZ5Lt/Onx0rmnL/+F0eqEXb95HN1qkTNAzaVlg/IirRRPDmad3vOMCu1oPi4YtesDwjKLSYffvwVg6wB2shshcwWih9GFFiZfdFyiwSFj26vF9LXOOJ52S/hqJZyxs0oEoqVuANHiSAYs3EhBYpChRSJxMrLQYfHrj27qqVLa9IOIm2Rxc8p5CDzNH0UccU4dLvCIboEUGbb4gLontq645sTeJaCCd1khqYH0LQ/fL0AxqvZc8+BA9AlzSVp00DytZExhSolExqD7uuSh9ANinKcToSi
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(451199021)(52116002)(6512007)(6486002)(26005)(6506007)(186003)(2616005)(110136005)(478600001)(83380400001)(36756003)(38100700002)(30864003)(2906002)(5660300002)(86362001)(8676002)(8936002)(66556008)(41300700001)(66476007)(66946007)(316002)(38350700002)(4326008);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(451199021)(52116002)(6512007)(6486002)(26005)(6506007)(186003)(2616005)(110136005)(478600001)(83380400001)(36756003)(38100700002)(2906002)(5660300002)(86362001)(8676002)(8936002)(66556008)(41300700001)(66476007)(66946007)(316002)(38350700002)(4326008);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?vlS0Omtzm+n3i1vD5fPdzNfSPCk1rYvxoLSmFbFRm0sTBB+9M1tePzqd6QET?=
- =?us-ascii?Q?CyNj9Xpb2+w0jnciEnIWAsEghDXgwq8OdN4exMIAXNyMmzL0i9kaPUr+zYNK?=
- =?us-ascii?Q?xTpWa5RiSNagJNKy2CfYhVQBPBwzk5AzIGIgTnJBIUppIn8i0D7IfZZYQZaL?=
- =?us-ascii?Q?riIdc8tlbys+Deku5OUNtiFq6c6/LnJzPaZOKw6g8kFi8zmW1kLradayliHO?=
- =?us-ascii?Q?u4AEV47t38Ct2nk1KMwxxWFuuPoYws7eheb6ZV8cplGuOvm5/1FZyREtpkw5?=
- =?us-ascii?Q?Rpe9EmXZYohiIqC2qbCEZSUk3ZNxB1A8W7XtfIEIwTXNRPExI78pBcQcHCWk?=
- =?us-ascii?Q?q4m8jhjf5NlB9KsnCFxfgYU1dqQbNX1zHXr1HfgfdrcbJH3sDnk6f0UyKsfz?=
- =?us-ascii?Q?uTceXUQojdB/DONl9uCX6Da8kqjrHXpcZfSanZj8tFMsJpxxcX6Pg0WZdOGA?=
- =?us-ascii?Q?v/nyaUFAYwD4dlkUO52OxlQC1IKpC3cfBsQvMJ+GvqAKfPqcwUzOiiWazCsC?=
- =?us-ascii?Q?uNmasgLId6WNbzwV2g7g+8ItVRsZC/MMhPBBfl3EmtrWtVlWKls4DnqtW+OZ?=
- =?us-ascii?Q?KFzzGlHkfbZ3ifws8gDaKXVTGykRpHBUGoraZr//Q+JlT6aa7O9+/3K/ogev?=
- =?us-ascii?Q?9tCwz6vUYFgNK+kBFjIvwqUUUG79gKfTtkXFd+Azu3r4Qhsm5ZPcpAivdLzs?=
- =?us-ascii?Q?s60Wz+M1tgQgtzViwwnR2Xaz0GlyiSU9umvR4m6+W8nPX3aA3c6+8K/SB6mv?=
- =?us-ascii?Q?QNeCbK+WcQZn701Et+Zgtg3l2bANeBySNOY2oxVW+/ahjJR6KWEdeSNbShqL?=
- =?us-ascii?Q?XdCa4jgYfjbPsks3bHnejAlx27ezNO7Yh+OXqDNB56FW392dB3ETTytBQBLr?=
- =?us-ascii?Q?aOdm7Fy9mYKljiJDcP8L01v8DAZF7Qs1bezqhSHgSz3OGuUztCm5YXnmY9qb?=
- =?us-ascii?Q?jxxPF01QW+gQ2yH+1KVDTQ8bK8CKUe+Xs3TVgeAtrGIR1Xafauk94U6vZD0n?=
- =?us-ascii?Q?tqq7vmfnjbOtb4xQ0sKwaTWT3DLoA4/PjWZbcGAEDO7pIwWEzo01D/hSxyBb?=
- =?us-ascii?Q?mYLyXXa2LNQWwJTVK1zS8XoIpqvSM+pFh3B3CwHuY7nIgxZQyclkTdiZprJG?=
- =?us-ascii?Q?UpVeXK9y7wUk2VLTr7k2+WK3M52YTcmWDLCXwNoHp1wO6CdtbgIdKGXggQdV?=
- =?us-ascii?Q?VQxl0yF1kvEmYLq6AYpkqABB2ykf5hmj6Bo8b/l/VNDiq7Rk4+E1T+T0GdiZ?=
- =?us-ascii?Q?+cpbzGmCgtCauQwvOPGkmIw4sx4/nJlYul8N4ppzO7sWrzGRTqqrpxWjRK8U?=
- =?us-ascii?Q?wCUqYaQpHb36mME2QyUk5OILfW9xi6rlhllLltO1fpUojdBddP8RkyzAeCRW?=
- =?us-ascii?Q?YfIVNJttRJGjzDitECI3ixrRhW6bLSGs6UtDwRk6P/kilyTEbpJvX761+S/w?=
- =?us-ascii?Q?sQw1r1kGsSho0DNdPpy1zztFiS6r6sOSVUvTYgb1ARM7wZFF/Me1PvYc1h9Q?=
- =?us-ascii?Q?oJNqRpAvlL8MpckfExMbeHb+z9YrEUVxpAbjgQMwuxGFATEpswrXtAPTGwg8?=
- =?us-ascii?Q?wbqqYJQPZMfL5dzmOVUinZqXuj1DbCU4D0U74u31rhPIxH1XVoplrZLCeAl6?=
- =?us-ascii?Q?QUeUnBLelK2gh2QcmXmrSoU=3D?=
+	=?us-ascii?Q?txvNhOJCQlm/UKp1YfFbtN0YqZW2kktCj6rAJwLjfRyntEtPDS2q/qxzM4dk?=
+ =?us-ascii?Q?/Xwy9GCMB6B7w5CwDd3bD+JXQA4ceu0BUdmV46wjxGbMZF7A1mF8+TNL8I7v?=
+ =?us-ascii?Q?4AAy5ptWf9+7k9J1mk9/Vm3+wot1hcqiP9hgXMIh53+aFwyOXfSKKLbtR57P?=
+ =?us-ascii?Q?LuU4yCE//FuqvcS6Bm2cNQT22RaDwMToA49klhC+TtTWvzY+Crii7uzA0o65?=
+ =?us-ascii?Q?9BDmGJK+pjZ6c/pbLayQhdZU3HnROluo1MO7I+hLc5UZJC4Hokq0mIoc5H9a?=
+ =?us-ascii?Q?XsnK3umFA9vfa2s1/ga4bfGZJ1ag2Gq3CuudaLcqsgVxpUNcFlE3fHAVzWj2?=
+ =?us-ascii?Q?HoEXfFpRUVOmKeT4IfkDGYoRK5zmquQGJXbFVPTuUC2Z5fH+aEhrQa1PlSoH?=
+ =?us-ascii?Q?CyPVaAooYnob9x8e8laAb3ivbNWf0aiW0xl3KiUeZb2+8hyojiTSvdeI2TlC?=
+ =?us-ascii?Q?HfccnMtY8eNyjbGnkNkBMCVwk+AnOolIGw94Yg3KRMm+U1fAbRXmSepwm2Lu?=
+ =?us-ascii?Q?p0rEsKBA4xkNxAs8+ciBXj0LwWtvZ9PDpVGPNlVXMCLtYTnflD16pcfNAawn?=
+ =?us-ascii?Q?UZ7lV11T0cC7gjxNRrdKw+tHsCNKsqgsiMWKeS4zcdW2NKVMHV5IuHmb4R6v?=
+ =?us-ascii?Q?6AzUofmgNIbVJnNuHWl57qTIXdouzKahunRrTfXF4SBg6vfyxhmKVmvnT+Pf?=
+ =?us-ascii?Q?i8cWfVE16LHLZ5vqobvzK735B+WJnR7kiEbQy+LAMCwx/tNJFwyGQQvQ3IJP?=
+ =?us-ascii?Q?akEIkhqNPPly1DAXKa75CpamkpgO3D5EMENBWTagMQ828ZW6NOxxgnePbWdP?=
+ =?us-ascii?Q?TH7wTKwIoqt/d4LZlyoDcfmXtUsBvYkIPNEoA7iE9SaqlCUHfkceiaC2FNDK?=
+ =?us-ascii?Q?pT9spixya/24+J9ilMd7g1UpU+OIQbw+6+SIXoH1XG4s9I3uQV97+apm+C6k?=
+ =?us-ascii?Q?qedJps8y7iX6PkHXaiJSpH/5Ka2vkKganHc9iQO3YS5MxcJGjRMBqU38QfUP?=
+ =?us-ascii?Q?4gdbC8kpjWW9z5WAqE78DOqz5UH3Rf+1IR6EKP0IWRobbzb5YmW8crAGL3GE?=
+ =?us-ascii?Q?uRb7AkYYQ05Wx/BTOk2YACxW7qqwQkV33/lsfegZ0XBOO+wif2WjW82QWzGW?=
+ =?us-ascii?Q?EowWH20abj6Vb5j799QzhkjJy1ZCS7gcKIeisPT3lMq8FrhrnFNz4tvVEKdK?=
+ =?us-ascii?Q?ESMN6uSXWQtd7EqRR/6qRbpWhCzT8CzppgA1qJX+MZ7dT6I9ZOL5UW1tSnzu?=
+ =?us-ascii?Q?wi+/K/2bc4hjObf7IARjsY3YsSbq75G6UaNxBQNBLSbHFCEUqc17KjDUIi3J?=
+ =?us-ascii?Q?NuikVz9cVNWnrneFOSJpvEGO/6NQ8nLH4itg2FHwEtbqcLjI8qAUahDO7Aa8?=
+ =?us-ascii?Q?HjHpZC7N8pgW9EzgfXa+LxsYwnNP5jnERq+6vOwCVs3aTZfZVQ17Cq3kSNuK?=
+ =?us-ascii?Q?preLgG8qUGSX097jXBp2Xzc+jmEjl+gdlSGo38oL2UDHa/Oc9ZXitgttfmZ9?=
+ =?us-ascii?Q?EQ/jnf+sZP1wepiCRXsNBo+SEcrA/XtDDkxGItSmbtKvy3YV4OjOsv3Dszyr?=
+ =?us-ascii?Q?JDGq2H+rc/K37BqVq4HMKg0iY/9aePWWQocn8ROsIzEGFr/yI4j+HgF+0kPk?=
+ =?us-ascii?Q?pFqJwn6grsS2Ku6KauqMeQo=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 7f852f3d-a6e6-49a0-9d9d-08db92f36b43
+ 3ac9e017-911a-4c18-b080-08db92f36f76
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 00:57:17.8816
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 00:57:24.8802
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- sf6sRErtOd8xCrRgjSjnFZ5hnD1dIakpLnYV3hRn0/0eUUy4xoMp7tHjn0JJJ1RXCtDaMM59x8euQcgKr/EmszRXFlhec53GWrjXX3pbIWNl1H0a9NaTiUBRlMpJuK8S
+ M0twSobZ7k6nkPEC7r5slFq3edYxW4qluicbsEUiH4rbArRFINqxbkhf3NgFI/kAStxhLlneCmBkEcxP1AuEYNcXYjbvHoUNFAK3CFKzsPy4olGtCkWsWWWiVask8lGE
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB7797
-Message-ID-Hash: UVIIOALXR5M5CPS4PZO2TMJDL7SCB6HI
-X-Message-ID-Hash: UVIIOALXR5M5CPS4PZO2TMJDL7SCB6HI
+Message-ID-Hash: EHZYVLIIDFKYVYCN7SIIFND6WUU7RHUW
+X-Message-ID-Hash: EHZYVLIIDFKYVYCN7SIIFND6WUU7RHUW
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -154,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVIIOALXR5M5CPS4PZO2TMJDL7SCB6HI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EHZYVLIIDFKYVYCN7SIIFND6WUU7RHUW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -168,515 +167,45 @@ This patch merge thesse into one.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/uniphier/aio-cpu.c  | 161 ++++++++++++++++++++++++++++------
- sound/soc/uniphier/aio-ld11.c |  62 ++-----------
- sound/soc/uniphier/aio-pxs2.c |  55 ++----------
- sound/soc/uniphier/aio.h      |  10 ++-
- 4 files changed, 156 insertions(+), 132 deletions(-)
+ sound/soc/loongson/loongson_i2s.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/uniphier/aio-cpu.c b/sound/soc/uniphier/aio-cpu.c
-index 4e8d5f7532ba..7c5188477b7c 100644
---- a/sound/soc/uniphier/aio-cpu.c
-+++ b/sound/soc/uniphier/aio-cpu.c
-@@ -355,30 +355,7 @@ static int uniphier_aio_prepare(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/loongson/loongson_i2s.c b/sound/soc/loongson/loongson_i2s.c
+index b919f0fe8361..d45228a3a558 100644
+--- a/sound/soc/loongson/loongson_i2s.c
++++ b/sound/soc/loongson/loongson_i2s.c
+@@ -204,13 +204,6 @@ static int loongson_i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
  	return 0;
  }
  
--const struct snd_soc_dai_ops uniphier_aio_i2s_ops = {
--	.set_sysclk  = uniphier_aio_set_sysclk,
--	.set_pll     = uniphier_aio_set_pll,
--	.set_fmt     = uniphier_aio_set_fmt,
--	.startup     = uniphier_aio_startup,
--	.shutdown    = uniphier_aio_shutdown,
--	.hw_params   = uniphier_aio_hw_params,
--	.hw_free     = uniphier_aio_hw_free,
--	.prepare     = uniphier_aio_prepare,
+-static const struct snd_soc_dai_ops loongson_i2s_dai_ops = {
+-	.trigger	= loongson_i2s_trigger,
+-	.hw_params	= loongson_i2s_hw_params,
+-	.set_sysclk	= loongson_i2s_set_dai_sysclk,
+-	.set_fmt	= loongson_i2s_set_fmt,
 -};
--EXPORT_SYMBOL_GPL(uniphier_aio_i2s_ops);
 -
--const struct snd_soc_dai_ops uniphier_aio_spdif_ops = {
--	.set_sysclk  = uniphier_aio_set_sysclk,
--	.set_pll     = uniphier_aio_set_pll,
--	.startup     = uniphier_aio_startup,
--	.shutdown    = uniphier_aio_shutdown,
--	.hw_params   = uniphier_aio_hw_params,
--	.hw_free     = uniphier_aio_hw_free,
--	.prepare     = uniphier_aio_prepare,
--};
--EXPORT_SYMBOL_GPL(uniphier_aio_spdif_ops);
--
--int uniphier_aio_dai_probe(struct snd_soc_dai *dai)
-+static int uniphier_aio_dai_probe(struct snd_soc_dai *dai)
+ static int loongson_i2s_dai_probe(struct snd_soc_dai *cpu_dai)
  {
- 	struct uniphier_aio *aio = uniphier_priv(dai);
- 	int i;
-@@ -403,9 +380,8 @@ int uniphier_aio_dai_probe(struct snd_soc_dai *dai)
- 
+ 	struct loongson_i2s *i2s = dev_get_drvdata(cpu_dai->dev);
+@@ -222,9 +215,16 @@ static int loongson_i2s_dai_probe(struct snd_soc_dai *cpu_dai)
  	return 0;
  }
--EXPORT_SYMBOL_GPL(uniphier_aio_dai_probe);
  
--int uniphier_aio_dai_remove(struct snd_soc_dai *dai)
-+static int uniphier_aio_dai_remove(struct snd_soc_dai *dai)
- {
- 	struct uniphier_aio *aio = uniphier_priv(dai);
- 
-@@ -413,7 +389,138 @@ int uniphier_aio_dai_remove(struct snd_soc_dai *dai)
- 
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(uniphier_aio_dai_remove);
-+
-+static int uniphier_aio_ld11_probe(struct snd_soc_dai *dai)
-+{
-+	int ret;
-+
-+	ret = uniphier_aio_dai_probe(dai);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A1, 0, 0, 36864000);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F1, 0, 0, 36864000);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A2, 0, 0, 33868800);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F2, 0, 0, 33868800);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int uniphier_aio_pxs2_probe(struct snd_soc_dai *dai)
-+{
-+	int ret;
-+
-+	ret = uniphier_aio_dai_probe(dai);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A1, 0, 0, 36864000);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F1, 0, 0, 36864000);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A2, 0, 0, 33868800);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F2, 0, 0, 33868800);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+const struct snd_soc_dai_ops uniphier_aio_i2s_ld11_ops = {
-+	.probe		= uniphier_aio_ld11_probe,
-+	.remove		= uniphier_aio_dai_remove,
-+	.set_sysclk	= uniphier_aio_set_sysclk,
-+	.set_pll	= uniphier_aio_set_pll,
-+	.set_fmt	= uniphier_aio_set_fmt,
-+	.startup	= uniphier_aio_startup,
-+	.shutdown	= uniphier_aio_shutdown,
-+	.hw_params	= uniphier_aio_hw_params,
-+	.hw_free	= uniphier_aio_hw_free,
-+	.prepare	= uniphier_aio_prepare,
++static const struct snd_soc_dai_ops loongson_i2s_dai_ops = {
++	.probe		= loongson_i2s_dai_probe,
++	.trigger	= loongson_i2s_trigger,
++	.hw_params	= loongson_i2s_hw_params,
++	.set_sysclk	= loongson_i2s_set_dai_sysclk,
++	.set_fmt	= loongson_i2s_set_fmt,
 +};
-+EXPORT_SYMBOL_GPL(uniphier_aio_i2s_ld11_ops);
 +
-+const struct snd_soc_dai_ops uniphier_aio_spdif_ld11_ops = {
-+	.probe		= uniphier_aio_ld11_probe,
-+	.remove		= uniphier_aio_dai_remove,
-+	.set_sysclk	= uniphier_aio_set_sysclk,
-+	.set_pll	= uniphier_aio_set_pll,
-+	.startup	= uniphier_aio_startup,
-+	.shutdown	= uniphier_aio_shutdown,
-+	.hw_params	= uniphier_aio_hw_params,
-+	.hw_free	= uniphier_aio_hw_free,
-+	.prepare	= uniphier_aio_prepare,
-+};
-+EXPORT_SYMBOL_GPL(uniphier_aio_spdif_ld11_ops);
-+
-+const struct snd_soc_dai_ops uniphier_aio_spdif_ld11_ops2 = {
-+	.probe		= uniphier_aio_ld11_probe,
-+	.remove		= uniphier_aio_dai_remove,
-+	.set_sysclk	= uniphier_aio_set_sysclk,
-+	.set_pll	= uniphier_aio_set_pll,
-+	.startup	= uniphier_aio_startup,
-+	.shutdown	= uniphier_aio_shutdown,
-+	.hw_params	= uniphier_aio_hw_params,
-+	.hw_free	= uniphier_aio_hw_free,
-+	.prepare	= uniphier_aio_prepare,
-+	.compress_new	= snd_soc_new_compress,
-+};
-+EXPORT_SYMBOL_GPL(uniphier_aio_spdif_ld11_ops2);
-+
-+const struct snd_soc_dai_ops uniphier_aio_i2s_pxs2_ops = {
-+	.probe		= uniphier_aio_pxs2_probe,
-+	.remove		= uniphier_aio_dai_remove,
-+	.set_sysclk	= uniphier_aio_set_sysclk,
-+	.set_pll	= uniphier_aio_set_pll,
-+	.set_fmt	= uniphier_aio_set_fmt,
-+	.startup	= uniphier_aio_startup,
-+	.shutdown	= uniphier_aio_shutdown,
-+	.hw_params	= uniphier_aio_hw_params,
-+	.hw_free	= uniphier_aio_hw_free,
-+	.prepare	= uniphier_aio_prepare,
-+};
-+EXPORT_SYMBOL_GPL(uniphier_aio_i2s_pxs2_ops);
-+
-+const struct snd_soc_dai_ops uniphier_aio_spdif_pxs2_ops = {
-+	.probe		= uniphier_aio_pxs2_probe,
-+	.remove		= uniphier_aio_dai_remove,
-+	.set_sysclk	= uniphier_aio_set_sysclk,
-+	.set_pll	= uniphier_aio_set_pll,
-+	.startup	= uniphier_aio_startup,
-+	.shutdown	= uniphier_aio_shutdown,
-+	.hw_params	= uniphier_aio_hw_params,
-+	.hw_free	= uniphier_aio_hw_free,
-+	.prepare	= uniphier_aio_prepare,
-+};
-+EXPORT_SYMBOL_GPL(uniphier_aio_spdif_pxs2_ops);
-+
-+const struct snd_soc_dai_ops uniphier_aio_spdif_pxs2_ops2 = {
-+	.probe		= uniphier_aio_pxs2_probe,
-+	.remove		= uniphier_aio_dai_remove,
-+	.set_sysclk	= uniphier_aio_set_sysclk,
-+	.set_pll	= uniphier_aio_set_pll,
-+	.startup	= uniphier_aio_startup,
-+	.shutdown	= uniphier_aio_shutdown,
-+	.hw_params	= uniphier_aio_hw_params,
-+	.hw_free	= uniphier_aio_hw_free,
-+	.prepare	= uniphier_aio_prepare,
-+	.compress_new	= snd_soc_new_compress,
-+};
-+EXPORT_SYMBOL_GPL(uniphier_aio_spdif_pxs2_ops2);
- 
- static void uniphier_aio_dai_suspend(struct snd_soc_dai *dai)
- {
-diff --git a/sound/soc/uniphier/aio-ld11.c b/sound/soc/uniphier/aio-ld11.c
-index 7b3cf5d751f6..15dbded63804 100644
---- a/sound/soc/uniphier/aio-ld11.c
-+++ b/sound/soc/uniphier/aio-ld11.c
-@@ -188,36 +188,9 @@ static const struct uniphier_aio_pll uniphier_aio_pll_ld11[] = {
- 	[AUD_PLL_HSC0] = { .enable = true, },
- };
- 
--static int uniphier_aio_ld11_probe(struct snd_soc_dai *dai)
--{
--	int ret;
--
--	ret = uniphier_aio_dai_probe(dai);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A1, 0, 0, 36864000);
--	if (ret < 0)
--		return ret;
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F1, 0, 0, 36864000);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A2, 0, 0, 33868800);
--	if (ret < 0)
--		return ret;
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F2, 0, 0, 33868800);
--	if (ret < 0)
--		return ret;
--
--	return 0;
--}
--
- static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 	{
- 		.name    = AUD_GNAME_HDMI,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -234,12 +207,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_PCMIN2,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.capture = {
- 			.stream_name = AUD_NAME_PCMIN2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -247,12 +218,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_GNAME_LINE,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -267,12 +236,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_HPCMOUT1,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_HPCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -280,12 +247,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 8,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_PCMOUT3,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT3,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -293,12 +258,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_HIECOUT1,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -306,12 +269,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_spdif_ops,
-+		.ops = &uniphier_aio_spdif_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_EPCMOUT2,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_EPCMOUT2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -321,12 +282,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_EPCMOUT3,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_EPCMOUT3,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -336,19 +295,16 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_ld11_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_HIECCOMPOUT1,
--		.probe   = uniphier_aio_ld11_probe,
--		.remove  = uniphier_aio_dai_remove,
--		.compress_new = snd_soc_new_compress,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECCOMPOUT1,
- 			.channels_min = 1,
- 			.channels_max = 1,
- 		},
--		.ops = &uniphier_aio_spdif_ops,
-+		.ops = &uniphier_aio_spdif_ld11_ops2,
- 	},
- };
- 
-diff --git a/sound/soc/uniphier/aio-pxs2.c b/sound/soc/uniphier/aio-pxs2.c
-index 899904f7ffd6..305cb2a1253d 100644
---- a/sound/soc/uniphier/aio-pxs2.c
-+++ b/sound/soc/uniphier/aio-pxs2.c
-@@ -141,36 +141,9 @@ static const struct uniphier_aio_pll uniphier_aio_pll_pxs2[] = {
- 	[AUD_PLL_HSC0] = { .enable = true, },
- };
- 
--static int uniphier_aio_pxs2_probe(struct snd_soc_dai *dai)
--{
--	int ret;
--
--	ret = uniphier_aio_dai_probe(dai);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A1, 0, 0, 36864000);
--	if (ret < 0)
--		return ret;
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F1, 0, 0, 36864000);
--	if (ret < 0)
--		return ret;
--
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_A2, 0, 0, 33868800);
--	if (ret < 0)
--		return ret;
--	ret = snd_soc_dai_set_pll(dai, AUD_PLL_F2, 0, 0, 33868800);
--	if (ret < 0)
--		return ret;
--
--	return 0;
--}
--
- static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 	{
- 		.name    = AUD_GNAME_HDMI,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_HPCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -178,12 +151,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_pxs2_ops,
- 	},
- 	{
- 		.name    = AUD_GNAME_LINE,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -198,12 +169,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_pxs2_ops,
- 	},
- 	{
- 		.name    = AUD_GNAME_AUX,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -218,12 +187,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_i2s_ops,
-+		.ops = &uniphier_aio_i2s_pxs2_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_HIECOUT1,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -231,12 +198,10 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_spdif_ops,
-+		.ops = &uniphier_aio_spdif_pxs2_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_IECOUT1,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
- 		.playback = {
- 			.stream_name = AUD_NAME_IECOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -244,31 +209,25 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 			.channels_min = 2,
- 			.channels_max = 2,
- 		},
--		.ops = &uniphier_aio_spdif_ops,
-+		.ops = &uniphier_aio_spdif_pxs2_ops,
- 	},
- 	{
- 		.name    = AUD_NAME_HIECCOMPOUT1,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
--		.compress_new = snd_soc_new_compress,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECCOMPOUT1,
- 			.channels_min = 1,
- 			.channels_max = 1,
- 		},
--		.ops = &uniphier_aio_spdif_ops,
-+		.ops = &uniphier_aio_spdif_pxs2_ops2,
- 	},
- 	{
- 		.name    = AUD_NAME_IECCOMPOUT1,
--		.probe   = uniphier_aio_pxs2_probe,
--		.remove  = uniphier_aio_dai_remove,
--		.compress_new = snd_soc_new_compress,
- 		.playback = {
- 			.stream_name = AUD_NAME_IECCOMPOUT1,
- 			.channels_min = 1,
- 			.channels_max = 1,
- 		},
--		.ops = &uniphier_aio_spdif_ops,
-+		.ops = &uniphier_aio_spdif_pxs2_ops2,
- 	},
- };
- 
-diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
-index 0b03571aa9f0..09ccb47337fd 100644
---- a/sound/soc/uniphier/aio.h
-+++ b/sound/soc/uniphier/aio.h
-@@ -306,12 +306,14 @@ static inline struct uniphier_aio *uniphier_priv(struct snd_soc_dai *dai)
- int uniphier_aiodma_soc_register_platform(struct platform_device *pdev);
- extern const struct snd_compress_ops uniphier_aio_compress_ops;
- 
--int uniphier_aio_dai_probe(struct snd_soc_dai *dai);
--int uniphier_aio_dai_remove(struct snd_soc_dai *dai);
- int uniphier_aio_probe(struct platform_device *pdev);
- int uniphier_aio_remove(struct platform_device *pdev);
--extern const struct snd_soc_dai_ops uniphier_aio_i2s_ops;
--extern const struct snd_soc_dai_ops uniphier_aio_spdif_ops;
-+extern const struct snd_soc_dai_ops uniphier_aio_i2s_ld11_ops;
-+extern const struct snd_soc_dai_ops uniphier_aio_i2s_pxs2_ops;
-+extern const struct snd_soc_dai_ops uniphier_aio_spdif_ld11_ops;
-+extern const struct snd_soc_dai_ops uniphier_aio_spdif_ld11_ops2;
-+extern const struct snd_soc_dai_ops uniphier_aio_spdif_pxs2_ops;
-+extern const struct snd_soc_dai_ops uniphier_aio_spdif_pxs2_ops2;
- 
- u64 aio_rb_cnt(struct uniphier_aio_sub *sub);
- u64 aio_rbt_cnt_to_end(struct uniphier_aio_sub *sub);
+ struct snd_soc_dai_driver loongson_i2s_dai = {
+ 	.name = "loongson-i2s",
+-	.probe = loongson_i2s_dai_probe,
+ 	.playback = {
+ 		.stream_name = "CPU-Playback",
+ 		.channels_min = 1,
 -- 
 2.25.1
 

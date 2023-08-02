@@ -2,154 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE2576C4D8
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 07:26:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5478876C511
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 07:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB6266C0;
-	Wed,  2 Aug 2023 07:25:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB6266C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F0BD7F8;
+	Wed,  2 Aug 2023 07:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F0BD7F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690953971;
-	bh=Xgz8iQ37X6loQ+qbKEDfoww147k6tgiLGAXRBijT56g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fk//mYozyANR9i5SlOxFVYWWrId12ftG4LHMXdqbSWerFmK7JhjvtgM/z9CvieCVJ
-	 qPNKGSSWKWNl3SN1qQOit8/ojz4AadlSaYDitiEZYgJ7XFIk4evdDTPDtVHIq7Nqun
-	 SMzChB7pi/mjquHCyCgyMqkpiE8krbh846AeFZws=
+	s=default; t=1690955799;
+	bh=VVqZYO0rARdOBU1oajHtmOXAGKSye6Y9eY3xVnlO75w=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qxIJxK2LBag4jCQBaBDbxrhiVUZaApdzhs9XaFjJtz5RmYi9powJolmOMMpFX3XgU
+	 ibUScq3KBHVR6F6VeYx5aJoL3RYg2v3FA5tFuCHpAOYf6y1LqON/O6GZMCVREI3pIp
+	 oHPigLKlqHl07Yl/LmvMOhVTjIRlnCaq+h3GFQck=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FFB2F8055B; Wed,  2 Aug 2023 07:24:31 +0200 (CEST)
+	id 3ADB8F80535; Wed,  2 Aug 2023 07:55:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A5D6F80535;
-	Wed,  2 Aug 2023 07:24:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8443CF8016D;
+	Wed,  2 Aug 2023 07:55:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 237C1F8025A; Wed,  2 Aug 2023 07:22:05 +0200 (CEST)
+	id 01811F80149; Wed,  2 Aug 2023 07:53:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,SPF_HELO_PASS,
-	T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0c::625])
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (unknown [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4964F801D5
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 07:22:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4964F801D5
+	by alsa1.perex.cz (Postfix) with ESMTPS id E2895F80149
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 07:51:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2895F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=Y57MDaCg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZEvkEfeIrqRRMf+lgmufyU7MSKy/tZCVhZ9gKHLA8whycFZPQEItHJ4QXDUwxNHTf6n4eyf79K2bx14OyY1CkY4wWoLYhEcQp68qfPZwOAJVGQqv/04SXkcHnjMIqSqc6SuJfmWYDYaK6eZ56MJS7ovd5UbNhZVv2zq2hgTdPxYDfY0YngPD+KK6a86nYlGSb5hzx1HYP3fzpkM77+/RA144b9hVVK2rKSJugWVK+mcjnguZeVZvQG8yHdbK6g/DshAsFdVHWrYFwyidtD9FW7fd7STBhxypEWFJKAplbRZaE/T3vl3R6UuUWIJdkYb9za5YB5HnSvCk7MOOOCmCAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r4U6lL6p6mHOsHiIMI+EcJ7LZ8ZvA3idq1lCknkhapU=;
- b=PZEMEB8cMCsA3rAxN3M/GVnUQ+QOH9NOUIVs07zH7OTwRW0fQ4vhLdrxLOc6h3j71meWsTNcqL057OO+1aQMsZAYPK78O8uqM/IHHB7G0dYPPl46hf12iSGo65sIX4JUR7C2bUz+wUOJgJ/c2Uuvci1j8lBuS4zKUvy5MfQcW5oErwMoxTgB0Xq10JnGuQY+VheqNOoNby7zmYqbAtet4fUsNGuWH5Zuz19K1kOFLfGPVD8FUaNGOLf5dKMjTuDqo2izYYFXqLMWCnkV4vwcI1RqPcZRJrlHUBglhcItbyWeIb37GzQ0wrZo4e6aoZyOlWa9TC5HOsWA8aUqNhpo4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r4U6lL6p6mHOsHiIMI+EcJ7LZ8ZvA3idq1lCknkhapU=;
- b=Y57MDaCg1vBHM/h8p04xsIUASlFp6aPZ5UJe0JQe+VqG2TmHdFYLS7hKyn7Eh6PQGE6OSXv7jco7frbhgUKSnUHtaWQWA4A8847hMcbURNQkeM98B9YPXrIiW2dtO2hq2ZuZQrXz32i/Oo1/EFknd6Z2/A5AIl5AGOe2ukNo3f0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by VI1PR04MB7088.eurprd04.prod.outlook.com (2603:10a6:800:11d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45; Wed, 2 Aug
- 2023 05:22:01 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::cda8:5cad:29b6:3c96]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::cda8:5cad:29b6:3c96%7]) with mapi id 15.20.6631.045; Wed, 2 Aug 2023
- 05:22:01 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [PATCH v2 3/3] ASoC: fsl_micfil: Use SET_SYSTEM_SLEEP_PM_OPS to
- simplify PM
-Date: Wed,  2 Aug 2023 13:21:17 +0800
-Message-Id: <20230802052117.1293029-4-chancel.liu@nxp.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=WsKkXnPd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1690955496; x=1722491496;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=VVqZYO0rARdOBU1oajHtmOXAGKSye6Y9eY3xVnlO75w=;
+  b=WsKkXnPde/EA/u5ILSVNwSxYkVca3zKAXz6M0moMYMQYwX2PMS3KPzEf
+   vZ1Uu0XshF8r2QSEB6jopz0xoCs48PrXUHd+mARdaPzGnHGhhZ9ICUrE5
+   LhQMVjcoPFgtXv+ilH7SDcX9hmPqzFUOsqMv6RQyCHtTe/KAeH3eZJnxi
+   n6lHKhXy6d4NAnm8kOAiujYWY+WpiI7wMES++lO9Us+6YTPmDWxo1S7gK
+   YmE11kbBWltqYg7epAlK+g+yt9cfepl5zLxIn/ATLfE6SCKUaaYGdST95
+   TZukfH7GKT6/hEmhY4i6GorLEBKVViLJlWnJP0SPrN9z06Jw2c+/iQ1fe
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="455856584"
+X-IronPort-AV: E=Sophos;i="6.01,248,1684825200";
+   d="scan'208";a="455856584"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 22:51:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="678920393"
+X-IronPort-AV: E=Sophos;i="6.01,248,1684825200";
+   d="scan'208";a="678920393"
+Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 22:51:26 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Cc: vinod.koul@linaro.org,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	bard.liao@intel.com
+Subject: [PATCH] soundwire: intel_ace2x: add DAI hw_params/prepare/hw_free
+ callbacks
+Date: Wed,  2 Aug 2023 14:19:47 +0800
+Message-Id: <20230802061947.3788679-1-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230802052117.1293029-1-chancel.liu@nxp.com>
-References: <20230802052117.1293029-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0025.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::13) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|VI1PR04MB7088:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20627bc7-f872-4072-12d2-08db93186644
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	YL1iJsc2BgP0oMWU7Z3qITSPaMo7tofEbRSHjqF8doJiDXemK/bEQip0ZnMVGkto/6l19A8j55KzGdE5uRyW02h9ug/xMmYbcsWjjdE3RxgAOJ6k7I8z1Cj4egbkOoIQhe49g4IfRhF+x+GMI63kyYP8Z0ju32YWYFZXHsPwC4yLbHk+usiwC9nsltYfG1flsziX6knaj2ZpKsInott88BoCEk1/mpQDI7z4pOrjxDjfCIbDLV7C/iOhvEki7Ci015N8DIhJxnIe7NenB0AH50Hdr1z6mUT1EwarDrrMoaSqKpzmuiUQqEShDla5hxCP1sqZI2IvEqultlsirSZevUt325Z+mVFZNBk8bcimLvzTFIb/i06ofZynCGHxOzocr+21hH4QKFp1fPl24q69B02ijcfgxhjLBO4uP1bfla6aXKm29zxG1+xm/ZacfnyeE0q1+AokrOhpINhSCBxR4+YCd7lwLNssy8fNV502/V6/BL7IqhAJcRWx3+PgdaKWzvZqcWhZBKN5SuWb4ZHAivbNuBUwrSpmhW9kXsgbZKPQQL0biQqD93sUq3xtzQY6Db6ro+dIS0S4gSHhJs95DK77o+EpuWckGd1Sbi6FFCThiy7k0fmr1tcV+PRBoE1YDjRWTuSOB806Qro0rXVsZQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(451199021)(44832011)(66556008)(66476007)(4326008)(66946007)(2906002)(38100700002)(38350700002)(2616005)(921005)(186003)(6506007)(1076003)(26005)(7416002)(83380400001)(86362001)(36756003)(478600001)(6512007)(52116002)(6666004)(6486002)(41300700001)(8936002)(8676002)(5660300002)(316002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?sOqNbeX/swah2+xJGtdBhdsLJgO6JEaj3qLGSWG0EKsYaU2U6ZxYvoFI1K7S?=
- =?us-ascii?Q?4DB2zhQhzvr32tjBRV9j38D7910dkMmEsxiFBSdoXtWi8y1Y/oi/SlYwlNKn?=
- =?us-ascii?Q?33cHEVeXeo4lU93EJNEFqTRk11P+5fs70c/ijgwrVcLBHlLGmlDqgayLpbsl?=
- =?us-ascii?Q?w+3wTUF1EG8oIApOlpXeVSlp1dwBd2o1pHQs5ntJ1yCW8r7YbxEyT45VB1eg?=
- =?us-ascii?Q?/JTe9fZiy5g+lCyPNG12LqnKL2xgplJkUR7RZ5wnS3o20lG0760xuwqZEPOA?=
- =?us-ascii?Q?OheoJya2Rn99tldNtCupiSoiisBYPv/60wg3CRQjWDOLsXfE8E/xqIlUOMVx?=
- =?us-ascii?Q?JWec5M8l6KBg1BlEUkXuAOXUwdC1afsjEor5GdotE/00W5BP6lktcnZZYe21?=
- =?us-ascii?Q?IQAP2bYU3utY1lBOsEevejHlbi//WADv7/PpJbn5kGxHhI+PfPrFGkHwYPbp?=
- =?us-ascii?Q?/itGn5AfX3rHJeC051CQ1rAZYH+Yfsyrq7VOsMshDEOVlYfYEpNnDQkZsfO4?=
- =?us-ascii?Q?XgX8pAdIJ+rZZtoNmC/cKPsOZ2TkKpR9zVsf9ZDiBZlh5hEsp6oQZrOsIU65?=
- =?us-ascii?Q?VJ+CHVu4FEYcJRHAmYdxI6EDOmzDFJLWWCJx7CuLI83iLOwFLnbp7bEuIPOA?=
- =?us-ascii?Q?x2g3iY5Z7Px+8e/jDc38p96YB28AQjZtzzHRqMb+fRkKvJgGnby348M/7vZu?=
- =?us-ascii?Q?+G3xGY2KBRJ1eUpUp+ILeSDQKhjwdjQXzoDhGttVR1pe5xF85N1cWaj+pn9E?=
- =?us-ascii?Q?ZqgDXCIZHe98Uds3/kvjH6KeigZqa//qlWrg9fW1eItZz8CjaYTSI8wbDBpz?=
- =?us-ascii?Q?+XHQDVexl2gzeexvdeh8T8OkRd6sCx+rH++mQn5/rpiNx/AHRTynp59xNRif?=
- =?us-ascii?Q?lqtYwAtFYUWHMLhk8xVIesk6yy645vu+y5CstAZSSKu0J4IQPJFaufsVaFfA?=
- =?us-ascii?Q?0Z3HLckpA+wDAMBP2ffACl0CZoZaoIS7gKM2q4YQRtr9NoQw7QQqq4yzTEaI?=
- =?us-ascii?Q?kXd+/kMuegWhpICqtN0gYkZkZ7+dDt/lrBktC9xTEfl6n7RM5MaL3HLO9LaP?=
- =?us-ascii?Q?7wrdRFZxadMtkldzWsJWqmuLNJVADdUyAAHbDQSNUugjBpXIIjD0QYk0zZhM?=
- =?us-ascii?Q?Zvj2xHMDLVwbGqo96vbJJfDEl1dRu2cg/yodW81puSl1Af319Gb247oHzGwt?=
- =?us-ascii?Q?E+MvI6PnGxoRyqKn6CYaWEJmwrwiQ9o/eRd7RrMl+GrfNWvdXxcI3tzFnlxu?=
- =?us-ascii?Q?4wOetBZUnA6ZmymQT3Ig+CjZ5kueKyaRBgA+YWC8E+vf7uWA+FcrnDfoaLHx?=
- =?us-ascii?Q?Lpul9CcdyrhHYy5b1hfbGVQiKcu2H6cZrOyMI4l9eLACK7VGCswpGa1wgRul?=
- =?us-ascii?Q?6D0cLBHIjrIsZrBI3q0LDVlT0zUsFvFMlpkt2V6Ps2tVBx1LlozW2tqsG+sQ?=
- =?us-ascii?Q?ww825HLEzkBt/YoNuXdvcE0VmCR/TtnETk1zbxvEvWQJdl3g1leJjuRBt53L?=
- =?us-ascii?Q?TefWFhirszlNUJNZFiBbHCyqDhzd8g24IMfohYKigy7ZnNK2q5DLodlcN3We?=
- =?us-ascii?Q?8UkgqCshrJEFzYhpVbugFjYO0AHYg2gsAQmU4z5c?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 20627bc7-f872-4072-12d2-08db93186644
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 05:22:01.0539
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- aUSg2lPFPQglB9EeB48XhoPfhIUhgb+cPz891NGEZesR7hhezNiYuo6AhpQrewUAZ0YUNtCJIAYOYrusEESgTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7088
-Message-ID-Hash: OR5CCW3YIZCXBN6WMKXANEHVG6JSTXD4
-X-Message-ID-Hash: OR5CCW3YIZCXBN6WMKXANEHVG6JSTXD4
-X-MailFrom: chancel.liu@nxp.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: I47TQJS6ZZ5KFNJSDUS3AASKCDME2XKB
+X-Message-ID-Hash: I47TQJS6ZZ5KFNJSDUS3AASKCDME2XKB
+X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -161,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OR5CCW3YIZCXBN6WMKXANEHVG6JSTXD4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I47TQJS6ZZ5KFNJSDUS3AASKCDME2XKB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -170,47 +104,326 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use SET_SYSTEM_SLEEP_PM_OPS to simplify suspend and resume function.
-fsl_micfil_suspend() and fsl_micfil_resume() can be deleted.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+The code is fork-lifted from intel.c and is mostly similar *except*
+for the SHIM configuration which cannot be done here with the
+introduction of HDAudio Extended links. The ACE2.x SOF side also
+requires the hw_free and trigger callbacks to be implemented for
+HDaudio DMA management
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/fsl/fsl_micfil.c | 18 ++----------------
- 1 file changed, 2 insertions(+), 16 deletions(-)
+ drivers/soundwire/intel_ace2x.c | 283 ++++++++++++++++++++++++++++++++
+ 1 file changed, 283 insertions(+)
 
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index c4ff8ea49390..d6a5527ee7f6 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -1297,26 +1297,12 @@ static int fsl_micfil_runtime_resume(struct device *dev)
- 	return 0;
+diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
+index 1be0bea5f40f..a9d25ae0b73f 100644
+--- a/drivers/soundwire/intel_ace2x.c
++++ b/drivers/soundwire/intel_ace2x.c
+@@ -10,6 +10,7 @@
+ #include <linux/soundwire/sdw_registers.h>
+ #include <linux/soundwire/sdw.h>
+ #include <linux/soundwire/sdw_intel.h>
++#include <sound/pcm_params.h>
+ #include <sound/hda-mlink.h>
+ #include "cadence_master.h"
+ #include "bus.h"
+@@ -191,10 +192,292 @@ static bool intel_check_cmdsync_unlocked(struct sdw_intel *sdw)
+ 	return hdac_bus_eml_sdw_check_cmdsync_unlocked(sdw->link_res->hbus);
  }
  
--static int __maybe_unused fsl_micfil_suspend(struct device *dev)
--{
--	pm_runtime_force_suspend(dev);
--
--	return 0;
--}
--
--static int __maybe_unused fsl_micfil_resume(struct device *dev)
--{
--	pm_runtime_force_resume(dev);
--
--	return 0;
--}
--
- static const struct dev_pm_ops fsl_micfil_pm_ops = {
- 	SET_RUNTIME_PM_OPS(fsl_micfil_runtime_suspend,
- 			   fsl_micfil_runtime_resume,
- 			   NULL)
--	SET_SYSTEM_SLEEP_PM_OPS(fsl_micfil_suspend,
--				fsl_micfil_resume)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
++/* DAI callbacks */
++static int intel_params_stream(struct sdw_intel *sdw,
++			       struct snd_pcm_substream *substream,
++			       struct snd_soc_dai *dai,
++			       struct snd_pcm_hw_params *hw_params,
++			       int link_id, int alh_stream_id)
++{
++	struct sdw_intel_link_res *res = sdw->link_res;
++	struct sdw_intel_stream_params_data params_data;
++
++	params_data.substream = substream;
++	params_data.dai = dai;
++	params_data.hw_params = hw_params;
++	params_data.link_id = link_id;
++	params_data.alh_stream_id = alh_stream_id;
++
++	if (res->ops && res->ops->params_stream && res->dev)
++		return res->ops->params_stream(res->dev,
++					       &params_data);
++	return -EIO;
++}
++
++static int intel_free_stream(struct sdw_intel *sdw,
++			     struct snd_pcm_substream *substream,
++			     struct snd_soc_dai *dai,
++			     int link_id)
++
++{
++	struct sdw_intel_link_res *res = sdw->link_res;
++	struct sdw_intel_stream_free_data free_data;
++
++	free_data.substream = substream;
++	free_data.dai = dai;
++	free_data.link_id = link_id;
++
++	if (res->ops && res->ops->free_stream && res->dev)
++		return res->ops->free_stream(res->dev,
++					     &free_data);
++
++	return 0;
++}
++
+ /*
+  * DAI operations
+  */
++static int intel_hw_params(struct snd_pcm_substream *substream,
++			   struct snd_pcm_hw_params *params,
++			   struct snd_soc_dai *dai)
++{
++	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
++	struct sdw_intel *sdw = cdns_to_intel(cdns);
++	struct sdw_cdns_dai_runtime *dai_runtime;
++	struct sdw_cdns_pdi *pdi;
++	struct sdw_stream_config sconfig;
++	struct sdw_port_config *pconfig;
++	int ch, dir;
++	int ret;
++
++	dai_runtime = cdns->dai_runtime_array[dai->id];
++	if (!dai_runtime)
++		return -EIO;
++
++	ch = params_channels(params);
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++		dir = SDW_DATA_DIR_RX;
++	else
++		dir = SDW_DATA_DIR_TX;
++
++	pdi = sdw_cdns_alloc_pdi(cdns, &cdns->pcm, ch, dir, dai->id);
++
++	if (!pdi) {
++		ret = -EINVAL;
++		goto error;
++	}
++
++	/* the SHIM will be configured in the callback functions */
++
++	sdw_cdns_config_stream(cdns, ch, dir, pdi);
++
++	/* store pdi and state, may be needed in prepare step */
++	dai_runtime->paused = false;
++	dai_runtime->suspended = false;
++	dai_runtime->pdi = pdi;
++
++	/* Inform DSP about PDI stream number */
++	ret = intel_params_stream(sdw, substream, dai, params,
++				  sdw->instance,
++				  pdi->intel_alh_id);
++	if (ret)
++		goto error;
++
++	sconfig.direction = dir;
++	sconfig.ch_count = ch;
++	sconfig.frame_rate = params_rate(params);
++	sconfig.type = dai_runtime->stream_type;
++
++	sconfig.bps = snd_pcm_format_width(params_format(params));
++
++	/* Port configuration */
++	pconfig = kzalloc(sizeof(*pconfig), GFP_KERNEL);
++	if (!pconfig) {
++		ret =  -ENOMEM;
++		goto error;
++	}
++
++	pconfig->num = pdi->num;
++	pconfig->ch_mask = (1 << ch) - 1;
++
++	ret = sdw_stream_add_master(&cdns->bus, &sconfig,
++				    pconfig, 1, dai_runtime->stream);
++	if (ret)
++		dev_err(cdns->dev, "add master to stream failed:%d\n", ret);
++
++	kfree(pconfig);
++error:
++	return ret;
++}
++
++static int intel_prepare(struct snd_pcm_substream *substream,
++			 struct snd_soc_dai *dai)
++{
++	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
++	struct sdw_intel *sdw = cdns_to_intel(cdns);
++	struct sdw_cdns_dai_runtime *dai_runtime;
++	int ch, dir;
++	int ret = 0;
++
++	dai_runtime = cdns->dai_runtime_array[dai->id];
++	if (!dai_runtime) {
++		dev_err(dai->dev, "failed to get dai runtime in %s\n",
++			__func__);
++		return -EIO;
++	}
++
++	if (dai_runtime->suspended) {
++		struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++		struct snd_pcm_hw_params *hw_params;
++
++		hw_params = &rtd->dpcm[substream->stream].hw_params;
++
++		dai_runtime->suspended = false;
++
++		/*
++		 * .prepare() is called after system resume, where we
++		 * need to reinitialize the SHIM/ALH/Cadence IP.
++		 * .prepare() is also called to deal with underflows,
++		 * but in those cases we cannot touch ALH/SHIM
++		 * registers
++		 */
++
++		/* configure stream */
++		ch = params_channels(hw_params);
++		if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++			dir = SDW_DATA_DIR_RX;
++		else
++			dir = SDW_DATA_DIR_TX;
++
++		/* the SHIM will be configured in the callback functions */
++
++		sdw_cdns_config_stream(cdns, ch, dir, dai_runtime->pdi);
++
++		/* Inform DSP about PDI stream number */
++		ret = intel_params_stream(sdw, substream, dai,
++					  hw_params,
++					  sdw->instance,
++					  dai_runtime->pdi->intel_alh_id);
++	}
++
++	return ret;
++}
++
++static int
++intel_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
++	struct sdw_intel *sdw = cdns_to_intel(cdns);
++	struct sdw_cdns_dai_runtime *dai_runtime;
++	int ret;
++
++	dai_runtime = cdns->dai_runtime_array[dai->id];
++	if (!dai_runtime)
++		return -EIO;
++
++	/*
++	 * The sdw stream state will transition to RELEASED when stream->
++	 * master_list is empty. So the stream state will transition to
++	 * DEPREPARED for the first cpu-dai and to RELEASED for the last
++	 * cpu-dai.
++	 */
++	ret = sdw_stream_remove_master(&cdns->bus, dai_runtime->stream);
++	if (ret < 0) {
++		dev_err(dai->dev, "remove master from stream %s failed: %d\n",
++			dai_runtime->stream->name, ret);
++		return ret;
++	}
++
++	ret = intel_free_stream(sdw, substream, dai, sdw->instance);
++	if (ret < 0) {
++		dev_err(dai->dev, "intel_free_stream: failed %d\n", ret);
++		return ret;
++	}
++
++	dai_runtime->pdi = NULL;
++
++	return 0;
++}
++
++static int intel_pcm_set_sdw_stream(struct snd_soc_dai *dai,
++				    void *stream, int direction)
++{
++	return cdns_set_sdw_stream(dai, stream, direction);
++}
++
++static void *intel_get_sdw_stream(struct snd_soc_dai *dai,
++				  int direction)
++{
++	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
++	struct sdw_cdns_dai_runtime *dai_runtime;
++
++	dai_runtime = cdns->dai_runtime_array[dai->id];
++	if (!dai_runtime)
++		return ERR_PTR(-EINVAL);
++
++	return dai_runtime->stream;
++}
++
++static int intel_trigger(struct snd_pcm_substream *substream, int cmd, struct snd_soc_dai *dai)
++{
++	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
++	struct sdw_intel *sdw = cdns_to_intel(cdns);
++	struct sdw_intel_link_res *res = sdw->link_res;
++	struct sdw_cdns_dai_runtime *dai_runtime;
++	int ret = 0;
++
++	/*
++	 * The .trigger callback is used to program HDaudio DMA and send required IPC to audio
++	 * firmware.
++	 */
++	if (res->ops && res->ops->trigger) {
++		ret = res->ops->trigger(substream, cmd, dai);
++		if (ret < 0)
++			return ret;
++	}
++
++	dai_runtime = cdns->dai_runtime_array[dai->id];
++	if (!dai_runtime) {
++		dev_err(dai->dev, "failed to get dai runtime in %s\n",
++			__func__);
++		return -EIO;
++	}
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++
++		/*
++		 * The .prepare callback is used to deal with xruns and resume operations.
++		 * In the case of xruns, the DMAs and SHIM registers cannot be touched,
++		 * but for resume operations the DMAs and SHIM registers need to be initialized.
++		 * the .trigger callback is used to track the suspend case only.
++		 */
++
++		dai_runtime->suspended = true;
++
++		break;
++
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		dai_runtime->paused = true;
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		dai_runtime->paused = false;
++		break;
++	default:
++		break;
++	}
++
++	return ret;
++}
++
+ static const struct snd_soc_dai_ops intel_pcm_dai_ops = {
++	.hw_params = intel_hw_params,
++	.prepare = intel_prepare,
++	.hw_free = intel_hw_free,
++	.trigger = intel_trigger,
++	.set_stream = intel_pcm_set_sdw_stream,
++	.get_stream = intel_get_sdw_stream,
  };
  
- static struct platform_driver fsl_micfil_driver = {
+ static const struct snd_soc_component_driver dai_component = {
 -- 
 2.25.1
 

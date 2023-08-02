@@ -2,88 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA30776C4BD
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 07:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC8E76C4CC
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 07:23:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 272ED1E7;
-	Wed,  2 Aug 2023 07:17:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 272ED1E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16A051D6;
+	Wed,  2 Aug 2023 07:22:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16A051D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690953484;
-	bh=0CEdaSyJFAA2xpjh5Nn+H0+SZFhR9FtwxsrPPHypAnQ=;
+	s=default; t=1690953779;
+	bh=+tjsNFjesriWjA8VxbQgaE/36CDFPOydAoI+uJLEoRU=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=bkob1AR81G8JtHzAIB5UovR0OglKCFjazyA6alhG9kjV+13vqhXA775WsQGDSDkoz
-	 baIUAEwzyvlZ0+y7luT2bQLRgLTHkLD7z63y+UjrF/lJkRScrI/3dTns8nq90Z/lqI
-	 bMBO8ieH2Msqc5cjCsMUeGf6YUrZaaPa1wC+5fco=
+	b=NMRlma9jqVnHjKkZJxtVVo2Wf13vZaN3S/eHrVDVCuccrofjTET3GjDhVh8epiihc
+	 /+LfuCauJeO9j0QzfCAgrwwHAjBvP+xb1Q0eXJDCuKtEU91G1uWR9UAGSJhclSXViV
+	 TuMRP1Mk4UGLFURDEEdkIzCs0fBk4QEE5XGpS4BA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35615F80544; Wed,  2 Aug 2023 07:17:13 +0200 (CEST)
+	id 4C1E4F802BE; Wed,  2 Aug 2023 07:22:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A365DF80149;
-	Wed,  2 Aug 2023 07:17:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69B99F801D5;
+	Wed,  2 Aug 2023 07:22:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FD99F801D5; Wed,  2 Aug 2023 07:16:04 +0200 (CEST)
+	id ABC01F802BE; Wed,  2 Aug 2023 07:22:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,SPF_HELO_PASS,
+	T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0c::61d])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D9AAF80149
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 07:15:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D9AAF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 09344F80163
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 07:21:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09344F80163
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=infradead.org header.i=@infradead.org
- header.a=rsa-sha256 header.s=bombadil.20210309 header.b=sToXqHdw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=Ws463DCdGOOUnDgf5xIij/KjEF+4fkspmM98in3YnIU=; b=sToXqHdwHcm7a53ZnJ8VZVQsEL
-	JjWuv099M/waB6PAJfQ8lRJtDpvT8yxhA4wuigAGDty+RkgngpSmNxZ6YnbjV6lI0yoPqMpRDVAFo
-	lGBeJMBRTog0Wn1NrkFlvX6met0legbG4TwZ7dCTCPmUCpWK8hlSDyTB2jtfnjTDeXiWZGCyupifA
-	aCmpywLceqMID9NkmNKf5i/YmWUo6w5VbcqiLjbO8IROz8il0QbAZiGS+1nVpaNvkabFTwxEyu71A
-	daPzLqx13PEh2RxcnOMDyayeK2iapvLzZC4t4Y3osA3Ape1Kw/ttFfHzXAoo7+QhmX37ik/RHIM+4
-	Hxmb9Cfg==;
-Received: from [2601:1c2:980:9ec0::2764] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
-	id 1qR4CL-0042D7-2i;
-	Wed, 02 Aug 2023 05:15:01 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	kernel test robot <lkp@intel.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-um@lists.infradead.org,
-	Tejun Heo <tj@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nicolas Schier <nicolas@fjasle.eu>,
-	linux-kbuild@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH v5] um/drivers: fix hostaudio build errors
-Date: Tue,  1 Aug 2023 22:15:00 -0700
-Message-ID: <20230802051500.13271-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.41.0
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=OWsKCHvm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Sx6qx2bnbVvyYDhyZ7GdDZZLXrpma57fXPb0AxJCAieICHfwf0TIQ8V2nn6l5XDqvo6oMimIthBphzzGc6uY4RFaJR9TlZJgODiUZbu9QVZdRv0r6pv7Zq8nZP1hXbdG15WM6M+SjbAoMXXB9+mlxfgMMNO4yRtVVuWZqDle3RewFoKrzSKhwHUL1DJTKxfwULi7aDjD9NW/fa2cGH3hgB/UvsjmJtfeL7ZzZBG67RzcsaT7F9yuscvh+IfDs6282TXPYkIZ+jhORdArNlO0UWD/t9RXGo+4PIcRqR5+R2JE3WIGnmZ/XMtdwwWe0b3xilnIdRN2kODmC4H68S14Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CXbX6FoCnen4ROyHFV4aeWDFOqlkYlgy831bbi6vPmU=;
+ b=JK5WC6T5rq3IvaSEiRNDcTbor0ewUwANAE3qghTikAdznYgJptrfuTLHnqsCJZCkx4ZeQZV4EH7UJtdJe5P2AxomQ3z9zuG0qZFtD0ZG3o6u3a1tglxtYMZtD3hzd+ZKFDMKyczZVmu0R9V+YuNjt3i/c46PRD6ygYRTzRVsgt0oEsTGeAD/lL8N9vfo0S0cc80KjWqA5t24rklqC+UIQOH6rE5vHIucZvbNEFy/M78vRWrqWplbujCSCNqmiL6t1aKS5akBXYZ/QUYVccragCPA3x3V+QUOYBqg9xYg4TKqKNYWsmW7nEnfiG5G9npiMknR7exRWZM0/rLuZ6bkwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CXbX6FoCnen4ROyHFV4aeWDFOqlkYlgy831bbi6vPmU=;
+ b=OWsKCHvmQD5N8VsW/RM4wD6Hec80QdjneBWHLywa19NQ7Xiyz4+L0Xoq0FRVU0P6o8iSyby4sTqyvBdV4IuUpeJuR4CxIDT9UP237HoACqNUEtw/InP372Pqh1HWbU8LxUCk8Bojshv6txiXnMFRqwsW42ymDtqgAUbCmPQno7g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
+ by DUZPR04MB9946.eurprd04.prod.outlook.com (2603:10a6:10:4db::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.44; Wed, 2 Aug
+ 2023 05:21:49 +0000
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::cda8:5cad:29b6:3c96]) by DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::cda8:5cad:29b6:3c96%7]) with mapi id 15.20.6631.045; Wed, 2 Aug 2023
+ 05:21:49 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Cc: Chancel Liu <chancel.liu@nxp.com>
+Subject: [PATCH v2 0/3] Update the register list of MICFIL
+Date: Wed,  2 Aug 2023 13:21:14 +0800
+Message-Id: <20230802052117.1293029-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: X5VZZLE74JGZOTR3SBN6FHB53OLY6DVU
-X-Message-ID-Hash: X5VZZLE74JGZOTR3SBN6FHB53OLY6DVU
-X-MailFrom: rdunlap@infradead.org
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0025.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::13) To DB9PR04MB9498.eurprd04.prod.outlook.com
+ (2603:10a6:10:360::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DUZPR04MB9946:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2d3f8dc-2a3b-42dc-5649-08db93185f3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	WDtbXpTN5XRQDE3xIUJn2ihAlXcuT0alOSGK8PpeyEcFlPrIIkOUTGTdrFhARmdbcOmZy0Z35f9KA+I6gHd+vASEJlQ0R6g0dTZ5wEqsPY8IDCQiXzInlzswLGKEk+QSi9JbDD5ns0jz6OH3ahXEGSv2ly5c1V5ZcqrwRnGHLGbbR5udOaAIblC3hmwjcsLBD+sBo6s7H6AjQ//QGOkZt7guNZuDI+dXPVu2PsuCm1qOk0XWWDCm3d9BStimS+d50jn2WeX0eWenSievuWsnt+OquXnof7hyCt7+IU4kiMUC8DD6REn0RxN9BmKyg47iN6EqAHa4O4TUxIB/iuSLeGGyV0ja6UqwgH5+rwoUQI29aFeZOy8NTI0mlscJL7eKIkL+h6xTEuzX73rOEjn1Ts6llFQXEIm6MgwfZJ84rlObe2V0IIIeEblThAHvkXQo3MKNoFkbURYXcQUBQIqb5QKOpN49eFkBQHccm7nLSDGhH1O7cZI61LNBxwWIdaruFQ65WF1wo7elwmHI2ev7Mti3pzu8AorKiH5Y062rMSc0HMzTC8ECYYcQemVKd/OkdMi7Wd5+gjYogGMlJGl6QZFDbNOMg97BAdyDOpSVKz/fkul1BLH+nr5fjco1Jt/GWUOLN4PKF+Rga2nGY6ceQg==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(451199021)(6512007)(7416002)(6666004)(5660300002)(186003)(66946007)(4326008)(66476007)(66556008)(478600001)(52116002)(6486002)(44832011)(316002)(41300700001)(8936002)(8676002)(26005)(38350700002)(38100700002)(86362001)(921005)(6506007)(36756003)(2906002)(83380400001)(1076003)(4744005)(2616005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?T4ArstiCYbb6AP3p/EqEdBsGtK4OLvPwLiGcq822X5qMv3YqnXqF+uBr9xrd?=
+ =?us-ascii?Q?ZDgbw+zFb4Dmg69gbZgv+kO0+CYpJg1sXF7hEw26X8i8fnfq80a3xLRjjg4D?=
+ =?us-ascii?Q?+PGfeNdb+KGSeeqkex5QaWH9ddXZ1qzKES595K6lH8dHSnXA6bmUbGdF812B?=
+ =?us-ascii?Q?mGg399kyHEnTSy7uXWOSAkSn72Q5ypnBKVwirBW75MI6rTFQTygbjemElIbG?=
+ =?us-ascii?Q?+zFeopbufI0bXduNJ9RRGA2/TtzF5TG+grrhcmrUiGnko5nBSYSfDBDXye0k?=
+ =?us-ascii?Q?RrXbPBW9cMZNl2VTsxC5FWZtbi81UW4Tvrgnc89We+FN2jP1W/7w1ihCxb8+?=
+ =?us-ascii?Q?CpP9tEZml7pFpnCjVJPC4HJpcN8zdjmlnAdPI9wLQ0SOW3aPsfRgg/uJER6e?=
+ =?us-ascii?Q?uXl4UUN4yIL80e2OfcX0q5MDI7tDUDH8Yx4MiqyiSAtYLvP6qARD4pyDJEvk?=
+ =?us-ascii?Q?N6/rf4g+0ebmt9IGT2pvGROvZgQfSeWcQtDA/fTitahsnh0QTgheBat/FNlW?=
+ =?us-ascii?Q?t+DoTgbK3KPT6t+qMGxOLDkHiaF8WEcDPxsExeZYR+KDa+HoBPfR49xgDtLU?=
+ =?us-ascii?Q?ln2JKAOIpj2lXcndftbpKqdVhq1uhuLjTXSk1qn7IvRYVOA839bDGb+Ub5oD?=
+ =?us-ascii?Q?QPfc5V6Qo3JkbwGemDAKdufRHzyt0OMVVMFXpNLXE5G7UkTMbt/cHb5oVSYC?=
+ =?us-ascii?Q?lvH2RH37asCrY+a6DFDbuxFUeOGp3s4dcaxEOeVZVvGxvfsJnDTANcwFKLPX?=
+ =?us-ascii?Q?MfZtLtrDSIaqct3mtB6d2ZocQQawcU80CLZkjLNSHD2GEIrRit83bPlZqZ8v?=
+ =?us-ascii?Q?iimNXiCO910FqknfXqn7LG8Zh/IhsA3A+d5zEj4OYCkbO7FPSPWPacPG/HGj?=
+ =?us-ascii?Q?fNhUJ3HsZm0R9rawQcJ3DWAvrNoVqS5l69f2hOfLp498AZAGomJTs3rmOeEy?=
+ =?us-ascii?Q?kGjXDvr7vSCTdmEhgadUU0ZcyibLeHJU3KvFF4BzWEiaMosWrc+2VwWESGD7?=
+ =?us-ascii?Q?EZMADfu0/et17cfyrJiXELBhpzOwkNRE0m5Zs9psTnh0PesRETdByqbuijtx?=
+ =?us-ascii?Q?pF/A/IVROppSdflndtzi+YxqwdLOMdb95a6hwH0Q8UPm1v+HndBHoQIiM3o9?=
+ =?us-ascii?Q?KzEGU4SxbAIyK5Sy1toAQtZT1kCLN/0NR9Jbs//ncrhBGn5p0mbG1UbQCv83?=
+ =?us-ascii?Q?irJZynDYoiWlgY1U0Br6U9vTSs2S4Gaq75IFliLevMagH6F6k6gFyLjJXr4O?=
+ =?us-ascii?Q?JNPkOtPfZIqZyeN1Usd+qVRWffOl1Zpgo+lispXycdLwpu0jvQYoNZTTZK/+?=
+ =?us-ascii?Q?8IocF4wTDWNicLkX9shfbEGnXFo0YeL6IlEHg11jJ+IqFo2MdZy1iWi6S+Zg?=
+ =?us-ascii?Q?siqP/EBtLXNevASZk7+mYFp8JLAckUxjssDICrykQZqQ1VpDy+ZUMdadrTOT?=
+ =?us-ascii?Q?icjcb0PYtPNgcwUrnUVpsMyAXggDJxYQb3p8W/s/xx9UBA6SAYBeT4R6y8qM?=
+ =?us-ascii?Q?gfJnXbjL7c7RIeRGH/RxdoFH6L9gtFwGQwDgEUYnaZYBh6fLnRgzrUnYmG+G?=
+ =?us-ascii?Q?G3U5+gGiY1KFAI9UxUPg7j+SW2pshxTLneKzLm51?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ b2d3f8dc-2a3b-42dc-5649-08db93185f3c
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 05:21:49.2857
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ WJ7rjhxRU5KxFnYVQvYrhpaOTBcFYXcX4DoD/1kQe5rPo8Tc6HDbHXZw9YQd3QPnCBYVNpm/4JmEfUt2urQr6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9946
+Message-ID-Hash: RPEP7MXSIAPPSKR4EI66VJ7D4UMCRTIO
+X-Message-ID-Hash: RPEP7MXSIAPPSKR4EI66VJ7D4UMCRTIO
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +157,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X5VZZLE74JGZOTR3SBN6FHB53OLY6DVU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPEP7MXSIAPPSKR4EI66VJ7D4UMCRTIO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,138 +166,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use "select" to ensure that the required kconfig symbols are set
-as expected.
-Drop HOSTAUDIO since it is now equivalent to UML_SOUND.
+MICFIL IP is upgraded on i.MX93 platform. Add new registers and new bit
+definition.
 
-Set CONFIG_SOUND=m in ARCH=um defconfig files to maintain the
-status quo of the default configs.
+changes in v2:
+- rename check_version to use_verid to make it more explicit
+- rename fsl_micfil_check_version to fsl_micfil_use_verid
 
-Allow SOUND with UML regardless of HAS_IOMEM. Otherwise there is a
-kconfig warning for unmet dependencies. (This was not an issue when
-SOUND was defined in arch/um/drivers/Kconfig. I have done 50 randconfig
-builds and didn't find any issues.)
 
-This fixes build errors when CONFIG_SOUND is not set:
+Chancel Liu (3):
+  ASoC: fsl_micfil: Add new registers and new bit definition
+  ASoC: fsl_micfil: Add fsl_micfil_use_verid function
+  ASoC: fsl_micfil: Use SET_SYSTEM_SLEEP_PM_OPS to simplify PM
 
-ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_cleanup_module':
-hostaudio_kern.c:(.exit.text+0xa): undefined reference to `unregister_sound_mixer'
-ld: hostaudio_kern.c:(.exit.text+0x15): undefined reference to `unregister_sound_dsp'
-ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_init_module':
-hostaudio_kern.c:(.init.text+0x19): undefined reference to `register_sound_dsp'
-ld: hostaudio_kern.c:(.init.text+0x31): undefined reference to `register_sound_mixer'
-ld: hostaudio_kern.c:(.init.text+0x49): undefined reference to `unregister_sound_dsp'
+ sound/soc/fsl/fsl_micfil.c | 100 ++++++++++++++++++++++++++++++-------
+ sound/soc/fsl/fsl_micfil.h |  64 ++++++++++++++++++++++++
+ 2 files changed, 146 insertions(+), 18 deletions(-)
 
-and this kconfig warning:
-WARNING: unmet direct dependencies detected for SOUND
+--
+2.25.1
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: d886e87cb82b ("sound: make OSS sound core optional")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: lore.kernel.org/r/202307141416.vxuRVpFv-lkp@intel.com
-Cc: Richard Weinberger <richard@nod.at>
-Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-um@lists.infradead.org
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Masahiro Yamada <masahiroy@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Nicolas Schier <nicolas@fjasle.eu>
-Cc: linux-kbuild@vger.kernel.org
-Cc: alsa-devel@alsa-project.org
----
-v2: don't delete the HOSTAUDIO Kconfig entry (Masahiro)
-v3: drop HOSTAUDIO and use CONFIG_UML_SOUND for it in Makefile (Takashi);
-    add SOUND depends on "|| UML" to HAS_IOMEM
-v4: use depends on instead of select for SOUND (Masahiro);
-    use Closes: instead of Link:
-v5: update ARCH=um defconfig files (Masahiro)
-
- arch/um/configs/i386_defconfig   |    1 +
- arch/um/configs/x86_64_defconfig |    1 +
- arch/um/drivers/Kconfig          |   16 +++-------------
- arch/um/drivers/Makefile         |    2 +-
- sound/Kconfig                    |    2 +-
- 5 files changed, 7 insertions(+), 15 deletions(-)
-
-diff -- a/arch/um/drivers/Kconfig b/arch/um/drivers/Kconfig
---- a/arch/um/drivers/Kconfig
-+++ b/arch/um/drivers/Kconfig
-@@ -111,24 +111,14 @@ config SSL_CHAN
- 
- config UML_SOUND
- 	tristate "Sound support"
-+	depends on SOUND
-+	select SOUND_OSS_CORE
- 	help
- 	  This option enables UML sound support.  If enabled, it will pull in
--	  soundcore and the UML hostaudio relay, which acts as a intermediary
-+	  the UML hostaudio relay, which acts as a intermediary
- 	  between the host's dsp and mixer devices and the UML sound system.
- 	  It is safe to say 'Y' here.
- 
--config SOUND
--	tristate
--	default UML_SOUND
--
--config SOUND_OSS_CORE
--	bool
--	default UML_SOUND
--
--config HOSTAUDIO
--	tristate
--	default UML_SOUND
--
- endmenu
- 
- menu "UML Network Devices"
-diff -- a/sound/Kconfig b/sound/Kconfig
---- a/sound/Kconfig
-+++ b/sound/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- menuconfig SOUND
- 	tristate "Sound card support"
--	depends on HAS_IOMEM
-+	depends on HAS_IOMEM || UML
- 	help
- 	  If you have a sound card in your computer, i.e. if it can say more
- 	  than an occasional beep, say Y.
-diff -- a/arch/um/drivers/Makefile b/arch/um/drivers/Makefile
---- a/arch/um/drivers/Makefile
-+++ b/arch/um/drivers/Makefile
-@@ -54,7 +54,7 @@ obj-$(CONFIG_UML_NET) += net.o
- obj-$(CONFIG_MCONSOLE) += mconsole.o
- obj-$(CONFIG_MMAPPER) += mmapper_kern.o 
- obj-$(CONFIG_BLK_DEV_UBD) += ubd.o 
--obj-$(CONFIG_HOSTAUDIO) += hostaudio.o
-+obj-$(CONFIG_UML_SOUND) += hostaudio.o
- obj-$(CONFIG_NULL_CHAN) += null.o 
- obj-$(CONFIG_PORT_CHAN) += port.o
- obj-$(CONFIG_PTY_CHAN) += pty.o
-diff -- a/arch/um/configs/i386_defconfig b/arch/um/configs/i386_defconfig
---- a/arch/um/configs/i386_defconfig
-+++ b/arch/um/configs/i386_defconfig
-@@ -34,6 +34,7 @@ CONFIG_TTY_CHAN=y
- CONFIG_XTERM_CHAN=y
- CONFIG_CON_CHAN="pts"
- CONFIG_SSL_CHAN="pts"
-+CONFIG_SOUND=m
- CONFIG_UML_SOUND=m
- CONFIG_DEVTMPFS=y
- CONFIG_DEVTMPFS_MOUNT=y
-diff -- a/arch/um/configs/x86_64_defconfig b/arch/um/configs/x86_64_defconfig
---- a/arch/um/configs/x86_64_defconfig
-+++ b/arch/um/configs/x86_64_defconfig
-@@ -32,6 +32,7 @@ CONFIG_TTY_CHAN=y
- CONFIG_XTERM_CHAN=y
- CONFIG_CON_CHAN="pts"
- CONFIG_SSL_CHAN="pts"
-+CONFIG_SOUND=m
- CONFIG_UML_SOUND=m
- CONFIG_DEVTMPFS=y
- CONFIG_DEVTMPFS_MOUNT=y

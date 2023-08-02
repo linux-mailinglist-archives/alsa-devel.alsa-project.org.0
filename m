@@ -2,94 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D7B76D265
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 17:42:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5803A76D2FF
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 17:53:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DF0F846;
-	Wed,  2 Aug 2023 17:41:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DF0F846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F818836;
+	Wed,  2 Aug 2023 17:52:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F818836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690990924;
-	bh=LC1z11csKXep2Ks+8qlabTl4LRvUM6b3i2GdkK5zgJ0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=QaFHI93P0AEsSh+VuTrW4VYr7f+OR2buYw3oBV5arePtKNdvmKpIbgcWSEpwJq2+a
-	 BJlCA2bSiqKvEMnyGWKDvMF2KWcauTOpm6hbXn0kezY4r6Kau+DLK0dK+WHnJq3vik
-	 9OONM1HwGNhVfPDWEfcXVALSu56xru8z7oJ6LHnY=
+	s=default; t=1690991613;
+	bh=Lh3fXJXqzrKLmGTtOEbU1xywH6lZiOQQJpCFx/d1gvk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=NkZdXtBBC32dMmguY7mHG7Bli3U4O5OK8+U7lRF7LsLIsq5iq+ul7kCt0qFjTQx5J
+	 QzoqMeZUgYMJF/HsyNXLbI+dK1GE3b1kqcTNiySe//nhm+sDdHZkJtbluphYauNLYc
+	 lNUWTqGopjiQV6L1gntulL5ClrUAB8K39YbZCHWQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF1ECF80614; Wed,  2 Aug 2023 17:38:05 +0200 (CEST)
+	id D3DC9F80535; Wed,  2 Aug 2023 17:52:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89F13F8060D;
-	Wed,  2 Aug 2023 17:38:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 518F5F801D5;
+	Wed,  2 Aug 2023 17:52:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37183F805C1; Wed,  2 Aug 2023 17:37:32 +0200 (CEST)
+	id 85DB7F8025A; Wed,  2 Aug 2023 17:52:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (unknown [134.134.136.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D14BF80557
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 17:37:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D14BF80557
+	by alsa1.perex.cz (Postfix) with ESMTPS id 415ABF8016D
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 17:52:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 415ABF8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=huUxNWXH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690990627; x=1722526627;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=LC1z11csKXep2Ks+8qlabTl4LRvUM6b3i2GdkK5zgJ0=;
-  b=huUxNWXHu8urDqtr79x/WQ53/Z/RV6hY1zqJP0H5sE5a+6ylQJqC0j5Y
-   +3wOkSYnmveJ4vW10TwYr9eHTsauy/bBIz1M71a00vhzJgB/X4xFDqBgn
-   CwYMVznxkMW7YHmwam0neI8uq+7AgoqdKDlg+Hd0EVdqlOB4+3WU0Y0BM
-   TONdhEABjBEkfILSKg/38uqyZRvuHRQYVPAeVTnz6o5vReaS5joRVoEvA
-   JZKbcBcMLXCo4bDbr1Eoq5ZtljtEuymTdNYZQxocn74/WwNp//XM0dcPl
-   NWm6Dsjqe6qTMdX2g43krywnUeaVIfXTGJUgocw6/6JfN3LG/PMEcHDSS
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="372350886"
-X-IronPort-AV: E=Sophos;i="6.01,249,1684825200";
-   d="scan'208";a="372350886"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2023 08:36:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="722887305"
-X-IronPort-AV: E=Sophos;i="6.01,249,1684825200";
-   d="scan'208";a="722887305"
-Received: from rickylop-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.125.114])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2023 08:36:53 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	broonie@kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=uAOBGOUv
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E7B9B61A18;
+	Wed,  2 Aug 2023 15:52:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2221EC433C7;
+	Wed,  2 Aug 2023 15:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1690991548;
+	bh=Lh3fXJXqzrKLmGTtOEbU1xywH6lZiOQQJpCFx/d1gvk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=uAOBGOUvwnounY7GbixgmnvoYyynqBjkp+oXEtxp4bzZFd+gOIgR5UgFqbfYcxNum
+	 byfVG5Vgavg15TBoyccVQ+054Tdbg4PgAcFdvGwKQcvZAKPQzrL9XTvGP5BlZf+M/u
+	 VyIMMzhY52i8NSyj6mWlsBfxLQEfgpvY+yLIpO1R9yQzWjgR+DQNBGEavethomzsya
+	 DDd3gHI0rdmOtjVxaJrd3lLBTmC0gOKDBnZS0lWYUXMyjbD41Zcb33ZKT/LHW7lJrN
+	 4cUmJD7mPuaZRsonc5tVjm/LnoALbHc+8w9xa3hR+BPBHwOrfz+IN7bkNV5hLzTLPY
+	 ZVhJvrvSwF8bQ==
+Date: Wed, 2 Aug 2023 10:52:26 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, broonie@kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Rander Wang <rander.wang@intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [PATCH 16/16] ASoC: max98373-sdw: enable pm_runtime in probe,
- keep status as 'suspended'
-Date: Wed,  2 Aug 2023 10:36:29 -0500
-Message-Id: <20230802153629.53576-17-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230802153629.53576-1-pierre-louis.bossart@linux.intel.com>
-References: <20230802153629.53576-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/5] PCI: add ArrowLake-S PCI ID for Intel HDAudio
+ subsystem.
+Message-ID: <20230802155226.GA59821@bhelgaas>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6YLVIRM4QCRVETSKV6NL23MUBT6JALFL
-X-Message-ID-Hash: 6YLVIRM4QCRVETSKV6NL23MUBT6JALFL
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230802150105.24604-2-pierre-louis.bossart@linux.intel.com>
+Message-ID-Hash: WYIACBSKTQ6M4NVIECIKM2O5MCK27BVG
+X-Message-ID-Hash: WYIACBSKTQ6M4NVIECIKM2O5MCK27BVG
+X-MailFrom: helgaas@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6YLVIRM4QCRVETSKV6NL23MUBT6JALFL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WYIACBSKTQ6M4NVIECIKM2O5MCK27BVG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,95 +100,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch suggests enabling pm_runtime during the probe, but marking the
-device as 'active' only after it is enumerated. That will force a
-dependency between the card and the codec, pm_runtime_get_sync() will
-have to wait for the codec device to resume and hence implicitly wait
-for the enumeration/initialization to be completed. In the nominal
-case where the codec device is already active the get_sync() would
-only perform a ref-count increase.
+On Wed, Aug 02, 2023 at 10:01:01AM -0500, Pierre-Louis Bossart wrote:
+> Add part ID to common include file
 
-The changes are directly inspired by RT711 and RT711-sdca changes.
+Please drop period at end of subject and add one at the end of the
+commit log.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/codecs/max98373-sdw.c | 40 ++++++++++++++++++---------------
- 1 file changed, 22 insertions(+), 18 deletions(-)
+Also mention the drivers that will use this new #define; looks like
+hda_intel.c and ...
 
-diff --git a/sound/soc/codecs/max98373-sdw.c b/sound/soc/codecs/max98373-sdw.c
-index 92d2b872f9f8..b5cb951af570 100644
---- a/sound/soc/codecs/max98373-sdw.c
-+++ b/sound/soc/codecs/max98373-sdw.c
-@@ -366,22 +366,12 @@ static int max98373_io_init(struct sdw_slave *slave)
- 		regcache_cache_bypass(max98373->regmap, true);
- 
- 	/*
--	 * PM runtime is only enabled when a Slave reports as Attached
-+	 * PM runtime status is marked as 'active' only when a Slave reports as Attached
- 	 */
--	if (!max98373->first_hw_init) {
--		/* set autosuspend parameters */
--		pm_runtime_set_autosuspend_delay(dev, 3000);
--		pm_runtime_use_autosuspend(dev);
--
-+	if (!max98373->first_hw_init)
- 		/* update count of parent 'active' children */
- 		pm_runtime_set_active(dev);
- 
--		/* make sure the device does not suspend immediately */
--		pm_runtime_mark_last_busy(dev);
--
--		pm_runtime_enable(dev);
--	}
--
- 	pm_runtime_get_noresume(dev);
- 
- 	/* Software Reset */
-@@ -774,10 +764,27 @@ static int max98373_init(struct sdw_slave *slave, struct regmap *regmap)
- 	ret = devm_snd_soc_register_component(dev, &soc_codec_dev_max98373_sdw,
- 					      max98373_sdw_dai,
- 					      ARRAY_SIZE(max98373_sdw_dai));
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(dev, "Failed to register codec: %d\n", ret);
-+		return ret;
-+	}
- 
--	return ret;
-+	/* set autosuspend parameters */
-+	pm_runtime_set_autosuspend_delay(dev, 3000);
-+	pm_runtime_use_autosuspend(dev);
-+
-+	/* make sure the device does not suspend immediately */
-+	pm_runtime_mark_last_busy(dev);
-+
-+	pm_runtime_enable(dev);
-+
-+	/* important note: the device is NOT tagged as 'active' and will remain
-+	 * 'suspended' until the hardware is enumerated/initialized. This is required
-+	 * to make sure the ASoC framework use of pm_runtime_get_sync() does not silently
-+	 * fail with -EACCESS because of race conditions between card creation and enumeration
-+	 */
-+
-+	return 0;
- }
- 
- static int max98373_update_status(struct sdw_slave *slave,
-@@ -835,10 +842,7 @@ static int max98373_sdw_probe(struct sdw_slave *slave,
- 
- static int max98373_sdw_remove(struct sdw_slave *slave)
- {
--	struct max98373_priv *max98373 = dev_get_drvdata(&slave->dev);
--
--	if (max98373->first_hw_init)
--		pm_runtime_disable(&slave->dev);
-+	pm_runtime_disable(&slave->dev);
- 
- 	return 0;
- }
--- 
-2.39.2
+Well, actually, I only see that one use, which means we probably
+shouldn't add this #define to pci_ids.h, per the comment at the top of
+the file.  If there's only one use, use the hex ID in the driver (or
+add a #define in the driver itself).
 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> ---
+>  include/linux/pci_ids.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+> index 3066660cd39b..a6411aa4c331 100644
+> --- a/include/linux/pci_ids.h
+> +++ b/include/linux/pci_ids.h
+> @@ -3058,6 +3058,7 @@
+>  #define PCI_DEVICE_ID_INTEL_HDA_RPL_S	0x7a50
+>  #define PCI_DEVICE_ID_INTEL_HDA_ADL_S	0x7ad0
+>  #define PCI_DEVICE_ID_INTEL_HDA_MTL	0x7e28
+> +#define PCI_DEVICE_ID_INTEL_HDA_ARL_S	0x7f50
+>  #define PCI_DEVICE_ID_INTEL_SCH_LPC	0x8119
+>  #define PCI_DEVICE_ID_INTEL_SCH_IDE	0x811a
+>  #define PCI_DEVICE_ID_INTEL_HDA_POULSBO	0x811b
+> -- 
+> 2.39.2
+> 

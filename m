@@ -2,97 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C0CB76C3C6
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 05:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA30776C4BD
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 07:18:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 290BC3E7;
-	Wed,  2 Aug 2023 05:52:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 290BC3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 272ED1E7;
+	Wed,  2 Aug 2023 07:17:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 272ED1E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690948410;
-	bh=pKBli4sXtzIzhc1Wbq+Gj5KVZtLVb8jCFhd63gFiceE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=s87oIjfiZ0HVkXgdPUGqlCoftimzA60aKZLect+wGUWY0lB6QzwSkPo8Og9z3tmcx
-	 OCM28VgYoALFxMQ4rPhczaSIHN9bMfgRHOQ51hxdZFeEYmTh8sxpTqGISFqOt/1v3I
-	 y7BeS7nHyke7BhKz/nDm6Iq6nb3SgLSvmW6g2rKU=
+	s=default; t=1690953484;
+	bh=0CEdaSyJFAA2xpjh5Nn+H0+SZFhR9FtwxsrPPHypAnQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bkob1AR81G8JtHzAIB5UovR0OglKCFjazyA6alhG9kjV+13vqhXA775WsQGDSDkoz
+	 baIUAEwzyvlZ0+y7luT2bQLRgLTHkLD7z63y+UjrF/lJkRScrI/3dTns8nq90Z/lqI
+	 bMBO8ieH2Msqc5cjCsMUeGf6YUrZaaPa1wC+5fco=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CA91F8025A; Wed,  2 Aug 2023 05:52:39 +0200 (CEST)
+	id 35615F80544; Wed,  2 Aug 2023 07:17:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEE2DF8016D;
-	Wed,  2 Aug 2023 05:52:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A365DF80149;
+	Wed,  2 Aug 2023 07:17:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D19BF801D5; Wed,  2 Aug 2023 05:52:33 +0200 (CEST)
+	id 4FD99F801D5; Wed,  2 Aug 2023 07:16:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (unknown [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BBA86F80149
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 05:52:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBA86F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0D9AAF80149
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 07:15:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D9AAF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=GsRCB2Qo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690948337; x=1722484337;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pKBli4sXtzIzhc1Wbq+Gj5KVZtLVb8jCFhd63gFiceE=;
-  b=GsRCB2QolwerFKrlQlzQIC2VZeBWbyfp72kkJzFWIv/XGHrLFwMNq158
-   OX93SxX12/YnqVsoWANuHtvdaYebA77O3GFFpzz3Rx50aehD0UWcCVF1/
-   UjuQQIUSVA2cPZw1her+wTArDVwx/KktaD9lW4Yts0Gp7YNrGW+ephukI
-   I1QOfb+nNl+5g4myGhMDEEIvT9Xw+Ecg9XIREmoqMfkDO5QaflWkEK60M
-   IdB4ecYm2CCTNzZhsVW3OBIAxd1lMgKC/62OgpyzWK6QYIyAVXB0OMAzz
-   nZgUj6m9c8zIc2eFfNbRlP5P09Zt+XYv4L+b5l/qPJ9we/v6J2hBdeT1/
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="433312662"
-X-IronPort-AV: E=Sophos;i="6.01,248,1684825200";
-   d="scan'208";a="433312662"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 20:52:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="852721900"
-X-IronPort-AV: E=Sophos;i="6.01,248,1684825200";
-   d="scan'208";a="852721900"
-Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
-  by orsmga004.jf.intel.com with ESMTP; 01 Aug 2023 20:52:06 -0700
-Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qR2u5-0000pV-1F;
-	Wed, 02 Aug 2023 03:52:05 +0000
-Date: Wed, 2 Aug 2023 11:51:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: cujomalainey@chromium.org, alsa-devel@alsa-project.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Curtis Malainey <cujomalainey@chromium.org>,
-	Doug Anderson <dianders@chromium.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Zheyu Ma <zheyuma97@gmail.com>, Dan Carpenter <error27@gmail.com>,
-	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
-	Clement Lecigne <clecigne@google.com>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] sound: core: fix device ownership model in card and pcm
-Message-ID: <202308021146.prrFapWM-lkp@intel.com>
-References: <20230801171928.1460120-1-cujomalainey@chromium.org>
+ unprotected) header.d=infradead.org header.i=@infradead.org
+ header.a=rsa-sha256 header.s=bombadil.20210309 header.b=sToXqHdw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=Ws463DCdGOOUnDgf5xIij/KjEF+4fkspmM98in3YnIU=; b=sToXqHdwHcm7a53ZnJ8VZVQsEL
+	JjWuv099M/waB6PAJfQ8lRJtDpvT8yxhA4wuigAGDty+RkgngpSmNxZ6YnbjV6lI0yoPqMpRDVAFo
+	lGBeJMBRTog0Wn1NrkFlvX6met0legbG4TwZ7dCTCPmUCpWK8hlSDyTB2jtfnjTDeXiWZGCyupifA
+	aCmpywLceqMID9NkmNKf5i/YmWUo6w5VbcqiLjbO8IROz8il0QbAZiGS+1nVpaNvkabFTwxEyu71A
+	daPzLqx13PEh2RxcnOMDyayeK2iapvLzZC4t4Y3osA3Ape1Kw/ttFfHzXAoo7+QhmX37ik/RHIM+4
+	Hxmb9Cfg==;
+Received: from [2601:1c2:980:9ec0::2764] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+	id 1qR4CL-0042D7-2i;
+	Wed, 02 Aug 2023 05:15:01 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	kernel test robot <lkp@intel.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-um@lists.infradead.org,
+	Tejun Heo <tj@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Nicolas Schier <nicolas@fjasle.eu>,
+	linux-kbuild@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH v5] um/drivers: fix hostaudio build errors
+Date: Tue,  1 Aug 2023 22:15:00 -0700
+Message-ID: <20230802051500.13271-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230801171928.1460120-1-cujomalainey@chromium.org>
-Message-ID-Hash: VIXA4XPEWZV7DDHFMYC5YVOLXQT6LSK2
-X-Message-ID-Hash: VIXA4XPEWZV7DDHFMYC5YVOLXQT6LSK2
-X-MailFrom: lkp@intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: X5VZZLE74JGZOTR3SBN6FHB53OLY6DVU
+X-Message-ID-Hash: X5VZZLE74JGZOTR3SBN6FHB53OLY6DVU
+X-MailFrom: rdunlap@infradead.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VIXA4XPEWZV7DDHFMYC5YVOLXQT6LSK2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X5VZZLE74JGZOTR3SBN6FHB53OLY6DVU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,211 +104,138 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Use "select" to ensure that the required kconfig symbols are set
+as expected.
+Drop HOSTAUDIO since it is now equivalent to UML_SOUND.
 
-kernel test robot noticed the following build errors:
+Set CONFIG_SOUND=m in ARCH=um defconfig files to maintain the
+status quo of the default configs.
 
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on tiwai-sound/for-linus linus/master v6.5-rc4 next-20230801]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Allow SOUND with UML regardless of HAS_IOMEM. Otherwise there is a
+kconfig warning for unmet dependencies. (This was not an issue when
+SOUND was defined in arch/um/drivers/Kconfig. I have done 50 randconfig
+builds and didn't find any issues.)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/cujomalainey-chromium-org/sound-core-fix-device-ownership-model-in-card-and-pcm/20230802-012331
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230801171928.1460120-1-cujomalainey%40chromium.org
-patch subject: [PATCH] sound: core: fix device ownership model in card and pcm
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20230802/202308021146.prrFapWM-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230802/202308021146.prrFapWM-lkp@intel.com/reproduce)
+This fixes build errors when CONFIG_SOUND is not set:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308021146.prrFapWM-lkp@intel.com/
+ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_cleanup_module':
+hostaudio_kern.c:(.exit.text+0xa): undefined reference to `unregister_sound_mixer'
+ld: hostaudio_kern.c:(.exit.text+0x15): undefined reference to `unregister_sound_dsp'
+ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_init_module':
+hostaudio_kern.c:(.init.text+0x19): undefined reference to `register_sound_dsp'
+ld: hostaudio_kern.c:(.init.text+0x31): undefined reference to `register_sound_mixer'
+ld: hostaudio_kern.c:(.init.text+0x49): undefined reference to `unregister_sound_dsp'
 
-All errors (new ones prefixed by >>):
+and this kconfig warning:
+WARNING: unmet direct dependencies detected for SOUND
 
-   sound/aoa/soundbus/i2sbus/pcm.c: In function 'i2sbus_attach_codec':
->> sound/aoa/soundbus/i2sbus/pcm.c:975:65: error: 'dev->pcm->streams[0].dev' is a pointer; did you mean to use '->'?
-     975 |                 dev->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].dev.parent =
-         |                                                                 ^
-         |                                                                 ->
-   sound/aoa/soundbus/i2sbus/pcm.c:992:64: error: 'dev->pcm->streams[1].dev' is a pointer; did you mean to use '->'?
-     992 |                 dev->pcm->streams[SNDRV_PCM_STREAM_CAPTURE].dev.parent =
-         |                                                                ^
-         |                                                                ->
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: d886e87cb82b ("sound: make OSS sound core optional")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: lore.kernel.org/r/202307141416.vxuRVpFv-lkp@intel.com
+Cc: Richard Weinberger <richard@nod.at>
+Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-um@lists.infradead.org
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Nicolas Schier <nicolas@fjasle.eu>
+Cc: linux-kbuild@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
+---
+v2: don't delete the HOSTAUDIO Kconfig entry (Masahiro)
+v3: drop HOSTAUDIO and use CONFIG_UML_SOUND for it in Makefile (Takashi);
+    add SOUND depends on "|| UML" to HAS_IOMEM
+v4: use depends on instead of select for SOUND (Masahiro);
+    use Closes: instead of Link:
+v5: update ARCH=um defconfig files (Masahiro)
 
+ arch/um/configs/i386_defconfig   |    1 +
+ arch/um/configs/x86_64_defconfig |    1 +
+ arch/um/drivers/Kconfig          |   16 +++-------------
+ arch/um/drivers/Makefile         |    2 +-
+ sound/Kconfig                    |    2 +-
+ 5 files changed, 7 insertions(+), 15 deletions(-)
 
-vim +975 sound/aoa/soundbus/i2sbus/pcm.c
-
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   866  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   867  int
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   868  i2sbus_attach_codec(struct soundbus_dev *dev, struct snd_card *card,
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   869  		    struct codec_info *ci, void *data)
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   870  {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   871  	int err, in = 0, out = 0;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   872  	struct transfer_info *tmp;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   873  	struct i2sbus_dev *i2sdev = soundbus_dev_to_i2sbus_dev(dev);
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   874  	struct codec_info_item *cii;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   875  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   876  	if (!dev->pcmname || dev->pcmid == -1) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   877  		printk(KERN_ERR "i2sbus: pcm name and id must be set!\n");
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   878  		return -EINVAL;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   879  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   880  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   881  	list_for_each_entry(cii, &dev->codec_list, list) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   882  		if (cii->codec_data == data)
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   883  			return -EALREADY;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   884  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   885  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   886  	if (!ci->transfers || !ci->transfers->formats
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   887  	    || !ci->transfers->rates || !ci->usable)
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   888  		return -EINVAL;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   889  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   890  	/* we currently code the i2s transfer on the clock, and support only
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   891  	 * 32 and 64 */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   892  	if (ci->bus_factor != 32 && ci->bus_factor != 64)
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   893  		return -EINVAL;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   894  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   895  	/* If you want to fix this, you need to keep track of what transport infos
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   896  	 * are to be used, which codecs they belong to, and then fix all the
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   897  	 * sysclock/busclock stuff above to depend on which is usable */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   898  	list_for_each_entry(cii, &dev->codec_list, list) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   899  		if (cii->codec->sysclock_factor != ci->sysclock_factor) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   900  			printk(KERN_DEBUG
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   901  			       "cannot yet handle multiple different sysclocks!\n");
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   902  			return -EINVAL;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   903  		}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   904  		if (cii->codec->bus_factor != ci->bus_factor) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   905  			printk(KERN_DEBUG
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   906  			       "cannot yet handle multiple different bus clocks!\n");
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   907  			return -EINVAL;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   908  		}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   909  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   910  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   911  	tmp = ci->transfers;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   912  	while (tmp->formats && tmp->rates) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   913  		if (tmp->transfer_in)
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   914  			in = 1;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   915  		else
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   916  			out = 1;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   917  		tmp++;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   918  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   919  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   920  	cii = kzalloc(sizeof(struct codec_info_item), GFP_KERNEL);
-37d122c5768b41 sound/aoa/soundbus/i2sbus/pcm.c        Zhen Lei      2021-06-17   921  	if (!cii)
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   922  		return -ENOMEM;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   923  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   924  	/* use the private data to point to the codec info */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   925  	cii->sdev = soundbus_dev_get(dev);
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   926  	cii->codec = ci;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   927  	cii->codec_data = data;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   928  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   929  	if (!cii->sdev) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   930  		printk(KERN_DEBUG
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   931  		       "i2sbus: failed to get soundbus dev reference\n");
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   932  		err = -ENODEV;
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   933  		goto out_free_cii;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   934  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   935  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   936  	if (!try_module_get(THIS_MODULE)) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   937  		printk(KERN_DEBUG "i2sbus: failed to get module reference!\n");
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   938  		err = -EBUSY;
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   939  		goto out_put_sdev;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   940  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   941  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   942  	if (!try_module_get(ci->owner)) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   943  		printk(KERN_DEBUG
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   944  		       "i2sbus: failed to get module reference to codec owner!\n");
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   945  		err = -EBUSY;
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   946  		goto out_put_this_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   947  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   948  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   949  	if (!dev->pcm) {
-73e85fe8452b95 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   950  		err = snd_pcm_new(card, dev->pcmname, dev->pcmid, 0, 0,
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   951  				  &dev->pcm);
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   952  		if (err) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   953  			printk(KERN_DEBUG "i2sbus: failed to create pcm\n");
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   954  			goto out_put_ci_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   955  		}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   956  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   957  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   958  	/* ALSA yet again sucks.
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   959  	 * If it is ever fixed, remove this line. See below. */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   960  	out = in = 1;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   961  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   962  	if (!i2sdev->out.created && out) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   963  		if (dev->pcm->card != card) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   964  			/* eh? */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   965  			printk(KERN_ERR
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   966  			       "Can't attach same bus to different cards!\n");
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   967  			err = -EINVAL;
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   968  			goto out_put_ci_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   969  		}
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   970  		err = snd_pcm_new_stream(dev->pcm, SNDRV_PCM_STREAM_PLAYBACK, 1);
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   971  		if (err)
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   972  			goto out_put_ci_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   973  		snd_pcm_set_ops(dev->pcm, SNDRV_PCM_STREAM_PLAYBACK,
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   974  				&i2sbus_playback_ops);
-ef46c7af93f98d sound/aoa/soundbus/i2sbus/pcm.c        Takashi Iwai  2015-01-29  @975  		dev->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].dev.parent =
-ef46c7af93f98d sound/aoa/soundbus/i2sbus/pcm.c        Takashi Iwai  2015-01-29   976  			&dev->ofdev.dev;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   977  		i2sdev->out.created = 1;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   978  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   979  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   980  	if (!i2sdev->in.created && in) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   981  		if (dev->pcm->card != card) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   982  			printk(KERN_ERR
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   983  			       "Can't attach same bus to different cards!\n");
-3d3909ffe57174 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Takashi Iwai  2007-11-23   984  			err = -EINVAL;
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   985  			goto out_put_ci_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   986  		}
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   987  		err = snd_pcm_new_stream(dev->pcm, SNDRV_PCM_STREAM_CAPTURE, 1);
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   988  		if (err)
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05   989  			goto out_put_ci_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   990  		snd_pcm_set_ops(dev->pcm, SNDRV_PCM_STREAM_CAPTURE,
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   991  				&i2sbus_record_ops);
-ef46c7af93f98d sound/aoa/soundbus/i2sbus/pcm.c        Takashi Iwai  2015-01-29   992  		dev->pcm->streams[SNDRV_PCM_STREAM_CAPTURE].dev.parent =
-ef46c7af93f98d sound/aoa/soundbus/i2sbus/pcm.c        Takashi Iwai  2015-01-29   993  			&dev->ofdev.dev;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   994  		i2sdev->in.created = 1;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   995  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   996  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   997  	/* so we have to register the pcm after adding any substream
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   998  	 * to it because alsa doesn't create the devices for the
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21   999  	 * substreams when we add them later.
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1000  	 * Therefore, force in and out on both busses (above) and
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1001  	 * register the pcm now instead of just after creating it.
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1002  	 */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1003  	err = snd_device_register(card, dev->pcm);
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1004  	if (err) {
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1005  		printk(KERN_ERR "i2sbus: error registering new pcm\n");
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1006  		goto out_put_ci_module;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1007  	}
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1008  	/* no errors any more, so let's add this to our list */
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1009  	list_add(&cii->list, &dev->codec_list);
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1010  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1011  	dev->pcm->private_data = i2sdev;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1012  	dev->pcm->private_free = i2sbus_private_free;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1013  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1014  	/* well, we really should support scatter/gather DMA */
-9b2433a9c5b392 sound/aoa/soundbus/i2sbus/pcm.c        Takashi Iwai  2019-12-09  1015  	snd_pcm_set_managed_buffer_all(
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1016  		dev->pcm, SNDRV_DMA_TYPE_DEV,
-3ca5fc0664ec47 sound/aoa/soundbus/i2sbus/pcm.c        Takashi Iwai  2019-11-05  1017  		&macio_get_pci_dev(i2sdev->macio)->dev,
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1018  		64 * 1024, 64 * 1024);
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1019  
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1020  	return 0;
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1021   out_put_ci_module:
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1022  	module_put(ci->owner);
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1023   out_put_this_module:
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1024  	module_put(THIS_MODULE);
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1025   out_put_sdev:
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1026  	soundbus_dev_put(dev);
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1027   out_free_cii:
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1028  	kfree(cii);
-d595ee7e0162ae sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-10-05  1029  	return err;
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1030  }
-f3d9478b2ce468 sound/aoa/soundbus/i2sbus/i2sbus-pcm.c Johannes Berg 2006-06-21  1031  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff -- a/arch/um/drivers/Kconfig b/arch/um/drivers/Kconfig
+--- a/arch/um/drivers/Kconfig
++++ b/arch/um/drivers/Kconfig
+@@ -111,24 +111,14 @@ config SSL_CHAN
+ 
+ config UML_SOUND
+ 	tristate "Sound support"
++	depends on SOUND
++	select SOUND_OSS_CORE
+ 	help
+ 	  This option enables UML sound support.  If enabled, it will pull in
+-	  soundcore and the UML hostaudio relay, which acts as a intermediary
++	  the UML hostaudio relay, which acts as a intermediary
+ 	  between the host's dsp and mixer devices and the UML sound system.
+ 	  It is safe to say 'Y' here.
+ 
+-config SOUND
+-	tristate
+-	default UML_SOUND
+-
+-config SOUND_OSS_CORE
+-	bool
+-	default UML_SOUND
+-
+-config HOSTAUDIO
+-	tristate
+-	default UML_SOUND
+-
+ endmenu
+ 
+ menu "UML Network Devices"
+diff -- a/sound/Kconfig b/sound/Kconfig
+--- a/sound/Kconfig
++++ b/sound/Kconfig
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ menuconfig SOUND
+ 	tristate "Sound card support"
+-	depends on HAS_IOMEM
++	depends on HAS_IOMEM || UML
+ 	help
+ 	  If you have a sound card in your computer, i.e. if it can say more
+ 	  than an occasional beep, say Y.
+diff -- a/arch/um/drivers/Makefile b/arch/um/drivers/Makefile
+--- a/arch/um/drivers/Makefile
++++ b/arch/um/drivers/Makefile
+@@ -54,7 +54,7 @@ obj-$(CONFIG_UML_NET) += net.o
+ obj-$(CONFIG_MCONSOLE) += mconsole.o
+ obj-$(CONFIG_MMAPPER) += mmapper_kern.o 
+ obj-$(CONFIG_BLK_DEV_UBD) += ubd.o 
+-obj-$(CONFIG_HOSTAUDIO) += hostaudio.o
++obj-$(CONFIG_UML_SOUND) += hostaudio.o
+ obj-$(CONFIG_NULL_CHAN) += null.o 
+ obj-$(CONFIG_PORT_CHAN) += port.o
+ obj-$(CONFIG_PTY_CHAN) += pty.o
+diff -- a/arch/um/configs/i386_defconfig b/arch/um/configs/i386_defconfig
+--- a/arch/um/configs/i386_defconfig
++++ b/arch/um/configs/i386_defconfig
+@@ -34,6 +34,7 @@ CONFIG_TTY_CHAN=y
+ CONFIG_XTERM_CHAN=y
+ CONFIG_CON_CHAN="pts"
+ CONFIG_SSL_CHAN="pts"
++CONFIG_SOUND=m
+ CONFIG_UML_SOUND=m
+ CONFIG_DEVTMPFS=y
+ CONFIG_DEVTMPFS_MOUNT=y
+diff -- a/arch/um/configs/x86_64_defconfig b/arch/um/configs/x86_64_defconfig
+--- a/arch/um/configs/x86_64_defconfig
++++ b/arch/um/configs/x86_64_defconfig
+@@ -32,6 +32,7 @@ CONFIG_TTY_CHAN=y
+ CONFIG_XTERM_CHAN=y
+ CONFIG_CON_CHAN="pts"
+ CONFIG_SSL_CHAN="pts"
++CONFIG_SOUND=m
+ CONFIG_UML_SOUND=m
+ CONFIG_DEVTMPFS=y
+ CONFIG_DEVTMPFS_MOUNT=y

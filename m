@@ -2,112 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F277776D5DA
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 19:46:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC4876D644
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 19:59:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08E184E;
-	Wed,  2 Aug 2023 19:45:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08E184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F41E41DD;
+	Wed,  2 Aug 2023 19:58:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F41E41DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690998387;
-	bh=C1s2J3OqODEGnfOp/VIklgxuCYfzNTghT8RF7vdyetE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=snUvh5aT0he9W5SeHnxGOHR5wAkE2AAuFOxmq7OM75/T8hvsvHUIG0W8JYnPAm3E4
-	 AT2ExJ9UAme6h/vdFzNSUqSsFMDvHJa6MfPflFUTg+JFx/6awS3L2+1BLjPFMRFSNZ
-	 68SUcwqi36PYxBztNvKhGhMxQE3/USw6dVJii1/g=
+	s=default; t=1690999165;
+	bh=kFY4y+cQHckRTFfskzAWH47WpdI1Y3T5jfqyu2lOqXA=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JjFx8Ca6jCN2ckQ3khQtb7Cytu8TrWmdtl+55jGtsTcV+mYNESbTzbZUMYMUReUkR
+	 vszA0E1ER536zNhN9qLlU89i7Ss38Ia/B59FXi/7mdvWkIYlF8bmlOx+O4CixVX7aJ
+	 GT520qeGO5S3p4GqJXnLpPlfnh2XzGQRJYm9k1nY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7792CF8016D; Wed,  2 Aug 2023 19:45:36 +0200 (CEST)
+	id 8FFDAF80425; Wed,  2 Aug 2023 19:58:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AB9DF801D5;
-	Wed,  2 Aug 2023 19:45:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D68EF80425;
+	Wed,  2 Aug 2023 19:58:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA4A5F8025A; Wed,  2 Aug 2023 19:45:32 +0200 (CEST)
+	id 15191F80535; Wed,  2 Aug 2023 19:58:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4A0E0F8016D
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 19:45:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A0E0F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 245FEF80149
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 19:57:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 245FEF80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=OEXjNIK3
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-68336d06620so32611b3a.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=hcxYEVw+
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-3fb4146e8deso1545675e9.0
         for <alsa-devel@alsa-project.org>;
- Wed, 02 Aug 2023 10:45:20 -0700 (PDT)
+ Wed, 02 Aug 2023 10:57:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1690998318; x=1691603118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=K87XLXVquwnl3qmCcrFhcIvWdGeHY8cFdYOKxYWU6t0=;
-        b=OEXjNIK3MaXT7tq13huCDJtg8v612rdhGYKWRy5FcjWtXEDCvS4oTZru491rXCdegj
-         RX0CSupkwK4/TA0SO2FrIBPl42OFZbsYfUeE3qITQN3obeNuC5sDh0cuUMyLPfqz+mTO
-         gsTe7Rg6MHFsGHKwHfb1viRlsBXCtDivC+vRo=
+        d=gmail.com; s=20221208; t=1690999075; x=1691603875;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lrenO/Rv8N0/Q0nllUzfhdXGxBe65eDs4o1FGRPAnIU=;
+        b=hcxYEVw+yLcYl10QCJcLAisMACPmdChl4jRWpg9LQjKAU625nANZIbu4kSOfXbsP+d
+         bE1+3aEi1AogizMldPo6deh+hVaPKsKBLfMcZF8lCF/F4TPZhvwF58mpYBLr5SD9v3tG
+         D2y22KVOG2U7q5cqlhscZ0IQWWXCl8an+PhpJLJScI/h4wrbyjgywzD2y2CfxV8dw93l
+         VvsNaiwxKQM1MAmc0J0Cxl5nqJfFfLQplDmE6PNadMH3YMZduT1txhXBZx0a4Tcsi8wP
+         u0/aZhaNILCJw/MlkEjTdZ50sWrhc+NEBulGsRXmsSHZZzDa2p1ORSk9QOxiyy6Reoyp
+         x12g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690998318; x=1691603118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=K87XLXVquwnl3qmCcrFhcIvWdGeHY8cFdYOKxYWU6t0=;
-        b=GTd8Rxq3P9G5aX0EpfsdsR4Ta3CS0LVbGWw+0cEBbNLGEQf4+VelRmY8IZ6Lczgv19
-         zOPfnWM8gykfYwiW/QQHRaPHEFt4OtB2/qAmovqws0FEkLUrEquFpyazHWVqblWG2Jfa
-         3b6EsVPXzvqaoPJu4FnJtnq8M4ee2yUrp0Mb705IlrJtv3fYkmnccgCG74Xi3HB8uYrm
-         nFMGSVgZ3AuVR97uuLfOB3au8MDPvnQenGZ0+6K7V2Ohw/7Hi2c6zoHD9hK/SDSUliib
-         KWpBPnaofhPTcmhTzu8hJisJvqxmf5Ekpgo13I1+JnwDUpwN/+38G9FusJuySxyex1qU
-         UIgg==
-X-Gm-Message-State: ABy/qLZPaB9WaBY5DFAPb19QzanV29o7Bg3fGV/eyMNI7heeUfp/XgBu
-	iT27Qi47cYuOU0/X6NyYkVElP9Zc4MIdbRHqog==
+        d=1e100.net; s=20221208; t=1690999075; x=1691603875;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lrenO/Rv8N0/Q0nllUzfhdXGxBe65eDs4o1FGRPAnIU=;
+        b=F6Q33dX+yeNRuH+x0D99aLmBXK5N4MKkfLTFgbnHmCL4lLAneP8FrnmSJlmKnB10gV
+         ellCiiQC+EeBm/Uyli4TutfRvymn7C9PHYlmIHpvR1mabB6e44z09/j8cSemTNz57O8t
+         JVSH9ooKcPrPGJK+EJjwpH7DsUVqk9u55W/bwCk60zqMUhgr+Nwe9DmTpMw0lLQKmLKd
+         w7O3wfWUgUjyKMP7j/Xa9XRKPtYvCmTjHiCk/5aRdL8DbLuhSK+NPph/U5XUmxle7OBA
+         7VaCQtQ4LxKxxgcJ7IC2aUYcHU9OSfg5J3WtflD5tsGo7ntmrbfjrkm/I/rCWIwoZTo2
+         JxyQ==
+X-Gm-Message-State: ABy/qLYVUYQtgJVCeD4QqRN8MG0dzln+Spn//EqB1vr1GqmySX7RaBd9
+	A+Whww0Gklf44lzCTTTXwO/aMVHbx+Q=
 X-Google-Smtp-Source: 
- APBJJlH7NwXo6gLtvcgu3suWruQkDFuaA0S6oWbODk5/+OdoaY1IJYp9FmmcXSLOZYrb09UNVDn3GA==
-X-Received: by 2002:a05:6a20:7f8b:b0:135:32b1:b03d with SMTP id
- d11-20020a056a207f8b00b0013532b1b03dmr20639794pzj.42.1690998317882;
-        Wed, 02 Aug 2023 10:45:17 -0700 (PDT)
-Received: from localhost ([2620:15c:9d:4:ed25:8900:2491:cc45])
-        by smtp.gmail.com with UTF8SMTPSA id
- n9-20020aa78a49000000b00668652b020bsm11342341pfa.105.2023.08.02.10.45.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Aug 2023 10:45:17 -0700 (PDT)
-From: cujomalainey@chromium.org
+ APBJJlFc5EUN1pL9Mjg+Lf4j7h/CfYQwstL0G5pWbeDNJ/x8Hi0RiEfav5Agjp7turRzJdzBGraR5g==
+X-Received: by 2002:a05:600c:3644:b0:3f9:b244:c294 with SMTP id
+ y4-20020a05600c364400b003f9b244c294mr5851182wmq.35.1690999074478;
+        Wed, 02 Aug 2023 10:57:54 -0700 (PDT)
+Received: from ALPER-PC.. ([178.233.24.1])
+        by smtp.gmail.com with ESMTPSA id
+ l23-20020a7bc457000000b003fe20db88ebsm2192439wmi.31.2023.08.02.10.57.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Aug 2023 10:57:53 -0700 (PDT)
+From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
 To: alsa-devel@alsa-project.org
-Cc: Curtis Malainey <cujomalainey@chromium.org>,
-	Doug Anderson <dianders@chromium.org>,
-	Jaroslav Kysela <perex@perex.cz>,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Takashi Iwai <tiwai@suse.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Zheyu Ma <zheyuma97@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
-	Clement Lecigne <clecigne@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>
-Subject: [PATCH v2] sound: core: fix device ownership model in card and pcm
-Date: Wed,  2 Aug 2023 10:43:49 -0700
-Message-ID: <20230802174451.3611976-1-cujomalainey@chromium.org>
-X-Mailer: git-send-email 2.41.0.585.gd2178a4bd4-goog
-In-Reply-To: 
- <CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
-References: 
- <CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-kernel@vger.kernel.org,
+	Akihiko Odaki <akihiko.odaki@gmail.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=20=2E=20R=20=2E=20A=20=2E=20Prado?=
+ <nfraprado@collabora.com>
+Subject: [PATCH 00/27] ASoC: Map missing jack kcontrols
+Date: Wed,  2 Aug 2023 20:57:10 +0300
+Message-Id: <20230802175737.263412-1-alpernebiyasak@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2ZNYYDLFST5TTTNZNVGUS24VPN37GQLW
-X-Message-ID-Hash: 2ZNYYDLFST5TTTNZNVGUS24VPN37GQLW
-X-MailFrom: cujomalainey@chromium.org
+Message-ID-Hash: LU3XJYCE44OCGLPLPD26BVEZXNJL4RZU
+X-Message-ID-Hash: LU3XJYCE44OCGLPLPD26BVEZXNJL4RZU
+X-MailFrom: alpernebiyasak@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2ZNYYDLFST5TTTNZNVGUS24VPN37GQLW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LU3XJYCE44OCGLPLPD26BVEZXNJL4RZU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,284 +128,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Curtis Malainey <cujomalainey@chromium.org>
+This patchset adds missing jack kcontrols for each independently
+detectable audio peripheral and maps jack pins to those kcontrols
+accordingly, with the primary intent to enable/improve jack detection
+handling in PulseAudio and PipeWire through JackControl UCM values.
 
-The current implementation of how devices are released is valid for
-production use cases (root control of memory is handled by card_dev, all
-other devices are no-ops).
+Usually it's just splitting a joint anything-is-connected "Headset Jack"
+kcontrol (from [1]) into those like "Headphone Jack" and "Headset Mic"
+(similar to a previous series for Intel Chromebooks [2]). This split is
+important to avoid automatically switching to a nonexistent external
+microphone when a headphone-only device is connected.
 
-This model does not work though in a kernel hacking environment where
-KASAN and delayed release on kobj is enabled. If the card_dev device is
-released before any of the child objects a use-after-free bug is caught
-by KASAN as the delayed release still has a reference to the devices
-that were freed by the card_dev release. Also both snd_card and snd_pcm
-both own two devices internally, so even if they released independently,
-the shared struct would result in another use after free.
+When the underlying hardware seems to support it, this also adds a "Line
+Out" kcontrol. This is important in case the hardware can actually
+support a line-level connection via a different configuration (bypassing
+output amplifiers?), or simply for userspace to display "Line Out"
+instead of "Headphones" to the user for connected line-out devices.
 
-Solution is to move the child devices into their own memory so they can
-be handled independently and released on their own schedule.
+Beyond the mappings, I had to add PIN_SWITCH card kcontrols and DAPM
+widgets to avoid "unknown pin" errors on my devices, so tried to do them
+for all. For Intel devices I saw a pattern of routing things to
+"Platform Clock" and added to that as well. Looking at patch 5/7 of a
+Mediatek-related series [3], I can only guess that routes could be
+further improved, but don't know exactly how for each device. And one
+more concern is I don't know if the names conflict with any controls
+from codecs, although I tried to keep to names of existing widgets.
 
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Cc: Doug Anderson <dianders@chromium.org>
----
- include/sound/core.h            |  2 +-
- include/sound/pcm.h             |  2 +-
- sound/aoa/soundbus/i2sbus/pcm.c |  4 ++--
- sound/core/control.c            | 21 +++++++++++++++------
- sound/core/control_led.c        |  4 ++--
- sound/core/pcm.c                | 30 ++++++++++++++++++++----------
- sound/usb/media.c               |  4 ++--
- 7 files changed, 43 insertions(+), 24 deletions(-)
+As far as I can tell, the root cause for most of why these are missing
+originates to things being developed for ChromeOS, whose userspace reads
+the jack input device and doesn't care for these kcontrols. There's
+non-ChromeOS cases as well, maybe things got copy-pasted around and
+people didn't need or couldn't figure out how to get more specific than
+a single jack kcontrol. The secondary intent in this patchset is to fix
+this *everywhere*, so future copy-pastes result in the right behaviour.
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index f6e0dd648b80c..a08ab8c8cfb6d 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -96,7 +96,7 @@ struct snd_card {
- 								private data */
- 	struct list_head devices;	/* devices */
- 
--	struct device ctl_dev;		/* control device */
-+	struct device *ctl_dev;		/* control device */
- 	unsigned int last_numid;	/* last used numeric ID */
- 	struct rw_semaphore controls_rwsem;	/* controls lock (list and values) */
- 	rwlock_t ctl_files_rwlock;	/* ctl_files list lock */
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 19f564606ac42..0243a13e9ac47 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -510,7 +510,7 @@ struct snd_pcm_str {
- #endif
- #endif
- 	struct snd_kcontrol *chmap_kctl; /* channel-mapping controls */
--	struct device dev;
-+	struct device *dev;
- };
- 
- struct snd_pcm {
-diff --git a/sound/aoa/soundbus/i2sbus/pcm.c b/sound/aoa/soundbus/i2sbus/pcm.c
-index a9e502a6cdeb8..07df5cc0f2d7c 100644
---- a/sound/aoa/soundbus/i2sbus/pcm.c
-+++ b/sound/aoa/soundbus/i2sbus/pcm.c
-@@ -972,7 +972,7 @@ i2sbus_attach_codec(struct soundbus_dev *dev, struct snd_card *card,
- 			goto out_put_ci_module;
- 		snd_pcm_set_ops(dev->pcm, SNDRV_PCM_STREAM_PLAYBACK,
- 				&i2sbus_playback_ops);
--		dev->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].dev.parent =
-+		dev->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].dev->parent =
- 			&dev->ofdev.dev;
- 		i2sdev->out.created = 1;
- 	}
-@@ -989,7 +989,7 @@ i2sbus_attach_codec(struct soundbus_dev *dev, struct snd_card *card,
- 			goto out_put_ci_module;
- 		snd_pcm_set_ops(dev->pcm, SNDRV_PCM_STREAM_CAPTURE,
- 				&i2sbus_record_ops);
--		dev->pcm->streams[SNDRV_PCM_STREAM_CAPTURE].dev.parent =
-+		dev->pcm->streams[SNDRV_PCM_STREAM_CAPTURE].dev->parent =
- 			&dev->ofdev.dev;
- 		i2sdev->in.created = 1;
- 	}
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 8386b53acdcd4..8bbaf3dffce62 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -2315,7 +2315,7 @@ static int snd_ctl_dev_register(struct snd_device *device)
- 	int err;
- 
- 	err = snd_register_device(SNDRV_DEVICE_TYPE_CONTROL, card, -1,
--				  &snd_ctl_f_ops, card, &card->ctl_dev);
-+				  &snd_ctl_f_ops, card, card->ctl_dev);
- 	if (err < 0)
- 		return err;
- 	down_read(&card->controls_rwsem);
-@@ -2351,7 +2351,7 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
- 	up_read(&snd_ctl_layer_rwsem);
- 	up_read(&card->controls_rwsem);
- 
--	return snd_unregister_device(&card->ctl_dev);
-+	return snd_unregister_device(card->ctl_dev);
- }
- 
- /*
-@@ -2373,10 +2373,15 @@ static int snd_ctl_dev_free(struct snd_device *device)
- 	xa_destroy(&card->ctl_hash);
- #endif
- 	up_write(&card->controls_rwsem);
--	put_device(&card->ctl_dev);
-+	put_device(card->ctl_dev);
- 	return 0;
- }
- 
-+static void snd_ctl_dev_release(struct device *dev)
-+{
-+	kfree(dev);
-+}
-+
- /*
-  * create control core:
-  * called from init.c
-@@ -2394,13 +2399,17 @@ int snd_ctl_create(struct snd_card *card)
- 		return -ENXIO;
- 	if (snd_BUG_ON(card->number < 0 || card->number >= SNDRV_CARDS))
- 		return -ENXIO;
-+	card->ctl_dev = kzalloc(sizeof(*card->ctl_dev), GFP_KERNEL);
-+	if (!card->ctl_dev)
-+		return -ENOMEM;
- 
--	snd_device_initialize(&card->ctl_dev, card);
--	dev_set_name(&card->ctl_dev, "controlC%d", card->number);
-+	snd_device_initialize(card->ctl_dev, card);
-+	card->ctl_dev->release = snd_ctl_dev_release;
-+	dev_set_name(card->ctl_dev, "controlC%d", card->number);
- 
- 	err = snd_device_new(card, SNDRV_DEV_CONTROL, card, &ops);
- 	if (err < 0)
--		put_device(&card->ctl_dev);
-+		put_device(card->ctl_dev);
- 	return err;
- }
- 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index ee77547bf8dcb..760e46cf25cc8 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -688,7 +688,7 @@ static void snd_ctl_led_sysfs_add(struct snd_card *card)
- 			goto cerr;
- 		led->cards[card->number] = led_card;
- 		snprintf(link_name, sizeof(link_name), "led-%s", led->name);
--		WARN(sysfs_create_link(&card->ctl_dev.kobj, &led_card->dev.kobj, link_name),
-+		WARN(sysfs_create_link(&card->ctl_dev->kobj, &led_card->dev.kobj, link_name),
- 			"can't create symlink to controlC%i device\n", card->number);
- 		WARN(sysfs_create_link(&led_card->dev.kobj, &card->card_dev.kobj, "card"),
- 			"can't create symlink to card%i\n", card->number);
-@@ -714,7 +714,7 @@ static void snd_ctl_led_sysfs_remove(struct snd_card *card)
- 		if (!led_card)
- 			continue;
- 		snprintf(link_name, sizeof(link_name), "led-%s", led->name);
--		sysfs_remove_link(&card->ctl_dev.kobj, link_name);
-+		sysfs_remove_link(&card->ctl_dev->kobj, link_name);
- 		sysfs_remove_link(&led_card->dev.kobj, "card");
- 		device_unregister(&led_card->dev);
- 		led->cards[card->number] = NULL;
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 9d95e37311230..9026ccc56dbe7 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -604,7 +604,7 @@ static const struct attribute_group *pcm_dev_attr_groups[];
- #ifdef CONFIG_PM_SLEEP
- static int do_pcm_suspend(struct device *dev)
- {
--	struct snd_pcm_str *pstr = container_of(dev, struct snd_pcm_str, dev);
-+	struct snd_pcm_str *pstr = dev_get_drvdata(dev);
- 
- 	if (!pstr->pcm->no_device_suspend)
- 		snd_pcm_suspend_all(pstr->pcm);
-@@ -622,6 +622,11 @@ static const struct device_type pcm_dev_type = {
- 	.pm = &pcm_dev_pm_ops,
- };
- 
-+static void snd_pcm_dev_release(struct device *dev)
-+{
-+	kfree(dev);
-+}
-+
- /**
-  * snd_pcm_new_stream - create a new PCM stream
-  * @pcm: the pcm instance
-@@ -641,6 +646,10 @@ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count)
- 	struct snd_pcm_str *pstr = &pcm->streams[stream];
- 	struct snd_pcm_substream *substream, *prev;
- 
-+	pstr->dev = kzalloc(sizeof(*pstr->dev), GFP_KERNEL);
-+	if (!pstr->dev)
-+		return -ENOMEM;
-+	dev_set_drvdata(pstr->dev, pstr);
- #if IS_ENABLED(CONFIG_SND_PCM_OSS)
- 	mutex_init(&pstr->oss.setup_mutex);
- #endif
-@@ -650,10 +659,11 @@ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count)
- 	if (!substream_count)
- 		return 0;
- 
--	snd_device_initialize(&pstr->dev, pcm->card);
--	pstr->dev.groups = pcm_dev_attr_groups;
--	pstr->dev.type = &pcm_dev_type;
--	dev_set_name(&pstr->dev, "pcmC%iD%i%c", pcm->card->number, pcm->device,
-+	snd_device_initialize(pstr->dev, pcm->card);
-+	pstr->dev->release = snd_pcm_dev_release;
-+	pstr->dev->groups = pcm_dev_attr_groups;
-+	pstr->dev->type = &pcm_dev_type;
-+	dev_set_name(pstr->dev, "pcmC%iD%i%c", pcm->card->number, pcm->device,
- 		     stream == SNDRV_PCM_STREAM_PLAYBACK ? 'p' : 'c');
- 
- 	if (!pcm->internal) {
-@@ -699,7 +709,7 @@ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count)
- 		prev = substream;
- 	}
- 	return 0;
--}				
-+}
- EXPORT_SYMBOL(snd_pcm_new_stream);
- 
- static int _snd_pcm_new(struct snd_card *card, const char *id, int device,
-@@ -847,7 +857,7 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
- #endif
- 	free_chmap(pstr);
- 	if (pstr->substream_count)
--		put_device(&pstr->dev);
-+		put_device(pstr->dev);
- }
- 
- #if IS_ENABLED(CONFIG_SND_PCM_OSS)
-@@ -1017,7 +1027,7 @@ void snd_pcm_detach_substream(struct snd_pcm_substream *substream)
- static ssize_t pcm_class_show(struct device *dev,
- 			      struct device_attribute *attr, char *buf)
- {
--	struct snd_pcm_str *pstr = container_of(dev, struct snd_pcm_str, dev);
-+	struct snd_pcm_str *pstr = dev_get_drvdata(dev);
- 	struct snd_pcm *pcm = pstr->pcm;
- 	const char *str;
- 	static const char *strs[SNDRV_PCM_CLASS_LAST + 1] = {
-@@ -1078,7 +1088,7 @@ static int snd_pcm_dev_register(struct snd_device *device)
- 		/* register pcm */
- 		err = snd_register_device(devtype, pcm->card, pcm->device,
- 					  &snd_pcm_f_ops[cidx], pcm,
--					  &pcm->streams[cidx].dev);
-+					  pcm->streams[cidx].dev);
- 		if (err < 0) {
- 			list_del_init(&pcm->list);
- 			goto unlock;
-@@ -1125,7 +1135,7 @@ static int snd_pcm_dev_disconnect(struct snd_device *device)
- 
- 	pcm_call_notify(pcm, n_disconnect);
- 	for (cidx = 0; cidx < 2; cidx++) {
--		snd_unregister_device(&pcm->streams[cidx].dev);
-+		snd_unregister_device(pcm->streams[cidx].dev);
- 		free_chmap(&pcm->streams[cidx]);
- 	}
- 	mutex_unlock(&pcm->open_mutex);
-diff --git a/sound/usb/media.c b/sound/usb/media.c
-index 840f42cb9272c..d48db6f3ae659 100644
---- a/sound/usb/media.c
-+++ b/sound/usb/media.c
-@@ -35,7 +35,7 @@ int snd_media_stream_init(struct snd_usb_substream *subs, struct snd_pcm *pcm,
- {
- 	struct media_device *mdev;
- 	struct media_ctl *mctl;
--	struct device *pcm_dev = &pcm->streams[stream].dev;
-+	struct device *pcm_dev = pcm->streams[stream].dev;
- 	u32 intf_type;
- 	int ret = 0;
- 	u16 mixer_pad;
-@@ -163,7 +163,7 @@ void snd_media_stop_pipeline(struct snd_usb_substream *subs)
- 
- static int snd_media_mixer_init(struct snd_usb_audio *chip)
- {
--	struct device *ctl_dev = &chip->card->ctl_dev;
-+	struct device *ctl_dev = chip->card->ctl_dev;
- 	struct media_intf_devnode *ctl_intf;
- 	struct usb_mixer_interface *mixer;
- 	struct media_device *mdev = chip->media_dev;
+For more context also see:
+
+[1] ASoC: soc-card: Create jack kcontrol without pins
+https://lore.kernel.org/alsa-devel/20220408041114.6024-1-akihiko.odaki@gmail.com/
+
+[2] ASoC: Intel: Chromebooks: remap jack pins
+https://lore.kernel.org/alsa-devel/20220616214055.134943-1-pierre-louis.bossart@linux.intel.com/
+
+[3] ASoC: mediatek: Allow separate handling of headphone and headset mic jack
+https://lore.kernel.org/alsa-devel/20220922235951.252532-1-nfraprado@collabora.com/
+
+[4] ASoC: rk3399_gru_sound: Add DAPM pins, kcontrols for jack detection
+https://lore.kernel.org/alsa-devel/20200721182709.6895-1-alpernebiyasak@gmail.com/
+
+This applies onto next-20230802. Unfortunately most of it is untested
+except for a few Chromebooks I have (Kevin, Lick, Hana, Cozmo), because
+I'm intentionally generalizing to everything.
+
+
+Alper Nebi Yasak (27):
+  ASoC: amd: acp-da7219-max98357a: Map missing jack kcontrols
+  ASoC: amd: acp-rt5645: Map missing jack kcontrols
+  ASoC: amd: acp: Map missing jack kcontrols
+  ASoC: amd: acp3x-rt5682-max9836: Map missing jack kcontrols
+  ASoC: Intel: avs: da7219: Map missing jack kcontrols
+  ASoC: Intel: bxt_da7219_max98357a: Map missing Line Out jack kcontrol
+  ASoC: Intel: bytcr_wm5102: Map missing Line Out jack kcontrol
+  ASoC: Intel: kbl_da7219_max98357a: Map missing Line Out jack kcontrol
+  ASoC: Intel: kbl_da7219_max98927: Map missing Line Out jack kcontrol
+  ASoC: Intel: sof_da7219_max98373: Map missing Line Out jack kcontrol
+  ASoC: imx-es8328: Map missing jack kcontrols
+  ASoC: mediatek: mt8173-max98090: Configure jack as a Headset jack
+  ASoC: mediatek: mt8173-rt5650-rt5514: Map missing jack kcontrols
+  ASoC: mediatek: mt8173-rt5650-rt5676: Map missing jack kcontrols
+  ASoC: mediatek: mt8173-rt5650: Map missing jack kcontrols
+  ASoC: mediatek: mt8183-da7219-max98357: Map missing jack kcontrols
+  ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: Map missing jack
+    kcontrols
+  ASoC: mediatek: mt8186-mt6366-da7219-max98357: Map missing jack
+    kcontrols
+  ASoC: qcom: apq8016_sbc: Map missing jack kcontrols
+  ASoC: qcom: sc7180: Map missing jack kcontrols
+  ASoC: qcom: sc7280: Map missing jack kcontrols
+  ASoC: qcom: sdm845: Map missing jack kcontrols
+  ASoC: rk3399-gru-sound: Map missing Line Out jack kcontrol
+  ASoC: rockchip: rockchip_rt5645: Map missing jack kcontrols
+  ASoC: samsung: littlemill: Map missing jack kcontrols
+  ASoC: samsung: lowland: Split Line Out jack kcontrol from Headphone
+  ASoC: samsung: midas_wm1811: Map missing jack kcontrols
+
+ sound/soc/amd/acp-da7219-max98357a.c          |  41 +++-
+ sound/soc/amd/acp-rt5645.c                    |  22 +-
+ sound/soc/amd/acp/acp-mach-common.c           | 226 ++++++++++++++----
+ sound/soc/amd/acp3x-rt5682-max9836.c          |  23 +-
+ sound/soc/fsl/imx-es8328.c                    |  25 +-
+ sound/soc/intel/avs/boards/da7219.c           |  34 ++-
+ sound/soc/intel/boards/bxt_da7219_max98357a.c |   7 +
+ sound/soc/intel/boards/bytcr_wm5102.c         |   7 +
+ sound/soc/intel/boards/kbl_da7219_max98357a.c |   7 +
+ sound/soc/intel/boards/kbl_da7219_max98927.c  |   7 +
+ sound/soc/intel/boards/sof_da7219_max98373.c  |  10 +
+ sound/soc/mediatek/mt8173/mt8173-max98090.c   |   2 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5514.c    |  23 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5676.c    |  23 +-
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c     |  23 +-
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  |  43 +++-
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |  53 +++-
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    |   6 +
+ sound/soc/qcom/apq8016_sbc.c                  |  37 ++-
+ sound/soc/qcom/sc7180.c                       |  40 +++-
+ sound/soc/qcom/sc7280.c                       |  34 ++-
+ sound/soc/qcom/sdm845.c                       |  32 ++-
+ sound/soc/rockchip/rk3399_gru_sound.c         |   7 +-
+ sound/soc/rockchip/rockchip_rt5645.c          |  22 +-
+ sound/soc/samsung/littlemill.c                |  27 ++-
+ sound/soc/samsung/lowland.c                   |   8 +-
+ sound/soc/samsung/midas_wm1811.c              |  25 +-
+ 27 files changed, 668 insertions(+), 146 deletions(-)
+
+
+base-commit: 626c67169f9972fffcdf3bc3864de421f162ebf5
 -- 
-2.41.0.585.gd2178a4bd4-goog
+2.40.1
 

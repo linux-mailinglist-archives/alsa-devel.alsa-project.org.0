@@ -2,116 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F6876D670
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 20:06:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D252076D69D
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 20:15:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B96D820;
-	Wed,  2 Aug 2023 20:05:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B96D820
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9A823E7;
+	Wed,  2 Aug 2023 20:14:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9A823E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690999560;
-	bh=7yxCq8SfvooL1gtNw23fM6/VI3lMDkq615cFtm+a1WA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1691000125;
+	bh=UgdXSsyvw65ySj43we4vjITUumnhHwnMR2GnhOr4S6A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FPpjmeebK3nwrtFAb4umMhC4+uDnkHvloE2vXvW5DoDlmChUbzPooJ1PG7kcVHHtD
-	 ZlM35nLoEz8paH3TUkGrOCWe2Zf46fxyl3hDdOe/WMhQMTme1Ll3WwB/eZ0EbV/nUM
-	 zoqR9TJHJKdP+itVf60ycykG2ji+U6f0MyhHDpaU=
+	b=NhH7DrjbjJD21zFi0zWWlMYI+Z1AHxH74NPa5acLpjBlJGwkFGcgYt3A7k7fZTXVp
+	 FA/p3CD/IQ+6MYxB8/QpDFvjmT/M1wirUyrQTDjksxI7s4JjZ6jCFMBtKQNbDW0rL0
+	 Lkz+3yirdMoTGofAeqez7keYD0XZPK0r7oqA3CoQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96B81F8055C; Wed,  2 Aug 2023 19:59:32 +0200 (CEST)
+	id 3BB8FF801D5; Wed,  2 Aug 2023 20:14:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B59CF8069C;
-	Wed,  2 Aug 2023 19:59:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E917DF80087;
+	Wed,  2 Aug 2023 20:14:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E514F80611; Wed,  2 Aug 2023 19:58:56 +0200 (CEST)
+	id 3D7A6F801D5; Wed,  2 Aug 2023 20:14:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,RDNS_NONE,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (unknown [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 561F3F805F2
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 19:58:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 561F3F805F2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0906FF80149
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 20:14:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0906FF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=g1wME0Sd
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-3fbc5d5742eso1255785e9.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 02 Aug 2023 10:58:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690999128; x=1691603928;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tNMbLNyqZ+emJZ68zpth6DtJLmrhI+8LXvJVEDQYQ2I=;
-        b=g1wME0SdXRtw9CPo/8HDfKuL4GNNtrvZAGMlwVbhYRcNlUlBDfWZX5k7hH6BkQGS35
-         ZpHZJG1yusAGfd6t6AdsltXnnV/D6tMnxJCimEBMEdw8ZJ4zPkBqhrrxj6xn0APWDblT
-         K2Miia2BQgJIu01mRQFaeB46Mphnc2dXcOUJn5jQeKteVa8vgMlH9aazo29kqhOq9KWz
-         hWsF2Czn+GsI9Bgb6Xfbqba9D/2PlNHj4/bB2aFEspi6lQ3Ts1Fi25gX1+Jq1IwP3477
-         00t2m8tO0TpVASZqUf8CpwJSpbiK2idu0SCkqn+Y1KXtOukmnEAZ6lFnzJQzqoXBrJhr
-         dWbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690999128; x=1691603928;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=tNMbLNyqZ+emJZ68zpth6DtJLmrhI+8LXvJVEDQYQ2I=;
-        b=VfWKTw5asXEj9eBJ9nkgkzMg8WzjsbUvVQwfuPcE2gYzNtuFmQIbu8E1Q6ztapLfXh
-         p6NkIlYuzTCpZ5cyCjWDjKP2jrVEvVnclP1iq4xnXqvp351RfKVSslYTl32HokGYs8uA
-         duQ5lxDGyG7TuJOSdKdMEI+cfrCj0P4CEFlLcxfREiJ3JDJR1KjCzgcVf7eLBEIBJ7EH
-         0FL1yjIj2rvX/vW4a6rJxGEeesZ6af5pId4ohUolCMq3cNkBh9V4nbTRD3zSVCdbauAe
-         kGPebOc9jdIupBYuLGA0reaMFS5XzSurV5ihsMDNlHvzDulrcxJaHUw871sgA9LGJ+hc
-         d9WA==
-X-Gm-Message-State: ABy/qLbn8VujrwImqz1ja+mfDF3+HLd180ISlUZMezF+kiyxD4SakHDx
-	K6WtSjd9ga+wz3f9sMOgC0qZsUFq8GA=
-X-Google-Smtp-Source: 
- APBJJlF+5skmhEb8aNeWM8Qh6e6Wepa+pivxHF2VJRgf2lqm5GL21Nod6FXyIloCW2/y+9tAYg2k3w==
-X-Received: by 2002:a1c:7419:0:b0:3fb:e2af:49f6 with SMTP id
- p25-20020a1c7419000000b003fbe2af49f6mr5114900wmc.39.1690999127599;
-        Wed, 02 Aug 2023 10:58:47 -0700 (PDT)
-Received: from ALPER-PC.. ([178.233.24.1])
-        by smtp.gmail.com with ESMTPSA id
- l23-20020a7bc457000000b003fe20db88ebsm2192439wmi.31.2023.08.02.10.58.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Aug 2023 10:58:47 -0700 (PDT)
-From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
-To: alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Alper Nebi Yasak <alpernebiyasak@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-kernel@vger.kernel.org,
-	Akihiko Odaki <akihiko.odaki@gmail.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	=?UTF-8?q?N=C3=ADcolas=20F=20=2E=20R=20=2E=20A=20=2E=20Prado?=
- <nfraprado@collabora.com>
-Subject: [PATCH 27/27] ASoC: samsung: midas_wm1811: Map missing jack kcontrols
-Date: Wed,  2 Aug 2023 20:57:37 +0300
-Message-Id: <20230802175737.263412-28-alpernebiyasak@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230802175737.263412-1-alpernebiyasak@gmail.com>
-References: <20230802175737.263412-1-alpernebiyasak@gmail.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=WvKoYJGi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1691000067; x=1722536067;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=UgdXSsyvw65ySj43we4vjITUumnhHwnMR2GnhOr4S6A=;
+  b=WvKoYJGiZKarSOQ+i4JWHH/HBWbnHDteqN4mN3TiXO1PrZM37db0GetY
+   fnE/F/z9eMmxEkZqJoqwWNfPDHVTjAaoCciWHo3eQvzyMnvyTr0fNftBI
+   N51qcfslsWrVjDXMbh77LblFgU3fKkBA3M0ASsmiv4banNNH+mOp+oxHD
+   20ECzfgur4Vab8hdV4zKOSzthC27WwUjXma7uuH/X5ojF4VGfyqqCS/SZ
+   NgGqUWm1QXeWwoshd4ENOYIrki2Sl9WJIOZ3kzAMzxLy3y91k7khi0lZ+
+   FEjdlWHD4GcHayOtqQSTSLQjxQT/SGv3U10hCK4hRPA+rbXYNaeou2hk1
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="373302202"
+X-IronPort-AV: E=Sophos;i="6.01,249,1684825200";
+   d="scan'208";a="373302202"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2023 11:14:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="764311955"
+X-IronPort-AV: E=Sophos;i="6.01,249,1684825200";
+   d="scan'208";a="764311955"
+Received: from rickylop-mobl1.amr.corp.intel.com (HELO [10.212.125.114])
+ ([10.212.125.114])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2023 11:14:22 -0700
+Message-ID: <74ea038e-5ec3-c24b-4e05-7b8116f13297@linux.intel.com>
+Date: Wed, 2 Aug 2023 13:14:21 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH 1/5] PCI: add ArrowLake-S PCI ID for Intel HDAudio
+ subsystem.
+To: Mark Brown <broonie@kernel.org>, Bjorn Helgaas <helgaas@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <206f5a15-29f0-ec7c-1b85-50ace8ae7c2f@linux.intel.com>
+ <20230802162541.GA60855@bhelgaas>
+ <b1c21bfb-2d47-4c42-87b7-2846de02e017@sirena.org.uk>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <b1c21bfb-2d47-4c42-87b7-2846de02e017@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SF2OE2VICHLEE2QT7COEGE55POQY63VF
-X-Message-ID-Hash: SF2OE2VICHLEE2QT7COEGE55POQY63VF
-X-MailFrom: alpernebiyasak@gmail.com
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: QMZBIHHWPAVFZ53VVN3L4WDZDTKS2RTF
+X-Message-ID-Hash: QMZBIHHWPAVFZ53VVN3L4WDZDTKS2RTF
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SF2OE2VICHLEE2QT7COEGE55POQY63VF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QMZBIHHWPAVFZ53VVN3L4WDZDTKS2RTF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,76 +112,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This driver does not map jack pins to kcontrols that PulseAudio/PipeWire
-need to handle jack detection events. The WM1811 codec used here seems
-to support detecting Headphone and Headset Mic connections. Expose each
-to userspace as a kcontrol and add the necessary widgets.
 
-Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
----
-There's a "HP" widget as well, should the jack kcontrol use that?
-Would SND_JACK_MECHANICAL be useful as a kcontrol as well?
 
- sound/soc/samsung/midas_wm1811.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+On 8/2/23 11:34, Mark Brown wrote:
+> On Wed, Aug 02, 2023 at 11:25:41AM -0500, Bjorn Helgaas wrote:
+>> On Wed, Aug 02, 2023 at 11:07:36AM -0500, Pierre-Louis Bossart wrote:
+> 
+>>> I am not following. we just agreed a couple of weeks ago to record ALL
+>>> Intel/HDaudio PCI IDs in the same pci_ids.h include file.
+> 
+>> I'm not sure who "we" is here.  If it included me and I signed up to
+>> it, I apologize for forgetting, and go ahead and add my:
+> 
+>>   Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 
-diff --git a/sound/soc/samsung/midas_wm1811.c b/sound/soc/samsung/midas_wm1811.c
-index 6931b9a45b3e..44b32f5cddca 100644
---- a/sound/soc/samsung/midas_wm1811.c
-+++ b/sound/soc/samsung/midas_wm1811.c
-@@ -38,6 +38,17 @@ struct midas_priv {
- 	struct snd_soc_jack headset_jack;
- };
- 
-+static struct snd_soc_jack_pin headset_jack_pins[] = {
-+	{
-+		.pin = "Headphone",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin = "Headset Mic",
-+		.mask = SND_JACK_MICROPHONE,
-+	},
-+};
-+
- static int midas_start_fll1(struct snd_soc_pcm_runtime *rtd, unsigned int rate)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -246,6 +257,7 @@ static const struct snd_kcontrol_new midas_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Main Mic"),
- 	SOC_DAPM_PIN_SWITCH("Sub Mic"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+	SOC_DAPM_PIN_SWITCH("Headphone"),
- 
- 	SOC_DAPM_PIN_SWITCH("FM In"),
- };
-@@ -261,6 +273,7 @@ static const struct snd_soc_dapm_widget midas_dapm_widgets[] = {
- 	SND_SOC_DAPM_LINE("HDMI", NULL),
- 	SND_SOC_DAPM_LINE("FM In", midas_fm_set),
- 
-+	SND_SOC_DAPM_HP("Headphone", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_MIC("Main Mic", midas_mic_bias),
- 	SND_SOC_DAPM_MIC("Sub Mic", midas_submic_bias),
-@@ -305,11 +318,13 @@ static int midas_late_probe(struct snd_soc_card *card)
- 		return ret;
- 	}
- 
--	ret = snd_soc_card_jack_new(card, "Headset",
--			SND_JACK_HEADSET | SND_JACK_MECHANICAL |
--			SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2 |
--			SND_JACK_BTN_3 | SND_JACK_BTN_4 | SND_JACK_BTN_5,
--			&priv->headset_jack);
-+	ret = snd_soc_card_jack_new_pins(card, "Headset",
-+					 SND_JACK_HEADSET | SND_JACK_MECHANICAL |
-+					 SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-+					 SND_JACK_BTN_3 | SND_JACK_BTN_4 | SND_JACK_BTN_5,
-+					 &priv->headset_jack,
-+					 headset_jack_pins,
-+					 ARRAY_SIZE(headset_jack_pins));
- 	if (ret)
- 		return ret;
- 
--- 
-2.40.1
+This was the original thread for the record
+
+https://lore.kernel.org/alsa-devel/20230717114511.484999-3-amadeuszx.slawinski@linux.intel.com/
+
+>> I'm just pointing out the usual practice for pci_ids.h, as mentioned
+>> in the file itself.
+
+You're actually right that we didn't talk about the minimum criterion to
+add a PCI ID to this file. To me it was a central place similar to the
+cpu ids, etc., if it wasn't clear to everyone than it's good to agree on
+this second point.
+
+> I think the thing with these drivers is that we know they will become
+> shared in fairly short order so it just becomes overhead to add then
+> move the identifier and update.
+
+Indeed, the sharing part is not always predictable and is subject to
+roadmap changes made above my pay grade.
+
+The intended use of the devices can vary as well, some PCI IDs for
+desktops are intended to be used only by snd-hda-intel, but if one OEM
+starts adding digital microphones then the SOF driver becomes required.
+
+So rather than force everyone to follow changes at Intel or Intel
+customers it's simpler to just add PCI IDs in pci_ids.h. We typically
+deal with 3-4 PCI IDS per year
+
 

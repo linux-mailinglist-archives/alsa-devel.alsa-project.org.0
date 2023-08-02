@@ -2,74 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B33876D246
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 17:40:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C185C76D242
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 17:39:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D13B27F4;
-	Wed,  2 Aug 2023 17:39:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D13B27F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BC551D6;
+	Wed,  2 Aug 2023 17:38:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BC551D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690990807;
-	bh=DEp/v/3SOfdckOmvv4GnOT2vuR6H96Xsbngevusa63M=;
+	s=default; t=1690990779;
+	bh=zUha+96k97jhUYFPC8nrnixE0mHrTcvyWKSYSfHB3vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YoXDwrv5Gt1qYUVubObHHAdlwy7lu5CQ7tnckNl9avRYc6idf4dywfytwLgo5FbLF
-	 +iw/UnZrzs7oA1h+ZQExJYjxwPZ/284jE0a/6Y2T/bGOgz8+hf/6sOkhMsTp6+En4C
-	 bCIraQyZopwtl3Opd65Ptl9TGS/8oKAJ9cN1Jon8=
+	b=pznAk6VqFlinj3cIMe0rwlKzc9and2O5FMPXPs0QSlHZgqn8gm5e4DJ4KL3na5qLD
+	 HyPXJG2xHw9kGhmCMcLaXDak1+e0QBb8DMa8ArCKfy3n5553MqveIpTjjuqFWm6qP+
+	 99H5vOoIlC6y5jBLESCjGCPl2/CqZYmFx/SvSpNg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B223DF805C7; Wed,  2 Aug 2023 17:37:34 +0200 (CEST)
+	id 37BCEF80551; Wed,  2 Aug 2023 17:37:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE681F805C0;
-	Wed,  2 Aug 2023 17:37:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA3F4F80549;
+	Wed,  2 Aug 2023 17:37:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0038F805A8; Wed,  2 Aug 2023 17:37:21 +0200 (CEST)
+	id A6900F80580; Wed,  2 Aug 2023 17:37:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
 	RCVD_IN_MSPIKE_WL,RDNS_NONE,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (unknown [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C86BEF80544
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7EFB6F80535
 	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 17:37:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C86BEF80544
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EFB6F80535
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=QFQMYJdB
+ header.s=Intel header.b=lwG9TcMO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1690990622; x=1722526622;
+  t=1690990621; x=1722526621;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=DEp/v/3SOfdckOmvv4GnOT2vuR6H96Xsbngevusa63M=;
-  b=QFQMYJdBl8bAIhXGyQrezJY0Zb+sr0NZwX5e9Wa9WHgb+B+9S6HectVv
-   HWgFm42i1oc2U4hwTUMwZDWsr/Yn1Pi7c42VK3JyXFF6E0/lDvSUoPrXf
-   beTetltH4J0/1Fqoq5prNz3atqlSza091tZ1yiu7Tz0mzC6M+M7tb9R/i
-   T4xqLLnfRfrUgE5E12K3aaiJ8vz80sDmTfNnSO33N6lcVa5sHTcGzs+DX
-   FPhqMqiIgR2VG7JlsP8w6opd8a411Bf4E023blszjuEeq00UdqHgyYYjJ
-   0cGTcVJDHWkTC2IBqgmqsmhg+aqnkPZiFSU4TvKbvMnkYHK7DLWlBRXcX
+  bh=zUha+96k97jhUYFPC8nrnixE0mHrTcvyWKSYSfHB3vo=;
+  b=lwG9TcMOhOEmlZc0T4+jMu4CIlzqwDaFL2sCLs6Mv2bIM+lRDdm1scVu
+   xxoabNrcpu9FPmaRDgEqago9pOp/X7T1/5mmN2dqmJW34fOfbwDuQ5ZaV
+   csIoMzgVnTqMUkN8zMeVcnNXsYgBMC5EPjWD0C6/vthNHckvYgCCEgqpI
+   ZjwNgPuPOvM9grmoq1QMbk8tx0K30DN9RvMdYMg1pCcz8GTBXVTD46Imj
+   qWLYMQb/BRqFFDxNImNHH0wLgkuLupYC4Vfa1jg0K6YtNAL2C2RDiVBv8
+   WQnOTehXeCKS9a7HMgDVnr6pjgCYNvZ8geyz/gjxx1i4qlZSLCrcK8pXO
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="372350786"
+X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="372350795"
 X-IronPort-AV: E=Sophos;i="6.01,249,1684825200";
-   d="scan'208";a="372350786"
+   d="scan'208";a="372350795"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2023 08:36:47 -0700
+ 02 Aug 2023 08:36:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="722887084"
+X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="722887108"
 X-IronPort-AV: E=Sophos;i="6.01,249,1684825200";
-   d="scan'208";a="722887084"
+   d="scan'208";a="722887108"
 Received: from rickylop-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.125.114])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2023 08:36:46 -0700
+ 02 Aug 2023 08:36:47 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -78,17 +78,17 @@ Cc: tiwai@suse.de,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Rander Wang <rander.wang@intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [PATCH 07/16]  ASoC: rt1712-sdca: enable pm_runtime in probe,
+Subject: [PATCH 08/16] ASoC: rt712-sdca-dmic: enable pm_runtime in probe,
  keep status as 'suspended'
-Date: Wed,  2 Aug 2023 10:36:20 -0500
-Message-Id: <20230802153629.53576-8-pierre-louis.bossart@linux.intel.com>
+Date: Wed,  2 Aug 2023 10:36:21 -0500
+Message-Id: <20230802153629.53576-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230802153629.53576-1-pierre-louis.bossart@linux.intel.com>
 References: <20230802153629.53576-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BLWFNWZVCBMHHC6CJYFRGPFWAIB7K6JR
-X-Message-ID-Hash: BLWFNWZVCBMHHC6CJYFRGPFWAIB7K6JR
+Message-ID-Hash: 44NIGGNROAQDQJL45MVUJFFZOQRCPOOU
+X-Message-ID-Hash: 44NIGGNROAQDQJL45MVUJFFZOQRCPOOU
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BLWFNWZVCBMHHC6CJYFRGPFWAIB7K6JR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/44NIGGNROAQDQJL45MVUJFFZOQRCPOOU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,40 +125,37 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/codecs/rt712-sdca-sdw.c |  3 +--
- sound/soc/codecs/rt712-sdca.c     | 38 +++++++++++++++++++++----------
- 2 files changed, 27 insertions(+), 14 deletions(-)
+ sound/soc/codecs/rt712-sdca-dmic.c | 40 ++++++++++++++++++------------
+ 1 file changed, 24 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/codecs/rt712-sdca-sdw.c b/sound/soc/codecs/rt712-sdca-sdw.c
-index 6bc50396a0f6..6b644a89c589 100644
---- a/sound/soc/codecs/rt712-sdca-sdw.c
-+++ b/sound/soc/codecs/rt712-sdca-sdw.c
-@@ -363,8 +363,7 @@ static int rt712_sdca_sdw_remove(struct sdw_slave *slave)
- 		cancel_delayed_work_sync(&rt712->jack_btn_check_work);
+diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
+index 0102bad0b66a..ba08d03e717c 100644
+--- a/sound/soc/codecs/rt712-sdca-dmic.c
++++ b/sound/soc/codecs/rt712-sdca-dmic.c
+@@ -189,20 +189,11 @@ static int rt712_sdca_dmic_io_init(struct device *dev, struct sdw_slave *slave)
+ 		regcache_cache_bypass(rt712->mbq_regmap, true);
+ 	} else {
+ 		/*
+-		 * PM runtime is only enabled when a Slave reports as Attached
++		 * PM runtime status is marked as 'active' only when a Slave reports as Attached
+ 		 */
+ 
+-		/* set autosuspend parameters */
+-		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
+-		pm_runtime_use_autosuspend(&slave->dev);
+-
+ 		/* update count of parent 'active' children */
+ 		pm_runtime_set_active(&slave->dev);
+-
+-		/* make sure the device does not suspend immediately */
+-		pm_runtime_mark_last_busy(&slave->dev);
+-
+-		pm_runtime_enable(&slave->dev);
  	}
  
--	if (rt712->first_hw_init)
--		pm_runtime_disable(&slave->dev);
-+	pm_runtime_disable(&slave->dev);
+ 	pm_runtime_get_noresume(&slave->dev);
+@@ -608,6 +599,9 @@ static int rt712_sdca_dmic_probe(struct snd_soc_component *component)
  
- 	mutex_destroy(&rt712->calibrate_mutex);
- 	mutex_destroy(&rt712->disable_irq_lock);
-diff --git a/sound/soc/codecs/rt712-sdca.c b/sound/soc/codecs/rt712-sdca.c
-index 88f6c895722e..7077ff6ba1f4 100644
---- a/sound/soc/codecs/rt712-sdca.c
-+++ b/sound/soc/codecs/rt712-sdca.c
-@@ -453,6 +453,9 @@ static int rt712_sdca_set_jack_detect(struct snd_soc_component *component,
- 
- 	rt712->hs_jack = hs_jack;
- 
-+	if (!rt712->first_hw_init)
-+		return 0;
-+
- 	ret = pm_runtime_resume_and_get(component->dev);
- 	if (ret < 0) {
- 		if (ret != -EACCES) {
-@@ -960,6 +963,9 @@ static int rt712_sdca_probe(struct snd_soc_component *component)
- 	rt712_sdca_parse_dt(rt712, &rt712->slave->dev);
  	rt712->component = component;
  
 +	if (!rt712->first_hw_init)
@@ -167,10 +164,10 @@ index 88f6c895722e..7077ff6ba1f4 100644
  	ret = pm_runtime_resume(component->dev);
  	if (ret < 0 && ret != -EACCES)
  		return ret;
-@@ -1210,10 +1216,27 @@ int rt712_sdca_init(struct device *dev, struct regmap *regmap,
- 	else
- 		ret =  devm_snd_soc_register_component(dev,
- 				&soc_sdca_dev_rt712, rt712_sdca_dai, 1);
+@@ -794,10 +788,27 @@ static int rt712_sdca_dmic_init(struct device *dev, struct regmap *regmap,
+ 			&soc_sdca_dev_rt712_dmic,
+ 			rt712_sdca_dmic_dai,
+ 			ARRAY_SIZE(rt712_sdca_dmic_dai));
 +	if (ret < 0)
 +		return ret;
  
@@ -196,29 +193,19 @@ index 88f6c895722e..7077ff6ba1f4 100644
 +	return 0;
  }
  
- int rt712_sdca_io_init(struct device *dev, struct sdw_slave *slave)
-@@ -1234,20 +1257,11 @@ int rt712_sdca_io_init(struct device *dev, struct sdw_slave *slave)
- 		regcache_cache_bypass(rt712->mbq_regmap, true);
- 	} else {
- 		/*
--		 * PM runtime is only enabled when a Slave reports as Attached
-+		 *  PM runtime status is marked as 'active' only when a Slave reports as Attached
- 		 */
  
--		/* set autosuspend parameters */
--		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
--		pm_runtime_use_autosuspend(&slave->dev);
--
- 		/* update count of parent 'active' children */
- 		pm_runtime_set_active(&slave->dev);
--
--		/* make sure the device does not suspend immediately */
--		pm_runtime_mark_last_busy(&slave->dev);
--
--		pm_runtime_enable(&slave->dev);
- 	}
+@@ -957,10 +968,7 @@ static int rt712_sdca_dmic_sdw_probe(struct sdw_slave *slave,
  
- 	pm_runtime_get_noresume(&slave->dev);
+ static int rt712_sdca_dmic_sdw_remove(struct sdw_slave *slave)
+ {
+-	struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(&slave->dev);
+-
+-	if (rt712->first_hw_init)
+-		pm_runtime_disable(&slave->dev);
++	pm_runtime_disable(&slave->dev);
+ 
+ 	return 0;
+ }
 -- 
 2.39.2
 

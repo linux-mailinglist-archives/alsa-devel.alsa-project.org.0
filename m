@@ -2,91 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7792176FD8C
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:39:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F2776FD8F
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:40:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF546868;
-	Fri,  4 Aug 2023 11:38:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF546868
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6EDB208;
+	Fri,  4 Aug 2023 11:39:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6EDB208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691141979;
-	bh=QmLEjHmQjYXBYbfS8YtV0wsxFPWd1wZLN+iru7YHABw=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uWqNYv68PuRG9HS/26qdMWLELbPCN2GT+DP+4lbNLFXH+jqASa55grtej9wOf1yQM
-	 04aw8Ku3TuaZUDO0aKc6U3C2gPDV7vD6YRSC3qa18cFhWVR/3zSaCFM3dbzlhmU/FD
-	 UJSt39TvCFnxzG0/piNgw/vnGkYS29rTXlaU3XNg=
+	s=default; t=1691142002;
+	bh=Q4Mr+xkgTjGBFACbNn4h5Zt9PM79qGV8IrQ4WQ3+NC0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=h+MX2jtoXtsqjqtctRepUvACaSbxjNDeqFI7BgKF9P/oqtgncU+YC8k0mEnXjfnpR
+	 x0O0J1cP/+ZvuNGyiHo7PelsrtEcn7nFRXBbAueB6hbqaIWsFWbjCI/P0mLGMHrKON
+	 uJocisYwCjl+ahbyKf3dErrnxM4ez9IRpb2i6Nuk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47061F8057B; Fri,  4 Aug 2023 11:37:44 +0200 (CEST)
+	id A9AC9F805AF; Fri,  4 Aug 2023 11:37:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A5F5F80580;
-	Fri,  4 Aug 2023 11:37:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5570CF805A8;
+	Fri,  4 Aug 2023 11:37:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 143EFF801D5; Wed,  2 Aug 2023 03:13:49 +0200 (CEST)
+	id EAB14F801D5; Wed,  2 Aug 2023 04:30:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=HK_RANDOM_ENVFROM,
+	HK_RANDOM_FROM,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
- [61.152.239.71])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6EEC4F80163
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 03:13:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EEC4F80163
-Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
-	by fd01.gateway.ufhost.com (Postfix) with ESMTP id D5CE2807C;
-	Wed,  2 Aug 2023 09:13:32 +0800 (CST)
-Received: from EXMBX068.cuchost.com (172.16.6.68) by EXMBX166.cuchost.com
- (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 2 Aug
- 2023 09:13:33 +0800
-Received: from [192.168.125.113] (183.27.98.54) by EXMBX068.cuchost.com
- (172.16.6.68) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 2 Aug
- 2023 09:13:32 +0800
-Message-ID: <403e68ca-a1be-b123-fe44-b658b2484c9f@starfivetech.com>
-Date: Wed, 2 Aug 2023 09:13:31 +0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id 01CBFF80087
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 04:29:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01CBFF80087
+Received: from dggpeml500003.china.huawei.com (unknown [172.30.72.56])
+	by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RFwr255SJzVjDr;
+	Wed,  2 Aug 2023 10:28:02 +0800 (CST)
+Received: from huawei.com (10.175.103.91) by dggpeml500003.china.huawei.com
+ (7.185.36.200) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 2 Aug
+ 2023 10:29:46 +0800
+From: Yu Liao <liaoyu15@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>
+CC: <liaoyu15@huawei.com>, <set_pte_at@outlook.com>,
+	<alsa-devel@alsa-project.org>, <liwei391@huawei.com>
+Subject: [PATCH -next] ALSA: ac97: set variables dev_attr_vendor_id to static
+Date: Wed, 2 Aug 2023 10:26:49 +0800
+Message-ID: <20230802022649.2514787-1-liaoyu15@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 31/38] ASoC: starfive: merge DAI call back functions into
- ops
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Jaroslav Kysela
-	<perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>
-References: <87a5vauuzg.wl-kuninori.morimoto.gx@renesas.com>
- <871qgmtg5d.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-From: Walker Chen <walker.chen@starfivetech.com>
-In-Reply-To: <871qgmtg5d.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.98.54]
-X-ClientProxiedBy: EXCAS062.cuchost.com (172.16.6.22) To EXMBX068.cuchost.com
- (172.16.6.68)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: walker.chen@starfivetech.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.91]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpeml500003.china.huawei.com (7.185.36.200)
+X-CFilter-Loop: Reflected
+X-MailFrom: liaoyu15@huawei.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FQPDSPMABJNQGLJMDRWJBO4P22R3SFUD
-X-Message-ID-Hash: FQPDSPMABJNQGLJMDRWJBO4P22R3SFUD
-X-Mailman-Approved-At: Fri, 04 Aug 2023 09:37:31 +0000
+Message-ID-Hash: 4JWGUR5HCF72HUWYCLH4SZNB7X37RKXO
+X-Message-ID-Hash: 4JWGUR5HCF72HUWYCLH4SZNB7X37RKXO
+X-Mailman-Approved-At: Fri, 04 Aug 2023 09:37:38 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FQPDSPMABJNQGLJMDRWJBO4P22R3SFUD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4JWGUR5HCF72HUWYCLH4SZNB7X37RKXO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,59 +82,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+sparse reports
+sound/ac97/bus.c:465:1: sparse: sparse: symbol 'dev_attr_vendor_id' was not declared. Should it be static?
 
+This variable is only used in its defining file, so it should be static.
 
-On 2023/8/2 8:57, Kuninori Morimoto wrote:
-> ALSA SoC merges DAI call backs into .ops.
-> This patch merge thesse into one.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  sound/soc/starfive/jh7110_tdm.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/starfive/jh7110_tdm.c b/sound/soc/starfive/jh7110_tdm.c
-> index 705f1420097b..8c117794b028 100644
-> --- a/sound/soc/starfive/jh7110_tdm.c
-> +++ b/sound/soc/starfive/jh7110_tdm.c
-> @@ -463,13 +463,6 @@ static int jh7110_tdm_set_dai_fmt(struct snd_soc_dai *cpu_dai,
->  	return 0;
->  }
->  
-> -static const struct snd_soc_dai_ops jh7110_tdm_dai_ops = {
-> -	.startup	= jh7110_tdm_startup,
-> -	.hw_params	= jh7110_tdm_hw_params,
-> -	.trigger	= jh7110_tdm_trigger,
-> -	.set_fmt	= jh7110_tdm_set_dai_fmt,
-> -};
-> -
->  static int jh7110_tdm_dai_probe(struct snd_soc_dai *dai)
->  {
->  	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(dai);
-> @@ -479,6 +472,14 @@ static int jh7110_tdm_dai_probe(struct snd_soc_dai *dai)
->  	return 0;
->  }
->  
-> +static const struct snd_soc_dai_ops jh7110_tdm_dai_ops = {
-> +	.probe		= jh7110_tdm_dai_probe,
-> +	.startup	= jh7110_tdm_startup,
-> +	.hw_params	= jh7110_tdm_hw_params,
-> +	.trigger	= jh7110_tdm_trigger,
-> +	.set_fmt	= jh7110_tdm_set_dai_fmt,
-> +};
-> +
->  #define JH7110_TDM_RATES	SNDRV_PCM_RATE_8000_48000
->  
->  #define JH7110_TDM_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
-> @@ -502,7 +503,6 @@ static struct snd_soc_dai_driver jh7110_tdm_dai = {
->  		.formats        = JH7110_TDM_FORMATS,
->  	},
->  	.ops = &jh7110_tdm_dai_ops,
-> -	.probe = jh7110_tdm_dai_probe,
->  	.symmetric_rate = 1,
->  };
->  
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202307242300.Oy0Dp2QI-lkp@intel.com/
+Signed-off-by: Yu Liao <liaoyu15@huawei.com>
+---
+ sound/ac97/bus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'm fine with it.
+diff --git a/sound/ac97/bus.c b/sound/ac97/bus.c
+index 6067c04ce4c0..3173e9d98927 100644
+--- a/sound/ac97/bus.c
++++ b/sound/ac97/bus.c
+@@ -462,7 +462,7 @@ static ssize_t vendor_id_show(struct device *dev,
+ 
+ 	return sysfs_emit(buf, "%08x", codec->vendor_id);
+ }
+-DEVICE_ATTR_RO(vendor_id);
++static DEVICE_ATTR_RO(vendor_id);
+ 
+ static struct attribute *ac97_dev_attrs[] = {
+ 	&dev_attr_vendor_id.attr,
+-- 
+2.25.1
 
-Acked-by: Walker Chen <walker.chen@starfivetech.com>

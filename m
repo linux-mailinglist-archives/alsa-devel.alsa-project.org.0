@@ -2,147 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08D9E76C1B5
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 02:55:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F5AA76C1B8
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 02:56:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CA04210;
-	Wed,  2 Aug 2023 02:55:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CA04210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89E576C0;
+	Wed,  2 Aug 2023 02:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89E576C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690937756;
-	bh=Es1PrXO2oMKX6cS27+q+y5ouvy4e3pWNB0WMJZeoG+s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1690937766;
+	bh=Rl0vPfr354uiEILcwCWQ8WcbK0lPr48/v2ssA0yEXh8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uhefXzXFOmmbwSUBpt57+BWfQM6fNCNgfkC3sa0Tgwb+kXKMhQ+uzeA4powg3Uw5J
-	 H0K7VVdxwY9BsA87XVbmFOtzCKYqadvi68NDaNF94ctupsUZPZb8ZpdoXdaMR4Lu05
-	 ipnAUSLK+ZVxrUs0+8uQBCrtysak+yhmMYzCTIZI=
+	b=uHswqlDVmq/7+z20aYUSOGFhY5UeEiNBpnhofGVpt1U/MHYlmphjBRSHUbnIPbpzz
+	 pulqQssGcELY3ibevk4S4GhH2CYL7hxDWOvrxGy578IST4wjwnpMoVqsKjrY/Dkkr3
+	 nw/nx3AH6Z6mxyQFUDmuiFJmt647ySNxNS9yCukk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E4ADF805C0; Wed,  2 Aug 2023 02:53:49 +0200 (CEST)
+	id 989FBF805C7; Wed,  2 Aug 2023 02:53:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A686F802BE;
-	Wed,  2 Aug 2023 02:53:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D380CF80567;
+	Wed,  2 Aug 2023 02:53:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 94994F80563; Wed,  2 Aug 2023 02:53:45 +0200 (CEST)
+	id D7917F805C5; Wed,  2 Aug 2023 02:53:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20708.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::708])
+ (mail-os0jpn01on20705.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::705])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 929C8F8025A
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 02:53:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 929C8F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id A731AF80551
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 02:53:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A731AF80551
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=iS/AhaSi
+ header.s=selector1 header.b=eYa289Q0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lK0xGNofmEUP0xUP4qD1g9D9zCnb3lWMYj0SPIHzqr8DmPeNOZ+BIm5xTFaRipEpv5eCvP0+DgFSNbEf/oK/EFdnduwD6+Umsu76dUeaa+MXL0NPbEPL2+Pi5m/1g9sdCzA2+swWMWxq6ZrR/vCuJpYEPo5T0rD1u4CemTRT4jbFbKuCNvxWoNW1tYtPkxx/ym1uSsFsEHEG1iVyyUx7S0b4yR/P3qMZlNP4S7KI0gR5GgGW6Tgt1C9nLPNC+5Ta/P/fsbwyEalE0BFZIte/QnCNi1rE8UJgMStnt/HU1Kfq3lfz3cEATMn/0LyHHqW2oy8VFKHDxx9tLSeb841ZTw==
+ b=VnFbksUDwSeQg6kgCtjAdwwJsCn4YIdTpI6HtQCo85Prs/iAR1L7cczdeAJjNfSMU4wI4n0rZS/ylkuZnu/bP1XmK2Sq/Q9jPBIV66u6oCHxWJxF90cJ41Y9LU2Wo5qs54BeYRcXviYWjhTFDbCvr98ZL9AXNcZdQqoQtaVQlFrRyd+3Zb6isHP3NOijVu5mqLfLGY8ty9jcHgrECG5hkZViBt23y5TIZ7/MuJnixzKvy5wMKx0ojj3wCOcW847kDpYQTMSy5QgjeLGQHN/WOnvv7zhr80P3Kco1oOr0XmkeXWs4Os9YGcA9k4fIMdt22afTksFFBe2FVezvr/9BJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VbG4JGDDHnAW77KCbDHr77BpJznoPugD4d32FSmyEy4=;
- b=cUUi+BapCMMEnUDkxqIjyT9vL+ugEcF5ZhJplRKL3kvMrWSyxbYPR9xcdgAbMY9JW8jnB1/dTMNYqT2zPypn0I9gojUm3ffURF1jpP9TvdzA2Xys2sQVsOI0wLetVDVyY8lK7nIHJGumFAgd47/KEPTFDMOIyu0egQ0lFm/y5DsGzxmRN7P0zBdcBBJmjID3HQpIL1c3b5h5G6A9yVI5YFeERGZrY5MSoxDQXqMZRbDPLF9wef9ZyRa2zdJ0FHQWgsglxk2TLC4Ebluq+cLvOTmEMsb1S8GtOtXMLD9kgRkB5sqPAzvwIeoHylG54aOq/6q4vldqc3R4hImf2mtyuQ==
+ bh=fFsMrQ2uQlW7xeEb6enRHp02paM++q4BNrm/b0KUV2E=;
+ b=SKaEOavnVJxSZ5AuTrC95j/00rrPK0ldKBjldYk50bzgV9aSeHiZzH7CqdTmvirWraN/QwjAAtXf0a0efOo8zgJHYzV4CFSE+qklGdQQjK5yFN6x1ktpIEcKWFxazQq+ua1cJLkLDwXVklohbGmBiQeLpg7QYf0zI8XZEbhh5yNEd0oyhlkBojioAL3KRFi3Q61eSKIUM12kt9bq0gfdiCWKwiSmuN1E5ul91BKg2dN7AKAVba6xXA6Uif+II/G9RRHhb5He/2tkiiKSkyf8ihtt7V7A5sNICAfnZceJpL5St3gVwgEx+uMcZCp+y5A5P63pBZs5ttr73jzS2sik7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VbG4JGDDHnAW77KCbDHr77BpJznoPugD4d32FSmyEy4=;
- b=iS/AhaSiEZmSyq/JVdfOTnzza88IDWa5kf5jyiGFOSOHAk5hRQNjDTRiqMWmpQcqqwBWdWfRrCYrZVIQwglJQJ4yHcYkUqFmflBk9FgXpmhWHRLqosZTkzcJl9Sywb06tdUFxJDLWQQMTWHU9pmfVHXDhkY/pVEX278ro6aGdXI=
+ bh=fFsMrQ2uQlW7xeEb6enRHp02paM++q4BNrm/b0KUV2E=;
+ b=eYa289Q0Wd1cSfwVBMXShrk7MPJtno/AhoapqdhlmfMgdbLZB07KqOTwWK7p2YUUTpaiLkFRkZwDf2mCo/9VgNzOcgbR+FpDHYTbcnIR65mteZe2XBdlz5+TcDgvPSFIwpnd+fV+tVqQQB3vVVNMsCFcFM4vUmZdobSUq/eLke0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TY3PR01MB12016.jpnprd01.prod.outlook.com (2603:1096:400:408::7) with
+ by OS3PR01MB9381.jpnprd01.prod.outlook.com (2603:1096:604:1cd::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45; Wed, 2 Aug
- 2023 00:53:28 +0000
+ 2023 00:53:34 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::e6db:c2b4:3f89:e3a5]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::e6db:c2b4:3f89:e3a5%3]) with mapi id 15.20.6631.045; Wed, 2 Aug 2023
- 00:53:28 +0000
-Message-ID: <87wmyetgc7.wl-kuninori.morimoto.gx@renesas.com>
+ 00:53:34 +0000
+Message-ID: <87v8dytgc2.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Chancel Liu <chancel.liu@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>
-Cc: Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, alsa-devel@alsa-project.org
-Subject: [PATCH 09/38] ASoC: fsl: merge DAI call back functions into ops
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
 In-Reply-To: <87a5vauuzg.wl-kuninori.morimoto.gx@renesas.com>
 References: <87a5vauuzg.wl-kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 10/38] ASoC: img: merge DAI call back functions into ops
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 2 Aug 2023 00:53:28 +0000
-X-ClientProxiedBy: TYWP286CA0028.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::14) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Wed, 2 Aug 2023 00:53:34 +0000
+X-ClientProxiedBy: TYAPR01CA0096.jpnprd01.prod.outlook.com
+ (2603:1096:404:2c::36) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB12016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 741da13b-8c6e-4a66-1227-08db92f2e2b1
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS3PR01MB9381:EE_
+X-MS-Office365-Filtering-Correlation-Id: e13a0b81-e2d2-4035-0f87-08db92f2e623
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	uEJ1P/DtoacbzUPQyguNkkQ3wklLk/PCyRGMnF71n/MWPMZc7wdlY62AMmlX/w7tqtie9dsQuy1nw10oTlmfzaeIx+qROP+zvf9XGIHEGUyGXFngKFF08JnGXe5BqcKFgx/T454tUIfkZrzJodQWs8gEHcFlT9qDuI+tZ0wLNUFIDrf5wFY1YWIqBw7DQnOII3amh48i1hgJdGNVH0FF9Zo1yZV8PodNowSuLA2b7I6FLIvPfOtZXrKCl2dEAdHxmFhafg5IoZjXu0xbmw5KRLDQ4fwjIpbIQt7Cf09lXvhRYzJ6/FWKNTBX7nBREeYsBKJalMNKaPSoGmuwpwBKCRE4ZBjLB2yJShbA9N75fWGWGC9pFGlQGm+Y6fltFbyBMtKBOCAgBBA/LGBqluuYokYPMQDUaz/c/OFolOvs+zZt8JvboRcJtAVDEkcVmGw0GZeCr1eVWJKKRmMjuaDxmeamEwrpswTRP55UQfgwzot9JGav/bMYbQp8+ffP9Ng4szRI2xd3S43iM0iC81J4O2YwZcFoJgfZlPWIALOOtcdM3W1OFJIDC3M9o+9Zd645eDh6jt6cVeZBuY4PIqRETfBkctJYXTfd1AarfwyzVl5lRoVKX+SHdyALK2GeaQqG
+	L0JNIHZ0HNbrdCpZJglG7N3+AwX761YiYjey7vbwveosY7ZGfH71WEq1YyvJgrfk03NL6FJQUYfzZtrsLds1B8sdXIdayPXZO4vSfyROg4+pVvXqB0yFDYXwGJxtdVnRHnao9r9asnKcA74XCsuadWWkyuVX6cGw1beids0og0A0zPsXoQehoCxaH2iMjo0or9UbAZbLcoMuwbaLumbMKSVucmaD2c8O8QDrCrg/tTkVoiI2iS1VJHOToSll/vWXU8da/Dn7/8sm+kvn1ev5lx1XrjT41nUUFeME0ZrjPN7PM8e4O4F20a27vIHL3hzi8AtdmlWx+qFixVpfr2sHVw8ggYR5UMVXxfTsUYd37igohKG5J1sNMHHutY5KknWqOwu/LbTwjhvUOM0kkuhzkI+Mw/JjvwpXAsUl0xfH9ToAi5iI5684RoQ2s0KtZg11JuDzmpiNxOK2vylsNuVwM0zBNcTVPe9FSOZ1H/B695JR3rXuI+aV0/5FuCENRpcy++xrUg+B5DrvobC8hpdYfypKSRIvXnjl/TabFnmM71xJ9MGczDgScA6MSvyHludTt4pxojdaEfGwfRxg4bf3RHah1q1F388HFrQJKPcDUzWCTiuxe/CkcYfHCwqHzBgj
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(366004)(376002)(451199021)(186003)(8936002)(83380400001)(8676002)(26005)(41300700001)(30864003)(2906002)(5660300002)(7416002)(2616005)(86362001)(478600001)(54906003)(110136005)(38350700002)(38100700002)(316002)(6506007)(6486002)(52116002)(66946007)(66476007)(66556008)(4326008)(6512007)(36756003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(366004)(136003)(396003)(39860400002)(451199021)(38350700002)(66476007)(66556008)(66946007)(2616005)(83380400001)(4326008)(316002)(6486002)(52116002)(6512007)(110136005)(478600001)(186003)(6506007)(2906002)(26005)(86362001)(36756003)(41300700001)(38100700002)(5660300002)(8676002)(8936002);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?/IzMwee0mV/9P6Z5kT3pPfx9HOxDrmmI8f+OqGgygMX1e63mb8yPrUWVozM3?=
- =?us-ascii?Q?81DsdKoffOgepSvTG2X+WG92WTf9fwoVpDJjp5jOROadSNeIT49qqPuI3lrU?=
- =?us-ascii?Q?SLUInT3qz0uJst1dsCJnY3T/nBXZYojyv1NaRyzL1scIAJTIa8fxnE6TrPYD?=
- =?us-ascii?Q?iyacx78CS/xUU/M12MDG/B52Sc+n6In11rigDNl8tpTFKl5s6Qhu8KWzUNu7?=
- =?us-ascii?Q?fdiRxuJZXhgmAUoJBgNPa5J+iXSGvVpY7Fttn2s8kSLjdrPtwAjvSJ4Hkq9M?=
- =?us-ascii?Q?fiHAkrSLHsvPVsvQpSeJ67RURLu+SyJLfBxOauaYxIpMMsE8Tq7mVM/MJJ19?=
- =?us-ascii?Q?tR5FNc8juSBzX6fpRmd4hr+OHmg9fNYyaxcMpdchEWxgKEfUwVBitB2/iB5a?=
- =?us-ascii?Q?4F6rAbUQLElbxyz4PD2TZ1bYtCTmZz1qD9iGsTx/g+DxZbbcgF5ecxZPU8mI?=
- =?us-ascii?Q?uJGM/rYCsfrrVk6t0q9lBme0enyDcvUZejQPS5vpcAWiIwsA2Q+X3KRbRPMA?=
- =?us-ascii?Q?/uDcRTuvN4UTJrJbF86+TJ1Ylt5gQJi15IgqP99KA3bx0YLCUzzw6C47d2u/?=
- =?us-ascii?Q?KygTF90x0FII18FPB2nkuuBd7rW85FD4og2XDKyhKZlrpBFR/60kx3FBzaCG?=
- =?us-ascii?Q?pK0bhTzbyqleCQdD/q9l9UaKiAXxjHuKqTtbijGaWGmGOdEz+vJkMheW2Kcu?=
- =?us-ascii?Q?PVp1fzI5c0WpIHx9KqAFyWviAxhYfvQ1gCkVRxqUmwvOQTJn+/nYaBNQkwRs?=
- =?us-ascii?Q?fC/Rch/WGXVyB0jGzkVDAOp8TTR1vSpQODC7U5hIswhdxx9dUSNAqhVbxnid?=
- =?us-ascii?Q?qX2DBCKY9paZTqzTOpjWwARf5LAxAWSElRi8aPRcMbPtrtcXla3uG0fg9kJu?=
- =?us-ascii?Q?PGtsK6iMArUcKGfvmPkCszPnvwoaMOdbGn55ZZ7+r6VNRIKoGLd8UGeL/V+l?=
- =?us-ascii?Q?ZJAzBlB/AHsD7sfAM9Uw5qo239LJ9ZAjWTk2LHrLZjhBAiCRzwErl4JdByaj?=
- =?us-ascii?Q?t4qmU1kS+dmDqVHDqcp168DZHbViQyo6oGP7ZqkWBpDhdAziz9X7FS7vz57d?=
- =?us-ascii?Q?Z3bc2BbA3VE0O2ATH2Fx1VL+mDQZvE1w0JNquXq6TVcBO6F0vnxMF1X33Tbw?=
- =?us-ascii?Q?nxl0jMSxyjQ/5td6zmPyx/6dgD4DVe+QHgnqFmmoGbaQ8/TSzH9Vcx3WxqOS?=
- =?us-ascii?Q?VBbqksYGI3X7vOMulWV6RsUQwNIs25yKOqQkl2YMwKMaA+/m8EqqM0P7O0rf?=
- =?us-ascii?Q?WvXJNygJ2+DxcV04QePHy+SZPgVkTq7dc6HfLB1IFe3PqXpyKVnDgA9rZ2wh?=
- =?us-ascii?Q?nB8qORiB4n0S5RDRdz6P5gruffkUbEECLqY0fFB2yAuypIAQgxwSh7S1n6jQ?=
- =?us-ascii?Q?gKJ+bLnL9RNqrrLCptk3PODSdw/LANetRmXgerJhE4eBdfUEW3UYMfuKfCgu?=
- =?us-ascii?Q?/BqyAsTxiOPjbL6PsU/0M9eMQMNf21OSLgvbESiH68+g+eylMLsx+XTyP7SZ?=
- =?us-ascii?Q?zZLODhG9xclMRuNGbymIv7VTfnQKmfadoML/a5/pLX5Uy+onmAHMR8dclVQR?=
- =?us-ascii?Q?BkoKvKEgB7kKjWqNqr+Jfpuru4sQfjkaUnhSXrUUmNl32+Uyjk716oZL+P83?=
- =?us-ascii?Q?jnJqRmERDg5kxDls0RfOjgQ=3D?=
+	=?us-ascii?Q?d2/j45wMh/MMkGJ8tHqVD35/shq/oBVB8WthC57VdaTdfCUURVMKDFmHUqXG?=
+ =?us-ascii?Q?8GRMW4ujugsVlENgOuyreadEHWlmhyw8sKQuQrjzTvKZIeCWSf4xi3V3c9Gf?=
+ =?us-ascii?Q?uDD2YXHOiu8EiDKAV4T8GLMUejNiydwSiFjM34NVZA0IlxyA8p/aem0Nlfx2?=
+ =?us-ascii?Q?RovDOMnujoWXKGgM5WQql1Ib/XZc/LX9Xqszfm+TQmYEdTCVHn6x5jmfFBaR?=
+ =?us-ascii?Q?/AQRFI4GKWx2IGAMfs/2MK1xMvVcDGS0r8gte74KHTJMZbFyuTqRr9VvbkqX?=
+ =?us-ascii?Q?pxnxLdsMLCMCnJO9zVY9jwkcDagepuBfkrLFwxJumc9aPpqkk60yY0cXQprz?=
+ =?us-ascii?Q?7QAHSHgIq6HFBR2TL2THU6h8M396rxPH3cO5P6cbEzOGmOuUvK5qo3GnXse9?=
+ =?us-ascii?Q?GxCHPuibXNjxLXslg9MPw3WD1fXUvQlrMdDOSyDldN8X1HlYhIuUYwEDOo/Q?=
+ =?us-ascii?Q?Fd7GtTMdZVuwGtZUcp+5K6DEdOnzXtH3wmWAQNRQUX5lOvRpc2gsiapZlk8i?=
+ =?us-ascii?Q?NmaRM8B2AeHj3MDXs86QDZCctwv95YFjVUmo9vLNzwbuC/R8hnYMc+8KrBnv?=
+ =?us-ascii?Q?IKi11MY122Rd7HkfLhaFOFm810YSWgzrq63YMCGQUL8QRifK04HLVYoHRtT1?=
+ =?us-ascii?Q?Nw5TnvNEdlnO3vmuzy3HQm1g9nyFm3vdw8S4jcICLYXfNN1QRol+cRVW5hAa?=
+ =?us-ascii?Q?S04f/qLG9XaupKd2EkKWJcyxjiH8XnSd51LVxy8leTLMsoCliu8DwNYUYDnq?=
+ =?us-ascii?Q?hhkziX1k7F2pLFZ28rEFMs7JRJIskPEeX/NXaKnTd78+8vXDQmEUhBsB3qCY?=
+ =?us-ascii?Q?+ydLcqQbehNDtAPepSi5m077wUzDe9f8bIRvBP2U2DHnQE0c+VJ8oTfxVUyx?=
+ =?us-ascii?Q?1JknmMsCMabE+8lDIz+3tFcnEJCRaT08oegT0qpbHcljS+wYrJT4y7c8bPIH?=
+ =?us-ascii?Q?3fSxiYjcFqJO8S5CKZZc/IeM2ADjxDSE1OThG/vq9DM07dzAo/M+LZRufXOm?=
+ =?us-ascii?Q?422U4sZzBDzFAE3b7lPjkYlKvKcoLpRET8aDXDIfvmg/xWonSygSXnwM+iKn?=
+ =?us-ascii?Q?ZvABAVoenLuabYgteUBPO9v9OTq2IfjEp3qvxD0dfgbjs0rJbq/H098YTkfm?=
+ =?us-ascii?Q?mZ8l1nyXiigCh6jJlu2fR3AhC5iZXYN7TGvO32b4WfqxbSazEmKq5Vg4Jaj7?=
+ =?us-ascii?Q?EcpkAqdu03Gr1KkfaH3SJj21iQGBTB9ccglXEttOWlPMbrxRTfC39SRKAxb4?=
+ =?us-ascii?Q?DngOC5S8YvSXpD9r/qC7kViymX3hBNZyFdHg72KzA3oUxW/3uHbwgOYDNPBv?=
+ =?us-ascii?Q?wDC8GnWoIn42vq5scuZLSH4C8OC0quDjfCKKiVFdLNqOfjYmq0ZHWTy21cRs?=
+ =?us-ascii?Q?cUol44VaYro2m9E5Ic15uSsTuBxKWGINzbAUX2l0lKrunNlj3MV81uOCIZHL?=
+ =?us-ascii?Q?9Fmxrn1IyhTv48WEPhyc1lThvLdAkKpI4OYZ0ABo5wE5lZth+yl5Qe5n932r?=
+ =?us-ascii?Q?2bJqGm51mnqqX1/57cw+YXJxfYVbS1OxQOgAtE3erMJH3D6sY8XxxHK3SK5l?=
+ =?us-ascii?Q?y40pdink2VDRhRN1sUqBem08t/TejREev1G6FCdNu+xsXFBLcRZZE2XqmaID?=
+ =?us-ascii?Q?g01fYUkugcA8WdBZWqzqnDM=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 741da13b-8c6e-4a66-1227-08db92f2e2b1
+ e13a0b81-e2d2-4035-0f87-08db92f2e623
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 00:53:28.7029
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 00:53:34.4882
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Ek5m3ANXsknsjArfWIlUjTpChOQYjcxj1pWm1akIYcMEk+FBQn3s87FdJmtkV7Q49wfNv/CL+eK774ftoPsi9wn1Ik4MUnCMD4xeKTzdDmN5YtylHwOMNN+IrDNXKPl9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB12016
-Message-ID-Hash: UMKDGCANXOHX27PC3HC3WRJGFSL4XMUK
-X-Message-ID-Hash: UMKDGCANXOHX27PC3HC3WRJGFSL4XMUK
+ 3eqWMQuqtTXqIVxXKqJQ5GnpsLyFeWnMJqNX0yAbkClS+F13v4Jwg7HwKd15jTghGM15Iz3/LE5aEAYB8yXb9JTd3d7N21g+GEnCbhjywNpO3gYBK2ymEXdALtPVEifR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9381
+Message-ID-Hash: UFY4LG3WSUOTSLHGAES4GPKENKCATG7F
+X-Message-ID-Hash: UFY4LG3WSUOTSLHGAES4GPKENKCATG7F
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -155,7 +152,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMKDGCANXOHX27PC3HC3WRJGFSL4XMUK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UFY4LG3WSUOTSLHGAES4GPKENKCATG7F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -169,340 +166,186 @@ This patch merge thesse into one.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/fsl/fsl_asrc.c    | 16 ++++++++--------
- sound/soc/fsl/fsl_aud2htx.c | 10 +++++-----
- sound/soc/fsl/fsl_easrc.c   | 16 ++++++++--------
- sound/soc/fsl/fsl_esai.c    | 20 ++++++++++----------
- sound/soc/fsl/fsl_micfil.c  | 14 +++++++-------
- sound/soc/fsl/fsl_sai.c     | 24 ++++++++++++------------
- sound/soc/fsl/fsl_spdif.c   | 17 ++++++++---------
- sound/soc/fsl/fsl_ssi.c     |  3 +--
- sound/soc/fsl/fsl_xcvr.c    | 16 ++++++++--------
- 9 files changed, 67 insertions(+), 69 deletions(-)
+ sound/soc/img/img-i2s-in.c       | 14 +++++++-------
+ sound/soc/img/img-i2s-out.c      | 14 +++++++-------
+ sound/soc/img/img-parallel-out.c | 14 +++++++-------
+ sound/soc/img/img-spdif-in.c     | 12 ++++++------
+ sound/soc/img/img-spdif-out.c    | 12 ++++++------
+ 5 files changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index adb8a59de2bd..b793263291dc 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -780,13 +780,6 @@ static int fsl_asrc_dai_trigger(struct snd_pcm_substream *substream, int cmd,
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index b7ab8467b5cf..b6b6339c164b 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -370,12 +370,6 @@ static int img_i2s_in_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
  	return 0;
  }
  
--static const struct snd_soc_dai_ops fsl_asrc_dai_ops = {
--	.startup      = fsl_asrc_dai_startup,
--	.hw_params    = fsl_asrc_dai_hw_params,
--	.hw_free      = fsl_asrc_dai_hw_free,
--	.trigger      = fsl_asrc_dai_trigger,
+-static const struct snd_soc_dai_ops img_i2s_in_dai_ops = {
+-	.trigger = img_i2s_in_trigger,
+-	.hw_params = img_i2s_in_hw_params,
+-	.set_fmt = img_i2s_in_set_fmt
 -};
 -
- static int fsl_asrc_dai_probe(struct snd_soc_dai *dai)
+ static int img_i2s_in_dai_probe(struct snd_soc_dai *dai)
  {
- 	struct fsl_asrc *asrc = snd_soc_dai_get_drvdata(dai);
-@@ -797,12 +790,19 @@ static int fsl_asrc_dai_probe(struct snd_soc_dai *dai)
+ 	struct img_i2s_in *i2s = snd_soc_dai_get_drvdata(dai);
+@@ -385,6 +379,13 @@ static int img_i2s_in_dai_probe(struct snd_soc_dai *dai)
  	return 0;
  }
  
-+static const struct snd_soc_dai_ops fsl_asrc_dai_ops = {
-+	.probe		= fsl_asrc_dai_probe,
-+	.startup	= fsl_asrc_dai_startup,
-+	.hw_params	= fsl_asrc_dai_hw_params,
-+	.hw_free	= fsl_asrc_dai_hw_free,
-+	.trigger	= fsl_asrc_dai_trigger,
++static const struct snd_soc_dai_ops img_i2s_in_dai_ops = {
++	.probe		= img_i2s_in_dai_probe,
++	.trigger	= img_i2s_in_trigger,
++	.hw_params	= img_i2s_in_hw_params,
++	.set_fmt	= img_i2s_in_set_fmt
 +};
 +
- #define FSL_ASRC_FORMATS	(SNDRV_PCM_FMTBIT_S24_LE | \
- 				 SNDRV_PCM_FMTBIT_S16_LE | \
- 				 SNDRV_PCM_FMTBIT_S24_3LE)
+ static const struct snd_soc_component_driver img_i2s_in_component = {
+ 	.name = "img-i2s-in",
+ 	.legacy_dai_naming = 1,
+@@ -468,7 +469,6 @@ static int img_i2s_in_probe(struct platform_device *pdev)
+ 	i2s->dma_data.addr = res->start + IMG_I2S_IN_RX_FIFO;
+ 	i2s->dma_data.addr_width = 4;
  
- static struct snd_soc_dai_driver fsl_asrc_dai = {
--	.probe = fsl_asrc_dai_probe,
+-	i2s->dai_driver.probe = img_i2s_in_dai_probe;
+ 	i2s->dai_driver.capture.channels_min = 2;
+ 	i2s->dai_driver.capture.channels_max = i2s->max_i2s_chan * 2;
+ 	i2s->dai_driver.capture.rates = SNDRV_PCM_RATE_8000_192000;
+diff --git a/sound/soc/img/img-i2s-out.c b/sound/soc/img/img-i2s-out.c
+index fe95ddfb8407..41ea5ba52181 100644
+--- a/sound/soc/img/img-i2s-out.c
++++ b/sound/soc/img/img-i2s-out.c
+@@ -376,12 +376,6 @@ static int img_i2s_out_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return 0;
+ }
+ 
+-static const struct snd_soc_dai_ops img_i2s_out_dai_ops = {
+-	.trigger = img_i2s_out_trigger,
+-	.hw_params = img_i2s_out_hw_params,
+-	.set_fmt = img_i2s_out_set_fmt
+-};
+-
+ static int img_i2s_out_dai_probe(struct snd_soc_dai *dai)
+ {
+ 	struct img_i2s_out *i2s = snd_soc_dai_get_drvdata(dai);
+@@ -391,6 +385,13 @@ static int img_i2s_out_dai_probe(struct snd_soc_dai *dai)
+ 	return 0;
+ }
+ 
++static const struct snd_soc_dai_ops img_i2s_out_dai_ops = {
++	.probe		= img_i2s_out_dai_probe,
++	.trigger	= img_i2s_out_trigger,
++	.hw_params	= img_i2s_out_hw_params,
++	.set_fmt	= img_i2s_out_set_fmt
++};
++
+ static const struct snd_soc_component_driver img_i2s_out_component = {
+ 	.name = "img-i2s-out",
+ 	.legacy_dai_naming = 1,
+@@ -504,7 +505,6 @@ static int img_i2s_out_probe(struct platform_device *pdev)
+ 	i2s->dma_data.addr_width = 4;
+ 	i2s->dma_data.maxburst = 4;
+ 
+-	i2s->dai_driver.probe = img_i2s_out_dai_probe;
+ 	i2s->dai_driver.playback.channels_min = 2;
+ 	i2s->dai_driver.playback.channels_max = i2s->max_i2s_chan * 2;
+ 	i2s->dai_driver.playback.rates = SNDRV_PCM_RATE_8000_192000;
+diff --git a/sound/soc/img/img-parallel-out.c b/sound/soc/img/img-parallel-out.c
+index df1291ee2b3b..815e68a7048c 100644
+--- a/sound/soc/img/img-parallel-out.c
++++ b/sound/soc/img/img-parallel-out.c
+@@ -174,12 +174,6 @@ static int img_prl_out_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return 0;
+ }
+ 
+-static const struct snd_soc_dai_ops img_prl_out_dai_ops = {
+-	.trigger = img_prl_out_trigger,
+-	.hw_params = img_prl_out_hw_params,
+-	.set_fmt = img_prl_out_set_fmt
+-};
+-
+ static int img_prl_out_dai_probe(struct snd_soc_dai *dai)
+ {
+ 	struct img_prl_out *prl = snd_soc_dai_get_drvdata(dai);
+@@ -189,8 +183,14 @@ static int img_prl_out_dai_probe(struct snd_soc_dai *dai)
+ 	return 0;
+ }
+ 
++static const struct snd_soc_dai_ops img_prl_out_dai_ops = {
++	.probe		= img_prl_out_dai_probe,
++	.trigger	= img_prl_out_trigger,
++	.hw_params	= img_prl_out_hw_params,
++	.set_fmt	= img_prl_out_set_fmt
++};
++
+ static struct snd_soc_dai_driver img_prl_out_dai = {
+-	.probe = img_prl_out_dai_probe,
  	.playback = {
- 		.stream_name = "ASRC-Playback",
- 		.channels_min = 1,
-diff --git a/sound/soc/fsl/fsl_aud2htx.c b/sound/soc/fsl/fsl_aud2htx.c
-index 46b0c5dcc4a5..fc56f6ade368 100644
---- a/sound/soc/fsl/fsl_aud2htx.c
-+++ b/sound/soc/fsl/fsl_aud2htx.c
-@@ -49,10 +49,6 @@ static int fsl_aud2htx_trigger(struct snd_pcm_substream *substream, int cmd,
- 	return 0;
+ 		.channels_min = 2,
+ 		.channels_max = 2,
+diff --git a/sound/soc/img/img-spdif-in.c b/sound/soc/img/img-spdif-in.c
+index 558062a1804a..9646e9d3f0bc 100644
+--- a/sound/soc/img/img-spdif-in.c
++++ b/sound/soc/img/img-spdif-in.c
+@@ -682,11 +682,6 @@ static int img_spdif_in_hw_params(struct snd_pcm_substream *substream,
+ 	return img_spdif_in_do_clkgen_single(spdif, rate);
  }
  
--static const struct snd_soc_dai_ops fsl_aud2htx_dai_ops = {
--	.trigger	= fsl_aud2htx_trigger,
+-static const struct snd_soc_dai_ops img_spdif_in_dai_ops = {
+-	.trigger = img_spdif_in_trigger,
+-	.hw_params = img_spdif_in_hw_params
 -};
 -
- static int fsl_aud2htx_dai_probe(struct snd_soc_dai *cpu_dai)
+ static int img_spdif_in_dai_probe(struct snd_soc_dai *dai)
  {
- 	struct fsl_aud2htx *aud2htx = dev_get_drvdata(cpu_dai->dev);
-@@ -84,8 +80,12 @@ static int fsl_aud2htx_dai_probe(struct snd_soc_dai *cpu_dai)
+ 	struct img_spdif_in *spdif = snd_soc_dai_get_drvdata(dai);
+@@ -699,8 +694,13 @@ static int img_spdif_in_dai_probe(struct snd_soc_dai *dai)
  	return 0;
  }
  
-+static const struct snd_soc_dai_ops fsl_aud2htx_dai_ops = {
-+	.probe		= fsl_aud2htx_dai_probe,
-+	.trigger	= fsl_aud2htx_trigger,
++static const struct snd_soc_dai_ops img_spdif_in_dai_ops = {
++	.probe		= img_spdif_in_dai_probe,
++	.trigger	= img_spdif_in_trigger,
++	.hw_params	= img_spdif_in_hw_params
 +};
 +
- static struct snd_soc_dai_driver fsl_aud2htx_dai = {
--	.probe = fsl_aud2htx_dai_probe,
- 	.playback = {
- 		.stream_name = "CPU-Playback",
- 		.channels_min = 1,
-diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-index 670cbdb361b6..ba62995c909a 100644
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -1531,13 +1531,6 @@ static int fsl_easrc_hw_free(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static const struct snd_soc_dai_ops fsl_easrc_dai_ops = {
--	.startup = fsl_easrc_startup,
--	.trigger = fsl_easrc_trigger,
--	.hw_params = fsl_easrc_hw_params,
--	.hw_free = fsl_easrc_hw_free,
--};
--
- static int fsl_easrc_dai_probe(struct snd_soc_dai *cpu_dai)
- {
- 	struct fsl_asrc *easrc = dev_get_drvdata(cpu_dai->dev);
-@@ -1548,8 +1541,15 @@ static int fsl_easrc_dai_probe(struct snd_soc_dai *cpu_dai)
- 	return 0;
- }
- 
-+static const struct snd_soc_dai_ops fsl_easrc_dai_ops = {
-+	.probe		= fsl_easrc_dai_probe,
-+	.startup	= fsl_easrc_startup,
-+	.trigger	= fsl_easrc_trigger,
-+	.hw_params	= fsl_easrc_hw_params,
-+	.hw_free	= fsl_easrc_hw_free,
-+};
-+
- static struct snd_soc_dai_driver fsl_easrc_dai = {
--	.probe = fsl_easrc_dai_probe,
- 	.playback = {
- 		.stream_name = "ASRC-Playback",
- 		.channels_min = 1,
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index 936f0cd4b06d..d0d8a01da9bd 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -785,15 +785,6 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	return 0;
- }
- 
--static const struct snd_soc_dai_ops fsl_esai_dai_ops = {
--	.startup = fsl_esai_startup,
--	.trigger = fsl_esai_trigger,
--	.hw_params = fsl_esai_hw_params,
--	.set_sysclk = fsl_esai_set_dai_sysclk,
--	.set_fmt = fsl_esai_set_dai_fmt,
--	.set_tdm_slot = fsl_esai_set_dai_tdm_slot,
--};
--
- static int fsl_esai_dai_probe(struct snd_soc_dai *dai)
- {
- 	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
-@@ -804,8 +795,17 @@ static int fsl_esai_dai_probe(struct snd_soc_dai *dai)
- 	return 0;
- }
- 
-+static const struct snd_soc_dai_ops fsl_esai_dai_ops = {
-+	.probe		= fsl_esai_dai_probe,
-+	.startup	= fsl_esai_startup,
-+	.trigger	= fsl_esai_trigger,
-+	.hw_params	= fsl_esai_hw_params,
-+	.set_sysclk	= fsl_esai_set_dai_sysclk,
-+	.set_fmt	= fsl_esai_set_dai_fmt,
-+	.set_tdm_slot	= fsl_esai_set_dai_tdm_slot,
-+};
-+
- static struct snd_soc_dai_driver fsl_esai_dai = {
--	.probe = fsl_esai_dai_probe,
- 	.playback = {
- 		.stream_name = "CPU-Playback",
- 		.channels_min = 1,
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index fe28b27e50d0..550bf4da36e5 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -717,12 +717,6 @@ static int fsl_micfil_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static const struct snd_soc_dai_ops fsl_micfil_dai_ops = {
--	.startup = fsl_micfil_startup,
--	.trigger = fsl_micfil_trigger,
--	.hw_params = fsl_micfil_hw_params,
--};
--
- static int fsl_micfil_dai_probe(struct snd_soc_dai *cpu_dai)
- {
- 	struct fsl_micfil *micfil = dev_get_drvdata(cpu_dai->dev);
-@@ -760,8 +754,14 @@ static int fsl_micfil_dai_probe(struct snd_soc_dai *cpu_dai)
- 	return 0;
- }
- 
-+static const struct snd_soc_dai_ops fsl_micfil_dai_ops = {
-+	.probe		= fsl_micfil_dai_probe,
-+	.startup	= fsl_micfil_startup,
-+	.trigger	= fsl_micfil_trigger,
-+	.hw_params	= fsl_micfil_hw_params,
-+};
-+
- static struct snd_soc_dai_driver fsl_micfil_dai = {
--	.probe = fsl_micfil_dai_probe,
+ static struct snd_soc_dai_driver img_spdif_in_dai = {
+-	.probe = img_spdif_in_dai_probe,
  	.capture = {
- 		.stream_name = "CPU-Capture",
- 		.channels_min = 1,
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index f7676d30c82f..1e4020fae05a 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -849,17 +849,6 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
--static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
--	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
--	.set_sysclk	= fsl_sai_set_dai_sysclk,
--	.set_fmt	= fsl_sai_set_dai_fmt,
--	.set_tdm_slot	= fsl_sai_set_dai_tdm_slot,
--	.hw_params	= fsl_sai_hw_params,
--	.hw_free	= fsl_sai_hw_free,
--	.trigger	= fsl_sai_trigger,
--	.startup	= fsl_sai_startup,
--};
--
- static int fsl_sai_dai_probe(struct snd_soc_dai *cpu_dai)
- {
- 	struct fsl_sai *sai = dev_get_drvdata(cpu_dai->dev);
-@@ -885,6 +874,18 @@ static int fsl_sai_dai_probe(struct snd_soc_dai *cpu_dai)
- 	return 0;
- }
- 
-+static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
-+	.probe		= fsl_sai_dai_probe,
-+	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
-+	.set_sysclk	= fsl_sai_set_dai_sysclk,
-+	.set_fmt	= fsl_sai_set_dai_fmt,
-+	.set_tdm_slot	= fsl_sai_set_dai_tdm_slot,
-+	.hw_params	= fsl_sai_hw_params,
-+	.hw_free	= fsl_sai_hw_free,
-+	.trigger	= fsl_sai_trigger,
-+	.startup	= fsl_sai_startup,
-+};
-+
- static int fsl_sai_dai_resume(struct snd_soc_component *component)
- {
- 	struct fsl_sai *sai = snd_soc_component_get_drvdata(component);
-@@ -903,7 +904,6 @@ static int fsl_sai_dai_resume(struct snd_soc_component *component)
- }
- 
- static struct snd_soc_dai_driver fsl_sai_dai_template = {
--	.probe = fsl_sai_dai_probe,
- 	.playback = {
- 		.stream_name = "CPU-Playback",
- 		.channels_min = 1,
-diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
-index 95bb8b10494a..78d9dfbe6548 100644
---- a/sound/soc/fsl/fsl_spdif.c
-+++ b/sound/soc/fsl/fsl_spdif.c
-@@ -765,14 +765,6 @@ static int fsl_spdif_trigger(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static const struct snd_soc_dai_ops fsl_spdif_dai_ops = {
--	.startup = fsl_spdif_startup,
--	.hw_params = fsl_spdif_hw_params,
--	.trigger = fsl_spdif_trigger,
--	.shutdown = fsl_spdif_shutdown,
--};
--
--
- /*
-  * FSL SPDIF IEC958 controller(mixer) functions
-  *
-@@ -1283,8 +1275,15 @@ static int fsl_spdif_dai_probe(struct snd_soc_dai *dai)
- 	return 0;
- }
- 
-+static const struct snd_soc_dai_ops fsl_spdif_dai_ops = {
-+	.probe		= fsl_spdif_dai_probe,
-+	.startup	= fsl_spdif_startup,
-+	.hw_params	= fsl_spdif_hw_params,
-+	.trigger	= fsl_spdif_trigger,
-+	.shutdown	= fsl_spdif_shutdown,
-+};
-+
- static struct snd_soc_dai_driver fsl_spdif_dai = {
--	.probe = &fsl_spdif_dai_probe,
- 	.playback = {
- 		.stream_name = "CPU-Playback",
  		.channels_min = 2,
-diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
-index 53ed3701b0b0..079ac04272b8 100644
---- a/sound/soc/fsl/fsl_ssi.c
-+++ b/sound/soc/fsl/fsl_ssi.c
-@@ -1152,6 +1152,7 @@ static int fsl_ssi_dai_probe(struct snd_soc_dai *dai)
- }
- 
- static const struct snd_soc_dai_ops fsl_ssi_dai_ops = {
-+	.probe = fsl_ssi_dai_probe,
- 	.startup = fsl_ssi_startup,
- 	.shutdown = fsl_ssi_shutdown,
- 	.hw_params = fsl_ssi_hw_params,
-@@ -1162,7 +1163,6 @@ static const struct snd_soc_dai_ops fsl_ssi_dai_ops = {
- };
- 
- static struct snd_soc_dai_driver fsl_ssi_dai_template = {
--	.probe = fsl_ssi_dai_probe,
- 	.playback = {
- 		.stream_name = "CPU-Playback",
- 		.channels_min = 1,
-@@ -1187,7 +1187,6 @@ static const struct snd_soc_component_driver fsl_ssi_component = {
- 
- static struct snd_soc_dai_driver fsl_ssi_ac97_dai = {
- 	.symmetric_channels = 1,
--	.probe = fsl_ssi_dai_probe,
- 	.playback = {
- 		.stream_name = "CPU AC97 Playback",
- 		.channels_min = 2,
-diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-index 318fe77683f5..fa0a15263c66 100644
---- a/sound/soc/fsl/fsl_xcvr.c
-+++ b/sound/soc/fsl/fsl_xcvr.c
-@@ -888,13 +888,6 @@ static struct snd_kcontrol_new fsl_xcvr_tx_ctls[] = {
- 	},
- };
- 
--static const struct snd_soc_dai_ops fsl_xcvr_dai_ops = {
--	.prepare = fsl_xcvr_prepare,
--	.startup = fsl_xcvr_startup,
--	.shutdown = fsl_xcvr_shutdown,
--	.trigger = fsl_xcvr_trigger,
--};
--
- static int fsl_xcvr_dai_probe(struct snd_soc_dai *dai)
- {
- 	struct fsl_xcvr *xcvr = snd_soc_dai_get_drvdata(dai);
-@@ -915,8 +908,15 @@ static int fsl_xcvr_dai_probe(struct snd_soc_dai *dai)
+ 		.channels_max = 2,
+diff --git a/sound/soc/img/img-spdif-out.c b/sound/soc/img/img-spdif-out.c
+index b13e128e50d6..dfa72afa946e 100644
+--- a/sound/soc/img/img-spdif-out.c
++++ b/sound/soc/img/img-spdif-out.c
+@@ -287,11 +287,6 @@ static int img_spdif_out_hw_params(struct snd_pcm_substream *substream,
  	return 0;
  }
  
-+static const struct snd_soc_dai_ops fsl_xcvr_dai_ops = {
-+	.probe		= fsl_xcvr_dai_probe,
-+	.prepare	= fsl_xcvr_prepare,
-+	.startup	= fsl_xcvr_startup,
-+	.shutdown	= fsl_xcvr_shutdown,
-+	.trigger	= fsl_xcvr_trigger,
+-static const struct snd_soc_dai_ops img_spdif_out_dai_ops = {
+-	.trigger = img_spdif_out_trigger,
+-	.hw_params = img_spdif_out_hw_params
+-};
+-
+ static int img_spdif_out_dai_probe(struct snd_soc_dai *dai)
+ {
+ 	struct img_spdif_out *spdif = snd_soc_dai_get_drvdata(dai);
+@@ -304,8 +299,13 @@ static int img_spdif_out_dai_probe(struct snd_soc_dai *dai)
+ 	return 0;
+ }
+ 
++static const struct snd_soc_dai_ops img_spdif_out_dai_ops = {
++	.probe		= img_spdif_out_dai_probe,
++	.trigger	= img_spdif_out_trigger,
++	.hw_params	= img_spdif_out_hw_params
 +};
 +
- static struct snd_soc_dai_driver fsl_xcvr_dai = {
--	.probe  = fsl_xcvr_dai_probe,
- 	.ops = &fsl_xcvr_dai_ops,
+ static struct snd_soc_dai_driver img_spdif_out_dai = {
+-	.probe = img_spdif_out_dai_probe,
  	.playback = {
- 		.stream_name = "CPU-Playback",
+ 		.channels_min = 2,
+ 		.channels_max = 2,
 -- 
 2.25.1
 

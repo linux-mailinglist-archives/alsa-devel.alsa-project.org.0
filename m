@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA2EF76D667
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 20:03:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72CEC76D673
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Aug 2023 20:06:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EC97886;
-	Wed,  2 Aug 2023 20:03:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EC97886
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8111E8B;
+	Wed,  2 Aug 2023 20:05:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8111E8B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1690999434;
-	bh=ug6nzxRs9glhiVgb2Ea08/qmpNdzgRpg07YW3+i9oSU=;
+	s=default; t=1690999586;
+	bh=v25E65+35t5pP0V64D3Qgxwl4xwU6AWXEASyntTLjSg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vVrhHCGgcQ6ZdK6j0aTpmuDnaUuE4ofQzFJrQ85N8dOFCDkQfmzRj3WhiNqX8y/Tk
-	 2TgYyiv2V52iOyH9LzGpHG9TCEUjCFTyWYQFmhlGeWHBlnDcmj8XU+CEXXoLgHK15U
-	 rG0puxCRex6H0O45rMG+VxxPqbbOIvU4ucT8Lmi8=
+	b=McaI0WkYkNHi01GzEM2IgcMfGCc2bLwfJbOiLgo+wvkj1196gFslrygYwDnYiK+41
+	 z+k1CnUl2q/ZnLGAYQgiVWBG8v31OhU+B+AP4hR7KEkGluzbQbca7Dvp7UlbGYFlGS
+	 w9WntwswCuvM6zzgtd2HjY/itOtn6QPE0O9J5Xt4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1A32F8063C; Wed,  2 Aug 2023 19:59:11 +0200 (CEST)
+	id 7801CF806B1; Wed,  2 Aug 2023 19:59:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5B70F80637;
-	Wed,  2 Aug 2023 19:59:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8F63F8058C;
+	Wed,  2 Aug 2023 19:59:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6AB7F805E4; Wed,  2 Aug 2023 19:58:38 +0200 (CEST)
+	id 9C91AF80687; Wed,  2 Aug 2023 19:59:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,53 +38,53 @@ Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 753D4F805DF
-	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 19:58:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 753D4F805DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4FE54F8025A
+	for <alsa-devel@alsa-project.org>; Wed,  2 Aug 2023 19:58:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FE54F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=PgoxqIWg
+ header.s=20221208 header.b=hvqAAqCj
 Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-3fbf1b82d9cso1211595e9.2
+ 5b1f17b1804b1-3fbc5d5742bso1289765e9.2
         for <alsa-devel@alsa-project.org>;
- Wed, 02 Aug 2023 10:58:35 -0700 (PDT)
+ Wed, 02 Aug 2023 10:58:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690999114; x=1691603914;
+        d=gmail.com; s=20221208; t=1690999080; x=1691603880;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a+3O1DghoKTsvX8XNtwYPlplZlPGOuzWPkOeAp7AhV4=;
-        b=PgoxqIWgtjL86OEBXvSnfsDkFquIuj6IG9GHhXDef7BAFe669yJ8pdHyvfdrYYwBlD
-         GJC2YPeLVB7RRDLPXxqeK7DpCf64n+Y0JfuX5QUFoCDLTA1cTLmqwK6MWJXNnoQn9lZ9
-         Fnm5eKJbAGoQRfBAAA6Vkn/yc7R5iHcMtX3E9pHKhDjSa85/yQQQfd0ZF1wY8dwEV2AL
-         RoC+t9Qx2nm1lUj1c6k9px/zJAIAwTEAFH73/bvyf5o51OKy6gwrFhdABUXUOoaSHxP5
-         6UfFHPVJT8zl7mMVEEeo5atAu8JrfZkm8Ve/hqIvlWLmt78EyLV8gdlSoDrl+9IaOsBt
-         k2Xw==
+        bh=E8q6oeJAXCtu9hv15ODqXQ4DGTBLuJ63S8PbYuJF85k=;
+        b=hvqAAqCj6zLmA/e0ULUUNBKF+kdiqCvNGh4AfBHwGFDJ7Rbwbps4cpWNjeCUwQi1Fy
+         O+lf+6UUgcFb8NSipYOOu1CQCXQOdWGEe6JYUM6xwdGZMm/Ce9m/KBAN5k0lvEUUH0uk
+         yxcd4hlJOJvCRPXZU7lNwuM7JW0oYDgbB1/tHAIXhTJf0OSkLPza5GHCY+idS2GbTR5e
+         zzJQkTO9jGj8gy5+GHCHrkLFs+tcOfCvnBKkwhAVCy5LyNLTU0QT/LVbvaKA5w0/uruD
+         ndTFEMw+SsH2n9nEWRm9ZLkXoby/GshpBmXmQTkaeBH0XJjzVr5XKlHIQKGymR8/cCHv
+         30/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690999114; x=1691603914;
+        d=1e100.net; s=20221208; t=1690999080; x=1691603880;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a+3O1DghoKTsvX8XNtwYPlplZlPGOuzWPkOeAp7AhV4=;
-        b=QCNUa+0nWZshXt6mEqrdUOpcBcP0196BJANzX5YXnfEPgL8cSOsMolQreCadZm5Vjv
-         hcXiy6Twc8xTbX7sOyrza0p1nb7xOb66GsYeVQYVO5X3yAAGVp4KzNEeYWJxY19Eo6Cw
-         Cc1EjcnwJvvYEBgkeo+VNR/NuwTYeBAayyai2YtwQbvJ9LI6b0GufKyObvQ4rI07N3pD
-         oofOBKhA4w/NC6K/NIELmtzZR8jUsU2dBsrDLor6q3RITa9WvZzNRIYHjRGgZO/wjvpp
-         G6l0TuXLwH+egQruxEg1TOWbvLI2hwP31rUaegYs4nAgJhdQKbiDPdUj16xYuxvRAEhz
-         cxBg==
-X-Gm-Message-State: ABy/qLYrJsqKE2Lj2gM+gVbtWWrtfPtCPBLMwVlQz7myVZ0zg/Rduwne
-	kHvv3MzIHVXuFtgnGrJJVzSvo002Tv8=
+        bh=E8q6oeJAXCtu9hv15ODqXQ4DGTBLuJ63S8PbYuJF85k=;
+        b=W2mwkT04lv2VqaAR0yOZaIzHB3f9TkUGkBIv5O4XVT6tVRxbjIO6Yrsx9pG+r7gK//
+         FbOBe1YKne3vUzclyNV+KQGaxq+i8wG7qxnVH28Ea6rLsUNTQTV8Ky1u69qiogGT9Z8E
+         qsI3+kF4DOVeEjFKGnW1E6QWVqGs8+6HJyOKgfO9G9qNsYwTb70JencXS5QyEmvTJPxC
+         IXR7JKUGWb8nchR45SbIT6/zZqU8XUG9vkaQUs/HsHNEZu0bQ8RePlxtT+fwPrNtNS95
+         DT3r59vZZBqTfCMpZJBqEOpcXeNJLf1tl4V4C3ZUjwCyJ9wf7n9zviKdL3IseLqU6Uzk
+         sXVQ==
+X-Gm-Message-State: ABy/qLaGQDYPDkqwsuUptixiNwkjwGP+vFE718HsgWPN+1XhzUwl6iCG
+	8yK14DC2cYQRzD6l3rPbo25oj6lsubU=
 X-Google-Smtp-Source: 
- APBJJlFXfxujtj6YpCKjtWZNCMBWWVwJcXqOlCDQOj6i8alThDmQeh9bj8gaybKQUMc6C5J1umD6GQ==
-X-Received: by 2002:a7b:c5d9:0:b0:3f7:678c:74b0 with SMTP id
- n25-20020a7bc5d9000000b003f7678c74b0mr5632761wmk.12.1690999113752;
-        Wed, 02 Aug 2023 10:58:33 -0700 (PDT)
+ APBJJlGUrfqpF/yOLbHFeZQc7xwlzqX/qHeUy+3Q3sxp65BzfkvHzfmYba5BF+W7DC9EZ6VUK/bQsw==
+X-Received: by 2002:a5d:428f:0:b0:314:2f5b:2ce with SMTP id
+ k15-20020a5d428f000000b003142f5b02cemr5303270wrq.12.1690999080395;
+        Wed, 02 Aug 2023 10:58:00 -0700 (PDT)
 Received: from ALPER-PC.. ([178.233.24.1])
         by smtp.gmail.com with ESMTPSA id
- l23-20020a7bc457000000b003fe20db88ebsm2192439wmi.31.2023.08.02.10.58.32
+ l23-20020a7bc457000000b003fe20db88ebsm2192439wmi.31.2023.08.02.10.57.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Aug 2023 10:58:33 -0700 (PDT)
+        Wed, 02 Aug 2023 10:57:59 -0700 (PDT)
 From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
 To: alsa-devel@alsa-project.org
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -100,16 +100,16 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	=?UTF-8?q?N=C3=ADcolas=20F=20=2E=20R=20=2E=20A=20=2E=20Prado?=
  <nfraprado@collabora.com>
-Subject: [PATCH 20/27] ASoC: qcom: sc7180: Map missing jack kcontrols
-Date: Wed,  2 Aug 2023 20:57:30 +0300
-Message-Id: <20230802175737.263412-21-alpernebiyasak@gmail.com>
+Subject: [PATCH 03/27] ASoC: amd: acp: Map missing jack kcontrols
+Date: Wed,  2 Aug 2023 20:57:13 +0300
+Message-Id: <20230802175737.263412-4-alpernebiyasak@gmail.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230802175737.263412-1-alpernebiyasak@gmail.com>
 References: <20230802175737.263412-1-alpernebiyasak@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZOEKKKFGJGR34H6SAATJL6BG33CY7IIZ
-X-Message-ID-Hash: ZOEKKKFGJGR34H6SAATJL6BG33CY7IIZ
+Message-ID-Hash: OPLSN4PL2VEVLNCB44Z4JCVMM6O3MYAJ
+X-Message-ID-Hash: OPLSN4PL2VEVLNCB44Z4JCVMM6O3MYAJ
 X-MailFrom: alpernebiyasak@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZOEKKKFGJGR34H6SAATJL6BG33CY7IIZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPLSN4PL2VEVLNCB44Z4JCVMM6O3MYAJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,25 +132,49 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 This driver does not properly map jack pins to kcontrols that PulseAudio
-and PipeWire need to handle jack detection events. The RT5682 and
-RT5682s codecs used here can detect Headphone and Headset Mic
-connections. Expose each to userspace as a kcontrol.
+and PipeWire need to handle jack detection events. The RT5682, RT5682s,
+NAU8825 and NAU8821 codecs used here can detect Headphone and Headset
+Mic connections. Expose both to userspace as kcontrols and add the
+necessary widgets. Split the jack and pin structs per-codec to
+accommodate for per-codec differences.
 
 Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
 ---
+Do I have to keep the lowercase "jack" in the last one instead?
+Should the SND_JACK_LINEOUT be removed from the jack_new_pins calls?
+I don't know why it was split as vg_headset / pco_jack, maybe everything
+could be merged instead?
 
- sound/soc/qcom/sc7180.c | 40 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 33 insertions(+), 7 deletions(-)
+ sound/soc/amd/acp/acp-mach-common.c | 226 ++++++++++++++++++++++------
+ 1 file changed, 182 insertions(+), 44 deletions(-)
 
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-index f5f7c64b23a2..57c5f35dfcc5 100644
---- a/sound/soc/qcom/sc7180.c
-+++ b/sound/soc/qcom/sc7180.c
-@@ -42,6 +42,17 @@ static void sc7180_jack_free(struct snd_jack *jack)
- 	snd_soc_component_set_jack(component, NULL, NULL);
- }
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index ff5cbc4a6427..f3abaa182fbb 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -28,7 +28,6 @@
+ #include "../../codecs/nau8821.h"
+ #include "acp-mach.h"
  
-+static struct snd_soc_jack_pin sc7180_jack_pins[] = {
+-static struct snd_soc_jack vg_headset;
+ #define PCO_PLAT_CLK 48000000
+ #define RT5682_PLL_FREQ (48000 * 512)
+ #define DUAL_CHANNEL	2
+@@ -52,8 +51,6 @@ const struct dmi_system_id acp_quirk_table[] = {
+ };
+ EXPORT_SYMBOL_GPL(acp_quirk_table);
+ 
+-static struct snd_soc_jack pco_jack;
+-
+ static const unsigned int channels[] = {
+ 	DUAL_CHANNEL,
+ };
+@@ -87,6 +84,28 @@ static int acp_clk_enable(struct acp_card_drvdata *drvdata,
+ SND_SOC_DAILINK_DEF(rt5682,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5682:00", "rt5682-aif1")));
+ 
++static struct snd_soc_jack rt5682_jack;
++static struct snd_soc_jack_pin rt5682_jack_pins[] = {
 +	{
 +		.pin = "Headphone Jack",
 +		.mask = SND_JACK_HEADPHONE,
@@ -161,70 +185,306 @@ index f5f7c64b23a2..57c5f35dfcc5 100644
 +	},
 +};
 +
- static int sc7180_headset_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -51,13 +62,14 @@ static int sc7180_headset_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_jack *jack;
- 	int rval;
++static const struct snd_kcontrol_new rt5682_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
++static const struct snd_soc_dapm_widget rt5682_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++};
++
+ static const struct snd_soc_dapm_route rt5682_map[] = {
+ 	{ "Headphone Jack", NULL, "HPOL" },
+ 	{ "Headphone Jack", NULL, "HPOR" },
+@@ -110,22 +129,38 @@ static int acp_card_rt5682_init(struct snd_soc_pcm_runtime *rtd)
+ 	drvdata->wclk = clk_get(component->dev, "rt5682-dai-wclk");
+ 	drvdata->bclk = clk_get(component->dev, "rt5682-dai-bclk");
  
--	rval = snd_soc_card_jack_new(
--			card, "Headset Jack",
--			SND_JACK_HEADSET |
--			SND_JACK_HEADPHONE |
--			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
--			SND_JACK_BTN_2 | SND_JACK_BTN_3,
--			&pdata->hs_jack);
-+	rval = snd_soc_card_jack_new_pins(card, "Headset Jack",
-+					  SND_JACK_HEADSET |
-+					  SND_JACK_HEADPHONE |
-+					  SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+					  SND_JACK_BTN_2 | SND_JACK_BTN_3,
-+					  &pdata->hs_jack,
-+					  sc7180_jack_pins,
-+					  ARRAY_SIZE(sc7180_jack_pins));
+-	ret = snd_soc_card_jack_new(card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+-				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &pco_jack);
++	ret = snd_soc_dapm_new_controls(&card->dapm, rt5682_widgets,
++					ARRAY_SIZE(rt5682_widgets));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add widget dapm controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_add_card_controls(card, rt5682_controls,
++					ARRAY_SIZE(rt5682_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_card_jack_new_pins(card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
++					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
++					 &rt5682_jack,
++					 rt5682_jack_pins,
++					 ARRAY_SIZE(rt5682_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+ 	}
  
- 	if (rval < 0) {
- 		dev_err(card->dev, "Unable to add Headset Jack\n");
-@@ -297,6 +309,11 @@ static const struct snd_soc_dapm_widget sc7180_snd_widgets[] = {
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
++	snd_jack_set_key(rt5682_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(rt5682_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(rt5682_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(rt5682_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+ 
+-	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
++	ret = snd_soc_component_set_jack(component, &rt5682_jack, NULL);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
+ 		return ret;
+@@ -275,6 +310,28 @@ static const struct snd_soc_ops acp_card_rt5682_ops = {
+ SND_SOC_DAILINK_DEF(rt5682s,
+ 		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RTL5682:00", "rt5682s-aif1")));
+ 
++static struct snd_soc_jack rt5682s_jack;
++static struct snd_soc_jack_pin rt5682s_jack_pins[] = {
++	{
++		.pin = "Headphone Jack",
++		.mask = SND_JACK_HEADPHONE,
++	},
++	{
++		.pin = "Headset Mic",
++		.mask = SND_JACK_MICROPHONE,
++	},
++};
++
++static const struct snd_kcontrol_new rt5682s_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
++static const struct snd_soc_dapm_widget rt5682s_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++};
++
+ static const struct snd_soc_dapm_route rt5682s_map[] = {
+ 	{ "Headphone Jack", NULL, "HPOL" },
+ 	{ "Headphone Jack", NULL, "HPOR" },
+@@ -299,22 +356,38 @@ static int acp_card_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
+ 		drvdata->bclk = clk_get(component->dev, "rt5682-dai-bclk");
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+-				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &pco_jack);
++	ret = snd_soc_dapm_new_controls(&card->dapm, rt5682s_widgets,
++					ARRAY_SIZE(rt5682s_widgets));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add widget dapm controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_add_card_controls(card, rt5682s_controls,
++					ARRAY_SIZE(rt5682s_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_card_jack_new_pins(card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
++					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
++					 &rt5682s_jack,
++					 rt5682s_jack_pins,
++					 ARRAY_SIZE(rt5682s_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
++	snd_jack_set_key(rt5682s_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(rt5682s_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(rt5682s_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(rt5682s_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+ 
+-	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
++	ret = snd_soc_component_set_jack(component, &rt5682s_jack, NULL);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
+ 		return ret;
+@@ -762,6 +835,28 @@ static const struct snd_soc_ops acp_max98388_ops = {
+ SND_SOC_DAILINK_DEF(nau8825,
+ 		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10508825:00", "nau8825-hifi")));
+ 
++static struct snd_soc_jack nau8825_jack;
++static struct snd_soc_jack_pin nau8825_jack_pins[] = {
++	{
++		.pin = "Headphone Jack",
++		.mask = SND_JACK_HEADPHONE,
++	},
++	{
++		.pin = "Headset Mic",
++		.mask = SND_JACK_MICROPHONE,
++	},
++};
++
++static const struct snd_kcontrol_new nau8825_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
++static const struct snd_soc_dapm_widget nau8825_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++};
++
+ static const struct snd_soc_dapm_route nau8825_map[] = {
+ 	{ "Headphone Jack", NULL, "HPOL" },
+ 	{ "Headphone Jack", NULL, "HPOR" },
+@@ -780,22 +875,38 @@ static int acp_card_nau8825_init(struct snd_soc_pcm_runtime *rtd)
+ 	if (drvdata->hs_codec_id != NAU8825)
+ 		return -EINVAL;
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset Jack",
++	ret = snd_soc_dapm_new_controls(&card->dapm, nau8825_widgets,
++					ARRAY_SIZE(nau8825_widgets));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add widget dapm controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_add_card_controls(card, nau8825_controls,
++					ARRAY_SIZE(nau8825_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_card_jack_new_pins(card, "Headset Jack",
+ 					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-					 &pco_jack);
++					 &nau8825_jack,
++					 nau8825_jack_pins,
++					 ARRAY_SIZE(nau8825_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "HP jack creation failed %d\n", ret);
+ 		return ret;
+ 	}
+ 
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+-	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
++	snd_jack_set_key(nau8825_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(nau8825_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(nau8825_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(nau8825_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+ 
+-	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
++	ret = snd_soc_component_set_jack(component, &nau8825_jack, NULL);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
+ 		return ret;
+@@ -921,8 +1032,25 @@ static int platform_clock_control(struct snd_soc_dapm_widget *w,
+ 	return ret;
+ }
+ 
++static struct snd_soc_jack nau8821_jack;
++static struct snd_soc_jack_pin nau8821_jack_pins[] = {
++	{
++		.pin = "Headphone Jack",
++		.mask = SND_JACK_HEADPHONE,
++	},
++	{
++		.pin = "Headset Mic",
++		.mask = SND_JACK_MICROPHONE,
++	},
++};
++
++static const struct snd_kcontrol_new nau8821_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
+ static const struct snd_soc_dapm_widget nau8821_widgets[] = {
+-	SND_SOC_DAPM_HP("Headphone jack", NULL),
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
  	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- };
+ 	SND_SOC_DAPM_MIC("Int Mic", NULL),
+ 	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
+@@ -932,12 +1060,12 @@ static const struct snd_soc_dapm_widget nau8821_widgets[] = {
  
-+static const struct snd_kcontrol_new sc7180_snd_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+};
+ static const struct snd_soc_dapm_route nau8821_audio_route[] = {
+ 	/* HP jack connectors - unknown if we have jack detection */
+-	{ "Headphone jack", NULL, "HPOL" },
+-	{ "Headphone jack", NULL, "HPOR" },
++	{ "Headphone Jack", NULL, "HPOL" },
++	{ "Headphone Jack", NULL, "HPOR" },
+ 	{ "MICL", NULL, "Headset Mic" },
+ 	{ "MICR", NULL, "Headset Mic" },
+ 	{ "DMIC", NULL, "Int Mic" },
+-	{ "Headphone jack", NULL, "Platform Clock" },
++	{ "Headphone Jack", NULL, "Platform Clock" },
+ 	{ "Headset Mic", NULL, "Platform Clock" },
+ 	{ "Int Mic", NULL, "Platform Clock" },
+ };
+@@ -966,21 +1094,31 @@ static int acp_8821_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_card_jack_new(card, "Headset Jack",
+-				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
+-				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+-				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-				    &vg_headset);
++	ret = snd_soc_add_card_controls(card, nau8821_controls,
++					ARRAY_SIZE(nau8821_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
 +
- static const struct snd_soc_dapm_widget sc7180_adau7002_snd_widgets[] = {
- 	SND_SOC_DAPM_MIC("DMIC", NULL),
- };
-@@ -320,6 +337,11 @@ static const struct snd_soc_dapm_widget sc7180_snd_dual_mic_widgets[] = {
- 	SND_SOC_DAPM_MUX("Dmic Mux", SND_SOC_NOPM, 0, 0, &sc7180_dmic_mux_control),
- };
++	ret = snd_soc_card_jack_new_pins(card, "Headset Jack",
++					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
++					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
++					 &nau8821_jack,
++					 nau8821_jack_pins,
++					 ARRAY_SIZE(nau8821_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
+ 		return ret;
+ 	}
+-	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+-	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+-	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
  
-+static const struct snd_kcontrol_new sc7180_snd_dual_mic_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+};
+-	nau8821_enable_jack_detect(component, &vg_headset);
++	snd_jack_set_key(nau8821_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(nau8821_jack.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(nau8821_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(nau8821_jack.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
 +
- static const struct snd_soc_dapm_route sc7180_snd_dual_mic_audio_route[] = {
- 	{"Dmic Mux", "Front Mic", "DMIC"},
- 	{"Dmic Mux", "Rear Mic", "DMIC"},
-@@ -348,10 +370,14 @@ static int sc7180_snd_platform_probe(struct platform_device *pdev)
- 	card->dev = dev;
- 	card->dapm_widgets = sc7180_snd_widgets;
- 	card->num_dapm_widgets = ARRAY_SIZE(sc7180_snd_widgets);
-+	card->controls = sc7180_snd_controls;
-+	card->num_controls = ARRAY_SIZE(sc7180_snd_controls);
++	nau8821_enable_jack_detect(component, &nau8821_jack);
  
- 	if (of_property_read_bool(dev->of_node, "dmic-gpios")) {
- 		card->dapm_widgets = sc7180_snd_dual_mic_widgets,
- 		card->num_dapm_widgets = ARRAY_SIZE(sc7180_snd_dual_mic_widgets),
-+		card->controls = sc7180_snd_dual_mic_controls,
-+		card->num_controls = ARRAY_SIZE(sc7180_snd_dual_mic_controls),
- 		card->dapm_routes = sc7180_snd_dual_mic_audio_route,
- 		card->num_dapm_routes = ARRAY_SIZE(sc7180_snd_dual_mic_audio_route),
- 		data->dmic_sel = devm_gpiod_get(&pdev->dev, "dmic", GPIOD_OUT_LOW);
+ 	return snd_soc_dapm_add_routes(&rtd->card->dapm, nau8821_audio_route,
+ 				       ARRAY_SIZE(nau8821_audio_route));
 -- 
 2.40.1
 

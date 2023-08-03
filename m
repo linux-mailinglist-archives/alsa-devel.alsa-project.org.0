@@ -2,96 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B4976FDBC
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:46:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F30C476FDBF
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:47:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07913846;
-	Fri,  4 Aug 2023 11:45:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07913846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 638F2857;
+	Fri,  4 Aug 2023 11:46:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 638F2857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691142408;
-	bh=GPngZKlTZVkTZ+yV34nZRPQl8pDG1+X3IxyvSVkQCyM=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1691142431;
+	bh=m9NTF/PQTwCK0149Pvtoc1YatTEWGaEmB1RjBVyr6hk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bI9dBSgimNuSNYFmDm4LZXICqqq9eGUiaP3VR6WZocxnYEz4GeGqKxTtmnL67AkKD
-	 NIO6UUiWMjkllBYpQcqj0OJypg76Po6X+D4AXJ2+rk+1vd709LXtfjwDwhmx7SrG/P
-	 xakDNAn/beFyBmi1aJMcDWYdoBMTLjt9hswLN5qc=
+	b=NaroS6wPinuWUgk0gK8L1P3QSVhBuH8SAhF8d2eoyd5oq5oM8kLjQuQ0PpsOywFG8
+	 3HSqcGqRQ4x0CR/8Lhjj5/wmsX/itqE6BKckC7JipMNuV391PKutYGrMpESUFCCbxG
+	 2GQSuEFhcT/fx+DhPMSemARjw40CN8wY24kl6ETE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2535F8025A; Fri,  4 Aug 2023 11:44:33 +0200 (CEST)
+	id C71F1F80557; Fri,  4 Aug 2023 11:44:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 568DBF8025A;
-	Fri,  4 Aug 2023 11:44:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32AFCF8055A;
+	Fri,  4 Aug 2023 11:44:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1830EF8025A; Thu,  3 Aug 2023 10:38:13 +0200 (CEST)
+	id 85DE5F8025A; Thu,  3 Aug 2023 11:46:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
- [61.152.239.71])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 32EE5F80087
-	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 10:37:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32EE5F80087
-Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
-	by fd01.gateway.ufhost.com (Postfix) with ESMTP id AC5BE8067;
-	Thu,  3 Aug 2023 16:37:52 +0800 (CST)
-Received: from EXMBX172.cuchost.com (172.16.6.92) by EXMBX166.cuchost.com
- (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 3 Aug
- 2023 16:37:52 +0800
-Received: from [192.168.125.84] (183.27.98.54) by EXMBX172.cuchost.com
- (172.16.6.92) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 3 Aug
- 2023 16:37:51 +0800
-Message-ID: <34c8c9d5-fad0-52ce-d1e6-798546005bfd@starfivetech.com>
-Date: Thu, 3 Aug 2023 16:37:50 +0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id ABE78F80149
+	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 11:46:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABE78F80149
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ykjDA7wr
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-99c47ef365cso108288566b.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 03 Aug 2023 02:46:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1691055982; x=1691660782;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=XGpq+iEica3ryLXvW18eKkvU88YFvdGjEJVEPdEMNKk=;
+        b=ykjDA7wrVZ6sUI5GCUCb2036lu1QgWeqLxpuVuJaXLxtY0JSXI631bqzXFOb8C4TGk
+         wxl628WdMpVASIu/kaGjNq/EcXhSaXRRLaB2E1r2CtHWRB4UsqaJJMwp6lODAglV1KXz
+         3npdmn650WXExcS0cpQlds0DpuLKcggDWOBfR7vMWQjcDSmcmIe+jKObvI4mvcLCC+rQ
+         YLOBX4Eibvj/bo2MeIbVxWGwAU28xggUWzO9HoyW9dIYLe1kTdu6qzZd4Lt1DPlYfRKf
+         YfwP5khKo/S4kIe+tinaHRj6ThD2wdWe81ydOdZMHkSbjdLw8VOH2oFkSESxkgMoVpL3
+         hr0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691055982; x=1691660782;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XGpq+iEica3ryLXvW18eKkvU88YFvdGjEJVEPdEMNKk=;
+        b=OupF08GYnYFBNwSZ/kk7cmSQeHplnbWCwuKabbfpANtMZK3ji2hn35BoBGtU782+XE
+         Wa9piLoPD1STi5VBPNw/TKkIgifNZb3PXiMpdXGSIlEEQZRxORLZVK8bgYFWCdAf0Qiq
+         bpLimo8Bm5Zvwzzg0x/yTLejNo7zBAFdtKmptYdSTm1Sj/FmF93A42gakqdUi+DwyLbE
+         OEWdNL71xQ3R6NQ/7KDaN3UYxF7DUHyC8fQVk2vADpuL5Ra6cEtkA2hrCbiju9WW3aDj
+         ovC3R35InYsWn//AWmGbaXGC5fK2To39W6Er+KmnOv49r+6U9EHlAo3htApQAr/ia2DX
+         VHbQ==
+X-Gm-Message-State: ABy/qLaA7yiHw1AifR/U7TGBy1Tc3oyx5RP8nEdH/AdmIRVKhj1lDLug
+	wwUzUXa9doG1EzsHtcgEXHjuwA==
+X-Google-Smtp-Source: 
+ APBJJlERif/Ou9wDazY/xvMH406IdZtS18Pj+LVbAXMoXPNjJ2mOQeZlWiqdGUfvIMhHsLt1j7H05A==
+X-Received: by 2002:a17:906:20dd:b0:991:cd1f:e67a with SMTP id
+ c29-20020a17090620dd00b00991cd1fe67amr7800334ejc.29.1691055982618;
+        Thu, 03 Aug 2023 02:46:22 -0700 (PDT)
+Received: from localhost (h3221.n1.ips.mtn.co.ug. [41.210.178.33])
+        by smtp.gmail.com with ESMTPSA id
+ cw25-20020a170906c79900b0098d2d219649sm10327933ejb.174.2023.08.03.02.46.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Aug 2023 02:46:22 -0700 (PDT)
+Date: Thu, 3 Aug 2023 12:46:17 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: cujomalainey@chromium.org
+Cc: alsa-devel@alsa-project.org, Doug Anderson <dianders@chromium.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Zheyu Ma <zheyuma97@gmail.com>, Dan Carpenter <error27@gmail.com>,
+	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+	Clement Lecigne <clecigne@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>
+Subject: Re: [PATCH v2] sound: core: fix device ownership model in card and
+ pcm
+Message-ID: <1b9202af-a68a-47cd-b4f2-5c30447895f6@kadam.mountain>
+References: 
+ <CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
+ <20230802174451.3611976-1-cujomalainey@chromium.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH v2 2/3] ASoC: starfive: Add JH7110 PWM-DAC driver
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Walker Chen <walker.chen@starfivetech.com>, Xingyu Wu
-	<xingyu.wu@starfivetech.com>, Emil Renner Berthing
-	<emil.renner.berthing@canonical.com>, <alsa-devel@alsa-project.org>,
-	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20230731032829.127864-1-hal.feng@starfivetech.com>
- <20230731032829.127864-3-hal.feng@starfivetech.com>
- <9b03c7ed-845c-494b-8c40-10d1fe923b15@sirena.org.uk>
-From: Hal Feng <hal.feng@starfivetech.com>
-In-Reply-To: <9b03c7ed-845c-494b-8c40-10d1fe923b15@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.98.54]
-X-ClientProxiedBy: EXCAS066.cuchost.com (172.16.6.26) To EXMBX172.cuchost.com
- (172.16.6.92)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: hal.feng@starfivetech.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230802174451.3611976-1-cujomalainey@chromium.org>
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OZU6SJSRVTJZ2DYHL6PRB5XIS5QLHLUW
-X-Message-ID-Hash: OZU6SJSRVTJZ2DYHL6PRB5XIS5QLHLUW
+Message-ID-Hash: NDV4VE25L2U7QL3WWFTDYQZYF7ISR4ZV
+X-Message-ID-Hash: NDV4VE25L2U7QL3WWFTDYQZYF7ISR4ZV
 X-Mailman-Approved-At: Fri, 04 Aug 2023 09:44:30 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OZU6SJSRVTJZ2DYHL6PRB5XIS5QLHLUW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDV4VE25L2U7QL3WWFTDYQZYF7ISR4ZV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,73 +128,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 31 Jul 2023 20:14:38 +0100, Mark Brown wrote:
-> On Mon, Jul 31, 2023 at 11:28:28AM +0800, Hal Feng wrote:
-> 
->> +static const struct jh7110_ct_pwmdac pwmdac_ct_data_shift[] = {
->> +	{ .name = "left 0 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_0 },
->> +	{ .name = "left 1 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_1 },
->> +	{ .name = "left 2 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_2 },
->> +	{ .name = "left 3 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_3 },
->> +	{ .name = "left 4 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_4 },
->> +	{ .name = "left 5 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_5 },
->> +	{ .name = "left 6 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_6 },
->> +	{ .name = "left 7 bit", .vals = PWMDAC_DATA_LEFT_SHIFT_BIT_7 }
->> +};
-> 
-> It's not clear to me why this is user selectable - what does the control
-> do?
+Since you're going to have to resend the patch anyway could you modify
+this commit message some more?
 
-It's convenient to change the register values in user space with the
-control. But actually using fixed register configuration is enough.
-I will drop all these control in the next version.
+On Wed, Aug 02, 2023 at 10:43:49AM -0700, cujomalainey@chromium.org wrote:
+> From: Curtis Malainey <cujomalainey@chromium.org>
+> 
+> The current implementation of how devices are released is valid for
+> production use cases (root control of memory is handled by card_dev, all
+> other devices are no-ops).
+
+I don't understand what "root control of memory is handled by card_dev,
+all other devices are no-ops" means.  At first I thought this was
+refering to code that is out of tree but now I think we are talking
+about a CONFIG_DEBUG option.  Could you spell out which option we are
+talking about?
 
 > 
->> +static int jh7110_pwmdac_put(struct snd_kcontrol *kcontrol,
->> +			     struct snd_ctl_elem_value *ucontrol,
->> +			     int pwmdac_ct)
->> +{
->> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
->> +	struct jh7110_pwmdac_dev *dev = snd_soc_component_get_drvdata(component);
->> +	int sel = ucontrol->value.enumerated.item[0];
->> +	unsigned int items;
+> This model does not work though in a kernel hacking environment where
+> KASAN and delayed release on kobj is enabled.
+
+I don't think KASAN has anything to do with the bug, right?  KASAN just
+finds the bug, it doesn't cause it.  The bug is always there regardless.
+The "delayed release" is CONFIG_DEBUG_KOBJECT_RELEASE.  Could you please
+mention that specifically.  Say something like:
+
+    "KASAN detected a use after free when CONFIG_DEBUG_KOBJECT_RELEASE
+     is enabled, which, hopefully, no one does on a production system."
+
+I feel like a KASAN stack trace might help clarify where the use after
+free happens.
+
+> If the card_dev device is
+> released before any of the child objects a use-after-free bug is caught
+> by KASAN as the delayed release still has a reference to the devices
+> that were freed by the card_dev release.
+
+Ah...  I think I understand.
+
+   "The CONFIG_DEBUG_KOBJECT_RELEASE introduces an element of
+    randomness to the release process so we could free the card_dev
+    before the child objects resulting in a use after free.  But
+    if we don't enable that the releases happen in a nice fixed
+    order."
+
+> Also both snd_card and snd_pcm
+> both own two devices internally, so even if they released independently,
+> the shared struct would result in another use after free.
+
+Does this second use after free happen regardless of
+CONFIG_DEBUG_KOBJECT_RELEASE?
+
 > 
->> +	if (pwmdac_ct == PWMDAC_CT_SHIFT)
->> +		dev->shift = pwmdac_ct_shift[sel].vals;
->> +	else if (pwmdac_ct == PWMDAC_CT_DUTY_CYCLE)
->> +		dev->duty_cycle = pwmdac_ct_duty_cycle[sel].vals;
->> +	else if (pwmdac_ct == PWMDAC_CT_DATA_CHANGE)
->> +		dev->data_change = pwmdac_ct_data_change[sel].vals;
->> +	else if (pwmdac_ct == PWMDAC_CT_DATA_MODE)
->> +		dev->data_mode = pwmdac_ct_data_mode[sel].vals;
->> +	else if (pwmdac_ct == PWMDAC_CT_DATA_SHIFT)
->> +		dev->data_shift = pwmdac_ct_data_shift[sel].vals;
->> +
->> +	return 0;
->> +}
+> Solution is to move the child devices into their own memory so they can
+> be handled independently and released on their own schedule.
 > 
-> _put() operations should return 1 if the control value changes so event
-> generation works - please test a card using this driver with the
-> mixer-test selftest, it'll identify this and a bunch of other potential
-> issues.
+> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+> Cc: Doug Anderson <dianders@chromium.org>
+> ---
 
-Thanks for the correct, but it doesn't matter as I will drop these control
-later.
+Also I know it's complicated here, but could you try identify a Fixes
+tag where this bug is introduced or first starts affecting the things?
+This looks like a pretty core bug so it's possible it predates git.  I'm
+not sure what to do in that case.  I normally just mention it under the
+--- cut off line.
 
-> 
->> +static int jh7110_pwmdac_component_probe(struct snd_soc_component *component)
->> +{
->> +	snd_soc_add_component_controls(component, jh7110_pwmdac_snd_controls,
->> +				       ARRAY_SIZE(jh7110_pwmdac_snd_controls));
->> +	return 0;
->> +}
-> 
-> The driver can just point to the controls from the _driver struct and
-> skip having a probe() function.
+regards,
+dan carpenter
 
-Thanks for your advice, but I would like to drop these control later.
-
-Thanks again for your review.
-
-Best regards,
-Hal

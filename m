@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B6C76F31D
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Aug 2023 21:00:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B9876F385
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Aug 2023 21:38:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 129C1210;
-	Thu,  3 Aug 2023 20:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 129C1210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7907520C;
+	Thu,  3 Aug 2023 21:37:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7907520C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691089207;
-	bh=2v7C+V58OJPtZFXbcYDdpVPIVwHrJZxcwt59CZpHWt8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=XdYi6M0o7rGHgA+OibfsGXvvfrWPKvCCN/KglqZqC4ILkOrAr6qqw5JFnkusMdwOv
-	 zx71ZSYoR++8Rt4O0mSRG50bhdju5hgutWmct1aMequ6Jh3dTQysiAtUxNk2Asysx7
-	 Fdj5Ro1tv3QPitCZkomPe1R/8/SRyMl/ihIXxhEo=
+	s=default; t=1691091511;
+	bh=P0M+BMtHtIHMTuHkmOp7SS8Q1e715kFf0lQ1SHEGD/A=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=V6x5MpjC9j68fr7xPWJkRCvXEGXRl4F5rUcZVUf0PBOmnFKMpX9kOPVCelUu222vm
+	 lCSk0rEPxRsrnaF8VRoqgrXoainEirpz/JftzpvJjaptgYwQm7Qn2KkukbMtOiWOCK
+	 HGbSdtpj4u7kq6y/U0oAphfRaV24msEhYMXOF/rQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AE9DF8025A; Thu,  3 Aug 2023 20:59:16 +0200 (CEST)
+	id C3673F80535; Thu,  3 Aug 2023 21:37:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D091CF801D5;
-	Thu,  3 Aug 2023 20:59:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C4A8F801D5;
+	Thu,  3 Aug 2023 21:37:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 804ADF8025A; Thu,  3 Aug 2023 20:59:11 +0200 (CEST)
+	id 82CC5F8025A; Thu,  3 Aug 2023 21:37:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 40D95F80149
-	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 20:59:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40D95F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2D7F0F8015B
+	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 21:37:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D7F0F8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=NnZbZDRT
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1427661E53;
-	Thu,  3 Aug 2023 18:59:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45719C433C8;
-	Thu,  3 Aug 2023 18:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691089141;
-	bh=2v7C+V58OJPtZFXbcYDdpVPIVwHrJZxcwt59CZpHWt8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=NnZbZDRTpSnOx124IZgTaYJLCy0Oo87aQf7FDETSbVo4hjP3uF7Oi6XDlVuZI6heo
-	 VY7xzTOtBmcJHAe0sWoBc+PF6fwM4JL7PveQBhcpJZ/+PwaKaZi7uYthLHitZV9njd
-	 fuGK6GvLJiMWoW1JNHt7qNEdybo/nYuXCHbIjJgTj9AnSNz6ylhTZ2i/ZuHX2K237s
-	 xATRVdOQ7knCQ5DepFwuDwnKk2OEZ48cloqRm6eX+77iAFCHx2VSw5iBkpIaSqkwUT
-	 c8rK3J3JenSp6GX1FR31cl0Ig/0HRwQ+avSe8MadCWq3vy+xTxWhIMIechdOt6CDaL
-	 Nrjs8KOnQWGDA==
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-In-Reply-To: <20230803162312.117771-1-ckeepax@opensource.cirrus.com>
-References: <20230803162312.117771-1-ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: soc-acpi: Add missing kernel doc
-Message-Id: <169108914000.123358.13591899425970131423.b4-ty@kernel.org>
-Date: Thu, 03 Aug 2023 19:59:00 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=DeJRxVk1
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.mutex.one (Postfix) with ESMTP id 6A3EE16C004D;
+	Thu,  3 Aug 2023 22:37:31 +0300 (EEST)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id UkDLHQPYQ4Tw; Thu,  3 Aug 2023 22:37:30 +0300 (EEST)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+	t=1691091450; bh=P0M+BMtHtIHMTuHkmOp7SS8Q1e715kFf0lQ1SHEGD/A=;
+	h=From:To:Cc:Subject:Date:From;
+	b=DeJRxVk1ZC1H6H36SbSolINpFMff0D0HNnOJOnV7f77SvoX+rdzSvN3Fjt49cXuVi
+	 lLA0fOSEYKKHoudZdYDTKy5343qvDRS4eqLjgyoP6N6E4G00cISMVV9gBmzF/57s64
+	 1pEbpn9nRl+AxkIXxCAbUNwe6r4iQA0S2AiClGFE=
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: <broonie@kernel.org>,
+        <alsa-devel@alsa-project.org>,
+        <Vijendar.Mukunda@amd.com>,
+        <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+	ye xingchen <ye.xingchen@zte.com.cn>,
+	<linux-kernel@vger.kernel.org>
+Subject: Regression apparently caused by commit
+ 088a40980efbc2c449b72f0f2c7ebd82f71d08e2 "ASoC: amd: acp: add pm ops
+ support for acp pci driver"
+Date: Thu, 03 Aug 2023 22:22:07 +0300
+Message-ID: <87a5v8szhc.fsf@mutex.one>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: APWPZVVA65ZSZJS2WNQM756PTK46JVQP
-X-Message-ID-Hash: APWPZVVA65ZSZJS2WNQM756PTK46JVQP
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain
+Message-ID-Hash: DO545R6C6IVPOE3WZWRZKDFF4CTHBB6R
+X-Message-ID-Hash: DO545R6C6IVPOE3WZWRZKDFF4CTHBB6R
+X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/APWPZVVA65ZSZJS2WNQM756PTK46JVQP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DO545R6C6IVPOE3WZWRZKDFF4CTHBB6R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,37 +98,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 03 Aug 2023 17:23:12 +0100, Charles Keepax wrote:
-> The UID field in snd_soc_acpi_link_adr is not documented, add kernel doc
-> for it.
-> 
-> 
+I'm trying to develop a sound machine driver based on the acp legacy driver.
+The first version of the driver was sent for review on the alsa mailing list this
+spring: https://lore.kernel.org/all/20230320203519.20137-1-posteuca@mutex.one
 
-Applied to
+I'm trying to fix some of the issues that were brought up during the review back then,
+but when I ported the patches to the latest commit on the for-next
+branch, I noticed a regression where I couldn't hear any sound at all.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+So I started a bisect session and found that the first bad commit is:
+ASoC: amd: acp: add pm ops support for acp pci driver
+commit 088a40980efbc2c449b72f0f2c7ebd82f71d08e2
+https://lore.kernel.org/lkml/20230622152406.3709231-11-Syed.SabaKareem@amd.com
 
-Thanks!
+If I revert this commit sound works as expected. So I started tinkering a little bit
+with it and I believe that what happens is that the acp pci driver
+enters the autosuspend state and never leaves this state at all.
+I noticed this because if I increase the autosuspend delay to a much
+larger value, then the sound works until that delay passes.
+I added traces and I can see that when the delay expires the suspend callback snd_acp_suspend()
+gets called, but the resume callback snd_acp_resume() never gets called.
 
-[1/1] ASoC: soc-acpi: Add missing kernel doc
-      commit: 9f0d4d47c7915ce21bde4a4974a7a6307e244a6d
+I'm no expert in runtime power management (though I did read a bit on it), so I don't understand
+all the things that happen underneath, but one thing that is not clear to me is who's supposed
+to mark activity on this device and keep it from entering autosuspend if the user wants to play
+some sound? Shouldn't there be some counterpart that calls pm_runtime_mark_last_busy() ?
+I looked through the code and can't find who's calling pm_runtime_mark_last_busy().
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Some help here would be welcome. Is there something missing in my machine driver code, or
+is the runtime pm handling in acp pci driver wrong?

@@ -2,124 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F30C476FDBF
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:47:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D67B176FDC1
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:47:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 638F2857;
-	Fri,  4 Aug 2023 11:46:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 638F2857
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0B39E11;
+	Fri,  4 Aug 2023 11:46:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0B39E11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691142431;
-	bh=m9NTF/PQTwCK0149Pvtoc1YatTEWGaEmB1RjBVyr6hk=;
+	s=default; t=1691142438;
+	bh=uC975p7J4pPCdddkPafbDAwaLOf/MMSypjNSDGwfV0I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NaroS6wPinuWUgk0gK8L1P3QSVhBuH8SAhF8d2eoyd5oq5oM8kLjQuQ0PpsOywFG8
-	 3HSqcGqRQ4x0CR/8Lhjj5/wmsX/itqE6BKckC7JipMNuV391PKutYGrMpESUFCCbxG
-	 2GQSuEFhcT/fx+DhPMSemARjw40CN8wY24kl6ETE=
+	b=R+En3MCVJFN2e6usMs1M81L5w9sygl8QycVcd/hyVxKK3NTYcmAC1DG6sC44mxTwk
+	 ztIhJl3/Tcek3LrM/VSu1ps+IGgumIACt8tWCAuLiKsppodWq/9xGVNaAX94DNiyJF
+	 cxamJlfI3cB1IMcRH6tPQpUY24HrddQ+SIJus8GE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C71F1F80557; Fri,  4 Aug 2023 11:44:36 +0200 (CEST)
+	id 5B7FEF805EF; Fri,  4 Aug 2023 11:44:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32AFCF8055A;
-	Fri,  4 Aug 2023 11:44:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79E17F80549;
+	Fri,  4 Aug 2023 11:44:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85DE5F8025A; Thu,  3 Aug 2023 11:46:31 +0200 (CEST)
+	id 65B23F8025A; Thu,  3 Aug 2023 11:49:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ABE78F80149
-	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 11:46:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABE78F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C89CF8015B
+	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 11:49:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C89CF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ykjDA7wr
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-99c47ef365cso108288566b.0
+ header.s=google header.b=ozubu9q1
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5222bc916acso890650a12.3
         for <alsa-devel@alsa-project.org>;
- Thu, 03 Aug 2023 02:46:24 -0700 (PDT)
+ Thu, 03 Aug 2023 02:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1691055982; x=1691660782;
+        d=linaro.org; s=google; t=1691056153; x=1691660953;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=XGpq+iEica3ryLXvW18eKkvU88YFvdGjEJVEPdEMNKk=;
-        b=ykjDA7wrVZ6sUI5GCUCb2036lu1QgWeqLxpuVuJaXLxtY0JSXI631bqzXFOb8C4TGk
-         wxl628WdMpVASIu/kaGjNq/EcXhSaXRRLaB2E1r2CtHWRB4UsqaJJMwp6lODAglV1KXz
-         3npdmn650WXExcS0cpQlds0DpuLKcggDWOBfR7vMWQjcDSmcmIe+jKObvI4mvcLCC+rQ
-         YLOBX4Eibvj/bo2MeIbVxWGwAU28xggUWzO9HoyW9dIYLe1kTdu6qzZd4Lt1DPlYfRKf
-         YfwP5khKo/S4kIe+tinaHRj6ThD2wdWe81ydOdZMHkSbjdLw8VOH2oFkSESxkgMoVpL3
-         hr0g==
+        bh=jZI/STWDMBC7wrkz2uL4ijqJvFsQCoJSa3ao2cZw/Ic=;
+        b=ozubu9q1fw+rj465b4k8J8NC0mxz9dNTjl6mFQ7W6tLk12j96Okccih8U9acaiYnr1
+         KOujOkKaWCyo6+YFa/apcB5sjwRobru0tLna/7ycw0IKDMaY28snpbgvBL0mpaAjkwHw
+         BRfGxSZeObNVAS+6mNx3LDc2tNeWiiOjZeG80NCEoNddPHVmXLnYMqAKK3VmCctsHW9L
+         wJWvHL+Lq2ym/lfHQQiBJGUvXSMiXmzlBAjB87bUCcnHBRwS+Dm/So0dDA61Bq67Xzpa
+         L/R9rE6pVT9wyLXEEuPmlhz68fmiBgmio58pnXXAFcPD6dRXqzCoPDZrAHf2b6bq2stv
+         YkwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691055982; x=1691660782;
+        d=1e100.net; s=20221208; t=1691056153; x=1691660953;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XGpq+iEica3ryLXvW18eKkvU88YFvdGjEJVEPdEMNKk=;
-        b=OupF08GYnYFBNwSZ/kk7cmSQeHplnbWCwuKabbfpANtMZK3ji2hn35BoBGtU782+XE
-         Wa9piLoPD1STi5VBPNw/TKkIgifNZb3PXiMpdXGSIlEEQZRxORLZVK8bgYFWCdAf0Qiq
-         bpLimo8Bm5Zvwzzg0x/yTLejNo7zBAFdtKmptYdSTm1Sj/FmF93A42gakqdUi+DwyLbE
-         OEWdNL71xQ3R6NQ/7KDaN3UYxF7DUHyC8fQVk2vADpuL5Ra6cEtkA2hrCbiju9WW3aDj
-         ovC3R35InYsWn//AWmGbaXGC5fK2To39W6Er+KmnOv49r+6U9EHlAo3htApQAr/ia2DX
-         VHbQ==
-X-Gm-Message-State: ABy/qLaA7yiHw1AifR/U7TGBy1Tc3oyx5RP8nEdH/AdmIRVKhj1lDLug
-	wwUzUXa9doG1EzsHtcgEXHjuwA==
+        bh=jZI/STWDMBC7wrkz2uL4ijqJvFsQCoJSa3ao2cZw/Ic=;
+        b=Y0QN+dFV1DtbzDkTGgk1V1xFJjBdEbY8Gxt26f2NqGAzphocWpX7ldumPoTYrFzhts
+         zR3N0uFavEBTFnExvXsM7U0luZDPBi8bMFtlMEmH9JsjoUlElaW2RGuYEVjanKjDv9mT
+         v0fl/oymX/bWAoU51cG8+JHT1ploLjUcrFMDvjt440WiQigoMFczMi7Ywk9pQlraC/aU
+         O8Jzxi0C+WDvs+EWeMlyx3aHE7vkQCngl9BphDN0vHenFFaXF010tLvPX7lA+nM13tEV
+         qfATLjjGos3VStaSeLA+w5e6ZNbjeePlyu4YSWapZ1ZJM72fXwux6iWAfRvbCiIQkn/f
+         V4cg==
+X-Gm-Message-State: ABy/qLZ+lskthtmYkErOYXgCYn6VJ6nT4geKkY40Y5fXbTaQ8skNeAr0
+	Q87/Q1Sn/FZAIZHlG6n0KonF/Q==
 X-Google-Smtp-Source: 
- APBJJlERif/Ou9wDazY/xvMH406IdZtS18Pj+LVbAXMoXPNjJ2mOQeZlWiqdGUfvIMhHsLt1j7H05A==
-X-Received: by 2002:a17:906:20dd:b0:991:cd1f:e67a with SMTP id
- c29-20020a17090620dd00b00991cd1fe67amr7800334ejc.29.1691055982618;
-        Thu, 03 Aug 2023 02:46:22 -0700 (PDT)
+ APBJJlE2qUmVoNFoaCuUxFvGcS08tb2tREHg8m78N9bZGHd4aC59P1DLdjSuyNzo65iaRoZ2FBAdyw==
+X-Received: by 2002:aa7:c309:0:b0:522:6e3f:b65 with SMTP id
+ l9-20020aa7c309000000b005226e3f0b65mr6960173edq.33.1691056152751;
+        Thu, 03 Aug 2023 02:49:12 -0700 (PDT)
 Received: from localhost (h3221.n1.ips.mtn.co.ug. [41.210.178.33])
         by smtp.gmail.com with ESMTPSA id
- cw25-20020a170906c79900b0098d2d219649sm10327933ejb.174.2023.08.03.02.46.21
+ k5-20020a05640212c500b005222c160464sm9889239edx.72.2023.08.03.02.49.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Aug 2023 02:46:22 -0700 (PDT)
-Date: Thu, 3 Aug 2023 12:46:17 +0300
+        Thu, 03 Aug 2023 02:49:12 -0700 (PDT)
+Date: Thu, 3 Aug 2023 12:49:09 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: cujomalainey@chromium.org
-Cc: alsa-devel@alsa-project.org, Doug Anderson <dianders@chromium.org>,
+To: Curtis Malainey <cujomalainey@google.com>
+Cc: Takashi Iwai <tiwai@suse.de>, cujomalainey@chromium.org,
+	alsa-devel@alsa-project.org, Doug Anderson <dianders@chromium.org>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
 	Zheyu Ma <zheyuma97@gmail.com>, Dan Carpenter <error27@gmail.com>,
 	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
 	Clement Lecigne <clecigne@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>
-Subject: Re: [PATCH v2] sound: core: fix device ownership model in card and
- pcm
-Message-ID: <1b9202af-a68a-47cd-b4f2-5c30447895f6@kadam.mountain>
-References: 
+	Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] sound: core: fix device ownership model in card and pcm
+Message-ID: <44888906-1f5b-45e9-91cc-21fb47a56d70@kadam.mountain>
+References: <20230801171928.1460120-1-cujomalainey@chromium.org>
+ <87cz06djxo.wl-tiwai@suse.de>
  <CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
- <20230802174451.3611976-1-cujomalainey@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230802174451.3611976-1-cujomalainey@chromium.org>
+In-Reply-To: 
+ <CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
 X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: NDV4VE25L2U7QL3WWFTDYQZYF7ISR4ZV
-X-Message-ID-Hash: NDV4VE25L2U7QL3WWFTDYQZYF7ISR4ZV
-X-Mailman-Approved-At: Fri, 04 Aug 2023 09:44:30 +0000
+Message-ID-Hash: V6JSXQH3PB67CMPDVCLOHVAHNKIUJ76U
+X-Message-ID-Hash: V6JSXQH3PB67CMPDVCLOHVAHNKIUJ76U
+X-Mailman-Approved-At: Fri, 04 Aug 2023 09:44:31 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDV4VE25L2U7QL3WWFTDYQZYF7ISR4ZV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V6JSXQH3PB67CMPDVCLOHVAHNKIUJ76U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,70 +128,8 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Since you're going to have to resend the patch anyway could you modify
-this commit message some more?
-
-On Wed, Aug 02, 2023 at 10:43:49AM -0700, cujomalainey@chromium.org wrote:
-> From: Curtis Malainey <cujomalainey@chromium.org>
-> 
-> The current implementation of how devices are released is valid for
-> production use cases (root control of memory is handled by card_dev, all
-> other devices are no-ops).
-
-I don't understand what "root control of memory is handled by card_dev,
-all other devices are no-ops" means.  At first I thought this was
-refering to code that is out of tree but now I think we are talking
-about a CONFIG_DEBUG option.  Could you spell out which option we are
-talking about?
-
-> 
-> This model does not work though in a kernel hacking environment where
-> KASAN and delayed release on kobj is enabled.
-
-I don't think KASAN has anything to do with the bug, right?  KASAN just
-finds the bug, it doesn't cause it.  The bug is always there regardless.
-The "delayed release" is CONFIG_DEBUG_KOBJECT_RELEASE.  Could you please
-mention that specifically.  Say something like:
-
-    "KASAN detected a use after free when CONFIG_DEBUG_KOBJECT_RELEASE
-     is enabled, which, hopefully, no one does on a production system."
-
-I feel like a KASAN stack trace might help clarify where the use after
-free happens.
-
-> If the card_dev device is
-> released before any of the child objects a use-after-free bug is caught
-> by KASAN as the delayed release still has a reference to the devices
-> that were freed by the card_dev release.
-
-Ah...  I think I understand.
-
-   "The CONFIG_DEBUG_KOBJECT_RELEASE introduces an element of
-    randomness to the release process so we could free the card_dev
-    before the child objects resulting in a use after free.  But
-    if we don't enable that the releases happen in a nice fixed
-    order."
-
-> Also both snd_card and snd_pcm
-> both own two devices internally, so even if they released independently,
-> the shared struct would result in another use after free.
-
-Does this second use after free happen regardless of
-CONFIG_DEBUG_KOBJECT_RELEASE?
-
-> 
-> Solution is to move the child devices into their own memory so they can
-> be handled independently and released on their own schedule.
-> 
-> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-> Cc: Doug Anderson <dianders@chromium.org>
-> ---
-
-Also I know it's complicated here, but could you try identify a Fixes
-tag where this bug is introduced or first starts affecting the things?
-This looks like a pretty core bug so it's possible it predates git.  I'm
-not sure what to do in that case.  I normally just mention it under the
---- cut off line.
+Oh, hm.  I read my email out of order.  This answers the questions I
+had.  Hopefully we can include some of this into the commit message.
 
 regards,
 dan carpenter

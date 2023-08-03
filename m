@@ -2,91 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F3E76F39F
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Aug 2023 21:44:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F4776F4E8
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Aug 2023 23:57:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11A6D210;
-	Thu,  3 Aug 2023 21:43:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11A6D210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89B833E7;
+	Thu,  3 Aug 2023 23:56:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89B833E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691091843;
-	bh=S4NCLtZ/30zJp+pfzfZswDKY1EQRe7iHhrmUuGeO26c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Csu6U88qzJ0DLeqVMq15FaUYrM3R1fLDCyBn6gddI7l9MCFZ0XxwXNeeC9cOpgmkd
-	 UaolJYikzVcWxYiw4Vc4ag0aSjodv35eHNnylZIKpTKvWgv+Co+vRog43+ynlfuXgM
-	 Vx93+zES4wfrZ0SOXEInSA6ff2cM/dE3Wt9iyWVY=
+	s=default; t=1691099821;
+	bh=2a5LrPvh06lZHnswdQzaZ4xmQdjzGQ7FCeGJr9aY3Tk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=cUjzkD03i52b/aBwMMNDlepblnI8y5IdZJDsZCyr5rmOWtftWx//ETze91IqakHxx
+	 VGZD9CXPmoNMasmWZNa+CUgxEjakRYuyCl+3KN0CrhrA+yciGaZmVHcpDOTorks7Uw
+	 HxKUCA/rUOyi5BoI35hHg8H8XtycUVlQcjnF6sZA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 097BCF8025A; Thu,  3 Aug 2023 21:43:11 +0200 (CEST)
+	id D8827F80535; Thu,  3 Aug 2023 23:56:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63C9DF801D5;
-	Thu,  3 Aug 2023 21:43:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3780EF801D5;
+	Thu,  3 Aug 2023 23:56:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10885F8025A; Thu,  3 Aug 2023 21:43:07 +0200 (CEST)
+	id F2179F80087; Thu,  3 Aug 2023 23:56:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 934B1F8015B
-	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 21:43:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 934B1F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1595AF80087
+	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 23:55:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1595AF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Mig/HwNq
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B5FCA61E7A;
-	Thu,  3 Aug 2023 19:43:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44790C433C8;
-	Thu,  3 Aug 2023 19:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691091782;
-	bh=S4NCLtZ/30zJp+pfzfZswDKY1EQRe7iHhrmUuGeO26c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mig/HwNqHsZ7HAUl5OPqdc6sSNaCHa/rLApdM+nUqaNs/YAoqqnCrQQmnc3d1jgPU
-	 D6imnhGURytRAWZkay0OFU+7QMRDu6ypR1mpLQaopOVDjc089Ck0ggiqu+364UiL79
-	 t5QStwnAj5/R8EertB13ruoTB3ybe7ejU4uyVi8OhEAEri4KWWUnkPoSWDRwASQMMH
-	 byzJRwiA0VhjwEYc3amNwOeHC+iw461MEPc15W+S8RlM17Cg+dNG/RDxqpfngOSul5
-	 qhS+/mBmVk9vHeWB6u0UKhKSFFCf9SHLuxIY3MvOBl86kwgMmJxWFZF6htlDZ/Pw0y
-	 nBOqaW303mIgg==
-Date: Thu, 3 Aug 2023 20:42:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Marian Postevca <posteuca@mutex.one>
-Cc: Syed Saba Kareem <Syed.SabaKareem@amd.com>, alsa-devel@alsa-project.org,
-	Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
-	Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Yang Yingliang <yangyingliang@huawei.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
-	ye xingchen <ye.xingchen@zte.com.cn>, linux-kernel@vger.kernel.org
-Subject: Re: Regression apparently caused by commit
- 088a40980efbc2c449b72f0f2c7ebd82f71d08e2 "ASoC: amd: acp: add pm ops support
- for acp pci driver"
-Message-ID: <6a92d9f0-dc44-4bbe-ae23-a29cb8d569aa@sirena.org.uk>
-References: <87a5v8szhc.fsf@mutex.one>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=eHBslHzu
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ 006d021491bc7-56c9237e0ffso227746eaf.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 03 Aug 2023 14:55:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1691099754; x=1691704554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KwJBy26yCQ/MHezd9s4R5qRHYs3iJG1/4Ao8pMVQ4Ow=;
+        b=eHBslHzuArU+U8tPXhi5LtJhNVsrjM+cC5Zepdo8Hw+YE4fmqGaEbQgdIYaycpPkmS
+         wInlrsiCWpn7gp1LkOaaWkdIQ8qLnC6S+pQGM4UtVZkwVORK/qRior3hEi7qLTGF777E
+         UJEw+fll81r0lzgSBL1tkmoT9YqQTaV54U2pft1z050D3DqcwLAPWZqnHi88HcopiYKI
+         N5bSVpS3AkUeTcpgQWUhP/CDxzgseEY1RKEx5RmHTymXeoTiZBT2ojEAcMlPgqXtKzaZ
+         1wpDjJzttdANWVwKqPpEK7lgonSlRjWMzfeYibpDejADxdmLT5rT6R/Nq2SYG+PiXHEZ
+         jA6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691099754; x=1691704554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KwJBy26yCQ/MHezd9s4R5qRHYs3iJG1/4Ao8pMVQ4Ow=;
+        b=kbksqfS4NADWrwy8y6pb0ZEM/XRTyem6utT2PzbohpBJaLWU3dPoU0pwVNH9tAahcT
+         W/3Xwdv1bfmpFed9URdQpwJmoMxR23vwKxyntqnqOSvaLbQJq9n4DqbmZQn2N23oR5ll
+         QZlE+Z0e9OmCGxASUFVAgx2JnIw5fGKHjDPzdghixZn3sPEtSVTUjhAW8n4PYz9NeFg1
+         qSrWqI+6j53bkHgxoEb5LeP1ljxMEjt6nUAUgSJeBKOwLvo5OIe+8tUtjERnfi10/u6F
+         su8YHVgqb9lLxuo1mACYl6cJG0LInchFXNcN8U5hVF0nhv7TRSEUTGofpbuT/xI7VFIS
+         FFfw==
+X-Gm-Message-State: ABy/qLY2Plx70JErlPZ+9w0CLYPLFBx1aK2T3enP4I/QQ2mwAfDluHfa
+	A11A6H1A4ZxuGcUv8sx1obQ=
+X-Google-Smtp-Source: 
+ APBJJlGMfMXcoawpm2ZKMRznLBMsULAqVn+LBFDlz565oYuOa85h5VDgPCjOLLgjylbhtxVL9sT4wA==
+X-Received: by 2002:a05:6820:2108:b0:56c:5e21:c72d with SMTP id
+ cd8-20020a056820210800b0056c5e21c72dmr14882139oob.1.1691099754239;
+        Thu, 03 Aug 2023 14:55:54 -0700 (PDT)
+Received: from fabio-Precision-3551..
+ ([2804:14c:485:4b61:48ea:73bf:1876:eaf3])
+        by smtp.gmail.com with ESMTPSA id
+ w15-20020a4aa98f000000b005660ed0becesm321978oom.39.2023.08.03.14.55.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Aug 2023 14:55:53 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Cc: robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com,
+	Fabio Estevam <festevam@denx.de>
+Subject: [PATCH 1/2] ASoC: dt-bindings: wlf,wm8960: Describe the power
+ supplies
+Date: Thu,  3 Aug 2023 18:55:05 -0300
+Message-Id: <20230803215506.142922-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oYg9+n0oooCWknT0"
-Content-Disposition: inline
-In-Reply-To: <87a5v8szhc.fsf@mutex.one>
-X-Cookie: One Bell System - it works.
-Message-ID-Hash: QGFIESULFQTNVPTWTOUSO4CCI52T4FHY
-X-Message-ID-Hash: QGFIESULFQTNVPTWTOUSO4CCI52T4FHY
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: V2S7CD6HSG45LKWIN34CD3LJF2HKDX2M
+X-Message-ID-Hash: V2S7CD6HSG45LKWIN34CD3LJF2HKDX2M
+X-MailFrom: festevam@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGFIESULFQTNVPTWTOUSO4CCI52T4FHY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V2S7CD6HSG45LKWIN34CD3LJF2HKDX2M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,43 +124,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Fabio Estevam <festevam@denx.de>
 
---oYg9+n0oooCWknT0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+WM8960 has the following power supplies:
 
-On Thu, Aug 03, 2023 at 10:22:07PM +0300, Marian Postevca wrote:
+- AVDD
+- DBVDD
+- DCVDD
+- SPKVDD1
+- SPKVDD1
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
+Add them to bindings to improve the hardware description.
 
-> I'm no expert in runtime power management (though I did read a bit on
-> it), so I don't understand all the things that happen underneath, but
-> one thing that is not clear to me is who's supposed to mark activity
-> on this device and keep it from entering autosuspend if the user wants
-> to play some sound? Shouldn't there be some counterpart that calls
-> pm_runtime_mark_last_busy() ?  I looked through the code and can't
-> find who's calling pm_runtime_mark_last_busy().
+Signed-off-by: Fabio Estevam <festevam@denx.de>
+---
+ .../devicetree/bindings/sound/wlf,wm8960.yaml | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-The core will hold devices out of suspend through a combination of DAPM
-and PCMs being held open, it just does get and puts rather than making
-an effort to use autosuspend delays.  See the calls to
-pm_runtime_get_sync() in the core.
+diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml
+index ee8eba7f0104..82519f6720ef 100644
+--- a/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml
++++ b/Documentation/devicetree/bindings/sound/wlf,wm8960.yaml
+@@ -26,6 +26,21 @@ properties:
+   '#sound-dai-cells':
+     const: 0
+ 
++  AVDD-supply:
++    description: Analogue supply.
++
++  DBVDD-supply:
++    description: Digital Buffer Supply.
++
++  DCVDD-supply:
++    description: Digital Core Supply.
++
++  SPKVDD1-supply:
++    description: Supply for speaker drivers 1.
++
++  SPKVDD2-supply:
++    description: Supply for speaker drivers 2.
++
+   wlf,capless:
+     type: boolean
+     description:
+@@ -84,5 +99,10 @@ examples:
+             wlf,hp-cfg = <3 2 3>;
+             wlf,gpio-cfg = <1 3>;
+             wlf,shared-lrclk;
++            DCVDD-supply = <&reg_audio>;
++            DBVDD-supply = <&reg_audio>;
++            AVDD-supply = <&reg_audio>;
++            SPKVDD1-supply = <&reg_audio>;
++            SPKVDD2-supply = <&reg_audio>;
+         };
+     };
+-- 
+2.34.1
 
---oYg9+n0oooCWknT0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTMAz8ACgkQJNaLcl1U
-h9AxPAf/Yj61S659XoNW1T+LDZiBfmEKTmHU1ADfDT3ln1jpRu7QJuNjiOGBl1Tx
-spcSaDG/fRHmtSD/P8i/fUEaP9hGtDMEEUS9NzWITJnZgZePV+92FTn4PbLIr4gv
-ERIV74ayfuO10baTw6mjgdxfCSDxT9w1NvYnWX1xAz8dOuFyXckKGNcD6uyJOTdZ
-q6UNXh2DowiOqT9/E24BdhZp7sjNanB00+N3rBd7Bbfrn+Zv4giXCPgy4OoOcRZt
-zo3t1H6RH4GsEXOMqrA/ol4HNJkpqRWeqLIgg2xOG2BEamGx9f02FhseJlC2JURk
-HS75SLsdKxIHeaVEh1+Gtp1pROj0Qg==
-=2OXo
------END PGP SIGNATURE-----
-
---oYg9+n0oooCWknT0--

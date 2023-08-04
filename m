@@ -2,105 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682F376FF26
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 13:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2ADC76FF42
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 13:12:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 979A47F8;
-	Fri,  4 Aug 2023 12:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 979A47F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 552446C0;
+	Fri,  4 Aug 2023 13:11:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 552446C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691146838;
-	bh=AQoGcnKiWJeOk1vNxwFxn7O4aowsWomIsOgr3bBXPVg=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691147547;
+	bh=1NeJVNb1DPpacADvXKLuFAoeIe+QboXjmJIitZcqCbg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TSu43ip1GMxXSTEX/+iRxg/GdoXOZUEzbIZYQLCsuaEKdhJzULxzcMd0lURIEZVhT
-	 qb7HVHNW7OVPDEWl8mNrkmmFfEz0o8K7r4P07jEVTxUwhYaSB3opAfdcfESJbrGvMN
-	 f3U5X37ZlYKXgJIurpiPirIShUmgcF0YEbJeKgCU=
+	b=tcvgwV2Qs+bVuXuQO0koGW07TMIi9m+Ckc9db84jMCuzgeG7zAag0TmgnscJ/SgL6
+	 UOXzip+PjN9bCJsVYD1C9GZkmkGw/37vBLYmDuhzmAI/onYR8z43n4ur0orO+/7GQn
+	 XVsswtGGmkMN93+PTpg+Oi+tcGucFBprHa5sufAU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 106DAF802BE; Fri,  4 Aug 2023 12:59:48 +0200 (CEST)
+	id BB8A4F80425; Fri,  4 Aug 2023 13:11:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C64D5F801D5;
-	Fri,  4 Aug 2023 12:59:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 702ABF801D5;
+	Fri,  4 Aug 2023 13:11:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 441F4F8025A; Fri,  4 Aug 2023 12:59:44 +0200 (CEST)
+	id E71B3F8025A; Fri,  4 Aug 2023 13:11:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 344A7F8016D
-	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 12:59:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 344A7F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9397FF8015B
+	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 13:10:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9397FF8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=aA7RJGVk
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3749w5IF019269;
-	Fri, 4 Aug 2023 05:59:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=AQoGcnKiWJeOk1v
-	NxwFxn7O4aowsWomIsOgr3bBXPVg=; b=aA7RJGVk8H6Kgi1Ne4DnCk5y2j6XIdR
-	0P16NOlN1v4t3+3qKfHk+iwJncdxqZ3LbI/aHFBth9MGsNOxbT/tTk/dfbmXcQgD
-	ZDge9KnJJ0vzGmkWeYRnJ5tPwUVUSaTGtw4LRpEW/NAzCGTxnt6hGxdTswaJZUcm
-	1fusPBWxZjGyUIYvyoqNlrPVjED0lPyZly9z0wcYDhBOJcE2mZh8s1dK/BhalR3Z
-	qGkEG12raVr2Zw2l336OuTRsPrlZR0exrWkMeU0SiF3xWriseriaoOhP8GyYvXZG
-	C2w1eOmCi82jy918e14e3ghlFU264pdRuc2WalYuOTG1STFrWoA4n+w==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3s4y6jwmb2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 04 Aug 2023 05:59:31 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 4 Aug
- 2023 11:59:29 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.30 via Frontend Transport; Fri, 4 Aug 2023 11:59:29 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CC3993563;
-	Fri,  4 Aug 2023 10:59:29 +0000 (UTC)
-Date: Fri, 4 Aug 2023 10:59:29 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-CC: Mark Brown <broonie@kernel.org>, Baojun.Xu <jim_monkey@163.com>,
-        <lgirdwood@gmail.com>, <perex@perex.cz>, <tiwai@suse.com>,
-        <shenghao-ding@ti.com>, <kevin-lu@ti.com>,
-        <krzysztof.kozlowski@linaro.org>, <shumingf@realtek.com>,
-        <herve.codina@bootlin.com>, <povik+lin@cutebit.org>,
-        <ryans.lee@analog.com>, <sebastian.reichel@collabora.com>,
-        <fido_max@inbox.ru>, <wangweidong.a@awinic.com>,
-        <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <peeyush@ti.com>, <navada@ti.com>, <tiwai@suse.de>,
-        <mengdong.lin@intel.com>, Baojun Xu <baojun.xu@ti.com>
-Subject: Re: [PATCH v1 1/2] ASoC: tas2783: Add source files for tas2783
- soundwire driver
-Message-ID: <20230804105929.GT103419@ediswmail.ad.cirrus.com>
-References: <20230801141858.130745-1-jim_monkey@163.com>
- <35849737-dbff-4655-9062-5d5d0fd861df@sirena.org.uk>
- <c4b3e3d2-ab87-f9f5-95f9-7d572694b376@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <c4b3e3d2-ab87-f9f5-95f9-7d572694b376@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: YmlthsEdRQp4sKvm9Deb6oqLjrVA0xqK
-X-Proofpoint-ORIG-GUID: YmlthsEdRQp4sKvm9Deb6oqLjrVA0xqK
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: UDEYT6QL37IEVWCXUKEF6ZARSOTH7TEW
-X-Message-ID-Hash: UDEYT6QL37IEVWCXUKEF6ZARSOTH7TEW
-X-MailFrom: prvs=3580138b0b=ckeepax@opensource.cirrus.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=qlvTp3l0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=55Xrkzcc
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A713B2187F;
+	Fri,  4 Aug 2023 11:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1691147450;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zQo4b+PRC8QM27PpEfGvop279Ibe/PL70O5uFSym+YA=;
+	b=qlvTp3l0pD0YlZjtyveY+1yDTE/GQYZ85t9zz7TpY/DwgZSJ01x1AyAHZ4B65LuEAyq6+K
+	/nLc6ZsDDT81JiqkYkWv7xY4U9QkJYSMytz9x8NDUEykFlkYd31cRVO0FDiLJn6Dku2M+6
+	xVBU3RjnUhG+eWcTc1iNwUxOcxkjROc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1691147450;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zQo4b+PRC8QM27PpEfGvop279Ibe/PL70O5uFSym+YA=;
+	b=55XrkzccKjUSlkbSgg7K5Esmqld61e3yfUvl5GBvxn6luibsoJPXkY20UN50lf/n5QOI9m
+	W4Hahu+fbOKAVZCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7ED98133B5;
+	Fri,  4 Aug 2023 11:10:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id idX2HbrczGQDSwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 04 Aug 2023 11:10:50 +0000
+Date: Fri, 04 Aug 2023 13:10:50 +0200
+Message-ID: <87il9v9i6d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH 0/5] ALSA/PCI: hda: add ARL-S support, config for MTL/LNL
+In-Reply-To: <20230802150105.24604-1-pierre-louis.bossart@linux.intel.com>
+References: <20230802150105.24604-1-pierre-louis.bossart@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: KVJXBN45MPOTFMFQHXKNL4QRKDAO63TT
+X-Message-ID-Hash: KVJXBN45MPOTFMFQHXKNL4QRKDAO63TT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UDEYT6QL37IEVWCXUKEF6ZARSOTH7TEW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KVJXBN45MPOTFMFQHXKNL4QRKDAO63TT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,21 +119,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Aug 02, 2023 at 02:19:14PM +0100, Richard Fitzgerald wrote:
-> On 2/8/23 14:01, Mark Brown wrote:
-> >On Tue, Aug 01, 2023 at 10:18:57PM +0800, Baojun.Xu wrote:
-> The rt*-sdw.c or max*-sdw.c devices are a better starting point for a
-> Soundwire codec driver.
+On Wed, 02 Aug 2023 17:01:00 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> Add a new PCI ID and i915 connectivity check for ArrowLake-S, and
+> configuration updates for MTL/LNL.
+> 
+> Kai Vehmanen (2):
+>   ALSA: hda: add HD Audio PCI ID for Intel Arrow Lake-S
+>   ALSA: hda/i915: extend connectivity check to cover Intel ARL
+> 
+> Pierre-Louis Bossart (3):
+>   PCI: add ArrowLake-S PCI ID for Intel HDAudio subsystem.
+>   ALSA: hda: intel-dsp-cfg: use common include for MeteorLake
+>   ALSA: hda: intel-dsp-cfg: add LunarLake support
 
-One could also have a look at the patch chain I am working on for
-cs42l43:
+Now I applied all patches.
 
-https://lore.kernel.org/all/20230804104602.395892-1-ckeepax@opensource.cirrus.com/
+Mark can pull the changes from tags/hda-intel-6.6 if those changes are
+needed for further ASoC patches.  It's based on the previous hda
+pci-id changes on top of 6.5-rc2.
 
-It is an MFD device which is a little more complex (and I
-wouldn't recommend unless you really need it) but the basic
-SoundWire code provides a pretty clean example, the chip doesn't
-have too many oddities compared to cs35l56.
 
-Thanks,
-Charles
+thanks,
+
+Takashi

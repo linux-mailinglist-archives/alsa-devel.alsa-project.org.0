@@ -2,115 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B355376FDC2
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:47:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D305F76FDC4
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:48:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C49ACDF3;
-	Fri,  4 Aug 2023 11:46:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C49ACDF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 358BD846;
+	Fri,  4 Aug 2023 11:47:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 358BD846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691142457;
-	bh=dUMTFHP/0VO+3n12J9pkG9/InFi6va7dULi2HiLsDb0=;
+	s=default; t=1691142480;
+	bh=a8y8XwCgHW6WQej0DHKSTyEVeQg/bb8FoblppmZFTyQ=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=YbiMQo6x67qZrjZakXSA/X/hSf+EE3pmA2komgnpHRnKOuyFcDPSW0wtxNnUZx4s/
-	 Lo9JMoY24RmFNb/CIqMInljQKxXuO9ATolH6yO2yB+6WKBWb7LvDr9Mp7ns3ieJFZj
-	 X2dMBcoC1a3X7NXu45u+MJNv4fzDAkBkoKGbCgdQ=
+	b=VvoQQ5HlSrfgBCdR2TJQ6679/5Xb4ECpxz3tvx3d0diDDkEDYc/wivY5r0CGCph2V
+	 2HoOfE2QBJvfFvo6YqPEn9OgDPLZ0wnb1/RMQ2hhPCGYQETssntUzawpHAjXoQfVn9
+	 w/d58asLVia0921Ax9KoZz2in/AjskmQxWoNCqIw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C8A8F805F3; Fri,  4 Aug 2023 11:44:41 +0200 (CEST)
+	id 7722DF805AB; Fri,  4 Aug 2023 11:44:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF282F80564;
-	Fri,  4 Aug 2023 11:44:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E549F805AB;
+	Fri,  4 Aug 2023 11:44:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3EA67F8025A; Thu,  3 Aug 2023 17:28:58 +0200 (CEST)
+	id E5B6AF8025A; Fri,  4 Aug 2023 07:00:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-4.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FROM_FMBLA_NEWDOM28,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BDB7F80149
-	for <alsa-devel@alsa-project.org>; Thu,  3 Aug 2023 17:28:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BDB7F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE985F8016D
+	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 07:00:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE985F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=MnDCwmQ/
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2b9aae28f03so1941931fa.0
+ unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256
+ header.s=google header.b=KnSGNk6Z
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-99c4923195dso225813066b.2
         for <alsa-devel@alsa-project.org>;
- Thu, 03 Aug 2023 08:28:45 -0700 (PDT)
+ Thu, 03 Aug 2023 22:00:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691076521; x=1691681321;
+        d=tuxon.dev; s=google; t=1691125219; x=1691730019;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fv1LCJk+f7RVF8k/ixLAQ0iB0AzU0l/9VwQdVFGXgR8=;
-        b=MnDCwmQ/dByCs/tojD4nKtp/RjoX793JDmx/Fzbo1WQVxl0M1xtoQsEIM/VaV9a+BD
-         r1XxSYLb0h7ULkYpFKtX93xDcs1B11R9AZH+MW+mBm+T9RCjHse3ImhTqOzDu1mG4WNz
-         f6bkEZ8kXrWmG7t22bXhWkgN+ZwyiVat7+cupd/GeGWOkAo2+cO0s0ePNEV7Upz7CROP
-         koP+HjuaDobs81LngADNHkHYgO02MRjnamX0P22G1i3HH+ObcNlPVr/po4UVplDm5MQv
-         Gg3wVklxRDpBUEc564EKnogGcbmGUkpMgRVg1PtmXFKZ0HSsyzqjmSk+J4zQannNiuk0
-         0TKA==
+        bh=IX2gVzlYc0IbH9Z7O7YhUyubEeByOYaVbMRDVDTozoA=;
+        b=KnSGNk6Z82yrDmK03jM+I9bXhjU13Pk9eDIzJDCs/BYwlVxGdZc+Rwm7Sdb9+6mtg7
+         SMGGFUfGkD/ErYSUGSRIlRW+k9eyJGFvRBadQsI08T5TuzUhdmCkp8pLs4AE0T9qG557
+         JzuuDOWdmK9LIGsSLDQhFe0B9OlZ/oefx2a4kMPKyHNsEovwjJoVAPN667dygI2ol8xp
+         ZLnXFV7N16b4o0+p1cv+tiV8Z2m94grJLvPlyxwC4+2T8rNAXlNyAbnyMAUzArqTVCeH
+         dRBQcIOj5jAhJ56o3GkCVFRDpBM67zYrQMRiAWleEHR7x/dWNTPLHP5IB2xMbPGHKsyq
+         HofQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691076521; x=1691681321;
+        d=1e100.net; s=20221208; t=1691125219; x=1691730019;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=fv1LCJk+f7RVF8k/ixLAQ0iB0AzU0l/9VwQdVFGXgR8=;
-        b=VIBA1rkSj5ddi0OS9vDNGeVS8yr8Y+9+lQi+ntwXASA5ZQHsHbL40wDxdPkIJ/rwWt
-         r6rpBY5LymtAbozLcAF1YeqfLGS8SwNS01BPTluHIbA2dhE7+UCUUoE/FSa51UgqdlNG
-         Y9kK1NbNZO6gEFRLLf2wdzRLG+zBePNF+/dzxsTQHfHMtDDxBUtWnyS/fJJQVHo9pLuS
-         OzGq1X8lstwKmC+6PDRxHaeVY+qyUDvfCyfdbEGDcN1oMuy+mcbbxqzmptjja6twToEp
-         aM02JAtM47qz3yi0D3rdoV+Qs2okJ4A2ZWfnSSpTcsMMC0N73HB1YOf1HxDqsmTMcXjX
-         ZANQ==
-X-Gm-Message-State: ABy/qLbmytB+dBh7rjtV7cK2uJ5G6VrWgdtlTxvkMveDeC+JUhB6skJM
-	1D2c//3YM+3iv0wKLYpJ5WM=
+        bh=IX2gVzlYc0IbH9Z7O7YhUyubEeByOYaVbMRDVDTozoA=;
+        b=aH8ZL2Fczp5BnGFb0Qg27U1ZuiJZuTmebKF5xD/81DNsbf/7JKgZmY2p7jAvO3jceq
+         KV05F7wmzQjgT7xI9xH3JR2GpNGjMWJsM5H7eTPgb0J1LMKbBzPsjwDPPZ6JGTYmlyYJ
+         EXxWTGHTq0Nt7PPJ5ZRHS8/arbkgRd3mJ1ia23Zj5WQhHdT4XRCpiBpwrKMrQeThlNaq
+         GN0VCBF+IjUblOM/ldLU4gFEK9h3vnKWrUGnNS5uVPoyqsVRlRFDGRQnhcESN7c+Tede
+         CBY7SzZyrJo239Z0GLCmRIPGD8Pi3ofzPqIsNiQA+Pd64G27Q/IQlvW8HnYsVu4M+Out
+         2EqA==
+X-Gm-Message-State: AOJu0YwWh15+rfzhcSfefnJ6rKbKNswmz3zt8n7wHaqc6qGTfE7Nz7so
+	X44y95HNiOs40Iz4ovRoMBeWZA==
 X-Google-Smtp-Source: 
- APBJJlH7BTs2SskwP8aha/5LX92ptdWcFqDZlLUmmHykJcslucD1S0yT5lOPHU67HB/TX5d5nkmHyw==
-X-Received: by 2002:a05:651c:31a:b0:2b7:34c0:a03a with SMTP id
- a26-20020a05651c031a00b002b734c0a03amr9667022ljp.3.1691076520920;
-        Thu, 03 Aug 2023 08:28:40 -0700 (PDT)
-Received: from ivan-HLYL-WXX9.. ([141.136.93.39])
+ AGHT+IFCUZU9a4TKGl8P9srlXXK67nKOj0/XpD0wzNap0FS0y6wrAkbSOoO8HEMn1dV4NkwEfAHfpQ==
+X-Received: by 2002:a17:906:290:b0:99b:c7dc:b02 with SMTP id
+ 16-20020a170906029000b0099bc7dc0b02mr609013ejf.57.1691125218978;
+        Thu, 03 Aug 2023 22:00:18 -0700 (PDT)
+Received: from localhost.localdomain ([82.78.167.79])
         by smtp.gmail.com with ESMTPSA id
- e3-20020a17090681c300b00997d76981e0sm10617559ejx.208.2023.08.03.08.28.39
+ x14-20020a1709064bce00b0098f33157e7dsm739999ejv.82.2023.08.03.22.00.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Aug 2023 08:28:40 -0700 (PDT)
-From: Ivan Orlov <ivan.orlov0322@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
+        Thu, 03 Aug 2023 22:00:18 -0700 (PDT)
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+To: nicolas.ferre@microchip.com,
+	conor.dooley@microchip.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	maz@kernel.org,
+	srinivas.kandagatla@linaro.org,
+	thierry.reding@gmail.com,
+	u.kleine-koenig@pengutronix.de,
+	sre@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
 	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: pcmtest: Move buffer iterator initialization to prepare
- callback
-Date: Thu,  3 Aug 2023 19:28:24 +0400
-Message-Id: <20230803152824.7531-1-ivan.orlov0322@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Subject: [PATCH] MAINTAINERS: update Claudiu Beznea's email address
+Date: Fri,  4 Aug 2023 08:00:07 +0300
+Message-Id: <20230804050007.235799-1-claudiu.beznea@tuxon.dev>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: ivan.orlov0322@gmail.com
+X-MailFrom: claudiu.beznea@tuxon.dev
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5ZZ2VYMKDDWE46SYEM43GHIHA25PJEYI
-X-Message-ID-Hash: 5ZZ2VYMKDDWE46SYEM43GHIHA25PJEYI
+Message-ID-Hash: TMY3RMSOKOGAHBQQ67FVUCCIWBP2CKUK
+X-Message-ID-Hash: TMY3RMSOKOGAHBQQ67FVUCCIWBP2CKUK
 X-Mailman-Approved-At: Fri, 04 Aug 2023 09:44:31 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZZ2VYMKDDWE46SYEM43GHIHA25PJEYI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TMY3RMSOKOGAHBQQ67FVUCCIWBP2CKUK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,104 +135,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Trigger callback is not the best place for buffer iterator
-initialization, so move it out to the prepare callback, where it
-have to be.
+Update MAINTAINERS entries with a valid email address as the Microchip
+one is no longer valid.
 
-Minor enhancement: remove redundant definitions and blank line.
-
-Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 ---
- sound/drivers/pcmtest.c | 41 +++++++++++++++++++----------------------
- 1 file changed, 19 insertions(+), 22 deletions(-)
 
-diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
-index 08e14b5eb772..7f170429eb8f 100644
---- a/sound/drivers/pcmtest.c
-+++ b/sound/drivers/pcmtest.c
-@@ -41,8 +41,6 @@
- #include <linux/debugfs.h>
- #include <linux/delay.h>
+Changes in v2:
+- collected tags
+- extended the recipients list to include individual subsystem
+  maintainers and lists instead using only linux-kernel@vger.kernel.org
+  as suggested initially by get_maintainers.pl
+
+ MAINTAINERS | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 128fd295f86f..d48d8e857f57 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2351,7 +2351,7 @@ F:	drivers/phy/mediatek/
+ ARM/MICROCHIP (ARM64) SoC support
+ M:	Conor Dooley <conor@kernel.org>
+ M:	Nicolas Ferre <nicolas.ferre@microchip.com>
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/at91/linux.git
+@@ -2360,7 +2360,7 @@ F:	arch/arm64/boot/dts/microchip/
+ ARM/Microchip (AT91) SoC support
+ M:	Nicolas Ferre <nicolas.ferre@microchip.com>
+ M:	Alexandre Belloni <alexandre.belloni@bootlin.com>
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ W:	http://www.linux4sam.org
+@@ -3265,7 +3265,7 @@ F:	include/uapi/linux/atm*
  
--#define DEVNAME "pcmtestd"
--#define CARD_NAME "pcm-test-card"
- #define TIMER_PER_SEC 5
- #define TIMER_INTERVAL (HZ / TIMER_PER_SEC)
- #define DELAY_JIFFIES HZ
-@@ -74,11 +72,11 @@ static u8 ioctl_reset_test;
- static struct dentry *driver_debug_dir;
+ ATMEL MACB ETHERNET DRIVER
+ M:	Nicolas Ferre <nicolas.ferre@microchip.com>
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ S:	Supported
+ F:	drivers/net/ethernet/cadence/
  
- module_param(index, int, 0444);
--MODULE_PARM_DESC(index, "Index value for " CARD_NAME " soundcard");
-+MODULE_PARM_DESC(index, "Index value for pcmtest soundcard");
- module_param(id, charp, 0444);
--MODULE_PARM_DESC(id, "ID string for " CARD_NAME " soundcard");
-+MODULE_PARM_DESC(id, "ID string for pcmtest soundcard");
- module_param(enable, bool, 0444);
--MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
-+MODULE_PARM_DESC(enable, "Enable pcmtest soundcard.");
- module_param(fill_mode, short, 0600);
- MODULE_PARM_DESC(fill_mode, "Buffer fill mode: rand(0) or pattern(1)");
- module_param(inject_delay, int, 0600);
-@@ -92,7 +90,6 @@ MODULE_PARM_DESC(inject_trigger_err, "Inject EINVAL error in the 'trigger' callb
- module_param(inject_open_err, bool, 0600);
- MODULE_PARM_DESC(inject_open_err, "Inject EBUSY error in the 'open' callback");
+@@ -13880,7 +13880,7 @@ F:	Documentation/devicetree/bindings/serial/atmel,at91-usart.yaml
+ F:	drivers/spi/spi-at91-usart.c
  
--
- struct pcmtst {
- 	struct snd_pcm *pcm;
- 	struct snd_card *card;
-@@ -405,25 +402,9 @@ static int snd_pcmtst_pcm_close(struct snd_pcm_substream *substream)
+ MICROCHIP AUDIO ASOC DRIVERS
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+ S:	Supported
+ F:	Documentation/devicetree/bindings/sound/atmel*
+@@ -13903,7 +13903,7 @@ S:	Maintained
+ F:	drivers/crypto/atmel-ecc.*
  
- static int snd_pcmtst_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- {
--	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct pcmtst_buf_iter *v_iter = runtime->private_data;
--
- 	if (inject_trigger_err)
- 		return -EINVAL;
+ MICROCHIP EIC DRIVER
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ F:	Documentation/devicetree/bindings/interrupt-controller/microchip,sama7g5-eic.yaml
+@@ -13976,7 +13976,7 @@ F:	drivers/video/fbdev/atmel_lcdfb.c
+ F:	include/video/atmel_lcdc.h
  
--	v_iter->sample_bytes = runtime->sample_bits / 8;
--	v_iter->period_bytes = frames_to_bytes(runtime, runtime->period_size);
--	if (runtime->access == SNDRV_PCM_ACCESS_RW_NONINTERLEAVED ||
--	    runtime->access == SNDRV_PCM_ACCESS_MMAP_NONINTERLEAVED) {
--		v_iter->chan_block = runtime->dma_bytes / runtime->channels;
--		v_iter->interleaved = false;
--	} else {
--		v_iter->interleaved = true;
--	}
--	// We want to record RATE * ch_cnt samples per sec, it is rate * sample_bytes * ch_cnt bytes
--	v_iter->s_rw_ch = runtime->rate / TIMER_PER_SEC;
--	v_iter->b_rw = v_iter->s_rw_ch * v_iter->sample_bytes * runtime->channels;
--
- 	return 0;
- }
+ MICROCHIP MCP16502 PMIC DRIVER
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ F:	Documentation/devicetree/bindings/regulator/mcp16502-regulator.txt
+@@ -14003,7 +14003,7 @@ F:	Documentation/devicetree/bindings/mtd/atmel-nand.txt
+ F:	drivers/mtd/nand/raw/atmel/*
  
-@@ -454,8 +435,24 @@ static void pcmtst_pdev_release(struct device *dev)
+ MICROCHIP OTPC DRIVER
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ F:	Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
+@@ -14042,7 +14042,7 @@ F:	Documentation/devicetree/bindings/fpga/microchip,mpf-spi-fpga-mgr.yaml
+ F:	drivers/fpga/microchip-spi.c
  
- static int snd_pcmtst_pcm_prepare(struct snd_pcm_substream *substream)
- {
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct pcmtst_buf_iter *v_iter = runtime->private_data;
-+
- 	if (inject_prepare_err)
- 		return -EINVAL;
-+
-+	v_iter->sample_bytes = samples_to_bytes(runtime, 1);
-+	v_iter->period_bytes = snd_pcm_lib_period_bytes(substream);
-+	v_iter->interleaved = true;
-+	if (runtime->access == SNDRV_PCM_ACCESS_RW_NONINTERLEAVED ||
-+	    runtime->access == SNDRV_PCM_ACCESS_MMAP_NONINTERLEAVED) {
-+		v_iter->chan_block = snd_pcm_lib_buffer_bytes(substream) / runtime->channels;
-+		v_iter->interleaved = false;
-+	}
-+	// We want to record RATE * ch_cnt samples per sec, it is rate * sample_bytes * ch_cnt bytes
-+	v_iter->s_rw_ch = runtime->rate / TIMER_PER_SEC;
-+	v_iter->b_rw = v_iter->s_rw_ch * v_iter->sample_bytes * runtime->channels;
-+
- 	return 0;
- }
+ MICROCHIP PWM DRIVER
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ L:	linux-pwm@vger.kernel.org
+ S:	Supported
+@@ -14058,7 +14058,7 @@ F:	drivers/iio/adc/at91-sama5d2_adc.c
+ F:	include/dt-bindings/iio/adc/at91-sama5d2_adc.h
  
+ MICROCHIP SAMA5D2-COMPATIBLE SHUTDOWN CONTROLLER
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ S:	Supported
+ F:	Documentation/devicetree/bindings/power/reset/atmel,sama5d2-shdwc.yaml
+ F:	drivers/power/reset/at91-sama5d2_shdwc.c
+@@ -14075,7 +14075,7 @@ S:	Supported
+ F:	drivers/spi/spi-atmel.*
+ 
+ MICROCHIP SSC DRIVER
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ S:	Supported
+ F:	Documentation/devicetree/bindings/misc/atmel-ssc.txt
+@@ -14104,7 +14104,7 @@ F:	drivers/usb/gadget/udc/atmel_usba_udc.*
+ 
+ MICROCHIP WILC1000 WIFI DRIVER
+ M:	Ajay Singh <ajay.kathat@microchip.com>
+-M:	Claudiu Beznea <claudiu.beznea@microchip.com>
++M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+ L:	linux-wireless@vger.kernel.org
+ S:	Supported
+ F:	drivers/net/wireless/microchip/wilc1000/
 -- 
-2.34.1
+2.39.2
 

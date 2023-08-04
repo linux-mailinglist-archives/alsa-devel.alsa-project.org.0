@@ -2,94 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271AD7700DE
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 15:12:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8AF4770158
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 15:20:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0005D3E7;
-	Fri,  4 Aug 2023 15:11:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0005D3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDA506C0;
+	Fri,  4 Aug 2023 15:20:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDA506C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691154741;
-	bh=f2/rWiiZ+BWOnBDUaju5TgK3fx+//iSl49gAZ5rDVNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691155250;
+	bh=aVevoRH/zRsAEvs3H2Zcva4HG1R7N5bpvTy+bXxQy94=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LTFz37RIzMWFHcTm4FlwOVD0iYv+zLkcT9lh728PLV5lcrhgyXXIS4MUmQ8JmlUON
-	 PugUMrl5j2nfZ5CWiQDugmgOKUbBQ9q/BzuZbDD+zqCzWV5e+NVn0HyGh+paWXAKYC
-	 EL6UWqDE9XQe70bLiwJI9LfKdvZJ6wKdfc6p269M=
+	b=ntY53Sf1whe1v+RNO/2h0JltBzGyWrFctxNu8aORS9dO8XOPB6TFKfRFtf+sFqnc3
+	 qcCjABTVxZyXSZoU0Qt3YefHeH4+omwpjFqSwF9ETiiEUBC4nFVyK/QxJspa6pFXLO
+	 kc1nY9owBV+sHAeDpXDGrEXR0h0OjGu0PtCSeNW4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6432DF80535; Fri,  4 Aug 2023 15:11:30 +0200 (CEST)
+	id E62D6F80425; Fri,  4 Aug 2023 15:19:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D7C0F801D5;
-	Fri,  4 Aug 2023 15:11:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F2E4F801D5;
+	Fri,  4 Aug 2023 15:19:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3D6CF8025A; Fri,  4 Aug 2023 15:11:25 +0200 (CEST)
+	id 2852DF8025A; Fri,  4 Aug 2023 15:19:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3309F80087
-	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 15:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3309F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F262F80087
+	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 15:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F262F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IMZro10+
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3AA3561BDF;
-	Fri,  4 Aug 2023 13:11:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1E7C433C8;
-	Fri,  4 Aug 2023 13:11:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691154674;
-	bh=f2/rWiiZ+BWOnBDUaju5TgK3fx+//iSl49gAZ5rDVNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IMZro10+B2k4gmweNm4CE5LN/6SBKu5OhUflU/VvQYH2x7i40okckpp48M95nYEci
-	 9oNjuKrY1qEmsJg+XEhXulFTpGkyyr/W4l/9p5nlO+L7ELtxGPkUdw6///YTtCt3kL
-	 do/TiZJ7K3E7e1Ml9D/rU753Wz8W20meD17h2sz6qItA5ZPbRHR94BKWkh/7jsQpVx
-	 sqaqu493oYy9ackeXbASMyg4acPgNA5nJxbEnDfVYvIj+8XzLM0cNGf7zDQ7xMOyit
-	 ZPRnBmieNpxj+TxSJsedXmMK3OGHZX9oqcyzYZ9c+/d5mP7iTxxpfqCwS1gr8x2aUf
-	 V5xzm9RRUjMcw==
-Date: Fri, 4 Aug 2023 14:11:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Akihiko Odaki <akihiko.odaki@gmail.com>
-Cc: Alper Nebi Yasak <alpernebiyasak@gmail.com>,
-	alsa-devel@alsa-project.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	=?iso-8859-1?Q?N=EDcolas_F_=2E_R_=2E_A_=2E?= Prado <nfraprado@collabora.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=iPhJejNr
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1bb893e6365so14571065ad.2
+        for <alsa-devel@alsa-project.org>;
+ Fri, 04 Aug 2023 06:19:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1691155187; x=1691759987;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=e6hpRsVCce4RnHz/Z3fP3W+DwdjM90pnF8UifpN2OMs=;
+        b=iPhJejNrhhzG8zVMYezC4gkylcG+fHxVXtBVrgeOa1Z1/HPBboEMdub+16UJObLBmj
+         fJMOX5FQSUkm5OBIb0KoccNZG93SrqxexDD+dCjDmCZinOh7VmN9k12ffjwGTkX2DAb9
+         6li7cgRPT7AYokQwb2wSK9BLlsOfT5XuZNT6NmDKyUd78E3k5RqiZDX/HlINZoa3Qp6+
+         L3+dxR2GeHWnKdD/1CmNgbuC9jh5oqEsUDmP+WjytK5r4pPeVTEPP7ZJw4FlROev0jpq
+         ePJf3ltxvOeMVaP4F61iK1xzh+3iW3EoXcZ3CuEW+HN0mWaAVNO6NUKF1PW0/iWGOtS+
+         pnQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691155187; x=1691759987;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=e6hpRsVCce4RnHz/Z3fP3W+DwdjM90pnF8UifpN2OMs=;
+        b=GIkWjcOABUuY9mNomFh26rSxSeKl3ZXMi7e8uIYqHoKTm3Ypw9767nioVlMMkmXYhJ
+         wk1p0yMP7QsgilDwG70ZdO7C92HHbg5E2ivLX8wXlKGA7BkDjRdylsd5A8sovkSf8PDa
+         AiSTyI5CXl1atkYB6dPOknGZE5UZ3QKvFPkossSbDLkPEWdqo0Ep+16T84DaWqhx0Q5F
+         UKawoo43I6E6QIstY+idV71oVzao04a7ag99P34CgVUbMWrDPyYP3K7wC4LvgtH7bJgX
+         rj3df/SBusdU6vbDM0CbJMPV28yxDeC7uUUXnS8MeqPlJlT5kOD7NGd2fqnDc/AWVZ48
+         WDAQ==
+X-Gm-Message-State: AOJu0YzhHObB1UAA7ClqEl5eZSgLrESq2fSBnxtPCTOD7Omx8SLKpGct
+	ZRwweCtknFZzB1/0Jmiovrg=
+X-Google-Smtp-Source: 
+ AGHT+IGisXvEl+fbn12qhq+M3FWOG3viroz5i3RITcOwWH8GPg1+bnjpB4HUzTiyFOghbvpVyCqn3g==
+X-Received: by 2002:a17:902:b611:b0:1b8:35fa:cdb6 with SMTP id
+ b17-20020a170902b61100b001b835facdb6mr1382017pls.13.1691155187486;
+        Fri, 04 Aug 2023 06:19:47 -0700 (PDT)
+Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
+ ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
+        by smtp.gmail.com with ESMTPSA id
+ be5-20020a170902aa0500b001b5247cac3dsm1740067plb.110.2023.08.04.06.19.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Aug 2023 06:19:47 -0700 (PDT)
+Message-ID: <3d6794c9-60d3-b8f3-99d2-afdc69593d9f@gmail.com>
+Date: Fri, 4 Aug 2023 22:19:43 +0900
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 04/27] ASoC: amd: acp3x-rt5682-max9836: Map missing jack
  kcontrols
-Message-ID: <a0ba4144-7763-4d55-8517-f1c44fa4257e@sirena.org.uk>
+Content-Language: en-US
+To: Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ =?UTF-8?Q?N=C3=ADcolas_F_=2E_R_=2E_A_=2E_Prado?= <nfraprado@collabora.com>
 References: <20230802175737.263412-1-alpernebiyasak@gmail.com>
  <20230802175737.263412-5-alpernebiyasak@gmail.com>
  <277be798-9bd0-baa0-9e0d-8a7a9ac67f02@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aUxVXCjCALHmLMJ0"
-Content-Disposition: inline
-In-Reply-To: <277be798-9bd0-baa0-9e0d-8a7a9ac67f02@gmail.com>
-X-Cookie: I'm hungry, time to eat lunch.
-Message-ID-Hash: KVSBZIOJ4EM7QNWDSHHGEZLFYFMNVTU4
-X-Message-ID-Hash: KVSBZIOJ4EM7QNWDSHHGEZLFYFMNVTU4
-X-MailFrom: broonie@kernel.org
+ <a0ba4144-7763-4d55-8517-f1c44fa4257e@sirena.org.uk>
+From: Akihiko Odaki <akihiko.odaki@gmail.com>
+In-Reply-To: <a0ba4144-7763-4d55-8517-f1c44fa4257e@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: HFF2VEQHJ6XUPFITJ6J6V4LPE2P7WP2O
+X-Message-ID-Hash: HFF2VEQHJ6XUPFITJ6J6V4LPE2P7WP2O
+X-MailFrom: akihiko.odaki@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KVSBZIOJ4EM7QNWDSHHGEZLFYFMNVTU4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HFF2VEQHJ6XUPFITJ6J6V4LPE2P7WP2O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,35 +133,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 2023/08/04 22:11, Mark Brown wrote:
+> On Fri, Aug 04, 2023 at 05:04:52PM +0900, Akihiko Odaki wrote:
+> 
+>> Mark Brown has a raised question if the jack is really not driven as a line
+>> output[1], but I never answered him (sorry for that!) I don't know if the
+>> hardware is capable, but I think we better to remove it for now since the
+>> codec driver does not handle it.
+> 
+>> Mark, does it sound reasonable?
+> 
+> Sure.
 
---aUxVXCjCALHmLMJ0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I see. Alper, can you add a patch to remove SND_JACK_LINEOUT to your series?
 
-On Fri, Aug 04, 2023 at 05:04:52PM +0900, Akihiko Odaki wrote:
-
-> Mark Brown has a raised question if the jack is really not driven as a line
-> output[1], but I never answered him (sorry for that!) I don't know if the
-> hardware is capable, but I think we better to remove it for now since the
-> codec driver does not handle it.
-
-> Mark, does it sound reasonable?
-
-Sure.
-
---aUxVXCjCALHmLMJ0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTM+OwACgkQJNaLcl1U
-h9BG5Qf/Zh+JDihZs7ro532usaJFwZMp9Cb1GgiFE9rokNJ0kEQYEJtO/ho/6YR0
-43E4WxyobGMN/Rn0mrkPQhLeRJ4ivilk5GvzZBSg27cbetAIzWyAAZMb+uEdK/yE
-FVg/Yh7ZS4hIbym2E3MtN/KxVzSMNpAdrPv77AhVaXgMZyneSmF/aLn7S+Am3F5G
-w6UFUB6znB1bcApjfP1uKoxAdxUD2MqZfE5TixaH/zpyciWyI1j9fzjQhb+Z615O
-VHKkZTWwlt1AlEMn511/vOhTa6kGkFGI5SstyYFNugiRL0O7vSmHpK+rXjBAVQct
-4xZdQxTvXrT2f0quFNGXKIuHjk2zGg==
-=qIVR
------END PGP SIGNATURE-----
-
---aUxVXCjCALHmLMJ0--
+Regards,
+Akihiko Odaki

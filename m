@@ -2,438 +2,433 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CAFD76FCB7
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 10:59:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F053C76FDC9
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 11:48:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 133437F8;
-	Fri,  4 Aug 2023 10:58:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 133437F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 463F8E12;
+	Fri,  4 Aug 2023 11:47:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463F8E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691139589;
-	bh=F1/0QLHCS4gBERGLf0l732TUZEE12H8Q20+lwfH++YE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ScB/z9t943Rq7zrTsAl4kfu6pxE4C7k1g/101VU2n0Dz1H31WKGWgKPyT3PLvTnyV
-	 qwaGl9DjEWe5+P1BiReuxVLu3XyNF4/InsBKKzdmHB//8i5qmU6h7ztp4ZX4l7Mx1X
-	 Wi6iBjASA9GoHrP9cqAsCEXqPqWkgZKo8xi+6giA=
+	s=default; t=1691142507;
+	bh=FxF7sNLvcjKJ6GBtnKyDhPsD/et7hE/E1yIzkVF7rqA=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=TyioEtlRyy1u/ZE5jrztlsdzUiM8Un0gQA2u2h8DDIRIQrTO6W2bzJZDRDuOs2c5H
+	 HLj70mnCWXDzetGCC0NafgGtGG6HJEH+U+n1Upn9zRnf/JcnGNCSen1wHVknYl5lDF
+	 52aR0lJkh+8kuF1q5G6DjlD4Rq1Jl9MB22VK/dkU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6F94F80548; Fri,  4 Aug 2023 10:58:58 +0200 (CEST)
+	id E37AEF805AC; Fri,  4 Aug 2023 11:44:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4A81F80425;
-	Fri,  4 Aug 2023 10:58:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16E0AF805AC;
+	Fri,  4 Aug 2023 11:44:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1908F80425; Fri,  4 Aug 2023 10:58:53 +0200 (CEST)
+	id 91142F8025A; Fri,  4 Aug 2023 11:15:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 22106F8015B
-	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 10:58:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22106F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 671AAF8015B
+	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 11:15:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 671AAF8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=lPSBx/zs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=9ONGtaES
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8D4B72186F;
-	Fri,  4 Aug 2023 08:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1691139519;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S7OmWTXxlnVlWCrST0eK+OofEBW9bWTQUUYiAQCwLjw=;
-	b=lPSBx/zsTXfckbeRtNplLDFYAhYMe9c7bkv2pRIBSiQRmx+N8nJexvgZ0gefkvgbbfGscg
-	jB4rUyuD7uM1uXhpWg/xG1fzd2RSxLsz3/+CJfrjY9j883SvrEBX/QqsPQOkoxEy6R68cs
-	C20VDQ9ZrX3iGHSJQqI1iiiE2SM93og=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691139519;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S7OmWTXxlnVlWCrST0eK+OofEBW9bWTQUUYiAQCwLjw=;
-	b=9ONGtaESIRQ6paaRI4TNawqIHvl5zRj7ztuDdkDEK5M47nQ8gnHzzPpvDHlR9jldRMoT6n
-	H0LJLkQUmg3iPWCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 38CD4133B5;
-	Fri,  4 Aug 2023 08:58:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id nSnHDL+9zGT2CAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 04 Aug 2023 08:58:39 +0000
-Date: Fri, 04 Aug 2023 10:58:38 +0200
-Message-ID: <87zg379oap.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Curtis Malainey <cujomalainey@google.com>
-Cc: cujomalainey@chromium.org,
-	alsa-devel@alsa-project.org,
-	Doug Anderson <dianders@chromium.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Zheyu Ma <zheyuma97@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
-	Clement Lecigne <clecigne@google.com>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH] sound: core: fix device ownership model in card and pcm
-In-Reply-To: 
- <CAOReqxhVXEL0ifkhEhBG1NYHOAVPS5y2oEuHfEO8gDvZjF30fQ@mail.gmail.com>
-References: <20230801171928.1460120-1-cujomalainey@chromium.org>
-	<87cz06djxo.wl-tiwai@suse.de>
-	<CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
-	<87sf90b7hw.wl-tiwai@suse.de>
-	<87cz04b0ku.wl-tiwai@suse.de>
-	<CAOReqxhVXEL0ifkhEhBG1NYHOAVPS5y2oEuHfEO8gDvZjF30fQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: GQKNVLRF35YVA4UTJIM6ZNGRC62KFFN6
-X-Message-ID-Hash: GQKNVLRF35YVA4UTJIM6ZNGRC62KFFN6
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20221208.gappssmtp.com
+ header.i=@baylibre-com.20221208.gappssmtp.com header.a=rsa-sha256
+ header.s=20221208 header.b=YCd0E+ms
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-3fb4146e8ceso17283605e9.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 04 Aug 2023 02:15:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20221208.gappssmtp.com; s=20221208; t=1691140504;
+ x=1691745304;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=71Y7fvFf23DlcHVQnn1+VCuGejkZ90AHi9Sx80BiLrU=;
+        b=YCd0E+msh2iovWRHo6etrB96IEVPx9bTD6paLhaxTy410eEXt6Ao221ZgMRwlzMTg4
+         TcLe0eyw/IncHgE4yhCcBKNE0U9v5ymweVIy7sO0fx56PieWmXvqa0QJdUb+P3tTFGF0
+         MZYSPSTegQ9j4N3kCWnL3YdxPFpJQCXs3b3KyoQi7fzVH7OcsfVxBDOk67aah8VlAC8f
+         FYBBNi92tWBGc2zmH5hPnB2ZIzShRwfxH/zrA/PxsegqvkEfyr3YVgdJ4/cv1rpVqq2U
+         7P1Qy943XdbjQCSm8DR5A57Tj64iy2RSTxOrJSuEdD3cJUqwgcSByW2J8+ZTfQyQNsRG
+         0Uew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691140504; x=1691745304;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=71Y7fvFf23DlcHVQnn1+VCuGejkZ90AHi9Sx80BiLrU=;
+        b=l3ZnO3Q1qLAt2akyAdEyBzWSqHWk68WVTADyBayYtyH/9A+kSYAVfXsivIbzWBWYF9
+         UNWmpy76m4WCwPtq+e52lpeVMEgEc2nuDOp8S/O8m9kHiOPEmJeaK1HXvw3Z+aLTco9v
+         //w2XqfKYwZmq1UvdaQ9rtW5IyRo4DHpHR8nhkT6U1ar3zPnh13BvnGKZBV0Kw8f0Y9a
+         8DJqcOzEj2B2xVQ9WZdUkMCsajVYTJXjpZuNZNwUcy6PCNRd3PS2ZUPwf2YOM6v4flQK
+         uH3UXprbgpySVBxeyLH1GUvl75nxScdkZ37a+3R1KW21zGzEHSVNFz3xYovl7bZvPsbt
+         DR3g==
+X-Gm-Message-State: AOJu0YxYzd3BCsK/Oy4EUNrL67/nPBCXzD/iimkytrfkzMXHFR9STHFf
+	u/2H03Izgr/EyBAlqqhvL6OtPQ==
+X-Google-Smtp-Source: 
+ AGHT+IEdwy67IM7wQzFY9zbOqk6aVpwyIEai6eqbnk6UqIWFL8cDm0ellxQL8yh/OIYFEy/H85s8JA==
+X-Received: by 2002:a05:600c:452:b0:3fe:1660:7e71 with SMTP id
+ s18-20020a05600c045200b003fe16607e71mr960232wmb.41.1691140503706;
+        Fri, 04 Aug 2023 02:15:03 -0700 (PDT)
+Received: from [192.168.1.172] ([93.5.22.158])
+        by smtp.gmail.com with ESMTPSA id
+ q9-20020a1ce909000000b003fc04d13242sm6224919wmc.0.2023.08.04.02.15.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Aug 2023 02:15:03 -0700 (PDT)
+Message-ID: <a5a12190-f872-1fae-ad7a-7cf9ca7e9502@baylibre.com>
+Date: Fri, 4 Aug 2023 11:15:01 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3 1/6] ASoC: mediatek: mt7986: add common header
+To: Maso Huang <maso.huang@mediatek.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Arnd Bergmann <arnd@arndb.de>,
+ Mars Chen <chenxiangrui@huaqin.corp-partner.google.com>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20230728090819.18038-1-maso.huang@mediatek.com>
+ <20230728090819.18038-2-maso.huang@mediatek.com>
+Content-Language: en-US
+From: Alexandre Mergnat <amergnat@baylibre.com>
+In-Reply-To: <20230728090819.18038-2-maso.huang@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: amergnat@baylibre.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 5KLUHVOWMRJZ5ZDAB7NZ2MYWIDBOMRCX
+X-Message-ID-Hash: 5KLUHVOWMRJZ5ZDAB7NZ2MYWIDBOMRCX
+X-Mailman-Approved-At: Fri, 04 Aug 2023 09:44:31 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GQKNVLRF35YVA4UTJIM6ZNGRC62KFFN6/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5KLUHVOWMRJZ5ZDAB7NZ2MYWIDBOMRCX/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 04 Aug 2023 01:39:30 +0200,
-Curtis Malainey wrote:
-> > Now I slowly understand what's happening.  Essentially, it's because
-> > the *embedded* struct device is released asynchronously from the
-> > ALSA's resource management (via dev_free ops).  The objects may be
-> > already released via card's device release (that calls
-> > snd_device_free_all()), while the release of each struct device that
-> > was already triggered beforehand can be delayed due to the debug
-> > option.
+
+
+On 28/07/2023 11:08, Maso Huang wrote:
+> Add header files for register definition and structure.
 > 
-> Ah that actually is the second bug I am still working on and not this
-> one. This patch fixes a bug in both the devm and non-devm case.
+> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>   sound/soc/mediatek/mt7986/mt7986-afe-common.h |  49 +++++
+>   sound/soc/mediatek/mt7986/mt7986-reg.h        | 206 ++++++++++++++++++
+>   2 files changed, 255 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-common.h
+>   create mode 100644 sound/soc/mediatek/mt7986/mt7986-reg.h
 > 
-> If you look at snd_card_init it installs release_card_device as the
-> release function for the struct device card_dev.
-> 
-> snd_card also has another struct device embedded in it, ctl_dev.
-> 
-> release_card_device calls snd_card_do_free which at the end releases
-> the snd_card struct.
-> 
-> The problem here is that in the kernel hacking situation, the release
-> function on the devices are not always called inplace (i.e. assuming
-> proper referencing counting behaviour). So with a bit of RNG, you hit
-> a case where card_dev runs release_card_device before ctl_dev, or even
-> before the PCM devices which results in the release function operating
-> on a freed pointer.
-> 
-> The other sign this is an issue is that we have 2 struct devices in
-> the same memory allocation (both in card and pcm), therefore they
-> cannot properly own their release.
+> diff --git a/sound/soc/mediatek/mt7986/mt7986-afe-common.h b/sound/soc/mediatek/mt7986/mt7986-afe-common.h
+> new file mode 100644
+> index 000000000000..1c59549d91b4
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt7986/mt7986-afe-common.h
+> @@ -0,0 +1,49 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * mt7986-afe-common.h  --  MediaTek 7986 audio driver definitions
+> + *
+> + * Copyright (c) 2021 MediaTek Inc.
 
-Right, that's why those two aren't coded like rawmidi and hwdep.
+2023
 
-> > You code change looks mostly fine, but as far as I see,
-> > compress_offload also needs a similar change.  Meanwhile, rawmidi and
-> > hwdep do release the object via device release properly, so those are
-> > fine.  Ditto for sequencer.  And timer is only a global device, hence
-> > it must be fine.
-> 
-> Yes I noticed this too, will draft versions for them once I have the
-> snd_card devm version solved. So far though only snd_card has
-> reproduced the devm/release race.
-> 
-> >
-> > And, I believe we need a bit more detailed patch description.  So,
-> > could you improve the patch description, split the change to each
-> > component (control, pcm and compress_offload), and resubmit?
-> 
-> I can definitely update this to contain a bit more detail. That being
-> said, given the confusion about which bug this solves, do you still
-> want me to split this up? The bug is not resolved without both PCM and
-> card change for this bug which is hit in the delayed release, but they
-> are for two different paths reported by KASAN.
+> + * Author: Vic Wu <vic.wu@mediatek.com>
 
-It's rather for making changes easier to read.  The change for each
-component seems completely individual and can be applied
-independently.
+Authors
 
+> + *         Maso Huang <maso.huang@mediatek.com>
+> + */
+> +
+> +#ifndef _MT_7986_AFE_COMMON_H_
+> +#define _MT_7986_AFE_COMMON_H_
+> +
+> +#include <sound/soc.h>
+> +#include <linux/clk.h>
+> +#include <linux/list.h>
+> +#include <linux/regmap.h>
+> +#include "../common/mtk-base-afe.h"
+> +
+> +enum {
+> +	MT7986_MEMIF_DL1,
+> +	MT7986_MEMIF_VUL12,
+> +	MT7986_MEMIF_NUM,
+> +	MT7986_DAI_ETDM = MT7986_MEMIF_NUM,
+> +	MT7986_DAI_NUM,
+> +};
+> +
+> +enum {
+> +	MT7986_IRQ_0,
+> +	MT7986_IRQ_1,
+> +	MT7986_IRQ_2,
+> +	MT7986_IRQ_NUM,
+> +};
+> +
+> +struct mt7986_afe_private {
+> +	struct clk_bulk_data *clks;
+> +	int num_clks;
+> +
+> +	int pm_runtime_bypass_reg_ctl;
+> +
+> +	/* dai */
+> +	void *dai_priv[MT7986_DAI_NUM];
+> +};
+> +
+> +unsigned int mt7986_afe_rate_transform(struct device *dev,
+> +				       unsigned int rate);
+> +
+> +/* dai register */
+> +int mt7986_dai_etdm_register(struct mtk_base_afe *afe);
+> +#endif
+> diff --git a/sound/soc/mediatek/mt7986/mt7986-reg.h b/sound/soc/mediatek/mt7986/mt7986-reg.h
+> new file mode 100644
+> index 000000000000..88861f81890f
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt7986/mt7986-reg.h
+> @@ -0,0 +1,206 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * mt7986-reg.h  --  MediaTek 7986 audio driver reg definition
+> + *
+> + * Copyright (c) 2021 MediaTek Inc.
 
-> > Also, maybe it's worth to change snd_device_initialize() to take the
-> > release (optional) argument, too, instead of setting it explicitly
-> > afterwards at each place.  Already majority of callers will set own
-> > release callbacks.  This can be done at one more additional patch at
-> > last.
-> 
-> Sounds like a good idea, definitely an option once we get the
-> underlying issue solved.
+Ditto
 
-Now I've been reconsidering the problem, and thought of another
-possible workaround.  We may add the card's refcount control for the
-device init and release, so that we delay the actual resource free.
-The basic idea is to take card->card_ref at the device init and unref
-it at the actual device release callback.  Then the snd_card_free()
-call is held until all those refcounted devices are released.
+> + * Author: Vic Wu <vic.wu@mediatek.com>
 
-Below is a PoC patch (yes, this can be split, too ;)
-A quick test on VM seems OK, but needs more reviews and tests.
+Ditto
 
-It contains somewhat ugly conditional put_device() at the dev_free
-ops.  We can make those a bit saner with some helpers later, too.
+> + *         Maso Huang <maso.huang@mediatek.com>
+> + */
+> +
+> +#ifndef _MT7986_REG_H_
+> +#define _MT7986_REG_H_
+> +
+> +#define AUDIO_TOP_CON2                  0x0008
+> +#define AUDIO_TOP_CON4                  0x0010
+> +#define AUDIO_ENGEN_CON0                0x0014
+> +#define AFE_IRQ_MCU_EN                  0x0100
+> +#define AFE_IRQ_MCU_STATUS              0x0120
+> +#define AFE_IRQ_MCU_CLR                 0x0128
+> +#define AFE_IRQ0_MCU_CFG0               0x0140
+> +#define AFE_IRQ0_MCU_CFG1               0x0144
+> +#define AFE_IRQ1_MCU_CFG0               0x0148
+> +#define AFE_IRQ1_MCU_CFG1               0x014c
+> +#define AFE_IRQ2_MCU_CFG0               0x0150
+> +#define AFE_IRQ2_MCU_CFG1               0x0154
+> +#define ETDM_IN5_CON0                   0x13f0
+> +#define ETDM_IN5_CON1                   0x13f4
+> +#define ETDM_IN5_CON2                   0x13f8
+> +#define ETDM_IN5_CON3                   0x13fc
+> +#define ETDM_IN5_CON4                   0x1400
+> +#define ETDM_OUT5_CON0                  0x1570
+> +#define ETDM_OUT5_CON4                  0x1580
+> +#define ETDM_OUT5_CON5                  0x1584
+> +#define ETDM_4_7_COWORK_CON0            0x15e0
+> +#define ETDM_4_7_COWORK_CON1            0x15e4
+> +#define AFE_CONN018_1                   0x1b44
+> +#define AFE_CONN018_4                   0x1b50
+> +#define AFE_CONN019_1                   0x1b64
+> +#define AFE_CONN019_4                   0x1b70
+> +#define AFE_CONN124_1                   0x2884
+> +#define AFE_CONN124_4                   0x2890
+> +#define AFE_CONN125_1                   0x28a4
+> +#define AFE_CONN125_4                   0x28b0
+> +#define AFE_CONN_RS_0                   0x3920
+> +#define AFE_CONN_RS_3                   0x392c
+> +#define AFE_CONN_16BIT_0                0x3960
+> +#define AFE_CONN_16BIT_3                0x396c
+> +#define AFE_CONN_24BIT_0                0x3980
+> +#define AFE_CONN_24BIT_3                0x398c
+> +#define AFE_MEMIF_CON0                  0x3d98
+> +#define AFE_MEMIF_RD_MON                0x3da0
+> +#define AFE_MEMIF_WR_MON                0x3da4
+> +#define AFE_DL0_BASE_MSB                0x3e40
+> +#define AFE_DL0_BASE                    0x3e44
+> +#define AFE_DL0_CUR_MSB                 0x3e48
+> +#define AFE_DL0_CUR                     0x3e4c
+> +#define AFE_DL0_END_MSB                 0x3e50
+> +#define AFE_DL0_END                     0x3e54
+> +#define AFE_DL0_RCH_MON                 0x3e58
+> +#define AFE_DL0_LCH_MON                 0x3e5c
+> +#define AFE_DL0_CON0                    0x3e60
+> +#define AFE_VUL0_BASE_MSB               0x4220
+> +#define AFE_VUL0_BASE                   0x4224
+> +#define AFE_VUL0_CUR_MSB                0x4228
+> +#define AFE_VUL0_CUR                    0x422c
+> +#define AFE_VUL0_END_MSB                0x4230
+> +#define AFE_VUL0_END                    0x4234
+> +#define AFE_VUL0_CON0                   0x4238
+> +
+> +#define AFE_MAX_REGISTER AFE_VUL0_CON0
+> +#define AFE_IRQ_STATUS_BITS             0x7
+> +#define AFE_IRQ_CNT_SHIFT               0
+> +#define AFE_IRQ_CNT_MASK	        0xffffff
+> +
+> +/* AUDIO_TOP_CON2 */
+> +#define CLK_OUT5_PDN                    BIT(14)
+> +#define CLK_OUT5_PDN_MASK               BIT(14)
+> +#define CLK_IN5_PDN                     BIT(7)
+> +#define CLK_IN5_PDN_MASK                BIT(7)
+> +
+> +/* AUDIO_TOP_CON4 */
+> +#define PDN_APLL_TUNER2                 BIT(12)
+> +#define PDN_APLL_TUNER2_MASK            BIT(12)
+> +
+> +/* AUDIO_ENGEN_CON0 */
+> +#define AUD_APLL2_EN                    BIT(3)
+> +#define AUD_APLL2_EN_MASK               BIT(3)
+> +#define AUD_26M_EN                      BIT(0)
+> +#define AUD_26M_EN_MASK                 BIT(0)
+> +
+> +/* AFE_DL0_CON0 */
+> +#define DL0_ON_SFT                      28
+> +#define DL0_ON_MASK                     0x1
+> +#define DL0_ON_MASK_SFT                 BIT(28)
+> +#define DL0_MINLEN_SFT                  20
+> +#define DL0_MINLEN_MASK                 0xf
+> +#define DL0_MINLEN_MASK_SFT             (0xf << 20)
+> +#define DL0_MODE_SFT                    8
+> +#define DL0_MODE_MASK                   0x1f
+> +#define DL0_MODE_MASK_SFT               (0x1f << 8)
+> +#define DL0_PBUF_SIZE_SFT               5
+> +#define DL0_PBUF_SIZE_MASK              0x3
+> +#define DL0_PBUF_SIZE_MASK_SFT          (0x3 << 5)
+> +#define DL0_MONO_SFT                    4
+> +#define DL0_MONO_MASK                   0x1
+> +#define DL0_MONO_MASK_SFT               BIT(4)
+> +#define DL0_HALIGN_SFT                  2
+> +#define DL0_HALIGN_MASK                 0x1
+> +#define DL0_HALIGN_MASK_SFT             BIT(2)
+> +#define DL0_HD_MODE_SFT                 0
+> +#define DL0_HD_MODE_MASK                0x3
+> +#define DL0_HD_MODE_MASK_SFT            (0x3 << 0)
+> +
+> +/* AFE_VUL0_CON0 */
+> +#define VUL0_ON_SFT                     28
+> +#define VUL0_ON_MASK                    0x1
+> +#define VUL0_ON_MASK_SFT                BIT(28)
+> +#define VUL0_MODE_SFT                   8
+> +#define VUL0_MODE_MASK                  0x1f
+> +#define VUL0_MODE_MASK_SFT              (0x1f << 8)
+> +#define VUL0_MONO_SFT                   4
+> +#define VUL0_MONO_MASK                  0x1
+> +#define VUL0_MONO_MASK_SFT              BIT(4)
+> +#define VUL0_HALIGN_SFT                 2
+> +#define VUL0_HALIGN_MASK                0x1
+> +#define VUL0_HALIGN_MASK_SFT            BIT(2)
+> +#define VUL0_HD_MODE_SFT                0
+> +#define VUL0_HD_MODE_MASK               0x3
+> +#define VUL0_HD_MODE_MASK_SFT           (0x3 << 0)
+> +
+> +/* AFE_IRQ_MCU_CON */
+> +#define IRQ_MCU_MODE_SFT                4
+> +#define IRQ_MCU_MODE_MASK               0x1f
+> +#define IRQ_MCU_MODE_MASK_SFT           (0x1f << 4)
+> +#define IRQ_MCU_ON_SFT                  0
+> +#define IRQ_MCU_ON_MASK                 0x1
+> +#define IRQ_MCU_ON_MASK_SFT             BIT(0)
+> +#define IRQ0_MCU_CLR_SFT                0
+> +#define IRQ0_MCU_CLR_MASK               0x1
+> +#define IRQ0_MCU_CLR_MASK_SFT           BIT(0)
+> +#define IRQ1_MCU_CLR_SFT                1
+> +#define IRQ1_MCU_CLR_MASK               0x1
+> +#define IRQ1_MCU_CLR_MASK_SFT           BIT(1)
+> +#define IRQ2_MCU_CLR_SFT                2
+> +#define IRQ2_MCU_CLR_MASK               0x1
+> +#define IRQ2_MCU_CLR_MASK_SFT           BIT(2)
+> +
+> +/* ETDM_IN5_CON2 */
+> +#define IN_CLK_SRC(x)                   ((x) << 10)
+> +#define IN_CLK_SRC_SFT                  10
+> +#define IN_CLK_SRC_MASK                 GENMASK(12, 10)
+> +
+> +/* ETDM_IN5_CON3 */
+> +#define IN_SEL_FS(x)                    ((x) << 26)
+> +#define IN_SEL_FS_SFT                   26
+> +#define IN_SEL_FS_MASK                  GENMASK(30, 26)
+> +
+> +/* ETDM_IN5_CON4 */
+> +#define IN_RELATCH(x)                   ((x) << 20)
+> +#define IN_RELATCH_SFT                  20
+> +#define IN_RELATCH_MASK                 GENMASK(24, 20)
+> +#define IN_CLK_INV                      BIT(18)
+> +#define IN_CLK_INV_MASK                 BIT(18)
+> +
+> +/* ETDM_IN5_CON0 & ETDM_OUT5_CON0 */
+> +#define RELATCH_SRC(x)                  ((x) << 28)
+> +#define RELATCH_SRC_SFT                 28
+> +#define RELATCH_SRC_MASK                GENMASK(30, 28)
+> +#define ETDM_CH_NUM(x)                  (((x) - 1) << 23)
+> +#define ETDM_CH_NUM_SFT                 23
+> +#define ETDM_CH_NUM_MASK                GENMASK(27, 23)
+> +#define ETDM_WRD_LEN(x)                 (((x) - 1) << 16)
+> +#define ETDM_WRD_LEN_SFT                16
+> +#define ETDM_WRD_LEN_MASK               GENMASK(20, 16)
+> +#define ETDM_BIT_LEN(x)                 (((x) - 1) << 11)
+> +#define ETDM_BIT_LEN_SFT                11
+> +#define ETDM_BIT_LEN_MASK               GENMASK(15, 11)
+> +#define ETDM_FMT(x)                     ((x) << 6)
+> +#define ETDM_FMT_SFT                    6
+> +#define ETDM_FMT_MASK                   GENMASK(8, 6)
+> +#define ETDM_SYNC                       BIT(1)
+> +#define ETDM_SYNC_MASK                  BIT(1)
+> +#define ETDM_EN                         BIT(0)
+> +#define ETDM_EN_MASK                    BIT(0)
+> +
+> +/* ETDM_OUT5_CON4 */
+> +#define OUT_RELATCH(x)                  ((x) << 24)
+> +#define OUT_RELATCH_SFT                 24
+> +#define OUT_RELATCH_MASK                GENMASK(28, 24)
+> +#define OUT_CLK_SRC(x)                  ((x) << 6)
+> +#define OUT_CLK_SRC_SFT                 6
+> +#define OUT_CLK_SRC_MASK                GENMASK(8, 6)
+> +#define OUT_SEL_FS(x)                   (x)
+> +#define OUT_SEL_FS_SFT                  0
+> +#define OUT_SEL_FS_MASK                 GENMASK(4, 0)
+> +
+> +/* ETDM_OUT5_CON5 */
+> +#define ETDM_CLK_DIV                    BIT(12)
+> +#define ETDM_CLK_DIV_MASK               BIT(12)
+> +#define OUT_CLK_INV                     BIT(9)
+> +#define OUT_CLK_INV_MASK                BIT(9)
+> +
+> +/* ETDM_4_7_COWORK_CON0 */
+> +#define OUT_SEL(x)                      ((x) << 12)
+> +#define OUT_SEL_SFT                     12
+> +#define OUT_SEL_MASK                    GENMASK(15, 12)
+> +#endif
 
-BTW, this approach may avoid another potential problem by the delayed
-release; if we finish the driver remove without waiting for the actual
-device releases, it may hit a code (the piece of the device release
-callback) of the already removed module, and it's not guaranteed to be
-present.
-I'm not sure whether this really happens, but it's another thing to be
-considered.
-
-
-thanks,
-
-Takashi
-
----
-diff --git a/include/sound/core.h b/include/sound/core.h
-index f6e0dd648b80..00c514a80a4a 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -239,7 +239,10 @@ extern struct dentry *sound_debugfs_root;
- 
- void snd_request_card(int card);
- 
--void snd_device_initialize(struct device *dev, struct snd_card *card);
-+void __snd_device_initialize(struct device *dev, struct snd_card *card,
-+			     bool with_ref);
-+#define snd_device_initialize(dev, card) \
-+	__snd_device_initialize(dev, card, false)
- 
- int snd_register_device(int type, struct snd_card *card, int dev,
- 			const struct file_operations *f_ops,
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 30f73097447b..a29398cc9d27 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -1085,6 +1085,7 @@ static int snd_compress_dev_disconnect(struct snd_device *device)
- 
- 	compr = device->device_data;
- 	snd_unregister_device(&compr->dev);
-+	put_device(&compr->dev);
- 	return 0;
- }
- 
-@@ -1158,7 +1159,8 @@ static int snd_compress_dev_free(struct snd_device *device)
- 
- 	compr = device->device_data;
- 	snd_compress_proc_done(compr);
--	put_device(&compr->dev);
-+	if (device->state != SNDRV_DEV_DISCONNECTED)
-+		put_device(&compr->dev);
- 	return 0;
- }
- 
-@@ -1189,7 +1191,7 @@ int snd_compress_new(struct snd_card *card, int device,
- 
- 	snd_compress_set_id(compr, id);
- 
--	snd_device_initialize(&compr->dev, card);
-+	__snd_device_initialize(&compr->dev, card, true);
- 	dev_set_name(&compr->dev, "comprC%iD%i", card->number, device);
- 
- 	ret = snd_device_new(card, SNDRV_DEV_COMPRESS, compr, &ops);
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 8386b53acdcd..bea501f20c4b 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -2351,7 +2351,9 @@ static int snd_ctl_dev_disconnect(struct snd_device *device)
- 	up_read(&snd_ctl_layer_rwsem);
- 	up_read(&card->controls_rwsem);
- 
--	return snd_unregister_device(&card->ctl_dev);
-+	snd_unregister_device(&card->ctl_dev);
-+	put_device(&card->ctl_dev);
-+	return 0;
- }
- 
- /*
-@@ -2373,7 +2375,8 @@ static int snd_ctl_dev_free(struct snd_device *device)
- 	xa_destroy(&card->ctl_hash);
- #endif
- 	up_write(&card->controls_rwsem);
--	put_device(&card->ctl_dev);
-+	if (device->state != SNDRV_DEV_DISCONNECTED)
-+		put_device(&card->ctl_dev);
- 	return 0;
- }
- 
-@@ -2395,7 +2398,7 @@ int snd_ctl_create(struct snd_card *card)
- 	if (snd_BUG_ON(card->number < 0 || card->number >= SNDRV_CARDS))
- 		return -ENXIO;
- 
--	snd_device_initialize(&card->ctl_dev, card);
-+	__snd_device_initialize(&card->ctl_dev, card, true);
- 	dev_set_name(&card->ctl_dev, "controlC%d", card->number);
- 
- 	err = snd_device_new(card, SNDRV_DEV_CONTROL, card, &ops);
-diff --git a/sound/core/init.c b/sound/core/init.c
-index baef2688d0cf..d122ff60c463 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -117,6 +117,10 @@ static int get_slot_from_bitmask(int mask, int (*check)(struct module *, int),
-  */
- static void default_release(struct device *dev)
- {
-+	struct snd_card *card = dev_get_drvdata(dev);
-+
-+	if (card)
-+		snd_card_unref(card);
- }
- 
- /**
-@@ -124,15 +128,20 @@ static void default_release(struct device *dev)
-  * @dev: device to initialize
-  * @card: card to assign, optional
-  */
--void snd_device_initialize(struct device *dev, struct snd_card *card)
-+void __snd_device_initialize(struct device *dev, struct snd_card *card,
-+			     bool with_ref)
- {
- 	device_initialize(dev);
- 	if (card)
- 		dev->parent = &card->card_dev;
- 	dev->class = &sound_class;
- 	dev->release = default_release;
-+	if (with_ref) {
-+		dev_set_drvdata(dev, card);
-+		get_device(&card->card_dev);
-+	}
- }
--EXPORT_SYMBOL_GPL(snd_device_initialize);
-+EXPORT_SYMBOL_GPL(__snd_device_initialize);
- 
- static int snd_card_init(struct snd_card *card, struct device *parent,
- 			 int idx, const char *xid, struct module *module,
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 9d95e3731123..ccad084a359f 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -30,7 +30,7 @@ static DEFINE_MUTEX(register_mutex);
- static LIST_HEAD(snd_pcm_notify_list);
- #endif
- 
--static int snd_pcm_free(struct snd_pcm *pcm);
-+static int snd_pcm_free(struct snd_pcm *pcm, bool do_put);
- static int snd_pcm_dev_free(struct snd_device *device);
- static int snd_pcm_dev_register(struct snd_device *device);
- static int snd_pcm_dev_disconnect(struct snd_device *device);
-@@ -650,7 +650,7 @@ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count)
- 	if (!substream_count)
- 		return 0;
- 
--	snd_device_initialize(&pstr->dev, pcm->card);
-+	__snd_device_initialize(&pstr->dev, pcm->card, true);
- 	pstr->dev.groups = pcm_dev_attr_groups;
- 	pstr->dev.type = &pcm_dev_type;
- 	dev_set_name(&pstr->dev, "pcmC%iD%i%c", pcm->card->number, pcm->device,
-@@ -752,7 +752,7 @@ static int _snd_pcm_new(struct snd_card *card, const char *id, int device,
- 	return 0;
- 
- free_pcm:
--	snd_pcm_free(pcm);
-+	snd_pcm_free(pcm, true);
- 	return err;
- }
- 
-@@ -821,7 +821,7 @@ static void free_chmap(struct snd_pcm_str *pstr)
- 	}
- }
- 
--static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
-+static void snd_pcm_free_stream(struct snd_pcm_str * pstr, bool do_put)
- {
- 	struct snd_pcm_substream *substream, *substream_next;
- #if IS_ENABLED(CONFIG_SND_PCM_OSS)
-@@ -846,7 +846,7 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
- 	}
- #endif
- 	free_chmap(pstr);
--	if (pstr->substream_count)
-+	if (pstr->substream_count && do_put)
- 		put_device(&pstr->dev);
- }
- 
-@@ -861,7 +861,7 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
- #define pcm_call_notify(pcm, call) do {} while (0)
- #endif
- 
--static int snd_pcm_free(struct snd_pcm *pcm)
-+static int snd_pcm_free(struct snd_pcm *pcm, bool do_put)
- {
- 	if (!pcm)
- 		return 0;
-@@ -870,8 +870,8 @@ static int snd_pcm_free(struct snd_pcm *pcm)
- 	if (pcm->private_free)
- 		pcm->private_free(pcm);
- 	snd_pcm_lib_preallocate_free_for_all(pcm);
--	snd_pcm_free_stream(&pcm->streams[SNDRV_PCM_STREAM_PLAYBACK]);
--	snd_pcm_free_stream(&pcm->streams[SNDRV_PCM_STREAM_CAPTURE]);
-+	snd_pcm_free_stream(&pcm->streams[SNDRV_PCM_STREAM_PLAYBACK], do_put);
-+	snd_pcm_free_stream(&pcm->streams[SNDRV_PCM_STREAM_CAPTURE], do_put);
- 	kfree(pcm);
- 	return 0;
- }
-@@ -879,7 +879,7 @@ static int snd_pcm_free(struct snd_pcm *pcm)
- static int snd_pcm_dev_free(struct snd_device *device)
- {
- 	struct snd_pcm *pcm = device->device_data;
--	return snd_pcm_free(pcm);
-+	return snd_pcm_free(pcm, device->state != SNDRV_DEV_DISCONNECTED);
- }
- 
- int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
-@@ -1125,7 +1125,10 @@ static int snd_pcm_dev_disconnect(struct snd_device *device)
- 
- 	pcm_call_notify(pcm, n_disconnect);
- 	for (cidx = 0; cidx < 2; cidx++) {
-+		if (!pcm->streams[cidx].substream_count)
-+			continue;
- 		snd_unregister_device(&pcm->streams[cidx].dev);
-+		put_device(&pcm->streams[cidx].dev);
- 		free_chmap(&pcm->streams[cidx]);
- 	}
- 	mutex_unlock(&pcm->open_mutex);
+-- 
+Regards,
+Alexandre

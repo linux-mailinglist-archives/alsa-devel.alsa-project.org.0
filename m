@@ -2,111 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9EB770231
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 15:49:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6483A77028F
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Aug 2023 16:07:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50A6A7F8;
-	Fri,  4 Aug 2023 15:48:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A6A7F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B1CB7F4;
+	Fri,  4 Aug 2023 16:07:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B1CB7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691156945;
-	bh=GSQRoi7hD9Uq1dfWMcv1+DQaA5dzzQwjbYGfEFOdL8M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691158074;
+	bh=M3CRrkFdoVdKzSs+IuKDCwrg6JzzVYw+6AYVIznlqWg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S2x8HyCmNeCLu/PnrGPCm2Z++Tua18Puu4WRglg2U+GbkXKq9yXAAayJ7YKOz+s2w
-	 fqWrDgU4jRbTrcYkN75Xm9fFCdlaaz5TDYatTHS+nJJ2vVScl9I3XBIg6XvswBjLZT
-	 GJDgS+JT01FbC462iqljY8rcq/1bmkTCEQG8GphQ=
+	b=LxaxndNJXGoD9rrsCq50fjFfdQy4iao6IOCe2uVhUm+n0MziMYPnAeaEOIu+J9Duu
+	 KM6P9buiVbqn2bDfuU3QEjorZDfoZEV2S0BMF1CpeupQaH3ALQXTEH72oVDv0ZBXDR
+	 OjmVOtcgc3RiohjR5oVZHBVP4oCF0jjzy0j2wvcU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC399F8053B; Fri,  4 Aug 2023 15:47:53 +0200 (CEST)
+	id 9BC7FF80535; Fri,  4 Aug 2023 16:07:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51466F801D5;
-	Fri,  4 Aug 2023 15:47:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3956CF801D5;
+	Fri,  4 Aug 2023 16:07:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF2CDF8025A; Fri,  4 Aug 2023 15:47:48 +0200 (CEST)
+	id 42EEDF8025A; Fri,  4 Aug 2023 16:06:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 405C0F8016D
-	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 15:47:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 405C0F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56582F8015B
+	for <alsa-devel@alsa-project.org>; Fri,  4 Aug 2023 16:06:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56582F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=resnulli-us.20221208.gappssmtp.com
- header.i=@resnulli-us.20221208.gappssmtp.com header.a=rsa-sha256
- header.s=20221208 header.b=FbpksK0a
-Received: by mail-wr1-x441.google.com with SMTP id
- ffacd0b85a97d-31768ce2e81so1905928f8f.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 04 Aug 2023 06:47:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20221208.gappssmtp.com; s=20221208; t=1691156861;
- x=1691761661;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WvbyZl7o3izzZQLp7Y0b9RIMj8QAxcAwWaunav84SDw=;
-        b=FbpksK0asFziyiy+hK5v4TcQeeIaIR1NUXNvp0T8YwIEs6vbTIzOOo5KfzF6tSkBgO
-         +OdFIboek/+rGTvwJN79ftPr13X8lXu6aHUbX1g+9fbgNpR9v7UIn2dpeeOfg+CW28K6
-         IXUq18aclWGyg78WIg5kIQmrgzHvo//yDiiOnUyM5YsU0X/AYIQ6lbBi+7LZ0qtVEZZ/
-         dpCzQLrCgHa7TCAU5XGJIgQQf/npJHeGH/CIU1W/Np8jwk5rYm8oNkXIQLm81oc/WcY9
-         KTwJHeXxbI4QdnwLIUNXypwa12L+YonKHEMlefiMtlgb9HuxhmpKQzLV5h27Mk+Qarn3
-         tY5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691156861; x=1691761661;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WvbyZl7o3izzZQLp7Y0b9RIMj8QAxcAwWaunav84SDw=;
-        b=MBiul4VYxPN3X8RFxVdtYPPjYjR75q2Es0vVGQgxIerSdiwXR3ewJoSgsMV49uRrND
-         8U5+uV2I0K5GcbKIQrupWTtXX9ynUjRvSnYJ+zxgA42mFCS39xncVDf+2kEQ4HTjFC6q
-         6++kpEOuhwx6H7PiSQWpVJxWW2b0gYyOQBsq8QCqMXUF9BY5cKhdbptLTB272BDd3HpS
-         yWgvtyWQCohAsGFVEUGFqS8ZhKoLLhbblx8buGUxSFp7xFWGlfqLgMk42S/NSKJpl1iL
-         LXj3F6H3YwiCcXi842Vr++bkzhlnKrRC0YEXDt9sAwxsHiDnbLWAH/srQQ6o9JPY30c0
-         4f8Q==
-X-Gm-Message-State: AOJu0YxjrCH8SSAXX3NSeGLkI3PaNwi+lf7GyLbxuXe0WqFutueHjuqR
-	TGYv2h0jW2VMyPbDjmv3BBXuVg==
-X-Google-Smtp-Source: 
- AGHT+IGtmkXCcqnZuQaRYwvop1xV5GK+cjBPXEH1CvswNseUlrG58a4yXauQA15UyMe4/lX00LOAFQ==
-X-Received: by 2002:a5d:4a4a:0:b0:317:6175:95fd with SMTP id
- v10-20020a5d4a4a000000b00317617595fdmr1319065wrs.43.1691156861110;
-        Fri, 04 Aug 2023 06:47:41 -0700 (PDT)
-Received: from localhost ([212.23.236.67])
-        by smtp.gmail.com with ESMTPSA id
- q14-20020adfcd8e000000b00314329f7d8asm2594246wrj.29.2023.08.04.06.47.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Aug 2023 06:47:40 -0700 (PDT)
-Date: Fri, 4 Aug 2023 15:47:39 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: nicolas.ferre@microchip.com, conor.dooley@microchip.com,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, maz@kernel.org,
-	srinivas.kandagatla@linaro.org, thierry.reding@gmail.com,
-	u.kleine-koenig@pengutronix.de, sre@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-pwm@vger.kernel.org, alsa-devel@alsa-project.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: update Claudiu Beznea's email address
-Message-ID: <ZM0Be8S8zII8wV4l@nanopsycho>
-References: <20230804050007.235799-1-claudiu.beznea@tuxon.dev>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IqBFb0fS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1691158011; x=1722694011;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=M3CRrkFdoVdKzSs+IuKDCwrg6JzzVYw+6AYVIznlqWg=;
+  b=IqBFb0fSb3d7TU+Rt3hl66+CmeRpYpSWftDaGPQa40y3T6pXnbRZavsy
+   v+7O3U9h00zHJYsM2klPBBQsnr+NdrTirTvqjnt6cCcONpSnPPJgZnnIl
+   DCOVW5xiqEg/Qr38NOs8LmjHGVCugCOp080Ydzc0Cl8lqh1Xhyxe9mx02
+   NxZd7t8Bdnf8tzhqx436lfTKSo6HMyo7Efr1+HbcWDPyKSQvuGNQLlsVu
+   XKLjAjkKiAcFAiO5jFGWrPHc+vbfhH8FmzpABIDcWnw6ffyuWciGo3nVm
+   pSIvjVdCJ4WoKKLCspteunO9lqX6ey/3yyLyo9GAcw3c8HiMI3fW5KlpO
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10792"; a="349751614"
+X-IronPort-AV: E=Sophos;i="6.01,255,1684825200";
+   d="scan'208";a="349751614"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2023 07:06:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10792"; a="707037358"
+X-IronPort-AV: E=Sophos;i="6.01,255,1684825200";
+   d="scan'208";a="707037358"
+Received: from jcummins-mobl.amr.corp.intel.com (HELO [10.209.135.208])
+ ([10.209.135.208])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2023 07:06:45 -0700
+Message-ID: <63eec3cf-ebba-a366-a66b-34daf76bc0f2@linux.intel.com>
+Date: Fri, 4 Aug 2023 09:06:45 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230804050007.235799-1-claudiu.beznea@tuxon.dev>
-Message-ID-Hash: 7NTD4HQ5NCJJJZBMQQ53LURFH732Q7E3
-X-Message-ID-Hash: 7NTD4HQ5NCJJJZBMQQ53LURFH732Q7E3
-X-MailFrom: jiri@resnulli.us
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH] ASoC: lower "no backend DAIs enabled for ... Port" log
+ severity
+Content-Language: en-US
+To: Hans de Goede <hdegoede@redhat.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org
+References: <20230804132628.302385-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230804132628.302385-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 4FDO6KC25GWQOEDKQPP33IJBYCSSDADF
+X-Message-ID-Hash: 4FDO6KC25GWQOEDKQPP33IJBYCSSDADF
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7NTD4HQ5NCJJJZBMQQ53LURFH732Q7E3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4FDO6KC25GWQOEDKQPP33IJBYCSSDADF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,19 +109,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fri, Aug 04, 2023 at 07:00:07AM CEST, claudiu.beznea@tuxon.dev wrote:
->Update MAINTAINERS entries with a valid email address as the Microchip
->one is no longer valid.
->
->Acked-by: Conor Dooley <conor.dooley@microchip.com>
->Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
->Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
->---
->
->Changes in v2:
->- collected tags
->- extended the recipients list to include individual subsystem
->  maintainers and lists instead using only linux-kernel@vger.kernel.org
->  as suggested initially by get_maintainers.pl
 
-Consider adding entry in .mailmap as well please.
+
+On 8/4/23 08:26, Hans de Goede wrote:
+> If SNDRV_PCM_IOCTL_PREPARE is called when  the mixer settings linking
+> frontend and backend have not been setup yet this results in
+> e.g. the following errors getting logged:
+> 
+> [   43.244549]  Baytrail Audio Port: ASoC: no backend DAIs enabled for Baytrail Audio Port
+> [   43.244744]  Baytrail Audio Port: ASoC: error at dpcm_fe_dai_prepare on Baytrail Audio Port: -22
+> 
+> pipewire triggers this leading to 96 repeats of this in the log
+> after the user has logged into a GNOME session.
+> 
+> IMHO userspace should not be able to get the kernel to spam dmesg like
+> this. Lower the severity of the "no backend DAIs enabled" log message
+> for dai-s with the dynamic flag set to avoid this.
+> 
+> And also changes _soc_pcm_ret() to not log for -EINVAL errors, to fix
+> the other error. Userspace passing wrong parameters should not lead
+> to dmesg messages.
+
+Maybe, but it's a questionable flow if pipewire tries to open stuff
+without the mixer values set-up. Is there something done about this?
+
+The reason why I am pushing back is that we had a similar issue with
+HDaudio where HDMI/DP PCM devices were opened without checking if the
+jack was connected.
+
+It really makes no sense for userspace to try and open devices that are
+known to be problematic. We can push kernel error logs below the rug, it
+doesn't make the programming flows better.

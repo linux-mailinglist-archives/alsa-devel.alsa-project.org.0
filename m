@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B167739A5
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 12:37:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41B737739A7
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 12:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD7AF84C;
-	Tue,  8 Aug 2023 12:36:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD7AF84C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6BA2BC0;
+	Tue,  8 Aug 2023 12:37:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6BA2BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691491066;
-	bh=CakRtJZLOYtmE1GbuaB0tr63l4mmlCVRiWUunvBtPP4=;
+	s=default; t=1691491109;
+	bh=4O+AovqzHu/xgZKN2NEl0Tr/pgKFUcDa4hdbNa72GKE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=l+opb6+R5KajOx/vH6xZ0srRkq5awJw1DhBd7yMqaSV3DW+Z4y652BTlY6DVFH4Ou
-	 HiPx+QenEOrN0VeVeEUr+9mCl8fO+y0NtLXxkCOjbnt3ip9oBrndZnmlaFu0AB8Itl
-	 iE+fYO4lAgz0Ht8Hb3lVdLkLyKpXcP9Q8lChGm38=
+	b=Ld8kw0QhQKbzu/WoHS9wMtZDY1k6uGtsZfDe8lRM3QoamkPCi8RU4M6HbCJuB4r21
+	 e4uMsE7H5y14gPSjbe1SdCi9y7rU+PkexmoKNXdqopdDXLkSfnXKp1IHqNBj9iGJwT
+	 PJ8N3AMrMvOvd8ISpTP/dstdIzcVi308QvgIMXTc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54922F805AF; Tue,  8 Aug 2023 12:35:38 +0200 (CEST)
+	id 71366F805BD; Tue,  8 Aug 2023 12:35:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E609DF805A9;
-	Tue,  8 Aug 2023 12:35:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2423F805BD;
+	Tue,  8 Aug 2023 12:35:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65DE7F80520; Sat,  5 Aug 2023 20:06:06 +0200 (CEST)
+	id 1988AF8025A; Sat,  5 Aug 2023 20:06:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 819B2F8025A
-	for <alsa-devel@alsa-project.org>; Sat,  5 Aug 2023 20:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 819B2F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2012CF802BE
+	for <alsa-devel@alsa-project.org>; Sat,  5 Aug 2023 20:05:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2012CF802BE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=QON3iw8t
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-3fe1fc8768aso30918995e9.1
+ header.s=20221208 header.b=VLxBlaI8
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-313e742a787so1846538f8f.1
         for <alsa-devel@alsa-project.org>;
- Sat, 05 Aug 2023 11:05:50 -0700 (PDT)
+ Sat, 05 Aug 2023 11:05:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691258748; x=1691863548;
+        d=gmail.com; s=20221208; t=1691258753; x=1691863553;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UAC/Wd+inkjB4rZNJmg2rnNyd7z2tGVBYSRDfN+uDnU=;
-        b=QON3iw8tvEZ8P9uEoQ+A96ZChbhfHc9Z0feSTck+faMU+BX7Qsu0BWekh0p4EKbKkI
-         vDYftM3lwMovNMlCM7bYE+56Xe4Ij8+nVAFFGhsHP2KdQ73twlm/KjITE1OLk+QSMj39
-         mgwRgIhzR5ybKl6PibQz9ggtGB+SfsAvGz0AAQRPDBjR9FFXWY2XY1qNsf6yfPqP14jP
-         f4XO3dx6HwaS84q4Up/LvwZnpk6M7YtDSgWvwYOGt5BqmQYpNNOKs+Om2YktGX0OeOH5
-         zIR+JeSu2ck2C/ppkGId2p6nOZrfDN3om8Bn4cOXdp5bc+X1JbAABza/DV9hS/s+Y9Cp
-         FyDQ==
+        bh=Ho00aTSR6Nd9ZGhlL2/Ex6KOk4DJ3h9NtPcio400hoM=;
+        b=VLxBlaI8OMxLcTfutZ+0EfaTTw8wCx3/tYk1MbmhoMTyKb5KLY63SI+rpGmulbi4/P
+         9Mp5rFEGSyq8vigwARVKAhhKJ8QEouwEbCKn5EJidI0mzGQLqwmwhenQ57d9Gb5hsUIY
+         3l+rcXOp1ne9gbzHU9GqbvzIX1hju1hW7RA9LNHHxJIQ0TptHx+JbEtVWRAJw54wSXS+
+         BIaXdz76P4K1zLflOleE/QEM/G9TUIx2gPledE5R0YqB9CPzso1egFaFVZ/H6VAmAWxh
+         NNPRqowJH5nE8RK1eZtfwwnEF8b1kLGmT31vmbzRQwIFvQWLpWdtUeKs+5iCED5p75x9
+         b8zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691258748; x=1691863548;
+        d=1e100.net; s=20221208; t=1691258753; x=1691863553;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=UAC/Wd+inkjB4rZNJmg2rnNyd7z2tGVBYSRDfN+uDnU=;
-        b=RCNSX6vEpEfdAQQ4HL5NspIxigQVap2u92WYS+UW1ywJnMqP7RiAEhH2EAwGHbnIDg
-         UOHYQuL2n8yw8SiR8bk2A6jt82LvAGf7B8OCfl3lzpCeMXL4QQVcLflSV1FPIqb55rB4
-         K1oAxteObDTC5ywcEBGx22b7NrN8ZQECKoOYRq1rAH5oAbVaO8oihiKMgyu/TsQGeoLB
-         0NzRz9+QD53OJbZt1R6RsSfqja2enOPe5IXYeqNQKcdzeeLcWiJ7ilXOoghQmpwWjmvm
-         c+XnsYz+t1g+BDXqJ1X8PVsiTdCY93cELhfIdu6AExxsHKawKo0jJ0rhiuH5BTue3nIi
-         8XXg==
-X-Gm-Message-State: AOJu0YyYIvDFQ/hZ6DQ4rJFTfSZoBRDatsuEgNFLa0jhGXDbr1NxnRbr
-	nwU00tWYszhDkk+hWEQTGBKM8Mnso5/fdw==
+        bh=Ho00aTSR6Nd9ZGhlL2/Ex6KOk4DJ3h9NtPcio400hoM=;
+        b=MLKW6i1V8NZpPOAyqF7UccaFHf3hybj6h+kMnBzqRBsMSZ22NVwYMiNB7K8sUK+x8Y
+         fGiJBCJwUR0P4xz0H5yx/vHD+AXENFXW8x0zGbw6DWyr+0KEIuqT+4o101uneu0LPRPf
+         869X84N6ZNUEQXZO5OJMOFWck4+HJc0YXmK1oRdgi6lPXMmsGiejDYsmfmenXhJzHLgg
+         EPHdX0dn2uLF/RHslvkfAdxavfdSF/qe1tyREfRGHirm4VgTJp59p8OoJHvxZT8sFe5U
+         jZB69U7d/epHNSlwXu3ztswMSXkDnFZGBOJc0pstiX4nAgR03TyN9J4Q8oEacWqcS1pc
+         Uusw==
+X-Gm-Message-State: AOJu0YwBxAUDBulEGNIOSt9ZlFIYMdDxraWi8WTX8VN+lz0IiWrHQN5m
+	rDglvINuMgjheEunSShazSI=
 X-Google-Smtp-Source: 
- AGHT+IHq3qJBx8OwucTasP0y54mcsYMF8ABW5B6yS8muHb6MykWjBz3vRDYpRoFBtQWY1Dzou+tqWA==
-X-Received: by 2002:a7b:c850:0:b0:3fe:173e:4a34 with SMTP id
- c16-20020a7bc850000000b003fe173e4a34mr3579314wml.40.1691258748561;
-        Sat, 05 Aug 2023 11:05:48 -0700 (PDT)
+ AGHT+IH9HhmtHMoM4vrXGnrK2R/jHU6vhHKZeu67GsZoQ2e8dcjlsXq+5hVc3u2LGqYnCflZERbX7w==
+X-Received: by 2002:a5d:6ac5:0:b0:317:6570:afec with SMTP id
+ u5-20020a5d6ac5000000b003176570afecmr2366516wrw.3.1691258753198;
+        Sat, 05 Aug 2023 11:05:53 -0700 (PDT)
 Received: from user-PC.. ([178.134.198.138])
         by smtp.gmail.com with ESMTPSA id
- v4-20020a5d6104000000b003176aa612b1sm5710402wrt.38.2023.08.05.11.05.45
+ v4-20020a5d6104000000b003176aa612b1sm5710402wrt.38.2023.08.05.11.05.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Aug 2023 11:05:48 -0700 (PDT)
+        Sat, 05 Aug 2023 11:05:53 -0700 (PDT)
 From: Maksim Kiselev <bigunclemax@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Maksim Kiselev <bigunclemax@gmail.com>,
@@ -107,10 +107,10 @@ Cc: Maksim Kiselev <bigunclemax@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-riscv@lists.infradead.org
-Subject: [PATCH v1 3/5] ASoC: sunxi: sun4i-codec: add basic support for D1
- audio codec
-Date: Sat,  5 Aug 2023 21:05:03 +0300
-Message-Id: <20230805180506.718364-4-bigunclemax@gmail.com>
+Subject: [PATCH v1 4/5] ASoC: sunxi: Add new driver for Allwinner D1/T113s
+ codec's analog path controls
+Date: Sat,  5 Aug 2023 21:05:04 +0300
+Message-Id: <20230805180506.718364-5-bigunclemax@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230805180506.718364-1-bigunclemax@gmail.com>
 References: <20230805180506.718364-1-bigunclemax@gmail.com>
@@ -122,15 +122,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 7VCGRZDXRINSKDYDZLUKW6KCVGOFHLUF
-X-Message-ID-Hash: 7VCGRZDXRINSKDYDZLUKW6KCVGOFHLUF
+Message-ID-Hash: FY7XQYECPTXZZYLHE43L25NHD6HCECXJ
+X-Message-ID-Hash: FY7XQYECPTXZZYLHE43L25NHD6HCECXJ
 X-Mailman-Approved-At: Tue, 08 Aug 2023 10:35:25 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7VCGRZDXRINSKDYDZLUKW6KCVGOFHLUF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FY7XQYECPTXZZYLHE43L25NHD6HCECXJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,616 +139,281 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Allwinner D1 has an audio codec similar to earlier ones, but it comes
-with 3 channel ADC instead of 2, and many registers are moved.
+The internal codec on D1/T113s is split into 2 parts like the previous
+ones. But now analog path controls registers are mapped directly
+on the bus, right after the registers of the digital part.
 
-Add basic support for it.
+Add an ASoC component driver for it. This should be tied to the codec
+audio card as an auxiliary device.
 
 Signed-off-by: Maksim Kiselev <bigunclemax@gmail.com>
 ---
- sound/soc/sunxi/sun4i-codec.c | 364 ++++++++++++++++++++++++++++------
- 1 file changed, 300 insertions(+), 64 deletions(-)
+ sound/soc/sunxi/Kconfig                  |  11 ++
+ sound/soc/sunxi/Makefile                 |   1 +
+ sound/soc/sunxi/sun20i-d1-codec-analog.c | 220 +++++++++++++++++++++++
+ 3 files changed, 232 insertions(+)
+ create mode 100644 sound/soc/sunxi/sun20i-d1-codec-analog.c
 
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 55328850aef5..4d4f396da3ee 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -232,15 +232,65 @@
+diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
+index 1f18f016acbb..c67895d08079 100644
+--- a/sound/soc/sunxi/Kconfig
++++ b/sound/soc/sunxi/Kconfig
+@@ -38,6 +38,17 @@ config SND_SUN50I_CODEC_ANALOG
+ 	  Say Y or M if you want to add support for the analog controls for
+ 	  the codec embedded in Allwinner A64 SoC.
  
- /* TODO H3 DAP (Digital Audio Processing) bits */
- 
++config SND_SUN20I_D1_CODEC_ANALOG
++	tristate "Allwinner D1 Codec Analog Controls Support"
++	depends on ARCH_SUNXI || COMPILE_TEST
++	select REGMAP_MMIO
++	help
++	  This option enables the analog controls part of the internal audio
++	  codec for Allwinner D1/T113s SoCs family.
++
++	  Say Y or M if you want to add support for the analog part of
++	  the D1/T113s audio codec.
++
+ config SND_SUN4I_I2S
+ 	tristate "Allwinner A10 I2S Support"
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
+diff --git a/sound/soc/sunxi/Makefile b/sound/soc/sunxi/Makefile
+index 4483fe9c94ef..ba6a5ed334a0 100644
+--- a/sound/soc/sunxi/Makefile
++++ b/sound/soc/sunxi/Makefile
+@@ -4,6 +4,7 @@ obj-$(CONFIG_SND_SUN4I_I2S) += sun4i-i2s.o
+ obj-$(CONFIG_SND_SUN4I_SPDIF) += sun4i-spdif.o
+ obj-$(CONFIG_SND_SUN8I_CODEC_ANALOG) += sun8i-codec-analog.o
+ obj-$(CONFIG_SND_SUN50I_CODEC_ANALOG) += sun50i-codec-analog.o
++obj-$(CONFIG_SND_SUN20I_D1_CODEC_ANALOG) += sun20i-d1-codec-analog.o
+ obj-$(CONFIG_SND_SUN8I_CODEC) += sun8i-codec.o
+ obj-$(CONFIG_SND_SUN8I_ADDA_PR_REGMAP) += sun8i-adda-pr-regmap.o
+ obj-$(CONFIG_SND_SUN50I_DMIC) += sun50i-dmic.o
+diff --git a/sound/soc/sunxi/sun20i-d1-codec-analog.c b/sound/soc/sunxi/sun20i-d1-codec-analog.c
+new file mode 100644
+index 000000000000..5c269d56cd2f
+--- /dev/null
++++ b/sound/soc/sunxi/sun20i-d1-codec-analog.c
+@@ -0,0 +1,220 @@
++// SPDX-License-Identifier: GPL-2.0+
 +/*
-+ * sun20i D1 and similar codecs specific registers
++ * This driver supports the analog controls for the internal codec
++ * found in Allwinner's D1/T113s SoCs family.
 + *
-+ * Almost all registers moved on D1, including ADC digital controls,
-+ * FIFO and RX data registers. Only DAC control are at the same offset.
++ * Based on sun50i-codec-analog.c
 + */
 +
-+#define SUN20I_D1_CODEC_DAC_VOL_CTRL		(0x04)
-+#define SUN20I_D1_CODEC_DAC_VOL_SEL			(16)
-+#define SUN20I_D1_CODEC_DAC_VOL_L			(8)
-+#define SUN20I_D1_CODEC_DAC_VOL_R			(0)
-+#define SUN20I_D1_CODEC_DAC_FIFOC		(0x10)
-+#define SUN20I_D1_CODEC_ADC_FIFOC		(0x30)
-+#define SUN20I_D1_CODEC_ADC_FIFOC_EN_AD			(28)
-+#define SUN20I_D1_CODEC_ADC_FIFOC_RX_SAMPLE_BITS	(16)
-+#define SUN20I_D1_CODEC_ADC_FIFOC_RX_TRIG_LEVEL		(4)
-+#define SUN20I_D1_CODEC_ADC_FIFOC_ADC_DRQ_EN		(3)
-+#define SUN20I_D1_CODEC_ADC_VOL_CTRL1		(0x34)
-+#define SUN20I_D1_CODEC_ADC_VOL_CTRL1_ADC3_VOL		(16)
-+#define SUN20I_D1_CODEC_ADC_VOL_CTRL1_ADC2_VOL		(8)
-+#define SUN20I_D1_CODEC_ADC_VOL_CTRL1_ADC1_VOL		(0)
-+#define SUN20I_D1_CODEC_ADC_RXDATA		(0x40)
-+#define SUN20I_D1_CODEC_ADC_DIG_CTRL		(0x50)
-+#define SUN20I_D1_CODEC_ADC_DIG_CTRL_ADC3_CH_EN		(2)
-+#define SUN20I_D1_CODEC_ADC_DIG_CTRL_ADC2_CH_EN		(1)
-+#define SUN20I_D1_CODEC_ADC_DIG_CTRL_ADC1_CH_EN		(0)
-+#define SUN20I_D1_CODEC_VRA1SPEEDUP_DOWN_CTRL	(0x54)
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
 +
-+/* TODO D1 DAP (Digital Audio Processing) bits */
++#include <sound/soc.h>
++#include <sound/soc-dapm.h>
++#include <sound/tlv.h>
 +
-+struct sun4i_codec;
++/* Codec analog control register offsets and bit fields */
++#define SUN20I_D1_ADDA_ADC1			(0x00)
++#define SUN20I_D1_ADDA_ADC2			(0x04)
++#define SUN20I_D1_ADDA_ADC3			(0x08)
++#define SUN20I_D1_ADDA_ADC_EN				(31)
++#define SUN20I_D1_ADDA_ADC_PGA_EN			(30)
++#define SUN20I_D1_ADDA_ADC_MIC_SIN_EN			(28)
++#define SUN20I_D1_ADDA_ADC_LINEINLEN			(23)
++#define SUN20I_D1_ADDA_ADC_PGA_GAIN			(8)
 +
-+struct sun4i_codec_quirks {
-+	const struct regmap_config *regmap_config;
-+	const struct snd_soc_component_driver *codec;
-+	struct snd_soc_card * (*create_card)(struct device *dev);
-+	struct reg_field reg_dac_fifoc;	/* used for regmap_field */
-+	struct reg_field reg_adc_fifoc;	/* used for regmap_field */
-+	unsigned int adc_drq_en;
-+	unsigned int rx_sample_bits;
-+	unsigned int rx_trig_level;
-+	unsigned int reg_dac_txdata;	/* TX FIFO offset for DMA config */
-+	unsigned int reg_adc_rxdata;	/* RX FIFO offset for DMA config */
-+	bool has_reset;
-+	bool has_dual_clock;
++#define SUN20I_D1_ADDA_DAC			(0x10)
++#define SUN20I_D1_ADDA_DAC_DACL_EN			(15)
++#define SUN20I_D1_ADDA_DAC_DACR_EN			(14)
++
++#define SUN20I_D1_ADDA_MICBIAS			(0x18)
++#define SUN20I_D1_ADDA_MICBIAS_MMICBIASEN		(7)
++
++#define SUN20I_D1_ADDA_RAMP			(0x1C)
++#define SUN20I_D1_ADDA_RAMP_RD_EN			(0)
++
++#define SUN20I_D1_ADDA_HP2			(0x40)
++#define SUN20I_D1_ADDA_HP2_HEADPHONE_GAIN		(28)
++
++#define SUN20I_D1_ADDA_ADC_CUR_REG		(0x4C)
++
++static const DECLARE_TLV_DB_RANGE(sun20i_d1_codec_adc_gain_scale,
++	0, 0, TLV_DB_SCALE_ITEM(TLV_DB_GAIN_MUTE, 0, 1),
++	1, 3, TLV_DB_SCALE_ITEM(600, 0, 0),
++	4, 4, TLV_DB_SCALE_ITEM(900, 0, 0),
++	5, 31, TLV_DB_SCALE_ITEM(1000, 100, 0),
++);
++
++static const DECLARE_TLV_DB_SCALE(sun20i_d1_codec_hp_vol_scale, -4200, 600, 0);
++
++/* volume controls */
++static const struct snd_kcontrol_new sun20i_d1_codec_controls[] = {
++	SOC_SINGLE_TLV("Headphone Playback Volume",
++		       SUN20I_D1_ADDA_HP2,
++		       SUN20I_D1_ADDA_HP2_HEADPHONE_GAIN, 0x7, 1,
++		       sun20i_d1_codec_hp_vol_scale),
++	SOC_SINGLE_TLV("ADC1 Gain Capture Volume",
++		       SUN20I_D1_ADDA_ADC1,
++		       SUN20I_D1_ADDA_ADC_PGA_GAIN, 0x1f, 0,
++		       sun20i_d1_codec_adc_gain_scale),
++	SOC_SINGLE_TLV("ADC2 Gain Capture Volume",
++		       SUN20I_D1_ADDA_ADC2,
++		       SUN20I_D1_ADDA_ADC_PGA_GAIN, 0x1f, 0,
++		       sun20i_d1_codec_adc_gain_scale),
++	SOC_SINGLE_TLV("ADC3 Gain Capture Volume",
++		       SUN20I_D1_ADDA_ADC3,
++		       SUN20I_D1_ADDA_ADC_PGA_GAIN, 0x1f, 0,
++		       sun20i_d1_codec_adc_gain_scale),
 +};
 +
- struct sun4i_codec {
- 	struct device	*dev;
- 	struct regmap	*regmap;
- 	struct clk	*clk_apb;
--	struct clk	*clk_module;
-+	struct clk	*clk_module; /* used for ADC if clocks are separate */
-+	struct clk	*clk_module_dac;
- 	struct reset_control *rst;
- 	struct gpio_desc *gpio_pa;
-+	const struct sun4i_codec_quirks *quirks;
- 
--	/* ADC_FIFOC register is at different offset on different SoCs */
-+	/* DAC/ADC FIFOC registers are at different offset on different SoCs */
-+	struct regmap_field *reg_dac_fifoc;
- 	struct regmap_field *reg_adc_fifoc;
- 
- 	struct snd_dmaengine_dai_dma_data	capture_dma_data;
-@@ -250,33 +300,33 @@ struct sun4i_codec {
- static void sun4i_codec_start_playback(struct sun4i_codec *scodec)
- {
- 	/* Flush TX FIFO */
--	regmap_set_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			BIT(SUN4I_CODEC_DAC_FIFOC_FIFO_FLUSH));
-+	regmap_field_set_bits(scodec->reg_dac_fifoc,
-+			      BIT(SUN4I_CODEC_DAC_FIFOC_FIFO_FLUSH));
- 
- 	/* Enable DAC DRQ */
--	regmap_set_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			BIT(SUN4I_CODEC_DAC_FIFOC_DAC_DRQ_EN));
-+	regmap_field_set_bits(scodec->reg_dac_fifoc,
-+			      BIT(SUN4I_CODEC_DAC_FIFOC_DAC_DRQ_EN));
- }
- 
- static void sun4i_codec_stop_playback(struct sun4i_codec *scodec)
- {
- 	/* Disable DAC DRQ */
--	regmap_clear_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			  BIT(SUN4I_CODEC_DAC_FIFOC_DAC_DRQ_EN));
-+	regmap_field_clear_bits(scodec->reg_dac_fifoc,
-+				BIT(SUN4I_CODEC_DAC_FIFOC_DAC_DRQ_EN));
- }
- 
- static void sun4i_codec_start_capture(struct sun4i_codec *scodec)
- {
- 	/* Enable ADC DRQ */
- 	regmap_field_set_bits(scodec->reg_adc_fifoc,
--			      BIT(SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN));
-+			      BIT(scodec->quirks->adc_drq_en));
- }
- 
- static void sun4i_codec_stop_capture(struct sun4i_codec *scodec)
- {
- 	/* Disable ADC DRQ */
- 	regmap_field_clear_bits(scodec->reg_adc_fifoc,
--				 BIT(SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN));
-+				BIT(scodec->quirks->adc_drq_en));
- }
- 
- static int sun4i_codec_trigger(struct snd_pcm_substream *substream, int cmd,
-@@ -325,8 +375,8 @@ static int sun4i_codec_prepare_capture(struct snd_pcm_substream *substream,
- 
- 	/* Set RX FIFO trigger level */
- 	regmap_field_update_bits(scodec->reg_adc_fifoc,
--				 0xf << SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
--				 0x7 << SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL);
-+				 0xf << scodec->quirks->rx_trig_level,
-+				 0x7 << scodec->quirks->rx_trig_level);
- 
- 	/*
- 	 * FIXME: Undocumented in the datasheet, but
-@@ -360,13 +410,13 @@ static int sun4i_codec_prepare_playback(struct snd_pcm_substream *substream,
- 	u32 val;
- 
- 	/* Flush the TX FIFO */
--	regmap_set_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   BIT(SUN4I_CODEC_DAC_FIFOC_FIFO_FLUSH));
-+	regmap_field_set_bits(scodec->reg_dac_fifoc,
-+			      BIT(SUN4I_CODEC_DAC_FIFOC_FIFO_FLUSH));
- 
- 	/* Set TX FIFO Empty Trigger Level */
--	regmap_update_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   0x3f << SUN4I_CODEC_DAC_FIFOC_TX_TRIG_LEVEL,
--			   0xf << SUN4I_CODEC_DAC_FIFOC_TX_TRIG_LEVEL);
-+	regmap_field_update_bits(scodec->reg_dac_fifoc,
-+				 0x3f << SUN4I_CODEC_DAC_FIFOC_TX_TRIG_LEVEL,
-+				 0xf << SUN4I_CODEC_DAC_FIFOC_TX_TRIG_LEVEL);
- 
- 	if (substream->runtime->rate > 32000)
- 		/* Use 64 bits FIR filter */
-@@ -375,13 +425,12 @@ static int sun4i_codec_prepare_playback(struct snd_pcm_substream *substream,
- 		/* Use 32 bits FIR filter */
- 		val = BIT(SUN4I_CODEC_DAC_FIFOC_FIR_VERSION);
- 
--	regmap_update_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   BIT(SUN4I_CODEC_DAC_FIFOC_FIR_VERSION),
--			   val);
-+	regmap_field_update_bits(scodec->reg_dac_fifoc,
-+				 BIT(SUN4I_CODEC_DAC_FIFOC_FIR_VERSION), val);
- 
- 	/* Send zeros when we have an underrun */
--	regmap_clear_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   BIT(SUN4I_CODEC_DAC_FIFOC_SEND_LASAT));
-+	regmap_field_clear_bits(scodec->reg_dac_fifoc,
-+				BIT(SUN4I_CODEC_DAC_FIFOC_SEND_LASAT));
- 
- 	return 0;
- };
-@@ -476,30 +525,32 @@ static int sun4i_codec_hw_params_capture(struct sun4i_codec *scodec,
- 				 7 << SUN4I_CODEC_ADC_FIFOC_ADC_FS,
- 				 hwrate << SUN4I_CODEC_ADC_FIFOC_ADC_FS);
- 
--	/* Set the number of channels we want to use */
--	if (params_channels(params) == 1)
--		regmap_field_set_bits(scodec->reg_adc_fifoc,
--					 BIT(SUN4I_CODEC_ADC_FIFOC_MONO_EN));
--	else
--		regmap_field_clear_bits(scodec->reg_adc_fifoc,
--					 BIT(SUN4I_CODEC_ADC_FIFOC_MONO_EN));
-+	if (!scodec->quirks->has_dual_clock) {
-+		/* Set the number of channels we want to use */
-+		if (params_channels(params) == 1)
-+			regmap_field_set_bits(scodec->reg_adc_fifoc,
-+					      BIT(SUN4I_CODEC_ADC_FIFOC_MONO_EN));
-+		else
-+			regmap_field_clear_bits(scodec->reg_adc_fifoc,
-+						BIT(SUN4I_CODEC_ADC_FIFOC_MONO_EN));
-+	}
- 
- 	/* Set the number of sample bits to either 16 or 24 bits */
- 	if (hw_param_interval(params, SNDRV_PCM_HW_PARAM_SAMPLE_BITS)->min == 32) {
- 		regmap_field_set_bits(scodec->reg_adc_fifoc,
--				   BIT(SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS));
-+				      BIT(scodec->quirks->rx_sample_bits));
- 
- 		regmap_field_clear_bits(scodec->reg_adc_fifoc,
--				   BIT(SUN4I_CODEC_ADC_FIFOC_RX_FIFO_MODE));
-+					BIT(SUN4I_CODEC_ADC_FIFOC_RX_FIFO_MODE));
- 
- 		scodec->capture_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 	} else {
- 		regmap_field_clear_bits(scodec->reg_adc_fifoc,
--				   BIT(SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS));
-+					BIT(scodec->quirks->rx_sample_bits));
- 
- 		/* Fill most significant bits with valid data MSB */
- 		regmap_field_set_bits(scodec->reg_adc_fifoc,
--				   BIT(SUN4I_CODEC_ADC_FIFOC_RX_FIFO_MODE));
-+				      BIT(SUN4I_CODEC_ADC_FIFOC_RX_FIFO_MODE));
- 
- 		scodec->capture_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
- 	}
-@@ -514,9 +565,9 @@ static int sun4i_codec_hw_params_playback(struct sun4i_codec *scodec,
- 	u32 val;
- 
- 	/* Set DAC sample rate */
--	regmap_update_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   7 << SUN4I_CODEC_DAC_FIFOC_DAC_FS,
--			   hwrate << SUN4I_CODEC_DAC_FIFOC_DAC_FS);
-+	regmap_field_update_bits(scodec->reg_dac_fifoc,
-+				 7 << SUN4I_CODEC_DAC_FIFOC_DAC_FS,
-+				 hwrate << SUN4I_CODEC_DAC_FIFOC_DAC_FS);
- 
- 	/* Set the number of channels we want to use */
- 	if (params_channels(params) == 1)
-@@ -524,27 +575,26 @@ static int sun4i_codec_hw_params_playback(struct sun4i_codec *scodec,
- 	else
- 		val = 0;
- 
--	regmap_update_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   BIT(SUN4I_CODEC_DAC_FIFOC_MONO_EN),
--			   val);
-+	regmap_field_update_bits(scodec->reg_dac_fifoc,
-+				 BIT(SUN4I_CODEC_DAC_FIFOC_MONO_EN), val);
- 
- 	/* Set the number of sample bits to either 16 or 24 bits */
- 	if (hw_param_interval(params, SNDRV_PCM_HW_PARAM_SAMPLE_BITS)->min == 32) {
--		regmap_set_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--				   BIT(SUN4I_CODEC_DAC_FIFOC_TX_SAMPLE_BITS));
-+		regmap_field_set_bits(scodec->reg_dac_fifoc,
-+				      BIT(SUN4I_CODEC_DAC_FIFOC_TX_SAMPLE_BITS));
- 
- 		/* Set TX FIFO mode to padding the LSBs with 0 */
--		regmap_clear_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--				   BIT(SUN4I_CODEC_DAC_FIFOC_TX_FIFO_MODE));
-+		regmap_field_clear_bits(scodec->reg_dac_fifoc,
-+					BIT(SUN4I_CODEC_DAC_FIFOC_TX_FIFO_MODE));
- 
- 		scodec->playback_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 	} else {
--		regmap_clear_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--				   BIT(SUN4I_CODEC_DAC_FIFOC_TX_SAMPLE_BITS));
-+		regmap_field_clear_bits(scodec->reg_dac_fifoc,
-+					BIT(SUN4I_CODEC_DAC_FIFOC_TX_SAMPLE_BITS));
- 
- 		/* Set TX FIFO mode to repeat the MSB */
--		regmap_set_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--				   BIT(SUN4I_CODEC_DAC_FIFOC_TX_FIFO_MODE));
-+		regmap_field_set_bits(scodec->reg_dac_fifoc,
-+				      BIT(SUN4I_CODEC_DAC_FIFOC_TX_FIFO_MODE));
- 
- 		scodec->playback_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
- 	}
-@@ -565,7 +615,11 @@ static int sun4i_codec_hw_params(struct snd_pcm_substream *substream,
- 	if (!clk_freq)
- 		return -EINVAL;
- 
--	ret = clk_set_rate(scodec->clk_module, clk_freq);
-+	if (scodec->clk_module_dac &&
-+	    substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		ret = clk_set_rate(scodec->clk_module_dac, clk_freq);
-+	else
-+		ret = clk_set_rate(scodec->clk_module, clk_freq);
- 	if (ret)
- 		return ret;
- 
-@@ -607,10 +661,14 @@ static int sun4i_codec_startup(struct snd_pcm_substream *substream,
- 	 * Stop issuing DRQ when we have room for less than 16 samples
- 	 * in our TX FIFO
- 	 */
--	regmap_set_bits(scodec->regmap, SUN4I_CODEC_DAC_FIFOC,
--			   3 << SUN4I_CODEC_DAC_FIFOC_DRQ_CLR_CNT);
-+	regmap_field_set_bits(scodec->reg_dac_fifoc,
-+			      3 << SUN4I_CODEC_DAC_FIFOC_DRQ_CLR_CNT);
- 
--	return clk_prepare_enable(scodec->clk_module);
-+	if (scodec->clk_module_dac &&
-+	    substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		return clk_prepare_enable(scodec->clk_module_dac);
-+	else
-+		return clk_prepare_enable(scodec->clk_module);
- }
- 
- static void sun4i_codec_shutdown(struct snd_pcm_substream *substream,
-@@ -619,7 +677,11 @@ static void sun4i_codec_shutdown(struct snd_pcm_substream *substream,
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct sun4i_codec *scodec = snd_soc_card_get_drvdata(rtd->card);
- 
--	clk_disable_unprepare(scodec->clk_module);
-+	if (scodec->clk_module_dac &&
-+	    substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		clk_disable_unprepare(scodec->clk_module_dac);
-+	else
-+		clk_disable_unprepare(scodec->clk_module);
- }
- 
- static const struct snd_soc_dai_ops sun4i_codec_dai_ops = {
-@@ -1229,6 +1291,55 @@ static const struct snd_soc_component_driver sun8i_a23_codec_codec = {
- 	.endianness		= 1,
- };
- 
-+/* sun20i D1 codec */
-+static const DECLARE_TLV_DB_SCALE(sun20i_d1_codec_dvol_scale, -12000, 75, 1);
-+
-+static const struct snd_kcontrol_new sun20i_d1_codec_codec_controls[] = {
-+	SOC_SINGLE_TLV("DAC Playback Volume", SUN4I_CODEC_DAC_DPC,
-+		       SUN4I_CODEC_DAC_DPC_DVOL, 0x3f, 1,
-+		       sun6i_codec_dvol_scale),
-+	SOC_DOUBLE_TLV("DAC Front Playback Volume", SUN20I_D1_CODEC_DAC_VOL_CTRL,
-+		       SUN20I_D1_CODEC_DAC_VOL_L, SUN20I_D1_CODEC_DAC_VOL_R,
-+		       0xFF, 0, sun20i_d1_codec_dvol_scale),
-+
-+	SOC_SINGLE_TLV("ADC1 Capture Volume", SUN20I_D1_CODEC_ADC_VOL_CTRL1,
-+		       SUN20I_D1_CODEC_ADC_VOL_CTRL1_ADC1_VOL, 0xff, 0,
-+		       sun20i_d1_codec_dvol_scale),
-+	SOC_SINGLE_TLV("ADC2 Capture Volume", SUN20I_D1_CODEC_ADC_VOL_CTRL1,
-+		       SUN20I_D1_CODEC_ADC_VOL_CTRL1_ADC2_VOL, 0xff, 0,
-+		       sun20i_d1_codec_dvol_scale),
-+	SOC_SINGLE_TLV("ADC3 Capture Volume", SUN20I_D1_CODEC_ADC_VOL_CTRL1,
-+		       SUN20I_D1_CODEC_ADC_VOL_CTRL1_ADC3_VOL, 0xff, 0,
-+		       sun20i_d1_codec_dvol_scale),
++/* ADC mixer controls */
++static const struct snd_kcontrol_new sun20i_d1_codec_mixer_controls[] = {
++	SOC_DAPM_DOUBLE_R("Line In Switch",
++			  SUN20I_D1_ADDA_ADC1,
++			  SUN20I_D1_ADDA_ADC2,
++			  SUN20I_D1_ADDA_ADC_LINEINLEN, 1, 0),
 +};
 +
-+static const struct snd_soc_dapm_widget sun20i_d1_codec_codec_widgets[] = {
-+	/* Digital parts of the ADCs */
-+	SND_SOC_DAPM_SUPPLY("ADC Enable", SUN20I_D1_CODEC_ADC_FIFOC,
-+			    SUN20I_D1_CODEC_ADC_FIFOC_EN_AD, 0, NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("ADC1 CH Enable", SUN20I_D1_CODEC_ADC_DIG_CTRL,
-+			    SUN20I_D1_CODEC_ADC_DIG_CTRL_ADC1_CH_EN, 0, NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("ADC2 CH Enable", SUN20I_D1_CODEC_ADC_DIG_CTRL,
-+			    SUN20I_D1_CODEC_ADC_DIG_CTRL_ADC2_CH_EN, 0, NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("ADC3 CH Enable", SUN20I_D1_CODEC_ADC_DIG_CTRL,
-+			    SUN20I_D1_CODEC_ADC_DIG_CTRL_ADC3_CH_EN, 0, NULL, 0),
-+	/* Digital parts of the DACs */
-+	SND_SOC_DAPM_SUPPLY("DAC Enable", SUN4I_CODEC_DAC_DPC,
-+			    SUN4I_CODEC_DAC_DPC_EN_DA, 0, NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("DAC VOL_SEL Enable", SUN20I_D1_CODEC_DAC_VOL_CTRL,
-+			    SUN20I_D1_CODEC_DAC_VOL_SEL, 0, NULL, 0),
++static const char * const sun20i_d1_codec_mic3_src_enum_text[] = {
++	"Differential", "Single",
 +};
 +
-+static const struct snd_soc_component_driver sun20i_d1_codec_codec = {
-+	.controls		= sun20i_d1_codec_codec_controls,
-+	.num_controls		= ARRAY_SIZE(sun20i_d1_codec_codec_controls),
-+	.dapm_widgets		= sun20i_d1_codec_codec_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(sun20i_d1_codec_codec_widgets),
-+	.idle_bias_on		= 1,
-+	.use_pmdown_time	= 1,
-+	.endianness		= 1,
++static SOC_ENUM_SINGLE_DECL(sun20i_d1_codec_mic3_src_enum,
++			    SUN20I_D1_ADDA_ADC3,
++			    SUN20I_D1_ADDA_ADC_MIC_SIN_EN,
++			    sun20i_d1_codec_mic3_src_enum_text);
++
++static const struct snd_kcontrol_new sun20i_d1_codec_mic3_input_src[] = {
++	SOC_DAPM_ENUM("MIC3 Source Capture Route",
++		      sun20i_d1_codec_mic3_src_enum),
 +};
 +
- static const struct snd_soc_component_driver sun4i_codec_component = {
- 	.name			= "sun4i-codec",
- 	.legacy_dai_naming	= 1,
-@@ -1528,6 +1639,66 @@ static struct snd_soc_card *sun8i_v3s_codec_create_card(struct device *dev)
- 	return card;
- };
- 
-+static const struct snd_soc_dapm_route sun20i_d1_codec_card_routes[] = {
-+	/* ADC Routes */
-+	{ "ADC1", NULL, "ADC Enable" },
-+	{ "ADC2", NULL, "ADC Enable" },
-+	{ "ADC3", NULL, "ADC Enable" },
-+	{ "ADC1", NULL, "ADC1 CH Enable" },
-+	{ "ADC2", NULL, "ADC2 CH Enable" },
-+	{ "ADC3", NULL, "ADC3 CH Enable" },
-+	{ "Codec Capture", NULL, "ADC1" },
-+	{ "Codec Capture", NULL, "ADC2" },
-+	{ "Codec Capture", NULL, "ADC3" },
++static const struct snd_soc_dapm_widget sun20i_d1_codec_widgets[] = {
++	/* DAC */
++	SND_SOC_DAPM_DAC("Left DAC", NULL, SUN20I_D1_ADDA_DAC,
++			 SUN20I_D1_ADDA_DAC_DACL_EN, 0),
++	SND_SOC_DAPM_DAC("Right DAC", NULL, SUN20I_D1_ADDA_DAC,
++			 SUN20I_D1_ADDA_DAC_DACR_EN, 0),
++	/* ADC */
++	SND_SOC_DAPM_ADC("ADC1", NULL, SUN20I_D1_ADDA_ADC1,
++			 SUN20I_D1_ADDA_ADC_EN, 0),
++	SND_SOC_DAPM_ADC("ADC2", NULL, SUN20I_D1_ADDA_ADC2,
++			 SUN20I_D1_ADDA_ADC_EN, 0),
++	SND_SOC_DAPM_ADC("ADC3", NULL, SUN20I_D1_ADDA_ADC3,
++			 SUN20I_D1_ADDA_ADC_EN, 0),
 +
-+	/* DAC Routes */
-+	{ "Left DAC", NULL, "DAC Enable" },
-+	{ "Right DAC", NULL, "DAC Enable" },
-+	{ "Left DAC", NULL, "DAC VOL_SEL Enable" },
-+	{ "Right DAC", NULL, "DAC VOL_SEL Enable" },
-+	{ "Left DAC", NULL, "Codec Playback" },
-+	{ "Right DAC", NULL, "Codec Playback" },
++	/* ADC Mixers */
++	SND_SOC_DAPM_MIXER("ADC1 Mixer", SND_SOC_NOPM, 0, 0,
++			   sun20i_d1_codec_mixer_controls,
++			   ARRAY_SIZE(sun20i_d1_codec_mixer_controls)),
++	SND_SOC_DAPM_MIXER("ADC2 Mixer", SND_SOC_NOPM, 0, 0,
++			   sun20i_d1_codec_mixer_controls,
++			   ARRAY_SIZE(sun20i_d1_codec_mixer_controls)),
++
++	/* Headphone */
++	SND_SOC_DAPM_OUTPUT("HP"),
++	SND_SOC_DAPM_SUPPLY("RAMP Enable", SUN20I_D1_ADDA_RAMP,
++			    SUN20I_D1_ADDA_RAMP_RD_EN, 0, NULL, 0),
++
++	/* Line input */
++	SND_SOC_DAPM_INPUT("LINEIN"),
++
++	/* Microphone input */
++	SND_SOC_DAPM_INPUT("MIC3"),
++
++	/* Microphone input path */
++	SND_SOC_DAPM_MUX("MIC3 Source Capture Route", SND_SOC_NOPM, 0, 0,
++			 sun20i_d1_codec_mic3_input_src),
++
++	SND_SOC_DAPM_PGA("Mic3 Amplifier", SUN20I_D1_ADDA_ADC3,
++			 SUN20I_D1_ADDA_ADC_PGA_EN, 0, NULL, 0),
++
++	/* Microphone Bias */
++	SND_SOC_DAPM_SUPPLY("MBIAS", SUN20I_D1_ADDA_MICBIAS,
++			    SUN20I_D1_ADDA_MICBIAS_MMICBIASEN, 0, NULL, 0),
 +};
 +
-+static struct snd_soc_card *sun20i_d1_codec_create_card(struct device *dev)
-+{
-+	struct snd_soc_card *card;
-+	int ret;
++static const struct snd_soc_dapm_route sun20i_d1_codec_routes[] = {
++	/* Headphone Routes */
++	{ "HP", NULL, "Left DAC" },
++	{ "HP", NULL, "Right DAC" },
++	{ "HP", NULL, "RAMP Enable" },
 +
-+	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
-+	if (!card)
-+		return ERR_PTR(-ENOMEM);
++	/* Line input Routes */
++	{ "ADC1", NULL, "ADC1 Mixer" },
++	{ "ADC2", NULL, "ADC2 Mixer" },
++	{ "ADC1 Mixer", "Line In Switch", "LINEIN" },
++	{ "ADC2 Mixer", "Line In Switch", "LINEIN" },
 +
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
-+					       "allwinner,codec-analog-controls",
-+					       0);
-+	if (!aux_dev.dlc.of_node) {
-+		dev_err(dev, "Can't find analog controls for codec.\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	card->dai_link = sun4i_codec_create_link(dev, &card->num_links);
-+	if (!card->dai_link)
-+		return ERR_PTR(-ENOMEM);
-+
-+	card->dev		= dev;
-+	card->owner		= THIS_MODULE;
-+	card->name		= "D1 Audio Codec";
-+	card->dapm_widgets	= sun6i_codec_card_dapm_widgets;
-+	card->num_dapm_widgets	= ARRAY_SIZE(sun6i_codec_card_dapm_widgets);
-+	card->dapm_routes	= sun20i_d1_codec_card_routes;
-+	card->num_dapm_routes	= ARRAY_SIZE(sun20i_d1_codec_card_routes);
-+	card->aux_dev		= &aux_dev;
-+	card->num_aux_devs	= 1;
-+	card->fully_routed	= true;
-+
-+	ret = snd_soc_of_parse_audio_routing(card, "allwinner,audio-routing");
-+	if (ret)
-+		dev_warn(dev, "failed to parse audio-routing: %d\n", ret);
-+
-+	return card;
++	/* Microphone Routes */
++	{ "MIC3 Source Capture Route", "Differential", "MIC3" },
++	{ "MIC3 Source Capture Route", "Single", "MIC3" },
++	{ "Mic3 Amplifier", NULL, "MIC3 Source Capture Route" },
++	{ "ADC3", NULL, "Mic3 Amplifier" },
 +};
 +
- static const struct regmap_config sun4i_codec_regmap_config = {
- 	.reg_bits	= 32,
- 	.reg_stride	= 4,
-@@ -1570,21 +1741,22 @@ static const struct regmap_config sun8i_v3s_codec_regmap_config = {
- 	.max_register	= SUN8I_H3_CODEC_ADC_DBG,
- };
- 
--struct sun4i_codec_quirks {
--	const struct regmap_config *regmap_config;
--	const struct snd_soc_component_driver *codec;
--	struct snd_soc_card * (*create_card)(struct device *dev);
--	struct reg_field reg_adc_fifoc;	/* used for regmap_field */
--	unsigned int reg_dac_txdata;	/* TX FIFO offset for DMA config */
--	unsigned int reg_adc_rxdata;	/* RX FIFO offset for DMA config */
--	bool has_reset;
++static const struct snd_soc_component_driver sun20i_d1_codec_analog_cmpnt_drv = {
++	.controls		= sun20i_d1_codec_controls,
++	.num_controls		= ARRAY_SIZE(sun20i_d1_codec_controls),
++	.dapm_widgets		= sun20i_d1_codec_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(sun20i_d1_codec_widgets),
++	.dapm_routes		= sun20i_d1_codec_routes,
++	.num_dapm_routes	= ARRAY_SIZE(sun20i_d1_codec_routes),
++};
++
++static const struct of_device_id sun20i_d1_codec_analog_of_match[] = {
++	{
++		.compatible = "allwinner,sun20i-d1-codec-analog",
++	},
++	{}
++};
++MODULE_DEVICE_TABLE(of, sun20i_d1_codec_analog_of_match);
++
 +static const struct regmap_config sun20i_d1_codec_regmap_config = {
 +	.reg_bits	= 32,
 +	.reg_stride	= 4,
 +	.val_bits	= 32,
-+	.max_register	= SUN20I_D1_CODEC_VRA1SPEEDUP_DOWN_CTRL,
- };
- 
- static const struct sun4i_codec_quirks sun4i_codec_quirks = {
- 	.regmap_config	= &sun4i_codec_regmap_config,
- 	.codec		= &sun4i_codec_codec,
- 	.create_card	= sun4i_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN4I_CODEC_DAC_FIFOC, 0, 31),
- 	.reg_adc_fifoc	= REG_FIELD(SUN4I_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
- 	.reg_dac_txdata	= SUN4I_CODEC_DAC_TXDATA,
- 	.reg_adc_rxdata	= SUN4I_CODEC_ADC_RXDATA,
- };
-@@ -1593,7 +1765,11 @@ static const struct sun4i_codec_quirks sun6i_a31_codec_quirks = {
- 	.regmap_config	= &sun6i_codec_regmap_config,
- 	.codec		= &sun6i_codec_codec,
- 	.create_card	= sun6i_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN4I_CODEC_DAC_FIFOC, 0, 31),
- 	.reg_adc_fifoc	= REG_FIELD(SUN6I_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
- 	.reg_dac_txdata	= SUN4I_CODEC_DAC_TXDATA,
- 	.reg_adc_rxdata	= SUN6I_CODEC_ADC_RXDATA,
- 	.has_reset	= true,
-@@ -1603,7 +1779,11 @@ static const struct sun4i_codec_quirks sun7i_codec_quirks = {
- 	.regmap_config	= &sun7i_codec_regmap_config,
- 	.codec		= &sun7i_codec_codec,
- 	.create_card	= sun4i_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN4I_CODEC_DAC_FIFOC, 0, 31),
- 	.reg_adc_fifoc	= REG_FIELD(SUN4I_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
- 	.reg_dac_txdata	= SUN4I_CODEC_DAC_TXDATA,
- 	.reg_adc_rxdata	= SUN4I_CODEC_ADC_RXDATA,
- };
-@@ -1612,7 +1792,11 @@ static const struct sun4i_codec_quirks sun8i_a23_codec_quirks = {
- 	.regmap_config	= &sun8i_a23_codec_regmap_config,
- 	.codec		= &sun8i_a23_codec_codec,
- 	.create_card	= sun8i_a23_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN4I_CODEC_DAC_FIFOC, 0, 31),
- 	.reg_adc_fifoc	= REG_FIELD(SUN6I_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
- 	.reg_dac_txdata	= SUN4I_CODEC_DAC_TXDATA,
- 	.reg_adc_rxdata	= SUN6I_CODEC_ADC_RXDATA,
- 	.has_reset	= true,
-@@ -1627,7 +1811,11 @@ static const struct sun4i_codec_quirks sun8i_h3_codec_quirks = {
- 	 */
- 	.codec		= &sun8i_a23_codec_codec,
- 	.create_card	= sun8i_h3_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN4I_CODEC_DAC_FIFOC, 0, 31),
- 	.reg_adc_fifoc	= REG_FIELD(SUN6I_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
- 	.reg_dac_txdata	= SUN8I_H3_CODEC_DAC_TXDATA,
- 	.reg_adc_rxdata	= SUN6I_CODEC_ADC_RXDATA,
- 	.has_reset	= true,
-@@ -1641,12 +1829,31 @@ static const struct sun4i_codec_quirks sun8i_v3s_codec_quirks = {
- 	 */
- 	.codec		= &sun8i_a23_codec_codec,
- 	.create_card	= sun8i_v3s_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN4I_CODEC_DAC_FIFOC, 0, 31),
- 	.reg_adc_fifoc	= REG_FIELD(SUN6I_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN4I_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN4I_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN4I_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
- 	.reg_dac_txdata	= SUN8I_H3_CODEC_DAC_TXDATA,
- 	.reg_adc_rxdata	= SUN6I_CODEC_ADC_RXDATA,
- 	.has_reset	= true,
- };
- 
-+static const struct sun4i_codec_quirks sun20i_d1_codec_quirks = {
-+	.regmap_config	= &sun20i_d1_codec_regmap_config,
-+	.codec		= &sun20i_d1_codec_codec,
-+	.create_card	= sun20i_d1_codec_create_card,
-+	.reg_dac_fifoc	= REG_FIELD(SUN20I_D1_CODEC_DAC_FIFOC, 0, 31),
-+	.reg_adc_fifoc	= REG_FIELD(SUN20I_D1_CODEC_ADC_FIFOC, 0, 31),
-+	.adc_drq_en	= SUN20I_D1_CODEC_ADC_FIFOC_ADC_DRQ_EN,
-+	.rx_sample_bits	= SUN20I_D1_CODEC_ADC_FIFOC_RX_SAMPLE_BITS,
-+	.rx_trig_level	= SUN20I_D1_CODEC_ADC_FIFOC_RX_TRIG_LEVEL,
-+	.reg_dac_txdata	= SUN8I_H3_CODEC_DAC_TXDATA,
-+	.reg_adc_rxdata	= SUN20I_D1_CODEC_ADC_RXDATA,
-+	.has_reset	= true,
-+	.has_dual_clock = true,
++	.max_register	= SUN20I_D1_ADDA_ADC_CUR_REG,
 +};
 +
- static const struct of_device_id sun4i_codec_of_match[] = {
- 	{
- 		.compatible = "allwinner,sun4i-a10-codec",
-@@ -1672,6 +1879,10 @@ static const struct of_device_id sun4i_codec_of_match[] = {
- 		.compatible = "allwinner,sun8i-v3s-codec",
- 		.data = &sun8i_v3s_codec_quirks,
- 	},
-+	{
-+		.compatible = "allwinner,sun20i-d1-codec",
-+		.data = &sun20i_d1_codec_quirks,
-+	},
- 	{}
- };
- MODULE_DEVICE_TABLE(of, sun4i_codec_of_match);
-@@ -1700,6 +1911,7 @@ static int sun4i_codec_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "Failed to determine the quirks to use\n");
- 		return -ENODEV;
- 	}
-+	scodec->quirks = quirks;
- 
- 	scodec->regmap = devm_regmap_init_mmio(&pdev->dev, base,
- 					       quirks->regmap_config);
-@@ -1715,10 +1927,24 @@ static int sun4i_codec_probe(struct platform_device *pdev)
- 		return PTR_ERR(scodec->clk_apb);
- 	}
- 
--	scodec->clk_module = devm_clk_get(&pdev->dev, "codec");
--	if (IS_ERR(scodec->clk_module)) {
--		dev_err(&pdev->dev, "Failed to get the module clock\n");
--		return PTR_ERR(scodec->clk_module);
-+	if (quirks->has_dual_clock) {
-+		scodec->clk_module = devm_clk_get(&pdev->dev, "adc");
-+		if (IS_ERR(scodec->clk_module)) {
-+			dev_err(&pdev->dev, "Failed to get the ADC module clock\n");
-+			return PTR_ERR(scodec->clk_module);
-+		}
++static int sun20i_d1_codec_analog_probe(struct platform_device *pdev)
++{
++	struct regmap *regmap;
++	void __iomem *base;
 +
-+		scodec->clk_module_dac = devm_clk_get(&pdev->dev, "dac");
-+		if (IS_ERR(scodec->clk_module_dac)) {
-+			dev_err(&pdev->dev, "Failed to get the DAC module clock\n");
-+			return PTR_ERR(scodec->clk_module_dac);
-+		}
-+	} else {
-+		scodec->clk_module = devm_clk_get(&pdev->dev, "codec");
-+		if (IS_ERR(scodec->clk_module)) {
-+			dev_err(&pdev->dev, "Failed to get the module clock\n");
-+			return PTR_ERR(scodec->clk_module);
-+		}
- 	}
- 
- 	if (quirks->has_reset) {
-@@ -1749,6 +1975,16 @@ static int sun4i_codec_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	scodec->reg_dac_fifoc = devm_regmap_field_alloc(&pdev->dev,
-+							scodec->regmap,
-+							quirks->reg_dac_fifoc);
-+	if (IS_ERR(scodec->reg_dac_fifoc)) {
-+		ret = PTR_ERR(scodec->reg_dac_fifoc);
-+		dev_err(&pdev->dev, "Failed to create regmap fields: %d\n",
-+			ret);
-+		return ret;
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base)) {
++		dev_err(&pdev->dev, "Failed to map the registers\n");
++		return PTR_ERR(base);
 +	}
 +
- 	/* Enable the bus clock */
- 	if (clk_prepare_enable(scodec->clk_apb)) {
- 		dev_err(&pdev->dev, "Failed to enable the APB clock\n");
++	regmap = devm_regmap_init_mmio(&pdev->dev, base,
++				       &sun20i_d1_codec_regmap_config);
++	if (IS_ERR(regmap)) {
++		dev_err(&pdev->dev, "Failed to create regmap\n");
++		return PTR_ERR(regmap);
++	}
++
++	return devm_snd_soc_register_component(&pdev->dev,
++					       &sun20i_d1_codec_analog_cmpnt_drv,
++					       NULL, 0);
++}
++
++static struct platform_driver sun20i_d1_codec_analog_driver = {
++	.driver = {
++		.name = "sun20i-d1-codec-analog",
++		.of_match_table = sun20i_d1_codec_analog_of_match,
++	},
++	.probe = sun20i_d1_codec_analog_probe,
++};
++module_platform_driver(sun20i_d1_codec_analog_driver);
++
++MODULE_DESCRIPTION("Allwinner internal codec analog controls driver for D1");
++MODULE_AUTHOR("Maksim Kiselev <bigunclemax@gmail.com>");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:sun20i-d1-codec-analog");
 -- 
 2.39.2
 

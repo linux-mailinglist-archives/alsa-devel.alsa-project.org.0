@@ -2,87 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B99771263
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Aug 2023 23:32:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590EB771426
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Aug 2023 11:20:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A4B67F4;
-	Sat,  5 Aug 2023 23:32:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A4B67F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D540210;
+	Sun,  6 Aug 2023 11:19:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D540210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691271174;
-	bh=LwVSf5E2rTZspyIsnpTRtHx3oVtF00aIGMFChodPePE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Q94OGSQq+HCeWGhauMBbfZWFRwpcbnLWVTYBnhtVXydrz4uUwbw9IBGC+41lEzWxF
-	 WCds1V70YKz28/Mu0seX3vJVnSHYvGAvSpuS8mAQzLLDVP8Br+Ppsx70aAk9pBzpuN
-	 kgD6y7yCeeKzmz4cBgK7hfmsEWJIKdqR6hkkH61M=
+	s=default; t=1691313607;
+	bh=VuePgNk0Oif3pidnp5hRGiQBzyS5IrEUZtAUCxV2tz0=;
+	h=To:From:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dO0STT6n+bcYNRwfsYN2RbdXWM4Ba7DfeUcgA0ChntH5mXHaEfTxAzdafI4rBEr0w
+	 jyafQKzXTGDwNCBpfgIscsJKoLVP86q3Kon8EEtCAMemSzqc0ysDR+8iLNMB66kFiW
+	 2fjiMPgrNOyNj/K620SoT9Zz8Pg5I3HbUMKpy+6g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09963F80544; Sat,  5 Aug 2023 23:32:03 +0200 (CEST)
+	id DF495F80520; Sun,  6 Aug 2023 11:19:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2022F801D5;
-	Sat,  5 Aug 2023 23:32:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0ECCF8016B;
+	Sun,  6 Aug 2023 11:19:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6AAC0F8025A; Sat,  5 Aug 2023 23:31:59 +0200 (CEST)
+	id 7D0A9F8016D; Sun,  6 Aug 2023 11:18:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-4.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FROM_STARTS_WITH_NUMS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E94E8F80149
-	for <alsa-devel@alsa-project.org>; Sat,  5 Aug 2023 23:31:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E94E8F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0FAEBF80132
+	for <alsa-devel@alsa-project.org>; Sun,  6 Aug 2023 11:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FAEBF80132
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AQczrQjn
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A151E60F07;
-	Sat,  5 Aug 2023 21:31:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02702C433C7;
-	Sat,  5 Aug 2023 21:31:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691271108;
-	bh=LwVSf5E2rTZspyIsnpTRtHx3oVtF00aIGMFChodPePE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AQczrQjn2I523a77DS0Rm592b+0/GAWOqJ3o1zY7yiCxNNkeWrhqgbbjKVmHyEwX6
-	 NDgWf5qIl0XOxJEINbQzWvqlhjDGXWrzKiQnnuPnzRSLhqYdKzvTw/9y48utVIpGSk
-	 clVozXdN4Zf5bGpeElNo41a+u994yagPUl+rGQhWIaoVnsyG8K/991lCp3O9ZtL+Hx
-	 TlMPUcEsfURBEESppk5DunWzZuMiiEYooKWoCn+iHWplkcStDN6hfS7e7nzhTRQAwl
-	 g3gifiSzoiRjFl6BuCe635Xjq/UMuN9gVE1AX19oXZjNlwXsPAC+qzNnHH+0k6B4ny
-	 b/31HYG/aaVlw==
-Message-ID: <14fa33e2-d993-8d9e-7e81-12f72eddc380@kernel.org>
-Date: Sat, 5 Aug 2023 23:31:39 +0200
+ unprotected) header.d=gmx.ch header.i=400thecat@gmx.ch header.a=rsa-sha256
+ header.s=s31663417 header.b=GHbLin0w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.ch;
+ s=s31663417; t=1691313481; x=1691918281; i=400thecat@gmx.ch;
+ bh=VuePgNk0Oif3pidnp5hRGiQBzyS5IrEUZtAUCxV2tz0=;
+ h=X-UI-Sender-Class:To:From:Subject:Date;
+ b=GHbLin0wpNPU+XSV7lq0ytvZYQjxSe1ENTj6NTvglUFUgrcHPyjhyAVHhelvU38oc61Xt+c
+ Y/L6AFcBkRrArC37wUBAb8r1poDXU5hB7ZeijtcMz7cPZZSail3jofVqJOpRZO3ztqCUosMPN
+ kbQRLsKOiAfmoyo9FzATWA/IVN7zDFlQJXYTUGPeC3mzj0jbfTPQmqt89ijQG7BthKXO/GnWI
+ MiRNNYt3f/RlJYbJFy4g6kTX37CXMi8ADP1Dq9RcCmV/pHAW4AUfp+CC4h76R22RisTXsqBaN
+ 2xQeRLHehFtTqWNNN2D44+NKF611WBgaG1jetvBmsWvHl1Qv7Eng==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [10.1.2.16] ([212.25.11.75]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MEUzA-1qd1Mp1OrC-00G31p for
+ <alsa-devel@alsa-project.org>; Sun, 06 Aug 2023 11:18:01 +0200
+To: alsa-devel@alsa-project.org
+From: Fourhundred Thecat <400thecat@gmx.ch>
+Subject: change order in which kernel initializes devices
+Message-ID: <aa95b260-134d-42f7-2d07-74e60b327839@gmx.ch>
+Date: Sun, 6 Aug 2023 11:18:00 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: wlf,wm8960: Describe the power
- supplies
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-To: Fabio Estevam <festevam@gmail.com>, broonie@kernel.org
-Cc: robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- shengjiu.wang@gmail.com, Fabio Estevam <festevam@denx.de>
-References: <20230803215506.142922-1-festevam@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20230803215506.142922-1-festevam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OREFXTVQ6TNKQYE7333Z67JMWG4Z3LED
-X-Message-ID-Hash: OREFXTVQ6TNKQYE7333Z67JMWG4Z3LED
-X-MailFrom: krzk@kernel.org
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:J1amAuTluCgu7nWhyfSka8UD1NKFybbXnx6lbb93YpSrYHYZcqn
+ 0gRfP41XBQL+W3hYM5swf5O5+hVwNdhJMuvz89x8kVukqHlZsMxJxNe9c3k/ReXZxXM02nn
+ V0w3vjVRs1ek+ji0udLBvNdNpj21ALaymuxBNg9kjDTrKpUVZDVhNfyybhAw6NXKvf5BW57
+ yQPD6fxdBpu39Cae+29kw==
+UI-OutboundReport: notjunk:1;M01:P0:owjTB3dIFfc=;J7g+w7r1yhfqDqxuWIX3zN9nhMc
+ //jJlneL7wbLA5WnDKYogMITaKlGifUJnXP78+ErLn7zHyvu/lZVHdjOtxC6VCRBy55JLJarR
+ HHnbKDit/ftgClIfN/Lo60iKCRoQLMoCjLdPmuUx9aCwFWOYVzfWsA9ffd/Iu5fz9yspCc9g1
+ kHXPaKiRXko6W+gbZpB3ZIUSHM4T2/SMhq659LXEFrLs244B7fgXLA/C4iUmP9l7kuGq3XQWp
+ Dl2dFTx95Fqre2emrcABIYoDcMbTfzukNCyc8vXiWH8TPD4ek+2keZ2sMyL38FlvWgvpzv9+v
+ DSTm9tQ8fBS65PGAl+uWGd7xwePb+Uzypcvsrwa8I707VeuBOe5tWJwqId6KFxrWIi6RUT1FN
+ gBPcW5uGQLMQro12ZQTuqp56MtUwU+HFz1OXfx6UogXAtZx6Y3nT0Oca/sV5HORNBUzCmJwai
+ DJ1uhO3qL8rIgEMtX1slmSk7rcyLbv1gm/WtSVPR8mmAzSM2+6jgaGXmZoefFg6rQ2EpvkwLv
+ OdSm5mjFavDBVO53coh2SRautRbILbQDk85Zod1G1y3PF+2qCkc7jNFv5ljKpb0vE89hceCdc
+ Qf3hbvusgTRm1zZlp2QBFEnYTGrWe/DJ54vPdMpaRh/ZSUyrkcthCIlX0dFiXHUzTB5v/lLHE
+ EhIGDIkm5GSyqkUXSr9VHwTPf2MmBvSyHhNibIuzEzpXGUqEJyCtoKp2ZZZnV6IxOHG0zFNst
+ Pcll8383m5T60jnpP2eSNUhG7zytRTNWxZ1stXuTR75f5c7skLBOC0CUWK6P5EmqWGrN4akcx
+ WWgGHfFv7pP/IQP5e6W1UYrUoOgxzOY+a77noAxir3OFzxZ8QyTwVIrkeNqdY6T0422gdioyt
+ gF8067N+VAjIr1sdl/w1rdYb9MfkWLI2uwxKyDWWfFNUFLGhLpYph17NNaOysOtcD6g1/FK2i
+ b22GaUHANer76MgMU64PI5J3mQI=
+Message-ID-Hash: IZEMPTAWUE5Z65K4N74LCRXGGPTR2CSL
+X-Message-ID-Hash: IZEMPTAWUE5Z65K4N74LCRXGGPTR2CSL
+X-MailFrom: 400thecat@gmx.ch
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OREFXTVQ6TNKQYE7333Z67JMWG4Z3LED/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IZEMPTAWUE5Z65K4N74LCRXGGPTR2CSL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,31 +108,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 03/08/2023 23:55, Fabio Estevam wrote:
-> From: Fabio Estevam <festevam@denx.de>
-> 
-> WM8960 has the following power supplies:
-> 
-> - AVDD
-> - DBVDD
-> - DCVDD
-> - SPKVDD1
-> - SPKVDD1
-> 
-> Add them to bindings to improve the hardware description.
+Hello,
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+I am using monolithic kernel without loadable module support. Everything
+is compiled in statically.
 
-You missed at least DT list (maybe more), so this won't be tested by
-automated tooling. Performing review on untested code might be a waste
-of time, thus I will skip this patch entirely till you follow the
-process allowing the patch to be tested.
+Now I have snd-aloop (CONFIG_SND_ALOOP=3Dy) and when i boot my kernel, it
+is recognized as primary device. My real hw card is as second device.
 
-Please kindly resend and include all necessary To/Cc entries.
+Is there any way I can change the order, in which kernel initializes the
+sound devices, so that my real (hw) sound card is recognized first ?
 
-Best regards,
-Krzysztof
+If I was using modules, I could simply load snd-aloop later.
 
+I am compiling my own kernel, so I would be happy to patch the code if
+necessary, if somebody could point me into the right section.
+
+Here is output of aplay -l, in case it helps:
+
+**** List of PLAYBACK Hardware Devices ****
+card 0: Loopback [Loopback], device 0: Loopback PCM [Loopback PCM]
+   Subdevices: 8/8
+   Subdevice #0: subdevice #0
+   Subdevice #1: subdevice #1
+   Subdevice #2: subdevice #2
+   Subdevice #3: subdevice #3
+   Subdevice #4: subdevice #4
+   Subdevice #5: subdevice #5
+   Subdevice #6: subdevice #6
+   Subdevice #7: subdevice #7
+card 0: Loopback [Loopback], device 1: Loopback PCM [Loopback PCM]
+   Subdevices: 8/8
+   Subdevice #0: subdevice #0
+   Subdevice #1: subdevice #1
+   Subdevice #2: subdevice #2
+   Subdevice #3: subdevice #3
+   Subdevice #4: subdevice #4
+   Subdevice #5: subdevice #5
+   Subdevice #6: subdevice #6
+   Subdevice #7: subdevice #7
+card 1: PCH [HDA Intel PCH], device 0: Generic Analog [Generic Analog]
+   Subdevices: 1/1
+   Subdevice #0: subdevice #0
+
+
+PS: why are there 2 loopback devices, with 8 subdevices?
+When I am alredy at it, can I change tat in the kernel, so that I only
+have 1 loopback device for simplicity ?
+
+thank you,

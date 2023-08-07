@@ -2,110 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87297772D46
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 19:50:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64FCC772E1D
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 20:45:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2515826;
-	Mon,  7 Aug 2023 19:49:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2515826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 852AF823;
+	Mon,  7 Aug 2023 20:45:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 852AF823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691430642;
-	bh=xdOHWoLsICV7kUxr/6xDknStuYMXv78lIRyu9paMiP8=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Hw/NPiJqzVya1DKd5L9GBoyUrT8QYfSfzzDuqAxKquSumISfyGePRJ0vgKwP0OxwV
-	 yxt5C2V+B3tzHKSVVngcTxiZ8ynbf7aTBmfgUQx4nGi5OSq7xdwDzMarWxW48R9TIX
-	 4TvtUFHzm4XwyJAB8AqzIckrkLLVQx7G81Wgd7Xw=
+	s=default; t=1691433957;
+	bh=hmUDDMPneWyGPqzX8N2O3Gbisx+EhLJaoG/DxdAw8J4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=IKPPPFNVELkboco/7g8WafotLVsZIKUJ5fjMRl4wWoSBsQ9zOSaz+xiMAQEU+5Gw3
+	 RMhntLebAEBFD+43AYvxp+SjfILoUyuG+RlOuS7Kp61O2U6TWzxDZOWU5F4ZRkfRNr
+	 coC3ek0tlfhiCV6AsmJF0PuNZp3h70TSIUiVVNTg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E909F80520; Mon,  7 Aug 2023 19:49:51 +0200 (CEST)
+	id BA850F8016A; Mon,  7 Aug 2023 20:45:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B75C3F8016B;
-	Mon,  7 Aug 2023 19:49:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69246F8016B;
+	Mon,  7 Aug 2023 20:45:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28B56F8016D; Mon,  7 Aug 2023 19:49:44 +0200 (CEST)
+	id 5A3A0F8016D; Mon,  7 Aug 2023 20:45:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ot1-x349.google.com (mail-ot1-x349.google.com
- [IPv6:2607:f8b0:4864:20::349])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 328B7F80087
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 19:49:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 328B7F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3A11F8016A
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 20:44:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3A11F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=VYtva0u1
-Received: by mail-ot1-x349.google.com with SMTP id
- 46e09a7af769-6bc9bb5019dso9367930a34.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 07 Aug 2023 10:49:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1691430571; x=1692035371;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=lvTqsAuYDg6pJiZTtB6ZMlYo7Jtn6FS/cj5mVT1Lh+0=;
-        b=VYtva0u1UQj3x9ZSO1yuqxuAHrjmu3o+hHzAmbTG2LG3SW2I2x4Ahm/h0/boF43ElS
-         R0NKeHmz2vFckrQPp1dqMkPRx6riDwxHuE7ZyWa3TrfpFB6ZTRYgeIqvZn/epGrEnuIk
-         AqaGb2CAHARkz1eTMLvLPSvlZJiXdeKgtc6QDIbwbUdN+tcDmkD2QmCYORDCqaZ8TM0p
-         nHoNrvHy00LeCE/OIBaB8xqpf3NbTvh+USGgky0bv85rwQTXy1mBcPYn9j7AMZrFQauP
-         ce3GruZFlczh3rr90Z/gYYsqoV4dzqt0jUBTja+enXD/QUJSETU8FXP+RCGEffwzv+nq
-         xzEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691430571; x=1692035371;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lvTqsAuYDg6pJiZTtB6ZMlYo7Jtn6FS/cj5mVT1Lh+0=;
-        b=MiTuh17GwyJuWJsnGR0IdL3s9lDZEMaCpxKhyDPAKkHF4i0rJkg21+0owiaOZfwfYh
-         ZpXraK1XMFxRPdWWpZJvMaNzFNBUhZ9xdkcar+O7PkU6zPt3dPTl8zvFJXSnZ+do1Z6H
-         PtQo3Pfyl5Jug5x2H39MRKkc+YKdMZkkSMYoGUEP/sHRUmqGA9ntO0X4zdrTNPrnX/0k
-         b6Vl/GlmrRx6P2hz4LpoTRv1UfErLp1vvM9zmJn59d4wNOKxbezxg2m7jJBYmU1w7wAd
-         LhY5ZTInAfxQ4YTNCG0Pmhddiqhj8+vup7zyu3rtVFC9E5wyqw2d0j91sqejLUVvolIS
-         rGWg==
-X-Gm-Message-State: AOJu0YwELqhhAHuNaAkkWSCxBnav0+dF77IQCJYPMDXg+p7jDheSPklE
-	B/J7ZWsluRQvx0I4PKXqPHwHqp0o69tmIIYBOg==
-X-Google-Smtp-Source: 
- AGHT+IHn3JrxBCkxtBRwtWs4Y+KDOf5zBeJmbUjMvvC7zoFNpobgh85JmBn1m+oRFaKQ1C0WAv0im5nnt94mQPvwOg==
-X-Received: from jstitt-linux1.c.googlers.com
- ([fda3:e722:ac3:cc00:2b:ff92:c0a8:23b5])
- (user=justinstitt job=sendgmr) by 2002:a9d:7c95:0:b0:6bc:b75c:f32f with SMTP
- id q21-20020a9d7c95000000b006bcb75cf32fmr11241444otn.2.1691430571266; Mon, 07
- Aug 2023 10:49:31 -0700 (PDT)
-Date: Mon, 07 Aug 2023 17:49:28 +0000
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAKcu0WQC/x3MTQqAIBBA4avIrBvwhyi6SrQwnXI2KkoRhHdPW
- n6L916oVJgqLOKFQjdXTrFDDQJcsPEkZN8NWmojZ2mwpit6zI4xeIvO2EnpfdLWjNCbXOjg5/+
- tW2sfnbTOTl8AAAA=
-X-Developer-Key: i=justinstitt@google.com; a=ed25519;
- pk=tC3hNkJQTpNX/gLKxTNQKDmiQl6QjBNCGKJINqAdJsE=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1691430570; l=1948;
- i=justinstitt@google.com; s=20230717; h=from:subject:message-id;
- bh=xdOHWoLsICV7kUxr/6xDknStuYMXv78lIRyu9paMiP8=;
- b=tFxAj2FlZPOq0oZKEB/bIYDagN+DiU16Koww8F9rnQI1LEkVkzSsnFMSpUQ4J53g/GPHsTbiL
- jC4KhL4eV8mA93uTvIXU3O3oEwXceeyJagwD2lIK4s1jLye7qa03Wcg
-X-Mailer: b4 0.12.3
-Message-ID: <20230807-sound-pci-hda-v1-1-6d9cdcd085ca@google.com>
-Subject: [PATCH] ALSA: hda/tegra: refactor deprecated strncpy
-From: Justin Stitt <justinstitt@google.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
-	linux-hardening@vger.kernel.org, Justin Stitt <justinstitt@google.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YXtooxKz
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6D7F4620F8;
+	Mon,  7 Aug 2023 18:44:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71530C433C7;
+	Mon,  7 Aug 2023 18:44:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691433889;
+	bh=hmUDDMPneWyGPqzX8N2O3Gbisx+EhLJaoG/DxdAw8J4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=YXtooxKzd5RLFXZdEXL+f2Fj73s2mNQTfK4ARGqPteThz5xW8f/2OqfIDbo8X/PnI
+	 9FXyN2vABkChGtTUSqDXuLvS3cp48kkNmen5gA6f0I9jFi7Gcq6ToBaTQLThcrunFE
+	 5ZBoJTzhd6LEWqgqU/cLhoeTBrWTDf6blG9QTv402tVJ8R7JvPkj/dIyKRSDBd9inu
+	 oj3YcVv+88ggWdEvN+uzwlM2TurAoKuG/SXG7QAeZJ6GKrHoJXuimOk7HA+YP1e+S0
+	 r684ts5CUjEmczd7copzVkVqlCubnL3C4R/kThe1Tco1LTSkWwLQ64GYm1Mw/wEhCd
+	 QzwbGc0FWJasQ==
+From: Mark Brown <broonie@kernel.org>
+To: oder_chiou@realtek.com, Zhang Shurong <zhang_shurong@foxmail.com>
+Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <tencent_A560D01E3E0A00A85A12F137E4B5205B3508@qq.com>
+References: <tencent_A560D01E3E0A00A85A12F137E4B5205B3508@qq.com>
+Subject: Re: [PATCH v2] ASoC: rt5665: add missed regulator_bulk_disable
+Message-Id: <169143388818.204874.3565118222220844695.b4-ty@kernel.org>
+Date: Mon, 07 Aug 2023 19:44:48 +0100
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-ID-Hash: ACQHNVKQWR5IK2GDNOALOBS35DSVVGOZ
-X-Message-ID-Hash: ACQHNVKQWR5IK2GDNOALOBS35DSVVGOZ
-X-MailFrom: 
- 3qy7RZAsKCnohsqrglqrgrremmejc.amkYjqY-bctcjYjqY-npmhcar.mpe@flex--justinstitt.bounces.google.com
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: VVUQUYVZ7YNQWT6YMTS644GBXECWNEHM
+X-Message-ID-Hash: VVUQUYVZ7YNQWT6YMTS644GBXECWNEHM
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,54 +95,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-`strncpy` is deprecated for use on NUL-terminated destination strings [1].
+On Tue, 01 Aug 2023 23:59:11 +0800, Zhang Shurong wrote:
+> The driver forgets to call regulator_bulk_disable()
+> 
+> Add the missed call to fix it.
+> 
+> 
 
-A suitable replacement is `strscpy` [2] due to the fact that it
-guarantees NUL-termination on its destination buffer argument which is
-_not_ the case for `strncpy`!
+Applied to
 
-It should be noted that the current implementation is unlikely to have a
-bug because `drv_name` is a string literal with a size of 9 while
-`card->driver` has a size of 16. However, it is probably worthwhile to
-switch to a more robust and less ambiguous interface.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-[1]: www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings
-[2]: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html
+Thanks!
 
-Link: https://github.com/KSPP/linux/issues/90
-Cc: linux-hardening@vger.kernel.org
-Signed-off-by: Justin Stitt <justinstitt@google.com>
----
- sound/pci/hda/hda_tegra.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+[1/1] ASoC: rt5665: add missed regulator_bulk_disable
+      commit: c163108e706909570f8aa9aa5bcf6806e2b4c98c
 
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index 9d0ab043880b..f16740500d46 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -378,14 +378,14 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	}
- 
- 	/* driver name */
--	strncpy(card->driver, drv_name, sizeof(card->driver));
-+	strscpy(card->driver, drv_name, sizeof(card->driver));
- 	/* shortname for card */
- 	sname = of_get_property(np, "nvidia,model", NULL);
- 	if (!sname)
- 		sname = drv_name;
- 	if (strlen(sname) > sizeof(card->shortname))
- 		dev_info(card->dev, "truncating shortname for card\n");
--	strncpy(card->shortname, sname, sizeof(card->shortname));
-+	strscpy(card->shortname, sname, sizeof(card->shortname));
- 
- 	/* longname for card */
- 	snprintf(card->longname, sizeof(card->longname),
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
----
-base-commit: c1a515d3c0270628df8ae5f5118ba859b85464a2
-change-id: 20230803-sound-pci-hda-c3a712b72a35
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Best regards,
---
-Justin Stitt <justinstitt@google.com>
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,81 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFFBA772FFB
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 21:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8EF6772FFC
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 21:56:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54144839;
-	Mon,  7 Aug 2023 21:55:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54144839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1222784C;
+	Mon,  7 Aug 2023 21:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1222784C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691438171;
-	bh=MA89P5aCFUzquMYuuwGYdoMsvUqOjh0vcaEwwe202SQ=;
+	s=default; t=1691438177;
+	bh=S8fHhhG5KTO+rFTJGNR6dCoDYC/0ZDPxy88icZudfwE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YDDWYfdpVooO3SnAjy6WGwPqmdjC653DXK4ZN/eUpl+eqmcA13najGgVfhdeIh1/u
-	 CZLf4i/Aq97ZllhLQe3vGZGtvdLWfh6f9gJSNB1YIVbCIVYI2X/6FxrL3+XwGs27cc
-	 kKNQUGTLpe+ZEU/JggQ2xBM5lkmFsP7LsYBbXbp0=
+	b=u5RguTEZWzp1MCpsIjkk0bQ0XoQnDKtmT7fd+99sd+ze5dYEBXLFOT/4sXxdA5yxI
+	 +5JeYG+Db4bcnLv980IWTNhgsA8pMRH7DNoZm1r/z2+w0hCEYy+ti8ST6LyX6f/D3g
+	 AEV5NPGUEFyPF252/JV5MY8mTIE0SuOjBaHpA45Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C0A9F80558; Mon,  7 Aug 2023 21:54:33 +0200 (CEST)
+	id 8BF05F8055B; Mon,  7 Aug 2023 21:54:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B95EF8016B;
-	Mon,  7 Aug 2023 21:54:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00780F8055C;
+	Mon,  7 Aug 2023 21:54:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E90BBF80534; Mon,  7 Aug 2023 21:54:27 +0200 (CEST)
+	id A87ADF80520; Mon,  7 Aug 2023 21:54:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F0C6F80116
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 21:54:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F0C6F80116
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24F89F8016D
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 21:54:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24F89F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=RWaHLdDz
+ header.s=k20201202 header.b=IMpKlvH1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 28A5A62188;
-	Mon,  7 Aug 2023 19:54:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2638C433CB;
-	Mon,  7 Aug 2023 19:54:14 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E204E620E8;
+	Mon,  7 Aug 2023 19:54:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DFD1C433C8;
+	Mon,  7 Aug 2023 19:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691438055;
-	bh=MA89P5aCFUzquMYuuwGYdoMsvUqOjh0vcaEwwe202SQ=;
+	s=k20201202; t=1691438058;
+	bh=S8fHhhG5KTO+rFTJGNR6dCoDYC/0ZDPxy88icZudfwE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=RWaHLdDzu8iBZ+FCDqkL4aH/aU+93mc0c4jzBO+LswcdzhmSe88x+vvN9XoK2P5VG
-	 hloKGQIR7F0TrvGFw3fs8gfXlQv4eP69i8nL69WRjGlNj/Nw/WYbwKLPdQ6z9CaQ1r
-	 AeBgNrfdP2eeGN7lDuZlUsNFO+1WOvFwSF4fSA9MJcsrFOyzDy7STtSC6Zh27x9MSO
-	 qlDzFShmDKmy1N+PDO3V1e7EmnF045lukjRnLQNTRgMPh5hu3abIuhoG1VwtlHH9Wf
-	 QJnf1E5jdPPgd2z7wyGkytH+4B5RcD+IrX4e3DGfaW9GIm9BadyLnssHoanO2dVxVq
-	 n3wLaJ2sKFLDg==
+	b=IMpKlvH1Qhos0o/bFvz6KKI1vR5ORA8S2h7KHgmmd6xHtyfB0TnFLyvvoHPV49Lay
+	 bigKE7ni/0LQPTg+/xE9LeRIa5utivdY6K9+LH5wTHolpYU+y9nAtbCKep69bQnQiS
+	 Kda0Bv+TEXLKZ0wvpP2aP+cvhIGWaEsJEnoC1ZxgtWYP2rLlYnEt59Jrqv4jh9za7V
+	 cJn2iz9nC+BvFwTKcWNxDdDLJ6rTm2v5CzI4EsBW083flei6ghnHNTpun7A885dWS9
+	 zdbd0e0mho5C/YgAklSzWUEc6LvPXrjW3pysE9pi+q29EGsJan2GtYW16ptGSyKVG0
+	 iOcUz8J/+e3dw==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de
-In-Reply-To: <20230802153629.53576-1-pierre-louis.bossart@linux.intel.com>
-References: <20230802153629.53576-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/16] ASoC: SoundWire codecs: improve pm_runtime
- handling
-Message-Id: <169143805458.302632.441924325682226422.b4-ty@kernel.org>
-Date: Mon, 07 Aug 2023 20:54:14 +0100
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
+ Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ =?utf-8?q?N=C3=ADcolas_F_=2E_R_=2E_A_=2E_Prado?= <nfraprado@collabora.com>
+In-Reply-To: <20230802175737.263412-1-alpernebiyasak@gmail.com>
+References: <20230802175737.263412-1-alpernebiyasak@gmail.com>
+Subject: Re: [PATCH 00/27] ASoC: Map missing jack kcontrols
+Message-Id: <169143805578.302632.12010075061564886370.b4-ty@kernel.org>
+Date: Mon, 07 Aug 2023 20:54:15 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: ARY3MJZDGYEEGXKKCN4JM7MXE7NCL2RB
-X-Message-ID-Hash: ARY3MJZDGYEEGXKKCN4JM7MXE7NCL2RB
+Message-ID-Hash: DPYG73R7VOBABXPU6VUSVHW3SP2IX2ET
+X-Message-ID-Hash: DPYG73R7VOBABXPU6VUSVHW3SP2IX2ET
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,15 +101,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 02 Aug 2023 10:36:13 -0500, Pierre-Louis Bossart wrote:
-> This patchset improves the pm_runtime behavior in rare corner cases
-> identified by the Intel CI in the last 6 months.
+On Wed, 02 Aug 2023 20:57:10 +0300, Alper Nebi Yasak wrote:
+> This patchset adds missing jack kcontrols for each independently
+> detectable audio peripheral and maps jack pins to those kcontrols
+> accordingly, with the primary intent to enable/improve jack detection
+> handling in PulseAudio and PipeWire through JackControl UCM values.
 > 
-> a) in stress-tests, it's not uncommon to see the following type of
-> warnings when the codec reports as ATTACHED
-> 
->     "rt711 sdw:0:025d:0711:00: runtime PM trying to activate child device
->     sdw:0:025d:0711:00 but parent (sdw-master-0) is not active"
+> Usually it's just splitting a joint anything-is-connected "Headset Jack"
+> kcontrol (from [1]) into those like "Headphone Jack" and "Headset Mic"
+> (similar to a previous series for Intel Chromebooks [2]). This split is
+> important to avoid automatically switching to a nonexistent external
+> microphone when a headphone-only device is connected.
 > 
 > [...]
 
@@ -114,38 +121,60 @@ Applied to
 
 Thanks!
 
-[01/16] ASoC: SoundWire codecs: return error status in probe
-        commit: 3f3d66ba998fb079c1239430e96e3b138bc63166
-[02/16] ASoC: SoundWire codecs: make regmap cache-only in probe
-        commit: 49ae74abc76b2d9be4777e7ac833674fa4749071
-[03/16] ASoC: rt5682-sdw: make regmap cache-only in probe
-        commit: 6ab18105029ca3d739dd4c5c18638c7c6d568bbb
-[04/16] ASoC: rt711: enable pm_runtime in probe, keep status as 'suspended'
-        commit: a8590dd73d9f7fd955ac24a8e210d0721d5c10af
-[05/16] ASoC: rt711-sdca: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 0c321fb857707ef68ffdb4f9672beb664e6679cc
-[06/16] ASoC: rt700: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 6b8f8c5e6ffbd431d6cf40584dc8d3027f7e99b3
-[07/16] ASoC: rt1712-sdca: enable pm_runtime in probe, keep status as 'suspended'
-        commit: f3da2ed110e2884b29151313eee52947b786e1a7
-[08/16] ASoC: rt712-sdca-dmic: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 8d890ecef1ef6e2e81f1709d54f6843846cfd15f
-[09/16] ASoC: rt715: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 279be5919560d9f3afea1940bfd261297eecfa0c
-[10/16] ASoC: rt715-sdca: enable pm_runtime in probe, keep status as 'suspended'
-        commit: e4a3b8cf40713d6511391de3286ccba38998756b
-[11/16] ASoC: rt1308-sdw: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 1772552eb304f3229309f66e2762e835955e2307
-[12/16] ASoC: rt1316-sdw: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 64bae6732b2d3364ce4954015c84b4959f7d6e0f
-[13/16] ASoC: rt1318-sdw: enable pm_runtime in probe, keep status as 'suspended'
-        commit: df93dfa2b4d0f0e2ac2f73f78582a3830659d00e
-[14/16] ASoC: rt5682-sdw: enable pm_runtime in probe, keep status as 'suspended'
-        commit: 4af11e11defc200439a75a7957b03f3da37e46b2
-[15/16] ASoC: max98363: enable pm_runtime in probe, keep status as 'suspended'
-        commit: d6ce285641cfb506b6942818e06270fb091b8fe3
-[16/16] ASoC: max98373-sdw: enable pm_runtime in probe, keep status as 'suspended'
-        commit: b48f324f89ab8ee62c3448ef19445a1b292e02d3
+[01/27] ASoC: amd: acp-da7219-max98357a: Map missing jack kcontrols
+        commit: 5532a1cfedda10ec0c5e9edbb8089e6165b532fe
+[02/27] ASoC: amd: acp-rt5645: Map missing jack kcontrols
+        commit: 596c92fb77a0402b3f2d3ebd36ef6c6aec45faf5
+[03/27] ASoC: amd: acp: Map missing jack kcontrols
+        commit: 7ac3404c2e21ff6b717fd9ac2f7b352e0149f7bd
+[04/27] ASoC: amd: acp3x-rt5682-max9836: Map missing jack kcontrols
+        commit: 00c7ee820895c9563b7780f84f1b9420cbfbe6c7
+[05/27] ASoC: Intel: avs: da7219: Map missing jack kcontrols
+        commit: c699fc46f45bab70a831a56e95d6f6c6e51ac7be
+[06/27] ASoC: Intel: bxt_da7219_max98357a: Map missing Line Out jack kcontrol
+        commit: 92d7071f751a863fe22aaf8cfdd94f96749e0aa5
+[07/27] ASoC: Intel: bytcr_wm5102: Map missing Line Out jack kcontrol
+        commit: 4e06382c0d275fa1e365ca2ee9b2286b7c49b07f
+[08/27] ASoC: Intel: kbl_da7219_max98357a: Map missing Line Out jack kcontrol
+        commit: da09176f1f04baae467c97a4dc8b6d9fa5cd11b8
+[09/27] ASoC: Intel: kbl_da7219_max98927: Map missing Line Out jack kcontrol
+        commit: 2830bfdbe90b0bf6170f88ca0803fa72e1b1e506
+[10/27] ASoC: Intel: sof_da7219_max98373: Map missing Line Out jack kcontrol
+        commit: 7265089ade245d062fe8f9938261656ff2a49633
+[11/27] ASoC: imx-es8328: Map missing jack kcontrols
+        commit: 105e84586bfcbe8e48e386936899c4eb8c00be71
+[12/27] ASoC: mediatek: mt8173-max98090: Configure jack as a Headset jack
+        commit: 73864428ba983bc35e1efabc2e3ec04c6d87c67c
+[13/27] ASoC: mediatek: mt8173-rt5650-rt5514: Map missing jack kcontrols
+        commit: 87eb19815fa53220602fa40b77f7e3504bf6b476
+[14/27] ASoC: mediatek: mt8173-rt5650-rt5676: Map missing jack kcontrols
+        commit: 8badca99caf0cc843341e3ffa87d24f9caa206c9
+[15/27] ASoC: mediatek: mt8173-rt5650: Map missing jack kcontrols
+        commit: 0ef5533f7b54419f5b108d6004f56c6de78f026d
+[16/27] ASoC: mediatek: mt8183-da7219-max98357: Map missing jack kcontrols
+        commit: 9c7388baa2053f333dc524814be4d95f0c2c8ae7
+[17/27] ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: Map missing jack kcontrols
+        commit: 09a22368bb87a90a447d901e7f5bf2037f321769
+[18/27] ASoC: mediatek: mt8186-mt6366-da7219-max98357: Map missing jack kcontrols
+        commit: 26de9cc1b96eecfe9fb9c672272665e97c3cdc59
+[19/27] ASoC: qcom: apq8016_sbc: Map missing jack kcontrols
+        commit: 45bda58af84ffd5c951267f848c8dc10ea485c06
+[20/27] ASoC: qcom: sc7180: Map missing jack kcontrols
+        commit: 883bfefca437c9061686fa8d092d5a8fa04d06c8
+[21/27] ASoC: qcom: sc7280: Map missing jack kcontrols
+        commit: 4ab959e5a11624805983909d18ca7f653bab748c
+[22/27] ASoC: qcom: sdm845: Map missing jack kcontrols
+        commit: 242372d64e5ee39be518672abd7b797d5cd9521b
+[23/27] ASoC: rk3399-gru-sound: Map missing Line Out jack kcontrol
+        commit: d60e810a0fa83692116293b4b798ab0273668108
+[24/27] ASoC: rockchip: rockchip_rt5645: Map missing jack kcontrols
+        commit: 24127e5a07a8eac754be50f537df891ebdadf1b8
+[25/27] ASoC: samsung: littlemill: Map missing jack kcontrols
+        commit: 4d87362f017ea16b6035906613a1c29095a6134f
+[26/27] ASoC: samsung: lowland: Split Line Out jack kcontrol from Headphone
+        commit: c9d3401844fa6ec6fa924859dca95bac38b1e1ff
+[27/27] ASoC: samsung: midas_wm1811: Map missing jack kcontrols
+        commit: d27224a45e5457ad89195d92decdd57596253428
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

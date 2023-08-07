@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F9A7726C2
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 15:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B58C7726A9
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 15:54:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0A44A4E;
-	Mon,  7 Aug 2023 15:54:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0A44A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC1FB827;
+	Mon,  7 Aug 2023 15:53:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC1FB827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691416505;
-	bh=1B0PU6iKuGgTa3v8xog+pp7rzt8cgLPXM34mweDfHL0=;
+	s=default; t=1691416443;
+	bh=grMkiisXPdR7VJ7lbBaB1p+Jhord5C+N/3OlVGAvT40=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R/en7gCmvPyoGlcNnCQP4WsICCo7kKvn7xUaPrvy1dHryM4wjDq0my3uF27P7/R3N
-	 ksZD837HBnLtBf1c7SKZkDYOQMlyvP2LxIzAkNEgIcYiX7Qlc/ylchcJ5oe2pg8VSo
-	 iZLsgscGTjXJQ/Bgb1pCEe5Ss1OMTQ5nMtW5mQdA=
+	b=k6gJMrNgYIflZN1/N0rBA3GLpHpnMqxRhk7eePrgLmgjG1ysRiex88XbOxgmpkGoO
+	 u5dNYpLU9DpQIqHVzqAm+F4Gbnhv1zJ153g0Rvim9+lw0AsNAMUQq4JJD+DhLXP+w6
+	 xLMUeRNFgyg3QS+7SF2oNqUCMx0Ra3+Nf0z7N1Ho=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75CFAF80558; Mon,  7 Aug 2023 15:53:30 +0200 (CEST)
+	id 8E192F8055A; Mon,  7 Aug 2023 15:52:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 191BDF80558;
-	Mon,  7 Aug 2023 15:53:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3D87F80558;
+	Mon,  7 Aug 2023 15:52:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 631C6F8051E; Mon,  7 Aug 2023 15:53:25 +0200 (CEST)
+	id D2EF6F80544; Mon,  7 Aug 2023 15:52:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7A280F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61A4DF8016D
 	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 15:52:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A280F8016A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61A4DF8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ZsrKaOoD;
+ header.s=susede2_rsa header.b=cwpj2d54;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=c6ZC+nlG
+ header.s=susede2_ed25519 header.b=JKeY7eLB
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B54651FDF0;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DA97321A83;
 	Mon,  7 Aug 2023 13:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -61,44 +60,44 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2icgKmNFV61ZDxAVK85eTeSq6RTwbU2hfWHpU5z0lvw=;
-	b=ZsrKaOoDucxfI/lywXM9/zm3h82e3bWPIJdXJxsv54ec9OK2lVqBwS2QVP5un4yBDG3jS/
-	CDH5YNpA0xR9+6GZYlZOJG07VLksuI5f2EwqPYkVz8CZWoKQfJqcJkXlOX7mqI+4xboW7I
-	mRRYPDsan0kqxTDdI4Aj4It2LtMtbG8=
+	bh=L035eWrwnWLfJM1BAPZExZXTo8cbCDl9sztkGADUWLs=;
+	b=cwpj2d54m7GEyQYDqH8SxN4EE7rDFlCMbXcnUb6/6FjLT4VDpMW8USa0chrGe76zY22/EZ
+	Z+M7k2RH534CuiGTxXvRFMDzw0/XP7O/I8H/LzWCz/lL6CuE/MxTZcgGLadHjvz5ZN7gHE
+	y4IC3KTuMBri7ZGdhCktZ/BJyruxZQ0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1691416331;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2icgKmNFV61ZDxAVK85eTeSq6RTwbU2hfWHpU5z0lvw=;
-	b=c6ZC+nlGXc4fjRjaRS1qlh7tfwGdol4RuqaI13dZVhQi/e2JnzYX+18tiFIX6o0O/V14Ty
-	jllbft7gPvcproBw==
+	bh=L035eWrwnWLfJM1BAPZExZXTo8cbCDl9sztkGADUWLs=;
+	b=JKeY7eLBBpBgUeJ4Mwb7rC4yjQWyLyg8dG/+TrOb3VxfMJj25Vgrn2rS0cCPoU9z0tL09i
+	FmnM7VXHHI7Hn/Aw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93DC813910;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B91FF13910;
 	Mon,  7 Aug 2023 13:52:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id SBIjIwv30GS3JwAAMHmgww
+	id aIA7LAv30GS3JwAAMHmgww
 	(envelope-from <tiwai@suse.de>); Mon, 07 Aug 2023 13:52:11 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: Curtis Malainey <cujomalainey@chromium.org>
-Subject: [PATCH RFC 2/6] ALSA: core: Fix potential UAF by delayed kobject
- release of card_dev
-Date: Mon,  7 Aug 2023 15:52:02 +0200
-Message-Id: <20230807135207.17708-3-tiwai@suse.de>
+Subject: [PATCH 2/6] ALSA: core: Fix race between devres and delayed kobject
+ release for card_dev
+Date: Mon,  7 Aug 2023 15:52:03 +0200
+Message-Id: <20230807135207.17708-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230807135207.17708-1-tiwai@suse.de>
 References: <20230807135207.17708-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MO3BJNYVZBK6PQAYZVNRIU6P2VEDXXSD
-X-Message-ID-Hash: MO3BJNYVZBK6PQAYZVNRIU6P2VEDXXSD
+Message-ID-Hash: IIXCSF4A5HB6IT7VKX4MCFHXTXZIHIMV
+X-Message-ID-Hash: IIXCSF4A5HB6IT7VKX4MCFHXTXZIHIMV
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,11 +117,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use a new refmem allocation for the card object, and fix the potential
-UAF of card object due to the race between the devres and the delayed
-kobj release.  Now the devres keeps only the card object pointer, not
-the card object itself, and the card object is unreferenced at both
-releases.
+Use a new refmem allocation for the card object, and fix the race
+between the devres and the delayed kobj release.  Now the devres keeps
+only the card object pointer, not the card object itself, and the card
+object is unreferenced at both releases.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---

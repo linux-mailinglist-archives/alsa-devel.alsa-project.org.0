@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9932D7730FD
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:13:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969957730F1
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:12:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35B4C83B;
-	Mon,  7 Aug 2023 23:12:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35B4C83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B100843;
+	Mon,  7 Aug 2023 23:11:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B100843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691442824;
-	bh=hSlgxCVxMnokiJeXJYSA/H62hcvzuo9l2W7Y1nx6ysE=;
+	s=default; t=1691442732;
+	bh=kkjD2YgcnPb/YGquupC0278X5ncJUVKhKIpM50C7Xk8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nU2NiRhd9j67+edI2QT0gkC7fkaE2sNUqJFDpXd96s+FostuIE/dqYqtTMxWK44R8
-	 85mQXJUhFJjgxdhOv/ABflD+avRBX5ugPZVhOlQg1FkN3chBzAIPFVgMePSATSYTgK
-	 0Bquv2fBohLvhSxnMp55DO7pXbBZMtT5I8IPZZ5w=
+	b=gRiDedY9UB2ddJUDKCftomNzSDIk5S3xAp5Kow30Mw2ACiZjELd3sJ+RugGIuEmdX
+	 JyOtMirp4SxHDhpYkop4wbAatT/FF5k65m/4MA5eeYXpyEgo9/mQGEjhybQdBGBCcV
+	 tIqjjiEYvZNUuvEMAquj2QaJysrRW3h9z6pQLU38=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E792F805C8; Mon,  7 Aug 2023 23:10:48 +0200 (CEST)
+	id 4621EF8056F; Mon,  7 Aug 2023 23:10:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF06AF805C8;
-	Mon,  7 Aug 2023 23:10:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9841F8056F;
+	Mon,  7 Aug 2023 23:10:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 915C7F805A0; Mon,  7 Aug 2023 23:10:35 +0200 (CEST)
+	id CB158F80558; Mon,  7 Aug 2023 23:10:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8B65F8016D
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8B65F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 859DDF80116
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 859DDF80116
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IEbY0Mr1
+ header.s=Intel header.b=eVBniyQZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1691442617; x=1722978617;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=hSlgxCVxMnokiJeXJYSA/H62hcvzuo9l2W7Y1nx6ysE=;
-  b=IEbY0Mr1+igWQl+HEcCp8kDp57UAdQcN7YgTApDX+oxInkHWXcmGG7uv
-   BNX7uHRyx8Q9olI4lEWL+sSFHmkgG7usm3TuW5MWuBCsumVS7QbmEoxtQ
-   Pttd1E1P+gHNBIwE2j/yE7mSFYEmqj2PKK+afbAfcm7cRJqxafN7GdSWN
-   1w4Db56Z9rVV1WOZPYY1BplctNpdrF7Xcn6QqEO/gmT7SnnDdAQQW4AZt
-   V63mujFYKX4JfblzmNNcvu9zli5fTtSV4nWvbAqZKK+k5ulk51yrCLAiH
-   To1F00iluYQ7vEzGxYVo6HJXXjH0unDqmmLPJE1Vt3HNjUoVbdbJZgxgT
+  bh=kkjD2YgcnPb/YGquupC0278X5ncJUVKhKIpM50C7Xk8=;
+  b=eVBniyQZhc7WW5k4mYp1zQXlLHwaStBWjcItXf/LMRifhZAtbKhW1ZsZ
+   lxLs0KWReCQX3U7HohnJnDCE9GYqqvwyy6NkDUEOVV2Z3XKvAtBKyBaVG
+   A3mUK4yrRxe0/M7A/cpXTod/IvXMaeL1fsShJ3Inup0JRRNA0Ir8MDMRB
+   1UCxAFZAodqkkSeZjUlGSUuYaYf3o4jNPQ/cQCcVjSZmeSD42xDJZfIYm
+   k5lBoJkj36DJnMx3FScFL/VaOGH6PvWaeAJjWYEuUQz5nA0K+G+LJZrFT
+   lvcgtfRZz2VcW0fSOnr7tBB3QSp6tPBduu6rF1/9f1onG5w1Yu5tkTn3j
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244302"
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244306"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="350244302"
+   d="scan'208";a="350244306"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 14:10:09 -0700
+ 07 Aug 2023 14:10:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465154"
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465164"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="796465154"
+   d="scan'208";a="796465164"
 Received: from hweelee-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.209.181.215])
   by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -77,16 +77,16 @@ Cc: tiwai@suse.de,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Rander Wang <rander.wang@intel.com>
-Subject: [PATCH 01/20] ASoC: SOF: Intel: hda-mlink: fix off-by-one error
-Date: Mon,  7 Aug 2023 16:09:40 -0500
-Message-Id: <20230807210959.506849-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 02/20] ASoC: SOF: Intel: fix u16/32 confusion in LSDIID
+Date: Mon,  7 Aug 2023 16:09:41 -0500
+Message-Id: <20230807210959.506849-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 References: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KLVE2KY3SPCJHE2D7IMAU3XS4ZN6MRXX
-X-Message-ID-Hash: KLVE2KY3SPCJHE2D7IMAU3XS4ZN6MRXX
+Message-ID-Hash: B2DQLM2UPXSQYBJOLJZELZHEYQRHTFBH
+X-Message-ID-Hash: B2DQLM2UPXSQYBJOLJZELZHEYQRHTFBH
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,51 +106,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The HCHAN parameter should be the highest channel number, not the
-channel count.
+Likely a combination of copy-paste and test coverage problem. Oops.
 
-While we're at it, handle LCHAN with the dual __ffs helper.
-
-Fixes: ccc2f0c1b6b6 ("ASoC: SOF: Intel: hda-mlink: add helper to program SoundWire PCMSyCM registers")
+Fixes: 87a6ddc0cf1c ("ASoC: SOF: Intel: hda-mlink: program SoundWire LSDIID registers")
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- sound/soc/sof/intel/hda-mlink.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ sound/soc/sof/intel/hda-mlink.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/sof/intel/hda-mlink.c b/sound/soc/sof/intel/hda-mlink.c
-index b7cbf66badf5..acad3ea2f471 100644
+index acad3ea2f471..df87b3791c23 100644
 --- a/sound/soc/sof/intel/hda-mlink.c
 +++ b/sound/soc/sof/intel/hda-mlink.c
-@@ -781,6 +781,8 @@ int hdac_bus_eml_sdw_map_stream_ch(struct hdac_bus *bus, int sublink, int y,
+@@ -331,14 +331,14 @@ static bool hdaml_link_check_cmdsync(u32 __iomem *lsync, u32 cmdsync_mask)
+ 	return !!(val & cmdsync_mask);
+ }
+ 
+-static void hdaml_link_set_lsdiid(u32 __iomem *lsdiid, int dev_num)
++static void hdaml_link_set_lsdiid(u16 __iomem *lsdiid, int dev_num)
  {
- 	struct hdac_ext2_link *h2link;
- 	u16 __iomem *pcmsycm;
-+	int hchan;
-+	int lchan;
- 	u16 val;
+-	u32 val;
++	u16 val;
  
- 	h2link = find_ext2_link(bus, true, AZX_REG_ML_LEPTR_ID_SDW);
-@@ -791,9 +793,17 @@ int hdac_bus_eml_sdw_map_stream_ch(struct hdac_bus *bus, int sublink, int y,
- 		h2link->instance_offset * sublink +
- 		AZX_REG_SDW_SHIM_PCMSyCM(y);
+-	val = readl(lsdiid);
++	val = readw(lsdiid);
+ 	val |= BIT(dev_num);
  
-+	if (channel_mask) {
-+		hchan = __fls(channel_mask);
-+		lchan = __ffs(channel_mask);
-+	} else {
-+		hchan = 0;
-+		lchan = 0;
-+	}
-+
- 	mutex_lock(&h2link->eml_lock);
+-	writel(val, lsdiid);
++	writew(val, lsdiid);
+ }
  
--	hdaml_shim_map_stream_ch(pcmsycm, 0, hweight32(channel_mask),
-+	hdaml_shim_map_stream_ch(pcmsycm, lchan, hchan,
- 				 stream_id, dir);
- 
- 	mutex_unlock(&h2link->eml_lock);
+ static void hdaml_shim_map_stream_ch(u16 __iomem *pcmsycm, int lchan, int hchan,
 -- 
 2.39.2
 

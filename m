@@ -2,101 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41679772874
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 16:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 994D07727F8
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 16:37:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78472AE8;
-	Mon,  7 Aug 2023 16:59:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78472AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD835827;
+	Mon,  7 Aug 2023 16:36:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD835827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691420396;
-	bh=SUHQAeoPZgXBUwMl+B0ovX2ZyA2nHmqJqeRcETZsoR0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1691419056;
+	bh=ke5upjysK6AX8emCowQngsKJbMWF9+VpIwLTcOxKcwI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CaFcnmqvVrmyezdA8Azin1NXt/YoxyYJkAPjwsvZQZjbNSXct+bxaNCf/KI8FkeXq
-	 OIhv8J8fxqAJZtqfg28CzlrIBd+S2Z3jvrPZh+bQa/OOpDrHgeyZNMUrux68cpGRJZ
-	 cD6fLzkVQSOJWcGsqdO5l4LNe5jzLWhZdeVp9JSw=
+	b=Zk4ILsfPsVrgYaiplejhD0/A7P11H5B4sY/lPnyPvkg/dNcGKlr5OeZf3/YoFfGyC
+	 LTZTfQHoVY6L59uVYNzeF4PF0BdBdbeZMR9gsJ6WkxMQ3ssWoe77Ypv5kYyZ62KOG7
+	 Pqx7qYPnIsb/H/RVz74Gur9L12XlX93K1a32hbjk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 861FBF805D4; Mon,  7 Aug 2023 16:57:09 +0200 (CEST)
+	id 2C0ADF80087; Mon,  7 Aug 2023 16:36:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01111F805C4;
-	Mon,  7 Aug 2023 16:57:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C845CF8016B;
+	Mon,  7 Aug 2023 16:36:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 036BAF80570; Mon,  7 Aug 2023 16:56:57 +0200 (CEST)
+	id 2B973F8016D; Mon,  7 Aug 2023 16:36:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F04DF80553;
-	Mon,  7 Aug 2023 16:56:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F04DF80553
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6CAE6F8016A
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 16:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CAE6F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=aNsBNDWX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691420213; x=1722956213;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=SUHQAeoPZgXBUwMl+B0ovX2ZyA2nHmqJqeRcETZsoR0=;
-  b=aNsBNDWXcVh3VltuXqx/HwgSUn2Tqcg48DERV4E+S+ipHWqWdBfcHCLt
-   BWUH8yu5BP08OrtTmsFqCvldH4Jr430VUf5zpMsY2ugVrPiV+nR948xAF
-   eAS+sSALv9vwg+L2YADwW3azKyQdrMP+0mZlLuRn1rgxZV4uDMsh94Fnb
-   fMXgF7DWSOwC/2I99TWe8xzkwUr1AuT6c14yQKjeBt5OV93BLKUY2D6ks
-   /ibQMHPlH6sSt8DSaKaOvCR/XwKmIS0oklADbIWkngpA/JwdUVI9rl9nB
-   fKFLwExNfD00EV1boN6QDV0jy9GmUX+4zegmNZtqbidvwbr7B278iYiKM
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434410645"
-X-IronPort-AV: E=Sophos;i="6.01,262,1684825200";
-   d="scan'208";a="434410645"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 07:56:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="1061623896"
-X-IronPort-AV: E=Sophos;i="6.01,262,1684825200";
-   d="scan'208";a="1061623896"
-Received: from hweelee-mobl.amr.corp.intel.com (HELO [10.209.181.215])
- ([10.209.181.215])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 07:56:44 -0700
-Message-ID: <401de8fb-8d33-d699-ba09-a7b90356d915@linux.intel.com>
-Date: Mon, 7 Aug 2023 09:28:35 -0500
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=HmQ6EWLU
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B7938E0008;
+	Mon,  7 Aug 2023 14:36:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1691418990;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CoovJrYPxkDFGogd5wvVhZC1R5Dq4lKn3YHaDGn4/LM=;
+	b=HmQ6EWLUrDj97BUk7IGsXLcmAJ2miJvyMgaSQlOietWT5pvqGoMYmO6yr+Bhc0Lx67tKD6
+	df7Z6+KBom37uNEQWfw8FJht1ZSI3QWLiHNjcNXBmvIwSynDxYMQivLHbJtb7uzGw5pJZ2
+	EAinCJbElQ6rO13JeWO3s9sPGU4+27Q8M5T52pS7PcbF+R8WyuQKAjhFeLCmKcp+6TWkuR
+	IdO0UMWLzMibIMpfP4ahj/zKwHCDxTgVc0R059ZGQaSUIC06o5hsPMQ2XYgtkWYBNaUzS4
+	qP1VmAe+U2gpEDS1hmzhbhx0eTbGq6h1G2uNh4GG0oC80TOYZeIgosi77P7S8A==
+Date: Mon, 7 Aug 2023 16:36:26 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Linus Walleij <linus.walleij@linaro.org>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>, Li Yang
+ <leoyang.li@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li
+ <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, Nicolin Chen
+ <nicoleotsuka@gmail.com>, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org, Thomas
+ Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 24/28] pinctrl: Add support for the Lantic PEF2256
+ pinmux
+Message-ID: <20230807163626.79a5ca7b@bootlin.com>
+In-Reply-To: <eb99e739-6578-4aee-a0f4-7a0c5e5e81ef@lunn.ch>
+References: <20230726150225.483464-1-herve.codina@bootlin.com>
+	<20230726150225.483464-25-herve.codina@bootlin.com>
+	<CACRpkdYXCQRd3ZXNGHwMaQYiJc7tGtAJnBaSh5O-8ruDAJVdiA@mail.gmail.com>
+	<CACRpkdZebvrdGXooLXmgXhUcgdgxBczJBpdEoEyJDR39abaAqQ@mail.gmail.com>
+	<eb99e739-6578-4aee-a0f4-7a0c5e5e81ef@lunn.ch>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v3 9/9] ALSA: hda/i915: Remove extra argument from
- snd_hdac_i915_init
-Content-Language: en-US
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
-References: <20230807090045.198993-1-maarten.lankhorst@linux.intel.com>
- <20230807090045.198993-10-maarten.lankhorst@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230807090045.198993-10-maarten.lankhorst@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: O72CFINSW34Y5BYQBQ3GLOWNHHFE5CFE
-X-Message-ID-Hash: O72CFINSW34Y5BYQBQ3GLOWNHHFE5CFE
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: herve.codina@bootlin.com
+Message-ID-Hash: VCRUHULOJU2BWCUEXBS5IDVWYVSIAOCW
+X-Message-ID-Hash: VCRUHULOJU2BWCUEXBS5IDVWYVSIAOCW
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,31 +112,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Linus, Andrew,
 
+On Mon, 7 Aug 2023 15:17:11 +0200
+Andrew Lunn <andrew@lunn.ch> wrote:
 
+> On Mon, Aug 07, 2023 at 03:06:42PM +0200, Linus Walleij wrote:
+> > On Mon, Aug 7, 2023 at 3:05 PM Linus Walleij <linus.walleij@linaro.org> wrote:
+> >   
+> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
+> > >
+> > > So it is a bridge chip? Please use that terminology since Linux
+> > > DRM often talks about bridges.  
+> > 
+> > Replying to self: no it's not a bridge, it's a WAN thingy.
+> > 
+> > So perhaps write that this is a WAN interface adapter chip.  
+> 
+> Hi Linus
+> 
+> In the E1/T1/J1 world, framer is a well understood concept. Maybe the
+> text needs a bit more background information to explain what this is
+> to somebody who does not have an old school telecoms background.
+> 
+>    Andrew
 
-> @@ -172,18 +172,10 @@ int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
->  	acomp = bus->audio_component;
->  	if (!acomp)
->  		return -ENODEV;
-> -	if (allow_modprobe && !acomp->ops) {
-> -		if (!IS_ENABLED(CONFIG_MODULES) ||
-> -		    !request_module("i915")) {
-> -			/* 60s timeout */
-> -			wait_for_completion_killable_timeout(&acomp->master_bind_complete,
-> -							     msecs_to_jiffies(60 * 1000));
+Maybe I can add in my commit log:
+--- 8< ---
+This kind of component can be found in old telecommunication system.
+It was used to digital transmission of many simultaneous telephone calls
+by time-division multiplexing. Also using HDLC protocol, WAN networks
+can be reached through the framer.
+--- 8< ---
 
-heads-up that I have a conflicting patch to make the 60s delay
-configurable, see https://github.com/thesofproject/linux/pull/4505
+Do you think it will be better ?
 
-> -		}
-> -	}
->  	if (!acomp->ops) {
-> -		int err = allow_modprobe ? -ENODEV : -EPROBE_DEFER;
->  		snd_hdac_acomp_exit(bus);
-> -		return dev_err_probe(bus->dev, err, "couldn't bind with audio component\n");
-> +		return dev_err_probe(bus->dev, -EPROBE_DEFER,
-> +				     "couldn't bind with audio component\n");
->  	}
->  	return 0;
->  }
+Regards,
+Hervé Codina
+
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

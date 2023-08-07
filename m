@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3947C773113
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:16:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC1677310C
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:15:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CFA983E;
-	Mon,  7 Aug 2023 23:15:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CFA983E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFAC9827;
+	Mon,  7 Aug 2023 23:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFAC9827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691442996;
-	bh=+ZzNFozqpNeH3yOKdXH2AiJ0U5WZxDHHonLSJwKxEd8=;
+	s=default; t=1691442940;
+	bh=Vua+59ya3IKEkUg4JlemO5ieOV+GohcuI8EPkxy1HO4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ng/nP+kN6pBwF7VviioTSYXHAYFYJd1kFFZc0vIisbMkhgWVwvTra2v/Xbz/BdKZs
-	 H4BxQu5VzkvpONFyucHXbQmCMYqKmXw1h41kvi5Ou2JWKoNHCSpiRke4e8i0Ci4/ZT
-	 fyTd6mluIN+s0nxWCA8j2AcqA+0Do3dAL74SYRVw=
+	b=giQcItsYMH+id6OHKNSRqYGCQNC39jZzHLmhd0ZJe3KI9t1gXawiNUcVGuWS7kFeo
+	 BdOhiodAeVBJ+dx+lROKRTZoKMiJSKCaogVYefVMB0Aq5490r0n3Ie12fOtwm5cATr
+	 3FtmWAAiKkiZb5oMG1/PM+Sx16LEkErs55GQW8sU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 623CBF8064C; Mon,  7 Aug 2023 23:11:14 +0200 (CEST)
+	id 793EEF8061F; Mon,  7 Aug 2023 23:11:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 400D0F8063C;
-	Mon,  7 Aug 2023 23:11:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64DE4F80619;
+	Mon,  7 Aug 2023 23:11:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61C94F805CB; Mon,  7 Aug 2023 23:10:46 +0200 (CEST)
+	id 3A96DF805C2; Mon,  7 Aug 2023 23:10:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61101F8051E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B38CF80116
 	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61101F8051E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B38CF80116
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZoHquvEw
+ header.s=Intel header.b=mHWUbsUe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1691442627; x=1722978627;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=+ZzNFozqpNeH3yOKdXH2AiJ0U5WZxDHHonLSJwKxEd8=;
-  b=ZoHquvEwy2c9AONGyDr68TlY/tC1qeYLawdgJt+6pqlTCcet24JVJ7lT
-   M/2bR+HAfF3duGdbwUChD6PWF5bcXytdB8j1all9WBcjAoN4dcSpPdYir
-   qKvXXMraF0FlHQAY0yO97Hqc7PiG7ppoDJqbsmrZH7ZzY3zE3NceOTOdQ
-   G9Q7l9LexmtgnTRkC4ACxcBZvlQ6H7sszi3E2q4jlJASI5rkeX3mLWXVX
-   XqsHNOsoPrMnVGzi+4Hj03yb4V/WkVEkRo6WssuhAlqEh8BzCHRb/V8Vg
-   LVNrBJF2f7Fy44wFl0fHWJLCXb07iohUiD5DKowckx6G8v5gYQP7ex3I+
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244384"
+  bh=Vua+59ya3IKEkUg4JlemO5ieOV+GohcuI8EPkxy1HO4=;
+  b=mHWUbsUe9MiDB2n/KdKLZSG6LGhGr/kmrSFQBtxW0Iy3sLE6Pn5PHnb3
+   n5wbMkmUm3CtXO0VVOBi4CRWkOBOgWsbahaKJn+ZYyrjwJVgynh13Qjb3
+   Yvzc04YHk/3gJZauV4TBZPCg8xOvw5M2JQEJEv4D0cZf+BaFNXdAYwKrf
+   M8jF88VV8E7sIpPA0t4jYDi06NGh2YQ02ZQfHlaE3SyUnh17V/PmjFTK7
+   Sur4Bew+Pg4EsYncCyk9JWTsBw8600zAW6FDW2XyANMIPEADmLk1EDNYB
+   EAKfACHVH2Bfbp58qdkIzwVfgrd4u741/57dHCeNO1tu8QgHtFHg0Eqqu
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244389"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="350244384"
+   d="scan'208";a="350244389"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 14:10:18 -0700
+ 07 Aug 2023 14:10:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465254"
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465258"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="796465254"
+   d="scan'208";a="796465258"
 Received: from hweelee-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.209.181.215])
   by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 14:10:17 -0700
+ 07 Aug 2023 14:10:18 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -77,17 +77,17 @@ Cc: tiwai@suse.de,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Rander Wang <rander.wang@intel.com>
-Subject: [PATCH 16/20] ASoC: SOF: Intel: add abstraction for SoundWire
- wake-ups
-Date: Mon,  7 Aug 2023 16:09:55 -0500
-Message-Id: <20230807210959.506849-17-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 17/20] ASoC: SOF: Intel: hda-mlink: add helper to get sublink
+ LSDIID register
+Date: Mon,  7 Aug 2023 16:09:56 -0500
+Message-Id: <20230807210959.506849-18-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 References: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: B2TLAM4DOATSKRG5KRN3TTUE3TELUKGM
-X-Message-ID-Hash: B2TLAM4DOATSKRG5KRN3TTUE3TELUKGM
+Message-ID-Hash: DWMOV2JTLHMQIEROULROP327EOYRW5BO
+X-Message-ID-Hash: DWMOV2JTLHMQIEROULROP327EOYRW5BO
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,181 +107,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The existing code cannot work for LunarLake, let's add a layer of
-abstraction.
-
-No functional change in this patch.
+We need to retrieve the current value to deal with the HDAudio
+WAKEEN/WAKESTS setup.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- sound/soc/sof/intel/cnl.c  |  2 ++
- sound/soc/sof/intel/hda.c  | 20 +++++++++++++++-----
- sound/soc/sof/intel/hda.h  |  6 ++++++
- sound/soc/sof/intel/icl.c  |  1 +
- sound/soc/sof/intel/mtl.c  |  1 +
- sound/soc/sof/intel/shim.h |  1 +
- sound/soc/sof/intel/tgl.c  |  4 ++++
- 7 files changed, 30 insertions(+), 5 deletions(-)
+ include/sound/hda-mlink.h       |  4 ++++
+ sound/soc/sof/intel/hda-mlink.c | 21 +++++++++++++++++++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index a95222e53ecf..c6fbf4285262 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -466,6 +466,7 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
-@@ -501,6 +502,7 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 67b2e00baf4e..5c1e6ad2b7f2 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -399,14 +399,10 @@ static irqreturn_t hda_dsp_sdw_thread(int irq, void *context)
- 	return sdw_intel_thread(irq, context);
+diff --git a/include/sound/hda-mlink.h b/include/sound/hda-mlink.h
+index 4f44f0bd5388..228114aca415 100644
+--- a/include/sound/hda-mlink.h
++++ b/include/sound/hda-mlink.h
+@@ -42,6 +42,7 @@ int hdac_bus_eml_power_down_unlocked(struct hdac_bus *bus, bool alt, int elid, i
+ int hdac_bus_eml_sdw_power_up_unlocked(struct hdac_bus *bus, int sublink);
+ int hdac_bus_eml_sdw_power_down_unlocked(struct hdac_bus *bus, int sublink);
+ 
++int hdac_bus_eml_sdw_get_lsdiid_unlocked(struct hdac_bus *bus, int sublink, u16 *lsdiid);
+ int hdac_bus_eml_sdw_set_lsdiid(struct hdac_bus *bus, int sublink, int dev_num);
+ 
+ int hdac_bus_eml_sdw_map_stream_ch(struct hdac_bus *bus, int sublink, int y,
+@@ -145,6 +146,9 @@ hdac_bus_eml_sdw_power_up_unlocked(struct hdac_bus *bus, int sublink) { return 0
+ static inline int
+ hdac_bus_eml_sdw_power_down_unlocked(struct hdac_bus *bus, int sublink) { return 0; }
+ 
++static inline int
++hdac_bus_eml_sdw_get_lsdiid_unlocked(struct hdac_bus *bus, int sublink, u16 *lsdiid) { return 0; }
++
+ static inline int
+ hdac_bus_eml_sdw_set_lsdiid(struct hdac_bus *bus, int sublink, int dev_num) { return 0; }
+ 
+diff --git a/sound/soc/sof/intel/hda-mlink.c b/sound/soc/sof/intel/hda-mlink.c
+index df87b3791c23..9fbbcc1744db 100644
+--- a/sound/soc/sof/intel/hda-mlink.c
++++ b/sound/soc/sof/intel/hda-mlink.c
+@@ -331,6 +331,11 @@ static bool hdaml_link_check_cmdsync(u32 __iomem *lsync, u32 cmdsync_mask)
+ 	return !!(val & cmdsync_mask);
  }
  
--static bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
-+bool hda_sdw_check_wakeen_irq_common(struct snd_sof_dev *sdev)
- {
--	u32 interface_mask = hda_get_interface_mask(sdev);
- 	struct sof_intel_hda_dev *hdev;
- 
--	if (!(interface_mask & BIT(SOF_DAI_INTEL_ALH)))
--		return false;
--
- 	hdev = sdev->pdata->hw_pdata;
- 	if (hdev->sdw &&
- 	    snd_sof_dsp_read(sdev, HDA_DSP_BAR,
-@@ -416,6 +412,20 @@ static bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
- 	return false;
- }
- 
-+static bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
++static u16 hdaml_link_get_lsdiid(u16 __iomem *lsdiid)
 +{
-+	u32 interface_mask = hda_get_interface_mask(sdev);
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	if (!(interface_mask & BIT(SOF_DAI_INTEL_ALH)))
-+		return false;
-+
-+	if (chip && chip->check_sdw_wakeen_irq)
-+		return chip->check_sdw_wakeen_irq(sdev);
-+
-+	return false;
++	return readw(lsdiid);
 +}
 +
- void hda_sdw_process_wakeen(struct snd_sof_dev *sdev)
+ static void hdaml_link_set_lsdiid(u16 __iomem *lsdiid, int dev_num)
  {
- 	u32 interface_mask = hda_get_interface_mask(sdev);
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 4f60b722e5d5..f19510e8ce87 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -785,6 +785,7 @@ int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev);
- int hda_sdw_startup(struct snd_sof_dev *sdev);
- void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable);
- void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable);
-+bool hda_sdw_check_wakeen_irq_common(struct snd_sof_dev *sdev);
- void hda_sdw_process_wakeen(struct snd_sof_dev *sdev);
- bool hda_common_check_sdw_irq(struct snd_sof_dev *sdev);
- 
-@@ -813,6 +814,11 @@ static inline void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
- {
+ 	u16 val;
+@@ -752,6 +757,22 @@ int hdac_bus_eml_sdw_power_down_unlocked(struct hdac_bus *bus, int sublink)
  }
+ EXPORT_SYMBOL_NS(hdac_bus_eml_sdw_power_down_unlocked, SND_SOC_SOF_HDA_MLINK);
  
-+static inline bool hda_sdw_check_wakeen_irq_common(struct snd_sof_dev *sdev)
++int hdac_bus_eml_sdw_get_lsdiid_unlocked(struct hdac_bus *bus, int sublink, u16 *lsdiid)
 +{
-+	return false;
-+}
++	struct hdac_ext2_link *h2link;
++	struct hdac_ext_link *hlink;
 +
- static inline void hda_sdw_process_wakeen(struct snd_sof_dev *sdev)
++	h2link = find_ext2_link(bus, true, AZX_REG_ML_LEPTR_ID_SDW);
++	if (!h2link)
++		return -ENODEV;
++
++	hlink = &h2link->hext_link;
++
++	*lsdiid = hdaml_link_get_lsdiid(hlink->ml_addr + AZX_REG_ML_LSDIID_OFFSET(sublink));
++
++	return 0;
++} EXPORT_SYMBOL_NS(hdac_bus_eml_sdw_get_lsdiid_unlocked, SND_SOC_SOF_HDA_MLINK);
++
+ int hdac_bus_eml_sdw_set_lsdiid(struct hdac_bus *bus, int sublink, int dev_num)
  {
- }
-diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
-index 0f249efc6a5a..7ac10167a90d 100644
---- a/sound/soc/sof/intel/icl.c
-+++ b/sound/soc/sof/intel/icl.c
-@@ -188,6 +188,7 @@ const struct sof_intel_dsp_desc icl_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
-diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index be3155f98944..b84ca58da9d5 100644
---- a/sound/soc/sof/intel/mtl.c
-+++ b/sound/soc/sof/intel/mtl.c
-@@ -735,6 +735,7 @@ const struct sof_intel_dsp_desc mtl_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq = mtl_enable_sdw_irq,
- 	.check_sdw_irq = mtl_dsp_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq = mtl_dsp_check_ipc_irq,
- 	.cl_init = mtl_dsp_cl_init,
- 	.power_down_dsp = mtl_power_down_dsp,
-diff --git a/sound/soc/sof/intel/shim.h b/sound/soc/sof/intel/shim.h
-index 207df48e27cf..9515d753c816 100644
---- a/sound/soc/sof/intel/shim.h
-+++ b/sound/soc/sof/intel/shim.h
-@@ -189,6 +189,7 @@ struct sof_intel_dsp_desc {
- 	int (*read_sdw_lcount)(struct snd_sof_dev *sdev);
- 	void (*enable_sdw_irq)(struct snd_sof_dev *sdev, bool enable);
- 	bool (*check_sdw_irq)(struct snd_sof_dev *sdev);
-+	bool (*check_sdw_wakeen_irq)(struct snd_sof_dev *sdev);
- 	bool (*check_ipc_irq)(struct snd_sof_dev *sdev);
- 	int (*power_down_dsp)(struct snd_sof_dev *sdev);
- 	int (*disable_interrupts)(struct snd_sof_dev *sdev);
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 8e2b07e1612b..bb9f20253c99 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -147,6 +147,7 @@ const struct sof_intel_dsp_desc tgl_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
-@@ -175,6 +176,7 @@ const struct sof_intel_dsp_desc tglh_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
-@@ -203,6 +205,7 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
-@@ -231,6 +234,7 @@ const struct sof_intel_dsp_desc adls_chip_info = {
- 	.read_sdw_lcount =  hda_sdw_check_lcount_common,
- 	.enable_sdw_irq	= hda_common_enable_sdw_irq,
- 	.check_sdw_irq	= hda_common_check_sdw_irq,
-+	.check_sdw_wakeen_irq = hda_sdw_check_wakeen_irq_common,
- 	.check_ipc_irq	= hda_dsp_check_ipc_irq,
- 	.cl_init = cl_dsp_init,
- 	.power_down_dsp = hda_power_down_dsp,
+ 	struct hdac_ext2_link *h2link;
 -- 
 2.39.2
 

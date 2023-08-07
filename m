@@ -2,99 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D21772553
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 15:19:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CFFB772650
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 15:44:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64A6283E;
-	Mon,  7 Aug 2023 15:18:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64A6283E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2692826;
+	Mon,  7 Aug 2023 15:43:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2692826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691414354;
-	bh=nQ4SW6Otfdqx9sL8dOBqeuHT4hiShY26cyklGUiR36Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691415881;
+	bh=6TF029ZO5z04ek4pEqYoxpTOGIEkygtQDRY0r0El7mI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jX3wO2PUgCaY/hWiLva4UIpj3riVYTH8ovR0WndcNxO3ZkeXIciz5WHwOez+ABeyZ
-	 74XoSs6blbp4vWiG05sgV1RSwbNfNpkdnYtJtyMtXN/dPl7FiFBSa+s5dar+kNdcEw
-	 nVhfXaSP6JzhXXyqMY3VkdLWktHTmP5kZuu9PF6M=
+	b=G7tV9fKRYpT5izOrxwpfnmJeIEV6SSH1909RpZ+s/adz14XOtyXY6il7Ig+LXWgWG
+	 2i/PmKzu6/GldtbrDmIG+K+evr58eWPO1WtvO8m8A5l4VQ4JJ37uVsqMoiSsIUStAn
+	 hiEXVfyWLXkVgvJJKNZlUOOKxoS1y+rObBbvWbY0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CDB40F80116; Mon,  7 Aug 2023 15:17:54 +0200 (CEST)
+	id 58BEAF8016D; Mon,  7 Aug 2023 15:43:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 671DCF8016B;
-	Mon,  7 Aug 2023 15:17:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4DA0F80116;
+	Mon,  7 Aug 2023 15:43:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CF8DF8016D; Mon,  7 Aug 2023 15:17:51 +0200 (CEST)
+	id 1BE76F8016D; Mon,  7 Aug 2023 15:43:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 972F8F8016A
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 15:17:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 972F8F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id C56E7F8016A
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 15:43:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C56E7F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256
- header.s=20171124 header.b=AHViUK/A
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=FX+zdCyQC4fqrwzCs9Z9NLrYt/aKv0Rj29Ql81i5Bfg=; b=AH
-	ViUK/ANA+r75YY8/oJVy5vwqLaEm/CyAxID8ZcWNHMyFnu8LOYfr5CkQTdB0k85TnOTXTMLne1w4M
-	T9oaWzt87Rtwm1CAiBG9/2w5u9/7hpGa1sIzLjaUvvEFw23YxbG7FW9htEQ4pYmfh88sLA0GCcJIU
-	ETGs1tdyjkNQhnA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1qT06h-003JzP-3p; Mon, 07 Aug 2023 15:17:11 +0200
-Date: Mon, 7 Aug 2023 15:17:11 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Herve Codina <herve.codina@bootlin.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Qiang Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=ZjUhhYeZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=fNYSs+KG
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C2779219A3;
+	Mon,  7 Aug 2023 13:43:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1691415813;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dPHq/8ReL9SskH7x4QhUjjkD2WsMlbeCGGwCHO/lY2k=;
+	b=ZjUhhYeZdQKlzWLWjW9k7P98d00ezI+ZqJxHrkKrLdeFf5qt5Dd5gWM1tCJfnhATrFXpTW
+	Py4auRvyTafmACCq8xwtnE9XxC//CuVNuctiHFqvtIZ4Bi7Ib4inwlFCogBjJch2OeY1Uh
+	ccmndAPV1kl5+AGc1r7UN/EO3b5lr6g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1691415813;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dPHq/8ReL9SskH7x4QhUjjkD2WsMlbeCGGwCHO/lY2k=;
+	b=fNYSs+KGVYZcxOicz/T8Dyfd6bm+RaqNWSV647uUfpAg/k16eg1XV283Vo0k5n/II0RE77
+	bpzPowTg6YU/OyBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7EC7D13910;
+	Mon,  7 Aug 2023 13:43:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 9Q74HQX10GRiIwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 07 Aug 2023 13:43:33 +0000
+Date: Mon, 07 Aug 2023 15:43:32 +0200
+Message-ID: <878ranj7cr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Curtis Malainey <cujomalainey@google.com>
+Cc: cujomalainey@chromium.org,
+	alsa-devel@alsa-project.org,
+	Doug Anderson <dianders@chromium.org>,
+	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 24/28] pinctrl: Add support for the Lantic PEF2256
- pinmux
-Message-ID: <eb99e739-6578-4aee-a0f4-7a0c5e5e81ef@lunn.ch>
-References: <20230726150225.483464-1-herve.codina@bootlin.com>
- <20230726150225.483464-25-herve.codina@bootlin.com>
- <CACRpkdYXCQRd3ZXNGHwMaQYiJc7tGtAJnBaSh5O-8ruDAJVdiA@mail.gmail.com>
- <CACRpkdZebvrdGXooLXmgXhUcgdgxBczJBpdEoEyJDR39abaAqQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+	Zheyu Ma <zheyuma97@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+	Clement Lecigne <clecigne@google.com>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH] sound: core: fix device ownership model in card and pcm
+In-Reply-To: <87msz4f2e1.wl-tiwai@suse.de>
+References: <20230801171928.1460120-1-cujomalainey@chromium.org>
+	<87cz06djxo.wl-tiwai@suse.de>
+	<CAOReqxjNdczwPXQ76TdR3M1nEKg3ZxPE5DBrzHSDy6msFRCF7w@mail.gmail.com>
+	<87sf90b7hw.wl-tiwai@suse.de>
+	<87cz04b0ku.wl-tiwai@suse.de>
+	<CAOReqxhVXEL0ifkhEhBG1NYHOAVPS5y2oEuHfEO8gDvZjF30fQ@mail.gmail.com>
+	<87zg379oap.wl-tiwai@suse.de>
+	<CAOReqxjjwJec+Ho7vHg6tOjXHc8VEpVL317f6KE6gnmfDofa-g@mail.gmail.com>
+	<87o7jloqp5.wl-tiwai@suse.de>
+	<87msz4f2e1.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: 
- <CACRpkdZebvrdGXooLXmgXhUcgdgxBczJBpdEoEyJDR39abaAqQ@mail.gmail.com>
-Message-ID-Hash: UB2LAEXWZG65DCNEX2T3QQGCZM5N4ZDD
-X-Message-ID-Hash: UB2LAEXWZG65DCNEX2T3QQGCZM5N4ZDD
-X-MailFrom: andrew@lunn.ch
+Message-ID-Hash: MASTHKJH4ECGIP5GML6MSUBPK4PCN4D5
+X-Message-ID-Hash: MASTHKJH4ECGIP5GML6MSUBPK4PCN4D5
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,22 +137,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Aug 07, 2023 at 03:06:42PM +0200, Linus Walleij wrote:
-> On Mon, Aug 7, 2023 at 3:05 PM Linus Walleij <linus.walleij@linaro.org> wrote:
+On Sun, 06 Aug 2023 20:32:06 +0200,
+Takashi Iwai wrote:
 > 
-> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> >
-> > So it is a bridge chip? Please use that terminology since Linux
-> > DRM often talks about bridges.
+> On Sat, 05 Aug 2023 10:09:58 +0200,
+> Takashi Iwai wrote:
+> > 
+> > On Fri, 04 Aug 2023 21:17:56 +0200,
+> > Curtis Malainey wrote:
+> > > 
+> > > On Fri, Aug 4, 2023 at 1:58 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > > >
+> > > > Now I've been reconsidering the problem, and thought of another
+> > > > possible workaround.  We may add the card's refcount control for the
+> > > > device init and release, so that we delay the actual resource free.
+> > > > The basic idea is to take card->card_ref at the device init and unref
+> > > > it at the actual device release callback.  Then the snd_card_free()
+> > > > call is held until all those refcounted devices are released.
+> > > >
+> > > > Below is a PoC patch (yes, this can be split, too ;)
+> > > > A quick test on VM seems OK, but needs more reviews and tests.
+> > > >
+> > > > It contains somewhat ugly conditional put_device() at the dev_free
+> > > > ops.  We can make those a bit saner with some helpers later, too.
+> > > >
+> > > > BTW, this approach may avoid another potential problem by the delayed
+> > > > release; if we finish the driver remove without waiting for the actual
+> > > > device releases, it may hit a code (the piece of the device release
+> > > > callback) of the already removed module, and it's not guaranteed to be
+> > > > present.
+> > > > I'm not sure whether this really happens, but it's another thing to be
+> > > > considered.
+> > > >
+> > > >
+> > > > thanks,
+> > > >
+> > > > Takashi
+> > > >
+> > > > ---
+> > > > diff --git a/include/sound/core.h b/include/sound/core.h
+> > > > index f6e0dd648b80..00c514a80a4a 100644
+> > > > --- a/include/sound/core.h
+> > > > +++ b/include/sound/core.h
+> > > 
+> > > Unfortunately it doesn't hold up in my testing, hit the devm vs device
+> > > race bug after a little over 30min of hammering snd-dummy (on top of
+> > > your for-next branch)
+> > (snip)
+> > > I was talking with Stephen Boyd about this bug and his recommendation
+> > > was to keep snd_card always out of devm and just allocate a pointer in
+> > > devm to snd_card to puppet it as if it was managed via devm and just
+> > > reference count rather than release the card so that its always
+> > > handled through device->release. What do you think? This would go
+> > > alongside the current patch proposed.
+> > 
+> > Indeed, that's another issue about devres vs delayed kobj release.
+> > A quick fix would be something like below, I suppose.
+> > (note: totally untested)
 > 
-> Replying to self: no it's not a bridge, it's a WAN thingy.
-> 
-> So perhaps write that this is a WAN interface adapter chip.
+> Scratch it.  It's still obviously broken.
+> Will cook more proper patches later.
 
-Hi Linus
+Now RFC patchset is ready.
+I'll submit for testing in another thread.
 
-In the E1/T1/J1 world, framer is a well understood concept. Maybe the
-text needs a bit more background information to explain what this is
-to somebody who does not have an old school telecoms background.
 
-   Andrew
+Takashi

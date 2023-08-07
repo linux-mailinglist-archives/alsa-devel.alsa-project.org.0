@@ -2,101 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31A2F772873
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 16:59:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E3B772759
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 16:16:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D85F832;
-	Mon,  7 Aug 2023 16:58:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D85F832
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5DA4827;
+	Mon,  7 Aug 2023 16:15:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5DA4827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691420382;
-	bh=JqeztFeqeIb8u0ximbuaFAtMKDPtvXdzUyTKSrRS9Kk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=BESc8yIjrIk7q7caWp6JEezSHEx4o9S9spSPyojKM67EdQF+iw/8RgzFDI2c5nGZl
-	 Iaw9vIZXVj4h8WgEwNyiQy1iJuL7eeW6WwxFVmUDGiLoObxR9/aKr7VpDcu6VCwxsR
-	 TjO/DdjtqrOAlbRP0s1JhAQO7CQya0a9q6/TLOYA=
+	s=default; t=1691417806;
+	bh=cVEwHQYr8fZfhOS/DoPtmillTn+DY0uBvkZq9fouiDM=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kjr+tO3ecusGqTyvgv71TdQUBf5HGFpHjRXawyvMXtRCMpsNvowv2dsknMko64z1G
+	 oqS/iFJQziE8vLZPsjmE/8LIiJvToAeVwLMXzkHZqejG8ZfU02GtdmdeysvLllAeOU
+	 8Pq7Wn7tku2Z0Oh/bOEbj+P1C6nGpwb9rLsnyvRk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18FC5F805BB; Mon,  7 Aug 2023 16:57:06 +0200 (CEST)
+	id C9C38F8016A; Mon,  7 Aug 2023 16:15:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACAD2F805B4;
-	Mon,  7 Aug 2023 16:57:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F89EF8016B;
+	Mon,  7 Aug 2023 16:15:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02F81F8057B; Mon,  7 Aug 2023 16:56:56 +0200 (CEST)
+	id 96E06F8016D; Mon,  7 Aug 2023 16:15:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B340F8016A;
-	Mon,  7 Aug 2023 16:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B340F8016A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=S6yh2aNW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691420209; x=1722956209;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=JqeztFeqeIb8u0ximbuaFAtMKDPtvXdzUyTKSrRS9Kk=;
-  b=S6yh2aNWwnqd+h9t9Ri3qt6KDKFyRvbPvSg8JPCvVmcZ6svvtn49oxpf
-   xwMKQDY6XcrQwsbqavDo3V5glBkgnBNLRiDRVhFp66uovA4lN0vEktFnA
-   /WkXJbplntO5orKCvYKJZGn5lgekB3JyfdFA1tB2c7+HiOFJMT3DZjrab
-   4oxrZCIAz4FaZyGwlo7lAyeD00uebZjtLppFL7Qf3YKyrl4OgSCqbyZnr
-   +YUbJyh5G2n3gFINH4bDZgZQ+ynXIvqfPm+rsLUnk02SP8AyYOLTQCioL
-   RYp9nU/98zRouvjlO2mncs/dKH9ux38NEhWRxa0qI4Ti6EXL+7nAQK7Yy
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434410610"
-X-IronPort-AV: E=Sophos;i="6.01,262,1684825200";
-   d="scan'208";a="434410610"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 07:56:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="1061623880"
-X-IronPort-AV: E=Sophos;i="6.01,262,1684825200";
-   d="scan'208";a="1061623880"
-Received: from hweelee-mobl.amr.corp.intel.com (HELO [10.209.181.215])
- ([10.209.181.215])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 07:56:39 -0700
-Message-ID: <e710e29b-73a3-735e-6c78-9fd4829a25cc@linux.intel.com>
-Date: Mon, 7 Aug 2023 09:13:57 -0500
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7B13F80087
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 16:15:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7B13F80087
+Received: from canpemm500007.china.huawei.com (unknown [172.30.72.57])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RKJGp0B1vzfbnw;
+	Mon,  7 Aug 2023 22:14:26 +0800 (CST)
+Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
+ (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 7 Aug
+ 2023 22:15:35 +0800
+From: Yue Haibing <yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>, <yuehaibing@huawei.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH -next] ALSA: info: Remove unused function declarations
+Date: Mon, 7 Aug 2023 22:15:13 +0800
+Message-ID: <20230807141513.31440-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v3 5/9] ASoC: Intel: avs: Move snd_hdac_i915_init to
- before probe_work.
-Content-Language: en-US
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
-References: <20230807090045.198993-1-maarten.lankhorst@linux.intel.com>
- <20230807090045.198993-6-maarten.lankhorst@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230807090045.198993-6-maarten.lankhorst@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: G7FTCM6Y3R6ZGLHWWPIQRWAMDPM4CH7I
-X-Message-ID-Hash: G7FTCM6Y3R6ZGLHWWPIQRWAMDPM4CH7I
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ canpemm500007.china.huawei.com (7.192.104.62)
+X-CFilter-Loop: Reflected
+Message-ID-Hash: AYANS2N3XXVLAHSSRKQDYE6CDHGHQALF
+X-Message-ID-Hash: AYANS2N3XXVLAHSSRKQDYE6CDHGHQALF
+X-MailFrom: yuehaibing@huawei.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,62 +77,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+These declarations is never used since beginning of git history.
 
+Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+---
+ include/sound/info.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-On 8/7/23 04:00, Maarten Lankhorst wrote:
-> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
-> the snd_hdac_i915_init into a workqueue. It's likely the whole workqueue
-> can be destroyed, but I don't have the means to test this.
-> 
-> Removing the workqueue would simplify init even further, but is left
-> as exercise for the reviewer.
-> 
-> Changes since v1:
-> - Rename error label.
+diff --git a/include/sound/info.h b/include/sound/info.h
+index 7c13bf52cc81..adbc506860d6 100644
+--- a/include/sound/info.h
++++ b/include/sound/info.h
+@@ -118,8 +118,6 @@ struct snd_info_entry *snd_info_create_card_entry(struct snd_card *card,
+ 					     const char *name,
+ 					     struct snd_info_entry *parent);
+ void snd_info_free_entry(struct snd_info_entry *entry);
+-int snd_info_store_text(struct snd_info_entry *entry);
+-int snd_info_restore_text(struct snd_info_entry *entry);
+ 
+ int snd_info_card_create(struct snd_card *card);
+ int snd_info_card_register(struct snd_card *card);
+-- 
+2.34.1
 
-same issue with changes, they need to be ...
-> 
-> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>> ---
-
-...here
-
->  sound/soc/intel/avs/core.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
-> index 3311a6f14200..64e7a4e650a8 100644
-> --- a/sound/soc/intel/avs/core.c
-> +++ b/sound/soc/intel/avs/core.c
-> @@ -191,10 +191,6 @@ static void avs_hda_probe_work(struct work_struct *work)
->  
->  	pm_runtime_set_active(bus->dev); /* clear runtime_error flag */
->  
-> -	ret = snd_hdac_i915_init(bus, true);
-> -	if (ret < 0)
-> -		dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
-> -
->  	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
->  	avs_hdac_bus_init_chip(bus, true);
->  	avs_hdac_bus_probe_codecs(bus);
-> @@ -465,10 +461,19 @@ static int avs_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
->  	pci_set_drvdata(pci, bus);
->  	device_disable_async_suspend(dev);
->  
-> +	ret = snd_hdac_i915_init(bus, false);
-> +	if (ret == -EPROBE_DEFER)
-> +		goto err_i915_init;
-> +	else if (ret < 0)
-> +		dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
-> +
->  	schedule_work(&adev->probe_work);
->  
->  	return 0;
->  
-> +err_i915_init:
-> +	pci_clear_master(pci);
-> +	pci_set_drvdata(pci, NULL);
->  err_acquire_irq:
->  	snd_hdac_bus_free_stream_pages(bus);
->  	snd_hdac_ext_stream_free_all(bus);

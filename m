@@ -2,121 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0281771CFF
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 11:20:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006B7772515
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 15:09:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DB34836;
-	Mon,  7 Aug 2023 11:19:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DB34836
+	by alsa0.perex.cz (Postfix) with ESMTPS id D333382C;
+	Mon,  7 Aug 2023 15:08:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D333382C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691400011;
-	bh=r5Po4fHBVOMd0XFiUbFL44AVhi9zRFDAeYQKmmqSim4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1691413758;
+	bh=bhI9PIqsdmyp0v4Pl4wvCmRf8rEnEQ5xyQfGlic6uiA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o2jJNdnzLvsh6Fqz770/BwV31J1B4Si86EkmSDV6d6XSftgqgPBYJbLHI27azQ212
-	 dD2D+RWKA6Kk56dbxrsKVoxSVRRWpAYAUo6NZ6FthHQRqc/i+XakdS35FYExuVd0mE
-	 gewrtNXrWHHDt7MY2XS/K4YXWROCA619XOXckeAU=
+	b=dQOpLqrvaYdR9c4mT2pk25rJjAmqLQ9M94HhX9EbWxT1s9uaK+1kjsvASSk0x3tAv
+	 X1x9Pes/d4pnFsw4NUCws3mEIdiY1u49S6BLzVv8+Gc6AkJSlYLFgYjgzQcTaAPnXG
+	 JXbtSL1KAql/mvm+GyKpNgRGA8PzkorIH51kXCf0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA897F8016B; Mon,  7 Aug 2023 11:18:57 +0200 (CEST)
+	id CA19CF80544; Mon,  7 Aug 2023 15:08:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4038BF8016B;
-	Mon,  7 Aug 2023 11:18:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D2E9F8016B;
+	Mon,  7 Aug 2023 15:08:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD2BAF8016D; Mon,  7 Aug 2023 11:18:26 +0200 (CEST)
+	id E7CCBF8016D; Mon,  7 Aug 2023 15:05:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
+ [IPv6:2607:f8b0:4864:20::b30])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 013F1F80087
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 11:18:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 013F1F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id A40C8F80116
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 15:05:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A40C8F80116
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=qJNkHMMX
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-317c3ac7339so2932802f8f.0
+ header.s=google header.b=Ut8sOt7l
+Received: by mail-yb1-xb30.google.com with SMTP id
+ 3f1490d57ef6-d05a63946e0so4584025276.1
         for <alsa-devel@alsa-project.org>;
- Mon, 07 Aug 2023 02:18:00 -0700 (PDT)
+ Mon, 07 Aug 2023 06:05:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1691399879; x=1692004679;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pVzTFSX+f3NLp8W+oubkEcGfLvriaLn/mzk8yERB4EQ=;
-        b=qJNkHMMX6yWfZ0+pTVtKomPhic8oIkVTU4BgI6+YGQ09zaqOV+wKh9W0VMaDF5vGVK
-         unpdERvcAcVRzv4T+5eC6utzpr7Tujtt4DxNGg5+D0zups3hSP94fD4C6Uq7d+QA/UfX
-         Sixs7SltrhRg3Z2s4cDrRNFbVUvMUojpSzMGxhDPUhF1dzNE6PeVKZRcXXA09Qr/NMCc
-         4/ENs3n9eQZK25cJJHF3O3p4hP5uyg6YXkPYotQ85mlUAB18yaC4W/dV7RuK2jvuNwbF
-         AyG5SBgOF2lJne/Hu/DDneyX2OuAtEZipBpoT1RUjDbrGTA/GusqpUqTCXE1vBKusIgW
-         MYzw==
+        d=linaro.org; s=google; t=1691413526; x=1692018326;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LCHsXc+lT27JE6Z6+8ylge5LujDr0uIa0UFtHeUGk2Y=;
+        b=Ut8sOt7lpFeoV7uC5nic5YMi0GUeC8HpWsn9X2ZvHUqogbJC59sug1OCXgBIO45szT
+         zu/yDK65dLYqv6f+km1qpewpLLAyHgB83sO8QJplPf6Hb+zQxEgpYnezxw31ErxCfwYd
+         DG1K/BD7UexEi2CLbm33TPIAEV+JP9uckCAnXOKFdFxQCTLDT9vDW0yo5WN6ssAjMwB6
+         jQausBUtY12YsJG/lvlFmGhmKUqnRUZYXZJAg6WdrWcdht+kmstTdnIijp5oZIEpsXDt
+         nq9gS+ZIoUWmVgbHZ6Clm4PxrSxeiApl2AxIg5A46SblXoW3BcU9kQkBbE2yZj77FvnD
+         FVPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691399879; x=1692004679;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pVzTFSX+f3NLp8W+oubkEcGfLvriaLn/mzk8yERB4EQ=;
-        b=YdYUtNWS8iJRRr42g5XmuRyvtQt2SBJCGOopPb4waRyEQWKa/9qAudIDwit5HeXsuv
-         wOLzR59CBiSM5StSxF9RzN/DHR2/lAVN6b/CAQnenersaKDK+yPQEcX0aHHKUGMuAzzy
-         rsTcPcFUtOAuYC8qsKFH7fcmw97uX4EIXZnRTf/Snh525GZpTM81sk5yiSV0wICWj1AF
-         rkDH+5+a/1aHz6brHDpCDaWhkQ8OxIkF4WpJBZRxACGv6mSK/2oM4V/JbRmQYBnDxNbb
-         8vyU4KUGZk6dQ5O4PTGer+DwGfijAOZvSHZfOSJsjQZ9+dvI5QyNTVIUIolJ2TZzTQ7T
-         INHA==
-X-Gm-Message-State: AOJu0Yy9nJQ5kUC+HD+wcefDo5QCoikr5XfcGDDXcb4cuQfwq1LieJTN
-	pX7ujF+sYvsALfWKzLCotk+frg==
+        d=1e100.net; s=20221208; t=1691413526; x=1692018326;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LCHsXc+lT27JE6Z6+8ylge5LujDr0uIa0UFtHeUGk2Y=;
+        b=OlBBm3dZCVjdjCpbQOZP3OTxoIfIIFk8gJZI6pwuhX/4PDNonaKdns5ZO9qo7TLR4T
+         yVRPMB6wrfW2tLvmdW6T9s7h/U+LdRbx11u+2Zt+tXOATyhNf4H/4HAsk4qQoZ9gnbmb
+         EI6Gz9GUVrQq8mSiGH/m5hnxB721GFNV7+1gLZVdIILnoYA/cV9rDcIBCre0XdqiPu2z
+         46RLoFbAbfY4Jxj8xAA3+OY+v9DLsBZ4tLd5jsgJi2jnNTvDPgtwgL+hSgEQ5yK7wodZ
+         /UEMG8NOtxPmgNcFBj9RMPWtFzA1JXX0DkWKnC/LlgRG+Mgr+PoXnLL2nXdjLo7LQJPL
+         7WrQ==
+X-Gm-Message-State: AOJu0Yyh357U+7xmVz4WY9Wki640DDKM2u/3bMJU5Ao/+BBYUQ7IfsoH
+	xBn35GdLArA/kvejP7GS/tMozgLXWPp1nsKEVSpxDg==
 X-Google-Smtp-Source: 
- AGHT+IGt4KGgRS1McoIAI5KnJK92YrcRCVd7O+/H015bztf8+4T/Ho4NkPj03Y5Li3pMLxhNwVc9aw==
-X-Received: by 2002:a5d:4044:0:b0:314:a3f:9c17 with SMTP id
- w4-20020a5d4044000000b003140a3f9c17mr5695333wrp.42.1691399879376;
-        Mon, 07 Aug 2023 02:17:59 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.222.113])
-        by smtp.gmail.com with ESMTPSA id
- r15-20020adfdc8f000000b00317909f9985sm9893936wrj.113.2023.08.07.02.17.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Aug 2023 02:17:58 -0700 (PDT)
-Message-ID: <f0744dfd-00fe-2f58-065e-6828b6bd3450@linaro.org>
-Date: Mon, 7 Aug 2023 11:17:56 +0200
+ AGHT+IGLxVHYBN4YJi+z5+HalzYdVADQ/IRYzWidcu2Ji/atGqIFAXQgU8cOxoHK1pmjGmBx4BMj8ebAiBn6KY0iG4o=
+X-Received: by 2002:a5b:5cf:0:b0:c39:9e09:2c71 with SMTP id
+ w15-20020a5b05cf000000b00c399e092c71mr8293260ybp.41.1691413526341; Mon, 07
+ Aug 2023 06:05:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v1 2/5] ASoC: dt-bindings: snps,designware-i2s: Add
- StarFive JH7110 SoC support
-Content-Language: en-US
-To: Xingyu Wu <xingyu.wu@starfivetech.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Maxim Kochetkov <fido_max@inbox.ru>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>
-Cc: Jose Abreu <joabreu@synopsys.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Walker Chen <walker.chen@starfivetech.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-riscv@lists.infradead.org
-References: <20230802084301.134122-1-xingyu.wu@starfivetech.com>
- <20230802084301.134122-3-xingyu.wu@starfivetech.com>
- <37a636dd-fbd8-d475-8814-e0cc6d5cc812@linaro.org>
- <12a9bfda-9c9f-6baf-3e5f-ce7cc7d79aee@starfivetech.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <12a9bfda-9c9f-6baf-3e5f-ce7cc7d79aee@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GF27XNQQ3BGC3XLABMI3JBLT77RVVY6W
-X-Message-ID-Hash: GF27XNQQ3BGC3XLABMI3JBLT77RVVY6W
-X-MailFrom: krzysztof.kozlowski@linaro.org
+References: <20230726150225.483464-1-herve.codina@bootlin.com>
+ <20230726150225.483464-25-herve.codina@bootlin.com>
+In-Reply-To: <20230726150225.483464-25-herve.codina@bootlin.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 7 Aug 2023 15:05:15 +0200
+Message-ID: 
+ <CACRpkdYXCQRd3ZXNGHwMaQYiJc7tGtAJnBaSh5O-8ruDAJVdiA@mail.gmail.com>
+Subject: Re: [PATCH v2 24/28] pinctrl: Add support for the Lantic PEF2256
+ pinmux
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
+ Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: RBVTFHXXKTF53KSS6QKCMKBYO3FVKBPZ
+X-Message-ID-Hash: RBVTFHXXKTF53KSS6QKCMKBYO3FVKBPZ
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,62 +134,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 07/08/2023 11:03, Xingyu Wu wrote:
->>>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: snps,designware-i2s
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>> +          maxItems: 1
->>> +        clock-names:
->>> +          maxItems: 1
->>> +        resets:
->>> +          maxItems: 1
->>> +    else:
->>> +      properties:
->>> +        resets:
->>> +          minItems: 2
-> 
-> The resets of TX0/TX1/RX on JH7110 SoC are mentioned in 'else' here.
+Hi Herve,
 
-Ah, its fine. Clocks seem to be also constrained.
+thanks for your patch!
 
-> 
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: starfive,jh7110-i2stx0
->>> +    then:
->>> +      properties:
->>> +        clocks:
->>> +          minItems: 5
->>
->> Also maxItems
-> 
-> Will add.
-> 
->>
->>> +        clock-names:
->>> +          minItems: 5
->>
->> Also maxItems
-> 
-> Will add.
-> 
->>
->> What about resets? 1 or 2 items?
-> 
-> Mentioned it in the 'else'.
-> Or do you mean I should drop the 'else' and add the resets in here?
-> And is the same for TX1 and RX?
+First: is this patch something we could merge separately? I don't see
+any dependency on the other patches.
 
-It won't be easy to read... probably the binding should be split.
-Anyway, it's fine as is, except the maxItems above.
+On Wed, Jul 26, 2023 at 5:04=E2=80=AFPM Herve Codina <herve.codina@bootlin.=
+com> wrote:
 
-Best regards,
-Krzysztof
+> The Lantiq PEF2256 is a framer and line interface component designed to
+> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> digital PCM system highway/H.100 bus.
+>
+> This pinmux support handles the pin muxing part (pins RP(A..D) and pins
+> XP(A..D)) of the PEF2256.
+>
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
+So it is a bridge chip? Please use that terminology since Linux
+DRM often talks about bridges.
+
+> +++ b/drivers/pinctrl/pinctrl-pef2256-regs.h
+(...)
+> +#include "linux/bitfield.h"
+
+Really? I don't think there is such a file there.
+
+Do you mean <linux/bitfield.h> and does this even compile?
+
+> diff --git a/drivers/pinctrl/pinctrl-pef2256.c b/drivers/pinctrl/pinctrl-=
+pef2256.c
+(...)
+> +struct pef2256_pinctrl {
+> +       struct device *dev;
+> +       struct regmap *regmap;
+> +       enum pef2256_version version;
+> +       struct {
+> +               struct pinctrl_desc pctrl_desc;
+> +               const struct pef2256_function_desc *functions;
+> +               unsigned int nfunctions;
+> +       } pinctrl;
+
+Uh anonymous struct... can't you just define the struct separately
+with a name? Or fold it into struct pef2256_pinctrl without the
+additional struct? Thanks.
+
+Otherwise it looks neat!
+
+Yours,
+Linus Walleij

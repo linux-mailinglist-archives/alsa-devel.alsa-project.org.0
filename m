@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E1047731A2
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:51:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132B77731AB
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:52:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F8303E7;
-	Mon,  7 Aug 2023 23:50:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F8303E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4462484A;
+	Mon,  7 Aug 2023 23:51:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4462484A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691445071;
-	bh=L921PL8UiYU7hxjC0q1tgy4ObbIjMwjaeLQEnYT/oEE=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mE1tmNlp0EWanQa8j80+YpSkV34/9bHM+hXoSGEQoCixr4GrzD8I9u7jdx3M9Pj8y
-	 9lyP5YvEh+r3OuoFdKGQsFBF5lJYmrQhWKvbwlo7vITC7aQaoaVVHTIxRhQBQgp6VA
-	 hH8+I7s+ZQGMr55JDepFcBrA9j7o9xNuqoIpuC7w=
+	s=default; t=1691445122;
+	bh=AxnK1EnqOwsIlsUyEZHBS+ITY6bccL0OykTpi5k12vQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PEMspFj7PyKoZJSW4Etk3O9Iq23hs9n42E2xoeKXap2/SWzQ+3BMqBVW3fhwJxekM
+	 fQU1i9J8tXBQSOq6X1I5yfMc3aEzASApaRAAe3ulxWJqs8RirNcdglb5YTTSa2ns8r
+	 c5xCYYpcmw5lm1AzMiXqB28fDT7MUe5NhgredgX4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D3DAF80116; Mon,  7 Aug 2023 23:50:20 +0200 (CEST)
+	id 956B9F80570; Mon,  7 Aug 2023 23:50:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCD18F8016D;
-	Mon,  7 Aug 2023 23:50:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FBA5F80563;
+	Mon,  7 Aug 2023 23:50:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77766F80087; Mon,  7 Aug 2023 23:50:16 +0200 (CEST)
+	id C69D4F8051E; Mon,  7 Aug 2023 23:50:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +35,35 @@ X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC66DF80087
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:50:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC66DF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 509C2F80116
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:50:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 509C2F80116
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IzbCvxvA
+ header.s=Intel header.b=l0TkJhc4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691445014; x=1722981014;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=L921PL8UiYU7hxjC0q1tgy4ObbIjMwjaeLQEnYT/oEE=;
-  b=IzbCvxvA23YLCncZb+h2rlkp1tGdF6HZyByfKFXUKuRpGCfNMAp/u6Nr
-   lEMRgbHDfOZRCnOmG6MSx7AqcCPmb0ekTeRtznOqC3CSVBzs6SRqULXRI
-   xMgbI2UX+O+Uqsfw+eeO8g6NAqR+ZCdteAvtFbMNABwO7MJiOAokB96Eo
-   hGLC+5rdyEN7Tb9FtIeCaVISXtpqAsfjIrxHiC7/EOQ03XbbrjnGyjqjq
-   e9sTkO0B5fcM+GPpBXmNrvqrOG2QEkGkAgONeP/4mcqOzzaHy3DXkJZoc
-   xr4dedMJW8wQCagRa/7MJlyj2SJiJwY6nhNo7VsMPdxkpn89bX5dclcn5
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434505559"
+  t=1691445018; x=1722981018;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=AxnK1EnqOwsIlsUyEZHBS+ITY6bccL0OykTpi5k12vQ=;
+  b=l0TkJhc4fkge4GLaiudQm3IjhSMG1AvXApLKcaCDOh8iGKtMB6F4IfJH
+   zK8wihDCJpFtdPvbitMtbphj2BRTZVwuH9rZlTq6mPYwE2t87Q6cvG4LJ
+   X6heGawYZzNL3f2ci0q4gp0HfpCk/yen5S1BSzwUENFS49YDQmOCEZHm5
+   G1Q+Qxm/CnZj9qi2BBPJljcpHT4iP/NjqyZhCMBrl3kBSy+cFnExeyK8e
+   f5KaPK/5WDqq81cbl0gn4CLeWU5+2Gx0rpuY/CPNf5vjn6AI/zr0wSEBc
+   W849BShMQU+G5Sb1Cq02gu7tKW2jHCpJX2ouKjUmlF+UDjL8B3X3VePef
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434505572"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="434505559"
+   d="scan'208";a="434505572"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
   by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 14:50:10 -0700
+ 07 Aug 2023 14:50:11 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
-   d="scan'208";a="874470755"
+   d="scan'208";a="874470769"
 Received: from mkabani-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.212.55.216])
   by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -71,15 +72,21 @@ From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
 	broonie@kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 0/2] ASoC: Intel: sof_sdw: fix two settings
-Date: Mon,  7 Aug 2023 16:49:58 -0500
-Message-Id: <20230807215000.515846-1-pierre-louis.bossart@linux.intel.com>
+	jairaj-arava <jairaj.arava@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 1/2] ASoC: Intel: sof-sdw-cs42142: fix for codec button
+ mapping
+Date: Mon,  7 Aug 2023 16:49:59 -0500
+Message-Id: <20230807215000.515846-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230807215000.515846-1-pierre-louis.bossart@linux.intel.com>
+References: <20230807215000.515846-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MYSUYWN3SBCXWWLDBC4HDQKT62GX2BH2
-X-Message-ID-Hash: MYSUYWN3SBCXWWLDBC4HDQKT62GX2BH2
+Message-ID-Hash: 7YVNBS2XREDRMYERTGA7GVMDIXIH3QYN
+X-Message-ID-Hash: 7YVNBS2XREDRMYERTGA7GVMDIXIH3QYN
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,18 +106,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix button mapping for CS42L42 and jack detection for LunarLake RVP.
+From: jairaj-arava <jairaj.arava@intel.com>
 
-Pierre-Louis Bossart (1):
-  ASoC: Intel: sof-sdw: update jack detection quirk for LunarLake RVP
+The CS42142 soundwire codec button mapping is corrected to
+handle the button detection correctly.
 
-jairaj-arava (1):
-  ASoC: Intel: sof-sdw-cs42142: fix for codec button mapping
-
- sound/soc/intel/boards/sof_sdw.c         | 2 +-
+Fixes: 1340018d8683 ("ASoC: Intel: sof_sdw: Add helper function for cs42l42 codec")
+Signed-off-by: jairaj-arava <jairaj.arava@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
  sound/soc/intel/boards/sof_sdw_cs42l42.c | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/sound/soc/intel/boards/sof_sdw_cs42l42.c b/sound/soc/intel/boards/sof_sdw_cs42l42.c
+index c4a16e4c9f69..ad130d913415 100644
+--- a/sound/soc/intel/boards/sof_sdw_cs42l42.c
++++ b/sound/soc/intel/boards/sof_sdw_cs42l42.c
+@@ -99,9 +99,9 @@ static int cs42l42_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 	jack = &ctx->sdw_headset;
+ 
+ 	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
++	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
+ 
+ 	ret = snd_soc_component_set_jack(component, jack, NULL);
+ 
 -- 
 2.39.2
 

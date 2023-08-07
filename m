@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D793773114
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:16:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4F1773107
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:15:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86B3384B;
-	Mon,  7 Aug 2023 23:15:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86B3384B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D3FFAE8;
+	Mon,  7 Aug 2023 23:14:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D3FFAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691443003;
-	bh=0FZSIRcrzq0HDJGXCrIWF5dB0PElzpyRbX6YT87v/cM=;
+	s=default; t=1691442919;
+	bh=sn78JSdaGACNIV67x0OUXPzr5j9MbVIUFQkvqvSkte0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RNvz5IZo/i+aJSuDefViX4BMwlzRwODScTgBJxNnB7m3UNEI3+LPjG4QDhec+UHUS
-	 usTk5DqTPmB6rO66LSA9Kx1mwOr98p+aAmaZrQmCCZ+DuYWSx1nvR8BZzHPHr0rwp0
-	 AgmHwWlwmsYUYwad66hnkDhrkSxUMu6XPTIPqL6k=
+	b=Kn0STdlLzTthX8Sty+OhLZEsIkTrGEq6j0G5/k+3NmOciPwkMTYohsjLw7lUFzItM
+	 rhBgwTN5/L/v3UDU+7MFo4TuAG93dNJ9Pes0vpmYO0+oe2OIJP5wuW6pRfHvpq7cLG
+	 5qSBtvrW4T+wGE97ox19FxUN8QViOvyg8QCj9km0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA207F80641; Mon,  7 Aug 2023 23:11:17 +0200 (CEST)
+	id 4D7C5F8060D; Mon,  7 Aug 2023 23:11:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9ADFF80659;
-	Mon,  7 Aug 2023 23:11:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC44EF8060D;
+	Mon,  7 Aug 2023 23:11:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F8F7F805C9; Mon,  7 Aug 2023 23:10:47 +0200 (CEST)
+	id 95340F80087; Mon,  7 Aug 2023 23:10:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7E42BF80553
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E42BF80553
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8FD9F80087
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8FD9F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JEkdyIMU
+ header.s=Intel header.b=PX8Ofuj0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691442625; x=1722978625;
+  t=1691442626; x=1722978626;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0FZSIRcrzq0HDJGXCrIWF5dB0PElzpyRbX6YT87v/cM=;
-  b=JEkdyIMUiDlB/veWUiu2iBilDaUySmvxTZH0m30noa6cxNlRTHKvj19g
-   lj0gMISmfjKAFJVMEgLExRY06u2ozKqhPLLaJdAf+zdY/rxuiGRwrXJ0z
-   6xE7Y4ddCnPSprx2ebwc+C3ILYjWpFrIRKxiwnmkR2BKl9tvIJ8rr3l9I
-   gxJZGNtw9vLXZiMo8P7ZPJS7eugK2uxQkDurrz+gINTRbqY+UXvQW2tgJ
-   Kq2T2liObNJXW1WuryjA+4H9g5dArG9nDOG1irMDNaa92Zn4SfgOdJ5kM
-   2vwDLh/xPhlxyZCnK+6087umwjJFNTyo8Bv9WKhSC6OMXfBZx+qZgME6H
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244371"
+  bh=sn78JSdaGACNIV67x0OUXPzr5j9MbVIUFQkvqvSkte0=;
+  b=PX8Ofuj0FM++GzdukSACUiMt5W0ocJ50g47qmg3IKRG4+0MaDxaaNtlQ
+   UnK9x8SKbLC+05+mwYE3dlkxoYfPyUZdb7XkNkP63DaM5HN1ysdudd02K
+   +C26FEKzjQUHGJc6mzdHTsifkEVzFl6+DU5aYoZaxT0r1bAbKe6a7Ec1y
+   N+pHXxtI9garElrrx5vGIjFPIvOJINZl3epeEOo3SMVDdFwXsleIPaWTv
+   QZEpt6o7oxGjVly+DxreeaPslTgYfvJcHfHK0YZRh4jnRdaC3SzU+JgGP
+   /UrN12Y2X3BZmeUXnWEnUeLIHWI1ttPLD0uPbXXiOJQiFI5rj0gPLK+oF
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244377"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="350244371"
+   d="scan'208";a="350244377"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Aug 2023 14:10:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465247"
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465250"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="796465247"
+   d="scan'208";a="796465250"
 Received: from hweelee-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.209.181.215])
   by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 14:10:16 -0700
+ 07 Aug 2023 14:10:17 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -77,17 +77,17 @@ Cc: tiwai@suse.de,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Rander Wang <rander.wang@intel.com>
-Subject: [PATCH 14/20] ASoC: SOF: Intel: hda-dai: add helpers for SoundWire
+Subject: [PATCH 15/20] ASoC: SOF: Intel: hda: add hw_params/free/trigger
  callbacks
-Date: Mon,  7 Aug 2023 16:09:53 -0500
-Message-Id: <20230807210959.506849-15-pierre-louis.bossart@linux.intel.com>
+Date: Mon,  7 Aug 2023 16:09:54 -0500
+Message-Id: <20230807210959.506849-16-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 References: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: N3E7TKJWYTLECFP6FCWK4ZBLQLCYKUGB
-X-Message-ID-Hash: N3E7TKJWYTLECFP6FCWK4ZBLQLCYKUGB
+Message-ID-Hash: GOJBF2O7SPGU6XGQMPDKHL5SKZIPQXSO
+X-Message-ID-Hash: GOJBF2O7SPGU6XGQMPDKHL5SKZIPQXSO
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,125 +107,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-During the hw_params and hw_free stages, we need to map the stream tag
-and channels in the PCMSyCM registers.
-
-The trigger callback is just a wrapper.
+These callbacks are just wrappers to keep the code relatively clean.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 72 +++++++++++++++++++++++++++++++++++
- sound/soc/sof/intel/hda.h     | 12 ++++++
- 2 files changed, 84 insertions(+)
+ sound/soc/sof/intel/hda.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 08de9b614a83..c984fa79b1ef 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -429,6 +429,78 @@ static const struct snd_soc_dai_ops dmic_dai_ops = {
- 	.prepare = non_hda_dai_prepare,
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 6074b0ca13aa..67b2e00baf4e 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -112,6 +112,34 @@ struct sdw_intel_ops sdw_callback = {
+ 	.params_stream = sdw_params_stream,
  };
  
-+int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
-+			  struct snd_pcm_hw_params *params,
-+			  struct snd_soc_dai *cpu_dai,
-+			  int link_id)
++static int sdw_ace2x_params_stream(struct device *dev,
++				   struct sdw_intel_stream_params_data *params_data)
 +{
-+	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
-+	const struct hda_dai_widget_dma_ops *ops;
-+	struct hdac_ext_stream *hext_stream;
-+	struct snd_sof_dev *sdev;
-+	int ret;
-+
-+	ret = non_hda_dai_hw_params(substream, params, cpu_dai);
-+	if (ret < 0) {
-+		dev_err(cpu_dai->dev, "%s: non_hda_dai_hw_params failed %d\n", __func__, ret);
-+		return ret;
-+	}
-+
-+	ops = hda_dai_get_ops(substream, cpu_dai);
-+	sdev = widget_to_sdev(w);
-+	hext_stream = ops->get_hext_stream(sdev, cpu_dai, substream);
-+
-+	if (!hext_stream)
-+		return -ENODEV;
-+
-+	/* in the case of SoundWire we need to program the PCMSyCM registers */
-+	ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id, cpu_dai->id,
-+					     GENMASK(params_channels(params) - 1, 0),
-+					     hdac_stream(hext_stream)->stream_tag,
-+					     substream->stream);
-+	if (ret < 0) {
-+		dev_err(cpu_dai->dev, "%s:  hdac_bus_eml_sdw_map_stream_ch failed %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	return 0;
++	return sdw_hda_dai_hw_params(params_data->substream,
++				     params_data->hw_params,
++				     params_data->dai,
++				     params_data->link_id);
 +}
 +
-+int sdw_hda_dai_hw_free(struct snd_pcm_substream *substream,
-+			struct snd_soc_dai *cpu_dai,
-+			int link_id)
++static int sdw_ace2x_free_stream(struct device *dev,
++				 struct sdw_intel_stream_free_data *free_data)
 +{
-+	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
-+	struct snd_sof_dev *sdev;
-+	int ret;
-+
-+	ret = hda_dai_hw_free(substream, cpu_dai);
-+	if (ret < 0) {
-+		dev_err(cpu_dai->dev, "%s: non_hda_dai_hw_free failed %d\n", __func__, ret);
-+		return ret;
-+	}
-+
-+	sdev = widget_to_sdev(w);
-+
-+	/* in the case of SoundWire we need to reset the PCMSyCM registers */
-+	ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id, cpu_dai->id,
-+					     0, 0, substream->stream);
-+	if (ret < 0) {
-+		dev_err(cpu_dai->dev, "%s:  hdac_bus_eml_sdw_map_stream_ch failed %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	return 0;
++	return sdw_hda_dai_hw_free(free_data->substream,
++				   free_data->dai,
++				   free_data->link_id);
 +}
 +
-+int sdw_hda_dai_trigger(struct snd_pcm_substream *substream, int cmd,
-+			struct snd_soc_dai *cpu_dai)
++static int sdw_ace2x_trigger(struct snd_pcm_substream *substream, int cmd, struct snd_soc_dai *dai)
 +{
-+	return hda_dai_trigger(substream, cmd, cpu_dai);
++	return sdw_hda_dai_trigger(substream, cmd, dai);
 +}
 +
- static int hda_dai_suspend(struct hdac_bus *bus)
++static struct sdw_intel_ops sdw_ace2x_callback = {
++	.params_stream = sdw_ace2x_params_stream,
++	.free_stream = sdw_ace2x_free_stream,
++	.trigger = sdw_ace2x_trigger,
++};
++
+ void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
  {
- 	struct snd_soc_pcm_runtime *rtd;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 17164fc42501..4f60b722e5d5 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -824,6 +824,18 @@ static inline bool hda_common_check_sdw_irq(struct snd_sof_dev *sdev)
- 
- #endif
- 
-+int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
-+			  struct snd_pcm_hw_params *params,
-+			  struct snd_soc_dai *cpu_dai,
-+			  int link_id);
+ 	struct sof_intel_hda_dev *hdev;
+@@ -179,6 +207,7 @@ static int hda_sdw_probe(struct snd_sof_dev *sdev)
+ 		res.shim_base = hdev->desc->sdw_shim_base;
+ 		res.alh_base = hdev->desc->sdw_alh_base;
+ 		res.ext = false;
++		res.ops = &sdw_callback;
+ 	} else {
+ 		/*
+ 		 * retrieve eml_lock needed to protect shared registers
+@@ -196,11 +225,13 @@ static int hda_sdw_probe(struct snd_sof_dev *sdev)
+ 		 */
+ 		res.hw_ops = &sdw_intel_lnl_hw_ops;
+ 		res.ext = true;
++		res.ops = &sdw_ace2x_callback;
 +
-+int sdw_hda_dai_hw_free(struct snd_pcm_substream *substream,
-+			struct snd_soc_dai *cpu_dai,
-+			int link_id);
+ 	}
+ 	res.irq = sdev->ipc_irq;
+ 	res.handle = hdev->info.handle;
+ 	res.parent = sdev->dev;
+-	res.ops = &sdw_callback;
 +
-+int sdw_hda_dai_trigger(struct snd_pcm_substream *substream, int cmd,
-+			struct snd_soc_dai *cpu_dai);
-+
- /* common dai driver */
- extern struct snd_soc_dai_driver skl_dai[];
- int hda_dsp_dais_suspend(struct snd_sof_dev *sdev);
+ 	res.dev = sdev->dev;
+ 	res.clock_stop_quirks = sdw_clock_stop_quirks;
+ 	res.hbus = sof_to_bus(sdev);
 -- 
 2.39.2
 

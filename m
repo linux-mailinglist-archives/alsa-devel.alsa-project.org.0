@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81E0277310E
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:15:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72DCD773115
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:16:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D19EEA4D;
-	Mon,  7 Aug 2023 23:15:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D19EEA4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5DBEDF0;
+	Mon,  7 Aug 2023 23:16:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5DBEDF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691442956;
-	bh=7qz/wMkBZaTxQnPV20579hvjZnSrtb5lnRuYc8grnO4=;
+	s=default; t=1691443010;
+	bh=H8kXSRQ3c/0Z1LQ72uUiImQ7UuSzClWe8g+4PFUERao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DkLmYRywi5mIwogQqf+XWMzALxq6LRnBX0mHQKue8h+2814+cpBIPwY+di0X/xPQm
-	 izab2SV3Wa9Uv2GIhwlsR0r6uiLxT5S+xtpNMAz7Mk1bwjOfGvC+2ODmrxJgXPOj4L
-	 O9fwopEmkt3RGQdq5D9rldyeUUQ3twc9ZFAD50+I=
+	b=T1uggu9b1oEgxypFItMBmUONREegDCI15F6KqBzpFIBOMlCmdxjOXX1sO9NNQv+qw
+	 Rx2M8/Y4A6fivloIlT1KGGVwcRo9x3zmIq+thlFzTAIujjFfwJiedg7R8AYerAo/PD
+	 yE9pl6gaw0+2ArMK3q5i7mmneFDeT7gee89QdYU0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6178BF8061D; Mon,  7 Aug 2023 23:11:10 +0200 (CEST)
+	id 5EBF0F8067B; Mon,  7 Aug 2023 23:11:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14464F80620;
-	Mon,  7 Aug 2023 23:11:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAFD3F80674;
+	Mon,  7 Aug 2023 23:11:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2BA0BF805C0; Mon,  7 Aug 2023 23:10:44 +0200 (CEST)
+	id A7D47F805D2; Mon,  7 Aug 2023 23:10:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,36 +35,36 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B1D70F8055B
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1D70F8055B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6F44F80579
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:10:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6F44F80579
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=esoq5eEe
+ header.s=Intel header.b=F+lsAg0a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691442628; x=1722978628;
+  t=1691442630; x=1722978630;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7qz/wMkBZaTxQnPV20579hvjZnSrtb5lnRuYc8grnO4=;
-  b=esoq5eEe3AxjfEbnw666yi5b09TGVt5D922pmCkGzCi4f1/ZyzNctvqF
-   b+PvFWDU5ns/W/7fBvBqTqbRjV3pKYCqlXF2b7/fgHzZUE8mUkIgUdrFW
-   6mrQkc3L8jiFU7LNuHpFW8fNvOJA0cIpr97o8EkhW3FJMXxDDCAqifmx4
-   Zlk2OQPiAyeIbcO5GGD0jVHLRifhEzm+OctAZtjqW8NhpXmjY5OfJlF6m
-   XWRZteNjBzCPN/mmbRKd55vTU0DBQkUghViwnoRXf3lWj+fiDVeicvgFJ
-   v6IXp2LccoTLO94TEnvtf2xanUvbRRwdgcbq9cB1IvDmizItb2aK37p0u
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244393"
+  bh=H8kXSRQ3c/0Z1LQ72uUiImQ7UuSzClWe8g+4PFUERao=;
+  b=F+lsAg0acmiUIYZfEonulxKmL3sv1BIDfZuagnkRdGCfYWI80sBxg1Mi
+   DiDuzKVwRCLTmwNppQf52awJhUSzXrwwrZPJPDAzkfwqXe34lTFEprjlC
+   uVPRLufjeSXqcuX9vdbMskSUecGLbfqh9wspGfpXbdHnUjFQBjn29k6CB
+   rc5ge9yMIdfT51Y96whFp5hZaYsrruX/uHN1Ap5E34owPFVrUJCpuL9vW
+   BMJuqxSS2aEVYi4ZRXLSb2O8FzstsnCxmFuwKrgOQylvsbro7V9Qp2DMa
+   B2mFBl7eutIWz5BU31/YkEVDXrubHXzFxz0xHxVIdXcJf0hNbbyJ3KGN5
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="350244396"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="350244393"
+   d="scan'208";a="350244396"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2023 14:10:19 -0700
+ 07 Aug 2023 14:10:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465259"
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796465263"
 X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
-   d="scan'208";a="796465259"
+   d="scan'208";a="796465263"
 Received: from hweelee-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.209.181.215])
   by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -75,19 +75,18 @@ Cc: tiwai@suse.de,
 	broonie@kernel.org,
 	vkoul@kernel.org,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [PATCH 18/20] ASoC: SOF: Intel: hda-dai-ops: reset device count for
- SoundWire DAIs
-Date: Mon,  7 Aug 2023 16:09:57 -0500
-Message-Id: <20230807210959.506849-19-pierre-louis.bossart@linux.intel.com>
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: [PATCH 19/20] ASoC: SOF: IPC4: clarify 'pipeline_ids' usage and logs
+Date: Mon,  7 Aug 2023 16:09:58 -0500
+Message-Id: <20230807210959.506849-20-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 References: <20230807210959.506849-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 22J7VFTCQOLYEFHSLL3JUW43XWNDW73P
-X-Message-ID-Hash: 22J7VFTCQOLYEFHSLL3JUW43XWNDW73P
+Message-ID-Hash: ORNM5YUC3VV2PU5F6M2XHPRLV6VRVK76
+X-Message-ID-Hash: ORNM5YUC3VV2PU5F6M2XHPRLV6VRVK76
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,62 +106,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The solution used before LunarLake relies on a 'Multi-gateway'
-firmware configuration. This is no longer needed with the DMA hardware
-handling multiple links directly. To avoid adding a platform-specific
-quirk in the generic IPC4 code, this patch resets the device count
-when fetching the stream context.
+A pipeline is identified by two indices: 'instance_id' and 'pipeline_id'
 
-Suggested-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+This is clearly seen in kernel logs when creating a pipeline
+
+"Create widget pipeline.20 instance 0 - pipe 20 - core 0"
+
+but other logs are less clear
+
+"ipc4 set pipeline 1 state 4"
+
+Change definitions and logs to make sure the logs clearly identify
+which of the two indices are used in state transitions.
+
+No functional change.
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai-ops.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+ sound/soc/sof/ipc4-pcm.c      | 21 +++++++++++----------
+ sound/soc/sof/ipc4-topology.h |  4 ++--
+ 2 files changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai-ops.c b/sound/soc/sof/intel/hda-dai-ops.c
-index 4ae211141c40..ae4a5aa73bfc 100644
---- a/sound/soc/sof/intel/hda-dai-ops.c
-+++ b/sound/soc/sof/intel/hda-dai-ops.c
-@@ -434,6 +434,28 @@ static int hda_ipc4_post_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *c
- 	return ret;
+diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
+index 0c905bd0fab4..802cbf73594e 100644
+--- a/sound/soc/sof/ipc4-pcm.c
++++ b/sound/soc/sof/ipc4-pcm.c
+@@ -23,7 +23,8 @@ static int sof_ipc4_set_multi_pipeline_state(struct snd_sof_dev *sdev, u32 state
+ 
+ 	/* trigger a single pipeline */
+ 	if (trigger_list->count == 1)
+-		return sof_ipc4_set_pipeline_state(sdev, trigger_list->pipeline_ids[0], state);
++		return sof_ipc4_set_pipeline_state(sdev, trigger_list->pipeline_instance_ids[0],
++						   state);
+ 
+ 	primary = state;
+ 	primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_SET_PIPELINE_STATE);
+@@ -42,15 +43,15 @@ static int sof_ipc4_set_multi_pipeline_state(struct snd_sof_dev *sdev, u32 state
+ 	return sof_ipc_tx_message_no_reply(sdev->ipc, &msg, ipc_size);
  }
  
-+static struct hdac_ext_stream *sdw_hda_ipc4_get_hext_stream(struct snd_sof_dev *sdev,
-+							    struct snd_soc_dai *cpu_dai,
-+							    struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
-+	struct snd_sof_widget *swidget = w->dobj.private;
-+	struct snd_sof_dai *dai = swidget->private;
-+	struct sof_ipc4_copier *ipc4_copier = dai->private;
-+	struct sof_ipc4_alh_configuration_blob *blob;
-+
-+	blob = (struct sof_ipc4_alh_configuration_blob *)ipc4_copier->copier_config;
-+
-+	/*
-+	 * Starting with ACE_2_0, re-setting the device_count is mandatory to avoid using
-+	 * the multi-gateway firmware configuration. The DMA hardware can take care of
-+	 * multiple links without needing any firmware assistance
-+	 */
-+	blob->alh_cfg.device_count = 1;
-+
-+	return hda_ipc4_get_hext_stream(sdev, cpu_dai, substream);
-+}
-+
- static const struct hda_dai_widget_dma_ops hda_ipc4_dma_ops = {
- 	.get_hext_stream = hda_ipc4_get_hext_stream,
- 	.assign_hext_stream = hda_assign_hext_stream,
-@@ -475,7 +497,7 @@ static const struct hda_dai_widget_dma_ops dmic_ipc4_dma_ops = {
- };
+-int sof_ipc4_set_pipeline_state(struct snd_sof_dev *sdev, u32 id, u32 state)
++int sof_ipc4_set_pipeline_state(struct snd_sof_dev *sdev, u32 instance_id, u32 state)
+ {
+ 	struct sof_ipc4_msg msg = {{ 0 }};
+ 	u32 primary;
  
- static const struct hda_dai_widget_dma_ops sdw_ipc4_dma_ops = {
--	.get_hext_stream = hda_ipc4_get_hext_stream,
-+	.get_hext_stream = sdw_hda_ipc4_get_hext_stream,
- 	.assign_hext_stream = hda_assign_hext_stream,
- 	.release_hext_stream = hda_release_hext_stream,
- 	.setup_hext_stream = hda_setup_hext_stream,
+-	dev_dbg(sdev->dev, "ipc4 set pipeline %d state %d", id, state);
++	dev_dbg(sdev->dev, "ipc4 set pipeline instance %d state %d", instance_id, state);
+ 
+ 	primary = state;
+-	primary |= SOF_IPC4_GLB_PIPE_STATE_ID(id);
++	primary |= SOF_IPC4_GLB_PIPE_STATE_ID(instance_id);
+ 	primary |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_GLB_SET_PIPELINE_STATE);
+ 	primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
+ 	primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_FW_GEN_MSG);
+@@ -79,19 +80,19 @@ sof_ipc4_add_pipeline_to_trigger_list(struct snd_sof_dev *sdev, int state,
+ 		 * for the first time
+ 		 */
+ 		if (spipe->started_count == spipe->paused_count)
+-			trigger_list->pipeline_ids[trigger_list->count++] =
++			trigger_list->pipeline_instance_ids[trigger_list->count++] =
+ 				pipe_widget->instance_id;
+ 		break;
+ 	case SOF_IPC4_PIPE_RESET:
+ 		/* RESET if the pipeline is neither running nor paused */
+ 		if (!spipe->started_count && !spipe->paused_count)
+-			trigger_list->pipeline_ids[trigger_list->count++] =
++			trigger_list->pipeline_instance_ids[trigger_list->count++] =
+ 				pipe_widget->instance_id;
+ 		break;
+ 	case SOF_IPC4_PIPE_PAUSED:
+ 		/* Pause the pipeline only when its started_count is 1 more than paused_count */
+ 		if (spipe->paused_count == (spipe->started_count - 1))
+-			trigger_list->pipeline_ids[trigger_list->count++] =
++			trigger_list->pipeline_instance_ids[trigger_list->count++] =
+ 				pipe_widget->instance_id;
+ 		break;
+ 	default:
+@@ -113,7 +114,7 @@ sof_ipc4_update_pipeline_state(struct snd_sof_dev *sdev, int state, int cmd,
+ 
+ 	/* set state for pipeline if it was just triggered */
+ 	for (i = 0; i < trigger_list->count; i++) {
+-		if (trigger_list->pipeline_ids[i] == pipe_widget->instance_id) {
++		if (trigger_list->pipeline_instance_ids[i] == pipe_widget->instance_id) {
+ 			pipeline->state = state;
+ 			break;
+ 		}
+@@ -314,8 +315,8 @@ static int sof_ipc4_trigger_pipelines(struct snd_soc_component *component,
+ 		return sof_ipc4_chain_dma_trigger(sdev, pipeline_list, state, cmd);
+ 
+ 	/* allocate memory for the pipeline data */
+-	trigger_list = kzalloc(struct_size(trigger_list, pipeline_ids, pipeline_list->count),
+-			       GFP_KERNEL);
++	trigger_list = kzalloc(struct_size(trigger_list, pipeline_instance_ids,
++					   pipeline_list->count), GFP_KERNEL);
+ 	if (!trigger_list)
+ 		return -ENOMEM;
+ 
+diff --git a/sound/soc/sof/ipc4-topology.h b/sound/soc/sof/ipc4-topology.h
+index 6dcf14886e85..d75f17f4749c 100644
+--- a/sound/soc/sof/ipc4-topology.h
++++ b/sound/soc/sof/ipc4-topology.h
+@@ -144,11 +144,11 @@ struct sof_ipc4_pipeline {
+ /**
+  * struct sof_ipc4_multi_pipeline_data - multi pipeline trigger IPC data
+  * @count: Number of pipelines to be triggered
+- * @pipeline_ids: Flexible array of IDs of the pipelines to be triggered
++ * @pipeline_instance_ids: Flexible array of IDs of the pipelines to be triggered
+  */
+ struct ipc4_pipeline_set_state_data {
+ 	u32 count;
+-	DECLARE_FLEX_ARRAY(u32, pipeline_ids);
++	DECLARE_FLEX_ARRAY(u32, pipeline_instance_ids);
+ } __packed;
+ 
+ /**
 -- 
 2.39.2
 

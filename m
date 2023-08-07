@@ -2,86 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECB6B7732D4
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 00:12:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B3B7732FD
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 00:36:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB1E8829;
-	Tue,  8 Aug 2023 00:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB1E8829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E45E827;
+	Tue,  8 Aug 2023 00:35:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E45E827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691446336;
-	bh=I7PTtY0Y1K4bVfv+ey+R3oZVTdF4P6a3d5E/mIAjJ8k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691447764;
+	bh=lxj3n9ivoZ6EJxD5F8vLZNSlFNjYLy4BBHHVC6uz1Zw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jwk0M473jq0GLYKAAuArT+vu+xRE3PFm2XeX2Zs5M4+MP5W9w3rZ60EVZ6bJQTdP9
-	 udMzA5/hkFT5wHdZzM5XAA7N27xq4t2e2GYBUR3z0+ENc96QtwMbXwc3FYL6pcCX24
-	 8o0/vu2Gfp7K5uVH3QL+WcJuaYIKKECM/sY97UHM=
+	b=GKUFTRNESMf7E3Tjwsm2LkvDIZaSvi80RtrOQg9PEucnAqbSM4orTv3ePVYf/d167
+	 MlZIP7tRbJY6/vqGK85AkGDQtVqd2bJ0LjgI+Md5rPICZezA8jFjvsJHTjsQL3wu6j
+	 +PXZrAjn90Z3uotOKOtZoRS2bIgkjCt89Y01VBV4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1759BF8016B; Tue,  8 Aug 2023 00:11:24 +0200 (CEST)
+	id AFFE9F8016B; Tue,  8 Aug 2023 00:35:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89530F8016A;
-	Tue,  8 Aug 2023 00:11:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C3B2F8016A;
+	Tue,  8 Aug 2023 00:35:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E520F8016B; Tue,  8 Aug 2023 00:11:21 +0200 (CEST)
+	id CEE92F8016B; Tue,  8 Aug 2023 00:35:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
+	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 52132F80087
-	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 00:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52132F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id AF300F80132
+	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 00:35:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF300F80132
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZZ00iCsm
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4F473622B1;
-	Mon,  7 Aug 2023 22:11:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571C9C433C7;
-	Mon,  7 Aug 2023 22:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691446275;
-	bh=I7PTtY0Y1K4bVfv+ey+R3oZVTdF4P6a3d5E/mIAjJ8k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZZ00iCsm6gLmZ4xFZHBcUlR8d/U7gsU5F4LXg/9ZVrPsvrjTHc4ngifl4feEgYfC+
-	 HqtFsUqjtoB8+xlDOoF7dFcb7dkTMQkCIxO0EBhWd/YJLCOY6hRxHz3dCaWSiJLcwz
-	 PFu43hP4IX1lzm0HcIS3MtajVBiFdoUA3AND8nKDCptXSc1gUMRmj1yLwMpAeolcUG
-	 8FIjB2p8oDsjGBfTKMUVKy/kKNYs7x4fhh6LL/a2Rtaj52tnz0BOwGK82fguyTdM1Z
-	 aUdYrMi7lbgFA3NoVn5xjp+1qT+ymPARmsuHNk8Nmy2SlAyLaasi8ii+xO27qBmh0r
-	 CQqxAxTusgVXg==
-Date: Mon, 7 Aug 2023 23:11:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
-	jairaj-arava <jairaj.arava@intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 1/2] ASoC: Intel: sof-sdw-cs42142: fix for codec button
- mapping
-Message-ID: <3d6850b0-d6e4-4ca6-9f06-98deabeac33e@sirena.org.uk>
-References: <20230807215000.515846-1-pierre-louis.bossart@linux.intel.com>
- <20230807215000.515846-2-pierre-louis.bossart@linux.intel.com>
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20221208 header.b=OOYmBj7B
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-686f19b6dd2so3421221b3a.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 07 Aug 2023 15:35:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1691447699; x=1692052499;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=WonXg5twxW3p5wGXk5WnulqfeWrYrhDo5ZRv56vpsGk=;
+        b=OOYmBj7B1ScwYFt9V6268kr0uNWuL84x/m5hyXKfQ8pdK4F/U1qGnli84CBJhbzNl2
+         0O93ve8zArWTOydSV2G+j+SOsTYT6fAnNHwdMdNrZXl1sCI3z1/xbGyjmit/KPlig6rP
+         C+GpWL+eIoRUs+AVd9fcxC8b6lim8sXKk48Z6zGKFaWwqgbL3ZBSlHgoY970piY2pZMI
+         dlhrVR9w+3hBa9nIjdRyNZjkXIzk+VquSigrub0viZdIvxjoLZqX3xRRB/I+8uQcCr7z
+         VmwpI3yfvTKuh3scFC6Spft/yacNbaWacMcVn0mb90R5b19Pp3ZFi2r8ImRwSmIB10oQ
+         ejgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691447699; x=1692052499;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WonXg5twxW3p5wGXk5WnulqfeWrYrhDo5ZRv56vpsGk=;
+        b=Otb7nYlOsVu6K25kr0DutFJcMaqrOyHTX+m4RhkAR/Q4I21JHJehht4pQJXgSZZ7ZR
+         CUOOpyLQJyXmYPf/z8Z9ttwMSSpIq6/MyaELDBgIV0PzISjmVkyAz6bd/h84Sj0tkX4U
+         7inqbQ2DN9/oG3GRnr0aeJqNJ+RrmPGZTihHljARV0VCxO9aXZQnO+vklILjeIbZGkAm
+         wUQZefYweduBrxDvH8yXHxGmN3qEtZ49paIsm1O37mSoSsWYSz3Ddvd0LXaS5625CrgG
+         4zwSIQHcJ6q7uL/ul8RzKNlCoxg4h026wnzAIal9beVrDaJNv5NO2ODBPpJtLT2+OBFp
+         2Mxg==
+X-Gm-Message-State: AOJu0Yyls842mylBLjzwyydo9XKPoB90piNSfdDrzAXR8fhTPa/tsFrX
+	7U8Wh1OoU1rsB+tDZk+TxsoTKljhoTCQ6tg6DEap8A==
+X-Google-Smtp-Source: 
+ AGHT+IEmJSL22e9DNB6jNY7iEomiS+mRYaYIcgkbEEm3CpQiWYydV+ioZm0bDJV2BKCOgLYfsA/TYJAsLzMzG2mlAio=
+X-Received: by 2002:a17:90a:f48f:b0:263:829:2de with SMTP id
+ bx15-20020a17090af48f00b00263082902demr7819159pjb.2.1691447698449; Mon, 07
+ Aug 2023 15:34:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OSg9i6YcoUXaUtN2"
-Content-Disposition: inline
-In-Reply-To: <20230807215000.515846-2-pierre-louis.bossart@linux.intel.com>
-X-Cookie: idleness, n.:
-Message-ID-Hash: WZNXBZDQRPEMDQR3DNSQPEWFFTT2DKPI
-X-Message-ID-Hash: WZNXBZDQRPEMDQR3DNSQPEWFFTT2DKPI
-X-MailFrom: broonie@kernel.org
+References: <20230807135207.17708-1-tiwai@suse.de>
+In-Reply-To: <20230807135207.17708-1-tiwai@suse.de>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Mon, 7 Aug 2023 15:34:47 -0700
+Message-ID: 
+ <CAOReqxhV=gfwNpxnEU+ruOx6gjD2BSZbYPJ6+iWzkPCidFmCBA@mail.gmail.com>
+Subject: Re: [PATCH RFC 0/6] ALSA: Fix UAF with delayed kobj release
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, Curtis Malainey <cujomalainey@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: 575GYMQQO445K46TF7Y3636JM4VC3JS5
+X-Message-ID-Hash: 575GYMQQO445K46TF7Y3636JM4VC3JS5
+X-MailFrom: cujomalainey@google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,37 +112,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+> It's just a RFC and only lightly tested.
 
---OSg9i6YcoUXaUtN2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks for the series
 
-On Mon, Aug 07, 2023 at 04:49:59PM -0500, Pierre-Louis Bossart wrote:
-> From: jairaj-arava <jairaj.arava@intel.com>
->=20
-> The CS42142 soundwire codec button mapping is corrected to
-> handle the button detection correctly.
->=20
-> Fixes: 1340018d8683 ("ASoC: Intel: sof_sdw: Add helper function for cs42l=
-42 codec")
+I will be hammering this in my test setup for next several hours
 
-Sorry, it's this one with the incorrect ID - you've referenced something
-=66rom the SOF tree I guess.  I'll fix it up.
+> I myself am not sure whether
+> this is the best way to go.  It might be better to take Curtis'
+> approach, just converting the device to its own allocation, too.
+> (But I don't know whether Curtis' patch set covers all cases -- can
+> still be a UAF of card_dev due to devres vs kobj release?)
 
---OSg9i6YcoUXaUtN2
-Content-Type: application/pgp-signature; name="signature.asc"
+My original commit does not cover the devres kobj release race, only
+the race among the kobj themselves.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTRa/4ACgkQJNaLcl1U
-h9Dr0Af+I/xOdRgSdgOlhAcZiqeIWD3UUjQR/Tu0Vleciq2UQwX0rDOr3wtWnwwn
-hm9xr/6N4IjXI47MDNHhAhYD3PDVrgjapvWJ8JxT82iBwIjH3aZOQ42M62WIHOc3
-OlkGiiXssrehb9Lbaq4ZOgipj6APQEdgefW1Wv36pD0vBSKMDxikDdCT5ss1oMBo
-FaJLeVfa/9wF4Z/NZkqnDbETQ88vvEaF0MoZIolgzW4dWJqapVNeOeoJjMdPK1ew
-YMp2SWVciDzjmVUiUdADM+UOn4FfXPEIdFTpLc0c7fE9B5KIFqH1Zd5Zg6OrGDOO
-0rPKqZq4tpStTmrX2Mrpl4GduELImw==
-=ZAW/
------END PGP SIGNATURE-----
-
---OSg9i6YcoUXaUtN2--
+Curtis

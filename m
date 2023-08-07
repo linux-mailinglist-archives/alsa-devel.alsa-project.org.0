@@ -2,83 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FCE2773150
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:36:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E1047731A2
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 23:51:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24FF1832;
-	Mon,  7 Aug 2023 23:35:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24FF1832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F8303E7;
+	Mon,  7 Aug 2023 23:50:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F8303E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691444165;
-	bh=5GQJ0wCGeanBg8sj0enOBlN2hLHdwRvHsgS6oE02LNw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MELvtXegns4p99eLRCb2Isgt9T0Kf0dKECFbE06zYvqs0eDr+Zd2z/LLte95D9fGa
-	 LLucMCdst8AY/nbITvLOvr+r+la9xjExALq1WJTzlzatyy0g2Ia0JZrDF0gfhLm2OL
-	 du1Tv/cPdbvDo+TEbrHEshSRP64ccndAOy78o6lE=
+	s=default; t=1691445071;
+	bh=L921PL8UiYU7hxjC0q1tgy4ObbIjMwjaeLQEnYT/oEE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mE1tmNlp0EWanQa8j80+YpSkV34/9bHM+hXoSGEQoCixr4GrzD8I9u7jdx3M9Pj8y
+	 9lyP5YvEh+r3OuoFdKGQsFBF5lJYmrQhWKvbwlo7vITC7aQaoaVVHTIxRhQBQgp6VA
+	 hH8+I7s+ZQGMr55JDepFcBrA9j7o9xNuqoIpuC7w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A70BF8051E; Mon,  7 Aug 2023 23:34:25 +0200 (CEST)
+	id 8D3DAF80116; Mon,  7 Aug 2023 23:50:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EA00F80549;
-	Mon,  7 Aug 2023 23:34:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCD18F8016D;
+	Mon,  7 Aug 2023 23:50:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9206F8016D; Mon,  7 Aug 2023 23:34:19 +0200 (CEST)
+	id 77766F80087; Mon,  7 Aug 2023 23:50:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FC9CF80116
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC9CF80116
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC66DF80087
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 23:50:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC66DF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=fP04lBFa
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id EEB0C6225D;
-	Mon,  7 Aug 2023 21:34:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B52C433C7;
-	Mon,  7 Aug 2023 21:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691444052;
-	bh=5GQJ0wCGeanBg8sj0enOBlN2hLHdwRvHsgS6oE02LNw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=fP04lBFaQcaP5NL8aPIeIYn+l/YpB1V1f+ZL258OAcfC/9zjhn/Wp+kXc6A/VPaex
-	 r/orglspj+m3V5S+PkSw2VamqpsmUGz7x0b7PCAiRaTYd2z3xnEUp6ra6d2enzbkN2
-	 /a2QJl8rnB2L0zHaR+MGYTmd9hcfgIrBCZt1W19RLpI+W/B06tV9iTpst6qPj69bFq
-	 JOuWYkqv72MG1FjTZOufPtOMTZH4r6633pMfqazRRnhRSVkYs/o+C5WczPWcffNVVO
-	 O7r9FD2c22hv9CoBEfq5TmxE8aUZjnWLRoidC+r5/MSacmKwkR2FLAn++JRVHUfLhd
-	 TDzYcZ+EBo9sw==
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Hans de Goede <hdegoede@redhat.com>
-Cc: alsa-devel@alsa-project.org
-In-Reply-To: <20230805171435.31696-1-hdegoede@redhat.com>
-References: <20230805171435.31696-1-hdegoede@redhat.com>
-Subject: Re: [PATCH v2] ASoC: lower "no backend DAIs enabled for ... Port"
- log severity
-Message-Id: <169144405109.324168.4261109077312670482.b4-ty@kernel.org>
-Date: Mon, 07 Aug 2023 22:34:11 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IzbCvxvA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1691445014; x=1722981014;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=L921PL8UiYU7hxjC0q1tgy4ObbIjMwjaeLQEnYT/oEE=;
+  b=IzbCvxvA23YLCncZb+h2rlkp1tGdF6HZyByfKFXUKuRpGCfNMAp/u6Nr
+   lEMRgbHDfOZRCnOmG6MSx7AqcCPmb0ekTeRtznOqC3CSVBzs6SRqULXRI
+   xMgbI2UX+O+Uqsfw+eeO8g6NAqR+ZCdteAvtFbMNABwO7MJiOAokB96Eo
+   hGLC+5rdyEN7Tb9FtIeCaVISXtpqAsfjIrxHiC7/EOQ03XbbrjnGyjqjq
+   e9sTkO0B5fcM+GPpBXmNrvqrOG2QEkGkAgONeP/4mcqOzzaHy3DXkJZoc
+   xr4dedMJW8wQCagRa/7MJlyj2SJiJwY6nhNo7VsMPdxkpn89bX5dclcn5
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434505559"
+X-IronPort-AV: E=Sophos;i="6.01,263,1684825200";
+   d="scan'208";a="434505559"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2023 14:50:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
+   d="scan'208";a="874470755"
+Received: from mkabani-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
+ ([10.212.55.216])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2023 14:50:13 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Cc: tiwai@suse.de,
+	broonie@kernel.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/2] ASoC: Intel: sof_sdw: fix two settings
+Date: Mon,  7 Aug 2023 16:49:58 -0500
+Message-Id: <20230807215000.515846-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: 4X4OJOGTTSPUD757A3R3ZSWBPHRCY33T
-X-Message-ID-Hash: 4X4OJOGTTSPUD757A3R3ZSWBPHRCY33T
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MYSUYWN3SBCXWWLDBC4HDQKT62GX2BH2
+X-Message-ID-Hash: MYSUYWN3SBCXWWLDBC4HDQKT62GX2BH2
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,41 +99,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 05 Aug 2023 19:14:35 +0200, Hans de Goede wrote:
-> If SNDRV_PCM_IOCTL_PREPARE is called when the mixer settings linking
-> frontend and backend have not been setup yet this results in
-> e.g. the following errors getting logged:
-> 
-> [   43.244549]  Baytrail Audio Port: ASoC: no backend DAIs enabled for Baytrail Audio Port
-> [   43.244744]  Baytrail Audio Port: ASoC: error at dpcm_fe_dai_prepare on Baytrail Audio Port: -22
-> 
-> [...]
+Fix button mapping for CS42L42 and jack detection for LunarLake RVP.
 
-Applied to
+Pierre-Louis Bossart (1):
+  ASoC: Intel: sof-sdw: update jack detection quirk for LunarLake RVP
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+jairaj-arava (1):
+  ASoC: Intel: sof-sdw-cs42142: fix for codec button mapping
 
-Thanks!
+ sound/soc/intel/boards/sof_sdw.c         | 2 +-
+ sound/soc/intel/boards/sof_sdw_cs42l42.c | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-[1/1] ASoC: lower "no backend DAIs enabled for ... Port" log severity
-      commit: 1f566435141047ca7db26aa4b0b6647a25badaee
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.39.2
 

@@ -2,103 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B05937726D9
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 15:57:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3DA77285D
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Aug 2023 16:57:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28C3D82C;
-	Mon,  7 Aug 2023 15:56:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28C3D82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7264D827;
+	Mon,  7 Aug 2023 16:56:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7264D827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691416648;
-	bh=y8RkwnybKIPs/3zMq9D89If3ZC/uG2t7IIfrSIfZrMA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1691420261;
+	bh=nkd+jhmUXpjpl8OFKBsqqKUTtbcUbbAX2J1UwapqaFk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LqgK8K+RNu5JUIIyZztTyS2kmR4V1VucexRaHF93jjPW5mgfrcXVuQscRpRmmPt+7
-	 VwvBy88co8u0OosTvNMgR0E4eBGUWotxm/sNpM7G9LS+U50+7WW0vRmzM8MSB1s3DR
-	 BTQGCXLT6m76plVdSnyGkEWfyYCv7q1rD2G40wgU=
+	b=PKKtuF9C4l7PBkmSSso58Vaxl3t5sNPY2JrB/uidkrhZe12SpOxtfCe0ALb4Yrimr
+	 +95jZdxX67CjDLV6yRmrryyxBIAuUMLUzfHx9lUm9w1MCy7xqU3d5l5fM1Q/d8rx3Y
+	 xifoYXGPcM54+XxghZXX/YPLzRv6xsgWjUxt+ock=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7262F80520; Mon,  7 Aug 2023 15:56:37 +0200 (CEST)
+	id 89C15F80520; Mon,  7 Aug 2023 16:56:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C2B1F8016B;
-	Mon,  7 Aug 2023 15:56:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8403F80535;
+	Mon,  7 Aug 2023 16:56:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38253F8016D; Mon,  7 Aug 2023 15:56:34 +0200 (CEST)
+	id DAB8CF8016A; Mon,  7 Aug 2023 16:56:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-9.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6525DF80116
-	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 15:56:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6525DF80116
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6419BF8016A
+	for <alsa-devel@alsa-project.org>; Mon,  7 Aug 2023 16:56:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6419BF8016A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=n6o4gKz6;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=pthGl4Hz
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D44062190C;
-	Mon,  7 Aug 2023 13:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1691416591;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8BXMk+bpUpgfSoTJKFp5gVku3LPJ/BhfuHp1doHb7Nc=;
-	b=n6o4gKz6K0BZQIH4+4UfpNc1uUGDjQ0sPvmu1rHxQD2TSuHLeBkDLyqTAPqfKf2XgnMiAz
-	nyWksCFv4Q35PF1+6HtezGFSWJ9f7FZk5nKac3FffYqMvolbthxlI6dLXgfJ7IB0kyau+I
-	6QuP9Qr3FLYfzlQOaWLdQFXAchGui9Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691416591;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8BXMk+bpUpgfSoTJKFp5gVku3LPJ/BhfuHp1doHb7Nc=;
-	b=pthGl4HzVo9/XPEMqlMSiLcHT4V4p7vOAiDJX47OXR9/mr+sR3X2X24oBeCexinJohERI/
-	BSa5xeQR5GxWZCAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7C4C13910;
-	Mon,  7 Aug 2023 13:56:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ouKMKw/40GSIKQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 07 Aug 2023 13:56:31 +0000
-Date: Mon, 07 Aug 2023 15:56:30 +0200
-Message-ID: <877cq7j6r5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: Curtis Malainey <cujomalainey@chromium.org>
-Subject: Re: [PATCH 2/6] ALSA: core: Fix race between devres and delayed
- kobject release for card_dev
-In-Reply-To: <20230807135207.17708-4-tiwai@suse.de>
-References: <20230807135207.17708-1-tiwai@suse.de>
-	<20230807135207.17708-4-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 2J2NEREDTLATYVH5QEYARULJXO46BHRB
-X-Message-ID-Hash: 2J2NEREDTLATYVH5QEYARULJXO46BHRB
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=j90Zj67V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1691420202; x=1722956202;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nkd+jhmUXpjpl8OFKBsqqKUTtbcUbbAX2J1UwapqaFk=;
+  b=j90Zj67V1MngNa+5DhBl61LKLKvfc8L8c08Ab0YIHIOcAts10BNhkGcb
+   7QO0sQDb6zX1JVLDTMWPISBGYE8iOZL3U3ydvuKWhHgNvxEsFudYgWJ22
+   H5/fD1AacYu2cnLcr2nAhR2yRqLZzJfzj0Fc5wCC41k1nuJ4hmucJzzU/
+   MQ+2A4g6oN8ZHN6Tvvy9VfTDmRXvZHAM0dLEFSAihFaLA/X0vX6yu3/Xb
+   858b/Ub8cKGH5f1IQSJoCu8hkuKC7l/rmCgr2DyRuGPj9hGZA6R2O90ub
+   qHSNOMlpj6VqaOhpck5VMnmRjUWsjC851gTKvzBvr4nvHcOyZ9iCcXr8g
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434410573"
+X-IronPort-AV: E=Sophos;i="6.01,262,1684825200";
+   d="scan'208";a="434410573"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2023 07:56:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="1061623853"
+X-IronPort-AV: E=Sophos;i="6.01,262,1684825200";
+   d="scan'208";a="1061623853"
+Received: from hweelee-mobl.amr.corp.intel.com (HELO [10.209.181.215])
+ ([10.209.181.215])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2023 07:56:34 -0700
+Message-ID: <855710b8-aab1-03be-d1aa-208bc2e63327@linux.intel.com>
+Date: Mon, 7 Aug 2023 09:05:33 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v2] ASoC: lower "no backend DAIs enabled for ... Port" log
+ severity
+Content-Language: en-US
+To: Hans de Goede <hdegoede@redhat.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+References: <20230805171435.31696-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230805171435.31696-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: Z2W5C6V53BQEPWMJXGDILONBBU3DXP2L
+X-Message-ID-Hash: Z2W5C6V53BQEPWMJXGDILONBBU3DXP2L
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,20 +107,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 07 Aug 2023 15:52:03 +0200,
-Takashi Iwai wrote:
+
+
+On 8/5/23 12:14, Hans de Goede wrote:
+> If SNDRV_PCM_IOCTL_PREPARE is called when the mixer settings linking
+> frontend and backend have not been setup yet this results in
+> e.g. the following errors getting logged:
 > 
-> Use a new refmem allocation for the card object, and fix the race
-> between the devres and the delayed kobj release.  Now the devres keeps
-> only the card object pointer, not the card object itself, and the card
-> object is unreferenced at both releases.
+> [   43.244549]  Baytrail Audio Port: ASoC: no backend DAIs enabled for Baytrail Audio Port
+> [   43.244744]  Baytrail Audio Port: ASoC: error at dpcm_fe_dai_prepare on Baytrail Audio Port: -22
 > 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> pipewire triggers this leading to 96 lines getting logged
+> after the user has logged into a GNOME session.
+> 
+> Change the actual "no backend DAIs enabled for ... Port" error to
+> dev_err_once() to avoid it getting repeated 48 times. While at it
+> also improve the error by hinting the user how to fix this.
+> 
+> To not make developing new UCM profiles harder, also log the error
+> at dev_dbg() level all the time (vs once). So that e.g. dyndbg can
+> be used to (re)enable the messages.
+> 
+> Also changes _soc_pcm_ret() to not log for -EINVAL errors, to fix
+> the other error getting logged 48 times. Userspace passing wrong
+> parameters should not lead to dmesg messages.
+> 
+> Link: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3407
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-My bad, scratch this mail; it was slipped into the submission from the
-previously generated patch files...
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Other 6 patches (with RFC prefix) are fine.
-
-
-Takashi

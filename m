@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D15773A74
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 15:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99304773A71
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 15:23:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E3DF3E7;
-	Tue,  8 Aug 2023 15:22:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E3DF3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DA82826;
+	Tue,  8 Aug 2023 15:22:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DA82826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691501026;
-	bh=dpVROW53dR0ue55HSwbJCP/YYB2qAmqJIYh1iheyIY8=;
+	s=default; t=1691500987;
+	bh=SI1ACRW+oMXPlwVU0S1BycZMl2eOloV8st+AiyzM9yw=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m3HaSY7NQS/s0BAyzCxwiRKP/PkhPUWMB4dS4grpvXLmsAZz5WJQaqWDgU4uEfZa0
-	 smI4ZZsc5GViGBPpulsEerbZ4dfCvYecHQWcXHLKjQqPsZqHR0xu11TnHYk8OD+aJu
-	 Ss4yczRgM21uONZ6nlhG9T5qf0usryrCw14Lx+A4=
+	b=hoPTqVaeYIZUoAR+BcaRFP78bgGlhXu5wm6UInWeTE4PMusleNPxfTr5o7Q5uOQTs
+	 D3LKs1kAENkoS6wyJPnszPlmi0Il4MwNwxr5fgVZqczPkEe7iFKeTRvdBYH4wj3bBQ
+	 EXOGzo7CYxHf6WRJ32SDJ0w2cxHWGQ7HNm3Ib+C0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1950F805CA; Tue,  8 Aug 2023 15:20:50 +0200 (CEST)
+	id 2E5B6F805BA; Tue,  8 Aug 2023 15:20:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2945DF805D3;
-	Tue,  8 Aug 2023 15:20:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CDACF805AF;
+	Tue,  8 Aug 2023 15:20:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F5B9F805AC; Tue,  8 Aug 2023 15:20:39 +0200 (CEST)
+	id A66EBF8058C; Tue,  8 Aug 2023 15:20:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 897EFF80552
-	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 15:20:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 897EFF80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7910EF80544
+	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 15:20:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7910EF80544
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=af/oXLka
+ header.s=PODMain02222019 header.b=WWz+iEyB
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
 	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 378513nH020848;
-	Tue, 8 Aug 2023 08:20:20 -0500
+ 3784vnaI015760;
+	Tue, 8 Aug 2023 08:20:18 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=g1rELq1bBk1wUdOwq9UGJq+tXYx476aIPwe7TrfbhqI=; b=
-	af/oXLkaCx/VtFDSurbzkO6jn7+c80t2SybLh3Q2Ks+MlAxLQYuCrFFLSu/J0NON
-	g4t9FjDn6S2PYesfiFE//Ko5AUjj8Fp0N2HviRo6ODDRJrOUI+1OOpKZSRJ9ZfsB
-	EWtJ2v1CUdCAw8fqLFjqpaBUniL4c/tefb5Vpm3mVS/DTr9E9d0PJkyC9Ul9VJS2
-	npOWdilIr8ZjxGX291xjMbVhycmmKFCo8JF/zVHsln1xl8TT0fzqqbKRnokgSU9b
-	o7cKXK5Mwf9XUJL0Orw8+VLs1mGeX2abhGZvlYA04lvRHnVTCb3/DImBtiirWOrc
-	9swVRP8I5JybKCVEA+X6Mg==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sb7vt8wd1-6
+	PODMain02222019; bh=iHPydD49TX7zhADeyyXwvU0B67z9DvHRR+iJaUDcbdM=; b=
+	WWz+iEyBo5E/WoI07OmFPWvVhwzOh+cAyYMWGQk2p++CVi8dSmpX6Gk7KJeEr1WM
+	x/grQpNHDTv9R1cReMWueKa8DOHttNqAdkBKk3wWJKbgEwxlNSMFWpTjjsr4Js3v
+	UQyad7gw1kKG4TxIL8eAOFulQYhz+uq9XY+EanRHFH7bhJwDOUxqc5iC7Jxtodod
+	H6EXCLhfAct/7/By/bogE4nQBiFIuNS8olAAaeFKc1DEsvB1gYx8FOTRcI302F02
+	wU+1ME+HkpKXq7jk1M2zXVw72jm/+wiZWrrliAmHGmOmhBrVOrIisls+9JcyXPO/
+	ngftGcaJA4RO5hRJxCfvsw==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sb7vt8wd2-4
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Aug 2023 08:20:20 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+	Tue, 08 Aug 2023 08:20:18 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 8 Aug
  2023 14:20:14 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.30 via Frontend Transport; Tue, 8 Aug 2023 14:20:14 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
+ Transport; Tue, 8 Aug 2023 14:20:14 +0100
 Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4A02F3578;
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 59F6115B7;
 	Tue,  8 Aug 2023 13:20:14 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
@@ -77,21 +77,21 @@ CC: <lgirdwood@gmail.com>, <cezary.rojewski@intel.com>,
         <kai.vehmanen@linux.intel.com>, <yung-chuan.liao@linux.intel.com>,
         <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
         <patches@opensource.cirrus.com>
-Subject: [PATCH 09/12] ASoC: intel: sof_sdw: Device loop should not always
- start at adr_index
-Date: Tue, 8 Aug 2023 14:20:10 +0100
-Message-ID: <20230808132013.889419-9-ckeepax@opensource.cirrus.com>
+Subject: [PATCH 10/12] ASoC: intel: sof_sdw: Support multiple groups on the
+ same link
+Date: Tue, 8 Aug 2023 14:20:11 +0100
+Message-ID: <20230808132013.889419-10-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230808132013.889419-1-ckeepax@opensource.cirrus.com>
 References: <20230808132013.889419-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: SusC8_Jdx_yx1uWW-wUT5xPUJ-ZmQJWO
-X-Proofpoint-ORIG-GUID: SusC8_Jdx_yx1uWW-wUT5xPUJ-ZmQJWO
+X-Proofpoint-GUID: b1Njyk23LFVYam4g_Ye4dJBMpk0IU92g
+X-Proofpoint-ORIG-GUID: b1Njyk23LFVYam4g_Ye4dJBMpk0IU92g
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: PPVOG7VYZFLZW3IMBEVYDII6CLNDQUIP
-X-Message-ID-Hash: PPVOG7VYZFLZW3IMBEVYDII6CLNDQUIP
+Message-ID-Hash: TRI2E5FJA2R5O2KESBQQITLQC7UMLCNA
+X-Message-ID-Hash: TRI2E5FJA2R5O2KESBQQITLQC7UMLCNA
 X-MailFrom: prvs=3584cdf4cd=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PPVOG7VYZFLZW3IMBEVYDII6CLNDQUIP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TRI2E5FJA2R5O2KESBQQITLQC7UMLCNA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,66 +113,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The current loops at the top of create_sdw_dailink process the devices
-on each link starting from device index adr_index. But adr_index is only
-meaningful on the first on these SoundWire links, as it is the index of
-the current device on that link. This means devices will be skipped on
-later links.
+The current code checks the first device on a link and assumes
+that all the other devices on the link will have the same endpoint
+aggregation status and endpoint group ID.
 
-Say for example the system looks like this:
+Say for example a system looked like:
 
-SDW0 - Codec (Not Aggregated), Amp 1 (Aggregated, Group 1)
-SDW1 - Amp 2 (Aggregated, Group 1), Amp 3 (Aggregated, Group 1)
+SDW0 - Amp 1 (Aggregated, Group 1), Mic 1 (Aggregated, Group 2)
+SDW1 - Amp 2 (Aggregated, Group 1), Mic 2 (Aggregated, Group 2)
 
-The code should create 2 DAI links, one for the CODEC and one for the
-aggregated amps. It will create the DAI link for the codec no problem.
-When it creates the DAI link for Group 1 however, create_sdw_dailink
-will be called with an adr_index of 1, since that is the index of Amp
-1 on SDW0.  However, as the loop in create_sdw_dailink moves onto SDW1
-it will again start from adr_index, skipping Amp 2. Resulting in the amp
-DAI link only have amps 1 and 3 in it.
+The current code would create the DAI link for the aggregated amps,
+although it is worth noting that the only reason Mic 2 is not added is
+the additional check that aborts processing the link when the device
+changes. Then when processing the DAI link for the microphones, Mic
+2 would not be added, as the check will only be done on the first
+device, which would be Amp 2 and thus the wrong group, causing the
+whole link to be skipped.
 
-It is reasonable to start at adr_index on the first link, since
-earlier devices have by definition already been processed. However,
-update the code when processing later links to handle all devices.
+Move the endpoint check to be for each device rather than the first
+device on each link.
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_sdw.c | 42 ++++++++++++++++----------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 0401516f35de6..767c49022eae4 100644
+index 767c49022eae4..357946365e76f 100644
 --- a/sound/soc/intel/boards/sof_sdw.c
 +++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1366,6 +1366,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
- 		return -ENOMEM;
+@@ -1288,25 +1288,24 @@ static int get_slave_info(const struct snd_soc_acpi_link_adr *adr_link,
+ 	}
  
- 	/* generate codec name on different links in the same group */
-+	j = adr_index;
+ 	/* gather other link ID of slaves in the same group */
+-	for (adr_next = adr_link + 1; adr_next && adr_next->num_adr;
+-		adr_next++) {
+-		const struct snd_soc_acpi_endpoint *endpoint;
+-
+-		endpoint = adr_next->adr_d->endpoints;
+-		if (!endpoint->aggregated ||
+-		    endpoint->group_id != *group_id)
+-			continue;
++	for (adr_next = adr_link + 1; adr_next && adr_next->num_adr; adr_next++) {
++		unsigned int link_codecs = 0;
+ 
+-		if (index >= SDW_MAX_CPU_DAIS) {
+-			dev_err(dev, "cpu_dai_id array overflows\n");
+-			return -EINVAL;
+-		}
+-
+-		cpu_dai_id[index++] = ffs(adr_next->mask) - 1;
+ 		for (i = 0; i < adr_next->num_adr; i++) {
+ 			if (adr_next->adr_d[i].endpoints->aggregated &&
+ 			    adr_next->adr_d[i].endpoints->group_id == *group_id)
+-				(*codec_num)++;
++				link_codecs++;
++		}
++
++		if (link_codecs) {
++			*codec_num += link_codecs;
++
++			if (index >= SDW_MAX_CPU_DAIS) {
++				dev_err(dev, "cpu_dai_id array overflowed\n");
++				return -EINVAL;
++			}
++
++			cpu_dai_id[index++] = ffs(adr_next->mask) - 1;
+ 		}
+ 	}
+ 
+@@ -1369,20 +1368,15 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 	j = adr_index;
  	for (adr_link_next = adr_link; adr_link_next && adr_link_next->num_adr &&
  	     i < cpu_dai_num; adr_link_next++) {
- 		const struct snd_soc_acpi_endpoint *endpoints;
-@@ -1380,7 +1381,8 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+-		const struct snd_soc_acpi_endpoint *endpoints;
+ 		int _codec_index = -1;
+ 
+-		endpoints = adr_link_next->adr_d->endpoints;
+-		if (group_id && (!endpoints->aggregated ||
+-				 endpoints->group_id != group_id))
+-			continue;
+-
+ 		/* skip the link excluded by this processed group */
  		if (cpu_dai_id[i] != ffs(adr_link_next->mask) - 1)
  			continue;
  
--		for (j = adr_index; j < adr_link_next->num_adr; j++) {
-+		/* j reset after loop, adr_index only applies to first link */
-+		for (; j < adr_link_next->num_adr; j++) {
+ 		/* j reset after loop, adr_index only applies to first link */
+ 		for (; j < adr_link_next->num_adr; j++) {
++			const struct snd_soc_acpi_endpoint *endpoints;
  			int codec_index;
  			u64 adr = adr_link_next->adr_d[j].adr;
  
-@@ -1412,6 +1414,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
- 			codec_dlc_index++;
- 			(*codec_conf_index)++;
- 		}
-+		j = 0;
+@@ -1395,6 +1389,12 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 			}
+ 			_codec_index = codec_index;
  
- 		/* check next link to create codec dai in the processed group */
- 		i++;
++			endpoints = adr_link_next->adr_d[j].endpoints;
++
++			if (group_id && (!endpoints->aggregated ||
++					 endpoints->group_id != group_id))
++				continue;
++
+ 			/* sanity check */
+ 			if (*codec_conf_index >= codec_count) {
+ 				dev_err(dev, "codec_conf array overflowed\n");
 -- 
 2.30.2
 

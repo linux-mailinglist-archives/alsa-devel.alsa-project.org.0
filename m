@@ -2,112 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC917739BF
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 12:43:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F047739C1
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 12:43:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4633E9A;
-	Tue,  8 Aug 2023 12:42:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4633E9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 394A8E94;
+	Tue,  8 Aug 2023 12:42:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 394A8E94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691491398;
-	bh=pwk12Y2B92/p4aZYIv+pc5hmbFEsaTvt7e0yWIKQ/90=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1691491418;
+	bh=G0JGoL/rMNRUtDqtTifRpYE2RlmXvngvcsipnYYMJRM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iOBZr8rIRk1ANFePrOAnIBlo0OyXm7mrfUgLcZH/gPbDODrv58DLOAlxncqsAIRF3
-	 1i5zsCG8R2m40iaenrTEr5Rs99Uo5fsGlg8U91syT92dLF8qm/a2hHKIyLY42P6J0A
-	 EF+4v12VjKpBAOT6a1DsF3NM0fuMPaFlNk87iwF8=
+	b=f7gYGisIu/TMz3ztYU1Qqhj/7pxQsk6A0+9laDVkxJkSbtkp7dCgdjouVwBu2huNP
+	 jiBofKc7+G90T6yHt7070j3wPEKwGa1FnFuKKExB7ghoAqwzgBHipYgOYjcca1axU5
+	 AuxG8gN7iVIGL4LozH4Vkj/ekNTRx0EnEIapWbLU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CFEE3F806A9; Tue,  8 Aug 2023 12:36:39 +0200 (CEST)
+	id CDFABF806AB; Tue,  8 Aug 2023 12:36:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAB85F8069E;
-	Tue,  8 Aug 2023 12:36:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42A03F806AB;
+	Tue,  8 Aug 2023 12:36:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8F42F8016D; Tue,  8 Aug 2023 09:49:11 +0200 (CEST)
+	id 85271F80549; Tue,  8 Aug 2023 09:50:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87BABF80087
-	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 09:49:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87BABF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26D71F80544
+	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 09:50:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26D71F80544
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=daynix-com.20221208.gappssmtp.com
  header.i=@daynix-com.20221208.gappssmtp.com header.a=rsa-sha256
- header.s=20221208 header.b=RWFHIcHa
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-1bc8a2f71eeso589965ad.0
+ header.s=20221208 header.b=Mkj09u9b
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-1bb9e6c2a90so47065585ad.1
         for <alsa-devel@alsa-project.org>;
- Tue, 08 Aug 2023 00:49:08 -0700 (PDT)
+ Tue, 08 Aug 2023 00:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20221208.gappssmtp.com; s=20221208; t=1691480946;
- x=1692085746;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Oqa2rz3uz/mytEi+k5RXx0Vu4GvvDI70ZcmBN+bwj7w=;
-        b=RWFHIcHal00Ac7i9KkPraExSAHQvEplHXsew8CgzLH+QGnAatdYUNgaH9xydAdaFoB
-         NjAfzBe4LkSY0U/XpXVT6rV/IlBVOLs7Rj34PtnF7HhQ87zVcakrW5LprPGmBF/VLY4J
-         OoPlozAaik+xdul5DPQCQtQ5/3cPUdkI2Y8Ku2tNXUltgNdbxlL/WLwmkX8mQeEfjCcv
-         yQ4lrCGRi1a+L/YZmSNgQqhD9sUy9RquQb3cPHhr8wZwUfOWHExKXIfkr0RhxINAQPVU
-         zDm2ZfyJvd3cxE/BhzVopJeeVwrzWhSIb3FhatoxCPTOnePRK+y392n9JT/6wtsNilZs
-         oBig==
+        d=daynix-com.20221208.gappssmtp.com; s=20221208; t=1691481004;
+ x=1692085804;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5gVaSTYejp99j2UgPSGmR/5wX1Q1ia2oLZnesCpWyfk=;
+        b=Mkj09u9bcVbsCucPmPddVcFJ5hivx1RdNSIbYfNCkNhq3dAtuTsUtqmegXzUQ5vmC1
+         qG4nmxZSfvwjAsA/nVPlR1HaeOw5yfH424ZaAaKf4ZrvzM51eOz2Wg3dJeFeM+z0U6L7
+         Lwzft25xYUixVjTAG+15A5vESIFyNVhSVUJ9sLglcE67kAg8/E7xU5lndq/0fKGBEQt2
+         ApIFCigtun01oYO51ilCsXcui/nM9fNdw8SkRriEKEVqhGCfVdL/lMENHS1y+QVHWqKy
+         FV7IqnaxcAPW029SdYHHkaLaN+FMaGatafaGJQywMqk+JKQCsz9AnU1HuoVsgd69eZJX
+         hbtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691480946; x=1692085746;
-        h=content-transfer-encoding:in-reply-to:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20221208; t=1691481004; x=1692085804;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Oqa2rz3uz/mytEi+k5RXx0Vu4GvvDI70ZcmBN+bwj7w=;
-        b=BMmNXZmNG+rCASSYeEXxaie5z9viV9Nhz6/YTKkhHobCTy/cTWUdJMsQJxWcKLaH0V
-         TYgm48slgTBTwP0wZK0YqP9FTLTOTFtpjsMH3flg9DTPYfFlYgKh7cewHzdWFZSnHeyO
-         H4xcH3a6fv97GBebsI9nC4qgzmEuCNiTtu3Wl7fe0wMApJEKizYwq8+y3BJpYzawP1UT
-         GFL9+cemSETUCqR1TsmU3RES6ardP8/UOdKBFFzI2T4Vyu3ThWtu5KvfU2hURl2jfjOg
-         xUB4iMwGLniRj/PPx+aBoPyB2RwGjOtw+G8GuuH7wGtH4B9NRI86qzxMRlSgLpbWzkEK
-         JK3g==
-X-Gm-Message-State: AOJu0YxmGe4JwbFCo6OlgnnWvWGgC2KGsrmJ69QPjrCGgsH0JTF6CmLb
-	z6jJ81htTldRE8bM4U4Srz4H2A==
+        bh=5gVaSTYejp99j2UgPSGmR/5wX1Q1ia2oLZnesCpWyfk=;
+        b=E7OlNNY+yKNn0GvajlzoIoY01n/xDfmeOZWGGeDTng7jUJTzgdnkyVmrVBcn77v9OT
+         ApQiSp7iCDKAUn9QqqTVgq8qfSYIXjoaNaHi9anC7rziGt6mN0pO1EdS2QtPdpVI8SHO
+         OIC65+ZKBmSYv++bgxRnOcGZ1uduKAXtJQV9Qs9MPXTtFBe8wVZVFR6TG25fNL5eESvD
+         VFv3PNL68vE3KnlzPQK/fTMXfuG63F0YhxKlefAhvSnOALTEPjxCV7EnRUy5gx0gTbHE
+         KhLyzwyWTmllUC4PsE1EE529y5K5WNTVR90/avmEeYH1gnVricAiuPFWm4fr1rwvbNrX
+         52rQ==
+X-Gm-Message-State: AOJu0Yx8YnzbMbm2cbIuE1X+TBo3PFW65vtgrNW7Cy9QbF8I87VPz7r9
+	HGOEFT6Zt7OIO5dJeQHjcRsx2v6eseSVh+wDgPw=
 X-Google-Smtp-Source: 
- AGHT+IFufKLdffur63lJtwd7othy2JUIo3PkP6vkkFnMc+2X7aJvW+HRXR91TsU1UPsl6ar7TJziyA==
-X-Received: by 2002:a17:902:d48c:b0:1bc:1df2:4c07 with SMTP id
- c12-20020a170902d48c00b001bc1df24c07mr12074543plg.63.1691480946230;
-        Tue, 08 Aug 2023 00:49:06 -0700 (PDT)
+ AGHT+IFAVyiXcimI9tXWuEj4R9mV4WwBOWaAXHFFMihxNpDn6eurFOXPD6dXxTtApytWiEcQwiKdmw==
+X-Received: by 2002:a17:902:e546:b0:1b8:a697:3719 with SMTP id
+ n6-20020a170902e54600b001b8a6973719mr14036571plf.25.1691481003938;
+        Tue, 08 Aug 2023 00:50:03 -0700 (PDT)
 Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
  ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
         by smtp.gmail.com with ESMTPSA id
- a7-20020a170902ecc700b001bba7aab822sm8261067plh.5.2023.08.08.00.49.03
+ a7-20020a170902ecc700b001bba7aab822sm8261067plh.5.2023.08.08.00.50.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Aug 2023 00:49:06 -0700 (PDT)
-Message-ID: <4a0827fd-5e22-4ecb-a451-ec9aa6476649@daynix.com>
-Date: Tue, 8 Aug 2023 16:49:02 +0900
+        Tue, 08 Aug 2023 00:50:03 -0700 (PDT)
+Message-ID: <bbf345f8-3476-4b0f-ab79-0cab3db73472@daynix.com>
+Date: Tue, 8 Aug 2023 16:50:01 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/27] ASoC: amd: acp3x-rt5682-max9836: Map missing jack
- kcontrols
-Content-Language: en-US
 From: Akihiko Odaki <akihiko.odaki@daynix.com>
+Subject: Re: [PATCH] ASoC: amd: acp3x-rt5682-max9836: Configure jack as not
+ detecting Line Out
 To: Alper Nebi Yasak <alpernebiyasak@gmail.com>, alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- =?UTF-8?Q?N=C3=ADcolas_F_=2E_R_=2E_A_=2E_Prado?= <nfraprado@collabora.com>
-References: <20230802175737.263412-1-alpernebiyasak@gmail.com>
- <20230802175737.263412-5-alpernebiyasak@gmail.com>
- <1add0731-8e3b-438a-88b0-3334d8b35dee@daynix.com>
-In-Reply-To: <1add0731-8e3b-438a-88b0-3334d8b35dee@daynix.com>
+Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+References: <20230805162216.441410-1-alpernebiyasak@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20230805162216.441410-1-alpernebiyasak@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-MailFrom: akihiko.odaki@daynix.com
@@ -116,15 +109,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ENQJLME63VYYSG6QXZBJEB7NGCIOY3IJ
-X-Message-ID-Hash: ENQJLME63VYYSG6QXZBJEB7NGCIOY3IJ
+Message-ID-Hash: IMBX6XRBOB7QJ4INVN36XPPDK6RX3ZBT
+X-Message-ID-Hash: IMBX6XRBOB7QJ4INVN36XPPDK6RX3ZBT
 X-Mailman-Approved-At: Tue, 08 Aug 2023 10:36:35 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ENQJLME63VYYSG6QXZBJEB7NGCIOY3IJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IMBX6XRBOB7QJ4INVN36XPPDK6RX3ZBT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,15 +126,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2023/08/08 16:47, Akihiko Odaki wrote:
-> On 2023/08/03 2:57, Alper Nebi Yasak wrote:
->> This driver does not properly map jack pins to kcontrols that PulseAudio
->> and PipeWire need to handle jack detection events. The RT5682, RT1015
->> and RT1015p codecs used here can detect Headphone and Headset Mic
->> connections. Expose the former two to userspace as kcontrols.
->>
->> Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
+On 2023/08/06 1:22, Alper Nebi Yasak wrote:
+> The RT5682, RT1015 and RT1015p codecs used in this driver do not seem
+> capable of distinguishing Line Out connections from Headphone, but
+> the driver configures its jack object as if it can. Remove the wrong
+> value from the jack creation call to avoid any confusion.
 > 
-> Reviewed-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+> Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
 
+Reviewed-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 Tested-by: Akihiko Odaki <akihiko.odaki@daynix.com>

@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC2177433D
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 19:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 391717744D3
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 20:29:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7999F210;
-	Tue,  8 Aug 2023 19:58:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7999F210
+	by alsa0.perex.cz (Postfix) with ESMTPS id E65BE829;
+	Tue,  8 Aug 2023 20:28:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E65BE829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691517578;
-	bh=COsy3V5ET+SU728KTKHgRVWYKNpkWiEh5qjoGjo8g1Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AiTj8Bne7EyhQUmcWTTlYu+iEsUK55YtyvcjeKVRm1rnuETC6WZq4YhhuBnxoVGW7
-	 mlWFr3Ha6ni+2+alow05zECg5pfNyVI8DCGBBW5/AqaLBfxH0MlBv2MZ815w0gSTqO
-	 bHA/yh5EBOH+iZ/YmEV04pluIwovbBeqklpGn58Q=
+	s=default; t=1691519363;
+	bh=pLS3XAzhWcP03CfQz26/7Pbx+Vr0gUmfabYeuaEMGyY=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Df4/TlYghKUeCSMgMWsU20n76PPg1NKH4pjRIuXuj90dNvnbybcyfPwf+Cax2Eh/C
+	 JOJ79yqzrtWrhSiJXKcrUcsoW2rGZJe+mq42bDO0Dfb7EWKicfKMcwjoh4oGoq7mZ3
+	 mco4xW4Ds5CjoZ5o6KQJgV3KykASiy2YmK03130M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62109F805B4; Tue,  8 Aug 2023 19:57:27 +0200 (CEST)
+	id 88D39F80534; Tue,  8 Aug 2023 20:28:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3C88F805AE;
-	Tue,  8 Aug 2023 19:57:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2B71F800FE;
+	Tue,  8 Aug 2023 20:28:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80315F8055C; Tue,  8 Aug 2023 19:57:16 +0200 (CEST)
+	id 1CA31F80534; Tue,  8 Aug 2023 20:28:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7273CF80538
-	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 19:57:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7273CF80538
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18A42F800B8
+	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 20:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A42F800B8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AAGVWqnq
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 22CA562461;
-	Tue,  8 Aug 2023 17:57:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65321C433C7;
-	Tue,  8 Aug 2023 17:57:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691517429;
-	bh=COsy3V5ET+SU728KTKHgRVWYKNpkWiEh5qjoGjo8g1Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AAGVWqnqiWseR8/wFi19jekrtO0FhO7dzmKn96YkhNAUgIlD0Oa0cb+gwochbQvjV
-	 tEih7Y8xR02k3XM6MDpq9QIMBs80mrXbQwEdyaHjWWpt44e8tYdDkGMYBp6HX0MM7+
-	 eSpcU0SJZNoJQ5myqPJ5i3Fm+VWWg+uExKBNXys8R8H9jBB+2q7fSXbS2Z0/bE7VKF
-	 OUiBTI1LHCv8QjUyEh3/BqVGZ0ZobSA1ekRp3Rr5fzZmFCVCE66hWqQCGL0Jkua4h0
-	 5MP10ySHs8VwkGkYMJifwKZc6L/5QLLqmaXf5yt8kRKfr3CNjPcZRIjxTBIq00fYmu
-	 uPf8FkYPyqAMQ==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com, guennadi.liakhovetski@linux.intel.com,
- yung-chuan.liao@linux.intel.com, regressions@leemhuis.info
-In-Reply-To: <20230808110627.32375-1-peter.ujfalusi@linux.intel.com>
-References: <20230808110627.32375-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: intel: hda: Clean up link DMA for IPC3
- during stop
-Message-Id: <169151742693.78353.2991484643013989552.b4-ty@kernel.org>
-Date: Tue, 08 Aug 2023 18:57:06 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: SB3SEGUO7XT26JVLJXIZNZ2UPFKWBP4N
-X-Message-ID-Hash: SB3SEGUO7XT26JVLJXIZNZ2UPFKWBP4N
-X-MailFrom: broonie@kernel.org
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=dbCemF7f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1691519297; x=1723055297;
+  h=date:from:to:cc:subject:message-id;
+  bh=pLS3XAzhWcP03CfQz26/7Pbx+Vr0gUmfabYeuaEMGyY=;
+  b=dbCemF7fjsSxH8OEbyFstIv3ZRD2gPNOtedcSGqIpm8QziRIQy7wBAoB
+   DKImeDk9u2PB/Hnew2r3nQAKxQ754u9vQsvsGULO0R0l2K150sMnsUEvJ
+   W5APmiVOAFquI/JWmVYl4F/JIyMo5+fsv+IpPJYXLOIjGIX0/dsVDpKW2
+   tkip+OWQSWi5qqmtJjjZTSpiySycRlOdIQldVupLjb5M3oGgRxocsyki0
+   3FpgOrslhuQSvzyRdZzmSHRUwfd3kGIa7Qx0pVqzkfbg/3vqxNtLRKyKC
+   keQB1N5lIqCSLqLE/V5wa79dlFOcuftp4ksEegH9qSNUHYwbT18j/qA1z
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="351220416"
+X-IronPort-AV: E=Sophos;i="6.01,157,1684825200";
+   d="scan'208";a="351220416"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2023 11:28:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="796829004"
+X-IronPort-AV: E=Sophos;i="6.01,157,1684825200";
+   d="scan'208";a="796829004"
+Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
+  by fmsmga008.fm.intel.com with ESMTP; 08 Aug 2023 11:28:07 -0700
+Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qTRR9-0005X0-06;
+	Tue, 08 Aug 2023 18:28:07 +0000
+Date: Wed, 09 Aug 2023 02:27:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ alsa-devel@alsa-project.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Subject: [linux-next:master] BUILD REGRESSION
+ 71cd4fc492ec41e4acd85e98bbf7a13753fc1e03
+Message-ID: <202308090244.cGlSt5H7-lkp@intel.com>
+User-Agent: s-nail v14.9.24
+Message-ID-Hash: 4DK7VWKYBSJ4DNT3TEFK6NJA2RI53XUQ
+X-Message-ID-Hash: 4DK7VWKYBSJ4DNT3TEFK6NJA2RI53XUQ
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SB3SEGUO7XT26JVLJXIZNZ2UPFKWBP4N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4DK7VWKYBSJ4DNT3TEFK6NJA2RI53XUQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,37 +102,197 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 08 Aug 2023 14:06:27 +0300, Peter Ujfalusi wrote:
-> With IPC3, we reset hw_params during the stop trigger, so we should also
-> clean up the link DMA during the stop trigger.
-> 
-> 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 71cd4fc492ec41e4acd85e98bbf7a13753fc1e03  Add linux-next specific files for 20230808
 
-Applied to
+Error/Warning reports:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+https://lore.kernel.org/oe-kbuild-all/202307251531.p8ZLFTMZ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202308081459.US5rLYAY-lkp@intel.com
 
-Thanks!
+Error/Warning: (recently discovered and may have been fixed)
 
-[1/1] ASoC: SOF: intel: hda: Clean up link DMA for IPC3 during stop
-      commit: 90219f1bd273055f1dc1d7bdc0965755b992c045
+../lib/gcc/loongarch64-linux/12.3.0/plugin/include/config/loongarch/loongarch-opts.h:31:10: fatal error: loongarch-def.h: No such file or directory
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_replay.c:37: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+sound/soc/codecs/aw88261.c:651:7: warning: variable 'ret' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+drivers/gpu/drm/tests/drm_exec_test.c:166 test_prepare_array() error: uninitialized symbol 'ret'.
+drivers/mtd/nand/raw/qcom_nandc.c:2590 qcom_op_cmd_mapping() error: uninitialized symbol 'ret'.
+drivers/mtd/nand/raw/qcom_nandc.c:3017 qcom_check_op() warn: was && intended here instead of ||?
+kernel/futex/waitwake.c:422 futex_wait_multiple_setup() warn: bitwise AND condition is false here
+sh4-linux-gcc: internal compiler error: Segmentation fault signal terminated program cc1
+{standard input}: Warning: end of file not at end of a line; newline inserted
+{standard input}:927: Error: pcrel too far
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Error/Warning ids grouped by kconfigs:
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- csky-randconfig-m041-20230808
+|   `-- drivers-gpu-drm-tests-drm_exec_test.c-test_prepare_array()-error:uninitialized-symbol-ret-.
+|-- i386-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- loongarch-allmodconfig
+|   `-- lib-gcc-loongarch64-linux-..-plugin-include-config-loongarch-loongarch-opts.h:fatal-error:loongarch-def.h:No-such-file-or-directory
+|-- mips-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-randconfig-m031-20230808
+|   |-- drivers-gpu-drm-tests-drm_exec_test.c-test_prepare_array()-error:uninitialized-symbol-ret-.
+|   |-- drivers-mtd-nand-raw-qcom_nandc.c-qcom_check_op()-warn:was-intended-here-instead-of
+|   |-- drivers-mtd-nand-raw-qcom_nandc.c-qcom_op_cmd_mapping()-error:uninitialized-symbol-ret-.
+|   `-- kernel-futex-waitwake.c-futex_wait_multiple_setup()-warn:bitwise-AND-condition-is-false-here
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-randconfig-r044-20230808
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- sh-allmodconfig
+|   |-- sh4-linux-gcc:internal-compiler-error:Segmentation-fault-signal-terminated-program-cc1
+|   |-- standard-input:Error:pcrel-too-far
+|   `-- standard-input:Warning:end-of-file-not-at-end-of-a-line-newline-inserted
+|-- sparc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+`-- xtensa-randconfig-r022-20230808
+    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+clang_recent_errors
+`-- arm64-randconfig-r006-20230808
+    `-- sound-soc-codecs-aw88261.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
 
-Thanks,
-Mark
+elapsed time: 721m
 
+configs tested: 106
+configs skipped: 5
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r034-20230808   gcc  
+arc                  randconfig-r043-20230808   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                  randconfig-r012-20230808   clang
+arm                  randconfig-r046-20230808   clang
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r001-20230808   clang
+csky                                defconfig   gcc  
+csky                 randconfig-r024-20230808   gcc  
+hexagon              randconfig-r015-20230808   clang
+hexagon              randconfig-r031-20230808   clang
+hexagon              randconfig-r041-20230808   clang
+hexagon              randconfig-r045-20230808   clang
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-r004-20230808   clang
+i386         buildonly-randconfig-r005-20230808   clang
+i386         buildonly-randconfig-r006-20230808   clang
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-i001-20230808   clang
+i386                 randconfig-i002-20230808   clang
+i386                 randconfig-i003-20230808   clang
+i386                 randconfig-i004-20230808   clang
+i386                 randconfig-i005-20230808   clang
+i386                 randconfig-i006-20230808   clang
+i386                 randconfig-i011-20230808   gcc  
+i386                 randconfig-i012-20230808   gcc  
+i386                 randconfig-i013-20230808   gcc  
+i386                 randconfig-i014-20230808   gcc  
+i386                 randconfig-i015-20230808   gcc  
+i386                 randconfig-i016-20230808   gcc  
+i386                 randconfig-r014-20230808   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+m68k                             allmodconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                 randconfig-r004-20230808   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+nios2                               defconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r002-20230808   gcc  
+parisc               randconfig-r016-20230808   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc              randconfig-r005-20230808   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r042-20230808   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r011-20230808   gcc  
+s390                 randconfig-r023-20230808   gcc  
+s390                 randconfig-r044-20230808   gcc  
+sh                               allmodconfig   gcc  
+sh                   randconfig-r006-20230808   gcc  
+sh                   randconfig-r025-20230808   gcc  
+sparc                            allyesconfig   gcc  
+sparc                               defconfig   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                   randconfig-r033-20230808   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64       buildonly-randconfig-r001-20230808   clang
+x86_64       buildonly-randconfig-r002-20230808   clang
+x86_64       buildonly-randconfig-r003-20230808   clang
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-r003-20230808   clang
+x86_64               randconfig-r021-20230808   gcc  
+x86_64               randconfig-x001-20230808   gcc  
+x86_64               randconfig-x002-20230808   gcc  
+x86_64               randconfig-x003-20230808   gcc  
+x86_64               randconfig-x004-20230808   gcc  
+x86_64               randconfig-x005-20230808   gcc  
+x86_64               randconfig-x006-20230808   gcc  
+x86_64               randconfig-x011-20230808   clang
+x86_64               randconfig-x012-20230808   clang
+x86_64               randconfig-x013-20230808   clang
+x86_64               randconfig-x014-20230808   clang
+x86_64               randconfig-x015-20230808   clang
+x86_64               randconfig-x016-20230808   clang
+x86_64                          rhel-8.3-rust   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r013-20230808   gcc  
+xtensa               randconfig-r022-20230808   gcc  
+xtensa               randconfig-r035-20230808   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

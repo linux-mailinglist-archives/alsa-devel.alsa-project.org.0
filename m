@@ -2,103 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B44773A3E
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 14:46:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580C7773A40
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 14:47:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EABC4826;
-	Tue,  8 Aug 2023 14:45:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EABC4826
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8FA982B;
+	Tue,  8 Aug 2023 14:46:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8FA982B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691498799;
-	bh=w96gP7iQMzR5PdnPKJ7fBjxhaIsU7w7UVQuqY/6tbYs=;
+	s=default; t=1691498849;
+	bh=s/WbPeFwJmHRSdlNYjBCvsvubVg2Rprg0Cpv1eQZQ1k=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=su9cj2S1CLJTHtcRROEfs8Itp5/b9qsSHYJ4qoiRgK9Ub4DdeK4I2fPvrYYpb0kUK
-	 fHEI89348F+JvFb6I3Tkwq9sJ44wW5LCJav1Lq9s5vtefb8M9t7U5l8uCuTtaeJf1U
-	 HbCikZXMgEJ13FdZinTcfs/QolQv6BfanxsL7AJo=
+	b=au43b9RoYZT4xatSRdBlYqe1qUp3CPGJpUftZEhGj2ndbN76NAKjD73Y66GPKRc95
+	 xua9lFkyUVe97ZtwXlMLbBNRzHeiqIFe7RSpXVPsplvMiHUL6hIKYvSBj3qCdjOZKC
+	 GEdzkE2dj+xyTJ9qwInNXQdivn9w7dz0o3jE9U20=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39A22F8053B; Tue,  8 Aug 2023 14:45:48 +0200 (CEST)
+	id A6470F8055A; Tue,  8 Aug 2023 14:46:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E66EF80154;
-	Tue,  8 Aug 2023 14:45:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D5BCF80551;
+	Tue,  8 Aug 2023 14:46:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 491F8F80534; Tue,  8 Aug 2023 14:45:44 +0200 (CEST)
+	id 1A845F80553; Tue,  8 Aug 2023 14:46:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 955A5F800FE
-	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 14:45:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 955A5F800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7C96AF80534
+	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 14:45:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C96AF80534
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=h+LJD6xt;
+ header.s=susede2_rsa header.b=JYtmoeBe;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=6FFEp/Qp
+ header.s=susede2_ed25519 header.b=bvwOE7ZV
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7C8AE2249A;
-	Tue,  8 Aug 2023 12:45:34 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B9EC821C01;
+	Tue,  8 Aug 2023 12:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1691498734;
+	t=1691498758;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9rSG2TNU59Si5m6bljaLKJEJPmpsQdVWsYgo9RPk8Vs=;
-	b=h+LJD6xtmsMgoKzXIYajVr2dasHn2amUpZS78uy35MwyA6LFc+YHFErJpRUR9hbjdxIWQa
-	YJ9XVnbfCsYZKIo3i86BgphvWqG0C5/h9NiOhAdaQ2SXWsUsrAugo8LQ/pn6VFbX5fq90R
-	C1dLXUHAj8aPgfgIUsWpMkTn4GWV+eE=
+	bh=t5RRGly0OnZSk/y+CHzU8DTmny0kG6BatRI9O+U30Vg=;
+	b=JYtmoeBe9RumSWvu77ADbj3MRykhNCAIJwi8w5r7bjY6r+8cnT+czFZ1AXtkKxuH0VDtO4
+	yC8Qmd8kw3HJD3psCHtpbrDNgkQL/L8QXNkQQDDqalGXAQd64bObdxTx71KaFUOvBZOAd+
+	xQHTNV0fPaiN/9n0reDJTN/QIW0Fw30=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691498734;
+	s=susede2_ed25519; t=1691498758;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9rSG2TNU59Si5m6bljaLKJEJPmpsQdVWsYgo9RPk8Vs=;
-	b=6FFEp/Qp+ZGEym7OH90haRpGWAMBMY6R3VWqQ057Pu9vyE/e4JQ8CpO41gU4SmqFVfGQFc
-	jF3wg/4I+zhosZAg==
+	bh=t5RRGly0OnZSk/y+CHzU8DTmny0kG6BatRI9O+U30Vg=;
+	b=bvwOE7ZVelbqvBipniSZ6pKn80ckA/aHZkjoH8JwYsGz1K1YirMSQZdQPvY5pU5ZKLjvLf
+	fv5RFdi/xYxEzBCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 53ABD139D1;
-	Tue,  8 Aug 2023 12:45:34 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A968139D1;
+	Tue,  8 Aug 2023 12:45:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id zoV6E+440mR/AgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 08 Aug 2023 12:45:34 +0000
-Date: Tue, 08 Aug 2023 14:45:33 +0200
-Message-ID: <87r0odhfde.wl-tiwai@suse.de>
+	id ItvWIAY50mSzAgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 08 Aug 2023 12:45:58 +0000
+Date: Tue, 08 Aug 2023 14:45:58 +0200
+Message-ID: <87pm3xhfcp.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] ALSA: pcmtest: Move buffer iterator initialization
- to prepare callback
-In-Reply-To: <20230804110740.9867-1-ivan.orlov0322@gmail.com>
-References: <20230804110740.9867-1-ivan.orlov0322@gmail.com>
+To: Yue Haibing <yuehaibing@huawei.com>
+Cc: <perex@perex.cz>,
+	<tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH -next] ALSA: info: Remove unused function declarations
+In-Reply-To: <20230807141513.31440-1-yuehaibing@huawei.com>
+References: <20230807141513.31440-1-yuehaibing@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 6JRD77ICTN6AIBEGPN5X7KGJ3HBAWDMT
-X-Message-ID-Hash: 6JRD77ICTN6AIBEGPN5X7KGJ3HBAWDMT
+Message-ID-Hash: XWGSFIMHYOVO3JH7LRC7XQ2AX5R4ONQ3
+X-Message-ID-Hash: XWGSFIMHYOVO3JH7LRC7XQ2AX5R4ONQ3
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6JRD77ICTN6AIBEGPN5X7KGJ3HBAWDMT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWGSFIMHYOVO3JH7LRC7XQ2AX5R4ONQ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,21 +120,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 04 Aug 2023 13:07:39 +0200,
-Ivan Orlov wrote:
+On Mon, 07 Aug 2023 16:15:13 +0200,
+Yue Haibing wrote:
 > 
-> Trigger callback is not the best place for buffer iterator
-> initialization, so move it out to the prepare callback, where it
-> have to be.
+> These declarations is never used since beginning of git history.
 > 
-> Minor enhancement: remove blank line.
-> 
-> Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
-> ---
-> V1 -> V2:
-> - Split changes in the patch into two different patches
+> Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
 
-Thanks, applied both patches now.
+Thanks, applied now.
 
 
 Takashi

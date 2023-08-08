@@ -2,83 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D3C5773A4E
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 14:58:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56ACC773A70
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Aug 2023 15:22:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58895827;
-	Tue,  8 Aug 2023 14:57:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58895827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 552BC82C;
+	Tue,  8 Aug 2023 15:22:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 552BC82C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691499497;
-	bh=S0FBs7xD3Rf0XgcDIGN+SZnoxzu5hScAnRLm9gSsKfo=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1691500973;
+	bh=jzH/vEwtfDpJdRMafdGn26viUVe8YlD98aj9MLkwuxQ=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=EJFAzpkujZOt22olcMaYKJ7V7GYyC/Hjmq6SzuFzExnhe33kJZGjYDGqqY30hNbLy
-	 d9ISMbWuPlqu5asB5x8zmJYO1pS2rQs3h53Hc5e/QazDY8XCHlFpu7BJsEG3WqKAuV
-	 hEnUhGDCjPxhgf6NlQVBGAg08Cdh09UyZVTf7b9o=
+	b=Rsqycjr7BI6i826ybH3/iUQmof1beFnB57vP6K99Y4dRTcxWSwWS932sd0TkYteFG
+	 0xUmAIIlREoJ69S8st+yXG5qUiOX+991V8Egtv9TpehwPafiA5DkQKB/l9+uqCsbA+
+	 6dBILjLyhStGiIQBK5IYdwVSq8TafehVZnRrQxq4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B69CEF80549; Tue,  8 Aug 2023 14:57:26 +0200 (CEST)
+	id 39186F805AB; Tue,  8 Aug 2023 15:20:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C7C0F80154;
-	Tue,  8 Aug 2023 14:57:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43047F805AA;
+	Tue,  8 Aug 2023 15:20:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68486F80534; Tue,  8 Aug 2023 14:57:22 +0200 (CEST)
+	id 59DF4F80568; Tue,  8 Aug 2023 15:20:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 552A2F800FE
-	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 14:57:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 552A2F800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3F35F800B8
+	for <alsa-devel@alsa-project.org>; Tue,  8 Aug 2023 15:20:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3F35F800B8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ALuJOr5z
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0EB9462535;
-	Tue,  8 Aug 2023 12:57:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7EDC433C8;
-	Tue,  8 Aug 2023 12:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691499430;
-	bh=S0FBs7xD3Rf0XgcDIGN+SZnoxzu5hScAnRLm9gSsKfo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ALuJOr5zjEN0HXUfZj23CYhl/qslnq1Ul9nu3AiwMPIfPvJxHwRaegVzju60uur8J
-	 bxVTyQn9a7pQID1YwvQ3TVHiikXZM1AmhN5BNVELbwnMc8OTuZ1NsJNERgjxihgX2S
-	 pKSUqZ5hvzW9S9flCMuRgZKlCnC3T/DVApS/RFXg3p5EDvA7MYF1/bWBt8TT3PvvlH
-	 Dgo/3KPmI7ch1A15zpeyGO1dvP81nxbIj6IiYRwEDWpWh8fVHB6LXElveU+E4tgvd3
-	 EAQMYZQwCf7CrbdlXAhZm1vtzl98mEbsXttJ17Er5BgOz1bwuD+EObjpfj7EPhBtRF
-	 9XR+xjzLgvYWw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Weidong Wang <wangweidong.a@awinic.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: codecs: aw88261: avoid uninitialized variable warning
-Date: Tue,  8 Aug 2023 14:56:54 +0200
-Message-Id: <20230808125703.1611325-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=lW2XIa/D
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 378513nC020848;
+	Tue, 8 Aug 2023 08:20:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=F
+	J7TprhjDbWRuHqoD0c4zyjG459CCSCD99IkBkYoaHc=; b=lW2XIa/DEC49Qzi/w
+	aqOjUSkkThS3y7zMg8wZU4R0kiwisa1cC8KXaXtjxQfLBWSP/SeQsZ10qrCPXDUQ
+	Dszs4v6gCD3f49Skdx3ajCxPlEUmxlLwkxBRXEkzRntCEydwF+CHrzsbwa8/YjwU
+	wPjUVZWI6jpoUMTmb01ge5A3/e1oEh5d+SklRSaJlTDD20rB635qIdkrY54sUYcT
+	O2I2zlx22Gs4OQURn/2orBXha0+zVrp+oI5xYRP0erxfansI7OVVY3kNMO2FjD18
+	fkfyZJNr4vAnUp8zx1uUpa6GQDjaJZOLWRgeprtiGZ6P7OA9tDqV2yYUobIfLVDX
+	Wtoxg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sb7vt8wd1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Aug 2023 08:20:15 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 8 Aug
+ 2023 14:20:13 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.30 via Frontend Transport; Tue, 8 Aug 2023 14:20:13 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C88B615B7;
+	Tue,  8 Aug 2023 13:20:13 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <cezary.rojewski@intel.com>,
+        <peter.ujfalusi@linux.intel.com>, <ranjani.sridharan@linux.intel.com>,
+        <kai.vehmanen@linux.intel.com>, <yung-chuan.liao@linux.intel.com>,
+        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>
+Subject: [PATCH 01/12] ASoC: intel: sof_sdw: Printk's should end with a
+ newline
+Date: Tue, 8 Aug 2023 14:20:02 +0100
+Message-ID: <20230808132013.889419-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MIFBUDE67PWBCKZBGKLW7GZTTNT3KET2
-X-Message-ID-Hash: MIFBUDE67PWBCKZBGKLW7GZTTNT3KET2
-X-MailFrom: arnd@kernel.org
+Content-Type: text/plain
+X-Proofpoint-GUID: utedcslMRxW9BQC1I0lRDFvl3xNA7kw5
+X-Proofpoint-ORIG-GUID: utedcslMRxW9BQC1I0lRDFvl3xNA7kw5
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 7TQ372TYYJCN35RSSAGB564ED6AWZ6Z6
+X-Message-ID-Hash: 7TQ372TYYJCN35RSSAGB564ED6AWZ6Z6
+X-MailFrom: prvs=3584cdf4cd=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MIFBUDE67PWBCKZBGKLW7GZTTNT3KET2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TQ372TYYJCN35RSSAGB564ED6AWZ6Z6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,42 +110,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Add the missing new lines.
 
-aw88261_reg_update() returns an unintialized error code in the
-success path:
-
-sound/soc/codecs/aw88261.c:651:7: error: variable 'ret' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
-                if (aw_dev->prof_cur != aw_dev->prof_index) {
-                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/codecs/aw88261.c:660:9: note: uninitialized use occurs here
-        return ret;
-               ^~~
-sound/soc/codecs/aw88261.c:651:3: note: remove the 'if' if its condition is always true
-                if (aw_dev->prof_cur != aw_dev->prof_index) {
-                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Return zero instead here.
-
-Fixes: 028a2ae256916 ("ASoC: codecs: Add aw88261 amplifier driver")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/aw88261.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/intel/boards/sof_sdw.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index 82923b454dd47..6e2266b713862 100644
---- a/sound/soc/codecs/aw88261.c
-+++ b/sound/soc/codecs/aw88261.c
-@@ -652,6 +652,8 @@ static int aw88261_reg_update(struct aw88261 *aw88261, bool force)
- 			ret = aw88261_dev_fw_update(aw88261);
- 			if (ret)
- 				return ret;
-+		} else {
-+			ret = 0;
- 		}
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index fd27e211211bd..8f3329dcf7062 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -524,7 +524,7 @@ int sdw_prepare(struct snd_pcm_substream *substream)
+ 
+ 	sdw_stream = snd_soc_dai_get_stream(dai, substream->stream);
+ 	if (IS_ERR(sdw_stream)) {
+-		dev_err(rtd->dev, "no stream found for DAI %s", dai->name);
++		dev_err(rtd->dev, "no stream found for DAI %s\n", dai->name);
+ 		return PTR_ERR(sdw_stream);
  	}
  
+@@ -543,7 +543,7 @@ int sdw_trigger(struct snd_pcm_substream *substream, int cmd)
+ 
+ 	sdw_stream = snd_soc_dai_get_stream(dai, substream->stream);
+ 	if (IS_ERR(sdw_stream)) {
+-		dev_err(rtd->dev, "no stream found for DAI %s", dai->name);
++		dev_err(rtd->dev, "no stream found for DAI %s\n", dai->name);
+ 		return PTR_ERR(sdw_stream);
+ 	}
+ 
+@@ -565,7 +565,7 @@ int sdw_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	}
+ 
+ 	if (ret)
+-		dev_err(rtd->dev, "%s trigger %d failed: %d", __func__, cmd, ret);
++		dev_err(rtd->dev, "%s trigger %d failed: %d\n", __func__, cmd, ret);
+ 
+ 	return ret;
+ }
+@@ -630,7 +630,7 @@ int sdw_hw_free(struct snd_pcm_substream *substream)
+ 
+ 	sdw_stream = snd_soc_dai_get_stream(dai, substream->stream);
+ 	if (IS_ERR(sdw_stream)) {
+-		dev_err(rtd->dev, "no stream found for DAI %s", dai->name);
++		dev_err(rtd->dev, "no stream found for DAI %s\n", dai->name);
+ 		return PTR_ERR(sdw_stream);
+ 	}
+ 
+@@ -1339,7 +1339,7 @@ static int get_slave_info(const struct snd_soc_acpi_link_adr *adr_link,
+ 			return -EINVAL;
+ 
+ 		if (index >= SDW_MAX_CPU_DAIS) {
+-			dev_err(dev, " cpu_dai_id array overflows");
++			dev_err(dev, "cpu_dai_id array overflows\n");
+ 			return -EINVAL;
+ 		}
+ 
+@@ -1490,7 +1490,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 				return -ENOMEM;
+ 
+ 			if (cpu_dai_index >= sdw_cpu_dai_num) {
+-				dev_err(dev, "invalid cpu dai index %d",
++				dev_err(dev, "invalid cpu dai index %d\n",
+ 					cpu_dai_index);
+ 				return -EINVAL;
+ 			}
+@@ -1503,12 +1503,12 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 		 * not be larger than sdw_be_num
+ 		 */
+ 		if (*link_index >= sdw_be_num) {
+-			dev_err(dev, "invalid dai link index %d", *link_index);
++			dev_err(dev, "invalid dai link index %d\n", *link_index);
+ 			return -EINVAL;
+ 		}
+ 
+ 		if (*cpu_id >= sdw_cpu_dai_num) {
+-			dev_err(dev, " invalid cpu dai index %d", *cpu_id);
++			dev_err(dev, "invalid cpu dai index %d\n", *cpu_id);
+ 			return -EINVAL;
+ 		}
+ 
+@@ -1531,7 +1531,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 		ret = set_codec_init_func(card, adr_link, dai_links + (*link_index)++,
+ 					  playback, group_id, adr_index, dai_index);
+ 		if (ret < 0) {
+-			dev_err(dev, "failed to init codec %d", codec_index);
++			dev_err(dev, "failed to init codec %d\n", codec_index);
+ 			return ret;
+ 		}
+ 
+@@ -1675,7 +1675,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 
+ 			endpoint = adr_link->adr_d[i].endpoints;
+ 			if (endpoint->aggregated && !endpoint->group_id) {
+-				dev_err(dev, "invalid group id on link %x",
++				dev_err(dev, "invalid group id on link %x\n",
+ 					adr_link->mask);
+ 				continue;
+ 			}
+@@ -1698,7 +1698,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 							 &be_id, &codec_conf_index,
+ 							 &ignore_pch_dmic, append_dai_type, i, j);
+ 				if (ret < 0) {
+-					dev_err(dev, "failed to create dai link %d", link_index);
++					dev_err(dev, "failed to create dai link %d\n", link_index);
+ 					return ret;
+ 				}
+ 			}
 -- 
-2.39.2
+2.30.2
 

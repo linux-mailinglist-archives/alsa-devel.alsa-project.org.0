@@ -2,108 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D6BD7760A0
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 15:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C0E7760CF
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 15:29:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D1E1826;
-	Wed,  9 Aug 2023 15:27:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D1E1826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4110C851;
+	Wed,  9 Aug 2023 15:28:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4110C851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691587712;
-	bh=j707/CEmk2PshwkjcQb6kXs/51Kpqns2s8PV//bK5UE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1691587786;
+	bh=qQ+rA0nNtq/6IUeqetcLH9NcX56pYjmv6L/fXZmrGKU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BGa/fBQ+7qGZNlM0HtAMisAJAxpu0KiUjEM9nhBTNTvSL7p9/tw+tvweglc5Qxf7S
-	 tgb31tTCtVnUdN3u93BoeoxjbNXapA2Z1O+Ltnci4oqbJwCy0PD21UlwqODbl9EZEC
-	 qiBIUyotc9+lYIPZ/FQQajDCUJLE04H+2AZnXx1w=
+	b=B0+BQ6E9EaNM5ULf4FRc0SVVypS3bVqqpHuUgfcFVPcTYoFPY6sI5I7hT97gX/94g
+	 v7+3RuNCR7Og7NDjAsNR1jogJ7i5kXslNo442U7Rbar74u+kQaLGRtPz1/S7yvUEdq
+	 ijQIzu32F3ozGu7RAEKUeRegrOwWno5Wb4vulUTE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E9C1F80536; Wed,  9 Aug 2023 15:27:41 +0200 (CEST)
+	id A5FCBF80580; Wed,  9 Aug 2023 15:28:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24857F80116;
-	Wed,  9 Aug 2023 15:27:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FD7AF8057B;
+	Wed,  9 Aug 2023 15:28:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 406DEF80134; Wed,  9 Aug 2023 15:27:37 +0200 (CEST)
+	id EBD7BF8055A; Wed,  9 Aug 2023 15:28:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::222])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0CFFF800F4
-	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 15:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0CFFF800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 55F73F80553
+	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 15:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55F73F80553
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=cETtlNG9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=cMXcQH5R
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3C4651F38C;
-	Wed,  9 Aug 2023 13:27:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1691587651;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=GKkE0QnJ
+Received: by mail.gandi.net (Postfix) with ESMTPA id 3F11C40017;
+	Wed,  9 Aug 2023 13:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1691587693;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nIX3lCVmUvfLng/H4i3S7o/LiXJASVOU5MA1UwUybqE=;
-	b=cETtlNG9MiOHzy63fi+PoAP5oRprAs/ECbhLw7xdIqCeVYqAvZJyMFNpkaHVtIeXLMN54M
-	zO9O9kB0lq3SHvvhd3CQYL1QUG29Ud3Mal4DlUsoerRbcayKd7g96xY1eiNjaKewpaMbQm
-	U+0QVnhyBtUlDazBEaeFPRD1Ov7ifC0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691587651;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nIX3lCVmUvfLng/H4i3S7o/LiXJASVOU5MA1UwUybqE=;
-	b=cMXcQH5RUQZAqxD5fCypRYy8bxZaWaOdkcK9db7TPQ2VN5bxbfvarb2eZchirOL5N/YOHf
-	itllA8/k+mc1lRBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EB70D13251;
-	Wed,  9 Aug 2023 13:27:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id cxxWOEKU02Q1DwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 09 Aug 2023 13:27:30 +0000
-Date: Wed, 09 Aug 2023 15:27:30 +0200
-Message-ID: <87sf8se471.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Curtis Malainey <cujomalainey@google.com>
-Cc: alsa-devel@alsa-project.org,
-	Curtis Malainey <cujomalainey@chromium.org>,
-	Stephen Boyd <swboyd@google.com>
-Subject: Re: [PATCH RFC 0/6] ALSA: Fix UAF with delayed kobj release
-In-Reply-To: <87o7jgfxgj.wl-tiwai@suse.de>
-References: <20230807135207.17708-1-tiwai@suse.de>
-	<CAOReqxhV=gfwNpxnEU+ruOx6gjD2BSZbYPJ6+iWzkPCidFmCBA@mail.gmail.com>
-	<CAOReqxgCDdXAEyF8pt4dePQ2H_ub=hYczvO1xGpKWAt35z5B2Q@mail.gmail.com>
-	<87o7jgfxgj.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
+	bh=i0fWOl/U0Ykj1jjA3AazLsy+i4Gi/qAut5N7j+GBqn8=;
+	b=GKkE0QnJZUZ5jECQZCLSagZrk09mM/np/fQ+qAONM82PzA/67syCTAg3rHidgXvuPgocj7
+	fOs+J3KFBHwsopkpYQfUg/WiMFs5Sgie3gSzzfmyXv1a1zQBnPGrzAURCOiil8ksjo7rLp
+	PjdoZ+YOpruu84yJSmBc3ukHMMm57PL44P0yMkN7F1KKptscdeBtjjESyYsfPSG8ed2RCU
+	8TUVFO6yuLh9hTjM3g9zpcBSFBFREphm4S9KIpKKXXQSbBuo75LSiv2vZnI5N7WTuhvfM7
+	YJujheLdQbIfAETM3rA8DQVYXQViHqKkAML2WpPhTRWS3XYSNoPagDMNkeeDuQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Qiang Zhao <qiang.zhao@nxp.com>,
+	Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	alsa-devel@alsa-project.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v3 04/28] soc: fsl: cpm1: qmc: Extend the API to provide Rx
+ status
+Date: Wed,  9 Aug 2023 15:27:31 +0200
+Message-ID: <20230809132757.2470544-5-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230809132757.2470544-1-herve.codina@bootlin.com>
+References: <20230809132757.2470544-1-herve.codina@bootlin.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R7BR57LWPLR2YYXLHM2H5ZCWU6YT3R6F
-X-Message-ID-Hash: R7BR57LWPLR2YYXLHM2H5ZCWU6YT3R6F
-X-MailFrom: tiwai@suse.de
+X-GND-Sasl: herve.codina@bootlin.com
+Message-ID-Hash: RQGDZ2CWO2ZXNI2LE3Y3EHBDN4UCSFAJ
+X-Message-ID-Hash: RQGDZ2CWO2ZXNI2LE3Y3EHBDN4UCSFAJ
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R7BR57LWPLR2YYXLHM2H5ZCWU6YT3R6F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RQGDZ2CWO2ZXNI2LE3Y3EHBDN4UCSFAJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,49 +122,140 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 09 Aug 2023 10:10:04 +0200,
-Takashi Iwai wrote:
-> 
-> On Tue, 08 Aug 2023 21:26:55 +0200,
-> Curtis Malainey wrote:
-> > 
-> > On Mon, Aug 7, 2023 at 3:34 PM Curtis Malainey <cujomalainey@google.com> wrote:
-> > >
-> > > > It's just a RFC and only lightly tested.
-> > >
-> > > Thanks for the series
-> > >
-> > > I will be hammering this in my test setup for next several hours
-> > 
-> > Testing has yielded 0 bugs overnight.
-> > 
-> > After discussion it seems like this might be more of a workaround for
-> > the APIs than properly using them. Adding Stephen for more input but
-> > having two kobj in the same allocation is technically not correct as
-> > you essentially refcounting the same thing twice. Also having an empty
-> > release function essentially nullifies the purpose of the refcounts.
-> > We should probably consider something that uses the API as intended
-> > rather than trying to fight their function.
-> 
-> Moving each PCM device and control device to own object and properly
-> release in the own device release could be another way to go.
-> 
-> OTOH, I'm still wondering whether how to assure synchronization if all
-> device releases are done asynchronously.  If there are some
-> dependencies between the resources (e.g. taking the parent's lock) at
-> release, and how can it be guaranteed to work?  Or, the release calls
-> must not touch anything outside its own?  If so, we'll still need to
-> two places to finish the stuff: quiesce and release.
+In HDLC mode, some status flags related to the data read transfer can be
+set by the hardware and need to be known by a QMC consumer for further
+analysis.
 
-And now looking back at kobj code and device code, they do refcount
-parent objects.  Maybe the problem is in our side -- the all devices
-are created with the original real device as the parent, including the
-card_dev, while there are some dependencies among children.  So, if we
-build up a proper tree, pci_dev -> card_dev -> ctl_dev, pcm_dev, etc,
-one of the problems could be solved.  It's more or less similar as
-what I suggested initially (referring card_dev at pcm), while changing
-the parent would make it implicitly.
+Extend the API in order to provide these transfer status flags at the
+read complete() call.
 
+In TRANSPARENT mode, these flags have no meaning. Keep only one read
+complete() API and update the consumers working in transparent mode.
+In this case, the newly introduced flags parameter is simply unused.
 
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+---
+ drivers/soc/fsl/qe/qmc.c      | 29 +++++++++++++++++++++++++----
+ include/soc/fsl/qe/qmc.h      | 15 ++++++++++++++-
+ sound/soc/fsl/fsl_qmc_audio.c |  2 +-
+ 3 files changed, 40 insertions(+), 6 deletions(-)
 
-Takashi
+diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
+index 8dc73cc1a83b..2d2a9d88ba6c 100644
+--- a/drivers/soc/fsl/qe/qmc.c
++++ b/drivers/soc/fsl/qe/qmc.c
+@@ -166,7 +166,7 @@
+ struct qmc_xfer_desc {
+ 	union {
+ 		void (*tx_complete)(void *context);
+-		void (*rx_complete)(void *context, size_t length);
++		void (*rx_complete)(void *context, size_t length, unsigned int flags);
+ 	};
+ 	void *context;
+ };
+@@ -421,7 +421,8 @@ static void qmc_chan_write_done(struct qmc_chan *chan)
+ }
+ 
+ int qmc_chan_read_submit(struct qmc_chan *chan, dma_addr_t addr, size_t length,
+-			 void (*complete)(void *context, size_t length), void *context)
++			 void (*complete)(void *context, size_t length, unsigned int flags),
++			 void *context)
+ {
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+@@ -454,6 +455,10 @@ int qmc_chan_read_submit(struct qmc_chan *chan, dma_addr_t addr, size_t length,
+ 	xfer_desc->rx_complete = complete;
+ 	xfer_desc->context = context;
+ 
++	/* Clear previous status flags */
++	ctrl &= ~(QMC_BD_RX_L | QMC_BD_RX_F | QMC_BD_RX_LG | QMC_BD_RX_NO |
++		  QMC_BD_RX_AB | QMC_BD_RX_CR);
++
+ 	/* Activate the descriptor */
+ 	ctrl |= (QMC_BD_RX_E | QMC_BD_RX_UB);
+ 	wmb(); /* Be sure to flush data before descriptor activation */
+@@ -485,7 +490,7 @@ EXPORT_SYMBOL(qmc_chan_read_submit);
+ 
+ static void qmc_chan_read_done(struct qmc_chan *chan)
+ {
+-	void (*complete)(void *context, size_t size);
++	void (*complete)(void *context, size_t size, unsigned int flags);
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+ 	cbd_t __iomem *bd;
+@@ -527,7 +532,23 @@ static void qmc_chan_read_done(struct qmc_chan *chan)
+ 
+ 		if (complete) {
+ 			spin_unlock_irqrestore(&chan->rx_lock, flags);
+-			complete(context, datalen);
++
++			/*
++			 * Avoid conversion between internal hardware flags and
++			 * the software API flags.
++			 * -> Be sure that the software API flags are consistent
++			 *    with the hardware flags
++			 */
++			BUILD_BUG_ON(QMC_RX_FLAG_HDLC_LAST  != QMC_BD_RX_L);
++			BUILD_BUG_ON(QMC_RX_FLAG_HDLC_FIRST != QMC_BD_RX_F);
++			BUILD_BUG_ON(QMC_RX_FLAG_HDLC_OVF   != QMC_BD_RX_LG);
++			BUILD_BUG_ON(QMC_RX_FLAG_HDLC_UNA   != QMC_BD_RX_NO);
++			BUILD_BUG_ON(QMC_RX_FLAG_HDLC_ABORT != QMC_BD_RX_AB);
++			BUILD_BUG_ON(QMC_RX_FLAG_HDLC_CRC   != QMC_BD_RX_CR);
++
++			complete(context, datalen,
++				 ctrl & (QMC_BD_RX_L | QMC_BD_RX_F | QMC_BD_RX_LG |
++					 QMC_BD_RX_NO | QMC_BD_RX_AB | QMC_BD_RX_CR));
+ 			spin_lock_irqsave(&chan->rx_lock, flags);
+ 		}
+ 
+diff --git a/include/soc/fsl/qe/qmc.h b/include/soc/fsl/qe/qmc.h
+index 3c61a50d2ae2..6f1d6cebc9fe 100644
+--- a/include/soc/fsl/qe/qmc.h
++++ b/include/soc/fsl/qe/qmc.h
+@@ -9,6 +9,7 @@
+ #ifndef __SOC_FSL_QMC_H__
+ #define __SOC_FSL_QMC_H__
+ 
++#include <linux/bits.h>
+ #include <linux/types.h>
+ 
+ struct device_node;
+@@ -56,8 +57,20 @@ int qmc_chan_set_param(struct qmc_chan *chan, const struct qmc_chan_param *param
+ int qmc_chan_write_submit(struct qmc_chan *chan, dma_addr_t addr, size_t length,
+ 			  void (*complete)(void *context), void *context);
+ 
++/* Flags available (ORed) for read complete() flags parameter in HDLC mode.
++ * No flags are available in transparent mode and the read complete() flags
++ * parameter has no meaning in transparent mode.
++ */
++#define QMC_RX_FLAG_HDLC_LAST	BIT(11) /* Last in frame */
++#define QMC_RX_FLAG_HDLC_FIRST	BIT(10) /* First in frame */
++#define QMC_RX_FLAG_HDLC_OVF	BIT(5)  /* Data overflow */
++#define QMC_RX_FLAG_HDLC_UNA	BIT(4)  /* Unaligned (ie. bits received not multiple of 8) */
++#define QMC_RX_FLAG_HDLC_ABORT	BIT(3)  /* Received an abort sequence (seven consecutive ones) */
++#define QMC_RX_FLAG_HDLC_CRC	BIT(2)  /* CRC error */
++
+ int qmc_chan_read_submit(struct qmc_chan *chan, dma_addr_t addr, size_t length,
+-			 void (*complete)(void *context, size_t length),
++			 void (*complete)(void *context, size_t length,
++					  unsigned int flags),
+ 			 void *context);
+ 
+ #define QMC_CHAN_READ  (1<<0)
+diff --git a/sound/soc/fsl/fsl_qmc_audio.c b/sound/soc/fsl/fsl_qmc_audio.c
+index 56d6b0b039a2..bfaaa451735b 100644
+--- a/sound/soc/fsl/fsl_qmc_audio.c
++++ b/sound/soc/fsl/fsl_qmc_audio.c
+@@ -99,7 +99,7 @@ static void qmc_audio_pcm_write_complete(void *context)
+ 	snd_pcm_period_elapsed(prtd->substream);
+ }
+ 
+-static void qmc_audio_pcm_read_complete(void *context, size_t length)
++static void qmc_audio_pcm_read_complete(void *context, size_t length, unsigned int flags)
+ {
+ 	struct qmc_dai_prtd *prtd = context;
+ 	int ret;
+-- 
+2.41.0
+

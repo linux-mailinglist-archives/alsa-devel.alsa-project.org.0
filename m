@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6132E7761FC
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 16:04:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4827C776204
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 16:05:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2175DED;
-	Wed,  9 Aug 2023 16:03:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2175DED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62A76E0F;
+	Wed,  9 Aug 2023 16:04:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62A76E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691589842;
-	bh=rWYDjSbFqOgRc8Q8WKMQsrf/MQo/GPQ+4uQ2qbYYzPU=;
+	s=default; t=1691589934;
+	bh=R7G+TQBcptv+xFcs0uqi4t7R11t4UQ+MShRNTHWRbZc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fP630KD9RWE3vJAmgnJCborJFG9+foK8CNbr+3ZomTresWSV1LmkMcIstRBOo4DQr
-	 vTBWc9/MdzIDpV4VXUBHRg1uoaq3v9LrbuqvXfKXo0cMBAMAdvGq5kpOLrRZzuAFBS
-	 HEAEqegdSiSk5GF2JrBMcQ0w8K5+0TU1Y6c08iwY=
+	b=aktZaCv7TW/tb2UfWsu8EkwNoQddBGuU0jdj5E8ZAPoPGX8ZwJM0cjmVJz9rqytnB
+	 jbQ1qTCqqazHf+cLziBXOhdPtr4W1xjFmN07PBAWZdMAX4bMeedZoDuXkRJ+4fVcOn
+	 hVhK02JZwKwvmxfbxfYrW8v0uDBM95XXKEn+VkU8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88AF1F80549; Wed,  9 Aug 2023 16:03:12 +0200 (CEST)
+	id 808B9F80134; Wed,  9 Aug 2023 16:04:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DF4FF8016E;
-	Wed,  9 Aug 2023 16:03:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC2B3F80116;
+	Wed,  9 Aug 2023 16:04:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93D19F801EB; Wed,  9 Aug 2023 16:03:09 +0200 (CEST)
+	id 896FFF80134; Wed,  9 Aug 2023 16:04:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,67 +37,68 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 920B1F800FE
-	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 16:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 920B1F800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B756F800FE
+	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 16:04:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B756F800FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=TmrpayXR;
+ header.s=susede2_rsa header.b=ZMeQ6ydv;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=tRGuqcgc
+ header.s=susede2_ed25519 header.b=/5Js4drN
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 22FFB1F38A;
-	Wed,  9 Aug 2023 14:03:01 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1F8CB1F38C;
+	Wed,  9 Aug 2023 14:04:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1691589781;
+	t=1691589871;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Zpi39O3Z3v53Q0iUXSpOYU/cxfrB4pSTncGNeRqvBZ0=;
-	b=TmrpayXRN0ki7g+0dGU/+Ax9SBG8IE07X6BSX3HBjDSI/N9oq+2jVyASQhgG6RXZ9YXhav
-	ptla7GPKK+rOLsa1Q2x8x252G4tKvcyxJ5Lb5cp4vrhSksRAXJJDlEYWi4Y2jz84keUyuj
-	x1e7sGejjtmuSPv9u/oY36djbjZ7KZc=
+	bh=gpRhv21nUll8M2hRktXD7evPQXpiruatUOPPJP4LeL8=;
+	b=ZMeQ6ydvPgWCFJcH59qjzT3rj0RGqRDHzQcMkSWmrfKFg4OChnAKwxySGy2eEZJtiOmQdc
+	ZmVCsz/0bXzLUZFi1CO3AbpSUCN8p+po8rp1LcezB+2ULvzFnmIrdOa4tNumKRutLUpZKR
+	stLkoDUu1hyF3+1c0rEpkY4ExlbDGIY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691589781;
+	s=susede2_ed25519; t=1691589871;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Zpi39O3Z3v53Q0iUXSpOYU/cxfrB4pSTncGNeRqvBZ0=;
-	b=tRGuqcgc8yiuv6DX33Rjaiy3eIsZw40Q7p5eWUszrjGI5kwpcmDgRUqessMB98KMjlKNfp
-	+u1gDMbfYs0RlPDg==
+	bh=gpRhv21nUll8M2hRktXD7evPQXpiruatUOPPJP4LeL8=;
+	b=/5Js4drN+VsXFNNBv3AS30Kt/VXnVyS6QViipEoehoejC8mU4yk2D6oe0Z56wIPMw+Wjga
+	UWmffNeo6phXTTCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E5AA1133B5;
-	Wed,  9 Aug 2023 14:03:00 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E41D2133B5;
+	Wed,  9 Aug 2023 14:04:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +U4MN5Sc02SDIAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 09 Aug 2023 14:03:00 +0000
-Date: Wed, 09 Aug 2023 16:03:00 +0200
-Message-ID: <87msz0e2jv.wl-tiwai@suse.de>
+	id w/+yNu6c02Q+IQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 09 Aug 2023 14:04:30 +0000
+Date: Wed, 09 Aug 2023 16:04:30 +0200
+Message-ID: <87leeke2hd.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org,
-	Rolf Anderegg <rolf.anderegg@weiss.ch>,
-	Michele Perrone <michele.perrone@weiss.ch>
-Subject: Re: [PATCH] ALSA: dice: add stream format parameters for Weiss
- devices
-In-Reply-To: <20230809002631.750120-1-o-takashi@sakamocchi.jp>
-References: <20230809002631.750120-1-o-takashi@sakamocchi.jp>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH v1 0/2] Add HP G11 Quirks and update Dell Oasis Quirks
+In-Reply-To: <20230809140048.669797-1-sbinding@opensource.cirrus.com>
+References: <20230809140048.669797-1-sbinding@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ZBXRECXWQIPHJPXIEYKWCODBPVDBZG5U
-X-Message-ID-Hash: ZBXRECXWQIPHJPXIEYKWCODBPVDBZG5U
+Message-ID-Hash: 5DIEE52ELGEUMWPGVDPXG5DKQ2KF3ZRY
+X-Message-ID-Hash: 5DIEE52ELGEUMWPGVDPXG5DKQ2KF3ZRY
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZBXRECXWQIPHJPXIEYKWCODBPVDBZG5U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5DIEE52ELGEUMWPGVDPXG5DKQ2KF3ZRY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,242 +120,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 09 Aug 2023 02:26:31 +0200,
-Takashi Sakamoto wrote:
+On Wed, 09 Aug 2023 16:00:46 +0200,
+Stefan Binding wrote:
 > 
-> This patch is for kernel prepatch v6.5.
+> Add quirks to support HP G11 using CS35l41 HDA, using both SPI and I2C.
+> One older HP laptop has an SSID removed.
+> In addition, all Dell Oasis laptops using CS35L41 have been switch to
+> use SPI, with one SSID removed.
+> 
+> Stefan Binding (2):
+>   ALSA: hda/realtek: Add quirks for HP G11 Laptops
+>   ALSA: hda/realtek: Switch Dell Oasis models to use SPI
 
-Why it must be included in 6.5?  This sounds more like a new
-implementation, rather than an urgent but fix that is needed for rc.
+Both look like correction of the existing quirks.
+Could you put the corresponding Fixes tags?
 
 
 thanks,
 
 Takashi
-
-> Hard-coded stream format parameters are added for Weiss Engineering
-> FireWire devices. When the device vendor and model match, the parameters
-> are copied into the stream format cache. This allows for setting all
-> supported sampling rates up to 192kHz, and consequently adjusting the
-> number of available I/O channels.
-> 
-> Signed-off-by: Rolf Anderegg <rolf.anderegg@weiss.ch>
-> Signed-off-by: Michele Perrone <michele.perrone@weiss.ch>
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> ---
->  sound/firewire/dice/Makefile     |   2 +-
->  sound/firewire/dice/dice-weiss.c | 104 +++++++++++++++++++++++++++++++
->  sound/firewire/dice/dice.c       |  63 +++++++++++++++++++
->  sound/firewire/dice/dice.h       |   1 +
->  4 files changed, 169 insertions(+), 1 deletion(-)
->  create mode 100644 sound/firewire/dice/dice-weiss.c
-> 
-> diff --git a/sound/firewire/dice/Makefile b/sound/firewire/dice/Makefile
-> index a5f3fbf28b8c..bac8712f9014 100644
-> --- a/sound/firewire/dice/Makefile
-> +++ b/sound/firewire/dice/Makefile
-> @@ -2,5 +2,5 @@
->  snd-dice-objs := dice-transaction.o dice-stream.o dice-proc.o dice-midi.o \
->  		 dice-pcm.o dice-hwdep.o dice.o dice-tcelectronic.o \
->  		 dice-alesis.o dice-extension.o dice-mytek.o dice-presonus.o \
-> -		 dice-harman.o dice-focusrite.o
-> +		 dice-harman.o dice-focusrite.o dice-weiss.o
->  obj-$(CONFIG_SND_DICE) += snd-dice.o
-> diff --git a/sound/firewire/dice/dice-weiss.c b/sound/firewire/dice/dice-weiss.c
-> new file mode 100644
-> index 000000000000..129d43408956
-> --- /dev/null
-> +++ b/sound/firewire/dice/dice-weiss.c
-> @@ -0,0 +1,104 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// dice-weiss.c - a part of driver for DICE based devices
-> +//
-> +// Copyright (c) 2023 Rolf Anderegg and Michele Perrone
-> +
-> +#include "dice.h"
-> +
-> +struct dice_weiss_spec {
-> +	unsigned int tx_pcm_chs[MAX_STREAMS][SND_DICE_RATE_MODE_COUNT];
-> +	unsigned int rx_pcm_chs[MAX_STREAMS][SND_DICE_RATE_MODE_COUNT];
-> +};
-> +
-> +// Weiss DAC202: 192kHz 2-channel DAC
-> +static const struct dice_weiss_spec dac202 = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss MAN301: 192kHz 2-channel music archive network player
-> +static const struct dice_weiss_spec man301 = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss INT202: 192kHz unidirectional 2-channel digital Firewire nterface
-> +static const struct dice_weiss_spec int202 = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss INT203: 192kHz bidirectional 2-channel digital Firewire nterface
-> +static const struct dice_weiss_spec int203 = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss ADC2: 192kHz A/D converter with microphone preamps and line nputs
-> +static const struct dice_weiss_spec adc2 = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss DAC2/Minerva: 192kHz 2-channel DAC
-> +static const struct dice_weiss_spec dac2_minerva = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss Vesta: 192kHz 2-channel Firewire to AES/EBU interface
-> +static const struct dice_weiss_spec vesta = {
-> +	.tx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{2, 2, 2}, {0, 0, 0} },
-> +};
-> +
-> +// Weiss AFI1: 192kHz 24-channel Firewire to ADAT or AES/EBU interface
-> +static const struct dice_weiss_spec afi1 = {
-> +	.tx_pcm_chs = {{24, 16, 8}, {0, 0, 0} },
-> +	.rx_pcm_chs = {{24, 16, 8}, {0, 0, 0} },
-> +};
-> +
-> +int snd_dice_detect_weiss_formats(struct snd_dice *dice)
-> +{
-> +	static const struct {
-> +		u32 model_id;
-> +		const struct dice_weiss_spec *spec;
-> +	} *entry, entries[] = {
-> +		{0x000007, &dac202},
-> +		{0x000008, &dac202}, // Maya edition: same audio I/O as DAC202.
-> +		{0x000006, &int202},
-> +		{0x00000a, &int203},
-> +		{0x00000b, &man301},
-> +		{0x000001, &adc2},
-> +		{0x000003, &dac2_minerva},
-> +		{0x000002, &vesta},
-> +		{0x000004, &afi1},
-> +	};
-> +	struct fw_csr_iterator it;
-> +	int key, val, model_id;
-> +	int i;
-> +
-> +	model_id = 0;
-> +	fw_csr_iterator_init(&it, dice->unit->directory);
-> +	while (fw_csr_iterator_next(&it, &key, &val)) {
-> +		if (key == CSR_MODEL) {
-> +			model_id = val;
-> +			break;
-> +		}
-> +	}
-> +
-> +	for (i = 0; i < ARRAY_SIZE(entries); ++i) {
-> +		entry = entries + i;
-> +		if (entry->model_id == model_id)
-> +			break;
-> +	}
-> +	if (i == ARRAY_SIZE(entries))
-> +		return -ENODEV;
-> +
-> +	memcpy(dice->tx_pcm_chs, entry->spec->tx_pcm_chs,
-> +	       MAX_STREAMS * SND_DICE_RATE_MODE_COUNT * sizeof(unsigned int));
-> +	memcpy(dice->rx_pcm_chs, entry->spec->rx_pcm_chs,
-> +	       MAX_STREAMS * SND_DICE_RATE_MODE_COUNT * sizeof(unsigned int));
-> +
-> +	return 0;
-> +}
-> diff --git a/sound/firewire/dice/dice.c b/sound/firewire/dice/dice.c
-> index 6c93e6e4982c..d362e4251c68 100644
-> --- a/sound/firewire/dice/dice.c
-> +++ b/sound/firewire/dice/dice.c
-> @@ -392,6 +392,69 @@ static const struct ieee1394_device_id dice_id_table[] = {
->  		.model_id	= 0x0000de,
->  		.driver_data	= (kernel_ulong_t)snd_dice_detect_focusrite_pro40_tcd3070_formats,
->  	},
-> +	// Weiss DAC202: 192kHz 2-channel DAC
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000007,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss DAC202: 192kHz 2-channel DAC (Maya edition)
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000008,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss MAN301: 192kHz 2-channel music archive network player
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x00000b,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss INT202: 192kHz unidirectional 2-channel digital Firewire face
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000006,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss INT203: 192kHz bidirectional 2-channel digital Firewire face
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x00000a,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss ADC2: 192kHz A/D converter with microphone preamps and inputs
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000001,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss DAC2/Minerva: 192kHz 2-channel DAC
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000003,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss Vesta: 192kHz 2-channel Firewire to AES/EBU interface
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000002,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
-> +	// Weiss AFI1: 192kHz 24-channel Firewire to ADAT or AES/EBU face
-> +	{
-> +		.match_flags	= IEEE1394_MATCH_VENDOR_ID | IEEE1394_MATCH_MODEL_ID,
-> +		.vendor_id	= OUI_WEISS,
-> +		.model_id	= 0x000004,
-> +		.driver_data	= (kernel_ulong_t)snd_dice_detect_weiss_formats,
-> +	},
->  	{
->  		.match_flags = IEEE1394_MATCH_VERSION,
->  		.version     = DICE_INTERFACE,
-> diff --git a/sound/firewire/dice/dice.h b/sound/firewire/dice/dice.h
-> index 674f7d552c2e..4c0ad7335998 100644
-> --- a/sound/firewire/dice/dice.h
-> +++ b/sound/firewire/dice/dice.h
-> @@ -232,5 +232,6 @@ int snd_dice_detect_mytek_formats(struct snd_dice *dice);
->  int snd_dice_detect_presonus_formats(struct snd_dice *dice);
->  int snd_dice_detect_harman_formats(struct snd_dice *dice);
->  int snd_dice_detect_focusrite_pro40_tcd3070_formats(struct snd_dice *dice);
-> +int snd_dice_detect_weiss_formats(struct snd_dice *dice);
->  
->  #endif
-> -- 
-> 2.39.2
-> 

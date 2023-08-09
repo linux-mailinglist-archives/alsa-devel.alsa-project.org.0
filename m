@@ -2,102 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4503C776ACC
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 23:13:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122E5776C84
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 01:00:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C562E10E;
-	Wed,  9 Aug 2023 23:12:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C562E10E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC8D0826;
+	Thu, 10 Aug 2023 00:59:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC8D0826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691615583;
-	bh=hWTxk18VwLcsg1A9bm3RJxYQUx8Jmq72kMd0rrcr0tk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1691622014;
+	bh=oDiTi6Ux48qR/tQiXben60Nl/MxqBdDbSXTpSnZ8eNA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sUg6Taiy6g8hBXInC6k4VB2uqR5htSK87gXZVPegLtJYDPBmwVZS7A1ti8AqoT6+U
-	 bz8PQ4nUh8ngusnrMufx8eYroE5w53HxuI7OK0FcXmbdMUJT/YDqH67YTJ4bzMHSeA
-	 V+EpkF5ocVdiIRfiUj7IeCANSELoCtirOQae3jpg=
+	b=ndeueLZZz/CYZWzccOEra0HfjwoAeifySyni4JathM8lAk1y+Y1xME70TVfg391xH
+	 Qkd7dARNi+KtsJ8wuWd6CaxNXMuhHOYn0O0HE4J8kMtViurLLaN4rg6IDXEAfx8JM0
+	 QQZFuk8VXyn48TBT4qxKxyNhGiFsG/mbnNsSpyZc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08C8CF801EB; Wed,  9 Aug 2023 23:12:12 +0200 (CEST)
+	id 5985DF80508; Thu, 10 Aug 2023 00:59:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20F78F80116;
-	Wed,  9 Aug 2023 23:12:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 054F9F80166;
+	Thu, 10 Aug 2023 00:59:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A868AF80134; Wed,  9 Aug 2023 23:12:06 +0200 (CEST)
+	id 69BE6F8016E; Thu, 10 Aug 2023 00:57:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
-	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B084F800FB
-	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 23:11:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B084F800FB
+	by alsa1.perex.cz (Postfix) with ESMTPS id BF9C3F800FB
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 00:57:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF9C3F800FB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=HMdCJ015
-Received: by mail-pj1-x1036.google.com with SMTP id
- 98e67ed59e1d1-267f8f36a3cso143123a91.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 09 Aug 2023 14:11:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1691615517; x=1692220317;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=430byobd3IgQMde5d/6MrTdrEV3TnIvOaugDKYyvcWw=;
-        b=HMdCJ015aZgoTjts2UYzP96x5cwrqoohaqZ/2H82Rj9KZD0sRinz8eRizVLJm+OV7+
-         +loeYIvkVUOYksbPkXwVafForGzPZsQZITbkiG1rkUhasV6eyRAx64aWA/1Ri2oRnI8v
-         TkrqqWp7eLjVfyF4ONIpUj3qCsQA0rsuAYHni+FtE8tu/Y4w3STY/a6VVuTxqySyjFSC
-         UJNe3cllZsqj8cfJX3VICQ/PZLPf48x34VSWgMBCFFdElxEGO+bHK3efPfvuWacy1EMT
-         fNwrVhqoKAwasK1xgvyGtOwSWS1qhz5dv3xWr7CSO0Ha45iV5ig+6PGWIvg1x+lI7qeZ
-         adXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691615517; x=1692220317;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=430byobd3IgQMde5d/6MrTdrEV3TnIvOaugDKYyvcWw=;
-        b=chGRb0tqrzDo8z5TebLaHf/cCRPzfIaGvmSbowdxrhqKBVbQ0q3ezbCjjLFWrFN+As
-         8eoOt5XLdALcsCRLNbwhGSNgK1E2VGJWzSGLrvjhsDI8SE+S2O7AtMy5vhG2f3gRwz0W
-         T7DoKnBpBP0DglkqOyIB5gEbhvVpe8/ht2lGYqIvMjNq1KuXti/02H8HVjt5GgX2qccf
-         aYXsgvs3puljs6euD8FJCxRcjJ9cIZ5sYdwgZHB9lauyG5p2Old//yLLOqHrE8SXIGHN
-         1pt5OuDDYbJcYF7go2e0J/NG3bKGdlbm3KM7MLpNB9S0zlKw/BKMq04Ea8Fuw0Pcymy3
-         3jqQ==
-X-Gm-Message-State: AOJu0YwqDGy+AiyWzNpenEDkaIxJ2a7lVMSOjGzxiiRCQkBXdQ6M1bG7
-	VSd5vvzfsYRRmMvIuWCObEYCat2EV4MULEiJAaNRCw==
-X-Google-Smtp-Source: 
- AGHT+IGhTChYkYLOzr6kGAmRgqfdeodJUucTbSJL42HDWp5AgE/N5CYsmyGFznOuS+8UobV3frXBtd3L1ByWO1wQDK8=
-X-Received: by 2002:a17:90a:c207:b0:267:f7eb:f12e with SMTP id
- e7-20020a17090ac20700b00267f7ebf12emr394924pjt.39.1691615516489; Wed, 09 Aug
- 2023 14:11:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230807135207.17708-1-tiwai@suse.de>
- <CAOReqxhV=gfwNpxnEU+ruOx6gjD2BSZbYPJ6+iWzkPCidFmCBA@mail.gmail.com>
- <CAOReqxgCDdXAEyF8pt4dePQ2H_ub=hYczvO1xGpKWAt35z5B2Q@mail.gmail.com>
- <87o7jgfxgj.wl-tiwai@suse.de> <87sf8se471.wl-tiwai@suse.de>
-In-Reply-To: <87sf8se471.wl-tiwai@suse.de>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Wed, 9 Aug 2023 14:11:45 -0700
-Message-ID: 
- <CAOReqxjnWruX20YyUcAjwv8zLourFv4hUKGq9_1FBsXA6Fra9Q@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/6] ALSA: Fix UAF with delayed kobj release
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm3 header.b=QNJIJLzY;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=Wy2ksYs9
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id 400055C0180;
+	Wed,  9 Aug 2023 18:57:28 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Wed, 09 Aug 2023 18:57:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1691621848; x=
+	1691708248; bh=/etXy+uTZdCkSrEEuEChQJn/K8kkZi+ukVdV5Tn53Eg=; b=Q
+	NJIJLzYdWwMroycYGIGPTp5VdemRJI/V59Lzn25i8ScwKcaQJL7b3pNtQy5cHbt1
+	n26XLeKGx0S8N/xI0Pg5rVv0BFjRUfVIVKCvVU1/PZjlj16aAiZ1+xEoE0EAZyaf
+	cUJKjC9cRxA4Z92ZEaZXwAuLcIKy/3fxrqnXo/mv7yAy4ZB/RirvY2PMdtrEkdXp
+	bHe0xNVp08qdSV1ldli2pkMepd8YSU0lSHV9O7w8rgEMjPl7QyC69/QTHbKWUCwk
+	yxcwxHmAL4D2AgBCgHJWBIs9QowAH6xDNXTYr8wsDKMcM5FcNeXA9J01W77RdZvY
+	CjGpjVqzzygcecYZ+NLmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1691621848; x=1691708248; bh=/etXy+uTZdCkS
+	rEEuEChQJn/K8kkZi+ukVdV5Tn53Eg=; b=Wy2ksYs9JAmDbZwyzCoMZ7b33IFpy
+	HfjCXQvcuNPaDHXnfmFpk8XIp9/Po3BtWdn0qpa5P0qalA1VeyQ4UjblLYt7mJdy
+	7SN0mJFuFEBDHhfT6LsNPXYVQxEJcPwfolZ0+bCbgOlpyGjZ64pFj6P/4KulFRLl
+	INLEBgJS/wMA5dmLfdpBqnus4mh28+ua74XeZxSP3v5yhEafke5GW9DbKJKrNplg
+	sLFtYNTV6cu1xXftXEg9e8RMYGd2I3aBp+jXBVij8RdQf7D3kslEfqpu4ZVOrxla
+	DTYwuSXelYhPlBafH8Y5WW3LE/cnTXrIMXEvvRXGSaotKGE86V5Td3fQA==
+X-ME-Sender: <xms:1xnUZNVz_RuPViiShb5EBwu6YxQEfKJIace_ic3sbXt5ReDlW-Ie5A>
+    <xme:1xnUZNnLTWekmL7VziQeAlEA594I_qJOKghHYkAZydTRkC6awXZ8uZK_gp1XJ2GW5
+    QEkLYuixn5lBO77wXY>
+X-ME-Received: 
+ <xmr:1xnUZJYZsfI7qMeJQUHOCLjygBrcJBedF2mv482_tOfeGLnFFu5if7WUgXc3LaVIEcDlMfmCt4btN5FxmOPn_SIlFab-jUdpF0c>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedviedrleehgddugecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+    hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+    hpqeenucggtffrrghtthgvrhhnpeehhffhteetgfekvdeiueffveevueeftdelhfejieei
+    tedvleeftdfgfeeuudekueenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+    grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:1xnUZAUVkGG-4REPn4jRCf6Zq_Vw2P28mWF6GBKfUgAjIN_qpiPnVw>
+    <xmx:1xnUZHk1G_A3htpoWmWohrLeZER2J6qGGe4Wi-H3E_EgFTIEzBA_Xw>
+    <xmx:1xnUZNcWE2jBNns0sedOf1uY4XLbomAWEEu0luts6l_C95iGcNYW3w>
+    <xmx:2BnUZMwYAHiO40EJ9PpoWBZoJOxxvpRiSyKK7vGvzE3uPcBQSCcy0A>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Aug 2023 18:57:26 -0400 (EDT)
+Date: Thu, 10 Aug 2023 07:57:22 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Curtis Malainey <cujomalainey@chromium.org>,
-	Stephen Boyd <swboyd@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: CJ3DDWFGKTDPPIJHGPCD6PON6PEMLERE
-X-Message-ID-Hash: CJ3DDWFGKTDPPIJHGPCD6PON6PEMLERE
-X-MailFrom: cujomalainey@google.com
+Cc: alsa-devel@alsa-project.org, Rolf Anderegg <rolf.anderegg@weiss.ch>,
+	Michele Perrone <michele.perrone@weiss.ch>
+Subject: Re: [PATCH] ALSA: dice: add stream format parameters for Weiss
+ devices
+Message-ID: <20230809225722.GA895382@workstation.local>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Rolf Anderegg <rolf.anderegg@weiss.ch>,
+	Michele Perrone <michele.perrone@weiss.ch>
+References: <20230809002631.750120-1-o-takashi@sakamocchi.jp>
+ <87msz0e2jv.wl-tiwai@suse.de>
+ <20230809141854.GA892647@workstation.local>
+ <87bkfge0uc.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87bkfge0uc.wl-tiwai@suse.de>
+Message-ID-Hash: XLUM63SIQ3KDYYZYNWR5TFB2M2QNP3L5
+X-Message-ID-Hash: XLUM63SIQ3KDYYZYNWR5TFB2M2QNP3L5
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CJ3DDWFGKTDPPIJHGPCD6PON6PEMLERE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XLUM63SIQ3KDYYZYNWR5TFB2M2QNP3L5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,22 +139,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->
-> And now looking back at kobj code and device code, they do refcount
-> parent objects.  Maybe the problem is in our side -- the all devices
-> are created with the original real device as the parent, including the
-> card_dev, while there are some dependencies among children.  So, if we
-> build up a proper tree, pci_dev -> card_dev -> ctl_dev, pcm_dev, etc,
-> one of the problems could be solved.  It's more or less similar as
-> what I suggested initially (referring card_dev at pcm), while changing
-> the parent would make it implicitly.
+On Wed, Aug 09, 2023 at 04:39:55PM +0200, Takashi Iwai wrote:
+> On Wed, 09 Aug 2023 16:18:54 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > Hi,
+> > 
+> > On Wed, Aug 09, 2023 at 04:03:00PM +0200, Takashi Iwai wrote:
+> > > On Wed, 09 Aug 2023 02:26:31 +0200,
+> > > Takashi Sakamoto wrote:
+> > > > 
+> > > > This patch is for kernel prepatch v6.5.
+> > > 
+> > > Why it must be included in 6.5?  This sounds more like a new
+> > > implementation, rather than an urgent but fix that is needed for rc.
+> > 
+> > Thanks for your notice to the patch. Indeed, it is neither urgent nor
+> > bug fix. It is a kind of 'adding support for new device with slight
+> > change', like adding new entries in mod device table. The overall change
+> > and new lines are quite typical in ALSA dice driver, like TC Electronic
+> > devices in 'sound/firewire/dice/dice-tcelectronic.c'. Things are
+> > prepared and not brand-new.
+> > 
+> > Precisely, current ALSA dice driver supports the Weiss models already,
+> > while the functionality is limited that the part of sampling transfer
+> > frequencies are available as the initial author said (e.g. when 44.1/48.0
+> > kHz are available, 88.2/96.0 kHz are not, vise versa). The patch extends
+> > the functionality by hard-coding stream formats following to the design
+> > of ALSA dice driver.
+> > 
+> > Of cource, I don't mind postponing the patch to v6.6 kernel, but in my
+> > point of view, it is worth to v6.5 since users got benefits from the
+> > code which is not so novel.
+> 
+> OK, then I'd rather put it to 6.6.
+> If it were for rc2, I could take it.  But it's already in a second
+> half turn, and I'd rather like to limit the changes for later rcs.
 
-Yes I think this would be the long term proper way to go, that way
-parents just put children and remove their reference, then they
-cleanup on their own time making everyone happy. My first patch was a
-very lazy attempt that, if we wanted to do the right thing we would
-obviously have to split the structs and free functions to operate in
-their own release. If you have time feel free to take another swing at
-the patches, otherwise I won't be able to start until next week.
+It sounds reasonable. So should I post the patch on your for-next branch?
 
-Curtis
+
+Thanks
+
+Takashi Sakamoto

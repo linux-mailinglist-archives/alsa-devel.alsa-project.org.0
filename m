@@ -2,98 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381AB77678B
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 20:42:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC9C77767A3
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 20:51:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4885210;
-	Wed,  9 Aug 2023 20:41:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4885210
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEA21827;
+	Wed,  9 Aug 2023 20:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEA21827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691606548;
-	bh=Tjc+ZL8zr1dEpEbee1DdKAwTTtNC80suij9zROizXTk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ds23d9nDyLhphbc956ehAUdPRMWGAlvLblye1138MlZs6Qq+HxlbXiIlnFffMs94s
-	 HkShaL6imNq8PDE3B0gxRl5AjZwyUdwkMBV6V7R26xfZajUy5Cn6wL6Un7yUdUqOwl
-	 QTnyjDlTTRDoRcPzxrVcofzimnVaOv3PLc0YukAM=
+	s=default; t=1691607092;
+	bh=rftLgkSKOtXUv4wd6JIw1V0s7EO3TYi1OpM0hWfrrA0=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=NQUL47DuxAtsk+ONi743ut4ypAbGhbCcYUzhEaY7H78wQwNF1F5l7TedZTrPEWILR
+	 wlLDDnfzzakcx7BnuGSZjLpflx3qBX/p0UDm8MqpesBmeXJbNUCHEBHoH3oTc+PsL1
+	 vmtubfkDStqONSB2oxQ26+ZhFVu0BCBTLk3VBsMU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E540EF80536; Wed,  9 Aug 2023 20:41:37 +0200 (CEST)
+	id D907AF80552; Wed,  9 Aug 2023 20:50:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A19BFF80116;
-	Wed,  9 Aug 2023 20:41:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DEC9F80134;
+	Wed,  9 Aug 2023 20:50:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33D9DF80134; Wed,  9 Aug 2023 20:41:33 +0200 (CEST)
+	id 703E4F8016E; Wed,  9 Aug 2023 20:50:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 83311F800FE;
-	Wed,  9 Aug 2023 20:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83311F800FE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dkWzPIbG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691606487; x=1723142487;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Tjc+ZL8zr1dEpEbee1DdKAwTTtNC80suij9zROizXTk=;
-  b=dkWzPIbGJN3CkVfjzJ5VNhp8htyl8v2/7VE7KXajWIuwOGSgUuNRgQkP
-   5OgC5U+BcmcrGla8cSPtTIP+nezAhpTojW3+/h6gif+wpHeGl1W3ryrPP
-   lgmROHeaLWY9/uSMozDCTnHFMm64EmJooPxyEZNRFnL91NwmGiwwVWfH8
-   mLuj7KQjtgtdlMn6Ui7pA+8aFThgwukg+CCBXPOvx8WcKQipWY1IxGMTD
-   NTnxFmnI/OoKiuN6juIq7fLJ2Ij/AuAcF9R0wMQ4VW7HI+IkSLOqVJTzO
-   YiqF/yyfRA2oPl8WfFWrWp+LO+W7dcW+IoI4Ar2yLHlIQepK2lvbQ0Ked
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="374915994"
-X-IronPort-AV: E=Sophos;i="6.01,159,1684825200";
-   d="scan'208";a="374915994"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2023 11:41:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="978511742"
-X-IronPort-AV: E=Sophos;i="6.01,159,1684825200";
-   d="scan'208";a="978511742"
-Received: from jcaminer-mobl.amr.corp.intel.com (HELO [10.212.58.36])
- ([10.212.58.36])
-  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2023 11:41:18 -0700
-Message-ID: <8eed2099-2853-df8d-92db-921d0702f512@linux.intel.com>
-Date: Wed, 9 Aug 2023 13:41:18 -0500
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25A39F800FE
+	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 20:50:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25A39F800FE
+Received: from localhost (localhost [127.0.0.1])
+	by honk.sigxcpu.org (Postfix) with ESMTP id 0459DFB08;
+	Wed,  9 Aug 2023 20:50:30 +0200 (CEST)
+Received: from honk.sigxcpu.org ([127.0.0.1])
+	by localhost (honk.sigxcpu.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id wj_B-az9m8JC; Wed,  9 Aug 2023 20:50:27 +0200 (CEST)
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+To: Ulf Hansson <ulf.hansson@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	NXP Linux Team <linux-imx@nxp.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	=?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Bjorn Andersson <quic_bjorande@quicinc.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	kernel@puri.sm,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	David Heidelberg <david@ixit.cz>
+Subject: [PATCH v1 0/5] Device tree and config updates for the Librem 5 devkit
+Date: Wed,  9 Aug 2023 20:50:09 +0200
+Message-Id: <cover.1691606520.git.agx@sigxcpu.org>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH] ASoC: SOF: Intel: Initialize chip in
- hda_sdw_check_wakeen_irq()
-Content-Language: en-US
-To: Nathan Chancellor <nathan@kernel.org>, broonie@kernel.org,
- lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com
-Cc: kai.vehmanen@linux.intel.com, ndesaulniers@google.com, trix@redhat.com,
- rander.wang@intel.com, sound-open-firmware@alsa-project.org,
- alsa-devel@alsa-project.org, llvm@lists.linux.dev, patches@lists.linux.dev
-References: 
- <20230809-intel-hda-missing-chip-init-v1-1-61557ca6fa8a@kernel.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: 
- <20230809-intel-hda-missing-chip-init-v1-1-61557ca6fa8a@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GNT46XFKO2ODX4EH4NXHY6HDLBRJAUZK
-X-Message-ID-Hash: GNT46XFKO2ODX4EH4NXHY6HDLBRJAUZK
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: J3M4EXU6RVDIJNTOL746IZSTWANSZEBA
+X-Message-ID-Hash: J3M4EXU6RVDIJNTOL746IZSTWANSZEBA
+X-MailFrom: agx@sigxcpu.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNT46XFKO2ODX4EH4NXHY6HDLBRJAUZK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J3M4EXU6RVDIJNTOL746IZSTWANSZEBA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,33 +104,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The device tree updates ensure the A53 don't get powered off and fix a
+DT warning. This isn't testable with the arm64 default config unless we
+enable the rsi wifi modules too so do this as well.
 
+While at that include two binding file updates.
 
-On 8/9/23 13:12, Nathan Chancellor wrote:
-> Clang warns (or errors with CONFIG_WERROR):
-> 
->   sound/soc/sof/intel/hda.c:423:6: error: variable 'chip' is uninitialized when used here [-Werror,-Wuninitialized]
->     423 |         if (chip && chip->check_sdw_wakeen_irq)
->         |             ^~~~
->   sound/soc/sof/intel/hda.c:418:39: note: initialize the variable 'chip' to silence this warning
->     418 |         const struct sof_intel_dsp_desc *chip;
->         |                                              ^
->         |                                               = NULL
->   1 error generated.
-> 
-> Add the missing initialization, following the pattern of the other irq
-> functions.
-> 
-> Fixes: 9362ab78f175 ("ASoC: SOF: Intel: add abstraction for SoundWire wake-ups")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+This is against next-20230809 that include David's option,gtm601
+conversion.
 
-Indeed, thanks Nathan for flagging this obvious mistake. I must have
-done something wrong when extracting the patches.
+Guido Günther (5):
+  dt-bindings: sound: gtm601: Add description
+  dt-bindings: mmc: Fix reference to pwr-seq-simple
+  arm64: dts: imx8mq-librem5-devkit: Mark buck2 as always on
+  arm64: dts: imx8mq-librem5-devkit: Drop power-supply
+  arm64: defconfig: Enable Redpine 91X wlan driver
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ .../devicetree/bindings/mmc/mmc-controller.yaml    |  2 +-
+ .../devicetree/bindings/sound/option,gtm601.yaml   |  6 ++++--
+ .../boot/dts/freescale/imx8mq-librem5-devkit.dts   | 14 +++++---------
+ arch/arm64/configs/defconfig                       |  1 +
+ 4 files changed, 11 insertions(+), 12 deletions(-)
 
-That said, we DO compile with clang and there was no warning
-https://github.com/thesofproject/linux/actions/runs/5542372669/job/15010818307
+-- 
+2.40.1
 
-Is this dependent on a specific version of clang? I'd like to make sure
-our tools and tests are updated.

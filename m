@@ -2,105 +2,181 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9977762B8
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 16:40:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA5517762F7
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Aug 2023 16:48:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75632839;
-	Wed,  9 Aug 2023 16:40:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75632839
+	by alsa0.perex.cz (Postfix) with ESMTPS id D57A6826;
+	Wed,  9 Aug 2023 16:47:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D57A6826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691592055;
-	bh=Y14GTCD/FFFYIOKjtHy7N58tlI47R3xa3Cl0aUBW+Do=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1691592505;
+	bh=6Ej41Eg0BNnG3/tSXO1swpCnyLR05JKXNH1E9/4TQTk=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jH6UfdAwEaXMLkiWc/fji3dCAGdwE7r8CWcXY5gfhUvc1fMlYgDvn/CaaDdCwr5z7
-	 epaPFaK3R6ZWAFi5K9K3lO1grZ0wjoRZj4cPiPZEnRTvJh51PMdvMvhRI3Ywzxzq6t
-	 wh0Ea4vNNfqQm80UwhqgMncy5RQna42Tjy13gzn8=
+	b=U+fXgPrsqIG21nFvuR3IF8gQgmnMMbK7f70sefAX2fgU4y4RBMjoY+mBIzXd5lYDt
+	 fmMt0frWVDZ5kzf7c3cx2fT1TAUI4FdyXRzcBXrWoX+hTj825R7/Uq8ojSwrqshIiV
+	 12RYYoz6lqiWfbVrg74Cxt72wfgN3snvPCWFCa88=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AC79F80536; Wed,  9 Aug 2023 16:40:04 +0200 (CEST)
+	id 213D0F80549; Wed,  9 Aug 2023 16:47:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 048E8F80116;
-	Wed,  9 Aug 2023 16:40:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D985FF80116;
+	Wed,  9 Aug 2023 16:47:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E884F80134; Wed,  9 Aug 2023 16:40:00 +0200 (CEST)
+	id E4405F80134; Wed,  9 Aug 2023 16:47:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-9.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from FRA01-PR2-obe.outbound.protection.outlook.com
+ (mail-pr2fra01on20622.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e18::622])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A14BF800FE
-	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 16:39:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A14BF800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76AA3F800FE
+	for <alsa-devel@alsa-project.org>; Wed,  9 Aug 2023 16:47:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76AA3F800FE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ozbusDol;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Ixk0Mlw1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 333B61F38C;
-	Wed,  9 Aug 2023 14:39:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1691591996;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4yRbiZ4Jcfjevh0wen8DDHRXtqzt/p+upzdmWj+W99A=;
-	b=ozbusDolaNkoloASVsBv98k1Za+pFgTEa3De2kRcVGOaPuoQ5zmSZ90CxUcCE8OmJXwPYP
-	EZZfgKApxFp9Mz7q9wtwaqH5f4CJ8bk4dlXfLduaB6EWYXgahGb9NV8qOt2oYza01cD7aP
-	6UYjQdhY0lGh3eZ/HIWDw34K+FXjmmw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691591996;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4yRbiZ4Jcfjevh0wen8DDHRXtqzt/p+upzdmWj+W99A=;
-	b=Ixk0Mlw1usfvh/RcTae495hMDFChICQ4FFEdbTz1+uDKRuuKqqN39R54txxUzF4b+CaW5Q
-	wVVQUrCeCohTnXCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A3D9133B5;
-	Wed,  9 Aug 2023 14:39:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ivOIATyl02RgMgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 09 Aug 2023 14:39:56 +0000
-Date: Wed, 09 Aug 2023 16:39:55 +0200
-Message-ID: <87bkfge0uc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org,
-	Rolf Anderegg <rolf.anderegg@weiss.ch>,
-	Michele Perrone <michele.perrone@weiss.ch>
-Subject: Re: [PATCH] ALSA: dice: add stream format parameters for Weiss
- devices
-In-Reply-To: <20230809141854.GA892647@workstation.local>
-References: <20230809002631.750120-1-o-takashi@sakamocchi.jp>
-	<87msz0e2jv.wl-tiwai@suse.de>
-	<20230809141854.GA892647@workstation.local>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: WQEGLPTOJTOMTQAWINUCGZHN3KS6PY47
-X-Message-ID-Hash: WQEGLPTOJTOMTQAWINUCGZHN3KS6PY47
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=csgroup.eu header.i=@csgroup.eu header.a=rsa-sha256
+ header.s=selector2 header.b=kHBPVucC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XTFoK58rkCx0Fg4ExwoHuqtLj1np9XG66MkahJuBt7qcsIJgIPWAWOWd7/vx9vH+rALqGArSdIaBbsDWcr8UCMAOk3BdECw+21YVtZ4JNL7/H8pbE/tfFW5zTUlTRl/DFL90okcohyOsq2ziHXP6dsgAUPvrKv2fEfnIs2g4+OcRbyS738b48LHTjuyvo4I2JT/pGw33RuizBA+GY+94B+dSrNc2nS1k8Iakh+285RH9w/PydJZxB6ljjHCWYHv8iBrU4jEPPUd2c7z0N2XQjVfwjyYVEApEZT6vnBB+h/VYNXl1A87Mpb4zpWTYvJnAM9QayCya2cFQ6/fMGRowxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6Ej41Eg0BNnG3/tSXO1swpCnyLR05JKXNH1E9/4TQTk=;
+ b=ipODgWPCaJeabbMayfO+yvvFJrviLAtXrPoAKSlslXBHuLOhBx5j+5QRPPvpnJk/pgHiyYlVfi7Cv039hTxFhPsgAuEMJDmCyieNK1pXXYFX0n76fyobJz8iWrGkzlhvJhxLTr4oUTH2YHJADDOjkWFrgcDGuxlv2OdqEPeyvwgsuZW1tVe/MJNPqykQyYROfMWxN3OJ+5Ry+cSsmmZkZk/j1C/MwZsGrK48fnW9Hah0Kr4tgRYdn0i+okbfUJ3VxkIS6J7QbYgPgpDeH6yTkGs7nXLCCvsqOB2fFVxyi0a4zk1lglJz95SCd01TT8YegPTT2bUQbSDeLlbdubmAhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
+ dkim=pass header.d=csgroup.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6Ej41Eg0BNnG3/tSXO1swpCnyLR05JKXNH1E9/4TQTk=;
+ b=kHBPVucC8YswOZR3dsKEZvPWB3X2zFaXZ9O1rJaNotJDAlH5/q4mHLmqzHW/OyOpUH/wKHwKipb0RxblVDhAP7znzIsprAzo7+GwLyH6/79QSyXoJbSxwBW/o8Ru90t9KDnn1gVqN2XEuOM1xCPr6lo2Qsvu3N7r6pouDumHHU8l08GYGxj0rYDb9aUbj/K7n1Wuy+3kLkd/n6j2c2I8xj1y55tmzRCC641TEShDGw9A3gH/vwEeZQz93y0hTUA4hl0/HREJv/lMvxSD7Qq1uKtSG3wkMrlsj33Tn2NISsBEPxsMmKhuk4slZx13BoN3VdR6L0zqudR//yHJgzdEHQ==
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
+ by PR0P264MB3339.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:145::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.28; Wed, 9 Aug
+ 2023 14:47:23 +0000
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2820:d3a6:1cdf:c60e]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2820:d3a6:1cdf:c60e%6]) with mapi id 15.20.6652.028; Wed, 9 Aug 2023
+ 14:47:22 +0000
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+To: Herve Codina <herve.codina@bootlin.com>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
+	<andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Lee
+ Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang Zhao
+	<qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
+	<shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
+	<festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Randy Dunlap
+	<rdunlap@infradead.org>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, Thomas Petazzoni
+	<thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 05/28] soc: fsl: cpm1: qmc: Remove inline function
+ specifiers
+Thread-Topic: [PATCH v3 05/28] soc: fsl: cpm1: qmc: Remove inline function
+ specifiers
+Thread-Index: AQHZysVbd5zx4sLOREKEPFRUXfowEq/iC0MA
+Date: Wed, 9 Aug 2023 14:47:22 +0000
+Message-ID: <c95cb60e-187f-528f-41e8-4f5989e15198@csgroup.eu>
+References: <20230809132757.2470544-1-herve.codina@bootlin.com>
+ <20230809132757.2470544-6-herve.codina@bootlin.com>
+In-Reply-To: <20230809132757.2470544-6-herve.codina@bootlin.com>
+Accept-Language: fr-FR, en-US
+Content-Language: fr-FR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=csgroup.eu;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR0P264MB3339:EE_
+x-ms-office365-filtering-correlation-id: d62e7601-5ae7-43b2-666b-08db98e78a3a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ IWn4MYQs1jVsgYaRjY5halBNb4CWBL/avGiJKbOGCBsG9sVCTvdKFHZV8UP5Y+NwmQs+hbWaW03VnNcnMQ7PM7sW2Io65aq44h/w+0m0MLy1ILFYtdk9o1fTTBI/Em1TIjPEmGlx6haBrm0LPIDFEzEaHMyRgnFUjJHQJj+AGWaXPG0uxd/0HuoDrULB3ehZY4+j3PEiEAOUvVzN8kc6DnXidZuEI3MEPEaj6W1DLu4z3EgqIFrRJEZm3KO0Vta2k7XAxrdREfeRSmwO7H7WfJdz/7Dv+uOuD9bHBnHzORmeximalxlCdQzt0M/OUy/K6hVRc5sz3MmV68aMW4GPsTpb9D8xTh0Zo1Lhsn2KFHQdhXS1RBO1RLZWSvZoGU+otp3KDPZMWlJtaU8Bqunkaw5zXe594vvq3ZfoXWr01JZal5LayBKebKoGT0pGdoks5CGWyrdJHOba2Ml/xaNe71F3ySTagFaxauJCXTxzE2ncg6AMUk+sX/NEZ+zP3O5P99qS11FEzqoIR+gPMVeivO1/0Z0ebwYj5X9xBex/drxkeDRsc+cNpryYEFSOxJPDlWeBejj3w8Pwg1Dg0oRhI/b6+PGsCycEiCDH51cEYdVKDDwiCACXUmneWJwRz4vuouSCSsF448EvLMktBu+O82OA1gMgRQhkiXuL+l2FMWd0T3k61yCISj9UXIIf4WdTJriK1FhYfnMOpX0tym1K8w==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(346002)(39850400004)(136003)(396003)(376002)(366004)(186006)(1800799006)(451199021)(41300700001)(6486002)(36756003)(38100700002)(122000001)(71200400001)(921005)(38070700005)(478600001)(54906003)(110136005)(4326008)(86362001)(31696002)(66556008)(64756008)(76116006)(66446008)(66476007)(66946007)(91956017)(2906002)(316002)(6512007)(83380400001)(31686004)(5660300002)(44832011)(2616005)(8936002)(26005)(8676002)(6506007)(7416002)(7406005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?WEx0TUx4RzI0T3MybXZQUlVZSGJNMkpzNkRHa0twQmZ2ZENlNzRJajhhNlI2?=
+ =?utf-8?B?N3N2VmpJdytwZFJJcmdxT2FGM3EydU43M0dmS290UDhxeHh3M3VXMitpZnJL?=
+ =?utf-8?B?RHpQTklndlp3akJFZC9TaGtKZTEweHc4K0s0c0ZWMFFjZnVqNzdsZ3Y4eVUz?=
+ =?utf-8?B?VnRTK0xQc3poa0sxL0dUa3Jpc0VmTzRSQUVxRysvNlIwQ0REQXpVbFhDOFdG?=
+ =?utf-8?B?NXVjSzJzWnE0cW03QzVFdTB6aS9hRm1PR1FXaC9KckVTNWlEbloyRERGdDNj?=
+ =?utf-8?B?d0NrdzFDSXFSaTNUNUhtQUZKazNObDF2SVVHbFg0UFdjUlhFR0prTkZsK28y?=
+ =?utf-8?B?SndnS0NUMWo2VDNpdG9vaEtXdjgzM3g2b0xZTGF5VFhuSTJ0RE9RTVp0Rm5Y?=
+ =?utf-8?B?NldOZE85WGIzelRjOWQ1cFBBOFVXY25vQ3E3Z1FOQkQveDhWNzJtM1h1M3F4?=
+ =?utf-8?B?cnhrNUhEMXNreFhwM25JU09yTVlRRG5hbTlyMG5GQlJ2cWlNYnhoWDhBeDVz?=
+ =?utf-8?B?MnZDdHNlNG40SzRkNVdoc3cwZ2toeHlCeTUvWkJFTHVpNzhNejZZZC9nSFd4?=
+ =?utf-8?B?UXJSaCtodGpSM0FWbkVRdU5ZTkhKV3FyRmFEc0FPenprOVFxQU1FTWw5enlk?=
+ =?utf-8?B?T3pIVWxhRWZGOFo5R1p1QzdlZzd5TS9XMFZZUXBZVkhIQkdPYXVacERtNEJV?=
+ =?utf-8?B?aEdBaGlXcXdBSlYxY0x3M1d6ZExFcUlhSWZ2eVpoUjNMRGlLOElzNlhmWGlz?=
+ =?utf-8?B?OVJqWlVHaWJMSktiSzVoY0FWOHpjcmQ3cFd1bGhvWjNGK1o2a3hMcXhFUm11?=
+ =?utf-8?B?WGptU1JwcnlMNUl4N2M2NEVnSFpVOUJ0V1kza0tEeUlyVXp0aHVFYUNpc3JY?=
+ =?utf-8?B?ZXlwQWxhVUFUbGtGZzNVeEh5UjFNN0xyYU1vUGFrRHNVT2MxamVNWmtIZDdi?=
+ =?utf-8?B?K1BLZjBlSWJDb0V2Tk5XVkN4RmNPZUc2RXhRNDIrMERrTzBVL2JjamVsTGlw?=
+ =?utf-8?B?L1pzMXlHbWtYRHRINUlFeWs2NDM0WUh6REFZMGxhcGhnRFpERG1sOUU2YTBO?=
+ =?utf-8?B?SlZuYjZDMTRhbTd2ZlJxWnJkK1RpUTlqT3RpaFJCdUZ5NmpiNjB1ZGhmTU5q?=
+ =?utf-8?B?K0t3V3ZibTR1WitzT0tOZDRFQnZxZnQ1R1VWUGRENHlMc3ZJbGRpWGhiczFE?=
+ =?utf-8?B?TWJpeXhPOWUvdXo3V2JaY2FlL3RxeHYxTlNuMHpkZ2hXNUQrYmo5eG5VT1I4?=
+ =?utf-8?B?TlZaQk9teDRYWDR6QzNrKzdtTGpYUjZuUTgvWWczNXRwS2ltZGJ6S01Eb1pH?=
+ =?utf-8?B?M0luNVZLUWpjbVdKRUZuWGpuN09RQkx0aFZDUlo5cUxoZ1pWeUthZ3V2SUpB?=
+ =?utf-8?B?MllsOE5pQTBHR1FaOW9NOXBJWE9raDNPbVlSbktFcmVzUEtSNWUvT0hwNGlU?=
+ =?utf-8?B?UlVhWVdKSWVZa3Fmb1ZsNWVBbEd3N3luSy9FQWtnWHhTclAzckRHUVB2ZlNS?=
+ =?utf-8?B?RzY1cThvdDdlNzhyY0VpZTBrWm12ajZSSURYaUpHK0hzVENTRE03ckYrZVFz?=
+ =?utf-8?B?aFJJYnNzK09nSlIzUWhBRHY1RnY5bnkvd0MzZTVGV05XbCtsWkVsMkZkdlhi?=
+ =?utf-8?B?M0ZidHRBM01pUlVaVFJBUTE4NXJIUllXaEpCUE11c0hySnpUaTJtKytlYk03?=
+ =?utf-8?B?a2xqUkFSQzZ3ZlZ4TDh4dUZYLy9NOENrazNJR2FscUVZc3NrRjY5Q1RxWWNV?=
+ =?utf-8?B?am92UkxHQ24zRGNaSVg2cVU0SHVraTZIek1KeGYwa2JkcTBsY1U4MTlDWE9a?=
+ =?utf-8?B?dU00alNMQ2R2bldXc2RjTVFuQXQ5THNHRGpQRzhtTGJzck04NWt5WnlxMmV1?=
+ =?utf-8?B?VUZ0cHpqbWU3eHIwUUJROWlRbDUyRitnZG1RZllpeko2SWFyQU5HeVh4VXFl?=
+ =?utf-8?B?dGd6NnRQUGc4KzZXc1Z4THgrcW1aU0YwTzNJOEs1VFM2VGN2ckNLbE8xNzlk?=
+ =?utf-8?B?ZkkvSE1jUk9ZWFRmM2xHdUxwYmRMTjJ3Ym9TTldqQ1RINXlIWnhFOEtiaHVu?=
+ =?utf-8?B?clNmOHhjYlNKUGNBMlRzcmYzcnNKR0NUMnpscUVjR1RNNy9wTnkvV0dPV0ZD?=
+ =?utf-8?B?NWcwZFJ3bDk5QmtadG1mZC84VG9URERRZEVseDgwYzZWc2k4ckVSZjB3ZTF1?=
+ =?utf-8?B?SkE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <991A0B2F7BF8E746A724B048DAC10BAA@FRAP264.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: csgroup.eu
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ d62e7601-5ae7-43b2-666b-08db98e78a3a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2023 14:47:22.6442
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ OJcmgMYlAdWLlzDr720H9fN5yHnkF+Ai5pQ7uwnLVMYqxBpd1GM1KymkeLMdqdElcIcUTbVm6M7UuPgiqg2lIoRyCc8kOV7gdY1AIaFDNqg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR0P264MB3339
+Message-ID-Hash: LMKEIPIFNT7EK2TYANII7NRQAL66KM2I
+X-Message-ID-Hash: LMKEIPIFNT7EK2TYANII7NRQAL66KM2I
+X-MailFrom: christophe.leroy@csgroup.eu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +188,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WQEGLPTOJTOMTQAWINUCGZHN3KS6PY47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LMKEIPIFNT7EK2TYANII7NRQAL66KM2I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,41 +197,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 09 Aug 2023 16:18:54 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> On Wed, Aug 09, 2023 at 04:03:00PM +0200, Takashi Iwai wrote:
-> > On Wed, 09 Aug 2023 02:26:31 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > This patch is for kernel prepatch v6.5.
-> > 
-> > Why it must be included in 6.5?  This sounds more like a new
-> > implementation, rather than an urgent but fix that is needed for rc.
-> 
-> Thanks for your notice to the patch. Indeed, it is neither urgent nor
-> bug fix. It is a kind of 'adding support for new device with slight
-> change', like adding new entries in mod device table. The overall change
-> and new lines are quite typical in ALSA dice driver, like TC Electronic
-> devices in 'sound/firewire/dice/dice-tcelectronic.c'. Things are
-> prepared and not brand-new.
-> 
-> Precisely, current ALSA dice driver supports the Weiss models already,
-> while the functionality is limited that the part of sampling transfer
-> frequencies are available as the initial author said (e.g. when 44.1/48.0
-> kHz are available, 88.2/96.0 kHz are not, vise versa). The patch extends
-> the functionality by hard-coding stream formats following to the design
-> of ALSA dice driver.
-> 
-> Of cource, I don't mind postponing the patch to v6.6 kernel, but in my
-> point of view, it is worth to v6.5 since users got benefits from the
-> code which is not so novel.
-
-OK, then I'd rather put it to 6.6.
-If it were for rc2, I could take it.  But it's already in a second
-half turn, and I'd rather like to limit the changes for later rcs.
-
-
-Takashi
+DQoNCkxlIDA5LzA4LzIwMjMgw6AgMTU6MjcsIEhlcnZlIENvZGluYSBhIMOpY3JpdMKgOg0KPiBU
+aGUgaW5saW5lIGZ1bmN0aW9uIHNwZWNpZmllciBpcyBwcmVzZW50IG9uIHNvbWUgZnVuY3Rpb25z
+IGJ1dCBpdCBpcw0KPiBiZXR0ZXIgdG8gbGV0IHRoZSBjb21waWxlciBkZWNpZGUgaW5saW5pbmcg
+b3Igbm90IHRoZXNlIGZ1bmN0aW9ucy4NCg0KQW5kIGFueXdheSB0aGUgY29tcGlsZXIgY2FuIGRl
+Y2lkZSB0byBub3QgaW5saW5lIGEgZnVuY3Rpb24gbWFya2VkIA0KaW5saW5lIHNpbmNlIGNvbW1p
+dCBhYzdjM2U0ZmY0MDEgKCJjb21waWxlcjogZW5hYmxlIA0KQ09ORklHX09QVElNSVpFX0lOTElO
+SU5HIGZvcmNpYmx5IikgZm9sbG93ZWQgYnkgY29tbWl0IDg4OWIzYzEyNDVkZSANCigiY29tcGls
+ZXI6IHJlbW92ZSBDT05GSUdfT1BUSU1JWkVfSU5MSU5JTkcgZW50aXJlbHkiKS4NCg0KU28gdW5s
+ZXNzIHlvdSBtYXJrIGl0IF9fYWx3YXlzX2lubGluZSB5b3UgaGF2ZSBubyBndWFycmFudHkgdGhh
+dCB0aGUgDQpjb21waWxlciBkb2VzIHdoYXQgeW91IHRlbGwgaXQgdG8gZG8uDQoNCj4gDQo+IFJl
+bW92ZSBpbmxpbmUgc3BlY2lmaWVycy4NCj4gDQo+IEZpeGVzOiAzMTc4ZDU4ZTBiOTcgKCJzb2M6
+IGZzbDogY3BtMTogQWRkIHN1cHBvcnQgZm9yIFFNQyIpDQo+IFNpZ25lZC1vZmYtYnk6IEhlcnZl
+IENvZGluYSA8aGVydmUuY29kaW5hQGJvb3RsaW4uY29tPg0KPiBTdWdnZXN0ZWQtYnk6IEFuZHJl
+dyBMdW5uIDxhbmRyZXdAbHVubi5jaD4NCg0KUmV2aWV3ZWQtYnk6IENocmlzdG9waGUgTGVyb3kg
+PGNocmlzdG9waGUubGVyb3lAY3Nncm91cC5ldT4NCg0KPiAtLS0NCj4gICBkcml2ZXJzL3NvYy9m
+c2wvcWUvcW1jLmMgfCAxNCArKysrKysrLS0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA3IGlu
+c2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9z
+b2MvZnNsL3FlL3FtYy5jIGIvZHJpdmVycy9zb2MvZnNsL3FlL3FtYy5jDQo+IGluZGV4IDJkMmE5
+ZDg4YmE2Yy4uNDU5ZTBiYmQ3MjNkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL3NvYy9mc2wvcWUv
+cW1jLmMNCj4gKysrIGIvZHJpdmVycy9zb2MvZnNsL3FlL3FtYy5jDQo+IEBAIC0yMTgsMzcgKzIx
+OCwzNyBAQCBzdHJ1Y3QgcW1jIHsNCj4gICAJc3RydWN0IHFtY19jaGFuICpjaGFuc1s2NF07DQo+
+ICAgfTsNCj4gICANCj4gLXN0YXRpYyBpbmxpbmUgdm9pZCBxbWNfd3JpdGUxNih2b2lkIF9faW9t
+ZW0gKmFkZHIsIHUxNiB2YWwpDQo+ICtzdGF0aWMgdm9pZCBxbWNfd3JpdGUxNih2b2lkIF9faW9t
+ZW0gKmFkZHIsIHUxNiB2YWwpDQo+ICAgew0KPiAgIAlpb3dyaXRlMTZiZSh2YWwsIGFkZHIpOw0K
+PiAgIH0NCj4gICANCj4gLXN0YXRpYyBpbmxpbmUgdTE2IHFtY19yZWFkMTYodm9pZCBfX2lvbWVt
+ICphZGRyKQ0KPiArc3RhdGljIHUxNiBxbWNfcmVhZDE2KHZvaWQgX19pb21lbSAqYWRkcikNCj4g
+ICB7DQo+ICAgCXJldHVybiBpb3JlYWQxNmJlKGFkZHIpOw0KPiAgIH0NCj4gICANCj4gLXN0YXRp
+YyBpbmxpbmUgdm9pZCBxbWNfc2V0Yml0czE2KHZvaWQgX19pb21lbSAqYWRkciwgdTE2IHNldCkN
+Cj4gK3N0YXRpYyB2b2lkIHFtY19zZXRiaXRzMTYodm9pZCBfX2lvbWVtICphZGRyLCB1MTYgc2V0
+KQ0KPiAgIHsNCj4gICAJcW1jX3dyaXRlMTYoYWRkciwgcW1jX3JlYWQxNihhZGRyKSB8IHNldCk7
+DQo+ICAgfQ0KPiAgIA0KPiAtc3RhdGljIGlubGluZSB2b2lkIHFtY19jbHJiaXRzMTYodm9pZCBf
+X2lvbWVtICphZGRyLCB1MTYgY2xyKQ0KPiArc3RhdGljIHZvaWQgcW1jX2NscmJpdHMxNih2b2lk
+IF9faW9tZW0gKmFkZHIsIHUxNiBjbHIpDQo+ICAgew0KPiAgIAlxbWNfd3JpdGUxNihhZGRyLCBx
+bWNfcmVhZDE2KGFkZHIpICYgfmNscik7DQo+ICAgfQ0KPiAgIA0KPiAtc3RhdGljIGlubGluZSB2
+b2lkIHFtY193cml0ZTMyKHZvaWQgX19pb21lbSAqYWRkciwgdTMyIHZhbCkNCj4gK3N0YXRpYyB2
+b2lkIHFtY193cml0ZTMyKHZvaWQgX19pb21lbSAqYWRkciwgdTMyIHZhbCkNCj4gICB7DQo+ICAg
+CWlvd3JpdGUzMmJlKHZhbCwgYWRkcik7DQo+ICAgfQ0KPiAgIA0KPiAtc3RhdGljIGlubGluZSB1
+MzIgcW1jX3JlYWQzMih2b2lkIF9faW9tZW0gKmFkZHIpDQo+ICtzdGF0aWMgdTMyIHFtY19yZWFk
+MzIodm9pZCBfX2lvbWVtICphZGRyKQ0KPiAgIHsNCj4gICAJcmV0dXJuIGlvcmVhZDMyYmUoYWRk
+cik7DQo+ICAgfQ0KPiAgIA0KPiAtc3RhdGljIGlubGluZSB2b2lkIHFtY19zZXRiaXRzMzIodm9p
+ZCBfX2lvbWVtICphZGRyLCB1MzIgc2V0KQ0KPiArc3RhdGljIHZvaWQgcW1jX3NldGJpdHMzMih2
+b2lkIF9faW9tZW0gKmFkZHIsIHUzMiBzZXQpDQo+ICAgew0KPiAgIAlxbWNfd3JpdGUzMihhZGRy
+LCBxbWNfcmVhZDMyKGFkZHIpIHwgc2V0KTsNCj4gICB9DQo=

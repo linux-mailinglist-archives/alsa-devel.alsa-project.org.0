@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98AA0777FD4
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 20:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B5EC777FD9
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 20:01:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 107333E7;
-	Thu, 10 Aug 2023 20:00:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 107333E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4F3E832;
+	Thu, 10 Aug 2023 20:01:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F3E832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691690486;
-	bh=Yez2JSlnKEn/bX9Ro8qJZo9LH7FDvf4Vsbop2k5JpTY=;
-	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BfRhAZ3yAXI45vsVzIMtfmXGOvyqyzAu4KYAxpfcvTxUMNtx0W3Fzzfjec9U5eqI/
-	 nQb88nqUdCfBubBRBbdza+0mYQwTBdmpaIfru0rjXpwRdT3me060LXSlqdNVRmxNhB
-	 wbioZex4PhFYXAPByBTbVywc2FMQpHNKyFqBNh7c=
+	s=default; t=1691690515;
+	bh=KlPKIHTPgqO3cQL8BeEezD+ZER8D5Q6e3JkHHUZ4JJU=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=P9NEw6BIRGYIwshbJteMw5IyD/vZxoFItPaggEw/V9IaiYSInbhcfjUxlQMjN+cyj
+	 0lVZuzGh0P3W6Z5RUUaGfc0qi220GNANKFoaIq+wOp1YB15Ql3uc9bC6BIcj9qegAc
+	 1HNAmczbgCSa9IIPmQ76JTc3Y8WpJ7XlumQp6m9Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07EB4F80551; Thu, 10 Aug 2023 20:00:13 +0200 (CEST)
+	id DFB61F80553; Thu, 10 Aug 2023 20:00:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E7D0F80166;
-	Thu, 10 Aug 2023 20:00:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54967F80553;
+	Thu, 10 Aug 2023 20:00:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE91CF80536; Thu, 10 Aug 2023 20:00:07 +0200 (CEST)
+	id B6CFBF80510; Thu, 10 Aug 2023 20:00:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6FCD7F800F4
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 20:00:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FCD7F800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2DD01F800FB
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 20:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DD01F800FB
 Received: from localhost (localhost [127.0.0.1])
-	by honk.sigxcpu.org (Postfix) with ESMTP id 18EF1FB07;
+	by honk.sigxcpu.org (Postfix) with ESMTP id 4B04CFB02;
 	Thu, 10 Aug 2023 19:59:59 +0200 (CEST)
 Received: from honk.sigxcpu.org ([127.0.0.1])
 	by localhost (honk.sigxcpu.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 7VeIVy9OQeEf; Thu, 10 Aug 2023 19:59:58 +0200 (CEST)
+	with ESMTP id UX7kzxiMNBjw; Thu, 10 Aug 2023 19:59:58 +0200 (CEST)
 From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 To: Ulf Hansson <ulf.hansson@linaro.org>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -75,15 +75,18 @@ To: Ulf Hansson <ulf.hansson@linaro.org>,
 	linux-arm-kernel@lists.infradead.org,
 	David Heidelberg <david@ixit.cz>,
 	Sherry Sun <sherry.sun@nxp.com>
-Subject: [PATCH v2 0/4] Device tree and config updates for the Librem 5 devkit
-Date: Thu, 10 Aug 2023 19:59:48 +0200
-Message-Id: <cover.1691684726.git.agx@sigxcpu.org>
+Subject: [PATCH v2 1/4] dt-bindings: sound: gtm601: Add description
+Date: Thu, 10 Aug 2023 19:59:49 +0200
+Message-Id: 
+ <6904cc6d877d28d92e9f9fa9f1bdc404614d9734.1691684726.git.agx@sigxcpu.org>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <cover.1691684726.git.agx@sigxcpu.org>
+References: <cover.1691684726.git.agx@sigxcpu.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3NSGXKP62XABQXEKHJJHAAZE4UX3XIGJ
-X-Message-ID-Hash: 3NSGXKP62XABQXEKHJJHAAZE4UX3XIGJ
+Message-ID-Hash: VYP4IV4ZW2ATMVHAESUFQPP2S55THTBW
+X-Message-ID-Hash: VYP4IV4ZW2ATMVHAESUFQPP2S55THTBW
 X-MailFrom: agx@sigxcpu.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NSGXKP62XABQXEKHJJHAAZE4UX3XIGJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VYP4IV4ZW2ATMVHAESUFQPP2S55THTBW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,32 +108,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The device tree updates ensure the A53 cores don't get powered off and
-fix a DT warning. This isn't testable with the arm64 default config
-unless we enable the rsi wifi modules too so do this as well.
+This allows to us to document the channel and sampling
+rate requirements.
 
-While at that include a binding file update.
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ Documentation/devicetree/bindings/sound/option,gtm601.yaml | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-This is against next-20230809 that include David's option,gtm601
-conversion.
-
-v2:
-- drop "dt-bindings: mmc: Fix reference to pwr-seq-simple"
-  already picked up by Ulf Hansson, thanks!
-- add acked-by from Conor Dooley, thanks!
-- rework sdio changes as proposed by Sherry Sun
-
-Guido Günther (4):
-  dt-bindings: sound: gtm601: Add description
-  arm64: dts: imx8mq-librem5-devkit: Mark buck2 as always on
-  arm64: dts: imx8mq-librem5-devkit: Drop power-supply
-  arm64: defconfig: Enable Redpine 91X wlan driver
-
- .../bindings/sound/option,gtm601.yaml         |  6 +++--
- .../dts/freescale/imx8mq-librem5-devkit.dts   | 26 ++++++++-----------
- arch/arm64/configs/defconfig                  |  1 +
- 3 files changed, 16 insertions(+), 17 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/sound/option,gtm601.yaml b/Documentation/devicetree/bindings/sound/option,gtm601.yaml
+index 69c2ccc79dc5..ff813d97fc59 100644
+--- a/Documentation/devicetree/bindings/sound/option,gtm601.yaml
++++ b/Documentation/devicetree/bindings/sound/option,gtm601.yaml
+@@ -16,10 +16,12 @@ description: >
+ properties:
+   compatible:
+     oneOf:
+-      - items:  # 48 kHz stereo
++      - description: Broadmobi BM818 (48Khz stereo)
++        items:
+           - const: broadmobi,bm818
+           - const: option,gtm601
+-      - const: option,gtm601  # 8 kHz mono
++      - description: GTM601 (8kHz mono)
++        const: option,gtm601
+ 
+   '#sound-dai-cells':
+     const: 0
 -- 
 2.40.1
 

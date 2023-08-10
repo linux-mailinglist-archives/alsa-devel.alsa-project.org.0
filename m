@@ -2,119 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56D97776B3
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 13:18:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A4877775A
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 13:41:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FCC3826;
-	Thu, 10 Aug 2023 13:17:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FCC3826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69330822;
+	Thu, 10 Aug 2023 13:40:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69330822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691666305;
-	bh=FMBHaFchInXo2MGaUbXkfUM8b2tb//sQWxqalG2z0Fo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1691667667;
+	bh=PHQToYDN1jJ253CQ1B38WCDAhcL8w2XEWsk0JX64JF0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=B7bQP3dH+MNQ9s4cjiVocmSbAEIATd4dbsAdLUjg73j0DhM2G/f40W6BCmDUY+csW
-	 l6+TJN3jMdpbQ7gGywrzxpnPFS0BHPRGU4ob/LdDk4RvDpeEv6cb2I4UKyFgDpOsN+
-	 9G1IwZiP5f1VFKOdhY6WPNp5fKo7X5tt3PJH9ZKE=
+	b=eohg7xkYxMX0cu40dNARS7jo6VOnc3qHNk+PBKvBYmrDYxcs2dGU5Jyin2HTzTf4s
+	 gtmDTz6kjW5dS0ZHMbQRzFgi+54tLZWsUMe4sbFULs+6wmf5pCdZ3Kp2+Yd100oPs4
+	 +OgEIcxkcHXuYNeP1qogPFkZ5xvScX1oZ8MXJ4i4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D2F0F80166; Thu, 10 Aug 2023 13:17:32 +0200 (CEST)
+	id 3C28FF80549; Thu, 10 Aug 2023 13:39:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D197F800FB;
-	Thu, 10 Aug 2023 13:17:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 908C5F80166;
+	Thu, 10 Aug 2023 13:39:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D693F8016E; Thu, 10 Aug 2023 13:17:28 +0200 (CEST)
+	id 4B91AF8016E; Thu, 10 Aug 2023 13:39:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
- [IPv6:2607:f8b0:4864:20::1130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7B65DF800FB
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 13:17:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B65DF800FB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73FB0F800FB;
+	Thu, 10 Aug 2023 13:39:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73FB0F800FB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QFhKu9tk
-Received: by mail-yw1-x1130.google.com with SMTP id
- 00721157ae682-586bacac98aso9750717b3.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 10 Aug 2023 04:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1691666241; x=1692271041;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ADRnTf+HtriZ7mqwDU3wWvmXrT7FB+Ztxvgw7H2KXeU=;
-        b=QFhKu9tkFZ+fkU1lcY4zVfF0dk/FWoUgZD0eH36Sz7H5E6vylleVAxrx4pnTaXqwhk
-         0+gy/gZj3JZk12Km6iz/EZoWzKbi128l5ProuMk6rD8PXzxfQdAWHaHfYFH+hT3tRM5T
-         JhuEe8IlHx2uTiKvZWsgQrv6fkFqrBx0+2vETEZCqjNX/pWDMRwL/0BRd5MvDHtFVvKa
-         BM/Lp+D9Uqm7WCUrVCer3WiE1OLLbVSPYEz4lyAydeXxxun5B/2ka3EMFk7a+ErH42db
-         gw2/aA6IBStBu2S2LDjrdyts3q5jk/zxoySCSTATECPSlKOeat6hCKBGV6ZorzoWY9HV
-         DN/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691666241; x=1692271041;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ADRnTf+HtriZ7mqwDU3wWvmXrT7FB+Ztxvgw7H2KXeU=;
-        b=kV2v8MbRqKrWHVtujtVJlhohLywerJwTP1PNRpsxWnGdwTAyC4md/RK6PDXs8dcN4W
-         +PMv4l2j4K+jm9fwPpEQ0U2kNUv1IiiZNBDxoy6Yd3bk83dHyvpzMWiI8T0iwaGIsm/O
-         kbf15dvmMV6abMeiqqH4ZzmUQdgMhvKnO8D0Tl3oiMMKM6Bdy994MVw3Iph/wB2SsVPV
-         FEzcSDQZqHY2VXdQBRk+4g8tOiOiQiJjdgVLlKUpWW5Ncmyno+Yn15jIa3+VOdSyuD86
-         +HtGRHjkNMd1QZBT2BNmJ0HKKVbBvfQf7l+HH8MPKCZpxe17l5+eeX4S/zt66jk1LHrS
-         npXw==
-X-Gm-Message-State: AOJu0Yy5sUaSOMyJOAfDMdEWpP/Pd9WzXMheNE0lA5mCvNKQHSUEZF3b
-	cUlV0n7EYT/4PP7ImL3Ekw//ImfWv97UQLRcjD6FXw==
-X-Google-Smtp-Source: 
- AGHT+IG0cc60EKwg6aO/Vl/FWx+h3xKBM7qpk0WTUOrKZYJlTlQ3xEW/05G+n7KdFt0H+qP3lFIXHa3H2q7KcJby2j8=
-X-Received: by 2002:a25:250f:0:b0:cea:6760:d2c6 with SMTP id
- l15-20020a25250f000000b00cea6760d2c6mr2046852ybl.41.1691666241474; Thu, 10
- Aug 2023 04:17:21 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=iKw0G5u5
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7EFD965A37;
+	Thu, 10 Aug 2023 11:39:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16513C433CA;
+	Thu, 10 Aug 2023 11:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691667577;
+	bh=PHQToYDN1jJ253CQ1B38WCDAhcL8w2XEWsk0JX64JF0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=iKw0G5u57xT52/doYQByyteDSqEIXToTy58H40JTM9AKefIzbpdknnu96l1NY2FqZ
+	 8f0fA4wFVZ/nsRmOJ9tdrTHQDSQ23sUonoZTfA24FDIPJeUpVoAxWcqkg/UqaQsowy
+	 5QswTGSOgoCvVLQSHoM/m18QMSTfPLlncZSUMGJ5A7eUpvRG68PYipLvdIwgvTGriC
+	 55f83nvabRzEMZLucdbIEt7Q0rZwsoQ0aaZN+IgC1EkZdHOzTVeauuYNa2gK+d0Xqh
+	 sOKabj9U0LKI1TfsSjOwtkrMXxiWr79KIauyzNnoXD/YG26HoBiT+S9ZqgUdRkYpic
+	 UvGxSqZT+jSIg==
+From: Mark Brown <broonie@kernel.org>
+To: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ Nathan Chancellor <nathan@kernel.org>
+Cc: kai.vehmanen@linux.intel.com, ndesaulniers@google.com, trix@redhat.com,
+ rander.wang@intel.com, sound-open-firmware@alsa-project.org,
+ alsa-devel@alsa-project.org, llvm@lists.linux.dev, patches@lists.linux.dev
+In-Reply-To: 
+ <20230809-intel-hda-missing-chip-init-v1-1-61557ca6fa8a@kernel.org>
+References: 
+ <20230809-intel-hda-missing-chip-init-v1-1-61557ca6fa8a@kernel.org>
+Subject: Re: [PATCH] ASoC: SOF: Intel: Initialize chip in
+ hda_sdw_check_wakeen_irq()
+Message-Id: <169166757481.31924.7230160819556948759.b4-ty@kernel.org>
+Date: Thu, 10 Aug 2023 12:39:34 +0100
 MIME-Version: 1.0
-References: <20230809132757.2470544-1-herve.codina@bootlin.com>
- <20230809132757.2470544-22-herve.codina@bootlin.com>
-In-Reply-To: <20230809132757.2470544-22-herve.codina@bootlin.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 10 Aug 2023 13:17:09 +0200
-Message-ID: 
- <CACRpkdZQ9_f6+9CseV1L_wGphHujFPAYXMjJfjUrzSZRakOBzg@mail.gmail.com>
-Subject: Re: [PATCH v3 21/28] net: wan: Add framer framework support
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
- Li Yang <leoyang.li@nxp.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: V2SGX7NGG2LYFT6X5BET2KDST5EMQHIE
-X-Message-ID-Hash: V2SGX7NGG2LYFT6X5BET2KDST5EMQHIE
-X-MailFrom: linus.walleij@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: PGSRLWFXPVNF7Y6NWT4YXKCGLWQOIUQQ
+X-Message-ID-Hash: PGSRLWFXPVNF7Y6NWT4YXKCGLWQOIUQQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V2SGX7NGG2LYFT6X5BET2KDST5EMQHIE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGSRLWFXPVNF7Y6NWT4YXKCGLWQOIUQQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,60 +104,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Herve,
+On Wed, 09 Aug 2023 11:12:07 -0700, Nathan Chancellor wrote:
+> Clang warns (or errors with CONFIG_WERROR):
+> 
+>   sound/soc/sof/intel/hda.c:423:6: error: variable 'chip' is uninitialized when used here [-Werror,-Wuninitialized]
+>     423 |         if (chip && chip->check_sdw_wakeen_irq)
+>         |             ^~~~
+>   sound/soc/sof/intel/hda.c:418:39: note: initialize the variable 'chip' to silence this warning
+>     418 |         const struct sof_intel_dsp_desc *chip;
+>         |                                              ^
+>         |                                               = NULL
+>   1 error generated.
+> 
+> [...]
 
-On Wed, Aug 9, 2023 at 3:28=E2=80=AFPM Herve Codina <herve.codina@bootlin.c=
-om> wrote:
+Applied to
 
-> A framer is a component in charge of an E1/T1 line interface.
-> Connected usually to a TDM bus, it converts TDM frames to/from E1/T1
-> frames. It also provides information related to the E1/T1 line.
->
-> The framer framework provides a set of APIs for the framer drivers
-> (framer provider) to create/destroy a framer and APIs for the framer
-> users (framer consumer) to obtain a reference to the framer, and
-> use the framer.
->
-> This basic implementation provides a framer abstraction for:
->  - power on/off the framer
->  - get the framer status (line state)
->  - be notified on framer status changes
->  - get/set the framer configuration
->
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I love it, very clear commit message telling us what it is all
-about.
+Thanks!
 
-The placement in the WAN subsystem also hints that this has
-something to do with long distance links (relative to something)
-so maybe mention that?
+[1/1] ASoC: SOF: Intel: Initialize chip in hda_sdw_check_wakeen_irq()
+      commit: 9c28423d3caae63e665e2b8d704fa41ac823b2a6
 
-> +menu "Framer Subsystem"
-> +
-> +config GENERIC_FRAMER
-> +       bool "Framer Core"
-> +       help
-> +         Generic Framer support.
-> +
-> +         This framework is designed to provide a generic interface for f=
-ramer
-> +         devices present in the kernel. This layer will have the generic
-> +         API by which framer drivers can create framer using the framer
-> +         framework and framer users can obtain reference to the framer.
-> +         All the users of this framework should select this config.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-But this description just says this is a framing framer that frames frames =
-;)
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-So please copy some of the nice description from the commit message
-into this Kconfig helptext.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Is "long distance link time division multiplexing (TDM) framer" more
-to the point for example? Or is the ambition to frame other multiplexing
-techniques as well with this subsystem? Such as FDM? Then mention
-that.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Yours,
-Linus Walleij
+Thanks,
+Mark
+

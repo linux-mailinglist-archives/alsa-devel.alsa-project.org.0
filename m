@@ -2,104 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5063477728D
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 10:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63CC2777374
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 10:55:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95686950;
-	Thu, 10 Aug 2023 10:13:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95686950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A0AD1DF;
+	Thu, 10 Aug 2023 10:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A0AD1DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691655263;
-	bh=Qa96yBAKUnXyUei71tjPzj0H42t4ARnaDzk4wBlSIxY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1691657699;
+	bh=8CynBnMXpUYc4aMechozTJxqBXCPClB9wkWXkRuAhC4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VB20R+SKc+eDyeWNUCOB+2TuFwfitsaPNigSsxj2+bJvpu9aoiYrUWB4JDRcYi0u3
-	 KqbuNCfNFJ7OlmaFb4B7QBs4EJBuY7sEkzcEDssSXf4YUbkNzAoqogStwcVH46m01X
-	 0kvXo7su+Gm7ypjHNwOKC4VZinSnTW48F2kcyD0I=
+	b=SgWWtH8+FuTuhlJoAzMpgM2tui/vVbH8JPVT/QkkgZeSewM96rgAR4Fo5cgRb5VgU
+	 RkNfyNUYEux4wUn0FnaY2jWhVK3UUwa3Arqj94wS2ceQds8AIEnNcAhm/ZEKjQTc3l
+	 HNyRdIKnDubQorzQ7friCD7Zgc9fl8h0Rx5rlv0g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99BB0F8059F; Thu, 10 Aug 2023 10:12:53 +0200 (CEST)
+	id 7C592F8016E; Thu, 10 Aug 2023 10:53:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 272C9F80549;
-	Thu, 10 Aug 2023 10:12:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A8ABF80166;
+	Thu, 10 Aug 2023 10:53:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C46E9F8059F; Thu, 10 Aug 2023 10:12:48 +0200 (CEST)
+	id DCD40F8016E; Thu, 10 Aug 2023 10:53:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8C42DF80549
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 10:12:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C42DF80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id DC04EF800FB
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 10:53:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC04EF800FB
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Hc1+ibl7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=f2QhrtGO
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E92871F749;
-	Thu, 10 Aug 2023 08:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1691655152;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AVsvZy7gIrq3LIL5HaNPRqsj7q9/IcWES4+Xwj6+1jA=;
-	b=Hc1+ibl758eFDVA0h4R6rI/JdeShJaC2TX8mgdF0CO16syI3pbYrUpTCezAlXpkkBumng7
-	wJDJ/HJRRSeoJtvf0BbX3z8u5OmixUxLhX3uyB13VG6yPhwYaiJryrINr3A/uIQGIdILil
-	Q12ttb/DzMr7EqOHflGT7TX4xb+u3JQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691655152;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AVsvZy7gIrq3LIL5HaNPRqsj7q9/IcWES4+Xwj6+1jA=;
-	b=f2QhrtGOLDkdvYiNm1N6+JYwpCFDHwtX5NkS0zu8q1NyYtPcq9XAd9NFKDf5DzEEHwSk/L
-	zaBY505JRSA0G9Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7839138E2;
-	Thu, 10 Aug 2023 08:12:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 9rH+K/Cb1GSmXAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 10 Aug 2023 08:12:32 +0000
-Date: Thu, 10 Aug 2023 10:12:32 +0200
-Message-ID: <87bkffco3z.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH v2 0/2] Add HP G11 Quirks and update Dell Oasis Quirks
-In-Reply-To: <20230809142957.675933-1-sbinding@opensource.cirrus.com>
-References: <20230809142957.675933-1-sbinding@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: N62TZHA5LHDCHDL57RDIPYL3Z7XPSZCK
-X-Message-ID-Hash: N62TZHA5LHDCHDL57RDIPYL3Z7XPSZCK
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=cSx8JAyG
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-589878e5b37so8613627b3.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 10 Aug 2023 01:53:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1691657595; x=1692262395;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ISTwavJo5QNRA0ml/ZYkxWD9JkMB48oJk0Oc/hedKZY=;
+        b=cSx8JAyGkOmdsAHLDtARFe5E+bmkrOnNzYHajkz/Im644aeTTP5xiTIfbcqyJUfyjM
+         BWgv30uk2EgU3NPHpdPaFDcXp2dzkL5bmF7NQmKV/xk5hAbfSYA57I9FdoiPX6WTL5If
+         h8yELZgSUyiI3o+78nsOuxVjK4znn77Cp/xnizFqIcinv/C96+9SADDtYu+wfKZEfO+c
+         SqPxyPVMe1oUATXZyDVrBSxCsWaPgJv7fXDcSfajqF2J1NY6VnqOYeDWrWZNxrkG5oMc
+         N+HtOZtTumcoJfYCMGjZR0FJqXZUsdejxxhXhj932VOqQMh7f/xkPB2IVDQbVJYtd2yb
+         kJEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691657595; x=1692262395;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ISTwavJo5QNRA0ml/ZYkxWD9JkMB48oJk0Oc/hedKZY=;
+        b=j//e5mof0bEfKBEaV7dJ3OCLqtfzAn8Rz1rGyhZ/fd9blE1kZ2QURnBvKNy6fdCIUq
+         P0qvacnUTK/xd2hYdxd1phHl40UKS4s7Y+8tn/MdFBOwtpniB+eqeS4j8Di2iuU/RL6H
+         spsFqALAKOKuo1NcYfNslMJXXDCbQ5MEdX7Yzv8mzHsLqmsRiV9F4FtkEDVFmlGHmixo
+         SMEQEdDnt++Y0c5N0ZPSg2Eh/cgNFjgBBLX+uq5FwZngoiFNRgqkqEpCbe4VrYYkfRyC
+         q302zz2qIAJ0uSm8aeBaTObFrM0aENIHvOWTdEc1eq48a5IAOAg9EqSKnmGbpCPDAEj5
+         zNVQ==
+X-Gm-Message-State: AOJu0YyfQkk/YTf86O637jCh5+FIr/7EWcryb0pTFTeJI+47HQ5dfnun
+	cw1xLxWmnucMbRZ+tEzaWSlMjDWvN+BUV3vKxAMDsw==
+X-Google-Smtp-Source: 
+ AGHT+IHR3OcxJgk9HIqvUQ98dw3GrFDpfjo2OZ3Zn5ukK1Ej8qavilwui19M8MLrNbXgTNYPBDiu1AU0FMOIqqB8uTs=
+X-Received: by 2002:a25:6993:0:b0:d63:5e7:4e1b with SMTP id
+ e141-20020a256993000000b00d6305e74e1bmr2168294ybc.26.1691657595551; Thu, 10
+ Aug 2023 01:53:15 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230809132757.2470544-1-herve.codina@bootlin.com>
+ <20230809132757.2470544-23-herve.codina@bootlin.com>
+In-Reply-To: <20230809132757.2470544-23-herve.codina@bootlin.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 10 Aug 2023 10:53:04 +0200
+Message-ID: 
+ <CACRpkdZWHw7sL6EKe0EP0hX5TEsdhzgkPSdVtPPYhS3LqJRHFg@mail.gmail.com>
+Subject: Re: [PATCH v3 22/28] dt-bindings: net: Add the Lantiq PEF2256
+ E1/T1/J1 framer
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
+ Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 5ICDKX6GKFJEWSUZWNI23G5KE3YPCTE2
+X-Message-ID-Hash: 5ICDKX6GKFJEWSUZWNI23G5KE3YPCTE2
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N62TZHA5LHDCHDL57RDIPYL3Z7XPSZCK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ICDKX6GKFJEWSUZWNI23G5KE3YPCTE2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,22 +136,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 09 Aug 2023 16:29:55 +0200,
-Stefan Binding wrote:
-> 
-> Add quirks to support HP G11 using CS35l41 HDA, using both SPI and I2C.
-> One older HP laptop has an SSID removed.
-> In addition, all Dell Oasis laptops using CS35L41 have been switch to
-> use SPI, with one SSID removed.
-> 
-> Changes from v1:
-> - Add fixes tags
-> 
-> Stefan Binding (2):
->   ALSA: hda/realtek: Add quirks for HP G11 Laptops
->   ALSA: hda/realtek: Switch Dell Oasis models to use SPI
+Hi Herve,
 
-Applied both patches now.  Thanks.
+thanks for your patch!
 
+On Wed, Aug 9, 2023 at 3:28=E2=80=AFPM Herve Codina <herve.codina@bootlin.c=
+om> wrote:
 
-Takashi
+> The Lantiq PEF2256 is a framer and line interface component designed to
+> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> digital PCM system highway/H.100 bus.
+>
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+(...)
+> +    patternProperties:
+> +      '-pins$':
+> +        type: object
+> +        $ref: /schemas/pinctrl/pincfg-node.yaml#
+
+Shouldn't that be pinmux-node.yaml?
+
+> +        additionalProperties: false
+> +
+> +        properties:
+> +          pins:
+> +            enum: [ RPA, RPB, RPC, RPD, XPA, XPB, XPC, XPD ]
+> +
+> +          function:
+> +            enum: [ SYPR, RFM, RFMB, RSIGM, RSIG, DLR, FREEZE, RFSP, LOS=
+,
+> +                    SYPX, XFMS, XSIG, TCLK, XMFB, XSIGM, DLX, XCLK, XLT,
+> +                    GPI, GPOH, GPOL ]
+> +
+> +        required:
+> +          - pins
+> +          - function
+
+Because those are certainly defined in that file.
+
+Yours,
+Linus Walleij

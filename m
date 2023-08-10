@@ -2,259 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C32C777903
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 15:03:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2664777904
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 15:03:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2E65839;
-	Thu, 10 Aug 2023 15:02:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2E65839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2654884A;
+	Thu, 10 Aug 2023 15:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2654884A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691672581;
-	bh=4lMmSmk9e25OkyR1NVjAXe/lHNnXogVkWoVzM+/bZnA=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=PVlH46NzMhdNkxSgGR6qPYMoGDTsxPkJxfMjHdJOJZYq4Qm80z5SPu39zrEXoR5IF
-	 BhbcUr1wz8dl+/yunesqukqKLCPPsZmwHHWwMXM0mxRwU/aBqDfeYT5GY10WP6xbDs
-	 CmY96lIjL9K/Wj+GeENsgoh0LDlD2TpiObYK+bvY=
+	s=default; t=1691672587;
+	bh=ifwSAVf7zqfgC0VUvGFtTcSsPQ83VyzNkkIsPttxrQk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Y7otd4cWMYvZ1TqHO0D+CBvkwMJ2P7VuJTQLddx+2XygtVY8p8yurKWzKwAsqX8fc
+	 4pA0zH1/xe0M2JMYEBKA/yal08X2+xzAhd7NpDUSisosXCOWq/Csv1AqZnZ/y/xuvt
+	 YAJW4sW0eo3RwSGvFgb79EI5Yh4O2Gu0E3OlWhBQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6798F80567; Thu, 10 Aug 2023 15:01:22 +0200 (CEST)
+	id 9F49DF8057B; Thu, 10 Aug 2023 15:01:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38452F80551;
-	Thu, 10 Aug 2023 15:01:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CDB5F80568;
+	Thu, 10 Aug 2023 15:01:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8162FF8016E; Thu, 10 Aug 2023 08:18:07 +0200 (CEST)
+	id 899BFF8016E; Thu, 10 Aug 2023 09:20:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,SPF_HELO_PASS,
-	T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20608.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e1a::608])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3EF68F800FB
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 08:17:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EF68F800FB
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8780F80166
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 09:20:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8780F80166
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=BN63snSk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n+KljN3Xfo32e1nbnzXM2WUjOwbltxCPh7QZfywgyHcVkjWmKiVvFGz/iFy7KQxmIDMAAljezIjcLnc9cMrtpdcPD/MuvDnkT4vuAxkOJNwzidbw24J9rtAMudsqmyKTeYBN0goKfrI0hN56GI4JWW0rW0b0tLDFtJoqzwpXyOM9y6IUMtFBcCUgd6yPnTd/e8tvG/M4g+/rhXkW4Y4IEQTpfmDfTu8RinI/nfcRGcrE8wfBfquHFerX4Kyp7d97CcBmBFR9sjgOOLxWJhXZaHQd9a1r9AZ4eBdHro3diBYzryFNfsH1ELkPV1glEukztcHn7G+s2T5BWqYST39Pzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4lMmSmk9e25OkyR1NVjAXe/lHNnXogVkWoVzM+/bZnA=;
- b=oCKCdVr5E4+JsA3CBAXoGEBANtm4fz0KeHbgbwEwCQlcRa/tvZRiqtcfegB8zbSi4vWETQVp2kmTMT9HdU5skp2iUVWmngpJn0IjLDTbmStsId5vThkzF6in/9dVuQ7zwrXp2/zP6xb4bhFApJpF0fiCOdiWqIsPI6/+Ss3iRc2iQquPzv6BmggwKmR3XYl/RFhf6XT0AhJjhpNIcEYjGJr4swjWzbNOxGpIEvTgNJr0RC6BJb7Y8YmuzRar31X5RnRh3IdThgT2WtOyEuKv2IQ5yL3nfnhn6LHwHC6hXCjwvrCIqGBJgwn5EPSkBj3jEdaBYxh3pqdP4Owq8OLkzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4lMmSmk9e25OkyR1NVjAXe/lHNnXogVkWoVzM+/bZnA=;
- b=BN63snSkPY7d0GYXBCahs1ztqoKl0HvGSH/G0np9EX8KhD8dHZ6cBAHS0HGZr1wMe/+DDJc27GinhpQu5b4BBTBYAyOZ0BOE2x0qEAcjnFvPkAImzft1Ur2BLYvtObDpabiIxjWFCFd0lm0+9608VCRdGprKUf7IPdRYNpHT+00=
-Received: from AS8PR04MB8404.eurprd04.prod.outlook.com (2603:10a6:20b:3f8::7)
- by DU0PR04MB9493.eurprd04.prod.outlook.com (2603:10a6:10:350::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.28; Thu, 10 Aug
- 2023 06:17:51 +0000
-Received: from AS8PR04MB8404.eurprd04.prod.outlook.com
- ([fe80::c5e2:98f8:b03:2189]) by AS8PR04MB8404.eurprd04.prod.outlook.com
- ([fe80::c5e2:98f8:b03:2189%3]) with mapi id 15.20.6652.029; Thu, 10 Aug 2023
- 06:17:51 +0000
-From: Sherry Sun <sherry.sun@nxp.com>
-To: =?utf-8?B?R3VpZG8gR8O8bnRoZXI=?= <agx@sigxcpu.org>, Ulf Hansson
-	<ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
-	<conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dl-linux-imx <linux-imx@nxp.com>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Peng Fan
-	<peng.fan@nxp.com>, Bjorn Andersson <quic_bjorande@quicinc.com>, Arnd
- Bergmann <arnd@arndb.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	=?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, "kernel@puri.sm"
-	<kernel@puri.sm>, "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, David Heidelberg <david@ixit.cz>,
-	Bough Chen <haibo.chen@nxp.com>
-Subject: RE: [PATCH v1 4/5] arm64: dts: imx8mq-librem5-devkit: Drop
- power-supply
-Thread-Topic: [PATCH v1 4/5] arm64: dts: imx8mq-librem5-devkit: Drop
- power-supply
-Thread-Index: AQHZyvJnlq9Wn56x9UKSrB9y7QCSxq/jC7UQ
-Date: Thu, 10 Aug 2023 06:17:51 +0000
-Message-ID: 
- <AS8PR04MB8404CFE51B0A3ABEA13808569213A@AS8PR04MB8404.eurprd04.prod.outlook.com>
-References: <cover.1691606520.git.agx@sigxcpu.org>
- <be0267a53cdf31c7a32f9ab43813dccf08b32477.1691606520.git.agx@sigxcpu.org>
-In-Reply-To: 
- <be0267a53cdf31c7a32f9ab43813dccf08b32477.1691606520.git.agx@sigxcpu.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR04MB8404:EE_|DU0PR04MB9493:EE_
-x-ms-office365-filtering-correlation-id: e9b58b1e-fc11-4e9e-2396-08db9969868f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- e4a12QWGeTek8JDIDpZoRow0F5Adf8k0wS5I590or/Tt9ijCDKmidqu0Qc28ca8hr2n7Tiov5OYXYE2sG/pK49IDooay8uDteuWweA20q9/XkDf8wr3MIXKpzznVA1uUlgPxHmAKVbROs7Y7yyFimb7ayNbrt+Rzlr1COe9s7IOsL+2L19FOK9JBzbDuvqTfGuWL1SV2WxyJeVKOnT4Pq0LYKrs1xTK3hw/+5vd96sHpkVvK/AkkSUVkIqqKquIlHtt+20zhFBpQ2S8A2hCmkIfHogOz4aSczU0pSc6+Ui7vzWkeGB1JQZho5EOXSnRbO7fQw9NDCBOgfT/Y3BVOlKfafEAWqqzGP0Ira9+RiFrESKiipWVgc3dXYFj4T7JpuEOsJEm8supOLZecLPGEbG1NxKvoN9JomM7MyfHTO/+2nXDvofuHJ3vzcdyFZ3RL7DF+Tv4qkWNj00zYOVixIrNbnU4NEMSEDSHxez0m3E8m9hoDRjlARvz/to7HC+wxa/cr6d5c6RYZ676nrFrgL/DqcACpfHkNYTkY35zwywGi0bUQ2uWx/oryehDcGNiz7tnHFhZREQ+5rwXIYpffbQz/Jb6IiBunp5s5ND9ZnmKS+h0tqPz9WhsjqSKW+7bhFMqaZYtKolphMfDx4LbPXIXacUkrNVaUZmF7zc3UYUKw/M6eySpOSxICbzL03bne
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8404.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(186006)(451199021)(1800799006)(6506007)(53546011)(33656002)(966005)(9686003)(71200400001)(7696005)(86362001)(478600001)(66574015)(45080400002)(83380400001)(110136005)(6636002)(316002)(66476007)(66556008)(76116006)(66946007)(64756008)(66446008)(41300700001)(8936002)(5660300002)(52536014)(38070700005)(122000001)(55016003)(921005)(38100700002)(8676002)(7416002)(44832011)(2906002)(95444003)(32563001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?VFVQQXI0OWZmdHh0a2ZmQ2VUU2hBYnRGYnFYL2lYMXlXRkE2QnhTdlBvM3NK?=
- =?utf-8?B?K2ZlSHlxTlBaS2NBZjVrZzBuY045UGZHdXdRc2lZTFhUVmpSQldwNUt2THVO?=
- =?utf-8?B?ajduRmcvM1Jta3NldTB5OGRlZkdQa0VsdFQ1UDhkL2NzUVhaTXJ0blBNT1RT?=
- =?utf-8?B?aUVtVGJXRlBKeFBzREpWd2RQeC8zNnRSSFYva3MzWVY4NDJsYThiUjBGZWRW?=
- =?utf-8?B?V292alB3Z1NSdmdoeEdhcDZsTU5zaUtqdFdudkt2Ym1xOW1LU0V3bzJLNklh?=
- =?utf-8?B?VGV4ci85U2I1NVVjMEtoUlRuVnJlRi9QbmZHY0xRRTM4b3ZodVVWeEdEQkl4?=
- =?utf-8?B?Y2RZMmhVYWkwdHhza3dGR0tkZDB4SDR6bkpXdFQycDJzWGFiQlNjWG1WdDd3?=
- =?utf-8?B?NzhyZHkwRGRkQWVqZldCS2RiSjd1SVlUdk1MSXdqL1BsWkhQajNmZDlZM211?=
- =?utf-8?B?Z3ZVV3pFa1R2OVhTbXVCRWNzVE42Tm5ydG4weWN6SjR0UnU2ZzhlTyswVU9N?=
- =?utf-8?B?SHpYS1R5TzdXRmFLZTU0L1NQUy9YOGRicERCVFVqcTJVNmExZ240c1RNNzE0?=
- =?utf-8?B?UzM5YkdkSnM2WWZUVEVDK0sra1E1Y0pxWHF6RWEzMGJlY28xUDZpTHhzWGJG?=
- =?utf-8?B?eUdady9Kem0zSjVNZGpNai9ORUExNnlURDVGK09uSkNYZ1ZMa3NCaVVEbGZC?=
- =?utf-8?B?NWxUS0xzTG5yNkQ0VWVOWEVjQlBCeFZwVVhHWFh5aXFRK1pSWWVjWStTZGFT?=
- =?utf-8?B?LzFTZmxvd3ZPdGV4QzI0ZlhnTFY5TXM3UjlCZUkrdUdYczkwSFBjRWNQYmI5?=
- =?utf-8?B?Q0xLTjRLOTJEeXI5c0kyRjRPa1JkSzVxSTRQbnhlRmZnVEVTWmYrRWZqWWpZ?=
- =?utf-8?B?WXRmNTVBUjhzM0Izd2V1TGJXSko2bGRqWk9abitNTlR0U00zZ1lobkZmV3Y1?=
- =?utf-8?B?RlRxTEZkS0l1WTVjbGFyR2RpQjNhZDhRS0sxcWxNVU56MkZoWHZubWh0WTJh?=
- =?utf-8?B?em4rTEc5eGIrVzJZY1ZjS3doRlhTYWVjRUZ6cG5NUEE3b1FNb3pWaXlhenA5?=
- =?utf-8?B?a3d1RE9MV3RmeWlMUWVZcS9MeUsxTkc3dnV2SnJlbHZucFMzM1QwUTYrUTlo?=
- =?utf-8?B?aU4rZFNCY3grRmhkUC94S29NNHZkNnEyYS80cjNjTlpzaGdFaGcvYkdqc29j?=
- =?utf-8?B?WFhBYjg1em11TGpnRnBNdE5vWGRESGttNnNCc1B6YWF2SDhQZ1NPMXUvblIr?=
- =?utf-8?B?SGpSME5MQlJNREJ5MHlPUFNUeWNpbi9wRDNXb0lHWXkvNG5sLythY28zYkl6?=
- =?utf-8?B?Q1ovTE5lRVhXVk5qRmxGaEcveWc4TC84OGNYbG1FNTkwSUk1NEgyY1JFNTlq?=
- =?utf-8?B?SVArUGpmTkMzQjNaS2JTenJSaXRSb0hoRk81VmRaZ0c0MmMxcmZwbUcwSHNs?=
- =?utf-8?B?UXlNNVFqak1sN2V4WTZnUkVPVWRnamdKaFNOOFR2SDVDaFdidGFIaWdZMVQ4?=
- =?utf-8?B?aDJxbXc1dzh0bWtzbXczQkF3SFEzZTE0eWRCTmZWRW8zRWZtdmJRQzdBSGUx?=
- =?utf-8?B?cVFZeUtjQ3hVckl2eGlPRTFTdkdORjNnS0Y3YnZHcUdjbjNSTDNHTjBkVlNr?=
- =?utf-8?B?VE1hRFc5WWNualJpRlg4NXhLVW0vYnNhNjN3Y1lsQ052bVMrNVNsOENtSnpl?=
- =?utf-8?B?WjBkbzBtaW5FN3Y1eHI4bWtwSTFGUXhCZjFUN0V2UlYyOCtSRVhpV1Q2VkU2?=
- =?utf-8?B?S1d2SUM4OFJBMjRVdDVwSzZMODFvRHdBRVFodnBaMGVrMlV4VHR1VGdRbnlN?=
- =?utf-8?B?UzNiNSswc0xJTFc0MFl5TUQzL0FnZ1NhTDdoakhwOGl4RVRJOUc0QitzYzNX?=
- =?utf-8?B?ZDlVZkpFMHNYWVhDSzZZVVFFblVFUlliOFRpRlRnbS9ub0xwa0o5dHJGQXdT?=
- =?utf-8?B?SWt4ZFpDRlpVQjIzV3ZTcG1UanJiSzZkMGh5Z2VrSW9hUjZObzNFdzZ2cU05?=
- =?utf-8?B?OVF1azV0TzNTcm5kL2FEZFFUdlJZTTE3QXRsc2diTUxPV2FQZERrUDg2N3lT?=
- =?utf-8?B?MWdabEdXZlEwamd6QUVkeFhGY3pIU05kWlRNZz09?=
+	dkim=fail reason="signature verification failed" (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XBN4oR5O
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 57088650FD;
+	Thu, 10 Aug 2023 07:20:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293EAC433C8;
+	Thu, 10 Aug 2023 07:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691652032;
+	bh=ifwSAVf7zqfgC0VUvGFtTcSsPQ83VyzNkkIsPttxrQk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=XBN4oR5OUyZZhcVNV9rrvCAxgxndp8GFrEGC+8uDrfZqVkDEctDcqd4U3l7ahxG4h
+	 BEtvsfzgHjQKNnN0xjJsUTc5jX6k62eiT4XQPFQmGMu3LL+D9br3ow8heaR/fP3S9K
+	 r220hJCW/XqLkQXAW6BpPp2i1jchiunkw52+RkU5sizV/aN+P6gtv9LCjoj0cwdrNi
+	 LeMaLuGsSaZGT0uOBEt2CUIfPwTvmqzYp7ekxTy2d4NvUStogGNkvI+hRSw/+Wzzdp
+	 Yt56RXo6qOFk91K1yk9VSjvebe+gq4krCpTuXzMqC3U2yuq4p0vWOFyvE/Lf6WIion
+	 cdGkjd/O70haw==
+Received: (nullmailer pid 3911833 invoked by uid 1000);
+	Thu, 10 Aug 2023 07:20:21 -0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8404.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e9b58b1e-fc11-4e9e-2396-08db9969868f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2023 06:17:51.0623
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- qGUAxyKRFVpXrsnZefQiu+h5MnBt0ftKBQD1LLuqKR4sGsxIZQ+EDL3Tak1bRElOGzH1Qq84GvLwA1p3sqIOZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9493
-X-MailFrom: sherry.sun@nxp.com
-X-Mailman-Rule-Hits: nonmember-moderation
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org, Cheng-Yi Chiang <cychiang@chromium.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Takashi Iwai <tiwai@suse.com>, Trevor Wu <trevor.wu@mediatek.com>,
+	linux-mediatek@lists.infradead.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
+	NXP Linux Team <linux-imx@nxp.com>,
+	Rohit kumar <quic_rohkumar@quicinc.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rao Mandadapu <srivasam@codeaurora.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-arm-kernel@lists.infradead.org,
+	Jonathan Bakker <xc-racer2@live.ca>, linux-kernel@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, alsa-deve@alsa-project.org,
+	l@alsa-project.org, Judy Hsiao <judyhsiao@chromium.org>,
+	Shawn Guo <shawnguo@kernel.org>
+In-Reply-To: <20230810063300.20151-5-krzysztof.kozlowski@linaro.org>
+References: <20230810063300.20151-1-krzysztof.kozlowski@linaro.org>
+ <20230810063300.20151-5-krzysztof.kozlowski@linaro.org>
+Message-Id: <169165201914.3911686.628530054525655751.robh@kernel.org>
+Subject: Re: [PATCH v2 05/11] ASoC: dt-bindings: samsung,odroid: use common
+ sound card
+Date: Thu, 10 Aug 2023 01:20:21 -0600
+X-MailFrom: SRS0=zxi7=D3=robh_at_kernel.org=rob@kernel.org
+X-Mailman-Rule-Hits: implicit-dest
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 6VOM22XLNZ4DWJPFOW6JTQ2MDFSB7KQI
-X-Message-ID-Hash: 6VOM22XLNZ4DWJPFOW6JTQ2MDFSB7KQI
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: QB7M44DA6NDVWURXWOI6FXQ5ED7DFH5F
+X-Message-ID-Hash: QB7M44DA6NDVWURXWOI6FXQ5ED7DFH5F
 X-Mailman-Approved-At: Thu, 10 Aug 2023 13:01:15 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SB6ID7LBPYVQ2LULJ4D253XBMLHA6YQK/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QB7M44DA6NDVWURXWOI6FXQ5ED7DFH5F/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogR3VpZG8gR8O8bnRoZXIg
-PGFneEBzaWd4Y3B1Lm9yZz4NCj4gU2VudDogMjAyM+W5tDjmnIgxMOaXpSAyOjUwDQo+IFRvOiBV
-bGYgSGFuc3NvbiA8dWxmLmhhbnNzb25AbGluYXJvLm9yZz47IFJvYiBIZXJyaW5nDQo+IDxyb2Jo
-K2R0QGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93c2tpDQo+IDxrcnp5c3p0b2Yua296bG93
-c2tpK2R0QGxpbmFyby5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5vcmc+Ow0K
-PiBMaWFtIEdpcmR3b29kIDxsZ2lyZHdvb2RAZ21haWwuY29tPjsgTWFyayBCcm93bg0KPiA8YnJv
-b25pZUBrZXJuZWwub3JnPjsgU2hhd24gR3VvIDxzaGF3bmd1b0BrZXJuZWwub3JnPjsgU2FzY2hh
-IEhhdWVyDQo+IDxzLmhhdWVyQHBlbmd1dHJvbml4LmRlPjsgUGVuZ3V0cm9uaXggS2VybmVsIFRl
-YW0NCj4gPGtlcm5lbEBwZW5ndXRyb25peC5kZT47IEZhYmlvIEVzdGV2YW0gPGZlc3RldmFtQGdt
-YWlsLmNvbT47IGRsLWxpbnV4LQ0KPiBpbXggPGxpbnV4LWlteEBueHAuY29tPjsgQ2F0YWxpbiBN
-YXJpbmFzIDxjYXRhbGluLm1hcmluYXNAYXJtLmNvbT47DQo+IFdpbGwgRGVhY29uIDx3aWxsQGtl
-cm5lbC5vcmc+OyBHdWlkbyBHw7xudGhlciA8YWd4QHNpZ3hjcHUub3JnPjsgUGVuZyBGYW4NCj4g
-PHBlbmcuZmFuQG54cC5jb20+OyBCam9ybiBBbmRlcnNzb24gPHF1aWNfYmpvcmFuZGVAcXVpY2lu
-Yy5jb20+Ow0KPiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRiLmRlPjsgR2VlcnQgVXl0dGVyaG9l
-dmVuDQo+IDxnZWVydCtyZW5lc2FzQGdsaWRlci5iZT47IEtvbnJhZCBEeWJjaW8gPGtvbnJhZC5k
-eWJjaW9AbGluYXJvLm9yZz47DQo+IE7DrWNvbGFzIEYuIFIuIEEuIFByYWRvIDxuZnJhcHJhZG9A
-Y29sbGFib3JhLmNvbT47IFJhZmHFgiBNacWCZWNraQ0KPiA8cmFmYWxAbWlsZWNraS5wbD47IGtl
-cm5lbEBwdXJpLnNtOyBsaW51eC1tbWNAdmdlci5rZXJuZWwub3JnOw0KPiBkZXZpY2V0cmVlQHZn
-ZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsgYWxzYS1kZXZlbEBh
-bHNhLQ0KPiBwcm9qZWN0Lm9yZzsgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3Jn
-OyBEYXZpZCBIZWlkZWxiZXJnDQo+IDxkYXZpZEBpeGl0LmN6Pg0KPiBTdWJqZWN0OiBbUEFUQ0gg
-djEgNC81XSBhcm02NDogZHRzOiBpbXg4bXEtbGlicmVtNS1kZXZraXQ6IERyb3AgcG93ZXItDQo+
-IHN1cHBseQ0KPiANCj4gVXNlIGEgcG93ZXIgc2VxdWVuY2UgaW5zdGVhZC4gQXMgdGhpcyBoYW5k
-bGVzIHRoZSB3aWZpIGRpc2FibGUgbGluZSByZW5hbWUNCj4gdGhlIHBpbmNvbnRyb2wgYWNjb3Jk
-aW5nbHkuIFRoaXMgYWxzbyBtYWtlcyBpdCBzaW1pbGFyIHRvIHRoZSBMaWJyZW0gNS4NCj4gDQo+
-IFJlc29sdmVzIGZvbGxvd2luZyB3YXJuaW5nOg0KPiANCj4gYXJjaC9hcm02NC9ib290L2R0cy9m
-cmVlc2NhbGUvaW14OG1xLWxpYnJlbTUtZGV2a2l0LmR0YjoNCj4gbW1jQDMwYjUwMDAwOiBVbmV2
-YWx1YXRlZCBwcm9wZXJ0aWVzIGFyZSBub3QgYWxsb3dlZCAoJ3Bvd2VyLXN1cHBseScNCj4gd2Fz
-IHVuZXhwZWN0ZWQpDQo+ICAgICAgICAgZnJvbSBzY2hlbWEgJGlkOg0KPiBodHRwczovL2V1cjAx
-LnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cCUzQSUyRiUyRmRldmlj
-ZXQNCj4gcmVlLm9yZyUyRnNjaGVtYXMlMkZtbWMlMkZmc2wtaW14LQ0KPiBlc2RoYy55YW1sJTIz
-JmRhdGE9MDUlN0MwMSU3Q3NoZXJyeS5zdW4lNDBueHAuY29tJTdDZmVmZWZlZjUzMjZmDQo+IDQy
-MDUxNjdjMDhkYjk5MDk4OGQ3JTdDNjg2ZWExZDNiYzJiNGM2ZmE5MmNkOTljNWMzMDE2MzUlN0Mw
-JTdDMA0KPiAlN0M2MzgyNzIwMzg0NDcyODkzNjklN0NVbmtub3duJTdDVFdGcGJHWnNiM2Q4ZXlK
-V0lqb2lNQzR3TGoNCj4gQXdNREFpTENKUUlqb2lWMmx1TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pY
-VkNJNk1uMCUzRCU3QzMwMDAlN0MlDQo+IDdDJTdDJnNkYXRhPUVwY2RzYldOa1UwJTJGdVlCeDl0
-SGx3OXFvU284N1huZU1OeE9IdzVaNCUyRkZBDQo+ICUzRCZyZXNlcnZlZD0wDQo+IA0KPiBSZXBv
-cnRlZC1ieTogRGF2aWQgSGVpZGVsYmVyZyA8ZGF2aWRAaXhpdC5jej4NCj4gU2lnbmVkLW9mZi1i
-eTogR3VpZG8gR8O8bnRoZXIgPGFneEBzaWd4Y3B1Lm9yZz4NCj4gLS0tDQo+ICAuLi4vYm9vdC9k
-dHMvZnJlZXNjYWxlL2lteDhtcS1saWJyZW01LWRldmtpdC5kdHMgICAgfCAxMyArKysrLS0tLS0t
-LS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQ0K
-PiANCj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvZnJlZXNjYWxlL2lteDhtcS1s
-aWJyZW01LWRldmtpdC5kdHMNCj4gYi9hcmNoL2FybTY0L2Jvb3QvZHRzL2ZyZWVzY2FsZS9pbXg4
-bXEtbGlicmVtNS1kZXZraXQuZHRzDQo+IGluZGV4IGJlOWVmNWMyNzFkZi4uMjQ0MDc1ZTJhNTk5
-IDEwMDY0NA0KPiAtLS0gYS9hcmNoL2FybTY0L2Jvb3QvZHRzL2ZyZWVzY2FsZS9pbXg4bXEtbGli
-cmVtNS1kZXZraXQuZHRzDQo+ICsrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvZnJlZXNjYWxlL2lt
-eDhtcS1saWJyZW01LWRldmtpdC5kdHMNCj4gQEAgLTIzMSwxNiArMjMxLDExIEBAIHZpYnJhdG9y
-IHsNCj4gIAkJdmNjLXN1cHBseSA9IDwmcmVnXzN2M19wPjsNCj4gIAl9Ow0KPiANCj4gLQl3aWZp
-X3B3cl9lbjogcmVndWxhdG9yLXdpZmktZW4gew0KPiAtCQljb21wYXRpYmxlID0gInJlZ3VsYXRv
-ci1maXhlZCI7DQo+ICsJd2lmaV9wd3JzZXE6IHB3cnNlcSB7DQo+ICAJCXBpbmN0cmwtbmFtZXMg
-PSAiZGVmYXVsdCI7DQo+ICAJCXBpbmN0cmwtMCA9IDwmcGluY3RybF93aWZpX3B3cl9lbj47DQo+
-IC0JCXJlZ3VsYXRvci1uYW1lID0gIldJRklfRU4iOw0KPiAtCQlyZWd1bGF0b3ItbWluLW1pY3Jv
-dm9sdCA9IDwzMzAwMDAwPjsNCj4gLQkJcmVndWxhdG9yLW1heC1taWNyb3ZvbHQgPSA8MzMwMDAw
-MD47DQo+IC0JCWdwaW8gPSA8JmdwaW8zIDUgR1BJT19BQ1RJVkVfSElHSD47DQo+IC0JCWVuYWJs
-ZS1hY3RpdmUtaGlnaDsNCj4gLQkJcmVndWxhdG9yLWFsd2F5cy1vbjsNCj4gKwkJY29tcGF0aWJs
-ZSA9ICJtbWMtcHdyc2VxLXNpbXBsZSI7DQo+ICsJCXJlc2V0LWdwaW9zID0gPCZncGlvMyA1IEdQ
-SU9fQUNUSVZFX0xPVz47DQo+ICAJfTsNCj4gIH07DQo+IA0KPiBAQCAtMTAzMiw3ICsxMDI3LDcg
-QEAgJnVzZGhjMiB7DQo+ICAJcGluY3RybC0yID0gPCZwaW5jdHJsX3VzZGhjMl8yMDBtaHo+Ow0K
-PiAgCWJ1cy13aWR0aCA9IDw0PjsNCj4gIAl2bW1jLXN1cHBseSA9IDwmcmVnX3VzZGhjMl92bW1j
-PjsNCj4gLQlwb3dlci1zdXBwbHkgPSA8JndpZmlfcHdyX2VuPjsNCj4gKwltbWMtcHdyc2VxID0g
-PCZ3aWZpX3B3cnNlcT47DQoNCkhpIEd1aWRvLA0KDQpOb3JtYWxseSB3ZSBzaG91bGQgdXNlIHZt
-bWMtc3VwcGx5IHRvIGNvbnRyb2wgdGhlIE0uMiBwaW41NihXX0RJU0FCTEUxIyksIHdoaWNoIGNv
-bnRyb2xzIHRoZSBXTEFOIHJhZGlvIHBvd2VyLg0KQW5kIHVzZSB0aGUgcmVzZXQtZ3Bpb3Mgb2Yg
-bW1jLXB3cnNlcSB0byBjb250cm9sIHRoZSBNLjIgcGluMjMoU0RJT19SRVNFVCMpLCBpdCBjYW4g
-aW5kZXBlbmRlbnRseSByZXNldCB0aGUgV2ktRmkgcmFkaW8uDQoNCkJlc3QgUmVnYXJkcw0KU2hl
-cnJ5DQo=
+
+On Thu, 10 Aug 2023 08:32:53 +0200, Krzysztof Kozlowski wrote:
+> Reference the common sound card properties and deprecate the
+> custom "samsung,audio-routing" in favor of generic one.  This allows to
+> remove "model" property and make the binding closer to other sounds
+> cards.
+> 
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  .../devicetree/bindings/sound/samsung,odroid.yaml  | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230810063300.20151-5-krzysztof.kozlowski@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

@@ -2,120 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63CC2777374
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 10:55:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DF7777472
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 11:29:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A0AD1DF;
-	Thu, 10 Aug 2023 10:54:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A0AD1DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52E24208;
+	Thu, 10 Aug 2023 11:28:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52E24208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691657699;
-	bh=8CynBnMXpUYc4aMechozTJxqBXCPClB9wkWXkRuAhC4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SgWWtH8+FuTuhlJoAzMpgM2tui/vVbH8JPVT/QkkgZeSewM96rgAR4Fo5cgRb5VgU
-	 RkNfyNUYEux4wUn0FnaY2jWhVK3UUwa3Arqj94wS2ceQds8AIEnNcAhm/ZEKjQTc3l
-	 HNyRdIKnDubQorzQ7friCD7Zgc9fl8h0Rx5rlv0g=
+	s=default; t=1691659752;
+	bh=vMNBeOEoSJmEMrtXYUfMxM0Ko77R3lNfc/BtwhB8l9A=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=i8yX9LBZFJyBl8HH4fVqtpqDAg/X96Drg8iIGlqZmKQF1zY/yEArQ/HMOy7IOc4pL
+	 FuZ+msiZRtiaBPmV+YK3QuwWmH1mUrll9VdnAV22b79ZWRfgkfbUP40eDiDxF5+oHu
+	 Ffm2MFIUMfgYNEre8tlfFe2z0kkoHzyio1ND8C9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C592F8016E; Thu, 10 Aug 2023 10:53:33 +0200 (CEST)
+	id B663DF8016E; Thu, 10 Aug 2023 11:28:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A8ABF80166;
-	Thu, 10 Aug 2023 10:53:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59C3CF80166;
+	Thu, 10 Aug 2023 11:28:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DCD40F8016E; Thu, 10 Aug 2023 10:53:28 +0200 (CEST)
+	id 304A6F8016E; Thu, 10 Aug 2023 11:28:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DC04EF800FB
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 10:53:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC04EF800FB
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=cSx8JAyG
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-589878e5b37so8613627b3.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 10 Aug 2023 01:53:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1691657595; x=1692262395;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ISTwavJo5QNRA0ml/ZYkxWD9JkMB48oJk0Oc/hedKZY=;
-        b=cSx8JAyGkOmdsAHLDtARFe5E+bmkrOnNzYHajkz/Im644aeTTP5xiTIfbcqyJUfyjM
-         BWgv30uk2EgU3NPHpdPaFDcXp2dzkL5bmF7NQmKV/xk5hAbfSYA57I9FdoiPX6WTL5If
-         h8yELZgSUyiI3o+78nsOuxVjK4znn77Cp/xnizFqIcinv/C96+9SADDtYu+wfKZEfO+c
-         SqPxyPVMe1oUATXZyDVrBSxCsWaPgJv7fXDcSfajqF2J1NY6VnqOYeDWrWZNxrkG5oMc
-         N+HtOZtTumcoJfYCMGjZR0FJqXZUsdejxxhXhj932VOqQMh7f/xkPB2IVDQbVJYtd2yb
-         kJEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691657595; x=1692262395;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ISTwavJo5QNRA0ml/ZYkxWD9JkMB48oJk0Oc/hedKZY=;
-        b=j//e5mof0bEfKBEaV7dJ3OCLqtfzAn8Rz1rGyhZ/fd9blE1kZ2QURnBvKNy6fdCIUq
-         P0qvacnUTK/xd2hYdxd1phHl40UKS4s7Y+8tn/MdFBOwtpniB+eqeS4j8Di2iuU/RL6H
-         spsFqALAKOKuo1NcYfNslMJXXDCbQ5MEdX7Yzv8mzHsLqmsRiV9F4FtkEDVFmlGHmixo
-         SMEQEdDnt++Y0c5N0ZPSg2Eh/cgNFjgBBLX+uq5FwZngoiFNRgqkqEpCbe4VrYYkfRyC
-         q302zz2qIAJ0uSm8aeBaTObFrM0aENIHvOWTdEc1eq48a5IAOAg9EqSKnmGbpCPDAEj5
-         zNVQ==
-X-Gm-Message-State: AOJu0YyfQkk/YTf86O637jCh5+FIr/7EWcryb0pTFTeJI+47HQ5dfnun
-	cw1xLxWmnucMbRZ+tEzaWSlMjDWvN+BUV3vKxAMDsw==
-X-Google-Smtp-Source: 
- AGHT+IHR3OcxJgk9HIqvUQ98dw3GrFDpfjo2OZ3Zn5ukK1Ej8qavilwui19M8MLrNbXgTNYPBDiu1AU0FMOIqqB8uTs=
-X-Received: by 2002:a25:6993:0:b0:d63:5e7:4e1b with SMTP id
- e141-20020a256993000000b00d6305e74e1bmr2168294ybc.26.1691657595551; Thu, 10
- Aug 2023 01:53:15 -0700 (PDT)
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BD56F800F4
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 11:27:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BD56F800F4
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 37A9RSOk8014683,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 37A9RSOk8014683
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 10 Aug 2023 17:27:28 +0800
+Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Thu, 10 Aug 2023 17:27:46 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Thu, 10 Aug 2023 17:27:45 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
+ RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
+ 15.01.2375.007; Thu, 10 Aug 2023 17:27:45 +0800
+Content-Type: multipart/mixed;
+	boundary="_000_4f405c7deb9642e1a8599c5f103b5759realtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>,
+        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
+	<shumingf@realtek.com>,
+        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
+	<derek.fang@realtek.com>,
+        Jack Yu <jack.yu@realtek.com>
+Subject: [PATCH] ASoC: rt715: Add software reset in io init
+Thread-Topic: [PATCH] ASoC: rt715: Add software reset in io init
+Thread-Index: AdnLbOrwLtKfiF3FSoC/7IihBpEFEA==
+Date: Thu, 10 Aug 2023 09:27:45 +0000
+Message-ID: <4f405c7deb9642e1a8599c5f103b5759@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: <4f405c7deb9642e1a8599c5f103b5759@realtek.com>
+x-originating-ip: [172.22.102.102]
+x-kse-serverinfo: RTEXMBS04.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
 MIME-Version: 1.0
-References: <20230809132757.2470544-1-herve.codina@bootlin.com>
- <20230809132757.2470544-23-herve.codina@bootlin.com>
-In-Reply-To: <20230809132757.2470544-23-herve.codina@bootlin.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 10 Aug 2023 10:53:04 +0200
-Message-ID: 
- <CACRpkdZWHw7sL6EKe0EP0hX5TEsdhzgkPSdVtPPYhS3LqJRHFg@mail.gmail.com>
-Subject: Re: [PATCH v3 22/28] dt-bindings: net: Add the Lantiq PEF2256
- E1/T1/J1 framer
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
- Li Yang <leoyang.li@nxp.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 5ICDKX6GKFJEWSUZWNI23G5KE3YPCTE2
-X-Message-ID-Hash: 5ICDKX6GKFJEWSUZWNI23G5KE3YPCTE2
-X-MailFrom: linus.walleij@linaro.org
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: POE7KQD3SGISQXX2WCRJL3C3LDZI4C23
+X-Message-ID-Hash: POE7KQD3SGISQXX2WCRJL3C3LDZI4C23
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ICDKX6GKFJEWSUZWNI23G5KE3YPCTE2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POE7KQD3SGISQXX2WCRJL3C3LDZI4C23/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,43 +109,192 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Herve,
+--_000_4f405c7deb9642e1a8599c5f103b5759realtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-thanks for your patch!
+QWRkIHNvZnR3YXJlIHJlc2V0IGJlZm9yZSBzZXR0aW5nIHByZXNldCByZWdpc3RlcnMgdG8gbWFr
+ZSBzdXJlDQphbGwgdGhlIHJlZ2lzdGVycyBhcmUgdGhlIGRlZmF1bHQgdmFsdWUgYmVmb3JlIHBy
+ZXNldC4NCg0KU2lnbmVkLW9mZi1ieTogSmFjayBZdSA8amFjay55dUByZWFsdGVrLmNvbT4NCi0t
+LQ0KIHNvdW5kL3NvYy9jb2RlY3MvcnQ3MTUuYyB8IDU2ICsrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysNCiBzb3VuZC9zb2MvY29kZWNzL3J0NzE1LmggfCAgNyArKysrKw0K
+IDIgZmlsZXMgY2hhbmdlZCwgNjMgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvc291bmQv
+c29jL2NvZGVjcy9ydDcxNS5jIGIvc291bmQvc29jL2NvZGVjcy9ydDcxNS5jDQppbmRleCA3OTQx
+NmJiNDg4MTQuLmM5NWY0ODFjZDIzNSAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3
+MTUuYw0KKysrIGIvc291bmQvc29jL2NvZGVjcy9ydDcxNS5jDQpAQCAtNTIsNiArNTIsNjAgQEAg
+c3RhdGljIGludCBydDcxNV9pbmRleF93cml0ZShzdHJ1Y3QgcmVnbWFwICpyZWdtYXAsIHVuc2ln
+bmVkIGludCByZWcsDQogCXJldHVybiByZXQ7DQogfQ0KIA0KK3N0YXRpYyBpbnQgcnQ3MTVfaW5k
+ZXhfd3JpdGVfbmlkKHN0cnVjdCByZWdtYXAgKnJlZ21hcCwNCisJCXVuc2lnbmVkIGludCBuaWQs
+IHVuc2lnbmVkIGludCByZWcsIHVuc2lnbmVkIGludCB2YWx1ZSkNCit7DQorCWludCByZXQ7DQor
+CXVuc2lnbmVkIGludCBhZGRyID0gKChSVDcxNV9QUklWX0lOREVYX1dfSF8yIHwgbmlkKSA8PCA4
+KSB8IHJlZzsNCisNCisJcmV0ID0gcmVnbWFwX3dyaXRlKHJlZ21hcCwgYWRkciwgdmFsdWUpOw0K
+KwlpZiAocmV0IDwgMCkNCisJCXByX2VycigiRmFpbGVkIHRvIHNldCBwcml2YXRlIHZhbHVlOiAl
+MDZ4IDw9ICUwNHggcmV0PSVkXG4iLA0KKwkJCWFkZHIsIHZhbHVlLCByZXQpOw0KKw0KKwlyZXR1
+cm4gcmV0Ow0KK30NCisNCitzdGF0aWMgaW50IHJ0NzE1X2luZGV4X3JlYWRfbmlkKHN0cnVjdCBy
+ZWdtYXAgKnJlZ21hcCwNCisJCXVuc2lnbmVkIGludCBuaWQsIHVuc2lnbmVkIGludCByZWcsIHVu
+c2lnbmVkIGludCAqdmFsdWUpDQorew0KKwlpbnQgcmV0Ow0KKwl1bnNpZ25lZCBpbnQgYWRkciA9
+ICgoUlQ3MTVfUFJJVl9JTkRFWF9XX0hfMiB8IG5pZCkgPDwgOCkgfCByZWc7DQorDQorCSp2YWx1
+ZSA9IDA7DQorCXJldCA9IHJlZ21hcF9yZWFkKHJlZ21hcCwgYWRkciwgdmFsdWUpOw0KKwlpZiAo
+cmV0IDwgMCkNCisJCXByX2VycigiRmFpbGVkIHRvIGdldCBwcml2YXRlIHZhbHVlOiAlMDZ4ID0+
+ICUwNHggcmV0PSVkXG4iLA0KKwkJCWFkZHIsICp2YWx1ZSwgcmV0KTsNCisNCisJcmV0dXJuIHJl
+dDsNCit9DQorDQorc3RhdGljIGludCBydDcxNV9pbmRleF91cGRhdGVfYml0cyhzdHJ1Y3QgcmVn
+bWFwICpyZWdtYXAsIHVuc2lnbmVkIGludCBuaWQsDQorCQkJdW5zaWduZWQgaW50IHJlZywgdW5z
+aWduZWQgaW50IG1hc2ssIHVuc2lnbmVkIGludCB2YWwpDQorew0KKwl1bnNpZ25lZCBpbnQgdG1w
+LCBvcmlnOw0KKwlpbnQgcmV0Ow0KKw0KKwlyZXQgPSBydDcxNV9pbmRleF9yZWFkX25pZChyZWdt
+YXAsIG5pZCwgcmVnLCAmb3JpZyk7DQorCWlmIChyZXQgPCAwKQ0KKwkJcmV0dXJuIHJldDsNCisN
+CisJdG1wID0gb3JpZyAmIH5tYXNrOw0KKwl0bXAgfD0gdmFsICYgbWFzazsNCisNCisJcmV0dXJu
+IHJ0NzE1X2luZGV4X3dyaXRlX25pZChyZWdtYXAsIG5pZCwgcmVnLCB0bXApOw0KK30NCisNCitz
+dGF0aWMgdm9pZCBydDcxNV9yZXNldChzdHJ1Y3QgcmVnbWFwICpyZWdtYXApDQorew0KKwlyZWdt
+YXBfd3JpdGUocmVnbWFwLCBSVDcxNV9GVU5DX1JFU0VULCAwKTsNCisJcnQ3MTVfaW5kZXhfdXBk
+YXRlX2JpdHMocmVnbWFwLCBSVDcxNV9WRU5ET1JfUkVHSVNURVJTLA0KKwkJUlQ3MTVfVkRfQ0xF
+QVJfQ1RSTCwgUlQ3MTVfQ0xFQVJfSElEREVOX1JFRywNCisJCVJUNzE1X0NMRUFSX0hJRERFTl9S
+RUcpOw0KK30NCisNCisNCiBzdGF0aWMgdm9pZCBydDcxNV9nZXRfZ2FpbihzdHJ1Y3QgcnQ3MTVf
+cHJpdiAqcnQ3MTUsIHVuc2lnbmVkIGludCBhZGRyX2gsDQogCQkJCXVuc2lnbmVkIGludCBhZGRy
+X2wsIHVuc2lnbmVkIGludCB2YWxfaCwNCiAJCQkJdW5zaWduZWQgaW50ICpyX3ZhbCwgdW5zaWdu
+ZWQgaW50ICpsX3ZhbCkNCkBAIC0xMDQwLDYgKzEwOTQsOCBAQCBpbnQgcnQ3MTVfaW9faW5pdChz
+dHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBzZHdfc2xhdmUgKnNsYXZlKQ0KIA0KIAlwbV9ydW50
+aW1lX2dldF9ub3Jlc3VtZSgmc2xhdmUtPmRldik7DQogDQorCXJ0NzE1X3Jlc2V0KHJ0NzE1LT5y
+ZWdtYXApOw0KKw0KIAkvKiBNdXRlIG5pZD0wOGgvMDloICovDQogCXJlZ21hcF93cml0ZShydDcx
+NS0+cmVnbWFwLCBSVDcxNV9TRVRfR0FJTl9MSU5FX0FEQ19ILCAweGIwODApOw0KIAlyZWdtYXBf
+d3JpdGUocnQ3MTUtPnJlZ21hcCwgUlQ3MTVfU0VUX0dBSU5fTUlYX0FEQ19ILCAweGIwODApOw0K
+ZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MTUuaCBiL3NvdW5kL3NvYy9jb2RlY3Mv
+cnQ3MTUuaA0KaW5kZXggMTJhMGFlNjU2ZDA5Li42ZTM3YmY2NGUxMmYgMTAwNjQ0DQotLS0gYS9z
+b3VuZC9zb2MvY29kZWNzL3J0NzE1LmgNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MTUuaA0K
+QEAgLTQ4LDYgKzQ4LDcgQEAgc3RydWN0IHJ0NzE1X3ByaXYgew0KICNkZWZpbmUgUlQ3MTVfSU5M
+SU5FX0NNRAkJCQkweDU1DQogDQogLyogSW5kZXggKE5JRDoyMGgpICovDQorI2RlZmluZSBSVDcx
+NV9WRF9DTEVBUl9DVFJMCQkJCTB4MDENCiAjZGVmaW5lIFJUNzE1X1NEV19JTlBVVF9TRUwJCQkJ
+MHgzOQ0KICNkZWZpbmUgUlQ3MTVfRVhUX0RNSUNfQ0xLX0NUUkwyCQkJMHg1NA0KIA0KQEAgLTcx
+LDYgKzcyLDggQEAgc3RydWN0IHJ0NzE1X3ByaXYgew0KICNkZWZpbmUgUlQ3MTVfUkVBRF9IREFf
+MAkJCQkweDIwMTUNCiAjZGVmaW5lIFJUNzE1X1BSSVZfSU5ERVhfV19ICQkJCTB4NzUyMA0KICNk
+ZWZpbmUgUlQ3MTVfUFJJVl9JTkRFWF9XX0wJCQkJMHg4NWEwDQorI2RlZmluZSBSVDcxNV9QUklW
+X0lOREVYX1dfSF8yCQkJCTB4NzUwMA0KKyNkZWZpbmUgUlQ3MTVfUFJJVl9JTkRFWF9XX0xfMgkJ
+CQkweDg1ODANCiAjZGVmaW5lIFJUNzE1X1BSSVZfREFUQV9XX0gJCQkJMHg3NDIwDQogI2RlZmlu
+ZSBSVDcxNV9QUklWX0RBVEFfV19MCQkJCTB4ODRhMA0KICNkZWZpbmUgUlQ3MTVfUFJJVl9JTkRF
+WF9SX0gJCQkJMHg5ZDIwDQpAQCAtMTk4LDYgKzIwMSwxMCBAQCBzdHJ1Y3QgcnQ3MTVfcHJpdiB7
+DQogI2RlZmluZSBSVDcxNV9TRVRfRE1JQzRfQ09ORklHX0RFRkFVTFQ0XA0KIAkoUlQ3MTVfVkVS
+Ql9TRVRfQ09ORklHX0RFRkFVTFQ0IHwgUlQ3MTVfRE1JQzQpDQogDQorLyogdmVuZG9yIHJlZ2lz
+dGVyIGNsZWFyIGN0cmwtMSAgICAoMHgwMSkoTklEOjIwaCkgKi8NCisjZGVmaW5lIFJUNzE1X0NM
+RUFSX0hJRERFTl9SRUcgKDB4MSA8PCAxNSkNCisNCisNCiAjZGVmaW5lIFJUNzE1X01VVEVfU0ZU
+CQkJCQk3DQogI2RlZmluZSBSVDcxNV9ESVJfSU5fU0ZUCQkJCTYNCiAjZGVmaW5lIFJUNzE1X0RJ
+Ul9PVVRfU0ZUCQkJCTcNCi0tIA0KMi4zNC4xDQoNCg==
 
-On Wed, Aug 9, 2023 at 3:28=E2=80=AFPM Herve Codina <herve.codina@bootlin.c=
-om> wrote:
+--_000_4f405c7deb9642e1a8599c5f103b5759realtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-> The Lantiq PEF2256 is a framer and line interface component designed to
-> fulfill all required interfacing between an analog E1/T1/J1 line and the
-> digital PCM system highway/H.100 bus.
->
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-(...)
-> +    patternProperties:
-> +      '-pins$':
-> +        type: object
-> +        $ref: /schemas/pinctrl/pincfg-node.yaml#
+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
+AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUA
+awAuAGMAbwBtAAAACwBAOgEAAAAfABoAAQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8E
+BAAACwBAOgEAAAADAP0/tgMAAAIBCzABAAAAEAAAAGQDvrjw2KNNueP8szvGLwMDABcAAQAAAEAA
+OQCAPmDrbMvZAUAACDDwon7rbMvZAQsAKQAAAAAAHwDZPwEAAAAAAgAAQQBkAGQAIABzAG8AZgB0
+AHcAYQByAGUAIAByAGUAcwBlAHQAIABiAGUAZgBvAHIAZQAgAHMAZQB0AHQAaQBuAGcAIABwAHIA
+ZQBzAGUAdAAgAHIAZQBnAGkAcwB0AGUAcgBzACAAdABvACAAbQBhAGsAZQAgAHMAdQByAGUADQAK
+AGEAbABsACAAdABoAGUAIAByAGUAZwBpAHMAdABlAHIAcwAgAGEAcgBlACAAdABoAGUAIABkAGUA
+ZgBhAHUAbAB0ACAAdgBhAGwAdQBlACAAYgBlAGYAbwByAGUAIABwAHIAZQBzAGUAdAAuAA0ACgAN
+AAoAUwBpAGcAbgBlAGQALQBvAGYAZgAtAGIAeQA6ACAASgBhAGMAawAgAFkAdQAgADwAagBhAGMA
+awAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQA+AA0ACgAtAC0ALQANAAoAIABzAG8AdQBu
+AGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADcAMQA1AC4AYwAgAHwAIAA1ADYAIAArACsA
+KwArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwAr
+ACsAKwArACsAKwArACsAKwArAA0ACgAgAHMAbwB1AG4AZAAvAHMAAAALAACACCAGAAAAAADAAAAA
+AAAARgAAAAAUhQAAAQAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABs
+AGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAaAAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMA
+AIAIIAYAAAAAAMAAAAAAAABGAQAAADIAAABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0
+AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAAAEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUA
+dAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUASQBkAAAAAABCuDfUbjOwQxtECNuZhA4aHwAAgBOP8kH0
+gxRBpYTu21prC/8BAAAAFgAAAEMAbABpAGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkA
+ZQBuAHQAPQBNAFMARQB4AGMAaABhAG4AZwBlAFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBr
+ACAAWQB1AAAAHwA3AAEAAABmAAAAWwBQAEEAVABDAEgAXQAgAEEAUwBvAEMAOgAgAHIAdAA3ADEA
+NQA6ACAAQQBkAGQAIABzAG8AZgB0AHcAYQByAGUAIAByAGUAcwBlAHQAIABpAG4AIABpAG8AIABp
+AG4AaQB0AAAAAAAfAD0AAQAAAAIAAAAAAAAAAwA2AAAAAAACAXEAAQAAABYAAAAB2cts6vAu0p+I
+XcVKgL/siKEGkQUQAAAfAHAAAQAAAGYAAABbAFAAQQBUAEMASABdACAAQQBTAG8AQwA6ACAAcgB0
+ADcAMQA1ADoAIABBAGQAZAAgAHMAbwBmAHQAdwBhAHIAZQAgAHIAZQBzAGUAdAAgAGkAbgAgAGkA
+bwAgAGkAbgBpAHQAAAAAAB8ANRABAAAAXgAAADwANABmADQAMAA1AGMANwBkAGUAYgA5ADYANAAy
+AGUAMQBhADgANQA5ADkAYwA1AGYAMQAwADMAYgA1ADcANQA5AEAAcgBlAGEAbAB0AGUAawAuAGMA
+bwBtAD4AAAAAAAMA3j+2AwAAAwATEgAAAAACAQCAE4/yQfSDFEGlhO7bWmsL/wEAAAAuAAAASABl
+AGEAZABlAHIAQgBvAGQAeQBGAHIAYQBnAG0AZQBuAHQATABpAHMAdAAAAAAAAQAAACIAAAABAAoA
+AAAEAAAAAAAAABQAAAAAAAAAAAAAAP////8AAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAc
+AAAASABhAHMAUQB1AG8AdABlAGQAVABlAHgAdAAAAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEA
+AAAoAAAASQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAQwBoAGEAbgBnAGUAZAAAAAAAAABAAAcwWd50
+62zL2QECAQsAAQAAABAAAABkA7648NijTbnj/LM7xi8DAwAmAAAAAAALAAYMAAAAAAIBEDABAAAA
+RgAAAAAAAADb6cRKJKDnQZMbKrsrs21MBwBMt30NVaF5RL5zhTli0AClAAAAaWD3AAAyrzgFSrBO
+RoDHxzgiug9aAAAB17DZAAAAAAIBEzABAAAAEAAAAC7Sn4hdxUqAv+yIoQaRBRACARQwAQAAAAwA
+AABRAQAAYF+haEEAAAAfAPg/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAiQAEAAAAGAAAARQBY
+AAAAAAAfACNAAQAAALYAAAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcA
+RQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBC
+AE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4A
+PQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAAAAAAHwAkQAEAAAAGAAAARQBYAAAAAAAfACVAAQAA
+ALYAAAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkA
+TgBJAFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBT
+AFAARABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUA
+OQA4ADYANQAxADAAOQAAAAAAHwAwQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AMUABAAAAEAAA
+AEoAYQBjAGsAIABZAHUAAAAfADhAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA5QAEAAAAQAAAA
+SgBhAGMAawAgAFkAdQAAAAMAWUAAAAAAAwBaQAAAAAADAAlZAQAAAB8ACl0BAAAAKAAAAGoAYQBj
+AGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAAtdAQAAACgAAABqAGEAYwBrAC4A
+eQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAAgB+k6zOoei5Cvnt54amOVLMBAAAAOAAA
+AEMAbwBuAHYAZQByAHMAYQB0AGkAbwBuAEkAbgBkAGUAeABUAHIAYQBjAGsAaQBuAGcARQB4AAAA
+AQAAACQBAABJAEkAPQBbAEMASQBEAD0AOAA4ADkAZgBkADIAMgBlAC0AYwA1ADUAZAAtADgAMAA0
+AGEALQBiAGYAZQBjAC0AOAA4AGEAMQAwADYAOQAxADAANQAxADAAOwBJAEQAWABIAEUAQQBEAD0A
+RAA5AEMAQgA2AEMARQBBAEYAMAA7AEkARABYAEMATwBVAE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBr
+AG4AbwB3AG4AOwBWAGUAcgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8AbgAgADEANQAuADEAIAAoAEIA
+dQBpAGwAZAAgADIAMwA3ADUALgAwACkALAAgAFMAdABhAGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7
+AEQAUAA9ADEAQwA1AAAACwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAADAA00/T8AAB8A
+AICGAwIAAAAAAMAAAAAAAABGAQAAACAAAAB4AC0AbQBzAC0AaABhAHMALQBhAHQAdABhAGMAaAAA
+AAEAAAACAAAAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AbwByAGkAZwBpAG4A
+YQB0AGkAbgBnAC0AaQBwAAAAAAABAAAAIgAAAFsAMQA3ADIALgAyADIALgAxADAAMgAuADEAMAAy
+AF0AAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AawBzAGUALQBzAGUAcgB2AGUA
+cgBpAG4AZgBvAAAAAAABAAAAOAAAAFIAVABFAFgATQBCAFMAMAA0AC4AcgBlAGEAbAB0AGUAawAu
+AGMAbwBtAC4AdAB3ACwAIAA5AAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAQAAAAHgALQBrAHMA
+ZQAtAGEAbgB0AGkAcwBwAGEAbQAtAGkAbgB0AGUAcgBjAGUAcAB0AG8AcgAtAGkAbgBmAG8AAAAB
+AAAAEgAAAGYAYQBsAGwAYgBhAGMAawAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAQgAAAHgA
+LQBrAHMAZQAtAGEAbgB0AGkAdgBpAHIAdQBzAC0AaQBuAHQAZQByAGMAZQBwAHQAbwByAC0AaQBu
+AGYAbwAAAAAAAQAAABIAAABmAGEAbABsAGIAYQBjAGsAAAAAALt7
 
-Shouldn't that be pinmux-node.yaml?
-
-> +        additionalProperties: false
-> +
-> +        properties:
-> +          pins:
-> +            enum: [ RPA, RPB, RPC, RPD, XPA, XPB, XPC, XPD ]
-> +
-> +          function:
-> +            enum: [ SYPR, RFM, RFMB, RSIGM, RSIG, DLR, FREEZE, RFSP, LOS=
-,
-> +                    SYPX, XFMS, XSIG, TCLK, XMFB, XSIGM, DLX, XCLK, XLT,
-> +                    GPI, GPOH, GPOL ]
-> +
-> +        required:
-> +          - pins
-> +          - function
-
-Because those are certainly defined in that file.
-
-Yours,
-Linus Walleij
+--_000_4f405c7deb9642e1a8599c5f103b5759realtekcom_--

@@ -2,162 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2664777904
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 15:03:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D37777905
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 15:03:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2654884A;
-	Thu, 10 Aug 2023 15:02:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2654884A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 781DD86F;
+	Thu, 10 Aug 2023 15:02:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 781DD86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691672587;
-	bh=ifwSAVf7zqfgC0VUvGFtTcSsPQ83VyzNkkIsPttxrQk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1691672597;
+	bh=irAw8C1RbIzipfSt1MnqWhrjlxxoQRCkAeMq+VcRA7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y7otd4cWMYvZ1TqHO0D+CBvkwMJ2P7VuJTQLddx+2XygtVY8p8yurKWzKwAsqX8fc
-	 4pA0zH1/xe0M2JMYEBKA/yal08X2+xzAhd7NpDUSisosXCOWq/Csv1AqZnZ/y/xuvt
-	 YAJW4sW0eo3RwSGvFgb79EI5Yh4O2Gu0E3OlWhBQ=
+	b=f1P+eIYDwyAfKqmrHL3eDD5OFahsj0+4s6qX1J0jtXYj8e0KiOBuALH2uP/T5rJul
+	 Fuioh+T+gAyEZ0uO/IpbBOzmBdURF5ZjYFaheB3u72krtbRzf3NulIH9vNhFuJwMz7
+	 S07jUiEbhPwsGUISxORKeLCkeEdmm1Nu3znPzBlU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F49DF8057B; Thu, 10 Aug 2023 15:01:25 +0200 (CEST)
+	id ECE36F8057A; Thu, 10 Aug 2023 15:01:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CDB5F80568;
-	Thu, 10 Aug 2023 15:01:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55DE9F8057A;
+	Thu, 10 Aug 2023 15:01:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 899BFF8016E; Thu, 10 Aug 2023 09:20:38 +0200 (CEST)
+	id B9EDEF8016E; Thu, 10 Aug 2023 11:59:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C8780F80166
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 09:20:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8780F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 531ACF800F4
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 11:59:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 531ACF800F4
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
+	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XBN4oR5O
+ header.s=k20201202 header.b=aYS9XZ2g
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 57088650FD;
-	Thu, 10 Aug 2023 07:20:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293EAC433C8;
-	Thu, 10 Aug 2023 07:20:30 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E1557656B2;
+	Thu, 10 Aug 2023 09:59:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395A1C433C9;
+	Thu, 10 Aug 2023 09:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691652032;
-	bh=ifwSAVf7zqfgC0VUvGFtTcSsPQ83VyzNkkIsPttxrQk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=XBN4oR5OUyZZhcVNV9rrvCAxgxndp8GFrEGC+8uDrfZqVkDEctDcqd4U3l7ahxG4h
-	 BEtvsfzgHjQKNnN0xjJsUTc5jX6k62eiT4XQPFQmGMu3LL+D9br3ow8heaR/fP3S9K
-	 r220hJCW/XqLkQXAW6BpPp2i1jchiunkw52+RkU5sizV/aN+P6gtv9LCjoj0cwdrNi
-	 LeMaLuGsSaZGT0uOBEt2CUIfPwTvmqzYp7ekxTy2d4NvUStogGNkvI+hRSw/+Wzzdp
-	 Yt56RXo6qOFk91K1yk9VSjvebe+gq4krCpTuXzMqC3U2yuq4p0vWOFyvE/Lf6WIion
-	 cdGkjd/O70haw==
-Received: (nullmailer pid 3911833 invoked by uid 1000);
-	Thu, 10 Aug 2023 07:20:21 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1691661557;
+	bh=irAw8C1RbIzipfSt1MnqWhrjlxxoQRCkAeMq+VcRA7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aYS9XZ2gch8tOZFweR+abCikrsOTVWRnN3vXDIbjcrUfrDUWu96X3Eev55KVFElOY
+	 7kajLAH9n+49UZj2rxzfpHxngpCglRAWIx1j40PAF4HRI36aYeapTKiq5pbKvk5UVi
+	 mintMg9N1d+7ODhGW1WpIdTw8lL8Z5tXY58vIbac6YWgh35WZL5O26D29I8cz5+9V4
+	 i7aqSBpi8nF6Xtj0xjpAUEiVVGlPzX2HMg3Rhp8E1yHiShqJk3sxjidgxQH4ckRLAq
+	 aLonGSxc7+fch0bMq8UBUq990+t+gCGpSRXQmd0c8djyr7NNKXm6OqyQvIjOTItWho
+	 c79/k6XLLFc8A==
+Date: Thu, 10 Aug 2023 11:59:11 +0200
+From: Simon Horman <horms@kernel.org>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>, nicolas.ferre@microchip.com,
+	conor.dooley@microchip.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
+	tiwai@suse.com, maz@kernel.org, srinivas.kandagatla@linaro.org,
+	thierry.reding@gmail.com, u.kleine-koenig@pengutronix.de,
+	sre@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+	alsa-devel@alsa-project.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: update Claudiu Beznea's email address
+Message-ID: <ZNS0708cDAt7H7ul@vergenet.net>
+References: <20230804050007.235799-1-claudiu.beznea@tuxon.dev>
+ <ZM0Be8S8zII8wV4l@nanopsycho>
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org, Cheng-Yi Chiang <cychiang@chromium.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Takashi Iwai <tiwai@suse.com>, Trevor Wu <trevor.wu@mediatek.com>,
-	linux-mediatek@lists.infradead.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
-	NXP Linux Team <linux-imx@nxp.com>,
-	Rohit kumar <quic_rohkumar@quicinc.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rao Mandadapu <srivasam@codeaurora.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-arm-kernel@lists.infradead.org,
-	Jonathan Bakker <xc-racer2@live.ca>, linux-kernel@vger.kernel.org,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, alsa-deve@alsa-project.org,
-	l@alsa-project.org, Judy Hsiao <judyhsiao@chromium.org>,
-	Shawn Guo <shawnguo@kernel.org>
-In-Reply-To: <20230810063300.20151-5-krzysztof.kozlowski@linaro.org>
-References: <20230810063300.20151-1-krzysztof.kozlowski@linaro.org>
- <20230810063300.20151-5-krzysztof.kozlowski@linaro.org>
-Message-Id: <169165201914.3911686.628530054525655751.robh@kernel.org>
-Subject: Re: [PATCH v2 05/11] ASoC: dt-bindings: samsung,odroid: use common
- sound card
-Date: Thu, 10 Aug 2023 01:20:21 -0600
-X-MailFrom: SRS0=zxi7=D3=robh_at_kernel.org=rob@kernel.org
-X-Mailman-Rule-Hits: implicit-dest
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZM0Be8S8zII8wV4l@nanopsycho>
+X-MailFrom: horms@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; max-recipients; max-size; news-moderation; no-subject;
- digests; suspicious-header
-Message-ID-Hash: QB7M44DA6NDVWURXWOI6FXQ5ED7DFH5F
-X-Message-ID-Hash: QB7M44DA6NDVWURXWOI6FXQ5ED7DFH5F
-X-Mailman-Approved-At: Thu, 10 Aug 2023 13:01:15 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: UQMMXCICV5RCRKYYXUZQDZAB5QGXPMS2
+X-Message-ID-Hash: UQMMXCICV5RCRKYYXUZQDZAB5QGXPMS2
+X-Mailman-Approved-At: Thu, 10 Aug 2023 13:01:16 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QB7M44DA6NDVWURXWOI6FXQ5ED7DFH5F/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQMMXCICV5RCRKYYXUZQDZAB5QGXPMS2/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Thu, 10 Aug 2023 08:32:53 +0200, Krzysztof Kozlowski wrote:
-> Reference the common sound card properties and deprecate the
-> custom "samsung,audio-routing" in favor of generic one.  This allows to
-> remove "model" property and make the binding closer to other sounds
-> cards.
+On Fri, Aug 04, 2023 at 03:47:39PM +0200, Jiri Pirko wrote:
+> Fri, Aug 04, 2023 at 07:00:07AM CEST, claudiu.beznea@tuxon.dev wrote:
+> >Update MAINTAINERS entries with a valid email address as the Microchip
+> >one is no longer valid.
+> >
+> >Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> >Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+> >Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> >---
+> >
+> >Changes in v2:
+> >- collected tags
+> >- extended the recipients list to include individual subsystem
+> >  maintainers and lists instead using only linux-kernel@vger.kernel.org
+> >  as suggested initially by get_maintainers.pl
 > 
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  .../devicetree/bindings/sound/samsung,odroid.yaml  | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
-> 
+> Consider adding entry in .mailmap as well please.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Hi Claudiu,
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230810063300.20151-5-krzysztof.kozlowski@linaro.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+I'd like to echo Jiri's suggestion of adding .mailmap entry
+to reflect this change.

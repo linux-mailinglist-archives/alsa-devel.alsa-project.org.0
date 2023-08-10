@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D539777632
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 12:48:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7B5377762E
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 12:47:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F37DE832;
-	Thu, 10 Aug 2023 12:47:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F37DE832
+	by alsa0.perex.cz (Postfix) with ESMTPS id E003D1DC;
+	Thu, 10 Aug 2023 12:46:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E003D1DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691664497;
-	bh=URIRhXf9AnRycvwsSgiqBp/GGHZQwVsQ4fh/7ONCwNI=;
+	s=default; t=1691664447;
+	bh=GKbgDi1r+gFpeYLx0KjuEloh0xbBXbOqbBL8EUFaqh8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hMc+t/0dglWBwdj2iLA3AGiia2u3ZVD6zMQnYWFMD0v9vw8BPOM41BzriII/CxKTt
-	 lQ+N8LpF6i1dBX3kR5cVrU2Ysv8kvsAPzRiQfFvirsvXSBRRCgXSyYkbIYFwueH8X+
-	 G1lznPYKuHbf962q54c8odiHEqSBtnRfOLuiN+GA=
+	b=J18MO2ci/NT2mbsVsdlegf2gROBSXwWxQGX0nKDW45k3a7R5KtoYPfP6doL2kKII0
+	 3GeEqHfTJyDTZMobFIYyOxJKJ+vu1bC0ppfKsSIJkzQtfAAIwsskxknllRw8B1x+r/
+	 IHBCAbX2/V0QzNMg2WxqeiQVIVjeyOuYhht5y37k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88422F80551; Thu, 10 Aug 2023 12:46:36 +0200 (CEST)
+	id 8A4F2F80166; Thu, 10 Aug 2023 12:46:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF6B7F80553;
-	Thu, 10 Aug 2023 12:46:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8178F80166;
+	Thu, 10 Aug 2023 12:46:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9F82F8016E; Thu, 10 Aug 2023 12:46:31 +0200 (CEST)
+	id 95117F801EB; Thu, 10 Aug 2023 12:46:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D556AF800EE
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 12:46:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D556AF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4B8C4F800FB
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 12:46:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B8C4F800FB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZMy8S1PY
+ header.s=k20201202 header.b=tBZLvhAN
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id DA38D60C2C;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1CF8C60C3D;
+	Thu, 10 Aug 2023 10:46:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9DF3C433C9;
 	Thu, 10 Aug 2023 10:46:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8645AC433C7;
-	Thu, 10 Aug 2023 10:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691664380;
-	bh=URIRhXf9AnRycvwsSgiqBp/GGHZQwVsQ4fh/7ONCwNI=;
+	s=k20201202; t=1691664382;
+	bh=GKbgDi1r+gFpeYLx0KjuEloh0xbBXbOqbBL8EUFaqh8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ZMy8S1PYkhkA1HoZGvDuoD2S/s76SRvOvsS62dUbfmx7fd7yz7NWZwb/T0ZBy96tV
-	 KIuV+yzS49K9XBSHyfCsHhh/6mj8VLKQMPP2TBiMJ0X09ns8wMrBVkC9cMbCEV4EBG
-	 AEFBehTRtqAkyTLyeLzBlPMk38VXgD9ncDgi20VDKLKufBctuZjIXiFNWWWgPHRVOa
-	 7Wh0DgebWvebVG850aH3cJ4BP6xTUPKaLk/WooSvYLZ3zIwoB1eZokj1RTQS0WR/eD
-	 EF8RLiER7pX2mS8eiLHmD73sLHLOZNVPUbkj5ABqw5d1YuAnV+xsjMetg/DdPfWc8t
-	 RzM9pKJ0Q6wEg==
+	b=tBZLvhANoV9N9mr2uihl2EiETHMK9qJUu8pH6zjUDJYmsIPXKLxxbxTXk8BzA+sdu
+	 b6jL5FRpyQIl2+vEeUkjvgOPkRC/AKcdBfi639xo5Ai4IhUjdeT0wi0y1Oc+mn6+iC
+	 vF08Dvlg9CdIi23YbQBIOeE5wuo20yBTlbPyItxbUJxLZG72NK1zPFNj+Z8euhX+L9
+	 G3BhPvpSDeJmgtIBblgIaseoh5bdLBEwoEgcmOOiq9twJKSO/wXZ+lWWJcwlHyqyTq
+	 YM4VzjpPGMpdlQWWIJocqKLI8M6RmGrzs24MNRAq32LaHHQxaRMGyD3QfHP8CYonWw
+	 qef2traPiUYIw==
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
  ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
  adrian.bonislawski@intel.com, yung-chuan.liao@linux.intel.com,
  chao.song@linux.intel.com
-In-Reply-To: <20230809092343.12666-1-peter.ujfalusi@linux.intel.com>
-References: <20230809092343.12666-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Update the basecfg for
+In-Reply-To: <20230809125656.27585-1-peter.ujfalusi@linux.intel.com>
+References: <20230809125656.27585-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: ipc4-topology: Update the basecfg for
  copier earlier
-Message-Id: <169166437825.20959.1425083664715520318.b4-ty@kernel.org>
-Date: Thu, 10 Aug 2023 11:46:18 +0100
+Message-Id: <169166438047.20959.14696410055555816173.b4-ty@kernel.org>
+Date: Thu, 10 Aug 2023 11:46:20 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: UR3XSZ7IQGXMJQYSVR4D6W2RDXHC42FZ
-X-Message-ID-Hash: UR3XSZ7IQGXMJQYSVR4D6W2RDXHC42FZ
+Message-ID-Hash: NZTAWWE3KKKUI6FC36EOFBLKQ6LY4NF2
+X-Message-ID-Hash: NZTAWWE3KKKUI6FC36EOFBLKQ6LY4NF2
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,15 +91,16 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UR3XSZ7IQGXMJQYSVR4D6W2RDXHC42FZ/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NZTAWWE3KKKUI6FC36EOFBLKQ6LY4NF2/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 09 Aug 2023 12:23:43 +0300, Peter Ujfalusi wrote:
+On Wed, 09 Aug 2023 15:56:56 +0300, Peter Ujfalusi wrote:
 > The sof_ipc4_update_resource_usage() call updates the CPC value in basecfg
 > and it must be done prior to making a copy of the copier configuration
 > for the init message.

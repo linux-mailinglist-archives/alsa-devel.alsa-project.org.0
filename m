@@ -2,78 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 207B877790B
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 15:04:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D520777C10
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 17:24:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ADEB843;
-	Thu, 10 Aug 2023 15:03:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ADEB843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 838C4826;
+	Thu, 10 Aug 2023 17:23:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 838C4826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691672684;
-	bh=eX8IFB4VqjmsK2aOgxhkJlTTzhrJH5MSEzRAdCwKJEk=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DQ4WWcxYaLgzK8zLT2Ag6H19//e1LyedT0cExLxFX9ZHW5ISaAj9pc8QL23If1IgI
-	 2Raz3MC3+Nma3/d5rMCq24049yNqFMUgnlR8Z8comUbpA//oSY15SsnudObwNmz9Bd
-	 tKfJZldhDHsFKF5r62tqLfDxbbAWU1xYv/URGfvM=
+	s=default; t=1691681049;
+	bh=XAFRjI39t8Q8MiQyxRvHys4lXjxeKC98m9Ty/dzfFx4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=kZImpVZtzTMp/Fk+krv+/EPElrRuXAX119iffCI5hz5wMNF5iiGOMKfoNqHMNfxN6
+	 vP0g0BtP/ow+dvckOLuDZk5SSlrW2uPFhN2dO3Yq5nXmPPxuHfd+ILs6li+HixkjsH
+	 0wwXa45GewkKlEQvvbjgaZz/ecNdbRcWjqISLEd0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 736BCF805DA; Thu, 10 Aug 2023 15:01:41 +0200 (CEST)
+	id 67FBEF800F4; Thu, 10 Aug 2023 17:22:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1456F805D6;
-	Thu, 10 Aug 2023 15:01:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB2F7F80166;
+	Thu, 10 Aug 2023 17:22:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4EF23F8016E; Thu, 10 Aug 2023 13:49:29 +0200 (CEST)
+	id B9F2BF8016E; Thu, 10 Aug 2023 17:22:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85B3DF800FB
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 13:49:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85B3DF800FB
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.54])
-	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4RM4rk6rMWzqT0h;
-	Thu, 10 Aug 2023 19:46:30 +0800 (CST)
-Received: from huawei.com (10.67.175.31) by dggpemm500024.china.huawei.com
- (7.185.36.203) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 10 Aug
- 2023 19:49:21 +0800
-From: GUO Zihua <guozihua@huawei.com>
-To: <pierre-louis.bossart@linux.intel.com>, <lgirdwood@gmail.com>,
-	<peter.ujfalusi@linux.intel.com>, <yung-chuan.liao@linux.intel.com>,
-	<ranjani.sridharan@linux.intel.com>, <daniel.baluta@nxp.com>,
-	<kai.vehmanen@linux.intel.com>
-CC: <alsa-devel@alsa-project.org>
-Subject: [PATCH -next] ASoC: SOF: amd: Remove duplicated include
-Date: Thu, 10 Aug 2023 19:48:54 +0800
-Message-ID: <20230810114854.20073-1-guozihua@huawei.com>
-X-Mailer: git-send-email 2.17.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25E9FF800EE;
+	Thu, 10 Aug 2023 17:22:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25E9FF800EE
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bFa0qslh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1691680961; x=1723216961;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=XAFRjI39t8Q8MiQyxRvHys4lXjxeKC98m9Ty/dzfFx4=;
+  b=bFa0qslhRCknpvC3OmugK08tCEJ+ZhUm/7C3QoNrTqIC7Q6JDgVbcbL3
+   JngxjnDS1YeXWfDUpmGwp3hMFx4ZljdIYZhXBWO07QRx4jlAWhOguwF+B
+   KutigdttIeQZM9SeaOjcujZs9Z6OX+Jr4AqWJuO1Zsop0hHyXEDFxlAhd
+   pGb5BgYIdFj4y2+8pCkMjy97xy2RoZtmDfLcNLFHHwJVhxDJ2+v1TndN3
+   IYeGlmKNRGYL6y3hSFhbeKZcC67xDAlgRzJqkAv/1NCFg1u7QjHaf0+gF
+   z7f1LAPkJLgeBdGDDJAek92Tm578n898uLL1S679zzS+W02JJYG6598lh
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356356048"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200";
+   d="scan'208";a="356356048"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2023 06:00:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709137872"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200";
+   d="scan'208";a="709137872"
+Received: from dhoeflin-mobl.amr.corp.intel.com (HELO [10.212.101.20])
+ ([10.212.101.20])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2023 06:00:00 -0700
+Message-ID: <3cbac915-8177-e30d-8e31-2aa27feebac9@linux.intel.com>
+Date: Thu, 10 Aug 2023 07:32:32 -0500
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.67.175.31]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggpemm500024.china.huawei.com (7.185.36.203)
-X-CFilter-Loop: Reflected
-X-MailFrom: guozihua@huawei.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH -next] ASoC: SOF: Intel: Remove duplicated include in
+ lnl.c
+Content-Language: en-US
+To: Yang Li <yang.lee@linux.alibaba.com>, perex@perex.cz, tiwai@suse.com,
+ lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com
+Cc: sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20230810005555.4610-1-yang.lee@linux.alibaba.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230810005555.4610-1-yang.lee@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 6VS6PSSHFCGV3PT47KJ6C4SEZP2JRWZ3
+X-Message-ID-Hash: 6VS6PSSHFCGV3PT47KJ6C4SEZP2JRWZ3
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 7UI3UCPZPCVZO2Q5FOGMMSAWB4N64IJV
-X-Message-ID-Hash: 7UI3UCPZPCVZO2Q5FOGMMSAWB4N64IJV
-X-Mailman-Approved-At: Thu, 10 Aug 2023 13:01:16 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7UI3UCPZPCVZO2Q5FOGMMSAWB4N64IJV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VS6PSSHFCGV3PT47KJ6C4SEZP2JRWZ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -82,25 +110,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Remove duplicated include of sof-audio.h. Resolves checkincludes message.
 
-Signed-off-by: GUO Zihua <guozihua@huawei.com>
----
- sound/soc/sof/amd/acp-common.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
-index 3a0c7688dcfe..2d72c6d55dc8 100644
---- a/sound/soc/sof/amd/acp-common.c
-+++ b/sound/soc/sof/amd/acp-common.c
-@@ -13,7 +13,6 @@
- #include "../sof-priv.h"
- #include "../sof-audio.h"
- #include "../ops.h"
--#include "../sof-audio.h"
- #include "acp.h"
- #include "acp-dsp-offset.h"
- #include <sound/sof/xtensa.h>
--- 
-2.17.1
+On 8/9/23 19:55, Yang Li wrote:
+> ./sound/soc/sof/intel/lnl.c: hda.h is included more than once.
+> 
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
+yes, thanks for the patch
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> ---
+>  sound/soc/sof/intel/lnl.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/sound/soc/sof/intel/lnl.c b/sound/soc/sof/intel/lnl.c
+> index 3d919b0b6891..db94b45e53af 100644
+> --- a/sound/soc/sof/intel/lnl.c
+> +++ b/sound/soc/sof/intel/lnl.c
+> @@ -16,7 +16,6 @@
+>  #include "hda-ipc.h"
+>  #include "../sof-audio.h"
+>  #include "mtl.h"
+> -#include "hda.h"
+>  #include <sound/hda-mlink.h>
+>  
+>  /* LunarLake ops */

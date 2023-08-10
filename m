@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B5EC777FD9
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 20:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22875777FDB
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 20:02:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4F3E832;
-	Thu, 10 Aug 2023 20:01:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4F3E832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5058E83E;
+	Thu, 10 Aug 2023 20:01:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5058E83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691690515;
-	bh=KlPKIHTPgqO3cQL8BeEezD+ZER8D5Q6e3JkHHUZ4JJU=;
+	s=default; t=1691690521;
+	bh=HIXq/yaOud1VnnZkf2JzOe3YTyo0Iq7UWAARJ+hJNF8=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=P9NEw6BIRGYIwshbJteMw5IyD/vZxoFItPaggEw/V9IaiYSInbhcfjUxlQMjN+cyj
-	 0lVZuzGh0P3W6Z5RUUaGfc0qi220GNANKFoaIq+wOp1YB15Ql3uc9bC6BIcj9qegAc
-	 1HNAmczbgCSa9IIPmQ76JTc3Y8WpJ7XlumQp6m9Q=
+	b=DSTEqiAIihWSCaM0PyWma8HJvhbYbCpMredLn7+Pn7zfZ6O/Rz/SuvOmDQwcjaGXM
+	 8Q8JYRYNlF5OBsuppSoDiBXK1jXN+KO8hyAB+VcM0NEBR8rzMNnT8/J8lbx+81QTyW
+	 EUw5BkhknjshKpD0I6BSX1O/+M1NNI0RvwYw68KU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DFB61F80553; Thu, 10 Aug 2023 20:00:14 +0200 (CEST)
+	id 7E55FF8057D; Thu, 10 Aug 2023 20:00:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54967F80553;
-	Thu, 10 Aug 2023 20:00:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7580F80564;
+	Thu, 10 Aug 2023 20:00:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6CFBF80510; Thu, 10 Aug 2023 20:00:09 +0200 (CEST)
+	id 7773DF80508; Thu, 10 Aug 2023 20:00:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2DD01F800FB
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 20:00:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DD01F800FB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 996F1F80166
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 20:00:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 996F1F80166
 Received: from localhost (localhost [127.0.0.1])
-	by honk.sigxcpu.org (Postfix) with ESMTP id 4B04CFB02;
-	Thu, 10 Aug 2023 19:59:59 +0200 (CEST)
+	by honk.sigxcpu.org (Postfix) with ESMTP id D43EAFB03;
+	Thu, 10 Aug 2023 20:00:00 +0200 (CEST)
 Received: from honk.sigxcpu.org ([127.0.0.1])
 	by localhost (honk.sigxcpu.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id UX7kzxiMNBjw; Thu, 10 Aug 2023 19:59:58 +0200 (CEST)
+	with ESMTP id FyLYG5Dko5DA; Thu, 10 Aug 2023 19:59:59 +0200 (CEST)
 From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 To: Ulf Hansson <ulf.hansson@linaro.org>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -75,18 +75,19 @@ To: Ulf Hansson <ulf.hansson@linaro.org>,
 	linux-arm-kernel@lists.infradead.org,
 	David Heidelberg <david@ixit.cz>,
 	Sherry Sun <sherry.sun@nxp.com>
-Subject: [PATCH v2 1/4] dt-bindings: sound: gtm601: Add description
-Date: Thu, 10 Aug 2023 19:59:49 +0200
+Subject: [PATCH v2 2/4] arm64: dts: imx8mq-librem5-devkit: Mark buck2 as
+ always on
+Date: Thu, 10 Aug 2023 19:59:50 +0200
 Message-Id: 
- <6904cc6d877d28d92e9f9fa9f1bdc404614d9734.1691684726.git.agx@sigxcpu.org>
+ <513d6f6d1525ad9f7996a9976c06b2a858f8a6a4.1691684726.git.agx@sigxcpu.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <cover.1691684726.git.agx@sigxcpu.org>
 References: <cover.1691684726.git.agx@sigxcpu.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VYP4IV4ZW2ATMVHAESUFQPP2S55THTBW
-X-Message-ID-Hash: VYP4IV4ZW2ATMVHAESUFQPP2S55THTBW
+Message-ID-Hash: GNHEX55E5YNH7CYNN7SYEEPARNUMJ4G7
+X-Message-ID-Hash: GNHEX55E5YNH7CYNN7SYEEPARNUMJ4G7
 X-MailFrom: agx@sigxcpu.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VYP4IV4ZW2ATMVHAESUFQPP2S55THTBW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNHEX55E5YNH7CYNN7SYEEPARNUMJ4G7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,34 +109,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This allows to us to document the channel and sampling
-rate requirements.
+Otherwise the A53 cores are shut down which doesn't end well.
 
+Reported-by: David Heidelberg <david@ixit.cz>
+Tested-by: David Heidelberg <david@ixit.cz>
 Signed-off-by: Guido Günther <agx@sigxcpu.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- Documentation/devicetree/bindings/sound/option,gtm601.yaml | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/option,gtm601.yaml b/Documentation/devicetree/bindings/sound/option,gtm601.yaml
-index 69c2ccc79dc5..ff813d97fc59 100644
---- a/Documentation/devicetree/bindings/sound/option,gtm601.yaml
-+++ b/Documentation/devicetree/bindings/sound/option,gtm601.yaml
-@@ -16,10 +16,12 @@ description: >
- properties:
-   compatible:
-     oneOf:
--      - items:  # 48 kHz stereo
-+      - description: Broadmobi BM818 (48Khz stereo)
-+        items:
-           - const: broadmobi,bm818
-           - const: option,gtm601
--      - const: option,gtm601  # 8 kHz mono
-+      - description: GTM601 (8kHz mono)
-+        const: option,gtm601
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts b/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts
+index b3549eae6278..be9ef5c271df 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts
+@@ -324,6 +324,7 @@ buck2_reg: BUCK2 {
+ 				regulator-ramp-delay = <1250>;
+ 				rohm,dvs-run-voltage = <1000000>;
+ 				rohm,dvs-idle-voltage = <900000>;
++				regulator-always-on;
+ 			};
  
-   '#sound-dai-cells':
-     const: 0
+ 			buck3_reg: BUCK3 {
 -- 
 2.40.1
 

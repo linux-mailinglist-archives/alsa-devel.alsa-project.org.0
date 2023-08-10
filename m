@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D520777C10
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 17:24:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F02A3777AD3
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 16:34:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 838C4826;
-	Thu, 10 Aug 2023 17:23:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 838C4826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03A711DA;
+	Thu, 10 Aug 2023 16:33:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03A711DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691681049;
-	bh=XAFRjI39t8Q8MiQyxRvHys4lXjxeKC98m9Ty/dzfFx4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1691678078;
+	bh=IKeq5Z2PbwGi23k/nvlp7YWjgFV2LYLVb7jhG7tG1lg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kZImpVZtzTMp/Fk+krv+/EPElrRuXAX119iffCI5hz5wMNF5iiGOMKfoNqHMNfxN6
-	 vP0g0BtP/ow+dvckOLuDZk5SSlrW2uPFhN2dO3Yq5nXmPPxuHfd+ILs6li+HixkjsH
-	 0wwXa45GewkKlEQvvbjgaZz/ecNdbRcWjqISLEd0=
+	b=JNNnChqaVE42JhL0EXYugL/2s0IDR30zOeEViMOp6dzL7+w0PPRWdHMV5p3SQd48m
+	 IpiPxMxBzuic8cnoyS7dlwtm8FahyEMGrKiY/gulAocQgSIFgnyL/jXKRsGgRyQx04
+	 0jJFU+UpmyHzjbrAvlZ8VPY1/GEwoOzO8wNjyRds=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67FBEF800F4; Thu, 10 Aug 2023 17:22:51 +0200 (CEST)
+	id A9DDEF80166; Thu, 10 Aug 2023 16:33:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB2F7F80166;
-	Thu, 10 Aug 2023 17:22:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 288C4F80166;
+	Thu, 10 Aug 2023 16:33:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9F2BF8016E; Thu, 10 Aug 2023 17:22:46 +0200 (CEST)
+	id ED2AEF8016E; Thu, 10 Aug 2023 16:33:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25E9FF800EE;
-	Thu, 10 Aug 2023 17:22:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25E9FF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8634AF800EE;
+	Thu, 10 Aug 2023 16:33:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8634AF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bFa0qslh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691680961; x=1723216961;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=XAFRjI39t8Q8MiQyxRvHys4lXjxeKC98m9Ty/dzfFx4=;
-  b=bFa0qslhRCknpvC3OmugK08tCEJ+ZhUm/7C3QoNrTqIC7Q6JDgVbcbL3
-   JngxjnDS1YeXWfDUpmGwp3hMFx4ZljdIYZhXBWO07QRx4jlAWhOguwF+B
-   KutigdttIeQZM9SeaOjcujZs9Z6OX+Jr4AqWJuO1Zsop0hHyXEDFxlAhd
-   pGb5BgYIdFj4y2+8pCkMjy97xy2RoZtmDfLcNLFHHwJVhxDJ2+v1TndN3
-   IYeGlmKNRGYL6y3hSFhbeKZcC67xDAlgRzJqkAv/1NCFg1u7QjHaf0+gF
-   z7f1LAPkJLgeBdGDDJAek92Tm578n898uLL1S679zzS+W02JJYG6598lh
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356356048"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200";
-   d="scan'208";a="356356048"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:00:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709137872"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200";
-   d="scan'208";a="709137872"
-Received: from dhoeflin-mobl.amr.corp.intel.com (HELO [10.212.101.20])
- ([10.212.101.20])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:00:00 -0700
-Message-ID: <3cbac915-8177-e30d-8e31-2aa27feebac9@linux.intel.com>
-Date: Thu, 10 Aug 2023 07:32:32 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=QbrDaeXc
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1889362B5D;
+	Thu, 10 Aug 2023 14:33:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7B6C433C7;
+	Thu, 10 Aug 2023 14:33:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1691678004;
+	bh=IKeq5Z2PbwGi23k/nvlp7YWjgFV2LYLVb7jhG7tG1lg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QbrDaeXcavNd7O6sJOBertdJqILy71c2hhn2rB/wwEj8QW3rxy7TXvVe6NovYdA1B
+	 O0XO1sJAHzH18kOm7Vyi7m59Qir3sVomJ/bCV0iwnWfrXFw0ZzyGChQ3RrAKUDmb4E
+	 sHLt4D/mo6IIIuxi/BxLUTwtN9U7uaG8VRGQTgmbHdttTsBiURo3cGv1Xy024RBYP9
+	 fzCcztjzVYyEqUdi95AVqEYqlsVzfdQSDfOSZA0YCqgb47K3R2dS8XAqaoQrsTsjZi
+	 9ACHR0ImHce4PkFNASr13ujsCbtyYj0mBdS8WLgFx7XL2F8NwvdmylvkiFKBzipbYy
+	 SOubf9/oAuxoQ==
+Date: Thu, 10 Aug 2023 07:33:21 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+	daniel.baluta@nxp.com, kai.vehmanen@linux.intel.com,
+	ndesaulniers@google.com, trix@redhat.com, rander.wang@intel.com,
+	sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+	llvm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH] ASoC: SOF: Intel: Initialize chip in
+ hda_sdw_check_wakeen_irq()
+Message-ID: <20230810143321.GA1549244@dev-arch.thelio-3990X>
+References: 
+ <20230809-intel-hda-missing-chip-init-v1-1-61557ca6fa8a@kernel.org>
+ <8eed2099-2853-df8d-92db-921d0702f512@linux.intel.com>
+ <20230809190212.GB3355565@dev-arch.thelio-3990X>
+ <2a2de1b5-4dd5-f170-bb0b-61d39230c3a7@linux.intel.com>
+ <20230809200906.GA4016444@dev-arch.thelio-3990X>
+ <d224ef41-373f-186b-1ba2-86f00ea8fbce@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH -next] ASoC: SOF: Intel: Remove duplicated include in
- lnl.c
-Content-Language: en-US
-To: Yang Li <yang.lee@linux.alibaba.com>, perex@perex.cz, tiwai@suse.com,
- lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com
-Cc: sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20230810005555.4610-1-yang.lee@linux.alibaba.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230810005555.4610-1-yang.lee@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 6VS6PSSHFCGV3PT47KJ6C4SEZP2JRWZ3
-X-Message-ID-Hash: 6VS6PSSHFCGV3PT47KJ6C4SEZP2JRWZ3
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d224ef41-373f-186b-1ba2-86f00ea8fbce@linux.intel.com>
+Message-ID-Hash: RMZMJCK2LJLU26NAD2APQTLH3QJ6AH2D
+X-Message-ID-Hash: RMZMJCK2LJLU26NAD2APQTLH3QJ6AH2D
+X-MailFrom: nathan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VS6PSSHFCGV3PT47KJ6C4SEZP2JRWZ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RMZMJCK2LJLU26NAD2APQTLH3QJ6AH2D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,30 +108,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 8/9/23 19:55, Yang Li wrote:
-> ./sound/soc/sof/intel/lnl.c: hda.h is included more than once.
+On Wed, Aug 09, 2023 at 03:42:44PM -0500, Pierre-Louis Bossart wrote:
 > 
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
-
-yes, thanks for the patch
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
->  sound/soc/sof/intel/lnl.c | 1 -
->  1 file changed, 1 deletion(-)
+> > Ah, I still think you will need to pass CC to make directly, rather than
+> > through the environment but you should be able to prevent
+> > merge_config.sh from getting in the way by passing '-m' to avoid having
+> > it invoke make itself, then you can add a 'make olddefconfig' step after
+> > that, perhaps something like this?
+> > 
+> >   - name: build start
+> >     run: |
+> >       export ARCH=x86_64 KCFLAGS="-Wall -Werror"
+> >       export MAKEFLAGS=j"$(nproc)"
+> >       bash kconfig/kconfig-sof-default.sh -m
 > 
-> diff --git a/sound/soc/sof/intel/lnl.c b/sound/soc/sof/intel/lnl.c
-> index 3d919b0b6891..db94b45e53af 100644
-> --- a/sound/soc/sof/intel/lnl.c
-> +++ b/sound/soc/sof/intel/lnl.c
-> @@ -16,7 +16,6 @@
->  #include "hda-ipc.h"
->  #include "../sof-audio.h"
->  #include "mtl.h"
-> -#include "hda.h"
->  #include <sound/hda-mlink.h>
->  
->  /* LunarLake ops */
+> The -m doesn't work since it's added last, but it's not even needed. The
+> sequence below re-adds clang, that's just fine.
+
+Ah right!
+
+> >       make CC=clang olddefconfig
+> >       make CC=clang sound/
+> >       make CC=clang drivers/soundwire/
+> >       make CC=clang
+> The fun part now is that I get tons of unrelated errors - but at least
+> that's a sign we're using the clang compiler
+
+> sound/pci/hda/hda_bind.c:232:18: error: format string is not a string
+> literal (potentially insecure) [-Werror,-Wformat-security]
+
+Heh, I suppose that is somewhat self inflicted with the '-Wall -Wextra',
+as '-Wformat-security' gets re-enabled after being disabled in the main
+Makefile. May be worth sticking a '-Wno-format-security' back on there.
+Glad to hear that it is working now and thank you for testing with clang
+to help catch issues before they make it to a tree :)
+
+Cheers,
+Nathan

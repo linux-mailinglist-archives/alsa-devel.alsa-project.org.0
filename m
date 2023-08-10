@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 540AF777081
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 08:36:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD5177707A
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 08:35:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 958CDDF1;
-	Thu, 10 Aug 2023 08:35:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 958CDDF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A85283A;
+	Thu, 10 Aug 2023 08:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A85283A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691649388;
-	bh=Y1fcRcpHWIf+GBj3CX5Iu+7c7HsEQrzL0f57Uhtp/WU=;
+	s=default; t=1691649305;
+	bh=zwznNieYy81bMJXMYzEieqpnSPthsegPgUf+3D8L2b8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IUzUOJEgAMU2YFNBoEznT16wpglIArZ/yF66e93Jj3bQBS4iBqZmS2aj50g9YdhLC
-	 EDMQAOdP0NacE/BIxu+uUGe8cvzGNU+aHXz8KXfJgd80qzm3i/rccRVr6XaDNqkDID
-	 MAKtuPe0Io6pE4Oy5J80G/pQU3603ub6yVfxwEZ4=
+	b=WABPj9lhKu/4+SELJVwgrbi0Z1w6Qxghdn7BLvF3egh0z/UKd3JpAHxMwhNm3XTk9
+	 pnfTjBenDGmxqL64DZk4FQbwoC+GMjZuOgQHNxaG03fhHTwh6Y7h7+f1ohRUM24txA
+	 PCbdWVJpQVflhTNsIvAI3Eyb9OCGykNY+BJqZl8g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 659EDF80563; Thu, 10 Aug 2023 08:34:52 +0200 (CEST)
+	id AFBCEF80567; Thu, 10 Aug 2023 08:33:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20419F80549;
-	Thu, 10 Aug 2023 08:34:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F2D3F80564;
+	Thu, 10 Aug 2023 08:33:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AAD8AF80558; Thu, 10 Aug 2023 08:34:48 +0200 (CEST)
+	id BB5A8F80549; Thu, 10 Aug 2023 08:33:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 725F5F800F4
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 08:33:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 725F5F800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0362F80166
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 08:33:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0362F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=EKOLsf+y
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-3fe5c0e57d2so4578725e9.0
+ header.s=google header.b=xU/RO30v
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4fe655796faso763982e87.2
         for <alsa-devel@alsa-project.org>;
- Wed, 09 Aug 2023 23:33:07 -0700 (PDT)
+ Wed, 09 Aug 2023 23:33:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1691649186; x=1692253986;
+        d=linaro.org; s=google; t=1691649188; x=1692253988;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xRK4u/u6GjShtJ9g8bcUM1XPaEOsUKZUUqbfqiifYIs=;
-        b=EKOLsf+ykA5qIQjzzOus1wbbzFq81JXaJvdLkG0mm3Ei/C2xTDE/Wu8pEO3Adhv1sB
-         a8fYpYw1hxGihI1MFUifamdPmJH45ZV8HDggIKT3v396ZMr2JyDRdg4/D9PmrKPpCvPL
-         8EA8uAJyzKgvFa/yGogo535vvEIkekTvq5q7u0arTD8e0FY1RGFxH2bC/gCqRI9mbS9Z
-         aXWnnIogjDkXyOz9T65Ds170m+XMLrSZ4mQOUEJGTsXUZGNMpMsdTEyBALGWponNQ0nj
-         a+D3erhbaW+s3A1Ll/jbyvpMMzlDhOPzMTwzJf18WEgJkTn53cmJNV7nVbKISH4GEA3+
-         zMvA==
+        bh=V+hlC8d67YmntwV4mHtT3ZdGF2DLfbF3GgSUytsMD/g=;
+        b=xU/RO30vWACYxqjtnyOxfTI3eJXujWzw/tOzIRF0AjoT3K3pqKUkKXyMg1cLZOOP3v
+         /yaW305bxyPasG0lRF7V+44ce5JFDRMIfoTnxZeZfjcNWGkAAKBJfCMWWE/BxgFqkryh
+         CHaNdvUeOra1W8UrXNDmgWCY+EkAOo/gHYitQwjbXaGsOJlE6ybXURT/L0xRlFZFceNp
+         ZSBm7qtK88v0UuRLyz+nXh8MVuaPxzEq0FcRHmHV7R7OPfUFaYxJh0dsEzGQsK2PHSZD
+         3lCkvhEqO/1yjUXL7T9lSyfklQFQW5cIKHgx1X8AI7lcbVQblucLHS3P12I/vKLtHG6Z
+         no9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691649186; x=1692253986;
+        d=1e100.net; s=20221208; t=1691649188; x=1692253988;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xRK4u/u6GjShtJ9g8bcUM1XPaEOsUKZUUqbfqiifYIs=;
-        b=XNAW43VVdSqR/BCdXRjSSkyWYqeY5wGIwL6pei2WFP5XzD1oBKhUAEvLdYZmvqkuKK
-         9tNQQ041y72YCanAz5j1Fwm241jBlni/YeAyKuYoVVLmeRY43Wsn+bqg4tryUva9l0Rv
-         FTEuL1tnJTvusHwBiWBBvrB1+H1ZHcyN0G+k8MIY3L0l2MkIuAFH+isMPHzmJAJKmy+t
-         vswMycUG3DIp1uil8y08f8GLw+K3NWj1mjmHi+oC9kiERf1DcfoxlK8g2WEV5ZmJPKof
-         bCqbWjp833KLlPqVP7290+nBWJYWJbs07TQM1sNqmOdOXZoNWc1JQ7Edlr7Ud2Ll/uJh
-         7e4Q==
-X-Gm-Message-State: AOJu0Yyc9wCupldpkcTx5xevHNhkp3YZONh/cSsLhqMF+QkbC8OwlH5y
-	zY3HAze8c3a/OaWk5n60QHbltw==
+        bh=V+hlC8d67YmntwV4mHtT3ZdGF2DLfbF3GgSUytsMD/g=;
+        b=aMdHUPVVXfbSHIkZ02gjYfV3F4LmpYtDZ0eVh7GM6eDoxEysr9HXaxuT79DjBhyLDp
+         sleFm/EXEnEvfKFUiJhZfXa5DBd9P7cx1c/SIChfpVEtY0ftjawdZ/eeSfyv5JwhkNGi
+         UjlfTugbQJiRzxwZCIfr66khSMxmnhdGC8CQiQ4Ly+OSZzkHbeRZFoT3ymsQG4JEfnW8
+         H+bf89iJ/W6opLBkstEN1BCN+6GBQvpbfwhxTGLxsAVYPGSGwSSPQWZg3HowskUarzGo
+         +5EA5MJz4Vz7zUQ+AX4a/IuwlNT9wouyZ8eFwKknOsoZuyU0ha9+oWvNw9SWz1VRvqo+
+         bDiw==
+X-Gm-Message-State: AOJu0Yx8f/ZZXs0+qWLPvhIRB5O3vVGAHFsLa78Qbm4yyR+rPnb8Ie/M
+	pKyvJ6HJoK2yL9RDh96grynGNQ==
 X-Google-Smtp-Source: 
- AGHT+IF3jK0RC64l2dE7mBJal346hXqt7G4hF0HjJMrFLuF9HMUsWWO06rStb8U1TvYEIzfEW6pMQQ==
-X-Received: by 2002:a1c:4b0a:0:b0:3fe:212c:f790 with SMTP id
- y10-20020a1c4b0a000000b003fe212cf790mr962281wma.36.1691649186466;
-        Wed, 09 Aug 2023 23:33:06 -0700 (PDT)
+ AGHT+IErGy790Xkb6/KzdX9Bvv40e18+/V59YRvZrbqtUlAQog8GWO8fIcwIyb/Yl5HGLGY7G2ICtw==
+X-Received: by 2002:a05:6512:3483:b0:4fe:347c:874b with SMTP id
+ v3-20020a056512348300b004fe347c874bmr907453lfr.8.1691649188761;
+        Wed, 09 Aug 2023 23:33:08 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.222.113])
         by smtp.gmail.com with ESMTPSA id
- o10-20020a1c750a000000b003fe2b6d64c8sm4020018wmc.21.2023.08.09.23.33.04
+ o10-20020a1c750a000000b003fe2b6d64c8sm4020018wmc.21.2023.08.09.23.33.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Aug 2023 23:33:05 -0700 (PDT)
+        Wed, 09 Aug 2023 23:33:08 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Jerome Brunet <jbrunet@baylibre.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -116,17 +116,17 @@ To: Jerome Brunet <jbrunet@baylibre.com>,
 	linux-mediatek@lists.infradead.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
 	Rob Herring <robh@kernel.org>
-Subject: [PATCH v2 02/11] ASoC: dt-bindings: mediatek,mt8188-mt6359: use
- common sound card
-Date: Thu, 10 Aug 2023 08:32:50 +0200
-Message-Id: <20230810063300.20151-2-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 03/11] ASoC: dt-bindings: samsung,aries-wm8994: use common
+ sound card
+Date: Thu, 10 Aug 2023 08:32:51 +0200
+Message-Id: <20230810063300.20151-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230810063300.20151-1-krzysztof.kozlowski@linaro.org>
 References: <20230810063300.20151-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PL23AM2V35EFPG2FTPXACIC2PV3ZUU4P
-X-Message-ID-Hash: PL23AM2V35EFPG2FTPXACIC2PV3ZUU4P
+Message-ID-Hash: CLFB7OA6WZX4Z32E7ZURLX5A37JEUT4D
+X-Message-ID-Hash: CLFB7OA6WZX4Z32E7ZURLX5A37JEUT4D
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -139,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PL23AM2V35EFPG2FTPXACIC2PV3ZUU4P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLFB7OA6WZX4Z32E7ZURLX5A37JEUT4D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,26 +148,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The mediatek,mt8188-mt6359 Linux sound machine driver requires the
-"model" property, so binding was incomplete.  Reference the common sound
-card properties to fix that which also allows to remove duplicated
-property definitions.  Leave the relevant parts of "audio-routing"
-description.
+Reference the common sound card properties and deprecate the
+custom "samsung,audio-routing" in favor of generic one.  This allows to
+remove "model" property and make the binding closer to other sounds
+cards.
 
 Reviewed-by: Rob Herring <robh@kernel.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/sound/mediatek,mt8188-mt6359.yaml  | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ .../bindings/sound/samsung,aries-wm8994.yaml     | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-index 05e532b5d50a..43b3b67bdf3b 100644
---- a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-@@ -9,23 +9,19 @@ title: MediaTek MT8188 ASoC sound card
+diff --git a/Documentation/devicetree/bindings/sound/samsung,aries-wm8994.yaml b/Documentation/devicetree/bindings/sound/samsung,aries-wm8994.yaml
+index 447e013f6e17..5ea0819a261a 100644
+--- a/Documentation/devicetree/bindings/sound/samsung,aries-wm8994.yaml
++++ b/Documentation/devicetree/bindings/sound/samsung,aries-wm8994.yaml
+@@ -9,6 +9,9 @@ title: Samsung Aries audio complex with WM8994 codec
  maintainers:
-   - Trevor Wu <trevor.wu@mediatek.com>
+   - Jonathan Bakker <xc-racer2@live.ca>
  
 +allOf:
 +  - $ref: sound-card-common.yaml#
@@ -175,42 +173,63 @@ index 05e532b5d50a..43b3b67bdf3b 100644
  properties:
    compatible:
      enum:
-       - mediatek,mt8188-mt6359-evb
-       - mediatek,mt8188-nau8825
+@@ -17,10 +20,6 @@ properties:
+       # Without FM radio and modem slave
+       - samsung,fascinate4g-wm8994
  
 -  model:
 -    $ref: /schemas/types.yaml#/definitions/string
--    description: User specified audio sound card name
+-    description: The user-visible name of this sound complex.
 -
-   audio-routing:
--    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-     description:
--      A list of the connections between audio components. Each entry is a
--      sink/source pair of strings. Valid names could be the input or output
--      widgets of audio components, power supplies, MicBias of codec and the
--      software switch.
-+      Valid names could be the input or output widgets of audio components,
-+      power supplies, MicBias of codec and the software switch.
+   cpu:
+     type: object
+     additionalProperties: false
+@@ -46,6 +45,7 @@ properties:
  
-   mediatek,platform:
-     $ref: /schemas/types.yaml#/definitions/phandle
-@@ -86,7 +82,7 @@ patternProperties:
-     required:
-       - link-name
+   samsung,audio-routing:
+     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    deprecated: true
+     description: |
+       List of the connections between audio
+       components;  each entry is a pair of strings, the first being the
+@@ -56,6 +56,7 @@ properties:
+       or FM In
+       For samsung,fascinate4g-wm8994: HP, SPK, RCV, LINE, Main Mic,
+       or HeadsetMic
++      Deprecated, use audio-routing.
+ 
+   extcon:
+     description: Extcon phandle for dock detection
+@@ -87,10 +88,9 @@ properties:
+ 
+ required:
+   - compatible
+-  - model
+   - cpu
+   - codec
+-  - samsung,audio-routing
++  - audio-routing
+   - extcon
+   - main-micbias-supply
+   - headset-micbias-supply
+@@ -98,7 +98,7 @@ required:
+   - headset-detect-gpios
+   - headset-key-gpios
  
 -additionalProperties: false
 +unevaluatedProperties: false
  
- required:
-   - compatible
-@@ -96,6 +92,7 @@ examples:
+ examples:
    - |
-     sound {
-         compatible = "mediatek,mt8188-mt6359-evb";
-+        model = "MT6359-EVB";
-         mediatek,platform = <&afe>;
-         pinctrl-names = "default";
-         pinctrl-0 = <&aud_pins_default>;
+@@ -121,7 +121,7 @@ examples:
+         headset-detect-gpios = <&gph0 6 GPIO_ACTIVE_HIGH>;
+         headset-key-gpios = <&gph3 6 GPIO_ACTIVE_HIGH>;
+ 
+-        samsung,audio-routing =
++        audio-routing =
+             "HP", "HPOUT1L",
+             "HP", "HPOUT1R",
+ 
 -- 
 2.34.1
 

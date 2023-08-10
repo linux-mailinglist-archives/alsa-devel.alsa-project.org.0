@@ -2,103 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDDAE777FE8
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 20:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CDD17780DF
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Aug 2023 20:57:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DB58828;
-	Thu, 10 Aug 2023 20:03:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DB58828
+	by alsa0.perex.cz (Postfix) with ESMTPS id A70F0843;
+	Thu, 10 Aug 2023 20:56:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A70F0843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691690637;
-	bh=Y5NbfTzNtvATG9GxZM1Qw0F5nvZfv1HtLDJ4xkBt2hQ=;
+	s=default; t=1691693846;
+	bh=IsK5G9QDEXWBnjqWS3cLXM3HVwNlvSCPlHJrokHTodM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GjQ4/BhCuQ2wxxsGmlYyFvqRCptXuZ29tNsIL2UhptkZ0b2tNTVRPh8UuMQsoTei6
-	 rfvLrB0VJYUQ9C+ci55bHZR0Wi23mfnig+WMQH7dI8bzZhw2rbomAWcw8ii9HZl9Ay
-	 H3oUCBdZ5i/sEqbCksNAutK3Gj5SGVN8EdgydQV4=
+	b=vkn+Ib2ZC94HEHdaKTm+ooUmcIjS/SHZYyQJWgb/vms4Hsvhf7DvPcq0T7tFRgRwy
+	 ssM+Jq7nTl2EErlwN1M703kqedsNfiibkLPnr3Rmkf3w84GVxw2kAlbhZu62lhsTxS
+	 FqkZ5bnauGrl6sBbddDEFCfb54lzLUacFcj2wCgY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14F20F800FB; Thu, 10 Aug 2023 20:03:06 +0200 (CEST)
+	id 48DA0F80579; Thu, 10 Aug 2023 20:55:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A185CF80166;
-	Thu, 10 Aug 2023 20:03:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99E46F80564;
+	Thu, 10 Aug 2023 20:55:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 686CDF8016E; Thu, 10 Aug 2023 20:03:03 +0200 (CEST)
+	id 9C647F800F4; Thu, 10 Aug 2023 20:55:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF83FF800FB
-	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 20:02:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF83FF800FB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 664DDF80166
+	for <alsa-devel@alsa-project.org>; Thu, 10 Aug 2023 20:55:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 664DDF80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A/YtgsbU
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8CC9E6659A;
-	Thu, 10 Aug 2023 18:02:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97EE7C433C7;
-	Thu, 10 Aug 2023 18:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691690577;
-	bh=Y5NbfTzNtvATG9GxZM1Qw0F5nvZfv1HtLDJ4xkBt2hQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A/YtgsbUK1wEI/m3j+lbTimnm7LKRJA1RywxB47qQiteMKMuxx3i5Hxz5wtM7hmBq
-	 gQWNrwf4B/Z3ZTRm6ZdGvpAAHWJuaXjOCXa7N55mL0wtFPvP/ylhqrvMtkqUIMM/JV
-	 zgJ30nRuhI4FS9CyjrmqcotVV6h78rgZPOlvHBAGXY41sG42h1oPf7apyqzwbd/rW2
-	 2DxJ/u6e3Yu352ECVCo6etxNwrv9NevlS4G0Vl+in1lmuYoXwsSn104EnGHeM4NYM/
-	 qrrmX/A1z0Ldu57/+cFQMKtZrQcnYCql4+G+6tmwkWM9V/LrtDLM93ewblFGf3R6NI
-	 eb/pN+7Q+2OGQ==
-Date: Thu, 10 Aug 2023 19:02:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	NXP Linux Team <linux-imx@nxp.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Bjorn Andersson <quic_bjorande@quicinc.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	=?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, kernel@puri.sm,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org,
-	David Heidelberg <david@ixit.cz>, Sherry Sun <sherry.sun@nxp.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: sound: gtm601: Add description
-Message-ID: <582be994-d3c8-4edf-9028-99b18505e378@sirena.org.uk>
-References: <cover.1691684726.git.agx@sigxcpu.org>
- <6904cc6d877d28d92e9f9fa9f1bdc404614d9734.1691684726.git.agx@sigxcpu.org>
+ unprotected) header.d=igorinstitute-com.20221208.gappssmtp.com
+ header.i=@igorinstitute-com.20221208.gappssmtp.com header.a=rsa-sha256
+ header.s=20221208 header.b=KV353QEf
+Received: by mail-pf1-x429.google.com with SMTP id
+ d2e1a72fcca58-686b91c2744so957750b3a.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 10 Aug 2023 11:55:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=igorinstitute-com.20221208.gappssmtp.com; s=20221208; t=1691693735;
+ x=1692298535;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ReLwi2nvTkOckww+x2LbKPx0bCg4S+W6rG96SqGnBrY=;
+        b=KV353QEfqmzmRDXwuUhtVSxqUDg0evBEzH0jZ04juRUo9tCElN8GRRGqK/N6NxUkNx
+         oL31uSnV8Ouba8maoaDErcxmUbtXWckjb9PPwicwrmsPiyC0Vxx4l/qwNKbQmcDIVjCa
+         GSkxjA4hWn6F3++wQGpkJdRaLiIF4UMYzODbxSRPWeMLkg0Cn+s5g7Mc7W88plrHrBZo
+         dvt4Sj+CQzBbvlibPz6lrnLCoruXX4lQ0Bf/+CEvnPP4Pgxf7LIeHHyGozSb73ZpLVKR
+         UAV7cPlTBTPung/mB7WdzrV2hsOYQsyySRqgH4fFCv6lr1Ox4gCyLIWjgQQ8XP0A03Ji
+         UyPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691693735; x=1692298535;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ReLwi2nvTkOckww+x2LbKPx0bCg4S+W6rG96SqGnBrY=;
+        b=exhZ5ef3WXWudrelgsg0JODgwcYzg1uBTEdQkjfzrfZWyUtvereuqVNlVSlskf5MyY
+         wiNBDoQkJhS6qLV856Rhs5G8Qni32v5dLy6+z1T2N9pVQyuRoPgoUUPqgVzjc1EWqZaQ
+         sVIpY6pTrUhMlSADn+koC8MFjJYIs4t1euauzG2SJWOfsiK7gEeTfsgr1e8p2LIyv23p
+         ZR7JX4OOb02cYjp9RfOlUxlpy9LzUtF9FL95Hq2lnpHUDKfi43o84cSluBU8vBsoXgZA
+         2s8xgxumtne2Up0QoVh6msZrlcWa4/bUCpeMiIMNSavXekpKv8WgF6pJfmKFwtKFj+4E
+         KDBQ==
+X-Gm-Message-State: AOJu0YxpaE5fgWx+S5Gu1hC5D9G9zKxgEEmU7mLb4LpHGNeLC2ReSkCs
+	HgoKqAaJeusVusxXGO0B3Y2DEg==
+X-Google-Smtp-Source: 
+ AGHT+IFuJAoeh/LPAGg6Z3Eb3PcBlWQ6qffS4pImhkNjVJAUdV/2y2ul8gNZ6QkBCPLOBinXZDDDIg==
+X-Received: by 2002:a05:6a20:13d8:b0:12d:23ea:9ccc with SMTP id
+ ho24-20020a056a2013d800b0012d23ea9cccmr3037690pzc.39.1691693734583;
+        Thu, 10 Aug 2023 11:55:34 -0700 (PDT)
+Received: from localhost ([2407:7000:825d:4900:3d80:aa52:cfc7:4e30])
+        by smtp.gmail.com with ESMTPSA id
+ t27-20020aa7939b000000b006826df9e286sm1912610pfe.143.2023.08.10.11.55.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Aug 2023 11:55:34 -0700 (PDT)
+Date: Fri, 11 Aug 2023 06:55:30 +1200
+From: Daniel Beer <daniel.beer@igorinstitute.com>
+To: Li Zetao <lizetao1@huawei.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+	pierre-louis.bossart@linux.intel.com,
+	peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+	kai.vehmanen@linux.intel.com, Jonathan.Cameron@huawei.com,
+	luca.ceresoli@bootlin.com, luzmaximilian@gmail.com,
+	u.kleine-koenig@pengutronix.de, alsa-devel@alsa-project.org,
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH -next 1/2] ASoC: tas5805m: Use devm_kmemdup to replace
+ devm_kmalloc + memcpy
+Message-ID: <ZNUyor9WYmeBrxg/@fermat.nev>
+References: <20230810114738.2103792-1-lizetao1@huawei.com>
+ <20230810114738.2103792-2-lizetao1@huawei.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GODGWzgiFfPQfLkj"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: 
- <6904cc6d877d28d92e9f9fa9f1bdc404614d9734.1691684726.git.agx@sigxcpu.org>
-X-Cookie: Reunite Gondwondaland!
-Message-ID-Hash: JVCUA73SREEG6NLW2BBQJVTFALLC5G3P
-X-Message-ID-Hash: JVCUA73SREEG6NLW2BBQJVTFALLC5G3P
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20230810114738.2103792-2-lizetao1@huawei.com>
+Message-ID-Hash: 673BTKSQPME4BLQS3UPTAAU7W3YJXIWL
+X-Message-ID-Hash: 673BTKSQPME4BLQS3UPTAAU7W3YJXIWL
+X-MailFrom: daniel.beer@igorinstitute.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JVCUA73SREEG6NLW2BBQJVTFALLC5G3P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/673BTKSQPME4BLQS3UPTAAU7W3YJXIWL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,35 +128,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, Aug 10, 2023 at 07:47:37PM +0800, Li Zetao wrote:
+> -	tas5805m->dsp_cfg_data = devm_kmalloc(dev, fw->size, GFP_KERNEL);
+> +	tas5805m->dsp_cfg_data = devm_kmemdup(dev, fw->data, fw->size, GFP_KERNEL);
+>  	if (!tas5805m->dsp_cfg_data) {
+>  		release_firmware(fw);
+>  		return -ENOMEM;
+>  	}
+> -	memcpy(tas5805m->dsp_cfg_data, fw->data, fw->size);
+>  
+>  	release_firmware(fw);
 
---GODGWzgiFfPQfLkj
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+You could probably now move the release_firmware call to be immediately
+after the devm_kmemdup attempt, and avoid having to call it from two
+different places.
 
-On Thu, Aug 10, 2023 at 07:59:49PM +0200, Guido G=FCnther wrote:
-> This allows to us to document the channel and sampling
-> rate requirements.
+Cheers,
+Daniel
 
-Please do not submit new versions of already applied patches, please
-submit incremental updates to the existing code.  Modifying existing
-commits creates problems for other users building on top of those
-commits so it's best practice to only change pubished git commits if
-absolutely essential.
-
---GODGWzgiFfPQfLkj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTVJkcACgkQJNaLcl1U
-h9CWgQf9E1fK+h8U4tglO2QBYdincfV5U+VibIuT+X3R6d04Ld31bt4zcsOebMv6
-fsAbpoGJOrIqB63vKIGaOO3UvhUzmzR3IjzgzHf6J9a2oQm8G59+qayWuwpx8VZ3
-ttWsCsjjJU7ZILOFmfZf2zIBnipw8Ze+dlyT9qzm7W9B0CPW1FEnD6jiklT/o6YP
-ekdGU7vZA2Yap/nLhfDlLFQN5dh1UC0kuSOx/uScsanGSMtYN/WqsQHdCNsPCX0s
-v4BwnIIX+KJcOwFIJ7Ye3YaOUBWanxVI2iWXZCZ0xX1bFOeUVyZRKtKDNGyUSb4p
-jPICdMQVJ1M1b/QOehMvuvGkkbGTJg==
-=ie9k
------END PGP SIGNATURE-----
-
---GODGWzgiFfPQfLkj--
+-- 
+Daniel Beer
+Firmware Engineer at Igor Institute
+daniel.beer@igorinstitute.com or +64-27-420-8101
+Offices in Seattle, San Francisco, and Vancouver BC or (206) 494-3312

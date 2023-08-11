@@ -2,46 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B86778815
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:22:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBE1577884E
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:37:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED203823;
-	Fri, 11 Aug 2023 09:21:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED203823
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8997822;
+	Fri, 11 Aug 2023 09:36:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8997822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691738561;
-	bh=da54FdS0rtDEYkl03vZtrdhkyVjTb8y9My98MLqX5VY=;
-	h=Subject:From:To:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VjdW2aFoDZ5lM066Bigl7WNM++1OpyFFAwOpfrkhidhQ4qoe2WFKCDjERd/Rb13eF
-	 KfM+biJYRt5oiYqVNON9aaqEGIX2cfffAchoWuowvNK9UzaaJVkHJZA6rPrckZX4sB
-	 1tWQs3VpMBHup0WrLDSiIPQj5SmGKRhLGcqLLkBY=
+	s=default; t=1691739443;
+	bh=fNEARGdBpNV44qayK+1eoVMVWkDWYR1Ll3gFpL6RUI4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=MFPv+qNf13mSlhqvFdc6pawWWgQ1u6ReJgwg+fR/nXJP0qALj1b8u9g1AIB+Akp/k
+	 ZrTHe034KKDxKJq6IDECwY0vzeUbp/3dQZWQA/W0LJX5ZQvKDA8SjIdzDwI/GXpG2E
+	 driRoV/KyauBrv6xk+Wfe3dsGTl9da9ZSqhFirok=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1BDBDF80508; Fri, 11 Aug 2023 09:21:50 +0200 (CEST)
+	id 55542F80166; Fri, 11 Aug 2023 09:36:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4251F80166;
-	Fri, 11 Aug 2023 09:21:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3869F80134;
+	Fri, 11 Aug 2023 09:36:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4B6CF8016E; Fri, 11 Aug 2023 09:21:44 +0200 (CEST)
-Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
- [10.254.200.11])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCA67F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:21:44 +0200 (CEST)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH] -- fix Boss MS-3 midi-usb communication
-From: john_candlish@mail.candlish.net
-To: alsa-devel@alsa-project.org
-Date: Fri, 11 Aug 2023 07:21:44 -0000
-Message-ID: 
+	id 87E7BF8016E; Fri, 11 Aug 2023 09:36:27 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id B2FA4F800F4
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2FA4F800F4
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=CIlP+A5K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=w7YR7wnW
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F25441F74A;
+	Fri, 11 Aug 2023 07:36:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1691739378;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L7qTjamPWvdfEuBS2+Ub18mMrl9R2SqTrqxBlplL/4g=;
+	b=CIlP+A5Ks2fIzAK9mQEyiOSqKjHTd4QmVV2wYYVtiBgwl4BVykRi+Q9kP82+Y2NIVsD2Fw
+	SmmOOAlHvgIuxzXVWeG33w7B6r8fENUkZSu9qzZID7T+8Q6VdWxL7qdO7FGjmNEr7f+D96
+	NQmWY1Uyl9Dx4qG47i7YoquNDd5SkyM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1691739378;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L7qTjamPWvdfEuBS2+Ub18mMrl9R2SqTrqxBlplL/4g=;
+	b=w7YR7wnWwTqR08nvYwgv14j6zMpyCoqzDR5W02MYe2x4ilk90Qze1ECqc/rwC53JarB8r/
+	llJAy9sRII8tXVBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D4740138E2;
+	Fri, 11 Aug 2023 07:36:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id ktDnMvLk1WR+aQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 11 Aug 2023 07:36:18 +0000
+Date: Fri, 11 Aug 2023 09:36:18 +0200
+Message-ID: <87sf8qrpxp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: john_candlish@mail.candlish.net
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] -- fix Boss MS-3 midi-usb communication
+In-Reply-To: 
  <169173850488.20.12963803837559965998@mailman-web.alsa-project.org>
-User-Agent: HyperKitty on https://mailman.alsa-project.org/
-Message-ID-Hash: JTFOLHU5NNCPNQ4VSAWXIJRD3VXSW26D
-X-Message-ID-Hash: JTFOLHU5NNCPNQ4VSAWXIJRD3VXSW26D
-X-MailFrom: john_candlish@mail.candlish.net
+References: 
+ <169173850488.20.12963803837559965998@mailman-web.alsa-project.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ICADABFAFCFMSVSY2BHGSIJXSARMQP4L
+X-Message-ID-Hash: ICADABFAFCFMSVSY2BHGSIJXSARMQP4L
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -53,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIDDZZ5OCDF2WMOUMCH3OJ6NQVZO5YU7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ICADABFAFCFMSVSY2BHGSIJXSARMQP4L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -62,30 +118,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This one line change gets MIDI communication flowing between ALSA and the Boss MS-3 multi-effect switcher.
+On Fri, 11 Aug 2023 09:21:44 +0200,
+john_candlish@mail.candlish.net wrote:
+> 
+> This one line change gets MIDI communication flowing between ALSA and the Boss MS-3 multi-effect switcher.
+> 
+> /////
+> *** sound/usb/midi.c    2023-08-10 22:46:31.016346930 +0200
+> --- sound/usb/midi.c-orig   2023-07-19 16:37:03.000000000 +0200
+> ***************
+> *** 2106,2113 ****
+>     struct usb_endpoint_descriptor *epd;
+>     int i, out_eps = 0, in_eps = 0;
+> 
+> !   if (USB_ID_VENDOR(umidi->usb_id) == 0x0582 &&
+> !       USB_ID_PRODUCT(umidi->usb_id) != 0x01f5)
+>         snd_usbmidi_switch_roland_altsetting(umidi);
+> 
+> if (endpoint[0].out_ep || endpoint[0].in_ep)
+> --- 2106,2112 ----
+>     struct usb_endpoint_descriptor *epd;
+>     int i, out_eps = 0, in_eps = 0;
+> 
+> !   if (USB_ID_VENDOR(umidi->usb_id) == 0x0582)
+>         snd_usbmidi_switch_roland_altsetting(umidi);
+> 
+> if (endpoint[0].out_ep || endpoint[0].in_ep)
+> 
+> /////
+> 
+> There are doubtless other Roland/Boss USB_ID_PRODUCT id's that are effected and it would be nice to make the  USB_ID_PRODUCT value a tunable, but that is beyond my competence.
 
-/////
-*** sound/usb/midi.c    2023-08-10 22:46:31.016346930 +0200
---- sound/usb/midi.c-orig   2023-07-19 16:37:03.000000000 +0200
-***************
-*** 2106,2113 ****
-    struct usb_endpoint_descriptor *epd;
-    int i, out_eps = 0, in_eps = 0;
+Could you give the exact USB vendor/product IDs so that I can cook a
+patch?  At best, please give alsa-info.sh output; run the script with
+--no-upload option and attach the output.
 
-!   if (USB_ID_VENDOR(umidi->usb_id) == 0x0582 &&
-!       USB_ID_PRODUCT(umidi->usb_id) != 0x01f5)
-        snd_usbmidi_switch_roland_altsetting(umidi);
 
-if (endpoint[0].out_ep || endpoint[0].in_ep)
---- 2106,2112 ----
-    struct usb_endpoint_descriptor *epd;
-    int i, out_eps = 0, in_eps = 0;
+thanks,
 
-!   if (USB_ID_VENDOR(umidi->usb_id) == 0x0582)
-        snd_usbmidi_switch_roland_altsetting(umidi);
+Takashi
 
-if (endpoint[0].out_ep || endpoint[0].in_ep)
-
-/////
-
-There are doubtless other Roland/Boss USB_ID_PRODUCT id's that are effected and it would be nice to make the  USB_ID_PRODUCT value a tunable, but that is beyond my competence.

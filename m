@@ -2,116 +2,180 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B162877889E
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EDB37788A5
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:55:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBCB082C;
-	Fri, 11 Aug 2023 09:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBCB082C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 098B1828;
+	Fri, 11 Aug 2023 09:54:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 098B1828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691740433;
-	bh=qthzNwmNZpoI5jBdzhUIqij5RWGX33cXwNdfkt8kl4M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1691740515;
+	bh=faDjWoxaNYpZe8CiyL74RAcsMlLuVqa1/9CYk3zSm6s=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RCWCPre+kGe0mj9zELBa5N3D2uFbZlXNBR1KVR3meZ71mHGXLDXpPqrhlQeBgC0EL
-	 U3g0RHi3yhp0RiQnWiIj84bjxI2Mih22uRv1wOkaaqCQjG2knjDPGaYs89YjcBN2EJ
-	 UuaagTghDkjnBq0uyklaIeHxYW44b9lGZrrAtVuo=
+	b=aHs+eByVqsU1/Rf5+BAVYCycAwjCxiKDBakwWLo6NeXxAPIW3GeVi+Gyldw1/Pv47
+	 RdNwr8OBqIODWtdMawutfw6C/WIgUwER1zSQLID9hcGaUxnMcILN8CvC9cViCFcp/I
+	 n9iqmiWYH3u4NyddwIojttmwDmKUQTVsRF4ZlgVc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61475F80551; Fri, 11 Aug 2023 09:52:42 +0200 (CEST)
+	id DD280F800F4; Fri, 11 Aug 2023 09:54:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09F6FF80134;
-	Fri, 11 Aug 2023 09:52:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B8F1F80134;
+	Fri, 11 Aug 2023 09:54:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CFB9F80166; Fri, 11 Aug 2023 09:52:39 +0200 (CEST)
+	id 1CF06F8016E; Fri, 11 Aug 2023 09:54:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from FRA01-PR2-obe.outbound.protection.outlook.com
+ (mail-pr2fra01on20628.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e18::628])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 70554F800F4
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70554F800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id A41CCF800F4
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:53:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A41CCF800F4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=up+kI99g;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=fF9Rf2ts
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 28DCD1F889;
-	Fri, 11 Aug 2023 07:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1691740356;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOCK0rx4jiooJcgLdZXfhmYlqIl9i62DBdQvyTIvknQ=;
-	b=up+kI99g4JXNbS5WdO4yqtzv8oTuYiZ9d0rNggaRg9nUdIUUT7nJDcnA2dZtda4LmXiKIO
-	7IoeEqBsBl5j4a74sRmvzcy+oihbajqc9KbpwZOLcP35+PYJFrrW0f8Aqdo+if5fEQB1Zy
-	ZFoBhdG+G093aMiDCojr6trKOi/iQDI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1691740356;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOCK0rx4jiooJcgLdZXfhmYlqIl9i62DBdQvyTIvknQ=;
-	b=fF9Rf2tsmTMdwyQqMEVx5cbPhvWaPJkCoG+sUb4aWEgjCgFZkTLu98vCb9qOf2QYZ9w153
-	KGCir7+ARYea+7Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D6D44138E2;
-	Fri, 11 Aug 2023 07:52:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 5YxfM8Po1WQVcAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 11 Aug 2023 07:52:35 +0000
-Date: Fri, 11 Aug 2023 09:52:35 +0200
-Message-ID: <87h6p6rp6k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jeff LaBundy <jeff@labundy.com>
-Cc: Marek Vasut <marex@denx.de>,	Dmitry Torokhov
- <dmitry.torokhov@gmail.com>,	linux-input@vger.kernel.org,	Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,	Frieder
- Schrempf <frieder.schrempf@kontron.de>,	Manuel Traut <manuel.traut@mt.com>,
-	Thierry Reding <thierry.reding@gmail.com>,	linux-pwm@vger.kernel.org,
-	alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai
- <tiwai@suse.com>
-Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
-In-Reply-To: <ZNW25qlzh8YbZtu8@nixie71>
-References: <63adce9a-df65-b462-9055-0ece5216d680@denx.de>
-	<87tttkjmyu.wl-tiwai@suse.de>
-	<0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de>
-	<87h6pkjh7q.wl-tiwai@suse.de>
-	<618add56-3675-4efe-5b20-665c10040e03@denx.de>
-	<ZMfgJ3o00nApkXGp@google.com>
-	<f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de>
-	<ZMh0Sa9s25JHhWw5@nixie71>
-	<ZMi0HT/yaTo9uTyi@google.com>
-	<d0f284d5-6922-ea3b-3447-c089b0d24587@denx.de>
-	<ZNW25qlzh8YbZtu8@nixie71>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 3FYVBSPY2QISO75H3RN2JXOYOQIJJUWG
-X-Message-ID-Hash: 3FYVBSPY2QISO75H3RN2JXOYOQIJJUWG
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=csgroup.eu header.i=@csgroup.eu header.a=rsa-sha256
+ header.s=selector2 header.b=WQ9/xxxG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JJmPlirpwoK9cXPcjyHtGjA0Cgt8zx/CuIcxN8HUctx5Nq5jh86Daj4C1TmsuDHHWehtFiE73hnxzCI6TBuKHiyZ6sIWpR2wk2Ku+qLJhtTatx89sbrNkoXJe2VVDt1pxa7Etnwn8jhJORXUC47WX/DOOBaQPKGjGHVIWctAKYjzLXnD3oRTe99sGCRGjHZIHq2pcAvlq6UlaCKgOHYEC2zHlRLbWkUvkIU87n8L42EJBUDobsvIM2MMiZdMNST5SMw4DwkVcA29TzMcNOh09EBCrHjHf0eSTEd6OXUvGQFHVILJRgypgQGrQmqoR8QHQFeMbOnj+C+283O2kaMz9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=faDjWoxaNYpZe8CiyL74RAcsMlLuVqa1/9CYk3zSm6s=;
+ b=N9fsgXHbBMLdLlNbEOF5ItvUvB3GLATq2xalCMlBWRr/4VXTANhyMKmIYvkE+tTR2eKRVyk1SQuhO0INowJVTT7zs6VbAg3OKAwm2JNkBqtuOWBD7QbzePn3Wsaf+8Ei99l9QzaKJaWxQVL6MdVO4cByGpkszI/pPmwqgIRsLPlv3DS+lWKdCRn2MwbZoZCz/rpl7dqSsIZsAjUa7CWEQSXLZXKNRXggmAzwUTFFyBA15IdVaeT9wh2mFKqRs64ACwAtstFh23W6PHnyKmTSLVVPOKCwyjBd3cROhPqQAum0NyFEmZKJlP6m0rJ7Mrd5G8My0GHhtVUut2IZI7KmDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
+ dkim=pass header.d=csgroup.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=faDjWoxaNYpZe8CiyL74RAcsMlLuVqa1/9CYk3zSm6s=;
+ b=WQ9/xxxGeDwDTt1uciD/r7S9ZReZlM5d++mupsezittjUD840PDDJ9Hk1iQtlcM8VH343ExflwnfiTze5n6SREybbaWxWY5iW6nZl5xn3/BU2ZAF3cUjhihPoAlWGZkXckYij/hclYTAIP6bbIHLf6U7v62ZMxKgi+6Fd8QCeMKXXx21LxWv0jfIrFldu9u/NJwpvmX7YHTtcZrJqExnuhWd7LedD+RJixhuRNy28ecFp8AexOFy3Y0bwCFjfh7dkLTVz0RGoDUwQ3/x1sjpZ9DCxLlwfWu7nFT0XRzCLvWMdBrsP55fDdpNBxHWUTn0Wz5EXyJ6ZD0FejUZVu2a3w==
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
+ by PR0P264MB3371.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:145::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Fri, 11 Aug
+ 2023 07:53:52 +0000
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2820:d3a6:1cdf:c60e]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2820:d3a6:1cdf:c60e%7]) with mapi id 15.20.6678.019; Fri, 11 Aug 2023
+ 07:53:52 +0000
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+To: Jakub Kicinski <kuba@kernel.org>, Herve Codina <herve.codina@bootlin.com>
+CC: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
+	<andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Lee
+ Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang Zhao
+	<qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
+	<shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
+	<festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Randy Dunlap
+	<rdunlap@infradead.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, Thomas Petazzoni
+	<thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 00/28] Add support for QMC HDLC, framer infrastruture
+ and PEF2256 framer
+Thread-Topic: [PATCH v3 00/28] Add support for QMC HDLC, framer infrastruture
+ and PEF2256 framer
+Thread-Index: AQHZysVV/hkwPsMhiECgp2kpNT03nq/jrocAgAEN3YA=
+Date: Fri, 11 Aug 2023 07:53:52 +0000
+Message-ID: <05463697-0870-1652-1c47-8f4e0eb10ab7@csgroup.eu>
+References: <20230809132757.2470544-1-herve.codina@bootlin.com>
+ <20230810084758.2adbfeb8@kernel.org>
+In-Reply-To: <20230810084758.2adbfeb8@kernel.org>
+Accept-Language: fr-FR, en-US
+Content-Language: fr-FR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=csgroup.eu;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR0P264MB3371:EE_
+x-ms-office365-filtering-correlation-id: a93e9736-3365-42e2-a7ba-08db9a401af1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ Q7N+q/CWyUcH/Oyz0rmnjjoN2EtT8TRf2Ifiyq+UrdX9f2ai6kak/7PrASnRqaTq1AyTnFEpno98X9t72fAMziMz4+hTpiUMRncpqD9wcZK6pkV0Gts9RuXj96a8JY84DxBbGtC2ZmAYM0c/GCEL7OVxTtF5nrKAcjJpbvj1UABCz7BwAVUH24dvoavzDFGSvUfJ9tEjfi4S8F+bxzP/cjQ4/LKj/Edzq2qMTiu9d1OfLMYvexZ4g5JcB7Byme5Tloz5RPvbuw/x3yi1A9Y6IHIH6iavoiyta7SKbQvLrlEyfOWMcBmECja9cl2tMiFrm9nzZgalC1/QrzB5uz9NYDQ2H6KYgVcEnIYeA+LBm7fAiOsG+gizyefuqixFvOCK/0CLkYx6lJ796r+vaN0gB1TbispDjVfPb+VF2xWP9C7fvTyEOpVTgiFwPrO/4dzC40UA7QB2dZD+yNshS17wvwPLYGvS/JNi1dLRiiUxscIFMQyjHjDJLShKBAwLwh7lscVUW0Wzux5hM0maXqH4gfLUTNwM+RwfzTZNMCuzkv8e/IQy+kaMgvU2uF6GV/QAS7fLgdC0GDzTz01VIXVJ5acAPIvf3kNua/H7Ang1dBsOQ11G3m+BGQcgh+4UXwXV/915tDyp2Nb7AaKp7XwPw+FOC0hj55QoBSrbD6wgNxePDbR6jYYiY8Xo0lx9ZBWz
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(136003)(346002)(396003)(376002)(366004)(39850400004)(451199021)(1800799006)(186006)(7406005)(31686004)(4744005)(2906002)(44832011)(7416002)(8676002)(8936002)(5660300002)(41300700001)(316002)(66556008)(66946007)(66476007)(66446008)(64756008)(4326008)(76116006)(91956017)(110136005)(6486002)(478600001)(36756003)(71200400001)(6512007)(26005)(2616005)(54906003)(6506007)(122000001)(38100700002)(86362001)(31696002)(38070700005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?SnZObk1Ma2cvOTJvV1h0Znl3R1hkTVNLUm1CcDlLbC90b3J4eE9oVEE3UlMw?=
+ =?utf-8?B?WVVBWTM2S2w0anZmMEZIa2IvN3ByUWZ2UGFQV0hMQWhud2VFWkZnLzlibWlQ?=
+ =?utf-8?B?Y1orTmtROHFWZ0NVcHFaMkRlaG5ReDRPaXB5RHZpelpOZUJuc1dYb2hUVDV1?=
+ =?utf-8?B?cEEyYkJuUG4wTkdyNzZDQlJlSS9zdEd5amZhZk81QnNsQjVQc1hMSjdHdS81?=
+ =?utf-8?B?c3RQVVNnWDVTTVZrL0NQME9nQUZsVGpaVFhYMkFzeEhROUYwUFlwMldvVlhE?=
+ =?utf-8?B?V2c0SW5YZWtPbmpIWFB5cDRLT2YyRnJWa2tQa0x1eDMvVVFxeGVTa1JnS1Ni?=
+ =?utf-8?B?SkFUWHJnZ2tWWmRhOEtab01tMXQwTi9ZV1N5Mkx3NGFQaXdqTjUwRzJYSGRj?=
+ =?utf-8?B?VEVKMGRlWncrR3Z2MElFR3hIb3VpUGdJR3A3K2svN2dJTk5xanRucGdqblhW?=
+ =?utf-8?B?ajY1Y1loNFdLVm9mNnFjRkl6Z0lZSHRmeHdPMzE3ckY0SGdxakIxUG1lSU1T?=
+ =?utf-8?B?eG5wMW00RVRVbmZKb0QybzJEK3hCTVBxRlVHc3VtbFd0Tnk0UFhlQTVzc0xO?=
+ =?utf-8?B?eDNSTkg1NXF6aVduSzVDYmF1a2F1RzVTcXJrNVdGRUFYQVovSHI5ekhaTXN1?=
+ =?utf-8?B?QXE3VE1hOFFtODAxTkl5SVBFVk1yWkxHVzdjNWVjaGVhbFd1Rm5IZlI4VEkr?=
+ =?utf-8?B?VE55NUljVjM1bmg2Nmh6S3NBOW5WbnBRcHdTYllaWVQ2TnAzQlFwU2lub0c1?=
+ =?utf-8?B?eUlRdXBjOVNISXdDdzdBejBEUlhoc0JMVzFadXJJN1NGOEZkVXRsak5la2xV?=
+ =?utf-8?B?Qkt6QWFKVHRhakxHOFhuaHBMR1NzQkkyRzYwZFJpUVhzTmhlWERFWkVQaDdL?=
+ =?utf-8?B?a3U3eFZWRHBXV0o5b3lITVEwRW90VXlIeTVqWlV4cDRKU0dYSFhuY2J0Znc5?=
+ =?utf-8?B?TjZvK3ZkeEdNQ2pySGVpbjhFVElkWlhsZlJHVU9BNlg2bnZkOG9rc3EzeFRo?=
+ =?utf-8?B?aCs5MVNyVkpCdDA3ZnFpNDNpckNsSWJ2QmhJKytaaVlPL0FNNkJVVXVhWlJy?=
+ =?utf-8?B?aVRJTnlrbTM2NFpkV3BrMmtyU0xWS3N2SFBUcGlwQUVUbWw3eEVoOFdEb05Y?=
+ =?utf-8?B?cEw3bncxejNuVTljeE4wWnVYandWbjIycUZnbDBkMmJ4TjNtYVpWSUFjdVFX?=
+ =?utf-8?B?bjVPS0NOWHhUeWgzZ3V1ZWQzUldKYjNibStYNkM4elBRTFU4YzJqZURvQVpv?=
+ =?utf-8?B?MVVYQnk0bkJsWWdvdzZzSCtmRjlhWGVFSTBOZUl4dFpsaUJDTFBvMGs5YTB2?=
+ =?utf-8?B?L09zbWdGUnFCQ3FFeXgxd2poNEc2eDBWbUlVMlRMdlZrOXcyWkp6R0UxU090?=
+ =?utf-8?B?V3BDQkc3QXArUStMNXh2a0V1MzV4cWloYzVDdHZhVEZNQVNsdGczMXA0bUR2?=
+ =?utf-8?B?Zk5uTmdOekUzbHhqL2tQNjNnZWsweHo4a0tISHovcEUvZmZDSDFDbTVVZ2sv?=
+ =?utf-8?B?Vk1BcGQ2NXVpZzFFcVk2dDhMMGJOWG5JK2tGMGdrUWFId1lQVWg5QVE5OUJi?=
+ =?utf-8?B?bXlkcCthK2RkZ0doUE1tS2FiazhzQVNHNVd4R0wrRm1IcjFmZXBBay9ONVkw?=
+ =?utf-8?B?NlE1SGhiUjhBL082WSt6VlRnNVhMTDJBcFhhS01aS3cxeTluRnhZUHNpQlNv?=
+ =?utf-8?B?R3dBREY2UkYyeldIS0pPcThMNDl5bFRrMmNoTXkxR1BDRkN0azJKZW1ocjY1?=
+ =?utf-8?B?NFpsVStJc295Z1RJOEREZlRhQlgrNWxQR1prSkF4NTMxcUhScEkyeVJialZ6?=
+ =?utf-8?B?K3g4RmYrZWwvWFIrZmIzMURoV1o0cHBzbS81NXhRMnVoZm91ZWpYZE9vODEz?=
+ =?utf-8?B?L01MNmR5NS9QNFUrR1RGSzVidzRFMU5uV2xvMjhjUlFyd3FSUENLWXFUZ2V3?=
+ =?utf-8?B?aitJbVN1VG41NVVFUTM2UjYxYWZUbVQwb2FJb2pqZ3Z0Wnh0Rkw3b05IZHU4?=
+ =?utf-8?B?MVluUDY4UGhkWXc0NlY4bTBwcnB3RG9TYmxibFl1eHp3SVpEdm1xaHgwVndX?=
+ =?utf-8?B?THBaS2FCa2lUdHg4amlhZmdabDExQk01N0xVZGVtZnk5ZngyOFV2cU9PeHdE?=
+ =?utf-8?B?ZngvUVh0UmlYT2pFeTFJRElNTnh2WS9uVjl0UGpPckswejlROWdkL01qZEow?=
+ =?utf-8?B?L2c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <5C256BB6D02BA5479E2299F49313DFC4@FRAP264.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: csgroup.eu
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ a93e9736-3365-42e2-a7ba-08db9a401af1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2023 07:53:52.3411
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ ZI28Y/sA9VlvSh2T6u+8/WpvJFynzSReOYZMIQMQ8GRnn/5geXfq26M/msEGZLZzmez+qdhOPNCT45cPkvpAKBGbioJfXF/O3b5PkEVAVhY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR0P264MB3371
+Message-ID-Hash: NLZ5AB5W7F7WEXYYF3KZSOEFINQEXOE5
+X-Message-ID-Hash: NLZ5AB5W7F7WEXYYF3KZSOEFINQEXOE5
+X-MailFrom: christophe.leroy@csgroup.eu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +187,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3FYVBSPY2QISO75H3RN2JXOYOQIJJUWG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NLZ5AB5W7F7WEXYYF3KZSOEFINQEXOE5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,210 +196,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 11 Aug 2023 06:19:50 +0200,
-Jeff LaBundy wrote:
-> 
-> Hi Marek, Dmitry and Takashi,
-> 
-> On Tue, Aug 01, 2023 at 01:51:50PM +0200, Marek Vasut wrote:
-> > On 8/1/23 09:28, Dmitry Torokhov wrote:
-> > > On Mon, Jul 31, 2023 at 09:56:09PM -0500, Jeff LaBundy wrote:
-> > > > Hi all,
-> > > > 
-> > > > On Mon, Jul 31, 2023 at 07:49:50PM +0200, Marek Vasut wrote:
-> > > > > On 7/31/23 18:24, Dmitry Torokhov wrote:
-> > > > > > On Mon, Jul 31, 2023 at 04:36:01PM +0200, Marek Vasut wrote:
-> > > > > > > On 7/31/23 16:20, Takashi Iwai wrote:
-> > > > > > > 
-> > > > > > > [...]
-> > > > > > > 
-> > > > > > > > > > > Uh, I don't need a full sound device to emit beeps, that's not even
-> > > > > > > > > > > possible with this hardware.
-> > > > > > > > > > 
-> > > > > > > > > > Heh, I also don't recommend that route, either :)
-> > > > > > > > > > (Though, it must be possible to create a sound device with that beep
-> > > > > > > > > > control in theory)
-> > > > > > > > > 
-> > > > > > > > > I mean, I can imagine one could possibly use PCM DMA to cook samples
-> > > > > > > > > to feed some of the PWM devices so they could possibly be used to
-> > > > > > > > > generate low quality audio, as a weird limited DAC, but ... that's not
-> > > > > > > > > really generic, and not what I want.
-> > > > > > > > 
-> > > > > > > > Oh I see how the misunderstanding came; I didn't mean the PCM
-> > > > > > > > implementation like pcsp driver.  The pcsp driver is a real hack and
-> > > > > > > > it's there just for fun, not for any real practical use.
-> > > > > > > 
-> > > > > > > Ah :)
-> > > > > > > 
-> > > > > > > > What I meant was rather that you can create a sound device containing
-> > > > > > > > a mixer volume control that serves exactly like the sysfs or whatever
-> > > > > > > > other interface, without any PCM stream or other interface.
-> > > > > > > 
-> > > > > > > Ahhh, hum, I still feel like this might be a bit overkill here.
-> > > > > > > 
-> > > > > > > > > > > I only need to control loudness of the
-> > > > > > > > > > > beeper that is controlled by PWM output. That's why I am trying to
-> > > > > > > > > > > extend the pwm-beeper driver, which seems the best fit for such a
-> > > > > > > > > > > device, it is only missing this one feature (loudness control).
-> > > > > > > > > > 
-> > > > > > > > > > So the question is what's expected from user-space POV.  If a more
-> > > > > > > > > > generic control of beep volume is required, e.g. for desktop-like
-> > > > > > > > > > usages, an implementation of sound driver wouldn't be too bad.
-> > > > > > > > > > OTOH, for other specific use-cases, it doesn't matter much in which
-> > > > > > > > > > interface it's implemented, and sysfs could be an easy choice.
-> > > > > > > > > 
-> > > > > > > > > The whole discussion above has been exactly about this. Basically the
-> > > > > > > > > thing is, we can either have:
-> > > > > > > > > - SND_TONE (via some /dev/input/eventX) + sysfs volume control
-> > > > > > > > >      -> This is simple, but sounds racy between input and sysfs accesses
-> > > > > > > > 
-> > > > > > > > Hmm, how can it be racy if you do proper locking?
-> > > > > > > 
-> > > > > > > I can imagine two applications can each grab one of the controls and that
-> > > > > > > makes the interface a bit not nice. That would require extra synchronization
-> > > > > > > in userspace and so on.
-> > > > > > > 
-> > > > > > > > > - SND_TONE + SND_TONE_SET_VOLUME
-> > > > > > > > >      -> User needs to do two ioctls, hum
-> > > > > > > > > - some new SND_TONE_WITH_VOLUME
-> > > > > > > > >      -> Probably the best option, user sets both tone frequency and volume
-> > > > > > > > >         in one go, and it also only extends the IOCTL interface, so older
-> > > > > > > > >         userspace won't have issues
-> > > > > > > > 
-> > > > > > > > Those are "extensions" I have mentioned, and I'm not a big fan for
-> > > > > > > > that, honestly speaking.
-> > > > > > > > 
-> > > > > > > > The fact that the beep *output* stuff is provided by the *input*
-> > > > > > > > device is already confusing
-> > > > > > > 
-> > > > > > > I agree, this confused me as well.
-> > > > > > 
-> > > > > > This comes from the times when keyboards themselves were capable of
-> > > > > > emitting bells (SUN, DEC, etc). In hindsight it was not the best way of
-> > > > > > structuring things, same with the keyboard LEDs (that are now plugged
-> > > > > > into the LED subsystem, but still allow be driven through input).
-> > > > > > 
-> > > > > > And in the same vein I wonder if we should bite the bullet and pay with
-> > > > > > a bit of complexity but move sound-related things to sound subsystem.
-> > > > > 
-> > > > > I am not sure that's the right approach here, since the device cannot do PCM
-> > > > > playback, just bleeps.
-> > > > > 
-> > > > > > > > (it was so just because of historical
-> > > > > > > > reason), and yet you start implementing more full-featured mixer
-> > > > > > > > control.  I'd rather keep fingers away.
-> > > > > > > > 
-> > > > > > > > Again, if user-space requires the compatible behavior like the
-> > > > > > > > existing desktop usages
-> > > > > > > 
-> > > > > > > It does not. These pwm-beeper devices keep showing up in various embedded
-> > > > > > > devices these days.
-> > > > > > > 
-> > > > > > > > , it can be implemented in a similar way like
-> > > > > > > > the existing ones; i.e. provide a mixer control with a proper sound
-> > > > > > > > device.  The sound device doesn't need to provide a PCM interface but
-> > > > > > > > just with a mixer interface.
-> > > > > > > > 
-> > > > > > > > Or, if the purpose of your target device is a special usage, you don't
-> > > > > > > > need to consider too much about the existing interface, and try to
-> > > > > > > > keep the change as minimal as possible without too intrusive API
-> > > > > > > > changes.
-> > > > > > > 
-> > > > > > > My use case is almost perfectly matched by the current input pwm-beeper
-> > > > > > > driver, the only missing bit is the ability to control the loudness at
-> > > > > > > runtime. I think adding the SND_TONE_WITH_VOLUME parameter would cover it,
-> > > > > > > with least intrusive API changes.
-> > > > > > > 
-> > > > > > > The SND_TONE already supports configuring tone frequency in Hz as its
-> > > > > > > parameter. Since anything above 64 kHz is certainly not hearable by humans,
-> > > > > > > I would say the SND_TONE_WITH_VOLUME could use 16 LSbits for frequency (so
-> > > > > > > up to 65535 Hz , 0 is OFF), and 16 MSbits for volume .
-> > > > > > > 
-> > > > > > > I'm hesitant to overcomplicate something which can currently be controlled
-> > > > > > > via single ioctl by pulling in sound subsystem into the picture.
-> > > > > > 
-> > > > > > Can you tell a bit more about your use case? What needs to control the
-> > > > > > volume of beeps? Is this the only source of sounds on the system?
-> > > > > 
-> > > > > Custom user space application. The entire userspace is custom built in this
-> > > > > case.
-> > > > > 
-> > > > > In this case, it is a single-use device (think e.g. the kind of thermometer
-> > > > > you stick in your ear when you're ill, to find out how warm you are).
-> > > > > 
-> > > > > The beeper there is used to do just that, bleep (with different frequencies
-> > > > > to indicate different stuff), and that works. What I need in addition to
-> > > > > that is control the volume of the bleeps from the application, so it isn't
-> > > > > too noisy. And that needs to be user-controllable at runtime, so not
-> > > > > something that goes in DT.
-> > > > > 
-> > > > > Right now there is just the bleeper , yes.
-> > > > 
-> > > > It sounds like we essentially need an option within pcsp to drive PWM
-> > > > instead of PCM, but input already has pwm-beeper; it seems harmless to
-> > > > gently extend the latter for this use-case as opposed to reworking the
-> > > > former.
-> > > > 
-> > > > I agree that we should not invest too heavily in a legacy ABI, however
-> > > > something like SND_BELL_VOL seems like a low-cost addition that doesn't
-> > > > work against extending pcsp in the future. In fact, input already has
-> > > > precedent for this exact same thing by way of FF rumble effects, which
-> > > > are often PWM-based themselves.
-> > > > 
-> > > > If SND_BELL_VOL or similar is not acceptable, then the original sysfs
-> > > > approach seems like the next-best compromise. My only issue with it was
-> > > > that I felt the range was not abstracted enough.
-> > > 
-> > > If we want to extend the API we will need to define exactly how it will
-> > > all work. I.e. what happens if userspace mixes the old SND_TONE and
-> > > SND_BELL with the new SND_BELL_VOL or whatever. Does it play with
-> > > previously set volume? The default one?
-> > 
-> > Default one, to preserve current behavior, yes.
-> 
-> This was my idea as well, but I appreciate that the devil is in the details
-> and each driver may have to duplicate some overhead.
-> 
-> > 
-> > > How to set the default one?
-> > 
-> > We do not, we can call pwm_get_duty_cycle() to get the current duty cycle of
-> > the PWM to figure out the default.
-> > 
-> > > How
-> > > to figure out what the current volume is if we decide to make volume
-> > > "sticky"?
-> > 
-> > The patch stores the current volume configured via sysfs into
-> > beeper->duty_cycle .
-> > 
-> > > As far as userspace I expect it is more common to have one program (or
-> > > component of a program) to set volume and then something else requests
-> > > sound, so having one-shot API is of dubious value to me.
-> > 
-> > Currently the use case I have for this is a single user facing application
-> > which configures both.
-> > 
-> > > I hope we can go with Takashi's proposal downthread, but if not I wonder
-> > > if the sysfs approach is not the simplest one. Do we expect more beepers
-> > > that can control volume besides pwm-beeper?
-> > 
-> > It seems to me pulling in dependency on the entire sound subsystem only to
-> > set beeper volume is overkill. I currently don't even have sound subsystem
-> > compiled in.
-> 
-> I like Takashi's patch; it seems like a more scalable solution. However, I
-> can appreciate the reluctance to bring in the entire sound subsytem for what
-> is probably a tiny piezoelectric buzzer.
-> 
-> It seems like the sysfs solution is the best compromise in the meantime. If
-> more and more users need to shoe-horn these kind of features in the future,
-> we can make more informed decisions as to how to extend the API (if at all).
-
-That's my impression, too.  The original sysfs usage would be the
-right fit at this moment.
-
-
-thanks,
-
-Takashi
+DQoNCkxlIDEwLzA4LzIwMjMgw6AgMTc6NDcsIEpha3ViIEtpY2luc2tpIGEgw6ljcml0wqA6DQo+
+IE9uIFdlZCwgIDkgQXVnIDIwMjMgMTU6Mjc6MjcgKzAyMDAgSGVydmUgQ29kaW5hIHdyb3RlOg0K
+Pj4gVGhlIHNlcmllcyBjb250YWlucyB0aGUgZnVsbCBzdG9yeSBhbmQgZGV0YWlsZWQgbW9kaWZp
+Y2F0aW9ucy4NCj4+IElmIG5lZWRlZCwgdGhlIHNlcmllcyBjYW4gYmUgc3BsaXQgYW5kL29yIGNv
+bW1taXRzIGNhbiBiZSBzcXVhc2hlZC4NCj4+IExldCBtZSBrbm93Lg0KPiANCj4gQXJlIHRoZXJl
+IGFueSBkZXBlbmRlbmNpZXMgaW4gb25lIG9mIHRoZSAtbmV4dCB0cmVlcz8NCj4gQXMgaXQgdGhl
+IHNlcmllcyBkb2Vzbid0IHNlZW0gdG8gYnVpbGQgb24gdG9wIG9mIG5ldC1uZXh0DQo+IHdpdGgg
+YWxsbW9kY29uZmlnLg0KDQpBcyBmYXIgYXMgSSBrbm93IHRoZXJlIGFyZSBub3QgZGVwZW5kZW5j
+aWVzLCB0aGlzIHNlcmllcyB3YXMgdGVzdHMgb24gDQp0b3Agb2YgNi41LXJjMi4NCg0KSG93ZXZl
+ciBpdCBsb29rcyBsaWtlIGl0IGhhcyBuZXZlciBiZWVuIGJ1aWx0IHdpdGggQ09ORklHX01PRFVM
+RVMgDQplbmFibGVkLiBBcyBIZXJ2w6kgaXMgQUZLIGF0IHRoZSBtb21lbnQsIEknbGwgc2VlIGlm
+IEkgY2FuIGdpdmUgaXQgYSBmaXguDQoNCkNocmlzdG9waGUNCg==

@@ -2,60 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D7F77985B
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 22:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE41779864
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 22:16:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F2B61E0;
-	Fri, 11 Aug 2023 22:14:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F2B61E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A173382A;
+	Fri, 11 Aug 2023 22:15:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A173382A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691784924;
-	bh=HnpYvoJ0nN9AmZR07nRMHuvB57JSEnOMzR5dlfsJJYY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=s0Uqg0PPPCzEXT+yd0a7QViKu4DHLo/CP7k6rCZjUhv3HsNu49BOcRmLnKw09po+H
-	 2EiXwy2z11l0lUcVXPbXMiHIOeS+2arVRxLYNMCgAvW2bEAiGMoA++llYvxsEyKiQQ
-	 HL4dCNI/C8AjJAjsXK29lx9M4i0Z4ARinlN1iwfY=
+	s=default; t=1691784974;
+	bh=+ikxxxBrtOIscAn6X3WvP38OjXEPcCycQ8XlzG8y5WU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=R5CoIgDVLWr1jnljUx3lZx5lS/Q0PBe6VnvYTG63TPW7HFPXFeEtECpxE0WfXERWG
+	 NNCpyeq7yUcoolXFj0X/JU8q3pHoEcwOzKJq/J7/80NqpCKyM0QYX1M4Av3O5JYiLw
+	 OWwxLoIAaYx+SXLyxloY//SWSLnmcYWPboJg3PHM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5128F80552; Fri, 11 Aug 2023 22:14:33 +0200 (CEST)
+	id A210AF80557; Fri, 11 Aug 2023 22:14:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 437F8F80134;
-	Fri, 11 Aug 2023 22:14:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA37BF80557;
+	Fri, 11 Aug 2023 22:14:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D172AF8016E; Fri, 11 Aug 2023 22:14:27 +0200 (CEST)
+	id D973FF80166; Fri, 11 Aug 2023 22:14:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from out-96.mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+Received: from out-74.mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 02743F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 22:14:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02743F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9E3A7F800F4
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 22:14:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E3A7F800F4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=jookia.org header.i=@jookia.org header.a=rsa-sha256
- header.s=key1 header.b=xiIIaoSI
+ header.s=key1 header.b=fOEGh3YG
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jookia.org; s=key1;
-	t=1691784855;
+	t=1691784863;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6hBtpLiHEAUCKZrFtYgu+mEZQfu4FFrE7uRZuwIPRHo=;
-	b=xiIIaoSI6Jtq489azAwmEJ/yFbLyZbRhnHjLmq9FFFDqsuGS6QLvxM3Q710jZif6S1KdLi
-	CO1yUsvfc9rneaCC3Q7n/p3PMmt3yuTVxSUjjoN7BwOMXtK6rEYEfiyPnFNyR2Ct8xWAgh
-	eMTD0kdGCv8eB5xjlNm154x1CvIkTLpljwUmQGI50pG81iPoLboEBJDtkVtpCHXNO4F+gI
-	D9OSkB32lWJ0zbQPHAcNdxT/4A6hle46rcOAQfHBlbOpTRXlWl76FNcrcPoGY8BYMXTw1S
-	Z0Y8sgtWBtPxwv83OLKrESUeJvBU2jwGXuUK1/a1CvPp5b1pmDdkXtdzL2O5vw==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gXxLpbwnK2iER9aMBTnDKfRuAwj+8nGNCQhtYFkwJrs=;
+	b=fOEGh3YG4Ed6CywSJa3zIzGH2UVPJ+thdSdatxaiyOcU9nDq8LREc/TvthapaRnzpBYlnG
+	FkZ+uW225LdaA9JsXIeD5pOY9Rx70nNzbDvQkHyx4EZkch9XQTJ+q+Trt3jDSQ0HaXCLWM
+	4TNb6SgeURSj5+UtJy+h5JVwtLu9vuMthKYiutq26Ba0xvfEQSeWgHXfXoIXu0HtFLiMf9
+	kKijtcXvYSnpNQ/MVYktvL6GvO1DSGUTJWvhaVC7DleXPcqp14j6KzM9nheB19wcrGJnhQ
+	M6Y7kj7j4/qNa4Mbt+bxVFjD7KRyMATH5Ja2J+Lsga4DJsrlT78qDjwMeGd7LA==
 From: John Watts <contact@jookia.org>
 To: alsa-devel@alsa-project.org
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
@@ -75,14 +77,17 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/7] sun4i-i2s: Support channel remapping
-Date: Sat, 12 Aug 2023 06:13:59 +1000
-Message-ID: <20230811201406.4096210-1-contact@jookia.org>
+Subject: [RFC PATCH 1/7] ASoC: sunxi: sun4i-i2s: Prepare for runtime DIN pin
+ selection
+Date: Sat, 12 Aug 2023 06:14:00 +1000
+Message-ID: <20230811201406.4096210-2-contact@jookia.org>
+In-Reply-To: <20230811201406.4096210-1-contact@jookia.org>
+References: <20230811201406.4096210-1-contact@jookia.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
-Message-ID-Hash: 3W2AB5JSBA7DBAOVRGWPBYCECNQMZ465
-X-Message-ID-Hash: 3W2AB5JSBA7DBAOVRGWPBYCECNQMZ465
+Message-ID-Hash: I3ONR2BSDGVSL5VDNAO6UQBY66KOY2BE
+X-Message-ID-Hash: I3ONR2BSDGVSL5VDNAO6UQBY66KOY2BE
 X-MailFrom: contact@jookia.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +99,8 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I3ONR2BSDGVSL5VDNAO6UQBY66KOY2BE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,72 +109,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi there,
+The R329 and D1 support multiple I2S data input pins, but to use these
+they require explicit mapping to channels.
 
-A while back I put out this thread:
-How do I set up multiple codecs on one I2S - without TDM?"
-https://lore.kernel.org/all/ZMBRMnv0GQF4wyfQ@titan/
-This is my specific use case and motivation for this patch series.
+Add a mapping of DIN pins to the 16 channels in the sun4i_i2s struct
+then use that to write the channel mapping register.
 
-I posted how I managed to configure the audio-graph-card2 to allow
-doing this in conjunction with some register hacking, but I now have
-an initial patch series to support this in the sun4i-i2s driver.
+For now the mapping is always to DIN0, identical to the previous
+behaviour.
 
-Now I've tested this on the T113-s3 with 3 wm8782s and it works well,
-but I'm marking this as RFC as I think I'm out of my depth here and
-I'd like to know the direction I need to take this: I'm new to
-kernel development and I'm genuinely unsure what are best practices
-and which are bad practices design-wise.
+Signed-off-by: John Watts <contact@jookia.org>
+---
+ sound/soc/sunxi/sun4i-i2s.c | 40 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 36 insertions(+), 4 deletions(-)
 
-My main concerns are the following:
-
-First, I split up channel-dins and channel-slots. This is mainly
-because I implemented one first but both of them only make sense
-together. The registers themselves use a format of a byte per
-channel with the upper nibble being the din and the lower being
-the slot. Perhaps this is a better format to copy?
-
-Second, I use u8 arrays on the device tree. This is done so I can
-just read the array easily, but it also means I can't make this
-property contingent on a compatible string in the schema as $ref
-doesn't seem to be allowed there.
-
-Third, channel-slots is available on all sun4i-i2s controllers,
-but I only have it implemented on the R329 variant for now when
-there are multiple din pins.
-I could add support for this on older controllers but there's not
-really a use case for manual configuration as there's no DIN
-and I don't have hardware to test it on.
-
-Fourth, I don't limit the readable channels to the channels
-listed. Reading more channels than you have currently results in
-the controller assuming you want to use TDM, but that's not the
-case here and you can have strange duplicate channels show up.
-
-Fifth, it might be a good idea to increase the maximum channels
-from 8 to 16, especially if people are going to be running
-multiple TDM streams on one controller.
-
-Sixth, the channel-slots only apply to capture, not playback.
-This is something I just realized now when writing and forgot
-to document in the patch set.
-
-Thanks for your time,
-John.
-
-John Watts (7):
-  ASoC: sunxi: sun4i-i2s: Prepare for runtime DIN pin selection
-  ASoC: sunxi: sun4i-i2s: Use channel-dins device tree property
-  ASoC: sunxi: sun4i-i2s: Prepare for runtime channel slot selection
-  ASoC: sunxi: sun4i-i2s: Use channel-slots device tree property
-  ASoC: sunxi: sun4i-i2s: Detect TDM slots based on channel slots
-  dt-bindings: sound: sun4i-i2s: Add channel-dins property
-  dt-bindings: sound: sun4i-i2s: Add channel-slots property
-
- .../sound/allwinner,sun4i-a10-i2s.yaml        |  30 +++++
- sound/soc/sunxi/sun4i-i2s.c                   | 106 +++++++++++++++++-
- 2 files changed, 132 insertions(+), 4 deletions(-)
-
+diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+index 669d712bbe9f..d8f999ecaf05 100644
+--- a/sound/soc/sunxi/sun4i-i2s.c
++++ b/sound/soc/sunxi/sun4i-i2s.c
+@@ -216,6 +216,7 @@ struct sun4i_i2s {
+ 	unsigned int	mclk_freq;
+ 	unsigned int	slots;
+ 	unsigned int	slot_width;
++	u8	channel_dins[16];
+ 
+ 	struct snd_dmaengine_dai_dma_data	capture_dma_data;
+ 	struct snd_dmaengine_dai_dma_data	playback_dma_data;
+@@ -233,6 +234,13 @@ struct sun4i_i2s_clk_div {
+ 	u8	val;
+ };
+ 
++static int sun4i_i2s_read_channel_dins(struct device *dev, struct sun4i_i2s *i2s)
++{
++	/* Use DIN pin 0 by default */
++	memset(i2s->channel_dins, 0, sizeof(i2s->channel_dins));
++	return 0;
++}
++
+ static const struct sun4i_i2s_clk_div sun4i_i2s_bclk_div[] = {
+ 	{ .div = 2, .val = 0 },
+ 	{ .div = 4, .val = 1 },
+@@ -527,6 +535,25 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+ 	return 0;
+ }
+ 
++static void sun50i_h6_write_channel_map(const struct sun4i_i2s *i2s,
++					unsigned int reg,
++					unsigned int channel_start)
++{
++	unsigned int reg_value = 0;
++
++	/* Loop backwards so we can shift values in */
++	for (int i = 3; i >= 0; i--) {
++		int channel = channel_start + i;
++		u8 din = i2s->channel_dins[channel];
++		u8 slot = channel; /* Map slot to channel */
++
++		reg_value <<= 8;
++		reg_value |= (din << 4) | slot;
++	}
++
++	regmap_write(i2s->regmap, reg, reg_value);
++}
++
+ static int sun50i_h6_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+ 				      unsigned int channels, unsigned int slots,
+ 				      unsigned int slot_width)
+@@ -537,10 +564,10 @@ static int sun50i_h6_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+ 	regmap_write(i2s->regmap, SUN50I_H6_I2S_TX_CHAN_MAP0_REG(0), 0xFEDCBA98);
+ 	regmap_write(i2s->regmap, SUN50I_H6_I2S_TX_CHAN_MAP1_REG(0), 0x76543210);
+ 	if (i2s->variant->num_din_pins > 1) {
+-		regmap_write(i2s->regmap, SUN50I_R329_I2S_RX_CHAN_MAP0_REG, 0x0F0E0D0C);
+-		regmap_write(i2s->regmap, SUN50I_R329_I2S_RX_CHAN_MAP1_REG, 0x0B0A0908);
+-		regmap_write(i2s->regmap, SUN50I_R329_I2S_RX_CHAN_MAP2_REG, 0x07060504);
+-		regmap_write(i2s->regmap, SUN50I_R329_I2S_RX_CHAN_MAP3_REG, 0x03020100);
++		sun50i_h6_write_channel_map(i2s, SUN50I_R329_I2S_RX_CHAN_MAP0_REG, 12);
++		sun50i_h6_write_channel_map(i2s, SUN50I_R329_I2S_RX_CHAN_MAP1_REG, 8);
++		sun50i_h6_write_channel_map(i2s, SUN50I_R329_I2S_RX_CHAN_MAP2_REG, 4);
++		sun50i_h6_write_channel_map(i2s, SUN50I_R329_I2S_RX_CHAN_MAP3_REG, 0);
+ 	} else {
+ 		regmap_write(i2s->regmap, SUN50I_H6_I2S_RX_CHAN_MAP0_REG, 0xFEDCBA98);
+ 		regmap_write(i2s->regmap, SUN50I_H6_I2S_RX_CHAN_MAP1_REG, 0x76543210);
+@@ -1559,6 +1586,11 @@ static int sun4i_i2s_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++	if (sun4i_i2s_read_channel_dins(&pdev->dev, i2s)) {
++		dev_err(&pdev->dev, "Invalid channel DINs\n");
++		return -EINVAL;
++	}
++
+ 	i2s->playback_dma_data.addr = res->start +
+ 					i2s->variant->reg_offset_txdata;
+ 	i2s->playback_dma_data.maxburst = 8;
 -- 
 2.41.0
 

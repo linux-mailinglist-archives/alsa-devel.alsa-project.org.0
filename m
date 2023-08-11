@@ -2,86 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D5D778878
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:42:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1B86778815
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:22:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56977836;
-	Fri, 11 Aug 2023 09:42:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56977836
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED203823;
+	Fri, 11 Aug 2023 09:21:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED203823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691739771;
-	bh=RXpyXAyKP4/E2hrbfxwTaRFDy/wISeB2XBOMbiLVAIs=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jPEz9LU3zK9f/a9N5MaChfZQxaSW+1+0r3mWTd0I24JdmdiuFrELn0weTqJctg3ym
-	 1aN9XJfzd++Fg3LY5/0dczkXKPhggbGbzduZai6MlFCfdH0Iq1jKc51N9RjO9HYsY0
-	 EhifbrwdjzA6Xku8r052++U/j5s3kU+zL0x+p300=
+	s=default; t=1691738561;
+	bh=da54FdS0rtDEYkl03vZtrdhkyVjTb8y9My98MLqX5VY=;
+	h=Subject:From:To:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VjdW2aFoDZ5lM066Bigl7WNM++1OpyFFAwOpfrkhidhQ4qoe2WFKCDjERd/Rb13eF
+	 KfM+biJYRt5oiYqVNON9aaqEGIX2cfffAchoWuowvNK9UzaaJVkHJZA6rPrckZX4sB
+	 1tWQs3VpMBHup0WrLDSiIPQj5SmGKRhLGcqLLkBY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C1A7F805E6; Fri, 11 Aug 2023 09:39:39 +0200 (CEST)
+	id 1BDBDF80508; Fri, 11 Aug 2023 09:21:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BEB3F805DF;
-	Fri, 11 Aug 2023 09:39:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4251F80166;
+	Fri, 11 Aug 2023 09:21:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8BAABF80510; Fri, 11 Aug 2023 09:15:19 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A610F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:15:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A610F800EE
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.55])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RMZll3MkvzkX5h;
-	Fri, 11 Aug 2023 15:13:55 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
- (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 11 Aug
- 2023 15:15:08 +0800
-From: Ruan Jinjie <ruanjinjie@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <claudiu.beznea@tuxon.dev>,
-	<lgirdwood@gmail.com>, <broonie@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <peda@axentia.se>, <lars@metafoo.de>,
-	<nuno.sa@analog.com>, <povik+lin@cutebit.org>, <wens@csie.org>,
-	<jernej.skrabec@gmail.com>, <samuel@sholland.org>, <robh@kernel.org>,
-	<u.kleine-koenig@pengutronix.de>, <alsa-devel@alsa-project.org>,
-	<linux-arm-kernel@lists.infradead.org>, <asahi@lists.linux.dev>,
-	<linux-sunxi@lists.linux.dev>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH -next 5/5] ALSA: Remove redundant of_match_ptr()
-Date: Fri, 11 Aug 2023 15:14:26 +0800
-Message-ID: <20230811071426.2343133-6-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230811071426.2343133-1-ruanjinjie@huawei.com>
-References: <20230811071426.2343133-1-ruanjinjie@huawei.com>
+	id E4B6CF8016E; Fri, 11 Aug 2023 09:21:44 +0200 (CEST)
+Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
+ [10.254.200.11])
+	by alsa1.perex.cz (Postfix) with ESMTP id DCA67F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:21:44 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemi500008.china.huawei.com (7.221.188.139)
-X-CFilter-Loop: Reflected
-X-MailFrom: ruanjinjie@huawei.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 7bit
+Subject: [PATCH] -- fix Boss MS-3 midi-usb communication
+From: john_candlish@mail.candlish.net
+To: alsa-devel@alsa-project.org
+Date: Fri, 11 Aug 2023 07:21:44 -0000
+Message-ID: 
+ <169173850488.20.12963803837559965998@mailman-web.alsa-project.org>
+User-Agent: HyperKitty on https://mailman.alsa-project.org/
+Message-ID-Hash: JTFOLHU5NNCPNQ4VSAWXIJRD3VXSW26D
+X-Message-ID-Hash: JTFOLHU5NNCPNQ4VSAWXIJRD3VXSW26D
+X-MailFrom: john_candlish@mail.candlish.net
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: H5VUTQ2A44P2ZYURLRIJRC22R367LAPY
-X-Message-ID-Hash: H5VUTQ2A44P2ZYURLRIJRC22R367LAPY
-X-Mailman-Approved-At: Fri, 11 Aug 2023 07:39:16 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H5VUTQ2A44P2ZYURLRIJRC22R367LAPY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIDDZZ5OCDF2WMOUMCH3OJ6NQVZO5YU7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,27 +62,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The driver depends on CONFIG_OF, it is not necessary to use
-of_match_ptr() here.
+This one line change gets MIDI communication flowing between ALSA and the Boss MS-3 multi-effect switcher.
 
-Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
----
- sound/drivers/serial-generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+/////
+*** sound/usb/midi.c    2023-08-10 22:46:31.016346930 +0200
+--- sound/usb/midi.c-orig   2023-07-19 16:37:03.000000000 +0200
+***************
+*** 2106,2113 ****
+    struct usb_endpoint_descriptor *epd;
+    int i, out_eps = 0, in_eps = 0;
 
-diff --git a/sound/drivers/serial-generic.c b/sound/drivers/serial-generic.c
-index b0262541802a..c8db6c75d133 100644
---- a/sound/drivers/serial-generic.c
-+++ b/sound/drivers/serial-generic.c
-@@ -366,7 +366,7 @@ MODULE_DEVICE_TABLE(of, snd_serial_generic_dt_ids);
- static struct serdev_device_driver snd_serial_generic_driver = {
- 	.driver	= {
- 		.name		= "snd-serial-generic",
--		.of_match_table	= of_match_ptr(snd_serial_generic_dt_ids),
-+		.of_match_table	= snd_serial_generic_dt_ids,
- 	},
- 	.probe	= snd_serial_generic_probe,
- };
--- 
-2.34.1
+!   if (USB_ID_VENDOR(umidi->usb_id) == 0x0582 &&
+!       USB_ID_PRODUCT(umidi->usb_id) != 0x01f5)
+        snd_usbmidi_switch_roland_altsetting(umidi);
 
+if (endpoint[0].out_ep || endpoint[0].in_ep)
+--- 2106,2112 ----
+    struct usb_endpoint_descriptor *epd;
+    int i, out_eps = 0, in_eps = 0;
+
+!   if (USB_ID_VENDOR(umidi->usb_id) == 0x0582)
+        snd_usbmidi_switch_roland_altsetting(umidi);
+
+if (endpoint[0].out_ep || endpoint[0].in_ep)
+
+/////
+
+There are doubtless other Roland/Boss USB_ID_PRODUCT id's that are effected and it would be nice to make the  USB_ID_PRODUCT value a tunable, but that is beyond my competence.

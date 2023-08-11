@@ -2,98 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 552BB778BC4
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 12:17:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15156778C95
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 13:01:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30E53829;
-	Fri, 11 Aug 2023 12:16:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30E53829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32C4E91;
+	Fri, 11 Aug 2023 13:00:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32C4E91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691749068;
-	bh=p0874zC3P/4HkNA+wVRJkLg0l75K8zpw30iVncdc3hA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SmhUaXXpoJBl+gwqcRE1Xj4SOnijhKv8I90qvf3Pz+AwqfhZ3o9eQHvwJ48GGDqvG
-	 eYgh2OBCgH6EC3VzQce4Z8eGHyHPH2gY9M4MfBmAtO7yheYdKo1xfucGNOQzyHhEoe
-	 Fo5oh6TThYoJIIYDkdBkxj7+q0Y4XuPqE+VGpqIA=
+	s=default; t=1691751692;
+	bh=xATJr2U+AImbyLDr3q9VlU87G9S4MXuLHSkjahAY9eo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GgvQ+wIQJs5lgRbnsEERfmAKcmDOwzKsP1AbMl+BcuDwl4qCXfSduLMKczc+Lp6mv
+	 1mVHOGG41MEp6oCkYzYsfUjarspumPE1r/OQ9OVfOhqtbco3274JGc1FhZfZ46SOGd
+	 oidu4YrKmdcX6zqppK1j0/0v1p3ul1d6NKIg6C5Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B58AF801EB; Fri, 11 Aug 2023 12:16:57 +0200 (CEST)
+	id 50E5BF80016; Fri, 11 Aug 2023 13:00:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DFA5F80134;
-	Fri, 11 Aug 2023 12:16:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F380DF80134;
+	Fri, 11 Aug 2023 13:00:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C693FF80166; Fri, 11 Aug 2023 12:16:53 +0200 (CEST)
+	id 3249DF80166; Fri, 11 Aug 2023 13:00:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC4F4F80016
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 12:16:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC4F4F80016
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=ZnbEJxBB
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2727460FF5;
-	Fri, 11 Aug 2023 10:16:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C666C433C7;
-	Fri, 11 Aug 2023 10:16:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1691749006;
-	bh=p0874zC3P/4HkNA+wVRJkLg0l75K8zpw30iVncdc3hA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZnbEJxBBvvyRVrrgqaUgZZHjXTQaaVvRcmnG+Kw6tY0jW8JMLnEntCAan1/Jv/IwK
-	 7S2gJZ1TdIKGrRy6ZexEARpp7JOigKWp2EyHIPnSQm30nHkGgawvRoW4h7JlKMa6bW
-	 B9VZPDYj7V1mJVZxUoasRspo2Tk97FQH9M1olZHQ=
-Date: Fri, 11 Aug 2023 12:16:44 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Cc: Oleksii_Moisieiev@epam.com, herbert@gondor.apana.org.au,
-	davem@davemloft.net, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	alexandre.torgue@foss.st.com, vkoul@kernel.org, jic23@kernel.org,
-	olivier.moysan@foss.st.com, arnaud.pouliquen@foss.st.com,
-	mchehab@kernel.org, fabrice.gasnier@foss.st.com,
-	andi.shyti@kernel.org, ulf.hansson@linaro.org, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, hugues.fruchet@foss.st.com,
-	lee@kernel.org, will@kernel.org, catalin.marinas@arm.com,
-	arnd@kernel.org, richardcochran@gmail.com,
-	Frank Rowand <frowand.list@gmail.com>, peng.fan@oss.nxp.com,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
-	netdev@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: Re: [IGNORE][PATCH v4 01/11] dt-bindings: Document common device
- controller bindings
-Message-ID: <2023081117-sprout-cruncher-862c@gregkh>
-References: <20230811100731.108145-1-gatien.chevallier@foss.st.com>
- <20230811100731.108145-2-gatien.chevallier@foss.st.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3FD2CF800EE
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 13:00:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD2CF800EE
+Received: from canpemm500007.china.huawei.com (unknown [172.30.72.56])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RMghy6thrzcddM;
+	Fri, 11 Aug 2023 18:56:50 +0800 (CST)
+Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
+ (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 11 Aug
+ 2023 19:00:22 +0800
+From: Yue Haibing <yuehaibing@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+	<tiwai@suse.com>, <rjui@broadcom.com>, <sbranden@broadcom.com>,
+	<yuehaibing@huawei.com>
+CC: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH -next] ASoC: cygnus: Remove unused declarations
+Date: Fri, 11 Aug 2023 19:00:21 +0800
+Message-ID: <20230811110021.31656-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230811100731.108145-2-gatien.chevallier@foss.st.com>
-Message-ID-Hash: 4MEOKZY5R7K4DWWVOSY24RJI7YOXYLIF
-X-Message-ID-Hash: 4MEOKZY5R7K4DWWVOSY24RJI7YOXYLIF
-X-MailFrom: gregkh@linuxfoundation.org
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ canpemm500007.china.huawei.com (7.192.104.62)
+X-CFilter-Loop: Reflected
+Message-ID-Hash: HM6LIXOC32IAKMKNIWOAWWA7SEPC2S6G
+X-Message-ID-Hash: HM6LIXOC32IAKMKNIWOAWWA7SEPC2S6G
+X-MailFrom: yuehaibing@huawei.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +72,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MEOKZY5R7K4DWWVOSY24RJI7YOXYLIF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HM6LIXOC32IAKMKNIWOAWWA7SEPC2S6G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,25 +81,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Aug 11, 2023 at 12:07:21PM +0200, Gatien Chevallier wrote:
-> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-> 
-> Introducing of the common device controller bindings for the controller
-> provider and consumer devices. Those bindings are intended to allow
-> divided system on chip into multiple domains, that can be used to
-> configure hardware permissions.
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> [Gatien: Fix typos and YAML error]
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
-> 
-> Changes in V4: 
-> 	Corrected typos and YAML errors	
+Commit a6ee05d94e8f ("ASoC: cygnus: Add Cygnus audio DAI driver")
+declared but never implemented these.
 
-Why are we supposed to ignore the first patch in this series, but pay
-attention to the 10 after this that depend on it?
+Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+---
+ sound/soc/bcm/cygnus-ssp.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-totally confused,
+diff --git a/sound/soc/bcm/cygnus-ssp.h b/sound/soc/bcm/cygnus-ssp.h
+index 74152b2d770d..4925e03c3c30 100644
+--- a/sound/soc/bcm/cygnus-ssp.h
++++ b/sound/soc/bcm/cygnus-ssp.h
+@@ -117,8 +117,6 @@ struct cygnus_audio {
+ 	unsigned long vco_rate;
+ };
+ 
+-extern int cygnus_ssp_get_mode(struct snd_soc_dai *cpu_dai);
+-extern int cygnus_ssp_add_pll_tweak_controls(struct snd_soc_pcm_runtime *rtd);
+ extern int cygnus_ssp_set_custom_fsync_width(struct snd_soc_dai *cpu_dai,
+ 						int len);
+ extern int cygnus_soc_platform_register(struct device *dev,
+-- 
+2.34.1
 
-greg k-h

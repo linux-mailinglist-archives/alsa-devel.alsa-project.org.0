@@ -2,180 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EDB37788A5
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 09:55:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5064377893D
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 10:52:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 098B1828;
-	Fri, 11 Aug 2023 09:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 098B1828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 788B3822;
+	Fri, 11 Aug 2023 10:52:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 788B3822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691740515;
-	bh=faDjWoxaNYpZe8CiyL74RAcsMlLuVqa1/9CYk3zSm6s=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=aHs+eByVqsU1/Rf5+BAVYCycAwjCxiKDBakwWLo6NeXxAPIW3GeVi+Gyldw1/Pv47
-	 RdNwr8OBqIODWtdMawutfw6C/WIgUwER1zSQLID9hcGaUxnMcILN8CvC9cViCFcp/I
-	 n9iqmiWYH3u4NyddwIojttmwDmKUQTVsRF4ZlgVc=
+	s=default; t=1691743975;
+	bh=BkBzX+L4lXPf7Svxf3IFXBWKL7AhH08I+W1800PSuC0=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=NCrmRSEwMNKM/rTM0W3VVJDZff5MDnPgPzwZVlL7nFocKa3XIW/zmrmb8T8vp4Yxv
+	 66DTUsaQ3h62zeXnUR75bRyRBppNIJKnVREl+qDhdXih+h8HFoC+LOB01jkSbzXqub
+	 ulcpim9qs9DSdNL8td9c4+MKmekZ7pfBXdyILaAI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD280F800F4; Fri, 11 Aug 2023 09:54:03 +0200 (CEST)
+	id 78903F80134; Fri, 11 Aug 2023 10:52:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B8F1F80134;
-	Fri, 11 Aug 2023 09:54:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02458F80134;
+	Fri, 11 Aug 2023 10:52:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CF06F8016E; Fri, 11 Aug 2023 09:54:00 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from FRA01-PR2-obe.outbound.protection.outlook.com
- (mail-pr2fra01on20628.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e18::628])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A41CCF800F4
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 09:53:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A41CCF800F4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=csgroup.eu header.i=@csgroup.eu header.a=rsa-sha256
- header.s=selector2 header.b=WQ9/xxxG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JJmPlirpwoK9cXPcjyHtGjA0Cgt8zx/CuIcxN8HUctx5Nq5jh86Daj4C1TmsuDHHWehtFiE73hnxzCI6TBuKHiyZ6sIWpR2wk2Ku+qLJhtTatx89sbrNkoXJe2VVDt1pxa7Etnwn8jhJORXUC47WX/DOOBaQPKGjGHVIWctAKYjzLXnD3oRTe99sGCRGjHZIHq2pcAvlq6UlaCKgOHYEC2zHlRLbWkUvkIU87n8L42EJBUDobsvIM2MMiZdMNST5SMw4DwkVcA29TzMcNOh09EBCrHjHf0eSTEd6OXUvGQFHVILJRgypgQGrQmqoR8QHQFeMbOnj+C+283O2kaMz9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=faDjWoxaNYpZe8CiyL74RAcsMlLuVqa1/9CYk3zSm6s=;
- b=N9fsgXHbBMLdLlNbEOF5ItvUvB3GLATq2xalCMlBWRr/4VXTANhyMKmIYvkE+tTR2eKRVyk1SQuhO0INowJVTT7zs6VbAg3OKAwm2JNkBqtuOWBD7QbzePn3Wsaf+8Ei99l9QzaKJaWxQVL6MdVO4cByGpkszI/pPmwqgIRsLPlv3DS+lWKdCRn2MwbZoZCz/rpl7dqSsIZsAjUa7CWEQSXLZXKNRXggmAzwUTFFyBA15IdVaeT9wh2mFKqRs64ACwAtstFh23W6PHnyKmTSLVVPOKCwyjBd3cROhPqQAum0NyFEmZKJlP6m0rJ7Mrd5G8My0GHhtVUut2IZI7KmDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
- dkim=pass header.d=csgroup.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=faDjWoxaNYpZe8CiyL74RAcsMlLuVqa1/9CYk3zSm6s=;
- b=WQ9/xxxGeDwDTt1uciD/r7S9ZReZlM5d++mupsezittjUD840PDDJ9Hk1iQtlcM8VH343ExflwnfiTze5n6SREybbaWxWY5iW6nZl5xn3/BU2ZAF3cUjhihPoAlWGZkXckYij/hclYTAIP6bbIHLf6U7v62ZMxKgi+6Fd8QCeMKXXx21LxWv0jfIrFldu9u/NJwpvmX7YHTtcZrJqExnuhWd7LedD+RJixhuRNy28ecFp8AexOFy3Y0bwCFjfh7dkLTVz0RGoDUwQ3/x1sjpZ9DCxLlwfWu7nFT0XRzCLvWMdBrsP55fDdpNBxHWUTn0Wz5EXyJ6ZD0FejUZVu2a3w==
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
- by PR0P264MB3371.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:145::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Fri, 11 Aug
- 2023 07:53:52 +0000
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::2820:d3a6:1cdf:c60e]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::2820:d3a6:1cdf:c60e%7]) with mapi id 15.20.6678.019; Fri, 11 Aug 2023
- 07:53:52 +0000
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: Jakub Kicinski <kuba@kernel.org>, Herve Codina <herve.codina@bootlin.com>
-CC: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
-	<andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Lee
- Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang Zhao
-	<qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
-	<shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
-	<festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Randy Dunlap
-	<rdunlap@infradead.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, Thomas Petazzoni
-	<thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 00/28] Add support for QMC HDLC, framer infrastruture
- and PEF2256 framer
-Thread-Topic: [PATCH v3 00/28] Add support for QMC HDLC, framer infrastruture
- and PEF2256 framer
-Thread-Index: AQHZysVV/hkwPsMhiECgp2kpNT03nq/jrocAgAEN3YA=
-Date: Fri, 11 Aug 2023 07:53:52 +0000
-Message-ID: <05463697-0870-1652-1c47-8f4e0eb10ab7@csgroup.eu>
-References: <20230809132757.2470544-1-herve.codina@bootlin.com>
- <20230810084758.2adbfeb8@kernel.org>
-In-Reply-To: <20230810084758.2adbfeb8@kernel.org>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=csgroup.eu;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR0P264MB3371:EE_
-x-ms-office365-filtering-correlation-id: a93e9736-3365-42e2-a7ba-08db9a401af1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- Q7N+q/CWyUcH/Oyz0rmnjjoN2EtT8TRf2Ifiyq+UrdX9f2ai6kak/7PrASnRqaTq1AyTnFEpno98X9t72fAMziMz4+hTpiUMRncpqD9wcZK6pkV0Gts9RuXj96a8JY84DxBbGtC2ZmAYM0c/GCEL7OVxTtF5nrKAcjJpbvj1UABCz7BwAVUH24dvoavzDFGSvUfJ9tEjfi4S8F+bxzP/cjQ4/LKj/Edzq2qMTiu9d1OfLMYvexZ4g5JcB7Byme5Tloz5RPvbuw/x3yi1A9Y6IHIH6iavoiyta7SKbQvLrlEyfOWMcBmECja9cl2tMiFrm9nzZgalC1/QrzB5uz9NYDQ2H6KYgVcEnIYeA+LBm7fAiOsG+gizyefuqixFvOCK/0CLkYx6lJ796r+vaN0gB1TbispDjVfPb+VF2xWP9C7fvTyEOpVTgiFwPrO/4dzC40UA7QB2dZD+yNshS17wvwPLYGvS/JNi1dLRiiUxscIFMQyjHjDJLShKBAwLwh7lscVUW0Wzux5hM0maXqH4gfLUTNwM+RwfzTZNMCuzkv8e/IQy+kaMgvU2uF6GV/QAS7fLgdC0GDzTz01VIXVJ5acAPIvf3kNua/H7Ang1dBsOQ11G3m+BGQcgh+4UXwXV/915tDyp2Nb7AaKp7XwPw+FOC0hj55QoBSrbD6wgNxePDbR6jYYiY8Xo0lx9ZBWz
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(136003)(346002)(396003)(376002)(366004)(39850400004)(451199021)(1800799006)(186006)(7406005)(31686004)(4744005)(2906002)(44832011)(7416002)(8676002)(8936002)(5660300002)(41300700001)(316002)(66556008)(66946007)(66476007)(66446008)(64756008)(4326008)(76116006)(91956017)(110136005)(6486002)(478600001)(36756003)(71200400001)(6512007)(26005)(2616005)(54906003)(6506007)(122000001)(38100700002)(86362001)(31696002)(38070700005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?SnZObk1Ma2cvOTJvV1h0Znl3R1hkTVNLUm1CcDlLbC90b3J4eE9oVEE3UlMw?=
- =?utf-8?B?WVVBWTM2S2w0anZmMEZIa2IvN3ByUWZ2UGFQV0hMQWhud2VFWkZnLzlibWlQ?=
- =?utf-8?B?Y1orTmtROHFWZ0NVcHFaMkRlaG5ReDRPaXB5RHZpelpOZUJuc1dYb2hUVDV1?=
- =?utf-8?B?cEEyYkJuUG4wTkdyNzZDQlJlSS9zdEd5amZhZk81QnNsQjVQc1hMSjdHdS81?=
- =?utf-8?B?c3RQVVNnWDVTTVZrL0NQME9nQUZsVGpaVFhYMkFzeEhROUYwUFlwMldvVlhE?=
- =?utf-8?B?V2c0SW5YZWtPbmpIWFB5cDRLT2YyRnJWa2tQa0x1eDMvVVFxeGVTa1JnS1Ni?=
- =?utf-8?B?SkFUWHJnZ2tWWmRhOEtab01tMXQwTi9ZV1N5Mkx3NGFQaXdqTjUwRzJYSGRj?=
- =?utf-8?B?VEVKMGRlWncrR3Z2MElFR3hIb3VpUGdJR3A3K2svN2dJTk5xanRucGdqblhW?=
- =?utf-8?B?ajY1Y1loNFdLVm9mNnFjRkl6Z0lZSHRmeHdPMzE3ckY0SGdxakIxUG1lSU1T?=
- =?utf-8?B?eG5wMW00RVRVbmZKb0QybzJEK3hCTVBxRlVHc3VtbFd0Tnk0UFhlQTVzc0xO?=
- =?utf-8?B?eDNSTkg1NXF6aVduSzVDYmF1a2F1RzVTcXJrNVdGRUFYQVovSHI5ekhaTXN1?=
- =?utf-8?B?QXE3VE1hOFFtODAxTkl5SVBFVk1yWkxHVzdjNWVjaGVhbFd1Rm5IZlI4VEkr?=
- =?utf-8?B?VE55NUljVjM1bmg2Nmh6S3NBOW5WbnBRcHdTYllaWVQ2TnAzQlFwU2lub0c1?=
- =?utf-8?B?eUlRdXBjOVNISXdDdzdBejBEUlhoc0JMVzFadXJJN1NGOEZkVXRsak5la2xV?=
- =?utf-8?B?Qkt6QWFKVHRhakxHOFhuaHBMR1NzQkkyRzYwZFJpUVhzTmhlWERFWkVQaDdL?=
- =?utf-8?B?a3U3eFZWRHBXV0o5b3lITVEwRW90VXlIeTVqWlV4cDRKU0dYSFhuY2J0Znc5?=
- =?utf-8?B?TjZvK3ZkeEdNQ2pySGVpbjhFVElkWlhsZlJHVU9BNlg2bnZkOG9rc3EzeFRo?=
- =?utf-8?B?aCs5MVNyVkpCdDA3ZnFpNDNpckNsSWJ2QmhJKytaaVlPL0FNNkJVVXVhWlJy?=
- =?utf-8?B?aVRJTnlrbTM2NFpkV3BrMmtyU0xWS3N2SFBUcGlwQUVUbWw3eEVoOFdEb05Y?=
- =?utf-8?B?cEw3bncxejNuVTljeE4wWnVYandWbjIycUZnbDBkMmJ4TjNtYVpWSUFjdVFX?=
- =?utf-8?B?bjVPS0NOWHhUeWgzZ3V1ZWQzUldKYjNibStYNkM4elBRTFU4YzJqZURvQVpv?=
- =?utf-8?B?MVVYQnk0bkJsWWdvdzZzSCtmRjlhWGVFSTBOZUl4dFpsaUJDTFBvMGs5YTB2?=
- =?utf-8?B?L09zbWdGUnFCQ3FFeXgxd2poNEc2eDBWbUlVMlRMdlZrOXcyWkp6R0UxU090?=
- =?utf-8?B?V3BDQkc3QXArUStMNXh2a0V1MzV4cWloYzVDdHZhVEZNQVNsdGczMXA0bUR2?=
- =?utf-8?B?Zk5uTmdOekUzbHhqL2tQNjNnZWsweHo4a0tISHovcEUvZmZDSDFDbTVVZ2sv?=
- =?utf-8?B?Vk1BcGQ2NXVpZzFFcVk2dDhMMGJOWG5JK2tGMGdrUWFId1lQVWg5QVE5OUJi?=
- =?utf-8?B?bXlkcCthK2RkZ0doUE1tS2FiazhzQVNHNVd4R0wrRm1IcjFmZXBBay9ONVkw?=
- =?utf-8?B?NlE1SGhiUjhBL082WSt6VlRnNVhMTDJBcFhhS01aS3cxeTluRnhZUHNpQlNv?=
- =?utf-8?B?R3dBREY2UkYyeldIS0pPcThMNDl5bFRrMmNoTXkxR1BDRkN0azJKZW1ocjY1?=
- =?utf-8?B?NFpsVStJc295Z1RJOEREZlRhQlgrNWxQR1prSkF4NTMxcUhScEkyeVJialZ6?=
- =?utf-8?B?K3g4RmYrZWwvWFIrZmIzMURoV1o0cHBzbS81NXhRMnVoZm91ZWpYZE9vODEz?=
- =?utf-8?B?L01MNmR5NS9QNFUrR1RGSzVidzRFMU5uV2xvMjhjUlFyd3FSUENLWXFUZ2V3?=
- =?utf-8?B?aitJbVN1VG41NVVFUTM2UjYxYWZUbVQwb2FJb2pqZ3Z0Wnh0Rkw3b05IZHU4?=
- =?utf-8?B?MVluUDY4UGhkWXc0NlY4bTBwcnB3RG9TYmxibFl1eHp3SVpEdm1xaHgwVndX?=
- =?utf-8?B?THBaS2FCa2lUdHg4amlhZmdabDExQk01N0xVZGVtZnk5ZngyOFV2cU9PeHdE?=
- =?utf-8?B?ZngvUVh0UmlYT2pFeTFJRElNTnh2WS9uVjl0UGpPckswejlROWdkL01qZEow?=
- =?utf-8?B?L2c9PQ==?=
+	id 5B806F80166; Fri, 11 Aug 2023 10:51:57 +0200 (CEST)
+Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
+ [10.254.200.11])
+	by alsa1.perex.cz (Postfix) with ESMTP id 058D9F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 10:51:56 +0200 (CEST)
 Content-Type: text/plain; charset="utf-8"
-Content-ID: <5C256BB6D02BA5479E2299F49313DFC4@FRAP264.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-OriginatorOrg: csgroup.eu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- a93e9736-3365-42e2-a7ba-08db9a401af1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2023 07:53:52.3411
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- ZI28Y/sA9VlvSh2T6u+8/WpvJFynzSReOYZMIQMQ8GRnn/5geXfq26M/msEGZLZzmez+qdhOPNCT45cPkvpAKBGbioJfXF/O3b5PkEVAVhY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR0P264MB3371
-Message-ID-Hash: NLZ5AB5W7F7WEXYYF3KZSOEFINQEXOE5
-X-Message-ID-Hash: NLZ5AB5W7F7WEXYYF3KZSOEFINQEXOE5
-X-MailFrom: christophe.leroy@csgroup.eu
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] -- fix Boss MS-3 midi-usb communication
+From: john_candlish@mail.candlish.net
+To: alsa-devel@alsa-project.org
+Date: Fri, 11 Aug 2023 08:51:56 -0000
+Message-ID: 
+ <169174391693.21.17899976756232952295@mailman-web.alsa-project.org>
+In-Reply-To: <87sf8qrpxp.wl-tiwai@suse.de>
+References: <87sf8qrpxp.wl-tiwai@suse.de>
+User-Agent: HyperKitty on https://mailman.alsa-project.org/
+Message-ID-Hash: YBVDO3VRWVAWODPVSBOKHWLABXPZDLNA
+X-Message-ID-Hash: YBVDO3VRWVAWODPVSBOKHWLABXPZDLNA
+X-MailFrom: john_candlish@mail.candlish.net
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -187,24 +56,2104 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NLZ5AB5W7F7WEXYYF3KZSOEFINQEXOE5/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YQPNUF6EFPHXEIGWUBDK3YAZDW2CSVBT/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQoNCkxlIDEwLzA4LzIwMjMgw6AgMTc6NDcsIEpha3ViIEtpY2luc2tpIGEgw6ljcml0wqA6DQo+
-IE9uIFdlZCwgIDkgQXVnIDIwMjMgMTU6Mjc6MjcgKzAyMDAgSGVydmUgQ29kaW5hIHdyb3RlOg0K
-Pj4gVGhlIHNlcmllcyBjb250YWlucyB0aGUgZnVsbCBzdG9yeSBhbmQgZGV0YWlsZWQgbW9kaWZp
-Y2F0aW9ucy4NCj4+IElmIG5lZWRlZCwgdGhlIHNlcmllcyBjYW4gYmUgc3BsaXQgYW5kL29yIGNv
-bW1taXRzIGNhbiBiZSBzcXVhc2hlZC4NCj4+IExldCBtZSBrbm93Lg0KPiANCj4gQXJlIHRoZXJl
-IGFueSBkZXBlbmRlbmNpZXMgaW4gb25lIG9mIHRoZSAtbmV4dCB0cmVlcz8NCj4gQXMgaXQgdGhl
-IHNlcmllcyBkb2Vzbid0IHNlZW0gdG8gYnVpbGQgb24gdG9wIG9mIG5ldC1uZXh0DQo+IHdpdGgg
-YWxsbW9kY29uZmlnLg0KDQpBcyBmYXIgYXMgSSBrbm93IHRoZXJlIGFyZSBub3QgZGVwZW5kZW5j
-aWVzLCB0aGlzIHNlcmllcyB3YXMgdGVzdHMgb24gDQp0b3Agb2YgNi41LXJjMi4NCg0KSG93ZXZl
-ciBpdCBsb29rcyBsaWtlIGl0IGhhcyBuZXZlciBiZWVuIGJ1aWx0IHdpdGggQ09ORklHX01PRFVM
-RVMgDQplbmFibGVkLiBBcyBIZXJ2w6kgaXMgQUZLIGF0IHRoZSBtb21lbnQsIEknbGwgc2VlIGlm
-IEkgY2FuIGdpdmUgaXQgYSBmaXguDQoNCkNocmlzdG9waGUNCg==
+Thanks for your superfast response!
+
+I'm inlining the output of the script as I don't see how to attach a file.
+
+---
+
+upload=true&script=true&cardinfo=
+!!################################
+!!ALSA Information Script v 0.5.3
+!!################################
+
+!!Script ran on: Fri Aug 11 08:46:44 UTC 2023
+
+
+!!Linux Distribution
+!!------------------
+
+Debian GNU/Linux trixie/sid \n \l PRETTY_NAME="Debian GNU/Linux trixie/sid" NAME="Debian GNU/Linux" ID=debian HOME_URL="https://www.debian.org/" SUPPORT_URL="https://www.debian.org/support" BUG_REPORT_URL="https://bugs.debian.org/"
+
+
+!!DMI Information
+!!---------------
+
+Manufacturer:      LENOVO
+Product Name:      20NTCTO1WW
+Product Version:   ThinkPad L390 Yoga
+Firmware Version:  R10ET50W (1.35 )
+System SKU:        LENOVO_MT_20NT_BU_Think_FM_ThinkPad L390 Yoga
+Board Vendor:      LENOVO
+Board Name:        20NTCTO1WW
+
+
+!!ACPI Device Status Information
+!!---------------
+
+/sys/bus/acpi/devices/ACPI0003:00/status 	 15
+/sys/bus/acpi/devices/ACPI000C:00/status 	 15
+/sys/bus/acpi/devices/INT0E0C:00/status 	 15
+/sys/bus/acpi/devices/INT33A1:00/status 	 15
+/sys/bus/acpi/devices/INT33D3:00/status 	 15
+/sys/bus/acpi/devices/INT3400:00/status 	 15
+/sys/bus/acpi/devices/INT3403:00/status 	 15
+/sys/bus/acpi/devices/INT3403:01/status 	 15
+/sys/bus/acpi/devices/INT3403:02/status 	 15
+/sys/bus/acpi/devices/INT3403:03/status 	 15
+/sys/bus/acpi/devices/INT34BB:00/status 	 15
+/sys/bus/acpi/devices/INT3515:03/status 	 15
+/sys/bus/acpi/devices/INT3F0D:00/status 	 15
+/sys/bus/acpi/devices/LEN0100:00/status 	 15
+/sys/bus/acpi/devices/LEN0268:00/status 	 15
+/sys/bus/acpi/devices/LNXPOWER:00/status 	 1
+/sys/bus/acpi/devices/LNXPOWER:01/status 	 15
+/sys/bus/acpi/devices/LNXPOWER:02/status 	 1
+/sys/bus/acpi/devices/LNXPOWER:03/status 	 1
+/sys/bus/acpi/devices/LNXPOWER:04/status 	 1
+/sys/bus/acpi/devices/LNXPOWER:05/status 	 1
+/sys/bus/acpi/devices/PNP0103:00/status 	 15
+/sys/bus/acpi/devices/PNP0C02:00/status 	 3
+/sys/bus/acpi/devices/PNP0C02:01/status 	 3
+/sys/bus/acpi/devices/PNP0C02:05/status 	 3
+/sys/bus/acpi/devices/PNP0C09:00/status 	 15
+/sys/bus/acpi/devices/PNP0C0A:00/status 	 31
+/sys/bus/acpi/devices/PNP0C60:00/status 	 15
+/sys/bus/acpi/devices/PRP00001:00/status 	 11
+/sys/bus/acpi/devices/STM7308:00/status 	 15
+/sys/bus/acpi/devices/USBC000:00/status 	 15
+/sys/bus/acpi/devices/device:17/status 	 15
+/sys/bus/acpi/devices/device:23/status 	 15
+/sys/bus/acpi/devices/device:27/status 	 15
+/sys/bus/acpi/devices/device:29/status 	 15
+
+
+!!Kernel Information
+!!------------------
+
+Kernel release:    #3 SMP PREEMPT_DYNAMIC Fri Aug 11 02:22:35 CEST 2023
+Operating System:  GNU/Linux
+Architecture:      x86_64
+Processor:         unknown
+SMP Enabled:       Yes
+
+
+!!ALSA Version
+!!------------
+
+Driver version:     k6.4.4
+Library version:    1.2.9
+Utilities version:  1.2.9
+
+
+!!Loaded ALSA modules
+!!-------------------
+
+snd_virmidi (card 0)
+snd_hda_intel (card 1)
+snd_usb_audio (card 2)
+thinkpad_acpi (card 29)
+
+
+!!Sound Servers on this system
+!!----------------------------
+
+PipeWire:
+      Installed - Yes (/usr/bin/pipewire)
+      Running - Yes
+
+Jack:
+      Installed - Yes (/usr/bin/jackd)
+      Running - No
+
+Jack2:
+      Installed - Yes (/usr/bin/jackdbus)
+      Running - Yes
+
+
+!!Soundcards recognised by ALSA
+!!-----------------------------
+
+ 0 [VirMIDI        ]: VirMIDI - VirMIDI
+                      Virtual MIDI Card 1
+ 1 [PCH            ]: HDA-Intel - HDA Intel PCH
+                      HDA Intel PCH at 0xa133c000 irq 148
+ 2 [MS3            ]: USB-Audio - MS-3
+                      BOSS MS-3 at usb-0000:00:14.0-4, high speed
+29 [ThinkPadEC     ]: ThinkPad EC - ThinkPad Console Audio Control
+                      ThinkPad Console Audio Control at EC reg 0x30, fw R10HT33W
+
+
+!!PCI Soundcards installed in the system
+!!--------------------------------------
+
+00:1f.3 Audio device [0403]: Intel Corporation Cannon Point-LP High Definition Audio Controller [8086:9dc8] (rev 11) (prog-if 80)
+	Subsystem: Lenovo Cannon Point-LP High Definition Audio Controller [17aa:5077]
+
+
+!!Modprobe options (Sound related)
+!!--------------------------------
+
+snd_pcsp: index=-2
+snd_atiixp_modem: index=-2
+snd_intel8x0m: index=-2
+snd_via82xx_modem: index=-2
+snd_virmidi: enable=1 midi_devs=1
+
+
+!!Loaded sound module options
+!!---------------------------
+
+!!Module: snd_virmidi
+	enable : Y,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N
+	id : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	index : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	midi_devs : 1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
+
+!!Module: snd_hda_intel
+	align_buffer_size : -1
+	bdl_pos_adj : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	beep_mode : Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+	ctl_dev_id : N
+	dmic_detect : Y
+	enable : Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+	enable_msi : -1
+	id : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	index : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	jackpoll_ms : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	model : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	patch : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	pm_blacklist : Y
+	position_fix : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	power_save : 1
+	power_save_controller : Y
+	probe_mask : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	probe_only : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	single_cmd : -1
+	snoop : -1
+
+!!Module: snd_usb_audio
+	autoclock : Y
+	delayed_register : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	device_setup : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	enable : Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+	id : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	ignore_ctl_error : N
+	implicit_fb : N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N
+	index : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	lowlatency : Y
+	pid : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	quirk_alias : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+	quirk_flags : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	skip_validation : N
+	use_vmalloc : Y
+	vid : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+
+!!Module: thinkpad_acpi
+	brightness_enable : 2
+	brightness_mode : 4
+	enable : Y
+	experimental : 0
+	fan_control : N
+	force_load : N
+	id : ThinkPadEC
+	index : -536870912
+	profile_force : 0
+	software_mute : Y
+	volume_capabilities : 0
+	volume_control : N
+	volume_mode : 3
+
+
+!!Sysfs card info
+!!---------------
+
+!!Card: /sys/class/sound/card0
+Driver: /sys/bus/platform/drivers/snd_virmidi
+Tree:
+	/sys/class/sound/card0
+	|-- controlC0
+	|   |-- dev
+	|   |-- device -> ../../card0
+	|   |-- led-mic -> ../../../../../virtual/sound/ctl-led/mic/card0
+	|   |-- led-speaker -> ../../../../../virtual/sound/ctl-led/speaker/card0
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- device -> ../../../snd_virmidi.0
+	|-- dmmidi
+	|   |-- dev
+	|   |-- device -> ../../card0
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- id
+	|-- midi
+	|   |-- dev
+	|   |-- device -> ../../card0
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- midiC0D0
+	|   |-- dev
+	|   |-- device -> ../../card0
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- mixer
+	|   |-- dev
+	|   |-- device -> ../../card0
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- number
+	|-- power
+	|   |-- async
+	|   |-- autosuspend_delay_ms
+	|   |-- control
+	|   |-- runtime_active_kids
+	|   |-- runtime_active_time
+	|   |-- runtime_enabled
+	|   |-- runtime_status
+	|   |-- runtime_suspended_time
+	|   `-- runtime_usage
+	|-- subsystem -> ../../../../../class/sound
+	`-- uevent
+
+!!Card: /sys/class/sound/card1
+Driver: /sys/bus/pci/drivers/snd_hda_intel
+Tree:
+	/sys/class/sound/card1
+	|-- audio1
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- controlC1
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- led-mic -> ../../../../../virtual/sound/ctl-led/mic/card1
+	|   |-- led-speaker -> ../../../../../virtual/sound/ctl-led/speaker/card1
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- device -> ../../../0000:00:1f.3
+	|-- dsp1
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- hwC1D0
+	|   |-- afg
+	|   |-- chip_name
+	|   |-- clear
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- driver_pin_configs
+	|   |-- hints
+	|   |-- init_pin_configs
+	|   |-- init_verbs
+	|   |-- mfg
+	|   |-- modelname
+	|   |-- power
+	|   |-- power_off_acct
+	|   |-- power_on_acct
+	|   |-- reconfig
+	|   |-- revision_id
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   |-- subsystem_id
+	|   |-- uevent
+	|   |-- user_pin_configs
+	|   |-- vendor_id
+	|   `-- vendor_name
+	|-- hwC1D2
+	|   |-- afg
+	|   |-- chip_name
+	|   |-- clear
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- driver_pin_configs
+	|   |-- hints
+	|   |-- init_pin_configs
+	|   |-- init_verbs
+	|   |-- mfg
+	|   |-- modelname
+	|   |-- power
+	|   |-- power_off_acct
+	|   |-- power_on_acct
+	|   |-- reconfig
+	|   |-- revision_id
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   |-- subsystem_id
+	|   |-- uevent
+	|   |-- user_pin_configs
+	|   |-- vendor_id
+	|   `-- vendor_name
+	|-- id
+	|-- input22
+	|   |-- capabilities
+	|   |-- device -> ../../card1
+	|   |-- event11
+	|   |-- id
+	|   |-- inhibited
+	|   |-- modalias
+	|   |-- name
+	|   |-- phys
+	|   |-- power
+	|   |-- properties
+	|   |-- subsystem -> ../../../../../../class/input
+	|   |-- uevent
+	|   `-- uniq
+	|-- input23
+	|   |-- capabilities
+	|   |-- device -> ../../card1
+	|   |-- event12
+	|   |-- id
+	|   |-- inhibited
+	|   |-- modalias
+	|   |-- name
+	|   |-- phys
+	|   |-- power
+	|   |-- properties
+	|   |-- subsystem -> ../../../../../../class/input
+	|   |-- uevent
+	|   `-- uniq
+	|-- input24
+	|   |-- capabilities
+	|   |-- device -> ../../card1
+	|   |-- event13
+	|   |-- id
+	|   |-- inhibited
+	|   |-- modalias
+	|   |-- name
+	|   |-- phys
+	|   |-- power
+	|   |-- properties
+	|   |-- subsystem -> ../../../../../../class/input
+	|   |-- uevent
+	|   `-- uniq
+	|-- input25
+	|   |-- capabilities
+	|   |-- device -> ../../card1
+	|   |-- event14
+	|   |-- id
+	|   |-- inhibited
+	|   |-- modalias
+	|   |-- name
+	|   |-- phys
+	|   |-- power
+	|   |-- properties
+	|   |-- subsystem -> ../../../../../../class/input
+	|   |-- uevent
+	|   `-- uniq
+	|-- input26
+	|   |-- capabilities
+	|   |-- device -> ../../card1
+	|   |-- event15
+	|   |-- id
+	|   |-- inhibited
+	|   |-- modalias
+	|   |-- name
+	|   |-- phys
+	|   |-- power
+	|   |-- properties
+	|   |-- subsystem -> ../../../../../../class/input
+	|   |-- uevent
+	|   `-- uniq
+	|-- input27
+	|   |-- capabilities
+	|   |-- device -> ../../card1
+	|   |-- event16
+	|   |-- id
+	|   |-- inhibited
+	|   |-- modalias
+	|   |-- name
+	|   |-- phys
+	|   |-- power
+	|   |-- properties
+	|   |-- subsystem -> ../../../../../../class/input
+	|   |-- uevent
+	|   `-- uniq
+	|-- mixer1
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- number
+	|-- pcmC1D0c
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- pcm_class
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- pcmC1D0p
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- pcm_class
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- pcmC1D3p
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- pcm_class
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- pcmC1D7p
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- pcm_class
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- pcmC1D8p
+	|   |-- dev
+	|   |-- device -> ../../card1
+	|   |-- pcm_class
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- power
+	|   |-- async
+	|   |-- autosuspend_delay_ms
+	|   |-- control
+	|   |-- runtime_active_kids
+	|   |-- runtime_active_time
+	|   |-- runtime_enabled
+	|   |-- runtime_status
+	|   |-- runtime_suspended_time
+	|   `-- runtime_usage
+	|-- subsystem -> ../../../../../class/sound
+	`-- uevent
+
+!!Card: /sys/class/sound/card2
+Driver: /sys/bus/usb/drivers/snd-usb-audio
+Tree:
+	/sys/class/sound/card2
+	|-- controlC2
+	|   |-- dev
+	|   |-- device -> ../../card2
+	|   |-- led-mic -> ../../../../../../../../virtual/sound/ctl-led/mic/card2
+	|   |-- led-speaker -> ../../../../../../../../virtual/sound/ctl-led/speaker/card2
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../../../../class/sound
+	|   `-- uevent
+	|-- device -> ../../../1-4:1.1
+	|-- dmmidi2
+	|   |-- dev
+	|   |-- device -> ../../card2
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../../../../class/sound
+	|   `-- uevent
+	|-- id
+	|-- midi2
+	|   |-- dev
+	|   |-- device -> ../../card2
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../../../../class/sound
+	|   `-- uevent
+	|-- midiC2D0
+	|   |-- dev
+	|   |-- device -> ../../card2
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../../../../class/sound
+	|   `-- uevent
+	|-- mixer2
+	|   |-- dev
+	|   |-- device -> ../../card2
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../../../../class/sound
+	|   `-- uevent
+	|-- number
+	|-- power
+	|   |-- async
+	|   |-- autosuspend_delay_ms
+	|   |-- control
+	|   |-- runtime_active_kids
+	|   |-- runtime_active_time
+	|   |-- runtime_enabled
+	|   |-- runtime_status
+	|   |-- runtime_suspended_time
+	|   `-- runtime_usage
+	|-- seq-midi-2-0
+	|   |-- driver -> ../../../../../../../../../bus/snd_seq/drivers/snd_seq_midi
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../../../../bus/snd_seq
+	|   `-- uevent
+	|-- subsystem -> ../../../../../../../../class/sound
+	`-- uevent
+
+!!Card: /sys/class/sound/card29
+Driver: /sys/bus/platform/drivers/thinkpad_acpi
+Tree:
+	/sys/class/sound/card29
+	|-- controlC29
+	|   |-- dev
+	|   |-- device -> ../../card29
+	|   |-- led-mic -> ../../../../../virtual/sound/ctl-led/mic/card29
+	|   |-- led-speaker -> ../../../../../virtual/sound/ctl-led/speaker/card29
+	|   |-- power
+	|   |-- subsystem -> ../../../../../../class/sound
+	|   `-- uevent
+	|-- device -> ../../../thinkpad_acpi
+	|-- id
+	|-- number
+	|-- power
+	|   |-- async
+	|   |-- autosuspend_delay_ms
+	|   |-- control
+	|   |-- runtime_active_kids
+	|   |-- runtime_active_time
+	|   |-- runtime_enabled
+	|   |-- runtime_status
+	|   |-- runtime_suspended_time
+	|   `-- runtime_usage
+	|-- subsystem -> ../../../../../class/sound
+	`-- uevent
+
+
+!!Sysfs ctl-led info
+!!---------------
+
+!!CTL-LED: /sys/class/sound/ctl-led/mic/card0
+List: 
+
+!!CTL-LED: /sys/class/sound/ctl-led/mic/card1
+List: 7
+
+!!CTL-LED: /sys/class/sound/ctl-led/mic/card2
+List: 
+
+!!CTL-LED: /sys/class/sound/ctl-led/mic/card29
+List: 
+
+!!CTL-LED: /sys/class/sound/ctl-led/speaker/card0
+List: 
+
+!!CTL-LED: /sys/class/sound/ctl-led/speaker/card1
+List: 11
+
+!!CTL-LED: /sys/class/sound/ctl-led/speaker/card2
+List: 
+
+!!CTL-LED: /sys/class/sound/ctl-led/speaker/card29
+List: 
+
+!!HDA-Intel Codec information
+!!---------------------------
+--startcollapse--
+
+Codec: Realtek ALC257
+Address: 0
+AFG Function Id: 0x1 (unsol 1)
+Vendor Id: 0x10ec0257
+Subsystem Id: 0x17aa5077
+Revision Id: 0x100001
+No Modem Function Group found
+Default PCM:
+    rates [0x560]: 44100 48000 96000 192000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+Default Amp-In caps: N/A
+Default Amp-Out caps: N/A
+State of AFG node 0x01:
+  Power states:  D0 D1 D2 D3 D3cold CLKSTOP EPSS
+  Power: setting=D0, actual=D0
+GPIO: io=3, o=0, i=0, unsolicited=1, wake=0
+  IO[0]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+  IO[1]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+  IO[2]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+Node 0x02 [Audio Output] wcaps 0x41d: Stereo Amp-Out
+  Control: name="Speaker Playback Volume", index=0, device=0
+    ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+  Amp-Out caps: ofs=0x57, nsteps=0x57, stepsize=0x02, mute=0
+  Amp-Out vals:  [0x57 0x57]
+  Converter: stream=0, channel=0
+  PCM:
+    rates [0x60]: 44100 48000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x03 [Audio Output] wcaps 0x41d: Stereo Amp-Out
+  Control: name="Headphone Playback Volume", index=0, device=0
+    ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+  Device: name="ALC257 Analog", type="Audio", device=0
+  Amp-Out caps: ofs=0x57, nsteps=0x57, stepsize=0x02, mute=0
+  Amp-Out vals:  [0x00 0x00]
+  Converter: stream=0, channel=0
+  PCM:
+    rates [0x60]: 44100 48000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x04 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x05 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x06 [Audio Output] wcaps 0x611: Stereo Digital
+  Converter: stream=0, channel=0
+  Digital:
+  Digital category: 0x0
+  IEC Coding Type: 0x0
+  PCM:
+    rates [0x5e0]: 44100 48000 88200 96000 192000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x07 [Audio Input] wcaps 0x10051b: Stereo Amp-In
+  Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
+  Amp-In vals:  [0x97 0x97]
+  Converter: stream=0, channel=0
+  SDI-Select: 0
+  PCM:
+    rates [0x560]: 44100 48000 96000 192000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 1
+     0x24
+Node 0x08 [Audio Input] wcaps 0x10051b: Stereo Amp-In
+  Control: name="Capture Volume", index=0, device=0
+    ControlAmp: chs=3, dir=In, idx=0, ofs=0
+  Control: name="Capture Switch", index=0, device=0
+    ControlAmp: chs=3, dir=In, idx=0, ofs=0
+  Device: name="ALC257 Analog", type="Audio", device=0
+  Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
+  Amp-In vals:  [0x3f 0x3f]
+  Converter: stream=0, channel=0
+  SDI-Select: 0
+  PCM:
+    rates [0x560]: 44100 48000 96000 192000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 1
+     0x23
+Node 0x09 [Audio Input] wcaps 0x10051b: Stereo Amp-In
+  Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
+  Amp-In vals:  [0x97 0x97]
+  Converter: stream=0, channel=0
+  SDI-Select: 0
+  PCM:
+    rates [0x560]: 44100 48000 96000 192000
+    bits [0xe]: 16 20 24
+    formats [0x1]: PCM
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 1
+     0x22
+Node 0x0a [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x0b [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x0c [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x0d [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x0e [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x0f [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x10 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x11 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x12 [Pin Complex] wcaps 0x40040b: Stereo Amp-In
+  Control: name="Internal Mic Boost Volume", index=0, device=0
+    ControlAmp: chs=3, dir=In, idx=0, ofs=0
+  Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+  Amp-In vals:  [0x01 0x01]
+  Pincap 0x00000020: IN
+  Pin Default 0x90a60120: [Fixed] Mic at Int N/A
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x2, Sequence = 0x0
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x20: IN
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x13 [Pin Complex] wcaps 0x40040b: Stereo Amp-In
+  Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+  Amp-In vals:  [0x00 0x00]
+  Pincap 0x00000020: IN
+  Pin Default 0x40000000: [N/A] Line Out at Ext N/A
+    Conn = Unknown, Color = Unknown
+    DefAssociation = 0x0, Sequence = 0x0
+  Pin-ctls: 0x00:
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x14 [Pin Complex] wcaps 0x40058d: Stereo Amp-Out
+  Control: name="Speaker Playback Switch", index=0, device=0
+    ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x00010014: OUT EAPD Detect
+  EAPD 0x2: EAPD
+  Pin Default 0x90170110: [Fixed] Speaker at Int N/A
+    Conn = Analog, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x40: OUT
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 1
+     0x02
+Node 0x15 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x16 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x17 [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x18 [Pin Complex] wcaps 0x40048b: Stereo Amp-In
+  Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+  Amp-In vals:  [0x00 0x00]
+  Pincap 0x00003724: IN Detect
+    Vref caps: HIZ 50 GRD 80 100
+  Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+    Conn = 1/8, Color = Black
+    DefAssociation = 0xf, Sequence = 0x0
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x20: IN VREF_HIZ
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x19 [Pin Complex] wcaps 0x40048b: Stereo Amp-In
+  Control: name="Mic Boost Volume", index=0, device=0
+    ControlAmp: chs=3, dir=In, idx=0, ofs=0
+  Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+  Amp-In vals:  [0x00 0x00]
+  Pincap 0x00003724: IN Detect
+    Vref caps: HIZ 50 GRD 80 100
+  Pin Default 0x04a11030: [Jack] Mic at Ext Right
+    Conn = 1/8, Color = Black
+    DefAssociation = 0x3, Sequence = 0x0
+  Pin-ctls: 0x24: IN VREF_80
+  Unsolicited: tag=02, enabled=1
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x1a [Pin Complex] wcaps 0x40048b: Stereo Amp-In
+  Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+  Amp-In vals:  [0x00 0x00]
+  Pincap 0x00003724: IN Detect
+    Vref caps: HIZ 50 GRD 80 100
+  Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+    Conn = 1/8, Color = Black
+    DefAssociation = 0xf, Sequence = 0x0
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x00: VREF_HIZ
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x1b [Pin Complex] wcaps 0x40058f: Stereo Amp-In Amp-Out
+  Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+  Amp-In vals:  [0x00 0x00]
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x80 0x80]
+  Pincap 0x00013734: IN OUT EAPD Detect
+    Vref caps: HIZ 50 GRD 80 100
+  EAPD 0x2: EAPD
+  Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+    Conn = 1/8, Color = Black
+    DefAssociation = 0xf, Sequence = 0x0
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x20: IN VREF_HIZ
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 2
+     0x02* 0x03
+Node 0x1c [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x1d [Pin Complex] wcaps 0x400400: Mono
+  Pincap 0x00000020: IN
+  Pin Default 0x40661b45: [N/A] Modem Line at Ext N/A
+    Conn = Digital, Color = Black
+    DefAssociation = 0x4, Sequence = 0x5
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x20: IN
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x1e [Pin Complex] wcaps 0x400781: Stereo Digital
+  Pincap 0x00000014: OUT Detect
+  Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+    Conn = 1/8, Color = Black
+    DefAssociation = 0xf, Sequence = 0x0
+    Misc = NO_PRESENCE
+  Pin-ctls: 0x40: OUT
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 1
+     0x06
+Node 0x1f [Vendor Defined Widget] wcaps 0xf00000: Mono
+Node 0x20 [Vendor Defined Widget] wcaps 0xf00040: Mono
+  Processing caps: benign=0, ncoeff=142
+Node 0x21 [Pin Complex] wcaps 0x40058d: Stereo Amp-Out
+  Control: name="Headphone Playback Switch", index=0, device=0
+    ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x80 0x80]
+  Pincap 0x0001001c: OUT HP EAPD Detect
+  EAPD 0x2: EAPD
+  Pin Default 0x0421101f: [Jack] HP Out at Ext Right
+    Conn = 1/8, Color = Black
+    DefAssociation = 0x1, Sequence = 0xf
+  Pin-ctls: 0xc0: OUT HP
+  Unsolicited: tag=01, enabled=1
+  Power states:  D0 D1 D2 D3 EPSS
+  Power: setting=D0, actual=D0
+  Connection: 2
+     0x02 0x03*
+Node 0x22 [Audio Mixer] wcaps 0x20010b: Stereo Amp-In
+  Amp-In caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-In vals:  [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80]
+  Connection: 6
+     0x18 0x19 0x1a 0x1b 0x1d 0x13
+Node 0x23 [Audio Mixer] wcaps 0x20010b: Stereo Amp-In
+  Amp-In caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-In vals:  [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x00 0x00]
+  Connection: 6
+     0x18 0x19 0x1a 0x1b 0x1d 0x12
+Node 0x24 [Audio Selector] wcaps 0x300101: Stereo
+  Connection: 2
+     0x12* 0x13
+Codec: Intel Kabylake HDMI
+Address: 2
+AFG Function Id: 0x1 (unsol 0)
+Vendor Id: 0x8086280b
+Subsystem Id: 0x80860101
+Revision Id: 0x100000
+No Modem Function Group found
+Default PCM:
+    rates [0x0]:
+    bits [0x0]:
+    formats [0x0]:
+Default Amp-In caps: N/A
+Default Amp-Out caps: N/A
+State of AFG node 0x01:
+  Power states:  D0 D3 CLKSTOP EPSS
+  Power: setting=D0, actual=D0, Clock-stop-OK
+GPIO: io=0, o=0, i=0, unsolicited=0, wake=0
+Node 0x02 [Audio Output] wcaps 0x6611: 8-Channels Digital
+  Converter: stream=0, channel=0
+  Digital: Enabled KAE
+  Digital category: 0x0
+  IEC Coding Type: 0x0
+  PCM:
+    rates [0x7f0]: 32000 44100 48000 88200 96000 176400 192000
+    bits [0x1a]: 16 24 32
+    formats [0x5]: PCM AC3
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x03 [Audio Output] wcaps 0x6611: 8-Channels Digital
+  Converter: stream=0, channel=0
+  Digital: Enabled KAE
+  Digital category: 0x0
+  IEC Coding Type: 0x0
+  PCM:
+    rates [0x7f0]: 32000 44100 48000 88200 96000 176400 192000
+    bits [0x1a]: 16 24 32
+    formats [0x5]: PCM AC3
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x04 [Audio Output] wcaps 0x6611: 8-Channels Digital
+  Converter: stream=0, channel=0
+  Digital: Enabled KAE
+  Digital category: 0x0
+  IEC Coding Type: 0x0
+  PCM:
+    rates [0x7f0]: 32000 44100 48000 88200 96000 176400 192000
+    bits [0x1a]: 16 24 32
+    formats [0x5]: PCM AC3
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x0b000094: OUT Detect HBR HDMI DP
+  Pin Default 0x18560010: [Jack] Digital Out at Int HDMI
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+  Pin-ctls: 0x00:
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+  Devices: 0
+  Connection: 0
+Node 0x06 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x0b000094: OUT Detect HBR HDMI DP
+  Pin Default 0x18560010: [Jack] Digital Out at Int HDMI
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+  Pin-ctls: 0x00:
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+  Devices: 0
+  Connection: 0
+Node 0x07 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x0b000094: OUT Detect HBR HDMI DP
+  Pin Default 0x18560010: [Jack] Digital Out at Int HDMI
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+  Pin-ctls: 0x00:
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+  Devices: 0
+  Connection: 0
+Node 0x08 [Vendor Defined Widget] wcaps 0xf00000: Mono
+--endcollapse--
+
+
+!!USB Descriptors
+!!---------------
+--startcollapse--
+
+Bus 001 Device 007: ID 0582:01f5 Roland Corp. MS-3
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.00
+  bDeviceClass          255 Vendor Specific Class
+  bDeviceSubClass         0 
+  bDeviceProtocol       255 
+  bMaxPacketSize0        64
+  idVendor           0x0582 Roland Corp.
+  idProduct          0x01f5 
+  bcdDevice            0.00
+  iManufacturer           1 BOSS
+  iProduct                2 MS-3
+  iSerial                 0 
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength       0x0046
+    bNumInterfaces          2
+    bConfigurationValue     1
+    iConfiguration          0 
+    bmAttributes         0xc0
+      Self Powered
+    MaxPower                0mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           0
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass    255 Vendor Specific Subclass
+      bInterfaceProtocol      0 
+      iInterface              0 
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       0
+      bNumEndpoints           2
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      3 
+      bInterfaceProtocol      0 
+      iInterface              0 
+      ** UNRECOGNIZED:  06 24 f1 02 01 01
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x03  EP 3 OUT
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               0
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x84  EP 4 IN
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               0
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       1
+      bNumEndpoints           2
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      3 
+      bInterfaceProtocol      0 
+      iInterface              0 
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x03  EP 3 OUT
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               4
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x85  EP 5 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0200  1x 512 bytes
+        bInterval               4
+Device Qualifier (for other device speed):
+  bLength                10
+  bDescriptorType         6
+  bcdUSB               2.00
+  bDeviceClass          255 Vendor Specific Class
+  bDeviceSubClass         0 
+  bDeviceProtocol       255 
+  bMaxPacketSize0        64
+  bNumConfigurations      1
+Device Status:     0x0001
+  Self Powered
+--endcollapse--
+
+
+!!ALSA Device nodes
+!!-----------------
+
+crw-rw----+ 1 root audio 116,  3 Aug 11 07:39 /dev/snd/controlC0
+crw-rw----+ 1 root audio 116, 12 Aug 11 07:39 /dev/snd/controlC1
+crw-rw----+ 1 root audio 116, 14 Aug 11 07:51 /dev/snd/controlC2
+crw-rw----+ 1 root audio 116,  4 Aug 11 07:39 /dev/snd/controlC29
+crw-rw----+ 1 root audio 116, 10 Aug 11 07:39 /dev/snd/hwC1D0
+crw-rw----+ 1 root audio 116, 11 Aug 11 07:39 /dev/snd/hwC1D2
+crw-rw----+ 1 root audio 116,  2 Aug 11 07:39 /dev/snd/midiC0D0
+crw-rw----+ 1 root audio 116, 13 Aug 11 07:51 /dev/snd/midiC2D0
+crw-rw----+ 1 root audio 116,  6 Aug 11 07:53 /dev/snd/pcmC1D0c
+crw-rw----+ 1 root audio 116,  5 Aug 11 10:45 /dev/snd/pcmC1D0p
+crw-rw----+ 1 root audio 116,  7 Aug 11 07:39 /dev/snd/pcmC1D3p
+crw-rw----+ 1 root audio 116,  8 Aug 11 07:39 /dev/snd/pcmC1D7p
+crw-rw----+ 1 root audio 116,  9 Aug 11 07:39 /dev/snd/pcmC1D8p
+crw-rw----+ 1 root audio 116,  1 Aug 11 07:39 /dev/snd/seq
+crw-rw----+ 1 root audio 116, 33 Aug 11 07:39 /dev/snd/timer
+
+/dev/snd/by-id:
+total 0
+drwxr-xr-x 2 root root  60 Aug 11 07:51 .
+drwxr-xr-x 4 root root 380 Aug 11 07:51 ..
+lrwxrwxrwx 1 root root  12 Aug 11 07:51 usb-BOSS_MS-3-01 -> ../controlC2
+
+/dev/snd/by-path:
+total 0
+drwxr-xr-x 2 root root 140 Aug 11 07:51 .
+drwxr-xr-x 4 root root 380 Aug 11 07:51 ..
+lrwxrwxrwx 1 root root  12 Aug 11 07:51 pci-0000:00:14.0-usb-0:4:1.1 -> ../controlC2
+lrwxrwxrwx 1 root root  12 Aug 11 07:51 pci-0000:00:14.0-usbv2-0:4:1.1 -> ../controlC2
+lrwxrwxrwx 1 root root  12 Aug 11 07:39 pci-0000:00:1f.3 -> ../controlC1
+lrwxrwxrwx 1 root root  12 Aug 11 07:39 platform-snd_virmidi.0 -> ../controlC0
+lrwxrwxrwx 1 root root  13 Aug 11 07:39 platform-thinkpad_acpi -> ../controlC29
+
+
+!!Aplay/Arecord output
+!!--------------------
+
+APLAY
+
+**** List of PLAYBACK Hardware Devices ****
+card 1: PCH [HDA Intel PCH], device 0: ALC257 Analog [ALC257 Analog]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+ARECORD
+
+**** List of CAPTURE Hardware Devices ****
+card 1: PCH [HDA Intel PCH], device 0: ALC257 Analog [ALC257 Analog]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+!!Amixer output
+!!-------------
+
+!!-------Mixer controls for card VirMIDI
+
+Card sysdefault:0 'VirMIDI'/'Virtual MIDI Card 1'
+  Mixer name	: ''
+  Components	: ''
+  Controls      : 0
+  Simple ctrls  : 0
+
+!!-------Mixer controls for card PCH
+
+Card sysdefault:1 'PCH'/'HDA Intel PCH at 0xa133c000 irq 148'
+  Mixer name	: 'Realtek ALC257'
+  Components	: 'HDA:10ec0257,17aa5077,00100001 HDA:8086280b,80860101,00100000'
+  Controls      : 40
+  Simple ctrls  : 12
+Simple mixer control 'Master',0
+  Capabilities: pvolume pvolume-joined pswitch pswitch-joined
+  Playback channels: Mono
+  Limits: Playback 0 - 87
+  Mono: Playback 87 [100%] [0.00dB] [on]
+Simple mixer control 'Headphone',0
+  Capabilities: pvolume pswitch
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 87
+  Mono:
+  Front Left: Playback 0 [0%] [-65.25dB] [off]
+  Front Right: Playback 0 [0%] [-65.25dB] [off]
+Simple mixer control 'Speaker',0
+  Capabilities: pvolume pswitch
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 87
+  Mono:
+  Front Left: Playback 87 [100%] [0.00dB] [on]
+  Front Right: Playback 87 [100%] [0.00dB] [on]
+Simple mixer control 'PCM',0
+  Capabilities: pvolume
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 255
+  Mono:
+  Front Left: Playback 255 [100%] [0.00dB]
+  Front Right: Playback 255 [100%] [0.00dB]
+Simple mixer control 'Mic Boost',0
+  Capabilities: volume
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: 0 - 3
+  Front Left: 0 [0%] [0.00dB]
+  Front Right: 0 [0%] [0.00dB]
+Simple mixer control 'IEC958',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [off]
+Simple mixer control 'IEC958',1
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [on]
+Simple mixer control 'IEC958',2
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [on]
+Simple mixer control 'Capture',0
+  Capabilities: cvolume cswitch
+  Capture channels: Front Left - Front Right
+  Limits: Capture 0 - 63
+  Front Left: Capture 63 [100%] [30.00dB] [on]
+  Front Right: Capture 63 [100%] [30.00dB] [on]
+Simple mixer control 'Auto-Mute Mode',0
+  Capabilities: enum
+  Items: 'Disabled' 'Enabled'
+  Item0: 'Disabled'
+Simple mixer control 'Digital',0
+  Capabilities: cvolume
+  Capture channels: Front Left - Front Right
+  Limits: Capture 0 - 120
+  Front Left: Capture 60 [50%] [0.00dB]
+  Front Right: Capture 60 [50%] [0.00dB]
+Simple mixer control 'Internal Mic Boost',0
+  Capabilities: volume
+  Playback channels: Front Left - Front Right
+  Capture channels: Front Left - Front Right
+  Limits: 0 - 3
+  Front Left: 1 [33%] [10.00dB]
+  Front Right: 1 [33%] [10.00dB]
+
+!!-------Mixer controls for card MS3
+
+Card sysdefault:2 'MS3'/'BOSS MS-3 at usb-0000:00:14.0-4, high speed'
+  Mixer name	: ''
+  Components	: 'USB0582:01f5'
+  Controls      : 0
+  Simple ctrls  : 0
+
+!!-------Mixer controls for card ThinkPadEC
+
+Card sysdefault:29 'ThinkPadEC'/'ThinkPad Console Audio Control at EC reg 0x30, fw R10HT33W'
+  Mixer name	: 'ThinkPad EC R10HT33W'
+  Components	: ''
+  Controls      : 1
+  Simple ctrls  : 1
+Simple mixer control 'Console',0
+  Capabilities: pswitch pswitch-joined
+  Playback channels: Mono
+  Mono: Playback [on]
+
+
+!!Alsactl output
+!!--------------
+
+--startcollapse--
+state.VirMIDI {
+	control {
+	}
+}
+state.PCH {
+	control.1 {
+		iface MIXER
+		name 'Headphone Playback Volume'
+		value.0 0
+		value.1 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 87'
+			dbmin -6525
+			dbmax 0
+			dbvalue.0 -6525
+			dbvalue.1 -6525
+		}
+	}
+	control.2 {
+		iface MIXER
+		name 'Headphone Playback Switch'
+		value.0 false
+		value.1 false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 2
+		}
+	}
+	control.3 {
+		iface MIXER
+		name 'Speaker Playback Volume'
+		value.0 87
+		value.1 87
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 87'
+			dbmin -6525
+			dbmax 0
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.4 {
+		iface MIXER
+		name 'Speaker Playback Switch'
+		value.0 true
+		value.1 true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 2
+		}
+	}
+	control.5 {
+		iface MIXER
+		name 'Auto-Mute Mode'
+		value Disabled
+		comment {
+			access 'read write'
+			type ENUMERATED
+			count 1
+			item.0 Disabled
+			item.1 Enabled
+		}
+	}
+	control.6 {
+		iface MIXER
+		name 'Capture Volume'
+		value.0 63
+		value.1 63
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 63'
+			dbmin -1725
+			dbmax 3000
+			dbvalue.0 3000
+			dbvalue.1 3000
+		}
+	}
+	control.7 {
+		iface MIXER
+		name 'Capture Switch'
+		value.0 true
+		value.1 true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 2
+		}
+	}
+	control.8 {
+		iface MIXER
+		name 'Mic Boost Volume'
+		value.0 0
+		value.1 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 3'
+			dbmin 0
+			dbmax 3000
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.9 {
+		iface MIXER
+		name 'Internal Mic Boost Volume'
+		value.0 1
+		value.1 1
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 3'
+			dbmin 0
+			dbmax 3000
+			dbvalue.0 1000
+			dbvalue.1 1000
+		}
+	}
+	control.10 {
+		iface MIXER
+		name 'Master Playback Volume'
+		value 87
+		comment {
+			access 'read write'
+			type INTEGER
+			count 1
+			range '0 - 87'
+			dbmin -6525
+			dbmax 0
+			dbvalue.0 0
+		}
+	}
+	control.11 {
+		iface MIXER
+		name 'Master Playback Switch'
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.12 {
+		iface CARD
+		name 'Mic Jack'
+		value false
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.13 {
+		iface CARD
+		name 'Internal Mic Phantom Jack'
+		value true
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.14 {
+		iface CARD
+		name 'Headphone Jack'
+		value false
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.15 {
+		iface CARD
+		name 'Speaker Phantom Jack'
+		value true
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.16 {
+		iface PCM
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
+		comment {
+			access read
+			type INTEGER
+			count 2
+			range '0 - 36'
+		}
+	}
+	control.17 {
+		iface PCM
+		name 'Capture Channel Map'
+		value.0 0
+		value.1 0
+		comment {
+			access read
+			type INTEGER
+			count 2
+			range '0 - 36'
+		}
+	}
+	control.18 {
+		iface CARD
+		name 'HDMI/DP,pcm=3 Jack'
+		value false
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.19 {
+		iface MIXER
+		name 'IEC958 Playback Con Mask'
+		value '0fff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access read
+			type IEC958
+			count 1
+		}
+	}
+	control.20 {
+		iface MIXER
+		name 'IEC958 Playback Pro Mask'
+		value '0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access read
+			type IEC958
+			count 1
+		}
+	}
+	control.21 {
+		iface MIXER
+		name 'IEC958 Playback Default'
+		value '0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access 'read write'
+			type IEC958
+			count 1
+		}
+	}
+	control.22 {
+		iface MIXER
+		name 'IEC958 Playback Switch'
+		value false
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.23 {
+		iface PCM
+		device 3
+		name ELD
+		value ''
+		comment {
+			access 'read volatile'
+			type BYTES
+			count 0
+		}
+	}
+	control.24 {
+		iface CARD
+		name 'HDMI/DP,pcm=7 Jack'
+		value false
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.25 {
+		iface MIXER
+		name 'IEC958 Playback Con Mask'
+		index 1
+		value '0fff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access read
+			type IEC958
+			count 1
+		}
+	}
+	control.26 {
+		iface MIXER
+		name 'IEC958 Playback Pro Mask'
+		index 1
+		value '0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access read
+			type IEC958
+			count 1
+		}
+	}
+	control.27 {
+		iface MIXER
+		name 'IEC958 Playback Default'
+		index 1
+		value '0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access 'read write'
+			type IEC958
+			count 1
+		}
+	}
+	control.28 {
+		iface MIXER
+		name 'IEC958 Playback Switch'
+		index 1
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.29 {
+		iface PCM
+		device 7
+		name ELD
+		value ''
+		comment {
+			access 'read volatile'
+			type BYTES
+			count 0
+		}
+	}
+	control.30 {
+		iface CARD
+		name 'HDMI/DP,pcm=8 Jack'
+		value false
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.31 {
+		iface MIXER
+		name 'IEC958 Playback Con Mask'
+		index 2
+		value '0fff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access read
+			type IEC958
+			count 1
+		}
+	}
+	control.32 {
+		iface MIXER
+		name 'IEC958 Playback Pro Mask'
+		index 2
+		value '0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access read
+			type IEC958
+			count 1
+		}
+	}
+	control.33 {
+		iface MIXER
+		name 'IEC958 Playback Default'
+		index 2
+		value '0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+		comment {
+			access 'read write'
+			type IEC958
+			count 1
+		}
+	}
+	control.34 {
+		iface MIXER
+		name 'IEC958 Playback Switch'
+		index 2
+		value true
+		comment {
+			access 'read write'
+			type BOOLEAN
+			count 1
+		}
+	}
+	control.35 {
+		iface PCM
+		device 8
+		name ELD
+		value ''
+		comment {
+			access 'read volatile'
+			type BYTES
+			count 0
+		}
+	}
+	control.36 {
+		iface PCM
+		device 3
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
+		value.2 0
+		value.3 0
+		value.4 0
+		value.5 0
+		value.6 0
+		value.7 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 8
+			range '0 - 36'
+		}
+	}
+	control.37 {
+		iface PCM
+		device 7
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
+		value.2 0
+		value.3 0
+		value.4 0
+		value.5 0
+		value.6 0
+		value.7 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 8
+			range '0 - 36'
+		}
+	}
+	control.38 {
+		iface PCM
+		device 8
+		name 'Playback Channel Map'
+		value.0 0
+		value.1 0
+		value.2 0
+		value.3 0
+		value.4 0
+		value.5 0
+		value.6 0
+		value.7 0
+		comment {
+			access 'read write'
+			type INTEGER
+			count 8
+			range '0 - 36'
+		}
+	}
+	control.39 {
+		iface MIXER
+		name 'PCM Playback Volume'
+		value.0 255
+		value.1 255
+		comment {
+			access 'read write user'
+			type INTEGER
+			count 2
+			range '0 - 255'
+			tlv '0000000100000008ffffec1400000014'
+			dbmin -5100
+			dbmax 0
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+	control.40 {
+		iface MIXER
+		name 'Digital Capture Volume'
+		value.0 60
+		value.1 60
+		comment {
+			access 'read write user'
+			type INTEGER
+			count 2
+			range '0 - 120'
+			tlv '0000000100000008fffff44800000032'
+			dbmin -3000
+			dbmax 3000
+			dbvalue.0 0
+			dbvalue.1 0
+		}
+	}
+}
+state.MS3 {
+	control {
+	}
+}
+state.ThinkPadEC {
+	control.1 {
+		iface MIXER
+		name 'Console Playback Switch'
+		value true
+		comment {
+			access read
+			type BOOLEAN
+			count 1
+		}
+	}
+}
+--endcollapse--
+
+
+!!All Loaded Modules
+!!------------------
+
+ac
+acpi_pad
+acpi_thermal_rel
+aesni_intel
+af_alg
+algif_hash
+algif_skcipher
+ansi_cprng
+async_memcpy
+async_pq
+async_raid6_recov
+async_tx
+async_xor
+autofs4
+battery
+binfmt_misc
+blake2b_generic
+bluetooth
+bnep
+btbcm
+btintel
+btmtk
+btrfs
+btrtl
+btusb
+button
+ccm
+cec
+cfg80211
+cmac
+configfs
+coretemp
+crc16
+crc32_pclmul
+crc32c_generic
+crc32c_intel
+crc64
+crc64_rocksoft
+crc_t10dif
+crct10dif_common
+crct10dif_generic
+crct10dif_pclmul
+cryptd
+crypto_simd
+ctr
+dm_crypt
+dm_mod
+drbg
+drm
+drm_buddy
+drm_display_helper
+drm_kms_helper
+e1000e
+ecc
+ecdh_generic
+ee1004
+efi_pstore
+efivarfs
+elan_i2c
+evdev
+ext4
+fat
+firmware_attributes_class
+fuse
+ghash_clmulni_intel
+hid
+hid_generic
+hid_sensor_accel_3d
+hid_sensor_custom
+hid_sensor_hub
+hid_sensor_iio_common
+hid_sensor_trigger
+i2c_algo_bit
+i2c_hid
+i2c_hid_acpi
+i2c_i801
+i2c_smbus
+i915
+iTCO_vendor_support
+iTCO_wdt
+idma64
+industrialio
+industrialio_triggered_buffer
+int3400_thermal
+int3403_thermal
+int340x_thermal_zone
+intel_cstate
+intel_ish_ipc
+intel_ishtp
+intel_ishtp_hid
+intel_lpss
+intel_lpss_pci
+intel_pch_thermal
+intel_pmc_bxt
+intel_pmc_core
+intel_powerclamp
+intel_rapl_common
+intel_rapl_msr
+intel_soc_dts_iosf
+intel_uncore
+intel_wmi_thunderbolt
+ip_tables
+irqbypass
+iwlmvm
+iwlwifi
+jbd2
+jitterentropy_rng
+joydev
+kfifo_buf
+kvm
+kvm_intel
+ledtrig_audio
+libarc4
+libcrc32c
+linear
+loop
+lp
+mac80211
+mbcache
+mc
+md_mod
+mei
+mei_hdcp
+mei_me
+mei_pxp
+mmc_core
+msr
+multipath
+nls_ascii
+nls_cp437
+nvme
+nvme_core
+nvme_fabrics
+nvram
+parport
+parport_pc
+pcspkr
+platform_profile
+ppdev
+processor_thermal_device
+processor_thermal_device_pci_legacy
+processor_thermal_mbox
+processor_thermal_rapl
+processor_thermal_rfim
+psmouse
+qrtr
+raid0
+raid1
+raid10
+raid456
+raid6_pq
+rapl
+rc_core
+rfcomm
+rfkill
+roles
+rtsx_pci
+rtsx_pci_sdmmc
+serial_multi_instantiate
+serio_raw
+sha512_generic
+sha512_ssse3
+snd
+snd_compress
+snd_ctl_led
+snd_hda_codec
+snd_hda_codec_generic
+snd_hda_codec_hdmi
+snd_hda_codec_realtek
+snd_hda_core
+snd_hda_ext_core
+snd_hda_intel
+snd_hrtimer
+snd_hwdep
+snd_intel_dspcfg
+snd_intel_sdw_acpi
+snd_mixer_oss
+snd_pcm
+snd_pcm_oss
+snd_rawmidi
+snd_seq
+snd_seq_device
+snd_seq_dummy
+snd_seq_midi
+snd_seq_midi_event
+snd_seq_virmidi
+snd_soc_acpi
+snd_soc_acpi_intel_match
+snd_soc_core
+snd_soc_hdac_hda
+snd_soc_skl
+snd_soc_sst_dsp
+snd_soc_sst_ipc
+snd_sof
+snd_sof_intel_hda
+snd_sof_intel_hda_common
+snd_sof_intel_hda_mlink
+snd_sof_pci
+snd_sof_pci_intel_cnl
+snd_sof_utils
+snd_sof_xtensa_dsp
+snd_timer
+snd_usb_audio
+snd_usbmidi_lib
+snd_virmidi
+soc_button_array
+soundcore
+soundwire_bus
+soundwire_cadence
+soundwire_generic_allocation
+soundwire_intel
+sunrpc
+t10_pi
+think_lmi
+thinkpad_acpi
+tps6598x
+ttm
+typec
+typec_ucsi
+ucsi_acpi
+usb_common
+usbcore
+usbhid
+uvc
+uvcvideo
+vboxdrv
+vboxnetadp
+vboxnetflt
+vfat
+video
+videobuf2_common
+videobuf2_memops
+videobuf2_v4l2
+videobuf2_vmalloc
+videodev
+wacom
+watchdog
+wmi
+wmi_bmof
+x86_pkg_temp_thermal
+x_tables
+xhci_hcd
+xhci_pci
+xor
+
+
+!!Sysfs Files
+!!-----------
+
+/sys/class/sound/hwC1D0/init_pin_configs:
+0x12 0x90a60120
+0x13 0x40000000
+0x14 0x90170110
+0x18 0x411111f0
+0x19 0x04a11030
+0x1a 0x411111f0
+0x1b 0x411111f0
+0x1d 0x40661b45
+0x1e 0x411111f0
+0x21 0x0421101f
+
+/sys/class/sound/hwC1D0/driver_pin_configs:
+
+/sys/class/sound/hwC1D0/user_pin_configs:
+
+/sys/class/sound/hwC1D0/init_verbs:
+
+/sys/class/sound/hwC1D0/hints:
+
+/sys/class/sound/hwC1D2/init_pin_configs:
+0x05 0x18560010
+0x06 0x18560010
+0x07 0x18560010
+
+/sys/class/sound/hwC1D2/driver_pin_configs:
+
+/sys/class/sound/hwC1D2/user_pin_configs:
+
+/sys/class/sound/hwC1D2/init_verbs:
+
+/sys/class/sound/hwC1D2/hints:
+
+
+!!ALSA/HDA dmesg
+!!--------------
+
+[    3.443489] platform regulatory.0: firmware: direct-loading firmware regulatory.db.p7s
+[    3.484249] thinkpad_acpi: Console audio control enabled, mode: monitor (read only)
+[    3.490706] iTCO_wdt iTCO_wdt: Found a Intel PCH TCO device (Version=6, TCOBASE=0x0400)
+--
+[    3.590290] iwlwifi 0000:00:14.3: loaded firmware version 46.ff18e32a.0 9000-pu-b0-jf-b0-46.ucode op_mode iwlmvm
+[    3.612689] snd_hda_intel 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if info 0x040380
+[    3.621046] intel_rapl_common: Found RAPL domain package
+--
+[    3.644662] cryptd: max_cpu_qlen set to 1000
+[    3.661137] snd_hda_intel 0000:00:1f.3: enabling device (0000 -> 0002)
+[    3.721340] AVX2 version of gcm_enc/dec engaged.
+--
+[    5.257389] input: Video Bus as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:00/input/input21
+[    5.257549] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops i915_audio_component_bind_ops [i915])
+[    5.325976] fbcon: i915drmfb (fb0) is primary device
+--
+[    5.353961] i915 0000:00:02.0: [drm] fb0: i915drmfb frame buffer device
+[    5.415297] snd_hda_codec_realtek hdaudioC1D0: autoconfig for ALC257: line_outs=1 (0x14/0x0/0x0/0x0/0x0) type:speaker
+[    5.415301] snd_hda_codec_realtek hdaudioC1D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+[    5.415303] snd_hda_codec_realtek hdaudioC1D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+[    5.415304] snd_hda_codec_realtek hdaudioC1D0:    mono: mono_out=0x0
+[    5.415305] snd_hda_codec_realtek hdaudioC1D0:    inputs:
+[    5.415306] snd_hda_codec_realtek hdaudioC1D0:      Mic=0x19
+[    5.415307] snd_hda_codec_realtek hdaudioC1D0:      Internal Mic=0x12
+[    5.477780] input: HDA Digital PCBeep as /devices/pci0000:00/0000:00:1f.3/sound/card1/input22
+[    5.477897] input: HDA Intel PCH Mic as /devices/pci0000:00/0000:00:1f.3/sound/card1/input23
+[    5.478022] input: HDA Intel PCH Headphone as /devices/pci0000:00/0000:00:1f.3/sound/card1/input24
+[    5.478304] input: HDA Intel PCH HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:1f.3/sound/card1/input25
+[    5.478395] input: HDA Intel PCH HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:1f.3/sound/card1/input26
+[    5.482985] input: HDA Intel PCH HDMI/DP,pcm=8 as /devices/pci0000:00/0000:00:1f.3/sound/card1/input27
+[    6.110885] memfd_create() without MFD_EXEC nor MFD_NOEXEC_SEAL, pid=2075 'pipewire'
+--
+[  759.256532] usb 1-4: Manufacturer: BOSS
+[  759.326836] usbcore: registered new interface driver snd-usb-audio
+[ 7402.218691] SUPR0GipMap: fGetGipCpu=0x1b
+
+
+!!Packages installed
+!!--------------------
+
+ii  alsa-tools                                       1.2.5-3                                    amd64        Console based ALSA utilities for specific hardware
+ii  alsa-tools-gui                                   1.2.5-3                                    amd64        GUI based ALSA utilities for specific hardware
+ii  alsa-topology-conf                               1.2.5.1-2                                  all          ALSA topology configuration files
+ii  alsa-ucm-conf                                    1.2.9-1                                    all          ALSA Use Case Manager configuration files
+ii  alsa-utils                                       1.2.9-1                                    amd64        Utilities for configuring and using ALSA

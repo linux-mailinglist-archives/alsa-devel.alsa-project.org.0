@@ -2,123 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9449A778E93
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 14:01:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3A71778F96
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 14:32:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9D4091;
-	Fri, 11 Aug 2023 14:00:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9D4091
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6CAC823;
+	Fri, 11 Aug 2023 14:31:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6CAC823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691755303;
-	bh=AC4BMc7PwYuq4J0Lc7pn8V7UOldOitPO61fUruZ14WY=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lT98TCZrbnFs7eqw43+1sKWAzAChw33EIF9RH7mQsSyjrE4CovygjnrC44LratQGc
-	 s0MwUQ/5LufvF/PupqyCpnh/7pREnUgVN/IGUcld/+bFt0+UlmEOPX7jmAXaVdY7Ja
-	 PWQVuLEvpRpTvRN69XvxJc1EXKN1DRMTd28a+VMQ=
+	s=default; t=1691757148;
+	bh=07B3Cz1R+7cH5DxgT053H7gWY6KQ30QjFw1bxMSXQUQ=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=V9BlGXXIJur5uN99WdKcYtZMzDneh6yjLNrv3KoyFJuYl5PYPGXdnzYIhX96Kpcxc
+	 /PVVaCAO9vHiwDPcoVnUtbK7d7GLRRzn5EItNdq9NQxy5O4jySzv7a4u0IfYB+ZykB
+	 sg3njCJNOMIo3vx5zGxqgAezgEDHkIZqhBCm1f3k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0631F80552; Fri, 11 Aug 2023 14:00:52 +0200 (CEST)
+	id 6634CF80134; Fri, 11 Aug 2023 14:31:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D71BF80134;
-	Fri, 11 Aug 2023 14:00:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7D88F80134;
+	Fri, 11 Aug 2023 14:31:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C03BF80166; Fri, 11 Aug 2023 14:00:45 +0200 (CEST)
+	id 696A6F80166; Fri, 11 Aug 2023 14:31:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3D3B9F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 14:00:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D3B9F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91372F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 14:30:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91372F800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=kUO35PwD
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37B88G8v008911;
-	Fri, 11 Aug 2023 14:00:30 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	selector1; bh=YFHcudHf3KpEu6VK+Oi7sDZa7u7aRH57T4p90BFxYt4=; b=kU
-	O35PwDwyu9KjgW31K5h+6ypqbjSO6SxBadYITZWgPgbjcx7JybnAtEPYUufCNZ1c
-	UmcJYsfb4v5cYrhDkibKKDxm5TpRLh/usyV9eplTbzPk8FWxlpA11SMe+tWFoHtE
-	nXPAN596HtBzcvDnDHR0ekdCH486R0r+TxPzL9tozmYQYoPWnnLGInYl3MRzO4Ve
-	mX/GHIkPAIGcQsdV9V/wrcIE3MhSv5JVpUfvddbdbHMcOV/6LpEQ9KIuJdAz19XH
-	RJctqFi0wSAJ+BRNaqX/iLjVk/ggN6VW/unTU9UDPsJ6xBkOROMcl3YQW+ceqGTb
-	HV30OC1Vqh+PAlrRr7vg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sdh74h9vb-1
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=aBtWh4Mg
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37B4jYg9002344;
+	Fri, 11 Aug 2023 07:30:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=h
+	hhduN4oB/vVqd8ZUMEo5uHM1hgY/8p7OgZNP/Xb9Z0=; b=aBtWh4MgvOD5UGsE1
+	vNVci/LnZkbAY8g0jHZNa2vRVWR1H1V6MjjV7HaN/YPpY3AVmB979D8udOyAkNdf
+	Jzz2+9DVUj9w76kznQL1ya4zy2v1V8BZgSd3j/WqDYC9DxzTKtxfv0keEtquwzA9
+	sMmrZa2/QyAY//gZ42K869ATKGhBa96DZcZvQAoYCfEb0hqUCM0xlK1korpdv6DL
+	Z8c5Q2/erSZCZCqWPB/sGMI8d9J+ND1Ek+JvIQmjiF2KQDTT7Yz8Sb8QEcoCFsLu
+	McXg+M50nHBFtClD3Lh3p5I2lPZ0/km9Ew6CcqLYbwO4ilJ5G9pGDQOwWOfAco7w
+	Mi9eQ==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sd8yy0sf9-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 11 Aug 2023 14:00:29 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 64D9710004F;
-	Fri, 11 Aug 2023 14:00:27 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 287D02171E0;
-	Fri, 11 Aug 2023 14:00:27 +0200 (CEST)
-Received: from [10.201.21.121] (10.201.21.121) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 11 Aug
- 2023 14:00:25 +0200
-Message-ID: <4f0f9d6c-ce4d-73a2-60bf-801c1a1d6cc3@foss.st.com>
-Date: Fri, 11 Aug 2023 14:00:20 +0200
+	Fri, 11 Aug 2023 07:30:53 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Fri, 11 Aug
+ 2023 13:30:51 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.30 via Frontend Transport; Fri, 11 Aug 2023 13:30:51 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.32])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 515CD3560;
+	Fri, 11 Aug 2023 12:30:51 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Stefan Binding
+	<sbinding@opensource.cirrus.com>
+Subject: [PATCH v1] ALSA: hda/cs8409: Support new Dell Dolphin Variants
+Date: Fri, 11 Aug 2023 13:30:44 +0100
+Message-ID: <20230811123044.1045651-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [IGNORE][PATCH v4 01/11] dt-bindings: Document common device
- controller bindings
-Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: <Oleksii_Moisieiev@epam.com>, <herbert@gondor.apana.org.au>,
-        <davem@davemloft.net>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
- <jic23@kernel.org>,
-        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
-        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
-        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
-        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
-        <catalin.marinas@arm.com>, <arnd@kernel.org>,
-        <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
-        <peng.fan@oss.nxp.com>, <linux-crypto@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>,
-        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>
-References: <20230811100731.108145-1-gatien.chevallier@foss.st.com>
- <20230811100731.108145-2-gatien.chevallier@foss.st.com>
- <2023081117-sprout-cruncher-862c@gregkh>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <2023081117-sprout-cruncher-862c@gregkh>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.201.21.121]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To EQNDAG1NODE4.st.com
- (10.75.129.133)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-11_02,2023-08-10_01,2023-05-22_02
-Message-ID-Hash: FYL6TNIMAMCUM2GP4ZOT6TR6466EPFDF
-X-Message-ID-Hash: FYL6TNIMAMCUM2GP4ZOT6TR6466EPFDF
-X-MailFrom: prvs=65871b0d18=gatien.chevallier@foss.st.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: NzWRs9djwr4QD0ynpANCRUPlDBLkG1zS
+X-Proofpoint-GUID: NzWRs9djwr4QD0ynpANCRUPlDBLkG1zS
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: JPIGHCPURUANO6OVTEKHCTASSDYMHHT6
+X-Message-ID-Hash: JPIGHCPURUANO6OVTEKHCTASSDYMHHT6
+X-MailFrom: prvs=35876c8166=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -130,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FYL6TNIMAMCUM2GP4ZOT6TR6466EPFDF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JPIGHCPURUANO6OVTEKHCTASSDYMHHT6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,48 +108,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Add 4 new Dell Dolphin Systems, same configuration as older systems.
 
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+---
+ sound/pci/hda/patch_cs8409-tables.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On 8/11/23 12:16, Greg KH wrote:
-> On Fri, Aug 11, 2023 at 12:07:21PM +0200, Gatien Chevallier wrote:
->> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
->>
->> Introducing of the common device controller bindings for the controller
->> provider and consumer devices. Those bindings are intended to allow
->> divided system on chip into multiple domains, that can be used to
->> configure hardware permissions.
->>
->> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
->> [Gatien: Fix typos and YAML error]
->> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->> ---
->>
->> Changes in V4:
->> 	Corrected typos and YAML errors	
-> 
-> Why are we supposed to ignore the first patch in this series, but pay
-> attention to the 10 after this that depend on it?
-> 
-> totally confused,
-> 
-> greg k-h
+diff --git a/sound/pci/hda/patch_cs8409-tables.c b/sound/pci/hda/patch_cs8409-tables.c
+index b288874e401e..36b411d1a960 100644
+--- a/sound/pci/hda/patch_cs8409-tables.c
++++ b/sound/pci/hda/patch_cs8409-tables.c
+@@ -550,6 +550,10 @@ const struct snd_pci_quirk cs8409_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0C50, "Dolphin", CS8409_DOLPHIN),
+ 	SND_PCI_QUIRK(0x1028, 0x0C51, "Dolphin", CS8409_DOLPHIN),
+ 	SND_PCI_QUIRK(0x1028, 0x0C52, "Dolphin", CS8409_DOLPHIN),
++	SND_PCI_QUIRK(0x1028, 0x0C73, "Dolphin", CS8409_DOLPHIN),
++	SND_PCI_QUIRK(0x1028, 0x0C75, "Dolphin", CS8409_DOLPHIN),
++	SND_PCI_QUIRK(0x1028, 0x0C7D, "Dolphin", CS8409_DOLPHIN),
++	SND_PCI_QUIRK(0x1028, 0x0C7F, "Dolphin", CS8409_DOLPHIN),
+ 	{} /* terminator */
+ };
+ 
+-- 
+2.34.1
 
-Hello Greg,
-
-I'm sorry that this tag troubles your review. It was first suggested
-in [1]. The "IGNORE" means ignore review on this thread, as it is still
-under review in another thread (Link in the cover letter). It does not
-mean that the content should be ignored for the series. I will change
-this to something else as this is obviously confusing the review.
-
-@Oleksii, can we imagine integrating this patch to this series or do
-you prefer to keep it apart?
-
-Should I consider a resend with another tag if Oleksii prefers to keep
-this patch apart?
-
-[1] 
-https://lore.kernel.org/all/1e498b93-d3bd-bd12-e991-e3f4bedf632d@linaro.org/
-
-Best regards,
-Gatien

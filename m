@@ -2,84 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 571AE7791D1
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 16:27:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1143779229
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 16:47:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2F9F1DA;
-	Fri, 11 Aug 2023 16:26:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2F9F1DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF7AD822;
+	Fri, 11 Aug 2023 16:46:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF7AD822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691764067;
-	bh=2WaUJzJkXuwZB5Q1vSSpWM3U+LO+IToRDHKbdOJcf98=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691765239;
+	bh=pme7/amu2yUglSgDtUsH8NV8OcHOhMJWYGc6lnky5+o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y6HhKk8rWhv95vdinaf3UD+jk3EfD+/oaPQo84mMtpknlc+9JYAJH5UNd2Fldcc3h
-	 x4lKR/76TjdfLQiCb/gZwCdFfSoj96xCQOsRYj4aXyOkmdL9zWaZjZ5E6C/tWSTxdu
-	 Sr1q0u8AEpKTBYIOhx6jZ7bmyn43ftqL3YgTqssU=
+	b=mcD5KfgPv14lR4FKOd0oO6UK6mvFxOYJPn7XO741zTSQJLqrdz2eNUjYrRxBd9c/j
+	 XEUldJrEpxHBFd/m/AWoHY2+35ldpS8GooO3stYsv+oT9j1vnDWwNAx8apQ+pwzJIA
+	 WcfTVONZR4DExYaqGXQV9/NRnlpCefGnEeIStgE8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA1A6F80551; Fri, 11 Aug 2023 16:26:53 +0200 (CEST)
+	id C1D88F80549; Fri, 11 Aug 2023 16:46:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EB64F80134;
-	Fri, 11 Aug 2023 16:26:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 739D9F800F4;
+	Fri, 11 Aug 2023 16:46:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12BDEF80166; Fri, 11 Aug 2023 16:26:50 +0200 (CEST)
+	id 25646F80166; Fri, 11 Aug 2023 16:46:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from out-71.mta1.migadu.com (out-71.mta1.migadu.com
- [IPv6:2001:41d0:203:375::47])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0E0CF80016
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 16:26:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0E0CF80016
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3A144F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 16:46:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A144F800EE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=jookia.org header.i=@jookia.org header.a=rsa-sha256
- header.s=key1 header.b=od31vtjh
-Date: Sat, 12 Aug 2023 00:26:15 +1000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jookia.org; s=key1;
-	t=1691764002;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=oomyKDWR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=og+0aFeu
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7DDCF1F88E;
+	Fri, 11 Aug 2023 14:46:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1691765176;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ThgEcDB8JUzTndOqcy+Y5WmjStMnn8tsicZSZ/0y+p8=;
-	b=od31vtjhsH6yLn0+f3Xn0B057WY6B0uUIZNA7ZxIVUHn99CyOCcNo4Geoykt07xRnCEC31
-	ka1/woyaNakdNOs2NcizNBfqnLz8fDOLplrgacm7xqsLMlfvfFjA7QN6EZM4BQS0vl2baP
-	vTTn/X8N6ebfa49tNWutNpONQEN+XRiTBNKJNGlxy4ICIRmtvRIll1QXRaV9AOS2wj7q59
-	wrr2r25yZb8S8kKtY0mGcdcd8byttl441GzZeVzKWlyWzQXu5U8JhCxVp8FUTdlznU1m8U
-	8ElCWg83QMYTMI6IZExxwzGZpblilcv01CxXMrPGNnvE9Dnnoy3CUOFDkhimqA==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: John Watts <contact@jookia.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] ASoC: dt-bindings: wlf,wm8782: Add max-rate property
-Message-ID: <ZNZFB2-kBrpnMSn1@titan>
-References: <20230810224930.3216717-1-contact@jookia.org>
- <20230810224930.3216717-4-contact@jookia.org>
- <ZNY+x/R8/T5ysPhy@finisterre.sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZNY+x/R8/T5ysPhy@finisterre.sirena.org.uk>
-X-Migadu-Flow: FLOW_OUT
-Message-ID-Hash: XQCWCTVIV64BSK3BEWT72BY26D6MTRBX
-X-Message-ID-Hash: XQCWCTVIV64BSK3BEWT72BY26D6MTRBX
-X-MailFrom: contact@jookia.org
+	bh=ZQkyMykUR+4oat9MUQVEoYgmEpzFy8kxGbqFWcPI9Ok=;
+	b=oomyKDWRWTdvR9kqHlXB4+8kYDspu4IgZ5jI/4hqgSUZjRlwU/GLJulEycMmZyLSEORsTR
+	VsU7ygU2tacDNiOd03C5GLaV/42GCvg1bFMY/OuUpwh8ZXLAN9ix4v2KGbMCGWdH1ZW/HW
+	pBQr1j83LugSQjHTZJKqfpdQnU6Mc1M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1691765176;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZQkyMykUR+4oat9MUQVEoYgmEpzFy8kxGbqFWcPI9Ok=;
+	b=og+0aFeuOjRh+grZQltNpCEV+y5FyBWyq9XylI2UuJZLlA3g/vkvDG9zgZc/Yb/coQ0V78
+	XSzIbAsJIsvpNRDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 47015138E2;
+	Fri, 11 Aug 2023 14:46:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id /PNNELhJ1mToIgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 11 Aug 2023 14:46:16 +0000
+Date: Fri, 11 Aug 2023 16:46:15 +0200
+Message-ID: <87ttt5r614.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH v1] ALSA: hda/cs8409: Support new Dell Dolphin Variants
+In-Reply-To: <20230811123044.1045651-1-sbinding@opensource.cirrus.com>
+References: <20230811123044.1045651-1-sbinding@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: VH46OHT2C36JTRGRABM65SZHJ4H7BWSS
+X-Message-ID-Hash: VH46OHT2C36JTRGRABM65SZHJ4H7BWSS
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQCWCTVIV64BSK3BEWT72BY26D6MTRBX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VH46OHT2C36JTRGRABM65SZHJ4H7BWSS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,16 +121,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Aug 11, 2023 at 02:59:35PM +0100, Mark Brown wrote:
-> On Fri, Aug 11, 2023 at 08:49:30AM +1000, John Watts wrote:
+On Fri, 11 Aug 2023 14:30:44 +0200,
+Stefan Binding wrote:
 > 
-> > + - max-rate    : max supported audio rate configured by FSAMPEN pin, defaults to 48000
+> Add 4 new Dell Dolphin Systems, same configuration as older systems.
 > 
-> This seems like a cumbersome and error prone way to configure this - why
-> not just have the binding specify the state of the pin?  That's just a
-> boolean high/low whereas this requires getting the rate right and then
-> having the driver validate it.
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 
-Hi there, the pin is tristate, Z, 0 and 1. How would that be represented?
+Applied now.  Thanks.
 
-John.
+
+Takashi

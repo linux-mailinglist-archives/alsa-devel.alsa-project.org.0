@@ -2,113 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08FAD778D12
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 13:07:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9449A778E93
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Aug 2023 14:01:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A72763E7;
-	Fri, 11 Aug 2023 13:06:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A72763E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9D4091;
+	Fri, 11 Aug 2023 14:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9D4091
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691752020;
-	bh=Gjyqu/P6Mi5fN4tkAVd+Z4PWm5bxh66lEs9YLUhIEeI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1691755303;
+	bh=AC4BMc7PwYuq4J0Lc7pn8V7UOldOitPO61fUruZ14WY=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Syb0tsg9CKQUNQtvWN50VySc1QfLYbbsv4BUghXFqLB0qpRwhEpO3lgRXMod25Vyb
-	 tYhJrdncMzz6iBkh+UsPSY7/1AIq68hy8uG1ulr72Qm0FFeMPle5zGv2kS0ReINqHZ
-	 tbvsy81HbChfykya2VXcuEMVHBexTCCUX71p5ETA=
+	b=lT98TCZrbnFs7eqw43+1sKWAzAChw33EIF9RH7mQsSyjrE4CovygjnrC44LratQGc
+	 s0MwUQ/5LufvF/PupqyCpnh/7pREnUgVN/IGUcld/+bFt0+UlmEOPX7jmAXaVdY7Ja
+	 PWQVuLEvpRpTvRN69XvxJc1EXKN1DRMTd28a+VMQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0507AF80016; Fri, 11 Aug 2023 13:06:09 +0200 (CEST)
+	id C0631F80552; Fri, 11 Aug 2023 14:00:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8616EF80134;
-	Fri, 11 Aug 2023 13:06:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D71BF80134;
+	Fri, 11 Aug 2023 14:00:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F8FEF80166; Fri, 11 Aug 2023 13:06:05 +0200 (CEST)
+	id 4C03BF80166; Fri, 11 Aug 2023 14:00:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F707F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 13:05:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F707F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3D3B9F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 11 Aug 2023 14:00:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D3B9F800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=e84JtWSP
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-1bfafe8a425so1649017fac.3
-        for <alsa-devel@alsa-project.org>;
- Fri, 11 Aug 2023 04:05:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691751955; x=1692356755;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bjQ64ZZGN8T91hWpEGceC0siZ3jwdNTZpdGZAQGJRUY=;
-        b=e84JtWSPLLE8xUm4/YbusYDp8Qw2ketFjAVF3ddE+8kfIdnZ5s8aThtpsF6Q7BvgNM
-         U+wNgXBuNao0FbknM/n6HfcA14pvgn3TY1CxpY1Qj0fN1ZYftiy12G6ihc+DvPFAPFvd
-         cucy2tx+xucCIgmikT9YOZvJcl5Wt+8NMfQpgUVJPFxd3/rAtAPzDQ6hgCxjRdOTSL9X
-         asGQFpsB0XiP/E//fDfpno6jFiuZGwGBNi92GsP1BVY4njp5RlUVPzfaDtMC3uJv0GFn
-         RNnXKhS3I3sCiy20tXOHzJFbTb6NLPO5SKfunIrmfz3OpIC+7e3AFcFGtP8S40j5S1iV
-         mV1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691751955; x=1692356755;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bjQ64ZZGN8T91hWpEGceC0siZ3jwdNTZpdGZAQGJRUY=;
-        b=NveFjhP9S+wW9WN2cX1xgpRUgHoWBFyaGJEQYldmjkt/nNJfECN6GUjDrGVFUvJKf3
-         AKY1A2f0rJMvmaEANrMDAZd2wVeJ9UnIazy+Z6OBOZS7AlOoXwSLtMto56jd8wtviXxl
-         PcPNj/gQqu6oTpZcci+BYkaO3rJClSglOCNzynGuzF0Bg52xBgM7yc8538cs6xczy/P5
-         fWl0EHnIFxnpqxZ9EmkTHa9jqZHyIyx2zYXJ7GTX57eXmQpFE/yvalLROt0SlzXtqklK
-         EgrUGLinxsCgm5Fj1ylrc1Jzx4T8FOxePqg7KCoJXhcN9bHCfvvXm38YZwtZJKd2A3Jj
-         OqYQ==
-X-Gm-Message-State: AOJu0YxVh7Zo9qLpZ65CMRnM0+H6GfX5zBqrlQGfDia4nfFDx9hstIXV
-	iLxFtncBb4ftJIgOUxhJWwh0FzZECXSD9h3g8kY=
-X-Google-Smtp-Source: 
- AGHT+IFpk41pz9ENDJNApolHi9hRFlr6B19DWPyJgpvXFEB+phtk7CHmvJj6RBn+wXmTBbnSP9W9WmfQXqmH5n8Tpdw=
-X-Received: by 2002:a05:6870:c58e:b0:1b7:670e:ad7a with SMTP id
- ba14-20020a056870c58e00b001b7670ead7amr1728203oab.43.1691751955035; Fri, 11
- Aug 2023 04:05:55 -0700 (PDT)
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=kUO35PwD
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37B88G8v008911;
+	Fri, 11 Aug 2023 14:00:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	selector1; bh=YFHcudHf3KpEu6VK+Oi7sDZa7u7aRH57T4p90BFxYt4=; b=kU
+	O35PwDwyu9KjgW31K5h+6ypqbjSO6SxBadYITZWgPgbjcx7JybnAtEPYUufCNZ1c
+	UmcJYsfb4v5cYrhDkibKKDxm5TpRLh/usyV9eplTbzPk8FWxlpA11SMe+tWFoHtE
+	nXPAN596HtBzcvDnDHR0ekdCH486R0r+TxPzL9tozmYQYoPWnnLGInYl3MRzO4Ve
+	mX/GHIkPAIGcQsdV9V/wrcIE3MhSv5JVpUfvddbdbHMcOV/6LpEQ9KIuJdAz19XH
+	RJctqFi0wSAJ+BRNaqX/iLjVk/ggN6VW/unTU9UDPsJ6xBkOROMcl3YQW+ceqGTb
+	HV30OC1Vqh+PAlrRr7vg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sdh74h9vb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 11 Aug 2023 14:00:29 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 64D9710004F;
+	Fri, 11 Aug 2023 14:00:27 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 287D02171E0;
+	Fri, 11 Aug 2023 14:00:27 +0200 (CEST)
+Received: from [10.201.21.121] (10.201.21.121) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 11 Aug
+ 2023 14:00:25 +0200
+Message-ID: <4f0f9d6c-ce4d-73a2-60bf-801c1a1d6cc3@foss.st.com>
+Date: Fri, 11 Aug 2023 14:00:20 +0200
 MIME-Version: 1.0
-References: <1690265540-25999-1-git-send-email-shengjiu.wang@nxp.com>
- <47d66c28-1eb2-07f5-d6f9-779d675aefe8@xs4all.nl>
- <87il9xu1ro.wl-tiwai@suse.de>
- <CAA+D8ANmBKMp_L2GS=Lp-saMQKja6L4E6No3yP-e=a5YQBD_jQ@mail.gmail.com>
- <87il9xoddo.wl-tiwai@suse.de>
- <CAA+D8AOVEpGxO0YNeS1p+Ym86k6VP-CNQB3JmbeT7mPKg0R99A@mail.gmail.com>
- <844ef9b6-d5e2-46a9-b7a5-7ee86a2e449c@sirena.org.uk>
- <CAA+D8AOnsx+7t3MrWm42waxtetL07nbKURLsh1hBx39LUDm+Zg@mail.gmail.com>
-In-Reply-To: 
- <CAA+D8AOnsx+7t3MrWm42waxtetL07nbKURLsh1hBx39LUDm+Zg@mail.gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 11 Aug 2023 19:05:43 +0800
-Message-ID: 
- <CAA+D8AMriHO60SD2OqQSDMmi7wm=0MkoW6faR5nyve-j2Q5AEQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/7] Add audio support in v4l2 framework
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>, Hans Verkuil <hverkuil@xs4all.nl>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org,
-	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: WRGRXZRS77EQNRZZCYTWAFPMCYNPYD7E
-X-Message-ID-Hash: WRGRXZRS77EQNRZZCYTWAFPMCYNPYD7E
-X-MailFrom: shengjiu.wang@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [IGNORE][PATCH v4 01/11] dt-bindings: Document common device
+ controller bindings
+Content-Language: en-US
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: <Oleksii_Moisieiev@epam.com>, <herbert@gondor.apana.org.au>,
+        <davem@davemloft.net>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
+ <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
+        <peng.fan@oss.nxp.com>, <linux-crypto@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230811100731.108145-1-gatien.chevallier@foss.st.com>
+ <20230811100731.108145-2-gatien.chevallier@foss.st.com>
+ <2023081117-sprout-cruncher-862c@gregkh>
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <2023081117-sprout-cruncher-862c@gregkh>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To EQNDAG1NODE4.st.com
+ (10.75.129.133)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-11_02,2023-08-10_01,2023-05-22_02
+Message-ID-Hash: FYL6TNIMAMCUM2GP4ZOT6TR6466EPFDF
+X-Message-ID-Hash: FYL6TNIMAMCUM2GP4ZOT6TR6466EPFDF
+X-MailFrom: prvs=65871b0d18=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRGRXZRS77EQNRZZCYTWAFPMCYNPYD7E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FYL6TNIMAMCUM2GP4ZOT6TR6466EPFDF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,57 +139,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mark, Takashi
 
-On Thu, Aug 3, 2023 at 9:11=E2=80=AFPM Shengjiu Wang <shengjiu.wang@gmail.c=
-om> wrote:
->
-> On Thu, Aug 3, 2023 at 1:28=E2=80=AFAM Mark Brown <broonie@kernel.org> wr=
-ote:
-> >
-> > On Wed, Aug 02, 2023 at 10:41:43PM +0800, Shengjiu Wang wrote:
-> >
-> > > Currently the ASRC in ALSA is to connect to another I2S device as
-> > > a sound card.  But we'd like to the ASRC can be used by user space di=
-rectly
-> > > that user space application can get the output after conversion from =
-ASRC.
-> >
-> > That sort of use case would be handled via DPCM at the minute, though
-> > persuading it to connect two front ends together might be fun (which is
-> > the sort of reason why we want to push digital information down into
-> > DAPM and make everything a component).
->
-> Thanks.
->
-> ASRC M2M case needs to run as fast as possible, no sync clock control.
-> If use sound card to handle ASRC M2M case,  the user application
-> should be aplay/arecord, then we need to consider xrun issue, buffer
-> may timeout, sync between aplay and arecord,  these should't be
-> considered by pure memory to memory operation.
->
-> DPCM may achitect all the audio things in components and sound
-> card,  it is good. but for the M2M case, it is complcated. not sure
-> it is doable.
->
 
-Beside the concern in previous mail,
+On 8/11/23 12:16, Greg KH wrote:
+> On Fri, Aug 11, 2023 at 12:07:21PM +0200, Gatien Chevallier wrote:
+>> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+>>
+>> Introducing of the common device controller bindings for the controller
+>> provider and consumer devices. Those bindings are intended to allow
+>> divided system on chip into multiple domains, that can be used to
+>> configure hardware permissions.
+>>
+>> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+>> [Gatien: Fix typos and YAML error]
+>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>> ---
+>>
+>> Changes in V4:
+>> 	Corrected typos and YAML errors	
+> 
+> Why are we supposed to ignore the first patch in this series, but pay
+> attention to the 10 after this that depend on it?
+> 
+> totally confused,
+> 
+> greg k-h
 
-DPCM needs to separate ASRC to be two substreams (playback and capture).
+Hello Greg,
 
-But the ASRC needs the sample rate & format of input and output first
-then start conversion.
+I'm sorry that this tag troubles your review. It was first suggested
+in [1]. The "IGNORE" means ignore review on this thread, as it is still
+under review in another thread (Link in the cover letter). It does not
+mean that the content should be ignored for the series. I will change
+this to something else as this is obviously confusing the review.
 
-If the playback controls the rate & format of input,  capture substream
-controls the rate & format of output,  as a result
-one substream needs to get information(dma buffer address, size...
-rate, format) from another substream, then start both substreams in the
-last substream. How to synchronize these two substreams is a problem.
-One stream can be released but another stream doesn't know .
+@Oleksii, can we imagine integrating this patch to this series or do
+you prefer to keep it apart?
 
-So I don't think it is a good idea to use DPCM for pure M2M case.
+Should I consider a resend with another tag if Oleksii prefers to keep
+this patch apart?
 
-So can I persuade you to consider the V4L2 solution?
+[1] 
+https://lore.kernel.org/all/1e498b93-d3bd-bd12-e991-e3f4bedf632d@linaro.org/
 
-Best regards
-Wang Shengjiu
+Best regards,
+Gatien

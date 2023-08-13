@@ -2,80 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A49A77A875
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 18:03:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFAC977A885
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 18:03:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FE1F847;
-	Sun, 13 Aug 2023 18:02:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FE1F847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4373684C;
+	Sun, 13 Aug 2023 18:02:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4373684C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691942589;
-	bh=JZJ+UqTM6R1+teKsqGoVzT1N/KYEEqj8HjinAxqBI70=;
+	s=default; t=1691942618;
+	bh=ISOphjDrsW6TjiazSKyOZf0nG3NXWsbXvGngRyQWbPk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NCyrx7hYgZYZtEuFJhcn7RiGdu8a2ma88IVpUfm2PPedlXrgGlM5cZTrYshfaSI/Z
-	 DwScZvfx9CMLBtXnkBH3+WBavsJ5bZu+KGP+XtJfo7JQBqwmcsr7PaudSZFFzrfkjk
-	 Nl11qOHMmmXBpV9eo4RZ1Qy4KZG7n2b6uClOj5c8=
+	b=cFIucW5gytRUuU+NLRnyasVy+LpJHkEax5ewOMtKfpRdnZk4wVlae+znS0UkR7cEE
+	 9ZrGJlczelfVMDlfkL/J+3/URGEA2Lm243eG8ltCWFw+cPXOlzgoh5/xjpFGshJhIK
+	 UergACBidoq4N3HA3VYfZ9NLjSscCjvVBawSDMSM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1CCEF80570; Sun, 13 Aug 2023 18:01:35 +0200 (CEST)
+	id 066C6F80254; Sun, 13 Aug 2023 18:02:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 970C8F80568;
-	Sun, 13 Aug 2023 18:01:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34569F80016;
+	Sun, 13 Aug 2023 18:02:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 337C0F8056F; Sun, 13 Aug 2023 18:01:33 +0200 (CEST)
+	id CBA22F8025F; Sun, 13 Aug 2023 18:02:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DBB7BF80564
-	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 18:01:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBB7BF80564
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5793F801EB
+	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 18:02:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5793F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=k/0fXpZD
+ header.s=k20201202 header.b=dYCxjkBG
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9FE60634F9;
-	Sun, 13 Aug 2023 16:01:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931B6C433C8;
-	Sun, 13 Aug 2023 16:01:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1B1896358C;
+	Sun, 13 Aug 2023 16:02:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C25AC433C8;
+	Sun, 13 Aug 2023 16:02:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691942489;
-	bh=JZJ+UqTM6R1+teKsqGoVzT1N/KYEEqj8HjinAxqBI70=;
+	s=k20201202; t=1691942558;
+	bh=ISOphjDrsW6TjiazSKyOZf0nG3NXWsbXvGngRyQWbPk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=k/0fXpZDB6ROwdpDjrkh7QZ8tDO/FTIRGp5wl+uTjZxpLH7uXCI8OEa83uVWj4nXS
-	 6MtfteC6DtJIm4TyMTsWadjMWnPGgG5y0txnRsOyPaFgIGrW4MZBXB7+ItfMh4k2Oh
-	 ih7AdCu+PpRcqV479YWaQip9aqkFhXAxJd8fTu5F3U8YXoxV6B63+9O7OYDvbFfWU6
-	 65pBTMLATILEiPDqV8oonYw2d9PfljljbCtJf7FUrNIFCsvmsIzqPyPNtctLkrFf4w
-	 L0jsrviUi6NaRtV2Ss205CZftAJa/nsDkTtWNq1/BEXbgd11FTsG0z3hHFQm7v6mws
-	 tT6dIxVsy7pDg==
+	b=dYCxjkBGtysMInJe6laFUS+IRjqUC7NnROjdg/Ji+Y6Ezwozk1KurjyfuU9GNPpnr
+	 qJBQiGrLy1GPLytu02ixazCg0FSZrN7YhZzthc7FLdZr973M2jl7/OiNqAYB22DOX1
+	 7UAlVTbPG+NauA40Dltk2PXGdNFKR5C+Qs34IJj7XiOCmk96RtElRU/GOBaQLj1Mpr
+	 /XofShx3Jj3UHfHeSG/dEsHBCeXCL7GZcKnf3YbAbud8ciXLpUkTidpj+Dr/JKaPWV
+	 gNQ6e+1Ye73xK+bSxN1vGxE0tG+9p0lXbDQmO/qDAC42VTnPbhRioIkUIS1vwA1CZ/
+	 o80BrqQRyKqbA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>,
+Cc: Shuming Fan <shumingf@realtek.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	oder_chiou@realtek.com,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	wtli@nuvoton.com,
-	u.kleine-koenig@pengutronix.de,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.1 15/47] ASoC: nau8821: Add DMI quirk mechanism for
- active-high jack-detect
-Date: Sun, 13 Aug 2023 11:59:10 -0400
-Message-Id: <20230813160006.1073695-15-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 24/47] ASoC: rt5682-sdw: fix for JD event handling
+ in ClockStop Mode0
+Date: Sun, 13 Aug 2023 11:59:19 -0400
+Message-Id: <20230813160006.1073695-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230813160006.1073695-1-sashal@kernel.org>
 References: <20230813160006.1073695-1-sashal@kernel.org>
@@ -84,8 +85,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.45
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GRCLNSVU57FHPEMCZTHMYP4CDTANXQA7
-X-Message-ID-Hash: GRCLNSVU57FHPEMCZTHMYP4CDTANXQA7
+Message-ID-Hash: ETWURPMVVBT6V4HCGGAWCVEKSGXVKLOW
+X-Message-ID-Hash: ETWURPMVVBT6V4HCGGAWCVEKSGXVKLOW
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GRCLNSVU57FHPEMCZTHMYP4CDTANXQA7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ETWURPMVVBT6V4HCGGAWCVEKSGXVKLOW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,97 +108,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>
+From: Shuming Fan <shumingf@realtek.com>
 
-[ Upstream commit 1bc40efdaf4a0ccfdb10a1c8e4b458f4764e8e5f ]
+[ Upstream commit 02fb23d72720df2b6be3f29fc5787ca018eb92c3 ]
 
-Add a quirk mechanism to allow specifying that active-high jack-detection
-should be used on platforms where this info is not available in devicetree.
+When the system suspends, peripheral Imp-defined interrupt is disabled.
+When system level resume is invoked, the peripheral Imp-defined interrupts
+should be enabled to handle JD events.
 
-And add an entry for the Positivo CW14Q01P-V2 to the DMI table, so that
-jack-detection will work properly on this laptop.
-
-Signed-off-by: Edson Juliano Drosdeck <edson.drosdeck@gmail.com>
-Link: https://lore.kernel.org/r/20230719200241.4865-1-edson.drosdeck@gmail.com
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Reported-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://lore.kernel.org/r/20230721090643.128213-1-shumingf@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/nau8821.c | 41 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ sound/soc/codecs/rt5682-sdw.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
-index 4a72b94e84104..efd92656a060d 100644
---- a/sound/soc/codecs/nau8821.c
-+++ b/sound/soc/codecs/nau8821.c
-@@ -10,6 +10,7 @@
- #include <linux/acpi.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/dmi.h>
- #include <linux/init.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
-@@ -25,6 +26,13 @@
- #include <sound/tlv.h>
- #include "nau8821.h"
+diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+index c1a94229dc7e3..868a61c8b0608 100644
+--- a/sound/soc/codecs/rt5682-sdw.c
++++ b/sound/soc/codecs/rt5682-sdw.c
+@@ -786,8 +786,15 @@ static int __maybe_unused rt5682_dev_resume(struct device *dev)
+ 	if (!rt5682->first_hw_init)
+ 		return 0;
  
-+#define NAU8821_JD_ACTIVE_HIGH			BIT(0)
-+
-+static int nau8821_quirk;
-+static int quirk_override = -1;
-+module_param_named(quirk, quirk_override, uint, 0444);
-+MODULE_PARM_DESC(quirk, "Board-specific quirk override");
-+
- #define NAU_FREF_MAX 13500000
- #define NAU_FVCO_MAX 100000000
- #define NAU_FVCO_MIN 90000000
-@@ -1696,6 +1704,33 @@ static int nau8821_setup_irq(struct nau8821 *nau8821)
- 	return 0;
- }
- 
-+/* Please keep this list alphabetically sorted */
-+static const struct dmi_system_id nau8821_quirk_table[] = {
-+	{
-+		/* Positivo CW14Q01P-V2 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Positivo Tecnologia SA"),
-+			DMI_MATCH(DMI_BOARD_NAME, "CW14Q01P-V2"),
-+		},
-+		.driver_data = (void *)(NAU8821_JD_ACTIVE_HIGH),
-+	},
-+	{}
-+};
-+
-+static void nau8821_check_quirks(void)
-+{
-+	const struct dmi_system_id *dmi_id;
-+
-+	if (quirk_override != -1) {
-+		nau8821_quirk = quirk_override;
-+		return;
+-	if (!slave->unattach_request)
++	if (!slave->unattach_request) {
++		if (rt5682->disable_irq == true) {
++			mutex_lock(&rt5682->disable_irq_lock);
++			sdw_write_no_pm(slave, SDW_SCP_INTMASK1, SDW_SCP_INT1_IMPL_DEF);
++			rt5682->disable_irq = false;
++			mutex_unlock(&rt5682->disable_irq_lock);
++		}
+ 		goto regmap_sync;
 +	}
-+
-+	dmi_id = dmi_first_match(nau8821_quirk_table);
-+	if (dmi_id)
-+		nau8821_quirk = (unsigned long)dmi_id->driver_data;
-+}
-+
- static int nau8821_i2c_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
-@@ -1716,6 +1751,12 @@ static int nau8821_i2c_probe(struct i2c_client *i2c)
  
- 	nau8821->dev = dev;
- 	nau8821->irq = i2c->irq;
-+
-+	nau8821_check_quirks();
-+
-+	if (nau8821_quirk & NAU8821_JD_ACTIVE_HIGH)
-+		nau8821->jkdet_polarity = 0;
-+
- 	nau8821_print_device_properties(nau8821);
- 
- 	nau8821_reset_chip(nau8821->regmap);
+ 	time = wait_for_completion_timeout(&slave->initialization_complete,
+ 				msecs_to_jiffies(RT5682_PROBE_TIMEOUT));
 -- 
 2.40.1
 

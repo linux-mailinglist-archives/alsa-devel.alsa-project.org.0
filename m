@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DCBE77A5B9
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 11:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20C4F77A5BE
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 11:06:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F04C874C;
-	Sun, 13 Aug 2023 11:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F04C874C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FA1A74C;
+	Sun, 13 Aug 2023 11:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FA1A74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691917454;
-	bh=U81i57m015UzoD+TdPgAJg0ZBeIzHy4rgAfpheajBO0=;
+	s=default; t=1691917589;
+	bh=Gp3I8G5BKRhjIZo0MlCrpSR5SabahSwS8tG8MX3cTag=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=Rm4xVDL1voBry7BU+CrC0Se6Aqvp12fYmVt5yCI9ehTLnY+I+gIfCbHpQ2v3gndk2
-	 Qdi5KTPfhhplcdxN6n9G7cjhl16SQvyyKbBOfBWU46Q+lvjy+cbTTS7Y5XJi91QJri
-	 elqYBBz2WH7U3ePe0PzOjJ5CZC4CsVCT7uUEK2NM=
+	b=uqBoAHR6AY2z/kZd+U29zK9BFbm5t6Occb+Orlf8bQvHlwV8wFukzWOfe8IlUpA6P
+	 hVdsLIVpPpixSSt2fWNNcP910rCaZFi8cnA3mlbWvdqlOHFpUEohAqqn86ev42r0N1
+	 ww+QrwTa27wlpZgVutVQluK/NuQLOiWRb0c9P5/U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A2A3F80510; Sun, 13 Aug 2023 11:03:23 +0200 (CEST)
+	id E7D0DF80552; Sun, 13 Aug 2023 11:05:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2D47F80254;
-	Sun, 13 Aug 2023 11:03:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A440F80254;
+	Sun, 13 Aug 2023 11:05:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59465F8025F; Sun, 13 Aug 2023 11:03:18 +0200 (CEST)
+	id 2C8FDF8025F; Sun, 13 Aug 2023 11:05:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEE71F80016
-	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 11:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEE71F80016
+	by alsa1.perex.cz (Postfix) with ESMTP id AA721F801EB
+	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 11:05:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA721F801EB
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1691917389619487524-webhooks-bot@alsa-project.org>
-References: <1691917389619487524-webhooks-bot@alsa-project.org>
+In-Reply-To: <1691917533678601503-webhooks-bot@alsa-project.org>
+References: <1691917533678601503-webhooks-bot@alsa-project.org>
 Subject: "alsactl restore" does not load the driver state
-Message-Id: <20230813090318.59465F8025F@alsa1.perex.cz>
-Date: Sun, 13 Aug 2023 11:03:18 +0200 (CEST)
-Message-ID-Hash: I3BF2LZAMLAOBD6L2CUKAFQK3LBYSCDR
-X-Message-ID-Hash: I3BF2LZAMLAOBD6L2CUKAFQK3LBYSCDR
+Message-Id: <20230813090535.2C8FDF8025F@alsa1.perex.cz>
+Date: Sun, 13 Aug 2023 11:05:35 +0200 (CEST)
+Message-ID-Hash: YJQPSA3Z3I4BMILXRLUKN5HX3GY6FXHC
+X-Message-ID-Hash: YJQPSA3Z3I4BMILXRLUKN5HX3GY6FXHC
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I3BF2LZAMLAOBD6L2CUKAFQK3LBYSCDR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YJQPSA3Z3I4BMILXRLUKN5HX3GY6FXHC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,7 +69,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #229 was opened from YuGiOhJCJ:
+alsa-project/alsa-utils issue #229 was edited from YuGiOhJCJ:
 
 Hello,
 
@@ -81,7 +81,7 @@ Steps to reproduce:
 3. In the first terminal, press F4, set the audio volume for capture to 40
 4. In the second terminal, type "sudo alsactl store" in order to save the driver state to /var/lib/alsa/asound.state
 5. In the first terminal, set the audio volume for capture to 35
-6. In the second terminal, type "sudo alsactl restore" in order to load the driver state to /var/lib/alsa/asound.state
+6. In the second terminal, type "sudo alsactl restore" in order to load the driver state from /var/lib/alsa/asound.state
 
 Expected results: I should see in the first terminal that the audio volume for capture is restored to 40.
 

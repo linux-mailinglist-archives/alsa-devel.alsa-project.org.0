@@ -2,92 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6714E77A983
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 18:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B0F77A985
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 18:14:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4631E0E;
-	Sun, 13 Aug 2023 18:13:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4631E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 555E6E75;
+	Sun, 13 Aug 2023 18:13:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 555E6E75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691943260;
-	bh=7EfpjV6UkQb8GEClCzJ7rPtqBaocAGoLvvZIn10Dp2s=;
+	s=default; t=1691943275;
+	bh=T9FDZ/33yJkwrakZJOFiwlXPqu+vnNpRWBjadcsQKrw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gYPZ6so0yVwua6bLcE9W6xCsr1dcHKW/2TQtm+A+L5sERnaX0e7Wgx0UgNuWRAWbZ
-	 daIHxCuAyFUaig1YYH8jN8+keDlbQIl4iqjQvJa3xXkTbmxHHTkPHLBgt8OjCcirp9
-	 OO7arRED4Sl8kP2qfKlNhZ8/xVUlah6ZwPk30PgU=
+	b=g2+KZAfGw+/IvUa7VW0FT9z0/jooiGYeC/HIVhal0cO9aR1qqBOwmaTHXtLRPCTGF
+	 qhplZxEwBlsAQiUdngrYxTm75v/vEgQdXNUudB6iyqcIlraeRG8L47W+uhcpzsN2K0
+	 HSKoOi19I3vvV2yBYrsjzxnV+GUner4MTovws/PI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A94B8F80290; Sun, 13 Aug 2023 18:13:13 +0200 (CEST)
+	id 36EB0F8057B; Sun, 13 Aug 2023 18:13:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23B12F80290;
-	Sun, 13 Aug 2023 18:13:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF085F80272;
+	Sun, 13 Aug 2023 18:13:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED1ECF80551; Sun, 13 Aug 2023 18:13:08 +0200 (CEST)
+	id A023CF80551; Sun, 13 Aug 2023 18:13:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 133A5F80254
-	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 18:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 133A5F80254
+	by alsa1.perex.cz (Postfix) with ESMTPS id 83917F80272
+	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 18:13:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83917F80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=e/cNy+bq
+ header.s=k20201202 header.b=atHb4SGi
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 006EE63C10;
-	Sun, 13 Aug 2023 16:13:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA9CC433C7;
-	Sun, 13 Aug 2023 16:13:03 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 65D3463C51;
+	Sun, 13 Aug 2023 16:13:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450BCC433C8;
+	Sun, 13 Aug 2023 16:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691943184;
-	bh=7EfpjV6UkQb8GEClCzJ7rPtqBaocAGoLvvZIn10Dp2s=;
+	s=k20201202; t=1691943206;
+	bh=T9FDZ/33yJkwrakZJOFiwlXPqu+vnNpRWBjadcsQKrw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=e/cNy+bqaWa+nMLSt36egv4eqTrBypb8gJmwQGnMvkfbcau2uMwQzeczMMgmOPcCl
-	 idESWwToDo/Io+5rafgUDHr3/v0b4zh7oT1/vQLZmKHkIH61Xr/4QE3qj+I2mFmcY2
-	 3ALm6kZLkQJf1pmcmUdlNZ8I5kFVNCNTEbU0m5C2HiFvsldRfFIlVhlYlyOeL+z4Lp
-	 7A+zYELgxEBC5OABMPSPZd0UQxuAJx7KPpKevKIpL3TKWClFvpXoDWIvLjeTGEeESX
-	 nln6G9af906NDSr+eScTxUwTWQd4nI/skjq44ikLvpy164I1wH0YNHeD3WvdOLw8B7
-	 PkVPE7mJHskkQ==
+	b=atHb4SGiet7R1BXCIEY9J3ELHhRnkZB5kLkd4gJB3WwTB9HF2jmElw/l1E1XC2QZF
+	 kcDCwRpGfEb+3xBI4a+7BWmGFbwck/hPS9eoOuAvlnXPwa7/1Cb5XoI7ZrxpANbDrD
+	 GWLaf+a5WzZe7xnI+9g4I1AXgi/Yghpm0kY2Ni3P25ZEJCFybbUbiUoOlIl4RhSN0m
+	 Oh0iQpFHlf9CFmXJubk9LcD+kmfZ3gdcKoAx0f5E8TkYe19SSAXfL476HfmDVcT5g0
+	 mRDGX5tzk7xzyR3w9GFOtZDkpEPbiPtISVZ38hzIm1Y/eeu6J5nLHUfrqAqCtwHDwY
+	 hifffz3hHr86A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Guiting Shen <aarongt.shen@gmail.com>,
+Cc: Dmytro Maluka <dmy@semihalf.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	claudiu.beznea@tuxon.dev,
+	support.opensource@diasemi.com,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH AUTOSEL 5.4 11/14] ASoC: atmel: Fix the 8K sample parameter in
- I2SC master
-Date: Sun, 13 Aug 2023 12:11:59 -0400
-Message-Id: <20230813161202.1086004-11-sashal@kernel.org>
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 4.19 02/13] ASoC: da7219: Flush pending AAD IRQ when
+ suspending
+Date: Sun, 13 Aug 2023 12:13:06 -0400
+Message-Id: <20230813161317.1087606-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230813161202.1086004-1-sashal@kernel.org>
-References: <20230813161202.1086004-1-sashal@kernel.org>
+In-Reply-To: <20230813161317.1087606-1-sashal@kernel.org>
+References: <20230813161317.1087606-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.4.253
+X-stable-base: Linux 4.19.291
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EMHEE5HJSTSZNFZJOFU55S3L53Y4X7AV
-X-Message-ID-Hash: EMHEE5HJSTSZNFZJOFU55S3L53Y4X7AV
+Message-ID-Hash: KTBIKDU5ANDUEXPUWP6A3HQMDUMHZFDR
+X-Message-ID-Hash: KTBIKDU5ANDUEXPUWP6A3HQMDUMHZFDR
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EMHEE5HJSTSZNFZJOFU55S3L53Y4X7AV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTBIKDU5ANDUEXPUWP6A3HQMDUMHZFDR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,44 +107,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Guiting Shen <aarongt.shen@gmail.com>
+From: Dmytro Maluka <dmy@semihalf.com>
 
-[ Upstream commit f85739c0b2b0d98a32f5ca4fcc5501d2b76df4f6 ]
+[ Upstream commit 91e292917dad64ab8d1d5ca2ab3069ad9dac6f72 ]
 
-The 8K sample parameter of 12.288Mhz main system bus clock doesn't work
-because the I2SC_MR.IMCKDIV must not be 0 according to the sama5d2
-series datasheet(I2SC Mode Register of Register Summary).
+da7219_aad_suspend() disables jack detection, which should prevent
+generating new interrupts by DA7219 while suspended. However, there is a
+theoretical possibility that there is a pending interrupt generated just
+before suspending DA7219 and not handled yet, so the IRQ handler may
+still run after DA7219 is suspended. To prevent that, wait until the
+pending IRQ handling is done.
 
-So use the 6.144Mhz instead of 12.288Mhz to support 8K sample.
+This patch arose as an attempt to fix the following I2C failure
+occurring sometimes during system suspend or resume:
 
-Signed-off-by: Guiting Shen <aarongt.shen@gmail.com>
-Link: https://lore.kernel.org/r/20230715030620.62328-1-aarongt.shen@gmail.com
+[  355.876211] i2c_designware i2c_designware.3: Transfer while suspended
+[  355.876245] WARNING: CPU: 2 PID: 3576 at drivers/i2c/busses/i2c-designware-master.c:570 i2c_dw_xfer+0x411/0x440
+...
+[  355.876462] Call Trace:
+[  355.876468]  <TASK>
+[  355.876475]  ? update_load_avg+0x1b3/0x615
+[  355.876484]  __i2c_transfer+0x101/0x1d8
+[  355.876494]  i2c_transfer+0x74/0x10d
+[  355.876504]  regmap_i2c_read+0x6a/0x9c
+[  355.876513]  _regmap_raw_read+0x179/0x223
+[  355.876521]  regmap_raw_read+0x1e1/0x28e
+[  355.876527]  regmap_bulk_read+0x17d/0x1ba
+[  355.876532]  ? __wake_up+0xed/0x1bb
+[  355.876542]  da7219_aad_irq_thread+0x54/0x2c9 [snd_soc_da7219 5fb8ebb2179cf2fea29af090f3145d68ed8e2184]
+[  355.876556]  irq_thread+0x13c/0x231
+[  355.876563]  ? irq_forced_thread_fn+0x5f/0x5f
+[  355.876570]  ? irq_thread_fn+0x4d/0x4d
+[  355.876576]  kthread+0x13a/0x152
+[  355.876581]  ? synchronize_irq+0xc3/0xc3
+[  355.876587]  ? kthread_blkcg+0x31/0x31
+[  355.876592]  ret_from_fork+0x1f/0x30
+[  355.876601]  </TASK>
+
+which indicates that the AAD IRQ handler is unexpectedly running when
+DA7219 is suspended, and as a result, is trying to read data from DA7219
+over I2C and is hitting the I2C driver "Transfer while suspended"
+failure.
+
+However, with this patch the above failure is still reproducible. So
+this patch does not fix any real observed issue so far, but at least is
+useful for confirming that the above issue is not caused by a pending
+IRQ but rather looks like a DA7219 hardware issue with an IRQ
+unexpectedly generated after jack detection is already disabled.
+
+Signed-off-by: Dmytro Maluka <dmy@semihalf.com>
+Link: https://lore.kernel.org/r/20230717193737.161784-2-dmy@semihalf.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/atmel/atmel-i2s.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/codecs/da7219-aad.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
-index d870f56c44cfc..0341b31197670 100644
---- a/sound/soc/atmel/atmel-i2s.c
-+++ b/sound/soc/atmel/atmel-i2s.c
-@@ -163,11 +163,14 @@ struct atmel_i2s_gck_param {
- 
- #define I2S_MCK_12M288		12288000UL
- #define I2S_MCK_11M2896		11289600UL
-+#define I2S_MCK_6M144		6144000UL
- 
- /* mck = (32 * (imckfs+1) / (imckdiv+1)) * fs */
- static const struct atmel_i2s_gck_param gck_params[] = {
-+	/* mck = 6.144Mhz */
-+	{  8000, I2S_MCK_6M144,  1, 47},	/* mck =  768 fs */
+diff --git a/sound/soc/codecs/da7219-aad.c b/sound/soc/codecs/da7219-aad.c
+index 2c7d5088e6f27..29e24a0f923d5 100644
+--- a/sound/soc/codecs/da7219-aad.c
++++ b/sound/soc/codecs/da7219-aad.c
+@@ -859,6 +859,8 @@ void da7219_aad_suspend(struct snd_soc_component *component)
+ 			}
+ 		}
+ 	}
 +
- 	/* mck = 12.288MHz */
--	{  8000, I2S_MCK_12M288, 0, 47},	/* mck = 1536 fs */
- 	{ 16000, I2S_MCK_12M288, 1, 47},	/* mck =  768 fs */
- 	{ 24000, I2S_MCK_12M288, 3, 63},	/* mck =  512 fs */
- 	{ 32000, I2S_MCK_12M288, 3, 47},	/* mck =  384 fs */
++	synchronize_irq(da7219_aad->irq);
+ }
+ 
+ void da7219_aad_resume(struct snd_soc_component *component)
 -- 
 2.40.1
 

@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DDC277A98F
-	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 18:14:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 209E177A995
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Aug 2023 18:15:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8CC2E7B;
-	Sun, 13 Aug 2023 18:14:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8CC2E7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DE46E7D;
+	Sun, 13 Aug 2023 18:14:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DE46E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691943296;
-	bh=dvfJl2EgSoUXBF+HB9XJRDXWhuGdo/8LLSolCqFWHME=;
+	s=default; t=1691943311;
+	bh=LXLKgo/FuVHwmPKi1Faa2x/jlskZzn0r0tOS1csN5p8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oHmdvYMydrC47B/YFvRjuuUg1cHlj2N4PQ/RNDU7bVERbStzqFVDauNMQgUqJB5G4
-	 zuBZ7ZasfMCqCptA0lEzkHwmC5CqzHSMiJrGOcZr82OrKtSOIdhbUC5+V0V4VsRPbb
-	 jomRcb04jEZRq2z+7U53dAOCFq45fyxdSj+m3n94=
+	b=huJvIEYuuoWUO88gWBPgSyIeIKV0JkkYX4ndInKfr2shj8wcLoE+d5xQ9kRJhPOC6
+	 YilgY0dL41v9eEO15ryy2pye7kEtYKKh66CyGceckhKNUtNQlqxcS7vt1mhWyt2elH
+	 peJ0SELvy4Fj9i9M89Ndpe10QLazzPXQ5R7bj2oc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18F8EF805A1; Sun, 13 Aug 2023 18:13:35 +0200 (CEST)
+	id B312EF80272; Sun, 13 Aug 2023 18:14:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 680C0F8057E;
-	Sun, 13 Aug 2023 18:13:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44945F80510;
+	Sun, 13 Aug 2023 18:14:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C8C2F80549; Sun, 13 Aug 2023 18:13:32 +0200 (CEST)
+	id 7BA96F80510; Sun, 13 Aug 2023 18:14:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9ACE5F8025F
-	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 18:13:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9ACE5F8025F
+	by alsa1.perex.cz (Postfix) with ESMTPS id D1228F80254
+	for <alsa-devel@alsa-project.org>; Sun, 13 Aug 2023 18:14:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1228F80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PHrfdaNY
+ header.s=k20201202 header.b=bkHAtKIc
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8AFA163C35;
-	Sun, 13 Aug 2023 16:13:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 384E2C433C9;
-	Sun, 13 Aug 2023 16:13:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BF42363BB5;
+	Sun, 13 Aug 2023 16:14:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84398C433C9;
+	Sun, 13 Aug 2023 16:14:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1691943209;
-	bh=dvfJl2EgSoUXBF+HB9XJRDXWhuGdo/8LLSolCqFWHME=;
+	s=k20201202; t=1691943251;
+	bh=LXLKgo/FuVHwmPKi1Faa2x/jlskZzn0r0tOS1csN5p8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PHrfdaNYbzwLsPt/eECOzZH9+TAjJ2kLgbk5Pz+ss5Yd7OfEi1LKLK08t6V2C7FQ7
-	 msTUAwGV2vXj1WpK7nESe8B9MEvVTGpGrf31oooe2VF72/ceS/v9gyuwMXZPi48cII
-	 J/cMgDBhaM/UBmGKUnZk1gNzDAG8ZDHoKwfBr5EmmcAhIS+3YsEH0iSrIHZIDFKORi
-	 /30l17uDDco8T61A2caI0lxVOxUepyqHM54hpILyc3oNozhJX6ju3zc/3UrpDKt56f
-	 raW3Ht5DZg0HXDUNAL8lD3WjQltFUa2d6eDxa7CZ99t3DMFFfszgoOFQDbfY32E0g4
-	 Di/PtPGZgWpvQ==
+	b=bkHAtKIcM+DoTwSUT3WLp/YqlkTZ81lSw7NAh9jjoNs6PkLvZRdQqcRzBYWigwscl
+	 qk9ICIkdEOsGzUB8Bhxl2KIgw1kq7qktm0Wpg+NVs54QqDu1T9fQPsDC0sKfXNOqgm
+	 Mw/sPh24GT1LRJHV1nQxIloRDGCxGwEmvnD0xBj+Mwwy4jFPt9FmAvNG1gAnHs0nbm
+	 9EXEYtT6OeS6t/W+Cme4S+KamA61CovRKpW/dLdE1XQLFTRdtvxYyyoL4x3sVXo3lp
+	 887pFkQYsej/dUOdr7nMz+Uqlf1dtxovq09xydKDfRjmT6ciopSqbwVu9KhbbAY8Ja
+	 1TbKYv8oE5Naw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Dmytro Maluka <dmy@semihalf.com>,
+Cc: Edgar <ljijcj@163.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	support.opensource@diasemi.com,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	cristian.ciocaltea@collabora.com,
+	peter.ujfalusi@linux.intel.com,
+	zhuning0077@gmail.com,
+	pierre-louis.bossart@linux.intel.com,
+	u.kleine-koenig@pengutronix.de,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 4.19 03/13] ASoC: da7219: Check for failure reading
- AAD IRQ events
-Date: Sun, 13 Aug 2023 12:13:07 -0400
-Message-Id: <20230813161317.1087606-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 10/13] ASoc: codecs: ES8316: Fix DMIC config
+Date: Sun, 13 Aug 2023 12:13:14 -0400
+Message-Id: <20230813161317.1087606-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230813161317.1087606-1-sashal@kernel.org>
 References: <20230813161317.1087606-1-sashal@kernel.org>
@@ -84,8 +86,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 4.19.291
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CLNNB7F5ZRTMGGZGNTZURSV5KCT32IOF
-X-Message-ID-Hash: CLNNB7F5ZRTMGGZGNTZURSV5KCT32IOF
+Message-ID-Hash: HS4DXVTSOP6H3AUOAXQYJAT7WTD2YHUC
+X-Message-ID-Hash: HS4DXVTSOP6H3AUOAXQYJAT7WTD2YHUC
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLNNB7F5ZRTMGGZGNTZURSV5KCT32IOF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HS4DXVTSOP6H3AUOAXQYJAT7WTD2YHUC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,49 +109,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Dmytro Maluka <dmy@semihalf.com>
+From: Edgar <ljijcj@163.com>
 
-[ Upstream commit f0691dc16206f21b13c464434366e2cd632b8ed7 ]
+[ Upstream commit d20d35d1ad62c6cca36368c1e8f29335a068659e ]
 
-When handling an AAD interrupt, if IRQ events read failed (for example,
-due to i2c "Transfer while suspended" failure, i.e. when attempting to
-read it while DA7219 is suspended, which may happen due to a spurious
-AAD interrupt), the events array contains garbage uninitialized values.
-So instead of trying to interprete those values and doing any actions
-based on them (potentially resulting in misbehavior, e.g. reporting
-bogus events), refuse to handle the interrupt.
+According to the datasheet, the DMIC config should
+be changed to { 0, 2 ,3 }
 
-Signed-off-by: Dmytro Maluka <dmy@semihalf.com>
-Link: https://lore.kernel.org/r/20230717193737.161784-3-dmy@semihalf.com
+Signed-off-by: Edgar <ljijcj@163.com>
+Link: https://lore.kernel.org/r/20230719054722.401954-1-ljijcj@163.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/da7219-aad.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ sound/soc/codecs/es8316.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/da7219-aad.c b/sound/soc/codecs/da7219-aad.c
-index 29e24a0f923d5..7e18e007a639f 100644
---- a/sound/soc/codecs/da7219-aad.c
-+++ b/sound/soc/codecs/da7219-aad.c
-@@ -351,11 +351,15 @@ static irqreturn_t da7219_aad_irq_thread(int irq, void *data)
- 	struct da7219_priv *da7219 = snd_soc_component_get_drvdata(component);
- 	u8 events[DA7219_AAD_IRQ_REG_MAX];
- 	u8 statusa;
--	int i, report = 0, mask = 0;
-+	int i, ret, report = 0, mask = 0;
- 
- 	/* Read current IRQ events */
--	regmap_bulk_read(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
--			 events, DA7219_AAD_IRQ_REG_MAX);
-+	ret = regmap_bulk_read(da7219->regmap, DA7219_ACCDET_IRQ_EVENT_A,
-+			       events, DA7219_AAD_IRQ_REG_MAX);
-+	if (ret) {
-+		dev_warn_ratelimited(component->dev, "Failed to read IRQ events: %d\n", ret);
-+		return IRQ_NONE;
-+	}
- 
- 	if (!events[DA7219_AAD_IRQ_REG_A] && !events[DA7219_AAD_IRQ_REG_B])
- 		return IRQ_NONE;
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 57130edaf3aba..d3a44b21143d4 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -140,7 +140,7 @@ static const char * const es8316_dmic_txt[] = {
+ 		"dmic data at high level",
+ 		"dmic data at low level",
+ };
+-static const unsigned int es8316_dmic_values[] = { 0, 1, 2 };
++static const unsigned int es8316_dmic_values[] = { 0, 2, 3 };
+ static const struct soc_enum es8316_dmic_src_enum =
+ 	SOC_VALUE_ENUM_SINGLE(ES8316_ADC_DMIC, 0, 3,
+ 			      ARRAY_SIZE(es8316_dmic_txt),
 -- 
 2.40.1
 

@@ -2,99 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1671077AF42
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Aug 2023 03:57:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D222877AFAE
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Aug 2023 04:54:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B6573E;
-	Mon, 14 Aug 2023 03:57:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B6573E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62AE87F1;
+	Mon, 14 Aug 2023 04:53:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62AE87F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1691978276;
-	bh=F+QMvzi81yh+mFu9IZknTHoIchA90XpBkgqOg23VMWs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1691981689;
+	bh=jYiX4UF2Ji6RPXkUgAp93mlmJdC8u7Q3xrY3ORfGb74=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fv4X9g8jbSl8732XV/FmjIqYtOdS0W+yJznLPdh22oW1E70Jh/0s9jY5boDtvepSW
-	 ndOjqi7gc1VBGuIn51vrU92kLNhmI/TwMlksizaxV992Wc5M3tPGxOk0tSjjrhTEFL
-	 7OGkuvswmtAgQeDxCmh9Dv3oxQ75kAbhRazEDyXA=
+	b=DYoRWXuAiDCb+LPVju4ZFmb5hXsKjkTELOm2GN5Lkfe8OBCEp7jGQsiAr7DT4OD05
+	 qa4bUoPlS5tiBNvLKs9aOeJ1nVG5+puVlE6tfahWb5+lHOMNOJTtnXJO/+jFnLUx4M
+	 g7JpMIiIuO2W1OsZgQ/YXxwlA0CTgsJ8CjxA9YD8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C5DCF8025F; Mon, 14 Aug 2023 03:57:03 +0200 (CEST)
+	id 91497F80536; Mon, 14 Aug 2023 04:53:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 072FFF80254;
-	Mon, 14 Aug 2023 03:57:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5320F80254;
+	Mon, 14 Aug 2023 04:53:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB5ABF8025F; Mon, 14 Aug 2023 03:56:57 +0200 (CEST)
+	id B3D8CF8025F; Mon, 14 Aug 2023 04:53:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from phobos.denx.de (phobos.denx.de
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97AEBF800EE
-	for <alsa-devel@alsa-project.org>; Mon, 14 Aug 2023 03:56:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97AEBF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B0CBF80074
+	for <alsa-devel@alsa-project.org>; Mon, 14 Aug 2023 04:53:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B0CBF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=F9Mmjt6V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1691978209; x=1723514209;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=F+QMvzi81yh+mFu9IZknTHoIchA90XpBkgqOg23VMWs=;
-  b=F9Mmjt6VUdgb6d1SoqmHtB+OKR9fNNN5cUbgoqajToHu731zLyKk6hGg
-   2CdlIBq1TrEY0oANzKV/NPOHlxkEb3CctELf8cLEKi885VS7BEDcyuO5a
-   cTcG/fFWhuQJ9KhEt/WBahM+RgO29bvzd0OOJZWkbDUBpc8bC5JymqGPb
-   j8jXyejWiZDAC/Xa3KJBnUbFN/V7sXcGnT8O69o0g4zKdH/1FgWu7rhca
-   KjEI0soFEfEJNOKPQwEK1oBf3YUX2c0GQNnmzXfHPdOMRcfMgc0ai4VMC
-   dOPmGizRm+RZFQvrdacz/pmZxPm38B8qLPzUkNkAz5vgO1rAcr8DzwYTZ
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="351544226"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200";
-   d="scan'208";a="351544226"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2023 18:56:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="733290602"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200";
-   d="scan'208";a="733290602"
-Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
-  by orsmga002.jf.intel.com with ESMTP; 13 Aug 2023 18:56:37 -0700
-Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qVMou-0009JE-1P;
-	Mon, 14 Aug 2023 01:56:36 +0000
-Date: Mon, 14 Aug 2023 09:56:11 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>, perex@perex.cz,
-	tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
-	zhangyiqun@phytium.com.cn, peter.ujfalusi@linux.intel.com,
-	broonie@kernel.org, chenhuacai@kernel.org,
-	cezary.rojewski@intel.com, siyanteng@loongson.cn,
-	amadeuszx.slawinski@linux.intel.com, evan.quan@amd.com,
-	jasontao@glenfly.com, kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com, mkumard@nvidia.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, CobeChen@zhaoxin.com, TimGuo@zhaoxin.com,
-	LeoLiu-oc@zhaoxin.com
-Subject: Re: [PATCH] ALSA: hda: Zhaoxin: Add HDAC PCI IDs and HDMI Codec
- Vendor IDs
-Message-ID: <202308140952.khPgynBT-lkp@intel.com>
-References: <20230731055932.4336-1-TonyWWang-oc@zhaoxin.com>
+ unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
+ header.s=phobos-20191101 header.b=uIWDMnTf
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+	(No client certificate requested)
+	(Authenticated sender: marex@denx.de)
+	by phobos.denx.de (Postfix) with ESMTPSA id EE2E6833BF;
+	Mon, 14 Aug 2023 04:53:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+	s=phobos-20191101; t=1691981619;
+	bh=lV7bVhPDLY4Nxhzg+uqDkNUFK5eh+AMesuLtIf2K9i4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uIWDMnTfPAx3QESbCKb4oU0RVCcS/hGicTDzwBPtp3J01PSuyly/xilcrfre27nbi
+	 zr31B5duhAo7fgKtcG9zX3xn4KQ3tCB+Tx7z6Rzx4KVuADl2EwUBMfKGPowqmD0CDp
+	 1yZg4vyZ+F0lYCF8HUo+aPqydjZwjTdiBluJDxnWxy4G77WYq1GqD6OznD6MAO00id
+	 v15qnspOuJkzTSuiacXewifoINv/CBej8u8FqyUTirOhTtaRXKfB3iGgblUBuZUrrZ
+	 vfViUo28wC4dF3zWtj2mBa8kZvDngk/Zn45LPFLLG7pZ58G74CsejMkJ77VmfEM/wt
+	 i5ArMNRuibfrA==
+Message-ID: <545844bb-c16e-4675-0f13-d76646d866fd@denx.de>
+Date: Mon, 14 Aug 2023 04:26:29 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230731055932.4336-1-TonyWWang-oc@zhaoxin.com>
-Message-ID-Hash: 4MK6WMGJ3NFE3JVDMOW36UUHZPLOPPJU
-X-Message-ID-Hash: 4MK6WMGJ3NFE3JVDMOW36UUHZPLOPPJU
-X-MailFrom: lkp@intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
+Content-Language: en-US
+To: John Watts <contact@jookia.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Jeff LaBundy <jeff@labundy.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Manuel Traut <manuel.traut@mt.com>, Thierry Reding
+ <thierry.reding@gmail.com>, linux-pwm@vger.kernel.org,
+ alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <873514d2ju.wl-tiwai@suse.de>
+ <63adce9a-df65-b462-9055-0ece5216d680@denx.de> <87tttkjmyu.wl-tiwai@suse.de>
+ <0cffe366-75af-d8a8-8920-6fb94c321a89@denx.de> <87h6pkjh7q.wl-tiwai@suse.de>
+ <618add56-3675-4efe-5b20-665c10040e03@denx.de> <ZMfgJ3o00nApkXGp@google.com>
+ <f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de> <ZMh0Sa9s25JHhWw5@nixie71>
+ <ZMi0HT/yaTo9uTyi@google.com> <ZNYsGr6yBeVTtNMK@titan>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <ZNYsGr6yBeVTtNMK@titan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Message-ID-Hash: XQHJMT7EPBLYHV3JVIB4BIW2THFR5IVW
+X-Message-ID-Hash: XQHJMT7EPBLYHV3JVIB4BIW2THFR5IVW
+X-MailFrom: marex@denx.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MK6WMGJ3NFE3JVDMOW36UUHZPLOPPJU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQHJMT7EPBLYHV3JVIB4BIW2THFR5IVW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,54 +113,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Tony,
+On 8/11/23 14:39, John Watts wrote:
+> On Tue, Aug 01, 2023 at 12:28:29AM -0700, Dmitry Torokhov wrote:
+>> If we want to extend the API we will need to define exactly how it will
+>> all work. I.e. what happens if userspace mixes the old SND_TONE and
+>> SND_BELL with the new SND_BELL_VOL or whatever. Does it play with
+>> previously set volume? The default one? How to set the default one? How
+>> to figure out what the current volume is if we decide to make volume
+>> "sticky"?
+>>
+>> As far as userspace I expect it is more common to have one program (or
+>> component of a program) to set volume and then something else requests
+>> sound, so having one-shot API is of dubious value to me.
+>>
+>> I hope we can go with Takashi's proposal downthread, but if not I wonder
+>> if the sysfs approach is not the simplest one. Do we expect more beepers
+>> that can control volume besides pwm-beeper?
+>>
+>> Thanks.
+>>
+>> -- 
+>> Dmitry
+> 
+> (Just to duck in as someone that has written a little program to play beeps and
+> tones using the EV_TONE API)
+> 
+> It might be worth distinguishing between the goals of having some beeps with
+> different volumes compared to all beeps with different volumes.
+> 
+> Sound card mixers generally control some sort of global volume while I would
+> imagine the tone API would control per-tone volume. I don't know too much about
+> safety guarantees but writing an input then sysfs or mixer then input again
+> seems like it could get jumbled up.
+> 
+> In that speicfic case I think it would make more sense to send volume and tone
+> from whatever beep API is being used, with the volume being a multiplier of the
+> loudest volume. This is similar to how audio works with PCM output. Existing
+> beeps would have the volume set to 100%.
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on next-20230809]
-[cannot apply to tiwai-sound/for-linus linus/master v6.5-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Tony-W-Wang-oc/ALSA-hda-Zhaoxin-Add-HDAC-PCI-IDs-and-HDMI-Codec-Vendor-IDs/20230731-140118
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230731055932.4336-1-TonyWWang-oc%40zhaoxin.com
-patch subject: [PATCH] ALSA: hda: Zhaoxin: Add HDAC PCI IDs and HDMI Codec Vendor IDs
-config: mips-randconfig-r073-20230814 (https://download.01.org/0day-ci/archive/20230814/202308140952.khPgynBT-lkp@intel.com/config)
-compiler: mips64-linux-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230814/202308140952.khPgynBT-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308140952.khPgynBT-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
-   sound/pci/hda/hda_controller.c:1051:38: sparse: sparse: cast removes address space '__iomem' of expression
->> sound/pci/hda/hda_controller.c:1051:66: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got char * @@
-   sound/pci/hda/hda_controller.c:1051:66: sparse:     expected void volatile [noderef] __iomem *mem
-   sound/pci/hda/hda_controller.c:1051:66: sparse:     got char *
-   sound/pci/hda/hda_controller.c:1053:44: sparse: sparse: cast removes address space '__iomem' of expression
-   sound/pci/hda/hda_controller.c:1053:72: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got char * @@
-   sound/pci/hda/hda_controller.c:1053:72: sparse:     expected void volatile [noderef] __iomem *mem
-   sound/pci/hda/hda_controller.c:1053:72: sparse:     got char *
-
-vim +1051 sound/pci/hda/hda_controller.c
-
-  1046	
-  1047	static void azx_rirb_zxdelay(struct azx *chip, int enable)
-  1048	{
-  1049		if (chip->remap_diu_addr) {
-  1050			if (!enable)
-> 1051				writel(0x0, (char *)chip->remap_diu_addr + 0x490a8);
-  1052			else
-  1053				writel(0x1000000, (char *)chip->remap_diu_addr + 0x490a8);
-  1054		}
-  1055	}
-  1056	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I agree binding tone frequency and volume together would be better.
+The API would be nicer and easier to use in my opinion too.

@@ -2,109 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8339877C32F
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 00:03:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF6177C337
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 00:07:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBB8D3E;
-	Tue, 15 Aug 2023 00:02:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBB8D3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D39682B;
+	Tue, 15 Aug 2023 00:06:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D39682B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692050595;
-	bh=0vHbiGwXdjeAX33cFcCEZh1T3GQZvFoORwRIfLgQ/cQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1692050835;
+	bh=CQcmGe5bZfSPRSqhxNbQQp5kRcAPSC60YCbtXXCMLwU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=csgMXHi9mv+wmDwrZ+mRjOYiaO/vxiOl2aoYBZP2VeLgSF5vBGId/qbWyRS90Wp6Z
-	 ZHmZSE7TzovTj6cvlVr6/omwbPhHP4RXprK0CsuHUhsJQV6DfUTQ3TE501qrpr3fb5
-	 d1dx3LNuWmV4EvfDY5FfRe3/wBE1qcjmPDCZ8Fjo=
+	b=Iasl+2dbtg9QitGrQXg0B6TSqLAtG69JMjgGmbfK3HbvXSqvTfLrtt2tByBbokJz1
+	 V7dKzP6xnD42Aa4cOkKFCCXFKh7CFsWzqFjmorhu0gkGObO9edYQEgsN91lYaLounu
+	 gBCpsEsclj7eKtAcE7H7VH8wOE/gmmD3iSOMh9ek=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF677F801EB; Tue, 15 Aug 2023 00:02:24 +0200 (CEST)
+	id 91848F801EB; Tue, 15 Aug 2023 00:06:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6880CF801EB;
-	Tue, 15 Aug 2023 00:02:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C2A3F801EB;
+	Tue, 15 Aug 2023 00:06:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51D73F80254; Tue, 15 Aug 2023 00:02:20 +0200 (CEST)
+	id 33FF3F80254; Tue, 15 Aug 2023 00:06:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
-	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [IPv6:2607:f8b0:4864:20::f2f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C660F80016
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 00:02:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C660F80016
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7724FF80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 00:06:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7724FF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=dQh/oXzk
-Received: by mail-qv1-xf2f.google.com with SMTP id
- 6a1803df08f44-63fc1574063so23675176d6.3
-        for <alsa-devel@alsa-project.org>;
- Mon, 14 Aug 2023 15:02:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1692050533; x=1692655333;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4mwYC5y1w73XOQ+JQk9ab6pGT6BUQ0RtEcIvzv4bMiU=;
-        b=dQh/oXzkAnSIrtDNcO6e5Rb9npBij+9Md2DDJpcMtgE5V8lMFH5fyRAzbjpcFej7ny
-         cX6f8nkjPkuSyNj5VM+zEv3PTAUz1cC+taVXXaoZ0oS3wMR3Veesfh8jNGbx3l8U9MGF
-         Dpxwc9pmNuy4v4KqYuUXV75tqbymxCExp0+zuG8YJ4erqXWQmWTUdjNvCCZkyDP0NgeY
-         X0u4oa0AIVXaRRaVlJZWADjWzeknVdpAHD6sTaG8BzJoBAIcFze2JrJgFesxQULRYkzI
-         smkBvJOcq9uvREbJklJeMrJQ8VEQ0TnnG2TwXZFtC2AKVNL27f2ThO/PQeAHZ9Xl9H5/
-         zDag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692050533; x=1692655333;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4mwYC5y1w73XOQ+JQk9ab6pGT6BUQ0RtEcIvzv4bMiU=;
-        b=aGA9c34g0ygBoUqoM6OJXFgeAfWgcsX5pGidJRJtt3R9tFJizy/MfCVfPjNyh1K/5H
-         mK5dmpGiDsTL5CoAcS2DLteMxRjvgg/UCokjMDPwisQyZpd1UEzpT6Dj/Uy/s8IWIXeO
-         3wLeQEbYUooKLqQDa1aHE4uaX0KrFnd1nqf+zHWABlaQMRFzu8q4uAVN+h9uC/9Qiw47
-         UILorqs53/9HiFJ5Z3nRwH3ZCw0CKxGCkdr/4/IXEF/p7M2HtiGyQWwMiCIlNEkvWjTJ
-         ZxQANFyQtCCYfKZd8zrvbaPRHm+oClCIdXO1jqf+QWRhnvXJY4C/kHmHrFwQSpVSjEbn
-         Mezg==
-X-Gm-Message-State: AOJu0YxG/ao+02q1iJat65K40TxOkXnpT4B1Z8KIWRGYm8+YwJZIhane
-	kn88j0kaScXixkON/tUUOQS3VT7ew3JQXoxDK3wBPQ==
-X-Google-Smtp-Source: 
- AGHT+IH6wivOZHs37QX+AYcNTOVvJhfdvZs2Fe6L0Y0X/5iqhnofg4KtZ94BhgTJQ2RzI2U8jlPbdkhVTSh/ljoySZ4=
-X-Received: by 2002:a0c:f444:0:b0:647:27ee:4853 with SMTP id
- h4-20020a0cf444000000b0064727ee4853mr2741059qvm.5.1692050533527; Mon, 14 Aug
- 2023 15:02:13 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Xy+u3857
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C9B2D6134E;
+	Mon, 14 Aug 2023 22:06:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDCBC433C8;
+	Mon, 14 Aug 2023 22:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692050761;
+	bh=CQcmGe5bZfSPRSqhxNbQQp5kRcAPSC60YCbtXXCMLwU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Xy+u3857Ao6+lyq42DtEw+O0htZdT95p8zGr2rBX+gNoL+pIgZx9jTpqj/Z73WJbN
+	 dpjFBa1Tt/PJkpL2Ky2DK9x6Ua7wC5OQtGkbcAjCoTqnwbLLncXUvgfTiXmQ+/MN1/
+	 K5w9h5Y0ET3/MAyRlYoxCrgD8r/NQ8XnOQvayndBlmpml2722lm0CSeGw2K9Lho3YW
+	 xvQ85gWSKraoofLlUkh4KJ+QBzDhRfegH56fy2/hdIryju3PyAJRy6EW5d6ZarF57Q
+	 FiHwQgRDmHor8N5/T4z6NT8NQJmdFA3693hvo8xpiMuC1POkUkmJBfKjc6VmOjzctu
+	 DSOQG0+M+JFig==
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org
+In-Reply-To: <87v8dpb0w6.wl-kuninori.morimoto.gx@renesas.com>
+References: <87wmy5b0wt.wl-kuninori.morimoto.gx@renesas.com>
+ <87v8dpb0w6.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 01/39] ASoC: soc-dai.h: merge DAI call back
+ functions into ops
+Message-Id: <169205075988.98708.15537446354136173987.b4-ty@kernel.org>
+Date: Mon, 14 Aug 2023 23:05:59 +0100
 MIME-Version: 1.0
-References: <20230810104749.164827-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230810104749.164827-1-krzysztof.kozlowski@linaro.org>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 14 Aug 2023 15:02:02 -0700
-Message-ID: 
- <CAKwvOdm5kiTho-b1yagjjCGX5-=HGKutGZR3NkDeYh5RRBHJ_A@mail.gmail.com>
-Subject: Re: [PATCH 1/4] ASoC: aw88261: Fix unitialized ret of
- aw88261_reg_update()
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Heiko Stuebner <heiko@sntech.de>,
-	Nathan Chancellor <nathan@kernel.org>, Tom Rix <trix@redhat.com>,
- alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	llvm@lists.linux.dev, Andi Shyti <andi.shyti@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: MUDGDHL7W44T3GIUAI3B3YC27C4BSV2L
-X-Message-ID-Hash: MUDGDHL7W44T3GIUAI3B3YC27C4BSV2L
-X-MailFrom: ndesaulniers@google.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: N5ZME6JUCRPKTSO77QV5AVARE5SZKGJC
+X-Message-ID-Hash: N5ZME6JUCRPKTSO77QV5AVARE5SZKGJC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MUDGDHL7W44T3GIUAI3B3YC27C4BSV2L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N5ZME6JUCRPKTSO77QV5AVARE5SZKGJC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,53 +101,124 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Aug 10, 2023 at 3:47=E2=80=AFAM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> There is a branch in if() clause where aw88261_reg_update() could return
-> uninitialized value.  Pounted out by W=3D1 clang build:
->
->   sound/soc/codecs/aw88261.c:651:7: error: variable 'ret' is used uniniti=
-alized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
->                 if (aw_dev->prof_cur !=3D aw_dev->prof_index) {
->                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->   sound/soc/codecs/aw88261.c:660:9: note: uninitialized use occurs here
->         return ret;
->                ^~~
->   sound/soc/codecs/aw88261.c:651:3: note: remove the 'if' if its conditio=
-n is always true
->                 if (aw_dev->prof_cur !=3D aw_dev->prof_index) {
->                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On Tue, 08 Aug 2023 22:54:50 +0000, Kuninori Morimoto wrote:
+> snd_soc_dai_driver has .ops for call back functions (A), but it also
+> has other call back functions (B). It is duplicated and confusable.
+> 
+> 	struct snd_soc_dai_driver {
+> 		...
+>  ^		int (*probe)(...);
+>  |		int (*remove)(...);
+> (B)		int (*compress_new)(...);
+>  |		int (*pcm_new)(...);
+>  v		...
+> (A)		const struct snd_soc_dai_ops *ops;
+> 		...
+> 	}
+> 
+> [...]
 
-Thanks for the patch!
-I see this addressed already in -next:
-https://lore.kernel.org/all/20230808125703.1611325-1-arnd@kernel.org/
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  sound/soc/codecs/aw88261.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-> index 82923b454dd4..fddba2f2de41 100644
-> --- a/sound/soc/codecs/aw88261.c
-> +++ b/sound/soc/codecs/aw88261.c
-> @@ -636,7 +636,7 @@ static int aw88261_dev_stop(struct aw_device *aw_dev)
->  static int aw88261_reg_update(struct aw88261 *aw88261, bool force)
->  {
->         struct aw_device *aw_dev =3D aw88261->aw_pa;
-> -       int ret;
-> +       int ret =3D 0;
->
->         if (force) {
->                 ret =3D regmap_write(aw_dev->regmap,
-> --
-> 2.34.1
->
+Thanks!
 
+[01/39] ASoC: soc-dai.h: merge DAI call back functions into ops
+        commit: 3e8bcec0787d1a73703c915c31cb00a2fd18ccbf
+[02/39] ASoC: ti: merge DAI call back functions into ops
+        commit: c64f5bd3afa0bf7a3b550bb63b9a5644acb04404
+[03/39] ASoC: adi: merge DAI call back functions into ops
+        commit: db49eb7b3855cc9bd422663b1cd84a36f5bd8d1f
+[04/39] ASoC: adi: merge DAI call back functions into ops
+        commit: db49eb7b3855cc9bd422663b1cd84a36f5bd8d1f
+[05/39] ASoC: amd: merge DAI call back functions into ops
+        commit: d86eb53532362f738dd840d7b953b2a769ccdd4b
+[06/39] ASoC: dwc: merge DAI call back functions into ops
+        commit: 2c88ba731fec284af52ed19b6c6eaacffb0c50f0
+[07/39] ASoC: pxa: merge DAI call back functions into ops
+        commit: 208b8395f79e4ad9196849b744f6e4a7abd2b836
+[08/39] ASoC: bcm: merge DAI call back functions into ops
+        commit: 59cd0ba842771946e922291199ce8c7a662484d4
+[09/39] ASoC: fsl: merge DAI call back functions into ops
+        commit: 5e5f68ca836e740c1d788f04efa84b37ed185606
+[10/39] ASoC: img: merge DAI call back functions into ops
+        commit: a98bd9e1173872cdbfc3ca7a2c43382f1417ab7e
+[11/39] ASoC: sof: merge DAI call back functions into ops
+        commit: f522af4cbe0158de3f518ed76b328ea6297a52b2
+[12/39] ASoC: sti: merge DAI call back functions into ops
+        commit: f33b8df2233a8f7007a289e4cf1bfce403fa6bf0
+[13/39] ASoC: stm: merge DAI call back functions into ops
+        commit: 2fb00b84cdb7dd2a8fe0d584236990b2392c5a57
+[14/39] ASoC: pxa: merge DAI call back functions into ops
+        commit: 208b8395f79e4ad9196849b744f6e4a7abd2b836
+[15/39] ASoC: rsnd: merge DAI call back functions into ops
+        commit: 47ca9f546ef6806925077e5ea6e084af660ee41b
+[16/39] ASoC: qcom: merge DAI call back functions into ops
+        commit: 9174fd60e55d7ff1ad2c909c67de48ebe7008e5a
+[17/39] ASoC: au1x: merge DAI call back functions into ops
+        commit: 4fc3331cb5f93b5a5ed5ee153b442960d11e1049
+[18/39] ASoC: ux500: merge DAI call back functions into ops
+        commit: 2870ffb31c58a301417ee12151122b337b316d0a
+[19/39] ASoC: sunxi: merge DAI call back functions into ops
+        commit: 331cd4d326244d853eb2e9fd3dcf55969055187e
+[20/39] ASoC: tegra: merge DAI call back functions into ops
+        commit: b36e672b6b6fa4f68fc74c3b85ba9b4a615fc1d9
+[21/39] ASoC: atmel: merge DAI call back functions into ops
+        commit: 2e85e70608c5d7233244c19ec2253dd1acb01e17
+[22/39] ASoC: intel: merge DAI call back functions into ops
+        commit: 3a8b7fd088d74c43eeb14406b7a1f0666a8d8594
+[23/39] ASoC: meson: merge DAI call back functions into ops
+        commit: 17821c2f6c53009b4c00aa5fd051425e19d46616
+[24/39] ASoC: jz4740: merge DAI call back functions into ops
+        commit: b3a7e76d7f7afd259dea954e9247dcccd361ed3a
+[25/39] ASoC: cirrus: merge DAI call back functions into ops
+        commit: af8a0e0391308258b2338b3b72e8fad5fac2d5d7
+[26/39] ASoC: drm/vc4: merge DAI call back functions into ops
+        commit: 3964f1d944c9dba5444ed85a9fcdf69991f17e5c
+[27/39] ASoC: samsung: merge DAI call back functions into ops
+        commit: 69b33471a2986f655006a37b1ae7b6cccf812b53
+[28/39] ASoC: mediatek: merge DAI call back functions into ops
+        commit: df775a399e1a6eb6eeab3d23f7c200f1dd4dcce0
+[29/39] ASoC: rockchip: merge DAI call back functions into ops
+        commit: 7575bec582876d295b34488cd39854c9e840ef04
+[30/39] ASoC: uniphier: merge DAI call back functions into ops
+        commit: 7142b49f5742d4bf5706b44db931906a45061b68
+[31/39] ASoC: loongson: merge DAI call back functions into ops
+        commit: 69c4f41b9e3c18bac11ada4b31abea3eed60f610
+[32/39] ASoC: starfive: merge DAI call back functions into ops
+        commit: de046f2ddbf929a0af73dd295902ea9a55ebc741
+[33/39] ASoC: hisilicon: merge DAI call back functions into ops
+        commit: d1f1c345562d31b1b5e2aaf03bfcdf1835778f65
+[34/39] ASoC: codecs/wm*: merge DAI call back functions into ops
+        commit: a350c5562318f798ef7b3e1e72bf947f0816ca45
+[35/39] ASoC: soc-topology: merge DAI call back functions into ops
+        commit: 7fdd0672678245dddd008fb2aea3b6952a5da795
+[36/39] ASoC: codecs/cs47lxx: merge DAI call back functions into ops
+        commit: 6bbb65c39a8468f12784bfa01d06a800c81310c5
+[37/39] ASoC: codecs/cx2072x: merge DAI call back functions into ops
+        commit: 707844f66ee3a79e3c1256e1b1667c9c43f6021d
+[38/39] ASoC: codecs/hdmi-codec: merge DAI call back functions into ops
+        commit: acd3e6256edf6d81eb01ab9a6fcbc48bf038a9a6
+[39/39] ASoC: soc-dai.h: remove unused call back functions
+        commit: 8e1eb11cd4579decc8e928be2face7c43f2a9c67
 
---=20
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
 Thanks,
-~Nick Desaulniers
+Mark
+

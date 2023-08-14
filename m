@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE25477C3ED
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 01:25:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8199677C3EE
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 01:25:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADEC7832;
-	Tue, 15 Aug 2023 01:24:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADEC7832
+	by alsa0.perex.cz (Postfix) with ESMTPS id A89B784C;
+	Tue, 15 Aug 2023 01:24:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89B784C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692055530;
-	bh=YWiIp/tFL4a9PLxSEQX+uwLd81Di0oyL5y5PXi/twzg=;
+	s=default; t=1692055536;
+	bh=xByKIulZWn2pyal9fs3gKTJA7pVyZU7i2HRuHKlJo3k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pX+BRk2ZDeaxJbblyGWU2wkqYbVNcT8D76Ujhgr0mCb3tAUGso1d7T4lK8PCyZKrc
-	 iC2DgNLRl1TC0NQhz4nxuGTL5TlgUBh634yML102w6G2VGqbtbK7AaMQ7IiHKRU+Yb
-	 UBADq6h+RGLdNdHp5bj9jp4ZM2o2X3DfJOyXz0Xo=
+	b=bFRoB6Ema+Ri+6JMM4K1acFxoPuSc7LG+Kema2AZdvNjVWJFJ4vq2skDCrmnZ6RO5
+	 Q0AyEssjVP1+ThSowN6SCePo1N7Lj7zlGkcgs2qTZFSVMd0op71vJFI8KjE5IyOtaq
+	 poZPjQI2/pOiYuoUbMylCpZApdoGD6sS2zu+fB/U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4AE5F80558; Tue, 15 Aug 2023 01:23:51 +0200 (CEST)
+	id D536BF80579; Tue, 15 Aug 2023 01:23:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41ED0F80553;
-	Tue, 15 Aug 2023 01:23:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0234DF80568;
+	Tue, 15 Aug 2023 01:23:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F16E4F80016; Tue, 15 Aug 2023 01:23:46 +0200 (CEST)
+	id 7F22CF80016; Tue, 15 Aug 2023 01:23:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 968FCF80016
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 01:23:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 968FCF80016
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACAF3F801EB
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 01:23:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACAF3F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Ib6O6bZY
+ header.s=Intel header.b=evk4hIq2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692055424; x=1723591424;
+  t=1692055426; x=1723591426;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=YWiIp/tFL4a9PLxSEQX+uwLd81Di0oyL5y5PXi/twzg=;
-  b=Ib6O6bZYTuLcgccd9aDHHUjcOtqssU0gP/UMPqxDKFhxnd3XBJj908fD
-   E5jyNkvYDB5wXoOeP383m59GzEKLoh0x8XY3KqEWowR7Y2csuZgHOMYpH
-   zzAmKIoSAmZH0nRCqleq0ho8Xm5uZMBa6qprF0U5YcyoCIbYtarviGEXJ
-   gRZymFBrqJKviCQx7p0TrWZeSdbEjMiByRj1OO7zFl5BjwHQHTgkiArdo
-   B0uKrQxAK2eKbni1s+aEoqnLH1P4ryeURaTCPA634x0kYvOipcEw0CI1Q
-   23k/5VvrZsknaPbBM2mEJMySI+5n8bkpbwdj9ofJGJ5IQcJK2j1negngK
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="436051851"
+  bh=xByKIulZWn2pyal9fs3gKTJA7pVyZU7i2HRuHKlJo3k=;
+  b=evk4hIq2qs2eCJPjYAGlr5EixSuJll7u/Au9KukHg9I6VkwvxbaQm3Ka
+   6Q8SX5bmU3DJ68196zKhus14haqjfPEK5oEYhA86iZpAGDg/97i2XynPI
+   BXRYfrOslZuvxm4er7TDKTCZbtHNx4BDsqUWbANpJH6KCozdZb0MUuLnH
+   JCwPKrm+yY2cRnJRGX96V6t1BxlyEDLyV4uiWR8mD3JvXSlJJOvmFcu5J
+   f26VM/7ePFhQLdiTrid5LjuMbGvmSyOFUcG8kMH25YPMMJQIYD1WQF1zL
+   OCKcYF7WV9ChFDBs8WoF1cgBXSxEN2bKxGd/KR2nuTj+nDf7cgbPbu7+k
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="436051855"
 X-IronPort-AV: E=Sophos;i="6.01,173,1684825200";
-   d="scan'208";a="436051851"
+   d="scan'208";a="436051855"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
   by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 16:23:35 -0700
+ 14 Aug 2023 16:23:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="823642504"
+X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="823642507"
 X-IronPort-AV: E=Sophos;i="6.01,173,1684825200";
-   d="scan'208";a="823642504"
+   d="scan'208";a="823642507"
 Received: from dishasur-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.104.139])
   by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 16:23:34 -0700
+ 14 Aug 2023 16:23:35 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -77,17 +77,17 @@ Cc: tiwai@suse.de,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 1/2] ASoC: dapm: Add a flag for not having widget name in
- kcontrol name
-Date: Mon, 14 Aug 2023 18:23:24 -0500
-Message-Id: <20230814232325.86397-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/2] ASoC: SOF: topology: Add a token for dropping widget name
+ in kcontrol name
+Date: Mon, 14 Aug 2023 18:23:25 -0500
+Message-Id: <20230814232325.86397-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230814232325.86397-1-pierre-louis.bossart@linux.intel.com>
 References: <20230814232325.86397-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: P4BW7WCJQOX2IQGU5FWLA555ASXMYJ7G
-X-Message-ID-Hash: P4BW7WCJQOX2IQGU5FWLA555ASXMYJ7G
+Message-ID-Hash: ZYSKX2WTKJ7MXMZLCUSFBVZAMD6LG7OI
+X-Message-ID-Hash: ZYSKX2WTKJ7MXMZLCUSFBVZAMD6LG7OI
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P4BW7WCJQOX2IQGU5FWLA555ASXMYJ7G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZYSKX2WTKJ7MXMZLCUSFBVZAMD6LG7OI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,52 +111,81 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Jyri Sarha <jyri.sarha@intel.com>
 
-The existing soc-dapm code may add a prefix to control names, which in
-some cases is useful but in others leads to long and confusing kcontrol
-names such as "gain 2.1 Main Playback Volume".
+Adds SOF_TKN_COMP_NO_WNAME_IN_KCONTROL_NAME token, and copies the
+token's tuple value to the no_wname_in_kcontrol_name flag in struct
+snd_soc_dapm_widget.
 
-This patch suggests an added flag to prevent the widget name prefix
-from being added. That flag will be set in the topology file on a
-per-widget basis.
-
-The flag no_wname_in_kcontrol_name is added to struct snd_soc_dapm_widget,
-and the logic in dapm_create_or_share_kcontrol() is changed to not to
-add widget name if the flag is set.
+If the tuple value for the token in the topology is true, then the
+widget name is not added to the mixer name. In practice "gain.2.1 Post
+Mixer Analog Playback Volume" becomes just "Post Mixer Analog Playback
+Volume".
 
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Jyri Sarha <jyri.sarha@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/soc-dapm.h | 1 +
- sound/soc/soc-dapm.c     | 2 ++
- 2 files changed, 3 insertions(+)
+ include/uapi/sound/sof/tokens.h |  6 +++++-
+ sound/soc/sof/topology.c        | 22 ++++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
-index 2e38dff16779..d2faec9a323e 100644
---- a/include/sound/soc-dapm.h
-+++ b/include/sound/soc-dapm.h
-@@ -650,6 +650,7 @@ struct snd_soc_dapm_widget {
- 	unsigned char power_checked:1;		/* power checked this run */
- 	unsigned char is_supply:1;		/* Widget is a supply type widget */
- 	unsigned char is_ep:2;			/* Widget is a endpoint type widget */
-+	unsigned char no_wname_in_kcontrol_name:1; /* No widget name prefix in kcontrol name */
- 	int subseq;				/* sort within widget type */
+diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
+index e9ec7e4eb982..453cab2a1209 100644
+--- a/include/uapi/sound/sof/tokens.h
++++ b/include/uapi/sound/sof/tokens.h
+@@ -99,7 +99,11 @@
+ #define SOF_TKN_COMP_OUTPUT_PIN_BINDING_WNAME	414
+ #define SOF_TKN_COMP_NUM_INPUT_AUDIO_FORMATS	415
+ #define SOF_TKN_COMP_NUM_OUTPUT_AUDIO_FORMATS	416
+-
++/*
++ * The token value is copied to the dapm_widget's
++ * no_wname_in_kcontrol_name.
++ */
++#define SOF_TKN_COMP_NO_WNAME_IN_KCONTROL_NAME	417
  
- 	int (*power_check)(struct snd_soc_dapm_widget *w);
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 3091e8160bad..f07e83678373 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -916,6 +916,8 @@ static int dapm_create_or_share_kcontrol(struct snd_soc_dapm_widget *w,
- 				return -EINVAL;
- 			}
- 		}
-+		if (w->no_wname_in_kcontrol_name)
-+			wname_in_long_name = false;
+ /* SSP */
+ #define SOF_TKN_INTEL_SSP_CLKS_CONTROL		500
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index be63ba06762f..a3a3af252259 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1367,6 +1367,20 @@ static int sof_parse_pin_binding(struct snd_sof_widget *swidget,
+ 	return ret;
+ }
  
- 		if (wname_in_long_name && kcname_in_long_name) {
- 			/*
++static int get_w_no_wname_in_long_name(void *elem, void *object, u32 offset)
++{
++	struct snd_soc_tplg_vendor_value_elem *velem = elem;
++	struct snd_soc_dapm_widget *w = object;
++
++	w->no_wname_in_kcontrol_name = !!le32_to_cpu(velem->value);
++	return 0;
++}
++
++static const struct sof_topology_token dapm_widget_tokens[] = {
++	{SOF_TKN_COMP_NO_WNAME_IN_KCONTROL_NAME, SND_SOC_TPLG_TUPLE_TYPE_BOOL,
++	 get_w_no_wname_in_long_name, 0}
++};
++
+ /* external widget init - used for any driver specific init */
+ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 			    struct snd_soc_dapm_widget *w,
+@@ -1397,6 +1411,14 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
+ 	ida_init(&swidget->output_queue_ida);
+ 	ida_init(&swidget->input_queue_ida);
+ 
++	ret = sof_parse_tokens(scomp, w, dapm_widget_tokens, ARRAY_SIZE(dapm_widget_tokens),
++			       priv->array, le32_to_cpu(priv->size));
++	if (ret < 0) {
++		dev_err(scomp->dev, "failed to parse dapm widget tokens for %s\n",
++			w->name);
++		goto widget_free;
++	}
++
+ 	ret = sof_parse_tokens(scomp, swidget, comp_pin_tokens,
+ 			       ARRAY_SIZE(comp_pin_tokens), priv->array,
+ 			       le32_to_cpu(priv->size));
 -- 
 2.39.2
 

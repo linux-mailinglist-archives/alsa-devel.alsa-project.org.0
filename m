@@ -2,63 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E35C77B895
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Aug 2023 14:27:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F72C77B93B
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Aug 2023 15:00:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB79583A;
-	Mon, 14 Aug 2023 14:26:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB79583A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A767D3E;
+	Mon, 14 Aug 2023 14:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A767D3E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692016035;
-	bh=EAxWg1mRui+L0RL6fvTm/qtJ7U8lPgyy04gcmCUWGtI=;
+	s=default; t=1692018047;
+	bh=LtHqR4yNgL7Btue5s0Mfv0totgeNy96+M5aN+/ZFmOA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eHSKZKzgBj1gz03wGEcIAdBufjC9J+15yyt8FnOxkWGdicGtfPHdXjWrNCHgZo3ra
-	 R4kU1YZ7dnxEQrVADGAbYpwGfN1NCLEUHddsPA4y9prINp4PGMdcgl17olMTUF72R8
-	 s7WnJwSHIO/nGZG/iUYm6l6KVX6SD8kz3hhyIDv0=
+	b=X3+yPmSwcQRUcWeZ/tIxzfpbD8IWoJOKCmNosi3195W3zhh37nHcJg3s8lCoq6/8k
+	 HJ08rxer8HJAqGCcaGb+cCBH5X3+ikcSHi6JAGr+1RPVa6BwoaF5SAazHSFpOlOO+X
+	 amiZEHbNVsxgYkpniZ0yQcHU9ChSUKXEJPQiwxYo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06E1EF800EE; Mon, 14 Aug 2023 14:26:24 +0200 (CEST)
+	id 13704F80074; Mon, 14 Aug 2023 14:59:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AA8AF80254;
-	Mon, 14 Aug 2023 14:26:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFD15F80254;
+	Mon, 14 Aug 2023 14:59:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63AFBF8025F; Mon, 14 Aug 2023 14:26:21 +0200 (CEST)
+	id F13F3F8025F; Mon, 14 Aug 2023 14:59:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from iodev.co.uk (iodev.co.uk [46.30.189.100])
-	by alsa1.perex.cz (Postfix) with ESMTP id A70A3F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 14 Aug 2023 14:26:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A70A3F800EE
-Received: from pirotess (80.red-83-50-209.dynamicip.rima-tde.net
- [83.50.209.80])
-	by iodev.co.uk (Postfix) with ESMTPSA id 8FBCA208939;
-	Mon, 14 Aug 2023 14:26:18 +0200 (CEST)
-Date: Mon, 14 Aug 2023 14:26:16 +0200
-From: Ismael Luceno <ismael@iodev.co.uk>
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 851ABF80074
+	for <alsa-devel@alsa-project.org>; Mon, 14 Aug 2023 14:59:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 851ABF80074
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Psu8xsv6
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CAAC0650C7;
+	Mon, 14 Aug 2023 12:59:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39074C433C9;
+	Mon, 14 Aug 2023 12:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692017982;
+	bh=LtHqR4yNgL7Btue5s0Mfv0totgeNy96+M5aN+/ZFmOA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Psu8xsv6NXwtYJGq1c6t9ibfBp5frUF8sSiU+GCqLVaVq7hNXs1EFCE1HTqYHlz/U
+	 KXM9uxOfO0KmIzuBB/P9LhIQeLLGRvuKHJB8LUwm+yV9h+IsLTdx9COxZWdIu5vi0F
+	 9k04ShCArOCiGQYNXyv4Jh+yw6DASwZMcDFH/xZwJIEE8rApUEV/x0IEVm9xii8yAc
+	 dtXHjJhvXPLgd56dWDzh87AzFFeJ9pNcY99xNEwUB8t2muuPlsyfj17A+tHstQCRjb
+	 SmbIAGUMmo7u0tvLJDD3QTruDgrWuxC5frFNuQlm4zHA0HbERcC3iLWNwHtPL7ieNT
+	 6Gw3VjSDrYO9Q==
+Date: Mon, 14 Aug 2023 13:59:37 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	Andrey Utkin <andrey_utkin@fastmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 17/25] media: solo6x10: Convert to generic PCM copy ops
-Message-ID: <ZNodaGnVsOkt3vje@pirotess>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 18/25] ASoC: component: Add generic PCM copy ops
+Message-ID: <aa76de2e-0734-449f-bd46-afae43b8ff01@sirena.org.uk>
 References: <20230814115523.15279-1-tiwai@suse.de>
- <20230814115523.15279-18-tiwai@suse.de>
- <ZNoa1jU7O08KwOJ6@pirotess>
- <87350l3jix.wl-tiwai@suse.de>
+ <20230814115523.15279-19-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="grZUougk9zWM0gy0"
 Content-Disposition: inline
-In-Reply-To: <87350l3jix.wl-tiwai@suse.de>
-X-Spam: Yes
-Message-ID-Hash: E2KBQVYF22GYU4PX5ON22TETNSBV5FA2
-X-Message-ID-Hash: E2KBQVYF22GYU4PX5ON22TETNSBV5FA2
-X-MailFrom: ismael@iodev.co.uk
+In-Reply-To: <20230814115523.15279-19-tiwai@suse.de>
+X-Cookie: FACILITY REJECTED 100044200000
+Message-ID-Hash: NQ547NXRVD6DVUTSTWC2HUFNUUPR3TCV
+X-Message-ID-Hash: NQ547NXRVD6DVUTSTWC2HUFNUUPR3TCV
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -70,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2KBQVYF22GYU4PX5ON22TETNSBV5FA2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NQ547NXRVD6DVUTSTWC2HUFNUUPR3TCV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,106 +99,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 14/Aug/2023 14:17, Takashi Iwai wrote:
-> On Mon, 14 Aug 2023 14:15:18 +0200,
-> Ismael Luceno wrote:
-> > 
-> > On 14/Aug/2023 13:55, Takashi Iwai wrote:
-> > > This patch converts the solo6x10 driver code to use the new unified
-> > > PCM copy callback.  It's a straightforward conversion from *_user() to
-> > > *_iter() variants.  As copy_to_iter() updates the internal offest at
-> > > each write, we can drop the dst counter update in the loop, too.
-> > > 
-> > > Note that copy_from/to_iter() returns the copied bytes, hence the
-> > > error condition is inverted from copy_from/to_user().
-> > > 
-> > > Cc: Bluecherry Maintainers <maintainers@bluecherrydvr.com>
-> > > Cc: Anton Sviridenko <anton@corp.bluecherry.net>
-> > > Cc: Andrey Utkin <andrey_utkin@fastmail.com>
-> > > Cc: Ismael Luceno <ismael@iodev.co.uk>
-> > > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> > > Cc: linux-media@vger.kernel.org
-> > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > > ---
-> > >  drivers/media/pci/solo6x10/solo6x10-g723.c | 38 +++-------------------
-> > >  1 file changed, 5 insertions(+), 33 deletions(-)
-> > > 
-> > > diff --git a/drivers/media/pci/solo6x10/solo6x10-g723.c b/drivers/media/pci/solo6x10/solo6x10-g723.c
-> > > index 6cebad665565..aceacb822cab 100644
-> > > --- a/drivers/media/pci/solo6x10/solo6x10-g723.c
-> > > +++ b/drivers/media/pci/solo6x10/solo6x10-g723.c
-> > > @@ -204,9 +204,9 @@ static snd_pcm_uframes_t snd_solo_pcm_pointer(struct snd_pcm_substream *ss)
-> > >  	return idx * G723_FRAMES_PER_PAGE;
-> > >  }
-> > >  
-> > > -static int snd_solo_pcm_copy_user(struct snd_pcm_substream *ss, int channel,
-> > > -				  unsigned long pos, void __user *dst,
-> > > -				  unsigned long count)
-> > > +static int snd_solo_pcm_copy(struct snd_pcm_substream *ss, int channel,
-> > > +			     unsigned long pos, struct iov_iter *dst,
-> > > +			     unsigned long count)
-> > >  {
-> > >  	struct solo_snd_pcm *solo_pcm = snd_pcm_substream_chip(ss);
-> > >  	struct solo_dev *solo_dev = solo_pcm->solo_dev;
-> > > @@ -223,35 +223,8 @@ static int snd_solo_pcm_copy_user(struct snd_pcm_substream *ss, int channel,
-> > >  		if (err)
-> > >  			return err;
-> > >  
-> > > -		if (copy_to_user(dst, solo_pcm->g723_buf, G723_PERIOD_BYTES))
-> > > +		if (!copy_to_iter(solo_pcm->g723_buf, G723_PERIOD_BYTES, dst))
-> > >  			return -EFAULT;
-> > > -		dst += G723_PERIOD_BYTES;
-> > > -	}
-> > > -
-> > > -	return 0;
-> > > -}
-> > > -
-> > > -static int snd_solo_pcm_copy_kernel(struct snd_pcm_substream *ss, int channel,
-> > > -				    unsigned long pos, void *dst,
-> > > -				    unsigned long count)
-> > > -{
-> > > -	struct solo_snd_pcm *solo_pcm = snd_pcm_substream_chip(ss);
-> > > -	struct solo_dev *solo_dev = solo_pcm->solo_dev;
-> > > -	int err, i;
-> > > -
-> > > -	for (i = 0; i < (count / G723_FRAMES_PER_PAGE); i++) {
-> > > -		int page = (pos / G723_FRAMES_PER_PAGE) + i;
-> > > -
-> > > -		err = solo_p2m_dma_t(solo_dev, 0, solo_pcm->g723_dma,
-> > > -				     SOLO_G723_EXT_ADDR(solo_dev) +
-> > > -				     (page * G723_PERIOD_BLOCK) +
-> > > -				     (ss->number * G723_PERIOD_BYTES),
-> > > -				     G723_PERIOD_BYTES, 0, 0);
-> > > -		if (err)
-> > > -			return err;
-> > > -
-> > > -		memcpy(dst, solo_pcm->g723_buf, G723_PERIOD_BYTES);
-> > > -		dst += G723_PERIOD_BYTES;
-> > >  	}
-> > >  
-> > >  	return 0;
-> > > @@ -263,8 +236,7 @@ static const struct snd_pcm_ops snd_solo_pcm_ops = {
-> > >  	.prepare = snd_solo_pcm_prepare,
-> > >  	.trigger = snd_solo_pcm_trigger,
-> > >  	.pointer = snd_solo_pcm_pointer,
-> > > -	.copy_user = snd_solo_pcm_copy_user,
-> > > -	.copy_kernel = snd_solo_pcm_copy_kernel,
-> > > +	.copy = snd_solo_pcm_copy,
-> > >  };
-> > >  
-> > >  static int snd_solo_capture_volume_info(struct snd_kcontrol *kcontrol,
-> > > -- 
-> > > 2.35.3
-> > > 
-> > 
-> > Signed-off-by: Ismael Luceno <ismael@iodev.co.uk>
-> 
-> You meant Reviewed-by or Acked-by?  Signed-off-by is a tag used when
-> you carry a patch.
-> 
-> 
-> thanks,
-> 
-> Takashi
 
-Yes, sorry, I meant "Acked-by".
+--grZUougk9zWM0gy0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Aug 14, 2023 at 01:55:16PM +0200, Takashi Iwai wrote:
+> For following the ALSA PCM core change, a new PCM copy ops is added
+> toe ASoC component framework: snd_soc_component_driver receives the
+> copy ops, and snd_soc_pcm_component_copy() helper is provided.
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+
+--grZUougk9zWM0gy0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTaJTkACgkQJNaLcl1U
+h9CM6wf/T4m+QpauBQO3eir95Qj1RcDkydZq9yBmkQcHwR9GEJgvGMmK1jvm839j
+cxaYzdvdiwTvC27YarOEPKMhEG+g5Q854av7iyti5cwukGvXGwqmScCH7wbAQWTz
+eI81f1t7wa58sKuxUZ8s/DZG+l4ZEEdWB9LbN38/ZrB5qYlQ9jEujGUaA7wIEXEJ
+NlmlFHJywQ62z3tHIM4WPDJw+soRy4r9x7HX0yxwKdsHerk43Rai6pIrcWEz6Hii
+7mau+k/+PyrO/7yA0QuaG2kla/Kd/oVgNZMQ9kdIrSXl+TuDPpa0kba99K8WtXvl
+J2Ar6sfL4BxaEil3OjpT7H7ByuF1xA==
+=X7du
+-----END PGP SIGNATURE-----
+
+--grZUougk9zWM0gy0--

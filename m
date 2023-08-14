@@ -2,85 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4BE577C405
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 01:44:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1BA77C414
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 01:55:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70860741;
-	Tue, 15 Aug 2023 01:43:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70860741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A61D828;
+	Tue, 15 Aug 2023 01:54:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A61D828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692056644;
-	bh=lp8rCRjGCO/LOKLNJ4DrPihtkVYfEYrRPMDlUYsgkxw=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mRo7tfXfkQNz+z05dATADAOwSPEBy2fchd4qH1p3O83puqyEet0q9R1SYP0eO8fZd
-	 LvVtdua2CQVw81xJWQ7tlyuA51n+w0rbbLvROAK16yaesPaUBGAJjcpKIwH/An7L6v
-	 IwnH0h2gEOBOW8rrRxyFsq+eXnN+cP7n6oiv6SXE=
+	s=default; t=1692057314;
+	bh=XhS8H62m+wCzqeCsNsnFQeHQq0SQ1dnGrFqrF0zYln8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Sk9hWt80YVYiL2jEzDWV9YIxFa/N/lW6LmYw4bqQXGC+A4KoBM6pbkVMrA7j/WBgR
+	 TvVC7RGqzOdG+nCg4a7lv+kOWENdgadmBWEU9QeOLK7UyF5c+HoXsN1fJr6Sb4UNlu
+	 no8yYFgRN91OPVui4qcl3oCazcEuis99NtbxbTzY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED9CDF80552; Tue, 15 Aug 2023 01:43:13 +0200 (CEST)
+	id D1E09F80510; Tue, 15 Aug 2023 01:54:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4515CF801EB;
-	Tue, 15 Aug 2023 01:43:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E5ADF801EB;
+	Tue, 15 Aug 2023 01:54:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52F22F80254; Tue, 15 Aug 2023 01:43:08 +0200 (CEST)
+	id 7EA42F80254; Tue, 15 Aug 2023 01:54:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0943DF80074
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 01:42:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0943DF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8FD1F80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 01:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8FD1F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=CNjZTcHZ
+ header.s=Intel header.b=S8ck+Kz8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692056581; x=1723592581;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=lp8rCRjGCO/LOKLNJ4DrPihtkVYfEYrRPMDlUYsgkxw=;
-  b=CNjZTcHZBH5DI4Z7zQTPL6R/rpnYSStFBYuhbjizshCNtW2QYGAJZlxH
-   x1uWSihrT0SSue25M0DRrIZuyekbNKxXuwesZyMX4RmBeMM62LSvKTAjg
-   KI1jv3L7zcif/wBR8V0yLLIvkLjvFAGbbE/dGaTLJFYIjkJsWpBRoJIUv
-   fA39mdDgtQhXAXLi7CNgz3/oVa04eONcZ7yqkUoFf1eLxu1bZ85NsXV3o
-   J1dDXua8oT5XPB7QJOlgXXYa6kcjUPnAOyK3zPGtFm16vqGkB6oSprBNa
-   Y9l3UixO156L3qBlUvN5Pl9DOnIG0aB1Ye2v63jZer0gcVS4w8mFNLPKZ
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="351750782"
+  t=1692057256; x=1723593256;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=XhS8H62m+wCzqeCsNsnFQeHQq0SQ1dnGrFqrF0zYln8=;
+  b=S8ck+Kz8UMCXtSrls0Td0L0e0wOzdQG4DzmMxzcnxnhUJX8fYz5NhQmv
+   zU17dGXx99wjgnnoflZ028nNKwmsXI0LlqyEJYcHZBW4PX3Zr00L6ywLs
+   HBVYmmGapV1rmPT2AnxNOkFAXmpgmVsnLt5KbUgy1zsADJ7oarrFTzUKC
+   ZjueflmLQ+Cgy9/aLRb7+IloCRzxTM9U4tx96Lr+gFa8a2zZeBzKjsOtw
+   mxxkowmRd0djqOqvr1yi/M/hgV6tAHjpavfnx7y5mucyt6f0FF+prvMqk
+   Tnaae7ZDmfkTSujjzODDm2HUL3KBJfbVwUjPbGz2JdSxapqsUHDeXknay
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="362312589"
 X-IronPort-AV: E=Sophos;i="6.01,173,1684825200";
-   d="scan'208";a="351750782"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 16:42:55 -0700
+   d="scan'208";a="362312589"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2023 16:54:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="710511253"
+X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="683474590"
 X-IronPort-AV: E=Sophos;i="6.01,173,1684825200";
-   d="scan'208";a="710511253"
-Received: from dishasur-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.212.104.139])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 16:42:54 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	broonie@kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] ASoC: SOF: remove duplicate code due to merge
-Date: Mon, 14 Aug 2023 18:42:35 -0500
-Message-Id: <20230814234235.87268-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
+   d="scan'208";a="683474590"
+Received: from dishasur-mobl.amr.corp.intel.com (HELO [10.212.104.139])
+ ([10.212.104.139])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2023 16:54:05 -0700
+Message-ID: <b5fcf342-dd26-2cad-26dc-f6774f627668@linux.intel.com>
+Date: Mon, 14 Aug 2023 18:54:06 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WAAZDUKICTPCBQMKISEY2FWWRCUXGNRR
-X-Message-ID-Hash: WAAZDUKICTPCBQMKISEY2FWWRCUXGNRR
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH] ALSA: hda: intel-dsp-cfg: Add Chromebook quirk to ADL/RPL
+Content-Language: en-US
+To: Brady Norander <bradynorander@gmail.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org
+Cc: cezary.rojewski@intel.com, amadeuszx.slawinski@linux.intel.com,
+ perex@perex.cz, tiwai@suse.de
+References: <20230814012637.487602-1-bradynorander@gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230814012637.487602-1-bradynorander@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: IT4FS53T736FALZRERCOGMRSSOBZIZBW
+X-Message-ID-Hash: IT4FS53T736FALZRERCOGMRSSOBZIZBW
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WAAZDUKICTPCBQMKISEY2FWWRCUXGNRR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IT4FS53T736FALZRERCOGMRSSOBZIZBW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,28 +109,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Commit 81113108491e ("ASoC: Merge up fixes") added the same code
-twice, remove the extra call.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/ipc4-topology.c | 3 ---
- 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index b43663822613..633f6040d712 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1734,9 +1734,6 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
- 	/* update pipeline memory usage */
- 	sof_ipc4_update_resource_usage(sdev, swidget, &copier_data->base_config);
- 
--	/* update pipeline memory usage */
--	sof_ipc4_update_resource_usage(sdev, swidget, &copier_data->base_config);
--
- 	/* copy IPC data */
- 	memcpy(*ipc_config_data, (void *)copier_data, sizeof(*copier_data));
- 	if (gtw_cfg_config_length)
--- 
-2.39.2
+On 8/13/23 20:26, Brady Norander wrote:
+> AlderLake and RaptorLake Chromebooks currently use the HDA driver by
+> default. Add a quirk to use the SOF driver on these platforms, which is
+> needed for functional internal audio.
 
+After checking, here's a list of known Chromebooks.
+
+Do you mind sending an updated v2?
+
+Thanks!
+
+> +	{
+> +		.flags = FLAG_SOF,
+> +		.device = PCI_DEVICE_ID_INTEL_HDA_ADL_P,
+> +		.dmi_table = (const struct dmi_system_id []) {
+> +			{
+> +				.ident = "Google Chromebooks",
+> +				.matches = {
+> +					DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+> +				}
+> +			},
+> +			{}
+> +		}
+> +	},
+
+> +	{
+> +		.flags = FLAG_SOF,
+> +		.device = PCI_DEVICE_ID_INTEL_HDA_ADL_N,
+> +		.dmi_table = (const struct dmi_system_id []) {
+> +			{
+> +				.ident = "Google Chromebooks",
+> +				.matches = {
+> +					DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+> +				}
+> +			},
+> +			{}
+> +		}
+> +	},
+
+> +		.flags = FLAG_SOF,
+> +		.device = PCI_DEVICE_ID_INTEL_HDA_RPL_P_0,
+> +		.dmi_table = (const struct dmi_system_id []) {
+> +			{
+> +				.ident = "Google Chromebooks",
+> +				.matches = {
+> +					DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+> +				}
+> +			},
+> +			{}
+> +		}
+> +	},
+
+> +	{
+> +		.flags = FLAG_SOF,
+> +		.device = PCI_DEVICE_ID_INTEL_HDA_RPL_P_1,
+> +		.dmi_table = (const struct dmi_system_id []) {
+> +			{
+> +				.ident = "Google Chromebooks",
+> +				.matches = {
+> +					DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+> +				}
+> +			},
+> +			{}
+> +		}
+> +	},

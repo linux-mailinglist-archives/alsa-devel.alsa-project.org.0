@@ -2,51 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A456177BB9D
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Aug 2023 16:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE30877BB9F
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Aug 2023 16:29:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0A4F851;
-	Mon, 14 Aug 2023 16:28:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0A4F851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15CF41F1;
+	Mon, 14 Aug 2023 16:29:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15CF41F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692023368;
-	bh=IfpjBB76cwfiHMqLGuXQLetbcP12ok+DxtfEatSu7Ow=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QY/+bJkDdb5Zu792AKUP42VdIWJ7fRyCOxhLJQ2nlITcBB30Hz5zuFptjSRVJHv20
-	 UlydQp72KtxlrLfnSbYCVfgEksEDckGpwuNDFPajZRnAOVv9QCWRteVushRJLYC6/6
-	 nL7aPwLXzaVnBOtwIFEzUCQSKqPM8k5PaIrZkvl8=
+	s=default; t=1692023393;
+	bh=QIeeZ1pM1uPwbJ6uNuH9QINRBiqNaqujgRGvAShBnx8=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=B3v22+K9t1mfvxyuteDwfT/vbvT+tEh8orSNw3PuOXtMHSUeaqYoLKeNx7lnyko86
+	 QZ+8U9Mlj2r91S4ECrIRSu1nUuHcnf0awU47u0yESVDRgxQzGnefp1FO7+5kVkiATA
+	 U9uHxazy81zlqJTBMngJtOgr4VcwWq3S5JhsCAGQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03E7BF805AC; Mon, 14 Aug 2023 16:26:56 +0200 (CEST)
+	id 38E3BF805E1; Mon, 14 Aug 2023 16:27:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AAB1F805C1;
-	Mon, 14 Aug 2023 16:26:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 794B9F805D5;
+	Mon, 14 Aug 2023 16:26:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B950F80290; Mon, 14 Aug 2023 10:06:42 +0200 (CEST)
+	id 27193F80510; Mon, 14 Aug 2023 10:06:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
+Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
+ [61.152.239.71])
 	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65F91F80074
-	for <alsa-devel@alsa-project.org>; Mon, 14 Aug 2023 10:06:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65F91F80074
-Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
+	by alsa1.perex.cz (Postfix) with ESMTPS id DFD95F80272
+	for <alsa-devel@alsa-project.org>; Mon, 14 Aug 2023 10:06:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD95F80272
+Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
-	by ex01.ufhost.com (Postfix) with ESMTP id 7107C24E211;
-	Mon, 14 Aug 2023 16:06:20 +0800 (CST)
-Received: from EXMBX172.cuchost.com (172.16.6.92) by EXMBX166.cuchost.com
- (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 14 Aug
- 2023 16:06:20 +0800
+	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
+	by fd01.gateway.ufhost.com (Postfix) with ESMTP id 43B3A82CB;
+	Mon, 14 Aug 2023 16:06:21 +0800 (CST)
+Received: from EXMBX172.cuchost.com (172.16.6.92) by EXMBX165.cuchost.com
+ (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 14 Aug
+ 2023 16:06:21 +0800
 Received: from ubuntu.localdomain (183.27.98.20) by EXMBX172.cuchost.com
  (172.16.6.92) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 14 Aug
- 2023 16:06:19 +0800
+ 2023 16:06:20 +0800
 From: Hal Feng <hal.feng@starfivetech.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Claudiu
@@ -57,11 +59,13 @@ To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
 	<emil.renner.berthing@canonical.com>, Hal Feng <hal.feng@starfivetech.com>
 CC: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
 	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 0/3] Add PWM-DAC audio support for StarFive JH7110 RISC-V
- SoC
-Date: Mon, 14 Aug 2023 16:06:15 +0800
-Message-ID: <20230814080618.10036-1-hal.feng@starfivetech.com>
+Subject: [PATCH v3 1/3] ASoC: dt-bindings: Add StarFive JH7110 PWM-DAC
+ controller
+Date: Mon, 14 Aug 2023 16:06:16 +0800
+Message-ID: <20230814080618.10036-2-hal.feng@starfivetech.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20230814080618.10036-1-hal.feng@starfivetech.com>
+References: <20230814080618.10036-1-hal.feng@starfivetech.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [183.27.98.20]
@@ -75,15 +79,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BBVZPE42S4P3ZSHQNSODLJ2PVBSRZSU6
-X-Message-ID-Hash: BBVZPE42S4P3ZSHQNSODLJ2PVBSRZSU6
-X-Mailman-Approved-At: Mon, 14 Aug 2023 14:26:36 +0000
+Message-ID-Hash: DUK5XDBIVQNIFYLGNYWMKQ5QQ5U6VFAG
+X-Message-ID-Hash: DUK5XDBIVQNIFYLGNYWMKQ5QQ5U6VFAG
+X-Mailman-Approved-At: Mon, 14 Aug 2023 14:26:37 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BBVZPE42S4P3ZSHQNSODLJ2PVBSRZSU6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DUK5XDBIVQNIFYLGNYWMKQ5QQ5U6VFAG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,58 +96,104 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patchset adds PWM-DAC audio support for the StarFive JH7110 SoC.
-The PWM-DAC module does not require a hardware codec, but a dummy codec i=
-s
-needed for the driver. The dummy spdif codec driver, which is already
-upstream, is compatible with the one which JH7110 PWM-DAC needed. So we
-use it as the dummy codec driver for the JH7110 PWM-DAC module.
+Add bindings for the PWM-DAC controller on the JH7110
+RISC-V SoC by StarFive Ltd.
 
-The third patch depends on tag next-20230809 in linux-next branch.
-
-Changes since v2:
-- Rebase on tag v6.5-rc6.
-- Drop the component controls.
-- Use dev_err_probe() instead of dev_err() in some cases.
-- Add a new struct jh7110_pwmdac_cfg to save the configuration.
-- Add a new function jh7110_pwmdac_init_params() to initialize the
-  parameters.
-
-Changes since v1:
-- Rebase on tag v6.5-rc3.
-- Drop patch 1 and 2.
-- Drop the unneeded space and line in patch 3.
-- Use the dummy spdif codec driver instead of adding a new one.
-- Change "dai_link->stop_dma_first =3D 1" to
-  "dai_link->trigger_stop =3D SND_SOC_TRIGGER_ORDER_LDC" in patch 4.
-- Drop the unneeded "status =3D "okay;" in patch 5.
-- Change some node names in patch 5.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
 ---
-v2: https://lore.kernel.org/all/20230731032829.127864-1-hal.feng@starfive=
-tech.com/
-v1: https://lore.kernel.org/all/20230626110909.38718-1-hal.feng@starfivet=
-ech.com/
-
-Hal Feng (3):
-  ASoC: dt-bindings: Add StarFive JH7110 PWM-DAC controller
-  ASoC: starfive: Add JH7110 PWM-DAC driver
-  riscv: dts: starfive: Add JH7110 PWM-DAC support
-
- .../sound/starfive,jh7110-pwmdac.yaml         |  76 +++
- MAINTAINERS                                   |   7 +
- .../jh7110-starfive-visionfive-2.dtsi         | 141 +++++
- arch/riscv/boot/dts/starfive/jh7110.dtsi      | 159 ++++++
- sound/soc/starfive/Kconfig                    |   9 +
- sound/soc/starfive/Makefile                   |   1 +
- sound/soc/starfive/jh7110_pwmdac.c            | 529 ++++++++++++++++++
- 7 files changed, 922 insertions(+)
+ .../sound/starfive,jh7110-pwmdac.yaml         | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh71=
 10-pwmdac.yaml
- create mode 100644 sound/soc/starfive/jh7110_pwmdac.c
 
-
-base-commit: 2ccdd1b13c591d306f0401d98dedc4bdcd02b421
+diff --git a/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmd=
+ac.yaml b/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac.=
+yaml
+new file mode 100644
+index 000000000000..e2b4db6aa2fb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/starfive,jh7110-pwmdac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JH7110 PWM-DAC Controller
++
++description:
++  The PWM-DAC Controller uses PWM square wave generators plus RC filters=
+ to
++  form a DAC for audio play in StarFive JH7110 SoC. This audio play cont=
+roller
++  supports 16 bit audio format, up to 48K sampling frequency, up to left=
+ and
++  right dual channels.
++
++maintainers:
++  - Hal Feng <hal.feng@starfivetech.com>
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: starfive,jh7110-pwmdac
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: PWMDAC APB
++      - description: PWMDAC CORE
++
++  clock-names:
++    items:
++      - const: apb
++      - const: core
++
++  resets:
++    maxItems: 1
++    description: PWMDAC APB
++
++  dmas:
++    maxItems: 1
++    description: TX DMA Channel
++
++  dma-names:
++    const: tx
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - dmas
++  - dma-names
++  - "#sound-dai-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    pwmdac@100b0000 {
++        compatible =3D "starfive,jh7110-pwmdac";
++        reg =3D <0x100b0000 0x1000>;
++        clocks =3D <&syscrg 157>,
++                 <&syscrg 158>;
++        clock-names =3D "apb", "core";
++        resets =3D <&syscrg 96>;
++        dmas =3D <&dma 22>;
++        dma-names =3D "tx";
++        #sound-dai-cells =3D <0>;
++    };
 --=20
 2.38.1
 

@@ -2,120 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B1A977D528
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 23:34:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2E5377D56B
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 23:58:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A6C583B;
-	Tue, 15 Aug 2023 23:33:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A6C583B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 761FA741;
+	Tue, 15 Aug 2023 23:57:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 761FA741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692135289;
-	bh=ytMDNNiZg/HsdeRU/kmZzk4xkiFqUMZQImb6uVllkcY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=H/IyvZwh3qjCqBb8LWPRRQ54zMNYIF/jJs8Tu1dekL0T2Qhe9JWX6jD1MwrA1lVGq
-	 FmFFl/HMwaUPyAFpAhwCYlIU74ayRXNWsX3Mso5xvdFMYiAp1RK72AY9YpWZdqn7a5
-	 7WrJh72WpQPKXJxF1AHhRm5l6bPyRSvJhOjOaOLU=
+	s=default; t=1692136699;
+	bh=1ADvwf2HGuekaNoBBQq81m4JoPS9Dwg8yO0uDkBF2xI=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DZZ8b3hnFaKp4oMrr+uZNg2LM117H4mm6QuXK/Juwqdid+8zQOnS+jJsbNJp3+nYy
+	 0+5XiqPFRqHKiVYqDWgxECDQE21bRTxbyCF5a9hfIncn77rhmBRghC0kS9PjASumA3
+	 s+SSiMZTpRgIAnwTUv8DLS1h8WT8hgdwcEQVUSGc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFEF6F8055B; Tue, 15 Aug 2023 23:33:29 +0200 (CEST)
+	id D1117F80254; Tue, 15 Aug 2023 23:57:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66EF4F80553;
-	Tue, 15 Aug 2023 23:33:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91259F800EE;
+	Tue, 15 Aug 2023 23:57:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1188F8055A; Tue, 15 Aug 2023 23:33:25 +0200 (CEST)
+	id ADC54F8016A; Tue, 15 Aug 2023 23:57:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FSL_HELO_FAKE,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33F02F80552
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 23:33:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33F02F80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 809EAF80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 23:57:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 809EAF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=R4GrkMVW
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-6887b3613e4so186042b3a.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 15 Aug 2023 14:33:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692135192; x=1692739992;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qz0Y5e25KK71HlghtqvnZ2oqoMd/S7LZgWMDTL4U4lY=;
-        b=R4GrkMVWP9N2fDdvY8wpcs7flcNJy2CwTei6ceh0SZ3FlVO6TJTZGzGxPBTSz+Q9uR
-         kXZcLjKpV2h1cSBoxReLS+u20AOtzWWvQ8vpmsxOkD4dzX5hxa5A6trOjCwbnmGVG25Z
-         dWBquegb6iyXkXIQQ4qbeoyXIVQorICAHWGVtnk5003hBQuJ13G3DV+mFbosv2XST7C1
-         tQ4uFwQh0tQbpzzfy+crzHQsqoicJkaL/xBpCWvHC7tJ015aMNJRHXf4ioB0LxTHoU2M
-         10AofUOfjNM27wBgEeHv2cWZA+yvhqximNoKiqCfMGBGDBtUcX37oOdtb8/sVjkB2Awz
-         ieWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692135192; x=1692739992;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Qz0Y5e25KK71HlghtqvnZ2oqoMd/S7LZgWMDTL4U4lY=;
-        b=B9s99CsgXRFstzRv/G2qg/q0eDdaWkK9oiZm2AVQ2Vwdk8WQOuEAuFXWCS+VpHwg/1
-         wG1rfZWQLm2VVqO9ik1/3bnghJVH22fNdtUtG8x3Cbegly40GBlR0nUyHXL6yJvffXnD
-         KT+wpmETX+M+JGoYTznW0s0TrCMbe3t48NjjKvf8XPb7sxW1uxAQ3U/g7CJ4Isbgl7R3
-         AgNaqCgB7GBRjk1IU8M2UcN5Wi9/waKX07YT4LsEiLOyPQHRemiP+9nxD3dpntCly4jv
-         BrB+TeFHuMHFNGqioYYMP1OYOZNlSxE5epl6W3cGf7/akbGZNnljwnjk9TSqth/QBUG8
-         LxUQ==
-X-Gm-Message-State: AOJu0Yx4HVZHpCxc+VZD8zU527n3ae/4mD88VPKfCmeAuACe0rODJFI3
-	xRSXUJCIWanu74u8Z9MCA7k=
-X-Google-Smtp-Source: 
- AGHT+IH0kEPryQGX1X8Vdi7rCnfjeURjyrYGgjW+gZ8FUalzPW0c/pzqxl7U1OnUU5qIQW8TF+183w==
-X-Received: by 2002:a05:6a00:1594:b0:666:d78c:33ab with SMTP id
- u20-20020a056a00159400b00666d78c33abmr19676128pfk.21.1692135191508;
-        Tue, 15 Aug 2023 14:33:11 -0700 (PDT)
-Received: from google.com ([2620:15c:9d:2:508d:bf8e:5b19:a13b])
-        by smtp.gmail.com with ESMTPSA id
- i12-20020aa78b4c000000b0068338b6667asm9742191pfd.212.2023.08.15.14.33.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Aug 2023 14:33:11 -0700 (PDT)
-Date: Tue, 15 Aug 2023 14:33:07 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Traut Manuel LCPF-CH <Manuel.Traut@mt.com>
-Cc: Takashi Iwai <tiwai@suse.de>, Jeff LaBundy <jeff@labundy.com>,
-	Marek Vasut <marex@denx.de>,
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
-Message-ID: <ZNvvE3usP86bgctB@google.com>
-References: <87h6pkjh7q.wl-tiwai@suse.de>
- <618add56-3675-4efe-5b20-665c10040e03@denx.de>
- <ZMfgJ3o00nApkXGp@google.com>
- <f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de>
- <ZMh0Sa9s25JHhWw5@nixie71>
- <ZMi0HT/yaTo9uTyi@google.com>
- <d0f284d5-6922-ea3b-3447-c089b0d24587@denx.de>
- <ZNW25qlzh8YbZtu8@nixie71>
- <87h6p6rp6k.wl-tiwai@suse.de>
- <AS8PR03MB7621C4E9B338259499AD24DBFA10A@AS8PR03MB7621.eurprd03.prod.outlook.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=YzVqBf4E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1692136641; x=1723672641;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=1ADvwf2HGuekaNoBBQq81m4JoPS9Dwg8yO0uDkBF2xI=;
+  b=YzVqBf4Eq8oNC/yemWF29tXaXFumu6rbu2h8NcgAHuFKLCZB9/yJapj5
+   zH0SqLeixvv9laaS+X4kXsqb4EsgB3faYafZ9WrFj7GYdkvwH9Gl4w4qV
+   G4MbDvdBjNJJedqqeD3CMExly5y7BNkJLOsW7jUuuRWml8aXiSh48hAhR
+   FdAXhUMkSAPHqRa8nvEmc7JaDwpwc+xLkClt34OejP36Qw+Pce6rKXofg
+   zIDrGiLc+wkefyM0yssCVPAD9KGrlrNGqhcbsA/db3yn73oWzQDQZ0Zpo
+   qxwoa/MIsp5Tjew8ov+KVVKk9oA45wPovjOlAnPHegdaQJ3ajyIMeLMaL
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="403365269"
+X-IronPort-AV: E=Sophos;i="6.01,175,1684825200";
+   d="scan'208";a="403365269"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2023 14:57:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="768969299"
+X-IronPort-AV: E=Sophos;i="6.01,175,1684825200";
+   d="scan'208";a="768969299"
+Received: from lkp-server02.sh.intel.com (HELO b5fb8d9e1ffc) ([10.239.97.151])
+  by orsmga001.jf.intel.com with ESMTP; 15 Aug 2023 14:57:14 -0700
+Received: from kbuild by b5fb8d9e1ffc with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qW22L-0001GB-1z;
+	Tue, 15 Aug 2023 21:57:13 +0000
+Date: Wed, 16 Aug 2023 05:57:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [tiwai-sound:for-next 28/28]
+ sound/pci/hda/cs35l41_hda_property.c:64:59: warning: ordered comparison of
+ pointer with integer zero
+Message-ID: <202308160506.8lCEeFDG-lkp@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: 
- <AS8PR03MB7621C4E9B338259499AD24DBFA10A@AS8PR03MB7621.eurprd03.prod.outlook.com>
-Message-ID-Hash: B4AHKUQGTI5DOBGAC6LE7I2PNFAFPIS6
-X-Message-ID-Hash: B4AHKUQGTI5DOBGAC6LE7I2PNFAFPIS6
-X-MailFrom: dmitry.torokhov@gmail.com
+Message-ID-Hash: R2WY5DDXB6R66BXZGI76CDNJKBLK4FWR
+X-Message-ID-Hash: R2WY5DDXB6R66BXZGI76CDNJKBLK4FWR
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4AHKUQGTI5DOBGAC6LE7I2PNFAFPIS6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R2WY5DDXB6R66BXZGI76CDNJKBLK4FWR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,243 +105,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Aug 11, 2023 at 10:47:34AM +0000, Traut Manuel LCPF-CH wrote:
-> Hi
-> 
-> > On Fri, 11 Aug 2023 06:19:50 +0200,
-> > Jeff LaBundy wrote:
-> > >
-> > > Hi Marek, Dmitry and Takashi,
-> > >
-> > > On Tue, Aug 01, 2023 at 01:51:50PM +0200, Marek Vasut wrote:
-> > > > On 8/1/23 09:28, Dmitry Torokhov wrote:
-> > > > > On Mon, Jul 31, 2023 at 09:56:09PM -0500, Jeff LaBundy wrote:
-> > > > > > Hi all,
-> > > > > >
-> > > > > > On Mon, Jul 31, 2023 at 07:49:50PM +0200, Marek Vasut wrote:
-> > > > > > > On 7/31/23 18:24, Dmitry Torokhov wrote:
-> > > > > > > > On Mon, Jul 31, 2023 at 04:36:01PM +0200, Marek Vasut wrote:
-> > > > > > > > > On 7/31/23 16:20, Takashi Iwai wrote:
-> > > > > > > > >
-> > > > > > > > > [...]
-> > > > > > > > >
-> > > > > > > > > > > > > Uh, I don't need a full sound device to emit
-> > > > > > > > > > > > > beeps, that's not even possible with this hardware.
-> > > > > > > > > > > >
-> > > > > > > > > > > > Heh, I also don't recommend that route, either :)
-> > > > > > > > > > > > (Though, it must be possible to create a sound
-> > > > > > > > > > > > device with that beep control in theory)
-> > > > > > > > > > >
-> > > > > > > > > > > I mean, I can imagine one could possibly use PCM DMA
-> > > > > > > > > > > to cook samples to feed some of the PWM devices so
-> > > > > > > > > > > they could possibly be used to generate low quality
-> > > > > > > > > > > audio, as a weird limited DAC, but ... that's not really generic,
-> > and not what I want.
-> > > > > > > > > >
-> > > > > > > > > > Oh I see how the misunderstanding came; I didn't mean
-> > > > > > > > > > the PCM implementation like pcsp driver.  The pcsp
-> > > > > > > > > > driver is a real hack and it's there just for fun, not for any real
-> > practical use.
-> > > > > > > > >
-> > > > > > > > > Ah :)
-> > > > > > > > >
-> > > > > > > > > > What I meant was rather that you can create a sound
-> > > > > > > > > > device containing a mixer volume control that serves
-> > > > > > > > > > exactly like the sysfs or whatever other interface, without any
-> > PCM stream or other interface.
-> > > > > > > > >
-> > > > > > > > > Ahhh, hum, I still feel like this might be a bit overkill here.
-> > > > > > > > >
-> > > > > > > > > > > > > I only need to control loudness of the beeper that
-> > > > > > > > > > > > > is controlled by PWM output. That's why I am
-> > > > > > > > > > > > > trying to extend the pwm-beeper driver, which
-> > > > > > > > > > > > > seems the best fit for such a device, it is only missing this
-> > one feature (loudness control).
-> > > > > > > > > > > >
-> > > > > > > > > > > > So the question is what's expected from user-space
-> > > > > > > > > > > > POV.  If a more generic control of beep volume is
-> > > > > > > > > > > > required, e.g. for desktop-like usages, an implementation
-> > of sound driver wouldn't be too bad.
-> > > > > > > > > > > > OTOH, for other specific use-cases, it doesn't
-> > > > > > > > > > > > matter much in which interface it's implemented, and sysfs
-> > could be an easy choice.
-> > > > > > > > > > >
-> > > > > > > > > > > The whole discussion above has been exactly about
-> > > > > > > > > > > this. Basically the thing is, we can either have:
-> > > > > > > > > > > - SND_TONE (via some /dev/input/eventX) + sysfs volume
-> > control
-> > > > > > > > > > >      -> This is simple, but sounds racy between input
-> > > > > > > > > > > and sysfs accesses
-> > > > > > > > > >
-> > > > > > > > > > Hmm, how can it be racy if you do proper locking?
-> > > > > > > > >
-> > > > > > > > > I can imagine two applications can each grab one of the
-> > > > > > > > > controls and that makes the interface a bit not nice. That
-> > > > > > > > > would require extra synchronization in userspace and so on.
-> > > > > > > > >
-> > > > > > > > > > > - SND_TONE + SND_TONE_SET_VOLUME
-> > > > > > > > > > >      -> User needs to do two ioctls, hum
-> > > > > > > > > > > - some new SND_TONE_WITH_VOLUME
-> > > > > > > > > > >      -> Probably the best option, user sets both tone frequency
-> > and volume
-> > > > > > > > > > >         in one go, and it also only extends the IOCTL interface, so
-> > older
-> > > > > > > > > > >         userspace won't have issues
-> > > > > > > > > >
-> > > > > > > > > > Those are "extensions" I have mentioned, and I'm not a
-> > > > > > > > > > big fan for that, honestly speaking.
-> > > > > > > > > >
-> > > > > > > > > > The fact that the beep *output* stuff is provided by the
-> > > > > > > > > > *input* device is already confusing
-> > > > > > > > >
-> > > > > > > > > I agree, this confused me as well.
-> > > > > > > >
-> > > > > > > > This comes from the times when keyboards themselves were
-> > > > > > > > capable of emitting bells (SUN, DEC, etc). In hindsight it
-> > > > > > > > was not the best way of structuring things, same with the
-> > > > > > > > keyboard LEDs (that are now plugged into the LED subsystem, but
-> > still allow be driven through input).
-> > > > > > > >
-> > > > > > > > And in the same vein I wonder if we should bite the bullet
-> > > > > > > > and pay with a bit of complexity but move sound-related things to
-> > sound subsystem.
-> > > > > > >
-> > > > > > > I am not sure that's the right approach here, since the device
-> > > > > > > cannot do PCM playback, just bleeps.
-> > > > > > >
-> > > > > > > > > > (it was so just because of historical reason), and yet
-> > > > > > > > > > you start implementing more full-featured mixer control.
-> > > > > > > > > > I'd rather keep fingers away.
-> > > > > > > > > >
-> > > > > > > > > > Again, if user-space requires the compatible behavior
-> > > > > > > > > > like the existing desktop usages
-> > > > > > > > >
-> > > > > > > > > It does not. These pwm-beeper devices keep showing up in
-> > > > > > > > > various embedded devices these days.
-> > > > > > > > >
-> > > > > > > > > > , it can be implemented in a similar way like the
-> > > > > > > > > > existing ones; i.e. provide a mixer control with a
-> > > > > > > > > > proper sound device.  The sound device doesn't need to
-> > > > > > > > > > provide a PCM interface but just with a mixer interface.
-> > > > > > > > > >
-> > > > > > > > > > Or, if the purpose of your target device is a special
-> > > > > > > > > > usage, you don't need to consider too much about the
-> > > > > > > > > > existing interface, and try to keep the change as
-> > > > > > > > > > minimal as possible without too intrusive API changes.
-> > > > > > > > >
-> > > > > > > > > My use case is almost perfectly matched by the current
-> > > > > > > > > input pwm-beeper driver, the only missing bit is the
-> > > > > > > > > ability to control the loudness at runtime. I think adding
-> > > > > > > > > the SND_TONE_WITH_VOLUME parameter would cover it, with
-> > least intrusive API changes.
-> > > > > > > > >
-> > > > > > > > > The SND_TONE already supports configuring tone frequency
-> > > > > > > > > in Hz as its parameter. Since anything above 64 kHz is
-> > > > > > > > > certainly not hearable by humans, I would say the
-> > > > > > > > > SND_TONE_WITH_VOLUME could use 16 LSbits for frequency (so
-> > up to 65535 Hz , 0 is OFF), and 16 MSbits for volume .
-> > > > > > > > >
-> > > > > > > > > I'm hesitant to overcomplicate something which can
-> > > > > > > > > currently be controlled via single ioctl by pulling in sound
-> > subsystem into the picture.
-> > > > > > > >
-> > > > > > > > Can you tell a bit more about your use case? What needs to
-> > > > > > > > control the volume of beeps? Is this the only source of sounds on
-> > the system?
-> > > > > > >
-> > > > > > > Custom user space application. The entire userspace is custom
-> > > > > > > built in this case.
-> > > > > > >
-> > > > > > > In this case, it is a single-use device (think e.g. the kind
-> > > > > > > of thermometer you stick in your ear when you're ill, to find out
-> > how warm you are).
-> > > > > > >
-> > > > > > > The beeper there is used to do just that, bleep (with
-> > > > > > > different frequencies to indicate different stuff), and that
-> > > > > > > works. What I need in addition to that is control the volume
-> > > > > > > of the bleeps from the application, so it isn't too noisy. And
-> > > > > > > that needs to be user-controllable at runtime, so not something that
-> > goes in DT.
-> > > > > > >
-> > > > > > > Right now there is just the bleeper , yes.
-> > > > > >
-> > > > > > It sounds like we essentially need an option within pcsp to
-> > > > > > drive PWM instead of PCM, but input already has pwm-beeper; it
-> > > > > > seems harmless to gently extend the latter for this use-case as
-> > > > > > opposed to reworking the former.
-> > > > > >
-> > > > > > I agree that we should not invest too heavily in a legacy ABI,
-> > > > > > however something like SND_BELL_VOL seems like a low-cost
-> > > > > > addition that doesn't work against extending pcsp in the future.
-> > > > > > In fact, input already has precedent for this exact same thing
-> > > > > > by way of FF rumble effects, which are often PWM-based themselves.
-> > > > > >
-> > > > > > If SND_BELL_VOL or similar is not acceptable, then the original
-> > > > > > sysfs approach seems like the next-best compromise. My only
-> > > > > > issue with it was that I felt the range was not abstracted enough.
-> > > > >
-> > > > > If we want to extend the API we will need to define exactly how it
-> > > > > will all work. I.e. what happens if userspace mixes the old
-> > > > > SND_TONE and SND_BELL with the new SND_BELL_VOL or whatever.
-> > Does
-> > > > > it play with previously set volume? The default one?
-> > > >
-> > > > Default one, to preserve current behavior, yes.
-> > >
-> > > This was my idea as well, but I appreciate that the devil is in the
-> > > details and each driver may have to duplicate some overhead.
-> > >
-> > > >
-> > > > > How to set the default one?
-> > > >
-> > > > We do not, we can call pwm_get_duty_cycle() to get the current duty
-> > > > cycle of the PWM to figure out the default.
-> > > >
-> > > > > How
-> > > > > to figure out what the current volume is if we decide to make
-> > > > > volume "sticky"?
-> > > >
-> > > > The patch stores the current volume configured via sysfs into
-> > > > beeper->duty_cycle .
-> > > >
-> > > > > As far as userspace I expect it is more common to have one program
-> > > > > (or component of a program) to set volume and then something else
-> > > > > requests sound, so having one-shot API is of dubious value to me.
-> > > >
-> > > > Currently the use case I have for this is a single user facing
-> > > > application which configures both.
-> > > >
-> > > > > I hope we can go with Takashi's proposal downthread, but if not I
-> > > > > wonder if the sysfs approach is not the simplest one. Do we expect
-> > > > > more beepers that can control volume besides pwm-beeper?
-> > > >
-> > > > It seems to me pulling in dependency on the entire sound subsystem
-> > > > only to set beeper volume is overkill. I currently don't even have
-> > > > sound subsystem compiled in.
-> > >
-> > > I like Takashi's patch; it seems like a more scalable solution.
-> > > However, I can appreciate the reluctance to bring in the entire sound
-> > > subsytem for what is probably a tiny piezoelectric buzzer.
-> > >
-> > > It seems like the sysfs solution is the best compromise in the
-> > > meantime. If more and more users need to shoe-horn these kind of
-> > > features in the future, we can make more informed decisions as to how to
-> > extend the API (if at all).
-> > 
-> > That's my impression, too.  The original sysfs usage would be the right fit at
-> > this moment.
-> 
-> I am fine with both using the Sound API and sysfs. I would additionally like to
-> specify the pwm values in device-tree like done in pwm-backlight. It really depends
-> on the hardware which values actually make a difference in volume.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+head:   ef4ba63f12b03532378395a8611f2f6e22ece67b
+commit: ef4ba63f12b03532378395a8611f2f6e22ece67b [28/28] ALSA: hda: cs35l41: Support systems with missing _DSD properties
+config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20230816/202308160506.8lCEeFDG-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 12.3.0
+reproduce: (https://download.01.org/0day-ci/archive/20230816/202308160506.8lCEeFDG-lkp@intel.com/reproduce)
 
-OK, let's go with the sysfs API for now as I am not sure if we have more
-drivers being able to control volume of beeps.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308160506.8lCEeFDG-lkp@intel.com/
 
-Marek, I think there were some minor comments on the patch, could you
-please address them and respin?
+All warnings (new ones prefixed by >>):
 
-Thanks.
+   sound/pci/hda/cs35l41_hda_property.c: In function 'cs35l41_add_dsd_properties':
+>> sound/pci/hda/cs35l41_hda_property.c:64:59: warning: ordered comparison of pointer with integer zero [-Wextra]
+      64 |         for (model = cs35l41_prop_model_table; model->hid > 0; model++) {
+         |                                                           ^
+
+
+vim +64 sound/pci/hda/cs35l41_hda_property.c
+
+    58	
+    59	int cs35l41_add_dsd_properties(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
+    60				       const char *hid)
+    61	{
+    62		const struct cs35l41_prop_model *model;
+    63	
+  > 64		for (model = cs35l41_prop_model_table; model->hid > 0; model++) {
 
 -- 
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

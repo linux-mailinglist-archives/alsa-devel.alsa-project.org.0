@@ -2,93 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D117C77CFF0
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 18:11:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B9D177D05C
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 18:47:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA7CD1F2;
-	Tue, 15 Aug 2023 18:11:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA7CD1F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ED37741;
+	Tue, 15 Aug 2023 18:47:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ED37741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692115914;
-	bh=PIOVJPzXhwuCzhqITDwKI8tleEncu8VX27kuH1afNpo=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1692118071;
+	bh=M6PNbvz4/GYULuPj8abS/YUPV2aBlFIyXVHihMaPLyQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=R2H7Zx/lb/vD80YbDHemz/B/FG+/qxC0HmO96hg54AYVTJmXkjyINU0C8dcmFBcNj
-	 QDTDEU3dKhPVz0jViPLxzPqMVXdE683e6jn5DodWceSNxKSTMZexAfybEFikqm5usd
-	 RLWkrtoOQ6u+xYloCAdIYnRBuQUg4zbyGUXUcICM=
+	b=GTMMQFI/pwABeMUM3pB349xhOdp8WE+USxhzH+ymFuZt+Ff2ZTuM4MbOkeRA2+Yic
+	 pVHgiJdH5TRPG7XdlYR6MnUakNBXUGOk35Ofpxk4DBRIslnyia78/kql/VOzVsKgfk
+	 4cI1s49qBFD9WpbLNH3SkUP0pH7CrYFF4Tm6ld4Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51A3FF80536; Tue, 15 Aug 2023 18:11:04 +0200 (CEST)
+	id AE464F8016A; Tue, 15 Aug 2023 18:47:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D371F8016A;
-	Tue, 15 Aug 2023 18:11:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41BEFF8016A;
+	Tue, 15 Aug 2023 18:47:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86FFDF8016D; Tue, 15 Aug 2023 18:11:00 +0200 (CEST)
+	id 2EF2CF8016D; Tue, 15 Aug 2023 18:46:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E05E5F80027
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 18:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E05E5F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A378F80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 18:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A378F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=L5YfNOWX
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37FERlpL005801;
-	Tue, 15 Aug 2023 11:10:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=1
-	Vg2/PytKi0obfnuFLVhcntMrovleIVdk6MBr1KBy+o=; b=L5YfNOWX+E1biR2jB
-	aPS3VdiZutpepw+G7izTOySIWdQMzccSOjuEl0GV5Ou+8/Rjyg/5UxC6Eiy5ocUD
-	tyBeGteUzovK6mRvAnNkqdYl6LMkTLg1ggP6V1VMdqyzJ7rkOgx+e/qvFCIvm9th
-	gEu9f7457Wz7etCxv4EzVHN312e6volfeLDSQ5A8NzgdXZoKetx/CGWhsV0WRqlc
-	B+NnePz8XlghwfHt0TcLa8vfTNaD6P1IRBTfUuufrHIIk3O/anI8d1ZXMReH0ZPE
-	Aprz3zgBifPybQJVXSDM0yZhSxtmtX4A8UN9ffzdezwqgxxQLR0aRwiZaHZtswZr
-	1yp9g==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3se6uhk6qd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Aug 2023 11:10:47 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 15 Aug
- 2023 17:10:45 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
- Transport; Tue, 15 Aug 2023 17:10:45 +0100
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.48])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A36E4475;
-	Tue, 15 Aug 2023 16:10:45 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Stefan Binding
-	<sbinding@opensource.cirrus.com>
-Subject: [PATCH v1] ALSA: hda: cs35l41: Support systems with missing _DSD
- properties
-Date: Tue, 15 Aug 2023 17:10:33 +0100
-Message-ID: <20230815161033.3519-1-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 6mve0ARCnch5TkNPx2ZSTc9R5pU3YvFZ
-X-Proofpoint-ORIG-GUID: 6mve0ARCnch5TkNPx2ZSTc9R5pU3YvFZ
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: IFQNBG767I4H2ASKZLZDHNCFXEZ5YB3W
-X-Message-ID-Hash: IFQNBG767I4H2ASKZLZDHNCFXEZ5YB3W
-X-MailFrom: prvs=359150d66a=sbinding@opensource.cirrus.com
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BNZge8YR
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B29DE65D44;
+	Tue, 15 Aug 2023 16:46:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31FFC433C8;
+	Tue, 15 Aug 2023 16:46:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692118004;
+	bh=M6PNbvz4/GYULuPj8abS/YUPV2aBlFIyXVHihMaPLyQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=BNZge8YRY9F5yRvCoDgGLpdpMDZq60V3NF4hCYYipUkKP6kCR3z2GWTFk71S9QtFP
+	 9vARUcpYWxXoAU6GO6n8Blvv2e5B8BcWRD/BjG0tOQR67J7J9C1+YKcbH9ocGaj4i2
+	 NKTiiYUCPxZcWCJJOsGwbHnhTuA4I+GPpfFcDK9EnOkHQDPdTdRMjaghEO5ZDeLQBF
+	 ya+5qxmnoohmKLb4JvfR50/MsVOTINXa+OoTAUCGUos7IuPF6Y0S0yWmA935egbk10
+	 eq5PdrDDC+p35xTt4RhNKwOiUBp44oG0XKYAxuzd9lunUcuBNQJhLTfFNx6LXu2xeJ
+	 4+53OSITHryEw==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.5-rc6
+Date: Tue, 15 Aug 2023 17:46:35 +0100
+Message-Id: <20230815164643.B31FFC433C8@smtp.kernel.org>
+Message-ID-Hash: F2254GN3HG2V2ER7T5U4ZTHTEI34EBYE
+X-Message-ID-Hash: F2254GN3HG2V2ER7T5U4ZTHTEI34EBYE
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +82,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IFQNBG767I4H2ASKZLZDHNCFXEZ5YB3W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F2254GN3HG2V2ER7T5U4ZTHTEI34EBYE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,259 +91,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Some systems using CS35L41 with HDA were released without some
-required _DSD properties in ACPI. To support these special cases,
-add an api to configure the correct properties for systems with
-this issue.
+The following changes since commit 5d0c230f1de8c7515b6567d9afba1f196fb4e2f4:
 
-This initial commit moves the no _DSD support for Lenovo
-Legion Laptops (CLSA0100, CLSA0101) into a new framework which
-can be extended to support additional laptops in the future.
+  Linux 6.5-rc4 (2023-07-30 13:23:47 -0700)
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/pci/hda/Makefile               |  2 +-
- sound/pci/hda/cs35l41_hda.c          | 65 ++++++-------------------
- sound/pci/hda/cs35l41_hda.h          |  1 +
- sound/pci/hda/cs35l41_hda_property.c | 73 ++++++++++++++++++++++++++++
- sound/pci/hda/cs35l41_hda_property.h | 18 +++++++
- 5 files changed, 108 insertions(+), 51 deletions(-)
- create mode 100644 sound/pci/hda/cs35l41_hda_property.c
- create mode 100644 sound/pci/hda/cs35l41_hda_property.h
+are available in the Git repository at:
 
-diff --git a/sound/pci/hda/Makefile b/sound/pci/hda/Makefile
-index c6e6509e7b8e..5506255be895 100644
---- a/sound/pci/hda/Makefile
-+++ b/sound/pci/hda/Makefile
-@@ -28,7 +28,7 @@ snd-hda-codec-via-objs :=	patch_via.o
- snd-hda-codec-hdmi-objs :=	patch_hdmi.o hda_eld.o
- 
- # side codecs
--snd-hda-scodec-cs35l41-objs :=		cs35l41_hda.o
-+snd-hda-scodec-cs35l41-objs :=		cs35l41_hda.o cs35l41_hda_property.o
- snd-hda-scodec-cs35l41-i2c-objs :=	cs35l41_hda_i2c.o
- snd-hda-scodec-cs35l41-spi-objs :=	cs35l41_hda_spi.o
- snd-hda-scodec-cs35l56-objs :=		cs35l56_hda.o
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 825e551be9bb..f9b77353c266 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -19,6 +19,7 @@
- #include "hda_component.h"
- #include "cs35l41_hda.h"
- #include "hda_cs_dsp_ctl.h"
-+#include "cs35l41_hda_property.h"
- 
- #define CS35L41_FIRMWARE_ROOT "cirrus/"
- #define CS35L41_PART "cs35l41"
-@@ -1315,8 +1316,7 @@ static int cs35l41_hda_apply_properties(struct cs35l41_hda *cs35l41)
- 	return cs35l41_hda_channel_map(cs35l41->dev, 0, NULL, 1, &hw_cfg->spk_pos);
- }
- 
--static int cs35l41_get_speaker_id(struct device *dev, int amp_index,
--				  int num_amps, int fixed_gpio_id)
-+int cs35l41_get_speaker_id(struct device *dev, int amp_index, int num_amps, int fixed_gpio_id)
- {
- 	struct gpio_desc *speaker_id_desc;
- 	int speaker_id = -ENODEV;
-@@ -1370,49 +1370,6 @@ static int cs35l41_get_speaker_id(struct device *dev, int amp_index,
- 	return speaker_id;
- }
- 
--/*
-- * Device CLSA010(0/1) doesn't have _DSD so a gpiod_get by the label reset won't work.
-- * And devices created by serial-multi-instantiate don't have their device struct
-- * pointing to the correct fwnode, so acpi_dev must be used here.
-- * And devm functions expect that the device requesting the resource has the correct
-- * fwnode.
-- */
--static int cs35l41_no_acpi_dsd(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
--			       const char *hid)
--{
--	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
--
--	/* check I2C address to assign the index */
--	cs35l41->index = id == 0x40 ? 0 : 1;
--	cs35l41->channel_index = 0;
--	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
--	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, 0, 0, 2);
--	hw_cfg->spk_pos = cs35l41->index;
--	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
--	hw_cfg->gpio2.valid = true;
--	hw_cfg->valid = true;
--
--	if (strncmp(hid, "CLSA0100", 8) == 0) {
--		hw_cfg->bst_type = CS35L41_EXT_BOOST_NO_VSPK_SWITCH;
--	} else if (strncmp(hid, "CLSA0101", 8) == 0) {
--		hw_cfg->bst_type = CS35L41_EXT_BOOST;
--		hw_cfg->gpio1.func = CS35l41_VSPK_SWITCH;
--		hw_cfg->gpio1.valid = true;
--	} else {
--		/*
--		 * Note: CLSA010(0/1) are special cases which use a slightly different design.
--		 * All other HIDs e.g. CSC3551 require valid ACPI _DSD properties to be supported.
--		 */
--		dev_err(cs35l41->dev, "Error: ACPI _DSD Properties are missing for HID %s.\n", hid);
--		hw_cfg->valid = false;
--		hw_cfg->gpio1.valid = false;
--		hw_cfg->gpio2.valid = false;
--		return -EINVAL;
--	}
--
--	return 0;
--}
--
- static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, int id)
- {
- 	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
-@@ -1438,12 +1395,17 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 		sub = NULL;
- 	cs35l41->acpi_subsystem_id = sub;
- 
-+	ret = cs35l41_add_dsd_properties(cs35l41, physdev, id, hid);
-+	if (!ret) {
-+		dev_info(cs35l41->dev, "Using extra _DSD properties, bypassing _DSD in ACPI\n");
-+		goto put_physdev;
-+	}
-+
- 	property = "cirrus,dev-index";
- 	ret = device_property_count_u32(physdev, property);
--	if (ret <= 0) {
--		ret = cs35l41_no_acpi_dsd(cs35l41, physdev, id, hid);
--		goto err_put_physdev;
--	}
-+	if (ret <= 0)
-+		goto err;
-+
- 	if (ret > ARRAY_SIZE(values)) {
- 		ret = -EINVAL;
- 		goto err;
-@@ -1533,7 +1495,10 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 
- err:
- 	dev_err(cs35l41->dev, "Failed property %s: %d\n", property, ret);
--err_put_physdev:
-+	hw_cfg->valid = false;
-+	hw_cfg->gpio1.valid = false;
-+	hw_cfg->gpio2.valid = false;
-+put_physdev:
- 	put_device(physdev);
- 
- 	return ret;
-diff --git a/sound/pci/hda/cs35l41_hda.h b/sound/pci/hda/cs35l41_hda.h
-index bdb35f3be68a..b93bf762976e 100644
---- a/sound/pci/hda/cs35l41_hda.h
-+++ b/sound/pci/hda/cs35l41_hda.h
-@@ -83,5 +83,6 @@ extern const struct dev_pm_ops cs35l41_hda_pm_ops;
- int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int irq,
- 		      struct regmap *regmap);
- void cs35l41_hda_remove(struct device *dev);
-+int cs35l41_get_speaker_id(struct device *dev, int amp_index, int num_amps, int fixed_gpio_id);
- 
- #endif /*__CS35L41_HDA_H__*/
-diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
-new file mode 100644
-index 000000000000..673f23257a09
---- /dev/null
-+++ b/sound/pci/hda/cs35l41_hda_property.c
-@@ -0,0 +1,73 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// CS35L41 ALSA HDA Property driver
-+//
-+// Copyright 2023 Cirrus Logic, Inc.
-+//
-+// Author: Stefan Binding <sbinding@opensource.cirrus.com>
-+
-+#include <linux/gpio/consumer.h>
-+#include <linux/string.h>
-+#include "cs35l41_hda_property.h"
-+
-+/*
-+ * Device CLSA010(0/1) doesn't have _DSD so a gpiod_get by the label reset won't work.
-+ * And devices created by serial-multi-instantiate don't have their device struct
-+ * pointing to the correct fwnode, so acpi_dev must be used here.
-+ * And devm functions expect that the device requesting the resource has the correct
-+ * fwnode.
-+ */
-+static int lenovo_legion_no_acpi(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
-+				 const char *hid)
-+{
-+	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
-+
-+	/* check I2C address to assign the index */
-+	cs35l41->index = id == 0x40 ? 0 : 1;
-+	cs35l41->channel_index = 0;
-+	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
-+	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, 0, 0, 2);
-+	hw_cfg->spk_pos = cs35l41->index;
-+	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
-+	hw_cfg->gpio2.valid = true;
-+	hw_cfg->valid = true;
-+
-+	if (strcmp(hid, "CLSA0100") == 0) {
-+		hw_cfg->bst_type = CS35L41_EXT_BOOST_NO_VSPK_SWITCH;
-+	} else if (strcmp(hid, "CLSA0101") == 0) {
-+		hw_cfg->bst_type = CS35L41_EXT_BOOST;
-+		hw_cfg->gpio1.func = CS35l41_VSPK_SWITCH;
-+		hw_cfg->gpio1.valid = true;
-+	}
-+
-+	return 0;
-+}
-+
-+struct cs35l41_prop_model {
-+	const char *hid;
-+	const char *ssid;
-+	int (*add_prop)(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
-+			const char *hid);
-+};
-+
-+const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
-+	{ "CLSA0100", NULL, lenovo_legion_no_acpi },
-+	{ "CLSA0101", NULL, lenovo_legion_no_acpi },
-+	{}
-+};
-+
-+int cs35l41_add_dsd_properties(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
-+			       const char *hid)
-+{
-+	const struct cs35l41_prop_model *model;
-+
-+	for (model = cs35l41_prop_model_table; model->hid > 0; model++) {
-+		if (!strcmp(model->hid, hid) &&
-+		    (!model->ssid ||
-+		     (cs35l41->acpi_subsystem_id &&
-+		      !strcmp(model->ssid, cs35l41->acpi_subsystem_id))))
-+			return model->add_prop(cs35l41, physdev, id, hid);
-+	}
-+
-+	return -ENOENT;
-+}
-diff --git a/sound/pci/hda/cs35l41_hda_property.h b/sound/pci/hda/cs35l41_hda_property.h
-new file mode 100644
-index 000000000000..fd834042e2fd
---- /dev/null
-+++ b/sound/pci/hda/cs35l41_hda_property.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0
-+ *
-+ * CS35L41 ALSA HDA Property driver
-+ *
-+ * Copyright 2023 Cirrus Logic, Inc.
-+ *
-+ * Author: Stefan Binding <sbinding@opensource.cirrus.com>
-+ */
-+
-+#ifndef CS35L41_HDA_PROP_H
-+#define CS35L41_HDA_PROP_H
-+
-+#include <linux/device.h>
-+#include "cs35l41_hda.h"
-+
-+int cs35l41_add_dsd_properties(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
-+			       const char *hid);
-+#endif /* CS35L41_HDA_PROP_H */
--- 
-2.34.1
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc6
 
+for you to fetch changes up to 37aba3190891d4de189bd5192ee95220e295f34d:
+
+  ASoC: rt1308-sdw: fix random louder sound (2023-08-13 18:16:32 +0100)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.5
+
+A fairly large collection of fixes here, mostly SOF and Intel related.
+The one core fix is Hans' change which reduces the log spam when working
+out new use cases for DPCM.
+
+----------------------------------------------------------------
+Bard Liao (1):
+      ASoC: max98363: don't return on success reading revision ID
+
+Daniel Baluta (1):
+      ASoC: fsl: micfil: Use dual license micfil code
+
+Hans de Goede (1):
+      ASoC: lower "no backend DAIs enabled for ... Port" log severity
+
+Jerome Brunet (1):
+      ASoC: meson: axg-tdm-formatter: fix channel slot allocation
+
+Peter Ujfalusi (1):
+      ASoC: SOF: ipc4-topology: Update the basecfg for copier earlier
+
+Pierre-Louis Bossart (1):
+      ASoC: Intel: sof-sdw: update jack detection quirk for LunarLake RVP
+
+Ranjani Sridharan (1):
+      ASoC: SOF: intel: hda: Clean up link DMA for IPC3 during stop
+
+Shuming Fan (1):
+      ASoC: rt1308-sdw: fix random louder sound
+
+Xia Fukun (1):
+      ASoC: SOF: Fix incorrect use of sizeof in sof_ipc3_do_rx_work()
+
+Zhang Shurong (1):
+      ASoC: rt5665: add missed regulator_bulk_disable
+
+jairaj-arava (1):
+      ASoC: Intel: sof-sdw-cs42142: fix for codec button mapping
+
+ sound/soc/codecs/max98363.c              |  9 ++++---
+ sound/soc/codecs/rt1308-sdw.c            | 13 +++++++++-
+ sound/soc/codecs/rt5665.c                |  2 ++
+ sound/soc/fsl/fsl_micfil.c               |  4 +--
+ sound/soc/fsl/fsl_micfil.h               |  2 +-
+ sound/soc/intel/boards/sof_sdw.c         |  2 +-
+ sound/soc/intel/boards/sof_sdw_cs42l42.c |  6 ++---
+ sound/soc/meson/axg-tdm-formatter.c      | 42 ++++++++++++++++++++------------
+ sound/soc/soc-pcm.c                      |  8 ++++--
+ sound/soc/sof/intel/hda-dai-ops.c        | 11 ++++++++-
+ sound/soc/sof/intel/hda-dai.c            |  5 ++--
+ sound/soc/sof/intel/hda.h                |  2 ++
+ sound/soc/sof/ipc3.c                     |  2 +-
+ sound/soc/sof/ipc4-topology.c            |  6 ++---
+ 14 files changed, 76 insertions(+), 38 deletions(-)

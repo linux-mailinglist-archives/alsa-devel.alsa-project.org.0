@@ -2,99 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 769EC77D1DA
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 20:29:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F24A977D27E
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 20:51:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CEC43E8;
-	Tue, 15 Aug 2023 20:28:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CEC43E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 091FC91;
+	Tue, 15 Aug 2023 20:50:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 091FC91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692124179;
-	bh=dV6iBEDwXaH+NekjGOZAmxfs3ZQSlb8664ZMZ6YSn4I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1692125508;
+	bh=dCmEtUln5S5pGEYR/r/jzP7YEikDHNHZ3q9DeAVtIpU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dQvlW9lXV3+l0m8EmQrWoR2BRf6znG4JAsFPxXoCtfvvroX22ajCgz+PcmsMNiC9m
-	 za0B01HbmBL+8wGDsSHGPJd+GpEaSqFLg1TJsGrNTWIeHZkctFkvgGEha95/rgNe6k
-	 WGa7ZTDnKMYcBDARCDvFzYiLyPuQmb5vaGd06Zmk=
+	b=RgY+x6GEIw/1UpTMhEI3hSGqzWgyhBCnp1Yhnvm7ho+tt9zy1D+hnruuHaOZfaGlh
+	 e6h3OdAgirZZzI6Kf9FnCkuPNNZoVwkCKXIqvSA1SrHxicEaR2nQab8VW3LDFbaCi7
+	 gToOLW7GTKYGGsoK3EmL//YFSZMAPurIFQwEuffA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80592F801EB; Tue, 15 Aug 2023 20:28:48 +0200 (CEST)
+	id 720E9F80290; Tue, 15 Aug 2023 20:50:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22E01F8016A;
-	Tue, 15 Aug 2023 20:28:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43302F8016A;
+	Tue, 15 Aug 2023 20:50:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C1C9F8016D; Tue, 15 Aug 2023 20:28:43 +0200 (CEST)
+	id A03ACF8016D; Tue, 15 Aug 2023 20:50:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62D08F800EE
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 20:28:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D08F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2B098F80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 20:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B098F80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Q2MAor6d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692124114; x=1723660114;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=dV6iBEDwXaH+NekjGOZAmxfs3ZQSlb8664ZMZ6YSn4I=;
-  b=Q2MAor6dbV5RFz7jBdqyWilkENL5R0YxKJJ2/ng2fKrRvpBJbo16Fbu1
-   SVISLKhlHon7Sf8xjQXQhJVZZE7Ldkh4odtOOG2CPVsSsC2LHqeHeD6fl
-   pQmCulRV4/vxRp0E0FoXXWpkhcrortSXCDbfR96aTqLA0jX7IspNiwvy3
-   k0my3AM9Yk3gNc5ohytKGC2N3vlAaLhNAI330DXN5Q+zrbJsqk+NDtWzB
-   FdlCroG82h1cV0+CBXy2VwTkAntx66A8ksGuE1Ohye45RmSCYfzzjbPkt
-   pc9AJpEGGYkDN5TQHsm75xOlJx8xa9AUfS7P9GAEGjY00Fz2ioZ7iRXoM
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="357322310"
-X-IronPort-AV: E=Sophos;i="6.01,175,1684825200";
-   d="scan'208";a="357322310"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2023 11:28:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="907713192"
-X-IronPort-AV: E=Sophos;i="6.01,175,1684825200";
-   d="scan'208";a="907713192"
-Received: from bawerden-mobl.amr.corp.intel.com (HELO [10.209.163.183])
- ([10.209.163.183])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2023 11:28:21 -0700
-Message-ID: <0beda41e-8dfa-054e-4069-7298b4caa879@linux.intel.com>
-Date: Tue, 15 Aug 2023 13:28:19 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v2] ALSA: hda: intel-dsp-cfg: Add Chromebook quirk to
- ADL/RPL
-Content-Language: en-US
-To: Curtis Malainey <cujomalainey@google.com>,
- Brady Norander <bradynorander@gmail.com>
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- cezary.rojewski@intel.com, amadeuszx.slawinski@linux.intel.com,
- perex@perex.cz, tiwai@suse.de, cujomalainey@chromium.org
-References: <ZNuDLk5hgmfKrZg6@arch>
- <850c5b2c-265e-a565-8a88-58a88f8fb4e8@linux.intel.com>
- <CAOReqxjbjkhkqfvTWs9i5NxK6QAsk42Daw1pA_1+b1zG5mbKmQ@mail.gmail.com>
- <ZNuyuerb0M6IGRKj@arch>
- <CAOReqxi_fkthH7SPdQ6ycyMx+2Mpi+JHHYhPJKi-u82SsfN9gA@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: 
- <CAOReqxi_fkthH7SPdQ6ycyMx+2Mpi+JHHYhPJKi-u82SsfN9gA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YHMCXIZA72LENOJ22YVFKPONNZGTFNTS
-X-Message-ID-Hash: YHMCXIZA72LENOJ22YVFKPONNZGTFNTS
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=hkk8UQFm;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=EhZJsk5f
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 75C7F21873;
+	Tue, 15 Aug 2023 18:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692125448;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fwi6A/Ys2sFEL8VRjZXoI9euI9UsbYImJAkabx/k/T4=;
+	b=hkk8UQFma3+JFckk8mSJGM47LL8251xXuy+xDSKi2maoiUIKA6coSNjKHJNSmmwEvD4G3Q
+	fXgEzA8a25S8fjRde68EV4ku4w6W04mNHLzfU6ap4vuvhSrbfN9Rb5nIwk7Z4Thm4SFbH0
+	TojhwaxEbtCP7Vl+4De40cnDYmA1STQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692125448;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fwi6A/Ys2sFEL8VRjZXoI9euI9UsbYImJAkabx/k/T4=;
+	b=EhZJsk5fLuhpX6IzsR74mVeIYMb1JmsDakNGAQsZJy73apNNmsl0/KjqQGpY1S4ldxLNcu
+	qH+HEz9dvgHDRSDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 56C001353E;
+	Tue, 15 Aug 2023 18:50:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id Ki25EwjJ22SoTwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 15 Aug 2023 18:50:48 +0000
+Date: Tue, 15 Aug 2023 20:50:47 +0200
+Message-ID: <87edk4xhq0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.5-rc6
+In-Reply-To: <20230815164643.B31FFC433C8@smtp.kernel.org>
+References: <20230815164643.B31FFC433C8@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: WFDKBK4DPGCXECJKZP3L5TFXV5AT6CE4
+X-Message-ID-Hash: WFDKBK4DPGCXECJKZP3L5TFXV5AT6CE4
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YHMCXIZA72LENOJ22YVFKPONNZGTFNTS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WFDKBK4DPGCXECJKZP3L5TFXV5AT6CE4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,39 +117,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 8/15/23 13:00, Curtis Malainey wrote:
-> On Tue, Aug 15, 2023 at 10:15 AM Brady Norander <bradynorander@gmail.com> wrote:
->>
->> On Tue, Aug 15, 2023 at 09:56:44AM -0700, Curtis Malainey wrote:
->>> On Tue, Aug 15, 2023 at 8:56 AM Pierre-Louis Bossart <
->>> pierre-louis.bossart@linux.intel.com> wrote:
->>>> On 8/15/23 08:52, Brady Norander wrote:
->>>>> AlderLake and RaptorLake Chromebooks currently use the HDA driver by
->>>>> default. Add a quirk to use the SOF driver on these platforms, which is
->>>>> needed for functional internal audio.
->>>>>
->>>>> Signed-off-by: Brady Norander <bradynorander@gmail.com>
->>>>
->>>> Thanks for the patch
->>>>
->>>> Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>>>
->>>
->>> Now that I am looking closer at the patch, I am very curious why we are not
->>> hitting the following case and using SOF
->>
->> The DMIC detection looks for DMIC endpoints in the NHLT, but these
->> devices don't have NHLT.
+On Tue, 15 Aug 2023 18:46:35 +0200,
+Mark Brown wrote:
 > 
-> There would be the brokenness then. Is the DMIC not something that
-> shows up in coreboot? Or is it only defined in the topology? If the
-> latter we should probably extend this patch farther back to GLK.
+> The following changes since commit 5d0c230f1de8c7515b6567d9afba1f196fb4e2f4:
+> 
+>   Linux 6.5-rc4 (2023-07-30 13:23:47 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc6
+> 
+> for you to fetch changes up to 37aba3190891d4de189bd5192ee95220e295f34d:
+> 
+>   ASoC: rt1308-sdw: fix random louder sound (2023-08-13 18:16:32 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.5
+> 
+> A fairly large collection of fixes here, mostly SOF and Intel related.
+> The one core fix is Hans' change which reduces the log spam when working
+> out new use cases for DPCM.
 
-You don't need to expose mics in NHLT, the premise has always been that
-Chromebooks are assumed to expose 4 mics and userspace w/ UCM takes care
-of selecting which mics are actually used on what platform.
+Pulled now.  Thanks.
 
-Also there's a difference between NHLT (ACPI table) and NHLT blob in
-topology used for IPC4. not the same thing.
+
+Takashi

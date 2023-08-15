@@ -2,87 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9D177D05C
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 18:47:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234C777D077
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 18:57:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4ED37741;
-	Tue, 15 Aug 2023 18:47:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ED37741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F16C741;
+	Tue, 15 Aug 2023 18:57:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F16C741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692118071;
-	bh=M6PNbvz4/GYULuPj8abS/YUPV2aBlFIyXVHihMaPLyQ=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=GTMMQFI/pwABeMUM3pB349xhOdp8WE+USxhzH+ymFuZt+Ff2ZTuM4MbOkeRA2+Yic
-	 pVHgiJdH5TRPG7XdlYR6MnUakNBXUGOk35Ofpxk4DBRIslnyia78/kql/VOzVsKgfk
-	 4cI1s49qBFD9WpbLNH3SkUP0pH7CrYFF4Tm6ld4Y=
+	s=default; t=1692118678;
+	bh=DbP0x9fikpp3jGMWBv1jNIM/Af7TyedQ9GKdziQbEXc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ApJ3joymxt61g0C4Ay0Kt3KkWdvmzI7bBXo3HIKSkhMgkngFmZ/nVsC5/Uanj6pF0
+	 QsGPRMiuBsdlzni6hCrqSOhqo01ebVbOsRSeqmyj0Wt14rdI/sM5Giz5BEPgvEBqQa
+	 BqNADe2Hkw1qrxpeu2KzvzZhne9Kp8BfntiuHll4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE464F8016A; Tue, 15 Aug 2023 18:47:00 +0200 (CEST)
+	id BB515F80290; Tue, 15 Aug 2023 18:57:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41BEFF8016A;
-	Tue, 15 Aug 2023 18:47:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6716FF8016A;
+	Tue, 15 Aug 2023 18:57:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EF2CF8016D; Tue, 15 Aug 2023 18:46:56 +0200 (CEST)
+	id C2DD3F8016D; Tue, 15 Aug 2023 18:57:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [IPv6:2607:f8b0:4864:20::536])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A378F80074
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 18:46:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A378F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id BB4E5F80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 18:56:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB4E5F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BNZge8YR
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B29DE65D44;
-	Tue, 15 Aug 2023 16:46:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31FFC433C8;
-	Tue, 15 Aug 2023 16:46:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692118004;
-	bh=M6PNbvz4/GYULuPj8abS/YUPV2aBlFIyXVHihMaPLyQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=BNZge8YRY9F5yRvCoDgGLpdpMDZq60V3NF4hCYYipUkKP6kCR3z2GWTFk71S9QtFP
-	 9vARUcpYWxXoAU6GO6n8Blvv2e5B8BcWRD/BjG0tOQR67J7J9C1+YKcbH9ocGaj4i2
-	 NKTiiYUCPxZcWCJJOsGwbHnhTuA4I+GPpfFcDK9EnOkHQDPdTdRMjaghEO5ZDeLQBF
-	 ya+5qxmnoohmKLb4JvfR50/MsVOTINXa+OoTAUCGUos7IuPF6Y0S0yWmA935egbk10
-	 eq5PdrDDC+p35xTt4RhNKwOiUBp44oG0XKYAxuzd9lunUcuBNQJhLTfFNx6LXu2xeJ
-	 4+53OSITHryEw==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.5-rc6
-Date: Tue, 15 Aug 2023 17:46:35 +0100
-Message-Id: <20230815164643.B31FFC433C8@smtp.kernel.org>
-Message-ID-Hash: F2254GN3HG2V2ER7T5U4ZTHTEI34EBYE
-X-Message-ID-Hash: F2254GN3HG2V2ER7T5U4ZTHTEI34EBYE
-X-MailFrom: broonie@kernel.org
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20221208 header.b=bLvHqYJs
+Received: by mail-pg1-x536.google.com with SMTP id
+ 41be03b00d2f7-56530cfee38so3361427a12.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 15 Aug 2023 09:56:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1692118616; x=1692723416;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=iKfqfUucAOGEmwM0DLIc6HoGDpvPJKwodZvu8FzOt9Y=;
+        b=bLvHqYJsRJbI9BuAq4v6+AQyMUqQ3oYKTGCj3FTJrXrVg/7Z5AHh1MoynaglU3KcSW
+         zGpTHPraQw7x97GGKIoq3yeznp7J8BmEwW97VL0Jyale2ULzCSZQxtSMScY8y/6JdJC1
+         pGyL07rJjFyaU0cbX3Ag7mSKEnt/pIMHfjzodOq6R6wRlNx8NpJQWdzir2co2cxSHYpQ
+         RCAm93hDRCJt11oSaOKnmWVFexL77NGCz1w4Bp61tu8f4XtKLq0enqdIhyD7blb1UJLu
+         72WyybiloXt5oTU9IabmEhPzOVq5+7LhfNlZpfFmdBjuECZLh0ZXxhZnR/P8hu8kPZvf
+         Q3Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692118616; x=1692723416;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iKfqfUucAOGEmwM0DLIc6HoGDpvPJKwodZvu8FzOt9Y=;
+        b=GNbgRPjrw8LzE44o+pgjLukHN0DXJzj7f55jQWLjz89ciQDbrS5HS/6mJDPvOYDd4c
+         pb2zU4CYefqoljlvvS9OCklKAxOszegpWCInGJ6lWNWqCdnowChz+v6Y5otoIGLZkkXF
+         7vd+W54EoPhONwmvXjjL12F4zYWz4SKEmSWATWoyWM6QQQwKslQxa/3DlO4jxxrQqBHN
+         MOWVYmf66RySXztgLLguIPK/YAW5dSGbrbIdYjITE0O/XcC38rHO7676OEbIZDr6gFzL
+         fQvxkwPgaqm1uZJq085JFneISS/HcZqHlI0f7W39hPZoBe1zcOxYTLxJu/3vTCOLLydW
+         WPqg==
+X-Gm-Message-State: AOJu0YwOkcbNnxyElPgWYmudlEnFd3XlLTAgD52OdxtcYhBywdRaEdxs
+	CF7ButjTuxx7HOFWWHRhfnhb167Q+vVf0v1JaSDpBeMidMzDW8/5zea5TA==
+X-Google-Smtp-Source: 
+ AGHT+IHAM5TzsRYswL4ZTwmEPiQUfne2ULXDgQACr+/JRdy5VKU6hqpISPNvsajFiOmdnHSrKlBP2+IFmoau5ZX4J1I=
+X-Received: by 2002:a17:90a:7b8f:b0:268:f45:c10a with SMTP id
+ z15-20020a17090a7b8f00b002680f45c10amr9192212pjc.26.1692118615879; Tue, 15
+ Aug 2023 09:56:55 -0700 (PDT)
+MIME-Version: 1.0
+References: <ZNuDLk5hgmfKrZg6@arch>
+ <850c5b2c-265e-a565-8a88-58a88f8fb4e8@linux.intel.com>
+In-Reply-To: <850c5b2c-265e-a565-8a88-58a88f8fb4e8@linux.intel.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Tue, 15 Aug 2023 09:56:44 -0700
+Message-ID: 
+ <CAOReqxjbjkhkqfvTWs9i5NxK6QAsk42Daw1pA_1+b1zG5mbKmQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ALSA: hda: intel-dsp-cfg: Add Chromebook quirk to
+ ADL/RPL
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Brady Norander <bradynorander@gmail.com>, alsa-devel@alsa-project.org,
+	broonie@kernel.org, cezary.rojewski@intel.com,
+	amadeuszx.slawinski@linux.intel.com, perex@perex.cz, tiwai@suse.de,
+	cujomalainey@chromium.org
+Message-ID-Hash: 65JPYL5ZD3DQ7CHBXV6VQXSQX7MX265Y
+X-Message-ID-Hash: 65JPYL5ZD3DQ7CHBXV6VQXSQX7MX265Y
+X-MailFrom: cujomalainey@google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F2254GN3HG2V2ER7T5U4ZTHTEI34EBYE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/65JPYL5ZD3DQ7CHBXV6VQXSQX7MX265Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -91,71 +121,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 5d0c230f1de8c7515b6567d9afba1f196fb4e2f4:
-
-  Linux 6.5-rc4 (2023-07-30 13:23:47 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc6
-
-for you to fetch changes up to 37aba3190891d4de189bd5192ee95220e295f34d:
-
-  ASoC: rt1308-sdw: fix random louder sound (2023-08-13 18:16:32 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.5
-
-A fairly large collection of fixes here, mostly SOF and Intel related.
-The one core fix is Hans' change which reduces the log spam when working
-out new use cases for DPCM.
-
-----------------------------------------------------------------
-Bard Liao (1):
-      ASoC: max98363: don't return on success reading revision ID
-
-Daniel Baluta (1):
-      ASoC: fsl: micfil: Use dual license micfil code
-
-Hans de Goede (1):
-      ASoC: lower "no backend DAIs enabled for ... Port" log severity
-
-Jerome Brunet (1):
-      ASoC: meson: axg-tdm-formatter: fix channel slot allocation
-
-Peter Ujfalusi (1):
-      ASoC: SOF: ipc4-topology: Update the basecfg for copier earlier
-
-Pierre-Louis Bossart (1):
-      ASoC: Intel: sof-sdw: update jack detection quirk for LunarLake RVP
-
-Ranjani Sridharan (1):
-      ASoC: SOF: intel: hda: Clean up link DMA for IPC3 during stop
-
-Shuming Fan (1):
-      ASoC: rt1308-sdw: fix random louder sound
-
-Xia Fukun (1):
-      ASoC: SOF: Fix incorrect use of sizeof in sof_ipc3_do_rx_work()
-
-Zhang Shurong (1):
-      ASoC: rt5665: add missed regulator_bulk_disable
-
-jairaj-arava (1):
-      ASoC: Intel: sof-sdw-cs42142: fix for codec button mapping
-
- sound/soc/codecs/max98363.c              |  9 ++++---
- sound/soc/codecs/rt1308-sdw.c            | 13 +++++++++-
- sound/soc/codecs/rt5665.c                |  2 ++
- sound/soc/fsl/fsl_micfil.c               |  4 +--
- sound/soc/fsl/fsl_micfil.h               |  2 +-
- sound/soc/intel/boards/sof_sdw.c         |  2 +-
- sound/soc/intel/boards/sof_sdw_cs42l42.c |  6 ++---
- sound/soc/meson/axg-tdm-formatter.c      | 42 ++++++++++++++++++++------------
- sound/soc/soc-pcm.c                      |  8 ++++--
- sound/soc/sof/intel/hda-dai-ops.c        | 11 ++++++++-
- sound/soc/sof/intel/hda-dai.c            |  5 ++--
- sound/soc/sof/intel/hda.h                |  2 ++
- sound/soc/sof/ipc3.c                     |  2 +-
- sound/soc/sof/ipc4-topology.c            |  6 ++---
- 14 files changed, 76 insertions(+), 38 deletions(-)
+T24gVHVlLCBBdWcgMTUsIDIwMjMgYXQgODo1NuKAr0FNIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDwN
+CnBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbT4gd3JvdGU6DQoNCj4NCj4NCj4g
+T24gOC8xNS8yMyAwODo1MiwgQnJhZHkgTm9yYW5kZXIgd3JvdGU6DQo+ID4gQWxkZXJMYWtlIGFu
+ZCBSYXB0b3JMYWtlIENocm9tZWJvb2tzIGN1cnJlbnRseSB1c2UgdGhlIEhEQSBkcml2ZXIgYnkN
+Cj4gPiBkZWZhdWx0LiBBZGQgYSBxdWlyayB0byB1c2UgdGhlIFNPRiBkcml2ZXIgb24gdGhlc2Ug
+cGxhdGZvcm1zLCB3aGljaCBpcw0KPiA+IG5lZWRlZCBmb3IgZnVuY3Rpb25hbCBpbnRlcm5hbCBh
+dWRpby4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEJyYWR5IE5vcmFuZGVyIDxicmFkeW5vcmFu
+ZGVyQGdtYWlsLmNvbT4NCj4NCj4gVGhhbmtzIGZvciB0aGUgcGF0Y2gNCj4NCj4gQWNrZWQtYnk6
+IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDxwaWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5j
+b20+DQo+DQoNCk5vdyB0aGF0IEkgYW0gbG9va2luZyBjbG9zZXIgYXQgdGhlIHBhdGNoLCBJIGFt
+IHZlcnkgY3VyaW91cyB3aHkgd2UgYXJlIG5vdA0KaGl0dGluZyB0aGUgZm9sbG93aW5nIGNhc2Ug
+YW5kIHVzaW5nIFNPRg0KDQogICAgICAgICB7DQoNCg0KDQoNCiAgICAgICAgICAgICAgICAgLmZs
+YWdzID0gRkxBR19TT0YgfCBGTEFHX1NPRl9PTkxZX0lGX0RNSUNfT1JfU09VTkRXSVJFLA0KDQoN
+Cg0KDQogICAgICAgICAgICAgICAgIC5kZXZpY2UgPSBQQ0lfREVWSUNFX0lEX0lOVEVMX0hEQV9B
+RExfUCwNCg0KDQoNCg0KICAgICAgICAgfSwNCiAgICAgICAgIHsNCg0KDQoNCg0KICAgICAgICAg
+ICAgICAgICAuZmxhZ3MgPSBGTEFHX1NPRiB8IEZMQUdfU09GX09OTFlfSUZfRE1JQ19PUl9TT1VO
+RFdJUkUsDQoNCg0KDQoNCiAgICAgICAgICAgICAgICAgLmRldmljZSA9IFBDSV9ERVZJQ0VfSURf
+SU5URUxfSERBX0FETF9OLA0KDQoNCg0KDQogICAgICAgICB9LA0KZXRjLg0KDQpUaGlzIG1ha2Vz
+IG1lIHdvbmRlciBpZiBtYXliZSB0aGUgRE1JQyBkZXRlY3Rpb24gaXMgYWN0dWFsbHkgYnJva2Vu
+Lg0KDQpDdXJ0aXMNCg==

@@ -2,114 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 895D877CA01
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 11:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251E377CBB2
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 13:29:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51E43741;
-	Tue, 15 Aug 2023 11:08:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51E43741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 406A81F1;
+	Tue, 15 Aug 2023 13:28:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 406A81F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692090573;
-	bh=DAm7Rz6BHJu2dSDt8JwB6HE7695iAkp/haezV5XxKb0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=etBdCTa972ygiH3FphVWQNyo64tSj2Xce9nYE6JvtCJgi6kqT1PpgD99U0/aUoSok
-	 185Y/uk/n72v/DGQ48yh+uXBIhyqoTFcbduxlT1F1OfWNx5QMEJN/XmzaZlp6OoziS
-	 zZcCKsEp6a4Fn8/Ns6lGDqqpTqddqSQyPJ4OKt+I=
+	s=default; t=1692098952;
+	bh=c0UQwalrepMpq1VW/SpIyUAEXIcvIN5UafwiPH6RW2c=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=clbOkkFDxVKD0HHh0ucPOqCdaPA85n7hKEOjOaVg8evnBXkv10JTAAVvC1WVqTVql
+	 EsY6GQoM/CyYLNYnhyWAUGM5SL0uIUNFJtUgwqVKGU0Dm0woRA5oCOwHkhELfivrjg
+	 Q2TSqYvWVyU4g9agQPvaU3RjNY7LmM/qCuYwao5g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE418F80536; Tue, 15 Aug 2023 11:08:42 +0200 (CEST)
+	id 13B75F80027; Tue, 15 Aug 2023 13:28:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53A65F80074;
-	Tue, 15 Aug 2023 11:08:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9502FF8016A;
+	Tue, 15 Aug 2023 13:28:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CB8AF8016D; Tue, 15 Aug 2023 11:08:36 +0200 (CEST)
+	id C7DDBF8016D; Tue, 15 Aug 2023 13:27:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62E2DF800EE
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 11:08:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62E2DF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD4A7F80027
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 13:27:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD4A7F80027
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=2LfddeV4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=fXcCg+4F
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 841C61FD63;
-	Tue, 15 Aug 2023 09:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692090500;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HPoS8JqXii/KwORwMKx0+xL5N/z3rN2C0U7fbw4tIlk=;
-	b=2LfddeV4bH+EF3M8KhWlNZ7QX7arTaRa+wyboM2EFSKFGIIIh51my1B3zI4dF0Bqc8yVoM
-	VfseohAj6LC6/pT+VHvFOMIBr/Qd+v9pNrJhmwdQRmkT6sGpB70cX2J8r9LcLDPnh1PUZt
-	9IYY30lChZEr0Pgobn6/lZh3G0A7hwg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692090500;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HPoS8JqXii/KwORwMKx0+xL5N/z3rN2C0U7fbw4tIlk=;
-	b=fXcCg+4FPeIpF2u8lAYK4ybREChy1kv6mpegUpXlggNG5wy2qx/rwpLKLhenB3hgVvcH8C
-	7m1pkiB1tlzvM8BQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 535601353E;
-	Tue, 15 Aug 2023 09:08:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Y8W4EoRA22SFNQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 15 Aug 2023 09:08:20 +0000
-Date: Tue, 15 Aug 2023 11:08:19 +0200
-Message-ID: <87il9gzn98.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: "Joseph C. Sible" <josephcsible@gmail.com>,
-	Bagas Sanjaya <bagasdotme@gmail.com>,
-	"regressions@lists.linux.dev"
-	<regressions@lists.linux.dev>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>
-Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-In-Reply-To: <01e212a538fc407ca6edd10b81ff7b05@realtek.com>
-References: <87o7jshxch.wl-tiwai@suse.de>
-	<CABpewhEG9ViuoCwZHmTN0Up-3jwZ1M-jfC+dAqo0zhqLOZtQ6g@mail.gmail.com>
-	<01e212a538fc407ca6edd10b81ff7b05@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=M0rloIC2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1692098869; x=1723634869;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=c0UQwalrepMpq1VW/SpIyUAEXIcvIN5UafwiPH6RW2c=;
+  b=M0rloIC2yvsyZJ1xCUrOxI46eCpJ08Lvj/Ee4f7kcYDmLVezbMHROk8F
+   pkK0wyIL4GmgqK/mFqYI9kY4OPBjzQCzl/25nqBbBGArp7RdJTutHVjNg
+   NZ8GkE6G0j7HvzxKSVtK/GKpMT51QK7T/NFujG9eMUK7pG+eB1N6P4Nuf
+   sdR1qY1vx/ElNTKi4DJGX7tNXKR4OqCs/6u/bA1HMHgmZZZ93qDdqJBeB
+   b7MbITDV72jpYN9vMsWk4m46mLlVDkf5+iPym4EdA/p2a70cfnWo8lDdq
+   DspIvl0YBeVOYhJZ8mZwHTHGJSqeoI0qiWN4LNo3dQ3eNgKZcK5ElMPeo
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="351844541"
+X-IronPort-AV: E=Sophos;i="6.01,174,1684825200";
+   d="scan'208";a="351844541"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2023 04:27:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="980338041"
+X-IronPort-AV: E=Sophos;i="6.01,174,1684825200";
+   d="scan'208";a="980338041"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by fmsmga006.fm.intel.com with ESMTP; 15 Aug 2023 04:27:38 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id 3C520350; Tue, 15 Aug 2023 14:35:42 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Cc: Herve Codina <herve.codina@bootlin.com>,
+	Mark Brown <broonie@kernel.org>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH v1 1/1] minmax: Deduplicate __unconst_integer_typeof()
+Date: Tue, 15 Aug 2023 14:35:34 +0300
+Message-Id: <20230815113534.10592-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QEQRNXAGD7FJ7WPHF3LMW5M7JEKTGCGA
-X-Message-ID-Hash: QEQRNXAGD7FJ7WPHF3LMW5M7JEKTGCGA
-X-MailFrom: tiwai@suse.de
+Message-ID-Hash: M3PW4Q54MYU4E5FPIIPJXOIK55RN7JPH
+X-Message-ID-Hash: M3PW4Q54MYU4E5FPIIPJXOIK55RN7JPH
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QEQRNXAGD7FJ7WPHF3LMW5M7JEKTGCGA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M3PW4Q54MYU4E5FPIIPJXOIK55RN7JPH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,91 +103,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 15 Aug 2023 10:08:48 +0200,
-Kailang wrote:
-> 
-> Hi Takashi,
-> 
-> I think maybe attach patch is what you want.
+It appears that compiler_types.h already have an implementation
+of the __unconst_integer_typeof() called __unqual_scalar_typeof().
+Use it instead of the copy.
 
-Looks good.  Let's ask the reporter to test with it.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
 
+As the initial code is in Linux Next via ASoC tree, it's assumed
+to go via that tree as well.
 
-Thanks!
+ include/linux/minmax.h | 26 +++-----------------------
+ 1 file changed, 3 insertions(+), 23 deletions(-)
 
-Takashi
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 83aebc244cba..69bbe987fa87 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_MINMAX_H
+ #define _LINUX_MINMAX_H
+ 
++#include <linux/compiler_types.h>
+ #include <linux/const.h>
+ #include <linux/types.h>
+ 
+@@ -134,27 +135,6 @@
+  */
+ #define max_t(type, x, y)	__careful_cmp((type)(x), (type)(y), >)
+ 
+-/*
+- * Remove a const qualifier from integer types
+- * _Generic(foo, type-name: association, ..., default: association) performs a
+- * comparison against the foo type (not the qualified type).
+- * Do not use the const keyword in the type-name as it will not match the
+- * unqualified type of foo.
+- */
+-#define __unconst_integer_type_cases(type)	\
+-	unsigned type:  (unsigned type)0,	\
+-	signed type:    (signed type)0
+-
+-#define __unconst_integer_typeof(x) typeof(			\
+-	_Generic((x),						\
+-		char: (char)0,					\
+-		__unconst_integer_type_cases(char),		\
+-		__unconst_integer_type_cases(short),		\
+-		__unconst_integer_type_cases(int),		\
+-		__unconst_integer_type_cases(long),		\
+-		__unconst_integer_type_cases(long long),	\
+-		default: (x)))
+-
+ /*
+  * Do not check the array parameter using __must_be_array().
+  * In the following legit use-case where the "array" passed is a simple pointer,
+@@ -169,13 +149,13 @@
+  * 'int *buff' and 'int buff[N]' types.
+  *
+  * The array can be an array of const items.
+- * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * typeof() keeps the const qualifier. Use __unqual_scalar_typeof() in order
+  * to discard the const qualifier for the __element variable.
+  */
+ #define __minmax_array(op, array, len) ({				\
+ 	typeof(&(array)[0]) __array = (array);				\
+ 	typeof(len) __len = (len);					\
+-	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	__unqual_scalar_typeof(__array[0]) __element = __array[--__len];\
+ 	while (__len--)							\
+ 		__element = op(__element, __array[__len]);		\
+ 	__element; })
+-- 
+2.40.0.1.gaa8946217a0b
 
-> 
-> > -----Original Message-----
-> > From: Joseph C. Sible <josephcsible@gmail.com>
-> > Sent: Friday, August 4, 2023 10:35 PM
-> > To: Takashi Iwai <tiwai@suse.de>
-> > Cc: Kailang <kailang@realtek.com>; Bagas Sanjaya <bagasdotme@gmail.com>;
-> > regressions@lists.linux.dev; perex@perex.cz; tiwai@suse.com;
-> > alsa-devel@alsa-project.org
-> > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
-> > 15z-fc000 on warm boot
-> > 
-> > 
-> > External mail.
-> > 
-> > 
-> > 
-> > On Mon, Jul 31, 2023 at 12:14 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > >
-> > > ... and now we receive a regression report due to this change :-<
-> > >   https://bugzilla.kernel.org/show_bug.cgi?id=217732
-> > >
-> > > I believe the problem is that the patch disabled the 3kpull-low
-> > > behavior too much while some codecs still need it.
-> > >
-> > > The patch changes like:
-> > >
-> > > @@ -3638,8 +3640,7 @@ static void alc256_shutup(struct hda_codec
-> > *codec)
-> > >         /* If disable 3k pulldown control for alc257, the Mic detection will
-> > not work correctly
-> > >          * when booting with headset plugged. So skip setting it for the
-> > codec alc257
-> > >          */
-> > > -       if (codec->core.vendor_id != 0x10ec0236 &&
-> > > -           codec->core.vendor_id != 0x10ec0257)
-> > > +       if (spec->en_3kpull_low)
-> > >                 alc_update_coef_idx(codec, 0x46, 0, 3 << 12);
-> > >
-> > >         if (!spec->no_shutup_pins)
-> > >
-> > > ... while the only place setting spec->en_3kpull_low is:
-> > >
-> > > @@ -10682,6 +10683,8 @@ static int patch_alc269(struct hda_codec
-> > *codec)
-> > >                 spec->shutup = alc256_shutup;
-> > >                 spec->init_hook = alc256_init;
-> > >                 spec->gen.mixer_nid = 0; /* ALC256 does not have any
-> > > loopback mixer path */
-> > > +               if (codec->bus->pci->vendor == PCI_VENDOR_ID_AMD)
-> > > +                       spec->en_3kpull_low = true;
-> > >                 break;
-> > >         case 0x10ec0257:
-> > >                 spec->codec_variant = ALC269_TYPE_ALC257;
-> > >
-> > > Since spec->3n_3kpull_low is false as default, it means that, except
-> > > for ALC230/236/256 and PCI vendor AMD, the flag is never set, hence
-> > > it's no longer called.
-> > >
-> > > Shouldn't spec->en_3kpull_low be enabled rather as default?  Or which
-> > > models can set it?
-> > 
-> > In both my original bug and this new bug, the problem was that we're not
-> > calling it when we should be. Given that, wouldn't a simple fix be to call it if
-> > either the old condition or the new condition is true?
-> > E.g., something like this:
-> > 
-> > if ((codec->core.vendor_id != 0x10ec0236 && codec->core.vendor_id !=
-> > 0x10ec0257) || spec->en_3kpull_low)
-> > 
-> > Joseph C. Sible
-> > 
-> > ------Please consider the environment before printing this e-mail.
-> 
-> 

@@ -2,56 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F000377D2FE
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 21:09:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDDA77D2FC
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 21:08:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B92CE8A;
-	Tue, 15 Aug 2023 21:08:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B92CE8A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C49BF843;
+	Tue, 15 Aug 2023 21:07:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C49BF843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692126551;
-	bh=5dfq0o38IpOz9nawJ1TPgk+mfhgt/muSCta6ouUMlqE=;
+	s=default; t=1692126527;
+	bh=I1cdgVxKie3gunKrwVu1E8i0WZ9iuoxq8NSIvwZHTok=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KggGfYGFMaslc2L42VJPtWBJG/ZXO1TBiz9KBi59g6CCygc/F12cCyrnDlihWUV26
-	 yAoXtwVUqXi1pNBPTJWkBMEJRfM2UBFYdTQhnZuGbNhdzkF8ekut9QaHWTOzHH0syD
-	 8s9JI+FnwZQGys8ZjmF2o19y3dBVjM018bhHLiG4=
+	b=VpXZ3HBT0o33sS8r0k1Y4p8nI/meWwcBeNxUc1EtEambYwGehT/CKYcHBDYIGyUr9
+	 YQB5F2ox06P+0bkjD+0uP9fZQDXU6weiM0YDWC3Jon9zTUi/txJsOnJWTr13yU3FWM
+	 dOXCbrHyq3/CbcBgtpSb13VwX7M9KmSLlX94b7pU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4330F80694; Tue, 15 Aug 2023 21:03:20 +0200 (CEST)
+	id 44A82F8067C; Tue, 15 Aug 2023 21:03:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EB55F8068C;
-	Tue, 15 Aug 2023 21:03:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40CD9F80672;
+	Tue, 15 Aug 2023 21:03:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9629F8016D; Tue, 15 Aug 2023 21:02:59 +0200 (CEST)
+	id 3C06CF80636; Tue, 15 Aug 2023 21:02:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 779F4F80549
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 21:01:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 779F4F80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id 80ABFF80570
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 21:01:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80ABFF80570
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=quIMOGur;
+ header.s=susede2_rsa header.b=dQBv3Bb5;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=kFCrXlZz
+ header.s=susede2_ed25519 header.b=/GnCwUHa
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 86E26219A5;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AC2181FD66;
 	Tue, 15 Aug 2023 19:01:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -60,44 +61,44 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5xJHuvA5gT6n1i0ytgW/H7/p1r9TYXBmYRI/sH4EsE0=;
-	b=quIMOGurxTUd4o7P4VgI/hdYPnbjocIKWNj2o5BIX6Q8YM0crETczGGn6AeQdjGNJWrcmv
-	ndBzGg1YefBc4s+3O/ypswil0XD64jqeWFo0DhJdmQF+8Q2bHEZ6XHLMeMq9+GDLnPZ8uy
-	1+TqikHpxovQk0GGZaa1Z4MeJF4FMuQ=
+	bh=KmpMqv9W8iYfflO8sQaY3lJwfHw1dyMQl8ItqzCOPcc=;
+	b=dQBv3Bb5S9LU7uqrz7alAy2/ZG1W5C+xSoa6dBQf1/aRdNQu1EvhAZRGQCnYiqiQlm7JEf
+	AmD53OFTixKoz8fwH7wW7flEu5AeR75n0ZPRBoJSTCt3zMWWJxDByHCviQnMZFhI94DSOG
+	T7XJpRWMk47M+oEtd0evepUm4rw0g4k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1692126108;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5xJHuvA5gT6n1i0ytgW/H7/p1r9TYXBmYRI/sH4EsE0=;
-	b=kFCrXlZzwDVJxIOSXyqawncQf1HecYhqYFgTAOtXt3Qr8QOD/Pb71Rnv6W2gpvLto+qtGI
-	rfc72SC+9kFfmsBQ==
+	bh=KmpMqv9W8iYfflO8sQaY3lJwfHw1dyMQl8ItqzCOPcc=;
+	b=/GnCwUHag7xh2X3cOvCvmo2rLX24+ESCzhOmmqtRZmuYy6GrHNMIqDeKmphtdFzr5Y2hnM
+	DYQruRmLHWh+wYAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 65E0B1390C;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8B2691353E;
 	Tue, 15 Aug 2023 19:01:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id cNDjF5zL22QTVAAAMHmgww
+	id gL0KIZzL22QTVAAAMHmgww
 	(envelope-from <tiwai@suse.de>); Tue, 15 Aug 2023 19:01:48 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org,
 	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH v2 09/25] ALSA: nm256: Convert to generic PCM copy ops
-Date: Tue, 15 Aug 2023 21:01:20 +0200
-Message-Id: <20230815190136.8987-10-tiwai@suse.de>
+Subject: [PATCH v2 10/25] ALSA: rme32: Convert to generic PCM copy ops
+Date: Tue, 15 Aug 2023 21:01:21 +0200
+Message-Id: <20230815190136.8987-11-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230815190136.8987-1-tiwai@suse.de>
 References: <20230815190136.8987-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QRLO4XAN2SANRIMHUFHCA47LA2IGLJOR
-X-Message-ID-Hash: QRLO4XAN2SANRIMHUFHCA47LA2IGLJOR
+Message-ID-Hash: XRRGF5K7JFN76EJQG4CHGJOXLKHA56XS
+X-Message-ID-Hash: XRRGF5K7JFN76EJQG4CHGJOXLKHA56XS
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QRLO4XAN2SANRIMHUFHCA47LA2IGLJOR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XRRGF5K7JFN76EJQG4CHGJOXLKHA56XS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,97 +120,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch converts the nm256 driver code to use the new unified PCM
+This patch converts the rme32 driver code to use the new unified PCM
 copy callback.  It's a straightforward conversion from *_user() to
 *_iter() variants.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/nm256/nm256.c | 42 ++++++-----------------------------------
- 1 file changed, 6 insertions(+), 36 deletions(-)
+ sound/pci/rme32.c | 50 +++++++++++------------------------------------
+ 1 file changed, 11 insertions(+), 39 deletions(-)
 
-diff --git a/sound/pci/nm256/nm256.c b/sound/pci/nm256/nm256.c
-index f99a1e96e923..34f90829e656 100644
---- a/sound/pci/nm256/nm256.c
-+++ b/sound/pci/nm256/nm256.c
-@@ -691,26 +691,12 @@ snd_nm256_playback_silence(struct snd_pcm_substream *substream,
- static int
- snd_nm256_playback_copy(struct snd_pcm_substream *substream,
- 			int channel, unsigned long pos,
--			void __user *src, unsigned long count)
-+			struct iov_iter *src, unsigned long count)
+diff --git a/sound/pci/rme32.c b/sound/pci/rme32.c
+index 9c0ac025e143..02144bbee6d5 100644
+--- a/sound/pci/rme32.c
++++ b/sound/pci/rme32.c
+@@ -252,48 +252,24 @@ static int snd_rme32_playback_silence(struct snd_pcm_substream *substream,
+ /* copy callback for halfduplex mode */
+ static int snd_rme32_playback_copy(struct snd_pcm_substream *substream,
+ 				   int channel, unsigned long pos,
+-				   void __user *src, unsigned long count)
++				   struct iov_iter *src, unsigned long count)
  {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct nm256_stream *s = runtime->private_data;
+ 	struct rme32 *rme32 = snd_pcm_substream_chip(substream);
  
--	if (copy_from_user_toio(s->bufptr + pos, src, count))
+-	if (copy_from_user_toio(rme32->iobase + RME32_IO_DATA_BUFFER + pos,
+-				src, count))
 -		return -EFAULT;
 -	return 0;
 -}
 -
--static int
--snd_nm256_playback_copy_kernel(struct snd_pcm_substream *substream,
--			       int channel, unsigned long pos,
--			       void *src, unsigned long count)
+-static int snd_rme32_playback_copy_kernel(struct snd_pcm_substream *substream,
+-					  int channel, unsigned long pos,
+-					  void *src, unsigned long count)
 -{
--	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct nm256_stream *s = runtime->private_data;
+-	struct rme32 *rme32 = snd_pcm_substream_chip(substream);
 -
--	memcpy_toio(s->bufptr + pos, src, count);
+-	memcpy_toio(rme32->iobase + RME32_IO_DATA_BUFFER + pos, src, count);
 -	return 0;
-+	return copy_from_iter_toio(s->bufptr + pos, src, count);
++	return copy_from_iter_toio(rme32->iobase + RME32_IO_DATA_BUFFER + pos,
++				   src, count);
+ }
+ 
+ /* copy callback for halfduplex mode */
+ static int snd_rme32_capture_copy(struct snd_pcm_substream *substream,
+ 				  int channel, unsigned long pos,
+-				  void __user *dst, unsigned long count)
++				  struct iov_iter *dst, unsigned long count)
+ {
+ 	struct rme32 *rme32 = snd_pcm_substream_chip(substream);
+ 
+-	if (copy_to_user_fromio(dst,
+-			    rme32->iobase + RME32_IO_DATA_BUFFER + pos,
+-			    count))
+-		return -EFAULT;
+-	return 0;
+-}
+-
+-static int snd_rme32_capture_copy_kernel(struct snd_pcm_substream *substream,
+-					 int channel, unsigned long pos,
+-					 void *dst, unsigned long count)
+-{
+-	struct rme32 *rme32 = snd_pcm_substream_chip(substream);
+-
+-	memcpy_fromio(dst, rme32->iobase + RME32_IO_DATA_BUFFER + pos, count);
+-	return 0;
++	return copy_to_iter_fromio(dst,
++				   rme32->iobase + RME32_IO_DATA_BUFFER + pos,
++				   count);
  }
  
  /*
-@@ -719,26 +705,12 @@ snd_nm256_playback_copy_kernel(struct snd_pcm_substream *substream,
- static int
- snd_nm256_capture_copy(struct snd_pcm_substream *substream,
- 		       int channel, unsigned long pos,
--		       void __user *dst, unsigned long count)
-+		       struct iov_iter *dst, unsigned long count)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct nm256_stream *s = runtime->private_data;
- 
--	if (copy_to_user_fromio(dst, s->bufptr + pos, count))
--		return -EFAULT;
--	return 0;
--}
--
--static int
--snd_nm256_capture_copy_kernel(struct snd_pcm_substream *substream,
--			      int channel, unsigned long pos,
--			      void *dst, unsigned long count)
--{
--	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct nm256_stream *s = runtime->private_data;
--
--	memcpy_fromio(dst, s->bufptr + pos, count);
--	return 0;
-+	return copy_to_iter_fromio(dst, s->bufptr + pos, count);
- }
- 
- #endif /* !__i386__ */
-@@ -909,8 +881,7 @@ static const struct snd_pcm_ops snd_nm256_playback_ops = {
- 	.trigger =	snd_nm256_playback_trigger,
- 	.pointer =	snd_nm256_playback_pointer,
- #ifndef __i386__
--	.copy_user =	snd_nm256_playback_copy,
--	.copy_kernel =	snd_nm256_playback_copy_kernel,
-+	.copy =		snd_nm256_playback_copy,
- 	.fill_silence =	snd_nm256_playback_silence,
- #endif
- 	.mmap =		snd_pcm_lib_mmap_iomem,
-@@ -924,8 +895,7 @@ static const struct snd_pcm_ops snd_nm256_capture_ops = {
- 	.trigger =	snd_nm256_capture_trigger,
- 	.pointer =	snd_nm256_capture_pointer,
- #ifndef __i386__
--	.copy_user =	snd_nm256_capture_copy,
--	.copy_kernel =	snd_nm256_capture_copy_kernel,
-+	.copy =		snd_nm256_capture_copy,
- #endif
+@@ -1194,8 +1170,7 @@ static const struct snd_pcm_ops snd_rme32_playback_spdif_ops = {
+ 	.prepare =	snd_rme32_playback_prepare,
+ 	.trigger =	snd_rme32_pcm_trigger,
+ 	.pointer =	snd_rme32_playback_pointer,
+-	.copy_user =	snd_rme32_playback_copy,
+-	.copy_kernel =	snd_rme32_playback_copy_kernel,
++	.copy =		snd_rme32_playback_copy,
+ 	.fill_silence =	snd_rme32_playback_silence,
  	.mmap =		snd_pcm_lib_mmap_iomem,
  };
+@@ -1207,8 +1182,7 @@ static const struct snd_pcm_ops snd_rme32_capture_spdif_ops = {
+ 	.prepare =	snd_rme32_capture_prepare,
+ 	.trigger =	snd_rme32_pcm_trigger,
+ 	.pointer =	snd_rme32_capture_pointer,
+-	.copy_user =	snd_rme32_capture_copy,
+-	.copy_kernel =	snd_rme32_capture_copy_kernel,
++	.copy =		snd_rme32_capture_copy,
+ 	.mmap =		snd_pcm_lib_mmap_iomem,
+ };
+ 
+@@ -1219,8 +1193,7 @@ static const struct snd_pcm_ops snd_rme32_playback_adat_ops = {
+ 	.prepare =	snd_rme32_playback_prepare,
+ 	.trigger =	snd_rme32_pcm_trigger,
+ 	.pointer =	snd_rme32_playback_pointer,
+-	.copy_user =	snd_rme32_playback_copy,
+-	.copy_kernel =	snd_rme32_playback_copy_kernel,
++	.copy =		snd_rme32_playback_copy,
+ 	.fill_silence =	snd_rme32_playback_silence,
+ 	.mmap =		snd_pcm_lib_mmap_iomem,
+ };
+@@ -1232,8 +1205,7 @@ static const struct snd_pcm_ops snd_rme32_capture_adat_ops = {
+ 	.prepare =	snd_rme32_capture_prepare,
+ 	.trigger =	snd_rme32_pcm_trigger,
+ 	.pointer =	snd_rme32_capture_pointer,
+-	.copy_user =	snd_rme32_capture_copy,
+-	.copy_kernel =	snd_rme32_capture_copy_kernel,
++	.copy =		snd_rme32_capture_copy,
+ 	.mmap =		snd_pcm_lib_mmap_iomem,
+ };
+ 
 -- 
 2.35.3
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D36177D33C
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 21:19:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D88377D345
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 21:20:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49717DEF;
-	Tue, 15 Aug 2023 21:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49717DEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFD2393A;
+	Tue, 15 Aug 2023 21:19:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFD2393A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692127169;
-	bh=klMvkG68KKvGceDjga7OCnWF+ktJazkneos4Ls9WMhE=;
+	s=default; t=1692127224;
+	bh=gUvQfmxcGVeEKTlqYtZdiuzcahELzBbHAsRWq0JLUuc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JMDwAmfduBV+4GeyFu93EX02rylwZev/HWAWWKntmo523XlC/SdQOj11t52NjLFiG
-	 CeDW2GtuqCCQcWzVTx3w/RiXOmR91m/h9/EFj1G0FmvemNMUH5WeL/rUknybnMR01Y
-	 JFiZ8KdKEMApJyoG1IJtkldPIDH8QySr75ipJvtI=
+	b=o/YgVxiOzm48Sua0Iyidp4HG9/SlQVrHDybVJDmYURjDa11GC7mSD58cTtqzF6GGC
+	 x20IIxI4MgB/T0IH6vfrnCs9gffucFiXwskqNH0j6SmGhkIqKMXxMCaZDZNiTisigJ
+	 9WgRHsuNTG/sHfuHMoDkafIYHhUnnCITO3b4UoYA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F106F80570; Tue, 15 Aug 2023 21:17:59 +0200 (CEST)
+	id 19C82F805C0; Tue, 15 Aug 2023 21:18:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A544CF80563;
-	Tue, 15 Aug 2023 21:17:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0FB3F805AE;
+	Tue, 15 Aug 2023 21:18:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8387DF80553; Tue, 15 Aug 2023 21:17:54 +0200 (CEST)
+	id 95EDBF80553; Tue, 15 Aug 2023 21:17:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,46 +36,50 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BBF44F80290
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 21:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBF44F80290
+	by alsa1.perex.cz (Postfix) with ESMTPS id C710FF80551
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 21:17:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C710FF80551
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eeJKga6v
+ header.s=k20201202 header.b=O8zDF1fq
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A76B466092;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 88C91660A3;
+	Tue, 15 Aug 2023 19:17:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE76C433C7;
 	Tue, 15 Aug 2023 19:17:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66092C433C8;
-	Tue, 15 Aug 2023 19:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692127069;
-	bh=klMvkG68KKvGceDjga7OCnWF+ktJazkneos4Ls9WMhE=;
+	s=k20201202; t=1692127071;
+	bh=gUvQfmxcGVeEKTlqYtZdiuzcahELzBbHAsRWq0JLUuc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=eeJKga6vLYO54aQfI+5jCwUauoIKFjb+vd6U2LHXnBgP1LMQzuZ3+2BR+CQvbrHUk
-	 HvdoZSDOEHi9gQFUfuxC3gXZUEGfJleVr9zJlZlipg3UaTk9onN4VIZ0qqWp5QfPkR
-	 4lcGcyFmUw4GbDc96xMzjZS1iC/X8sjI/UnXACtS3ZLLfS2tFU7c2v9d4ccPUXuUGa
-	 X/z9QoZgGymX6KxEbaz9a6ZjfnnkdOQGNCKfn96wOq5QuK+aLiglDRiVLMF3yZeMB6
-	 l883LV7rLvX8erRNXKviKa6GdS7mFQ2E9M4i2shPMOsFPFamVmYRb64akmDqioLEzF
-	 2Pv2eVXYjqX5w==
+	b=O8zDF1fqxLFf0GbGS5LewfOXFPh0r8sdIf3xkF/cZoG0VrTgSGOpIQKU0TSlNkkre
+	 v6yqH5Mv9UVE0Tmn6Rq55tXz/oX7HaY2OsywA2rYmXEfHzPlk9wKMxZzkBrBoU4+6p
+	 B9tpcXS3T4wHpED4WklFLM758H8kLgYcjLGOmYnE+q1xUE5wcWC7lQoVYjzdr8dWW7
+	 4X7IevlG8OmyXhzQbnpncePLFBbljtdJN76TBqrdnf57v+xV7JZ1O6ZajlqAVFvWJ7
+	 +VkQHn5tmpaQrn1nEA3CRXTRTBoeWVwyreGcMciuJkkusRIaRvptMuwDIBXe1rhKDu
+	 gt1NQ3SN7JNfA==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de
-In-Reply-To: <20230814231358.78971-1-pierre-louis.bossart@linux.intel.com>
-References: <20230814231358.78971-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: Intel: RPL/MTL machine updates for 6.6
-Message-Id: <169212706814.68178.3841436524942064334.b4-ty@kernel.org>
-Date: Tue, 15 Aug 2023 20:17:48 +0100
+Cc: tiwai@suse.de, Chao Song <chao.song@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20230814231519.79051-1-pierre-louis.bossart@linux.intel.com>
+References: <20230814231519.79051-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: Refactor code for HDA stream
+ creation
+Message-Id: <169212706930.68178.10530599536892993440.b4-ty@kernel.org>
+Date: Tue, 15 Aug 2023 20:17:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: A4AKQFBKPWVTSHKMXDSAYKXOSEBJ2QA3
-X-Message-ID-Hash: A4AKQFBKPWVTSHKMXDSAYKXOSEBJ2QA3
+Message-ID-Hash: OA7HZAUC3MARRGCIUSTVEKG4GWXZ4XTT
+X-Message-ID-Hash: OA7HZAUC3MARRGCIUSTVEKG4GWXZ4XTT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A4AKQFBKPWVTSHKMXDSAYKXOSEBJ2QA3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OA7HZAUC3MARRGCIUSTVEKG4GWXZ4XTT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,15 +101,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 14 Aug 2023 18:13:54 -0500, Pierre-Louis Bossart wrote:
-> 4 commits with the match tables for RaptorLake and MeteorLake devices.
+On Mon, 14 Aug 2023 18:15:19 -0500, Pierre-Louis Bossart wrote:
+> Existing HDA stream creation is split into two
+> for loops for capture and playback, but most of
+> the code in the two for loops are duplicated.
 > 
-> Balamurugan C (3):
->   ASoC: Intel: soc-acpi: Add entry for sof_es8336 in RPL match table.
->   ASoC: Intel: soc-acpi: Add entry for HDMI_In capture support in RPL
->     match table
->   ASoC: Intel: RPL: Add entry for HDMI-In capture support on non-I2S
->     codec boards.
+> This patch refactors HDA stream creation with a
+> single for loop, thus remove code duplication.
 > 
 > [...]
 
@@ -115,14 +117,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: Intel: soc-acpi: Add entry for sof_es8336 in RPL match table.
-      commit: fc8b9d05a01f7cd98e0805aa773603b07515de06
-[2/4] ASoC: Intel: soc-acpi: Add entry for HDMI_In capture support in RPL match table
-      commit: fbc82c016d96aa4a2d99587cae2b78d5c5a59ea7
-[3/4] ASoC: Intel: soc-acpi: add support for Dell SKU0C87 devices
-      commit: fec75606f48f6c85eca8a9e868e41fb657abd1ca
-[4/4] ASoC: Intel: RPL: Add entry for HDMI-In capture support on non-I2S codec boards.
-      commit: f7555da71ef6eb9d289173d94ec2cc9d15061f33
+[1/1] ASoC: SOF: Intel: Refactor code for HDA stream creation
+      commit: a942409c97ce12c2a4811b538568b1342d91e56c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

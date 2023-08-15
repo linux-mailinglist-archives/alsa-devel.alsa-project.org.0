@@ -2,88 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70BE877CD00
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 14:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7334F77CD8E
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 15:52:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C8F2829;
-	Tue, 15 Aug 2023 14:55:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C8F2829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F1781F2;
+	Tue, 15 Aug 2023 15:51:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F1781F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692104168;
-	bh=dDxA4P/ZLn0zQb28IKxF87UEdyaPxIaZJh97gjQPCRQ=;
+	s=default; t=1692107559;
+	bh=gEWWWn6PnBw0uP74Ou/fHMCn6RcO7ifuOGqpIrzxB3I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YfGB4IYEsZOeaOayJceVcOAk19om/+cabQMfcOycRXwWjzptAIiM0MKpVB+uPapLn
-	 klALLSydyS5Scal7MgqFQAM5H/oWNTLRDrjdqM1hbodRiz1Mw6kvIgXqoo7Quvp/4q
-	 weKLu/40/8pqp6DCR5d2f4QhwBE33yXmZCFsrvZ0=
+	b=s/gvk+wsf+3ZLzrcQUbjNRaKpggDkgZYN21tYHCVoKdgo/urc0dn1+aSMD30xTeLj
+	 v2pfmy6NR64681vRXLllXHvv7K9ld+QAPlEN10MDXPD2NIDpKz8Dd7KcngiquP1jNN
+	 OZNK/Wbo+/k5G5gGBQTv1mCYxwdSWjovSKEwYofQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28171F80549; Tue, 15 Aug 2023 14:54:57 +0200 (CEST)
+	id ABE8BF80074; Tue, 15 Aug 2023 15:51:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 992AAF8016A;
-	Tue, 15 Aug 2023 14:54:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 645B6F8016A;
+	Tue, 15 Aug 2023 15:51:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C9DDF8016D; Tue, 15 Aug 2023 14:54:54 +0200 (CEST)
+	id 4D9D4F8016D; Tue, 15 Aug 2023 15:51:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BF11EF800EE
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 14:54:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF11EF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 47CD3F80074
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 15:51:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47CD3F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QWVFPbj8
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1432B61D3E;
-	Tue, 15 Aug 2023 12:54:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3732C433C7;
-	Tue, 15 Aug 2023 12:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692104085;
-	bh=dDxA4P/ZLn0zQb28IKxF87UEdyaPxIaZJh97gjQPCRQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QWVFPbj8W++h4LpRMo1kgy+7LokGjP+dYNiWn9M/OiNenkud+wNPDjergae57ty2d
-	 jnI/+/NGZmyNnAaf6VxdGgvOyY1CxIZC/kYOcEquOde7/RfPvrI1UupMj89qfoH/d7
-	 04lNatHOWvkk1GjeW+pkT/LXeko9fVSXyTPN1ccmWLTS2fYVk/KJBkrKuCO9ZJMNB6
-	 1qrbSaxSPV2AFjMKT+MMJgJ2WUQDdxUXsmsdOYF/G5lPa+v8y/yblTUEObJd1K7dbS
-	 m0kUoci+TqG18GhSv6Qnj1UYK8gfBhI1A7+YGh9h2rVI6h4aWXgfUovPB2/IB2L8EJ
-	 8NslK7xU1FXRA==
-Date: Tue, 15 Aug 2023 13:54:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Justin Stitt <justinstitt@google.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH] ASoC: rt5677: fix -Wvoid-pointer-to-enum-cast warning
-Message-ID: <94c059a6-07bf-4887-8c67-b8b0724baa49@sirena.org.uk>
-References: 
- <20230814-void-sound-soc-codecs-rt5677-v1-1-5c468c60fa37@google.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=LMvA3xG3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1692107499; x=1723643499;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gEWWWn6PnBw0uP74Ou/fHMCn6RcO7ifuOGqpIrzxB3I=;
+  b=LMvA3xG3yvnitHeBcSU3C10qUDrx/aRameHn5arvWO3BEJtGTEDYJqpI
+   3hKeoczKTd5I7vH4xHuXKtF33wXxWCH/9Fq/5zW4SOv1bOYUcZxclQ1M7
+   Y4KOVI+3ef2PvNUv1x8+P1mjxoMRkSMEC0kVMPpVjH5B8XVA08kGUUEgv
+   ih0odm81UVWYmh4OcS76krpKCkFqp+gF8PeGkCewzog+KozdvWVjojoNT
+   yL4krvAfeGAqagcfEoCotKAaZ89IKt/Cfq/ufL6V73T4iaRYxJS6a0wmh
+   0yJSGdkyWQmWyAqETh74Cn9OQwJYO9a0xL3+WZpJIt4oO+oeALTtYVZPQ
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="371188862"
+X-IronPort-AV: E=Sophos;i="6.01,174,1684825200";
+   d="scan'208";a="371188862"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2023 06:51:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="803827030"
+X-IronPort-AV: E=Sophos;i="6.01,174,1684825200";
+   d="scan'208";a="803827030"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by fmsmga004.fm.intel.com with ESMTP; 15 Aug 2023 06:51:31 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@intel.com>)
+	id 1qVuSI-003wZW-1S;
+	Tue, 15 Aug 2023 16:51:30 +0300
+Date: Tue, 15 Aug 2023 16:51:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/25] ALSA: core: Add memory copy helpers between
+ iov_iter and iomem
+Message-ID: <ZNuC4qKYOR4piQQU@smile.fi.intel.com>
+References: <20230814115523.15279-1-tiwai@suse.de>
+ <20230814115523.15279-4-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EmsSKH7ZmGf/qlZE"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: 
- <20230814-void-sound-soc-codecs-rt5677-v1-1-5c468c60fa37@google.com>
-X-Cookie: The meek don't want it.
-Message-ID-Hash: 5U3XEXYJ2M4WCWEP34NO7ZAIMC2MSMJ5
-X-Message-ID-Hash: 5U3XEXYJ2M4WCWEP34NO7ZAIMC2MSMJ5
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20230814115523.15279-4-tiwai@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: OE42AFMJZJWEZUJST6V7BO3F3SGDA5RQ
+X-Message-ID-Hash: OE42AFMJZJWEZUJST6V7BO3F3SGDA5RQ
+X-MailFrom: andriy.shevchenko@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5U3XEXYJ2M4WCWEP34NO7ZAIMC2MSMJ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OE42AFMJZJWEZUJST6V7BO3F3SGDA5RQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,30 +108,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, Aug 14, 2023 at 01:55:01PM +0200, Takashi Iwai wrote:
+> Add two more helpers for copying memory between iov_iter and iomem,
+> which will be used by the new PCM copy ops in a few drivers.
+> The existing helpers became wrappers of those now.
+> 
+> Note that copy_from/to_iter() returns the copied bytes, hence the
+> error condition is inverted from copy_from/to_user().
 
---EmsSKH7ZmGf/qlZE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+...
 
-On Mon, Aug 14, 2023 at 09:58:56PM +0000, Justin Stitt wrote:
-> `match_id->data` is a void* and as such is being truncated when cast to
-> `enum rt5677_type` which is only int-width.
+> -	return copy_to_user(dst, (const void __force*)src, count) ? -EFAULT : 0;
+> +	return !copy_to_iter((const void __force *)src, count, dst) ? -EFAULT : 0;
 
-This doesn't apply against current code, please check and resend.
+Inverted means, I believe, this
 
---EmsSKH7ZmGf/qlZE
-Content-Type: application/pgp-signature; name="signature.asc"
+	return copy_to_iter((const void __force *)src, count, dst) == count ? 0 : -EFAULT;
 
------BEGIN PGP SIGNATURE-----
+as far as I understand the idea behind the copy_to_user() return value.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTbdY8ACgkQJNaLcl1U
-h9AUKgf/Vhx88QCeNdlUEOFEPe17Q9i+vhTRysJ3Y1UFUFNv8cZ5HOebgWf5eYTO
-lf5rHb+Y+tuT0+8HCQHVJtVGI3/gZwDzIVusQvcBRsLjBtEafkkGqfswhD8k8e9d
-nQ8XT6a4kPc4/GYvS+YXeZoOSiq97cPdbbdODPuQB6UmaQreXLChHHan1ya6gfcH
-bCr12qm48qfAJsK9EUUTcvPFyMpnrwC5CWIBoGrdi6eSzRHbOa+rGxdgFWorYPxE
-ua34eCXIOxhBhbF15pCD5VyuRTbitN7/fhQo6HC2eszsMyv7u7wKTS3pBFl2roDc
-b67QT9S3kboOvHRDaJYu+Ekcxo8WBQ==
-=77Zb
------END PGP SIGNATURE-----
+Ditto for other cases.
 
---EmsSKH7ZmGf/qlZE--
+-- 
+With Best Regards,
+Andy Shevchenko
+
+

@@ -2,108 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03BB277D521
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 23:34:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B1A977D528
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Aug 2023 23:34:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C279B1CE;
-	Tue, 15 Aug 2023 23:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C279B1CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A6C583B;
+	Tue, 15 Aug 2023 23:33:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A6C583B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692135238;
-	bh=h0x6Ss1jKWpMJx2hFeBSeKHeCsDjWTM2iv6mIraJ4b0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1692135289;
+	bh=ytMDNNiZg/HsdeRU/kmZzk4xkiFqUMZQImb6uVllkcY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A3o/RczcFGmiYdGFSSy+Xosv7D63PQ69r2sQmPWAj0opTRKfI6dm3CsZF6k8GOEsk
-	 IElyHyGA/jOXzxKkVi8d2mHBua3p85U6eBO0BjIqCsO69IrJxlb9MQdWguGy9BDm/M
-	 AJs+SSTgLh0MpKQQTQT2W+Wf6QwXAtkTTZn7v0gQ=
+	b=H/IyvZwh3qjCqBb8LWPRRQ54zMNYIF/jJs8Tu1dekL0T2Qhe9JWX6jD1MwrA1lVGq
+	 FmFFl/HMwaUPyAFpAhwCYlIU74ayRXNWsX3Mso5xvdFMYiAp1RK72AY9YpWZdqn7a5
+	 7WrJh72WpQPKXJxF1AHhRm5l6bPyRSvJhOjOaOLU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CEDBF800EE; Tue, 15 Aug 2023 23:33:07 +0200 (CEST)
+	id AFEF6F8055B; Tue, 15 Aug 2023 23:33:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58DA0F800EE;
-	Tue, 15 Aug 2023 23:33:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66EF4F80553;
+	Tue, 15 Aug 2023 23:33:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BED77F8016A; Tue, 15 Aug 2023 23:33:02 +0200 (CEST)
+	id D1188F8055A; Tue, 15 Aug 2023 23:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
-	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FSL_HELO_FAKE,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 314B9F80027
-	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 23:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 314B9F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33F02F80552
+	for <alsa-devel@alsa-project.org>; Tue, 15 Aug 2023 23:33:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33F02F80552
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=kXhJhBYO
-Received: by mail-pj1-x102c.google.com with SMTP id
- 98e67ed59e1d1-26b47df332eso1617418a91.2
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=R4GrkMVW
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-6887b3613e4so186042b3a.3
         for <alsa-devel@alsa-project.org>;
- Tue, 15 Aug 2023 14:32:45 -0700 (PDT)
+ Tue, 15 Aug 2023 14:33:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1692135163; x=1692739963;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uXqDPZegCVRIcy9GPIRY4ba6PSa9hbS6cOcSnTJRLio=;
-        b=kXhJhBYOErDI2gIEaCVnOc++gPNONu834W89OQkQanS1ZOPTwV59amGU0XyiJ7NTAY
-         ouT0ytboSa4gx0A1zLM7DWgGj8q/j/H3FetrRd3GY/CmkTwWV6jj45NMlclZGcI6JsEr
-         qzE9hqSgn/fOdbNM1pMoBgh9x3cmdcmyenB0jpkBjclKFZQc3glZnPT7pHf+H+TVBW7n
-         oDjaRcBDO52ybWqPMrrOwwgGUWtCa1BHwMEV31BQndB2xB5KlBoXYD83YIY2jdco99AO
-         G9+uLGDZTu/YxgB6rNrzLtaRzZ5tXudYXWxfLJuGh2rboJ7idbEpV1HwhELwc36IOzP6
-         14UA==
+        d=gmail.com; s=20221208; t=1692135192; x=1692739992;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qz0Y5e25KK71HlghtqvnZ2oqoMd/S7LZgWMDTL4U4lY=;
+        b=R4GrkMVWP9N2fDdvY8wpcs7flcNJy2CwTei6ceh0SZ3FlVO6TJTZGzGxPBTSz+Q9uR
+         kXZcLjKpV2h1cSBoxReLS+u20AOtzWWvQ8vpmsxOkD4dzX5hxa5A6trOjCwbnmGVG25Z
+         dWBquegb6iyXkXIQQ4qbeoyXIVQorICAHWGVtnk5003hBQuJ13G3DV+mFbosv2XST7C1
+         tQ4uFwQh0tQbpzzfy+crzHQsqoicJkaL/xBpCWvHC7tJ015aMNJRHXf4ioB0LxTHoU2M
+         10AofUOfjNM27wBgEeHv2cWZA+yvhqximNoKiqCfMGBGDBtUcX37oOdtb8/sVjkB2Awz
+         ieWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692135163; x=1692739963;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uXqDPZegCVRIcy9GPIRY4ba6PSa9hbS6cOcSnTJRLio=;
-        b=N6wpdJ/S7fYr/qLnPofE8Gsm7ya4MwktaIl/ebnj0bTD0i/xJ+xQKh3Qt5NT8EnVvs
-         TzfzZ9MFmckhmmY7g9R48qzQo+Y93Ta2dTU3hDK5MwnhiHwOo3P/RoKyBoUlNo8aUPZS
-         lX1ZmgsAsoRGBEQQRUd7gOIoA3TDTaQxt/RELuvfOzWdTSlD2ur1GzFE4qoXrEEMFqjq
-         aE0nyi/3TAnxZikptNBzRy+PtOhKQ91GLFfb4MQuoyUwRPB/VQjg8SNgfv7GKYFXd7sU
-         ajpHztmiPxK7Sn1Dpq7k3yhTXsHdhrw4bjdd+cZPiL0APGgWwBjr7+UDIl2VKw0HMdkE
-         oEqA==
-X-Gm-Message-State: AOJu0YzsXcJms3qvfJhO8QrkzTtgl5eNBRUrMjgxKl4Bm9NK61Eo65Ws
-	FNfESD4JJgic5uUJeY1SdMwTR3Zak8Ar22JROzwWrg==
+        d=1e100.net; s=20221208; t=1692135192; x=1692739992;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Qz0Y5e25KK71HlghtqvnZ2oqoMd/S7LZgWMDTL4U4lY=;
+        b=B9s99CsgXRFstzRv/G2qg/q0eDdaWkK9oiZm2AVQ2Vwdk8WQOuEAuFXWCS+VpHwg/1
+         wG1rfZWQLm2VVqO9ik1/3bnghJVH22fNdtUtG8x3Cbegly40GBlR0nUyHXL6yJvffXnD
+         KT+wpmETX+M+JGoYTznW0s0TrCMbe3t48NjjKvf8XPb7sxW1uxAQ3U/g7CJ4Isbgl7R3
+         AgNaqCgB7GBRjk1IU8M2UcN5Wi9/waKX07YT4LsEiLOyPQHRemiP+9nxD3dpntCly4jv
+         BrB+TeFHuMHFNGqioYYMP1OYOZNlSxE5epl6W3cGf7/akbGZNnljwnjk9TSqth/QBUG8
+         LxUQ==
+X-Gm-Message-State: AOJu0Yx4HVZHpCxc+VZD8zU527n3ae/4mD88VPKfCmeAuACe0rODJFI3
+	xRSXUJCIWanu74u8Z9MCA7k=
 X-Google-Smtp-Source: 
- AGHT+IFB8Nb5R54H5uHyvW2x1F6EoMQaha8FoEmfIi9mHvrvR6bK5dmh3Y7DkfWQd0pzmVZr02LdrRRNbkbp5mvCFGY=
-X-Received: by 2002:a17:90a:fb96:b0:269:851:4f00 with SMTP id
- cp22-20020a17090afb9600b0026908514f00mr8582926pjb.35.1692135162505; Tue, 15
- Aug 2023 14:32:42 -0700 (PDT)
+ AGHT+IH0kEPryQGX1X8Vdi7rCnfjeURjyrYGgjW+gZ8FUalzPW0c/pzqxl7U1OnUU5qIQW8TF+183w==
+X-Received: by 2002:a05:6a00:1594:b0:666:d78c:33ab with SMTP id
+ u20-20020a056a00159400b00666d78c33abmr19676128pfk.21.1692135191508;
+        Tue, 15 Aug 2023 14:33:11 -0700 (PDT)
+Received: from google.com ([2620:15c:9d:2:508d:bf8e:5b19:a13b])
+        by smtp.gmail.com with ESMTPSA id
+ i12-20020aa78b4c000000b0068338b6667asm9742191pfd.212.2023.08.15.14.33.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Aug 2023 14:33:11 -0700 (PDT)
+Date: Tue, 15 Aug 2023 14:33:07 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Traut Manuel LCPF-CH <Manuel.Traut@mt.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Jeff LaBundy <jeff@labundy.com>,
+	Marek Vasut <marex@denx.de>,
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	Frieder Schrempf <frieder.schrempf@kontron.de>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH] Input: pwm-beeper - Support volume setting via sysfs
+Message-ID: <ZNvvE3usP86bgctB@google.com>
+References: <87h6pkjh7q.wl-tiwai@suse.de>
+ <618add56-3675-4efe-5b20-665c10040e03@denx.de>
+ <ZMfgJ3o00nApkXGp@google.com>
+ <f4612dc5-a7d4-74ba-2ed8-ea70314625b6@denx.de>
+ <ZMh0Sa9s25JHhWw5@nixie71>
+ <ZMi0HT/yaTo9uTyi@google.com>
+ <d0f284d5-6922-ea3b-3447-c089b0d24587@denx.de>
+ <ZNW25qlzh8YbZtu8@nixie71>
+ <87h6p6rp6k.wl-tiwai@suse.de>
+ <AS8PR03MB7621C4E9B338259499AD24DBFA10A@AS8PR03MB7621.eurprd03.prod.outlook.com>
 MIME-Version: 1.0
-References: <20230807135207.17708-1-tiwai@suse.de>
- <CAOReqxhV=gfwNpxnEU+ruOx6gjD2BSZbYPJ6+iWzkPCidFmCBA@mail.gmail.com>
- <CAOReqxgCDdXAEyF8pt4dePQ2H_ub=hYczvO1xGpKWAt35z5B2Q@mail.gmail.com>
- <87o7jgfxgj.wl-tiwai@suse.de> <87sf8se471.wl-tiwai@suse.de>
- <CAOReqxjnWruX20YyUcAjwv8zLourFv4hUKGq9_1FBsXA6Fra9Q@mail.gmail.com>
- <87ttt3pdp5.wl-tiwai@suse.de>
- <CAOReqxhtcyePP+B6egNufuzM_ML3W7PVPNEENqxDfa605DoP9w@mail.gmail.com>
- <87msysxp9z.wl-tiwai@suse.de>
-In-Reply-To: <87msysxp9z.wl-tiwai@suse.de>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Tue, 15 Aug 2023 14:32:31 -0700
-Message-ID: 
- <CAOReqxiq86kxj1HEmjYPUZ5gW49y2x9ZFYa8mAH1VWFAF7dEuw@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/6] ALSA: Fix UAF with delayed kobj release
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Curtis Malainey <cujomalainey@chromium.org>,
-	Stephen Boyd <swboyd@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: YLVDMZ242KAD7RAADQ7OXVM54JUCEGCQ
-X-Message-ID-Hash: YLVDMZ242KAD7RAADQ7OXVM54JUCEGCQ
-X-MailFrom: cujomalainey@google.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <AS8PR03MB7621C4E9B338259499AD24DBFA10A@AS8PR03MB7621.eurprd03.prod.outlook.com>
+Message-ID-Hash: B4AHKUQGTI5DOBGAC6LE7I2PNFAFPIS6
+X-Message-ID-Hash: B4AHKUQGTI5DOBGAC6LE7I2PNFAFPIS6
+X-MailFrom: dmitry.torokhov@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YLVDMZ242KAD7RAADQ7OXVM54JUCEGCQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4AHKUQGTI5DOBGAC6LE7I2PNFAFPIS6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,280 +136,243 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Aug 15, 2023 at 9:07=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 14 Aug 2023 22:20:29 +0200,
-> Curtis Malainey wrote:
-> >
-> > On Sun, Aug 13, 2023 at 1:08=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wr=
-ote:
+On Fri, Aug 11, 2023 at 10:47:34AM +0000, Traut Manuel LCPF-CH wrote:
+> Hi
+> 
+> > On Fri, 11 Aug 2023 06:19:50 +0200,
+> > Jeff LaBundy wrote:
 > > >
-> > > On Wed, 09 Aug 2023 23:11:45 +0200,
-> > > Curtis Malainey wrote:
-> > > >
+> > > Hi Marek, Dmitry and Takashi,
+> > >
+> > > On Tue, Aug 01, 2023 at 01:51:50PM +0200, Marek Vasut wrote:
+> > > > On 8/1/23 09:28, Dmitry Torokhov wrote:
+> > > > > On Mon, Jul 31, 2023 at 09:56:09PM -0500, Jeff LaBundy wrote:
+> > > > > > Hi all,
+> > > > > >
+> > > > > > On Mon, Jul 31, 2023 at 07:49:50PM +0200, Marek Vasut wrote:
+> > > > > > > On 7/31/23 18:24, Dmitry Torokhov wrote:
+> > > > > > > > On Mon, Jul 31, 2023 at 04:36:01PM +0200, Marek Vasut wrote:
+> > > > > > > > > On 7/31/23 16:20, Takashi Iwai wrote:
+> > > > > > > > >
+> > > > > > > > > [...]
+> > > > > > > > >
+> > > > > > > > > > > > > Uh, I don't need a full sound device to emit
+> > > > > > > > > > > > > beeps, that's not even possible with this hardware.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Heh, I also don't recommend that route, either :)
+> > > > > > > > > > > > (Though, it must be possible to create a sound
+> > > > > > > > > > > > device with that beep control in theory)
+> > > > > > > > > > >
+> > > > > > > > > > > I mean, I can imagine one could possibly use PCM DMA
+> > > > > > > > > > > to cook samples to feed some of the PWM devices so
+> > > > > > > > > > > they could possibly be used to generate low quality
+> > > > > > > > > > > audio, as a weird limited DAC, but ... that's not really generic,
+> > and not what I want.
+> > > > > > > > > >
+> > > > > > > > > > Oh I see how the misunderstanding came; I didn't mean
+> > > > > > > > > > the PCM implementation like pcsp driver.  The pcsp
+> > > > > > > > > > driver is a real hack and it's there just for fun, not for any real
+> > practical use.
+> > > > > > > > >
+> > > > > > > > > Ah :)
+> > > > > > > > >
+> > > > > > > > > > What I meant was rather that you can create a sound
+> > > > > > > > > > device containing a mixer volume control that serves
+> > > > > > > > > > exactly like the sysfs or whatever other interface, without any
+> > PCM stream or other interface.
+> > > > > > > > >
+> > > > > > > > > Ahhh, hum, I still feel like this might be a bit overkill here.
+> > > > > > > > >
+> > > > > > > > > > > > > I only need to control loudness of the beeper that
+> > > > > > > > > > > > > is controlled by PWM output. That's why I am
+> > > > > > > > > > > > > trying to extend the pwm-beeper driver, which
+> > > > > > > > > > > > > seems the best fit for such a device, it is only missing this
+> > one feature (loudness control).
+> > > > > > > > > > > >
+> > > > > > > > > > > > So the question is what's expected from user-space
+> > > > > > > > > > > > POV.  If a more generic control of beep volume is
+> > > > > > > > > > > > required, e.g. for desktop-like usages, an implementation
+> > of sound driver wouldn't be too bad.
+> > > > > > > > > > > > OTOH, for other specific use-cases, it doesn't
+> > > > > > > > > > > > matter much in which interface it's implemented, and sysfs
+> > could be an easy choice.
+> > > > > > > > > > >
+> > > > > > > > > > > The whole discussion above has been exactly about
+> > > > > > > > > > > this. Basically the thing is, we can either have:
+> > > > > > > > > > > - SND_TONE (via some /dev/input/eventX) + sysfs volume
+> > control
+> > > > > > > > > > >      -> This is simple, but sounds racy between input
+> > > > > > > > > > > and sysfs accesses
+> > > > > > > > > >
+> > > > > > > > > > Hmm, how can it be racy if you do proper locking?
+> > > > > > > > >
+> > > > > > > > > I can imagine two applications can each grab one of the
+> > > > > > > > > controls and that makes the interface a bit not nice. That
+> > > > > > > > > would require extra synchronization in userspace and so on.
+> > > > > > > > >
+> > > > > > > > > > > - SND_TONE + SND_TONE_SET_VOLUME
+> > > > > > > > > > >      -> User needs to do two ioctls, hum
+> > > > > > > > > > > - some new SND_TONE_WITH_VOLUME
+> > > > > > > > > > >      -> Probably the best option, user sets both tone frequency
+> > and volume
+> > > > > > > > > > >         in one go, and it also only extends the IOCTL interface, so
+> > older
+> > > > > > > > > > >         userspace won't have issues
+> > > > > > > > > >
+> > > > > > > > > > Those are "extensions" I have mentioned, and I'm not a
+> > > > > > > > > > big fan for that, honestly speaking.
+> > > > > > > > > >
+> > > > > > > > > > The fact that the beep *output* stuff is provided by the
+> > > > > > > > > > *input* device is already confusing
+> > > > > > > > >
+> > > > > > > > > I agree, this confused me as well.
+> > > > > > > >
+> > > > > > > > This comes from the times when keyboards themselves were
+> > > > > > > > capable of emitting bells (SUN, DEC, etc). In hindsight it
+> > > > > > > > was not the best way of structuring things, same with the
+> > > > > > > > keyboard LEDs (that are now plugged into the LED subsystem, but
+> > still allow be driven through input).
+> > > > > > > >
+> > > > > > > > And in the same vein I wonder if we should bite the bullet
+> > > > > > > > and pay with a bit of complexity but move sound-related things to
+> > sound subsystem.
+> > > > > > >
+> > > > > > > I am not sure that's the right approach here, since the device
+> > > > > > > cannot do PCM playback, just bleeps.
+> > > > > > >
+> > > > > > > > > > (it was so just because of historical reason), and yet
+> > > > > > > > > > you start implementing more full-featured mixer control.
+> > > > > > > > > > I'd rather keep fingers away.
+> > > > > > > > > >
+> > > > > > > > > > Again, if user-space requires the compatible behavior
+> > > > > > > > > > like the existing desktop usages
+> > > > > > > > >
+> > > > > > > > > It does not. These pwm-beeper devices keep showing up in
+> > > > > > > > > various embedded devices these days.
+> > > > > > > > >
+> > > > > > > > > > , it can be implemented in a similar way like the
+> > > > > > > > > > existing ones; i.e. provide a mixer control with a
+> > > > > > > > > > proper sound device.  The sound device doesn't need to
+> > > > > > > > > > provide a PCM interface but just with a mixer interface.
+> > > > > > > > > >
+> > > > > > > > > > Or, if the purpose of your target device is a special
+> > > > > > > > > > usage, you don't need to consider too much about the
+> > > > > > > > > > existing interface, and try to keep the change as
+> > > > > > > > > > minimal as possible without too intrusive API changes.
+> > > > > > > > >
+> > > > > > > > > My use case is almost perfectly matched by the current
+> > > > > > > > > input pwm-beeper driver, the only missing bit is the
+> > > > > > > > > ability to control the loudness at runtime. I think adding
+> > > > > > > > > the SND_TONE_WITH_VOLUME parameter would cover it, with
+> > least intrusive API changes.
+> > > > > > > > >
+> > > > > > > > > The SND_TONE already supports configuring tone frequency
+> > > > > > > > > in Hz as its parameter. Since anything above 64 kHz is
+> > > > > > > > > certainly not hearable by humans, I would say the
+> > > > > > > > > SND_TONE_WITH_VOLUME could use 16 LSbits for frequency (so
+> > up to 65535 Hz , 0 is OFF), and 16 MSbits for volume .
+> > > > > > > > >
+> > > > > > > > > I'm hesitant to overcomplicate something which can
+> > > > > > > > > currently be controlled via single ioctl by pulling in sound
+> > subsystem into the picture.
+> > > > > > > >
+> > > > > > > > Can you tell a bit more about your use case? What needs to
+> > > > > > > > control the volume of beeps? Is this the only source of sounds on
+> > the system?
+> > > > > > >
+> > > > > > > Custom user space application. The entire userspace is custom
+> > > > > > > built in this case.
+> > > > > > >
+> > > > > > > In this case, it is a single-use device (think e.g. the kind
+> > > > > > > of thermometer you stick in your ear when you're ill, to find out
+> > how warm you are).
+> > > > > > >
+> > > > > > > The beeper there is used to do just that, bleep (with
+> > > > > > > different frequencies to indicate different stuff), and that
+> > > > > > > works. What I need in addition to that is control the volume
+> > > > > > > of the bleeps from the application, so it isn't too noisy. And
+> > > > > > > that needs to be user-controllable at runtime, so not something that
+> > goes in DT.
+> > > > > > >
+> > > > > > > Right now there is just the bleeper , yes.
+> > > > > >
+> > > > > > It sounds like we essentially need an option within pcsp to
+> > > > > > drive PWM instead of PCM, but input already has pwm-beeper; it
+> > > > > > seems harmless to gently extend the latter for this use-case as
+> > > > > > opposed to reworking the former.
+> > > > > >
+> > > > > > I agree that we should not invest too heavily in a legacy ABI,
+> > > > > > however something like SND_BELL_VOL seems like a low-cost
+> > > > > > addition that doesn't work against extending pcsp in the future.
+> > > > > > In fact, input already has precedent for this exact same thing
+> > > > > > by way of FF rumble effects, which are often PWM-based themselves.
+> > > > > >
+> > > > > > If SND_BELL_VOL or similar is not acceptable, then the original
+> > > > > > sysfs approach seems like the next-best compromise. My only
+> > > > > > issue with it was that I felt the range was not abstracted enough.
 > > > > >
-> > > > > And now looking back at kobj code and device code, they do refcou=
-nt
-> > > > > parent objects.  Maybe the problem is in our side -- the all devi=
-ces
-> > > > > are created with the original real device as the parent, includin=
-g the
-> > > > > card_dev, while there are some dependencies among children.  So, =
-if we
-> > > > > build up a proper tree, pci_dev -> card_dev -> ctl_dev, pcm_dev, =
-etc,
-> > > > > one of the problems could be solved.  It's more or less similar a=
-s
-> > > > > what I suggested initially (referring card_dev at pcm), while cha=
-nging
-> > > > > the parent would make it implicitly.
+> > > > > If we want to extend the API we will need to define exactly how it
+> > > > > will all work. I.e. what happens if userspace mixes the old
+> > > > > SND_TONE and SND_BELL with the new SND_BELL_VOL or whatever.
+> > Does
+> > > > > it play with previously set volume? The default one?
 > > > >
-> > > > Yes I think this would be the long term proper way to go, that way
-> > > > parents just put children and remove their reference, then they
-> > > > cleanup on their own time making everyone happy. My first patch was=
- a
-> > > > very lazy attempt that, if we wanted to do the right thing we would
-> > > > obviously have to split the structs and free functions to operate i=
-n
-> > > > their own release. If you have time feel free to take another swing=
- at
-> > > > the patches, otherwise I won't be able to start until next week.
+> > > > Default one, to preserve current behavior, yes.
 > > >
-> > > Now looking back at the problem again, I noticed that actually my
-> > > previous comment was wrong: as default, the device dependencies aren'=
-t
-> > > kept at the release time, but it's already cleared at device_del()
-> > > call.  The device_del() calls kobject_del() and put_device(parent).
-> > > So after this moment, both device releases become independent, and
-> > > it'll hit a problem if the released object has still some dependency
-> > > (such as the case of card vs ctl_dev in our case).
+> > > This was my idea as well, but I appreciate that the devil is in the
+> > > details and each driver may have to duplicate some overhead.
 > > >
-> > > An extra dependency to card_dev as I put in my early patch would "fix=
-"
-> > > it.  But, there is yet another problem: the call of dev_free call for
-> > > snd_device object with SNDRV_DEV_LOWLEVEL can happen before releasing
-> > > PCM and other devices when the delayed kobj release is enabled.  And,
-> > > usually this callback does release the top-level resources, which
-> > > might be still accessed during the other releases.
-> >
-> >
-> > I was doing some testing late last week that confirms these fears
-> > actually. Basically the rig was opening a non-blocking PCM and just
-> > never sending data, removing the hw sound device (in this case a USB
-> > peripheral) but not closing the userspace app. As a result kobjects
-> > were released out of order with the top level "sound" being released
-> > at disconnect of the USB device, but the actual card not being
-> > released until the app closed. See annotated logs below
-> >
-> > [  690.528577] kobject: 'sound' (00000000266cd308):
-> > kobject_add_internal: parent: '3-9:1.0', set: '(null)' <----- plug in
-> > device
-> > [  690.528607] kobject: 'card1' (00000000f7fa0903):
-> > kobject_add_internal: parent: 'sound', set: 'devices'
-> > [  690.528732] kobject: 'card1' (00000000f7fa0903): kobject_uevent_env
-> > [  690.528756] kobject: 'card1' (00000000f7fa0903): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-'
-> > [  690.528988] kobject: 'pcmC1D0p' (0000000095ff4473):
-> > kobject_add_internal: parent: 'card1', set: 'devices'
-> > [  690.529640] kobject: 'pcmC1D0p' (0000000095ff4473): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-/pcmC1D0p'
-> > [  690.529778] kobject: 'pcmC1D0c' (00000000c4879d24):
-> > kobject_add_internal: parent: 'card1', set: 'devices'
-> > [  690.530006] kobject: 'pcmC1D0c' (00000000c4879d24): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-/pcmC1D0c'
-> > [  690.530108] kobject: 'controlC1' (00000000a0a25449):
-> > kobject_add_internal: parent: 'card1', set: 'devices'
-> > [  690.530373] kobject: 'controlC1' (00000000a0a25449):
-> > fill_kobj_path: path =3D
-> > '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/controlC=
-1'
-> > [  690.671889] kobject: 'card1' (00000000f7fa0903): kobject_uevent_env
-> > [  690.671906] kobject: 'card1' (00000000f7fa0903): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-'
-> > [  700.009244] kobject: 'controlC1' (00000000a0a25449):
-> > fill_kobj_path: path =3D
-> > '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/controlC=
-1'
-> > [  700.010131] kobject: 'pcmC1D0p' (0000000095ff4473): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-/pcmC1D0p'
-> > [  700.011344] kobject: 'pcmC1D0c' (00000000c4879d24): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-/pcmC1D0c'
-> > [  700.012916] kobject: 'card1' (00000000f7fa0903): kobject_uevent_env
-> > [  700.012951] kobject: 'card1' (00000000f7fa0903): fill_kobj_path:
-> > path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1=
-'
-> >  <---- start blocked playback here
-> > [  700.013057] kobject: 'sound' (00000000266cd308): kobject_release,
-> > parent 0000000000000000 (delayed 1000) <--- unplug usb device
-> > [  701.054221] kobject: 'sound' (00000000266cd308): kobject_cleanup,
-> > parent 0000000000000000
-> > [  701.054236] kobject: 'sound' (00000000266cd308): calling ktype relea=
-se
-> > [  701.054257] kobject: 'sound': free name
-> > [  713.639843] kobject: 'card1' (00000000f7fa0903): kobject_release,
-> > parent 0000000000000000 (delayed 3000) <--- Send EOF to playback
-> > stream
-> > [  716.669776] kobject: 'card1' (00000000f7fa0903): kobject_cleanup,
-> > parent 0000000000000000
-> > [  716.669810] kobject: 'card1' (00000000f7fa0903): calling ktype relea=
-se
-> > [  716.670834] kobject: 'card1': free name
-> >
+> > > >
+> > > > > How to set the default one?
+> > > >
+> > > > We do not, we can call pwm_get_duty_cycle() to get the current duty
+> > > > cycle of the PWM to figure out the default.
+> > > >
+> > > > > How
+> > > > > to figure out what the current volume is if we decide to make
+> > > > > volume "sticky"?
+> > > >
+> > > > The patch stores the current volume configured via sysfs into
+> > > > beeper->duty_cycle .
+> > > >
+> > > > > As far as userspace I expect it is more common to have one program
+> > > > > (or component of a program) to set volume and then something else
+> > > > > requests sound, so having one-shot API is of dubious value to me.
+> > > >
+> > > > Currently the use case I have for this is a single user facing
+> > > > application which configures both.
+> > > >
+> > > > > I hope we can go with Takashi's proposal downthread, but if not I
+> > > > > wonder if the sysfs approach is not the simplest one. Do we expect
+> > > > > more beepers that can control volume besides pwm-beeper?
+> > > >
+> > > > It seems to me pulling in dependency on the entire sound subsystem
+> > > > only to set beeper volume is overkill. I currently don't even have
+> > > > sound subsystem compiled in.
 > > >
+> > > I like Takashi's patch; it seems like a more scalable solution.
+> > > However, I can appreciate the reluctance to bring in the entire sound
+> > > subsytem for what is probably a tiny piezoelectric buzzer.
 > > >
-> > > So, if we tie the object resource with each struct device release, we
-> > > have a lot of works:
-> > > 1. Add extra dependencies among device hierarchy
-> > > 2. Don't use card_dev refcount for managing the sync to device closes=
-,
-> > >    introduce another kref instead; otherwise card_dev refcount would
-> > >    never reach to zero
-> > > 3. Fix race of devres vs card_dev release
-> > > 4. Move the second half part of snd_card_do_free() to the release
-> > >    callback of card_dev itself to sync with the top-level release
-> > > 5. Rewrite all SNDRV_DEV_LOWLEVEL usages to be called via
-> > >    card->private_free or such;
-> > >    maybe the only problem is hda_intel.c and hda_tegra.c that need
-> > >    some work at the disconnection time, and we may introduce another
-> > >    hook in the card object to replace that
-> > >
-> > > And, at this moment, I feel that it'd be easier to go back to the
-> > > early way of device management, i.e. it'll be just like your patch,
-> > > managing the device object independently from the rest resources.
-> > > (This means also that the way freeing the resource for hwdep and
-> > >  rawmidi will go back again without the embedded device, too; they
-> > >  also suffer from the same problem of .)
-> >
-> > I agree, I think as a simple stopgap, my earlier patch would at least
-> > appease the test until we can figure out the best way to do some
-> > heavier work on the kobj. I think the proxy pointer for devres would
-> > also be the best short term for 3.
-> >
-> > >
-> > > The change 2 and 3 above can be still applied with your change, which
-> > > will fix the remaining devres-vs-card_dev problem.
-> >
-> > I am not sure I follow the need for 2. If we broke ctl_dev out into
-> > its own memory region and structured everything as a proper tree we
-> > would have a proper cleanup and be able to use the refcounting
-> > properly.
->
-> My thought was about the devres release that does kfree() of the card
-> while the card's card_dev release itself is still delayed.
-> This might be a needless fear, though, as snd_card_free() should sync
-> with the actual card_dev release.
->
-> But, splitting the release-trigger and the actual memory release could
-> be still worth.
->
-> > > Once after fixing the current problem, we may work further on other
-> > > stuff (e.g. item 5), so that we can switch again to the device-releas=
-e
-> > > model eventually later, too.
-> >
-> > Agreed, I don't have any experience with SNDRV_DEV_LOWLEVEL but I am
-> > happy to help out here where I can.
-> >
-> > I am going to see if I can split the release card as mentioned but
-> > also have refcount work as expected and have the release calls roll up
-> > the tree.
->
-> I quickly worked on and made a patch series.
-> It's put in topic/dev-split branch of sound git tree
->   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/log/?h=
-=3Dtopic/dev-split
->
-> It'd be appreciated if you can review / test it.
+> > > It seems like the sysfs solution is the best compromise in the
+> > > meantime. If more and more users need to shoe-horn these kind of
+> > > features in the future, we can make more informed decisions as to how to
+> > extend the API (if at all).
+> > 
+> > That's my impression, too.  The original sysfs usage would be the right fit at
+> > this moment.
+> 
+> I am fine with both using the Sound API and sysfs. I would additionally like to
+> specify the pwm values in device-tree like done in pwm-backlight. It really depends
+> on the hardware which values actually make a difference in volume.
 
-Took a look and ran it through the tests
+OK, let's go with the sysfs API for now as I am not sure if we have more
+drivers being able to control volume of beeps.
 
-You need to apply this diff
+Marek, I think there were some minor comments on the patch, could you
+please address them and respin?
 
-diff --git a/sound/usb/media.c b/sound/usb/media.c
-index 6d11fedb46326..d48db6f3ae659 100644
---- a/sound/usb/media.c
-+++ b/sound/usb/media.c
-@@ -35,7 +35,7 @@ int snd_media_stream_init(struct snd_usb_substream
-*subs, struct snd_pcm *pcm,
- {
-        struct media_device *mdev;
-        struct media_ctl *mctl;
--       struct device *pcm_dev =3D &pcm->streams[stream].dev;
-+       struct device *pcm_dev =3D pcm->streams[stream].dev;
-        u32 intf_type;
-        int ret =3D 0;
-        u16 mixer_pad;
+Thanks.
 
-Hammering probe and remove appears to be fine. Went 45min without issue.
-
-Userspace holding references past hw removal appears to still be
-broken as sound is released while the app is still running.
-
--- remove usb device --
-[ 4819.827476] kobject: 'controlC1' (00000000255a51c8):
-fill_kobj_path: path =3D
-'/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/controlC1'
-[ 4819.828114] kobject: 'pcmC1D0p' (00000000f0627532): kobject_uevent_env
-[ 4819.828145] kobject: 'pcmC1D0p' (00000000f0627532): fill_kobj_path:
-path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcm=
-C1D0p'
-[ 4819.828822] kobject: 'pcmC1D0c' (000000001b707a15): kobject_uevent_env
-[ 4819.828850] kobject: 'pcmC1D0c' (000000001b707a15): fill_kobj_path:
-path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcm=
-C1D0c'
-[ 4819.829405] kobject: 'card1' (000000005bce975e): kobject_uevent_env
-[ 4819.829428] kobject: 'card1' (000000005bce975e): fill_kobj_path:
-path =3D '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1'
-[ 4819.829516] kobject: 'sound' (000000000bb52434): kobject_release,
-parent 0000000000000000 (delayed 4000)
-[ 4823.873625] kobject: 'sound' (000000000bb52434): kobject_cleanup,
-parent 0000000000000000
-[ 4823.873645] kobject: 'sound' (000000000bb52434): calling ktype release
-[ 4823.873654] kobject: 'sound': free name
-
--- end app --
-[ 4849.581815] kobject: 'pcmC1D0p' (00000000f0627532):
-kobject_release, parent 0000000000000000 (delayed 2000)
-[ 4849.581960] kobject: 'pcmC1D0c' (000000001b707a15):
-kobject_release, parent 0000000000000000 (delayed 2000)
-[ 4849.582626] kobject: 'card1' (000000005bce975e): kobject_release,
-parent 0000000000000000 (delayed 1000)
-[ 4850.625615] kobject: 'card1' (000000005bce975e): kobject_cleanup,
-parent 0000000000000000
-[ 4850.625638] kobject: 'card1' (000000005bce975e): calling ktype release
-[ 4850.625663] kobject: 'card1': free name
-[ 4851.585647] kobject: 'pcmC1D0c' (000000001b707a15):
-kobject_cleanup, parent 0000000000000000
-[ 4851.585672] kobject: 'pcmC1D0c' (000000001b707a15): calling ktype releas=
-e
-[ 4851.585708] kobject: 'pcmC1D0c': free name
-[ 4851.585727] kobject: 'pcmC1D0p' (00000000f0627532):
-kobject_cleanup, parent 0000000000000000
-[ 4851.585737] kobject: 'pcmC1D0p' (00000000f0627532): calling ktype releas=
-e
-[ 4851.585752] kobject: 'pcmC1D0p': free name
-
-I still don't understand why you need the kref. The devices are
-already reference counting, why not use them? If we split them up into
-their own structs we could then just device_put everything on removal
-and let it roll up the tree with releases automatically, blocking
-where userspace is still holding references. I will share a patches
-sometime this week of what I mean. They will probably be a bit bigger
-blast radius but I think its what is needed here.
-
-Curtis
-
->
-> I'll submit the patch set once (likely in tomorrow) after running a
-> quick smoke test.
->
->
-> thanks,
->
-> Takashi
+-- 
+Dmitry

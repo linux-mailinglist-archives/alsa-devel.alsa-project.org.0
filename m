@@ -2,95 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C788777DF0C
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 12:43:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368AF77E0C1
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 13:48:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C46F03E8;
-	Wed, 16 Aug 2023 12:42:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C46F03E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 634003E8;
+	Wed, 16 Aug 2023 13:47:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 634003E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692182582;
-	bh=O9Mi3ukPZMXGw4qpDDWQ4PFtxGV6uTKsBrO6Nq3xvJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1692186529;
+	bh=j9BEy+89ldfAcXo4bga26aZOVsNNy1YW26YmI9D2OLE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FNT7jHReF/ibtX4/qRo/5k9Acx/8ER15yMaJPLFTRPovcCyjYww1+kqvD4ZmaskF/
-	 8my4UvpA7uEisRa0QnyUEccKWiLaBfq+JKMv+yFu8hPR0YRwds+K8PKw3xnTna+BYt
-	 DuA/ZYHb/9mk2R4g+tciYNSZW57qJw0XriLFWPiI=
+	b=lmkV7eM0IbvQZkkv8n9RTCdNEyuoE8FfE6gBx0TuwBDTEtmbFp5voDfNP/bRJV8LG
+	 akqcTOWA+3jas3/+HUd2YgxK3WDHZm1qy2aOXv9k0bV73mHqEDS+1VrE63Ao7Lm2sS
+	 bV2WkHo987J8HUSTKYOgEPA1MqE6/5Id+Ev9NkYk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 554E0F8025F; Wed, 16 Aug 2023 12:42:12 +0200 (CEST)
+	id 2E6E3F8025F; Wed, 16 Aug 2023 13:47:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3F3CF8016A;
-	Wed, 16 Aug 2023 12:42:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36B7AF8016A;
+	Wed, 16 Aug 2023 13:47:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03519F8016D; Wed, 16 Aug 2023 12:42:06 +0200 (CEST)
+	id 876EAF8016D; Wed, 16 Aug 2023 13:47:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 26C38F80074
-	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 12:41:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26C38F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EFC7F800EE
+	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 13:47:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EFC7F800EE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=L3GnilwA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692182517; x=1723718517;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=O9Mi3ukPZMXGw4qpDDWQ4PFtxGV6uTKsBrO6Nq3xvJk=;
-  b=L3GnilwAsc+E21altCsIjEilEG/YRk9O35+fdRTlq57YbtGqN5EL6Yzm
-   1jHl5dSmgI7hcvxrdcHyKXErfPM+V4OT6Lq2xySzunycES0zDG+DHmFn7
-   VsjzVNkoWStZhP0zo95TF8psQOAse/Hm6HYX3zopoVcD49baj8NLAFSPs
-   zUyGzP6UYNZYfoktDrpMNnGihu59dRirc7bCDolKUOrelAh5DOebff5QI
-   jnXB3vPILG65XYrvToyqJF32JORAM13L4sEQNle+riV+SHC7xzMQNDezj
-   cGnNPFmF6izNGDoRO2D4tU0+WyFerV4+rjYoHFPtMyGNds7AJ55ZTFuDM
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="371405702"
-X-IronPort-AV: E=Sophos;i="6.01,176,1684825200";
-   d="scan'208";a="371405702"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2023 03:41:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="804181910"
-X-IronPort-AV: E=Sophos;i="6.01,176,1684825200";
-   d="scan'208";a="804181910"
-Received: from lkp-server02.sh.intel.com (HELO a9caf1a0cf30) ([10.239.97.151])
-  by fmsmga004.fm.intel.com with ESMTP; 16 Aug 2023 03:41:41 -0700
-Received: from kbuild by a9caf1a0cf30 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qWDy8-0000En-32;
-	Wed, 16 Aug 2023 10:41:40 +0000
-Date: Wed, 16 Aug 2023 18:41:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Seven Lee <wtli@nuvoton.com>, broonie@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
-	KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, WTLI@nuvoton.com,
-	SJLIN0@nuvoton.com, scott6986@gmail.com, supercraig0719@gmail.com,
-	dardar923@gmail.com
-Subject: Re: [PATCH 2/2] ASoC: nau8821: Improve AMIC recording performance.
-Message-ID: <202308161844.humS3QWm-lkp@intel.com>
-References: <20230816080006.1624342-2-wtli@nuvoton.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230816080006.1624342-2-wtli@nuvoton.com>
-Message-ID-Hash: IWSBSQKZLGYJEQA7UO5WSRVGMFQBZMW6
-X-Message-ID-Hash: IWSBSQKZLGYJEQA7UO5WSRVGMFQBZMW6
-X-MailFrom: lkp@intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=DDyAs7U9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=oJdQBDtk
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6250321838;
+	Wed, 16 Aug 2023 11:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692186424;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1bEbCb1OgO7/VYTaI0wKRlIivt4gih7OSjIy2us0X0o=;
+	b=DDyAs7U9eQkJalRyIMy1iFkGv7s4zxD3eiCWoby25JO/9tjzvLdabxi1U/rbkNIl5TgIGD
+	fXtkCXARn55pm+iX4nXNS7h12kSGIxEXaNQ2TDfRJ9fIh8USjx9Y7oFZ66DY/Wfbc8GN2Z
+	Yq7Hz10HesBNT5jAZaWxc6CrXwrQ4uI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692186424;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1bEbCb1OgO7/VYTaI0wKRlIivt4gih7OSjIy2us0X0o=;
+	b=oJdQBDtkg/NLi1XWqyOqMLiMNvan7/xDSHwvM4XooKrsIDlocAKkZI4jGjdPiAUKuW5G4S
+	FBLNwOMxvVdM1XBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4882D133F2;
+	Wed, 16 Aug 2023 11:47:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id NK4OETi33GSgIAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 16 Aug 2023 11:47:04 +0000
+Date: Wed, 16 Aug 2023 13:47:03 +0200
+Message-ID: <877cpvjjk8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: john_candlish@mail.candlish.net
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] -- fix Boss MS-3 midi-usb communication
+In-Reply-To: 
+ <169174391693.21.17899976756232952295@mailman-web.alsa-project.org>
+References: <87sf8qrpxp.wl-tiwai@suse.de>
+	<169174391693.21.17899976756232952295@mailman-web.alsa-project.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 7P7JDO5A77KILZWXYATYOCAGSVFV2N2U
+X-Message-ID-Hash: 7P7JDO5A77KILZWXYATYOCAGSVFV2N2U
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWSBSQKZLGYJEQA7UO5WSRVGMFQBZMW6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7P7JDO5A77KILZWXYATYOCAGSVFV2N2U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,144 +119,2115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Seven,
+On Fri, 11 Aug 2023 10:51:56 +0200,
+john_candlish@mail.candlish.net wrote:
+> 
+> Thanks for your superfast response!
+> 
+> I'm inlining the output of the script as I don't see how to attach a file.
 
-kernel test robot noticed the following build warnings:
+Thanks.
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on next-20230816]
-[cannot apply to linus/master v6.5-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+The USB descriptor looks like the normal Roland one that supports both
+bulk and interrupt altsettings for MIDI.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Seven-Lee/ASoC-nau8821-Improve-AMIC-recording-performance/20230816-160236
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230816080006.1624342-2-wtli%40nuvoton.com
-patch subject: [PATCH 2/2] ASoC: nau8821: Improve AMIC recording performance.
-config: hexagon-randconfig-r003-20230816 (https://download.01.org/0day-ci/archive/20230816/202308161844.humS3QWm-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-reproduce: (https://download.01.org/0day-ci/archive/20230816/202308161844.humS3QWm-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308161844.humS3QWm-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from sound/soc/codecs/nau8821.c:15:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:334:
-   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           val = __raw_readb(PCI_IOBASE + addr);
-                             ~~~~~~~~~~ ^
-   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
-                                                           ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-   #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-                                                     ^
-   In file included from sound/soc/codecs/nau8821.c:15:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:334:
-   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
-                                                           ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
-   #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
-                                                     ^
-   In file included from sound/soc/codecs/nau8821.c:15:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:334:
-   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           __raw_writeb(value, PCI_IOBASE + addr);
-                               ~~~~~~~~~~ ^
-   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
-                                                         ~~~~~~~~~~ ^
-   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
-                                                         ~~~~~~~~~~ ^
->> sound/soc/codecs/nau8821.c:649:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
-           default:
-           ^
-   sound/soc/codecs/nau8821.c:649:2: note: insert 'break;' to avoid fall-through
-           default:
-           ^
-           break; 
-   7 warnings generated.
+What's exactly your problem?  Doesn't it work as is?
+Without your patch, you should have "MIDI Input Mode" mixer control.
+When this is set to "High Load", it should use the bulk mode, while
+"Light Load" is the interrupt mode.  Does the device work without your
+patch when switch the control instead?
 
 
-vim +649 sound/soc/codecs/nau8821.c
+Takashi
 
-   626	
-   627	static int nau8821_left_fepga_event(struct snd_soc_dapm_widget *w,
-   628			struct snd_kcontrol *kcontrol, int event)
-   629	{
-   630		struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-   631		struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
-   632	
-   633		if (!nau8821->left_input_single_end)
-   634			return 0;
-   635	
-   636		switch (event) {
-   637		case SND_SOC_DAPM_POST_PMU:
-   638			regmap_update_bits(nau8821->regmap, NAU8821_R77_FEPGA,
-   639				NAU8821_ACDC_CTRL_MASK | NAU8821_FEPGA_MODEL_MASK,
-   640				NAU8821_ACDC_VREF_MICN | NAU8821_FEPGA_MODEL_AAF);
-   641			regmap_update_bits(nau8821->regmap, NAU8821_R76_BOOST,
-   642				NAU8821_HP_BOOST_DISCHRG_EN, NAU8821_HP_BOOST_DISCHRG_EN);
-   643			break;
-   644		case SND_SOC_DAPM_POST_PMD:
-   645			regmap_update_bits(nau8821->regmap, NAU8821_R77_FEPGA,
-   646				NAU8821_ACDC_CTRL_MASK | NAU8821_FEPGA_MODEL_MASK, 0);
-   647			regmap_update_bits(nau8821->regmap, NAU8821_R76_BOOST,
-   648				NAU8821_HP_BOOST_DISCHRG_EN, 0);
- > 649		default:
-   650			break;
-   651		}
-   652	
-   653		return 0;
-   654	}
-   655	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> ---
+> 
+> upload=true&script=true&cardinfo=
+> !!################################
+> !!ALSA Information Script v 0.5.3
+> !!################################
+> 
+> !!Script ran on: Fri Aug 11 08:46:44 UTC 2023
+> 
+> 
+> !!Linux Distribution
+> !!------------------
+> 
+> Debian GNU/Linux trixie/sid \n \l PRETTY_NAME="Debian GNU/Linux trixie/sid" NAME="Debian GNU/Linux" ID=debian HOME_URL="https://www.debian.org/" SUPPORT_URL="https://www.debian.org/support" BUG_REPORT_URL="https://bugs.debian.org/"
+> 
+> 
+> !!DMI Information
+> !!---------------
+> 
+> Manufacturer:      LENOVO
+> Product Name:      20NTCTO1WW
+> Product Version:   ThinkPad L390 Yoga
+> Firmware Version:  R10ET50W (1.35 )
+> System SKU:        LENOVO_MT_20NT_BU_Think_FM_ThinkPad L390 Yoga
+> Board Vendor:      LENOVO
+> Board Name:        20NTCTO1WW
+> 
+> 
+> !!ACPI Device Status Information
+> !!---------------
+> 
+> /sys/bus/acpi/devices/ACPI0003:00/status 	 15
+> /sys/bus/acpi/devices/ACPI000C:00/status 	 15
+> /sys/bus/acpi/devices/INT0E0C:00/status 	 15
+> /sys/bus/acpi/devices/INT33A1:00/status 	 15
+> /sys/bus/acpi/devices/INT33D3:00/status 	 15
+> /sys/bus/acpi/devices/INT3400:00/status 	 15
+> /sys/bus/acpi/devices/INT3403:00/status 	 15
+> /sys/bus/acpi/devices/INT3403:01/status 	 15
+> /sys/bus/acpi/devices/INT3403:02/status 	 15
+> /sys/bus/acpi/devices/INT3403:03/status 	 15
+> /sys/bus/acpi/devices/INT34BB:00/status 	 15
+> /sys/bus/acpi/devices/INT3515:03/status 	 15
+> /sys/bus/acpi/devices/INT3F0D:00/status 	 15
+> /sys/bus/acpi/devices/LEN0100:00/status 	 15
+> /sys/bus/acpi/devices/LEN0268:00/status 	 15
+> /sys/bus/acpi/devices/LNXPOWER:00/status 	 1
+> /sys/bus/acpi/devices/LNXPOWER:01/status 	 15
+> /sys/bus/acpi/devices/LNXPOWER:02/status 	 1
+> /sys/bus/acpi/devices/LNXPOWER:03/status 	 1
+> /sys/bus/acpi/devices/LNXPOWER:04/status 	 1
+> /sys/bus/acpi/devices/LNXPOWER:05/status 	 1
+> /sys/bus/acpi/devices/PNP0103:00/status 	 15
+> /sys/bus/acpi/devices/PNP0C02:00/status 	 3
+> /sys/bus/acpi/devices/PNP0C02:01/status 	 3
+> /sys/bus/acpi/devices/PNP0C02:05/status 	 3
+> /sys/bus/acpi/devices/PNP0C09:00/status 	 15
+> /sys/bus/acpi/devices/PNP0C0A:00/status 	 31
+> /sys/bus/acpi/devices/PNP0C60:00/status 	 15
+> /sys/bus/acpi/devices/PRP00001:00/status 	 11
+> /sys/bus/acpi/devices/STM7308:00/status 	 15
+> /sys/bus/acpi/devices/USBC000:00/status 	 15
+> /sys/bus/acpi/devices/device:17/status 	 15
+> /sys/bus/acpi/devices/device:23/status 	 15
+> /sys/bus/acpi/devices/device:27/status 	 15
+> /sys/bus/acpi/devices/device:29/status 	 15
+> 
+> 
+> !!Kernel Information
+> !!------------------
+> 
+> Kernel release:    #3 SMP PREEMPT_DYNAMIC Fri Aug 11 02:22:35 CEST 2023
+> Operating System:  GNU/Linux
+> Architecture:      x86_64
+> Processor:         unknown
+> SMP Enabled:       Yes
+> 
+> 
+> !!ALSA Version
+> !!------------
+> 
+> Driver version:     k6.4.4
+> Library version:    1.2.9
+> Utilities version:  1.2.9
+> 
+> 
+> !!Loaded ALSA modules
+> !!-------------------
+> 
+> snd_virmidi (card 0)
+> snd_hda_intel (card 1)
+> snd_usb_audio (card 2)
+> thinkpad_acpi (card 29)
+> 
+> 
+> !!Sound Servers on this system
+> !!----------------------------
+> 
+> PipeWire:
+>       Installed - Yes (/usr/bin/pipewire)
+>       Running - Yes
+> 
+> Jack:
+>       Installed - Yes (/usr/bin/jackd)
+>       Running - No
+> 
+> Jack2:
+>       Installed - Yes (/usr/bin/jackdbus)
+>       Running - Yes
+> 
+> 
+> !!Soundcards recognised by ALSA
+> !!-----------------------------
+> 
+>  0 [VirMIDI        ]: VirMIDI - VirMIDI
+>                       Virtual MIDI Card 1
+>  1 [PCH            ]: HDA-Intel - HDA Intel PCH
+>                       HDA Intel PCH at 0xa133c000 irq 148
+>  2 [MS3            ]: USB-Audio - MS-3
+>                       BOSS MS-3 at usb-0000:00:14.0-4, high speed
+> 29 [ThinkPadEC     ]: ThinkPad EC - ThinkPad Console Audio Control
+>                       ThinkPad Console Audio Control at EC reg 0x30, fw R10HT33W
+> 
+> 
+> !!PCI Soundcards installed in the system
+> !!--------------------------------------
+> 
+> 00:1f.3 Audio device [0403]: Intel Corporation Cannon Point-LP High Definition Audio Controller [8086:9dc8] (rev 11) (prog-if 80)
+> 	Subsystem: Lenovo Cannon Point-LP High Definition Audio Controller [17aa:5077]
+> 
+> 
+> !!Modprobe options (Sound related)
+> !!--------------------------------
+> 
+> snd_pcsp: index=-2
+> snd_atiixp_modem: index=-2
+> snd_intel8x0m: index=-2
+> snd_via82xx_modem: index=-2
+> snd_virmidi: enable=1 midi_devs=1
+> 
+> 
+> !!Loaded sound module options
+> !!---------------------------
+> 
+> !!Module: snd_virmidi
+> 	enable : Y,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N
+> 	id : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	index : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	midi_devs : 1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
+> 
+> !!Module: snd_hda_intel
+> 	align_buffer_size : -1
+> 	bdl_pos_adj : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	beep_mode : Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+> 	ctl_dev_id : N
+> 	dmic_detect : Y
+> 	enable : Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+> 	enable_msi : -1
+> 	id : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	index : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	jackpoll_ms : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+> 	model : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	patch : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	pm_blacklist : Y
+> 	position_fix : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	power_save : 1
+> 	power_save_controller : Y
+> 	probe_mask : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	probe_only : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+> 	single_cmd : -1
+> 	snoop : -1
+> 
+> !!Module: snd_usb_audio
+> 	autoclock : Y
+> 	delayed_register : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	device_setup : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+> 	enable : Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y,Y
+> 	id : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	ignore_ctl_error : N
+> 	implicit_fb : N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N
+> 	index : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	lowlatency : Y
+> 	pid : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 	quirk_alias : (null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null),(null)
+> 	quirk_flags : 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+> 	skip_validation : N
+> 	use_vmalloc : Y
+> 	vid : -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+> 
+> !!Module: thinkpad_acpi
+> 	brightness_enable : 2
+> 	brightness_mode : 4
+> 	enable : Y
+> 	experimental : 0
+> 	fan_control : N
+> 	force_load : N
+> 	id : ThinkPadEC
+> 	index : -536870912
+> 	profile_force : 0
+> 	software_mute : Y
+> 	volume_capabilities : 0
+> 	volume_control : N
+> 	volume_mode : 3
+> 
+> 
+> !!Sysfs card info
+> !!---------------
+> 
+> !!Card: /sys/class/sound/card0
+> Driver: /sys/bus/platform/drivers/snd_virmidi
+> Tree:
+> 	/sys/class/sound/card0
+> 	|-- controlC0
+> 	|   |-- dev
+> 	|   |-- device -> ../../card0
+> 	|   |-- led-mic -> ../../../../../virtual/sound/ctl-led/mic/card0
+> 	|   |-- led-speaker -> ../../../../../virtual/sound/ctl-led/speaker/card0
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- device -> ../../../snd_virmidi.0
+> 	|-- dmmidi
+> 	|   |-- dev
+> 	|   |-- device -> ../../card0
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- id
+> 	|-- midi
+> 	|   |-- dev
+> 	|   |-- device -> ../../card0
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- midiC0D0
+> 	|   |-- dev
+> 	|   |-- device -> ../../card0
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- mixer
+> 	|   |-- dev
+> 	|   |-- device -> ../../card0
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- number
+> 	|-- power
+> 	|   |-- async
+> 	|   |-- autosuspend_delay_ms
+> 	|   |-- control
+> 	|   |-- runtime_active_kids
+> 	|   |-- runtime_active_time
+> 	|   |-- runtime_enabled
+> 	|   |-- runtime_status
+> 	|   |-- runtime_suspended_time
+> 	|   `-- runtime_usage
+> 	|-- subsystem -> ../../../../../class/sound
+> 	`-- uevent
+> 
+> !!Card: /sys/class/sound/card1
+> Driver: /sys/bus/pci/drivers/snd_hda_intel
+> Tree:
+> 	/sys/class/sound/card1
+> 	|-- audio1
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- controlC1
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- led-mic -> ../../../../../virtual/sound/ctl-led/mic/card1
+> 	|   |-- led-speaker -> ../../../../../virtual/sound/ctl-led/speaker/card1
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- device -> ../../../0000:00:1f.3
+> 	|-- dsp1
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- hwC1D0
+> 	|   |-- afg
+> 	|   |-- chip_name
+> 	|   |-- clear
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- driver_pin_configs
+> 	|   |-- hints
+> 	|   |-- init_pin_configs
+> 	|   |-- init_verbs
+> 	|   |-- mfg
+> 	|   |-- modelname
+> 	|   |-- power
+> 	|   |-- power_off_acct
+> 	|   |-- power_on_acct
+> 	|   |-- reconfig
+> 	|   |-- revision_id
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   |-- subsystem_id
+> 	|   |-- uevent
+> 	|   |-- user_pin_configs
+> 	|   |-- vendor_id
+> 	|   `-- vendor_name
+> 	|-- hwC1D2
+> 	|   |-- afg
+> 	|   |-- chip_name
+> 	|   |-- clear
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- driver_pin_configs
+> 	|   |-- hints
+> 	|   |-- init_pin_configs
+> 	|   |-- init_verbs
+> 	|   |-- mfg
+> 	|   |-- modelname
+> 	|   |-- power
+> 	|   |-- power_off_acct
+> 	|   |-- power_on_acct
+> 	|   |-- reconfig
+> 	|   |-- revision_id
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   |-- subsystem_id
+> 	|   |-- uevent
+> 	|   |-- user_pin_configs
+> 	|   |-- vendor_id
+> 	|   `-- vendor_name
+> 	|-- id
+> 	|-- input22
+> 	|   |-- capabilities
+> 	|   |-- device -> ../../card1
+> 	|   |-- event11
+> 	|   |-- id
+> 	|   |-- inhibited
+> 	|   |-- modalias
+> 	|   |-- name
+> 	|   |-- phys
+> 	|   |-- power
+> 	|   |-- properties
+> 	|   |-- subsystem -> ../../../../../../class/input
+> 	|   |-- uevent
+> 	|   `-- uniq
+> 	|-- input23
+> 	|   |-- capabilities
+> 	|   |-- device -> ../../card1
+> 	|   |-- event12
+> 	|   |-- id
+> 	|   |-- inhibited
+> 	|   |-- modalias
+> 	|   |-- name
+> 	|   |-- phys
+> 	|   |-- power
+> 	|   |-- properties
+> 	|   |-- subsystem -> ../../../../../../class/input
+> 	|   |-- uevent
+> 	|   `-- uniq
+> 	|-- input24
+> 	|   |-- capabilities
+> 	|   |-- device -> ../../card1
+> 	|   |-- event13
+> 	|   |-- id
+> 	|   |-- inhibited
+> 	|   |-- modalias
+> 	|   |-- name
+> 	|   |-- phys
+> 	|   |-- power
+> 	|   |-- properties
+> 	|   |-- subsystem -> ../../../../../../class/input
+> 	|   |-- uevent
+> 	|   `-- uniq
+> 	|-- input25
+> 	|   |-- capabilities
+> 	|   |-- device -> ../../card1
+> 	|   |-- event14
+> 	|   |-- id
+> 	|   |-- inhibited
+> 	|   |-- modalias
+> 	|   |-- name
+> 	|   |-- phys
+> 	|   |-- power
+> 	|   |-- properties
+> 	|   |-- subsystem -> ../../../../../../class/input
+> 	|   |-- uevent
+> 	|   `-- uniq
+> 	|-- input26
+> 	|   |-- capabilities
+> 	|   |-- device -> ../../card1
+> 	|   |-- event15
+> 	|   |-- id
+> 	|   |-- inhibited
+> 	|   |-- modalias
+> 	|   |-- name
+> 	|   |-- phys
+> 	|   |-- power
+> 	|   |-- properties
+> 	|   |-- subsystem -> ../../../../../../class/input
+> 	|   |-- uevent
+> 	|   `-- uniq
+> 	|-- input27
+> 	|   |-- capabilities
+> 	|   |-- device -> ../../card1
+> 	|   |-- event16
+> 	|   |-- id
+> 	|   |-- inhibited
+> 	|   |-- modalias
+> 	|   |-- name
+> 	|   |-- phys
+> 	|   |-- power
+> 	|   |-- properties
+> 	|   |-- subsystem -> ../../../../../../class/input
+> 	|   |-- uevent
+> 	|   `-- uniq
+> 	|-- mixer1
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- number
+> 	|-- pcmC1D0c
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- pcm_class
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- pcmC1D0p
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- pcm_class
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- pcmC1D3p
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- pcm_class
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- pcmC1D7p
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- pcm_class
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- pcmC1D8p
+> 	|   |-- dev
+> 	|   |-- device -> ../../card1
+> 	|   |-- pcm_class
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- power
+> 	|   |-- async
+> 	|   |-- autosuspend_delay_ms
+> 	|   |-- control
+> 	|   |-- runtime_active_kids
+> 	|   |-- runtime_active_time
+> 	|   |-- runtime_enabled
+> 	|   |-- runtime_status
+> 	|   |-- runtime_suspended_time
+> 	|   `-- runtime_usage
+> 	|-- subsystem -> ../../../../../class/sound
+> 	`-- uevent
+> 
+> !!Card: /sys/class/sound/card2
+> Driver: /sys/bus/usb/drivers/snd-usb-audio
+> Tree:
+> 	/sys/class/sound/card2
+> 	|-- controlC2
+> 	|   |-- dev
+> 	|   |-- device -> ../../card2
+> 	|   |-- led-mic -> ../../../../../../../../virtual/sound/ctl-led/mic/card2
+> 	|   |-- led-speaker -> ../../../../../../../../virtual/sound/ctl-led/speaker/card2
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- device -> ../../../1-4:1.1
+> 	|-- dmmidi2
+> 	|   |-- dev
+> 	|   |-- device -> ../../card2
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- id
+> 	|-- midi2
+> 	|   |-- dev
+> 	|   |-- device -> ../../card2
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- midiC2D0
+> 	|   |-- dev
+> 	|   |-- device -> ../../card2
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- mixer2
+> 	|   |-- dev
+> 	|   |-- device -> ../../card2
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- number
+> 	|-- power
+> 	|   |-- async
+> 	|   |-- autosuspend_delay_ms
+> 	|   |-- control
+> 	|   |-- runtime_active_kids
+> 	|   |-- runtime_active_time
+> 	|   |-- runtime_enabled
+> 	|   |-- runtime_status
+> 	|   |-- runtime_suspended_time
+> 	|   `-- runtime_usage
+> 	|-- seq-midi-2-0
+> 	|   |-- driver -> ../../../../../../../../../bus/snd_seq/drivers/snd_seq_midi
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../../../../bus/snd_seq
+> 	|   `-- uevent
+> 	|-- subsystem -> ../../../../../../../../class/sound
+> 	`-- uevent
+> 
+> !!Card: /sys/class/sound/card29
+> Driver: /sys/bus/platform/drivers/thinkpad_acpi
+> Tree:
+> 	/sys/class/sound/card29
+> 	|-- controlC29
+> 	|   |-- dev
+> 	|   |-- device -> ../../card29
+> 	|   |-- led-mic -> ../../../../../virtual/sound/ctl-led/mic/card29
+> 	|   |-- led-speaker -> ../../../../../virtual/sound/ctl-led/speaker/card29
+> 	|   |-- power
+> 	|   |-- subsystem -> ../../../../../../class/sound
+> 	|   `-- uevent
+> 	|-- device -> ../../../thinkpad_acpi
+> 	|-- id
+> 	|-- number
+> 	|-- power
+> 	|   |-- async
+> 	|   |-- autosuspend_delay_ms
+> 	|   |-- control
+> 	|   |-- runtime_active_kids
+> 	|   |-- runtime_active_time
+> 	|   |-- runtime_enabled
+> 	|   |-- runtime_status
+> 	|   |-- runtime_suspended_time
+> 	|   `-- runtime_usage
+> 	|-- subsystem -> ../../../../../class/sound
+> 	`-- uevent
+> 
+> 
+> !!Sysfs ctl-led info
+> !!---------------
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/mic/card0
+> List: 
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/mic/card1
+> List: 7
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/mic/card2
+> List: 
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/mic/card29
+> List: 
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/speaker/card0
+> List: 
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/speaker/card1
+> List: 11
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/speaker/card2
+> List: 
+> 
+> !!CTL-LED: /sys/class/sound/ctl-led/speaker/card29
+> List: 
+> 
+> !!HDA-Intel Codec information
+> !!---------------------------
+> --startcollapse--
+> 
+> Codec: Realtek ALC257
+> Address: 0
+> AFG Function Id: 0x1 (unsol 1)
+> Vendor Id: 0x10ec0257
+> Subsystem Id: 0x17aa5077
+> Revision Id: 0x100001
+> No Modem Function Group found
+> Default PCM:
+>     rates [0x560]: 44100 48000 96000 192000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+> Default Amp-In caps: N/A
+> Default Amp-Out caps: N/A
+> State of AFG node 0x01:
+>   Power states:  D0 D1 D2 D3 D3cold CLKSTOP EPSS
+>   Power: setting=D0, actual=D0
+> GPIO: io=3, o=0, i=0, unsolicited=1, wake=0
+>   IO[0]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+>   IO[1]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+>   IO[2]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+> Node 0x02 [Audio Output] wcaps 0x41d: Stereo Amp-Out
+>   Control: name="Speaker Playback Volume", index=0, device=0
+>     ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>   Amp-Out caps: ofs=0x57, nsteps=0x57, stepsize=0x02, mute=0
+>   Amp-Out vals:  [0x57 0x57]
+>   Converter: stream=0, channel=0
+>   PCM:
+>     rates [0x60]: 44100 48000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x03 [Audio Output] wcaps 0x41d: Stereo Amp-Out
+>   Control: name="Headphone Playback Volume", index=0, device=0
+>     ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>   Device: name="ALC257 Analog", type="Audio", device=0
+>   Amp-Out caps: ofs=0x57, nsteps=0x57, stepsize=0x02, mute=0
+>   Amp-Out vals:  [0x00 0x00]
+>   Converter: stream=0, channel=0
+>   PCM:
+>     rates [0x60]: 44100 48000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x04 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x05 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x06 [Audio Output] wcaps 0x611: Stereo Digital
+>   Converter: stream=0, channel=0
+>   Digital:
+>   Digital category: 0x0
+>   IEC Coding Type: 0x0
+>   PCM:
+>     rates [0x5e0]: 44100 48000 88200 96000 192000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x07 [Audio Input] wcaps 0x10051b: Stereo Amp-In
+>   Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
+>   Amp-In vals:  [0x97 0x97]
+>   Converter: stream=0, channel=0
+>   SDI-Select: 0
+>   PCM:
+>     rates [0x560]: 44100 48000 96000 192000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 1
+>      0x24
+> Node 0x08 [Audio Input] wcaps 0x10051b: Stereo Amp-In
+>   Control: name="Capture Volume", index=0, device=0
+>     ControlAmp: chs=3, dir=In, idx=0, ofs=0
+>   Control: name="Capture Switch", index=0, device=0
+>     ControlAmp: chs=3, dir=In, idx=0, ofs=0
+>   Device: name="ALC257 Analog", type="Audio", device=0
+>   Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
+>   Amp-In vals:  [0x3f 0x3f]
+>   Converter: stream=0, channel=0
+>   SDI-Select: 0
+>   PCM:
+>     rates [0x560]: 44100 48000 96000 192000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 1
+>      0x23
+> Node 0x09 [Audio Input] wcaps 0x10051b: Stereo Amp-In
+>   Amp-In caps: ofs=0x17, nsteps=0x3f, stepsize=0x02, mute=1
+>   Amp-In vals:  [0x97 0x97]
+>   Converter: stream=0, channel=0
+>   SDI-Select: 0
+>   PCM:
+>     rates [0x560]: 44100 48000 96000 192000
+>     bits [0xe]: 16 20 24
+>     formats [0x1]: PCM
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 1
+>      0x22
+> Node 0x0a [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x0b [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x0c [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x0d [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x0e [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x0f [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x10 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x11 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x12 [Pin Complex] wcaps 0x40040b: Stereo Amp-In
+>   Control: name="Internal Mic Boost Volume", index=0, device=0
+>     ControlAmp: chs=3, dir=In, idx=0, ofs=0
+>   Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+>   Amp-In vals:  [0x01 0x01]
+>   Pincap 0x00000020: IN
+>   Pin Default 0x90a60120: [Fixed] Mic at Int N/A
+>     Conn = Digital, Color = Unknown
+>     DefAssociation = 0x2, Sequence = 0x0
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x20: IN
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x13 [Pin Complex] wcaps 0x40040b: Stereo Amp-In
+>   Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+>   Amp-In vals:  [0x00 0x00]
+>   Pincap 0x00000020: IN
+>   Pin Default 0x40000000: [N/A] Line Out at Ext N/A
+>     Conn = Unknown, Color = Unknown
+>     DefAssociation = 0x0, Sequence = 0x0
+>   Pin-ctls: 0x00:
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x14 [Pin Complex] wcaps 0x40058d: Stereo Amp-Out
+>   Control: name="Speaker Playback Switch", index=0, device=0
+>     ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x00 0x00]
+>   Pincap 0x00010014: OUT EAPD Detect
+>   EAPD 0x2: EAPD
+>   Pin Default 0x90170110: [Fixed] Speaker at Int N/A
+>     Conn = Analog, Color = Unknown
+>     DefAssociation = 0x1, Sequence = 0x0
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x40: OUT
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 1
+>      0x02
+> Node 0x15 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x16 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x17 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x18 [Pin Complex] wcaps 0x40048b: Stereo Amp-In
+>   Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+>   Amp-In vals:  [0x00 0x00]
+>   Pincap 0x00003724: IN Detect
+>     Vref caps: HIZ 50 GRD 80 100
+>   Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+>     Conn = 1/8, Color = Black
+>     DefAssociation = 0xf, Sequence = 0x0
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x20: IN VREF_HIZ
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x19 [Pin Complex] wcaps 0x40048b: Stereo Amp-In
+>   Control: name="Mic Boost Volume", index=0, device=0
+>     ControlAmp: chs=3, dir=In, idx=0, ofs=0
+>   Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+>   Amp-In vals:  [0x00 0x00]
+>   Pincap 0x00003724: IN Detect
+>     Vref caps: HIZ 50 GRD 80 100
+>   Pin Default 0x04a11030: [Jack] Mic at Ext Right
+>     Conn = 1/8, Color = Black
+>     DefAssociation = 0x3, Sequence = 0x0
+>   Pin-ctls: 0x24: IN VREF_80
+>   Unsolicited: tag=02, enabled=1
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x1a [Pin Complex] wcaps 0x40048b: Stereo Amp-In
+>   Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+>   Amp-In vals:  [0x00 0x00]
+>   Pincap 0x00003724: IN Detect
+>     Vref caps: HIZ 50 GRD 80 100
+>   Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+>     Conn = 1/8, Color = Black
+>     DefAssociation = 0xf, Sequence = 0x0
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x00: VREF_HIZ
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x1b [Pin Complex] wcaps 0x40058f: Stereo Amp-In Amp-Out
+>   Amp-In caps: ofs=0x00, nsteps=0x03, stepsize=0x27, mute=0
+>   Amp-In vals:  [0x00 0x00]
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x80 0x80]
+>   Pincap 0x00013734: IN OUT EAPD Detect
+>     Vref caps: HIZ 50 GRD 80 100
+>   EAPD 0x2: EAPD
+>   Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+>     Conn = 1/8, Color = Black
+>     DefAssociation = 0xf, Sequence = 0x0
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x20: IN VREF_HIZ
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 2
+>      0x02* 0x03
+> Node 0x1c [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x1d [Pin Complex] wcaps 0x400400: Mono
+>   Pincap 0x00000020: IN
+>   Pin Default 0x40661b45: [N/A] Modem Line at Ext N/A
+>     Conn = Digital, Color = Black
+>     DefAssociation = 0x4, Sequence = 0x5
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x20: IN
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x1e [Pin Complex] wcaps 0x400781: Stereo Digital
+>   Pincap 0x00000014: OUT Detect
+>   Pin Default 0x411111f0: [N/A] Speaker at Ext Rear
+>     Conn = 1/8, Color = Black
+>     DefAssociation = 0xf, Sequence = 0x0
+>     Misc = NO_PRESENCE
+>   Pin-ctls: 0x40: OUT
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 1
+>      0x06
+> Node 0x1f [Vendor Defined Widget] wcaps 0xf00000: Mono
+> Node 0x20 [Vendor Defined Widget] wcaps 0xf00040: Mono
+>   Processing caps: benign=0, ncoeff=142
+> Node 0x21 [Pin Complex] wcaps 0x40058d: Stereo Amp-Out
+>   Control: name="Headphone Playback Switch", index=0, device=0
+>     ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x80 0x80]
+>   Pincap 0x0001001c: OUT HP EAPD Detect
+>   EAPD 0x2: EAPD
+>   Pin Default 0x0421101f: [Jack] HP Out at Ext Right
+>     Conn = 1/8, Color = Black
+>     DefAssociation = 0x1, Sequence = 0xf
+>   Pin-ctls: 0xc0: OUT HP
+>   Unsolicited: tag=01, enabled=1
+>   Power states:  D0 D1 D2 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Connection: 2
+>      0x02 0x03*
+> Node 0x22 [Audio Mixer] wcaps 0x20010b: Stereo Amp-In
+>   Amp-In caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-In vals:  [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80]
+>   Connection: 6
+>      0x18 0x19 0x1a 0x1b 0x1d 0x13
+> Node 0x23 [Audio Mixer] wcaps 0x20010b: Stereo Amp-In
+>   Amp-In caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-In vals:  [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x80 0x80] [0x00 0x00]
+>   Connection: 6
+>      0x18 0x19 0x1a 0x1b 0x1d 0x12
+> Node 0x24 [Audio Selector] wcaps 0x300101: Stereo
+>   Connection: 2
+>      0x12* 0x13
+> Codec: Intel Kabylake HDMI
+> Address: 2
+> AFG Function Id: 0x1 (unsol 0)
+> Vendor Id: 0x8086280b
+> Subsystem Id: 0x80860101
+> Revision Id: 0x100000
+> No Modem Function Group found
+> Default PCM:
+>     rates [0x0]:
+>     bits [0x0]:
+>     formats [0x0]:
+> Default Amp-In caps: N/A
+> Default Amp-Out caps: N/A
+> State of AFG node 0x01:
+>   Power states:  D0 D3 CLKSTOP EPSS
+>   Power: setting=D0, actual=D0, Clock-stop-OK
+> GPIO: io=0, o=0, i=0, unsolicited=0, wake=0
+> Node 0x02 [Audio Output] wcaps 0x6611: 8-Channels Digital
+>   Converter: stream=0, channel=0
+>   Digital: Enabled KAE
+>   Digital category: 0x0
+>   IEC Coding Type: 0x0
+>   PCM:
+>     rates [0x7f0]: 32000 44100 48000 88200 96000 176400 192000
+>     bits [0x1a]: 16 24 32
+>     formats [0x5]: PCM AC3
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x03 [Audio Output] wcaps 0x6611: 8-Channels Digital
+>   Converter: stream=0, channel=0
+>   Digital: Enabled KAE
+>   Digital category: 0x0
+>   IEC Coding Type: 0x0
+>   PCM:
+>     rates [0x7f0]: 32000 44100 48000 88200 96000 176400 192000
+>     bits [0x1a]: 16 24 32
+>     formats [0x5]: PCM AC3
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x04 [Audio Output] wcaps 0x6611: 8-Channels Digital
+>   Converter: stream=0, channel=0
+>   Digital: Enabled KAE
+>   Digital category: 0x0
+>   IEC Coding Type: 0x0
+>   PCM:
+>     rates [0x7f0]: 32000 44100 48000 88200 96000 176400 192000
+>     bits [0x1a]: 16 24 32
+>     formats [0x5]: PCM AC3
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+> Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x00 0x00]
+>   Pincap 0x0b000094: OUT Detect HBR HDMI DP
+>   Pin Default 0x18560010: [Jack] Digital Out at Int HDMI
+>     Conn = Digital, Color = Unknown
+>     DefAssociation = 0x1, Sequence = 0x0
+>   Pin-ctls: 0x00:
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Devices: 0
+>   Connection: 0
+> Node 0x06 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x00 0x00]
+>   Pincap 0x0b000094: OUT Detect HBR HDMI DP
+>   Pin Default 0x18560010: [Jack] Digital Out at Int HDMI
+>     Conn = Digital, Color = Unknown
+>     DefAssociation = 0x1, Sequence = 0x0
+>   Pin-ctls: 0x00:
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Devices: 0
+>   Connection: 0
+> Node 0x07 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x00 0x00]
+>   Pincap 0x0b000094: OUT Detect HBR HDMI DP
+>   Pin Default 0x18560010: [Jack] Digital Out at Int HDMI
+>     Conn = Digital, Color = Unknown
+>     DefAssociation = 0x1, Sequence = 0x0
+>   Pin-ctls: 0x00:
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Devices: 0
+>   Connection: 0
+> Node 0x08 [Vendor Defined Widget] wcaps 0xf00000: Mono
+> --endcollapse--
+> 
+> 
+> !!USB Descriptors
+> !!---------------
+> --startcollapse--
+> 
+> Bus 001 Device 007: ID 0582:01f5 Roland Corp. MS-3
+> Device Descriptor:
+>   bLength                18
+>   bDescriptorType         1
+>   bcdUSB               2.00
+>   bDeviceClass          255 Vendor Specific Class
+>   bDeviceSubClass         0 
+>   bDeviceProtocol       255 
+>   bMaxPacketSize0        64
+>   idVendor           0x0582 Roland Corp.
+>   idProduct          0x01f5 
+>   bcdDevice            0.00
+>   iManufacturer           1 BOSS
+>   iProduct                2 MS-3
+>   iSerial                 0 
+>   bNumConfigurations      1
+>   Configuration Descriptor:
+>     bLength                 9
+>     bDescriptorType         2
+>     wTotalLength       0x0046
+>     bNumInterfaces          2
+>     bConfigurationValue     1
+>     iConfiguration          0 
+>     bmAttributes         0xc0
+>       Self Powered
+>     MaxPower                0mA
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        0
+>       bAlternateSetting       0
+>       bNumEndpoints           0
+>       bInterfaceClass       255 Vendor Specific Class
+>       bInterfaceSubClass    255 Vendor Specific Subclass
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        1
+>       bAlternateSetting       0
+>       bNumEndpoints           2
+>       bInterfaceClass       255 Vendor Specific Class
+>       bInterfaceSubClass      3 
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       ** UNRECOGNIZED:  06 24 f1 02 01 01
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x03  EP 3 OUT
+>         bmAttributes            2
+>           Transfer Type            Bulk
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0200  1x 512 bytes
+>         bInterval               0
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x84  EP 4 IN
+>         bmAttributes            2
+>           Transfer Type            Bulk
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0200  1x 512 bytes
+>         bInterval               0
+>     Interface Descriptor:
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        1
+>       bAlternateSetting       1
+>       bNumEndpoints           2
+>       bInterfaceClass       255 Vendor Specific Class
+>       bInterfaceSubClass      3 
+>       bInterfaceProtocol      0 
+>       iInterface              0 
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x03  EP 3 OUT
+>         bmAttributes            3
+>           Transfer Type            Interrupt
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0200  1x 512 bytes
+>         bInterval               4
+>       Endpoint Descriptor:
+>         bLength                 7
+>         bDescriptorType         5
+>         bEndpointAddress     0x85  EP 5 IN
+>         bmAttributes            3
+>           Transfer Type            Interrupt
+>           Synch Type               None
+>           Usage Type               Data
+>         wMaxPacketSize     0x0200  1x 512 bytes
+>         bInterval               4
+> Device Qualifier (for other device speed):
+>   bLength                10
+>   bDescriptorType         6
+>   bcdUSB               2.00
+>   bDeviceClass          255 Vendor Specific Class
+>   bDeviceSubClass         0 
+>   bDeviceProtocol       255 
+>   bMaxPacketSize0        64
+>   bNumConfigurations      1
+> Device Status:     0x0001
+>   Self Powered
+> --endcollapse--
+> 
+> 
+> !!ALSA Device nodes
+> !!-----------------
+> 
+> crw-rw----+ 1 root audio 116,  3 Aug 11 07:39 /dev/snd/controlC0
+> crw-rw----+ 1 root audio 116, 12 Aug 11 07:39 /dev/snd/controlC1
+> crw-rw----+ 1 root audio 116, 14 Aug 11 07:51 /dev/snd/controlC2
+> crw-rw----+ 1 root audio 116,  4 Aug 11 07:39 /dev/snd/controlC29
+> crw-rw----+ 1 root audio 116, 10 Aug 11 07:39 /dev/snd/hwC1D0
+> crw-rw----+ 1 root audio 116, 11 Aug 11 07:39 /dev/snd/hwC1D2
+> crw-rw----+ 1 root audio 116,  2 Aug 11 07:39 /dev/snd/midiC0D0
+> crw-rw----+ 1 root audio 116, 13 Aug 11 07:51 /dev/snd/midiC2D0
+> crw-rw----+ 1 root audio 116,  6 Aug 11 07:53 /dev/snd/pcmC1D0c
+> crw-rw----+ 1 root audio 116,  5 Aug 11 10:45 /dev/snd/pcmC1D0p
+> crw-rw----+ 1 root audio 116,  7 Aug 11 07:39 /dev/snd/pcmC1D3p
+> crw-rw----+ 1 root audio 116,  8 Aug 11 07:39 /dev/snd/pcmC1D7p
+> crw-rw----+ 1 root audio 116,  9 Aug 11 07:39 /dev/snd/pcmC1D8p
+> crw-rw----+ 1 root audio 116,  1 Aug 11 07:39 /dev/snd/seq
+> crw-rw----+ 1 root audio 116, 33 Aug 11 07:39 /dev/snd/timer
+> 
+> /dev/snd/by-id:
+> total 0
+> drwxr-xr-x 2 root root  60 Aug 11 07:51 .
+> drwxr-xr-x 4 root root 380 Aug 11 07:51 ..
+> lrwxrwxrwx 1 root root  12 Aug 11 07:51 usb-BOSS_MS-3-01 -> ../controlC2
+> 
+> /dev/snd/by-path:
+> total 0
+> drwxr-xr-x 2 root root 140 Aug 11 07:51 .
+> drwxr-xr-x 4 root root 380 Aug 11 07:51 ..
+> lrwxrwxrwx 1 root root  12 Aug 11 07:51 pci-0000:00:14.0-usb-0:4:1.1 -> ../controlC2
+> lrwxrwxrwx 1 root root  12 Aug 11 07:51 pci-0000:00:14.0-usbv2-0:4:1.1 -> ../controlC2
+> lrwxrwxrwx 1 root root  12 Aug 11 07:39 pci-0000:00:1f.3 -> ../controlC1
+> lrwxrwxrwx 1 root root  12 Aug 11 07:39 platform-snd_virmidi.0 -> ../controlC0
+> lrwxrwxrwx 1 root root  13 Aug 11 07:39 platform-thinkpad_acpi -> ../controlC29
+> 
+> 
+> !!Aplay/Arecord output
+> !!--------------------
+> 
+> APLAY
+> 
+> **** List of PLAYBACK Hardware Devices ****
+> card 1: PCH [HDA Intel PCH], device 0: ALC257 Analog [ALC257 Analog]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 1: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 1: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> card 1: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> 
+> ARECORD
+> 
+> **** List of CAPTURE Hardware Devices ****
+> card 1: PCH [HDA Intel PCH], device 0: ALC257 Analog [ALC257 Analog]
+>   Subdevices: 1/1
+>   Subdevice #0: subdevice #0
+> 
+> !!Amixer output
+> !!-------------
+> 
+> !!-------Mixer controls for card VirMIDI
+> 
+> Card sysdefault:0 'VirMIDI'/'Virtual MIDI Card 1'
+>   Mixer name	: ''
+>   Components	: ''
+>   Controls      : 0
+>   Simple ctrls  : 0
+> 
+> !!-------Mixer controls for card PCH
+> 
+> Card sysdefault:1 'PCH'/'HDA Intel PCH at 0xa133c000 irq 148'
+>   Mixer name	: 'Realtek ALC257'
+>   Components	: 'HDA:10ec0257,17aa5077,00100001 HDA:8086280b,80860101,00100000'
+>   Controls      : 40
+>   Simple ctrls  : 12
+> Simple mixer control 'Master',0
+>   Capabilities: pvolume pvolume-joined pswitch pswitch-joined
+>   Playback channels: Mono
+>   Limits: Playback 0 - 87
+>   Mono: Playback 87 [100%] [0.00dB] [on]
+> Simple mixer control 'Headphone',0
+>   Capabilities: pvolume pswitch
+>   Playback channels: Front Left - Front Right
+>   Limits: Playback 0 - 87
+>   Mono:
+>   Front Left: Playback 0 [0%] [-65.25dB] [off]
+>   Front Right: Playback 0 [0%] [-65.25dB] [off]
+> Simple mixer control 'Speaker',0
+>   Capabilities: pvolume pswitch
+>   Playback channels: Front Left - Front Right
+>   Limits: Playback 0 - 87
+>   Mono:
+>   Front Left: Playback 87 [100%] [0.00dB] [on]
+>   Front Right: Playback 87 [100%] [0.00dB] [on]
+> Simple mixer control 'PCM',0
+>   Capabilities: pvolume
+>   Playback channels: Front Left - Front Right
+>   Limits: Playback 0 - 255
+>   Mono:
+>   Front Left: Playback 255 [100%] [0.00dB]
+>   Front Right: Playback 255 [100%] [0.00dB]
+> Simple mixer control 'Mic Boost',0
+>   Capabilities: volume
+>   Playback channels: Front Left - Front Right
+>   Capture channels: Front Left - Front Right
+>   Limits: 0 - 3
+>   Front Left: 0 [0%] [0.00dB]
+>   Front Right: 0 [0%] [0.00dB]
+> Simple mixer control 'IEC958',0
+>   Capabilities: pswitch pswitch-joined
+>   Playback channels: Mono
+>   Mono: Playback [off]
+> Simple mixer control 'IEC958',1
+>   Capabilities: pswitch pswitch-joined
+>   Playback channels: Mono
+>   Mono: Playback [on]
+> Simple mixer control 'IEC958',2
+>   Capabilities: pswitch pswitch-joined
+>   Playback channels: Mono
+>   Mono: Playback [on]
+> Simple mixer control 'Capture',0
+>   Capabilities: cvolume cswitch
+>   Capture channels: Front Left - Front Right
+>   Limits: Capture 0 - 63
+>   Front Left: Capture 63 [100%] [30.00dB] [on]
+>   Front Right: Capture 63 [100%] [30.00dB] [on]
+> Simple mixer control 'Auto-Mute Mode',0
+>   Capabilities: enum
+>   Items: 'Disabled' 'Enabled'
+>   Item0: 'Disabled'
+> Simple mixer control 'Digital',0
+>   Capabilities: cvolume
+>   Capture channels: Front Left - Front Right
+>   Limits: Capture 0 - 120
+>   Front Left: Capture 60 [50%] [0.00dB]
+>   Front Right: Capture 60 [50%] [0.00dB]
+> Simple mixer control 'Internal Mic Boost',0
+>   Capabilities: volume
+>   Playback channels: Front Left - Front Right
+>   Capture channels: Front Left - Front Right
+>   Limits: 0 - 3
+>   Front Left: 1 [33%] [10.00dB]
+>   Front Right: 1 [33%] [10.00dB]
+> 
+> !!-------Mixer controls for card MS3
+> 
+> Card sysdefault:2 'MS3'/'BOSS MS-3 at usb-0000:00:14.0-4, high speed'
+>   Mixer name	: ''
+>   Components	: 'USB0582:01f5'
+>   Controls      : 0
+>   Simple ctrls  : 0
+> 
+> !!-------Mixer controls for card ThinkPadEC
+> 
+> Card sysdefault:29 'ThinkPadEC'/'ThinkPad Console Audio Control at EC reg 0x30, fw R10HT33W'
+>   Mixer name	: 'ThinkPad EC R10HT33W'
+>   Components	: ''
+>   Controls      : 1
+>   Simple ctrls  : 1
+> Simple mixer control 'Console',0
+>   Capabilities: pswitch pswitch-joined
+>   Playback channels: Mono
+>   Mono: Playback [on]
+> 
+> 
+> !!Alsactl output
+> !!--------------
+> 
+> --startcollapse--
+> state.VirMIDI {
+> 	control {
+> 	}
+> }
+> state.PCH {
+> 	control.1 {
+> 		iface MIXER
+> 		name 'Headphone Playback Volume'
+> 		value.0 0
+> 		value.1 0
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 87'
+> 			dbmin -6525
+> 			dbmax 0
+> 			dbvalue.0 -6525
+> 			dbvalue.1 -6525
+> 		}
+> 	}
+> 	control.2 {
+> 		iface MIXER
+> 		name 'Headphone Playback Switch'
+> 		value.0 false
+> 		value.1 false
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 2
+> 		}
+> 	}
+> 	control.3 {
+> 		iface MIXER
+> 		name 'Speaker Playback Volume'
+> 		value.0 87
+> 		value.1 87
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 87'
+> 			dbmin -6525
+> 			dbmax 0
+> 			dbvalue.0 0
+> 			dbvalue.1 0
+> 		}
+> 	}
+> 	control.4 {
+> 		iface MIXER
+> 		name 'Speaker Playback Switch'
+> 		value.0 true
+> 		value.1 true
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 2
+> 		}
+> 	}
+> 	control.5 {
+> 		iface MIXER
+> 		name 'Auto-Mute Mode'
+> 		value Disabled
+> 		comment {
+> 			access 'read write'
+> 			type ENUMERATED
+> 			count 1
+> 			item.0 Disabled
+> 			item.1 Enabled
+> 		}
+> 	}
+> 	control.6 {
+> 		iface MIXER
+> 		name 'Capture Volume'
+> 		value.0 63
+> 		value.1 63
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 63'
+> 			dbmin -1725
+> 			dbmax 3000
+> 			dbvalue.0 3000
+> 			dbvalue.1 3000
+> 		}
+> 	}
+> 	control.7 {
+> 		iface MIXER
+> 		name 'Capture Switch'
+> 		value.0 true
+> 		value.1 true
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 2
+> 		}
+> 	}
+> 	control.8 {
+> 		iface MIXER
+> 		name 'Mic Boost Volume'
+> 		value.0 0
+> 		value.1 0
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 3'
+> 			dbmin 0
+> 			dbmax 3000
+> 			dbvalue.0 0
+> 			dbvalue.1 0
+> 		}
+> 	}
+> 	control.9 {
+> 		iface MIXER
+> 		name 'Internal Mic Boost Volume'
+> 		value.0 1
+> 		value.1 1
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 3'
+> 			dbmin 0
+> 			dbmax 3000
+> 			dbvalue.0 1000
+> 			dbvalue.1 1000
+> 		}
+> 	}
+> 	control.10 {
+> 		iface MIXER
+> 		name 'Master Playback Volume'
+> 		value 87
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 1
+> 			range '0 - 87'
+> 			dbmin -6525
+> 			dbmax 0
+> 			dbvalue.0 0
+> 		}
+> 	}
+> 	control.11 {
+> 		iface MIXER
+> 		name 'Master Playback Switch'
+> 		value true
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.12 {
+> 		iface CARD
+> 		name 'Mic Jack'
+> 		value false
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.13 {
+> 		iface CARD
+> 		name 'Internal Mic Phantom Jack'
+> 		value true
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.14 {
+> 		iface CARD
+> 		name 'Headphone Jack'
+> 		value false
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.15 {
+> 		iface CARD
+> 		name 'Speaker Phantom Jack'
+> 		value true
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.16 {
+> 		iface PCM
+> 		name 'Playback Channel Map'
+> 		value.0 0
+> 		value.1 0
+> 		comment {
+> 			access read
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 36'
+> 		}
+> 	}
+> 	control.17 {
+> 		iface PCM
+> 		name 'Capture Channel Map'
+> 		value.0 0
+> 		value.1 0
+> 		comment {
+> 			access read
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 36'
+> 		}
+> 	}
+> 	control.18 {
+> 		iface CARD
+> 		name 'HDMI/DP,pcm=3 Jack'
+> 		value false
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.19 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Con Mask'
+> 		value '0fff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access read
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.20 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Pro Mask'
+> 		value '0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access read
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.21 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Default'
+> 		value '0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access 'read write'
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.22 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Switch'
+> 		value false
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.23 {
+> 		iface PCM
+> 		device 3
+> 		name ELD
+> 		value ''
+> 		comment {
+> 			access 'read volatile'
+> 			type BYTES
+> 			count 0
+> 		}
+> 	}
+> 	control.24 {
+> 		iface CARD
+> 		name 'HDMI/DP,pcm=7 Jack'
+> 		value false
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.25 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Con Mask'
+> 		index 1
+> 		value '0fff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access read
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.26 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Pro Mask'
+> 		index 1
+> 		value '0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access read
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.27 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Default'
+> 		index 1
+> 		value '0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access 'read write'
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.28 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Switch'
+> 		index 1
+> 		value true
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.29 {
+> 		iface PCM
+> 		device 7
+> 		name ELD
+> 		value ''
+> 		comment {
+> 			access 'read volatile'
+> 			type BYTES
+> 			count 0
+> 		}
+> 	}
+> 	control.30 {
+> 		iface CARD
+> 		name 'HDMI/DP,pcm=8 Jack'
+> 		value false
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.31 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Con Mask'
+> 		index 2
+> 		value '0fff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access read
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.32 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Pro Mask'
+> 		index 2
+> 		value '0f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access read
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.33 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Default'
+> 		index 2
+> 		value '0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+> 		comment {
+> 			access 'read write'
+> 			type IEC958
+> 			count 1
+> 		}
+> 	}
+> 	control.34 {
+> 		iface MIXER
+> 		name 'IEC958 Playback Switch'
+> 		index 2
+> 		value true
+> 		comment {
+> 			access 'read write'
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> 	control.35 {
+> 		iface PCM
+> 		device 8
+> 		name ELD
+> 		value ''
+> 		comment {
+> 			access 'read volatile'
+> 			type BYTES
+> 			count 0
+> 		}
+> 	}
+> 	control.36 {
+> 		iface PCM
+> 		device 3
+> 		name 'Playback Channel Map'
+> 		value.0 0
+> 		value.1 0
+> 		value.2 0
+> 		value.3 0
+> 		value.4 0
+> 		value.5 0
+> 		value.6 0
+> 		value.7 0
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 8
+> 			range '0 - 36'
+> 		}
+> 	}
+> 	control.37 {
+> 		iface PCM
+> 		device 7
+> 		name 'Playback Channel Map'
+> 		value.0 0
+> 		value.1 0
+> 		value.2 0
+> 		value.3 0
+> 		value.4 0
+> 		value.5 0
+> 		value.6 0
+> 		value.7 0
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 8
+> 			range '0 - 36'
+> 		}
+> 	}
+> 	control.38 {
+> 		iface PCM
+> 		device 8
+> 		name 'Playback Channel Map'
+> 		value.0 0
+> 		value.1 0
+> 		value.2 0
+> 		value.3 0
+> 		value.4 0
+> 		value.5 0
+> 		value.6 0
+> 		value.7 0
+> 		comment {
+> 			access 'read write'
+> 			type INTEGER
+> 			count 8
+> 			range '0 - 36'
+> 		}
+> 	}
+> 	control.39 {
+> 		iface MIXER
+> 		name 'PCM Playback Volume'
+> 		value.0 255
+> 		value.1 255
+> 		comment {
+> 			access 'read write user'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 255'
+> 			tlv '0000000100000008ffffec1400000014'
+> 			dbmin -5100
+> 			dbmax 0
+> 			dbvalue.0 0
+> 			dbvalue.1 0
+> 		}
+> 	}
+> 	control.40 {
+> 		iface MIXER
+> 		name 'Digital Capture Volume'
+> 		value.0 60
+> 		value.1 60
+> 		comment {
+> 			access 'read write user'
+> 			type INTEGER
+> 			count 2
+> 			range '0 - 120'
+> 			tlv '0000000100000008fffff44800000032'
+> 			dbmin -3000
+> 			dbmax 3000
+> 			dbvalue.0 0
+> 			dbvalue.1 0
+> 		}
+> 	}
+> }
+> state.MS3 {
+> 	control {
+> 	}
+> }
+> state.ThinkPadEC {
+> 	control.1 {
+> 		iface MIXER
+> 		name 'Console Playback Switch'
+> 		value true
+> 		comment {
+> 			access read
+> 			type BOOLEAN
+> 			count 1
+> 		}
+> 	}
+> }
+> --endcollapse--
+> 
+> 
+> !!All Loaded Modules
+> !!------------------
+> 
+> ac
+> acpi_pad
+> acpi_thermal_rel
+> aesni_intel
+> af_alg
+> algif_hash
+> algif_skcipher
+> ansi_cprng
+> async_memcpy
+> async_pq
+> async_raid6_recov
+> async_tx
+> async_xor
+> autofs4
+> battery
+> binfmt_misc
+> blake2b_generic
+> bluetooth
+> bnep
+> btbcm
+> btintel
+> btmtk
+> btrfs
+> btrtl
+> btusb
+> button
+> ccm
+> cec
+> cfg80211
+> cmac
+> configfs
+> coretemp
+> crc16
+> crc32_pclmul
+> crc32c_generic
+> crc32c_intel
+> crc64
+> crc64_rocksoft
+> crc_t10dif
+> crct10dif_common
+> crct10dif_generic
+> crct10dif_pclmul
+> cryptd
+> crypto_simd
+> ctr
+> dm_crypt
+> dm_mod
+> drbg
+> drm
+> drm_buddy
+> drm_display_helper
+> drm_kms_helper
+> e1000e
+> ecc
+> ecdh_generic
+> ee1004
+> efi_pstore
+> efivarfs
+> elan_i2c
+> evdev
+> ext4
+> fat
+> firmware_attributes_class
+> fuse
+> ghash_clmulni_intel
+> hid
+> hid_generic
+> hid_sensor_accel_3d
+> hid_sensor_custom
+> hid_sensor_hub
+> hid_sensor_iio_common
+> hid_sensor_trigger
+> i2c_algo_bit
+> i2c_hid
+> i2c_hid_acpi
+> i2c_i801
+> i2c_smbus
+> i915
+> iTCO_vendor_support
+> iTCO_wdt
+> idma64
+> industrialio
+> industrialio_triggered_buffer
+> int3400_thermal
+> int3403_thermal
+> int340x_thermal_zone
+> intel_cstate
+> intel_ish_ipc
+> intel_ishtp
+> intel_ishtp_hid
+> intel_lpss
+> intel_lpss_pci
+> intel_pch_thermal
+> intel_pmc_bxt
+> intel_pmc_core
+> intel_powerclamp
+> intel_rapl_common
+> intel_rapl_msr
+> intel_soc_dts_iosf
+> intel_uncore
+> intel_wmi_thunderbolt
+> ip_tables
+> irqbypass
+> iwlmvm
+> iwlwifi
+> jbd2
+> jitterentropy_rng
+> joydev
+> kfifo_buf
+> kvm
+> kvm_intel
+> ledtrig_audio
+> libarc4
+> libcrc32c
+> linear
+> loop
+> lp
+> mac80211
+> mbcache
+> mc
+> md_mod
+> mei
+> mei_hdcp
+> mei_me
+> mei_pxp
+> mmc_core
+> msr
+> multipath
+> nls_ascii
+> nls_cp437
+> nvme
+> nvme_core
+> nvme_fabrics
+> nvram
+> parport
+> parport_pc
+> pcspkr
+> platform_profile
+> ppdev
+> processor_thermal_device
+> processor_thermal_device_pci_legacy
+> processor_thermal_mbox
+> processor_thermal_rapl
+> processor_thermal_rfim
+> psmouse
+> qrtr
+> raid0
+> raid1
+> raid10
+> raid456
+> raid6_pq
+> rapl
+> rc_core
+> rfcomm
+> rfkill
+> roles
+> rtsx_pci
+> rtsx_pci_sdmmc
+> serial_multi_instantiate
+> serio_raw
+> sha512_generic
+> sha512_ssse3
+> snd
+> snd_compress
+> snd_ctl_led
+> snd_hda_codec
+> snd_hda_codec_generic
+> snd_hda_codec_hdmi
+> snd_hda_codec_realtek
+> snd_hda_core
+> snd_hda_ext_core
+> snd_hda_intel
+> snd_hrtimer
+> snd_hwdep
+> snd_intel_dspcfg
+> snd_intel_sdw_acpi
+> snd_mixer_oss
+> snd_pcm
+> snd_pcm_oss
+> snd_rawmidi
+> snd_seq
+> snd_seq_device
+> snd_seq_dummy
+> snd_seq_midi
+> snd_seq_midi_event
+> snd_seq_virmidi
+> snd_soc_acpi
+> snd_soc_acpi_intel_match
+> snd_soc_core
+> snd_soc_hdac_hda
+> snd_soc_skl
+> snd_soc_sst_dsp
+> snd_soc_sst_ipc
+> snd_sof
+> snd_sof_intel_hda
+> snd_sof_intel_hda_common
+> snd_sof_intel_hda_mlink
+> snd_sof_pci
+> snd_sof_pci_intel_cnl
+> snd_sof_utils
+> snd_sof_xtensa_dsp
+> snd_timer
+> snd_usb_audio
+> snd_usbmidi_lib
+> snd_virmidi
+> soc_button_array
+> soundcore
+> soundwire_bus
+> soundwire_cadence
+> soundwire_generic_allocation
+> soundwire_intel
+> sunrpc
+> t10_pi
+> think_lmi
+> thinkpad_acpi
+> tps6598x
+> ttm
+> typec
+> typec_ucsi
+> ucsi_acpi
+> usb_common
+> usbcore
+> usbhid
+> uvc
+> uvcvideo
+> vboxdrv
+> vboxnetadp
+> vboxnetflt
+> vfat
+> video
+> videobuf2_common
+> videobuf2_memops
+> videobuf2_v4l2
+> videobuf2_vmalloc
+> videodev
+> wacom
+> watchdog
+> wmi
+> wmi_bmof
+> x86_pkg_temp_thermal
+> x_tables
+> xhci_hcd
+> xhci_pci
+> xor
+> 
+> 
+> !!Sysfs Files
+> !!-----------
+> 
+> /sys/class/sound/hwC1D0/init_pin_configs:
+> 0x12 0x90a60120
+> 0x13 0x40000000
+> 0x14 0x90170110
+> 0x18 0x411111f0
+> 0x19 0x04a11030
+> 0x1a 0x411111f0
+> 0x1b 0x411111f0
+> 0x1d 0x40661b45
+> 0x1e 0x411111f0
+> 0x21 0x0421101f
+> 
+> /sys/class/sound/hwC1D0/driver_pin_configs:
+> 
+> /sys/class/sound/hwC1D0/user_pin_configs:
+> 
+> /sys/class/sound/hwC1D0/init_verbs:
+> 
+> /sys/class/sound/hwC1D0/hints:
+> 
+> /sys/class/sound/hwC1D2/init_pin_configs:
+> 0x05 0x18560010
+> 0x06 0x18560010
+> 0x07 0x18560010
+> 
+> /sys/class/sound/hwC1D2/driver_pin_configs:
+> 
+> /sys/class/sound/hwC1D2/user_pin_configs:
+> 
+> /sys/class/sound/hwC1D2/init_verbs:
+> 
+> /sys/class/sound/hwC1D2/hints:
+> 
+> 
+> !!ALSA/HDA dmesg
+> !!--------------
+> 
+> [    3.443489] platform regulatory.0: firmware: direct-loading firmware regulatory.db.p7s
+> [    3.484249] thinkpad_acpi: Console audio control enabled, mode: monitor (read only)
+> [    3.490706] iTCO_wdt iTCO_wdt: Found a Intel PCH TCO device (Version=6, TCOBASE=0x0400)
+> --
+> [    3.590290] iwlwifi 0000:00:14.3: loaded firmware version 46.ff18e32a.0 9000-pu-b0-jf-b0-46.ucode op_mode iwlmvm
+> [    3.612689] snd_hda_intel 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if info 0x040380
+> [    3.621046] intel_rapl_common: Found RAPL domain package
+> --
+> [    3.644662] cryptd: max_cpu_qlen set to 1000
+> [    3.661137] snd_hda_intel 0000:00:1f.3: enabling device (0000 -> 0002)
+> [    3.721340] AVX2 version of gcm_enc/dec engaged.
+> --
+> [    5.257389] input: Video Bus as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:00/input/input21
+> [    5.257549] snd_hda_intel 0000:00:1f.3: bound 0000:00:02.0 (ops i915_audio_component_bind_ops [i915])
+> [    5.325976] fbcon: i915drmfb (fb0) is primary device
+> --
+> [    5.353961] i915 0000:00:02.0: [drm] fb0: i915drmfb frame buffer device
+> [    5.415297] snd_hda_codec_realtek hdaudioC1D0: autoconfig for ALC257: line_outs=1 (0x14/0x0/0x0/0x0/0x0) type:speaker
+> [    5.415301] snd_hda_codec_realtek hdaudioC1D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+> [    5.415303] snd_hda_codec_realtek hdaudioC1D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+> [    5.415304] snd_hda_codec_realtek hdaudioC1D0:    mono: mono_out=0x0
+> [    5.415305] snd_hda_codec_realtek hdaudioC1D0:    inputs:
+> [    5.415306] snd_hda_codec_realtek hdaudioC1D0:      Mic=0x19
+> [    5.415307] snd_hda_codec_realtek hdaudioC1D0:      Internal Mic=0x12
+> [    5.477780] input: HDA Digital PCBeep as /devices/pci0000:00/0000:00:1f.3/sound/card1/input22
+> [    5.477897] input: HDA Intel PCH Mic as /devices/pci0000:00/0000:00:1f.3/sound/card1/input23
+> [    5.478022] input: HDA Intel PCH Headphone as /devices/pci0000:00/0000:00:1f.3/sound/card1/input24
+> [    5.478304] input: HDA Intel PCH HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:1f.3/sound/card1/input25
+> [    5.478395] input: HDA Intel PCH HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:1f.3/sound/card1/input26
+> [    5.482985] input: HDA Intel PCH HDMI/DP,pcm=8 as /devices/pci0000:00/0000:00:1f.3/sound/card1/input27
+> [    6.110885] memfd_create() without MFD_EXEC nor MFD_NOEXEC_SEAL, pid=2075 'pipewire'
+> --
+> [  759.256532] usb 1-4: Manufacturer: BOSS
+> [  759.326836] usbcore: registered new interface driver snd-usb-audio
+> [ 7402.218691] SUPR0GipMap: fGetGipCpu=0x1b
+> 
+> 
+> !!Packages installed
+> !!--------------------
+> 
+> ii  alsa-tools                                       1.2.5-3                                    amd64        Console based ALSA utilities for specific hardware
+> ii  alsa-tools-gui                                   1.2.5-3                                    amd64        GUI based ALSA utilities for specific hardware
+> ii  alsa-topology-conf                               1.2.5.1-2                                  all          ALSA topology configuration files
+> ii  alsa-ucm-conf                                    1.2.9-1                                    all          ALSA Use Case Manager configuration files
+> ii  alsa-utils                                       1.2.9-1                                    amd64        Utilities for configuring and using ALSA
+> 

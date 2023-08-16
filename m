@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB8177E62E
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 18:17:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2879677E6D4
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 18:46:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69CA542;
-	Wed, 16 Aug 2023 18:17:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69CA542
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0C79204;
+	Wed, 16 Aug 2023 18:45:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0C79204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692202674;
-	bh=4AtNaz4In+27Ls6CAbhyQLYN6uzA/dL12VczE8ckqko=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1692204391;
+	bh=B6HicahTsCkX3D4o9fHsAplykHWZ4uTIMoKJqdYNcZs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fWJNAg2xxA7MCbNOYa+PB6W7XofiU40MvKudrwyUwpEli3VC3SN/EMvJ33DXab/2t
-	 W1RTTbQD+BKqnEVhD7nA3gcA2S448vGIFg4WHF/oUpaHSoLm/n8HRl35bFD8qQ7l69
-	 y/Y+mJl+nSl7am4BHHH5lTcMsWfU3t3mmDELK3aA=
+	b=BV2gLxY8ya5IYPlnWgTHxvhpG3Wh8Fhh1VbIT7PaM54An2BeyrlNMno8/lwXmpJ+y
+	 xpJ9lXI+SM1Sya8CpEnguT7IMnAxFb4dY2eUPh4E7yAwM8Anb7pMpNGK41HbmbEqIA
+	 f9RUamqAm2c4Dh7NUqnV0eQsnhXqb53J3qwdOHvc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9C6DF80272; Wed, 16 Aug 2023 18:16:43 +0200 (CEST)
+	id C397CF800D1; Wed, 16 Aug 2023 18:45:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8537CF8016A;
-	Wed, 16 Aug 2023 18:16:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41332F8016A;
+	Wed, 16 Aug 2023 18:45:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 361EEF8016D; Wed, 16 Aug 2023 18:16:39 +0200 (CEST)
+	id 1F6DEF8016D; Wed, 16 Aug 2023 18:45:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4483CF80074
-	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 18:16:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4483CF80074
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hF62KICV
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0FAE8F800D1
+	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 18:45:23 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9F63A1A69;
+	Wed, 16 Aug 2023 18:45:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9F63A1A69
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1692204322; bh=PB3GLw3JHGBbrGNpL1DF98h9X1oH9QGUbpXBe0cnnLw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eFKrpIL0O5T7sjcLWZzc2MdniXvKEm/qNc8FLnHLUCDjPaua7B23N+Lzw6k8EsodN
+	 ml6+bu/2YQApf3yZ+WEXIaoPCCmKEWYkdHCkGGxdA5vNozjyvYZ/UO/FBc0f9NTcaz
+	 Jlm2OrGMt912A9xDaBNrvO4Ttuo0j07taRxnJVKM=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8C02E611DF;
-	Wed, 16 Aug 2023 16:16:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F312C433C7;
-	Wed, 16 Aug 2023 16:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692202590;
-	bh=4AtNaz4In+27Ls6CAbhyQLYN6uzA/dL12VczE8ckqko=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=hF62KICVR39YuyE93xo/Jk/2f3/OYfb1q21A4dQvnPnlq7pnhzxE92GxknVW+zzTU
-	 FZ/HG346g1ChvAsqCffXD1HWFva2TK4U9euD9akYHPPXMh3QU+sIn7uMHGQzmWuKB2
-	 CJmzxpuvp6vnKxJMvFiu1S1MZSOkg5M6t+Ifa7oF+oz8Wb+OlkpaTMPs00qz62dspZ
-	 Xbl2NpPYQaFelmDjAsyurCKFRmusH9wGa+OjIcFStNs9URYZh8vOC6aogruQYIep6d
-	 HooqAXZ0Pwv9nGH8ZaBS761wjufeZLTHW90HttB4px67d4lfbg8Kz9Tktkg0mYVGcW
-	 85V5jyLylnQ8w==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, chao.song@linux.intel.com
-In-Reply-To: <20230816133311.7523-1-peter.ujfalusi@linux.intel.com>
-References: <20230816133311.7523-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: ipc4-pcm: fix possible null pointer
- deference
-Message-Id: <169220258811.817217.17022540458057559719.b4-ty@kernel.org>
-Date: Wed, 16 Aug 2023 17:16:28 +0100
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 16 Aug 2023 18:45:19 +0200 (CEST)
+Message-ID: <ec4b2bf5-1357-916d-c7e7-644ead01433d@perex.cz>
+Date: Wed, 16 Aug 2023 18:45:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH RFC 0/9] ALSA: Don't embed struct devices
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+Cc: Curtis Malainey <cujomalainey@google.com>
+References: <20230816160252.23396-1-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230816160252.23396-1-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: JI2IRJJHQBQUYLDJWPE6FQ7LNSXYOPHZ
-X-Message-ID-Hash: JI2IRJJHQBQUYLDJWPE6FQ7LNSXYOPHZ
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: SIANNE5M2ITRNEDIBKIOTVGUOW7S2STI
+X-Message-ID-Hash: SIANNE5M2ITRNEDIBKIOTVGUOW7S2STI
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JI2IRJJHQBQUYLDJWPE6FQ7LNSXYOPHZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIANNE5M2ITRNEDIBKIOTVGUOW7S2STI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,38 +94,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 16 Aug 2023 16:33:11 +0300, Peter Ujfalusi wrote:
-> The call to snd_sof_find_spcm_dai() could return NULL,
-> add nullable check for the return value to avoid null
-> pointer defenrece.
+On 16. 08. 23 18:02, Takashi Iwai wrote:
+> Hi,
+> 
+> this is another set of patches to attempt papering over the UAF
+> problems that are seen when the delayed kobject release is enabled, as
+> initially reported by Curtis:
+>    https://lore.kernel.org/r/20230801171928.1460120-1-cujomalainey@chromium.org
+> 
+> There was a previous patch set with a different approach (using the
+> device refcount dependencies), but this is a sort of step-back to the
+> old way.
+>    https://lore.kernel.org/r/20230807135207.17708-1-tiwai@suse.de
+> 
+> After discussions and evaluations, we agreed that decoupling the
+> struct device from each sound component object is the safest (and
+> easiest) way as of now.  For applying the changes more consistently, I
+> introduced a new helper for the struct device allocation and
+> initialization, and applied all components.
+> 
+> A couple of more changes for card_dev refcount managed aren't included
+> in this patch set, though.  They might be good to have, but this patch
+> set should suffice for the currently seen UAF problems.
+> 
+> For a long-term solution, we may restructure the device management,
+> then the struct devices may be embedded again in each object.  But,
+> it'll need lots of other changes and cleanups, a big TODO.
+> 
+> The latest patches are found in topic/dev-split branch of sound.git
+> tree.
 > 
 > 
+> Takashi
+> 
+> ===
+> 
+> Takashi Iwai (9):
+>    ALSA: core: Introduce snd_device_alloc()
+>    ALSA: control: Don't embed ctl_dev
+>    ALSA: pcm: Don't embed device
+>    ALSA: hwdep: Don't embed device
+>    ALSA: rawmidi: Don't embed device
+>    ALSA: compress: Don't embed device
+>    ALSA: timer: Create device with snd_device_alloc()
+>    ALSA: seq: Create device with snd_device_alloc()
+>    ALSA: core: Drop snd_device_initialize()
 
-Applied to
+For all commits:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-Thanks!
-
-[1/1] ASoC: SOF: ipc4-pcm: fix possible null pointer deference
-      commit: 2d218b45848b92b03b220bf4d9bef29f058f866f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

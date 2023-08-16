@@ -2,100 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AFEA77DBC7
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 10:10:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9524977DDC4
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 11:50:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CC99207;
-	Wed, 16 Aug 2023 10:09:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CC99207
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB38C74C;
+	Wed, 16 Aug 2023 11:49:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB38C74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692173440;
-	bh=YnX7wA2PC4UFwNdEQiDfcZvFPz169TZtXXtTh0fcEsw=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=J+O/j1VqYyfWAmt1EvLc239BtjhnWdq4ZsCZ2T4iAIAj3/2tW6XwK9LAtgeFTHNzY
-	 z2c/aQL4P/Hs3QGwEdALSATEMfAwp8EIGFDCjtcwCavOSaEszWT3hAYJG9vBaVdemu
-	 uoroG4SZucoCTsnYO70iM5Vm2Vbx4XVvsIKePz6g=
+	s=default; t=1692179423;
+	bh=ZCNWEDVVkCkyH8aZxIY46xmo6BuROQNl0Qm1XviAirw=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=gnQR7QhYGwhkSKrsc1uQhKre+/pkc/db8DDS8pXFbA0fLF0Pt6uI+fc8c1XoVcuYc
+	 Tc3O+n6CFeAdARp7buKVFoMa07z4bDm/aG9MZxeIXPwjvMCSYb4++YYfq8Zof3qYFU
+	 Hlka//IyT8cSSCXla0HzQ1pmzLiicP2yBDphmi5E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF090F8016D; Wed, 16 Aug 2023 10:09:48 +0200 (CEST)
+	id 1366DF80290; Wed, 16 Aug 2023 11:49:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63604F8016A;
-	Wed, 16 Aug 2023 10:09:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD5EAF8016A;
+	Wed, 16 Aug 2023 11:49:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7F33F8016D; Wed, 16 Aug 2023 10:09:43 +0200 (CEST)
+	id E3062F8016D; Wed, 16 Aug 2023 11:49:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D54BFF800EE
-	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 10:09:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D54BFF800EE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=p6gCqmF5
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37G4px6f021725;
-	Wed, 16 Aug 2023 03:09:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=RtuS4+RPM5H1eJM
-	X+4Vl/LFgMJ7LIG0XPxVu8i+mQYU=; b=p6gCqmF5a32jO0Yqo4wAaacnUR4GSqG
-	Y95zPgG7IA7/Y/guuFNkunnjFa/Lmij4iQf7nQAZ4xvR+jdk4/8Hy/yhTTs1QepI
-	8LxL0nL8jXuARklIL/d3WausNTHxRf0VnyKIu/Jx8o+I6uwrOlZoYqotNoQjEUBG
-	6Z8F/cuy86suepUnRX3EZc2Fo0EC4UdUWa0NC+RdaF3KIT07tKsrAvVb/iPTy8Vm
-	W5B9b8g07ao/TltFpj+l2ALVQBxXz6W4jshFuBZETiLcuz+t5eOirbi3BeWYN6dE
-	TYO4kdptj7qAT15pxIbFYzbYD7QMocO8XrojXEpOP6UWRcTH7BqqSEA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3se8kqvnbb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Aug 2023 03:09:36 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 16 Aug
- 2023 09:09:33 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
- Transport; Wed, 16 Aug 2023 09:09:33 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CBBE33575;
-	Wed, 16 Aug 2023 08:09:33 +0000 (UTC)
-Date: Wed, 16 Aug 2023 08:09:33 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Heiko
- Stuebner <heiko@sntech.de>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        <linux-arm-kernel@lists.infradead.org>,
-        <linux-rockchip@lists.infradead.org>
-Subject: Re: [PATCH RESEND 2/3] ASoC: codecs: wm8904: Fix
- Wvoid-pointer-to-enum-cast warning
-Message-ID: <20230816080933.GA103419@ediswmail.ad.cirrus.com>
-References: <20230815143204.379708-1-krzysztof.kozlowski@linaro.org>
- <20230815143204.379708-2-krzysztof.kozlowski@linaro.org>
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F703F800EE
+	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 11:49:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F703F800EE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230815143204.379708-2-krzysztof.kozlowski@linaro.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: eNCEnLsDOM7DPowp6ucywe6coIrIFr1T
-X-Proofpoint-GUID: eNCEnLsDOM7DPowp6ucywe6coIrIFr1T
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 2CD22Y5Q2CJ7IBH3WTOSX7NFINQS7BN2
-X-Message-ID-Hash: 2CD22Y5Q2CJ7IBH3WTOSX7NFINQS7BN2
-X-MailFrom: prvs=35920a7bb8=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1692179357458116770-webhooks-bot@alsa-project.org>
+References: <1692179357458116770-webhooks-bot@alsa-project.org>
+Subject: Build fails
+Message-Id: <20230816094927.E3062F8016D@alsa1.perex.cz>
+Date: Wed, 16 Aug 2023 11:49:27 +0200 (CEST)
+Message-ID-Hash: BRROCXAKPS6EVS3JJWFPBGY2YDQ6I6VD
+X-Message-ID-Hash: BRROCXAKPS6EVS3JJWFPBGY2YDQ6I6VD
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CD22Y5Q2CJ7IBH3WTOSX7NFINQS7BN2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRROCXAKPS6EVS3JJWFPBGY2YDQ6I6VD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,16 +69,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Aug 15, 2023 at 04:32:03PM +0200, Krzysztof Kozlowski wrote:
-> 'devtype' is an enum, thus cast of pointer on 64-bit compile test with
-> W=1 causes:
-> 
->   wm8904.c:2205:21: error: cast to smaller integer type 'enum wm8904_type' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
+alsa-project/alsa-utils issue #230 was opened from symdeb:
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Follow INSTALL
 
-Thanks,
-Charles
+$ls -l
+total 148
+-rw-rw-r-- 1 user user   440 Aug 16 17:40 acinclude.m4
+drwxrwxr-x 3 user user  4096 Aug 16 17:40 alsaconf
+drwxrwxr-x 3 user user  4096 Aug 16 17:40 alsactl
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 alsa-info
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 alsaloop
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 alsamixer
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 alsaucm
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 amidi
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 amixer
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 aplay
+drwxrwxr-x 3 user user  4096 Aug 16 17:40 axfer
+drwxrwxr-x 3 user user  4096 Aug 16 17:40 bat
+-rw-rw-r-- 1 user user  1055 Aug 16 17:40 ChangeLog
+-rw-rw-r-- 1 user user 17587 Aug 16 17:40 configure.ac
+-rw-rw-r-- 1 user user 18002 Aug 16 17:40 COPYING
+-rwxrwxr-x 1 user user   780 Aug 16 17:40 gitcompile
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 iecset
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 include
+-rw-rw-r-- 1 user user  1595 Aug 16 17:40 INSTALL
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 m4
+-rw-rw-r-- 1 user user  1063 Aug 16 17:40 Makefile.am
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 nhlt
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 po
+-rw-rw-r-- 1 user user  1392 Aug 16 17:40 README.md
+drwxrwxr-x 6 user user  4096 Aug 16 17:40 seq
+drwxrwxr-x 3 user user  4096 Aug 16 17:40 speaker-test
+-rw-rw-r-- 1 user user   187 Aug 16 17:40 TODO
+drwxrwxr-x 3 user user  4096 Aug 16 17:40 topology
+drwxrwxr-x 2 user user  4096 Aug 16 17:40 utils
+
+$aclocal
+$gettextize
+Copying file ABOUT-NLS
+Copying file config.rpath
+Copying file po/Makefile.in.in
+Copying file po/Makevars.template
+Copying file po/Rules-quot
+Copying file po/boldquot.sed
+Copying file po/en@boldquot.header
+Copying file po/en@quot.header
+Copying file po/insert-header.sin
+Copying file po/quot.sed
+Copying file po/remove-potcdate.sin
+Creating po/ChangeLog
+Copying file m4/gettext.m4
+Copying file m4/host-cpu-c-abi.m4
+Copying file m4/iconv.m4
+Copying file m4/intlmacosx.m4
+Copying file m4/lib-ld.m4
+Copying file m4/lib-link.m4
+Copying file m4/lib-prefix.m4
+Copying file m4/nls.m4
+Copying file m4/po.m4
+Copying file m4/progtest.m4
+Updating EXTRA_DIST in m4/Makefile.am (backup is in m4/Makefile.am~)
+Updating configure.ac (backup is in configure.ac~)
+Adding an entry to ChangeLog (backup is in ChangeLog~)
+
+Please run 'aclocal -I m4' to regenerate the aclocal.m4 file.
+You need aclocal from GNU automake 1.9 (or newer) to do this.
+Then run 'autoconf' to regenerate the configure file.
+
+You will also need config.guess and config.sub, which you can get from the CVS
+of the 'config' project at https://savannah.gnu.org/. The commands to fetch them
+are
+$ wget 'https://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.guess'
+$ wget 'https://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.sub'
+
+You might also want to copy the convenience header file gettext.h
+from the /usr/share/gettext directory into your package.
+It is a wrapper around <libintl.h> that implements the configure --disable-nls
+option.
+
+Press Return to acknowledge the previous three paragraphs.
+
+$autoheader
+configure.ac:480: error: `po/Makefile.in' is already registered with AC_CONFIG_FILES.
+./lib/autoconf/status.m4:289: AC_CONFIG_FILES is expanded from...
+configure.ac:480: the top level
+autom4te: error: /usr/bin/m4 failed with exit status: 1
+autoheader: error: '/usr/bin/autom4te' failed with exit status: 1
+
+$automake --foreign --copy --add-missing
+configure.ac:480: error: `po/Makefile.in' is already registered with AC_CONFIG_FILES.
+./lib/autoconf/status.m4:289: AC_CONFIG_FILES is expanded from...
+configure.ac:480: the top level
+autom4te: error: /usr/bin/m4 failed with exit status: 1
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/230
+Repository URL: https://github.com/alsa-project/alsa-utils

@@ -2,125 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E2D77D7C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 03:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9873677D9E4
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 07:41:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15661741;
-	Wed, 16 Aug 2023 03:39:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15661741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23AC274C;
+	Wed, 16 Aug 2023 07:40:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23AC274C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692149994;
-	bh=9F+exFJJ2AUS0RZWkm5vCdfGnr4jy6YmZu5Pjxz7Zas=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1692164496;
+	bh=0shsDrQw1AQd2GhoDdV6mJ4GKTmG9jCXCRk2z5shMqE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Az9l9+qd2dcgORjCA6L3Ubokp2DialL3zMfkRMfR/0bj+xpJdD7T0Rdp+O86dcL7S
-	 P2UM2eQukvblcOTg+vYJw6ih8EMaXC+O5JXGiG6YZd3U3fSGm2o+8myjy11Lsvlplc
-	 Uvb4NjTzSI1Tdqp3dNr+cbVkNggqFrlUkSaxAaPE=
+	b=O5eLlBoWcClAd3t6zt0y2p/B8VOwWApANDx7YZxCN3hEOgQUw4s9b0LCe3TXHn4pe
+	 2ZYmJAAX5ZJKlylYQViCosN6g7ZIQsy02EyNq77TAn1sXBBDLpHIlYCI7UktyaGVR8
+	 3JI6cFNoLcsXTbXuKOQgI+77ug/y9OHzGTK/jSOg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69582F8016A; Wed, 16 Aug 2023 03:39:03 +0200 (CEST)
+	id 8FE1FF8016A; Wed, 16 Aug 2023 07:40:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6692F8016A;
-	Wed, 16 Aug 2023 03:39:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7443BF8016A;
+	Wed, 16 Aug 2023 07:40:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8609F8016D; Wed, 16 Aug 2023 03:38:58 +0200 (CEST)
+	id EFAD3F8016D; Wed, 16 Aug 2023 07:36:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D6FF1F80074
-	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 03:38:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6FF1F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 98DE9F80074
+	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 07:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98DE9F80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=cUrakPLb
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37G1WQHV006698;
-	Wed, 16 Aug 2023 01:38:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=koRzxrmeNQzJ9pi6tjKMz8jrP9wCwbUXOe6N2acoMR8=;
- b=cUrakPLbQ1xfArW5yKWNrWezJ52VtZO1F/+tWlQnq4iP0dACVaRZC2LOtty80ILyMN53
- nq/eS2GE95FAYYEbd7eC0ZZhWpIb1fNi76cJJLXoEEcnyTSRk7/EfOtRj3lr4G1fdlRR
- 1C3fiC9rmIJs9bsMq/lyVic6NTYIWkZR2pnuZYXFogqETacbbminN/5e6ynRq8rgo8uR
- Vmbs3+2u0ch+MCslaxAvceIBot8vuQnnCRdCOuvTMMGJz/sF2ccB7Bf02b7u2nKMFkNX
- hHryA0pQpvfS3wCT43X+9vc9+iHsBSdX+G/Q6Y8lonjETtd6yZxS+oUqHhwInc/QR8Vo jQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3sfuhujk7r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Aug 2023 01:38:47 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 37G1ck9X021595
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Aug 2023 01:38:46 GMT
-Received: from [10.110.95.218] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Tue, 15 Aug
- 2023 18:38:44 -0700
-Message-ID: <d42b4db3-d36d-d8fd-90ca-e00c2151195c@quicinc.com>
-Date: Tue, 15 Aug 2023 18:38:44 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v4 31/32] sound: usb: card: Allow for rediscovery of
- connected USB SND devices
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        <agross@kernel.org>, <andersson@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <catalin.marinas@arm.com>, <will@kernel.org>,
-        <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
-        <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-        <tiwai@suse.com>, <srinivas.kandagatla@linaro.org>,
-        <bgoswami@quicinc.com>, <Thinh.Nguyen@synopsys.com>
-CC: <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
-        <linux-usb@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <quic_jackp@quicinc.com>, <oneukum@suse.com>,
-        <albertccwang@google.com>, <o-takashi@sakamocchi.jp>
-References: <20230725023416.11205-1-quic_wcheng@quicinc.com>
- <20230725023416.11205-32-quic_wcheng@quicinc.com>
- <671a524d-b4c8-78d8-33de-40170a23d189@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <671a524d-b4c8-78d8-33de-40170a23d189@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Pa7zWAzvySZs5rUBazuPdUgsyvuZC4bf
-X-Proofpoint-ORIG-GUID: Pa7zWAzvySZs5rUBazuPdUgsyvuZC4bf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-15_22,2023-08-15_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
- mlxscore=0 priorityscore=1501 malwarescore=0 mlxlogscore=999 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2306200000
- definitions=main-2308160013
-Message-ID-Hash: OBK2RMG2AWUMXDUOZFV334WLIWYY6L57
-X-Message-ID-Hash: OBK2RMG2AWUMXDUOZFV334WLIWYY6L57
-X-MailFrom: quic_wcheng@quicinc.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=FStCISKF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ZMw9LbzZ
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A2C601F750;
+	Wed, 16 Aug 2023 05:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692164153;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+3QaDljKLO9tI0DtTUWVG0kjBeECPLUs7wjWWDXsq2c=;
+	b=FStCISKFdCunMcS/dOIE9LiLU31OPYkNl/sxROiNsUnBbNBUYtRTqGRJKkK6d/SpOWPt46
+	ZFp+CqSPe4cKZYvKReHieszzzMCDM1vjxlhSUeaKPbm+/rjXFz5AYLeM9JQfDZKi3+Ov+7
+	Fq288QN2lKIzHY6Hbo39tZJiKN7+aAw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692164153;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+3QaDljKLO9tI0DtTUWVG0kjBeECPLUs7wjWWDXsq2c=;
+	b=ZMw9LbzZQRfxlSyH2gIR7svRN0t20krCA/dYmruFrqJtxtWqgnO1qn2Wdu7UwSDG36QMWK
+	4cYgIJgxdpYz8kAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B90F134B0;
+	Wed, 16 Aug 2023 05:35:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id fco1HTlg3GQQWgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 16 Aug 2023 05:35:53 +0000
+Date: Wed, 16 Aug 2023 07:35:52 +0200
+Message-ID: <878raby2fb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Curtis Malainey <cujomalainey@google.com>
+Cc: alsa-devel@alsa-project.org,
+	Curtis Malainey <cujomalainey@chromium.org>,
+	Stephen Boyd <swboyd@google.com>
+Subject: Re: [PATCH RFC 0/6] ALSA: Fix UAF with delayed kobj release
+In-Reply-To: 
+ <CAOReqxiq86kxj1HEmjYPUZ5gW49y2x9ZFYa8mAH1VWFAF7dEuw@mail.gmail.com>
+References: <20230807135207.17708-1-tiwai@suse.de>
+	<CAOReqxhV=gfwNpxnEU+ruOx6gjD2BSZbYPJ6+iWzkPCidFmCBA@mail.gmail.com>
+	<CAOReqxgCDdXAEyF8pt4dePQ2H_ub=hYczvO1xGpKWAt35z5B2Q@mail.gmail.com>
+	<87o7jgfxgj.wl-tiwai@suse.de>
+	<87sf8se471.wl-tiwai@suse.de>
+	<CAOReqxjnWruX20YyUcAjwv8zLourFv4hUKGq9_1FBsXA6Fra9Q@mail.gmail.com>
+	<87ttt3pdp5.wl-tiwai@suse.de>
+	<CAOReqxhtcyePP+B6egNufuzM_ML3W7PVPNEENqxDfa605DoP9w@mail.gmail.com>
+	<87msysxp9z.wl-tiwai@suse.de>
+	<CAOReqxiq86kxj1HEmjYPUZ5gW49y2x9ZFYa8mAH1VWFAF7dEuw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 45SLZIGHRCEOGGL5WFYKFKZGKUH4KOBC
+X-Message-ID-Hash: 45SLZIGHRCEOGGL5WFYKFKZGKUH4KOBC
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -132,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBK2RMG2AWUMXDUOZFV334WLIWYY6L57/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/45SLZIGHRCEOGGL5WFYKFKZGKUH4KOBC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,83 +132,268 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Pierre,
-
-On 7/25/2023 2:15 AM, Pierre-Louis Bossart wrote:
+On Tue, 15 Aug 2023 23:32:31 +0200,
+Curtis Malainey wrote:
 > 
+> On Tue, Aug 15, 2023 at 9:07 AM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Mon, 14 Aug 2023 22:20:29 +0200,
+> > Curtis Malainey wrote:
+> > >
+> > > On Sun, Aug 13, 2023 at 1:08 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > > >
+> > > > On Wed, 09 Aug 2023 23:11:45 +0200,
+> > > > Curtis Malainey wrote:
+> > > > >
+> > > > > >
+> > > > > > And now looking back at kobj code and device code, they do refcount
+> > > > > > parent objects.  Maybe the problem is in our side -- the all devices
+> > > > > > are created with the original real device as the parent, including the
+> > > > > > card_dev, while there are some dependencies among children.  So, if we
+> > > > > > build up a proper tree, pci_dev -> card_dev -> ctl_dev, pcm_dev, etc,
+> > > > > > one of the problems could be solved.  It's more or less similar as
+> > > > > > what I suggested initially (referring card_dev at pcm), while changing
+> > > > > > the parent would make it implicitly.
+> > > > >
+> > > > > Yes I think this would be the long term proper way to go, that way
+> > > > > parents just put children and remove their reference, then they
+> > > > > cleanup on their own time making everyone happy. My first patch was a
+> > > > > very lazy attempt that, if we wanted to do the right thing we would
+> > > > > obviously have to split the structs and free functions to operate in
+> > > > > their own release. If you have time feel free to take another swing at
+> > > > > the patches, otherwise I won't be able to start until next week.
+> > > >
+> > > > Now looking back at the problem again, I noticed that actually my
+> > > > previous comment was wrong: as default, the device dependencies aren't
+> > > > kept at the release time, but it's already cleared at device_del()
+> > > > call.  The device_del() calls kobject_del() and put_device(parent).
+> > > > So after this moment, both device releases become independent, and
+> > > > it'll hit a problem if the released object has still some dependency
+> > > > (such as the case of card vs ctl_dev in our case).
+> > > >
+> > > > An extra dependency to card_dev as I put in my early patch would "fix"
+> > > > it.  But, there is yet another problem: the call of dev_free call for
+> > > > snd_device object with SNDRV_DEV_LOWLEVEL can happen before releasing
+> > > > PCM and other devices when the delayed kobj release is enabled.  And,
+> > > > usually this callback does release the top-level resources, which
+> > > > might be still accessed during the other releases.
+> > >
+> > >
+> > > I was doing some testing late last week that confirms these fears
+> > > actually. Basically the rig was opening a non-blocking PCM and just
+> > > never sending data, removing the hw sound device (in this case a USB
+> > > peripheral) but not closing the userspace app. As a result kobjects
+> > > were released out of order with the top level "sound" being released
+> > > at disconnect of the USB device, but the actual card not being
+> > > released until the app closed. See annotated logs below
+> > >
+> > > [  690.528577] kobject: 'sound' (00000000266cd308):
+> > > kobject_add_internal: parent: '3-9:1.0', set: '(null)' <----- plug in
+> > > device
+> > > [  690.528607] kobject: 'card1' (00000000f7fa0903):
+> > > kobject_add_internal: parent: 'sound', set: 'devices'
+> > > [  690.528732] kobject: 'card1' (00000000f7fa0903): kobject_uevent_env
+> > > [  690.528756] kobject: 'card1' (00000000f7fa0903): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1'
+> > > [  690.528988] kobject: 'pcmC1D0p' (0000000095ff4473):
+> > > kobject_add_internal: parent: 'card1', set: 'devices'
+> > > [  690.529640] kobject: 'pcmC1D0p' (0000000095ff4473): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcmC1D0p'
+> > > [  690.529778] kobject: 'pcmC1D0c' (00000000c4879d24):
+> > > kobject_add_internal: parent: 'card1', set: 'devices'
+> > > [  690.530006] kobject: 'pcmC1D0c' (00000000c4879d24): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcmC1D0c'
+> > > [  690.530108] kobject: 'controlC1' (00000000a0a25449):
+> > > kobject_add_internal: parent: 'card1', set: 'devices'
+> > > [  690.530373] kobject: 'controlC1' (00000000a0a25449):
+> > > fill_kobj_path: path =
+> > > '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/controlC1'
+> > > [  690.671889] kobject: 'card1' (00000000f7fa0903): kobject_uevent_env
+> > > [  690.671906] kobject: 'card1' (00000000f7fa0903): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1'
+> > > [  700.009244] kobject: 'controlC1' (00000000a0a25449):
+> > > fill_kobj_path: path =
+> > > '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/controlC1'
+> > > [  700.010131] kobject: 'pcmC1D0p' (0000000095ff4473): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcmC1D0p'
+> > > [  700.011344] kobject: 'pcmC1D0c' (00000000c4879d24): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcmC1D0c'
+> > > [  700.012916] kobject: 'card1' (00000000f7fa0903): kobject_uevent_env
+> > > [  700.012951] kobject: 'card1' (00000000f7fa0903): fill_kobj_path:
+> > > path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1'
+> > >  <---- start blocked playback here
+> > > [  700.013057] kobject: 'sound' (00000000266cd308): kobject_release,
+> > > parent 0000000000000000 (delayed 1000) <--- unplug usb device
+> > > [  701.054221] kobject: 'sound' (00000000266cd308): kobject_cleanup,
+> > > parent 0000000000000000
+> > > [  701.054236] kobject: 'sound' (00000000266cd308): calling ktype release
+> > > [  701.054257] kobject: 'sound': free name
+> > > [  713.639843] kobject: 'card1' (00000000f7fa0903): kobject_release,
+> > > parent 0000000000000000 (delayed 3000) <--- Send EOF to playback
+> > > stream
+> > > [  716.669776] kobject: 'card1' (00000000f7fa0903): kobject_cleanup,
+> > > parent 0000000000000000
+> > > [  716.669810] kobject: 'card1' (00000000f7fa0903): calling ktype release
+> > > [  716.670834] kobject: 'card1': free name
+> > >
+> > > >
+> > > >
+> > > > So, if we tie the object resource with each struct device release, we
+> > > > have a lot of works:
+> > > > 1. Add extra dependencies among device hierarchy
+> > > > 2. Don't use card_dev refcount for managing the sync to device closes,
+> > > >    introduce another kref instead; otherwise card_dev refcount would
+> > > >    never reach to zero
+> > > > 3. Fix race of devres vs card_dev release
+> > > > 4. Move the second half part of snd_card_do_free() to the release
+> > > >    callback of card_dev itself to sync with the top-level release
+> > > > 5. Rewrite all SNDRV_DEV_LOWLEVEL usages to be called via
+> > > >    card->private_free or such;
+> > > >    maybe the only problem is hda_intel.c and hda_tegra.c that need
+> > > >    some work at the disconnection time, and we may introduce another
+> > > >    hook in the card object to replace that
+> > > >
+> > > > And, at this moment, I feel that it'd be easier to go back to the
+> > > > early way of device management, i.e. it'll be just like your patch,
+> > > > managing the device object independently from the rest resources.
+> > > > (This means also that the way freeing the resource for hwdep and
+> > > >  rawmidi will go back again without the embedded device, too; they
+> > > >  also suffer from the same problem of .)
+> > >
+> > > I agree, I think as a simple stopgap, my earlier patch would at least
+> > > appease the test until we can figure out the best way to do some
+> > > heavier work on the kobj. I think the proxy pointer for devres would
+> > > also be the best short term for 3.
+> > >
+> > > >
+> > > > The change 2 and 3 above can be still applied with your change, which
+> > > > will fix the remaining devres-vs-card_dev problem.
+> > >
+> > > I am not sure I follow the need for 2. If we broke ctl_dev out into
+> > > its own memory region and structured everything as a proper tree we
+> > > would have a proper cleanup and be able to use the refcounting
+> > > properly.
+> >
+> > My thought was about the devres release that does kfree() of the card
+> > while the card's card_dev release itself is still delayed.
+> > This might be a needless fear, though, as snd_card_free() should sync
+> > with the actual card_dev release.
+> >
+> > But, splitting the release-trigger and the actual memory release could
+> > be still worth.
+> >
+> > > > Once after fixing the current problem, we may work further on other
+> > > > stuff (e.g. item 5), so that we can switch again to the device-release
+> > > > model eventually later, too.
+> > >
+> > > Agreed, I don't have any experience with SNDRV_DEV_LOWLEVEL but I am
+> > > happy to help out here where I can.
+> > >
+> > > I am going to see if I can split the release card as mentioned but
+> > > also have refcount work as expected and have the release calls roll up
+> > > the tree.
+> >
+> > I quickly worked on and made a patch series.
+> > It's put in topic/dev-split branch of sound git tree
+> >   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/log/?h=topic/dev-split
+> >
+> > It'd be appreciated if you can review / test it.
 > 
-> On 7/25/23 04:34, Wesley Cheng wrote:
->> In case of notifying SND platform drivers of connection events, some of
->> these use cases, such as offloading, require an ASoC USB backend device to
->> be initialized before the events can be handled.  If the USB backend device
->> has not yet been probed, this leads to missing initial USB audio device
->> connection events.
->>
->> Expose an API that traverses the usb_chip array for connected devices, and
->> to call the respective connection callback registered to the SND platform
->> driver.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   sound/usb/card.c | 19 +++++++++++++++++++
->>   sound/usb/card.h |  2 ++
->>   2 files changed, 21 insertions(+)
->>
->> diff --git a/sound/usb/card.c b/sound/usb/card.c
->> index 365f6d978608..27a89aaa0bf3 100644
->> --- a/sound/usb/card.c
->> +++ b/sound/usb/card.c
->> @@ -170,6 +170,25 @@ struct snd_usb_stream *snd_usb_find_suppported_substream(int card_idx,
->>   }
->>   EXPORT_SYMBOL_GPL(snd_usb_find_suppported_substream);
->>   
->> +/*
->> + * in case the platform driver was not ready at the time of USB SND
->> + * device connect, expose an API to discover all connected USB devices
->> + * so it can populate any dependent resources/structures.
->> + */
->> +void snd_usb_rediscover_devices(void)
->> +{
->> +	int i;
->> +
->> +	mutex_lock(&register_mutex);
->> +	for (i = 0; i < SNDRV_CARDS; i++) {
->> +		if (usb_chip[i])
->> +			if (platform_ops && platform_ops->connect_cb)
->> +				platform_ops->connect_cb(usb_chip[i]);
+> Took a look and ran it through the tests
 > 
-> what happens if the USB device is removed while the platform device adds
-> a port?
+> You need to apply this diff
+
+Thanks, I'll fix it up.
+
 > 
-> This sounds super-racy to me. It's the same set of problems we're having
-> between audio and display/DRM, I would be surprised if this function
-> dealt with all corner cases of insertion/removal, bind/unbind.
+> diff --git a/sound/usb/media.c b/sound/usb/media.c
+> index 6d11fedb46326..d48db6f3ae659 100644
+> --- a/sound/usb/media.c
+> +++ b/sound/usb/media.c
+> @@ -35,7 +35,7 @@ int snd_media_stream_init(struct snd_usb_substream
+> *subs, struct snd_pcm *pcm,
+>  {
+>         struct media_device *mdev;
+>         struct media_ctl *mctl;
+> -       struct device *pcm_dev = &pcm->streams[stream].dev;
+> +       struct device *pcm_dev = pcm->streams[stream].dev;
+>         u32 intf_type;
+>         int ret = 0;
+>         u16 mixer_pad;
 > 
+> Hammering probe and remove appears to be fine. Went 45min without issue.
+> 
+> Userspace holding references past hw removal appears to still be
+> broken as sound is released while the app is still running.
+> 
+> -- remove usb device --
+> [ 4819.827476] kobject: 'controlC1' (00000000255a51c8):
+> fill_kobj_path: path =
+> '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/controlC1'
+> [ 4819.828114] kobject: 'pcmC1D0p' (00000000f0627532): kobject_uevent_env
+> [ 4819.828145] kobject: 'pcmC1D0p' (00000000f0627532): fill_kobj_path:
+> path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcmC1D0p'
+> [ 4819.828822] kobject: 'pcmC1D0c' (000000001b707a15): kobject_uevent_env
+> [ 4819.828850] kobject: 'pcmC1D0c' (000000001b707a15): fill_kobj_path:
+> path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1/pcmC1D0c'
+> [ 4819.829405] kobject: 'card1' (000000005bce975e): kobject_uevent_env
+> [ 4819.829428] kobject: 'card1' (000000005bce975e): fill_kobj_path:
+> path = '/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0/sound/card1'
+> [ 4819.829516] kobject: 'sound' (000000000bb52434): kobject_release,
+> parent 0000000000000000 (delayed 4000)
+> [ 4823.873625] kobject: 'sound' (000000000bb52434): kobject_cleanup,
+> parent 0000000000000000
+> [ 4823.873645] kobject: 'sound' (000000000bb52434): calling ktype release
+> [ 4823.873654] kobject: 'sound': free name
+> 
+> -- end app --
+> [ 4849.581815] kobject: 'pcmC1D0p' (00000000f0627532):
+> kobject_release, parent 0000000000000000 (delayed 2000)
+> [ 4849.581960] kobject: 'pcmC1D0c' (000000001b707a15):
+> kobject_release, parent 0000000000000000 (delayed 2000)
+> [ 4849.582626] kobject: 'card1' (000000005bce975e): kobject_release,
+> parent 0000000000000000 (delayed 1000)
+> [ 4850.625615] kobject: 'card1' (000000005bce975e): kobject_cleanup,
+> parent 0000000000000000
+> [ 4850.625638] kobject: 'card1' (000000005bce975e): calling ktype release
+> [ 4850.625663] kobject: 'card1': free name
+> [ 4851.585647] kobject: 'pcmC1D0c' (000000001b707a15):
+> kobject_cleanup, parent 0000000000000000
+> [ 4851.585672] kobject: 'pcmC1D0c' (000000001b707a15): calling ktype release
+> [ 4851.585708] kobject: 'pcmC1D0c': free name
+> [ 4851.585727] kobject: 'pcmC1D0p' (00000000f0627532):
+> kobject_cleanup, parent 0000000000000000
+> [ 4851.585737] kobject: 'pcmC1D0p' (00000000f0627532): calling ktype release
+> [ 4851.585752] kobject: 'pcmC1D0p': free name
 
-The chip array entries are all populated and removed while under the 
-register_mutex, so going over your race condition, we should see:
+It's the designed behavior.  Those are device *files* that are deleted
+immediately at the disconnection while the application is still
+running.  It's for avoiding a new application to be started after the
+disconnect.  That is, only the device files in /dev/snd/* become
+invisible.  Meanwhile, the already opened objects are still handled
+internally.
 
-Thread#1:
-q6usb_component_probe()
---> snd_soc_usb_add_port()
-   --> snd_usb_rediscover_devices()
-     --> mutex_lock(register_mutex)
+> I still don't understand why you need the kref. The devices are
+> already reference counting, why not use them? If we split them up into
+> their own structs we could then just device_put everything on removal
+> and let it roll up the tree with releases automatically, blocking
+> where userspace is still holding references. I will share a patches
+> sometime this week of what I mean. They will probably be a bit bigger
+> blast radius but I think its what is needed here.
 
-Thread#2
---> usb_audio_disconnect()
-   --> mutex_lock(register_mutex)
+We want to trigger the top-level release free procedure once when all
+files are closed.  This top-level release does put_device() of all
+belonging devices.
 
-So either thread#1 or thread#2 will complete first.  If
+The card_dev device refcount was used for this purpose.  OTOH, if we
+want to construct the topology of the devices until the actual
+deletion (i.e. keep card_dev until pcm and others are really
+released/deleted), the card_dev refcount will be used for managing
+the topology, too.  So, it'll get a side-effect side-effect that the
+card_dev refcount won't be zero even after all files are closed (it's
+referred from the children).
 
-Thread#1 completes before thread#2:
-   SOC USB will notify DPCM backend of the device connection.  Shortly 
-after, once thread#2 runs, we will get a disconnect event for the 
-connected device.
+So, it's a kind of preparation for the future.
 
-Thread#2 completes before thread#1:
-   Then during snd_usb_rediscover_devices() we won't notify of any 
-connection for that particular chip index.
 
-Thanks
-Wesley Cheng
-
+Takashi

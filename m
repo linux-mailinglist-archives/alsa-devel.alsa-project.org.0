@@ -2,102 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31F677E5FD
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 18:06:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFB8177E62E
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Aug 2023 18:17:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CE47844;
-	Wed, 16 Aug 2023 18:05:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CE47844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69CA542;
+	Wed, 16 Aug 2023 18:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69CA542
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692201964;
-	bh=OKPiTg6FwlFvX2rrJjBEWEffWo3+Mp5JCRJsN7Npf0I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1692202674;
+	bh=4AtNaz4In+27Ls6CAbhyQLYN6uzA/dL12VczE8ckqko=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oGjUiXLYlFj5NhybMC3xPpzzrnjeO63aqfOWALFQ/oAZC5moq3l+LzHrp0TyPkHCc
-	 nrXzf+INzXVEmiAyzsgf92pG9nEkjKLioFLSJYpjJGpfV9QpGXWquiPqJtr7AV6Ypk
-	 LTyibRCq4tNjSYbi8INFiNlgLm5XOShzZk+piMRg=
+	b=fWJNAg2xxA7MCbNOYa+PB6W7XofiU40MvKudrwyUwpEli3VC3SN/EMvJ33DXab/2t
+	 W1RTTbQD+BKqnEVhD7nA3gcA2S448vGIFg4WHF/oUpaHSoLm/n8HRl35bFD8qQ7l69
+	 y/Y+mJl+nSl7am4BHHH5lTcMsWfU3t3mmDELK3aA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4ECEDF805C2; Wed, 16 Aug 2023 18:03:27 +0200 (CEST)
+	id E9C6DF80272; Wed, 16 Aug 2023 18:16:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5AC6F805C1;
-	Wed, 16 Aug 2023 18:03:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8537CF8016A;
+	Wed, 16 Aug 2023 18:16:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29799F805AA; Wed, 16 Aug 2023 18:03:22 +0200 (CEST)
+	id 361EEF8016D; Wed, 16 Aug 2023 18:16:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7B9FDF80536
-	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 18:02:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B9FDF80536
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4483CF80074
+	for <alsa-devel@alsa-project.org>; Wed, 16 Aug 2023 18:16:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4483CF80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=gthfc1Xy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=1/xNzTev
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hF62KICV
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5C3B2218FA;
-	Wed, 16 Aug 2023 16:02:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692201776;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=77O/JPDg7vKWbPqXtZBxgbM5y4SSc9UJZ+CrN6/1FI0=;
-	b=gthfc1XyFb+znSHF9qSHog3mWBsmrvZhH0EQWfUxu8M6t2IAyyj7z3a3p5fNoChdpiokkb
-	QYKeO4LBiVwEbYQpE6E23VH0ISpu6W/qy11jRttJ5+h/MeQ7U3gXm/qqNe6XUnKe8WJPZR
-	gTEYWjjhovX5qcKXFX8060vHK8pq+Bs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692201776;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=77O/JPDg7vKWbPqXtZBxgbM5y4SSc9UJZ+CrN6/1FI0=;
-	b=1/xNzTev7iz8ldWMFb/ITZVHnClVT8QMzwJvY4FyRK1XhLN7JDNfzz+tGFTo/ERCTh7atN
-	RNFu78wT309+hvDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F2AE133F2;
-	Wed, 16 Aug 2023 16:02:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 6HuSDjDz3GSNKQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 16 Aug 2023 16:02:56 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: Curtis Malainey <cujomalainey@google.com>
-Subject: [PATCH RFC 9/9] ALSA: core: Drop snd_device_initialize()
-Date: Wed, 16 Aug 2023 18:02:52 +0200
-Message-Id: <20230816160252.23396-10-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230816160252.23396-1-tiwai@suse.de>
-References: <20230816160252.23396-1-tiwai@suse.de>
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8C02E611DF;
+	Wed, 16 Aug 2023 16:16:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F312C433C7;
+	Wed, 16 Aug 2023 16:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692202590;
+	bh=4AtNaz4In+27Ls6CAbhyQLYN6uzA/dL12VczE8ckqko=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=hF62KICVR39YuyE93xo/Jk/2f3/OYfb1q21A4dQvnPnlq7pnhzxE92GxknVW+zzTU
+	 FZ/HG346g1ChvAsqCffXD1HWFva2TK4U9euD9akYHPPXMh3QU+sIn7uMHGQzmWuKB2
+	 CJmzxpuvp6vnKxJMvFiu1S1MZSOkg5M6t+Ifa7oF+oz8Wb+OlkpaTMPs00qz62dspZ
+	 Xbl2NpPYQaFelmDjAsyurCKFRmusH9wGa+OjIcFStNs9URYZh8vOC6aogruQYIep6d
+	 HooqAXZ0Pwv9nGH8ZaBS761wjufeZLTHW90HttB4px67d4lfbg8Kz9Tktkg0mYVGcW
+	 85V5jyLylnQ8w==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, chao.song@linux.intel.com
+In-Reply-To: <20230816133311.7523-1-peter.ujfalusi@linux.intel.com>
+References: <20230816133311.7523-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc4-pcm: fix possible null pointer
+ deference
+Message-Id: <169220258811.817217.17022540458057559719.b4-ty@kernel.org>
+Date: Wed, 16 Aug 2023 17:16:28 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NSIU6CULE67Y6TFNFOYUHSHBFODKWM4Z
-X-Message-ID-Hash: NSIU6CULE67Y6TFNFOYUHSHBFODKWM4Z
-X-MailFrom: tiwai@suse.de
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: JI2IRJJHQBQUYLDJWPE6FQ7LNSXYOPHZ
+X-Message-ID-Hash: JI2IRJJHQBQUYLDJWPE6FQ7LNSXYOPHZ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NSIU6CULE67Y6TFNFOYUHSHBFODKWM4Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JI2IRJJHQBQUYLDJWPE6FQ7LNSXYOPHZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,60 +100,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now all users of snd_device_intialize() are gone, let's drop it.
+On Wed, 16 Aug 2023 16:33:11 +0300, Peter Ujfalusi wrote:
+> The call to snd_sof_find_spcm_dai() could return NULL,
+> add nullable check for the return value to avoid null
+> pointer defenrece.
+> 
+> 
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/core.h |  1 -
- sound/core/init.c    | 23 -----------------------
- 2 files changed, 24 deletions(-)
+Applied to
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index f3f6b720a278..dfef0c9d4b9f 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -240,7 +240,6 @@ extern struct dentry *sound_debugfs_root;
- void snd_request_card(int card);
- 
- int snd_device_alloc(struct device **dev_p, struct snd_card *card);
--void snd_device_initialize(struct device *dev, struct snd_card *card);
- 
- int snd_register_device(int type, struct snd_card *card, int dev,
- 			const struct file_operations *f_ops,
-diff --git a/sound/core/init.c b/sound/core/init.c
-index a4de9f00d90f..d61bde1225f2 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -111,29 +111,6 @@ static int get_slot_from_bitmask(int mask, int (*check)(struct module *, int),
- 	return mask; /* unchanged */
- }
- 
--/* the default release callback set in snd_device_initialize() below;
-- * this is just NOP for now, as almost all jobs are already done in
-- * dev_free callback of snd_device chain instead.
-- */
--static void default_release(struct device *dev)
--{
--}
--
--/**
-- * snd_device_initialize - Initialize struct device for sound devices
-- * @dev: device to initialize
-- * @card: card to assign, optional
-- */
--void snd_device_initialize(struct device *dev, struct snd_card *card)
--{
--	device_initialize(dev);
--	if (card)
--		dev->parent = &card->card_dev;
--	dev->class = &sound_class;
--	dev->release = default_release;
--}
--EXPORT_SYMBOL_GPL(snd_device_initialize);
--
- /* the default release callback set in snd_device_alloc() */
- static void default_release_alloc(struct device *dev)
- {
--- 
-2.35.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: SOF: ipc4-pcm: fix possible null pointer deference
+      commit: 2d218b45848b92b03b220bf4d9bef29f058f866f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,107 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C882A77F854
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 16:05:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BA6477F920
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 16:32:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6D4886F;
-	Thu, 17 Aug 2023 16:05:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6D4886F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BDD77F1;
+	Thu, 17 Aug 2023 16:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BDD77F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692281154;
-	bh=Jza/ELDogTFotgdVJ3d1o1QRv4u31rd3UN8F6vjm3tk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1692282752;
+	bh=j/9P0gmQQHFlMHYDGkbBJX+RpwJHwEw+zK5VGhRAXCo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PEbDmAvx7FffnEgWEOalU0zwccFBlueOll+gUjXVtA4NpRd16hjRwz7tK7lpdNFr7
-	 PxjK5F1U277sIo1qW+S/WOpmHv/Sis813/gImEjFGx/23rlkB3pVMqzeHOtAY1RLTc
-	 mW9HKTLFZdJ53VkAnHCX1Z9Oy8t2rittrnfUUfqI=
+	b=qvLBQyuH/SDGNoKJKYLciO8h1ZuxV0x5l2/Ig3qyDRepzJy7ZMobT8HA/Hdei/0DT
+	 PbR2T7W6oGjoe5wBNCmyzGxOuRCzmkJqQYQq86UE1USGu+rmaY9FNG/fIVPGrKGwOh
+	 l38L5MTS87kuvjls6Q0UEg6NU2O2EHW6qzxT2dYQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9B7EF805AA; Thu, 17 Aug 2023 16:03:51 +0200 (CEST)
+	id C556AF80074; Thu, 17 Aug 2023 16:31:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 463D2F80589;
-	Thu, 17 Aug 2023 16:03:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33DADF8016A;
+	Thu, 17 Aug 2023 16:31:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF7AEF80510; Thu, 17 Aug 2023 16:03:39 +0200 (CEST)
+	id 1D557F8016D; Thu, 17 Aug 2023 16:31:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB8BEF8016D
-	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 16:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB8BEF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4609F80074
+	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 16:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4609F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=oioclo5J
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2b9fa64db41so119412441fa.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 17 Aug 2023 07:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1692281013; x=1692885813;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SVRGKrIqK8zdIPLjLE/8ZwUbdMywu2KHkrv9/v0NkSo=;
-        b=oioclo5JM2Z8IQ//cUwFPPQ37qFbQD2VKB4e+vIUFHeDvjfiQwtwWq+AOjZ/raQCf+
-         z354ZE7/AFnzPICOq6EWUTqvVSc6x2yVVauyV5h+XVXEkvKAosCUJMnksLP6EvPm3xn3
-         NxZ9q1HxjiEYesrw416DCagvdKhMBPua+iPIithASgflIyKuKgq5mMa4uu+Xsy8R+tHT
-         sboGbYN+DOvBat7iQn8q2qNXzFJJ/dGa4bbWMj1NjGI1XOomH0nynE+a0ROaJskQTA1H
-         NyMWbIgVPJNAFEETbzoFRERS4Oc2pWUsRY3JTQ6Zhs0zW2c4xz+GC8xxejNuZhlfRGdK
-         ZSTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692281013; x=1692885813;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SVRGKrIqK8zdIPLjLE/8ZwUbdMywu2KHkrv9/v0NkSo=;
-        b=kzXtdfZtw9RGNseK9Mr32WOmy3euIw6K4GyIuk+OKSC6gsHCzySYt1QcjiQoOiuK1a
-         X1mcZVVM8vxqAIwdLIoMpa3sTtZHGA5/4Im66FyX4hXep0tg9Uf5fJ5TesATwQaql5dZ
-         AtplkMeMX4skPNNDyxiimrXffZu2O+f09GPo9w27T9RY/qXJDGpOIireLvmov4koMc8m
-         ucF+2C3c6xjg7I+aHxKE4V2rG8wZTI/+jIDT0i9Yf/p3MvBpBidB1tSmbbumAd0S2pU6
-         bAwyd5PuWUZjhGIvxwZXyVT6Xi15GVG+584MApeH/dkmQKKHLE2pRx4+xTyZoGhAcQl8
-         dumA==
-X-Gm-Message-State: AOJu0Ywdi4Wk2ez5sxdsw97tf3NP6WR4S4VLZT/dB4EaMxpW/dih3CFG
-	3HrelCfSgynoztKi/19JmhDppE/OKLGyOerHNuw=
-X-Google-Smtp-Source: 
- AGHT+IHt8slVZzlqM+67wFP56al0ESEwXNkqY3msrUtb07eUTGraVFPwWUsEKyiz1+fXP8sgs7X0hg==
-X-Received: by 2002:a05:651c:203:b0:2b9:575e:5298 with SMTP id
- y3-20020a05651c020300b002b9575e5298mr4236590ljn.13.1692281013057;
-        Thu, 17 Aug 2023 07:03:33 -0700 (PDT)
-Received: from [127.0.1.1] ([85.235.12.238])
-        by smtp.gmail.com with ESMTPSA id
- g3-20020a2eb0c3000000b002b9c3e18095sm4064645ljl.14.2023.08.17.07.03.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Aug 2023 07:03:32 -0700 (PDT)
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 17 Aug 2023 16:03:21 +0200
-Subject: [PATCH v2 5/5] ASoC: rt5682s: Convert to use GPIO descriptors
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ZhVwlpdP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1692282682; x=1723818682;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=j/9P0gmQQHFlMHYDGkbBJX+RpwJHwEw+zK5VGhRAXCo=;
+  b=ZhVwlpdPea+kdX+vNQg9EJaIVsj863zDAhTzZCWFZE0UlwOy5C+uePnZ
+   T5KPtm2PGSKZtiLp8PtT8fgyPlqD3PaHPikVb0zsBAicaV9JcCTd+Db2f
+   b86Fo5ps4p0XW5BKSQIFYaYyrdVWhEXHhZv7uyWeoy0Y0OMrDB906Y5YB
+   okGwraxYielZkm0ZP18VbY56io8xZ5mD+9EhqTsgCMQ/yOg5LYYsVVIEy
+   J+KejjEENNj9EWqbXDQH34W2RZPUw43I6LtYxrsKv2GhLtjyEzKqjnLXm
+   Od4mys5mEyYCAkNyt8/bj017rRZJvJYZkX2hO0lElJ71KoX3PllTRA76+
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="439199938"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
+   d="scan'208";a="439199938"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 07:17:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="1065278587"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
+   d="scan'208";a="1065278587"
+Received: from cerondon-mobl1.amr.corp.intel.com (HELO [10.212.36.16])
+ ([10.212.36.16])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 07:17:50 -0700
+Message-ID: <b28b5187-e775-4c4d-635e-9b867a19588e@linux.intel.com>
+Date: Thu, 17 Aug 2023 09:17:50 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v2] ASoC: tas2783: Add source files for tas2783 soundwire
+ driver
+To: Baojun Xu <baojun.xu@ti.com>, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Cc: shenghao-ding@ti.com, kevin-lu@ti.com, krzysztof.kozlowski@linaro.org,
+ rf@opensource.cirrus.com, shumingf@realtek.com, herve.codina@bootlin.com,
+ povik+lin@cutebit.org, ryans.lee@analog.com, ckeepax@opensource.cirrus.com,
+ sebastian.reichel@collabora.com, fido_max@inbox.ru,
+ wangweidong.a@awinic.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, peeyush@ti.com, navada@ti.com, tiwai@suse.de,
+ mengdong.lin@intel.com
+References: <20230814121158.4668-1-baojun.xu@ti.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230814121158.4668-1-baojun.xu@ti.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230817-descriptors-asoc-rt-v2-5-02fa2ca3e5b0@linaro.org>
-References: <20230817-descriptors-asoc-rt-v2-0-02fa2ca3e5b0@linaro.org>
-In-Reply-To: <20230817-descriptors-asoc-rt-v2-0-02fa2ca3e5b0@linaro.org>
-To: Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>
-X-Mailer: b4 0.12.3
-Message-ID-Hash: PTEIFYICCTBLK27TJLPVQD6XDIDAIHUU
-X-Message-ID-Hash: PTEIFYICCTBLK27TJLPVQD6XDIDAIHUU
-X-MailFrom: linus.walleij@linaro.org
+Message-ID-Hash: ZSRRTPTTH3HGXK7U7TZWEVVGOZRN4JGU
+X-Message-ID-Hash: ZSRRTPTTH3HGXK7U7TZWEVVGOZRN4JGU
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PTEIFYICCTBLK27TJLPVQD6XDIDAIHUU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZSRRTPTTH3HGXK7U7TZWEVVGOZRN4JGU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,96 +114,570 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the RT5682S to use GPIO descriptors and drop the
-legacy GPIO headers.
 
-We remove the global GPIO number from the platform data,
-but it is still possible to create board files using GPIO
-descriptor tables, if desired.
+> +config SND_SOC_TAS2783
+> +       tristate "Texas Instruments TAS2783 speaker amplifier (sdw)"
+> +       depends on SOUNDWIRE
+> +       select REGMAP
+> +       select CRC32_SARWATE
+> +       help
+> +         Enable support for Texas Instruments TAS2783 Smart Amplifier
+> +         Digital input mono Class-D and DSP-inside audio power amplifiers.
+> +         Note the TAS2783 driver implements a flexible and configurable
+> +         algo coff setting, for one, two, even multiple TAS2783 chips.
 
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
----
- include/sound/rt5682s.h    |  3 ---
- sound/soc/codecs/rt5682s.c | 16 +++++++---------
- sound/soc/codecs/rt5682s.h |  2 ++
- 3 files changed, 9 insertions(+), 12 deletions(-)
+Algorithm coefficient
 
-diff --git a/include/sound/rt5682s.h b/include/sound/rt5682s.h
-index f18d91308b9a..66ca0c75b914 100644
---- a/include/sound/rt5682s.h
-+++ b/include/sound/rt5682s.h
-@@ -32,9 +32,6 @@ enum rt5682s_dai_clks {
- };
- 
- struct rt5682s_platform_data {
--
--	int ldo1_en; /* GPIO for LDO1_EN */
--
- 	enum rt5682s_dmic1_data_pin dmic1_data_pin;
- 	enum rt5682s_dmic1_clk_pin dmic1_clk_pin;
- 	enum rt5682s_jd_src jd_src;
-diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
-index c77c675bd5f5..68ac5ea50396 100644
---- a/sound/soc/codecs/rt5682s.c
-+++ b/sound/soc/codecs/rt5682s.c
-@@ -15,8 +15,7 @@
- #include <linux/platform_device.h>
- #include <linux/spi/spi.h>
- #include <linux/acpi.h>
--#include <linux/gpio.h>
--#include <linux/of_gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/mutex.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
-@@ -2973,9 +2972,6 @@ static int rt5682s_parse_dt(struct rt5682s_priv *rt5682s, struct device *dev)
- 	device_property_read_u32(dev, "realtek,amic-delay-ms",
- 		&rt5682s->pdata.amic_delay);
- 
--	rt5682s->pdata.ldo1_en = of_get_named_gpio(dev->of_node,
--		"realtek,ldo1-en-gpios", 0);
--
- 	if (device_property_read_string_array(dev, "clock-output-names",
- 					      rt5682s->pdata.dai_clk_names,
- 					      RT5682S_DAI_NUM_CLKS) < 0)
-@@ -3172,10 +3168,12 @@ static int rt5682s_i2c_probe(struct i2c_client *i2c)
- 		return ret;
- 	}
- 
--	if (gpio_is_valid(rt5682s->pdata.ldo1_en)) {
--		if (devm_gpio_request_one(&i2c->dev, rt5682s->pdata.ldo1_en,
--					  GPIOF_OUT_INIT_HIGH, "rt5682s"))
--			dev_err(&i2c->dev, "Fail gpio_request gpio_ldo\n");
-+	rt5682s->ldo1_en = devm_gpiod_get_optional(&i2c->dev,
-+						   "realtek,ldo1-en",
-+						   GPIOD_OUT_HIGH);
-+	if (IS_ERR(rt5682s->ldo1_en)) {
-+		dev_err(&i2c->dev, "Fail gpio request ldo1_en\n");
-+		return PTR_ERR(rt5682s->ldo1_en);
- 	}
- 
- 	/* Sleep for 50 ms minimum */
-diff --git a/sound/soc/codecs/rt5682s.h b/sound/soc/codecs/rt5682s.h
-index caa7733b430f..1d79d432d0d8 100644
---- a/sound/soc/codecs/rt5682s.h
-+++ b/sound/soc/codecs/rt5682s.h
-@@ -11,6 +11,7 @@
- 
- #include <sound/rt5682s.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/clk.h>
- #include <linux/clkdev.h>
- #include <linux/clk-provider.h>
-@@ -1446,6 +1447,7 @@ enum {
- struct rt5682s_priv {
- 	struct snd_soc_component *component;
- 	struct rt5682s_platform_data pdata;
-+	struct gpio_desc *ldo1_en;
- 	struct regmap *regmap;
- 	struct snd_soc_jack *hs_jack;
- 	struct regulator_bulk_data supplies[RT5682S_NUM_SUPPLIES];
+> +#include <linux/crc32.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/efi.h>
 
--- 
-2.34.1
+is this really needed?
+
+> +#include <linux/err.h>
+> +#include <linux/firmware.h>
+> +#include <linux/init.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/pm.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/slab.h>
+> +#include <linux/soundwire/sdw.h>
+> +#include <linux/soundwire/sdw_registers.h>
+> +#include <linux/soundwire/sdw_type.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/sdw.h>
+> +#include <sound/soc.h>
+> +#include <sound/tlv.h>
+> +#include <sound/tas2781-tlv.h>
+> +
+> +#include "tas2783.h"
+> +
+> +static const unsigned int tas2783_calibration_reg[] = {
+> +	TAS2783_CALIBRATION_RE,
+> +	TAS2783_CALIBRATION_RE_LOW,
+> +	TAS2783_CALIBRATION_INV_RE,
+> +	TAS2783_CALIBRATION_POW,
+> +	TAS2783_CALIBRATION_TLIMIT,
+> +	0,
+
+what is the purpose of this zero, presumably you can use ARRAY_SIZE and
+don't need a zero-terminated value?
+
+> +static bool tas2783_volatile_register(struct device *dev,
+> +	unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case 0x8001:
+> +		// Only reset register was volatiled.
+> +		return true;
+
+can you explain the concept of a volatile reset register?
+
+> +	default:
+> +		return false;
+> +	}
+> +}
+
+> +static int tas2783_digital_getvol(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *codec
+> +		= snd_soc_kcontrol_component(kcontrol);
+> +	struct tasdevice_priv *tas_dev =
+> +		snd_soc_component_get_drvdata(codec);
+> +	struct soc_mixer_control *mc =
+> +		(struct soc_mixer_control *)kcontrol->private_value;
+> +	struct regmap *map = tas_dev->regmap;
+> +	int val = 0, ret;
+
+different line when a variable is initialized?
+
+> +
+> +	if (!map) {
+> +		ret = -EINVAL;
+> +		dev_err(tas_dev->dev, "%s, regmap doesn't exist.\n",
+> +			__func__);
+> +		goto out;
+> +	}
+> +	/* Read the primary device as the whole */
+
+I can't figure out what this comment means
+
+> +	ret = regmap_read(map, mc->reg, &val);
+> +	dev_dbg(tas_dev->dev, "%s, get digital vol %d from %x with %d\n",
+> +		__func__, val, mc->reg, ret);
+> +	if (ret) {
+> +		dev_err(tas_dev->dev, "%s, get digital vol error %x.\n",
+> +			__func__, ret);
+> +		goto out;
+> +	}
+> +	ucontrol->value.integer.value[0] =
+> +		tasdevice_clamp(val, mc->max, mc->invert);
+> +
+> +out:
+> +	return ret;
+> +}
+
+> +static int tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *codec
+> +		= snd_soc_kcontrol_component(kcontrol);
+> +	struct tasdevice_priv *tas_dev =
+> +		snd_soc_component_get_drvdata(codec);
+> +	struct soc_mixer_control *mc =
+> +		(struct soc_mixer_control *)kcontrol->private_value;
+> +	struct regmap *map = tas_dev->regmap;
+> +	unsigned char mask;
+> +	int ret, val;
+> +
+> +	if (!map) {
+> +		dev_err(tas_dev->dev, "%s, regmap doesn't exist.\n",
+> +			__func__);
+> +		return -EINVAL;
+> +	}
+> +	/* Read the primary device */
+
+What is a primary device?
+
+> +	ret = regmap_read(map, mc->reg, &val);
+> +	dev_dbg(tas_dev->dev, "%s, get AMP vol %d from %x with %d\n",
+> +		__func__, val, mc->reg, ret);
+> +
+> +	mask = (1 << fls(mc->max)) - 1;
+> +	mask <<= mc->shift;
+> +	val = (val & mask) >> mc->shift;
+> +	ucontrol->value.integer.value[0] = tasdevice_clamp(val,	mc->max,
+> +		mc->invert);
+> +
+> +	return ret;
+> +}
+
+> +static int tas2783_calibration(struct tasdevice_priv *tas_priv)
+> +{
+> +	efi_guid_t efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc,
+> +		0x09, 0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
+> +	static efi_char16_t efi_name[] = TAS2783_CALIDATA_NAME;
+> +	struct tm *tm = &tas_priv->tm;
+> +	unsigned int attr, crc;
+> +	unsigned int *tmp_val;
+> +	efi_status_t status;
+> +
+> +	tas_priv->cali_data.total_sz = TAS2783_MAX_CALIDATA_SIZE;
+> +	/* Get real size of UEFI variable */
+> +	status = efi.get_variable(efi_name, &efi_guid, &attr,
+> +		&tas_priv->cali_data.total_sz, tas_priv->cali_data.data);
+> +	dev_dbg(tas_priv->dev, "cali get %lx bytes with result : %ld\n",
+> +			tas_priv->cali_data.total_sz, status);
+> +	if (status == EFI_BUFFER_TOO_SMALL) {
+> +		status = efi.get_variable(efi_name, &efi_guid, &attr,
+> +			&tas_priv->cali_data.total_sz,
+> +			tas_priv->cali_data.data);
+> +		dev_dbg(tas_priv->dev, "cali get %lx bytes result:%ld\n",
+> +			tas_priv->cali_data.total_sz, status);
+> +	}
+> +	/* Failed got calibration data from EFI. */
+
+I don't get what the dependency on EFI is. First time I see a codec
+needing this.
+
+Please describe in details what you are trying to accomplish.
+Edit: there's also a dependency on firmware but the firmware name SWFT
+will hint at ACPI uses for anyone that has read the SDCA draft. This is
+beyond confusing.
+
+> +	if (status != 0) {
+> +		dev_dbg(tas_priv->dev, "cali get %lx error with:%ld\n",
+> +			tas_priv->cali_data.total_sz, status);
+> +		return 0;
+> +	}
+> +	/* Print all content of calibration data for debug. */
+> +	for (int i = 0; i < tas_priv->cali_data.total_sz; i += 4) {
+> +		dev_dbg(tas_priv->dev, "cali get %02x %02x %02x %02x",
+> +			tas_priv->cali_data.data[i],
+> +			tas_priv->cali_data.data[i+1],
+> +			tas_priv->cali_data.data[i+2],
+> +			tas_priv->cali_data.data[i+3]);
+> +	}
+> +
+> +	tmp_val = (unsigned int *)tas_priv->cali_data.data;
+> +
+> +	crc = crc32(~0, tas_priv->cali_data.data, 84) ^ ~0;
+> +	dev_dbg(tas_priv->dev, "cali crc 0x%08x PK tmp_val 0x%08x\n",
+> +		crc, tmp_val[21]);
+> +
+> +	if (crc == tmp_val[21]) {
+> +		time64_to_tm(tmp_val[20], 0, tm);
+> +		dev_dbg(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
+> +			tm->tm_year, tm->tm_mon, tm->tm_mday,
+> +			tm->tm_hour, tm->tm_min, tm->tm_sec);
+
+What is this about? Why would a codec care about time?
+
+> +		tas2783_apply_calib(tas_priv, tmp_val);
+> +	} else {
+> +		dev_dbg(tas_priv->dev, "CRC error!\n");
+> +		tas_priv->cali_data.total_sz = 0;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void tasdevice_rca_ready(const struct firmware *fmw, void *context)
+> +{
+> +	struct tasdevice_priv *tas_dev =
+> +		(struct tasdevice_priv *) context;
+> +	struct regmap *map = tas_dev->regmap;
+> +	struct tas2783_firmware_node *p;
+> +	int offset = 0, num_nodes = 0, img_sz, ret;
+> +	unsigned char *buf;
+> +
+> +	mutex_lock(&tas_dev->codec_lock);
+> +
+> +	if (!fmw || !fmw->data) {
+> +		dev_err(tas_dev->dev,
+> +		"Failed to read %s, no side - effect on driver running\n",
+
+side-effect
+
+> +		tas_dev->rca_binaryname);
+> +		ret = -EINVAL;
+> +		goto out;
+> +	}
+> +	if (!map) {
+> +		dev_err(tas_dev->dev, "Failed to load regmap.\n");
+> +		ret = -EINVAL;
+> +		goto out;
+> +	}
+> +	buf = (unsigned char *)fmw->data;
+> +
+> +	img_sz = le32_to_cpup((__le32 *)&buf[offset]);
+> +	dev_dbg(tas_dev->dev,  "Got %x:%lx.\n",	img_sz, fmw->size);
+> +	offset  += sizeof(img_sz);
+> +	if (img_sz != fmw->size) {
+> +		dev_err(tas_dev->dev,
+> +			"Size not match, %d %u", (int)fmw->size, img_sz);
+
+Size does not match or size not matching
+
+> +		ret = -EINVAL;
+> +		goto out;
+> +	}
+> +
+> +	while ((offset < img_sz) && (num_nodes < TAS2783_MAX_NODES)) {
+> +		/* Store firmware into context of driver. */
+> +		p = (struct tas2783_firmware_node *)(buf + offset);
+> +		tas_dev->firmware_node[num_nodes].vendor_id =
+> +			p->vendor_id;
+> +		tas_dev->firmware_node[num_nodes].file_id = p->file_id;
+> +		tas_dev->firmware_node[num_nodes].version_id =
+> +			p->version_id;
+> +		tas_dev->firmware_node[num_nodes].length = p->length;
+> +		tas_dev->firmware_node[num_nodes].download_addr =
+> +			p->download_addr;
+> +		tas_dev->firmware_node[num_nodes].start_addr =
+> +			((char *)p) + sizeof(unsigned int)*5;
+> +
+> +		ret = regmap_bulk_write(map, p->download_addr,
+> +			p->start_addr, p->length);
+> +		dev_dbg(tas_dev->dev, "Wr %d :%x:%x:%x:%x:%x:%x %d.\n",
+> +			num_nodes, p->vendor_id, p->file_id,
+> +			p->version_id, p->length, p->download_addr,
+> +			p->start_addr[0], ret);
+> +
+> +		offset += sizeof(unsigned int)*5 + p->length;
+> +		num_nodes++;
+> +	}
+> +
+> +	tas2783_calibration(tas_dev);
+> +
+> +out:
+> +	mutex_unlock(&tas_dev->codec_lock);
+> +	if (fmw)
+> +		release_firmware(fmw);
+> +}
+> +
+> +static const struct snd_soc_dapm_widget tasdevice_dapm_widgets[] = {
+> +	SND_SOC_DAPM_AIF_IN("ASI", "ASI Playback", 0, SND_SOC_NOPM, 0, 0),
+> +	SND_SOC_DAPM_AIF_OUT("ASI OUT", "ASI Capture", 0, SND_SOC_NOPM,
+> +		0, 0),
+> +	SND_SOC_DAPM_OUTPUT("OUT"),
+> +	SND_SOC_DAPM_INPUT("DMIC")
+
+Can you clarify what "ASI" is?
+Also what is the plan for DMIC - this is an amplifier, no?
+
+> +};
+> +
+> +static const struct snd_soc_dapm_route tasdevice_audio_map[] = {
+> +	{"OUT", NULL, "ASI"},
+> +	{"ASI OUT", NULL, "DMIC"}
+> +};
+> +
+> +static int tasdevice_set_sdw_stream(
+> +	struct snd_soc_dai *dai, void *sdw_stream, int direction)
+> +{
+> +	struct sdw_stream_data *stream;
+> +
+> +	if (!sdw_stream)
+> +		return 0;
+> +
+> +	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
+> +	if (!stream)
+> +		return -ENOMEM;
+> +
+> +	stream->sdw_stream = sdw_stream;
+> +
+> +	/* Use tx_mask or rx_mask to set dma_data */
+> +	snd_soc_dai_dma_data_set(dai, direction, stream);
+> +
+> +	return 0;
+> +}
+
+this can be simplied, just look at all other existing codecs and
+implement the same, e.g.
+
+static int cs42l42_sdw_dai_set_sdw_stream(struct snd_soc_dai *dai, void
+*sdw_stream,
+					  int direction)
+{
+	snd_soc_dai_dma_data_set(dai, direction, sdw_stream);
+
+	return 0;
+}
+
+> +
+> +static void tasdevice_sdw_shutdown(struct snd_pcm_substream *substream,
+> +				struct snd_soc_dai *dai)
+> +{
+> +	struct sdw_stream_data *stream;
+> +
+> +	stream = snd_soc_dai_get_dma_data(dai, substream);
+> +	snd_soc_dai_set_dma_data(dai, substream, NULL);
+> +	kfree(stream);
+
+same, this can be simplified
+
+> +}
+> +
+
+> +static struct snd_soc_dai_driver tasdevice_dai_driver[] = {
+> +	{
+> +		.name = "tas2783-codec",
+> +		.id = 0,
+> +		.playback = {
+> +			.stream_name	= "Playback",
+> +			.channels_min	= 1,
+> +			.channels_max	= 4,
+> +			.rates		= TAS2783_DEVICE_RATES,
+> +			.formats	= TAS2783_DEVICE_FORMATS,
+> +		},
+> +		.capture = {
+> +			.stream_name	= "Capture",
+> +			.channels_min	= 1,
+> +			.channels_max	= 4,
+> +			.rates		= TAS2783_DEVICE_RATES,
+> +			.formats	= TAS2783_DEVICE_FORMATS,
+> +		},
+
+what is the capture part? Feedback or DMIC?
+
+> +		.ops = &tasdevice_dai_ops,
+> +		.symmetric_rate = 1,
+> +	},
+> +};
+> +
+> +static void tas2783_reset(struct tasdevice_priv *tas_dev)
+> +{
+> +	struct regmap *map = tas_dev->regmap;
+> +	unsigned char value_sdw;
+> +	int ret;
+> +
+> +	if (!map) {
+> +		dev_err(tas_dev->dev, "Failed to load regmap.\n");
+> +		return;
+> +	}
+> +	value_sdw = TAS2873_REG_SWRESET_RESET;
+> +	ret = regmap_write(map, TAS2873_REG_SWRESET, value_sdw);
+> +	dev_dbg(tas_dev->dev, "%s TAS2783 was reseted %d.\n",
+> +		__func__, ret);
+> +	usleep_range(1000, 1050);
+
+don't we need some sort of regmap_sync here?
+
+> +}
+> +
+> +static int tasdevice_codec_probe(struct snd_soc_component *codec)
+
+the naming is poor, this is the component probe, not the codec driver probe.
+
+> +{
+> +	struct tasdevice_priv *tas_dev =
+> +		snd_soc_component_get_drvdata(codec);
+> +	int ret;
+> +
+> +	dev_dbg(tas_dev->dev, "%s called for TAS2783 start.\n",
+> +		__func__);
+> +	/* Codec Lock Hold */
+> +	mutex_lock(&tas_dev->codec_lock);> +
+> +	tas2783_reset(tas_dev);
+
+Isn't this something you would do in a driver probe?
+
+> +
+> +	tas_dev->codec = codec;
+> +
+> +	scnprintf(tas_dev->rca_binaryname, 64, "MY_SWFT_x%01x.bin",
+
+The naming is rather controversial...
+
+You need to have some sort of identifier that is TI specific, and/or a
+prefix to find this file in /lib/firmware.
+
+It's really unclear to me why this is part of a component probe and not
+a driver probe.
+
+> +		tas_dev->sdw_peripheral->id.unique_id);
+> +
+> +	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+> +		tas_dev->rca_binaryname, tas_dev->dev, GFP_KERNEL,
+> +		tas_dev, tasdevice_rca_ready);
+> +	dev_dbg(tas_dev->dev,
+> +		"%s: request_firmware %x open status: 0x%08x\n",
+> +		__func__, tas_dev->sdw_peripheral->id.unique_id, ret);
+> +
+> +	/* Codec Lock Release*/
+> +	mutex_unlock(&tas_dev->codec_lock);
+> +
+> +	dev_dbg(tas_dev->dev, "%s was called end.\n",  __func__);
+> +	return ret;
+> +}
+
+> +static int tasdevice_io_init(struct device *dev, struct sdw_slave *slave)
+> +{
+> +	struct tasdevice_priv *tasdevice = dev_get_drvdata(dev);
+> +
+> +	if (tasdevice->hw_init)
+> +		return 0;
+> +
+> +	/* PM runtime is only enabled when
+> +	 * a Slave reports as Attached
+> +	 * set autosuspend parameters
+> +	 */
+> +	pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
+> +	pm_runtime_use_autosuspend(&slave->dev);
+> +
+> +	/* update count of parent 'active' children */
+> +	pm_runtime_set_active(&slave->dev);
+> +
+> +	/* make sure the device does not suspend immediately */
+> +	pm_runtime_mark_last_busy(&slave->dev);
+> +
+> +	pm_runtime_enable(&slave->dev);
+> +
+> +	pm_runtime_get_noresume(&slave->dev);
+> +
+> +	/* Mark Slave initialization complete */
+> +	tasdevice->hw_init = true;
+> +
+> +	pm_runtime_mark_last_busy(&slave->dev);
+> +	pm_runtime_put_autosuspend(&slave->dev);
+> +
+> +	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
+> +	return 0;
+
+This is really not aligned with the latest upstream code. Intel (and
+specifically me myself and I) contributed a change where the pm_runtime
+is enabled in the driver probe, but the device status changes to active
+in the io_init.
+
+In addition, it's rather surprising that on attachment there is not a
+single regmap access?
+
+
+> +static void tasdevice_remove(struct tasdevice_priv *tas_dev)
+> +{
+> +	snd_soc_unregister_component(tas_dev->dev);
+> +
+> +	mutex_destroy(&tas_dev->dev_lock);
+> +	mutex_destroy(&tas_dev->codec_lock);
+
+I didn't really look into the locking parts but you will need a lot more
+explanations on what you are trying to protect and the concurrency issues.
+
+> +}
+> +
+> +static int tasdevice_sdw_probe(struct sdw_slave *peripheral,
+> +	const struct sdw_device_id *id)
+> +{
+> +	struct device *dev = &peripheral->dev;
+> +	struct tasdevice_priv *tas_dev;
+> +	int ret;
+> +
+> +	dev_dbg(dev, "%s was called.\n",  __func__);
+> +
+> +	tas_dev = devm_kzalloc(dev, sizeof(*tas_dev), GFP_KERNEL);
+> +	if (!tas_dev) {
+> +		ret = -ENOMEM;
+> +		goto out;
+> +	}
+> +	tas_dev->dev = &peripheral->dev;
+> +	tas_dev->chip_id = id->driver_data;
+> +	tas_dev->sdw_peripheral = peripheral;
+> +	tas_dev->hw_init = false;
+> +
+> +	dev_dbg(dev, "%d chip id %x for TAS2783.\n",
+> +	peripheral->id.unique_id, tas_dev->chip_id);
+> +
+> +	dev_set_drvdata(dev, tas_dev);
+> +
+> +	tas_dev->regmap = devm_regmap_init_sdw(peripheral,
+> +		&tasdevice_regmap);
+> +	if (IS_ERR(tas_dev->regmap)) {
+> +		ret = PTR_ERR(tas_dev->regmap);
+> +		dev_err(dev, "Failed devm_regmap_init: %d\n", ret);
+> +		goto out;
+> +	}
+> +	ret = tasdevice_init(tas_dev);
+> +
+> +out:
+> +	if (ret < 0 && tas_dev != NULL)
+> +		tasdevice_remove(tas_dev);
+> +
+> +	return ret;
+
+like I said above, this is missing the pm_runtime stuff.
+
+> +
+> +}
+> +
+> +static int tasdevice_sdw_remove(struct sdw_slave *peripheral)
+> +{
+> +	struct tasdevice_priv *tas_dev =
+> +		dev_get_drvdata(&peripheral->dev);
+> +
+> +	if (tas_dev)
+> +		tasdevice_remove(tas_dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct sdw_device_id tasdevice_sdw_id[] = {
+> +	SDW_SLAVE_ENTRY(0x0102, 0x0, 0),
+
+0x0102 is the legit TI manufacturer ID, that's good.
+
+What's not so good is that the part ID is *ZERO*? Is this really
+intentional?
+
+> +#define TASDEVICE_REG(book, page, reg)	((book * 256 * 256) + 0x8000 +\
+> +					(page * 128) + reg)
+> +
+> +/*Software Reset */
+
+/* Software
+
 

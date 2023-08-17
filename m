@@ -2,88 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0B077F531
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 13:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 715C777F538
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 13:29:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 336FC827;
-	Thu, 17 Aug 2023 13:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 336FC827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BF7B846;
+	Thu, 17 Aug 2023 13:28:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BF7B846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692271690;
-	bh=CgpyAn4XPo7wawKt8pESyplY/MXDqD/84guw3hcr5BE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JD2Jjm0iIAsaegMRjoFbTnVRpidjPhjkaTwRJclMxiHe7zwmH/NOI4F5z0HJtpKss
-	 erzNXRY60/jQiJvC7VspV5X03SopVCR9R8yeodg9MyztccoS6VLyK8mBO3hziSwf8Q
-	 ckUpFvDQTXrzmaK9Lcs5t8KWcl9rNBjKOcwv7PsQ=
+	s=default; t=1692271741;
+	bh=BiOMTi+/qi7AvjpXGX5btRsBO+69PiV9CdFl2M2fm04=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=AlDehGor3NOC5tvB0dPUYme3TGotT/+McEIdNuWlYvOxcKK4rNuzQmuUndTzpbZjX
+	 aJ3e1v8Xe1ctrI3B5qhQ3NDzi3Ah/XPjGK4EI0GXwDH2r4uyLt74puZuxr07uUOnyU
+	 YwFxKT5tSBsB9+Uqft00nXG68tVddvKPorqHDce0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE66AF80074; Thu, 17 Aug 2023 13:27:19 +0200 (CEST)
+	id 312EFF8016A; Thu, 17 Aug 2023 13:27:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 386E0F8016A;
-	Thu, 17 Aug 2023 13:27:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7353DF8016A;
+	Thu, 17 Aug 2023 13:27:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F570F8016D; Thu, 17 Aug 2023 13:27:14 +0200 (CEST)
+	id BA3D3F80553; Thu, 17 Aug 2023 13:27:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4102DF80074
-	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 13:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4102DF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 037BEF80254
+	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 13:27:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 037BEF80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FhzoCu/T
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id EDCC8633E0;
-	Thu, 17 Aug 2023 11:27:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33268C433C7;
-	Thu, 17 Aug 2023 11:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692271625;
-	bh=CgpyAn4XPo7wawKt8pESyplY/MXDqD/84guw3hcr5BE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FhzoCu/TUdNQziircJe7kowP+fuoRY5rwZgWkf3X+imWBhowe3cgf/AO8n0jsOlrv
-	 4pjwtk0uo3WF6fdwfhkZmrY3I8sQglwJbM3r8eCPhDuoQUX3XOgkIKwZP0GmvpmkD9
-	 RJUwmju+2tWM5Vg0zNR6Cjdlc9SKsJwhXFz6hnllUqUvpeZzG/O43RnlyG6A1khasd
-	 Lq3roKSj4CfJINjXV42AV83A6gDyMMrdRwXOrSUd29rqtuMrEFLKm87LvGIfGM8aCN
-	 oWQUEbmkIT1Ckbps4g2CIMA3xheWkc1lX4YIX30H+5wIA6t4rqjFQipUwP/Uv2EGVx
-	 MYCB5Sj1LmZPg==
-Date: Thu, 17 Aug 2023 12:26:59 +0100
-From: Lee Jones <lee@kernel.org>
-To: broonie@kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org, linus.walleij@linaro.org, vkoul@kernel.org,
-	lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
-	sanyog.r.kale@intel.com, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v7 0/6] Add cs42l43 PC focused SoundWire CODEC
-Message-ID: <20230817112659.GA986605@google.com>
-References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
- <169227059141.987802.3881975345148652106.b4-ty@kernel.org>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=jH+jOS65
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37HBMpDl018403;
+	Thu, 17 Aug 2023 06:27:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=7
+	1hP1qFBBQrsCWx8Ta62/z+hJB3mbnlDqwvJiEZuCyM=; b=jH+jOS65Dgle8IVg3
+	OByfuXG/r2E4V4evtIxRTPXZo6JMseAIPCtaFsdoXFMUkQ0ltSyg5nl8mtpLPdeG
+	zsO9ViNpFw/QXIDExmYZX9QdQ5/AAqZdKV3kZ2+H4+RCT9s9zGDfd35UqsPOgmtT
+	dj3KtCvs7KHcrHIGhFb0Hv4PVyZfMlbksHSyEQV+zRpuiq0QCIjhksZNv/KK4YJn
+	QsmfwXRc8nMGNKGbD7VgAD4072/+GGGZKVlcum3tzlzOMMulhxzDdG9TotR91e9z
+	hBZoJaduE3krW7GYh53CNxNlCLrPjDNl1obbRMP8IcSmeSAutrftU/Ie5JK4gspz
+	VYUhQ==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3se6uhn8td-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 17 Aug 2023 06:27:16 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Thu, 17 Aug
+ 2023 12:27:15 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.30 via Frontend Transport; Thu, 17 Aug 2023 12:27:15 +0100
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.65.68])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 086B63575;
+	Thu, 17 Aug 2023 11:27:15 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>
+Subject: [PATCH v2 0/2] ASoC: cs35l56: Update ACPI HID and property
+Date: Thu, 17 Aug 2023 12:27:10 +0100
+Message-ID: <20230817112712.16637-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <169227059141.987802.3881975345148652106.b4-ty@kernel.org>
-Message-ID-Hash: 2EED6OQF7DO46GYBYGB52PAOPIWVL2NY
-X-Message-ID-Hash: 2EED6OQF7DO46GYBYGB52PAOPIWVL2NY
-X-MailFrom: lee@kernel.org
+Content-Type: text/plain
+X-Proofpoint-GUID: WwToYQLzcfST-iHR9Jef7H07jSR2nIfm
+X-Proofpoint-ORIG-GUID: WwToYQLzcfST-iHR9Jef7H07jSR2nIfm
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: IXPAZC3GCPWDIZZ3ERIEKW25TRCRLYE6
+X-Message-ID-Hash: IXPAZC3GCPWDIZZ3ERIEKW25TRCRLYE6
+X-MailFrom: prvs=3593b560b6=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2EED6OQF7DO46GYBYGB52PAOPIWVL2NY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IXPAZC3GCPWDIZZ3ERIEKW25TRCRLYE6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,30 +109,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 17 Aug 2023, Lee Jones wrote:
+These two patches add an ACPI HID and update the way the platform-
+specific firmware identifier is extracted from the ACPI.
 
-> On Fri, 04 Aug 2023 11:45:56 +0100, Charles Keepax wrote:
-> > This patch chain adds support for the Cirrus Logic cs42l43 PC focused
-> > SoundWire CODEC. The chain is currently based of Lee's for-mfd-next
-> > branch.
-> > 
-> > This series is mostly just a resend keeping pace with the kernel under
-> > it, except for a minor fixup in the ASoC stuff.
-> > 
-> > [...]
-> 
-> Applied, thanks!
-> 
-> [1/6] soundwire: bus: Allow SoundWire peripherals to register IRQ handlers
->       commit: 89e63e62ad14dbe528257882856c08365e5bb337
-> [2/6] dt-bindings: mfd: cirrus,cs42l43: Add initial DT binding
->       commit: 940cdb69aeb4aa3dde97bd46a5d8422f8a0f1236
-> [3/6] mfd: cs42l43: Add support for cs42l43 core driver
->       commit: c4962e013792df36dceacd692fef0f6803517b3f
-> [4/6] pinctrl: cs42l43: Add support for the cs42l43
->       commit: df393be615ae61993ac0c32edc13dff27b7e925d
+CHANGES SINCE V1:
+- Rebased to apply on v6.4 and v6.5.
+- Change kstrdup() to devm_kstrdup()
 
-Sent for build-test.  Will submit a PR once all checked out.
+To apply on v6.6 a 1-line change is needed:
+
+static int cs35l56_get_firmware_uid(struct cs35l56_private *cs35l56)
+{
+-       struct device *dev = cs35l56->dev;
++       struct device *dev = cs35l56->base.dev;
+
+Maciej Strozek (1):
+  ASoC: cs35l56: Read firmware uuid from a device property instead of
+    _SUB
+
+Simon Trimmer (1):
+  ASoC: cs35l56: Add an ACPI match table
+
+ sound/soc/codecs/cs35l56-i2c.c |  9 +++++++++
+ sound/soc/codecs/cs35l56-spi.c |  9 +++++++++
+ sound/soc/codecs/cs35l56.c     | 31 ++++++++++++-------------------
+ 3 files changed, 30 insertions(+), 19 deletions(-)
 
 -- 
-Lee Jones [李琼斯]
+2.30.2
+

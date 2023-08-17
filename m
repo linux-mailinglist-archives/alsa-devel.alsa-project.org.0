@@ -2,101 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9DA177FC1D
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 18:29:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC2977FCDC
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 19:19:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94207825;
-	Thu, 17 Aug 2023 18:28:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94207825
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1A3082A;
+	Thu, 17 Aug 2023 19:18:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1A3082A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692289784;
-	bh=M5vizv/ucjvl18dOwhMFXlFRanUNXU//G2+Phfes9dY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1692292763;
+	bh=VE7jTioS63J6dT8DX8rxcZQN+MbADV02CUtWuC3SwBE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ANfnPO2FfHFRMzdTvhG3XVskVgzWAeHH8fUcSCgrX3eAuH/0ixPPB71YhLRVt3NKP
-	 qHjDKTIw6HKeeaKI9hB3J6nQz3Sq6sQBrGoA/yvqxVuV6Sb4HiQ+IsWvy1cLyeifND
-	 sbvBj1lZIz2ge579BhkmQVjC7kq9zZRpMwJtwtpc=
+	b=eRmLKmxzOgX/zml3+t3iThl5W2IPD7eZWTSt8LeFM/9NAXijXJcOK9FBEYmbEXWHc
+	 D7xQ8vCngp3YG4r0T6xrfeJoeWQbOgxjN1fK031BOR2/BB4jeLUvVTxH0MRRI/SNE0
+	 rA51Dv3Hkx2qXyIfjeY+pWWs6yWrWKNJv7P+a0U4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBEB4F8025F; Thu, 17 Aug 2023 18:28:53 +0200 (CEST)
+	id B9B29F80254; Thu, 17 Aug 2023 19:18:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F018F8016A;
-	Thu, 17 Aug 2023 18:28:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D87DF800D1;
+	Thu, 17 Aug 2023 19:18:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17531F8016D; Thu, 17 Aug 2023 18:28:46 +0200 (CEST)
+	id 31CBCF8016D; Thu, 17 Aug 2023 19:18:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 627ADF80074
-	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 18:28:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 627ADF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 17A04F80027
+	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 19:17:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17A04F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=eL+1MDfW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692289714; x=1723825714;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M5vizv/ucjvl18dOwhMFXlFRanUNXU//G2+Phfes9dY=;
-  b=eL+1MDfW0NHzrI1Gqr7Wk9pb9uZpvCaDgHP8y9oY1qDB4r/Do4KswQdH
-   CPjCwQwZsTGtRhEvLG78/Tano4R4Xs100ydIGBOcaZHpFdlHRNUi4ksm1
-   gcjjWE4NHMczGRCkJJ2cn8cTpv2dFLZSDlB3GY/QvMNYkmVhTY4SHUVtP
-   h/JSthu5plwPxMa4Xs79P4uLvAHbPQvPj7+g7gBHyfAmbdI62YQirZhPq
-   OG2QVSYRO9SHF4KoE1dlSvbgsYCftBu5lfA+Mkwxur0ZGB6B58spEV2C0
-   BCeAFvtVubVHZ05HV/gozxnvnUkWSmDaIeuygzc4VQl1XP3GY0T/emPHY
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="376622327"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
-   d="scan'208";a="376622327"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:28:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="728203369"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
-   d="scan'208";a="728203369"
-Received: from cerondon-mobl1.amr.corp.intel.com (HELO [10.212.36.16])
- ([10.212.36.16])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:28:25 -0700
-Message-ID: <6adf5b5d-fa61-667f-2c6c-6211d28d1ddb@linux.intel.com>
-Date: Thu, 17 Aug 2023 11:28:25 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v2] ASoC: tas2783: Add source files for tas2783 soundwire
- driver
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: Baojun Xu <baojun.xu@ti.com>, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, shenghao-ding@ti.com, kevin-lu@ti.com,
- krzysztof.kozlowski@linaro.org, rf@opensource.cirrus.com,
- shumingf@realtek.com, herve.codina@bootlin.com, povik+lin@cutebit.org,
- ryans.lee@analog.com, ckeepax@opensource.cirrus.com,
- sebastian.reichel@collabora.com, fido_max@inbox.ru,
- wangweidong.a@awinic.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, peeyush@ti.com, navada@ti.com, tiwai@suse.de,
- mengdong.lin@intel.com
-References: <20230814121158.4668-1-baojun.xu@ti.com>
- <b28b5187-e775-4c4d-635e-9b867a19588e@linux.intel.com>
- <19414ebc-1c33-4482-965d-681f15f06654@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <19414ebc-1c33-4482-965d-681f15f06654@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=jVzjSVqs
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E601360FFF;
+	Thu, 17 Aug 2023 17:17:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7054BC433C8;
+	Thu, 17 Aug 2023 17:17:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692292670;
+	bh=VE7jTioS63J6dT8DX8rxcZQN+MbADV02CUtWuC3SwBE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=jVzjSVqs1+lTaYG6lzHndiGFfzNDhbGLuhD19D7hgl/q0qQxl1BbmFe1MaVzxp6Tm
+	 Hx/K5NG4Ij8QbVSYSytOxECnwBFD/SVWkQiVPow4n5TcVVo9fh6oi9g5G9d8xSIA9G
+	 1Vb2LoMxFcL7qdfm5kMcpi2beS6ogLEqAsYIU65anIg3D6bwuhiKERVbu38RXrkxKc
+	 ClUG83825XzWyvDbQZ2j1xSy8hLmJ1wio0LhVrZqjuuc6L18K5io/NAKczwTHC9k8u
+	 rqRUeCVqrhU09kNwPLGvxINK5Had9eADyVMGJHpo/xK2wqkh/PerOztYdXpJCG+t7z
+	 L0yz6JtHPsSfQ==
+Received: (nullmailer pid 1614972 invoked by uid 1000);
+	Thu, 17 Aug 2023 17:17:47 -0000
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 6HO2GU7C47HGBWPJJLEEDA2RVS4AGVDU
-X-Message-ID-Hash: 6HO2GU7C47HGBWPJJLEEDA2RVS4AGVDU
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Maso Huang <maso.huang@mediatek.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, Trevor Wu <trevor.wu@mediatek.com>,
+ devicetree@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, alsa-devel@alsa-project.org,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mars Chen <chenxiangrui@huaqin.corp-partner.google.com>,
+ linux-mediatek@lists.infradead.org
+In-Reply-To: <20230817101338.18782-6-maso.huang@mediatek.com>
+References: <20230817101338.18782-1-maso.huang@mediatek.com>
+ <20230817101338.18782-6-maso.huang@mediatek.com>
+Message-Id: <169229266724.1614955.5685157579196442265.robh@kernel.org>
+Subject: Re: [PATCH v4 5/6] ASoC: dt-bindings: mediatek,mt7986-wm8960: add
+ mt7986-wm8960 document
+Date: Thu, 17 Aug 2023 12:17:47 -0500
+Message-ID-Hash: WH7LFMCG2MIO64SFUCGV7UNUCJKJ7JUZ
+X-Message-ID-Hash: WH7LFMCG2MIO64SFUCGV7UNUCJKJ7JUZ
+X-MailFrom: SRS0=sZxK=EC=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6HO2GU7C47HGBWPJJLEEDA2RVS4AGVDU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WH7LFMCG2MIO64SFUCGV7UNUCJKJ7JUZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,80 +114,44 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-
-On 8/17/23 10:12, Mark Brown wrote:
-> On Thu, Aug 17, 2023 at 09:17:50AM -0500, Pierre-Louis Bossart wrote:
+On Thu, 17 Aug 2023 18:13:37 +0800, Maso Huang wrote:
+> Add document for mt7986 board with wm8960.
 > 
->>> +		goto out;
->>> +	}
->>> +	/* Read the primary device as the whole */
->>
->> I can't figure out what this comment means
+> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../sound/mediatek,mt7986-wm8960.yaml         | 67 +++++++++++++++++++
+>  1 file changed, 67 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
 > 
-> It's part of...
-> 
->>> +		dev_err(tas_dev->dev, "%s, regmap doesn't exist.\n",
->>> +			__func__);
->>> +		return -EINVAL;
->>> +	}
->>> +	/* Read the primary device */
->>
->> What is a primary device?
-> 
-> ...a thing where they're trying to present multiple devices as a unified
-> device with grouped control, it looks like there's some hardware support
-> for this.
 
-Let me clarify the comment: SDCA peripheral can have multiple functions,
-each with its own address space and can operate independently. So I am
-just trying to have clarity on what 'device' means here.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
->>> +	/* Failed got calibration data from EFI. */
-> 
->> I don't get what the dependency on EFI is. First time I see a codec
->> needing this.
-> 
->> Please describe in details what you are trying to accomplish.
-> 
-> It seems fairly normal to store calibration details in the device
-> firmware?
+yamllint warnings/errors:
 
-No objection on the device firmware, but why use an EFI variable?
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml:
+Error in referenced schema matching $id: http://devicetree.org/schemas/sound/sound-card-common.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.example.dtb: sound: False schema does not allow {'compatible': ['mediatek,mt7986-wm8960-sound'], 'model': ['mt7986-wm8960'], 'audio-routing': ['Headphone', 'HP_L', 'Headphone', 'HP_R', 'LINPUT1', 'AMIC', 'RINPUT1', 'AMIC'], 'platform': {'sound-dai': [[4294967295]]}, 'codec': {'sound-dai': [[4294967295]]}, '$nodename': ['sound']}
+	from schema $id: http://devicetree.org/schemas/sound/mediatek,mt7986-wm8960.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.example.dtb: sound: Unevaluated properties are not allowed ('audio-routing', 'model' were unexpected)
+	from schema $id: http://devicetree.org/schemas/sound/mediatek,mt7986-wm8960.yaml#
 
-There is on-going work to standardize with ACPI, and there's also a
-request_firmware(). Not sure what the direction is to read from an EFI
-variable. I've been in SDCA circles since the beginning and never heard
-about this, ever. I am not saying it's bad, just surprised and curious
-on a 3rd way of getting information needed for initialization.
+doc reference errors (make refcheckdocs):
 
->>> +	if (crc == tmp_val[21]) {
->>> +		time64_to_tm(tmp_val[20], 0, tm);
->>> +		dev_dbg(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
->>> +			tm->tm_year, tm->tm_mon, tm->tm_mday,
->>> +			tm->tm_hour, tm->tm_min, tm->tm_sec);
-> 
->> What is this about? Why would a codec care about time?
-> 
-> I can see someone finding it helpful to confirm when the calibration data
-> that got applied was generated to make sure they're testing/using what
-> they thought they were.
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230817101338.18782-6-maso.huang@mediatek.com
 
-Ah yes, I missed that. I wasn't sure if this was a log on when the
-calibration finished, if this is a log on when the calibration data was
-generated that's a different story indeed.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
->> In addition, it's rather surprising that on attachment there is not a
->> single regmap access?
-> 
-> Don't know if there's something different with Soundwire but for I2C/SPI
-> devices it's a reasonable pattern to only actually start initialising
-> the registers when the device actually becomes active.  Not checked that
-> this is actually happening.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-that's precisely the point, there's an io_init() routine which is when
-the peripheral is attached on the bus and the earliest time when the
-registers can be initialized.
+pip3 install dtschema --upgrade
 
-But there isn't a single initialization happening, which is different to
-all existing SoundWire codec drivers. Maybe it's fine, I am just asking
-the question if this was intentional.
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

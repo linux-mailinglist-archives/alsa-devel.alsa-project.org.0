@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 004BB77F7C9
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 15:32:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A05D477F7C8
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 15:32:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 081DB845;
-	Thu, 17 Aug 2023 15:31:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 081DB845
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2472839;
+	Thu, 17 Aug 2023 15:31:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2472839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692279150;
-	bh=ksRnmBL+eihXVfY61zYRHMnLfTOy+ZTbU+SuDj+RS1k=;
+	s=default; t=1692279144;
+	bh=MjQpbcZu4Cskh6gWwCigkrHS7facBA+M8wnbuEZGxP0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Vb6iARwLtk4XylPc+Oy0wrxJEp3FbBAVxPTCoQJtqa+36cC5n+5aPZLcBkaH8HjVN
-	 s/bGSy+flPp5wVGrR0V+gz1Opx5iyKHZAsuIum3uD5a04NLCTef/1UEXPGnOdfsjhl
-	 Et2z2hpSSUx+rn63xrFftIYhADbbcX4IcHoc52yY=
+	b=FKMW7TAtAn+eMK3FWQzRRYgEIzoouWZy5dFfyjYFYs0mX9JJiKhpXXsdRZqvTq8HZ
+	 E6QrqbdYmo8t460bka7m8DAW8cyRojzLIhlHvGOrUz8wF9XGxbMC5z9jbtdCoGym45
+	 3z+u373j+4g1jwYN++KHKoHZVT2EPNF05/Z2Rx7I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5576DF80579; Thu, 17 Aug 2023 15:30:51 +0200 (CEST)
+	id 0E7B4F80074; Thu, 17 Aug 2023 15:30:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF236F80564;
-	Thu, 17 Aug 2023 15:30:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43E81F80551;
+	Thu, 17 Aug 2023 15:30:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8AEF9F80557; Thu, 17 Aug 2023 15:30:45 +0200 (CEST)
+	id AABFBF80272; Thu, 17 Aug 2023 15:30:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4765F80074
-	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 15:30:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4765F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 51487F8016D
+	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 15:30:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51487F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=xyiHgLhO
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2b962c226ceso119624701fa.3
+ header.s=google header.b=hXyVKPh5
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2b962535808so117144741fa.0
         for <alsa-devel@alsa-project.org>;
- Thu, 17 Aug 2023 06:30:30 -0700 (PDT)
+ Thu, 17 Aug 2023 06:30:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1692279028; x=1692883828;
+        d=linaro.org; s=google; t=1692279030; x=1692883830;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=8mdsM2oTBK6JwOUfDT8eQud/HNhMQh59h+NrcC2uv04=;
-        b=xyiHgLhOGT0eA/twbpDbHpTXZTiRfEq4iQnsqJI6jqPRDlECTn6jEbpxZsiNXaDBP/
-         XzG65jAQAsypqzgoX/lfmHvRHZwcJWIdjWQbWlUI8ph1H4/gIW8dgGQWbgMtMwcQVOUN
-         emfFcUJQOJccYFeMvtziBgs8MNxhgmE1r8glLRgs77dN5TCBfWXOy2F1k+dFAmr/F1nu
-         VhYNWZa82zhSkx4Tc3YE0asHBYpI+U0csizzwp8PhEAiZzsuPACpd32OdrYVWxubGUYX
-         iULaMHb1ge+DkG5RSfti1uw3lQ4RucJt4RjZ6lvOuVqTZuXEcwiFUMcOEo/YJHRrTzwb
-         cUwg==
+        bh=BNOoqMVm698nOhpI3ydE0vYc8DqBOEZTJiAOy8E0PkI=;
+        b=hXyVKPh5fjO2uZcHvmnkc8OqWTqj28BFQCpbN+1dKi/RBkKIy985Dv0LpgHLICT0Pi
+         NvP2707PROhIfew4VjATauxQnsHMUsMvtPBmqbBRFkA3nAJiyYf1ew21ouZM/krY4/lA
+         OFn1aGBwNVOS+9fJkmCc1dSAVFsP/4cowovT3HGtHfbvq2JvqPzPqFUVut+U0nEDR9Ke
+         KyGT4f0T2s8Pr5dHxCXnTXh8bvCHSvCUCCz63D79I0+v5nrsyow+Mf3VMtspEyCJeejB
+         wFPEFypF8M+0dHrKeSjwCiOBF3KQdMW80droCb5YLMkeNVr2ukwyM4Ik4xwRf3WP8dhb
+         jI2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692279028; x=1692883828;
+        d=1e100.net; s=20221208; t=1692279030; x=1692883830;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8mdsM2oTBK6JwOUfDT8eQud/HNhMQh59h+NrcC2uv04=;
-        b=FGbUzAa4owvs7vgRz8f+GEvxfaP/vxL9mwGhp/LkinDFvQpN7y0lSZDsz9tpI2OFAn
-         NRJB/ACiwVsS/y5YnnUnutTaxEguU1ZwYQp+SK2emu6yiHLtBxVke04pox2aqvyPwkpw
-         ba+qPqnxOgbbOh/p7IrEqDpny3K0GmbCvRFIapHCPCs63H0xZZKvgb7mKY2I2hfH2ewH
-         aw/nGeZuDeM1ZYAn+eoR/go/AdraQ4ifAgfqP8GKawJgHYa702f3vAD1PgxII+NUDlJw
-         JI8M/AAK3GRbpcNghJ81odpkQv4B/+J1otlY1jVPWyP4L268z0ueOB6dj51vxllHYI0j
-         bY1A==
-X-Gm-Message-State: AOJu0Yy+4Vu0c7bZyaZDBo4y6FrVZBcJLSfvDQt4zIUwC/4rqSKd/kb+
-	gN1/IzoSnvu2gGd78NvfXRogKQ==
+        bh=BNOoqMVm698nOhpI3ydE0vYc8DqBOEZTJiAOy8E0PkI=;
+        b=kzOCRHnaFbOiugzuwHJHf99IrghU/GvGGqa+SXyFkJ5UHrcbyZoCaECn+RQJK+nkCU
+         FUcGuDQg+RJ+zBkdIHojfpZb9B3764pi3iYziLW+bAgGFQ/aW04YO1TgK4HtcF6hcSvO
+         SrjQ0Onvh9vWa7IH9fTSPcZRgyh6FCGWKy3I5jKRLitFZV/qYpryKdxX4B1MZ7hN2TO6
+         Q5GmVux3kGdxSxOqb/7p8hCUetr0EOzjeUioucckL+/CezzJiUk1T9UVI9x7l7yCDd46
+         rTrXR3iJf8lXhWJxgy9/cbBU/6THe7k/H/G1sW1Lte9j0EY/UE3uIEZwVfesANjHv+6L
+         qW0g==
+X-Gm-Message-State: AOJu0YwO+Gdt6pT1ORNeXusfcSgr6mG0w9O43WYC+eJbNmi8kUu3fHZK
+	hA/+YNwsE0CB18FEskD8190izA==
 X-Google-Smtp-Source: 
- AGHT+IEYnpQSnBJ1Eq6Rlg/01iPWGoY2TquJN2t/26s2G2NC6QbAzjm0QtygB5LDyBMgkTzmpq9Eag==
-X-Received: by 2002:a2e:b04a:0:b0:2b9:f1ad:94f5 with SMTP id
- d10-20020a2eb04a000000b002b9f1ad94f5mr3870619ljl.40.1692279028565;
-        Thu, 17 Aug 2023 06:30:28 -0700 (PDT)
+ AGHT+IGO/arhzSWJPDt9FPBED/DvM6kvsgmgPbfbFOHw19Yk69HSz44ihaJnswd3VeLBgmTbjECv4A==
+X-Received: by 2002:a05:651c:1031:b0:2b6:df6b:84c0 with SMTP id
+ w17-20020a05651c103100b002b6df6b84c0mr3985964ljm.25.1692279029964;
+        Thu, 17 Aug 2023 06:30:29 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238])
         by smtp.gmail.com with ESMTPSA id
- z22-20020a05651c023600b002b9de06f119sm3941689ljn.67.2023.08.17.06.30.27
+ z22-20020a05651c023600b002b9de06f119sm3941689ljn.67.2023.08.17.06.30.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Aug 2023 06:30:27 -0700 (PDT)
+        Thu, 17 Aug 2023 06:30:29 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 17 Aug 2023 15:30:15 +0200
-Subject: [PATCH 1/5] ASoC: rt5640: Convert to just use GPIO descriptors
+Date: Thu, 17 Aug 2023 15:30:16 +0200
+Subject: [PATCH 2/5] ASoC: rt5665: Convert to use GPIO descriptors
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230817-descriptors-asoc-rt-v1-1-434f5f177cee@linaro.org>
+Message-Id: <20230817-descriptors-asoc-rt-v1-2-434f5f177cee@linaro.org>
 References: <20230817-descriptors-asoc-rt-v1-0-434f5f177cee@linaro.org>
 In-Reply-To: <20230817-descriptors-asoc-rt-v1-0-434f5f177cee@linaro.org>
 To: Oder Chiou <oder_chiou@realtek.com>,
@@ -100,8 +100,8 @@ To: Oder Chiou <oder_chiou@realtek.com>,
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Linus Walleij <linus.walleij@linaro.org>
 X-Mailer: b4 0.12.3
-Message-ID-Hash: 535BZNKVQHQ3AAWI7ZLSDDW5TEIT6F6Q
-X-Message-ID-Hash: 535BZNKVQHQ3AAWI7ZLSDDW5TEIT6F6Q
+Message-ID-Hash: RVVMEGPQDY57NDPFV7LNYY4MAQAA7IS6
+X-Message-ID-Hash: RVVMEGPQDY57NDPFV7LNYY4MAQAA7IS6
 X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/535BZNKVQHQ3AAWI7ZLSDDW5TEIT6F6Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RVVMEGPQDY57NDPFV7LNYY4MAQAA7IS6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,142 +123,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The RT5640 driver is already using GPIO descriptors for some
-stuff, all that is needed is to convert the remaining LDO1
-control line to also use descriptors.
+The RT5665 driver has some stub support for GPIO descriptors
+going back to the initial driver commit, where there are
+two GPIO descriptors for the LDO and headphone detection
+defined in the device state. Well, let's make use of the
+descriptor properly.
 
-Simplify the code using gpiod_get_optional() and drop the
-special "of" parsing function: these descriptors need not
-come from device tree and it's optional so hey.
-
-Keep some NULL checks around the GPIO operations even though
-gpiolib is essentially NULL-tolerant, because by checking
-for whether we have a valid GPIO descriptor or not we can
-avoid a 400 ms delay which is great.
+We remove the global GPIO number from the platform data,
+but it is still possible to create board files using GPIO
+descriptor tables, if desired.
 
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
- sound/soc/codecs/rt5640.c | 55 +++++++++++++----------------------------------
- sound/soc/codecs/rt5640.h |  2 +-
- 2 files changed, 16 insertions(+), 41 deletions(-)
+ include/sound/rt5665.h    |  2 --
+ sound/soc/codecs/rt5665.c | 17 ++++++++---------
+ 2 files changed, 8 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index 0ed4fa261abf..33a6d545a9db 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -12,11 +12,10 @@
- #include <linux/init.h>
- #include <linux/delay.h>
- #include <linux/pm.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/regmap.h>
- #include <linux/of.h>
--#include <linux/of_gpio.h>
+diff --git a/include/sound/rt5665.h b/include/sound/rt5665.h
+index 3b3d6a19ca49..e865f041929b 100644
+--- a/include/sound/rt5665.h
++++ b/include/sound/rt5665.h
+@@ -31,8 +31,6 @@ struct rt5665_platform_data {
+ 	bool in3_diff;
+ 	bool in4_diff;
+ 
+-	int ldo1_en; /* GPIO for LDO1_EN */
+-
+ 	enum rt5665_dmic1_data_pin dmic1_data_pin;
+ 	enum rt5665_dmic2_data_pin dmic2_data_pin;
+ 	enum rt5665_jd_src jd_src;
+diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
+index 83c367af91da..cbc8069ab3a8 100644
+--- a/sound/soc/codecs/rt5665.c
++++ b/sound/soc/codecs/rt5665.c
+@@ -15,8 +15,7 @@
  #include <linux/platform_device.h>
  #include <linux/spi/spi.h>
  #include <linux/acpi.h>
-@@ -2811,8 +2810,8 @@ static int rt5640_suspend(struct snd_soc_component *component)
- 	rt5640_reset(component);
- 	regcache_cache_only(rt5640->regmap, true);
- 	regcache_mark_dirty(rt5640->regmap);
--	if (gpio_is_valid(rt5640->ldo1_en))
--		gpio_set_value_cansleep(rt5640->ldo1_en, 0);
-+	if (rt5640->ldo1_en)
-+		gpiod_set_value_cansleep(rt5640->ldo1_en, 0);
+-#include <linux/gpio.h>
+-#include <linux/of_gpio.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/mutex.h>
+ #include <sound/core.h>
+@@ -4657,9 +4656,6 @@ static int rt5665_parse_dt(struct rt5665_priv *rt5665, struct device *dev)
+ 	of_property_read_u32(dev->of_node, "realtek,jd-src",
+ 		&rt5665->pdata.jd_src);
  
+-	rt5665->pdata.ldo1_en = of_get_named_gpio(dev->of_node,
+-		"realtek,ldo1-en-gpios", 0);
+-
  	return 0;
  }
-@@ -2821,8 +2820,8 @@ static int rt5640_resume(struct snd_soc_component *component)
- {
- 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
  
--	if (gpio_is_valid(rt5640->ldo1_en)) {
--		gpio_set_value_cansleep(rt5640->ldo1_en, 1);
-+	if (rt5640->ldo1_en) {
-+		gpiod_set_value_cansleep(rt5640->ldo1_en, 1);
- 		msleep(400);
- 	}
- 
-@@ -2985,22 +2984,6 @@ static const struct acpi_device_id rt5640_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, rt5640_acpi_match);
- #endif
- 
--static int rt5640_parse_dt(struct rt5640_priv *rt5640, struct device_node *np)
--{
--	rt5640->ldo1_en = of_get_named_gpio(np, "realtek,ldo1-en-gpios", 0);
--	/*
--	 * LDO1_EN is optional (it may be statically tied on the board).
--	 * -ENOENT means that the property doesn't exist, i.e. there is no
--	 * GPIO, so is not an error. Any other error code means the property
--	 * exists, but could not be parsed.
--	 */
--	if (!gpio_is_valid(rt5640->ldo1_en) &&
--			(rt5640->ldo1_en != -ENOENT))
--		return rt5640->ldo1_en;
--
--	return 0;
--}
--
- static int rt5640_i2c_probe(struct i2c_client *i2c)
- {
- 	struct rt5640_priv *rt5640;
-@@ -3014,12 +2997,16 @@ static int rt5640_i2c_probe(struct i2c_client *i2c)
- 		return -ENOMEM;
- 	i2c_set_clientdata(i2c, rt5640);
- 
--	if (i2c->dev.of_node) {
--		ret = rt5640_parse_dt(rt5640, i2c->dev.of_node);
--		if (ret)
--			return ret;
--	} else
--		rt5640->ldo1_en = -EINVAL;
-+	rt5640->ldo1_en = devm_gpiod_get_optional(&i2c->dev,
-+						  "realtek,ldo1-en",
-+						  GPIOD_OUT_HIGH);
-+	if (IS_ERR(rt5640->ldo1_en))
-+		return PTR_ERR(rt5640->ldo1_en);
-+
-+	if (rt5640->ldo1_en) {
-+		gpiod_set_consumer_name(rt5640->ldo1_en, "RT5640 LDO1_EN");
-+		msleep(400);
-+	}
- 
- 	rt5640->regmap = devm_regmap_init_i2c(i2c, &rt5640_regmap);
- 	if (IS_ERR(rt5640->regmap)) {
-@@ -3029,18 +3016,6 @@ static int rt5640_i2c_probe(struct i2c_client *i2c)
+@@ -4793,10 +4789,13 @@ static int rt5665_i2c_probe(struct i2c_client *i2c)
  		return ret;
  	}
  
--	if (gpio_is_valid(rt5640->ldo1_en)) {
--		ret = devm_gpio_request_one(&i2c->dev, rt5640->ldo1_en,
--					    GPIOF_OUT_INIT_HIGH,
--					    "RT5640 LDO1_EN");
--		if (ret < 0) {
--			dev_err(&i2c->dev, "Failed to request LDO1_EN %d: %d\n",
--				rt5640->ldo1_en, ret);
--			return ret;
--		}
--		msleep(400);
--	}
--
- 	regmap_read(rt5640->regmap, RT5640_VENDOR_ID2, &val);
- 	if (val != RT5640_DEVICE_ID) {
- 		dev_err(&i2c->dev,
-diff --git a/sound/soc/codecs/rt5640.h b/sound/soc/codecs/rt5640.h
-index 9847a1ae01f4..94b9a502f7f9 100644
---- a/sound/soc/codecs/rt5640.h
-+++ b/sound/soc/codecs/rt5640.h
-@@ -2138,7 +2138,7 @@ struct rt5640_priv {
- 	struct regmap *regmap;
- 	struct clk *mclk;
+-	if (gpio_is_valid(rt5665->pdata.ldo1_en)) {
+-		if (devm_gpio_request_one(&i2c->dev, rt5665->pdata.ldo1_en,
+-					  GPIOF_OUT_INIT_HIGH, "rt5665"))
+-			dev_err(&i2c->dev, "Fail gpio_request gpio_ldo\n");
++
++	rt5665->gpiod_ldo1_en = devm_gpiod_get_optional(&i2c->dev,
++							"realtek,ldo1-en",
++							GPIOD_OUT_HIGH);
++	if (IS_ERR(rt5665->gpiod_ldo1_en)) {
++		dev_err(&i2c->dev, "Failed gpio request ldo1_en\n");
++		return PTR_ERR(rt5665->gpiod_ldo1_en);
+ 	}
  
--	int ldo1_en; /* GPIO for LDO1_EN */
-+	struct gpio_desc *ldo1_en; /* GPIO for LDO1_EN */
- 	int irq;
- 	int jd_gpio_irq;
- 	int sysclk;
+ 	/* Sleep for 300 ms miniumum */
 
 -- 
 2.34.1

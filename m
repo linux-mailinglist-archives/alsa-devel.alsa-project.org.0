@@ -2,103 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0845A77F0DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 09:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A4A277F12C
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Aug 2023 09:28:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A72B082B;
-	Thu, 17 Aug 2023 09:04:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A72B082B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9B5E829;
+	Thu, 17 Aug 2023 09:27:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9B5E829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692255919;
-	bh=JlYwxw3irKUyJSOrpWZL0IWDShJcAQ221BF3xVBU/YM=;
+	s=default; t=1692257313;
+	bh=ZGhGmO7BiybiS4EEZfGzut6EtCvNnmf3CRzjWmzgGF4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XXPUbAeQC6CJywj+2+wJvCZA6nu0FtpW1Y/S1MEPbzoDyRdzxuf4gv90phQWGsqs8
-	 e1/i5TZqXSq+Piz/NQJDOspkIkIEOFKFR/lUrVH4+Jb38EqweSbIuSZqDdO+xlZkdo
-	 8MSS99Cr5EjJHdvxIbGfdrQW6wQ1TIKBDzqHTnAY=
+	b=HgyaZo8OHoBE7u0+ASvcP0c6n6xElxfqOkor6lr1KwUhtBikAN967Vd8GrvgRh5rA
+	 SErBdA/v5aTkn1Q7XGEzWSYm6exTY4injt3s5MPdWpG9y6j7Nv42mnOQNMFoLqrdqd
+	 /+8fn5KDGSzmKHsf9xq8dsXAFWvc3VM8yDXaP0H8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79E42F80272; Thu, 17 Aug 2023 09:04:22 +0200 (CEST)
+	id 67964F80290; Thu, 17 Aug 2023 09:27:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21F5AF8016A;
-	Thu, 17 Aug 2023 09:04:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D047F8016A;
+	Thu, 17 Aug 2023 09:27:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E94C4F8016D; Thu, 17 Aug 2023 09:04:18 +0200 (CEST)
+	id D1059F8016D; Thu, 17 Aug 2023 09:27:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D1F3F80027
-	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 09:04:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D1F3F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B399F80027
+	for <alsa-devel@alsa-project.org>; Thu, 17 Aug 2023 09:27:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B399F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=uTcMIuN6;
+ header.s=susede2_rsa header.b=Cxh/Sizf;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ulWYNS+A
+ header.s=susede2_ed25519 header.b=jyeDFq+H
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 09B2421871;
-	Thu, 17 Aug 2023 07:04:15 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3861B215E6;
+	Thu, 17 Aug 2023 07:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1692255855;
+	t=1692257256;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=if4f7xWJCGHsZHRVmxV98352GuF020tjQV4o4Kf4nas=;
-	b=uTcMIuN6rMzWqo6pFX0lESG9TkUuYNMerklGnH2ujVUs3ZiyA4bd5Pc8MmxEE5Ds/Prqim
-	WMirgJg88wjt4Q3bAt7b+x2b11xWAb2qXv+nHEyZa2VNHDqjdCTqDaZNZCwICLmnCGah59
-	X4eLT9Vt2CAD6ckkonN1cDFRGKoo4cc=
+	bh=OG2M480JqD4BTvzCJtOCL6V9JYEtpfxQda1D8331XFg=;
+	b=Cxh/SizfHLCg17Bphr2XdcIxS+ujrirPO6T1FCsTJLC8OgHuYyzymOdBtW9hYxRNk4759I
+	0r9f0ltXjzqu8uRrHmHTSjLSpzpLec0vxrZUn1z1KGY/wp67cClRX3hdR8pa5ckaVUfmmM
+	FTzshYJJZlzODS8/n1qhCl/MaJiSe+8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692255855;
+	s=susede2_ed25519; t=1692257256;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=if4f7xWJCGHsZHRVmxV98352GuF020tjQV4o4Kf4nas=;
-	b=ulWYNS+AJZk7BpXSsIZVgB2ki2nyKBLGURBhOm2j1Amz0RrkoVo9mPxZZHoBcEC31S9/p3
-	+OLE613dSC68Y8Aw==
+	bh=OG2M480JqD4BTvzCJtOCL6V9JYEtpfxQda1D8331XFg=;
+	b=jyeDFq+Hu7CYnFtVQaGr7o7kYx6qmML1eUKOiHLd9NaddNrQGovw3VerylEzbNluibLhEK
+	wUp8RuuJWI2bfgDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D92DD1358B;
-	Thu, 17 Aug 2023 07:04:14 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1CB5F1358B;
+	Thu, 17 Aug 2023 07:27:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 9r4HNG7G3WT3KwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 17 Aug 2023 07:04:14 +0000
-Date: Thu, 17 Aug 2023 09:04:14 +0200
-Message-ID: <878raaw3o1.wl-tiwai@suse.de>
+	id 1BbrBejL3WR8NgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 17 Aug 2023 07:27:36 +0000
+Date: Thu, 17 Aug 2023 09:27:35 +0200
+Message-ID: <874jkyw2l4.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Yang Yingliang <yangyingliang@huawei.com>
-Cc: <alsa-devel@alsa-project.org>,
-	<patches@opensource.cirrus.com>,
-	<tiwai@suse.com>,
-	<sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH -next] ALSA: hda: cs35l41: change cs35l41_prop_model to
- static
-In-Reply-To: <20230817014252.1511232-1-yangyingliang@huawei.com>
-References: <20230817014252.1511232-1-yangyingliang@huawei.com>
+To: alsa-devel@alsa-project.org
+Cc: Curtis Malainey <cujomalainey@google.com>
+Subject: Re: [PATCH RFC 0/9] ALSA: Don't embed struct devices
+In-Reply-To: <20230816160252.23396-1-tiwai@suse.de>
+References: <20230816160252.23396-1-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: YGRH3GV4NI37AQCAYSIPVGFX7JAQX3RA
-X-Message-ID-Hash: YGRH3GV4NI37AQCAYSIPVGFX7JAQX3RA
+Message-ID-Hash: BHLZYZEI5L6UPM3QNS6KUBZOFGGTWNCN
+X-Message-ID-Hash: BHLZYZEI5L6UPM3QNS6KUBZOFGGTWNCN
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YGRH3GV4NI37AQCAYSIPVGFX7JAQX3RA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BHLZYZEI5L6UPM3QNS6KUBZOFGGTWNCN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,16 +117,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 17 Aug 2023 03:42:52 +0200,
-Yang Yingliang wrote:
+On Wed, 16 Aug 2023 18:02:43 +0200,
+Takashi Iwai wrote:
 > 
-> cs35l41_prop_model is only used in cs35l41_hda_property.c now,
-> change it to static.
+> Hi,
 > 
-> Fixes: ef4ba63f12b0 ("ALSA: hda: cs35l41: Support systems with missing _DSD properties")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> this is another set of patches to attempt papering over the UAF
+> problems that are seen when the delayed kobject release is enabled, as
+> initially reported by Curtis:
+>   https://lore.kernel.org/r/20230801171928.1460120-1-cujomalainey@chromium.org
+> 
+> There was a previous patch set with a different approach (using the
+> device refcount dependencies), but this is a sort of step-back to the
+> old way.
+>   https://lore.kernel.org/r/20230807135207.17708-1-tiwai@suse.de
+> 
+> After discussions and evaluations, we agreed that decoupling the
+> struct device from each sound component object is the safest (and
+> easiest) way as of now.  For applying the changes more consistently, I
+> introduced a new helper for the struct device allocation and
+> initialization, and applied all components.
+> 
+> A couple of more changes for card_dev refcount managed aren't included
+> in this patch set, though.  They might be good to have, but this patch
+> set should suffice for the currently seen UAF problems.
+> 
+> For a long-term solution, we may restructure the device management,
+> then the struct devices may be embedded again in each object.  But,
+> it'll need lots of other changes and cleanups, a big TODO.
+> 
+> The latest patches are found in topic/dev-split branch of sound.git
+> tree.
+> 
+> 
+> Takashi
+> 
+> ===
+> 
+> Takashi Iwai (9):
+>   ALSA: core: Introduce snd_device_alloc()
+>   ALSA: control: Don't embed ctl_dev
+>   ALSA: pcm: Don't embed device
+>   ALSA: hwdep: Don't embed device
+>   ALSA: rawmidi: Don't embed device
+>   ALSA: compress: Don't embed device
+>   ALSA: timer: Create device with snd_device_alloc()
+>   ALSA: seq: Create device with snd_device_alloc()
+>   ALSA: core: Drop snd_device_initialize()
 
-Thanks, applied now.
+Although the patch set was sent as RFC, I merged them now for 6.6 with
+Acks, as there is no further plan to change.
 
+
+thanks,
 
 Takashi

@@ -2,97 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 808D97806CD
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 10:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F627806D5
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 10:04:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10DF5844;
-	Fri, 18 Aug 2023 09:59:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10DF5844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B95DA4E;
+	Fri, 18 Aug 2023 10:03:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B95DA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692345610;
-	bh=vC7VMPqjM9fPKdF4J2HXCVxJMz5gaJgVjCjBydNLrys=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1692345878;
+	bh=EdCAjQZNAfqVL5wyI/jPbXuxzawcedZkj6vsX9YqlzA=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Pfkv3ZfVvsnDLIozk8VE+kjj+IhDSB0/q6pH/d221Kl7/9H+lj0Up6npvsj3PcPDm
-	 eFwFAqlof0iwDrOrbR6y12YbDtFoTYIvXdnTdiAaGKI/Wa4RC9oNqH0OZOyent6yd4
-	 /9F1AUU/5vBV95Xw/a+W77IukEA1DHYr4+uD1tL0=
+	b=U2lhtHEf6XfeZvpTLAx1BR7qmK0gPZ9Hr6ilCDMdDd8nY+uxBYCtWc4202ZhqEPWR
+	 vE2TFoy6XExHtjDoW/msDElilT6xS6rKhcIrGmSR4Pub1hKCEay0GgpyFMaarnsKuu
+	 wEiQhMK8tAvO0tUIR0jIohmEQlBN1aUnJQ2RYf5A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67FE4F800D1; Fri, 18 Aug 2023 09:58:59 +0200 (CEST)
+	id F1B66F80536; Fri, 18 Aug 2023 10:03:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9691F8016D;
-	Fri, 18 Aug 2023 09:58:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB81EF8016D;
+	Fri, 18 Aug 2023 10:03:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C93B0F801EB; Fri, 18 Aug 2023 09:58:54 +0200 (CEST)
+	id 36E1CF801EB; Fri, 18 Aug 2023 10:03:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ADAE4F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 09:58:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADAE4F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7FE7CF800EE
+	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 10:03:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FE7CF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=PCXSKo6g
-Received: by mail-yb1-xb2a.google.com with SMTP id
- 3f1490d57ef6-d6b1025fc7aso613670276.3
+ header.s=20221208 header.b=SYAhfCco
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-31adc5c899fso593003f8f.2
         for <alsa-devel@alsa-project.org>;
- Fri, 18 Aug 2023 00:58:44 -0700 (PDT)
+ Fri, 18 Aug 2023 01:03:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692345522; x=1692950322;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=igcyBE54FCe4GlK5viSpawwrjs2JcpTaXwROqWjpeCE=;
-        b=PCXSKo6gfJjz3PyvYyfmUuKxQV6dGTG0d5umZJoVxgv/3pC1hBNrTcEEDWbhJh9HWv
-         Quc91/RP5huv3BAKCwY8PRTwLcTt1SGuXtLF3+cjw1lG8w063AUZfr+BKb13iGaVh49A
-         LhNKOjWFc/RvgBpMy3n1dxfB4T546pBVtCSHBW/s0Y2AYmcifYH5CNR+RJnO6OBrx6Ou
-         Aa/e6+RJYa46OqBeUW3E5FpfBB6W/lmT0wlEey6bZEV+FZ1j23ujrw88KJ5OcgZXKtyP
-         oArROJw62IQxw3NXjiQYXD6RLUEhK5TuhCExF2q8CVV42jytPfm96KNved8aEepkCbgX
-         n25A==
+        d=gmail.com; s=20221208; t=1692345814; x=1692950614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2ljUrJOGWvJJ47ZnRynlGMHaMFmNr5devWAZSgVCf8s=;
+        b=SYAhfCcoyf1K9x5xDb9gaRPgD5GA7yZZkLfKP3zaG9JEyVGkpF9k9RiMH7PlgoX18S
+         9i018DV1R2mfKwH5+tU5tLfByj2PXZohwCnw11/UiDegAK2y0aPF7v/Zzl5NiT7u75lA
+         tZl6UfmvkcikyI3uy0AW+zMImN7gjv+SKC0Cwh60R7fOfIrWUugUWnJqVCH+oBTBqeYb
+         IqdR0wyMwFFdEBb8mtXDihLZA3HXnFUxYoFIchhI/gDSGSNKFVZBktGN4gqLn2FAXK3i
+         y//Snclsch9CYvs6Dr00g43pTDzF48ZrpfBNud7aK2NUVgLu22IAxvJwXSd3VXmXNgEe
+         eT2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692345522; x=1692950322;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=igcyBE54FCe4GlK5viSpawwrjs2JcpTaXwROqWjpeCE=;
-        b=cKlBuXSJbVv7Dp6OvfKdUv07BHIENR8/9FB/+yHd/D8vLMLp7/Wd9Bw6zDxYdZl1VR
-         1SEXp7Jfvo6b4wVjbyAUuUVztRVeZfMIpUwHJV9xvUzVhqK79s3BVH24HwNJT1NrKzBV
-         GrTfUmmxHUCmh71ZIhx7x5eRI6PHkqbtVaPGsenS2tq2In8w64MkMnZckbWXJHRvK/Em
-         XtjAG55s84jX4pEPKsjj+y0ZakiEsAUFxqDfXgB8IBEOFyVWMa21zU9m8D9HxmwPEPdH
-         +Ej4qNILpRBuIUWstDZn/RHvnwDNwjUOJ6guo446ZvVsX9AnHe7P4F1Jqe++/TGBde2h
-         fwVw==
-X-Gm-Message-State: AOJu0YxbWgCTOS5lwch7OORflljsmHsig1V+od9iHBtckG8ErEI/9WiM
-	s18obUvXFIFMzsoCfxBoNPmbZ1nfcrF9jTUww1o=
+        d=1e100.net; s=20221208; t=1692345814; x=1692950614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2ljUrJOGWvJJ47ZnRynlGMHaMFmNr5devWAZSgVCf8s=;
+        b=T9l7Rc95zzSHV2dwokhqHyMr3o0BdkezSS6R3MyXYk5g3ZTILasE49bcihu3RWMyqg
+         1GA4E2syvRcBkrQrSG9D9LQGul6KYXA5boaqC3LXY2cLuupRpuuNMJ3Z/O13z56rwJNU
+         9TsZXAOZM6roVN2hQGLG5/i3Ot6atwNqsQjkV02j1P2z7gCCxHV4zXz7ENDynr9g31kK
+         HkSvDwVZct6XfGuEeFztSYxE59GrupsF2Y5wNhob4le9UNn0U6/75WltLsMIsIuVUT1Q
+         bU8RkLsXbfjTAWrCFl9vIMupCNeDcnEQDu9wARt8jm5/FsjQqgRqbmmPIU6zyqFOepwD
+         L6NA==
+X-Gm-Message-State: AOJu0YxPEMYsyiF8fJILWGtWPatWVh4eg9CnlUXJFF/0uuDOP5QzWuHJ
+	ZynDObXnuQ35IAlGfCh1MoYrgI7avBY=
 X-Google-Smtp-Source: 
- AGHT+IF7SZTlg1W3WmhN9LjoK0SeT1n6Zc3/k66R8oKVvRyfCT2JOKAFCyx0jRDo5HPrGYUJd0VaEhmno4mj001Hf5c=
-X-Received: by 2002:a25:ddc3:0:b0:d39:5e6a:9e6c with SMTP id
- u186-20020a25ddc3000000b00d395e6a9e6cmr1870133ybg.24.1692345522473; Fri, 18
- Aug 2023 00:58:42 -0700 (PDT)
+ AGHT+IGLtuhVCBCMn0yo2qCzHpQYzOhIhgZSuJG9XrayQmWsOQSZOYFF/HkR2OX8dyJPJx1S1hNmUg==
+X-Received: by 2002:a5d:6a44:0:b0:317:5351:e428 with SMTP id
+ t4-20020a5d6a44000000b003175351e428mr1275341wrw.4.1692345813113;
+        Fri, 18 Aug 2023 01:03:33 -0700 (PDT)
+Received: from ALPER-PC.. ([178.233.24.1])
+        by smtp.gmail.com with ESMTPSA id
+ f13-20020a5d664d000000b00314172ba213sm1871213wrw.108.2023.08.18.01.03.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Aug 2023 01:03:32 -0700 (PDT)
+From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
+To: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ASoC: amd: acp: Add kcontrols and widgets per-codec in common
+ code
+Date: Fri, 18 Aug 2023 11:03:14 +0300
+Message-Id: <20230818080314.32991-1-alpernebiyasak@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-From: Zhu Ning <zhuning0077@gmail.com>
-Date: Fri, 18 Aug 2023 15:58:31 +0800
-Message-ID: 
- <CANPLYpDc8DTN2vkmCDhTpBQnEkOCyPTA5T1LLWO4s3Zdgb06gw@mail.gmail.com>
-Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables sound
- for systems with a ES8336 codec
-To: posteuca@mutex.one
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org, perex@perex.cz, tiwai@suse.com,
-	yangxiaohua <yangxiaohua@everest-semi.com>, Ning Zhu <zhuning0077@gmail.com>,
-	Zhu Ning <zhuning@everest-semi.com>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: 5WII7PYTE2QDPWKWI7OVVS3OCPC7DRFQ
-X-Message-ID-Hash: 5WII7PYTE2QDPWKWI7OVVS3OCPC7DRFQ
-X-MailFrom: zhuning0077@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VSAMB7UR6WGPOZ6TT6SACVROVJOSRFV3
+X-Message-ID-Hash: VSAMB7UR6WGPOZ6TT6SACVROVJOSRFV3
+X-MailFrom: alpernebiyasak@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5WII7PYTE2QDPWKWI7OVVS3OCPC7DRFQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VSAMB7UR6WGPOZ6TT6SACVROVJOSRFV3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,48 +123,249 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> > This is saying that the machine driver should disable jack detection
-> > over suspend and restart it during resume.  The machine driver should
-> > suspend before the rest of the card which should mean that the CODEC
-> > gets powered off then.  The core can't tell if jack detection is
-> > supposed to work over suspend, it is a standard wake event on systems
-> > like phones, but it sounds like on this system the power gets removed
-> > from the device so that can't work.
-> >
->
-> Sorry, I don't understand what you are trying to say here. My intention
-> is to find a way to have sound working when suspending/resuming
-> with jack inserted by not fudging the jack in the machine driver but
-> fixing it in the CODEC.
->
-> > I don't understand why that would be expected to help?  The main effect
-> > of keeping the bias on all the time would be to consume more power.
->
-> I don't fully understand the whole bias thing (I did try hard to
-> understand it from the code), but in this specific instance it helps for
-> suspending the CODEC. If idle_bias_on is true then idle_bias_off will be
-> false, that would mean that during suspend (with jack inserted)
-> in snd_soc_suspend() in switch (snd_soc_dapm_get_bias_level(dapm))
-> the flow goes in case SND_SOC_BIAS_STANDBY and since dapm->idle_bias_off
-> is false it doesn't break from the case but falls through to
-> SND_SOC_BIAS_OFF case which in turn calls the CODEC component's suspend
-> callback.
->
-> The reason the sound stops working with jack inserted is that the CODEC
-> suspend callback never gets called. It only gets called when the jack
-> is not inserted.
+Commit 7ac3404c2e21 ("ASoC: amd: acp: Map missing jack kcontrols") adds
+card kcontrols and DAPM widgets corresponding to jacks for Headphone and
+Headset Mic. But these were already being added in acp-legacy-mach.c and
+acp-sof-mach.c, so this causes a probe error:
 
-Hi Postevca, I just reproduced the bug on my side. You are right that
-when jack inserted,
-the codec driver will never enter  SND_SOC_BIAS_OFF or suspend or resume. This
-makes sense because the codec needs micbias power to detect button. Problem is
-that  ALSA or dapm thought the codec power is on during suspend, but
-the system power
-is turned off and the registers are reset. The system power is
-controlled by EC and neither
-dapm or codec driver can do anything about it. The system power is
-just turned off.
+  sof_mach rt5682s-hs-rt1019: control 2:0:0:Headphone Jack Switch:0 is already present
+  sof_mach rt5682s-hs-rt1019: ASoC: Failed to add Headphone Jack Switch: -16
+  sof_mach rt5682s-hs-rt1019: devm_snd_soc_register_card(sof-rt5682s-hs-rt1019) failed: -16
+  sof_mach: probe of rt5682s-hs-rt1019 failed with error -16
 
-Disabling the jack detection before suspend is ok because the system
-stops working during
-suspend anyway. Maybe a detailed comment is needed to explain why?
+Removing the new duplicates from the common code might be enough to fix
+the issue. But some of the codecs use different kcontrols and widgets.
+NAU8821 alone has an "Int Mic". MAX98360A has a single "Spk", while
+RT1019 has "Left Spk" and "Right Spk" (and two codec instances with name
+prefixes).
+
+Since there are per-codec differences, add the kcontrols and widgets
+in the common code as each dai-link is being initialized, instead of in
+the two machine drivers' probe().
+
+Also, MAX98388 has Left and Right instances, but uses a single "SPK"
+widget. That seems weird, so normalize it to use two widgets (one per
+each instance like RT1019) while we're adding controls.
+
+Fixes: 7ac3404c2e21 ("ASoC: amd: acp: Map missing jack kcontrols")
+Signed-off-by: Alper Nebi Yasak <alpernebiyasak@gmail.com>
+---
+Applies onto linux-next.
+
+ sound/soc/amd/acp/acp-legacy-mach.c | 22 +---------
+ sound/soc/amd/acp/acp-mach-common.c | 68 +++++++++++++++++++++++++++--
+ sound/soc/amd/acp/acp-sof-mach.c    | 21 +--------
+ 3 files changed, 67 insertions(+), 44 deletions(-)
+
+diff --git a/sound/soc/amd/acp/acp-legacy-mach.c b/sound/soc/amd/acp/acp-legacy-mach.c
+index 676ad50638d0..6d57d17ddfd7 100644
+--- a/sound/soc/amd/acp/acp-legacy-mach.c
++++ b/sound/soc/amd/acp/acp-legacy-mach.c
+@@ -75,23 +75,6 @@ static struct acp_card_drvdata rt5682s_rt1019_rmb_data = {
+ 	.tdm_mode = false,
+ };
+ 
+-static const struct snd_kcontrol_new acp_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+-	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+-	SOC_DAPM_PIN_SWITCH("Spk"),
+-	SOC_DAPM_PIN_SWITCH("Left Spk"),
+-	SOC_DAPM_PIN_SWITCH("Right Spk"),
+-
+-};
+-
+-static const struct snd_soc_dapm_widget acp_widgets[] = {
+-	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+-	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+-	SND_SOC_DAPM_SPK("Spk", NULL),
+-	SND_SOC_DAPM_SPK("Left Spk", NULL),
+-	SND_SOC_DAPM_SPK("Right Spk", NULL),
+-};
+-
+ static int acp_asoc_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card = NULL;
+@@ -110,11 +93,8 @@ static int acp_asoc_probe(struct platform_device *pdev)
+ 	card->dev = dev;
+ 	card->owner = THIS_MODULE;
+ 	card->name = pdev->id_entry->name;
+-	card->dapm_widgets = acp_widgets;
+-	card->num_dapm_widgets = ARRAY_SIZE(acp_widgets);
+-	card->controls = acp_controls;
+-	card->num_controls = ARRAY_SIZE(acp_controls);
+ 	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
++	/* Widgets and controls added per-codec in acp-mach-common.c */
+ 
+ 	acp_card_drvdata = card->drvdata;
+ 	dmi_id = dmi_first_match(acp_quirk_table);
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index f3abaa182fbb..a06af82b8056 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -513,6 +513,16 @@ SND_SOC_DAILINK_DEF(rt1019,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC1019:00", "rt1019-aif"),
+ 			  COMP_CODEC("i2c-10EC1019:01", "rt1019-aif")));
+ 
++static const struct snd_kcontrol_new rt1019_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Left Spk"),
++	SOC_DAPM_PIN_SWITCH("Right Spk"),
++};
++
++static const struct snd_soc_dapm_widget rt1019_widgets[] = {
++	SND_SOC_DAPM_SPK("Left Spk", NULL),
++	SND_SOC_DAPM_SPK("Right Spk", NULL),
++};
++
+ static const struct snd_soc_dapm_route rt1019_map_lr[] = {
+ 	{ "Left Spk", NULL, "Left SPO" },
+ 	{ "Right Spk", NULL, "Right SPO" },
+@@ -533,10 +543,25 @@ static int acp_card_rt1019_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct acp_card_drvdata *drvdata = card->drvdata;
++	int ret;
+ 
+ 	if (drvdata->amp_codec_id != RT1019)
+ 		return -EINVAL;
+ 
++	ret = snd_soc_dapm_new_controls(&card->dapm, rt1019_widgets,
++					ARRAY_SIZE(rt1019_widgets));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add widget dapm controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_add_card_controls(card, rt1019_controls,
++					ARRAY_SIZE(rt1019_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
++
+ 	return snd_soc_dapm_add_routes(&rtd->card->dapm, rt1019_map_lr,
+ 				       ARRAY_SIZE(rt1019_map_lr));
+ }
+@@ -667,6 +692,14 @@ static const struct snd_soc_ops acp_card_rt1019_ops = {
+ SND_SOC_DAILINK_DEF(max98360a,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("MX98360A:00", "HiFi")));
+ 
++static const struct snd_kcontrol_new max98360a_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Spk"),
++};
++
++static const struct snd_soc_dapm_widget max98360a_widgets[] = {
++	SND_SOC_DAPM_SPK("Spk", NULL),
++};
++
+ static const struct snd_soc_dapm_route max98360a_map[] = {
+ 	{"Spk", NULL, "Speaker"},
+ };
+@@ -675,10 +708,25 @@ static int acp_card_maxim_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct acp_card_drvdata *drvdata = card->drvdata;
++	int ret;
+ 
+ 	if (drvdata->amp_codec_id != MAX98360A)
+ 		return -EINVAL;
+ 
++	ret = snd_soc_dapm_new_controls(&card->dapm, max98360a_widgets,
++					ARRAY_SIZE(max98360a_widgets));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add widget dapm controls, ret %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_add_card_controls(card, max98360a_controls,
++					ARRAY_SIZE(max98360a_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
++
+ 	return snd_soc_dapm_add_routes(&rtd->card->dapm, max98360a_map,
+ 				       ARRAY_SIZE(max98360a_map));
+ }
+@@ -744,13 +792,19 @@ SND_SOC_DAILINK_DEF(max98388,
+ 		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-ADS8388:00", "max98388-aif1"),
+ 				       COMP_CODEC("i2c-ADS8388:01", "max98388-aif1")));
+ 
++static const struct snd_kcontrol_new max98388_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Left Spk"),
++	SOC_DAPM_PIN_SWITCH("Right Spk"),
++};
++
+ static const struct snd_soc_dapm_widget max98388_widgets[] = {
+-	SND_SOC_DAPM_SPK("SPK", NULL),
++	SND_SOC_DAPM_SPK("Left Spk", NULL),
++	SND_SOC_DAPM_SPK("Right Spk", NULL),
+ };
+ 
+ static const struct snd_soc_dapm_route max98388_map[] = {
+-	{ "SPK", NULL, "Left BE_OUT" },
+-	{ "SPK", NULL, "Right BE_OUT" },
++	{ "Left Spk", NULL, "Left BE_OUT" },
++	{ "Right Spk", NULL, "Right BE_OUT" },
+ };
+ 
+ static struct snd_soc_codec_conf max98388_conf[] = {
+@@ -803,6 +857,14 @@ static int acp_card_max98388_init(struct snd_soc_pcm_runtime *rtd)
+ 		/* Don't need to add routes if widget addition failed */
+ 		return ret;
+ 	}
++
++	ret = snd_soc_add_card_controls(card, max98388_controls,
++					ARRAY_SIZE(max98388_controls));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add card controls, ret %d\n", ret);
++		return ret;
++	}
++
+ 	return snd_soc_dapm_add_routes(&rtd->card->dapm, max98388_map,
+ 				       ARRAY_SIZE(max98388_map));
+ }
+diff --git a/sound/soc/amd/acp/acp-sof-mach.c b/sound/soc/amd/acp/acp-sof-mach.c
+index a1c893f33f74..5223033a122f 100644
+--- a/sound/soc/amd/acp/acp-sof-mach.c
++++ b/sound/soc/amd/acp/acp-sof-mach.c
+@@ -94,22 +94,6 @@ static struct acp_card_drvdata sof_nau8821_max98388_data = {
+ 	.tdm_mode = false,
+ };
+ 
+-static const struct snd_kcontrol_new acp_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+-	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+-	SOC_DAPM_PIN_SWITCH("Spk"),
+-	SOC_DAPM_PIN_SWITCH("Left Spk"),
+-	SOC_DAPM_PIN_SWITCH("Right Spk"),
+-};
+-
+-static const struct snd_soc_dapm_widget acp_widgets[] = {
+-	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+-	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+-	SND_SOC_DAPM_SPK("Spk", NULL),
+-	SND_SOC_DAPM_SPK("Left Spk", NULL),
+-	SND_SOC_DAPM_SPK("Right Spk", NULL),
+-};
+-
+ static int acp_sof_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card = NULL;
+@@ -128,11 +112,8 @@ static int acp_sof_probe(struct platform_device *pdev)
+ 	card->dev = dev;
+ 	card->owner = THIS_MODULE;
+ 	card->name = pdev->id_entry->name;
+-	card->dapm_widgets = acp_widgets;
+-	card->num_dapm_widgets = ARRAY_SIZE(acp_widgets);
+-	card->controls = acp_controls;
+-	card->num_controls = ARRAY_SIZE(acp_controls);
+ 	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
++	/* Widgets and controls added per-codec in acp-mach-common.c */
+ 
+ 	acp_card_drvdata = card->drvdata;
+ 	dmi_id = dmi_first_match(acp_quirk_table);
+
+base-commit: 47762f08697484cf0c2f2904b8c52375ed26c8cb
+-- 
+2.40.1
+

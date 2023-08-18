@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58184780796
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 10:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E2478079F
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 11:00:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA98DF4;
-	Fri, 18 Aug 2023 10:57:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA98DF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29235DEC;
+	Fri, 18 Aug 2023 10:59:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29235DEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692349128;
-	bh=qFcpDv7LGvGIkeqcbwI/QgTRFJQa1Cc4kNETUzRxaHg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=n3gShK7T81DcOQmdcme8xbmIIaXtNvUOBRBzNmx+6RE5FLhdYvJ3pdWhwPbHBMEES
-	 xRS1QkYxCSv2dXRzMC0oLKPtSeR68BI2gQRHgFItSG70BjVnEG9UbthfZ9vSS0hSzq
-	 udz//+16MlTyouT0kEobFDoZVWQP7qDmR53/Br5A=
+	s=default; t=1692349208;
+	bh=Yl/O1Z5FcqyaEqBs3dzs0TBFbbWRZvf6Jc5qurWDIn4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=RLo/SMryxbj0RQkfuRvQva/UCaJfLrLBRNBODQnGPrbTmZt9yaEmSI3oyQXXasukx
+	 0f9HA5Q8imXczgnJVlZOHpafJOATIhIrWe4EQYzZo9NI3Ze0sbIbGA3ZBIhP5NcorB
+	 koMsCYGYQHYPnWgEJpRKXEPRB+L1XfYKhpzTS76U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C39DF80536; Fri, 18 Aug 2023 10:57:58 +0200 (CEST)
+	id 2AA90F801EB; Fri, 18 Aug 2023 10:58:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFD46F801EB;
-	Fri, 18 Aug 2023 10:57:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AC32F8016D;
+	Fri, 18 Aug 2023 10:58:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BFBEF801EB; Fri, 18 Aug 2023 10:57:54 +0200 (CEST)
+	id 98E31F801EB; Fri, 18 Aug 2023 10:58:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,39 +34,39 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C3635F800EE
-	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 10:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3635F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF8C5F80027
+	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 10:58:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF8C5F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=wSbOCKqS
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37I8uEoE111498;
-	Fri, 18 Aug 2023 03:56:14 -0500
+ header.s=ti-com-17Q1 header.b=KPUFEuNc
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37I8wjqh111851;
+	Fri, 18 Aug 2023 03:58:45 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1692348974;
-	bh=q/O5rFoBqrs6L5zPZLHyOjcxYGRdTdgM+YvJo+2FEy8=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=wSbOCKqSE7B7a3LyeI1V9ICDUSxbPQtZ2mecvAEOjCO/B7zd/1qGaBokttLXBQT+M
-	 krmnMMY3Hb7OB3hJXEgLZ1/VovMrEwlGaIYc3AymBuHcmMBdxUbmc/kjW/eJNlQRpo
-	 O5XBFV/8pRs28jD7OPitV8Db6TFl+Ldx4mOoUIZ8=
-Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37I8uEQG099693
+	s=ti-com-17Q1; t=1692349125;
+	bh=IXZVlCWxbzmhuyWWtDi7VI8A9Ah0nR3egkYua2H3tCs=;
+	h=From:To:CC:Subject:Date;
+	b=KPUFEuNcxIW1lSTca69SOFthdX3g5vHGiiL4xoB/AfS6/o1tye7ObqBZivmcDVxIg
+	 kfnBMS9hKBW3YYIfj1rTYTATW38+M3IGJhD6y7hAU3D5ovY1R9BwkETRilSlhFLE9n
+	 0GjZPnl78PTQilLdImuuF39WvUYTzsVPzMFom5i8=
+Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37I8wj8c119775
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 18 Aug 2023 03:56:14 -0500
-Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+	Fri, 18 Aug 2023 03:58:45 -0500
+Received: from DFLE112.ent.ti.com (10.64.6.33) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 18
- Aug 2023 03:56:14 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE114.ent.ti.com
- (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ Aug 2023 03:58:45 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 18 Aug 2023 03:56:14 -0500
+ Frontend Transport; Fri, 18 Aug 2023 03:58:45 -0500
 Received: from LT5CG31242FY.dhcp.ti.com (ileaxei01-snat.itg.ti.com
  [10.180.69.5])
-	by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37I8u2aO005166;
-	Fri, 18 Aug 2023 03:56:09 -0500
+	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37I8wdeh043219;
+	Fri, 18 Aug 2023 03:58:40 -0500
 From: Shenghao Ding <shenghao-ding@ti.com>
 To: <tiwai@suse.de>
 CC: <robh+dt@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
@@ -78,18 +77,16 @@ CC: <robh+dt@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
         <thomas.gfeller@q-drop.com>, <peeyush@ti.com>, <navada@ti.com>,
         <broonie@kernel.org>, <gentuser@gmail.com>,
         Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v3 2/2] ALSA: hda/tas2781: Add tas2781 HDA driver
-Date: Fri, 18 Aug 2023 16:55:58 +0800
-Message-ID: <20230818085558.1431-2-shenghao-ding@ti.com>
+Subject: [PATCH v4 1/2] ALSA: hda/tas2781: Add tas2781 HDA driver
+Date: Fri, 18 Aug 2023 16:58:35 +0800
+Message-ID: <20230818085836.1442-1-shenghao-ding@ti.com>
 X-Mailer: git-send-email 2.33.0.windows.2
-In-Reply-To: <20230818085558.1431-1-shenghao-ding@ti.com>
-References: <20230818085558.1431-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: TR2UUTRZT76E226J7KS6PBHCII6JXBFT
-X-Message-ID-Hash: TR2UUTRZT76E226J7KS6PBHCII6JXBFT
+Message-ID-Hash: 7ZPR36536MVVJKYONI6URZAZ52QWNSUP
+X-Message-ID-Hash: 7ZPR36536MVVJKYONI6URZAZ52QWNSUP
 X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TR2UUTRZT76E226J7KS6PBHCII6JXBFT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ZPR36536MVVJKYONI6URZAZ52QWNSUP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,7 +117,11 @@ one.
 Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
 ---
-Changes in v3:
+Changes in v4:
+ - | Reported-by: kernel test robot <lkp@intel.com>
+   | Closes:
+   | https://lore.kernel.org/oe-kbuild-all/202308172137.SthCPFbA-lkp@intel.
+   | com/
  - remove workaround code for 0x17aa38be, laptop vendor will fix it in acpi.
  - rename comp_match_tas2781_dev_name to avoid indentation
  - simplify the check of vendor id with Lenovo

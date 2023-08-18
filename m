@@ -2,118 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCC5781200
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 19:33:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9290A781260
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 19:52:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85BB8EB0;
-	Fri, 18 Aug 2023 19:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85BB8EB0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95792EC4;
+	Fri, 18 Aug 2023 19:51:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95792EC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692380028;
-	bh=13aM6JkGrYthQGuJ1FMiXOV9vMniB9ZodEkIZKF33t8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1692381168;
+	bh=YUfZpjex5Jf2OeOEtyGtdCbFAvj6VJB5L0xNXxOdcd0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Udx9EoZCDld7uvUPOZpHk0k8ECH6HY40OfA1LB7v6WIHuZYQPbtb/UDJ24+8qv/wE
-	 LNX6Bc2Sdxo9NF/gCa5RNg3LXKtZQMIaPoADqg/ZvS2rk/CYH7SQHiChvBNBntD5NP
-	 XO7zBW9nBqcDNHpED+YulDFVyjwUcUVJQLhbfeiI=
+	b=iIheim5uHSancdMa3GgoKrWB9PWyyp1V6rmdYNF7XuxIHhAzunWpon7nmjZIb9fvK
+	 3thi04ZCTb7DLAX2/Li640Q9k+3SDIZPvJBbYHXgkfz8D3k+FfX/n8+AyyJgarl7Di
+	 k7y9T1a6bzEGxy3GYsN8Q5VbNQHg1l23/mI/fiiA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F110AF8025F; Fri, 18 Aug 2023 19:32:57 +0200 (CEST)
+	id DF717F80027; Fri, 18 Aug 2023 19:51:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAD15F8016D;
-	Fri, 18 Aug 2023 19:32:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79341F8016D;
+	Fri, 18 Aug 2023 19:51:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F442F801EB; Fri, 18 Aug 2023 19:32:53 +0200 (CEST)
+	id 40A50F80254; Fri, 18 Aug 2023 19:51:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 43EA6F80027
-	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 19:32:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43EA6F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id E29B3F80027
+	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 19:51:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E29B3F80027
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=G/3ZhP+a;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=4wVSFv6R
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=a0IEi1hW
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 750962188D;
-	Fri, 18 Aug 2023 17:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692379964;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=298+RGsHxVRuLELFU08aTI9N02wy5sfYR26qB9BOyks=;
-	b=G/3ZhP+arvMQsKd6ghvlGcilBwdreiEDIGDBnwj1c7lJM2Q22UU2euubdptFpJFFpxZZK5
-	M+cD8lRpDrbVXg7hRjXydkLrN0A/w5g0vPQ89VHV98uPHUoljxu1KY2MN5yEtR/x5p+Bt0
-	y25yYwKKD95FbLp7pd3JnOdCFOTbCuY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692379964;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=298+RGsHxVRuLELFU08aTI9N02wy5sfYR26qB9BOyks=;
-	b=4wVSFv6Rz3b4Vc0GGzdSX6xUA97zexzMXWRZp5GZ7mbcFOGnXcpS7TV0VtyfL6MFiW1pRm
-	0gmr+lSFcvOmUQAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 16853138F0;
-	Fri, 18 Aug 2023 17:32:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +199BDyr32Q9GQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 18 Aug 2023 17:32:44 +0000
-Date: Fri, 18 Aug 2023 19:32:43 +0200
-Message-ID: <87r0o0gssk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Shenghao Ding <shenghao-ding@ti.com>,
-	robh+dt@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	kevin-lu@ti.com,
-	13916275206@139.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com,
-	mengdong.lin@intel.com,
-	baojun.xu@ti.com,
-	thomas.gfeller@q-drop.com,
-	peeyush@ti.com,
-	navada@ti.com,
-	broonie@kernel.org,
-	gentuser@gmail.com
-Subject: Re: [PATCH v4 1/2] ALSA: hda/tas2781: Add tas2781 HDA driver
-In-Reply-To: <72960354-3f69-e2fa-e7b0-dc8b61ca4940@linux.intel.com>
-References: <20230818085836.1442-1-shenghao-ding@ti.com>
-	<87pm3kk63a.wl-tiwai@suse.de>
-	<72960354-3f69-e2fa-e7b0-dc8b61ca4940@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: WLCSIMOPO7M54TVN4FZAUB5DZG3S2LRW
-X-Message-ID-Hash: WLCSIMOPO7M54TVN4FZAUB5DZG3S2LRW
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 90C8662AE8;
+	Fri, 18 Aug 2023 17:51:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65481C433C7;
+	Fri, 18 Aug 2023 17:51:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692381104;
+	bh=YUfZpjex5Jf2OeOEtyGtdCbFAvj6VJB5L0xNXxOdcd0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=a0IEi1hWhfKi9mpGL7tu1jvBlOF1Qw+voiSXc9F2UaJKL7ScnoI69/mNUCSuncfFX
+	 crjSRpSkdedyh+fnqckKNqnPlAFYPQEG6IMwcvy2oZofMl8nUh8ukB1EC2UksjZHmu
+	 ri4nraS6+PyUFMWIRCkHpky3LSaLZM3ccsiMtRuPWf2Vtv3Zo76+9nbxp1wg6Kseb1
+	 2MsQzQ+1rLQrXTvubJUiQYizWheqraeCabHAjR5EiVH2uOBjwpQRsE2+kmccHxFSVu
+	 W+09pHWpchGebbVNqkw8mrw92TpHSrI00wtN5bNbhdBVY7q/EDoFz+j9cOk2LiVUZU
+	 /ETKFHcjaoirw==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, shumingf@realtek.com
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com
+In-Reply-To: <20230818023732.2153170-1-shumingf@realtek.com>
+References: <20230818023732.2153170-1-shumingf@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5645: improve the depop sequences of CBJ
+ detection
+Message-Id: <169238110211.55727.6839300042021267722.b4-ty@kernel.org>
+Date: Fri, 18 Aug 2023 18:51:42 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: AC6P2O7POV3JHGUQGXAU5TSZGIS675LU
+X-Message-ID-Hash: AC6P2O7POV3JHGUQGXAU5TSZGIS675LU
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLCSIMOPO7M54TVN4FZAUB5DZG3S2LRW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AC6P2O7POV3JHGUQGXAU5TSZGIS675LU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,32 +98,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 18 Aug 2023 18:36:16 +0200,
-Pierre-Louis Bossart wrote:
+On Fri, 18 Aug 2023 02:37:32 +0000, shumingf@realtek.com wrote:
+> This patch will improve the depop function of CBJ detection before the headphone playback
+> when the system resumes.
+> We also want to complete the CBJ detection in the system-level resume function.
+> It could avoid triggering the detection at the playing state of headphones.
 > 
 > 
-> 
-> On 8/18/23 05:17, Takashi Iwai wrote:
-> > On Fri, 18 Aug 2023 10:58:35 +0200,
-> > Shenghao Ding wrote:
-> >>
-> >> Integrate tas2781 configs for Lenovo Laptops. All of the tas2781s in the
-> >> laptop will be aggregated as one audio device. The code support realtek
-> >> as the primary codec. Rename "struct cs35l41_dev_name" to
-> >> "struct scodec_dev_name" for all other side codecs instead of the certain
-> >> one.
-> >>
-> >> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
-> > 
-> > Now I applied both patches to for-next branch.
-> > 
-> > The patch 2 needed some minor adjustment in Kconfig to be applied to
-> > the latest branch, but I resolved it locally.
-> 
-> There are a number of issues I just reported, I guess they will have to
-> be handled with a follow-up patch now?
 
-Yes, let's fix incrementally on the top.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/1] ASoC: rt5645: improve the depop sequences of CBJ detection
+      commit: aa98697c7dbd8dcb30841ca48456e7d534209d6d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

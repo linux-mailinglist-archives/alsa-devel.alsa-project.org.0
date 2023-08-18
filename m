@@ -2,84 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F1F780EB8
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 17:12:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F273C780EF9
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 17:20:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FEE6E7B;
-	Fri, 18 Aug 2023 17:11:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FEE6E7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83A4EE79;
+	Fri, 18 Aug 2023 17:19:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83A4EE79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692371544;
-	bh=yHhhW5FtMql57N+ApWe/gEyoOJb9Tr3NYbQV103gEF0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1692372027;
+	bh=GxRTefvms6UPAI34nQuHOk5aDqqtgeQyGS2Dc1y2SWk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XzJVqAAY3tQ3hW8D9e//6305Qv80P5xC2Ix2NHiu3R4Mon9co2LzbE3QM9rf0ghSc
-	 N00+EyaL5ReSaQZlWkQF9m2pmInl9NLyk+XqhgHetVtH7zGibWjCO0YQ66XNSaHgMM
-	 BvG/bTHMR77si8cMLl2QgpycNAOn+24vidppr1EQ=
+	b=NNTOz8B8wA6UJd/tbFbSRmdwedRjeO9bryqtYC7wU5nATXxIIDvF7Ks8BT+s//F0V
+	 CzD84VzIjHoQO8tR/pEcTzDgIbk1ES71pshMXzTJePplDYbIKI1oQfXaMOkKGk8q7J
+	 UOLchCsk7Ot3csBETh2KR2qT5bv7dULpWf/N97zo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B5B2F800EE; Fri, 18 Aug 2023 17:11:05 +0200 (CEST)
+	id 42C07F801EB; Fri, 18 Aug 2023 17:19:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E1C3F8016D;
-	Fri, 18 Aug 2023 17:11:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80942F8016D;
+	Fri, 18 Aug 2023 17:19:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BECCF800D1; Fri, 18 Aug 2023 17:09:19 +0200 (CEST)
+	id 550DEF801EB; Fri, 18 Aug 2023 17:19:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B671F800D1
-	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 17:08:48 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5C42F1A70;
-	Fri, 18 Aug 2023 17:08:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5C42F1A70
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1692371327; bh=nzVlE4QWqATao/UWngAEHK7Edi86bui8+4UGbFG3X4k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hp1NBrs26icK6crJOClXKNKfkYPwfufLZUlrNxcv7MHYc2HpxKvK8rSS+MQdxGgGf
-	 90l7sFhGHT99gsGx2GsF/uThtPXDgg7ph0mnfmIjuHlzppKDNIoqUNQhKrlAxY8BOZ
-	 4+f2gAwnDpu6vRoZnQiKTiRXjLvQSOjm2d6LGzvY=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7A14BF80027
+	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 17:19:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A14BF80027
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=sU/9VyQ3
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Fri, 18 Aug 2023 17:08:36 +0200 (CEST)
-Message-ID: <b23c2ef1-7c9f-5eca-f61d-6f6994226ddc@perex.cz>
-Date: Fri, 18 Aug 2023 17:08:35 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
+	by dfw.source.kernel.org (Postfix) with ESMTPS id DEF316799F;
+	Fri, 18 Aug 2023 15:19:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067CDC433C7;
+	Fri, 18 Aug 2023 15:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692371940;
+	bh=GxRTefvms6UPAI34nQuHOk5aDqqtgeQyGS2Dc1y2SWk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sU/9VyQ3x81U+aUA1zxO3Xol2oL/0v1xWFDIRJgr2RHb996ub+nm5e/BgBaR/sNwm
+	 w9hZTfRzW6rx/sVx1FB/mtY/pkdVEc+cQKnAnl2OdmxvXbhT23UQz8QuqLGWb9EKpS
+	 YB45U18YiQQuEP6Clg8zjDyo5tRyjKmEaP4qudDBS6jtuKm4zR/8TLMsNzVIISYVXh
+	 ZGOiYEEyF43dGiaZ4v6+LKy/zzleizcdqv5PE0iMQOGFS+N8SWl47eQmzJLi6jmFRi
+	 DM6nXPuplKDAtitz50/5O09YbMANQIDRKiMJ8Z+0e9zujLLwDjGlZk1Zx16bGUCGMx
+	 TnYllbd8wrrAw==
+Date: Fri, 18 Aug 2023 16:18:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+	ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+	rander.wang@intel.com, guennadi.liakhovetski@linux.intel.com,
+	yung-chuan.liao@linux.intel.com, regressions@leemhuis.info
 Subject: Re: [PATCH] ASoC: SOF: intel: hda: Clean up link DMA for IPC3 during
  stop
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com, guennadi.liakhovetski@linux.intel.com,
- yung-chuan.liao@linux.intel.com, regressions@leemhuis.info
+Message-ID: <8428b13b-50c4-4db5-8de9-7a9b165f6254@sirena.org.uk>
 References: <20230808110627.32375-1-peter.ujfalusi@linux.intel.com>
  <169151742693.78353.2991484643013989552.b4-ty@kernel.org>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <169151742693.78353.2991484643013989552.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 4636MBSH3NZOUVTXVRLHIPLNOTIJJBZG
-X-Message-ID-Hash: 4636MBSH3NZOUVTXVRLHIPLNOTIJJBZG
-X-MailFrom: perex@perex.cz
+ <b23c2ef1-7c9f-5eca-f61d-6f6994226ddc@perex.cz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k13XKuDncwfGPUGw"
+Content-Disposition: inline
+In-Reply-To: <b23c2ef1-7c9f-5eca-f61d-6f6994226ddc@perex.cz>
+X-Cookie: Your aim is high and to the right.
+Message-ID-Hash: PT5XW5ITQBA6I2T75LMYEWFPBA2QKQUL
+X-Message-ID-Hash: PT5XW5ITQBA6I2T75LMYEWFPBA2QKQUL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4636MBSH3NZOUVTXVRLHIPLNOTIJJBZG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PT5XW5ITQBA6I2T75LMYEWFPBA2QKQUL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,31 +104,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 08. 08. 23 19:57, Mark Brown wrote:
-> On Tue, 08 Aug 2023 14:06:27 +0300, Peter Ujfalusi wrote:
->> With IPC3, we reset hw_params during the stop trigger, so we should also
->> clean up the link DMA during the stop trigger.
->>
->>
-> 
-> Applied to
-> 
->     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> 
-> Thanks!
-> 
-> [1/1] ASoC: SOF: intel: hda: Clean up link DMA for IPC3 during stop
->        commit: 90219f1bd273055f1dc1d7bdc0965755b992c045
 
-Hi Mark,
+--k13XKuDncwfGPUGw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-	if it's not late, this patch should be also applied to the 6.5 tree. It seems 
-that many new laptops are affected (sound may be really weird when an underrun 
-occurs on those devices and users are not really happy).
+On Fri, Aug 18, 2023 at 05:08:35PM +0200, Jaroslav Kysela wrote:
+> On 08. 08. 23 19:57, Mark Brown wrote:
 
-						Jaroslav
+> > [1/1] ASoC: SOF: intel: hda: Clean up link DMA for IPC3 during stop
+> >        commit: 90219f1bd273055f1dc1d7bdc0965755b992c045
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 	if it's not late, this patch should be also applied to the 6.5 tree. It
+> seems that many new laptops are affected (sound may be really weird when an
+> underrun occurs on those devices and users are not really happy).
 
+It was applied for 6.5, the reports always say for-next due to
+difficulties with serieses which mix fixes and new development.
+
+--k13XKuDncwfGPUGw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTfi90ACgkQJNaLcl1U
+h9BCEwf/cdDLUCJ/TOK3sF7KNBeR62V5dZZJzpWMH4vK8phjkl+vhto5Ktjtd8KQ
+FkPNYbBufMn5KsPkdt+qtIwkEmb6UUCX148b/ot5TFi4K36DWIEhNUtr+jFXP+1J
+Wo1KFPjejh5xWVBjNhpsxWNKke74liX3qM45VuG3Ptm4fEUPCTJgqlNnfJXOY9tq
+Mg96fhA/qYsrChBsXCh55kh6qen/Lrfzis9rO02J3jgWMMmitEIxQ8ACSDLYZqR1
+QfCYH0U9DyCebLAmu/P62vR4w1nJ2ntqwivuAUl/0Pvom8n4H/4TmcE6rnOnRsEH
+L8IIks5b+9qYQZJsQC0sw0aTpmnuVw==
+=e4T7
+-----END PGP SIGNATURE-----
+
+--k13XKuDncwfGPUGw--

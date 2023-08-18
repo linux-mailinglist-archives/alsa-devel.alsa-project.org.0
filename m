@@ -2,95 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9116C7807A8
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 11:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0DA7809DF
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Aug 2023 12:18:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15C7BDF3;
-	Fri, 18 Aug 2023 10:59:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15C7BDF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF299DEE;
+	Fri, 18 Aug 2023 12:17:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF299DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692349239;
-	bh=dDT352EL50Q3lxKRbO5fuKIKA8ZhhJjb/8B/BK/IZWY=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1692353896;
+	bh=GAHjwOuOiaX13sRPU1KkPGKFdKXOFoN1Kem1nI+3fzA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VYBTiHFhPpPpkJxs7Y13QvMssJNpDyhRZUE6WD0QTy+cw7r8F9H1P6REToJcNJmtE
-	 F+FTdsMKcbPf+0BUpn9ceKkzJH/ndk3pvqHisVvYwo4yxuW8iQ0NFDUlb1TZA7yKx4
-	 SweC45HspctwiUz1qZHRSNJ3jTBDcGPqSc66bmNE=
+	b=a2gTdAATzRfBr7j4bmT6nZcKdcJDwXtwXVG+SzxIwclViZicUEWlHJWF5/WVHREGE
+	 sauJLyO7MFCpsKZRrXnQvcLPIP39K7zfyU93l1dBxjWCwpvoZlz/EqHZhyvJZ3Nhnk
+	 JUsc8al/o++A4ZkFjgkOf4S+MoE7pHPVuxd4biyM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C22CBF8055A; Fri, 18 Aug 2023 10:59:06 +0200 (CEST)
+	id 26FA4F801EB; Fri, 18 Aug 2023 12:17:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26B97F80551;
-	Fri, 18 Aug 2023 10:59:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B16F8F8016D;
+	Fri, 18 Aug 2023 12:17:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B509F80551; Fri, 18 Aug 2023 10:59:01 +0200 (CEST)
+	id 515ABF801EB; Fri, 18 Aug 2023 12:17:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C0BCF8016D
-	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 10:58:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C0BCF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 50E6DF800EE
+	for <alsa-devel@alsa-project.org>; Fri, 18 Aug 2023 12:17:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50E6DF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=cAvww6Db
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37I8wpQb109298;
-	Fri, 18 Aug 2023 03:58:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1692349131;
-	bh=7cTTPXJcm6X0vmEIr+RHvqhPP4UaVFIxBRjgECImo24=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=cAvww6DbymBmWbWwYI+dzQeld2w8mtNzcxP8KTAWRuiUFW0jNFneQQwaz55GPKEPE
-	 D03WIIqLxFIn0xO/Jsmed9+rXaGbNYv4A7ERG5Yvd5WY+a+D4NQSajhJRU9WI7kmbj
-	 t56FHNimAEW/XyobCTRH0Pp9duOlX3PhnGWhqYCk=
-Received: from DLEE101.ent.ti.com (dlee101.ent.ti.com [157.170.170.31])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37I8wpFo100943
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 18 Aug 2023 03:58:51 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE101.ent.ti.com
- (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 18
- Aug 2023 03:58:51 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 18 Aug 2023 03:58:51 -0500
-Received: from LT5CG31242FY.dhcp.ti.com (ileaxei01-snat.itg.ti.com
- [10.180.69.5])
-	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37I8wdei043219;
-	Fri, 18 Aug 2023 03:58:46 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <tiwai@suse.de>
-CC: <robh+dt@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-        <pierre-louis.bossart@linux.intel.com>, <kevin-lu@ti.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <mengdong.lin@intel.com>, <baojun.xu@ti.com>,
-        <thomas.gfeller@q-drop.com>, <peeyush@ti.com>, <navada@ti.com>,
-        <broonie@kernel.org>, <gentuser@gmail.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v4 2/2] ALSA: hda/tas2781: Add tas2781 HDA driver
-Date: Fri, 18 Aug 2023 16:58:36 +0800
-Message-ID: <20230818085836.1442-2-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=qvPVRoi1;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Q/5lgb9U
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A89FB2188D;
+	Fri, 18 Aug 2023 10:17:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692353834;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BYisVhjzBtNvMsNO+gyp4nsCbBBFCBxIVuhNBVxepFA=;
+	b=qvPVRoi17SO7J5UkpXQ8RgQuouEciiIUqsukMef1RldO0bO2MibfciO4DKYErxhcHMsXk/
+	e9aKmD1gI1BJuezYUFfz5X32Ow+sVSNscR4IE/DQd8sI+NZCwcUGSdZSo6Gt9PRDZ23c8Y
+	A1tsfCT0mFKxMvoS4joAEvdluTvoM9c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692353834;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BYisVhjzBtNvMsNO+gyp4nsCbBBFCBxIVuhNBVxepFA=;
+	b=Q/5lgb9UMgx8UuAn7KD6WztlGsSooJ9PPw7ejRguqzBAOlTnbi+UuFoxNp+TSTWR7U8dZ0
+	r5SsNc3Mx8fTcSDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4BEFC138F0;
+	Fri, 18 Aug 2023 10:17:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id z/mGESpF32R5QAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 18 Aug 2023 10:17:14 +0000
+Date: Fri, 18 Aug 2023 12:17:13 +0200
+Message-ID: <87pm3kk63a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: <robh+dt@kernel.org>,
+	<lgirdwood@gmail.com>,
+	<perex@perex.cz>,
+	<pierre-louis.bossart@linux.intel.com>,
+	<kevin-lu@ti.com>,
+	<13916275206@139.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<liam.r.girdwood@intel.com>,
+	<mengdong.lin@intel.com>,
+	<baojun.xu@ti.com>,
+	<thomas.gfeller@q-drop.com>,
+	<peeyush@ti.com>,
+	<navada@ti.com>,
+	<broonie@kernel.org>,
+	<gentuser@gmail.com>
+Subject: Re: [PATCH v4 1/2] ALSA: hda/tas2781: Add tas2781 HDA driver
 In-Reply-To: <20230818085836.1442-1-shenghao-ding@ti.com>
 References: <20230818085836.1442-1-shenghao-ding@ti.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: HBCIYGU5ZMHZMZGIZG2LHP75NZMGTMHL
-X-Message-ID-Hash: HBCIYGU5ZMHZMZGIZG2LHP75NZMGTMHL
-X-MailFrom: shenghao-ding@ti.com
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: V2TKZNOA5ZZR5PY4F4DLQBSYFPVSVD6Z
+X-Message-ID-Hash: V2TKZNOA5ZZR5PY4F4DLQBSYFPVSVD6Z
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,974 +122,31 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HBCIYGU5ZMHZMZGIZG2LHP75NZMGTMHL/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V2TKZNOA5ZZR5PY4F4DLQBSYFPVSVD6Z/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Create tas2781 side codec HDA driver for Lenovo Laptops. The quantity
-of the speakers has been define in ACPI. All of the tas2781s in the
-laptop will be aggregated as one audio speaker. The code supports
-realtek codec as the primary codec. Code offers several controls for
-digtial/analog gain setting during playback, and other for eq params
-setting in case of different audio profiles, such as music, voice,
-movie, etc.
+On Fri, 18 Aug 2023 10:58:35 +0200,
+Shenghao Ding wrote:
+> 
+> Integrate tas2781 configs for Lenovo Laptops. All of the tas2781s in the
+> laptop will be aggregated as one audio device. The code support realtek
+> as the primary codec. Rename "struct cs35l41_dev_name" to
+> "struct scodec_dev_name" for all other side codecs instead of the certain
+> one.
+> 
+> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Now I applied both patches to for-next branch.
 
----
-Changes in v4:
- - oprimize the indentation
- - fix the ambiguous error message
- - The check of the given value to kcontrol's put func is in the sound/tas2781-comlib.c
- - In tasdevice_info_programs, corrected max value
- - Seperate snd_kcontrol_new tas2781_dsp_controls into two standalone kcontrol.
- - All the controls set as const static
- - Add static for page_array & rgno_array
- - Remove uncessary blank lines
- - Add descriptions for tas2781_save_calibration
- - remove global addr handling in the code
- - checking subid in switch statement in function tas2781_hda_bind
- - add force firmware load Kcontrol
- - rename the kcontrol name to be more undertandable
- - remove Superfluous cast in tasdevice_fw_ready
- - correct weird line break in function tas2781_acpi_get_i2c_resource
- - correct Referencing adev after acpi_dev_put() in tas2781_hda_read_acpi
- - As to checking the given value in tasdevice_set_profile_id, it seems done
-   by the tasdevice_info_profile
- - replace strcpy with strscpy in tas2781_hda_read_acpi
- - rewrite the subid judgement
- - Add tiwai@suse.de into Cc list
- - remove the cast in tas2781_acpi_get_i2c_resource
- - remove else in tas2781_acpi_get_i2c_resource
- - fix the return value in tasdevice_set_profile_id
- - remove unneeded NL in tasdevice_config_get
- - Unifiy the comment style
- - remove ret = 0 in tasdevice_fw_ready
- - remove ret in tas2781_save_calibration
- - remove unused ret in tas2781_hda_playback
- - add force firmware load Kcontrol
----
- sound/pci/hda/Kconfig           |  15 +
- sound/pci/hda/Makefile          |   2 +
- sound/pci/hda/tas2781_hda_i2c.c | 858 ++++++++++++++++++++++++++++++++
- 3 files changed, 875 insertions(+)
- create mode 100644 sound/pci/hda/tas2781_hda_i2c.c
+The patch 2 needed some minor adjustment in Kconfig to be applied to
+the latest branch, but I resolved it locally.
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 886255a03e8b..e66257277492 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -130,6 +130,21 @@ config SND_HDA_SCODEC_CS35L41_SPI
- comment "Set to Y if you want auto-loading the side codec driver"
- 	depends on SND_HDA=y && SND_HDA_SCODEC_CS35L41_SPI=m
- 
-+config SND_HDA_SCODEC_TAS2781_I2C
-+	tristate "Build TAS2781 HD-audio side codec support for I2C Bus"
-+	depends on I2C
-+	depends on ACPI
-+	depends on SND_SOC
-+	select SND_SOC_TAS2781_COMLIB
-+	select SND_SOC_TAS2781_FMWLIB
-+	select CRC32_SARWATE
-+	help
-+	  Say Y or M here to include TAS2781 I2C HD-audio side codec support
-+	  in snd-hda-intel driver, such as ALC287.
-+
-+comment "Set to Y if you want auto-loading the side codec driver"
-+	depends on SND_HDA=y && SND_HDA_SCODEC_TAS2781_I2C=m
-+
- config SND_HDA_CODEC_REALTEK
- 	tristate "Build Realtek HD-audio codec support"
- 	select SND_HDA_GENERIC
-diff --git a/sound/pci/hda/Makefile b/sound/pci/hda/Makefile
-index 00d306104484..1c76609690d6 100644
---- a/sound/pci/hda/Makefile
-+++ b/sound/pci/hda/Makefile
-@@ -32,6 +32,7 @@ snd-hda-scodec-cs35l41-objs :=		cs35l41_hda.o
- snd-hda-scodec-cs35l41-i2c-objs :=	cs35l41_hda_i2c.o
- snd-hda-scodec-cs35l41-spi-objs :=	cs35l41_hda_spi.o
- snd-hda-cs-dsp-ctls-objs :=		hda_cs_dsp_ctl.o
-+snd-hda-scodec-tas2781-i2c-objs :=	tas2781_hda_i2c.o
- 
- # common driver
- obj-$(CONFIG_SND_HDA) := snd-hda-codec.o
-@@ -56,6 +57,7 @@ obj-$(CONFIG_SND_HDA_SCODEC_CS35L41) += snd-hda-scodec-cs35l41.o
- obj-$(CONFIG_SND_HDA_SCODEC_CS35L41_I2C) += snd-hda-scodec-cs35l41-i2c.o
- obj-$(CONFIG_SND_HDA_SCODEC_CS35L41_SPI) += snd-hda-scodec-cs35l41-spi.o
- obj-$(CONFIG_SND_HDA_CS_DSP_CONTROLS) += snd-hda-cs-dsp-ctls.o
-+obj-$(CONFIG_SND_HDA_SCODEC_TAS2781_I2C) += snd-hda-scodec-tas2781-i2c.o
- 
- # this must be the last entry after codec drivers;
- # otherwise the codec patches won't be hooked before the PCI probe
-diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-new file mode 100644
-index 000000000000..84481befb803
---- /dev/null
-+++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -0,0 +1,858 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// TAS2781 HDA I2C driver
-+//
-+// Copyright 2023 Texas Instruments, Inc.
-+//
-+// Author: Shenghao Ding <shenghao-ding@ti.com>
-+
-+#include <linux/acpi.h>
-+#include <linux/crc8.h>
-+#include <linux/crc32.h>
-+#include <linux/efi.h>
-+#include <linux/firmware.h>
-+#include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <sound/hda_codec.h>
-+#include <sound/soc.h>
-+#include <sound/tas2781.h>
-+#include <sound/tlv.h>
-+#include <sound/tas2781-tlv.h>
-+
-+#include "hda_local.h"
-+#include "hda_auto_parser.h"
-+#include "hda_component.h"
-+#include "hda_jack.h"
-+#include "hda_generic.h"
-+
-+#define TASDEVICE_SPEAKER_CALIBRATION_SIZE	20
-+
-+/* No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
-+ * Define two controls, one is Volume control callbacks, the other is
-+ * flag setting control callbacks.
-+ */
-+
-+/* Volume control callbacks for tas2781 */
-+#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
-+	xhandler_get, xhandler_put, tlv_array) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname),\
-+	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
-+		 SNDRV_CTL_ELEM_ACCESS_READWRITE,\
-+	.tlv.p = (tlv_array), \
-+	.info = snd_soc_info_volsw_range, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = (unsigned long)&(struct soc_mixer_control) \
-+		{.reg = xreg, .rreg = xreg, .shift = xshift, \
-+		 .rshift = xshift, .min = xmin, .max = xmax, \
-+		 .invert = xinvert} }
-+
-+/* Flag control callbacks for tas2781 */
-+#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = xname, \
-+	.info = snd_ctl_boolean_mono_info, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = xdata }
-+
-+enum calib_data {
-+	R0_VAL = 0,
-+	INV_R0,
-+	R0LOW,
-+	POWER,
-+	TLIM,
-+	CALIB_MAX
-+};
-+
-+static int tas2781_get_i2c_res(struct acpi_resource *ares, void *data)
-+{
-+	struct tasdevice_priv *tas_priv = data;
-+	struct acpi_resource_i2c_serialbus *sb;
-+
-+	if (i2c_acpi_get_i2c_resource(ares, &sb)) {
-+		if (tas_priv->ndev < TASDEVICE_MAX_CHANNELS &&
-+			sb->slave_address != TAS2781_GLOBAL_ADDR) {
-+			tas_priv->tasdevice[tas_priv->ndev].dev_addr =
-+				(unsigned int)sb->slave_address;
-+			tas_priv->ndev++;
-+		}
-+	}
-+	return 1;
-+}
-+
-+static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
-+{
-+	struct acpi_device *adev;
-+	struct device *physdev;
-+	LIST_HEAD(resources);
-+	const char *sub;
-+	int ret;
-+
-+	adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
-+	if (!adev) {
-+		dev_err(p->dev,
-+			"Failed to find an ACPI device for %s\n", hid);
-+		return -ENODEV;
-+	}
-+
-+	ret = acpi_dev_get_resources(adev, &resources, tas2781_get_i2c_res, p);
-+	if (ret < 0)
-+		goto err;
-+
-+	acpi_dev_free_resource_list(&resources);
-+	strscpy(p->dev_name, hid, sizeof(p->dev_name));
-+	physdev = get_device(acpi_get_first_physical_node(adev));
-+	acpi_dev_put(adev);
-+
-+	/* No side-effect to the playback even if subsystem_id is NULL*/
-+	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
-+	if (IS_ERR(sub))
-+		sub = NULL;
-+
-+	p->acpi_subsystem_id = sub;
-+
-+	put_device(physdev);
-+
-+	return 0;
-+
-+err:
-+	dev_err(p->dev, "read acpi error, ret: %d\n", ret);
-+	put_device(physdev);
-+
-+	return ret;
-+}
-+
-+static void tas2781_hda_playback_hook(struct device *dev, int action)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+
-+	dev_dbg(tas_priv->dev, "%s: action = %d\n", __func__, action);
-+	switch (action) {
-+	case HDA_GEN_PCM_ACT_OPEN:
-+		pm_runtime_get_sync(dev);
-+		mutex_lock(&tas_priv->codec_lock);
-+		tasdevice_tuning_switch(tas_priv, 0);
-+		mutex_unlock(&tas_priv->codec_lock);
-+		break;
-+	case HDA_GEN_PCM_ACT_CLOSE:
-+		mutex_lock(&tas_priv->codec_lock);
-+		tasdevice_tuning_switch(tas_priv, 1);
-+		mutex_unlock(&tas_priv->codec_lock);
-+
-+		pm_runtime_mark_last_busy(dev);
-+		pm_runtime_put_autosuspend(dev);
-+		break;
-+	default:
-+		dev_dbg(tas_priv->dev, "Playback action not supported: %d\n",
-+			action);
-+		break;
-+	}
-+}
-+
-+static int tasdevice_info_profile(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_info *uinfo)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = tas_priv->rcabin.ncfgs - 1;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_get_profile_id(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = tas_priv->rcabin.profile_cfg_id;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_hda_clamp(int val, int max)
-+{
-+	if (val > max)
-+		val = max;
-+
-+	if (val < 0)
-+		val = 0;
-+	return val;
-+}
-+
-+static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	int nr_profile = ucontrol->value.integer.value[0];
-+	int max = tas_priv->rcabin.ncfgs - 1;
-+	int val, ret = 0;
-+
-+	val = tasdevice_hda_clamp(nr_profile, max);
-+
-+	if (tas_priv->rcabin.profile_cfg_id != val) {
-+		tas_priv->rcabin.profile_cfg_id = val;
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
-+static int tasdevice_info_programs(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_info *uinfo)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = tas_fw->nr_programs - 1;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_info_config(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_info *uinfo)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = tas_fw->nr_configurations - 1;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_program_get(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = tas_priv->cur_prog;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_program_put(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+	int nr_program = ucontrol->value.integer.value[0];
-+	int max = tas_fw->nr_programs - 1;
-+	int val, ret = 0;
-+
-+	val = tasdevice_hda_clamp(nr_program, max);
-+
-+	if (tas_priv->cur_prog != val) {
-+		tas_priv->cur_prog = val;
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
-+static int tasdevice_config_get(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = tas_priv->cur_conf;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_config_put(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+	int nr_config = ucontrol->value.integer.value[0];
-+	int max = tas_fw->nr_configurations - 1;
-+	int val, ret = 0;
-+
-+	val = tasdevice_hda_clamp(nr_config, max);
-+
-+	if (tas_priv->cur_conf != val) {
-+		tas_priv->cur_conf = val;
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
-+/*
-+ * tas2781_digital_getvol - get the volum control
-+ * @kcontrol: control pointer
-+ * @ucontrol: User data
-+ * Customer Kcontrol for tas2781 is primarily for regmap booking, paging
-+ * depends on internal regmap mechanism.
-+ * tas2781 contains book and page two-level register map, especially
-+ * book switching will set the register BXXP00R7F, after switching to the
-+ * correct book, then leverage the mechanism for paging to access the
-+ * register.
-+ */
-+static int tas2781_digital_getvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	return tasdevice_digital_getvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_amp_getvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	return tasdevice_amp_getvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_digital_putvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	/* The check of the given value is in tasdevice_digital_putvol. */
-+	return tasdevice_digital_putvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_amp_putvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	/* The check of the given value is in tasdevice_amp_putvol. */
-+	return tasdevice_amp_putvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_force_fwload_get(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = (int)tas_priv->force_fwload_status;
-+	dev_dbg(tas_priv->dev, "%s : Force FWload %s\n", __func__,
-+			tas_priv->force_fwload_status ? "ON" : "OFF");
-+
-+	return 0;
-+}
-+
-+static int tas2781_force_fwload_put(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	bool change, val = (bool)ucontrol->value.integer.value[0];
-+
-+	if (tas_priv->force_fwload_status == val)
-+		change = false;
-+	else {
-+		change = true;
-+		tas_priv->force_fwload_status = val;
-+	}
-+	dev_dbg(tas_priv->dev, "%s : Force FWload %s\n", __func__,
-+		tas_priv->force_fwload_status ? "ON" : "OFF");
-+
-+	return change;
-+}
-+
-+static const struct snd_kcontrol_new tas2781_snd_controls[] = {
-+	ACARD_SINGLE_RANGE_EXT_TLV("Speaker Analog Gain", TAS2781_AMP_LEVEL,
-+		1, 0, 20, 0, tas2781_amp_getvol,
-+		tas2781_amp_putvol, amp_vol_tlv),
-+	ACARD_SINGLE_RANGE_EXT_TLV("Speaker Digital Gain", TAS2781_DVC_LVL,
-+		0, 0, 200, 1, tas2781_digital_getvol,
-+		tas2781_digital_putvol, dvc_tlv),
-+	ACARD_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
-+		tas2781_force_fwload_get, tas2781_force_fwload_put),
-+};
-+
-+static const struct snd_kcontrol_new tas2781_prof_ctrl = {
-+	.name = "Speaker Profile Id",
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.info = tasdevice_info_profile,
-+	.get = tasdevice_get_profile_id,
-+	.put = tasdevice_set_profile_id,
-+};
-+
-+static const struct snd_kcontrol_new tas2781_dsp_prog_ctrl = {
-+	.name = "Speaker Program Id",
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.info = tasdevice_info_programs,
-+	.get = tasdevice_program_get,
-+	.put = tasdevice_program_put,
-+};
-+
-+static const struct snd_kcontrol_new tas2781_dsp_conf_ctrl = {
-+	.name = "Speaker Config Id",
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.info = tasdevice_info_config,
-+	.get = tasdevice_config_get,
-+	.put = tasdevice_config_put,
-+};
-+
-+static void tas2781_apply_calib(struct tasdevice_priv *tas_priv)
-+{
-+	static const unsigned char page_array[CALIB_MAX] = {
-+		0x17, 0x18, 0x18, 0x0d, 0x18
-+	};
-+	static const unsigned char rgno_array[CALIB_MAX] = {
-+		0x74, 0x0c, 0x14, 0x3c, 0x7c
-+	};
-+	unsigned char *data;
-+	int i, j, rc;
-+
-+	for (i = 0; i < tas_priv->ndev; i++) {
-+		data = tas_priv->cali_data.data +
-+			i * TASDEVICE_SPEAKER_CALIBRATION_SIZE;
-+		for (j = 0; j < CALIB_MAX; j++) {
-+			rc = tasdevice_dev_bulk_write(tas_priv, i,
-+				TASDEVICE_REG(0, page_array[j], rgno_array[j]),
-+				&(data[4 * j]), 4);
-+			if (rc < 0)
-+				dev_err(tas_priv->dev,
-+					"chn %d calib %d bulk_wr err = %d\n",
-+					i, j, rc);
-+		}
-+	}
-+}
-+
-+/* Update the calibrate data, including speaker impedance, f0, etc, into algo.
-+ * Calibrate data is done by manufacturer in the factory. These data are used
-+ * by Algo for calucating the speaker temperature, speaker membrance excursion
-+ * and f0 in real time during playback.
-+ */
-+static int tas2781_save_calibration(struct tasdevice_priv *tas_priv)
-+{
-+	efi_guid_t efi_guid = EFI_GUID(0x02f9af02, 0x7734, 0x4233, 0xb4, 0x3d,
-+		0x93, 0xfe, 0x5a, 0xa3, 0x5d, 0xb3);
-+	static efi_char16_t efi_name[] = L"CALI_DATA";
-+	struct tm *tm = &tas_priv->tm;
-+	unsigned int attr, crc;
-+	unsigned int *tmp_val;
-+	efi_status_t status;
-+
-+	/* Lenovo devices */
-+	if (tas_priv->catlog_id == LENOVO)
-+		efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc, 0x09,
-+			0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
-+
-+	tas_priv->cali_data.total_sz = 0;
-+	/* Get real size of UEFI variable */
-+	status = efi.get_variable(efi_name, &efi_guid, &attr,
-+		&tas_priv->cali_data.total_sz, tas_priv->cali_data.data);
-+	if (status == EFI_BUFFER_TOO_SMALL) {
-+		/* Allocate data buffer of data_size bytes */
-+		tas_priv->cali_data.data = devm_kzalloc(tas_priv->dev,
-+			tas_priv->cali_data.total_sz, GFP_KERNEL);
-+		if (!tas_priv->cali_data.data)
-+			return -ENOMEM;
-+		/* Get variable contents into buffer */
-+		status = efi.get_variable(efi_name, &efi_guid, &attr,
-+			&tas_priv->cali_data.total_sz,
-+			tas_priv->cali_data.data);
-+		if (status != EFI_SUCCESS)
-+			return -EINVAL;
-+	}
-+
-+	tmp_val = (unsigned int *)tas_priv->cali_data.data;
-+
-+	crc = crc32(~0, tas_priv->cali_data.data, 84) ^ ~0;
-+	dev_dbg(tas_priv->dev, "cali crc 0x%08x PK tmp_val 0x%08x\n",
-+		crc, tmp_val[21]);
-+
-+	if (crc == tmp_val[21]) {
-+		time64_to_tm(tmp_val[20], 0, tm);
-+		dev_dbg(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
-+			tm->tm_year, tm->tm_mon, tm->tm_mday,
-+			tm->tm_hour, tm->tm_min, tm->tm_sec);
-+		tas2781_apply_calib(tas_priv);
-+	} else
-+		tas_priv->cali_data.total_sz = 0;
-+
-+	return 0;
-+}
-+
-+static void tasdev_fw_ready(const struct firmware *fmw, void *context)
-+{
-+	struct tasdevice_priv *tas_priv = context;
-+	struct hda_codec *codec = tas_priv->codec;
-+	int i, ret;
-+
-+	pm_runtime_get_sync(tas_priv->dev);
-+	mutex_lock(&tas_priv->codec_lock);
-+
-+	ret = tasdevice_rca_parser(tas_priv, fmw);
-+	if (ret)
-+		goto out;
-+
-+	ret = snd_ctl_add(codec->card,
-+		snd_ctl_new1(&tas2781_prof_ctrl, tas_priv));
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to add KControl %s = %d\n",
-+			tas2781_prof_ctrl.name, ret);
-+		goto out;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(tas2781_snd_controls); i++) {
-+		ret = snd_ctl_add(codec->card,
-+			snd_ctl_new1(&tas2781_snd_controls[i], tas_priv));
-+		if (ret) {
-+			dev_err(tas_priv->dev,
-+				"Failed to add KControl %s = %d\n",
-+				tas2781_snd_controls[i].name, ret);
-+			goto out;
-+		}
-+	}
-+
-+	tasdevice_dsp_remove(tas_priv);
-+
-+	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-+	scnprintf(tas_priv->coef_binaryname, 64, "TAS2XXX%04X.bin",
-+		codec->core.subsystem_id & 0xffff);
-+	ret = tasdevice_dsp_parser(tas_priv);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "dspfw load %s error\n",
-+			tas_priv->coef_binaryname);
-+		tas_priv->fw_state = TASDEVICE_DSP_FW_FAIL;
-+		goto out;
-+	}
-+
-+	ret = snd_ctl_add(codec->card,
-+		snd_ctl_new1(&tas2781_dsp_prog_ctrl, tas_priv));
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to add KControl %s = %d\n",
-+			tas2781_dsp_prog_ctrl.name, ret);
-+		goto out;
-+	}
-+
-+	ret = snd_ctl_add(codec->card,
-+		snd_ctl_new1(&tas2781_dsp_conf_ctrl, tas_priv));
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to add KControl %s = %d\n",
-+			tas2781_dsp_conf_ctrl.name, ret);
-+		goto out;
-+	}
-+
-+	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
-+	tasdevice_prmg_load(tas_priv, 0);
-+
-+	/* If calibrated data occurs error, dsp will still works with default
-+	 * calibrated data inside algo.
-+	 */
-+	tas2781_save_calibration(tas_priv);
-+
-+out:
-+	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
-+		/*If DSP FW fail, kcontrol won't be created */
-+		tasdevice_config_info_remove(tas_priv);
-+		tasdevice_dsp_remove(tas_priv);
-+	}
-+	mutex_unlock(&tas_priv->codec_lock);
-+	if (fmw)
-+		release_firmware(fmw);
-+	pm_runtime_mark_last_busy(tas_priv->dev);
-+	pm_runtime_put_autosuspend(tas_priv->dev);
-+}
-+
-+static int tas2781_hda_bind(struct device *dev, struct device *master,
-+	void *master_data)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+	struct hda_component *comps = master_data;
-+	struct hda_codec *codec;
-+	unsigned int subid;
-+	int ret;
-+
-+	if (!comps || tas_priv->index < 0 ||
-+		tas_priv->index >= HDA_MAX_COMPONENTS)
-+		return -EINVAL;
-+
-+	comps = &comps[tas_priv->index];
-+	if (comps->dev)
-+		return -EBUSY;
-+
-+	codec = comps->codec;
-+	subid = codec->core.subsystem_id >> 16;
-+
-+	switch (subid) {
-+	case 0x17aa:
-+		tas_priv->catlog_id = LENOVO;
-+		break;
-+	default:
-+		tas_priv->catlog_id = OTHERS;
-+		break;
-+	}
-+
-+	pm_runtime_get_sync(dev);
-+
-+	comps->dev = dev;
-+
-+	strscpy(comps->name, dev_name(dev), sizeof(comps->name));
-+
-+	ret = tascodec_init(tas_priv, codec, tasdev_fw_ready);
-+	if (ret)
-+		return ret;
-+
-+	comps->playback_hook = tas2781_hda_playback_hook;
-+
-+	pm_runtime_mark_last_busy(dev);
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
-+}
-+
-+static void tas2781_hda_unbind(struct device *dev,
-+	struct device *master, void *master_data)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+	struct hda_component *comps = master_data;
-+
-+	if (comps[tas_priv->index].dev == dev)
-+		memset(&comps[tas_priv->index], 0, sizeof(*comps));
-+
-+	tasdevice_config_info_remove(tas_priv);
-+	tasdevice_dsp_remove(tas_priv);
-+
-+	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-+}
-+
-+static const struct component_ops tas2781_hda_comp_ops = {
-+	.bind = tas2781_hda_bind,
-+	.unbind = tas2781_hda_unbind,
-+};
-+
-+static void tas2781_hda_remove(struct device *dev)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+
-+	pm_runtime_get_sync(tas_priv->dev);
-+	pm_runtime_disable(tas_priv->dev);
-+
-+	component_del(tas_priv->dev, &tas2781_hda_comp_ops);
-+
-+	pm_runtime_put_noidle(tas_priv->dev);
-+
-+	tasdevice_remove(tas_priv);
-+}
-+
-+static int tas2781_hda_i2c_probe(struct i2c_client *clt)
-+{
-+	struct tasdevice_priv *tas_priv;
-+	const char *device_name;
-+	int ret;
-+
-+	if (strstr(dev_name(&clt->dev), "TIAS2781"))
-+		device_name = "TIAS2781";
-+	else
-+		return -ENODEV;
-+
-+	tas_priv = tasdevice_kzalloc(clt);
-+	if (!tas_priv)
-+		return -ENOMEM;
-+
-+	tas_priv->irq_info.irq = clt->irq;
-+	ret = tas2781_read_acpi(tas_priv, device_name);
-+	if (ret)
-+		return dev_err_probe(tas_priv->dev, ret,
-+			"Platform not supported\n");
-+
-+	ret = tasdevice_init(tas_priv);
-+	if (ret)
-+		goto err;
-+
-+	pm_runtime_set_autosuspend_delay(tas_priv->dev, 3000);
-+	pm_runtime_use_autosuspend(tas_priv->dev);
-+	pm_runtime_mark_last_busy(tas_priv->dev);
-+	pm_runtime_set_active(tas_priv->dev);
-+	pm_runtime_get_noresume(tas_priv->dev);
-+	pm_runtime_enable(tas_priv->dev);
-+
-+	pm_runtime_put_autosuspend(tas_priv->dev);
-+
-+	ret = component_add(tas_priv->dev, &tas2781_hda_comp_ops);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "Register component failed: %d\n", ret);
-+		pm_runtime_disable(tas_priv->dev);
-+		goto err;
-+	}
-+
-+	tas2781_reset(tas_priv);
-+err:
-+	if (ret)
-+		tas2781_hda_remove(&clt->dev);
-+	return ret;
-+}
-+
-+static void tas2781_hda_i2c_remove(struct i2c_client *clt)
-+{
-+	tas2781_hda_remove(&clt->dev);
-+}
-+
-+static int tas2781_runtime_suspend(struct device *dev)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+	int i;
-+
-+	dev_dbg(tas_priv->dev, "Runtime Suspend\n");
-+
-+	mutex_lock(&tas_priv->codec_lock);
-+
-+	if (tas_priv->playback_started) {
-+		tasdevice_tuning_switch(tas_priv, 1);
-+		tas_priv->playback_started = false;
-+	}
-+
-+	for (i = 0; i < tas_priv->ndev; i++) {
-+		tas_priv->tasdevice[i].cur_book = -1;
-+		tas_priv->tasdevice[i].cur_prog = -1;
-+		tas_priv->tasdevice[i].cur_conf = -1;
-+	}
-+
-+	regcache_cache_only(tas_priv->regmap, true);
-+	regcache_mark_dirty(tas_priv->regmap);
-+
-+	mutex_unlock(&tas_priv->codec_lock);
-+
-+	return 0;
-+}
-+
-+static int tas2781_runtime_resume(struct device *dev)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+	unsigned long calib_data_sz =
-+		tas_priv->ndev * TASDEVICE_SPEAKER_CALIBRATION_SIZE;
-+	int ret;
-+
-+	dev_dbg(tas_priv->dev, "Runtime Resume\n");
-+
-+	mutex_lock(&tas_priv->codec_lock);
-+
-+	regcache_cache_only(tas_priv->regmap, false);
-+	ret = regcache_sync(tas_priv->regmap);
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to restore register cache: %d\n", ret);
-+		goto out;
-+	}
-+
-+	tasdevice_prmg_load(tas_priv, tas_priv->cur_prog);
-+
-+	/* If calibrated data occurs error, dsp will still works with default
-+	 * calibrated data inside algo.
-+	 */
-+	if (tas_priv->cali_data.total_sz > calib_data_sz)
-+		tas2781_apply_calib(tas_priv);
-+
-+out:
-+	mutex_unlock(&tas_priv->codec_lock);
-+
-+	return ret;
-+}
-+
-+static int tas2781_system_suspend(struct device *dev)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+	int ret;
-+
-+	dev_dbg(tas_priv->dev, "System Suspend\n");
-+
-+	ret = pm_runtime_force_suspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	/* Shutdown chip before system suspend */
-+	regcache_cache_only(tas_priv->regmap, false);
-+	tasdevice_tuning_switch(tas_priv, 1);
-+	regcache_cache_only(tas_priv->regmap, true);
-+	regcache_mark_dirty(tas_priv->regmap);
-+
-+	/*
-+	 * Reset GPIO may be shared, so cannot reset here.
-+	 * However beyond this point, amps may be powered down.
-+	 */
-+	return 0;
-+}
-+
-+static int tas2781_system_resume(struct device *dev)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+	unsigned long calib_data_sz =
-+		tas_priv->ndev * TASDEVICE_SPEAKER_CALIBRATION_SIZE;
-+	int i, ret;
-+
-+	dev_dbg(tas_priv->dev, "System Resume\n");
-+
-+	ret = pm_runtime_force_resume(dev);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&tas_priv->codec_lock);
-+
-+	for (i = 0; i < tas_priv->ndev; i++) {
-+		tas_priv->tasdevice[i].cur_book = -1;
-+		tas_priv->tasdevice[i].cur_prog = -1;
-+		tas_priv->tasdevice[i].cur_conf = -1;
-+	}
-+	tas2781_reset(tas_priv);
-+	tasdevice_prmg_load(tas_priv, tas_priv->cur_prog);
-+
-+	/* If calibrated data occurs error, dsp will still work with default
-+	 * calibrated data inside algo.
-+	 */
-+	if (tas_priv->cali_data.total_sz > calib_data_sz)
-+		tas2781_apply_calib(tas_priv);
-+	mutex_unlock(&tas_priv->codec_lock);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops tas2781_hda_pm_ops = {
-+	RUNTIME_PM_OPS(tas2781_runtime_suspend, tas2781_runtime_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(tas2781_system_suspend, tas2781_system_resume)
-+};
-+
-+static const struct i2c_device_id tas2781_hda_i2c_id[] = {
-+	{ "tas2781-hda", 0 },
-+	{}
-+};
-+
-+static const struct acpi_device_id tas2781_acpi_hda_match[] = {
-+	{"TIAS2781", 0 },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(acpi, tas2781_acpi_hda_match);
-+
-+static struct i2c_driver tas2781_hda_i2c_driver = {
-+	.driver = {
-+		.name		= "tas2781-hda",
-+		.acpi_match_table = tas2781_acpi_hda_match,
-+		.pm		= &tas2781_hda_pm_ops,
-+	},
-+	.id_table	= tas2781_hda_i2c_id,
-+	.probe_new	= tas2781_hda_i2c_probe,
-+	.remove		= tas2781_hda_i2c_remove,
-+};
-+module_i2c_driver(tas2781_hda_i2c_driver);
-+
-+MODULE_DESCRIPTION("TAS2781 HDA Driver");
-+MODULE_AUTHOR("Shenghao Ding, TI, <shenghao-ding@ti.com>");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS(SND_SOC_TAS2781_FMWLIB);
--- 
-2.34.1
 
+thanks,
+
+Takashi

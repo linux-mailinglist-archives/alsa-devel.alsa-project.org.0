@@ -2,105 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1277827AE
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Aug 2023 13:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7DA37827AF
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Aug 2023 13:15:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D53D27F1;
-	Mon, 21 Aug 2023 13:14:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D53D27F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0334E846;
+	Mon, 21 Aug 2023 13:14:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0334E846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692616518;
-	bh=LGz2FcocDvhOKlUY4JP8PPna6u7bJbm6hCMGI1SG12I=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1692616525;
+	bh=/vF/3YkGnuD53+vRgz3HYjkHsuQgGhStXpxy6aO86xs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=PaKNwuh2ra+cCw+YSonUHXnaUZnidZqJ08lXIjqA6ACC8y1GWMeorJJRnUti+AU54
-	 A9OUrfvtEt9ruzb/V9+rUU6ksKJ4yQUorylv5R4Ko1Nfaen3XwbHVGmhKQbi+Q5JV2
-	 g1ZfiroG8Yp2FAE2aCNImPgPtlbL0ViB4geS8k0c=
+	b=dDjTd6Dd1a4EWZPepEarMI5lKz8fJi/kWo9OCpASqAIwrrLFfszQ8SA2MJriRExmM
+	 JM1PC2wnZSFUlfDQfiUTwOUYVaKR7/KTgc+RZAW+6oIyS2BZMmgpIieiJYnx+5NZym
+	 8/KyAtxYzmnEjf9YeLIv+yQ1hUMSPg78HlD3n0kA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F024DF805F5; Mon, 21 Aug 2023 13:11:58 +0200 (CEST)
+	id 7B3F6F80605; Mon, 21 Aug 2023 13:12:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81AA8F80199;
-	Mon, 21 Aug 2023 13:11:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 204EAF805FF;
+	Mon, 21 Aug 2023 13:12:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89C56F801EB; Sat, 19 Aug 2023 12:19:12 +0200 (CEST)
+	id 4D9C5F801EB; Sat, 19 Aug 2023 15:34:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 328D1F8016A
-	for <alsa-devel@alsa-project.org>; Sat, 19 Aug 2023 12:19:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 328D1F8016A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=SLFEh3RR
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4fe85fd3d27so2725270e87.0
-        for <alsa-devel@alsa-project.org>;
- Sat, 19 Aug 2023 03:19:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692440340; x=1693045140;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=6Ay2n2Z0MF3oR/B7emCwNMj1iVoT61lmY5foMH4tZYM=;
-        b=SLFEh3RRa43i+YZJjJTE6ttMJl9FF+QHg0OzCKHpdeuezv24lF66xLrykgBJfABIwz
-         rads8ZOdmFNDFBAFFIaXwQyqNMnImNsZkleQVMChqM6X0/Cg0gcbjugZdnmMnSdT+4X3
-         Kksaw1gE8XjWkjdfOWDE19CHOv4BcRKeuhs0oQ3N/cfsBGiu2PkRs4xfcU0siirWXzJm
-         xZlsOKm4fCdSn5QUi1vy7BnaMrk3L6Qm9POm0tell8TSkUgiHlBtWCozkOeX7Qu0UoIq
-         5K+PAYXJC1vxW6KeQMgo/VD5WJ+UJ6adTpM5r4uU9kG2gPT5haBbzWhaGZbU+THQzj6M
-         gRtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692440340; x=1693045140;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6Ay2n2Z0MF3oR/B7emCwNMj1iVoT61lmY5foMH4tZYM=;
-        b=kW0X/If7SwH4ZR9CbKbiWIO2y/JmmTJTzeW51PY5Nhkuh+kg8RAL1Dqmq8ioYsmmv0
-         DPWgnXM9XSoA8EKZEh+MCaDnWiYpObojBv2cO6Nk3iQ1QNiq4+Q6fcYf823I2+VIUYRE
-         zqXmkD/ajDRRhMpTL/Ktwhj+c+rlD5gqa918krtYNP7fF1Dap4PlQUm0uci0e8I6kV4N
-         qC1kftelRaMOpSiYpGcEXEv0tsHK2zS5Ojjj5wcsoJ1ENBNzWgL5WvtKR8uQMpF1H353
-         4x5r6cQL0M1QNGCUxZLluNXWxRI9UXuBfrJgEgC/S+kRQ5jXyac+vP0z+yhbtXJ1NsoD
-         2evg==
-X-Gm-Message-State: AOJu0YyKdon6HY9WkIw7vQ1aA3+04jj6dfNtGiR7bLHyrfgTk2meaJzt
-	bzlKn8eJAAQg+Jfu5jDJYWdl8WoeACAGFa31cLQaIH2evs6w0Q==
-X-Google-Smtp-Source: 
- AGHT+IEfCNH80w/gtwLHYuZxwOspsbA229W+1LY9insIFjrIvZjOkP3//c2YPWN8UpvgwijdAlRyIKVrVvHkjW3879g=
-X-Received: by 2002:a05:6512:32cc:b0:4fe:629:9265 with SMTP id
- f12-20020a05651232cc00b004fe06299265mr1104117lfg.20.1692440340019; Sat, 19
- Aug 2023 03:19:00 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A2CFF8016A
+	for <alsa-devel@alsa-project.org>; Sat, 19 Aug 2023 15:34:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A2CFF8016A
+X-QQ-mid: bizesmtp85t1692452053tcp1i7aj
+Received: from ubuntu.localdomain ( [58.251.166.13])
+	by bizesmtp.qq.com (ESMTP) with
+	id ; Sat, 19 Aug 2023 21:34:04 +0800 (CST)
+X-QQ-SSF: 01400000000000106000000A0000000
+X-QQ-FEAT: 2cOz1NCvlGOiGwoh0vNvreWhIxjT+LXdU+Tpljw+/B+vZQiHTx0NER5oG3359
+	8AkIeJoy26siDTa2/1JwLQebgIpmxsFD02O8NSW+h4ghsDTWln3efwcatzoSIcV4NNM/eA8
+	FmY0tesl56uZRLIIRLAaG1paph1Pci16/mXLMS3kKH7k7v5GLriSkDlClOHB+aW3ZZPXUDZ
+	lqHkn3Y3y21+Gr6Vyjhaw97b1ZW51LQb91Qo7dZu6K3w1SfOGuWTTb+JJNQ/l4Eb01tIBKr
+	dhOHQIk5LtyuKhq+UIUPRg0qrR5rKOHuJABY32d4vRCjszgdsEqRLToOlMmjCUJS1h2qvCT
+	vEDXZ0iyXvghFCRxWRdUyx2a+46hFtZRzigist84+CAR7xKWQvjIcej352lpQ==
+X-QQ-GoodBg: 2
+X-BIZMAIL-ID: 15894462584696602267
+From: Senhong Liu <liusenhong2022@email.szu.edu.cn>
+To: oder_chiou@realtek.com
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Senhong Liu <liusenhong2022@email.szu.edu.cn>
+Subject: [PATCH] sound/soc/codecs/rt5640.c: fix typos
+Date: Sat, 19 Aug 2023 06:33:45 -0700
+Message-Id: <20230819133345.39961-1-liusenhong2022@email.szu.edu.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Rohit Pidaparthi <rohitpid@gmail.com>
-Date: Sat, 19 Aug 2023 03:18:48 -0700
-Message-ID: 
- <CAGmPKz5OeC6UVBif6ySevZEvaY_XwKh7A29K7k_Yq_D0CQJkCA@mail.gmail.com>
-Subject: [PATCH] fix: Add quirk for Asus Zenbook Pro 14 UX6404 laptop
-To: alsa-devel@alsa-project.org, perex@perex.cz, tiwai@suse.com,
-	luke@ljones.dev, sbinding@opensource.cirrus.com
-Content-Type: text/plain; charset="UTF-8"
-X-MailFrom: rohitpid@gmail.com
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:email.szu.edu.cn:qybglogicsvrsz:qybglogicsvrsz3a-1
+X-MailFrom: liusenhong2022@email.szu.edu.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: NSQK6VU7U6JLVTWGHGRWLMVNXIQJY2IW
-X-Message-ID-Hash: NSQK6VU7U6JLVTWGHGRWLMVNXIQJY2IW
+Message-ID-Hash: T6VJ2WT7CY5T4VPL5M73KC6E4D5Y3Q7K
+X-Message-ID-Hash: T6VJ2WT7CY5T4VPL5M73KC6E4D5Y3Q7K
 X-Mailman-Approved-At: Mon, 21 Aug 2023 11:11:53 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NSQK6VU7U6JLVTWGHGRWLMVNXIQJY2IW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T6VJ2WT7CY5T4VPL5M73KC6E4D5Y3Q7K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,34 +89,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->From 4f14cdad4f526f45747c4f0b71e24a46ebe3885c Mon Sep 17 00:00:00 2001
-From: Rohit Pidaparthi <rohitpid@gmail.com>
-Date: Sat, 19 Aug 2023 02:15:16 -0700
-Subject: [PATCH] fix: Add quirk for Asus Zenbook Pro 14 UX6404 laptop
+I noticed typos and i fixed them.
 
-The Asus Zenbook Pro 14 UX6404 (1043:1863) needs binding to the
-CS35L41 codec over spi1 rather than spi0. This is similar to
-existing quirks for many ASUS Laptops.
-
-Signed-off-by: Rohit Pidaparthi <rohitpid@gmail.com>
+Signed-off-by: Senhong Liu <liusenhong2022@email.szu.edu.cn>
 ---
-sound/pci/hda/patch_realtek.c | 1 +
-1 file changed, 1 insertion(+)
+ sound/soc/codecs/rt5640.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index dc7b7a407638..c44464b1619f 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9681,6 +9681,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-       SND_PCI_QUIRK(0x1043, 0x1d42, "ASUS Zephyrus G14 2022",
-ALC289_FIXUP_ASUS_GA401),
-       SND_PCI_QUIRK(0x1043, 0x1d4e, "ASUS TM420", ALC256_FIXUP_ASUS_HPE),
-       SND_PCI_QUIRK(0x1043, 0x1e02, "ASUS UX3402", ALC245_FIXUP_CS35L41_SPI_2),
-+     SND_PCI_QUIRK(0x1043, 0x1863, "ASUS UX6404", ALC245_FIXUP_CS35L41_SPI_2),
-       SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15",
-ALC289_FIXUP_ASUS_GA502),
-       SND_PCI_QUIRK(0x1043, 0x1e12, "ASUS UM3402", ALC287_FIXUP_CS35L41_I2C_2),
-       SND_PCI_QUIRK(0x1043, 0x1e51, "ASUS Zephyrus M15",
-ALC294_FIXUP_ASUS_GU502_PINS),
---
-2.39.2
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 8920726c38e8..15e1a62b9e57 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -2570,7 +2570,7 @@ static void rt5640_enable_jack_detect(struct snd_soc_component *component,
+ 					IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 					"rt5640", rt5640);
+ 	if (ret) {
+-		dev_warn(component->dev, "Failed to reguest IRQ %d: %d\n", rt5640->irq, ret);
++		dev_warn(component->dev, "Failed to request IRQ %d: %d\n", rt5640->irq, ret);
+ 		rt5640_disable_jack_detect(component);
+ 		return;
+ 	}
+@@ -2625,7 +2625,7 @@ static void rt5640_enable_hda_jack_detect(
+ 					NULL, rt5640_irq, IRQF_TRIGGER_RISING | IRQF_ONESHOT,
+ 					"rt5640", rt5640);
+ 	if (ret) {
+-		dev_warn(component->dev, "Failed to reguest IRQ %d: %d\n", rt5640->irq, ret);
++		dev_warn(component->dev, "Failed to request IRQ %d: %d\n", rt5640->irq, ret);
+ 		rt5640->irq = -ENXIO;
+ 		return;
+ 	}
+-- 
+2.25.1
+

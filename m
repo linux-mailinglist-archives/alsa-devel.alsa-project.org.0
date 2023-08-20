@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7483B781D29
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 11:25:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE4F781D2A
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 11:26:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 677CE20C;
-	Sun, 20 Aug 2023 11:24:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677CE20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E95B0844;
+	Sun, 20 Aug 2023 11:25:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95B0844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692523535;
-	bh=rpAgn+B2DT0Eg7urlgq4RDgsa2JgveuXh9FGufazzKE=;
+	s=default; t=1692523586;
+	bh=eQ1TYCEGnEJ7O3t+iennYxYCmPEwnNvDNYTLw1X/zGc=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=HLLreH0Hiubjj+Zw1xHSkSamfB8+lVq1nJBe4s7RhonlPvQGk6heJLuUlP0KLs1L0
-	 H0U2X26DEPfSzyqwk67FG8NvtdWzw/PGNzcH1lXit863AmdcyyV8ca8/1zURtEf/5k
-	 +CM5hzzNjeQR1h393v8MtcBhjeiivm5tPYNwSZy0=
+	b=EcNHzKEXWBh1X9tVNFqXoOlCrlZch3ciqo6p87mb0phONbAC88pYfxkAANaFk1ufO
+	 UfLjK3nMUZ7qqVuNWUjkYcsW05TN30SV+fWFbeFcidZ5YvkCoWU+1wVW6WP0rKKDKD
+	 tqSOy1c1Gih+zVCQnS2myR3w480X4SY2Du0PauvY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8422F80199; Sun, 20 Aug 2023 11:24:44 +0200 (CEST)
+	id F2407F80027; Sun, 20 Aug 2023 11:25:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9181DF8016C;
-	Sun, 20 Aug 2023 11:24:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 234C3F8025F;
+	Sun, 20 Aug 2023 11:25:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 556DDF80199; Sun, 20 Aug 2023 11:24:40 +0200 (CEST)
+	id CC2C2F80272; Sun, 20 Aug 2023 11:25:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31AEEF80027
-	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 11:24:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31AEEF80027
+	by alsa1.perex.cz (Postfix) with ESMTP id 296D4F80027
+	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 11:25:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 296D4F80027
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1692523475803876162-webhooks-bot@alsa-project.org>
-References: <1692523475803876162-webhooks-bot@alsa-project.org>
+In-Reply-To: <1692523520148128033-webhooks-bot@alsa-project.org>
+References: <1692523520148128033-webhooks-bot@alsa-project.org>
 Subject: A potential Integer Overflow bug found in aplay/aplay.c
-Message-Id: <20230820092440.556DDF80199@alsa1.perex.cz>
-Date: Sun, 20 Aug 2023 11:24:40 +0200 (CEST)
-Message-ID-Hash: BGZF7SPMLAZWXY77JNF7THBAMXSGAFXQ
-X-Message-ID-Hash: BGZF7SPMLAZWXY77JNF7THBAMXSGAFXQ
+Message-Id: <20230820092521.CC2C2F80272@alsa1.perex.cz>
+Date: Sun, 20 Aug 2023 11:25:21 +0200 (CEST)
+Message-ID-Hash: GA34EDJIAKHUA2GQRYGH66FLVNNTMBGJ
+X-Message-ID-Hash: GA34EDJIAKHUA2GQRYGH66FLVNNTMBGJ
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,15 +60,16 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BGZF7SPMLAZWXY77JNF7THBAMXSGAFXQ/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GA34EDJIAKHUA2GQRYGH66FLVNNTMBGJ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #231 was opened from cascades-sjtu:
+alsa-project/alsa-utils issue #231 was edited from cascades-sjtu:
 
 Hi, I'm currently trying to use the static analysis tool [Infer](https://fbinfer.com) to find uncatched API-misuse bugs in OpenWrt packages, and I find a potential Integer Overflow  in your project, version 1.2.9.
 
@@ -153,230 +154,230 @@ The parameter passed to Malloc may be overflowed so that the actual allocated me
 I also attached the analysis trace given by Infer FYI:
 
 ```json
-        "trace": [
-          {
-            "file": "aplay/aplay.c",
-            "line": 940,
-            "col": 14,
-            "feature": [ "Input", "read" ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 940,
-            "col": 14,
-            "feature": [ "Input", "read" ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2865,
-            "col": 21,
-            "feature": [
-              "Prune",
-              [
-                "UnOp",
-                "!",
-                [
-                  "BinOp",
-                  ">",
-                  [ "Var" ],
-                  [ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 0 ] ] ]
-                ]
-              ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2868,
-            "col": 2,
-            "feature": [ "Store", [ "Var" ], [ "Var" ] ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2878,
-            "col": 8,
-            "feature": [
-              "Prune",
-              [ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2871,
-            "col": 4,
-            "feature": [
-              "Store",
-              [ "Var" ],
-              [ "BinOp", "-", [ "Var" ], [ "Var" ] ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2872,
-            "col": 8,
-            "feature": [
-              "Prune",
-              [
-                "UnOp",
-                "!",
-                [
-                  "BinOp",
-                  ">",
-                  [ "Cast", [ "Unsupported" ], [ "Var" ] ],
-                  [ "Var" ]
-                ]
-              ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2878,
-            "col": 8,
-            "feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2879,
-            "col": 5,
-            "feature": [ "Store", [ "Var" ], [ "Var" ] ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2899,
-            "col": 3,
-            "feature": [
-              "Store",
-              [ "Var" ],
-              [
-                "BinOp",
-                "/",
-                [
-                  "BinOp",
-                  "*",
-                  [ "Cast", [ "Unsupported" ], [ "Var" ] ],
-                  [ "Var" ]
-                ],
-                [ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
-              ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2900,
-            "col": 3,
-            "feature": [
-              "Store",
-              [ "Var" ],
-              [ "BinOp", "+", [ "Var" ], [ "Var" ] ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2871,
-            "col": 4,
-            "feature": [
-              "Store",
-              [ "Var" ],
-              [ "BinOp", "-", [ "Var" ], [ "Var" ] ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2872,
-            "col": 8,
-            "feature": [
-              "Prune",
-              [
-                "UnOp",
-                "!",
-                [
-                  "BinOp",
-                  ">",
-                  [ "Cast", [ "Unsupported" ], [ "Var" ] ],
-                  [ "Var" ]
-                ]
-              ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2878,
-            "col": 8,
-            "feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2879,
-            "col": 5,
-            "feature": [ "Store", [ "Var" ], [ "Var" ] ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2895,
-            "col": 3,
-            "feature": [
-              "Store",
-              [ "Var" ],
-              [
-                "BinOp",
-                "/",
-                [
-                  "Cast",
-                  [ "Unsupported" ],
-                  [ "BinOp", "*", [ "Var" ], [ "Const", [ "Cint", 8 ] ] ]
-                ],
-                [ "Var" ]
-              ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2896,
-            "col": 7,
-            "feature": [ "Call", "pcm_write" ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2126,
-            "col": 6,
-            "feature": [
-              "Prune",
-              [ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2130,
-            "col": 9,
-            "feature": [ "Call", "remap_data" ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2069,
-            "col": 2,
-            "feature": [
-              "Store",
-              [ "Var" ],
-              [
-                "BinOp",
-                "/",
-                [ "BinOp", "*", [ "Var" ], [ "Var" ] ],
-                [ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
-              ]
-            ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2070,
-            "col": 6,
-            "feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-          },
-          {
-            "file": "aplay/aplay.c",
-            "line": 2072,
-            "col": 9,
-            "feature": [ "IntOverflow", "malloc", [ "Var" ] ]
-          }
-        ],
+ "trace": [
+{
+	"file": "aplay/aplay.c",
+	"line": 940,
+	"col": 14,
+	"feature": [ "Input", "read" ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 940,
+	"col": 14,
+	"feature": [ "Input", "read" ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2865,
+	"col": 21,
+	"feature": [
+	"Prune",
+	[
+		"UnOp",
+		"!",
+		[
+		"BinOp",
+		">",
+		[ "Var" ],
+		[ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 0 ] ] ]
+		]
+	]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2868,
+	"col": 2,
+	"feature": [ "Store", [ "Var" ], [ "Var" ] ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2878,
+	"col": 8,
+	"feature": [
+	"Prune",
+	[ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2871,
+	"col": 4,
+	"feature": [
+	"Store",
+	[ "Var" ],
+	[ "BinOp", "-", [ "Var" ], [ "Var" ] ]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2872,
+	"col": 8,
+	"feature": [
+	"Prune",
+	[
+		"UnOp",
+		"!",
+		[
+		"BinOp",
+		">",
+		[ "Cast", [ "Unsupported" ], [ "Var" ] ],
+		[ "Var" ]
+		]
+	]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2878,
+	"col": 8,
+	"feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2879,
+	"col": 5,
+	"feature": [ "Store", [ "Var" ], [ "Var" ] ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2899,
+	"col": 3,
+	"feature": [
+	"Store",
+	[ "Var" ],
+	[
+		"BinOp",
+		"/",
+		[
+		"BinOp",
+		"*",
+		[ "Cast", [ "Unsupported" ], [ "Var" ] ],
+		[ "Var" ]
+		],
+		[ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
+	]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2900,
+	"col": 3,
+	"feature": [
+	"Store",
+	[ "Var" ],
+	[ "BinOp", "+", [ "Var" ], [ "Var" ] ]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2871,
+	"col": 4,
+	"feature": [
+	"Store",
+	[ "Var" ],
+	[ "BinOp", "-", [ "Var" ], [ "Var" ] ]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2872,
+	"col": 8,
+	"feature": [
+	"Prune",
+	[
+		"UnOp",
+		"!",
+		[
+		"BinOp",
+		">",
+		[ "Cast", [ "Unsupported" ], [ "Var" ] ],
+		[ "Var" ]
+		]
+	]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2878,
+	"col": 8,
+	"feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2879,
+	"col": 5,
+	"feature": [ "Store", [ "Var" ], [ "Var" ] ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2895,
+	"col": 3,
+	"feature": [
+	"Store",
+	[ "Var" ],
+	[
+		"BinOp",
+		"/",
+		[
+		"Cast",
+		[ "Unsupported" ],
+		[ "BinOp", "*", [ "Var" ], [ "Const", [ "Cint", 8 ] ] ]
+		],
+		[ "Var" ]
+	]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2896,
+	"col": 7,
+	"feature": [ "Call", "pcm_write" ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2126,
+	"col": 6,
+	"feature": [
+	"Prune",
+	[ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2130,
+	"col": 9,
+	"feature": [ "Call", "remap_data" ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2069,
+	"col": 2,
+	"feature": [
+	"Store",
+	[ "Var" ],
+	[
+		"BinOp",
+		"/",
+		[ "BinOp", "*", [ "Var" ], [ "Var" ] ],
+		[ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
+	]
+	]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2070,
+	"col": 6,
+	"feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+},
+{
+	"file": "aplay/aplay.c",
+	"line": 2072,
+	"col": 9,
+	"feature": [ "IntOverflow", "malloc", [ "Var" ] ]
+}
+],
 ```
 
 Issue URL     : https://github.com/alsa-project/alsa-utils/issues/231

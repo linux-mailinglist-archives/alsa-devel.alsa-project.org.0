@@ -2,120 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C3D781D25
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 11:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7483B781D29
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 11:25:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 542CA832;
-	Sun, 20 Aug 2023 11:16:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 542CA832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 677CE20C;
+	Sun, 20 Aug 2023 11:24:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677CE20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692523038;
-	bh=Fm85MXHroZchQ7AZrzxaPLN37b0alRoa+CFAkWqq8c8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=c6gMWHctmwl/1/40ghA9nprUEfg04OgpxTnr3zxGBN6haG7MufckDCSlNzVgsYzny
-	 RzR4exR1Awi5bZ9aLPJTx5lw3G5iJmUrqSfqbO3Ph/k9GwglIdmnEQaafXKlo+4nU0
-	 eJLW+0U6UeDPdrHkChyEkxciAI15hdtMsk5G5iMI=
+	s=default; t=1692523535;
+	bh=rpAgn+B2DT0Eg7urlgq4RDgsa2JgveuXh9FGufazzKE=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=HLLreH0Hiubjj+Zw1xHSkSamfB8+lVq1nJBe4s7RhonlPvQGk6heJLuUlP0KLs1L0
+	 H0U2X26DEPfSzyqwk67FG8NvtdWzw/PGNzcH1lXit863AmdcyyV8ca8/1zURtEf/5k
+	 +CM5hzzNjeQR1h393v8MtcBhjeiivm5tPYNwSZy0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0151F8025F; Sun, 20 Aug 2023 11:16:27 +0200 (CEST)
+	id E8422F80199; Sun, 20 Aug 2023 11:24:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45691F8016C;
-	Sun, 20 Aug 2023 11:16:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9181DF8016C;
+	Sun, 20 Aug 2023 11:24:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29F9FF80199; Sun, 20 Aug 2023 11:16:20 +0200 (CEST)
+	id 556DDF80199; Sun, 20 Aug 2023 11:24:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D89ECF80027
-	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 11:16:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D89ECF80027
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=n0NuEUOq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=dbteixOI
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 595F121862;
-	Sun, 20 Aug 2023 09:16:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692522969;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/TF6kVTX6ebBQDIHld1IKl2lO7dkwxnRa+fdMooao6M=;
-	b=n0NuEUOqFdzE0K7Jgy0vnbuuGIMWkQ/g6b3cCzdJLZcplQTHTMQJ04Bm01cBk2/uEkejhW
-	WPyFHvs/vj4XpX9bvLdruRN7+T6zbh+0e0lrLVA3R1iqzv16LoNm7xM1u4mIX1fgyhhG/P
-	Df9fZrj4779uiGPqM8TGLEbbbzn2hYY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692522969;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/TF6kVTX6ebBQDIHld1IKl2lO7dkwxnRa+fdMooao6M=;
-	b=dbteixOI0KFb2auoIq/LlURJ2+K1vBlg0pr+QpyLjUlzQCTnL8RAFkePDA7App0/WVBdpM
-	pXOrntkNE5cC48Dg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F1F311348E;
-	Sun, 20 Aug 2023 09:16:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ZqCjOdjZ4WSwMgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 20 Aug 2023 09:16:08 +0000
-Date: Sun, 20 Aug 2023 11:16:08 +0200
-Message-ID: <87jztq9iqv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	robh+dt@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	kevin-lu@ti.com,
-	13916275206@139.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com,
-	mengdong.lin@intel.com,
-	baojun.xu@ti.com,
-	thomas.gfeller@q-drop.com,
-	peeyush@ti.com,
-	navada@ti.com,
-	broonie@kernel.org,
-	gentuser@gmail.com
-Subject: Re: [PATCH v3 2/2] ALSA: hda/tas2781: Add tas2781 HDA driver
-In-Reply-To: <ZN+j3LmfUW2vB+QS@smile.fi.intel.com>
-References: <20230818085558.1431-1-shenghao-ding@ti.com>
-	<20230818085558.1431-2-shenghao-ding@ti.com>
-	<4c1b44b5-995a-fac7-a72b-89b8bf816dd2@linux.intel.com>
-	<ZN+j3LmfUW2vB+QS@smile.fi.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: Y7JSUFXRJA5EINLQPARXUSFCRYEISPLO
-X-Message-ID-Hash: Y7JSUFXRJA5EINLQPARXUSFCRYEISPLO
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 31AEEF80027
+	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 11:24:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31AEEF80027
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1692523475803876162-webhooks-bot@alsa-project.org>
+References: <1692523475803876162-webhooks-bot@alsa-project.org>
+Subject: A potential Integer Overflow bug found in aplay/aplay.c
+Message-Id: <20230820092440.556DDF80199@alsa1.perex.cz>
+Date: Sun, 20 Aug 2023 11:24:40 +0200 (CEST)
+Message-ID-Hash: BGZF7SPMLAZWXY77JNF7THBAMXSGAFXQ
+X-Message-ID-Hash: BGZF7SPMLAZWXY77JNF7THBAMXSGAFXQ
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,93 +60,324 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y7JSUFXRJA5EINLQPARXUSFCRYEISPLO/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BGZF7SPMLAZWXY77JNF7THBAMXSGAFXQ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 18 Aug 2023 19:01:16 +0200,
-Andy Shevchenko wrote:
-> 
-> On Fri, Aug 18, 2023 at 11:00:34AM -0500, Pierre-Louis Bossart wrote:
-> 
-> ...
-> 
-> > > +static int comp_match_tas2781_dev_name(struct device *dev,
-> > > +	void *data)
-> > > +{
-> > > +	struct scodec_dev_name *p = data;
-> > > +	const char *d = dev_name(dev);
-> > > +	int n = strlen(p->bus);
-> > > +	char tmp[32];
-> > > +
-> > > +	/* check the bus name */
-> > > +	if (strncmp(d, p->bus, n))
-> > > +		return 0;
-> 
-> > > +	/* skip the bus number */
-> > > +	if (isdigit(d[n]))
-> > > +		n++;
-> 
-> Why do you think it can't be two or more digits?
-> 
-> > > +	/* the rest must be exact matching */
-> > > +	snprintf(tmp, sizeof(tmp), "-%s:00", p->hid);
-> > 
-> > ACPI can sometimes add :01 suffixes, this looks like the re-invention of
-> > an ACPI helper?
-> > 
-> > Adding Andy for the ACPI review.
-> > 
-> > > +	return !strcmp(d + n, tmp);
-> > > +}
-> 
-> Yes, this looks like reinventing a wheel.
-> Just compare dev_name() against what is in p->....
+alsa-project/alsa-utils issue #231 was opened from cascades-sjtu:
 
-Note that comp_match_tas7281_dev_name() is a copy of
-comp_patch_cs35l41_dev_name() and it was implemented in a hackish way
-to be applicable to both I2C and SPI device names that have slightly
-different naming rules.
+Hi, I'm currently trying to use the static analysis tool [Infer](https://fbinfer.com) to find uncatched API-misuse bugs in OpenWrt packages, and I find a potential Integer Overflow  in your project, version 1.2.9.
 
-> ...
-> 
-> > > +static void tas2781_fixup_i2c(struct hda_codec *cdc,
-> > > +	const struct hda_fixup *fix, int action)
-> > > +{
-> > > +	 tas2781_generic_fixup(cdc, action, "i2c", "TIAS2781");
-> > 
-> > TI ACPI ID is TXNW
-> > 
-> > https://uefi.org/ACPI_ID_List?search=TEXAS
-> > 
-> > There's also a PNP ID PXN
-> > 
-> > https://uefi.org/PNP_ID_List?search=TEXAS
-> > 
-> > "TIAS" looks like an invented identifier. It's not uncommon but should
-> > be recorded with a comment if I am not mistaken.
-> > 
-> > > +}
-> 
-> Thank you, but actually it's a strong NAK to this even with the comment.
-> We have to teach people to follow the specification (may be even hard way).
-> 
-> So where did you get the ill-formed ACPI ID?
-> Is Texas Instrument aware of this?
-> Can we have a confirmation letter from TI for this ID, please?
+The bug located in aplay/aplay.c. Firstly, the program tries to write the remains bytes in `audiobuf` with the length of `loaded` in line 2865, and `loaded` is later used as the parameter for `safe_read` in the loop, then `loaded` is used as the 2nd argument of `pct_write()` and finally after a multiply operation, it is used as the size of Malloc in `remap_data()`, as shown in the following code:
 
-This is used already for products that have been long in the market,
-so it's way too late to correct it, I'm afraid.
+```cpp
+static void playback_go(int fd, size_t loaded, off_t count, int rtype, char *name)
+{
+int l, r;
+off_t written = 0;
+off_t c;
 
-What we can do is to get the confirmation from TI, complain it, and
-some verbose comment in the code, indeed.
+header(rtype, name);
+set_params();
 
+while (loaded > chunk_bytes && written < count && !in_aborting) {
+	if (pcm_write(audiobuf + written, chunk_size) <= 0)
+		return;
+	written += chunk_bytes;
+	loaded -= chunk_bytes;
+}
+if (written > 0 && loaded > 0)
+	memmove(audiobuf, audiobuf + written, loaded);
 
-thanks,
+l = loaded;
+while (written < count && !in_aborting) {
+	do {
+		c = count - written;
+		if (c > chunk_bytes)
+			c = chunk_bytes;
 
-Takashi
+		/* c < l, there is more data loaded
+			* then we actually need to write
+			*/
+		if (c < l)
+			l = c;
+
+		c -= l;
+
+		if (c == 0)
+			break;
+		r = safe_read(fd, audiobuf + l, c);
+		if (r < 0) {
+			perror(name);
+			prg_exit(EXIT_FAILURE);
+		}
+		fdcount += r;
+		if (r == 0)
+			break;
+		l += r;
+	} while ((size_t)l < chunk_bytes);
+	l = l * 8 / bits_per_frame;
+	r = pcm_write(audiobuf, l);
+	if (r != l)
+		break;
+	r = r * bits_per_frame / 8;
+	written += r;
+	l = 0;
+}
+if (!in_aborting) {
+	snd_pcm_nonblock(handle, 0);
+	snd_pcm_drain(handle);
+	snd_pcm_nonblock(handle, nonblock);
+}
+}
+
+# in remap_data()
+chunk_bytes = count * bits_per_frame / 8;
+if (tmp_size < chunk_bytes) {
+	free(tmp);
+	tmp = malloc(chunk_bytes);
+	if (!tmp) {
+		error(_("not enough memory"));
+		exit(1);
+	}
+	tmp_size = count;
+}
+```
+
+The parameter passed to Malloc may be overflowed so that the actual allocated memory is small. 
+
+I also attached the analysis trace given by Infer FYI:
+
+```json
+        "trace": [
+          {
+            "file": "aplay/aplay.c",
+            "line": 940,
+            "col": 14,
+            "feature": [ "Input", "read" ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 940,
+            "col": 14,
+            "feature": [ "Input", "read" ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2865,
+            "col": 21,
+            "feature": [
+              "Prune",
+              [
+                "UnOp",
+                "!",
+                [
+                  "BinOp",
+                  ">",
+                  [ "Var" ],
+                  [ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 0 ] ] ]
+                ]
+              ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2868,
+            "col": 2,
+            "feature": [ "Store", [ "Var" ], [ "Var" ] ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2878,
+            "col": 8,
+            "feature": [
+              "Prune",
+              [ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2871,
+            "col": 4,
+            "feature": [
+              "Store",
+              [ "Var" ],
+              [ "BinOp", "-", [ "Var" ], [ "Var" ] ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2872,
+            "col": 8,
+            "feature": [
+              "Prune",
+              [
+                "UnOp",
+                "!",
+                [
+                  "BinOp",
+                  ">",
+                  [ "Cast", [ "Unsupported" ], [ "Var" ] ],
+                  [ "Var" ]
+                ]
+              ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2878,
+            "col": 8,
+            "feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2879,
+            "col": 5,
+            "feature": [ "Store", [ "Var" ], [ "Var" ] ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2899,
+            "col": 3,
+            "feature": [
+              "Store",
+              [ "Var" ],
+              [
+                "BinOp",
+                "/",
+                [
+                  "BinOp",
+                  "*",
+                  [ "Cast", [ "Unsupported" ], [ "Var" ] ],
+                  [ "Var" ]
+                ],
+                [ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
+              ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2900,
+            "col": 3,
+            "feature": [
+              "Store",
+              [ "Var" ],
+              [ "BinOp", "+", [ "Var" ], [ "Var" ] ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2871,
+            "col": 4,
+            "feature": [
+              "Store",
+              [ "Var" ],
+              [ "BinOp", "-", [ "Var" ], [ "Var" ] ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2872,
+            "col": 8,
+            "feature": [
+              "Prune",
+              [
+                "UnOp",
+                "!",
+                [
+                  "BinOp",
+                  ">",
+                  [ "Cast", [ "Unsupported" ], [ "Var" ] ],
+                  [ "Var" ]
+                ]
+              ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2878,
+            "col": 8,
+            "feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2879,
+            "col": 5,
+            "feature": [ "Store", [ "Var" ], [ "Var" ] ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2895,
+            "col": 3,
+            "feature": [
+              "Store",
+              [ "Var" ],
+              [
+                "BinOp",
+                "/",
+                [
+                  "Cast",
+                  [ "Unsupported" ],
+                  [ "BinOp", "*", [ "Var" ], [ "Const", [ "Cint", 8 ] ] ]
+                ],
+                [ "Var" ]
+              ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2896,
+            "col": 7,
+            "feature": [ "Call", "pcm_write" ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2126,
+            "col": 6,
+            "feature": [
+              "Prune",
+              [ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2130,
+            "col": 9,
+            "feature": [ "Call", "remap_data" ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2069,
+            "col": 2,
+            "feature": [
+              "Store",
+              [ "Var" ],
+              [
+                "BinOp",
+                "/",
+                [ "BinOp", "*", [ "Var" ], [ "Var" ] ],
+                [ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
+              ]
+            ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2070,
+            "col": 6,
+            "feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
+          },
+          {
+            "file": "aplay/aplay.c",
+            "line": 2072,
+            "col": 9,
+            "feature": [ "IntOverflow", "malloc", [ "Var" ] ]
+          }
+        ],
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/231
+Repository URL: https://github.com/alsa-project/alsa-utils

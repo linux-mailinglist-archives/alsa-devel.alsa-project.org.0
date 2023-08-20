@@ -2,53 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DE4F781D2A
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 11:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E57781D2C
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 11:34:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E95B0844;
-	Sun, 20 Aug 2023 11:25:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95B0844
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC5A43E8;
+	Sun, 20 Aug 2023 11:33:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC5A43E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692523586;
-	bh=eQ1TYCEGnEJ7O3t+iennYxYCmPEwnNvDNYTLw1X/zGc=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=EcNHzKEXWBh1X9tVNFqXoOlCrlZch3ciqo6p87mb0phONbAC88pYfxkAANaFk1ufO
-	 UfLjK3nMUZ7qqVuNWUjkYcsW05TN30SV+fWFbeFcidZ5YvkCoWU+1wVW6WP0rKKDKD
-	 tqSOy1c1Gih+zVCQnS2myR3w480X4SY2Du0PauvY=
+	s=default; t=1692524070;
+	bh=kDnTcqSTQdlLHPpQOf5RRj+TVFls2LmJQQQrfzPriCk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=p7KB1AnqIDybISaryppJQkMIFnwA7yA9RbIqITaBbaZj+Hw/LypCsp+uos7L6YhPN
+	 jbUJxFtOmjIJOa4IQ/1d6zQjiR9aUK+P/8GoRAwdQ1c0DhjwcVetrBOWQEWiOI2IMW
+	 dYdW7eczlBXYw1Rxigao4TTLqmkraZPi5gRLypUk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2407F80027; Sun, 20 Aug 2023 11:25:26 +0200 (CEST)
+	id 484C5F800F8; Sun, 20 Aug 2023 11:33:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 234C3F8025F;
-	Sun, 20 Aug 2023 11:25:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E44EF800F8;
+	Sun, 20 Aug 2023 11:33:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC2C2F80272; Sun, 20 Aug 2023 11:25:21 +0200 (CEST)
+	id CD072F80199; Sun, 20 Aug 2023 11:33:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 296D4F80027
-	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 11:25:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 296D4F80027
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61CAEF80027
+	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 11:32:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61CAEF80027
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=fViGGRzX
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.mutex.one (Postfix) with ESMTP id 8074516C004A;
+	Sun, 20 Aug 2023 12:32:56 +0300 (EEST)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id zVhDgEjmY7wN; Sun, 20 Aug 2023 12:32:55 +0300 (EEST)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+	t=1692523975; bh=kDnTcqSTQdlLHPpQOf5RRj+TVFls2LmJQQQrfzPriCk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=fViGGRzXCd7v5DsOstN+pqTrYAkAg0Mae2L6QgAcM8zUeelBB64Kq3LLNCcKY4Wug
+	 0J76mfBHwpyBXU44E7hTzxipE58kkhGkXBYd3SrC6pbpx3UQvB2QJ9VjBK9cWkVxAs
+	 469J+R8h41J5X1jKqxUaS3ayCd0HVWWhGc3EboUA=
+To: Mark Brown <broonie@kernel.org>
+Cc: =?utf-8?B?5rKI5LiA6LaF?= <zhuning0077@gmail.com>, yangxiaohua
+ <yangxiaohua@everest-semi.com>,
+ Zhu Ning <zhuning@everest-semi.com>, Takashi Iwai <tiwai@suse.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 3/4] ASoC: amd: acp: Add machine driver that enables
+ sound for systems with a ES8336 codec
+In-Reply-To: <8cddbe1c-20d7-4b8f-ba02-f86bbb5a54c5@sirena.org.uk>
+References: <141a3320-ff65-459f-9d00-c8bed691dcfc@sirena.org.uk>
+ <87lejpwxzf.fsf@mutex.one> <ZBr9rJn50ovG1w9W@sirena.org.uk>
+ <87ttycjyw3.fsf@mutex.one> <ZBty1CdPaWm0IcRi@sirena.org.uk>
+ <87r0t9uc08.fsf@mutex.one> <ZCRCqJ7oG6oefo9g@sirena.org.uk>
+ <87zg2pxtog.fsf@mutex.one>
+ <d2be9183-87fd-4cc4-a239-9401b5b88364@sirena.org.uk>
+ <87o7j5b9bd.fsf@mutex.one>
+ <8cddbe1c-20d7-4b8f-ba02-f86bbb5a54c5@sirena.org.uk>
+Date: Sun, 20 Aug 2023 12:32:52 +0300
+Message-ID: <878ra683ej.fsf@mutex.one>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1692523520148128033-webhooks-bot@alsa-project.org>
-References: <1692523520148128033-webhooks-bot@alsa-project.org>
-Subject: A potential Integer Overflow bug found in aplay/aplay.c
-Message-Id: <20230820092521.CC2C2F80272@alsa1.perex.cz>
-Date: Sun, 20 Aug 2023 11:25:21 +0200 (CEST)
-Message-ID-Hash: GA34EDJIAKHUA2GQRYGH66FLVNNTMBGJ
-X-Message-ID-Hash: GA34EDJIAKHUA2GQRYGH66FLVNNTMBGJ
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain
+Message-ID-Hash: TIIAZMB3EV73LHGHY2YBRN23A2DTBWWH
+X-Message-ID-Hash: TIIAZMB3EV73LHGHY2YBRN23A2DTBWWH
+X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GA34EDJIAKHUA2GQRYGH66FLVNNTMBGJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TIIAZMB3EV73LHGHY2YBRN23A2DTBWWH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,316 +99,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #231 was edited from cascades-sjtu:
 
-Hi, I'm currently trying to use the static analysis tool [Infer](https://fbinfer.com) to find uncatched API-misuse bugs in OpenWrt packages, and I find a potential Integer Overflow  in your project, version 1.2.9.
+Mark Brown <broonie@kernel.org> writes:
 
-The bug located in aplay/aplay.c. Firstly, the program tries to write the remains bytes in `audiobuf` with the length of `loaded` in line 2865, and `loaded` is later used as the parameter for `safe_read` in the loop, then `loaded` is used as the 2nd argument of `pct_write()` and finally after a multiply operation, it is used as the size of Malloc in `remap_data()`, as shown in the following code:
+> You'd need to pull the relevant supplies out of DAPM and handle them in
+> the CODEC suspend/resume callback.
 
-```cpp
-static void playback_go(int fd, size_t loaded, off_t count, int rtype, char *name)
-{
-int l, r;
-off_t written = 0;
-off_t c;
+Can you please suggest an approach that would be acceptable to you?
+In the original patch series I sent, you didn't agree to the approach
+to disable the jack detection in the machine driver suspend callback
+and re-enable it in the resume callback. You suggested to do it in the
+CODEC suspend/resume callbacks. As I explained previously (and Zhu Ning
+confirmed in his email) this wouldn't work, since as long as the jack
+detection is enabled, the CODEC suspend/resume callbacks do not get
+called.
+The second option (which you also do not seem to agree) is to enable
+idle_bias_on.
 
-header(rtype, name);
-set_params();
-
-while (loaded > chunk_bytes && written < count && !in_aborting) {
-	if (pcm_write(audiobuf + written, chunk_size) <= 0)
-		return;
-	written += chunk_bytes;
-	loaded -= chunk_bytes;
-}
-if (written > 0 && loaded > 0)
-	memmove(audiobuf, audiobuf + written, loaded);
-
-l = loaded;
-while (written < count && !in_aborting) {
-	do {
-		c = count - written;
-		if (c > chunk_bytes)
-			c = chunk_bytes;
-
-		/* c < l, there is more data loaded
-			* then we actually need to write
-			*/
-		if (c < l)
-			l = c;
-
-		c -= l;
-
-		if (c == 0)
-			break;
-		r = safe_read(fd, audiobuf + l, c);
-		if (r < 0) {
-			perror(name);
-			prg_exit(EXIT_FAILURE);
-		}
-		fdcount += r;
-		if (r == 0)
-			break;
-		l += r;
-	} while ((size_t)l < chunk_bytes);
-	l = l * 8 / bits_per_frame;
-	r = pcm_write(audiobuf, l);
-	if (r != l)
-		break;
-	r = r * bits_per_frame / 8;
-	written += r;
-	l = 0;
-}
-if (!in_aborting) {
-	snd_pcm_nonblock(handle, 0);
-	snd_pcm_drain(handle);
-	snd_pcm_nonblock(handle, nonblock);
-}
-}
-
-# in remap_data()
-chunk_bytes = count * bits_per_frame / 8;
-if (tmp_size < chunk_bytes) {
-	free(tmp);
-	tmp = malloc(chunk_bytes);
-	if (!tmp) {
-		error(_("not enough memory"));
-		exit(1);
-	}
-	tmp_size = count;
-}
-```
-
-The parameter passed to Malloc may be overflowed so that the actual allocated memory is small. 
-
-I also attached the analysis trace given by Infer FYI:
-
-```json
- "trace": [
-{
-	"file": "aplay/aplay.c",
-	"line": 940,
-	"col": 14,
-	"feature": [ "Input", "read" ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 940,
-	"col": 14,
-	"feature": [ "Input", "read" ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2865,
-	"col": 21,
-	"feature": [
-	"Prune",
-	[
-		"UnOp",
-		"!",
-		[
-		"BinOp",
-		">",
-		[ "Var" ],
-		[ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 0 ] ] ]
-		]
-	]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2868,
-	"col": 2,
-	"feature": [ "Store", [ "Var" ], [ "Var" ] ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2878,
-	"col": 8,
-	"feature": [
-	"Prune",
-	[ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2871,
-	"col": 4,
-	"feature": [
-	"Store",
-	[ "Var" ],
-	[ "BinOp", "-", [ "Var" ], [ "Var" ] ]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2872,
-	"col": 8,
-	"feature": [
-	"Prune",
-	[
-		"UnOp",
-		"!",
-		[
-		"BinOp",
-		">",
-		[ "Cast", [ "Unsupported" ], [ "Var" ] ],
-		[ "Var" ]
-		]
-	]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2878,
-	"col": 8,
-	"feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2879,
-	"col": 5,
-	"feature": [ "Store", [ "Var" ], [ "Var" ] ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2899,
-	"col": 3,
-	"feature": [
-	"Store",
-	[ "Var" ],
-	[
-		"BinOp",
-		"/",
-		[
-		"BinOp",
-		"*",
-		[ "Cast", [ "Unsupported" ], [ "Var" ] ],
-		[ "Var" ]
-		],
-		[ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
-	]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2900,
-	"col": 3,
-	"feature": [
-	"Store",
-	[ "Var" ],
-	[ "BinOp", "+", [ "Var" ], [ "Var" ] ]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2871,
-	"col": 4,
-	"feature": [
-	"Store",
-	[ "Var" ],
-	[ "BinOp", "-", [ "Var" ], [ "Var" ] ]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2872,
-	"col": 8,
-	"feature": [
-	"Prune",
-	[
-		"UnOp",
-		"!",
-		[
-		"BinOp",
-		">",
-		[ "Cast", [ "Unsupported" ], [ "Var" ] ],
-		[ "Var" ]
-		]
-	]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2878,
-	"col": 8,
-	"feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2879,
-	"col": 5,
-	"feature": [ "Store", [ "Var" ], [ "Var" ] ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2895,
-	"col": 3,
-	"feature": [
-	"Store",
-	[ "Var" ],
-	[
-		"BinOp",
-		"/",
-		[
-		"Cast",
-		[ "Unsupported" ],
-		[ "BinOp", "*", [ "Var" ], [ "Const", [ "Cint", 8 ] ] ]
-		],
-		[ "Var" ]
-	]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2896,
-	"col": 7,
-	"feature": [ "Call", "pcm_write" ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2126,
-	"col": 6,
-	"feature": [
-	"Prune",
-	[ "UnOp", "!", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2130,
-	"col": 9,
-	"feature": [ "Call", "remap_data" ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2069,
-	"col": 2,
-	"feature": [
-	"Store",
-	[ "Var" ],
-	[
-		"BinOp",
-		"/",
-		[ "BinOp", "*", [ "Var" ], [ "Var" ] ],
-		[ "Cast", [ "Unsupported" ], [ "Const", [ "Cint", 8 ] ] ]
-	]
-	]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2070,
-	"col": 6,
-	"feature": [ "Prune", [ "BinOp", "<", [ "Var" ], [ "Var" ] ] ]
-},
-{
-	"file": "aplay/aplay.c",
-	"line": 2072,
-	"col": 9,
-	"feature": [ "IntOverflow", "malloc", [ "Var" ] ]
-}
-],
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/231
-Repository URL: https://github.com/alsa-project/alsa-utils
+So I don't know how to continue with this and merge this new machine
+driver.

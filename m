@@ -2,53 +2,180 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 334FE782038
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Aug 2023 23:36:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7227B782320
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Aug 2023 07:22:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FA5F42;
-	Sun, 20 Aug 2023 23:35:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FA5F42
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B31D11C;
+	Mon, 21 Aug 2023 07:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B31D11C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692567358;
-	bh=gyY9YJWRXpLxzqVi/cWEoH0KoIYFZz0hFPPaf87BfxE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=kPYpwUU5bL8/AO99n8v4LLRGY7rJG5c4fd9imjuu1utxBOO6Obge0SOZtb01ikP2c
-	 clxg1cvvfhS4NDRDDH5vqslhRV8AcMrvgdAoOh/eWpnuo0jwSsMLYSLCnIm9hkLPWF
-	 ivdwhEpFOmmmwI2gxcwMgQlZI/DdzvxdUOFr/Aq8=
+	s=default; t=1692595349;
+	bh=h2rjiqVoJeOW9kWFOtcmqOznab/jL3JMHd/QlKm9FX4=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=hlghEf4fua462Flb/Ja8xN/I37npj5HV5HaY150EB/ieQi2aZP8wIiSk0m35y5A0P
+	 YP7e+7D3Mp1bgZMpys5fael9zI9IKVLL/NatTxy1AA+MAuE1w95T1jer/HnDMb7Q/Z
+	 LDEYdbtOpK+SdchrU8GfgPR2CzynH4roJ0Icxpa0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9CB5F80536; Sun, 20 Aug 2023 23:35:07 +0200 (CEST)
+	id 9B33EF8025F; Mon, 21 Aug 2023 07:21:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C2A5F8016C;
-	Sun, 20 Aug 2023 23:35:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C6D8F8016C;
+	Mon, 21 Aug 2023 07:21:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDF68F80199; Sun, 20 Aug 2023 23:35:02 +0200 (CEST)
+	id AE844F80199; Mon, 21 Aug 2023 07:19:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DB9CF800D1
-	for <alsa-devel@alsa-project.org>; Sun, 20 Aug 2023 23:34:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB9CF800D1
+X-Spam-Level: 
+X-Spam-Status: No, score=-9.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from FRA01-PR2-obe.outbound.protection.outlook.com
+ (mail-pr2fra01on20606.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e18::606])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 04560F8014C
+	for <alsa-devel@alsa-project.org>; Mon, 21 Aug 2023 07:19:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04560F8014C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=csgroup.eu header.i=@csgroup.eu header.a=rsa-sha256
+ header.s=selector2 header.b=NNlee1Qs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RpV7SYVyUDkBLWcuEhC2u86xMUAOfu+S566aWyx2rblpvALRT3wwK7oXWdLXn9NlBgwFd9sRjZDd/KrnEdHL+bAVPXEp6P6LbP0hix7cgW09Q4X3wQBJiPu309UiaS4QTyuvb/iHFDzh+NRtcr3Ag1azvsJGoSaxae2hwg/b4W8gggXHDq4BHnyw01Awh1OQxfG8/knmFfSH8GFmVTivKO5GcWfepKxTIaLg1JYFEyu1iPilzF7Iom54fAtFcTXLk5nV4h2KifdAItWq6AYHT9bJNZM5ZLRgqKg7HsBNnPSUD3oEyJM6pXLD5E4QmRa0e2L+0LwewUuQ33ks35n5vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h2rjiqVoJeOW9kWFOtcmqOznab/jL3JMHd/QlKm9FX4=;
+ b=nqKeCg1Njqq89UZTmihqXqJrg4Q+cEfgdKaQH4hgGX8LkE5QQRj3tsQHNixwcNLxDSnmqc7yKgJRcOE9eSzt82M4+dSyqFfdTgqnDQdrY6w6+1uiwSPpxgCjQHcjiMjsRxnkmeJTZdHBTl+EHY8sQQcn9vBA/dQnWmrPrF9k+T+COmSohPmTMYj7kYuD7rj9qz1OxQup1H3fSvoGNUtCaPK0wOS8ju+m54SPBeo0IKmRN7UUyZvzpf63fCXAKzasOVff1yIHuoh52G742hqedm1XBfRuv+EwpEm5bn5jiV0N0KcKhpe/j5MChfZOrjkY5JeGV5DLYIvpnwdYEvyDvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
+ dkim=pass header.d=csgroup.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h2rjiqVoJeOW9kWFOtcmqOznab/jL3JMHd/QlKm9FX4=;
+ b=NNlee1Qs61zESdhzVnmLaNmrX3XOVPkeq8evB4WZTUUaaSE12w01rvXXNpdsIk1rF1TGbb32STvc8jgLHPDCMn+ThyeUBohXB0E7f+1PzvlnLzuHbRycv0I9tokqMy/Vp04VOwVQFpVj82ZhZEoiRg0naG0xQKwnkucdaUFWtstKeiv/+V5neNJqVkqdu5SKkM1DFsZcVASCUap3DR+rpffvPLchwkXotoLM6ICfX4ma1njQiJAHltY1bePnZ1ay02tPaRisiyKnNqtTM8NbomEZoT3EOUByDkL10dE+Tk6wkiZ9PXYj0gBy21E+14+eetKJxul3VtGDA6AmQp678A==
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
+ by MRZP264MB1557.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Mon, 21 Aug
+ 2023 05:19:23 +0000
+Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2820:d3a6:1cdf:c60e]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::2820:d3a6:1cdf:c60e%7]) with mapi id 15.20.6699.022; Mon, 21 Aug 2023
+ 05:19:22 +0000
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+To: Linus Walleij <linus.walleij@linaro.org>
+CC: Herve Codina <herve.codina@bootlin.com>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
+	<andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, Lee
+ Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>, Li Yang
+	<leoyang.li@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+	<broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li
+	<Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, Nicolin Chen
+	<nicoleotsuka@gmail.com>, Randy Dunlap <rdunlap@infradead.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, Thomas Petazzoni
+	<thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v4 21/28] net: wan: Add framer framework support
+Thread-Topic: [PATCH v4 21/28] net: wan: Add framer framework support
+Thread-Index: AQHZ0fKy4fvSABwX7kiI/s138OSH1a/zsGsAgACJxQA=
+Date: Mon, 21 Aug 2023 05:19:22 +0000
+Message-ID: <fc5f1daa-58a1-fb86-65ba-c6b236051d45@csgroup.eu>
+References: <cover.1692376360.git.christophe.leroy@csgroup.eu>
+ <5f671caf19be0a9bb7ea7b96a6c86381e243ca4c.1692376361.git.christophe.leroy@csgroup.eu>
+ <CACRpkdamyFvzqrQ1=k04CbfEJn1azOF+yP5Ls2Qa3Ux6WGq7_A@mail.gmail.com>
+In-Reply-To: 
+ <CACRpkdamyFvzqrQ1=k04CbfEJn1azOF+yP5Ls2Qa3Ux6WGq7_A@mail.gmail.com>
+Accept-Language: fr-FR, en-US
+Content-Language: fr-FR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=csgroup.eu;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MRZP264MB2988:EE_|MRZP264MB1557:EE_
+x-ms-office365-filtering-correlation-id: 0b7aebb6-dddb-4ec9-32dd-08dba2062e12
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ mC3E6PYQnh6ecZDVrAVxGGllVA+e4lpEJ80yatf6zp55yrANVGau9fsnZvX/rrysxDEv6OniLRfau+9WroiMDb6KsSMhOpsP3cdgx0hE/C2MDkrb86xEs+I47MsEfTZklKlSkA6rqH7pVazNMEQdw11V3yFjFN+6q99N3o99Nlv4ftyQJVgcvrw5BqSmm4vXkkdyGniv+5t/1Mzw+MI4QejYTt2VD8O7aw6oqgK+0LaMKI1LsXOP+5qZk3rL8hnxwIGW1HrF5Pbin3G6ZJ5IMeAaBD0qq9gkwbXBbI+62iJ6AV3HuSe+3/Rkxdj0AphL96t0QhYXL4I3XoPQhqYR9bgCfKTUEONYWgOykAnu0XvfO4FqL9lsIhHkV5hAhOdHlr54BtoJbvI9k2QUrTpyuM8SJkPqTxRXe7NkN8oW7jwN0ppcmwuDpgXGY432FQZrh6yQfONtHg2mSzysUk96e5OChgz6Qgx6Cq22Njch1xwWbfqSphnscz7JGn9kzNEROGmPpzMDO5wzCozRCbftHJ4Jn7rEl0QAQa+/0W2HqNySZE1WzQ11QAAqnDSqkwIWw4rjX7UDnL3vZuUBFhGixN8JR/LjiNmI0NWa55hJzT299x9ogW3UXTSojvE+7WXHs2lOSr3Ye8qk5I+0nBYYCED4+BVz0oq0VJS70f1R9c0=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(346002)(39840400004)(366004)(396003)(136003)(376002)(451199024)(1800799009)(186009)(122000001)(316002)(91956017)(26005)(71200400001)(6506007)(6486002)(53546011)(6512007)(44832011)(4326008)(2616005)(83380400001)(5660300002)(66574015)(8936002)(8676002)(2906002)(7406005)(7416002)(966005)(41300700001)(76116006)(64756008)(66476007)(66556008)(66946007)(66446008)(54906003)(478600001)(6916009)(38070700005)(38100700002)(36756003)(86362001)(31696002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?NmZqdUpvSFBUcHpyOS8vejFKRFMwcWU2cnVzdG9rZmE1K21WZzNQMzh2U3ND?=
+ =?utf-8?B?cG9vTjRtckVVdHV0ZnVYNTNWdUhBbVBoZmtGNW9rb29sRGpDa0owMXpucEdy?=
+ =?utf-8?B?MWFSc3R4a3FaMUM2Uloxdlh5SXRBUmk4UTJYbjZyd1lEcHJDRkJ1UFVkaUJ5?=
+ =?utf-8?B?QXZSdXJ5NmlkWm1OandrdkxZMDhMSkwySUx2cHdoQlBCL1BmeDdVSkY2YWtv?=
+ =?utf-8?B?TzdIQlRXV1NKSFFKQUdRM1JOQXBJNHNxL0tJWEdZTVVhNkRscnB2NHJHMWly?=
+ =?utf-8?B?ZEZIQXlJMHFrZGU3bmZSbk1tcGxEWU9uNU03YXVYbkI4aEhaTWlrRVBiTzJW?=
+ =?utf-8?B?UVZwenhyU3k1K0xuNmk5N0djdEUrU3RpVm1rOWIrU2ZYZFRxSTVqalNiRCtK?=
+ =?utf-8?B?ZXEyajgyK1JPTXdVbHNlWEhkTWhBSFRCMzdQaUFWZWIxL3FiS0Q4YW4rMVIy?=
+ =?utf-8?B?VnV4SDB5alhDWWRVT2hMbTNETEVlUlU1MjcvYnlTVXFxYjhqUXRWaWFpcTNZ?=
+ =?utf-8?B?dlBZeXZmNXZWQUZ4T2lwWndNNFJpY2xEOFNSU0hSdzlTd2JJZjZ1VFVwK2JN?=
+ =?utf-8?B?NWFuNGw2ZGcrMzFqeXJvaWFVZ3BsVXdYRXNjY05hNG9xa0FzakU1dXVUTDBr?=
+ =?utf-8?B?NUdIQURGclJWR1dUMkk1ZHovRk1hY3BrZGhNMDBKZDlnQUR0aWw1WnR1dk8v?=
+ =?utf-8?B?R0VPd2hwTXRxWFJka21WVlBIcG5FUTYzVXNPSTljaXFOMVN4eU1oTXJITkk2?=
+ =?utf-8?B?SGh3dXlnS1RzYUJPc0FqR1hhYlhaM0sxUnA1eG5CczkzK2V5c2dRZitadkVJ?=
+ =?utf-8?B?ajY4Y0JBNmY1VjJMdXdyU01qQU9QUDlaSjk2bmovWkI2dVZ1cEU1WldVZkdZ?=
+ =?utf-8?B?WGczK1R6eXBiMklod0xtOFRnalhNekxPUWFLQzBxdWRhQnhRcDZHbHF5Y2M1?=
+ =?utf-8?B?RFRzM0UxL3BKMDh5NnJuSjRXdTJ1U0I3Y1hvZnlLZXRKLzZhVUQ2YlBORHg5?=
+ =?utf-8?B?U1N2V2d5N1hJblg1bjVnUGlKQ1lvb0Vac3RNN0x5SG9DRTN5bFZjUmNuYlhp?=
+ =?utf-8?B?WGlBTmcxckY4K2xFTXlHZFZmNk9LLyszUFJUUndrbHNhSXdaS3oxbzBXWFh3?=
+ =?utf-8?B?VlBuaWRGVUFxV1NlUGt0b1ZwT2xiVkU3ZFJ6TDVFU3lXcmZGMzRST1VRTVhZ?=
+ =?utf-8?B?N3FWbjRWNnJKYWM4V1RHY0VqVzBaSkRsUExLMHhiRWVheHhEc1FicXFDSFo4?=
+ =?utf-8?B?aE93Q295UFZpVWpSTE5paXR1OGJUTlljbkRXbjIzaU9XVUQ2c1VGQTVmRWJo?=
+ =?utf-8?B?VHNHWUJRZnJjWmpBdlVQaTc5ODVoSG00VUltYnZJYm13SjNSREh3Wk5Kd2F6?=
+ =?utf-8?B?UktVNWN4MFBabGpyUlBvdGozejZmQjVoMExZcDBEUTM4Nk1mNHVJTnQvYXpM?=
+ =?utf-8?B?UDV6WEcwYWtJY2hZMWRKU2tRR2tCdVl5cjRMdEcxM04xRzJwOW5Lb1MyakJw?=
+ =?utf-8?B?TWtzZEllOFdFZEtMekpBSFdYM1hOT1MyY3NxNHJ3SHVRSDNUYnU0UERsOXRD?=
+ =?utf-8?B?Y3IzUzhrN1oyNmpLd0JNNWthNW5VOWFucXgreVd6SEl3aURMS1I3YmNOQXBZ?=
+ =?utf-8?B?NVljd1ZWczJhMlRVR2o2V3BlT3orWXdaOEtBWHBXNG1vUkRoUUsremtVWVk3?=
+ =?utf-8?B?Z1I3T3dNdmwzbitMZTllVk5tNFNSMCtXM3B3a1pYZk5oa3ZMRXIzSmZRMTc2?=
+ =?utf-8?B?NHA3d2Z6Znp3UFh5RGdyb0VscWhpd1pwWXZlYVYxUkJuZXdYL3FkQzFDZmFl?=
+ =?utf-8?B?bTFJeGYyd1ljd3NrbU9RZjB1RmxEOEpwaXdNS0VmbVRnQWJNSGVSN0trM2Vy?=
+ =?utf-8?B?QlFndG85dm1IdTlabFEwUHV3WWluaFVnQWU0SzVLN0VZSnZ2UUJFQWN1VGtS?=
+ =?utf-8?B?WkVpa2pSaGpncXJOcEpPWWRNNUlSZFBhUmVzbnJ1SU1kU0tyVVV6UlYxeG9L?=
+ =?utf-8?B?RC9vcjNrWElxQ0xJUmNwUGRRdW92TUJ6cjlLUkFFNFY1bHhOdWtzWmxJdFN6?=
+ =?utf-8?B?NFg3OXpvT1dvM0N6WXZRZTdiMjdjS3ZReDhuMUpNYzQ5VVEvSEMzMmpQeHRx?=
+ =?utf-8?Q?aaZ4zz1UGjI8kY5lE8eH/sE7C?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <BDA1AFA249A4EC4ABE1886A8280BAC6E@FRAP264.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1692567298916019440-webhooks-bot@alsa-project.org>
-References: <1692567298916019440-webhooks-bot@alsa-project.org>
-Subject: How to determine which files were read/parsed
-Message-Id: <20230820213502.EDF68F80199@alsa1.perex.cz>
-Date: Sun, 20 Aug 2023 23:35:02 +0200 (CEST)
-Message-ID-Hash: AJV6DDKTLZCKOGI5EIXOWRIGEGGEPH6Z
-X-Message-ID-Hash: AJV6DDKTLZCKOGI5EIXOWRIGEGGEPH6Z
-X-MailFrom: github@alsa-project.org
+X-OriginatorOrg: csgroup.eu
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 0b7aebb6-dddb-4ec9-32dd-08dba2062e12
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2023 05:19:22.8954
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ DuWmuMrLstTr4MizdvNpNuTgaZIkeLYVfE+E5mGRYZ2Cn56mRtS8HSQO2mI44mSRSXzT5Bi276ycDFVk/VS337NnU1NmzVuPkJrhN62p3S8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRZP264MB1557
+Message-ID-Hash: GG4AGZDAYRAX2PUS6HZFAWVZUW7D4TC3
+X-Message-ID-Hash: GG4AGZDAYRAX2PUS6HZFAWVZUW7D4TC3
+X-MailFrom: christophe.leroy@csgroup.eu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +187,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AJV6DDKTLZCKOGI5EIXOWRIGEGGEPH6Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GG4AGZDAYRAX2PUS6HZFAWVZUW7D4TC3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,20 +196,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #345 was opened from bmariuszb:
-
-I would like to know which files were read by alsa doing `alsactl restore` or `alsactl init`.
-So far I know that there is a folder `/usr/share/alsa` and it has `init/00main`, and this is probably read first, because when I deleted whole alsa dir I got error about this file, then  I don't know what is read. Also there is a file `/var/lib/alsa/asound.state` which from my understanding contains values for different controls that are visible in alsamixer. There is also "user" config file in `/etc/asound.conf` and optionally any user can create `~/.asound.conf`. Am I missing any other files?
-getting the list of files in order they are read for each card or all cards would be helpfull in debugging.
-For example by default I found out that my card HDA Intel PCH has two devices ALC1150 Analog and ALC1150 Digital. Digital is probably one of the six jacks in the back of my PC that are unplugged so I don't care about them right now. However Analog in my PC is connected to speakers and also from motherboard comes another cable to front jack panel that I plugged my headphones. I have a few problems with the default configuration: 
-1. Headphone slider in alsamixer, known as control doesn't work.
-2. There are too many controls in Playback that are useless in my opinion.
-3. I haven't found yet how headphone and speakers jacks where merged into one Analog device. I wonder if it's a software merge or a hardware thing. I would like to combine card 2: NVidia [HDA NVidia], device 3: HDMI 0 [X2483_2481] with the merged card 1 device 0 (headphones and speakers) and I was wondering if it would be better to merge all 3 devices at once.
-
-Correct me if I'm wrong, but from my understanding you have to connect different devices to be able to dynamically switch between them, because normally every process, e.g browser connects to a pcm device at startup and you can't change it later. So the actual audio switching is unmuting one thing and muting rest of them. All "things" are connected to one pcm, right?
-
-Please correct me if I'm wrong or use wrong terminology.
-![image](https://github.com/alsa-project/alsa-lib/assets/57236506/2d73bb21-e9ee-4172-8e8e-04785cf0a887)
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/345
-Repository URL: https://github.com/alsa-project/alsa-lib
+SGkgTGludXMsDQoNCkxlIDIwLzA4LzIwMjMgw6AgMjM6MDYsIExpbnVzIFdhbGxlaWogYSDDqWNy
+aXTCoDoNCj4gT24gRnJpLCBBdWcgMTgsIDIwMjMgYXQgNjo0MeKAr1BNIENocmlzdG9waGUgTGVy
+b3kNCj4gPGNocmlzdG9waGUubGVyb3lAY3Nncm91cC5ldT4gd3JvdGU6DQo+IA0KPj4gRnJvbTog
+SGVydmUgQ29kaW5hIDxoZXJ2ZS5jb2RpbmFAYm9vdGxpbi5jb20+DQo+Pg0KPj4gQSBmcmFtZXIg
+aXMgYSBjb21wb25lbnQgaW4gY2hhcmdlIG9mIGFuIEUxL1QxIGxpbmUgaW50ZXJmYWNlLg0KPj4g
+Q29ubmVjdGVkIHVzdWFsbHkgdG8gYSBURE0gYnVzLCBpdCBjb252ZXJ0cyBURE0gZnJhbWVzIHRv
+L2Zyb20gRTEvVDENCj4+IGZyYW1lcy4gSXQgYWxzbyBwcm92aWRlcyBpbmZvcm1hdGlvbiByZWxh
+dGVkIHRvIHRoZSBFMS9UMSBsaW5lLg0KPj4NCj4+IFRoZSBmcmFtZXIgZnJhbWV3b3JrIHByb3Zp
+ZGVzIGEgc2V0IG9mIEFQSXMgZm9yIHRoZSBmcmFtZXIgZHJpdmVycw0KPj4gKGZyYW1lciBwcm92
+aWRlcikgdG8gY3JlYXRlL2Rlc3Ryb3kgYSBmcmFtZXIgYW5kIEFQSXMgZm9yIHRoZSBmcmFtZXIN
+Cj4+IHVzZXJzIChmcmFtZXIgY29uc3VtZXIpIHRvIG9idGFpbiBhIHJlZmVyZW5jZSB0byB0aGUg
+ZnJhbWVyLCBhbmQNCj4+IHVzZSB0aGUgZnJhbWVyLg0KPj4NCj4+IFRoaXMgYmFzaWMgaW1wbGVt
+ZW50YXRpb24gcHJvdmlkZXMgYSBmcmFtZXIgYWJzdHJhY3Rpb24gZm9yOg0KPj4gICAtIHBvd2Vy
+IG9uL29mZiB0aGUgZnJhbWVyDQo+PiAgIC0gZ2V0IHRoZSBmcmFtZXIgc3RhdHVzIChsaW5lIHN0
+YXRlKQ0KPj4gICAtIGJlIG5vdGlmaWVkIG9uIGZyYW1lciBzdGF0dXMgY2hhbmdlcw0KPj4gICAt
+IGdldC9zZXQgdGhlIGZyYW1lciBjb25maWd1cmF0aW9uDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTog
+SGVydmUgQ29kaW5hIDxoZXJ2ZS5jb2RpbmFAYm9vdGxpbi5jb20+DQo+PiBSZXZpZXdlZC1ieTog
+Q2hyaXN0b3BoZSBMZXJveSA8Y2hyaXN0b3BoZS5sZXJveUBjc2dyb3VwLmV1Pg0KPj4gU2lnbmVk
+LW9mZi1ieTogQ2hyaXN0b3BoZSBMZXJveSA8Y2hyaXN0b3BoZS5sZXJveUBjc2dyb3VwLmV1Pg0K
+PiANCj4gSSBoYWQgdGhlc2UgcmV2aWV3IGNvbW1lbnRzLCB5b3UgbXVzdCBoYXZlIG1pc3NlZCB0
+aGVtPw0KPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYvQ0FDUnBrZFpROV9mNis5Q3Nl
+VjFMX3dHcGhIdWpGUEFZWE1qSmZqVXJ6U1pSYWtPQnpnQG1haWwuZ21haWwuY29tLw0KPiANCg0K
+QXMgSSBzYWlkIGluIHRoZSBjb3ZlciBsZXR0ZXIsIHRoaXMgc2VyaWVzIG9ubHkgZml4ZXMgY3Jp
+dGljYWwgYnVpbGQgDQpmYWlsdXJlcyB0aGF0IGhhcHBlbmVkIHdoZW4gQ09ORklHX01PRFVMRVMg
+aXMgc2V0LiBUaGUgcHVycG9zZSB3YXMgdG8gDQphbGxvdyByb2JvdHMgdG8gcGVyZm9ybSB0aGVp
+ciBqb2IgdXAgdG8gdGhlIGVuZC4gT3RoZXIgZmVlZGJhY2sgYW5kIA0KY29tbWVudHMgd2lsbCBi
+ZSB0YWtlbiBpbnRvIGFjY291bnQgYnkgSGVydsOpIHdoZW4gaGUgaXMgYmFjayBmcm9tIGhvbGlk
+YXlzLg0KDQpUaGFua3MNCkNocmlzdG9waGUNCg==

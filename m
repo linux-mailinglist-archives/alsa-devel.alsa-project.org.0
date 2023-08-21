@@ -2,79 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BF3786863
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:34:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19BAE786865
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:34:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 156B084D;
-	Thu, 24 Aug 2023 09:33:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 156B084D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F40793A;
+	Thu, 24 Aug 2023 09:33:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F40793A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692862442;
-	bh=P9POCwdXbCQOJB28oz0eaaB7f/xf+jmqm6iRbfxyyec=;
+	s=default; t=1692862458;
+	bh=+WiTQ5AG7r8y4G1Zww7KAS8SkcWV0o+RqcA6fs2lTPo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kYnf4b6a/5CJ+FQkoSTD10784mcOjRNxGzicCtAuoESHGstz+bUSWEbsroqyZPb7H
-	 QdjHGh64+OJILPWRflyZ2gK5ZBBMUS3lT3X905CSh8P3jU+tttDxBgVq1PtGlKL8fV
-	 bRDitSA5et3cclJZFaISzxlq6JutU702HSmRubpo=
+	b=WULWJJLIk6SL+T+aMQI5gmYuLDHinS6Uv8dBp0GViCY7jldFXSYnR18oY8IrWl2L3
+	 VYCvYjz125vZxHt6IFj26OdTgrKAawgZyNcB7Qtko5UNbvRykZJ//BbvU5L4L1UsGH
+	 8yadc1acUn7rKEO7KL+TnuBIfLCLpE5O11K+69uk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D08ACF80571; Thu, 24 Aug 2023 09:32:21 +0200 (CEST)
+	id 9C1DEF8057D; Thu, 24 Aug 2023 09:32:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14897F80563;
-	Thu, 24 Aug 2023 09:32:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0570AF8057A;
+	Thu, 24 Aug 2023 09:32:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0D6BF80199; Mon, 21 Aug 2023 14:51:26 +0200 (CEST)
+	id EB1BBF80199; Mon, 21 Aug 2023 16:37:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::625])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7B18F8014C
-	for <alsa-devel@alsa-project.org>; Mon, 21 Aug 2023 14:51:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7B18F8014C
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by alsa1.perex.cz (Postfix) with ESMTP id DDC87F800F8
+	for <alsa-devel@alsa-project.org>; Mon, 21 Aug 2023 16:36:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDC87F800F8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=nEY/xqeR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H7BQAzKPrgxwRngTKBIFi4+8d4w3WY8Fz5oE+M3hYVFWGIRBA/V3H16gZJ1I3XzV+5LQNGrbsdLFsJfuVah0XJW0b3jnZm3A3+uNWbqIwuKSfhjCpcnpUwaCh2oIe+4mQhXyAWsi3YM0I6r0NVlSC+nRluk9aTfFNUPHtXoPWwJER+HIN/DX2/nLsA+CGB0PJQ4JbsDUP7vttA6rCX2KxVmUj6Z3W2RL72S+tuFPw8JxAITWlRsNYWBGIr3OQYnv/z5ApZPMPY4ao/9vxl8WvlR/EjMq5tfVdCkpxW4hEYgj8+rRZeeLysXp9L4puAqpqyleQ9Cgwclrbq1f7pfZZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qNuaXDjHiLTHoXA1rCLSHzrfqpYj+Qp6ClJy4a+iF3s=;
- b=fPKVj7ZdDYd5jTcEmgPeyJL8kNeHtoS1Ecu+nuL1hEZTR46woWWTZ6vZjNl/snd+x/DkJMXi9+iCdr3oISzGmo2uKpH3QtY/raAGiRMlr5Ucq/B9S3tTN7kD69/GmqLgunc4Ek6cE6/0TE3LyiD7QD/sGFh92tLdDaEOQZAmPueQT+krR7hN9PQNJw9pYFmcV4mWRJ2C8SFOV2Sdk6DIqp8mZkmoomw3R5k9eT4TGGrNRp9JcpNa+FQbsmj74HxelPGWqt72Ly9SMZ4WrrIQWLp7HJ8I1AARpzSI1QXAkr0bY+LOqHbfzcAF1RoFZDDL+l03icr81tXDAG48Azk7kA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qNuaXDjHiLTHoXA1rCLSHzrfqpYj+Qp6ClJy4a+iF3s=;
- b=nEY/xqeRZOYs1fPi/IBTRm9Qwk13YtTo3/euHfWyYKYMFQ1xFwVXBspHrM3jKPl/3A8Iv9RutwCxq9TkW0SLjLgldeUFEH6+8Bcrf/kQnHunEkEV8LNrSs9HW8upkrxx5idkU8cat08jZQFmU5RJUsD6uB4rrxqgbTo1w2KWVim+QlPCqoT73M+SHofjLs1rOlxI77GZw9b90GSRqO97Lh5NOsC21dlKxq2/4UCDNyzs+FJwOxjkALkxMHUw/sGB7GAzUfJ+0fjon6vNUKugLroB+IJIuRot4818fKueVWYa9vYeG3igp64Bo9GdVF6hqBxReZQV9tMNm74HKcRQfQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by MW4PR12MB6850.namprd12.prod.outlook.com (2603:10b6:303:1ed::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Mon, 21 Aug
- 2023 12:51:14 +0000
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::5111:16e8:5afe:1da1]) by LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::5111:16e8:5afe:1da1%6]) with mapi id 15.20.6699.020; Mon, 21 Aug 2023
- 12:51:14 +0000
-Date: Mon, 21 Aug 2023 09:51:13 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Andy Gross <agross@kernel.org>, David Airlie <airlied@gmail.com>,
-	alsa-devel@alsa-project.org, Bjorn Andersson <andersson@kernel.org>,
+ unprotected) header.d=8bytes.org header.i=@8bytes.org header.a=rsa-sha256
+ header.s=default header.b=cCuzifo9
+Received: from 8bytes.org (pd9fe95be.dip0.t-ipconnect.de [217.254.149.190])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id 4CE0C2819E9;
+	Mon, 21 Aug 2023 16:36:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=8bytes.org;
+	s=default; t=1692628611;
+	bh=+WiTQ5AG7r8y4G1Zww7KAS8SkcWV0o+RqcA6fs2lTPo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cCuzifo9x0D9qOt89G/4/PiqD/F+u4B/70l6IQpdB42jnyWjZAjz6KPgC0KIJ5pot
+	 yclZplhO935QvwccMrgOtmFHXq3eiyDLUhMvZiDp7Z1uCnQEBb9DWAMAxasIaPyHYq
+	 a4eQTWVPUC2Ofc8zeYGvrhV9slFe/AwBVAzPWiByhFvVRg2Dwo6GYRuq1SDa/M6D2R
+	 sY0F1aYmy5lkzE3WB90VPyGeQs8XtRdRd40i7Gqc0UnXnz42dsYsAcZAzCYTfLPIIB
+	 IeikCsXnKvSGRsvIQ6KRIPv23/3ONC+w0IGRIkYtlssEYICD4kne0F5md7TvoUKscG
+	 Wl6tO+kp8hFKw==
+Date: Mon, 21 Aug 2023 16:36:49 +0200
+From: Joerg Roedel <joro@8bytes.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, Andy Gross <agross@kernel.org>,
+	David Airlie <airlied@gmail.com>, alsa-devel@alsa-project.org,
+	Bjorn Andersson <andersson@kernel.org>,
 	Andrzej Hajda <andrzej.hajda@intel.com>, ath10k@lists.infradead.org,
 	ath11k@lists.infradead.org, Mark Brown <broonie@kernel.org>,
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -86,7 +74,6 @@ Cc: Andy Gross <agross@kernel.org>, David Airlie <airlied@gmail.com>,
 	etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
 	Frank Rowand <frowand.list@gmail.com>, iommu@lists.linux.dev,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Joerg Roedel <joro@8bytes.org>,
 	Konrad Dybcio <konrad.dybcio@linaro.org>,
 	Kalle Valo <kvalo@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -115,69 +102,15 @@ Cc: Andy Gross <agross@kernel.org>, David Airlie <airlied@gmail.com>,
 	Chen-Yu Tsai <wenst@chromium.org>
 Subject: Re: [PATCH] iommu: Remove the device_lock_assert() from
  __iommu_probe_device()
-Message-ID: <ZONdwclGOBaxxqtq@nvidia.com>
+Message-ID: <ZON2gRogBhjmpNIl@8bytes.org>
 References: <0-v1-98d20e768c66+7-of_dma_lock_jgg@nvidia.com>
  <78114fd6-9b83-92ba-418f-6cc7bda9df9b@arm.com>
+ <ZONdwclGOBaxxqtq@nvidia.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <78114fd6-9b83-92ba-418f-6cc7bda9df9b@arm.com>
-X-ClientProxiedBy: BL1PR13CA0014.namprd13.prod.outlook.com
- (2603:10b6:208:256::19) To LV2PR12MB5869.namprd12.prod.outlook.com
- (2603:10b6:408:176::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|MW4PR12MB6850:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22a4b79b-00ea-433c-9893-08dba2454dc7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	NmrlHYkggJ2nHAKVj3phCceisxZjgFBWKPZGEdbGXIrb/Dn6Jz1MTkbJ+UtrEms0c1T7E40uC6M3aKBda2ZxT7aRbwd9U7F/weLPJBD8ZQZ6JGVW80ofrYpNuUIGlIlQQ/OPWPE/gC77LxyW+Ylke5fYRpBv4wKQQGBWlw5284LxFT+I7HkfIAzrWteRCIRUYr8Ts2xTG3hbFFnWd1ijt6REYiN1J5xyrv/JUuOmNVAdINGN+t4CQNDe6+azMvzgDCmXKQM/0CSU/Yce/DdAwCwUqykOoeDUzgR1MbIJF/8NNGx0yCfXdFPc6B8lMSqOQk0LQH5bTuelBxa1ZsPVzfoFqqHYdHaQbStL6Q6oAOnSo9mRxAKZ7ZDK0HIqN1nCy6YnWl5FKAE4GrKgSpTYnEGxMQ6bc+ms3Qznv/tk37/0Rdm3KfdzQnStaXPIWcAo9ch8ZshT501iHBIGQyvSclxWYOzltSKXGrBc1qXAFj00K6nrsN0w9BH+jl8Mb4BnxXVf1vaFToVwlV8wvYwc0rfTa7N9qYr4S/U82NgJ/LZd4dySrUtuohdvQOreiAAi
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR12MB5869.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199024)(186009)(1800799009)(2906002)(7416002)(7366002)(7406005)(53546011)(38100700002)(6506007)(6486002)(83380400001)(5660300002)(26005)(86362001)(8676002)(2616005)(8936002)(4326008)(316002)(66946007)(6512007)(54906003)(6916009)(66556008)(66476007)(66899024)(478600001)(36756003)(41300700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?QyYxkkE3o5nnOsinGeWKraNyp7F/ly8111ZXt/Apzu/dIyuyU1VHdEpfZbe2?=
- =?us-ascii?Q?3AXfinDTVEGRcbzzxmbcHClfnkarHt5zhCEQUFh6AsdK5+FNy8fzIhXMW74p?=
- =?us-ascii?Q?0DWJINg79XKnutBQY7uRSHclHGpWzjQVxLWZwcfeXfmjotdKIpxiTUczpc+R?=
- =?us-ascii?Q?ewky8YThyjT/1FFKrullofYydPUR6RKAb34DpnhIlQX+kR8mdDfvcpEdGbJy?=
- =?us-ascii?Q?qKyQgXD3yFqP5icje6t0Gl0a7WV4SoHAbmoII8+/CsOUkhmYERrvEdCgSx8C?=
- =?us-ascii?Q?k9VrMUVFQsDt4GjLrY1xgpbu8KSviWQkIVhN6gjXKAKb5QCSXHxNIU7loBo0?=
- =?us-ascii?Q?+HYVmTZxJPF4yYZu5o5twgEy6m75ldrLHZx6tdAUiW0sCtSL0NP18+TT7CXB?=
- =?us-ascii?Q?dpVKv+6DuQZd14u4FdNTRIzygPFi7wTgGzeQkNWYtrjwyjYCc/hA9dcxdWe2?=
- =?us-ascii?Q?c8ALaRS/pm2KGUHVdBmAUAAgRv+u6U/kTVb6hyYw4N5E8ALFaC+Mvk3bMmGx?=
- =?us-ascii?Q?PpTWsHV+0+kM0kblTTGjYKfBqA4/ePG1cfozdhNibwJdqtAJE6GzaApydHjA?=
- =?us-ascii?Q?7rzkqxt2ZFSjbRKNk1ox1Gd6x01rTzbP05db/wXr8WFNo4PBi2DTzmkbkCtU?=
- =?us-ascii?Q?zCCGg9mEifgIyVyScNsjvpGUEW0EYOeoGzB6+YsH9e96Ls8EchDtj+/HV1WS?=
- =?us-ascii?Q?c9mbBMx/WauKwUe/hj0JN05o2KCtKe6aqWQGafg2c0X534dM2p0WHq26kyX0?=
- =?us-ascii?Q?LGZ5ph9xGWTCExNzrl6F+/ufk8e0t0E2CfrFKJC/x0rXpEOSuE21oF9J8XG9?=
- =?us-ascii?Q?7+2bQ5u8uPKu3R5zZSdyvhEV7oigUbDeaO1TMJ/7C8ZPae5v4MjQSmqlTtJK?=
- =?us-ascii?Q?jgn0tj9/LVu4m/0mKRI0bU5OBl0RW6i6+JoHT+vTHpnqD1zcsxv77Vh0j9nt?=
- =?us-ascii?Q?YQWhBf+JO2cQBV5xwIc3DIX5WnaM0AqTMO9FKixncc45zGqmQvt7vLK3+w5l?=
- =?us-ascii?Q?JPgZzcerqLPD8+T1bj7p0i2ns9y1kXSbzoD4VH5IHohSDfXczZf4ncg04jWD?=
- =?us-ascii?Q?nKS4GoZ1aOQr3qgU2dOmeHoifsUj/rbP+tSB+Tl0jO251srLVaHvXJBSGwN0?=
- =?us-ascii?Q?E1q2J4P+ueacY4o3uoUCgKlTqPFB1QlUeqtFEuysULd9E0ZdY0cFzzpB1rQ0?=
- =?us-ascii?Q?QhoAwYqkKiqtSA6qLzOH7WjMbugev7mzixBGH+ZiWGhIGzyIMfThd//gngZC?=
- =?us-ascii?Q?w9ZUILIMTuy/o5pQn3TEMIKRwMOpZxMaOwChcwkfAJCKoCFQiPdl5C5DMP75?=
- =?us-ascii?Q?AqZWHp9DI3QaDmm6oFsdsjhUVs9wtJ8Ys8cG1OQIwNJ6sj7pJ+i3nVc5UuCx?=
- =?us-ascii?Q?NDtoE4a/wrQiAg2NzhgsPHlUrPbiQYhck0rUPipUcNesIafZcZoDhm5D411p?=
- =?us-ascii?Q?Tb+ZcI8YD1aYmATgeMlTh+sTJF/HjIZoNmn2gA54QiyZTqVMj7CdZ38Vbmx1?=
- =?us-ascii?Q?DX7k5gnQJLXKuATibwv9Yvp2TDvjFQCrTQ+aBx5AL2m11beCroNgzox32An8?=
- =?us-ascii?Q?3DjhuSH+E3B8pFE6CxGtwnFrNWg7XRXv40FyPLtN?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 22a4b79b-00ea-433c-9893-08dba2454dc7
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 12:51:14.7494
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- aDWV5dP5qf0J2bIIwmISU7r9iWwbX7ZHaYBaOMnqZq4awKkP8i1jm5Sof6FA5faL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6850
-X-MailFrom: jgg@nvidia.com
+In-Reply-To: <ZONdwclGOBaxxqtq@nvidia.com>
+X-MailFrom: joro@8bytes.org
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -185,15 +118,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: DH5KF4TCVGUI5U3KFAFE3EFC4M43YAZQ
-X-Message-ID-Hash: DH5KF4TCVGUI5U3KFAFE3EFC4M43YAZQ
-X-Mailman-Approved-At: Thu, 24 Aug 2023 07:29:57 +0000
+Message-ID-Hash: JHLZZPMOPUUJFDOOZM2757KDAWXW4L56
+X-Message-ID-Hash: JHLZZPMOPUUJFDOOZM2757KDAWXW4L56
+X-Mailman-Approved-At: Thu, 24 Aug 2023 07:30:03 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DH5KF4TCVGUI5U3KFAFE3EFC4M43YAZQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHLZZPMOPUUJFDOOZM2757KDAWXW4L56/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -202,67 +135,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Aug 21, 2023 at 12:06:40PM +0100, Robin Murphy wrote:
-> On 2023-08-18 22:32, Jason Gunthorpe wrote:
-> > It is subtle and was never documented or enforced, but there has always
-> > been an assumption that of_dma_configure_id() is not concurrent. It makes
-> > several calls into the iommu layer that require this, including
-> > dev_iommu_get(). The majority of cases have been preventing concurrency
-> > using the device_lock().
-> > 
-> > Thus the new lock debugging added exposes an existing problem in
-> > drivers. On inspection this looks like a theoretical locking problem as
-> > generally the cases are already assuming they are the exclusive (single
-> > threaded) user of the target device.
-> 
-> Sorry to be blunt, but the only problem is that you've introduced an
-> idealistic new locking scheme which failed to take into account how things
-> currently actually work, and is broken and achieving nothing but causing
-> problems.
+On Mon, Aug 21, 2023 at 09:51:13AM -0300, Jason Gunthorpe wrote:
+> So now that Joerg has dropped it - what is your big idea to make the
+> locking actually work right?
 
-That's pretty dramatic. I would have prefered this series have some
-more testing before Joerg took it, but this is certainly not
-"achieving nothing but causing problems". Introducing a real scheme
-for how locking is supposed to work here is going to cause some
-strain.  We've had a long period where the lack of any locking rules
-has yielded a big mess held together with hope and dreams.
+I am not opposed to the general idea. When putting it into the tree I
+wasn't aware how many users still need to be adapted to properly work
+with this.
 
-Of course there will be crazy stuff. If these 13 drivers are the only
-problem then we've done pretty well.
+We can do another try once the issues have been sorted out and you have
+agreed with Robin on a workable way forward.
 
-And at the end we get *actual rules about how locking works* Wow!
-Certainly not nothing.
+Regards,
 
-What I want to hear from you is a concrete reason why device_lock() is
-the *wrong* lock here. I can't think of any reason why we can't obtain
-the device_lock in all the places that want to probe the iommu driver.
-
-Nor, can I see a reason why it would be a bad choice of lock after all
-the dma_configure logic is reworked someday.
-
-> When their sole purpose was to improve the locking and make it
-> easier to reason about, and now the latest "fix" is now to remove
-> one of the assertions which forms the fundamental basis for that
-> reasoning, then the point has clearly been lost.
-
-I do not want to remove the assertion, I think the assertion should
-stay so people running debug kernels on these drivers can get warnings
-about the existing problems in these drivers.
-
-It is removed mostly because we are at rc7, otherwise I'd play wack a
-mole adding the device_lock and a nasty comment to the drivers. We can
-tackle that in the next cycle and put the assertion back.
-
-> All we've done is churned a dodgy and incomplete locking scheme into
-
-Well, at least we agree what we have today is not great.
-
-> And on the subject of idealism, the fact is that doing IOMMU configuration
-> based on driver probe via bus->dma_configure is *fundamentally wrong* and
-> breaking a bunch of other IOMMU API assumptions, so it is not a robust
-> foundation to build anything upon in the first place. 
-
-So now that Joerg has dropped it - what is your big idea to make the
-locking actually work right?
-
-Jason
+	Joerg

@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A137B782E5C
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Aug 2023 18:25:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0614782EB0
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Aug 2023 18:45:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A523F832;
-	Mon, 21 Aug 2023 18:24:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A523F832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 565F9825;
+	Mon, 21 Aug 2023 18:44:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 565F9825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692635139;
-	bh=rh+mxk2XiwA0hIRSU2uiSF0lwTaOpoX7hUeSI+GftIc=;
+	s=default; t=1692636329;
+	bh=LlrlqT5YFbaVq7QjCCWPiC/vKgnJUso9K3vZdLYpSrQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pA0bgt46IU5i5DWg7gkbxKOZpLCkFBR+nVkaLu61hlOsQ3dNtKObwi83cZv8Wpd4S
-	 317NCv8CJiTfsgOHIn0CcB86iZyPV6Sh6InBXjUzE+0yzb00cGLoWoFcvm96SvuXFy
-	 IjBZq27PQQZBkPSnI9fi5IZSgrZOhxixsWU3xq3I=
+	b=qI9+7BqWRkxyPtpFHyg0zZ2v6JsCbigUwdW2SWAnzEWDkvpPrCsBIBeFuVoHbZ2YS
+	 aDyAkdHgwzxYfs0+riCpluh6elGa4dm3iyIffiJ9+X25wpYBrZgtNBJnAREeX1nltM
+	 tiAb0b/nLu9n6lLvXWZJFK9bCOzz3mZt0tVHbyJo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E92F4F80510; Mon, 21 Aug 2023 18:24:48 +0200 (CEST)
+	id 9A2A5F800BF; Mon, 21 Aug 2023 18:44:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F8B2F8016C;
-	Mon, 21 Aug 2023 18:24:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60C08F8016C;
+	Mon, 21 Aug 2023 18:44:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF8FBF80199; Mon, 21 Aug 2023 18:24:43 +0200 (CEST)
+	id C33D4F80199; Mon, 21 Aug 2023 18:44:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9D15CF800BF
-	for <alsa-devel@alsa-project.org>; Mon, 21 Aug 2023 18:24:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D15CF800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 90DCBF800BF
+	for <alsa-devel@alsa-project.org>; Mon, 21 Aug 2023 18:44:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90DCBF800BF
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DkQ/4HMv
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=ybRr39jV
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5DA0860F73;
-	Mon, 21 Aug 2023 16:24:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91FDC433C7;
-	Mon, 21 Aug 2023 16:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692635076;
-	bh=rh+mxk2XiwA0hIRSU2uiSF0lwTaOpoX7hUeSI+GftIc=;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BF79963EDE;
+	Mon, 21 Aug 2023 16:44:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF49C433C7;
+	Mon, 21 Aug 2023 16:44:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1692636263;
+	bh=LlrlqT5YFbaVq7QjCCWPiC/vKgnJUso9K3vZdLYpSrQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DkQ/4HMvIHtmoa+Iyx2BUPnPvRz3pEt3XII2fhysU7IJ6JauOHFXqCxYk2yApb4n3
-	 JTztA3RnFEMQUBj1yH/ami1p5V2/gHXDI7JYRk0wrUm+asGgVs6sLA0/aDTtY8dHWw
-	 Any0hpk+zQCCkht2yqeqQ681dT2DimDJPH7fXbqfmJ3PeIO2lV8bnNrpIQ/xFiDHpY
-	 Y6d7Mj74rM8c+2Sl04xn9rzQyrxnkJKKoY3gde3HKm0tBL5WCr+JBBZa3XncnW2eVM
-	 5qa3l/mxradlqHMTqMz4Nt+08rWjZcMPl0ak3ZcgntmYf+TV7rN+NMz2gWTGVXqOwJ
-	 WCZYWT70FEg2g==
-Date: Mon, 21 Aug 2023 17:24:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: Delete UDA134x/L3 audio codec
-Message-ID: <01f4cbd3-b98a-4c8c-a19e-3e3eb2d45104@sirena.org.uk>
-References: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
+	b=ybRr39jV8vAJlQlMVP1ogmL+zehfOZcFpu9ASwI247gPAz+lGOtvrJ9yiJ2HT6GB8
+	 vnplHA6UHU27663KPl6RS44kGk70wTAlT2TLFpm0FUZNYjHSy+UAhLbbnWnu8z3HpK
+	 +w2ltuxxj06WyHzx6mxPz7jZHBYkK03FbidtcRIQ=
+Date: Mon, 21 Aug 2023 18:44:20 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: ALSA development <alsa-devel@alsa-project.org>, stable@vger.kernel.org,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	=?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] [6.4.y] ASoC: SOF: intel: hda: Clean up link DMA for
+ IPC3 during stop
+Message-ID: <2023082110-stumble-founding-148d@gregkh>
+References: <20230821122209.20139-1-perex@perex.cz>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Bhuvj7fzxmUqme8u"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
-X-Cookie: No campfires allowed.
-Message-ID-Hash: ON54GPHYOF4PEDF3MUMZQJSROST3UNML
-X-Message-ID-Hash: ON54GPHYOF4PEDF3MUMZQJSROST3UNML
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230821122209.20139-1-perex@perex.cz>
+Message-ID-Hash: 33KCNN6CZC7HECXPPSH3IH6DLNDFN54E
+X-Message-ID-Hash: 33KCNN6CZC7HECXPPSH3IH6DLNDFN54E
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,47 +93,44 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ON54GPHYOF4PEDF3MUMZQJSROST3UNML/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33KCNN6CZC7HECXPPSH3IH6DLNDFN54E/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, Aug 21, 2023 at 02:22:09PM +0200, Jaroslav Kysela wrote:
+> From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> 
+> commit 90219f1bd273055f1dc1d7bdc0965755b992c045 upstream.
+> 
+> With IPC3, we reset hw_params during the stop trigger, so we should also
+> clean up the link DMA during the stop trigger.
+> 
+> Cc: <stable@vger.kernel.org> # 6.4.x
+> Fixes: 1bf83fa6654c ("ASoC: SOF: Intel: hda-dai: Do not perform DMA cleanup during stop")
+> Closes: https://github.com/thesofproject/linux/issues/4455
+> Closes: https://github.com/thesofproject/linux/issues/4482
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=217673
+> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Rander Wang <rander.wang@intel.com>
+> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Link: https://lore.kernel.org/r/20230808110627.32375-1-peter.ujfalusi@linux.intel.com
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> 
+> Note that many recent Intel based laptops are affected.
+> 
+> Added missing code for 6.4 kernels to keep the fix simple not depending
+> on the other changes. This commit is present in 6.5 tree already.
+> 
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
---Bhuvj7fzxmUqme8u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Now queued up, thanks.
 
-On Mon, Aug 21, 2023 at 04:17:57PM +0200, Linus Walleij wrote:
-> This codec was used by the deleted S3C board
-> sound/soc/samsung/s3c24xx_uda134x.c.
-
-This breaks an x86 allmodconfig build:
-
-make --silent --keep-going --jobs=15 O=/build/stage/build-work ARCH=x86_64 SRCARCH=x86 CROSS_COMPILE=x86_64-linux-gnu-
-/build/stage/linux/sound/soc/codecs/l3.c: No such file or directory
-make[3]: *** [/build/stage/linux/scripts/Makefile.modpost:144: Module.symvers] Error 1
-make[3]: Target '__modpost' not remade because of errors.
-
-The Makefile removal is partial.
-
-
---Bhuvj7fzxmUqme8u
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTjj78ACgkQJNaLcl1U
-h9BBUAf7B1ABhYC/tCVDTcRPuPXweTcD7N4mzXgonKq4panMmO/+6yrEOvP84bke
-hV1k61bEYTUDu9J43e9TWSbPIuBiGCIKG4o3ueuJ2f4lSf8Jg+U/n4w8+NuqYqGK
-AVWqLe5eVuGYUXpGZDjO5HNLlGlWHLOBqRw8SkNC5vogHIJtuxiDVzAileYbaBqC
-4lrOKpr8x+bp0mRYsMbdQfNr+lJrum373JN3F/rk9tBH2SHra5zROt9eUpTu7eZq
-g16hRPxfiJwX+kSrEDMdk5nkhsRYtmqkS4/tIQgh07CJ6ZiGlpSAdz+++NjkoTzo
-Wihi9k/dgmoBwfFnOMCXOatQadVbQA==
-=Rq4B
------END PGP SIGNATURE-----
-
---Bhuvj7fzxmUqme8u--
+greg k-h

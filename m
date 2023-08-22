@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7680D7847C6
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 18:35:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F797847CA
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 18:35:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B77D3825;
-	Tue, 22 Aug 2023 18:34:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B77D3825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6631B84C;
+	Tue, 22 Aug 2023 18:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6631B84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692722115;
-	bh=9vNzYg4w4GUbZNldzK1Za05IccqxfzHtxVoEZbMfmdk=;
+	s=default; t=1692722122;
+	bh=87Mt00iuVTM5oBM4ntFY2pK6S9pr01eqEEsQVkUzh8E=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Zxk/P1uhAy1OlG9IJr/JNLwz4Bmc5dDx4XcEgjSgE9cLjPmQgXRmirZwNwyXMnJqN
-	 cnGINwwzJ1f1A+OBreHvgAz/hey/jHZTFiez1cVDEMWlDrwc9n+Y2zwrc4XN0cdU5c
-	 6n4RAdbXzfqnHYcrvgisWXex6GQJo17evJl7TU4I=
+	b=QzxZIoBgymkdVbcjw2/r9ZNQ2/OZ2qXYBxhUnR1cLPGsOCaRe1TyEXM9pDCHsZ+J/
+	 XIWJor95E85upLLphd+ekRsFjSE1+RJ//SgDJTzHtFzBGTwfgwWHHrwDHwcLOyGosD
+	 n17pAWs9h8CIvkSzkfkHOHGqSYP00mZKAuOPEwU8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAC2EF80564; Tue, 22 Aug 2023 18:33:35 +0200 (CEST)
+	id C6E80F80567; Tue, 22 Aug 2023 18:33:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E642F80553;
-	Tue, 22 Aug 2023 18:33:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8A47F80553;
+	Tue, 22 Aug 2023 18:33:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5914F800F5; Tue, 22 Aug 2023 18:33:31 +0200 (CEST)
+	id 9AC65F8022B; Tue, 22 Aug 2023 18:33:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63E42F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 18:33:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E42F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 59CF0F800BF
+	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 18:33:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59CF0F800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=myFHZ1Ru
+ header.s=k20201202 header.b=Nuh5uCsD
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 363F362FAB;
-	Tue, 22 Aug 2023 16:33:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09833C433C7;
-	Tue, 22 Aug 2023 16:33:19 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1BDDC65CB0;
+	Tue, 22 Aug 2023 16:33:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C34BC433C9;
+	Tue, 22 Aug 2023 16:33:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692722001;
-	bh=9vNzYg4w4GUbZNldzK1Za05IccqxfzHtxVoEZbMfmdk=;
+	s=k20201202; t=1692722003;
+	bh=87Mt00iuVTM5oBM4ntFY2pK6S9pr01eqEEsQVkUzh8E=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=myFHZ1Ruut94frOjQZ6sSGw5p4qC99wU+de2OKy9xVmhZ9nSPimiVzswVLAl9Sipt
-	 5hVaT5god9DFHK+9HdAfl3I/j3aK1nH6c7Biujt3YMM8FC85MG3N3u9RlkLz10yl52
-	 PTWesMjVBIgCd0Z3g/d1RAWJDQjSWeihv6SyhPiTCB6mfc7zCxKaQFdzUHJoINiMTf
-	 J4cT6DojO//Bfo5Ei5C9ZwICBxo8WpbtJmjG9Thm+jRtW1gO9dPQGir+R36HDlE4P3
-	 kvqOJ4yCNxD2cqUyPaRq5TpqQZAzXWevM+RT6dZpJB6+SB5/cU5tjuHNL7103sWs+7
-	 CnTA3IRztQKog==
+	b=Nuh5uCsDO9R/DtXYTMX63zubV2lzP8jnU3eOXWGXARVvhis3XHzGU9x7HtJ4HTKQz
+	 s8QDSv9q0d/jFxuY33aTr8+ya3Fes5dCMNaJxa7h/2oeTAR55HdjzkVUNurXWHuqxn
+	 iQoGQNR+WOeszWXaJ4oQPStBGK22d3ZT//ugbZLS5/aaO35nqxJqCVPxYithan4bf3
+	 rdChqRb414U0Hw5GU1pgmi1pTDUjdyEiTvY5DoFmKck7bIJ1owK4FKF+Ws38+GLFB5
+	 F6omuXur0HQFYGVDP33l9Pe95XlTdcUurY65JIwp6CQRJJ14RuxJghyJp7H03H20sM
+	 +dS9bv1VYmofg==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com, seppo.ingalsuo@linux.intel.com
-In-Reply-To: <20230821113629.5017-1-peter.ujfalusi@linux.intel.com>
-References: <20230821113629.5017-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: SOF: ipc4-topology: Fixes for pipelines with
- SRC
-Message-Id: <169272199975.71502.8304091663464060005.b4-ty@kernel.org>
-Date: Tue, 22 Aug 2023 17:33:19 +0100
+To: oder_chiou@realtek.com, Senhong Liu <liusenhong2022@email.szu.edu.cn>
+Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20230819133345.39961-1-liusenhong2022@email.szu.edu.cn>
+References: <20230819133345.39961-1-liusenhong2022@email.szu.edu.cn>
+Subject: Re: [PATCH] sound/soc/codecs/rt5640.c: fix typos
+Message-Id: <169272200183.71502.12839834978316716379.b4-ty@kernel.org>
+Date: Tue, 22 Aug 2023 17:33:21 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: X5DOGIT7CMJHEUUIHQBU5DRXXPY3VVUI
-X-Message-ID-Hash: X5DOGIT7CMJHEUUIHQBU5DRXXPY3VVUI
+Message-ID-Hash: SFF2XAK6ZPPXNSCOKCJ7BVLRKADW3OYP
+X-Message-ID-Hash: SFF2XAK6ZPPXNSCOKCJ7BVLRKADW3OYP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,25 +88,19 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X5DOGIT7CMJHEUUIHQBU5DRXXPY3VVUI/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SFF2XAK6ZPPXNSCOKCJ7BVLRKADW3OYP/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 21 Aug 2023 14:36:25 +0300, Peter Ujfalusi wrote:
-> the SRC component in a pipeline provides flexibility on the sampling
-> rate which was not handled previously.
+On Sat, 19 Aug 2023 06:33:45 -0700, Senhong Liu wrote:
+> I noticed typos and i fixed them.
 > 
-> This series will improve the kernel side with the needed logic to be
-> able to deal with the SRC type of components in pipelines.
 > 
-> Regards,
-> Peter
-> 
-> [...]
 
 Applied to
 
@@ -116,14 +108,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: SOF: ipc4-topology: Modify pipeline params based on SRC output format
-      commit: ef24388225f87f2604522fe86fafacc271ec4a29
-[2/4] ASoC: SOF: ipc4-topology: Fix the output reference params for SRC
-      commit: 56ecc164040b3685f6cb36b4d513d73d0f88140b
-[3/4] ASoC: SOF: ipc4-topology: Fix pipeline params at the output of copier
-      commit: 769e8f6cd7182c95d4bd37491e13300ff067c7a7
-[4/4] ASoC: SOF: ipc4-topology: Modify the reference output valid_bits for copier
-      commit: 70b0924b22efe2135222a2c7141a83dfe0c78779
+[1/1] sound/soc/codecs/rt5640.c: fix typos
+      commit: 8e6657159131f90b746572f6a5bd622b3ccac82d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

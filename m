@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C6F97847D0
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 18:36:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6646E7849E1
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 21:04:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0670850;
-	Tue, 22 Aug 2023 18:35:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0670850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41D97827;
+	Tue, 22 Aug 2023 21:03:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41D97827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692722186;
-	bh=FUMYuqBet9OUvjdPDUTOWt+J+EvJZ1s8aB7eIyBzt6s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1692731062;
+	bh=Xc4ST8ahrM0duAGhV+IF27hYKSGqH7l4mGffuCaWhwM=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ow0EKL9S9l/C/v6trpBbr54xCwDX/MiS/RBdouJV/qG8gfqxNcBFPMwxjLbUICcWg
-	 ln1ffGYWqQHqSB0+VtIomk5PbKisi+94w5u1hHMd4G4GzJLbvkMoUew3jsCVKi5XAe
-	 b1c1SvRy1KSsklS768A3PRWUjvMDC5Pon/XmzuB0=
+	b=CqRM8IXepn++jUHTUI0Y509u7uJ29ZZQRypzsKyw/Jk46Ro7Qw3+j4+/B+SMCV+IH
+	 yCHiwyMfK8BV+/3hTMPNCQzGYyvg6Uv3QZZ7T+F8x0RhMKWnOrQUNyjnJEBB4rbkVC
+	 auNhoroYpmge/iJrxBrE4dhCsrE3loC68Rq8ERGw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1336DF805C6; Tue, 22 Aug 2023 18:33:50 +0200 (CEST)
+	id EA8F0F80537; Tue, 22 Aug 2023 21:03:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7ACB2F805BD;
-	Tue, 22 Aug 2023 18:33:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EF5CF800F5;
+	Tue, 22 Aug 2023 21:03:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7A2BF8057B; Tue, 22 Aug 2023 18:33:38 +0200 (CEST)
+	id 7E6A9F80158; Tue, 22 Aug 2023 21:03:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-8.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6ED7BF8057A
-	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 18:33:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ED7BF8057A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OE7zjCab
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 387E2F800BF
+	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 21:03:17 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C152F11F1;
+	Tue, 22 Aug 2023 21:03:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C152F11F1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1692730995; bh=H1jAI0OWTYfmQPop3rZ72oc0/zGHlYBNGO48tF25aAA=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=LGVPFm7J7ASx6GnZgjdHR9vmKjSBilyo35Z1wW3now1yxm8FkKHUY1ZWwD+Tb/1sj
+	 +UBj0i804ImLDBQeQYDDzhoD6MAhH/GSFhCW0htOrwBYtaexdbqM+m5oKeFvn1JzEX
+	 qwjF6wWoFKAChgjWH1dmxC4PyNCw9oJYxA6TK8B4=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2783165CC1;
-	Tue, 22 Aug 2023 16:33:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B41C433C7;
-	Tue, 22 Aug 2023 16:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692722014;
-	bh=FUMYuqBet9OUvjdPDUTOWt+J+EvJZ1s8aB7eIyBzt6s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=OE7zjCab8l/kB8Q4ik3yag4XPE2VKJpB2hMoR3jXnrLBOTcOncKnAwM1M2/3A2BzY
-	 UHt5r13hiHg2VqtbARQ5EIiZ681Y9jB1a+optlFjEIzYuVStXnvWwmqGaDaMC9U9MQ
-	 QHNgD8Kc0N0zv11lkoYpVtGhewgDGqmVgjeyIbDTu1eGRNzMYq7SKsSgNQkSzOBT2P
-	 bjwWQo/gDMjFgv+tFkRiVnOfPRQrgxhMmmnI+rqWJJD4qcUnd+TFpxhojqS/NvMF1A
-	 s4Ab5X5gGI9u70rqUZIrsk5fFN8BvTCQ6A8eG0mE5WYvHKjrH1eqUDmITHkHUZPgE5
-	 4f3yq9dmPMpNA==
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Uwe_Kleine-K=C3=83=C2=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <87a5ujubj0.wl-kuninori.morimoto.gx@renesas.com>
-References: <87a5ujubj0.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: fsl: merge DAI call back functions into ops
-Message-Id: <169272201286.71502.4741664639460188431.b4-ty@kernel.org>
-Date: Tue, 22 Aug 2023 17:33:32 +0100
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Tue, 22 Aug 2023 21:03:07 +0200 (CEST)
+Message-ID: <5d77217b-1083-a4d0-1b69-7511d24b6aec@perex.cz>
+Date: Tue, 22 Aug 2023 21:03:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
+ tiwai@suse.com, alsa-devel@alsa-project.org,
+ amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ hdegoede@redhat.com
+References: <20230811164853.1797547-1-cezary.rojewski@intel.com>
+ <20230811164853.1797547-2-cezary.rojewski@intel.com>
+ <43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz> <87bkezdsjh.wl-tiwai@suse.de>
+ <67fc99db-baf8-17b0-e7c4-f420676e5c8a@perex.cz> <874jkrdr49.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [RFC PATCH 01/17] ALSA: pcm: Introduce MSBITS subformat interface
+In-Reply-To: <874jkrdr49.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: A476Z7TQNIMEYUILPL4VOLX7HV6NYNFE
-X-Message-ID-Hash: A476Z7TQNIMEYUILPL4VOLX7HV6NYNFE
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: WV6BIRCFT3DURAA4QGXQTYMC4RSPKKHV
+X-Message-ID-Hash: WV6BIRCFT3DURAA4QGXQTYMC4RSPKKHV
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A476Z7TQNIMEYUILPL4VOLX7HV6NYNFE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WV6BIRCFT3DURAA4QGXQTYMC4RSPKKHV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,37 +100,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 22 Aug 2023 01:10:59 +0000, Kuninori Morimoto wrote:
-> ALSA SoC merges DAI call backs into .ops.
-> This patch merge these into one.
+On 22. 08. 23 17:38, Takashi Iwai wrote:
+> On Tue, 22 Aug 2023 17:29:47 +0200,
+> Jaroslav Kysela wrote:
+>>
+>> On 22. 08. 23 17:07, Takashi Iwai wrote:
+>>> On Tue, 22 Aug 2023 17:03:02 +0200,
+>>> Jaroslav Kysela wrote:
+>>>>
+>>>> On 11. 08. 23 18:48, Cezary Rojewski wrote:
+>>>>
+>>>>> +#define SNDRV_PCM_SUBFMTBIT_MSBITS_32	_SNDRV_PCM_SUBFMTBIT(MSBITS_32)
+>>>>
+>>>> What was reason to add 32/32 format ? Subformat STD + msbits == 32
+>>>> should already handle the maximal resolution. Until we do not have 64
+>>>> bit formats, it seems like an useless extension.
+>>>
+>>> My understanding is to distinguish the cases "we do fully support
+>>> 32bit" and "we don't care".  But, the end effect is same for both,
+>>> user-space would handle 32bit in both cases, so this difference won't
+>>> help much, indeed.
+>>
+>> I don't think that we have a "do not care" situation. The applications
+>> currently expects to use the maximal msbits for STD subformat. The
+>> subformat should be used only to refine (downgrade) the resolution on
+>> the driver / hw side on demand. I would just add only necessary API
+>> extensions and save one bit for now.
 > 
-> 
+> Well, the current behavior (with STD) is to choose whatever 32bit
+> format the driver supports, and the driver may set a different value
+> of hw_params.msbits at hw_params.  The explicit MSBITS_32 would
+> enforce the hw_params.msbits to be 32, otherwise hw_refine would
+> fail.  So I see a potential difference.
 
-Applied to
+I see. But if our target is to create a complete query/set msbits API, we 
+should cover all cases also for other formats.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I vote to replace SUBFMTBIT_MSBITS_32 to SUBFMTBIT_MSBITS_MAX as the second 
+bit (right after STD). The format hw parameter already defines the maximal 
+width. We can add SUBFMTBIT_MSBITS_32 when it's really required. Note that MAX 
+should be handled for all cases (not only for S32_LE or so).
 
-Thanks!
+					Jaroslav
 
-[1/1] ASoC: fsl: merge DAI call back functions into ops
-      commit: 220adc0fda6bbc274fff5825e2fd7d3dcd719e5c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

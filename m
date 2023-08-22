@@ -2,108 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D993A784509
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 17:09:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B8B1784552
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 17:21:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09C43827;
-	Tue, 22 Aug 2023 17:08:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09C43827
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE1CD20C;
+	Tue, 22 Aug 2023 17:21:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE1CD20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692716947;
-	bh=QhcdenjTr+dMugMO1zI2OuwG4FXqFH0hQaj4KR8w5Zk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1692717712;
+	bh=126PYpTFgNWNrGZ7TD478cuYrkTzyARzZTyWre4ExCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Dlxe78l4y7gZVDah0+E/ZCKTYb8id9eioQ7badLgmKbd+gmBZw8pxYS3XxauzOzyS
-	 amccUajZ0R0j09qA393SK/N+i8HfnRmGynhBQClFhT4rAOIjmIllJwC9t+9QRnxwIm
-	 dhBlSm62SrABTNu9nMouEwrUxn1gnTcWrCLx++a0=
+	b=tV9WKviEag6wqd72X3Pd2doXI7CFp0bWxDRaR7kpKFr85y7XEZfGxYYnWLiMOUkrR
+	 g5K1bbBEm8rwpefNwisE1YploADS7zWEkZqALo+d1eZbq4htTD///nFaxvov53uFcB
+	 net5JI1OgX091LyFXQWALZ1A8roAH1ZN460g1EvY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AAE5AF800BF; Tue, 22 Aug 2023 17:07:56 +0200 (CEST)
+	id 6AB39F800D1; Tue, 22 Aug 2023 17:21:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D88AFF800F5;
-	Tue, 22 Aug 2023 17:07:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 295E4F800F5;
+	Tue, 22 Aug 2023 17:21:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14AACF80158; Tue, 22 Aug 2023 17:07:52 +0200 (CEST)
+	id 18BBBF80158; Tue, 22 Aug 2023 17:20:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9BDBAF800D1
-	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 17:07:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDBAF800D1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4AA23F800D1
+	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 17:20:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA23F800D1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=uB3RxRup;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UfV4wESY
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id ED23F1F85D;
-	Tue, 22 Aug 2023 15:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692716866;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l8uBMMnViOQDnjhHWXY2ri1Yju+o1RCmXoIVHmAXIe8=;
-	b=uB3RxRupz6OdtrOuQCl7b59L9sssZ+XX1QdhvVwEa70VNlLUxyI+CVWwmz7yfSugwCQfae
-	jmq7rZa+YaNVivD4Gdc1uFd61zZzBwEAlTeSXatxSCWq/UPiSfLBrO0ni/FYs6FQvR4syR
-	jgQAVClvyPUChFY59ysE6ttgZjke9II=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692716866;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l8uBMMnViOQDnjhHWXY2ri1Yju+o1RCmXoIVHmAXIe8=;
-	b=UfV4wESYhXH9LJzvWx+yG4dbbZjhS6RqYb6EIKSrL005nlLmTtl8FVrb541vvDp4qpJsbT
-	txi86KAESkpJfxDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B24FA132B9;
-	Tue, 22 Aug 2023 15:07:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 0vrtKULP5GTPNQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 22 Aug 2023 15:07:46 +0000
-Date: Tue, 22 Aug 2023 17:07:46 +0200
-Message-ID: <87bkezdsjh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	broonie@kernel.org,
-	tiwai@suse.com,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=hqV1Zgga
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1692717654; x=1724253654;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=126PYpTFgNWNrGZ7TD478cuYrkTzyARzZTyWre4ExCI=;
+  b=hqV1ZggaLQRm2ibKdQcxu7hqb0ltL18oCmCcnFk65XINODBmfmQQQSO8
+   1yARdT6MHv3yKV69nypNC31/aYTHnsdpy8zesHB2b3yOuFDvHSEmlUnkg
+   v8Hal8bsjT3f8dioD7ekvZYugwO/5YV+FIyvJg0AQbb0C/3iSraKGAQZq
+   Z6KMcd8MIkhYn1u1U2e4tNSJszpAGoKSZC8BLwUBm8cd6VRnKl1jYLupd
+   AaFMmPcZ2Jvm3N574ATp60pjfj3toqwbR3e2Z4CiuMpJHOco/Fd5GEEfR
+   mOASm4Y9F86gBsTpj1+w5jSQShWDWMYLvZrfbUzjFd8NaaYvfvAbmAyn3
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="377670294"
+X-IronPort-AV: E=Sophos;i="6.01,193,1684825200";
+   d="scan'208";a="377670294"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2023 08:20:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="806328281"
+X-IronPort-AV: E=Sophos;i="6.01,193,1684825200";
+   d="scan'208";a="806328281"
+Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
+  by fmsmga004.fm.intel.com with ESMTP; 22 Aug 2023 08:20:26 -0700
+Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qYTBB-0000HQ-0p;
+	Tue, 22 Aug 2023 15:20:25 +0000
+Date: Tue, 22 Aug 2023 23:20:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Linus Walleij <linus.walleij@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
-	amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	hdegoede@redhat.com
-Subject: Re: [RFC PATCH 01/17] ALSA: pcm: Introduce MSBITS subformat interface
-In-Reply-To: <43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz>
-References: <20230811164853.1797547-1-cezary.rojewski@intel.com>
-	<20230811164853.1797547-2-cezary.rojewski@intel.com>
-	<43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: NTAKYUBL255GRX5W7VLSIX6GSTGXNXUB
-X-Message-ID-Hash: NTAKYUBL255GRX5W7VLSIX6GSTGXNXUB
-X-MailFrom: tiwai@suse.de
+	Linus Walleij <linus.walleij@linaro.org>
+Subject: Re: [PATCH] ASoC: Delete UDA134x/L3 audio codec
+Message-ID: <202308222331.ZaXmBhDK-lkp@intel.com>
+References: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
+Message-ID-Hash: HHTCJIDPAZK5F52B4Y67DXGCLOYYULI4
+X-Message-ID-Hash: HHTCJIDPAZK5F52B4Y67DXGCLOYYULI4
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,31 +103,40 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NTAKYUBL255GRX5W7VLSIX6GSTGXNXUB/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HHTCJIDPAZK5F52B4Y67DXGCLOYYULI4/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 22 Aug 2023 17:03:02 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 11. 08. 23 18:48, Cezary Rojewski wrote:
-> 
-> > +#define SNDRV_PCM_SUBFMTBIT_MSBITS_32	_SNDRV_PCM_SUBFMTBIT(MSBITS_32)
-> 
-> What was reason to add 32/32 format ? Subformat STD + msbits == 32
-> should already handle the maximal resolution. Until we do not have 64
-> bit formats, it seems like an useless extension.
+Hi Linus,
 
-My understanding is to distinguish the cases "we do fully support
-32bit" and "we don't care".  But, the end effect is same for both,
-user-space would handle 32bit in both cases, so this difference won't
-help much, indeed.
+kernel test robot noticed the following build errors:
 
+[auto build test ERROR on 17b9f4387ebabb19b871bbe2d06562e48e4e7130]
 
-thanks,
+url:    https://github.com/intel-lab-lkp/linux/commits/Linus-Walleij/ASoC-Delete-UDA134x-L3-audio-codec/20230821-222139
+base:   17b9f4387ebabb19b871bbe2d06562e48e4e7130
+patch link:    https://lore.kernel.org/r/20230821-delete-l3-v1-1-26d9cd32e7a2%40linaro.org
+patch subject: [PATCH] ASoC: Delete UDA134x/L3 audio codec
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20230822/202308222331.ZaXmBhDK-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20230822/202308222331.ZaXmBhDK-lkp@intel.com/reproduce)
 
-Takashi
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308222331.ZaXmBhDK-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> make[6]: *** No rule to make target 'sound/soc/codecs/l3.o', needed by 'sound/soc/codecs/snd-soc-l3.o'.
+   scripts/Makefile.build:243: sound/soc/codecs/Makefile: wcd-clsh-v2.o is added to multiple modules: snd-soc-wcd9335 snd-soc-wcd934x snd-soc-wcd938x
+   make[6]: Target 'sound/soc/codecs/' not remade because of errors.
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

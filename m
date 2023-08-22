@@ -2,96 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8B1784552
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 17:21:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5957978458E
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Aug 2023 17:31:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE1CD20C;
-	Tue, 22 Aug 2023 17:21:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE1CD20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D58682C;
+	Tue, 22 Aug 2023 17:30:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D58682C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692717712;
-	bh=126PYpTFgNWNrGZ7TD478cuYrkTzyARzZTyWre4ExCI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1692718261;
+	bh=BB/BS2YwPtTxBdTC2xc7F6UM+OoJHd6LHBRxS2c/Qjw=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tV9WKviEag6wqd72X3Pd2doXI7CFp0bWxDRaR7kpKFr85y7XEZfGxYYnWLiMOUkrR
-	 g5K1bbBEm8rwpefNwisE1YploADS7zWEkZqALo+d1eZbq4htTD///nFaxvov53uFcB
-	 net5JI1OgX091LyFXQWALZ1A8roAH1ZN460g1EvY=
+	b=iaYINMQZ2EAWb2ByAlrxkU7XTCPyU/M5DQqmczT6MNaZt1kwVQt0b8dZDh3o+d2cb
+	 zhP0AOqyBB+AZeNj82M8rEa3YGWwW0y/5OrpougN02qnbjfHhVEF3VbAUU3usTL92Z
+	 +B07weVDBfubdwKT1HbN4weyzZ434HBSyZGxI2G8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6AB39F800D1; Tue, 22 Aug 2023 17:21:01 +0200 (CEST)
+	id D6387F800F5; Tue, 22 Aug 2023 17:30:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 295E4F800F5;
-	Tue, 22 Aug 2023 17:21:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EC88F800F5;
+	Tue, 22 Aug 2023 17:30:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18BBBF80158; Tue, 22 Aug 2023 17:20:58 +0200 (CEST)
+	id 304A6F80158; Tue, 22 Aug 2023 17:30:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-8.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4AA23F800D1
-	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 17:20:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA23F800D1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=hqV1Zgga
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692717654; x=1724253654;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=126PYpTFgNWNrGZ7TD478cuYrkTzyARzZTyWre4ExCI=;
-  b=hqV1ZggaLQRm2ibKdQcxu7hqb0ltL18oCmCcnFk65XINODBmfmQQQSO8
-   1yARdT6MHv3yKV69nypNC31/aYTHnsdpy8zesHB2b3yOuFDvHSEmlUnkg
-   v8Hal8bsjT3f8dioD7ekvZYugwO/5YV+FIyvJg0AQbb0C/3iSraKGAQZq
-   Z6KMcd8MIkhYn1u1U2e4tNSJszpAGoKSZC8BLwUBm8cd6VRnKl1jYLupd
-   AaFMmPcZ2Jvm3N574ATp60pjfj3toqwbR3e2Z4CiuMpJHOco/Fd5GEEfR
-   mOASm4Y9F86gBsTpj1+w5jSQShWDWMYLvZrfbUzjFd8NaaYvfvAbmAyn3
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="377670294"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200";
-   d="scan'208";a="377670294"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 08:20:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="806328281"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200";
-   d="scan'208";a="806328281"
-Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
-  by fmsmga004.fm.intel.com with ESMTP; 22 Aug 2023 08:20:26 -0700
-Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qYTBB-0000HQ-0p;
-	Tue, 22 Aug 2023 15:20:25 +0000
-Date: Tue, 22 Aug 2023 23:20:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Linus Walleij <linus.walleij@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	Linus Walleij <linus.walleij@linaro.org>
-Subject: Re: [PATCH] ASoC: Delete UDA134x/L3 audio codec
-Message-ID: <202308222331.ZaXmBhDK-lkp@intel.com>
-References: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3592F800BF
+	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 17:29:57 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A06EE11F1;
+	Tue, 22 Aug 2023 17:29:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A06EE11F1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1692718195; bh=auLTbRM4sN8Xf32DVTjuNXUJHOMuNSqYLuSpS005Uog=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=asJSx7h43tIoGhF60mLqamCBMaV8DJhqWP5NzeEW4jLewbuldysPx5WClKQOj7fZF
+	 RDPnaILA1sZXiI0JBVx5l0bybtfY7neyy0AygTxVfvgFuFC7V/0TPDXE2in7ASLmXI
+	 x5+U54pOUbQn7XFQ0ZcNcn/22ruVFSU6sokCQO2I=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Tue, 22 Aug 2023 17:29:47 +0200 (CEST)
+Message-ID: <67fc99db-baf8-17b0-e7c4-f420676e5c8a@perex.cz>
+Date: Tue, 22 Aug 2023 17:29:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
-Message-ID-Hash: HHTCJIDPAZK5F52B4Y67DXGCLOYYULI4
-X-Message-ID-Hash: HHTCJIDPAZK5F52B4Y67DXGCLOYYULI4
-X-MailFrom: lkp@intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
+ tiwai@suse.com, alsa-devel@alsa-project.org,
+ amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ hdegoede@redhat.com
+References: <20230811164853.1797547-1-cezary.rojewski@intel.com>
+ <20230811164853.1797547-2-cezary.rojewski@intel.com>
+ <43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz> <87bkezdsjh.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [RFC PATCH 01/17] ALSA: pcm: Introduce MSBITS subformat interface
+In-Reply-To: <87bkezdsjh.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: COPNIEDSRWH4DMQEO5W74EIH2SAS6WRY
+X-Message-ID-Hash: COPNIEDSRWH4DMQEO5W74EIH2SAS6WRY
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HHTCJIDPAZK5F52B4Y67DXGCLOYYULI4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/COPNIEDSRWH4DMQEO5W74EIH2SAS6WRY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,31 +98,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Linus,
+On 22. 08. 23 17:07, Takashi Iwai wrote:
+> On Tue, 22 Aug 2023 17:03:02 +0200,
+> Jaroslav Kysela wrote:
+>>
+>> On 11. 08. 23 18:48, Cezary Rojewski wrote:
+>>
+>>> +#define SNDRV_PCM_SUBFMTBIT_MSBITS_32	_SNDRV_PCM_SUBFMTBIT(MSBITS_32)
+>>
+>> What was reason to add 32/32 format ? Subformat STD + msbits == 32
+>> should already handle the maximal resolution. Until we do not have 64
+>> bit formats, it seems like an useless extension.
+> 
+> My understanding is to distinguish the cases "we do fully support
+> 32bit" and "we don't care".  But, the end effect is same for both,
+> user-space would handle 32bit in both cases, so this difference won't
+> help much, indeed.
 
-kernel test robot noticed the following build errors:
+I don't think that we have a "do not care" situation. The applications 
+currently expects to use the maximal msbits for STD subformat. The subformat 
+should be used only to refine (downgrade) the resolution on the driver / hw 
+side on demand. I would just add only necessary API extensions and save one 
+bit for now.
 
-[auto build test ERROR on 17b9f4387ebabb19b871bbe2d06562e48e4e7130]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Linus-Walleij/ASoC-Delete-UDA134x-L3-audio-codec/20230821-222139
-base:   17b9f4387ebabb19b871bbe2d06562e48e4e7130
-patch link:    https://lore.kernel.org/r/20230821-delete-l3-v1-1-26d9cd32e7a2%40linaro.org
-patch subject: [PATCH] ASoC: Delete UDA134x/L3 audio codec
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20230822/202308222331.ZaXmBhDK-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230822/202308222331.ZaXmBhDK-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308222331.ZaXmBhDK-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> make[6]: *** No rule to make target 'sound/soc/codecs/l3.o', needed by 'sound/soc/codecs/snd-soc-l3.o'.
-   scripts/Makefile.build:243: sound/soc/codecs/Makefile: wcd-clsh-v2.o is added to multiple modules: snd-soc-wcd9335 snd-soc-wcd934x snd-soc-wcd938x
-   make[6]: Target 'sound/soc/codecs/' not remade because of errors.
+						Jaroslav
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A375C784E6B
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 03:51:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97545784E6C
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 03:53:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A19BB74C;
-	Wed, 23 Aug 2023 03:50:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A19BB74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B28A9112;
+	Wed, 23 Aug 2023 03:52:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B28A9112
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692755481;
-	bh=12BykGmfSIKwb/8vTdUcaS1XdrK/94p2QOFcHax0ZOc=;
+	s=default; t=1692755587;
+	bh=fBgUqOg+I6GHW0kOQfBkqa9wTNcn/ponL+4fEo66Y2E=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=s3I2ZeKuKe0nKREAuw/3JEmZMO/hTonvE32WlPlBSSIEQLCgfcT8yjtJMpsF+XA95
-	 3nBPCZsxKn4vpQCOkzcSVHA8+POKzC8mUG33F/SUaKk0lxji6tWqTNfjp+SSvaBKQ6
-	 Bh+rWzEtu6ttDBCnP/LgHA0wXNRl1/fGUuDfESuM=
+	b=GL7qlLBc5luYrxl8gVv0Peq5TuwJgDD7+gVh4bhhVKWAj2bJM+Qz9/miLFeNTJCco
+	 5aD/dsXkEhkIamoBARkcEXQrIVndheQ+RjIWtSyO8cJ5q3LqQCoB3LVD4sIY0nVZIN
+	 n9rfXYLRJfcOmQRZUAl0UjUj8aYqM4isjgxbXJ1g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 152C6F80551; Wed, 23 Aug 2023 03:50:00 +0200 (CEST)
+	id 78722F80536; Wed, 23 Aug 2023 03:51:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ACAEF80549;
-	Wed, 23 Aug 2023 03:50:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02BF6F800BF;
+	Wed, 23 Aug 2023 03:51:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49638F80551; Wed, 23 Aug 2023 03:49:57 +0200 (CEST)
+	id EC6BAF8022B; Wed, 23 Aug 2023 03:51:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F9C2F80537
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 03:49:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F9C2F80537
+	by alsa1.perex.cz (Postfix) with ESMTP id 49192F800BF
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 03:51:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49192F800BF
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1692755395624950886-webhooks-bot@alsa-project.org>
-References: <1692755395624950886-webhooks-bot@alsa-project.org>
+In-Reply-To: <1692755511848770142-webhooks-bot@alsa-project.org>
+References: <1692755511848770142-webhooks-bot@alsa-project.org>
 Subject: aplaymidi causes pa_stream_writeable_size() failed - connection
  terminated
-Message-Id: <20230823014957.49638F80551@alsa1.perex.cz>
-Date: Wed, 23 Aug 2023 03:49:57 +0200 (CEST)
-Message-ID-Hash: QHX5O7N3VREVJIH4PJP7XA5KDK3NYMPH
-X-Message-ID-Hash: QHX5O7N3VREVJIH4PJP7XA5KDK3NYMPH
+Message-Id: <20230823015153.EC6BAF8022B@alsa1.perex.cz>
+Date: Wed, 23 Aug 2023 03:51:53 +0200 (CEST)
+Message-ID-Hash: 4TQDRRUTZXXUS2JCVUVJNX4SC352YOQV
+X-Message-ID-Hash: 4TQDRRUTZXXUS2JCVUVJNX4SC352YOQV
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHX5O7N3VREVJIH4PJP7XA5KDK3NYMPH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4TQDRRUTZXXUS2JCVUVJNX4SC352YOQV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -82,7 +82,7 @@ How to reproduce:
 6. Audio stops and soon after the error appears stopping the video.
 Unplug the device  
 Wait for about 30 seconds (this is important, sooner the error will appear)
-Repeat steps 3 and 4 . The error won't occur.
+Repeat steps 2 and 4 . The error won't occur.
 
 ![image](https://github.com/alsa-project/alsa-utils/assets/19564066/9bd6e993-be47-4715-8e6c-5f2a2242027c)
 

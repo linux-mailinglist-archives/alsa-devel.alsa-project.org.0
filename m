@@ -2,84 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B482E785D3E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:28:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4B4785D3F
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:29:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22D4A836;
-	Wed, 23 Aug 2023 18:28:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22D4A836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AD9AAE9;
+	Wed, 23 Aug 2023 18:28:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AD9AAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692808137;
-	bh=qECGWHKOobEzMxHuX8r68lcnknGzvl9J0XZxy3E5EV0=;
+	s=default; t=1692808146;
+	bh=/LkJgfupVFpt632Mz933PLJZ5tfycTZOgNLrJ7ORzfQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R3ik+2iel9ch3e7EMqeF45q8IAUJRfHdxYCMWonxhrsl/SBJrHUxgF6s7nSVLiQbU
-	 Z86SQjdpwYb+zUz0leWd7g6aQVy1ZYo40rgCYv90Qden4pNyRN8zgIiYlzLrIvXfKS
-	 RsRpsPIYqGTsVC+2+SgPkHHkiudw/DytpU19ZzTY=
+	b=Ztnv+IaZZbSmInCWQTwxSI0jVTQuQnNaffdymDGXDb+UQVmXsTf+5jhfxxa8DurbJ
+	 xuA2d7SaZzoZLuRmAdQnv0Y5FrZqs+3un2ICEoaPAjHpul/a2mL4vlChGcKOBQr34T
+	 Juq3GRC1Hw4gof5wjLfaFMWlQWlSc+r5iYsp1dTU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E057BF8057D; Wed, 23 Aug 2023 18:26:43 +0200 (CEST)
+	id 76E89F805A0; Wed, 23 Aug 2023 18:26:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11E49F8057D;
-	Wed, 23 Aug 2023 18:26:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49D95F805AB;
+	Wed, 23 Aug 2023 18:26:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F3FEF8055B; Wed, 23 Aug 2023 18:26:36 +0200 (CEST)
+	id 0AEE6F8058C; Wed, 23 Aug 2023 18:26:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B486EF8022B
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 18:26:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B486EF8022B
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC22AF800D1;
+	Wed, 23 Aug 2023 18:26:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC22AF800D1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bf/8ucgp
+ header.s=k20201202 header.b=ZaPeVXdA
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2810365B1E;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8811360B51;
+	Wed, 23 Aug 2023 16:26:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E64DC433CB;
 	Wed, 23 Aug 2023 16:26:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E06AC433C7;
-	Wed, 23 Aug 2023 16:26:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692807983;
-	bh=qECGWHKOobEzMxHuX8r68lcnknGzvl9J0XZxy3E5EV0=;
+	s=k20201202; t=1692807987;
+	bh=/LkJgfupVFpt632Mz933PLJZ5tfycTZOgNLrJ7ORzfQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=bf/8ucgpTSoUFaso5roJFNIgYAH9KpnXiC/ZNs3wi/AINC54uiHRcPnH3fEX15bsy
-	 b2XFJU1S4tBOH2VMg9e7De3DEA+/F0k0G9dpIuiOVnm3nL0sdDhWvsernsld5x2OzQ
-	 xGz5qnvBRUxORlLczRKYtEW6PIqtGMnhKgZPbFnFvZYzHDL2Kx9C0NKoZYAdFHbJEl
-	 R8J8gth3skepTKFP6NSRfysIsi7iG9/3y57DcbCcBHbRPdgLvbMcoS2kHvIDNB/JL6
-	 A/W+PxjF6PbbBKUUw7+qAGyo6R3uAU/HYjXGBfB8jc+5wJ0cpbox4RRd/Gf1PHhjU1
-	 yWz6v1M9Bj86w==
+	b=ZaPeVXdAFgGNOMa0XzJEJL1TckG07teK2plhNb++TYdzCisVcTd2rXZ7jbfV+N4rm
+	 Ao/T4HcPN+4q4/GsskdLRHz7xVe1N6C7jsd2Sm5V3hnz85Zfn9NufofWugnb0frnuy
+	 MDi+Ut8Q7Fe3WLZY3znSJsguge9zGLzeb9KUUUw8eU8N/9bfjAStiLb02GO6Fz+9dr
+	 JSWm/Bw++a9iQKDzfsoBWxD5ly1/aKeOHYLg7/O7HY7oLfdkelvHuxWoHo7sy67h6f
+	 dGQL/uwqbP3Nlt9voV7C2ZiT8q4QpFt+V9xxaQPa3TNU2b++RpAh+NpBw+8w1YBdw4
+	 +pELbNIBKCwCA==
 From: Mark Brown <broonie@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
- KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, SJLIN0@nuvoton.com,
- scott6986@gmail.com, supercraig0719@gmail.com, dardar923@gmail.com
-In-Reply-To: <20230823071244.1861487-1-wtli@nuvoton.com>
-References: <20230823071244.1861487-1-wtli@nuvoton.com>
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nau8821: Add single-ended input
- feature
-Message-Id: <169280798077.53791.13745062802650648258.b4-ty@kernel.org>
-Date: Wed, 23 Aug 2023 17:26:20 +0100
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Mastan Katragadda <Mastan.Katragadda@amd.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20230823073340.2829821-1-Vijendar.Mukunda@amd.com>
+References: <20230823073340.2829821-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 1/7] ASoC: SOF: amd: remove unused sha dma interrupt
+ code
+Message-Id: <169280798403.53791.13433879724804047736.b4-ty@kernel.org>
+Date: Wed, 23 Aug 2023 17:26:24 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: H4EHENPEGVNGGYD2FNM7CR34R3FSRFCB
-X-Message-ID-Hash: H4EHENPEGVNGGYD2FNM7CR34R3FSRFCB
+Message-ID-Hash: BZB2HC7IQDEEX3G2MBVTBTJ3U7UCDK3Q
+X-Message-ID-Hash: BZB2HC7IQDEEX3G2MBVTBTJ3U7UCDK3Q
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H4EHENPEGVNGGYD2FNM7CR34R3FSRFCB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BZB2HC7IQDEEX3G2MBVTBTJ3U7UCDK3Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,10 +113,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 23 Aug 2023 15:12:43 +0800, Seven Lee wrote:
-> Add input with single-ended control.
+On Wed, 23 Aug 2023 13:03:33 +0530, Vijendar Mukunda wrote:
+> During initial development time for RN platform, when SHA
+> dma gets completed, SHA DMA engine used to raise the ACP interrupt.
+> In ACP interrupt handler, SHA DMA interrupt got handled.
+> Currently SHA DMA compleition is verified by checking
+> transfer count using read poll time out logic.
+> Remove unused SHA dma interrupt handling code.
 > 
-> 
+> [...]
 
 Applied to
 
@@ -112,10 +129,20 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: nau8821: Add single-ended input feature
-      commit: 91e28d0b51f994c5968aee2a941e9f62bc9e15d7
-[2/2] ASoC: nau8821: Improve AMIC recording performance.
-      commit: 014ee0692f29da8b08fed5da0fa14e04698a50f7
+[1/7] ASoC: SOF: amd: remove unused sha dma interrupt code
+      commit: aa836152420af94d014ddd677a5f95544abef4f6
+[2/7] ASoC: SOF: amd: enable ACP external global interrupt
+      commit: 0a1428141f638fc6fba863de40f0dc7ea91a1d47
+[3/7] ASoC: SOF: amd: add module parameter for firmware debug
+      commit: 60eb816ed850b33f5410b1223c5d4d935a6ceb79
+[4/7] ASoC: SOF: amd: remove redundant clock mux selection register write
+      commit: f3b2f8b7158026e7a0ab67f5e36c195cdb4c1bf8
+[5/7] ASoC: SOF: amd: add conditional check for acp_clkmux_sel register
+      commit: 0d9e4cf5b66e0ffca3d8cf8e9a111d4793877afe
+[6/7] ASoC: SOF: amd: clear panic mask status when panic occurs
+      commit: 3d02e1c439b4140215b624d423aa3c7554b17a5a
+[7/7] ASoC: SOF: amd: clear dsp to host interrupt status
+      commit: 38592ae6dc9f84b7a994c43de2136b8115ca30f6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

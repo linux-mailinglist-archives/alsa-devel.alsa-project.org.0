@@ -2,114 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3A8378686E
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40336786870
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:37:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A14BAEA;
-	Thu, 24 Aug 2023 09:35:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A14BAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BA7C84C;
+	Thu, 24 Aug 2023 09:36:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BA7C84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692862605;
-	bh=KYCM/i2GMZrSoB/ozLv4x7Y1FQfdNNv+nIT7PVVBNUM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=UJ1sESmG/yrHkyrZdxMAotKoyRTgyiqctlU5t7JVeZ3iC1N08JSM8zhGrOHgTzrhL
-	 GBPeoCG562HOoaPapy7jjRdGJx8kOTjlryNCBQAD/phiGJhiBGSvqI1mQL0HC7I2b+
-	 qBRmLPf2vFdBKgPgP6I4hdAzpuOd9f2+ZRqtrEvs=
+	s=default; t=1692862624;
+	bh=peqHtYVGLtBkBvLoHA5nK7mqSXzyIRTxXZ+BBcUZLQk=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nLOqoBSW5/wrzfoWM6xXnHV0pr0Eqa0baVe8UkZ2f7t95nXzx+lw3c9WPdCDyEtG+
+	 y02EPXUIxAbI33ZSzcRDJrrDiKJaL9NUsCjzDznQDHSZ5hYGUs6nXTgdab4bW1Vks6
+	 0GxLaLtXy7I645U5E0iRBczALO9yPt44TosihJz8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCAFBF805F7; Thu, 24 Aug 2023 09:32:42 +0200 (CEST)
+	id 5EF99F80609; Thu, 24 Aug 2023 09:32:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7AE8F805F7;
-	Thu, 24 Aug 2023 09:32:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A54FF80602;
+	Thu, 24 Aug 2023 09:32:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61CF6F80158; Tue, 22 Aug 2023 17:06:27 +0200 (CEST)
+	id 9299FF80158; Wed, 23 Aug 2023 04:42:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=NICE_REPLY_A,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A726EF800D1
-	for <alsa-devel@alsa-project.org>; Tue, 22 Aug 2023 17:06:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A726EF800D1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=EK/QqDRk
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-31c3f574ef8so439279f8f.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 22 Aug 2023 08:06:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1692716777; x=1693321577;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hiuif0UPEilRfTqfvjhgYV9OjFsrTUZzsOgS/HAy03Q=;
-        b=EK/QqDRkxi36aIi0UBd9fmgJGjMU2iJAesESNS7RXj3CU+4OgQFnmS0DRe1Pjqt3Vj
-         aSNjrghPdOk8/h1SE6SKPJAzc5DqcD4+5PrMeavHJyeyp9S2zKh9XaOtlZn7mY5eYSD/
-         cm7wR5jRdkxFzEfC6rjLF6OrbpWnmsYdVYAbNFkRPqOaRDPsW+L2vGKCop7uzax2TDuC
-         euiDhxVc05SOEdjkhWgM5YYDIwbmQVLcQmKlNFbOLPaHYZPkGsrL6Tw3elinaF/uY5e/
-         yOhAj28EKnvg3I1Q1bZmpJZa6Itn2Tc0RfB8et8DvcNdvmh/azKkJDvWb84xZwElkzTw
-         kTWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692716777; x=1693321577;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hiuif0UPEilRfTqfvjhgYV9OjFsrTUZzsOgS/HAy03Q=;
-        b=gaxuYvgYzGLtcFjvERXXm0NhVpPK68k/h/ANhNbBGMo4FJ5yZcxCrS3jil3d3J70zE
-         KGiSoAX/EetIEzbzKhnoqMBTL8BD1nN1oevaYwM5MlxjfT5tXkQoNE/F7t266pdTPSL0
-         PJK4huMI0sNvqjCRZBzwWXkZJ1moCBgxHXG3lvgGBR6/v37ArBafQC1ESq/FBMHMj+El
-         wmFWSgjN25oMEXeXjoP445Oq7nTL7auBmUXR7iA4A7I7RpWF5Rd38cHNLvDKCTiDJzuX
-         ZjXQPKWLHpJEA0yRhCSN4Yw2KDOORmzFoIM+0xh0ycr4S8zDcJbkex55kZ7RV0wxeWnC
-         REfw==
-X-Gm-Message-State: AOJu0YxFqY0OhXIKt6yasvhOG8sG+PfOThAf5JPRqw3Of+duJ5E/2+ic
-	2dNkLJpes2aijytAH8k+ki8=
-X-Google-Smtp-Source: 
- AGHT+IG/WYaK4QKoY/sXJElN3HnYE35+BGE/wEL15yzukGUemxKM29AaJP9Afn93aZrjhi0CYRIJjg==
-X-Received: by 2002:adf:e710:0:b0:317:3d36:b2c1 with SMTP id
- c16-20020adfe710000000b003173d36b2c1mr8082225wrm.7.1692716776656;
-        Tue, 22 Aug 2023 08:06:16 -0700 (PDT)
-Received: from ivan-HLYL-WXX9.. ([141.136.93.153])
-        by smtp.gmail.com with ESMTPSA id
- p13-20020adff20d000000b0031c52e81490sm6619066wro.72.2023.08.22.08.06.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Aug 2023 08:06:16 -0700 (PDT)
-From: Ivan Orlov <ivan.orlov0322@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: pcmtest: Add support for pcm pausing
-Date: Tue, 22 Aug 2023 19:05:41 +0400
-Message-Id: <20230822150541.8450-1-ivan.orlov0322@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id C83F7F80022
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 04:42:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C83F7F80022
+Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
+	by ex01.ufhost.com (Postfix) with ESMTP id BB07824E2EE;
+	Wed, 23 Aug 2023 10:42:01 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX165.cuchost.com
+ (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 23 Aug
+ 2023 10:42:01 +0800
+Received: from [192.168.125.113] (113.72.145.205) by EXMBX168.cuchost.com
+ (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 23 Aug
+ 2023 10:42:00 +0800
+Message-ID: <65292b7f-0e9d-65c1-4ca5-b23d301e02cd@starfivetech.com>
+Date: Wed, 23 Aug 2023 10:42:00 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: ivan.orlov0322@gmail.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v2 5/5] riscv: dts: starfive: Add the nodes and pins of
+ I2Srx/I2Stx0/I2Stx1
+To: Xingyu Wu <xingyu.wu@starfivetech.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Claudiu Beznea
+	<Claudiu.Beznea@microchip.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, Maxim Kochetkov <fido_max@inbox.ru>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+	<conor.dooley@microchip.com>, Emil Renner Berthing
+	<emil.renner.berthing@canonical.com>
+CC: Jose Abreu <joabreu@synopsys.com>, Paul Walmsley
+	<paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<linux-riscv@lists.infradead.org>
+References: <20230821144151.207339-1-xingyu.wu@starfivetech.com>
+ <20230821144151.207339-6-xingyu.wu@starfivetech.com>
+Content-Language: en-US
+From: Walker Chen <walker.chen@starfivetech.com>
+In-Reply-To: <20230821144151.207339-6-xingyu.wu@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [113.72.145.205]
+X-ClientProxiedBy: EXCAS066.cuchost.com (172.16.6.26) To EXMBX168.cuchost.com
+ (172.16.6.78)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: walker.chen@starfivetech.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2TFH4TNLQPIGJ4MBCJX3PDRKCIPQTUJW
-X-Message-ID-Hash: 2TFH4TNLQPIGJ4MBCJX3PDRKCIPQTUJW
+Message-ID-Hash: LGSVPYDJ7N7PPMHGJLQECCMHV4WMH4QG
+X-Message-ID-Hash: LGSVPYDJ7N7PPMHGJLQECCMHV4WMH4QG
 X-Mailman-Approved-At: Thu, 24 Aug 2023 07:32:02 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2TFH4TNLQPIGJ4MBCJX3PDRKCIPQTUJW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGSVPYDJ7N7PPMHGJLQECCMHV4WMH4QG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,123 +102,176 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add pause push/release support to the virtual PCM test driver. Add
-'suspend' boolean field to the pcmtst_buf_iter structure, so we can
-pause the timer without shutting it down. Update the trigger callback
-handler correspondingly. Extract buffer initialization to the
-'reset_buf_iterator' function since it is used in multiple places now.
 
-Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
----
- sound/drivers/pcmtest.c | 49 ++++++++++++++++++++++++++++++++++-------
- 1 file changed, 41 insertions(+), 8 deletions(-)
+On 2023/8/21 22:41, Xingyu Wu wrote:
+> Add I2Srx/I2Stx0/I2Stx1 nodes and pins configuration for the
+> StarFive JH7110 SoC.
+> 
+> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
+> ---
+>  .../jh7110-starfive-visionfive-2.dtsi         | 58 +++++++++++++++++
+>  arch/riscv/boot/dts/starfive/jh7110.dtsi      | 65 +++++++++++++++++++
+>  2 files changed, 123 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
+> index d79f94432b27..7179f1a31cf2 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
+> @@ -203,6 +203,24 @@ &i2c6 {
+>  	status = "okay";
+>  };
+>  
+> +&i2srx {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2srx_pins>;
+> +	status = "okay";
+> +};
+> +
+> +&i2stx0 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&mclk_ext_pins>;
+> +	status = "okay";
+> +};
+> +
+> +&i2stx1 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2stx1_pins>;
+> +	status = "okay";
+> +};
+> +
+>  &mmc0 {
+>  	max-frequency = <100000000>;
+>  	bus-width = <8>;
+> @@ -337,6 +355,46 @@ GPOEN_SYS_I2C6_DATA,
+>  		};
+>  	};
+>  
+> +	i2srx_pins: i2srx-0 {
+> +		clk-sd-pins {
+> +			pinmux = <GPIOMUX(38, GPOUT_LOW,
+> +					      GPOEN_DISABLE,
+> +					      GPI_SYS_I2SRX_BCLK)>,
+> +				 <GPIOMUX(63, GPOUT_LOW,
+> +					      GPOEN_DISABLE,
+> +					      GPI_SYS_I2SRX_LRCK)>,
+> +				 <GPIOMUX(38, GPOUT_LOW,
+> +					      GPOEN_DISABLE,
+> +					      GPI_SYS_I2STX1_BCLK)>,
+> +				 <GPIOMUX(63, GPOUT_LOW,
+> +					      GPOEN_DISABLE,
+> +					      GPI_SYS_I2STX1_LRCK)>,
+> +				 <GPIOMUX(61, GPOUT_LOW,
+> +					      GPOEN_DISABLE,
+> +					      GPI_SYS_I2SRX_SDIN0)>;
+> +			input-enable;
+> +		};
+> +	};
+> +
+> +	i2stx1_pins: i2stx1-0 {
+> +		sd-pins {
+> +			pinmux = <GPIOMUX(44, GPOUT_SYS_I2STX1_SDO0,
+> +					      GPOEN_ENABLE,
+> +					      GPI_NONE)>;
+> +			bias-disable;
+> +			input-disable;
+> +		};
+> +	};
+> +
+> +	mclk_ext_pins: mclk-ext-0 {
+> +		mclk-ext-pins {
+> +			pinmux = <GPIOMUX(4, GPOUT_LOW,
+> +					     GPOEN_DISABLE,
+> +					     GPI_SYS_MCLK_EXT)>;
+> +			input-enable;
+> +		};
+> +	};
+> +
+>  	mmc0_pins: mmc0-0 {
+>  		 rst-pins {
+>  			pinmux = <GPIOMUX(62, GPOUT_SYS_SDIO0_RST,
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> index e85464c328d0..621b68c02ea8 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> @@ -512,6 +512,30 @@ tdm: tdm@10090000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		i2srx: i2s@100e0000 {
+> +			compatible = "starfive,jh7110-i2srx";
+> +			reg = <0x0 0x100e0000 0x0 0x1000>;
+> +			clocks = <&syscrg JH7110_SYSCLK_I2SRX_BCLK_MST>,
+> +				 <&syscrg JH7110_SYSCLK_I2SRX_APB>,
+> +				 <&syscrg JH7110_SYSCLK_MCLK>,
+> +				 <&syscrg JH7110_SYSCLK_MCLK_INNER>,
+> +				 <&mclk_ext>,
+> +				 <&syscrg JH7110_SYSCLK_I2SRX_BCLK>,
+> +				 <&syscrg JH7110_SYSCLK_I2SRX_LRCK>,
+> +				 <&i2srx_bclk_ext>,
+> +				 <&i2srx_lrck_ext>;
+> +			clock-names = "i2sclk", "apb", "mclk",
+> +				      "mclk_inner", "mclk_ext", "bclk",
+> +				      "lrck", "bclk_ext", "lrck_ext";
+> +			resets = <&syscrg JH7110_SYSRST_I2SRX_APB>,
+> +				 <&syscrg JH7110_SYSRST_I2SRX_BCLK>;
+> +			dmas = <0>, <&dma 24>;
+> +			dma-names = "tx", "rx";
+> +			starfive,syscon = <&sys_syscon 0x18 0x2>;
+> +			#sound-dai-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+>  		usb0: usb@10100000 {
+>  			compatible = "starfive,jh7110-usb";
+>  			ranges = <0x0 0x0 0x10100000 0x100000>;
+> @@ -736,6 +760,47 @@ spi6: spi@120a0000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		i2stx0: i2s@120b0000 {
+> +			compatible = "starfive,jh7110-i2stx0";
+> +			reg = <0x0 0x120b0000 0x0 0x1000>;
+> +			clocks = <&syscrg JH7110_SYSCLK_I2STX0_BCLK_MST>,
+> +				 <&syscrg JH7110_SYSCLK_I2STX0_APB>,
+> +				 <&syscrg JH7110_SYSCLK_MCLK>,
+> +				 <&syscrg JH7110_SYSCLK_MCLK_INNER>,
+> +				 <&mclk_ext>;
+> +			clock-names = "i2sclk", "apb", "mclk",
+> +				      "mclk_inner","mclk_ext";
+> +			resets = <&syscrg JH7110_SYSRST_I2STX0_APB>,
+> +				 <&syscrg JH7110_SYSRST_I2STX0_BCLK>;
+> +			dmas = <&dma 47>;
+> +			dma-names = "tx";
+> +			#sound-dai-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+> +		i2stx1: i2s@120c0000 {
+> +			compatible = "starfive,jh7110-i2stx1";
+> +			reg = <0x0 0x120c0000 0x0 0x1000>;
+> +			clocks = <&syscrg JH7110_SYSCLK_I2STX1_BCLK_MST>,
+> +				 <&syscrg JH7110_SYSCLK_I2STX1_APB>,
+> +				 <&syscrg JH7110_SYSCLK_MCLK>,
+> +				 <&syscrg JH7110_SYSCLK_MCLK_INNER>,
+> +				 <&mclk_ext>,
+> +				 <&syscrg JH7110_SYSCLK_I2STX1_BCLK>,
+> +				 <&syscrg JH7110_SYSCLK_I2STX1_LRCK>,
+> +				 <&i2stx_bclk_ext>,
+> +				 <&i2stx_lrck_ext>;
+> +			clock-names = "i2sclk", "apb", "mclk",
+> +				      "mclk_inner", "mclk_ext", "bclk",
+> +				      "lrck", "bclk_ext", "lrck_ext";
+> +			resets = <&syscrg JH7110_SYSRST_I2STX1_APB>,
+> +				 <&syscrg JH7110_SYSRST_I2STX1_BCLK>;
+> +			dmas = <&dma 48>;
+> +			dma-names = "tx";
+> +			#sound-dai-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+>  		sfctemp: temperature-sensor@120e0000 {
+>  			compatible = "starfive,jh7110-temp";
+>  			reg = <0x0 0x120e0000 0x0 0x10000>;
 
-diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
-index 27cbb9d38f08..b59b78a09224 100644
---- a/sound/drivers/pcmtest.c
-+++ b/sound/drivers/pcmtest.c
-@@ -108,6 +108,7 @@ struct pcmtst_buf_iter {
- 	size_t total_bytes;			// Total bytes read/written
- 	size_t chan_block;			// Bytes in one channel buffer when non-interleaved
- 	struct snd_pcm_substream *substream;
-+	bool suspend;				// We need to pause timer without shutting it down
- 	struct timer_list timer_instance;
- };
- 
-@@ -115,7 +116,8 @@ static struct snd_pcm_hardware snd_pcmtst_hw = {
- 	.info = (SNDRV_PCM_INFO_INTERLEAVED |
- 		 SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		 SNDRV_PCM_INFO_NONINTERLEAVED |
--		 SNDRV_PCM_INFO_MMAP_VALID),
-+		 SNDRV_PCM_INFO_MMAP_VALID |
-+		 SNDRV_PCM_INFO_PAUSE),
- 	.formats =		SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S16_LE,
- 	.rates =		SNDRV_PCM_RATE_8000_48000,
- 	.rate_min =		8000,
-@@ -346,6 +348,9 @@ static void timer_timeout(struct timer_list *data)
- 	v_iter = from_timer(v_iter, data, timer_instance);
- 	substream = v_iter->substream;
- 
-+	if (v_iter->suspend)
-+		return;
-+
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK && !v_iter->is_buf_corrupted)
- 		check_buf_block(v_iter, substream->runtime);
- 	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-@@ -358,7 +363,9 @@ static void timer_timeout(struct timer_list *data)
- 		v_iter->period_pos %= v_iter->period_bytes;
- 		snd_pcm_period_elapsed(substream);
- 	}
--	mod_timer(&v_iter->timer_instance, jiffies + TIMER_INTERVAL + inject_delay);
-+
-+	if (!v_iter->suspend)
-+		mod_timer(&v_iter->timer_instance, jiffies + TIMER_INTERVAL + inject_delay);
- }
- 
- static int snd_pcmtst_pcm_open(struct snd_pcm_substream *substream)
-@@ -373,19 +380,15 @@ static int snd_pcmtst_pcm_open(struct snd_pcm_substream *substream)
- 	if (!v_iter)
- 		return -ENOMEM;
- 
-+	v_iter->substream = substream;
- 	runtime->hw = snd_pcmtst_hw;
- 	runtime->private_data = v_iter;
--	v_iter->substream = substream;
--	v_iter->buf_pos = 0;
--	v_iter->is_buf_corrupted = false;
--	v_iter->period_pos = 0;
--	v_iter->total_bytes = 0;
- 
- 	playback_capture_test = 0;
- 	ioctl_reset_test = 0;
- 
- 	timer_setup(&v_iter->timer_instance, timer_timeout, 0);
--	mod_timer(&v_iter->timer_instance, jiffies + TIMER_INTERVAL);
-+
- 	return 0;
- }
- 
-@@ -400,10 +403,40 @@ static int snd_pcmtst_pcm_close(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
-+static inline void reset_buf_iterator(struct pcmtst_buf_iter *v_iter)
-+{
-+	v_iter->buf_pos = 0;
-+	v_iter->is_buf_corrupted = false;
-+	v_iter->period_pos = 0;
-+	v_iter->total_bytes = 0;
-+}
-+
-+static inline void start_pcmtest_timer(struct pcmtst_buf_iter *v_iter)
-+{
-+	v_iter->suspend = false;
-+	mod_timer(&v_iter->timer_instance, jiffies + TIMER_INTERVAL);
-+}
-+
- static int snd_pcmtst_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- {
-+	struct pcmtst_buf_iter *v_iter = substream->runtime->private_data;
-+
- 	if (inject_trigger_err)
- 		return -EINVAL;
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+		reset_buf_iterator(v_iter);
-+		start_pcmtest_timer(v_iter);
-+		break;
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		start_pcmtest_timer(v_iter);
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		// We can't call timer_shutdown_sync here, as it is forbidden to sleep here
-+		v_iter->suspend = true;
-+		break;
-+	}
- 
- 	return 0;
- }
--- 
-2.34.1
-
+Reviewed-by: Walker Chen <walker.chen@starfivetech.com>
+Thanks!

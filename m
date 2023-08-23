@@ -2,98 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAEFE785C1D
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 17:29:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05CE1785C6D
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 17:47:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7752112;
-	Wed, 23 Aug 2023 17:28:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7752112
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0CB4832;
+	Wed, 23 Aug 2023 17:46:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0CB4832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692804543;
-	bh=/3z/QvnTyee1ij7MWqCAtikU7N0Yb5ORJzxQHa0VsvE=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1692805619;
+	bh=FboKCH10HLktLGJaUMUJBhnad8FHxxHRD53xcdfNACU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=j8Z4tVd8RZHioYVV0yVuhT0+tzRPWclmWmLPfMXk39H4wdSxLISINljG5MK2/uoCs
-	 4XppIgCwJKkBZ03RH/Hzhx5lYuT/SMYrdVYZp87cMZzjpwm2U0SlMIWwmLm7GpdIg2
-	 XbpoAveXVEXNMsFC8ytLByZhTpneGijdgq0qOqLw=
+	b=Cx9aiKUrJdEkzGaVZWG5+Q1J8PaVmNN93HEf48jVx8VLM12pTUWY0qcB99EK7cVpc
+	 vBpNUz/c/VYZuzQXMmp2l0aqAOJ5tDirxA8obQGX2hMegWzYJ26TENAldFkjh+DYud
+	 IxpJI25jNE2EkPbHAENnA2M5oOVKj/SnxFLjHaFw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65246F804DA; Wed, 23 Aug 2023 17:28:11 +0200 (CEST)
+	id DECE8F800F5; Wed, 23 Aug 2023 17:46:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E586EF800F5;
-	Wed, 23 Aug 2023 17:28:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50342F800F5;
+	Wed, 23 Aug 2023 17:46:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 767ABF80158; Wed, 23 Aug 2023 17:27:31 +0200 (CEST)
+	id 5296BF80158; Wed, 23 Aug 2023 17:45:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,T_SPF_HELO_TEMPERROR,
-	T_SPF_TEMPERROR,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
+ [IPv6:2607:f8b0:4864:20::b31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E756EF80022
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 17:27:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E756EF80022
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4D797F80022
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 17:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D797F80022
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=mQpjd2Lu
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37N4rX7F005941;
-	Wed, 23 Aug 2023 10:26:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	PODMain02222019; bh=A9CDeJmPx4IU8PeHiMyTPmZOuKRk6C8CvbfrsbnFV/o=; b=
-	mQpjd2LuuMYdFtwo4N0q5Sk19uz2GRIiOx+PxZxHVYUxBxxeAeZ7qJPmUXl9+DuY
-	vRxsp8hEc3bY+GHpr2RAlXdr3i/ddzVzLo5OJ9mUkx4Algqn+HCRWsaj6pBgQDvJ
-	B62Te8woyQbgTgZuXD1SpaFBhqYbhM/BtHEGpql/6D5zPnTxsH9rOU049Ylz+bI8
-	60ETXWxhzFggltzg02c1iF65mG0FxnoJJRqQDGqQSE97DWuYC5CVNg5ZOJyDrxMw
-	2vJFMYBXoZYtTflDR2IkXQmv2Bzmob6oTFmJSwmlncW0FbP0PywgNem2EY7ZCvwy
-	UiH09Y6vovp+05ys3XnV6Q==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sn21s16mk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Aug 2023 10:26:54 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 23 Aug
- 2023 16:26:52 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
- Transport; Wed, 23 Aug 2023 16:26:52 +0100
-Received: from [141.131.156.184] (macMW3KVPQQ2W.ad.cirrus.com
- [141.131.156.184])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4AB2F11CD;
-	Wed, 23 Aug 2023 15:26:51 +0000 (UTC)
-Message-ID: <286f86dc-065b-1f11-824a-15edfe1ea3e7@opensource.cirrus.com>
-Date: Wed, 23 Aug 2023 10:26:50 -0500
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20221208 header.b=woe0tJB5
+Received: by mail-yb1-xb31.google.com with SMTP id
+ 3f1490d57ef6-d7481bc4d6fso3934444276.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 23 Aug 2023 08:45:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1692805521; x=1693410321;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4iKbrG16XTWsUCbJWiS608T9PjV3Jt5yTK3FHBeUP24=;
+        b=woe0tJB5ip7dp7CL93K68GRCo0wxXwFKGOUsgTJxm/R31emhVQ+9E5A1lqrFP/C7US
+         Me25/PdUnxLgdF0i2mA+BebYouUU91rSsdJz+afSsTRPg8uXCzXXgM4aJKmSVKXyM+LT
+         j/I1z9PLMCTRRtt1hJGmOIWD2V1Cmgl3M4YVc0/yL5rHRLqAoUPl+AWfwHt+e/Si5jCG
+         j/IfAb05fQT8Aqfb0UXHwoBrVyPo75vjxRNu1RtY16oysdMQZHeP/HsGuFpQMIh/3B2u
+         ezaTFMN18yatH9moQD9nbbtwETq4TyQPKh1NMWzlBETCSz0+C0ySAtJ4GOCe7z0BV1jB
+         FGpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692805521; x=1693410321;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4iKbrG16XTWsUCbJWiS608T9PjV3Jt5yTK3FHBeUP24=;
+        b=FFlTrg5oFRbkW8WAllL4ZHcKVZ53m8v7Cv6SbSpxOocCr276SljeVjaHkbD4nHu6Ms
+         zLdeu1Pp3So2YXyxegdLqZzwo1RznjhWAXcdBbpm39x7w/71lRKdvfGCKE/vcxRbLEMG
+         byjFKFh8qMyGm3rF6Ous4D1v79fjNnuqL+aS9oNiURXDuQgTLRfCvMQ/seSSmssFPV0l
+         4nRZy+mtdK0ZP52BBSnMGHwKRhPIvc0ROF5DM8zBO1mow5m9BSauItRDg8x0x0Yqqohy
+         yhzkqv96G7aoysD4wAlujoN4bYeFgCfyw4dK8pt2RrX1gPaA/2SJvKFI7SFg4jh2nZ2B
+         Kenw==
+X-Gm-Message-State: AOJu0YwKPjb4rteLNFCF6JZyNiAkY7NYUKyq0ShScHcpHT9a4kQ5+bn6
+	BlGbl4PrP81B7pOg/KbTwFcsgbWfOdPiTyE7VyKyxw==
+X-Google-Smtp-Source: 
+ AGHT+IGby702gDui1jmV96AnJZ9nLoHS+SoEbHAh56x6IqrEiZQrO5jwJZucjzv3wNLoQqDHphe+yvFHz/qPdPo1RL8=
+X-Received: by 2002:a25:ae01:0:b0:d63:1d3b:9416 with SMTP id
+ a1-20020a25ae01000000b00d631d3b9416mr12797135ybj.2.1692805520687; Wed, 23 Aug
+ 2023 08:45:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-Subject: Re: [PATCH] ASoC: cs35l41: Correct amp_gain_tlv values
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, <broonie@kernel.org>
-CC: <david.rhodes@cirrus.com>, <vkarpovi@opensource.cirrus.com>,
-        <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>
-References: <20230823085308.753572-1-ckeepax@opensource.cirrus.com>
-Content-Language: en-US
-From: "Rhodes, David" <drhodes@opensource.cirrus.com>
-In-Reply-To: <20230823085308.753572-1-ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: LfBwhJLPj4ANL6VlcXZ87Xh3YIVBjvPy
-X-Proofpoint-ORIG-GUID: LfBwhJLPj4ANL6VlcXZ87Xh3YIVBjvPy
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: D3N5N4UO2FYOIUTCBRGDNZXBKR42X7GQ
-X-Message-ID-Hash: D3N5N4UO2FYOIUTCBRGDNZXBKR42X7GQ
-X-MailFrom: prvs=359913a318=drhodes@opensource.cirrus.com
+References: 
+ <20230823040755.2217942-1-ajye_huang@compal.corp-partner.google.com>
+ <dd6d51b0-cc60-4fb7-932d-1117143d1715@sirena.org.uk>
+In-Reply-To: <dd6d51b0-cc60-4fb7-932d-1117143d1715@sirena.org.uk>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Wed, 23 Aug 2023 23:45:09 +0800
+Message-ID: 
+ <CALprXBYxrwBW6HLP5MwYhFh1_Skei+pLbXd7yNAEuhLTQJLVPg@mail.gmail.com>
+Subject: Re: [PATCH v1] Revert "ASoC: Intel: Add rpl_nau8318_8825 driver"
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Akihiko Odaki <akihiko.odaki@gmail.com>,
+	Yong Zhi <yong.zhi@intel.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+	"balamurugan . c" <balamurugan.c@intel.com>,
+ Libin Yang <libin.yang@intel.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>, David Lin <CTLIN0@nuvoton.com>,
+	Brent Lu <brent.lu@intel.com>, Takashi Iwai <tiwai@suse.com>,
+	Terry Cheong <htcheong@chromium.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Gongjun Song <gongjun.song@intel.com>,
+	Arnd Bergmann <arnd@arndb.de>, apoorv <apoorv@intel.com>,
+ alsa-devel@alsa-project.org,
+	kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 2IV3D4KSX2KZZXLT4KG4O453IS4SD3FZ
+X-Message-ID-Hash: 2IV3D4KSX2KZZXLT4KG4O453IS4SD3FZ
+X-MailFrom: ajye_huang@compal.corp-partner.google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D3N5N4UO2FYOIUTCBRGDNZXBKR42X7GQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2IV3D4KSX2KZZXLT4KG4O453IS4SD3FZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,13 +135,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 8/23/23 3:53 AM, Charles Keepax wrote:
-> The current analog gain TLV seems to have completely incorrect values in
-> it. The gain starts at 0.5dB, proceeds in 1dB steps, and has no mute
-> value, correct the control to match.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com
-Acked-by: David Rhodes <david.rhodes@cirrus.com>
+On Wed, Aug 23, 2023 at 8:01=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+> 6b8b6892e434 is not applied?
+>
+> Please submit patches using subject lines reflecting the style for the
+> subsystem, this makes it easier for people to identify relevant patches.
+> Look at what existing commits in the area you're changing are doing and
+> make sure your subject lines visually resemble what they're doing.
+> There's no need to resubmit to fix this alone.
 
-Thanks,
-David
+Dear Mark,
+Please allow me to explain in more detail.
+The 6b8b6892e434 should not be applied into file0yZ50U branch of broonie/ci=
+.git.
+Because the original commit 273bc8bf2227 ("ASoC: Intel: Add
+rpl_nau8318_8825 driver") was applied on 2023-08-14.
+But two days ago, 6b8b6892e434 tried to commit THE SAME patch again on
+2023-08-21, but it just only added a little part content from original
+273bc8bf2227.
++static const struct snd_soc_acpi_codecs rpl_nau8318_amp =3D {
++ .num_codecs =3D 1,
++ .codecs =3D {"NVTN2012"}
++};
++
+It caused "rpl_nau8318_amp" to be redefined.
+This condition only happens at broonie/ci.git's file0yZ50U branch.
+
+Could you check this one again?  thanks.

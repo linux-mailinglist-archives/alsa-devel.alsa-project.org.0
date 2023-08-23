@@ -2,86 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17007861F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 23:10:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 734E878621A
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 23:17:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70CD0839;
-	Wed, 23 Aug 2023 23:09:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70CD0839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92AFC845;
+	Wed, 23 Aug 2023 23:17:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92AFC845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692825012;
-	bh=OF5HJLG5FzsNNhmPY/VyYpOOUEVm3L9+q1JsGFn1ulc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1692825476;
+	bh=iEpTjrnLVqxen66G7Uvz7Jyy/E11cVlVrjCW6/VyKj8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b9GfrueMIzWDsBelCW6DM47B8TfjE/y2JSDOxjoB0DZyC5nPT3ttrVi2UaVxqmFll
-	 T2KzA+b0wWBlo6FzE49BOXLYRTynleJbP6kuo3Y2lOROr8F8JeF0ke3x9BVmVxYI1+
-	 4/mjYKVbfkLImhS4hpIRhPvYCsFN2i3vSGYwoUuw=
+	b=pKUM45T3Gaojvkd8IgApd4uzDqrow6KFe8OSbNMb3BxDZ4WhcegzaP6fxdjubZGay
+	 bW0xPXMbFr8QWqgIukbsJFvtFGEKURfhxZ76EIHPfMVYPUHtcKs2ivnkhbOX4tTfTE
+	 GMzL0+jGMIoWWEpjCESzzOHj0UqZ9pYXIW8Nn6X8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3E95F800F5; Wed, 23 Aug 2023 23:09:21 +0200 (CEST)
+	id F2DBEF804DA; Wed, 23 Aug 2023 23:16:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51E24F800F5;
-	Wed, 23 Aug 2023 23:09:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88073F800F5;
+	Wed, 23 Aug 2023 23:16:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5E43F80158; Wed, 23 Aug 2023 23:09:16 +0200 (CEST)
+	id AE677F80158; Wed, 23 Aug 2023 23:16:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
+ [IPv6:2607:f8b0:4864:20::b2a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 96404F80022
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 23:09:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96404F80022
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E5BBF800BF
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 23:16:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E5BBF800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OlF1Si3r
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 857596335A;
-	Wed, 23 Aug 2023 21:09:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B352C433C7;
-	Wed, 23 Aug 2023 21:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692824944;
-	bh=OF5HJLG5FzsNNhmPY/VyYpOOUEVm3L9+q1JsGFn1ulc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=OlF1Si3rIqIafTdto8/wWcEkfcJW3vMy6f1dXKj8rC8vDSkwCRZARXc8pFOpHcGAX
-	 J5EUQvKgGyA2fRcpDucTMc4/V3k604hVLHApj3UeaI/eGyIU00RlhyaJBSz6TT4MLt
-	 EvY2XwnGU/GoLcbz5Iy/VrJPyWH17b2TZGWyV1FMaKg8SywCUy2HlB2oIt0t5QcEnb
-	 txsYqO9AJad/5by7hrKs0sFTxNqg5giCqJK1hUx5mrpzBoCKpwsXCyCDCvIhPlLp78
-	 Wovg8OZsbvZ1lR8Fy8fopf8zMJtuQtgIHgybFhnGJHyUpE8zmWX3oZ+89/D38Kj8wW
-	 ylsxKr7FnWYVQ==
-From: Mark Brown <broonie@kernel.org>
-To: james.schulman@cirrus.com, david.rhodes@cirrus.com,
- rf@opensource.cirrus.com, ckeepax@opensource.cirrus.com,
- Nathan Chancellor <nathan@kernel.org>
-Cc: lgirdwood@gmail.com, ndesaulniers@google.com, trix@redhat.com,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- patches@lists.linux.dev, llvm@lists.linux.dev
-In-Reply-To: <20230823-cs42l43_pll_ev-init-ret-v1-1-5836f1ad5dad@kernel.org>
-References: <20230823-cs42l43_pll_ev-init-ret-v1-1-5836f1ad5dad@kernel.org>
-Subject: Re: [PATCH] ASoC: cs42l43: Initialize ret in default case in
- cs42l43_pll_ev()
-Message-Id: <169282494202.183189.5510150432042109830.b4-ty@kernel.org>
-Date: Wed, 23 Aug 2023 22:09:02 +0100
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ZDmv2BjJ
+Received: by mail-yb1-xb2a.google.com with SMTP id
+ 3f1490d57ef6-d650a22abd7so5996348276.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 23 Aug 2023 14:16:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1692825394; x=1693430194;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iEpTjrnLVqxen66G7Uvz7Jyy/E11cVlVrjCW6/VyKj8=;
+        b=ZDmv2BjJU3fBSftYGcNM3tb+ILU/d9+cLODcLN7bJx5jE0GqvFKrPnlSYGlL0k9kWu
+         m0bch7za38IJ+CLWsWjflpljG/O8F9HEsNE/VWjVNStBDOBq3iJDnH2eTLO/dJEAtALA
+         zbXY+4ZWcbcUYtwqB7UctSATyz1sDYmgfZ/uZj88iB4dhaAHsNB4lm1XJShf+lSlTUF4
+         q1mw8cBg/PsTLqlxfYRQ9OdT1JyBSqfrgsLuehUHu9V36ypWdR+RMX9JIQmW7yxqcnfx
+         Bu1+6uVlgAFqvayOjaJa8cEpXa7Hm+cDiofeMeKPmewLASFqzTHTuUzB1cC9zTcv8uzK
+         +bQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692825394; x=1693430194;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iEpTjrnLVqxen66G7Uvz7Jyy/E11cVlVrjCW6/VyKj8=;
+        b=Seuduzi/gF2t+8BBpjwAMmj7K/2M21fTDiVvyhAK5uo2LdCBl+Zyu4gr3XknF49ssO
+         w7d0VIKPuW0sw9OqCRnRQ7HMh9rcbnzjV5Rg3kewdNiRSZF+M3+zmb1EFNY11tG9fS0q
+         Rrkbwlb1RW3+BKmptL6GYcrX+YxJ2Z1Xm5ex8LNIOR7f3RAzydr1qd/9OLHCIdZloMZF
+         rYdiug7UPXklGiani6vKOlm8fXxyOfghau/QNFRSdHbEz0pUvSEGQiKbQzOxiZYwo7Tt
+         sBlGOZpQdeZkAzgz4/eR9dPERRDAir0ygjFOsbwJg+RoFICJTKNxFhJwx5F/0ZdZBZoJ
+         0rsQ==
+X-Gm-Message-State: AOJu0Yw+CQr9whVC3WlIlNS2Z0OIGJDpiIlaYKyUCBjsKjYZiLqfpLZ5
+	Wbj0DpuRcg3H1Qe+k94wyQXbWVc/0buvuKNgUshAAA==
+X-Google-Smtp-Source: 
+ AGHT+IGU5hlAbzjKR6dHf8nG7wjH+gLTIhLdkOAR0BQZYCAzmvxO+0vsobrLpwu8+6G8uJRZXAov+P50unjaO9+ZE7g=
+X-Received: by 2002:a25:c08f:0:b0:d09:f39b:cecf with SMTP id
+ c137-20020a25c08f000000b00d09f39bcecfmr12862557ybf.9.1692825393910; Wed, 23
+ Aug 2023 14:16:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: O4R44Y3FWXMEZU7YFJMGCJLQ7J3PUH2C
-X-Message-ID-Hash: O4R44Y3FWXMEZU7YFJMGCJLQ7J3PUH2C
-X-MailFrom: broonie@kernel.org
+References: <20230823183749.2609013-1-robh@kernel.org>
+In-Reply-To: <20230823183749.2609013-1-robh@kernel.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 23 Aug 2023 23:16:22 +0200
+Message-ID: 
+ <CACRpkdbuB-NotnMXc9vZj-byjk7spCSkZ+Dx=R_eOqoSV5CdTA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Drop remaining unneeded quotes
+To: Rob Herring <robh@kernel.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@linaro.org>,
+	James Clark <james.clark@arm.com>, Leo Yan <leo.yan@linaro.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+	Andy Shevchenko <andy@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jean Delvare <jdelvare@suse.com>,
+	Guenter Roeck <linux@roeck-us.net>, Emil Renner Berthing <kernel@esmil.dk>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Corey Minyard <minyard@acm.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, M ark Brown <broonie@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+ Bart Van Assche <bvanassche@acm.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
+	linux-iio@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
+	alsa-devel@alsa-project.org, linux-scsi@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: BEIC3ZPNDPCXYP6SS4BOO7B64AGW7O6G
+X-Message-ID-Hash: BEIC3ZPNDPCXYP6SS4BOO7B64AGW7O6G
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4R44Y3FWXMEZU7YFJMGCJLQ7J3PUH2C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BEIC3ZPNDPCXYP6SS4BOO7B64AGW7O6G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,48 +149,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 23 Aug 2023 09:32:50 -0700, Nathan Chancellor wrote:
-> clang warns (or errors with CONFIG_WERROR=y):
-> 
->   sound/soc/codecs/cs42l43.c:1371:2: error: variable 'ret' is used uninitialized whenever switch default is taken [-Werror,-Wsometimes-uninitialized]
->    1371 |         default:
->         |         ^~~~~~~
->   sound/soc/codecs/cs42l43.c:1377:9: note: uninitialized use occurs here
->    1377 |         return ret;
->         |                ^~~
->   sound/soc/codecs/cs42l43.c:1349:9: note: initialize the variable 'ret' to silence this warning
->    1349 |         int ret;
->         |                ^
->         |                 = 0
->   1 error generated.
-> 
-> [...]
+On Wed, Aug 23, 2023 at 8:38=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
 
-Applied to
+> Cleanup bindings dropping the last remaining unneeded quotes. With this,
+> the check for this can be enabled in yamllint.
+>
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Thanks!
-
-[1/1] ASoC: cs42l43: Initialize ret in default case in cs42l43_pll_ev()
-      commit: a74048432fbb30e7a574747f6e1f47aef17010b0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Yours,
+Linus Walleij

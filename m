@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61657785E73
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 19:20:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7356785E77
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 19:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23FD8210;
-	Wed, 23 Aug 2023 19:19:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23FD8210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 443C3836;
+	Wed, 23 Aug 2023 19:21:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 443C3836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692811207;
-	bh=U9vLhd4r0HFTC8yftZjgp5mnXXAmTXqST67kYnhg2Do=;
+	s=default; t=1692811312;
+	bh=1LSQ0ibvhCpuNGDRVQ3fT/a0N0oWpnYFPW2FcudTjko=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vCSZ7/IfBxr8Bqc7Hy0VGAyWcTkfcLPBa0AFB7dYBFhTOmSYBM8Ytps8Xaq/pf3PR
-	 OALGXN9bujThEya0UGBkexJZhuFLmyHGJLM8mli3+QV68uDKNFDRYnqcyNGdWv2Z7D
-	 K6Z1Eu/THs1hKnRWCqsvF17abMXXcQ9wkzeotjq0=
+	b=GriW4MnIkv0JrK4hx5Zdybz+XfXnk8RbX6Ex2PCK+xgDs56oeBlt6+umLuiDUMwAd
+	 g7cmc5ZTvJYJowdygAXExHa/l8JLelnYJR00Z2CV/7VWZ3CDzcThx2/+a1TyQiDhhH
+	 auZroNzMVUVD/5ENL9hOsMatxR+TqAqugFeu8cvA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4600F8025F; Wed, 23 Aug 2023 19:19:16 +0200 (CEST)
+	id 123A6F800D1; Wed, 23 Aug 2023 19:21:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EC93F800D1;
-	Wed, 23 Aug 2023 19:19:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1EC9F800D1;
+	Wed, 23 Aug 2023 19:21:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AAA6BF80158; Wed, 23 Aug 2023 19:19:11 +0200 (CEST)
+	id E944BF80158; Wed, 23 Aug 2023 19:20:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp.smtpout.orange.fr (smtp-29.smtpout.orange.fr
- [80.12.242.29])
+X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp.smtpout.orange.fr (smtp-19.smtpout.orange.fr
+ [80.12.242.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94FD0F80022
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 19:19:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94FD0F80022
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7E09F80022
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 19:20:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7E09F80022
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
- header.s=t20230301 header.b=nnLI6lnJ
+ header.s=t20230301 header.b=p1eGtxNY
 Received: from [192.168.1.18] ([86.243.2.178])
 	by smtp.orange.fr with ESMTPA
-	id YrVNq4JlBntruYrVOq9cX0; Wed, 23 Aug 2023 19:19:04 +0200
+	id YrXFq32vGOQiUYrXFqJe0n; Wed, 23 Aug 2023 19:20:53 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1692811144;
-	bh=mEIOwM53xWNzgwUL0jHd9Fje9pXSrHPFj4ojAfs4iGE=;
+	s=t20230301; t=1692811253;
+	bh=YilPLjsAWAxMFRuKLpbH+AIhWQZHyzpkkkrXHbp8NnU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nnLI6lnJnSOGM/XXP8EclSXVJxK8SI1Y+C9HLufkxtyMcj1Y738B690xm3phjKZ4E
-	 1xsyizY0jr/PgacTNOdiM268nDBWWu46Z0h5ElAvFE4ataaj/kiS2elGALkA6YnZ0L
-	 pGv44b+PDbMaoxC2//iOCIoB3DpIDd37LTR55LjEhTexclRWce5nHbstgtohvHPdTP
-	 t5nM91RxVGTmwt6Nz5fH5DhI4brKSd1DYCO6vek2JoUc3snc00v9R5bZlWH5jHyET8
-	 vJ7OzjnFp+BsIF/LmraU/aux7fJxSo6yDTQn4LqPNQr22gWoVEtQiIj1B+6QF86XMF
-	 g9gmuuA2zEINQ==
+	b=p1eGtxNYAJtWoXIYRNkuQU2TmowPauX7I20RNz9Q0sQNKAEiiYqVRh+uyxkR02v1P
+	 2hqB5ZgknXzE7eI1sOp75WRgi0oFbp3tTo5StkC2KiMY8hk60RvfuYCqI2HZ5+6Dly
+	 5IF7Axj20dlTXNj0OWWU69i6tZow0qvfoQf8a945gCIpq5TqqpTzFZBEpzBwIcHzZ3
+	 8T+Blv999CcFiX4vkhvamkGzrNf8q1Ngy7fLkp7f//eKw4G8YslB0sQi86F+VhyaNQ
+	 ZIPZjIsuaRBaA4TN+25zUcXsuEUCcVqiQY+Vu9gXN/w5y6Pjf5w4HeFBvvLg+NqRlU
+	 9fjuPnoj3lbuQ==
 X-ME-Helo: [192.168.1.18]
 X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Wed, 23 Aug 2023 19:19:04 +0200
+X-ME-Date: Wed, 23 Aug 2023 19:20:53 +0200
 X-ME-IP: 86.243.2.178
-Message-ID: <de106b1f-00fe-b83d-657e-49732ed2b506@wanadoo.fr>
-Date: Wed, 23 Aug 2023 19:18:53 +0200
+Message-ID: <ddc14926-45d8-9b20-9523-0fb6afa499b3@wanadoo.fr>
+Date: Wed, 23 Aug 2023 19:20:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH] ALSA: ac97: Fix possible NULL dereference in
- snd_ac97_mixer
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Su Hui <suhui@nfschina.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>,
- maciej.szmigiero@oracle.com, yangyingliang@huawei.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-References: <20230615021732.1972194-1-suhui@nfschina.com>
- <49247018-20fe-8a04-75f2-dad4524aa3a3@wanadoo.fr>
- <878ra1hlk0.wl-tiwai@suse.de>
-Content-Language: fr, en-US
+Subject: Re: [PATCH] ALSA: ac97: Fix possible error value of *rac97
+Content-Language: fr
+To: Su Hui <suhui@nfschina.com>, perex@perex.cz, tiwai@suse.com
+Cc: arnd@arndb.de, robert.jarzmik@free.fr, yangyingliang@huawei.com,
+ maciej.szmigiero@oracle.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+References: <20230823025212.1000961-1-suhui@nfschina.com>
 From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <878ra1hlk0.wl-tiwai@suse.de>
+In-Reply-To: <20230823025212.1000961-1-suhui@nfschina.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MXS5373XHS7PBVENDMF4KFYUL7UFFGGP
-X-Message-ID-Hash: MXS5373XHS7PBVENDMF4KFYUL7UFFGGP
+Message-ID-Hash: XD3TAONSQ5ZXEMXKR5Y5WPSQGPEFBMPN
+X-Message-ID-Hash: XD3TAONSQ5ZXEMXKR5Y5WPSQGPEFBMPN
 X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MXS5373XHS7PBVENDMF4KFYUL7UFFGGP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XD3TAONSQ5ZXEMXKR5Y5WPSQGPEFBMPN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,84 +99,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Le 23/08/2023 à 16:37, Takashi Iwai a écrit :
-> On Tue, 22 Aug 2023 22:07:40 +0200,
-> Christophe JAILLET wrote:
->>
->> Le 15/06/2023 à 04:17, Su Hui a écrit :
->>> smatch error:
->>> sound/pci/ac97/ac97_codec.c:2354 snd_ac97_mixer() error:
->>> we previously assumed 'rac97' could be null (see line 2072)
->>>
->>> remove redundant assignment, return error if rac97 is NULL.
->>
->> Hi,
->>
->> why is the assigment redundant?
+Le 23/08/2023 à 04:52, Su Hui a écrit :
+> Before committing 79597c8bf64c, *rac97 always be NULL if there is
+> an error. When error happens, make sure *rac97 is NULL is safer.
 > 
-> It's misleading, yeah.  Basically all callers are with non-NULL, hence
-> we took rather make it mandatory.  Maybe it should have been with
-> WARN_ON() to catch the NULL argument for an out-of-tree stuff.
+> For examble, in snd_vortex_mixer():
+> 	err = snd_ac97_mixer(pbus, &ac97, &vortex->codec);
+> 	vortex->isquad = ((vortex->codec == NULL) ?
+> 		0 : (vortex->codec->ext_id&0x80));
+> If error happened but vortex->codec isn't NULL, this may cause some
+> problems.
 > 
->> Should an error occur, the 'struct snd_ac97 **' parameter was garanted
->> to be set to NULL, now it is left as-is.
->>
->> I've checked all callers and apparently this is fine because the
->> probes fail if snd_ac97_mixer() returns an error.
->>
->> However, some drivers with several mixers seem to rely on the value
->> being NULL in case of error.
->>
->> See [1] as an example of such code that forces a NULL value on its
->> own, to be sure.
->>
->> So, wouldn't it be safer to leave a "*rac97 = NULL;" just after the
->> added sanity check?
+> Move the judgement order to be clearer and better.
 > 
-> Yes, we need the NULL initialization.
-> Care to submit an additional fix patch?
+> Fixes: 79597c8bf64c ("ALSA: ac97: Fix possible NULL dereference in snd_ac97_mixer")
+> Suggested-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> Signed-off-by: Su Hui <suhui@nfschina.com>
+> ---
+>   sound/pci/ac97/ac97_codec.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/pci/ac97/ac97_codec.c b/sound/pci/ac97/ac97_codec.c
+> index 80a65b8ad7b9..25f93e56cfc7 100644
+> --- a/sound/pci/ac97/ac97_codec.c
+> +++ b/sound/pci/ac97/ac97_codec.c
+> @@ -2069,10 +2069,9 @@ int snd_ac97_mixer(struct snd_ac97_bus *bus, struct snd_ac97_template *template,
+>   		.dev_disconnect =	snd_ac97_dev_disconnect,
+>   	};
+>   
+> -	if (!rac97)
+> -		return -EINVAL;
+> -	if (snd_BUG_ON(!bus || !template))
+> +	if (snd_BUG_ON(!bus || !template || !rac97))
+>   		return -EINVAL;
+> +	*rac97 = NULL;
+>   	if (snd_BUG_ON(template->num >= 4))
+>   		return -EINVAL;
+>   	if (bus->codec[template->num])
 
-Hi,
+FWIW,
 
-Su Hui already did.
+Acked-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
 CJ
-
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
->>
->>
->> CJ
->>
->>
->> [1]:
->> https://elixir.bootlin.com/linux/v6.5-rc7/source/sound/pci/atiixp.c#L1438
->>
->>>
->>> Fixes: da3cec35dd3c ("ALSA: Kill snd_assert() in sound/pci/*")
->>> Signed-off-by: Su Hui <suhui@nfschina.com>
->>> ---
->>>    sound/pci/ac97/ac97_codec.c | 4 ++--
->>>    1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/sound/pci/ac97/ac97_codec.c b/sound/pci/ac97/ac97_codec.c
->>> index 9afc5906d662..80a65b8ad7b9 100644
->>> --- a/sound/pci/ac97/ac97_codec.c
->>> +++ b/sound/pci/ac97/ac97_codec.c
->>> @@ -2069,8 +2069,8 @@ int snd_ac97_mixer(struct snd_ac97_bus *bus, struct snd_ac97_template *template,
->>>    		.dev_disconnect =	snd_ac97_dev_disconnect,
->>>    	};
->>>    -	if (rac97)
->>> -		*rac97 = NULL;
->>> +	if (!rac97)
->>> +		return -EINVAL;
->>>    	if (snd_BUG_ON(!bus || !template))
->>>    		return -EINVAL;
->>>    	if (snd_BUG_ON(template->num >= 4))
->>
-> 
-

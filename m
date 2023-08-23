@@ -2,121 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32664785CC3
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 17:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B69D3785D1B
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:17:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D91F83A;
-	Wed, 23 Aug 2023 17:56:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D91F83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 570C1827;
+	Wed, 23 Aug 2023 18:16:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 570C1827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692806264;
-	bh=D5pfJtYALrOy10ugSYtWsWCb+1mVFN7xrMWbS1+dIm4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=g1L7kEqnnOHzxmYVnKmthp8HgMl1/noA/ETU97bzWVy0MkbPI0fdrKual/7Dr7ijM
-	 yb3XVBMnvUBPvy60N44wcs6kjBNWkgMYPke/XakPYE/xR7/u/8bqOtGgx8K2UgtRZ1
-	 DxNop3YtiLQan4viAActkst+I0D6TPwC4H4MWc1A=
+	s=default; t=1692807452;
+	bh=5fZndf6YfK2lqqUxFab3fYI33QfJsRd1Af80UdkdFro=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=euVSf4fdESXTya+akMz94gq0728eXRNbkHpG4wvET9PJxULZxikLxWbFdy3URfYP6
+	 NVbW68+D2b94NooHWczJPx87egqdMnYAF7/83Z4xLXa6zR4CNhyzNA8TRAieDFOx/q
+	 6p6yhacvsIYcx7DY2JDFa5mbi491w1y5ftApEU2Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 977B6F80158; Wed, 23 Aug 2023 17:56:52 +0200 (CEST)
+	id A0912F8022B; Wed, 23 Aug 2023 18:16:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B3A2F80022;
-	Wed, 23 Aug 2023 17:56:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 664B1F800F5;
+	Wed, 23 Aug 2023 18:16:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9446AF80158; Wed, 23 Aug 2023 17:55:24 +0200 (CEST)
+	id 084B0F80158; Wed, 23 Aug 2023 18:16:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0D48F80022
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 17:55:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D48F80022
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9E410F80022
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 18:16:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E410F80022
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=jTx2Xoca
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-58d70c441d5so62771697b3.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 23 Aug 2023 08:55:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1692806108; x=1693410908;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D5pfJtYALrOy10ugSYtWsWCb+1mVFN7xrMWbS1+dIm4=;
-        b=jTx2Xoca2FNIefIIdk2CZzjW+bIp4mr/uyVEEXrvtSC417hepEwvHBm8tboVAb8D4s
-         nvAQavxRZyjuEgGB0uX1maRV3bpfT699xM2sC4tEPIGgoTO9f/fgk/PSUJrv7a9gnHAc
-         b/628CUCMFZPE9YQdcMfV4kn9JgJxOT23rIGI8MYv2XQh7jwq8GMG6xGodcrDNBP2uI8
-         Z2FCAi2A1nIzCbSpJP/R8kXV4C7lrx2vxmvYJ1GoKz+q6JyDOMUGB0YQMLvz7HPsHc65
-         X6KNrMzsvPxPhfzamcdHG/f2yt068mUzvo6VIw/Il2j2xn7HsA+QmV3sQO4OZmJUSwel
-         fJdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692806108; x=1693410908;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=D5pfJtYALrOy10ugSYtWsWCb+1mVFN7xrMWbS1+dIm4=;
-        b=HktBL0/sBrDu3cTnVBwjrVxIQYz7G5Ptzpo4tlCdSW0jQfn2VHuK0Md+W0fWBJ80N7
-         sPCKisNLIVhIPEDu3GNyBMDiTLpoOkR+4Or9E1i8ggXLo6O/ufn4G2+NCGlB/TDDgr4T
-         e34cSRDrZSw0eIT8PWfHvge3GoZAfgeHNNdpfg650JH5tEmYSnAKL2kB5vyS9XcgQnxp
-         X8vL6tXlZX9NXrnoSqNYG8eddhfG+g6LPLfQjocYe2Or4T4vMZTAR4qM/jTZwEVkUJ3d
-         y5GkUTQ10Yh4YLouoA5ua1TmMMsZaowmFXBIpgqx0HEr/C0GxfNv33VSyY1cFW7gM/ta
-         cTpw==
-X-Gm-Message-State: AOJu0YzqKbIOrmfY0dZmfuZjK/9tXlxa4ZCZkfkEML5fw7KWtf6qkt6k
-	6B4d23Ivj/SC6rQX6XI2Er3kazywjd01cigH7IfhOg==
-X-Google-Smtp-Source: 
- AGHT+IHPwTFcG8Rs5xra2L8n7+FakwWLs/CKLvB8qkq4zWmOeDPeZ0NHII3jC8pM+SwB+djmNeGRuRx60ihwEoaOA+Q=
-X-Received: by 2002:a81:c211:0:b0:579:9cae:e0ee with SMTP id
- z17-20020a81c211000000b005799caee0eemr13494444ywc.20.1692806108154; Wed, 23
- Aug 2023 08:55:08 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=chSJOMxd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=iKU1PsrG
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DEBF62093C;
+	Wed, 23 Aug 2023 16:16:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692807390;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=jgfpwqjllVj65xGIRdayz3qoTsi+aSSPXQvk0I2TEiE=;
+	b=chSJOMxdacA1yCUofkeYmfICAXqQxa++L7DheHfKUva9HNvTJYXndwz6ZovupyWjvCNukR
+	58lvUpukOvJyfKWk7aOL0minkwZDk93I8fUoGvakOm22QcogEoGkUrsKsDGRaqM9MWicba
+	0rHXGSYjqb+JBAf4sStyE29nYYYr1Ak=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692807390;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=jgfpwqjllVj65xGIRdayz3qoTsi+aSSPXQvk0I2TEiE=;
+	b=iKU1PsrGDxh/zzG/jiiyolSiiZht9SovLp//S8sfjqdYfzcAJqySIArxWPh52G0w1NAFey
+	YkuaH5bUBl+wFECA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BBBFE13458;
+	Wed, 23 Aug 2023 16:16:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id MOWcLN4w5mTxPwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 23 Aug 2023 16:16:30 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Yano <takashi.yano@nifty.ne.jp>
+Subject: [PATCH] ALSA: ymfpci: Fix the missing snd_card_free() call at probe
+ error
+Date: Wed, 23 Aug 2023 18:16:25 +0200
+Message-Id: <20230823161625.5807-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: 
- <20230823040755.2217942-1-ajye_huang@compal.corp-partner.google.com>
- <dd6d51b0-cc60-4fb7-932d-1117143d1715@sirena.org.uk>
- <CALprXBYxrwBW6HLP5MwYhFh1_Skei+pLbXd7yNAEuhLTQJLVPg@mail.gmail.com>
- <2ebbcb7a-bc0d-4f62-9f4b-706f0270b71a@sirena.org.uk>
-In-Reply-To: <2ebbcb7a-bc0d-4f62-9f4b-706f0270b71a@sirena.org.uk>
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Date: Wed, 23 Aug 2023 23:54:56 +0800
-Message-ID: 
- <CALprXBYEqAoj5H3n+wszocmhRQ96vLq5d2tYhBOdJnCbs_YY-w@mail.gmail.com>
-Subject: Re: [PATCH v1] Revert "ASoC: Intel: Add rpl_nau8318_8825 driver"
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Akihiko Odaki <akihiko.odaki@gmail.com>,
-	Yong Zhi <yong.zhi@intel.com>, ye xingchen <ye.xingchen@zte.com.cn>,
-	"balamurugan . c" <balamurugan.c@intel.com>,
- Libin Yang <libin.yang@intel.com>,
-	Jaroslav Kysela <perex@perex.cz>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>, David Lin <CTLIN0@nuvoton.com>,
-	Brent Lu <brent.lu@intel.com>, Takashi Iwai <tiwai@suse.com>,
-	Terry Cheong <htcheong@chromium.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Gongjun Song <gongjun.song@intel.com>,
-	Arnd Bergmann <arnd@arndb.de>, apoorv <apoorv@intel.com>,
- alsa-devel@alsa-project.org,
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: SNEAHRYINM44FPELL6SVTJXXVYN7ILJ5
-X-Message-ID-Hash: SNEAHRYINM44FPELL6SVTJXXVYN7ILJ5
-X-MailFrom: ajye_huang@compal.corp-partner.google.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: U52R33DMG5H57W7O3BJVGL4BWP42GRWD
+X-Message-ID-Hash: U52R33DMG5H57W7O3BJVGL4BWP42GRWD
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SNEAHRYINM44FPELL6SVTJXXVYN7ILJ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U52R33DMG5H57W7O3BJVGL4BWP42GRWD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,12 +114,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Aug 23, 2023 at 11:51=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
-ote:
->
-> That's my CI tree, things in there aren't going anywhere unless they
-> pass testing.
+Like a few other drivers, YMFPCI driver needs to clean up with
+snd_card_free() call at an error path of the probe; otherwise the
+other devres resources are released before the card and it results in
+the UAF.
 
-Hi, Mark,
+This patch uses the helper for handling the probe error gracefully.
 
-Thank you for your explanation.
+Fixes: f33fc1576757 ("ALSA: ymfpci: Create card with device-managed snd_devm_card_new()")
+Cc: <stable@vger.kernel.org>
+Reported-and-tested-by: Takashi Yano <takashi.yano@nifty.ne.jp>
+Closes: https://lore.kernel.org/r/20230823135846.1812-1-takashi.yano@nifty.ne.jp
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/ymfpci/ymfpci.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/sound/pci/ymfpci/ymfpci.c b/sound/pci/ymfpci/ymfpci.c
+index b033bd290940..48444dda44de 100644
+--- a/sound/pci/ymfpci/ymfpci.c
++++ b/sound/pci/ymfpci/ymfpci.c
+@@ -152,8 +152,8 @@ static inline int snd_ymfpci_create_gameport(struct snd_ymfpci *chip, int dev, i
+ void snd_ymfpci_free_gameport(struct snd_ymfpci *chip) { }
+ #endif /* SUPPORT_JOYSTICK */
+ 
+-static int snd_card_ymfpci_probe(struct pci_dev *pci,
+-				 const struct pci_device_id *pci_id)
++static int __snd_card_ymfpci_probe(struct pci_dev *pci,
++				   const struct pci_device_id *pci_id)
+ {
+ 	static int dev;
+ 	struct snd_card *card;
+@@ -348,6 +348,12 @@ static int snd_card_ymfpci_probe(struct pci_dev *pci,
+ 	return 0;
+ }
+ 
++static int snd_card_ymfpci_probe(struct pci_dev *pci,
++				 const struct pci_device_id *pci_id)
++{
++	return snd_card_free_on_error(&pci->dev, __snd_card_ymfpci_probe(pci, pci_id));
++}
++
+ static struct pci_driver ymfpci_driver = {
+ 	.name = KBUILD_MODNAME,
+ 	.id_table = snd_ymfpci_ids,
+-- 
+2.35.3
+

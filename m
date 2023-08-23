@@ -2,85 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C34E78538F
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 11:12:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D317853C1
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 11:22:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 846F87F1;
-	Wed, 23 Aug 2023 11:11:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 846F87F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14117827;
+	Wed, 23 Aug 2023 11:21:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14117827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692781956;
-	bh=Y5rXVN1CUYUeEc18RDoMCmf/FGH1IABoli7lIDdHMW8=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bGmZd68NNnc6WpJHveug9j4KEf6zEKAh91bbCQjtgTGU1z2PPqyLXnppuwaWNfMIz
-	 2lk6cR8a0S1p1gCvoNGJsxa/K4NuS7WchSxo3dEH3g7/I55oTyjuYbP6gcsfBbo7/s
-	 z7rUYLKJw8bkuqgawoFk5e4vJgIhGyRmzpRJWT4U=
+	s=default; t=1692782539;
+	bh=ArwzVguQhi7ifWacafrK7kCca70/Ba3U09Ze8Rvukk8=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ernTtDHpNHiS8LTH6/bTggykxaqDvGJhWHRdXLmz11K7Zfh9qs05mxJizX21Jf7Lh
+	 e6PlxxMVLcVi5yCbTytgD2XDWwGGTIa+RjwThp3eiaO2ppCqPS4RC2LkD7mwakuriZ
+	 T+w7+Kc751yY9vkrrRE8Ux7v8/bca/otvGBpoz7s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E412F80537; Wed, 23 Aug 2023 11:11:18 +0200 (CEST)
+	id A7900F80549; Wed, 23 Aug 2023 11:21:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11CCCF800F5;
-	Wed, 23 Aug 2023 11:11:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47DEBF800F5;
+	Wed, 23 Aug 2023 11:21:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 115C1F80158; Wed, 23 Aug 2023 11:11:10 +0200 (CEST)
+	id E8E31F80158; Wed, 23 Aug 2023 11:21:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3D47F800BF
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 11:10:50 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id F415111F6;
-	Wed, 23 Aug 2023 11:10:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz F415111F6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1692781847; bh=Cb9CQJ3fB5vrI7goxkrQBfVB5PWwJBWyAgTzm0IIq18=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=0+UljXCqH9vbL0oyQ+lxwB4V9AxoN9gZ78MT+5A2TGDsEWoghbYnz1shmSL9VCQS5
-	 o3u5d5SgIYKO7Mnh/ecAFE+9F3yIQ7t7C5k0hK+SMHxa74Fdj/VjNqYPVPvgwYWJps
-	 xoEF9gsEfNh/ej9kwzMmfS6K8ax5uVYpM63P9tE8=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 23 Aug 2023 11:10:38 +0200 (CEST)
-Message-ID: <9d0f0555-411a-96aa-c8a5-382f595a2bbd@perex.cz>
-Date: Wed, 23 Aug 2023 11:10:38 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id CCBF1F800BF
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 11:21:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCBF1F800BF
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Bzzehe6E
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37N5qdOM016078;
+	Wed, 23 Aug 2023 04:21:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=O
+	03S53uO3lWnAuNEG4r3nWYIgaw8ScBk/bSksAb1lRU=; b=Bzzehe6Ead+Wf5Od/
+	t+Lzfwt0fGVFBff+fZuY5W9UygSOtoA001uYFMHKw8/70HnMvBRob3g0883dmpnT
+	7X5xkcEKQvjkqthP/5nyNk5juZaPrrmT1FvGhveHbNy9pTB9Dc3fo2uswz3e3j0o
+	H2nEHUpslnugh1BYlKjgd9WupQYz36hZID4dH5VXVIq3Nroo8oCdMhE8SpH9tsCC
+	GgvV9lb7CbzcV8e6yu42ww44Hcdiyl7i3CWzfqraaPl5hO5shLMu7atup84WG8CL
+	LCF+lk20j7QSpLRAcKmMOwT9YL7zz5rkRlvJi5+AWclsR4GYhn2zJ6XXwqr95kj3
+	zbXqg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sn21s0rr5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 23 Aug 2023 04:21:15 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Wed, 23 Aug
+ 2023 10:21:13 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.30 via Frontend
+ Transport; Wed, 23 Aug 2023 10:21:13 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7EC362A9;
+	Wed, 23 Aug 2023 09:21:13 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <yung-chuan.liao@linux.intel.com>, <lgirdwood@gmail.com>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>
+Subject: [PATCH] ASoC: soc-pcm: Shrink stack frame for __soc_pcm_hw_params
+Date: Wed, 23 Aug 2023 10:21:13 +0100
+Message-ID: <20230823092113.788514-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.de>
-Cc: broonie@kernel.org, tiwai@suse.com, alsa-devel@alsa-project.org,
- amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- hdegoede@redhat.com
-References: <20230811164853.1797547-1-cezary.rojewski@intel.com>
- <20230811164853.1797547-2-cezary.rojewski@intel.com>
- <43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz> <87bkezdsjh.wl-tiwai@suse.de>
- <67fc99db-baf8-17b0-e7c4-f420676e5c8a@perex.cz> <874jkrdr49.wl-tiwai@suse.de>
- <5d77217b-1083-a4d0-1b69-7511d24b6aec@perex.cz>
- <acfcc8a3-8ceb-1671-1dad-35a083354170@intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [RFC PATCH 01/17] ALSA: pcm: Introduce MSBITS subformat interface
-In-Reply-To: <acfcc8a3-8ceb-1671-1dad-35a083354170@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MU3OEACIZILHKOZ5NGAMVAOQXOF7FBFD
-X-Message-ID-Hash: MU3OEACIZILHKOZ5NGAMVAOQXOF7FBFD
-X-MailFrom: perex@perex.cz
+Content-Type: text/plain
+X-Proofpoint-GUID: fWUVyBzmlzXQ9nyjZTqjJkTI8hiVzv3t
+X-Proofpoint-ORIG-GUID: fWUVyBzmlzXQ9nyjZTqjJkTI8hiVzv3t
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: MUIAXFDLLNAEVS5WGZDZ3PEQOMAAPI25
+X-Message-ID-Hash: MUIAXFDLLNAEVS5WGZDZ3PEQOMAAPI25
+X-MailFrom: prvs=3599de430b=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MU3OEACIZILHKOZ5NGAMVAOQXOF7FBFD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MUIAXFDLLNAEVS5WGZDZ3PEQOMAAPI25/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,65 +106,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 23. 08. 23 10:11, Cezary Rojewski wrote:
-> On 2023-08-22 9:03 PM, Jaroslav Kysela wrote:
->> On 22. 08. 23 17:38, Takashi Iwai wrote:
->>> On Tue, 22 Aug 2023 17:29:47 +0200,
->>> Jaroslav Kysela wrote:
->>>>
->>>> On 22. 08. 23 17:07, Takashi Iwai wrote:
->>>>> On Tue, 22 Aug 2023 17:03:02 +0200,
->>>>> Jaroslav Kysela wrote:
->>>>>>
->>>>>> On 11. 08. 23 18:48, Cezary Rojewski wrote:
->>>>>>
->>>>>>> +#define SNDRV_PCM_SUBFMTBIT_MSBITS_32
->>>>>>> _SNDRV_PCM_SUBFMTBIT(MSBITS_32)
->>>>>>
->>>>>> What was reason to add 32/32 format ? Subformat STD + msbits == 32
->>>>>> should already handle the maximal resolution. Until we do not have 64
->>>>>> bit formats, it seems like an useless extension.
->>>>>
->>>>> My understanding is to distinguish the cases "we do fully support
->>>>> 32bit" and "we don't care".  But, the end effect is same for both,
->>>>> user-space would handle 32bit in both cases, so this difference won't
->>>>> help much, indeed.
->>>>
->>>> I don't think that we have a "do not care" situation. The applications
->>>> currently expects to use the maximal msbits for STD subformat. The
->>>> subformat should be used only to refine (downgrade) the resolution on
->>>> the driver / hw side on demand. I would just add only necessary API
->>>> extensions and save one bit for now.
->>>
->>> Well, the current behavior (with STD) is to choose whatever 32bit
->>> format the driver supports, and the driver may set a different value
->>> of hw_params.msbits at hw_params.  The explicit MSBITS_32 would
->>> enforce the hw_params.msbits to be 32, otherwise hw_refine would
->>> fail.  So I see a potential difference.
->>
->> I see. But if our target is to create a complete query/set msbits API,
->> we should cover all cases also for other formats.
->>
->> I vote to replace SUBFMTBIT_MSBITS_32 to SUBFMTBIT_MSBITS_MAX as the
->> second bit (right after STD). The format hw parameter already defines
->> the maximal width. We can add SUBFMTBIT_MSBITS_32 when it's really
->> required. Note that MAX should be handled for all cases (not only for
->> S32_LE or so).
-> 
-> In my opinion STD already states "max". The word is not explicit either
-> - max in the eyes of whom? The driver'? Then the driver may reply: max
-> allowed e.g.: 24/32. And that translates to: fallback to STD.
+Commit ac950278b087 ("ASoC: add N cpus to M codecs dai link support")
+added an additional local params in __soc_pmc_hw_params, for the
+CPU side of the DAI. The snd_pcm_hw_params struct is pretty large (604
+bytes) and keeping two local copies of it makes the stack frame for
+__soc_pcm_hw_params really large. As the two copies are only used
+sequentially combine these into a single local variable to shrink the
+stack frame.
 
-Max in the contents of the physical sample format (S32 = 32 bits, S24 = 24 
-bits, S8 = 8 bits etc). It would mean, if the driver supports S32 but only 
-with 24-bit resolution, this bit should not be set/allowed. We can also use 
-word full or something other. If we like to extend the API in this way (force 
-the specific msbits with the error handling), all formats should be covered. 
-For STD - see Takashi's reply.
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/soc-pcm.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
 
-						Jaroslav
-
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 3aa6b988cb4b4..46917add10560 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -985,6 +985,7 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
+ {
+ 	struct snd_soc_dai *cpu_dai;
+ 	struct snd_soc_dai *codec_dai;
++	struct snd_pcm_hw_params tmp_params;
+ 	int i, ret = 0;
+ 
+ 	snd_soc_dpcm_mutex_assert_held(rtd);
+@@ -998,7 +999,6 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
+ 		goto out;
+ 
+ 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+-		struct snd_pcm_hw_params codec_params;
+ 		unsigned int tdm_mask = snd_soc_dai_tdm_mask_get(codec_dai, substream->stream);
+ 
+ 		/*
+@@ -1019,23 +1019,22 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
+ 			continue;
+ 
+ 		/* copy params for each codec */
+-		codec_params = *params;
++		tmp_params = *params;
+ 
+ 		/* fixup params based on TDM slot masks */
+ 		if (tdm_mask)
+-			soc_pcm_codec_params_fixup(&codec_params, tdm_mask);
++			soc_pcm_codec_params_fixup(&tmp_params, tdm_mask);
+ 
+ 		ret = snd_soc_dai_hw_params(codec_dai, substream,
+-					    &codec_params);
++					    &tmp_params);
+ 		if(ret < 0)
+ 			goto out;
+ 
+-		soc_pcm_set_dai_params(codec_dai, &codec_params);
+-		snd_soc_dapm_update_dai(substream, &codec_params, codec_dai);
++		soc_pcm_set_dai_params(codec_dai, &tmp_params);
++		snd_soc_dapm_update_dai(substream, &tmp_params, codec_dai);
+ 	}
+ 
+ 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+-		struct snd_pcm_hw_params cpu_params;
+ 		unsigned int ch_mask = 0;
+ 		int j;
+ 
+@@ -1047,7 +1046,7 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
+ 			continue;
+ 
+ 		/* copy params for each cpu */
+-		cpu_params = *params;
++		tmp_params = *params;
+ 
+ 		if (!rtd->dai_link->codec_ch_maps)
+ 			goto hw_params;
+@@ -1062,16 +1061,16 @@ static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
+ 
+ 		/* fixup cpu channel number */
+ 		if (ch_mask)
+-			soc_pcm_codec_params_fixup(&cpu_params, ch_mask);
++			soc_pcm_codec_params_fixup(&tmp_params, ch_mask);
+ 
+ hw_params:
+-		ret = snd_soc_dai_hw_params(cpu_dai, substream, &cpu_params);
++		ret = snd_soc_dai_hw_params(cpu_dai, substream, &tmp_params);
+ 		if (ret < 0)
+ 			goto out;
+ 
+ 		/* store the parameters for each DAI */
+-		soc_pcm_set_dai_params(cpu_dai, &cpu_params);
+-		snd_soc_dapm_update_dai(substream, &cpu_params, cpu_dai);
++		soc_pcm_set_dai_params(cpu_dai, &tmp_params);
++		snd_soc_dapm_update_dai(substream, &tmp_params, cpu_dai);
+ 	}
+ 
+ 	ret = snd_soc_pcm_component_hw_params(substream, params);
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.30.2
 

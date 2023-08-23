@@ -2,74 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2B8A7860D8
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 21:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92BE778610D
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 21:55:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F098283E;
-	Wed, 23 Aug 2023 21:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F098283E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 677D3839;
+	Wed, 23 Aug 2023 21:54:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677D3839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692819746;
-	bh=mCr5ocvyOeu2z0mozrELa/is5m76n47C97ZuPuIngY4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=OGgg3osOty6szmtMAZvhi2dvJ66W1Rz4mfSLWXtXZutYmRowNl2Uiibg1uLipuOEc
-	 uqaUfz/T+O9YlRAde02iBVMLBQ6k5uaq32mGi23GocERzSfV6Kq7K6UoM1TlmUjNqs
-	 IWPapAPndRpnH9k/8vF0/35+9fB0Drp4kXdNvQU0=
+	s=default; t=1692820506;
+	bh=6IGO6QfWfBgIUY1P9eOVpyHPznn8Wy0rIYK+n5IYryM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=c4z/T+zM639m+O6xf9+k70BPSsqMRE5/LutOlmJMRFuD2/BEKN2wNGEMjPaVbWgzm
+	 KgqV0IEg1onIbCybjs93NVmYpRvYgjgu6c6TOyg7816U9YI3QTNVlXORBq7QG6APGT
+	 3p2iax8sJ+9Xb+vmDeDn/h18PSdsiL6VxUoBBA3w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6C96F804F3; Wed, 23 Aug 2023 21:41:05 +0200 (CEST)
+	id CFE44F80537; Wed, 23 Aug 2023 21:54:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 254DDF800F5;
-	Wed, 23 Aug 2023 21:41:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E21FF80158;
+	Wed, 23 Aug 2023 21:54:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 135BEF80158; Wed, 23 Aug 2023 21:41:01 +0200 (CEST)
+	id 26D0AF80158; Wed, 23 Aug 2023 21:54:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1C561F800D1
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 21:40:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C561F800D1
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1521F800BF
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 21:54:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1521F800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ILYukSvJ
+ header.s=k20201202 header.b=mKnvUfzx
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4EBD561879;
-	Wed, 23 Aug 2023 19:40:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201C2C433C7;
-	Wed, 23 Aug 2023 19:40:48 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 41A2B66407;
+	Wed, 23 Aug 2023 19:54:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AD20C433CA;
+	Wed, 23 Aug 2023 19:54:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692819649;
-	bh=mCr5ocvyOeu2z0mozrELa/is5m76n47C97ZuPuIngY4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ILYukSvJho2ikauKcqvGbkQGwmA4qkJ4w5/YpLKJMg0uXCjthpGqnfTVnvegZI6Xy
-	 E92oTQXoW0JOQVRKQWn9XMLjwsJWZ0HETvIR4wQ24Dq9JA/BmkeM3VTLkpT8GMrpoa
-	 cy5/TYxD7CF1eI6uVXusmFcPwctgHu/NHTF+dWzfTnljeUX7QQ5MlXZF+I+H91pFeA
-	 UIqQqSirkyvWCID6NX5TuCdfr6KI2mP52wDzJ4BsBLQNEOcXYNh0bF1MFatvgMRfYz
-	 cz3WyD+rAAgX0MfXLMZI1DhIl2tUIpvyyuGDB/EAJfthtD/1JuJNqks40WNPQoD14E
-	 P8rzIHEh3X4oQ==
+	s=k20201202; t=1692820445;
+	bh=6IGO6QfWfBgIUY1P9eOVpyHPznn8Wy0rIYK+n5IYryM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=mKnvUfzxyWXYQcvyr499ECNAFjRG61ov2PTeEKum9oMVfyc6t7pPVfJtSDl8H9L6b
+	 9CcjNb1iLMQrAsAMjoRqFowYtJr9RlmorQ+RakPSM6w/ItemUB0bsuUth84vzbtuTJ
+	 AkYDZiPqbZZffoVJOFfRBQyl4pdx0De/E6SElOBUPcTwyMg292ex92yOh8BqQbHfQa
+	 kPdbaz7XfRYPek+NfwXDONuIa0nJEOhXNr0J4XyiUX+sySachg0UNU8x//OdQfQoB/
+	 CItqL2Uo+7wALohVK2jlU2SThBZCh1BLR6i+ttZYCnZeA7gSAQl1Ne5nr5lCzUVHa3
+	 25NAOTOIgwn+A==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.5-rc7
-Date: Wed, 23 Aug 2023 20:40:09 +0100
-Message-Id: <20230823194049.201C2C433C7@smtp.kernel.org>
-Message-ID-Hash: 6E6AS3WUXKTJUBIVBBAT7ORUZEE3FXDO
-X-Message-ID-Hash: 6E6AS3WUXKTJUBIVBBAT7ORUZEE3FXDO
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Adnan Ali <adnan.ali@bp.renesas.com>,
+ Vincenzo De Michele <vincenzo.michele@davinci.de>,
+ Patrick Keil <patrick.keil@conti-engineering.com>
+In-Reply-To: <87o7iyzlfy.wl-kuninori.morimoto.gx@renesas.com>
+References: <87o7iyzlfy.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/5] ASoC: rsnd: tidyup ADG
+Message-Id: <169282044401.176026.17200274191018506062.b4-ty@kernel.org>
+Date: Wed, 23 Aug 2023 20:54:04 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: V45XKGMJS7EJ2CUXIN6TPGPUXKPKSQUF
+X-Message-ID-Hash: V45XKGMJS7EJ2CUXIN6TPGPUXKPKSQUF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -82,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6E6AS3WUXKTJUBIVBBAT7ORUZEE3FXDO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V45XKGMJS7EJ2CUXIN6TPGPUXKPKSQUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -91,61 +99,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 37aba3190891d4de189bd5192ee95220e295f34d:
+On Tue, 22 Aug 2023 23:50:10 +0000, Kuninori Morimoto wrote:
+> Kuninori Morimoto (5):
+>   ASoC: rsnd: enable clk_i approximate rate usage
+>   ASoC: rsnd: setup clock-out only when all conditions are right
+>   ASoC: rsnd: tidyup brga/brgb default value
+>   ASoC: rsnd: remove default division of clock out
+>   ASoC: rsnd: setup BRGCKR/BRRA/BRRB on rsnd_adg_clk_control()
+> 
+> [...]
 
-  ASoC: rt1308-sdw: fix random louder sound (2023-08-13 18:16:32 +0100)
+Applied to
 
-are available in the Git repository at:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc7
+Thanks!
 
-for you to fetch changes up to 1613781d7e8a93618ff3a6b37f81f06769b53717:
+[1/5] ASoC: rsnd: enable clk_i approximate rate usage
+      commit: bd4cee2fdf69b56c2bf3e7ec7c2e12b81e08005c
+[2/5] ASoC: rsnd: setup clock-out only when all conditions are right
+      commit: d059cd40aea6deae716bc6588f24e7b6b421f822
+[3/5] ASoC: rsnd: tidyup brga/brgb default value
+      commit: 80d4984f38631b1157dd51214ccd3d2fc6d56fbb
+[4/5] ASoC: rsnd: remove default division of clock out
+      commit: ab0233747f9cf6ba6c6d0c60c1e0e2533db00302
+[5/5] ASoC: rsnd: setup BRGCKR/BRRA/BRRB on rsnd_adg_clk_control()
+      commit: 4acdf9aedd5624aae9335d70a9324d5aaec4034d
 
-  ASoC: cs35l41: Correct amp_gain_tlv values (2023-08-23 13:27:06 +0100)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.5
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-A relatively large but generally not super urgent set of fixes for ASoC,
-including some quirks and a MAINTAINERS update.  There's also an update
-to cs35l56 to change the firmware ABI, there are no current shipping
-systems which use the current interface and the sooner we get the new
-interface in the less likely it is that something will start.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-It'd be nice if these landed for v6.5 but not the end of the world if
-they wait till v6.6.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-----------------------------------------------------------------
-BrenoRCBrito (1):
-      ASoC: amd: yc: Add VivoBook Pro 15 to quirks list for acp6x
+Thanks,
+Mark
 
-Chao Song (1):
-      ASoC: SOF: ipc4-pcm: fix possible null pointer deference
-
-Charles Keepax (1):
-      ASoC: cs35l41: Correct amp_gain_tlv values
-
-Kevin-Lu (1):
-      MAINTAINERS: Add entries for TEXAS INSTRUMENTS ASoC DRIVERS
-
-Maciej Strozek (1):
-      ASoC: cs35l56: Read firmware uuid from a device property instead of _SUB
-
-Mark Brown (1):
-      ASoC: cs35l56: Update ACPI HID and property
-
-Shenghao Ding (1):
-      ASoC: tas2781: fixed register access error when switching to other chips
-
-Simon Trimmer (1):
-      ASoC: cs35l56: Add an ACPI match table
-
- MAINTAINERS                       | 33 +++++++++++++++++++++++++++++++++
- sound/soc/amd/yc/acp6x-mach.c     |  7 +++++++
- sound/soc/codecs/cs35l41.c        |  2 +-
- sound/soc/codecs/cs35l56-i2c.c    |  9 +++++++++
- sound/soc/codecs/cs35l56-spi.c    |  9 +++++++++
- sound/soc/codecs/cs35l56.c        | 31 ++++++++++++-------------------
- sound/soc/codecs/tas2781-comlib.c | 19 ++++++++++---------
- sound/soc/sof/ipc4-pcm.c          |  3 +++
- 8 files changed, 84 insertions(+), 29 deletions(-)

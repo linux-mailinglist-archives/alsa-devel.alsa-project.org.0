@@ -2,94 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C6C785D37
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:27:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21807785D3B
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:28:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28FB1839;
-	Wed, 23 Aug 2023 18:26:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28FB1839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 705D13E8;
+	Wed, 23 Aug 2023 18:27:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 705D13E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692808039;
-	bh=7B569LUhKKp+C+zwE/8hJRQw8+k1zi7nohpOciRBKA4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1692808089;
+	bh=MjJ78APs4nHACIMIv6Eznanwwx/xp3HSffo39PEGkLc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ayGMSLrtJGEfmQbDvWx4b0JjO3xp9K9XmtnqI/RUkMNrW7ykYFGNrmRen0zf4QOi7
-	 MeGbpa9HvMD7hZwtmRi6Y5udiLOn48BzFwt4bgUHrJcRI8HOFOSvnzs6KE/L79eXBf
-	 LK5jb12NWnzl4AZbY3/n0yhxN/YLVNfFrGn1KPkU=
+	b=m8lOuyX6V+XUbfJqsIlYHY96WfB/uMRA0lOmd1RpB8ytnp7NJQfBsn25N1yj0OrEC
+	 sOkZKBJNDTNMHUIiuMIdezV9LHpDRsjGggCynjO72Y9DSHIo4HBPR9oPMECI2Lvg3K
+	 yi73aZbTlDfEBd/vl4y+zmyXy+3RNvgGN+n4tsbI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C72DF80158; Wed, 23 Aug 2023 18:26:28 +0200 (CEST)
+	id 7D290F80553; Wed, 23 Aug 2023 18:26:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32DFEF8025F;
-	Wed, 23 Aug 2023 18:26:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56BE2F80536;
+	Wed, 23 Aug 2023 18:26:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 688EBF8023B; Wed, 23 Aug 2023 18:26:22 +0200 (CEST)
+	id 9C10BF80537; Wed, 23 Aug 2023 18:26:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B4E02F800D1
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 18:26:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4E02F800D1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8BCB8F80022
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 18:26:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BCB8F80022
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gIuBlQu0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1692807978; x=1724343978;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7B569LUhKKp+C+zwE/8hJRQw8+k1zi7nohpOciRBKA4=;
-  b=gIuBlQu07TiGA7BiMpoyxKUulOvdUngKBWLNmCKwhnZUvZ5HS5vVga4P
-   Dcet84KGO304Vuo5Ih4KtljAfBpfW6r6x7Dy2OW64J0XVKd5CKcPKtP2Z
-   q1Y6fUUDwYlEst/kgcustJV1eDqE8Fkr69YWNPINwMOso8X7RtijZDVqq
-   L2wjemgcXB9J5pqBy7rY5HktPzmCLkuk9Qr7XBJl4gFrfxJXRkL0DcNGn
-   N9Zr/o9jR+3kjToBfPwzZUIs/i9FEOuYPsNf4ABdiKhoTAxTQkKs8cns6
-   JZk8SUnxous5lp38zaMkk/5Ohkezzrc5nJB1RhEJKag0/x1Rw5kkY2Zx5
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="364381844"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200";
-   d="scan'208";a="364381844"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 09:26:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
-   d="scan'208";a="880463725"
-Received: from cmichiel-mobl.amr.corp.intel.com (HELO [10.212.27.113])
- ([10.212.27.113])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 09:26:18 -0700
-Message-ID: <797d83be-feaf-04ec-9be6-9343d2ab3a33@linux.intel.com>
-Date: Wed, 23 Aug 2023 11:26:12 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=naClsm80
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8202961F35;
+	Wed, 23 Aug 2023 16:26:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF7CC433CA;
+	Wed, 23 Aug 2023 16:26:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692807976;
+	bh=MjJ78APs4nHACIMIv6Eznanwwx/xp3HSffo39PEGkLc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=naClsm80YD7oHCWwv1RWWUoEU9YM9rlrMQY8UOwMqM7wPbnCqSP9qGwq056tWdymk
+	 8t4uMB1gcqjD87X2cJQeSpXIz/6tOVKVrNHrxmnZsAyCEe8gPaD7k28Y4QbtQ/NDch
+	 YOVepeLHur/3iHdPjGVuIyprai0wl2T+QWqMsT1eChkAwDTrltdJ8N2l9vtpJf80Gl
+	 BHCIln2RMs/G877RCJTvewgQvuvWrGIih3QwkwhR7ej8+fyreXayBqIdBPz7i6WLYl
+	 rZ6spsxHNETyfJSM2XS28TkIfkNkNgdNkDVZhWQxXxfdwtngt66OTFcVvuaYsW/+1g
+	 ZzONVi9IuDgoQ==
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+In-Reply-To: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
+References: <20230821-delete-l3-v1-1-26d9cd32e7a2@linaro.org>
+Subject: Re: [PATCH] ASoC: Delete UDA134x/L3 audio codec
+Message-Id: <169280797490.53791.2553554158977527260.b4-ty@kernel.org>
+Date: Wed, 23 Aug 2023 17:26:14 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH] ASoC: soc-pcm: Shrink stack frame for __soc_pcm_hw_params
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com
-References: <20230823092113.788514-1-ckeepax@opensource.cirrus.com>
- <20230823154958.GF103419@ediswmail.ad.cirrus.com>
- <df2be4c7-f3ae-41dc-b2c2-3128a1ecc684@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <df2be4c7-f3ae-41dc-b2c2-3128a1ecc684@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: C4SJICEZPB54VHHMHNNJJQM4PNLEJJ6U
-X-Message-ID-Hash: C4SJICEZPB54VHHMHNNJJQM4PNLEJJ6U
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: BS3CH5EWMLL6536N2ZNU23CR74QHPJDQ
+X-Message-ID-Hash: BS3CH5EWMLL6536N2ZNU23CR74QHPJDQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,36 +90,46 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C4SJICEZPB54VHHMHNNJJQM4PNLEJJ6U/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BS3CH5EWMLL6536N2ZNU23CR74QHPJDQ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 8/23/23 11:19, Mark Brown wrote:
-> On Wed, Aug 23, 2023 at 03:49:58PM +0000, Charles Keepax wrote:
->> On Wed, Aug 23, 2023 at 10:21:13AM +0100, Charles Keepax wrote:
->>> Commit ac950278b087 ("ASoC: add N cpus to M codecs dai link support")
->>> added an additional local params in __soc_pmc_hw_params, for the
->>> CPU side of the DAI. The snd_pcm_hw_params struct is pretty large (604
->>> bytes) and keeping two local copies of it makes the stack frame for
->>> __soc_pcm_hw_params really large. As the two copies are only used
->>> sequentially combine these into a single local variable to shrink the
->>> stack frame.
+On Mon, 21 Aug 2023 16:17:57 +0200, Linus Walleij wrote:
+> This codec was used by the deleted S3C board
+> sound/soc/samsung/s3c24xx_uda134x.c.
 > 
->> Hmm... this might need a little more thought its not clear why this
->> should change the frame size and it only seems to change the frame
->> size on the ARM cross compiler I am using, not x86.
 > 
-> Isn't that just going to be a function of the compiler being smart
-> enough to work out that there aren't overlapping uses of the two
-> variables and they can share stack space?  There's no reason not to help
-> it figure that out.
 
-One would think that compilers understand the variable scope, and
-free-up the stack when leaving a for loop scope?
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: Delete UDA134x/L3 audio codec
+      commit: 6dd11b945951315ba4986844f20e83a0c27c1d38
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

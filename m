@@ -2,98 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B69D3785D1B
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:17:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3B29785D23
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Aug 2023 18:20:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 570C1827;
-	Wed, 23 Aug 2023 18:16:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 570C1827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 317F583B;
+	Wed, 23 Aug 2023 18:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 317F583B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692807452;
-	bh=5fZndf6YfK2lqqUxFab3fYI33QfJsRd1Af80UdkdFro=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=euVSf4fdESXTya+akMz94gq0728eXRNbkHpG4wvET9PJxULZxikLxWbFdy3URfYP6
-	 NVbW68+D2b94NooHWczJPx87egqdMnYAF7/83Z4xLXa6zR4CNhyzNA8TRAieDFOx/q
-	 6p6yhacvsIYcx7DY2JDFa5mbi491w1y5ftApEU2Y=
+	s=default; t=1692807639;
+	bh=bFYohTZLR0gcEeBGh4PZIKSG/8Ft4hkvb5dBN06rVxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=mRgrzAH5ai7Ky89QRvqQuL5M5MoJIlTlSwXLZJJzmpg0KOicnMY8lvObUWDoonsQx
+	 nrInzFuwBBLmRJ0cNmrdd0D7/ynJNBCo7BfpzlV6VJJp5eIcVfJK9m1WO9G1uT87hX
+	 zHdVeO+CFqpTzRixalddgDOT26TPTZ8PSWf1FF7Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0912F8022B; Wed, 23 Aug 2023 18:16:41 +0200 (CEST)
+	id B3EB0F800F5; Wed, 23 Aug 2023 18:19:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 664B1F800F5;
-	Wed, 23 Aug 2023 18:16:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49A5CF800F5;
+	Wed, 23 Aug 2023 18:19:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 084B0F80158; Wed, 23 Aug 2023 18:16:38 +0200 (CEST)
+	id 6DDE8F80158; Wed, 23 Aug 2023 18:19:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E410F80022
-	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 18:16:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E410F80022
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76829F800F5
+	for <alsa-devel@alsa-project.org>; Wed, 23 Aug 2023 18:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76829F800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=chSJOMxd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=iKU1PsrG
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hvbq7HFx
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DEBF62093C;
-	Wed, 23 Aug 2023 16:16:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692807390;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=jgfpwqjllVj65xGIRdayz3qoTsi+aSSPXQvk0I2TEiE=;
-	b=chSJOMxdacA1yCUofkeYmfICAXqQxa++L7DheHfKUva9HNvTJYXndwz6ZovupyWjvCNukR
-	58lvUpukOvJyfKWk7aOL0minkwZDk93I8fUoGvakOm22QcogEoGkUrsKsDGRaqM9MWicba
-	0rHXGSYjqb+JBAf4sStyE29nYYYr1Ak=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692807390;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=jgfpwqjllVj65xGIRdayz3qoTsi+aSSPXQvk0I2TEiE=;
-	b=iKU1PsrGDxh/zzG/jiiyolSiiZht9SovLp//S8sfjqdYfzcAJqySIArxWPh52G0w1NAFey
-	YkuaH5bUBl+wFECA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BBBFE13458;
-	Wed, 23 Aug 2023 16:16:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id MOWcLN4w5mTxPwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 23 Aug 2023 16:16:30 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: Takashi Yano <takashi.yano@nifty.ne.jp>
-Subject: [PATCH] ALSA: ymfpci: Fix the missing snd_card_free() call at probe
- error
-Date: Wed, 23 Aug 2023 18:16:25 +0200
-Message-Id: <20230823161625.5807-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7F1256196E;
+	Wed, 23 Aug 2023 16:19:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F88C433C7;
+	Wed, 23 Aug 2023 16:19:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692807575;
+	bh=bFYohTZLR0gcEeBGh4PZIKSG/8Ft4hkvb5dBN06rVxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hvbq7HFxf0HmkMTgwQfCloZYcNii9IRLnHZ+MZCGbUU+g0+zSXwUYA5SvUJwRTgHs
+	 jL5b8//S8sdpAd7f/3bS6Nui5MSgw0kDrO+P4VLtpw+h0OB48lJahS0F/8WIGd1fKj
+	 5tDXt+YwXnuGrRTr55ns8wuTpvpLa0APheUy62HVpFEMcuD/zppfXtN5jaFNCHSFR/
+	 2v5Muq0KF4qbT1dGNwOKFdwY+BbDyemqeSRWrh5H4dPVzk+cNZHiSA5+DO9Hbs/PLZ
+	 kwm5XFmLzRHkp8ak1fV0j8oZfJ1LPLe2VQ2qbGo7a9J0xPVRF+NRktybbT3Z9bduj2
+	 BBGBagIdi231A==
+Date: Wed, 23 Aug 2023 17:19:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org, patches@opensource.cirrus.com
+Subject: Re: [PATCH] ASoC: soc-pcm: Shrink stack frame for __soc_pcm_hw_params
+Message-ID: <df2be4c7-f3ae-41dc-b2c2-3128a1ecc684@sirena.org.uk>
+References: <20230823092113.788514-1-ckeepax@opensource.cirrus.com>
+ <20230823154958.GF103419@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: U52R33DMG5H57W7O3BJVGL4BWP42GRWD
-X-Message-ID-Hash: U52R33DMG5H57W7O3BJVGL4BWP42GRWD
-X-MailFrom: tiwai@suse.de
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CN0I9PoqvHKPEWf0"
+Content-Disposition: inline
+In-Reply-To: <20230823154958.GF103419@ediswmail.ad.cirrus.com>
+X-Cookie: Some optional equipment shown.
+Message-ID-Hash: 467CODBCJTNFOXUQ36XAFJWPI4GC5YK5
+X-Message-ID-Hash: 467CODBCJTNFOXUQ36XAFJWPI4GC5YK5
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U52R33DMG5H57W7O3BJVGL4BWP42GRWD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/467CODBCJTNFOXUQ36XAFJWPI4GC5YK5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,50 +99,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Like a few other drivers, YMFPCI driver needs to clean up with
-snd_card_free() call at an error path of the probe; otherwise the
-other devres resources are released before the card and it results in
-the UAF.
 
-This patch uses the helper for handling the probe error gracefully.
+--CN0I9PoqvHKPEWf0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fixes: f33fc1576757 ("ALSA: ymfpci: Create card with device-managed snd_devm_card_new()")
-Cc: <stable@vger.kernel.org>
-Reported-and-tested-by: Takashi Yano <takashi.yano@nifty.ne.jp>
-Closes: https://lore.kernel.org/r/20230823135846.1812-1-takashi.yano@nifty.ne.jp
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/ymfpci/ymfpci.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+On Wed, Aug 23, 2023 at 03:49:58PM +0000, Charles Keepax wrote:
+> On Wed, Aug 23, 2023 at 10:21:13AM +0100, Charles Keepax wrote:
+> > Commit ac950278b087 ("ASoC: add N cpus to M codecs dai link support")
+> > added an additional local params in __soc_pmc_hw_params, for the
+> > CPU side of the DAI. The snd_pcm_hw_params struct is pretty large (604
+> > bytes) and keeping two local copies of it makes the stack frame for
+> > __soc_pcm_hw_params really large. As the two copies are only used
+> > sequentially combine these into a single local variable to shrink the
+> > stack frame.
 
-diff --git a/sound/pci/ymfpci/ymfpci.c b/sound/pci/ymfpci/ymfpci.c
-index b033bd290940..48444dda44de 100644
---- a/sound/pci/ymfpci/ymfpci.c
-+++ b/sound/pci/ymfpci/ymfpci.c
-@@ -152,8 +152,8 @@ static inline int snd_ymfpci_create_gameport(struct snd_ymfpci *chip, int dev, i
- void snd_ymfpci_free_gameport(struct snd_ymfpci *chip) { }
- #endif /* SUPPORT_JOYSTICK */
- 
--static int snd_card_ymfpci_probe(struct pci_dev *pci,
--				 const struct pci_device_id *pci_id)
-+static int __snd_card_ymfpci_probe(struct pci_dev *pci,
-+				   const struct pci_device_id *pci_id)
- {
- 	static int dev;
- 	struct snd_card *card;
-@@ -348,6 +348,12 @@ static int snd_card_ymfpci_probe(struct pci_dev *pci,
- 	return 0;
- }
- 
-+static int snd_card_ymfpci_probe(struct pci_dev *pci,
-+				 const struct pci_device_id *pci_id)
-+{
-+	return snd_card_free_on_error(&pci->dev, __snd_card_ymfpci_probe(pci, pci_id));
-+}
-+
- static struct pci_driver ymfpci_driver = {
- 	.name = KBUILD_MODNAME,
- 	.id_table = snd_ymfpci_ids,
--- 
-2.35.3
+> Hmm... this might need a little more thought its not clear why this
+> should change the frame size and it only seems to change the frame
+> size on the ARM cross compiler I am using, not x86.
 
+Isn't that just going to be a function of the compiler being smart
+enough to work out that there aren't overlapping uses of the two
+variables and they can share stack space?  There's no reason not to help
+it figure that out.
+
+--CN0I9PoqvHKPEWf0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTmMZIACgkQJNaLcl1U
+h9B0Bgf+POrkau9foZfK3OE8zRQ8cvfby5GZ4GBI7gL8FE2W+RSgeebO8VjVcjaz
+x/HJiXUGmPxSA44ibC6s/bQoC4kIFt1vWsSWaNPdNZ1KGgbg4KNhkz0MDNFJXsAJ
+I0IaXJQaz3sKoVEVWzzVJ3llcVVjj+ML6gMxB+S/lJ1h9f+4Vx4Xl2RuoJA47yhU
+Ho7hqrfHV1vti6ES+3PIjkQ8wdodxQF/FLIAT83NRXt4MXZ6mmW1/AtXQ3ibSc/1
+HG352b02g3ysd/M7k9LREtd+I07blQmvNW6zzBXefKya2W9A+86PPhEBPmAaBECD
+7HYkPGx6ewa++e1D+hU8utOuONINXQ==
+=w0N4
+-----END PGP SIGNATURE-----
+
+--CN0I9PoqvHKPEWf0--

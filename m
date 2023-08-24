@@ -2,95 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B3D7875DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 18:46:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAEB278765B
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 19:04:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5412839;
-	Thu, 24 Aug 2023 18:45:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5412839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C57483E;
+	Thu, 24 Aug 2023 19:03:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C57483E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692895579;
-	bh=AhRYMJGaCtGa9P4qu6ke2vcHVGofovXgmQ7wC0r6bHk=;
+	s=default; t=1692896673;
+	bh=eOrRgL+gC5rVCb76+XEhEPxJW9ocNIO3gqfMDf0qE5A=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K3Qh2yC99n6UKgqgMxUOSpT5Hxy+zEtXlKRqYtw+fYfV/s8jmkuP7Z26GvyiuCXAN
-	 LzKJP/wbyEG01Vf//2Eh5EHV7kKZ4qVcdBlv93HJsEtJwrKH/tthEXlKodpJsyl+8N
-	 7b0eXyeXxELFK0JAFNWseNhh0ItLqH219Sopat4M=
+	b=ed9k031l2qjg54eBULxY9JGIqWCFzEYUDO1E6R/IsfGGz/3HG7Y4EEXfdNXgDedio
+	 Qr2ZqNCROfBX+LINv9RFeEqnNEAay+y7/5nkcNv8YnXgawSXqPLIp40MWbgTkauuaA
+	 OjaZuCLenpYPHa/4a3J+D3nWlgTWL3RlD6FTETAM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62E7CF80158; Thu, 24 Aug 2023 18:45:09 +0200 (CEST)
+	id 17B82F800F5; Thu, 24 Aug 2023 19:03:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E32A9F800F5;
-	Thu, 24 Aug 2023 18:45:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D7ABF800BF;
+	Thu, 24 Aug 2023 19:03:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 270CEF80158; Thu, 24 Aug 2023 18:45:05 +0200 (CEST)
+	id 1BDDEF80158; Thu, 24 Aug 2023 19:03:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::224])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BBF42F800BF
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 18:45:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBF42F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27799F800BF
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 19:03:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27799F800BF
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=KTVnzD5e
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C1707E0004;
-	Thu, 24 Aug 2023 16:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1692895499;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=WrjeBYzE;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=P0cx/Wiw
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9112622088;
+	Thu, 24 Aug 2023 17:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692896590;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sgKRd8PXna9jddAQ7rYYlYUO4KIn7jskOvosbl+/UOs=;
-	b=KTVnzD5eVG2mw9j6CEqcZhnTJSoCHDBkb/MYYvlHhrk7z6MfEr8ZRX0TSl957if3mHmwzS
-	6frES6KAXz+WuMYXmtFLD13OjX3VJcXVNJNMy7D6DCPoRgPj1bT8AtppiE+olPLBuMGg//
-	JxxP0rArWBg88Nbj10QQwE39F6YhX3z3MDZGAnJf48nbqoGxGXN8Xia5wJbKAGfZBJ+N6Q
-	HZA6C5qZftnN7pcS/5UaU+tLfQg+VnUhV0Zik7VF4qhFoxdGtvxD+UIMBMYu3kVD898JBR
-	BQPsXzVrFkC3MWJPlEnpAEFtwQr2EIdoqd1el7kRXYhmwqMBOoOEs+RVJBd09g==
-Date: Thu, 24 Aug 2023 18:44:54 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Simon Horman <horms@kernel.org>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
- <andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang
- Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Randy Dunlap
- <rdunlap@infradead.org>, netdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org, Thomas
- Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 21/28] net: wan: Add framer framework support
-Message-ID: <20230824184454.2a96b6fc@bootlin.com>
-In-Reply-To: <ZOJKH0xHpQc4HdUP@vergenet.net>
-References: <cover.1692376360.git.christophe.leroy@csgroup.eu>
-	<5f671caf19be0a9bb7ea7b96a6c86381e243ca4c.1692376361.git.christophe.leroy@csgroup.eu>
-	<ZOJKH0xHpQc4HdUP@vergenet.net>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
+	bh=jrAG7m96VPC1mkTaluLxh7W982yxT13Stt9OhGrTnBs=;
+	b=WrjeBYzEG/Pn5m6AeyEiknOSIMqtAdDqClNOS/3SjpN58WUjMFzLtjWQPgshHDcl79tLiI
+	pxGoPHEF3b0DYnskNcEh8VSmQw6Xa2qWdmmlc4u5l1QWP7QDLGB92Bk0sKT8MxcMJxZcIx
+	44n9rZ7Dpuf3fD+u1C6AVuwrd/5ldKo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692896590;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jrAG7m96VPC1mkTaluLxh7W982yxT13Stt9OhGrTnBs=;
+	b=P0cx/WiwaKOXPVf85RzezDUPaF9gG2B68rMGFZe+R6tSPL2WBYVwB1RO8q432Pfsjn6t3C
+	sMP+sAcwlmMjXFDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2AAA11336F;
+	Thu, 24 Aug 2023 17:03:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 7QA8CU6N52Q8bgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 17:03:10 +0000
+Date: Thu, 24 Aug 2023 19:03:09 +0200
+Message-ID: <87wmxk8jaq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Hans Verkuil <hverkuil@xs4all.nl>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	sakari.ailus@iki.fi,
+	tfiga@chromium.org,
+	m.szyprowski@samsung.com,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [RFC PATCH v2 0/7] Add audio support in v4l2 framework
+In-Reply-To: 
+ <CAA+D8AN34-NVrgksRAG014PuHGUssTm0p-KR-HYGe+Pt8Yejxg@mail.gmail.com>
+References: <1690265540-25999-1-git-send-email-shengjiu.wang@nxp.com>
+	<47d66c28-1eb2-07f5-d6f9-779d675aefe8@xs4all.nl>
+	<87il9xu1ro.wl-tiwai@suse.de>
+	<CAA+D8ANmBKMp_L2GS=Lp-saMQKja6L4E6No3yP-e=a5YQBD_jQ@mail.gmail.com>
+	<87il9xoddo.wl-tiwai@suse.de>
+	<CAA+D8AOVEpGxO0YNeS1p+Ym86k6VP-CNQB3JmbeT7mPKg0R99A@mail.gmail.com>
+	<844ef9b6-d5e2-46a9-b7a5-7ee86a2e449c@sirena.org.uk>
+	<CAA+D8AOnsx+7t3MrWm42waxtetL07nbKURLsh1hBx39LUDm+Zg@mail.gmail.com>
+	<CAA+D8AMriHO60SD2OqQSDMmi7wm=0MkoW6faR5nyve-j2Q5AEQ@mail.gmail.com>
+	<CAA+D8AN34-NVrgksRAG014PuHGUssTm0p-KR-HYGe+Pt8Yejxg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: IGYCZ3PPGHAHRPGL7KLJ5AYJFCHEQGHX
-X-Message-ID-Hash: IGYCZ3PPGHAHRPGL7KLJ5AYJFCHEQGHX
-X-MailFrom: herve.codina@bootlin.com
+Message-ID-Hash: PNV3PJB65SOQSBQOAADDHOOE7WTAUHFB
+X-Message-ID-Hash: PNV3PJB65SOQSBQOAADDHOOE7WTAUHFB
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IGYCZ3PPGHAHRPGL7KLJ5AYJFCHEQGHX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PNV3PJB65SOQSBQOAADDHOOE7WTAUHFB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,205 +145,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Simon,
+On Wed, 23 Aug 2023 16:33:19 +0200,
+Shengjiu Wang wrote:
+> 
+> On Fri, Aug 11, 2023 at 7:05 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
+> >
+> > Hi Mark, Takashi
+> >
+> > On Thu, Aug 3, 2023 at 9:11 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
+> > >
+> > > On Thu, Aug 3, 2023 at 1:28 AM Mark Brown <broonie@kernel.org> wrote:
+> > > >
+> > > > On Wed, Aug 02, 2023 at 10:41:43PM +0800, Shengjiu Wang wrote:
+> > > >
+> > > > > Currently the ASRC in ALSA is to connect to another I2S device as
+> > > > > a sound card.  But we'd like to the ASRC can be used by user space directly
+> > > > > that user space application can get the output after conversion from ASRC.
+> > > >
+> > > > That sort of use case would be handled via DPCM at the minute, though
+> > > > persuading it to connect two front ends together might be fun (which is
+> > > > the sort of reason why we want to push digital information down into
+> > > > DAPM and make everything a component).
+> > >
+> > > Thanks.
+> > >
+> > > ASRC M2M case needs to run as fast as possible, no sync clock control.
+> > > If use sound card to handle ASRC M2M case,  the user application
+> > > should be aplay/arecord, then we need to consider xrun issue, buffer
+> > > may timeout, sync between aplay and arecord,  these should't be
+> > > considered by pure memory to memory operation.
+> > >
+> > > DPCM may achitect all the audio things in components and sound
+> > > card,  it is good. but for the M2M case, it is complcated. not sure
+> > > it is doable.
+> > >
+> >
+> > Beside the concern in previous mail,
+> >
+> > DPCM needs to separate ASRC to be two substreams (playback and capture).
+> >
+> > But the ASRC needs the sample rate & format of input and output first
+> > then start conversion.
+> >
+> > If the playback controls the rate & format of input,  capture substream
+> > controls the rate & format of output,  as a result
+> > one substream needs to get information(dma buffer address, size...
+> > rate, format) from another substream, then start both substreams in the
+> > last substream. How to synchronize these two substreams is a problem.
+> > One stream can be released but another stream doesn't know .
+> >
+> > So I don't think it is a good idea to use DPCM for pure M2M case.
+> >
+> > So can I persuade you to consider the V4L2 solution?
+> >
+> 
+> Just a summary:
+> 
+> Basic M2M conversion can work with DPCM, I have tried with some
+> workaround to make it work.
+> 
+> But there are several issues:
+> 1. Need to create sound cards.  ASRC module support multi instances, then
+> need to create multi sound cards for each instance.
 
-On Sun, 20 Aug 2023 19:15:11 +0200
-Simon Horman <horms@kernel.org> wrote:
+Hm, why can't it be multiple PCM instances instead?
 
-> On Fri, Aug 18, 2023 at 06:39:15PM +0200, Christophe Leroy wrote:
-> > From: Herve Codina <herve.codina@bootlin.com>
-> > 
-> > A framer is a component in charge of an E1/T1 line interface.
-> > Connected usually to a TDM bus, it converts TDM frames to/from E1/T1
-> > frames. It also provides information related to the E1/T1 line.
-> > 
-> > The framer framework provides a set of APIs for the framer drivers
-> > (framer provider) to create/destroy a framer and APIs for the framer
-> > users (framer consumer) to obtain a reference to the framer, and
-> > use the framer.
-> > 
-> > This basic implementation provides a framer abstraction for:
-> >  - power on/off the framer
-> >  - get the framer status (line state)
-> >  - be notified on framer status changes
-> >  - get/set the framer configuration
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-> > Signed-off-by: Christophe Leroy <christophe.leroy@csgroup.eu>  
-> 
-> Hi Christophe and Herve,
-> 
-> some minor feedback from my side.
-> 
-> ...
-> 
-> > diff --git a/drivers/net/wan/framer/framer-core.c b/drivers/net/wan/framer/framer-core.c  
-> 
-> ...
-> 
-> > +/**
-> > + * framer_create() - create a new framer
-> > + * @dev: device that is creating the new framer
-> > + * @node: device node of the framer. default to dev->of_node.
-> > + * @ops: function pointers for performing framer operations
-> > + *
-> > + * Called to create a framer using framer framework.
-> > + */
-> > +struct framer *framer_create(struct device *dev, struct device_node *node,
-> > +			     const struct framer_ops *ops)
-> > +{
-> > +	int ret;
-> > +	int id;
-> > +	struct framer *framer;  
-> 
-> Please arrange local variable declarations for Networking code
-> using reverse xmas tree order - longest line to shortest.
+> 2. The ASRC is an entirety but with DPCM we need to separate input port and
+> output port to playback substream and capture stream. Synchronous between
+> playback substream and capture substream is a problem.
+> How to start them and stop them at the same time.
 
-Yes, will be done in the next iteration.
+This could be done by enforcing the full duplex and linking the both
+PCM streams, I suppose.
 
-> 
-> https://github.com/ecree-solarflare/xmastree is helpful here.
-> 
-> ...
-> 
-> > diff --git a/include/linux/framer/framer-provider.h b/include/linux/framer/framer-provider.h  
-> 
-> ...
-> 
-> > +/**
-> > + * struct framer_ops - set of function pointers for performing framer operations
-> > + * @init: operation to be performed for initializing the framer
-> > + * @exit: operation to be performed while exiting
-> > + * @power_on: powering on the framer
-> > + * @power_off: powering off the framer
-> > + * @flags: OR-ed flags (FRAMER_FLAG_*) to ask for core functionality
-> > + *          - @FRAMER_FLAG_POLL_STATUS:
-> > + *            Ask the core to perfom a polling to get the framer status and  
-> 
-> nit: perfom -> perform
+> 3. How to handle the xrun issue. pause or resume. which are brought by ALSA.
 
-Will be fixed in the next iteration.
+Doesn't V4L2 handle the overrun/underrun at all?  Also, no resume
+support?
 
-> 
->      checkpatch.pl --codespell is your friend here
-> 
-> > + *            notify consumers on change.
-> > + *            The framer should call @framer_notify_status_change() when it
-> > + *            detects a status change. This is usally done using interrutps.  
-> 
-> nit: usally -> usually
->      interrutps -> interrupts
+Pause and resume are optional in ALSA frame work, you don't need to
+implement them unless you want/need.
 
-Will be fixed in the next iteration.
+> So shall we make the decision that we can go to the V4L2 solution?
 
-> 
-> ...
-> 
-> > diff --git a/include/linux/framer/framer.h b/include/linux/framer/framer.h
-> > new file mode 100644
-> > index 000000000000..0bee7135142f
-> > --- /dev/null
-> > +++ b/include/linux/framer/framer.h
-> > @@ -0,0 +1,199 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > +/*
-> > + * Generic framer header file
-> > + *
-> > + * Copyright 2023 CS GROUP France
-> > + *
-> > + * Author: Herve Codina <herve.codina@bootlin.com>
-> > + */
-> > +
-> > +#ifndef __DRIVERS_FRAMER_H
-> > +#define __DRIVERS_FRAMER_H
-> > +
-> > +#include <linux/err.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/notifier.h>
-> > +#include <linux/of.h>
-> > +#include <linux/device.h>
-> > +#include <linux/workqueue.h>
-> > +
-> > +/**
-> > + * enum framer_iface - Framer interface  
-> 
-> As this is a kernel-doc, please include documentation for
-> the defined constants: FRAMER_IFACE_E1 and FRAMER_IFACE_T1.
-> 
-> As flagged by: ./scripts/kernel-doc -none
+Honestly speaking, I don't mind much whether it's implemented in V2L4
+or not -- at least for the kernel part, we can reorganize / refactor
+things internally.  But, the biggest remaining question to me is
+whether this user-space interface is the most suitable one.  Is it
+well defined, usable and maintained for the audio applications?  Or
+is it meant to be a stop-gap for a specific use case?
 
-Will be done in the next iteration.
 
-> 
-> > + */
-> > +enum framer_iface {
-> > +	FRAMER_IFACE_E1,      /* E1 interface */
-> > +	FRAMER_IFACE_T1,      /* T1 interface */
-> > +};
-> > +
-> > +/**
-> > + * enum framer_clock_mode - Framer clock mode  
-> 
-> Likewise here too.
-> 
-> Also, nit: framer_clock_mode -> framer_clock_type
-> 
+thanks,
 
-Will be updated (doc and change to framer_clock_type) in the next iteration.
-
-> > + */
-> > +enum framer_clock_type {
-> > +	FRAMER_CLOCK_EXT, /* External clock */
-> > +	FRAMER_CLOCK_INT, /* Internal clock */
-> > +};
-> > +
-> > +/**
-> > + * struct framer_configuration - Framer configuration  
-> 
-> nit: framer_configuration -> framer_config
-
-Will be fixed in the next iteration.
-
-> 
-> > + * @line_iface: Framer line interface
-> > + * @clock_mode: Framer clock type
-> > + * @clock_rate: Framer clock rate
-> > + */
-> > +struct framer_config {
-> > +	enum framer_iface iface;
-> > +	enum framer_clock_type clock_type;
-> > +	unsigned long line_clock_rate;
-> > +};
-> > +
-> > +/**
-> > + * struct framer_status - Framer status
-> > + * @link_is_on: Framer link state. true, the link is on, false, the link is off.
-> > + */
-> > +struct framer_status {
-> > +	bool link_is_on;
-> > +};
-> > +
-> > +/**
-> > + * framer_event - event available for notification  
-> 
-> nit: framer_event -> enum framer_event
-
-Will be fixed in the next iteration.
-
-> 
-> A~d please document FRAMER_EVENT_STATUS in the kernel doc too.
-
-Will be documented in the next iteration.
-
-> 
-> > + */
-> > +enum framer_event {
-> > +	FRAMER_EVENT_STATUS,	/* Event notified on framer_status changes */
-> > +};  
-> 
-> ...
-
-Thanks for the review,
-Best regards,
-Hervé
+Takashi

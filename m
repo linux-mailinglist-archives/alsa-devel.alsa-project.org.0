@@ -2,127 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 335D378A055
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:03:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6241378A056
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:03:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 828E1950;
-	Sun, 27 Aug 2023 19:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 828E1950
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3F3FBC0;
+	Sun, 27 Aug 2023 19:02:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3F3FBC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693155807;
-	bh=Txv2hLu3aNTzAJTERw9RD8bqeBXNErQSFrwmmEc0au8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=CcC9yj9OzDnfeH55Gu5LnBfdV0AJLtQrH1Q5gOWOjeBwAZACimEFvvkNbUfjJt7As
-	 m3xZ8e9ID8GHFlohqzp6sOiEoll+kdigig+4zKfGpvvWr4m/Ygc2xCVOH086gVeDFn
-	 TMjkH8yhSqzOa1Mshgc2SHgb1mHVqhKUAS79tPfI=
+	s=default; t=1693155829;
+	bh=ij92w1e/ZrZmiRV5ppc599MVukP1qLW9GZHahBGwT7w=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Xp/kXzS+JucVSk9d6fjJLssC77uW5XhD66yA8lsvHqSe3UFY54y+/GV1gbTOo9pWj
+	 rto5IpuOmhUC/XynoCi1Nkp4mLl6Xok43zUcUgKsOsGKaUazORItu70RSHUIAhU4J8
+	 O09Zpk1BkdeBVGg/D09LliC9qv5Lb+YgNvle7t/4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03A64F80527; Sun, 27 Aug 2023 19:01:47 +0200 (CEST)
+	id 49F6DF80564; Sun, 27 Aug 2023 19:01:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FE47F80527;
-	Sun, 27 Aug 2023 19:01:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A2F1F80563;
+	Sun, 27 Aug 2023 19:01:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35606F80158; Thu, 24 Aug 2023 16:09:03 +0200 (CEST)
+	id DBD37F80158; Thu, 24 Aug 2023 17:58:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 526CBF80074
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 16:08:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 526CBF80074
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Kp/1S1ZF
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 429A26509A;
-	Thu, 24 Aug 2023 14:08:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C84DC433C8;
-	Thu, 24 Aug 2023 14:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692886118;
-	bh=Txv2hLu3aNTzAJTERw9RD8bqeBXNErQSFrwmmEc0au8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Kp/1S1ZFiWvvuWExBcwO/OObuBsvLi9vpHONcBnBulHBYsKh6etFwSXLCht3YMPDY
-	 q3DtqvUXyK6BuS6p7O0E1EvsuLphrBEvXUuCl4B2cV+DmABIhs09OJ8UWPmhbtzW8T
-	 plYop65+oQA6dhe+cH4ywZPp2RO25QXDLDsIYi+xjGEg0zEyfQkT/2ac89u8jeiRsc
-	 A8YQPQX0/xIoUfBHcIK6l6YATFhR34HKsIw/R/5jvau4fSX0FRplzzUqgJ0uuIuEZR
-	 0L5r3b0+iLneCymF/gr/VEJTqFQnTrOkt3gkgNBludZ4GuF3IyCco/vzA3UUROOlv8
-	 iL0wOedoKYCTQ==
-Received: (nullmailer pid 715627 invoked by uid 1000);
-	Thu, 24 Aug 2023 14:08:33 -0000
-Date: Thu, 24 Aug 2023 09:08:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: linux-gpio@vger.kernel.org, Mike Leach <mike.leach@linaro.org>,
- linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, James Clark <james.clark@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- openipmi-developer@lists.sourceforge.net, linux-iio@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- Corey Minyard <minyard@acm.org>, Chen-Yu Tsai <wens@csie.org>,
- Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Leo Yan <leo.yan@linaro.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Bart Van Assche <bvanassche@acm.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-i3c@lists.infradead.org, Richard
- Weinberger <richard@nod.at>, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-mips@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Guenter Roeck <linux@roeck-us.net>, linux-scsi@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>, linux-i2c@vger.kernel.org,
- Emil Renner Berthing <kernel@esmil.dk>, Conor Dooley <conor+dt@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-hwmon@vger.kernel.org,
- linux-mmc@vger.kernel.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Andy Shevchenko <andy@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- M ark Brown <broonie@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, coresight@lists.linaro.org,
- Jean Delvare <jdelvare@suse.com>
-Subject: Re: [PATCH] dt-bindings: Drop remaining unneeded quotes
-Message-ID: <169288610889.715445.11107086315099689865.robh@kernel.org>
-References: <20230823183749.2609013-1-robh@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 816F0F80074
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 17:57:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 816F0F80074
+Received: from fabians-envy.localnet ([81.95.8.245]) by
+ mrelayeu.kundenserver.de (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MzyAy-1plCp73rPC-00wzta; Thu, 24 Aug 2023 17:57:51 +0200
+From: Fabian Vogt <fabian@ritter-vogt.de>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ SungHwan Jung <onenowy@gmail.com>
+Subject: 
+ [PATCH] ALSA: hda/realtek: Add quirk for mute LEDs on HP ENVY x360 15-eu0xxx
+Date: Thu, 24 Aug 2023 17:57:50 +0200
+Message-ID: <4504056.LvFx2qVVIh@fabians-envy>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230823183749.2609013-1-robh@kernel.org>
-X-MailFrom: SRS0=Q3Mp=EJ=robh_at_kernel.org=rob@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:F0a+FMLpOhqb6tBysEiC0NzEclV4tBUJelYJvukP8488vDO2TH5
+ kXQUGCzfSRVJ6HjIVnxodwL4dbJA1Ll1J0d0hpZf9RkT7hKa/gM6btNTOfLNoInja5tkhOn
+ ag8i/OxI9vE1f+10m8LEUBpqUBjxenTTmFA9kDg4nIAx5B1NRxTNFGlkXLBD+WqjX4qepNd
+ 6qQAmeluBcW2sH8D2GsDA==
+UI-OutboundReport: notjunk:1;M01:P0:9KX+/T3gwUQ=;QLU3XaUU4ZunHc20nIkCauAsB0d
+ QzsbwTNEGhZmqvqdvevZSkOlYrjR+hrN5/YgqsHxEaE8jsHgXGKo10unnqVjP8UgV0t5d1cxF
+ J507oJBs3VPrWvZXUdBJSSd6lDwFU1pNLUuQkAzzOG2CcWUhExt8jq2FTDBh/j4divoNn0i9/
+ ekbRjQ68ZeM1w5Ffob8W3TP5Vf22FgWxS+9tHndmfT1IIDZTaYCMYMwKhd5zvohrJ5VEZdM0c
+ in9dhKPccHq2vlBqMI5HOc8QqTW0pqmvMrJNQAgQMHCeu5nw7q0jsDmw5d2JRkxI2uuU3c+XV
+ c6p/81aSzxbzdo5RnzAhzH+zm91LXtWlFM6xZw7TJoBDt/Raz5ifVb+YTvonvpRyBvc5Qelx2
+ H38IT5Y8rrpNeW8/8PQ18BlH38GhUuW+YfmJH2MrYWnThUuIq/+ZA1KpsDyKKbK+yRLiuAQhk
+ 2QMVipusdWgMBShEs8kC9FXdzcC4MV7PVV4188NjoT8ehshkVzSvh+OMADSh++OOUMN1OdVM/
+ vkxhmZ+cSZrEbEs4v5GoYikRK2b8/ueIXBEwe/20E8CIHeuzU3yX5akO6O6Ea+Vnw8S3m2nUh
+ Q7L6JQ8aP681FYW9Qv5eUQcP5lYq3ukQApNeK/e8cTbm/fQLs01NB1jr2lMmx8uWed2OdXjx/
+ hWRG100cT2OQfi7NG3ne+tgMq+7iXp00rvNd/yT7jDbXXYgM6RNcEITkTicPTNXILUlkXQ1Ee
+ 71cgefVDu5+at8FaT9FJQlKJC6bh/fIpb8i73T2Z1VCIadjy7MB7ImpDsWpQgxYoNHLMNiiE1
+ v1+WIf0wO0nZrFAMqpCuIX92NFaSZE5jdgUSakddWmScKMEOSET8rjJHYM5MWoX9DMAYi5mcN
+ 4Oa/6b5S/1Rp24g==
+X-MailFrom: fabian@ritter-vogt.de
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: BEAJITXMS7SEKHB7U6WQCXTSNXGUI3QA
-X-Message-ID-Hash: BEAJITXMS7SEKHB7U6WQCXTSNXGUI3QA
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: H3RZAIXAPL5JQDE7XZ5P6XDVCTRECXW3
+X-Message-ID-Hash: H3RZAIXAPL5JQDE7XZ5P6XDVCTRECXW3
 X-Mailman-Approved-At: Sun, 27 Aug 2023 17:01:44 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BEAJITXMS7SEKHB7U6WQCXTSNXGUI3QA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3RZAIXAPL5JQDE7XZ5P6XDVCTRECXW3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,55 +93,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The LED for the mic mute button is controlled by GPIO2.
+The mute button LED is slightly more complex, it's controlled by two bits
+in coeff 0x0b. Add a fixup for the mute LED and chain to an existing fixup
+for the mic mute LED.
 
-On Wed, 23 Aug 2023 13:28:47 -0500, Rob Herring wrote:
-> Cleanup bindings dropping the last remaining unneeded quotes. With this,
-> the check for this can be enabled in yamllint.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../bindings/arm/arm,embedded-trace-extension.yaml   |  4 ++--
->  .../bindings/arm/arm,trace-buffer-extension.yaml     |  7 ++++---
->  .../devicetree/bindings/arm/arm,vexpress-juno.yaml   |  2 +-
->  .../devicetree/bindings/arm/aspeed/aspeed,sbc.yaml   |  4 ++--
->  .../arm/firmware/tlm,trusted-foundations.yaml        |  4 ++--
->  .../bindings/arm/mstar/mstar,l3bridge.yaml           |  4 ++--
->  .../devicetree/bindings/arm/mstar/mstar,smpctrl.yaml |  4 ++--
->  .../devicetree/bindings/arm/stm32/st,mlahb.yaml      |  4 ++--
->  .../bindings/arm/stm32/st,stm32-syscon.yaml          |  4 ++--
->  .../devicetree/bindings/connector/usb-connector.yaml |  4 ++--
->  Documentation/devicetree/bindings/eeprom/at24.yaml   |  4 ++--
->  Documentation/devicetree/bindings/eeprom/at25.yaml   |  4 ++--
->  .../intel,ixp4xx-network-processing-engine.yaml      |  4 ++--
->  .../bindings/gpio/x-powers,axp209-gpio.yaml          |  4 ++--
->  .../bindings/gpio/xlnx,zynqmp-gpio-modepin.yaml      |  4 ++--
->  .../devicetree/bindings/gpio/xylon,logicvc-gpio.yaml |  4 ++--
->  .../devicetree/bindings/hwmon/iio-hwmon.yaml         |  4 ++--
->  .../bindings/hwmon/starfive,jh71x0-temp.yaml         |  8 ++++----
->  .../devicetree/bindings/i3c/mipi-i3c-hci.yaml        |  4 ++--
->  .../devicetree/bindings/iio/accel/fsl,mma7455.yaml   |  4 ++--
->  .../bindings/iio/adc/atmel,sama9260-adc.yaml         |  4 ++--
->  .../bindings/ipmi/aspeed,ast2400-kcs-bmc.yaml        |  8 ++++----
->  .../devicetree/bindings/ipmi/ipmi-ipmb.yaml          |  2 +-
->  .../devicetree/bindings/ipmi/ipmi-smic.yaml          |  2 +-
->  .../bindings/media/qcom,msm8916-venus.yaml           |  4 ++--
->  .../bindings/mips/loongson/ls2k-reset.yaml           |  4 ++--
->  .../bindings/mips/loongson/rs780e-acpi.yaml          |  4 ++--
->  .../misc/intel,ixp4xx-ahb-queue-manager.yaml         |  4 ++--
->  .../devicetree/bindings/mmc/marvell,xenon-sdhci.yaml |  4 ++--
->  .../bindings/mtd/microchip,mchp48l640.yaml           |  4 ++--
->  .../devicetree/bindings/soc/aspeed/uart-routing.yaml |  4 ++--
->  .../bindings/soc/intel/intel,hps-copy-engine.yaml    |  4 ++--
->  .../bindings/soc/litex/litex,soc-controller.yaml     |  4 ++--
->  .../bindings/soc/renesas/renesas,rzg2l-sysc.yaml     |  4 ++--
->  .../devicetree/bindings/soc/ti/k3-ringacc.yaml       |  4 ++--
->  .../devicetree/bindings/sound/dialog,da7219.yaml     |  4 ++--
->  .../bindings/sound/nvidia,tegra-audio-max9808x.yaml  | 12 ++++++------
->  .../bindings/sound/nvidia,tegra-audio-rt5631.yaml    |  8 ++++----
->  .../devicetree/bindings/ufs/ufs-common.yaml          |  2 +-
->  .../bindings/watchdog/toshiba,visconti-wdt.yaml      |  4 ++--
->  40 files changed, 88 insertions(+), 87 deletions(-)
-> 
+Signed-off-by: Fabian Vogt <fabian@ritter-vogt.de>
+---
+Applies on top of 89bf6209cad6.
 
-Applied, thanks!
+I see that SungHwan Jung (CC'd) recently submitted the same fixup for
+a rather similar but different model as
+"ALSA: hda/realtek: Add quirk for HP Victus 16-d1xxx to enable mute LED"
+Does your HP Victus also need the ALC245_FIXUP_HP_GPIO_LED? Then we could
+combine the quirks.
+
+ sound/pci/hda/patch_realtek.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index dc7b7a407638..cac207d7c0b9 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -4639,6 +4639,24 @@ static void alc236_fixup_hp_mute_led_coefbit2(struct hda_codec *codec,
+ 	}
+ }
+ 
++/* The mute LED is controlled by two bits in coef 0x0b:
++ * To turn on, set bit 3 but clear bit 2.
++ */
++static void alc245_fixup_hp_x360_mute_led(struct hda_codec *codec,
++				      const struct hda_fixup *fix, int action)
++{
++	struct alc_spec *spec = codec->spec;
++
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		spec->mute_led_polarity = 0;
++		spec->mute_led_coef.idx = 0x0b;
++		spec->mute_led_coef.mask = 0xc;
++		spec->mute_led_coef.on = 0x8;
++		spec->mute_led_coef.off = 0x4;
++		snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
++	}
++}
++
+ /* turn on/off mic-mute LED per capture hook by coef bit */
+ static int coef_micmute_led_set(struct led_classdev *led_cdev,
+ 				enum led_brightness brightness)
+@@ -7231,6 +7249,7 @@ enum {
+ 	ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS,
+ 	ALC236_FIXUP_DELL_DUAL_CODECS,
+ 	ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
++	ALC245_FIXUP_HP_X360_MUTE_LED,
+ };
+ 
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -9309,6 +9328,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
+ 	},
++	[ALC245_FIXUP_HP_X360_MUTE_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc245_fixup_hp_x360_mute_led,
++		.chained = true,
++		.chain_id = ALC245_FIXUP_HP_GPIO_LED
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -9551,6 +9576,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x8873, "HP ZBook Studio 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x887a, "HP Laptop 15s-eq2xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
++	SND_PCI_QUIRK(0x103c, 0x888a, "HP ENVY x360 Convertible 15-eu0xxx", ALC245_FIXUP_HP_X360_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x888d, "HP ZBook Power 15.6 inch G8 Mobile Workstation PC", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8895, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
+-- 
+2.41.0
+
+
+
 

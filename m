@@ -2,95 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E35297879E2
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 23:05:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7CFD7879E3
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 23:06:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42D2D112;
-	Thu, 24 Aug 2023 23:04:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42D2D112
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BE7184C;
+	Thu, 24 Aug 2023 23:05:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BE7184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692911146;
-	bh=onkOv4SYMoonLfYOr6PDOLYwXWodLwJ0R/9tSFyPRJE=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=egDIqBSjFdnABC4KW2LAmTGNASSo9U03tBfYFnqN+nbCiYxj01tuc1XVNPXVqNCog
-	 QNJuxjBypza7ftVLa4sz8lRA2pI+58Q7gxPUnFKAE2y0coJlv0euxuBxtpmPyhic2n
-	 16FpriMshpu2XbV9BfqcbVHW8nMpDPr3TmW5gHuo=
+	s=default; t=1692911197;
+	bh=F+LE19iXdKX/DKyMZkZfMSGwIEiZBzzunQNBopthQ8E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=RZtQpAfA4NgqDTul9RWnErohL81aWdv7ZdbNpUSvdZXXCnwJHGVA7Na1SY4PRnUhk
+	 bGyVcAGujS2TRelaLSP94jepyAE5qPqIuoNr8zRGXkwwkQ1wemaNX6zRfoOvCUZWmz
+	 gEsgq36xMuCJjLpeQ8+gduf4BN49fQKFrtHwZC8U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F28A7F80551; Thu, 24 Aug 2023 23:04:55 +0200 (CEST)
+	id E1828F80563; Thu, 24 Aug 2023 23:04:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94539F80158;
-	Thu, 24 Aug 2023 23:04:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34B71F80536;
+	Thu, 24 Aug 2023 23:04:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD6D4F804F3; Thu, 24 Aug 2023 23:04:51 +0200 (CEST)
+	id D3281F8022B; Thu, 24 Aug 2023 23:04:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=unavailable
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DEE1F8022B
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 23:04:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DEE1F8022B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 508DCF80074
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 23:04:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 508DCF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=We8YpBzH
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-1cc61f514baso174446fac.1
+ header.s=google header.b=JCs67MlE
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ 006d021491bc7-5720f3ce5afso218235eaf.0
         for <alsa-devel@alsa-project.org>;
- Thu, 24 Aug 2023 14:04:33 -0700 (PDT)
+ Thu, 24 Aug 2023 14:04:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1692911071; x=1693515871;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+m1WhdeQslq+QoYeJ3Ohald/jRYYAhuW7OSigqmOZCA=;
-        b=We8YpBzHoFEAV4rnjB8vJbq/xinEh8j8sopgEqXMdiiPYqjzVV0PamP7rA0NYV+Gb+
-         pmVwJ4iIltr2LSQ2OURTQ2vubKlY0tjqocgBFW5lZNMMxFmBIOweaC89euYYyYUj/CvF
-         W9VF/du0cEE90V/DQt2eDhZ/XyueMmGlZawpA=
+        d=chromium.org; s=google; t=1692911082; x=1693515882;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NmO/U6IMzbl2UIaHDn9OaenL1P9NwNj9czrGh7RDNVY=;
+        b=JCs67MlEOo0AHQmjzFRqlYaagHP8f4Q7mOrtU1Ve35ghOU7ECO5AXWAtylopsemQfv
+         TBJjq/cYXiOzQ0TuX5peefH3PVOgS/qB3v+B0ynGIXZ2SzKCdDLxG/fQLa3IGmLQb9fY
+         jApOHulpiKrQn+Rw+FtfVjfpezNH/XO86U9Hs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692911071; x=1693515871;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+m1WhdeQslq+QoYeJ3Ohald/jRYYAhuW7OSigqmOZCA=;
-        b=U28cxhHFFuIAPYeycIggi3CJM2hQdQHRxDMRzUS56r2grNrQcDlZxjR/Bc13Mwpf/j
-         DRKugfbGmPurmcytvxSw/xO9GXDJS87upmpxobRjJdOK00Hj/U7GKu45IdvuEe0fOaVx
-         y/JnTWN8zeo8BouKvTny2Ibl3w8JDC1a31uJqHSZ1oToC8CwtYm4/Wg2uBtsJb0O5UuH
-         Vn7YBn8d5KA+bxZtvdUVEshdY4/feK2Zz6menqbkVSA3mTwWFHgnHT/bvIMJRuH5RDId
-         4SMU1qcnfo8oFdJNZDYYEsmd2Uh2AoIYZFgvvc2fQNZbFh7J5hZHlYJG5XrUzHEiWxzU
-         tiwQ==
-X-Gm-Message-State: AOJu0YzessDYo8ln4i3CiVMcP1Jcc5jmxeLtOFHw+EeTrUzxsuxEa3ra
-	Z+Ba4iJkAJ2cL4TO5tpEGUdPgCYGw1mZ3JgJqA==
+        d=1e100.net; s=20221208; t=1692911082; x=1693515882;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NmO/U6IMzbl2UIaHDn9OaenL1P9NwNj9czrGh7RDNVY=;
+        b=ekrxhDt6fhBR6HrLB9JbMc4QssNn/b0K1v8BO7ISxztcfGgQWnNN2wJ30/hV9B5pmk
+         2xiopZsDGZVakhm7I4tpuNVIEDdg80K/SUV30KWWGgnevbZ2SFu1mbX//j9+tmW0pj63
+         WlXzrkOaXZOvRkjJi1VhxT4x9d6iw7N/5aqjZecJ6nQg8cDGNMvNzGwKKsfLpTFeHNbA
+         8lAawDpmcNkubPT/XQbVfGqNdpXKrwREUAcxED69J8yEoxUMDo21lUAluXdKjRCc+NhW
+         B3B+wgZCO4EcHZW3OixYpJJP8ZSDHJGWsRE+hxUkPqC1TGEUCOjM3KIRlUT7I9NIHMrT
+         hhXw==
+X-Gm-Message-State: AOJu0YwK2ahyXvBR/8BC1SPFhJmSXsGYPudb+3qWtssFV2Su8ptLsfy/
+	u6FU2SOU0DUpyvhOr1/I/EuXr0EDI/x5D0PRqg==
 X-Google-Smtp-Source: 
- AGHT+IGVxuVE1ynt+Bbe/IWTl9zD1J3tSXwEdFOmvCiOMJvTlssSBFIoi/hnWjQY/kisANf57nrsQg==
-X-Received: by 2002:a05:6870:2185:b0:1bb:9fd0:6b7f with SMTP id
- l5-20020a056870218500b001bb9fd06b7fmr1144257oae.11.1692911071376;
-        Thu, 24 Aug 2023 14:04:31 -0700 (PDT)
+ AGHT+IG2SJXeoQodTa0fYPJBwVVasbOIheM7yyK7l+uUlYfq+BHhXTHu4mZeXrr0DtzurION6n1kDQ==
+X-Received: by 2002:a05:6358:5284:b0:135:4003:784c with SMTP id
+ g4-20020a056358528400b001354003784cmr15236062rwa.17.1692911082634;
+        Thu, 24 Aug 2023 14:04:42 -0700 (PDT)
 Received: from localhost ([2620:15c:9d:4:133d:5d74:91c4:bbb1])
         by smtp.gmail.com with UTF8SMTPSA id
- u3-20020a17090a890300b002682392506bsm145412pjn.50.2023.08.24.14.04.29
+ z11-20020a63b04b000000b00565ec002d14sm50787pgo.33.2023.08.24.14.04.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Aug 2023 14:04:30 -0700 (PDT)
+        Thu, 24 Aug 2023 14:04:41 -0700 (PDT)
 From: cujomalainey@chromium.org
 To: alsa-devel@alsa-project.org
-Cc: Curtis Malainey <cujomalainey@chromium.org>
-Subject: [PATCH 0/2][RFC] Refactor snd primitives refcounters
-Date: Thu, 24 Aug 2023 14:02:51 -0700
-Message-ID: <20230824210339.1126993-1-cujomalainey@chromium.org>
+Cc: Curtis Malainey <cujomalainey@chromium.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Thierry Reding <treding@nvidia.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>
+Subject: [PATCH 1/2] ALSA: core: add snd_device_init
+Date: Thu, 24 Aug 2023 14:02:52 -0700
+Message-ID: <20230824210339.1126993-2-cujomalainey@chromium.org>
 X-Mailer: git-send-email 2.42.0.rc1.204.g551eb34607-goog
+In-Reply-To: <20230824210339.1126993-1-cujomalainey@chromium.org>
+References: <20230824210339.1126993-1-cujomalainey@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JBAS6V5KD3SC55GH26JHUICQFVHLHPAB
-X-Message-ID-Hash: JBAS6V5KD3SC55GH26JHUICQFVHLHPAB
+Message-ID-Hash: 5577LOHUTZ2CIGI7H7JLUAO435JIBPOF
+X-Message-ID-Hash: 5577LOHUTZ2CIGI7H7JLUAO435JIBPOF
 X-MailFrom: cujomalainey@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JBAS6V5KD3SC55GH26JHUICQFVHLHPAB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5577LOHUTZ2CIGI7H7JLUAO435JIBPOF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,32 +123,63 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Curtis Malainey <cujomalainey@chromium.org>
 
-As previously identified in [1] there are some issues with how kobjs are
-handled in sound/core. The solution provided in [2] is a workaround for
-the issues to fix the failures.
+Begin allowing refactored modules to allocate their own device but use a
+common initialization procedure for their devices.
 
-This series is a first attempt at the larger refactor needed to properly
-handle the objects.
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+---
+ include/sound/core.h |  1 +
+ sound/core/init.c    | 19 ++++++++++++++++---
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
-[1] https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3B2VMPFATCJCRD76DM36LZAICPDP2R6A/
-[2] https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JZIPB4OIC3OK6YAGTPMAEKXMLUWM5PTA/
-
-Curtis Malainey (2):
-  ALSA: core: add snd_device_init
-  ALSA: core: split control primitives out of snd_card
-
- include/sound/control.h                  |   1 +
- include/sound/core.h                     |  34 +--
- sound/core/control.c                     | 330 +++++++++++++----------
- sound/core/control_compat.c              |   8 +-
- sound/core/control_led.c                 |  18 +-
- sound/core/init.c                        |  33 +--
- sound/pci/hda/hda_codec.c                |   3 +-
- sound/soc/intel/atom/sst-atom-controls.c |   8 +-
- sound/soc/soc-card.c                     |   2 +-
- sound/usb/media.c                        |   2 +-
- 10 files changed, 249 insertions(+), 190 deletions(-)
-
+diff --git a/include/sound/core.h b/include/sound/core.h
+index dfef0c9d4b9f7..a4744e142c7e3 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -240,6 +240,7 @@ extern struct dentry *sound_debugfs_root;
+ void snd_request_card(int card);
+ 
+ int snd_device_alloc(struct device **dev_p, struct snd_card *card);
++void snd_device_init(struct device *dev, struct snd_card *card);
+ 
+ int snd_register_device(int type, struct snd_card *card, int dev,
+ 			const struct file_operations *f_ops,
+diff --git a/sound/core/init.c b/sound/core/init.c
+index d61bde1225f23..37a8e4791f781 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -132,15 +132,28 @@ int snd_device_alloc(struct device **dev_p, struct snd_card *card)
+ 	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
+ 	if (!dev)
+ 		return -ENOMEM;
++	snd_device_init(dev, card);
++	*dev_p = dev;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_device_alloc);
++
++/**
++ * snd_device_init - Initialize struct device for sound devices
++ * @dev_p: pointer to store the allocated device
++ * @card: card to assign, optional
++ *
++ * For releasing the allocated device, call put_device().
++ */
++void snd_device_init(struct device *dev, struct snd_card *card)
++{
+ 	device_initialize(dev);
+ 	if (card)
+ 		dev->parent = &card->card_dev;
+ 	dev->class = &sound_class;
+ 	dev->release = default_release_alloc;
+-	*dev_p = dev;
+-	return 0;
+ }
+-EXPORT_SYMBOL_GPL(snd_device_alloc);
++EXPORT_SYMBOL_GPL(snd_device_init);
+ 
+ static int snd_card_init(struct snd_card *card, struct device *parent,
+ 			 int idx, const char *xid, struct module *module,
 -- 
 2.42.0.rc1.204.g551eb34607-goog
 

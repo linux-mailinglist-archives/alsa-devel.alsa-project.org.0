@@ -2,104 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A84E789DD8
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 14:21:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A4478A054
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:03:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A834112;
-	Sun, 27 Aug 2023 14:20:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A834112
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5183A84C;
+	Sun, 27 Aug 2023 19:02:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5183A84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693138863;
-	bh=U6oncp/62KbVKV/+0RJgkny9X6hK/dhm6Fjvyy8daa0=;
+	s=default; t=1693155784;
+	bh=dz6fTSzHtdtBYhY0lwI1Wq13bZTMJI66tuZIl/EYtXY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sq++yXgQXMQZatSnWxs1bFS53lmqDi7Tl48AzVRioeicD7T74GKOMGpwHi93jUDox
-	 OyF6cnpQvDERhVSYLMfaUYxUbgmK468mee0XFrgvDmANahtOeJy0rehvkvu558dlD4
-	 8bLKPpnnvNb6ZAU+nipUtEVMEXKTA7/tByO0lSoU=
+	b=VSqmwf4ZCdZUdZaWfscoHaBAmIW9CsnXj9/A4ZAmitvBzD5Y9nqsNJCUpyDBl2Zmc
+	 pYwAFjhUijsUZrXUjE+S/nAak0XCg4LsZcCt0DD3ZXhuhW3Z9Ka+jkIpxUrEzQkhel
+	 UH0I2qnHiz9x2GqkV1/mz/Dfu4+hFLigfA+0/kb4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83359F8032D; Sun, 27 Aug 2023 14:19:44 +0200 (CEST)
+	id 6F512F80249; Sun, 27 Aug 2023 19:01:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BD5FF80155;
-	Sun, 27 Aug 2023 14:19:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E56CF80155;
+	Sun, 27 Aug 2023 19:01:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C587AF80158; Sun, 27 Aug 2023 14:19:39 +0200 (CEST)
+	id BA607F80158; Thu, 24 Aug 2023 12:28:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2D44F800D1
-	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 14:19:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2D44F800D1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SiX9ewwV
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id F292C6103B;
-	Sun, 27 Aug 2023 12:19:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2446CC433C8;
-	Sun, 27 Aug 2023 12:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693138772;
-	bh=U6oncp/62KbVKV/+0RJgkny9X6hK/dhm6Fjvyy8daa0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SiX9ewwVM8stjlc3yHy6qyMofFxpTWcdQLHShhUMpus91DfcAarz4CuOLVMjXG791
-	 yF5+KueOpjXT3bPoggDkrw6EJqOl8sA1TOkeGl9naLY9AT2t7AeYACawEbX7a0HqE7
-	 fKek9IyfRW+imHnLonYYde7pP/xcpDwn4EYo4prxYE+fxqTG97wh9V9BweT4gqBXBy
-	 tWxJDMzRBX+B4Q4KezVdEkDndAnBxOSSqhRp+KGu5xMkoKSH2Qml3cy2qetH2B6UQQ
-	 +LhnX9C0h75V4xCYBzd5NRIZh4PBqSSa61OPaN/PpCyiJoMMgPz4ETcr6O6+K6bKKQ
-	 7XTq9Gxl22i9w==
-Date: Sun, 27 Aug 2023 13:19:26 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Adam Ford <aford173@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, aford@beaconembedded.com,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by alsa1.perex.cz (Postfix) with ESMTP id 31F89F80074
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 12:28:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31F89F80074
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 612BD1042;
+	Thu, 24 Aug 2023 03:29:06 -0700 (PDT)
+Received: from bogus (e103737-lin.cambridge.arm.com [10.1.197.49])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFDD63F740;
+	Thu, 24 Aug 2023 03:28:19 -0700 (PDT)
+Date: Thu, 24 Aug 2023 11:28:16 +0100
+From: Sudeep Holla <sudeep.holla@arm.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@linaro.org>,
+	James Clark <james.clark@arm.com>, Leo Yan <leo.yan@linaro.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	NXP Linux Team <linux-imx@nxp.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 1/3] ASoC: dt-bindings: fsl_easrc: Add support for
- imx8mp-easrc
-Message-ID: <20230827-cackle-unseated-089a2d61ad4b@spud>
-References: <20230827023155.467807-1-aford173@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Bartosz Golaszewski <brgl@bgdev.pl>,
+	Andy Shevchenko <andy@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+	Jean Delvare <jdelvare@suse.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Corey Minyard <minyard@acm.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	M ark Brown <broonie@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
+	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
+	alsa-devel@alsa-project.org, linux-scsi@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop remaining unneeded quotes
+Message-ID: <20230824102816.q3qoub6vzen5uomj@bogus>
+References: <20230823183749.2609013-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="pLdAo1ePdGPvAelT"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230827023155.467807-1-aford173@gmail.com>
-Message-ID-Hash: XNCFLBPFPULW3D7TXPXJIC7GE3LNQ4N6
-X-Message-ID-Hash: XNCFLBPFPULW3D7TXPXJIC7GE3LNQ4N6
-X-MailFrom: conor@kernel.org
+In-Reply-To: <20230823183749.2609013-1-robh@kernel.org>
+X-MailFrom: sudeep.holla@arm.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: YZ4JNAVR357ZBS3AUB626T3ODHEUPQDX
+X-Message-ID-Hash: YZ4JNAVR357ZBS3AUB626T3ODHEUPQDX
+X-Mailman-Approved-At: Sun, 27 Aug 2023 17:01:40 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNCFLBPFPULW3D7TXPXJIC7GE3LNQ4N6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZ4JNAVR357ZBS3AUB626T3ODHEUPQDX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,63 +115,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
---pLdAo1ePdGPvAelT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, Aug 26, 2023 at 09:31:53PM -0500, Adam Ford wrote:
-> The i.MX8MP appears to have the same easrc support as the Nano, so
-> add imx8mp as an option with a fallback to imx8mn.
->=20
-> Signed-off-by: Adam Ford <aford173@gmail.com>
+On Wed, Aug 23, 2023 at 01:28:47PM -0500, Rob Herring wrote:
+> Cleanup bindings dropping the last remaining unneeded quotes. With this,
+> the check for this can be enabled in yamllint.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
-> V2:  Fixed errors:
->      ['fsl,imx8mn-easrc'] is too short
->       'fsl,imx8mn-easrc' is not one of ['fsl,imx8mp-easrc']
->        =20
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml b/Doc=
-umentation/devicetree/bindings/sound/fsl,easrc.yaml
-> index bdde68a1059c..a680d7aff237 100644
-> --- a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> +++ b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> @@ -14,7 +14,13 @@ properties:
->      pattern: "^easrc@.*"
-> =20
->    compatible:
-> -    const: fsl,imx8mn-easrc
-> +    oneOf:
-> +      - enum:
-> +          - fsl,imx8mn-easrc
+>  .../devicetree/bindings/arm/arm,vexpress-juno.yaml   |  2 +-
 
-This one should probably stay const, no?
-Either way,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Sudeep Holla <sudeep.holla@arm.com>
 
-Thanks,
-Conor.
-
-> +      - items:
-> +          - enum:
-> +              - fsl,imx8mp-easrc
-> +          - const: fsl,imx8mn-easrc
-> =20
->    reg:
->      maxItems: 1
-> --=20
-> 2.39.2
->=20
-
---pLdAo1ePdGPvAelT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZOs/TgAKCRB4tDGHoIJi
-0jH9AQCC7Npm9ae30q6QfswRgEaeaCzWpth2K8fmNPeg0llAZgD/SpwyM8EKqToW
-1FU3s1ZufKnuqW2q/m7hE+yXGXitfgw=
-=PtcV
------END PGP SIGNATURE-----
-
---pLdAo1ePdGPvAelT--
+-- 
+Regards,
+Sudeep

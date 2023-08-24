@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92400787B9B
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 00:44:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EB6787B9C
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 00:45:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E280384B;
-	Fri, 25 Aug 2023 00:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E280384B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53218A4B;
+	Fri, 25 Aug 2023 00:44:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53218A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692917074;
-	bh=hQ1fgLiWLR8trUuCaYLEOSHIOYHu6hkDSCVcbXCSY+k=;
+	s=default; t=1692917125;
+	bh=DlnGJX17MyL1LSD68GKcwNwP0OejT/tAXjf9NDu5tfg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oS/q5eYKskJkZrydQLayehbXC68t4PLMp0NDNKC0h8ztxv6gla3CZlBXG27Flz65k
-	 a9H0fCn79kXkl86kjKnn9UVSeBgrPR89jE3sZUN59zkO8dgCCPC//98xI7ht2pIgw4
-	 TpI37iZR7jMc5WOw6hWsxlNZRG5A0kI8y2TM90C0=
+	b=ZHsuoroEUrilwFkeOM1LonD7qKS3KOb4RQZosUN7Lr7D/6gJxBZH/R2Wgyi4rhTIz
+	 ppx+M9zeHJDmwLqbMTOnds3ajm5YhKJjbGqCaZcPJWko5amRPAYqQdt4FKUo6KQrHI
+	 p5nAhoYMEXpsK93oZ7Rg7dg7aeg4tPMbBvup5MuA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98ABDF80536; Fri, 25 Aug 2023 00:43:44 +0200 (CEST)
+	id 5E398F804DA; Fri, 25 Aug 2023 00:43:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1F98F800D1;
-	Fri, 25 Aug 2023 00:43:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F1A8F804DA;
+	Fri, 25 Aug 2023 00:43:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1140F800D1; Fri, 25 Aug 2023 00:43:40 +0200 (CEST)
+	id 7A4D4F80074; Fri, 25 Aug 2023 00:43:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,51 +36,50 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF347F800AE
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 00:43:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF347F800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40DA7F80074
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 00:43:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40DA7F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rrZfqM18
+ header.s=k20201202 header.b=Y1GVtErO
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0A0576316F;
-	Thu, 24 Aug 2023 22:43:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4231C433C8;
-	Thu, 24 Aug 2023 22:43:31 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 26DB7638D7;
+	Thu, 24 Aug 2023 22:43:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB7AC433C7;
+	Thu, 24 Aug 2023 22:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1692917015;
-	bh=hQ1fgLiWLR8trUuCaYLEOSHIOYHu6hkDSCVcbXCSY+k=;
+	s=k20201202; t=1692917018;
+	bh=DlnGJX17MyL1LSD68GKcwNwP0OejT/tAXjf9NDu5tfg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=rrZfqM18bVtzaiGaUuKP9b7xmnkXs8g8c3wSLjDJ9HzgvNmH1i2m8emrAWI22C21D
-	 FHYQa5K/Xvxz9/lDO7HHXUlWLdV4vvrN94IQYKumiqfmDGWUwd2FRaogmS2/L1lAyi
-	 /tjXD+/k1vOAQnMppF2o5IP53a9TV3sg6ePYqRXorT/qChWJ7NDY6HbXzwUDBLrvST
-	 E9uKOIjPBXdr59q5RMQ4zTSCflL+vR7vf98eVvLDQWmMa9ieWWehqU5DUZKQc7WHUH
-	 iOQYoLdmjWSg9RSQtPTAiQZ4EETCktewKG8lTbcdwEkJRUNOdtKrYgvLHhLL2M2sbt
-	 qPvBqcszAOpEA==
+	b=Y1GVtErOBt3Cwfy1RUkA17OAvCXx5nRto2lkvAuCAKjliQir0FL5o7neqYpTrZK5O
+	 HItCvFcVS6sABYYWjZXNWwPtVYVe1/6UnnLKv/90D4zvW0R2IcConfNV6N1GwtZP9X
+	 +kbp/1KCgMkio3gizOefCmNMGUi3sH2oJUtrmSZnivyYgrWgedaPzaK65NIcHRhjdR
+	 UfUkJ17NWGrro/QO/Rb70gi2st9k8TQnABRWX4nfo5MVqAM3VF4Ux9ntFZE2PulL/X
+	 i31l2sohEGb/r/xwGxJInIjcAonqYioPZ8SKcpoeJvZOeGi73mRe3KxhUEQJUc4ki/
+	 T9XM/irbmXdQg==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Weidong Wang <wangweidong.a@awinic.com>,
- Arnd Bergmann <arnd@arndb.de>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org,
- error27@gmail.com, kernel test robot <lkp@intel.com>
-In-Reply-To: <20230824191722.2701215-1-harshit.m.mogalapalli@oracle.com>
-References: <20230824191722.2701215-1-harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH next] ASoC: codecs: Fix error code in
- aw88261_i2c_probe()
-Message-Id: <169291701152.2997200.14506800052724539808.b4-ty@kernel.org>
-Date: Thu, 24 Aug 2023 23:43:31 +0100
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+In-Reply-To: <20230824193837.369761-1-cristian.ciocaltea@collabora.com>
+References: <20230824193837.369761-1-cristian.ciocaltea@collabora.com>
+Subject: Re: [PATCH] ASoC: soc-core.c: Do not error if a DAI link component
+ is not found
+Message-Id: <169291701565.2997200.6576849021679425893.b4-ty@kernel.org>
+Date: Thu, 24 Aug 2023 23:43:35 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: T7WTJQNODNP3QW3NVBGWEER2PPXF7GI3
-X-Message-ID-Hash: T7WTJQNODNP3QW3NVBGWEER2PPXF7GI3
+Message-ID-Hash: HYNS4CAOWMWVBZ6VFS664PQAO52S64EQ
+X-Message-ID-Hash: HYNS4CAOWMWVBZ6VFS664PQAO52S64EQ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,21 +92,26 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T7WTJQNODNP3QW3NVBGWEER2PPXF7GI3/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HYNS4CAOWMWVBZ6VFS664PQAO52S64EQ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 24 Aug 2023 12:17:10 -0700, Harshit Mogalapalli wrote:
-> Passing zero to dev_err_probe is a success which is incorrect when
-> i2c_check_functionality() fails.
+On Thu, 24 Aug 2023 22:38:37 +0300, Cristian Ciocaltea wrote:
+> A recent cleanup of soc_dai_link_sanity_check() is responsible for
+> generating lots of confusing errors before returning -EPROBE_DEFER:
 > 
-> Fix this by passing -ENXIO instead of zero to dev_err_probe().
+>   acp5x_mach acp5x_mach.0: ASoC: Component acp5x_i2s_dma.0 not found for link acp5x-8821-play
+>   [...]
+>   acp5x_mach acp5x_mach.0: ASoC: Component spi-VLV1776:00 not found for link acp5x-CS35L41-Stereo
+>   [...]
+>   acp5x_mach acp5x_mach.0: ASoC: Component spi-VLV1776:01 not found for link acp5x-CS35L41-Stereo
 > 
-> 
+> [...]
 
 Applied to
 
@@ -115,8 +119,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: Fix error code in aw88261_i2c_probe()
-      commit: 8886e1b03669c498f7a24bc5e483f46db5e81f82
+[1/1] ASoC: soc-core.c: Do not error if a DAI link component is not found
+      commit: 199cd64140f222c66b68ebe288a3fcd0570e2e41
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

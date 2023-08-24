@@ -2,122 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50978786812
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:05:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D47AA78684C
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:30:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60BF1839;
-	Thu, 24 Aug 2023 09:04:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60BF1839
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8B8483A;
+	Thu, 24 Aug 2023 09:29:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8B8483A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692860718;
-	bh=9NirbcNFlrQ7BmHdEEAJislSU+KO0jCMo+gsyovPAD8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1692862207;
+	bh=UQzWjeXThVzoik6oZW3hBCJd2N6eebJWhyZQGZsjlU4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DRIOBA3xfRPK52/T/LTjdro3W96RW/GSxHf7xzjnijaxkdT74++R0XcgO7q+WzgGB
-	 xNOtnqVxIB4RaMetxKL7Psao6Gl3eJsqaC5vQ4mv9XoLoibRBWPnHY+VnOEz2rHsar
-	 1NWm4wWuDuH1IaqmAK5rf0NYQbP+bZmMYLu5SbRw=
+	b=EqOjPpOfsuqlXJHUPuOuEySNMAqZx7C0+GByhZLQ5XtLq8ujo/FshFdsaFqxRcusb
+	 sXwofiAbA1bmwfmWJ5e0a+9lzlamUq1mZe64ZtUUFsEhoNLuNbmojj+i/8BaaZ35pZ
+	 mU2zp2IsVw3VEm5GuJRHBoi9SwOQfdDYBhrePHxA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C4C3F800F5; Thu, 24 Aug 2023 09:04:25 +0200 (CEST)
+	id 3383EF8022B; Thu, 24 Aug 2023 09:29:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA33CF800F5;
-	Thu, 24 Aug 2023 09:04:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 974AFF800F5;
+	Thu, 24 Aug 2023 09:29:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3B07F80158; Thu, 24 Aug 2023 09:03:24 +0200 (CEST)
+	id F09CAF80158; Thu, 24 Aug 2023 09:29:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DFD62F800AE
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 09:03:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD62F800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id CE4C2F80074
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 09:28:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE4C2F80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=J/3793hr
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-99df431d4bfso832357166b.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 24 Aug 2023 00:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1692860588; x=1693465388;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=P45nAftBMkI9aO/uXRibti5ezjszBIQ2T+bQqiHAg7Y=;
-        b=J/3793hrGTYLIQrFLs/3h4rLwByn+HYPUKOvdOVBZlRd49ONEBMKcLI2nh5WpE7pOo
-         UsO/Bvg2lPXd1bP9iKhA5AWiUX6XfhUQ9I7QIgiG0uwfzuW8NctmXlwOh/F8qgAiJyKH
-         nQpgGOy6tYTYHe06Z8P5v1zwdNuegaggmRC4G0ZkHv8NM7TXLgDRQzWq1L81IEoj6HgL
-         p8VZmyGRCuFgu7t3pVqyL6T8NSQ95KBB+hbbbBjBHx2wMwnztJGjGSXdwmyfvG7r9p7E
-         d2nJS14n/zfM5s3aoHnG3GMK8MrT1Gfh+3NFsWKnF7uuIFix3AXhtQkqZPYGyZN571kZ
-         ZrFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692860588; x=1693465388;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=P45nAftBMkI9aO/uXRibti5ezjszBIQ2T+bQqiHAg7Y=;
-        b=FPJK2ikkld7IMxu8tNocu0Twbb7XPvep7eGIvdVyXofkG1dMApvt0Ca+sjChDwEnuT
-         6mPWN6ZuAXZBF3sD5duknFiYRQ2I920aA3Ste3xVFmFnLdQusqtFsqqaSRvou+wIaaZk
-         /dHS3iu7IpabDOzlITsRLKzQ96n1Dnoexk7k9yDWuCeo/Dvsu5W93AyY+65HQo7MKfAb
-         KJmkq0MhmmnGlv6uUydtHBqTC/RZzhSN+4gRNV9LQ20nC+Y20KLeoHK1T+DaFdiSrywu
-         Uxd9AdtKaQTkWhaeq1qpPLihgc+pfR0HHMWc8aEVHvWEZRcg72wnbYrtMCOrNQ3+YthC
-         sTWg==
-X-Gm-Message-State: AOJu0YzY55W2TlhWDOYEnvAZ8lvJ8VAoh4R/Vh1A/sFlb+0XQZhKSSf3
-	BDPNvjp6SgL/m5BSubuBwDC4Ng==
-X-Google-Smtp-Source: 
- AGHT+IG9k8iOK1esFA6zAJ01EbUnrxPhvANPyRf1UsmBAx7WseNQfibQsTJkl94LBBFoLMX8n0VUjQ==
-X-Received: by 2002:a17:907:2c54:b0:9a2:1e03:1572 with SMTP id
- hf20-20020a1709072c5400b009a21e031572mr305572ejc.19.1692860587958;
-        Thu, 24 Aug 2023 00:03:07 -0700 (PDT)
-Received: from [192.168.0.22] ([77.252.47.198])
-        by smtp.gmail.com with ESMTPSA id
- c8-20020a170906528800b009887f4e0291sm10559750ejm.27.2023.08.24.00.03.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Aug 2023 00:03:07 -0700 (PDT)
-Message-ID: <413bb886-a734-e607-8dd3-79ee501416b2@linaro.org>
-Date: Thu, 24 Aug 2023 09:03:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v1 2/5] ASoC: dt-bindings: Add schema for
- "allwinner,sun20i-d1-codec-analog"
-Content-Language: en-US
-To: Maxim Kiselev <bigunclemax@gmail.com>, Rob Herring <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Maxime Ripard <mripard@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org
-References: <20230805180506.718364-1-bigunclemax@gmail.com>
- <20230805180506.718364-3-bigunclemax@gmail.com>
- <20230821154739.GA1720453-robh@kernel.org>
- <CALHCpMjoxV+sUh6KSVXfEcWgc_ETBHWo2a7xHMT-nKS2xBYOvQ@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: 
- <CALHCpMjoxV+sUh6KSVXfEcWgc_ETBHWo2a7xHMT-nKS2xBYOvQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2IJYVLTU4KFUG2MZG57REN2CGV6BPCW5
-X-Message-ID-Hash: 2IJYVLTU4KFUG2MZG57REN2CGV6BPCW5
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=JuqDMXif;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=wyC+z6zc
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 02E4622C83;
+	Thu, 24 Aug 2023 07:28:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1692862130;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fb8n1PZtHcwGyzvoGObccGXYArKT3sx/BYfrlPFKLsU=;
+	b=JuqDMXifznqv/4Sa7Rda/DOGMi0IvbFw9LfFh8rdf8nmx5mEaSYojlpEcm3gG6JDorrnH7
+	tJon0t7tm6kyC0806x5rMRLAiHTmVCG8Fx1D/yGlloOR3wH5Mpoc8e9QPqGwUicsWvLJ+g
+	bn6t6KKNR1YXeh+XjTIBQEuMSPwSXt4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1692862130;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fb8n1PZtHcwGyzvoGObccGXYArKT3sx/BYfrlPFKLsU=;
+	b=wyC+z6zccajBZSC9hovchGk5YiV1CNofRH6QY7N9RfkKPY1N+nc/qnSKvl4cQ4lQibQorS
+	xZ7xGJ+KyXXVFeCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D9D36138FB;
+	Thu, 24 Aug 2023 07:28:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id PuxvNLEG52RuIwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 07:28:49 +0000
+Date: Thu, 24 Aug 2023 09:28:49 +0200
+Message-ID: <87msygc30u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.5-rc7
+In-Reply-To: <20230823194049.201C2C433C7@smtp.kernel.org>
+References: <20230823194049.201C2C433C7@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: CH2VPNIOI7SPPYROESHBQMPA7APCJJYO
+X-Message-ID-Hash: CH2VPNIOI7SPPYROESHBQMPA7APCJJYO
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2IJYVLTU4KFUG2MZG57REN2CGV6BPCW5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CH2VPNIOI7SPPYROESHBQMPA7APCJJYO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,28 +118,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 23/08/2023 18:13, Maxim Kiselev wrote:
-> пн, 21 авг. 2023 г. в 19:47, Rob Herring <robh@kernel.org>:
->>
->> On Sat, Aug 05, 2023 at 09:05:02PM +0300, Maksim Kiselev wrote:
->>> Add a DT schema to describe the analog part of the Allwinner D1/T113s
->>> internal audio codec.
->>>
->>> Signed-off-by: Maksim Kiselev <bigunclemax@gmail.com>
->>> ---
->>>  .../allwinner,sun20i-d1-codec-analog.yaml     | 33 +++++++++++++++++++
->>>  1 file changed, 33 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun20i-d1-codec-analog.yaml
->>
->> Looks the same as allwinner,sun8i-a23-codec-analog.yaml. Why can't you
->> use that?
->>
-> Hmm. You're right. But let me explain my decision :)
-> When I added a new file, I assumed that since this is a separate driver,
-> then the binding should be in a separate file.
+On Wed, 23 Aug 2023 21:40:09 +0200,
+Mark Brown wrote:
+> 
+> The following changes since commit 37aba3190891d4de189bd5192ee95220e295f34d:
+> 
+>   ASoC: rt1308-sdw: fix random louder sound (2023-08-13 18:16:32 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc7
+> 
+> for you to fetch changes up to 1613781d7e8a93618ff3a6b37f81f06769b53717:
+> 
+>   ASoC: cs35l41: Correct amp_gain_tlv values (2023-08-23 13:27:06 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.5
+> 
+> A relatively large but generally not super urgent set of fixes for ASoC,
+> including some quirks and a MAINTAINERS update.  There's also an update
+> to cs35l56 to change the firmware ABI, there are no current shipping
+> systems which use the current interface and the sooner we get the new
+> interface in the less likely it is that something will start.
+> 
+> It'd be nice if these landed for v6.5 but not the end of the world if
+> they wait till v6.6.
 
-Driver architecture of one give OS does not matter for the bindings.
+Pulled now.  Thanks.
 
-Best regards,
-Krzysztof
 
+Takashi

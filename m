@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF9EC7868F2
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E33EF7868F0
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:53:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 523E4846;
-	Thu, 24 Aug 2023 09:52:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 523E4846
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7850847;
+	Thu, 24 Aug 2023 09:52:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7850847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692863620;
-	bh=3f0i9oJ+WRKyv779SX3uruagHBLb5v1gBMDkGKsKl5M=;
+	s=default; t=1692863585;
+	bh=xPCT3NsNRbLOG+AW+xJoq7xOPilqnCoUb+vLICWfNnA=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=psSqrKVHnHAPQMrHEd1Skb2/FUpfo2ZuvaviUIaAxxo1RdoJ4/uCqubQiqbtlgkzn
-	 y8vYahl07w7vfrDWzzmIWEbeglPQaAi7RKcanuhezyNzEGiwMCv/mNOIkEQyCuwuv7
-	 YMNiIjzSW2F7hu1b4p6DPDLmHWDuvVEpE+EBVp2M=
+	b=qI53Bs4p/bWDN+tRkip1jv6DAoSWied00htOpBqwPnDf0y6JrImdXo+SK0orOqYAV
+	 mw8kQK8YSqORU1DyEu4ZakKAyN/EWTH/5mvG3nVDPefMML52R24JiCCUqvYin4+FTr
+	 l9JMi9Lj270WXWBFyPicB9LiarrQh0Ne32pxiwgw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B65AF805A9; Thu, 24 Aug 2023 09:51:29 +0200 (CEST)
+	id A1F12F80571; Thu, 24 Aug 2023 09:51:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFD9DF805A1;
-	Thu, 24 Aug 2023 09:51:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19CC4F80563;
+	Thu, 24 Aug 2023 09:51:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6EA5F80536; Thu, 24 Aug 2023 09:51:19 +0200 (CEST)
+	id A548AF8023B; Thu, 24 Aug 2023 09:51:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,65 +37,64 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED978F80158
+	by alsa1.perex.cz (Postfix) with ESMTPS id E813FF800AE
 	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 09:51:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED978F80158
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E813FF800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=BNIow5JS;
+ header.s=susede2_rsa header.b=SBAmdKt1;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=qaIzCqN3
+ header.s=susede2_ed25519 header.b=BE0CRwJG
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E36F520EC4;
-	Thu, 24 Aug 2023 07:51:10 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0FC8720EC5;
+	Thu, 24 Aug 2023 07:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1692863470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1692863471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1GIojMTy4LRngrr08IOpIav6TbdbIHToJexf9X20rPQ=;
-	b=BNIow5JSDgfh4lfvFhv7LFLpDRNCE0EZxrndbKl8ET+S8A9Fs8yUTXjsSYT+GwjPXQuv/R
-	Mhi8TCtwA/l9zxUVdwbv7eQ8Ep0CToNNyYz9Wmkul7RZQs88xkKukfBxLDBl3M/mNEpDss
-	HAr+Xd85BXQ8d97ZbpnkvpPevGh4qms=
+	bh=/OLEz+UIgu3tdvoZt/9/0eiI2AmbXCKSCzElLZ71oE8=;
+	b=SBAmdKt1IsUbbbEzw8ilBc9l4X6Cyn021T43xODU5oAJbnous3q8t5ZhBxFsyE478QBSgg
+	71xaTMxW6aQL9ilEfU4PJ0qDpMeJg9CvfN7LYbBR54czJNvo5LLMwl96lpjEtnLBPcWdjI
+	tH2zJXiBPxc4RTJIAKeq37r/2ur8WE0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692863470;
+	s=susede2_ed25519; t=1692863471;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1GIojMTy4LRngrr08IOpIav6TbdbIHToJexf9X20rPQ=;
-	b=qaIzCqN3UpXmaCnNe8JQ7GPO3x5rUUVhTzSPajRg9m8LClaMsMhplN4i0cnQ8qyJFR7v4I
-	AUjkUmlLLpwfrjAQ==
+	bh=/OLEz+UIgu3tdvoZt/9/0eiI2AmbXCKSCzElLZ71oE8=;
+	b=BE0CRwJGIZEQlq0Ri6HZKcm1XGbOjuN80F9W6PSQ98Yy9BvsBzvYPlKS/xTeuAQg2clFdr
+	NRHpksAxpp0piJBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C82B8139BC;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E6AA3139BC;
 	Thu, 24 Aug 2023 07:51:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id kP7/L+4L52TtLAAAMHmgww
+	id iCF+N+4L52TtLAAAMHmgww
 	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 07:51:10 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/4] ALSA: usb-audio: Attach legacy rawmidi after probing all
- UMP EPs
-Date: Thu, 24 Aug 2023 09:51:05 +0200
-Message-Id: <20230824075108.29958-2-tiwai@suse.de>
+Subject: [PATCH 2/4] ALSA: ump: Fill group names for legacy rawmidi substreams
+Date: Thu, 24 Aug 2023 09:51:06 +0200
+Message-Id: <20230824075108.29958-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230824075108.29958-1-tiwai@suse.de>
 References: <20230824075108.29958-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SCM5F2HVHOVFN7GL55QMBFJ64TVLJATL
-X-Message-ID-Hash: SCM5F2HVHOVFN7GL55QMBFJ64TVLJATL
+Message-ID-Hash: PWEBJ56GSCMQ5YICNB4J2IRVP25PW33F
+X-Message-ID-Hash: PWEBJ56GSCMQ5YICNB4J2IRVP25PW33F
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SCM5F2HVHOVFN7GL55QMBFJ64TVLJATL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PWEBJ56GSCMQ5YICNB4J2IRVP25PW33F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,73 +116,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The legacy rawmidi devices are the shadows of the main UMP devices,
-hence it's better to initialize them after all UMP Endpoints are
-parsed.  Then, at the moment the legacy rawmidi is created, we already
-know the static flag or the proper EP name string, and we can fill
-those information at UMP core side instead of fiddling the attributes
-at a later point.
+To make it clearer which legacy substream corresponds to which UMP
+group, fill the subname field of each substream object with the group
+number and the endpoint name, e.g. "Group 1 (My Device)".
 
-Fixes: ec362b63c4b5 ("ALSA: usb-audio: Enable the legacy raw MIDI support")
+Ideally speaking, we should have some better link information to the
+derived UMP, but it's another feature extension.
+
+Fixes: 0b5288f5fe63 ("ALSA: ump: Add legacy raw MIDI support")
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/ump.c  |  2 ++
- sound/usb/midi2.c | 15 ++++++++-------
- 2 files changed, 10 insertions(+), 7 deletions(-)
+ sound/core/ump.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/sound/core/ump.c b/sound/core/ump.c
-index 246348766ec1..2cffd3686339 100644
+index 2cffd3686339..beb439f25b09 100644
 --- a/sound/core/ump.c
 +++ b/sound/core/ump.c
-@@ -1150,6 +1150,8 @@ int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
- 	if (output)
- 		snd_rawmidi_set_ops(rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT,
- 				    &snd_ump_legacy_output_ops);
-+	snprintf(rmidi->name, sizeof(rmidi->name), "%s (MIDI 1.0)",
-+		 ump->info.name);
- 	rmidi->info_flags = ump->core.info_flags & ~SNDRV_RAWMIDI_INFO_UMP;
+@@ -1123,6 +1123,16 @@ static void process_legacy_input(struct snd_ump_endpoint *ump, const u32 *src,
+ 	spin_unlock_irqrestore(&ump->legacy_locks[dir], flags);
+ }
+ 
++static void fill_substream_names(struct snd_ump_endpoint *ump,
++				 struct snd_rawmidi *rmidi, int dir)
++{
++	struct snd_rawmidi_substream *s;
++
++	list_for_each_entry(s, &rmidi->streams[dir].substreams, list)
++		snprintf(s->name, sizeof(s->name), "Group %d (%s)",
++			 s->number + 1, ump->info.name);
++}
++
+ int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
+ 				  char *id, int device)
+ {
+@@ -1156,6 +1166,11 @@ int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
  	rmidi->ops = &snd_ump_legacy_ops;
  	rmidi->private_data = ump;
-diff --git a/sound/usb/midi2.c b/sound/usb/midi2.c
-index ee2835741479..a27e244650c8 100644
---- a/sound/usb/midi2.c
-+++ b/sound/usb/midi2.c
-@@ -990,7 +990,7 @@ static int parse_midi_2_0(struct snd_usb_midi2_interface *umidi)
- 		}
- 	}
- 
--	return attach_legacy_rawmidi(umidi);
-+	return 0;
- }
- 
- /* is the given interface for MIDI 2.0? */
-@@ -1059,12 +1059,6 @@ static void set_fallback_rawmidi_names(struct snd_usb_midi2_interface *umidi)
- 			usb_string(dev, dev->descriptor.iSerialNumber,
- 				   ump->info.product_id,
- 				   sizeof(ump->info.product_id));
--#if IS_ENABLED(CONFIG_SND_UMP_LEGACY_RAWMIDI)
--		if (ump->legacy_rmidi && !*ump->legacy_rmidi->name)
--			snprintf(ump->legacy_rmidi->name,
--				 sizeof(ump->legacy_rmidi->name),
--				 "%s (MIDI 1.0)", ump->info.name);
--#endif
- 	}
- }
- 
-@@ -1157,6 +1151,13 @@ int snd_usb_midi_v2_create(struct snd_usb_audio *chip,
- 	}
- 
- 	set_fallback_rawmidi_names(umidi);
+ 	ump->legacy_rmidi = rmidi;
++	if (input)
++		fill_substream_names(ump, rmidi, SNDRV_RAWMIDI_STREAM_INPUT);
++	if (output)
++		fill_substream_names(ump, rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT);
 +
-+	err = attach_legacy_rawmidi(umidi);
-+	if (err < 0) {
-+		usb_audio_err(chip, "Failed to create legacy rawmidi\n");
-+		goto error;
-+	}
-+
+ 	ump_dbg(ump, "Created a legacy rawmidi #%d (%s)\n", device, id);
  	return 0;
- 
-  error:
+ }
 -- 
 2.35.3
 

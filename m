@@ -2,129 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAEB278765B
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 19:04:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76840787710
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 19:27:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C57483E;
-	Thu, 24 Aug 2023 19:03:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C57483E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AD8E83E;
+	Thu, 24 Aug 2023 19:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AD8E83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692896673;
-	bh=eOrRgL+gC5rVCb76+XEhEPxJW9ocNIO3gqfMDf0qE5A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ed9k031l2qjg54eBULxY9JGIqWCFzEYUDO1E6R/IsfGGz/3HG7Y4EEXfdNXgDedio
-	 Qr2ZqNCROfBX+LINv9RFeEqnNEAay+y7/5nkcNv8YnXgawSXqPLIp40MWbgTkauuaA
-	 OjaZuCLenpYPHa/4a3J+D3nWlgTWL3RlD6FTETAM=
+	s=default; t=1692898019;
+	bh=OB0dLZiCVs1F2iF75bsCw77FNSnStN3LgEA4GNTdOBs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=YxasumLwDpavO7FaRBYoVt29tDPKkKJrf2uLQ89TpXfVdNKZVzY3w5CdDwH0iStl1
+	 R+QDb50tN1qRmlKHZPkBQq6P4umpj/QwvkbI2o5nb9gVecNR/aj+WhBjJaJ9QvihOt
+	 P9lKh8a6Atfl6Bi4UHMl1A5CPhpTO6W//xOmEc5g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17B82F800F5; Thu, 24 Aug 2023 19:03:21 +0200 (CEST)
+	id 91509F804DA; Thu, 24 Aug 2023 19:26:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D7ABF800BF;
-	Thu, 24 Aug 2023 19:03:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0364F800F5;
+	Thu, 24 Aug 2023 19:26:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1BDDEF80158; Thu, 24 Aug 2023 19:03:19 +0200 (CEST)
+	id 73AFFF80158; Thu, 24 Aug 2023 19:26:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 27799F800BF
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 19:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27799F800BF
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=WrjeBYzE;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=P0cx/Wiw
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9112622088;
-	Thu, 24 Aug 2023 17:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692896590;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jrAG7m96VPC1mkTaluLxh7W982yxT13Stt9OhGrTnBs=;
-	b=WrjeBYzEG/Pn5m6AeyEiknOSIMqtAdDqClNOS/3SjpN58WUjMFzLtjWQPgshHDcl79tLiI
-	pxGoPHEF3b0DYnskNcEh8VSmQw6Xa2qWdmmlc4u5l1QWP7QDLGB92Bk0sKT8MxcMJxZcIx
-	44n9rZ7Dpuf3fD+u1C6AVuwrd/5ldKo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692896590;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jrAG7m96VPC1mkTaluLxh7W982yxT13Stt9OhGrTnBs=;
-	b=P0cx/WiwaKOXPVf85RzezDUPaF9gG2B68rMGFZe+R6tSPL2WBYVwB1RO8q432Pfsjn6t3C
-	sMP+sAcwlmMjXFDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2AAA11336F;
-	Thu, 24 Aug 2023 17:03:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 7QA8CU6N52Q8bgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 17:03:10 +0000
-Date: Thu, 24 Aug 2023 19:03:09 +0200
-Message-ID: <87wmxk8jaq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	sakari.ailus@iki.fi,
-	tfiga@chromium.org,
-	m.szyprowski@samsung.com,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [RFC PATCH v2 0/7] Add audio support in v4l2 framework
-In-Reply-To: 
- <CAA+D8AN34-NVrgksRAG014PuHGUssTm0p-KR-HYGe+Pt8Yejxg@mail.gmail.com>
-References: <1690265540-25999-1-git-send-email-shengjiu.wang@nxp.com>
-	<47d66c28-1eb2-07f5-d6f9-779d675aefe8@xs4all.nl>
-	<87il9xu1ro.wl-tiwai@suse.de>
-	<CAA+D8ANmBKMp_L2GS=Lp-saMQKja6L4E6No3yP-e=a5YQBD_jQ@mail.gmail.com>
-	<87il9xoddo.wl-tiwai@suse.de>
-	<CAA+D8AOVEpGxO0YNeS1p+Ym86k6VP-CNQB3JmbeT7mPKg0R99A@mail.gmail.com>
-	<844ef9b6-d5e2-46a9-b7a5-7ee86a2e449c@sirena.org.uk>
-	<CAA+D8AOnsx+7t3MrWm42waxtetL07nbKURLsh1hBx39LUDm+Zg@mail.gmail.com>
-	<CAA+D8AMriHO60SD2OqQSDMmi7wm=0MkoW6faR5nyve-j2Q5AEQ@mail.gmail.com>
-	<CAA+D8AN34-NVrgksRAG014PuHGUssTm0p-KR-HYGe+Pt8Yejxg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PNV3PJB65SOQSBQOAADDHOOE7WTAUHFB
-X-Message-ID-Hash: PNV3PJB65SOQSBQOAADDHOOE7WTAUHFB
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C6C5F800AE
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 19:25:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C6C5F800AE
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1692897957308318377-webhooks-bot@alsa-project.org>
+References: <1692897957308318377-webhooks-bot@alsa-project.org>
+Subject: TOSLINK output on Asus Strix B650E-I GAMING WIFI
+Message-Id: <20230824172603.73AFFF80158@alsa1.perex.cz>
+Date: Thu, 24 Aug 2023 19:26:03 +0200 (CEST)
+Message-ID-Hash: YBDSQBMUPZL6JUSBW2A2C2PBCJ7YKCK2
+X-Message-ID-Hash: YBDSQBMUPZL6JUSBW2A2C2PBCJ7YKCK2
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PNV3PJB65SOQSBQOAADDHOOE7WTAUHFB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBDSQBMUPZL6JUSBW2A2C2PBCJ7YKCK2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,97 +69,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 23 Aug 2023 16:33:19 +0200,
-Shengjiu Wang wrote:
-> 
-> On Fri, Aug 11, 2023 at 7:05 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
-> >
-> > Hi Mark, Takashi
-> >
-> > On Thu, Aug 3, 2023 at 9:11 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
-> > >
-> > > On Thu, Aug 3, 2023 at 1:28 AM Mark Brown <broonie@kernel.org> wrote:
-> > > >
-> > > > On Wed, Aug 02, 2023 at 10:41:43PM +0800, Shengjiu Wang wrote:
-> > > >
-> > > > > Currently the ASRC in ALSA is to connect to another I2S device as
-> > > > > a sound card.  But we'd like to the ASRC can be used by user space directly
-> > > > > that user space application can get the output after conversion from ASRC.
-> > > >
-> > > > That sort of use case would be handled via DPCM at the minute, though
-> > > > persuading it to connect two front ends together might be fun (which is
-> > > > the sort of reason why we want to push digital information down into
-> > > > DAPM and make everything a component).
-> > >
-> > > Thanks.
-> > >
-> > > ASRC M2M case needs to run as fast as possible, no sync clock control.
-> > > If use sound card to handle ASRC M2M case,  the user application
-> > > should be aplay/arecord, then we need to consider xrun issue, buffer
-> > > may timeout, sync between aplay and arecord,  these should't be
-> > > considered by pure memory to memory operation.
-> > >
-> > > DPCM may achitect all the audio things in components and sound
-> > > card,  it is good. but for the M2M case, it is complcated. not sure
-> > > it is doable.
-> > >
-> >
-> > Beside the concern in previous mail,
-> >
-> > DPCM needs to separate ASRC to be two substreams (playback and capture).
-> >
-> > But the ASRC needs the sample rate & format of input and output first
-> > then start conversion.
-> >
-> > If the playback controls the rate & format of input,  capture substream
-> > controls the rate & format of output,  as a result
-> > one substream needs to get information(dma buffer address, size...
-> > rate, format) from another substream, then start both substreams in the
-> > last substream. How to synchronize these two substreams is a problem.
-> > One stream can be released but another stream doesn't know .
-> >
-> > So I don't think it is a good idea to use DPCM for pure M2M case.
-> >
-> > So can I persuade you to consider the V4L2 solution?
-> >
-> 
-> Just a summary:
-> 
-> Basic M2M conversion can work with DPCM, I have tried with some
-> workaround to make it work.
-> 
-> But there are several issues:
-> 1. Need to create sound cards.  ASRC module support multi instances, then
-> need to create multi sound cards for each instance.
+alsa-project/alsa-ucm-conf issue #342 was opened from nakedape69:
 
-Hm, why can't it be multiple PCM instances instead?
+UCM seems to set the wrong device for digital output to TOSLINK (optical S/PDIF) on this card. It sets SpdifPCM "hw:${CardId},3" which renders no sound at all.
+Changing it to SpdifPCM "hw:${CardId},2" makes it work.
 
-> 2. The ASRC is an entirety but with DPCM we need to separate input port and
-> output port to playback substream and capture stream. Synchronous between
-> playback substream and capture substream is a problem.
-> How to start them and stop them at the same time.
+alsa-info output attached:
 
-This could be done by enforcing the full duplex and linking the both
-PCM streams, I suppose.
+[alsa-info.txt](https://github.com/alsa-project/alsa-ucm-conf/files/12431959/alsa-info.txt)
 
-> 3. How to handle the xrun issue. pause or resume. which are brought by ALSA.
-
-Doesn't V4L2 handle the overrun/underrun at all?  Also, no resume
-support?
-
-Pause and resume are optional in ALSA frame work, you don't need to
-implement them unless you want/need.
-
-> So shall we make the decision that we can go to the V4L2 solution?
-
-Honestly speaking, I don't mind much whether it's implemented in V2L4
-or not -- at least for the kernel part, we can reorganize / refactor
-things internally.  But, the biggest remaining question to me is
-whether this user-space interface is the most suitable one.  Is it
-well defined, usable and maintained for the audio applications?  Or
-is it meant to be a stop-gap for a specific use case?
-
-
-thanks,
-
-Takashi
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/342
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

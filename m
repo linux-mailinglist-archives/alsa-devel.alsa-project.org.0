@@ -2,90 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD529787B3F
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 00:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D51C0787B8F
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 00:38:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B044683B;
-	Fri, 25 Aug 2023 00:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B044683B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E570836;
+	Fri, 25 Aug 2023 00:37:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E570836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692915090;
-	bh=tFnLCN2g4gf0OOoduH7LW9BJfU0IRcutqh/CyLEhwnY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ifjZvkGUsOSm8LSJqvvnLL8zxukk4mpfvYEZkN2sgMVeySQUYftU1DczZpRiRLWVo
-	 eze1GNHUwCxM6T01qAYj5ml2IejGuxpV9jUYD/yqJ4qMkqVmfvOHO8ciXnughX2A4A
-	 fdreY1YnkGitVdsbur1snt0K8/1UkBcn6XbK1AHM=
+	s=default; t=1692916720;
+	bh=qfO43KuY9H4FZIv5b2C4WjeQJ8C9kmFK9DgPZV/NQD8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nhVQ2+GpSMlBOOeHtKtA+WONCtDYU3QTQD6yiC4sJAjFErBeBYuLnIu9WXcndu2mW
+	 DyA/9yiry4t3CZOVOY/QM4FUktZueCo2vzvT8IVFxgR40aH+y4Utajsbi6HVy6MZe0
+	 3MgrgMCECuv7V8ErwiLmX8oRnO++YtdBxKVVV4qo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 241EDF805E1; Fri, 25 Aug 2023 00:10:39 +0200 (CEST)
+	id 010FBF804DA; Thu, 24 Aug 2023 23:19:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D517F805D9;
-	Fri, 25 Aug 2023 00:10:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D8B4F800F5;
+	Thu, 24 Aug 2023 23:19:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65854F805DA; Fri, 25 Aug 2023 00:10:35 +0200 (CEST)
+	id D4288F80158; Thu, 24 Aug 2023 23:19:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4912F805C9
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 00:10:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4912F805C9
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1qZIWz-0001X5-8H; Fri, 25 Aug 2023 00:10:21 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1qZIWx-001NPr-Lx; Fri, 25 Aug 2023 00:10:19 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1qZIWx-00FrXF-1i; Fri, 25 Aug 2023 00:10:19 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Shenghao Ding <shenghao-ding@ti.com>,
-	alsa-devel@alsa-project.org,
-	kernel@pengutronix.de
-Subject: [PATCH] ALSA: hda/tas2781: Switch back to use struct i2c_driver's
- .probe()
-Date: Thu, 24 Aug 2023 22:02:19 +0200
-Message-Id: <20230824200219.9569-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.40.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74C1CF800BF
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 23:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74C1CF800BF
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=T72ehi/8
+Received: from [192.168.1.90] (unknown [81.18.92.207])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id D8B6D6607273;
+	Thu, 24 Aug 2023 22:19:36 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1692911977;
+	bh=qfO43KuY9H4FZIv5b2C4WjeQJ8C9kmFK9DgPZV/NQD8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=T72ehi/8b7imqbsQe/GvyYm6S0FEWEJuHY/frQC5n0Q3vL2qZ3w0Lvw7nJnvxh8aJ
+	 dFsTuWStzmmMDPGOsfVyk/ORGDsfgN0+Q3susU7avvBRP5kuj+W8lwsRCXXkMVh28r
+	 q8L5q2X35Xt1Dyt1fdzY7qQUFRiAi1QzwLiX/QanzM4WwQSGI5c5Bd1eU+b8IjoLgk
+	 1VA4KvsqUOLYF7ZTEs+JSqIxH41IDMJ2hTgaJn3XwHaIMcl9QMBmykKSkf5HMP+HzT
+	 2QbLQeKJ17ipR5urei0Ya69IvC0rep7YwfGktfWGi3CyT75s82lW0if9FiqwXswwU6
+	 4pMvpqehKLO7w==
+Message-ID: <405e420d-ba17-4a20-9cec-11e821b73bbf@collabora.com>
+Date: Fri, 25 Aug 2023 00:19:34 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: soc-core.c: Do not error if a DAI link component is
+ not found
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+References: <20230824193837.369761-1-cristian.ciocaltea@collabora.com>
+ <ZOe36EyxNQuz08qt@finisterre.sirena.org.uk>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <ZOe36EyxNQuz08qt@finisterre.sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1052;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=tFnLCN2g4gf0OOoduH7LW9BJfU0IRcutqh/CyLEhwnY=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBk57dKU47UARpABHuWxLefr6+98gJj7/5IYuzEY
- mb2mtGlv1yJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZOe3SgAKCRCPgPtYfRL+
- TljECACaRS59S7MizMp8pOQTs3sqzgBnt7Ye1+mg7VHxzZaye1pjWFF2rbvCLREJidapfeOF2qp
- wEXMqZ8+nZI9pSV35LJvMvgY3yhx+gZCXMPbIVxsqrmxjLMF1E/8ugvaX83AMT6PnKXZdYbd0ol
- mSsCVUkuD6wJb1ER5Znq7cO1M8BcJ/ouoYIvkklPFLg8kJ2kuyIhWmCbPOooyAwt8h18AJ6ucMB
- g4GKk3hDUJoowu1n5pR8s0u5PulS4ou+h8qOajajwzgUPff6U/JJqebXjIxPo2yx/evONDy7vQX
- K32SqbcLf2G2GNgXIvg7hZ2U0MoXLizs/GAykAu6AN5uBV1J
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: LPKUI5SXFUS746LH47SP3A56BKNLX7N5
-X-Message-ID-Hash: LPKUI5SXFUS746LH47SP3A56BKNLX7N5
-X-MailFrom: ukl@pengutronix.de
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: YWXNVTZKXNQZ7YN5IWMCSAFL5BAJ3OWT
+X-Message-ID-Hash: YWXNVTZKXNQZ7YN5IWMCSAFL5BAJ3OWT
+X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LPKUI5SXFUS746LH47SP3A56BKNLX7N5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YWXNVTZKXNQZ7YN5IWMCSAFL5BAJ3OWT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,38 +104,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-struct i2c_driver::probe_new is about to go away. Switch the driver to
-use the probe callback with the same prototype.
+On 8/24/23 23:04, Mark Brown wrote:
+> On Thu, Aug 24, 2023 at 10:38:37PM +0300, Cristian Ciocaltea wrote:
+>> A recent cleanup of soc_dai_link_sanity_check() is responsible for
+>> generating lots of confusing errors before returning -EPROBE_DEFER:
+>>
+>>   acp5x_mach acp5x_mach.0: ASoC: Component acp5x_i2s_dma.0 not found for link acp5x-8821-play
+>>   [...]
+>>   acp5x_mach acp5x_mach.0: ASoC: Component spi-VLV1776:00 not found for link acp5x-CS35L41-Stereo
+>>   [...]
+>>   acp5x_mach acp5x_mach.0: ASoC: Component spi-VLV1776:01 not found for link acp5x-CS35L41-Stereo
+>>
+>> Switch back to the initial behaviour of logging those messages on
+>> KERN_DEBUG level instead of KERN_ERR.
+>>
+>> While at it, use the correct form of the verb in 'component_not_find'
+>> label.
+> 
+> Don't include random extra stuff in patches unless there is substantial
+> overlap, send one change per patch.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
-Hello,
+I submitted v2 with the unrelated changes moved to a separate patch:
 
-this driver was introduced in next-20230821. As I plan to drop
-.probe_new in next after v6.6-rc1, it would be great if this patch made
-it in until then, too.
+https://lore.kernel.org/all/20230824211241.388201-1-cristian.ciocaltea@collabora.com/
 
-Thanks
-Uwe
-
- sound/pci/hda/tas2781_hda_i2c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index 35dafc4aec4f..cf62a87563ea 100644
---- a/sound/pci/hda/tas2781_hda_i2c.c
-+++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -847,7 +847,7 @@ static struct i2c_driver tas2781_hda_i2c_driver = {
- 		.pm		= &tas2781_hda_pm_ops,
- 	},
- 	.id_table	= tas2781_hda_i2c_id,
--	.probe_new	= tas2781_hda_i2c_probe,
-+	.probe		= tas2781_hda_i2c_probe,
- 	.remove		= tas2781_hda_i2c_remove,
- };
- module_i2c_driver(tas2781_hda_i2c_driver);
-
-base-commit: 5be27f1e3ec98975c18a91e220d4847d0dec9671
--- 
-2.40.1
-
+Thanks,
+Cristian

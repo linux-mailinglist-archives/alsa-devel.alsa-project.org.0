@@ -2,130 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44BC9786D01
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 12:43:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8984F787360
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 17:03:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3F4684C;
-	Thu, 24 Aug 2023 12:43:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3F4684C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FA52839;
+	Thu, 24 Aug 2023 17:02:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FA52839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692873834;
-	bh=SofNe15IG57RmLRjhtksUUuXovCfc3Dnk+ynvCjrtLw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1692889391;
+	bh=OBkteYt0JXyOMdsIfH3Na7vHO4xJ1fnzFcg7gVFePTM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XojGYl8p8e7BZxbxOR8B6jaIgmq7zkfA4ufn+rogvcAGVCQ+vlGHS85T6u41f39aT
-	 PUaH9gVKwcM0feWtN2keIKY/OTuCaghD3RcGV+CTdFyAy5vTg8N6lEvTVyPmTEBoml
-	 n80VNDzaPpXjsSEScM3f9KADQ6D/6qgUD8EicaoU=
+	b=UxtCLP22TMoezt96t9y5w+DR5/vYaWkwVEm8Q4WFwFzHZYX8bdTP7rHT32aSosDQM
+	 bmcIqubfuctO4tcpGf9hjmz/7QZy4G837VcbW+sQr19cGAgWzGXg1Estx292xoqgTF
+	 pDkvjZ/VPFK3JdLjhnnJ4zsqk8UHKT/WAPXIE/cs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19A2EF8023B; Thu, 24 Aug 2023 12:43:03 +0200 (CEST)
+	id 2A442F800F5; Thu, 24 Aug 2023 17:02:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8533AF800F5;
-	Thu, 24 Aug 2023 12:43:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 930BFF800F5;
+	Thu, 24 Aug 2023 17:02:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6AB3CF80158; Thu, 24 Aug 2023 12:43:00 +0200 (CEST)
+	id BD561F80158; Thu, 24 Aug 2023 17:01:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 27EFFF800AE
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 12:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27EFFF800AE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QNewJ2pT
-Received: by mail-yb1-xb2a.google.com with SMTP id
- 3f1490d57ef6-d650a22abd7so6436826276.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 24 Aug 2023 03:42:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1692873764; x=1693478564;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=aDlMWNf/vODD+RQT0rpi9kqt2U9mk9aSWmJLAT3BqE8=;
-        b=QNewJ2pTOkeIIepEiGFW7lqGQC+Q1/Wbb0BEi4IYS+Ud4hH4f1uMsufe+bQXpCsXCL
-         2HCJU7oCPyMpqK5oQcp7aD2G7qQuF4xafAjBwzIpfE5d557F7p3vKIbMJKBWThMKpHj4
-         NZHpYsTBFjSYDJZbW2p/xM0GJIrfGe53HkIKCtd0DPXiJ0J/v2TgWMjRu3CMwXujPDO+
-         tU1goPFbO+y/eqlR1jgngwfBgzgCWWBXZVwu7nibJg35n4SwIilhUtIUSFzFqLZP8PU+
-         KTY9Dx4AVMlVszzpRHngU8inwAxcPywzOOYKSR6KAIw37/Jv/7+9qQThAFn6+pKhXYXO
-         dpuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692873764; x=1693478564;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=aDlMWNf/vODD+RQT0rpi9kqt2U9mk9aSWmJLAT3BqE8=;
-        b=D8tCOyvDq8P57aMG/7n05ZtDaWI7N51/VAsUMpXPBEarXRgYTzWva2eYwfw6cJik+v
-         hn8mMFdpVXIsyW00KVD45kcGgfNIyrqK8Sndmf1Ol+H8GuhNqaH1AFtAMQLkbuSxq+mn
-         VwMQmnMKN28p0PYooTAoUap+eLOU0WbexLNj6BuIu9m6a1414gxeSZ5SgbEnNaR+Q/qc
-         L04ldzHkKbLIlq4JK8MBiqEosDwTVgno7w3cQMLI7FXnVu35Ch0Qy7hOiQkh8VMv4RjO
-         THakr1RzwHPnY+tGYFCmwiaA1QZkpZZoKQ4XExNhH7/OGzEi9233gp87+tFHAT6lbwb4
-         9jzg==
-X-Gm-Message-State: AOJu0YwZ116a22aJJEakS3N6p0P1VCRTeuVAtbXEIUsVkDQXhrwYKfyM
-	upsg6zIONNMYI19MZgE+hYCmsh1z4aGMmGuqK3URlg==
-X-Google-Smtp-Source: 
- AGHT+IEIXLhw5bo5bsGb/3opO8foHPO+W2aIP0/cojJpL/H69RT1xWT/6vPQ/4VWKJ5uBi/q3NwqnYQxV/Eo8tyasus=
-X-Received: by 2002:a25:5588:0:b0:d78:a0d:6d99 with SMTP id
- j130-20020a255588000000b00d780a0d6d99mr838783ybb.6.1692873763548; Thu, 24 Aug
- 2023 03:42:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230823183749.2609013-1-robh@kernel.org>
-In-Reply-To: <20230823183749.2609013-1-robh@kernel.org>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 24 Aug 2023 12:42:07 +0200
-Message-ID: 
- <CAPDyKFqExoA8--A-xHdiAkwz70iz-3VuwkvmiJgCDz1zmGPOCw@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Drop remaining unneeded quotes
+	by alsa1.perex.cz (Postfix) with ESMTPS id BB974F800AE
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 17:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB974F800AE
+Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.201])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4RWmQ50xfGz6J7kR;
+	Thu, 24 Aug 2023 22:57:01 +0800 (CST)
+Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
+ (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Thu, 24 Aug
+ 2023 16:01:11 +0100
+Date: Thu, 24 Aug 2023 16:01:10 +0100
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 To: Rob Herring <robh@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@linaro.org>,
-	James Clark <james.clark@arm.com>, Leo Yan <leo.yan@linaro.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>,
-	Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
-	Emil Renner Berthing <kernel@esmil.dk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Corey Minyard <minyard@acm.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
-	M ark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
-	Bart Van Assche <bvanassche@acm.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, alsa-devel@alsa-project.org,
-	linux-scsi@vger.kernel.org, linux-watchdog@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: NNM35OGJT773OV7KSYESR4SYMHC4QEEN
-X-Message-ID-Hash: NNM35OGJT773OV7KSYESR4SYMHC4QEEN
-X-MailFrom: ulf.hansson@linaro.org
+CC: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+	<mike.leach@linaro.org>, James Clark <james.clark@arm.com>, Leo Yan
+	<leo.yan@linaro.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Bartosz Golaszewski <brgl@bgdev.pl>, "Andy
+ Shevchenko" <andy@kernel.org>, Chen-Yu Tsai <wens@csie.org>, Jean Delvare
+	<jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>, "Emil Renner
+ Berthing" <kernel@esmil.dk>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>, Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Corey Minyard <minyard@acm.org>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Thomas Bogendoerfer
+	<tsbogend@alpha.franken.de>, Ulf Hansson <ulf.hansson@linaro.org>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+	<magnus.damm@gmail.com>, M ark Brown <broonie@kernel.org>, Thierry Reding
+	<thierry.reding@gmail.com>, Bart Van Assche <bvanassche@acm.org>, "Wim Van
+ Sebroeck" <wim@linux-watchdog.org>, Mathieu Poirier
+	<mathieu.poirier@linaro.org>, Anshuman Khandual <anshuman.khandual@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, <coresight@lists.linaro.org>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
+	<linux-i3c@lists.infradead.org>, <linux-iio@vger.kernel.org>,
+	<openipmi-developer@lists.sourceforge.net>, <linux-media@vger.kernel.org>,
+	<linux-mips@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+	<linux-mtd@lists.infradead.org>, <alsa-devel@alsa-project.org>,
+	<linux-scsi@vger.kernel.org>, <linux-watchdog@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: Drop remaining unneeded quotes
+Message-ID: <20230824160110.00002272@Huawei.com>
+In-Reply-To: <20230823183749.2609013-1-robh@kernel.org>
+References: <20230823183749.2609013-1-robh@kernel.org>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.202.227.76]
+X-ClientProxiedBy: lhrpeml500005.china.huawei.com (7.191.163.240) To
+ lhrpeml500005.china.huawei.com (7.191.163.240)
+X-CFilter-Loop: Reflected
+Message-ID-Hash: 6RSJYWJ3O66HV5RLDLPWL27YE2VZPURE
+X-Message-ID-Hash: 6RSJYWJ3O66HV5RLDLPWL27YE2VZPURE
+X-MailFrom: jonathan.cameron@huawei.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -137,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NNM35OGJT773OV7KSYESR4SYMHC4QEEN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RSJYWJ3O66HV5RLDLPWL27YE2VZPURE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,17 +113,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 23 Aug 2023 at 20:38, Rob Herring <robh@kernel.org> wrote:
->
+On Wed, 23 Aug 2023 13:28:47 -0500
+Rob Herring <robh@kernel.org> wrote:
+
 > Cleanup bindings dropping the last remaining unneeded quotes. With this,
 > the check for this can be enabled in yamllint.
->
+> 
 > Signed-off-by: Rob Herring <robh@kernel.org>
+For IIO
 
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org> # For MMC
-
-Kind regards
-Uffe
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
 > ---
 >  .../bindings/arm/arm,embedded-trace-extension.yaml   |  4 ++--
@@ -200,7 +166,7 @@ Uffe
 >  .../devicetree/bindings/ufs/ufs-common.yaml          |  2 +-
 >  .../bindings/watchdog/toshiba,visconti-wdt.yaml      |  4 ++--
 >  40 files changed, 88 insertions(+), 87 deletions(-)
->
+> 
 > diff --git a/Documentation/devicetree/bindings/arm/arm,embedded-trace-extension.yaml b/Documentation/devicetree/bindings/arm/arm,embedded-trace-extension.yaml
 > index 108460627d9a..a477a810f9e9 100644
 > --- a/Documentation/devicetree/bindings/arm/arm,embedded-trace-extension.yaml
@@ -213,9 +179,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/arm,embedded-trace-extension.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: ARM Embedded Trace Extensions
->
+>  
 > diff --git a/Documentation/devicetree/bindings/arm/arm,trace-buffer-extension.yaml b/Documentation/devicetree/bindings/arm/arm,trace-buffer-extension.yaml
 > index b1322658063a..8c27e510cb71 100644
 > --- a/Documentation/devicetree/bindings/arm/arm,trace-buffer-extension.yaml
@@ -228,11 +194,11 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/arm,trace-buffer-extension.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: ARM Trace Buffer Extensions
->
+>  
 > @@ -19,7 +19,8 @@ description: |
->
+>  
 >  properties:
 >    $nodename:
 > -    const: "trbe"
@@ -252,7 +218,7 @@ Uffe
 > -    $ref: '/schemas/simple-bus.yaml'
 > +    $ref: /schemas/simple-bus.yaml
 >      unevaluatedProperties: false
->
+>  
 >      properties:
 > diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed,sbc.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed,sbc.yaml
 > index c72aab706484..b8c5cacb09bd 100644
@@ -266,9 +232,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/aspeed/aspeed,sbc.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: ASPEED Secure Boot Controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/arm/firmware/tlm,trusted-foundations.yaml b/Documentation/devicetree/bindings/arm/firmware/tlm,trusted-foundations.yaml
 > index 9d1857c0aa07..e3980b659f63 100644
 > --- a/Documentation/devicetree/bindings/arm/firmware/tlm,trusted-foundations.yaml
@@ -281,9 +247,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/firmware/tlm,trusted-foundations.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Trusted Foundations
->
+>  
 > diff --git a/Documentation/devicetree/bindings/arm/mstar/mstar,l3bridge.yaml b/Documentation/devicetree/bindings/arm/mstar/mstar,l3bridge.yaml
 > index 6816bd68f9cf..a8ac4a2d672d 100644
 > --- a/Documentation/devicetree/bindings/arm/mstar/mstar,l3bridge.yaml
@@ -296,9 +262,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/mstar/mstar,l3bridge.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: MStar/SigmaStar Armv7 SoC l3bridge
->
+>  
 > diff --git a/Documentation/devicetree/bindings/arm/mstar/mstar,smpctrl.yaml b/Documentation/devicetree/bindings/arm/mstar/mstar,smpctrl.yaml
 > index 599c65980f5d..5739848000b1 100644
 > --- a/Documentation/devicetree/bindings/arm/mstar/mstar,smpctrl.yaml
@@ -311,9 +277,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/mstar/mstar,smpctrl.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: MStar/SigmaStar Armv7 SoC SMP control registers
->
+>  
 > diff --git a/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml b/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
 > index 2297ad3f4774..d2dce238ff5d 100644
 > --- a/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
@@ -326,9 +292,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/stm32/st,mlahb.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: STMicroelectronics STM32 ML-AHB interconnect
->
+>  
 > diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
 > index b63ff591ef8f..d083d8ad48b7 100644
 > --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
@@ -341,22 +307,22 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/arm/stm32/st,stm32-syscon.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: STMicroelectronics STM32 Platforms System Controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/connector/usb-connector.yaml b/Documentation/devicetree/bindings/connector/usb-connector.yaml
 > index 3ecb51f55a71..7c8a3e8430d3 100644
 > --- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
 > +++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
 > @@ -232,8 +232,8 @@ properties:
 >      type: boolean
->
+>  
 >  dependencies:
 > -  sink-vdos-v1: [ 'sink-vdos' ]
 > -  sink-vdos: [ 'sink-vdos-v1' ]
 > +  sink-vdos-v1: [ sink-vdos ]
 > +  sink-vdos: [ sink-vdos-v1 ]
->
+>  
 >  required:
 >    - compatible
 > diff --git a/Documentation/devicetree/bindings/eeprom/at24.yaml b/Documentation/devicetree/bindings/eeprom/at24.yaml
@@ -371,9 +337,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/eeprom/at24.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: I2C EEPROMs compatible with Atmel's AT24
->
+>  
 > diff --git a/Documentation/devicetree/bindings/eeprom/at25.yaml b/Documentation/devicetree/bindings/eeprom/at25.yaml
 > index 0e31bb36ebb1..1715b0c9feea 100644
 > --- a/Documentation/devicetree/bindings/eeprom/at25.yaml
@@ -386,9 +352,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/eeprom/at25.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: SPI EEPROMs or FRAMs compatible with Atmel's AT25
->
+>  
 > diff --git a/Documentation/devicetree/bindings/firmware/intel,ixp4xx-network-processing-engine.yaml b/Documentation/devicetree/bindings/firmware/intel,ixp4xx-network-processing-engine.yaml
 > index 9a785bbaafb7..e6bed7d93e2d 100644
 > --- a/Documentation/devicetree/bindings/firmware/intel,ixp4xx-network-processing-engine.yaml
@@ -401,9 +367,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/firmware/intel,ixp4xx-network-processing-engine.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Intel IXP4xx Network Processing Engine
->
+>  
 > diff --git a/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml b/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml
 > index 1638cfe90f1c..5eeb29bcdd21 100644
 > --- a/Documentation/devicetree/bindings/gpio/x-powers,axp209-gpio.yaml
@@ -416,9 +382,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/gpio/x-powers,axp209-gpio.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: X-Powers AXP209 GPIO
->
+>  
 > diff --git a/Documentation/devicetree/bindings/gpio/xlnx,zynqmp-gpio-modepin.yaml b/Documentation/devicetree/bindings/gpio/xlnx,zynqmp-gpio-modepin.yaml
 > index 18e61aff2185..56143f1fe84a 100644
 > --- a/Documentation/devicetree/bindings/gpio/xlnx,zynqmp-gpio-modepin.yaml
@@ -431,9 +397,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/gpio/xlnx,zynqmp-gpio-modepin.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: ZynqMP Mode Pin GPIO controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml b/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml
 > index a36aec27069c..59c79a6943ec 100644
 > --- a/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml
@@ -446,9 +412,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/gpio/xylon,logicvc-gpio.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Xylon LogiCVC GPIO controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/hwmon/iio-hwmon.yaml b/Documentation/devicetree/bindings/hwmon/iio-hwmon.yaml
 > index c54b5986b365..e5b24782f448 100644
 > --- a/Documentation/devicetree/bindings/hwmon/iio-hwmon.yaml
@@ -461,33 +427,33 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/hwmon/iio-hwmon.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: ADC-attached Hardware Sensor
->
+>  
 > diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jh71x0-temp.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jh71x0-temp.yaml
 > index f5b34528928d..733cba780186 100644
 > --- a/Documentation/devicetree/bindings/hwmon/starfive,jh71x0-temp.yaml
 > +++ b/Documentation/devicetree/bindings/hwmon/starfive,jh71x0-temp.yaml
 > @@ -27,8 +27,8 @@ properties:
->
+>  
 >    clock-names:
 >      items:
 > -      - const: "sense"
 > -      - const: "bus"
 > +      - const: sense
 > +      - const: bus
->
+>  
 >    '#thermal-sensor-cells':
 >      const: 0
 > @@ -39,8 +39,8 @@ properties:
->
+>  
 >    reset-names:
 >      items:
 > -      - const: "sense"
 > -      - const: "bus"
 > +      - const: sense
 > +      - const: bus
->
+>  
 >  required:
 >    - compatible
 > diff --git a/Documentation/devicetree/bindings/i3c/mipi-i3c-hci.yaml b/Documentation/devicetree/bindings/i3c/mipi-i3c-hci.yaml
@@ -502,9 +468,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/i3c/mipi-i3c-hci.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: MIPI I3C HCI
->
+>  
 > diff --git a/Documentation/devicetree/bindings/iio/accel/fsl,mma7455.yaml b/Documentation/devicetree/bindings/iio/accel/fsl,mma7455.yaml
 > index c8659c5eba2a..cb31e75ba680 100644
 > --- a/Documentation/devicetree/bindings/iio/accel/fsl,mma7455.yaml
@@ -517,7 +483,7 @@ Uffe
 > -        - "INT2"
 > +        - INT1
 > +        - INT2
->
+>  
 >  required:
 >    - compatible
 > diff --git a/Documentation/devicetree/bindings/iio/adc/atmel,sama9260-adc.yaml b/Documentation/devicetree/bindings/iio/adc/atmel,sama9260-adc.yaml
@@ -532,7 +498,7 @@ Uffe
 > -      - "highres"
 > +      - lowres
 > +      - highres
->
+>  
 >    atmel,adc-sleep-mode:
 >      $ref: /schemas/types.yaml#/definitions/flag
 > diff --git a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-kcs-bmc.yaml b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-kcs-bmc.yaml
@@ -541,7 +507,7 @@ Uffe
 > +++ b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-kcs-bmc.yaml
 > @@ -41,7 +41,7 @@ properties:
 >        - description: STR register
->
+>  
 >    aspeed,lpc-io-reg:
 > -    $ref: '/schemas/types.yaml#/definitions/uint32-array'
 > +    $ref: /schemas/types.yaml#/definitions/uint32-array
@@ -550,7 +516,7 @@ Uffe
 >      description: |
 > @@ -50,7 +50,7 @@ properties:
 >        status address may be optionally provided.
->
+>  
 >    aspeed,lpc-interrupts:
 > -    $ref: "/schemas/types.yaml#/definitions/uint32-array"
 > +    $ref: /schemas/types.yaml#/definitions/uint32-array
@@ -558,31 +524,31 @@ Uffe
 >      maxItems: 2
 >      description: |
 > @@ -63,12 +63,12 @@ properties:
->
+>  
 >    kcs_chan:
 >      deprecated: true
 > -    $ref: '/schemas/types.yaml#/definitions/uint32'
 > +    $ref: /schemas/types.yaml#/definitions/uint32
 >      description: The LPC channel number in the controller
->
+>  
 >    kcs_addr:
 >      deprecated: true
 > -    $ref: '/schemas/types.yaml#/definitions/uint32'
 > +    $ref: /schemas/types.yaml#/definitions/uint32
 >      description: The host CPU IO map address
->
+>  
 >  required:
 > diff --git a/Documentation/devicetree/bindings/ipmi/ipmi-ipmb.yaml b/Documentation/devicetree/bindings/ipmi/ipmi-ipmb.yaml
 > index 3f25cdb4e99b..52647bff31af 100644
 > --- a/Documentation/devicetree/bindings/ipmi/ipmi-ipmb.yaml
 > +++ b/Documentation/devicetree/bindings/ipmi/ipmi-ipmb.yaml
 > @@ -18,7 +18,7 @@ properties:
->
+>  
 >    device_type:
 >      items:
 > -      - const: "ipmi"
 > +      - const: ipmi
->
+>  
 >    reg:
 >      maxItems: 1
 > diff --git a/Documentation/devicetree/bindings/ipmi/ipmi-smic.yaml b/Documentation/devicetree/bindings/ipmi/ipmi-smic.yaml
@@ -590,12 +556,12 @@ Uffe
 > --- a/Documentation/devicetree/bindings/ipmi/ipmi-smic.yaml
 > +++ b/Documentation/devicetree/bindings/ipmi/ipmi-smic.yaml
 > @@ -20,7 +20,7 @@ properties:
->
+>  
 >    device_type:
 >      items:
 > -      - const: "ipmi"
 > +      - const: ipmi
->
+>  
 >    reg:
 >      maxItems: 1
 > diff --git a/Documentation/devicetree/bindings/media/qcom,msm8916-venus.yaml b/Documentation/devicetree/bindings/media/qcom,msm8916-venus.yaml
@@ -603,21 +569,21 @@ Uffe
 > --- a/Documentation/devicetree/bindings/media/qcom,msm8916-venus.yaml
 > +++ b/Documentation/devicetree/bindings/media/qcom,msm8916-venus.yaml
 > @@ -40,7 +40,7 @@ properties:
->
+>  
 >      properties:
 >        compatible:
 > -        const: "venus-decoder"
 > +        const: venus-decoder
->
+>  
 >      required:
 >        - compatible
 > @@ -52,7 +52,7 @@ properties:
->
+>  
 >      properties:
 >        compatible:
 > -        const: "venus-encoder"
 > +        const: venus-encoder
->
+>  
 >      required:
 >        - compatible
 > diff --git a/Documentation/devicetree/bindings/mips/loongson/ls2k-reset.yaml b/Documentation/devicetree/bindings/mips/loongson/ls2k-reset.yaml
@@ -632,9 +598,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/mips/loongson/ls2k-reset.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Loongson 2K1000 PM Controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/mips/loongson/rs780e-acpi.yaml b/Documentation/devicetree/bindings/mips/loongson/rs780e-acpi.yaml
 > index 7c0f9022202c..3e3a3705e879 100644
 > --- a/Documentation/devicetree/bindings/mips/loongson/rs780e-acpi.yaml
@@ -647,9 +613,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/mips/loongson/rs780e-acpi.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Loongson RS780E PCH ACPI Controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/misc/intel,ixp4xx-ahb-queue-manager.yaml b/Documentation/devicetree/bindings/misc/intel,ixp4xx-ahb-queue-manager.yaml
 > index 38ab0499102d..36a9dbdf3f03 100644
 > --- a/Documentation/devicetree/bindings/misc/intel,ixp4xx-ahb-queue-manager.yaml
@@ -662,9 +628,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/misc/intel,ixp4xx-ahb-queue-manager.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Intel IXP4xx AHB Queue Manager
->
+>  
 > diff --git a/Documentation/devicetree/bindings/mmc/marvell,xenon-sdhci.yaml b/Documentation/devicetree/bindings/mmc/marvell,xenon-sdhci.yaml
 > index 3ee758886558..3a8e74894ae0 100644
 > --- a/Documentation/devicetree/bindings/mmc/marvell,xenon-sdhci.yaml
@@ -692,9 +658,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/mtd/microchip,mchp48l640.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Microchip 48l640 (and similar) serial EERAM
->
+>  
 > diff --git a/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml b/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
 > index 6876407124dc..51aaf34acb32 100644
 > --- a/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
@@ -707,9 +673,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/soc/aspeed/uart-routing.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Aspeed UART Routing Controller
->
+>  
 > diff --git a/Documentation/devicetree/bindings/soc/intel/intel,hps-copy-engine.yaml b/Documentation/devicetree/bindings/soc/intel/intel,hps-copy-engine.yaml
 > index 8634865015cd..ceb81646fe75 100644
 > --- a/Documentation/devicetree/bindings/soc/intel/intel,hps-copy-engine.yaml
@@ -722,9 +688,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/soc/intel/intel,hps-copy-engine.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Intel HPS Copy Engine
->
+>  
 > diff --git a/Documentation/devicetree/bindings/soc/litex/litex,soc-controller.yaml b/Documentation/devicetree/bindings/soc/litex/litex,soc-controller.yaml
 > index ecae9fa8561b..a64406ca17b5 100644
 > --- a/Documentation/devicetree/bindings/soc/litex/litex,soc-controller.yaml
@@ -737,9 +703,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/soc/litex/litex,soc-controller.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: LiteX SoC Controller driver
->
+>  
 > diff --git a/Documentation/devicetree/bindings/soc/renesas/renesas,rzg2l-sysc.yaml b/Documentation/devicetree/bindings/soc/renesas/renesas,rzg2l-sysc.yaml
 > index 398663d21ab1..e52e176d8cb3 100644
 > --- a/Documentation/devicetree/bindings/soc/renesas/renesas,rzg2l-sysc.yaml
@@ -752,9 +718,9 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/soc/renesas/renesas,rzg2l-sysc.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Renesas RZ/{G2L,V2L} System Controller (SYSC)
->
+>  
 > diff --git a/Documentation/devicetree/bindings/soc/ti/k3-ringacc.yaml b/Documentation/devicetree/bindings/soc/ti/k3-ringacc.yaml
 > index 22cf9002fee7..4ac00716885e 100644
 > --- a/Documentation/devicetree/bindings/soc/ti/k3-ringacc.yaml
@@ -767,25 +733,25 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/soc/ti/k3-ringacc.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Texas Instruments K3 NavigatorSS Ring Accelerator
->
+>  
 > diff --git a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
 > index 2d01956cefbb..19137abdba3e 100644
 > --- a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
 > +++ b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
 > @@ -74,7 +74,7 @@ properties:
 >      $ref: /schemas/types.yaml#/definitions/uint32
->
+>  
 >    dlg,mic-amp-in-sel:
 > -    enum: ["diff", "se_p", "se_n"]
 > +    enum: [diff, se_p, se_n]
 >      description:
 >        Mic input source type.
->
+>  
 > @@ -124,7 +124,7 @@ properties:
 >          $ref: /schemas/types.yaml#/definitions/uint32
->
+>  
 >        dlg,jack-ins-det-pty:
 > -        enum: ["low", "high"]
 > +        enum: [low, high]
@@ -812,7 +778,7 @@ Uffe
 > +        - Headset Mic
 > +        - Internal Mic 1
 > +        - Internal Mic 2
->
+>  
 >          # CODEC Pins
 >          - HPL
 > diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-rt5631.yaml
@@ -831,7 +797,7 @@ Uffe
 > +        - Headphone Jack
 > +        - Mic Jack
 > +        - Int Mic
->
+>  
 >          # CODEC Pins
 >          - MIC1
 > diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
@@ -840,11 +806,11 @@ Uffe
 > +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
 > @@ -74,7 +74,7 @@ properties:
 >        Specifies max. load that can be drawn from VCCQ2 supply.
->
+>  
 >  dependencies:
 > -  freq-table-hz: [ 'clocks' ]
 > +  freq-table-hz: [ clocks ]
->
+>  
 >  required:
 >    - interrupts
 > diff --git a/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml b/Documentation/devicetree/bindings/watchdog/toshiba,visconti-wdt.yaml
@@ -859,9 +825,7 @@ Uffe
 > -$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 > +$id: http://devicetree.org/schemas/watchdog/toshiba,visconti-wdt.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->
+>  
 >  title: Toshiba Visconti SoCs PIUWDT Watchdog timer
->
-> --
-> 2.40.1
->
+>  
+

@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAE3B7868F1
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:53:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 478497868EF
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:52:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27796832;
-	Thu, 24 Aug 2023 09:52:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27796832
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB79C84A;
+	Thu, 24 Aug 2023 09:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB79C84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692863595;
-	bh=ZAWIkr5TYxGRVR6vRnTOUs+SvhjEpqHE0crZ51A83QE=;
+	s=default; t=1692863577;
+	bh=1LPIAPgHqcUP5VQM6IQUhEjMcZhe3uLVFoaG+ZNQqfw=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=V9BQr6TqT1F7Pc9/Iw6eQwK3rs1oFa0zwV0wfZHC0am48kBY1UaEQUtTw774EGTyZ
-	 jXG2mISR0bPSjtLXJVthY/9dpvqVUBA5YCsCqYQrmrlBYUJR3rYC7SCl3Oxq5iP0Zy
-	 RjR7EX976WCz00x6easybbGqTeZEDcj1VejCxBsE=
+	b=lofPuUDHWhDsQOeIWpCoVarRyQm1bw70GC7enOysaosftK/f8uxCIcccW+eptUosU
+	 3WCzgDKcK7FY8lwg1oTPoGGkY7KEfDy2iyyr/sYbGbWjkyVtKjZehxB5sV4EZqCEtH
+	 OR69HmDGEWWF4Bv8hRIiOyQ8WEURuXNlRjYD59Ko=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60DDCF8059F; Thu, 24 Aug 2023 09:51:27 +0200 (CEST)
+	id E8B76F80558; Thu, 24 Aug 2023 09:51:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7CD0F8057E;
-	Thu, 24 Aug 2023 09:51:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 279FDF8022B;
+	Thu, 24 Aug 2023 09:51:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75690F800F5; Thu, 24 Aug 2023 09:51:18 +0200 (CEST)
+	id 1CEB0F8025F; Thu, 24 Aug 2023 09:51:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0F7EF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0C045F8022B
 	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 09:51:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0F7EF800F5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C045F8022B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=RDl1FaoK;
+ header.s=susede2_rsa header.b=X1+mte/q;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=tdCoe47/
+ header.s=susede2_ed25519 header.b=BqOCBEFh
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2D66D22CBF;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4C74722CC0;
 	Thu, 24 Aug 2023 07:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -60,43 +59,43 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=D77LdkVN0dXWEZdMEw+sqqGy+aY6hyYIfiN2pqNpo64=;
-	b=RDl1FaoKEKPRk2+9hbR5dqxwoJxELBSJJHzjgaozSyzfFBSqphAVZ1OgzdOs8gcv6Q8P3I
-	Kj1ZlK28VxLk0xyGkOpWg+lmhXDApm/IIe1uMx9OX3IrXjTt2xHhe5vLsE/3TJoKqN/Wx8
-	/C+mTM57J/fpQ40gq57qotvFeDB1mBw=
+	bh=YghiKRcgLFIsxq+fLwAH4m1a20sGATL7xsSuDRkcDkQ=;
+	b=X1+mte/qR5XtoP0a7SmAYlv98Kn/0zEJQpG8XTU9N7omoOGdK5P4GVa9W3r+8RZcC+khVB
+	Sg/7vpu0pjkFHxGgim940htT5O6paYeoToPfbf7c3Lmjd4UC7egcurUW9ifsZC6wn41yJM
+	Ct+b75jF8RdYVAfyLphZRpD8P7cGtmY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1692863471;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=D77LdkVN0dXWEZdMEw+sqqGy+aY6hyYIfiN2pqNpo64=;
-	b=tdCoe47/TQAlihs6r/UZVwiHJXZvIRljZghwP+UVKOmeU6yJMkn++s0/ZqTCe9c3xQwPzD
-	nzU26+mMTJU4qnAw==
+	bh=YghiKRcgLFIsxq+fLwAH4m1a20sGATL7xsSuDRkcDkQ=;
+	b=BqOCBEFhIGxDODMzoH+H+iniQNQ0K3x9R4GKioyCnmK1/xuRpPVPkdE/MOAlh3SWZnugMe
+	u2AvELCcvVXMa5Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 11FAE139FF;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2F034139BC;
 	Thu, 24 Aug 2023 07:51:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 0FKdA+8L52TtLAAAMHmgww
+	id sLSpCu8L52TtLAAAMHmgww
 	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 07:51:11 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/4] ALSA: ump: Don't create unused substreams for static
- blocks
-Date: Thu, 24 Aug 2023 09:51:07 +0200
-Message-Id: <20230824075108.29958-4-tiwai@suse.de>
+Subject: [PATCH 4/4] ALSA: documentation: Add description for USB MIDI 2.0
+ gadget driver
+Date: Thu, 24 Aug 2023 09:51:08 +0200
+Message-Id: <20230824075108.29958-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230824075108.29958-1-tiwai@suse.de>
 References: <20230824075108.29958-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JBK453B4ZCDNJSVOO6HJRZMV527A74V4
-X-Message-ID-Hash: JBK453B4ZCDNJSVOO6HJRZMV527A74V4
+Message-ID-Hash: 5RTIQE6PHYI3ZVQ4HZ5H7PAHCN47WLQP
+X-Message-ID-Hash: 5RTIQE6PHYI3ZVQ4HZ5H7PAHCN47WLQP
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JBK453B4ZCDNJSVOO6HJRZMV527A74V4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5RTIQE6PHYI3ZVQ4HZ5H7PAHCN47WLQP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,125 +117,210 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When the UMP Endpoint is declared as "static", that is, no dynamic
-reassignment of UMP Groups, it makes little sense to expose always all
-16 groups with 16 substreams.  Many of those substreams are disabled
-groups, hence they are useless, but applications don't know it and try
-to open / access all those substreams unnecessarily.
+The USB MIDI 2.0 gadget driver is now supported for 6.6 kernel, and
+here we show a brief instruction how to enable and use it.
 
-This patch limits the number of UMP legacy rawmidi substreams only to
-the active groups.  The behavior is changed only for the static
-endpoint (i.e. devices without UMP v1.1 feature implemented or with
-the static block flag is set).
-
-Fixes: 0b5288f5fe63 ("ALSA: ump: Add legacy raw MIDI support")
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/ump.h |  1 +
- sound/core/ump.c    | 43 +++++++++++++++++++++++++++++++++++++------
- 2 files changed, 38 insertions(+), 6 deletions(-)
+ Documentation/sound/designs/midi-2.0.rst | 188 +++++++++++++++++++++++
+ 1 file changed, 188 insertions(+)
 
-diff --git a/include/sound/ump.h b/include/sound/ump.h
-index 44d2c2fd021d..91238dabe307 100644
---- a/include/sound/ump.h
-+++ b/include/sound/ump.h
-@@ -45,6 +45,7 @@ struct snd_ump_endpoint {
- 	spinlock_t legacy_locks[2];
- 	struct snd_rawmidi *legacy_rmidi;
- 	struct snd_rawmidi_substream *legacy_substreams[2][SNDRV_UMP_MAX_GROUPS];
-+	unsigned char legacy_mapping[SNDRV_UMP_MAX_GROUPS];
- 
- 	/* for legacy output; need to open the actual substream unlike input */
- 	int legacy_out_opens;
-diff --git a/sound/core/ump.c b/sound/core/ump.c
-index beb439f25b09..9d6e3e748f7e 100644
---- a/sound/core/ump.c
-+++ b/sound/core/ump.c
-@@ -984,7 +984,7 @@ static int snd_ump_legacy_open(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_ump_endpoint *ump = substream->rmidi->private_data;
- 	int dir = substream->stream;
--	int group = substream->number;
-+	int group = ump->legacy_mapping[substream->number];
- 	int err;
- 
- 	mutex_lock(&ump->open_mutex);
-@@ -1016,7 +1016,7 @@ static int snd_ump_legacy_close(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_ump_endpoint *ump = substream->rmidi->private_data;
- 	int dir = substream->stream;
--	int group = substream->number;
-+	int group = ump->legacy_mapping[substream->number];
- 
- 	mutex_lock(&ump->open_mutex);
- 	spin_lock_irq(&ump->legacy_locks[dir]);
-@@ -1123,6 +1123,34 @@ static void process_legacy_input(struct snd_ump_endpoint *ump, const u32 *src,
- 	spin_unlock_irqrestore(&ump->legacy_locks[dir], flags);
- }
- 
-+/* Fill ump->legacy_mapping[] for groups to be used for legacy rawmidi */
-+static int fill_legacy_mapping(struct snd_ump_endpoint *ump)
-+{
-+	struct snd_ump_block *fb;
-+	unsigned int group_maps = 0;
-+	int i, num;
+diff --git a/Documentation/sound/designs/midi-2.0.rst b/Documentation/sound/designs/midi-2.0.rst
+index 27d0d3dea1b0..3b08b98354f8 100644
+--- a/Documentation/sound/designs/midi-2.0.rst
++++ b/Documentation/sound/designs/midi-2.0.rst
+@@ -376,3 +376,191 @@ Sequencer API Extensions
+   name and attributes accordingly, and notifies the changes via the
+   announcement to the ALSA sequencer system port, similarly like the
+   normal port change notification.
 +
-+	if (ump->info.flags & SNDRV_UMP_EP_INFO_STATIC_BLOCKS) {
-+		list_for_each_entry(fb, &ump->block_list, list) {
-+			for (i = 0; i < fb->info.num_groups; i++)
-+				group_maps |= 1U << (fb->info.first_group + i);
-+		}
-+		if (!group_maps)
-+			ump_info(ump, "No UMP Group is found in FB\n");
-+	}
 +
-+	/* use all groups for non-static case */
-+	if (!group_maps)
-+		group_maps = (1U << SNDRV_UMP_MAX_GROUPS) - 1;
++MIDI2 USB Gadget Function Driver
++================================
 +
-+	num = 0;
-+	for (i = 0; i < SNDRV_UMP_MAX_GROUPS; i++)
-+		if (group_maps & (1U << i))
-+			ump->legacy_mapping[num++] = i;
++The latest kernel contains the support for USB MIDI 2.0 gadget
++function driver, which can be used for prototyping and debugging MIDI
++2.0 features.
 +
-+	return num;
-+}
++`CONFIG_USB_GADGET`, `CONFIG_USB_CONFIGFS` and
++`CONFIG_USB_CONFIGFS_F_MIDI2` need to be enabled for the MIDI2 gadget
++driver.
 +
- static void fill_substream_names(struct snd_ump_endpoint *ump,
- 				 struct snd_rawmidi *rmidi, int dir)
- {
-@@ -1130,7 +1158,7 @@ static void fill_substream_names(struct snd_ump_endpoint *ump,
- 
- 	list_for_each_entry(s, &rmidi->streams[dir].substreams, list)
- 		snprintf(s->name, sizeof(s->name), "Group %d (%s)",
--			 s->number + 1, ump->info.name);
-+			 ump->legacy_mapping[s->number] + 1, ump->info.name);
- }
- 
- int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
-@@ -1138,16 +1166,19 @@ int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
- {
- 	struct snd_rawmidi *rmidi;
- 	bool input, output;
--	int err;
-+	int err, num;
- 
--	ump->out_cvts = kcalloc(16, sizeof(*ump->out_cvts), GFP_KERNEL);
-+	ump->out_cvts = kcalloc(SNDRV_UMP_MAX_GROUPS,
-+				sizeof(*ump->out_cvts), GFP_KERNEL);
- 	if (!ump->out_cvts)
- 		return -ENOMEM;
- 
-+	num = fill_legacy_mapping(ump);
++In addition, for using a gadget driver, you need a working UDC driver.
++In the example below, we use `dummy_hcd` driver (enabled via
++`CONFIG_USB_DUMMY_HCD`) that is available on PC and VM for debugging
++purpose.  There are other UDC drivers depending on the platform, and
++those can be used for a real device, instead, too.
 +
- 	input = ump->core.info_flags & SNDRV_RAWMIDI_INFO_INPUT;
- 	output = ump->core.info_flags & SNDRV_RAWMIDI_INFO_OUTPUT;
- 	err = snd_rawmidi_new(ump->core.card, id, device,
--			      output ? 16 : 0, input ? 16 : 0,
-+			      output ? num : 0, input ? num : 0,
- 			      &rmidi);
- 	if (err < 0) {
- 		kfree(ump->out_cvts);
++At first, on a system to run the gadget, load `libcomposite` module::
++
++  % modprobe libcomposite
++
++and you'll have `usb_gadget` subdirectory under configfs space
++(typically `/sys/kernel/config` on modern OS).  Then create a gadget
++instance and add configurations there, for example::
++
++  % cd /sys/kernel/config
++  % mkdir usb_gadget/g1
++
++  % cd usb_gadget/g1
++  % mkdir configs/c.1
++  % mkdir functions/midi2.usb0
++
++  % echo 0x0004 > idProduct
++  % echo 0x17b3 > idVendor
++  % mkdir strings/0x409
++  % echo "ACME Enterprises" > strings/0x409/manufacturer
++  % echo "ACMESynth" > strings/0x409/product
++  % echo "ABCD12345" > strings/0x409/serialnumber
++
++  % mkdir configs/c.1/strings/0x409
++  % echo "Monosynth" > configs/c.1/strings/0x409/configuration
++  % echo 120 > configs/c.1/MaxPower
++
++At this point, there must be a subdirectory `ep.0`, and that is the
++configuration for a UMP Endpoint.  You can fill the Endpoint
++information like::
++
++  % echo "ACMESynth" > functions/midi2.usb0/iface_name
++  % echo "ACMESynth" > functions/midi2.usb0/ep.0/ep_name
++  % echo "ABCD12345" > functions/midi2.usb0/ep.0/product_id
++  % echo 0x0123 > functions/midi2.usb0/ep.0/family
++  % echo 0x4567 > functions/midi2.usb0/ep.0/model
++  % echo 0x123456 > functions/midi2.usb0/ep.0/manufacturer
++  % echo 0x12345678 > functions/midi2.usb0/ep.0/sw_revision
++
++The default MIDI protocol can be set either 1 or 2::
++
++  % echo 2 > functions/midi2.usb0/ep.0/protocol
++
++And, you can find a subdirectory `block.0` under this Endpoint
++subdirectory.  This defines the Function Block information::
++
++  % echo "Monosynth" > functions/midi2.usb0/ep.0/block.0/name
++  % echo 0 > functions/midi2.usb0/ep.0/block.0/first_group
++  % echo 1 > functions/midi2.usb0/ep.0/block.0/num_groups
++
++Finally, link the configuration and enable it::
++
++  % ln -s functions/midi2.usb0 configs/c.1
++  % echo dummy_udc.0 > UDC
++
++where `dummy_udc.0` is an example case and it differs depending on the
++system.  You can find the UDC instances in `/sys/class/udc` and pass
++the found name instead::
++
++  % ls /sys/class/udc
++  dummy_udc.0
++
++Now, the MIDI 2.0 gadget device is enabled, and the gadget host
++creates a new sound card instance containing a UMP rawmidi device by
++`f_midi2` driver::
++
++  % cat /proc/asound/cards
++  ....
++  1 [Gadget         ]: f_midi2 - MIDI 2.0 Gadget
++                       MIDI 2.0 Gadget
++
++And on the connected host, a similar card should appear, too, but with
++the card and device names given in the configfs above::
++
++  % cat /proc/asound/cards
++  ....
++  2 [ACMESynth      ]: USB-Audio - ACMESynth
++                       ACME Enterprises ACMESynth at usb-dummy_hcd.0-1, high speed
++
++You can play a MIDI file on the gadget side::
++
++  % aplaymidi -p 20:1 to_host.mid
++
++and this will appear as an input from a MIDI device on the connected
++host::
++
++  % aseqdump -p 20:0 -u 2
++
++Vice versa, a playback on the connected host will work as an input on
++the gadget, too.
++
++Each Function Block may have different direction and UI-hint,
++specified via `direction` and `ui_hint` attributes.
++Passing `1` is for input-only, `2` for out-only and `3` for
++bidirectional (the default value).  For example::
++
++  % echo 2 > functions/midi2.usb0/ep.0/block.0/direction
++  % echo 2 > functions/midi2.usb0/ep.0/block.0/ui_hint
++
++When you need more than one Function Blocks, you can create
++subdirectories `block.1`, `block.2`, etc dynamically, and configure
++them in the configuration procedure above before linking.
++For example, to create a second Function Block for a keyboard::
++
++  % mkdir functions/midi2.usb0/ep.0/block.1
++  % echo "Keyboard" > functions/midi2.usb0/ep.0/block.1/name
++  % echo 1 > functions/midi2.usb0/ep.0/block.1/first_group
++  % echo 1 > functions/midi2.usb0/ep.0/block.1/num_groups
++  % echo 1 > functions/midi2.usb0/ep.0/block.1/direction
++  % echo 1 > functions/midi2.usb0/ep.0/block.1/ui_hint
++
++The `block.*` subdirectories can be removed dynamically, too (except
++for `block.0` which is persistent).
++
++For assigning a Function Block for MIDI 1.0 I/O, set up in `is_midi1`
++attribute.  1 is for MIDI 1.0, and 2 is for MIDI 1.0 with low speed
++connection::
++
++  % echo 2 > functions/midi2.usb0/ep.0/block.1/is_midi1
++
++For disabling the processing of UMP Stream messages in the gadget
++driver, pass `0` to `process_ump attribute in the top-level config::
++
++  % echo 0 > functions/midi2.usb0/process_ump
++
++The MIDI 1.0 interface at altset 0 is supported by the gadget driver,
++too.  When MIDI 1.0 interface is selected by the connected host, the
++UMP I/O on the gadget is translated from/to USB MIDI 1.0 packets
++accordingly while the gadget driver keeps communicating with the
++user-space over UMP rawmidi.
++
++MIDI 1.0 ports are set up from the config in each Function Block.
++For example::
++
++  % echo 0 > functions/midi2.usb0/ep.0/block.0/midi1_first_group
++  % echo 1 > functions/midi2.usb0/ep.0/block.0/midi1_num_groups
++
++The configuration above will enable the Group 1 (the index 0) for MIDI
++1.0 interface.  Note that those groups must be in the groups defined
++for the Function Block itself.
++
++The gadget driver supports more than one UMP Endpoints, too.
++Similarly like the Function Blocks, you can create a new subdirectory
++`ep.1` (but under the card top-level config) to enable a new Endpoint::
++
++  % mkdir functions/midi2.usb0/ep.1
++
++and create a new Function Block there.  For example, to create 4
++Groups for the Function Block of this new Endpoint::
++
++  % mkdir functions/midi2.usb0/ep.1/block.0
++  % echo 4 > functions/midi2.usb0/ep.1/block.0/num_groups
++
++Now, you'll have 4 rawmidi devices in total: the first two are UMP
++rawmidi devices for Endpoint 0 and Endpoint 1, and other two for the
++legacy MIDI 1.0 rawmidi devices corresponding to both EP 0 and EP 1.
++
++The current altsetting on the gadget can be informed via a control
++element "Operation Mode" with `RAWMIDI` iface.  e.g. you can read it
++via `amixer` program running on the gadget host like::
++
++  % amixer -c1 cget iface=RAWMIDI,name='Operation Mode'
++  ; type=INTEGER,access=r--v----,values=1,min=0,max=2,step=0
++  : values=2
++
++The value (shown in the second returned line with `: values=`)
++indicates 1 for MIDI 1.0 (altset 0), 2 for MIDI 2.0 (altset 1) and 0
++for unset.
++
++As of now, the configurations can't be changed after binding.
 -- 
 2.35.3
 

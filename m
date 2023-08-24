@@ -2,103 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983F3786923
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:59:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D04B786928
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Aug 2023 09:59:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36FD9844;
-	Thu, 24 Aug 2023 09:58:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36FD9844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6856F86E;
+	Thu, 24 Aug 2023 09:59:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6856F86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692863948;
-	bh=WZ9q/oN9ul09kJo7WD1wDdz3sj5iW6TzB8SkBXajops=;
+	s=default; t=1692863996;
+	bh=aqr3vdUKyclu6y3h9/NJbmktDmcd2p8RKRiR52y5VIs=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QkIZ+r4a9lIvSRQSs6E/OgIEXQoO9oqEl9yrmWkFC8UPIURPQRX18M+1P8FWHHyiJ
-	 ShExJ7LO2dAW1EYrXE62d56FCZHUxk5Qy/unq1W3Fq2v36XAY584doBwJwzKEruc5E
-	 nfOH1C1duruUQYfkzfUYPRpDx66Sc199AbESHQ08=
+	b=LCE7rBCOqcdvBJQMwbqa/xfM9l3i+It+EVCXb9weibe63uij30DCYFg9U9lz1U2DU
+	 bvOcAPQo1ccH4uuOOGkXjdfeMaHkgLuNyNQ4U1y7vMN34ZTz6aY7buHiHy/Axztlep
+	 GL1inLen+IbXEby1MdFFqPijs4cUelrpkVOo02Nk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3EE3FF804DA; Thu, 24 Aug 2023 09:58:17 +0200 (CEST)
+	id 64541F8022B; Thu, 24 Aug 2023 09:58:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C33F7F800F5;
-	Thu, 24 Aug 2023 09:58:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC8A5F8022B;
+	Thu, 24 Aug 2023 09:58:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68387F80158; Thu, 24 Aug 2023 09:58:13 +0200 (CEST)
+	id 30EE0F80557; Thu, 24 Aug 2023 09:58:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8852F800BF
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 09:58:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8852F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 90D68F8022B
+	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 09:58:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90D68F8022B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=rw7bHWYE;
+ header.s=susede2_rsa header.b=IPEsnMLP;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=8KMaXncs
+ header.s=susede2_ed25519 header.b=UeLEL3xG
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B0A5920ECA;
-	Thu, 24 Aug 2023 07:58:10 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1F57F20ECA;
+	Thu, 24 Aug 2023 07:58:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1692863890;
+	t=1692863923;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EAYhRoaXY1qlmVlcqHbB1KxvFdAikKgeJKCsGjT9/FE=;
-	b=rw7bHWYExj2maGxnK8sNiq0iJZtFbx5XEJa6hXd/pUDBT8SBYy/FHV0fFRcJs6vyi36JON
-	vxJ78pDQJL1oRwLgGxgi4QDmWn6cB4SO2KEPBN8at37QiTRa6aHlEBUbdr7zxWDQ0ETtUW
-	x9tt/+nSyAldDB1yZS8Zb6ClyqQ+jfo=
+	bh=wM/S3VnzLcKkUvrr7SHPXpiWh7nrxypNo59Edlzs7dI=;
+	b=IPEsnMLPezr7Anm1aPk5C+VBdL04TLFuOaavRyG0GxKrvxxIPg4k5ktcqRAF35bgCkEPHn
+	jFWYWsx/FUVxkIUdLS0DDNJbkbaBYItulwIUeC+EISweKHIRlGPm7gZh/f/Yv2Z+Y6gUPx
+	CYNCRdMgxqKzvPHrCzwWVAi3fQxkSEI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692863890;
+	s=susede2_ed25519; t=1692863923;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EAYhRoaXY1qlmVlcqHbB1KxvFdAikKgeJKCsGjT9/FE=;
-	b=8KMaXncscZS2fyzw4nCAuenRQo5sg1PZB+GHXSmaKr12f3Pa2VQJwTHn9lQpaR8EQ141y6
-	ZmEBy/IeSgSrHzDw==
+	bh=wM/S3VnzLcKkUvrr7SHPXpiWh7nrxypNo59Edlzs7dI=;
+	b=UeLEL3xGrb29FYRVmoI1bZwn7SgaWEcJAyF5UUPzLh1SNMshJJf3syxlB2MdjP0WDxRIaN
+	pnnM3rkMvQ6lreCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89622139BC;
-	Thu, 24 Aug 2023 07:58:10 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E176F139BC;
+	Thu, 24 Aug 2023 07:58:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id sKyJIJIN52TrLwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 07:58:10 +0000
-Date: Thu, 24 Aug 2023 09:58:09 +0200
-Message-ID: <87fs48c1ny.wl-tiwai@suse.de>
+	id gK/8NbIN52QaMAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 24 Aug 2023 07:58:42 +0000
+Date: Thu, 24 Aug 2023 09:58:42 +0200
+Message-ID: <87edjsc1n1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: SungHwan Jung <onenowy@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
+To: Ivan Orlov <ivan.orlov0322@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for HP Victus 16-d1xxx to
- enable mute LED
-In-Reply-To: <20230823114051.3921-1-onenowy@gmail.com>
-References: <20230823114051.3921-1-onenowy@gmail.com>
+Subject: Re: [PATCH] ALSA: pcmtest: Add support for pcm pausing
+In-Reply-To: <20230822150541.8450-1-ivan.orlov0322@gmail.com>
+References: <20230822150541.8450-1-ivan.orlov0322@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 5I56ZMXMRUHH74T5MCL3A4K4FPBEAJWH
-X-Message-ID-Hash: 5I56ZMXMRUHH74T5MCL3A4K4FPBEAJWH
+Message-ID-Hash: 4473DOEGKRJL7UAUYDR4POWTFGDNSP6B
+X-Message-ID-Hash: 4473DOEGKRJL7UAUYDR4POWTFGDNSP6B
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5I56ZMXMRUHH74T5MCL3A4K4FPBEAJWH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4473DOEGKRJL7UAUYDR4POWTFGDNSP6B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,13 +120,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 23 Aug 2023 13:40:51 +0200,
-SungHwan Jung wrote:
+On Tue, 22 Aug 2023 17:05:41 +0200,
+Ivan Orlov wrote:
 > 
-> This quirk enables mute LED on HP Victus 16-d1xxx (8A25) laptops, which
-> use ALC245 codec.
+> Add pause push/release support to the virtual PCM test driver. Add
+> 'suspend' boolean field to the pcmtst_buf_iter structure, so we can
+> pause the timer without shutting it down. Update the trigger callback
+> handler correspondingly. Extract buffer initialization to the
+> 'reset_buf_iterator' function since it is used in multiple places now.
 > 
-> Signed-off-by: SungHwan Jung <onenowy@gmail.com>
+> Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
 
 Thanks, applied now.
 

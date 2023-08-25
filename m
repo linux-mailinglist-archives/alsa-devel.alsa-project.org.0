@@ -2,58 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD0F778A063
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:06:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 325AD78A061
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:06:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E935E10;
-	Sun, 27 Aug 2023 19:06:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E935E10
+	by alsa0.perex.cz (Postfix) with ESMTPS id C446BE0F;
+	Sun, 27 Aug 2023 19:05:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C446BE0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693156018;
-	bh=9H07hoKhDj/tBpd9y9QcznQmA8xzSuRvEGeesfr0+ts=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ijS+uHBZM0TVbbZqxYvzsPr95WOQzmMF0D+C0/hPxcdIwW/2USM/zJDeaAInFrjpJ
-	 odhBzuCXDVLn+vVvOP24W1SMgum3lKQkG9wCGm7BOVAhSsGMJov0x+n8XVH9GNhR9d
-	 8pHRz5p+hhasuP0B4k2DuUw03+lREaAjym/9xjt0=
+	s=default; t=1693155992;
+	bh=2V+0llvqa1gZO1U5Q+M+Jug9dUcE18DzKjxwmba2mps=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Mf+7D4tLtdkNXy44h4s18nvSej4pggzET0nD1bzW3mc0QZRT2VP/GYiwpsnRKEoiG
+	 4ULWTkSKsRr6qmWngDXOyjAMvuUoRSfLhzKUetUiqYIV6mBani7deGrnkL/o1OLoLb
+	 NQ6rWkprCRHre50zPy1Th38xQ4g+nlY5x/9siJt0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87DE8F80236; Sun, 27 Aug 2023 19:03:14 +0200 (CEST)
+	id 74AA9F80605; Sun, 27 Aug 2023 19:02:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB308F80236;
-	Sun, 27 Aug 2023 19:03:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 662D4F80602;
+	Sun, 27 Aug 2023 19:02:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC819F8055B; Sat, 26 Aug 2023 00:22:16 +0200 (CEST)
+	id 545AFF80553; Sat, 26 Aug 2023 00:22:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,LOTS_OF_MONEY,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
 Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C875F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9E74BF80158
 	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 00:22:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C875F800F5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E74BF80158
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id B65C8242C4;
-	Fri, 25 Aug 2023 18:21:58 -0400 (EDT)
+	by bluemchen.kde.org (Postfix) with ESMTP id B9942242C7;
+	Fri, 25 Aug 2023 18:21:57 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qZfBm-iUr-00; Sat, 26 Aug 2023 00:21:58 +0200
+	id 1qZfBl-iTt-00; Sat, 26 Aug 2023 00:21:57 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH v5 4/8] ALSA: emu10k1: make playback in E-MU D.A.S. mode
- 32-bit
-Date: Sat, 26 Aug 2023 00:21:54 +0200
-Message-Id: <20230825222158.171007-5-oswald.buddenhagen@gmx.de>
+Subject: [PATCH 1/3] ALSA: emu10k1: de-duplicate audigy-mixer.rst vs.
+ sb-live-mixer.rst
+Date: Sat, 26 Aug 2023 00:21:55 +0200
+Message-Id: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230825222158.171007-1-oswald.buddenhagen@gmx.de>
-References: <20230825222158.171007-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: ossi@kde.org
@@ -62,15 +59,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MGZ7RI7A3PWIGCW6L6QJAQYNF4LJW327
-X-Message-ID-Hash: MGZ7RI7A3PWIGCW6L6QJAQYNF4LJW327
-X-Mailman-Approved-At: Sun, 27 Aug 2023 17:03:08 +0000
+Message-ID-Hash: H2HZKRWQVDLXY6RHPQDZW2TND62LK37O
+X-Message-ID-Hash: H2HZKRWQVDLXY6RHPQDZW2TND62LK37O
+X-Mailman-Approved-At: Sun, 27 Aug 2023 17:02:17 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGZ7RI7A3PWIGCW6L6QJAQYNF4LJW327/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H2HZKRWQVDLXY6RHPQDZW2TND62LK37O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,228 +76,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Each channel now uses a stereo voice pair. But the FX send amounts and
-attenuation are per voice, so we have to use fixed values tuned to the
-DSP code to avoid messing up the split samples.
-
-As "regular" mode allows manipulating the amounts and att'n via mixer
-controls, we can either:
-- "Fake" them with DSP code, which doesn't seem worth the bother
-- Ignore them, which doesn't seem very nice
-
-So 32-bit playback simply remains unavailable in non-D.A.S. mode.
+Let the MANUALS/PATENTS section of the former simply refer to the latter
+- there is no point in duplicating this information with little value to
+end users.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- sound/pci/emu10k1/emufx.c  | 18 ++++++++++-----
- sound/pci/emu10k1/emupcm.c | 46 +++++++++++++++++++++++++-------------
- 2 files changed, 43 insertions(+), 21 deletions(-)
+ Documentation/sound/cards/audigy-mixer.rst | 67 +---------------------
+ 1 file changed, 1 insertion(+), 66 deletions(-)
 
-diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
-index 8e33cc596825..9f27f07d5271 100644
---- a/sound/pci/emu10k1/emufx.c
-+++ b/sound/pci/emu10k1/emufx.c
-@@ -1279,7 +1279,8 @@ static int _snd_emu10k1_das_init_efx(struct snd_emu10k1 *emu)
- {
- 	enum {
- 		ENUM_GPR(bit_shifter16, 1),
--		ENUM_GPR(tmp, 1),
-+		ENUM_GPR(lowword_mask, 1),
-+		ENUM_GPR(tmp, 2),
- 		num_static_gprs
- 	};
- 	int gpr = num_static_gprs;
-@@ -1310,10 +1311,14 @@ static int _snd_emu10k1_das_init_efx(struct snd_emu10k1 *emu)
+diff --git a/Documentation/sound/cards/audigy-mixer.rst b/Documentation/sound/cards/audigy-mixer.rst
+index ea66b50a2b03..51cc7ac034ce 100644
+--- a/Documentation/sound/cards/audigy-mixer.rst
++++ b/Documentation/sound/cards/audigy-mixer.rst
+@@ -303,69 +303,4 @@ The channel mapping is following:
+ MANUALS/PATENTS
+ ===============
  
- 	gpr_map = icode->gpr_map;
- 	gpr_map[bit_shifter16] = 0x00008000;
-+	gpr_map[lowword_mask] = 0x0000ffff;
- 
- 	if (emu->card_capabilities->ca0108_chip) {
--		for (int z = 0; z < 16; z++)
--			A_OP(icode, &ptr, iMACINT0, A3_EMU32OUT(z), A_C_00000000, A_FXBUS(z), A_C_00000002);
-+		for (int z = 0; z < 16; z++) {
-+			A_OP(icode, &ptr, iMAC0, A_GPR(tmp), A_C_00000000, A_FXBUS(z * 2), A_C_00010000); // >> 15
-+			A_OP(icode, &ptr, iMACINT0, A_GPR(tmp + 1), A_C_00000000, A_FXBUS(z * 2 + 1), A_C_00000002); // << 1
-+			A_OP(icode, &ptr, iANDXOR, A3_EMU32OUT(z), A_GPR(tmp), A_GPR(lowword_mask), A_GPR(tmp + 1));
-+		}
- 
- 		snd_emu10k1_audigy_dsp_convert_32_to_2x16(
- 			icode, &ptr, tmp, bit_shifter16, A3_EMU32IN(0), A_EXTOUT(0));
-@@ -1326,8 +1331,11 @@ static int _snd_emu10k1_das_init_efx(struct snd_emu10k1 *emu)
- 			gpr_map[gpr++] = 0x00000000;
- 		}
- 	} else {
--		for (int z = 0; z < 16; z++)
--			A_OP(icode, &ptr, iMACINT0, A_EMU32OUTL(z), A_C_00000000, A_FXBUS(z), A_C_00000002);
-+		for (int z = 0; z < 16; z++) {
-+			A_OP(icode, &ptr, iMAC0, A_GPR(tmp), A_C_00000000, A_FXBUS(z * 2), A_C_00010000); // >> 15
-+			A_OP(icode, &ptr, iMACINT0, A_GPR(tmp + 1), A_C_00000000, A_FXBUS(z * 2 + 1), A_C_00000002); // << 1
-+			A_OP(icode, &ptr, iANDXOR, A_EMU32OUTL(z), A_GPR(tmp), A_GPR(lowword_mask), A_GPR(tmp + 1));
-+		}
- 
- 		/* Note that the Alice2 DSPs have 6 I2S inputs which we don't use. */
- 		snd_emu10k1_audigy_dsp_convert_32_to_2x16(
-diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
-index 9a0efa6e5ba9..a433793345d4 100644
---- a/sound/pci/emu10k1/emupcm.c
-+++ b/sound/pci/emu10k1/emupcm.c
-@@ -360,13 +360,16 @@ static void snd_emu10k1_pcm_init_das_voices(struct snd_emu10k1 *emu,
- 					    unsigned char channel)
- {
- 	static const unsigned char send_amount[8] = { 255, 0, 0, 0, 0, 0, 0, 0 };
--	unsigned char send_routing[8];
-+	unsigned char send_routing[9];
- 
- 	for (int i = 0; i < ARRAY_SIZE(send_routing); i++)
- 		send_routing[i] = (channel + i) % NUM_G;
--	snd_emu10k1_pcm_init_voice(emu, evoice, true, false,
-+	snd_emu10k1_pcm_init_voice(emu, evoice, true, true,
- 				   start_addr, end_addr,
- 				   send_routing, send_amount);
-+	snd_emu10k1_pcm_init_voice(emu, evoice + 1, true, true,
-+				   start_addr, end_addr,
-+				   send_routing + 1, send_amount);
- }
- 
- static void snd_emu10k1_pcm_init_extra_voice(struct snd_emu10k1 *emu,
-@@ -400,7 +403,7 @@ static int snd_emu10k1_playback_hw_params(struct snd_pcm_substream *substream,
- 	} else {
- 		type = EMU10K1_EFX;
- 		channels = params_channels(hw_params);
--		count = 1;
-+		count = 1 + emu->das_mode;
- 	}
- 	err = snd_emu10k1_pcm_channel_alloc(epcm, type, count, channels);
- 	if (err < 0)
-@@ -503,15 +506,17 @@ static int snd_emu10k1_efx_playback_prepare(struct snd_pcm_substream *substream)
- 	snd_emu10k1_pcm_init_extra_voice(emu, epcm->extra, true,
- 					 start_addr, start_addr + extra_size);
- 
--	epcm->ccca_start_addr = start_addr;
- 	if (das_mode) {
-+		start_addr >>= 1;
-+		epcm->ccca_start_addr = start_addr;
- 		for (i = 0; i < runtime->channels; i++) {
- 			snd_emu10k1_pcm_init_das_voices(emu, epcm->voices[i],
- 							start_addr, start_addr + channel_size,
--							i);
-+							i * 2);
- 			start_addr += channel_size;
- 		}
- 	} else {
-+		epcm->ccca_start_addr = start_addr;
- 		for (i = 0; i < runtime->channels; i++) {
- 			snd_emu10k1_pcm_init_voices(emu, epcm->voices[i], true, false,
- 						    start_addr, start_addr + channel_size,
-@@ -716,6 +721,7 @@ static void snd_emu10k1_playback_unmute_das_voices(struct snd_emu10k1 *emu,
- 						   struct snd_emu10k1_voice *evoice)
- {
- 	snd_emu10k1_playback_commit_volume(emu, evoice, 0x8000 << 16);
-+	snd_emu10k1_playback_commit_volume(emu, evoice + 1, 0x8000 << 16);
- }
- 
- static void snd_emu10k1_playback_mute_voice(struct snd_emu10k1 *emu,
-@@ -930,24 +936,29 @@ static snd_pcm_uframes_t snd_emu10k1_playback_pointer(struct snd_pcm_substream *
- }
- 
- static u64 snd_emu10k1_efx_playback_voice_mask(struct snd_emu10k1_pcm *epcm,
--					       int channels)
-+					       bool stereo, int channels)
- {
- 	u64 mask = 0;
-+	u64 mask0 = (1 << (1 << stereo)) - 1;
- 
- 	for (int i = 0; i < channels; i++) {
- 		int voice = epcm->voices[i]->number;
--		mask |= 1ULL << voice;
-+		mask |= mask0 << voice;
- 	}
- 	return mask;
- }
- 
- static void snd_emu10k1_efx_playback_freeze_voices(struct snd_emu10k1 *emu,
- 						   struct snd_emu10k1_pcm *epcm,
--						   int channels)
-+						   bool stereo, int channels)
- {
- 	for (int i = 0; i < channels; i++) {
- 		int voice = epcm->voices[i]->number;
- 		snd_emu10k1_ptr_write(emu, CPF_STOP, voice, 1);
-+		if (stereo) {
-+			// Weirdly enough, the stereo slave needs to be stopped separately
-+			snd_emu10k1_ptr_write(emu, CPF_STOP, voice + 1, 1);
-+		}
- 		snd_emu10k1_playback_commit_pitch(emu, voice, PITCH_48000 << 16);
- 	}
- }
-@@ -971,14 +982,14 @@ static void snd_emu10k1_efx_playback_unmute_das_voices(struct snd_emu10k1 *emu,
- 
- static void snd_emu10k1_efx_playback_stop_voices(struct snd_emu10k1 *emu,
- 						 struct snd_emu10k1_pcm *epcm,
--						 int channels)
-+						 bool stereo, int channels)
- {
- 	for (int i = 0; i < channels; i++)
- 		snd_emu10k1_playback_stop_voice(emu, epcm->voices[i]);
- 	snd_emu10k1_playback_set_stopped(emu, epcm);
- 
- 	for (int i = 0; i < channels; i++)
--		snd_emu10k1_playback_mute_voice(emu, epcm->voices[i]);
-+		snd_emu10k1_playback_mute_voices(emu, epcm->voices[i], stereo);
- }
- 
- static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
-@@ -997,15 +1008,15 @@ static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 		mask = snd_emu10k1_efx_playback_voice_mask(
--				epcm, runtime->channels);
-+				epcm, das_mode, runtime->channels);
- 		for (int i = 0; i < 10; i++) {
- 			// Note that the freeze is not interruptible, so we make no
- 			// effort to reset the bits outside the error handling here.
- 			snd_emu10k1_voice_set_loop_stop_multiple(emu, mask);
- 			snd_emu10k1_efx_playback_freeze_voices(
--					emu, epcm, runtime->channels);
-+					emu, epcm, das_mode, runtime->channels);
- 			snd_emu10k1_playback_prepare_voices(
--					emu, epcm, true, false, runtime->channels);
-+					emu, epcm, true, das_mode, runtime->channels);
- 
- 			// It might seem to make more sense to unmute the voices only after
- 			// they have been started, to potentially avoid torturing the speakers
-@@ -1027,7 +1038,7 @@ static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
- 			}
- 
- 			snd_emu10k1_efx_playback_stop_voices(
--					emu, epcm, runtime->channels);
-+					emu, epcm, das_mode, runtime->channels);
- 
- 			if (result != -EAGAIN)
- 				break;
-@@ -1040,7 +1051,7 @@ static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 		snd_emu10k1_playback_stop_voice(emu, epcm->extra);
- 		snd_emu10k1_efx_playback_stop_voices(
--				emu, epcm, runtime->channels);
-+				emu, epcm, das_mode, runtime->channels);
- 
- 		epcm->resume_pos = snd_emu10k1_playback_pointer(substream);
- 		break;
-@@ -1226,8 +1237,11 @@ static int snd_emu10k1_efx_playback_open(struct snd_pcm_substream *substream)
- 	runtime->private_data = epcm;
- 	runtime->private_free = snd_emu10k1_pcm_free_substream;
- 	runtime->hw = snd_emu10k1_efx_playback;
--	if (emu->card_capabilities->emu_model)
-+	if (emu->card_capabilities->emu_model) {
- 		snd_emu1010_constrain_efx_rate(emu, runtime);
-+		if (emu->das_mode)
-+			runtime->hw.formats = SNDRV_PCM_FMTBIT_S32_LE;
-+	}
- 	err = snd_emu10k1_playback_set_constraints(runtime);
- 	if (err < 0) {
- 		kfree(epcm);
+-ftp://opensource.creative.com/pub/doc
+--------------------------------------
+-
+-Note that the site is defunct, but the documents are available
+-from various other locations.
+-
+-LM4545.pdf
+-	AC97 Codec
+-
+-m2049.pdf
+-	The EMU10K1 Digital Audio Processor
+-
+-hog63.ps
+-	FX8010 - A DSP Chip Architecture for Audio Effects
+-
+-
+-WIPO Patents
+-------------
+-
+-WO 9901813 (A1)
+-	Audio Effects Processor with multiple asynchronous streams
+-	(Jan. 14, 1999)
+-
+-WO 9901814 (A1)
+-	Processor with Instruction Set for Audio Effects (Jan. 14, 1999)
+-
+-WO 9901953 (A1)
+-	Audio Effects Processor having Decoupled Instruction
+-        Execution and Audio Data Sequencing (Jan. 14, 1999)
+-
+-
+-US Patents (https://www.uspto.gov/)
+------------------------------------
+-
+-US 5925841
+-	Digital Sampling Instrument employing cache memory (Jul. 20, 1999)
+-
+-US 5928342
+-	Audio Effects Processor integrated on a single chip
+-        with a multiport memory onto which multiple asynchronous
+-        digital sound samples can be concurrently loaded
+-	(Jul. 27, 1999)
+-
+-US 5930158
+-	Processor with Instruction Set for Audio Effects (Jul. 27, 1999)
+-
+-US 6032235
+-	Memory initialization circuit (Tram) (Feb. 29, 2000)
+-
+-US 6138207
+-	Interpolation looping of audio samples in cache connected to
+-        system bus with prioritization and modification of bus transfers
+-        in accordance with loop ends and minimum block sizes
+-	(Oct. 24, 2000)
+-
+-US 6151670
+-	Method for conserving memory storage using a
+-        pool of  short term memory registers
+-	(Nov. 21, 2000)
+-
+-US 6195715
+-	Interrupt control for multiple programs communicating with
+-        a common interrupt by associating programs to GP registers,
+-        defining interrupt register, polling GP registers, and invoking
+-        callback routine associated with defined interrupt register
+-	(Feb. 27, 2001)
++See sb-live-mixer.rst.
 -- 
 2.40.0.152.g15d061e6df
 

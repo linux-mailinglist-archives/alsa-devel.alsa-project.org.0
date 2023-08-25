@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 488A278A05D
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:05:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EEB778A060
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:06:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1E30950;
-	Sun, 27 Aug 2023 19:04:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1E30950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F17AE72;
+	Sun, 27 Aug 2023 19:05:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F17AE72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693155932;
-	bh=xaX3drOXejzp+rmUXA2gyRdD/lZrFKtAdFcAZJTE1KA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Rb1kppAp429Y0vgUWG/wGCYpr2o8XCqt8jOnwtzq5yTeR9+4gS6dl1x9gAmhf/UsB
-	 TwpycNv17CUr98TE9g8VN9QF51Q4kWpVuRw0dJ6Q03QkIZz5805X+frZkpUEfcuuo5
-	 1sEK8XAf/J18gmr70unvFxpU2RbCilHFn0ZIBKE8=
+	s=default; t=1693155970;
+	bh=xyshS61kGazW0xYKaF9opMK/Xa2fYOjK5ZH9KHpV3mY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=blZWPxjo5hwgBu40psr3nMP0jy1m9PfEBxTCZizRexNpsfYR4yXOVdlRm4BXHNVEO
+	 0UHNVEs+L04EChR06fZWrqEdBKQVB+iEj+1ITEcRKIIRikh3ztCJfd2kyCLNamRlpN
+	 859WgetpgGjyelQaCYuPfQzklAfjJrdHNEuHOGAU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41219F805D3; Sun, 27 Aug 2023 19:02:18 +0200 (CEST)
+	id 56D21F805EF; Sun, 27 Aug 2023 19:02:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8266F805D6;
-	Sun, 27 Aug 2023 19:02:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EE64F805FA;
+	Sun, 27 Aug 2023 19:02:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB6BBF800F5; Fri, 25 Aug 2023 08:27:54 +0200 (CEST)
+	id 17F75F800F5; Fri, 25 Aug 2023 17:37:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from out-40.mta1.migadu.com (out-40.mta1.migadu.com [95.215.58.40])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.astralinux.ru (mail.astralinux.ru [217.74.38.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E72CDF80158
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 08:27:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E72CDF80158
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256
- header.s=key1 header.b=xGiuH5OB
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1692944859;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wTA7bapxplGCnZjVDiPGvbUqrHLJXwFDRMTQ/Lj8/HE=;
-	b=xGiuH5OBd++On3BrycBzuioMtaX2agvln1PBzVzQu/x0OZDbgoFgvDf6fWfHxc0n1L3VAN
-	y6FoqMZ8veBkMFIVMnCTQiZgUkHh2lHd3kESt2wuULl1bBQuT5deUKizVb5T4KjXJNCf7o
-	rd1OAKaROEGNaEtx0iiLhAjv82tun74=
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	nouveau@lists.freedesktop.org,
-	linux-pci@vger.kernel.org,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 98548F800AE
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 17:37:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98548F800AE
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.astralinux.ru (Postfix) with ESMTP id 202671868942;
+	Fri, 25 Aug 2023 18:37:07 +0300 (MSK)
+Received: from mail.astralinux.ru ([127.0.0.1])
+	by localhost (rbta-msk-vsrv-mail01.astralinux.ru [127.0.0.1]) (amavisd-new,
+ port 10032)
+	with ESMTP id v73nNLLpUn7Y; Fri, 25 Aug 2023 18:37:06 +0300 (MSK)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.astralinux.ru (Postfix) with ESMTP id 87BBD1867579;
+	Fri, 25 Aug 2023 18:37:06 +0300 (MSK)
+X-Virus-Scanned: amavisd-new at astralinux.ru
+Received: from mail.astralinux.ru ([127.0.0.1])
+	by localhost (rbta-msk-vsrv-mail01.astralinux.ru [127.0.0.1]) (amavisd-new,
+ port 10026)
+	with ESMTP id I_6nBa4-AHub; Fri, 25 Aug 2023 18:37:06 +0300 (MSK)
+Received: from rbta-msk-lt-302690.astralinux.ru (unknown [10.177.233.189])
+	by mail.astralinux.ru (Postfix) with ESMTPSA id 72BA51868950;
+	Fri, 25 Aug 2023 18:37:04 +0300 (MSK)
+From: Alexandra Diupina <adiupina@astralinux.ru>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Alexandra Diupina <adiupina@astralinux.ru>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Eason Yen <eason.yen@mediatek.com>,
 	alsa-devel@alsa-project.org,
-	Sui Jingfeng <suijingfeng@loongson.cn>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 5/5] drm/radeon: Use pci_get_base_class() to reduce duplicated
- code
-Date: Fri, 25 Aug 2023 14:27:14 +0800
-Message-Id: <20230825062714.6325-6-sui.jingfeng@linux.dev>
-In-Reply-To: <20230825062714.6325-1-sui.jingfeng@linux.dev>
-References: <20230825062714.6325-1-sui.jingfeng@linux.dev>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH] asoc: mediatek: common: Remove check of return value of
+ mtk_memif_set_addr() and mtk_memif_set_format()
+Date: Fri, 25 Aug 2023 18:36:50 +0300
+Message-Id: <20230825153650.20923-1-adiupina@astralinux.ru>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-MailFrom: sui.jingfeng@linux.dev
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: adiupina@astralinux.ru
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MLOFCEQT7DZQ3GJJS32T5XL74YD5MANN
-X-Message-ID-Hash: MLOFCEQT7DZQ3GJJS32T5XL74YD5MANN
-X-Mailman-Approved-At: Sun, 27 Aug 2023 17:02:15 +0000
+Message-ID-Hash: 64F7PGD3WYJ2OLQQYZ6T7SAHRHJDT33A
+X-Message-ID-Hash: 64F7PGD3WYJ2OLQQYZ6T7SAHRHJDT33A
+X-Mailman-Approved-At: Sun, 27 Aug 2023 17:02:16 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MLOFCEQT7DZQ3GJJS32T5XL74YD5MANN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/64F7PGD3WYJ2OLQQYZ6T7SAHRHJDT33A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,54 +98,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Sui Jingfeng <suijingfeng@loongson.cn>
+The mtk_memif_set_addr() and mtk_memif_set_format() functions always retu=
+rns 0, so it is
+necessary to remove the check of its return value (which was
+probably specified by analogy with the check of return values
+for other functions) to make the code more readable
 
-Should be no functional change.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+Fixes: df799b9502ed ("ASoC: mediatek: common: refine hw_params and hw_pre=
+pare")
+Signed-off-by: Alexandra Diupina <adiupina@astralinux.ru>
 ---
- drivers/gpu/drm/radeon/radeon_bios.c | 20 +++++---------------
- 1 file changed, 5 insertions(+), 15 deletions(-)
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-index 63bdc9f6fc24..3a8c5199a0fe 100644
---- a/drivers/gpu/drm/radeon/radeon_bios.c
-+++ b/drivers/gpu/drm/radeon/radeon_bios.c
-@@ -199,7 +199,11 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
- 	if (rdev->flags & RADEON_IS_IGP)
- 		return false;
- 
--	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
-+	while ((pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev))) {
-+		if ((pdev->class != PCI_CLASS_DISPLAY_VGA << 8) &&
-+		    (pdev->class != PCI_CLASS_DISPLAY_OTHER << 8))
-+			continue;
-+
- 		dhandle = ACPI_HANDLE(&pdev->dev);
- 		if (!dhandle)
- 			continue;
-@@ -211,20 +215,6 @@ static bool radeon_atrm_get_bios(struct radeon_device *rdev)
- 		}
- 	}
- 
--	if (!found) {
--		while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_OTHER << 8, pdev)) != NULL) {
--			dhandle = ACPI_HANDLE(&pdev->dev);
--			if (!dhandle)
--				continue;
--
--			status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
--			if (ACPI_SUCCESS(status)) {
--				found = true;
--				break;
--			}
--		}
+diff --git a/sound/soc/mediatek/common/mtk-afe-fe-dai.c b/sound/soc/media=
+tek/common/mtk-afe-fe-dai.c
+index 882cdf86c8bf..3c8a11c5958d 100644
+--- a/sound/soc/mediatek/common/mtk-afe-fe-dai.c
++++ b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+@@ -143,15 +143,10 @@ int mtk_afe_fe_hw_params(struct snd_pcm_substream *=
+substream,
+ 		  substream->runtime->dma_bytes);
+=20
+ 	/* set addr */
+-	ret =3D mtk_memif_set_addr(afe, id,
++	mtk_memif_set_addr(afe, id,
+ 				 substream->runtime->dma_area,
+ 				 substream->runtime->dma_addr,
+ 				 substream->runtime->dma_bytes);
+-	if (ret) {
+-		dev_err(afe->dev, "%s(), error, id %d, set addr, ret %d\n",
+-			__func__, id, ret);
+-		return ret;
 -	}
--
- 	if (!found)
- 		return false;
- 	pci_dev_put(pdev);
--- 
-2.34.1
+=20
+ 	/* set channel */
+ 	ret =3D mtk_memif_set_channel(afe, id, channels);
+@@ -170,12 +165,7 @@ int mtk_afe_fe_hw_params(struct snd_pcm_substream *s=
+ubstream,
+ 	}
+=20
+ 	/* set format */
+-	ret =3D mtk_memif_set_format(afe, id, format);
+-	if (ret) {
+-		dev_err(afe->dev, "%s(), error, id %d, set format %d, ret %d\n",
+-			__func__, id, format, ret);
+-		return ret;
+-	}
++	mtk_memif_set_format(afe, id, format);
+=20
+ 	return 0;
+ }
+--=20
+2.30.2
 

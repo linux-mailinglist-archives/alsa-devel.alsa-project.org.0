@@ -2,116 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3975D788544
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 12:58:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A1E788574
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 13:17:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 077D583E;
-	Fri, 25 Aug 2023 12:57:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 077D583E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C985C846;
+	Fri, 25 Aug 2023 13:16:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C985C846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692961105;
-	bh=SfVEzTAFC9BbLocRQneQMvgRG+3yzgc4otE+UQKadZg=;
+	s=default; t=1692962245;
+	bh=nGtUmHrN77N/LIlM2CI+f/dUbGWX0VQQD98XNzRKepo=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=INf6HsDLAWIYhLqXLABn7kGTIifq+oIRB7ca88EYgfYm/EqNu4VKFKndognB94K4G
-	 BoE0ZC63eLQWjcaJ9/DJ5ixVksizsgLfZVrJMx+HgDjLapRoDT77DEnbaRyv8XOaGG
-	 4u0K2vc4/l1kLRVmK8qJlO39nAIUQt+f+WZkCtsQ=
+	b=K25Iqlg/Xg9xAA9HGRage5SoY8gniv0rzasSmnmc4jzmAFtREm5PVBDd3S1q5bAtf
+	 D6Cn+6LZCXTeBAftsGnEiKEnEiLFwBdLQvPmZEMoP5ij/smll+otOWpcAgknWnt+wY
+	 jdeLFhDXyQhRkdRp5DFwDP+0TIBJslrjkncwDG4M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 770A6F804DA; Fri, 25 Aug 2023 12:57:34 +0200 (CEST)
+	id 76492F8022B; Fri, 25 Aug 2023 13:16:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09040F800D1;
-	Fri, 25 Aug 2023 12:57:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFE74F800D1;
+	Fri, 25 Aug 2023 13:16:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8ECECF800F5; Fri, 25 Aug 2023 12:57:30 +0200 (CEST)
+	id BC0D5F800F5; Fri, 25 Aug 2023 13:16:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC6D4F80074
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 12:57:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC6D4F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5F4F1F80074
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 13:15:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F4F1F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=U4G7Q9NC;
+ header.s=susede2_rsa header.b=FTgxpdth;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=yKF+Qsty
+ header.s=susede2_ed25519 header.b=5sLtMLA6
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CA53C21F99;
-	Fri, 25 Aug 2023 10:57:24 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 41D952185D;
+	Fri, 25 Aug 2023 11:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1692961044;
+	t=1692962155;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DctZkjtZCnROfTrc9EuMtJwS4YdieKQ1klE+OFAG1XQ=;
-	b=U4G7Q9NCjGwRqBhan3Glmfs8DRUzf/YeLYrDKhLXQvyzOKnB1moWoTQTYiVnZ/ykpj2Vyy
-	IwkwkVYKiXSY+5k726IUeI4d3+Y6mCDfLdyM8bBv7MzxWKPXxO2ypH+XpER/yCtS/o5pgn
-	+8CB2hbV1LBW6MsFPBzlwpjkd67zTas=
+	bh=n6p3PhuRYv46BVk7+xJahfqyK4N6T1xYAvoZ1bNVr4s=;
+	b=FTgxpdthDpAVyVuBxUy59BAKHBY4tI6FZSkklyu6rlzfkVBIO+uUV1CpUCLEgNS2ZjnjoV
+	Mjd2CfTn5oicCSs+YICqxzAJCaUua4q4nuHYdgHTer5yCEUsz682qJgdUUcR7bKDOlieSE
+	8Aj4aB3Gswttw9ZFdUjM5HfveQBpzxc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692961044;
+	s=susede2_ed25519; t=1692962155;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DctZkjtZCnROfTrc9EuMtJwS4YdieKQ1klE+OFAG1XQ=;
-	b=yKF+QstyIrTaBGOi5nuBCRq4TpCZgNO3LMAy2aZjIGZuDUFuZ94JQwoWGNtMQV48XYl0mN
-	cE1HkPjANGcLPyDQ==
+	bh=n6p3PhuRYv46BVk7+xJahfqyK4N6T1xYAvoZ1bNVr4s=;
+	b=5sLtMLA6H3XPzERIb6qBMo2TmHu5swDFgfutDyd9t3OHAq5nUXSLHO0Tvyu5p4fRLhq6jL
+	rVCY+nDCUDA+GRCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 324DD1340A;
-	Fri, 25 Aug 2023 10:57:24 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 26EC9138F9;
+	Fri, 25 Aug 2023 11:15:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id DN1fCxSJ6GQxLgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 25 Aug 2023 10:57:24 +0000
-Date: Fri, 25 Aug 2023 12:57:23 +0200
-Message-ID: <87ledz75kc.wl-tiwai@suse.de>
+	id wnGuCGuN6GS4NgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 25 Aug 2023 11:15:55 +0000
+Date: Fri, 25 Aug 2023 13:15:54 +0200
+Message-ID: <87il9374ph.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: cujomalainey@chromium.org
-Cc: alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi
- Iwai <tiwai@suse.com>,	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,	Liam Girdwood
- <liam.r.girdwood@linux.intel.com>,	Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>,	Bard Liao
- <yung-chuan.liao@linux.intel.com>,	Ranjani Sridharan
- <ranjani.sridharan@linux.intel.com>,	Kai Vehmanen
- <kai.vehmanen@linux.intel.com>,	Mark Brown <broonie@kernel.org>,	Dan
- Carpenter <error27@gmail.com>,	"Maciej S. Szmigiero"
- <maciej.szmigiero@oracle.com>,	Clement Lecigne <clecigne@google.com>,
-	Min-Hua Chen <minhuadotchen@gmail.com>,	Ivan Orlov
- <ivan.orlov0322@gmail.com>,	Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,	Thierry Reding <treding@nvidia.com>,	Geoff
- Levand <geoff@infradead.org>,	Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
- <u.kleine-koenig@pengutronix.de>,	Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 2/2] ALSA: core: split control primitives out of snd_card
-In-Reply-To: <20230824210339.1126993-3-cujomalainey@chromium.org>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH 0/2][RFC] Refactor snd primitives refcounters
+In-Reply-To: <20230824210339.1126993-1-cujomalainey@chromium.org>
 References: <20230824210339.1126993-1-cujomalainey@chromium.org>
-	<20230824210339.1126993-3-cujomalainey@chromium.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: MB23CQNTUJCDUACXIXM7CNKUYP7MKAVY
-X-Message-ID-Hash: MB23CQNTUJCDUACXIXM7CNKUYP7MKAVY
+Message-ID-Hash: XQYEDA5DX5JZHIB2BGLLWXW7POC4VSVK
+X-Message-ID-Hash: XQYEDA5DX5JZHIB2BGLLWXW7POC4VSVK
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MB23CQNTUJCDUACXIXM7CNKUYP7MKAVY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQYEDA5DX5JZHIB2BGLLWXW7POC4VSVK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,54 +116,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 24 Aug 2023 23:02:53 +0200,
+On Thu, 24 Aug 2023 23:02:51 +0200,
 cujomalainey@chromium.org wrote:
 > 
-> +struct snd_control
-> +{
+> From: Curtis Malainey <cujomalainey@chromium.org>
+> 
+> As previously identified in [1] there are some issues with how kobjs are
+> handled in sound/core. The solution provided in [2] is a workaround for
+> the issues to fix the failures.
+> 
+> This series is a first attempt at the larger refactor needed to properly
+> handle the objects.
+> 
+> [1] https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3B2VMPFATCJCRD76DM36LZAICPDP2R6A/
+> [2] https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JZIPB4OIC3OK6YAGTPMAEKXMLUWM5PTA/
+> 
+> Curtis Malainey (2):
+>   ALSA: core: add snd_device_init
+>   ALSA: core: split control primitives out of snd_card
 
-The open brace should be at the line above.
+Thanks for the patches.  But, as the 6.6 merge window open is pretty
+close, I'd postpone those unless it's urgently needed.
 
-> +	struct device dev;		/* control device */
-> +	struct rw_semaphore controls_rwsem;	/* controls lock (list and values) */
-> +	rwlock_t files_rwlock;	/* ctl_files list lock */
-> +	int controls_count;		/* count of all controls */
-> +	size_t user_ctl_alloc_size;	// current memory allocation by user controls.
+Also, before moving the resource tied with the device object, we'll
+need a refcount to the ctl dev from pcm dev, as PCM does release chmap
+at its free path (calling free_chmap()).  Otherwise it'll lead to
+another UAF, if both objects releases are done asynchronously without
+dependency.
 
-Better to have the same comment style if we move the whole stuff.
 
-> +int snd_control_new(struct snd_card *card)
-....
-> +{
-> +	struct snd_control *ctl = kzalloc(sizeof(*ctl), GFP_KERNEL);
-> +	int err;
-> +
-> +	if (snd_BUG_ON(!card))
-> +		return -EINVAL;
-
-This may leak the memory allocated in the above.
-
-> +	/* the control interface cannot be accessed from the user space until */
-> +	/* snd_cards_bitmask and snd_cards are set with snd_card_register */
-> +	err = snd_ctl_create(card);
-> +	if (err < 0) {
-> +		dev_err(card->dev, "unable to register control minors\n");
-> +		kfree(ctl);
-> +		return err;
-
-This needs a more care.  snd_ctl_create() calls put_device() when
-snd_device_new() fails, and this already does kfree().  OTOH, the
-error path before that point doesn't release the object.
-
-> +	}
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(snd_control_new);
-
-This is never called from the driver but only from snd_card_new() &
-co, so no need to export.
+BTW, the cover letter and the subject prefix of the patches don't
+match, and also the cover letter didn't include Cc.  Please try to
+make both cover letter and patches sent properly.
 
 
 thanks,
+
 
 Takashi

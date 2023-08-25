@@ -2,101 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 149BF78812B
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 09:46:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212FE788130
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 09:47:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 091B0846;
-	Fri, 25 Aug 2023 09:45:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 091B0846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48A77852;
+	Fri, 25 Aug 2023 09:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48A77852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692949592;
-	bh=rLN8YvULDyqGXPUqeYKeTvgWiPsVu8rkfocQfMzYtUQ=;
+	s=default; t=1692949657;
+	bh=IuTK9NsgS0PRLKyyZru/+f+vMAu0EvLVXpX03rYCI9k=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Us5c5/FDnTapiIrWA/urV6rwt6i3ERElhV8ni7q+MukbHubMYd6RBTYkhblEKWNTo
-	 9ke6Q1YWUuoY1hF29P3fCIpqvt20LTWaASqlKGEDhsG7MGDVYsx0bTY4ZtCSjZ2Rb5
-	 w5XuX61FLNlGJDgL9uOudmPH6SvCmspBYI/Ezhyk=
+	b=JJrWuJ3VsF9Unc28N7nuIDm1Utp6TM9tOTf3WsLuaXVFeaCi/Ow3diMwyx1gMVmfi
+	 6ANUVx9VlGayqrCF11N4Q7a9Aq/NFhZfdZ3zB/ryCpUWGZx2Q2USXqIIp3kisI0q/g
+	 TOO1idSWZ7ha2aHjJ0agkVzGHCrJGeie4T0iSLJs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 778FBF8023B; Fri, 25 Aug 2023 09:45:41 +0200 (CEST)
+	id 0A3C3F804F3; Fri, 25 Aug 2023 09:46:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27A6BF800D1;
-	Fri, 25 Aug 2023 09:45:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA05CF800D1;
+	Fri, 25 Aug 2023 09:46:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02384F800F5; Fri, 25 Aug 2023 09:44:55 +0200 (CEST)
+	id C116DF8022B; Fri, 25 Aug 2023 09:46:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 427D4F800BF
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 09:44:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 427D4F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9A940F800BF
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 09:46:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A940F800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=GxpmdPCh;
+ header.s=susede2_rsa header.b=Npq4P0Sr;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YbCgRRuR
+ header.s=susede2_ed25519 header.b=Ea5V48fn
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 21D6F224AC;
-	Fri, 25 Aug 2023 07:44:47 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id EC9161F8B2;
+	Fri, 25 Aug 2023 07:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1692949487;
+	t=1692949597;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eEZhCYNxD04XHg1Fe4mbJB/54I8FsPtmAWtgA9s3Sb8=;
-	b=GxpmdPChTqEoc1iglTOfG5lU3smW/4QEMuiWBzwq+HJibPQm4s+VQZWs8FbagSeO+AcMSx
-	GFNuu45sUMOAi37KUBLzFYRqg/jFUIkNrUjiWmyGfKC2EP/oCRgRLCYhqoKOQ0FEz5kwBs
-	tWzoo8Skx3l8M5UbkxX+M4DqKWduIkM=
+	bh=vYHW6KAJ2Ktr2piU9qkfkyHVUfu3GN5wP2DEKWDIh5E=;
+	b=Npq4P0Sr0NS00uimqXFZNAITHggv8U3/7YTiOX3a/EpWFmmU852DmtXoFCnOeWotAEutWA
+	9spb3gBFbVTH1AThxu49znUnw4o22Zl5vdNUR5k/MJLRlRLQGEWQNEGaofvsk/2wR7iUzT
+	yFNE52xGhsmAA6LrNzSISCDlZS7HkM4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692949487;
+	s=susede2_ed25519; t=1692949597;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eEZhCYNxD04XHg1Fe4mbJB/54I8FsPtmAWtgA9s3Sb8=;
-	b=YbCgRRuR3Ntwc55Ru/uOPnETJ7pmM0eBPGF+CxxgAXY82XcgEhsfs5h/TcYsKpERmiELL4
-	EbipMQMrit8NVpDg==
+	bh=vYHW6KAJ2Ktr2piU9qkfkyHVUfu3GN5wP2DEKWDIh5E=;
+	b=Ea5V48fnsZaD8UtPOruNlLe/7ojrNjQ8umi0+T8XUFJP/n6EUxZ20IybtSVwos/W+6fM2t
+	Xs58fWcpxFD/+LBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 020921340A;
-	Fri, 25 Aug 2023 07:44:46 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C426F1340A;
+	Fri, 25 Aug 2023 07:46:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id oKQUO+5b6GSKTwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 25 Aug 2023 07:44:46 +0000
-Date: Fri, 25 Aug 2023 09:44:46 +0200
-Message-ID: <87h6on8t1t.wl-tiwai@suse.de>
+	id S83sLl1c6GRqUAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 25 Aug 2023 07:46:37 +0000
+Date: Fri, 25 Aug 2023 09:46:37 +0200
+Message-ID: <87fs478syq.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.5-rc7-2
-In-Reply-To: <f3cfc114aa5fefb981c3401877c8d5d0.broonie@kernel.org>
-References: <f3cfc114aa5fefb981c3401877c8d5d0.broonie@kernel.org>
+To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	alsa-devel@alsa-project.org,
+	kernel@pengutronix.de
+Subject: Re: [PATCH] ALSA: hda/tas2781: Switch back to use struct i2c_driver's
+ .probe()
+In-Reply-To: <20230824200219.9569-1-u.kleine-koenig@pengutronix.de>
+References: <20230824200219.9569-1-u.kleine-koenig@pengutronix.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 5QJNGNLPTUO54TRTWR6TMRSPLP2UOH6N
-X-Message-ID-Hash: 5QJNGNLPTUO54TRTWR6TMRSPLP2UOH6N
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: KGJBLZKS7ZNLA4AAONQ3QF643ALPWXPH
+X-Message-ID-Hash: KGJBLZKS7ZNLA4AAONQ3QF643ALPWXPH
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5QJNGNLPTUO54TRTWR6TMRSPLP2UOH6N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KGJBLZKS7ZNLA4AAONQ3QF643ALPWXPH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,28 +125,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 24 Aug 2023 23:52:22 +0200,
-Mark Brown wrote:
+On Thu, 24 Aug 2023 22:02:19 +0200,
+Uwe Kleine-König wrote:
 > 
-> The following changes since commit 37aba3190891d4de189bd5192ee95220e295f34d:
+> struct i2c_driver::probe_new is about to go away. Switch the driver to
+> use the probe callback with the same prototype.
 > 
->   ASoC: rt1308-sdw: fix random louder sound (2023-08-13 18:16:32 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-rc7-2
-> 
-> for you to fetch changes up to c008323fe361bd62a43d9fb29737dacd5c067fb7:
-> 
->   ASoC: amd: yc: Fix a non-functional mic on Lenovo 82SJ (2023-08-24 13:15:33 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Quirk for v6.5
-> 
-> One additional fix for v6.5, an additional quirk.  As with the other
-> fixes this could wait for the merge window.
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Thanks, pulled now.
+Applied now, thanks.
+
+> ---
+> Hello,
+> 
+> this driver was introduced in next-20230821. As I plan to drop
+> .probe_new in next after v6.6-rc1, it would be great if this patch made
+> it in until then, too.
+
+Yes, it should be gone in the next linux-next update.
+I completely forgot this rename, sorry for that.
 
 
 Takashi

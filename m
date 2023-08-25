@@ -2,101 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EE6787E03
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 04:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4930787EBA
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 05:48:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57B95AE8;
-	Fri, 25 Aug 2023 04:51:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57B95AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D8E0836;
+	Fri, 25 Aug 2023 05:48:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D8E0836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692931939;
-	bh=BDVwIjk2/azMdk95krURCtBbcE0miWsH+jVdqpQkNnc=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1692935330;
+	bh=jjjtNUA5cWxVMxK4a6cPmKQ3NaY376YQwtXIBFeuDpo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=u+b8vo/xpB7BLlJYYkVBLvhZydhnK+44ufCfXg7iMuFOINmVsTxZuijIdlo7dzArN
-	 aEhctxEL5LJsFJES7XpgqM599iwe8VUEBQPC9fW+Q/og2T65XFkwkIH35zxvOwqgO3
-	 qKBNL11sf8A/4NSO7SZz3tmfqUqD1FcDz2wQvsNU=
+	b=qDE3xehG9UmYQC2TQCdjQg8GcBC7DL0DKO+M+ghc8XWFAar4i427GCw+4AJDPWm+3
+	 alK4el6Gh8jB7BUx/c544ZX0xt9IIFdNlRrA7CSeg/JL5VgHaKTdnC/sAuLua54SC2
+	 nw2L/Dm0RxsGoJRIaF5BuE24h+mO8rJUZZboz2wA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFECDF80567; Fri, 25 Aug 2023 04:50:46 +0200 (CEST)
+	id D12B2F8023B; Fri, 25 Aug 2023 05:47:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C2BFF8022B;
-	Fri, 25 Aug 2023 04:50:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66A54F800D1;
+	Fri, 25 Aug 2023 05:47:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE84AF80571; Fri, 25 Aug 2023 04:50:43 +0200 (CEST)
+	id 8A0F2F800F5; Fri, 25 Aug 2023 05:47:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4821FF800F5
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 04:49:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4821FF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1BCFDF80074
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 05:46:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BCFDF80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=LkxBLEYV
-X-UUID: 0845fe3e42f211eeb20a276fd37b9834-20230825
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=LEy2cM8iqgdTUwWNrRY9ne2NFOosBkhxNhWOh9wSVco=;
-	b=LkxBLEYVeV6LSPYQymJmelimmNG8a9Ykp2bgtTPhw4BwaAHWrHWeoGjKhkEeAX8g5bGx5foHxL62vzCaAYDmMtM+ShRnJoGqlYucxrt0Z2kDAZOxUS7YvjlfSmWEamrUN/MZcWW66LVtMJmec4iad5wKarS9NkPBwhHSs0DTtI4=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.31,REQID:708038c8-57c6-4374-a0c9-b17612610366,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:70
-X-CID-INFO: VERSION:1.1.31,REQID:708038c8-57c6-4374-a0c9-b17612610366,IP:0,URL
-	:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
-	ON:quarantine,TS:70
-X-CID-META: VersionHash:0ad78a4,CLOUDID:6c18edee-9a6e-4c39-b73e-f2bc08ca3dc5,B
-	ulkID:230825104941G0K3HXIE,BulkQuantity:0,Recheck:0,SF:28|17|19|48|38|29,T
-	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_SDM,TF_CID_SPAM_ASC,TF_CID_SPAM_FAS,
-	TF_CID_SPAM_FSD
-X-UUID: 0845fe3e42f211eeb20a276fd37b9834-20230825
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 28115180; Fri, 25 Aug 2023 10:49:38 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Fri, 25 Aug 2023 10:49:37 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Fri, 25 Aug 2023 10:49:37 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <trevor.wu@mediatek.com>, <alsa-devel@alsa-project.org>,
-	<linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [RESEND,v3 3/3] ASoC: mediatek: mt8188-mt6359: add SOF support
-Date: Fri, 25 Aug 2023 10:49:35 +0800
-Message-ID: <20230825024935.10878-4-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230825024935.10878-1-trevor.wu@mediatek.com>
-References: <20230825024935.10878-1-trevor.wu@mediatek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=ljBfsTIH
+Received: by mail-pj1-x1034.google.com with SMTP id
+ 98e67ed59e1d1-26f3e26e59cso400105a91.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 24 Aug 2023 20:46:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1692935214; x=1693540014;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qB6+Vu7s9lxHf8Fx4gWkeSYU67OaMytC2iSqtBmoLVk=;
+        b=ljBfsTIHdj+THurnUJY9Q3Sq9IfUIi77gE/yNw2gmAC+84GWujzjx76TMozHgVEGNS
+         V7NAEiAifM6vGmPfqnlILA5xquv4H+8WoGTj6XZY11Zke7HL7k1FpP2dlyxj5Hq05gvr
+         lgA0xbVoYtxkH4VqRp82CKvB5ClKqCNMELgmv9Qwk+gPsdYgJTm1i27ooxQqxMZsYuU2
+         hYLY3W03ow77kEDE81jbZ0mqjlVf19PLhXhlkB2NoS8sgOAfgt2zoQ3T6UmwlZDAZQmS
+         EgnnoNL4ZoxSVPMEIIF/Hge284EC6EouaCacLzdJi4f6bB8czhPD6PJEZkmtV67f7t/b
+         xKYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692935214; x=1693540014;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qB6+Vu7s9lxHf8Fx4gWkeSYU67OaMytC2iSqtBmoLVk=;
+        b=OIpZrmxr8zqHGW9M6jO8XA5Lo2t0iAir8A6fyEdrbxNccYaaBUlO37LPOeiLUI0wVP
+         NFO1wLnQFY8VwlVakhLiUUK2FaxAHOud32JJs0/ntFPzJwAad8VOENuRIvDW+h+RSkSC
+         NiEffbRD7kSPMAsyoAeOg+qf/bOUJFGfiNeUTCKf3YtwzDcRsJGvdO7gWfI7C6U2NBR6
+         BB4K2agvu5gaR2GsNFx2ZAbNT9ZMeS8isUcKQw5aREOB7pCpxLPaN9VY8Hw3woySn9rg
+         F5n3yE6WVZwvokxqwNo7c5Z3+EjDSgOm5ICtFRT6Vr/pjUCjtWKqdtj1naZapzuU04uv
+         1dGw==
+X-Gm-Message-State: AOJu0YyOLFjqY0FwrYSUs8A70b5v7G5HOAF1ca+7V0Hhb8e1upzsapw/
+	5ss+7VKlqyYD/zG5X79Zsvrzd3r4SDyPecAKhHk=
+X-Google-Smtp-Source: 
+ AGHT+IHK3AwqFQWMgaDzKk8ascCxkGB5tB9Avd+eUPD79D7He/OxN5Qk96BRyCrHm2z3LsdodV02Rb8pqGONulPKObU=
+X-Received: by 2002:a17:90a:7408:b0:26b:513a:30b0 with SMTP id
+ a8-20020a17090a740800b0026b513a30b0mr26760961pjg.10.1692935214239; Thu, 24
+ Aug 2023 20:46:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Message-ID-Hash: TDJIFQYXKR7EVASXRVOMLBHKHFPYAM34
-X-Message-ID-Hash: TDJIFQYXKR7EVASXRVOMLBHKHFPYAM34
-X-MailFrom: trevor.wu@mediatek.com
+References: <47d66c28-1eb2-07f5-d6f9-779d675aefe8@xs4all.nl>
+ <87il9xu1ro.wl-tiwai@suse.de>
+ <CAA+D8ANmBKMp_L2GS=Lp-saMQKja6L4E6No3yP-e=a5YQBD_jQ@mail.gmail.com>
+ <87il9xoddo.wl-tiwai@suse.de>
+ <CAA+D8AOVEpGxO0YNeS1p+Ym86k6VP-CNQB3JmbeT7mPKg0R99A@mail.gmail.com>
+ <844ef9b6-d5e2-46a9-b7a5-7ee86a2e449c@sirena.org.uk>
+ <CAA+D8AOnsx+7t3MrWm42waxtetL07nbKURLsh1hBx39LUDm+Zg@mail.gmail.com>
+ <CAA+D8AMriHO60SD2OqQSDMmi7wm=0MkoW6faR5nyve-j2Q5AEQ@mail.gmail.com>
+ <CAA+D8AN34-NVrgksRAG014PuHGUssTm0p-KR-HYGe+Pt8Yejxg@mail.gmail.com>
+ <87wmxk8jaq.wl-tiwai@suse.de> <ZOe74PO4S6bj/QlV@finisterre.sirena.org.uk>
+In-Reply-To: <ZOe74PO4S6bj/QlV@finisterre.sirena.org.uk>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 25 Aug 2023 11:46:43 +0800
+Message-ID: 
+ <CAA+D8AM_pqbjQaE59n6Qm5gypLb8zPAwOpJR+_ZEG89-q3B8pg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/7] Add audio support in v4l2 framework
+To: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>, Hans Verkuil <hverkuil@xs4all.nl>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 6H22W2VVX6ZZSOQ7ZZ7EEHRQVQY6NFJY
+X-Message-ID-Hash: 6H22W2VVX6ZZSOQ7ZZ7EEHRQVQY6NFJY
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TDJIFQYXKR7EVASXRVOMLBHKHFPYAM34/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6H22W2VVX6ZZSOQ7ZZ7EEHRQVQY6NFJY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,378 +130,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SOF is enabled when adsp phandle is assigned to "mediatek,adsp".
-The required callback will be assigned when SOF is enabled.
+On Fri, Aug 25, 2023 at 4:21=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Thu, Aug 24, 2023 at 07:03:09PM +0200, Takashi Iwai wrote:
+> > Shengjiu Wang wrote:
+>
+> > > But there are several issues:
+> > > 1. Need to create sound cards.  ASRC module support multi instances, =
+then
+> > > need to create multi sound cards for each instance.
+>
+> > Hm, why can't it be multiple PCM instances instead?
+>
+> I'm having a hard time following this one too.
+>
+> > > 2. The ASRC is an entirety but with DPCM we need to separate input po=
+rt and
+> > > output port to playback substream and capture stream. Synchronous bet=
+ween
+> > > playback substream and capture substream is a problem.
+> > > How to start them and stop them at the same time.
+>
+> > This could be done by enforcing the full duplex and linking the both
+> > PCM streams, I suppose.
+>
+> > > So shall we make the decision that we can go to the V4L2 solution?
+>
+> > Honestly speaking, I don't mind much whether it's implemented in V2L4
+> > or not -- at least for the kernel part, we can reorganize / refactor
+> > things internally.  But, the biggest remaining question to me is
+> > whether this user-space interface is the most suitable one.  Is it
+> > well defined, usable and maintained for the audio applications?  Or
+> > is it meant to be a stop-gap for a specific use case?
+>
+> I'm having a really hard time summoning much enthusiasm for using v4l
+> here, it feels like this is heading down the same bodge route as DPCM
+> but directly as ABI so even harder to fix properly.  That said all the
+> ALSA APIs are really intended to be used in real time and this sounds
+> like a non real time application?  I don't fully understand what the
+> actual use case is here.
 
-Additionally, "mediatek,dai-link" is introduced to decide the supported
-dai links for a project, so user can reuse the machine driver regardless
-of dai link combination.
+Thanks for your reply.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- sound/soc/mediatek/mt8188/mt8188-mt6359.c | 218 ++++++++++++++++++++--
- 1 file changed, 205 insertions(+), 13 deletions(-)
+This asrc memory to memory (memory ->asrc->memory) case is a non
+real time use case.
 
-diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-index e7ac2b6671d3..40d0a7265c19 100644
---- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-@@ -19,6 +19,8 @@
- #include "../../codecs/mt6359.h"
- #include "../common/mtk-afe-platform-driver.h"
- #include "../common/mtk-soundcard-driver.h"
-+#include "../common/mtk-dsp-sof-common.h"
-+#include "../common/mtk-soc-card.h"
- 
- #define CKSYS_AUD_TOP_CFG	0x032c
-  #define RG_TEST_ON		BIT(0)
-@@ -45,6 +47,11 @@
-  */
- #define NAU8825_CODEC_DAI  "nau8825-hifi"
- 
-+#define SOF_DMA_DL2 "SOF_DMA_DL2"
-+#define SOF_DMA_DL3 "SOF_DMA_DL3"
-+#define SOF_DMA_UL4 "SOF_DMA_UL4"
-+#define SOF_DMA_UL5 "SOF_DMA_UL5"
-+
- /* FE */
- SND_SOC_DAILINK_DEFS(playback2,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("DL2")),
-@@ -176,6 +183,49 @@ SND_SOC_DAILINK_DEFS(ul_src,
- 						   "dmic-hifi")),
- 		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
-+SND_SOC_DAILINK_DEFS(AFE_SOF_DL2,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL2")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_DL3,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_DL3")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_UL4,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL4")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(AFE_SOF_UL5,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("SOF_UL5")),
-+		     DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+static const struct sof_conn_stream g_sof_conn_streams[] = {
-+	{
-+		.sof_link = "AFE_SOF_DL2",
-+		.sof_dma = SOF_DMA_DL2,
-+		.stream_dir = SNDRV_PCM_STREAM_PLAYBACK
-+	},
-+	{
-+		.sof_link = "AFE_SOF_DL3",
-+		.sof_dma = SOF_DMA_DL3,
-+		.stream_dir = SNDRV_PCM_STREAM_PLAYBACK
-+	},
-+	{
-+		.sof_link = "AFE_SOF_UL4",
-+		.sof_dma = SOF_DMA_UL4,
-+		.stream_dir = SNDRV_PCM_STREAM_CAPTURE
-+	},
-+	{
-+		.sof_link = "AFE_SOF_UL5",
-+		.sof_dma = SOF_DMA_UL5,
-+		.stream_dir = SNDRV_PCM_STREAM_CAPTURE
-+	},
-+};
-+
- struct mt8188_mt6359_priv {
- 	struct snd_soc_jack dp_jack;
- 	struct snd_soc_jack hdmi_jack;
-@@ -246,6 +296,10 @@ static const struct snd_soc_dapm_widget mt8188_mt6359_widgets[] = {
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_SINK("HDMI"),
- 	SND_SOC_DAPM_SINK("DP"),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_DL2, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_DL3, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_UL4, SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_MIXER(SOF_DMA_UL5, SND_SOC_NOPM, 0, 0, NULL, 0),
- 
- 	/* dynamic pinctrl */
- 	SND_SOC_DAPM_PINCTRL("ETDM_SPK_PIN", "aud_etdm_spk_on", "aud_etdm_spk_off"),
-@@ -266,6 +320,19 @@ static const struct snd_kcontrol_new mt8188_nau8825_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- };
- 
-+static const struct snd_soc_dapm_route mt8188_mt6359_routes[] = {
-+	/* SOF Uplink */
-+	{SOF_DMA_UL4, NULL, "O034"},
-+	{SOF_DMA_UL4, NULL, "O035"},
-+	{SOF_DMA_UL5, NULL, "O036"},
-+	{SOF_DMA_UL5, NULL, "O037"},
-+	/* SOF Downlink */
-+	{"I070", NULL, SOF_DMA_DL2},
-+	{"I071", NULL, SOF_DMA_DL2},
-+	{"I020", NULL, SOF_DMA_DL3},
-+	{"I021", NULL, SOF_DMA_DL3},
-+};
-+
- static int mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_component *cmpnt_afe =
-@@ -471,8 +538,17 @@ enum {
- 	DAI_LINK_ETDM3_OUT_BE,
- 	DAI_LINK_PCM1_BE,
- 	DAI_LINK_UL_SRC_BE,
-+	DAI_LINK_REGULAR_LAST = DAI_LINK_UL_SRC_BE,
-+	DAI_LINK_SOF_START,
-+	DAI_LINK_SOF_DL2_BE = DAI_LINK_SOF_START,
-+	DAI_LINK_SOF_DL3_BE,
-+	DAI_LINK_SOF_UL4_BE,
-+	DAI_LINK_SOF_UL5_BE,
-+	DAI_LINK_SOF_END = DAI_LINK_SOF_UL5_BE,
- };
- 
-+#define	DAI_LINK_REGULAR_NUM	(DAI_LINK_REGULAR_LAST + 1)
-+
- static int mt8188_dptx_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
- {
-@@ -503,7 +579,8 @@ static int mt8188_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 
- static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret = 0;
- 
-@@ -528,7 +605,8 @@ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
- 
- static int mt8188_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	int ret = 0;
- 
-@@ -648,7 +726,8 @@ static int mt8188_max98390_codec_init(struct snd_soc_pcm_runtime *rtd)
- static int mt8188_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct snd_soc_jack *jack = &priv->headset_jack;
- 	int ret;
-@@ -733,6 +812,33 @@ static int mt8188_nau8825_hw_params(struct snd_pcm_substream *substream,
- static const struct snd_soc_ops mt8188_nau8825_ops = {
- 	.hw_params = mt8188_nau8825_hw_params,
- };
-+
-+static int mt8188_sof_be_hw_params(struct snd_pcm_substream *substream,
-+				   struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_soc_component *cmpnt_afe = NULL;
-+	struct snd_soc_pcm_runtime *runtime;
-+
-+	/* find afe component */
-+	for_each_card_rtds(rtd->card, runtime) {
-+		cmpnt_afe = snd_soc_rtdcom_lookup(runtime, AFE_PCM_NAME);
-+		if (cmpnt_afe)
-+			break;
-+	}
-+
-+	if (cmpnt_afe && !pm_runtime_active(cmpnt_afe->dev)) {
-+		dev_err(rtd->dev, "afe pm runtime is not active!!\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops mt8188_sof_be_ops = {
-+	.hw_params = mt8188_sof_be_hw_params,
-+};
-+
- static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 	/* FE */
- 	[DAI_LINK_DL2_FE] = {
-@@ -1003,6 +1109,36 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		.dpcm_capture = 1,
- 		SND_SOC_DAILINK_REG(ul_src),
- 	},
-+
-+	/* SOF BE */
-+	[DAI_LINK_SOF_DL2_BE] = {
-+		.name = "AFE_SOF_DL2",
-+		.no_pcm = 1,
-+		.dpcm_playback = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_DL2),
-+	},
-+	[DAI_LINK_SOF_DL3_BE] = {
-+		.name = "AFE_SOF_DL3",
-+		.no_pcm = 1,
-+		.dpcm_playback = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_DL3),
-+	},
-+	[DAI_LINK_SOF_UL4_BE] = {
-+		.name = "AFE_SOF_UL4",
-+		.no_pcm = 1,
-+		.dpcm_capture = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_UL4),
-+	},
-+	[DAI_LINK_SOF_UL5_BE] = {
-+		.name = "AFE_SOF_UL5",
-+		.no_pcm = 1,
-+		.dpcm_capture = 1,
-+		.ops = &mt8188_sof_be_ops,
-+		SND_SOC_DAILINK_REG(AFE_SOF_UL5),
-+	},
- };
- 
- static struct snd_kcontrol *ctl_find(struct snd_card *card, const char *name)
-@@ -1017,7 +1153,8 @@ static struct snd_kcontrol *ctl_find(struct snd_card *card, const char *name)
- 
- static void mt8188_fixup_controls(struct snd_soc_card *card)
- {
--	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(card);
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
- 	struct mt8188_card_data *card_data = (struct mt8188_card_data *)priv->private_data;
- 	struct snd_kcontrol *kctl;
- 
-@@ -1045,6 +1182,8 @@ static struct snd_soc_card mt8188_mt6359_soc_card = {
- 	.num_links = ARRAY_SIZE(mt8188_mt6359_dai_links),
- 	.dapm_widgets = mt8188_mt6359_widgets,
- 	.num_dapm_widgets = ARRAY_SIZE(mt8188_mt6359_widgets),
-+	.dapm_routes = mt8188_mt6359_routes,
-+	.num_dapm_routes = ARRAY_SIZE(mt8188_mt6359_routes),
- 	.controls = mt8188_mt6359_controls,
- 	.num_controls = ARRAY_SIZE(mt8188_mt6359_controls),
- 	.fixup_controls = mt8188_fixup_controls,
-@@ -1054,6 +1193,8 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = &mt8188_mt6359_soc_card;
- 	struct device_node *platform_node;
-+	struct device_node *adsp_node;
-+	struct mtk_soc_card_data *soc_card_data;
- 	struct mt8188_mt6359_priv *priv;
- 	struct mt8188_card_data *card_data;
- 	struct snd_soc_dai_link *dai_link;
-@@ -1074,21 +1215,64 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 	if (!card->name)
- 		card->name = card_data->name;
- 
--	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv)
--		return  -ENOMEM;
--
- 	if (of_property_read_bool(pdev->dev.of_node, "audio-routing")) {
- 		ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
- 		if (ret)
- 			return ret;
- 	}
- 
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	soc_card_data = devm_kzalloc(&pdev->dev, sizeof(*card_data), GFP_KERNEL);
-+	if (!soc_card_data)
-+		return -ENOMEM;
-+
-+	soc_card_data->mach_priv = priv;
-+
-+	adsp_node = of_parse_phandle(pdev->dev.of_node, "mediatek,adsp", 0);
-+	if (adsp_node) {
-+		struct mtk_sof_priv *sof_priv;
-+
-+		sof_priv = devm_kzalloc(&pdev->dev, sizeof(*sof_priv), GFP_KERNEL);
-+		if (!sof_priv) {
-+			ret = -ENOMEM;
-+			goto err_adsp_node;
-+		}
-+		sof_priv->conn_streams = g_sof_conn_streams;
-+		sof_priv->num_streams = ARRAY_SIZE(g_sof_conn_streams);
-+		soc_card_data->sof_priv = sof_priv;
-+		card->probe = mtk_sof_card_probe;
-+		card->late_probe = mtk_sof_card_late_probe;
-+		if (!card->topology_shortname_created) {
-+			snprintf(card->topology_shortname, 32, "sof-%s", card->name);
-+			card->topology_shortname_created = true;
-+		}
-+		card->name = card->topology_shortname;
-+	}
-+
-+	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
-+		ret = mtk_sof_dailink_parse_of(card, pdev->dev.of_node,
-+					       "mediatek,dai-link",
-+					       mt8188_mt6359_dai_links,
-+					       ARRAY_SIZE(mt8188_mt6359_dai_links));
-+		if (ret) {
-+			dev_err_probe(&pdev->dev, ret, "Parse dai-link fail\n");
-+			goto err_adsp_node;
-+		}
-+	} else {
-+		if (!adsp_node)
-+			card->num_links = DAI_LINK_REGULAR_NUM;
-+	}
-+
- 	platform_node = of_parse_phandle(pdev->dev.of_node,
- 					 "mediatek,platform", 0);
- 	if (!platform_node) {
--		ret = -EINVAL;
--		return dev_err_probe(&pdev->dev, ret, "Property 'platform' missing or invalid\n");
-+		ret = dev_err_probe(&pdev->dev, -EINVAL,
-+				    "Property 'platform' missing or invalid\n");
-+		goto err_adsp_node;
-+
- 	}
- 
- 	ret = parse_dai_link_info(card);
-@@ -1096,8 +1280,12 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 		goto err;
- 
- 	for_each_card_prelinks(card, i, dai_link) {
--		if (!dai_link->platforms->name)
--			dai_link->platforms->of_node = platform_node;
-+		if (!dai_link->platforms->name) {
-+			if (!strncmp(dai_link->name, "AFE_SOF", strlen("AFE_SOF")) && adsp_node)
-+				dai_link->platforms->of_node = adsp_node;
-+			else
-+				dai_link->platforms->of_node = platform_node;
-+		}
- 
- 		if (strcmp(dai_link->name, "DPTX_BE") == 0) {
- 			if (strcmp(dai_link->codecs->dai_name, "snd-soc-dummy-dai"))
-@@ -1140,7 +1328,7 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 	}
- 
- 	priv->private_data = card_data;
--	snd_soc_card_set_drvdata(card, priv);
-+	snd_soc_card_set_drvdata(card, soc_card_data);
- 
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret)
-@@ -1149,6 +1337,10 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- err:
- 	of_node_put(platform_node);
- 	clean_card_reference(card);
-+
-+err_adsp_node:
-+	of_node_put(adsp_node);
-+
- 	return ret;
- }
- 
--- 
-2.18.0
+User fills the input buffer to the asrc module,  after conversion, then asr=
+c
+sends back the output buffer to user. So it is not a traditional ALSA playb=
+ack
+and capture case. I think it is not good to create sound card for it,  it i=
+s
+not a sound card actually.
 
+It is a specific use case,  there is no reference in current kernel.
+v4l2 memory to memory is the closed implementation,  v4l2 current
+support video, image, radio, tuner, touch devices, so it is not
+complicated to add support for this specific audio case.
+
+Maybe you can go through these patches first.  Because we
+had implemented the "memory -> asrc ->i2s device-> codec"
+use case in ALSA.  Now the "memory->asrc->memory" needs
+to reuse the code in asrc driver, so the first 3 patches is for refining
+the code to make it can be shared by the "memory->asrc->memory"
+driver.
+
+The main change is in the v4l2 side, A /dev/vl42-audio will be created,
+user applications only use the ioctl of v4l2 framework.
+
+Best regards
+Wang Shengjiu

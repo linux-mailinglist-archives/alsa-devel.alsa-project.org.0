@@ -2,95 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22740788C29
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 17:10:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E89788DCE
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 19:27:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADCD883B;
-	Fri, 25 Aug 2023 17:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADCD883B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E03D84A;
+	Fri, 25 Aug 2023 19:26:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E03D84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692976222;
-	bh=eTsyzlBbfmq/Le+3Cn1cevyPu84zu+E34+QvDFlJUsE=;
-	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1692984423;
+	bh=6lIAsjfzQ31TGPmRwzbj9mEehySlk7glxjS1fp/ikjk=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VXs7izuMs5BsnedDyqKiaBreg9KTryjpYOuzWoKg2DwZ3P0bkIXfLfABoCqdgtIJm
-	 WfCMCSpQlXCOKGqehfmTFpaqmiXtt2fwuC3ZERYricTPhVRD/QQnL1tSepYFmtF+8H
-	 En9R6Wr5M8YudLCI9/JU2lehSnr1qMNtUw1/EPx8=
+	b=aiVmtqi4Gtk4uJOQgK4wZqEuK3FUqBf7f3enKNqCdAzRw54PGpC8mzKEM21Du358P
+	 34HH80eQpTH3GNVTfpLy0uMcnv8uLLcEV80jEGsRoK1xpXKSRUTxxrIUYtAhDK5geD
+	 yIXYoSbWdSTAWHNz1CjFTIeQf91+NfoggR7QJVUA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30CA9F800AE; Fri, 25 Aug 2023 17:09:32 +0200 (CEST)
+	id 92968F80158; Fri, 25 Aug 2023 19:25:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3D63F800D1;
-	Fri, 25 Aug 2023 17:09:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C5EAF800D1;
+	Fri, 25 Aug 2023 19:25:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3E09F800F5; Fri, 25 Aug 2023 17:09:27 +0200 (CEST)
+	id 1EA05F80158; Fri, 25 Aug 2023 19:23:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 53D75F800AE
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 17:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53D75F800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id AFC3CF800D1
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 19:23:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFC3CF800D1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=GNZ+mY4G;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=FT2YJp0P
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9613322468;
-	Fri, 25 Aug 2023 15:09:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692976157; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=tJ0qi/i3EYD8R2ZCtEHMhMZUc4PDdZLJPb/tuIgjrl8=;
-	b=GNZ+mY4GfoaFh+OaqZ+4MFDcokZP2K5ANql9ySx8yc9HSX1PfgN53GvlHowgEpSEJOyXib
-	Mf1V5lXvXdKCZVvjXlvbOSnjI4NI86eXAfEe/kSgmR9DOy+5UlGChXOHQppSbQ8akCqW2h
-	JHQ4RZRbelb8wDgs3L80uKR9Eck/adw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692976157;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=tJ0qi/i3EYD8R2ZCtEHMhMZUc4PDdZLJPb/tuIgjrl8=;
-	b=FT2YJp0P+kwpWPg5gAFIgg97NUY79k+iQYFIn504XLRv8SF+/wjmzn/J8b/Zgqb/YWw2nF
-	BRSLOFp/Zpj4B3AQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 790581340A;
-	Fri, 25 Aug 2023 15:09:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 60g8Gx3E6GT0KgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 25 Aug 2023 15:09:17 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: ump: Fix -Wformat-truncation warnings
-Date: Fri, 25 Aug 2023 17:09:15 +0200
-Message-Id: <20230825150915.1595-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=L6Fqf83e
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2bcc331f942so14651311fa.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 25 Aug 2023 10:23:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1692984200; x=1693589000;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=r+IbZPjvkKJyHb1t49FSi3dEugB3CnJDHGvd+okiiCs=;
+        b=L6Fqf83e7W5LtDR+x18E59//1P2tJRk15WBcSKAB9RqKpy0FI6/zxZK44xfcvY226t
+         3q0OgysfbKZMyiFhlfcAidNIk7MyJp0uNO1bk23xTDjvLum69uOT9ASPZKL3Ps28XMOZ
+         fD0IskR25QygVbt0lWRChtt2U6Ei3UbhIEqj0E5IEAQKczz1FK3ER5oNqugYYHBxQ6YZ
+         Hrj6Zi1RJ//A8LSZgK/P18Jix1acNjrNTVw4bK9ZChnm9TXeJqN0OxG+oy7P3PDHfq45
+         DDMBdVrQCI0+no9eDWdTuhUgfa+XyFpRnME4EALFI2SI1UTrz7w4U+iF5v6Jjjpc5X5g
+         DfGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692984200; x=1693589000;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=r+IbZPjvkKJyHb1t49FSi3dEugB3CnJDHGvd+okiiCs=;
+        b=Do7+ztuaq/7UgDg85AhOF7E8WA/1KN/W/jX3Tk5RKN7mSyEd1IURncdityehaEz9Gq
+         EeRKxIpLY911maUZuC4D5SVCMYFEgbQlCC/PC5lUyo093jAJCOv+UrAWxz9qyBnhgijJ
+         z7KrXWdU9HpOZp1VZPGxI3JhwIQ5gcXara3+amlyOSKN7ORbKW8hG770nJ1uYzn8uXBA
+         R65yE8H0r3iK2Dpa2t1xCii7UIV3xlxZnkKLSrEjZqG1wOgDbEH23BqPgiSCJnrPG5ko
+         yCH3BAI8sOOPWJuYqV/OovG8cU7z2K3CsPhOTr5AsKI46Sk3ifmIEqo6cajD3USqoJ5Q
+         oxdg==
+X-Gm-Message-State: AOJu0Yxr+FdxAs8jVmZDKyyXQYAuXBPrviKril5tbgEZy6dRKqhMAGoh
+	Tf9tnM6iXG9CT34J5bsTfHs0ZA==
+X-Google-Smtp-Source: 
+ AGHT+IFz74chb8GNV0TvbPeKiDYOfdvYxFbfaLudKM3TO2LC00g7saucA952LOvNyDlPCmD+YEaArQ==
+X-Received: by 2002:a2e:8e75:0:b0:2bc:d3b1:d6c1 with SMTP id
+ t21-20020a2e8e75000000b002bcd3b1d6c1mr3922260ljk.9.1692984200023;
+        Fri, 25 Aug 2023 10:23:20 -0700 (PDT)
+Received: from [192.168.1.101] (abxh59.neoplus.adsl.tpnet.pl. [83.9.1.59])
+        by smtp.gmail.com with ESMTPSA id
+ n11-20020a2e904b000000b002bcb1e1322asm407647ljg.63.2023.08.25.10.23.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Aug 2023 10:23:19 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+Subject: [PATCH 0/2] SM6115 TX Macro
+Date: Fri, 25 Aug 2023 19:23:11 +0200
+Message-Id: <20230825-topic-6115tx-v1-0-ebed201ad54b@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 67SKJCKZPQBFO4S62GSTTTTC3ODSK7KF
-X-Message-ID-Hash: 67SKJCKZPQBFO4S62GSTTTTC3ODSK7KF
-X-MailFrom: tiwai@suse.de
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAH/j6GQC/x2NQQqDMBAAvyJ7diHZEKl+RTwkca0LEiWxRRD/3
+ qXHGRjmhspFuMLQ3FD4K1X2rGDbBtIa8ptRZmUgQ868yOO5H5Kws9afF0ZPLhgyfed60CSGyhh
+ LyGnVKH+2TeVReJHr/xin5/kBQbU9P3MAAAA=
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1692984198; l=733;
+ i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
+ bh=6lIAsjfzQ31TGPmRwzbj9mEehySlk7glxjS1fp/ikjk=;
+ b=95YZjoDqhfV8cGN0KBrCUDtJnXEOnqGCQEDqlozHGrWV3GbSNhrb33HP9DBfPL4rahhYhRC1E
+ ljV9+8EF/L5CUQ40uPHOJqDbueF3gRSLJ5JkXAgwEm/uv2EzWNBmKF7
+X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Message-ID-Hash: AHPPWWT57N75K6AQHC2MTNX2PT6L4QTC
+X-Message-ID-Hash: AHPPWWT57N75K6AQHC2MTNX2PT6L4QTC
+X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67SKJCKZPQBFO4S62GSTTTTC3ODSK7KF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AHPPWWT57N75K6AQHC2MTNX2PT6L4QTC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,44 +135,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Filling the rawmidi name and substream name can be truncated, and this
-leads to spurious compiler warnings due to -Wformat-truncation.
-Although the truncation is the expected behavior, it'd be better to
-truncate the string within "(...)"
+Like most Qualcomm SoCs, SM6115 has a TX Macro.
 
-This patch puts the precision specifies to each %s for fitting the
-words within the size-limited strings.
+Only some minor changes were required.
 
-Fixes: 5f11dd938fe7 ("ALSA: usb-audio: Attach legacy rawmidi after probing all UMP EPs")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202308251844.1FuQYsql-lkp@intel.com/
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- sound/core/ump.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Konrad Dybcio (2):
+      ASoC: dt-bindings: qcom,lpass-tx-macro: Add SM6115
+      ASoC: codecs: lpass-tx-macro: Add SM6115 support
 
-diff --git a/sound/core/ump.c b/sound/core/ump.c
-index 9d6e3e748f7e..a2f91fe7905a 100644
---- a/sound/core/ump.c
-+++ b/sound/core/ump.c
-@@ -1157,7 +1157,7 @@ static void fill_substream_names(struct snd_ump_endpoint *ump,
- 	struct snd_rawmidi_substream *s;
- 
- 	list_for_each_entry(s, &rmidi->streams[dir].substreams, list)
--		snprintf(s->name, sizeof(s->name), "Group %d (%s)",
-+		snprintf(s->name, sizeof(s->name), "Group %d (%.16s)",
- 			 ump->legacy_mapping[s->number] + 1, ump->info.name);
- }
- 
-@@ -1191,7 +1191,7 @@ int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
- 	if (output)
- 		snd_rawmidi_set_ops(rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT,
- 				    &snd_ump_legacy_output_ops);
--	snprintf(rmidi->name, sizeof(rmidi->name), "%s (MIDI 1.0)",
-+	snprintf(rmidi->name, sizeof(rmidi->name), "%.69s (MIDI 1.0)",
- 		 ump->info.name);
- 	rmidi->info_flags = ump->core.info_flags & ~SNDRV_RAWMIDI_INFO_UMP;
- 	rmidi->ops = &snd_ump_legacy_ops;
+ .../bindings/sound/qcom,lpass-tx-macro.yaml        | 18 ++++++++++++++++++
+ sound/soc/codecs/lpass-macro-common.h              |  2 ++
+ sound/soc/codecs/lpass-tx-macro.c                  | 22 +++++++++++++++-------
+ 3 files changed, 35 insertions(+), 7 deletions(-)
+---
+base-commit: 6269320850097903b30be8f07a5c61d9f7592393
+change-id: 20230825-topic-6115tx-b523a0209639
+
+Best regards,
 -- 
-2.35.3
+Konrad Dybcio <konrad.dybcio@linaro.org>
 

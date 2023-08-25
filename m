@@ -2,107 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37E12788145
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 09:52:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5E07881C0
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 10:13:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A34484B;
-	Fri, 25 Aug 2023 09:51:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A34484B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30FD0845;
+	Fri, 25 Aug 2023 10:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30FD0845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692949968;
-	bh=XaCj1xkBfibjnLekFHAhLF+HcZC+H920Zim1g7/h43Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OSQQJSlTTHAhIDBxSR74792bZ9v60xse9k1rYheenz/3nLjyezlW7U70KrGqTvxdI
-	 fgvGjpsnuOdV98EKDPFMblUrgJ4jRUvgHgEO1OheISoOkLled32tqPlPjTsS1Bdu+F
-	 3np9d9DTo/J6zwwzxMz7R8l8/c1+XPhbfs8dgTWQ=
+	s=default; t=1692951197;
+	bh=yjXJanr3YDzWuK7G4j13LqKVpeEg0wme/qpkt/S1BxE=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Rv8OsmRAFV6sidhXdd+DpZKPDGxffDnxCRf2Qo6fbqeN9QxqZBFqA2rxWXbRx3rIx
+	 lQUA3algiAg/wopAFXCRKKLkg0mFuxHt9QhLhirEZhizQM5OxGY7D7oH24USinkoxe
+	 w7w5rjuOPK9nGj+IpFB5hYn76w4PmY93K37tM36M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19E66F804DA; Fri, 25 Aug 2023 09:51:58 +0200 (CEST)
+	id 794D9F804DA; Fri, 25 Aug 2023 10:12:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3EC0F80074;
-	Fri, 25 Aug 2023 09:51:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 406B9F800D1;
+	Fri, 25 Aug 2023 10:12:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4ADBF80549; Fri, 25 Aug 2023 09:49:56 +0200 (CEST)
+	id 7EBAEF804F3; Fri, 25 Aug 2023 10:12:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF627F804F3
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 09:49:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF627F804F3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73E01F800AE
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 10:12:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73E01F800AE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=vyuU2toh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZXBLBsGA
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 01C3022017;
-	Fri, 25 Aug 2023 07:49:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1692949793;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9AMPbzJqXUBLSj96Q3gSG+cKQ3pq7dZsZ7StM9VL3R4=;
-	b=vyuU2toh+F4s312wAO0s9NclcvOW6fWT/7b9f9sHdtiWjuc9qHjGCUBaXdOszJr7jJsAGm
-	UNmu2KCtDOuz3Nqqll65lsJA613h+PD+dDhC5tQ84+E3CwLacBOQ8iRNCusZqqTMLbtmCj
-	MeFFQAsuh4gH1FSnAeFltaotfInBbWc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1692949793;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9AMPbzJqXUBLSj96Q3gSG+cKQ3pq7dZsZ7StM9VL3R4=;
-	b=ZXBLBsGA64DH8CZ/62YeLKZyGohLDoz6KGOJbwUj0mAANVpovm3keiYuU/JVAx8sVDCSLY
-	dPmzZzgtTb7zZZDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8E181340A;
-	Fri, 25 Aug 2023 07:49:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id NOyrLyBd6GTkUQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 25 Aug 2023 07:49:52 +0000
-Date: Fri, 25 Aug 2023 09:49:52 +0200
-Message-ID: <87cyzb8stb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Fabian Vogt <fabian@ritter-vogt.de>
-Cc: SungHwan Jung <onenowy@gmail.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	perex@perex.cz
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Add quirk for mute LEDs on HP ENVY
- x360 15-eu0xxx
-In-Reply-To: <2693091.mvXUDI8C0e@fabians-envy>
-References: <4504056.LvFx2qVVIh@fabians-envy>
-	<20230824173718.7992-1-onenowy@gmail.com>
-	<87r0ns8hej.wl-tiwai@suse.de>
-	<2693091.mvXUDI8C0e@fabians-envy>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: KJKXCSLWVN4CELVQOGM4SUZBR3VVZXPT
-X-Message-ID-Hash: KJKXCSLWVN4CELVQOGM4SUZBR3VVZXPT
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=LCbnJHQy
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4ffae5bdc9aso953434e87.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 25 Aug 2023 01:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1692951133; x=1693555933;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3ZsvxtDw2cHrK/gH+F8nfBihvnVgUOAVKlUaPMeEkUI=;
+        b=LCbnJHQy1VMiQ4tifKEsp9uvCTkV/Ewo2KCxFPSMWF2TjNpFdyR5fghHe/vkK9AhdY
+         9qFQLtd07F9/BU3IgmFeBPtrGLmUqgx5mW+eNtIQyyTXUbxG/jv+OLSx3N/PWvQLIzpe
+         /HucRdle7oxDOeV8DOn2HgvUuPymfi+Y64FAMMUqVqF52ruIeDZtvH6zqCwx5zHpvmMH
+         mHIozSTtGU7qZLvQEiBCi7AbdNGtSFVmQbp19e/pMityydV8pmpM+4x1n7TQA2bxPkKG
+         9A26hOml8zRBQNNw53M0gg2usWBiHbnmBpGQYSiqJOkJQoRdoQfSyyd6DOnxUAp042xh
+         EnYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1692951133; x=1693555933;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3ZsvxtDw2cHrK/gH+F8nfBihvnVgUOAVKlUaPMeEkUI=;
+        b=CwieMRmUV4lWXzwi4LEFYwdi1bFD4lb+irx5vQoKY9GNLOFVcLxud+gaLFzkb25rPj
+         D/zgVl8WU/wDCKAL3h9bIew+qyTlG051razh3Q0jbFcMzvrK7WYtBwHtdPgk1WbCxcGj
+         0gsUdeHsFfwrmhTpSh1rsxKuwp+HEFf3cLUwWaditVgcNsNPQoRDZVIqD62voIjrMHIB
+         YL4QZ4oMhVmFAwU3m0886d6LjCZp6P8EkiY9C9sTBf1WT/uaQBOAmgw48y4qcKh4TkuD
+         WyTLNClPA3hwnaHK72MaNJrPylt9/XcNLPSD+rHkqgRjExUekKYFfhzjH0d/hg2Lq3ys
+         Kckg==
+X-Gm-Message-State: AOJu0YxCLujlVIiBLFQNJoEv0ci4vnFNxWPfYjv6fqtV2XnM5sn2J/wH
+	tQgpxxSFACGeONBFDSYVdtZ7pg==
+X-Google-Smtp-Source: 
+ AGHT+IH2cYfOyAKDYkikVhhazevJIX4VasKy+kIf6y6CW4pTRpKnyies/vWRmWxt1pM2ZCb6NQEIfQ==
+X-Received: by 2002:a05:6512:128c:b0:4fa:f96c:745f with SMTP id
+ u12-20020a056512128c00b004faf96c745fmr16758118lfs.38.1692951132892;
+        Fri, 25 Aug 2023 01:12:12 -0700 (PDT)
+Received: from [127.0.1.1] ([85.235.12.238])
+        by smtp.gmail.com with ESMTPSA id
+ q28-20020ac2511c000000b004fe1a35fd15sm195559lfb.140.2023.08.25.01.12.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Aug 2023 01:12:12 -0700 (PDT)
+From: Linus Walleij <linus.walleij@linaro.org>
+Subject: [PATCH 0/7] ASoC: Convert some Maxim codecs to use GPIO
+ descriptors
+Date: Fri, 25 Aug 2023 10:12:10 +0200
+Message-Id: <20230825-descriptors-asoc-max-v1-0-b212292b2f08@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFpi6GQC/22Nyw6CMBBFf4XM2jFtjYCu/A/DovQBkyglM4ZgS
+ P/dSly6PDc5524ggSkIXKsNOCwklKYC+lCBG+00BCRfGIwyJ9XqBn0QxzS/EgtaSQ6fdsW+0dY
+ p00cdIxR15hBp3bP3rvBIUoT3/rLo7/oLmvP/4KJRobd10/a1ssZfbg+aLKdj4gG6nPMHtnz41
+ rkAAAA=
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>
+X-Mailer: b4 0.12.3
+Message-ID-Hash: GACQLT44LW2DMIWXHVJHUXRRNAEU5PHL
+X-Message-ID-Hash: GACQLT44LW2DMIWXHVJHUXRRNAEU5PHL
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJKXCSLWVN4CELVQOGM4SUZBR3VVZXPT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GACQLT44LW2DMIWXHVJHUXRRNAEU5PHL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,27 +123,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 24 Aug 2023 20:39:48 +0200,
-Fabian Vogt wrote:
-> 
-> The LED for the mic mute button is controlled by GPIO2.
-> The mute button LED is slightly more complex, it's controlled by two bits
-> in coeff 0x0b.
-> 
-> Signed-off-by: Fabian Vogt <fabian@ritter-vogt.de>
-> ---
-> Changes since v1:
-> Rebased on 03b0563c2f35. I've got this laptop for almost two years now and
-> two days ago decided to dig into the issue with mute LEDs. What amazing timing
-> that someone else made the exact same fixup for a different model just hours
-> before I submit...
-> Renamed quirk to ..._LEDS to distinguish it from the similar quirk which
-> handles only one of the mute LEDs.
+The Maxim devices are pretty straight-forward to convert
+over to use GPIO descriptors, so let's do it.
 
-Applied now.  Thanks.
+Tested with some x86_64 allmodconfig and aarch64 allmodconfig
+to smoke out the worst bugs this time.
 
-BTW, at the next time you post a v2 patch, it's better to start a new
-thread instead of hanging to the old thread.
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+Linus Walleij (7):
+      ASoC: max9768: Convert to use GPIO descriptors
+      ASoC: max98357a: Drop pointless include
+      ASoC: max98373: Convert to use GPIO descriptors
+      ASoC: max98388: Correct the includes
+      ASoC: max98396: Drop pointless include
+      ASoC: max98520: Drop pointless includes
+      ASoC: max98927: Drop pointless includes
 
+ include/sound/max9768.h         |  4 ----
+ sound/soc/codecs/max9768.c      | 45 +++++++++++++++++++++--------------------
+ sound/soc/codecs/max98357a.c    |  1 -
+ sound/soc/codecs/max98373-i2c.c | 17 ----------------
+ sound/soc/codecs/max98373.c     | 35 +++++++++++++++++---------------
+ sound/soc/codecs/max98373.h     |  2 +-
+ sound/soc/codecs/max98388.c     |  3 +--
+ sound/soc/codecs/max98396.c     |  1 -
+ sound/soc/codecs/max98520.c     |  2 --
+ sound/soc/codecs/max98927.c     |  2 --
+ 10 files changed, 44 insertions(+), 68 deletions(-)
+---
+base-commit: 17b9f4387ebabb19b871bbe2d06562e48e4e7130
+change-id: 20230817-descriptors-asoc-max-b71ac02bf1ff
 
-Takashi
+Best regards,
+-- 
+Linus Walleij <linus.walleij@linaro.org>
+

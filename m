@@ -2,61 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7989678A05C
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:05:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA31878A05E
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:05:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6F38DFA;
-	Sun, 27 Aug 2023 19:04:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F38DFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DAB2E10;
+	Sun, 27 Aug 2023 19:04:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DAB2E10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693155912;
-	bh=RMEF3w73TsY+zbyXuw7xccZssSIjMPpZJWlzRs3G7to=;
+	s=default; t=1693155942;
+	bh=vBrC3PbaEeEOm8XbjHLB24U6qy1mN48eoCJxlA04oXc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=F6X196Vs1qpOY2LVLRNtSegbZtG3+1Kkb/UslHk32N4N1RjbhSqKfJrOxdoMKPt2o
-	 AlQsbG558dJbf62aCT4mIxRf9bAj05NkSA+usX/c50T/12rHsCus1VDF2I2Pc3Kkti
-	 ii5rxc97L142XyFbwnZtItyCwGp6lXxX94OiisRI=
+	b=i1ozVlLvlgTaKa8b0bJbo+dgHMuBvVqhjYvl/rP9k8OxORUWG1fwZ+3B4TDW52J+2
+	 gnnSpJ2IJdcgOmNtoohAb/lSYfgKr96ddU5grS1wWlokBAJTWVQ9CkgFP/QKTYlkmh
+	 o75J7ovGDwDzSVXFtc4/mv8G8vtEmN4uXJSRyyKY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24EB2F805CB; Sun, 27 Aug 2023 19:02:05 +0200 (CEST)
+	id 29B61F805E0; Sun, 27 Aug 2023 19:02:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60870F805D2;
-	Sun, 27 Aug 2023 19:02:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 545F8F805E0;
+	Sun, 27 Aug 2023 19:02:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1C07F8025F; Fri, 25 Aug 2023 08:27:51 +0200 (CEST)
+	id E57C0F8023B; Fri, 25 Aug 2023 08:27:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from out-19.mta1.migadu.com (out-19.mta1.migadu.com
- [IPv6:2001:41d0:203:375::13])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from out-61.mta1.migadu.com (out-61.mta1.migadu.com [95.215.58.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C2B45F800F5
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 08:27:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B45F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18D10F80074
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 08:27:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18D10F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256
- header.s=key1 header.b=J9557CES
+ header.s=key1 header.b=azk9oKl/
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1692944854;
+	t=1692944857;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HvMwAdaM/5LwVLuwlRIstn4bDRGDsqcLFd+SgLGHveo=;
-	b=J9557CESZD0jU1gCVKUTQTMhgPsStpHY4kD4mKKub+s8jAS6W/GwAlQNVLhdXsTlKgbIwP
-	nGtqCj8han5cBytFhcvOlFt/sFPnp09Xx8kaVT4m9VTtL6o8FFya8yCHODM9rXrlRHcr1v
-	jrvUtaJzRL22rSHGrA5R7eJ7HIsgmug=
+	bh=x8g1PhZtieFXqvl5KlmXpfelaKvpJdAuWlFNqp32lxU=;
+	b=azk9oKl/yWYIN5PPkoo3zBSOa5qD4a5Ttwotj7deRwg4VxJLVd1VH9ZPjzSxR8PPOtGk7H
+	2eXNsnzhwSuxKFP68ub1/EATKxmpRZkXRApbQsGsMiJuZEaOOoibeOK2+BNWPK3PdLGpfw
+	qaDtANXtL8laXrkLljPHNF5ob99FzAU=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Bjorn Helgaas <bhelgaas@google.com>
 Cc: amd-gfx@lists.freedesktop.org,
@@ -66,15 +64,11 @@ Cc: amd-gfx@lists.freedesktop.org,
 	linux-pci@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	Sui Jingfeng <suijingfeng@loongson.cn>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>,
-	Lyude Paul <lyude@redhat.com>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 3/5] drm/nouveau: Use pci_get_base_class() to reduce
- duplicated code
-Date: Fri, 25 Aug 2023 14:27:12 +0800
-Message-Id: <20230825062714.6325-4-sui.jingfeng@linux.dev>
+	Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 4/5] drm/amdgpu: Use pci_get_base_class() to reduce duplicated
+ code
+Date: Fri, 25 Aug 2023 14:27:13 +0800
+Message-Id: <20230825062714.6325-5-sui.jingfeng@linux.dev>
 In-Reply-To: <20230825062714.6325-1-sui.jingfeng@linux.dev>
 References: <20230825062714.6325-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
@@ -86,15 +80,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: Q2IKDO6CSXWKEM47TNQ2RHUD4DL24IYR
-X-Message-ID-Hash: Q2IKDO6CSXWKEM47TNQ2RHUD4DL24IYR
-X-Mailman-Approved-At: Sun, 27 Aug 2023 17:01:46 +0000
+Message-ID-Hash: SJLZRUJS2NC6WSTONEGNFLM24RCWWD4B
+X-Message-ID-Hash: SJLZRUJS2NC6WSTONEGNFLM24RCWWD4B
+X-Mailman-Approved-At: Sun, 27 Aug 2023 17:02:16 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q2IKDO6CSXWKEM47TNQ2RHUD4DL24IYR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SJLZRUJS2NC6WSTONEGNFLM24RCWWD4B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,39 +101,74 @@ From: Sui Jingfeng <suijingfeng@loongson.cn>
 
 Should be no functional change.
 
-Cc: Ben Skeggs <bskeggs@redhat.com>
-Cc: Karol Herbst <kherbst@redhat.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/nouveau/nouveau_acpi.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 ++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 20 +++++---------------
+ 2 files changed, 9 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-index a2ae8c21e4dc..8f0c69aad248 100644
---- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-@@ -284,14 +284,11 @@ static bool nouveau_dsm_detect(void)
- 		printk("MXM: GUID detected in BIOS\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index a5a2b06c6588..4f18af877105 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1389,14 +1389,11 @@ void amdgpu_acpi_detect(void)
+ 	struct pci_dev *pdev = NULL;
+ 	int ret;
  
- 	/* now do DSM detection */
 -	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
--		vga_count++;
--
--		nouveau_dsm_pci_probe(pdev, &dhandle, &has_mux, &has_optimus,
--				      &has_optimus_flags, &has_power_resources);
+-		if (!atif->handle)
+-			amdgpu_atif_pci_probe_handle(pdev);
+-		if (!atcs->handle)
+-			amdgpu_atcs_pci_probe_handle(pdev);
 -	}
 +	while ((pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev))) {
 +		if ((pdev->class != PCI_CLASS_DISPLAY_VGA << 8) &&
-+		    (pdev->class != PCI_CLASS_DISPLAY_3D << 8))
++		    (pdev->class != PCI_CLASS_DISPLAY_OTHER << 8))
 +			continue;
  
--	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_3D << 8, pdev)) != NULL) {
- 		vga_count++;
+-	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_OTHER << 8, pdev)) != NULL) {
+ 		if (!atif->handle)
+ 			amdgpu_atif_pci_probe_handle(pdev);
+ 		if (!atcs->handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 38ccec913f00..5bbb23e102ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -287,7 +287,11 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
  
- 		nouveau_dsm_pci_probe(pdev, &dhandle, &has_mux, &has_optimus,
+-	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
++	while ((pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev))) {
++		if ((pdev->class != PCI_CLASS_DISPLAY_VGA << 8) &&
++		    (pdev->class != PCI_CLASS_DISPLAY_OTHER << 8))
++			continue;
++
+ 		dhandle = ACPI_HANDLE(&pdev->dev);
+ 		if (!dhandle)
+ 			continue;
+@@ -299,20 +303,6 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
+-	if (!found) {
+-		while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_OTHER << 8, pdev)) != NULL) {
+-			dhandle = ACPI_HANDLE(&pdev->dev);
+-			if (!dhandle)
+-				continue;
+-
+-			status = acpi_get_handle(dhandle, "ATRM", &atrm_handle);
+-			if (ACPI_SUCCESS(status)) {
+-				found = true;
+-				break;
+-			}
+-		}
+-	}
+-
+ 	if (!found)
+ 		return false;
+ 	pci_dev_put(pdev);
 -- 
 2.34.1
 

@@ -2,120 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A149788DD0
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 19:27:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F3A788DED
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Aug 2023 19:43:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD672857;
-	Fri, 25 Aug 2023 19:26:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD672857
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAAB5844;
+	Fri, 25 Aug 2023 19:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAAB5844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1692984446;
-	bh=+NN8XrEaFBygmo3q/e38Bu/eRF3y7vIEUdBDz81oARw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1692985416;
+	bh=ZrQYaZFh0g/05d2OMWO/GojEDaRAYNGGdRhiavhFehA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EPfdDqXS9/am15GClHVG9ZTfTFNY71VH7hCDP3CprDfMxJFx+OpH2DlQA1tOMDfHd
-	 Mj9fJcO9E/6oRao5R+hDLB1hOOWdbXdczDk2c6neGjSh3AfLrposyxrK0Iz8gnXyJl
-	 34sZdr8MFlpe3e6T2K+2Q1IWqXbnK5PO0FRqA4wg=
+	b=dKBH2BP4gFThCgJQUqzO7jJXwIKWzE0U4L3QBj0cU/3d0D6XO//hedchw5fwXNOot
+	 fLPyrrLycB0lMIVhp/ggCVJl9FRG9grzDfAC8kGxVuEydrAR5x+V6zkg8UZgwAFz/A
+	 9JXB1AydkdauubFNTPdqP0DGCHcauaU+jAC5a9cI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22141F80549; Fri, 25 Aug 2023 19:25:46 +0200 (CEST)
+	id 39919F8023B; Fri, 25 Aug 2023 19:42:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8399F80549;
-	Fri, 25 Aug 2023 19:25:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF7E3F800D1;
+	Fri, 25 Aug 2023 19:42:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A1A8F800D1; Fri, 25 Aug 2023 19:23:37 +0200 (CEST)
+	id 82B95F800F5; Fri, 25 Aug 2023 19:42:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-15.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
+	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BDA5CF800F5
-	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 19:23:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDA5CF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C554F800AE
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 19:42:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C554F800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=GLVQRR0u
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2b9c907bc68so17768701fa.2
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20221208 header.b=i4SMUVbO
+Received: by mail-pg1-x534.google.com with SMTP id
+ 41be03b00d2f7-564cd28d48dso659644a12.0
         for <alsa-devel@alsa-project.org>;
- Fri, 25 Aug 2023 10:23:23 -0700 (PDT)
+ Fri, 25 Aug 2023 10:42:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1692984202; x=1693589002;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zgZvHL8hFswLYwPF8AuRbBMK7oSEIDIwPQTcWj9HdOU=;
-        b=GLVQRR0uqz7h3mQtbUDjl9KTg9wErpM6VkLfEbYi5c6RumHoQDQau59jJOZR/a72EL
-         RbR7Tz7YcIWnHUtdHuF/Y47W01Kz2aYojHdPM7AInofd/QaNRKuXjrLG9ZutsVUenVCE
-         95QiaH6WtlpdnjqMTJpl4gfQ5KpVptXQ4RtHkooUTBK64il+bYztIx5gvR1Nr7L6zl6k
-         of9RBaLaOZYy9qWKiYn+Zeg6ql0rop5CA9J6zzbUoyI8vKePJYvr2IViClxE8TsRLbnX
-         0K2F4IH0BCU8cu+X6nD2nDuPODM3Tu3RQYYHf0wghvgxsm/m3c8VBqIoEuRFiGHNZlRx
-         47eg==
+        d=google.com; s=20221208; t=1692985354; x=1693590154;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=J3ci+EjgCAFSX8m1G5nSJW4m5U8sK20mFLdqrj2z0sM=;
+        b=i4SMUVbOS+4MOQce86ZHF0ZSYsvbSsunrm+5w20kL7byKRhLT+JvgiFfIRdDmuUcAR
+         iBbeOviUD7wgF+lP0pZry6QQo92jY2JkI5U/R4RMuZ2RexrJR27/j2YLAgeYXvkNRBzv
+         PtN6ckS6c1MLPUVy+0u/qEzYLPiVl0fCLoGhvMXakFjSleB4gl+frrsUahVObPeX6oDC
+         mvOK6pJLSruYr/tw9AuWPcKCQH6i/eNvthKXqG4OgOL7rlsEJJ3Vh+xYHMPZzRqoNXLo
+         BlXFI8UiHxXym9TES3GudMdrSGOH8BxTIhrRrV3Z8CSiRfjK2fsSjxyf07ZDs1pfCLU2
+         bWFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1692984202; x=1693589002;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20221208; t=1692985354; x=1693590154;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=zgZvHL8hFswLYwPF8AuRbBMK7oSEIDIwPQTcWj9HdOU=;
-        b=ioFvmdzoecUd1SG+HDTFTc3s5E6VkR3iItB4t35gp9hYdmzvpxlbLVGLB+3dLCPcpN
-         GPsyyVGpHt9oS1F0y2DpQRdu/5XTheAzvUeH7WFD8fHRJ0Wj1wzJCCDhbutQ1aSF/55G
-         owO7HOu5FnGmQv/GoQtEBFWcP/sUQaahEsOTqD5f4w70vgkVe/xuE9XRAmPfp6d52fym
-         eCFSn9g0PTO7ss7G23WUEvt1EALy/BNsGKI0S/8xpXB144xXNKEzjsUEsasEFnVuV1vX
-         yFEBZ/+LsZksuC8p0V34XZ6em5XtXQeH7lxxb/nBfJZ2ToSmv5B5wPHfoMJiAB4akNms
-         UUsA==
-X-Gm-Message-State: AOJu0YwEuZ8bOsBP7QFlq8MrEgmXoL+0uHbXI4yu47wK5pTWDpTRhZQM
-	MTU/E8EPt5ycDw0i82TkjeCgVw==
+        bh=J3ci+EjgCAFSX8m1G5nSJW4m5U8sK20mFLdqrj2z0sM=;
+        b=I5kwjnL2J13cHZH1XMUQVQmX8KRk3yXktXtaw1rR4xvH60wWu2+XJEAORyHitIMi85
+         vU3Q4p+mP5FySaxhO5iTtoTdG1+qIfAWBvXMctxNtal6nC7SGYBMoggwHIuqLa7tKblg
+         7BDzY45y63mYaU7oucBlXCB8Dh+sY1osMUMpeYXMzfK7VI87xZIBSZaE5/OpUVHJ3t5h
+         oWz59SU0IWOPWjkQ4Bi/dTR2MZ2Co0Zwhi6+OmCm+Fnxml1pzbskoi/vZEGFTkVev77n
+         ruvjuOpLqBnHRX7qAZsbKEC/AQORrR11Zc/O7FXBRc6HsfcEhKMzAk7ILcl60csnar1m
+         xuCQ==
+X-Gm-Message-State: AOJu0YzTZXCEjrAINcyHvWxKxFQChwTg8ngUVaxW7YJv/dcADjHal4pI
+	SEInb4BESaGD9pbneRf0zBY0RE81GFmNDfdQN2Jq6Q==
 X-Google-Smtp-Source: 
- AGHT+IGEWTWl4FE5/sIMoCZYj5tNQhpLyEV1B/4/UDUeu8WyCLiRwN1y6zdZ489KTOTHVvEld8lL/g==
-X-Received: by 2002:a2e:6a03:0:b0:2bc:d993:b7ba with SMTP id
- f3-20020a2e6a03000000b002bcd993b7bamr7286415ljc.27.1692984202704;
-        Fri, 25 Aug 2023 10:23:22 -0700 (PDT)
-Received: from [192.168.1.101] (abxh59.neoplus.adsl.tpnet.pl. [83.9.1.59])
-        by smtp.gmail.com with ESMTPSA id
- n11-20020a2e904b000000b002bcb1e1322asm407647ljg.63.2023.08.25.10.23.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Aug 2023 10:23:22 -0700 (PDT)
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Fri, 25 Aug 2023 19:23:13 +0200
-Subject: [PATCH 2/2] ASoC: codecs: lpass-tx-macro: Add SM6115 support
+ AGHT+IHJwfe0h/TSqFPxWOdVW5HwOTM9ZcNPYoEOHln/V6kRE9iHKetjiAhLxJhHY2XFXkfYHHkqi8endVjH4FvUX9k=
+X-Received: by 2002:a17:90a:ea92:b0:26d:15dd:6702 with SMTP id
+ h18-20020a17090aea9200b0026d15dd6702mr15420641pjz.5.1692985353389; Fri, 25
+ Aug 2023 10:42:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230825-topic-6115tx-v1-2-ebed201ad54b@linaro.org>
-References: <20230825-topic-6115tx-v1-0-ebed201ad54b@linaro.org>
-In-Reply-To: <20230825-topic-6115tx-v1-0-ebed201ad54b@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1692984198; l=3082;
- i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=+NN8XrEaFBygmo3q/e38Bu/eRF3y7vIEUdBDz81oARw=;
- b=PU8ItgsZg+K3RccuAVuAqM2PAzOyCQhzUKWthiWh3L6UofpAK5W3bKNmtGaPMdLJoFiUUi6zf
- 3rLk7uFbnPtAvqytAVbHnLiVI7gkllxNwXze/kEeL6zDIkXc/aDdDGR
-X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Message-ID-Hash: NIZEK26KFOVCCR6FA6ZLOHS74ADCQIB4
-X-Message-ID-Hash: NIZEK26KFOVCCR6FA6ZLOHS74ADCQIB4
-X-MailFrom: konrad.dybcio@linaro.org
+References: <20230824210339.1126993-1-cujomalainey@chromium.org>
+ <87il9374ph.wl-tiwai@suse.de>
+In-Reply-To: <87il9374ph.wl-tiwai@suse.de>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Fri, 25 Aug 2023 10:42:21 -0700
+Message-ID: 
+ <CAOReqxjHJ0UXWUk+6CA9uTtick57xFLG7BXh=Y6BVycgxjHfHA@mail.gmail.com>
+Subject: Re: [PATCH 0/2][RFC] Refactor snd primitives refcounters
+To: Takashi Iwai <tiwai@suse.de>
+Cc: cujomalainey@chromium.org, alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 4MMB5KJPRLHXQ4B5MBK46NEY4TS4J7U5
+X-Message-ID-Hash: 4MMB5KJPRLHXQ4B5MBK46NEY4TS4J7U5
+X-MailFrom: cujomalainey@google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NIZEK26KFOVCCR6FA6ZLOHS74ADCQIB4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MMB5KJPRLHXQ4B5MBK46NEY4TS4J7U5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,83 +117,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SM6115 has a TX macro, which surprisingly doesn't host a SWR master.
-Conditionally skip the SWR reset sequence on this platform.
+On Fri, Aug 25, 2023 at 4:16=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> Thanks for the patches.  But, as the 6.6 merge window open is pretty
+> close, I'd postpone those unless it's urgently needed.
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
----
- sound/soc/codecs/lpass-macro-common.h |  2 ++
- sound/soc/codecs/lpass-tx-macro.c     | 22 +++++++++++++++-------
- 2 files changed, 17 insertions(+), 7 deletions(-)
+I have no timeline since we have the workaround in, hence the RFC
 
-diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
-index 4eb886565ea3..d3684c7ab930 100644
---- a/sound/soc/codecs/lpass-macro-common.h
-+++ b/sound/soc/codecs/lpass-macro-common.h
-@@ -8,6 +8,8 @@
- 
- /* NPL clock is expected */
- #define LPASS_MACRO_FLAG_HAS_NPL_CLOCK		BIT(0)
-+/* The soundwire block should be internally reset at probe */
-+#define LPASS_MACRO_FLAG_RESET_SWR		BIT(1)
- 
- struct lpass_macro {
- 	struct device *macro_pd;
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 3e33418898e8..82f9873ffada 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -2045,15 +2045,19 @@ static int tx_macro_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_fsgen;
- 
-+
- 	/* reset soundwire block */
--	regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
--			   CDC_TX_SWR_RESET_MASK, CDC_TX_SWR_RESET_ENABLE);
-+	if (flags & LPASS_MACRO_FLAG_RESET_SWR)
-+		regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
-+				   CDC_TX_SWR_RESET_MASK, CDC_TX_SWR_RESET_ENABLE);
- 
- 	regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
- 			   CDC_TX_SWR_CLK_EN_MASK,
- 			   CDC_TX_SWR_CLK_ENABLE);
--	regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
--			   CDC_TX_SWR_RESET_MASK, 0x0);
-+
-+	if (flags & LPASS_MACRO_FLAG_RESET_SWR)
-+		regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
-+				   CDC_TX_SWR_RESET_MASK, 0x0);
- 
- 	ret = devm_snd_soc_register_component(dev, &tx_macro_component_drv,
- 					      tx_macro_dai,
-@@ -2158,18 +2162,22 @@ static const struct dev_pm_ops tx_macro_pm_ops = {
- static const struct of_device_id tx_macro_dt_match[] = {
- 	{
- 		.compatible = "qcom,sc7280-lpass-tx-macro",
-+		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
-+	}, {
-+		.compatible = "qcom,sm6115-lpass-tx-macro",
- 		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
- 	}, {
- 		.compatible = "qcom,sm8250-lpass-tx-macro",
--		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
-+		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
- 	}, {
- 		.compatible = "qcom,sm8450-lpass-tx-macro",
--		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
-+		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
- 	}, {
- 		.compatible = "qcom,sm8550-lpass-tx-macro",
-+		.data = (void *)LPASS_MACRO_FLAG_RESET_SWR,
- 	}, {
- 		.compatible = "qcom,sc8280xp-lpass-tx-macro",
--		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
-+		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
- 	},
- 	{ }
- };
+>
+> Also, before moving the resource tied with the device object, we'll
+> need a refcount to the ctl dev from pcm dev, as PCM does release chmap
+> at its free path (calling free_chmap()).  Otherwise it'll lead to
+> another UAF, if both objects releases are done asynchronously without
+> dependency.
 
--- 
-2.42.0
+Got it, thanks.
 
+>
+>
+> BTW, the cover letter and the subject prefix of the patches don't
+> match, and also the cover letter didn't include Cc.  Please try to
+> make both cover letter and patches sent properly.
+
+Thanks for catching that, I was struggling getting cc to copy across
+with git from get_maintainers. I will give it another shot with v2.
+
+Curtis
+
+>
+>
+> thanks,
+>
+>
+> Takashi

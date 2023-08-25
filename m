@@ -2,123 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACD4178A059
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:04:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCE0D78A05A
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:04:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A49EBDF6;
-	Sun, 27 Aug 2023 19:03:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A49EBDF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DCC0AE8;
+	Sun, 27 Aug 2023 19:03:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DCC0AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693155861;
-	bh=hsoviXCUIrJ/3q6153p81RHeB81CXmrjT0B3BJMlA0Y=;
+	s=default; t=1693155886;
+	bh=4EmhAWBm2mSRcGTPJpedj+EvpmkYo9N5MgAlPs2iLJ4=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HwaZvsoiGFGdjmEMbzvejgKc/syGpGKE4kRrVH4631oaITWBJ6Lb6r5if4ZqzWuZm
-	 OwKXEecKZjWvpWAnzSLhJcdpcV3Cp5bFuThuxm/RKrOpCFW0Un0ojX+xTRshgawOVq
-	 NX4d7iHtvP9Q3Y3vyAoUfWRU9Td/sTF0HizjV1Bc=
+	b=Dxzh19f1xLT/lY5CTkX5IRmlTZogM1yPM3kgUKaf5XDFZzqFifzIgUP7EwVdsn5G2
+	 oAdaDP0R282PIEo0ZEekjSJOqC8HE9vCXoXt39DFk97huSrdriTBIczlpPdCBcsquz
+	 DgbhtLFwb3gid8XY7vqfFUXQvucDw7D7HL59spQw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50DEEF805AE; Sun, 27 Aug 2023 19:01:59 +0200 (CEST)
+	id 72D9EF805C2; Sun, 27 Aug 2023 19:02:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A10C6F805AD;
-	Sun, 27 Aug 2023 19:01:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 615F8F805B6;
+	Sun, 27 Aug 2023 19:02:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BEB8F80158; Thu, 24 Aug 2023 21:18:06 +0200 (CEST)
+	id 28E8AF8022B; Fri, 25 Aug 2023 08:27:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-21.mta1.migadu.com (out-21.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 82E95F800AE
-	for <alsa-devel@alsa-project.org>; Thu, 24 Aug 2023 21:17:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82E95F800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5770AF80074
+	for <alsa-devel@alsa-project.org>; Fri, 25 Aug 2023 08:27:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5770AF80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
- header.s=corp-2023-03-30 header.b=v/FwLPmh
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37OJEJ9u009509;
-	Thu, 24 Aug 2023 19:17:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2023-03-30; bh=ie1xPRR4qBkUMu82YM5u8Hszy21ND7rb5N7h4LosZ3w=;
- b=v/FwLPmha//ef1DvHp9NjK4HEv9WfLz61mK2SZon+H86+5y6Qazgr7YzRTtRoJJr2SZO
- UNDWEwQa4av38dLLIYqhcsmoJ00vCjNRjBy2t0wamZt5L06a0zcTkjC94saHztCKvNBT
- gdkFCCDx+E/p8USePUOo7uxX5elyj0k33kM3ugReRg9MT627VgkULXYOKG+l3ySj/ijm
- UZrpsqZsD40xMbTqb/FXSqzqPakwrXTlGuaLdu1kwUKk6PFrXGoWsnGyTxb4slg8eDdi
- kj3HelVx8+xNTve5WX6QWwDUphv29y5nqmfBxyZWWat5SEE84KeP7pmKDhWbK+UF6o9p GQ==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3sn1ytvwwk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 24 Aug 2023 19:17:34 +0000
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 37OHjGq9036111;
-	Thu, 24 Aug 2023 19:17:34 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3sn1ywcs3b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 24 Aug 2023 19:17:34 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 37OJEu7s015687;
-	Thu, 24 Aug 2023 19:17:33 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3sn1ywcs25-1;
-	Thu, 24 Aug 2023 19:17:33 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Weidong Wang <wangweidong.a@awinic.com>,
- Arnd Bergmann <arnd@arndb.de>,
-        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-        alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Cc: dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org,
-        error27@gmail.com, kernel test robot <lkp@intel.com>
-Subject: [PATCH next] ASoC: codecs: Fix error code in aw88261_i2c_probe()
-Date: Thu, 24 Aug 2023 12:17:10 -0700
-Message-ID: <20230824191722.2701215-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.41.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256
+ header.s=key1 header.b=sioG6nFD
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1692944846;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=z6lCf1m2RyO5hkgphNEZhqasAxN18arSPKN7RCy/gyY=;
+	b=sioG6nFDTUAy8CFxpG2MThcPbp+5KyEr17L9Uls/hwtb2QPUXiazjl+Brl/nDImrMd+Hpl
+	fDCVMataoUSDuIWTtNcfkr1kXbnEtIKwI7qjJqfvu4pQwod98SEZV7YZHEqi36V1RaNbfM
+	u1kUllzdxvMc3XelSI1oDxUiV4dxKQM=
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	linux-pci@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	Sui Jingfeng <suijingfeng@loongson.cn>
+Subject: [PATCH 0/5] Add the pci_get_base_class() helper and use it
+Date: Fri, 25 Aug 2023 14:27:09 +0800
+Message-Id: <20230825062714.6325-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-24_15,2023-08-24_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- suspectscore=0
- malwarescore=0 spamscore=0 phishscore=0 mlxlogscore=999 adultscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2308240165
-X-Proofpoint-ORIG-GUID: 8ZmfQOOK_gXxcNqu5Djc4-zMwMTqRWbY
-X-Proofpoint-GUID: 8ZmfQOOK_gXxcNqu5Djc4-zMwMTqRWbY
-X-MailFrom: harshit.m.mogalapalli@oracle.com
+X-Migadu-Flow: FLOW_OUT
+X-MailFrom: sui.jingfeng@linux.dev
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AUMMCOB3RGXRO4UUTBFEO42KNW4YPTQE
-X-Message-ID-Hash: AUMMCOB3RGXRO4UUTBFEO42KNW4YPTQE
-X-Mailman-Approved-At: Sun, 27 Aug 2023 17:01:45 +0000
+Message-ID-Hash: HKEIHOYLF2N7TSRPU32WXTWDN7YJOKCK
+X-Message-ID-Hash: HKEIHOYLF2N7TSRPU32WXTWDN7YJOKCK
+X-Mailman-Approved-At: Sun, 27 Aug 2023 17:01:46 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AUMMCOB3RGXRO4UUTBFEO42KNW4YPTQE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HKEIHOYLF2N7TSRPU32WXTWDN7YJOKCK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,35 +92,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Passing zero to dev_err_probe is a success which is incorrect when
-i2c_check_functionality() fails.
+From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-Fix this by passing -ENXIO instead of zero to dev_err_probe().
+There is no function that can be used to get all PCI(e) devices in a
+system by matching against its the PCI base class code only, while keep
+the sub-class code and the programming interface ignored. Therefore, add
+the pci_get_base_class() function to suit the need.
 
-Fixes: 028a2ae25691 ("ASoC: codecs: Add aw88261 amplifier driver")
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <error27@gmail.com>
-Closes: https://lore.kernel.org/r/202308150315.CvOTIOKm-lkp@intel.com/
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
----
-This is only compile tested.
----
- sound/soc/codecs/aw88261.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+For example, if an application want to process all PCI(e) display devices
+in a system, it can achieve such goal by writing the code as following:
 
-diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
-index 6e2266b71386..a697b5006b45 100644
---- a/sound/soc/codecs/aw88261.c
-+++ b/sound/soc/codecs/aw88261.c
-@@ -1245,7 +1245,7 @@ static int aw88261_i2c_probe(struct i2c_client *i2c)
- 
- 	ret = i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C);
- 	if (!ret)
--		return dev_err_probe(&i2c->dev, ret, "check_functionality failed");
-+		return dev_err_probe(&i2c->dev, -ENXIO, "check_functionality failed");
- 
- 	aw88261 = devm_kzalloc(&i2c->dev, sizeof(*aw88261), GFP_KERNEL);
- 	if (!aw88261)
+    pdev = NULL;
+    do {
+        pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev);
+        if (!pdev)
+            break;
+
+        do_something_for_pci_display_device(pdev);
+    } while (1);
+
+Sui Jingfeng (5):
+  PCI: Add the pci_get_base_class() helper
+  ALSA: hda/intel: Use pci_get_base_class() to reduce duplicated code
+  drm/nouveau: Use pci_get_base_class() to reduce duplicated code
+  drm/amdgpu: Use pci_get_base_class() to reduce duplicated code
+  drm/radeon: Use pci_get_base_class() to reduce duplicated code
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 +++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 20 ++++-----------
+ drivers/gpu/drm/nouveau/nouveau_acpi.c   | 11 +++------
+ drivers/gpu/drm/radeon/radeon_bios.c     | 20 ++++-----------
+ drivers/pci/search.c                     | 31 ++++++++++++++++++++++++
+ include/linux/pci.h                      |  5 ++++
+ sound/pci/hda/hda_intel.c                | 16 ++++--------
+ 7 files changed, 59 insertions(+), 55 deletions(-)
+
 -- 
-2.39.3
+2.34.1
 

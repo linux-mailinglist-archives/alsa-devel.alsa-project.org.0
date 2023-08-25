@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECB8478A06D
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:08:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24C5D78A06E
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:08:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83A42DFA;
-	Sun, 27 Aug 2023 19:07:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83A42DFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67ED3E91;
+	Sun, 27 Aug 2023 19:07:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67ED3E91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693156097;
-	bh=vfJUumv8VGo/i4/7+nwzJ+JRA+oMekpRgE2OGvSEkzY=;
+	s=default; t=1693156117;
+	bh=SpZvNAL9abPuS0nq2RdBPlsdjZTkPrfKKPLIduD8y44=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Npw+/VBeTJ2bdoXwlC2KHkQsd5x8R+P6rI39CiP6AQvJIqufbKa7hZDoYRDHNNms5
-	 G3RaQfhZ1LlRjSr6HSGMiYoLUF9jLjsPs6l6sOCFpoFmtFSVDFVbxL5E1+znd9zIAM
-	 XtW9Lsu6wydd9Nw+Tr3i5G/QdKjg8X8KlZWq8+es=
+	b=C0vD4DDl2Pv7dXgF8/8oMmUBJ6fsa1At+YtZFJiIxy2jr7c8YmsDwIuqYKoiCKMgB
+	 BZd7T5vZv30W6mp/yXu1GeDZTOAT3lrWkSluI9SSQw6paAZzUef7NciqcZaZUAsVHP
+	 xmivS6rsUo6u0xKtL5dyll58Hc5Ql3Q+DkJkiZvU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 718CFF8063C; Sun, 27 Aug 2023 19:03:26 +0200 (CEST)
+	id F0183F8064C; Sun, 27 Aug 2023 19:03:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2AA3F80638;
-	Sun, 27 Aug 2023 19:03:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E79ADF8063D;
+	Sun, 27 Aug 2023 19:03:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F4065F804DA; Sat, 26 Aug 2023 00:22:38 +0200 (CEST)
+	id 2CD9AF80158; Sat, 26 Aug 2023 00:22:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
@@ -36,24 +36,25 @@ Received: from bluemchen.kde.org (bluemchen.kde.org
  [IPv6:2001:470:142:8::100])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DCC10F80536
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 00:22:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCC10F80536
+	by alsa1.perex.cz (Postfix) with ESMTPS id 20118F80537
+	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 00:22:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20118F80537
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id AED15242B1;
-	Fri, 25 Aug 2023 18:21:57 -0400 (EDT)
+	by bluemchen.kde.org (Postfix) with ESMTP id A7581242A2;
+	Fri, 25 Aug 2023 18:21:58 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qZfBl-iTz-00; Sat, 26 Aug 2023 00:21:57 +0200
+	id 1qZfBm-iV3-00; Sat, 26 Aug 2023 00:21:58 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 2/3] ALSA: emu10k1: more documentation updates
+Subject: [PATCH v5 6/8] ALSA: emu10k1: add high-rate capture in E-MU D.A.S.
+ mode
 Date: Sat, 26 Aug 2023 00:21:56 +0200
-Message-Id: <20230825222157.170978-2-oswald.buddenhagen@gmx.de>
+Message-Id: <20230825222158.171007-7-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
-References: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
+In-Reply-To: <20230825222158.171007-1-oswald.buddenhagen@gmx.de>
+References: <20230825222158.171007-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: ossi@kde.org
@@ -62,15 +63,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: P3OK22ONOB3MY327F3M5PCHWYKBD6BBI
-X-Message-ID-Hash: P3OK22ONOB3MY327F3M5PCHWYKBD6BBI
+Message-ID-Hash: MGWXET4SSK2YTELQP6CEYUR53AZ7OHKX
+X-Message-ID-Hash: MGWXET4SSK2YTELQP6CEYUR53AZ7OHKX
 X-Mailman-Approved-At: Sun, 27 Aug 2023 17:03:09 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P3OK22ONOB3MY327F3M5PCHWYKBD6BBI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGWXET4SSK2YTELQP6CEYUR53AZ7OHKX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,351 +80,335 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-- Clarify the data flows. For SB Live! I fixed only the most obvious
-  point ("from" vs. "for").
-- Mention 7.1 side channels on Audigy.
-- Be unspecific about the output DACs on Audigy, as lots of variants
-  actually exist (see emu_chip_details table).
+This is tested only with a 0404b card, so it is unclear whether the
+EMU_DST_TINA_EMU32B (1010b) & EMU_DST_TINA2_EMU32B (1616m CardBus)
+register definitions (derived from comments in the same file) are
+correct, and whether they actually lack the one-sample delay
+relative to EMU_DST_ALICE2_EMU32_0.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- Documentation/sound/cards/audigy-mixer.rst  | 130 ++++++++++----------
- Documentation/sound/cards/sb-live-mixer.rst |  24 ++--
- 2 files changed, 77 insertions(+), 77 deletions(-)
+ include/sound/emu10k1.h          |   4 ++
+ sound/pci/emu10k1/emu10k1_main.c |   3 +
+ sound/pci/emu10k1/emufx.c        |   4 +-
+ sound/pci/emu10k1/emumixer.c     | 107 +++++++++++++++++++++++++++----
+ sound/pci/emu10k1/emupcm.c       |  40 +++++++++---
+ 5 files changed, 135 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/sound/cards/audigy-mixer.rst b/Documentation/sound/cards/audigy-mixer.rst
-index 51cc7ac034ce..7ebaacb6df3d 100644
---- a/Documentation/sound/cards/audigy-mixer.rst
-+++ b/Documentation/sound/cards/audigy-mixer.rst
-@@ -46,157 +46,158 @@ FX-bus
+diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
+index aafa6ad2c5a0..fd4cf7d6eb3f 100644
+--- a/include/sound/emu10k1.h
++++ b/include/sound/emu10k1.h
+@@ -1292,6 +1292,9 @@ SUB_REG_NC(A_EHC, A_I2S_CAPTURE_RATE, 0x00000e00)  /* This sets the capture PCM
+ #define EMU_DST_HAMOA_DAC_RIGHT4	0x0307	/* Hamoa DAC Right, 4th or 192kHz */
+ // In S/MUX mode, the samples of one channel are adjacent.
+ #define EMU_DST_HANA_ADAT	0x0400	/* Hana ADAT 8 channel out +0 to +7 */
++/* FIXME: It is not clear whether these are actually enumerated like that. */
++#define EMU_DST_TINA2_EMU32B	0x0400	/* 16 EMU32 channels to Tina2 +0 to +0xf */
++#define EMU_DST_TINA_EMU32B	0x0500	/* 16 EMU32 channels to Tina +0 to +0xf */
+ #define EMU_DST_ALICE_I2S0_LEFT		0x0500	/* Alice2 I2S0 Left */
+ #define EMU_DST_ALICE_I2S0_RIGHT	0x0501	/* Alice2 I2S0 Right */
+ #define EMU_DST_ALICE_I2S1_LEFT		0x0600	/* Alice2 I2S1 Left */
+@@ -1654,6 +1657,7 @@ struct snd_emu_chip_details {
+ 	unsigned int ca0108_chip:1;	/* Audigy 2 Value */
+ 	unsigned int ca_cardbus_chip:1;	/* Audigy 2 ZS Notebook */
+ 	unsigned int ca0151_chip:1;	/* P16V */
++	unsigned int emu_in_32:1;	/* EMU32 input has 32 (connected) channels */
+ 	unsigned int spk20:1;		/* Stereo only */
+ 	unsigned int spk71:1;		/* Has 7.1 speakers */
+ 	unsigned int no_adat:1;		/* Has no ADAT, only SPDIF */
+diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
+index 0b660a7d0ef7..2125925c2d5e 100644
+--- a/sound/pci/emu10k1/emu10k1_main.c
++++ b/sound/pci/emu10k1/emu10k1_main.c
+@@ -1109,6 +1109,7 @@ static const struct snd_emu_chip_details emu_chip_details[] = {
+ 	 .emu10k2_chip = 1,
+ 	 .ca0108_chip = 1,
+ 	 .ca_cardbus_chip = 1,
++	 .emu_in_32 = 1,
+ 	 .spk71 = 1 ,
+ 	 .emu_model = EMU_MODEL_EMU1616},
+ 	/* Tested by James@superbug.co.uk 4th Nov 2007. */
+@@ -1121,6 +1122,7 @@ static const struct snd_emu_chip_details emu_chip_details[] = {
+ 	 .id = "EMU1010",
+ 	 .emu10k2_chip = 1,
+ 	 .ca0108_chip = 1,
++	 .emu_in_32 = 1,
+ 	 .spk71 = 1,
+ 	 .emu_model = EMU_MODEL_EMU1010B}, /* EMU 1010 new revision */
+ 	/* Tested by Maxim Kachur <mcdebugger@duganet.ru> 17th Oct 2012. */
+@@ -1135,6 +1137,7 @@ static const struct snd_emu_chip_details emu_chip_details[] = {
+ 	 .id = "EMU1010",
+ 	 .emu10k2_chip = 1,
+ 	 .ca0108_chip = 1,
++	 .emu_in_32 = 1,
+ 	 .spk71 = 1,
+ 	 .emu_model = EMU_MODEL_EMU1010B}, /* EMU 1010 PCIe */
+ 	/* Tested by James@superbug.co.uk 8th July 2005. */
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 9f27f07d5271..2f757096c2ee 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -1314,17 +1314,19 @@ static int _snd_emu10k1_das_init_efx(struct snd_emu10k1 *emu)
+ 	gpr_map[lowword_mask] = 0x0000ffff;
  
- name='PCM Front Playback Volume',index=0
- ----------------------------------------
--This control is used to attenuate samples for left and right front PCM FX-bus
-+This control is used to attenuate samples from left and right front PCM FX-bus
- accumulators. ALSA uses accumulators 8 and 9 for left and right front PCM 
--samples for 5.1 playback. The result samples are forwarded to the front DAC PCM 
--slots of the Philips DAC.
-+samples for 5.1 playback. The result samples are forwarded to the front speakers.
- 
- name='PCM Surround Playback Volume',index=0
- -------------------------------------------
--This control is used to attenuate samples for left and right surround PCM FX-bus
-+This control is used to attenuate samples from left and right surround PCM FX-bus
- accumulators. ALSA uses accumulators 2 and 3 for left and right surround PCM 
--samples for 5.1 playback. The result samples are forwarded to the surround DAC PCM 
--slots of the Philips DAC.
-+samples for 5.1 playback. The result samples are forwarded to the surround (rear)
-+speakers.
+ 	if (emu->card_capabilities->ca0108_chip) {
++		int num_cap = emu->card_capabilities->emu_in_32 ? 32 : 16;
 +
-+name='PCM Side Playback Volume',index=0
-+---------------------------------------
-+This control is used to attenuate samples from left and right side PCM FX-bus
-+accumulators. ALSA uses accumulators 14 and 15 for left and right side PCM
-+samples for 7.1 playback. The result samples are forwarded to the side speakers.
+ 		for (int z = 0; z < 16; z++) {
+ 			A_OP(icode, &ptr, iMAC0, A_GPR(tmp), A_C_00000000, A_FXBUS(z * 2), A_C_00010000); // >> 15
+ 			A_OP(icode, &ptr, iMACINT0, A_GPR(tmp + 1), A_C_00000000, A_FXBUS(z * 2 + 1), A_C_00000002); // << 1
+ 			A_OP(icode, &ptr, iANDXOR, A3_EMU32OUT(z), A_GPR(tmp), A_GPR(lowword_mask), A_GPR(tmp + 1));
+ 		}
  
- name='PCM Center Playback Volume',index=0
- -----------------------------------------
--This control is used to attenuate samples for center PCM FX-bus accumulator.
--ALSA uses accumulator 6 for center PCM sample for 5.1 playback. The result sample
--is forwarded to the center DAC PCM slot of the Philips DAC.
-+This control is used to attenuate samples from center PCM FX-bus accumulator.
-+ALSA uses accumulator 6 for center PCM samples for 5.1 playback. The result
-+samples are forwarded to the center speaker.
+ 		snd_emu10k1_audigy_dsp_convert_32_to_2x16(
+ 			icode, &ptr, tmp, bit_shifter16, A3_EMU32IN(0), A_EXTOUT(0));
+ 		// A3_EMU32IN(0) is delayed by one sample, so all other A3_EMU32IN channels
+ 		// need to be delayed as well; we use an auxiliary register for that.
+-		for (int z = 1; z < 16; z++) {
++		for (int z = 1; z < num_cap; z++) {
+ 			snd_emu10k1_audigy_dsp_convert_32_to_2x16(
+ 				icode, &ptr, tmp, bit_shifter16, A_GPR(gpr), A_EXTOUT(z * 2));
+ 			A_OP(icode, &ptr, iACC3, A_GPR(gpr), A3_EMU32IN(z), A_C_00000000, A_C_00000000);
+diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
+index 76986b972e27..a0e37b86f5f1 100644
+--- a/sound/pci/emu10k1/emumixer.c
++++ b/sound/pci/emu10k1/emumixer.c
+@@ -876,6 +876,90 @@ static const unsigned short emu1010_input_dflt[] = {
+ };
+ static_assert(ARRAY_SIZE(emu1010_input_dflt) == ARRAY_SIZE(emu1010_input_dst));
  
- name='PCM LFE Playback Volume',index=0
- --------------------------------------
- This control is used to attenuate sample for LFE PCM FX-bus accumulator. 
--ALSA uses accumulator 7 for LFE PCM sample for 5.1 playback. The result sample 
--is forwarded to the LFE DAC PCM slot of the Philips DAC.
-+ALSA uses accumulator 7 for LFE PCM samples for 5.1 playback. The result
-+samples are forwarded to the subwoofer.
- 
- name='PCM Playback Volume',index=0
- ----------------------------------
--This control is used to attenuate samples for left and right PCM FX-bus
-+This control is used to attenuate samples from left and right PCM FX-bus
- accumulators. ALSA uses accumulators 0 and 1 for left and right PCM samples for
--stereo playback. The result samples are forwarded to the front DAC PCM slots 
--of the Philips DAC.
-+stereo playback. The result samples are forwarded to the front speakers.
- 
- name='PCM Capture Volume',index=0
- ---------------------------------
--This control is used to attenuate samples for left and right PCM FX-bus
--accumulator. ALSA uses accumulators 0 and 1 for left and right PCM.
--The result is forwarded to the ADC capture FIFO (thus to the standard capture
--PCM device).
-+This control is used to attenuate samples from left and right PCM FX-bus
-+accumulators. ALSA uses accumulators 0 and 1 for left and right PCM samples for
-+stereo playback. The result is forwarded to the standard capture PCM device.
- 
- name='Music Playback Volume',index=0
- ------------------------------------
--This control is used to attenuate samples for left and right MIDI FX-bus
-+This control is used to attenuate samples from left and right MIDI FX-bus
- accumulators. ALSA uses accumulators 4 and 5 for left and right MIDI samples.
--The result samples are forwarded to the front DAC PCM slots of the AC97 codec.
-+The result samples are forwarded to the virtual stereo mixer.
- 
- name='Music Capture Volume',index=0
- -----------------------------------
--These controls are used to attenuate samples for left and right MIDI FX-bus
--accumulator. ALSA uses accumulators 4 and 5 for left and right PCM.
--The result is forwarded to the ADC capture FIFO (thus to the standard capture
--PCM device).
-+These controls are used to attenuate samples from left and right MIDI FX-bus
-+accumulator. ALSA uses accumulators 4 and 5 for left and right MIDI samples.
-+The result is forwarded to the standard capture PCM device.
- 
- name='Mic Playback Volume',index=0
- ----------------------------------
--This control is used to attenuate samples for left and right Mic input.
--For Mic input is used AC97 codec. The result samples are forwarded to 
--the front DAC PCM slots of the Philips DAC. Samples are forwarded to Mic
--capture FIFO (device 1 - 16bit/8KHz mono) too without volume control.
-+This control is used to attenuate samples from left and right Mic input of
-+the AC97 codec. The result samples are forwarded to the virtual stereo mixer.
- 
- name='Mic Capture Volume',index=0
- ---------------------------------
--This control is used to attenuate samples for left and right Mic input.
--The result is forwarded to the ADC capture FIFO (thus to the standard capture
--PCM device).
-+This control is used to attenuate samples from left and right Mic input of
-+the AC97 codec. The result is forwarded to the standard capture PCM device.
++static const unsigned short emu1010_2x_input_dst[][2] = {
++	{ EMU_DST_ALICE2_EMU32_0, EMU_DST_ALICE2_EMU32_8 },
++	{ EMU_DST_ALICE2_EMU32_1, EMU_DST_ALICE2_EMU32_9 },
++	{ EMU_DST_ALICE2_EMU32_2, EMU_DST_ALICE2_EMU32_A },
++	{ EMU_DST_ALICE2_EMU32_3, EMU_DST_ALICE2_EMU32_B },
++	{ EMU_DST_ALICE2_EMU32_4, EMU_DST_ALICE2_EMU32_C },
++	{ EMU_DST_ALICE2_EMU32_5, EMU_DST_ALICE2_EMU32_D },
++	{ EMU_DST_ALICE2_EMU32_6, EMU_DST_ALICE2_EMU32_E },
++	{ EMU_DST_ALICE2_EMU32_7, EMU_DST_ALICE2_EMU32_F },
++};
++static_assert(ARRAY_SIZE(emu1010_2x_input_dst) <= NUM_INPUT_DESTS);
 +
-+The original samples are also forwarded to the Mic capture PCM device (device 1;
-+16bit/8KHz mono) without volume control.
- 
- name='Audigy CD Playback Volume',index=0
- ----------------------------------------
- This control is used to attenuate samples from left and right IEC958 TTL
- digital inputs (usually used by a CDROM drive). The result samples are
--forwarded to the front DAC PCM slots of the Philips DAC.
-+forwarded to the virtual stereo mixer.
- 
- name='Audigy CD Capture Volume',index=0
- ---------------------------------------
- This control is used to attenuate samples from left and right IEC958 TTL
--digital inputs (usually used by a CDROM drive). The result samples are
--forwarded to the ADC capture FIFO (thus to the standard capture PCM device).
-+digital inputs (usually used by a CDROM drive). The result is forwarded
-+to the standard capture PCM device.
- 
- name='IEC958 Optical Playback Volume',index=0
- ---------------------------------------------
- This control is used to attenuate samples from left and right IEC958 optical
--digital input. The result samples are forwarded to the front DAC PCM slots
--of the Philips DAC.
-+digital input. The result samples are forwarded to the virtual stereo mixer.
- 
- name='IEC958 Optical Capture Volume',index=0
- --------------------------------------------
- This control is used to attenuate samples from left and right IEC958 optical
--digital inputs. The result samples are forwarded to the ADC capture FIFO
--(thus to the standard capture PCM device).
-+digital inputs. The result is forwarded to the standard capture PCM device.
- 
- name='Line2 Playback Volume',index=0
- ------------------------------------
- This control is used to attenuate samples from left and right I2S ADC
--inputs (on the AudigyDrive). The result samples are forwarded to the front
--DAC PCM slots of the Philips DAC.
-+inputs (on the AudigyDrive). The result samples are forwarded to the virtual
-+stereo mixer.
- 
- name='Line2 Capture Volume',index=1
- -----------------------------------
- This control is used to attenuate samples from left and right I2S ADC
--inputs (on the AudigyDrive). The result samples are forwarded to the ADC
--capture FIFO (thus to the standard capture PCM device).
-+inputs (on the AudigyDrive). The result is forwarded to the standard capture
-+PCM device.
- 
- name='Analog Mix Playback Volume',index=0
- -----------------------------------------
- This control is used to attenuate samples from left and right I2S ADC
--inputs from Philips ADC. The result samples are forwarded to the front
--DAC PCM slots of the Philips DAC. This contains mix from analog sources
--like CD, Line In, Aux, ....
-+inputs from Philips ADC. The result samples are forwarded to the virtual
-+stereo mixer. This contains mix from analog sources like CD, Line In, Aux, ....
- 
- name='Analog Mix Capture Volume',index=1
- ----------------------------------------
- This control is used to attenuate samples from left and right I2S ADC
--inputs Philips ADC. The result samples are forwarded to the ADC
--capture FIFO (thus to the standard capture PCM device).
-+inputs Philips ADC. The result is forwarded to the standard capture PCM device.
- 
- name='Aux2 Playback Volume',index=0
- -----------------------------------
- This control is used to attenuate samples from left and right I2S ADC
--inputs (on the AudigyDrive). The result samples are forwarded to the front
--DAC PCM slots of the Philips DAC.
-+inputs (on the AudigyDrive). The result samples are forwarded to the virtual
-+stereo mixer.
- 
- name='Aux2 Capture Volume',index=1
- ----------------------------------
- This control is used to attenuate samples from left and right I2S ADC
--inputs (on the AudigyDrive). The result samples are forwarded to the ADC
--capture FIFO (thus to the standard capture PCM device).
-+inputs (on the AudigyDrive). The result is forwarded to the standard capture
-+PCM device.
- 
- name='Front Playback Volume',index=0
- ------------------------------------
--All stereo signals are mixed together and mirrored to surround, center and LFE.
--This control is used to attenuate samples for left and right front speakers of
--this mix.
-+This control is used to attenuate samples from the virtual stereo mixer.
-+The result samples are forwarded to the front speakers.
- 
- name='Surround Playback Volume',index=0
- ---------------------------------------
--All stereo signals are mixed together and mirrored to surround, center and LFE.
--This control is used to attenuate samples for left and right surround speakers of
--this mix.
-+This control is used to attenuate samples from the virtual stereo mixer.
-+The result samples are forwarded to the surround (rear) speakers.
++static const unsigned short emu1010_4x_input_dst[][4] = {
++	{ EMU_DST_ALICE2_EMU32_0, EMU_DST_ALICE2_EMU32_4, EMU_DST_ALICE2_EMU32_8, EMU_DST_ALICE2_EMU32_C },
++	{ EMU_DST_ALICE2_EMU32_1, EMU_DST_ALICE2_EMU32_5, EMU_DST_ALICE2_EMU32_9, EMU_DST_ALICE2_EMU32_D },
++	{ EMU_DST_ALICE2_EMU32_2, EMU_DST_ALICE2_EMU32_6, EMU_DST_ALICE2_EMU32_A, EMU_DST_ALICE2_EMU32_E },
++	{ EMU_DST_ALICE2_EMU32_3, EMU_DST_ALICE2_EMU32_7, EMU_DST_ALICE2_EMU32_B, EMU_DST_ALICE2_EMU32_F },
++};
++static_assert(ARRAY_SIZE(emu1010_4x_input_dst) <= NUM_INPUT_DESTS);
 +
-+name='Side Playback Volume',index=0
-+-----------------------------------
-+This control is used to attenuate samples from the virtual stereo mixer.
-+The result samples are forwarded to the side speakers.
++static const unsigned short emu1010b_2x_input_dst[][2] = {
++	{ EMU_DST_ALICE2_EMU32_0, EMU_DST_TINA_EMU32B+0x0 },
++	{ EMU_DST_ALICE2_EMU32_1, EMU_DST_TINA_EMU32B+0x1 },
++	{ EMU_DST_ALICE2_EMU32_2, EMU_DST_TINA_EMU32B+0x2 },
++	{ EMU_DST_ALICE2_EMU32_3, EMU_DST_TINA_EMU32B+0x3 },
++	{ EMU_DST_ALICE2_EMU32_4, EMU_DST_TINA_EMU32B+0x4 },
++	{ EMU_DST_ALICE2_EMU32_5, EMU_DST_TINA_EMU32B+0x5 },
++	{ EMU_DST_ALICE2_EMU32_6, EMU_DST_TINA_EMU32B+0x6 },
++	{ EMU_DST_ALICE2_EMU32_7, EMU_DST_TINA_EMU32B+0x7 },
++	{ EMU_DST_ALICE2_EMU32_8, EMU_DST_TINA_EMU32B+0x8 },
++	{ EMU_DST_ALICE2_EMU32_9, EMU_DST_TINA_EMU32B+0x9 },
++	{ EMU_DST_ALICE2_EMU32_A, EMU_DST_TINA_EMU32B+0xa },
++	{ EMU_DST_ALICE2_EMU32_B, EMU_DST_TINA_EMU32B+0xb },
++	{ EMU_DST_ALICE2_EMU32_C, EMU_DST_TINA_EMU32B+0xc },
++	{ EMU_DST_ALICE2_EMU32_D, EMU_DST_TINA_EMU32B+0xd },
++	{ EMU_DST_ALICE2_EMU32_E, EMU_DST_TINA_EMU32B+0xe },
++	{ EMU_DST_ALICE2_EMU32_F, EMU_DST_TINA_EMU32B+0xf },
++};
++static_assert(ARRAY_SIZE(emu1010b_2x_input_dst) <= NUM_INPUT_DESTS);
++
++static const unsigned short emu1010b_4x_input_dst[][4] = {
++	{ EMU_DST_ALICE2_EMU32_0, EMU_DST_ALICE2_EMU32_8, EMU_DST_TINA_EMU32B+0x0, EMU_DST_TINA_EMU32B+0x8 },
++	{ EMU_DST_ALICE2_EMU32_1, EMU_DST_ALICE2_EMU32_9, EMU_DST_TINA_EMU32B+0x1, EMU_DST_TINA_EMU32B+0x9 },
++	{ EMU_DST_ALICE2_EMU32_2, EMU_DST_ALICE2_EMU32_A, EMU_DST_TINA_EMU32B+0x2, EMU_DST_TINA_EMU32B+0xa },
++	{ EMU_DST_ALICE2_EMU32_3, EMU_DST_ALICE2_EMU32_B, EMU_DST_TINA_EMU32B+0x3, EMU_DST_TINA_EMU32B+0xb },
++	{ EMU_DST_ALICE2_EMU32_4, EMU_DST_ALICE2_EMU32_C, EMU_DST_TINA_EMU32B+0x4, EMU_DST_TINA_EMU32B+0xc },
++	{ EMU_DST_ALICE2_EMU32_5, EMU_DST_ALICE2_EMU32_D, EMU_DST_TINA_EMU32B+0x5, EMU_DST_TINA_EMU32B+0xd },
++	{ EMU_DST_ALICE2_EMU32_6, EMU_DST_ALICE2_EMU32_E, EMU_DST_TINA_EMU32B+0x6, EMU_DST_TINA_EMU32B+0xe },
++	{ EMU_DST_ALICE2_EMU32_7, EMU_DST_ALICE2_EMU32_F, EMU_DST_TINA_EMU32B+0x7, EMU_DST_TINA_EMU32B+0xf },
++};
++static_assert(ARRAY_SIZE(emu1010b_4x_input_dst) <= NUM_INPUT_DESTS);
++
++static const unsigned short emu1616_2x_input_dst[][2] = {
++	{ EMU_DST_ALICE2_EMU32_0, EMU_DST_TINA2_EMU32B+0x0 },
++	{ EMU_DST_ALICE2_EMU32_1, EMU_DST_TINA2_EMU32B+0x1 },
++	{ EMU_DST_ALICE2_EMU32_2, EMU_DST_TINA2_EMU32B+0x2 },
++	{ EMU_DST_ALICE2_EMU32_3, EMU_DST_TINA2_EMU32B+0x3 },
++	{ EMU_DST_ALICE2_EMU32_4, EMU_DST_TINA2_EMU32B+0x4 },
++	{ EMU_DST_ALICE2_EMU32_5, EMU_DST_TINA2_EMU32B+0x5 },
++	{ EMU_DST_ALICE2_EMU32_6, EMU_DST_TINA2_EMU32B+0x6 },
++	{ EMU_DST_ALICE2_EMU32_7, EMU_DST_TINA2_EMU32B+0x7 },
++	{ EMU_DST_ALICE2_EMU32_8, EMU_DST_TINA2_EMU32B+0x8 },
++	{ EMU_DST_ALICE2_EMU32_9, EMU_DST_TINA2_EMU32B+0x9 },
++	{ EMU_DST_ALICE2_EMU32_A, EMU_DST_TINA2_EMU32B+0xa },
++	{ EMU_DST_ALICE2_EMU32_B, EMU_DST_TINA2_EMU32B+0xb },
++	{ EMU_DST_ALICE2_EMU32_C, EMU_DST_TINA2_EMU32B+0xc },
++	{ EMU_DST_ALICE2_EMU32_D, EMU_DST_TINA2_EMU32B+0xd },
++	{ EMU_DST_ALICE2_EMU32_E, EMU_DST_TINA2_EMU32B+0xe },
++	{ EMU_DST_ALICE2_EMU32_F, EMU_DST_TINA2_EMU32B+0xf },
++};
++static_assert(ARRAY_SIZE(emu1616_2x_input_dst) <= NUM_INPUT_DESTS);
++
++static const unsigned short emu1616_4x_input_dst[][4] = {
++	{ EMU_DST_ALICE2_EMU32_0, EMU_DST_ALICE2_EMU32_8, EMU_DST_TINA2_EMU32B+0x0, EMU_DST_TINA2_EMU32B+0x8 },
++	{ EMU_DST_ALICE2_EMU32_1, EMU_DST_ALICE2_EMU32_9, EMU_DST_TINA2_EMU32B+0x1, EMU_DST_TINA2_EMU32B+0x9 },
++	{ EMU_DST_ALICE2_EMU32_2, EMU_DST_ALICE2_EMU32_A, EMU_DST_TINA2_EMU32B+0x2, EMU_DST_TINA2_EMU32B+0xa },
++	{ EMU_DST_ALICE2_EMU32_3, EMU_DST_ALICE2_EMU32_B, EMU_DST_TINA2_EMU32B+0x3, EMU_DST_TINA2_EMU32B+0xb },
++	{ EMU_DST_ALICE2_EMU32_4, EMU_DST_ALICE2_EMU32_C, EMU_DST_TINA2_EMU32B+0x4, EMU_DST_TINA2_EMU32B+0xc },
++	{ EMU_DST_ALICE2_EMU32_5, EMU_DST_ALICE2_EMU32_D, EMU_DST_TINA2_EMU32B+0x5, EMU_DST_TINA2_EMU32B+0xd },
++	{ EMU_DST_ALICE2_EMU32_6, EMU_DST_ALICE2_EMU32_E, EMU_DST_TINA2_EMU32B+0x6, EMU_DST_TINA2_EMU32B+0xe },
++	{ EMU_DST_ALICE2_EMU32_7, EMU_DST_ALICE2_EMU32_F, EMU_DST_TINA2_EMU32B+0x7, EMU_DST_TINA2_EMU32B+0xf },
++};
++static_assert(ARRAY_SIZE(emu1616_4x_input_dst) <= NUM_INPUT_DESTS);
++
+ static const unsigned short emu0404_input_dflt[] = {
+ 	EMU_SRC_HAMOA_ADC_LEFT1,
+ 	EMU_SRC_HAMOA_ADC_RIGHT1,
+@@ -900,7 +984,7 @@ struct snd_emu1010_routing_info {
+ 	const char * const *out_texts[3];
+ 	const unsigned short *src_regs[3];
+ 	const unsigned short *out_regs[3];
+-	const unsigned short *in_regs;
++	const unsigned short *in_regs[3];
+ 	const unsigned short *out_dflts;
+ 	const unsigned short *in_dflts;
+ 	unsigned n_srcs[4];
+@@ -925,8 +1009,8 @@ static const struct snd_emu1010_routing_info emu1010_routing_info[] = {
+ 			    ARRAY_SIZE(emu1010_2x_output_texts), ARRAY_SIZE(emu1010_4x_output_texts) },
  
- name='Center Playback Volume',index=0
- -------------------------------------
--All stereo signals are mixed together and mirrored to surround, center and LFE.
--This control is used to attenuate sample for center speaker of this mix.
-+This control is used to attenuate samples from the virtual stereo mixer.
-+The result samples are forwarded to the center speaker.
+ 		.in_dflts = emu1010_input_dflt,
+-		.in_regs = emu1010_input_dst,
+-		.n_ins = { ARRAY_SIZE(emu1010_input_dst), 16, 16, 16 },
++		.in_regs = { emu1010_input_dst, emu1010_2x_input_dst[0], emu1010_4x_input_dst[0] },
++		.n_ins = { ARRAY_SIZE(emu1010_input_dst), 16, 8, 4 },
+ 	},
+ 	{
+ 		/* rev2 1010 */
+@@ -944,8 +1028,8 @@ static const struct snd_emu1010_routing_info emu1010_routing_info[] = {
+ 			    ARRAY_SIZE(snd_emu1010b_2x_output_texts), ARRAY_SIZE(snd_emu1010b_4x_output_texts) },
  
- name='LFE Playback Volume',index=0
- ----------------------------------
--All stereo signals are mixed together and mirrored to surround, center and LFE.
--This control is used to attenuate sample for LFE speaker of this mix.
-+This control is used to attenuate samples from the virtual stereo mixer.
-+The result samples are forwarded to the subwoofer.
+ 		.in_dflts = emu1010_input_dflt,
+-		.in_regs = emu1010_input_dst,
+-		.n_ins = { ARRAY_SIZE(emu1010_input_dst) - 6, 16, 16, 16 },
++		.in_regs = { emu1010_input_dst, emu1010b_2x_input_dst[0], emu1010b_4x_input_dst[0] },
++		.n_ins = { ARRAY_SIZE(emu1010_input_dst) - 6, 16, 16, 8 },
+ 	},
+ 	{
+ 		/* 1616(m) cardbus */
+@@ -963,8 +1047,8 @@ static const struct snd_emu1010_routing_info emu1010_routing_info[] = {
+ 			    ARRAY_SIZE(snd_emu1616_2x_output_texts), ARRAY_SIZE(snd_emu1616_4x_output_texts) },
  
- name='Tone Control - Switch',index=0
- ------------------------------------
--This control turns the tone control on or off. The samples for front, rear
--and center / LFE outputs are affected.
-+This control turns the tone control on or off. The samples forwarded to
-+the speaker outputs are affected.
+ 		.in_dflts = emu1010_input_dflt,
+-		.in_regs = emu1010_input_dst,
+-		.n_ins = { ARRAY_SIZE(emu1010_input_dst) - 6, 16, 16, 16 },
++		.in_regs = { emu1010_input_dst, emu1616_2x_input_dst[0], emu1616_4x_input_dst[0] },
++		.n_ins = { ARRAY_SIZE(emu1010_input_dst) - 6, 16, 16, 8 },
+ 	},
+ 	{
+ 		/* 0404 */
+@@ -982,8 +1066,8 @@ static const struct snd_emu1010_routing_info emu1010_routing_info[] = {
+ 			    ARRAY_SIZE(snd_emu0404_output_texts), ARRAY_SIZE(snd_emu0404_4x_output_texts) },
  
- name='Tone Control - Bass',index=0
- ----------------------------------
-@@ -212,8 +213,7 @@ The closest value to pure signal is 20.
+ 		.in_dflts = emu0404_input_dflt,
+-		.in_regs = emu1010_input_dst,
+-		.n_ins = { ARRAY_SIZE(emu1010_input_dst) - 6, 16, 16, 16 },
++		.in_regs = { emu1010_input_dst, emu1010_2x_input_dst[0], emu1010_4x_input_dst[0] },
++		.n_ins = { ARRAY_SIZE(emu1010_input_dst) - 6, 16, 8, 4 },
+ 	},
+ };
  
- name='Master Playback Volume',index=0
- -------------------------------------
--This control is used to attenuate samples for front, surround, center and 
--LFE outputs.
-+This control is used to attenuate samples forwarded to the speaker outputs.
+@@ -1035,11 +1119,10 @@ static void snd_emu1010_input_source_apply(struct snd_emu10k1 *emu,
+ 	const struct snd_emu1010_routing_info *emu_ri =
+ 		&emu1010_routing_info[emu1010_idx(emu)];
+ 	unsigned shift = emu->emu1010.clock_shift;
+-	const unsigned short *regs = &emu_ri->in_regs[channel];
++	const unsigned short *regs = &emu_ri->in_regs[shift][channel << shift];
+ 	const unsigned short *vals = &emu_ri->src_regs[shift][src << shift];
  
- name='IEC958 Optical Raw Playback Switch',index=0
- -------------------------------------------------
-diff --git a/Documentation/sound/cards/sb-live-mixer.rst b/Documentation/sound/cards/sb-live-mixer.rst
-index 4dd9bfe01bd8..27667f58aae1 100644
---- a/Documentation/sound/cards/sb-live-mixer.rst
-+++ b/Documentation/sound/cards/sb-live-mixer.rst
-@@ -61,61 +61,61 @@ FX-bus
+-	// Only 1x capture for now
+-	snd_emu1010_fpga_link_dst_src_write(emu, regs[0], vals[0]);
++	snd_emu1010_source_apply(emu, shift, regs, vals);
+ }
  
- ``name='Wave Playback Volume',index=0``
- ---------------------------------------
--This control is used to attenuate samples for left and right PCM FX-bus
-+This control is used to attenuate samples from left and right PCM FX-bus
- accumulators. ALSA uses accumulators 0 and 1 for left and right PCM samples.
- The result samples are forwarded to the front DAC PCM slots of the AC97 codec.
+ static void snd_emu1010_apply_sources(struct snd_emu10k1 *emu, int active)
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index 408db0d7c959..769096e05571 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -230,6 +230,16 @@ static void snd_emu1010_constrain_efx_rate(struct snd_emu10k1 *emu,
+ 	runtime->hw.rates = snd_pcm_rate_to_rate_bit(rate);
+ }
  
- ``name='Wave Surround Playback Volume',index=0``
- ------------------------------------------------
--This control is used to attenuate samples for left and right PCM FX-bus
-+This control is used to attenuate samples from left and right PCM FX-bus
- accumulators. ALSA uses accumulators 0 and 1 for left and right PCM samples.
- The result samples are forwarded to the rear I2S DACs. These DACs operates
- separately (they are not inside the AC97 codec).
- 
- ``name='Wave Center Playback Volume',index=0``
- ----------------------------------------------
--This control is used to attenuate samples for left and right PCM FX-bus
-+This control is used to attenuate samples from left and right PCM FX-bus
- accumulators. ALSA uses accumulators 0 and 1 for left and right PCM samples.
- The result is mixed to mono signal (single channel) and forwarded to
- the ??rear?? right DAC PCM slot of the AC97 codec.
- 
- ``name='Wave LFE Playback Volume',index=0``
- -------------------------------------------
--This control is used to attenuate samples for left and right PCM FX-bus
-+This control is used to attenuate samples from left and right PCM FX-bus
- accumulators. ALSA uses accumulators 0 and 1 for left and right PCM.
- The result is mixed to mono signal (single channel) and forwarded to
- the ??rear?? left DAC PCM slot of the AC97 codec.
- 
- ``name='Wave Capture Volume',index=0``, ``name='Wave Capture Switch',index=0``
- ------------------------------------------------------------------------------
--These controls are used to attenuate samples for left and right PCM FX-bus
-+These controls are used to attenuate samples from left and right PCM FX-bus
- accumulator. ALSA uses accumulators 0 and 1 for left and right PCM.
- The result is forwarded to the ADC capture FIFO (thus to the standard capture
- PCM device).
- 
- ``name='Synth Playback Volume',index=0``
- ----------------------------------------
--This control is used to attenuate samples for left and right MIDI FX-bus
-+This control is used to attenuate samples from left and right MIDI FX-bus
- accumulators. ALSA uses accumulators 4 and 5 for left and right MIDI samples.
- The result samples are forwarded to the front DAC PCM slots of the AC97 codec.
- 
- ``name='Synth Capture Volume',index=0``, ``name='Synth Capture Switch',index=0``
- --------------------------------------------------------------------------------
--These controls are used to attenuate samples for left and right MIDI FX-bus
--accumulator. ALSA uses accumulators 4 and 5 for left and right PCM.
-+These controls are used to attenuate samples from left and right MIDI FX-bus
-+accumulator. ALSA uses accumulators 4 and 5 for left and right MIDI samples.
- The result is forwarded to the ADC capture FIFO (thus to the standard capture
- PCM device).
- 
- ``name='Surround Playback Volume',index=0``
- -------------------------------------------
--This control is used to attenuate samples for left and right rear PCM FX-bus
-+This control is used to attenuate samples from left and right rear PCM FX-bus
- accumulators. ALSA uses accumulators 2 and 3 for left and right rear PCM samples.
- The result samples are forwarded to the rear I2S DACs. These DACs operate
- separately (they are not inside the AC97 codec).
- 
- ``name='Surround Capture Volume',index=0``, ``name='Surround Capture Switch',index=0``
- --------------------------------------------------------------------------------------
--These controls are used to attenuate samples for left and right rear PCM FX-bus
-+These controls are used to attenuate samples from left and right rear PCM FX-bus
- accumulators. ALSA uses accumulators 2 and 3 for left and right rear PCM samples.
- The result is forwarded to the ADC capture FIFO (thus to the standard capture
- PCM device).
-@@ -134,18 +134,18 @@ to the ??rear?? left DAC PCM slot of the AC97 codec.
- 
- ``name='AC97 Playback Volume',index=0``
- ---------------------------------------
--This control is used to attenuate samples for left and right front ADC PCM slots
-+This control is used to attenuate samples from left and right front ADC PCM slots
- of the AC97 codec. The result samples are forwarded to the front DAC PCM
- slots of the AC97 codec.
- 
- .. note::
-   This control should be zero for the standard operations, otherwise
-   a digital loopback is activated.
- 
- 
- ``name='AC97 Capture Volume',index=0``
- --------------------------------------
--This control is used to attenuate samples for left and right front ADC PCM slots
-+This control is used to attenuate samples from left and right front ADC PCM slots
- of the AC97 codec. The result is forwarded to the ADC capture FIFO (thus to
- the standard capture PCM device).
- 
++static void snd_emu1010_constrain_efx_capture_rate(struct snd_emu10k1 *emu,
++						   struct snd_pcm_runtime *runtime)
++{
++	int rate;
++
++	rate = emu->emu1010.word_clock << emu->emu1010.clock_shift;
++	runtime->hw.rate_min = runtime->hw.rate_max = rate;
++	runtime->hw.rates = snd_pcm_rate_to_rate_bit(rate);
++}
++
+ static unsigned int emu10k1_calc_pitch_target(unsigned int rate)
+ {
+ 	unsigned int pitch_target;
+@@ -564,8 +574,22 @@ static int snd_emu10k1_capture_prepare(struct snd_pcm_substream *substream)
+ 		if (emu->card_capabilities->emu_model) {
+ 			unsigned mask = 0xffffffff >> (32 - runtime->channels * 2);
+ 			if (emu->das_mode) {
++				unsigned shift = emu->emu1010.clock_shift;
++				if (shift) {
++					if (emu->card_capabilities->emu_in_32) {
++						if (shift == 2)
++							mask |= mask << 16;
++						epcm->capture_cr_val2 = mask;
++					} else {
++						if (shift == 2)
++							mask |= mask << 8;
++						mask |= mask << 16;
++						epcm->capture_cr_val2 = 0;
++					}
++				} else {
++					epcm->capture_cr_val2 = 0;
++				}
+ 				epcm->capture_cr_val = mask;
+-				epcm->capture_cr_val2 = 0;
+ 			} else {
+ 				// The upper 32 16-bit capture voices, two for each of the 16 32-bit channels.
+ 				// The lower voices are occupied by A_EXTOUT_*_CAP*.
+@@ -1440,26 +1464,22 @@ static int snd_emu10k1_capture_efx_open(struct snd_pcm_substream *substream)
+ 	substream->runtime->private_free = snd_emu10k1_pcm_free_substream;
+ 	runtime->hw = snd_emu10k1_capture_efx;
+ 	if (emu->card_capabilities->emu_model) {
+-		snd_emu1010_constrain_efx_rate(emu, runtime);
++		snd_emu1010_constrain_efx_capture_rate(emu, runtime);
+ 		/*
+ 		 * There are 32 mono channels of 16bits each.
+ 		 * 24bit Audio uses 2x channels over 16bit,
+ 		 * 96kHz uses 2x channels over 48kHz,
+ 		 * 192kHz uses 4x channels over 48kHz.
+ 		 * So, for 48kHz 24bit, one has 16 channels,
+ 		 * for 96kHz 24bit, one has 8 channels,
+ 		 * for 192kHz 24bit, one has 4 channels.
+ 		 * 1010rev2 and 1616(m) cards have double that,
+ 		 * but we don't exceed 16 channels anyway.
+ 		 */
+-#if 0
+-		/* For 96kHz */
+-		runtime->hw.channels_min = runtime->hw.channels_max = 4;
+-#endif
+-#if 0
+-		/* For 192kHz */
+-		runtime->hw.channels_min = runtime->hw.channels_max = 2;
+-#endif
++		if (emu->das_mode)
++			runtime->hw.channels_max =
++				min(16, 32 >> (emu->emu1010.clock_shift +
++					       !emu->card_capabilities->emu_in_32));
+ 		runtime->hw.formats = SNDRV_PCM_FMTBIT_S32_LE;
+ 	} else {
+ 		spin_lock_irq(&emu->reg_lock);
 -- 
 2.40.0.152.g15d061e6df
 

@@ -2,86 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86AF9789644
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 13:25:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEEAD789649
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 13:29:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E165F83E;
-	Sat, 26 Aug 2023 13:24:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E165F83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13AE184C;
+	Sat, 26 Aug 2023 13:28:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13AE184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693049134;
-	bh=QdP+KA+OdSz2el0jN6VlJTmMNAtuZc+l4F1UYz654CQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693049356;
+	bh=i5Ardvl+OegQ7l5Ef1FWLfABSt0lDOYwEvx5nWlC7us=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IHQ/Y0l03JiCKfUCn96/fIjCNfpXbd8I9YkceApWXxQC7BGYum7pG7qJeMXgHlVMG
-	 jKexjilGUvVZerPrzg3+irthVYLKtyBbZj2TxXw0thIHdiYtzxc+M3x8bHdv0HTjAX
-	 pDv+/4UpQWPaxPrCMEado35C+JFZ56nDylcl3GdY=
+	b=nRdBtbBcSF3NQOMKhtzAywEuIgOzgsJ0JX09ZDgmWovKYzBQv3VSADc/5YMr+YAwr
+	 xKnZHSbrEzQlqL8Gqf+wsGVhQskWwTYX+UAUqeofN4GAoEvPO9UlwzmyWUqokhKB+6
+	 bUkUkheMrCn/5HBHbtvuOlAjnjOiT2EAd7yJR/gs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 585C6F80536; Sat, 26 Aug 2023 13:24:43 +0200 (CEST)
+	id 896C7F800BF; Sat, 26 Aug 2023 13:28:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17B14F800F5;
-	Sat, 26 Aug 2023 13:24:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03438F800F5;
+	Sat, 26 Aug 2023 13:28:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2645AF80158; Sat, 26 Aug 2023 13:24:39 +0200 (CEST)
+	id 22B0EF80158; Sat, 26 Aug 2023 13:28:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1BF2AF800AE
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 13:24:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF2AF800AE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=J0ijANXe
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19AB2F800D1
+	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 13:28:04 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9F02311F6;
+	Sat, 26 Aug 2023 13:28:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9F02311F6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1693049281; bh=t/I5jTT0B8iEeSOBKQjKDlmeTVYvOd8UP3ZLCmcZiLQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=n/UmVAd2fwbHLR3FMoFtSXxeKQzOP2x3G4PuQa4DAvPjAQz2hZWqnnOOIk7nzAlLf
+	 EGJJTbdJe6FyQrhdcY6qxO3czw5TlHu6W3ogVzOiMmK/jM8u16vU+ZwcSopK+N3bom
+	 4xkN37mdry2/W3jx1NW972XuN903w7Eu/ludwAwY=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 09A0E626BB;
-	Sat, 26 Aug 2023 11:24:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22145C433C8;
-	Sat, 26 Aug 2023 11:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693049069;
-	bh=QdP+KA+OdSz2el0jN6VlJTmMNAtuZc+l4F1UYz654CQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J0ijANXefTHurOLYmJpqDvU8r5HHVuFdLEWraAEV3UZ+9FWt9LtL7TZvy+z55xe9R
-	 JvLJ/rRb6wLKsPE4ZRjxngR0P0LYYCNhdnaqVeABk1txbkMuyC2gL8wbkCmwxSvd4H
-	 qe6J0yuGF2GPGXCoCQ7KWynKmivydUNzgGtRN7tizJwXX9F/1/J4RDcSz8Fl5yfoIw
-	 W33nOfKm2K3rTaCHndAfLQwxLvB5qioy+GdJfykwhieW6qDCl3bpOTfzWM6FCKqyQC
-	 gFLoLTbMDmOui3IR13b3Dy2V7y9iZY+dH1mRnohWKdUEpiJ4zjn3kZaRPPOtEI4Qg0
-	 r/DicrG0kpLXQ==
-Date: Sat, 26 Aug 2023 12:24:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Marian Postevca <posteuca@mutex.one>
-Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] ASoC: es8316: Enable support for S32 LE format
-Message-ID: <ZOng6WCjECi/Ula2@finisterre.sirena.org.uk>
-References: <20230824210135.19303-1-posteuca@mutex.one>
- <20230824210135.19303-2-posteuca@mutex.one>
- <ZOfMo4Cb2zd1Km3H@finisterre.sirena.org.uk>
- <87y1hypz1y.fsf@mutex.one>
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Sat, 26 Aug 2023 13:27:57 +0200 (CEST)
+Message-ID: <ce20d02b-56ed-acd1-411b-8c68d8cabea8@perex.cz>
+Date: Sat, 26 Aug 2023 13:27:57 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IUEZvB6woga6BL6m"
-Content-Disposition: inline
-In-Reply-To: <87y1hypz1y.fsf@mutex.one>
-X-Cookie: Give him an evasive answer.
-Message-ID-Hash: DZC7I7PEXEBJ2AIWNY6L3DWTH3WRX3G5
-X-Message-ID-Hash: DZC7I7PEXEBJ2AIWNY6L3DWTH3WRX3G5
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 1/2] ucm: docs: Add EchoReferenceDev
+Content-Language: en-US
+To: cujomalainey@chromium.org, alsa-devel@alsa-project.org
+Cc: tiwai@suse.com, ethan.geller@gmail.com
+References: <20230824213312.1258499-1-cujomalainey@chromium.org>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230824213312.1258499-1-cujomalainey@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 7PYXQJMCLDSJLOZCJW76TLRSEM2RT6KW
+X-Message-ID-Hash: 7PYXQJMCLDSJLOZCJW76TLRSEM2RT6KW
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,43 +85,29 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DZC7I7PEXEBJ2AIWNY6L3DWTH3WRX3G5/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7PYXQJMCLDSJLOZCJW76TLRSEM2RT6KW/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 24. 08. 23 23:33, cujomalainey@chromium.org wrote:
+> From: Curtis Malainey <cujomalainey@chromium.org>
+> 
+> Sometimes userspace may want to use a reference channel to cancel echos
+> when using video chat, this value identifies the device which carries
+> that channel.
 
---IUEZvB6woga6BL6m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The UCM modifier should be used for this - see "Echo Reference" comments in 
+use-case.h.
 
-On Sat, Aug 26, 2023 at 12:55:21AM +0300, Marian Postevca wrote:
+Note that this allows additional setup (in Sequences) for this stream.
 
-> I removed S32_LE from the CODEC to test if it works and it
-> seems it does work with acp-is2-sp. Format S16_LE is chosen by
-> both components and sound can be heard. I guess this patch is
-> not really needed.
+						Jaroslav
 
-If the device supports it it's a good change, it was just the bit about
-it being a fix that I was querying.
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
---IUEZvB6woga6BL6m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTp4OYACgkQJNaLcl1U
-h9Ah3Af8CtxEAOV0PQfZ8TfnRojuQe8q+J5avd9VjbolE481OMphKYrHdYzIN2aj
-cko3Q0fCBxxdBoy85SDCbyMvj3w6SBEm5pIZUBi3kc820kaQAlqCZjmygGwg0TSv
-guCbcmiCMxvnh53p30VwdbEVTjOlhrbvzsT9v++lXSze4kAbmNdwI+Tj1/avteCT
-xoXfoCuHFD/bQP2mJ2gPeRM8Iysr6Hl5ROjAqrCtxoHB8uHcPEmWwR7lKD9NqStH
-lVsbiQwaKrE4RJvPgYyiwz5bk/Y+pDIfM4fhrDXZzFqUNIfGszwQBU3HVykNYTnz
-ywdSsljt7KzCG4VswVWUl7jDnFUgrg==
-=x02n
------END PGP SIGNATURE-----
-
---IUEZvB6woga6BL6m--

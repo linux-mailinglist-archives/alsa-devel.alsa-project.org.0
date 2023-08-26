@@ -2,102 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 244A9789452
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 09:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77B20789511
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 11:19:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CD1785D;
-	Sat, 26 Aug 2023 09:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CD1785D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B18783E;
+	Sat, 26 Aug 2023 11:18:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B18783E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693034969;
-	bh=sorJbloTqteGjTnd/bSjnVKhu1mEg4zX5UHyyhhbX9g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gjby1rssPOPxYis6AqViqbpsiBGTIBjwATYzR3kF7cdtbND7sDkud/Mz7M8/SL/xL
-	 n2+RC6fQIpnxauDpEPGOC/Qv6zXgABu9n1LnjGok1gCuZaWWRk0xnSW6iSNny/dLI/
-	 XZV6USVlKHDDJxc1NWSbYRDE0s9taxjpIBe/wnss=
+	s=default; t=1693041554;
+	bh=zkV5HXe/Zs+YyvpNmzDc2SV7p/2VCE1A5pp4dVak6Bs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=AYYHCFbp1HdBZORip25RtsIad1Qp8EjBv86WaSRim8SLjy7qAcLodb4zdcy6ZOaaq
+	 y2VB4Qz+V+uwvk0YqE/2K1f9YHdUlxFHecw0omYYQr12hY1ZARORnZHKAK2YmEUluI
+	 iuUg62wkJXteSbjZuaElsxGSKa64ZrROy7ToXlLQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDE43F800F5; Sat, 26 Aug 2023 09:28:38 +0200 (CEST)
+	id 4AE00F8025F; Sat, 26 Aug 2023 11:18:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6125FF80158;
-	Sat, 26 Aug 2023 09:28:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F4BCF800F5;
+	Sat, 26 Aug 2023 11:18:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73B11F8025F; Sat, 26 Aug 2023 09:28:33 +0200 (CEST)
+	id 91057F80158; Sat, 26 Aug 2023 11:18:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A04F5F800D1
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 09:28:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A04F5F800D1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=tgxblCrg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=xskI9jCg
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3236A21E9B;
-	Sat, 26 Aug 2023 07:28:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1693034907;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BuTcuRYWkE5YB6kxP4hkCQFZz76eVfLsL60sg5osm/Q=;
-	b=tgxblCrgUvH6qvvqUPPGuy+cAFaVdl0mMT3Ria5G4B84kRrMdeMUGovcxyWhWb6EOvS2DW
-	WI8h2TOStDmP4sJ+ZjMgjwhsmNjIz0Sw7xveNSDjiB8mZKNbJ6oafEdOTef740LGl1yN/d
-	L++0uN1YtcUgzG9ow6Z/+NFqWQqH/kk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1693034907;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BuTcuRYWkE5YB6kxP4hkCQFZz76eVfLsL60sg5osm/Q=;
-	b=xskI9jCgUKFwyg7SpzCnoLa0XWaTLnTAmRHADY4m0H7z0B/Qfj64CmUmFs8sCN4OqvI6nV
-	qexAbSAMr1uiyJCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0C7C013585;
-	Sat, 26 Aug 2023 07:28:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id zOoPApup6WReGQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 26 Aug 2023 07:28:27 +0000
-Date: Sat, 26 Aug 2023 09:28:26 +0200
-Message-ID: <87a5ue5kkl.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 1/3] ALSA: emu10k1: de-duplicate audigy-mixer.rst vs.
- sb-live-mixer.rst
-In-Reply-To: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
-References: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: SE4VT4TZN6IPRXC6QXBE5NOSARZNSQCE
-X-Message-ID-Hash: SE4VT4TZN6IPRXC6QXBE5NOSARZNSQCE
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-2.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+	by alsa1.perex.cz (Postfix) with ESMTP id 646B9F800AE
+	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 11:18:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 646B9F800AE
+X-IronPort-AV: E=Sophos;i="6.02,203,1688396400";
+   d="scan'208";a="174030029"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+  by relmlie5.idc.renesas.com with ESMTP; 26 Aug 2023 18:17:57 +0900
+Received: from localhost.localdomain (unknown [10.226.92.24])
+	by relmlir6.idc.renesas.com (Postfix) with ESMTP id 55BB840F31C8;
+	Sat, 26 Aug 2023 18:17:54 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] mfd: madera-i2c: Simplify probe()
+Date: Sat, 26 Aug 2023 10:17:51 +0100
+Message-Id: <20230826091751.51634-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WXIT3DFXKBYSH2Q3WSN367PMRUOAPIN4
+X-Message-ID-Hash: WXIT3DFXKBYSH2Q3WSN367PMRUOAPIN4
+X-MailFrom: biju.das.jz@bp.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +73,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SE4VT4TZN6IPRXC6QXBE5NOSARZNSQCE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WXIT3DFXKBYSH2Q3WSN367PMRUOAPIN4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,16 +82,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 26 Aug 2023 00:21:55 +0200,
-Oswald Buddenhagen wrote:
-> 
-> Let the MANUALS/PATENTS section of the former simply refer to the latter
-> - there is no point in duplicating this information with little value to
-> end users.
-> 
-> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Simplify probe() by replacing of_device_get_match_data() and ID lookup for
+retrieving match data by i2c_get_match_data().
 
-Applied all three patches.
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Note:
+ This patch is only compile tested.
+---
+ drivers/mfd/madera-i2c.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
+diff --git a/drivers/mfd/madera-i2c.c b/drivers/mfd/madera-i2c.c
+index a404ea26bc79..b705fd5b90d8 100644
+--- a/drivers/mfd/madera-i2c.c
++++ b/drivers/mfd/madera-i2c.c
+@@ -18,20 +18,14 @@
+ 
+ static int madera_i2c_probe(struct i2c_client *i2c)
+ {
+-	const struct i2c_device_id *id = i2c_client_get_device_id(i2c);
+ 	struct madera *madera;
+ 	const struct regmap_config *regmap_16bit_config = NULL;
+ 	const struct regmap_config *regmap_32bit_config = NULL;
+-	const void *of_data;
+ 	unsigned long type;
+ 	const char *name;
+ 	int ret;
+ 
+-	of_data = of_device_get_match_data(&i2c->dev);
+-	if (of_data)
+-		type = (unsigned long)of_data;
+-	else
+-		type = id->driver_data;
++	type = (unsigned long)i2c_get_match_data(i2c);
+ 
+ 	switch (type) {
+ 	case CS47L15:
+-- 
+2.25.1
 
-Takashi

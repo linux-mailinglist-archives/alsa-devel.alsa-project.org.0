@@ -2,95 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F5A78944F
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 09:28:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244A9789452
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 09:29:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E59E846;
-	Sat, 26 Aug 2023 09:27:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E59E846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CD1785D;
+	Sat, 26 Aug 2023 09:28:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CD1785D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693034924;
-	bh=9Ppa7MOxJL9CjuTKfZR8NogE0iI8n5CoEAC9Nyo5eSo=;
-	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=vXvbjRao/tAMRPvQwyueqrsYEoYROl3rhCHCxNLG7cE/BCLD1+hZ+C7Xs8XKK9b7F
-	 zVoDTixKL6DElNKmJ8Bfp3yXSDOPqdRnRTh15WGQXiH6wkr8P9vf93WIcLvwuGTA+F
-	 WZ810EQE7QVdPfm88+ppR8iZcyRnwAVSBAuBdY9Q=
+	s=default; t=1693034969;
+	bh=sorJbloTqteGjTnd/bSjnVKhu1mEg4zX5UHyyhhbX9g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=gjby1rssPOPxYis6AqViqbpsiBGTIBjwATYzR3kF7cdtbND7sDkud/Mz7M8/SL/xL
+	 n2+RC6fQIpnxauDpEPGOC/Qv6zXgABu9n1LnjGok1gCuZaWWRk0xnSW6iSNny/dLI/
+	 XZV6USVlKHDDJxc1NWSbYRDE0s9taxjpIBe/wnss=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD4D8F8023B; Sat, 26 Aug 2023 09:27:25 +0200 (CEST)
+	id BDE43F800F5; Sat, 26 Aug 2023 09:28:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 770ADF800F5;
-	Sat, 26 Aug 2023 09:27:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6125FF80158;
+	Sat, 26 Aug 2023 09:28:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1210F80158; Sat, 26 Aug 2023 09:22:10 +0200 (CEST)
+	id 73B11F8025F; Sat, 26 Aug 2023 09:28:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F8E5F800F5
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 09:21:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8E5F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id A04F5F800D1
+	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 09:28:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A04F5F800D1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=WsvaiyLU;
+ header.s=susede2_rsa header.b=tgxblCrg;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bsfbSo+P
+ header.s=susede2_ed25519 header.b=xskI9jCg
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7443D21E9B;
-	Sat, 26 Aug 2023 07:21:55 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3236A21E9B;
+	Sat, 26 Aug 2023 07:28:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1693034515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=6UmBLhW7R2EKc//4QVzBju8LaqVhtrybVayX7+xKQ0E=;
-	b=WsvaiyLUMVUwtEE2PxlhvbJt48Vqj7hes32p2Ngyk2xCkxt/CR1/3P2JkeX1L8Le6kiHbh
-	zbV8NLnJw9R3QAIO8R+wwASq9uCm1ZAAD+U9p7IYB7wJ8m8oYBirY7EbHICOlbdlapelmZ
-	tfrpHRypYYMCHmNEQn8SRDv6zKxZxmk=
+	t=1693034907;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BuTcuRYWkE5YB6kxP4hkCQFZz76eVfLsL60sg5osm/Q=;
+	b=tgxblCrgUvH6qvvqUPPGuy+cAFaVdl0mMT3Ria5G4B84kRrMdeMUGovcxyWhWb6EOvS2DW
+	WI8h2TOStDmP4sJ+ZjMgjwhsmNjIz0Sw7xveNSDjiB8mZKNbJ6oafEdOTef740LGl1yN/d
+	L++0uN1YtcUgzG9ow6Z/+NFqWQqH/kk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1693034515;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=6UmBLhW7R2EKc//4QVzBju8LaqVhtrybVayX7+xKQ0E=;
-	b=bsfbSo+PvPW92YWPNwNXQIK2yONlY+3c1E6pk2kS4I1+VU2wdu6hSv2crPteaXwqvgxCC5
-	tmAyz2KcNhpaEYDA==
+	s=susede2_ed25519; t=1693034907;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BuTcuRYWkE5YB6kxP4hkCQFZz76eVfLsL60sg5osm/Q=;
+	b=xskI9jCgUKFwyg7SpzCnoLa0XWaTLnTAmRHADY4m0H7z0B/Qfj64CmUmFs8sCN4OqvI6nV
+	qexAbSAMr1uiyJCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 579E213585;
-	Sat, 26 Aug 2023 07:21:55 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0C7C013585;
+	Sat, 26 Aug 2023 07:28:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id RFpYFBOo6WT0FgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 26 Aug 2023 07:21:55 +0000
+	id zOoPApup6WReGQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sat, 26 Aug 2023 07:28:27 +0000
+Date: Sat, 26 Aug 2023 09:28:26 +0200
+Message-ID: <87a5ue5kkl.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2] ALSA: ump: Fix -Wformat-truncation warnings
-Date: Sat, 26 Aug 2023 09:21:51 +0200
-Message-Id: <20230826072151.23408-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WBT6NPHO5ZXK4KHFF4H2JANUICDK2YZJ
-X-Message-ID-Hash: WBT6NPHO5ZXK4KHFF4H2JANUICDK2YZJ
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 1/3] ALSA: emu10k1: de-duplicate audigy-mixer.rst vs.
+ sb-live-mixer.rst
+In-Reply-To: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
+References: <20230825222157.170978-1-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: SE4VT4TZN6IPRXC6QXBE5NOSARZNSQCE
+X-Message-ID-Hash: SE4VT4TZN6IPRXC6QXBE5NOSARZNSQCE
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WBT6NPHO5ZXK4KHFF4H2JANUICDK2YZJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SE4VT4TZN6IPRXC6QXBE5NOSARZNSQCE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,46 +118,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Filling the rawmidi name and substream name can be truncated, and this
-leads to spurious compiler warnings due to -Wformat-truncation.
-Although the truncation is the expected behavior, it'd be better to
-truncate the string within "(...)"
+On Sat, 26 Aug 2023 00:21:55 +0200,
+Oswald Buddenhagen wrote:
+> 
+> Let the MANUALS/PATENTS section of the former simply refer to the latter
+> - there is no point in duplicating this information with little value to
+> end users.
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-This patch puts the precision specifies to each %s for fitting the
-words within the size-limited strings.
+Applied all three patches.
 
-Fixes: 5f11dd938fe7 ("ALSA: usb-audio: Attach legacy rawmidi after probing all UMP EPs")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202308251844.1FuQYsql-lkp@intel.com/
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
-v1->v2: change the precision to fit better
 
- sound/core/ump.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/core/ump.c b/sound/core/ump.c
-index cd192bec227a..3bef1944e955 100644
---- a/sound/core/ump.c
-+++ b/sound/core/ump.c
-@@ -1157,7 +1157,7 @@ static void fill_substream_names(struct snd_ump_endpoint *ump,
- 	struct snd_rawmidi_substream *s;
- 
- 	list_for_each_entry(s, &rmidi->streams[dir].substreams, list)
--		snprintf(s->name, sizeof(s->name), "Group %d (%s)",
-+		snprintf(s->name, sizeof(s->name), "Group %d (%.16s)",
- 			 ump->legacy_mapping[s->number] + 1, ump->info.name);
- }
- 
-@@ -1191,7 +1191,7 @@ int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
- 	if (output)
- 		snd_rawmidi_set_ops(rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT,
- 				    &snd_ump_legacy_output_ops);
--	snprintf(rmidi->name, sizeof(rmidi->name), "%s (MIDI 1.0)",
-+	snprintf(rmidi->name, sizeof(rmidi->name), "%.68s (MIDI 1.0)",
- 		 ump->info.name);
- 	rmidi->info_flags = ump->core.info_flags & ~SNDRV_RAWMIDI_INFO_UMP;
- 	rmidi->ops = &snd_ump_legacy_ops;
--- 
-2.35.3
-
+Takashi

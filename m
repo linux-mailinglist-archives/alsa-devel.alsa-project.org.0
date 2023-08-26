@@ -2,78 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF7E78964D
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 13:32:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4588C7899C1
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 01:13:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9610B84B;
-	Sat, 26 Aug 2023 13:31:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9610B84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9785484B;
+	Sun, 27 Aug 2023 01:13:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9785484B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693049565;
-	bh=Glx+CvhqRB42VyB+7AeWxbMoe0DL1EGwsOqC+RbBUBM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DE5sLz3QuKT18gMxoc3+WHC53yGPqV4+kyVUrDER+73u3gHFdItyQbzrBYXIb6ORW
-	 Y4FBi210CIQr4kbNUkbzQi3y7D+y0CnS8ObPwfUrmfoukGr/QeMo/kXdYMwKlJFUan
-	 JO3Ht7tI+oYe9mw275YDS2Ko68QWrRBIry2OCuMY=
+	s=default; t=1693091634;
+	bh=F1pof+/TTChGaX5I0j20gxo3zNtz/W4od1TW3YlpiAE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=sby2XNkMAFR+h7vtaGC5xP1ERwZVuRdB1sVLxIYtZ0PYxL+NJyVMrUrTGRyYe+EwK
+	 XScualh0PP67L3R4cCIMrOdZduMebBq+LB02EbCJjOsUnq6hLOrJN5SpQD330RAJsV
+	 ZAN7AO7uqduQkgrzlane5zM9nEPpp7ILumaepiVo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDCE7F800BF; Sat, 26 Aug 2023 13:31:54 +0200 (CEST)
+	id 2B875F80536; Sat, 26 Aug 2023 21:35:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B43AF800F5;
-	Sat, 26 Aug 2023 13:31:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDF4AF80158;
+	Sat, 26 Aug 2023 21:35:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AEFEF80158; Sat, 26 Aug 2023 13:31:51 +0200 (CEST)
+	id 1B807F8022B; Sat, 26 Aug 2023 21:35:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3D13F800BF
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 13:31:48 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 1295511F6;
-	Sat, 26 Aug 2023 13:31:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 1295511F6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1693049508; bh=P89WtP3+RwdW5O2CN2q4KTEQBrMo/5f06O0Jfep8kYQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=V1NBjGC+HL43zkLcDvnMaU3ei6YrFpsDp6tfHfVI8dgvwwNPZBJ+k7VXhugHMSYlw
-	 dRZU+DbrqLY0sx2RuBhp5du8dGdiRbu1+Vy/l8u23xV256zMsljuQgj3x6Zp2UMvl1
-	 hRRuAu0nKbUpysWBVE3RTHT5DSVDIREp4ZsZbXww=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Sat, 26 Aug 2023 13:31:44 +0200 (CEST)
-Message-ID: <73a6f02e-0df7-243a-85ac-48ca5a650cba@perex.cz>
-Date: Sat, 26 Aug 2023 13:31:43 +0200
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EAB2F800D1
+	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 21:35:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EAB2F800D1
+X-IronPort-AV: E=Sophos;i="6.02,203,1688396400";
+   d="scan'208";a="174052354"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 27 Aug 2023 04:34:53 +0900
+Received: from localhost.localdomain (unknown [10.226.92.24])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0910B4001957;
+	Sun, 27 Aug 2023 04:34:49 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	alsa-devel@alsa-project.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] ASoC: ak4642: Simplify probe()
+Date: Sat, 26 Aug 2023 20:34:47 +0100
+Message-Id: <20230826193447.113378-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 2/2] ucm: docs: Add IVEchoData
-Content-Language: en-US
-To: cujomalainey@chromium.org, alsa-devel@alsa-project.org
-Cc: tiwai@suse.com, ethan.geller@gmail.com
-References: <20230824213312.1258499-1-cujomalainey@chromium.org>
- <20230824213312.1258499-2-cujomalainey@chromium.org>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230824213312.1258499-2-cujomalainey@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: TZMONIIGKRXQUBGW5SQARYSSEDAVFGMM
-X-Message-ID-Hash: TZMONIIGKRXQUBGW5SQARYSSEDAVFGMM
-X-MailFrom: perex@perex.cz
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: SSB5KAUPCNLGKMBQN7RADY374MV3LYFB
+X-Message-ID-Hash: SSB5KAUPCNLGKMBQN7RADY374MV3LYFB
+X-MailFrom: biju.das.jz@bp.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -85,7 +74,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TZMONIIGKRXQUBGW5SQARYSSEDAVFGMM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSB5KAUPCNLGKMBQN7RADY374MV3LYFB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,19 +83,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24. 08. 23 23:33, cujomalainey@chromium.org wrote:
-> From: Curtis Malainey <cujomalainey@chromium.org>
-> 
-> Provide a UCM value to mark devices which are needed to be opened only
-> for HW purposes but should not be consumed for userspace.
+Simpilfy probe() by replacing of_device_get_match_data() and id lookup for
+retrieving match data by i2c_get_match_data().
 
-It would be probably better to describe this in the standard ALSA PCM API than 
-UCM. If the device is special, applications without UCM should be also allowed 
-to identify them.
+While at it, drop local variable np from probe() by using dev->of_node.
 
-				Jaroslav
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Note:
+ This patch is only compile tested.
+---
+ sound/soc/codecs/ak4642.c | 22 +++++-----------------
+ 1 file changed, 5 insertions(+), 17 deletions(-)
 
+diff --git a/sound/soc/codecs/ak4642.c b/sound/soc/codecs/ak4642.c
+index 2a8984c1fa9c..dc2d7cee0a4b 100644
+--- a/sound/soc/codecs/ak4642.c
++++ b/sound/soc/codecs/ak4642.c
+@@ -633,32 +633,20 @@ static const struct i2c_device_id ak4642_i2c_id[];
+ static int ak4642_i2c_probe(struct i2c_client *i2c)
+ {
+ 	struct device *dev = &i2c->dev;
+-	struct device_node *np = dev->of_node;
+-	const struct ak4642_drvdata *drvdata = NULL;
++	const struct ak4642_drvdata *drvdata;
+ 	struct regmap *regmap;
+ 	struct ak4642_priv *priv;
+ 	struct clk *mcko = NULL;
+ 
+-	if (np) {
+-		const struct of_device_id *of_id;
+-
++	if (dev->of_node) {
+ 		mcko = ak4642_of_parse_mcko(dev);
+ 		if (IS_ERR(mcko))
+ 			mcko = NULL;
+-
+-		of_id = of_match_device(ak4642_of_match, dev);
+-		if (of_id)
+-			drvdata = of_id->data;
+-	} else {
+-		const struct i2c_device_id *id =
+-			i2c_match_id(ak4642_i2c_id, i2c);
+-		drvdata = (const struct ak4642_drvdata *)id->driver_data;
+ 	}
+ 
+-	if (!drvdata) {
+-		dev_err(dev, "Unknown device type\n");
+-		return -EINVAL;
+-	}
++	drvdata = i2c_get_match_data(i2c);
++	if (!drvdata)
++		return dev_err_probe(dev, -ENODEV, "Unknown device type\n");
+ 
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.25.1
 

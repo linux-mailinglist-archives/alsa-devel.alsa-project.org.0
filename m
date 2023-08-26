@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6FFE789527
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 11:32:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4559378952B
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Aug 2023 11:33:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96BD083B;
-	Sat, 26 Aug 2023 11:31:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96BD083B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64D74847;
+	Sat, 26 Aug 2023 11:32:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64D74847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693042339;
-	bh=yN7idGTrle3+PqqupMjY9iyd12xDabq3TPmPq5o6P5s=;
+	s=default; t=1693042395;
+	bh=nNx/cv+leI+UnKuPWsHLuBzYQrXftDlaFiyVxXqouYo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TiagNWZZTKWpcy+X0lAr5XY3cXexcqj8OtlQlEjP5aEkyXlBHmKyPplYmd1AZHgg5
-	 q2Y64JM/7d1Pow4s+8U0gJbADAf1jbNVhBeKXsF8a91plPq1sNc6pub10j5ujQBDgp
-	 tPJhNQkR/fkP/UXJ70AI3SjtVKx5Y9R4zwXXgWWQ=
+	b=t5saHcK3xlePxCWWz3uKIXkS0+yjA/hplYfNrX93LTf87qaaRIo3qvpVD1fFqTzTd
+	 1fTyRpF0LgFK66yZdpBZWS7kDyatM2ilyiVgWioI7WEbzIMT5OApPKFgBjie45822A
+	 Sjhvv9s+JK59amgQQWqnjURHsjFK3JArmNnzmsaM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B27B4F8022B; Sat, 26 Aug 2023 11:31:28 +0200 (CEST)
+	id 35710F804F3; Sat, 26 Aug 2023 11:32:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E2D0F800F5;
-	Sat, 26 Aug 2023 11:31:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDEB6F800F5;
+	Sat, 26 Aug 2023 11:32:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA847F80158; Sat, 26 Aug 2023 11:31:23 +0200 (CEST)
+	id 06973F80158; Sat, 26 Aug 2023 11:32:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-6.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50694F800BF
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 11:31:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50694F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id D46ADF800D1
+	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 11:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D46ADF800D1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Yb99bZ4w
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-52a40cf952dso2388977a12.2
+ header.s=google header.b=TDAQAo5s
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-991c786369cso211773566b.1
         for <alsa-devel@alsa-project.org>;
- Sat, 26 Aug 2023 02:31:14 -0700 (PDT)
+ Sat, 26 Aug 2023 02:32:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693042273; x=1693647073;
+        d=linaro.org; s=google; t=1693042336; x=1693647136;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=EChLnWgFwtxG0VHdbqAfcg52xVSiRBXQV7i6dT2tv7c=;
-        b=Yb99bZ4wGZxqk+slRTMR8Dxt/Cyko19x6lyUCAl3+zIEnc1KUf1Kiqm2QjayPyVbN4
-         vFeEIVj8PvJaeNk8KyluY1OG0UdplxyS2OaUWME8zIUwL6MCEBkjYXdD2lVJ61fu177L
-         Ela/AVLWGDs3XRQIAqU2USlD0wHj6X2rAr/mM3G3nlDznbMtmhVeT0NWxtIyEzhaDBHv
-         JvGvjZFQPctFSYnehZ629dyaY+ZwfTFOE5BoJY/ByFUuqw3fURUTzBzgQsdsIqgnlBCd
-         KrJDuSoyfKnNR92I3+iVV+ZJezdyj2r7aVk3fs2hs2HXKzEM5+VY9pvbJD62foeBZFF+
-         YOvw==
+        bh=fh95DS4/zs6n0cJh3VH9O2GqPzFB0e6cNn1CIcgmuSY=;
+        b=TDAQAo5smrHikxLKg+nQMYvYwLqljGPHZ1DSe64rjNScidr4IUZmAlcgJw/RXOyBS/
+         zScNdNNsZiyJGX+FSXYxY4No+fhdFLohDULc3oGbYCGkAp8Ra+Bs3ndhI7Kt5ARQPjEJ
+         msvXeh5vSxAbxN+u1Rb8LeKBu3C6wClV9hxnsRZJCbQv/o70KjI0rfBxSQp1uud7yz/D
+         KH62x5HYjvfO5sG4QKlPCNspEbInilnX+mDmCktyov4g8L482XHziXXSEsCvEUACy+0b
+         TmGuKSkxo+DmRF24LToJdN0jZMd30dFWD5l0sijeycr9weikRKqqlBDhxWVY+DolB1b9
+         jSnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693042273; x=1693647073;
+        d=1e100.net; s=20221208; t=1693042336; x=1693647136;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EChLnWgFwtxG0VHdbqAfcg52xVSiRBXQV7i6dT2tv7c=;
-        b=eMQfkFl5PElGZUgyh4UwJIZSVCb6fGph3KZlywvF0FQP1oPX95gtixjo5/5a3vKwJ+
-         mxubovGSlAQuFCHRDZPvef74QuHk+M5HF9oW/XWGg/pyC8dNzZRs1OU2O/1bzZ9J/b58
-         OkfLZP6aIY5Y4lYeCAZWgGPW682zH6QDaN/2wv4xoMzSGupMHzkLjZN5v/1NXKZuewI+
-         iOGAJ3KHPPkOG+vW+8WjN7MDZP2r+smZbt8O8C3Hv7O5uEPJONCZuS6+Swx8cHNwP+Zs
-         0SBtEnIKf1/07I88+7npJN0zzK+9PABmaozBpeSX19r47JYVqoXlI1DuTdAxWz3BZMQD
-         ehug==
-X-Gm-Message-State: AOJu0YzFDWH+3qLDYM0G47ieVGUN7y2X3PN57mVN/iziiCVyPjzbot+x
-	RmEQdZaivYCzWKIYpMZEln7X4w==
+        bh=fh95DS4/zs6n0cJh3VH9O2GqPzFB0e6cNn1CIcgmuSY=;
+        b=kS0zdwTfORk9yknfpyVcvgETkA25JpRy9ehV0f8z5pMNkdf0NzNiR1jQTuxls10FIE
+         DbGSdWuLcRmJhRVkSQyFgQLx34VwClI+qdhhZvFsLr/nruM5LxeY9rDoBdyi36ZbU9IM
+         RSwCYzUJosp9CmNDosIDdO5U3b3Hj3PBh2f1NZrtQ+34S6XAL99hV07a2BHBBgGGgmoV
+         ZPnox+GPJ3p30HAApJ+LnOyUc+JtvxgGxICD5mQFWPHaGV82RNEvkWNJZyRZRdQ43gZC
+         0bA4cKUUaINbMcU6mNtiZZpRrcJnZ1BAfr5Bu1IqFTujWQ/larGegRDjWFRrhv+eFYFQ
+         RZsg==
+X-Gm-Message-State: AOJu0Yy0QUo24VupLUroPvavxKnWzCb9YnxtjL9vM20i2iiwPJBMsDBL
+	GHv8vZmUPD0PELbcetyzdZe5+Q==
 X-Google-Smtp-Source: 
- AGHT+IFLC+zY307Od3pUJ2Xn6CVOHUDNZckaAlPAclBJHxbKZTsMTGLOoa08s9rJeTyIXzDEwnGoqQ==
-X-Received: by 2002:a17:907:2bee:b0:9a1:b950:abab with SMTP id
- gv46-20020a1709072bee00b009a1b950ababmr9687785ejc.32.1693042273124;
-        Sat, 26 Aug 2023 02:31:13 -0700 (PDT)
+ AGHT+IGhLZfGwbn7DfIZKro/6nQ/hZy3z2cFeu4oKwg6fSTiT/1BXmYXl5MpIGrGmzMQsGFLQ/DFIw==
+X-Received: by 2002:a17:906:51d3:b0:9a1:e941:6f47 with SMTP id
+ v19-20020a17090651d300b009a1e9416f47mr7412341ejk.42.1693042335907;
+        Sat, 26 Aug 2023 02:32:15 -0700 (PDT)
 Received: from [192.168.0.22] ([77.252.47.198])
         by smtp.gmail.com with ESMTPSA id
- ha19-20020a170906a89300b0099c157cba46sm1914658ejb.119.2023.08.26.02.31.11
+ jj26-20020a170907985a00b0099bd86f9248sm1949705ejc.63.2023.08.26.02.32.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Aug 2023 02:31:12 -0700 (PDT)
-Message-ID: <181b5ac9-25c3-539e-6bde-773e833ee9b6@linaro.org>
-Date: Sat, 26 Aug 2023 11:31:11 +0200
+        Sat, 26 Aug 2023 02:32:15 -0700 (PDT)
+Message-ID: <1a0dc235-eb44-9923-6206-560199a70d4e@linaro.org>
+Date: Sat, 26 Aug 2023 11:32:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.14.0
-Subject: Re: [PATCH 2/2] ASoC: codecs: lpass-tx-macro: Add SM6115 support
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: qcom,lpass-tx-macro: Add SM6115
 Content-Language: en-US
 To: Konrad Dybcio <konrad.dybcio@linaro.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -104,13 +104,13 @@ Cc: Marijn Suijten <marijn.suijten@somainline.org>,
  alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20230825-topic-6115tx-v1-0-ebed201ad54b@linaro.org>
- <20230825-topic-6115tx-v1-2-ebed201ad54b@linaro.org>
+ <20230825-topic-6115tx-v1-1-ebed201ad54b@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230825-topic-6115tx-v1-2-ebed201ad54b@linaro.org>
+In-Reply-To: <20230825-topic-6115tx-v1-1-ebed201ad54b@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2ZHWEGK73FBY42QQZM2JDS24VJSRJ37N
-X-Message-ID-Hash: 2ZHWEGK73FBY42QQZM2JDS24VJSRJ37N
+Message-ID-Hash: FS5AOQHFZW3NCAQCCHVLTF7LZSHTJBG3
+X-Message-ID-Hash: FS5AOQHFZW3NCAQCCHVLTF7LZSHTJBG3
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,9 +123,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2ZHWEGK73FBY42QQZM2JDS24VJSRJ37N/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FS5AOQHFZW3NCAQCCHVLTF7LZSHTJBG3/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -133,43 +132,32 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 25/08/2023 19:23, Konrad Dybcio wrote:
-> SM6115 has a TX macro, which surprisingly doesn't host a SWR master.
-> Conditionally skip the SWR reset sequence on this platform.
+> SM6115 has a TX Macro, requiring an NPL clock, but not DCODEC.
+> Document it.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  sound/soc/codecs/lpass-macro-common.h |  2 ++
->  sound/soc/codecs/lpass-tx-macro.c     | 22 +++++++++++++++-------
->  2 files changed, 17 insertions(+), 7 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
-> index 4eb886565ea3..d3684c7ab930 100644
-> --- a/sound/soc/codecs/lpass-macro-common.h
-> +++ b/sound/soc/codecs/lpass-macro-common.h
-> @@ -8,6 +8,8 @@
->  
->  /* NPL clock is expected */
->  #define LPASS_MACRO_FLAG_HAS_NPL_CLOCK		BIT(0)
-> +/* The soundwire block should be internally reset at probe */
-> +#define LPASS_MACRO_FLAG_RESET_SWR		BIT(1)
->  
->  struct lpass_macro {
->  	struct device *macro_pd;
-> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-> index 3e33418898e8..82f9873ffada 100644
-> --- a/sound/soc/codecs/lpass-tx-macro.c
-> +++ b/sound/soc/codecs/lpass-tx-macro.c
-> @@ -2045,15 +2045,19 @@ static int tx_macro_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto err_fsgen;
->  
-> +
 
-Stray link line.
+...
 
-Rest looks good:
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,sm6115-lpass-tx-macro
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 4
+> +          maxItems: 4
+> +        clock-names:
+> +          items:
+> +            - const: mclk
+> +            - const: npl
+> +            - const: dcodec
+> +            - const: fsgen
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Are you sure there is no macro? This means there will be no
+LPASS_HW_MACRO_VOTE vote. Do you have downstream sources somewhere?
 
 Best regards,
 Krzysztof

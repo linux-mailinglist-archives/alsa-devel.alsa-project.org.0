@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB218789C8C
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 11:17:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F13789CCE
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 11:46:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3054793A;
-	Sun, 27 Aug 2023 11:16:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3054793A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A58CEA4D;
+	Sun, 27 Aug 2023 11:46:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A58CEA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693127861;
-	bh=OtHByik3G6qnXcXGFERBplwh5xo2Ok4HwC462V02hno=;
+	s=default; t=1693129613;
+	bh=RPdJpzQFzxTByvZFMN4O1z+CFu3Vg6Ca/qJOqzlO58g=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=EW1bqxqYqRRgq5dPAlz9g8U/OFqMe/+8wiGBWso0eixQEAbLgv0g5mWqYIhw+lRU9
-	 tkuWS8CqOiP4UqVSz7DuXJ6Gm2Wp6zkocBcKMBmb3Sjjs9ryJ4jcGpa63UjgsFO9vT
-	 IT+CVncc1IuRYYb/NAbq51VYjhdm5lqJLjIpyaaI=
+	b=kRl3jNHxUeuf7AuxWpcLcUQ0pBhJAgl+ZP5jmGfOoLGJNEszJp0VOg/R4nBVF8KqX
+	 ia6pGjNDAJber6DZuPXF/+XMb1SjStZRUzrVjWNZdoq4bvPtiXjAaTaRsNhOJ1jMKm
+	 6/jy5pE3nC7Oaa8XMmtFNj7e7/OKIyJChomsTBew=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E8CDF8023B; Sun, 27 Aug 2023 11:16:50 +0200 (CEST)
+	id 1F441F800D1; Sun, 27 Aug 2023 11:46:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27FF5F80155;
-	Sun, 27 Aug 2023 11:16:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDE53F80155;
+	Sun, 27 Aug 2023 11:46:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5F6DF80158; Sun, 27 Aug 2023 11:15:48 +0200 (CEST)
+	id B6447F80158; Sun, 27 Aug 2023 11:45:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=AC_FROM_MANY_DOTS,
@@ -32,38 +32,38 @@ X-Spam-Status: No, score=-2.0 required=5.0 tests=AC_FROM_MANY_DOTS,
 	autolearn_force=no version=3.4.6
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEFB4F800D1
-	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 11:15:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEFB4F800D1
+	by alsa1.perex.cz (Postfix) with ESMTP id 78559F800D1
+	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 11:45:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78559F800D1
 X-IronPort-AV: E=Sophos;i="6.02,204,1688396400";
-   d="scan'208";a="177795749"
+   d="scan'208";a="177796622"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
-  by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2023 18:15:31 +0900
+  by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2023 18:45:43 +0900
 Received: from localhost.localdomain (unknown [10.226.92.26])
-	by relmlir6.idc.renesas.com (Postfix) with ESMTP id B68AB41A6E4A;
-	Sun, 27 Aug 2023 18:15:27 +0900 (JST)
+	by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8836E41AE7AD;
+	Sun, 27 Aug 2023 18:45:38 +0900 (JST)
 From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Jaroslav Kysela <perex@perex.cz>,
+To: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <x1077012@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
 Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Kevin Cernekee <cernekee@chromium.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Kamel Bouhara <kamel.bouhara@bootlin.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
 	alsa-devel@alsa-project.org,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] ASoC: tas571x: Simplify probe()
-Date: Sun, 27 Aug 2023 10:15:25 +0100
-Message-Id: <20230827091525.39263-1-biju.das.jz@bp.renesas.com>
+Subject: [PATCH] ASoC: tlv320aic32x4-i2c: Simplify probe()
+Date: Sun, 27 Aug 2023 10:45:36 +0100
+Message-Id: <20230827094536.49511-1-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UHHGOSKUEEYEIMEMY26CHOGX4CW2NIYQ
-X-Message-ID-Hash: UHHGOSKUEEYEIMEMY26CHOGX4CW2NIYQ
+Message-ID-Hash: DJ3YWT3TVXSAINC54Z7JFCNZ3ZTWOLG5
+X-Message-ID-Hash: DJ3YWT3TVXSAINC54Z7JFCNZ3ZTWOLG5
 X-MailFrom: biju.das.jz@bp.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -76,7 +76,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHHGOSKUEEYEIMEMY26CHOGX4CW2NIYQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DJ3YWT3TVXSAINC54Z7JFCNZ3ZTWOLG5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -85,51 +85,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Simplify probe() by replacing of_match_device->i2c_get_match_data().
+Simplify probe() by replacing of_match_node() and i2c_match_id() with
+i2c_get_match_data().
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 Note:
  This patch is only compile tested.
 ---
- sound/soc/codecs/tas571x.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+ sound/soc/codecs/tlv320aic32x4-i2c.c | 15 +--------------
+ 1 file changed, 1 insertion(+), 14 deletions(-)
 
-diff --git a/sound/soc/codecs/tas571x.c b/sound/soc/codecs/tas571x.c
-index 1756edb35961..a220342c3d77 100644
---- a/sound/soc/codecs/tas571x.c
-+++ b/sound/soc/codecs/tas571x.c
-@@ -829,14 +829,10 @@ static struct snd_soc_dai_driver tas571x_dai = {
- 	.ops = &tas571x_dai_ops,
- };
+diff --git a/sound/soc/codecs/tlv320aic32x4-i2c.c b/sound/soc/codecs/tlv320aic32x4-i2c.c
+index 49b33a256cd7..513f257818ca 100644
+--- a/sound/soc/codecs/tlv320aic32x4-i2c.c
++++ b/sound/soc/codecs/tlv320aic32x4-i2c.c
+@@ -16,9 +16,6 @@
  
--static const struct of_device_id tas571x_of_match[] __maybe_unused;
--static const struct i2c_device_id tas571x_i2c_id[];
+ #include "tlv320aic32x4.h"
+ 
+-static const struct of_device_id aic32x4_of_id[];
+-static const struct i2c_device_id aic32x4_i2c_id[];
 -
- static int tas571x_i2c_probe(struct i2c_client *client)
+ static int aic32x4_i2c_probe(struct i2c_client *i2c)
  {
- 	struct tas571x_private *priv;
- 	struct device *dev = &client->dev;
--	const struct of_device_id *of_id;
- 	int i, ret;
+ 	struct regmap *regmap;
+@@ -30,17 +27,7 @@ static int aic32x4_i2c_probe(struct i2c_client *i2c)
  
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -844,14 +840,7 @@ static int tas571x_i2c_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 	i2c_set_clientdata(client, priv);
+ 	regmap = devm_regmap_init_i2c(i2c, &config);
  
--	of_id = of_match_device(tas571x_of_match, dev);
--	if (of_id)
--		priv->chip = of_id->data;
--	else {
--		const struct i2c_device_id *id =
--			i2c_match_id(tas571x_i2c_id, client);
--		priv->chip = (void *) id->driver_data;
+-	if (i2c->dev.of_node) {
+-		const struct of_device_id *oid;
+-
+-		oid = of_match_node(aic32x4_of_id, i2c->dev.of_node);
+-		dev_set_drvdata(&i2c->dev, (void *)oid->data);
+-	} else {
+-		const struct i2c_device_id *id;
+-
+-		id = i2c_match_id(aic32x4_i2c_id, i2c);
+-		dev_set_drvdata(&i2c->dev, (void *)id->driver_data);
 -	}
-+	priv->chip = i2c_get_match_data(client);
++	dev_set_drvdata(&i2c->dev, (void *)i2c_get_match_data(i2c));
  
- 	priv->mclk = devm_clk_get(dev, "mclk");
- 	if (IS_ERR(priv->mclk) && PTR_ERR(priv->mclk) != -ENOENT) {
+ 	return aic32x4_probe(&i2c->dev, regmap);
+ }
 -- 
 2.25.1
 

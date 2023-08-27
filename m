@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D2E789AF5
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 04:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6522F789AFD
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 04:34:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9E40741;
-	Sun, 27 Aug 2023 04:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9E40741
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED235AEA;
+	Sun, 27 Aug 2023 04:33:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED235AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693103595;
-	bh=ERjUgwSYeFdskFgJLOFIN4Bd16MGNrDbQDtCGmGYpWo=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=bSkgpqPxsYU2CXpAdAUEBGN+y1hV/Q2NIsUMawdC/mYOVCiXDuV52ZmoZgkoaNFXw
-	 DSn2sCAlPgDzTGPxS/61zB+JNK4H7D52SRzVk38yBo0CXpWERb23fiQSfg1xQwyvuM
-	 snODgPYJ2jHbfo0NLMcQG2rgzntbgaLZIZY4TAkk=
+	s=default; t=1693103646;
+	bh=mGhtWSzoPTusRWci884ej+oSaEZ8ctuPjimuqlXXMJI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Je+/VoKMqXGC34wVflszZ5XC7Rh8HyVDCctwlp1WnUOj1g++HvHbAe6S7NmunYJDU
+	 V9ZosxpVioQNSutZbWduBvjNB+GcvyznBJCA98TCEfxJfZ7NJwaOdO+KK+Ez3Rfldi
+	 ZajSiQB0fTUJkHdDFNSWCuH1X6pT3jERCkZLloic=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 164B6F80249; Sun, 27 Aug 2023 04:32:24 +0200 (CEST)
+	id 2DA75F8056F; Sun, 27 Aug 2023 04:32:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDA8BF80155;
-	Sun, 27 Aug 2023 04:32:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4A11F80563;
+	Sun, 27 Aug 2023 04:32:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E900F8023B; Sun, 27 Aug 2023 04:32:17 +0200 (CEST)
+	id F3AA8F80158; Sun, 27 Aug 2023 04:32:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-il1-x12c.google.com (mail-il1-x12c.google.com
- [IPv6:2607:f8b0:4864:20::12c])
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
+ [IPv6:2607:f8b0:4864:20::d2d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4295F80074
-	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 04:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4295F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id DD6A7F80155
+	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 04:32:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD6A7F80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=PvFJv7DE
-Received: by mail-il1-x12c.google.com with SMTP id
- e9e14a558f8ab-34ca07ea55dso7210475ab.2
+ header.s=20221208 header.b=lo9ZFtZg
+Received: by mail-io1-xd2d.google.com with SMTP id
+ ca18e2360f4ac-77a62a84855so76417439f.1
         for <alsa-devel@alsa-project.org>;
- Sat, 26 Aug 2023 19:32:08 -0700 (PDT)
+ Sat, 26 Aug 2023 19:32:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693103526; x=1693708326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ApeSjM7hw/lG6tW2IMrrknm0IVFEfBtJMdeIIJl4q+Q=;
-        b=PvFJv7DEd1JHac6VnvYdrQq9eNmK4cH2NHSseTh4VxMV4wpUJxwtFwAC7lWr6k1x1I
-         /SKDR8ny/Jz6m9FjH0T4IruqOrpi/jD+kU8xlAW9LOp7uXRef/jCFGzoDZB4RY5GZ8xq
-         zgf9jEaBzyuIxhfcJG3I5lDdA8R6y48h07JPnw7rdGgh6mOgPbukw/o0wCDmV+5daXQz
-         RU++xsHclF2B2F4okWRXbL1EB7OD2MxsZ6XpgU2+r9h54qk2ZiscHRV4hZsBriGS43pD
-         Wko3azTms95mvDdn/QNYzatzvfh2VlOjwgE/TlXz1mz8FaQt6aV5JFuFAsxYnJ2AHahA
-         vuKA==
+        d=gmail.com; s=20221208; t=1693103528; x=1693708328;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E6JljaP6ydDpiKUAUEr2HJLofyqFW0MhNueQ/UlFehE=;
+        b=lo9ZFtZglKjl08HKkE5t0WneBOqBkXhXzXR2N778Blp7gbLP1XcXlyM4hoSYaQwg9H
+         jhiTL1MUwwo6IDuqSdhw1lTCA7YuQP/qjtmKjXsJ9uTKgvLZVW/ynSbudpOhq2nuexJJ
+         Q8LCxVUg0XTp3hx7uQL8K2rOXFXiHwH1S7W/HBw1KjJegELDdErKqDdf5CBjsQzFc1MR
+         7266uEIsBXOMz1QLbq2L/ok+QJ7TF5Xny/ed/31KrvO9D8dJKZiiBw2iVWpJRV+m6M/U
+         piKEifYVVVblXXC6TGJI+ltxrq/jqsopS1UA48bDufRMq8TMQ1kPRo4v/1u1ZQYLW8cj
+         iz8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693103526; x=1693708326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ApeSjM7hw/lG6tW2IMrrknm0IVFEfBtJMdeIIJl4q+Q=;
-        b=KJaBQh4PwBAINmg9eRhlnAr1OoofkiFq1FuSMr5aqbJ1X1tE+CQzcyEZ81DAGr21oX
-         pq9qQGhHvHKchItUNB0QcvOJtVGE1Gk5hClxxljyt+AyAzrTnNV5aOMI5E4MFhu2hcwp
-         tboXy4LlHVYwgSB959SZUAdTH9SML7M0Ppdezr/BHFo9rFdIVb2jTdOeofCS5hFD4Ps/
-         uVz+63o8QcHPW/4Lni6si1i7ifrVQPCODZoB8VOEjGUzeCqfTF04PQx9EYbzn90vViMB
-         Lg1R1enW61dRulsHBgRqXl5l5c7BIHUpiE4I4s/JoQZoY5VrlO18PTiP5lTJG0GEy1Xu
-         B9xg==
-X-Gm-Message-State: AOJu0YwcjXqkf8XxgUTGwtOw+xZVAcGo18tZPwzBFQwAmUYX0XkWUDuI
-	/AjAEfKjCNS4Yeo4rKFdBdM=
+        d=1e100.net; s=20221208; t=1693103528; x=1693708328;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=E6JljaP6ydDpiKUAUEr2HJLofyqFW0MhNueQ/UlFehE=;
+        b=KbCr7onmmm5EEQr5Xoh1+JZIb1WpDbJgVXosiCHN0crSYzY9FRZcKU+zqlaVBYUjPS
+         kGgeTHFmRmIIOimMWHFBH7QJaQBCkZhox3HuJgpKILPxTrB0Lu71kqgK3YVsj31ps67S
+         tJZKH9Mf1ETlYkW/ucn/j7k9GNmes6BbT8Cp0hyGTMk+RmeGQroelbaNtk8LUyOVoA9r
+         cuenmq2xuS3zr2WBerxtlN+Dton5BjzKbBblYq5NY2AOQguI2GHeiDTEn0Hd9vCVptMB
+         P+6T6J1RPRgFREp7ulJduWT3Cg3zipiJvzvmc4BVl9Pv1kDW0RUO4IEgMdfsXNe21gkM
+         rh1Q==
+X-Gm-Message-State: AOJu0Yx68hSHiN6u21zeBZvyiv+mKG+9a26tG4ZNiDufFEd4xHxfSGR8
+	JxXJv3sPB46z14Cg+CwQ1j0=
 X-Google-Smtp-Source: 
- AGHT+IF9EVO8eUJZilq7N7KAL3LWOobH19T0XMaJmOkjuahDbmBpbwBT4CoIif1djlm2lsBZ5/NWbQ==
-X-Received: by 2002:a05:6e02:1646:b0:348:add7:f8e1 with SMTP id
- v6-20020a056e02164600b00348add7f8e1mr15709100ilu.30.1693103526337;
-        Sat, 26 Aug 2023 19:32:06 -0700 (PDT)
+ AGHT+IFHmtefwiknYqi7kY+GlLeufxz2ZPziMtQjJxWIMqW4V/Lw28aZlw4f8ngVDEGD8Ckeq39R/Q==
+X-Received: by 2002:a05:6e02:ca7:b0:34b:b024:a07c with SMTP id
+ 7-20020a056e020ca700b0034bb024a07cmr11373658ilg.5.1693103528163;
+        Sat, 26 Aug 2023 19:32:08 -0700 (PDT)
 Received: from aford-B741.lan ([2601:447:d001:897f:80ee:1859:87ec:6d31])
         by smtp.gmail.com with ESMTPSA id
- n18-20020a056e0208f200b0034202d05fadsm1581533ilt.72.2023.08.26.19.32.04
+ n18-20020a056e0208f200b0034202d05fadsm1581533ilt.72.2023.08.26.19.32.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Aug 2023 19:32:05 -0700 (PDT)
+        Sat, 26 Aug 2023 19:32:07 -0700 (PDT)
 From: Adam Ford <aford173@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: aford@beaconembedded.com,
@@ -101,15 +103,16 @@ Cc: aford@beaconembedded.com,
 	alsa-devel@alsa-project.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH V2 1/3] ASoC: dt-bindings: fsl_easrc: Add support for
- imx8mp-easrc
-Date: Sat, 26 Aug 2023 21:31:53 -0500
-Message-Id: <20230827023155.467807-1-aford173@gmail.com>
+Subject: [PATCH V2 2/3] arm64: dts: imx8mp: Add easrc node
+Date: Sat, 26 Aug 2023 21:31:54 -0500
+Message-Id: <20230827023155.467807-2-aford173@gmail.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230827023155.467807-1-aford173@gmail.com>
+References: <20230827023155.467807-1-aford173@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5RERVRZUFOBZC4MOQHPEV57SFCOKCGTD
-X-Message-ID-Hash: 5RERVRZUFOBZC4MOQHPEV57SFCOKCGTD
+Message-ID-Hash: E2I46JAEFHM6HELOITBNU27U4OC73WAY
+X-Message-ID-Hash: E2I46JAEFHM6HELOITBNU27U4OC73WAY
 X-MailFrom: aford173@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,42 +125,53 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5RERVRZUFOBZC4MOQHPEV57SFCOKCGTD/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2I46JAEFHM6HELOITBNU27U4OC73WAY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The i.MX8MP appears to have the same easrc support as the Nano, so
-add imx8mp as an option with a fallback to imx8mn.
+The i.MX8MP has an asynchronous sample rate converter which seems
+to be the same as what is available on the i.MX8M Nano.
 
 Signed-off-by: Adam Ford <aford173@gmail.com>
 ---
-V2:  Fixed errors:
-     ['fsl,imx8mn-easrc'] is too short
-      'fsl,imx8mn-easrc' is not one of ['fsl,imx8mp-easrc']
-        
-diff --git a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-index bdde68a1059c..a680d7aff237 100644
---- a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-+++ b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-@@ -14,7 +14,13 @@ properties:
-     pattern: "^easrc@.*"
+V2:  No change
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+index 6f2f50e1639c..79cdd4c066c8 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+@@ -1453,6 +1453,26 @@ sai7: sai@30c80000 {
+ 					interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
+ 					status = "disabled";
+ 				};
++
++				easrc: easrc@30c90000 {
++					compatible = "fsl,imx8mp-easrc", "fsl,imx8mn-easrc";
++					reg = <0x30c90000 0x10000>;
++					interrupts = <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>;
++					clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIOMIX_ASRC_IPG>;
++					clock-names = "mem";
++					dmas = <&sdma2 16 23 0> , <&sdma2 17 23 0>,
++					       <&sdma2 18 23 0> , <&sdma2 19 23 0>,
++					       <&sdma2 20 23 0> , <&sdma2 21 23 0>,
++					       <&sdma2 22 23 0> , <&sdma2 23 23 0>;
++					dma-names = "ctx0_rx", "ctx0_tx",
++						    "ctx1_rx", "ctx1_tx",
++						    "ctx2_rx", "ctx2_tx",
++						    "ctx3_rx", "ctx3_tx";
++					firmware-name = "imx/easrc/easrc-imx8mn.bin";
++					fsl,asrc-rate  = <8000>;
++					fsl,asrc-format = <2>;
++					status = "disabled";
++				};
+ 			};
  
-   compatible:
--    const: fsl,imx8mn-easrc
-+    oneOf:
-+      - enum:
-+          - fsl,imx8mn-easrc
-+      - items:
-+          - enum:
-+              - fsl,imx8mp-easrc
-+          - const: fsl,imx8mn-easrc
- 
-   reg:
-     maxItems: 1
+ 			sdma3: dma-controller@30e00000 {
 -- 
 2.39.2
 

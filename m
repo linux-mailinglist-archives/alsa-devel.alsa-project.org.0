@@ -2,91 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F6B78A10E
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 20:43:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9933278A21D
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 23:53:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1FA9741;
-	Sun, 27 Aug 2023 20:42:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1FA9741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 403E1208;
+	Sun, 27 Aug 2023 23:53:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 403E1208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693161821;
-	bh=E+Xe1qY1yediGEnxZQBbwggRf92hdVXCrGSaiOFSOdo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693173237;
+	bh=6BcomEVXBnyGVNvp37g8chRLmborGpJ522tSsRO/bp4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mAJE5iSZcuc4bi6ArUQqlI1ytFVZKhMEzbx/U5SdR3faXmdLK+Z6AiBgifIoZ8rjn
-	 JIofjZAhvYBBY07yNUSS43ydXmuM7+dN7kNRLUtU9E/BOZCsblWi4pYOe9H+Gljtdx
-	 Tek4yD3oxMuvjfLfQexrnEODpDo18ALKULo1o7qk=
+	b=hCw9Rau8JC7wmCpCJwhW2WlYdwy5J7lO0g42LIJRcLkz88kT+85T8k4sX22fxQL4I
+	 w58CBhF/pQ/j8XMmoJDUKcj1zeEbAUJ6I++TcX+uMvGMtNZ/EmXZ8q85RW9ZfoCpZ5
+	 hEFq3VSUj4XTxkx/fI8XkCKa+QLhBdL6ieJad00U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D62DFF800F5; Sun, 27 Aug 2023 20:42:50 +0200 (CEST)
+	id 53E83F8023B; Sun, 27 Aug 2023 23:53:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E92EF80155;
-	Sun, 27 Aug 2023 20:42:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6F48F800D1;
+	Sun, 27 Aug 2023 23:53:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1653FF80158; Sun, 27 Aug 2023 20:42:46 +0200 (CEST)
+	id BD13BF80158; Sun, 27 Aug 2023 23:53:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4632F800F5
-	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 20:42:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4632F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 867E0F800F5
+	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 23:52:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 867E0F800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dpa13WQ3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693161758; x=1724697758;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=E+Xe1qY1yediGEnxZQBbwggRf92hdVXCrGSaiOFSOdo=;
-  b=dpa13WQ34r2c4BiYz63AJ8SDtqm4ANlXTLAT+LFhstLi/HiXrYU/RbuT
-   7L7I/3aq9fjgugUYhrfRh0u70rG2UkaoijXQfq6CFPYHwXlEGYRyVss2p
-   hLjzuiv6uzzS8rXOvJ42RlktMbD8BKozj/r0UQ8hMBi5bqUDHZ9KAQaLH
-   +GFCJbsw1/Xm9ED6gYF+Oqm6jn1v0yPy/ZT+uwVOvOudXEE1SHvdyhVGP
-   lfcJsuj46KpEcGuJhNaCgRT4kB13dMs4k8yeGXtocpkrJraKJtOjJnP8Z
-   0XyTQCW2WzBMuCX7+IxHM/pENoOKMZS6GY5MwkQv8UImZ1B0QH22NwBBl
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="359958081"
-X-IronPort-AV: E=Sophos;i="6.02,205,1688454000";
-   d="scan'208";a="359958081"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2023 11:42:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
-   d="scan'208";a="881696805"
-Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
-  by fmsmga001.fm.intel.com with ESMTP; 27 Aug 2023 11:42:35 -0700
-Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qaKiT-00066X-3A;
-	Sun, 27 Aug 2023 18:42:29 +0000
-Date: Mon, 28 Aug 2023 02:41:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
-	alsa-devel@alsa-project.org
-Cc: oe-kbuild-all@lists.linux.dev, Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v5 1/8] ALSA: add snd_ctl_add_locked() & export
- snd_ctl_remove_locked()
-Message-ID: <202308280222.TknsCq1k-lkp@intel.com>
-References: <20230825222158.171007-2-oswald.buddenhagen@gmx.de>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=BfBlv4sp
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.mutex.one (Postfix) with ESMTP id F292C16C0048;
+	Mon, 28 Aug 2023 00:52:51 +0300 (EEST)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id ceTVD1IBz36t; Mon, 28 Aug 2023 00:52:50 +0300 (EEST)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+	t=1693173170; bh=6BcomEVXBnyGVNvp37g8chRLmborGpJ522tSsRO/bp4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=BfBlv4spIVT/S4AEPl9XyT1IsxwYCVZaf3glumRJUNyjT0p+QAztdNVmYgfCk3BSg
+	 dgfLxXHTSfc3DXUmlGbcEdiFOeYtS4awPtDQEz/f953NbrCsu/s26vlvPZ2UMeQdhr
+	 LZyqEAs0iwYJuFGk/tX3k9tljvhELE2eT1Z0PhhY=
+To: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] ASoC: es8316: Enable support for MCLK div by 2
+In-Reply-To: <ZOfRXjuSTxSV89SC@finisterre.sirena.org.uk>
+References: <20230824210135.19303-1-posteuca@mutex.one>
+ <20230824210135.19303-3-posteuca@mutex.one>
+ <ZOfRXjuSTxSV89SC@finisterre.sirena.org.uk>
+Date: Mon, 28 Aug 2023 00:50:45 +0300
+Message-ID: <87msyc9mtm.fsf@mutex.one>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230825222158.171007-2-oswald.buddenhagen@gmx.de>
-Message-ID-Hash: GALKAFPFMCEVLLZORRYAHQG55UTWCUSC
-X-Message-ID-Hash: GALKAFPFMCEVLLZORRYAHQG55UTWCUSC
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain
+Message-ID-Hash: EAR7HDX3HAWPCBLUW3UAHPSTCTYDZJ2M
+X-Message-ID-Hash: EAR7HDX3HAWPCBLUW3UAHPSTCTYDZJ2M
+X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,130 +83,83 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GALKAFPFMCEVLLZORRYAHQG55UTWCUSC/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EAR7HDX3HAWPCBLUW3UAHPSTCTYDZJ2M/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Oswald,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on c5baafafd8411c19e27c6a2c7237538a34b8ca31]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Oswald-Buddenhagen/ALSA-add-snd_ctl_add_locked-export-snd_ctl_remove_locked/20230828-011105
-base:   c5baafafd8411c19e27c6a2c7237538a34b8ca31
-patch link:    https://lore.kernel.org/r/20230825222158.171007-2-oswald.buddenhagen%40gmx.de
-patch subject: [PATCH v5 1/8] ALSA: add snd_ctl_add_locked() & export snd_ctl_remove_locked()
-config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20230828/202308280222.TknsCq1k-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230828/202308280222.TknsCq1k-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308280222.TknsCq1k-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> sound/core/control.c:558: warning: Function parameter or member 'card' not described in 'snd_ctl_add_locked'
->> sound/core/control.c:558: warning: Function parameter or member 'kcontrol' not described in 'snd_ctl_add_locked'
->> sound/core/control.c:633: warning: Function parameter or member 'card' not described in 'snd_ctl_remove_locked'
->> sound/core/control.c:633: warning: Function parameter or member 'kcontrol' not described in 'snd_ctl_remove_locked'
+Mark Brown <broonie@kernel.org> writes:
 
 
-vim +558 sound/core/control.c
+> Given that the datasheet quotes a maximum MCLK of 51.2MHz I suspect that
+> this is far too high and that performance is degrading well before this
+> point, it sounds like it just so happens that you noticed issues on a
+> machine with this MCLK rather than that's based on the spec.  I would
+> instead suggest applying the MCLK divider in any case where we can do so
+> and still generate suitable clocking for the rest of the system, or at
+> least hit 256fs (the datasheet quotes 256/384fs on the front page which
+> suggests it's targetting 256fs, that'd be a fairly normal number, and
+> there's mention of 12/24MHz USB clocks being directly usable).  Doing
+> this should either make no odds or result in better performance.
 
-   552	
-   553	/**
-   554	 * snd_ctl_add_locked - same as snd_ctl_add(), but card->controls_rwsem
-   555	 * is expected to be already locked if necessary.
-   556	 */
-   557	int snd_ctl_add_locked(struct snd_card *card, struct snd_kcontrol *kcontrol)
- > 558	{
-   559		return snd_ctl_add_replace_locked(card, kcontrol, CTL_ADD_EXCLUSIVE);
-   560	}
-   561	EXPORT_SYMBOL_GPL(snd_ctl_add_locked);
-   562	
-   563	/**
-   564	 * snd_ctl_add - add the control instance to the card
-   565	 * @card: the card instance
-   566	 * @kcontrol: the control instance to add
-   567	 *
-   568	 * Adds the control instance created via snd_ctl_new() or
-   569	 * snd_ctl_new1() to the given card. Assigns also an unique
-   570	 * numid used for fast search.
-   571	 *
-   572	 * It frees automatically the control which cannot be added.
-   573	 *
-   574	 * Return: Zero if successful, or a negative error code on failure.
-   575	 *
-   576	 */
-   577	int snd_ctl_add(struct snd_card *card, struct snd_kcontrol *kcontrol)
-   578	{
-   579		return snd_ctl_add_replace(card, kcontrol, CTL_ADD_EXCLUSIVE);
-   580	}
-   581	EXPORT_SYMBOL(snd_ctl_add);
-   582	
-   583	/**
-   584	 * snd_ctl_replace - replace the control instance of the card
-   585	 * @card: the card instance
-   586	 * @kcontrol: the control instance to replace
-   587	 * @add_on_replace: add the control if not already added
-   588	 *
-   589	 * Replaces the given control.  If the given control does not exist
-   590	 * and the add_on_replace flag is set, the control is added.  If the
-   591	 * control exists, it is destroyed first.
-   592	 *
-   593	 * It frees automatically the control which cannot be added or replaced.
-   594	 *
-   595	 * Return: Zero if successful, or a negative error code on failure.
-   596	 */
-   597	int snd_ctl_replace(struct snd_card *card, struct snd_kcontrol *kcontrol,
-   598			    bool add_on_replace)
-   599	{
-   600		return snd_ctl_add_replace(card, kcontrol,
-   601					   add_on_replace ? CTL_ADD_ON_REPLACE : CTL_REPLACE);
-   602	}
-   603	EXPORT_SYMBOL(snd_ctl_replace);
-   604	
-   605	static int __snd_ctl_remove(struct snd_card *card,
-   606				    struct snd_kcontrol *kcontrol,
-   607				    bool remove_hash)
-   608	{
-   609		unsigned int idx;
-   610	
-   611		lockdep_assert_held_write(&card->controls_rwsem);
-   612	
-   613		if (snd_BUG_ON(!card || !kcontrol))
-   614			return -EINVAL;
-   615		list_del(&kcontrol->list);
-   616	
-   617		if (remove_hash)
-   618			remove_hash_entries(card, kcontrol);
-   619	
-   620		card->controls_count -= kcontrol->count;
-   621		for (idx = 0; idx < kcontrol->count; idx++)
-   622			snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
-   623		snd_ctl_free_one(kcontrol);
-   624		return 0;
-   625	}
-   626	
-   627	/**
-   628	 * snd_ctl_remove_locked - same as snd_ctl_remove(), but card->controls_rwsem
-   629	 * is expected to be already locked if necessary.
-   630	 */
-   631	int snd_ctl_remove_locked(struct snd_card *card,
-   632				  struct snd_kcontrol *kcontrol)
- > 633	{
-   634		return __snd_ctl_remove(card, kcontrol, true);
-   635	}
-   636	EXPORT_SYMBOL_GPL(snd_ctl_remove_locked);
-   637	
+Not 100% sure what checks should be done for a MCLK to determine if it
+generates suitable clocking. Would something along this patch make
+sense?
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index a8f347f1affb..667648de8105 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -470,19 +470,36 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	u8 bclk_divider;
+ 	u16 lrck_divider;
+ 	int i;
++	unsigned int clk = es8316->sysclk / 2;
++	bool clk_valid = false;
++
++	do {
++		/* Validate supported sample rates that are autodetected from MCLK */
++		for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
++			const unsigned int ratio = supported_mclk_lrck_ratios[i];
++
++			if (clk % ratio != 0)
++				continue;
++			if (clk / ratio == params_rate(params))
++				break;
++		}
++		if (i == NR_SUPPORTED_MCLK_LRCK_RATIOS) {
++			if (clk == es8316->sysclk)
++				return -EINVAL;
++			else
++				clk = es8316->sysclk;
++		} else {
++			clk_valid = true;
++		}
++	} while(!clk_valid);
+ 
+-	/* Validate supported sample rates that are autodetected from MCLK */
+-	for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
+-		const unsigned int ratio = supported_mclk_lrck_ratios[i];
+-
+-		if (es8316->sysclk % ratio != 0)
+-			continue;
+-		if (es8316->sysclk / ratio == params_rate(params))
+-			break;
++	if (clk != es8316->sysclk) {
++		snd_soc_component_update_bits(component, ES8316_CLKMGR_CLKSW,
++					      ES8316_CLKMGR_CLKSW_MCLK_DIV,
++					      ES8316_CLKMGR_CLKSW_MCLK_DIV);
+ 	}
+-	if (i == NR_SUPPORTED_MCLK_LRCK_RATIOS)
+-		return -EINVAL;
+-	lrck_divider = es8316->sysclk / params_rate(params);
++
++	lrck_divider = clk / params_rate(params);
+ 	bclk_divider = lrck_divider / 4;
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_S16_LE:
+

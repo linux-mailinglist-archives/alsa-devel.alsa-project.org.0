@@ -2,190 +2,226 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F3E78A071
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 19:09:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7F6B78A10E
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Aug 2023 20:43:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50FAFE85;
-	Sun, 27 Aug 2023 19:08:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50FAFE85
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1FA9741;
+	Sun, 27 Aug 2023 20:42:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1FA9741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693156158;
-	bh=fltWRoHfsARBvv5Plkl2Y/ofY05WX6XlsUfbdoGHnAc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1693161821;
+	bh=E+Xe1qY1yediGEnxZQBbwggRf92hdVXCrGSaiOFSOdo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PBLw/pA7fpwyiX4E10SlVZp28VC1FIiDupbIRLx3TgPERg9Acpv7AaxZQCeDNT5Mi
-	 YrUyMIQc8MRwabvyHkFhFhB4+xeKB7iM96fmBz65kRhagqIouPg7F4DUWCAZvrcSjH
-	 ftkppqmwSR4Rs2Ya+moEoG8aF5xqMLcdUMx4kBD0=
+	b=mAJE5iSZcuc4bi6ArUQqlI1ytFVZKhMEzbx/U5SdR3faXmdLK+Z6AiBgifIoZ8rjn
+	 JIofjZAhvYBBY07yNUSS43ydXmuM7+dN7kNRLUtU9E/BOZCsblWi4pYOe9H+Gljtdx
+	 Tek4yD3oxMuvjfLfQexrnEODpDo18ALKULo1o7qk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E60DAF80679; Sun, 27 Aug 2023 19:03:39 +0200 (CEST)
+	id D62DFF800F5; Sun, 27 Aug 2023 20:42:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C53EF80675;
-	Sun, 27 Aug 2023 19:03:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E92EF80155;
+	Sun, 27 Aug 2023 20:42:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2589FF800F5; Sat, 26 Aug 2023 00:22:51 +0200 (CEST)
+	id 1653FF80158; Sun, 27 Aug 2023 20:42:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 746DAF8025F
-	for <alsa-devel@alsa-project.org>; Sat, 26 Aug 2023 00:22:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 746DAF8025F
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id A9931242A8;
-	Fri, 25 Aug 2023 18:21:58 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qZfBm-iVF-00; Sat, 26 Aug 2023 00:21:58 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Cc: Takashi Iwai <tiwai@suse.de>,
+	by alsa1.perex.cz (Postfix) with ESMTPS id D4632F800F5
+	for <alsa-devel@alsa-project.org>; Sun, 27 Aug 2023 20:42:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4632F800F5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=dpa13WQ3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1693161758; x=1724697758;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=E+Xe1qY1yediGEnxZQBbwggRf92hdVXCrGSaiOFSOdo=;
+  b=dpa13WQ34r2c4BiYz63AJ8SDtqm4ANlXTLAT+LFhstLi/HiXrYU/RbuT
+   7L7I/3aq9fjgugUYhrfRh0u70rG2UkaoijXQfq6CFPYHwXlEGYRyVss2p
+   hLjzuiv6uzzS8rXOvJ42RlktMbD8BKozj/r0UQ8hMBi5bqUDHZ9KAQaLH
+   +GFCJbsw1/Xm9ED6gYF+Oqm6jn1v0yPy/ZT+uwVOvOudXEE1SHvdyhVGP
+   lfcJsuj46KpEcGuJhNaCgRT4kB13dMs4k8yeGXtocpkrJraKJtOjJnP8Z
+   0XyTQCW2WzBMuCX7+IxHM/pENoOKMZS6GY5MwkQv8UImZ1B0QH22NwBBl
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="359958081"
+X-IronPort-AV: E=Sophos;i="6.02,205,1688454000";
+   d="scan'208";a="359958081"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2023 11:42:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
+   d="scan'208";a="881696805"
+Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
+  by fmsmga001.fm.intel.com with ESMTP; 27 Aug 2023 11:42:35 -0700
+Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qaKiT-00066X-3A;
+	Sun, 27 Aug 2023 18:42:29 +0000
+Date: Mon, 28 Aug 2023 02:41:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+	alsa-devel@alsa-project.org
+Cc: oe-kbuild-all@lists.linux.dev, Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH v5 8/8] ALSA: emu10k1: document E-MU D.A.S. mode
-Date: Sat, 26 Aug 2023 00:21:58 +0200
-Message-Id: <20230825222158.171007-9-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230825222158.171007-1-oswald.buddenhagen@gmx.de>
-References: <20230825222158.171007-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH v5 1/8] ALSA: add snd_ctl_add_locked() & export
+ snd_ctl_remove_locked()
+Message-ID: <202308280222.TknsCq1k-lkp@intel.com>
+References: <20230825222158.171007-2-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: ossi@kde.org
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230825222158.171007-2-oswald.buddenhagen@gmx.de>
+Message-ID-Hash: GALKAFPFMCEVLLZORRYAHQG55UTWCUSC
+X-Message-ID-Hash: GALKAFPFMCEVLLZORRYAHQG55UTWCUSC
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DWZQJQWHAC7YMLGT2XIDBMEFPRSSOKPQ
-X-Message-ID-Hash: DWZQJQWHAC7YMLGT2XIDBMEFPRSSOKPQ
-X-Mailman-Approved-At: Sun, 27 Aug 2023 17:03:35 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWZQJQWHAC7YMLGT2XIDBMEFPRSSOKPQ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GALKAFPFMCEVLLZORRYAHQG55UTWCUSC/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
----
- Documentation/sound/cards/emu-mixer.rst | 59 ++++++++++++++++++++-----
- 1 file changed, 49 insertions(+), 10 deletions(-)
+Hi Oswald,
 
-diff --git a/Documentation/sound/cards/emu-mixer.rst b/Documentation/sound/cards/emu-mixer.rst
-index d87a6338d3d8..f69e552a38d7 100644
---- a/Documentation/sound/cards/emu-mixer.rst
-+++ b/Documentation/sound/cards/emu-mixer.rst
-@@ -30,15 +30,16 @@ but are otherwise identical) may be less problematic.
- Driver capabilities
- ===================
- 
--This driver supports only 16-bit 44.1/48 kHz operation. The multi-channel
--device (see emu10k1-jack.rst) additionally supports 24-bit capture.
-+This driver can operate in two modes: Sound Blaster mode (the default)
-+and Digital Audio System mode (enabled by the emu_das=1 module option).
- 
--A patchset to enhance the driver is available from `a GitHub repository
--<https://github.com/ossilator/linux/tree/ossis-emu10k1>`_.
--Its multi-channel device supports 24-bit for both playback and capture,
--and also supports full 88.2/96/176.4/192 kHz operation.
--It is not going to be upstreamed due to a fundamental disagreement about
--what constitutes a good user experience.
-+In Sound Blaster mode, only 16-bit 44.1/48 kHz operation is supported.
-+The multi-channel device (see emu10k1-jack.rst) additionally supports
-+24-bit capture.
-+
-+In D.A.S. mode, only the multi-channel device is available (as device 0,
-+unlike in SB mode). It supports 24-bit for both playback and capture,
-+and full 88.2/96/176.4/192 kHz operation.
- 
- 
- Digital mixer controls
-@@ -64,18 +65,23 @@ FX-bus
- 	Each of the synthesizer voices can feed its output to these accumulators
- 	and the DSP microcontroller can operate with the resulting sum.
- 
-+SB and D.A.S. modes
-+~~~~~~~~~~~~~~~~~~~
-+
- name='Clock Source',index=0
- ---------------------------
- This control allows switching the word clock between interally generated
--44.1 or 48 kHz, or a number of external sources.
-+44.1 or 48 kHz (which are subjected to the clock multiplier), or a number
-+of external sources (which must be compatible with the clock multiplier).
- 
- Note: the sources for the 1616 CardBus card are unclear. Please report your
- findings.
- 
- name='Clock Fallback',index=0
- -----------------------------
- This control determines the internal clock which the card switches to when
--the selected external clock source is/becomes invalid.
-+the selected external clock source is/becomes invalid or incompatible with
-+the clock multiplier.
- 
- name='DAC1 0202 14dB PAD',index=0, etc.
- ---------------------------------------
-@@ -95,6 +101,38 @@ name='Optical Input Mode',index=0
- Switches the TOSLINK input port between S/PDIF and ADAT.
- Not available on 0404 cards (fixed to S/PDIF).
- 
-+D.A.S. mode
-+~~~~~~~~~~~
-+
-+In this mode, no attenuation controls are available. It is assumed that these
-+are realized in software by the sound server, if necessary.
-+
-+name='Clock Multiplier',index=0
-+-------------------------------
-+This control switches the card between 44.1/48 kHz, 88.2/96 kHz, and
-+176.4/192 kHz mode by setting the multiplier for the base word clock to
-+1x, 2x, and 4x, respectively.
-+Changing it also changes the available audio ports, which causes the mixer to
-+be reconfigured. This may crash poorly programmed mixer applications running
-+at that time (this is the reason why D.A.S. mode support is not going to be
-+upstreamed - judge for yourself whether that is a wise trade-off).
-+
-+name='DAC Left',index=0, etc.
-+-----------------------------
-+Select the source for the given physical audio output. These may be physical
-+inputs, playback channels (PbChn xx), or silence.
-+
-+name='CpChn xx',index=0
-+-----------------------
-+Select the source for the given capture channel. Same options as for the
-+physical audio outputs.
-+
-+Note that not all combinations may work due to over-allocation of the
-+internal buses; refer to the card's official documentation.
-+
-+SB mode
-+~~~~~~~
-+
- name='PCM Front Playback Volume',index=0
- ----------------------------------------
- This control is used to attenuate samples from left and right front PCM FX-bus
-@@ -218,6 +256,7 @@ PCM stream related controls
- ===========================
- 
- These controls are described in audigy-mixer.rst.
-+They are available only in Sound Blaster mode.
- 
- 
- MANUALS/PATENTS
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on c5baafafd8411c19e27c6a2c7237538a34b8ca31]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Oswald-Buddenhagen/ALSA-add-snd_ctl_add_locked-export-snd_ctl_remove_locked/20230828-011105
+base:   c5baafafd8411c19e27c6a2c7237538a34b8ca31
+patch link:    https://lore.kernel.org/r/20230825222158.171007-2-oswald.buddenhagen%40gmx.de
+patch subject: [PATCH v5 1/8] ALSA: add snd_ctl_add_locked() & export snd_ctl_remove_locked()
+config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20230828/202308280222.TknsCq1k-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20230828/202308280222.TknsCq1k-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308280222.TknsCq1k-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> sound/core/control.c:558: warning: Function parameter or member 'card' not described in 'snd_ctl_add_locked'
+>> sound/core/control.c:558: warning: Function parameter or member 'kcontrol' not described in 'snd_ctl_add_locked'
+>> sound/core/control.c:633: warning: Function parameter or member 'card' not described in 'snd_ctl_remove_locked'
+>> sound/core/control.c:633: warning: Function parameter or member 'kcontrol' not described in 'snd_ctl_remove_locked'
+
+
+vim +558 sound/core/control.c
+
+   552	
+   553	/**
+   554	 * snd_ctl_add_locked - same as snd_ctl_add(), but card->controls_rwsem
+   555	 * is expected to be already locked if necessary.
+   556	 */
+   557	int snd_ctl_add_locked(struct snd_card *card, struct snd_kcontrol *kcontrol)
+ > 558	{
+   559		return snd_ctl_add_replace_locked(card, kcontrol, CTL_ADD_EXCLUSIVE);
+   560	}
+   561	EXPORT_SYMBOL_GPL(snd_ctl_add_locked);
+   562	
+   563	/**
+   564	 * snd_ctl_add - add the control instance to the card
+   565	 * @card: the card instance
+   566	 * @kcontrol: the control instance to add
+   567	 *
+   568	 * Adds the control instance created via snd_ctl_new() or
+   569	 * snd_ctl_new1() to the given card. Assigns also an unique
+   570	 * numid used for fast search.
+   571	 *
+   572	 * It frees automatically the control which cannot be added.
+   573	 *
+   574	 * Return: Zero if successful, or a negative error code on failure.
+   575	 *
+   576	 */
+   577	int snd_ctl_add(struct snd_card *card, struct snd_kcontrol *kcontrol)
+   578	{
+   579		return snd_ctl_add_replace(card, kcontrol, CTL_ADD_EXCLUSIVE);
+   580	}
+   581	EXPORT_SYMBOL(snd_ctl_add);
+   582	
+   583	/**
+   584	 * snd_ctl_replace - replace the control instance of the card
+   585	 * @card: the card instance
+   586	 * @kcontrol: the control instance to replace
+   587	 * @add_on_replace: add the control if not already added
+   588	 *
+   589	 * Replaces the given control.  If the given control does not exist
+   590	 * and the add_on_replace flag is set, the control is added.  If the
+   591	 * control exists, it is destroyed first.
+   592	 *
+   593	 * It frees automatically the control which cannot be added or replaced.
+   594	 *
+   595	 * Return: Zero if successful, or a negative error code on failure.
+   596	 */
+   597	int snd_ctl_replace(struct snd_card *card, struct snd_kcontrol *kcontrol,
+   598			    bool add_on_replace)
+   599	{
+   600		return snd_ctl_add_replace(card, kcontrol,
+   601					   add_on_replace ? CTL_ADD_ON_REPLACE : CTL_REPLACE);
+   602	}
+   603	EXPORT_SYMBOL(snd_ctl_replace);
+   604	
+   605	static int __snd_ctl_remove(struct snd_card *card,
+   606				    struct snd_kcontrol *kcontrol,
+   607				    bool remove_hash)
+   608	{
+   609		unsigned int idx;
+   610	
+   611		lockdep_assert_held_write(&card->controls_rwsem);
+   612	
+   613		if (snd_BUG_ON(!card || !kcontrol))
+   614			return -EINVAL;
+   615		list_del(&kcontrol->list);
+   616	
+   617		if (remove_hash)
+   618			remove_hash_entries(card, kcontrol);
+   619	
+   620		card->controls_count -= kcontrol->count;
+   621		for (idx = 0; idx < kcontrol->count; idx++)
+   622			snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
+   623		snd_ctl_free_one(kcontrol);
+   624		return 0;
+   625	}
+   626	
+   627	/**
+   628	 * snd_ctl_remove_locked - same as snd_ctl_remove(), but card->controls_rwsem
+   629	 * is expected to be already locked if necessary.
+   630	 */
+   631	int snd_ctl_remove_locked(struct snd_card *card,
+   632				  struct snd_kcontrol *kcontrol)
+ > 633	{
+   634		return __snd_ctl_remove(card, kcontrol, true);
+   635	}
+   636	EXPORT_SYMBOL_GPL(snd_ctl_remove_locked);
+   637	
+
 -- 
-2.40.0.152.g15d061e6df
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

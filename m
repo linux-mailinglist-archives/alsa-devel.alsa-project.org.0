@@ -2,65 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6626278B6EC
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 20:01:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA39B78B709
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 20:11:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D488786F;
-	Mon, 28 Aug 2023 20:00:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D488786F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6DAA3E8;
+	Mon, 28 Aug 2023 20:10:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6DAA3E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693245676;
-	bh=92xbaEOFjrveGBHVMSo9IoftwJQWGbc6Ujc47eo5w9g=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HnosVwm/2HbBZQTAH2cBfIx4Ioq3r00JRfjxmtaPgtmqt6i91AhQKI14/ExeWxn3A
-	 gEdnfJDfBSB3Yu06CW2/ros8ix9h+mdGrnRvH3qC9tq45EBjbFRyoBAsKohpFmmuPS
-	 9lSO5aWh1NwAr/RpsSqAK++Woh85MiqhEm8z8Waw=
+	s=default; t=1693246264;
+	bh=6qVm5eu3nBLA4L41AWZPBY7DE/hYw6IGKyR3CT1kSVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Y3UmZV2iYHybmUXXw7auyOMIHZ5xSM+Le2dIdlw5HclLABPEsO1FPBSLdHlOiOT/U
+	 yv/S7jW7AphAELTcUNXlPc0VYjrVVmUCSvBa+ENn8tPz4cCOenfC8YgctnrX0gw9JN
+	 +48mTbXd4mbW6gJVnfAjkD3o/ZZZuc9qKlRPskX0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAAE0F80536; Mon, 28 Aug 2023 20:00:21 +0200 (CEST)
+	id 0EA44F80236; Mon, 28 Aug 2023 20:10:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49124F80155;
-	Mon, 28 Aug 2023 20:00:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83EC9F80155;
+	Mon, 28 Aug 2023 20:10:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA7FAF80536; Mon, 28 Aug 2023 20:00:17 +0200 (CEST)
+	id 4664AF80158; Mon, 28 Aug 2023 20:10:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=AC_FROM_MANY_DOTS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67014F80155
-	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 20:00:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67014F80155
-X-IronPort-AV: E=Sophos;i="6.02,208,1688396400";
-   d="scan'208";a="177945066"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
-  by relmlie6.idc.renesas.com with ESMTP; 29 Aug 2023 03:00:08 +0900
-Received: from localhost.localdomain (unknown [10.226.92.234])
-	by relmlir5.idc.renesas.com (Postfix) with ESMTP id A5D5A400A8A4;
-	Tue, 29 Aug 2023 03:00:05 +0900 (JST)
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v2] ASoC: ak4642: Simplify probe()
-Date: Mon, 28 Aug 2023 19:00:03 +0100
-Message-Id: <20230828180003.127896-1-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 54609F800F5
+	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 20:10:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54609F800F5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Jxqp1PKN
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F3B85645C1;
+	Mon, 28 Aug 2023 18:10:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE4CC433C8;
+	Mon, 28 Aug 2023 18:10:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1693246201;
+	bh=6qVm5eu3nBLA4L41AWZPBY7DE/hYw6IGKyR3CT1kSVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Jxqp1PKNeKqxH9XxAtGSVBbcskK8Cl3Fa1hHhIkDQtAbmWs/6QdF0b3jvXIkW+d6h
+	 fGcUsDp3/5cRjwWglsH0LatFZtPIOB/fXfRzlHFyDoOvZCrNyeJrSrtKLy55l6TwEo
+	 XN1ZVwjKf+sSPCd6GcYKkHrUukYYSkLw6JegCeKpRmJaztGaTW37ynHq6uWvi/Zh/3
+	 zSXJMaXGLY+zVVPKnLJvjcr9xwy01mPUpVGgP6IFAzqN2e3fvkw2jP389DpzBBv6Gs
+	 aiHM0LVjW8Vg9rpWmJ8EZT5/i6ffUtrNZbDqPpodPrkurL11ZeZ/l2dS+PGvYRSRD5
+	 rOgBOj+lrKQVg==
+Date: Mon, 28 Aug 2023 19:09:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Marian Postevca <posteuca@mutex.one>
+Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] ASoC: es8316: Enable support for MCLK div by 2
+Message-ID: <ZOzi9BuTo2oXcKta@finisterre.sirena.org.uk>
+References: <20230824210135.19303-1-posteuca@mutex.one>
+ <20230824210135.19303-3-posteuca@mutex.one>
+ <ZOfRXjuSTxSV89SC@finisterre.sirena.org.uk>
+ <87msyc9mtm.fsf@mutex.one>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EOSZM6WWVN6EQNXMSH272WM2OPEQXBDR
-X-Message-ID-Hash: EOSZM6WWVN6EQNXMSH272WM2OPEQXBDR
-X-MailFrom: biju.das.jz@bp.renesas.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+uIW5b0/qxOBqojE"
+Content-Disposition: inline
+In-Reply-To: <87msyc9mtm.fsf@mutex.one>
+X-Cookie: Give him an evasive answer.
+Message-ID-Hash: TIKL2JR7XMKMKDDHL32ZUTNPIP674NA4
+X-Message-ID-Hash: TIKL2JR7XMKMKDDHL32ZUTNPIP674NA4
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -72,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EOSZM6WWVN6EQNXMSH272WM2OPEQXBDR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TIKL2JR7XMKMKDDHL32ZUTNPIP674NA4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -81,92 +103,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Simpilfy probe() by replacing of_device_get_match_data() and id lookup for
-retrieving match data by i2c_get_match_data() and replace
-dev_err()->dev_err_probe().
 
-While at it, drop local variable np and use dev_fwnode() instead and
-remove comma in the terminator entry.
+--+uIW5b0/qxOBqojE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-Note:
- This patch is only compile tested.
+On Mon, Aug 28, 2023 at 12:50:45AM +0300, Marian Postevca wrote:
+> Mark Brown <broonie@kernel.org> writes:
 
-v1->v2:
- * Removed forward declaration ak4642_of_match and ak4642_i2c_id.
- * Restored error EINVAL.
- * Used dev_fwnode() and replaced dev->of_node.
- * Removed comma in the terminator entry.
----
- sound/soc/codecs/ak4642.c | 28 +++++++---------------------
- 1 file changed, 7 insertions(+), 21 deletions(-)
+> > machine with this MCLK rather than that's based on the spec.  I would
+> > instead suggest applying the MCLK divider in any case where we can do so
+> > and still generate suitable clocking for the rest of the system, or at
+> > least hit 256fs (the datasheet quotes 256/384fs on the front page which
+> > suggests it's targetting 256fs, that'd be a fairly normal number, and
+> > there's mention of 12/24MHz USB clocks being directly usable).  Doing
+> > this should either make no odds or result in better performance.
 
-diff --git a/sound/soc/codecs/ak4642.c b/sound/soc/codecs/ak4642.c
-index 2a8984c1fa9c..8a40c6b3f4d8 100644
---- a/sound/soc/codecs/ak4642.c
-+++ b/sound/soc/codecs/ak4642.c
-@@ -628,37 +628,23 @@ static struct clk *ak4642_of_parse_mcko(struct device *dev)
- #define ak4642_of_parse_mcko(d) 0
- #endif
- 
--static const struct of_device_id ak4642_of_match[];
--static const struct i2c_device_id ak4642_i2c_id[];
- static int ak4642_i2c_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
--	struct device_node *np = dev->of_node;
--	const struct ak4642_drvdata *drvdata = NULL;
-+	const struct ak4642_drvdata *drvdata;
- 	struct regmap *regmap;
- 	struct ak4642_priv *priv;
- 	struct clk *mcko = NULL;
- 
--	if (np) {
--		const struct of_device_id *of_id;
--
-+	if (dev_fwnode(dev)) {
- 		mcko = ak4642_of_parse_mcko(dev);
- 		if (IS_ERR(mcko))
- 			mcko = NULL;
--
--		of_id = of_match_device(ak4642_of_match, dev);
--		if (of_id)
--			drvdata = of_id->data;
--	} else {
--		const struct i2c_device_id *id =
--			i2c_match_id(ak4642_i2c_id, i2c);
--		drvdata = (const struct ak4642_drvdata *)id->driver_data;
- 	}
- 
--	if (!drvdata) {
--		dev_err(dev, "Unknown device type\n");
--		return -EINVAL;
--	}
-+	drvdata = i2c_get_match_data(i2c);
-+	if (!drvdata)
-+		return dev_err_probe(dev, -EINVAL, "Unknown device type\n");
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
- 	if (!priv)
-@@ -681,7 +667,7 @@ static const struct of_device_id ak4642_of_match[] = {
- 	{ .compatible = "asahi-kasei,ak4642",	.data = &ak4642_drvdata},
- 	{ .compatible = "asahi-kasei,ak4643",	.data = &ak4643_drvdata},
- 	{ .compatible = "asahi-kasei,ak4648",	.data = &ak4648_drvdata},
--	{},
-+	{}
- };
- MODULE_DEVICE_TABLE(of, ak4642_of_match);
- 
-@@ -689,7 +675,7 @@ static const struct i2c_device_id ak4642_i2c_id[] = {
- 	{ "ak4642", (kernel_ulong_t)&ak4642_drvdata },
- 	{ "ak4643", (kernel_ulong_t)&ak4643_drvdata },
- 	{ "ak4648", (kernel_ulong_t)&ak4648_drvdata },
--	{ }
-+	{}
- };
- MODULE_DEVICE_TABLE(i2c, ak4642_i2c_id);
- 
--- 
-2.25.1
+> Not 100% sure what checks should be done for a MCLK to determine if it
+> generates suitable clocking. Would something along this patch make
+> sense?
 
+In general a MCLK that allows you to configure the dividers in the CODEC
+appropriately for use.  So long as it works your change looks fine I
+think modulo.
+
+> +	do {
+> +		/* Validate supported sample rates that are autodetected from MCLK */
+> +		for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
+> +			const unsigned int ratio = supported_mclk_lrck_ratios[i];
+> +
+> +			if (clk % ratio != 0)
+> +				continue;
+> +			if (clk / ratio == params_rate(params))
+> +				break;
+> +		}
+
+Use ARRAY_SIZE()
+
+--+uIW5b0/qxOBqojE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTs4vMACgkQJNaLcl1U
+h9Cs2wf9HV5zUoSs/LvsLfOeFiaGB5ddhE+WQq3xn04EGc99oxAxAM0QC74yD/k7
+lnmI75j0iaJ0fIvzw15pskMwqqbS1Ttwtqj6H69YFIHBhqKnEbwTEgDuM/Jn8dgc
+0jlo28+95C4kIDbp6Lz8oFS4ObJKJ4+Ibnf0yoxiJ0Q5II2EwvUYEGGqMhFTbPDB
+H9takbgRwqKbi+06fOUVeag/RCM/N929K+rLez7nd2bPHr9d5vzxnCTh7A99og6T
+0c6e2ZMTB2XasURLiHWTj68voJtyucJGOn6AGJPrWAAj39bxytuYZlQTIbEQwR9m
+J5O7HY/1N3xAAXWi++H0u0A1HyQBUA==
+=oTdg
+-----END PGP SIGNATURE-----
+
+--+uIW5b0/qxOBqojE--

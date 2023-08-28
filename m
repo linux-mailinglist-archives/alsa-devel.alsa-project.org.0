@@ -2,87 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA39B78B709
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 20:11:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 087E478B746
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 20:36:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6DAA3E8;
-	Mon, 28 Aug 2023 20:10:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6DAA3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F68E208;
+	Mon, 28 Aug 2023 20:35:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F68E208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693246264;
-	bh=6qVm5eu3nBLA4L41AWZPBY7DE/hYw6IGKyR3CT1kSVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693247805;
+	bh=oeUoUsTMHvgd5WYx2tulyFMANhy+r5J4Xx/cddLpevw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y3UmZV2iYHybmUXXw7auyOMIHZ5xSM+Le2dIdlw5HclLABPEsO1FPBSLdHlOiOT/U
-	 yv/S7jW7AphAELTcUNXlPc0VYjrVVmUCSvBa+ENn8tPz4cCOenfC8YgctnrX0gw9JN
-	 +48mTbXd4mbW6gJVnfAjkD3o/ZZZuc9qKlRPskX0=
+	b=CjML/cEqvpUa6bGoLUMjzCdBhLYm3zuiik6z7Ft7CcNnnHZP4ogzDxHMMbhEHVCnU
+	 faVaXcH8eiKYSZxVukWSKk7Yupwc/TsuI68VuJygpPsavNJvupHOONT2DQX6G+dXYm
+	 7ycWKW82T5P8czEFX3FWC9MHEZY4qNaZijl4H73o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0EA44F80236; Mon, 28 Aug 2023 20:10:13 +0200 (CEST)
+	id 00172F80158; Mon, 28 Aug 2023 20:35:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83EC9F80155;
-	Mon, 28 Aug 2023 20:10:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A40CF800F5;
+	Mon, 28 Aug 2023 20:35:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4664AF80158; Mon, 28 Aug 2023 20:10:11 +0200 (CEST)
+	id 9FA0EF80158; Mon, 28 Aug 2023 20:35:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 54609F800F5
-	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 20:10:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54609F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35F2EF80074
+	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 20:35:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F2EF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Jxqp1PKN
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id F3B85645C1;
-	Mon, 28 Aug 2023 18:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE4CC433C8;
-	Mon, 28 Aug 2023 18:10:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693246201;
-	bh=6qVm5eu3nBLA4L41AWZPBY7DE/hYw6IGKyR3CT1kSVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Jxqp1PKNeKqxH9XxAtGSVBbcskK8Cl3Fa1hHhIkDQtAbmWs/6QdF0b3jvXIkW+d6h
-	 fGcUsDp3/5cRjwWglsH0LatFZtPIOB/fXfRzlHFyDoOvZCrNyeJrSrtKLy55l6TwEo
-	 XN1ZVwjKf+sSPCd6GcYKkHrUukYYSkLw6JegCeKpRmJaztGaTW37ynHq6uWvi/Zh/3
-	 zSXJMaXGLY+zVVPKnLJvjcr9xwy01mPUpVGgP6IFAzqN2e3fvkw2jP389DpzBBv6Gs
-	 aiHM0LVjW8Vg9rpWmJ8EZT5/i6ffUtrNZbDqPpodPrkurL11ZeZ/l2dS+PGvYRSRD5
-	 rOgBOj+lrKQVg==
-Date: Mon, 28 Aug 2023 19:09:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Marian Postevca <posteuca@mutex.one>
-Cc: Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] ASoC: es8316: Enable support for MCLK div by 2
-Message-ID: <ZOzi9BuTo2oXcKta@finisterre.sirena.org.uk>
-References: <20230824210135.19303-1-posteuca@mutex.one>
- <20230824210135.19303-3-posteuca@mutex.one>
- <ZOfRXjuSTxSV89SC@finisterre.sirena.org.uk>
- <87msyc9mtm.fsf@mutex.one>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=JYCMFthQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1693247742; x=1724783742;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=oeUoUsTMHvgd5WYx2tulyFMANhy+r5J4Xx/cddLpevw=;
+  b=JYCMFthQcAJdiQJfyMMOtT8Ap0r0ZE99c1/Z0vl+AnjWXiM/1DNH3wYe
+   YLqcItVndAH1XcxPldNqTDgbgROVeAiVH+F1hB8en2frHd+S4TexxAgg4
+   DxZ4G5fXNnM2GnT11RJBujgg+1TjMF3iiegO8YIm6+ff4HvGimX3s/Bqa
+   /w6zmz8MggAxqcU9bm+PmyPjcvnPJHECqfsTkoutPRM3oftqr91jbAETp
+   rLxfhRFUq6FQdDPwbP5PK4G2q9gChnLKhe2KxRBHS9Ly+OoC6TUpjkwLt
+   brXEA4UsnPN84q5iLp7+55caBF38BmSSnDFwcAXWT3aFsrhF0oLt/9m5Q
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="461551694"
+X-IronPort-AV: E=Sophos;i="6.02,208,1688454000";
+   d="scan'208";a="461551694"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2023 11:35:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="741513209"
+X-IronPort-AV: E=Sophos;i="6.02,208,1688454000";
+   d="scan'208";a="741513209"
+Received: from raberech-mobl2.amr.corp.intel.com (HELO [10.212.13.163])
+ ([10.212.13.163])
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2023 11:35:30 -0700
+Message-ID: <6d498d35-841d-4ea4-2fd9-990f9b02563e@linux.intel.com>
+Date: Mon, 28 Aug 2023 13:35:17 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+uIW5b0/qxOBqojE"
-Content-Disposition: inline
-In-Reply-To: <87msyc9mtm.fsf@mutex.one>
-X-Cookie: Give him an evasive answer.
-Message-ID-Hash: TIKL2JR7XMKMKDDHL32ZUTNPIP674NA4
-X-Message-ID-Hash: TIKL2JR7XMKMKDDHL32ZUTNPIP674NA4
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH 1/2] ucm: docs: Add EchoReferenceDev
+Content-Language: en-US
+To: Curtis Malainey <cujomalainey@google.com>,
+ Jaroslav Kysela <perex@perex.cz>
+Cc: cujomalainey@chromium.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ ethan.geller@gmail.com
+References: <20230824213312.1258499-1-cujomalainey@chromium.org>
+ <ce20d02b-56ed-acd1-411b-8c68d8cabea8@perex.cz>
+ <CAOReqxiDZOAEYYb5c73AHu+Nd2vZinLR5qdMAVJnEcV8TS6=Nw@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: 
+ <CAOReqxiDZOAEYYb5c73AHu+Nd2vZinLR5qdMAVJnEcV8TS6=Nw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: O62CIZRFVDAJ54VGPACLZ4I267LGOPG3
+X-Message-ID-Hash: O62CIZRFVDAJ54VGPACLZ4I267LGOPG3
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TIKL2JR7XMKMKDDHL32ZUTNPIP674NA4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O62CIZRFVDAJ54VGPACLZ4I267LGOPG3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,55 +112,41 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---+uIW5b0/qxOBqojE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Aug 28, 2023 at 12:50:45AM +0300, Marian Postevca wrote:
-> Mark Brown <broonie@kernel.org> writes:
+On 8/28/23 12:59, Curtis Malainey wrote:
+> On Sat, Aug 26, 2023 at 4:28 AM Jaroslav Kysela <perex@perex.cz> wrote:
+>>
+>> On 24. 08. 23 23:33, cujomalainey@chromium.org wrote:
+>>> From: Curtis Malainey <cujomalainey@chromium.org>
+>>>
+>>> Sometimes userspace may want to use a reference channel to cancel echos
+>>> when using video chat, this value identifies the device which carries
+>>> that channel.
+>>
+>> The UCM modifier should be used for this - see "Echo Reference" comments in
+>> use-case.h.
+>>
+>> Note that this allows additional setup (in Sequences) for this stream.
+>>
+>>                                                 Jaroslav
+> 
+> I was under the impression modifiers were state manipulators that
+> acted upon existing devices/pcms and did not designate their own PCM.
+> That is at least how we use them in CRAS.
+> 
+> Are there any examples of how to designate a PCM? I don't see any
+> modifiers at all in ucm-conf repo.
 
-> > machine with this MCLK rather than that's based on the spec.  I would
-> > instead suggest applying the MCLK divider in any case where we can do so
-> > and still generate suitable clocking for the rest of the system, or at
-> > least hit 256fs (the datasheet quotes 256/384fs on the front page which
-> > suggests it's targetting 256fs, that'd be a fairly normal number, and
-> > there's mention of 12/24MHz USB clocks being directly usable).  Doing
-> > this should either make no odds or result in better performance.
+I will second Curtis' request for clarifications.
 
-> Not 100% sure what checks should be done for a MCLK to determine if it
-> generates suitable clocking. Would something along this patch make
-> sense?
+I naively thought that modifiers would be used to e.g. select a 'Deep
+Buffer' output for low-power playback, or different capture streams
+based on the needs of the applications. It's not uncommon for capture
+applications to request different PCM streams for raw, AEC processed,
+AEC+NS processed data.
 
-In general a MCLK that allows you to configure the dividers in the CODEC
-appropriately for use.  So long as it works your change looks fine I
-think modulo.
-
-> +	do {
-> +		/* Validate supported sample rates that are autodetected from MCLK */
-> +		for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
-> +			const unsigned int ratio = supported_mclk_lrck_ratios[i];
-> +
-> +			if (clk % ratio != 0)
-> +				continue;
-> +			if (clk / ratio == params_rate(params))
-> +				break;
-> +		}
-
-Use ARRAY_SIZE()
-
---+uIW5b0/qxOBqojE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTs4vMACgkQJNaLcl1U
-h9Cs2wf9HV5zUoSs/LvsLfOeFiaGB5ddhE+WQq3xn04EGc99oxAxAM0QC74yD/k7
-lnmI75j0iaJ0fIvzw15pskMwqqbS1Ttwtqj6H69YFIHBhqKnEbwTEgDuM/Jn8dgc
-0jlo28+95C4kIDbp6Lz8oFS4ObJKJ4+Ibnf0yoxiJ0Q5II2EwvUYEGGqMhFTbPDB
-H9takbgRwqKbi+06fOUVeag/RCM/N929K+rLez7nd2bPHr9d5vzxnCTh7A99og6T
-0c6e2ZMTB2XasURLiHWTj68voJtyucJGOn6AGJPrWAAj39bxytuYZlQTIbEQwR9m
-J5O7HY/1N3xAAXWi++H0u0A1HyQBUA==
-=oTdg
------END PGP SIGNATURE-----
-
---+uIW5b0/qxOBqojE--
+Echo reference is not really something that varies based on any
+qualifiers. And specifically in the Chrome case we want userspace to
+open the PCM echo reference device whenever the playback is used. So
+it's not really a use-case dependent thing but more a way to express a
+dependency between PCM devices.

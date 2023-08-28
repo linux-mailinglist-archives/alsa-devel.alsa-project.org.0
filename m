@@ -2,96 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA3978AEC4
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 13:27:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8444E78AEF6
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 13:36:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC2AEAE8;
-	Mon, 28 Aug 2023 13:27:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC2AEAE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FCB5AEA;
+	Mon, 28 Aug 2023 13:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FCB5AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693222071;
-	bh=COMTdWf3DBFde9p8NBPZiGOQHPVjxLDVseDRnlFzbIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ESmrY8e7DJ1PDKrni6HrQRV+zMGGr1UHsPoSc1aGGjmC7o3AeXAFVVR5JUFfCDO7Y
-	 BDOfgEETyQnaGuAtKOJAOzYu7S1YLqfiBBANip82jYqt/Yr8WBj5rd4eY3XDni3gXH
-	 v3Xy2scfefnnlRzr3nFsKpU2WIKHutayYsqlLuY0=
+	s=default; t=1693222604;
+	bh=Lm3R2ZuI8tRyjtfY19WXDdftcp2118e6V7CIDKli7z8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dmxvaI5K+AHzeA5jKPjA+37gDeKp7EftU2SsId3pdpEtOxSAhX2NuF/egaeY7X/9o
+	 z7MTrSnPvsmpyR5NCJ8XgHBshbL9OlRewAX3g6C2YY+CQe3jny0Ru15sPxTt6Y7f7A
+	 C3FFKh8ZPwaJwYdd8LnyJcCe6IkjnzeG6Qw9QS8w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BD34F80249; Mon, 28 Aug 2023 13:27:01 +0200 (CEST)
+	id 89184F804DA; Mon, 28 Aug 2023 13:35:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F9A8F80155;
-	Mon, 28 Aug 2023 13:27:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B7B6F80155;
+	Mon, 28 Aug 2023 13:35:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02361F80158; Mon, 28 Aug 2023 13:26:58 +0200 (CEST)
+	id 96252F80158; Mon, 28 Aug 2023 13:35:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2A19F80094
-	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 13:26:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2A19F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7EBEAF80074
+	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 13:35:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EBEAF80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TVmGbRHX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693222017; x=1724758017;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=COMTdWf3DBFde9p8NBPZiGOQHPVjxLDVseDRnlFzbIM=;
-  b=TVmGbRHXPz9Sy++GJhMHk9GnXkPVHQkR8Knax1Fo7WOdOG3p3XRpwKyb
-   lVMUUWtgdQ0dkUAy4jjWLeBcdjlaWuv6OS0eEsD6fOSwtvmR7xFw7SRFk
-   ajfuHJKk89RDv0E018hH66NWeVbi5zrIttHU2kePdSvPXStihtC2N/m8N
-   nCbulXY8dEXrnMKi+Pldcdx/QYK27cVPBYLifVvUXiTqgOoRP00r4ccUE
-   EAvGJsxwN3rPL4V5UuMmCWFNzCvB3sXqczNww7UC5+oF2uYeAQ3jTVWz6
-   qT0DnFM+DOYSBulCsYpx9+BbXzrp0PffvttAQAisSVh0+6ZgnWLe1o0+7
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="441424402"
-X-IronPort-AV: E=Sophos;i="6.02,207,1688454000";
-   d="scan'208";a="441424402"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2023 04:26:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200";
-   d="scan'208";a="881910720"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga001.fm.intel.com with ESMTP; 28 Aug 2023 04:26:55 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qaaOO-00G7vB-0Z;
-	Mon, 28 Aug 2023 14:26:48 +0300
-Date: Mon, 28 Aug 2023 14:26:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	alsa-devel@alsa-project.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH] ASoC: ak4642: Simplify probe()
-Message-ID: <ZOyEd+mTIPLFVhGW@smile.fi.intel.com>
-References: <20230826193447.113378-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=p8EwcmH5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=BwTXFQBQ
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AC694219A5;
+	Mon, 28 Aug 2023 11:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1693222543;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=DW5B4ee3btXQsZsWdthYMgeEVhbpCV9HbWks6sCFjAs=;
+	b=p8EwcmH5KSfFLK0qO3/Iju2lGaUdpMKwaOzV8GNPP3pveqAX/pctro707w3BuThpa1+VX7
+	9Ac2UW+SAlTsazBfTGvWB0wi72xIGNIoptY9uFZVIp1yYho12zRvPh0B/ajvFhzIY5ycuy
+	Br9GaW/Ac/17s+stIMkz0KXfUWCwXzs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1693222543;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=DW5B4ee3btXQsZsWdthYMgeEVhbpCV9HbWks6sCFjAs=;
+	b=BwTXFQBQb5q2PE25B3ozi+AKGD1lp2qpcWIG7wkjd5/Ay8c8hXVRnRyPG0RVHNc8zEdq7J
+	dQ8YPA2ETwZhtQCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D09F139CC;
+	Mon, 28 Aug 2023 11:35:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 1VB+IY+G7GRVeQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 28 Aug 2023 11:35:43 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: dwc: i2s: Fix unused functions
+Date: Mon, 28 Aug 2023 13:35:37 +0200
+Message-Id: <20230828113537.27600-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230826193447.113378-1-biju.das.jz@bp.renesas.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: ANEQKVK5F7HT7XW3IXJFT672ZLR4ZITO
-X-Message-ID-Hash: ANEQKVK5F7HT7XW3IXJFT672ZLR4ZITO
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 4J4552AJSGOL3HVHZQKTCASJ3PHL7XBY
+X-Message-ID-Hash: 4J4552AJSGOL3HVHZQKTCASJ3PHL7XBY
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ANEQKVK5F7HT7XW3IXJFT672ZLR4ZITO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4J4552AJSGOL3HVHZQKTCASJ3PHL7XBY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,28 +114,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Aug 26, 2023 at 08:34:47PM +0100, Biju Das wrote:
-> Simpilfy probe() by replacing of_device_get_match_data() and id lookup for
-> retrieving match data by i2c_get_match_data().
-> 
-> While at it, drop local variable np from probe() by using dev->of_node.
+A few newly added functions aren't built unless CONFIG_OF is set,
+which result in the build failure due to defined-but-not-used errors.
 
-...
+Put "#ifdef CONFIG_OF" around those functions to suppress the build
+error.
 
-> +	if (dev->of_node) {
+Fixes: 52ea7c0543f8 ("ASoC: dwc: i2s: Add StarFive JH7110 SoC support")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/soc/dwc/dwc-i2s.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-No, please use (it needed at all) the respective API.
-
-...
-
-> -		-EINVAL;
-
-> +		-ENODEV
-
-...being not explained.
-
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 5ab1b3eb2d28..22c004179214 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -729,6 +729,7 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
+ 
+ }
+ 
++#ifdef CONFIG_OF
+ /* clocks initialization with master mode on JH7110 SoC */
+ static int jh7110_i2s_crg_master_init(struct dw_i2s_dev *dev)
+ {
+@@ -912,6 +913,7 @@ static int jh7110_i2stx0_clk_cfg(struct i2s_clk_config_data *config)
+ 
+ 	return clk_set_rate(dev->clk, bclk_rate);
+ }
++#endif /* CONFIG_OF */
+ 
+ static int dw_i2s_probe(struct platform_device *pdev)
+ {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.35.3
 

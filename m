@@ -2,101 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8746878B3E5
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 17:02:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 564F678B4C7
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Aug 2023 17:51:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B162DEC;
-	Mon, 28 Aug 2023 17:01:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B162DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF0C0846;
+	Mon, 28 Aug 2023 17:50:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF0C0846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693234942;
-	bh=B9HyavIu6+UJMQaslfXAOQ9xBjyJAij7k27+A+XBwPs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lCe9aXUWIVaU4Lidll4hGn7RzX1rHNQUIxgvL1+YFHdsuEH2ZRmy4Bs9SMAYm3Bxn
-	 IUU2AfOOG62oJdNt3K4KNpdsEeWtHVuvgYjMZs7YbRUymnCjANLiTDzn5NDHXRtynO
-	 b5GAdG5HX7eQlAvM1vGw+N+M8lOxUBGnVfMSn65c=
+	s=default; t=1693237859;
+	bh=BOzEnA/F9aiwZbS9ep9YdSAUujjcXip5kPhnhQiNHF8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=TA0NAtmwTYTR5rhuIlW+NeXpLRL81Wa0w/KJBeuDTiHJilGjIchwtHSefNCmHopkb
+	 hx12oB17+bQUsgTjcAxtDq2fvmrkuy2ewkwpKBYM6YJNVD+eCa1mZtXKUTtMNE/Uxe
+	 dh3BznloVn10aVPz1TzY0A8yOh57eXDnkF6I6F3s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABDA5F80094; Mon, 28 Aug 2023 17:01:11 +0200 (CEST)
+	id BA05CF80249; Mon, 28 Aug 2023 17:50:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF615F80155;
-	Mon, 28 Aug 2023 17:01:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 666EFF80155;
+	Mon, 28 Aug 2023 17:50:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 464F1F80158; Mon, 28 Aug 2023 17:01:07 +0200 (CEST)
+	id 1ADB6F80158; Mon, 28 Aug 2023 17:50:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1E1F8F800F5
-	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 17:01:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E1F8F800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=zhsGZe3P;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RdaU/prx
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8871E1F383;
-	Mon, 28 Aug 2023 15:01:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1693234864;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOnOlSLezeB2GXJRWwT4UE9Uv0e+4OZaRexqt8iI6fs=;
-	b=zhsGZe3P6r1wq8bMziRN5xauSTBfAY+94ayExitbphTOO5rG5LCFzfV4qM5LKEY3Xs+JWG
-	f/zcHC6C08NqEyocv8QNpuEoLbq0HBugvQjbL69m6HAFDRzrkdB7TCuDCcvafwvoTx1sc1
-	HRINUWk6kQKuClxfP+zDmNOp3zZcpYw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1693234864;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wOnOlSLezeB2GXJRWwT4UE9Uv0e+4OZaRexqt8iI6fs=;
-	b=RdaU/prxwrITyOHh6zTs8f1AO6ixxwsZYs8UcZvAr/paKiAZZQe2u0/5eeN7xGzU9cevoP
-	hAJWipwvmv5QYvAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6852F13A11;
-	Mon, 28 Aug 2023 15:01:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 7S+PGLC27GTsbwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 28 Aug 2023 15:01:04 +0000
-Date: Mon, 28 Aug 2023 17:01:04 +0200
-Message-ID: <87r0nnw6rz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.5-merge-window
-In-Reply-To: <fc0f3b34539c7a8778d59c52ec2092e1.broonie@kernel.org>
-References: <fc0f3b34539c7a8778d59c52ec2092e1.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: OPANNYPQOL27VNFDFSYPXFBZ2GOFYGH3
-X-Message-ID-Hash: OPANNYPQOL27VNFDFSYPXFBZ2GOFYGH3
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-5.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+	by alsa1.perex.cz (Postfix) with ESMTP id AE2A4F80074
+	for <alsa-devel@alsa-project.org>; Mon, 28 Aug 2023 17:49:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE2A4F80074
+X-IronPort-AV: E=Sophos;i="6.02,207,1688396400";
+   d="scan'208";a="174229477"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+  by relmlie5.idc.renesas.com with ESMTP; 29 Aug 2023 00:49:46 +0900
+Received: from localhost.localdomain (unknown [10.226.92.234])
+	by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7D41D400D4B8;
+	Tue, 29 Aug 2023 00:49:43 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2] mfd: madera-i2c: Simplify probe()
+Date: Mon, 28 Aug 2023 16:49:41 +0100
+Message-Id: <20230828154941.79780-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: O4AFS2CF24AIMJDFL2CN7B3RTUEZWATX
+X-Message-ID-Hash: O4AFS2CF24AIMJDFL2CN7B3RTUEZWATX
+X-MailFrom: biju.das.jz@bp.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +71,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPANNYPQOL27VNFDFSYPXFBZ2GOFYGH3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4AFS2CF24AIMJDFL2CN7B3RTUEZWATX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,47 +80,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 28 Aug 2023 16:53:35 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 1f1ef7e5bbe2de125da413e238915f6047ea4ba2:
-> 
->   ASoC: intel: sof_sdw: Fixup typo in device link checking (2023-06-19 12:58:22 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.5-merge-window
-> 
-> for you to fetch changes up to d900d9a435ca95a386f49424f3689cd17ec201da:
-> 
->   ASoC: tegra: Fix SFC conversion for few rates (2023-06-24 01:57:16 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes that got left after v6.4
-> 
-> These were some changes in my v6.4 branch that never got sent as fixes,
-> none of them super urgent thankfully.
+Simplify probe() by replacing of_device_get_match_data() and ID lookup for
+retrieving match data by i2c_get_match_data().
 
-Looks OK, let's take them now.  Thanks.
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+Note:
+ This patch is only compile tested.
 
+v1->v2:
+ * Added Ack tag from Charles Keepax.
+ * Dropped blank line before switch statement.
+---
+ drivers/mfd/madera-i2c.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-Takashi
+diff --git a/drivers/mfd/madera-i2c.c b/drivers/mfd/madera-i2c.c
+index a404ea26bc79..33781c631345 100644
+--- a/drivers/mfd/madera-i2c.c
++++ b/drivers/mfd/madera-i2c.c
+@@ -18,21 +18,14 @@
+ 
+ static int madera_i2c_probe(struct i2c_client *i2c)
+ {
+-	const struct i2c_device_id *id = i2c_client_get_device_id(i2c);
+ 	struct madera *madera;
+ 	const struct regmap_config *regmap_16bit_config = NULL;
+ 	const struct regmap_config *regmap_32bit_config = NULL;
+-	const void *of_data;
+ 	unsigned long type;
+ 	const char *name;
+ 	int ret;
+ 
+-	of_data = of_device_get_match_data(&i2c->dev);
+-	if (of_data)
+-		type = (unsigned long)of_data;
+-	else
+-		type = id->driver_data;
+-
++	type = (unsigned long)i2c_get_match_data(i2c);
+ 	switch (type) {
+ 	case CS47L15:
+ 		if (IS_ENABLED(CONFIG_MFD_CS47L15)) {
+-- 
+2.25.1
 
-
-> 
-> ----------------------------------------------------------------
-> Phil Elwell (1):
->       ASoC: cs43130: Fix numerator/denominator mixup
-> 
-> Sheetal (1):
->       ASoC: tegra: Fix SFC conversion for few rates
-> 
-> yixuanjiang (1):
->       ASoC: soc-compress: Fix deadlock in soc_compr_open_fe
-> 
->  sound/soc/codecs/cs43130.h     | 138 ++++++++++++++++++++---------------------
->  sound/soc/soc-compress.c       |   1 +
->  sound/soc/tegra/tegra210_sfc.c |  31 ++++++++-
->  sound/soc/tegra/tegra210_sfc.h |   4 +-
->  4 files changed, 102 insertions(+), 72 deletions(-)
-> 

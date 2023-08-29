@@ -2,101 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 661BD78C995
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 18:23:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3102778C9B6
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 18:34:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1C9208;
-	Tue, 29 Aug 2023 18:22:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1C9208
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEEFD203;
+	Tue, 29 Aug 2023 18:33:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEEFD203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693326228;
-	bh=GzRI2++qsOHZAQe6MZgVZBK+YANIaJSEJjc30HnSk2Y=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693326886;
+	bh=JnCh5FlEFD2yMrgm5pRcs0ZJWSNt4zX444Chq8Xi3rE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rRVxAqBr3fAT356jgOoqchQvg9AXhmJV3k/G4mdUDRArwjC/pZmPyTIndfncsGXUP
-	 z9hSyYMlqpu7g4DhVrJTfqNyDF2YFM0EGJ6oQx/nQ0YvOTqRVa5LgQEzMp2lxSz7ZJ
-	 l/ctS+tfG118PURAav/uyY7stbpdRdNQY11GYzek=
+	b=W9f1pRIsjw7sAr32zHmshQcE6lLvY0NTWkMSEnxa0O/oD0y4IXS2wWrTid2AcVzn1
+	 fNkGhLFPrzLS1+B6KCkLzCcvQwYFfqRh4Xisxj7YNiP3iPRk5Tv21JcTaBoaKhrowx
+	 uT3PbKm9PurCVMFnKeoFEmWQyFLFyt9GUgxo37cE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6A7BF8023B; Tue, 29 Aug 2023 18:22:57 +0200 (CEST)
+	id 7F847F8032D; Tue, 29 Aug 2023 18:33:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A19C9F80155;
-	Tue, 29 Aug 2023 18:22:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C4E3F80155;
+	Tue, 29 Aug 2023 18:33:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 01285F80158; Tue, 29 Aug 2023 18:22:54 +0200 (CEST)
+	id 4367FF80158; Tue, 29 Aug 2023 18:33:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D34ADF80094
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 18:22:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D34ADF80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B15BF80094
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 18:33:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B15BF80094
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=I+L5I4qB
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37TB7M6Z016651;
-	Tue, 29 Aug 2023 11:22:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=ptBbO/ikbUCOzPa
-	qVepOxQ9ReSRotYR0A66tqyou2FU=; b=I+L5I4qBF50L9rYiRIaQlhWB4sV3RnQ
-	OGVpQwlf2Xo0digGObeI2dtMsDZQlKuuYeFjmholLLT/vDN1GOwElY7Bzp12+RuU
-	luWeMHYFh2i0VAca2nNK6nrJBwRnu+U/lUTjOGQuNY75kUBNMlUFfOxfaMpTu8cW
-	gdGSyaxRmHjPaj86fsoMAo94ERa9drjuBnqQfnTGnN/FCxCaYdLMG4Lz3gSaX5P0
-	sjxgZ09gT61sk1+pMBbkRgIaul55VXjyqt+prHO6UZKxD67CCLeYiE+bC1pOJelC
-	d6QWuSffHuwrW2Q2MwrCL9AUBJ+S8y+uKrzGsd5zUs71CWljNEq22SA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3sqdtj360r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Aug 2023 11:22:45 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 29 Aug
- 2023 17:22:43 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Tue, 29 Aug 2023 17:22:43 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 93CA615B6;
-	Tue, 29 Aug 2023 16:22:43 +0000 (UTC)
-Date: Tue, 29 Aug 2023 16:22:43 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Guenter Roeck <linux@roeck-us.net>
-CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <linus.walleij@linaro.org>, <vkoul@kernel.org>, <lgirdwood@gmail.com>,
-        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 3/6] mfd: cs42l43: Add support for cs42l43 core driver
-Message-ID: <20230829162243.GV103419@ediswmail.ad.cirrus.com>
-References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
- <20230804104602.395892-4-ckeepax@opensource.cirrus.com>
- <b122a788-acee-4747-be6d-a7456ee110dc@roeck-us.net>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=FHnzMe/L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1693326825; x=1724862825;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=JnCh5FlEFD2yMrgm5pRcs0ZJWSNt4zX444Chq8Xi3rE=;
+  b=FHnzMe/LP25fCPmeCPBDPyjrymNzWfKcoRzsffVoYjLU97/Zwqee3G9O
+   eFugBEzrfkNPOnLozcN142HERx7sJQoCKZR/D1P5JdtFA6NovPc12hpLR
+   JmY+zyV7T7tneiU1tUPGSw8DZgO5Je9Bvp8mziF9lYC1xPZe+JR5XC76n
+   4E8B3RH6vEthwFOxNX5yICQg1CcOvU6rRv+EfVlEWXEdjFtpx7+oMwy6c
+   A0xFVKpkQJzcKx3WPuPutD6LC3ocnO3sTmn89zJUzl7l6Z7SvmN/NktPR
+   EsYdNo9mPKmUh8c5GGhTwwNw9w8W8jBSOD29571XA2nZQ0x/8B+fgsJFT
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="360417028"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000";
+   d="scan'208";a="360417028"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2023 09:30:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="1069529171"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000";
+   d="scan'208";a="1069529171"
+Received: from dcatx-mobl2.amr.corp.intel.com (HELO [10.209.185.124])
+ ([10.209.185.124])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2023 09:30:13 -0700
+Message-ID: <cc15a374-97b9-9b58-78b2-34241c5dd2a9@linux.intel.com>
+Date: Tue, 29 Aug 2023 11:30:12 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <b122a788-acee-4747-be6d-a7456ee110dc@roeck-us.net>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: mADtkyurD_gKlPgW1ZYY9RFipjVdnnX5
-X-Proofpoint-GUID: mADtkyurD_gKlPgW1ZYY9RFipjVdnnX5
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 4NDH33RGTA7LY2WB2WV4EPLONKKXVDZK
-X-Message-ID-Hash: 4NDH33RGTA7LY2WB2WV4EPLONKKXVDZK
-X-MailFrom: prvs=4605abc1a5=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH 1/2] ucm: docs: Add EchoReferenceDev
+Content-Language: en-US
+To: Jaroslav Kysela <perex@perex.cz>,
+ Curtis Malainey <cujomalainey@google.com>
+Cc: cujomalainey@chromium.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ ethan.geller@gmail.com
+References: <20230824213312.1258499-1-cujomalainey@chromium.org>
+ <ce20d02b-56ed-acd1-411b-8c68d8cabea8@perex.cz>
+ <CAOReqxiDZOAEYYb5c73AHu+Nd2vZinLR5qdMAVJnEcV8TS6=Nw@mail.gmail.com>
+ <6d498d35-841d-4ea4-2fd9-990f9b02563e@linux.intel.com>
+ <6fc8a33a-52f2-0cd1-6259-b2b974548602@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <6fc8a33a-52f2-0cd1-6259-b2b974548602@perex.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: SG47EGPNYHKD3BZDVXVTDYG5G6VO47FF
+X-Message-ID-Hash: SG47EGPNYHKD3BZDVXVTDYG5G6VO47FF
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4NDH33RGTA7LY2WB2WV4EPLONKKXVDZK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SG47EGPNYHKD3BZDVXVTDYG5G6VO47FF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,39 +112,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Aug 29, 2023 at 07:06:28AM -0700, Guenter Roeck wrote:
-> On Fri, Aug 04, 2023 at 11:45:59AM +0100, Charles Keepax wrote:
-> > The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
-> > (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
-> > for portable applications. It provides a high dynamic range, stereo
-> > DAC for headphone output, two integrated Class D amplifiers for
-> > loudspeakers, and two ADCs for wired headset microphone input or
-> > stereo line input. PDM inputs are provided for digital microphones.
-> > 
-> > The MFD component registers and initialises the device and provides
-> > PM/system power management.
-> > 
-> Unfortunately, on systems without pm support:
+
+
+
+> It seems that there are some assumptions. I will try to address some
+> things:
 > 
-> Building s390:allmodconfig ... failed
-> --------------
-> Error log:
-> drivers/mfd/cs42l43.c:1138:12: error: 'cs42l43_runtime_resume' defined but not used [-Werror=unused-function]
->  1138 | static int cs42l43_runtime_resume(struct device *dev)
->       |            ^~~~~~~~~~~~~~~~~~~~~~
-> drivers/mfd/cs42l43.c:1124:12: error: 'cs42l43_runtime_suspend' defined but not used [-Werror=unused-function]
->  1124 | static int cs42l43_runtime_suspend(struct device *dev)
->       |            ^~~~~~~~~~~~~~~~~~~~~~~
-> drivers/mfd/cs42l43.c:1106:12: error: 'cs42l43_resume' defined but not used [-Werror=unused-function]
->  1106 | static int cs42l43_resume(struct device *dev)
->       |            ^~~~~~~~~~~~~~
-> drivers/mfd/cs42l43.c:1076:12: error: 'cs42l43_suspend' defined but not used [-Werror=unused-function]
->  1076 | static int cs42l43_suspend(struct device *dev)
+> You can enable/use multiple modifiers per device.
 > 
+> The modifiers may define extra PCM streams in the standard Value section
+> - you can use CapturePCM value for the modifier like "Echo Reference".
+> Modifiers may alter the characteristics of the original UCM device
+> stream (using command sequences), too.
 
-Apologies for this one, a fix is already awaiting review here:
+Sorry, not following.
 
-https://lore.kernel.org/lkml/20230822114914.340359-1-ckeepax@opensource.cirrus.com/
+The 'modifier' has to be selected by userspace, isn't it? "someone" has
+to tell UCM that the 'echo reference' is on.
 
-Thanks,
-Charles
+And that's precisely the conceptual issue I have. The echo reference in
+our cases is ALWAYS available when the speaker output is selected.
+
+In other words, we are asking userspace to select something that is
+always present and available. Or put differently, a modifier that's
+always applicable is not really a modifier, is it?
+
+And last, the whole story of the echo reference is that it needs to be
+opened when the speaker output is opened. How would we model this with
+the modifier concept?
+
+> Modifiers are an extra layer on top of devices. I don't think that we
+> have any default relation between the modifier PCM device and the
+> original PCM device (from the UCM device definition). A new value to
+> describe this (like "ReplacePlaybackPCM 1") may be introduced. Another
+> issue is when multiple modifiers with this description are active - they
+> conflict, so it should be described somewhere, too. Perhaps,
+> "ConflictingModifier" array may be added to API. But those extensions
+> are not required for the "Echo Reference" modifier.
+
+Right, the main issue here is that the PlaybackPCM and Echo reference
+PCM are joined and need to be handled at the same time. It's not a
+conflict, they are a bundle or a set of devices that cannot be used
+independently.

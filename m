@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7170E78C5D9
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 15:34:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEF5678C5E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 15:35:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B07174C;
-	Tue, 29 Aug 2023 15:34:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B07174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C602DEB;
+	Tue, 29 Aug 2023 15:34:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C602DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693316092;
-	bh=2ltaxuGSw/fANNriLkAGOnUNAoOi8LrR2UhEcb6MZlc=;
+	s=default; t=1693316117;
+	bh=RIVOyXKze1ZfOjReUuhqYZ7kbhZwOVxFZJx+uElh5Zs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=c4yvqVWRFVPUZCc6dC68YtHRNsZTBOY89QAtNg5BqWLoiaVpZUNjsIoFPfSNdcgyj
-	 lo0Xc5Cz9l04L6DwuM7P4kHb4K0wM47WuOGFTA1vu2W6Bt7hk6appnCvR+tD0Bvun0
-	 JUH+MyTJZgvsSIdh0sAXmGqy9NN3uxm1+aVsNkTw=
+	b=iAHR+O7bF4iKi1FfxiwojG5wtzv32zTvLUox6/pL41d6rg9XgRYk+WsKQFllDODeE
+	 y1LovxGjRrMh7ZpkVdlVo4yF44WDkDXaj+gz/1wXfp4i/sdohP/YFz1rFkoDHXYnHB
+	 D4MVT69hYLDgE2BbKchM8MGV8lXJhhGkBVd1Ghrk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1618F804DA; Tue, 29 Aug 2023 15:33:42 +0200 (CEST)
+	id A9F88F80579; Tue, 29 Aug 2023 15:34:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C1F7F80158;
-	Tue, 29 Aug 2023 15:33:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54018F80579;
+	Tue, 29 Aug 2023 15:34:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F255FF80570; Tue, 29 Aug 2023 15:33:39 +0200 (CEST)
+	id 9FAF4F8057D; Tue, 29 Aug 2023 15:33:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,31 +35,31 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C56A3F804DA
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 15:33:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C56A3F804DA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 132AEF80579
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 15:33:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 132AEF80579
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=e+WFGWnx
+ header.s=k20201202 header.b=Yv/CxX0B
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 787CB65720;
-	Tue, 29 Aug 2023 13:33:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0489AC433C9;
-	Tue, 29 Aug 2023 13:33:34 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9B2CF65791;
+	Tue, 29 Aug 2023 13:33:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E441C433C7;
+	Tue, 29 Aug 2023 13:33:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693316015;
-	bh=2ltaxuGSw/fANNriLkAGOnUNAoOi8LrR2UhEcb6MZlc=;
+	s=k20201202; t=1693316032;
+	bh=RIVOyXKze1ZfOjReUuhqYZ7kbhZwOVxFZJx+uElh5Zs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=e+WFGWnxUve53lntTGXKNou1uogKwy1Y0zhfJLKe97aFEbmLjMqqqfrOM6dvxuvvZ
-	 hSdtI2LNF7rWhQd/RJmeZrdraOO4hHP7bqeavlBlS0CndS2/N/PIigQrnrsvOmaxld
-	 e5WrdN1pZXdeDSYktnO9PUVMBgRAl0xPEuhUjTeL0dy+b4VjQJ+EE9WWhgtFvTAEyO
-	 7+UAIBRBCipGeRX1DcoWDoJzUe6JTsGBo2DlJ84GyLuYauFQQ9HonxcPSXRknUbM3s
-	 /d9mR9FZQ+HX73HpJ6X+1IUtEXk5K8FuUJHTSLIwz9JbiBInbP1aTjoskLRSNrUbC1
-	 pINTWgwJi0ixg==
+	b=Yv/CxX0BPu35vmYDSLSzeKydF74yndlRcs1w1YCLEtUZbdQkD/l8ij6mriiGK5k7r
+	 tlKXk0rHQ7vgNDJM/z8EGKBZ3g0UrR9tCQWt/hJi60GaXh+FF1QUQ2r125NzmVuDos
+	 b31E+WcR+x6bxJRtsAgCcmFxUDaThpmjVHl8QUqmCfZ5dLPCZADj2SHGmvLqWPfPep
+	 GX/g4WHb7/ul7wdrs1NEs6CMLQlaf1hC3Xd7ccgJC0SGzzyuix7c6HBcJILHPncljy
+	 u3E2iEoVP3oAaB6oLGSP0TKNxVwxE1vQ9lQxIoQR+CsbBSGyo1rJBGfqT5SlFuK6GN
+	 8SdLmmVMHA8Fw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -69,20 +69,20 @@ Cc: Takashi Iwai <tiwai@suse.de>,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.15 9/9] ALSA: seq: oss: Fix racy open/close of MIDI
+Subject: [PATCH AUTOSEL 5.10 7/7] ALSA: seq: oss: Fix racy open/close of MIDI
  devices
-Date: Tue, 29 Aug 2023 09:33:16 -0400
-Message-Id: <20230829133316.520410-9-sashal@kernel.org>
+Date: Tue, 29 Aug 2023 09:33:36 -0400
+Message-Id: <20230829133336.520573-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230829133316.520410-1-sashal@kernel.org>
-References: <20230829133316.520410-1-sashal@kernel.org>
+In-Reply-To: <20230829133336.520573-1-sashal@kernel.org>
+References: <20230829133336.520573-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.128
+X-stable-base: Linux 5.10.192
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FB35WBL2RTMUELZQPAQOZOMYNFE42CQH
-X-Message-ID-Hash: FB35WBL2RTMUELZQPAQOZOMYNFE42CQH
+Message-ID-Hash: 72TN4AMP53HJCTWMLKH33GGX3ZVXKIVA
+X-Message-ID-Hash: 72TN4AMP53HJCTWMLKH33GGX3ZVXKIVA
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FB35WBL2RTMUELZQPAQOZOMYNFE42CQH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72TN4AMP53HJCTWMLKH33GGX3ZVXKIVA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,7 +123,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 22 insertions(+), 13 deletions(-)
 
 diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
-index 07efb38f58ac1..f2940b29595f0 100644
+index f73ee0798aeab..be80ce72e0c72 100644
 --- a/sound/core/seq/oss/seq_oss_midi.c
 +++ b/sound/core/seq/oss/seq_oss_midi.c
 @@ -37,6 +37,7 @@ struct seq_oss_midi {
@@ -134,22 +134,21 @@ index 07efb38f58ac1..f2940b29595f0 100644
  };
  
  
-@@ -172,6 +173,7 @@ snd_seq_oss_midi_check_new_port(struct snd_seq_port_info *pinfo)
+@@ -171,6 +172,7 @@ snd_seq_oss_midi_check_new_port(struct snd_seq_port_info *pinfo)
  	mdev->flags = pinfo->capability;
  	mdev->opened = 0;
  	snd_use_lock_init(&mdev->use_lock);
 +	mutex_init(&mdev->open_mutex);
  
  	/* copy and truncate the name of synth device */
- 	strscpy(mdev->name, pinfo->name, sizeof(mdev->name));
-@@ -322,15 +324,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 	strlcpy(mdev->name, pinfo->name, sizeof(mdev->name));
+@@ -319,14 +321,16 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
  	int perm;
  	struct seq_oss_midi *mdev;
  	struct snd_seq_port_subscribe subs;
 +	int err;
  
- 	mdev = get_mididev(dp, dev);
- 	if (!mdev)
+ 	if ((mdev = get_mididev(dp, dev)) == NULL)
  		return -ENODEV;
  
 +	mutex_lock(&mdev->open_mutex);
@@ -162,7 +161,7 @@ index 07efb38f58ac1..f2940b29595f0 100644
  	}
  
  	perm = 0;
-@@ -340,14 +344,14 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+@@ -336,14 +340,14 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
  		perm |= PERM_READ;
  	perm &= mdev->flags;
  	if (perm == 0) {
@@ -181,7 +180,7 @@ index 07efb38f58ac1..f2940b29595f0 100644
  	}
  
  	perm &= ~mdev->opened;
-@@ -372,13 +376,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+@@ -368,13 +372,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
  	}
  
  	if (! mdev->opened) {
@@ -202,9 +201,9 @@ index 07efb38f58ac1..f2940b29595f0 100644
  }
  
  /*
-@@ -393,10 +401,9 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
- 	mdev = get_mididev(dp, dev);
- 	if (!mdev)
+@@ -388,10 +396,9 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+ 
+ 	if ((mdev = get_mididev(dp, dev)) == NULL)
  		return -ENODEV;
 -	if (! mdev->opened || mdev->devinfo != dp) {
 -		snd_use_lock_free(&mdev->use_lock);
@@ -216,7 +215,7 @@ index 07efb38f58ac1..f2940b29595f0 100644
  
  	memset(&subs, 0, sizeof(subs));
  	if (mdev->opened & PERM_WRITE) {
-@@ -415,6 +422,8 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+@@ -410,6 +417,8 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
  	mdev->opened = 0;
  	mdev->devinfo = NULL;
  

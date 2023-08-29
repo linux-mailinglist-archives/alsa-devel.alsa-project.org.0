@@ -2,115 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3832378E3AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 02:02:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A910E78E7DB
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 10:24:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7804F1E8;
-	Thu, 31 Aug 2023 02:01:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7804F1E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FB473E8;
+	Thu, 31 Aug 2023 10:23:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FB473E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693440124;
-	bh=JsG0T95QKICmO4tV+QqCsK8u/qRV2qWaCXJ8mpqkUxM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693470279;
+	bh=uiHTcKZ/pzf5OeOaygIiOjKX327QpjyeGPXLdRHQCmw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=knu5ORI5DvdY72AIjYldq2qx01uhUQYF3bwnvUEqXnkw9tp9aCuYuUCOB5m2Xciha
-	 rAUBVqSvG8lgjXstJtty7ZoNC6Xd98WZKI7NlRgMsaIu73W10xdUS3Ae7ICknJ/Yqa
-	 wZ1FkEe9mpb38XMkipOhxsy0QvVMb+pVo9i8B2xo=
+	b=N5DBsfrnRLxuN4vMsRVyq0/5+e9dpBlf3h2vcjahA93UhPD0b1CWGxUYWaum3y1jH
+	 kUYp8hSAT2UxGwdNhD947oegdlz6o8KgJHojD/JMwQBcxLPdDWahQoEYQRliyTlxL0
+	 +WY/h/M/ns8t1Kh1L4sUOIq4P/tANWzRNZXNgtK0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8DBEF80007; Thu, 31 Aug 2023 02:01:13 +0200 (CEST)
+	id CF2FEF804F3; Thu, 31 Aug 2023 10:23:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D209F800F5;
-	Thu, 31 Aug 2023 02:01:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00E3CF800F5;
+	Thu, 31 Aug 2023 10:23:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F855F80155; Thu, 31 Aug 2023 02:01:04 +0200 (CEST)
+	id 16D54F80236; Tue, 29 Aug 2023 20:36:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 905BFF80007;
-	Thu, 31 Aug 2023 02:00:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 905BFF80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B291F80155
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 20:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B291F80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=InA6JQ+i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693440035; x=1724976035;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JsG0T95QKICmO4tV+QqCsK8u/qRV2qWaCXJ8mpqkUxM=;
-  b=InA6JQ+i8NJg0LBYeT5iO8z7yyuIo4C3M/J/0OxZKQiZQSZ4nXNGqIR6
-   im8sszUH9SqK68oPQ5jLDWhG+BANKgpGzIgJSsq2Q3v95voLgkATm537M
-   mZNGmqL8Xg0UBDcgb1mwjw87PR/zGcKol0IH+XTnbxsNVO1NTo9YETOfy
-   TyqTt6JXbdPMxqsgJxwS5xMGg5zE/9+RD0f/9Ds+sFIDDlpucBa3ynnR3
-   0Fjcz08oYwX6EuyRUm+v/A4rc3zxYBhkys/yVCD+zx41FB78vxqZrtYNB
-   sSGnnkr6q3H+toHH+XsOHnquYSCX7zMzVDtmUqBRhfIHyOEyX6Y6kCtsr
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="379526994"
-X-IronPort-AV: E=Sophos;i="6.02,215,1688454000";
-   d="scan'208";a="379526994"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2023 17:00:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="1070008387"
-X-IronPort-AV: E=Sophos;i="6.02,215,1688454000";
-   d="scan'208";a="1070008387"
-Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
-  by fmsmga005.fm.intel.com with ESMTP; 30 Aug 2023 17:00:14 -0700
-Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qbV6Y-000ANY-1t;
-	Thu, 31 Aug 2023 00:00:10 +0000
-Date: Thu, 31 Aug 2023 07:59:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	alsa-devel@alsa-project.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
-	sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH v4 10/11] ASoC: SOF: Intel: Move binding to display
- driver outside of deferred probe
-Message-ID: <202308310715.lBXHTY4I-lkp@intel.com>
-References: <20230830153652.217855-11-maarten.lankhorst@linux.intel.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=M7jKN5n3
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-50087d47d4dso7612505e87.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 29 Aug 2023 11:36:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1693334187; x=1693938987;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=d7WlyYzqen5MI4P1iAbKBmvgwbKop0nGPA7AULKnw6o=;
+        b=M7jKN5n3mbxOj6lToXlIBhPfrGvC6yd0H/btRqbTG5GN77QQEHXEnWUgB/u9h37HEM
+         aQ3Yh0h+zDVLmyJK1+FIDzgTteH8rmbZviHp/ff61hTQgrTcyy0nUiodskPcy/wcBh5n
+         NIuaedyS4vgw2lhchhMUJW5L3lUOqkq8ajWK5jlq3m2SAdam1bwzA4e90x5TL4aZpkSM
+         YWobFR2JHrACTFmlppIlFi7ZjN29jj0Mal8JFRUSPqudgAs54EYml17nc/0bF0TlJu6K
+         124Lf8rCO4uKn9XVkhJWCryQagTVCb81ZFN8UFsc7Vzw1IrjJXssjEykqsPrreIM0fBF
+         8CXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693334187; x=1693938987;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=d7WlyYzqen5MI4P1iAbKBmvgwbKop0nGPA7AULKnw6o=;
+        b=XV5il6RsQ4ilb4Unh1Kz16NDh+yO7WLs7emu1cNQvZYF4FIzSj6WeBJlzSE//7pmFn
+         k8TXc2bQhrnxQM+b/op6LgV8SD2ITxwHxloEOdyNUBwFc9bsE9kOdwHT+AF7JmzgCjRE
+         AH1FoRUgSTZhtiu+dpGCXtfji9r2XaNE/8QmQ2NSZ6PDw0fEWOG+nrMDqjthBioLQIb0
+         jOd3XONVAO363SPj+uaq9CCPZpM4p6SqUT/33ONwJSjCVqqBxccs53PHVBwy72gcEypM
+         b5jaMO+5ZTpkU6igVfGwpwhQiMSOFy9I4INvbMp/eGKL76c7ixzzD6dkCGy83KXo6fu1
+         Uj3w==
+X-Gm-Message-State: AOJu0YwdlFvRI+Cpq6UNA8LV+QFNRfMEvMC/4dMg2gThvfG3yRjbH5mV
+	HZgWDQitcy+jLDWT7/Qfng==
+X-Google-Smtp-Source: 
+ AGHT+IEjZeDr07xYkGFW1xI0KR3jmlLbN0sEkoa4/s1YsvQ7klaZ7CTwLESdDc6wxza92JGAV/2Zkg==
+X-Received: by 2002:a05:6512:282c:b0:4ff:8f29:4411 with SMTP id
+ cf44-20020a056512282c00b004ff8f294411mr23976106lfb.9.1693334186618;
+        Tue, 29 Aug 2023 11:36:26 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:b958:3410:8e0c:ed68:cd6c:7cb8?
+ ([2001:9e8:b958:3410:8e0c:ed68:cd6c:7cb8])
+        by smtp.gmail.com with ESMTPSA id
+ p22-20020a05640210d600b00525683f9b2fsm5961948edu.5.2023.08.29.11.36.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Aug 2023 11:36:25 -0700 (PDT)
+Message-ID: <9954d57c-d864-0215-2efc-67440ce86563@gmail.com>
+Date: Tue, 29 Aug 2023 20:36:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230830153652.217855-11-maarten.lankhorst@linux.intel.com>
-Message-ID-Hash: YEAYHB6GCSXA5FKP7VODYWNCJKZG5W45
-X-Message-ID-Hash: YEAYHB6GCSXA5FKP7VODYWNCJKZG5W45
-X-MailFrom: lkp@intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 05/31] clk: rockchip: rk3128: Fix aclk_peri_src parent
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Rob Herring <robh+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Lee Jones <lee@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Elaine Zhang <zhangqing@rock-chips.com>, Johan Jonker <jbx6244@gmail.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, alsa-devel@alsa-project.org,
+ linux-clk@vger.kernel.org, linux-phy@lists.infradead.org,
+ Finley Xiao <finley.xiao@rock-chips.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>
+References: <20230829171647.187787-1-knaerzche@gmail.com>
+ <20230829171647.187787-6-knaerzche@gmail.com>
+ <dc2f32d3-001c-746f-6dc5-58a2a6a4a8e6@linaro.org>
+From: Alex Bee <knaerzche@gmail.com>
+In-Reply-To: <dc2f32d3-001c-746f-6dc5-58a2a6a4a8e6@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: knaerzche@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: MPX2DQJXSNJ3LT3WJUXZUJQM6AZJZBSM
+X-Message-ID-Hash: MPX2DQJXSNJ3LT3WJUXZUJQM6AZJZBSM
+X-Mailman-Approved-At: Thu, 31 Aug 2023 08:22:25 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YEAYHB6GCSXA5FKP7VODYWNCJKZG5W45/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MPX2DQJXSNJ3LT3WJUXZUJQM6AZJZBSM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,185 +138,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Maarten,
+Hi Krzysztof,
 
-kernel test robot noticed the following build warnings:
+thanks for your quick feedback.
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on tiwai-sound/for-next tiwai-sound/for-linus linus/master next-20230830]
-[cannot apply to v6.5]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+You're right: This series mixes up too many things. I'll split up and 
+re-send.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Maarten-Lankhorst/ASoC-SOF-core-add-no_wq-probe-and-remove-callbacks/20230831-033512
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230830153652.217855-11-maarten.lankhorst%40linux.intel.com
-patch subject: [PATCH v4 10/11] ASoC: SOF: Intel: Move binding to display driver outside of deferred probe
-config: x86_64-randconfig-005-20230831 (https://download.01.org/0day-ci/archive/20230831/202308310715.lBXHTY4I-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230831/202308310715.lBXHTY4I-lkp@intel.com/reproduce)
+(And fix my typos, indeed)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308310715.lBXHTY4I-lkp@intel.com/
+Best Regards,
 
-All warnings (new ones prefixed by >>):
+Alex
 
->> sound/soc/sof/intel/hda.c:1173:19: warning: variable 'bus' set but not used [-Wunused-but-set-variable]
-           struct hdac_bus *bus;
-                            ^
-   1 warning generated.
-
-
-vim +/bus +1173 sound/soc/sof/intel/hda.c
-
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1168  
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1169  int hda_dsp_probe(struct snd_sof_dev *sdev)
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1170  {
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1171  	struct pci_dev *pci = to_pci_dev(sdev->dev);
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1172  	struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
-47f868f27a979a Pierre-Louis Bossart  2023-08-30 @1173  	struct hdac_bus *bus;
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1174  	int ret = 0;
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1175  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1176  	hdev->dmic_dev = platform_device_register_data(sdev->dev, "dmic-codec",
-dd96daca6c83ec Liam Girdwood         2019-04-12  1177  						       PLATFORM_DEVID_NONE,
-dd96daca6c83ec Liam Girdwood         2019-04-12  1178  						       NULL, 0);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1179  	if (IS_ERR(hdev->dmic_dev)) {
-dd96daca6c83ec Liam Girdwood         2019-04-12  1180  		dev_err(sdev->dev, "error: failed to create DMIC device\n");
-dd96daca6c83ec Liam Girdwood         2019-04-12  1181  		return PTR_ERR(hdev->dmic_dev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1182  	}
-dd96daca6c83ec Liam Girdwood         2019-04-12  1183  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1184  	/*
-dd96daca6c83ec Liam Girdwood         2019-04-12  1185  	 * use position update IPC if either it is forced
-dd96daca6c83ec Liam Girdwood         2019-04-12  1186  	 * or we don't have other choice
-dd96daca6c83ec Liam Girdwood         2019-04-12  1187  	 */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1188  #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_FORCE_IPC_POSITION)
-dd96daca6c83ec Liam Girdwood         2019-04-12  1189  	hdev->no_ipc_position = 0;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1190  #else
-dd96daca6c83ec Liam Girdwood         2019-04-12  1191  	hdev->no_ipc_position = sof_ops(sdev)->pcm_pointer ? 1 : 0;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1192  #endif
-dd96daca6c83ec Liam Girdwood         2019-04-12  1193  
-1f7b5d52be130e Peter Ujfalusi        2023-04-04  1194  	if (sdev->dspless_mode_selected)
-1f7b5d52be130e Peter Ujfalusi        2023-04-04  1195  		hdev->no_ipc_position = 1;
-1f7b5d52be130e Peter Ujfalusi        2023-04-04  1196  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1197  	/* set up HDA base */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1198  	bus = sof_to_bus(sdev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1199  
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1200  	if (sdev->dspless_mode_selected)
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1201  		goto skip_dsp_setup;
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1202  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1203  	/* DSP base */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1204  	sdev->bar[HDA_DSP_BAR] = pci_ioremap_bar(pci, HDA_DSP_BAR);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1205  	if (!sdev->bar[HDA_DSP_BAR]) {
-dd96daca6c83ec Liam Girdwood         2019-04-12  1206  		dev_err(sdev->dev, "error: ioremap error\n");
-dd96daca6c83ec Liam Girdwood         2019-04-12  1207  		ret = -ENXIO;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1208  		goto hdac_bus_unmap;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1209  	}
-dd96daca6c83ec Liam Girdwood         2019-04-12  1210  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1211  	sdev->mmio_bar = HDA_DSP_BAR;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1212  	sdev->mailbox_bar = HDA_DSP_BAR;
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1213  skip_dsp_setup:
-dd96daca6c83ec Liam Girdwood         2019-04-12  1214  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1215  	/* allow 64bit DMA address if supported by H/W */
-ab152afa2427bb Takashi Iwai          2021-01-14  1216  	if (dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(64))) {
-dd96daca6c83ec Liam Girdwood         2019-04-12  1217  		dev_dbg(sdev->dev, "DMA mask is 32 bit\n");
-ab152afa2427bb Takashi Iwai          2021-01-14  1218  		dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(32));
-dd96daca6c83ec Liam Girdwood         2019-04-12  1219  	}
-8872fc0d045929 Takashi Iwai          2022-02-15  1220  	dma_set_max_seg_size(&pci->dev, UINT_MAX);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1221  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1222  	/* init streams */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1223  	ret = hda_dsp_stream_init(sdev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1224  	if (ret < 0) {
-dd96daca6c83ec Liam Girdwood         2019-04-12  1225  		dev_err(sdev->dev, "error: failed to init streams\n");
-dd96daca6c83ec Liam Girdwood         2019-04-12  1226  		/*
-dd96daca6c83ec Liam Girdwood         2019-04-12  1227  		 * not all errors are due to memory issues, but trying
-dd96daca6c83ec Liam Girdwood         2019-04-12  1228  		 * to free everything does not harm
-dd96daca6c83ec Liam Girdwood         2019-04-12  1229  		 */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1230  		goto free_streams;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1231  	}
-dd96daca6c83ec Liam Girdwood         2019-04-12  1232  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1233  	/*
-dd96daca6c83ec Liam Girdwood         2019-04-12  1234  	 * register our IRQ
-dd96daca6c83ec Liam Girdwood         2019-04-12  1235  	 * let's try to enable msi firstly
-dd96daca6c83ec Liam Girdwood         2019-04-12  1236  	 * if it fails, use legacy interrupt mode
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1237  	 * TODO: support msi multiple vectors
-dd96daca6c83ec Liam Girdwood         2019-04-12  1238  	 */
-bb67dd1878de57 Pierre-Louis Bossart  2019-08-06  1239  	if (hda_use_msi && pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI) > 0) {
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1240  		dev_info(sdev->dev, "use msi interrupt mode\n");
-7c11af9fcdc425 Bard Liao             2019-12-04  1241  		sdev->ipc_irq = pci_irq_vector(pci, 0);
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1242  		/* initialised to "false" by kzalloc() */
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1243  		sdev->msi_enabled = true;
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1244  	}
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1245  
-672ff5e3596ee2 Guennadi Liakhovetski 2019-07-22  1246  	if (!sdev->msi_enabled) {
-dd96daca6c83ec Liam Girdwood         2019-04-12  1247  		dev_info(sdev->dev, "use legacy interrupt mode\n");
-dd96daca6c83ec Liam Girdwood         2019-04-12  1248  		/*
-dd96daca6c83ec Liam Girdwood         2019-04-12  1249  		 * in IO-APIC mode, hda->irq and ipc_irq are using the same
-dd96daca6c83ec Liam Girdwood         2019-04-12  1250  		 * irq number of pci->irq
-dd96daca6c83ec Liam Girdwood         2019-04-12  1251  		 */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1252  		sdev->ipc_irq = pci->irq;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1253  	}
-dd96daca6c83ec Liam Girdwood         2019-04-12  1254  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1255  	dev_dbg(sdev->dev, "using IPC IRQ %d\n", sdev->ipc_irq);
-7c11af9fcdc425 Bard Liao             2019-12-04  1256  	ret = request_threaded_irq(sdev->ipc_irq, hda_dsp_interrupt_handler,
-7c11af9fcdc425 Bard Liao             2019-12-04  1257  				   hda_dsp_interrupt_thread,
-7c11af9fcdc425 Bard Liao             2019-12-04  1258  				   IRQF_SHARED, "AudioDSP", sdev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1259  	if (ret < 0) {
-dd96daca6c83ec Liam Girdwood         2019-04-12  1260  		dev_err(sdev->dev, "error: failed to register IPC IRQ %d\n",
-dd96daca6c83ec Liam Girdwood         2019-04-12  1261  			sdev->ipc_irq);
-7c11af9fcdc425 Bard Liao             2019-12-04  1262  		goto free_irq_vector;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1263  	}
-dd96daca6c83ec Liam Girdwood         2019-04-12  1264  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1265  	pci_set_master(pci);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1266  	synchronize_irq(pci->irq);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1267  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1268  	/*
-dd96daca6c83ec Liam Girdwood         2019-04-12  1269  	 * clear TCSEL to clear playback on some HD Audio
-dd96daca6c83ec Liam Girdwood         2019-04-12  1270  	 * codecs. PCI TCSEL is defined in the Intel manuals.
-dd96daca6c83ec Liam Girdwood         2019-04-12  1271  	 */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1272  	snd_sof_pci_update_bits(sdev, PCI_TCSEL, 0x07, 0);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1273  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1274  	/* init HDA capabilities */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1275  	ret = hda_init_caps(sdev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1276  	if (ret < 0)
-dd96daca6c83ec Liam Girdwood         2019-04-12  1277  		goto free_ipc_irq;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1278  
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1279  	if (!sdev->dspless_mode_selected) {
-1f5253b08e06bc Zhu Yingjiang         2019-05-22  1280  		/* enable ppcap interrupt */
-1f5253b08e06bc Zhu Yingjiang         2019-05-22  1281  		hda_dsp_ctrl_ppcap_enable(sdev, true);
-1f5253b08e06bc Zhu Yingjiang         2019-05-22  1282  		hda_dsp_ctrl_ppcap_int_enable(sdev, true);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1283  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1284  		/* set default mailbox offset for FW ready message */
-dd96daca6c83ec Liam Girdwood         2019-04-12  1285  		sdev->dsp_box.offset = HDA_DSP_MBOX_UPLINK_OFFSET;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1286  
-63e51fd33fef04 Ranjani Sridharan     2020-01-29  1287  		INIT_DELAYED_WORK(&hdev->d0i3_work, hda_dsp_d0i3_work);
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1288  	}
-63e51fd33fef04 Ranjani Sridharan     2020-01-29  1289  
-e2379d4a83da44 Pierre-Louis Bossart  2022-09-20  1290  	init_waitqueue_head(&hdev->waitq);
-e2379d4a83da44 Pierre-Louis Bossart  2022-09-20  1291  
-95fa7a62e16463 Pierre-Louis Bossart  2022-04-21  1292  	hdev->nhlt = intel_nhlt_init(sdev->dev);
-95fa7a62e16463 Pierre-Louis Bossart  2022-04-21  1293  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1294  	return 0;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1295  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1296  free_ipc_irq:
-dd96daca6c83ec Liam Girdwood         2019-04-12  1297  	free_irq(sdev->ipc_irq, sdev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1298  free_irq_vector:
-dd96daca6c83ec Liam Girdwood         2019-04-12  1299  	if (sdev->msi_enabled)
-dd96daca6c83ec Liam Girdwood         2019-04-12  1300  		pci_free_irq_vectors(pci);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1301  free_streams:
-dd96daca6c83ec Liam Girdwood         2019-04-12  1302  	hda_dsp_stream_free(sdev);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1303  /* dsp_unmap: not currently used */
-9fc6786f549c4d Pierre-Louis Bossart  2023-04-04  1304  	if (!sdev->dspless_mode_selected)
-dd96daca6c83ec Liam Girdwood         2019-04-12  1305  		iounmap(sdev->bar[HDA_DSP_BAR]);
-dd96daca6c83ec Liam Girdwood         2019-04-12  1306  hdac_bus_unmap:
-5bb0ecddb2a7f6 Pierre-Louis Bossart  2021-03-01  1307  	platform_device_unregister(hdev->dmic_dev);
-47f868f27a979a Pierre-Louis Bossart  2023-08-30  1308  
-dd96daca6c83ec Liam Girdwood         2019-04-12  1309  	return ret;
-dd96daca6c83ec Liam Girdwood         2019-04-12  1310  }
-dd96daca6c83ec Liam Girdwood         2019-04-12  1311  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Am 29.08.23 um 19:40 schrieb Krzysztof Kozlowski:
+> On 29/08/2023 19:16, Alex Bee wrote:
+>> From: Finley Xiao <finley.xiao@rock-chips.com>
+>>
+>> According to the TRM there are no specific cpll_peri, gpll_div2_peri or
+>> gpll_div3_peri gates, but a single clk_peri_src gate and the peri mux
+>> directly connects to the plls respectivly the pll divider clocks.
+>> Fix this by creating a single gated composite.
+>>
+>> Also rename all occurrences of "aclk_peri_src*" to clk_peri_src, since it
+>> is the parent for both peri aclks and hclks and that also matches the
+>> naming in the TRM.
+>>
+>> Fixes: f6022e88faca ("clk: rockchip: add clock controller for rk3128")
+>> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+>> [renamed aclk_peri_src -> clk_peri_src and added commit message]
+>> Signed-off-by: Alex Bee <knaerzche@gmail.com>
+> Please send fixes as separate patchset. Don't mix it with other work and
+> definitely it should not be in the middle of the patchset.
+>
+> Best regards,
+> Krzysztof
+>

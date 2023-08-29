@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B1F78CC2F
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A010A78CC2E
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:34:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B00C6EF3;
-	Tue, 29 Aug 2023 20:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B00C6EF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FFC8EED;
+	Tue, 29 Aug 2023 20:33:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FFC8EED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693334072;
-	bh=fUByFQQkxeV9Q5xd4DR4D93//94pHARsZ7BtD4aw5qM=;
+	s=default; t=1693334054;
+	bh=aAh7pggrGx+rydU21jItTEyR2u8v2NW6KzkIdm8ThbU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mxoZGkkK7A9viUNp7NsiMD0zVSy3e/KVgTC7Weba90t6307BTShuk+3kfgse97Ea4
-	 lMC1rKYZW0fhLVKgeAmKBDPBgTfA8ljqSzX5QNE49zeyTZQ5eF2SEhT/C3n4s+1uZB
-	 H79b0+/jGfbEarVclIZY1BfCEo8kdkeFaQY9cq28=
+	b=RKtE1HaGgGFj/OsRrhUQC/dke6ItgmGa+7mWCFCGPEQhFDBIIF1rjxX0qAJqeJQP2
+	 ITkIzqgGcDWQmIIAZJ/OOs29d/e3XVL+93JIhvdOUwwZ70ag2c0tAskYdCMGk/6Bm/
+	 rTK7hRnf/ZyysomrnOVU5jobBmx2GO4jeQ1j+O5I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F160F805B6; Tue, 29 Aug 2023 20:28:58 +0200 (CEST)
+	id 717DDF805AC; Tue, 29 Aug 2023 20:28:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5289F805B0;
-	Tue, 29 Aug 2023 20:28:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE966F805A0;
+	Tue, 29 Aug 2023 20:28:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9EADEF80527; Tue, 29 Aug 2023 19:18:27 +0200 (CEST)
+	id 3DD6CF80155; Tue, 29 Aug 2023 19:18:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1E81FF80537
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:17:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E81FF80537
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0179F80564
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:17:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0179F80564
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=aSD4wG+1
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-99c3d3c3db9so599028366b.3
+ header.s=20221208 header.b=DYqQwQyT
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-99bcc0adab4so614147666b.2
         for <alsa-devel@alsa-project.org>;
- Tue, 29 Aug 2023 10:17:56 -0700 (PDT)
+ Tue, 29 Aug 2023 10:17:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693329473; x=1693934273;
+        d=gmail.com; s=20221208; t=1693329474; x=1693934274;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dS+cPFrn5V/oSL99Q2BbWTKIW7SUu4ItJIJ2pH0oI9I=;
-        b=aSD4wG+1ZRnljM4CSIseFFCuF2Tv5IT8Wosx2+GepQr8oGYlYInqGm4jF10OVnDP0L
-         BZIXogAsXeoecVaZXYJFSl9ArISaPcBdoOdP4jX1SDAxCtLv80kdnqgfxqejZkeVK8Dr
-         1qSbdG5PVML8gIAK2mtsZlsFS3Ege/Q3pT+HLIPFg5AKuk49iKFo/GrUvhJ3w/rJ3vlb
-         Tuh6inFRswC+h53iRgRJPjrJBeB7t+T3ZE6ijXz9T3eyepS6VUDenDiDDy0ImCUkwaN0
-         8NEopfwb0O7l/QZ5RY84W3ft6aPTskb0Vl5+uIVtchApO7uOjs/JBm8Gs9uexal5+0xq
-         TWmQ==
+        bh=FWLxgtqau2yJo36SsneTQsDsVw22iqHp96edYBnf0k4=;
+        b=DYqQwQyTYCKikxyb60b1L/cidyYBoJlyYx7DxCxp/DB+czy+oU22765aVqWMq9gChN
+         hzGEHV6Ukz3+gA74rYbufEwC2om/X8PtXxXA3N4xznw7V3cK6OUceS64tiUtUh4lQPuZ
+         qvxPqnf3hK4BA3whTsYfsEi6LxYF3o5Zmt46/Dv4v/PQEoWAF/mUpr/tVxZ7VVCfDarZ
+         mLrYEkTYyOAS4e9Z4fXdLaY72iT9bCF1mJiIdDpUW5Iw6c1lmIe3+MiIWrm9ATp5bMj7
+         ZuPqabLS7qMEYqkgArtWxlTFln3aqUH+fMUcDuldrO9akccaSGMeHmH6Nx3uouf7wLBI
+         xCWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693329473; x=1693934273;
+        d=1e100.net; s=20221208; t=1693329474; x=1693934274;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dS+cPFrn5V/oSL99Q2BbWTKIW7SUu4ItJIJ2pH0oI9I=;
-        b=HHZQErePi5l/HgNvmFhXQEp+HHoNYUWME8HtKd3GoJs6CWLmUyXB/3lxNpik11fZW4
-         uLJmeTSB34CofgR1RcSsVEjU1nfFkC/0Rn9t4A225mmLj2R/hbFrkskMu8kdOi/3VCIo
-         mV9r0gtY/SEY/mIigLN35GFX+jJ6BHzt3UbKNP962ChSn1rGAoQql1m7gCniDmIQMLG8
-         Icug6SPhwLt27YSlQtGx/s+rOIFwL1RstI0WEpyHj3ov57ACGOkWLs/tEgZJKIWHBKX0
-         HWOxhaQPi3eM/nQ5e4qfN8hpqy8fJuzsk4SaKve2n62bhptkFdJ3flAgQYg25cI71qEC
-         F3vQ==
-X-Gm-Message-State: AOJu0YzfWQZ+59TaTrDNDACtIM1Pw587ScSywRr8Jhq93MAETiSWsc9k
-	gxPpjITyCR/8RuqfqEb+9w==
+        bh=FWLxgtqau2yJo36SsneTQsDsVw22iqHp96edYBnf0k4=;
+        b=hsUEYT402PVXXWTFiRlVafN/rinxQkENJtMHjIQwVIs7xLlwqU6gJ6H8qvI+JDV7rK
+         3C0WucYvk7z2Qs8dlSAIjetE9uCrmc9/IQSacvP1Qz8vFmzKZynCrbBlLN80MwcVXBQR
+         r1MwtiQ0mo4tVVzToPycR3vG3H+0pCOi7iON2WVqnddMGJLOcWLqglP1GXYKPrJTPDzj
+         49utr8rw2JUJLluTRq+QdEM2PIourWPQKrRkEOCotQPruXI1HNIzse7QUNcQOj7ig3zj
+         PvBtydoPJ7Y703YM0bETp2e7Z6i3Vg1bph2vfeap6EFiiwTu1sjzK31ayV2E6FrfKFGe
+         ullA==
+X-Gm-Message-State: AOJu0YxbceGFAlut7RR8EEINEATXT2d++AzSYedPWthDK3Os7XOw7kIY
+	gYpUvUIZBxExhd05R2eDKQ==
 X-Google-Smtp-Source: 
- AGHT+IGcrzem3XmHh2sQJCxUgf3Dq9aCyWk4H3R61SzzGzQKcWYq2aZscEw/gTmdQ+TjCJfx6SK5jg==
-X-Received: by 2002:a17:906:3018:b0:99c:ad52:b00 with SMTP id
- 24-20020a170906301800b0099cad520b00mr20752169ejz.6.1693329473271;
-        Tue, 29 Aug 2023 10:17:53 -0700 (PDT)
+ AGHT+IHXNp8WBS05GZKX2uNVCiNbXcRpufiupVelX14WxEIUnMHV/eQymrQIzu4L1T4F5np5oSoR4g==
+X-Received: by 2002:a17:906:13:b0:9a2:19ea:88fc with SMTP id
+ 19-20020a170906001300b009a219ea88fcmr13209839eja.71.1693329474462;
+        Tue, 29 Aug 2023 10:17:54 -0700 (PDT)
 Received: from U4.lan ([2001:9e8:b958:3410:8e0c:ed68:cd6c:7cb8])
         by smtp.gmail.com with ESMTPSA id
- a21-20020a1709062b1500b00993cc1242d4sm6115834ejg.151.2023.08.29.10.17.52
+ a21-20020a1709062b1500b00993cc1242d4sm6115834ejg.151.2023.08.29.10.17.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Aug 2023 10:17:52 -0700 (PDT)
+        Tue, 29 Aug 2023 10:17:53 -0700 (PDT)
 From: Alex Bee <knaerzche@gmail.com>
 To: Heiko Stuebner <heiko@sntech.de>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -110,10 +110,9 @@ Cc: Elaine Zhang <zhangqing@rock-chips.com>,
 	linux-clk@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Alex Bee <knaerzche@gmail.com>
-Subject: [PATCH 29/31] ARM: dts: rockchip: Make usbphy the parent of
- SCLK_USB480M for RK312x
-Date: Tue, 29 Aug 2023 19:16:45 +0200
-Message-ID: <20230829171647.187787-30-knaerzche@gmail.com>
+Subject: [PATCH 30/31] ARM: dts: rockchip: Add sdmmc_det pinctrl for RK312x
+Date: Tue, 29 Aug 2023 19:16:46 +0200
+Message-ID: <20230829171647.187787-31-knaerzche@gmail.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829171647.187787-1-knaerzche@gmail.com>
 References: <20230829171647.187787-1-knaerzche@gmail.com>
@@ -125,32 +124,25 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UYD4DL5HFSQ5AMMVHNNSEMA3JBFN4JYS
-X-Message-ID-Hash: UYD4DL5HFSQ5AMMVHNNSEMA3JBFN4JYS
+Message-ID-Hash: JFRXNRCY3QDRCHJ7FGQY7XQU5JEXHTGW
+X-Message-ID-Hash: JFRXNRCY3QDRCHJ7FGQY7XQU5JEXHTGW
 X-Mailman-Approved-At: Tue, 29 Aug 2023 18:28:45 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UYD4DL5HFSQ5AMMVHNNSEMA3JBFN4JYS/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JFRXNRCY3QDRCHJ7FGQY7XQU5JEXHTGW/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Without setting the parent for SCLK_USB480M the clock will use xin24m as
-it's default parent. While this is generally not an issue for the usb
-blocks to work, but the clock driver will "think" it runs at 24 MHz.
-That becomes an issue for RK312x since SCLK_USB480M can be a parent for
-other HW blocks (users of mux_pll_src_5plls_p) but they never will choose
-this clock as their parent, because it runs at OSC frequency.
-
-This sets usb480m_phy as SCLK_USB480M's parent, which now runs and outputs
-the expected frequency of 480 MHz and the other blocks can choose
-SCLK_USB480M as their parent if needed.
+The pincontrol for sd card detection is currently missing.
+Add it.
 
 Signed-off-by: Alex Bee <knaerzche@gmail.com>
 ---
@@ -158,27 +150,20 @@ Signed-off-by: Alex Bee <knaerzche@gmail.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm/boot/dts/rockchip/rk312x.dtsi b/arch/arm/boot/dts/rockchip/rk312x.dtsi
-index b13957d55500..19bd6448d122 100644
+index 19bd6448d122..5388264b54f6 100644
 --- a/arch/arm/boot/dts/rockchip/rk312x.dtsi
 +++ b/arch/arm/boot/dts/rockchip/rk312x.dtsi
-@@ -293,6 +293,8 @@ usb_host_ehci: usb@101c0000 {
- 		reg = <0x101c0000 0x20000>;
- 		interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&cru HCLK_HOST2>;
-+		assigned-clocks = <&cru SCLK_USB480M>;
-+		assigned-clock-parents = <&usb2phy>;
- 		phys = <&usb2phy_host>;
- 		phy-names = "usb";
- 		status = "disabled";
-@@ -303,6 +305,8 @@ usb_host_ohci: usb@101e0000 {
- 		reg = <0x101e0000 0x20000>;
- 		interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&cru HCLK_HOST2>;
-+		assigned-clocks = <&cru SCLK_USB480M>;
-+		assigned-clock-parents = <&usb2phy>;
- 		phys = <&usb2phy_host>;
- 		phy-names = "usb";
- 		status = "disabled";
+@@ -969,6 +969,10 @@ sdmmc_cmd: sdmmc-cmd {
+ 				rockchip,pins = <1 RK_PB7 1 &pcfg_pull_default>;
+ 			};
+ 
++			sdmmc_det: sdmmc-det {
++				rockchip,pins = <1 RK_PC1 1 &pcfg_pull_default>;
++			};
++
+ 			sdmmc_wp: sdmmc-wp {
+ 				rockchip,pins = <1 RK_PA7 1 &pcfg_pull_default>;
+ 			};
 -- 
 2.42.0
 

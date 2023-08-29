@@ -2,94 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DD1578C888
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 17:25:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 561F578C8AF
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 17:38:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE4AB208;
-	Tue, 29 Aug 2023 17:24:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE4AB208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87344208;
+	Tue, 29 Aug 2023 17:37:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87344208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693322733;
-	bh=S2OrXeEetaXxJWO+nOv8YwZ1HTZJEMQj0WR/NSWMXcA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693323480;
+	bh=ooPvhwAJdyd0IoXFo24JeGWpBTU0RjFk7t2sspJRDOc=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=U1hLB8ksFdPtZU42NMUaQ8DbrGXg6bCNtdw/TjsCPrhjwj9FFQXaMlhqVgTAibMF+
-	 w8NRGZmWC8k5Z6RhBRHmXetiDzCnECOkX+rFv7kT4MgLAMfFNlH81gfHTy+8jPhLgl
-	 ODV9U3JGJPkJme/WgS4KRblwC8hYp7PB/QDijIkg=
+	b=cAL1LsooxJPk6MKmRH2DenhacZOcIcd+IcN0IJHUXuIfcsBtLLdwC4aEwQIhT8GBP
+	 icINIYk21DwjxAjMUWPD6yY8KFA19bVofT3pxsDQ+z3z1XXSA/+aFMD/qXaEGcMOkI
+	 q2CY86DZa1mzOaMNBPAeMYuoDKBvbauFSTUz89AI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9B79F8032D; Tue, 29 Aug 2023 17:24:42 +0200 (CEST)
+	id EA6FFF80158; Tue, 29 Aug 2023 17:37:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 390ECF80155;
-	Tue, 29 Aug 2023 17:24:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75D19F80155;
+	Tue, 29 Aug 2023 17:37:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C1A7F80158; Tue, 29 Aug 2023 17:24:39 +0200 (CEST)
+	id B110BF80158; Tue, 29 Aug 2023 17:37:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DCE42F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 17:24:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCE42F800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YHeJGnu+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693322678; x=1724858678;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=S2OrXeEetaXxJWO+nOv8YwZ1HTZJEMQj0WR/NSWMXcA=;
-  b=YHeJGnu+A3tXutZj2HdA9wdE5CKFgI7NNdfewoUjDoAr2NC92JaN4DXA
-   L4dlrG70GEUWRlTjVdzQ+3kD/pqL+DlQaYFatwjxWyEWJKxeOUvv7mxKA
-   s4zGN2OUvP3d+tbI218WZk1gXqN0jcYsAf1I2s5mEEb+uvZ5roCEJJwuB
-   XnyQUn0p5Ryud0wxJFZHDSJ9Swqh5q9NxY1PNtpb/emQKpg9xbH/v4jIO
-   8ggaziMOjoW8ey2kbsJ2aR8jJTtYQXzfhUI5rIMBmMWBqtkhdpBNx9oQ+
-   zlVB60o3pSEkQLWupBEBcBtwIOi0lRNdmUEtTEfjASB8TdjAgJ56xTIS7
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="406392732"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000";
-   d="scan'208";a="406392732"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 08:24:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="853321234"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000";
-   d="scan'208";a="853321234"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP; 29 Aug 2023 08:24:31 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qb0Zx-004ukL-1k;
-	Tue, 29 Aug 2023 18:24:29 +0300
-Date: Tue, 29 Aug 2023 18:24:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: ak4642: Simplify probe()
-Message-ID: <ZO4NrT36gbwc27+0@smile.fi.intel.com>
-References: <20230828180003.127896-1-biju.das.jz@bp.renesas.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C86EF800F5
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 17:36:59 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id CCD1011DD;
+	Tue, 29 Aug 2023 17:36:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz CCD1011DD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1693323418; bh=11qlhv9egoq0sKoXRXS9PLThHO3XYbJhEE92qoNtr6o=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=dK+sjQLsGL9Z04BpALzzOrf2BiWQ1FUmID/VCiI8YsmvDgRacOUVGsZ3QKIFTu5Ta
+	 hzdOm0FRGB0AZV5O5vlhElyjIlCR1mCrhO6q4HZxYqpoSxP2h0PkGfKvKPtQ3NPtn/
+	 eHFliAp78VXR7rGlq5UFP21F8ptIyE2+IPl1jBVk=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Tue, 29 Aug 2023 17:36:52 +0200 (CEST)
+Message-ID: <6fc8a33a-52f2-0cd1-6259-b2b974548602@perex.cz>
+Date: Tue, 29 Aug 2023 17:36:52 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230828180003.127896-1-biju.das.jz@bp.renesas.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: 3KZ6LIHQWI24SS63O7UMDKSUPQJJZBCQ
-X-Message-ID-Hash: 3KZ6LIHQWI24SS63O7UMDKSUPQJJZBCQ
-X-MailFrom: andriy.shevchenko@linux.intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Curtis Malainey <cujomalainey@google.com>
+Cc: cujomalainey@chromium.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ ethan.geller@gmail.com
+References: <20230824213312.1258499-1-cujomalainey@chromium.org>
+ <ce20d02b-56ed-acd1-411b-8c68d8cabea8@perex.cz>
+ <CAOReqxiDZOAEYYb5c73AHu+Nd2vZinLR5qdMAVJnEcV8TS6=Nw@mail.gmail.com>
+ <6d498d35-841d-4ea4-2fd9-990f9b02563e@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 1/2] ucm: docs: Add EchoReferenceDev
+In-Reply-To: <6d498d35-841d-4ea4-2fd9-990f9b02563e@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: S4T766NIDZ36IFKDCV43IXH2VG3XVGJU
+X-Message-ID-Hash: S4T766NIDZ36IFKDCV43IXH2VG3XVGJU
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KZ6LIHQWI24SS63O7UMDKSUPQJJZBCQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S4T766NIDZ36IFKDCV43IXH2VG3XVGJU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,41 +99,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Aug 28, 2023 at 07:00:03PM +0100, Biju Das wrote:
-> Simpilfy probe() by replacing of_device_get_match_data() and id lookup for
-> retrieving match data by i2c_get_match_data() and replace
-> dev_err()->dev_err_probe().
+On 28. 08. 23 20:35, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 8/28/23 12:59, Curtis Malainey wrote:
+>> On Sat, Aug 26, 2023 at 4:28 AM Jaroslav Kysela <perex@perex.cz> wrote:
+>>>
+>>> On 24. 08. 23 23:33, cujomalainey@chromium.org wrote:
+>>>> From: Curtis Malainey <cujomalainey@chromium.org>
+>>>>
+>>>> Sometimes userspace may want to use a reference channel to cancel echos
+>>>> when using video chat, this value identifies the device which carries
+>>>> that channel.
+>>>
+>>> The UCM modifier should be used for this - see "Echo Reference" comments in
+>>> use-case.h.
+>>>
+>>> Note that this allows additional setup (in Sequences) for this stream.
+>>>
+>>>                                                  Jaroslav
+>>
+>> I was under the impression modifiers were state manipulators that
+>> acted upon existing devices/pcms and did not designate their own PCM.
+>> That is at least how we use them in CRAS.
+>>
+>> Are there any examples of how to designate a PCM? I don't see any
+>> modifiers at all in ucm-conf repo.
+> 
+> I will second Curtis' request for clarifications.
+> 
+> I naively thought that modifiers would be used to e.g. select a 'Deep
+> Buffer' output for low-power playback, or different capture streams
+> based on the needs of the applications. It's not uncommon for capture
+> applications to request different PCM streams for raw, AEC processed,
+> AEC+NS processed data.
+> 
+> Echo reference is not really something that varies based on any
+> qualifiers. And specifically in the Chrome case we want userspace to
+> open the PCM echo reference device whenever the playback is used. So
+> it's not really a use-case dependent thing but more a way to express a
+> dependency between PCM devices.
 
-...
+It seems that there are some assumptions. I will try to address some things:
 
-> -	if (np) {
-> -		const struct of_device_id *of_id;
-> -
+You can enable/use multiple modifiers per device.
 
-> +	if (dev_fwnode(dev)) {
+The modifiers may define extra PCM streams in the standard Value section - you 
+can use CapturePCM value for the modifier like "Echo Reference". Modifiers may 
+alter the characteristics of the original UCM device stream (using command 
+sequences), too.
 
-Why do we need this at all?
+Modifiers are an extra layer on top of devices. I don't think that we have any 
+default relation between the modifier PCM device and the original PCM device 
+(from the UCM device definition). A new value to describe this (like 
+"ReplacePlaybackPCM 1") may be introduced. Another issue is when multiple 
+modifiers with this description are active - they conflict, so it should be 
+described somewhere, too. Perhaps, "ConflictingModifier" array may be added to 
+API. But those extensions are not required for the "Echo Reference" modifier.
 
->  		mcko = ak4642_of_parse_mcko(dev);
->  		if (IS_ERR(mcko))
->  			mcko = NULL;
-
-This can suffice on its own, right?
-
-Can be done in a separate change as a precursor to this one.
-
-> -
-> -		of_id = of_match_device(ak4642_of_match, dev);
-> -		if (of_id)
-> -			drvdata = of_id->data;
-> -	} else {
-> -		const struct i2c_device_id *id =
-> -			i2c_match_id(ak4642_i2c_id, i2c);
-> -		drvdata = (const struct ak4642_drvdata *)id->driver_data;
->  	}
+						Jaroslav
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

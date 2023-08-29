@@ -2,59 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F4B578CF5C
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Aug 2023 00:03:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FAE378CF5D
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Aug 2023 00:03:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FB16827;
-	Wed, 30 Aug 2023 00:02:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FB16827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43328DF1;
+	Wed, 30 Aug 2023 00:03:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43328DF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693346627;
-	bh=SprIKnjxd+XbEfV+ec+7dXXthO9g9LD+yn4zC/aX/LY=;
+	s=default; t=1693346635;
+	bh=WdCCn6IEol8aJUkjka8g/S8DjEGq58vP7C1WeChmXKY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ky1OJFzFBy0KMNbUrFBU1nzruUUHHT8VQxGioRLbTau0uz4+QxomiMJpsLTDv1/Sr
-	 icZOS4PMjjd+wd+O3g6EHCGwI02p6t7P0e9HnLYIPW4NjSEAYdYjx9wZTXqh+5BNGU
-	 yvklHweWoUaXj2tt+TiLEnNhaVFlY0oLfKKtuO/4=
+	b=J6LZA1JsuZuS3MrfOgtSSvGdfdnE3Q5Yz1hns1XU9qsF1pWnEMcgd5QVFxFN8pQQ8
+	 5TkBlY3Ml699J/AZjRb7qaFutqZGCoIr92ACqonhsPuUO58Kilg5jLDqwIIgfIEWIp
+	 LgKUfGr8tCN7x1eItIGyFGoB8idDE39G1AKspc/k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACF6FF80580; Wed, 30 Aug 2023 00:01:47 +0200 (CEST)
+	id 45AAAF805A9; Wed, 30 Aug 2023 00:01:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBCA8F8057F;
-	Wed, 30 Aug 2023 00:01:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E94ABF80236;
+	Wed, 30 Aug 2023 00:01:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F265F80571; Wed, 30 Aug 2023 00:01:42 +0200 (CEST)
+	id CE2E0F80571; Wed, 30 Aug 2023 00:01:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
 Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A71A4F80158
-	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 00:01:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A71A4F80158
+	by alsa1.perex.cz (Postfix) with ESMTPS id B70A6F800D1
+	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 00:01:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B70A6F800D1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
- header.s=default header.b=GkqSsDP1
+ header.s=default header.b=mzO8dV0X
 Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.mutex.one (Postfix) with ESMTP id 2155016C0048;
-	Wed, 30 Aug 2023 01:01:27 +0300 (EEST)
+	by mail.mutex.one (Postfix) with ESMTP id 63A5E16C0056;
+	Wed, 30 Aug 2023 01:01:29 +0300 (EEST)
 X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
 Received: from mail.mutex.one ([127.0.0.1])
 	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id Nbl6XnZaHL6p; Wed, 30 Aug 2023 01:01:25 +0300 (EEST)
+	with ESMTP id PNOUSkh30e1l; Wed, 30 Aug 2023 01:01:28 +0300 (EEST)
 From: Marian Postevca <posteuca@mutex.one>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
-	t=1693346485; bh=SprIKnjxd+XbEfV+ec+7dXXthO9g9LD+yn4zC/aX/LY=;
+	t=1693346488; bh=WdCCn6IEol8aJUkjka8g/S8DjEGq58vP7C1WeChmXKY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GkqSsDP1U4E46wv7YhtutIxrTZxLoza5ePPRHLpcvq6X4374KOvMMeGuYcHwvQnZl
-	 NrCHGd+Xg3T8gFY69eNqQ1ZoUF171ZVjyZ5+x3IyrUV3eKLL1d+upjKWAGxXXBJDcb
-	 4HNOfMEhGZ2ZXMJx8QqPyVluWZjYTTDA0A3NyqHM=
+	b=mzO8dV0XTEbnYzYfhq0XLYBpaqgk5a2qja47ZIWOAhsNeQDC8ng5FF1Q8iLYtvKa2
+	 BO7fMHODtmUjmez8Q0GkalWIHab7rU9+VaPhO5uubggf50U9SnshZ7umzs9iCb6+Ji
+	 xOSEd2nH69sdZTbHkqXTCD9Qr5D14p355GEO3MGY=
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Takashi Iwai <tiwai@suse.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -62,15 +63,16 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	Marian Postevca <posteuca@mutex.one>
-Subject: [PATCH v3 3/5] ASoC: es8316: Enable support for MCLK div by 2
-Date: Wed, 30 Aug 2023 01:01:14 +0300
-Message-ID: <20230829220116.1159-4-posteuca@mutex.one>
+Subject: [PATCH v3 4/5] ASoC: amd: acp: Add support for splitting the codec
+ specific code from the ACP driver
+Date: Wed, 30 Aug 2023 01:01:15 +0300
+Message-ID: <20230829220116.1159-5-posteuca@mutex.one>
 In-Reply-To: <20230829220116.1159-1-posteuca@mutex.one>
 References: <20230829220116.1159-1-posteuca@mutex.one>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BSPTUJK6L4HCB3GXJVKGD75566PBBLMS
-X-Message-ID-Hash: BSPTUJK6L4HCB3GXJVKGD75566PBBLMS
+Message-ID-Hash: YIPPLROY4ABRZIXPGSSDPD6MVURO2I5D
+X-Message-ID-Hash: YIPPLROY4ABRZIXPGSSDPD6MVURO2I5D
 X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -83,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BSPTUJK6L4HCB3GXJVKGD75566PBBLMS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YIPPLROY4ABRZIXPGSSDPD6MVURO2I5D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,91 +94,231 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To properly support a line of Huawei laptops with an AMD CPU
-and an ES8336 codec connected to the ACP3X module, we need
-to enable the codec option to divide the MCLK by 2.
-This is needed because for at least one SKU that has a 48Mhz
-MCLK the sound is distorted unless the MCLK div by 2 option
-is enabled.
+This commit adds support for splitting more complicated machine
+drivers, that need special handling, from the generic ACP code.
 
-The option to divide the MCLK will first be tried. If no suitable
-clocking can be generated from this frequency, then the normal
-non-halved MCLK frequency will be tried.
+By adding support for callbacks to configure and handle codec
+specific implementation details, we can split them in separate
+files that don't clutter the ACP code.
 
 Signed-off-by: Marian Postevca <posteuca@mutex.one>
 ---
- sound/soc/codecs/es8316.c | 45 +++++++++++++++++++++++++++++----------
- sound/soc/codecs/es8316.h |  3 +++
- 2 files changed, 37 insertions(+), 11 deletions(-)
+ sound/soc/amd/acp/acp-legacy-mach.c | 82 +++++++++++++++++++++++++----
+ sound/soc/amd/acp/acp-mach.h        | 66 +++++++++++++++++++++++
+ 2 files changed, 137 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index a1c3e10c3cf1..e53b2856d625 100644
---- a/sound/soc/codecs/es8316.c
-+++ b/sound/soc/codecs/es8316.c
-@@ -469,19 +469,42 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
- 	u8 bclk_divider;
- 	u16 lrck_divider;
- 	int i;
-+	unsigned int clk = es8316->sysclk / 2;
-+	bool clk_valid = false;
-+
-+	/* We will start with halved sysclk and see if we can use it
-+	 * for proper clocking. This is to minimise the risk of running
-+	 * the CODEC with a too high frequency. We have an SKU where
-+	 * the sysclk frequency is 48Mhz and this causes the sound to be
-+	 * sped up. If we can run with a halved sysclk, we will use it,
-+	 * if we can't use it, then full sysclk will be used.
-+	 */
-+	do {
-+		/* Validate supported sample rates that are autodetected from MCLK */
-+		for (i = 0; i < ARRAY_SIZE(supported_mclk_lrck_ratios); i++) {
-+			const unsigned int ratio = supported_mclk_lrck_ratios[i];
-+
-+			if (clk % ratio != 0)
-+				continue;
-+			if (clk / ratio == params_rate(params))
-+				break;
-+		}
-+		if (i == ARRAY_SIZE(supported_mclk_lrck_ratios)) {
-+			if (clk == es8316->sysclk)
-+				return -EINVAL;
-+			clk = es8316->sysclk;
-+		} else {
-+			clk_valid = true;
-+		}
-+	} while (!clk_valid);
+diff --git a/sound/soc/amd/acp/acp-legacy-mach.c b/sound/soc/amd/acp/acp-legacy-mach.c
+index 6d57d17ddfd7..ba39b4dcdd6d 100644
+--- a/sound/soc/amd/acp/acp-legacy-mach.c
++++ b/sound/soc/amd/acp/acp-legacy-mach.c
+@@ -75,6 +75,33 @@ static struct acp_card_drvdata rt5682s_rt1019_rmb_data = {
+ 	.tdm_mode = false,
+ };
  
--	/* Validate supported sample rates that are autodetected from MCLK */
--	for (i = 0; i < ARRAY_SIZE(supported_mclk_lrck_ratios); i++) {
--		const unsigned int ratio = supported_mclk_lrck_ratios[i];
--
--		if (es8316->sysclk % ratio != 0)
--			continue;
--		if (es8316->sysclk / ratio == params_rate(params))
--			break;
-+	if (clk != es8316->sysclk) {
-+		snd_soc_component_update_bits(component, ES8316_CLKMGR_CLKSW,
-+					      ES8316_CLKMGR_CLKSW_MCLK_DIV,
-+					      ES8316_CLKMGR_CLKSW_MCLK_DIV);
- 	}
--	if (i == ARRAY_SIZE(supported_mclk_lrck_ratios))
++static bool acp_asoc_init_ops(struct acp_card_drvdata *priv)
++{
++	return false;
++}
++
++static int acp_asoc_suspend_pre(struct snd_soc_card *card)
++{
++	int ret;
++
++	ret = acp_ops_suspend_pre(card);
++	if (ret == 1)
++		return 0;
++	else
++		return ret;
++}
++
++static int acp_asoc_resume_post(struct snd_soc_card *card)
++{
++	int ret;
++
++	ret = acp_ops_resume_post(card);
++	if (ret == 1)
++		return 0;
++	else
++		return ret;
++}
++
+ static int acp_asoc_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_card *card = NULL;
+@@ -83,35 +110,68 @@ static int acp_asoc_probe(struct platform_device *pdev)
+ 	struct acp_card_drvdata *acp_card_drvdata;
+ 	int ret;
+ 
+-	if (!pdev->id_entry)
 -		return -EINVAL;
--	lrck_divider = es8316->sysclk / params_rate(params);
-+
-+	lrck_divider = clk / params_rate(params);
- 	bclk_divider = lrck_divider / 4;
- 	switch (params_format(params)) {
- 	case SNDRV_PCM_FORMAT_S16_LE:
-diff --git a/sound/soc/codecs/es8316.h b/sound/soc/codecs/es8316.h
-index c335138e2837..0ff16f948690 100644
---- a/sound/soc/codecs/es8316.h
-+++ b/sound/soc/codecs/es8316.h
-@@ -129,4 +129,7 @@
- #define ES8316_GPIO_FLAG_GM_NOT_SHORTED		0x02
- #define ES8316_GPIO_FLAG_HP_NOT_INSERTED	0x04
++	if (!pdev->id_entry) {
++		ret = -EINVAL;
++		goto out;
++	}
  
-+/* ES8316_CLKMGR_CLKSW */
-+#define ES8316_CLKMGR_CLKSW_MCLK_DIV	0x80
+ 	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
+-	if (!card)
+-		return -ENOMEM;
++	if (!card) {
++		ret = -ENOMEM;
++		goto out;
++	}
+ 
++	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
++	acp_card_drvdata = card->drvdata;
++	acp_card_drvdata->acpi_mach = (struct snd_soc_acpi_mach *)pdev->dev.platform_data;
+ 	card->dev = dev;
+ 	card->owner = THIS_MODULE;
+ 	card->name = pdev->id_entry->name;
+-	card->drvdata = (struct acp_card_drvdata *)pdev->id_entry->driver_data;
+-	/* Widgets and controls added per-codec in acp-mach-common.c */
+ 
+-	acp_card_drvdata = card->drvdata;
++	acp_asoc_init_ops(card->drvdata);
++
++	/* If widgets and controls are not set in specific callback,
++	 * they will be added per-codec in acp-mach-common.c
++	 */
++	ret = acp_ops_configure_widgets(card);
++	if (ret < 0) {
++		dev_err(&pdev->dev,
++			"Cannot configure widgets for card (%s): %d\n",
++			card->name, ret);
++		goto out;
++	}
++	card->suspend_pre = acp_asoc_suspend_pre;
++	card->resume_post = acp_asoc_resume_post;
++
++	ret = acp_ops_probe(card);
++	if (ret < 0) {
++		dev_err(&pdev->dev,
++			"Cannot probe card (%s): %d\n",
++			card->name, ret);
++		goto out;
++	}
++
+ 	dmi_id = dmi_first_match(acp_quirk_table);
+ 	if (dmi_id && dmi_id->driver_data)
+ 		acp_card_drvdata->tdm_mode = dmi_id->driver_data;
+ 
+-	acp_legacy_dai_links_create(card);
++	ret = acp_legacy_dai_links_create(card);
++	if (ret) {
++		dev_err(&pdev->dev,
++			"Cannot create dai links for card (%s): %d\n",
++			card->name, ret);
++		goto out;
++	}
+ 
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+ 	if (ret) {
+ 		dev_err(&pdev->dev,
+ 				"devm_snd_soc_register_card(%s) failed: %d\n",
+ 				card->name, ret);
+-		return ret;
++		goto out;
+ 	}
+-
+-	return 0;
++out:
++	return ret;
+ }
+ 
+ static const struct platform_device_id board_ids[] = {
+diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
+index 2b3ec6594023..8cc33926e66b 100644
+--- a/sound/soc/amd/acp/acp-mach.h
++++ b/sound/soc/amd/acp/acp-mach.h
+@@ -20,6 +20,10 @@
+ 
+ #define TDM_CHANNELS	8
+ 
++#define ACP_OPS(priv, cb)	((priv)->ops.cb)
++
++#define acp_get_drvdata(card) ((struct acp_card_drvdata *)(card)->drvdata)
++
+ enum be_id {
+ 	HEADSET_BE_ID = 0,
+ 	AMP_BE_ID,
+@@ -50,6 +54,14 @@ enum platform_end_point {
+ 	REMBRANDT,
+ };
+ 
++struct acp_mach_ops {
++	int (*probe)(struct snd_soc_card *card);
++	int (*configure_link)(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
++	int (*configure_widgets)(struct snd_soc_card *card);
++	int (*suspend_pre)(struct snd_soc_card *card);
++	int (*resume_post)(struct snd_soc_card *card);
++};
++
+ struct acp_card_drvdata {
+ 	unsigned int hs_cpu_id;
+ 	unsigned int amp_cpu_id;
+@@ -61,6 +73,9 @@ struct acp_card_drvdata {
+ 	unsigned int platform;
+ 	struct clk *wclk;
+ 	struct clk *bclk;
++	struct acp_mach_ops ops;
++	struct snd_soc_acpi_mach *acpi_mach;
++	void *mach_priv;
+ 	bool soc_mclk;
+ 	bool tdm_mode;
+ };
+@@ -69,4 +84,55 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card);
+ int acp_legacy_dai_links_create(struct snd_soc_card *card);
+ extern const struct dmi_system_id acp_quirk_table[];
+ 
++static inline int acp_ops_probe(struct snd_soc_card *card)
++{
++	int ret = 1;
++	struct acp_card_drvdata *priv = acp_get_drvdata(card);
++
++	if (ACP_OPS(priv, probe))
++		ret = ACP_OPS(priv, probe)(card);
++	return ret;
++}
++
++static inline int acp_ops_configure_link(struct snd_soc_card *card,
++					 struct snd_soc_dai_link *dai_link)
++{
++	int ret = 1;
++	struct acp_card_drvdata *priv = acp_get_drvdata(card);
++
++	if (ACP_OPS(priv, configure_link))
++		ret = ACP_OPS(priv, configure_link)(card, dai_link);
++	return ret;
++}
++
++static inline int acp_ops_configure_widgets(struct snd_soc_card *card)
++{
++	int ret = 1;
++	struct acp_card_drvdata *priv = acp_get_drvdata(card);
++
++	if (ACP_OPS(priv, configure_widgets))
++		ret = ACP_OPS(priv, configure_widgets)(card);
++	return ret;
++}
++
++static inline int acp_ops_suspend_pre(struct snd_soc_card *card)
++{
++	int ret = 1;
++	struct acp_card_drvdata *priv = acp_get_drvdata(card);
++
++	if (ACP_OPS(priv, suspend_pre))
++		ret = ACP_OPS(priv, suspend_pre)(card);
++	return ret;
++}
++
++static inline int acp_ops_resume_post(struct snd_soc_card *card)
++{
++	int ret = 1;
++	struct acp_card_drvdata *priv = acp_get_drvdata(card);
++
++	if (ACP_OPS(priv, resume_post))
++		ret = ACP_OPS(priv, resume_post)(card);
++	return ret;
++}
 +
  #endif
 -- 

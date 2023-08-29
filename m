@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD63778CCB7
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 21:14:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFAEB78CCB8
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 21:14:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08BDDA4B;
-	Tue, 29 Aug 2023 21:13:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08BDDA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3580DAE8;
+	Tue, 29 Aug 2023 21:13:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3580DAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693336449;
-	bh=Y7BWzSc1wFmIX6sTKYMV6PLaewMUa7ZUlRGapp3Ioi8=;
+	s=default; t=1693336451;
+	bh=bRYIifLgkuUPG5p3oQ5mGo6bchndBBgLudqkZpSpN/I=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mBV1Q1J135oSNFOYrdtTF6wUCDsKRz09/hNij4R91S/2STmbnYC0i6dDVgupYMPiK
-	 v+hB2P/JKruWGdaj/Nk1OPAJtF7fByv5Mq6MbjapuK9HzB8l9iiiaB/TwrfQTPiaGX
-	 eu0M7SaveISQzmOC6F+t+TBkZpYIV/LSYktZmjj4=
+	b=DGC3nu7jB2Vts3DE+bp916OenaZII5SjLk/DP2qo6/UmFEJ6Vx6PzBLS+nDn1aOYq
+	 jv8yFVnd8zdnp/DqKs1lqLvjT0U20moGJW/RbBIvVtv/f0P3bLRrUph5omXZUQ15QO
+	 4Rb5vbr8b+HRu3R3RF15kfr00f5UrL5ug8ZyCvNc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D04B0F804F3; Tue, 29 Aug 2023 21:12:29 +0200 (CEST)
+	id 37603F80570; Tue, 29 Aug 2023 21:12:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 819B9F804F3;
-	Tue, 29 Aug 2023 21:12:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAF21F8055C;
+	Tue, 29 Aug 2023 21:12:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C530AF80155; Tue, 29 Aug 2023 21:12:25 +0200 (CEST)
+	id D324DF80563; Tue, 29 Aug 2023 21:12:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,54 +35,54 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF3ACF80094
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 21:12:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF3ACF80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A135F80537
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 21:12:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A135F80537
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PKN5m15D
+ header.s=k20201202 header.b=AVi3GhIE
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9AEE361346;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id A160E61346;
+	Tue, 29 Aug 2023 19:12:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC865C433C9;
 	Tue, 29 Aug 2023 19:12:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8AAC433C7;
-	Tue, 29 Aug 2023 19:12:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693336342;
-	bh=Y7BWzSc1wFmIX6sTKYMV6PLaewMUa7ZUlRGapp3Ioi8=;
+	s=k20201202; t=1693336351;
+	bh=bRYIifLgkuUPG5p3oQ5mGo6bchndBBgLudqkZpSpN/I=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=PKN5m15DXO595Bhz9BRIBaawKwSMtOsqBsxocXLUvyxmSyoLkJIt/JcS2QgsERIjf
-	 YQV5dW+/xVCyUQa13+bazoMI1c9UmFie/IK0zgcFNWVtO3/4vpHYSDCklUPxXIrHKW
-	 BmS3Pn0d+bTzvIhCBqQcMZ12goCjDJoQCwJViPNCbgHWvXc1n39o7f/c5w1k4CoMAW
-	 an6W1kIJWZBucjM64zKIo+xPjS1YEdS2r1+Xa6B4zNMwIhlXzOSJYPpLQJ8v5mk/qj
-	 UCxqw8gfSRiR/SiQn535ayH+hA6EwhCztrgxIVnXgfGg3bGDPm+kFBMYNvIRCfJScs
-	 EmSE5TD0emOxw==
+	b=AVi3GhIEibAzhB4UqxMA/KpFN/QdGTMFAE/DV5noYmVXNkgP7uMbzCZ0qqo7LifEo
+	 30+uX7Ku9PVqCvYWjZk03mvcDAiu5JDPgFyH0NHIKOjVq09KJRtVnQS0c15lhSXasb
+	 f20QyD4wVzkzJfFnekBUGsix+h9Ef14k3vEuS1jySD/BSrWbI1LyDZqpw4S/u5T+I3
+	 P5Q51Eo2VomZPsJnnZeeim0r0X6k67C9mBmqEEfVxbU2agpnm/6ZP8GUi2YNt3XAdn
+	 1IFiDf364auENySljCAo/VTO3HUE85C9HkJngJZG3IYDjmOgeXdjH9DJXRkeWswNBW
+	 +YD/oLsGurGiQ==
 From: Mark Brown <broonie@kernel.org>
-To: James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org,
- error27@gmail.com
-In-Reply-To: <20230829073635.1877367-1-harshit.m.mogalapalli@oracle.com>
-References: <20230829073635.1877367-1-harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH next] ASoC: cs42l43: Fix missing error code in
- cs42l43_codec_probe()
-Message-Id: <169333633540.3145573.6288237748073624350.b4-ty@kernel.org>
-Date: Tue, 29 Aug 2023 20:12:15 +0100
+To: linux-arm-kernel@lists.infradead.org, Adam Ford <aford173@gmail.com>
+Cc: aford@beaconembedded.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20230827023155.467807-1-aford173@gmail.com>
+References: <20230827023155.467807-1-aford173@gmail.com>
+Subject: Re: (subset) [PATCH V2 1/3] ASoC: dt-bindings: fsl_easrc: Add
+ support for imx8mp-easrc
+Message-Id: <169333634070.3145573.16731628887521536226.b4-ty@kernel.org>
+Date: Tue, 29 Aug 2023 20:12:20 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: MDA7MKXNHMS6UFF4HHYKIKY255OOCB4L
-X-Message-ID-Hash: MDA7MKXNHMS6UFF4HHYKIKY255OOCB4L
+Message-ID-Hash: KX6D5IC7HRMPFSLQFHYL56K5WHISZLWC
+X-Message-ID-Hash: KX6D5IC7HRMPFSLQFHYL56K5WHISZLWC
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MDA7MKXNHMS6UFF4HHYKIKY255OOCB4L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KX6D5IC7HRMPFSLQFHYL56K5WHISZLWC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,11 +104,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 29 Aug 2023 00:36:35 -0700, Harshit Mogalapalli wrote:
-> When clk_get_optional() fails, the error handling code does a 'goto
-> err_pm' with ret = 0, which is resturning success on a failure path.
-> 
-> Fix this by assigning the PTR_ERR(priv->mclk) to ret variable.
+On Sat, 26 Aug 2023 21:31:53 -0500, Adam Ford wrote:
+> The i.MX8MP appears to have the same easrc support as the Nano, so
+> add imx8mp as an option with a fallback to imx8mn.
 > 
 > 
 
@@ -118,8 +116,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l43: Fix missing error code in cs42l43_codec_probe()
-      commit: 9e07f8bfd959d2d09823430eab35d12182446dcf
+[1/3] ASoC: dt-bindings: fsl_easrc: Add support for imx8mp-easrc
+      commit: b5f3cec3159dd28563e5a88096769f7b77272790
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EF6D78CB16
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 19:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B0578CB18
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 19:22:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1136827;
-	Tue, 29 Aug 2023 19:21:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1136827
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE682741;
+	Tue, 29 Aug 2023 19:21:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE682741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693329748;
-	bh=gsTPjSUGI6UFFb7YQF60abTYmY/EfjGKtAbHMfE41WI=;
+	s=default; t=1693329764;
+	bh=aeSZE0TCmn7RhSxwO896Blw2qbDd2ZpqKcs9h44zQvw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VcZE61AvjXbpqUirhF8Uk0c6KcQ7Y8a6u7uuNTAZBTnUWd7SHmA/oSCISMc0hdleb
-	 NF/+W9N2ERkP5fTQmX+j7sa3+mmC4OL75cWK6gEWiqnbV8OEODVPK/WKZ20RrhHZ/d
-	 w4ro1ImlWL8LaRDrlb/S8ejtTmDtIGYTCDdwLKaY=
+	b=vRxhih5NnXnm9tuxoY7sKV5lwGfeFRpbTEZGdtZb0UPD1m2nIsOH/9L86CrKcjvgp
+	 5eOnisy+sBju/wzmaJPHEbb62I6Eul6NndmjBKwKnaAYaD5azwwO8rNaIAh8NIx42F
+	 FBT1Jk3h6Qf/m4jFudMn0br10z6hpKbmCVKtoiUM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F014F80558; Tue, 29 Aug 2023 19:21:06 +0200 (CEST)
+	id DFD25F8032D; Tue, 29 Aug 2023 19:21:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFD91F80158;
-	Tue, 29 Aug 2023 19:21:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 598E3F80236;
+	Tue, 29 Aug 2023 19:21:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8A15F80158; Tue, 29 Aug 2023 19:21:02 +0200 (CEST)
+	id 4BFE9F8023B; Tue, 29 Aug 2023 19:21:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92783F80158
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:20:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92783F80158
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3ACDCF80155
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:21:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ACDCF80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=WOyiTVln
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-50091b91a83so7221214e87.3
+ header.s=google header.b=RLZXZjHL
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-51e28cac164so54156a12.1
         for <alsa-devel@alsa-project.org>;
- Tue, 29 Aug 2023 10:20:59 -0700 (PDT)
+ Tue, 29 Aug 2023 10:21:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693329659; x=1693934459;
+        d=linaro.org; s=google; t=1693329705; x=1693934505;
+ darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QBKkSL9t38kSqeftJsbciCM+HglFHnwrbKgwPhleq2o=;
-        b=WOyiTVlnOOUo6lKsyRU0FN0t4Y0sbAF7/1a9l8mU5zGheftOc2fA41+7bCjl3jMHaC
-         SdSdMV2DBKjRnw1tr2HnWisrSnTXsku10i1pwBDD62x096r2AUaZ8gEGrGo3NCJbxgJz
-         zv1axfA/ZNKEESvUiu0gC/krrVKl/kGAJfwbyFwsYFIzEIzVkf/feQ3TBotYPHegFQ8y
-         Fdle+Z4wZCcxfK+3JbdGH9LGAWOKMXY6nXXMQkDr7d51pdunU2ilmTA/HRTXh2s9cmnZ
-         9hm29kl6z4GKDxqVPxPFJ30PJphupOPXQbS5T6+pHdzKUPeEn90N1xu6MxDgkYvi1l12
-         U90Q==
+        bh=ONMdNT0qe15nFMdXWcs/Q8c5HCoTBwiBJLGrnRV1nw0=;
+        b=RLZXZjHLx7Qib+b4p4gY8IGfoF9NlX9BB6Wa8e+aj5np0D50wWzkoL2Ux29zy6284o
+         xldvJnGNnOH0F8c5voehoifro6+aqPRGTOK0nwz+wbWn8xb5tDRBaDQPG/pU4niQVhqq
+         6nKjNLdK9xWC0L8iBNN7P7WBW0LqpVNi3vw+Z2if0SzHGqjEFAkjJQNjCHKOIYmqT4sz
+         lWqgJYTqu+Acie8RZvbNvJ/1t4m4EwyRrMSp6mmkT0E15b+4EjY44knL/+4wAhYZD37B
+         5d2um9IksidFRV2R5jckcxty220zMrR4fJOtAczA6r0Z2r0eEnD2x9Z0ROdM4thG7xQV
+         hXdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693329659; x=1693934459;
+        d=1e100.net; s=20221208; t=1693329705; x=1693934505;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QBKkSL9t38kSqeftJsbciCM+HglFHnwrbKgwPhleq2o=;
-        b=S7zUbdT8c3dLkLZH+UB8QuT9MdIGkr4XxaR2LXspoZ45QoJlqm4MBKUTWSDln/YvRt
-         pmWFt/tEk47RdAsgEHkC19XcVemgNAfb4mLeW5WF+NecT/P+oDBnrE3gASyWIfj3W3bZ
-         AhFAtfLAXZKl+eJWqjrhLQEReWMh2tIyEmGioyecYrKgDAAIvlKzO2MzGQF9ptmo2Y03
-         99++p9FBFddeNuc0Eh/l+1L+efrDWaeU/F8CxhHlx5eltcgfdctkGbk/Zr39DE84t+YZ
-         4AA/85HX7UeIOKI7JzlN+VHv8KhvKNonS5GTCwssYHmv/MQxchZ/ZZbSWgEsEOpuBi18
-         KgTw==
-X-Gm-Message-State: AOJu0Yyk7bZ2aJkehHyG8iohaPn0qeStKQBfVAibPMYhjhZbF5HnoTsR
-	80fDAeemMATjWtHnuxyYX3vb1w==
+        bh=ONMdNT0qe15nFMdXWcs/Q8c5HCoTBwiBJLGrnRV1nw0=;
+        b=M639Nk0y+RpHouLPKnOzC4Yh9K6ULjhxTEznXezaXvVvA/fiQPGBXGvZIo8MdQDuOr
+         cHOsaiB6k9flrl8QMwUAdTpbHfC/D2cqyZlfcbwbvlustp2nQFGeVF4xmMHvbLiIkp76
+         Xf4ZRNjrsYHm5mw14LSQugSVowxf5TSXfKYI2mGTfbBYvmrmhsNajrWV/vQ5ewSOsRTr
+         kt0dYAbBuyaj7dB/QBlWgpCByLUemWiRSMMR+ot5Np8Y9drxhcmUyO56n91j24FH+ASa
+         XuRgsTHeJjbZgQWyQbdfRJkLfoCEdqc6/Fr9oqN2RaWtUWKMENnk/MNxzcd0kgHROLR3
+         I3gA==
+X-Gm-Message-State: AOJu0YzV9SqES6ivqdui9DWvUX3QZaXpef2d2pnprgzJV1R97TU0XHfS
+	W9zRwfTFXDB2JEBj8hl0cnS/rw==
 X-Google-Smtp-Source: 
- AGHT+IG/q2ZZ6mJ8wgVf7UkQm2wC4U2oV3GvzNYN1v09DUHmgy8f2+SWpj1f+hhyVjmrfvs8FPGv0Q==
-X-Received: by 2002:ac2:4bd3:0:b0:500:ac3:dd77 with SMTP id
- o19-20020ac24bd3000000b005000ac3dd77mr9085492lfq.10.1693329658953;
-        Tue, 29 Aug 2023 10:20:58 -0700 (PDT)
+ AGHT+IEC28zmPiIgJmKgcQJmlnUeRmPValFdXqSMVRYqh4YR7AT6QaS02hhHQPZGW4brxIj/NspEyA==
+X-Received: by 2002:a17:907:1614:b0:9a5:c2c0:1d0f with SMTP id
+ hb20-20020a170907161400b009a5c2c01d0fmr3407559ejc.12.1693329704763;
+        Tue, 29 Aug 2023 10:21:44 -0700 (PDT)
 Received: from [192.168.0.22] ([77.252.47.196])
         by smtp.gmail.com with ESMTPSA id
- l15-20020aa7d94f000000b0052568bf9411sm5797806eds.68.2023.08.29.10.20.57
+ x18-20020a170906805200b0097073f1ed84sm6161481ejw.4.2023.08.29.10.21.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Aug 2023 10:20:58 -0700 (PDT)
-Message-ID: <d3fa22f6-22e4-3d15-70d1-d64b2c125ad7@linaro.org>
-Date: Tue, 29 Aug 2023 19:20:56 +0200
+        Tue, 29 Aug 2023 10:21:44 -0700 (PDT)
+Message-ID: <ea386a28-841d-0e76-cb1b-735b630001ba@linaro.org>
+Date: Tue, 29 Aug 2023 19:21:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.14.0
-Subject: Re: [PATCH 02/31] dt-bindings: gpu: mali-utgard: Add Rockchip RK3128
- compatible
+Subject: Re: [PATCH 03/31] dt-bindings: ASoC: rockchip: Add compatible for
+ RK3128 spdif
 Content-Language: en-US
 To: Alex Bee <knaerzche@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
  Rob Herring <robh+dt@kernel.org>,
@@ -109,13 +110,13 @@ Cc: Elaine Zhang <zhangqing@rock-chips.com>, Johan Jonker
  alsa-devel@alsa-project.org, linux-clk@vger.kernel.org,
  linux-phy@lists.infradead.org
 References: <20230829171647.187787-1-knaerzche@gmail.com>
- <20230829171647.187787-3-knaerzche@gmail.com>
+ <20230829171647.187787-4-knaerzche@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230829171647.187787-3-knaerzche@gmail.com>
+In-Reply-To: <20230829171647.187787-4-knaerzche@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3LGOMGJQVXDYCE3U2LJONQD3RNAS7COV
-X-Message-ID-Hash: 3LGOMGJQVXDYCE3U2LJONQD3RNAS7COV
+Message-ID-Hash: FHSNVRHJE55TXNFKMVJZGOUOTXEDXSEF
+X-Message-ID-Hash: FHSNVRHJE55TXNFKMVJZGOUOTXEDXSEF
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -128,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3LGOMGJQVXDYCE3U2LJONQD3RNAS7COV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FHSNVRHJE55TXNFKMVJZGOUOTXEDXSEF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,13 +139,32 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 29/08/2023 19:16, Alex Bee wrote:
-> Rockchip RK312x SoC family has a Mali400 MP2.
-> Add a compatible for it.
+> Add compatible for RK3128's S/PDIF.
 > 
+
+Subject: ASoC: dt-bindings: rockchip,spdif:
+
 > Signed-off-by: Alex Bee <knaerzche@gmail.com>
 > ---
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+---
+
+This is an automated instruction, just in case, because many review tags
+are being ignored. If you know the process, you can skip it (please do
+not feel offended by me posting it here - no bad intentions intended).
+If you do not know the process, here is a short explanation:
+
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions, under or above your Signed-off-by tag. Tag is "received", when
+provided in a message replied to you on the mailing list. Tools like b4
+can help here. However, there's no need to repost patches *only* to add
+the tags. The upstream maintainer will do that for tags received on the
+version they apply.
+
+https://elixir.bootlin.com/linux/v6.5-rc3/source/Documentation/process/submitting-patches.rst#L577
 
 Best regards,
 Krzysztof

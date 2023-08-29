@@ -2,95 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66AFF78CB21
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 19:23:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9B478CB2F
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 19:25:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A31D6886;
-	Tue, 29 Aug 2023 19:22:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A31D6886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72507827;
+	Tue, 29 Aug 2023 19:24:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72507827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693329792;
-	bh=+9dWuIz5vl8DGC+kiDhMKqjuEO4x1vTZJyfMRzti6vU=;
+	s=default; t=1693329920;
+	bh=KfOZCV9VaRmB0mPz6RYVuFn81UMTPx79I0j2VoQJ5os=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Uzjj+BUk/8qvkVDf1HUkIDT6g2yYDyHSHouOCKlnfQQtomCHE4qYmutQ5a0xIy+Rm
-	 gCfI/dd1ydZ3IG+GHPTQ6SrrqsUkicxaYM0nSCS+Lv0ebQTaaF1WTqe5wTi/0TcUL/
-	 oqHqTag2WlbvFXRGFN3unus+A3LGdsdRypFFtfAY=
+	b=Acv+AkhJ4jR/vpDBVjAboMJ7JyNGw243sPZzRUyKesRqNzELTc71uaK72ckgpTBpE
+	 MOHjFMty3kEVDTltarFduuVusuj3SY0VzRVq0AyJRNoFH+zvSa8zQfwLC62jV4loZH
+	 XKyMq1AdeRgLQekODZ8vaUADmpBuhb+hZanBU9ng=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68351F80527; Tue, 29 Aug 2023 19:22:22 +0200 (CEST)
+	id 40C4BF800F5; Tue, 29 Aug 2023 19:24:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0025EF80236;
-	Tue, 29 Aug 2023 19:22:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DA73F80155;
+	Tue, 29 Aug 2023 19:24:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC45CF80249; Tue, 29 Aug 2023 19:22:18 +0200 (CEST)
+	id D0EB5F80158; Tue, 29 Aug 2023 19:24:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3AC88F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:22:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AC88F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id E6908F800F5
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:24:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6908F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=zhdT4+gq
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-99de884ad25so627504466b.3
+ header.s=google header.b=XR/x7Qre
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-9a21b6d105cso598595866b.3
         for <alsa-devel@alsa-project.org>;
- Tue, 29 Aug 2023 10:22:11 -0700 (PDT)
+ Tue, 29 Aug 2023 10:24:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693329730; x=1693934530;
+        d=linaro.org; s=google; t=1693329864; x=1693934664;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=2tJx1LZA2LjgFtn73CfwP5M/IqTnK+MwGx8w31m75yU=;
-        b=zhdT4+gqpd6hXl/1AYIMtl2I0Wi+ntmhHwcmBTqkgBdvdiVKuV+a+dl3qf6MAC89Yg
-         xtFKR6zdCcg3/y9R9kN0QMBc3eeiglNerx8lEfteQJMddk3E6iZif5l2T9B4XvKrE4ma
-         hYV1xLa2w3qc7BFGJIpITAtU+wKnbA5fhNkJSaRIR9+2o36urU0mHIIeYsJkxt6huU8v
-         SdEYknF7yo13DKV/C0MCR/50DtwnBGfyf/pCh5qAp0176tnlclQF4fBPE5h/SKyKzi4q
-         alj0NninrfISvuwp2iM8QhKKKSXceytX0YvYXWTOUbyrmlluV8qB43btBUzRiXMPYAFy
-         NyDQ==
+        bh=lwYxLCmq4WNewekZRDSH3zyJGGPJlZo2Lv6o2KdH/x4=;
+        b=XR/x7QreIC9a3vw0Fm8SBKNI34BtJGrwGND3E56garHi/QNkLSQw4vKa7pSvrQyZgR
+         6XjRTbwimbqxMQ48SvZI3SklfZW6A8sMVSaiEf1mqEy9ANYBIFrn6R7zoySFzESBYAUV
+         QCELFjd+xWi4UmBJjNWRD4vjlwCek5R/7SOs3TJevBENMj2odwf+tGnuuEOML9nJxusf
+         WCWi9STezp4UP1rjM6w0bubynUs0dJkTpQIIhEgqvp6DrtssTg4dIZ1tCPPbe1FIL/QJ
+         orrc5VqwiQxgr/gjwAV/tqVz91+lwyJmO4UbNlnWLMYFRBiE0qLQDPv0xj2h3tzgkMI4
+         +QWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693329730; x=1693934530;
+        d=1e100.net; s=20221208; t=1693329864; x=1693934664;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2tJx1LZA2LjgFtn73CfwP5M/IqTnK+MwGx8w31m75yU=;
-        b=AdUgJc5s7EThF+yBg87SzWa9EoKvKwLq2sOwIps4wffsLjEVP6hlH/H85yOoHx3pgn
-         WiY+vyGEOL51b9CZLjD++5sUmVBM1MSFc8Txapn8SqJBCy9yQOPe6k5wjGHQEvNSMJ97
-         N32cOcOyjRB6ppyJJAqkn2DXPBMAWgpg9ujUkcc+ZY1JzIVYII5AfnHyoxLlns3qF3d2
-         wcWz11Y+rGIlsEJWK1qei9qgjVvNGUDvFtDfiuw0lMX1d1Wh4nRg7pF8ScWDTwoM41s8
-         2IK1PYLAMLwYFZdFvzlXetkxJ85KgeT4sbUIqIdBuN97a7HHT4db8D+LAWdpMiXG1ixR
-         JHzg==
-X-Gm-Message-State: AOJu0YySCZ993LRdMblQgycSPxu5YsO0/NJjk8024z2K5ZtXanFqU08K
-	Qfw0oJO1XA4RidMlyQLSaW2ZFg==
+        bh=lwYxLCmq4WNewekZRDSH3zyJGGPJlZo2Lv6o2KdH/x4=;
+        b=PscRh/p5y62NS3PPk7xRM16X70OLtZ9dR6rXNRH3VtMtAZHHai/qkrR2s8cYtdxp93
+         wyZWjg1mHMoGAYM/oScwB9piOqUrjNhN4Pc3D4i4LDKiIpo4LmNiAdexg+VDn/hE+8tG
+         wAswEm76XIeBazVqz8ktg2GqQHEYstDeaQ4i6MEbPWU9+dPI+V1JW2JYJgMiSsOf7xY6
+         XqjTQE4R+EglxyayYU04avNZPvLrfOmDgEc+ycEvXFGrisVZAhondJXEZsmQJMBrGFu8
+         XRejoCVahOyqd0qXDQLH5mRf8zwXgRUolCoAZjyLvoeE98y6WJTuJbVpTUtJ17VvRoka
+         mUyA==
+X-Gm-Message-State: AOJu0YxN8Bmdpnoe1A63ZmMoX3Af3oQ7T8WN6XVPCX8zCM69LVqktk0+
+	N6sXCfxyhHvIlxeHf1rGT80lJA==
 X-Google-Smtp-Source: 
- AGHT+IEkfyuO10UaoAlJW/IYUjOxaNUiUgX99OtB+CD8vi2Z/YeQChXUrbKkNwIR57XqpbHKCgrV0w==
-X-Received: by 2002:a17:906:51d6:b0:9a1:d087:e0bf with SMTP id
- v22-20020a17090651d600b009a1d087e0bfmr15768869ejk.43.1693329730572;
-        Tue, 29 Aug 2023 10:22:10 -0700 (PDT)
+ AGHT+IEM0PsjzjMAivcpu6BoCzHNvy2N09Jh9i35jA0fAreHjTJNVGm2qi/an6qJc1fpcsGWEgWCZA==
+X-Received: by 2002:a17:906:5346:b0:9a2:1ce5:1243 with SMTP id
+ j6-20020a170906534600b009a21ce51243mr12610741ejo.60.1693329864004;
+        Tue, 29 Aug 2023 10:24:24 -0700 (PDT)
 Received: from [192.168.0.22] ([77.252.47.196])
         by smtp.gmail.com with ESMTPSA id
- v24-20020a17090606d800b0099364d9f0e2sm6189666ejb.98.2023.08.29.10.22.09
+ rh22-20020a17090720f600b0099bc80d5575sm6132481ejb.200.2023.08.29.10.24.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Aug 2023 10:22:10 -0700 (PDT)
-Message-ID: <92b8261b-420e-d96a-ba77-9abe7d53b427@linaro.org>
-Date: Tue, 29 Aug 2023 19:22:08 +0200
+        Tue, 29 Aug 2023 10:24:23 -0700 (PDT)
+Message-ID: <89955853-c38a-cabc-e5dd-8582487b8fc9@linaro.org>
+Date: Tue, 29 Aug 2023 19:24:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.14.0
-Subject: Re: [PATCH 04/31] dt-bindings: arm: rockchip: Add Geniatech XPI-3128
+Subject: Re: [PATCH 15/31] ARM: dts: rockchip: Split RK3128 devictree for
+ RK312x SoC family
 Content-Language: en-US
 To: Alex Bee <knaerzche@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
  Rob Herring <robh+dt@kernel.org>,
@@ -108,13 +109,13 @@ Cc: Elaine Zhang <zhangqing@rock-chips.com>, Johan Jonker
  alsa-devel@alsa-project.org, linux-clk@vger.kernel.org,
  linux-phy@lists.infradead.org
 References: <20230829171647.187787-1-knaerzche@gmail.com>
- <20230829171647.187787-5-knaerzche@gmail.com>
+ <20230829171647.187787-16-knaerzche@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230829171647.187787-5-knaerzche@gmail.com>
+In-Reply-To: <20230829171647.187787-16-knaerzche@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZHJCX63LFYABAEBWJ6CYLSDHM3EMZMBH
-X-Message-ID-Hash: ZHJCX63LFYABAEBWJ6CYLSDHM3EMZMBH
+Message-ID-Hash: LK24F23T2ISPEJJJ4OEQ5JZYVBJVVEU4
+X-Message-ID-Hash: LK24F23T2ISPEJJJ4OEQ5JZYVBJVVEU4
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -127,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHJCX63LFYABAEBWJ6CYLSDHM3EMZMBH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LK24F23T2ISPEJJJ4OEQ5JZYVBJVVEU4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,14 +138,109 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 29/08/2023 19:16, Alex Bee wrote:
-> Add Geniatech XPI-3128, a RK3128 based single board computer.
+> Currently there is only a SoC devicetree for RK3128 although RK312x
+> SoC family consits of (at least) RK3126(C) and RK3128.
+> 
+> This splits up the currently existing rk3128.dtsi in rk312x.dtsi which
+> contains the common definitions for both SoCs and rk3128.dtsi, rk3126.dtsi
+> respectivly.
+
+typos here and before
+
+> 
+> The differentiation between rk3126/rk3128 is already taken into account
+> in the clock driver and they have their own compatibles.
+> uart0 and i2c3 exist only in rk3128 SoC, thus they are moved to the new
+> rk3128.dtsi.
 > 
 > Signed-off-by: Alex Bee <knaerzche@gmail.com>
 > ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+>  arch/arm/boot/dts/rockchip/rk3126.dtsi |   9 +
+>  arch/arm/boot/dts/rockchip/rk3128.dtsi | 894 +------------------------
+>  arch/arm/boot/dts/rockchip/rk312x.dtsi | 893 ++++++++++++++++++++++++
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Please generate your patches with proper -M/-B/-C arguments to detect
+the rename/copy.
+
+>  3 files changed, 909 insertions(+), 887 deletions(-)
+>  create mode 100644 arch/arm/boot/dts/rockchip/rk3126.dtsi
+>  create mode 100644 arch/arm/boot/dts/rockchip/rk312x.dtsi
+> 
+> diff --git a/arch/arm/boot/dts/rockchip/rk3126.dtsi b/arch/arm/boot/dts/rockchip/rk3126.dtsi
+> new file mode 100644
+> index 000000000000..7345bd95d29d
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/rockchip/rk3126.dtsi
+> @@ -0,0 +1,9 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +
+> +/dts-v1/;
+> +
+> +#include "rk312x.dtsi"
+> +
+> +/ {
+> +	compatible = "rockchip,rk3126";
+> +};
+> diff --git a/arch/arm/boot/dts/rockchip/rk3128.dtsi b/arch/arm/boot/dts/rockchip/rk3128.dtsi
+> index f3f0788195d2..4c5c9728179e 100644
+> --- a/arch/arm/boot/dts/rockchip/rk3128.dtsi
+> +++ b/arch/arm/boot/dts/rockchip/rk3128.dtsi
+> @@ -1,360 +1,11 @@
+> -// SPDX-License-Identifier: GPL-2.0+
+> -/*
+> - * (C) Copyright 2017 Rockchip Electronics Co., Ltd
+> - */
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+
+This looks like relicensing, so without proper diff (see comment before)
+it is a no-go.
+
+>  
+> -#include <dt-bindings/clock/rk3128-cru.h>
+> -#include <dt-bindings/gpio/gpio.h>
+> -#include <dt-bindings/interrupt-controller/arm-gic.h>
+> -#include <dt-bindings/interrupt-controller/irq.h>
+> -#include <dt-bindings/pinctrl/rockchip.h>
+> +/dts-v1/;
+> +
+> +#include "rk312x.dtsi"
+>  
+>  / {
+>  	compatible = "rockchip,rk3128";
+> -	interrupt-parent = <&gic>;
+> -	#address-cells = <1>;
+> -	#size-cells = <1>;
+> -
+> -	arm-pmu {
+> -		compatible = "arm,cortex-a7-pmu";
+> -		interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>,
+> -			     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
+> -			     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
+> -			     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+> -		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
+> -	};
+> -
+> -	cpus {
+> -		#address-cells = <1>;
+> -		#size-cells = <0>;
+> -
+> -		cpu0: cpu@f00 {
+> -			device_type = "cpu";
+> -			compatible = "arm,cortex-a7";
+> -			reg = <0xf00>;
+> -			clock-latency = <40000>;
+> -			clocks = <&cru ARMCLK>;
+> -			operating-points = <
+> -				/* KHz    uV */
+> -				 816000 1000000
+> -			>;
+> -			#cooling-cells = <2>; /* min followed by max */
+> -		};
+
+All this patch is absolutely unreadable and unreviewable. Sorry, use the
+tools to make review possible.
+
+
 
 Best regards,
 Krzysztof

@@ -2,89 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB8878CCBD
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 21:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5137178CCCC
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 21:18:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7332DDED;
-	Tue, 29 Aug 2023 21:13:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7332DDED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD9DA4A;
+	Tue, 29 Aug 2023 21:18:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD9DA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693336470;
-	bh=nKFWWSD6tkdLWsvN0IJ+6k1X0di+ynGgA5GvfxyERBY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1693336738;
+	bh=X2t40mAu2/QsAUc+P5iBJXSXuGzsrr88EkpyLZFdv9U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R9lpEWIt7g9aLu4uy2ylkQKwOnqKyyN8krXBli65UsxseBq0ZeTMzsgsw2t0iMMFU
-	 RDeInoc36zWHou67lzWR0s6xtjCq+5D1mD7342ge8qkEMlH1kN4uqhYoMAsXpSrGAe
-	 NNMagU4/LjHqL9Tf62lHbSQDGbHbNrlBk6tdWqkw=
+	b=GM92psQdg1OeLsfhz62L1fz2Q7v86/BH3Tw9923wA5H6g5XhYB3bjzcazMQKdVuaK
+	 /i88kKyX4GurEhPRIir8FYwlfh6Mo2R4ACPiMVXQLVTrAMW0IEmfLXbAPxdt1y9zsp
+	 G8NnT46QljzCW5lwyqozkB8hLKAnTFtkhGDKpKcE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0AD0F8057D; Tue, 29 Aug 2023 21:12:44 +0200 (CEST)
+	id E1201F80005; Tue, 29 Aug 2023 21:18:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7428BF80578;
-	Tue, 29 Aug 2023 21:12:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78142F80005;
+	Tue, 29 Aug 2023 21:18:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37AB1F80579; Tue, 29 Aug 2023 21:12:40 +0200 (CEST)
+	id 25C19F80155; Tue, 29 Aug 2023 21:18:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-15.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
+	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F3A53F80568
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 21:12:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3A53F80568
+	by alsa1.perex.cz (Postfix) with ESMTPS id ED377F80005
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 21:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED377F80005
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IgAwv+9v
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A75A562BA2;
-	Tue, 29 Aug 2023 19:12:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975DEC433C8;
-	Tue, 29 Aug 2023 19:12:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693336355;
-	bh=nKFWWSD6tkdLWsvN0IJ+6k1X0di+ynGgA5GvfxyERBY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=IgAwv+9vS+xmhm9d8GUXeCVq8QacgbDEUEYlrTHiF6jE5IkxTx3MHTZl8PO5TlyP5
-	 dMnezpq0CHLKn+mMyR+my7QsvL76iPsNBkAjGgpfKd2um+wYEw2HDvIOWaoKbgJsS+
-	 BdeEOVFpMsqiYFj7/TSOxeyX1sZaHcAsr2l0EUXBwnoM38Gow9LMIRo0BhZiEANLy5
-	 iIK9NuWKqWX634jXNONaefqXpfgTjYzTdNtEv6BCzNNb+7PH0Jg7ibiXuGeCu7rVCi
-	 vbiUbMVELU0RTkiEJJtd6Zg4/PSrNTB3409G6xjnc/6NalAV8wcHF3bFX/8U2DRY0K
-	 Q855C388rWe9g==
-From: Mark Brown <broonie@kernel.org>
-To: James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Vlad Karpovich <vkarpovi@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- RicardoRivera-Matosricardo.rivera-matos@cirrus.com
-In-Reply-To: <20230828170525.335671-1-vkarpovi@opensource.cirrus.com>
-References: <20230828170525.335671-1-vkarpovi@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH 1/7] ASoC: cs35l45: Add support for Chip ID
- 0x35A460
-Message-Id: <169333634962.3145573.7194230299890982862.b4-ty@kernel.org>
-Date: Tue, 29 Aug 2023 20:12:29 +0100
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20221208 header.b=GAsLIZtM
+Received: by mail-pj1-x102e.google.com with SMTP id
+ 98e67ed59e1d1-26f9521de4cso2573534a91.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 29 Aug 2023 12:18:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1693336680; x=1693941480;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BIPc4LBNV0ClWvi5rl+BTpbrtim01ePs516GeK/aZHU=;
+        b=GAsLIZtMR2rHJ/YiDb06cpxhR2sY84puxPTdPvbdxUAl0dowP2jvFMMeQ/65kA7a5k
+         4Ap5JSUAKtlqO12qwHYDx0goDyEAbBsRMsJw0rYCMsfY2XEW3/v1OTOE6Jp/BMcMs9NA
+         vgJPT+Fx07ooJuOyS8GsbeYaT/aUzpSOv5TjvZL11bLcGsVycDPZQACO4dd1a437ZwKb
+         8amdiYkRm/LTSsRHMKRrzZKlIDFMUoNleCkiqenOIuoycNk12Ldo+PA7PAk6Y+VZB+i/
+         LmyEMBjVziy1mT21jJIxEb/VNxVo2kMVrvGYbfihwb3n/m60ZPtA2LteHubJHzXXaJnH
+         PTqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693336680; x=1693941480;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BIPc4LBNV0ClWvi5rl+BTpbrtim01ePs516GeK/aZHU=;
+        b=Ni2lActVq6kh1JWJg3woD6AIf4zCMWQQakBYd8g36yOePh2XDPT3fkp2ua4XCcmyBf
+         zhaq5YmSLtHPCOmvDclTwJRSR7PCOkHBX5SHvAvhdo/pcsCeRPK188hqOUrr5TuYXiVV
+         7fwN0aQ8Ey4tON2RhsyAgj+vMOFKj0+VGF38DICSQvqhYEEfVCfzytbkga+ThK4IgOvH
+         030UX5W1BYzhoO1lHvtgDYVP9uuOf0WKFreQPMCSkUVx0kGBsIhZpmItYeCbGaPonIm+
+         x/ZK7mMkeT0s5e/u8jwZ3yCVu0Cdn/Px5YRk03cbNEst375R+vrZE5EXehZY8w5KBST2
+         mHxQ==
+X-Gm-Message-State: AOJu0Yzs1fUxO1RIRWN0tlelHW19fBnuGGl/VV4sbVzu5Ivc/LBt6Yiz
+	ldCA4VvpiMTxebRTRoMlMa74T3Bv9l89+3WlqBZr1Q==
+X-Google-Smtp-Source: 
+ AGHT+IEQiDP2YIcAM3UEHJMeftLbrHg2g7vZuMMxaUIjFqAKhqaj+M7+BfAsXLppI+Zabrdg8B66z10Hh5eauB5e/fc=
+X-Received: by 2002:a17:90a:ebc9:b0:26b:f67:9d1b with SMTP id
+ cf9-20020a17090aebc900b0026b0f679d1bmr97256pjb.30.1693336679386; Tue, 29 Aug
+ 2023 12:17:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: YBTGIRAFBOOV5JO2W6LZFX7NFH5M7EYC
-X-Message-ID-Hash: YBTGIRAFBOOV5JO2W6LZFX7NFH5M7EYC
-X-MailFrom: broonie@kernel.org
+References: <20230824213312.1258499-1-cujomalainey@chromium.org>
+ <ce20d02b-56ed-acd1-411b-8c68d8cabea8@perex.cz>
+ <CAOReqxiDZOAEYYb5c73AHu+Nd2vZinLR5qdMAVJnEcV8TS6=Nw@mail.gmail.com>
+ <6d498d35-841d-4ea4-2fd9-990f9b02563e@linux.intel.com>
+ <6fc8a33a-52f2-0cd1-6259-b2b974548602@perex.cz>
+In-Reply-To: <6fc8a33a-52f2-0cd1-6259-b2b974548602@perex.cz>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Tue, 29 Aug 2023 12:17:48 -0700
+Message-ID: 
+ <CAOReqxh2-m5QmHJz-iN0eeuGFfuo0WqAHDcKKXs4ZB4AwK-qrg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ucm: docs: Add EchoReferenceDev
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ cujomalainey@chromium.org,
+	alsa-devel@alsa-project.org, tiwai@suse.com, ethan.geller@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: IFJ6SF6A6SJZZACU5ZW5B7JH5M6RX6CB
+X-Message-ID-Hash: IFJ6SF6A6SJZZACU5ZW5B7JH5M6RX6CB
+X-MailFrom: cujomalainey@google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBTGIRAFBOOV5JO2W6LZFX7NFH5M7EYC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IFJ6SF6A6SJZZACU5ZW5B7JH5M6RX6CB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,40 +123,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 28 Aug 2023 12:05:19 -0500, Vlad Karpovich wrote:
-> The 0x35A460 chip is a different variant of the cs35l45.
-> 
-> 
+On Tue, Aug 29, 2023 at 8:37=E2=80=AFAM Jaroslav Kysela <perex@perex.cz> wr=
+ote:
+>
+>
+> The modifiers may define extra PCM streams in the standard Value section =
+- you
+> can use CapturePCM value for the modifier like "Echo Reference". Modifier=
+s may
+> alter the characteristics of the original UCM device stream (using comman=
+d
+> sequences), too.
 
-Applied to
+Thanks for the clarification, that indeed is where the assumption I
+think for most of us is not as clear. I would have never thought a
+modifier would carry a PCM.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I will trigger some work internally to convert our value to the modifier sy=
+ntax.
 
-Thanks!
+Curtis
 
-[1/7] ASoC: cs35l45: Add support for Chip ID 0x35A460
-      commit: bfd73b601ac880d7cfbafbb770c3d6195e73add3
-[2/7] ASoC: cs35l45: Fix "Dead assigment" warning
-      commit: a47f7bf97c9836ff312b421fe392f13401c60c7b
-[5/7] ASoC: cs35l45: Rename DACPCM1 Source control
-      commit: e041b85006f40a4f9799c385ec1a7fb8bdb0c228
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+>
+> Modifiers are an extra layer on top of devices. I don't think that we hav=
+e any
+> default relation between the modifier PCM device and the original PCM dev=
+ice
+> (from the UCM device definition). A new value to describe this (like
+> "ReplacePlaybackPCM 1") may be introduced. Another issue is when multiple
+> modifiers with this description are active - they conflict, so it should =
+be
+> described somewhere, too. Perhaps, "ConflictingModifier" array may be add=
+ed to
+> API. But those extensions are not required for the "Echo Reference" modif=
+ier.
+>
+>                                                 Jaroslav
+>
+> --
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>

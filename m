@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1484E78CC15
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E90C678CC20
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:31:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7D89E0F;
-	Tue, 29 Aug 2023 20:29:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7D89E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BEBDE94;
+	Tue, 29 Aug 2023 20:30:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BEBDE94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693333819;
-	bh=Tbf0gKpykxaVUMSFkLh0DrulITyA4pp4gbSQiOkpNrU=;
+	s=default; t=1693333908;
+	bh=0vOU1IgcFe8Og6+ZqxV0Y5ato78E34OtVIoeR22YyZw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rJMDWNmPyuG0nWAw2Wu2vC7ybm0Ci+c1Df7uGCjuyyqCzyxb2ODPMLtpdUoSCYF1+
-	 S2BeAj2U/G4aAP0IvmUUVksDxsAtxA0jooKAp7J5GeAUyAYSqzJdx6YuXVjziDLCqb
-	 iopMPdStagXHMQ1Yotg9qC6g5Y5Xb6kIE3APLQx4=
+	b=AWEHZ6LGBYdqQVEj3cbmfHEaUW0HsHerCrnfsS61tVFV9MLF+UzO47i/wacZd8t+1
+	 S9LtdAYvVHYeaKC+oEcFMZrKRBpjYflN6gO72RCkBDNjtEdqcFDCCwVG3TW9OSP/w/
+	 tVBe9lFcAZyZAUlXTlE2O3KDNxhl/tCQUNe5EM8M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DA53F805FA; Tue, 29 Aug 2023 20:26:41 +0200 (CEST)
+	id 9D6F2F80636; Tue, 29 Aug 2023 20:26:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88A54F805F5;
-	Tue, 29 Aug 2023 20:26:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AFE2F80636;
+	Tue, 29 Aug 2023 20:26:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90947F80549; Tue, 29 Aug 2023 19:17:56 +0200 (CEST)
+	id F3472F80236; Tue, 29 Aug 2023 19:18:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61026F8055A
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:17:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61026F8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B3D4F8055B
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:17:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B3D4F8055B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=CojAhc33
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-99cdb0fd093so612662966b.1
+ header.s=20221208 header.b=h4PyqX0x
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2bd0bc8b429so40710671fa.2
         for <alsa-devel@alsa-project.org>;
- Tue, 29 Aug 2023 10:17:41 -0700 (PDT)
+ Tue, 29 Aug 2023 10:17:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693329461; x=1693934261;
+        d=gmail.com; s=20221208; t=1693329462; x=1693934262;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ilnrPdFJtUf7kFovTN/fYGCIN4J3UZgI+cSnZSR/2yQ=;
-        b=CojAhc332OPw8G4b1MSX2JQIfQDCWoVAGTFpYoYl0/vT085fGy4ePtubR/tl/ZlsIA
-         l0uDDPewODZRXUPwQabgplzdC4JNc4myOQVV6TKtNZzHR/zTCdmDxbWrYTQ913Ug93dE
-         Ljr8rF4aJIPgyle1ezaRXAKcCZkTsru1CJ6/LLnQPkaX9LMtCAx5R9bEMXBX7q51ItgT
-         0PKjUs7ecYytckB82/OClp4+JYvRuR7KQWln7xSZiha8hHm+Z6Wsm4jgAPRIziHgSxMb
-         QrTk4sU11HDveeQ1zL7bqYeR/6WYcSm4kFKKf6s8v0QQbLee2Jbv0SA/0k8j+1waMlo6
-         r0CQ==
+        bh=feXb8mBBSxHC2Wg38x6bXprPMxa/iS7sxw36h6E5GW8=;
+        b=h4PyqX0xtB7S2T6VFiGduqml3wx0qswAzQccLxwPFbM0Qk7fnZ8sK0BmODYagHvSJg
+         dN0Gkz34UcQ5dALUAS7qkreaFpaJH1/HqwEkvHL6nhuwbhwsUlvgNhtu0JWR/t+byarI
+         jO/zOGwOmY8ILY7Yn5zt8RSPxT4JW03j5Tykw5RFZbIchdbUVag5NZphZtJVw8SKgyXA
+         StVAmKygz3dt8cdzSI8lWcVBevQXPpttS6lu7dJtB3bq4a2IVYMqqSDw4EMZGzaYGz8o
+         MWk29pok/xzUj/XYqYYzaN6bwBumz3ddYzcgcpDsm6KdIhLN5lyBSD70ZFbaayj7BLKq
+         o/hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693329461; x=1693934261;
+        d=1e100.net; s=20221208; t=1693329462; x=1693934262;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ilnrPdFJtUf7kFovTN/fYGCIN4J3UZgI+cSnZSR/2yQ=;
-        b=Ih5c+tIsQle4JYFQKglD92jrPKVabBYSMnFQNBDTQpUT2Z4vlcs/yLbdhbRMjt10Fl
-         0hJomOElhse5p0wuVISBE7lYyhmAivFplUzIb/X45vVFdXI9h3lYIgUzrjw/ea6Vy8pd
-         /BDAicZSdhc9cMIIWtJTZt9HFktZ49fvR4lMBAEuNvY95+vyrHmqI5F+bNqm7cUTSuya
-         V4v/UZ/LW2a0kvRcIlFCL85ssykHI3JL1FGayFjXb/peX2efm4dokQrqdzM9KtTkfJJC
-         PN2S0vd6cYqcMoBtJOPBoFtvThB2NG5n1yj2mGC2ER7AIuM971sDV8wLIxoHSLDItbrR
-         YtYQ==
-X-Gm-Message-State: AOJu0YybFNuZPjmgZBEUIaAHO6IuJxPukRJ7hgyI0QZWMRuhgXDmVnOn
-	tjBpj+ly0Oocqky8V+mzFg==
+        bh=feXb8mBBSxHC2Wg38x6bXprPMxa/iS7sxw36h6E5GW8=;
+        b=Af6zcRWPNDHwkBbyB4asqRNRuD/RGlDR61gZ/KzlCOKa851VouKs3ROock4F/yx07V
+         rklPxHfEWvur26k6+7klrBRWMe9T7NL8OuOCjigUGMRJNZjfoM38nm8Ptex8IH6O6Lpq
+         NL12aO54sXu8OgCZKZk0VaqRUdY0LFkKEshuVk3R8DGpzsMEuAZnBuPfeBLdTt25HVka
+         S8uVVy2HmpKwqrx/JsyRVyZGhaEqVwbghtqp3wOPP37LVU0GAjFuL/cUXOzmsunDJyhp
+         pOOpbrqG6MOqqLfk0XVrhW2Y52b+cDHIt3jBrEAtpLyRLfGUaSiLHBY3cXVBcqLfPox+
+         IueA==
+X-Gm-Message-State: AOJu0Yx4VKMrSyh6dtwFSCIvjzc2Efy8yLBfCGiVYPbIIzAjbqtgmFtY
+	Bf6oMVDxUplD0LOYZ3AgQA==
 X-Google-Smtp-Source: 
- AGHT+IFOS5fuKXmCLh8kzU0y1GLYjtXxy7bOhVtFki5w2Fgr+bDQyC2qYgPIiQH2f3gYvZC+LV/EnQ==
-X-Received: by 2002:a17:906:3d29:b0:99d:f29b:f2e4 with SMTP id
- l9-20020a1709063d2900b0099df29bf2e4mr21968075ejf.29.1693329461237;
-        Tue, 29 Aug 2023 10:17:41 -0700 (PDT)
+ AGHT+IGy6ebumFaH6aO1ynQk+aNb6IThAySOcLcWyoeDCRfh26m8xsK1Szz112EbWkaHyFlntA3M6Q==
+X-Received: by 2002:a2e:9cd8:0:b0:2bb:bdf0:caf2 with SMTP id
+ g24-20020a2e9cd8000000b002bbbdf0caf2mr20698676ljj.25.1693329462298;
+        Tue, 29 Aug 2023 10:17:42 -0700 (PDT)
 Received: from U4.lan ([2001:9e8:b958:3410:8e0c:ed68:cd6c:7cb8])
         by smtp.gmail.com with ESMTPSA id
- a21-20020a1709062b1500b00993cc1242d4sm6115834ejg.151.2023.08.29.10.17.40
+ a21-20020a1709062b1500b00993cc1242d4sm6115834ejg.151.2023.08.29.10.17.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Aug 2023 10:17:40 -0700 (PDT)
+        Tue, 29 Aug 2023 10:17:41 -0700 (PDT)
 From: Alex Bee <knaerzche@gmail.com>
 To: Heiko Stuebner <heiko@sntech.de>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -110,9 +110,9 @@ Cc: Elaine Zhang <zhangqing@rock-chips.com>,
 	linux-clk@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Alex Bee <knaerzche@gmail.com>
-Subject: [PATCH 17/31] ARM: dts: rockchip: Add CPU resets for RK312x
-Date: Tue, 29 Aug 2023 19:16:33 +0200
-Message-ID: <20230829171647.187787-18-knaerzche@gmail.com>
+Subject: [PATCH 18/31] ARM: dts: rockchip: Enable SMP bringup for RK312x
+Date: Tue, 29 Aug 2023 19:16:34 +0200
+Message-ID: <20230829171647.187787-19-knaerzche@gmail.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829171647.187787-1-knaerzche@gmail.com>
 References: <20230829171647.187787-1-knaerzche@gmail.com>
@@ -124,15 +124,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JNTK6A22TBGZ27EUDSMJNJGVXGFW4P4S
-X-Message-ID-Hash: JNTK6A22TBGZ27EUDSMJNJGVXGFW4P4S
-X-Mailman-Approved-At: Tue, 29 Aug 2023 18:26:10 +0000
+Message-ID-Hash: SHQ2HIOMOYBHG3NJN73KZZDLQXDMEIPJ
+X-Message-ID-Hash: SHQ2HIOMOYBHG3NJN73KZZDLQXDMEIPJ
+X-Mailman-Approved-At: Tue, 29 Aug 2023 18:26:44 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNTK6A22TBGZ27EUDSMJNJGVXGFW4P4S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SHQ2HIOMOYBHG3NJN73KZZDLQXDMEIPJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,47 +141,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add the reset controls for all 4 cpu cores.
+For bringup of the non-boot cpu cores the enable-method for RK3036 can be
+re-used.
+
+This adds a (small) chunk  of SRAM for execution of the SMP trampoline code
+and the respective enable-method property to the cpus.
 
 Signed-off-by: Alex Bee <knaerzche@gmail.com>
 ---
- arch/arm/boot/dts/rockchip/rk312x.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm/boot/dts/rockchip/rk312x.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm/boot/dts/rockchip/rk312x.dtsi b/arch/arm/boot/dts/rockchip/rk312x.dtsi
-index 7aba97b2c990..b195ac525c37 100644
+index b195ac525c37..08b953b005ff 100644
 --- a/arch/arm/boot/dts/rockchip/rk312x.dtsi
 +++ b/arch/arm/boot/dts/rockchip/rk312x.dtsi
-@@ -34,6 +34,7 @@ cpu0: cpu@f00 {
- 			reg = <0xf00>;
- 			clock-latency = <40000>;
- 			clocks = <&cru ARMCLK>;
-+			resets = <&cru SRST_CORE0>;
- 			operating-points = <
- 				/* KHz    uV */
- 				 816000 1000000
-@@ -45,18 +46,21 @@ cpu1: cpu@f01 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a7";
- 			reg = <0xf01>;
-+			resets = <&cru SRST_CORE1>;
- 		};
+@@ -27,6 +27,7 @@ arm-pmu {
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
++		enable-method = "rockchip,rk3036-smp";
  
- 		cpu2: cpu@f02 {
+ 		cpu0: cpu@f00 {
  			device_type = "cpu";
- 			compatible = "arm,cortex-a7";
- 			reg = <0xf02>;
-+			resets = <&cru SRST_CORE2>;
- 		};
- 
- 		cpu3: cpu@f03 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a7";
- 			reg = <0xf03>;
-+			resets = <&cru SRST_CORE3>;
- 		};
+@@ -87,6 +88,11 @@ imem: sram@10080000 {
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+ 		ranges = <0 0x10080000 0x2000>;
++
++		smp-sram@0 {
++			compatible = "rockchip,rk3066-smp-sram";
++			reg = <0x00 0x10>;
++		};
  	};
  
+ 	pmu: syscon@100a0000 {
 -- 
 2.42.0
 

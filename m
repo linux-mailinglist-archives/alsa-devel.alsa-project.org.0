@@ -2,60 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E87778CF5A
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Aug 2023 00:03:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8116278CF5B
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Aug 2023 00:03:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9BE6DEC;
-	Wed, 30 Aug 2023 00:02:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9BE6DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 703EEDF8;
+	Wed, 30 Aug 2023 00:02:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 703EEDF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693346600;
-	bh=xI66UpNVTpcShnwJRClXF7/oI1rnpdo0EK+ou864+xU=;
+	s=default; t=1693346603;
+	bh=LABLKY8cGdghJhYahx98998a8gcU3xlpMvrXzGnf6a8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iGu2cPPW7cd+jfDeYQdTtjQi+ey6KiK/8/EwLNttBvUHnKeT8lDUdRJiArcciah2N
-	 fTdoSfe8LztHVvF5kYfBP8vrwupDmVpsx2315EQrfiL9x1wx8qMgPO15Mo3C+CV/2L
-	 Mb1SboTtNOvnsGO6Geszhyv/wy4bzMAzPuCW8PYU=
+	b=Dnd+RAfsBZdkygeROeYVP31sBz22A7jE9BSFc5mK3//6ans+Yk5zcptIZbEu7/yrF
+	 +wdMyppaJxfqMhoFqjmZLPfvIfrR4iCHbUWFKZcdHKrW4QFRMCZT0Wz5TGKUoBoYxc
+	 wPvNrk7BqhsGThBMqhUAJevC9a+IgSbXs0oSDmtk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFE83F80537; Wed, 30 Aug 2023 00:01:40 +0200 (CEST)
+	id 4DCA9F8057A; Wed, 30 Aug 2023 00:01:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69DD3F80537;
-	Wed, 30 Aug 2023 00:01:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A56FAF80158;
+	Wed, 30 Aug 2023 00:01:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57DA7F80249; Wed, 30 Aug 2023 00:01:35 +0200 (CEST)
+	id 85CEAF8023B; Wed, 30 Aug 2023 00:01:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74024F80094
-	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 00:01:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74024F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id A9E30F80155
+	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 00:01:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9E30F80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
- header.s=default header.b=ItLp8ZUv
+ header.s=default header.b=RFvBbT2f
 Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.mutex.one (Postfix) with ESMTP id B61B016C004F;
-	Wed, 30 Aug 2023 01:01:24 +0300 (EEST)
+	by mail.mutex.one (Postfix) with ESMTP id D79EF16C0055;
+	Wed, 30 Aug 2023 01:01:25 +0300 (EEST)
 X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
 Received: from mail.mutex.one ([127.0.0.1])
 	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id jvhPjC8fXho6; Wed, 30 Aug 2023 01:01:23 +0300 (EEST)
+	with ESMTP id P4aYD75tWZSX; Wed, 30 Aug 2023 01:01:24 +0300 (EEST)
 From: Marian Postevca <posteuca@mutex.one>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
-	t=1693346483; bh=xI66UpNVTpcShnwJRClXF7/oI1rnpdo0EK+ou864+xU=;
+	t=1693346484; bh=LABLKY8cGdghJhYahx98998a8gcU3xlpMvrXzGnf6a8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ItLp8ZUvJ1ruMD1YHexop0ed+TEwT46nmOwE7RwRIpdpy60BF2XcWeKq1VfaXTasg
-	 2sT8p5P5TDV20cVrANugSxKUC/j6NwT52cTRWUHGJcG2BkPsM7kBZVMgVjT/phfzPq
-	 B7iXcnnzJiSiPLVDoQaxWHAclHYmxFFVr7jOt2do=
+	b=RFvBbT2fFvhcNjvMZZJV6XHR214q10qz2f3nbDu7BhKVyhEeZjWUr15pfX7ZZUBXf
+	 vzVSFPPYzR+0pBXXGw6+4ab35uuxPkxjasoSjGOvXOSlmi6kU1M7SnX2pHah+4pN/M
+	 NEc+xm4nN6RruGgrm72R3ZwJCTy5ym3MvYetq+A8=
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Takashi Iwai <tiwai@suse.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -63,15 +62,16 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	Marian Postevca <posteuca@mutex.one>
-Subject: [PATCH v3 1/5] ASoC: es8316: Enable support for S32 LE format
-Date: Wed, 30 Aug 2023 01:01:12 +0300
-Message-ID: <20230829220116.1159-2-posteuca@mutex.one>
+Subject: [PATCH v3 2/5] ASoC: es8316: Replace NR_SUPPORTED_MCLK_LRCK_RATIOS
+ with ARRAY_SIZE()
+Date: Wed, 30 Aug 2023 01:01:13 +0300
+Message-ID: <20230829220116.1159-3-posteuca@mutex.one>
 In-Reply-To: <20230829220116.1159-1-posteuca@mutex.one>
 References: <20230829220116.1159-1-posteuca@mutex.one>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Y2MO6FTOX6ABCBN6XMQLANBA3M4X4CJA
-X-Message-ID-Hash: Y2MO6FTOX6ABCBN6XMQLANBA3M4X4CJA
+Message-ID-Hash: 24RTEMRTMXAY55VY3UAQLJOHVXG4HA7K
+X-Message-ID-Hash: 24RTEMRTMXAY55VY3UAQLJOHVXG4HA7K
 X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -84,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y2MO6FTOX6ABCBN6XMQLANBA3M4X4CJA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/24RTEMRTMXAY55VY3UAQLJOHVXG4HA7K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,28 +93,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This CODEC does support the S32 LE format in es8316_pcm_hw_params(),
-but doesn't have it enabled in ES8316_FORMATS. Enable it so that we
-have more options to match with components.
+No need for a special define since we can use ARRAY_SIZE() directly,
+and won't need to worry to keep it in sync.
 
 Signed-off-by: Marian Postevca <posteuca@mutex.one>
 ---
- sound/soc/codecs/es8316.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/es8316.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index a8f347f1affb..09fc0b25f600 100644
+index 09fc0b25f600..a1c3e10c3cf1 100644
 --- a/sound/soc/codecs/es8316.c
 +++ b/sound/soc/codecs/es8316.c
-@@ -526,7 +526,7 @@ static int es8316_mute(struct snd_soc_dai *dai, int mute, int direction)
- }
+@@ -27,7 +27,6 @@
+  * MCLK/LRCK ratios, but we also add ratio 400, which is commonly used on
+  * Intel Cherry Trail platforms (19.2MHz MCLK, 48kHz LRCK).
+  */
+-#define NR_SUPPORTED_MCLK_LRCK_RATIOS ARRAY_SIZE(supported_mclk_lrck_ratios)
+ static const unsigned int supported_mclk_lrck_ratios[] = {
+ 	256, 384, 400, 500, 512, 768, 1024
+ };
+@@ -40,7 +39,7 @@ struct es8316_priv {
+ 	struct snd_soc_jack *jack;
+ 	int irq;
+ 	unsigned int sysclk;
+-	unsigned int allowed_rates[NR_SUPPORTED_MCLK_LRCK_RATIOS];
++	unsigned int allowed_rates[ARRAY_SIZE(supported_mclk_lrck_ratios)];
+ 	struct snd_pcm_hw_constraint_list sysclk_constraints;
+ 	bool jd_inverted;
+ };
+@@ -382,7 +381,7 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+ 	/* Limit supported sample rates to ones that can be autodetected
+ 	 * by the codec running in slave mode.
+ 	 */
+-	for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
++	for (i = 0; i < ARRAY_SIZE(supported_mclk_lrck_ratios); i++) {
+ 		const unsigned int ratio = supported_mclk_lrck_ratios[i];
  
- #define ES8316_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
--			SNDRV_PCM_FMTBIT_S24_LE)
-+			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
+ 		if (freq % ratio == 0)
+@@ -472,7 +471,7 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	int i;
  
- static const struct snd_soc_dai_ops es8316_ops = {
- 	.startup = es8316_pcm_startup,
+ 	/* Validate supported sample rates that are autodetected from MCLK */
+-	for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
++	for (i = 0; i < ARRAY_SIZE(supported_mclk_lrck_ratios); i++) {
+ 		const unsigned int ratio = supported_mclk_lrck_ratios[i];
+ 
+ 		if (es8316->sysclk % ratio != 0)
+@@ -480,7 +479,7 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		if (es8316->sysclk / ratio == params_rate(params))
+ 			break;
+ 	}
+-	if (i == NR_SUPPORTED_MCLK_LRCK_RATIOS)
++	if (i == ARRAY_SIZE(supported_mclk_lrck_ratios))
+ 		return -EINVAL;
+ 	lrck_divider = es8316->sysclk / params_rate(params);
+ 	bclk_divider = lrck_divider / 4;
 -- 
 2.41.0
 

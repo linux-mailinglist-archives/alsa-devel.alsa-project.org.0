@@ -2,137 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5841578CC32
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:35:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B89D78CBA9
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:04:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5A39EEE;
-	Tue, 29 Aug 2023 20:34:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5A39EEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC0233E8;
+	Tue, 29 Aug 2023 20:03:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC0233E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693334103;
-	bh=KYvNaFiccEfrE3JXs+goAbFfnGcG4b4AguI6Lpp89co=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1693332239;
+	bh=467VTP5UgXoon0/N4OikpqTSHrDuCUeKeBz61TQoNdM=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f0RSIu1UBbaJcd1yqNaIC3svdJl/XmhxSrlghIQA6KZT/ODxsZsSoS4+QRV5S/LCs
-	 3ClK74mBDrgscrRHitAS+50amcH6JzRwqesJj3VGAhkBJ1gKLtm3tB8LMiroshkh19
-	 OSiCMqhNUkokC5SyXBX3HpvQ04d4AOnQZp6gDFhE=
+	b=PVUwCNq9wuPxZMQlYy0Ne1/7jIw2GG2MURFGjcKgOfMzCJlxXiGlqD+FlybShWOzd
+	 XnTNbDmp/UWAvdSvNSk9kTuJUcU3zKEKfaQXJyODbwiMV4LcX0FsjRu9MqTlqM4aeQ
+	 6UL/6aJnjK8owi2qGY4D6cGMZImjupolWc/QPJQw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 768FFF805E2; Tue, 29 Aug 2023 20:29:05 +0200 (CEST)
+	id 9CBADF8025F; Tue, 29 Aug 2023 20:03:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EF54F805D2;
-	Tue, 29 Aug 2023 20:29:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EA38F80155;
+	Tue, 29 Aug 2023 20:03:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E86C3F80155; Tue, 29 Aug 2023 19:18:35 +0200 (CEST)
+	id 6D0E8F80236; Tue, 29 Aug 2023 20:03:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20702.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::702])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86FE1F80549
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 19:17:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86FE1F80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id C0B8DF800D1
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 20:02:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0B8DF800D1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=rVocglGg
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-98377c5d53eso602434766b.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 29 Aug 2023 10:17:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693329476; x=1693934276;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9dgLUHwMy8Op6Q955RlBIJYZNEpbxIwHtFF9Axp5TBc=;
-        b=rVocglGgRvpy+hgqv358C8NtQBIl+vNJ9cAF/wVlRixvPboXyjdw4vtXaI1sOyXcek
-         Jsyq/4NNhXpliV2UmTHOR95bZzPPaOdsrz6beMnEaO7NC9pmJygJfdEgXIblbEUDYoVQ
-         w1Aow4ihAO0S263Z3BxXFi+Za75AfB9GWduekvLTlLfAn0JCEnBRf2oTZ/tFPSFC4BPJ
-         o21DKAiEh0uKjHHd/H2tX2hu2QACHNMsooBUvbIJ9N9kS2ZPR6gnm2VGSrcbT/OCeRwy
-         cByHzv+q/ysAd8dyiNLiQppVdsrjyT4XsRpp7eia1Nb7Tq1mTfAKidgwcooLEulq4Z9Z
-         YBVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693329476; x=1693934276;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9dgLUHwMy8Op6Q955RlBIJYZNEpbxIwHtFF9Axp5TBc=;
-        b=Hp9BOnHW813eEpoI2cfT8yx189X8FsHoprTNNj4z8vGN0pRQpJFFO1nXkmR0cQ9p9H
-         iqHi3mQqQXi9D5owf/gX7sVp3p7OS3fqQp5VdmAzlIQyT6jKX+vKnwSUdfoxgUt2tcf5
-         IDPBEf4jXX181NdBWWaqoJ6iuDjypgSWnjAY0wDRJfyxhI2+9bKci5Fc0fpz6+Y8EIWQ
-         g5BTnsaXV9Tnr/77esLuPOf2RORiyCp2NbnIEKW8+p7H9z91io//8VY53JcU1OeyUVDO
-         YYrbTRHPsrYKX15ZE0PVizZ02b4D099llsExIL7oFJmQi0XQ+n/+U5D9VYk28CEhMdc6
-         n3xA==
-X-Gm-Message-State: AOJu0Yxnl5PaqCMfXkdSisUtN1Fs00Y79ZdD0YVbv21uLKaiUT6cvFFF
-	EkaGqT9Jt6Cnu4VFiuytzw==
-X-Google-Smtp-Source: 
- AGHT+IEAHEpea0my2awNoKKTjwFIoo2aOA5dRzNaAYj8ArUp4igUchYtsYpX/tLmQOBb/TDR6xtBKA==
-X-Received: by 2002:a17:906:5a45:b0:9a1:cdf1:ba6 with SMTP id
- my5-20020a1709065a4500b009a1cdf10ba6mr14633357ejc.12.1693329475384;
-        Tue, 29 Aug 2023 10:17:55 -0700 (PDT)
-Received: from U4.lan ([2001:9e8:b958:3410:8e0c:ed68:cd6c:7cb8])
-        by smtp.gmail.com with ESMTPSA id
- a21-20020a1709062b1500b00993cc1242d4sm6115834ejg.151.2023.08.29.10.17.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Aug 2023 10:17:55 -0700 (PDT)
-From: Alex Bee <knaerzche@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Lee Jones <lee@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>
-Cc: Elaine Zhang <zhangqing@rock-chips.com>,
-	Johan Jonker <jbx6244@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	alsa-devel@alsa-project.org,
-	linux-clk@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Alex Bee <knaerzche@gmail.com>
-Subject: [PATCH 31/31] ARM: dts: Add Geniatech XPI-3128 RK3128 board
-Date: Tue, 29 Aug 2023 19:16:47 +0200
-Message-ID: <20230829171647.187787-32-knaerzche@gmail.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230829171647.187787-1-knaerzche@gmail.com>
-References: <20230829171647.187787-1-knaerzche@gmail.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com
+ header.a=rsa-sha256 header.s=selector1 header.b=SmK5PW3r
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FVpawDiX0AORGl4gzbcOS+0E5LG7Umw+l6gD75MujOklCsoDe9Wjv5DqKmrVlpY4h3fLl2la6/Li00XaDgCd1T+j+EbnJFkroOZ4+hNptIwGw4E2QpZKByjhDFo67h6HgQgPX6oeO7KeFs6xNdKsZ+uqjXycg3bvJgzDVQDBdY8MrjAAA2Sn1VItnkTOfZjhaORcKZd++DKAg+8CujHOuvuZcV0XyRa8X757qmdZ0n0zQKl959/x2Mdql40A5W1RZuNs1CVzEdzgZncsXwQfNNx4CuwTUYdAjy0tpP7E5y870c/gql2lPdAOXF5XLvT2jouspwWBIuCa3p+iaxgyFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mP75Ff2VBVHUErdagOrSgu/7BXZ3U1MrFUXB+qMvgdQ=;
+ b=WNpDmYYi5wDK+vhFQou3fr/RCTVL8ny+wqwm9Y/tPPOgyy4j70L83U6ZngKQaNUkvzthp545OFT8MspnsU4+Yt5yVmDdV7RdLYEi8J7evW//qR61FgsgRg81C7jYU8vsbOeQIrc5J5LuHOtKSjtVV+bOLXGigXA2lTnuPc6YVLUdyXETCimvkGAOtqo5GEqe8GnrOqUmjkNDJS0ceU1JEQyH6TigDHF+cpigHztxN+WyK2XwhPKlHXCtqjVlDxaq3lfJWwokn9ePrUfC045n/LAOoYdt3a6BgkOefCZPEDWr/U3XAkp66osuj6Jvst1ick/kNRvtRPMR1bUD0x9H0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mP75Ff2VBVHUErdagOrSgu/7BXZ3U1MrFUXB+qMvgdQ=;
+ b=SmK5PW3rNyCqhdm2qRu/AGonH9LEIbn182jI59ubYiRLWlUeT7IgsevFdXgGNf9jKyTgywXy33nov+GX8DAQzU6N9pjwJtTLXgWluZd24h04typxCMWnWFvE4LI0dUBzpyL6dHR7wEmOWN+Kj2eMO/g9i5wbfUJ7eg0Azygc0fk=
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com (2603:1096:604:bb::5)
+ by OS3PR01MB9656.jpnprd01.prod.outlook.com (2603:1096:604:1f0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.18; Tue, 29 Aug
+ 2023 18:02:51 +0000
+Received: from OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::9d23:32f5:9325:3706]) by OS0PR01MB5922.jpnprd01.prod.outlook.com
+ ([fe80::9d23:32f5:9325:3706%5]) with mapi id 15.20.6745.015; Tue, 29 Aug 2023
+ 18:02:51 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	=?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2] ASoC: ak4642: Simplify probe()
+Thread-Topic: [PATCH v2] ASoC: ak4642: Simplify probe()
+Thread-Index: AQHZ2dl8p/yjHeISC0K+DbA1I4R5vrABZhuAgAAr8TA=
+Date: Tue, 29 Aug 2023 18:02:51 +0000
+Message-ID: 
+ <OS0PR01MB5922A08379222B0DF6D0323286E7A@OS0PR01MB5922.jpnprd01.prod.outlook.com>
+References: <20230828180003.127896-1-biju.das.jz@bp.renesas.com>
+ <ZO4NrT36gbwc27+0@smile.fi.intel.com>
+In-Reply-To: <ZO4NrT36gbwc27+0@smile.fi.intel.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OS0PR01MB5922:EE_|OS3PR01MB9656:EE_
+x-ms-office365-filtering-correlation-id: 727f4960-68aa-44e6-d8e6-08dba8ba2976
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ dvc4i+TwH8iQ6f/Tm0I5mnjMOamjbUcWpRPGwdJUne0S8uQ6Xgvyuswmxmz9JntCoaoPfYwCr4qHcUHAOseI3gxPCureP8JgJ8+v1TWGDMsepipMwzk1xhC4QsrS8ZLwQf/le4o7L0OQVFVkVkPJFJZI5m1AViUft9S1YgjS+vYApE3Vhs+X6P5EnLpJNMm2Yfdr3rRh/yujpPmGTY/oQ9IHHtUSpnPeOpbU4FS+HEV2tJ2nFRnqdDhtvEJYn9eTBRcCprkuDJ46QmJRWwB5h4ZslliLrYQX5Nm+k80hOlr8MjumlJEvgJRYeE3z3TKPB5KWG1pNlHD0BjsCluQ1n/PJCdiqVTLLexoXJyBZ4Le5GjiaI2y8kJAAmtl30I2vnym48BUNZhqfWDQ/jvrOxPZzmPDyfW4mI5eH0Miqd1ghpbZ7LhCPs93kNCzHwBNDggvX9jkB7kg/bvbMD4uCd7hCfXCZOV1K/uB+IkYNqrk/laGXKEQi/i1d2YQpGkOMEKnC+/735nkoIt1sQ30WeZ+0eNzj1EFrQnvS7vbz2v3P0NN263ylwew8hYEqf1p4gLf7nniKzEtBLL+FkU7qe8aDYIMP7/6UFdXfcJebbxYuNHhvn4hEjmRnmp1LORCV
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS0PR01MB5922.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(136003)(346002)(376002)(366004)(1800799009)(186009)(451199024)(4744005)(2906002)(55016003)(54906003)(33656002)(76116006)(66446008)(66476007)(66556008)(64756008)(66946007)(5660300002)(316002)(6916009)(41300700001)(4326008)(8936002)(8676002)(52536014)(71200400001)(7696005)(6506007)(9686003)(38100700002)(86362001)(38070700005)(122000001)(26005)(478600001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?j7b93yReUqeNmzXGAQWipiJCH90JWcnJtbhXp7QLrJ0PzLBsUCkbUnIVM2?=
+ =?iso-8859-1?Q?25IznkYVjvauZVFkRiKVjvc4fJ4LlYiAv1KnTPJ5w9zrfpYUmEiXeaGpGA?=
+ =?iso-8859-1?Q?5W3JH7PLZdiQukamgFgjBGnfRfa1Qx9UWIlEThiymm+LDcrTEKFIVOS9KI?=
+ =?iso-8859-1?Q?RErfWkzE15qpnleKsPc1cx9odCWY6dYvimE90yA4zwRkk0yggmQLeoBwkZ?=
+ =?iso-8859-1?Q?QjRIDDbidVG/QGmJJn8FiciGthgxGj8pmhoQuoaNhYKwM/ivfxiYEe2fYt?=
+ =?iso-8859-1?Q?tzELxYC4tSvnwZZpKPsxckv7sJm9TSrpq8ZFGm0f6EUvVbryhcTWlvLGAC?=
+ =?iso-8859-1?Q?uLBwUDeYnnKQE6Or4vCVmY5DCCOjv5u3XZ/loNFHPlEAzMx7+C+GVJOZ3H?=
+ =?iso-8859-1?Q?lHPk6EWFGAZfP2m5NyKfm13IQoT8wLCvVsKusg5whSgiKNZ+YuQ5w9E3m7?=
+ =?iso-8859-1?Q?W6SCrWI9sMBrJ2mSSVZtSSAn1kRFiW7KpQypBxWwY4idIE8x+TKGdS0QDC?=
+ =?iso-8859-1?Q?6iOsbOucxympHP75O58TpvjvKDPXb+upWWhRjIv+fxxCca69QXijv4igFv?=
+ =?iso-8859-1?Q?QenL08ElOllbgaozUjjpDExBEhu34TIokWVMmNxRGop4V8jPIEW0LHl/gK?=
+ =?iso-8859-1?Q?GkTvZgQ9z3qFXxrm0kLY4htBYlGPOcOVN3Qu6eWknqlW0FkE6+5m2jdapI?=
+ =?iso-8859-1?Q?4FO3zX0ENgJvDZs3qEpZZrCIOkBR67XITwMMZttHadRb+xCV+BNR9PXl2A?=
+ =?iso-8859-1?Q?zKxkBguKYXUQjTZT6e+2akE1l8Z/6JpaTJOXQ1r+1kvlUOtp15Z+tn283a?=
+ =?iso-8859-1?Q?VzvWlimJjnk4zpqrgjbyqaUOoX19IkSEbKOs9WwUD/29RSU9dq2hicMlHk?=
+ =?iso-8859-1?Q?CaCoAFhCo5cwC8oNolMvmeJETplioAAbuVaxKgQUg5ALM/8rxk940zebqm?=
+ =?iso-8859-1?Q?rbw3IBb3ytEvZYnIMirNPlkC6mDzXQgUFLhDH71cEUxiwsNfHkp89qbSgZ?=
+ =?iso-8859-1?Q?4DXS4dx+xLSaXm2h+JS983TtaZvA1g3MQstDPt37YsJ+Vm1SvGFtaXR5/a?=
+ =?iso-8859-1?Q?pGOL7pfhgv/fTKsUUEAcgP0i78wNvBng/ZN4tPOninWSZxtLqL3irjB+eW?=
+ =?iso-8859-1?Q?uSovalDPxDk62LKFE6HdXW6wwxUznIorUdxwOLCI06aVZDW/ORnP+QQfT7?=
+ =?iso-8859-1?Q?zBBOMSkhPzp+FnvE4pKQvsastlcfyz9h/mFpSjtsN+Tr6eIt5RtDdSs9Zd?=
+ =?iso-8859-1?Q?UxGHYLClrUJWQcvLf0bW4JFHo6HlBLKCSpi3kCTOjBT8HwtAx2ELoDhuo1?=
+ =?iso-8859-1?Q?PoKzJn1YCm7QFhxyFfz6KcWy2D5R/OpU2BSdZpYN2pJLQfA7CTTej0T4nX?=
+ =?iso-8859-1?Q?U1FKr701E2yoIFe4AW6CHyt1L6XkbIHu1mgYkwb7Vyf39EqYKRkTXJKnL9?=
+ =?iso-8859-1?Q?FL9CjaEh6HIwDyd+HHbRdVVCD3aBa7WiuWTFgenLBBH7fmeMxgRq2VN1VX?=
+ =?iso-8859-1?Q?A4nhuKXt6/3/4qvBg/tAyt+wW7J0WQ1WC0csBqGlZUIxYtvtCNC7YcgEif?=
+ =?iso-8859-1?Q?KC4A/GgJyheOarcVXUlWba/m+fHTA7v0PWsmVViO3bMtSgV7/KONsDCWzQ?=
+ =?iso-8859-1?Q?XChSGHiXTlMbGjuFDPZNZPFo9z+IQ7b78aoEDaXFR+dLVjA96fYgfftQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: knaerzche@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB5922.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 727f4960-68aa-44e6-d8e6-08dba8ba2976
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Aug 2023 18:02:51.6085
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ wV+9xEGNjNDZJYScslF9xY9y/wkRBB4e5GXv/gKE/X9Ep/MWvQzKwBOPUJACDl4iOoa9DUCwjqrngaIk7TtSpSRR01jlqLDLGoj1K88fMmw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9656
+Message-ID-Hash: XGPQZMCZHSQRLT5XGJBGN3XKK53JXQHI
+X-Message-ID-Hash: XGPQZMCZHSQRLT5XGJBGN3XKK53JXQHI
+X-MailFrom: biju.das.jz@bp.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: RTLYEU3WJAOKRYITXSCFCUWQ6KZPRCAG
-X-Message-ID-Hash: RTLYEU3WJAOKRYITXSCFCUWQ6KZPRCAG
-X-Mailman-Approved-At: Tue, 29 Aug 2023 18:28:45 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTLYEU3WJAOKRYITXSCFCUWQ6KZPRCAG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKPWC624S63SWAYEWWHTJX3DXQOCEVK7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,480 +169,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-XPI-3128 is RK3128 based SBC form Geniatec in RPi form factor
+Hi Andy,
 
-Specs:
-- Rockchip RK3128
-- 1 GB DDR3 DRAM
-- 8/16 GB eMMC
-- TF card slot
-- 100 MBit ethernet / RJ45
-- optional Marvell 88W8897 (USB version)
-- 3 x USB host (onboard GL852G hub connected to SoC ehci host)
-- 1 x USB otg
-- 1 x Type-C (solely for powering the board)
-- HDMI 1.4 out
-- 1 ADC button
-- IR receiver
-- Artasie AM1805 RTC
-- 40 pin header
+> Subject: Re: [PATCH v2] ASoC: ak4642: Simplify probe()
+>=20
+> On Mon, Aug 28, 2023 at 07:00:03PM +0100, Biju Das wrote:
+> > Simpilfy probe() by replacing of_device_get_match_data() and id lookup
+> > for retrieving match data by i2c_get_match_data() and replace
+> > dev_err()->dev_err_probe().
+>=20
+> ...
+>=20
+> > -	if (np) {
+> > -		const struct of_device_id *of_id;
+> > -
+>=20
+> > +	if (dev_fwnode(dev)) {
+>=20
+> Why do we need this at all?
+It is replacement for np.
 
-Signed-off-by: Alex Bee <knaerzche@gmail.com>
----
- arch/arm/boot/dts/rockchip/Makefile           |   1 +
- .../arm/boot/dts/rockchip/rk3128-xpi-3128.dts | 431 ++++++++++++++++++
- 2 files changed, 432 insertions(+)
- create mode 100644 arch/arm/boot/dts/rockchip/rk3128-xpi-3128.dts
+>=20
+> >  		mcko =3D ak4642_of_parse_mcko(dev);
+> >  		if (IS_ERR(mcko))
+> >  			mcko =3D NULL;
+>=20
+> This can suffice on its own, right?
+>=20
+> Can be done in a separate change as a precursor to this one.
 
-diff --git a/arch/arm/boot/dts/rockchip/Makefile b/arch/arm/boot/dts/rockchip/Makefile
-index 0f46e18fe275..58868cf0510b 100644
---- a/arch/arm/boot/dts/rockchip/Makefile
-+++ b/arch/arm/boot/dts/rockchip/Makefile
-@@ -10,6 +10,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
- 	rk3066a-mk808.dtb \
- 	rk3066a-rayeager.dtb \
- 	rk3128-evb.dtb \
-+	rk3128-xpi-3128.dtb \
- 	rk3188-bqedison2qc.dtb \
- 	rk3188-px3-evb.dtb \
- 	rk3188-radxarock.dtb \
-diff --git a/arch/arm/boot/dts/rockchip/rk3128-xpi-3128.dts b/arch/arm/boot/dts/rockchip/rk3128-xpi-3128.dts
-new file mode 100644
-index 000000000000..842b5f20d98a
---- /dev/null
-+++ b/arch/arm/boot/dts/rockchip/rk3128-xpi-3128.dts
-@@ -0,0 +1,431 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include "rk3128.dtsi"
-+
-+/ {
-+	model = "Geniatech XPI-3128";
-+	compatible = "geniatech,xpi-3128", "rockchip,rk3128";
-+
-+	aliases {
-+		ethernet0 = &gmac;
-+		gpio0 = &gpio0;
-+		gpio1 = &gpio1;
-+		gpio2 = &gpio2;
-+		gpio3 = &gpio3;
-+		mmc0 = &emmc;
-+		mmc1 = &sdmmc;
-+		serial0 = &uart1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <3300000>;
-+
-+		button-recovery {
-+			label = "Recovery";
-+			linux,code = <KEY_VENDOR>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
-+	dc_5v: dc-5v-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "DC_5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	/*
-+	 * This is a vbus-supply, which also supplies the GL852G usb hub,
-+	 * thus has to be always-on
-+	 */
-+	host_pwr_5v: host-pwr-5v-regulator {
-+		compatible = "regulator-fixed";
-+		gpio = <&gpio3 RK_PC4 GPIO_ACTIVE_HIGH>;
-+		startup-delay-us = <1500>;
-+		regulator-name = "HOST_PWR_5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&dc_5v>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&host_drv>;
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	ir-receiver {
-+		compatible = "gpio-ir-receiver";
-+		gpios = <&gpio3 RK_PD2 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ir_int>;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-power {
-+			gpios = <&gpio0 RK_PD2 GPIO_ACTIVE_HIGH>;
-+			function = LED_FUNCTION_POWER;
-+			color = <LED_COLOR_ID_BLUE>;
-+			default-state = "on";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&power_led>;
-+		};
-+
-+		led-spd {
-+			gpios = <&gpio3 RK_PB3 GPIO_ACTIVE_LOW>;
-+			function = LED_FUNCTION_LAN;
-+			color = <LED_COLOR_ID_GREEN>;
-+			/*
-+			 * currently not allowed to be set as per
-+			 * https://www.kernel.org/doc/Documentation/devicetree/bindings/leds/common.yaml
-+			 * and has to set in userspace
-+			 *
-+			 * linux,default-trigger = "netdev";
-+			 */
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&spd_led>;
-+		};
-+	};
-+
-+	mcu3v3: mcu3v3-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "MCU3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_io>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vcc_ddr: vcc-ddr-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC_DDR";
-+		regulator-min-microvolt = <1500000>;
-+		regulator-max-microvolt = <1500000>;
-+		vin-supply = <&vcc_sys>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vcc_io: vcc-io-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC_IO";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_sys>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vcc_lan: vcc-lan-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC_LAN";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_io>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vcc_sd: vcc-sd-regulator {
-+		compatible = "regulator-fixed";
-+		gpio = <&gpio1 RK_PB6 GPIO_ACTIVE_LOW>;
-+		startup-delay-us = <500>;
-+		regulator-name = "VCC_SD";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_io>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_pwren>;
-+	};
-+
-+	vcc_sys: vcc-sys-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC_SYS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&dc_5v>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vcc33_hdmi: vcc33-hdmi-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC33_HDMI";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcca_33>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vcca_33: vcca-33-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCCA_33";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_sys>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vdd_11: vdd-11-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD_11";
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc_sys>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vdd11_hdmi: vdd11-hdmi-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD11_HDMI";
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vdd_11>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vdd_arm: vdd-arm-regulator {
-+		compatible = "pwm-regulator";
-+		regulator-name = "VDD_ARM";
-+		pwms = <&pwm1 0 25000 1>;
-+		pwm-supply = <&vcc_sys>;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <1400000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	/*
-+	 * As per schematics vdd_log is minimum 900 mV, maximum 1400 mV.
-+	 * Since there are HW blocks in PD_LOGIC which are all driven by
-+	 * this supply, which either do not have a driver at all or the
-+	 * driver does not have regulator support, but are required for
-+	 * the board to run we have to make sure here, that the voltage
-+	 * never drops below 1050 mV.
-+	 */
-+	vdd_log: vdd-log-regulator {
-+		compatible = "pwm-regulator";
-+		regulator-name = "VDD_LOG";
-+		pwms = <&pwm2 0 25000 1>;
-+		pwm-dutycycle-range = <30 100>;
-+		pwm-supply = <&vcc_sys>;
-+		regulator-min-microvolt = <1050000>;
-+		regulator-max-microvolt = <1400000>;
-+		regulator-ramp-delay = <4000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	memory@60000000 {
-+		device_type = "memory";
-+		reg = <0x60000000 0x40000000>;
-+	};
-+
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&emmc {
-+	bus-width = <8>;
-+	vmmc-supply = <&vcc_io>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&emmc_clk &emmc_cmd &emmc_bus8>;
-+	cap-mmc-highspeed;
-+	no-sd;
-+	no-sdio;
-+	status = "okay";
-+};
-+
-+&gmac {
-+	clock_in_out = "output";
-+	phy-supply = <&vcc_lan>;
-+	phy-mode = "rmii";
-+	phy-handle = <&phy0>;
-+	assigned-clocks = <&cru SCLK_MAC_SRC>;
-+	assigned-clock-rates= <50000000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rmii_pins>;
-+	status = "okay";
-+};
-+
-+/*
-+ * Add labels for each pin which is exposed at the 40-pin header
-+ */
-+&gpio0 {
-+	gpio-line-names = /* GPIO0 A0-A7 */
-+			  "", "", "HEADER_5", "HEADER_3",
-+			  "", "", "", "",
-+			  /* GPIO0 B0-B7 */
-+			  "HEADER_22", "HEADER_23", "", "HEADER_19",
-+			  "HEADER_26", "HEADER_21", "HEADER_24", "",
-+			  /* GPIO0 C0-C7 */
-+			  "", "HEADER_18", "", "",
-+			  "", "", "", "",
-+			  /* GPIO0 D0-D7 */
-+			  "HEADER_36", "", "", "",
-+			  "", "", "HEADER_13", "";
-+};
-+
-+&gpio1 {
-+	gpio-line-names = /* GPIO1 A0-A7 */
-+			  "HEADER_7", "HEADER_35", "HEADER_33", "HEADER_37",
-+			  "HEADER_40", "HEADER_38", "", "",
-+			  /* GPIO1 B0-B7 */
-+			  "HEADER_11", "", "", "HEADER_29",
-+			  "HEADER_31", "", "", "",
-+			  /* GPIO1 C0-C7 */
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  /* GPIO1 D0-D7 */
-+			  "", "", "", "",
-+			  "", "", "", "";
-+};
-+
-+&gpio2 {
-+	gpio-line-names = /* GPIO2 A0-A7 */
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  /* GPIO2 B0-B7 */
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  /* GPIO2 C0-C7 */
-+			  "", "", "", "",
-+			  "HEADER_27", "", "", "",
-+			  /* GPIO2 D0-D7 */
-+			  "", "", "HEADER_8", "HEADER_10",
-+			  "", "", "", "";
-+};
-+
-+&gpio3 {
-+	gpio-line-names = /* GPIO3 A0-A7 */
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  /* GPIO3 B0-B7 */
-+			  "", "", "", "",
-+			  "", "", "", "",
-+			  /* GPIO3 C0-C7 */
-+			  "", "HEADER_32", "", "",
-+			  "", "", "", "HEADER_12",
-+			  /* GPIO3 D0-D7 */
-+			  "", "", "", "HEADER_15",
-+			  "", "", "", "";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_log>;
-+	status = "okay";
-+};
-+
-+&mdio {
-+	phy0: ethernet-phy@1 {
-+		/* DP83848C interrupt is not connected */
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+		max-speed = <100>;
-+		reset-assert-us = <15000>;
-+		reset-deassert-us = <80000>;
-+		reset-gpios = <&gpio2 RK_PD0 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&dp83848c_rst>;
-+	};
-+};
-+
-+&pinctrl {
-+	dp83848c {
-+		dp83848c_rst: dp83848c-rst {
-+			rockchip,pins = <2 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	ir-receiver {
-+		ir_int: ir-int {
-+			rockchip,pins = <3 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	leds {
-+		power_led: power-led {
-+			rockchip,pins = <0 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		spd_led: spd-led {
-+			rockchip,pins = <3 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	usb2 {
-+		host_drv: host-drv {
-+			rockchip,pins = <3 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&pwm1 {
-+	status = "okay";
-+};
-+
-+&pwm2 {
-+	status = "okay";
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_io>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	bus-width = <4>;
-+	vmmc-supply = <&vcc_sd>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det>;
-+	cap-sd-highspeed;
-+	no-mmc;
-+	no-sdio;
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usb_host_ehci {
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	vusb_a-supply = <&vcc_io>;
-+	vusb_d-supply = <&vdd_11>;
-+	status = "okay";
-+};
-+
-+&usb2phy {
-+	status = "okay";
-+};
-+
-+&usb2phy_host {
-+	status = "okay";
-+};
-+
-+&usb2phy_otg {
-+	status = "okay";
-+};
--- 
-2.42.0
+Agreed.
+
+Cheers,
+Biju
+>=20
+> > -
+> > -		of_id =3D of_match_device(ak4642_of_match, dev);
+> > -		if (of_id)
+> > -			drvdata =3D of_id->data;
+> > -	} else {
+> > -		const struct i2c_device_id *id =3D
+> > -			i2c_match_id(ak4642_i2c_id, i2c);
+> > -		drvdata =3D (const struct ak4642_drvdata *)id->driver_data;
+> >  	}
+>=20
+> --
+> With Best Regards,
+> Andy Shevchenko
+>=20
 

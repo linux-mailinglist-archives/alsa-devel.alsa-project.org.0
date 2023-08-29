@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4909178CC01
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 20:25:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F7C78CCB0
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Aug 2023 21:13:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDA741F2;
-	Tue, 29 Aug 2023 20:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDA741F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45F851E9;
+	Tue, 29 Aug 2023 21:12:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45F851E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693333554;
-	bh=mvJOKteySkAMuBwIOSTp4xOKzzZEnzcAjIVPXkAkt8U=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=g2Cor6zyymb3gtbe3OObEYaVWU7p7OcCdutQMr5d/v6Aa+brsFD6lyOYbVSPJ7tzL
-	 Vp8daj9jRwk6RbUF+jy0E7VjaYFQvvLLvObY3pjI0L9laQrtjbdRs/qDm6lqJcufWL
-	 PIVuRGGXpPOAHE25/5w943DUlI8MG67TXn4FnL2E=
+	s=default; t=1693336398;
+	bh=Zhedh8PAzSNPe4tiegHKDd4Vg+y78P6BVknH0uInuZc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=dbOOzUefTbicbBnkvN5DgxzZ8ICzYmwB+l9gfgBZ96XdtteLR3IXusrw4kNYh5m4r
+	 THpYFnnTAIb1dG7LKSZigliP7/sB98Mv/zbCsFDQHiGp7pKaw/GG6+aGE0gJWC2jWH
+	 KR+fmNNOTK3gVNySLXDT8Lmx/hFPvu4L2UdbhlXw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54F0DF8025F; Tue, 29 Aug 2023 20:24:44 +0200 (CEST)
+	id 78A32F80236; Tue, 29 Aug 2023 21:12:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04502F80155;
-	Tue, 29 Aug 2023 20:24:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1973F80005;
+	Tue, 29 Aug 2023 21:12:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14E7FF80158; Tue, 29 Aug 2023 20:24:41 +0200 (CEST)
+	id A16F5F80155; Tue, 29 Aug 2023 21:12:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E0B29F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 20:24:36 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C432811E2;
-	Tue, 29 Aug 2023 20:24:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C432811E2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1693333474; bh=tGrN9uK0PhIM2WtCx+Bc1DOqpmxLAuC/DhCTKEPd1PY=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=t2G+EmUw3UmNocmbALyJKFW8p6t1ciOh1xxRvk0XJ0HqnuB/hCInFXBpVefcbBcVH
-	 eSra1Z6mt2XpCoL0lmY0pLyi9svOMttWgvKxZuzD2m/7HTAgK6GVtTwbfl+2vUlEGE
-	 BgKq2bmGaeXMtusYl8f7uqeArJhaqlVzlbIKmQag=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA139F80094
+	for <alsa-devel@alsa-project.org>; Tue, 29 Aug 2023 21:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA139F80094
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=u4qhLUK4
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Tue, 29 Aug 2023 20:24:28 +0200 (CEST)
-Message-ID: <77643549-fb58-2571-5aa2-2dc7bf3dbd74@perex.cz>
-Date: Tue, 29 Aug 2023 20:24:28 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6508A61802;
+	Tue, 29 Aug 2023 19:12:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23CBC433C8;
+	Tue, 29 Aug 2023 19:12:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1693336336;
+	bh=Zhedh8PAzSNPe4tiegHKDd4Vg+y78P6BVknH0uInuZc=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=u4qhLUK4QQxgMN5Em2HOi/x+A+hTZM+tmUx8Fw4CpwEkpi63VpfndpkPKSsUpZwH7
+	 +pPMqIJvEP3pjoB/gjZvPqlwJZ617m7mv0KDvGm6X18IIwI4gB1ag+7uMnKnIPKuPS
+	 KHTWmxYq7E6DJyIWVhRxLx4DjP3bTa2suHCF31XPjS9//cDwSZlL3eMXu/3vhr9p+z
+	 JtrcLC13twMHEeKxsDV48mWwsRUSOgpYqn2tlP1l45ujggsEFGHrcmIjfVo+Y28SAA
+	 WXI6A6ISpAjx4VQI+NPWOvQ00ZpGbpA7heyXLNLZO0W7uq6kXHt29QO68qkHlGz056
+	 /CSI+S3p1Rrqw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230828132316.190386-1-krzysztof.kozlowski@linaro.org>
+References: <20230828132316.190386-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: codecs: wcd93xx: fix object added to multiple
+ drivers
+Message-Id: <169333633189.3145573.6095959163890886616.b4-ty@kernel.org>
+Date: Tue, 29 Aug 2023 20:12:11 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>
-Cc: cujomalainey@chromium.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- ethan.geller@gmail.com
-References: <20230824213312.1258499-1-cujomalainey@chromium.org>
- <ce20d02b-56ed-acd1-411b-8c68d8cabea8@perex.cz>
- <CAOReqxiDZOAEYYb5c73AHu+Nd2vZinLR5qdMAVJnEcV8TS6=Nw@mail.gmail.com>
- <6d498d35-841d-4ea4-2fd9-990f9b02563e@linux.intel.com>
- <6fc8a33a-52f2-0cd1-6259-b2b974548602@perex.cz>
- <cc15a374-97b9-9b58-78b2-34241c5dd2a9@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 1/2] ucm: docs: Add EchoReferenceDev
-In-Reply-To: <cc15a374-97b9-9b58-78b2-34241c5dd2a9@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YZMM2WPPXZWRTF7ZPS2AWUEIC3ZVM2M6
-X-Message-ID-Hash: YZMM2WPPXZWRTF7ZPS2AWUEIC3ZVM2M6
-X-MailFrom: perex@perex.cz
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: QMW5ZONU3BPCUQVDFNSIQ34QCA5AP6BO
+X-Message-ID-Hash: QMW5ZONU3BPCUQVDFNSIQ34QCA5AP6BO
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,60 +92,50 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZMM2WPPXZWRTF7ZPS2AWUEIC3ZVM2M6/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QMW5ZONU3BPCUQVDFNSIQ34QCA5AP6BO/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 29. 08. 23 18:30, Pierre-Louis Bossart wrote:
+On Mon, 28 Aug 2023 15:23:16 +0200, Krzysztof Kozlowski wrote:
+> Three Qualcomm audio codecs (WCD9355, WCD934x and WCD938x) use the same
+> object file wcd-clsh-v2.o leading to warnings:
 > 
+>   Makefile: wcd-clsh-v2.o is added to multiple modules: snd-soc-wcd9335 snd-soc-wcd934x snd-soc-wcd938x
 > 
+> Convert the wcd-clsh-v2.o to a module to solve it.
 > 
->> It seems that there are some assumptions. I will try to address some
->> things:
->>
->> You can enable/use multiple modifiers per device.
->>
->> The modifiers may define extra PCM streams in the standard Value section
->> - you can use CapturePCM value for the modifier like "Echo Reference".
->> Modifiers may alter the characteristics of the original UCM device
->> stream (using command sequences), too.
-> 
-> Sorry, not following.
-> 
-> The 'modifier' has to be selected by userspace, isn't it? "someone" has
-> to tell UCM that the 'echo reference' is on.
- >
-> And that's precisely the conceptual issue I have. The echo reference in
-> our cases is ALWAYS available when the speaker output is selected.
+> [...]
 
-The function of modifier is selected by it's name, so an app should know, how 
-to handle the "Echo Reference". And this use is optional.
+Applied to
 
-> In other words, we are asking userspace to select something that is
-> always present and available. Or put differently, a modifier that's
-> always applicable is not really a modifier, is it?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Yes, in this special case, only joined PCM will be provided. But do not 
-forget, that we have command sequences for modifiers, if we need to initialize 
-something else like related controls for this stream in future. It's just more 
-universal than to hardcode this to key/value in the UCM device definition.
+Thanks!
 
-> And last, the whole story of the echo reference is that it needs to be
-> opened when the speaker output is opened. How would we model this with
-> the modifier concept?
+[1/1] ASoC: codecs: wcd93xx: fix object added to multiple drivers
+      commit: 11b0b802f8e38d48ca74d520028add81263f003e
 
-The modifiers are allowed to be activated only for the active devices. We can 
-refine the use of the "Echo Reference" for applications and define that the 
-playback PCM should be opened at first. If we need to alter this default 
-behaviour in future, we may put a hint to configuration values.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-					Jaroslav
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

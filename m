@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9691D78E30F
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 01:10:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3832378E3AA
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 02:02:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2996A3E8;
-	Thu, 31 Aug 2023 01:10:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2996A3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7804F1E8;
+	Thu, 31 Aug 2023 02:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7804F1E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693437058;
-	bh=DM6+flIcD8OEGBYhKO07Kjcz9dVXaSyFaEs+hcpmUfs=;
+	s=default; t=1693440124;
+	bh=JsG0T95QKICmO4tV+QqCsK8u/qRV2qWaCXJ8mpqkUxM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Hd9j8UwW/Zn28fQ9j+980HWZncQKTIibLBrsOdoSXp+RjFuU1kysxa3aY3YEh7mmP
-	 ZjoE/b5T527UOGkLl90Q6TbTeQPqnqIegPvVltH2c5uYUC/DCys8xFHtw71yEiw5cu
-	 I9VdAdryk6nhqfVqvDgXG0YtudM7430gGmPiu+aQ=
+	b=knu5ORI5DvdY72AIjYldq2qx01uhUQYF3bwnvUEqXnkw9tp9aCuYuUCOB5m2Xciha
+	 rAUBVqSvG8lgjXstJtty7ZoNC6Xd98WZKI7NlRgMsaIu73W10xdUS3Ae7ICknJ/Yqa
+	 wZ1FkEe9mpb38XMkipOhxsy0QvVMb+pVo9i8B2xo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42F98F80249; Thu, 31 Aug 2023 01:09:51 +0200 (CEST)
+	id A8DBEF80007; Thu, 31 Aug 2023 02:01:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA907F800F5;
-	Thu, 31 Aug 2023 01:09:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D209F800F5;
+	Thu, 31 Aug 2023 02:01:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09788F80155; Thu, 31 Aug 2023 01:07:56 +0200 (CEST)
+	id 3F855F80155; Thu, 31 Aug 2023 02:01:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56906F80005;
-	Thu, 31 Aug 2023 01:07:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56906F80005
+	by alsa1.perex.cz (Postfix) with ESMTPS id 905BFF80007;
+	Thu, 31 Aug 2023 02:00:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 905BFF80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gp7GBNJ6
+ header.s=Intel header.b=InA6JQ+i
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693436861; x=1724972861;
+  t=1693440035; x=1724976035;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=DM6+flIcD8OEGBYhKO07Kjcz9dVXaSyFaEs+hcpmUfs=;
-  b=gp7GBNJ6PPuUYYAC+o67PkxXpFe9YKv+PA1aj8kMzHaxeHxZhbLWziru
-   NN1+8HKIUVc2X1S5DFTMI6YUPY6RKP1cbYxW5lB+Jw2DEpNl31u19Wmo9
-   P78dao6D/c+uY9/EQ/QhGOuX6fa89dGZgISZaBhpjCy4zq+zAr5FIzeoI
-   md4psOGgZk1CWdYixwZzH7dL29G61kubba5tTHbSCz/huN2oaEMsOrG36
-   oxuC21eId5xZNdLaQTlhaw3Y6prxTe7kY+28+TVymcEMczlmVNgwYEM2s
-   Oitk8dEZdxlAfdINCRXOnboSusrowFY/U8TBqlwq+I5kuArKgHgfK4xUX
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="360756522"
-X-IronPort-AV: E=Sophos;i="6.02,214,1688454000";
-   d="scan'208";a="360756522"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2023 16:07:33 -0700
+  bh=JsG0T95QKICmO4tV+QqCsK8u/qRV2qWaCXJ8mpqkUxM=;
+  b=InA6JQ+i8NJg0LBYeT5iO8z7yyuIo4C3M/J/0OxZKQiZQSZ4nXNGqIR6
+   im8sszUH9SqK68oPQ5jLDWhG+BANKgpGzIgJSsq2Q3v95voLgkATm537M
+   mZNGmqL8Xg0UBDcgb1mwjw87PR/zGcKol0IH+XTnbxsNVO1NTo9YETOfy
+   TyqTt6JXbdPMxqsgJxwS5xMGg5zE/9+RD0f/9Ds+sFIDDlpucBa3ynnR3
+   0Fjcz08oYwX6EuyRUm+v/A4rc3zxYBhkys/yVCD+zx41FB78vxqZrtYNB
+   sSGnnkr6q3H+toHH+XsOHnquYSCX7zMzVDtmUqBRhfIHyOEyX6Y6kCtsr
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="379526994"
+X-IronPort-AV: E=Sophos;i="6.02,215,1688454000";
+   d="scan'208";a="379526994"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2023 17:00:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="985946655"
-X-IronPort-AV: E=Sophos;i="6.02,214,1688454000";
-   d="scan'208";a="985946655"
+X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="1070008387"
+X-IronPort-AV: E=Sophos;i="6.02,215,1688454000";
+   d="scan'208";a="1070008387"
 Received: from lkp-server02.sh.intel.com (HELO daf8bb0a381d) ([10.239.97.151])
-  by fmsmga006.fm.intel.com with ESMTP; 30 Aug 2023 16:07:29 -0700
+  by fmsmga005.fm.intel.com with ESMTP; 30 Aug 2023 17:00:14 -0700
 Received: from kbuild by daf8bb0a381d with local (Exim 4.96)
 	(envelope-from <lkp@intel.com>)
-	id 1qbUHY-000AJT-1V;
-	Wed, 30 Aug 2023 23:07:28 +0000
-Date: Thu, 31 Aug 2023 07:06:58 +0800
+	id 1qbV6Y-000ANY-1t;
+	Thu, 31 Aug 2023 00:00:10 +0000
+Date: Thu, 31 Aug 2023 07:59:22 +0800
 From: kernel test robot <lkp@intel.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	alsa-devel@alsa-project.org
-Cc: oe-kbuild-all@lists.linux.dev,
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
 	Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -90,14 +90,14 @@ Cc: oe-kbuild-all@lists.linux.dev,
 	sound-open-firmware@alsa-project.org
 Subject: Re: [PATCH v4 10/11] ASoC: SOF: Intel: Move binding to display
  driver outside of deferred probe
-Message-ID: <202308310618.kqqYvniK-lkp@intel.com>
+Message-ID: <202308310715.lBXHTY4I-lkp@intel.com>
 References: <20230830153652.217855-11-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20230830153652.217855-11-maarten.lankhorst@linux.intel.com>
-Message-ID-Hash: RHB7PHUXQNY775QQGJK7NLHQETRQ26IZ
-X-Message-ID-Hash: RHB7PHUXQNY775QQGJK7NLHQETRQ26IZ
+Message-ID-Hash: YEAYHB6GCSXA5FKP7VODYWNCJKZG5W45
+X-Message-ID-Hash: YEAYHB6GCSXA5FKP7VODYWNCJKZG5W45
 X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHB7PHUXQNY775QQGJK7NLHQETRQ26IZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YEAYHB6GCSXA5FKP7VODYWNCJKZG5W45/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,21 +134,21 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Maarten-Lankhorst/ASoC-SO
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 patch link:    https://lore.kernel.org/r/20230830153652.217855-11-maarten.lankhorst%40linux.intel.com
 patch subject: [PATCH v4 10/11] ASoC: SOF: Intel: Move binding to display driver outside of deferred probe
-config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20230831/202308310618.kqqYvniK-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230831/202308310618.kqqYvniK-lkp@intel.com/reproduce)
+config: x86_64-randconfig-005-20230831 (https://download.01.org/0day-ci/archive/20230831/202308310715.lBXHTY4I-lkp@intel.com/config)
+compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230831/202308310715.lBXHTY4I-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308310618.kqqYvniK-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308310715.lBXHTY4I-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
-   sound/soc/sof/intel/hda.c: In function 'hda_dsp_probe':
->> sound/soc/sof/intel/hda.c:1173:26: warning: variable 'bus' set but not used [-Wunused-but-set-variable]
-    1173 |         struct hdac_bus *bus;
-         |                          ^~~
+>> sound/soc/sof/intel/hda.c:1173:19: warning: variable 'bus' set but not used [-Wunused-but-set-variable]
+           struct hdac_bus *bus;
+                            ^
+   1 warning generated.
 
 
 vim +/bus +1173 sound/soc/sof/intel/hda.c

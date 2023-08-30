@@ -2,99 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85CF778D5FD
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Aug 2023 14:53:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8744678D60B
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Aug 2023 15:10:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDC8274C;
-	Wed, 30 Aug 2023 14:52:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDC8274C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49AA0208;
+	Wed, 30 Aug 2023 15:09:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49AA0208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693399981;
-	bh=RSyj81n43sFmtQjzuHfNNauGPkAW6fiLijQd+FzizcA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1693401020;
+	bh=xNeYPaIsp0N2auKe4Qq/fQZICajEY63xgjrSgWhJ31g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YTXJYBt9xbpmXyuihzLr/Ao0O5rabDIDgP9eZshiYcgji+bdbyEUUnK88eHYdZTbe
-	 ieboDWh138xdhBluHBsb/uyhb8FoNfXR4Tg+M0X3VGziBTbAx6hv7G45Gdpuk15bTo
-	 3OL/drBeUTnKJ37hHbsG2NT/2dg8KnJbaKgHLJgU=
+	b=IO7fLTjgNYWV6lhZq61lSwDEAwCAjYeZ7v1/x/sS8awml5URh89SeBbkB5RjMMB5P
+	 l5iy6QzHouyPhC0aLfGgCi8KDPuXDU8ZcXHGhG/dRSdCyfdfCS1IYDsksqJiNA9dwW
+	 gK14biIY1gNRzyiNkfxkHSucrNDM2UfoTzWOQh/I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB3DFF80527; Wed, 30 Aug 2023 14:51:20 +0200 (CEST)
+	id B1048F8023B; Wed, 30 Aug 2023 15:09:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72127F80527;
-	Wed, 30 Aug 2023 14:51:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C1DDF800F5;
+	Wed, 30 Aug 2023 15:09:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03F54F80155; Wed, 30 Aug 2023 14:51:16 +0200 (CEST)
+	id 64B61F80155; Wed, 30 Aug 2023 15:09:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E0D0F80094
-	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 14:51:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E0D0F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8756F80074
+	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 15:09:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8756F80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IZP/+kGY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693399865; x=1724935865;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=RSyj81n43sFmtQjzuHfNNauGPkAW6fiLijQd+FzizcA=;
-  b=IZP/+kGYfdFz8S42oQ76UlxbyD1lwbh7FBBN4LzcRlSMkcKhegKmITyr
-   rZHlMNFILTNIuR8QOjgceHgy2hQeJY2CHW+OYjcOC2oVw+7AiqZ9Io410
-   STMidJIe1w/sDxIiaCFr1+n4aLUd5b7gnYO23BEQsyOaAxDDDHRubOAPc
-   gljaMoFMPx9qzw+mfwRg2CXzOWA/19VVz8+DD6k+16h+MoHk3MMyjWDMX
-   cy7wttk7znphl9OQL7h/BUSTH/eQPspQrdM5a5iUu4qQnOaoKwtD1z2G3
-   +y+fECW2OQY47iduQ48f/cvdG9pLgWKnfviPVyb7Yp1n3A0hp05hQ0AUy
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="365839422"
-X-IronPort-AV: E=Sophos;i="6.02,213,1688454000";
-   d="scan'208";a="365839422"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2023 05:51:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="739082012"
-X-IronPort-AV: E=Sophos;i="6.02,213,1688454000";
-   d="scan'208";a="739082012"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.91])
- ([10.94.0.91])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2023 05:50:58 -0700
-Message-ID: <5a5eb3a8-1379-116b-ca17-eac573207c57@linux.intel.com>
-Date: Wed, 30 Aug 2023 14:50:57 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v5 12/32] sound: usb: Export USB SND APIs for modules
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, lgirdwood@gmail.com,
- andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
- bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_jackp@quicinc.com, quic_plai@quicinc.com
-References: <20230829210657.9904-1-quic_wcheng@quicinc.com>
- <20230829210657.9904-13-quic_wcheng@quicinc.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230829210657.9904-13-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YBKMWE6Q2X47I6BYOQYFD6JEVRZMVTBW
-X-Message-ID-Hash: YBKMWE6Q2X47I6BYOQYFD6JEVRZMVTBW
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=KfadQ7yI;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=1V1dpfHc
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 91A7B1F74B;
+	Wed, 30 Aug 2023 13:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1693400953;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+QuVvhURDtGRQlvTadeA6aCDvBZgXloZzfcYZfjtuzM=;
+	b=KfadQ7yIrlUDo2YW9sOO9D5qxJMv8qRcoZQ7ACOzgg6XPfrJ22yJnsnLNcVsta2dwPmpsc
+	jc1uqDxLZVH8CPiVodVT5LY8TVdE2kmkuzmWgsLPw8g1/e1F2+o5xLwdAxU6DqBUMfj90u
+	AMPsW6DjM9ltvRHKzS8dqv9xiZ4FBCw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1693400953;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+QuVvhURDtGRQlvTadeA6aCDvBZgXloZzfcYZfjtuzM=;
+	b=1V1dpfHcczSnaLtK8dcEzEwlziQ2b1sVXbXN6IbJFbPrJdf87mBPil+65a2eXQ9QwB1yhL
+	se1NyP3K/EYjnEDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 737D513441;
+	Wed, 30 Aug 2023 13:09:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id G0qzG3k/72QqXgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 30 Aug 2023 13:09:13 +0000
+Date: Wed, 30 Aug 2023 15:09:13 +0200
+Message-ID: <87cyz4he2u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Sudip Mukherjee (Codethink)" <sudipm.mukherjee@gmail.com>
+Cc: James Schulman <james.schulman@cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Lee Jones <lee@kernel.org>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	regressions@lists.linux.dev
+Subject: Re: mainline build failure due to ace6d1448138 ("mfd: cs42l43: Add
+ support for cs42l43 core driver")
+In-Reply-To: <ZO8oNb2hpegB6BbE@debian>
+References: <ZO8oNb2hpegB6BbE@debian>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: W2NXKXO4Y5BYS33N2VTSRIB6T3ABPXX5
+X-Message-ID-Hash: W2NXKXO4Y5BYS33N2VTSRIB6T3ABPXX5
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBKMWE6Q2X47I6BYOQYFD6JEVRZMVTBW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W2NXKXO4Y5BYS33N2VTSRIB6T3ABPXX5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,219 +126,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 8/29/2023 11:06 PM, Wesley Cheng wrote:
-> Some vendor modules will utilize useful parsing and endpoint management
-> APIs to start audio playback/capture.
+On Wed, 30 Aug 2023 13:29:57 +0200,
+Sudip Mukherjee (Codethink) wrote:
 > 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
->   sound/usb/card.c     |  4 +++
->   sound/usb/endpoint.c |  1 +
->   sound/usb/helper.c   |  1 +
->   sound/usb/pcm.c      | 67 +++++++++++++++++++++++++++++++++-----------
->   sound/usb/pcm.h      | 11 ++++++++
->   5 files changed, 67 insertions(+), 17 deletions(-)
+> Hi All,
 > 
-> diff --git a/sound/usb/card.c b/sound/usb/card.c
-> index 067a1e82f4bf..b45b6daee7b7 100644
-> --- a/sound/usb/card.c
-> +++ b/sound/usb/card.c
-> @@ -1053,6 +1053,7 @@ int snd_usb_lock_shutdown(struct snd_usb_audio *chip)
->   		wake_up(&chip->shutdown_wait);
->   	return err;
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_lock_shutdown);
->   
->   /* autosuspend and unlock the shutdown */
->   void snd_usb_unlock_shutdown(struct snd_usb_audio *chip)
-> @@ -1061,6 +1062,7 @@ void snd_usb_unlock_shutdown(struct snd_usb_audio *chip)
->   	if (atomic_dec_and_test(&chip->usage_count))
->   		wake_up(&chip->shutdown_wait);
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_unlock_shutdown);
->   
->   int snd_usb_autoresume(struct snd_usb_audio *chip)
->   {
-> @@ -1083,6 +1085,7 @@ int snd_usb_autoresume(struct snd_usb_audio *chip)
->   	}
->   	return 0;
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_autoresume);
->   
->   void snd_usb_autosuspend(struct snd_usb_audio *chip)
->   {
-> @@ -1096,6 +1099,7 @@ void snd_usb_autosuspend(struct snd_usb_audio *chip)
->   	for (i = 0; i < chip->num_interfaces; i++)
->   		usb_autopm_put_interface(chip->intf[i]);
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_autosuspend);
->   
->   static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
->   {
-> diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-> index a385e85c4650..aac92e0b8aa2 100644
-> --- a/sound/usb/endpoint.c
-> +++ b/sound/usb/endpoint.c
-> @@ -1503,6 +1503,7 @@ int snd_usb_endpoint_prepare(struct snd_usb_audio *chip,
->   	mutex_unlock(&chip->mutex);
->   	return err;
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_endpoint_prepare);
->   
->   /* get the current rate set to the given clock by any endpoint */
->   int snd_usb_endpoint_get_clock_rate(struct snd_usb_audio *chip, int clock)
-> diff --git a/sound/usb/helper.c b/sound/usb/helper.c
-> index bf80e55d013a..4322ae3738e6 100644
-> --- a/sound/usb/helper.c
-> +++ b/sound/usb/helper.c
-> @@ -62,6 +62,7 @@ void *snd_usb_find_csint_desc(void *buffer, int buflen, void *after, u8 dsubtype
->   	}
->   	return NULL;
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_find_csint_desc);
->   
->   /*
->    * Wrapper for usb_control_msg().
-> diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-> index 08bf535ed163..999f66080649 100644
-> --- a/sound/usb/pcm.c
-> +++ b/sound/usb/pcm.c
-> @@ -148,6 +148,16 @@ find_format(struct list_head *fmt_list_head, snd_pcm_format_t format,
->   	return found;
->   }
->   
-> +const struct audioformat *
-> +snd_usb_find_format(struct list_head *fmt_list_head, snd_pcm_format_t format,
-> +	    unsigned int rate, unsigned int channels, bool strict_match,
-> +	    struct snd_usb_substream *subs)
-> +{
-> +	return find_format(fmt_list_head, format, rate, channels, strict_match,
-> +			subs);
-> +}
-> +EXPORT_SYMBOL_GPL(snd_usb_find_format);
-> +
->   static const struct audioformat *
->   find_substream_format(struct snd_usb_substream *subs,
->   		      const struct snd_pcm_hw_params *params)
-> @@ -157,6 +167,14 @@ find_substream_format(struct snd_usb_substream *subs,
->   			   true, subs);
->   }
->   
-> +const struct audioformat *
-> +snd_usb_find_substream_format(struct snd_usb_substream *subs,
-> +		      const struct snd_pcm_hw_params *params)
-> +{
-> +	return find_substream_format(subs, params);
-> +}
-> +EXPORT_SYMBOL_GPL(snd_usb_find_substream_format);
-> +
->   bool snd_usb_pcm_has_fixed_rate(struct snd_usb_substream *subs)
->   {
->   	const struct audioformat *fp;
-> @@ -461,20 +479,9 @@ static void close_endpoints(struct snd_usb_audio *chip,
->   	}
->   }
->   
-> -/*
-> - * hw_params callback
-> - *
-> - * allocate a buffer and set the given audio format.
-> - *
-> - * so far we use a physically linear buffer although packetize transfer
-> - * doesn't need a continuous area.
-> - * if sg buffer is supported on the later version of alsa, we'll follow
-> - * that.
-> - */
-> -static int snd_usb_hw_params(struct snd_pcm_substream *substream,
-> -			     struct snd_pcm_hw_params *hw_params)
-> +int snd_usb_attach_endpoints(struct snd_usb_substream *subs,
-> +				struct snd_pcm_hw_params *hw_params)
->   {
-> -	struct snd_usb_substream *subs = substream->runtime->private_data;
->   	struct snd_usb_audio *chip = subs->stream->chip;
->   	const struct audioformat *fmt;
->   	const struct audioformat *sync_fmt;
-> @@ -499,7 +506,7 @@ static int snd_usb_hw_params(struct snd_pcm_substream *substream,
->   	if (fmt->implicit_fb) {
->   		sync_fmt = snd_usb_find_implicit_fb_sync_format(chip, fmt,
->   								hw_params,
-> -								!substream->stream,
-> +								!subs->direction,
->   								&sync_fixed_rate);
->   		if (!sync_fmt) {
->   			usb_audio_dbg(chip,
-> @@ -579,15 +586,28 @@ static int snd_usb_hw_params(struct snd_pcm_substream *substream,
->   
->   	return ret;
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_attach_endpoints);
->   
->   /*
-> - * hw_free callback
-> + * hw_params callback
->    *
-> - * reset the audio format and release the buffer
-> + * allocate a buffer and set the given audio format.
-> + *
-> + * so far we use a physically linear buffer although packetize transfer
-> + * doesn't need a continuous area.
-> + * if sg buffer is supported on the later version of alsa, we'll follow
-> + * that.
->    */
-> -static int snd_usb_hw_free(struct snd_pcm_substream *substream)
-> +static int snd_usb_hw_params(struct snd_pcm_substream *substream,
-> +			     struct snd_pcm_hw_params *hw_params)
->   {
->   	struct snd_usb_substream *subs = substream->runtime->private_data;
-> +
-> +	return snd_usb_attach_endpoints(subs, hw_params);
-> +}
-> +
-> +int snd_usb_detach_endpoint(struct snd_usb_substream *subs)
-> +{
->   	struct snd_usb_audio *chip = subs->stream->chip;
->   
->   	snd_media_stop_pipeline(subs);
-> @@ -603,6 +623,19 @@ static int snd_usb_hw_free(struct snd_pcm_substream *substream)
->   
->   	return 0;
->   }
-> +EXPORT_SYMBOL_GPL(snd_usb_detach_endpoint);
-> +
-> +/*
-> + * hw_free callback
-> + *
-> + * reset the audio format and release the buffer
-> + */
-> +static int snd_usb_hw_free(struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_usb_substream *subs = substream->runtime->private_data;
-> +
-> +	return snd_usb_detach_endpoint(subs);
-> +}
->   
->   /* free-wheeling mode? (e.g. dmix) */
->   static int in_free_wheeling_mode(struct snd_pcm_runtime *runtime)
-> diff --git a/sound/usb/pcm.h b/sound/usb/pcm.h
-> index 388fe2ba346d..e36df3611a05 100644
-> --- a/sound/usb/pcm.h
-> +++ b/sound/usb/pcm.h
-> @@ -15,4 +15,15 @@ void snd_usb_preallocate_buffer(struct snd_usb_substream *subs);
->   int snd_usb_audioformat_set_sync_ep(struct snd_usb_audio *chip,
->   				    struct audioformat *fmt);
->   
-> +const struct audioformat *
-> +snd_usb_find_format(struct list_head *fmt_list_head, snd_pcm_format_t format,
-> +	    unsigned int rate, unsigned int channels, bool strict_match,
-> +	    struct snd_usb_substream *subs);
-> +const struct audioformat *
-> +snd_usb_find_substream_format(struct snd_usb_substream *subs,
-> +		      const struct snd_pcm_hw_params *params);
-> +
-> +int snd_usb_attach_endpoints(struct snd_usb_substream *subs,
-> +				struct snd_pcm_hw_params *hw_params);
-> +int snd_usb_detach_endpoint(struct snd_usb_substream *subs);
->   #endif /* __USBAUDIO_PCM_H */
+> The latest mainline kernel branch fails to build alpha, csky and s390
+> allmodconfig with the error:
+> 
+> drivers/mfd/cs42l43.c:1138:12: error: 'cs42l43_runtime_resume' defined but not used [-Werror=unused-function]
+>  1138 | static int cs42l43_runtime_resume(struct device *dev)
+>       |            ^~~~~~~~~~~~~~~~~~~~~~
+> drivers/mfd/cs42l43.c:1124:12: error: 'cs42l43_runtime_suspend' defined but not used [-Werror=unused-function]
+>  1124 | static int cs42l43_runtime_suspend(struct device *dev)
+>       |            ^~~~~~~~~~~~~~~~~~~~~~~
+> drivers/mfd/cs42l43.c:1106:12: error: 'cs42l43_resume' defined but not used [-Werror=unused-function]
+>  1106 | static int cs42l43_resume(struct device *dev)
+>       |            ^~~~~~~~~~~~~~
+> drivers/mfd/cs42l43.c:1076:12: error: 'cs42l43_suspend' defined but not used [-Werror=unused-function]
+>  1076 | static int cs42l43_suspend(struct device *dev)
+>       |            ^~~~~~~~~~~~~~~
+> 
+> git bisect pointed to ace6d1448138 ("mfd: cs42l43: Add support for cs42l43 core driver")
+> 
+> I will be happy to test any patch or provide any extra log if needed.
 
-Why is it multiple "endpoints" when attaching, but only one "endpoint" 
-when detaching? Both seem to be getting similar arguments.
+Adding __maybe_unused for those PM functions should work around it,
+something like below.  Could you check it?
+If it's confirmed to work, I'll submit properly.
+
+
+thanks,
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] mfd: cs42l43: Fix unused function errors for PM callbacks
+
+Add __maybe_unused prefix for suppressing the build errors due to
+defined-but-not-used PM callbacks.
+
+Reported-by: Sudip Mukherjee (Codethink) <sudipm.mukherjee@gmail.com>
+Fixes: ace6d1448138 ("mfd: cs42l43: Add support for cs42l43 core driver")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ drivers/mfd/cs42l43.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mfd/cs42l43.c b/drivers/mfd/cs42l43.c
+index 37b23e9bae82..e94b73e6869a 100644
+--- a/drivers/mfd/cs42l43.c
++++ b/drivers/mfd/cs42l43.c
+@@ -1073,7 +1073,7 @@ void cs42l43_dev_remove(struct cs42l43 *cs42l43)
+ }
+ EXPORT_SYMBOL_NS_GPL(cs42l43_dev_remove, MFD_CS42L43);
+ 
+-static int cs42l43_suspend(struct device *dev)
++static int __maybe_unused cs42l43_suspend(struct device *dev)
+ {
+ 	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1103,7 +1103,7 @@ static int cs42l43_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int cs42l43_resume(struct device *dev)
++static int __maybe_unused cs42l43_resume(struct device *dev)
+ {
+ 	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1121,7 +1121,7 @@ static int cs42l43_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int cs42l43_runtime_suspend(struct device *dev)
++static int __maybe_unused cs42l43_runtime_suspend(struct device *dev)
+ {
+ 	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+ 
+@@ -1135,7 +1135,7 @@ static int cs42l43_runtime_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int cs42l43_runtime_resume(struct device *dev)
++static int __maybe_unused cs42l43_runtime_resume(struct device *dev)
+ {
+ 	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+ 	unsigned int reset_canary;
+-- 
+2.35.3
+

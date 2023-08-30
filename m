@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F5478E7F9
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 10:28:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B63678E7FB
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 10:28:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2D231FC;
-	Thu, 31 Aug 2023 10:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2D231FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BA76DEB;
+	Thu, 31 Aug 2023 10:28:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BA76DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693470499;
-	bh=hz9tRZ47j3G70mRpww9fuC0IICCJM0PG5B9p5X/tVvU=;
+	s=default; t=1693470537;
+	bh=7CGwAFlYshEeIy38tORYRUUMpT+VfXLXxSE0ESBaYbo=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gMYmP9HZkBiRHSaFsILi84oAKlq55cYO719aahWcVhGubi/XVTMLDsJaaGBFNSFFQ
-	 FKcXHjPSNgwFIcuoy8t3E7UuE80S2JM2gNSbDN2cmcEJGReGFAu/MyfvBLAtlcmOcq
-	 w5KAWA4/gsINci/yytbfXYCC0h45lMfB6Xmaa4+I=
+	b=ce+wWmyuc0kzVaFcmCPDnRsLNvbrYt+oQjp17Kyjo37aRDpPjXlXk4vuIBgnCLHTJ
+	 mL8xaljgr7+CCvpi8I857mmlMy7pUKGSl+pLIXtt8z/priFZS8Q7/iFg5BR3s2iJ4H
+	 ehWnZmyzGqgu/F4O8plalBcJeGEvdeOSyCjvd5q4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1314AF804F3; Thu, 31 Aug 2023 10:24:40 +0200 (CEST)
+	id 4B076F80579; Thu, 31 Aug 2023 10:26:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C1EBF80601;
-	Thu, 31 Aug 2023 10:24:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB679F8057C;
+	Thu, 31 Aug 2023 10:25:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8EF0F80094; Wed, 30 Aug 2023 21:56:21 +0200 (CEST)
+	id B5502F80158; Wed, 30 Aug 2023 21:56:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4420F80094
-	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 21:56:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4420F80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91A7CF80155
+	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 21:56:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91A7CF80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=lLLapg8F
+ header.s=PODMain02222019 header.b=QbjP289Q
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
 	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37UHsJ25024471;
-	Wed, 30 Aug 2023 14:56:05 -0500
+ 37UHsJ26024471;
+	Wed, 30 Aug 2023 14:56:06 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=Yy99K2Cvd8A9OC7uNp5FEDGpePrWFyTtQcKsDstsj7Q=; b=
-	lLLapg8FoddP2j0HDa43IoQwxVsWKEXiMvTIsiIVC97kbd8gb8e11u/fUIHuB4tw
-	/hmFkol93gio/UM5rpBVd4wlpuwlScCmV5/ahopVIVFa/fkuouvnd4pa39ouiTiZ
-	Ke/aJ3RtxOIw8Mk80/Uz/zDhYPEkaajeWm7HEZnUcXp7uZOotWo2TSvg9TmborKm
-	Q3m2OYp58ggZj7tcPVD3ZOcoBLv34l22Te35dYhS3dQhzT638k1RFaKptpufbkm7
-	tcSF/NLRkxHvWRXmMARY/xRWkwhP5WO/rTT/bewMhqc8/sgPtaJ5yRAy4dGUOgOI
-	fWPR/B2FLtJyZ9jJq635vg==
+	PODMain02222019; bh=cRP2OU2xJab9AmweoY8xGNRQBx+HUUOK+XTV2yweFFU=; b=
+	QbjP289QJcu4jrg/SvBQP8gidbvXfixpDvcUZDveL5DK4/5vrJguURTszwp+mdvC
+	RLThdp+Ue8jS197XrD2eZjNKIvbHaUr2dMcs2u/9pKowPW/VrPIcmJpQ9/nKvaEk
+	hW+36jw7fP2kbg0YwvXPlpuROYULbaL3Hxr3xBWVb5jYsbZFQ5TcyJ0m4C+BPo4b
+	eyOaRve0rX1OP0csyUFz0/paZ/h7HyhGsVFhb3ioGFKgaxcBhlZHo4t6eh1HvZ0L
+	v+4N5ihsi5R/xEkqjtXpm0AGroT5kbYooYXHucRT7vAjxWvSqIdTSonish741REH
+	wra3Fq+ruMQOD8tMPmv07A==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sqesydet9-1
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3sqesydet9-2
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 30 Aug 2023 14:56:05 -0500 (CDT)
 Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 30 Aug
- 2023 20:56:02 +0100
+ 2023 20:56:05 +0100
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
  anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Wed, 30 Aug 2023 20:56:02 +0100
+ 15.2.1118.37 via Frontend Transport; Wed, 30 Aug 2023 20:56:05 +0100
 Received: from vkarpovich-ThinkStation-P620.crystal.cirrus.com
  (vkarpovich-ThinkStation-P620.ad.cirrus.com [141.131.145.49])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id F22DE11D4;
-	Wed, 30 Aug 2023 19:56:00 +0000 (UTC)
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1A71911D4;
+	Wed, 30 Aug 2023 19:56:02 +0000 (UTC)
 From: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
 To: James Schulman <james.schulman@cirrus.com>,
         David Rhodes
@@ -84,18 +85,17 @@ CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
         <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         Vlad Karpovich
 	<vkarpovi@opensource.cirrus.com>
-Subject: [PATCH v2 2/4] ASoC: cs35l45: Analog PCM Volume and Amplifier Mode
- controls
-Date: Wed, 30 Aug 2023 14:55:34 -0500
-Message-ID: <20230830195536.448884-2-vkarpovi@opensource.cirrus.com>
+Subject: [PATCH v2 3/4] ASoC: cs35l45: Connect DSP to the monitoring signals
+Date: Wed, 30 Aug 2023 14:55:35 -0500
+Message-ID: <20230830195536.448884-3-vkarpovi@opensource.cirrus.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230830195536.448884-1-vkarpovi@opensource.cirrus.com>
 References: <20230830195536.448884-1-vkarpovi@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: LRMFwn8VySlgQaR_x9qgtojdkgOt2LVg
-X-Proofpoint-GUID: LRMFwn8VySlgQaR_x9qgtojdkgOt2LVg
+X-Proofpoint-ORIG-GUID: bAlNDHx0cvkKQAhQB-Z6n5JfNcVmyrpq
+X-Proofpoint-GUID: bAlNDHx0cvkKQAhQB-Z6n5JfNcVmyrpq
 X-Proofpoint-Spam-Reason: safe
 X-MailFrom: prvs=4606cf803d=vkarpovi@opensource.cirrus.com
 X-Mailman-Rule-Hits: nonmember-moderation
@@ -103,15 +103,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 6Q7ZDUOY5S6CEXHMPW6FTRPASBIHWGJ2
-X-Message-ID-Hash: 6Q7ZDUOY5S6CEXHMPW6FTRPASBIHWGJ2
-X-Mailman-Approved-At: Thu, 31 Aug 2023 08:22:59 +0000
+Message-ID-Hash: ZLOXTJJ4O6LVGJFO3H33NWKQCTH46VNO
+X-Message-ID-Hash: ZLOXTJJ4O6LVGJFO3H33NWKQCTH46VNO
+X-Mailman-Approved-At: Thu, 31 Aug 2023 08:25:55 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6Q7ZDUOY5S6CEXHMPW6FTRPASBIHWGJ2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZLOXTJJ4O6LVGJFO3H33NWKQCTH46VNO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,310 +120,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Adds "Analog PCM Volume" control with supported values
-0 = 10dB,1 = 13dB,2 = 16dB and 3 = 19dB.
-The amplifier can operate either in Speaker Mode or Receiver Mode
-as configured by the user. Speaker Mode has four gain options
-to support maximum amplifier output amplitude for loud
-speaker application. Receiver Mode has further optimized
-noise performance while maintaining sufficient output to support
-phone receiver application. While configured in Receiver Mode,
-the analog PCM Volume control is disabled and
-the analog gain is fixed to 1dB.
+Link VMON, IMON, TEMPMON, VDD_BSTMON and VDD_BATTMON
+to DSP1. The CSPL firmware uses them for the speaker calibration
+and monitoring.
 
 Signed-off-by: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs35l45-tables.c |   3 +
- sound/soc/codecs/cs35l45.c        | 148 ++++++++++++++++++++++++++++++
- sound/soc/codecs/cs35l45.h        |  35 ++++++-
- 3 files changed, 184 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs35l45.c | 33 +++++++++++++++++++++++++++------
+ sound/soc/codecs/cs35l45.h |  1 +
+ 2 files changed, 28 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/cs35l45-tables.c b/sound/soc/codecs/cs35l45-tables.c
-index e20c1bc9a687..2e77644f3b0b 100644
---- a/sound/soc/codecs/cs35l45-tables.c
-+++ b/sound/soc/codecs/cs35l45-tables.c
-@@ -91,6 +91,7 @@ static const struct reg_default cs35l45_defaults[] = {
- 	{ CS35L45_DSP1RX7_INPUT,		0x0000003A },
- 	{ CS35L45_DSP1RX8_INPUT,		0x00000028 },
- 	{ CS35L45_AMP_PCM_CONTROL,		0x00100000 },
-+	{ CS35L45_AMP_GAIN,			0x00002300 },
- 	{ CS35L45_IRQ1_CFG,			0x00000000 },
- 	{ CS35L45_IRQ1_MASK_1,			0xBFEFFFBF },
- 	{ CS35L45_IRQ1_MASK_2,			0xFFFFFFFF },
-@@ -156,7 +157,9 @@ static bool cs35l45_readable_reg(struct device *dev, unsigned int reg)
- 	case CS35L45_DSP1RX6_INPUT:
- 	case CS35L45_DSP1RX7_INPUT:
- 	case CS35L45_DSP1RX8_INPUT:
-+	case CS35L45_HVLV_CONFIG:
- 	case CS35L45_AMP_PCM_CONTROL:
-+	case CS35L45_AMP_GAIN:
- 	case CS35L45_AMP_PCM_HPF_TST:
- 	case CS35L45_IRQ1_CFG:
- 	case CS35L45_IRQ1_STATUS:
 diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
-index 02b1172d2647..18e656e72cb3 100644
+index 18e656e72cb3..4abc922ef210 100644
 --- a/sound/soc/codecs/cs35l45.c
 +++ b/sound/soc/codecs/cs35l45.c
-@@ -169,6 +169,142 @@ static int cs35l45_dsp_audio_ev(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
+@@ -433,17 +433,25 @@ static const struct snd_soc_dapm_widget cs35l45_dapm_widgets[] = {
  
-+static int cs35l45_activate_ctl(struct snd_soc_component *component,
-+				const char *ctl_name, bool active)
-+{
-+	struct snd_card *card = component->card->snd_card;
-+	struct snd_kcontrol *kcontrol;
-+	struct snd_kcontrol_volatile *vd;
-+	unsigned int index_offset;
-+	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+ 	SND_SOC_DAPM_SIGGEN("VMON_SRC"),
+ 	SND_SOC_DAPM_SIGGEN("IMON_SRC"),
++	SND_SOC_DAPM_SIGGEN("TEMPMON_SRC"),
+ 	SND_SOC_DAPM_SIGGEN("VDD_BATTMON_SRC"),
+ 	SND_SOC_DAPM_SIGGEN("VDD_BSTMON_SRC"),
+ 	SND_SOC_DAPM_SIGGEN("ERR_VOL"),
+ 	SND_SOC_DAPM_SIGGEN("AMP_INTP"),
+ 	SND_SOC_DAPM_SIGGEN("IL_TARGET"),
+-	SND_SOC_DAPM_ADC("VMON", NULL, CS35L45_BLOCK_ENABLES, CS35L45_VMON_EN_SHIFT, 0),
+-	SND_SOC_DAPM_ADC("IMON", NULL, CS35L45_BLOCK_ENABLES, CS35L45_IMON_EN_SHIFT, 0),
+-	SND_SOC_DAPM_ADC("VDD_BATTMON", NULL, CS35L45_BLOCK_ENABLES,
+-			 CS35L45_VDD_BATTMON_EN_SHIFT, 0),
+-	SND_SOC_DAPM_ADC("VDD_BSTMON", NULL, CS35L45_BLOCK_ENABLES,
+-			 CS35L45_VDD_BSTMON_EN_SHIFT, 0),
 +
-+	if (component->name_prefix)
-+		snprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s %s",
-+			 component->name_prefix, ctl_name);
-+	else
-+		snprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s", ctl_name);
++	SND_SOC_DAPM_SUPPLY("VMON_EN", CS35L45_BLOCK_ENABLES, CS35L45_VMON_EN_SHIFT, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("IMON_EN", CS35L45_BLOCK_ENABLES, CS35L45_IMON_EN_SHIFT, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("TEMPMON_EN", CS35L45_BLOCK_ENABLES, CS35L45_TEMPMON_EN_SHIFT, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("VDD_BATTMON_EN", CS35L45_BLOCK_ENABLES, CS35L45_VDD_BATTMON_EN_SHIFT, 0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("VDD_BSTMON_EN", CS35L45_BLOCK_ENABLES, CS35L45_VDD_BSTMON_EN_SHIFT, 0, NULL, 0),
 +
-+	kcontrol = snd_soc_card_get_kcontrol(component->card, name);
-+	if (!kcontrol) {
-+		dev_err(component->dev, "Can't find kcontrol %s\n", name);
-+		return -EINVAL;
-+	}
++	SND_SOC_DAPM_ADC("VMON", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC("IMON", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC("TEMPMON", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC("VDD_BATTMON", NULL, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC("VDD_BSTMON", NULL, SND_SOC_NOPM, 0, 0),
 +
-+	index_offset = snd_ctl_get_ioff(kcontrol, &kcontrol->id);
-+	vd = &kcontrol->vd[index_offset];
-+	if (active)
-+		vd->access |= SNDRV_CTL_ELEM_ACCESS_WRITE;
-+	else
-+		vd->access &= ~SNDRV_CTL_ELEM_ACCESS_WRITE;
-+
-+	snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_INFO, &kcontrol->id);
-+
-+	return 0;
-+}
-+
-+static int cs35l45_amplifier_mode_get(struct snd_kcontrol *kcontrol,
-+				      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+			snd_soc_kcontrol_component(kcontrol);
-+	struct cs35l45_private *cs35l45 =
-+			snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = cs35l45->amplifier_mode;
-+
-+	return 0;
-+}
-+
-+static int cs35l45_amplifier_mode_put(struct snd_kcontrol *kcontrol,
-+				      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+			snd_soc_kcontrol_component(kcontrol);
-+	struct cs35l45_private *cs35l45 =
-+			snd_soc_component_get_drvdata(component);
-+	struct snd_soc_dapm_context *dapm =
-+			snd_soc_component_get_dapm(component);
-+	unsigned int amp_state;
-+	int ret;
-+
-+	if ((ucontrol->value.integer.value[0] == cs35l45->amplifier_mode) ||
-+	    (ucontrol->value.integer.value[0] > AMP_MODE_RCV))
-+		return 0;
-+
-+	snd_soc_dapm_mutex_lock(dapm);
-+
-+	ret = regmap_read(cs35l45->regmap, CS35L45_BLOCK_ENABLES, &amp_state);
-+	if (ret < 0) {
-+		dev_err(cs35l45->dev, "Failed to read AMP state: %d\n", ret);
-+		snd_soc_dapm_mutex_unlock(dapm);
-+		return ret;
-+	}
-+
-+	regmap_clear_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES,
-+				  CS35L45_AMP_EN_MASK);
-+	snd_soc_component_disable_pin_unlocked(component, "SPK");
-+	snd_soc_dapm_sync_unlocked(dapm);
-+
-+	if (ucontrol->value.integer.value[0] == AMP_MODE_SPK) {
-+		regmap_clear_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES,
-+				  CS35L45_RCV_EN_MASK);
-+
-+		regmap_update_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES,
-+				   CS35L45_BST_EN_MASK,
-+				   CS35L45_BST_ENABLE << CS35L45_BST_EN_SHIFT);
-+
-+		regmap_update_bits(cs35l45->regmap, CS35L45_HVLV_CONFIG,
-+				   CS35L45_HVLV_MODE_MASK,
-+				   CS35L45_HVLV_OPERATION <<
-+				   CS35L45_HVLV_MODE_SHIFT);
-+
-+		ret = cs35l45_activate_ctl(component, "Analog PCM Volume", true);
-+		if (ret < 0)
-+			dev_err(cs35l45->dev,
-+				"Unable to deactivate ctl (%d)\n", ret);
-+
-+	} else  /* AMP_MODE_RCV */ {
-+		regmap_set_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES,
-+				CS35L45_RCV_EN_MASK);
-+
-+		regmap_update_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES,
-+				   CS35L45_BST_EN_MASK,
-+				   CS35L45_BST_DISABLE_FET_OFF <<
-+				   CS35L45_BST_EN_SHIFT);
-+
-+		regmap_update_bits(cs35l45->regmap, CS35L45_HVLV_CONFIG,
-+				   CS35L45_HVLV_MODE_MASK,
-+				   CS35L45_FORCE_LV_OPERATION <<
-+				   CS35L45_HVLV_MODE_SHIFT);
-+
-+		regmap_clear_bits(cs35l45->regmap,
-+				  CS35L45_BLOCK_ENABLES2,
-+				  CS35L45_AMP_DRE_EN_MASK);
-+
-+		regmap_update_bits(cs35l45->regmap, CS35L45_AMP_GAIN,
-+				   CS35L45_AMP_GAIN_PCM_MASK,
-+				   CS35L45_AMP_GAIN_PCM_13DBV <<
-+				   CS35L45_AMP_GAIN_PCM_SHIFT);
-+
-+		ret = cs35l45_activate_ctl(component, "Analog PCM Volume", false);
-+		if (ret < 0)
-+			dev_err(cs35l45->dev,
-+				"Unable to deactivate ctl (%d)\n", ret);
-+	}
-+
-+	if (amp_state & CS35L45_AMP_EN_MASK)
-+		regmap_set_bits(cs35l45->regmap, CS35L45_BLOCK_ENABLES,
-+				CS35L45_AMP_EN_MASK);
-+
-+	snd_soc_component_enable_pin_unlocked(component, "SPK");
-+	snd_soc_dapm_sync_unlocked(dapm);
-+	snd_soc_dapm_mutex_unlock(dapm);
-+
-+	cs35l45->amplifier_mode = ucontrol->value.integer.value[0];
-+
-+	return 1;
-+}
-+
- static const char * const cs35l45_asp_tx_txt[] = {
- 	"Zero", "ASP_RX1", "ASP_RX2",
- 	"VMON", "IMON", "ERR_VOL",
-@@ -432,9 +568,19 @@ static const struct snd_soc_dapm_route cs35l45_dapm_routes[] = {
- 	{ "SPK", NULL, "AMP"},
- };
  
-+static const char * const amplifier_mode_texts[] = {"SPK", "RCV"};
-+static SOC_ENUM_SINGLE_DECL(amplifier_mode_enum, SND_SOC_NOPM, 0,
-+			    amplifier_mode_texts);
-+static DECLARE_TLV_DB_SCALE(amp_gain_tlv, 1000, 300, 0);
- static const DECLARE_TLV_DB_SCALE(cs35l45_dig_pcm_vol_tlv, -10225, 25, true);
+ 	SND_SOC_DAPM_AIF_IN("ASP_RX1", NULL, 0, CS35L45_ASP_ENABLES1, CS35L45_ASP_RX1_EN_SHIFT, 0),
+ 	SND_SOC_DAPM_AIF_IN("ASP_RX2", NULL, 1, CS35L45_ASP_ENABLES1, CS35L45_ASP_RX2_EN_SHIFT, 0),
+@@ -503,9 +511,16 @@ static const struct snd_soc_dapm_route cs35l45_dapm_routes[] = {
+ 	/* Feedback */
+ 	{ "VMON", NULL, "VMON_SRC" },
+ 	{ "IMON", NULL, "IMON_SRC" },
++	{ "TEMPMON", NULL, "TEMPMON_SRC" },
+ 	{ "VDD_BATTMON", NULL, "VDD_BATTMON_SRC" },
+ 	{ "VDD_BSTMON", NULL, "VDD_BSTMON_SRC" },
  
- static const struct snd_kcontrol_new cs35l45_controls[] = {
-+	SOC_ENUM_EXT("Amplifier Mode", amplifier_mode_enum,
-+		     cs35l45_amplifier_mode_get, cs35l45_amplifier_mode_put),
-+	SOC_SINGLE_TLV("Analog PCM Volume", CS35L45_AMP_GAIN,
-+			CS35L45_AMP_GAIN_PCM_SHIFT,
-+			CS35L45_AMP_GAIN_PCM_MASK >> CS35L45_AMP_GAIN_PCM_SHIFT,
-+			0, amp_gain_tlv),
- 	/* Ignore bit 0: it is beyond the resolution of TLV_DB_SCALE */
- 	SOC_SINGLE_S_TLV("Digital PCM Volume",
- 			 CS35L45_AMP_PCM_CONTROL,
-@@ -1104,6 +1250,8 @@ static int cs35l45_initialize(struct cs35l45_private *cs35l45)
- 	if (ret < 0)
- 		return ret;
- 
-+	cs35l45->amplifier_mode = AMP_MODE_SPK;
++	{ "VMON", NULL, "VMON_EN" },
++	{ "IMON", NULL, "IMON_EN" },
++	{ "TEMPMON", NULL, "TEMPMON_EN" },
++	{ "VDD_BATTMON", NULL, "VDD_BATTMON_EN" },
++	{ "VDD_BSTMON", NULL, "VDD_BSTMON_EN" },
 +
- 	return 0;
- }
+ 	{ "Capture", NULL, "ASP_TX1"},
+ 	{ "Capture", NULL, "ASP_TX2"},
+ 	{ "Capture", NULL, "ASP_TX3"},
+@@ -560,6 +575,12 @@ static const struct snd_soc_dapm_route cs35l45_dapm_routes[] = {
+ 	{"DSP1", NULL, "DSP_RX7 Source"},
+ 	{"DSP1", NULL, "DSP_RX8 Source"},
+ 
++	{"DSP1", NULL, "VMON_EN"},
++	{"DSP1", NULL, "IMON_EN"},
++	{"DSP1", NULL, "VDD_BATTMON_EN"},
++	{"DSP1", NULL, "VDD_BSTMON_EN"},
++	{"DSP1", NULL, "TEMPMON_EN"},
++
+ 	{"DSP1 Preload", NULL, "DSP1 Preloader"},
+ 	{"DSP1", NULL, "DSP1 Preloader"},
  
 diff --git a/sound/soc/codecs/cs35l45.h b/sound/soc/codecs/cs35l45.h
-index 61135a316df3..16857321d945 100644
+index 16857321d945..e2ebcf58d7e0 100644
 --- a/sound/soc/codecs/cs35l45.h
 +++ b/sound/soc/codecs/cs35l45.h
-@@ -61,9 +61,11 @@
- #define CS35L45_DSP1RX6_INPUT			0x00004C54
- #define CS35L45_DSP1RX7_INPUT			0x00004C58
- #define CS35L45_DSP1RX8_INPUT			0x00004C5C
-+#define CS35L45_HVLV_CONFIG			0x00006400
- #define CS35L45_LDPM_CONFIG			0x00006404
- #define CS35L45_AMP_PCM_CONTROL			0x00007000
- #define CS35L45_AMP_PCM_HPF_TST			0x00007004
-+#define CS35L45_AMP_GAIN			0x00007800
- #define CS35L45_IRQ1_CFG			0x0000E000
- #define CS35L45_IRQ1_STATUS			0x0000E004
- #define CS35L45_IRQ1_EINT_1			0x0000E010
-@@ -167,12 +169,19 @@
+@@ -165,6 +165,7 @@
+ /* BLOCK_ENABLES */
+ #define CS35L45_IMON_EN_SHIFT			13
+ #define CS35L45_VMON_EN_SHIFT			12
++#define CS35L45_TEMPMON_EN_SHIFT		10
+ #define CS35L45_VDD_BSTMON_EN_SHIFT		9
  #define CS35L45_VDD_BATTMON_EN_SHIFT		8
  #define CS35L45_BST_EN_SHIFT			4
- #define CS35L45_BST_EN_MASK			GENMASK(5, 4)
-+#define CS35L45_RCV_EN_SHIFT			2
-+#define CS35L45_RCV_EN_MASK			BIT(2)
-+#define CS35L45_AMP_EN_SHIFT			0
-+#define CS35L45_AMP_EN_MASK			BIT(0)
- 
--#define CS35L45_BST_DISABLE_FET_ON              0x01
-+#define CS35L45_BST_DISABLE_FET_OFF		0x00
-+#define CS35L45_BST_DISABLE_FET_ON		0x01
-+#define CS35L45_BST_ENABLE			0x02
- 
- /* BLOCK_ENABLES2 */
- #define CS35L45_ASP_EN_SHIFT			27
--
-+#define CS35L45_AMP_DRE_EN_SHIFT		20
-+#define CS35L45_AMP_DRE_EN_MASK		BIT(20)
- #define CS35L45_MEM_RDY_SHIFT			1
- #define CS35L45_MEM_RDY_MASK			BIT(1)
- 
-@@ -266,6 +275,13 @@
- #define CS35L45_ASP_WL_SHIFT			0
- #define CS35L45_ASP_WL_MASK			GENMASK(5, 0)
- 
-+/* HVLV_CONFIG */
-+#define CS35L45_FORCE_LV_OPERATION		0x01
-+#define CS35L45_FORCE_HV_OPERATION		0x02
-+#define CS35L45_HVLV_OPERATION			0x03
-+#define CS35L45_HVLV_MODE_SHIFT		0
-+#define CS35L45_HVLV_MODE_MASK			GENMASK(1, 0)
-+
- /* AMP_PCM_CONTROL */
- #define CS35L45_AMP_VOL_PCM_SHIFT		0
- #define CS35L45_AMP_VOL_PCM_WIDTH		11
-@@ -275,6 +291,15 @@
- #define CS35L45_HPF_44P1			0x000108BD
- #define CS35L45_HPF_88P2			0x0001045F
- 
-+/* AMP_GAIN_PCM */
-+#define CS35L45_AMP_GAIN_PCM_10DBV		0x00
-+#define CS35L45_AMP_GAIN_PCM_13DBV		0x01
-+#define CS35L45_AMP_GAIN_PCM_16DBV		0x02
-+#define CS35L45_AMP_GAIN_PCM_19DBV		0x03
-+
-+#define CS35L45_AMP_GAIN_PCM_SHIFT		8
-+#define CS35L45_AMP_GAIN_PCM_MASK		GENMASK(9, 8)
-+
- /* IRQ1_EINT_4 */
- #define CS35L45_OTP_BOOT_DONE_STS_MASK		BIT(1)
- #define CS35L45_OTP_BUSY_MASK			BIT(0)
-@@ -396,6 +421,11 @@ enum control_bus_type {
- 	CONTROL_BUS_SPI = 1,
- };
- 
-+enum amp_mode {
-+	AMP_MODE_SPK  = 0,
-+	AMP_MODE_RCV  = 1,
-+};
-+
- #define CS35L45_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
- 			 SNDRV_PCM_FMTBIT_S24_3LE| \
- 			 SNDRV_PCM_FMTBIT_S24_LE)
-@@ -464,6 +494,7 @@ struct cs35l45_private {
- 	bool sysclk_set;
- 	u8 slot_width;
- 	u8 slot_count;
-+	int amplifier_mode;
- 	int irq_invert;
- 	int irq;
- 	unsigned int i2c_addr;
 -- 
 2.25.1
 

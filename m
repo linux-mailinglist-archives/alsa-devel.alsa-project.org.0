@@ -2,114 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DC66791720
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 14:33:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD32791724
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 14:34:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 782E53E8;
-	Mon,  4 Sep 2023 14:32:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 782E53E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8C0084B;
+	Mon,  4 Sep 2023 14:33:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8C0084B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693830796;
-	bh=Yun5X9T9+HnywGIcjOuXjIT92QS/FS0Ffu2qEslGeDk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1693830853;
+	bh=g8sbwu2YbI3GlpVnVO1aDiVF2xlXDysRfeOkwxZjIYk=;
+	h=Subject:From:In-Reply-To:Date:CC:References:To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=k3IkCHkh3atqQ4QM+ETCpxZSC20xT1RpIzezY3rwuZNjWoRti98+RACXnXOmbuxZj
-	 6hem24CBlGp97ZVfawJgkkxbOIuqhy+t8bSgh67LGvtBxFs+Y9BGgyz6/ppXiHfmKd
-	 VDO/Dmcl7m88ruhfQTpAxONorc5Pv1ha2HCYkVzI=
+	b=HBE2QwTYCEYfT6MmlvVVk3t+IB6qgx83wTCxR7AC9WCPG0YXNSWy1Egz8QTUu0lVS
+	 YXoU5hQXll7B4RrgWGkWqrGGrjb2FkdXn3qxPs+Aa+nD6JskkTcSZCmeJ2Rv0AQAag
+	 SW9wnVV5Xh75Meq1u/QF7V4rlPlgtG9E3n/Lhtxs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21F0FF80431; Mon,  4 Sep 2023 14:32:26 +0200 (CEST)
+	id 7F970F80552; Mon,  4 Sep 2023 14:32:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD263F8047D;
-	Mon,  4 Sep 2023 14:32:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A7CDF8055A;
+	Mon,  4 Sep 2023 14:32:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 992F8F80155; Thu, 31 Aug 2023 12:44:31 +0200 (CEST)
+	id 4011CF80155; Thu, 31 Aug 2023 16:56:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9D1BEF80094;
-	Thu, 31 Aug 2023 12:44:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D1BEF80094
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8789BF80007
+	for <alsa-devel@alsa-project.org>; Thu, 31 Aug 2023 16:56:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8789BF80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=H+XuX0EX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693478667; x=1725014667;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Yun5X9T9+HnywGIcjOuXjIT92QS/FS0Ffu2qEslGeDk=;
-  b=H+XuX0EXPi134Z8hIQ6uQmBoNhvQdncDys7RN6vvfEHYzT4GfABZeGem
-   Oet1qotWxIBVhCu476OlGrpw+rQomvZtT3gMLEfGLk/FumL1ZEKR9VaEg
-   OKzhnsDgMzTuQQk6yJQs+n3/EQzx6qZiCJQFLIF+3srGRXsRfnpN8ZFRu
-   ZmrLM20aE17ukK6z8cGS3siuEq9wyy8rlMdEwFblGnIQC1DvofJH0Ya2w
-   n9zPe1+D3yAWEX3k0H8k2i2s+7wuFWDg0gM+IZop6lVLxaMy2tjMCfrCj
-   aFtDNr6xP8zHQOD2L8NBqXF5GdpNGeC3CCy8xVRqe3s568sLcbSD4k7wu
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="373298448"
-X-IronPort-AV: E=Sophos;i="6.02,216,1688454000";
-   d="scan'208";a="373298448"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2023 03:44:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="716293357"
-X-IronPort-AV: E=Sophos;i="6.02,216,1688454000";
-   d="scan'208";a="716293357"
-Received: from sorenthe-mobl.ger.corp.intel.com (HELO [10.249.254.108])
- ([10.249.254.108])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2023 03:44:15 -0700
-Message-ID: <d0aeae4e-0766-4879-9b06-46c78ffdb165@linux.intel.com>
-Date: Thu, 31 Aug 2023 12:44:12 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v4 01/11] ASoC: SOF: core: add 'no_wq' probe and remove
- callbacks
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
-References: <20230830153652.217855-1-maarten.lankhorst@linux.intel.com>
- <20230830153652.217855-2-maarten.lankhorst@linux.intel.com>
- <ac21f644-dedc-289b-3783-0cf2db8c0a73@linux.intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <ac21f644-dedc-289b-3783-0cf2db8c0a73@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: maarten.lankhorst@linux.intel.com
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=PpG4EXUC
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37VElhBp024174;
+	Thu, 31 Aug 2023 09:56:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	content-type:mime-version:subject:from:in-reply-to:date:cc
+	:content-transfer-encoding:message-id:references:to; s=
+	PODMain02222019; bh=tL1M2KqPZ1Gruoc257MClXbv1zWRmnPUhuIWXHhN8pc=; b=
+	PpG4EXUCbqlRyrE13oUzznOXr1zcy1uoPi/ggamaQjlPYdUTtF7TDIvPtkm6C2c4
+	5HWlflZH9pc4VVSqaWc+tZtNMO9H7WYLxaM0XjVFBgiOAigL8XxyXtEV64+7oTny
+	IkJV5+x61m6/CEbdo6yGfrCMJczegjtjW5kEOtJzXxibPxjfnjB3FRbtrKQo4/hX
+	XKzEbRRfkzVheCdc/INAIUSxZNIxC242r3t865HoQID99KGr1jd5DPH7ibBdE1O1
+	+ojAoYj3PN2Kl3OpvlTUz9Jz8S5WUYpRkAkETS8Rq5E35/TIHv9tcuoM8CwroDwB
+	RtGb7bE/m66O4ry0xRCaHw==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3sqdtj5grc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 31 Aug 2023 09:56:20 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Thu, 31 Aug
+ 2023 15:56:18 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.37 via Frontend Transport; Thu, 31 Aug 2023 15:56:18 +0100
+Received: from smtpclient.apple (macC02FN0GLMD6T.ad.cirrus.com
+ [141.131.156.196])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id ABAA311D4;
+	Thu, 31 Aug 2023 14:56:16 +0000 (UTC)
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0 (Mac OS X Mail 16.0 \(3731.700.6\))
+Subject: Re: [PATCH v2 1/4] ASoC: cs35l45: Checks index of cs35l45_irqs[]
+From: "Rivera-Matos, Ricardo" <rriveram@opensource.cirrus.com>
+In-Reply-To: <737c4114-5b54-444c-8a6a-de4e98566513@sirena.org.uk>
+Date: Thu, 31 Aug 2023 09:56:05 -0500
+CC: Vlad Karpovich <vkarpovi@opensource.cirrus.com>,
+        James Schulman
+	<james.schulman@cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, Rob Herring
+	<robh+dt@kernel.org>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-ID: <5B0EB2A2-2048-4A71-A4A9-D5167C7AB5EC@opensource.cirrus.com>
+References: <20230830195536.448884-1-vkarpovi@opensource.cirrus.com>
+ <737c4114-5b54-444c-8a6a-de4e98566513@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+X-Mailer: Apple Mail (2.3731.700.6)
+X-Proofpoint-ORIG-GUID: HoQ4lxce8WazZ5vUB_uGKhNFVcYgS3mH
+X-Proofpoint-GUID: HoQ4lxce8WazZ5vUB_uGKhNFVcYgS3mH
+X-Proofpoint-Spam-Reason: safe
+X-MailFrom: prvs=4607b54b17=rriveram@opensource.cirrus.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: SSBWXHSIINOCO7UVBI74WINOUKPPJNUL
-X-Message-ID-Hash: SSBWXHSIINOCO7UVBI74WINOUKPPJNUL
-X-Mailman-Approved-At: Mon, 04 Sep 2023 12:32:22 +0000
+Message-ID-Hash: BCSIUULNGELGJPVZMYS3AIKS3OB2EQRJ
+X-Message-ID-Hash: BCSIUULNGELGJPVZMYS3AIKS3OB2EQRJ
+X-Mailman-Approved-At: Mon, 04 Sep 2023 12:32:27 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSBWXHSIINOCO7UVBI74WINOUKPPJNUL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCSIUULNGELGJPVZMYS3AIKS3OB2EQRJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,41 +120,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hey,
+Hello Mark,
 
-Den 2023-08-30 kl. 19:13, skrev Pierre-Louis Bossart:
->> +static inline int snd_sof_remove_no_wq(struct snd_sof_dev *sdev)
->> +{
->> +	if (sof_ops(sdev)->remove_no_wq)
->> +		return sof_ops(sdev)->remove_no_wq(sdev);
->> +
->> +	return 0;
->> +}
->>   	/* probe/remove/shutdown */
->> +	int (*probe_no_wq)(struct snd_sof_dev *sof_dev); /* optional */
->> +	int (*remove_no_wq)(struct snd_sof_dev *sof_dev); /* optional */
-> My initial PR didn't have this remove_no_wq() callback.
->
-> For symmetry it could be useful if it is meant to undo what the
-> probe_no_wq() did, but conceptually the first thing we do in the remove
-> is make sure that workqueue is either not scheduled or we wait until it
-> completes.
->
-> int snd_sof_device_remove(struct device *dev)
-> {
-> 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-> 	struct snd_sof_pdata *pdata = sdev->pdata;
-> 	int ret;
->
-> 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
-> 		cancel_work_sync(&sdev->probe_work);
+> On Aug 30, 2023, at 3:59 PM, Mark Brown <broonie@kernel.org> wrote:
+>=20
+> On Wed, Aug 30, 2023 at 02:55:33PM -0500, Vlad Karpovich wrote:
+>> Checks the index computed by the virq offset before printing the
+>> error condition in cs35l45_spk_safe_err() handler.
+>>=20
+>> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+>> Signed-off-by: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
+>=20
+> Who actually wrote this patch?
 
-That is exactly what I was using it for later on.
+I am the original author, allow me to clarify how and why this is =
+supposed to work.
 
-I had to have a counter to hda_init() in patch 10/11.
+How:
 
-Cheers,
-Maarten
+static const struct cs35l45_irq cs35l45_irqs[] =3D {
+	CS35L45_IRQ(AMP_SHORT_ERR, "Amplifier short error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(UVLO_VDDBATT_ERR, "VDDBATT undervoltage error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(BST_SHORT_ERR, "Boost inductor error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(BST_UVP_ERR, "Boost undervoltage error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(TEMP_ERR, "Overtemperature error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(AMP_CAL_ERR, "Amplifier calibration error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(UVLO_VDDLV_ERR, "LV threshold detector error", =
+cs35l45_spk_safe_err),
+	CS35L45_IRQ(GLOBAL_ERROR, "Global error", cs35l45_global_err),
+	CS35L45_IRQ(DSP_WDT_EXPIRE, "DSP Watchdog Timer", =
+cs35l45_dsp_wdt_expire),
+	CS35L45_IRQ(PLL_UNLOCK_FLAG_RISE, "PLL unlock flag rise", =
+cs35l45_pll_unlock),
+	CS35L45_IRQ(PLL_LOCK_FLAG, "PLL lock", cs35l45_pll_lock),
+	CS35L45_IRQ(DSP_VIRT2_MBOX, "DSP virtual MBOX 2 write flag", =
+cs35l45_dsp_virt2_mbox_cb),
+};
 
+static irqreturn_t cs35l45_spk_safe_err(int irq, void *data)
+{
+	struct cs35l45_private *cs35l45 =3D data;
+	int i;
 
+	i =3D irq - regmap_irq_get_virq(cs35l45->irq_data, 0);
+
+	if (i < 0 || i > 6)
+		dev_err(cs35l45->dev, "Unspecified global error =
+condition (%d) detected!\n", irq);
+	else
+		dev_err(cs35l45->dev, "%s condition detected!\n", =
+cs35l45_irqs[i].name);
+
+	return IRQ_HANDLED;
+}
+
+This snippet here is from the OoT CS35L45 driver. There are only seven =
+root causes for a speaker safe error and when one of those root cause =
+bits are set, we enter the common handler to print the root cause. Using =
+the IRQ and the VIRQ number we do some math and print the name of the =
+error as a dev_err.
+
+Why:
+
+Originally these root cause bits were treated as general bits and simply =
+checked in the cs35l45_global_err() handler. A problem arose when the =
+CS35L45 would come out of hibernation and the root cause bits would be =
+masked by default. Treating the root cause bits as IRQs ensured that, =
+like the other IRQ bits, the root cause bits would be unmasked before an =
+IRQ could be serviced.
+
+Further notes:
+
+static const struct cs35l45_irq cs35l45_irqs[] =3D {
+<snip>
+	CS35L45_IRQ(GLOBAL_ERROR, "Global error", cs35l45_spk_safe_err),
+	CS35L45_IRQ(DSP_WDT_EXPIRE, "DSP Watchdog Timer", =
+cs35l45_spk_safe_err),
+<snip>
+};
+
+This is from next-20230831. I am not sure how this happened, but these =
+IRQs are not pointing to cs35l45_global_err and cs35l45_dsp_wdt_expire =
+respectively. Maybe a bad cherry-pick. We will address this shortly.
+
+I hope this addresses any confusion, please let me know if I can offer =
+any further details.
+
+Thanks,
+Ricardo
 

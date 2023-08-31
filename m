@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F8B78F365
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 21:36:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E9478F36D
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 21:38:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41972741;
-	Thu, 31 Aug 2023 21:35:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41972741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13E573E8;
+	Thu, 31 Aug 2023 21:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E573E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693510576;
-	bh=ZaKxGrQvru6NhprYJ3z5MUf4ZY76T8yDFrDkTN2AwNQ=;
+	s=default; t=1693510686;
+	bh=ZnuQf+I92SjS26ON4iqRROjg1FBZix2BIoWppyPwvSo=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RtDxceZFyf0YZw7ysSL5k/nryIns1F4EJ+upD8KUj9mzTrzxo7qyRRKpfDhzeJ7Ar
-	 WWdlsmYDxrEM2vUcPBge3ZatHxuE8I0rfCjDMxfDjhojpmTX8lAGFxWDEqjtXrFIEB
-	 y5fbhebHKUmVskqsf/C4ErJ8yHL2Z+UAmG0zAqw4=
+	b=aaoyn98VtRCGhYt4qM70iy8vGSHifaIj0gq4fQV8TFt5U+kylnUoY2shTb6MaqmaZ
+	 WCOENNRcFwFtq+UFikT0UppuFw2lDDaKrUxt+6pZXXyfVrIyNUflrorLXNACQAUJwE
+	 0JunYP9oFyqFnLeHo/wFkgSJ6MOSVdkXSnK+ovyw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51C88F80236; Thu, 31 Aug 2023 21:34:59 +0200 (CEST)
+	id CD380F8025F; Thu, 31 Aug 2023 21:37:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 694AEF800F5;
-	Thu, 31 Aug 2023 21:34:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5507EF800F5;
+	Thu, 31 Aug 2023 21:37:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3330EF80155; Thu, 31 Aug 2023 21:34:56 +0200 (CEST)
+	id 260B3F80155; Thu, 31 Aug 2023 21:37:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFF0AF800D1
-	for <alsa-devel@alsa-project.org>; Thu, 31 Aug 2023 21:34:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF0AF800D1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 12A46F80007
+	for <alsa-devel@alsa-project.org>; Thu, 31 Aug 2023 21:36:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12A46F80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=ZrCApEYX
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=J49v0OJw
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37VENKrW015709;
-	Thu, 31 Aug 2023 19:34:47 GMT
+ 37VJH3Bj030249;
+	Thu, 31 Aug 2023 19:36:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=f/TcS1u/2zxWALIx7/2raXt2YATq/rLjXTXCf5ghMpk=;
- b=ZrCApEYXbFHLN/5Ss/6nYCqWa5EDBqaO759DIclflZErwzE5q2dE20d8Gu9FZ9cyIFQq
- C+C/DNrj22Rm+2BjlgPO1K2dSIvljnFvMz6lKY8Bvyl0ErDAnJoxeQlVtB96n0OzbQMp
- F/tR7scNbajgqBtbalgxOCVFTofWwHi/XpaEEzh5JSNwovFGOMAVkz4+aLJqAAb0ej2J
- 51l+rqmCiAcg0GRZrGOfOWcIqHAq5JdOT/CoLzg/gE35gJ4YG3OejT9fYo5Ze5Xfd5bb
- h+eMoVffy46nLRPNtVg1QqxtwepI2MH/I852AbXgOO3vuc02aFQtF9eZMPZMgUg7VN+O nw==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=TWm7fyYZUKB+S9NSXhdzXoe/yY0UHPRqCdreT/60cDQ=;
+ b=J49v0OJw9hKJpDLpoRE0b+oVJtoCeFzjBNFidr2h0w8K5syhhDecGrKKhNS+kIoF1iUq
+ OiUKaMegGs+q34oJm+FsE6wJkeKIb1ywPWC/qj/pcjBZcrV3YgJDXQiYSyjeTZioE9pH
+ LaLQuyXtpH8Y8MX4k7EVIibGUiOrQMSlgkX6JSHr/sC2GUQZRh9pooTJB37BAND/L2Xs
+ +i0jjPP9ZjBtQ4i+iOx4Cwtb/g5d5JynMDfIk3/aiPsU8UcfoVhQrxj19Fe80fduevWC
+ SoCc2zxRVxiS7cpVPDgGogmgUhGOOIKD/egLT5IMjdik1KqPALT23yl9o7vD7d6jfydE 7g==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3stj37ae55-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3str1nhne5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 31 Aug 2023 19:34:46 +0000
+	Thu, 31 Aug 2023 19:36:56 +0000
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 37VJYdCA009176
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 37VJateB001029
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 31 Aug 2023 19:34:39 GMT
+	Thu, 31 Aug 2023 19:36:55 GMT
 Received: from [10.71.114.68] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Thu, 31 Aug
- 2023 12:34:38 -0700
-Message-ID: <ee16db64-661f-c28c-59ed-d895041f7ea5@quicinc.com>
-Date: Thu, 31 Aug 2023 12:34:38 -0700
+ 2023 12:36:54 -0700
+Message-ID: <538bcc8c-9fab-f568-ad97-112734163ab6@quicinc.com>
+Date: Thu, 31 Aug 2023 12:36:54 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH v5 10/32] ASoC: qcom: Add USB backend ASoC driver for Q6
+Subject: Re: [PATCH v5 12/32] sound: usb: Export USB SND APIs for modules
 Content-Language: en-US
 To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
 	<amadeuszx.slawinski@linux.intel.com>,
@@ -92,10 +92,10 @@ CC: <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
         <linux-usb@vger.kernel.org>, <quic_jackp@quicinc.com>,
         <quic_plai@quicinc.com>
 References: <20230829210657.9904-1-quic_wcheng@quicinc.com>
- <20230829210657.9904-11-quic_wcheng@quicinc.com>
- <cd39ced8-fa89-a666-383f-8fd1c7a14d23@linux.intel.com>
+ <20230829210657.9904-13-quic_wcheng@quicinc.com>
+ <5a5eb3a8-1379-116b-ca17-eac573207c57@linux.intel.com>
 From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <cd39ced8-fa89-a666-383f-8fd1c7a14d23@linux.intel.com>
+In-Reply-To: <5a5eb3a8-1379-116b-ca17-eac573207c57@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
@@ -104,19 +104,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: ZIFRqQLp0rL5Ws0X1HuMn9w9FbBMpRdY
-X-Proofpoint-ORIG-GUID: ZIFRqQLp0rL5Ws0X1HuMn9w9FbBMpRdY
+X-Proofpoint-GUID: jGSRsbCxrGUfF0e8oyCBPySBlhhUmW5Z
+X-Proofpoint-ORIG-GUID: jGSRsbCxrGUfF0e8oyCBPySBlhhUmW5Z
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
  definitions=2023-08-31_17,2023-08-31_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 priorityscore=1501
- clxscore=1011 lowpriorityscore=0 mlxlogscore=999 bulkscore=0
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ phishscore=0 impostorscore=0
+ mlxlogscore=999 spamscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2308100000 definitions=main-2308310175
-Message-ID-Hash: MYIAY7Z66XI67LFMP6FJVDJR5IV5W7ED
-X-Message-ID-Hash: MYIAY7Z66XI67LFMP6FJVDJR5IV5W7ED
+Message-ID-Hash: 63U5HL63GYJCJSP63KTZQ2DJBKPZOLAB
+X-Message-ID-Hash: 63U5HL63GYJCJSP63KTZQ2DJBKPZOLAB
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -129,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MYIAY7Z66XI67LFMP6FJVDJR5IV5W7ED/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/63U5HL63GYJCJSP63KTZQ2DJBKPZOLAB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,300 +138,230 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Hi Amadeusz,
 
 On 8/30/2023 5:50 AM, Amadeusz Sławiński wrote:
 > On 8/29/2023 11:06 PM, Wesley Cheng wrote:
->> Create a USB BE component that will register a new USB port to the 
->> ASoC USB
->> framework.  This will handle determination on if the requested audio
->> profile is supported by the USB device currently selected.
+>> Some vendor modules will utilize useful parsing and endpoint management
+>> APIs to start audio playback/capture.
 >>
 >> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 >> ---
->>   include/sound/q6usboffload.h  |  20 ++++
->>   sound/soc/qcom/Kconfig        |   4 +
->>   sound/soc/qcom/qdsp6/Makefile |   1 +
->>   sound/soc/qcom/qdsp6/q6usb.c  | 200 ++++++++++++++++++++++++++++++++++
->>   4 files changed, 225 insertions(+)
->>   create mode 100644 include/sound/q6usboffload.h
->>   create mode 100644 sound/soc/qcom/qdsp6/q6usb.c
+>>   sound/usb/card.c     |  4 +++
+>>   sound/usb/endpoint.c |  1 +
+>>   sound/usb/helper.c   |  1 +
+>>   sound/usb/pcm.c      | 67 +++++++++++++++++++++++++++++++++-----------
+>>   sound/usb/pcm.h      | 11 ++++++++
+>>   5 files changed, 67 insertions(+), 17 deletions(-)
 >>
->> diff --git a/include/sound/q6usboffload.h b/include/sound/q6usboffload.h
->> new file mode 100644
->> index 000000000000..4fb1912d9f55
->> --- /dev/null
->> +++ b/include/sound/q6usboffload.h
->> @@ -0,0 +1,20 @@
->> +/* SPDX-License-Identifier: GPL-2.0
->> + *
->> + * linux/sound/q6usboffload.h -- QDSP6 USB offload
->> + *
->> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All 
->> rights reserved.
->> + */
+>> diff --git a/sound/usb/card.c b/sound/usb/card.c
+>> index 067a1e82f4bf..b45b6daee7b7 100644
+>> --- a/sound/usb/card.c
+>> +++ b/sound/usb/card.c
+>> @@ -1053,6 +1053,7 @@ int snd_usb_lock_shutdown(struct snd_usb_audio 
+>> *chip)
+>>           wake_up(&chip->shutdown_wait);
+>>       return err;
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_lock_shutdown);
+>>   /* autosuspend and unlock the shutdown */
+>>   void snd_usb_unlock_shutdown(struct snd_usb_audio *chip)
+>> @@ -1061,6 +1062,7 @@ void snd_usb_unlock_shutdown(struct 
+>> snd_usb_audio *chip)
+>>       if (atomic_dec_and_test(&chip->usage_count))
+>>           wake_up(&chip->shutdown_wait);
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_unlock_shutdown);
+>>   int snd_usb_autoresume(struct snd_usb_audio *chip)
+>>   {
+>> @@ -1083,6 +1085,7 @@ int snd_usb_autoresume(struct snd_usb_audio *chip)
+>>       }
+>>       return 0;
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_autoresume);
+>>   void snd_usb_autosuspend(struct snd_usb_audio *chip)
+>>   {
+>> @@ -1096,6 +1099,7 @@ void snd_usb_autosuspend(struct snd_usb_audio 
+>> *chip)
+>>       for (i = 0; i < chip->num_interfaces; i++)
+>>           usb_autopm_put_interface(chip->intf[i]);
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_autosuspend);
+>>   static int usb_audio_suspend(struct usb_interface *intf, 
+>> pm_message_t message)
+>>   {
+>> diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+>> index a385e85c4650..aac92e0b8aa2 100644
+>> --- a/sound/usb/endpoint.c
+>> +++ b/sound/usb/endpoint.c
+>> @@ -1503,6 +1503,7 @@ int snd_usb_endpoint_prepare(struct 
+>> snd_usb_audio *chip,
+>>       mutex_unlock(&chip->mutex);
+>>       return err;
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_endpoint_prepare);
+>>   /* get the current rate set to the given clock by any endpoint */
+>>   int snd_usb_endpoint_get_clock_rate(struct snd_usb_audio *chip, int 
+>> clock)
+>> diff --git a/sound/usb/helper.c b/sound/usb/helper.c
+>> index bf80e55d013a..4322ae3738e6 100644
+>> --- a/sound/usb/helper.c
+>> +++ b/sound/usb/helper.c
+>> @@ -62,6 +62,7 @@ void *snd_usb_find_csint_desc(void *buffer, int 
+>> buflen, void *after, u8 dsubtype
+>>       }
+>>       return NULL;
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_find_csint_desc);
+>>   /*
+>>    * Wrapper for usb_control_msg().
+>> diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+>> index 08bf535ed163..999f66080649 100644
+>> --- a/sound/usb/pcm.c
+>> +++ b/sound/usb/pcm.c
+>> @@ -148,6 +148,16 @@ find_format(struct list_head *fmt_list_head, 
+>> snd_pcm_format_t format,
+>>       return found;
+>>   }
+>> +const struct audioformat *
+>> +snd_usb_find_format(struct list_head *fmt_list_head, snd_pcm_format_t 
+>> format,
+>> +        unsigned int rate, unsigned int channels, bool strict_match,
+>> +        struct snd_usb_substream *subs)
+>> +{
+>> +    return find_format(fmt_list_head, format, rate, channels, 
+>> strict_match,
+>> +            subs);
+>> +}
+>> +EXPORT_SYMBOL_GPL(snd_usb_find_format);
 >> +
->> +/**
->> + * struct q6usb_offload
->> + * @dev - dev handle to usb be
->> + * @sid - streamID for iommu
->> + * @intr_num - usb interrupter number
->> + * @domain - allocated iommu domain
->> + **/
->> +struct q6usb_offload {
->> +    struct device *dev;
->> +    long long sid;
->> +    u32 intr_num;
->> +    struct iommu_domain *domain;
->> +};
->> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
->> index e7b00d1d9e99..bb285af6bb04 100644
->> --- a/sound/soc/qcom/Kconfig
->> +++ b/sound/soc/qcom/Kconfig
->> @@ -114,6 +114,9 @@ config SND_SOC_QDSP6_APM
->>   config SND_SOC_QDSP6_PRM_LPASS_CLOCKS
->>       tristate
->> +config SND_SOC_QDSP6_USB
->> +    tristate
+>>   static const struct audioformat *
+>>   find_substream_format(struct snd_usb_substream *subs,
+>>                 const struct snd_pcm_hw_params *params)
+>> @@ -157,6 +167,14 @@ find_substream_format(struct snd_usb_substream 
+>> *subs,
+>>                  true, subs);
+>>   }
+>> +const struct audioformat *
+>> +snd_usb_find_substream_format(struct snd_usb_substream *subs,
+>> +              const struct snd_pcm_hw_params *params)
+>> +{
+>> +    return find_substream_format(subs, params);
+>> +}
+>> +EXPORT_SYMBOL_GPL(snd_usb_find_substream_format);
 >> +
->>   config SND_SOC_QDSP6_PRM
->>       tristate
->>       select SND_SOC_QDSP6_PRM_LPASS_CLOCKS
->> @@ -134,6 +137,7 @@ config SND_SOC_QDSP6
->>       select SND_SOC_TOPOLOGY
->>       select SND_SOC_QDSP6_APM
->>       select SND_SOC_QDSP6_PRM
->> +    select SND_SOC_QDSP6_USB
->>       help
->>        To add support for MSM QDSP6 Soc Audio.
->>        This will enable sound soc platform specific
->> diff --git a/sound/soc/qcom/qdsp6/Makefile 
->> b/sound/soc/qcom/qdsp6/Makefile
->> index 3963bf234664..c9457ee898d0 100644
->> --- a/sound/soc/qcom/qdsp6/Makefile
->> +++ b/sound/soc/qcom/qdsp6/Makefile
->> @@ -17,3 +17,4 @@ obj-$(CONFIG_SND_SOC_QDSP6_APM_DAI) += q6apm-dai.o
->>   obj-$(CONFIG_SND_SOC_QDSP6_APM_LPASS_DAI) += q6apm-lpass-dais.o
->>   obj-$(CONFIG_SND_SOC_QDSP6_PRM) += q6prm.o
->>   obj-$(CONFIG_SND_SOC_QDSP6_PRM_LPASS_CLOCKS) += q6prm-clocks.o
->> +obj-$(CONFIG_SND_SOC_QDSP6_USB) += q6usb.o
->> diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
->> new file mode 100644
->> index 000000000000..88aa0a64201a
->> --- /dev/null
->> +++ b/sound/soc/qcom/qdsp6/q6usb.c
->> @@ -0,0 +1,200 @@
->> +// SPDX-License-Identifier: GPL-2.0
+>>   bool snd_usb_pcm_has_fixed_rate(struct snd_usb_substream *subs)
+>>   {
+>>       const struct audioformat *fp;
+>> @@ -461,20 +479,9 @@ static void close_endpoints(struct snd_usb_audio 
+>> *chip,
+>>       }
+>>   }
+>> -/*
+>> - * hw_params callback
+>> - *
+>> - * allocate a buffer and set the given audio format.
+>> - *
+>> - * so far we use a physically linear buffer although packetize transfer
+>> - * doesn't need a continuous area.
+>> - * if sg buffer is supported on the later version of alsa, we'll follow
+>> - * that.
+>> - */
+>> -static int snd_usb_hw_params(struct snd_pcm_substream *substream,
+>> -                 struct snd_pcm_hw_params *hw_params)
+>> +int snd_usb_attach_endpoints(struct snd_usb_substream *subs,
+>> +                struct snd_pcm_hw_params *hw_params)
+>>   {
+>> -    struct snd_usb_substream *subs = substream->runtime->private_data;
+>>       struct snd_usb_audio *chip = subs->stream->chip;
+>>       const struct audioformat *fmt;
+>>       const struct audioformat *sync_fmt;
+>> @@ -499,7 +506,7 @@ static int snd_usb_hw_params(struct 
+>> snd_pcm_substream *substream,
+>>       if (fmt->implicit_fb) {
+>>           sync_fmt = snd_usb_find_implicit_fb_sync_format(chip, fmt,
+>>                                   hw_params,
+>> -                                !substream->stream,
+>> +                                !subs->direction,
+>>                                   &sync_fixed_rate);
+>>           if (!sync_fmt) {
+>>               usb_audio_dbg(chip,
+>> @@ -579,15 +586,28 @@ static int snd_usb_hw_params(struct 
+>> snd_pcm_substream *substream,
+>>       return ret;
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_attach_endpoints);
+>>   /*
+>> - * hw_free callback
+>> + * hw_params callback
+>>    *
+>> - * reset the audio format and release the buffer
+>> + * allocate a buffer and set the given audio format.
+>> + *
+>> + * so far we use a physically linear buffer although packetize transfer
+>> + * doesn't need a continuous area.
+>> + * if sg buffer is supported on the later version of alsa, we'll follow
+>> + * that.
+>>    */
+>> -static int snd_usb_hw_free(struct snd_pcm_substream *substream)
+>> +static int snd_usb_hw_params(struct snd_pcm_substream *substream,
+>> +                 struct snd_pcm_hw_params *hw_params)
+>>   {
+>>       struct snd_usb_substream *subs = substream->runtime->private_data;
+>> +
+>> +    return snd_usb_attach_endpoints(subs, hw_params);
+>> +}
+>> +
+>> +int snd_usb_detach_endpoint(struct snd_usb_substream *subs)
+>> +{
+>>       struct snd_usb_audio *chip = subs->stream->chip;
+>>       snd_media_stop_pipeline(subs);
+>> @@ -603,6 +623,19 @@ static int snd_usb_hw_free(struct 
+>> snd_pcm_substream *substream)
+>>       return 0;
+>>   }
+>> +EXPORT_SYMBOL_GPL(snd_usb_detach_endpoint);
+>> +
 >> +/*
->> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All 
->> rights reserved.
+>> + * hw_free callback
+>> + *
+>> + * reset the audio format and release the buffer
 >> + */
->> +
->> +#include <linux/err.h>
->> +#include <linux/init.h>
->> +#include <linux/module.h>
->> +#include <linux/device.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/slab.h>
->> +#include <linux/iommu.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/dma-map-ops.h>
->> +
->> +#include <sound/pcm.h>
->> +#include <sound/soc.h>
->> +#include <sound/soc-usb.h>
->> +#include <sound/pcm_params.h>
->> +#include <sound/asound.h>
->> +#include <sound/q6usboffload.h>
->> +
->> +#include "q6dsp-lpass-ports.h"
->> +#include "q6afe.h"
->> +
->> +#define SID_MASK    0xF
->> +
->> +struct q6usb_port_data {
->> +    struct q6afe_usb_cfg usb_cfg;
->> +    struct snd_soc_usb *usb;
->> +    struct q6usb_offload priv;
->> +    int active_idx;
->> +};
->> +
->> +static const struct snd_soc_dapm_widget q6usb_dai_widgets[] = {
->> +    SND_SOC_DAPM_HP("USB_RX_BE", NULL),
->> +};
->> +
->> +static const struct snd_soc_dapm_route q6usb_dapm_routes[] = {
->> +    {"USB Playback", NULL, "USB_RX_BE"},
->> +};
->> +
->> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
->> +               struct snd_pcm_hw_params *params,
->> +               struct snd_soc_dai *dai)
+>> +static int snd_usb_hw_free(struct snd_pcm_substream *substream)
 >> +{
->> +    return 0;
+>> +    struct snd_usb_substream *subs = substream->runtime->private_data;
+>> +
+>> +    return snd_usb_detach_endpoint(subs);
 >> +}
+>>   /* free-wheeling mode? (e.g. dmix) */
+>>   static int in_free_wheeling_mode(struct snd_pcm_runtime *runtime)
+>> diff --git a/sound/usb/pcm.h b/sound/usb/pcm.h
+>> index 388fe2ba346d..e36df3611a05 100644
+>> --- a/sound/usb/pcm.h
+>> +++ b/sound/usb/pcm.h
+>> @@ -15,4 +15,15 @@ void snd_usb_preallocate_buffer(struct 
+>> snd_usb_substream *subs);
+>>   int snd_usb_audioformat_set_sync_ep(struct snd_usb_audio *chip,
+>>                       struct audioformat *fmt);
+>> +const struct audioformat *
+>> +snd_usb_find_format(struct list_head *fmt_list_head, snd_pcm_format_t 
+>> format,
+>> +        unsigned int rate, unsigned int channels, bool strict_match,
+>> +        struct snd_usb_substream *subs);
+>> +const struct audioformat *
+>> +snd_usb_find_substream_format(struct snd_usb_substream *subs,
+>> +              const struct snd_pcm_hw_params *params);
+>> +
+>> +int snd_usb_attach_endpoints(struct snd_usb_substream *subs,
+>> +                struct snd_pcm_hw_params *hw_params);
+>> +int snd_usb_detach_endpoint(struct snd_usb_substream *subs);
+>>   #endif /* __USBAUDIO_PCM_H */
 > 
-> Missing new line after closing bracket between function and following 
-> struct.
-> 
+> Why is it multiple "endpoints" when attaching, but only one "endpoint" 
+> when detaching? Both seem to be getting similar arguments.
 
-Thanks for the review, will fix this.
-
->> +static const struct snd_soc_dai_ops q6usb_ops = {
->> +    .hw_params = q6usb_hw_params,
->> +};
->> +
->> +static struct snd_soc_dai_driver q6usb_be_dais[] = {
->> +    {
->> +        .playback = {
->> +            .stream_name = "USB BE RX",
->> +            .rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 |
->> +                SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |
->> +                SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |
->> +                SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |
->> +                SNDRV_PCM_RATE_192000,
->> +            .formats = SNDRV_PCM_FMTBIT_S16_LE | 
->> SNDRV_PCM_FMTBIT_S16_BE |
->> +                SNDRV_PCM_FMTBIT_U16_LE | SNDRV_PCM_FMTBIT_U16_BE |
->> +                SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S24_BE |
->> +                SNDRV_PCM_FMTBIT_U24_LE | SNDRV_PCM_FMTBIT_U24_BE,
->> +            .channels_min = 1,
->> +            .channels_max = 2,
->> +            .rate_max =     192000,
->> +            .rate_min =    8000,
->> +        },
->> +        .id = USB_RX,
->> +        .name = "USB_RX_BE",
->> +        .ops = &q6usb_ops,
->> +    },
->> +};
->> +
->> +static int q6usb_audio_ports_of_xlate_dai_name(struct 
->> snd_soc_component *component,
->> +                    const struct of_phandle_args *args,
->> +                    const char **dai_name)
->> +{
->> +    int id = args->args[0];
->> +    int ret = -EINVAL;
->> +    int i;
->> +
->> +    for (i = 0; i  < ARRAY_SIZE(q6usb_be_dais); i++) {
-> 
-> Double space after second i.
-> 
-
-Will change.
-
->> +        if (q6usb_be_dais[i].id == id) {
->> +            *dai_name = q6usb_be_dais[i].name;
->> +            ret = 0;
->> +            break;
->> +        }
->> +    }
->> +
->> +    return ret;
->> +}
->> +
->> +static int q6usb_alsa_connection_cb(struct snd_soc_usb *usb,
->> +            struct snd_soc_usb_device *sdev, bool connected)
->> +{
->> +    struct q6usb_port_data *data;
->> +
->> +    if (!usb->component)
->> +        return -ENODEV;
->> +
->> +    data = dev_get_drvdata(usb->component->dev);
->> +
->> +    if (connected)
->> +        /* We only track the latest USB headset plugged in */
->> +        data->active_idx = sdev->card_idx;
-> 
-> Maybe add brackets around both comment and code? Not sure what guidance 
-> there is in such cases, but above code looks weird to me.
-> 
-
-Sure.
-
->> +
->> +    return 0;
->> +}
->> +
->> +static int q6usb_component_probe(struct snd_soc_component *component)
->> +{
->> +    struct q6usb_port_data *data = dev_get_drvdata(component->dev);
->> +
->> +    data->usb = snd_soc_usb_add_port(component->dev, &data->priv, 
->> q6usb_alsa_connection_cb);
->> +    if (IS_ERR(data->usb)) {
->> +        dev_err(component->dev, "failed to add usb port\n");
->> +        return -ENODEV;
->> +    }
->> +
->> +    data->usb->component = component;
->> +
->> +    return 0;
->> +}
->> +
->> +static void q6usb_component_remove(struct snd_soc_component *component)
->> +{
->> +    snd_soc_usb_remove_port(component->dev);
->> +}
->> +
->> +static const struct snd_soc_component_driver q6usb_dai_component = {
->> +    .probe = q6usb_component_probe,
->> +    .remove = q6usb_component_remove,
->> +    .name = "q6usb-dai-component",
->> +    .dapm_widgets = q6usb_dai_widgets,
->> +    .num_dapm_widgets = ARRAY_SIZE(q6usb_dai_widgets),
->> +    .dapm_routes = q6usb_dapm_routes,
->> +    .num_dapm_routes = ARRAY_SIZE(q6usb_dapm_routes),
->> +    .of_xlate_dai_name = q6usb_audio_ports_of_xlate_dai_name,
->> +};
->> +
->> +static int q6usb_dai_dev_probe(struct platform_device *pdev)
->> +{
->> +    struct device_node *node = pdev->dev.of_node;
->> +    struct q6usb_port_data *data;
->> +    struct device *dev = &pdev->dev;
->> +    struct of_phandle_args args;
->> +    int ret;
->> +
->> +    data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->> +    if (!data)
->> +        return -ENOMEM;
->> +
->> +    ret = of_property_read_u32(node, "qcom,usb-audio-intr-num",
->> +                &data->priv.intr_num);
->> +    if (ret) {
->> +        dev_err(&pdev->dev, "failed to read intr num.\n");
->> +        return ret;
->> +    }
->> +
->> +    ret = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
->> +    if (ret < 0)
->> +        data->priv.sid = -1;
->> +    else
->> +        data->priv.sid = args.args[0] & SID_MASK;
->> +
->> +    data->priv.domain = iommu_get_domain_for_dev(&pdev->dev);
->> +
->> +    data->priv.dev = dev;
->> +    dev_set_drvdata(dev, data);
->> +
->> +    return devm_snd_soc_register_component(dev, &q6usb_dai_component,
->> +                    q6usb_be_dais, ARRAY_SIZE(q6usb_be_dais));
->> +}
->> +
->> +static int q6usb_dai_dev_remove(struct platform_device *pdev)
->> +{
->> +    return 0;
->> +}
-> 
-> Does platform driver really need empty remove function? Remove it.
-> 
-
-Wasn't too sure about this either, so I included it to be consistent. 
-Will remove this and add a small comment on why it isn't required..
+This should be detach endpoints, since it closes both the data ep as 
+well as the sync ep if present.  Will fix this.
 
 Thanks
 Wesley Cheng

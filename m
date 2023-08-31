@@ -2,115 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5529578E7FC
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 10:29:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F5278EA06
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 12:15:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A096C827;
-	Thu, 31 Aug 2023 10:28:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A096C827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 853741FC;
+	Thu, 31 Aug 2023 12:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 853741FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693470549;
-	bh=578qe9EQhP1dmtri/FEcsdHpn2WVT2mwvnOzor0BDIg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1693476958;
+	bh=RklcOlR9Ft6ToyxZkI1TycwhFtZjpvj3ZdgDkjh9OkQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ly6xKzIrzqtQFzxssOFsD/G7xXauMr8fuT0HJYjQ0zEDduhebrdrX/ZLvxsgMTOkt
-	 ImaecPOoWHOZL0fKovxrANjr0vzon+ZDd2zpohbzPiOlsjxhFIG+ZFeNG4PAHh86oe
-	 6kufIpBGgy9hWuyyDnSMT1H52UjUecQCV10WXAy8=
+	b=qV6jfY2wHVjq7ydAp31UgkVXqTw2pflYYdEXOJ7yw9AKx/E+iPKd30tT0xUrYK3Y/
+	 jdl0VK/7NqzRqQFaVtMcJ79RZu7T7wbhTSq+KHEbkfU7XWzHDzfskk2N3PCYS6YJXb
+	 mtQXrqoEBUpjVOvvf3qBmUY2g+V63caGYgO3hoYI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D92EF805B4; Thu, 31 Aug 2023 10:26:01 +0200 (CEST)
+	id E53ACF80236; Thu, 31 Aug 2023 12:15:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 530CAF8057D;
-	Thu, 31 Aug 2023 10:26:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FF8EF800F5;
+	Thu, 31 Aug 2023 12:15:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A262CF80155; Wed, 30 Aug 2023 21:56:27 +0200 (CEST)
+	id 7CE01F80155; Thu, 31 Aug 2023 12:15:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-3.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5F904F80074
-	for <alsa-devel@alsa-project.org>; Wed, 30 Aug 2023 21:56:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F904F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6582F800D1;
+	Thu, 31 Aug 2023 12:14:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6582F800D1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Og4455vf
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37UHsJsY002018;
-	Wed, 30 Aug 2023 14:56:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=KxaoXeqFYIEnZu6KbS/zohWD3joz0j1CP25czl4VYXE=; b=
-	Og4455vfK5csAfTULguC6o+ZqVnJ58GyzvQKT09m/H+XWSeJGl5aVt8ghJmTc6lD
-	PW8iBe8Fmd3/i+jfy5V2saroRdf7urANI7xiuwDXpnCCwOJE7SO+7BgChY9YCyn5
-	mFp9lGKhW07E8ybqysh8X0OMJBB/2B2ZhYH1fGHlZaqE4jHmag628ZngZ8MuI18Q
-	RHNHVmlJM/kS15aMVnAD18JyWiVurLUQASx33xIfDs+E+kZjjTJZ19Nx8pSp5Dxz
-	HDImuLAdR7CjM6swlVZxlQ1C2caJNMHdQ+DHsRIBFT6276u5zjtfp6ivvvF3t5ta
-	TZb6CRMxASnQ/8nZUftk3A==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3sqdtj4k02-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 30 Aug 2023 14:56:09 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 30 Aug
- 2023 20:56:07 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
- Transport; Wed, 30 Aug 2023 20:56:07 +0100
-Received: from vkarpovich-ThinkStation-P620.crystal.cirrus.com
- (vkarpovich-ThinkStation-P620.ad.cirrus.com [141.131.145.49])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4CFD011D4;
-	Wed, 30 Aug 2023 19:56:05 +0000 (UTC)
-From: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
-To: James Schulman <james.schulman@cirrus.com>,
-        David Rhodes
-	<david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rob Herring
-	<robh+dt@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        Vlad Karpovich
-	<vkarpovi@opensource.cirrus.com>
-Subject: [PATCH v2 4/4] ASoC: cs35l45: Add AMP Enable Switch control
-Date: Wed, 30 Aug 2023 14:55:36 -0500
-Message-ID: <20230830195536.448884-4-vkarpovi@opensource.cirrus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230830195536.448884-1-vkarpovi@opensource.cirrus.com>
-References: <20230830195536.448884-1-vkarpovi@opensource.cirrus.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=cMavoiLh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1693476897; x=1725012897;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=RklcOlR9Ft6ToyxZkI1TycwhFtZjpvj3ZdgDkjh9OkQ=;
+  b=cMavoiLhx+eeCsJVoyVqI0tn6WT9eDCAksNsu3QRrhnq0aYZiMz4RUvw
+   eW+vlioG7T7l7SdeMzNwV6PElPz3tS5iIsA5uW49YASFVHn2t/6NxOTcG
+   AiowY6zbwFo48B4+7r0baqe7wVREAEszZZ+kcDK56j1NBzlV9LJ703k1I
+   NZ0ont8Fc0CuFP3NYeDhpA+vF6T1dBxTRdxr9SWpsNEaOLn+l2ocxnI5E
+   y6EcYUkcMAOtzvDA/qv0oXi5X2TKxruCmdhM7+gUGFoaZcM/VXn4wvUZe
+   05kRDD9uBCEjqEiWNiqqxqbe/el3AEvNKVaHoAynh7GPbqq6lTjmPc4P8
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="378601011"
+X-IronPort-AV: E=Sophos;i="6.02,216,1688454000";
+   d="scan'208";a="378601011"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2023 03:14:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10818"; a="689270188"
+X-IronPort-AV: E=Sophos;i="6.02,216,1688454000";
+   d="scan'208";a="689270188"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.91])
+ ([10.94.0.91])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2023 03:14:42 -0700
+Message-ID: <153723a3-1742-4cf1-b549-50da70f30e8f@linux.intel.com>
+Date: Thu, 31 Aug 2023 12:14:40 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Subject: Re: [PATCH v4 07/11] ASoC: Intel: avs: Move snd_hdac_i915_init to
+ before probe_work.
+Content-Language: en-US
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+References: <20230830153652.217855-1-maarten.lankhorst@linux.intel.com>
+ <20230830153652.217855-8-maarten.lankhorst@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230830153652.217855-8-maarten.lankhorst@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: KxpIFz8N4jbsvR254Sa91GY3TkSWXF_n
-X-Proofpoint-GUID: KxpIFz8N4jbsvR254Sa91GY3TkSWXF_n
-X-Proofpoint-Spam-Reason: safe
-X-MailFrom: prvs=4606cf803d=vkarpovi@opensource.cirrus.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: NI6A7MTNGINKWWUH23HEF5KBUUEW55TC
+X-Message-ID-Hash: NI6A7MTNGINKWWUH23HEF5KBUUEW55TC
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5LPZVG7VLMTIP3QY4563XEWJJSX3PIGL
-X-Message-ID-Hash: 5LPZVG7VLMTIP3QY4563XEWJJSX3PIGL
-X-Mailman-Approved-At: Thu, 31 Aug 2023 08:25:55 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5LPZVG7VLMTIP3QY4563XEWJJSX3PIGL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NI6A7MTNGINKWWUH23HEF5KBUUEW55TC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,47 +120,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The "AMP Enable Switch" is useful in systems with multiple
-amplifiers connected to the same audio bus
-but not all of them are needed for all use cases.
+On 8/30/2023 5:36 PM, Maarten Lankhorst wrote:
+> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
+> the snd_hdac_i915_init into a workqueue. It's likely the whole workqueue
+> can be destroyed, but I don't have the means to test this.
+> 
+> Removing the workqueue would simplify init even further, but is left
+> as exercise for the reviewer.
+> 
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Signed-off-by: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l45.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
-index 4abc922ef210..f8646de20c36 100644
---- a/sound/soc/codecs/cs35l45.c
-+++ b/sound/soc/codecs/cs35l45.c
-@@ -417,6 +417,8 @@ static const struct snd_kcontrol_new cs35l45_dsp_muxes[] = {
- static const struct snd_kcontrol_new cs35l45_dac_muxes[] = {
- 	SOC_DAPM_ENUM("DACPCM Source", cs35l45_dacpcm_enums[0]),
- };
-+static const struct snd_kcontrol_new amp_en_ctl =
-+	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0);
- 
- static const struct snd_soc_dapm_widget cs35l45_dapm_widgets[] = {
- 	SND_SOC_DAPM_SPK("DSP1 Preload", NULL),
-@@ -479,6 +481,8 @@ static const struct snd_soc_dapm_widget cs35l45_dapm_widgets[] = {
- 
- 	SND_SOC_DAPM_MUX("DACPCM Source", SND_SOC_NOPM, 0, 0, &cs35l45_dac_muxes[0]),
- 
-+	SND_SOC_DAPM_SWITCH("AMP Enable", SND_SOC_NOPM, 0, 0, &amp_en_ctl),
-+
- 	SND_SOC_DAPM_OUT_DRV("AMP", SND_SOC_NOPM, 0, 0, NULL, 0),
- 
- 	SND_SOC_DAPM_OUTPUT("SPK"),
-@@ -586,7 +590,8 @@ static const struct snd_soc_dapm_route cs35l45_dapm_routes[] = {
- 
- 	CS35L45_DAC_MUX_ROUTE("DACPCM"),
- 
--	{ "SPK", NULL, "AMP"},
-+	{ "AMP Enable", "Switch", "AMP" },
-+	{ "SPK", NULL, "AMP Enable"},
- };
- 
- static const char * const amplifier_mode_texts[] = {"SPK", "RCV"};
--- 
-2.25.1
+Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 

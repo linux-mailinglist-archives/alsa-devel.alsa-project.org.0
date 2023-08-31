@@ -2,68 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6711178F449
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Aug 2023 22:49:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF5478F62C
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Sep 2023 01:29:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFFFB208;
-	Thu, 31 Aug 2023 22:48:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFFFB208
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4A491FE;
+	Fri,  1 Sep 2023 01:28:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4A491FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693514982;
-	bh=sX71RSsD6GGnd8TVgxMaT8eJGTV+LXkr5kNVRCTvNaw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1693524584;
+	bh=XpEWba524RIoP+5DZMrL0z79tE0WJ/a8ttDAttiTwO0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vohsg7/ti/uINt8CtZ27i6Sd0EEV9r10aP6uJ5ofS1fGZOfR5Aqcfwot1N80D581a
-	 7+65lpfqtPJhjXeWKFRvxzF33aISGFLxm5tf6/p/vkp/doKOU3dQOS0LZrrkBPxSj7
-	 T8HBwZqompgK8fUJ+uesIiaZFyZ/54zRXFCpdHPg=
+	b=r4tdrjKVHa/cv/cV8bEQ8cL77jkmjWfDqntDPjhyIA9b0uwtOMOk8wCNwdbz/Uv8O
+	 yrowJoBb9EZOkKQ/Z3N9fRCT5H57asvtxAv2VFWx00nQ/oIhbrNuasMfpApkDbesg1
+	 mI3Ko5gm+lzqM193JP2hsrGVO+nApPg035AXO0Z8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2BF7F80567; Thu, 31 Aug 2023 22:48:01 +0200 (CEST)
+	id 6109AF8032D; Fri,  1 Sep 2023 01:28:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23F7CF8055C;
-	Thu, 31 Aug 2023 22:48:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFBCEF80074;
+	Fri,  1 Sep 2023 01:28:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF93FF80094; Thu, 31 Aug 2023 22:47:56 +0200 (CEST)
+	id C6A6BF80158; Fri,  1 Sep 2023 01:28:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BBF5F80094
-	for <alsa-devel@alsa-project.org>; Thu, 31 Aug 2023 22:47:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BBF5F80094
-X-IronPort-AV: E=Sophos;i="6.02,217,1688396400";
-   d="scan'208";a="178342519"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
-  by relmlie6.idc.renesas.com with ESMTP; 01 Sep 2023 05:47:46 +0900
-Received: from localhost.localdomain (unknown [10.226.92.179])
-	by relmlir6.idc.renesas.com (Postfix) with ESMTP id A0C594029216;
-	Fri,  1 Sep 2023 05:47:43 +0900 (JST)
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37D0BF80094
+	for <alsa-devel@alsa-project.org>; Fri,  1 Sep 2023 01:28:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37D0BF80094
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ZLBPlhlO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1693524521; x=1725060521;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XpEWba524RIoP+5DZMrL0z79tE0WJ/a8ttDAttiTwO0=;
+  b=ZLBPlhlOKdAc3J5WBuLu0iyGRo1PqqHzUEqbkyO3yziShNaojAbesRa2
+   f/zLWSLpDORun/0bWGgyttnZloT0FrgzuuwsWmnrl6h/bCRWUqK9jJcbT
+   7EDEdK0LR0tMHmxFhOWjaVjbAO+sTm+iqxuFmURjgFKfwUVxrtMTwpf6F
+   3j6/JNjJ2mCppStsJc3Mys/34rUusjTkIv31vRxNdUJ5YHdNMS1zHiVZD
+   wJqdzf8Vv7wx7L+OR4PHfueVPcnShLcjjx7BuouqVI0QbknvzM5JbtQNO
+   xFlHRluJWPoWQREJ/VBFBXvLS+svyoc6yQlaMaFmeoFh6Gw7PctjMMRtI
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="374995289"
+X-IronPort-AV: E=Sophos;i="6.02,218,1688454000";
+   d="scan'208";a="374995289"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2023 16:28:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="739724928"
+X-IronPort-AV: E=Sophos;i="6.02,218,1688454000";
+   d="scan'208";a="739724928"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2023 16:28:31 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qbr5Q-005WpK-0L;
+	Fri, 01 Sep 2023 02:28:28 +0300
+Date: Fri, 1 Sep 2023 02:28:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v3 2/2] ASoC: ak4642: Simplify probe()
-Date: Thu, 31 Aug 2023 21:47:34 +0100
-Message-Id: <20230831204734.104954-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230831204734.104954-1-biju.das.jz@bp.renesas.com>
-References: <20230831204734.104954-1-biju.das.jz@bp.renesas.com>
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] ASoC: wm8580: Move OF table
+Message-ID: <ZPEiGxftpGsHrhdc@smile.fi.intel.com>
+References: <20230831201429.94554-1-biju.das.jz@bp.renesas.com>
+ <20230831201429.94554-3-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TFHWMNXNDIYZCMP2JSWWGVUQ2Q5ENGGQ
-X-Message-ID-Hash: TFHWMNXNDIYZCMP2JSWWGVUQ2Q5ENGGQ
-X-MailFrom: biju.das.jz@bp.renesas.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230831201429.94554-3-biju.das.jz@bp.renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: NCM6CODO2J42RTPRNQFQF3ESO5NLISG4
+X-Message-ID-Hash: NCM6CODO2J42RTPRNQFQF3ESO5NLISG4
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -75,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TFHWMNXNDIYZCMP2JSWWGVUQ2Q5ENGGQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NCM6CODO2J42RTPRNQFQF3ESO5NLISG4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -84,61 +114,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Simpilfy probe() by replacing of_device_get_match_data() and id lookup for
-retrieving match data by i2c_get_match_data().
+On Thu, Aug 31, 2023 at 09:14:29PM +0100, Biju Das wrote:
+> Move OF table near to the user.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v2->v3:
- * Removing local variable np is handled in patch#1.
-v1->v2:
- * Removed forward declaration ak4642_of_match and ak4642_i2c_id.
- * Restored error EINVAL.
- * Used dev_fwnode() and replaced dev->of_node.
- * Removed comma in the terminator entry.
----
- sound/soc/codecs/ak4642.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+It does a bit more that that.
 
-diff --git a/sound/soc/codecs/ak4642.c b/sound/soc/codecs/ak4642.c
-index 901014909c0f..8a40c6b3f4d8 100644
---- a/sound/soc/codecs/ak4642.c
-+++ b/sound/soc/codecs/ak4642.c
-@@ -628,32 +628,21 @@ static struct clk *ak4642_of_parse_mcko(struct device *dev)
- #define ak4642_of_parse_mcko(d) 0
- #endif
- 
--static const struct of_device_id ak4642_of_match[];
--static const struct i2c_device_id ak4642_i2c_id[];
- static int ak4642_i2c_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
--	const struct ak4642_drvdata *drvdata = NULL;
-+	const struct ak4642_drvdata *drvdata;
- 	struct regmap *regmap;
- 	struct ak4642_priv *priv;
- 	struct clk *mcko = NULL;
- 
- 	if (dev_fwnode(dev)) {
--		const struct of_device_id *of_id;
--
- 		mcko = ak4642_of_parse_mcko(dev);
- 		if (IS_ERR(mcko))
- 			mcko = NULL;
--
--		of_id = of_match_device(ak4642_of_match, dev);
--		if (of_id)
--			drvdata = of_id->data;
--	} else {
--		const struct i2c_device_id *id =
--			i2c_match_id(ak4642_i2c_id, i2c);
--		drvdata = (const struct ak4642_drvdata *)id->driver_data;
- 	}
- 
-+	drvdata = i2c_get_match_data(i2c);
- 	if (!drvdata)
- 		return dev_err_probe(dev, -EINVAL, "Unknown device type\n");
- 
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 

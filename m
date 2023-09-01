@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75913791786
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 14:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DAEE791787
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 14:47:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC709DF3;
-	Mon,  4 Sep 2023 14:46:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC709DF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 120659F6;
+	Mon,  4 Sep 2023 14:46:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 120659F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693831612;
-	bh=eNRqMVZatneI3Ka7MdPBpZnvpucMZGdgWUKSG9J6DGM=;
+	s=default; t=1693831637;
+	bh=BeaPkRRq0E2gvLSB2/6DRjFDHRPDqk7IiFUOf4FkRME=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ko9OJ0FbANLN7gJgyTs9Kmo94Kxepl6P/HsLfSaDY0ZFM2w9G9eQDddLoPmaHQyhu
-	 24D5Rx0Tsi3i8oL5p9agb/cTDo/UWVv7/8a8pLwLxL4zK2HOCDylOBb0ZrIY9hr1qN
-	 Xir1AHbJxkRCnkbe13WJThELf+ZxR2wrm51J0ahA=
+	b=AeIpDSo7UJZyYSCDnT9pD8pxw4KzZTP8nXWq5FVk66RwpE/xhMWXaJ95CCIXgZhla
+	 sy1h0NqYuUDA1TAoKd2S07nkfKCT11Pa+p1mwgtauwspVsalMn2ZfEQ/QwWT2sXVb3
+	 2DNm9pJBS7aCX6IW29tjRQRP11ByvILQkIcoMTVw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CBB9F805C6; Mon,  4 Sep 2023 14:44:26 +0200 (CEST)
+	id 1E94FF805C7; Mon,  4 Sep 2023 14:44:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEEF4F805BE;
-	Mon,  4 Sep 2023 14:44:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 603D8F805CB;
+	Mon,  4 Sep 2023 14:44:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47429F80236; Fri,  1 Sep 2023 16:46:49 +0200 (CEST)
+	id B1045F8023B; Fri,  1 Sep 2023 16:46:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,51 +38,51 @@ Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3347AF8023B
-	for <alsa-devel@alsa-project.org>; Fri,  1 Sep 2023 16:46:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3347AF8023B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7D85BF80074
+	for <alsa-devel@alsa-project.org>; Fri,  1 Sep 2023 16:46:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D85BF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
  header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=IdxD+cPi
+ header.b=pugRBITn
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 2922B9C1115;
-	Fri,  1 Sep 2023 10:46:43 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 4C5AA9C2A6B;
+	Fri,  1 Sep 2023 10:46:46 -0400 (EDT)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id 5O8TOwzDq38N; Fri,  1 Sep 2023 10:46:42 -0400 (EDT)
+ with ESMTP id FELlblAHuwwM; Fri,  1 Sep 2023 10:46:45 -0400 (EDT)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 6829B9C2A5C;
-	Fri,  1 Sep 2023 10:46:42 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 6829B9C2A5C
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 927AF9C2A68;
+	Fri,  1 Sep 2023 10:46:45 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 927AF9C2A68
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1693579602; bh=dPY5UkpvLa7HatpHe4ldL14oOtB8Oa3iWA3pVzNiCVo=;
+	t=1693579605; bh=fHyFzyyNmZrVDepXkYzdpiB9Uglj5+vPUiPVRREG/MM=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=IdxD+cPiu/8wasCQTbBCLdmjFg7dWFSxqPHyS9zYMpobnYHuxW3Rv4EhKpc42/Is0
-	 45sEoriCzkRPkkjyGnkaE1LdU+OFBc6GuS83qIYaQHvP8n2Wi6HkFcx7feRtBoXGrQ
-	 U9ZqfMM9tjeTMK/+NkIBzGLGNM4rhC/V+GjDnyG7Elerx28xSKxe4R1M5hPhZ0767j
-	 w22MjR66SGn8smsguC72LklhJRIEPDDaa6yGznU4SB5GY036BYfMJdDmcDNp7w89fr
-	 hzhca3XVJJc7WU6s1+a0wKoosPZQ6W97IEJ1CzdQdCPdbuzul/twXd0Uhnn64eXZf3
-	 txHyaJSoKvQ3w==
+	b=pugRBITnrKZF4sW3DlBEu5pBX4Amy9FEZtTu1Z2ENR8NwK9FQOZ6buuQFsE7Ea/1x
+	 pkBIjs9IAcP9dJ4e2HIZoZkHeTx6fNs7z1qPXWgUtT8vElgSAe/ifXAm6vMIordxQr
+	 2tsBHXTrYkygyFSrgh/3/C3AjSqHXjGuToeZKGTj+2LVedwCM9WulGzUhS77PXFK26
+	 V0JuvBgW6DeLn4YOB5qbuxKw/E9uWHl6VtV6n1XBzAZ4P3L5ydBG2SoOacZx7dhcXG
+	 +1tkTzzjQ1yxCxRxeXgtTShCDL3ciRhrWXOi9VoLn9y0Kq4rTQsWHrMgY0eBeAm/rL
+	 wJn8Pn65SF2PQ==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id OUo11mwFm-fu; Fri,  1 Sep 2023 10:46:42 -0400 (EDT)
+ with ESMTP id Sai4lqYU5oRn; Fri,  1 Sep 2023 10:46:45 -0400 (EDT)
 Received: from gerard.rennes.sfl
  (lmontsouris-657-1-69-118.w80-15.abo.wanadoo.fr [80.15.101.118])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 8DA449C2A5F;
-	Fri,  1 Sep 2023 10:46:41 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id B21FA9C2A5F;
+	Fri,  1 Sep 2023 10:46:44 -0400 (EDT)
 From: elinor.montmasson@savoirfairelinux.com
 To: shengjiu.wang@gmail.com,
 	Xiubo.Lee@gmail.com
 Cc: alsa-devel@alsa-project.org,
 	philip-dylan.gleonec@savoirfairelinux.com,
 	Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-Subject: [PATCH 05/10] ASoC: fsl-asoc-card: add new DAPM audio map for asrc
-Date: Fri,  1 Sep 2023 16:45:45 +0200
-Message-Id: <20230901144550.520072-6-elinor.montmasson@savoirfairelinux.com>
+Subject: [PATCH 06/10] ASoC: fsl-asoc-card: add dts property "cpu-slot-width"
+Date: Fri,  1 Sep 2023 16:45:46 +0200
+Message-Id: <20230901144550.520072-7-elinor.montmasson@savoirfairelinux.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230901144550.520072-1-elinor.montmasson@savoirfairelinux.com>
 References: <20230901144550.520072-1-elinor.montmasson@savoirfairelinux.com>
@@ -94,15 +94,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DED63YW65SJ6NRQPHPZFCRI4FDF2VRNJ
-X-Message-ID-Hash: DED63YW65SJ6NRQPHPZFCRI4FDF2VRNJ
+Message-ID-Hash: RVSEXL6IHUGQXPW4562TQXEWQMWKPFU6
+X-Message-ID-Hash: RVSEXL6IHUGQXPW4562TQXEWQMWKPFU6
 X-Mailman-Approved-At: Mon, 04 Sep 2023 12:44:07 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DED63YW65SJ6NRQPHPZFCRI4FDF2VRNJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RVSEXL6IHUGQXPW4562TQXEWQMWKPFU6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,53 +113,32 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 
-Add the new DAPM audio map audio_map_asrc used with the dummy codec.
-The dummy codec doesn't have any Playback or Capture DAPM widgets. DAPM
-default audio maps are thus unused with it. However, when using the
-ASRC, DAPM routes between CPU DAI and ASRC are still required.
-The driver must then handle this use case.
+Add new optional dts property "cpu-slot-width", which allows to set a
+custom TDM slot width in bits for the CPU DAI
+when using the dummy codec.
 
 Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 Co-authored-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelin=
 ux.com>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/soc/fsl/fsl-asoc-card.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.=
 c
-index 5ef26ae512de..d8f4412be308 100644
+index d8f4412be308..12d01970850d 100644
 --- a/sound/soc/fsl/fsl-asoc-card.c
 +++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -148,6 +148,13 @@ static const struct snd_soc_dapm_route audio_map_rx[=
-] =3D {
- 	{"ASRC-Capture",  NULL, "CPU-Capture"},
- };
-=20
-+
-+static const struct snd_soc_dapm_route audio_map_asrc[] =3D {
-+	{"CPU-Playback",  NULL, "ASRC-Playback"},
-+	{"ASRC-Capture",  NULL, "CPU-Capture"},
-+};
-+
-+
- /* Add all possible widgets into here without being redundant */
- static const struct snd_soc_dapm_widget fsl_asoc_card_dapm_widgets[] =3D=
- {
- 	SND_SOC_DAPM_LINE("Line Out Jack", NULL),
-@@ -803,6 +810,11 @@ static int fsl_asoc_card_probe(struct platform_devic=
-e *pdev)
- 	/* Drop the second half of DAPM routes -- ASRC */
- 	if (!asrc_pdev)
- 		priv->card.num_dapm_routes /=3D 2;
-+	else if (of_device_is_compatible(np, "fsl,imx-audio-dummy-codec")) {
-+		/* Dummy codec doesn't provide Playback and Capture widgets */
-+		priv->card.dapm_routes =3D audio_map_asrc;
-+		priv->card.num_dapm_routes =3D 2;
-+	}
-=20
- 	if (of_property_read_bool(np, "audio-routing")) {
- 		ret =3D snd_soc_of_parse_audio_routing(&priv->card, "audio-routing");
+@@ -721,6 +721,7 @@ static int fsl_asoc_card_probe(struct platform_device=
+ *pdev)
+ 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBC_CFC;
+ 		priv->card.dapm_routes =3D NULL;
+ 		priv->card.num_dapm_routes =3D 0;
++		of_property_read_u32(np, "cpu-slot-width", &priv->cpu_priv.slot_width)=
+;
+ 	} else {
+ 		dev_err(&pdev->dev, "unknown Device Tree compatible\n");
+ 		ret =3D -EINVAL;
 --=20
 2.25.1
 

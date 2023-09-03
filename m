@@ -2,96 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7FE5790C84
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 Sep 2023 16:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B712790C97
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 Sep 2023 17:05:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63D09825;
-	Sun,  3 Sep 2023 16:39:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D09825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 177CFFA;
+	Sun,  3 Sep 2023 17:05:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 177CFFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693751995;
-	bh=enV+SqyecbOfVcUbHoqUCBK6vvS9LXOU9qkKPFqeik8=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1693753553;
+	bh=RyzipRvxLZ76rcd0exvkbf2Og4itSpu5Xi90cCIyb4I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EeUFAl+oLjIq4E85hAbIB18OpvxEsg/xBjD0cw6x4KSgpAlif2PLtW1fCean9MSfS
-	 2C82gYaiw8LFh4nVQRdmfr4SnEK6ofO1pIzjjCDO1SCOc5JTRnN/jO2zn7lcScva88
-	 IOAwk6Wowg4yM0p+XWhX29LmcmYBzrrKMkcufHWA=
+	b=DMC5x2b1Gngl+a2XUJd26dbEjTFYbOh/vxAfBPAYVXanr2tUBsI+OmFluWQnPcSzx
+	 jvbbgZhuJa3DYb1e+MYHZH1W2AhvsCPBQBhGADx4+aJNP0WJ9mO5GPN+7q1SxlYuiF
+	 A4Jqaq87KRb8cXMNbKHqlHksUzrLYnJD44cVF2kM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5006DF804F3; Sun,  3 Sep 2023 16:38:39 +0200 (CEST)
+	id 46FB6F80494; Sun,  3 Sep 2023 17:05:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF661F80558;
-	Sun,  3 Sep 2023 16:38:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7269FF80431;
+	Sun,  3 Sep 2023 17:05:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B97FF8047D; Sun,  3 Sep 2023 16:38:34 +0200 (CEST)
+	id 24921F8047D; Sun,  3 Sep 2023 17:04:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp.smtpout.orange.fr (smtp-13.smtpout.orange.fr
+ [80.12.242.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3815AF80141
-	for <alsa-devel@alsa-project.org>; Sun,  3 Sep 2023 16:38:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3815AF80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6AA67F80141
+	for <alsa-devel@alsa-project.org>; Sun,  3 Sep 2023 17:04:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AA67F80141
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=WIb4ofuC
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 383EcN98003267;
-	Sun, 3 Sep 2023 09:38:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1693751903;
-	bh=v6pe/Dt8AerprFgjS5Gcdn7rSGlsyB+4xsmT0PdVs2A=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=WIb4ofuCndyGlZVpvm3YB2Gvnl2n3dUBMiN0aIEEcz4ZyjY7HehtxwUHRSJnm8rR+
-	 FAP9GM/D3DL/ZV+mXIfkFD2cBr9yHvQWknORkbSBQOsQaikGLRVnbPkXGjAKV3meoU
-	 tz2KdjwxFMcjHlSE31sh5F5ukiPzoUnCyoVRt1lo=
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 383EcNWo018035
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 3 Sep 2023 09:38:23 -0500
-Received: from DFLE107.ent.ti.com (10.64.6.28) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Sun, 3
- Sep 2023 09:38:22 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE107.ent.ti.com
- (10.64.6.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Sun, 3 Sep 2023 09:38:22 -0500
-Received: from LT5CG31242FY.dhcp.ti.com (ileaxei01-snat2.itg.ti.com
- [10.180.69.6])
-	by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 383Ec9Ew064460;
-	Sun, 3 Sep 2023 09:38:17 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <tiwai@suse.de>
-CC: <robh+dt@kernel.org>, <andriy.shevchenko@linux.intel.com>,
-        <lgirdwood@gmail.com>, <perex@perex.cz>,
-        <pierre-louis.bossart@linux.intel.com>, <kevin-lu@ti.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <mengdong.lin@intel.com>, <baojun.xu@ti.com>,
-        <thomas.gfeller@q-drop.com>, <peeyush@ti.com>, <navada@ti.com>,
-        <broonie@kernel.org>, <gentuser@gmail.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v1 2/2] ALSA: hda/tas2781: Update tas2781 HDA driver
-Date: Sun, 3 Sep 2023 22:37:58 +0800
-Message-ID: <20230903143759.92-2-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
-In-Reply-To: <20230903143759.92-1-shenghao-ding@ti.com>
-References: <20230903143759.92-1-shenghao-ding@ti.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=XUSqYTLh
+Received: from [192.168.1.18] ([86.243.2.178])
+	by smtp.orange.fr with ESMTPA
+	id coedqFIfsPnvscoedq11w0; Sun, 03 Sep 2023 17:04:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1693753488;
+	bh=jKoUYb09gGu7FzODWXf/YNYwwFG/WPF7F5CxMSBP/HI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XUSqYTLhGozU6PLT24lNsYtT/2KsRirBALIAlLT0ExJ0CwqoCZNtqftriK8hX7G6m
+	 44k4wJcpKYnS/4JW/fYW+lhL3Kd+wO+G98jAvbZvbOmQBAr9xO3pHi+Uv2P/QQerNY
+	 wMsqDcidCNnc2V/thuAdH37Q/p8/A2QJzPuAAjB6Bb4PJhATYKzY7Fh31LyYG10zcv
+	 nzUg/algK73W7i2Y6UOAMu7zxcU2J98GslvvLtHohEeOGqwhYD66+YTUx8iRhtn6YC
+	 fh2wj5Mr3hIG12wO6jpqYoynIx/OHiXs15LV7JNYsJ7zjmCe7zY0QxLaLlzSvPriQu
+	 l32SvQ7+hUsNQ==
+X-ME-Helo: [192.168.1.18]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 03 Sep 2023 17:04:48 +0200
+X-ME-IP: 86.243.2.178
+Message-ID: <8cde2320-517f-3a38-8c3f-f807791c6c52@wanadoo.fr>
+Date: Sun, 3 Sep 2023 17:04:47 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] ALSA: usb-audio: Fix a potential memory leak in
+ scarlett2_init_notify()
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: 
+ <fc275ed315b9157952dcf2744ee7bdb78defdb5f.1693746347.git.christophe.jaillet@wanadoo.fr>
+ <871qffmj2d.wl-tiwai@suse.de>
+Content-Language: fr
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <871qffmj2d.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: IBTQEBRNLSIDVXRXGL4H2HIZWDVRFUPM
-X-Message-ID-Hash: IBTQEBRNLSIDVXRXGL4H2HIZWDVRFUPM
-X-MailFrom: shenghao-ding@ti.com
+Message-ID-Hash: OGHOQOYBQAITV5JN5DUPQ64PD6WNFH5M
+X-Message-ID-Hash: OGHOQOYBQAITV5JN5DUPQ64PD6WNFH5M
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IBTQEBRNLSIDVXRXGL4H2HIZWDVRFUPM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGHOQOYBQAITV5JN5DUPQ64PD6WNFH5M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,85 +102,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Support ACPI_ID both TXNW2781 and TIAS2781, update dsp/bypass mode
-switching in tasdevice_program_put.
+Le 03/09/2023 à 16:23, Takashi Iwai a écrit :
+> On Sun, 03 Sep 2023 15:06:00 +0200,
+> Christophe JAILLET wrote:
+>>
+>> If usb_alloc_coherent() or usb_urb_ep_type_check() fail, we should release
+>> the resources previously allocated.
+> 
+> Those are freed in the caller side, start_input_streams() instead.
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Thanks for the fast review.
 
----
-Changes in v1:
- - Add comment on dsp/bypass mode in tasdevice_program_put and
-   tasdevice_info_programs
- - TIAS2781 has been used by our customers, see following dstd.dsl. We
-   have discussed this with them, they requested TIAS2781 must be
-   supported for the laptops already released to market, their new laptop
-   can switch to TXNW2781
-   Name (_HID, "TIAS2781")  // _HID: Hardware ID
-   Name (_UID, Zero)  // _UID: Unique ID
-   Method (_SUB, 0, NotSerialized)  // _SUB: Subsystem ID
-   {
-       If ((SPID == Zero))
-       {
-          Return ("17AA3886")
-       }
+Hmpm, If IIUC, resources allocated *before* the ending "ep->num_urbs++" 
+still need to be freed here, otherwise free_midi_urbs() in the caller 
+will not free them.
 
-       If ((SPID == One))
-       {
-           Return ("17AA3884")
-       }
-   }
----
- sound/pci/hda/tas2781_hda_i2c.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+Do you agree?
 
-diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index fb80280293..5250d300a2 100644
---- a/sound/pci/hda/tas2781_hda_i2c.c
-+++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -199,8 +199,11 @@ static int tasdevice_info_programs(struct snd_kcontrol *kcontrol,
- 
- 	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
- 	uinfo->count = 1;
-+	/* 0:			dsp mode
-+	 * non-zero:	bypass mode
-+	 */
- 	uinfo->value.integer.min = 0;
--	uinfo->value.integer.max = tas_fw->nr_programs - 1;
-+	uinfo->value.integer.max = tas_fw->nr_programs;
- 
- 	return 0;
- }
-@@ -238,7 +241,10 @@ static int tasdevice_program_put(struct snd_kcontrol *kcontrol,
- 	int max = tas_fw->nr_programs - 1;
- 	int val, ret = 0;
- 
--	val = clamp(nr_program, 0, max);
-+	/* 0:			dsp mode
-+	 * non-zero:	bypass mode
-+	 */
-+	val = (nr_program) ? max : 0;
- 
- 	if (tas_priv->cur_prog != val) {
- 		tas_priv->cur_prog = val;
-@@ -647,7 +653,9 @@ static int tas2781_hda_i2c_probe(struct i2c_client *clt)
- 	const char *device_name;
- 	int ret;
- 
--	if (strstr(dev_name(&clt->dev), "TIAS2781"))
-+	if (strstr(dev_name(&clt->dev), "TXNW2781"))
-+		device_name = "TXNW2781";
-+	else if (strstr(dev_name(&clt->dev), "TIAS2781"))
- 		device_name = "TIAS2781";
- 	else
- 		return -ENODEV;
-@@ -824,6 +832,7 @@ static const struct i2c_device_id tas2781_hda_i2c_id[] = {
- 
- static const struct acpi_device_id tas2781_acpi_hda_match[] = {
- 	{"TIAS2781", 0 },
-+	{"TXNW2781", 1 },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, tas2781_acpi_hda_match);
--- 
-2.34.1
+If yes, I can send v2 which would look like:
+	usb_alloc_urb()
+	if (err)
+		return -ENOMEM
+
+	usb_alloc_coherent()
+	if (err) {
+		usb_free_urb()
+		urb = NULL
+		return -ENOMEM
+	}
+	
+	 usb_urb_ep_type_check()
+	if (err) {
+		usb_free_coherent()
+		usb_free_urb()
+		urb = NULL
+		return -err
+	}
+
+Or, if yuo prefer, with an error handling path just like below, but 
+without the final free_midi_urbs() + a comment explaining that the 
+caller does this part of job instead.
+
+CJ
+
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+>>
+>> Fixes: ff49d1df79ae ("ALSA: usb-audio: USB MIDI 2.0 UMP support")
+>> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+>> ---
+>>   sound/usb/midi2.c | 17 ++++++++++++++---
+>>   1 file changed, 14 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/sound/usb/midi2.c b/sound/usb/midi2.c
+>> index a27e244650c8..4109c82adff6 100644
+>> --- a/sound/usb/midi2.c
+>> +++ b/sound/usb/midi2.c
+>> @@ -302,7 +302,8 @@ static int alloc_midi_urbs(struct snd_usb_midi2_endpoint *ep)
+>>   		ctx->urb = usb_alloc_urb(0, GFP_KERNEL);
+>>   		if (!ctx->urb) {
+>>   			dev_err(&ep->dev->dev, "URB alloc failed\n");
+>> -			return -ENOMEM;
+>> +			err = -ENOMEM;
+>> +			goto err_free_all;
+>>   		}
+>>   		ctx->ep = ep;
+>>   		buffer = usb_alloc_coherent(ep->dev, len, GFP_KERNEL,
+>> @@ -310,7 +311,8 @@ static int alloc_midi_urbs(struct snd_usb_midi2_endpoint *ep)
+>>   		if (!buffer) {
+>>   			dev_err(&ep->dev->dev,
+>>   				"URB buffer alloc failed (size %d)\n", len);
+>> -			return -ENOMEM;
+>> +			err = -ENOMEM;
+>> +			goto err_free_cur_urb;
+>>   		}
+>>   		if (ep->interval)
+>>   			usb_fill_int_urb(ctx->urb, ep->dev, ep->pipe,
+>> @@ -322,13 +324,22 @@ static int alloc_midi_urbs(struct snd_usb_midi2_endpoint *ep)
+>>   		if (err < 0) {
+>>   			dev_err(&ep->dev->dev, "invalid MIDI EP %x\n",
+>>   				endpoint);
+>> -			return err;
+>> +			goto err_free_cur_dma;
+>>   		}
+>>   		ctx->urb->transfer_flags = URB_NO_TRANSFER_DMA_MAP;
+>>   		ep->num_urbs++;
+>>   	}
+>>   	ep->urb_free = ep->urb_free_mask = GENMASK(ep->num_urbs - 1, 0);
+>>   	return 0;
+>> +
+>> +err_free_cur_dma:
+>> +	usb_free_coherent(ep->dev, len, buffer, ctx->urb->transfer_dma);
+>> +err_free_cur_urb:
+>> +	usb_free_urb(ctx->urb);
+>> +	ctx->urb = NULL;
+>> +err_free_all:
+>> +	free_midi_urbs(ep);
+>> +	return err;
+>>   }
+>>   
+>>   static struct snd_usb_midi2_endpoint *
+>> -- 
+>> 2.34.1
+>>
+> 
 

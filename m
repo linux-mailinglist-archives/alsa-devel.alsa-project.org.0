@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7762679166F
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 13:48:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1CD1791670
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 13:48:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0AAC83A;
-	Mon,  4 Sep 2023 13:47:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0AAC83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 550FCA4E;
+	Mon,  4 Sep 2023 13:47:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 550FCA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693828115;
-	bh=tIkE2N7Zmy85SE+XWE1H0xUYidSDByThb7ZjyiO88GM=;
+	s=default; t=1693828117;
+	bh=gICk42iTVwBxMjXhg2Z7Ut+dRMHExebwOci3cPg200U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AzKPiXouNMQJUnZ6aKxyu68CaWtjHRhXFqSYTeLUyqimDm53jIe/86CzOMXw2Pqn3
-	 wvaDuBaiGRathrHtt2KrfFS2/ZKg03nEnqUn3iQNp6RvoeJh+UTeNzFy1S1DJRVYyR
-	 UL/erKSKIcBGUlXALoYh4Cfz2e68xals5+2Xbkh8=
+	b=l/2NjewdxygELKMrrTIvft+cmvP+fhCVkLIax2mmsbJESNRQrVykT7vmWMArfwUeT
+	 L3IY8VKNXBRctNbU5wc138tWh4hkLzvQsYYMUY6OUNx4CvWPiVM0R45U23NI3UyPta
+	 k8JdP+GVPw8zi5zJWGcIB8ZtwEiRCJNXcvyg77ng=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5EE4F80578; Mon,  4 Sep 2023 13:46:56 +0200 (CEST)
+	id AC85CF8057F; Mon,  4 Sep 2023 13:47:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A2F7F8055A;
-	Mon,  4 Sep 2023 13:46:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 032D2F8057C;
+	Mon,  4 Sep 2023 13:47:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 723E2F8047D; Mon,  4 Sep 2023 13:46:52 +0200 (CEST)
+	id 83786F80570; Mon,  4 Sep 2023 13:46:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from out28-193.mail.aliyun.com (out28-193.mail.aliyun.com
- [115.124.28.193])
+	UNPARSEABLE_RELAY shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com
+ [115.124.28.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AC69F80141
-	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 13:46:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AC69F80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id 426F6F80552
+	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 13:46:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 426F6F80552
 X-Alimail-AntiSpam: 
- AC=CONTINUE;BC=0.2192019|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0431418-0.000499539-0.956359;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047211;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=24;RT=24;SR=0;TI=SMTPD_---.UXIjsmr_1693827991;
+ AC=CONTINUE;BC=0.06717187|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00695684-0.000218789-0.992824;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047198;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=24;RT=24;SR=0;TI=SMTPD_---.UXIjstE_1693827998;
 Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.UXIjsmr_1693827991)
+ fp:SMTPD_---.UXIjstE_1693827998)
           by smtp.aliyun-inc.com;
-          Mon, 04 Sep 2023 19:46:38 +0800
+          Mon, 04 Sep 2023 19:46:46 +0800
 From: wangweidong.a@awinic.com
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -72,16 +72,17 @@ To: lgirdwood@gmail.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: zhangjianming@awinic.com
-Subject: [PATCH V1 1/3] ASoC: dt-bindings: Add schema for "awinic,aw87390"
-Date: Mon,  4 Sep 2023 19:46:19 +0800
-Message-ID: <20230904114621.4457-2-wangweidong.a@awinic.com>
+Subject: [PATCH V1 2/3] ASoC: codecs: Add code for bin parsing compatible with
+ aw87390
+Date: Mon,  4 Sep 2023 19:46:20 +0800
+Message-ID: <20230904114621.4457-3-wangweidong.a@awinic.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230904114621.4457-1-wangweidong.a@awinic.com>
 References: <20230904114621.4457-1-wangweidong.a@awinic.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OTZECDMCGMZ3NERY2KMA35UP2GHPWWGW
-X-Message-ID-Hash: OTZECDMCGMZ3NERY2KMA35UP2GHPWWGW
+Message-ID-Hash: 2O7E6ZDMAJDMLRS3G6XAW3OLAMBE2PKR
+X-Message-ID-Hash: 2O7E6ZDMAJDMLRS3G6XAW3OLAMBE2PKR
 X-MailFrom: wangweidong.a@awinic.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OTZECDMCGMZ3NERY2KMA35UP2GHPWWGW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2O7E6ZDMAJDMLRS3G6XAW3OLAMBE2PKR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,64 +106,102 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Weidong Wang <wangweidong.a@awinic.com>
 
-Add a DT schema for describing awinic aw87390 audio amplifiers.
-They are controlled using I2C.
+Add aw87390 compatible code to the aw88395_lib.c file
+so that it can parse aw87390's bin file.
 
 Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
 ---
- .../bindings/sound/awinic,aw87390.yaml        | 43 +++++++++++++++++++
- 1 file changed, 43 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
+ sound/soc/codecs/aw88395/aw88395_lib.c | 23 ++++++++++++++---------
+ sound/soc/codecs/aw88395/aw88395_reg.h |  1 +
+ 2 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
-new file mode 100644
-index 000000000000..b4de99c9830e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
-@@ -0,0 +1,43 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/awinic,aw87390.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Awinic Aw87390 Audio Amplifier
-+
-+maintainers:
-+  - Weidong Wang <wangweidong.a@awinic.com>
-+
-+description:
-+  The awinic aw87390 is specifically designed to improve
-+  the musical output dynamic range, enhance the overall
-+  sound quallity, which is a new high efficiency, low
-+  noise, constant large volume, 6th Smart K audio amplifier.
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: awinic,aw87390
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        audio-codec@58 {
-+            compatible = "awinic,aw87390";
-+            reg = <0x58>;
-+        };
-+    };
+diff --git a/sound/soc/codecs/aw88395/aw88395_lib.c b/sound/soc/codecs/aw88395/aw88395_lib.c
+index 8ee1baa03269..9d561ae27feb 100644
+--- a/sound/soc/codecs/aw88395/aw88395_lib.c
++++ b/sound/soc/codecs/aw88395/aw88395_lib.c
+@@ -455,9 +455,11 @@ static int aw_dev_parse_reg_bin_with_hdr(struct aw_device *aw_dev,
+ 		goto parse_bin_failed;
+ 	}
+ 
+-	if (aw_bin->header_info[0].valid_data_len % 4) {
+-		dev_err(aw_dev->dev, "bin data len get error!");
+-		goto parse_bin_failed;
++	if (aw_dev->chip_id == AW88261_CHIP_ID) {
++		if (aw_bin->header_info[0].valid_data_len % 4) {
++			dev_err(aw_dev->dev, "bin data len get error!");
++			goto parse_bin_failed;
++		}
+ 	}
+ 
+ 	prof_desc->sec_desc[AW88395_DATA_TYPE_REG].data =
+@@ -579,9 +581,9 @@ static int aw_dev_parse_dev_default_type(struct aw_device *aw_dev,
+ }
+ 
+ static int aw88261_dev_cfg_get_valid_prof(struct aw_device *aw_dev,
+-				struct aw_all_prof_info all_prof_info)
++				struct aw_all_prof_info *all_prof_info)
+ {
+-	struct aw_prof_desc *prof_desc = all_prof_info.prof_desc;
++	struct aw_prof_desc *prof_desc = all_prof_info->prof_desc;
+ 	struct aw_prof_info *prof_info = &aw_dev->prof_info;
+ 	int num = 0;
+ 	int i;
+@@ -621,9 +623,9 @@ static int aw88261_dev_cfg_get_valid_prof(struct aw_device *aw_dev,
+ }
+ 
+ static int aw88395_dev_cfg_get_valid_prof(struct aw_device *aw_dev,
+-				struct aw_all_prof_info all_prof_info)
++				struct aw_all_prof_info *all_prof_info)
+ {
+-	struct aw_prof_desc *prof_desc = all_prof_info.prof_desc;
++	struct aw_prof_desc *prof_desc = all_prof_info->prof_desc;
+ 	struct aw_prof_info *prof_info = &aw_dev->prof_info;
+ 	struct aw_sec_data_desc *sec_desc;
+ 	int num = 0;
+@@ -701,12 +703,13 @@ static int aw_dev_load_cfg_by_hdr(struct aw_device *aw_dev,
+ 
+ 	switch (aw_dev->chip_id) {
+ 	case AW88395_CHIP_ID:
+-		ret = aw88395_dev_cfg_get_valid_prof(aw_dev, *all_prof_info);
++		ret = aw88395_dev_cfg_get_valid_prof(aw_dev, all_prof_info);
+ 		if (ret < 0)
+ 			goto exit;
+ 		break;
+ 	case AW88261_CHIP_ID:
+-		ret = aw88261_dev_cfg_get_valid_prof(aw_dev, *all_prof_info);
++	case AW87390_CHIP_ID:
++		ret = aw88261_dev_cfg_get_valid_prof(aw_dev, all_prof_info);
+ 		if (ret < 0)
+ 			goto exit;
+ 		break;
+@@ -799,6 +802,7 @@ static int aw_get_dev_scene_count_v1(struct aw_device *aw_dev, struct aw_contain
+ 		ret = 0;
+ 		break;
+ 	case AW88261_CHIP_ID:
++	case AW87390_CHIP_ID:
+ 		for (i = 0; i < cfg_hdr->ddt_num; ++i) {
+ 			if (((cfg_dde[i].data_type == ACF_SEC_TYPE_REG) ||
+ 			     (cfg_dde[i].data_type == ACF_SEC_TYPE_HDR_REG)) &&
+@@ -839,6 +843,7 @@ static int aw_get_default_scene_count_v1(struct aw_device *aw_dev,
+ 		ret = 0;
+ 		break;
+ 	case AW88261_CHIP_ID:
++	case AW87390_CHIP_ID:
+ 		for (i = 0; i < cfg_hdr->ddt_num; ++i) {
+ 			if (((cfg_dde[i].data_type == ACF_SEC_TYPE_REG) ||
+ 			     (cfg_dde[i].data_type == ACF_SEC_TYPE_HDR_REG)) &&
+diff --git a/sound/soc/codecs/aw88395/aw88395_reg.h b/sound/soc/codecs/aw88395/aw88395_reg.h
+index e7a7c02efaf3..d0a273387313 100644
+--- a/sound/soc/codecs/aw88395/aw88395_reg.h
++++ b/sound/soc/codecs/aw88395/aw88395_reg.h
+@@ -97,6 +97,7 @@
+ enum aw88395_id {
+ 	AW88395_CHIP_ID = 0x2049,
+ 	AW88261_CHIP_ID = 0x2113,
++	AW87390_CHIP_ID = 0x76,
+ };
+ 
+ #define AW88395_REG_MAX		(0x7D)
 -- 
 2.41.0
 

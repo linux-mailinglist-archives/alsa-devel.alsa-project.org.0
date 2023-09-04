@@ -2,91 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86A2791622
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 13:16:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D103E79166D
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 13:47:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACA653E8;
-	Mon,  4 Sep 2023 13:15:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACA653E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC0A9741;
+	Mon,  4 Sep 2023 13:46:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC0A9741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693826195;
-	bh=nnvwoGm/BJ54eCLN5Pwc7J++DCqfffic+2zXJ1vq+cc=;
+	s=default; t=1693828064;
+	bh=l0T7X4fCwcmtVeAk9/YN9WHD+MyY2pi/e7pYWzBoVfM=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=O92a7ymFhVJRw28HF+jO+Z18Ap7CSDaJZbt5X2n2CW8D/IAMA/9vPAJ+bavd5NgzN
-	 yV5oD4IPQEdzEL//xDG/YJ2KuFOet3kpjcsFQTKYN9QXjSawwCw600Ne7awZbwOzN3
-	 BMCPMuR5yaOTIFiqcQlhz1eKxee01Bdg4DxSaflI=
+	b=SMel5n4UPKbeZCuWdbS00UpC+Gdj/PN9TuffDOD+ZShg5Bl1/v+KnwNds4h7OtcG5
+	 zvDlMtN/xAI8apng1+MQvFNILz2jQrPxsMzrz47eE+Bhu6SOO0twoJ4bJ6qMp7UVlb
+	 vEN4HoKuJ4sopp++08U1NLcTSVUm64mEI/21JpMY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 222A1F800AA; Mon,  4 Sep 2023 13:15:45 +0200 (CEST)
+	id 0832FF80494; Mon,  4 Sep 2023 13:46:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6E47F80431;
-	Mon,  4 Sep 2023 13:15:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97867F80431;
+	Mon,  4 Sep 2023 13:46:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A462F8047D; Mon,  4 Sep 2023 13:15:40 +0200 (CEST)
+	id 7DC1AF80494; Mon,  4 Sep 2023 13:46:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out28-194.mail.aliyun.com (out28-194.mail.aliyun.com
+ [115.124.28.194])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 60B45F80141
-	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 13:15:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60B45F80141
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RlAeQLBH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693826137; x=1725362137;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=nnvwoGm/BJ54eCLN5Pwc7J++DCqfffic+2zXJ1vq+cc=;
-  b=RlAeQLBHT74SY34bG7PZ3/aVUv42niSAdVhY3yQZNq9m9/zNmAKFojvy
-   T0kJ15TogqWNZGyV7hT2CjHoFeP6iP7dpmJpDIsxHXRC021+WtoGLJ+Xe
-   N2vqU+wQ+qE+eJkKP4nvu9qNe1qnv4akQTpbmezUvjGrcMugwynW/CHET
-   H7U/3tRHg/guhXHUVW29TGiAGvVtZsQIhV6NbQU6csL3X4fV36Q78B8rw
-   e8iMKeiHKJHzBgwqXfnknnfXc8KdmsB1NyAJLLcqqJGqoEsjZdf8bmP7K
-   9ClvbrFGxJp1nIaNJgo00cBznc3OdgwFvCopqSvJqknbelCYlBry7YGhO
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10822"; a="380376538"
-X-IronPort-AV: E=Sophos;i="6.02,226,1688454000";
-   d="scan'208";a="380376538"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2023 04:15:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10822"; a="914477282"
-X-IronPort-AV: E=Sophos;i="6.02,226,1688454000";
-   d="scan'208";a="914477282"
-Received: from black.fi.intel.com ([10.237.72.28])
-  by orsmga005.jf.intel.com with ESMTP; 04 Sep 2023 04:15:27 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id 79443919; Mon,  4 Sep 2023 14:15:26 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3F00EF80236
+	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 13:46:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F00EF80236
+X-Alimail-AntiSpam: 
+ AC=CONTINUE;BC=0.1591739|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00437455-6.83401e-05-0.995557;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047187;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=24;RT=24;SR=0;TI=SMTPD_---.UXIjsfa_1693827983;
+Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.UXIjsfa_1693827983)
+          by smtp.aliyun-inc.com;
+          Mon, 04 Sep 2023 19:46:31 +0800
+From: wangweidong.a@awinic.com
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	rf@opensource.cirrus.com,
+	wangweidong.a@awinic.com,
+	herve.codina@bootlin.com,
+	shumingf@realtek.com,
+	rdunlap@infradead.org,
+	13916275206@139.com,
+	ryans.lee@analog.com,
+	linus.walleij@linaro.org,
+	ckeepax@opensource.cirrus.com,
+	yijiangtao@awinic.com,
+	liweilei@awinic.com,
+	colin.i.king@gmail.com,
+	trix@redhat.com,
 	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 1/1] ASoC: soc.h: replace custom COUNT_ARGS() &
- CONCATENATE() implementations
-Date: Mon,  4 Sep 2023 14:15:24 +0300
-Message-Id: <20230904111524.1740930-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+Cc: zhangjianming@awinic.com
+Subject: [PATCH V1 0/3] ASoC: codecs: Add aw87390 amplifier driver
+Date: Mon,  4 Sep 2023 19:46:18 +0800
+Message-ID: <20230904114621.4457-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OH4O7B5PB4WAC4ZUNFE2HLTVHQ3PT72Y
-X-Message-ID-Hash: OH4O7B5PB4WAC4ZUNFE2HLTVHQ3PT72Y
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Message-ID-Hash: W3CIXTRORG5RBZ3AO36IV35EMM4PR2ZV
+X-Message-ID-Hash: W3CIXTRORG5RBZ3AO36IV35EMM4PR2ZV
+X-MailFrom: wangweidong.a@awinic.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OH4O7B5PB4WAC4ZUNFE2HLTVHQ3PT72Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W3CIXTRORG5RBZ3AO36IV35EMM4PR2ZV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,39 +100,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Replace custom implementation of the macros from args.h.
+From: Weidong Wang <wangweidong.a@awinic.com>
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- include/sound/soc.h | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+The awinic aw87390 is a new high efficiency, low noise,
+constant large volume, 6th Smart K audio amplifier.
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index fa2337a3cf4c..509386ff5212 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -10,6 +10,7 @@
- #ifndef __LINUX_SND_SOC_H
- #define __LINUX_SND_SOC_H
- 
-+#include <linux/args.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/types.h>
-@@ -870,12 +871,8 @@ asoc_link_to_platform(struct snd_soc_dai_link *link, int n) {
- 	.platforms	= platform,			\
- 	.num_platforms	= ARRAY_SIZE(platform)
- 
--#define SND_SOC_DAILINK_REGx(_1, _2, _3, func, ...) func
- #define SND_SOC_DAILINK_REG(...) \
--	SND_SOC_DAILINK_REGx(__VA_ARGS__,		\
--			SND_SOC_DAILINK_REG3,	\
--			SND_SOC_DAILINK_REG2,	\
--			SND_SOC_DAILINK_REG1)(__VA_ARGS__)
-+	CONCATENATE(SND_SOC_DAILINK_REG, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__)
- 
- #define SND_SOC_DAILINK_DEF(name, def...)		\
- 	static struct snd_soc_dai_link_component name[]	= { def }
+Add a DT schema for describing awinic aw87390 audio amplifiers.
+They are controlled using I2C.
+
+Weidong Wang (3):
+  ASoC: dt-bindings: Add schema for "awinic,aw87390"
+  ASoC: codecs: Add code for bin parsing compatible with aw87390
+  ASoC: codecs: Add aw87390 amplifier driver
+
+ .../bindings/sound/awinic,aw87390.yaml        |  43 ++
+ sound/soc/codecs/Kconfig                      |  15 +-
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/aw87390.c                    | 463 ++++++++++++++++++
+ sound/soc/codecs/aw87390.h                    |  85 ++++
+ sound/soc/codecs/aw88395/aw88395_lib.c        |  23 +-
+ sound/soc/codecs/aw88395/aw88395_reg.h        |   1 +
+ 7 files changed, 621 insertions(+), 11 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
+ create mode 100644 sound/soc/codecs/aw87390.c
+ create mode 100644 sound/soc/codecs/aw87390.h
+
+
+base-commit: 708283abf896dd4853e673cc8cba70acaf9bf4ea
 -- 
-2.40.0.1.gaa8946217a0b
+2.41.0
 

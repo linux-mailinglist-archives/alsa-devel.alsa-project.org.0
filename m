@@ -2,116 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1599D791701
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 14:19:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3A76791715
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 14:30:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBC9D846;
-	Mon,  4 Sep 2023 14:18:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBC9D846
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6C233E8;
+	Mon,  4 Sep 2023 14:29:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C233E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693829955;
-	bh=HIQiMbVxUhmoogmmJke6tKa0dwSwQf6iFh52W0N/z2c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1693830622;
+	bh=HL5zSHt2+G0LtPfghpAyEAkYdHCgtAQJBJfeg50bX2k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LWN8pI3YtHBzIQZtufqa1ULp049rC9I2Zltb2hvQ+FnynnjmJ7Ez+bitcmTp+OEwy
-	 oC2BunK5f51Zn9/jRwZnnBZRyWizCi4vGeCjxce9qmL7pcywVxE7QdfXeEzWac5uKH
-	 7gnEzZmlxbpnkzsDCBrJ9f2zRVj1DdiiXDwstTWg=
+	b=kQI1Y4gpyglueJdlxtraSNzjPVcEO9S6L2rCCXGtmi/A6tm5jPKNr2covXZ1dynce
+	 9Pg7Bn+i4d20w2nswM6lBeov5bhFwRu7ZFd4UugrG4+N1IWIr7uHdd6EEMUAUlkyBj
+	 +sfYDO4y0JxwWLZCRYlR3S1GpRC4fjFCxEO8n7M4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4C58F80236; Mon,  4 Sep 2023 14:17:51 +0200 (CEST)
+	id 3909EF80552; Mon,  4 Sep 2023 14:29:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39F80F80431;
-	Mon,  4 Sep 2023 14:17:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8F5EF80431;
+	Mon,  4 Sep 2023 14:29:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5FA06F8047D; Mon,  4 Sep 2023 14:17:48 +0200 (CEST)
+	id 3BA8EF8047D; Mon,  4 Sep 2023 14:29:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 664A3F80141
-	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 14:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 664A3F80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0EA8F80141
+	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 14:29:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0EA8F80141
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=YxPHmiiv
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-99c3c8adb27so217415266b.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 04 Sep 2023 05:17:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693829865; x=1694434665;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gko8S92UwKDakAjbzjQZ/sNmZx2tljlr3QwwqTw8dTw=;
-        b=YxPHmiivwVsEKOSZ81zXVcu7f2Uc5fJZn/biuRuaJ9g7Yc++WfHV4lu86VB6I+P0aO
-         HjZnBaD6LIv/5sgsUonPJy8bIrf/HbQay7NuAIRbtLwn/pD1inH6XGAE6CkMMYQolCMs
-         iklf093Ks9BqaTKOBsgNzEdTQX9lvnf4EAMX95T+oOjjLYYlYoLGyCYKOxN1mlVsilOO
-         gCh2c7RQHMFnGuEtcOuA3AjyNFkZ7i+7u/wKr75hzEank0wyzKzDXVV/49C2NnNseBij
-         45oV4PM7XMtNtPmVPeT6QuOui00UZE9Z7c9NBG4ZQEgJl47Uruike/pgFqTYva1yRuxj
-         hnIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693829865; x=1694434665;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gko8S92UwKDakAjbzjQZ/sNmZx2tljlr3QwwqTw8dTw=;
-        b=YcLqN8RGCkvRj7fZLJ46AN5FnYX6vayvXojWBBgqAeL8WENwlXYjX9w5fQk7kyv7QP
-         3H2km5xNL7zdIBPVT0V/w7y6yIEgbE9ZyXM1v9tydsR1NerM70Fy7sMe6y2EXEcOS9cq
-         T1bn23x+wugp9TAceJtmwmzS1TDVKBDART6dyxaWtp/1UXexGBMA8cwi5ZpYLNAxuPn3
-         Q/EIz23x5695sD0kfeo45IP+7mYWAjycqpgqruDepr4najFIzOYUP+ceJ74w9DCWdAyu
-         VDtMnDxvap/BMkQKJxlCXGGEzpBVEatE7fqK0VzpMBhH8oKl0zyabCHDO9zlb2/td3/+
-         dBrw==
-X-Gm-Message-State: AOJu0YxzKy0pP2E6C0cdXa5OuuLHB6w6WS1eTj/Y+4Y1RLzBjnsqIDG1
-	EJnMvrSHPIdzRjDbbGZRNBgQTQ==
-X-Google-Smtp-Source: 
- AGHT+IEmnk0VrCde/RpXcTnJqLWkg8HN3gX0oQSn7T9cZd+70d9xlLecPSPO4/immxGbAA26YFLECg==
-X-Received: by 2002:a17:906:1011:b0:9a5:a44a:86f3 with SMTP id
- 17-20020a170906101100b009a5a44a86f3mr8193805ejm.25.1693829865436;
-        Mon, 04 Sep 2023 05:17:45 -0700 (PDT)
-Received: from [192.168.0.22] (77-252-46-238.static.ip.netia.com.pl.
- [77.252.46.238])
-        by smtp.gmail.com with ESMTPSA id
- oz13-20020a170906cd0d00b00992f309cfe8sm6117340ejb.178.2023.09.04.05.17.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Sep 2023 05:17:45 -0700 (PDT)
-Message-ID: <5ea76d3f-c9dd-10f5-4f9a-7b32b535ab5c@linaro.org>
-Date: Mon, 4 Sep 2023 14:17:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [PATCH V1 3/3] ASoC: codecs: Add aw87390 amplifier driver
-Content-Language: en-US
-To: wangweidong.a@awinic.com, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.com,
- herve.codina@bootlin.com, shumingf@realtek.com, rdunlap@infradead.org,
- 13916275206@139.com, ryans.lee@analog.com, linus.walleij@linaro.org,
- ckeepax@opensource.cirrus.com, yijiangtao@awinic.com, liweilei@awinic.com,
- colin.i.king@gmail.com, trix@redhat.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: zhangjianming@awinic.com
-References: <20230904114621.4457-1-wangweidong.a@awinic.com>
- <20230904114621.4457-4-wangweidong.a@awinic.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230904114621.4457-4-wangweidong.a@awinic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5GUSMGK3Z4NCQW7RZ4D6JHSKQQXBKZU3
-X-Message-ID-Hash: 5GUSMGK3Z4NCQW7RZ4D6JHSKQQXBKZU3
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=hf8hoxlW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=pRfdlQD1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4EF571F74B;
+	Mon,  4 Sep 2023 12:29:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1693830553;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FRIlmyEsBBGqmAdip4OoOejyGTDVTgXWB2XQ3yWH7pk=;
+	b=hf8hoxlWRHQGT+EVvAnyxfp5ywcr5iWYeguoiZT4RLEhB8wcvgqJTNROAvIQs2ALHi03QB
+	Heqb5gV3tKnwIeG71cZppj18XU4xMKWUQ+dAw31OhXC+Xd3us7T9oYOKwsaS9W9aiUyUpH
+	it3C6e8QvTosLwsVrlLsk1sjejZ8apM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1693830553;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FRIlmyEsBBGqmAdip4OoOejyGTDVTgXWB2XQ3yWH7pk=;
+	b=pRfdlQD1cif/mH+rbH2b6Jct1jVA+8VyfDEnIsFWf08k+Fod2ihp+72M3iiOima5LYR23T
+	8lxZQ2B0vTIOCBAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A5E513425;
+	Mon,  4 Sep 2023 12:29:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id ltdRBZnN9WSAagAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 04 Sep 2023 12:29:13 +0000
+Date: Mon, 04 Sep 2023 14:29:12 +0200
+Message-ID: <87zg22jf53.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>,
+	Vitaly Rodionov
+	<vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH v1] ALSA: hda: cs35l41: Support mute notifications for
+ CS35L41 HDA
+In-Reply-To: <71808adb-bf54-a34b-5a63-70d454e3d426@opensource.cirrus.com>
+References: <20230825120525.1337417-1-sbinding@opensource.cirrus.com>
+	<87edjr7218.wl-tiwai@suse.de>
+	<32a62c2f-5000-132c-255c-8ccd135ba60f@opensource.cirrus.com>
+	<87h6oisz9c.wl-tiwai@suse.de>
+	<71808adb-bf54-a34b-5a63-70d454e3d426@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ADDXITKN2CDUMZXW6FH4PE3JUAUGNJEB
+X-Message-ID-Hash: ADDXITKN2CDUMZXW6FH4PE3JUAUGNJEB
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5GUSMGK3Z4NCQW7RZ4D6JHSKQQXBKZU3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ADDXITKN2CDUMZXW6FH4PE3JUAUGNJEB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,120 +128,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 04/09/2023 13:46, wangweidong.a@awinic.com wrote:
-> From: Weidong Wang <wangweidong.a@awinic.com>
+On Mon, 04 Sep 2023 14:00:20 +0200,
+Stefan Binding wrote:
 > 
+> 
+> On 29/08/2023 15:23, Takashi Iwai wrote:
+> > On Tue, 29 Aug 2023 16:18:12 +0200,
+> > Stefan Binding wrote:
+> >> 
+> >> On 25/08/2023 13:13, Takashi Iwai wrote:
+> >>> On Fri, 25 Aug 2023 14:05:25 +0200,
+> >>> Stefan Binding wrote:
+> >>>> From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> >>>> 
+> >>>> Some laptops require a hardware based mute system, where when a hotkey
+> >>>> is pressed, it forces the amp to be muted.
+> >>>> 
+> >>>> For CS35L41, when the hotkey is pressed, an acpi notification is sent
+> >>>> to the CS35L41 Device Node. The driver needs to handle this notification
+> >>>> and call a _DSM function to retrieve the mute state.
+> >>>> 
+> >>>> Since the amp is only muted during playback, the driver will only mute
+> >>>> or unmute if playback is occurring, otherwise it will save the mute
+> >>>> state for when playback starts.
+> >>>> 
+> >>>> Only one handler can be registered for the acpi notification, but all
+> >>>> amps need to receive that notification, we can register a single handler
+> >>>> inside the Realtek HDA driver, so that it can then notify through the
+> >>>> component framework.
+> >>>> 
+> >>>> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> >>>> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> >>> We don't do normally in this way.  The ACPI hot key handling is done
+> >>> via user-space, and user-space daemon triggers the mute of the
+> >>> system.
+> >>> 
+> >>> Can't the ACPI notify the key event on those machines?
+> >> This feature is not the "normal" mute button on a keyboard, it is a
+> >> custom request
+> >> from a manufacturer which only mutes the audio on the speakers.
+> >> On previous generations, this was achieved using a GPIO controlled by
+> >> the BIOS/EC.
+> >> However, since CS35L41 does not have such GPIO, we must control it by
+> >> other means.
+> >> 
+> >> Our solution, which we have to share with the Windows driver, it to use ACPI
+> >> notifications to tell the driver to mute the amps when the shortcut is
+> >> pressed.
+> >> 
+> >> Does this seem like a valid exception to the typical approach?
+> > It's still the question whether we have to do this inevitably in the
+> > kernel in a way like that.  It sounds quite unusual.  Why this must be
+> > handled directly?  IOW, what's the difference from the "normal" mute
+> > button?
+> > 
+> > And, even if we take this approach, it leaves the device muted without
+> > exposing it to user-space.  Then user wouldn't know what happens.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> We spoke to the ODM for this system to get a more detailed explanation
+> of this feature.
+> The keyboard shortcut enables something called "Unobtrusive
+> Mode". According to their explanation:
+> 
+> - Unobtrusive mode is distinct to normal mute, as it only mutes the speakers
+> - There is no requirement to update the volume controls, as the screen
+> backlight will be off anyway in this mode
+> - All other unobtrusive mode functions are enabled without user-space
+> dependencies, and they would prefer not to make speaker mute an
+> exception
 
-...
-
-> +static void aw87390_parse_channel_dt(struct aw87390 *aw87390)
-> +{
-> +	struct aw_device *aw_dev = aw87390->aw_pa;
-> +	struct device_node *np = aw_dev->dev->of_node;
-> +	u32 channel_value = AW87390_DEV_DEFAULT_CH;
-> +
-> +	of_property_read_u32(np, "sound-channel", &channel_value);
-
-NAK, there is no such property. It seems you already sneaked in such for
-other codecs. Please do not repeat such patterns of work.
-
-That's also why I expect full DTS example, not some reduced pieces.
-
-> +
-> +	aw_dev->channel = channel_value;
-> +}
-> +
-> +static int aw87390_init(struct aw87390 **aw87390, struct i2c_client *i2c, struct regmap *regmap)
-> +{
-> +	struct aw_device *aw_dev;
-> +	unsigned int chip_id;
-> +	int ret;
-> +
-> +	/* read chip id */
-> +	ret = regmap_read(regmap, AW87390_ID_REG, &chip_id);
-> +	if (ret) {
-> +		dev_err(&i2c->dev, "%s read chipid error. ret = %d\n", __func__, ret);
-> +		return ret;
-> +	}
-> +
-> +	if (chip_id != AW87390_CHIP_ID) {
-> +		dev_err(&i2c->dev, "unsupported device\n");
-
-Why? The compatible tells it cannot be anything else.
-
-> +		return -ENXIO;
-> +	}
-> +
-> +	dev_info(&i2c->dev, "chip id = 0x%x\n", chip_id);
-> +
-> +	aw_dev = devm_kzalloc(&i2c->dev, sizeof(*aw_dev), GFP_KERNEL);
-> +	if (!aw_dev)
-> +		return -ENOMEM;
-> +
-> +	(*aw87390)->aw_pa = aw_dev;
-> +	aw_dev->i2c = i2c;
-> +	aw_dev->regmap = regmap;
-> +	aw_dev->dev = &i2c->dev;
-> +	aw_dev->chip_id = AW87390_CHIP_ID;
-> +	aw_dev->acf = NULL;
-> +	aw_dev->prof_info.prof_desc = NULL;
-> +	aw_dev->prof_info.count = 0;
-> +	aw_dev->prof_info.prof_type = AW88395_DEV_NONE_TYPE_ID;
-> +	aw_dev->channel = AW87390_DEV_DEFAULT_CH;
-> +	aw_dev->fw_status = AW87390_DEV_FW_FAILED;
-> +	aw_dev->prof_index = AW87390_INIT_PROFILE;
-> +	aw_dev->status = AW87390_DEV_PW_OFF;
-> +
-> +	aw87390_parse_channel_dt(*aw87390);
-> +
-> +	return ret;
-> +}
-> +
-> +static int aw87390_i2c_probe(struct i2c_client *i2c)
-> +{
-> +	struct aw87390 *aw87390;
-> +	int ret;
-> +
-> +	ret = i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C);
-> +	if (!ret)
-> +		return dev_err_probe(&i2c->dev, -ENXIO, "check_functionality failed\n");
-> +
-> +	aw87390 = devm_kzalloc(&i2c->dev, sizeof(*aw87390), GFP_KERNEL);
-> +	if (!aw87390)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&aw87390->lock);
-> +
-> +	i2c_set_clientdata(i2c, aw87390);
-> +
-> +	aw87390->regmap = devm_regmap_init_i2c(i2c, &aw87390_remap_config);
-> +	if (IS_ERR(aw87390->regmap)) {
-> +		ret = PTR_ERR(aw87390->regmap);
-
-ret is not needed here, so just:
-return dev_err_probe()
-
-> +		return dev_err_probe(&i2c->dev, ret, "failed to init regmap: %d\n", ret);
-> +	}
-> +
-> +	/* aw pa init */
-> +	ret = aw87390_init(&aw87390, i2c, aw87390->regmap);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(aw87390->regmap, AW87390_ID_REG, AW87390_SOFT_RESET_VALUE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_snd_soc_register_component(&i2c->dev,
-> +				&soc_codec_dev_aw87390, NULL, 0);
-> +	if (ret)
-> +		dev_err(&i2c->dev, "failed to register aw87390: %d\n", ret);
-> +
-> +	return ret;
-> +}
+Thanks, it gives a bit better clue.
+The remaining question is rather the exact behavior of this
+"unobtrusive mode".  How is it triggered, and what's the exact
+expectation?  e.g. It must secretly mute the speaker?  That is, it
+must not  expose the mixer state change to user-space?  Or is it tied
+with the normal mixer state and user may unmute again?
 
 
-Best regards,
-Krzysztof
-
+Takashi

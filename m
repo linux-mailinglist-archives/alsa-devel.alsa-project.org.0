@@ -2,112 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00284791E38
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 22:27:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E01A791F1C
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 23:51:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A828827;
-	Mon,  4 Sep 2023 22:26:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A828827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59244206;
+	Mon,  4 Sep 2023 23:50:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59244206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693859268;
-	bh=T24WVy9Sy1NoDLdhSAKU0ob01Ix3oWcdUfap4kiOeCw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1693864261;
+	bh=mMni359xPN4YKoPi5NdQUxQNaC9tjgUUluZK4jmMIQI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MpYEdm8u0KcIbk2Enm2su/GbEDScN2f9lwqOOPp2Ehzy5tc5Y/ozdN9QfrJCbPhC8
-	 /GcLOE9mB68NFWKzEeJAMbJgKfZ0Ja/O3Lx/HmaT9f8RrQ/z8EAruMbtgXLfpuuNQF
-	 Owa4uvRaWpQqtY6IWD+vhHBpaCwxV3FIYPwaRO7M=
+	b=S7OxTSNUtaoleFZDQeXEwHTkCy6X+wQ3cBkcE4KE7K91db90TIkQEZI5pPRyZJjUv
+	 wwGyb+w77Ez7tmcOKAGJF2Q/OrGUJ5bhZkjlSp6tNf2AYv7Uy3m3eL+HDX9UTA+VO0
+	 l5jx6OxPd9xqY6AtD/4oeMbgI4YqaOKhddJVuBBg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A827F80537; Mon,  4 Sep 2023 22:26:57 +0200 (CEST)
+	id 86330F80551; Mon,  4 Sep 2023 23:50:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4D12F80431;
-	Mon,  4 Sep 2023 22:26:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 396C0F80431;
+	Mon,  4 Sep 2023 23:50:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 216D2F8047D; Mon,  4 Sep 2023 22:26:55 +0200 (CEST)
+	id 5BE53F8047D; Mon,  4 Sep 2023 23:50:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F6F8F800AA
-	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 22:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F6F8F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24913F800AA
+	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 23:49:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24913F800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=I0q/PcSp
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-59231a1ca9eso17195237b3.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 04 Sep 2023 13:26:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693859209; x=1694464009;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zOPCv2NI+axDv4gb4abMd4AMNhAMpkyYYjA0xE2SSU0=;
-        b=I0q/PcSpETEz3TKL50yLfrqdgZup/uyaXJb4NstFMK4JjCt9irQBTc/lah0YIv5zuH
-         wBWbdSDr6jg119uWRjvCqMmnrLGEunFH552d27+1Y043mP2/JZ7uJxsr9fvEYVJo4s9F
-         maMY/kzRW5fmDFLqOGDWhbHVLcTqPmplJfwwyNd9IckloK5GHdqjodUrrBHbORucVPJf
-         GE6+HqDwbeKI2W4zrBhLT3G+zp+hk9+BIVR9NxteY5AwjqHoYr9Bq1CcE0wbtula3CGT
-         8YJSH+z9406ddPkDuiMPtRqYdp+f2/p2dpXIbmsR+0HtiV0r2jLEN5dEuCVy9ELLE/fT
-         dgPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693859209; x=1694464009;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zOPCv2NI+axDv4gb4abMd4AMNhAMpkyYYjA0xE2SSU0=;
-        b=OgqG3iB3UlbGRMmTvkvDhZ1+DSURJw5qLa+iWPBJ1hBuHuz1VsfIY94GOO/j7qkHju
-         gJFJWBvOi9N2zy0nmRjeUok6VlQWszylzAFPL0qnm9i5gGjcf8GYtNF60CbXMwgmtgxX
-         mTf25vYsKwYms3GWh1hlclNYBqRsCKlF2ZxOOo247CrXzBuMnoEgLLtHddhcGeSbbeq0
-         x4BqRMc//Z200Uo0scIiAEy/eYbLwp3SyuteumOWwTNF4a5uNYCXzrCkvCb3tCSJGMR0
-         NzeUI9dxyqNcE7Wu9WX3kF9rnhdWH5iMPxdnR5REpQzzEzE6koBdnqXFQ6c1kb/b+b1o
-         jtqg==
-X-Gm-Message-State: AOJu0YzXRPZEhsgsn/+zZw0yLJZeTyShmzp+dae3zpjB5W3j6T8OdM0r
-	WDqyr66U5kNCfrA1Kabe8DHrjAES3UYhBvHg3hkH5A==
-X-Google-Smtp-Source: 
- AGHT+IGYxkclG89PUKOkDm67cPaVgl3DF1XdYgrU2viuEanv3N60lpWFmpZI/6uf+KY5yjj97vqPkmRPUzx+tp+//GE=
-X-Received: by 2002:a25:40d:0:b0:d78:4638:d52c with SMTP id
- 13-20020a25040d000000b00d784638d52cmr10982720ybe.34.1693859209653; Mon, 04
- Sep 2023 13:26:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230904114621.4457-1-wangweidong.a@awinic.com>
- <20230904114621.4457-4-wangweidong.a@awinic.com>
- <5ea76d3f-c9dd-10f5-4f9a-7b32b535ab5c@linaro.org>
- <598febde-429e-4319-98d4-4306a7f8bfe8@sirena.org.uk>
- <0360d279-b535-f3f2-9651-07dff2df2e37@linaro.org>
-In-Reply-To: <0360d279-b535-f3f2-9651-07dff2df2e37@linaro.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 4 Sep 2023 22:26:38 +0200
-Message-ID: 
- <CACRpkdbWE3enEjweZZQSQpdUDvCPXxQZfzOReS9YvZ2mxmevAg@mail.gmail.com>
-Subject: Re: [PATCH V1 3/3] ASoC: codecs: Add aw87390 amplifier driver
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Mark Brown <broonie@kernel.org>, wangweidong.a@awinic.com,
- lgirdwood@gmail.com,
-	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.com,
-	herve.codina@bootlin.com, shumingf@realtek.com, rdunlap@infradead.org,
-	13916275206@139.com, ryans.lee@analog.com, ckeepax@opensource.cirrus.com,
-	yijiangtao@awinic.com, liweilei@awinic.com, colin.i.king@gmail.com,
-	trix@redhat.com, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, zhangjianming@awinic.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: EZEQE2XZJJNLX6BEMTR5PBNWS5NWZHRO
-X-Message-ID-Hash: EZEQE2XZJJNLX6BEMTR5PBNWS5NWZHRO
-X-MailFrom: linus.walleij@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=BIoaDJLg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=3rNvN5gQ
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7DE6121832;
+	Mon,  4 Sep 2023 21:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1693864195;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=let9OI09Eiu+hkhhUy8NMZc1px2Q4rKRQFVewL2DAXo=;
+	b=BIoaDJLgksvTGmp6bSPV07JHl9Ys5LTLCyjw76ZyeXSk7FcEqx5IdHdsTSyV/QfsVbeb9i
+	UqGLFZBEJQDkEP+PSUvsdkKf1g9BGFweGrQuWaUK3sa4ye9rM45iTjjlFVMBgOdC9n/Os1
+	6LxOJ5dGNtxMCWg+Kks583eK/Ff2Fh4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1693864195;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=let9OI09Eiu+hkhhUy8NMZc1px2Q4rKRQFVewL2DAXo=;
+	b=3rNvN5gQeF+eQaJdLHOoouqfZ5R9zzF6RCO0zkNQ5w0GQ+vs6dJSdTG+6ivjXeEx5H8n4X
+	sUxN5AbVH1bKZRAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 552EB13425;
+	Mon,  4 Sep 2023 21:49:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id WOcSEwNR9mSWeQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 04 Sep 2023 21:49:55 +0000
+Date: Mon, 04 Sep 2023 23:49:54 +0200
+Message-ID: <87msy1ip6l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ash Holland <ash@sorrel.sh>
+Cc: alsa-devel@alsa-project.org,
+	regressions@lists.linux.dev
+Subject: Re: [REGRESSION] rust midir MIDI library causes kernel oops
+In-Reply-To: <8a555319-9f31-4ea2-878f-adc338bc40d4@sorrel.sh>
+References: <8a555319-9f31-4ea2-878f-adc338bc40d4@sorrel.sh>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ZZUSDJ3IAYD24VT62MOP5P6RQJFP257S
+X-Message-ID-Hash: ZZUSDJ3IAYD24VT62MOP5P6RQJFP257S
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZEQE2XZJJNLX6BEMTR5PBNWS5NWZHRO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZUSDJ3IAYD24VT62MOP5P6RQJFP257S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,39 +117,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Sep 4, 2023 at 3:02=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
-> On 04/09/2023 14:30, Mark Brown wrote:
-> > On Mon, Sep 04, 2023 at 02:17:43PM +0200, Krzysztof Kozlowski wrote:
-> >> On 04/09/2023 13:46, wangweidong.a@awinic.com wrote:
-> >
-> >>> +   ret =3D regmap_read(regmap, AW87390_ID_REG, &chip_id);
-> >>> +   if (ret) {
-> >>> +           dev_err(&i2c->dev, "%s read chipid error. ret =3D %d\n", =
-__func__, ret);
-> >>> +           return ret;
-> >>> +   }
-> >
-> >>> +   if (chip_id !=3D AW87390_CHIP_ID) {
-> >>> +           dev_err(&i2c->dev, "unsupported device\n");
-> >
-> >> Why? The compatible tells it cannot be anything else.
-> >
-> > This is very common good practice, as well as validating communication
->
-> No, it is neither common nor good. The kernel's job is not to verify the
-> supplied DTS. Rob also made here a point:
->
-> https://lore.kernel.org/all/CAL_Jsq+wcrOjh7+0c=3Dmrg+Qz6dbhOUE-VEeQ4FoWC3=
-Y7ENoyfQ@mail.gmail.com/
+On Mon, 04 Sep 2023 20:10:45 +0200,
+Ash Holland wrote:
+> 
+> Hello,
+> 
+> I upgraded to Linux 6.5 and found that my MIDI-input application no longer
+> works, and causes an oops when I launch it.
+> 
+> The application can be found at https://github.com/sersorrel/lp; `cargo run` is
+> enough to cause the oops, though it has many undocumented dependencies, sorry
+> (including a Novation Launchpad Mini Mk3). Once the oops occurs, it seems like
+> it can still send MIDI to the Launchpad (i.e. display things on it), but input
+> from the Launchpad doesn't work. I use NixOS with minimally-altered kernel
+> configuration (blacklisted r8152 module and `amdgpu.reset_method=4` parameter),
+> and was happily using kernel 6.4.9 or so before upgrading to 6.5.
+> 
+> I bisected this to:
+> 
+> commit f80e6d60d677be1d4dbbcdbf97379b8fbcf97ff0
+> Author: Takashi Iwai <tiwai@suse.de>
+> Date:   2023-05-23 09:53:38 +0200
+> 
+>     ALSA: seq: Clear padded bytes at expanding events
+> 
+>     There can be a small memory hole that may not be cleared at expanding
+>     an event with the variable length type.  Make sure to clear it.
+> 
+>     Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+>     Link: https://lore.kernel.org/r/20230523075358.9672-18-tiwai@suse.de
+>     Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> 
+> #regzbot introduced: f80e6d60d677be1d4dbbcdbf97379b8fbcf97ff0
+> 
+> I guess the problematic part is the `memset(buf + len, 0, newlen - len)`, which
+> tries to memset a buffer that can be allocated in userspace.
 
-I disagree, if a vendor one day decides to mount a new version of a
-component without notifying the community or users this is really
-helpful.
+Yes, that was a bad change.  Could you try the fix below?
 
-The function is named "probe()" for a reason, as in "inspect
-the hardware and see what we find" this has always been the case
-I think.
 
-Yours,
-Linus Walleij
+thanks,
+
+Takashi
+
+-- 8< --
+--- a/sound/core/seq/seq_memory.c
++++ b/sound/core/seq/seq_memory.c
+@@ -187,8 +187,12 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
+ 	err = expand_var_event(event, 0, len, buf, in_kernel);
+ 	if (err < 0)
+ 		return err;
+-	if (len != newlen)
+-		memset(buf + len, 0, newlen - len);
++	if (len != newlen) {
++		if (in_kernel)
++			memset(buf + len, 0, newlen - len);
++		else
++			clear_user((__force void __user *)buf + len, newlen - len);
++	}
+ 	return newlen;
+ }
+ EXPORT_SYMBOL(snd_seq_expand_var_event);

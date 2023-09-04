@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2271D79102B
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 04:48:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D4D791399
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 10:37:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9938210;
-	Mon,  4 Sep 2023 04:47:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9938210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1994B825;
+	Mon,  4 Sep 2023 10:36:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1994B825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693795721;
-	bh=+K68lfgDJnncZhdPoXtkx8rsl+vybU3TKHpTw1jqewI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=SEuaUKeogDWyNEPcfkNFIDiVH3dhzM+5rNgZbtOeNFkCgXJwIOHM95B+K+0JnLMPc
-	 0lxFwemMCyFGySb9Cylu9dN7GIQG8/ulnv46pEtFwp6UQCuJbeuF38HDryIt0kS/ru
-	 hp/9a8hM+bkwMGgaSKwJqKN33Ng+LwMf5iQEYsu4=
+	s=default; t=1693816667;
+	bh=95fRj8cpZa7uWjfFUAP1aAqIMJzKCDnQz0gfY4gwKkc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GSpVVg+s9UPCTp33SF/O/8A7ET8g7etPLeWb94WKVfKO5KBDECOCw755Tr4nuP0B0
+	 KbfD7DdwfV9glZkxM5/YcUyZX4vGUFA/LauSm39fL6HldAdqbcIeKPnPb+cWdKcdgZ
+	 XEjhmoCSStCwC+28sq0PMXU9RILSiax4KkBUfzaU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4888FF8047D; Mon,  4 Sep 2023 04:47:49 +0200 (CEST)
+	id 9F9F2F8047D; Mon,  4 Sep 2023 10:36:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62037F80431;
-	Mon,  4 Sep 2023 04:47:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2820DF80431;
+	Mon,  4 Sep 2023 10:36:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C68F2F8047D; Mon,  4 Sep 2023 04:47:40 +0200 (CEST)
+	id 4F2F0F8047D; Mon,  4 Sep 2023 10:34:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3529EF80236
-	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 04:47:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3529EF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id CEB94F80141
+	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 10:34:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEB94F80141
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lOKt5jZt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1693795657; x=1725331657;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=+K68lfgDJnncZhdPoXtkx8rsl+vybU3TKHpTw1jqewI=;
-  b=lOKt5jZtYAOGdShMaxwzdMVWlFVefrcvSBWfik7m6v1y/D3p7AxCaY1t
-   vKZuf9Lgodz+xyqzP7w694H4PX2JvSfInSDizJ/QIiZuBgoEtuj3bDQUv
-   U7gzNk//FakXjwjmpCLIfrBDC7MW/oWE9nvz3uUW5h8JstpbuIVJ6/9Rs
-   Dr0fb2w5yIUX7DeZHwIA7PjJ3QBiI/l59lDf1qFwGHjdl2cqps1TTap1Y
-   rJlMwHIVG0sUBrV3lJpZy+qwwhx+q9Te+IzrP9LKWA9XJKwxN2ZncCUxe
-   rjbtQj4+z/qXVEegPszvNyQGb0jr1fFLNcCPzv47xpcM/+jCS4oEbd2mc
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10822"; a="407499751"
-X-IronPort-AV: E=Sophos;i="6.02,225,1688454000";
-   d="scan'208";a="407499751"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2023 19:47:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10822"; a="810743609"
-X-IronPort-AV: E=Sophos;i="6.02,225,1688454000";
-   d="scan'208";a="810743609"
-Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
-  by fmsmga004.fm.intel.com with ESMTP; 03 Sep 2023 19:47:29 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-kernel@vger.kernel.org,
-	Brent Lu <brent.lu@intel.com>
-Subject: [PATCH] ASoC: rt5645: NULL pointer access when removing jack
-Date: Mon,  4 Sep 2023 18:40:46 +0800
-Message-Id: <20230904104046.4150208-1-brent.lu@intel.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=khqvwN1L
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 7405D660727F;
+	Mon,  4 Sep 2023 09:34:47 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1693816488;
+	bh=95fRj8cpZa7uWjfFUAP1aAqIMJzKCDnQz0gfY4gwKkc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=khqvwN1Lr+jaHM9QrdEdIdn77+1NkegUGk6y97QZgGhkC3Kk8Nte2+Xlmy8z0OMT5
+	 /Dc/CAryTtk8bwJAdnR3eaK2MEywHJuR9ZsX5iGuhk5HxL0WyWzzNGGiBnIgDnflIN
+	 gwJPl98nqnkNNVCgSUEUYeGrV22sAzf11+yzJWaQjfNKu40+Re8/Q9IfkXkE5WAt1Q
+	 e6sslU1hpMxJD+1O1GUd66flJNWoqGIRzuzDGMZNMSzTsvjqW07RBj/3abKAXWAzmt
+	 Kf4gW4azpEkLjfU6D/03qhX5aGx855JD9wWMVfAGRg2lza6vk75KejsIqUS+ymgUx6
+	 2KsKZ+ptsgbeA==
+Message-ID: <40013c91-4941-1d03-1aa2-083bd6b44afa@collabora.com>
+Date: Mon, 4 Sep 2023 10:34:44 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FOJQCHU4JVBFRRVYXXFWFGJGWE6SGVJB
-X-Message-ID-Hash: FOJQCHU4JVBFRRVYXXFWFGJGWE6SGVJB
-X-MailFrom: brent.lu@intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [RESEND,v3 2/3] ASoC: mediatek: common: revise SOF common code
+To: Mark Brown <broonie@kernel.org>, Trevor Wu <trevor.wu@mediatek.com>
+Cc: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz,
+ matthias.bgg@gmail.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20230825024935.10878-1-trevor.wu@mediatek.com>
+ <20230825024935.10878-3-trevor.wu@mediatek.com>
+ <ZOiCVCJMaNX9Xhgy@finisterre.sirena.org.uk>
+Content-Language: en-US
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <ZOiCVCJMaNX9Xhgy@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 2DXUQH427HINL6WWYQ5CI2XH3ZDP62Y4
+X-Message-ID-Hash: 2DXUQH427HINL6WWYQ5CI2XH3ZDP62Y4
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FOJQCHU4JVBFRRVYXXFWFGJGWE6SGVJB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2DXUQH427HINL6WWYQ5CI2XH3ZDP62Y4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,43 +106,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Machine driver calls snd_soc_component_set_jack() function with NULL
-jack and data parameters when removing jack in codec exit function.
-Do not access data when jack is NULL.
+Il 25/08/23 12:28, Mark Brown ha scritto:
+> On Fri, Aug 25, 2023 at 10:49:34AM +0800, Trevor Wu wrote:
+>> Originally, normal dai link fixup callback is overwritten by sof fixup
+>> callback on mtk_sof_card_late_probe and it relies on the mapping defined
+>> on struct sof_conn_stream.
+> 
+> Angelo?
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
----
- sound/soc/codecs/rt5645.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+Sorry Mark, Trevor, I was on vacation, far away from my workstation :-)
+Thanks for the ping on this one btw!
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 5be5ec0260e9..2412b0853364 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3263,13 +3263,17 @@ static int rt5645_component_set_jack(struct snd_soc_component *component,
- {
- 	struct snd_soc_jack *mic_jack = NULL;
- 	struct snd_soc_jack *btn_jack = NULL;
--	int *type = (int *)data;
-+	int type;
- 
--	if (*type & SND_JACK_MICROPHONE)
--		mic_jack = hs_jack;
--	if (*type & (SND_JACK_BTN_0 | SND_JACK_BTN_1 |
--		SND_JACK_BTN_2 | SND_JACK_BTN_3))
--		btn_jack = hs_jack;
-+	if (hs_jack) {
-+		type = *(int *)data;
-+
-+		if (type & SND_JACK_MICROPHONE)
-+			mic_jack = hs_jack;
-+		if (type & (SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3))
-+			btn_jack = hs_jack;
-+	}
- 
- 	return rt5645_set_jack_detect(component, hs_jack, mic_jack, btn_jack);
- }
--- 
-2.34.1
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
+Cheers!

@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3392791A25
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 16:57:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19373791A2C
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Sep 2023 16:58:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3A0E3E8;
-	Mon,  4 Sep 2023 16:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3A0E3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A9D4827;
+	Mon,  4 Sep 2023 16:57:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A9D4827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693839439;
-	bh=6ta1H1SO5AL7wZ6YLXn2VSihZbdu5lIUUcM8Iy6JTnE=;
+	s=default; t=1693839491;
+	bh=1Xht2Mwat7NsM0EmnlY4HnsXVjVOfaiXTqnZtnMB7bw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KQWQmqQ+4WT0vMOGA80J5AZUK4eZzFcfk7JQt9w8tcMd53VRuLlxWjhTINRHlOlcu
-	 5Nf4PJJK5bPYc8IjZ1KSDqzjBqssP/4NwkSaJiypZIM1o80QQgWYAknudMUBv/6gwb
-	 Ut8Xw3xF4t9fCvuFC9qe0Z1MeelX3nqfoq5Nsf74=
+	b=t6pq79Z9wmYAPrwq3tN9NbJ1yCRIlIA7z8Dj4Em1jgMJw37LsNOlAg93avkxUE+iQ
+	 OPSwkHqAaXqX/tzXMVg/sRE3+yfmPUYytjo5X2H9Aan6j07kjJyDWMaHxSvmEGjyZn
+	 3L8/AXncnw1YTebE9VXfJ07N6ArbEEsQ8Bba+LQY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 663B3F80527; Mon,  4 Sep 2023 16:56:29 +0200 (CEST)
+	id 0F53EF8055C; Mon,  4 Sep 2023 16:56:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E96F9F8047D;
-	Mon,  4 Sep 2023 16:56:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3D6BF8055A;
+	Mon,  4 Sep 2023 16:56:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6A7ABF8055C; Mon,  4 Sep 2023 16:55:25 +0200 (CEST)
+	id E0482F8055B; Mon,  4 Sep 2023 16:55:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 69C8FF80552
-	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 16:55:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69C8FF80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F9B8F80558
+	for <alsa-devel@alsa-project.org>; Mon,  4 Sep 2023 16:55:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F9B8F80558
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=sHP2SNnD
+ header.s=k20201202 header.b=Ofhe2dY3
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 976D9B80DB3;
-	Mon,  4 Sep 2023 14:55:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE14AC433C8;
-	Mon,  4 Sep 2023 14:55:16 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 7A359B80E69;
+	Mon,  4 Sep 2023 14:55:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAFDBC433C9;
+	Mon,  4 Sep 2023 14:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1693839318;
-	bh=6ta1H1SO5AL7wZ6YLXn2VSihZbdu5lIUUcM8Iy6JTnE=;
+	s=k20201202; t=1693839320;
+	bh=1Xht2Mwat7NsM0EmnlY4HnsXVjVOfaiXTqnZtnMB7bw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=sHP2SNnDUsBdeagUhh2OVza/4crpSmg8m97YFIa/lCwJWEwe33LAG4Bk98a2q8XYu
-	 ZkKNQtYXeprXXpdNjSoAjHAXQteTULJkrkehBtm9GLzu6u+cHRGLeMEuHLfnR+hYw0
-	 C38zIrauRj825B+MHA1d89dgFj0U/DnDrbNsLhabiAD8YezOh5c/sr439Z7OlX2/NA
-	 iPReXKcIAd45EkFw1Axl1fLowSwStk3tSQPJf1qfBM/KQqpg57GoJjcTLOqirl9YVR
-	 Ppcro5/bSd7g0xbAjNUDHsaSi3BV96+U2hWQrxHRknjKKWBVprUhX4ryFTtt6znLmw
-	 a/EbMQG1K1lNw==
+	b=Ofhe2dY3QayHTJLNoFXW1G4KfTlZyMHWrOSbvV8pDOB1F3RUKZDBwLL3kmcO70ocE
+	 20/tNNMiqT7n0EcT1LMvaWFkcpWdk6NhnEyvfeSXNuMzaDrvUn38+RRWSt2j8wlTpI
+	 ZB3eFPDAxiROCElPqIa/RDbwOTlTeKjkmvAcvfUxDqCd1n//4+tc4weYHHrpKfHgtm
+	 4XMP/JAE2EelyUE2gZ+IK6I1NoNWriRBc5yomzpRjr+dVeQi02/0B60ALDnbVB2asZ
+	 DTYcjufe7nhwjoMT1a8ZJLfD9O7eAt1u42RBTl8McEUvbwi4bU7c1QcwPhZ/KUX+bq
+	 aYB6u7IPQ1QFw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <20230904104046.4150208-1-brent.lu@intel.com>
-References: <20230904104046.4150208-1-brent.lu@intel.com>
-Subject: Re: [PATCH] ASoC: rt5645: NULL pointer access when removing jack
-Message-Id: <169383931669.34217.8836745562314083087.b4-ty@kernel.org>
-Date: Mon, 04 Sep 2023 15:55:16 +0100
+To: peeyush@ti.com, navada@ti.com, baojun.xu@ti.com,
+ Kevin-Lu <kevin-lu@ti.com>
+Cc: shenghao-ding@ti.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20230903161439.85-1-kevin-lu@ti.com>
+References: <20230903161439.85-1-kevin-lu@ti.com>
+Subject: Re: [PATCH v1] MAINTAINERS: Update the MAINTAINERS enties for
+ TEXAS INSTRUMENTS ASoC DRIVERS
+Message-Id: <169383931861.34217.696447356576991523.b4-ty@kernel.org>
+Date: Mon, 04 Sep 2023 15:55:18 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: JLWVEYDNVR3TQWTX6BBPP4UETSCKMWTK
-X-Message-ID-Hash: JLWVEYDNVR3TQWTX6BBPP4UETSCKMWTK
+Message-ID-Hash: KUMRKG65UY3LBWRULLLGZLMNWKVO7IJH
+X-Message-ID-Hash: KUMRKG65UY3LBWRULLLGZLMNWKVO7IJH
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,18 +90,17 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JLWVEYDNVR3TQWTX6BBPP4UETSCKMWTK/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KUMRKG65UY3LBWRULLLGZLMNWKVO7IJH/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 04 Sep 2023 18:40:46 +0800, Brent Lu wrote:
-> Machine driver calls snd_soc_component_set_jack() function with NULL
-> jack and data parameters when removing jack in codec exit function.
-> Do not access data when jack is NULL.
+On Mon, 04 Sep 2023 00:14:37 +0800, Kevin-Lu wrote:
+> Update the MAINTAINERS email for TEXAS INSTRUMENTS ASoC DRIVERS.
 > 
 > 
 
@@ -110,8 +110,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5645: NULL pointer access when removing jack
-      commit: 5366a64033ef46d7fc36db097d4bde12af22c405
+[1/1] MAINTAINERS: Update the MAINTAINERS enties for TEXAS INSTRUMENTS ASoC DRIVERS
+      commit: c87906a7d56e1f26320a6c8f6d8306656e78b353
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,117 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B7B5792090
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 08:34:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FF79792094
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 08:42:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8C0986F;
-	Tue,  5 Sep 2023 08:33:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8C0986F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9E81825;
+	Tue,  5 Sep 2023 08:41:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9E81825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693895670;
-	bh=ViSUjc3iED6BVTtFVlikH4AMyHIR6m7L/eaoR63nSyY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1693896151;
+	bh=tLxnY+wM3le5BMY58FdVirsSFSG8JDxBOgq2/FHLVYg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Sb2kUkmlhItwbpbmjE+HlADPRgcIP8aifhNWZJ5NQRc8rj6ycJpdSeddfyJSgAgkE
-	 SEUBomyAS0X1BCoN6r8wzfTaYvHoAR111L7hzSrq1lUPfVwY62ifKlH/0JhStNvJIc
-	 aEwIJyKdytmDqOSh8aCJdjyeE2yH0MaEvAUhUFfE=
+	b=KMtJXBaIc2sKK4L4TeNOJK7ktLSuBkDvfwkiCaLRAcA8PfBEWpdOr0QgqXOsPTO8p
+	 KT5ucQvdPPQfw5W86BvfMvnwMDJmrFDFvgyvyvFssX/dqzW5VWy90WQ91KaRfQjNoB
+	 mD3iEQPcooRH+H/qdMYqUM7orfyuXO4hjss6aVTY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABEBFF80552; Tue,  5 Sep 2023 08:33:40 +0200 (CEST)
+	id 43304F804F3; Tue,  5 Sep 2023 08:41:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08DE0F80494;
-	Tue,  5 Sep 2023 08:33:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A667F80431;
+	Tue,  5 Sep 2023 08:41:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 261A3F80431; Tue,  5 Sep 2023 08:33:36 +0200 (CEST)
+	id B002CF8047D; Tue,  5 Sep 2023 08:41:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 931BDF804F3
-	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 08:33:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 931BDF804F3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45A0BF80236
+	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 08:41:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45A0BF80236
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Gp7qJIFV
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-99c4923195dso317550966b.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 04 Sep 2023 23:33:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1693895612; x=1694500412;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jWFX6+i8IQvGh2J8fHr7nL2f/+MfWw9G8OUDH7h5OUM=;
-        b=Gp7qJIFVhYYBIm7fhY32B5ob7o9ZXowiNbWTFnvvTQG3aqj+hIsqb0fRrFeTw/JpBQ
-         vRC1wOA/9CzhMw5mGZVhtw315KXQzJSHpkcXue7o5INJKx8qmaDCkhQRLOENu2yeo82L
-         fB3gBus3nTuuYuQZ5J05NQqRxEH2KujY2HwS596jE2QvnKproBjuq2crXC4KWPAfM1w6
-         eBXk0qwzpkCExUczHzNrYLxBT1WbMjRDrNrfHIqR1ezjJlCFQqgZJbjA8l2A5zvsW9ia
-         ZUeh3tR2pvRnFQQtDQudIrjHGMci0G7fZwfjXWUq+eEMz+ldp6OEHEYOV351ZPOBApZ/
-         XkmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693895612; x=1694500412;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jWFX6+i8IQvGh2J8fHr7nL2f/+MfWw9G8OUDH7h5OUM=;
-        b=TjDBpLLwzJ4jksXnHojBqhzrQLOsWqEj9DXfG4cDmU+xG7QtASbgAxQI0/qqRpD0C+
-         MIFzNw6I8+iR4hJFp5PxWbDiEQ7fydJqfkFPJZ0ANK/HhXu5hpj3NStv87MaCLYNCRAG
-         aFhtkuGBe519iV3uNv3zIQe+i8SLJgm59HVvqiTmuJVIStZeoWrhPdn4AhfZdSy8zX0o
-         jQCII6/s7mrC998gK44VBUttkZQMq94/hqT7M3SG1/J+XWV4NysjwbT8Nt0ykt+QeDxr
-         dGNl6SQl2gmnj9WNgzbsO7jqV04ehJW3R8rxZHD5wKJ61cFpk5CES1aj4Uvkkpfbiuk3
-         XwEw==
-X-Gm-Message-State: AOJu0YzZqbTjP9GTIIwlp3EY3zE3nX69a4AN/Tu07KEjjs1pYbtBdUT6
-	XRM52tMXaqK7ol1hD7NJje3DBg==
-X-Google-Smtp-Source: 
- AGHT+IGpBIPJMYYgXkLtFpRdZgcZHZssyisZiGMuIXFfCeQFxHixJsdk/LohVRdBDI9Q4C92cDtevg==
-X-Received: by 2002:a17:906:3152:b0:99d:ff60:6ff4 with SMTP id
- e18-20020a170906315200b0099dff606ff4mr10228026eje.70.1693895612575;
-        Mon, 04 Sep 2023 23:33:32 -0700 (PDT)
-Received: from [192.168.0.22] (77-252-46-238.static.ip.netia.com.pl.
- [77.252.46.238])
-        by smtp.gmail.com with ESMTPSA id
- ds11-20020a170907724b00b0099bcf9c2ec6sm7163324ejc.75.2023.09.04.23.33.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Sep 2023 23:33:32 -0700 (PDT)
-Message-ID: <2b6e5216-4718-7bba-ff0d-3b0e01291cdd@linaro.org>
-Date: Tue, 5 Sep 2023 08:33:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [PATCH V1 1/3] ASoC: dt-bindings: Add schema for "awinic,aw87390"
-Content-Language: en-US
-To: wangweidong.a@awinic.com
-Cc: 13916275206@139.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- ckeepax@opensource.cirrus.com, colin.i.king@gmail.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, herve.codina@bootlin.com,
- krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
- linus.walleij@linaro.org, linux-kernel@vger.kernel.org, liweilei@awinic.com,
- perex@perex.cz, rdunlap@infradead.org, rf@opensource.cirrus.com,
- robh+dt@kernel.org, ryans.lee@analog.com, shumingf@realtek.com,
- tiwai@suse.com, trix@redhat.com, yijiangtao@awinic.com,
- zhangjianming@awinic.com
-References: <a3ada071-4c8e-f65d-ad75-655370ba2c55@linaro.org>
- <20230905033103.15343-1-wangweidong.a@awinic.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230905033103.15343-1-wangweidong.a@awinic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3H4H5QU4BLXCFYEAZYRDCBRGTMPSFTCD
-X-Message-ID-Hash: 3H4H5QU4BLXCFYEAZYRDCBRGTMPSFTCD
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=LkJxQHb6;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=X91vtaxe
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AEF942183F;
+	Tue,  5 Sep 2023 06:41:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1693896092;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3PE0NRYqcaoH1xgDyVw88dT71TtOVhXgZWR8hgT6OzE=;
+	b=LkJxQHb6jn5LOwuwEu74/yTfHIGTWB8eji7Ohia6RbR4gcF13Il/X1MGU2gztCAjk/eCiL
+	trTV/3+fRMPBftpYp3rx2H8iOAqU2U6sx1DPVzvP5iNqJq/dsw9FYKsyyBlQnkyPfYaIBK
+	NzmaFd113syKLx4Vy+4J1ciEYd7bFBE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1693896092;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3PE0NRYqcaoH1xgDyVw88dT71TtOVhXgZWR8hgT6OzE=;
+	b=X91vtaxe+XGuE15NMuLjmH6TFq8M5dQ8A3IUslNTIVsYxfhUT3meW0uNkSvFNZHYVGW7JQ
+	nh7afi3IlLJh5pCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4930413499;
+	Tue,  5 Sep 2023 06:41:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id fw7FEJzN9mQLUwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 05 Sep 2023 06:41:32 +0000
+Date: Tue, 05 Sep 2023 08:41:31 +0200
+Message-ID: <875y4pi0kk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: <robh+dt@kernel.org>,
+	<andriy.shevchenko@linux.intel.com>,
+	<lgirdwood@gmail.com>,
+	<perex@perex.cz>,
+	<pierre-louis.bossart@linux.intel.com>,
+	<kevin-lu@ti.com>,
+	<13916275206@139.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<liam.r.girdwood@intel.com>,
+	<mengdong.lin@intel.com>,
+	<baojun.xu@ti.com>,
+	<thomas.gfeller@q-drop.com>,
+	<peeyush@ti.com>,
+	<navada@ti.com>,
+	<broonie@kernel.org>,
+	<gentuser@gmail.com>
+Subject: Re: [PATCH v3] ALSA: hda/tas2781: Revert structure name back to
+ cs35l41_dev_name
+In-Reply-To: <20230905041331.834-1-shenghao-ding@ti.com>
+References: <20230905041331.834-1-shenghao-ding@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: WCRVDH2Z4LWP5MP3PD7DL73TYYFE7FF4
+X-Message-ID-Hash: WCRVDH2Z4LWP5MP3PD7DL73TYYFE7FF4
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3H4H5QU4BLXCFYEAZYRDCBRGTMPSFTCD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WCRVDH2Z4LWP5MP3PD7DL73TYYFE7FF4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,23 +134,153 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 05/09/2023 05:31, wangweidong.a@awinic.com wrote:
->>> +examples:
->>> +  - |
->>> +    i2c {
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +        audio-codec@58 {
->>> +            compatible = "awinic,aw87390";
->>> +            reg = <0x58>;
+On Tue, 05 Sep 2023 06:13:30 +0200,
+Shenghao Ding wrote:
 > 
->> Please add sound-dai-cells for the example to be complete.
+> Revert structure name back to cs35l41_dev_name, this structure won't be
+> used any more in tas25781 driver code, the "bus" name can be passed by
+> tas2781_generic_fixup, hid is actually "TIAS2781", can be hardcode and
+> become an unneeded argument passed from tas2781_generic_fixup, as to
+> "index", it is a redundant member in tas2781 driver, and have never been
+> used in tas2781 hda driver before. And redefine tas2781_generic_fixup.
+
+OK, now it's clearer.
+
+So the purpose of this patch is rather to simplify the code.  The
+revert of struct name is merely a side-effect.
+
+That said, you can split even more, two logical changes: one is to
+just simplify the code by the fixed name string, and another is the
+rename back to struct cs35l41_dev_name.
+
+But honestly speaking, I don't see the need for rename again; the
+struct may be used by other codecs, and it's fine to keep a generic
+struct name like the current one.  Leaving the struct name as is will
+make the patch only as a cleanup (and you should correct the patch
+subject accordingly).
+
+And, I believe a more sensible improvement would be the use of the
+standard acpi_*_match*() API as Andy already suggested.  It can be
+folded into this cleanup or create a new patch on top of the cleanup.
+
+
+thanks,
+
+Takashi
+
+
 > 
-> Thank you very much, I will modify it in patch v2
-
-I expect in example all properties your device can use. Not only some
-subset you want to add just to satisfy my comment above.
-
-Best regards,
-Krzysztof
-
+> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+> 
+> ---
+> Changes in v3:
+>  - Redefine tas2781_generic_fixup, remove hid argument, and do not use
+>    structure scodec_dev_name any more in tas2781_generic_fixup.
+>  - remove cs35l41_dev_name from comp_match_tas2781_dev_name, which is
+>    useless in tas2781 driver. bus name is passed by tas2781_generic_fixup,
+>    hid is actually "TIAS2781", can be hardcode and unneeded argument
+>    passed from tas2781_generic_fixup. Index is a redundant member, and
+>    never used in tas2781 hda driver.
+>  - revert from scodec_dev_name back to cs35l41_dev_name, tas2781 pass only
+>    bus name instead of cs35l41_dev_name, so it seemed unnecessary for
+>    tas2781.
+>  - revert from scodec_dev_name back to cs35l41_dev_name in
+>    cs35l41_generic_fixup
+> ---
+>  sound/pci/hda/patch_realtek.c | 27 ++++++++++-----------------
+>  1 file changed, 10 insertions(+), 17 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index a07df6f929..c3e410152b 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -6745,7 +6745,7 @@ static void comp_generic_playback_hook(struct hda_pcm_stream *hinfo, struct hda_
+>  	}
+>  }
+>  
+> -struct scodec_dev_name {
+> +struct cs35l41_dev_name {
+>  	const char *bus;
+>  	const char *hid;
+>  	int index;
+> @@ -6754,7 +6754,7 @@ struct scodec_dev_name {
+>  /* match the device name in a slightly relaxed manner */
+>  static int comp_match_cs35l41_dev_name(struct device *dev, void *data)
+>  {
+> -	struct scodec_dev_name *p = data;
+> +	struct cs35l41_dev_name *p = data;
+>  	const char *d = dev_name(dev);
+>  	int n = strlen(p->bus);
+>  	char tmp[32];
+> @@ -6773,19 +6773,19 @@ static int comp_match_cs35l41_dev_name(struct device *dev, void *data)
+>  static int comp_match_tas2781_dev_name(struct device *dev,
+>  	void *data)
+>  {
+> -	struct scodec_dev_name *p = data;
+> +	const char *bus = data;
+>  	const char *d = dev_name(dev);
+> -	int n = strlen(p->bus);
+> +	int n = strlen(bus);
+>  	char tmp[32];
+>  
+>  	/* check the bus name */
+> -	if (strncmp(d, p->bus, n))
+> +	if (strncmp(d, bus, n))
+>  		return 0;
+>  	/* skip the bus number */
+>  	if (isdigit(d[n]))
+>  		n++;
+>  	/* the rest must be exact matching */
+> -	snprintf(tmp, sizeof(tmp), "-%s:00", p->hid);
+> +	snprintf(tmp, sizeof(tmp), "-%s:00", "TIAS2781");
+>  
+>  	return !strcmp(d + n, tmp);
+>  }
+> @@ -6795,7 +6795,7 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
+>  {
+>  	struct device *dev = hda_codec_dev(cdc);
+>  	struct alc_spec *spec = cdc->spec;
+> -	struct scodec_dev_name *rec;
+> +	struct cs35l41_dev_name *rec;
+>  	int ret, i;
+>  
+>  	switch (action) {
+> @@ -6824,24 +6824,17 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
+>  }
+>  
+>  static void tas2781_generic_fixup(struct hda_codec *cdc, int action,
+> -	const char *bus, const char *hid)
+> +	const char *bus)
+>  {
+>  	struct device *dev = hda_codec_dev(cdc);
+>  	struct alc_spec *spec = cdc->spec;
+> -	struct scodec_dev_name *rec;
+>  	int ret;
+>  
+>  	switch (action) {
+>  	case HDA_FIXUP_ACT_PRE_PROBE:
+> -		rec = devm_kmalloc(dev, sizeof(*rec), GFP_KERNEL);
+> -		if (!rec)
+> -			return;
+> -		rec->bus = bus;
+> -		rec->hid = hid;
+> -		rec->index = 0;
+>  		spec->comps[0].codec = cdc;
+>  		component_match_add(dev, &spec->match,
+> -			comp_match_tas2781_dev_name, rec);
+> +			comp_match_tas2781_dev_name, (void *)bus);
+>  		ret = component_master_add_with_match(dev, &comp_master_ops,
+>  			spec->match);
+>  		if (ret)
+> @@ -6888,7 +6881,7 @@ static void alc287_fixup_legion_16ithg6_speakers(struct hda_codec *cdc, const st
+>  static void tas2781_fixup_i2c(struct hda_codec *cdc,
+>  	const struct hda_fixup *fix, int action)
+>  {
+> -	 tas2781_generic_fixup(cdc, action, "i2c", "TIAS2781");
+> +	 tas2781_generic_fixup(cdc, action, "i2c");
+>  }
+>  
+>  /* for alc295_fixup_hp_top_speakers */
+> -- 
+> 2.34.1
+> 

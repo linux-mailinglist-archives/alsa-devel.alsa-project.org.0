@@ -2,150 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34398791F93
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 00:46:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A212C791FDD
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 03:21:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4080874C;
-	Tue,  5 Sep 2023 00:45:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4080874C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E94A7F1;
+	Tue,  5 Sep 2023 03:21:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E94A7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693867584;
-	bh=e5hq12ZK+EefE/6qdpoMchRLoYEbt0xM4FgVxd/9aD4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1693876913;
+	bh=FTmsSCHXCYfqeIBLmNn7whpR9v+nlv0f54RXkyNwBu8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dgaTdIsWGvhDfjYMyxm2qKfiN+BtU3Ox5hFbZfmvvT9aSxpESjnmPUhu6YYNSgMvi
-	 EG8HRrFzMcC/FouJdQfvcL3WC+y6vgyZ7SOTjZvXRGAQtnZ8bGLtfUQimYmffIeMi9
-	 x2VBqFitqJ6NbKQwE8MSeZNLdTHIQKAx6Ul5TeFM=
+	b=B844cBzYlj1gyHFiOFz9EgykQXLkD8RSmxDeHJOog7x6s+zC1tIcs5M0+ztUS9245
+	 B7OMTKx1gbPiHpUwjYl/t2SpC9Zzj5aLNfz8mw1NqLTGo/mI5x4iOybhTOjWY2CPuI
+	 FzvgyQ30XyWxPuX5hg81zSlJf66s5UUlDLBTUebM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4DA5F8047D; Tue,  5 Sep 2023 00:45:33 +0200 (CEST)
+	id BA45BF80527; Tue,  5 Sep 2023 03:21:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73248F80431;
-	Tue,  5 Sep 2023 00:45:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2021F80431;
+	Tue,  5 Sep 2023 03:20:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B050F8047D; Tue,  5 Sep 2023 00:45:29 +0200 (CEST)
+	id 679C0F8047D; Tue,  5 Sep 2023 03:20:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2071f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::71f])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 255CDF80236
-	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 00:45:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 255CDF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64FADF800F5
+	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 03:20:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64FADF800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=nyffe8YK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A78KLUbGRWsDrNQiO6+ke1a85Nxb4S313GGtvBSCbSZg5VwO75dbL3dmnKbcfhfm0ly4XtUp+S1HWiZX2dTzQEno9s0f/GJT6wFMaXzu8lExKg0oWbhUvmevaBzwvBuwXcWAEdsKlPrwLmAcOC+Z+rhCLLmcntw+wkOw0YuZ8LxLqkVywPXFHVgWJmPG3+mMcL0szdJQIEmGjOG+n/Dk/Jc4FbWaP/C9HqFAeZ/hFpoKly2f79evgQkb/bH8Bbxr/AE7BOTXijtNm/2IHnTuLAvWTUGZRWBdXIQwp9WmgutHD38FJz6Fz2ZYF6l5TXhIe7f9NVuSFRRug4Wdp9c9vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vmYOjIPC6993ZiL6cTTKEQtYAbJEnsbkmgapMO3sydI=;
- b=MiKnNXEg57Bd/Y3s6VGdnkTgRrJPyfKNMk8vPsjCjdi2429/oUtjxROmZ6mkdpJnZmHICZfO4GTlKQUEYYPcQsWJbkXVWO6nMzAb2S+Z4s0hpXzbpt5TV/se469Gs8BGNoEpp9BFymTib/RgS/X3qZhVzPgSJ0NLPUkedPPvef76z8OvAaWS9lzLaUIz7x74YEuzm/OdDZdfSgLjjI5wUAgAxTPNxZNnt3RWq4SgZ6XdjzJ1J8HIGRd/Cr8LTccaWhwHmlS4b1PapTHdOpkCvdvfFEoAZSHhSjdNGJiIVjo658SquND6CfIZe/RuOURZinpO/v6gV2vmb5fF+e3WYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vmYOjIPC6993ZiL6cTTKEQtYAbJEnsbkmgapMO3sydI=;
- b=nyffe8YKHTeBzbevmzdDiFp4ImaLrcqiFYoI526ICsLSpGvzffw32cqp6Xj0QOsk8FTrRW+DoTSkBGG14X3kvPYHJoVsA0E3YRXCBEqmbt2zo/6UIouy3sRVfYp9OgHPulywLQkKizExcrSnnsg58y5eSOQKs9gizC+2UC0iAi8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYTPR01MB10939.jpnprd01.prod.outlook.com (2603:1096:400:3a2::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Mon, 4 Sep
- 2023 22:45:12 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::8c08:d94c:8e54:9b5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::8c08:d94c:8e54:9b5d%6]) with mapi id 15.20.6745.030; Mon, 4 Sep 2023
- 22:45:12 +0000
-Message-ID: <87msy1fthk.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm1 header.b=mPZgk+Dn;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=BRxznrdF
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.west.internal (Postfix) with ESMTP id BBDB23200945;
+	Mon,  4 Sep 2023 21:20:34 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Mon, 04 Sep 2023 21:20:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1693876833; x=
+	1693963233; bh=02Q6GEVYd/OOFm1jiN44dR3+OQ5KZE4cKSVS47Oq3Fw=; b=m
+	PZgk+Dns0pJca7ULzFWJy8OkRNTczfJWr1Kgzw0na1HxbZbKViXuL3bPEd8Gsnqy
+	L0WR4DUH0WeZU0wSEUB+7BuRL5GL6eKj5CmFb9Lrsan0/7ZeNRTM79MkW+TEKyaz
+	S9hx+LA7hhGhZk/DxKxS2MeH1Fb9DE+E5iJ76xl+Uv3gRbY+W93RpgBaixv112J4
+	lYD5pLqFumhym2jdOXcXh5C8UlyfxJ12Gf91+/lWNpMargVTvwI1BWgHBYARRkYZ
+	ab25UTgn6ctuTj+YEpcxu9CvLTT1Ut3C3OLFCe1RFynmD4dJqTZ6ylLNrMH3U1Gw
+	zMKZgLjPEtrtoqDp3tWrQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1693876833; x=1693963233; bh=02Q6GEVYd/OOF
+	m1jiN44dR3+OQ5KZE4cKSVS47Oq3Fw=; b=BRxznrdF1p32lK70GJFzF+a/x2iEz
+	yzP3zHiXf6g9gSE2CoXRYlE4YyYJ7bSBmNuJtA5155aGJE5Yqb715Ea5ac6Rq1KU
+	TfKCjrMOCjMh2Hj5gA3vkyb4N7mSP2R73r5q9922g+wE/u6GsUVUjj067idw1U9X
+	bmZQ9mdzQkdpAkCjpgT4OpdcgsvwPrl7GpALIqSKW0TC5QL1jXBntOGFcKM3GHqI
+	qrji5cgyKpHF121u6o5f2WqE/z/JsVxFD61FPP7EmSj2faahMavppHfjyXwSxGNy
+	MQ5EX0hEXDFBrg88csOh6CGkGDkPgG/iGnYntFHMsFq37VcRui0ugSoyQ==
+X-ME-Sender: <xms:YYL2ZP7Y5WJKarL8o5Sz_phdaJczSuFwhDc10Qytk90-OUYw9uDc0g>
+    <xme:YYL2ZE607zIFe58pA56YcBg6wVLP2rsoKdHisvZmZ-FEdLn7f4pqqUrmFWYi1n7Wd
+    KrVjYSi5wcYQaN_6MM>
+X-ME-Received: 
+ <xmr:YYL2ZGcxVt_lxmUQWQ7OzveSYDuXjOd-t7KFOv4tTIqOzK_vwSPXz6ourpECwb6sgUxKkfKp3e5iRHtxvRietrX3vdNpbGtyIoc>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedviedrudegledggeehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+    hjpheqnecuggftrfgrthhtvghrnhepudefheffffeugfdugeehfefgvdeikefgffehudeu
+    geehhedtvdetudfgvdevgeetnecuffhomhgrihhnpehgihhthhhusgdrtghomhdptghrrg
+    htvghsrdhiohdpughotghsrdhrshdpuggvsghirghnrdhorhhgpdguvggsihgrnhdrnhgv
+    thenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqd
+    htrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:YYL2ZAL_7KlEi7d0uCy39-gJP5mP5bSKTU-QThAaC_t8R2Bo9WLm6w>
+    <xmx:YYL2ZDIkIFWe9o0uRYcKqj8szp2ES-k0yRN1yC5lvxxW4MtesyDA1Q>
+    <xmx:YYL2ZJzxMlqD57YyjDv0Oy1sFztgOU7N1DbVxZPMeJXDRKQ185S4rA>
+    <xmx:YYL2ZJgokE6jEAHo8flYgJT0JaNnEGdPJ_WqH1Tangi4e5DkGLVG0w>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 4 Sep 2023 21:20:32 -0400 (EDT)
+Date: Tue, 5 Sep 2023 10:20:28 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Rolf Anderegg <rolf.anderegg@weiss.ch>
+Cc: alsa-devel@alsa-project.org, Michele Perrone <michele.perrone@weiss.ch>
+Subject: Re: ALSA: dice: improve support for Weiss devices
+Message-ID: <20230905012028.GA262570@workstation.local>
+Mail-Followup-To: Rolf Anderegg <rolf.anderegg@weiss.ch>,
 	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v1 1/1] ASoC: soc.h: replace custom COUNT_ARGS() &
- CONCATENATE() implementations
-In-Reply-To: <20230904111524.1740930-1-andriy.shevchenko@linux.intel.com>
-References: <20230904111524.1740930-1-andriy.shevchenko@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 4 Sep 2023 22:45:11 +0000
-X-ClientProxiedBy: TY2PR0101CA0036.apcprd01.prod.exchangelabs.com
- (2603:1096:404:8000::22) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	Michele Perrone <michele.perrone@weiss.ch>
+References: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
+ <20230728131308.GA142765@workstation.local>
+ <7a0cf3fd-9e31-45e1-7aa4-97cab27dafa7@weiss.ch>
+ <20230731140655.GA367100@workstation.local>
+ <81450de2-3bf5-cb96-114f-6d75314e5a03@weiss.ch>
+ <20230808152511.GA729027@workstation.local>
+ <a41c675d-c1bd-4e89-9519-63b2b088f16d@weiss.ch>
+ <20230822135807.GA470519@workstation.local>
+ <20230831132817.GB174574@workstation.local>
+ <d102d417-c34d-b4f5-f037-e5460c01ea58@weiss.ch>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYTPR01MB10939:EE_
-X-MS-Office365-Filtering-Correlation-Id: 783f7b9c-be72-43b3-3bcf-08dbad98992f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	m0PL/LWv9vlD3VUCCOWIkKQPrpAEInVhtez0vjfj5k3oNym8ogoo45naNoE6opfZn5FLTStJSRgpTFL+g19xknZSL3QJT+zIxLMXg7bE96vlmsOP1uXZbSLi3gJwxCZJyZrim1ztvgbHdwUX+x+FDrXU4Ih6WefRz545418pXraARXmYJgzFOnsnwtto0C4Ryg6wcDqYMpTu9/tcVu5/Krt1A6loq3mad8PuVbmPcO/28X2dyBBWX+RPv+mnwlOxrf2ISd5l+2P9Db3eiTprRp8u/Adz9M+KAM4lxe3f2DVL1yExeiKsBorwX3M/6qRhsv7ixG2TRtONlqc+otv5h+M1tTp6nF7NVFdsIk/Xfd1y8eTswv89VikZ5VdKKUZe6VlfVafiayFjI24CCLW0TgaWmkyCRIzOFOsml5/qDs8Lx9trVPK65h3pByOyju4bnSbnUhQIHSB4CFFmN7pkGwuR1tMwWAVWM9VOxhMWFbigEprKIJ65+peBYCS4kaYmRufSrpGdP9E1znCEEilpGFjCzirNCyLjQ3O6dhT8utYx0B8zDy59yVkFQmG6vRvEcgl3cjyaycYnWN0Kqu2qa3dchA6YBA1bATjEh7M5g+bSV7A+YiVwGQPHPhgFgDLQ
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(136003)(366004)(396003)(346002)(451199024)(1800799009)(186009)(66946007)(66556008)(66476007)(54906003)(6916009)(478600001)(38100700002)(38350700002)(316002)(4744005)(2906002)(86362001)(8936002)(8676002)(41300700001)(4326008)(5660300002)(6512007)(6486002)(6506007)(52116002)(2616005)(26005)(36756003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?aN4FupUqFU0EZTvtQ3l5ft/P0Cnmr4P7MzwcY3/mqG8otrfXtrq12w2K6UIE?=
- =?us-ascii?Q?ABWVMlkB0oWDuoGpdAIKIF+oKXv94Tb9Tois36quHUo/WmE8ykGYkPjabuTi?=
- =?us-ascii?Q?5SOciqpw6BMPwYjO8xKfojt6zqLzT2esKBldqmPKsmvUTKfgBZviRxlPoFu9?=
- =?us-ascii?Q?jqe+bIza8gf26DP3yHBkGHdrvO93v3+V5z0omrIYOu3dwf5mq6v3eSWIkVoU?=
- =?us-ascii?Q?rF6BgLHWxf4ulHZovNauxyYo+2gpdo7KBTfMcup4PGFZ8PrP6q698o5BY9v1?=
- =?us-ascii?Q?8FOiou09kDEA691xrQBQyvoCnkmcOcZHuaqo7M5TME5pF+ioujQ9KXJ0xMlc?=
- =?us-ascii?Q?xLLBb3CvXjhg4d9qsKgOHn7HSXOyRFIcx2MrzUg6VkYBXX/AgJlOQgPtOAiQ?=
- =?us-ascii?Q?umKpgwT4yPyE5Azunx8MtBJOnDBHVrXNq1eaD7ODk+1krdxtocDiU16lKvPB?=
- =?us-ascii?Q?q0ZzYChj06CEFqcy8VT4w/Zd2iOYG2AyIwMGWQ/C9MJmXGc+yqFmh8FAnBKq?=
- =?us-ascii?Q?QiwVAH7hb4CY7y0EqCxjMTHX9QMazS8geDs4/prZMndwaiVFX5wc5L8kShZx?=
- =?us-ascii?Q?4lK8Hp7/gASy6kPNwTaIHkk1mZ/94UUkJngwy7EqjRQX3VgrMi2UvznFWfry?=
- =?us-ascii?Q?AA3DzN/fk57RDjgL3pI1PXz6S9U7V0/rZSKtDDaYGRS0F4bow+1y8u4hz0AG?=
- =?us-ascii?Q?A+VmKVwsEZP+xh63w4rL8AC4gfWPVMlMeboVoruCgGYrwAAXcN2I90I9Zqhx?=
- =?us-ascii?Q?CDbRB3DoB41k1EzHvDKVdy9NVcbSXjUPvAMWqTI1qf39Op57cgoG7EIwD3uR?=
- =?us-ascii?Q?kdVsJz/v+IOBVNDK71Bl0SRfP69vV6G/0sVqFa85klXFhVRy993ujX/8XCTh?=
- =?us-ascii?Q?0riQdKSbZ/Psy9axVK6Kjf+DynpmDZGOVjV7qBCV6syeC4ywCwzQXHHY3YWV?=
- =?us-ascii?Q?OfPGFZplyqoKSw1FMltFD3dAL5H12sL34Ewu98HgY7wtOYsWcvVIBQei2VJb?=
- =?us-ascii?Q?lqfbtol9y5tk+fI8G3lEBoKDj4DVsjytHwpW9DX+JtyNe+uQygtdlnCkt0qj?=
- =?us-ascii?Q?hel0nbTWjztkgGUwUJHW801SeUu6XVOgrjC6acZ/+DIHkWKChhJoLPQbxq4R?=
- =?us-ascii?Q?kGof2KMOS+dInYPfviLkarObBez4huqKpy+GpGh/5n3nVVThznuuqgo7iVi1?=
- =?us-ascii?Q?mwZfAO5FQegDkpJSYrB8i0paPDiycqtfAhR7/H8fqS1n2tJbKh5GZ1PsRdS3?=
- =?us-ascii?Q?Ua0dGEVtE/j/hiJgBIoI3dU1oZUGT1yJBimdCQAZPtfkCFqDhr3CZocEOhbN?=
- =?us-ascii?Q?MrwxHz965C0o4Hyo/72ADNbgVxHaLJG1QitirslcoOeU9YTyGrzeJ3mc7+e6?=
- =?us-ascii?Q?lp9SrsW11UkzRAf7PqmAILrEaPZhj1WfJvEUUKGWuWiWnwNKSBG/ga8X5hag?=
- =?us-ascii?Q?ToVnnn1okb0P0K8dLxeksDpl13nt58LbcBDeivM9r8U/IueA35599xvxRJ46?=
- =?us-ascii?Q?pcB5F9qvdok3/+F+ufgeehm/QtUAgCXkWnBC/GWo/VnA8OJPEN6hhl9vx/58?=
- =?us-ascii?Q?v9wYinFtqycW3E4pwjDDmQThBPxlatAoJik2tWA+ddsmwRaV6GYqLiRH7PhT?=
- =?us-ascii?Q?RSzGVkAv7Eg6l/UVSAJU/gU=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 783f7b9c-be72-43b3-3bcf-08dbad98992f
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2023 22:45:12.0743
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Oip2KNRTMbJn1Sc92nT6YdZ02A0XAcdQIIUUAkwdKLHm3UN5y2Q9xwlQ8a1MlHtEoK+kvP+0uvCd/OhERlfyEskbCg7omWfcL1zbu6N1D22z36FOsGykSG8ucYFyWDK4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYTPR01MB10939
-Message-ID-Hash: 2FHYJFCQZHTZEQGL5KDAHZGVF4CT4Z6X
-X-Message-ID-Hash: 2FHYJFCQZHTZEQGL5KDAHZGVF4CT4Z6X
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d102d417-c34d-b4f5-f037-e5460c01ea58@weiss.ch>
+Message-ID-Hash: SOYO2LZFM2JPJS6BIIUEXEC4TEXS2JWT
+X-Message-ID-Hash: SOYO2LZFM2JPJS6BIIUEXEC4TEXS2JWT
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -157,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2FHYJFCQZHTZEQGL5KDAHZGVF4CT4Z6X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOYO2LZFM2JPJS6BIIUEXEC4TEXS2JWT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -166,28 +145,155 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Rolf,
 
-Hi
-
-> Replace custom implementation of the macros from args.h.
+On Mon, Sep 04, 2023 at 06:00:24PM +0200, Rolf Anderegg wrote:
+> Hi Takashi,
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-(snip)
-> -#define SND_SOC_DAILINK_REGx(_1, _2, _3, func, ...) func
->  #define SND_SOC_DAILINK_REG(...) \
-> -	SND_SOC_DAILINK_REGx(__VA_ARGS__,		\
-> -			SND_SOC_DAILINK_REG3,	\
-> -			SND_SOC_DAILINK_REG2,	\
-> -			SND_SOC_DAILINK_REG1)(__VA_ARGS__)
-> +	CONCATENATE(SND_SOC_DAILINK_REG, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__)
+> Glad that we could be of help.
+> We checked this on the firmware side and yes, we can confirm that the
+> Weiss MAN301 is the only device with AV/C protocol (using vendor dependent
+> commands).
+ 
+OK. It is good firmware design to make snd-dice-ctl-service simpler.
 
-Interesting nice macro !
+> We are deploying a small set of commands in order to probe and control
+> the parameters on the MAN301:
+> 
+> WEISS_CMD_ID_DEV_CONST:
+> 	probe the number of parameters
+> 
+> WEISS_CMD_ID_PARAM_OP:
+> 	read/write to a parameter
+> 
+> WEISS_CMD_ID_PARAM_INFO:
+> 	read parameter info (index, type, iface type, name)
+> 
+> WEISS_CMD_ID_ENUM_ITEM_INFO:
+> 	read parameter enum type info
+> 
+> This allows us to populate and control snd-control instances that represent
+> the device's featured parameters [1].
+> 
+> How would you like to proceed for `snd-firewire-ctl-services`?
+> We can start by giving you the output of `amixer contents` for the MAN301,
+> so you see all the controls and their possible values (see below).
+ 
+Great. In my current plan for snd-dice-ctl-service, action items would
+be enumerated in below:
 
-Reviewed-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+1. Add support for all of models except for MA301 (need additional work to
+   current MR to exclude MA301)
+2. implement the vendor dependent command to `firewire-dice-protocols`
+   crate[2] with dependency on `ta1394_avc_general` crate[3]
+3. implement the control primitives to `firewire-dice-protocols` in the
+   fasion of hard-code
+4. Add support for MA301
+
+The reason of hard-code against your implementation in dice-avc.c is
+to express hardware specification in code. FireWire audio devices are 
+nowadays not updated anymore, and I think the explicit control primitives
+is helpful to remaining users.
+
+[1] https://github.com/alsa-project/snd-firewire-ctl-services/pull/175
+[2] https://crates.io/crates/firewire-dice-protocols
+[3] https://docs.rs/ta1394-avc-general/latest/ta1394_avc_general/
+
+> Let us know if there's any additional information we can provide.
+
+If the control primitives have been changed (newly added or abandoned)
+between several firmware versions, I would like you to inform it to me.
+
+> Kind regards,
+> Rolf Anderegg
+> 
+> 
+> [1] https://github.com/weiss-engineering/snd-dice/blob/avc/dice-avc.c
+ 
+Thanks for your delivery of useful information for Weiss models. It is
+my pleasure to maintain Linux systems to use them for 6 more years.
 
 
-Thank you for your help !!
+Regards
 
-Best regards
----
-Kuninori Morimoto
+Takashi Sakamoto
+
+> --
+> $ amixer contents
+> numid=3,iface=CARD,name='Dual Wire Mode Switch'
+>   ; type=BOOLEAN,access=rw------,values=1
+>   : values=off
+> numid=4,iface=CARD,name='Dual Wire Word Clock Half Rate Switch'
+>   ; type=BOOLEAN,access=rw------,values=1
+>   : values=off
+> numid=1,iface=CARD,name='Sync source'
+>   ; type=ENUMERATED,access=rw------,values=1,items=13
+>   ; Item #0 'AES1'
+>   ; Item #1 'AES2'
+>   ; Item #2 'AES3'
+>   ; Item #3 'AES4'
+>   ; Item #4 'AES'
+>   ; Item #5 'ADAT'
+>   ; Item #6 'TDIF'
+>   ; Item #7 'Wordclock'
+>   ; Item #8 'ARX1'
+>   ; Item #9 'ARX2'
+>   ; Item #10 'ARX3'
+>   ; Item #11 'ARX4'
+>   ; Item #12 'Internal'
+>   : values=2
+> numid=10,iface=MIXER,name='DAC::Analog Output Level'
+>   ; type=ENUMERATED,access=rw------,values=1,items=4
+>   ; Item #0 '0 dB'
+>   ; Item #1 '-10 dB'
+>   ; Item #2 '-20 dB'
+>   ; Item #3 '-30 dB'
+>   : values=1
+> numid=8,iface=MIXER,name='DAC::DAC Filter Type'
+>   ; type=ENUMERATED,access=rw------,values=1,items=2
+>   ; Item #0 'A'
+>   ; Item #1 'B'
+>   : values=0
+> numid=9,iface=MIXER,name='DAC::DAC Output Playback Switch'
+>   ; type=BOOLEAN,access=rw------,values=1
+>   : values=on
+> numid=7,iface=MIXER,name='DAC::DAC Polarity Inversion Playback Switch'
+>   ; type=BOOLEAN,access=rw------,values=1
+>   : values=off
+> numid=2,iface=MIXER,name='Digital Input Capture Route'
+>   ; type=ENUMERATED,access=rw------,values=1,items=3
+>   ; Item #0 'AES/EBU (XLR)'
+>   ; Item #1 'S/PDIF (RCA)'
+>   ; Item #2 'S/PDIF (TOS)'
+>   : values=2
+> numid=6,iface=MIXER,name='RCA::RCA Output Playback Switch'
+>   ; type=BOOLEAN,access=rw------,values=1
+>   : values=on
+> numid=5,iface=MIXER,name='XLR::XLR Output Playback Switch'
+>   ; type=BOOLEAN,access=rw------,values=1
+>   : values=on
+> 
+> On 31.08.23 15:28, Takashi Sakamoto wrote:
+> > Hi Michele,
+> > 
+> > Thanks for your contribution of configuration ROM for Weiss models[1].
+> > I'm sorry for my little reaction but currently I'm working for Debian ITP
+> > to linux-firewire-utils package[2][3].
+> > 
+> > As a quick glance, all of configuration ROMs except for Weiss MAN301
+> > include single unit directory, while the exception includes two unit
+> > directories; 1394TA AV/C protocol and TCAT protocol. It means that
+> > the vendor-dependent AV/C command[4] is implemented in MAN301, but not
+> > in the others. Then I would like to figure out whether it is correct or
+> > not. If it is unique for MAN301, the implementation of control service
+> > can be simpler to support the command just for MAN301.
+> > 
+> > [1] https://github.com/takaswie/am-config-roms/pull/5
+> > [2] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1050551
+> > [3] https://mentors.debian.net/package/linux-firewire-utils/
+> > [4] https://github.com/weiss-engineering/snd-dice/blob/avc/dice-avc.c
+> > 
+> > 
+> > Regards
+> > 
+> > Takashi Sakamoto

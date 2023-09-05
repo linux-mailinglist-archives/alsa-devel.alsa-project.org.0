@@ -2,129 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A212C791FDD
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 03:21:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E760D792011
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 04:48:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E94A7F1;
-	Tue,  5 Sep 2023 03:21:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E94A7F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id D76817F1;
+	Tue,  5 Sep 2023 04:47:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D76817F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693876913;
-	bh=FTmsSCHXCYfqeIBLmNn7whpR9v+nlv0f54RXkyNwBu8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693882110;
+	bh=AaaNTTs/g5lOvpyrjnbgZ550unUjsNH819EjzuRD1b0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=B844cBzYlj1gyHFiOFz9EgykQXLkD8RSmxDeHJOog7x6s+zC1tIcs5M0+ztUS9245
-	 B7OMTKx1gbPiHpUwjYl/t2SpC9Zzj5aLNfz8mw1NqLTGo/mI5x4iOybhTOjWY2CPuI
-	 FzvgyQ30XyWxPuX5hg81zSlJf66s5UUlDLBTUebM=
+	b=rQOWPpaz/qckiTywt/Rib+rZ1lze1OwrMrOeoZo+3tCpunoRO+LmPT/TIqYrTwHeT
+	 g3qu2mF+nDmAlxNXTrV1zH1KXsPKentmGtnY+rySNXvGkAXZ7tYsZB+y1cRgA1CrSB
+	 dEv1EittQHe1nffXvgEjxisY9B1TxCf7ZiYeeC0E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA45BF80527; Tue,  5 Sep 2023 03:21:00 +0200 (CEST)
+	id 64F86F80494; Tue,  5 Sep 2023 04:47:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2021F80431;
-	Tue,  5 Sep 2023 03:20:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7204F80431;
+	Tue,  5 Sep 2023 04:47:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 679C0F8047D; Tue,  5 Sep 2023 03:20:55 +0200 (CEST)
+	id 9947BF8047D; Tue,  5 Sep 2023 04:47:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com
+ [115.124.28.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64FADF800F5
-	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 03:20:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64FADF800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm1 header.b=mPZgk+Dn;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=BRxznrdF
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.west.internal (Postfix) with ESMTP id BBDB23200945;
-	Mon,  4 Sep 2023 21:20:34 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Mon, 04 Sep 2023 21:20:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1693876833; x=
-	1693963233; bh=02Q6GEVYd/OOFm1jiN44dR3+OQ5KZE4cKSVS47Oq3Fw=; b=m
-	PZgk+Dns0pJca7ULzFWJy8OkRNTczfJWr1Kgzw0na1HxbZbKViXuL3bPEd8Gsnqy
-	L0WR4DUH0WeZU0wSEUB+7BuRL5GL6eKj5CmFb9Lrsan0/7ZeNRTM79MkW+TEKyaz
-	S9hx+LA7hhGhZk/DxKxS2MeH1Fb9DE+E5iJ76xl+Uv3gRbY+W93RpgBaixv112J4
-	lYD5pLqFumhym2jdOXcXh5C8UlyfxJ12Gf91+/lWNpMargVTvwI1BWgHBYARRkYZ
-	ab25UTgn6ctuTj+YEpcxu9CvLTT1Ut3C3OLFCe1RFynmD4dJqTZ6ylLNrMH3U1Gw
-	zMKZgLjPEtrtoqDp3tWrQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1693876833; x=1693963233; bh=02Q6GEVYd/OOF
-	m1jiN44dR3+OQ5KZE4cKSVS47Oq3Fw=; b=BRxznrdF1p32lK70GJFzF+a/x2iEz
-	yzP3zHiXf6g9gSE2CoXRYlE4YyYJ7bSBmNuJtA5155aGJE5Yqb715Ea5ac6Rq1KU
-	TfKCjrMOCjMh2Hj5gA3vkyb4N7mSP2R73r5q9922g+wE/u6GsUVUjj067idw1U9X
-	bmZQ9mdzQkdpAkCjpgT4OpdcgsvwPrl7GpALIqSKW0TC5QL1jXBntOGFcKM3GHqI
-	qrji5cgyKpHF121u6o5f2WqE/z/JsVxFD61FPP7EmSj2faahMavppHfjyXwSxGNy
-	MQ5EX0hEXDFBrg88csOh6CGkGDkPgG/iGnYntFHMsFq37VcRui0ugSoyQ==
-X-ME-Sender: <xms:YYL2ZP7Y5WJKarL8o5Sz_phdaJczSuFwhDc10Qytk90-OUYw9uDc0g>
-    <xme:YYL2ZE607zIFe58pA56YcBg6wVLP2rsoKdHisvZmZ-FEdLn7f4pqqUrmFWYi1n7Wd
-    KrVjYSi5wcYQaN_6MM>
-X-ME-Received: 
- <xmr:YYL2ZGcxVt_lxmUQWQ7OzveSYDuXjOd-t7KFOv4tTIqOzK_vwSPXz6ourpECwb6sgUxKkfKp3e5iRHtxvRietrX3vdNpbGtyIoc>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedviedrudegledggeehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
-    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
-    hjpheqnecuggftrfgrthhtvghrnhepudefheffffeugfdugeehfefgvdeikefgffehudeu
-    geehhedtvdetudfgvdevgeetnecuffhomhgrihhnpehgihhthhhusgdrtghomhdptghrrg
-    htvghsrdhiohdpughotghsrdhrshdpuggvsghirghnrdhorhhgpdguvggsihgrnhdrnhgv
-    thenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqd
-    htrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:YYL2ZAL_7KlEi7d0uCy39-gJP5mP5bSKTU-QThAaC_t8R2Bo9WLm6w>
-    <xmx:YYL2ZDIkIFWe9o0uRYcKqj8szp2ES-k0yRN1yC5lvxxW4MtesyDA1Q>
-    <xmx:YYL2ZJzxMlqD57YyjDv0Oy1sFztgOU7N1DbVxZPMeJXDRKQ185S4rA>
-    <xmx:YYL2ZJgokE6jEAHo8flYgJT0JaNnEGdPJ_WqH1Tangi4e5DkGLVG0w>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 Sep 2023 21:20:32 -0400 (EDT)
-Date: Tue, 5 Sep 2023 10:20:28 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Rolf Anderegg <rolf.anderegg@weiss.ch>
-Cc: alsa-devel@alsa-project.org, Michele Perrone <michele.perrone@weiss.ch>
-Subject: Re: ALSA: dice: improve support for Weiss devices
-Message-ID: <20230905012028.GA262570@workstation.local>
-Mail-Followup-To: Rolf Anderegg <rolf.anderegg@weiss.ch>,
-	alsa-devel@alsa-project.org,
-	Michele Perrone <michele.perrone@weiss.ch>
-References: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
- <20230728131308.GA142765@workstation.local>
- <7a0cf3fd-9e31-45e1-7aa4-97cab27dafa7@weiss.ch>
- <20230731140655.GA367100@workstation.local>
- <81450de2-3bf5-cb96-114f-6d75314e5a03@weiss.ch>
- <20230808152511.GA729027@workstation.local>
- <a41c675d-c1bd-4e89-9519-63b2b088f16d@weiss.ch>
- <20230822135807.GA470519@workstation.local>
- <20230831132817.GB174574@workstation.local>
- <d102d417-c34d-b4f5-f037-e5460c01ea58@weiss.ch>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40A32F80236
+	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 04:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40A32F80236
+X-Alimail-AntiSpam: 
+ AC=CONTINUE;BC=0.1763104|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0237881-0.00029532-0.975917;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047190;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.UXjJ.KH_1693882020;
+Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
+ fp:SMTPD_---.UXjJ.KH_1693882020)
+          by smtp.aliyun-inc.com;
+          Tue, 05 Sep 2023 10:47:03 +0800
+From: wangweidong.a@awinic.com
+To: krzysztof.kozlowski@linaro.org
+Cc: alsa-devel@alsa-project.org,
+	broonie@kernel.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	wangweidong.a@awinic.com,
+	yijiangtao@awinic.com
+Subject: Re: [PATCH 3/3] ASoC: aw88395: drop undocumented and unused
+ sound-channel property
+Date: Tue,  5 Sep 2023 10:46:59 +0800
+Message-ID: <20230905024659.15071-1-wangweidong.a@awinic.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230904125309.43350-3-krzysztof.kozlowski@linaro.org>
+References: <20230904125309.43350-3-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d102d417-c34d-b4f5-f037-e5460c01ea58@weiss.ch>
-Message-ID-Hash: SOYO2LZFM2JPJS6BIIUEXEC4TEXS2JWT
-X-Message-ID-Hash: SOYO2LZFM2JPJS6BIIUEXEC4TEXS2JWT
-X-MailFrom: o-takashi@sakamocchi.jp
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: A4H2DYXOFW5FZDDBRJ2VQJEZUXZDBA6L
+X-Message-ID-Hash: A4H2DYXOFW5FZDDBRJ2VQJEZUXZDBA6L
+X-MailFrom: wangweidong.a@awinic.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOYO2LZFM2JPJS6BIIUEXEC4TEXS2JWT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A4H2DYXOFW5FZDDBRJ2VQJEZUXZDBA6L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,155 +88,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Rolf,
+Thank you very much for the proposed patch, but I have some 
+questions that I would like to discuss with you
 
-On Mon, Sep 04, 2023 at 06:00:24PM +0200, Rolf Anderegg wrote:
-> Hi Takashi,
-> 
-> Glad that we could be of help.
-> We checked this on the firmware side and yes, we can confirm that the
-> Weiss MAN301 is the only device with AV/C protocol (using vendor dependent
-> commands).
- 
-OK. It is good firmware design to make snd-dice-ctl-service simpler.
+On Mon, Sep 04, 2023 at 12:53 PM +0200, Krzysztof Kozlowski wrote:
+> The Devicetree sound-channel property was never accepted and is not
+> allowed by bindings.  It is not used by any upstream user, thus
+> considering that it was never documented, should be dropped.
 
-> We are deploying a small set of commands in order to probe and control
-> the parameters on the MAN301:
-> 
-> WEISS_CMD_ID_DEV_CONST:
-> 	probe the number of parameters
-> 
-> WEISS_CMD_ID_PARAM_OP:
-> 	read/write to a parameter
-> 
-> WEISS_CMD_ID_PARAM_INFO:
-> 	read parameter info (index, type, iface type, name)
-> 
-> WEISS_CMD_ID_ENUM_ITEM_INFO:
-> 	read parameter enum type info
-> 
-> This allows us to populate and control snd-control instances that represent
-> the device's featured parameters [1].
-> 
-> How would you like to proceed for `snd-firewire-ctl-services`?
-> We can start by giving you the output of `amixer contents` for the MAN301,
-> so you see all the controls and their possible values (see below).
- 
-Great. In my current plan for snd-dice-ctl-service, action items would
-be enumerated in below:
+This node property is intended for use with multiple PA, to
+load different configurations for different PA.
+Can I add this sound-channel in the "awinic,aw88395.yaml" file?
 
-1. Add support for all of models except for MA301 (need additional work to
-   current MR to exclude MA301)
-2. implement the vendor dependent command to `firewire-dice-protocols`
-   crate[2] with dependency on `ta1394_avc_general` crate[3]
-3. implement the control primitives to `firewire-dice-protocols` in the
-   fasion of hard-code
-4. Add support for MA301
+> Even though it does not look like from the diff, the property is not
+> actually used by the driver, because once set, it is read only in loops
+> depending on ddt_num (prof_hdr->ddt_num, cfg_hdr->ddt_num).  The
+> variable ddt_num is never set and is always 0, so the loops do not have
+> any iteration.  Dropping sound-channel and ddt_num-related loops allows
+> to drop empty functions which in turn drop quite a lot of code.  This
+> entire code was not possible to execute. 
 
-The reason of hard-code against your implementation in dice-avc.c is
-to express hardware specification in code. FireWire audio devices are 
-nowadays not updated anymore, and I think the explicit control primitives
-is helpful to remaining users.
+The ddt_num variable is not always 0, this variable is defined
+in the configuration file. The "prof_hdr" variable is assigned by 
+the "cfg_hdr" variable. The "cfg_hdr" variable is assigned by "aw_cfg"
+aw_cfg is the data obtained through request_firmware.The specific 
+process is as follows:
 
-[1] https://github.com/alsa-project/snd-firewire-ctl-services/pull/175
-[2] https://crates.io/crates/firewire-dice-protocols
-[3] https://docs.rs/ta1394-avc-general/latest/ta1394_avc_general/
-
-> Let us know if there's any additional information we can provide.
-
-If the control primitives have been changed (newly added or abandoned)
-between several firmware versions, I would like you to inform it to me.
-
-> Kind regards,
-> Rolf Anderegg
-> 
-> 
-> [1] https://github.com/weiss-engineering/snd-dice/blob/avc/dice-avc.c
- 
-Thanks for your delivery of useful information for Weiss models. It is
-my pleasure to maintain Linux systems to use them for 6 more years.
+request_firmware ---> cont->data ---> aw_cfg->data --> cfg_hdr --> prof_hdr
 
 
-Regards
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Takashi Sakamoto
+---
 
-> --
-> $ amixer contents
-> numid=3,iface=CARD,name='Dual Wire Mode Switch'
->   ; type=BOOLEAN,access=rw------,values=1
->   : values=off
-> numid=4,iface=CARD,name='Dual Wire Word Clock Half Rate Switch'
->   ; type=BOOLEAN,access=rw------,values=1
->   : values=off
-> numid=1,iface=CARD,name='Sync source'
->   ; type=ENUMERATED,access=rw------,values=1,items=13
->   ; Item #0 'AES1'
->   ; Item #1 'AES2'
->   ; Item #2 'AES3'
->   ; Item #3 'AES4'
->   ; Item #4 'AES'
->   ; Item #5 'ADAT'
->   ; Item #6 'TDIF'
->   ; Item #7 'Wordclock'
->   ; Item #8 'ARX1'
->   ; Item #9 'ARX2'
->   ; Item #10 'ARX3'
->   ; Item #11 'ARX4'
->   ; Item #12 'Internal'
->   : values=2
-> numid=10,iface=MIXER,name='DAC::Analog Output Level'
->   ; type=ENUMERATED,access=rw------,values=1,items=4
->   ; Item #0 '0 dB'
->   ; Item #1 '-10 dB'
->   ; Item #2 '-20 dB'
->   ; Item #3 '-30 dB'
->   : values=1
-> numid=8,iface=MIXER,name='DAC::DAC Filter Type'
->   ; type=ENUMERATED,access=rw------,values=1,items=2
->   ; Item #0 'A'
->   ; Item #1 'B'
->   : values=0
-> numid=9,iface=MIXER,name='DAC::DAC Output Playback Switch'
->   ; type=BOOLEAN,access=rw------,values=1
->   : values=on
-> numid=7,iface=MIXER,name='DAC::DAC Polarity Inversion Playback Switch'
->   ; type=BOOLEAN,access=rw------,values=1
->   : values=off
-> numid=2,iface=MIXER,name='Digital Input Capture Route'
->   ; type=ENUMERATED,access=rw------,values=1,items=3
->   ; Item #0 'AES/EBU (XLR)'
->   ; Item #1 'S/PDIF (RCA)'
->   ; Item #2 'S/PDIF (TOS)'
->   : values=2
-> numid=6,iface=MIXER,name='RCA::RCA Output Playback Switch'
->   ; type=BOOLEAN,access=rw------,values=1
->   : values=on
-> numid=5,iface=MIXER,name='XLR::XLR Output Playback Switch'
->   ; type=BOOLEAN,access=rw------,values=1
->   : values=on
-> 
-> On 31.08.23 15:28, Takashi Sakamoto wrote:
-> > Hi Michele,
-> > 
-> > Thanks for your contribution of configuration ROM for Weiss models[1].
-> > I'm sorry for my little reaction but currently I'm working for Debian ITP
-> > to linux-firewire-utils package[2][3].
-> > 
-> > As a quick glance, all of configuration ROMs except for Weiss MAN301
-> > include single unit directory, while the exception includes two unit
-> > directories; 1394TA AV/C protocol and TCAT protocol. It means that
-> > the vendor-dependent AV/C command[4] is implemented in MAN301, but not
-> > in the others. Then I would like to figure out whether it is correct or
-> > not. If it is unique for MAN301, the implementation of control service
-> > can be simpler to support the command just for MAN301.
-> > 
-> > [1] https://github.com/takaswie/am-config-roms/pull/5
-> > [2] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1050551
-> > [3] https://mentors.debian.net/package/linux-firewire-utils/
-> > [4] https://github.com/weiss-engineering/snd-dice/blob/avc/dice-avc.c
-> > 
-> > 
-> > Regards
-> > 
-> > Takashi Sakamoto
+> Not tested on hardware... but feature removed here could not work
+> according if conforming to documented interface.
+---
+>  sound/soc/codecs/aw88261.c                   |  13 -
+>  sound/soc/codecs/aw88395/aw88395_data_type.h |   1 -
+>  sound/soc/codecs/aw88395/aw88395_device.c    |  21 -
+>  sound/soc/codecs/aw88395/aw88395_device.h    |   1 -
+>  sound/soc/codecs/aw88395/aw88395_lib.c       | 788 -------------------
+>  5 files changed, 824 deletions(-)
+
+> diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
+> index a5de7c704e73..e0527ce2f83e 100644
+> --- a/sound/soc/codecs/aw88261.c
+> +++ b/sound/soc/codecs/aw88261.c
+> @@ -1171,17 +1171,6 @@ static void aw88261_hw_reset(struct aw88261 *aw88261)
+>  	usleep_range(AW88261_1000_US, AW88261_1000_US + 10);
+>  }
+
+...
+
+Best Regards,
+Weidong Wang

@@ -2,134 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B527932B6
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Sep 2023 01:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F321A793531
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Sep 2023 08:20:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C6897F1;
-	Wed,  6 Sep 2023 01:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C6897F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5D9D825;
+	Wed,  6 Sep 2023 08:19:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5D9D825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693958172;
-	bh=RL56H2R1fieBsfqM0aisZr93umGofhlCdNLGPJnEMDw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1693981218;
+	bh=VF62B/5TkcnDX4eK7Kn/XtE5JfQO/OSBthWKgVkxFtg=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K7ZGVyYJ+3IVKf28LWxQU+OlFdGIhnzY+5TlD2MWbgqiWSYdj2rN3YtBAzMsG/ZKL
-	 IMP9A95g+NkFJ3d4MM8Usmsm7OENoBIuBRPKDvUq7UWittmwHrcUBSBmD7YXU6BKHK
-	 4KI49eqJ6fOPpMz4k+ZtTqB5tA/0kgEwucUf/pc4=
+	b=pgZc8Mlw9alWufjJ6LFoVr5y5QRscfLvuedKvaPp2JKpLsk541lGJP6ynXuHk5NSQ
+	 9kQ5A47HiuNmFsRc2is8QsMil3ukZxHK8LKrYi3fK92OwBN/hpjZkaqpnkdlaY53hr
+	 msMPYuyQsJ4hPF5m34f25JrfZXnGVR6QDN3oqiJY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB027F800AA; Wed,  6 Sep 2023 01:55:02 +0200 (CEST)
+	id 4062BF8047D; Wed,  6 Sep 2023 08:19:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AB17F8047D;
-	Wed,  6 Sep 2023 01:55:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02FE1F8047D;
+	Wed,  6 Sep 2023 08:19:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA3E8F80494; Wed,  6 Sep 2023 01:54:58 +0200 (CEST)
+	id 2C08AF80494; Tue,  5 Sep 2023 15:51:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_HI,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::70e])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86C1BF80236
-	for <alsa-devel@alsa-project.org>; Wed,  6 Sep 2023 01:54:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86C1BF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36D7DF800F5
+	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 15:51:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36D7DF800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm1 header.b=fbfogEFc;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=v/qcNXbD
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.nyi.internal (Postfix) with ESMTP id A2F075C0076;
-	Tue,  5 Sep 2023 19:54:46 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Tue, 05 Sep 2023 19:54:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1693958086; x=
-	1694044486; bh=dPsHDpN7+anTUdYdobzSVtgJ1EWm27pUVlVyegakwzo=; b=f
-	bfogEFcuW2QxFALX6Grc//na0AASVbk+oWVdKyyzXtE8yBoL05omc3HQZGk7flrt
-	cFvzsMZll1/IcnLg8AWO92oZZsiCJFqRvLOwNb0lJW4/ZS7FUIdlRiOI3MbDliYV
-	oBvTPwy7fmVPG2WrFaFksE+YN7r5O0e4ssrUtKC0WU/V/bkkCafwV63+H7YDbB/U
-	4zLAWgQvX7hnZ5RM7FPrFWe3J+Zyqgyv/hyKpN6tYZSr514fYZCIeQY343hwCBUQ
-	lmy1s2WjvF/4wDAAYiXVDI3MGmbQ0yReOEwoZ2P9Vb5p+GcLhMSyRB//a0EP80PM
-	ubANu8D4OtVT4Jp4rbY9A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1693958086; x=1694044486; bh=dPsHDpN7+anTU
-	dYdobzSVtgJ1EWm27pUVlVyegakwzo=; b=v/qcNXbDYPJl44RWAOk1QjFmu/LIP
-	WP5HK7ghSa2FkM4CZ5ycJGH/wROzaLJre0yp0eWN15NhfFCWAMmdbb4s1QYnxq/C
-	j4TsO1mEjOLGmMTK8Qga/z9gSTqARoUOjKN4fLLiSS3wfMnvjPDzxnBmV8ha7V/S
-	hAgQRswCBmI+oJaDTi4IZ0GUES/uFeehkI8hK1R73RQBN0hM1pOvTw0W7sM31Y1J
-	wuNM+ITf+NeREY3k/DgOV1ehjXTd4/cxkzQLpD+T4aB07j09Y+ZxYax4S/b9zqiY
-	4gocTDJ9iMeNxQjVfTKzJvPW4rVTSvGF0i29zw2ERbCA9FuvV9gTB7o+A==
-X-ME-Sender: <xms:xb_3ZD2HCVmy30KNWnj-bm6niQ6Z5J32UGBNvZIkYgJynnJwqvPvxg>
-    <xme:xb_3ZCF_wVIc7SZNPphMcTpGQR_TfioFawe2OHuTnVd3KXVjujen6ozTEPPmkGT90
-    5ejHp-la1ba7S8Rk6A>
-X-ME-Received: 
- <xmr:xb_3ZD4fZ9wjqtjPycjTVk3E3fxFugGswOAw1R47TdYOAhUqiLBRY7Uhw5mG4-k_FjkIdU0i-16gl3Jvj3tq-YeoE3heLLva06Q>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedviedrudehvddgvdekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
-    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
-    hjpheqnecuggftrfgrthhtvghrnhepjeeggeeuieegleeiffdvjeevkeduueelleevvdff
-    ueejgfetieevtdelueevteeunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhith
-    hhuhgsrdgtohhmpdhffhgrughordhorhhgpdifvghishhsrdgthhenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrg
-    hkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:xr_3ZI1tBVSENeBPkzdRDCai7EDVDCUqTOxPMnuCiyD8sxgTBrn3Jg>
-    <xmx:xr_3ZGEX_CbzmPlDlN5Ilinel_SuZBovLq6FwDY1v2kauldWWanEyg>
-    <xmx:xr_3ZJ-2qULNXYnB5StncdAEm6YFx5DFy90cIt4tGZ3XizSb89X0Lg>
-    <xmx:xr_3ZLRP1PX0WGVehVhBOtf-KlJ9Fbbf-fej1gy96SD_YVISru7o-Q>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 5 Sep 2023 19:54:44 -0400 (EDT)
-Date: Wed, 6 Sep 2023 08:54:41 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Michele Perrone <michele.perrone@weiss.ch>,
-	Rolf Anderegg <rolf.anderegg@weiss.ch>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-Subject: INT203 and DAC1 (Re: [PATCH] ALSA: dice: add stream format
- parameters for Weiss devices)
-Message-ID: <20230905235441.GA24829@workstation.local>
-Mail-Followup-To: Michele Perrone <michele.perrone@weiss.ch>,
-	Rolf Anderegg <rolf.anderegg@weiss.ch>,
-	Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
+ unprotected) header.d=catalina.com header.i=@catalina.com header.a=rsa-sha256
+ header.s=selector2 header.b=ypgd4GVU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kmDHeJxTbJwE97JR41HA/OLgjpQXP5QpuaaxoYvmjJ26gYD+t7/faQ/joff0kF6RdZXChqi/nxcApdAk2Uy4GIVZSze6o0R2WyxjyJqDUB8AoIm13KTteA69KZN+hE96VcxGlpNPIqymj+fXO72L3tull6lBfj/Cf3G/U0F5LyLpxf16MuanifWd8swVLYcUtwCzlVTmUeZepvHKgpXeeFs7WINje7HE+PHt//WYvtPILIrkfn0H7DJqRrXo0CsMVABlEy/C5K15Di1Si+oNK2fGpJR+Sfwxkgfov/aggAe1lWrUvAf//ls/lLha9b1jdCB+igK27cibMgGm3PUKxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=26GuQ0a6YzJrio/VbMK0CKGNqqnPGNl8DVGrlbQ/w/4=;
+ b=coAgYtMNNfxWUcqIbQ1eWzCZSC5YkzhZdUJiy54eCG6XU4f9KQUk2BRudgx+Y6n/jekaFlhOp6eUqGQxQS+k3goupLGEQPBkDE6Ra0S7JFiwg2xycY6hSby4rAmbP42FeKVrt5MRWhvrMIJuuZGkghkUcS6WlIpQ1xEtoKSk2529i2yfrZKfb9DHPOvnTGgWGVqR2zpCDJM5ZRHsLe/VjjJaTWxUmF69Mw79/V5iNZtEwg7yr7pmIj/2STOXv0C4CRGZjs5VvAPx/ZX/pUA1lBUZtyokEIGaE0cqGFvOuu9zdwl5VTAaFAooPRAnt4ztmqXh4VI3DVeOfLL7Vk0Grw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=catalina.com; dmarc=pass action=none header.from=catalina.com;
+ dkim=pass header.d=catalina.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=catalina.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=26GuQ0a6YzJrio/VbMK0CKGNqqnPGNl8DVGrlbQ/w/4=;
+ b=ypgd4GVU2So7uzQvUhfGN27oAAscbQ20MZ/DXdAv2evveznWGrAaE8qHYsrTDGmDiRPDc6V3WNLa/rRg7Ip0iuO5DzIderYgWR6q/CvNKxYcMi+uf2AMnsDyRLUb0nZJiY96gC+sSAMgvROc/kSTr8wWhPtcgRk6vIwDt5J+k4AQ+IlLmvIfmI6Tn5g8xcHPRyce2gt/zq2M8RVKGuBasYr84aAd4bFBJey71cH+oHg0xGIb2AehEJNmzIGNT+5elpaKVtQA5COtwpUq8DxSWXAO4mBdry6AiL1AY66y7RPVPmZ+jyJu/Z6aBjtmfxPgFKg72xygzrrsHVn/q53rxA==
+Received: from BN0PR02MB8045.namprd02.prod.outlook.com (2603:10b6:408:16d::23)
+ by DM8PR02MB7861.namprd02.prod.outlook.com (2603:10b6:8:20::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
+ 2023 13:51:31 +0000
+Received: from BN0PR02MB8045.namprd02.prod.outlook.com
+ ([fe80::1c07:b772:24ea:f256]) by BN0PR02MB8045.namprd02.prod.outlook.com
+ ([fe80::1c07:b772:24ea:f256%6]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
+ 13:51:30 +0000
+From: Terry Hummel <Terry.Hummel@catalina.com>
+To: Jaroslav Kysela <perex@perex.cz>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>
+CC: Dulani McLaurin <Dulani.McLaurin@catalina.com>
+Subject: Re: Bug Report: Audio issues with CentOS7
+Thread-Topic: Bug Report: Audio issues with CentOS7
+Thread-Index: AQHZ3zuyVOwv+LHOWkuu6+CmLUIUyLAL1gOAgABkb/U=
+Date: Tue, 5 Sep 2023 13:51:30 +0000
+Message-ID: 
+ <BN0PR02MB8045C507932EEDF72FB62783FAE8A@BN0PR02MB8045.namprd02.prod.outlook.com>
+References: 
+ <BN0PR02MB80455425D6077DEC556A4F83FAE9A@BN0PR02MB8045.namprd02.prod.outlook.com>
+ <20945414-c6c0-acf7-8340-9e7697b0e833@perex.cz>
+In-Reply-To: <20945414-c6c0-acf7-8340-9e7697b0e833@perex.cz>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=catalina.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN0PR02MB8045:EE_|DM8PR02MB7861:EE_
+x-ms-office365-filtering-correlation-id: 1ada3d1c-4d85-4c9a-a3c4-08dbae173578
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ MqYQLO4v6roQ8WpLYsVEVsaEeW9Z9TPc/iRCbxbLYBHyXFXyyc6wyIsQ3TO+5gG7LYNo7npLtyzgFEqAv0tlWqf6DzQMugjXouk9JYiYhegWNyTJc4yaT1GXyXjgPlEN6U6xYHxPBKYLi93yxv7pGvedsR1wBd0CxxMzF/cdbhEt0N5IZU2fceBY7YZ9KoBmh3qoA3kmaAd/+7IIydUWiJR3bHfIMWFtXx7p32EParT69AL/XSP9P6dFKltl6y+vIQ4hRU3cw8EqhJ6laCfmcnJ2FTjxn39fXpmLHPaeIc6fDo2nBu3zUA9I6WR7PSZhyor/YPPjbY5sc3/nZqC0FNDRcu/ACxKKOGQcB/6CPbwE3zh9UNKkw54mY2D8xcwAQvYlr8p6H9jhk8fVu2pQr3hx/iX//yjvDwq4CBKjvlcVN+drckdBwnXQBhfRif6pJFuNbyn7dJvCaXB83tE/i7RgFIRr3h+/hANv6qyCSqjkCNFssbgXPWBoy+yDa/tYsjBNhQTKs2on+I+HSftYKJ0TP6uCZyW5vTTJ/6HjnAkBlTN3qCMaVbWyyhdN0hKV8n0U4jRRYFuL7Z3gKPqNVzeVxoUHi223hWSBlUsXNmyzfz+CcNRR8umj08EDmIPZ
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR02MB8045.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(346002)(366004)(136003)(396003)(186009)(1800799009)(451199024)(41300700001)(107886003)(110136005)(66556008)(66446008)(66476007)(66946007)(64756008)(76116006)(86362001)(55016003)(26005)(83380400001)(316002)(33656002)(5660300002)(38070700005)(52536014)(38100700002)(99936003)(478600001)(122000001)(166002)(53546011)(9686003)(19627405001)(6506007)(7696005)(966005)(71200400001)(4326008)(8676002)(8936002)(2906002);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?Windows-1252?Q?pSNtyLlTNF9Z53zx4+SorwMTdlPGsKwbA7CUR6SVoJxCRlhYMLsf2lNE?=
+ =?Windows-1252?Q?COJNoKYBPuqWI/smtVXQ9AaNg2XmBdYHvANlEMRmnauowMQ6Vv9jmVLS?=
+ =?Windows-1252?Q?l3lcR4X5DJmU2s3n7GXYX2uPJKBKlYAvXiDL4BPPfFCWcgZGrFwVPcfh?=
+ =?Windows-1252?Q?WynyGu2U0cm42QeUKcesvdL8u9vhznj8RQQ4SLtDRDYXXignWsDMeCL1?=
+ =?Windows-1252?Q?VNdIIAyMoyMnqyhehviPlNKJYPqrHUHahHb9r066shYLBmrmz2QJt/vD?=
+ =?Windows-1252?Q?vy60Z1QraaEEpTU9mNdxePxF76w1lyQUxoP2SPmFpo4qXHyGGz/JzIh9?=
+ =?Windows-1252?Q?zP9kfNu8YD/FHJufBYRvvNJFCy+Xj3nZCnloDTW5x6LjYsnbUbhriVTZ?=
+ =?Windows-1252?Q?6PbZgVVT200smJ56J4LnnCwm6EjoG5FM/Lse5M1MotcNBkB3LOPzNgTa?=
+ =?Windows-1252?Q?rSfBcaKbg75LItV9XtQ+h/I1wdzp+s2ga3V2yw/6Okd7l8ZRMlFOQn4C?=
+ =?Windows-1252?Q?Sha18b1UaHdR7glq6ZZIAo0hrjeLxCMPtrVytua0c9Yn+GB58+M37DLy?=
+ =?Windows-1252?Q?2JyXFt1YwXJIOxsOgcY5EAz1bnIzzc17A9rH/1eKCzvX/ieo3KA+MdGJ?=
+ =?Windows-1252?Q?U7k1wNCfxdKs7EI5n2RMRO/QWRfzQ7fDmnYkg0pJFgtHCdcvhoXTkVYb?=
+ =?Windows-1252?Q?yZOqhiXYFwe2aN72ErRf45QU1P3wtHnMVVo819v/aT+cXz0vZynGtkOX?=
+ =?Windows-1252?Q?iZBnbcn1UVpqJ0qjPTARLqxJGnqe3nn1mI9v8/OLRlhm9cjDQt9SE20q?=
+ =?Windows-1252?Q?0UHq4YdnanWA1NyvoXUrw/wZnLtCFjFVV4pqzWJ0LvrycnAL+h+Oh367?=
+ =?Windows-1252?Q?58LxfgM/eLv7oG6IZ0Qjul3tdUdQp8Ox6em0cKqVUxZY+Klyo7M1TVIC?=
+ =?Windows-1252?Q?0MmnPaJOlNZn6+gpHSrAk11cz2aAza55t4BCSo6fcKLbzKrnn7+EyvR2?=
+ =?Windows-1252?Q?qxgSim+YsuyUw+6804s1Sul1DpGSHQ+xYcp5O1T8dwjFkhNWUyr8a1au?=
+ =?Windows-1252?Q?E5dsg9Y1ieWAuUBCpaBXQrvUeYebRquLJgajucd9T7UHzoxpWfU4qQI/?=
+ =?Windows-1252?Q?kr4iIU08n0OH0Tf6CNJUYd1t1SZO0Ce1pEBOJeEQTeeE0/J72F3fJTuK?=
+ =?Windows-1252?Q?kDyCSiiR6fKWIsGhplB3ewtyFfnnxZrGS8xuM63Z1YiJeqEipjlzYZDq?=
+ =?Windows-1252?Q?YW0Qt+DVcF3yyUJWuhg00NzXl/+NQzd9i0BTecWTr9za4OOnh8P7GCIt?=
+ =?Windows-1252?Q?HSsNXuF7hJXkkY5IHd+BPVHp0QMi882JGA+oAJ0i3K5SYcHwHO5pU3ui?=
+ =?Windows-1252?Q?2CUOo+bLndWb3vXJZrfqMbQX3H2kYxYgO0yW4o+YeZ7CXYisAEdbc5EQ?=
+ =?Windows-1252?Q?cgCIg4KHnrvTUcxNT9extKWN13TRjDokjrC4nWddFbKz9xnJeNdzDy2k?=
+ =?Windows-1252?Q?UQbvD+DqYHljNfXi9bKSaDn95LR4XYZU6u1vU0Kn0gmwek4PblXGh04i?=
+ =?Windows-1252?Q?ByB49HMFjjceBMA+1KKq8/TrkEUTSQJLMx3hFDcwxjrPXd4oT2W35Wus?=
+ =?Windows-1252?Q?aNtdGMF+MOjeuwc/LJwXHU+FS/bZGzn0mY7io/mu/c41y8TKrZ2TKZP3?=
+ =?Windows-1252?Q?pK0QOUu37A0=3D?=
+Content-Type: multipart/mixed;
+	boundary="_004_BN0PR02MB8045C507932EEDF72FB62783FAE8ABN0PR02MB8045namp_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24703333-9250-40bf-e736-a5f3c4862034@weiss.ch>
-Message-ID-Hash: QXYWP53MLL3XPNXIHH67B7RPZZKD3TU2
-X-Message-ID-Hash: QXYWP53MLL3XPNXIHH67B7RPZZKD3TU2
-X-MailFrom: o-takashi@sakamocchi.jp
+X-OriginatorOrg: catalina.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR02MB8045.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 1ada3d1c-4d85-4c9a-a3c4-08dbae173578
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2023 13:51:30.7277
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 2eddc39c-2996-4c2a-ab97-f767c39ea155
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ Tega33lfWQInFVkpOonF2jOEYkoa5Xr73ldy8UVuXYGcnm398OHzaTPiUxxGfbXKckLr0HWrAjfrdKtdY4M9iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR02MB7861
+X-MailFrom: Terry.Hummel@catalina.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: TNUHVHIE75JQVC5WYZPARMBO6RQ4FMXS
+X-Message-ID-Hash: TNUHVHIE75JQVC5WYZPARMBO6RQ4FMXS
+X-Mailman-Approved-At: Wed, 06 Sep 2023 06:19:24 +0000
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QXYWP53MLL3XPNXIHH67B7RPZZKD3TU2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6VLP2HX32N4JPHKXO4FSSXQ3S5XSFKU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,58 +170,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Rolf and Michele,
+--_004_BN0PR02MB8045C507932EEDF72FB62783FAE8ABN0PR02MB8045namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-I'm working to fulfill hardware database of systemd project[1] for Weiss models with received
-collection of configuration ROM, then have some issues. I would ask you to provide information
-to solve them.
+Hi Jaroslav. Thank you very much for your input.
 
-This is the table of the value of model ID field and model name.
-
-                snd-dice    am-config-roms  systemd hwdb
-DAC202          0x000007    0x000007        0x000007
-DAC202(Maya)    0x000008    not yet         not yet
-MAN301          0x00000b    0x00000b        not yet
-INT202          0x000006    0x000006        0x000006
-INT203          0x00000a    0x000006 (?)    not yet
-ADC2            0x000001    0x000001        0x000001
-DAC2/Minerva    0x000003    0x000003        0x000003
-Vesta           0x000002    0x000002        0x000002
-AFI1            0x000004    0x000004        0x000004
-DAC1            not yet (?) not yet (?)     0x000005
-
-I have two issues.
-
-1. INT203
-
-The modalias table in ALSA dice driver[2] includes 0x00000a for the model, while the configuration
-ROM includes 0x000006. Michele wrote commit comment for it[3]:
-
-```
-Note: the INT203 presents itself as INT202, because the firmware
-      running on the two devices is the same.
-      The difference between the two lies in a jumper setting
-      inside the device.
-```
-
-In my opinion, there are multiple hardawre revisions for the model.
-
-2. DAC1
-
-When committing to hardware database of systemd project[4], I referred to libffado2 configuration
-file[5]. It includes `DAC1` with model ID 0x000005, while it is neither found in ALSA dice driver
-nor the collection of configuration ROM. As long as searching DAC1 in website of Weiss Engineering,
-I can see DAC1-mk3 has option card for IEEE 1394 connection[6]. Would I request you to provide
-information about the model?
-
-[1] `hwdb.d/80-ieee1394-unit-function.hwdb` in systemd project
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/firewire/dice/dice.c?id=4fb0dacb78c6a041bbd38ddd998df806af5c2c69#n395
-[3] https://github.com/takaswie/am-config-roms/commit/e6717b3cbb4a
-[4] https://github.com/systemd/systemd/commit/ff1cb7b9393ac
-[5] http://subversion.ffado.org/browser/trunk/libffado/configuration
-[6] https://weiss.ch/products/pro-audio/dac1-mk3/
+I created the alsa-beep.conf file in the /etc/modprobe.d/ folder and reboot=
+ed. When the system came up, I still couldn't get the speaker to make a sou=
+nd via the beep command. I attached the .conf file just in case you wanted =
+to confirm the contents.
 
 
-Regards
+________________________________
+From: Jaroslav Kysela <perex@perex.cz>
+Sent: Tuesday, September 5, 2023 3:26 AM
+To: Terry Hummel <Terry.Hummel@catalina.com>; alsa-devel@alsa-project.org <=
+alsa-devel@alsa-project.org>
+Cc: Dulani McLaurin <Dulani.McLaurin@catalina.com>
+Subject: Re: Bug Report: Audio issues with CentOS7
 
-Takashi Sakamoto
+[You don't often get email from perex@perex.cz. Learn why this is important=
+ at https://aka.ms/LearnAboutSenderIdentification ]
+
+CAUTION: This email originated from outside of the organization. Do not cli=
+ck links or open attachments unless you recognize the sender and know the c=
+ontent is safe.
+
+
+On 04. 09. 23 16:56, Terry Hummel wrote:
+
+> How to reproduce:
+> Try to get sound to come from the HP RP 5810 speaker using:
+> printf '\a'
+> printf '\007'
+> echo -e '\a'
+> echo -e '\007'
+> beep -f330 -l137 -n -f330 -l275 -n -f330 -l137 -n=85etc (I have a beep tu=
+ne in a shell script)
+> // when beep is run, it appears to run with no errors.
+>
+> Actual results:
+> The above commands run without any complaints of missing audio device. Bu=
+t no sound coming from the 5810 PC internal Speakers
+
+Beeps/terminal bells are a bit different. They are handled through the soun=
+d
+servers these days, thus the PWM modulator output is disabled by default in
+the HDA driver. I assume that you're running your system without the sound =
+server.
+
+$ modinfo snd-hda-intel | grep beep
+parm:           beep_mode:Select HDA Beep registration mode (0=3Doff, 1=3Do=
+n)
+(default=3D1). (array of bool)
+
+Note that CentOS 7 have the default 0 (off) for this parameter. The
+description is incorrect. Try to set this module parameter in modprobe
+configuration files:
+
+   echo "options snd-hda-intel beep_mode=3D1" > /etc/modprobe.d/alsa-beep.c=
+onf
+   ... and reboot
+
+                                                Jaroslav
+
+--
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+
+
+--_004_BN0PR02MB8045C507932EEDF72FB62783FAE8ABN0PR02MB8045namp_
+Content-Type: application/octet-stream; name="alsa-beep.conf"
+Content-Description: alsa-beep.conf
+Content-Disposition: attachment; filename="alsa-beep.conf"; size=35;
+	creation-date="Tue, 05 Sep 2023 13:46:43 GMT";
+	modification-date="Tue, 05 Sep 2023 13:47:06 GMT"
+Content-Transfer-Encoding: base64
+
+b3B0aW9ucyBzbmQtaGRhLWludGVsIGJlZXBfbW9kZT0xDQo=
+
+--_004_BN0PR02MB8045C507932EEDF72FB62783FAE8ABN0PR02MB8045namp_--

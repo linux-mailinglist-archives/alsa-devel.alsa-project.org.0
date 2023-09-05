@@ -2,97 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC6979205D
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 07:27:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA3A779205F
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Sep 2023 07:40:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 196B0825;
-	Tue,  5 Sep 2023 07:26:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 196B0825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6089C825;
+	Tue,  5 Sep 2023 07:40:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6089C825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1693891665;
-	bh=sKTDtBzXxIoOP/AT+OVaK6YGhZhxrskgETmowzkudDM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Pcd9N+yd5wRTD3gixGSuQxqrZnWQBJ9sFPQETivZJEDejDZOtKuMZxAaXi98OpLgd
-	 snkp7DvcX6OwgiTj/joO65V79bP0x1p7BPN0FRLnuyjNohEfRFy1at40W+isq2eBlG
-	 SNA7BE2+E1BmWqCG8fgi7O067zFxSOJiqgnPxtGw=
+	s=default; t=1693892453;
+	bh=CXAviy/4XzWlCa583nxJ1P+IU+YSStaZrLImgznhBjY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=cCj+W1rB1G2bvTjjQrvx7CBvMTfGjSKk3df7jP1xBRnY9hRux8LhPAhJ4BiCeMwUj
+	 Tq4//MyhShVpasmF6pONKML1J996QAA3O4aasy7TD2uTsB/TZ12h3PqxhY5iAD/u9p
+	 mgbGOstHUxGjPSs4bG0RfHF1pvkjhYJiW0PIDkO0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69A12F8055A; Tue,  5 Sep 2023 07:26:53 +0200 (CEST)
+	id BCC61F80537; Tue,  5 Sep 2023 07:40:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 135BAF80236;
-	Tue,  5 Sep 2023 07:26:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00433F80236;
+	Tue,  5 Sep 2023 07:40:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96EF1F8047D; Tue,  5 Sep 2023 07:26:47 +0200 (CEST)
+	id B5BFFF8047D; Tue,  5 Sep 2023 07:39:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7C73FF80236
-	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 07:26:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C73FF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF027F800F5
+	for <alsa-devel@alsa-project.org>; Tue,  5 Sep 2023 07:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF027F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ll1nwdsY;
+ header.s=susede2_rsa header.b=GJ5gLQGo;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ViQNVSu1
+ header.s=susede2_ed25519 header.b=505Djafo
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CF00B21850;
-	Tue,  5 Sep 2023 05:26:38 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 439861F74D;
+	Tue,  5 Sep 2023 05:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1693891598;
+	t=1693892382;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=TrC51d+ZJBUQcFjxZwIciw4rW5ciXy4mMxn6+Usbc1I=;
-	b=ll1nwdsY+q9VzZAcRnvd2PFbiE57rVIVi2rw+qFuYCJhjWgzJ/m3dHSJW43kB1wIr0G92P
-	XTX1Uvz7gE6utvjW+YdmtCZFLsEJIbaP3YRrH+AKkgmrYVflVNjWexq1470T6m5UZaD5K8
-	9XjA28vlG0Y4KNMQzdR6BJDsRcoS0lw=
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8Dxo+OTaBq3eaJaf69uSWntTxeRXuDZqHqC6jWUmxEs=;
+	b=GJ5gLQGo/c4xD63vbFDV9o2v5C9POygISqIBxNv6pobO6k+mq1jQqbRenMs1h1kOsnA08q
+	PwIFdACl4qo1XJZNVfdodzmGCZ4rCwI3zlYs0d55/2uK+k44sQWjdRJxDwP2aVZc/VCHQQ
+	Hg+8l3cSvhBMfKGDLBygyd876yDoSNQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1693891598;
+	s=susede2_ed25519; t=1693892382;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=TrC51d+ZJBUQcFjxZwIciw4rW5ciXy4mMxn6+Usbc1I=;
-	b=ViQNVSu1wVTx1+AOsH6eTDgYJhr1Z4JP83sSKio112zeAg2F1Tt1gT5JCnbnwhukVX0T2X
-	nGg9w+L5eYYGGTBg==
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8Dxo+OTaBq3eaJaf69uSWntTxeRXuDZqHqC6jWUmxEs=;
+	b=505Djafo3RJfsC+Yl1bcf8IS+MmCYBcc6dVF+fvsHqfm9b8KMqPO/GXe40XEY3ALkw+Rcu
+	I/6L5oi/tV+gXkDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD65A134B2;
-	Tue,  5 Sep 2023 05:26:38 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 197D0134B2;
+	Tue,  5 Sep 2023 05:39:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id EsRNKQ689mTYLwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 05 Sep 2023 05:26:38 +0000
+	id 2s5uBR6/9mRvNQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 05 Sep 2023 05:39:42 +0000
+Date: Tue, 05 Sep 2023 07:39:41 +0200
+Message-ID: <87edjdi3fm.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: Ash Holland <ash@sorrel.sh>
-Subject: [PATCH] ALSA: seq: Fix snd_seq_expand_var_event() call to user-space
-Date: Tue,  5 Sep 2023 07:26:31 +0200
-Message-Id: <20230905052631.18240-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: usb-audio: Fix a potential memory leak in
+ scarlett2_init_notify()
+In-Reply-To: <87ledmjak0.wl-tiwai@suse.de>
+References: 
+ <fc275ed315b9157952dcf2744ee7bdb78defdb5f.1693746347.git.christophe.jaillet@wanadoo.fr>
+	<871qffmj2d.wl-tiwai@suse.de>
+	<8cde2320-517f-3a38-8c3f-f807791c6c52@wanadoo.fr>
+	<87sf7vkybk.wl-tiwai@suse.de>
+	<a0387d53-a08f-5e0c-c3a5-681ab5545150@wanadoo.fr>
+	<87ledmjak0.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NGLCZGZKJBYN6GAXQM6LB6VFOKNVH6DJ
-X-Message-ID-Hash: NGLCZGZKJBYN6GAXQM6LB6VFOKNVH6DJ
+Message-ID-Hash: DARPA3BYURHT4674EQQKYSQC4HEVSTQD
+X-Message-ID-Hash: DARPA3BYURHT4674EQQKYSQC4HEVSTQD
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NGLCZGZKJBYN6GAXQM6LB6VFOKNVH6DJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DARPA3BYURHT4674EQQKYSQC4HEVSTQD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,38 +131,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The recent fix to clear the padding bytes at
-snd_seq_expand_var_event() broke the read to user-space with
-in_kernel=0 parameter.  For user-space address, it has to use
-clear_user() instead of memset().
+On Mon, 04 Sep 2023 16:08:15 +0200,
+Takashi Iwai wrote:
+> 
+> On Sun, 03 Sep 2023 21:42:55 +0200,
+> Christophe JAILLET wrote:
+> > 
+> > Le 03/09/2023 à 18:37, Takashi Iwai a écrit :
+> > > On Sun, 03 Sep 2023 17:04:47 +0200,
+> > ...
+> > For the start_input_streams() caller, this is fine, because the
+> > corresponding memory is kzalloc()'ed in start_input_streams() at some
+> > point, but I've not been able to check for snd_usb_midi_v2_open().
 
-Fixes: f80e6d60d677 ("ALSA: seq: Clear padded bytes at expanding events")
-Reported-and-tested-by: Ash Holland <ash@sorrel.sh>
-Closes: https://lore.kernel.org/r/8a555319-9f31-4ea2-878f-adc338bc40d4@sorrel.sh
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/seq/seq_memory.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Oh I overlooked that point.  Yes, it's a missing call, although the
+memory leaks as free_midi_urbs() is called also at the destructor,
+free_midi2_endpoint(), too.  But it's definitely better to call at the
+error path, too.  Will fix it up together and submit the proper fix
+patch.
 
-diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
-index 174585bf59d2..94db3726864b 100644
---- a/sound/core/seq/seq_memory.c
-+++ b/sound/core/seq/seq_memory.c
-@@ -187,8 +187,12 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
- 	err = expand_var_event(event, 0, len, buf, in_kernel);
- 	if (err < 0)
- 		return err;
--	if (len != newlen)
--		memset(buf + len, 0, newlen - len);
-+	if (len != newlen) {
-+		if (in_kernel)
-+			memset(buf + len, 0, newlen - len);
-+		else
-+			clear_user((__force void __user *)buf + len, newlen - len);
-+	}
- 	return newlen;
- }
- EXPORT_SYMBOL(snd_seq_expand_var_event);
--- 
-2.35.3
 
+thanks,
+
+Takashi
+
+
+
+> > 
+> > CJ
+> > 
+> > > 
+> > > --- a/sound/usb/midi2.c
+> > > +++ b/sound/usb/midi2.c
+> > > @@ -265,7 +265,7 @@ static void free_midi_urbs(struct snd_usb_midi2_endpoint *ep)
+> > >     	if (!ep)
+> > >   		return;
+> > > -	for (i = 0; i < ep->num_urbs; ++i) {
+> > > +	for (i = 0; i < NUM_URBS; ++i) {
+> > >   		ctx = &ep->urbs[i];
+> > >   		if (!ctx->urb)
+> > >   			break;
+> > > 
+> > > That was the intended behavior of free_midi_urbs().
+> > > 
+> > > 
+> > > Takashi
+> > > 
+> > 
+> 

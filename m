@@ -2,67 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94B2793D13
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Sep 2023 14:50:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA52793D40
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Sep 2023 14:58:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC7C2846;
-	Wed,  6 Sep 2023 14:49:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7C2846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81A7F83A;
+	Wed,  6 Sep 2023 14:57:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81A7F83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694004639;
-	bh=o33zz2ibu/eRUueOFogHfUksEOrIN1YVpjLVMGysm1g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1694005119;
+	bh=Ji2vPvkSoEPWMtRj8ih7XUvtJS058HHiqnFXsSGfi8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ARLrreavxedSh8hWeYsPVfgj8+gXjiPAskfKuBn1ditJTYMPDHOrN39MNn5JcY25t
-	 EOAgnVbwFppvhNeidChCvUcn6n5LWFY4kdz5USm/Te5iMYtd/3TdRKw2ygRYqqnsdh
-	 902qzcKuLxDfT8MV+UGoQHPteE8gsSLWus0c1A6U=
+	b=q/DGuxRQ4qPtMxnsrAFHvq1Eokc2xmNlcvy1OIp6qtIQ07QbcWm/bZe41a2WgHvOH
+	 LTfhBt2dWR1MDKhhtFXaDJZ04UMZbsWGdLpsE0qvQATQFKKtVnphhFnmzej+4lD8Ws
+	 +7vxTpAA3zo4anklE1nY/AbP2d8kzq2qF6a8x6qY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35595F80551; Wed,  6 Sep 2023 14:49:46 +0200 (CEST)
+	id 92577F8047D; Wed,  6 Sep 2023 14:57:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A454AF8047D;
-	Wed,  6 Sep 2023 14:49:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D6DDF80236;
+	Wed,  6 Sep 2023 14:57:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89F84F80494; Wed,  6 Sep 2023 14:49:40 +0200 (CEST)
+	id 3CD73F80494; Wed,  6 Sep 2023 14:57:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=5.0 tests=NICE_REPLY_A,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84219F800AA
-	for <alsa-devel@alsa-project.org>; Wed,  6 Sep 2023 14:49:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84219F800AA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C72FE106F;
-	Wed,  6 Sep 2023 05:49:59 -0700 (PDT)
-Received: from [10.57.5.192] (unknown [10.57.5.192])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 63D583F7C5;
-	Wed,  6 Sep 2023 05:49:20 -0700 (PDT)
-Message-ID: <4f335dd2-8043-c60e-cf84-c2b01c4fee12@arm.com>
-Date: Wed, 6 Sep 2023 13:49:16 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9C5F3F800AA
+	for <alsa-devel@alsa-project.org>; Wed,  6 Sep 2023 14:57:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C5F3F800AA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=hQdqjYuk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694005038; x=1725541038;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ji2vPvkSoEPWMtRj8ih7XUvtJS058HHiqnFXsSGfi8U=;
+  b=hQdqjYukKtyrJW6gS9nsoWwjRjNkXNvWqy5tHFRieN9A3YGFaNrXa5j7
+   A0CgfC6u4OlC2S9cje7+/KVNZa4SodzDfh/1ABQFHo0fK1tuJ2L5e+2iP
+   cCeSjvT2sgReM2uG27VtAeuIDnteKsuiRNp9m+5AL8oXPP4m9a5q/fO08
+   gfOOgZVgLe4z4C8tZAOXagC8/L7qogNgd1wyMXMRsrBg0Foy9e9X2lsxA
+   mu7lEufsV3EG3bWvYQDH+s6Lm1PhqYRUKZO9SwFbj1dj8Y1FGAH8USD+R
+   wcmJBgE/6HjiU2uxwRgpZoss3hQUxpr3GfF2m9Be4iaPD5RxiWFouErx2
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="356543041"
+X-IronPort-AV: E=Sophos;i="6.02,232,1688454000";
+   d="scan'208";a="356543041"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2023 05:57:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="831650448"
+X-IronPort-AV: E=Sophos;i="6.02,232,1688454000";
+   d="scan'208";a="831650448"
+Received: from lkp-server01.sh.intel.com (HELO 59b3c6e06877) ([10.239.97.150])
+  by FMSMGA003.fm.intel.com with ESMTP; 06 Sep 2023 05:57:09 -0700
+Received: from kbuild by 59b3c6e06877 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qds5j-0000EL-1w;
+	Wed, 06 Sep 2023 12:57:07 +0000
+Date: Wed, 6 Sep 2023 20:56:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Stefan Binding <sbinding@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+	Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
+	Stefan Binding <sbinding@opensource.cirrus.com>
+Subject: Re: [PATCH v1] ALSA: hda: cs35l41: Support mute notifications for
+ CS35L41 HDA
+Message-ID: <202309062027.esqlhxcg-lkp@intel.com>
+References: <20230825120525.1337417-1-sbinding@opensource.cirrus.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: snd-cmipci oops during probe on arm64 (current mainline,
- pre-6.6-rc1)
-Content-Language: en-GB
-To: Takashi Iwai <tiwai@suse.de>,
- Antonio Terceiro <antonio.terceiro@linaro.org>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <ZPelHaX/Lt++kkOm@linaro.org> <877cp3esse.wl-tiwai@suse.de>
-From: Robin Murphy <robin.murphy@arm.com>
-In-Reply-To: <877cp3esse.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-Message-ID-Hash: D3ZLTSTWBTLHMVMCPTX5HTZLRIPHF5YN
-X-Message-ID-Hash: D3ZLTSTWBTLHMVMCPTX5HTZLRIPHF5YN
-X-MailFrom: robin.murphy@arm.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230825120525.1337417-1-sbinding@opensource.cirrus.com>
+Message-ID-Hash: EG6MCYKLCGV2LJ25TUHDEIDUVFEJYPQ7
+X-Message-ID-Hash: EG6MCYKLCGV2LJ25TUHDEIDUVFEJYPQ7
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -74,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D3ZLTSTWBTLHMVMCPTX5HTZLRIPHF5YN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EG6MCYKLCGV2LJ25TUHDEIDUVFEJYPQ7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,123 +110,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gMjAyMy0wOS0wNiAwNzoxMCwgVGFrYXNoaSBJd2FpIHdyb3RlOg0KPiBPbiBXZWQsIDA2
-IFNlcCAyMDIzIDAwOjAxOjAxICswMjAwLA0KPiBBbnRvbmlvIFRlcmNlaXJvIHdyb3RlOg0K
-Pj4NCj4+IEhpLA0KPj4NCj4+IEknbSB1c2luZyBhbiBhcm02NCB3b3Jrc3RhdGlvbiwgYW5k
-IHdhbnRlZCB0byBhZGQgYSBzb3VuZCBjYXJkIHRvIGl0LiBJIGJvdWdodA0KPj4gb25lIHdo
-byB3YXMgcHJldHR5IHBvcHVsYXIgYXJvdW5kIHdoZXJlIEkgbGl2ZSwgYW5kIGl0IGlzIHN1
-cHBvcnRlZCBieSB0aGUNCj4+IHNuZC1jbWlwY2kgZHJpdmVyLg0KPj4NCj4+IEl0J3MgdGhp
-cyBvbmU6DQo+Pg0KPj4gMDAwNTowMjowMC4wIE11bHRpbWVkaWEgYXVkaW8gY29udHJvbGxl
-cjogQy1NZWRpYSBFbGVjdHJvbmljcyBJbmMgQ01JODczOC9DTUk4NzY4IFBDSSBBdWRpbyAo
-cmV2IDEwKQ0KPj4NCj4+IEFmdGVyIGJ1aWxkaW5nIGEgbWFpbGluZSBrZXJuZWwgKHBvc3Qt
-djYuNSwgcHJlLXJjMSkgb24gRGViaWFuIHRlc3RpbmcgYXJtNjQNCj4+IHdpdGggbG9jYWxt
-b2Rjb25maWcgKyBDT05GSUdfU05EX0NNSVBDST1tLCBpdCBjcmFzaGVzIHdpdGggIlVuYWJs
-ZSB0byBoYW5kbGUNCj4+IGtlcm5lbCBwYWdpbmcgcmVxdWVzdCBhdCB2aXJ0dWFsIGFkZHJl
-c3MgZmZmZmZiZmZmZTgwMDAwYyIsIGFuZCB0aGUgc3lzdGVtDQo+PiBuZXZlciBmaW5pc2hl
-cyB0byBib290LiBUaGUgbG9naW4gbWFuYWdlciBuZXZlciBzaG93cyB1cCBhbmQgdGhlIHNl
-cmlhbCBjb25zb2xlDQo+PiBuZXZlciBnZXRzIHRvIGEgbG9naW4gcHJvbXB0LiBJIG9ic2Vy
-dmVkIHRoZSBzYW1lIGlzc3VlIG9uIGEgNi4zIERlYmlhbiBrZXJuZWwsDQo+PiBhZnRlciBy
-ZWJ1aWxkaW5nIHdpdGggQ09ORklHX1NORF9DTUlQQ0k9bS4NCj4+DQo+PiBJZiBJIHN0b3Ag
-dGhlIG1vZHVsZSBmcm9tIGJlaW5nIGF1dG9tYXRpY2FsbHkgbG9hZGVkIGJ5IGFkZGluZw0K
-Pj4gYGJsYWNrbGlzdCBzbmQtY21pcGNpYCB0byAvZXRjL21vZHByb2JlLmQvc25kLWNtaXBj
-aS5jb25mIChvciBpZiBJDQo+PiByZW1vdmUgdGhlIGNhcmQgZnJvbSB0aGUgUENJZSBzbG90
-KSwgSSBnZXQgdGhlIHN5c3RlbSB0byBib290LiBCdXQgdHJpbmcNCj4+IHRvIGxvYWQgdGhl
-IG1vZHVsZSBtYW51YWxseSBjYXVzZXMgdGhlIHNhbWUgY3Jhc2ggKEkgb25seSB0ZXN0ZWQg
-dGhpcw0KPj4gd2l0aCB0aGUgY2FyZCBvbik6DQo+Pg0KPj4gWyAgKzQsNTAxMDkzXSBzbmRf
-Y21pcGNpIDAwMDU6MDI6MDAuMDogc3RyZWFtIDUxMiBhbHJlYWR5IGluIHRyZWUNCj4+IFsg
-ICswLDAwMDE1NV0gVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgcGFnaW5nIHJlcXVlc3QgYXQg
-dmlydHVhbCBhZGRyZXNzIGZmZmZmYmZmZmU4MDAwMGMNCj4+IFsgICswLDAwNzkyN10gTWVt
-IGFib3J0IGluZm86DQo+PiBbICArMCwwMDI3OTNdICAgRVNSID0gMHgwMDAwMDAwMDk2MDAw
-MDA2DQo+PiBbICArMCwwMDM3NDNdICAgRUMgPSAweDI1OiBEQUJUIChjdXJyZW50IEVMKSwg
-SUwgPSAzMiBiaXRzDQo+PiBbICArMCwwMDUzMDddICAgU0VUID0gMCwgRm5WID0gMA0KPj4g
-WyAgKzAsMDAzMDQ5XSAgIEVBID0gMCwgUzFQVFcgPSAwDQo+PiBbICArMCwwMDMxMzRdICAg
-RlNDID0gMHgwNjogbGV2ZWwgMiB0cmFuc2xhdGlvbiBmYXVsdA0KPj4gWyAgKzAsMDA0ODcy
-XSBEYXRhIGFib3J0IGluZm86DQo+PiBbICArMCwwMDI4NzNdICAgSVNWID0gMCwgSVNTID0g
-MHgwMDAwMDAwNiwgSVNTMiA9IDB4MDAwMDAwMDANCj4+IFsgICswLDAwNTQ3OV0gICBDTSA9
-IDAsIFduUiA9IDAsIFRuRCA9IDAsIFRhZ0FjY2VzcyA9IDANCj4+IFsgICswLDAwNTA0N10g
-ICBHQ1MgPSAwLCBPdmVybGF5ID0gMCwgRGlydHlCaXQgPSAwLCBYcyA9IDANCj4+IFsgICsw
-LDAwMDAwM10gc3dhcHBlciBwZ3RhYmxlOiA0ayBwYWdlcywgNDgtYml0IFZBcywgcGdkcD0w
-MDAwMDgwNTE5ZmU5MDAwDQo+PiBbICArMCwwMDAwMDRdIFtmZmZmZmJmZmZlODAwMDBjXSBw
-Z2Q9MDAwMDA4MDUxYTk3OTAwMywgcDRkPTAwMDAwODA1MWE5NzkwMDMsIHB1ZD0wMDAwMDgw
-NTFhOTdhMDAzLCBwbWQ9MDAwMDAwMDAwMDAwMDAwMA0KPj4gWyAgKzAsMDAwMDA5XSBJbnRl
-cm5hbCBlcnJvcjogT29wczogMDAwMDAwMDA5NjAwMDAwNiBbIzFdIFNNUA0KPj4gWyAgKzAs
-MDI4MTQyXSBNb2R1bGVzIGxpbmtlZCBpbjogc25kX2NtaXBjaSgrKSBzbmRfbXB1NDAxX3Vh
-cnQgc25kX29wbDNfbGliIHh0X2Nvbm50cmFjayB4dF9NQVNRVUVSQURFIG5mX2Nvbm50cmFj
-a19uZXRsaW5rIHhmcm1fdXNlciB4ZnJtX2FsZ28geHRfYWRkcnR5cGUgbmZ0X2NvbXBhdCBi
-cl9uZXRmaWx0ZXIgbmZ0X21hc3EgbmZ0X2NoYWluX25hdCBuZl9uYXQgbmZfY29ubnRyYWNr
-IG5mX2RlZnJhZ19pcHY2IG5mX2RlZnJhZ19pcHY0IGJyaWRnZSBzdHAgbGxjIG5mX3RhYmxl
-cyBuZm5ldGxpbmsgdXZjdmlkZW8gdmlkZW9idWYyX3ZtYWxsb2MgdmlkZW9idWYyX21lbW9w
-cyB1dmMgdmlkZW9idWYyX3Y0bDIgdmlkZW9kZXYgdmlkZW9idWYyX2NvbW1vbiBzbmRfc2Vx
-X2R1bW15IHNuZF9ocnRpbWVyIHNuZF9zZXEgcXJ0ciByZmtpbGwgb3ZlcmxheSBmdGRpX3Np
-byB1c2JzZXJpYWwgc25kX3VzYl9hdWRpbyBzbmRfdXNibWlkaV9saWIgc25kX3BjbSBhZXNf
-Y2VfYmxrIGFlc19jZV9jaXBoZXIgc25kX2h3ZGVwIHBvbHl2YWxfY2Ugc25kX3Jhd21pZGkg
-cG9seXZhbF9nZW5lcmljIHNuZF9zZXFfZGV2aWNlIGpveWRldiBzbmRfdGltZXIgZ2hhc2hf
-Y2UgaGlkX2dlbmVyaWMgZ2YxMjhtdWwgc25kIHVzYmhpZCBzaGEyX2NlIGlwbWlfc3NpZiBz
-b3VuZGNvcmUgaGlkIG1jIHNoYTI1Nl9hcm02NCBpcG1pX2RldmludGYgYXJtX3NwZV9wbXUg
-aXBtaV9tc2doYW5kbGVyIHNoYTFfY2Ugc2JzYV9nd2R0IGJpbmZtdF9taXNjIG5sc19hc2Np
-aSBubHNfY3A0MzcgdmZhdCBmYXQgeGdlbmVfaHdtb24gY3BwY19jcHVmcmVxIGFybV9jbW4g
-YXJtX2RzdV9wbXUgZXZkZXYgbmZzZCBhdXRoX3JwY2dzcyBuZnNfYWNsIGxvY2tkIGdyYWNl
-IGRtX21vZCBmdXNlIGxvb3AgZWZpX3BzdG9yZSBkYXggc3VucnBjIGNvbmZpZ2ZzIGlwX3Rh
-YmxlcyB4X3RhYmxlcyBhdXRvZnM0IGV4dDQgY3JjMTYgbWJjYWNoZSBqYmQyIGJ0cmZzIGVm
-aXZhcmZzIHJhaWQxMCByYWlkDQo+ICAgNDU2IGFzeW5jX3JhaWQ2X3JlY292IGFzeW5jX21l
-bWNweQ0KPj4gWyAgKzAsMDAwMTQyXSAgYXN5bmNfcHEgYXN5bmNfeG9yIGFzeW5jX3R4IGxp
-YmNyYzMyYyBjcmMzMmNfZ2VuZXJpYyB4b3IgeG9yX25lb24gcmFpZDZfcHEgcmFpZDEgcmFp
-ZDAgbXVsdGlwYXRoIGxpbmVhciBtZF9tb2QgbnZtZSBudm1lX2NvcmUgYXN0IHQxMF9waSBk
-cm1fc2htZW1faGVscGVyIHhoY2lfcGNpIGRybV9rbXNfaGVscGVyIHhoY2lfaGNkIGNyYzY0
-X3JvY2tzb2Z0IGNyYzY0IGRybSBjcmNfdDEwZGlmIHVzYmNvcmUgY3JjdDEwZGlmX2dlbmVy
-aWMgaWdiIGNyY3QxMGRpZl9jZSBjcmN0MTBkaWZfY29tbW9uIHVzYl9jb21tb24gaTJjX2Fs
-Z29fYml0IGkyY19kZXNpZ253YXJlX3BsYXRmb3JtIGkyY19kZXNpZ253YXJlX2NvcmUNCj4+
-IFsgICswLDEyMTY3MF0gQ1BVOiAwIFBJRDogNDQyIENvbW06IGt3b3JrZXIvMDo0IE5vdCB0
-YWludGVkIDYuNS4wKyAjMg0KPj4gWyAgKzAsMDA2MjU5XSBIYXJkd2FyZSBuYW1lOiBBRExJ
-TksgQVZBIERldmVsb3BlciBQbGF0Zm9ybS9BVkEgRGV2ZWxvcGVyIFBsYXRmb3JtLCBCSU9T
-IFRpYW5vQ29yZSAyLjA0LjEwMC4wNyAoU1lTOiAyLjA2LjIwMjIwMzA4KSAwOS8wOC8yMDIy
-DQo+PiBbICArMCwwMTI1MDZdIFdvcmtxdWV1ZTogZXZlbnRzIHdvcmtfZm9yX2NwdV9mbg0K
-Pj4gWyAgKzAsMDA0MzUzXSBwc3RhdGU6IDgwNDAwMDA5IChOemN2IGRhaWYgK1BBTiAtVUFP
-IC1UQ08gLURJVCAtU1NCUyBCVFlQRT0tLSkNCj4+IFsgICswLDAwNjk1M10gcGMgOiBsb2dp
-Y19pbmwrMHhhMC8weGQ4DQo+PiBbICArMCwwMDM1NzBdIGxyIDogc25kX2NtaXBjaV9wcm9i
-ZSsweDdhNC8weDExNDAgW3NuZF9jbWlwY2ldDQo+PiBbICArMCwwMDU1NzhdIHNwIDogZmZm
-ZjgwMDA4Mjg3YmM3MA0KPj4gWyAgKzAsMDAzMzAzXSB4Mjk6IGZmZmY4MDAwODI4N2JjNzAg
-eDI4OiBmZmZmMDgwMDhhZjlkNmEwIHgyNzogMDAwMDAwMDAwMDAwMDAwMA0KPj4gWyAgKzAs
-MDA3MTI4XSB4MjY6IGZmZmZjNDgxODI2M2MyMjggeDI1OiAwMDAwMDAwMDAwMDAwMDAwIHgy
-NDogMDAwMDAwMDAwMDAwMDAwMQ0KPj4gWyAgKzAsMDA3MTI3XSB4MjM6IGZmZmYwN2ZmODFh
-OWUwMDAgeDIyOiBmZmZmMDdmZjgxYTllMGMwIHgyMTogZmZmZjA4MDA4YWY5ZDA4MA0KPj4g
-WyAgKzAsMDA3MTI3XSB4MjA6IGZmZmZjNDgxODI2M2MwMDAgeDE5OiAwMDAwMDAwMDAwMDAw
-MDAwIHgxODogZmZmZmZmZmZmZmZmZmZmZg0KPj4gWyAgKzAsMDA3MTI3XSB4MTc6IDAwMDAw
-MDAwMDAwMDAwMDAgeDE2OiBmZmZmYzQ4MTlhYzNjZDM4IHgxNTogZmZmZjgwMDA4Mjg3YmE4
-MA0KPj4gWyAgKzAsMDA3MTI3XSB4MTQ6IDAwMDAwMDAwMDAwMDAwMDEgeDEzOiBmZmZmODAw
-MDgyODdiYmM0IHgxMjogMDAwMDAwMDAwMDAwMDAwMA0KPj4gWyAgKzAsMDA3MTI2XSB4MTE6
-IGZmZmYwN2ZmODM0NjE2ZDAgeDEwOiBmZmZmZmZmZmZmZmZmZmMwIHg5IDogZmZmZmM0ODE5
-YTYxZGQxOA0KPj4gWyAgKzAsMDA3MTI3XSB4OCA6IDAwMDAwMDAwMDAwMDAyMjggeDcgOiAw
-MDAwMDAwMDAwMDAwMDAxIHg2IDogMDAwMDAwMDAwMDAwMDBmZg0KPj4gWyAgKzAsMDA3MTI3
-XSB4NSA6IGZmZmZjNDgxOWFkYjc5OTggeDQgOiAwMDAwMDAwMDAwMDAwMDAwIHgzIDogMDAw
-MDAwMDAwMDAwMDBmZg0KPj4gWyAgKzAsMDA3MTI3XSB4MiA6IDAwMDAwMDAwMDBmZmJmZmUg
-eDEgOiAwMDAwMDAwMDAwMDAwMDBjIHgwIDogZmZmZmZiZmZmZTgwMDAwYw0KPj4gWyAgKzAs
-MDA3MTI2XSBDYWxsIHRyYWNlOg0KPj4gWyAgKzAsMDAyNDM2XSAgbG9naWNfaW5sKzB4YTAv
-MHhkOA0KPj4gWyAgKzAsMDAzMjIxXSAgbG9jYWxfcGNpX3Byb2JlKzB4NDgvMHhiOA0KPj4g
-WyAgKzAsMDAzNzQ0XSAgd29ya19mb3JfY3B1X2ZuKzB4MjQvMHg0MA0KPj4gWyAgKzAsMDAz
-NzQxXSAgcHJvY2Vzc19vbmVfd29yaysweDE3MC8weDNhOA0KPj4gWyAgKzAsMDA0MDAyXSAg
-d29ya2VyX3RocmVhZCsweDIzYy8weDQ2MA0KPj4gWyAgKzAsMDAzNzQyXSAga3RocmVhZCsw
-eGU4LzB4ZjgNCj4+IFsgICswLDAwMzA0N10gIHJldF9mcm9tX2ZvcmsrMHgxMC8weDIwDQo+
-PiBbICArMCwwMDM1NjldIENvZGU6IGQyYmZkMDAwIGYyZGY3ZmUwIGYyZmZmZmUwIDhiMDAw
-MDIwIChiOTQwMDAwMCkNCj4+IFsgICswLDAwNjA4M10gLS0tWyBlbmQgdHJhY2UgMDAwMDAw
-MDAwMDAwMDAwMCBdLS0tDQo+Pg0KPj4gQmVjYXVzZSB0aGlzIHNvdW5kIGNhcmQgY2hpcHNl
-dCBzZWVtcyB0byBiZSBwb3B1bGFyIChwcmV0dHkgbXVjaCBhbGwgUENJIGNhcmRzDQo+PiBJ
-IGNhbiBmaW5kIHRvIGJ1eSBsb2NhbGx5IHVzZSB0aGF0KSwgSSdtIHRoaW5raW5nIHRoaXMg
-bWlnaHQgYmUgc3BlY2lmaWMgdG8NCj4+IGFybTY0LCBvdGhlcndpc2Ugc29tZW9uZSB3b3Vs
-ZCBoYXZlIHNlZW4gdGhpcyBiZWZvcmUuDQo+IA0KPiBUaGVyZSBpcyBvbmx5IG9uZSBjaGFu
-Z2UgaW4gdGhpcyBkcml2ZXIgY29kZSBpdHNlbGYgc2luY2UgNi41IChjb21taXQNCj4gYjZi
-YTBhYTQ2MTM4KSwgYW5kIGp1ZGdpbmcgZnJvbSB0aGUgc3RhY2sgdHJhY2UsIGl0J3MgdW5y
-ZWxhdGVkIHdpdGgNCj4geW91ciBwcm9ibGVtLiAgIEl0J3MgbW9yZSBsaWtlbHkgYSByZWdy
-ZXNzaW9uIGluIHRoZSBsb3dlciBsZXZlbCBjb2RlLA0KPiBlLmcuIFBDSSBsYXllciBvciBh
-cmNoL2FybTY0IHN0dWZmLg0KPiANCj4gQ291bGQgeW91IHRyeSBnaXQgYmlzZWN0Pw0KDQpI
-bW0sIGJ1dCBoYXMgdGhpcyBjb21iaW5hdGlvbiBvZiBjYXJkIGFuZCBtYWNoaW5lICpldmVy
-KiBhY3R1YWxseSB3b3JrZWQ/DQoNCkl0J3MgYmxvd2luZyB1cCB0cnlpbmcgdG8gYWNjZXNz
-IFBDSSBJL08gc3BhY2UsIHdoaWNoIGhhcyBhcHBhcmVudGx5IA0KZW5kZWQgdXAgaW4gdGhl
-IGluZGlyZWN0IGFjY2VzcyBtZWNoYW5pc20gd2l0aG91dCB0aGF0IGJlaW5nIGNvbmZpZ3Vy
-ZWQgDQpjb3JyZWN0bHkuIFRoYXQgaXMgZGVmaW5pdGVseSBhbiBpc3N1ZSBkb3duIHNvbWV3
-aGVyZSBiZXR3ZWVuIHRoZSBQQ0kgDQpsYXllciBhbmQgdGhlIHN5c3RlbSBmaXJtd2FyZS4g
-RG9lcyB0aGUgc3lzdGVtIGV2ZW4gaGF2ZSBhbiBJL08gc3BhY2UgDQp3aW5kb3c/IFNvbWUg
-YXJtNjQgbWFjaGluZXMgZG9uJ3QuIEkgZ3Vlc3Mgd2UgbWlnaHQgbm90IGhhdmUgZ290IGFz
-IGZhciANCmFzIHByb2JpbmcgYSBkcml2ZXIgaWYgdGhlIEkvTyBCQVIgY291bGRuJ3QgYmUg
-YXNzaWduZWQgYXQgYWxsLCBidXQgDQplaXRoZXIgd2F5IHNvbWV0aGluZydzIG5vdCBnb25l
-IHJpZ2h0Lg0KDQpUaGFua3MsDQpSb2Jpbi4NCg==
+Hi Stefan,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on tiwai-sound/for-next]
+[also build test ERROR on tiwai-sound/for-linus linus/master next-20230906]
+[cannot apply to v6.5]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Stefan-Binding/ALSA-hda-cs35l41-Support-mute-notifications-for-CS35L41-HDA/20230825-200835
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230825120525.1337417-1-sbinding%40opensource.cirrus.com
+patch subject: [PATCH v1] ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20230906/202309062027.esqlhxcg-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230906/202309062027.esqlhxcg-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309062027.esqlhxcg-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   sound/pci/hda/patch_realtek.c: In function 'comp_acpi_device_notify':
+>> sound/pci/hda/patch_realtek.c:6717:52: error: implicit declaration of function 'acpi_device_handle'; did you mean 'acpi_fwnode_handle'? [-Werror=implicit-function-declaration]
+    6717 |                         spec->comps[i].acpi_notify(acpi_device_handle(spec->comps[i].adev), event,
+         |                                                    ^~~~~~~~~~~~~~~~~~
+         |                                                    acpi_fwnode_handle
+   sound/pci/hda/patch_realtek.c:6717:52: warning: passing argument 1 of 'spec->comps[i].acpi_notify' makes pointer from integer without a cast [-Wint-conversion]
+    6717 |                         spec->comps[i].acpi_notify(acpi_device_handle(spec->comps[i].adev), event,
+         |                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                                    |
+         |                                                    int
+   sound/pci/hda/patch_realtek.c:6717:52: note: expected 'acpi_handle' {aka 'void *'} but argument is of type 'int'
+   sound/pci/hda/patch_realtek.c: In function 'comp_bind':
+>> sound/pci/hda/patch_realtek.c:6737:47: error: invalid use of undefined type 'struct acpi_device'
+    6737 |         ret = acpi_install_notify_handler(adev->handle, ACPI_DEVICE_NOTIFY,
+         |                                               ^~
+   sound/pci/hda/patch_realtek.c: In function 'comp_unbind':
+   sound/pci/hda/patch_realtek.c:6760:46: error: invalid use of undefined type 'struct acpi_device'
+    6760 |         ret = acpi_remove_notify_handler(adev->handle, ACPI_DEVICE_NOTIFY,
+         |                                              ^~
+   cc1: some warnings being treated as errors
+
+
+vim +6717 sound/pci/hda/patch_realtek.c
+
+  6706	
+  6707	static void comp_acpi_device_notify(acpi_handle handle, u32 event, void *data)
+  6708	{
+  6709		struct hda_codec *cdc = data;
+  6710		struct alc_spec *spec = cdc->spec;
+  6711		int i;
+  6712	
+  6713		codec_info(cdc, "ACPI Notification %d\n", event);
+  6714	
+  6715		for (i = 0; i < HDA_MAX_COMPONENTS; i++) {
+  6716			if (spec->comps[i].dev && spec->comps[i].acpi_notify)
+> 6717				spec->comps[i].acpi_notify(acpi_device_handle(spec->comps[i].adev), event,
+  6718							   spec->comps[i].dev);
+  6719		}
+  6720	}
+  6721	
+  6722	static int comp_bind(struct device *dev)
+  6723	{
+  6724		struct hda_codec *cdc = dev_to_hda_codec(dev);
+  6725		struct alc_spec *spec = cdc->spec;
+  6726		struct acpi_device *adev;
+  6727		int ret;
+  6728	
+  6729		ret = component_bind_all(dev, spec->comps);
+  6730		if (ret)
+  6731			return ret;
+  6732	
+  6733		adev = spec->comps[0].adev;
+  6734		if (!acpi_device_handle(adev))
+  6735			return 0;
+  6736	
+> 6737		ret = acpi_install_notify_handler(adev->handle, ACPI_DEVICE_NOTIFY,
+  6738						  comp_acpi_device_notify, cdc);
+  6739		if (ret < 0) {
+  6740			codec_warn(cdc, "Failed to install notify handler: %d\n", ret);
+  6741			return 0;
+  6742		}
+  6743	
+  6744		codec_dbg(cdc, "Notify handler installed\n");
+  6745	
+  6746		return 0;
+  6747	}
+  6748	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

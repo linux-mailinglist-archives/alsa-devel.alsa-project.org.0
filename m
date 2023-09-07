@@ -2,137 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50FCD797335
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 17:05:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F64797461
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 17:38:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F243CDEE;
-	Thu,  7 Sep 2023 17:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F243CDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECAFE84B;
+	Thu,  7 Sep 2023 17:37:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECAFE84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694099107;
-	bh=Cz07xp10vgeDM6xwAfc4WA8axu5GEuiiZm9RSVuoRus=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1694101082;
+	bh=H+uKSJl1rY6X33FSMEPCEQBWPscRDY8B64jXEFgovN0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JH6NrWYD0Bt4Q2iW41/p7io2IQZ7C4z+wOlQdNPMLUVBt6am8660Y6ByahzGhe2sm
-	 Qs0qCH7G1BO+BK5ZHSflRW4MYLq2lMpb/gT2hoZQZiAlXD2c0ZsyY2XEqJl7PTajbz
-	 /McaaaUvM0/yPfu9Q+dh4TcBS+7G6DGjC50WBJAI=
+	b=uXcH5MqT5fOv9lT4so/uQxn2t1rIY/0/12fde6WkvDMSDk+oPt+HwCgtFRc+nfWfN
+	 nm4k58Xvtqt+IrmW51nrGn0Gn7rGpTqC2ed28782sS9UpfDt25BSmEeTHU19DcNvBo
+	 1BXtJJOCW8B64L3btu0969YQqhPbkARjhTh0WiW8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E558F80588; Thu,  7 Sep 2023 17:03:33 +0200 (CEST)
+	id 5AC49F80537; Thu,  7 Sep 2023 17:37:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33F3FF80571;
-	Thu,  7 Sep 2023 17:03:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9837F80431;
+	Thu,  7 Sep 2023 17:37:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5B67F80563; Thu,  7 Sep 2023 17:03:29 +0200 (CEST)
+	id EE241F80494; Thu,  7 Sep 2023 17:37:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::62d])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8FDBBF80431
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 17:03:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FDBBF80431
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8528DF800AA
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 17:36:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8528DF800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=FJxOMtv7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RvqsA5f8HgYFyfNYutaIuqy4lRLBQBaSKTeX7Nt8jUsV6owu6dS3a3osS3I+J5iuneiZ35kCd55uWrkNOgUtaZM04ClE217i6t3+Ag6PQmUhQqSu2cWW3gPztgFokN1/qUTGP9HQRymGZD5aeH40lNtuXBBeEE0SwiS4D/h+3wkJ871DPNLcRIsNfsZaG6Iom+6HkQDVL1tTOO0ewtY9CJUJzSdDGJmszV/gZkjDB1SRbxfKCV4tmD0DvpC9YZpl7rfYbUkSR32eiCkQsaUCnDJW223E2SuUlljTGx7MJCMZrSrk9kVaq1Lt99S/SpI6GJ2dRKdrYGGv5rM8rWxzqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=axdESzzeTc41Elo5Pnv2l4RWQNQI4WWmDV3IaB2H/BY=;
- b=ZMyoWIRBdYB0D6VuB9+EjgJKjY9hiN4shIV4wv8L6+5FUn3alz8EpB8HOpAOPTFA/LMX879TSq2YqK7JhIQh11GtTZ3Jhrz7fBqccjd7FjzBu4yZf3v5RRN57QZzo7z+X7TjeJrba0Y01uNBfi3tT3lX0CPyppCumCYFOrZZ+j0GZboY2iukWTpDb7773bHBOgzbQ6UnakxnDyQI6vc+V8z2k4ELXWLJ5xnDq6MhiOFx89E0Eq6Xdh1wkfv/pValUiWD2OMdXWpMAEjaVMb35hTNGkwnIQwp+bD+YJ6p5txFB7o98e8gXcLSXPtzIOib6piWNyacL3ujRQJktVmtlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=axdESzzeTc41Elo5Pnv2l4RWQNQI4WWmDV3IaB2H/BY=;
- b=FJxOMtv7Qda0KomSl6bStJpFVoSXwWkwMwTZiFQHm9gHQlkhslDhHGn466gQAtC2EvS1lbpF003kD31Gft2s6n4nyzmEs1CDsIOK2t0gr7FjRTd9S/0RGSy06+sgWWVu0vKwvmfpNCr5SZfIeGpQAGfJr38DNl7rZPyr6GwxyIbC1ImlytYI+YWm9IBJYH/8M06Gs/6VW8uclwIGSuoft6qgNPv0g+aYFryE3iIpCnFbcbfe6a4etxVVoAp+NdpL+QuLId3R6iN/CRU9vQjo8p0Oi8dPFof89zn7caHFUuaMzsRLOm72slRedZ0/uDhtmdy6+xM1sT7NZsG5KhxGJA==
-Received: from SN7PR04CA0205.namprd04.prod.outlook.com (2603:10b6:806:126::30)
- by BL1PR12MB5240.namprd12.prod.outlook.com (2603:10b6:208:319::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Thu, 7 Sep
- 2023 15:03:15 +0000
-Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
- (2603:10b6:806:126:cafe::cc) by SN7PR04CA0205.outlook.office365.com
- (2603:10b6:806:126::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30 via Frontend
- Transport; Thu, 7 Sep 2023 15:03:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6768.26 via Frontend Transport; Thu, 7 Sep 2023 15:03:14 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.5; Thu, 7 Sep 2023
- 08:03:00 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.37; Thu, 7 Sep 2023
- 08:02:59 -0700
-Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7)
- with Microsoft SMTP Server id 15.2.986.37 via Frontend Transport; Thu, 7 Sep
- 2023 08:02:56 -0700
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-	<tiwai@suse.com>
-CC: <thierry.reding@gmail.com>, <jonathanh@nvidia.com>, <spujar@nvidia.com>,
-	<alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v2 2/2] ASoC: tegra: Fix redundant PLLA and PLLA_OUT0 updates
-Date: Thu, 7 Sep 2023 20:32:25 +0530
-Message-ID: <1694098945-32760-3-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1694098945-32760-1-git-send-email-spujar@nvidia.com>
-References: <1694098945-32760-1-git-send-email-spujar@nvidia.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|BL1PR12MB5240:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4895460d-4933-4667-75bc-08dbafb38fe3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	nFZYEaBfWc7Ic/iKE42wbvKUuxyCqWwDrJpKE2Ah+zjf7DXqsR6A48mH6MZgOPts7oEOSf8Xbwyyg63Ho+6WeLP7DP2djvdax5dM9x5q2s0S6O0MBm70+bfNEU0RSN3Q2TrQQgAX//Od9zL0279nAg525OCQBzzy4hpjRE7Y5WGADZAX2YY8B7NyZGR8xs4kBBZDPcb02BEzsAIiANo5vuNkkWGTS/NOT3GbPTjo0sKrQp8Q46zFx1zx9nc9UGkwj6xM3gEwBqxrB+iAZ++wG1UdqscDTI0W6CzieDjszpTh2QqKmSzp6BZFTYAeoFWW8diz+tLbeU/UTfpcAzjChl1uvnLFUmgS9yn3BJa2QQngUuwRWwi+Q9Y2kSBVtTCc+xx5BcMukenglvFx+QSFEQ3SN+b6fpYw0oSUl98BuyyYKpbiUn8AVnjBBsSJiGTU0RgWg7O6gWEJ3hWsKCBD8SfFE+ojRVTRstTVmOgtcFuJYSkI/A4X7JgLDofoz29P/JRv42oOVOt6k6e/utQPyQh3oMCFHqpQyFDx8GCo5JlFGslW2PsZhz5XGXBlZogdkRhdl55OQqJHiJ2y6s4tA/PcvAG1ACCAcjJ6vq0LQeaQmfL/fNEAN3K8nGBnRd48uITgcVz4jcjQHfJH7iw4jt0VOfHvlDqIj8wD5CRAK/T6mUlzbkAw4ohNRk44GBX64ywNcUPFFnKUcpr4N+Ujj2YQNIfiVl84/p24cnBfcMnTfNUTeCRNeMRgP/bMlQKH
-X-Forefront-Antispam-Report: 
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199024)(186009)(82310400011)(1800799009)(40470700004)(36840700001)(46966006)(15650500001)(8936002)(8676002)(478600001)(4326008)(110136005)(70206006)(70586007)(5660300002)(40480700001)(83380400001)(2906002)(41300700001)(6666004)(316002)(54906003)(86362001)(7696005)(40460700003)(82740400003)(36860700001)(2616005)(356005)(26005)(7636003)(426003)(336012)(47076005)(36756003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 15:03:14.9706
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4895460d-4933-4667-75bc-08dbafb38fe3
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	SN1PEPF0002BA4F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5240
-Message-ID-Hash: RPVFBDL2GXVB52TRLFXIF7KA7E2UDYOI
-X-Message-ID-Hash: RPVFBDL2GXVB52TRLFXIF7KA7E2UDYOI
-X-MailFrom: spujar@nvidia.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=S9MltvvW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=T7q/lXXg
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9A8A31F86B;
+	Thu,  7 Sep 2023 15:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1694101016;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M0FCyN160pcl7/vGE/G6WlHC7elSb7flkJCyP5XdT5E=;
+	b=S9MltvvWBQJ3S+InPcTpe0WnVoyXnKqaDKeu+BwDHvZj60OrGXEDSShbYcomd3GtxyIZTT
+	TcrhM7Ol5ShXOYypjd7CzP+FglED+dodU3VRZtRK2n8dDSp9vOAhBBX+1HhEJDMdWIFsxf
+	Ffq7xN4Ng5kkEE+uf8/WHH9t2J3hfAY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1694101016;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M0FCyN160pcl7/vGE/G6WlHC7elSb7flkJCyP5XdT5E=;
+	b=T7q/lXXghXAYZb3Ca5uIQsgLsYKDnlp9Dc3cyQRlMyyfjSjbLjxzbrNKR7PTjsz4yycOR4
+	OtzAVhoZN7Cz7wAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 231E5138FA;
+	Thu,  7 Sep 2023 15:36:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id kmOwBxju+WTgAgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 07 Sep 2023 15:36:56 +0000
+Date: Thu, 07 Sep 2023 17:36:55 +0200
+Message-ID: <875y4matbc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: <srinivas.kandagatla@linaro.org>,
+	<mathias.nyman@intel.com>,
+	<perex@perex.cz>,
+	<lgirdwood@gmail.com>,
+	<andersson@kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>,
+	<gregkh@linuxfoundation.org>,
+	<Thinh.Nguyen@synopsys.com>,
+	<broonie@kernel.org>,
+	<bgoswami@quicinc.com>,
+	<tiwai@suse.com>,
+	<robh+dt@kernel.org>,
+	<agross@kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<linux-arm-msm@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>,
+	<quic_jackp@quicinc.com>,
+	<quic_plai@quicinc.com>
+Subject: Re: [PATCH v5 11/32] sound: usb: card: Introduce USB SND platform op
+ callbacks
+In-Reply-To: <20230829210657.9904-12-quic_wcheng@quicinc.com>
+References: <20230829210657.9904-1-quic_wcheng@quicinc.com>
+	<20230829210657.9904-12-quic_wcheng@quicinc.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: OCXSLXJMSM276X7O3GZKLRG66BMR5LA6
+X-Message-ID-Hash: OCXSLXJMSM276X7O3GZKLRG66BMR5LA6
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -144,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPVFBDL2GXVB52TRLFXIF7KA7E2UDYOI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OCXSLXJMSM276X7O3GZKLRG66BMR5LA6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,81 +137,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Tegra audio graph card has many DAI links which connects internal
-AHUB modules and external audio codecs. Since these are DPCM links,
-hw_params() call in the machine driver happens for each connected
-BE link and PLLA is updated every time. This is not really needed
-for all links as only I/O link DAIs derive respective clocks from
-PLLA_OUT0 and thus from PLLA. Hence add checks to limit the clock
-updates to DAIs over I/O links.
+On Tue, 29 Aug 2023 23:06:36 +0200,
+Wesley Cheng wrote:
+> 
+> Allow for different platforms to be notified on USB SND connect/disconnect
+> seqeunces.  This allows for platform USB SND modules to properly initialize
+> and populate internal structures with references to the USB SND chip
+> device.
+> 
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>  sound/usb/card.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+>  sound/usb/card.h |  9 +++++++++
+>  2 files changed, 54 insertions(+)
+> 
+> diff --git a/sound/usb/card.c b/sound/usb/card.c
+> index 1b2edc0fd2e9..067a1e82f4bf 100644
+> --- a/sound/usb/card.c
+> +++ b/sound/usb/card.c
+> @@ -118,6 +118,34 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
+>  static DEFINE_MUTEX(register_mutex);
+>  static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
+>  static struct usb_driver usb_audio_driver;
+> +static struct snd_usb_platform_ops *platform_ops;
+> +
+> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
+> +{
+> +	int ret;
+> +
+> +	mutex_lock(&register_mutex);
+> +	if (platform_ops) {
+> +		ret = -EEXIST;
+> +		goto out;
+> +	}
+> +
+> +	platform_ops = ops;
+> +out:
+> +	mutex_unlock(&register_mutex);
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_usb_register_platform_ops);
 
-This found to be fixing a DMIC clock discrepancy which is suspected
-to happen because of back to back quick PLLA and PLLA_OUT0 rate
-updates. This was observed on Jetson TX2 platform where DMIC clock
-ended up with unexpected value.
+For adding this kind of API, please give the proper comment.
+Especially this API is special and need a caution, to mention that it
+can be used only for a single instance.
 
-Fixes: 202e2f774543 ("ASoC: tegra: Add audio graph based card driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- sound/soc/tegra/tegra_audio_graph_card.c | 30 ++++++++++++++----------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+Also, it should be mentioned that all callbacks are exclusive under
+the global register_mutex.
 
-diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
-index 1f2c5018bf5a..4737e776d383 100644
---- a/sound/soc/tegra/tegra_audio_graph_card.c
-+++ b/sound/soc/tegra/tegra_audio_graph_card.c
-@@ -10,6 +10,7 @@
- #include <linux/platform_device.h>
- #include <sound/graph_card.h>
- #include <sound/pcm_params.h>
-+#include <sound/soc-dai.h>
- 
- #define MAX_PLLA_OUT0_DIV 128
- 
-@@ -44,6 +45,21 @@ struct tegra_audio_cdata {
- 	unsigned int plla_out0_rates[NUM_RATE_TYPE];
- };
- 
-+static bool need_clk_update(struct snd_soc_dai *dai)
-+{
-+	if (snd_soc_dai_is_dummy(dai) ||
-+	    !dai->driver->ops ||
-+	    !dai->driver->name)
-+		return false;
-+
-+	if (strstr(dai->driver->name, "I2S") ||
-+	    strstr(dai->driver->name, "DMIC") ||
-+	    strstr(dai->driver->name, "DSPK"))
-+		return true;
-+
-+	return false;
-+}
-+
- /* Setup PLL clock as per the given sample rate */
- static int tegra_audio_graph_update_pll(struct snd_pcm_substream *substream,
- 					struct snd_pcm_hw_params *params)
-@@ -140,19 +156,7 @@ static int tegra_audio_graph_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
- 	int err;
- 
--	/*
--	 * This gets called for each DAI link (FE or BE) when DPCM is used.
--	 * We may not want to update PLLA rate for each call. So PLLA update
--	 * must be restricted to external I/O links (I2S, DMIC or DSPK) since
--	 * they actually depend on it. I/O modules update their clocks in
--	 * hw_param() of their respective component driver and PLLA rate
--	 * update here helps them to derive appropriate rates.
--	 *
--	 * TODO: When more HW accelerators get added (like sample rate
--	 * converter, volume gain controller etc., which don't really
--	 * depend on PLLA) we need a better way to filter here.
--	 */
--	if (cpu_dai->driver->ops && rtd->dai_link->no_pcm) {
-+	if (need_clk_update(cpu_dai)) {
- 		err = tegra_audio_graph_update_pll(substream, params);
- 		if (err)
- 			return err;
--- 
-2.17.1
+> @@ -910,7 +938,11 @@ static int usb_audio_probe(struct usb_interface *intf,
+>  	chip->num_interfaces++;
+>  	usb_set_intfdata(intf, chip);
+>  	atomic_dec(&chip->active);
+> +
+> +	if (platform_ops && platform_ops->connect_cb)
+> +		platform_ops->connect_cb(chip);
+>  	mutex_unlock(&register_mutex);
 
+One uncertain thing is the argument for connect_cb and disconnect_cb.
+Those take snd_usb_audio object, but the callback gets called per
+interface at each probe and disconnect.  How does the callee handle
+multiple calls?
+
+Last but not least, the patch subject should be with "ALSA:" prefix,
+and in this case, at best "ALSA: usb-audio: xxx".
+
+
+thanks,
+
+Takashi

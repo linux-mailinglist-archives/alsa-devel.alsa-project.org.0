@@ -2,74 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0477797221
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 14:01:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE7A79722F
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 14:14:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C45F884B;
-	Thu,  7 Sep 2023 14:00:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C45F884B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 542AF832;
+	Thu,  7 Sep 2023 14:13:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 542AF832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694088103;
-	bh=fGYmQGGT7gnWS9Nm/ioxTZGDPllSUiGWM3SgqQbNMLk=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=oJR8ZM+eOhLlpxbblFscXG3IYLGBxqHhjvIa/wGkURYQDQruQVu3+wv+nsLwKA2pf
-	 zMjuk8f5qfU/jMsqVSQjT6ul/G44C4wjdEh5PC9bQxyIRT5zg2inVJkAXAQctN+oEC
-	 dSVLYLNorYnGJWsTkohzPwSiR0EVdOEHSdMNJCqs=
+	s=default; t=1694088840;
+	bh=MIKucFXbSuLDQ9S2/+azgVLHGR1er3BMcq0q3vjzsEw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=vJ4o1wHaXCOL5EGeSuY4ltK9nlwx6+YKzW512yDr3UnyjIFVXgKVJAt64bTAaYt1/
+	 lLOWvP4YNq+CPHYkNrnN9eNCRQw+bdlYtZYWi/uyNPmwrqyBjSIAvBIsb3Qm89RG1b
+	 sgOWIkf4rv2Sym7VlfXuN+t8w1+Yt+W+6DC3dNMI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B99ECF80551; Thu,  7 Sep 2023 14:00:34 +0200 (CEST)
+	id 9CB5CF800AA; Thu,  7 Sep 2023 14:13:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52181F8047D;
-	Thu,  7 Sep 2023 14:00:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3182F8047D;
+	Thu,  7 Sep 2023 14:13:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C401F80494; Thu,  7 Sep 2023 14:00:30 +0200 (CEST)
+	id 83199F80494; Thu,  7 Sep 2023 14:12:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 96CC2F800F5
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 14:00:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96CC2F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id DD8ACF800F5
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 14:12:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD8ACF800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=nKEJ2QOY
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=1a+la0k0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=OZzZHzlC
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 66ACFCE1953;
-	Thu,  7 Sep 2023 12:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25138C32785;
-	Thu,  7 Sep 2023 12:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694088019;
-	bh=fGYmQGGT7gnWS9Nm/ioxTZGDPllSUiGWM3SgqQbNMLk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=nKEJ2QOYJ/qIi+EePKdfgSlgFYSQn8hhjWavew7ish7W76KFOnb9wSfAvRtZkwO8d
-	 FiFs8rcTPd7hlWYKKa+OARos5+0SIkdLU/HYS+eYkqGPhsNXAQ3wh01hi4gIV2K9ZW
-	 U7zLCx97oQPAS76S/rve8Awvhal+IXV6HcQ1s1L2mmITunOjKocFXBOmhGMqZCyYQx
-	 afdnCXOuGbiZUKGMvgJPSEUATQ5oKXdaSjmADRa9n0HEZFuD9Z3y/5J0fVcl8WTOFQ
-	 I5pw5/eiidA7CAKQqs1VsUhEcDMYdlVASTQCaisA7A97A4G+N0iHJgxUONR6V4md8b
-	 U456gihK86bjQ==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.6-merge-window
-Date: Thu, 07 Sep 2023 13:00:06 +0100
-Message-Id: <20230907120019.25138C32785@smtp.kernel.org>
-Message-ID-Hash: MVDVM5FTXF7XG4F5O3QF7OV3YYJEHGKW
-X-Message-ID-Hash: MVDVM5FTXF7XG4F5O3QF7OV3YYJEHGKW
-X-MailFrom: broonie@kernel.org
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 331C91F8AB;
+	Thu,  7 Sep 2023 12:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1694088755;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I/HwWPYKbbr4hWg5zoNXleYel4uqvefl/c88qHfzG5E=;
+	b=1a+la0k0D0nrTO4/RhA4Fb2Vj1cbKPz83CgYnie+HnyXuUAzFYQzua9r2vg0sEEPhw163Y
+	263jyEb5FRwVRjCLvuX2GliqXG/SJBPAR7R8aoqJqwEU9CZMzdD+f5k55O0SpE73bQmTHS
+	UJhugWfcoR5o4lDGbn603gtPdsAPLWQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1694088755;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I/HwWPYKbbr4hWg5zoNXleYel4uqvefl/c88qHfzG5E=;
+	b=OZzZHzlC+iEGT3pg+pZHz7ea62lgyfDh6oHETPtROw3d37sggbvgjrYciu5UNlT4kwCac6
+	mgDgIpnJZoq0itDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 131E4138F9;
+	Thu,  7 Sep 2023 12:12:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id KP3MAzO++WSPFAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 07 Sep 2023 12:12:35 +0000
+Date: Thu, 07 Sep 2023 14:12:34 +0200
+Message-ID: <87r0nab2rx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.6-merge-window
+In-Reply-To: <20230907120019.25138C32785@smtp.kernel.org>
+References: <20230907120019.25138C32785@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: JKDFEKBN26VISVBI4PPCCCJ2DAGN73VT
+X-Message-ID-Hash: JKDFEKBN26VISVBI4PPCCCJ2DAGN73VT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -81,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MVDVM5FTXF7XG4F5O3QF7OV3YYJEHGKW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JKDFEKBN26VISVBI4PPCCCJ2DAGN73VT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,69 +117,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 199cd64140f222c66b68ebe288a3fcd0570e2e41:
+On Thu, 07 Sep 2023 14:00:06 +0200,
+Mark Brown wrote:
+> 
+> The following changes since commit 199cd64140f222c66b68ebe288a3fcd0570e2e41:
+> 
+>   ASoC: soc-core.c: Do not error if a DAI link component is not found (2023-08-24 21:10:45 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.6-merge-window
+> 
+> for you to fetch changes up to cfff2a7794d23b03a3ddedd318bf1df1876c598f:
+> 
+>   ASoC: amd: yc: Fix a non-functional mic on Lenovo 82TL (2023-09-06 20:06:36 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.6
+> 
+> A bunch of fixes and new IDs that came in since the initial pull request
+> - all driver specific and nothing too exciting.
+> 
+> There's a trivial conflict in the AMD driver ID table due to the last
+> v6.5 fixes not having been merged up.
 
-  ASoC: soc-core.c: Do not error if a DAI link component is not found (2023-08-24 21:10:45 +0100)
+Thanks, pulled now.
 
-are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.6-merge-window
-
-for you to fetch changes up to cfff2a7794d23b03a3ddedd318bf1df1876c598f:
-
-  ASoC: amd: yc: Fix a non-functional mic on Lenovo 82TL (2023-09-06 20:06:36 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.6
-
-A bunch of fixes and new IDs that came in since the initial pull request
-- all driver specific and nothing too exciting.
-
-There's a trivial conflict in the AMD driver ID table due to the last
-v6.5 fixes not having been merged up.
-
-----------------------------------------------------------------
-Adam Ford (1):
-      ASoC: dt-bindings: fsl_easrc: Add support for imx8mp-easrc
-
-Amadeusz Sławiński (1):
-      ASoC: Intel: avs: Provide support for fallback topology
-
-Brent Lu (1):
-      ASoC: rt5645: NULL pointer access when removing jack
-
-Harshit Mogalapalli (1):
-      ASoC: cs42l43: Fix missing error code in cs42l43_codec_probe()
-
-Kevin-Lu (1):
-      MAINTAINERS: Update the MAINTAINERS enties for TEXAS INSTRUMENTS ASoC DRIVERS
-
-Krzysztof Kozlowski (1):
-      ASoC: codecs: wcd93xx: fix object added to multiple drivers
-
-Mario Limonciello (1):
-      ASoC: amd: yc: Fix a non-functional mic on Lenovo 82TL
-
-Shubh (1):
-      ASoC: amd: yc: Add DMI entries to support Victus by HP Gaming Laptop 15-fb0xxx (8A3E)
-
-Simon Trimmer (1):
-      ASoC: cs35l56: Waiting for firmware to boot must be tolerant of I/O errors
-
-Vlad Karpovich (3):
-      ASoC: cs35l45: Add support for Chip ID 0x35A460
-      ASoC: cs35l45: Fix "Dead assigment" warning
-      ASoC: cs35l45: Rename DACPCM1 Source control
-
- .../devicetree/bindings/sound/fsl,easrc.yaml       |  8 +++++-
- MAINTAINERS                                        |  2 +-
- sound/soc/amd/yc/acp6x-mach.c                      | 14 +++++++++++
- sound/soc/codecs/Kconfig                           |  6 +++++
- sound/soc/codecs/Makefile                          |  8 +++---
- sound/soc/codecs/cs35l45.c                         | 11 ++++----
- sound/soc/codecs/cs35l56-shared.c                  | 29 +++++++++++-----------
- sound/soc/codecs/cs42l43.c                         |  3 ++-
- sound/soc/codecs/rt5645.c                          | 16 +++++++-----
- sound/soc/codecs/wcd-clsh-v2.c                     |  8 ++++++
- sound/soc/intel/avs/pcm.c                          | 22 ++++++++++++++++
- 11 files changed, 96 insertions(+), 31 deletions(-)
+Takashi

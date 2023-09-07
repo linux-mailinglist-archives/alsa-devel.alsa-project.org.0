@@ -2,66 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2C50797961
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 19:12:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1CA797963
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 19:12:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 977A1BC0;
-	Thu,  7 Sep 2023 19:11:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 977A1BC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5753DF1;
+	Thu,  7 Sep 2023 19:11:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5753DF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694106730;
-	bh=LTYQlpYjRWHhuzVTDClSJzTinidzBZZBJA3f8dy37pI=;
+	s=default; t=1694106748;
+	bh=nGFk3rS7fAIR3MaWNggHlTaneMQ+Lj8aBg1pPKOxNfI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=icefcCBQ+IIpL24flnNYhIfgpNyVjyKUikJ8A383r5nC5FH8SpwE6VSaX4Df1dbOb
-	 6OygC4KvzJqYi5PtTmd2z9PdvDGQwMSCq4/FO148U+VFtKW8N8zc40gg6RJcmAI7id
-	 64YQOJekMzta/n9Tjm2+D9dVOJtFP6LJVJnHGJhE=
+	b=qu/i9nYm43pFjnhvxiGj17pDkNwdwqog5rwJWH5TsWBDYvnDa7UQ9xOsNc395mygB
+	 pwWZKTyhrNS/6Zqm9XWGs4Oui+EgGodUC52bE7BNY6AuBtnA43bZo3fpLEsh1kuGIe
+	 0N63OfJ9o6kYZatUnA+QhMaPq1TVLWnbxOp2OFOI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 761BEF8057A; Thu,  7 Sep 2023 19:10:31 +0200 (CEST)
+	id 23C42F8059F; Thu,  7 Sep 2023 19:10:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CA39F80578;
-	Thu,  7 Sep 2023 19:10:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 926C6F80587;
+	Thu,  7 Sep 2023 19:10:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E95ECF804F3; Thu,  7 Sep 2023 19:10:25 +0200 (CEST)
+	id CA61AF8055A; Thu,  7 Sep 2023 19:10:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ [46.235.227.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EAE29F800F5
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 19:10:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAE29F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 30976F800AA
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 19:10:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30976F800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=E3FAUF13
+ header.a=rsa-sha256 header.s=mail header.b=HLHsLVsm
 Received: from localhost (unknown [81.18.92.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id CFC7466072E5;
-	Thu,  7 Sep 2023 18:10:20 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 7E20866072EC;
+	Thu,  7 Sep 2023 18:10:23 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1694106621;
-	bh=LTYQlpYjRWHhuzVTDClSJzTinidzBZZBJA3f8dy37pI=;
+	s=mail; t=1694106623;
+	bh=nGFk3rS7fAIR3MaWNggHlTaneMQ+Lj8aBg1pPKOxNfI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=E3FAUF13OSTk1RLs/CeCermnjqevCEIh9qWcOU6CTBhA2Diwt80nW3OLY+wcNeta/
-	 KXRJhZDKaAA/mkDgz3zFMYDXVVys8b/wAAG3PvsJEiyrQ60082aW4vnKySPNU1Hqg8
-	 DWAwMs4kHlVs4t7gxXkxnBIpBRfMwefUPm/ML9LeWpwxY/oIKreIm3e/VWXXEm65Bx
-	 mvOasm+2UYtDIToSSL0Gq0oYcSDApcrYuOlCHGf0vk3HLhNmRryd3I0V+qLKANisOn
-	 lYlnliflUAhmuZW1TnkmC3g7ecPpQywNDfgqMMd5Zl4akcc3NW2ca526MaJeq4ejTV
-	 90tdf9cBV66cg==
+	b=HLHsLVsm2dcn3Uh9I48y2sx9s/qYXpkeDS4LMk1GUi7t5VjLRz64zwSawOKioJSM4
+	 JSd6v36tBAwHgHZBnsU9+FhB+Oq3MNuJcYoyu79o3nqmCH3brC43y7k2PYCLu49A+Z
+	 xwIURVgTW9ES3X7rjEVkg+bbegxCICVAHWRKpSF0NQ6sVluQYoB/LejpHHoOZotSYa
+	 FtvsbWzB7DYvJVfcInVd1pGyL78TbU4jJfJbVAFDc2WzqDEpnESJY0sxsYa/c8sxbz
+	 zZUjQA/555dkelWJjVmK14tte6x5M8iTidVPzwWVYgEZ7ptxLj1/NCzKbiN/Y03+lV
+	 Wx9r0gwYd0oNg==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: James Schulman <james.schulman@cirrus.com>,
 	David Rhodes <david.rhodes@cirrus.com>,
@@ -77,16 +76,17 @@ Cc: alsa-devel@alsa-project.org,
 	patches@opensource.cirrus.com,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH v2 02/11] ASoC: cs35l41: Handle mdsync_up reg write errors
-Date: Thu,  7 Sep 2023 20:10:01 +0300
-Message-ID: <20230907171010.1447274-3-cristian.ciocaltea@collabora.com>
+Subject: [PATCH v2 03/11] ASoC: cs35l41: Initialize completion object before
+ requesting IRQ
+Date: Thu,  7 Sep 2023 20:10:02 +0300
+Message-ID: <20230907171010.1447274-4-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230907171010.1447274-1-cristian.ciocaltea@collabora.com>
 References: <20230907171010.1447274-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 76R5JLMTSXUDM45HG6GXUNSDNQ2MI5CP
-X-Message-ID-Hash: 76R5JLMTSXUDM45HG6GXUNSDNQ2MI5CP
+Message-ID-Hash: L7J7WD6H2374OKKY43HPAVANHLYTL3T5
+X-Message-ID-Hash: L7J7WD6H2374OKKY43HPAVANHLYTL3T5
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76R5JLMTSXUDM45HG6GXUNSDNQ2MI5CP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L7J7WD6H2374OKKY43HPAVANHLYTL3T5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,56 +108,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The return code of regmap_multi_reg_write() call related to "MDSYNC up"
-sequence is shadowed by the subsequent regmap_read_poll_timeout()
-invocation, which will hit a timeout in case the write operation above
-fails.
+Technically, an interrupt handler can be called before probe() finishes
+its execution, hence ensure the pll_lock completion object is always
+initialized before being accessed in cs35l41_irq().
 
-Make sure cs35l41_global_enable() returns the correct error code instead
-of -ETIMEDOUT.
-
-Additionally, to be able to distinguish between the timeouts of
-wait_for_completion_timeout() and regmap_read_poll_timeout(), print an
-error message for the former and return immediately.  This also avoids
-having to wait unnecessarily for the second time.
-
-Fixes: f8264c759208 ("ALSA: cs35l41: Poll for Power Up/Down rather than waiting a fixed delay")
+Fixes: f5030564938b ("ALSA: cs35l41: Add shared boost feature")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs35l41-lib.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ sound/soc/codecs/cs35l41.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/cs35l41-lib.c b/sound/soc/codecs/cs35l41-lib.c
-index a018f1d98428..a6c6bb23b957 100644
---- a/sound/soc/codecs/cs35l41-lib.c
-+++ b/sound/soc/codecs/cs35l41-lib.c
-@@ -1251,15 +1251,18 @@ int cs35l41_global_enable(struct device *dev, struct regmap *regmap, enum cs35l4
+diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
+index 722b69a6de26..fe5376b3e01b 100644
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -1273,6 +1273,8 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
+ 		regmap_update_bits(cs35l41->regmap, CS35L41_IRQ1_MASK3, CS35L41_INT3_PLL_LOCK_MASK,
+ 				   0 << CS35L41_INT3_PLL_LOCK_SHIFT);
  
- 		ret = wait_for_completion_timeout(pll_lock, msecs_to_jiffies(1000));
- 		if (ret == 0) {
--			ret = -ETIMEDOUT;
--		} else {
--			regmap_read(regmap, CS35L41_PWR_CTRL3, &pwr_ctrl3);
--			pwr_ctrl3 |= CS35L41_SYNC_EN_MASK;
--			cs35l41_mdsync_up_seq[0].def = pwr_ctrl3;
--			ret = regmap_multi_reg_write(regmap, cs35l41_mdsync_up_seq,
--						     ARRAY_SIZE(cs35l41_mdsync_up_seq));
-+			dev_err(dev, "Timed out waiting for pll_lock\n");
-+			return -ETIMEDOUT;
- 		}
- 
-+		regmap_read(regmap, CS35L41_PWR_CTRL3, &pwr_ctrl3);
-+		pwr_ctrl3 |= CS35L41_SYNC_EN_MASK;
-+		cs35l41_mdsync_up_seq[0].def = pwr_ctrl3;
-+		ret = regmap_multi_reg_write(regmap, cs35l41_mdsync_up_seq,
-+					     ARRAY_SIZE(cs35l41_mdsync_up_seq));
-+		if (ret)
-+			return ret;
++	init_completion(&cs35l41->pll_lock);
 +
- 		ret = regmap_read_poll_timeout(regmap, CS35L41_IRQ1_STATUS1,
- 					int_status, int_status & pup_pdn_mask,
- 					1000, 100000);
+ 	ret = devm_request_threaded_irq(cs35l41->dev, cs35l41->irq, NULL, cs35l41_irq,
+ 					IRQF_ONESHOT | IRQF_SHARED | irq_pol,
+ 					"cs35l41", cs35l41);
+@@ -1295,8 +1297,6 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
+ 	if (ret < 0)
+ 		goto err;
+ 
+-	init_completion(&cs35l41->pll_lock);
+-
+ 	pm_runtime_set_autosuspend_delay(cs35l41->dev, 3000);
+ 	pm_runtime_use_autosuspend(cs35l41->dev);
+ 	pm_runtime_mark_last_busy(cs35l41->dev);
 -- 
 2.41.0
 

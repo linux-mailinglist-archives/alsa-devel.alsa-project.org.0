@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8F86797972
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 19:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFFB797973
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 19:14:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1B3DE75;
-	Thu,  7 Sep 2023 19:13:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1B3DE75
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55E47E0D;
+	Thu,  7 Sep 2023 19:13:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55E47E0D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694106868;
-	bh=ebjTOlKhI8W4zt2KLb9pyA5zxGnqWLuX8KAbomolyu8=;
+	s=default; t=1694106881;
+	bh=rIB839KbtT4M8CYKZ1SHwXmr9eGS1OcT+UowfodUupQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=a0s/s+EG/i25CK2I2jQY/jk4OG896yVNKvTujPYOLRi3ifzQyp7O4lmBpvg0Z/6Wc
-	 JbLDQrB1iy98lGZZVCy8At0iwklz7Pd7bupM3UDW7VB2QlGj6Dn/cwCwBch1MKMOUK
-	 L8ct4us2tYl7JkyKOOTjkziS9MzaTsV4w3ABt6xw=
+	b=MVcRKiYlXdRG1LCtQ9IBlnrNQv0bEKjj36RwiYRdt299ogMlk+ZCoGpgIHmmJBmz+
+	 NhFuWhaUPzjgQqjrPFC+aZGY1wot5nJoOm/676/2emS92J5Pb6dl7hIEisDZC1NOfk
+	 LnnY7ic3W2Sz2CghhyGn24CySFPIQr8OITJi6mqk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 220F1F805F8; Thu,  7 Sep 2023 19:10:55 +0200 (CEST)
+	id 31D92F80606; Thu,  7 Sep 2023 19:10:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3575BF805F6;
-	Thu,  7 Sep 2023 19:10:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99455F805FF;
+	Thu,  7 Sep 2023 19:10:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C41DF805E1; Thu,  7 Sep 2023 19:10:47 +0200 (CEST)
+	id 6564DF805EF; Thu,  7 Sep 2023 19:10:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,35 +33,35 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ [46.235.227.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 77D53F805E0
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 19:10:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77D53F805E0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53D6DF805E0
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 19:10:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53D6DF805E0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=eIsHJoKe
+ header.a=rsa-sha256 header.s=mail header.b=YipAyS+s
 Received: from localhost (unknown [81.18.92.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 6468366072F6;
-	Thu,  7 Sep 2023 18:10:44 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id A88C166072F7;
+	Thu,  7 Sep 2023 18:10:47 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1694106644;
-	bh=ebjTOlKhI8W4zt2KLb9pyA5zxGnqWLuX8KAbomolyu8=;
+	s=mail; t=1694106647;
+	bh=rIB839KbtT4M8CYKZ1SHwXmr9eGS1OcT+UowfodUupQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eIsHJoKe89p6AZNI2jcZHGhVv4MPQa5q9p46uvQ8sFgCFwlpdPsRcHkX3dCMgh9wJ
-	 O6o+jDDv5FDaOZ25kDeRI3K82Y8F6BaU9WcLJYB/HZ+mSkTLUgMe7RSKbOg9Uj2ReY
-	 tT2czfmwjqhPAdUjzSGldkGo0b70PrObV/XmUVlAUKeSq7XQmnWgCsL13C4r5NmEvn
-	 b7ROTdmf+wzyOLhjrGvtnbWGgtY43YEHeyxzApWRfiIIoclw2ZRTyKr1y8cNa7fwWJ
-	 GKNJV1yv3Rlw9rTZroGp0pOAfv/mbDYaBmwzmaur+aEgC9i2wa+U/QMvyRQJQwy7e/
-	 f/9nHk4Ct8A6g==
+	b=YipAyS+s+34w+o5S1L4JGFAzu5i0XzX7Mm1+LeSjGSXnMAFaoUoQ1R7GKS+ZFf0Kh
+	 67E41SgZlirlEk5cElfhVylwcu1tZlXJ/v9aoCTCFS5Z7d4NbKeFmJVBhLePQvKVgm
+	 gA/zkun9e+nM+pt8yxV69r6KgWbiakFkmtZYiqKhFBBwlXo60Ci91duDxUU9hSF0ny
+	 zcnggy+6OTxCaKO/gVNoFqvjGuGFQlHirPsLNsGwngFPMerC5UwONMjZZ9o0eg4AZL
+	 G1qA1LUqB97//C6rWkxVRUbL8uxCviOscdPOvBf9kzjO/6ukokLf6eOA7mZqd9uS0v
+	 d91xxPzjrtAaQ==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: James Schulman <james.schulman@cirrus.com>,
 	David Rhodes <david.rhodes@cirrus.com>,
@@ -77,17 +77,16 @@ Cc: alsa-devel@alsa-project.org,
 	patches@opensource.cirrus.com,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH v2 10/11] ALSA: hda: cs35l41: Undo runtime PM changes at
- driver exit time
-Date: Thu,  7 Sep 2023 20:10:09 +0300
-Message-ID: <20230907171010.1447274-11-cristian.ciocaltea@collabora.com>
+Subject: [PATCH v2 11/11] ALSA: hda: cs35l41: Consistently use dev_err_probe()
+Date: Thu,  7 Sep 2023 20:10:10 +0300
+Message-ID: <20230907171010.1447274-12-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230907171010.1447274-1-cristian.ciocaltea@collabora.com>
 References: <20230907171010.1447274-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QSC6SBV43AZS7ZBZJA7INJ6254AKQ4JU
-X-Message-ID-Hash: QSC6SBV43AZS7ZBZJA7INJ6254AKQ4JU
+Message-ID-Hash: QL7KLN44U2VYJX46ISLE3TD2JL3PV7YD
+X-Message-ID-Hash: QL7KLN44U2VYJX46ISLE3TD2JL3PV7YD
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSC6SBV43AZS7ZBZJA7INJ6254AKQ4JU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QL7KLN44U2VYJX46ISLE3TD2JL3PV7YD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,38 +108,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-According to the documentation, drivers are responsible for undoing at
-removal time all runtime PM changes done during probing.
+Replace the remaining dev_err() calls in probe() with dev_err_probe(),
+to improve consistency.
 
-Hence, add the missing calls to pm_runtime_dont_use_autosuspend(), which
-are necessary for undoing pm_runtime_use_autosuspend().
-
-Fixes: 1873ebd30cc8 ("ALSA: hda: cs35l41: Support Hibernation during Suspend")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- sound/pci/hda/cs35l41_hda.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/hda/cs35l41_hda.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 6fd827093c92..565f7b897436 100644
+index 565f7b897436..c74faa2ff46c 100644
 --- a/sound/pci/hda/cs35l41_hda.c
 +++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1633,6 +1633,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 	return 0;
+@@ -1550,27 +1550,27 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 	ret = regmap_read_poll_timeout(cs35l41->regmap, CS35L41_IRQ1_STATUS4, int_status,
+ 				       int_status & CS35L41_OTP_BOOT_DONE, 1000, 100000);
+ 	if (ret) {
+-		dev_err(cs35l41->dev, "Failed waiting for OTP_BOOT_DONE: %d\n", ret);
++		dev_err_probe(cs35l41->dev, ret, "Failed waiting for OTP_BOOT_DONE\n");
+ 		goto err;
+ 	}
  
- err_pm:
-+	pm_runtime_dont_use_autosuspend(cs35l41->dev);
- 	pm_runtime_disable(cs35l41->dev);
- 	pm_runtime_put_noidle(cs35l41->dev);
+ 	ret = regmap_read(cs35l41->regmap, CS35L41_IRQ1_STATUS3, &int_sts);
+ 	if (ret || (int_sts & CS35L41_OTP_BOOT_ERR)) {
+-		dev_err(cs35l41->dev, "OTP Boot status %x error: %d\n",
+-			int_sts & CS35L41_OTP_BOOT_ERR, ret);
++		dev_err_probe(cs35l41->dev, ret, "OTP Boot status %x error\n",
++			      int_sts & CS35L41_OTP_BOOT_ERR);
+ 		ret = -EIO;
+ 		goto err;
+ 	}
  
-@@ -1651,6 +1652,7 @@ void cs35l41_hda_remove(struct device *dev)
- 	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
+ 	ret = regmap_read(cs35l41->regmap, CS35L41_DEVID, &regid);
+ 	if (ret) {
+-		dev_err(cs35l41->dev, "Get Device ID failed: %d\n", ret);
++		dev_err_probe(cs35l41->dev, ret, "Get Device ID failed\n");
+ 		goto err;
+ 	}
  
- 	pm_runtime_get_sync(cs35l41->dev);
-+	pm_runtime_dont_use_autosuspend(cs35l41->dev);
- 	pm_runtime_disable(cs35l41->dev);
+ 	ret = regmap_read(cs35l41->regmap, CS35L41_REVID, &reg_revid);
+ 	if (ret) {
+-		dev_err(cs35l41->dev, "Get Revision ID failed: %d\n", ret);
++		dev_err_probe(cs35l41->dev, ret, "Get Revision ID failed\n");
+ 		goto err;
+ 	}
  
- 	if (cs35l41->halo_initialized)
+@@ -1593,7 +1593,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 
+ 	ret = cs35l41_otp_unpack(cs35l41->dev, cs35l41->regmap);
+ 	if (ret) {
+-		dev_err(cs35l41->dev, "OTP Unpack failed: %d\n", ret);
++		dev_err_probe(cs35l41->dev, ret, "OTP Unpack failed\n");
+ 		goto err;
+ 	}
+ 
+@@ -1624,7 +1624,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 
+ 	ret = component_add(cs35l41->dev, &cs35l41_hda_comp_ops);
+ 	if (ret) {
+-		dev_err(cs35l41->dev, "Register component failed: %d\n", ret);
++		dev_err_probe(cs35l41->dev, ret, "Register component failed\n");
+ 		goto err_pm;
+ 	}
+ 
 -- 
 2.41.0
 

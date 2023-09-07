@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EC0879711C
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 11:06:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E45C797123
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 11:10:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 622FC86F;
-	Thu,  7 Sep 2023 11:06:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 622FC86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A864B886;
+	Thu,  7 Sep 2023 11:09:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A864B886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694077612;
-	bh=QwScNBKP+DmbkZrHxKoImCjsJN0t7vY8bl/33N9uAxU=;
+	s=default; t=1694077832;
+	bh=i4eVAqrAINJtGSMhSmGgLIBfYZcUeL6X9E8BPPRmlz0=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=a6szqk7eJpcI8TTLt9LY0wLwmBrcRRGOiovwLbG2zhzla6P+2E5bHkLX6IeRdj93w
-	 sVKJoFfoe9oti//3Pas93mWGWVhX8tAb/0LGyr2OBz0ZGRO6zDFeibvD6WJcbHo/Xa
-	 qXGU+IMJdumkNkD3qQSHIHSiz4maq7LliwxiVkP0=
+	b=rSApQ0UdhwU3sCw1jzk2V6NhSkp0riiN3j4OiGdGDEw4KCtdqCmexbAKrnG3ox4g/
+	 PyToQCu/hp2+x4XZ8mJN38y6Eh4suYw078GFG7VVQcIP8p1EXPi3yJNw+aHXSnx6P1
+	 rBTTMbiQ8acgpT5exoYDPBRjnptMCkKwHFxjBAPc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97394F80494; Thu,  7 Sep 2023 11:05:35 +0200 (CEST)
+	id 1EAB5F800F5; Thu,  7 Sep 2023 11:09:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9EFAF8047D;
-	Thu,  7 Sep 2023 11:05:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCF47F8047D;
+	Thu,  7 Sep 2023 11:09:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A10FF80494; Thu,  7 Sep 2023 11:05:30 +0200 (CEST)
+	id 0905CF80494; Thu,  7 Sep 2023 11:09:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C638BF800F5
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 11:05:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C638BF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1D75FF80431
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 11:09:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D75FF80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20230601.gappssmtp.com
  header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=VqPoYN/c
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-401c90ed2ecso8169605e9.0
+ header.s=20230601 header.b=xOdCdnww
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-401bbfc05fcso8207935e9.3
         for <alsa-devel@alsa-project.org>;
- Thu, 07 Sep 2023 02:05:17 -0700 (PDT)
+ Thu, 07 Sep 2023 02:09:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1694077516;
- x=1694682316; darn=alsa-project.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1694077772;
+ x=1694682572; darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=oJVDYEmcYMvyDAvrM+W+a0XTM8UX7gM4MKMeEwWok1U=;
-        b=VqPoYN/cEDi7AEb7XUtfJuGV98YPjt+mBwjZSnnyD+v1rVTTrAyV2fzG499GPTpkAl
-         xujs3rhpp6632bbY66mQomu/JvUBV94Ipe4cF1t6/xdxg7dwm+6IK7184qp6ZLKYFQnL
-         6KPaDGiN2338X2AqxJ7JJC+amDAWBq5xQFEYqEk/s6aNdVd7/x0rQWkURAW2QKihVbXM
-         BFKD5ckloxDBkhfPZYo4REf2CwyQyvx1/mTxlZt53NjVHn6ZcpakIUNCnQ62Pia0wTmg
-         uFUmxcglzNelTpbKrICI5v41rqWuOIAzWlTdKtWz4+b08k7P6ai1+4OS05WbXRMxVfNK
-         n6jg==
+        bh=wBjuRLwnfixpgR2nFPgNkEIBBrq5rco4eC4mU+aZjZI=;
+        b=xOdCdnwwQsB6ZlKyxtoP3J9DI2/yl6y8PZHE46DwawR3JMUPynzUPFcBi8gtqEaeAl
+         I4MoGvuM/Lj3diwF/yj/uaTxF2CIE2kGCI0ct5TlZz8uPbcRN7fQiuvvjSiKp8quVZyc
+         rJrrWCTcB1w+fCJtMX/EzOC6iGOwE813R6gdGscBCe8IhUDT/wZl8IkKdKjNY7YucTrE
+         UqrsW5fqv4OA4p6vrJ/loYAC3ehuccy7oNAG69+1UYiKZP/NGmJIC6kx45ufQjVFAMbX
+         GjJDiB8q+tHlpG/YAnwPCc+C65Tnvm5BvKuI9GKdG1peQW1/HnXswAkTOSDLQWvursIX
+         zQfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1694077516; x=1694682316;
+        d=1e100.net; s=20221208; t=1694077772; x=1694682572;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oJVDYEmcYMvyDAvrM+W+a0XTM8UX7gM4MKMeEwWok1U=;
-        b=IX9nORz9rLOxJuH8BPNJXNYqnZUOvc8WUfRJYn3MKheWJTIqaycObgKwB3220YKXsD
-         odkiM9FVBdyWkv+NaKD8BxTgjkqIg4DuGyUAwNuc/AhX3Jg+ErUmbCr0bZ6dOfx86ush
-         hAjwkl4U5jh83hbciCLHRwO9VYuxm75OBLU71mVW1N1ZKz8Oout3lZf+Cokfa4cjs4MO
-         KdVHLnGXny4QFXK2sWdIcbxDTcDxyefm5AWcT1Lwjut3c1jdhjL1jH5RZn09nud0b+cZ
-         P02tt4FiMQ3IcLWycAY2lfJ42PQsOpuJe0dTn8R96mlyP9e4ewpZe8ESqc3lAs+TaAd6
-         Z3sg==
-X-Gm-Message-State: AOJu0YyUHCvk1+pYRCJC/BqVJmEWUptlnoG/KCnBo9VS+zxmnOhqrIwG
-	4dkrDfFHXEH169Hqu178QlGsSg==
+        bh=wBjuRLwnfixpgR2nFPgNkEIBBrq5rco4eC4mU+aZjZI=;
+        b=U6lQvgjWGFdiQbZY+eRAzL4ZJpdi4PmCD3tSBWLLrOXnZA4WM9AzU01Mzywq34Lhkk
+         QYHiiK/+sBfbtRXemhsTO1bTNc7OUQY3sm2+dHoukHM0WHdirluuXZ7X0UXsoOOu6Idv
+         JAunysJUvQuFWt/Er1xzmjPbYNDuqYsULVhPyUobDXhBa+fnxbDCT7AwcLg7wB9Ww58F
+         8cb65DUY89hFsbr3MfUKGcHL6slJ+2I8ZHr8/wHG5bJLVW65LAsMjymiT6kEaUsXPNZL
+         /otBVJw2qYJCeZ9hnwEJ0vsvRUpAzLW4IpwTnMqOmBiz0LdIOsNLj8ztkPKy6TjS6ivB
+         ZD0Q==
+X-Gm-Message-State: AOJu0Yyrkt1teEXilg26Q7ALQ0H/XVnfIfijfSM3Fn7MRewPxE/LtBoL
+	8HWMFhiUNAPtzmZ0/Z7tX1M9Mg==
 X-Google-Smtp-Source: 
- AGHT+IEOvCH7hNTHOrZSew7AYc5GcTyZgtrMkRHjYNSp10f3yfgk8FqXZw9ThISAuSrWLWwP/dk53Q==
-X-Received: by 2002:a05:600c:2986:b0:401:73b2:f039 with SMTP id
- r6-20020a05600c298600b0040173b2f039mr4140033wmd.7.1694077516289;
-        Thu, 07 Sep 2023 02:05:16 -0700 (PDT)
+ AGHT+IGV9XwlUajdhCdrx5f+9/paKpKd41H2FIS5FzrRu7+e/TPt8scscnliKKvl02o6tIwPYOkB8w==
+X-Received: by 2002:a05:600c:11c1:b0:401:b204:3b84 with SMTP id
+ b1-20020a05600c11c100b00401b2043b84mr4240874wmi.40.1694077772184;
+        Thu, 07 Sep 2023 02:09:32 -0700 (PDT)
 Received: from toaster.lan ([2a01:e0a:3c5:5fb1:5be9:5575:c6f4:d478])
         by smtp.googlemail.com with ESMTPSA id
- r5-20020adfe685000000b003143867d2ebsm22767439wrm.63.2023.09.07.02.05.15
+ k8-20020a5d4288000000b003176aa612b1sm22764763wrq.38.2023.09.07.02.09.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Sep 2023 02:05:15 -0700 (PDT)
+        Thu, 07 Sep 2023 02:09:31 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -91,15 +91,15 @@ Cc: Jerome Brunet <jbrunet@baylibre.com>,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-amlogic@lists.infradead.org
-Subject: [PATCH] ASoC: meson: spdifin: start hw on dai probe
-Date: Thu,  7 Sep 2023 11:05:04 +0200
-Message-Id: <20230907090504.12700-1-jbrunet@baylibre.com>
+Subject: [PATCH] ASoC: meson: axg: extend TDM maximum sample rate to 384kHz
+Date: Thu,  7 Sep 2023 11:09:10 +0200
+Message-Id: <20230907090910.13546-1-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TEQPCEAHWUVOTVIZER5VQ25MML55G7IJ
-X-Message-ID-Hash: TEQPCEAHWUVOTVIZER5VQ25MML55G7IJ
+Message-ID-Hash: Z3VTKD375NDKV6OAK7MTZNQMROFZAJNB
+X-Message-ID-Hash: Z3VTKD375NDKV6OAK7MTZNQMROFZAJNB
 X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -112,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TEQPCEAHWUVOTVIZER5VQ25MML55G7IJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z3VTKD375NDKV6OAK7MTZNQMROFZAJNB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,99 +121,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For spdif input to report the locked rate correctly, even when no capture
-is running, the HW and reference clock must be started as soon as
-the dai is probed.
+The TDM HW on the axg SoC families and derivatives actually supports
+384kHz sampling rate.
 
-Fixes: 5ce5658375e6 ("ASoC: meson: add axg spdif input")
+Update the fifo and tdm interface constraints accordingly.
+
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/axg-spdifin.c | 49 ++++++++++++-----------------------
- 1 file changed, 17 insertions(+), 32 deletions(-)
+ sound/soc/meson/axg-fifo.c | 2 +-
+ sound/soc/meson/axg-fifo.h | 2 +-
+ sound/soc/meson/axg-tdm.h  | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-spdifin.c b/sound/soc/meson/axg-spdifin.c
-index d86880169075..bc2f2849ecfb 100644
---- a/sound/soc/meson/axg-spdifin.c
-+++ b/sound/soc/meson/axg-spdifin.c
-@@ -112,34 +112,6 @@ static int axg_spdifin_prepare(struct snd_pcm_substream *substream,
- 	return 0;
- }
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index bccfb770b339..2e3d0108179b 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -31,7 +31,7 @@ static struct snd_pcm_hardware axg_fifo_hw = {
+ 		 SNDRV_PCM_INFO_NO_PERIOD_WAKEUP),
+ 	.formats = AXG_FIFO_FORMATS,
+ 	.rate_min = 5512,
+-	.rate_max = 192000,
++	.rate_max = 384000,
+ 	.channels_min = 1,
+ 	.channels_max = AXG_FIFO_CH_MAX,
+ 	.period_bytes_min = AXG_FIFO_BURST,
+diff --git a/sound/soc/meson/axg-fifo.h b/sound/soc/meson/axg-fifo.h
+index b63acd723c87..df528e8cb7c9 100644
+--- a/sound/soc/meson/axg-fifo.h
++++ b/sound/soc/meson/axg-fifo.h
+@@ -22,7 +22,7 @@ struct snd_soc_pcm_runtime;
  
--static int axg_spdifin_startup(struct snd_pcm_substream *substream,
--			       struct snd_soc_dai *dai)
--{
--	struct axg_spdifin *priv = snd_soc_dai_get_drvdata(dai);
--	int ret;
--
--	ret = clk_prepare_enable(priv->refclk);
--	if (ret) {
--		dev_err(dai->dev,
--			"failed to enable spdifin reference clock\n");
--		return ret;
--	}
--
--	regmap_update_bits(priv->map, SPDIFIN_CTRL0, SPDIFIN_CTRL0_EN,
--			   SPDIFIN_CTRL0_EN);
--
--	return 0;
--}
--
--static void axg_spdifin_shutdown(struct snd_pcm_substream *substream,
--				 struct snd_soc_dai *dai)
--{
--	struct axg_spdifin *priv = snd_soc_dai_get_drvdata(dai);
--
--	regmap_update_bits(priv->map, SPDIFIN_CTRL0, SPDIFIN_CTRL0_EN, 0);
--	clk_disable_unprepare(priv->refclk);
--}
--
- static void axg_spdifin_write_mode_param(struct regmap *map, int mode,
- 					 unsigned int val,
- 					 unsigned int num_per_reg,
-@@ -251,17 +223,32 @@ static int axg_spdifin_dai_probe(struct snd_soc_dai *dai)
- 	ret = axg_spdifin_sample_mode_config(dai, priv);
- 	if (ret) {
- 		dev_err(dai->dev, "mode configuration failed\n");
--		clk_disable_unprepare(priv->pclk);
--		return ret;
-+		goto pclk_err;
- 	}
- 
-+	ret = clk_prepare_enable(priv->refclk);
-+	if (ret) {
-+		dev_err(dai->dev,
-+			"failed to enable spdifin reference clock\n");
-+		goto pclk_err;
-+	}
-+
-+	regmap_update_bits(priv->map, SPDIFIN_CTRL0, SPDIFIN_CTRL0_EN,
-+			   SPDIFIN_CTRL0_EN);
-+
- 	return 0;
-+
-+pclk_err:
-+	clk_disable_unprepare(priv->pclk);
-+	return ret;
- }
- 
- static int axg_spdifin_dai_remove(struct snd_soc_dai *dai)
- {
- 	struct axg_spdifin *priv = snd_soc_dai_get_drvdata(dai);
- 
-+	regmap_update_bits(priv->map, SPDIFIN_CTRL0, SPDIFIN_CTRL0_EN, 0);
-+	clk_disable_unprepare(priv->refclk);
- 	clk_disable_unprepare(priv->pclk);
- 	return 0;
- }
-@@ -270,8 +257,6 @@ static const struct snd_soc_dai_ops axg_spdifin_ops = {
- 	.probe		= axg_spdifin_dai_probe,
- 	.remove		= axg_spdifin_dai_remove,
- 	.prepare	= axg_spdifin_prepare,
--	.startup	= axg_spdifin_startup,
--	.shutdown	= axg_spdifin_shutdown,
- };
- 
- static int axg_spdifin_iec958_info(struct snd_kcontrol *kcontrol,
+ #define AXG_FIFO_CH_MAX			128
+ #define AXG_FIFO_RATES			(SNDRV_PCM_RATE_5512 |		\
+-					 SNDRV_PCM_RATE_8000_192000)
++					 SNDRV_PCM_RATE_8000_384000)
+ #define AXG_FIFO_FORMATS		(SNDRV_PCM_FMTBIT_S8 |		\
+ 					 SNDRV_PCM_FMTBIT_S16_LE |	\
+ 					 SNDRV_PCM_FMTBIT_S20_LE |	\
+diff --git a/sound/soc/meson/axg-tdm.h b/sound/soc/meson/axg-tdm.h
+index 5774ce0916d4..42f7470b9a7f 100644
+--- a/sound/soc/meson/axg-tdm.h
++++ b/sound/soc/meson/axg-tdm.h
+@@ -16,7 +16,7 @@
+ #define AXG_TDM_NUM_LANES	4
+ #define AXG_TDM_CHANNEL_MAX	128
+ #define AXG_TDM_RATES		(SNDRV_PCM_RATE_5512 |		\
+-				 SNDRV_PCM_RATE_8000_192000)
++				 SNDRV_PCM_RATE_8000_384000)
+ #define AXG_TDM_FORMATS		(SNDRV_PCM_FMTBIT_S8 |		\
+ 				 SNDRV_PCM_FMTBIT_S16_LE |	\
+ 				 SNDRV_PCM_FMTBIT_S20_LE |	\
 -- 
 2.40.1
 

@@ -2,105 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E45C797123
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 11:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47622797159
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 11:56:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A864B886;
-	Thu,  7 Sep 2023 11:09:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A864B886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CE4583A;
+	Thu,  7 Sep 2023 11:55:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CE4583A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694077832;
-	bh=i4eVAqrAINJtGSMhSmGgLIBfYZcUeL6X9E8BPPRmlz0=;
+	s=default; t=1694080603;
+	bh=/da8tVv3EeWQ/u8FEIpgk9inkudV/aJzn0hoy1LwzqQ=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=rSApQ0UdhwU3sCw1jzk2V6NhSkp0riiN3j4OiGdGDEw4KCtdqCmexbAKrnG3ox4g/
-	 PyToQCu/hp2+x4XZ8mJN38y6Eh4suYw078GFG7VVQcIP8p1EXPi3yJNw+aHXSnx6P1
-	 rBTTMbiQ8acgpT5exoYDPBRjnptMCkKwHFxjBAPc=
+	b=h8boMB4m2aqkSQYvvOfI67Y2DF1ImyMQ13WTN+iNrsGpG9awfy4CF6coifrJVNyZE
+	 4ZuMHQDRLuELS4REByV0ZMpQaX7tG6FLkMBu+eCX7M4CmuGS+SAU6hx7m+jT0ZLEWJ
+	 ETRi0VObku0dYGpiaVi3GimhAvAobkiRsulyY5WU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EAB5F800F5; Thu,  7 Sep 2023 11:09:42 +0200 (CEST)
+	id 75F28F800F5; Thu,  7 Sep 2023 11:55:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCF47F8047D;
-	Thu,  7 Sep 2023 11:09:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96F8EF8047D;
+	Thu,  7 Sep 2023 11:55:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0905CF80494; Thu,  7 Sep 2023 11:09:39 +0200 (CEST)
+	id 398D2F804F3; Thu,  7 Sep 2023 11:55:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1D75FF80431
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 11:09:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D75FF80431
+	by alsa1.perex.cz (Postfix) with ESMTPS id 21B3FF800F5
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 11:55:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21B3FF800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=xOdCdnww
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-401bbfc05fcso8207935e9.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 07 Sep 2023 02:09:34 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256
+ header.s=dc header.b=HPx166wi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1694077772;
- x=1694682572; darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wBjuRLwnfixpgR2nFPgNkEIBBrq5rco4eC4mU+aZjZI=;
-        b=xOdCdnwwQsB6ZlKyxtoP3J9DI2/yl6y8PZHE46DwawR3JMUPynzUPFcBi8gtqEaeAl
-         I4MoGvuM/Lj3diwF/yj/uaTxF2CIE2kGCI0ct5TlZz8uPbcRN7fQiuvvjSiKp8quVZyc
-         rJrrWCTcB1w+fCJtMX/EzOC6iGOwE813R6gdGscBCe8IhUDT/wZl8IkKdKjNY7YucTrE
-         UqrsW5fqv4OA4p6vrJ/loYAC3ehuccy7oNAG69+1UYiKZP/NGmJIC6kx45ufQjVFAMbX
-         GjJDiB8q+tHlpG/YAnwPCc+C65Tnvm5BvKuI9GKdG1peQW1/HnXswAkTOSDLQWvursIX
-         zQfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1694077772; x=1694682572;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wBjuRLwnfixpgR2nFPgNkEIBBrq5rco4eC4mU+aZjZI=;
-        b=U6lQvgjWGFdiQbZY+eRAzL4ZJpdi4PmCD3tSBWLLrOXnZA4WM9AzU01Mzywq34Lhkk
-         QYHiiK/+sBfbtRXemhsTO1bTNc7OUQY3sm2+dHoukHM0WHdirluuXZ7X0UXsoOOu6Idv
-         JAunysJUvQuFWt/Er1xzmjPbYNDuqYsULVhPyUobDXhBa+fnxbDCT7AwcLg7wB9Ww58F
-         8cb65DUY89hFsbr3MfUKGcHL6slJ+2I8ZHr8/wHG5bJLVW65LAsMjymiT6kEaUsXPNZL
-         /otBVJw2qYJCeZ9hnwEJ0vsvRUpAzLW4IpwTnMqOmBiz0LdIOsNLj8ztkPKy6TjS6ivB
-         ZD0Q==
-X-Gm-Message-State: AOJu0Yyrkt1teEXilg26Q7ALQ0H/XVnfIfijfSM3Fn7MRewPxE/LtBoL
-	8HWMFhiUNAPtzmZ0/Z7tX1M9Mg==
-X-Google-Smtp-Source: 
- AGHT+IGV9XwlUajdhCdrx5f+9/paKpKd41H2FIS5FzrRu7+e/TPt8scscnliKKvl02o6tIwPYOkB8w==
-X-Received: by 2002:a05:600c:11c1:b0:401:b204:3b84 with SMTP id
- b1-20020a05600c11c100b00401b2043b84mr4240874wmi.40.1694077772184;
-        Thu, 07 Sep 2023 02:09:32 -0700 (PDT)
-Received: from toaster.lan ([2a01:e0a:3c5:5fb1:5be9:5575:c6f4:d478])
-        by smtp.googlemail.com with ESMTPSA id
- k8-20020a5d4288000000b003176aa612b1sm22764763wrq.38.2023.09.07.02.09.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Sep 2023 02:09:31 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	alsa-devel@alsa-project.org,
+  d=inria.fr; s=dc;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=WtCoctKqrOuNL7YPM9mYObCf6Hdm7ApMb7s6UV96VRg=;
+  b=HPx166wijMpi0SuqjYCYznd1XBpiCUbrQLc/PO/UMyEq3ZEUYTobIRDo
+   3Rqqz8tTf3ziWlg9eiO0gtAOEfHBNxrgu+g1iTCYRdavySvFpyxmeL4HB
+   GFAsE9lOiSmMbIKRRI/H8INxUF7Ej0oMCIoW7c5cwML7MMfndJw9rsVW5
+   k=;
+Authentication-Results: mail3-relais-sop.national.inria.fr;
+ dkim=none (message not signed) header.i=none;
+ spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr;
+ dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.02,234,1688421600";
+   d="scan'208";a="65324651"
+Received: from i80.paris.inria.fr (HELO i80.paris.inria.fr.) ([128.93.90.48])
+  by mail3-relais-sop.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2023 11:55:29 +0200
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: alsa-devel@alsa-project.org
+Cc: kernel-janitors@vger.kernel.org,
+	Zhang Rui <rui.zhang@intel.com>,
+	Amit Kucheria <amitk@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	bcm-kernel-feedback-list@broadcom.com,
 	linux-kernel@vger.kernel.org,
-	linux-amlogic@lists.infradead.org
-Subject: [PATCH] ASoC: meson: axg: extend TDM maximum sample rate to 384kHz
-Date: Thu,  7 Sep 2023 11:09:10 +0200
-Message-Id: <20230907090910.13546-1-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.40.1
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-mmc@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-media@vger.kernel.org
+Subject: [PATCH 00/11] add missing of_node_put
+Date: Thu,  7 Sep 2023 11:55:10 +0200
+Message-Id: <20230907095521.14053-1-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Z3VTKD375NDKV6OAK7MTZNQMROFZAJNB
-X-Message-ID-Hash: Z3VTKD375NDKV6OAK7MTZNQMROFZAJNB
-X-MailFrom: jbrunet@baylibre.com
+Message-ID-Hash: WDMMPIFSWUHLDOHJUWNILRCZEK3R3UBU
+X-Message-ID-Hash: WDMMPIFSWUHLDOHJUWNILRCZEK3R3UBU
+X-MailFrom: Julia.Lawall@inria.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,66 +98,29 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z3VTKD375NDKV6OAK7MTZNQMROFZAJNB/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WDMMPIFSWUHLDOHJUWNILRCZEK3R3UBU/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The TDM HW on the axg SoC families and derivatives actually supports
-384kHz sampling rate.
+Add of_node_put on a break out of an of_node loop.
 
-Update the fifo and tdm interface constraints accordingly.
-
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/axg-fifo.c | 2 +-
- sound/soc/meson/axg-fifo.h | 2 +-
- sound/soc/meson/axg-tdm.h  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-index bccfb770b339..2e3d0108179b 100644
---- a/sound/soc/meson/axg-fifo.c
-+++ b/sound/soc/meson/axg-fifo.c
-@@ -31,7 +31,7 @@ static struct snd_pcm_hardware axg_fifo_hw = {
- 		 SNDRV_PCM_INFO_NO_PERIOD_WAKEUP),
- 	.formats = AXG_FIFO_FORMATS,
- 	.rate_min = 5512,
--	.rate_max = 192000,
-+	.rate_max = 384000,
- 	.channels_min = 1,
- 	.channels_max = AXG_FIFO_CH_MAX,
- 	.period_bytes_min = AXG_FIFO_BURST,
-diff --git a/sound/soc/meson/axg-fifo.h b/sound/soc/meson/axg-fifo.h
-index b63acd723c87..df528e8cb7c9 100644
---- a/sound/soc/meson/axg-fifo.h
-+++ b/sound/soc/meson/axg-fifo.h
-@@ -22,7 +22,7 @@ struct snd_soc_pcm_runtime;
- 
- #define AXG_FIFO_CH_MAX			128
- #define AXG_FIFO_RATES			(SNDRV_PCM_RATE_5512 |		\
--					 SNDRV_PCM_RATE_8000_192000)
-+					 SNDRV_PCM_RATE_8000_384000)
- #define AXG_FIFO_FORMATS		(SNDRV_PCM_FMTBIT_S8 |		\
- 					 SNDRV_PCM_FMTBIT_S16_LE |	\
- 					 SNDRV_PCM_FMTBIT_S20_LE |	\
-diff --git a/sound/soc/meson/axg-tdm.h b/sound/soc/meson/axg-tdm.h
-index 5774ce0916d4..42f7470b9a7f 100644
---- a/sound/soc/meson/axg-tdm.h
-+++ b/sound/soc/meson/axg-tdm.h
-@@ -16,7 +16,7 @@
- #define AXG_TDM_NUM_LANES	4
- #define AXG_TDM_CHANNEL_MAX	128
- #define AXG_TDM_RATES		(SNDRV_PCM_RATE_5512 |		\
--				 SNDRV_PCM_RATE_8000_192000)
-+				 SNDRV_PCM_RATE_8000_384000)
- #define AXG_TDM_FORMATS		(SNDRV_PCM_FMTBIT_S8 |		\
- 				 SNDRV_PCM_FMTBIT_S16_LE |	\
- 				 SNDRV_PCM_FMTBIT_S20_LE |	\
--- 
-2.40.1
-
+ arch/powerpc/kexec/file_load_64.c                    |    8 ++++++--
+ arch/powerpc/platforms/powermac/low_i2c.c            |    4 +++-
+ arch/powerpc/platforms/powermac/smp.c                |    4 +++-
+ drivers/bus/arm-cci.c                                |    4 +++-
+ drivers/genpd/ti/ti_sci_pm_domains.c                 |    8 ++++++--
+ drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c      |    4 +++-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c               |    4 +++-
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c |    1 +
+ drivers/mmc/host/atmel-mci.c                         |    8 ++++++--
+ drivers/net/ethernet/broadcom/asp2/bcmasp.c          |    1 +
+ drivers/soc/dove/pmu.c                               |    5 ++++-
+ drivers/thermal/thermal_of.c                         |    8 ++++++--
+ sound/soc/sh/rcar/core.c                             |    1 +
+ 13 files changed, 46 insertions(+), 14 deletions(-)

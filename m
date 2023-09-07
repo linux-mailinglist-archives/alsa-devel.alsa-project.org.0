@@ -2,87 +2,160 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A82D6797313
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 16:31:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1A4797310
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Sep 2023 16:27:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A747827;
-	Thu,  7 Sep 2023 16:30:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A747827
+	by alsa0.perex.cz (Postfix) with ESMTPS id EED87846;
+	Thu,  7 Sep 2023 16:26:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EED87846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694097066;
-	bh=SpgVoXpZ8tTPJGkfU3ecVLROLILLP+Tw7lqoCXII6pc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1694096857;
+	bh=M1nG46TX0prLOptDC0sPUegaTb+JiZ92mRTFUTuD19w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UCc5eLEQDlHGtgwzoISvVAFTphS4hCDBQj+y1PC/++0SbqQL4CwQdLrT9R/L+9F0E
-	 YZlsiXB87aJXUENPwCK1pqu73+g7S/Zs2yFKQHrP00VhYewrPHjQsitCP7NFBnbzpp
-	 0kh7xR3YPAeytOIvWDUFLxctTrDwjlVSgYPB6wYQ=
+	b=sfv3Pd4hN6+U8rU5htWri9UUr0vKU/TsXdGlF6jzrKhF6PydPa808tuR+3sLHqJRe
+	 V8cRcMXEpN342KmkwEDKwyGavZFOGdzK4hDCLIQwYSAatihphj19zBSySAa/dM3D2r
+	 aEMYfuKIeCvgZy7g7t/RSWboqyxq1a16dEgKYVuM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B34B0F800AA; Thu,  7 Sep 2023 16:30:15 +0200 (CEST)
+	id 698F8F80549; Thu,  7 Sep 2023 16:26:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E40A2F8047D;
-	Thu,  7 Sep 2023 16:30:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09933F8047D;
+	Thu,  7 Sep 2023 16:26:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54701F80494; Thu,  7 Sep 2023 16:30:10 +0200 (CEST)
+	id B5EDCF80494; Thu,  7 Sep 2023 16:26:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::604])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 199E6F800AA
-	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 16:30:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 199E6F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61D55F800F5
+	for <alsa-devel@alsa-project.org>; Thu,  7 Sep 2023 16:26:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61D55F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pzVfDghy
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 0011CCE1A05;
-	Thu,  7 Sep 2023 14:21:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B9DC3278F;
-	Thu,  7 Sep 2023 14:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694096471;
-	bh=SpgVoXpZ8tTPJGkfU3ecVLROLILLP+Tw7lqoCXII6pc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pzVfDghyPadfvHEaQazjewvNksmHCOeqpcQtRd8NfmTvtgJaEIil6dYLiDDwRBmt8
-	 I4PAp7Qp9QVzzCF4dJZWLMReBnQbv4uLDnicicGHV1dVh2l7Z+y/L2Yun5UcE3XRqp
-	 DnINdfmlALickPzVNDSarwzlwJdc0rh4WKt2cQIq64nPNYjKFe76qtZkUdIDQ6voBV
-	 oC3MX+cdASaWGkV4h+fRDK9CQBJNeWWVFAWDtKHtGloudKltLKBOJKFINtc3mBFq+3
-	 I/jIwllcIfRLPGanbBTts8/MLJVF4kIVzNiEpJNGosbNRZyAcWOI7GiY3qAySKst1O
-	 VdkWDT8YlMXew==
-Date: Thu, 7 Sep 2023 15:21:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Joerg Schambacher <joerg.hifiberry@gmail.com>
-Cc: a-krasser@ti.com, joerg@hifiberry.com,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Zhang Qilong <zhangqilong3@huawei.com>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] ASoC: Adds support for TAS575x to the pcm512x driver
-Message-ID: <a9c3d43a-af26-44a0-9352-4666107f9f56@sirena.org.uk>
-References: <20230907161207.14426-1-joerg.hifiberry@gmail.com>
+ unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
+ header.s=selector2 header.b=ey6WFn1j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SVwaIHRCL5Jv0DRfwckzh54sOknwCY+wBph6q7IYZG4r5ugZahYPV1ys47w2I0zxzZWn6txGL4Pary0a2B0bYg4rASazjMKtyshPhuAdixB6Yjbm9ViL5aKAr57TudG4QmHJu4djxWM5662jEIegJ0yWcQqH9640i5E+GENZVtOzmXajM69EoChngVjUVsXHLoV0DJTIMC1bOUEaOvKhtmc9ASkz9hdDVGjUQoRHgdol7VOxwA4t3clbwf47AshV2JXaaZGdhT0IH7fXrKDfebkoDLoHlCAK7XbcgJ4oBRbkKOvvyFcVYLGC5dy9n4IoGxZg7oNB1kRUaO76XXmwDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JjEpgsGa8jxR2en88SAUhcucN9AppvX2UZb6Qgo1NYI=;
+ b=Ih377/w0QtqMWksCkh5VGqFjindiaAqdE4O/RgserYT1b80nmOvfQnJfJ7nxu0NMakrEueGSjkWfJ4N9EVXEeyQWzfipPuDBLeyuOjZFwBFIFw68Z2d+5XLYPu8tSj2CnzAN1RS97ybwjMi3AxjZq0X4NZO8141P3SsWm0q6gqOpkF+8GK6Cs6/eRWJAAXy0Np/AINazCkRMdUnxUzmcVV0xMjazLHK8tFuYyTgTUDhyJBCm9F9npXSNCjVRvREPUjJTVhcShL70GRl0Mp+VEbj1NmL1onfBgdx2XIvT1jshbxHeq5Dp5cnzB1r79f6SgAptPuagF+SkgvDrXaGMJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JjEpgsGa8jxR2en88SAUhcucN9AppvX2UZb6Qgo1NYI=;
+ b=ey6WFn1jP8101XdRVcrF2/JIlvOV3KYsxmV6Jrg4FfU4nH7+72C4nKoZdDZDNlrk5QpdnJztyzYZdO6vHCNsGjBAfwCWe8HBEDQs14dImRNJhmP4n4ws0pNgF5+h98tD3yC1gKlzs7R1gQSnx4hDcshrjq9NAxtAsVGCieDDGdNxyCUVnv6otOze3tid5St6MnG66G04AelqXZ1pI4W6S7jVklLZe2/l3l3AtAUu7wop+x6L/rkGwznFwv24UptJPwwtQ+ATn4Hl3ltO6AOu2dZw7mj5jpD1TheoSxTZNjRcfEidwnj5EEMLMWb8m12FFmn4lYkQsxM5COboebcScg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3205.namprd12.prod.outlook.com (2603:10b6:a03:134::32)
+ by SJ2PR12MB7895.namprd12.prod.outlook.com (2603:10b6:a03:4c6::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.34; Thu, 7 Sep
+ 2023 14:21:19 +0000
+Received: from BYAPR12MB3205.namprd12.prod.outlook.com
+ ([fe80::210d:206c:a261:c024]) by BYAPR12MB3205.namprd12.prod.outlook.com
+ ([fe80::210d:206c:a261:c024%6]) with mapi id 15.20.6745.034; Thu, 7 Sep 2023
+ 14:21:19 +0000
+Message-ID: <61ca531e-6138-7abe-74d1-357369134748@nvidia.com>
+Date: Thu, 7 Sep 2023 19:51:13 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 2/2] ASoC: tegra: Fix redundant PLLA and PLLA_OUT0 updates
+To: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ stable@vger.kernel.org
+References: <1694069533-7832-1-git-send-email-spujar@nvidia.com>
+ <1694069533-7832-3-git-send-email-spujar@nvidia.com>
+ <2c3371b7-3dae-48d7-8cc8-1acfd5bd267c@sirena.org.uk>
+Content-Language: en-US
+From: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <2c3371b7-3dae-48d7-8cc8-1acfd5bd267c@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0062.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ac::20) To BYAPR12MB3205.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::32)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pHp2IBdZnGQB80wz"
-Content-Disposition: inline
-In-Reply-To: <20230907161207.14426-1-joerg.hifiberry@gmail.com>
-X-Cookie: In the next world, you're on your own.
-Message-ID-Hash: AHURR2L4FQS6DZ3B7FAOJWLGMCGDER7T
-X-Message-ID-Hash: AHURR2L4FQS6DZ3B7FAOJWLGMCGDER7T
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3205:EE_|SJ2PR12MB7895:EE_
+X-MS-Office365-Filtering-Correlation-Id: d56275da-b07e-4977-eb19-08dbafadb414
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Bye6ws7pEY9+7Hwqo62qXdYIIsYL9Hm6w2jK0aQA58ADAsAXgQ4owcYQJG9aypPZqan4WFtKMMT4ITDcn7yv4Kw5GN7pwdagEBjBHl1Yw/AhkvBNvcSFo46ItQWpoL92kGyJJOfeIk0DwYciGhV/eu1aC6Fx4N71J8dj/o9l8xoSrEasPUTAauh/sMyiAcs9fQjMtU4BDHnzUtOeU35aVRdA0AZRywu0yX6LzlK/DlkUHJROq0SBMn53siZB9rC69CA+tXN78Gpl5eAwWWHiHo6RM6ikrrPUnzMpkfb8F1x4ARaGfNHUTml6p797M8Fh8mx9ZlM+LKrm/6lItSektoHI2ubZFXiMxCbZ+tYmkPJ/F/+ojWiM3S/buOrsz4nc/b2y9xzqSY7VN7DZaCADHqQTaoJ3B8l4j1LBkbeQXFDq1g9gccpC5x0e/EV1NIFUwGJyLZnDCIQ9DTb5jvtudDFNuKuuDfAnbs9Y6nMMxZQlpK0AgbjZplF5K3bYOQqhi8DClJrM+PdhAr1puJi2Rkau/y16EiKhX11ktXXxLhEztt4F37tcTgnGjC1hPyLEfhFYJJ5IFEaPlVw9degqklPjS41d3rYQLIZDia2w4QCZpvwrqf6O7zGVsex4EX60KCr5f7H7+zz7Xw5yCvCYbA==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR12MB3205.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(136003)(396003)(376002)(366004)(186009)(1800799009)(451199024)(2616005)(26005)(38100700002)(53546011)(6486002)(6506007)(6512007)(36756003)(83380400001)(31686004)(4326008)(478600001)(8676002)(15650500001)(4744005)(8936002)(66946007)(66556008)(5660300002)(66476007)(31696002)(316002)(86362001)(6916009)(6666004)(2906002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?V2VnT0hTS1pCdktLNC9vb0lxaFE2WW13V3I5SERZU1ZmOE80NUh6L2Q0b3E3?=
+ =?utf-8?B?Rk5MaHg5VXBXYmtqRGRjVm9ORnQzTkd6TkVQRWVZM2hwazFrbFR3RlBTLzNq?=
+ =?utf-8?B?a3U0QUZnTG9ZVTJkcjkwbWtVOGF3alh6UUNDalR3cUVzOEFLdHFFYnhmOUgw?=
+ =?utf-8?B?MlNQSDcyOW1XeVllYnVJR2ZOQkVBUUxJTitPN2hwcTZPSHdRdUhFakNHb1Zy?=
+ =?utf-8?B?dkg1RTVxbnZ1TzB0SVJsckFFMUpYdHJxa3doWkFyT3N0L2ZjZk9zZGV6ZXhZ?=
+ =?utf-8?B?a3pUdTk5UXlQT2w2NHNlRnVZOVhvc2tHcVROYW15dGsreWtFWG5KZTJuRU9S?=
+ =?utf-8?B?S01oblZLNlhVVFJJQ3o3UXNwRlVmdVJWMzJXVWlybTE2azJSLzA0K3NwdFNE?=
+ =?utf-8?B?eVpwejN0SFl1ZWZuUDg3KzRWOXp6Sms0cndwdmZqVWFDUWdsTmxubG9zTHFz?=
+ =?utf-8?B?N3hPQ0ZuNENocml0ZmUxNU5UQlhneGM2Z0FXS3l1TUU4ZFMwKzUxeHhPc2ox?=
+ =?utf-8?B?NVMreVVkWnJXejRnQmdoY3ZNNjdtamMwWGkwc0k1NVRzUUxnZlFHb2l0cng0?=
+ =?utf-8?B?QS9LcnpValkzbDBpUW5IaVR5a3gzOTlTU21UdjNqYThGYU1wRDlFUzlhN1Rv?=
+ =?utf-8?B?L2VnSGhrUU11YldWR2dHUmVZelRDRkFZSGlpUkhDbWZmdTdYbmxTdmF0dVMx?=
+ =?utf-8?B?RmVpL3VKSXBlVVUyQ2ZQeFNwYzNGV0xoOUtlKytoU3Qwc0MwcHFlM0hwdmhv?=
+ =?utf-8?B?bER2M2tPUUJvdkE1Qjh4Z2FWQzhPOWtWY0tFQVNIZXBreEQ5VkcxSlRyb2Fh?=
+ =?utf-8?B?aHFnWGFsZDFaaXl2eXVZUmdvQWdNY2FLdVFNUU8vT2xPQSt1bllVY2t6bXhO?=
+ =?utf-8?B?OWhoNkFiY0RnMHNtMWZIczloeXpQdDRKRlFHU0JrMnk0SmZxaXJadld1MVZY?=
+ =?utf-8?B?a1JMTVhBWVZwQVVxdDhUUGwrZ3hPU3EyWW0vR0lsZWppNHI2aDRsY1pYUHZa?=
+ =?utf-8?B?V1RMUlNoMFBWUjVQY010NUtZSEZFbythSHFod0MvRFFhaE4rOUZkN1pEY1FP?=
+ =?utf-8?B?Wis2UVlsR29XanNJK2tWR0J2Tm1nMHFJaDR1MXFOODFxdnErdDRYazhLVnRv?=
+ =?utf-8?B?RWJpeDBjZWRmTFRQeU9XYWRjTmtpTVllTjZkZ3NzbWJodjRlVi85L0c4V3ho?=
+ =?utf-8?B?U1FVQ1lhRUJReGlUdGlCbDNmd2RmSENsRGJVQjdzTnNmaHZWZE5jSUV3UFJ0?=
+ =?utf-8?B?aUlwelRhT1RDSjV1QTFJVnV4WnJjNTM0cjJyNGxXR0cwOWltbmVIak55cEZZ?=
+ =?utf-8?B?VWVNNGlISGtqcE5FRE9CT3dMVzVIdnBrRFhiTk05RDJZWXdHM0FENWtJSlpP?=
+ =?utf-8?B?aU5WS3RIUUtsRHpLVCtxLzlkOFgydXF6TFFnRmg3SC9iMVZYMlpMczh1VEdx?=
+ =?utf-8?B?V1AzV2swVCtIN1RMb1hQSkduQUFnSzZTcUVCZHZ6OVdub0RvT1htS1Exa1Nl?=
+ =?utf-8?B?VnpObURQdXJnVm9qaGt6UXFkU3VqQTBNWlpkcUFENWpMTm9YbFk5dnkyalBZ?=
+ =?utf-8?B?QnBFbzMwR0RXekhkbUxML2pjSnFTZG1BNTV4bVNCcEJ1MU9zY1lKREorTU5y?=
+ =?utf-8?B?TnB6cDAzdEpqbHhsT1NuTmZZand1UTFVQUdvZGpHOWRoZDdWa1U0TzI1SG9R?=
+ =?utf-8?B?eXJUVTRzTnEyYWpnakdDRW0yUnBvc0Vka3VQUUhYdG1TdVBYOGpENDE1Y29s?=
+ =?utf-8?B?c0dnU0d0SS9haXJXTEVKZ2YxaTUvLyt4Q2hFcVJLMnZHOS9Ka3o5aHBXckV5?=
+ =?utf-8?B?d0xrNEJjUlVuZ1laNkdNYTV2djJKMDVUVTdKL1JOR1JRVFRrRmcyRll0aTRk?=
+ =?utf-8?B?am9hTEJQRnRic3V1SUdQUm8ra1dvTEJFUmxKV0JTcjgrNWF3bUlNblhHWDND?=
+ =?utf-8?B?Y2lZTXZ0NDZ1MmpmbDdvSWxwN3ROVXFKRXJ5a2JSTitFVHFvem84NDFYbFlV?=
+ =?utf-8?B?WTZXcFVOZVJwN01uK3ppcnBZTHhFOXdRQVkzS0ZUK1FEY1NDNXJHZzlQejAr?=
+ =?utf-8?B?d1hGdmp3YllVUC96cnBQbFhBV0txU3pmUWZIb2xPVVl3c1NJemdPdDZtb3pN?=
+ =?utf-8?Q?nsEg3YrB3kitYqFabYgSyGsiM?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ d56275da-b07e-4977-eb19-08dbafadb414
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3205.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2023 14:21:19.2070
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ JMVyCV10OUSGaItNG62ACSacFUYJt8DCzjA6jJaHE/fqckA7d0DbBihHQ5mURPcPxQKvzNXrgmpOBv038Q9wfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7895
+Message-ID-Hash: LNQ2WSCDQYCR4GX6JWF7LYM4YQSNTIFH
+X-Message-ID-Hash: LNQ2WSCDQYCR4GX6JWF7LYM4YQSNTIFH
+X-MailFrom: spujar@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +167,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AHURR2L4FQS6DZ3B7FAOJWLGMCGDER7T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LNQ2WSCDQYCR4GX6JWF7LYM4YQSNTIFH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,58 +177,18 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---pHp2IBdZnGQB80wz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Sep 07, 2023 at 06:12:05PM +0200, Joerg Schambacher wrote:
+On 07-09-2023 17:21, Mark Brown wrote:
+> On Thu, Sep 07, 2023 at 12:22:13PM +0530, Sameer Pujar wrote:
+>
+>> Fixes: 202e2f774543 ("ASoC: tegra: Add audio graph based card driver")
+>> Cc: stable@vger.kernel.org
+> This is just a performance improvement rather than a correctness fix as
+> far as I can tell?
 
-> +		if (pcm512x->tas_device) {
-> +			/* set necessary PLL coeffs for amp
-> +			 * according to spec only 2x and 4x MCLKs
-> +			 * possible
-> +			 */
-> +			ret = regmap_write(pcm512x->regmap,
-> +					   PCM512x_PLL_COEFF_0, 0x01);
-> +			if (mck_rate > 25000000UL)
-> +				ret = regmap_write(pcm512x->regmap,
-> +						   PCM512x_PLL_COEFF_1, 0x02);
-> +			else
-> +				ret = regmap_write(pcm512x->regmap,
-> +						   PCM512x_PLL_COEFF_1, 0x04);
+This was supposed to be a performance improvement. However this is found 
+to be resolving a DMIC clock discrepancy and suspect is it happens 
+because of back to back quick PLLA updates. Thought it would be safer to 
+have this fix in stable releases. May be I should mention these points 
+to justify the 'Fixes' and 'stable' tag?
 
-I would name this quirk something a bit more specific - it seems likely
-that there might be future TASxxxx devices which need different quirks.
-If it's a limited range of MCLK multipliers perhaps something about how
-the PLL is limited, or just make the quirk data being to specify min/max
-for the multiplier?
-
-> +		if (!pcm512x->tas_device) {
-> +			ret = regmap_update_bits(pcm512x->regmap,
-> +						 PCM512x_PLL_EN, PCM512x_PLLE, 0);
-> +		} else {
-> +			/* leave PLL enabled for amp clocking */
-> +			ret = regmap_write(pcm512x->regmap,
-> +					   PCM512x_PLL_EN, 0x01);
-> +			dev_dbg(component->dev, "Enabling PLL for TAS575x\n");
-> +		}
-
-This is probably a separate quirk?  I'm a bit concerned about what's
-turning the PLL off here...
-
---pHp2IBdZnGQB80wz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmT53E8ACgkQJNaLcl1U
-h9DIkAf8DvIkbJTLPPb9WOeICPPEg31V9fX1Gbjibv6WKE3XAX0kQvEVID4XikuC
-DMutxl/up7Xepw12fXsRnM6ZM1x24dcJoZHfJTLruL48di2xmfOdPskk70WIpXL+
-fF9+GzaQ/7pH0VLSOQ7SK/28BNU7lAhVBhqngemmMKLGf7HJpldwoFdaHs4PYOy+
-adM6gpYlOJc4bxd0WJ5ua2KUEHWYhaz7T13GLlxchG7WR1UOjHA39uoL3K0NkRuX
-unIygkvTh01GYmpEsW3FEfZiRvLhGlxkW15DbrkALX1Tty5Q1hs4eSsGkiwhzTBk
-nR0dMZ1hISOepsmVPvS2cq8hnjHYKQ==
-=N6pg
------END PGP SIGNATURE-----
-
---pHp2IBdZnGQB80wz--

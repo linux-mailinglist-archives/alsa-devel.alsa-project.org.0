@@ -2,111 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC5787989B4
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 17:16:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7539798C51
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 20:13:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45F2784C;
-	Fri,  8 Sep 2023 17:15:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45F2784C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D077832;
+	Fri,  8 Sep 2023 20:13:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D077832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694186180;
-	bh=ElcqGKuxC2Ej13NVqHf4mneI+mhWISsGNczlgVt+nN4=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bUj75YFAw3LHXWvS9C0McITn8VXsb+B/1aStZlrA0i0rgJ5YyfrjRI8w+kB5ZUfer
-	 axaESl2RdUM8VD53SS/EEtVQ3inGf5BTNK/c9k1K/wd6LoShlTLNIzdDwGXPRKwB2U
-	 t4uBX+1Ah41j+Vu/YH+jov3VYVTQxKK4kili6ulo=
+	s=default; t=1694196833;
+	bh=58aqhulC4fc6Pn7pCzoNspVmthf7zQNQ+CuztnXMM9k=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=UBY1e5ldS7XxPWXAfdFKjanCk4/wM+ZcWKbYA8QAAyLG9qV20t3vRPJyF2iha3Y/Y
+	 4tl+xhvAn5yjAiUEy65quaQVaYvoWGvGRXFQSTdYTiQrmNqFgAX998j4BKW26Yo2kv
+	 NRJEq43W123EbbaxiCaEOsnTVTYNymAfOQ/XKLBo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08771F80558; Fri,  8 Sep 2023 17:15:21 +0200 (CEST)
+	id 297B5F80527; Fri,  8 Sep 2023 20:13:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78F7DF8047D;
-	Fri,  8 Sep 2023 17:15:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C87EAF8047D;
+	Fri,  8 Sep 2023 20:13:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A18CDF80494; Fri,  8 Sep 2023 17:15:16 +0200 (CEST)
+	id 0E8DDF80494; Fri,  8 Sep 2023 20:12:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3F36F80236
-	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 17:15:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3F36F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id B1AEAF80236
+	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 20:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1AEAF80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=DOY3LmVv
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 388FDKDC003908;
-	Fri, 8 Sep 2023 10:15:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	PODMain02222019; bh=Nl/uBp4wjE95CikGacqAFgHKmdDa16tkvVJ9n7LfcNo=; b=
-	DOY3LmVvKFRD376j4OBtqCUqawGgi35gQJplpiku6k7SzL9WWlIlgCLzxA37aV0C
-	Dmj+cNjtDd8K4i9E8uq1FGhRnrffJckGcQ493bAeHBrCxePRZg9DsriAK2Ef00s+
-	yw39tzxw8qIQD8Fi8xhNmImdbZgrzaLC3/gdPZjkVR3GmiChcHOg2f0jdSJ0zKob
-	FhOKwpJPEbhixCmvXD3SqSS4kXICwdKct/RrI9PZADtBd//ONpZ7AJUfG65rpND+
-	4mLjHROtFIuhACqEmRwhufjv5zMD0stkpWacelyc9RwSUbRfrWkmHvJR+AFU8Fnf
-	k7rNex03Hw7mRSMNJMn8EA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3t04h1g47u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 08 Sep 2023 10:15:07 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Fri, 8 Sep
- 2023 16:15:05 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
- Transport; Fri, 8 Sep 2023 16:15:05 +0100
-Received: from [141.131.78.121] (unknown [141.131.78.121])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 477D646B;
-	Fri,  8 Sep 2023 15:15:03 +0000 (UTC)
-Message-ID: <45aef3e9-b6ee-ba26-32ac-ea72f41d1dcb@opensource.cirrus.com>
-Date: Fri, 8 Sep 2023 10:15:02 -0500
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=D3/TDBhL
+Received: from notapiano.myfiosgateway.com (zone.collabora.co.uk
+ [167.235.23.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nfraprado)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id C384F66072B9;
+	Fri,  8 Sep 2023 19:12:46 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1694196768;
+	bh=58aqhulC4fc6Pn7pCzoNspVmthf7zQNQ+CuztnXMM9k=;
+	h=From:To:Cc:Subject:Date:From;
+	b=D3/TDBhLtJg+v4QCDK7vby4V4RgDhW59/2BiowmTy3GpcnlDjbyicbjTnYuXicxEw
+	 Y3HdFg7/iU+AW7hn6vfue4HXulIbjdLeNSOvrlJjMtWG2orbl9SS4g253yI2zewFsR
+	 4ubUq5xRQzqU7rhz0+C+JAL7/52MaDdE27nJX/TdCHVWKJaIdUJ+1Xus1l4mnpsuNI
+	 jSy5GprjgCaIWa7MIelrOWKCZobhBdVer6TQNpO42wuXZYvK/epcHg139TYdHhkZrN
+	 rJCbVR3nLXC6KLoJ3RDlACvxkdLGlEcwKm8HPQKTW5Muz4OMnEVcnDX/VO4qw5gxTB
+	 F/A9njH6ylDcw==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: kernel@collabora.com,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] kselftest/alsa: Mark test plan as skipped when no cards are
+ available
+Date: Fri,  8 Sep 2023 14:12:40 -0400
+Message-ID: <20230908181242.95714-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-Subject: Re: [PATCH v2 04/11] ASoC: cs35l41: Fix broken shared boost
- activation
-Content-Language: en-US
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-        James Schulman
-	<james.schulman@cirrus.com>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        "Mark
- Brown" <broonie@kernel.org>,
-        Stefan Binding <sbinding@opensource.cirrus.com>,
-        Charles Keepax <ckeepax@opensource.cirrus.com>,
-        Vitaly Rodionov
-	<vitalyr@opensource.cirrus.com>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-kernel@vger.kernel.org>, <kernel@collabora.com>
-References: <20230907171010.1447274-1-cristian.ciocaltea@collabora.com>
- <20230907171010.1447274-5-cristian.ciocaltea@collabora.com>
-From: "Rhodes, David" <drhodes@opensource.cirrus.com>
-In-Reply-To: <20230907171010.1447274-5-cristian.ciocaltea@collabora.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: b6SePw-5IJcI2he5GkY83X12Y3AsL7Qp
-X-Proofpoint-GUID: b6SePw-5IJcI2he5GkY83X12Y3AsL7Qp
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: IWX3MQ7MMBBGNM7YC4KLQO6VKRANABVA
-X-Message-ID-Hash: IWX3MQ7MMBBGNM7YC4KLQO6VKRANABVA
-X-MailFrom: prvs=461543e993=drhodes@opensource.cirrus.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EKEK5C6TFTXWYJ7LUXZQW6JEZHNOMNST
+X-Message-ID-Hash: EKEK5C6TFTXWYJ7LUXZQW6JEZHNOMNST
+X-MailFrom: nfraprado@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,36 +97,65 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWX3MQ7MMBBGNM7YC4KLQO6VKRANABVA/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EKEK5C6TFTXWYJ7LUXZQW6JEZHNOMNST/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 9/7/23 12:10 PM, Cristian Ciocaltea wrote:
-> Enabling the active/passive shared boosts requires setting SYNC_EN, but
-> *not* before receiving the PLL Lock signal.
-> 
+When no soundcards are available, it won't be possible to run any tests.
+Currently, when this happens, in both pcm-test and mixer-test, 0
+tests are reported, and the pass exit code is returned. Instead, call
+ksft_exit_skip() so that the whole test plan is marked as skipped in the
+KTAP output and it exits with the skip exit code.
 
-> Solve the issue by setting the SYNC_EN bit in PWR_CTRL3 register right
-> after receiving the PLL Lock interrupt.
-> 
-> Additionally, drop the unnecessary writes to PWR_CTRL1 register, part of
-> the original mdsync_up_seq, which would have toggled GLOBAL_EN with
-> unwanted consequences on PLL locking behavior.
-> 
-> Fixes: f5030564938b ("ALSA: cs35l41: Add shared boost feature")
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-Looks good. If it's convenient to revise again, I think you could slim 
-down the comment section by simply stating that 'PLL Lock requires the 
-audio clocks to be active' (which is why it is not triggered until after 
-snd_pcm_start).
+---
 
-Reviewed-by: David Rhodes <david.rhodes@cirrus.com>
+ tools/testing/selftests/alsa/mixer-test.c | 7 +++++--
+ tools/testing/selftests/alsa/pcm-test.c   | 7 +++++--
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-Thanks,
-David
+diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+index c95d63e553f4..8f45c15a5667 100644
+--- a/tools/testing/selftests/alsa/mixer-test.c
++++ b/tools/testing/selftests/alsa/mixer-test.c
+@@ -66,8 +66,11 @@ static void find_controls(void)
+ 	char *card_name, *card_longname;
+ 
+ 	card = -1;
+-	if (snd_card_next(&card) < 0 || card < 0)
+-		return;
++	err = snd_card_next(&card);
++	if (err < 0)
++		ksft_exit_skip("Couldn't open first soundcard. rc=%d\n", err);
++	if (card < 0)
++		ksft_exit_skip("No soundcard available\n");
+ 
+ 	config = get_alsalib_config();
+ 
+diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
+index 2f5e3c462194..74d9cf8b5a69 100644
+--- a/tools/testing/selftests/alsa/pcm-test.c
++++ b/tools/testing/selftests/alsa/pcm-test.c
+@@ -161,8 +161,11 @@ static void find_pcms(void)
+ 	snd_pcm_info_alloca(&pcm_info);
+ 
+ 	card = -1;
+-	if (snd_card_next(&card) < 0 || card < 0)
+-		return;
++	err = snd_card_next(&card);
++	if (err < 0)
++		ksft_exit_skip("Couldn't open first soundcard. rc=%d\n", err);
++	if (card < 0)
++		ksft_exit_skip("No soundcard available\n");
+ 
+ 	config = get_alsalib_config();
+ 
+-- 
+2.42.0
+

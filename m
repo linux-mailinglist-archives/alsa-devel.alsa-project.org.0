@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22D3798FB0
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 21:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36186798FB1
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 21:34:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD3FDE5;
-	Fri,  8 Sep 2023 21:33:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD3FDE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E113EDF9;
+	Fri,  8 Sep 2023 21:33:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E113EDF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694201649;
-	bh=LtluMiPiAvNOgrlFsorMjnATBMItZh1rE0cJ9Uf6TLc=;
+	s=default; t=1694201653;
+	bh=XIL/PjmmGSq1aPs5EM39cocbSJ+EaotijhxQRCOL5J4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cOKft8N67BoSUJjJjzzmx87qAZEIMrBIUR3cr/r622jCimC4EvTPCLX0+U/lPghls
-	 h2fCjwMajLPdmbVcLy1PjIxO7sb+Y52UkbGiCg/yZ8gbJVR+spb1Lwe4hXUNZg+9w5
-	 WSUhWflUwGfxTBv56cve3hyZJWdUVZ8+YU0YYlW0=
+	b=cM/AEkYQ1uaQiNaXntdWddmlnGN0XgsKMxsZH6Fvep0UlNDeAY/QCTUKseOy6+GVu
+	 SRQEX8+UpbCH9vt6ygLlrmK52zw4nwIuaNL1DdTMPOlt+fSJi7RbmSYUPfZWBnWmd7
+	 g1aivPpjci3ZVmBmJ4Qcow7J3eMoJHXtXy5fJIuc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4A79F80431; Fri,  8 Sep 2023 21:33:18 +0200 (CEST)
+	id 7C48AF80579; Fri,  8 Sep 2023 21:33:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5426DF80494;
-	Fri,  8 Sep 2023 21:33:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6D3AF8055B;
+	Fri,  8 Sep 2023 21:33:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F003F80537; Fri,  8 Sep 2023 21:33:15 +0200 (CEST)
+	id 09412F80494; Fri,  8 Sep 2023 21:33:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,66 +35,64 @@ Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4F270F800F5;
-	Fri,  8 Sep 2023 21:33:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F270F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0801F804F3
+	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 21:33:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0801F804F3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Z0/VDig3
+ header.s=k20201202 header.b=LG0R9Zr3
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 098E3B821D4;
-	Fri,  8 Sep 2023 19:33:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E064C433C9;
-	Fri,  8 Sep 2023 19:33:02 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 8999EB821D4;
+	Fri,  8 Sep 2023 19:33:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9BDC433C8;
+	Fri,  8 Sep 2023 19:33:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694201584;
-	bh=LtluMiPiAvNOgrlFsorMjnATBMItZh1rE0cJ9Uf6TLc=;
+	s=k20201202; t=1694201590;
+	bh=XIL/PjmmGSq1aPs5EM39cocbSJ+EaotijhxQRCOL5J4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Z0/VDig3T+E8aCLIqotHkOVBb8PLc4ew1h4J6YtiTQS3o2rLJywhCDEdd3gMafa+e
-	 fawsBhdv2gAm2JGlH9Dp/rmcO4M5i+rZp3z+muCOdDJJ2mpwkfy210tgPXW+zJv/IM
-	 bfiM9byhXdb/nwZHI3Wr8VhhQJQM1dNMgty9rUYp/iDtvb8PEhXdaCedm4ajxzugoy
-	 3wS7AMKMIieaQZdcqUhUqLe0QJ4p5ID8UJmutB44j/GeFKCJWojPGUoT6cnf0ElI1c
-	 7qK0grvyZt6o+uTW+H/ZOGf3SQT3t5po3t3podiSoioO6NVOUMzoMkQuHUiJcyD/4o
-	 34QKTWx03sqHQ==
+	b=LG0R9Zr3byEqE0nSz2LASdbQxtGa193l0jOZdDdjXReK00Yw9MbYmbL8Mw4qWhtsy
+	 Nvy8cX8pe8Yu2O0Fpnbgtn2Ic9c+aZMhn9PgI4UFZax3iR0cjUyb1Ekax5XoNV2dnS
+	 sXfZyH7TtupaApye7TL6B5gtJt/oZvK1NhRNUaFmuALLXIWcFjr2epyNCkechc4M3k
+	 DsOPXZQMdLus5tyfIUtdq5JBZncimi8bLc8ETe+fJHz0bJcJoUfQM5nQNP945rtDQH
+	 2qHDNtI4Zp59zBavqMeWsIl3hnAl+Usr349mSYCkJJtVGG4/n3997gh4dX43nugyaW
+	 09UeOFrEz1m2A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Rander Wang <rander.wang@intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Yaochun Hung <yc.hung@mediatek.com>,
+Cc: Uday M Bhat <uday.m.bhat@intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Jairaj Arava <jairaj.arava@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	lgirdwood@gmail.com,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
 	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	matthias.bgg@gmail.com,
-	sound-open-firmware@alsa-project.org,
-	alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH AUTOSEL 6.4 15/31] ASoC: SOF: topology: simplify code to
- prevent static analysis warnings
-Date: Fri,  8 Sep 2023 15:31:44 -0400
-Message-Id: <20230908193201.3462957-15-sashal@kernel.org>
+	ckeepax@opensource.cirrus.com,
+	gongjun.song@intel.com,
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 6.4 16/31] ASoC: Intel: sof_sdw: Update BT offload
+ config for soundwire config
+Date: Fri,  8 Sep 2023 15:31:45 -0400
+Message-Id: <20230908193201.3462957-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230908193201.3462957-1-sashal@kernel.org>
 References: <20230908193201.3462957-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.4.15
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TCTJF2IDSODGSTSMBGQUM777QTMZAYWE
-X-Message-ID-Hash: TCTJF2IDSODGSTSMBGQUM777QTMZAYWE
+Message-ID-Hash: ZOJOOKAWLKJFPZHKDTTPXVS2G7EYFSP4
+X-Message-ID-Hash: ZOJOOKAWLKJFPZHKDTTPXVS2G7EYFSP4
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TCTJF2IDSODGSTSMBGQUM777QTMZAYWE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZOJOOKAWLKJFPZHKDTTPXVS2G7EYFSP4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,58 +114,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Uday M Bhat <uday.m.bhat@intel.com>
 
-[ Upstream commit 55cb3dc271d81f1982c949a2ac483a6daf613b92 ]
+[ Upstream commit a14aded9299187bb17ef90700eb2cf1120ef5885 ]
 
-make KCFLAGS='-fanalyzer' sound/soc/sof/intel/ reports a possible NULL
-pointer dereference.
+For soundwire config, SSP1 is used for BT offload. This is enabled
+in sof_sdw_quirk_table
 
-sound/soc/sof/topology.c:1136:21: error: dereference of NULL ‘w’
-[CWE-476] [-Werror=analyzer-null-dereference]
-
- 1136 |     strcmp(w->sname, rtd->dai_link->stream_name))
-
-The code is rather confusing and can be simplified to make static
-analysis happy. No functionality change.
-
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Uday M Bhat <uday.m.bhat@intel.com>
+Signed-off-by: Jairaj Arava <jairaj.arava@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
-Link: https://lore.kernel.org/r/20230731213748.440285-4-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20230731214257.444605-5-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/topology.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/sof_sdw.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index f160dc454b448..8e6f6148f0a07 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1117,10 +1117,11 @@ static void sof_disconnect_dai_widget(struct snd_soc_component *scomp,
- {
- 	struct snd_soc_card *card = scomp->card;
- 	struct snd_soc_pcm_runtime *rtd;
-+	const char *sname = w->sname;
- 	struct snd_soc_dai *cpu_dai;
- 	int i, stream;
- 
--	if (!w->sname)
-+	if (!sname)
- 		return;
- 
- 	if (w->id == snd_soc_dapm_dai_out)
-@@ -1133,7 +1134,7 @@ static void sof_disconnect_dai_widget(struct snd_soc_component *scomp,
- 	list_for_each_entry(rtd, &card->rtd_list, list) {
- 		/* does stream match DAI link ? */
- 		if (!rtd->dai_link->stream_name ||
--		    strcmp(w->sname, rtd->dai_link->stream_name))
-+		    strcmp(sname, rtd->dai_link->stream_name))
- 			continue;
- 
- 		for_each_rtd_cpu_dais(rtd, i, cpu_dai)
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index a6d13aae8f720..cc82cbcc1611a 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -439,7 +439,9 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Rex"),
+ 		},
+-		.driver_data = (void *)(SOF_SDW_PCH_DMIC),
++		.driver_data = (void *)(SOF_SDW_PCH_DMIC |
++					SOF_BT_OFFLOAD_SSP(1) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
+ 	},
+ 	/* LunarLake devices */
+ 	{
 -- 
 2.40.1
 

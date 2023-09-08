@@ -2,97 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59FAF798089
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 04:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFDE77981E0
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 08:08:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22A8183A;
-	Fri,  8 Sep 2023 04:24:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22A8183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB1EE852;
+	Fri,  8 Sep 2023 08:07:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB1EE852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694139908;
-	bh=vWYxEROFeGRB8VrHnYmibLGv0XZ+kdXsGRk0pYpQuME=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1694153297;
+	bh=sVPxNEcp8nVAmnqOCv22xwiLS7jw7ZoUw4kN3PFQr0Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sv6KnYJquNIlM54VFv7aeYnp1xKX7KczEcfg9poJIo2+xbWkv7G+dNO0CWNkIsF0d
-	 cn9s77RcaSy48D/uxcaEw78xdXTYURp9V/W8gtEADwvYZOf9cRCLKgS97CU2bVJPWV
-	 MWBcZz/B5CrAjG2KDX8b5+ODj2Z8PZHE27stP4JA=
+	b=IYokAMJOg2cRFO/vgeVFqh+C91F5BDJnhZbWMjH6nrys7lmwp9TuKime45qT4cuR7
+	 3BsSj0iIsZEZkZ7Std4qqwh/dBDMYxVWCkKN8r8VqWu/ZhP+AYRaV/PWud2ERKKpuK
+	 QZJVa2sQJCgYuTYmxzeqOPVDtYv6ptIqqwZatP6o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 097FCF80494; Fri,  8 Sep 2023 04:23:49 +0200 (CEST)
+	id C43E7F80551; Fri,  8 Sep 2023 08:06:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71B96F8047D;
-	Fri,  8 Sep 2023 04:23:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9614F8047D;
+	Fri,  8 Sep 2023 08:06:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A1C8F80494; Fri,  8 Sep 2023 04:23:45 +0200 (CEST)
+	id 8FAAEF80494; Fri,  8 Sep 2023 08:05:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20724.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::724])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5017CF80236
-	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 04:23:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5017CF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 66C73F80431
+	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 08:05:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66C73F80431
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=NPxtZR8t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694139812; x=1725675812;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=vWYxEROFeGRB8VrHnYmibLGv0XZ+kdXsGRk0pYpQuME=;
-  b=NPxtZR8tl+tfKDZ/CWjXB4500DkKlf41uTIbEKj7SGbtvS6yltNE9Xnm
-   1vpRb2YDjTw/Hq0P2tQV22uH1x4eTNT+ocHd8OyUdAjLzFZ5ohCKvrkIM
-   7BJ731HN3ZFUaeZUNK8gyPVIxHOkzYRPnH0cJobKBWZrhE6gDG0cI/Ia5
-   +Ja2vBTXTmowFfr8o/mtPnYiLvuH8x2tJmmj85Il2cC8VhqbMc/GEuZVd
-   AQje7LnFAio1Z/ryPqUOo2cPFu6D3rqBNliTAm+7wK2NxVdcWvRpL8aAM
-   HvkX1WX4WXIaNk03XPmhTAQDrMw8fiR8kdmLA1vjgOgjkcyEK95HAt/5I
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="376442411"
-X-IronPort-AV: E=Sophos;i="6.02,236,1688454000";
-   d="scan'208";a="376442411"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 19:23:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="857153413"
-X-IronPort-AV: E=Sophos;i="6.02,236,1688454000";
-   d="scan'208";a="857153413"
-Received: from zeweiwan-mobl1.amr.corp.intel.com (HELO [10.212.62.199])
- ([10.212.62.199])
-  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 19:23:20 -0700
-Message-ID: <76bf0f24-3d7c-0249-bf5c-3abb1a3641d0@linux.intel.com>
-Date: Thu, 7 Sep 2023 22:20:56 -0400
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=V/GbZJML
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CPXMyJ5nsFFw99JW2jEoMo17XdUBxO/gbd6meBYGFu/oTYhp4k4gQujlrY6KIKZ3SEW4VA913L+pEtXwQNkb7lhl8LKFQfS8ofmRKqHVjwBoQrYQT9u0On8Xd7Q7rv1CAhk4atJxIlyEkn/ST97JeFeY+eW9RNFxG02TB/srhzYet6AkhWDvFkWduKWw9vlCUC4TZ1EMQO73iJZGOl+DYPnjMIVdINTQMxn5H0PcUXjvTYn6Jj12urMYcys56PjXHqg23NC6btATqb2XosY+yN4EJb4vJiswXZINHquElulzbY6bi2JC3FMBq8tFKOWLk0pXgI1Go8x8n000tbhg3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lEuJ7rvqtc69wj/UVB1RGeLFl9gIIDbZvoXcPScZOOE=;
+ b=hWDe/PAJdTEO6edClUaIGqq8STBj5kkC3bSyzLXkmtMbhN+oitTDxGzQwo3NqcnH7hBthLhSRcvaAFNJGnMY5rnjepXd6rvQEyhaCLKl0gGfa0Hn4iGJdEZe1kLqbKuxUdRJk+nFSHre4yiwZKTB2Rx6RLQ5Xz8NL1Zs5G8JiooiU3Fzq7Om7QS2ZbIefKfutTgn1dkQiur5ymBisyHAMlQ1px6R/iWKb4Tu925m8vpRKzSkpmZk8yaD4HAT69/IHHnYel5KgkXTbPEs8JSskmd4awIXU+bjZZKNxzUqvjLnTJg+WPhcIVR7cSvj3KWszGE1HgVjLbPwNG8Fw/KTZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lEuJ7rvqtc69wj/UVB1RGeLFl9gIIDbZvoXcPScZOOE=;
+ b=V/GbZJMLQLTyMYXLixANceUuSL5F3dal3OSOmlOPZjPSpcqUkSTFk+2bPLOi6oDC9nRtKDD2Jvhj1kYpGszUTFdGXD3gapF10LqywlJ0KO4URBJWASxqmYvG0cgUgOt5I5EJx013hfB5veHAVEKcRXBmL6T1zuF3GC8apVaCxgI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYWPR01MB10018.jpnprd01.prod.outlook.com (2603:1096:400:1e2::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.30; Fri, 8 Sep
+ 2023 06:05:27 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::8c08:d94c:8e54:9b5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::8c08:d94c:8e54:9b5d%6]) with mapi id 15.20.6768.029; Fri, 8 Sep 2023
+ 06:05:27 +0000
+Message-ID: <874jk55heh.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Julia Lawall <Julia.Lawall@inria.fr>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	kernel-janitors@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 10/11] ASoC: rsnd: add missing of_node_put
+In-Reply-To: <20230907095521.14053-11-Julia.Lawall@inria.fr>
+References: <20230907095521.14053-1-Julia.Lawall@inria.fr>
+	<20230907095521.14053-11-Julia.Lawall@inria.fr>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 8 Sep 2023 06:05:26 +0000
+X-ClientProxiedBy: TYCP286CA0245.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:456::13) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.15.0
-Subject: Re: sound/soc/soc-pcm.c:1082:1: warning: the frame size of 1324 bytes
- is larger than 1024 bytes
-Content-Language: en-US
-To: kernel test robot <lkp@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>
-References: <202309080339.rbPMLUjl-lkp@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <202309080339.rbPMLUjl-lkp@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: PGXDQULULZLIP5TVIZZXXL5LXJKZTJXN
-X-Message-ID-Hash: PGXDQULULZLIP5TVIZZXXL5LXJKZTJXN
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB10018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 627a4dfd-8971-4d7f-6d56-08dbb0319925
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	sEJFjzyizbfhjd1oLuAKSqJ4+cSj9oMUp1Xo2BoL+09q/m5yUpyMdyReUEgXnXR4X0v186jp0DJ8cX/bAhy4CC0TnmJoNT/zkEzbjzvUFSZMpUHVe1JK4EjlmqBGokL11Xv3yrFc/YRmhTRN9TR1fTKhyS016t++C4tY0xXMNwQdlSBnk6COabQlRTnqN/SorBL4DNS2FERGGFMXmzh10tlutKKEYufBdcVb22qAPr1tf0bD0L1UOkagvzV/E0iK8ARH/P9oZtiVfx2YEfjIWhzd6uNxkcaTBTJb1Cfd5hODMAQsB6VaIOspFmXveXfdLOiDcHpwfOSMOaKh5lRSuYK85Ps4H+R12Y4xkYG3ynObu8VPdgxELvc4egIaZ4S8pmoew8Ew/fOp1Uv611b72cLcxsS3QIK1uklt2tJBS7S+/vwQin7FYbtKmD+uotRkNhAtqrM64gtYa0dD5/g91bBNDE89nOn7Bx1tUdHRyYRkEuyqB2YiC/q4P2RPWX+mCpqg8HEvyxYkxKnIEs67QZj2K834JQVnbQV5iCt521itdgWOgZis/VJXLj71AG3GaOjlM9euRWP71X4MtqgOib79ZeEtIBSLCkGQPj6YfVY=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(376002)(136003)(346002)(39860400002)(396003)(451199024)(186009)(1800799009)(5660300002)(4326008)(6486002)(66556008)(8676002)(8936002)(6506007)(66946007)(316002)(54906003)(4744005)(6916009)(66476007)(41300700001)(478600001)(2906002)(6512007)(52116002)(26005)(2616005)(83380400001)(38350700002)(38100700002)(86362001)(36756003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?flDsiyAZ5eK3oSOibzKTKR7hymAVFzzCw0HgoAe9dPekst8asFqNtxtbTUya?=
+ =?us-ascii?Q?suyvxyUrtq5qu/DQGmibXQkZmfmL4mayMDvOgjRKA6Mp3EUcgTuX5KtLQVxu?=
+ =?us-ascii?Q?mA6F8sG6VtZAwWUhgb2qsUk0xhLZGWzfIKO05ZtI/71APk+eRHJUl6X0IeIe?=
+ =?us-ascii?Q?JLhfoJgSoAWtXSX59yObph9luDjFJc/krl0ut0VUx9548taC3abUw7rK2T7y?=
+ =?us-ascii?Q?BMfX2qLnV07+pNc8mDw1O50jJmCJcubghWjdzt3W6AsMsNC8kc/e94hezbg+?=
+ =?us-ascii?Q?22q7SwPVA7JE9XXWwpPaV17IJ+g2NM04LlNasXcqfX3V8xgyc/pZRvs90N8K?=
+ =?us-ascii?Q?JPX8QMDdPxW2XJAOsG8PRPYnWDj1S53LodUQjU3TrAfTn1QnUBqR+VyQZCep?=
+ =?us-ascii?Q?wlDWHztQfkZ30wnRDxFw04xxXFz0b3hO/2f/gD3q4+AnsH6G6EGpVgMbK+Wq?=
+ =?us-ascii?Q?C9GWXOCSicBNNyhhRh90fKeRjOv/QPbAv2V2swX6CPf23L8miuqWZn7U91oX?=
+ =?us-ascii?Q?cW+UMWFPQHxDTlsBoBepOi2uydvnKoFq1MztbkPqs3eH1kptTGG3+CBphzte?=
+ =?us-ascii?Q?tnGQBZYKV5+5HZbbKisZ21AXrUzcsd1rTvyMwTkx4rKV2n0ezCgYNhYHl3LB?=
+ =?us-ascii?Q?fNy4RKD7JPqe8oGeQbNo7wgN17x6m7qRjfZsYWF8wcHUe9kVxUlyBc95WkPH?=
+ =?us-ascii?Q?7wCLyO1jxfM/tmy/OQw+29AyH9SWJVWMuA5OHnxfi0fUELE8h3QIM7qMotgo?=
+ =?us-ascii?Q?sCG8ZsJOMFXAU0BhRH8EDZLqLSieUPLeSCfGENxGwmk6jFo78RwP475+jLIO?=
+ =?us-ascii?Q?ZEhn+E9zOmalskCIr85E7M5wdjX/3+S4kqKiustMAb5Mt3k4rbXddjKHBXP1?=
+ =?us-ascii?Q?UsimbOA83aKER9oWqyzertn+h6wewCEzRhFvfAgp10wHyxDfhU7bPHB0bA66?=
+ =?us-ascii?Q?AVRQmJgOfd8Hu+vZPpWdVPc5tZc7tX9JNj1Ljv4WXNpcR4X6/fO8BAU9phtU?=
+ =?us-ascii?Q?krh44CgiM4VObU/qVeLP5ylg5xq5TrdT0TbrKrKNidbaQ3NAxXB1vKrb+dlB?=
+ =?us-ascii?Q?AVHv1RxeIEBqKuJoafqXHPZ85W051h0hFSB27IZyqYe03bqsorI4GoRm8HRK?=
+ =?us-ascii?Q?tcO9dirE9Ti1NId84/osvL8CoG750mHIx6ThKbK/Lnzux4AUl9Zi8mqVywkf?=
+ =?us-ascii?Q?uOKC9mTwX7uC1sIDxUOT/TkcJeNLa0ORhEdZ3rsjUPH78fFjTPE2z1Qk/A0L?=
+ =?us-ascii?Q?19qy7GrH2tpSJuLSMcGXZSudEQ1a9zpMIWKgBtEQ6+g86+1FZJuG3roZ+6F0?=
+ =?us-ascii?Q?GWTbbA1foWIqrpNTI0/ecfnjFyGWcJujkmQLC2hLvDNJBQ/caCoQZSIVAaJU?=
+ =?us-ascii?Q?9QFDvyd7U/I4zTOM0qdds54uKOJq29GrsZVge8POiUK/vQr04QaqDf/nDxxw?=
+ =?us-ascii?Q?26Ni3GB2nZnDh+PJQ/eDgGx3ibfXjuHQgwoyxLFl728oXeDMj+7XAUQUi6gI?=
+ =?us-ascii?Q?TNF6rImnw0HiDynWrWZq/jNc3gLZBcLzzWvCQRu+3TySwZGwpiyr2uly2A95?=
+ =?us-ascii?Q?VfFkQljAA8fLi3LKBxfhF7YncX4Lxr1ZB1X8XpueUD+GnWT+wTPJ0AxkpKmi?=
+ =?us-ascii?Q?WWAA0ovZFwNK9ZaeeewOpHY=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 627a4dfd-8971-4d7f-6d56-08dbb0319925
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2023 06:05:27.3734
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Nxu1hUi1gYDiiKjjFDZ1ErU3gt8mRXBdPQFQSTz85VE8y5Wng/GOg4mfP4ecjekXY5NdZS8qjfi/OWrX7pDcoUAuAzj+YVUm0h5Stz5yrMbF89c31Gf2z6DgliTttlnE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10018
+Message-ID-Hash: TKTKBJQNA6AK7UDDBWFFNQD2JVGJEPJE
+X-Message-ID-Hash: TKTKBJQNA6AK7UDDBWFFNQD2JVGJEPJE
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +158,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGXDQULULZLIP5TVIZZXXL5LXJKZTJXN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKTKBJQNA6AK7UDDBWFFNQD2JVGJEPJE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,151 +168,43 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+Hi Julia
 
-On 9/7/23 15:23, kernel test robot wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> head:   4a0fc73da97efd23a383ca839e6fe86410268f6b
-> commit: ac950278b0872c87bcef6153fd9c119265c8ba83 ASoC: add N cpus to M codecs dai link support
-> date:   3 months ago
-> config: i386-buildonly-randconfig-006-20230908 (https://download.01.org/0day-ci/archive/20230908/202309080339.rbPMLUjl-lkp@intel.com/config)
-> compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230908/202309080339.rbPMLUjl-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202309080339.rbPMLUjl-lkp@intel.com/
-> 
-> All warnings (new ones prefixed by >>):
-> 
->    sound/soc/soc-pcm.c: In function '__soc_pcm_hw_params':
->>> sound/soc/soc-pcm.c:1082:1: warning: the frame size of 1324 bytes is larger than 1024 bytes [-Wframe-larger-than=]
->     }
->     ^
+Thank you for the patch
 
-isn't this the same issue that Charles Keepax wanted to address with
-"[PATCH] ASoC: soc-pcm: Shrink stack frame for __soc_pcm_hw_params"?
+> for_each_child_of_node performs an of_node_get on each
+> iteration, so a break out of the loop requires an
+> of_node_put.
+> 
+> This was done using the Coccinelle semantic patch
+> iterators/for_each_child.cocci
+> 
+> Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+> 
+> ---
+>  sound/soc/sh/rcar/core.c |    1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff -u -p a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
+> --- a/sound/soc/sh/rcar/core.c
+> +++ b/sound/soc/sh/rcar/core.c
+> @@ -1303,6 +1303,7 @@ audio_graph:
+>  		if (i >= RSND_MAX_COMPONENT) {
+>  			dev_info(dev, "reach to max component\n");
+>  			of_node_put(node);
+> +			of_node_put(ports);
+>  			break;
+>  		}
+>  	}
 
-That's clearly no longer an ARM-only issue and it does look like a
-compiler issue.
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-> 
-> 
-> vim +1082 sound/soc/soc-pcm.c
-> 
-> 4662c59688b8db Kuninori Morimoto 2020-09-29   975  
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   976  /*
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   977   * Called by ALSA when the hardware params are set by application. This
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   978   * function can also be called multiple times and can allocate buffers
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   979   * (using snd_pcm_lib_* ). It's non-atomic.
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   980   */
-> b7898396f4bbe1 Takashi Iwai      2021-12-07   981  static int __soc_pcm_hw_params(struct snd_soc_pcm_runtime *rtd,
-> b7898396f4bbe1 Takashi Iwai      2021-12-07   982  			       struct snd_pcm_substream *substream,
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   983  			       struct snd_pcm_hw_params *params)
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   984  {
-> 19bdcc7aeed416 Shreyas NC        2020-02-25   985  	struct snd_soc_dai *cpu_dai;
-> 0b7990e38971da Kuninori Morimoto 2018-09-03   986  	struct snd_soc_dai *codec_dai;
-> 244e293690a6e0 Charles Keepax    2018-06-19   987  	int i, ret = 0;
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   988  
-> b7898396f4bbe1 Takashi Iwai      2021-12-07   989  	snd_soc_dpcm_mutex_assert_held(rtd);
-> 5cca59516de5df Shengjiu Wang     2019-11-12   990  
-> 5cca59516de5df Shengjiu Wang     2019-11-12   991  	ret = soc_pcm_params_symmetry(substream, params);
-> 5cca59516de5df Shengjiu Wang     2019-11-12   992  	if (ret)
-> 5cca59516de5df Shengjiu Wang     2019-11-12   993  		goto out;
-> 5cca59516de5df Shengjiu Wang     2019-11-12   994  
-> 7cf3c5b4a04f4b Kuninori Morimoto 2020-05-25   995  	ret = snd_soc_link_hw_params(substream, params);
-> a5e6c1090001b8 Kuninori Morimoto 2020-05-25   996  	if (ret < 0)
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   997  		goto out;
-> ddee627cf6bb60 Liam Girdwood     2011-06-09   998  
-> a4be4187b2bfc6 Kuninori Morimoto 2020-03-09   999  	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1000  		struct snd_pcm_hw_params codec_params;
-> e15ff262e21238 Kuninori Morimoto 2023-01-31  1001  		unsigned int tdm_mask = snd_soc_dai_tdm_mask_get(codec_dai, substream->stream);
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1002  
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1003  		/*
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1004  		 * Skip CODECs which don't support the current stream type,
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1005  		 * the idea being that if a CODEC is not used for the currently
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1006  		 * set up transfer direction, it should not need to be
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1007  		 * configured, especially since the configuration used might
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1008  		 * not even be supported by that CODEC. There may be cases
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1009  		 * however where a CODEC needs to be set up although it is
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1010  		 * actually not being used for the transfer, e.g. if a
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1011  		 * capture-only CODEC is acting as an LRCLK and/or BCLK master
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1012  		 * for the DAI link including a playback-only CODEC.
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1013  		 * If this becomes necessary, we will have to augment the
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1014  		 * machine driver setup with information on how to act, so
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1015  		 * we can do the right thing here.
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1016  		 */
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1017  		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1018  			continue;
-> cde79035c6cf57 Ricard Wanderlof  2015-08-24  1019  
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1020  		/* copy params for each codec */
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1021  		codec_params = *params;
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1022  
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1023  		/* fixup params based on TDM slot masks */
-> e15ff262e21238 Kuninori Morimoto 2023-01-31  1024  		if (tdm_mask)
-> e15ff262e21238 Kuninori Morimoto 2023-01-31  1025  			soc_pcm_codec_params_fixup(&codec_params, tdm_mask);
-> 2e5894d73789ee Benoit Cousson    2014-07-08  1026  
-> aa6166c2ac2839 Kuninori Morimoto 2019-07-22  1027  		ret = snd_soc_dai_hw_params(codec_dai, substream,
-> aa6166c2ac2839 Kuninori Morimoto 2019-07-22  1028  					    &codec_params);
-> 93e6958a3674d2 Benoit Cousson    2014-07-08  1029  		if(ret < 0)
-> 4662c59688b8db Kuninori Morimoto 2020-09-29  1030  			goto out;
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1031  
-> 2805b8bd3e0bdd Kuninori Morimoto 2020-12-11  1032  		soc_pcm_set_dai_params(codec_dai, &codec_params);
-> 078a85f2806f0f Charles Keepax    2019-01-31  1033  		snd_soc_dapm_update_dai(substream, &codec_params, codec_dai);
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1034  	}
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1035  
-> a4be4187b2bfc6 Kuninori Morimoto 2020-03-09  1036  	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-> ac950278b0872c Bard Liao         2023-06-07  1037  		struct snd_pcm_hw_params cpu_params;
-> ac950278b0872c Bard Liao         2023-06-07  1038  		unsigned int ch_mask = 0;
-> ac950278b0872c Bard Liao         2023-06-07  1039  		int j;
-> ac950278b0872c Bard Liao         2023-06-07  1040  
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1041  		/*
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1042  		 * Skip CPUs which don't support the current stream
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1043  		 * type. See soc_pcm_init_runtime_hw() for more details
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1044  		 */
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1045  		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1046  			continue;
-> 0e9cf4c452ad7e Bard Liao         2020-02-25  1047  
-> ac950278b0872c Bard Liao         2023-06-07  1048  		/* copy params for each cpu */
-> ac950278b0872c Bard Liao         2023-06-07  1049  		cpu_params = *params;
-> ac950278b0872c Bard Liao         2023-06-07  1050  
-> ac950278b0872c Bard Liao         2023-06-07  1051  		if (!rtd->dai_link->codec_ch_maps)
-> ac950278b0872c Bard Liao         2023-06-07  1052  			goto hw_params;
-> ac950278b0872c Bard Liao         2023-06-07  1053  		/*
-> ac950278b0872c Bard Liao         2023-06-07  1054  		 * construct cpu channel mask by combining ch_mask of each
-> ac950278b0872c Bard Liao         2023-06-07  1055  		 * codec which maps to the cpu.
-> ac950278b0872c Bard Liao         2023-06-07  1056  		 */
-> ac950278b0872c Bard Liao         2023-06-07  1057  		for_each_rtd_codec_dais(rtd, j, codec_dai) {
-> ac950278b0872c Bard Liao         2023-06-07  1058  			if (rtd->dai_link->codec_ch_maps[j].connected_cpu_id == i)
-> ac950278b0872c Bard Liao         2023-06-07  1059  				ch_mask |= rtd->dai_link->codec_ch_maps[j].ch_mask;
-> ac950278b0872c Bard Liao         2023-06-07  1060  		}
-> ac950278b0872c Bard Liao         2023-06-07  1061  
-> ac950278b0872c Bard Liao         2023-06-07  1062  		/* fixup cpu channel number */
-> ac950278b0872c Bard Liao         2023-06-07  1063  		if (ch_mask)
-> ac950278b0872c Bard Liao         2023-06-07  1064  			soc_pcm_codec_params_fixup(&cpu_params, ch_mask);
-> ac950278b0872c Bard Liao         2023-06-07  1065  
-> ac950278b0872c Bard Liao         2023-06-07  1066  hw_params:
-> ac950278b0872c Bard Liao         2023-06-07  1067  		ret = snd_soc_dai_hw_params(cpu_dai, substream, &cpu_params);
-> 93e6958a3674d2 Benoit Cousson    2014-07-08  1068  		if (ret < 0)
-> 4662c59688b8db Kuninori Morimoto 2020-09-29  1069  			goto out;
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1070  
-> 19bdcc7aeed416 Shreyas NC        2020-02-25  1071  		/* store the parameters for each DAI */
-> ac950278b0872c Bard Liao         2023-06-07  1072  		soc_pcm_set_dai_params(cpu_dai, &cpu_params);
-> ac950278b0872c Bard Liao         2023-06-07  1073  		snd_soc_dapm_update_dai(substream, &cpu_params, cpu_dai);
-> 19bdcc7aeed416 Shreyas NC        2020-02-25  1074  	}
-> ca58221d2212af Kuninori Morimoto 2019-05-13  1075  
-> 3a36a64a2de469 Kuninori Morimoto 2020-09-29  1076  	ret = snd_soc_pcm_component_hw_params(substream, params);
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1077  out:
-> 041107289c5ceb Kuninori Morimoto 2022-08-30  1078  	if (ret < 0)
-> b7898396f4bbe1 Takashi Iwai      2021-12-07  1079  		soc_pcm_hw_clean(rtd, substream, 1);
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1080  
-> 041107289c5ceb Kuninori Morimoto 2022-08-30  1081  	return soc_pcm_ret(rtd, ret);
-> ddee627cf6bb60 Liam Girdwood     2011-06-09 @1082  }
-> ddee627cf6bb60 Liam Girdwood     2011-06-09  1083  
-> 
-> :::::: The code at line 1082 was first introduced by commit
-> :::::: ddee627cf6bb601aa980104fc17d4f84201380be ASoC: core - Separate out PCM operations into new file.
-> 
-> :::::: TO: Liam Girdwood <lrg@ti.com>
-> :::::: CC: Mark Brown <broonie@opensource.wolfsonmicro.com>
-> 
+I noticed that existing "of_node_put(node)" itself is not needed.
+We can remove it, and I will post the patch next week.
+
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

@@ -2,95 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F5907991A7
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 23:50:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD91E7992B0
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Sep 2023 01:09:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C758583A;
-	Fri,  8 Sep 2023 23:49:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C758583A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DB5684B;
+	Sat,  9 Sep 2023 01:09:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DB5684B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694209843;
-	bh=ugbmmZHWI8UpAx4ybKJuqBElMoFDfDGro8HHktoWgQY=;
+	s=default; t=1694214597;
+	bh=salNxs9lLXGL2pFylW72b0vqlDDT0L/9nFvYDSD1rbU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=O5xxY3mqEXeUG9NZTUXdvPCguibEn3MsJ7qUMVGz0I359MrWfHJ/WSM/LhF3L16np
-	 ihd2XdvS5GODmCEQspUcglPOf1uahiFL6GDgGXDAckx32NDWU0rTKPlqRioIX1LHKb
-	 Ld8ZEBOUKQLFaKBe+lIolUSOFPe+5QSwSL0XmnvY=
+	b=dtMRcfSnA8cHte7p9YVoyQIqefncNLzH5lCncdCFH6n+VkLicmDF50dogadVviYY1
+	 Ull5G/8ELkgg1dtpjgWCEV8md9bxhRu7GLIsbjF4j3luEi4XJd56gqKSaCcINtgHUY
+	 aiZMTD9DIopLYvYsA9QzRfAXYdA/1cjabo6ovaNg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23531F804F3; Fri,  8 Sep 2023 23:49:52 +0200 (CEST)
+	id 619A2F80558; Sat,  9 Sep 2023 01:08:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA0BCF8047D;
-	Fri,  8 Sep 2023 23:49:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB784F800F5;
+	Sat,  9 Sep 2023 01:08:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80C15F80494; Fri,  8 Sep 2023 23:49:48 +0200 (CEST)
+	id 5E622F80494; Sat,  9 Sep 2023 01:08:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CFDFF80431
-	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 23:49:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CFDFF80431
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D849F800F5
+	for <alsa-devel@alsa-project.org>; Sat,  9 Sep 2023 01:08:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D849F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OG8nsJJR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694209780; x=1725745780;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ugbmmZHWI8UpAx4ybKJuqBElMoFDfDGro8HHktoWgQY=;
-  b=OG8nsJJREVTi37WzvYzY48fMLBAjXK9mKZ5xbvp067ZeUOSTfJOvIzQ3
-   LFuyI/leub9ffJXcLS+WkuJh6tR7IdnphTNszWY6+NrhF7jcyBT+dOxTi
-   dEZZee0QrYk9C05zLKFpZs4vCekFtKr5lDCf9jUz8w67qZZ1KBCOuZTAs
-   TduDDAr5sQJgiYbn2UZH/TNJvv2hc+NTi+Vhxk10mDT4jbGhs+HYc/iXB
-   s7JeMKyN19/aafaBJhPtdbQ71iJJQHldBWqK0OQGGJYc+840YLByt5Qw1
-   4V9a++jTghB1OzD/iIVGsTgQO20+Rrwp4+aaDNO3G2993yjP95QjYHMni
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="357219726"
-X-IronPort-AV: E=Sophos;i="6.02,238,1688454000";
-   d="scan'208";a="357219726"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2023 14:49:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="885811725"
-X-IronPort-AV: E=Sophos;i="6.02,238,1688454000";
-   d="scan'208";a="885811725"
-Received: from lkp-server01.sh.intel.com (HELO 59b3c6e06877) ([10.239.97.150])
-  by fmsmga001.fm.intel.com with ESMTP; 08 Sep 2023 14:49:14 -0700
-Received: from kbuild by 59b3c6e06877 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qejM1-0002di-1F;
-	Fri, 08 Sep 2023 21:49:29 +0000
-Date: Sat, 9 Sep 2023 05:48:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Stefan Binding <sbinding@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=S8RRs1uH
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 3BB97B822DC;
+	Fri,  8 Sep 2023 23:08:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32BB2C433C9;
+	Fri,  8 Sep 2023 23:08:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694214507;
+	bh=salNxs9lLXGL2pFylW72b0vqlDDT0L/9nFvYDSD1rbU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S8RRs1uHRBIPCSTgHYjQtew/XHYwhLMbUDo9UgQCZZo4Iv+G749bzuWbRhOSCfZWs
+	 vTgCcTxEILQTlnhn+v/7D+m+21hTND3K4hCQEIis9xxqUs+/+TSLtfdcyrAMQR8QvC
+	 p4MOqgPKvYAZxSbAPBvnfveCl2jjCsYfjaLPHBACeKVN7oBdkG2btDt1gTC/W9Pcsc
+	 jLEhhB2k6Q2dwNSjWgwOClW10q80c+PFz68ZqpNrbWi+1CH+Dm0+zNzp6pBrsEz4p8
+	 kLX9ttCPsV9qZReNG+0ipRr4Lh75Jqjzh6/0iZkSWksXQFLSUYiguoO/OkL9OvhC77
+	 +kkmLFojF97ag==
+Date: Sat, 9 Sep 2023 00:08:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>
+Cc: Takashi Iwai <tiwai@suse.com>, kernel@collabora.com,
+	Jaroslav Kysela <perex@perex.cz>, Shuah Khan <shuah@kernel.org>,
 	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v2 1/2] ALSA: hda: cs35l41: Support mute notifications
- for CS35L41 HDA
-Message-ID: <202309090555.tnWpQ7Gh-lkp@intel.com>
-References: <20230908133421.2483508-2-sbinding@opensource.cirrus.com>
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH] kselftest/alsa: Mark test plan as skipped when no cards
+ are available
+Message-ID: <0fa0901e-d271-438d-bc2b-11399ad3b07c@sirena.org.uk>
+References: <20230908181242.95714-1-nfraprado@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gtB/MfxvGH0d09GU"
 Content-Disposition: inline
-In-Reply-To: <20230908133421.2483508-2-sbinding@opensource.cirrus.com>
-Message-ID-Hash: K355MOEENBDJRVETDTJVGVGVYEVIFI7H
-X-Message-ID-Hash: K355MOEENBDJRVETDTJVGVGVYEVIFI7H
-X-MailFrom: lkp@intel.com
+In-Reply-To: <20230908181242.95714-1-nfraprado@collabora.com>
+X-Cookie: My EARS are GONE!!
+Message-ID-Hash: T3F7WKYMPUHNGYHOGCBMVP627NHO55VL
+X-Message-ID-Hash: T3F7WKYMPUHNGYHOGCBMVP627NHO55VL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K355MOEENBDJRVETDTJVGVGVYEVIFI7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T3F7WKYMPUHNGYHOGCBMVP627NHO55VL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,78 +101,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Stefan,
 
-kernel test robot noticed the following build errors:
+--gtB/MfxvGH0d09GU
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on tiwai-sound/for-linus linus/master next-20230908]
-[cannot apply to v6.5]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On Fri, Sep 08, 2023 at 02:12:40PM -0400, N=EDcolas F. R. A. Prado wrote:
+> When no soundcards are available, it won't be possible to run any tests.
+> Currently, when this happens, in both pcm-test and mixer-test, 0
+> tests are reported, and the pass exit code is returned. Instead, call
+> ksft_exit_skip() so that the whole test plan is marked as skipped in the
+> KTAP output and it exits with the skip exit code.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Stefan-Binding/ALSA-hda-cs35l41-Support-mute-notifications-for-CS35L41-HDA/20230908-213735
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230908133421.2483508-2-sbinding%40opensource.cirrus.com
-patch subject: [PATCH v2 1/2] ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA
-config: riscv-randconfig-001-20230909 (https://download.01.org/0day-ci/archive/20230909/202309090555.tnWpQ7Gh-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230909/202309090555.tnWpQ7Gh-lkp@intel.com/reproduce)
+Why?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309090555.tnWpQ7Gh-lkp@intel.com/
+--gtB/MfxvGH0d09GU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All errors (new ones prefixed by >>):
+-----BEGIN PGP SIGNATURE-----
 
->> sound/pci/hda/patch_realtek.c:6718:31: error: call to undeclared function 'acpi_device_handle'; ISO C99 and later do not support implicit function declarations [-Werror,-Wimplicit-function-declaration]
-                           spec->comps[i].acpi_notify(acpi_device_handle(spec->comps[i].adev), event,
-                                                      ^
-   sound/pci/hda/patch_realtek.c:6718:31: error: incompatible integer to pointer conversion passing 'int' to parameter of type 'acpi_handle' (aka 'void *') [-Wint-conversion]
-                           spec->comps[i].acpi_notify(acpi_device_handle(spec->comps[i].adev), event,
-                                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/hda/patch_realtek.c:6737:7: error: call to undeclared function 'acpi_device_handle'; ISO C99 and later do not support implicit function declarations [-Werror,-Wimplicit-function-declaration]
-           if (!acpi_device_handle(adev))
-                ^
-   sound/pci/hda/patch_realtek.c:6745:41: error: incomplete definition of type 'struct acpi_device'
-                   ret = acpi_install_notify_handler(adev->handle, ACPI_DEVICE_NOTIFY,
-                                                     ~~~~^
-   include/linux/acpi.h:790:8: note: forward declaration of 'struct acpi_device'
-   struct acpi_device;
-          ^
-   sound/pci/hda/patch_realtek.c:6766:7: error: call to undeclared function 'acpi_device_handle'; ISO C99 and later do not support implicit function declarations [-Werror,-Wimplicit-function-declaration]
-           if (!acpi_device_handle(adev))
-                ^
-   sound/pci/hda/patch_realtek.c:6769:39: error: incomplete definition of type 'struct acpi_device'
-           ret = acpi_remove_notify_handler(adev->handle, ACPI_DEVICE_NOTIFY,
-                                            ~~~~^
-   include/linux/acpi.h:790:8: note: forward declaration of 'struct acpi_device'
-   struct acpi_device;
-          ^
-   6 errors generated.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmT7qWUACgkQJNaLcl1U
+h9CVNgf/bknC546PS9Qi9kytQmrmnRIck4p3/Yv2zeKVVypqZ+T9VGGd45Z5yOtF
+lRcilGo976cR1/xT4LFNuDyrUIM9d3fqf5HSQ0RT5UlYnJ1YExjD5DZvdZsqRr9C
+79g6q2UjiLMqarkMkiML1b3+w5pgJqPp5gpHtMuFl/aTWO1js0SXiJYEvnm7g8p1
+gjApPBitF8CVuS9XzqR0caAPUBkJSfRqWfVJYNQXnuF9+/bzZa+qChKjOxZ7GMY1
+328IIC47xB/5Yu8N672MYqwmtN4PF0lxXGH8l0/5SC4NHAs36XK+Kdwr5hE5nzwo
+q4w0VkZAwxSF3wCCH1LNKkGnVDmXeQ==
+=Shz6
+-----END PGP SIGNATURE-----
 
-
-vim +/acpi_device_handle +6718 sound/pci/hda/patch_realtek.c
-
-  6707	
-  6708	static void comp_acpi_device_notify(acpi_handle handle, u32 event, void *data)
-  6709	{
-  6710		struct hda_codec *cdc = data;
-  6711		struct alc_spec *spec = cdc->spec;
-  6712		int i;
-  6713	
-  6714		codec_info(cdc, "ACPI Notification %d\n", event);
-  6715	
-  6716		for (i = 0; i < HDA_MAX_COMPONENTS; i++) {
-  6717			if (spec->comps[i].dev && spec->comps[i].acpi_notify)
-> 6718				spec->comps[i].acpi_notify(acpi_device_handle(spec->comps[i].adev), event,
-  6719							   spec->comps[i].dev);
-  6720		}
-  6721	}
-  6722	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--gtB/MfxvGH0d09GU--

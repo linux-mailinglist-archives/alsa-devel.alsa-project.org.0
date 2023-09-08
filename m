@@ -2,94 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031CF79900C
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 21:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07CAB799025
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 21:37:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D698DE7A;
-	Fri,  8 Sep 2023 21:36:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D698DE7A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D422DF5;
+	Fri,  8 Sep 2023 21:36:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D422DF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694201812;
-	bh=AZIuI4b9F8aEV2JFH7EffFJ4GrR0yX7gFQ+zem2v2EU=;
+	s=default; t=1694201842;
+	bh=0ZsfsoJOKXIeI+l34s8JwbThse74fekFNNPL2g9b1Hw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZY3lhseqQfSw8kU6j+GOvnQp9uE/Er/LRebieUYgNHMqdBDDQnRWaMhMv3l2eI3O9
-	 wPC4HzvKLiRRyA6yjpD9o0JrUYdJq/fqs1gI86+ywy2kMdsEbqCTQTtYvLhkSbXiHq
-	 gi1pKxVAQFiMp4lgXCV619PA4YqJOdPlYGKM36X0=
+	b=QeN9y1zlwszssfTUMT7yxsy/3fR4uJtD1w04apYr0ZuxBvtO8LFM0ecmwfjCSYXWv
+	 ApIhLHejOWl0Dbwjjqp94xpWEGSCFJXVitLJfY037tqQIyFZCviBlIGbCwrgJ8Ku1d
+	 WgaA4OIGlh4shxLXyJ46qyI6UfOhTeJZUR6aaHes=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A786CF80564; Fri,  8 Sep 2023 21:36:02 +0200 (CEST)
+	id CDFE0F80558; Fri,  8 Sep 2023 21:36:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E3CAF80558;
-	Fri,  8 Sep 2023 21:36:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87F30F804F3;
+	Fri,  8 Sep 2023 21:36:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6F35F80558; Fri,  8 Sep 2023 21:35:58 +0200 (CEST)
+	id 4CC04F80549; Fri,  8 Sep 2023 21:36:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3482FF804F3
-	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 21:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3482FF804F3
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6DD2F8047D
+	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 21:36:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6DD2F8047D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TKx5fY99
+ header.s=k20201202 header.b=mV+w5JG9
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id CAA68B821E9;
-	Fri,  8 Sep 2023 19:35:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0253C116AB;
-	Fri,  8 Sep 2023 19:35:53 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9228B61562;
+	Fri,  8 Sep 2023 19:36:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EB1C116AD;
+	Fri,  8 Sep 2023 19:36:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694201755;
-	bh=AZIuI4b9F8aEV2JFH7EffFJ4GrR0yX7gFQ+zem2v2EU=;
+	s=k20201202; t=1694201784;
+	bh=0ZsfsoJOKXIeI+l34s8JwbThse74fekFNNPL2g9b1Hw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TKx5fY99omKCTg1qu4/IQomo2lENw4k/Hg+//PjWOjjc3s0TUqZrmj0/+DZeEGNtx
-	 kzqFRySmmOSZOOpcfwYeJAki2vM1UM+MlPPDaCXYjEBxOO6Qb4oYuYtni9GGtTVM1h
-	 6SxkQ+GEc5FSb4RDMoKJZoXLH9vAZs2Lmy6sbChxJLBhEZrAMuWUvnyM8IIQcnKQ1Z
-	 99/lcIuGrA+05SugkzhBNGq690892oHL9dY0gDs18TzrMZs8fUgWaRdcFaHTzaaJ11
-	 n9IPQ3+bsHHJaKUIOv1qNgBdSnbI1nd8UjCDhKxmNdOdrr6BVgWiynrqy/YS29pMR2
-	 Q1LpPln2lkBzg==
+	b=mV+w5JG91qPr98NtEnUo8H5DoXBz7GmNnJGpPVO9l/P94yxS6et1mSWaVJMvSBKAD
+	 ZAugdQ+6WNL+obQCMDJqgH37tp7isNk6XDF3GcZSmUkoerwZg2GttM9sGArmE0Vxnm
+	 JFa3oosCswoU4OGUX1pscnebjXr9qaTilpZxJl5rG92FJGMJ2sn/Y9SNlFhrHVN3rk
+	 zyzyRSndSU4AWLFKi+7b5g+Orpobs9JVsYGZFHzzC3+pELR+GZFwsb0nuOFdlz2A8S
+	 LSYQEI1sto+JWBAdRzEhOfcbT3cs595JgFnd+7SXc8EDr4SHTuSTVlW3/RGhruzJOu
+	 JXkPwqj1gpQpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Uday M Bhat <uday.m.bhat@intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Takashi Iwai <tiwai@suse.de>,
+	Jairaj Arava <jairaj.arava@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	broonie@kernel.org,
-	amadeuszx.slawinski@linux.intel.com,
-	muralidhar.reddy@intel.com,
-	bradynorander@gmail.com,
+	ckeepax@opensource.cirrus.com,
+	gongjun.song@intel.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.15 08/13] ALSA: hda: intel-dsp-cfg: add LunarLake
- support
-Date: Fri,  8 Sep 2023 15:35:24 -0400
-Message-Id: <20230908193530.3463647-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 3/9] ASoC: Intel: sof_sdw: Update BT offload
+ config for soundwire config
+Date: Fri,  8 Sep 2023 15:36:04 -0400
+Message-Id: <20230908193611.3463821-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230908193530.3463647-1-sashal@kernel.org>
-References: <20230908193530.3463647-1-sashal@kernel.org>
+In-Reply-To: <20230908193611.3463821-1-sashal@kernel.org>
+References: <20230908193611.3463821-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.131
+X-stable-base: Linux 5.10.194
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TEJEWUHTLGLR2UKLPH4V3CLLF6VPAJYQ
-X-Message-ID-Hash: TEJEWUHTLGLR2UKLPH4V3CLLF6VPAJYQ
+Message-ID-Hash: UCON4W5S43SQFHCEEVO3TF3WBKRZYPL2
+X-Message-ID-Hash: UCON4W5S43SQFHCEEVO3TF3WBKRZYPL2
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TEJEWUHTLGLR2UKLPH4V3CLLF6VPAJYQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UCON4W5S43SQFHCEEVO3TF3WBKRZYPL2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,41 +114,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Uday M Bhat <uday.m.bhat@intel.com>
 
-[ Upstream commit d2852b8c045ebd31d753b06f2810df5be30ed56a ]
+[ Upstream commit a14aded9299187bb17ef90700eb2cf1120ef5885 ]
 
-One more PCI ID for the road.
+For soundwire config, SSP1 is used for BT offload. This is enabled
+in sof_sdw_quirk_table
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20230802150105.24604-5-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Uday M Bhat <uday.m.bhat@intel.com>
+Signed-off-by: Jairaj Arava <jairaj.arava@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20230731214257.444605-5-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/intel-dsp-config.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/intel/boards/sof_sdw.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
-index 811d2ebc7d6ec..ebb7c2110fa84 100644
---- a/sound/hda/intel-dsp-config.c
-+++ b/sound/hda/intel-dsp-config.c
-@@ -385,6 +385,14 @@ static const struct config_entry config_table[] = {
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index f36a0fda1b6ae..1955d277fdf20 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -214,7 +214,9 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Rex"),
+ 		},
+-		.driver_data = (void *)(SOF_SDW_PCH_DMIC),
++		.driver_data = (void *)(SOF_SDW_PCH_DMIC |
++					SOF_BT_OFFLOAD_SSP(1) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
  	},
- #endif
- 
-+/* Lunar Lake */
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_LUNARLAKE)
-+	/* Lunarlake-P */
-+	{
-+		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC_OR_SOUNDWIRE,
-+		.device = PCI_DEVICE_ID_INTEL_HDA_LNL_P,
-+	},
-+#endif
- };
- 
- static const struct config_entry *snd_intel_dsp_find_config
+ 	/* LunarLake devices */
+ 	{
 -- 
 2.40.1
 

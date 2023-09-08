@@ -2,90 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7539798C51
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 20:13:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B7A798E65
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 20:50:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D077832;
-	Fri,  8 Sep 2023 20:13:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D077832
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7AC084B;
+	Fri,  8 Sep 2023 20:49:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7AC084B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694196833;
-	bh=58aqhulC4fc6Pn7pCzoNspVmthf7zQNQ+CuztnXMM9k=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=UBY1e5ldS7XxPWXAfdFKjanCk4/wM+ZcWKbYA8QAAyLG9qV20t3vRPJyF2iha3Y/Y
-	 4tl+xhvAn5yjAiUEy65quaQVaYvoWGvGRXFQSTdYTiQrmNqFgAX998j4BKW26Yo2kv
-	 NRJEq43W123EbbaxiCaEOsnTVTYNymAfOQ/XKLBo=
+	s=default; t=1694199025;
+	bh=TMr/3p/TqnqPe3Lscp+MbI4YgggDqY1wqO1wFlCuiQY=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=jEJeO6x6uZXwj/QVoKZq6CGS2NQs+ntgD5rfEwGcr6M02d/vSpYSSoASlk343pWsC
+	 6GTc0+D7pgscf/wEvnRL7mCjRO7QbLN36K3fL2A+fu+PpaVEfXosk31rm546Z0XMpb
+	 vow5VwDvNSNpyt/uLh4fKYEcRMtdUFG3wTIBC8bM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 297B5F80527; Fri,  8 Sep 2023 20:13:03 +0200 (CEST)
+	id 21383F80431; Fri,  8 Sep 2023 20:49:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C87EAF8047D;
-	Fri,  8 Sep 2023 20:13:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD21AF80431;
+	Fri,  8 Sep 2023 20:49:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E8DDF80494; Fri,  8 Sep 2023 20:12:58 +0200 (CEST)
+	id 25E56F80494; Fri,  8 Sep 2023 20:49:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B1AEAF80236
-	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 20:12:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1AEAF80236
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=D3/TDBhL
-Received: from notapiano.myfiosgateway.com (zone.collabora.co.uk
- [167.235.23.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nfraprado)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id C384F66072B9;
-	Fri,  8 Sep 2023 19:12:46 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1694196768;
-	bh=58aqhulC4fc6Pn7pCzoNspVmthf7zQNQ+CuztnXMM9k=;
-	h=From:To:Cc:Subject:Date:From;
-	b=D3/TDBhLtJg+v4QCDK7vby4V4RgDhW59/2BiowmTy3GpcnlDjbyicbjTnYuXicxEw
-	 Y3HdFg7/iU+AW7hn6vfue4HXulIbjdLeNSOvrlJjMtWG2orbl9SS4g253yI2zewFsR
-	 4ubUq5xRQzqU7rhz0+C+JAL7/52MaDdE27nJX/TdCHVWKJaIdUJ+1Xus1l4mnpsuNI
-	 jSy5GprjgCaIWa7MIelrOWKCZobhBdVer6TQNpO42wuXZYvK/epcHg139TYdHhkZrN
-	 rJCbVR3nLXC6KLoJ3RDlACvxkdLGlEcwKm8HPQKTW5Muz4OMnEVcnDX/VO4qw5gxTB
-	 F/A9njH6ylDcw==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: kernel@collabora.com,
-	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Mark Brown <broonie@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] kselftest/alsa: Mark test plan as skipped when no cards are
- available
-Date: Fri,  8 Sep 2023 14:12:40 -0400
-Message-ID: <20230908181242.95714-1-nfraprado@collabora.com>
-X-Mailer: git-send-email 2.42.0
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DEADF80431
+	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 20:49:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DEADF80431
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EKEK5C6TFTXWYJ7LUXZQW6JEZHNOMNST
-X-Message-ID-Hash: EKEK5C6TFTXWYJ7LUXZQW6JEZHNOMNST
-X-MailFrom: nfraprado@collabora.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1694198964325707197-webhooks-bot@alsa-project.org>
+References: <1694198964325707197-webhooks-bot@alsa-project.org>
+Subject: Left audio channel very loud when external sound card was unplugged,
+ volume not reflected properly in alsamixer
+Message-Id: <20230908184931.25E56F80494@alsa1.perex.cz>
+Date: Fri,  8 Sep 2023 20:49:31 +0200 (CEST)
+Message-ID-Hash: BE35EARXR46HUSARXVHILWH5SYWVLLQK
+X-Message-ID-Hash: BE35EARXR46HUSARXVHILWH5SYWVLLQK
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,8 +60,7 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EKEK5C6TFTXWYJ7LUXZQW6JEZHNOMNST/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,56 +69,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When no soundcards are available, it won't be possible to run any tests.
-Currently, when this happens, in both pcm-test and mixer-test, 0
-tests are reported, and the pass exit code is returned. Instead, call
-ksft_exit_skip() so that the whole test plan is marked as skipped in the
-KTAP output and it exits with the skip exit code.
+alsa-project/alsa-utils issue #235 was opened from WildRikku:
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+I'm reporting this here because alsamixer is at least part of the issue. I'd be thankful for help finding the whole issue and I can report elsewhere if necessary.
 
----
+After plugging in my external sound card, the left channel is WAY louder than the right channel but `alsamixer` does not reflect this. I then correct it by setting the left channel to zero in `alsamixer` and back to what it should be. Note that it showed the value it should have before already, it just wasn't true! The volume is then correct until I unplug my sound card the next time and plug it in again. The issue also happens when I turn off the power supply of the USB dock the external sound card is plugged into. My device is a Steam Deck so I cannot use the external sound card without a dock.
 
- tools/testing/selftests/alsa/mixer-test.c | 7 +++++--
- tools/testing/selftests/alsa/pcm-test.c   | 7 +++++--
- 2 files changed, 10 insertions(+), 4 deletions(-)
+#### Steps for reproducing this issue:
 
-diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-index c95d63e553f4..8f45c15a5667 100644
---- a/tools/testing/selftests/alsa/mixer-test.c
-+++ b/tools/testing/selftests/alsa/mixer-test.c
-@@ -66,8 +66,11 @@ static void find_controls(void)
- 	char *card_name, *card_longname;
- 
- 	card = -1;
--	if (snd_card_next(&card) < 0 || card < 0)
--		return;
-+	err = snd_card_next(&card);
-+	if (err < 0)
-+		ksft_exit_skip("Couldn't open first soundcard. rc=%d\n", err);
-+	if (card < 0)
-+		ksft_exit_skip("No soundcard available\n");
- 
- 	config = get_alsalib_config();
- 
-diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index 2f5e3c462194..74d9cf8b5a69 100644
---- a/tools/testing/selftests/alsa/pcm-test.c
-+++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -161,8 +161,11 @@ static void find_pcms(void)
- 	snd_pcm_info_alloca(&pcm_info);
- 
- 	card = -1;
--	if (snd_card_next(&card) < 0 || card < 0)
--		return;
-+	err = snd_card_next(&card);
-+	if (err < 0)
-+		ksft_exit_skip("Couldn't open first soundcard. rc=%d\n", err);
-+	if (card < 0)
-+		ksft_exit_skip("No soundcard available\n");
- 
- 	config = get_alsalib_config();
- 
--- 
-2.42.0
+1. Unplug external sound card from the dock or send Steam Deck to stand-by and unplug the power supply
+2. Plug sound card in or plug power supply in and turn on Steam Deck
+3. left channel is now very loud but `alsamixer` shows equal value for left and right channel
 
+Maybe related: When using `alsactl restore` I get
+
+```
+alsactl: set_control:1475: Cannot write control '2:0:0:Left Speaker Port Blocked Status:0' : Operation not permitted
+alsactl: set_control:1475: Cannot write control '2:0:0:Left Speaker Open / Short Status:0' : Operation not permitted
+alsactl: set_control:1475: Cannot write control '2:0:0:Right Speaker Port Blocked Status:0' : Operation not permitted
+alsactl: set_control:1475: Cannot write control '2:0:0:Right Speaker Open / Short Status:0' : Operation not permitted
+```
+
+alsa-info output: https://alsa-project.org/db/?f=69b87861217a0e554cb4786c64d4a0c461177fdd
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/235
+Repository URL: https://github.com/alsa-project/alsa-utils

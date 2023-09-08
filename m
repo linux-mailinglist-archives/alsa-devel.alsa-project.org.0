@@ -2,93 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ECF0798F98
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 21:33:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C22D3798FB0
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Sep 2023 21:34:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8135F741;
-	Fri,  8 Sep 2023 21:32:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8135F741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD3FDE5;
+	Fri,  8 Sep 2023 21:33:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD3FDE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694201616;
-	bh=XHZQEu/v99UNJEaKd/BeELyfqK4Oapl8sSK9J0/MXt4=;
+	s=default; t=1694201649;
+	bh=LtluMiPiAvNOgrlFsorMjnATBMItZh1rE0cJ9Uf6TLc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LdEXbGzBb+8zYFVu/9KolfeKQOmECYHPaZtFhO5PKS0lkO68YSS3XQE4/brIfrLRL
-	 1sanQHWGN8IM7vavJRyRpcuoHQbsVW+Wb3XNG+R0Zc0zvdnZ2xTV4OJnBF2Yaq2vCU
-	 Xdxq+GYuzr7W4hZduFdAaDY8a6jeKpIJeUtoTfWI=
+	b=cOKft8N67BoSUJjJjzzmx87qAZEIMrBIUR3cr/r622jCimC4EvTPCLX0+U/lPghls
+	 h2fCjwMajLPdmbVcLy1PjIxO7sb+Y52UkbGiCg/yZ8gbJVR+spb1Lwe4hXUNZg+9w5
+	 WSUhWflUwGfxTBv56cve3hyZJWdUVZ8+YU0YYlW0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34DDDF80568; Fri,  8 Sep 2023 21:32:29 +0200 (CEST)
+	id E4A79F80431; Fri,  8 Sep 2023 21:33:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D022BF804F3;
-	Fri,  8 Sep 2023 21:32:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5426DF80494;
+	Fri,  8 Sep 2023 21:33:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58951F8047D; Fri,  8 Sep 2023 21:32:26 +0200 (CEST)
+	id 7F003F80537; Fri,  8 Sep 2023 21:33:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C3E1F80552
-	for <alsa-devel@alsa-project.org>; Fri,  8 Sep 2023 21:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C3E1F80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4F270F800F5;
+	Fri,  8 Sep 2023 21:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F270F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=S9CsGjPV
+ header.s=k20201202 header.b=Z0/VDig3
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 199BC61554;
-	Fri,  8 Sep 2023 19:32:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D398C433AD;
-	Fri,  8 Sep 2023 19:32:13 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 098E3B821D4;
+	Fri,  8 Sep 2023 19:33:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E064C433C9;
+	Fri,  8 Sep 2023 19:33:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694201534;
-	bh=XHZQEu/v99UNJEaKd/BeELyfqK4Oapl8sSK9J0/MXt4=;
+	s=k20201202; t=1694201584;
+	bh=LtluMiPiAvNOgrlFsorMjnATBMItZh1rE0cJ9Uf6TLc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S9CsGjPVDlPNp52zLylWSAsWG83zc/rWdn78rfCetY5Ntqp8X6LcRZjC/mWvP4mQ5
-	 KbXDrAUxsF8XwplLtOQyDn6Rjum2i3WHhXJkYPG+jz8KQTrU/d9KLvUmWFiZ9XW+Of
-	 rafp8v4TjnMUCcb+M4lvSf3U4/OCwloRFTg69opSYX9Ua5a9zR5tSjnTc22Gbhswwi
-	 1BQnj3st2yUauFFJE4nkgkyCTbkGUrqcnx+lsIQCq2qlm+0Ta4iR5df6L4Y50b6hzn
-	 VWjel5H/qmh3LhoELyqtx4+eH7DjT0tZ5UvJcOQ2EzMc9EREFaFxySIrRSvFKnRijx
-	 HJB7gGKWdfQ7g==
+	b=Z0/VDig3T+E8aCLIqotHkOVBb8PLc4ew1h4J6YtiTQS3o2rLJywhCDEdd3gMafa+e
+	 fawsBhdv2gAm2JGlH9Dp/rmcO4M5i+rZp3z+muCOdDJJ2mpwkfy210tgPXW+zJv/IM
+	 bfiM9byhXdb/nwZHI3Wr8VhhQJQM1dNMgty9rUYp/iDtvb8PEhXdaCedm4ajxzugoy
+	 3wS7AMKMIieaQZdcqUhUqLe0QJ4p5ID8UJmutB44j/GeFKCJWojPGUoT6cnf0ElI1c
+	 7qK0grvyZt6o+uTW+H/ZOGf3SQT3t5po3t3podiSoioO6NVOUMzoMkQuHUiJcyD/4o
+	 34QKTWx03sqHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Yaochun Hung <yc.hung@mediatek.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	lgirdwood@gmail.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	lucas.tanure@collabora.com,
-	pierre-louis.bossart@linux.intel.com,
-	rander.wang@intel.com,
-	kuninori.morimoto.gx@renesas.com,
-	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.4 04/31] ASoC: amd: vangogh: Use dmi_first_match()
- for DMI quirk handling
-Date: Fri,  8 Sep 2023 15:31:33 -0400
-Message-Id: <20230908193201.3462957-4-sashal@kernel.org>
+	matthias.bgg@gmail.com,
+	sound-open-firmware@alsa-project.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH AUTOSEL 6.4 15/31] ASoC: SOF: topology: simplify code to
+ prevent static analysis warnings
+Date: Fri,  8 Sep 2023 15:31:44 -0400
+Message-Id: <20230908193201.3462957-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230908193201.3462957-1-sashal@kernel.org>
 References: <20230908193201.3462957-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.4.15
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QJWXBFM4CIH4HQMMOI2TGKWH3KCBFB2O
-X-Message-ID-Hash: QJWXBFM4CIH4HQMMOI2TGKWH3KCBFB2O
+Message-ID-Hash: TCTJF2IDSODGSTSMBGQUM777QTMZAYWE
+X-Message-ID-Hash: TCTJF2IDSODGSTSMBGQUM777QTMZAYWE
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJWXBFM4CIH4HQMMOI2TGKWH3KCBFB2O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TCTJF2IDSODGSTSMBGQUM777QTMZAYWE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,111 +116,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 3dd26e27ccb4f18b4d25c0a49e1888eca9c6a724 ]
+[ Upstream commit 55cb3dc271d81f1982c949a2ac483a6daf613b92 ]
 
-In preparation for supporting ACPI probing, move DMI quirk handling
-logic at the probe's top, to be able to return as quickly as possible in
-case there is no DMI matching.
+make KCFLAGS='-fanalyzer' sound/soc/sof/intel/ reports a possible NULL
+pointer dereference.
 
-Additionally, simplify the code by replacing dmi_check_system() and
-related callback with dmi_first_match(). While at it, also drop a few
-unnecessary empty lines.
+sound/soc/sof/topology.c:1136:21: error: dereference of NULL ‘w’
+[CWE-476] [-Werror=analyzer-null-dereference]
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Link: https://lore.kernel.org/r/20230705214800.193244-3-cristian.ciocaltea@collabora.com
+ 1136 |     strcmp(w->sname, rtd->dai_link->stream_name))
+
+The code is rather confusing and can be simplified to make static
+analysis happy. No functionality change.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
+Link: https://lore.kernel.org/r/20230731213748.440285-4-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/vangogh/acp5x-mach.c | 28 +++++++---------------------
- 1 file changed, 7 insertions(+), 21 deletions(-)
+ sound/soc/sof/topology.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
-index e5bcd1e6eb73a..7040809b24729 100644
---- a/sound/soc/amd/vangogh/acp5x-mach.c
-+++ b/sound/soc/amd/vangogh/acp5x-mach.c
-@@ -22,7 +22,6 @@
- 
- #define DRV_NAME			"acp5x_mach"
- #define DUAL_CHANNEL			2
--#define VG_JUPITER			1
- #define ACP5X_NAU8821_BCLK		3072000
- #define ACP5X_NAU8821_FREQ_OUT		12288000
- #define ACP5X_NAU8821_COMP_NAME 	"i2c-NVTN2020:00"
-@@ -31,7 +30,6 @@
- #define ACP5X_CS35L41_COMP_RNAME	"spi-VLV1776:01"
- #define ACP5X_CS35L41_DAI_NAME		"cs35l41-pcm"
- 
--static unsigned long acp5x_machine_id;
- static struct snd_soc_jack vg_headset;
- 
- SND_SOC_DAILINK_DEF(platform,  DAILINK_COMP_ARRAY(COMP_PLATFORM("acp5x_i2s_dma.0")));
-@@ -242,7 +240,6 @@ static int acp5x_cs35l41_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	return 0;
--
- }
- 
- static const struct snd_soc_ops acp5x_cs35l41_play_ops = {
-@@ -292,8 +289,6 @@ static struct snd_soc_dai_link acp5x_8821_35l41_dai[] = {
- 	},
- };
- 
--
--
- static const struct snd_soc_dapm_widget acp5x_8821_35l41_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-@@ -331,16 +326,8 @@ static struct snd_soc_card acp5x_8821_35l41_card = {
- 	.num_controls = ARRAY_SIZE(acp5x_8821_controls),
- };
- 
--static int acp5x_vg_quirk_cb(const struct dmi_system_id *id)
--{
--	acp5x_machine_id = VG_JUPITER;
--
--	return 1;
--}
--
- static const struct dmi_system_id acp5x_vg_quirk_table[] = {
- 	{
--		.callback = acp5x_vg_quirk_cb,
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Valve"),
- 			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Jupiter"),
-@@ -351,23 +338,22 @@ static const struct dmi_system_id acp5x_vg_quirk_table[] = {
- 
- static int acp5x_probe(struct platform_device *pdev)
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index f160dc454b448..8e6f6148f0a07 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1117,10 +1117,11 @@ static void sof_disconnect_dai_widget(struct snd_soc_component *scomp,
  {
-+	const struct dmi_system_id *dmi_id;
- 	struct acp5x_platform_info *machine;
- 	struct device *dev = &pdev->dev;
- 	struct snd_soc_card *card;
- 	int ret;
+ 	struct snd_soc_card *card = scomp->card;
+ 	struct snd_soc_pcm_runtime *rtd;
++	const char *sname = w->sname;
+ 	struct snd_soc_dai *cpu_dai;
+ 	int i, stream;
  
-+	dmi_id = dmi_first_match(acp5x_vg_quirk_table);
-+	if (!dmi_id)
-+		return -ENODEV;
-+
-+	card = &acp5x_8821_35l41_card;
-+
- 	machine = devm_kzalloc(dev, sizeof(*machine), GFP_KERNEL);
- 	if (!machine)
- 		return -ENOMEM;
+-	if (!w->sname)
++	if (!sname)
+ 		return;
  
--	dmi_check_system(acp5x_vg_quirk_table);
--	switch (acp5x_machine_id) {
--	case VG_JUPITER:
--		card = &acp5x_8821_35l41_card;
--		break;
--	default:
--		return -ENODEV;
--	}
- 	card->dev = dev;
- 	platform_set_drvdata(pdev, card);
- 	snd_soc_card_set_drvdata(card, machine);
+ 	if (w->id == snd_soc_dapm_dai_out)
+@@ -1133,7 +1134,7 @@ static void sof_disconnect_dai_widget(struct snd_soc_component *scomp,
+ 	list_for_each_entry(rtd, &card->rtd_list, list) {
+ 		/* does stream match DAI link ? */
+ 		if (!rtd->dai_link->stream_name ||
+-		    strcmp(w->sname, rtd->dai_link->stream_name))
++		    strcmp(sname, rtd->dai_link->stream_name))
+ 			continue;
+ 
+ 		for_each_rtd_cpu_dais(rtd, i, cpu_dai)
 -- 
 2.40.1
 

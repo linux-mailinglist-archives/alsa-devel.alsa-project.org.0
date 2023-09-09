@@ -2,84 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEFDB79980E
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Sep 2023 14:43:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A128799812
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Sep 2023 14:46:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 208701EB;
-	Sat,  9 Sep 2023 14:42:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 208701EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B9511EB;
+	Sat,  9 Sep 2023 14:45:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B9511EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694263399;
-	bh=xr+HEKX4cCDTuOqKdyXJ1E/ji1CQkjaUauZpgB7DUUg=;
+	s=default; t=1694263607;
+	bh=/BkZmW+Y3mlj97JtUG1ZwG/p/fnfbVMkY31uTf3YqrU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jPWqLJu8nRLSbOwxGwqLLudHaqRdkb8MU6y6I/Yy4r9tP25eqmU8pE5kd6GM5rHIZ
-	 c3W2zpDpuCcYyrYTJzVaPKBgTDfcSVC1h52vxmq/xn7TJb2Xk0sH/YmOG36t9oRVXl
-	 ifTLIztPsDwQESszKE+7lFwJMC8I/9q1G6m1K1Ek=
+	b=BDzFOcA5XxBDSPYCCBwAODMIEnrDL5hsRKk53lcGpVptyJCpoilNzN1esyl8xN028
+	 lwKwBadTymfflnHGlWCQ9XsZBOP6o+RQ3CrMdpgajIXDJs/bBmA3J0FuaVMRRN+gKX
+	 Yi6exYx1K4/Br891iYzmpsTZLP62XH8/litl+FwA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 843F5F80552; Sat,  9 Sep 2023 14:42:28 +0200 (CEST)
+	id 6CA2FF80549; Sat,  9 Sep 2023 14:45:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14B42F8047D;
-	Sat,  9 Sep 2023 14:42:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2025DF8047D;
+	Sat,  9 Sep 2023 14:45:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F754F80494; Sat,  9 Sep 2023 14:42:24 +0200 (CEST)
+	id AB303F80494; Sat,  9 Sep 2023 14:45:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC39EF800AA
-	for <alsa-devel@alsa-project.org>; Sat,  9 Sep 2023 14:42:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC39EF800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87D0FF800AA
+	for <alsa-devel@alsa-project.org>; Sat,  9 Sep 2023 14:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87D0FF800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CfN5qCgq
+ header.s=k20201202 header.b=DHXgIfHk
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 80DEF60B2B;
-	Sat,  9 Sep 2023 12:42:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59892C433C8;
-	Sat,  9 Sep 2023 12:42:15 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id C75B6B8010F;
+	Sat,  9 Sep 2023 12:45:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C7EC433C9;
+	Sat,  9 Sep 2023 12:45:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694263336;
-	bh=xr+HEKX4cCDTuOqKdyXJ1E/ji1CQkjaUauZpgB7DUUg=;
+	s=k20201202; t=1694263546;
+	bh=/BkZmW+Y3mlj97JtUG1ZwG/p/fnfbVMkY31uTf3YqrU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CfN5qCgqBJdm5dycCocctI74vqr0SYq4BhRPMVQIeL3mhqZvRLQOFSWGvbOGAq3+Z
-	 kYFwlv1lb0GUgIjJFpv7Sr66jWceiI385ydCDXSBBF18AvxYTKIh7S6tZYdehD1jrH
-	 RasEgJpNN9ZRewIezIett09FiWwbSxIpq7hV+ffyEvVo+lulRG6yuoDXzxpCkfX6rr
-	 WM3C0HIkwwVo9NuHcAT30H+iUjEQpValZYtJnf/jgMraInkAMVmMR/Srl0DgAk+LPF
-	 LongSAdtYXqdUiA6WaGxebExEfP5uRiaPHLxPqI7xNjX9GCXXnjubVZuEllVSN1P02
-	 /KOMmu1wUr5Xg==
-Date: Sat, 9 Sep 2023 13:42:09 +0100
+	b=DHXgIfHkqFr93L8vqvKYYF/bRfV41TJhTJizya8HEpOTF2PnJI9+q7kdy4bfvfixG
+	 qbuXBomPd6HUQWJSaQC5CMd1rm0hEPZ7782m7Sckwx62EHOVuyYO55Ehqnet4zNQ6V
+	 +MotxMlTUs0IlJzwU4oOGxJkXi29jR01ocrmHUJbOlJItcT6ehR5ai1OxN7UJoT9ia
+	 5I23lgGiUDovnrhSi1i1c6cbAfGi1Xnxz8+xDfUEii+CVJwin0yMA6L8744sdeALzP
+	 TG2YjT4/uhpnaN7e5FOrr7EvDCNcJxraq21M+F3DWF7GLkpyhgXlsA1iiIlWolvudo
+	 Pn1tRzxC4gPmA==
+Date: Sat, 9 Sep 2023 13:45:38 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	Fabio Estevam <festevam@denx.de>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: wm8960: Fix error handling in probe
-Message-ID: <ZPxoIQ6ocTcDrmtM@finisterre.sirena.org.uk>
-References: <20230909120237.2646275-1-linux@roeck-us.net>
+To: Matthias Reichl <hias@horus.com>
+Cc: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: hdmi-codec: Fix broken channel map reporting
+Message-ID: <ZPxo8qKMDkmBqGxw@finisterre.sirena.org.uk>
+References: <20230909114633.3193-1-hias@horus.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vjozxumgwjzG39lU"
+	protocol="application/pgp-signature"; boundary="CRYsJteP4m9VwM7C"
 Content-Disposition: inline
-In-Reply-To: <20230909120237.2646275-1-linux@roeck-us.net>
+In-Reply-To: <20230909114633.3193-1-hias@horus.com>
 X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: KHC27VYECZVOAJJULLFWIXXYUQ3YZE2E
-X-Message-ID-Hash: KHC27VYECZVOAJJULLFWIXXYUQ3YZE2E
+Message-ID-Hash: YZPYKTSY2Y4HRRNHLO4VJFXHUNOGFY6C
+X-Message-ID-Hash: YZPYKTSY2Y4HRRNHLO4VJFXHUNOGFY6C
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KHC27VYECZVOAJJULLFWIXXYUQ3YZE2E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZPYKTSY2Y4HRRNHLO4VJFXHUNOGFY6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,47 +98,38 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---vjozxumgwjzG39lU
+--CRYsJteP4m9VwM7C
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 09, 2023 at 05:02:37AM -0700, Guenter Roeck wrote:
-> Commit 422f10adc3eb ("ASoC: wm8960: Add support for the power supplies")
-> added regulator support to the wm8960 driver, but neglected to update
-> error handling in the probe function. This results in warning backtraces
-> if the probe function fails.
+On Sat, Sep 09, 2023 at 01:46:33PM +0200, Matthias Reichl wrote:
+> Commit 4e0871333661 ("ASoC: hdmi-codec: fix channel info for
+> compressed formats") accidentally changed hcp->chmap_idx from
+> ca_id, the CEA channel allocation ID, to idx, the index to
+> the table of channel mappings ordered by preference.
 >=20
-> WARNING: CPU: 0 PID: 1 at drivers/regulator/core.c:2396 _regulator_put.pa=
-rt.0+0x1b4/0x1d8
-> Modules linked in:
-> CPU: 0 PID: 1 Comm: swapper/0 Tainted: G                 N 6.5.0-11075-g9=
-2901222f83d #1
-> Hardware name: Freescale i.MX6 Ultralite (Device Tree)
->  unwind_backtrace from show_stack+0x10/0x14
->  show_stack from dump_stack_lvl+0x68/0x90
->  dump_stack_lvl from __warn+0x70/0x1a4
+> This resulted in wrong channel maps being reported to userspace,
+> eg for 5.1 "FL,FR,LFE,FC" was reported instead of the expected
+> "FL,FR,LFE,FC,RL,RR":
 
-Please think hard before including complete backtraces in upstream
-reports, they are very large and contain almost no useful information
-relative to their size so often obscure the relevant content in your
-message. If part of the backtrace is usefully illustrative (it often is
-for search engines if nothing else) then it's usually better to pull out
-the relevant sections.
+Presumably this will cause a regression for people using compressed
+formats - isn't the fix here to make this behaviour conditional on if
+the format is compressed?
 
---vjozxumgwjzG39lU
+--CRYsJteP4m9VwM7C
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmT8aCAACgkQJNaLcl1U
-h9Dxlwf+Ln5ZLsZt4L9GtAbAoAzBwg6k6EXI3wl9dsfKZL39RrU2usnPSRoWbgFP
-1GHaYDHSOCXfI4SM+Y91nknankLLzeGQG8BlJZ2byDz2T/fwExZlvdWNQccQYJfW
-BVQ/3u1byQhsA8BIxmmpejiwFtS5iAwh1280Y1AUiKlT9eQhXESAR0kxhKOaBK3v
-gxenKi3LN1t1adtqK+0MRjPTUZofvymMY44PP0Rb2dRZgEkjEMa6EQ2iJqJ5BMhK
-CVvlwZjAoUcA+yks821zKxlCx01bPjdn4JYqYjTXcyqL0vP/EBp49/F5tSIR+A2D
-SnRPGvTCNGjjIA27bGCOib9cOJVZBA==
-=H49g
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmT8aPIACgkQJNaLcl1U
+h9CBowf+JGLhC4wKjhk+Xm1dMsIghIlZq6aJwbbuKM929p/iKVwWTv7AyuQ+U9y/
+p/fV9EeYDYVRfVppD5VVlya5egCxQSfDhXTGrhSDFzCtlp9TMml3t+vsQ6cYJwFX
+O7P2vk00i5ADmH7pGVBsJYCMzxydIHCeErD/6LETO+uBMnIRGqTGgh0VqFO+T20f
+PQUM75OZFFM5cAm6wFYv3VWt6lo9hW+TjSvuElRawpdrbOPWYUtiRkuIWhBH8jGY
+77eOnewhMO65/sGS+qnzEPLKkT82KJs+XcmeCb7sLHC9PXswHMpL+z4H/W9UpsHn
+nNSOGAtXAhcGQvmjFbYR9s+/NlOdLQ==
+=rfza
 -----END PGP SIGNATURE-----
 
---vjozxumgwjzG39lU--
+--CRYsJteP4m9VwM7C--

@@ -2,89 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127377997F1
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Sep 2023 14:34:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEFDB79980E
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Sep 2023 14:43:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13051827;
-	Sat,  9 Sep 2023 14:33:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13051827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 208701EB;
+	Sat,  9 Sep 2023 14:42:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 208701EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694262868;
-	bh=yIxs3BQmN40ifQP76rbZhk3fyOZSVb9oQaLCp2JJ468=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1694263399;
+	bh=xr+HEKX4cCDTuOqKdyXJ1E/ji1CQkjaUauZpgB7DUUg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hNCufGpsxjuNZLH6dCY0kbokgd0DngZ1e0wzQIufIJC2ZXXZZSNxF+dtCZoRXZXES
-	 c2q3vQv3VH2HwYvLndUftB0IvjLQGUV0ujXR9BCeZLmkuJJnqIdj5ji0Qfvz7wHUP2
-	 /UYPLG/paqHQB5udrMz0J1PkdvDgU3DM2PPR+izQ=
+	b=jPWqLJu8nRLSbOwxGwqLLudHaqRdkb8MU6y6I/Yy4r9tP25eqmU8pE5kd6GM5rHIZ
+	 c3W2zpDpuCcYyrYTJzVaPKBgTDfcSVC1h52vxmq/xn7TJb2Xk0sH/YmOG36t9oRVXl
+	 ifTLIztPsDwQESszKE+7lFwJMC8I/9q1G6m1K1Ek=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 777B5F8055B; Sat,  9 Sep 2023 14:33:37 +0200 (CEST)
+	id 843F5F80552; Sat,  9 Sep 2023 14:42:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96A64F8047D;
-	Sat,  9 Sep 2023 14:33:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14B42F8047D;
+	Sat,  9 Sep 2023 14:42:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DE5AF80494; Sat,  9 Sep 2023 14:33:31 +0200 (CEST)
+	id 4F754F80494; Sat,  9 Sep 2023 14:42:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from phobos.denx.de (phobos.denx.de
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2E870F80236
-	for <alsa-devel@alsa-project.org>; Sat,  9 Sep 2023 14:33:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E870F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC39EF800AA
+	for <alsa-devel@alsa-project.org>; Sat,  9 Sep 2023 14:42:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC39EF800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
- header.s=phobos-20191101 header.b=MDTcfkRO
-Received: from mail.denx.de (unknown
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CfN5qCgq
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	(Authenticated sender: festevam@denx.de)
-	by phobos.denx.de (Postfix) with ESMTPSA id 2128586433;
-	Sat,  9 Sep 2023 14:33:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
-	s=phobos-20191101; t=1694262801;
-	bh=FGJ+3GoBJjrtTqJFHFJ12q0FRofA5cXQDyydOvBNyO4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=MDTcfkRObBGeXLdQGT1lvvL5V366HVLH1RPZevF89/SRhxGDqQrLQ6qVzl1aSyJqs
-	 VSqTXfskgZhUgqlTZyngyHNv55pDAXByBfDp5jKoA47270k4WJFQHAB7tgqXFPoKE6
-	 9TtBNa75Xi9v/nR7KlW+pfEmp4dJag4B5NA4Raf/hiH+9EoixyzL4C04YUe5HeYM/m
-	 0OuBAABdgkEV9FlTCdDAdJyITbRc4JvDF0vE6VQdMdRDohzMotJgsC2zIHqqHqvPb1
-	 RS3KckYNdSU7GqLVMf8720TRs5Zn1sLdrvIiNbSFhI9eVOcvLmE5DRiIoUvKRn6eqx
-	 aKk3UA+Nj1BmQ==
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Sat, 09 Sep 2023 09:33:21 -0300
-From: Fabio Estevam <festevam@denx.de>
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 80DEF60B2B;
+	Sat,  9 Sep 2023 12:42:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59892C433C8;
+	Sat,  9 Sep 2023 12:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694263336;
+	bh=xr+HEKX4cCDTuOqKdyXJ1E/ji1CQkjaUauZpgB7DUUg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CfN5qCgqBJdm5dycCocctI74vqr0SYq4BhRPMVQIeL3mhqZvRLQOFSWGvbOGAq3+Z
+	 kYFwlv1lb0GUgIjJFpv7Sr66jWceiI385ydCDXSBBF18AvxYTKIh7S6tZYdehD1jrH
+	 RasEgJpNN9ZRewIezIett09FiWwbSxIpq7hV+ffyEvVo+lulRG6yuoDXzxpCkfX6rr
+	 WM3C0HIkwwVo9NuHcAT30H+iUjEQpValZYtJnf/jgMraInkAMVmMR/Srl0DgAk+LPF
+	 LongSAdtYXqdUiA6WaGxebExEfP5uRiaPHLxPqI7xNjX9GCXXnjubVZuEllVSN1P02
+	 /KOMmu1wUr5Xg==
+Date: Sat, 9 Sep 2023 13:42:09 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Guenter Roeck <linux@roeck-us.net>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Charles Keepax
- <ckeepax@opensource.cirrus.com>, Guenter Roeck <groeck7@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	Fabio Estevam <festevam@denx.de>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>
 Subject: Re: [PATCH] ASoC: wm8960: Fix error handling in probe
-In-Reply-To: <20230909120237.2646275-1-linux@roeck-us.net>
+Message-ID: <ZPxoIQ6ocTcDrmtM@finisterre.sirena.org.uk>
 References: <20230909120237.2646275-1-linux@roeck-us.net>
-Message-ID: <f25a7897ba298a2e0187df91d121ab28@denx.de>
-X-Sender: festevam@denx.de
-User-Agent: Roundcube Webmail/1.3.6
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Message-ID-Hash: 4JFKEIMKWERAUHSCANVOAYH244M7IOVI
-X-Message-ID-Hash: 4JFKEIMKWERAUHSCANVOAYH244M7IOVI
-X-MailFrom: festevam@denx.de
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vjozxumgwjzG39lU"
+Content-Disposition: inline
+In-Reply-To: <20230909120237.2646275-1-linux@roeck-us.net>
+X-Cookie: Save energy:  Drive a smaller shell.
+Message-ID-Hash: KHC27VYECZVOAJJULLFWIXXYUQ3YZE2E
+X-Message-ID-Hash: KHC27VYECZVOAJJULLFWIXXYUQ3YZE2E
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4JFKEIMKWERAUHSCANVOAYH244M7IOVI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KHC27VYECZVOAJJULLFWIXXYUQ3YZE2E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,50 +101,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09/09/2023 09:02, Guenter Roeck wrote:
-> Commit 422f10adc3eb ("ASoC: wm8960: Add support for the power 
-> supplies")
+
+--vjozxumgwjzG39lU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, Sep 09, 2023 at 05:02:37AM -0700, Guenter Roeck wrote:
+> Commit 422f10adc3eb ("ASoC: wm8960: Add support for the power supplies")
 > added regulator support to the wm8960 driver, but neglected to update
-> error handling in the probe function. This results in warning 
-> backtraces
+> error handling in the probe function. This results in warning backtraces
 > if the probe function fails.
-> 
-> WARNING: CPU: 0 PID: 1 at drivers/regulator/core.c:2396
-> _regulator_put.part.0+0x1b4/0x1d8
+>=20
+> WARNING: CPU: 0 PID: 1 at drivers/regulator/core.c:2396 _regulator_put.pa=
+rt.0+0x1b4/0x1d8
 > Modules linked in:
-> CPU: 0 PID: 1 Comm: swapper/0 Tainted: G                 N
-> 6.5.0-11075-g92901222f83d #1
+> CPU: 0 PID: 1 Comm: swapper/0 Tainted: G                 N 6.5.0-11075-g9=
+2901222f83d #1
 > Hardware name: Freescale i.MX6 Ultralite (Device Tree)
 >  unwind_backtrace from show_stack+0x10/0x14
 >  show_stack from dump_stack_lvl+0x68/0x90
 >  dump_stack_lvl from __warn+0x70/0x1a4
->  __warn from warn_slowpath_fmt+0xac/0x220
->  warn_slowpath_fmt from _regulator_put.part.0+0x1b4/0x1d8
->  _regulator_put.part.0 from regulator_bulk_free+0x44/0x64
->  regulator_bulk_free from release_nodes+0x50/0x7c
->  release_nodes from devres_release_group+0xbc/0x138
->  devres_release_group from i2c_device_probe+0x180/0x268
->  i2c_device_probe from really_probe+0xc4/0x2e0
->  really_probe from __driver_probe_device+0x84/0x1a0
->  __driver_probe_device from driver_probe_device+0x2c/0xc4
->  driver_probe_device from __driver_attach+0x94/0x144
->  __driver_attach from bus_for_each_dev+0x70/0xc4
->  bus_for_each_dev from bus_add_driver+0xc4/0x1cc
->  bus_add_driver from driver_register+0x7c/0x114
->  driver_register from i2c_register_driver+0x3c/0xac
->  i2c_register_driver from do_one_initcall+0x68/0x3b0
->  do_one_initcall from kernel_init_freeable+0x18c/0x240
->  kernel_init_freeable from kernel_init+0x14/0x144
->  kernel_init from ret_from_fork+0x14/0x24
-> 
-> Add the missing calls to regulator_bulk_disable().
-> 
-> Cc: Fabio Estevam <festevam@denx.de>
-> Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Fixes: 422f10adc3eb ("ASoC: wm8960: Add support for the power 
-> supplies")
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 
-Thanks for the fix:
+Please think hard before including complete backtraces in upstream
+reports, they are very large and contain almost no useful information
+relative to their size so often obscure the relevant content in your
+message. If part of the backtrace is usefully illustrative (it often is
+for search engines if nothing else) then it's usually better to pull out
+the relevant sections.
 
-Reviewed-by: Fabio Estevam <festevam@denx.de>
+--vjozxumgwjzG39lU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmT8aCAACgkQJNaLcl1U
+h9Dxlwf+Ln5ZLsZt4L9GtAbAoAzBwg6k6EXI3wl9dsfKZL39RrU2usnPSRoWbgFP
+1GHaYDHSOCXfI4SM+Y91nknankLLzeGQG8BlJZ2byDz2T/fwExZlvdWNQccQYJfW
+BVQ/3u1byQhsA8BIxmmpejiwFtS5iAwh1280Y1AUiKlT9eQhXESAR0kxhKOaBK3v
+gxenKi3LN1t1adtqK+0MRjPTUZofvymMY44PP0Rb2dRZgEkjEMa6EQ2iJqJ5BMhK
+CVvlwZjAoUcA+yks821zKxlCx01bPjdn4JYqYjTXcyqL0vP/EBp49/F5tSIR+A2D
+SnRPGvTCNGjjIA27bGCOib9cOJVZBA==
+=H49g
+-----END PGP SIGNATURE-----
+
+--vjozxumgwjzG39lU--

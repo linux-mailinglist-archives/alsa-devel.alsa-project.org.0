@@ -2,80 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E834799E09
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Sep 2023 14:18:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11051799F47
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Sep 2023 20:01:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA0147F4;
-	Sun, 10 Sep 2023 14:17:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA0147F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6184983A;
+	Sun, 10 Sep 2023 20:00:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6184983A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694348300;
-	bh=rxcLPPacSgeUA84CnGA96VbiY6TrfHW+JSQIxr6BT6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1694368894;
+	bh=7pMVydPneVg3URKXwfaH+adzpHN2LLjVZsTSGuRN/Dc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S5FUEFiCno8/7/LF4gUZs1PBk03GJsNEzik3J7c33cdC+y5m4pt+RjbHCWsPN4Cz+
-	 cwBtbGEItbB0jkGWsHOBPpQ/ftQTHXzg3fwDblSJbyyaiN9uVfondPNuAOqCd8IcUn
-	 05OPY+654aC78JUQmif4cGdOhaFslZEO/UPlGFYc=
+	b=JMz6SdkAt3m9/TPSlvVKDYNhTtAoFEL4PBQKFJ0+Kk9wnVAwtah6S+16O+z9PlhA9
+	 FZq++jwja08dBIihhPCN4w9LQ/444v1BF1PFo6mP1nN+nByULkPxzIrTqgNx7QWaps
+	 hvwFow4jfbzgmc0wZkJ0Zbir0DdSaHi7sbZ8cZzM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10FD8F8055A; Sun, 10 Sep 2023 14:17:29 +0200 (CEST)
+	id C1044F80537; Sun, 10 Sep 2023 20:00:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C367F80425;
-	Sun, 10 Sep 2023 14:17:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F8ABF80246;
+	Sun, 10 Sep 2023 20:00:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 448DCF80425; Sun, 10 Sep 2023 14:14:50 +0200 (CEST)
+	id D4E51F80425; Sun, 10 Sep 2023 20:00:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail.horus.com (mail.horus.com [78.46.148.228])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92747F800AA
-	for <alsa-devel@alsa-project.org>; Sun, 10 Sep 2023 14:14:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92747F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9D94F801F5
+	for <alsa-devel@alsa-project.org>; Sun, 10 Sep 2023 20:00:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9D94F801F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=horus.com header.i=@horus.com header.a=rsa-sha256
- header.s=20180324 header.b=W6zU1px5
-Received: from [192.168.1.22] (62-116-56-22.adsl.highway.telekom.at
- [62.116.56.22])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=WNCcNX0j
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.horus.com (Postfix) with ESMTPSA id 52F4D640E9;
-	Sun, 10 Sep 2023 14:14:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=horus.com;
-	s=20180324; t=1694348075;
-	bh=zxoYRo8UGu8IH5Fv+IN8hg3S1Hx2wwIke9MLnmP6Asw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=W6zU1px5svuCduRbB0lxiKQ4YGSpoDoLBoYe7VChE1oMWczLGt7QgadlmcNfp2J8G
-	 GphsiUcXNTgMKccCBPXzvJhj67If6l2XpwgqKoWpDoYsE5022A6Gye7SaYp1RKMoYV
-	 ByWTUkZLwf3GTck/3fzNW11hL+Ed4KJe5db+KR2A=
-Received: by camel3.lan (Postfix, from userid 1000)
-	id 9F018540202; Sun, 10 Sep 2023 14:14:34 +0200 (CEST)
-Date: Sun, 10 Sep 2023 14:14:34 +0200
-From: Matthias Reichl <hias@horus.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: hdmi-codec: Fix broken channel map reporting
-Message-ID: <ZP2zKg88n4MaD53z@camel3.lan>
-References: <20230909114633.3193-1-hias@horus.com>
- <ZPxo8qKMDkmBqGxw@finisterre.sirena.org.uk>
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 55F8FB80CA9;
+	Sun, 10 Sep 2023 18:00:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D277FC433C8;
+	Sun, 10 Sep 2023 18:00:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694368821;
+	bh=7pMVydPneVg3URKXwfaH+adzpHN2LLjVZsTSGuRN/Dc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=WNCcNX0j78tRLBxMWD5xHUNdVWsV4X1c4GJprcT9133xluNlViXTJ+y1MbbMmvw4S
+	 9l6p0mwmq1ciXkoHmtsYyK8lFvb1p3EVodnEbrR25eIRn+6jRHWBjTxm2wzjyRS6Mh
+	 /jvEouU2JwW8Gm/EnKA/L+ncaZS7ANxE1SqxSdP9VAlRZQQbAQGSZNr44Pfjzomk2O
+	 YmugA3EJ+2/4ZTwGg7O1MhyTBgt+SEpxLAiqRaqU5NrZ9WSluxkkNsOvrlaLWdV7jR
+	 voEyBX1vKb3bWRjPhlJDd4v26hqNBBRPVghPsTewXgHu/u+K2aUEWjjrhAgY/J0FrG
+	 nZp7NWsEXqO2w==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+	by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ B8F74F1D6A8;
+	Sun, 10 Sep 2023 18:00:21 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZPxo8qKMDkmBqGxw@finisterre.sirena.org.uk>
-Message-ID-Hash: DYZ42IQHYRNJ424G2JYTNSU4HSG5Y6M7
-X-Message-ID-Hash: DYZ42IQHYRNJ424G2JYTNSU4HSG5Y6M7
-X-MailFrom: hias@horus.com
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 00/11] add missing of_node_put
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <169436882175.20878.16500068409286410519.git-patchwork-notify@kernel.org>
+Date: Sun, 10 Sep 2023 18:00:21 +0000
+References: <20230907095521.14053-1-Julia.Lawall@inria.fr>
+In-Reply-To: <20230907095521.14053-1-Julia.Lawall@inria.fr>
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ rui.zhang@intel.com, amitk@kernel.org, linux-pm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+ npiggin@gmail.com, christophe.leroy@csgroup.eu,
+ linuxppc-dev@lists.ozlabs.org, linux-mmc@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com, linux-media@vger.kernel.org
+Message-ID-Hash: 5IOH5U2EHUAG6DJCWHDJGTLITKAF5VGC
+X-Message-ID-Hash: 5IOH5U2EHUAG6DJCWHDJGTLITKAF5VGC
+X-MailFrom: patchwork-bot+netdevbpf@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYZ42IQHYRNJ424G2JYTNSU4HSG5Y6M7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7XMV3HLG7OD5HCBY2QYQFNEOQYQZBPOH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,65 +108,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Sep 09, 2023 at 01:45:38PM +0100, Mark Brown wrote:
-> On Sat, Sep 09, 2023 at 01:46:33PM +0200, Matthias Reichl wrote:
-> > Commit 4e0871333661 ("ASoC: hdmi-codec: fix channel info for
-> > compressed formats") accidentally changed hcp->chmap_idx from
-> > ca_id, the CEA channel allocation ID, to idx, the index to
-> > the table of channel mappings ordered by preference.
-> > 
-> > This resulted in wrong channel maps being reported to userspace,
-> > eg for 5.1 "FL,FR,LFE,FC" was reported instead of the expected
-> > "FL,FR,LFE,FC,RL,RR":
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by David S. Miller <davem@davemloft.net>:
+
+On Thu,  7 Sep 2023 11:55:10 +0200 you wrote:
+> Add of_node_put on a break out of an of_node loop.
 > 
-> Presumably this will cause a regression for people using compressed
-> formats - isn't the fix here to make this behaviour conditional on if
-> the format is compressed?
+> ---
+> 
+>  arch/powerpc/kexec/file_load_64.c                    |    8 ++++++--
+>  arch/powerpc/platforms/powermac/low_i2c.c            |    4 +++-
+>  arch/powerpc/platforms/powermac/smp.c                |    4 +++-
+>  drivers/bus/arm-cci.c                                |    4 +++-
+>  drivers/genpd/ti/ti_sci_pm_domains.c                 |    8 ++++++--
+>  drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c      |    4 +++-
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c               |    4 +++-
+>  drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c |    1 +
+>  drivers/mmc/host/atmel-mci.c                         |    8 ++++++--
+>  drivers/net/ethernet/broadcom/asp2/bcmasp.c          |    1 +
+>  drivers/soc/dove/pmu.c                               |    5 ++++-
+>  drivers/thermal/thermal_of.c                         |    8 ++++++--
+>  sound/soc/sh/rcar/core.c                             |    1 +
+>  13 files changed, 46 insertions(+), 14 deletions(-)
 
-This change won't affect passthrough, the values of the HDMI audio
-infoframe are stored separately, in hdmi_codec_params.cea.
+Here is the summary with links:
+  - [02/11] net: bcmasp: add missing of_node_put
+    https://git.kernel.org/netdev/net/c/e73d1ab6cd7e
 
-chmap_idx in hdmi_codec_priv is only used by the get PCM channel map
-control - which userspace shouldn't use in the non-PCM case.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Before the "fix channel info for compressed formats" change the control
-would always return a matching channel map, i.e. "FL FR" in the 2-channel
-case, regardless if PCM or non-PCM was used.
 
-When using high bitrate compressed streams, which are passed through as
-8ch (containing 4 consecutive frames), this leads to a problem though as
-the sink might not announce support for 8 speakers (eg on TVs with 2 speakers
-and "virtual surround") and thus finding a channel map would fail.
-
-The "fix channel info" patch addressed this issue by only searching for a
-channel map in the PCM case.
-
-In the non-PCM case ca_id is set to 0 which means "FL, FR" - CTA doesn't
-have a separate value for "n/a" but specifies that the channel allocation
-only applies to PCM streams with more than 2 channels. Although the spec
-says the value doesn't apply to non-PCM some TVs seem to look at it and
-refuse to output HBR (TrueHD etc) if it's set to something other than 0.
-
-My plan was to return the exact same info via the channel map control
-as we set in the info frame but unfortunately I messed up and accidentally
-used the wrong value which this patch tries to rectify.
-
-I'm not really sure though if that's the best (or even proper) way for
-the channel map control to behave in the non-PCM case - it'll either return
-"FL, FR" or "FL, FR, UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN, UNKNOWN"
-with this patch.
-
-An alternative would be to set chmap_idx to HDMI_CODEC_CHMAP_IDX_UNKNOWN
-in the non-PCM case so the channel map control will return UNKNOWN for
-all channels. i.e. use this code instead:
-
-        if (pcm_audio)
-                hcp->chmap_idx = ca_id;
-        else
-                hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
-
-Any input on that topic is highly appreciated.
-
-so long & thanks,
-
-Hias

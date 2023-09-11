@@ -2,116 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B5979A498
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 09:33:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 612D079A49A
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 09:34:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EE89AEA;
-	Mon, 11 Sep 2023 09:32:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EE89AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 840C1820;
+	Mon, 11 Sep 2023 09:33:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 840C1820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694417629;
-	bh=jhcX76MBalOVmQpwyyhOBpkobejbf9VarSjAB7UTrQc=;
+	s=default; t=1694417646;
+	bh=KLL4/zg9cHrVjqzy8obIyVqLqEaE3fRqt4rdPfa3oZo=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=aPVCHoTtt/NsPykIA7/VOEuWxmJ/bMg6HQD9W2D6lTEWNdP+5+wirfJIIeYbXb5hN
-	 RcH6ijoKdXot19RTFE5/RO9ZtkwSnbK0vV46UQXllTTIeY4OAL7YikZY3bvzjAQgj2
-	 SGnG/is5WjUu96LpDoUSHPKwe84JbbCk5Y9gcSb0=
+	b=TWIv8P/nvxukt+Zc3WoPSz3DGV73RudInLDH6bmDxXe2Kci4wKWo2d+uYHkmMtYEL
+	 G4wsBZnl/un5inXZysBM10OemfRc9mpt6pKXzXwcxji5vfs5zMMKqMupDJLt3ZgO60
+	 dnEJWs4v3DYK7efSsjrE5EDJXxb2dPRDBMOWq6Yk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6170AF805B3; Mon, 11 Sep 2023 09:31:35 +0200 (CEST)
+	id 5CD6FF805AF; Mon, 11 Sep 2023 09:31:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F2E8F80589;
-	Mon, 11 Sep 2023 09:31:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A2B8F805AF;
+	Mon, 11 Sep 2023 09:31:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97E78F80425; Sun, 10 Sep 2023 20:55:27 +0200 (CEST)
+	id AC485F80425; Mon, 11 Sep 2023 04:41:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from smtp4.hiworks.co.kr (smtp4.hiworks.co.kr [121.254.168.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BF780F80212
-	for <alsa-devel@alsa-project.org>; Sun, 10 Sep 2023 20:55:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF780F80212
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=CDK2+1jy
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-d804639f346so1462866276.1
-        for <alsa-devel@alsa-project.org>;
- Sun, 10 Sep 2023 11:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1694372119; x=1694976919;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WwBCsDEe3pP4npvvDU6A0lOrTZauWrfElEBpix8kmtM=;
-        b=CDK2+1jyK9zfrWApw+EzwT1mEAznb1P29xURWLLzzJeBsenVEka2Zj4vkRCXvltXV1
-         oTQ3lsxDaqscmaQ2c43fbiNyILGgxb6L3qIXRRS0/1g3pNgK5mfxRaWlRUcC9LBmH8x7
-         OeT2vcrM2rfX4zX4dgMZXHBxYccnGv6vpIG4buqQjtA52bZHUN+jno8abM4UI1p+tQJx
-         ecNdUldnQI/kXFdeYMA+kPVSHGi2CYGtFtKVMebICRbTgxRKoLJe66yd68U28zZXXmxT
-         8Gy0Gm31decmcfY5tGHMAlEFDDh+vKQXpS0YbkGK9USHHX4N5o2IZiyRTQ3YaGU0tNxl
-         EEUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694372119; x=1694976919;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WwBCsDEe3pP4npvvDU6A0lOrTZauWrfElEBpix8kmtM=;
-        b=LoD8+ydhT8/JkAx9KcxR5Ho58nniK3SjyEbNXqldFJb7mUnvwx3bOlRFibg5MHqW2e
-         6fLaJJ/uRY02Drpe6T8AP+dBql0i6FhQh0lMmBxVYKTy9W+GXVFU4D9mYt0on/5zEZjb
-         2iJodhIccWn2voXEfV4fw3z7WSS7DZu+JkOz2J2U1P0M8bTHgLMzcbDzy5DO7SaczAFV
-         csbiBK0W/gOFggX+ga+hetfjgTAFTb/0DtzoBTHz8AO5SuEuH57D97Igugn5ki4ce+cI
-         jmOSZz1Ez9T3L1ZX+HicomXGTtk7/8juGQ+nGMcGDVCn6dtPDuSQ52TPY7t3cfYOULNO
-         IrQg==
-X-Gm-Message-State: AOJu0Yz+ijTEsZ4WGs10ABAe6oEX5weZGbP9FSGVPmeM7Qu5emM1pTKc
-	nGRMun1r5tkiES2jOyusyII=
-X-Google-Smtp-Source: 
- AGHT+IFoIoYyT2lrFaLL52INI6UmFegsLyf8DKT+U3w+wu8iJBDe+eGKN96x1MNlK/e4b1OdQ+espg==
-X-Received: by 2002:a25:abc7:0:b0:d80:1344:3cd7 with SMTP id
- v65-20020a25abc7000000b00d8013443cd7mr7138200ybi.4.1694372119454;
-        Sun, 10 Sep 2023 11:55:19 -0700 (PDT)
-Received: from walt-ROG-Strix.. (99-176-3-182.lightspeed.brhmal.sbcglobal.net.
- [99.176.3.182])
-        by smtp.gmail.com with ESMTPSA id
- o9-20020a254109000000b00d74c9618c6fsm1345655yba.1.2023.09.10.11.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 Sep 2023 11:55:19 -0700 (PDT)
-From: Walt Holman <waltholman09@gmail.com>
-To: broonie@kernel.org,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 11F67F801F5
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 04:40:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11F67F801F5
+Received: (qmail 111452 invoked from network); 11 Sep 2023 11:40:46 +0900
+Received: from unknown (HELO hiworks.co.kr) (192.168.10.38)
+	by 0 (qmail 1.03 + ejcp v14) with SMTP;
+	11 Sep 2023 11:40:46 +0900
+Received: (qmail 28400 invoked from network); 11 Sep 2023 11:40:45 +0900
+Received: from unknown (HELO saram-MINIPC-PN53..)
+ (mwkim@gaonchips.com@220.88.49.178)
+	by 0 (qmail 1.03 + ejcp v14) with SMTP;
+	11 Sep 2023 11:40:45 +0900
+X-Authinfo: HIWORKS SMTP authenticated
+ <mwkim@gaonchips.com|220.88.49.178|mwkim@gaonchips.com|230911114045_542828023>
+X-MailFrom-INFO: Info <country_code:KR|rbl_level:0>
+From: Myunguk Kim <mwkim@gaonchips.com>
+To: alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Maxim Kochetkov <fido_max@inbox.ru>,
+	Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	=?UTF-8?q?Uw=20e=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Myunguk Kim <mwkim@gaonchips.com>,
 	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	lgirdwood@gmail.com
-Cc: Walt Holman <waltholman09@gmail.com>
-Subject: [PATCH] Add DMI ID for MSI Bravo 15 B7ED
-Date: Sun, 10 Sep 2023 13:54:34 -0500
-Message-Id: <20230910185433.13677-1-waltholman09@gmail.com>
-X-Mailer: git-send-email 2.39.2
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jose Abreu <joabreu@synopsys.com>,
+	devicetree@vger.kernel.org
+Subject: [PATCH] ASoC: dwc: Add Single DMA mode support
+Date: Mon, 11 Sep 2023 11:40:23 +0900
+Message-Id: <20230911024023.43833-1-mwkim@gaonchips.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: waltholman09@gmail.com
+X-MailFrom: mwkim@gaonchips.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XWLOXE4JUUD2URLRNFYXCD7TY3CJOVK6
-X-Message-ID-Hash: XWLOXE4JUUD2URLRNFYXCD7TY3CJOVK6
-X-Mailman-Approved-At: Mon, 11 Sep 2023 07:31:21 +0000
+Message-ID-Hash: DVSSYUV6FKGV5GYSIBEAJ7RFGONFGY52
+X-Message-ID-Hash: DVSSYUV6FKGV5GYSIBEAJ7RFGONFGY52
+X-Mailman-Approved-At: Mon, 11 Sep 2023 07:31:22 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWLOXE4JUUD2URLRNFYXCD7TY3CJOVK6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DVSSYUV6FKGV5GYSIBEAJ7RFGONFGY52/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,29 +94,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: Walt Holman <waltholman09@gmail.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+There is a SoC between dwc and DMA block (ie. PL330)
+that does not have a burst signal and supports only single.
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 3ec15b46fa35..59aa2e9d3a79 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -262,6 +262,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "M6500RC"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Micro-Star International Co., Ltd."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Bravo 15 B7ED"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+So write not-support-burst property on dts, it support single DMA mode.
+
+Signed-off-by: Myunguk Kim <mwkim@gaonchips.com>
+---
+ .../bindings/sound/snps,designware-i2s.yaml          |  3 +++
+ include/sound/designware_i2s.h                       |  1 +
+ sound/soc/dwc/dwc-i2s.c                              | 12 ++++++++++--
+ 3 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+index a48d040b0a4f..43a46ba2a70c 100644
+--- a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
++++ b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+@@ -86,6 +86,9 @@ properties:
+       The phandle to System Register Controller syscon node and the I2S-rx(ADC)
+       enabled control offset and mask of SYS_SYSCONSAIF__SYSCFG register.
+ 
++  no-burst:
++    description: Use single transaction only between DesignWare I2S and DMA IP.
++
+ allOf:
+   - $ref: dai-common.yaml#
+   - if:
+diff --git a/include/sound/designware_i2s.h b/include/sound/designware_i2s.h
+index f6803205a9fb..f0207f21f09d 100644
+--- a/include/sound/designware_i2s.h
++++ b/include/sound/designware_i2s.h
+@@ -36,6 +36,7 @@ struct i2s_platform_data 
+{ 	#define DW_I2S_QUIRK_COMP_REG_OFFSET	(1 << 0)
+ 	#define DW_I2S_QUIRK_COMP_PARAM1	(1 << 1)
+ 	#define DW_I2S_QUIRK_16BIT_IDX_OVERRIDE (1 << 2)
++	#define DW_I2S_QUIRK_NO_BURST		(1 << 3)
+ 	unsigned int quirks;
+ 	unsigned int i2s_reg_comp1;
+ 	unsigned int i2s_reg_comp2;
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 5ab1b3eb2d28..71ff894035a4 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -713,7 +713,10 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
+ 		dev->play_dma_data.dt.addr = res->start + I2S_TXDMA;
+ 		dev->play_dma_data.dt.fifo_size = fifo_depth *
+ 			(fifo_width[idx2]) >> 8;
+-		dev->play_dma_data.dt.maxburst = 16;
++		if (dev->quirks & DW_I2S_QUIRK_NO_BURST)
++			dev->play_dma_data.dt.maxburst = 1;
++		else
++			dev->play_dma_data.dt.maxburst = 16;
+ 	}
+ 	if (COMP1_RX_ENABLED(comp1)) 
+{ 		idx2 = COMP2_RX_WORDSIZE_0(comp2);
+@@ -722,7 +725,10 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
+ 		dev->capture_dma_data.dt.addr = res->start + I2S_RXDMA;
+ 		dev->capture_dma_data.dt.fifo_size = fifo_depth *
+ 			(fifo_width[idx2] >> 8);
+-		dev->capture_dma_data.dt.maxburst = 16;
++		if (dev->quirks & DW_I2S_QUIRK_NO_BURST)
++			dev->capture_dma_data.dt.maxburst = 1;
++		else
++			dev->capture_dma_data.dt.maxburst = 16;
+ 	}
+ 
+ 	return 0;
+@@ -979,6 +985,8 @@ static int dw_i2s_probe(struct platform_device *pdev)
+ 		ret = dw_configure_dai_by_pd(dev, dw_i2s_dai, res, pdata);
+ 	} else 
+{ 		clk_id = "i2sclk";
++		if (of_get_property(pdev->dev.of_node, "no-burst", NULL))
++			dev->quirks |= DW_I2S_QUIRK_NO_BURST;
+ 		ret = dw_configure_dai_by_dt(dev, dw_i2s_dai, res);
+ 	}
+ 	if (ret < 0)
 -- 
-2.39.2
+2.34.1
 

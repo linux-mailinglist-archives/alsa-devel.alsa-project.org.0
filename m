@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1FFE79B607
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 02:04:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC98579B62E
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 02:04:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38629EAD;
-	Tue, 12 Sep 2023 02:03:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38629EAD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A36BEB1;
+	Tue, 12 Sep 2023 02:04:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A36BEB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694477074;
-	bh=9snFwBbBoXitUM3dr7LW8n+9wzN0NmBcRWUrdshcpEg=;
+	s=default; t=1694477090;
+	bh=ICaA0huUb9/fxo/31gwj6ndxM2rczzeMvoZAt/a+ZQ0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=txHF8MMfxaZcgmDyG0iyxrz/qV8RNCZdYKZkBo515OYDGPlO0kUBMi769mwLIHrsU
-	 pBUt/rFuTgYPznI32J4qvwEqPCvq8FSVxvsuyEfnSTR03cs7ohEo6j+WrjYG6tg4Te
-	 GlPQBTAYJnSQOGvl4NGUL0EE47d9ci5BCKYoOCOs=
+	b=C0SJ0O4c3uea/xrGBgwFaD1+hx78DGkABtthzmO8i0Y5evXZ7QuuqOVqvB/WNkrFx
+	 aQSzbjFjd1JGo8kYpribUGM4Bh+zXekxYnClyBgA86UKtFu1dVuQseD6Tivb16r/lx
+	 Im+74j4bk0pEtW6nQkaQHdlsAd6Jz47b38tYaLV0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F326BF805C1; Tue, 12 Sep 2023 01:57:34 +0200 (CEST)
+	id 80335F805EC; Tue, 12 Sep 2023 01:57:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCB52F805C9;
-	Tue, 12 Sep 2023 01:57:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3F1EF805EC;
+	Tue, 12 Sep 2023 01:57:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49FF0F8057B; Tue, 12 Sep 2023 01:57:25 +0200 (CEST)
+	id 1FFADF8057B; Tue, 12 Sep 2023 01:57:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A8E40F80549
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 01:57:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E40F80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6E472F80549
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 01:57:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E472F80549
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LWv6YbI5
+ header.s=k20201202 header.b=KA2BC0FM
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 7E345CE19AF;
-	Mon, 11 Sep 2023 23:57:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48232C116CB;
-	Mon, 11 Sep 2023 23:57:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id DD92F613E9;
+	Mon, 11 Sep 2023 23:57:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2CCC116D5;
+	Mon, 11 Sep 2023 23:57:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694476634;
-	bh=9snFwBbBoXitUM3dr7LW8n+9wzN0NmBcRWUrdshcpEg=;
+	s=k20201202; t=1694476641;
+	bh=ICaA0huUb9/fxo/31gwj6ndxM2rczzeMvoZAt/a+ZQ0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=LWv6YbI5tJ9QV/UPRJJ2tAq2HBTzDY9ZA4hwVpuwhTVcBOFy/c8TWp1TrHkgyZoPM
-	 /scG2uInKBC/1a/nNu+1Ju0AiiySR4Bq2o13qQCGydygCtpE2tPhgKBQQ/DhEwL6Ul
-	 kS+TkvPFMesybu4JUZFr84FWH28SgtUadrvzvj/bYOzro79lFvYR08wQh6Go0F422Q
-	 rYodtKmhHz7WyhsSoiRIcq/AjQ25Ug8BpLNPHSGclJm9WI3xlztOblC1jb1zie/HeL
-	 iPPpnJwz0CoHaXROGopWa6lhzh4pcwxIYkQTru7kFNUNr5qHqDzLNW6HffVXq/QLC9
-	 knG9pkKNHYvVg==
+	b=KA2BC0FMcnu9QuVVOd2+jU0GKXjvRJv2BICe1BJl7nwpyTz4mu24002KX2mmN7mGW
+	 l629wWKQ1d3CxBiL2O+A32Tse5at5otAN44Q3EsZ6LIHIhTrK0AAVKlE10XVXHT7I1
+	 QYVwiAQosPKCnpvIyUACIfRhVQBfgjhcX/+lnLt89H2rm+dqGsrYnc3sVZ97fibijn
+	 W87M0kpRazJlZyt2G4GWgwc+YOuBHx51ijPDYTpfJLtPdN3lyHVbaQY+NkDODW+DAN
+	 Lkdh6dsjC+CxygpzHWxN9/h5NdE3iv3fJBsrKgJjqA6axja2ufrlf6iuM/EMoMkfG4
+	 CH8y2SASTUSjg==
 From: Mark Brown <broonie@kernel.org>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Biju Das <biju.das.jz@bp.renesas.com>
@@ -69,21 +69,19 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
  Charles Keepax <ckeepax@opensource.cirrus.com>,
  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-renesas-soc@vger.kernel.org
-In-Reply-To: <20230827102114.55863-1-biju.das.jz@bp.renesas.com>
-References: <20230827102114.55863-1-biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH] ASoC: wm8580: Simplify probe()
-Message-Id: <169447663194.2387538.5757531864571268154.b4-ty@kernel.org>
-Date: Tue, 12 Sep 2023 00:57:11 +0100
+ linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20230828174019.119250-1-biju.das.jz@bp.renesas.com>
+References: <20230828174019.119250-1-biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH v2] ASoC: wm8580: Simplify probe()
+Message-Id: <169447663845.2387538.8668283266177753726.b4-ty@kernel.org>
+Date: Tue, 12 Sep 2023 00:57:18 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: JKZOFXE42J6GZHEWEFAN7NZ23I4DO6OI
-X-Message-ID-Hash: JKZOFXE42J6GZHEWEFAN7NZ23I4DO6OI
+Message-ID-Hash: ALZYATV5XC6WTS7DSZAUSRLBGGKVIKUR
+X-Message-ID-Hash: ALZYATV5XC6WTS7DSZAUSRLBGGKVIKUR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JKZOFXE42J6GZHEWEFAN7NZ23I4DO6OI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ALZYATV5XC6WTS7DSZAUSRLBGGKVIKUR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,11 +103,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 27 Aug 2023 11:21:14 +0100, Biju Das wrote:
+On Mon, 28 Aug 2023 18:40:19 +0100, Biju Das wrote:
 > Simplify probe() by replacing of_match_device->i2c_get_match_data() and
 > extend matching support for ID table.
 > 
+> While at it, remove comma in the terminator entry and simplify probe()
+> by replacing dev_err->dev_err_probe().
 > 
+> 
+> [...]
 
 Applied to
 

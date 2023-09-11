@@ -2,90 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612D079A49A
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 09:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72E7179A35D
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 08:13:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 840C1820;
-	Mon, 11 Sep 2023 09:33:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 840C1820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7615D852;
+	Mon, 11 Sep 2023 08:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7615D852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694417646;
-	bh=KLL4/zg9cHrVjqzy8obIyVqLqEaE3fRqt4rdPfa3oZo=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=TWIv8P/nvxukt+Zc3WoPSz3DGV73RudInLDH6bmDxXe2Kci4wKWo2d+uYHkmMtYEL
-	 G4wsBZnl/un5inXZysBM10OemfRc9mpt6pKXzXwcxji5vfs5zMMKqMupDJLt3ZgO60
-	 dnEJWs4v3DYK7efSsjrE5EDJXxb2dPRDBMOWq6Yk=
+	s=default; t=1694412819;
+	bh=vxC4RoL9uqtP6MXYD9XdnefL+iUNc1fmyBwL4Ew1NRw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=XmhwXzsPXob3zYUABymf5lyaSfXGuwj3/eT461rPxNRaCiWNH6DrNY9VOtas20p1Y
+	 IfYD4uFdz+TzfxHRoOEoxOZmBH8sbO0oMAMFLzethoamhi2a7h5E0qKrsh8I3F96G/
+	 /WJfvG43B3wleaBL0KJg1swz9UHz6jPktJ+VgBhs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CD6FF805AF; Mon, 11 Sep 2023 09:31:37 +0200 (CEST)
+	id 3B0ADF80425; Mon, 11 Sep 2023 08:12:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A2B8F805AF;
-	Mon, 11 Sep 2023 09:31:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 981D5F80246;
+	Mon, 11 Sep 2023 08:12:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AC485F80425; Mon, 11 Sep 2023 04:41:10 +0200 (CEST)
+	id 9F387F80425; Mon, 11 Sep 2023 08:12:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp4.hiworks.co.kr (smtp4.hiworks.co.kr [121.254.168.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 11F67F801F5
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 04:40:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11F67F801F5
-Received: (qmail 111452 invoked from network); 11 Sep 2023 11:40:46 +0900
-Received: from unknown (HELO hiworks.co.kr) (192.168.10.38)
-	by 0 (qmail 1.03 + ejcp v14) with SMTP;
-	11 Sep 2023 11:40:46 +0900
-Received: (qmail 28400 invoked from network); 11 Sep 2023 11:40:45 +0900
-Received: from unknown (HELO saram-MINIPC-PN53..)
- (mwkim@gaonchips.com@220.88.49.178)
-	by 0 (qmail 1.03 + ejcp v14) with SMTP;
-	11 Sep 2023 11:40:45 +0900
-X-Authinfo: HIWORKS SMTP authenticated
- <mwkim@gaonchips.com|220.88.49.178|mwkim@gaonchips.com|230911114045_542828023>
-X-MailFrom-INFO: Info <country_code:KR|rbl_level:0>
-From: Myunguk Kim <mwkim@gaonchips.com>
-To: alsa-devel@alsa-project.org
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Maxim Kochetkov <fido_max@inbox.ru>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	=?UTF-8?q?Uw=20e=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Myunguk Kim <mwkim@gaonchips.com>,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jose Abreu <joabreu@synopsys.com>,
-	devicetree@vger.kernel.org
-Subject: [PATCH] ASoC: dwc: Add Single DMA mode support
-Date: Mon, 11 Sep 2023 11:40:23 +0900
-Message-Id: <20230911024023.43833-1-mwkim@gaonchips.com>
-X-Mailer: git-send-email 2.34.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 54F7DF801F5
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 08:12:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54F7DF801F5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=GdHinTpO
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-31dcf18f9e2so4041337f8f.0
+        for <alsa-devel@alsa-project.org>;
+ Sun, 10 Sep 2023 23:12:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1694412741; x=1695017541;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XezrCl8ZqDRyxio73LdcaLmnL38z1MHmy6zWkUdZX0c=;
+        b=GdHinTpOqyha/jU6R1EKOA38LPjPeE6Yr9DBJ2XUIvhZ2UzXcSPOYKmLzVbDbAh9XQ
+         FLqlXMGF3lLDBm1h62fSc+SBhzHG2BgmmWWXxCtI7LX6N3aBsOGuNTDamrK6DCEjYgTe
+         HZ2ZjpfsQyrZTt/0gMjAuqjk3d93xKiP77unzhaDBxCX3rXxWMXzXzu0MuAkYcpuY/ZP
+         4HiZLZBpL0zMUG88vgdj/0WiIVjXzKuIrsB7rX/dYR8XaNITscOGV6N3CbeBnBQaEHZw
+         O1Rp0e9WwyA6uJgmNLE6/h6oR2nJDK5WlJILtUV7dRbl7xPK590CC5ibgZZv2+Z88PYt
+         K+9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694412741; x=1695017541;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XezrCl8ZqDRyxio73LdcaLmnL38z1MHmy6zWkUdZX0c=;
+        b=QjOR+4eHzrjIGH89ILxyRWKRDJiigEKDA+J/dbp1qHgAuk2e2wPUae0MO+6fPvcpQQ
+         5zjMOV7DfyqPgsVGmMJj9X15JNr28qP2ETPsUwmdeQookqUM6dPTwYrIkKPA1bhYJCqW
+         f8iRMK1/GxBOhiTUd1td4AdklLHIC3iOPBdgfL2giBKqL/fAlztuCTRmTeMSU3fbv2jY
+         nEQNx1+2KRVa1LZ2Me3WQPx3UUu452ofZfXKO6dszqQDsOr5wJnsScnOAlltqCXHlizP
+         kvTQFVQ1mDfxEnfEsjjqpi57Ry2+EIivrJ7IsHdkljJ09TrOaAMln2Lqd0PsAr34NObO
+         DYcA==
+X-Gm-Message-State: AOJu0Yy8RiMzloHlo5KNIeZkHz6+ko0lycAddZAFf5DSypi36e4HOPWk
+	ILwBNcKN0PXuCqiibN8kp3L1mw==
+X-Google-Smtp-Source: 
+ AGHT+IE5Ebjr5i6VAf1KdNZGjQGiz4Iee/J02faavRwi1z0yfclTmtfOj/Jn0i8zTJzMyqK6vWlhfw==
+X-Received: by 2002:adf:e68a:0:b0:317:5ed6:887 with SMTP id
+ r10-20020adfe68a000000b003175ed60887mr6707475wrm.66.1694412741175;
+        Sun, 10 Sep 2023 23:12:21 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.214.188])
+        by smtp.gmail.com with ESMTPSA id
+ x5-20020a1c7c05000000b003fef5402d2dsm12227048wmc.8.2023.09.10.23.12.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 10 Sep 2023 23:12:20 -0700 (PDT)
+Message-ID: <bf43b771-35e3-1b37-24f5-e21b2c34a415@linaro.org>
+Date: Mon, 11 Sep 2023 08:12:18 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: mwkim@gaonchips.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [PATCH] ASoC: dwc: Add Single DMA mode support
+Content-Language: en-US
+To: Myunguk Kim <mwkim@gaonchips.com>, alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Maxim Kochetkov <fido_max@inbox.ru>, Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ =?UTF-8?Q?Uw_e_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ devicetree@vger.kernel.org
+References: <20230911024023.43833-1-mwkim@gaonchips.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230911024023.43833-1-mwkim@gaonchips.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: Q6PSJYXQOHKSFXFITZEXFAEFL5OCRGYP
+X-Message-ID-Hash: Q6PSJYXQOHKSFXFITZEXFAEFL5OCRGYP
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DVSSYUV6FKGV5GYSIBEAJ7RFGONFGY52
-X-Message-ID-Hash: DVSSYUV6FKGV5GYSIBEAJ7RFGONFGY52
-X-Mailman-Approved-At: Mon, 11 Sep 2023 07:31:22 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DVSSYUV6FKGV5GYSIBEAJ7RFGONFGY52/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q6PSJYXQOHKSFXFITZEXFAEFL5OCRGYP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,81 +131,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There is a SoC between dwc and DMA block (ie. PL330)
-that does not have a burst signal and supports only single.
+On 11/09/2023 04:40, Myunguk Kim wrote:
+> There is a SoC between dwc and DMA block (ie. PL330)
+> that does not have a burst signal and supports only single.
+> 
+> So write not-support-burst property on dts, it support single DMA mode.
+> 
+> Signed-off-by: Myunguk Kim <mwkim@gaonchips.com>
+> ---
+>  .../bindings/sound/snps,designware-i2s.yaml          |  3 +++
 
-So write not-support-burst property on dts, it support single DMA mode.
+Bindings are always separate patch.
 
-Signed-off-by: Myunguk Kim <mwkim@gaonchips.com>
----
- .../bindings/sound/snps,designware-i2s.yaml          |  3 +++
- include/sound/designware_i2s.h                       |  1 +
- sound/soc/dwc/dwc-i2s.c                              | 12 ++++++++++--
- 3 files changed, 14 insertions(+), 2 deletions(-)
+Please run scripts/checkpatch.pl and fix reported warnings. Some
+warnings can be ignored, but the code here looks like it needs a fix.
+Feel free to get in touch if the warning is not clear.
 
-diff --git a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
-index a48d040b0a4f..43a46ba2a70c 100644
---- a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
-@@ -86,6 +86,9 @@ properties:
-       The phandle to System Register Controller syscon node and the I2S-rx(ADC)
-       enabled control offset and mask of SYS_SYSCONSAIF__SYSCFG register.
- 
-+  no-burst:
-+    description: Use single transaction only between DesignWare I2S and DMA IP.
-+
- allOf:
-   - $ref: dai-common.yaml#
-   - if:
-diff --git a/include/sound/designware_i2s.h b/include/sound/designware_i2s.h
-index f6803205a9fb..f0207f21f09d 100644
---- a/include/sound/designware_i2s.h
-+++ b/include/sound/designware_i2s.h
-@@ -36,6 +36,7 @@ struct i2s_platform_data 
-{ 	#define DW_I2S_QUIRK_COMP_REG_OFFSET	(1 << 0)
- 	#define DW_I2S_QUIRK_COMP_PARAM1	(1 << 1)
- 	#define DW_I2S_QUIRK_16BIT_IDX_OVERRIDE (1 << 2)
-+	#define DW_I2S_QUIRK_NO_BURST		(1 << 3)
- 	unsigned int quirks;
- 	unsigned int i2s_reg_comp1;
- 	unsigned int i2s_reg_comp2;
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index 5ab1b3eb2d28..71ff894035a4 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -713,7 +713,10 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
- 		dev->play_dma_data.dt.addr = res->start + I2S_TXDMA;
- 		dev->play_dma_data.dt.fifo_size = fifo_depth *
- 			(fifo_width[idx2]) >> 8;
--		dev->play_dma_data.dt.maxburst = 16;
-+		if (dev->quirks & DW_I2S_QUIRK_NO_BURST)
-+			dev->play_dma_data.dt.maxburst = 1;
-+		else
-+			dev->play_dma_data.dt.maxburst = 16;
- 	}
- 	if (COMP1_RX_ENABLED(comp1)) 
-{ 		idx2 = COMP2_RX_WORDSIZE_0(comp2);
-@@ -722,7 +725,10 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
- 		dev->capture_dma_data.dt.addr = res->start + I2S_RXDMA;
- 		dev->capture_dma_data.dt.fifo_size = fifo_depth *
- 			(fifo_width[idx2] >> 8);
--		dev->capture_dma_data.dt.maxburst = 16;
-+		if (dev->quirks & DW_I2S_QUIRK_NO_BURST)
-+			dev->capture_dma_data.dt.maxburst = 1;
-+		else
-+			dev->capture_dma_data.dt.maxburst = 16;
- 	}
- 
- 	return 0;
-@@ -979,6 +985,8 @@ static int dw_i2s_probe(struct platform_device *pdev)
- 		ret = dw_configure_dai_by_pd(dev, dw_i2s_dai, res, pdata);
- 	} else 
-{ 		clk_id = "i2sclk";
-+		if (of_get_property(pdev->dev.of_node, "no-burst", NULL))
-+			dev->quirks |= DW_I2S_QUIRK_NO_BURST;
- 		ret = dw_configure_dai_by_dt(dev, dw_i2s_dai, res);
- 	}
- 	if (ret < 0)
--- 
-2.34.1
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching.
+
+
+>  include/sound/designware_i2s.h                       |  1 +
+>  sound/soc/dwc/dwc-i2s.c                              | 12 ++++++++++--
+>  3 files changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+> index a48d040b0a4f..43a46ba2a70c 100644
+> --- a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+> @@ -86,6 +86,9 @@ properties:
+>        The phandle to System Register Controller syscon node and the I2S-rx(ADC)
+>        enabled control offset and mask of SYS_SYSCONSAIF__SYSCFG register.
+>  
+> +  no-burst:
+> +    description: Use single transaction only between DesignWare I2S and DMA IP.
+
+This was not tested. Missing vendor prefix, type.
+
+Anyway please provide some explanation why this cannot be deduced from
+the compatible.
+
+
+Best regards,
+Krzysztof
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 663E079A37C
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 08:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A51479A385
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 08:31:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 983AD846;
-	Mon, 11 Sep 2023 08:25:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 983AD846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8059484C;
+	Mon, 11 Sep 2023 08:30:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8059484C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694413600;
-	bh=08lofrqjAGRKjfNplRlu/OMwfS8cZiS06yTeM0Xc8TQ=;
+	s=default; t=1694413870;
+	bh=Eg3KgnUNpRNSqU6Gshl9UX1IZKtftgzqrmAacovn2M4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MLe/KZWEqo8IxOHiRvrOu5x4QNuu/+sh72lb6A/QqDq1aVbZs7+/K0kM0WbOSkhls
-	 LC4fuvY0h1xwStPIkFKelVOWx4F6XPou6y6wFgigfDoTCXAPXNPRawxEQl1QZNWpNJ
-	 H5B6gZavR+DvQPVVOD4b4Cyt8YB5erPEWF72qgkc=
+	b=ggFdGarnFZhrxEJODk9tg3XHXnxCqXk1Gmvy3UhHQMRwmr/EWDR9N4PM0UaoTPX4S
+	 VA0SFwJtDV6a8p3JFLCckgJivRJfQfG0bpICmFIpcb9/Api0itFHU4FJ4jIGovbpIX
+	 6000gjpGjfdjL7jNja+DH5nznaeU9ZuYAw9x4WB0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31E4EF8047D; Mon, 11 Sep 2023 08:25:30 +0200 (CEST)
+	id B3C4FF80246; Mon, 11 Sep 2023 08:29:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D612CF80246;
-	Mon, 11 Sep 2023 08:25:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13E2CF80246;
+	Mon, 11 Sep 2023 08:29:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5DCC4F80425; Mon, 11 Sep 2023 08:25:26 +0200 (CEST)
+	id DA23DF80425; Mon, 11 Sep 2023 08:29:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,79 +37,68 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86D9EF801F5
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 08:25:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86D9EF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 546DDF801F5
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 08:29:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 546DDF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xyMLOs6h;
+ header.s=susede2_rsa header.b=BraPm3c0;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=s2a40M/q
+ header.s=susede2_ed25519 header.b=hBjPE4wS
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 112B921958;
-	Mon, 11 Sep 2023 06:25:23 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3FBEC21954;
+	Mon, 11 Sep 2023 06:29:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1694413523;
+	t=1694413790;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PH3nLgA++aI7ngrpwVIf+G8JCCb7Y1s9hPQ/U05+fO8=;
-	b=xyMLOs6hhN6+OB80X0EeqHhc0ymbSFWl7chIYxPGQ9vkOBLohZIMKMsIADuC/a1UqSrgaN
-	VvvwTAPSCi1uhwOwLiOedXHtofEWmWqZ4WBX7zGxAPIYjLdt4/j4um2q7raJ3oRhszUL3o
-	Mwf9umqYJDweaz8hY6I+CzHOwhmwdbs=
+	bh=tr/bSdM83dCsFkG0lgZwfeOVd5FVEbn88zt0hKpSIi0=;
+	b=BraPm3c0n2pCVnkk0GlJVS1mvUw0g+FI25kMy7FqcLLV8lN5VhCYbTkXBohgsYZ5Ps7A6j
+	aQyxS0XgaDHWqIPRq8NGQv4cMWocGrlevZ0599sfqaeudw1NUfcjaFOR2JpyxNIX3WOBjO
+	u1mJ2wD9AXu3AfJIEJsFm4CDIaOSHWA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1694413523;
+	s=susede2_ed25519; t=1694413790;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PH3nLgA++aI7ngrpwVIf+G8JCCb7Y1s9hPQ/U05+fO8=;
-	b=s2a40M/qVi8+qqVdWR4Q0c0x74QpZ1AmGaGTdCu6VSnWuZjEGflA7+Torgli4Ewqhe+OWi
-	7tuAGCHjF2ZPhVAg==
+	bh=tr/bSdM83dCsFkG0lgZwfeOVd5FVEbn88zt0hKpSIi0=;
+	b=hBjPE4wSYIyTP2SkjDlix+APmnvtQX2JCCd0K0yrMUPqpp9KUTUMClHdwG+yNxlAsCOFkj
+	OyofnT+E/D0PdhAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BCD3413780;
-	Mon, 11 Sep 2023 06:25:22 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 161F913780;
+	Mon, 11 Sep 2023 06:29:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id UJfqLNKy/mSuRAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 11 Sep 2023 06:25:22 +0000
-Date: Mon, 11 Sep 2023 08:25:22 +0200
-Message-ID: <87tts16xbh.wl-tiwai@suse.de>
+	id 7tNzBN6z/mSDRgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 11 Sep 2023 06:29:50 +0000
+Date: Mon, 11 Sep 2023 08:29:49 +0200
+Message-ID: <87sf7l6x42.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v2 00/11] Improve CS35l41-based audio codec drivers
-In-Reply-To: <2b7a8897-05dc-4856-bb1a-a38b1e41b447@collabora.com>
-References: <20230907171010.1447274-1-cristian.ciocaltea@collabora.com>
-	<4a658238-b5cf-44fc-802b-f09f8d5e0ad1@sirena.org.uk>
-	<2b7a8897-05dc-4856-bb1a-a38b1e41b447@collabora.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<patches@opensource.cirrus.com>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ALSA: hda: cs35l56: Call
+ pm_runtime_dont_use_autosuspend()
+In-Reply-To: <20230908101223.2656901-1-rf@opensource.cirrus.com>
+References: <20230908101223.2656901-1-rf@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: WOVAGEX5UOFM6RYIEZGBR7UZTZHFIOLS
-X-Message-ID-Hash: WOVAGEX5UOFM6RYIEZGBR7UZTZHFIOLS
+Message-ID-Hash: A2N4ULCD44FHXVKM3MBDJGGEAINY6MEQ
+X-Message-ID-Hash: A2N4ULCD44FHXVKM3MBDJGGEAINY6MEQ
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WOVAGEX5UOFM6RYIEZGBR7UZTZHFIOLS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2N4ULCD44FHXVKM3MBDJGGEAINY6MEQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,25 +120,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 07 Sep 2023 19:27:42 +0200,
-Cristian Ciocaltea wrote:
+On Fri, 08 Sep 2023 12:12:23 +0200,
+Richard Fitzgerald wrote:
 > 
-> On 9/7/23 20:21, Mark Brown wrote:
-> > On Thu, Sep 07, 2023 at 08:09:59PM +0300, Cristian Ciocaltea wrote:
-> > 
-> >>  - Added 3 new patches providing some HDA related fixes
-> > 
-> > Do these have any interaction with the rest of the series?
+> Driver remove() must call pm_runtime_dont_use_autosuspend().
 > 
-> Yes, PATCH v2 04/11 changed the signature of cs35l41_global_enable()
-> function which is also used by HDA - this is how I noticed the
-> additional issues.
+> Drivers that call pm_runtime_use_autosuspend() must disable
+> it in driver remove(). Unfortunately until recently this was
+> only mentioned in 1 line in a 900+ line document so most
+> people hadn't noticed this. It has only recently been added
+> to the kerneldoc of pm_runtime_use_autosuspend().
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> Fixes: 2a930a6da8ec ("ALSA: hda/cs35l56: Add driver for Cirrus Logic CS35L56 amplifier")
 
-OK, then feel free to take my ack for HDA side:
-
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Applied now.
+The Fixes tag points to a non-existing ID, so I corrected in my side
+to 73cfbfa9caea.
 
 
 thanks,
 
 Takashi
+
+> ---
+>  sound/pci/hda/cs35l56_hda.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
+> index 76b9c685560b..9e4976bdb5e0 100644
+> --- a/sound/pci/hda/cs35l56_hda.c
+> +++ b/sound/pci/hda/cs35l56_hda.c
+> @@ -1003,6 +1003,7 @@ void cs35l56_hda_remove(struct device *dev)
+>  {
+>  	struct cs35l56_hda *cs35l56 = dev_get_drvdata(dev);
+>  
+> +	pm_runtime_dont_use_autosuspend(cs35l56->base.dev);
+>  	pm_runtime_get_sync(cs35l56->base.dev);
+>  	pm_runtime_disable(cs35l56->base.dev);
+>  
+> -- 
+> 2.30.2
+> 

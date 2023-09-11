@@ -2,93 +2,207 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03CC79A601
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 10:27:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA05379A62A
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 10:45:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4309093A;
-	Mon, 11 Sep 2023 10:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4309093A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 735B1820;
+	Mon, 11 Sep 2023 10:44:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 735B1820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694420854;
-	bh=bfdNeOZXUK5tkjRAdlcB79sfpUhjdZoT7VyQ2cBmSOQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1694421899;
+	bh=Anu9C9C8GsaDRiiy8qaMsEGafgM0F+cp1LPar6siGYY=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RG3mwQszKd40nskgCrkb6wgMcY1eFfXrw1cL53dzF47x+yIn3zJH3w8XFFS665xyz
-	 qc3yHOHeL7SPcdjtCcJ1CbqZuQd6U8LUjRy55PRq38+kMSfRWKxrNuIycmLwnlevbg
-	 GGuJJ9DJyHc0ipaT5wdtn5K2Y9MY3u3TSdt1WMy8=
+	b=Qd4Ocw1yqRE0bFVp/qhNJQtul0Z3OX7HqaeKOK+ES82WcVsjwmuKNUST8wXlK+D3Y
+	 z6U2zqpZIG9LSyQP+CF55sue4HKmLaihPaaNaXOHmTn9LiCstwkT1q9Ri6NfACfjaD
+	 hkJEMuopMQvRWg9iRp296QEn1236kYFQp7w/9enk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18F9DF8055A; Mon, 11 Sep 2023 10:25:52 +0200 (CEST)
+	id B6691F80552; Mon, 11 Sep 2023 10:44:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 725CBF80431;
-	Mon, 11 Sep 2023 10:25:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3471FF80246;
+	Mon, 11 Sep 2023 10:44:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E9F6F80425; Mon, 11 Sep 2023 10:25:48 +0200 (CEST)
+	id 789E5F80425; Mon, 11 Sep 2023 10:44:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtpng1.i.mail.ru (smtpng1.i.mail.ru [94.100.181.251])
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2A669F800AA
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 10:25:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A669F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id B362FF801F5
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 10:43:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B362FF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256
- header.s=mail4 header.b=Yeu6ykVV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
- s=mail4;
-	h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=aFjXvNvNIYSe445Iha33zHF5vS9lQUqhVa//k6eyLJI=;
-	t=1694420747;x=1694510747;
-	b=Yeu6ykVVmgy09Ychat4AV/R8snBYD1fjzJReGszSG5wI/P5NK80rFqx3z57CkF0a6f3C3Y6ylljHIb5+CfOCafkmir7F2kvbTgGDNI/+wdmDHJg+/BQ3GbDNJE+JZtp1O5C0ca1cU3Q0bpWnyN+JqKQ/rGmM6J7bqJV42l2k/5cPGNxNantCtx/JxMgqIP3sw/kbvVa7BkC/oFWeAmbTjH/ge5VYH7wPpe2G9BWZnWmSgk6Q1VKWYo+TYPtoJD+9/ffabVtNq4AQf1xBUR1YYcgQJWOPad+/lGNoukN+kGLoFTxBNXd55L6wcr+jvfKlkylq3jZ7ITNKLyMw3OMctw==;
-Received: by smtpng1.m.smailru.net with esmtpa (envelope-from
- <fido_max@inbox.ru>)
-	id 1qfcEp-0000eR-J6; Mon, 11 Sep 2023 11:25:44 +0300
-Message-ID: <1021ad9a-a4b0-4496-af1e-ffc0e10f7f0e@inbox.ru>
-Date: Mon, 11 Sep 2023 11:25:42 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dwc: fix typo in comment
-To: Myunguk Kim <mwkim@gaonchips.com>, alsa-devel@alsa-project.org
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Xingyu Wu <xingyu.wu@starfivetech.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-kernel@vger.kernel.org
-References: <20230911064646.168181-1-mwkim@gaonchips.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=mdr9Xr7J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694421835; x=1725957835;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Anu9C9C8GsaDRiiy8qaMsEGafgM0F+cp1LPar6siGYY=;
+  b=mdr9Xr7JbVOqlaLtbOweu4ZEqvsnitIgQBmJlD43pIs00F65CbQUgaVI
+   RoZbUOSNWprSyLsa771F7ytJe9w7X+3lK0NuQB8HPUwt9OPYUxc/NJVL8
+   sK36fw9g1RnYIMFmmEf0OwuneCvxlKyHDZJ1rDtkZHrUh+p0841ERnxzU
+   24EEWlWxF1iyKFcwlh5TdzCKfHi7AxyaPevhNxCywAY4b6pr0fWxUt6dB
+   w4gDKTmte8sch33dw/pCvcGj25bFq70DqClEPHiJNeOxnr7axO/tuETwo
+   hDadE2smprVd+WhHCQn+CvjfmiLXSek9zogoaMNgT1H7ZIedf5QpctE0v
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10829"; a="464402972"
+X-IronPort-AV: E=Sophos;i="6.02,243,1688454000";
+   d="scan'208";a="464402972"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Sep 2023 01:43:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10829"; a="772505726"
+X-IronPort-AV: E=Sophos;i="6.02,243,1688454000";
+   d="scan'208";a="772505726"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+  by orsmga008.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 11 Sep 2023 01:43:51 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Mon, 11 Sep 2023 01:43:50 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Mon, 11 Sep 2023 01:43:50 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32 via Frontend Transport; Mon, 11 Sep 2023 01:43:50 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.168)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.32; Mon, 11 Sep 2023 01:43:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bgwh2TgnVqCERFJU3cNfub1VB5B1nrkvIxHJmHnpux20ZIogVLlpo5GkO6/6ncLjo2hez26HdPqn+qo1d1UKbSO90HcrFX/8Ktoq4qSkzV5gellYfPwXj1qfrQKtLPSmtFBaSEZH+jg/qZOTMSH913hZ9Juc+k6Il1G3+88aHDnus8IlfVHWxNNRmO+5BGO/7ywmZsIc8OY/fCd6zAaQ/je7b2Jbwji0R+6Zdrdwp7Rx887Q0eMg3GIBarQLTN3KqR2JppiRR1/Z+cLEC9KNEfBXDBB9NZT8svatSZKXlEAGxO7BJJsLfWHOhrKqJbsgCblOlshHoZWWx9rUsMG2mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c+IbwMTM83t0okKcA/03D3SGL/u4I81cnuo04nzVpf8=;
+ b=JOSNp87Gjvsc3M02jKQtUFOE3CHI+Xhlc+i9Qz/e5VJs3JrWRBCGI7Xo2GUygoEiC00zZXbHkL0e+3WAlHAJL45Mp/OPcPwx+PEftACEZ1iW6aJGUwzgNlPUOg43AHylxdnRd0a6grAEO5twDRgNjif7jYLdH1asiddxQk7Q49v5Z7qDiil5c2JoGm1v5Wk7HqCyl0hFu+gMRpiB2kpB6M3/FgvvDJWAQwY9M+BA7QeyeLF79C6aCmOFeDOAIDEfZkndO3QuuUdRBoNZn/0Kdin92lGz2hF9I2TLK4saNQKDh4GKMp/HGhibCyXp9b3WgI4t65mcNgasE/y03ttFgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ DM4PR11MB5471.namprd11.prod.outlook.com (2603:10b6:5:39d::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6768.34; Mon, 11 Sep 2023 08:43:48 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::71cd:9328:e4d3:d104]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::71cd:9328:e4d3:d104%3]) with mapi id 15.20.6768.029; Mon, 11 Sep 2023
+ 08:43:48 +0000
+Message-ID: <cd163597-a15f-a52e-fb24-529f8e855171@intel.com>
+Date: Mon, 11 Sep 2023 10:43:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [RFC PATCH 01/17] ALSA: pcm: Introduce MSBITS subformat interface
 Content-Language: en-US
-From: Maxim Kochetkov <fido_max@inbox.ru>
-In-Reply-To: <20230911064646.168181-1-mwkim@gaonchips.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Jaroslav Kysela <perex@perex.cz>
+CC: <broonie@kernel.org>, <tiwai@suse.com>, <alsa-devel@alsa-project.org>,
+	<pierre-louis.bossart@linux.intel.com>, <hdegoede@redhat.com>,
+	=?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+	<amadeuszx.slawinski@linux.intel.com>, Takashi Iwai <tiwai@suse.de>
+References: <20230811164853.1797547-1-cezary.rojewski@intel.com>
+ <20230811164853.1797547-2-cezary.rojewski@intel.com>
+ <43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz> <87bkezdsjh.wl-tiwai@suse.de>
+ <67fc99db-baf8-17b0-e7c4-f420676e5c8a@perex.cz> <874jkrdr49.wl-tiwai@suse.de>
+ <5d77217b-1083-a4d0-1b69-7511d24b6aec@perex.cz>
+ <acfcc8a3-8ceb-1671-1dad-35a083354170@intel.com>
+ <9d0f0555-411a-96aa-c8a5-382f595a2bbd@perex.cz> <871qfuhyog.wl-tiwai@suse.de>
+ <85eec185-b024-573e-3fc0-31d179c832a3@perex.cz>
+ <dfac60f7-e043-ca57-8005-3a744b0f920e@linux.intel.com>
+ <52b50220-aab0-6df4-6bab-e43d39006c45@perex.cz> <87zg2iggn5.wl-tiwai@suse.de>
+ <f97bbbd5-1397-f5d3-5ccf-420ec813deac@perex.cz>
+ <6ee5dad3-c46a-4598-3b5a-cac59979ff6f@linux.intel.com>
+ <7d2d56a5-698e-7ee3-e6ab-95757012537c@perex.cz>
+ <36fb8f83-9b39-966b-c105-7ef1bcc17afa@intel.com>
+ <337fe790-fdbc-1208-080d-5bcf9264fc65@perex.cz>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <337fe790-fdbc-1208-080d-5bcf9264fc65@perex.cz>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Authentication-Results: smtpng1.m.smailru.net;
- auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
-X-Mailru-Src: smtp
-X-7564579A: 78E4E2B564C1792B
-X-77F55803: 
- 4F1203BC0FB41BD96E142CFC92DB15CDE87830E258C493C61F3CEBBE49E3D68C182A05F538085040F8C9146A5A1ABA0D5E62A7D9410C5E378A4989800397DB94D335C17525181FA7
-X-7FA49CB5: 
- FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE73B44982FA5E78411EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637D51A55327EA515C2EA1F7E6F0F101C6723150C8DA25C47586E58E00D9D99D84E1BDDB23E98D2D38BE5CCB53A13BC8DBA9396076998AD3CAD85727AE7CB97675020879F7C8C5043D14489FFFB0AA5F4BF176DF2183F8FC7C045A75973B56231AD8941B15DA834481FA18204E546F3947C4A7E03851CBA2956F6B57BC7E64490618DEB871D839B7333395957E7521B51C2DFABB839C843B9C08941B15DA834481F8AA50765F7900637028599BB38096F4F389733CBF5DBD5E9B5C8C57E37DE458B9E9CE733340B9D5F3BBE47FD9DD3FB595F5C1EE8F4F765FC72CEEB2601E22B093A03B725D353964B0B7D0EA88DDEDAC722CA9DD8327EE4930A3850AC1BE2E7358CCB3ED2A1DE2304C4224003CC83647689D4C264860C145E
-X-C1DE0DAB: 
- 0D63561A33F958A5676FB2530185834E7203E799C9FE97ACB85525A7B2F4A61FF87CCE6106E1FC07E67D4AC08A07B9B097AD43380FEE24CACB5012B2E24CD356
-X-C8649E89: 
- 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CF6BF3D88D470D8F95FE247072695EBAF3D7040F432D1899D2843CC9BCFCE6CC70698455FC0CD9C182A44234FD4F46A843AAC10070AC2436FEC0B2DBCECF424D096E346BF9FA413E554C41F94D744909CEE921556F0E976A29E6EC0772259F8F8F8815B87D7EC76CB9
-X-D57D3AED: 
- 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojGCuXuOfYMcbQc6rQjw60fQ==
-X-Mailru-Sender: 
- 689FA8AB762F73930F533AC2B33E986B07510EC5C46C3CEB604D4930164896C898CC072019C18A892CA7F8C7C9492E1F2F5E575105D0B01ADBE2EF17B331888EEAB4BC95F72C04283CDA0F3B3F5B9367
-X-Mras: Ok
-Message-ID-Hash: G6LS542Z64UQSS7D2ERIEX66XIOOMVP3
-X-Message-ID-Hash: G6LS542Z64UQSS7D2ERIEX66XIOOMVP3
-X-MailFrom: fido_max@inbox.ru
+X-ClientProxiedBy: BE1P281CA0241.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:8b::16) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|DM4PR11MB5471:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69dce92f-8703-4288-0489-08dbb2a3373d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+ /2mtbqqY0gPpSVd2SqImkaagUF47H1t6gtHgU7HR+vru7ahdxfGASTyu0eoOuVhqYC10m9RtsiMluji95agrzD95Z5Cc8fbz5UA6xYXaVR2SnjCT68e8Hk2bR2euDAlx8AHsvL2Xyh2+lLOjWg1V79Mq89Sw001bLKVzRg9vkUIB79P09Q7fJ57zozVHez1SfdBgNN7PIyUy4wiCKQZQaqNfIAX39nKluTUIZOJMqY0gi7rZ9ekMLuPGWVC5Lfr3F6i02fex8OJ1Fzii0YI9zz8xURQ0ukY0pl75hBYEjN9smZFCi85SusDEM50Ru4Vye3alvAiVNmSZqSR422u59XILEdlaZ54LYhY1k1MsnTKGABbidkS/4Lx1T26XDD9Uv7UaPPeyAhnssNe+G/b0SfynDB2bNI29UnIK/bxoUK30n7ODb14KWP6MWNMUUXXKJqTvm3vJDmAARm+95uSgVOTNt8Q2whL/+rAObiYDa6XBtOkMW94zY6caTq95KGl0/iExkjA8WrbHQoaVCsiTXM6gg3DVPHLqxeJVcaxM0/Rdwd4YIf3s71Y11g0+rRWV6EadNXR3EjKeONLrPn+jSgNpylZI2k2frFfEngF67vIGLBeW7Zuv5A+kSzMCJW4T3rPq+bvU+OZUD44VuvQcyw==
+X-Forefront-Antispam-Report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6375.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(396003)(346002)(376002)(39860400002)(451199024)(1800799009)(186009)(31686004)(53546011)(6666004)(6506007)(6486002)(86362001)(36756003)(31696002)(82960400001)(38100700002)(2616005)(26005)(4744005)(6512007)(966005)(83380400001)(478600001)(41300700001)(4326008)(316002)(2906002)(8936002)(8676002)(5660300002)(44832011)(66476007)(6916009)(66946007)(66556008)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+ =?utf-8?B?VFNqcUNUaEhDOEJ5bDByNTZOeVpaRWVZMWdlSDlrUWJjVkNXelc5WkE3clFI?=
+ =?utf-8?B?NUhKYVRuSmU5K3BGaTBETHIvUzQvTWxtL2pVcTZmNFRldk5VYUZrRzJiMnB5?=
+ =?utf-8?B?NG9qNExucmFPK09YdWRWczQxTFlFVGkvSUpwa0ZYU0hNc0dmNzMrTkZpbDRT?=
+ =?utf-8?B?dHBvY0M1eXliT3hDZ004UmtpckhMMHh4RTYwb0I0c1RaWWNUVVlFZTZRK2N4?=
+ =?utf-8?B?cCsyZGVtTEZYbWdsamhIS3lPa1pUdi9KdWhrVWhmR1pVVUN2MnNlb1RZKzRn?=
+ =?utf-8?B?bEtxdUxkL1pReDdkUENxZlBiMFovaGc4a0RCT1FQcVlYR0tMOU9OOFFEWUJt?=
+ =?utf-8?B?d3lWZy92RW9GU0lPM2ppY2d6cnFOcCs5RFpZUmhYQ0FWOExpeTl0bHB0ZWxp?=
+ =?utf-8?B?T0pLdlBRa0lmanFtQjdZUzFQaFlVT1JBbzErdEhqWU1LSEhQSHJobThYQ1Y0?=
+ =?utf-8?B?K0ViaFFsbXlqbTMxVnhPNXQvVzVYK3k2endxLzhTNlVNdTVOeUFoNGtoYWpK?=
+ =?utf-8?B?djc0UGRGcFhZeEV2Um9mR0xBYUxkdnc0QkkyanFDM0liUzB3cTkvRUIrQ1NM?=
+ =?utf-8?B?cHcyOFFQaEEvTmYrN2tJVTY3a1BvWDR0bTdMMU8vOFlrQWcvOUxqakRwRnZW?=
+ =?utf-8?B?WW44TlZpUnBWQkJKUTJMYm4yNldBVWlnUUY0eUtwQzZxNTlFYS9UVC9WVHFt?=
+ =?utf-8?B?Y2I1WFFkN1g1S3lHMXRVODRaUTNiaGdVcFp3Mmx6OU9mRSt0TFR3QlBWY0F1?=
+ =?utf-8?B?R3hySXM3Yzl6WlYvL3ZSTkhSVGFiUHZBT1A2Y2p1c2MrYXllQjMvSnhrT2Vk?=
+ =?utf-8?B?R2V0TmMzK0hvejVZNGI4M0RWaHpHOHlhL2NWMGViSkdUSXJYVWZ2VnJpTkJD?=
+ =?utf-8?B?OElHbldVbGFFV3FJVW5Hd1VXdlg3c01LdE8zWjNyRHpPTkp3WXV1alEvVVpy?=
+ =?utf-8?B?ZHRJSTVqQ01YbWZUWm03RExDWWdGaER6a2FJWFMycUJPeXlxQ0lSbVFnd1FG?=
+ =?utf-8?B?WGtoQW54dDBJSGZwaUFyeXA2R3h3NTRoaXg2NlRISmlHSFd0TDlpSjRpNWV0?=
+ =?utf-8?B?WkprUkZ0cGd1Zm1tODBvZWN0aEJEZXNEL3QwZjQyMlRCZ0VrV2R3UWZ5NzNs?=
+ =?utf-8?B?K2U4Tkd4SzdXdkgyakpVWC83SXV0RUVXY2FBZUZJbVVGWjVVRG4vQkhUNG9K?=
+ =?utf-8?B?V29aV0NmUUxhNDlNQjdadENjUGtxYm9qRFF2Q2JtZVprMjJ4VklScVFLRkNF?=
+ =?utf-8?B?NVk5ZWFsZEt6czNSdTVzUVF6M0VMbjkxQktlWjNicXpLZGZFaFU0Tk9rU3dl?=
+ =?utf-8?B?M0NFRkxveENpeUloaTMxZVNIeVhrVmMxK214Q0trTm83eEJxY0lzUDVjK1BT?=
+ =?utf-8?B?WUMwYk1vSFdQa3dyYTU5SnAzRU1ZcHJUTDh5MVpNRll2allaTlJxU0NwRzdm?=
+ =?utf-8?B?NkhkSUZ0Y2wyZlBoZ1o4TFRBYkRZSm0vcmwybTcyVUU0M1QwN2EyUEFpbmxT?=
+ =?utf-8?B?ZDhXbCtFclpmaHJvbXErdENhdDBQSTZUWGR2eWE3Tk1qc1VTZVVkbnZJVmU5?=
+ =?utf-8?B?VytrRVVvRGZLOXBMaG1FcWJjazVQaDV0ZFEzdjU5elY4Z2ViNmtTMGVPMzk1?=
+ =?utf-8?B?cFhhZHBRa2YyTDY3NFpiWE50QXJWS2VZSHZEcWgxUURhOGJzUmNuZmU2R09X?=
+ =?utf-8?B?ZFo5ZnJQTEdhbWhxSWpVVWtwR29yQS92bFRVUmtTeldGYTlEbDE3d2Z6OHhZ?=
+ =?utf-8?B?MlNLNjhHS2FpZ1F5eU9mRTZBQTFNb0E2NG1EN2xFNXR3YmpaN3VUd09OY3A5?=
+ =?utf-8?B?RXJTWFlUTDZzNUJHa04xaFNmVFJrb2podGV3Z3MwTWRjc2hBMzcxUnV1cmRt?=
+ =?utf-8?B?MGY3SzlQWUJUc0lVTDMvTkR1QlZRTk9rc1h3R0IzUVpHVDBITDMyMUlCSjNm?=
+ =?utf-8?B?SzdML1UvRW5CV3A5K0htQXRtZEhZSWM1ZXRnelJWODZ5SVRoRzZ3ZG9Fbytn?=
+ =?utf-8?B?SGFKSk91RW54WnRDNHMzNEY1RmUxYnQxSTJRRXlrR1VIVEp2TjkxNmt5aXdt?=
+ =?utf-8?B?YTlLeXR1ak1SU1MwbFZqcWRLNUJWaHBrVW9BQnB3dE4wZk8vd3NxK01OVlJG?=
+ =?utf-8?B?ZzBQR3dOU1ZxK0NBcGVFNi9CNkhpdUMyZXg2dEIvK0V1bmdYRWVJb1EyL3pi?=
+ =?utf-8?B?R0E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 69dce92f-8703-4288-0489-08dbb2a3373d
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 08:43:48.0392
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 7mAhxru9VW1c/yFdj7n0+dXqmYEKbqRCj9zyj4K39TTTwrKeEAvFmxBfDnlgK53n8/0wjT5DHUtjsJiKHfav9x8iayEJ+gIpV/tnEnnjwDg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5471
+X-OriginatorOrg: intel.com
+Message-ID-Hash: S7JEQWHHH54VCXJZ5H7UDW724AIMN7FK
+X-Message-ID-Hash: S7JEQWHHH54VCXJZ5H7UDW724AIMN7FK
+X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +214,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G6LS542Z64UQSS7D2ERIEX66XIOOMVP3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S7JEQWHHH54VCXJZ5H7UDW724AIMN7FK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,11 +223,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 2023-09-11 9:35 AM, Jaroslav Kysela wrote:
+> On 08. 09. 23 16:36, Cezary Rojewski wrote:
 
+...
 
-On 11.09.2023 09:46, Myunguk Kim wrote:
-> This fixes typo in comment
+>> After reading all of this again, I'm fine with rewording MSBITS_32 to
+>> MSBITS_MAX.
+>>
+>> As I do not see any other points to address here and review of v1 has no
+>> points to address either, I'll send v2 with this single change. If I'd
+>> missed anything, let me know.
 > 
-> Signed-off-by: Myunguk Kim <mwkim@gaonchips.com>
+> The subformat bitmask should be also refined/updated depending on the 
+> selected format.
+> 
+> https://lore.kernel.org/alsa-devel/f97bbbd5-1397-f5d3-5ccf-420ec813deac@perex.cz/
+> 
+> It requires new code in pcm_lib.c and ASoC PCM core code.
 
-Reviewed-by: Maxim Kochetkov <fido_max@inbox.ru>
+Could you help me understand what new code is needed? The 
+get_subformat() example raised more questions than answers. The patchset 
+defines snd_pcm_subformat_width(), perhaps you meant that I should 
+update that function by adding paramter 'format' to its parameters list 
+and handle it accordingly?
+
+Any guidance would be much appreciated.

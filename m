@@ -2,87 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F61579A8A2
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 16:30:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 468E979A973
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 17:09:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9A9283A;
-	Mon, 11 Sep 2023 16:29:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9A9283A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AFDB950;
+	Mon, 11 Sep 2023 17:08:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AFDB950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694442612;
-	bh=AigyTmddvwvr5mfoNvzt6guQgCiVr/QlkeCPzes3DpE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1694444978;
+	bh=wnj4qD36tPFKmzcZsVVwem6YXErpIqxR5n+uACnZbTk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t1LyIPYzoMSNGcinMqsc9naCcdtKnsyqvvdZJigr96yMHiY048Tr4iy1XqeFtXrPY
-	 b2XTX5iHDGLBcoPm5tl8bYTGIlkAfmDx6cnK7DdNPz49Rf0HE54bxHjtu4BV7iU4nL
-	 hB9P5vWNMkHHHATn8Ox0pIvRXu+QkLcrs5TbqoHw=
+	b=qDVbQB1Bc4LNx0GdtuIHwwLz8pbzWJMmqTFGEoSF4pIUwQLvyIa089WXXZrSh44CX
+	 4bLyuJR90scqanNrR/4z1brJ3Gw/4c5g004Bi72qFwekns73kH33GhOV31gzULKagD
+	 K79+3Hzx4sLdw+WMuJbSMOpCxaHdEk1rOmpUwb8M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32617F80549; Mon, 11 Sep 2023 16:29:22 +0200 (CEST)
+	id D1FDCF80563; Mon, 11 Sep 2023 17:07:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA2B6F8007C;
-	Mon, 11 Sep 2023 16:29:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08C26F8055A;
+	Mon, 11 Sep 2023 17:07:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4DD3FF80425; Mon, 11 Sep 2023 16:29:17 +0200 (CEST)
+	id 79062F80431; Mon, 11 Sep 2023 17:07:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EBB41F8007C
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 16:29:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBB41F8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4D6EEF801F5
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 17:07:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D6EEF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XLI6T+Pp
+ header.s=k20201202 header.b=i+i1kM9d
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 03E22CE16F9;
-	Mon, 11 Sep 2023 14:29:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4D1C433CB;
-	Mon, 11 Sep 2023 14:29:03 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTPS id EFEF2CE1745;
+	Mon, 11 Sep 2023 15:07:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3323C433C9;
+	Mon, 11 Sep 2023 15:07:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694442544;
-	bh=AigyTmddvwvr5mfoNvzt6guQgCiVr/QlkeCPzes3DpE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XLI6T+Pp+fXc6eZt4Rlqy8LMVXTEOollEM8Ic8DUPtv5m5HijnH7t2DTBjAO32w6q
-	 VVhhOd05/0L6qET6YIoB+rzt/mnqUZF6H6yQ2ylqmKbtvSUTcyKuvRh3R3BesS9qEr
-	 Cgn+8FFSCeMyQfj3qnRcURWBTYSbRABZ4AKHqWKGSaRZoMDO8zne5qTHKG2aidDeBF
-	 q6bH3iA798CQr4f6nTMh1SFXk+Zi0qIcviqrpkLkiBHoHEOSjN9ieLLifj3Xy/PSA2
-	 bCq1o4NOgH31hEaVOnUflk77kd0PkpKdjNuFcGsnV0jm5j7axwkUn2A26u4aXea4SZ
-	 McvPpsjB4m1vQ==
-Date: Mon, 11 Sep 2023 15:29:00 +0100
+	s=k20201202; t=1694444860;
+	bh=wnj4qD36tPFKmzcZsVVwem6YXErpIqxR5n+uACnZbTk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=i+i1kM9dzB7Id4yjsy2uaOvRdXh4+CRr6jibwaiL3Uru8TrIDksjYevGRUOBhDunb
+	 o76Pl7Da7sE9VFkyMxgr9KIC67X2L/3+Qre0cQ46RxlKmSMUanCFLEpu7V+6e86oR4
+	 nTcqtuvWLbXtOuCDkWsl3QkMOtU/G+KWXkz05zzcZjx32Bnar2jfLqA6D5avzfCPUI
+	 mIJKLDdcrOv7EqJSrtNyZfwZrcdHGwLF4s6gi8WVW0FOQNQDxY0qLnAI3mp9movbyl
+	 mrUlCxNW76wCaPBiMIBDNsys7qwQSxUkZCRXnY4ee8N69MWxA/ijrvu4WhZmZCk55+
+	 KThjh3Otumucg==
 From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>
-Cc: Takashi Iwai <tiwai@suse.com>, kernel@collabora.com,
-	Jaroslav Kysela <perex@perex.cz>, Shuah Khan <shuah@kernel.org>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH] kselftest/alsa: Mark test plan as skipped when no cards
- are available
-Message-ID: <ZP8kLM5ln2YBCHap@finisterre.sirena.org.uk>
-References: <20230908181242.95714-1-nfraprado@collabora.com>
- <0fa0901e-d271-438d-bc2b-11399ad3b07c@sirena.org.uk>
- <868a8f08-ba39-4550-8e7b-0572ea03c4e7@notapiano>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: yung-chuan.liao@linux.intel.com, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com
+In-Reply-To: <20230823092113.788514-1-ckeepax@opensource.cirrus.com>
+References: <20230823092113.788514-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: Shrink stack frame for
+ __soc_pcm_hw_params
+Message-Id: <169444485840.1851820.15755094643403493354.b4-ty@kernel.org>
+Date: Mon, 11 Sep 2023 16:07:38 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="upLhFwPGUAS0CWZq"
-Content-Disposition: inline
-In-Reply-To: <868a8f08-ba39-4550-8e7b-0572ea03c4e7@notapiano>
-X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: CLQR5DYQXC4S3DZOARCQ5XKT7EX4D3X3
-X-Message-ID-Hash: CLQR5DYQXC4S3DZOARCQ5XKT7EX4D3X3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: ESXFAYXKLN6JBYGLSKAJVBHVLELFCP3E
+X-Message-ID-Hash: ESXFAYXKLN6JBYGLSKAJVBHVLELFCP3E
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLQR5DYQXC4S3DZOARCQ5XKT7EX4D3X3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ESXFAYXKLN6JBYGLSKAJVBHVLELFCP3E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,47 +98,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 23 Aug 2023 10:21:13 +0100, Charles Keepax wrote:
+> Commit ac950278b087 ("ASoC: add N cpus to M codecs dai link support")
+> added an additional local params in __soc_pmc_hw_params, for the
+> CPU side of the DAI. The snd_pcm_hw_params struct is pretty large (604
+> bytes) and keeping two local copies of it makes the stack frame for
+> __soc_pcm_hw_params really large. As the two copies are only used
+> sequentially combine these into a single local variable to shrink the
+> stack frame.
+> 
+> [...]
 
---upLhFwPGUAS0CWZq
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Mon, Sep 11, 2023 at 08:35:37AM -0400, N=EDcolas F. R. A. Prado wrote:
-> On Sat, Sep 09, 2023 at 12:08:22AM +0100, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > Why?
+Thanks!
 
-> To better reflect the actual test plan status. If 0 tests were run, it do=
-esn't
-> really make sense to say that the test plan passed, rather it was skipped=
- since
-> nothing was run. So with this change, if there's a regression that preven=
-ts the
-> soundcard driver from even probing, the result won't be "pass", but "skip=
-", and
-> the reason 'No soundcard available' will be in the logs.
+[1/1] ASoC: soc-pcm: Shrink stack frame for __soc_pcm_hw_params
+      commit: 396b907919e028d89bac912e49de014485deb8dc
 
-So, I would interpret the overall result for the suite as being "No
-errors were found in any of the cards discovered" if there is no
-configuration file specified which enumerates the set of cards that are
-expected (if there is a config file that's a different matter, we know
-what we're expecting).  I'm not sure that the different behaviour for 0
-cards is super useful.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---upLhFwPGUAS0CWZq
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmT/JCsACgkQJNaLcl1U
-h9BPVAf/RSFHSOlUvU0zkBcxBW+G0eqxamHxmKQmBzKhecWQfBvToFYzyPMTI8hj
-1nkjmK70vMjHhjLZZri+srrnWwBLzVknDtJbaMFXkzFQibRN3P/60ChXGtg9WC1X
-5YzCyo+Na071zvmceag5yoyC55RoWZiMknKj89Y4DjL6cnExT7MEHuBGlwioUjjP
-1NApQduQGNWL8TNDcUkbDRa+ZPAkB6LspNVY4J7+S+R8jCqIINtX/YlKK+1oz60a
-50FFhWVNgjGigFqy/yGMaAocWDhSkTrf5xqHb5CjlaleQlhSW1Lh/TVaClZNPI9E
-0F0Aj163sUBtchAoz9QUWSmzw0qWDg==
-=bHB7
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---upLhFwPGUAS0CWZq--
+Thanks,
+Mark
+

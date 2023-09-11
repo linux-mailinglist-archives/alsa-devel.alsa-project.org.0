@@ -2,104 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A51479A385
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 08:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EC379A442
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 09:16:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8059484C;
-	Mon, 11 Sep 2023 08:30:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8059484C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AFA0D8;
+	Mon, 11 Sep 2023 09:15:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AFA0D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694413870;
-	bh=Eg3KgnUNpRNSqU6Gshl9UX1IZKtftgzqrmAacovn2M4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ggFdGarnFZhrxEJODk9tg3XHXnxCqXk1Gmvy3UhHQMRwmr/EWDR9N4PM0UaoTPX4S
-	 VA0SFwJtDV6a8p3JFLCckgJivRJfQfG0bpICmFIpcb9/Api0itFHU4FJ4jIGovbpIX
-	 6000gjpGjfdjL7jNja+DH5nznaeU9ZuYAw9x4WB0=
+	s=default; t=1694416559;
+	bh=KArebcRQbLe+0cHGqcWa33ZfoxKv8pqd18NKG13tXf0=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=o6rqgbAkik0pbjU8B29C0Y330x2kpWrR57CvB9oPVP3tyHlgDmGRdQeRDfJiNhwNK
+	 JyXMa6jsvnFql9FvjD1u567iqEYMfpSt441+SZk8fVfbOxJ2lCNo0e9XbPc+Ks/iJu
+	 oDX2K1WDDMNNqDFi3H0adwvpmGvworq6PVMpwziY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3C4FF80246; Mon, 11 Sep 2023 08:29:59 +0200 (CEST)
+	id BBE3EF80552; Mon, 11 Sep 2023 09:14:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13E2CF80246;
-	Mon, 11 Sep 2023 08:29:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 647C6F80246;
+	Mon, 11 Sep 2023 09:14:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA23DF80425; Mon, 11 Sep 2023 08:29:54 +0200 (CEST)
+	id 05D51F80425; Mon, 11 Sep 2023 09:14:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 546DDF801F5
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 08:29:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 546DDF801F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=BraPm3c0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=hBjPE4wS
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3FBEC21954;
-	Mon, 11 Sep 2023 06:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1694413790;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tr/bSdM83dCsFkG0lgZwfeOVd5FVEbn88zt0hKpSIi0=;
-	b=BraPm3c0n2pCVnkk0GlJVS1mvUw0g+FI25kMy7FqcLLV8lN5VhCYbTkXBohgsYZ5Ps7A6j
-	aQyxS0XgaDHWqIPRq8NGQv4cMWocGrlevZ0599sfqaeudw1NUfcjaFOR2JpyxNIX3WOBjO
-	u1mJ2wD9AXu3AfJIEJsFm4CDIaOSHWA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1694413790;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tr/bSdM83dCsFkG0lgZwfeOVd5FVEbn88zt0hKpSIi0=;
-	b=hBjPE4wSYIyTP2SkjDlix+APmnvtQX2JCCd0K0yrMUPqpp9KUTUMClHdwG+yNxlAsCOFkj
-	OyofnT+E/D0PdhAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 161F913780;
-	Mon, 11 Sep 2023 06:29:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 7tNzBN6z/mSDRgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 11 Sep 2023 06:29:50 +0000
-Date: Mon, 11 Sep 2023 08:29:49 +0200
-Message-ID: <87sf7l6x42.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<alsa-devel@alsa-project.org>,
-	<patches@opensource.cirrus.com>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ALSA: hda: cs35l56: Call
- pm_runtime_dont_use_autosuspend()
-In-Reply-To: <20230908101223.2656901-1-rf@opensource.cirrus.com>
-References: <20230908101223.2656901-1-rf@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: A2N4ULCD44FHXVKM3MBDJGGEAINY6MEQ
-X-Message-ID-Hash: A2N4ULCD44FHXVKM3MBDJGGEAINY6MEQ
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6824F8007C
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 09:14:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6824F8007C
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id F1E481A135A;
+	Mon, 11 Sep 2023 09:14:38 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B9D4B1A1380;
+	Mon, 11 Sep 2023 09:14:38 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 30A171820F56;
+	Mon, 11 Sep 2023 15:14:37 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl: imx-pcm-rpmsg: Add SNDRV_PCM_INFO_BATCH flag
+Date: Mon, 11 Sep 2023 14:38:07 +0800
+Message-Id: <1694414287-13291-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: 4PD3345GQ2WH37P6TBTW2PNNHYIAJLYG
+X-Message-ID-Hash: 4PD3345GQ2WH37P6TBTW2PNNHYIAJLYG
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +78,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2N4ULCD44FHXVKM3MBDJGGEAINY6MEQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4PD3345GQ2WH37P6TBTW2PNNHYIAJLYG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,45 +87,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 08 Sep 2023 12:12:23 +0200,
-Richard Fitzgerald wrote:
-> 
-> Driver remove() must call pm_runtime_dont_use_autosuspend().
-> 
-> Drivers that call pm_runtime_use_autosuspend() must disable
-> it in driver remove(). Unfortunately until recently this was
-> only mentioned in 1 line in a 900+ line document so most
-> people hadn't noticed this. It has only recently been added
-> to the kerneldoc of pm_runtime_use_autosuspend().
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Fixes: 2a930a6da8ec ("ALSA: hda/cs35l56: Add driver for Cirrus Logic CS35L56 amplifier")
+The rpmsg pcm device is a device which should support
+double buffering.
 
-Applied now.
-The Fixes tag points to a non-existing ID, so I corrected in my side
-to 73cfbfa9caea.
+Found this issue with pipewire. When there is no
+SNDRV_PCM_INFO_BATCH flag in driver, the pipewire will
+set headroom to be zero, and because rpmsg pcm device
+don't support residue report, when the latency setting
+is small, the "delay" always larger than "target" in
+alsa-pcm.c, that reading next period data is not
+scheduled on time.
 
+With SNDRV_PCM_INFO_BATCH flag in driver, the pipewire
+will select a smaller period size for device, then
+the task of reading next period data will be scheduled
+on time.
 
-thanks,
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/imx-pcm-rpmsg.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Takashi
+diff --git a/sound/soc/fsl/imx-pcm-rpmsg.c b/sound/soc/fsl/imx-pcm-rpmsg.c
+index d63782b8bdef..bb736d45c9e0 100644
+--- a/sound/soc/fsl/imx-pcm-rpmsg.c
++++ b/sound/soc/fsl/imx-pcm-rpmsg.c
+@@ -19,6 +19,7 @@
+ static struct snd_pcm_hardware imx_rpmsg_pcm_hardware = {
+ 	.info = SNDRV_PCM_INFO_INTERLEAVED |
+ 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
++		SNDRV_PCM_INFO_BATCH |
+ 		SNDRV_PCM_INFO_MMAP |
+ 		SNDRV_PCM_INFO_MMAP_VALID |
+ 		SNDRV_PCM_INFO_NO_PERIOD_WAKEUP |
+-- 
+2.34.1
 
-> ---
->  sound/pci/hda/cs35l56_hda.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-> index 76b9c685560b..9e4976bdb5e0 100644
-> --- a/sound/pci/hda/cs35l56_hda.c
-> +++ b/sound/pci/hda/cs35l56_hda.c
-> @@ -1003,6 +1003,7 @@ void cs35l56_hda_remove(struct device *dev)
->  {
->  	struct cs35l56_hda *cs35l56 = dev_get_drvdata(dev);
->  
-> +	pm_runtime_dont_use_autosuspend(cs35l56->base.dev);
->  	pm_runtime_get_sync(cs35l56->base.dev);
->  	pm_runtime_disable(cs35l56->base.dev);
->  
-> -- 
-> 2.30.2
-> 

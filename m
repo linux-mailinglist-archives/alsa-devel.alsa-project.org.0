@@ -2,121 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B3BD79AAAB
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 20:01:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB20379B003
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 01:48:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9044D93A;
-	Mon, 11 Sep 2023 20:00:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9044D93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70DF3852;
+	Tue, 12 Sep 2023 01:47:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70DF3852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694455261;
-	bh=87Two69lOIG3wAq7/sY1g81F7jv+LQDOSQZzC1nyMl8=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1694476121;
+	bh=FNU3KzUP+Ljn1Z0UYB6MrA/T9mh2Q7rM3Ec0ZZJl0Z0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fQIGGEQkZGi50YtyjZ/gHlInLfCNo+WAXDqfCmTlu4Qxwyt3lIRdC0gdRIfrbD4Al
-	 NKXd7zxMgOWgl94Z3/1CzOI3+C0UBDiOhxeYzEne616bQrSFCzTWlTE/2qtD/HnfJc
-	 nbOGjkR8JN0rAM3kUAKf9JuVEPTxoHs7yb5B3O+c=
+	b=stOIllJSh7ne/tFPr4l4amBReGLLY+6a2V8eIj4/OcxKKPPJ6A/y+Y4AvgTb18H73
+	 oTcPTf8rDPbMRBIsKwbbPvZH3/syrW4/2v4lqdHrpXk+iCrGQWHHCS1VEdksvVIAOl
+	 tYCVYcmpiVUZshuQSMcIFJHkp3PW4TXIx9RfrsdM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0521F80431; Mon, 11 Sep 2023 20:00:03 +0200 (CEST)
+	id 5D58CF80431; Tue, 12 Sep 2023 01:47:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4042EF80431;
-	Mon, 11 Sep 2023 20:00:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91547F80431;
+	Tue, 12 Sep 2023 01:47:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18537F80246; Mon, 11 Sep 2023 19:59:59 +0200 (CEST)
+	id 615AEF8047D; Tue, 12 Sep 2023 01:47:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_FILL_THIS_FORM_SHORT,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20719.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::719])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7CF16F80551
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 19:59:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF16F80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id AAC37F80246
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 01:47:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAC37F80246
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=iHNrhf/9
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38BEfMvf012701;
-	Mon, 11 Sep 2023 17:59:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=PeQHtPpk5JOrsMlNiiPboshfw1HH4mh9rMq+8dlgflc=;
- b=iHNrhf/9PKvS8HmRJc/rmi9cmePzZo2vLIAAOuiwsM/QYRFIAPFwvHG0n93gRVi0yw7V
- xIuKe0cdAYYi0fFU4gbnprnJGTP+yg0Q2CQxGrQJ/4PaC3s/LSSfLzjKob5b9zWkuvDR
- 6bHm5Z9movOsm/LRCf4CLZp2fvjlo+Ctgy+EEIYj4T0dRdLjurvzCzoF3bIlY4vGVLJe
- F6MqE+EoCHtvnDd20jVB6IKELKiGqSZ3RLJLtl12WRZq7rtKFGnVc3hj5Ef2H+XpwRXp
- LGKyP6+RWtYx+XAudrSAPy+HpGeVq/jgITdOjPcQ8/j7PukLl6n40c12GKk4nzedhpEu iQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t1whx9ksa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 11 Sep 2023 17:59:42 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 38BHxMGs022130
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 11 Sep 2023 17:59:22 GMT
-Received: from [10.110.109.129] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 11 Sep
- 2023 10:59:21 -0700
-Message-ID: <cbe35766-a805-3791-3ff8-93aef4dc9f4c@quicinc.com>
-Date: Mon, 11 Sep 2023 10:59:20 -0700
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=HtgMpEBP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KXnZU/S/9+hl1E07BxdR+O/EWfHuCnUcT+cmdXcBoQlAlcK7qrUVhDTkh9OEgdtoPLuRsBymWCgX8w2ZcUD213hqpPsTh3GA7F2h0gj2ycAH/+scDb05l78CYDjCJng9/rFkoV5z7j999l+x8acedc/e2rmG+81JK0oRyZWX6F/eckbOzLqzp0KETAQCpYU2s09PwRF7t+Lgua3tITCodZS8DNzKMiKUOGA9pbLf1vO4p4ElNuCzaV+3uPf2rpkVV3To82R0JCP8u81oFbwhmCQIRQBDwsFss5XHUZGjAffhV16PLNJWUCh96veC/itUoHiuD2wY26AEKcsaOCXy8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C9cggvY4V2W7mAR9GVXepobwThGN1gYNw6ZJPEPeZtc=;
+ b=Jkdw8n95F6RLLiGLB3bqCo6QuNqSqV7SnjbDjWCW7h/uuRRaZCzxb9pPE6wi307BgoPLOxuXFJfL8xnZuIeYL8xwwumrkkX+o1NUc0K8dpCs4MeC++TGVi4bSlbZwEssfFl+x8F6DrFSOm9M44nfk5ueOQdk+fQT/sngpkTjhO87k6cGoymySfefOVUevpsJkAPle2zJO9biY1MSfURJPVkTfiA5XopWUjM6XfenBvDr8n8rUmSgSoLnvZlKJkjciv8WATHBS3RTBsuN4Blz2CbBQU47tAUdt2HkcPg0lyqbZuK1zQm3vWzYDdjKIynLy3M5Vd0MjB8kXmG092hTQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C9cggvY4V2W7mAR9GVXepobwThGN1gYNw6ZJPEPeZtc=;
+ b=HtgMpEBP4cB49ch9fax3itxbiuAcMkot+Nc6s6RdfYowZ7R4qxs06YeN4W6ABAYHqoyhRol77j6CpYF5+fs7MF+2Q+fMZxjzzWraLIJnq1/WXdSBwxL9OBlwux/f29uQO06Kw8HmC4kBUxWdQxAe7RzD4JRNYdUv+dGcWjwbhFI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYVPR01MB10735.jpnprd01.prod.outlook.com (2603:1096:400:298::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.37; Mon, 11 Sep
+ 2023 23:47:02 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::8c08:d94c:8e54:9b5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::8c08:d94c:8e54:9b5d%6]) with mapi id 15.20.6768.036; Mon, 11 Sep 2023
+ 23:47:02 +0000
+Message-ID: <87fs3ks26i.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Subject: [PATCH 01/54] ASoC: soc.h: convert asoc_xxx() to snd_soc_xxx()
+In-Reply-To: <87h6o0s275.wl-kuninori.morimoto.gx@renesas.com>
+References: <87h6o0s275.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 11 Sep 2023 23:47:02 +0000
+X-ClientProxiedBy: TYCP286CA0156.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:383::20) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v5 18/32] sound: usb: Introduce QC USB SND offloading
- support
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-CC: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
-        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
-        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
-        <agross@kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <quic_jackp@quicinc.com>, <quic_plai@quicinc.com>
-References: <20230829210657.9904-1-quic_wcheng@quicinc.com>
- <20230829210657.9904-19-quic_wcheng@quicinc.com>
- <8734zqasmz.wl-tiwai@suse.de>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <8734zqasmz.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: U_IGeaWnzPKkXe9MF91P2eA5e-XGQJrg
-X-Proofpoint-ORIG-GUID: U_IGeaWnzPKkXe9MF91P2eA5e-XGQJrg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-11_13,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- suspectscore=0 impostorscore=0 phishscore=0 adultscore=0 mlxlogscore=835
- bulkscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2308100000 definitions=main-2309110165
-Message-ID-Hash: TR43W6OQYKVS3A6U5HFYMRQ6NZS6BP74
-X-Message-ID-Hash: TR43W6OQYKVS3A6U5HFYMRQ6NZS6BP74
-X-MailFrom: quic_wcheng@quicinc.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYVPR01MB10735:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a4d1853-2e0d-490b-f28f-08dbb321658b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	+eu+Z0P4PoIoP0gytukzHEP33jxvWY7zkBo+ABDYVwJ/NEkXMiJQpgKWoiLD4ynxn3hxwYZxJZbWSjicI8qXcCeIiS06yDpCHu7eTC4pNsxCfzL5JLI794npGKujSTdpThyJwr5E/xw7kh6DE36smkV96Vl+pwsK4kX9h4Ih9UI8sg54fqIkZgyZLtnXm5/Mk6LzI14ynuVttmy6chENNfgT8heiSCMM7tGwVAOjuGXXYtAJ3rpAJnHM7JWOxk/vD8hGQ+hM60MoA1ZZM0z1oTJbtOnaV6DhWFV+H9RaF+7JcozVFyjvflpoz/5fWDQZafcKt0+k65RWBZoAgfPRJ3KMc6CgPEDjSCjBjC6+7PVVrNAK9mVL2jB6zemXo/0IOBEKiysaMgWcVf9FBVoZgAlKid/0MFYJaLMlOoHB6RZRvD5G90sMhnYzh1tLfqiL/AS+X3TkA8nCfsfl2WVheqhbkcE80clySWAXYFcNjtGxl9qlpEsoBhnOArEgljPxHx5kUCLnqNiarImezHSMBnFifnWnA2zbfOwcL7U0ybPeV+leglm4ZtV2aasIXfN9dzPv63qjaWV13+f6VVHC+Pisv55IZxgi+9S/GK398LCOL9iFaH4OaT9ZztiLvR7D
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(136003)(376002)(346002)(396003)(451199024)(1800799009)(186009)(6512007)(966005)(5660300002)(6486002)(6506007)(52116002)(26005)(478600001)(2906002)(2616005)(83380400001)(8676002)(4326008)(8936002)(66946007)(41300700001)(38100700002)(110136005)(66476007)(66556008)(38350700002)(36756003)(316002)(86362001)(21314003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?0eI1nsTvukK6JrHG+916nwr+BuIzxrr9NRILpfjbEWta4wwcoJBG+2TK+4fg?=
+ =?us-ascii?Q?0kjzgS4cTXe77XKazK0OL2RYYdms0AbZ8X2Ole5HRa7Toi3tLWaqVMmmxxhy?=
+ =?us-ascii?Q?dPJJ6JsJX4v0gqzk6jKtT8feoQs1/OD+Om93xK+WJUI8/pRtYlrmHLJbPtYX?=
+ =?us-ascii?Q?7N3h1AOmLXY4MdPIU81J1seykS+++lFzJLd21JVEWada39saoN4/bFFHL9my?=
+ =?us-ascii?Q?GX0h0Rr3IOzlhTOOdubqT/O7vJfFHVJKN6Epu2kh9AFSOiCjixGKTUWBYyjR?=
+ =?us-ascii?Q?KUhl2yoV2dD32ifQlChVSyeUTYofswN+PwKSJI2JIS3+CKSdzmRPeQ5nYaEs?=
+ =?us-ascii?Q?L1xS8UgscN7mYYAhHvZpswck7/MSt9AWb6vQ8P+2VGXGfzl1jckzfx+pOCdj?=
+ =?us-ascii?Q?lPfbl0kihpRgz5o3cLXbhfVFfmugCQwBREvDBAOIl+LR4qbzmT+t/ALtEqNo?=
+ =?us-ascii?Q?KW73uiSlBl4j3/A+Jrkm+DoxF/J6u9He4Qmhax2n+psMNWiSOPPKbXzhdumQ?=
+ =?us-ascii?Q?WpeCo/X/iZvdOMteWqHug8lMza+TDW+XF+u3jnwaK2IWqSzsOc5EVQCXsTyb?=
+ =?us-ascii?Q?7LkVKchKRkQb7GI5hfzSN9P+QEHBnSBdCR47Yh3pZ1N4rzUdDiBE2PA5vFF4?=
+ =?us-ascii?Q?fny9SkvMzxk+jJpFQJotF5K27tNNFTNUnCFh1A/CM37tP4Zt0PvjRKUgyKZn?=
+ =?us-ascii?Q?6GQ/lSnGDOZTZiHx4KG0DzcVxTOQoWTy+LQ6o0LZAZoKiQtkExcAdPBeT0Ld?=
+ =?us-ascii?Q?gk0HMRXoQal//qybj4Al9yspgxPIySgUyA081FszKuNCaJQ7xkTCV7M3iGep?=
+ =?us-ascii?Q?smAp45NClHzNQaftm9p61ZZPRwE8Ws14M1WkSE1ryU46BBXkj8zf/F/TBaV5?=
+ =?us-ascii?Q?2SUmpESXyBobuQOIy8RakXtceeWiSsSFidAAtLuVewNb8LLr59/xyeQ0YpJZ?=
+ =?us-ascii?Q?lyNMDSCMaiUR1VnVdovd7LRF597Pi7L2o8miJHpS0ubJY+B9d+9ZTngCkUR1?=
+ =?us-ascii?Q?Zpv8ofp85BqkaWSXSYGVXpO84WNk5pjw9t/X280PSg87cFxn09dSaNBWr3Rw?=
+ =?us-ascii?Q?FIbHkFT9tpauOiFeMfH4Da5gyfPYLjXeFo2EOPstbPzb9hJCPMlr7I/FIAtB?=
+ =?us-ascii?Q?LY3y4aecygeqL7rYLv0/R1u+HCSp5490+PKYuihA9ZXtwe86wVGskjQcRUcq?=
+ =?us-ascii?Q?G5omRPvXJXYr6jvTqh4DJyLkPqE2/m1idvPDzhUJX6yc6UlvXFoB67P7rNwX?=
+ =?us-ascii?Q?5MWQeFAOQyPiXMPX/Sn0cK1LDk3ePFLURUkEtB0prd2S23ws206x5aAkFfJ2?=
+ =?us-ascii?Q?TP8fShUtDxTZiFjoCdU3rZGvkJW4EZyEtzt5N8VENYOZOcgSQFFHW0+bz1qA?=
+ =?us-ascii?Q?ML1aDQ5dz7f9fmFeVVaqVxmU1iYISZjf2O800GWd4Kh1lVB/wS4MGEHgSX+9?=
+ =?us-ascii?Q?sAWmnoaMc+AOeHJ7ReC+/1FGoS4oI+38E9uT/YvEI9T/yLQO8xSY3E/hEE3P?=
+ =?us-ascii?Q?zsr25LLkG/HtEABQtSKUKpAMeOh2klilAUTtxbQvsKJxbuAPDFUUJkf+N8kZ?=
+ =?us-ascii?Q?8PyeMf+WN0vDS0Suuuf2xZEDzKhCiVDXyLdMamGzDy3tAVDVUnTxMP9vKdbt?=
+ =?us-ascii?Q?x+iQtKPWljWAuOGWSxLlUDM=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 3a4d1853-2e0d-490b-f28f-08dbb321658b
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 23:47:02.3058
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ CfJ8AgvtVi7cwbsmqZMU5VXUves7o1dbsVlYuCAEsJc9H+zTHH0TeCntnRrjh3lR0CAHkbyVN0yd9TWKjtacCeJfzAEQ8Ss2yTemB0fgmUf310UGmpt+vTcgEvXCd4Dh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB10735
+Message-ID-Hash: X5J2GHSI6MGSKTEFYVUP72CO4NJLO32N
+X-Message-ID-Hash: X5J2GHSI6MGSKTEFYVUP72CO4NJLO32N
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,97 +152,174 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TR43W6OQYKVS3A6U5HFYMRQ6NZS6BP74/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X5J2GHSI6MGSKTEFYVUP72CO4NJLO32N/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Takashi,
+ASoC is using 2 type of prefix (asoc_xxx() vs snd_soc_xxx()), but there
+is no particular reason about that [1].
+To reduce confusing, standarding these to snd_soc_xxx() is sensible.
 
-On 9/7/2023 8:51 AM, Takashi Iwai wrote:
-> On Tue, 29 Aug 2023 23:06:43 +0200,
-> Wesley Cheng wrote:
->>
->> Several Qualcomm SoCs have a dedicated audio DSP, which has the ability to
->> support USB sound devices.  This vendor driver will implement the required
->> handshaking with the DSP, in order to pass along required resources that
->> will be utilized by the DSP's USB SW.  The communication channel used for
->> this handshaking will be using the QMI protocol.  Required resources
->> include:
->> - Allocated secondary event ring address
->> - EP transfer ring address
->> - Interrupter number
->>
->> The above information will allow for the audio DSP to execute USB transfers
->> over the USB bus.  It will also be able to support devices that have an
->> implicit feedback and sync endpoint as well.  Offloading these data
->> transfers will allow the main/applications processor to enter lower CPU
->> power modes, and sustain a longer duration in those modes.
->>
->> Audio offloading is initiated with the following sequence:
->> 1. Userspace configures to route audio playback to USB backend and starts
->> playback on the platform soundcard.
->> 2. The Q6DSP AFE will communicate to the audio DSP to start the USB AFE
->> port.
->> 3. This results in a QMI packet with a STREAM enable command.
->> 4. The QC audio offload driver will fetch the required resources, and pass
->> this information as part of the QMI response to the STREAM enable command.
->> 5. Once the QMI response is received the audio DSP will start queuing data
->> on the USB bus.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   sound/usb/Kconfig                 |   15 +
->>   sound/usb/Makefile                |    2 +-
->>   sound/usb/qcom/Makefile           |    2 +
->>   sound/usb/qcom/qc_audio_offload.c | 1813 +++++++++++++++++++++++++++++
->>   4 files changed, 1831 insertions(+), 1 deletion(-)
->>   create mode 100644 sound/usb/qcom/Makefile
->>   create mode 100644 sound/usb/qcom/qc_audio_offload.c
->>
->> diff --git a/sound/usb/Kconfig b/sound/usb/Kconfig
->> index 4a9569a3a39a..da5838656baa 100644
->> --- a/sound/usb/Kconfig
->> +++ b/sound/usb/Kconfig
->> @@ -176,6 +176,21 @@ config SND_BCD2000
->>   	  To compile this driver as a module, choose M here: the module
->>   	  will be called snd-bcd2000.
->>   
->> +config QC_USB_AUDIO_OFFLOAD
-> 
-> Keep SND_ prefix for consistency.  And, at best, align with the module
-> name.
-> 
->> +	tristate "Qualcomm Audio Offload driver"
->> +	depends on QCOM_QMI_HELPERS && SND_USB_AUDIO && USB_XHCI_SIDEBAND
->> +	select SND_PCM
->> +	help
->> +	  Say Y here to enable the Qualcomm USB audio offloading feature.
->> +
->> +	  This module sets up the required QMI stream enable/disable
->> +	  responses to requests generated by the audio DSP.  It passes the
->> +	  USB transfer resource references, so that the audio DSP can issue
->> +	  USB transfers to the host controller.
->> +
->> +	  To compile this driver as a module, choose M here: the module
->> +	  will be called qc-audio-offload.
-> 
-> Hmm, you renamed it differently, no?  In the below:
-> 
->> --- /dev/null
->> +++ b/sound/usb/qcom/Makefile
->> @@ -0,0 +1,2 @@
->> +snd-usb-audio-qmi-objs := usb_audio_qmi_v01.o qc_audio_offload.o
->> +obj-$(CONFIG_QC_USB_AUDIO_OFFLOAD) += snd-usb-audio-qmi.o
-> 
-> ... it's called snd-usb-audio-qmi.
-> 
+This patch adds asoc_xxx() macro to keep compatible for a while.
+It will be removed if all drivers were switched to new style.
 
-Will fix this, thanks.
+Link: https://lore.kernel.org/r/87h6td3hus.wl-kuninori.morimoto.gx@renesas.com [1]
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+ include/sound/soc-card.h |  4 ++--
+ include/sound/soc.h      | 42 ++++++++++++++++++++++++++--------------
+ sound/soc/soc-utils.c    |  4 ++--
+ 3 files changed, 32 insertions(+), 18 deletions(-)
 
-Thanks
-Wesley Cheng
+diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
+index fc94dfb0021fd..d5db10a098653 100644
+--- a/include/sound/soc-card.h
++++ b/include/sound/soc-card.h
+@@ -78,8 +78,8 @@ struct snd_soc_dai *snd_soc_card_get_codec_dai(struct snd_soc_card *card,
+ 	struct snd_soc_pcm_runtime *rtd;
+ 
+ 	for_each_card_rtds(card, rtd) {
+-		if (!strcmp(asoc_rtd_to_codec(rtd, 0)->name, dai_name))
+-			return asoc_rtd_to_codec(rtd, 0);
++		if (!strcmp(snd_soc_rtd_to_codec(rtd, 0)->name, dai_name))
++			return snd_soc_rtd_to_codec(rtd, 0);
+ 	}
+ 
+ 	return NULL;
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index fa2337a3cf4c7..2d0e8801cd485 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -774,37 +774,42 @@ struct snd_soc_dai_link {
+ #endif
+ };
+ 
++/* REMOVE ME */
++#define asoc_link_to_cpu	snd_soc_link_to_cpu
++#define asoc_link_to_codec	snd_soc_link_to_codec
++#define asoc_link_to_platform	snd_soc_link_to_platform
++
+ static inline struct snd_soc_dai_link_component*
+-asoc_link_to_cpu(struct snd_soc_dai_link *link, int n) {
++snd_soc_link_to_cpu(struct snd_soc_dai_link *link, int n) {
+ 	return &(link)->cpus[n];
+ }
+ 
+ static inline struct snd_soc_dai_link_component*
+-asoc_link_to_codec(struct snd_soc_dai_link *link, int n) {
++snd_soc_link_to_codec(struct snd_soc_dai_link *link, int n) {
+ 	return &(link)->codecs[n];
+ }
+ 
+ static inline struct snd_soc_dai_link_component*
+-asoc_link_to_platform(struct snd_soc_dai_link *link, int n) {
++snd_soc_link_to_platform(struct snd_soc_dai_link *link, int n) {
+ 	return &(link)->platforms[n];
+ }
+ 
+ #define for_each_link_codecs(link, i, codec)				\
+ 	for ((i) = 0;							\
+ 	     ((i) < link->num_codecs) &&				\
+-		     ((codec) = asoc_link_to_codec(link, i));		\
++		     ((codec) = snd_soc_link_to_codec(link, i));		\
+ 	     (i)++)
+ 
+ #define for_each_link_platforms(link, i, platform)			\
+ 	for ((i) = 0;							\
+ 	     ((i) < link->num_platforms) &&				\
+-		     ((platform) = asoc_link_to_platform(link, i));	\
++		     ((platform) = snd_soc_link_to_platform(link, i));	\
+ 	     (i)++)
+ 
+ #define for_each_link_cpus(link, i, cpu)				\
+ 	for ((i) = 0;							\
+ 	     ((i) < link->num_cpus) &&					\
+-		     ((cpu) = asoc_link_to_cpu(link, i));		\
++		     ((cpu) = snd_soc_link_to_cpu(link, i));		\
+ 	     (i)++)
+ 
+ /*
+@@ -894,8 +899,11 @@ asoc_link_to_platform(struct snd_soc_dai_link *link, int n) {
+ #define COMP_CODEC_CONF(_name)		{ .name = _name }
+ #define COMP_DUMMY()			{ .name = "snd-soc-dummy", .dai_name = "snd-soc-dummy-dai", }
+ 
++/* REMOVE ME */
++#define asoc_dummy_dlc		snd_soc_dummy_dlc
++
+ extern struct snd_soc_dai_link_component null_dailink_component[0];
+-extern struct snd_soc_dai_link_component asoc_dummy_dlc;
++extern struct snd_soc_dai_link_component snd_soc_dummy_dlc;
+ 
+ 
+ struct snd_soc_codec_conf {
+@@ -1102,8 +1110,8 @@ struct snd_soc_pcm_runtime {
+ 	 * dais = cpu_dai + codec_dai
+ 	 * see
+ 	 *	soc_new_pcm_runtime()
+-	 *	asoc_rtd_to_cpu()
+-	 *	asoc_rtd_to_codec()
++	 *	snd_soc_rtd_to_cpu()
++	 *	snd_soc_rtd_to_codec()
+ 	 */
+ 	struct snd_soc_dai **dais;
+ 
+@@ -1129,10 +1137,16 @@ struct snd_soc_pcm_runtime {
+ 	int num_components;
+ 	struct snd_soc_component *components[]; /* CPU/Codec/Platform */
+ };
++
++/* REMOVE ME */
++#define asoc_rtd_to_cpu		snd_soc_rtd_to_cpu
++#define asoc_rtd_to_codec	snd_soc_rtd_to_codec
++#define asoc_substream_to_rtd	snd_soc_substream_to_rtd
++
+ /* see soc_new_pcm_runtime()  */
+-#define asoc_rtd_to_cpu(rtd, n)   (rtd)->dais[n]
+-#define asoc_rtd_to_codec(rtd, n) (rtd)->dais[n + (rtd)->dai_link->num_cpus]
+-#define asoc_substream_to_rtd(substream) \
++#define snd_soc_rtd_to_cpu(rtd, n)   (rtd)->dais[n]
++#define snd_soc_rtd_to_codec(rtd, n) (rtd)->dais[n + (rtd)->dai_link->num_cpus]
++#define snd_soc_substream_to_rtd(substream) \
+ 	(struct snd_soc_pcm_runtime *)snd_pcm_substream_chip(substream)
+ 
+ #define for_each_rtd_components(rtd, i, component)			\
+@@ -1141,11 +1155,11 @@ struct snd_soc_pcm_runtime {
+ 	     (i)++)
+ #define for_each_rtd_cpu_dais(rtd, i, dai)				\
+ 	for ((i) = 0;							\
+-	     ((i) < rtd->dai_link->num_cpus) && ((dai) = asoc_rtd_to_cpu(rtd, i)); \
++	     ((i) < rtd->dai_link->num_cpus) && ((dai) = snd_soc_rtd_to_cpu(rtd, i)); \
+ 	     (i)++)
+ #define for_each_rtd_codec_dais(rtd, i, dai)				\
+ 	for ((i) = 0;							\
+-	     ((i) < rtd->dai_link->num_codecs) && ((dai) = asoc_rtd_to_codec(rtd, i)); \
++	     ((i) < rtd->dai_link->num_codecs) && ((dai) = snd_soc_rtd_to_codec(rtd, i)); \
+ 	     (i)++)
+ #define for_each_rtd_dais(rtd, i, dai)					\
+ 	for ((i) = 0;							\
+diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
+index 11607c5f5d5a8..04f87e998f1dd 100644
+--- a/sound/soc/soc-utils.c
++++ b/sound/soc/soc-utils.c
+@@ -224,12 +224,12 @@ int snd_soc_component_is_dummy(struct snd_soc_component *component)
+ 		(component->driver == &dummy_codec));
+ }
+ 
+-struct snd_soc_dai_link_component asoc_dummy_dlc = {
++struct snd_soc_dai_link_component snd_soc_dummy_dlc = {
+ 	.of_node	= NULL,
+ 	.dai_name	= "snd-soc-dummy-dai",
+ 	.name		= "snd-soc-dummy",
+ };
+-EXPORT_SYMBOL_GPL(asoc_dummy_dlc);
++EXPORT_SYMBOL_GPL(snd_soc_dummy_dlc);
+ 
+ static int snd_soc_dummy_probe(struct platform_device *pdev)
+ {
+-- 
+2.25.1
+

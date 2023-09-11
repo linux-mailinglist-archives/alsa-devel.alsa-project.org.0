@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D9D79A28C
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 06:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E8F79A2A2
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 06:50:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2A0D6C1;
-	Mon, 11 Sep 2023 06:36:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2A0D6C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E48B1E0;
+	Mon, 11 Sep 2023 06:49:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E48B1E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694407010;
-	bh=HeAxVqUDbuPU8OlsjqH69CvpFFmY4UWq7/M/U9Q7wfg=;
+	s=default; t=1694407807;
+	bh=jRbGX37pKE/flPAVK4KmRTNNYn+YjmtCaP+B5V/gVX0=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=n5eUDqkyg66FXX/BLdCl81ELyLh5rbKBX4tWG0WLwhB/625EgzEi3QHifezWUiwRl
-	 OpuwAAFvK5RnA6FiAC4PuQgZTpuAAIASie8nAhIpaiDmTMRaD3pUuse03+gOGyUxtN
-	 glPqN41NtY8l/ELzIrgHqftfWjePAPvA/LhThT2U=
+	b=RdjDHpTheSoYVIgsrTyAISpPsHzYdrpvmmoxT1JA4DDABMiaamd5FJFWYRmocMCO+
+	 kyxmgk7HXHUeoE8TceSYvc8MlteRLgFzhP9BRnbcTzr+CpW8nQfkzR0AMRXbzduwV5
+	 4kIsgdV7hPoKc1hbKN6+hBN6n8z4ntR1S2+1V7p4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7FB6F80425; Mon, 11 Sep 2023 06:35:24 +0200 (CEST)
+	id 90E33F80246; Mon, 11 Sep 2023 06:49:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 653B0F80425;
-	Mon, 11 Sep 2023 06:35:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23B63F80246;
+	Mon, 11 Sep 2023 06:49:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 097B2F80425; Mon, 11 Sep 2023 06:32:01 +0200 (CEST)
+	id BCDFEF80425; Mon, 11 Sep 2023 06:49:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6864EF800AA
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 06:31:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6864EF800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DDF6F8007C
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 06:49:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DDF6F8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=G85zgQQv
+ header.s=k20201202 header.b=hRTK/O7z
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C2E3960EFA;
-	Mon, 11 Sep 2023 04:31:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 21BFEC433C9;
-	Mon, 11 Sep 2023 04:31:40 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTPS id 12C0FCE0F28;
+	Mon, 11 Sep 2023 04:49:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E1D7C433C8;
+	Mon, 11 Sep 2023 04:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694406700;
-	bh=HeAxVqUDbuPU8OlsjqH69CvpFFmY4UWq7/M/U9Q7wfg=;
+	s=k20201202; t=1694407740;
+	bh=jRbGX37pKE/flPAVK4KmRTNNYn+YjmtCaP+B5V/gVX0=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=G85zgQQvJZg1Y5x8UnCyix+l2Yfn+Rogh9QvzeRm5oKG7U7YkZgrNdt1C3AgCbeIM
-	 amofs9m/cffOZH9wjwwpOTybDZQoulvVrk94Nr5MH4SxlxbPPM70twdmGJ6kdEdzhs
-	 k6WNSoqBV8upYywO+aAzkbPpmAnX2Rl84Y2IEbEyDo5lA3w0qTuvwNUESUvO7dcALV
-	 XFFWvb/BnzKJj6gWPjOKY4MrxcSqPBDAZCwcOnS4PypiYAY8rhtUBZXmyHUw7q6VFX
-	 KFKgpwDyWVJq3EX5QmmGA+GkOmL+KczLnAkLKnVQ987HqV1sDhgfou/6d7fGRPn6ng
-	 FkWiamQUpTQRw==
+	b=hRTK/O7zd2EVcyRIHv/i0CAjz9UpjidahDXSIXk4ACb38jZ+6K0Q30pzOqZOLqypY
+	 C75nnrtT8Yv6GiMTvD61pKvkFLRfhtUBVWtZcBLARUs5c+zflqjKF2vVtznLpozQoM
+	 GCNDa18FhndrrkuE6m/0q7HCv7yOAC6mlWVm+BRnredL6UXg7U1td5nMObALXI8tDQ
+	 4sZzvZ12uCsLziIZXf9AsxgF8FMszCNitekMmUlSZhzGlOAtLbZ6bAuUGQovA8xlPE
+	 s6xIC6qIfoHYkDG9jnYDNje1UTc0fpBvjr9tsdVWGYlC4/aJBTcr3g4fKbEVro77gN
+	 eo2XoPvZ0aheA==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
 	by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 03727E1F67E;
-	Mon, 11 Sep 2023 04:31:40 +0000 (UTC)
+ 122E7E1F67E;
+	Mon, 11 Sep 2023 04:49:00 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: Re: [PATCH] mfd: Explicitly include correct DT includes
 From: patchwork-bot+chrome-platform@kernel.org
 Message-Id: 
- <169440670000.22573.14595180245385997034.git-patchwork-notify@kernel.org>
-Date: Mon, 11 Sep 2023 04:31:40 +0000
+ <169440774007.22573.6670993122914766002.git-patchwork-notify@kernel.org>
+Date: Mon, 11 Sep 2023 04:49:00 +0000
 References: <20230714174731.4059811-1-robh@kernel.org>
 In-Reply-To: <20230714174731.4059811-1-robh@kernel.org>
 To: Rob Herring <robh@kernel.org>
@@ -97,8 +98,8 @@ Cc: linus.walleij@linaro.org, lee@kernel.org, thor.thayer@linux.intel.com,
  linux-arm-msm@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  linux-mtd@lists.infradead.org
-Message-ID-Hash: VZE6TPAT2YS6FR7FUTDHAQQSMMKCPXAB
-X-Message-ID-Hash: VZE6TPAT2YS6FR7FUTDHAQQSMMKCPXAB
+Message-ID-Hash: SIBUFZMAQKIBNSNESI2OZHBTHN6OWZHY
+X-Message-ID-Hash: SIBUFZMAQKIBNSNESI2OZHBTHN6OWZHY
 X-MailFrom: patchwork-bot+chrome-platform@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,8 +112,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3V36I3OWLETGK36A4PFWLLG2SV56ZIK/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7IQKKNMKWFSK2YBZUKN5AUDLFPFGFT4/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -121,7 +123,7 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Hello:
 
-This patch was applied to chrome-platform/linux.git (for-kernelci)
+This patch was applied to chrome-platform/linux.git (for-next)
 by Lee Jones <lee@kernel.org>:
 
 On Fri, 14 Jul 2023 11:47:27 -0600 you wrote:

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFFCB79B163
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 01:54:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76DBC79B164
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 01:54:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6415E94;
-	Tue, 12 Sep 2023 01:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6415E94
+	by alsa0.perex.cz (Postfix) with ESMTPS id C162BE99;
+	Tue, 12 Sep 2023 01:54:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C162BE99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694476493;
-	bh=TIUJ3MOkCtrYoW05uwe+K4NutZXZKdRYD9yO6SJAB+U=;
+	s=default; t=1694476494;
+	bh=eGSZldMvKsm/Yom/NSIBvbAgamEkdRm3Tk7LeMi0VIQ=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bA5gHPS340TTuRl1Mc/RhR/MzlPxVc5oTZGUdNYsDFYNQf5l7IE4zl5xfCLb6kCvq
-	 2roQaVw7J+FNDB0+XcRRjL/cZwnvpIao50hpNJoOBKCenUQSem8aGGHZYnoBUfZ+y0
-	 zyvl8JXxQ+K+EorPhvKYkrXDuqAw1Q9aVmTSdF+A=
+	b=uuvYRMDS/W+3ZCA774ekIGGsVaT+e5/kGv4Qc4dBTtb+Pg+0ozaldBYio55yp2mop
+	 cSEMI7hIWC0Q8TVNI9RsJCTAuK0NF5BxBVug7jfmVGp1gVUPltH1mVr6IIfGyDCzBJ
+	 Kg4lrDhZ+XSG+eAlyjvvdpXztS007cgFq4oyk7I4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67CC7F8065B; Tue, 12 Sep 2023 01:51:02 +0200 (CEST)
+	id 1E0CCF8065A; Tue, 12 Sep 2023 01:51:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1335F805E6;
-	Tue, 12 Sep 2023 01:51:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29ECAF80652;
+	Tue, 12 Sep 2023 01:51:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 149EDF8057D; Tue, 12 Sep 2023 01:50:55 +0200 (CEST)
+	id D1169F8063C; Tue, 12 Sep 2023 01:50:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,110 +37,110 @@ Received: from JPN01-OS0-obe.outbound.protection.outlook.com
  [IPv6:2a01:111:f403:700c::700])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1E1B1F8057D
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 01:49:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E1B1F8057D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B29B5F805AE
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 01:49:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B29B5F805AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=QlbygcXT
+ header.s=selector1 header.b=jdxnsSy1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mu/8jWE1G/B/kjFynvQHVQ+mmrdLbZHkqGNP7r8GKvs9doQiuWg+W+y/P2IFj3abTcLBSVp2q+cwwHoEa2GPMf4NXeUpF7ARgtq2Xa/gmmUrL/4DL2Xi3JWlNVYha5nQFrFtiY3NoU6ssg496jgb8Zid/HP7rpr5m7gPlMgHHJNYbw4PuJXLNwFTnovMSZ1rTOWSFy2RgFh8MWpELEB1vT+mm/eHGK7ULviBKcOkuvZ5sT4BXBtMKwwA+X8UvI1gO9f5X184deL9+ygfYrJ/emuTqaJjMdFSsiF7BINsJITYBrDxng4U8LLwkQTNsyQK0Q0UuykNhImlX2wsasKSxw==
+ b=S7/esGFD0uVSHgHdOkzjJXudo9G4osdHd9BKETXR9mt3oNk5l79ymJl91nrV9QobE+m9kG+evG66WpfyBZg6UqqE/8P8VyFVF4QkexvhqwI8Cj5CSGp9hczbX2tn3TFCRWWohck80LLRU6wmgP8Maov1N6EMKtKP9lvl+gKcLiD3xnxgjFpotD7HlEsi+X5TAzkFwnB8vs3wIPkwRh3KFSdJTxj3hJsRLT1WoNeDKOaPUydFgl6HZSluqCeeAjPge8TjHI9f2rzf6uA4F+EDCj/Z9ldoT6iM3Guz3tTKn77w8I0Gay0ksBlxKTW11q8jXjLTpwNULgyRQeffGLBPww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HCbNLHldithQ0xyMTqWrabcJ9X+QbH1CLgPDh9lAoZk=;
- b=FOcWrKTRlVhrFgNLujsEXnMN3qhCDKRSqy3eEJ4CWyoHVRtvhtqNVgPlQ7dHplIZDkl08eKFfqXL+PT8qh34pHyAujUniwaZTAbo5LqftXtKAZriNo2kyj0zpTyJ6dPj7pVjTuvDMmpi0ZK5mJn3DJtiOnDfG7ZZ7Q1VVvKwC+ZUFoe3DHkj0Tg5+78YDGpXTI+ikVu4y9D0Nq6slgLrMGGp8QZhWZqtqczYmLNGIsEeRWz24/OzWvVjaanSv5SLv7erzJZL/2wAeOH0uKgmp18JLfDBmWIKWQScor8Plv2Dw9CxJtlXsNB9yDsGF7phvnuRbifNIoEinSd5vuF51w==
+ bh=UdxX7tv/3YnbUeudge3Otqv/YReKToKjYwGmjkB4Bvo=;
+ b=cML5PG0mJaIJBFbWMu6EvgvOY78u4b+sM9vJ4gbz9Oclwv9OB+p1K/wmMqhvTvF6OXvQzWBSqoJNiZJcApNTBJZ1uLzc2w6mH+qo/eAwaVgThfkKiKDVkRKZSIEWtVIRSkkYdRYPXLW3ATJr7HF1znrCCEqnwVTEz2EaH39mxPI0PQ4ZFd58ioEs53214lcRMqx7aFOtJ0ZX0Dg1LgVQ6RaHQDblDrlzrDo5FKPyNneZ8TX8RmeKb3Kz3JPBQdJaysA/VTLHeOpEiuN1wrgCHZ/EYIRVHfB+TLaAx/4pXEIN7lKouw2Vg8biSw0vgWQBihvjNn6TNuaF8a33iQgm/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HCbNLHldithQ0xyMTqWrabcJ9X+QbH1CLgPDh9lAoZk=;
- b=QlbygcXTAsN28RB/CrWW1ujIw97nzPQJ4oWjhZIobKMAkWcGwCT9HRYBfsCyXxb/OnHtC1N5cd2BulS6LYgtZiQri13gOMXnFF0rHmWnlWn0v6sLQsfEtsQjCH78Eg6bccIaT9/NvNzLbiLw3KJG41WZ3kWD5pblLdx6CwySUtk=
+ bh=UdxX7tv/3YnbUeudge3Otqv/YReKToKjYwGmjkB4Bvo=;
+ b=jdxnsSy1T/c0Npa6jAC6znct/l3z44X7T6kswdUJEVlz7Ds5G5aoJTsnJEq4suTyBCjxCvn2D2k5g3fXzZy6QDUL2yq56xT65lCFU/sVvnZZN88IKjJSGJzyqrntVxayvSThew2aGpKbz9pM0A2qgwuG/eEyLqTcgL1vAsnUoQY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
  by OSRPR01MB11567.jpnprd01.prod.outlook.com (2603:1096:604:22d::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.35; Mon, 11 Sep
- 2023 23:49:24 +0000
+ 2023 23:49:29 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::8c08:d94c:8e54:9b5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::8c08:d94c:8e54:9b5d%6]) with mapi id 15.20.6768.036; Mon, 11 Sep 2023
- 23:49:24 +0000
-Message-ID: <87ledcqni4.wl-kuninori.morimoto.gx@renesas.com>
+ 23:49:29 +0000
+Message-ID: <87jzswqnhy.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Arnd Bergmann <arnd@arndb.de>, Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>
+To: =?UTF-8?B?IlBhd2XDhYIgQW5pa2llbCI=?= <pan@semihalf.com>, Jaroslav Kysela
+ <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org
-Subject: [PATCH 22/54] ASoC: ux500: convert not to use asoc_xxx()
+Subject: [PATCH 23/54] ASoC: google: convert not to use asoc_xxx()
 In-Reply-To: <87h6o0s275.wl-kuninori.morimoto.gx@renesas.com>
 References: <87h6o0s275.wl-kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 11 Sep 2023 23:49:24 +0000
-X-ClientProxiedBy: TY2PR06CA0004.apcprd06.prod.outlook.com
- (2603:1096:404:42::16) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Mon, 11 Sep 2023 23:49:29 +0000
+X-ClientProxiedBy: TYCP286CA0198.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:385::13) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OSRPR01MB11567:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6e97bd9-f1e2-4318-20bd-08dbb321ba48
+X-MS-Office365-Filtering-Correlation-Id: 0f6cba49-9a84-464d-afd2-08dbb321bd66
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	82kE/Do0Mf7b86F64EJ8oQ79iZqxKrpNzmd2A9bqKxeqcQmoHRfYtGwUrhDGMxImCfCudC8epRxisbh7y2VQkc1pvIbjp6N9K9IR6bbswDBtJ1nXC6o3aJMm0yVL+dkN3n4vsyYN23+KLrj26oDfOHi2k43VrtdXiDhq/U5I4bqJvjPHAmZ/Ue++qGKPZorijpCUnLPhosmVboJCSUjg+dw58CLxqejG/5nTdhPHOOv9U8W8CfeGmuETrxIw2Jzn+y3jz2GqmYi1ATqHTgx5B/XXNV9TZe0+YoTNzYqwiF/VSWksSuaxMLL4h2GGdawfHiJ6mzuZMgI9f/UUDG3cFltZwJUdsH2DoG9VODTXmvXg6KOaRyoQFRb25c0zlo2I8JzXB17AtrapzNBHo2fqej3vSmaHeck9073GakpoSkz9r/5rdhPhPjSoQyhwcgTX0ulpVtmfmClava7xh/YavSYdJHjefyjmBe1dV9G1y/MdU22NvA1hSCZL8o4Z+hy2X2QqaTxPMr8evHvaFA4k0vXlvtODUQythKFOUPL+wjQDiGy2dDsowRHPre2wSuUFFyOHo/+OFQ0hjnoN7IXKDO/pBvDpdpJslrtyCwY76zWWrOrjCWHGnZniWbdqfwyqoEXRO+SLX08tvULndWkshg==
+	7c2xHMljH8uP1XDSLTXUAE44W7O48CWlTkeEzeNcglvKMQjlZ7eQXMln65GOwDSw1G4Jb2bOPOI5WrFxkgfRyCptW3KAe1NGeXSQuBrVJyp16jbispldcM4o59+PNb8JEu1YR5AZaoT084JApCb7ldLoUfXaM92Vv5TQwxP7w7IsCTgCKV/MOVBQVUKaUQrTJDr0YqCdJhnTqhPBXatl+M72WMQO7lw07cpXUxAYqIyX1a2S26ZRyudAU1Nrm+7AItt2q5Z/W9YZfYIXQ+Rav2Ac7+S6u+rypQ/C6w29CC6eUoOvay4kPx+zPBInF+ooRU24TXPQ9buAwtdNNju6tDFRpv9FFzw/4m51Oqwln4R1946LoIMpwZqjrhSMQaK4eJUyL3ER+cOBX4xX2+zx2jYMfK3Wd4/Yfe3QuMHoD0Lz1t8QmEASm5dBS6fHxZFv9BsVOWEgRAUHaHAPkFPfbJYhQwDYLNpRwL//WYFx/N9aN7/QEKODmrmdbtSVvNht0A1EdFAmFx09ZFC+twRu8AswDg7pM+Z1KKuxMQHWV5P22bkcbxh2cmpPiye8d/uG4sEIgx/MvRS8zfoi8W9uyLGGYHAderrmwaERMIMTq9jXVtTZTj1pr2fmb0DxWzwGm9Fh4qhxNCqkElj6bW0B2A==
 X-Forefront-Antispam-Report: 
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39860400002)(346002)(396003)(376002)(136003)(186009)(1800799009)(451199024)(6506007)(52116002)(6486002)(6512007)(478600001)(83380400001)(2616005)(26005)(2906002)(66556008)(66946007)(66476007)(41300700001)(110136005)(5660300002)(8676002)(4326008)(8936002)(86362001)(36756003)(38100700002)(38350700002)(316002)(21314003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?g7sGYSRSM9zhcUKkn1/xg7sNBzUihPkcAqEh0sPxh9yJ0Qv5jPmx4vH0Re3R?=
- =?us-ascii?Q?qrC5EVZFs9cKncbrztEsnVr2SjD/fXRoIx8D1xcUit1U2W3qG7FjdsauvC7m?=
- =?us-ascii?Q?3L9wUPZLGH2eByM+3hdRqpY/m8tbegmHVNk+AiCiIEk8lL3F/b1jBLG9U1oV?=
- =?us-ascii?Q?LT3DlOb12a84/loZKGboElIAeXUmWYM+jJj4qzJyNPlo/g0FqgAoKhycPl1p?=
- =?us-ascii?Q?3KrT90i9guvf5XzuRIskbSOy4Orp0OXxF60mlShd/di/vExzIWKtCYNeOy41?=
- =?us-ascii?Q?KmXW6FGFUgeh+rKdw3n3ffq4lnoj35YkF3J4DlgBnjg66rXQP1j+M9V5qDVC?=
- =?us-ascii?Q?Fm1p5EulVQKWoJWuiBDCIcuaMtLFwkBuQVvxCGwor09Ovw41ZPKEQJRl3kEX?=
- =?us-ascii?Q?UtFg7K4HtFDyu9QPDqStkh3A9tMpY/dQ3vOKtpbzELzGs/ZbRqg71yVs3M0H?=
- =?us-ascii?Q?ba0rW9rxILxf5odyPOD1A/vh49zF+oKbeQMi3qpumXLAJcZkFRK0tNKo5mpj?=
- =?us-ascii?Q?zwgudAbH8l2jxkYV0nfpGhTb9U/1rp/K5aEKu6pGeeYIAvhIK954rawuwPL9?=
- =?us-ascii?Q?hmivf4S3j3+AhfAC3Rq7vlg4ITYMJc9ZhHtvHwwIuR+alk5HQH8x//j7/XQZ?=
- =?us-ascii?Q?+1NgrlsjwAvni3uL/LBcQR6TlEJpaU+FOAousXWwVXy89/adANsIp+U/BPty?=
- =?us-ascii?Q?GN0KTfTnYqt/jf+gFKCQEbC9UaDak3zqZmDr70X8c7ZUVRblmS0I5lki+7nH?=
- =?us-ascii?Q?KUjdKpVY7cvQjFjwfJ6duOkov12NJuLYtShn4sSeYmSKqTMGSmRMddL49yQN?=
- =?us-ascii?Q?j6Dtz+8Lx/5Aw6u8+VCF2XMBaWDSyzc52btbnSdlMrr0NDzo9cR00+hQCvV/?=
- =?us-ascii?Q?MZ12lyXjqz41VVDchhGQzQmiPooa5TwTT/ISgJLqAn0fctPQnm/Cj0HQjJer?=
- =?us-ascii?Q?1kjkG6KXfwOCmE6X9mHzNBv9JnqEejRGJ5mHnikrqifGXw5IQ1VIGnde06tC?=
- =?us-ascii?Q?e2uSMrdExJqIyY24YH/Hrs+jpuKdPTI/iV2tgc/uoNkN8SeJzeZSENrTNkkR?=
- =?us-ascii?Q?NHC/yjv1tlxsSP/O9RyogQCr1oBgErIW9/g1O6hD5PaKBJTSOmmcFVTi08V0?=
- =?us-ascii?Q?7NCJnbSaK00NWPoG08rebhZ4acgOfLStxL5mqRqRMLQOvU4cCc3hUrx9LPTc?=
- =?us-ascii?Q?Uy0VA3bZMgNbI2sfhgvnnZ8eb1Ivo+z+5u52OHHXNpL5vie71I3oCaEvx278?=
- =?us-ascii?Q?nIXdGkXOCvijsdFKAd0KXZNeewa/98YtzlJpGim9sKZG5FZ7Lwmpi8SpI1YO?=
- =?us-ascii?Q?E+qNv8fqh/kgWF3nZQrx9maroHUIFh0KAWJpkPHewVFFBbzfVi2SbkiGQANE?=
- =?us-ascii?Q?d7/DNXYzubqJCM5jml7DUayKpJ903bxN0brCe8k8lzmBjMlI3vyvXwlzRGBW?=
- =?us-ascii?Q?IrDwEhJUc+aLUAA4GNMgJsn3+Gazl6Ek6+SoYeWsMq6WXpCxR8ook8xEazEW?=
- =?us-ascii?Q?IkaCbsIA1vqd9j42QpGgANsoKR1zz078Aci5Ue3S7CNTySD5okkXOo2pT2XQ?=
- =?us-ascii?Q?s4RJ1uaZIERIN2Os3viz4B5uvd3WJ+ISjDiYMIdou2QXI/DauW4kL2AIR4A3?=
- =?us-ascii?Q?UK1bHaMZJ6D2g20YFLELoIU=3D?=
+	=?us-ascii?Q?axe2VxlFc83QeuwpA8xA+3AevHQtBtNE3hJEK5Xjf8Sy6dDrK2vlhf1boXw9?=
+ =?us-ascii?Q?Do6d6+/bEBN2rLulSreaYYKoWLOu0WpwyJYBtQcoRS7Fubtgb2eZ3/ElrFv2?=
+ =?us-ascii?Q?dPvmeCn5m04qkUY5xu/PTjRHVGfbPzlT7bnFloBZ9oLFRVvwwr12PuvCAkl2?=
+ =?us-ascii?Q?e1k6FzoaIPHVDwfeMrcqhh5JsxtU5GTuSR2zfZpPbD5rx3+0yaLHHlor/s3O?=
+ =?us-ascii?Q?lv9KhR9HoIm+ZSkNR7jeL2xuSeI1TWG0jbXQ2Nw7YQKIgfH6xbZB6ImwXk9n?=
+ =?us-ascii?Q?sueBiDMN4LUtr2/J7hbA+aPchRU6o9W4/+AXoBw1WoqjqE7K4Txm3rmnsMwz?=
+ =?us-ascii?Q?1esJaretigpgaNhqRCYBTolM27K+F8FJi/N2v0kVmllkNUUl0/i9bjJB303N?=
+ =?us-ascii?Q?7ApQrJBzPCOz6IWrTSy6drMmhYHtqswxyAkPFULouthh1AjVeSDHCe4N50rD?=
+ =?us-ascii?Q?wUu/nEzvS7f7kMOLUzMsw+RbNzS/jRBiso3h4HdbHWGjLdiCKdCGwTpLdap3?=
+ =?us-ascii?Q?l/pTDJMtZ6+ENk9aJUGpMFc/y3YYjRusGwH88WHKQcfD2czC1OaysJuybngD?=
+ =?us-ascii?Q?xQuAQHjbI23HUSh1dZCqmNDgVrTp0S89Ag8VVeMtjDXg59fYdDICHhSrUdvy?=
+ =?us-ascii?Q?zgeI4CDo9K8Ze7LvfFE5yB8+cQqelh6Y/FVXt0LmFFlz2XeSXHVZnn/8OoWt?=
+ =?us-ascii?Q?U7jOGLOdMuGeVrJsp1e9d2vm3ZdLhLJ42Vkfji5CpryG0k3Ej3SlS7jvFLde?=
+ =?us-ascii?Q?IKljGtBcA/VaHCQHrVbAoTpx3P1vsqC0/2Bmdm8ZH9T8aIkuUU+0CJAU9d5z?=
+ =?us-ascii?Q?bZwcknx/UP5hiGxYJQ1FQZXl9oSh2tlkVSeZoUDCoNB8xcz/hJZ/EcWGaz2K?=
+ =?us-ascii?Q?dw9UCjTbBFvF2O+5t/R7zrRkP4decWO0IYOCAKGoeyJ0PStPen75zjtoVAyX?=
+ =?us-ascii?Q?y5ifoaqwK1hG8wq9dwmVJIQwn6QRvibgR1mpDRF4I0BwMNyAqPpelwPfrYu5?=
+ =?us-ascii?Q?kzLLE5pLHfid9VyF1VG2lroeJs2k8Hgz+X1XVoBGZXtn6W/2h1tCkWhO5vTV?=
+ =?us-ascii?Q?xIZ6CrN6+sDmfhlghnNlyLRpq+mejZEbp+pmaW66f4u+164/jFuQ9LSIvFmN?=
+ =?us-ascii?Q?hTJ6TvlL7cEWadlOPtenKwvUJmAz+uwan5vvQ6ezXTHNjf3IxArS4tGAh79k?=
+ =?us-ascii?Q?AICfIL/PS2i/idaJoTQNYbJnCzhHyu2qO6WFES9Cy+S+/7QdX8vEA8HJAjlD?=
+ =?us-ascii?Q?VTHOB6iChKg8Ml9XdUIvDLaVf2h9h2C8hIjvr2pfuv8IblPxiyyjGJsWAEX4?=
+ =?us-ascii?Q?JBcJrwsM6xHO0HmsI0IMbEf3D47X6phna62nH5ILfJPGlCsMuGV8IDsFJyuW?=
+ =?us-ascii?Q?KosE1v226Js4twAQcJ9U3XryqmxCaVB8v6AD2b/1YaI/vVQi2TBxpmyvNqsU?=
+ =?us-ascii?Q?/bEQl3NquriHwZCBU5MrjWvEwfRPYBzyup80HBVOBEC+RMKOsFaBY+w5hKXV?=
+ =?us-ascii?Q?LWR7R2bwfp/zDrx/NF/EQTW8RTYmntjz7O3i8THpm1HLOHLkAzPPYJ9wNnD1?=
+ =?us-ascii?Q?SO2xUgTC4ZGKdF6dEpBf3JM2fSuIePZBMLya4F1O1ULbodDvQr//VBncaSby?=
+ =?us-ascii?Q?AkH7l0A58r7HyYA1gO4NYcs=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d6e97bd9-f1e2-4318-20bd-08dbb321ba48
+ 0f6cba49-9a84-464d-afd2-08dbb321bd66
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 23:49:24.4646
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2023 23:49:29.7164
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- ig9MTdw2ybyqHwWxU99/sOr1SvPnIF9mFnvbtgUbmQu84JsSjKrd6DMUIB1xymNgqI9dR+l4iG4h2xSSz0jcNLl8BvV4Wpyw42LE01+d8TlLXw0K1tnlE4rUTvIq4sLI
+ Jxl0f/mMOd88ABXtDBxZ1Oe7C0yTMUTkzRLxyF03Fuexyi5IPMJiRFCD/Ik9XB/1KIZj8J43llMS7fN4Soze/sB9edpMN6LVhun7s8x5O6Yq/iw9g3NcE5+Qd7HXv7R1
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSRPR01MB11567
-Message-ID-Hash: 4EODU7WKTIKA33ULDKI4A7HCSX5Q2XPM
-X-Message-ID-Hash: 4EODU7WKTIKA33ULDKI4A7HCSX5Q2XPM
+Message-ID-Hash: SEHA24XPPDA4VEF7XJRNE527OB75Z5B3
+X-Message-ID-Hash: SEHA24XPPDA4VEF7XJRNE527OB75Z5B3
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -153,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4EODU7WKTIKA33ULDKI4A7HCSX5Q2XPM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SEHA24XPPDA4VEF7XJRNE527OB75Z5B3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -167,75 +167,77 @@ This patch convert asoc_xxx() to snd_soc_xxx().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/ux500/mop500_ab8500.c | 14 +++++++-------
- sound/soc/ux500/ux500_pcm.c     |  4 ++--
- 2 files changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/google/chv3-i2s.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/ux500/mop500_ab8500.c b/sound/soc/ux500/mop500_ab8500.c
-index e5e73a2bd9fe4..710b6744e0136 100644
---- a/sound/soc/ux500/mop500_ab8500.c
-+++ b/sound/soc/ux500/mop500_ab8500.c
-@@ -188,7 +188,7 @@ static struct snd_kcontrol_new mop500_ab8500_ctrls[] = {
- 
- static int mop500_ab8500_startup(struct snd_pcm_substream *substream)
+diff --git a/sound/soc/google/chv3-i2s.c b/sound/soc/google/chv3-i2s.c
+index 0f65134449066..08e558f24af86 100644
+--- a/sound/soc/google/chv3-i2s.c
++++ b/sound/soc/google/chv3-i2s.c
+@@ -131,8 +131,8 @@ static irqreturn_t chv3_i2s_isr(int irq, void *data)
+ static int chv3_dma_open(struct snd_soc_component *component,
+ 			 struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
 +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
+ 	int res;
  
- 	/* Set audio-clock source */
- 	return mop500_ab8500_set_mclk(rtd->card->dev,
-@@ -197,7 +197,7 @@ static int mop500_ab8500_startup(struct snd_pcm_substream *substream)
- 
- static void mop500_ab8500_shutdown(struct snd_pcm_substream *substream)
+ 	snd_soc_set_runtime_hwparams(substream, &chv3_dma_hw);
+@@ -152,8 +152,8 @@ static int chv3_dma_open(struct snd_soc_component *component,
+ static int chv3_dma_close(struct snd_soc_component *component,
+ 			  struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
 +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct device *dev = rtd->card->dev;
++	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
  
- 	dev_dbg(dev, "%s: Enter\n", __func__);
-@@ -212,9 +212,9 @@ static void mop500_ab8500_shutdown(struct snd_pcm_substream *substream)
- static int mop500_ab8500_hw_params(struct snd_pcm_substream *substream,
- 			struct snd_pcm_hw_params *params)
+ 	if (substream->pstr->stream == SNDRV_PCM_STREAM_CAPTURE)
+ 		chv3_i2s_wr(i2s, I2S_RX_ENABLE, 0);
+@@ -166,7 +166,7 @@ static int chv3_dma_close(struct snd_soc_component *component,
+ static int chv3_dma_pcm_construct(struct snd_soc_component *component,
+ 				  struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
++	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
+ 	struct snd_pcm_substream *substream;
+ 	int res;
+ 
+@@ -200,8 +200,8 @@ static int chv3_dma_hw_params(struct snd_soc_component *component,
+ static int chv3_dma_prepare(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+-	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
 +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
- 	struct device *dev = rtd->card->dev;
- 	unsigned int fmt;
- 	int channels, ret = 0, driver_mode, slots;
-@@ -336,8 +336,8 @@ static int mop500_ab8500_hw_params(struct snd_pcm_substream *substream,
++	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
+ 	unsigned int buffer_bytes, period_bytes, period_size;
  
- static int mop500_ab8500_hw_free(struct snd_pcm_substream *substream)
+ 	buffer_bytes = snd_pcm_lib_buffer_bytes(substream);
+@@ -229,8 +229,8 @@ static int chv3_dma_prepare(struct snd_soc_component *component,
+ static snd_pcm_uframes_t chv3_dma_pointer(struct snd_soc_component *component,
+ 					  struct snd_pcm_substream *substream)
  {
 -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+-	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
 +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
+ 	u32 frame_bytes, buffer_bytes;
+ 	u32 idx_bytes;
  
- 	mutex_lock(&mop500_ab8500_params_lock);
- 	__clear_bit(cpu_dai->id, &mop500_ab8500_usage);
-diff --git a/sound/soc/ux500/ux500_pcm.c b/sound/soc/ux500/ux500_pcm.c
-index 53b5649cfddae..b7f38873d2d8a 100644
---- a/sound/soc/ux500/ux500_pcm.c
-+++ b/sound/soc/ux500/ux500_pcm.c
-@@ -32,12 +32,12 @@ static int ux500_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
- 		struct snd_pcm_hw_params *params,
- 		struct dma_slave_config *slave_config)
+@@ -252,8 +252,8 @@ static int chv3_dma_ack(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
  {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
 -	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(asoc_rtd_to_cpu(rtd, 0));
 +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct snd_dmaengine_dai_dma_data *snd_dma_params;
- 	dma_addr_t dma_addr;
- 	int ret;
++	struct chv3_i2s_dev *i2s = snd_soc_dai_get_drvdata(snd_soc_rtd_to_cpu(rtd, 0));
+ 	unsigned int bytes, idx;
  
--	snd_dma_params = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
-+	snd_dma_params = snd_soc_dai_get_dma_data(snd_soc_rtd_to_cpu(rtd, 0), substream);
- 	dma_addr = snd_dma_params->addr;
- 
- 	ret = snd_hwparams_to_dma_slave_config(substream, params, slave_config);
+ 	bytes = frames_to_bytes(runtime, runtime->control->appl_ptr);
 -- 
 2.25.1
 

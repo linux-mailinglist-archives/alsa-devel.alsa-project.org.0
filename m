@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A7D579A88B
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 16:21:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7104279A92B
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 16:56:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19C15846;
-	Mon, 11 Sep 2023 16:20:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19C15846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D5917F8;
+	Mon, 11 Sep 2023 16:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D5917F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694442092;
-	bh=JpP4gv6uEdrlOpykRilY6IteShTWWrRS6fPBzRzDhlo=;
+	s=default; t=1694444200;
+	bh=Bxd4iBadiCksPMtXCU+Z466w/fNZ8R/SB/l+zVj+DaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qLXoQYuGrifFywS1rOnnK+Sz3hjEIkE6EUl8ynKgtSm1nvEC1LIesyAxnRSBGsTn5
-	 Q6a4pRwsBGmKTASPoX5tgHbwGe7Mt8/AK/EWziaDlUF2AcmPYE8+G9elM5QZ5bPqOG
-	 j4BdwTWG4tF7sqIL7SN2KwucQR7vSTSpSjBAn2zU=
+	b=D8CGMHJBwsIIXd2bDUwKF4n84SNEl9EcxsTY0pa9bj4oxnJhZtFPS2dw2xQei9Hw1
+	 ueB3iOoX4Vz7zThQoCfaH2uTIg8R7wimgpmLP+v52n1yN2OJtCo2nZazXekxKqO9ox
+	 S9lHakY/jU5OQwvcNK3InyeMpi/iJ9q19e5EZP5Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 012F9F80558; Mon, 11 Sep 2023 16:20:41 +0200 (CEST)
+	id 265F6F8007C; Mon, 11 Sep 2023 16:55:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71EDDF80246;
-	Mon, 11 Sep 2023 16:20:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C7D5F80246;
+	Mon, 11 Sep 2023 16:55:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8897F80425; Mon, 11 Sep 2023 16:20:36 +0200 (CEST)
+	id BB227F80425; Mon, 11 Sep 2023 16:55:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06F86F800AA
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 16:20:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06F86F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 80E92F800AA
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 16:55:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80E92F800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=k4RQXLva
+ header.a=rsa-sha256 header.s=korg header.b=gnQ03gXi
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5ED946108B;
-	Mon, 11 Sep 2023 14:20:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40CB2C433C9;
-	Mon, 11 Sep 2023 14:20:19 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 6890FB80EC6;
+	Mon, 11 Sep 2023 14:55:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A737EC433C8;
+	Mon, 11 Sep 2023 14:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1694442019;
-	bh=JpP4gv6uEdrlOpykRilY6IteShTWWrRS6fPBzRzDhlo=;
+	s=korg; t=1694444135;
+	bh=Bxd4iBadiCksPMtXCU+Z466w/fNZ8R/SB/l+zVj+DaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=k4RQXLvaOUJnISX/OR2Sf9Bzsr18ukNxpfucYz6N5aV91fbWfUQM8Rxx2EKmuWHlc
-	 In78hfPIaRxa1vfJvsiv3YYk8JWxytbviWufSwdp/HmVWsK6HHoaG+TQyw7dj1ONfA
-	 QvUd/AWSZ3w6N8Ma1TXERcaxeiQrnolLbq9T//4E=
+	b=gnQ03gXiFomF/RbiXOR7zVIxOqgs4tjnfkNro1/3UKpTB52OuURRPnPCulR5OGE7J
+	 0faMK97fDUxbYVn6L/9CK9uiWLX0j9CA7R4spWhO8MTmIivaRCsHxsW1OX5aSQZ1N+
+	 GeUDFELmUUMcsIW5M02dDY0qTj5GgIvJOnhAx+Io=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -79,19 +79,19 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kbuild@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.5 618/739] um: Fix hostaudio build errors
-Date: Mon, 11 Sep 2023 15:46:57 +0200
-Message-ID: <20230911134708.362272167@linuxfoundation.org>
+Subject: [PATCH 6.4 623/737] um: Fix hostaudio build errors
+Date: Mon, 11 Sep 2023 15:48:02 +0200
+Message-ID: <20230911134707.934739546@linuxfoundation.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230911134650.921299741@linuxfoundation.org>
-References: <20230911134650.921299741@linuxfoundation.org>
+In-Reply-To: <20230911134650.286315610@linuxfoundation.org>
+References: <20230911134650.286315610@linuxfoundation.org>
 User-Agent: quilt/0.67
 X-stable: review
 X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5EUTKULMUO2HF73ADVNMLVXIA5QIDQZF
-X-Message-ID-Hash: 5EUTKULMUO2HF73ADVNMLVXIA5QIDQZF
+Message-ID-Hash: JAZ6DCTYLUYXCEDZUPENK4WH3BG6Z6DI
+X-Message-ID-Hash: JAZ6DCTYLUYXCEDZUPENK4WH3BG6Z6DI
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,15 +104,16 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5EUTKULMUO2HF73ADVNMLVXIA5QIDQZF/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JAZ6DCTYLUYXCEDZUPENK4WH3BG6Z6DI/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-6.5-stable review patch.  If anyone has any objections, please let me know.
+6.4-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -175,10 +176,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  5 files changed, 7 insertions(+), 15 deletions(-)
 
 diff --git a/arch/um/configs/i386_defconfig b/arch/um/configs/i386_defconfig
-index 630be793759e2..e543cbac87925 100644
+index c0162286d68b7..c33a6880a437a 100644
 --- a/arch/um/configs/i386_defconfig
 +++ b/arch/um/configs/i386_defconfig
-@@ -34,6 +34,7 @@ CONFIG_TTY_CHAN=y
+@@ -35,6 +35,7 @@ CONFIG_TTY_CHAN=y
  CONFIG_XTERM_CHAN=y
  CONFIG_CON_CHAN="pts"
  CONFIG_SSL_CHAN="pts"
@@ -187,10 +188,10 @@ index 630be793759e2..e543cbac87925 100644
  CONFIG_DEVTMPFS=y
  CONFIG_DEVTMPFS_MOUNT=y
 diff --git a/arch/um/configs/x86_64_defconfig b/arch/um/configs/x86_64_defconfig
-index 8540d33702726..939cb12318cae 100644
+index bec6e5d956873..df29f282b6ac2 100644
 --- a/arch/um/configs/x86_64_defconfig
 +++ b/arch/um/configs/x86_64_defconfig
-@@ -32,6 +32,7 @@ CONFIG_TTY_CHAN=y
+@@ -33,6 +33,7 @@ CONFIG_TTY_CHAN=y
  CONFIG_XTERM_CHAN=y
  CONFIG_CON_CHAN="pts"
  CONFIG_SSL_CHAN="pts"

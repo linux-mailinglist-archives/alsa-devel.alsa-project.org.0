@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9103179A977
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 17:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0508879A979
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 17:10:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56415A4B;
-	Mon, 11 Sep 2023 17:09:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56415A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4FCBDF2;
+	Mon, 11 Sep 2023 17:09:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4FCBDF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694445006;
-	bh=6qVJgXOyGrRy3MsXv00ledjxzgW4K3II5wnwOCy951o=;
+	s=default; t=1694445028;
+	bh=dGQGzd+Ul+UdwvqxqfILW6piLPh9F5r6zMtsnARsiEU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mMj+nLhhLquzEf/mQZMx0aPuIPUoh3IvOOzqdZpg4lErVqiitWymsXognaf0hMVyQ
-	 Iz8VBhlaHlJgWbCtdxExkTSkHVhWTvG5Gx9iFTm/ULtnVZLkFhIx4xCRAfZbMgDP/V
-	 TakOW2lpvNiq6dPINyYScnagqsxiS8pX7FVpRDN4=
+	b=j8Gi5FywrVThsvji84qYYj+rdKjlX+5EfLik4SJSLAJyxM2g4hquY41LLKtD9kDOq
+	 /6ifje5+w+rgo1y5lwburLpS82XSn/ChL78dNm74Z6zNR6FELgjSF0AB0zhUkOoTY/
+	 EB8BuicpgrZtz5ZsB2QlUhZYdX3F6ogVALKDTcHA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF421F805A1; Mon, 11 Sep 2023 17:08:06 +0200 (CEST)
+	id 66C69F805B6; Mon, 11 Sep 2023 17:08:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E810F80587;
-	Mon, 11 Sep 2023 17:08:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A28B0F805AE;
+	Mon, 11 Sep 2023 17:08:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0912FF8056F; Mon, 11 Sep 2023 17:07:59 +0200 (CEST)
+	id 309CFF805AF; Mon, 11 Sep 2023 17:08:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1BD2F80246
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 17:07:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1BD2F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id B11B7F805AC
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 17:08:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B11B7F805AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GbJIh77c
+ header.s=k20201202 header.b=fn9e1VkT
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 8520BCE167C;
-	Mon, 11 Sep 2023 15:07:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F88DC433C7;
-	Mon, 11 Sep 2023 15:07:47 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id DAD5461207;
+	Mon, 11 Sep 2023 15:08:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75DAC433C9;
+	Mon, 11 Sep 2023 15:07:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694444870;
-	bh=6qVJgXOyGrRy3MsXv00ledjxzgW4K3II5wnwOCy951o=;
+	s=k20201202; t=1694444888;
+	bh=dGQGzd+Ul+UdwvqxqfILW6piLPh9F5r6zMtsnARsiEU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=GbJIh77cjpriu2wTdMDc3Xss54QbSEvxn48e6G8mddD7/ztnLImVbspXJX7rinsPO
-	 DKDj6Zb08Dl9gbkNZ8lqLSCJpC4HI23qt0+hDZzP/+91RGtBUeXal/+bswsKswLv3d
-	 Cw4Gs4AV16GHA0MZk6YFKa0FREh2REFPNRyWD+HHRVpAbUvZ46vvzYt5f9kAM6Zj7O
-	 KlwU3ufTKnKGomGI2I8/5qO+m6qwFracY69AWM/XTQg9w/QnLJN0YnicVWtaljmsMN
-	 09d2GCtMnQYInTjc/kbIzrTHH8OaRL7qbYs2SOaHIOvBDAAr04mnyyejzNoBrqm/gc
-	 TBiC0mXbH+Pbg==
+	b=fn9e1VkTT01GUXkeP/sAS9Eo93ZakS6K6yhpX+VgWSYMCPvKfBhyCqduRKs47e2OQ
+	 vx+DKFuqym2tGTA9jljIbHn7Jp27XicOpdBmMIc++Ut672YUtWh99Tao8eoc1b+5uF
+	 oYy4K0JxBB0YtpVTTivn5KtHS49XUM40d/31Izq0FAKFQ8lE9NFueXzzaH3+IkgyW7
+	 v+Knz7x4g5y+ejV/n6YibOCXiarLXmMB+RHljBs6Ws+S0KFwAD1Ggt5fwXboBYKzZw
+	 V1WfYA2SV8slfW1F0QaFCySp5gpmji71+4/f7rHPWHBVNKKZBhRytFuQUtvI7sXkc1
+	 koBSCH+WNSXDg==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230908101716.2658582-1-rf@opensource.cirrus.com>
-References: <20230908101716.2658582-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Call pm_runtime_dont_use_autosuspend()
-Message-Id: <169444486689.1851820.7894318882943305777.b4-ty@kernel.org>
-Date: Mon, 11 Sep 2023 16:07:46 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <linux@roeck-us.net>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Fabio Estevam <festevam@denx.de>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20230909120237.2646275-1-linux@roeck-us.net>
+References: <20230909120237.2646275-1-linux@roeck-us.net>
+Subject: Re: [PATCH] ASoC: wm8960: Fix error handling in probe
+Message-Id: <169444487119.1851820.9800176360912652515.b4-ty@kernel.org>
+Date: Mon, 11 Sep 2023 16:07:51 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: WNOJGZXF6WK5ISDI6KGXHVR5653PVA4N
-X-Message-ID-Hash: WNOJGZXF6WK5ISDI6KGXHVR5653PVA4N
+Message-ID-Hash: THSFCPAO2GX2GPSUDSK2UN7VSHDKIKBC
+X-Message-ID-Hash: THSFCPAO2GX2GPSUDSK2UN7VSHDKIKBC
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WNOJGZXF6WK5ISDI6KGXHVR5653PVA4N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/THSFCPAO2GX2GPSUDSK2UN7VSHDKIKBC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,14 +100,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 08 Sep 2023 11:17:16 +0100, Richard Fitzgerald wrote:
-> Driver remove() must call pm_runtime_dont_use_autosuspend().
+On Sat, 09 Sep 2023 05:02:37 -0700, Guenter Roeck wrote:
+> Commit 422f10adc3eb ("ASoC: wm8960: Add support for the power supplies")
+> added regulator support to the wm8960 driver, but neglected to update
+> error handling in the probe function. This results in warning backtraces
+> if the probe function fails.
 > 
-> Drivers that call pm_runtime_use_autosuspend() must disable
-> it in driver remove(). Unfortunately until recently this was
-> only mentioned in 1 line in a 900+ line document so most
-> people hadn't noticed this. It has only recently been added
-> to the kerneldoc of pm_runtime_use_autosuspend().
+> WARNING: CPU: 0 PID: 1 at drivers/regulator/core.c:2396 _regulator_put.part.0+0x1b4/0x1d8
+> Modules linked in:
+> CPU: 0 PID: 1 Comm: swapper/0 Tainted: G                 N 6.5.0-11075-g92901222f83d #1
+> Hardware name: Freescale i.MX6 Ultralite (Device Tree)
+>  unwind_backtrace from show_stack+0x10/0x14
+>  show_stack from dump_stack_lvl+0x68/0x90
+>  dump_stack_lvl from __warn+0x70/0x1a4
+>  __warn from warn_slowpath_fmt+0xac/0x220
+>  warn_slowpath_fmt from _regulator_put.part.0+0x1b4/0x1d8
+>  _regulator_put.part.0 from regulator_bulk_free+0x44/0x64
+>  regulator_bulk_free from release_nodes+0x50/0x7c
+>  release_nodes from devres_release_group+0xbc/0x138
+>  devres_release_group from i2c_device_probe+0x180/0x268
+>  i2c_device_probe from really_probe+0xc4/0x2e0
+>  really_probe from __driver_probe_device+0x84/0x1a0
+>  __driver_probe_device from driver_probe_device+0x2c/0xc4
+>  driver_probe_device from __driver_attach+0x94/0x144
+>  __driver_attach from bus_for_each_dev+0x70/0xc4
+>  bus_for_each_dev from bus_add_driver+0xc4/0x1cc
+>  bus_add_driver from driver_register+0x7c/0x114
+>  driver_register from i2c_register_driver+0x3c/0xac
+>  i2c_register_driver from do_one_initcall+0x68/0x3b0
+>  do_one_initcall from kernel_init_freeable+0x18c/0x240
+>  kernel_init_freeable from kernel_init+0x14/0x144
+>  kernel_init from ret_from_fork+0x14/0x24
 > 
 > [...]
 
@@ -114,8 +140,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l56: Call pm_runtime_dont_use_autosuspend()
-      commit: ec03804552e9a723569e14d2512f36a8e70dc640
+[1/1] ASoC: wm8960: Fix error handling in probe
+      commit: d7e47e32192bb88f5b2dc8e655fa587ecf9d71e0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

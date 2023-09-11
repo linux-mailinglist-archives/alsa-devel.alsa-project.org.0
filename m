@@ -2,94 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF0879A4A1
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 09:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6A079A5EE
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Sep 2023 10:22:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1CB77F8;
-	Mon, 11 Sep 2023 09:36:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1CB77F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C802184B;
+	Mon, 11 Sep 2023 10:21:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C802184B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694417826;
-	bh=J+ytuqAcGrT1PxixGYKBEIBeB/9P84Y6ziYflqP7Hjw=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
+	s=default; t=1694420558;
+	bh=KpsGaekDs4cex+1J/H36kzGOWsnSl0FHUOXgQ8tZqDw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=q1Vu0BWZfpE6U104LKG3gzepXJS3/jExKbdW8H4YQRwTTqENxdttpWTOdkZxlF2+R
-	 AWjZD1lCsPyLUV3d1iOKhJJ6CVrNhwIGJ+bN9LhJlOaf9+tGE/ikBWscOYxxB0djUW
-	 s3ECGQ25y+bymjTjZC2fkyjLBQFkpSgmfWtpKblw=
+	b=uTU4V+AeLtMiM4C/uaImBucyjYy7aXiHP3Ddb8NudMVwnsHWqn70vMuablGSeKUmQ
+	 i7vv1b/0yPN1xboKE8M6IOLtVEGuWtfIw2EBXJIsPflBjWIfvWUBWlTmbJkotxoypa
+	 z9MXPiNFizI7Mcga1lEi9ps+jbbqEdOLlovQt6Iw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 069CFF8007C; Mon, 11 Sep 2023 09:36:15 +0200 (CEST)
+	id CDF4EF8055B; Mon, 11 Sep 2023 10:21:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8E07F80246;
-	Mon, 11 Sep 2023 09:36:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DACEF80246;
+	Mon, 11 Sep 2023 10:21:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62F73F80425; Mon, 11 Sep 2023 09:36:12 +0200 (CEST)
+	id 2737AF80425; Mon, 11 Sep 2023 10:21:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F158F8007C
-	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 09:36:06 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A711D11CB;
-	Mon, 11 Sep 2023 09:36:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A711D11CB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1694417765; bh=TKCPGDb5E2P6Z7O2lKs2A9km1UzLZozkHSZR8v92+8s=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=25xzpI1NqX+ucUo37R9Zbshf0U4wE97tIkS5al6VG57Mprwqd78PlSFncT6dU1XNV
-	 TPMTVJ9Z5TgJispIHeIS6LGqx6sZw8E6dGDjxZ1oYCVdaSOVmEZlKxd/TJ0VziMRKP
-	 khxC8GFWxP8WN6b+0+VYa0SAYo3xoqVy3fpuxwoo=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon, 11 Sep 2023 09:35:57 +0200 (CEST)
-Message-ID: <337fe790-fdbc-1208-080d-5bcf9264fc65@perex.cz>
-Date: Mon, 11 Sep 2023 09:35:56 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE8BFF801F5
+	for <alsa-devel@alsa-project.org>; Mon, 11 Sep 2023 10:21:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE8BFF801F5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=RUJYn8Rv
+Received: by mail-pg1-x52a.google.com with SMTP id
+ 41be03b00d2f7-517ab9a4a13so3140977a12.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 11 Sep 2023 01:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1694420489; x=1695025289;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=om18+sUwBguON/0kSfIOHctylC5vMOCNq6Z4ohrW9o8=;
+        b=RUJYn8Rv1N7S4AVVUIiP41WWL9q95mNj5jY/cFyKZIwNa5aCwc5LRFOxfQnifzE/K+
+         AS/tRc+fLDkJ7EyMoKIKzi75bxW5Wnca7N0dwGIPqWIBX3MTqlGOY1fXCL8r9AH6BqNK
+         wO+hS4iApps17L6nHqNiWeVwQjZr+cmXaAH/zHXzI8ND/Dgt1uqSKVyh76GuWYn4ktW+
+         MzAW6uYGTghaLM8kUAqQaTlrOsTqLvxB2wJKS8ODerEGX35BU6/mwdjDRLGIZvtkXahp
+         jS1Q0RX5i6gSonOyzdnqOJaDMgdO+fWe/6hI4zlcVUJ8OKhF/LtSPPFnZw6nRKIv6IS6
+         uq+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694420489; x=1695025289;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=om18+sUwBguON/0kSfIOHctylC5vMOCNq6Z4ohrW9o8=;
+        b=HGfjA10ccSU/oaGTt5CTRTUs9qKPSBvfMuvNQWwtkTR3bgSvtd+aDLBwRlvNVfcD5q
+         X0Bx97gcFPoInYtPz6L5yeQlCuN+JbZ4Bjqw37GjuCiCeIca3/qrCqFdXfh8Me3zQyS0
+         ogHWn6T3MJZWYW3iRDSmjLZ0Hjicl/u1m1FYW2hIKt17Eui+M60w/t92QughlkRLpwZ9
+         +OdOt+NdSPUP6BjZJtDP7GWWNup7KXPUYcRgGR/3LtqYRl4NZuny97BOF7gSV3/r7cYH
+         YpoOqzc7hJTE344oE00gNd+lEjsrRd5hnlS8fKW20sATl471TiyBwehr+amaRvAFiNPo
+         6wpQ==
+X-Gm-Message-State: AOJu0YyEW6QAjnZd5a5pxVKHnApq2PvyaaCUHucWucgXUsbp+QB3B2Li
+	ONd+b95k9LA+EP/AYY/87JD9gNp/jXZO8McNRqk=
+X-Google-Smtp-Source: 
+ AGHT+IGn+056ypumkJvRZt8A3CzJfnnksSci4rXO4wl2YrKKe34lPOgXLzUTdKKSBUvNK3g81nGf+3ClS1zBobWEWxo=
+X-Received: by 2002:a17:90a:e2d6:b0:262:fb5d:147b with SMTP id
+ fr22-20020a17090ae2d600b00262fb5d147bmr8388187pjb.19.1694420489120; Mon, 11
+ Sep 2023 01:21:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Takashi Iwai <tiwai@suse.de>
-Cc: broonie@kernel.org, tiwai@suse.com, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com
-References: <20230811164853.1797547-1-cezary.rojewski@intel.com>
- <20230811164853.1797547-2-cezary.rojewski@intel.com>
- <43b25b8b-3e28-bd91-a29a-846a5aa7579e@perex.cz> <87bkezdsjh.wl-tiwai@suse.de>
- <67fc99db-baf8-17b0-e7c4-f420676e5c8a@perex.cz> <874jkrdr49.wl-tiwai@suse.de>
- <5d77217b-1083-a4d0-1b69-7511d24b6aec@perex.cz>
- <acfcc8a3-8ceb-1671-1dad-35a083354170@intel.com>
- <9d0f0555-411a-96aa-c8a5-382f595a2bbd@perex.cz> <871qfuhyog.wl-tiwai@suse.de>
- <85eec185-b024-573e-3fc0-31d179c832a3@perex.cz>
- <dfac60f7-e043-ca57-8005-3a744b0f920e@linux.intel.com>
- <52b50220-aab0-6df4-6bab-e43d39006c45@perex.cz> <87zg2iggn5.wl-tiwai@suse.de>
- <f97bbbd5-1397-f5d3-5ccf-420ec813deac@perex.cz>
- <6ee5dad3-c46a-4598-3b5a-cac59979ff6f@linux.intel.com>
- <7d2d56a5-698e-7ee3-e6ab-95757012537c@perex.cz>
- <36fb8f83-9b39-966b-c105-7ef1bcc17afa@intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [RFC PATCH 01/17] ALSA: pcm: Introduce MSBITS subformat interface
-In-Reply-To: <36fb8f83-9b39-966b-c105-7ef1bcc17afa@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VHW4MMU4REN2KWQ34PMNRP764PQ43FPX
-X-Message-ID-Hash: VHW4MMU4REN2KWQ34PMNRP764PQ43FPX
-X-MailFrom: perex@perex.cz
+References: <20230901144550.520072-1-elinor.montmasson@savoirfairelinux.com>
+ <20230901144550.520072-2-elinor.montmasson@savoirfairelinux.com>
+In-Reply-To: <20230901144550.520072-2-elinor.montmasson@savoirfairelinux.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 11 Sep 2023 16:21:17 +0800
+Message-ID: 
+ <CAA+D8AM3RyrWOB4pmYgF4+q+X7Ro7coyDbGpsC4qzg_NX20N6Q@mail.gmail.com>
+Subject: Re: [PATCH 01/10] ASoC: fsl-asoc-card: add new compatible for dummy
+ codec
+To: elinor.montmasson@savoirfairelinux.com, Mark Brown <broonie@kernel.org>
+Cc: Xiubo.Lee@gmail.com, alsa-devel@alsa-project.org,
+	philip-dylan.gleonec@savoirfairelinux.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: QC66XDLAFXLTLA5EDX4LKEVZ46GFWYS2
+X-Message-ID-Hash: QC66XDLAFXLTLA5EDX4LKEVZ46GFWYS2
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,72 +110,95 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VHW4MMU4REN2KWQ34PMNRP764PQ43FPX/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QC66XDLAFXLTLA5EDX4LKEVZ46GFWYS2/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 08. 09. 23 16:36, Cezary Rojewski wrote:
-> On 2023-08-24 9:31 AM, Jaroslav Kysela wrote:
->> On 23. 08. 23 18:29, Amadeusz Sławiński wrote:
-> 
-> ...
-> 
->>> Problem with MSBITS_MAX is that if kernel reports something like this:
->>>
->>> FORMAT: S16_LE S32_LE
->>> SUBFORMAT: STD MSBITS_20 MSBITS_MAX
->>>
->>> to userspace, is that userspace can't really tell if you should only
->>> apply it to S16_LE or to S32_LE, or both. On the other hand if at some
->>> point someone adds S64_LE format, something like:
->>
->> Unfortunately, you've not got the point that the subformat contents
->> depends on the selected format. So the subformat mask is for ALL formats
->> selected in the configuration space. The only valid contents for one
->> format is when application or kernel reduces the format to single one.
->> And applications can do:
->>
->> 1) set format to S32_LE
->> 2) call refine
->> 3) get subformat bits for single S32_LE format from the refined cfg space
->>
->> In this case, queries and specific msbits selection will work. It's the
->> standard refine mechanism which works also for all other fields from the
->> parameter configuration space etc. If you look to all other fields from
->> the parameter configuration space, you cannot predict the exact
->> parameters (buffer size, period size, channels) until you do more
->> refining to set all parameters to exact values (single value).
->>
->> In other words, the above example:
->>
->> FORMAT: S16_LE S32_LE
->> SUBFORMAT: STD MSBITS_20 MSBITS_MAX
->>
->> .. means - at least one format supports maximal msbits for the given
->> format.
-> 
-> After reading all of this again, I'm fine with rewording MSBITS_32 to
-> MSBITS_MAX.
-> 
-> As I do not see any other points to address here and review of v1 has no
-> points to address either, I'll send v2 with this single change. If I'd
-> missed anything, let me know.
+On Fri, Sep 1, 2023 at 10:46=E2=80=AFPM <elinor.montmasson@savoirfairelinux=
+.com> wrote:
+>
+> From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+>
+> Add support for the new compatible fsl,imx-audio-dummy-codec.
+> It allows using the fsl-asoc-card driver with the dummy codec provided
+> by the kernel utilities instead of a real codec.
+> For now the compatible is recognised and the codec driver names are set,
+> but a sound card with this compatible will still be deferred during
+> initialisation.
 
-The subformat bitmask should be also refined/updated depending on the selected 
-format.
+Add Mark
 
-https://lore.kernel.org/alsa-devel/f97bbbd5-1397-f5d3-5ccf-420ec813deac@perex.cz/
+In the "Question about simple-audio-card with dummy CODEC"
+Mark said dummy codec may not be used. we should have a driver
+to describe the codec.
 
-It requires new code in pcm_lib.c and ASoC PCM core code.
+Best regards
+wang shengjiu
 
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+>
+> Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+> Co-authored-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelin=
+ux.com>
+> ---
+>  sound/soc/fsl/fsl-asoc-card.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.=
+c
+> index 76b5bfc288fd..c12a356a86d5 100644
+> --- a/sound/soc/fsl/fsl-asoc-card.c
+> +++ b/sound/soc/fsl/fsl-asoc-card.c
+> @@ -575,7 +575,11 @@ static int fsl_asoc_card_probe(struct platform_devic=
+e *pdev)
+>                 goto fail;
+>         }
+>
+> -       codec_np =3D of_parse_phandle(np, "audio-codec", 0);
+> +       if (of_device_is_compatible(np, "fsl,imx-audio-dummy-codec"))
+> +               codec_np =3D NULL;
+> +       else
+> +               codec_np =3D of_parse_phandle(np, "audio-codec", 0);
+> +
+>         if (codec_np) {
+>                 struct platform_device *codec_pdev;
+>                 struct i2c_client *codec_i2c;
+> @@ -705,6 +709,8 @@ static int fsl_asoc_card_probe(struct platform_device=
+ *pdev)
+>                 priv->dai_fmt |=3D SND_SOC_DAIFMT_CBM_CFM;
+>                 if (codec_dev)
+>                         priv->codec_priv.mclk =3D devm_clk_get(codec_dev,=
+ NULL);
+> +       } else if (of_device_is_compatible(np, "fsl,imx-audio-dummy-codec=
+")) {
+> +               codec_dai_name =3D "snd-soc-dummy-dai";
+>         } else {
+>                 dev_err(&pdev->dev, "unknown Device Tree compatible\n");
+>                 ret =3D -EINVAL;
+> @@ -806,7 +812,9 @@ static int fsl_asoc_card_probe(struct platform_device=
+ *pdev)
+>         priv->dai_link[0].cpus->of_node =3D cpu_np;
+>         priv->dai_link[0].codecs->dai_name =3D codec_dai_name;
+>
+> -       if (!fsl_asoc_card_is_ac97(priv))
+> +       if (of_device_is_compatible(np, "fsl,imx-audio-dummy-codec"))
+> +               priv->dai_link[0].codecs->name =3D "snd-soc-dummy";
+> +       else if (!fsl_asoc_card_is_ac97(priv))
+>                 priv->dai_link[0].codecs->of_node =3D codec_np;
+>         else {
+>                 u32 idx;
+> @@ -931,6 +939,7 @@ static const struct of_device_id fsl_asoc_card_dt_ids=
+[] =3D {
+>         { .compatible =3D "fsl,imx-audio-si476x", },
+>         { .compatible =3D "fsl,imx-audio-wm8958", },
+>         { .compatible =3D "fsl,imx-audio-nau8822", },
+> +       { .compatible =3D "fsl,imx-audio-dummy-codec", },
+>         {}
+>  };
+>  MODULE_DEVICE_TABLE(of, fsl_asoc_card_dt_ids);
+> --
+> 2.25.1
+>

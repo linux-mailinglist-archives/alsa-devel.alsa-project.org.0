@@ -2,124 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 519FB79DA8D
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 23:05:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 601B179DB9C
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 00:07:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3725A84C;
-	Tue, 12 Sep 2023 23:04:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3725A84C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B89784B;
+	Wed, 13 Sep 2023 00:06:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B89784B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694552747;
-	bh=Vn/+r9lrRj3XCF0f1OgbLrVWHe/dDEBlspgHejgs8pM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1694556431;
+	bh=cMFJeeeepm35KFHcauBfMNebPgVOW3tLUqzLxKSK7rg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UfoYgA0tY8MxI5yleHvCatwxMpZ85Ysndgs3JER0cgG94dfCdZqKclVxGiM+8sjav
-	 L/f1oScKg7MWM0LtwC0A4J5pLpje8V5U7m0qDloshfGhm/TC4lEFF1xBIRQA4oEhip
-	 Lr645pdj03Pd/jHM7dxaPtV60oWaLsn9Q69GUtHc=
+	b=INXquklJ2JoTzyCAZ7SOINje4u6Px/dFyBlKvrdPrtu/JHL3MzovbMKBOcOfW6odw
+	 WxkvWseuygqHH+apuXPlrMTQdoYOyI1U55fDrHr87cveE3lUyUGER0bvJA8lqn+E13
+	 oB4ettbodHnaIwVNf46W1TuXXjAjh3eyp0sxkHaI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96611F8055B; Tue, 12 Sep 2023 23:04:56 +0200 (CEST)
+	id E7394F8047D; Wed, 13 Sep 2023 00:06:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECB86F80246;
-	Tue, 12 Sep 2023 23:04:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 681CEF80246;
+	Wed, 13 Sep 2023 00:06:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0337F80425; Tue, 12 Sep 2023 23:04:51 +0200 (CEST)
+	id 352CAF80431; Wed, 13 Sep 2023 00:06:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
- [IPv6:2607:f8b0:4864:20::b34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D11EF8007C
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 23:04:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D11EF8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7DDBEF801F5
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 00:06:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DDBEF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=K2EiLPrI
-Received: by mail-yb1-xb34.google.com with SMTP id
- 3f1490d57ef6-d80089712e5so357884276.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 12 Sep 2023 14:04:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1694552683; x=1695157483;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vn/+r9lrRj3XCF0f1OgbLrVWHe/dDEBlspgHejgs8pM=;
-        b=K2EiLPrI+NZK3J9rptGiFbcGbSogr9XTXZA8Cu1nm6kxnQfjGvWPS0syks25xkWoNW
-         ZACX2D0yM2dLBHjx7s5hdq2XjopHM3cFOcdPluti9pUJTYvwtqrG0fct05EuhyLduoTG
-         F0/0/gUBG6yDFg7yVL/s9VnlvaU5yaiT96usPOQp+1Qyb7BvWIjrCzWX/mCD0T0ehMAN
-         xr2mC7cq64pNNs/Bf+HSZ/ADL8OQjfwChd97uSuAeWCPWf4FlhO5uzNw2CDaxgICquhw
-         6vdtgW0DCBxKvwSaLt6eqmyZyzU+z9zVALrY7/bLrGo5oT0ofDIyogWAoiReU1zeiPII
-         nH4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694552683; x=1695157483;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Vn/+r9lrRj3XCF0f1OgbLrVWHe/dDEBlspgHejgs8pM=;
-        b=vJqL3YKWNC5okFAZdOPt5JgiCbJZZmG18jswZ3MLCmqRGJTzQvPT+g7yTypWo3Hrid
-         gEZfOHbm+7gHje+E0nuQhTH6BbI+PrJIxl4LGe79gosv2+TfsNpGbNSS1ERuG0hkxmYD
-         J9p1GpWvLvS4HZDR1qge8vHckGo4VRDp7jD4+EEoyEP13hGyukk1YbbJhdGekzmkoXYt
-         A0+SsDLgaH19AbdzuTx9a0NWmJndpG0jkU3u1W10ztf5rp3UF3R0LyrOj5fw9Dik2ECv
-         JEHRRcZTcxu4mRlOp9OTmWOFTXS994y4ZjciATcx3sLlrywySxl8N0rCgf89+mU2UYZl
-         pPyg==
-X-Gm-Message-State: AOJu0Yxzyw+Jf8fBnSXL+OYDIgumwd5YZODVSl0CGC6W0HPMf+Nxdp3t
-	zFwGuZNZrxhJaaYVCfBIVyfQ+hpESgli6U/EiKvrZA==
-X-Google-Smtp-Source: 
- AGHT+IGQDuLaoE4eOyZT+Z8hNNsgfwvWorKJwQ3GNnopbwgh3VM6Y+HWcMTMFBMaepKaqB0s4OiEEYQ95/LJVmcUlZY=
-X-Received: by 2002:a25:aa6f:0:b0:d78:414d:1910 with SMTP id
- s102-20020a25aa6f000000b00d78414d1910mr4091514ybi.25.1694552683091; Tue, 12
- Sep 2023 14:04:43 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=nifYmR1A
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 5A377B82170;
+	Tue, 12 Sep 2023 22:06:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F5CC433C7;
+	Tue, 12 Sep 2023 22:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694556365;
+	bh=cMFJeeeepm35KFHcauBfMNebPgVOW3tLUqzLxKSK7rg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=nifYmR1AgsrnKhBQnnSUwAulUkInPzHW0AyYGXC546nmQP4gfS429dUdDsLoWaz/A
+	 10jK41G8EBYxlmTH1cBo7WQ3TU0RSVooROf6+FWEYsZgF87PxsMvGsZ3GXgJXp3d2C
+	 4jpvJk6U4Tdd99vv+9LZItB9Miz+muztPHy7TMxLMkUHwE/EGP3x3/p4rBHmm7B2kr
+	 1fcngSrjUpA2DXHxKb+yhlwGmURqU14FG5qunNT+nqB/GN1TWVBXON6fzGNSHp6Ske
+	 fVCAL5cgcJMWfFY1PSRetHg6IL3UMzDPIR7zBjOpMPofJLcZo7zjQMx7BhwKYSMtl1
+	 7rU/1iRIFj4Ew==
+From: Mark Brown <broonie@kernel.org>
+To: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Hans de Goede <hdegoede@redhat.com>
+Cc: Sameer Pujar <spujar@nvidia.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20230912113245.320159-1-hdegoede@redhat.com>
+References: <20230912113245.320159-1-hdegoede@redhat.com>
+Subject: Re: [PATCH 0/6] ASoC: rt5640: Fix various IRQ handling issues
+Message-Id: <169455636307.155240.3649714894529542162.b4-ty@kernel.org>
+Date: Tue, 12 Sep 2023 23:06:03 +0100
 MIME-Version: 1.0
-References: <20230912081527.208499-1-herve.codina@bootlin.com>
- <20230912101505.225899-1-herve.codina@bootlin.com>
- <CACRpkdbxdMZt4E1SF1v9as-jw=TpvS1mk2TQqAgywMBLbKaNoA@mail.gmail.com>
- <71761f94-14ea-4e2a-a079-c74dfa32387a@sirena.org.uk>
-In-Reply-To: <71761f94-14ea-4e2a-a079-c74dfa32387a@sirena.org.uk>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 12 Sep 2023 23:04:24 +0200
-Message-ID: 
- <CACRpkdbZK8GUgOcLA2D=7nDejK9cT=bxwP+HcC0GOKr-0yCJ4w@mail.gmail.com>
-Subject: Re: [PATCH v5 28/31] pinctrl: Add support for the Lantic PEF2256
- pinmux
-To: Mark Brown <broonie@kernel.org>
-Cc: Herve Codina <herve.codina@bootlin.com>,
- "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
- Li Yang <leoyang.li@nxp.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
- Randy Dunlap <rdunlap@infradead.org>,
-	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: ZGFZPCVU5WJE2SQUFWZYDUPGIY6XGURM
-X-Message-ID-Hash: ZGFZPCVU5WJE2SQUFWZYDUPGIY6XGURM
-X-MailFrom: linus.walleij@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: OOEE6HBBUJ2CBVBP2O4CFA7L2CA7VTFX
+X-Message-ID-Hash: OOEE6HBBUJ2CBVBP2O4CFA7L2CA7VTFX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -131,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZGFZPCVU5WJE2SQUFWZYDUPGIY6XGURM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOEE6HBBUJ2CBVBP2O4CFA7L2CA7VTFX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,23 +100,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Sep 12, 2023 at 4:31=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
-> On Tue, Sep 12, 2023 at 01:04:56PM +0200, Linus Walleij wrote:
-> > On Tue, Sep 12, 2023 at 12:15=E2=80=AFPM Herve Codina <herve.codina@boo=
-tlin.com> wrote:
->
-> > > +/* SPDX-License-Identifier: GPL-2.0 */
-> > > +/*
->
-> > I think SPDX mandates that you start the tag with C99 comments
->
-> > // SPDX-License-Identifier: GPL-2.0-only
->
-> Not for headers, they should use C style since they might be included in
-> contexts where C++ isn't supported.
+On Tue, 12 Sep 2023 13:32:39 +0200, Hans de Goede wrote:
+> The recent(ish) rt5640 changes to add HDA header jack-detect support
+> and the related suspend/resume handling fixes have introduced several
+> issues with IRQ handling on boards not using the HDA header jack-detect
+> support.
+> 
+> This series fixes these issues, see the individual commit messages
+> for details.
+> 
+> [...]
 
-Oh right. Thanks Mark!
+Applied to
 
-Yours,
-Linus Walleij
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/6] ASoC: rt5640: Revert "Fix sleep in atomic context"
+      commit: fa6a0c0c1dd53b3949ca56bf7213648dfd6a62ee
+[2/6] ASoC: rt5640: Fix sleep in atomic context
+      commit: df7d595f6bd9dc96cc275cc4b0f313fcfa423c58
+[3/6] ASoC: rt5640: Do not disable/enable IRQ twice on suspend/resume
+      commit: 786120ebb649b166021f0212250e8627e53d068a
+[4/6] ASoC: rt5640: Enable the IRQ on resume after configuring jack-detect
+      commit: b5e85e535551bf82242aa5896e14a136ed3c156d
+[5/6] ASoC: rt5640: Fix IRQ not being free-ed for HDA jack detect mode
+      commit: 8c8bf3df6b7c0ed1c4dd373b23eb0ce13a63f452
+[6/6] ASoC: rt5640: Only cancel jack-detect work on suspend if active
+      commit: 8fc7cc507d61fc655172836c74fb7fcc8b7a978b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,61 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5728179CDE7
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 12:16:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29BF779CDF9
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 12:18:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1A5BDFA;
-	Tue, 12 Sep 2023 12:16:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1A5BDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE49BE94;
+	Tue, 12 Sep 2023 12:17:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE49BE94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694513817;
-	bh=VpXocZOvoehK/5LUdJfpINTauWlLFWlj4aARX6ytppQ=;
+	s=default; t=1694513899;
+	bh=029x2VfUrwM4M3mL2OQg2DUgJkJ/2ps3mJk0L2dYq4w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Btqj98jfIK3qvsrGp+eJgNaJ/rarlrmZ2BbTSSN1AoWkHYDAITGify8/1t9WHQTNc
-	 Bu0FstgiUrD/dMO/YZ7Kk7wOAFWyI3kIsYvOKaAf3uYVzVrZp0y7v327LOZu+q8E8Y
-	 ppQ5Y1YuzJinrk4ka94WkB5y04jY8QM+aTo3J2QA=
+	b=XVVHaEgzuaVl65Qt0byz2NxCIiYImOwde7Pi94ZZE79t4ynfPSrT15VMka66yR8d+
+	 IuiAWuW8vDXRXKJiJC6VYKKK97FNbXg5hIyzikMsW90rVcW5HaZ5caukOqDvDpDFIg
+	 vb5cxU7Gz64Zw9UbtWYFR/1uYbqRQIdRKuNKhvlE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5280AF805EA; Tue, 12 Sep 2023 12:14:29 +0200 (CEST)
+	id 39CDBF805E3; Tue, 12 Sep 2023 12:15:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC6F1F805BA;
-	Tue, 12 Sep 2023 12:14:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6F4AF805BD;
+	Tue, 12 Sep 2023 12:15:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFDBAF805BA; Tue, 12 Sep 2023 12:14:25 +0200 (CEST)
+	id F1A44F80600; Tue, 12 Sep 2023 12:15:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::223])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 178BCF805AE
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 12:14:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 178BCF805AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2867AF805EB
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 12:14:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2867AF805EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=Qg7mkScl
-Received: by mail.gandi.net (Postfix) with ESMTPA id C6595C000B;
-	Tue, 12 Sep 2023 10:14:17 +0000 (UTC)
+ header.s=gm1 header.b=Q6JeriUF
+Received: by mail.gandi.net (Postfix) with ESMTPA id 43F5E60009;
+	Tue, 12 Sep 2023 10:14:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1694513662;
+	t=1694513668;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YiY/wCCitPfCyCnUThTdd1jSLMhhOOSgUzVukHdnZrs=;
-	b=Qg7mkSclS81fNqiP6gOPby57szSHvaDpt/a5mBtAAjOuR02M/94SdBtyvrBRWSulBiY0Gm
-	9Jbtbas9WXF0MxOAhT3HUTwmgw5DodObma1Kcxcwdt2Y3k6ztw95r85b7EW3bLsSxNcT90
-	LYFMZO+ZYAzUEXJrZ9n/lJk7+mZK4rIABES88+DzMauGZQzL9Bz+8dXUTp6BgPqHkOCWoz
-	5dtc4e+K9nyxnGo6uKoPqafccvByx9UcRIQ1ObdBNuOGaB6ogsLQq0QXqCjTQuRbzZBdL2
-	rqpMQ+afFHwDaGtjlF8vatPbvWkNnBSgvLnHN03kkmQ/QWScmPAhtNOCwcP2uQ==
+	bh=8/hnjNqsaagOSukxcS80c/aCdruHerKJJ05eKAMv1qs=;
+	b=Q6JeriUFD7Bk1gIIMDBDp//cbNvIovDPdkDRacYJerfZf0v7V3UyV0n6UiLSr5jYZOZLJl
+	GPDPwALM6MRDCru6UdtRXukeuq0ElWR3282lv3SZ3b3fEMMaAenw+Z52QisM6kyo06Whql
+	OLq2us8sUyMRgpWgIf7EHI+FuEVQaIitbMI2ltE5waniZc0e/t4VaQJUQZJfSth98td4LL
+	20rUny/56OVOuYJcFHSTuQP9OdbObkjwjQ2JPw6jwBUwRApQLpWitEvWuM2C0TLa961c2v
+	dRfnspjtN+wvq1WSnqQfcl1eZ4CEi1Ptgh2ijORCf15d9aRfwEVvEAszrEnSMQ==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -91,18 +91,18 @@ Cc: netdev@vger.kernel.org,
 	Simon Horman <horms@kernel.org>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 21/31] soc: fsl: cpm1: qmc: Remove timeslots handling from
- setup_chan()
-Date: Tue, 12 Sep 2023 12:14:16 +0200
-Message-ID: <20230912101416.225700-1-herve.codina@bootlin.com>
+Subject: [PATCH v5 22/31] soc: fsl: cpm1: qmc: Introduce functions to change
+ timeslots at runtime
+Date: Tue, 12 Sep 2023 12:14:25 +0200
+Message-ID: <20230912101425.225728-1-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230912081527.208499-1-herve.codina@bootlin.com>
 References: <20230912081527.208499-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: SDKF62OAW7ED4WRKB2KVOQ5GYDC564PR
-X-Message-ID-Hash: SDKF62OAW7ED4WRKB2KVOQ5GYDC564PR
+Message-ID-Hash: RXWBXNWKBR7NP4HSYBMOKTRCGM5AG6OI
+X-Message-ID-Hash: RXWBXNWKBR7NP4HSYBMOKTRCGM5AG6OI
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SDKF62OAW7ED4WRKB2KVOQ5GYDC564PR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RXWBXNWKBR7NP4HSYBMOKTRCGM5AG6OI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,64 +124,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Timeslots setting is done at channel start() and stop().
-There is no more need to do that during setup_chan().
+Introduce qmc_chan_{get,set}_ts_info() function to allow timeslots
+modification at runtime.
 
-Simply remove timeslot setting from setup_chan().
+The modification is provided using qmc_chan_set_ts_info() and will be
+applied on next qmc_chan_start().
+qmc_chan_set_ts_info() must be called with the channel rx and/or tx
+stopped.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 Signed-off-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 ---
- drivers/soc/fsl/qe/qmc.c | 28 ----------------------------
- 1 file changed, 28 deletions(-)
+ drivers/soc/fsl/qe/qmc.c | 51 ++++++++++++++++++++++++++++++++++++++++
+ include/soc/fsl/qe/qmc.h | 10 ++++++++
+ 2 files changed, 61 insertions(+)
 
 diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
-index 185e6e87a83f..b63b54ec0a3a 100644
+index b63b54ec0a3a..6e22b96b4e7a 100644
 --- a/drivers/soc/fsl/qe/qmc.c
 +++ b/drivers/soc/fsl/qe/qmc.c
-@@ -723,30 +723,6 @@ static int qmc_chan_setup_tsa_rx(struct qmc_chan *chan, bool enable)
- 	return qmc_chan_setup_tsa_32rx(chan, &info, enable);
+@@ -290,6 +290,57 @@ int qmc_chan_get_info(struct qmc_chan *chan, struct qmc_chan_info *info)
  }
+ EXPORT_SYMBOL(qmc_chan_get_info);
  
--static int qmc_chan_setup_tsa(struct qmc_chan *chan, bool enable)
--{
--	struct tsa_serial_info info;
--	int ret;
--
--	/* Retrieve info from the TSA related serial */
--	ret = tsa_serial_get_info(chan->qmc->tsa_serial, &info);
--	if (ret)
--		return ret;
--
--	/*
--	 * Setup one common 64 entries table or two 32 entries (one for Tx
--	 * and one for Tx) according to assigned TS numbers.
--	 */
--	if (chan->qmc->is_tsa_64rxtx)
--		return qmc_chan_setup_tsa_64rxtx(chan, &info, enable);
--
--	ret = qmc_chan_setup_tsa_32rx(chan, &info, enable);
--	if (ret)
--		return ret;
--
--	return qmc_chan_setup_tsa_32tx(chan, &info, enable);
--}
--
- static int qmc_chan_command(struct qmc_chan *chan, u8 qmc_opcode)
++int qmc_chan_get_ts_info(struct qmc_chan *chan, struct qmc_chan_ts_info *ts_info)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&chan->ts_lock, flags);
++
++	ts_info->rx_ts_mask_avail = chan->rx_ts_mask_avail;
++	ts_info->tx_ts_mask_avail = chan->tx_ts_mask_avail;
++	ts_info->rx_ts_mask = chan->rx_ts_mask;
++	ts_info->tx_ts_mask = chan->tx_ts_mask;
++
++	spin_unlock_irqrestore(&chan->ts_lock, flags);
++
++	return 0;
++}
++EXPORT_SYMBOL(qmc_chan_get_ts_info);
++
++int qmc_chan_set_ts_info(struct qmc_chan *chan, const struct qmc_chan_ts_info *ts_info)
++{
++	unsigned long flags;
++	int ret;
++
++	/* Only a subset of available timeslots is allowed */
++	if ((ts_info->rx_ts_mask & chan->rx_ts_mask_avail) != ts_info->rx_ts_mask)
++		return -EINVAL;
++	if ((ts_info->tx_ts_mask & chan->tx_ts_mask_avail) != ts_info->tx_ts_mask)
++		return -EINVAL;
++
++	/* In case of common rx/tx table, rx/tx masks must be identical */
++	if (chan->qmc->is_tsa_64rxtx) {
++		if (ts_info->rx_ts_mask != ts_info->tx_ts_mask)
++			return -EINVAL;
++	}
++
++	spin_lock_irqsave(&chan->ts_lock, flags);
++
++	if ((chan->tx_ts_mask != ts_info->tx_ts_mask && !chan->is_tx_stopped) ||
++	    (chan->rx_ts_mask != ts_info->rx_ts_mask && !chan->is_rx_stopped)) {
++		dev_err(chan->qmc->dev, "Channel rx and/or tx not stopped\n");
++		ret = -EBUSY;
++	} else {
++		chan->tx_ts_mask = ts_info->tx_ts_mask;
++		chan->rx_ts_mask = ts_info->rx_ts_mask;
++		ret = 0;
++	}
++	spin_unlock_irqrestore(&chan->ts_lock, flags);
++
++	return ret;
++}
++EXPORT_SYMBOL(qmc_chan_set_ts_info);
++
+ int qmc_chan_set_param(struct qmc_chan *chan, const struct qmc_chan_param *param)
  {
- 	return cpm_command(chan->id << 2, (qmc_opcode << 4) | 0x0E);
-@@ -1323,10 +1299,6 @@ static int qmc_setup_chan(struct qmc *qmc, struct qmc_chan *chan)
+ 	if (param->mode != chan->mode)
+diff --git a/include/soc/fsl/qe/qmc.h b/include/soc/fsl/qe/qmc.h
+index 166484bb4294..2a333fc1ea81 100644
+--- a/include/soc/fsl/qe/qmc.h
++++ b/include/soc/fsl/qe/qmc.h
+@@ -40,6 +40,16 @@ struct qmc_chan_info {
  
- 	chan->qmc = qmc;
+ int qmc_chan_get_info(struct qmc_chan *chan, struct qmc_chan_info *info);
  
--	ret = qmc_chan_setup_tsa(chan, true);
--	if (ret)
--		return ret;
--
- 	/* Set channel specific parameter base address */
- 	chan->s_param = qmc->dpram + (chan->id * 64);
- 	/* 16 bd per channel (8 rx and 8 tx) */
++struct qmc_chan_ts_info {
++	u64 rx_ts_mask_avail;
++	u64 tx_ts_mask_avail;
++	u64 rx_ts_mask;
++	u64 tx_ts_mask;
++};
++
++int qmc_chan_get_ts_info(struct qmc_chan *chan, struct qmc_chan_ts_info *ts_info);
++int qmc_chan_set_ts_info(struct qmc_chan *chan, const struct qmc_chan_ts_info *ts_info);
++
+ struct qmc_chan_param {
+ 	enum qmc_mode mode;
+ 	union {
 -- 
 2.41.0
 

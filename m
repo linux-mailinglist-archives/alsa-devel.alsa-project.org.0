@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BEDE79CA41
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:41:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F1079CAA2
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:52:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E62EAE8;
-	Tue, 12 Sep 2023 10:40:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E62EAE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id B26A3886;
+	Tue, 12 Sep 2023 10:51:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B26A3886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694508061;
-	bh=JckFiaw0B32weMpypPXBuy8hhPCeBPl682cS3XyP6to=;
+	s=default; t=1694508769;
+	bh=VaHcnf0Oe94R1ui0OjR9HSdn/INV9sf104dQNcD0py8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NIz1TLYybLI4vDVzCrlTXvn1o+liMAxRx56bjqzHV5rgHuibziJRZvu2UmtNhUYy6
-	 rE4+AR2vLbRnY/lz1Cd9CwcuH8tVyuGRQkex+7w19/LfxaG3avD1Q2G39FcpX9EMbu
-	 Rqv2TVuAZR/VYTTsPzrW3nsM/rRDcK6usTRDd+z8=
+	b=bMFteujYd+Td7al1pOWbPLtUwLxemeLL9CBM1JuU02T6ryGcIqpdocngs0EA0R0iB
+	 mIoLE6ZQaxVaqTlRr4sX6CPzIqwTeWARNqUnjQCk0P8BPFjFqjDEJcVlr4m2dl8EBG
+	 soOXWMM+fOeVvct8S4AQfiMI2fKC7OAtBDQTT6+k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 155A6F8047D; Tue, 12 Sep 2023 10:39:48 +0200 (CEST)
+	id D93E9F8047D; Tue, 12 Sep 2023 10:51:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE8B5F80549;
-	Tue, 12 Sep 2023 10:39:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E127F80425;
+	Tue, 12 Sep 2023 10:51:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1824F80558; Tue, 12 Sep 2023 10:39:45 +0200 (CEST)
+	id B1342F80425; Tue, 12 Sep 2023 10:51:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,27 +36,27 @@ Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
  [217.70.183.193])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 71F2BF80212
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:39:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71F2BF80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 397D1F80212
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:51:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 397D1F80212
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=oLok+OOs
-Received: by mail.gandi.net (Postfix) with ESMTPA id 007B624004D;
-	Tue, 12 Sep 2023 08:27:36 +0000 (UTC)
+ header.s=gm1 header.b=mx341Kce
+Received: by mail.gandi.net (Postfix) with ESMTPA id 7054024005D;
+	Tue, 12 Sep 2023 08:39:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1694507980;
+	t=1694508704;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T7eAo6eW4LH/itJ5iNHW3/VWEq1oYWNKzte1zOtlCR4=;
-	b=oLok+OOs4ffQd0UMBO50MacJ3uKLr0F+DyrziScO1iuVum0FMSXhjiS+BxV2yZ7jP/KmXC
-	4E3N50C84RvvXQ2Z/T3Xg1XVWYWqDbnn6NlPhccNno1chA8oro3dvnr26u5GU9VxzlyNk1
-	wz66hR3lq9McKdfdN1Aw1BWPHYd6dJks5wy92vhUSPkuh/NC4ZFm0ygO0flXC9332TZbTw
-	nhLF4Ea+PrwTT+Ok2+6Lf78DUeqOFU5CjQJK1n8tWtGIwEvDkq6L/knUqUvPGn1u7BpTm2
-	GJzCTStnfYGEEsCSkoosqaLd5EtP0kZ2CDqZtkWymBcUthQCI/yDOU3KjTlbNA==
+	bh=fnhlmyV9uqfQHa6AlRpMQCfiW/NfQzJB6OlaQ/hT7HQ=;
+	b=mx341KceJaUgBDsgVG30vUrWpWZD65gedAPbcxO0PrGlNZ5/L1PKGa/q/iThrJ6Srt6x5B
+	dM3M4ydgc4GlL0/87qKFiUdu9wpcx3iIivvTxv2K6R910LfJHFUOxkd3iI8vLNwDiYzMOK
+	4rWMmEmKsVhx7/+pIpePRcuB+4ZQgCiG2AGrK69CGT2cnfmkutn5MUKcHP8vrnlLe2FZNb
+	JzmmbzK8q9Q6rGATjYPV1mWMfY55wLVv7PNrvOOYvdPS3oM2gGtER6y5da9b9UciFezkT9
+	4RsanBUFuLvLk+o1JqunSBk6KlZmlRrsqWVSwEFGc46nWLZZSZL/MfeXq+vlyQ==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -91,18 +91,18 @@ Cc: netdev@vger.kernel.org,
 	Simon Horman <horms@kernel.org>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 01/31] soc: fsl: cpm1: tsa: Fix __iomem addresses
+Subject: [PATCH v5 02/31] soc: fsl: cpm1: qmc: Fix __iomem addresses
  declaration
-Date: Tue, 12 Sep 2023 10:14:52 +0200
-Message-ID: <20230912081527.208499-2-herve.codina@bootlin.com>
+Date: Tue, 12 Sep 2023 10:14:53 +0200
+Message-ID: <20230912081527.208499-3-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230912081527.208499-1-herve.codina@bootlin.com>
 References: <20230912081527.208499-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: SQMVSXPAB32EO5LQNLI2FZOZ3RZOUMBT
-X-Message-ID-Hash: SQMVSXPAB32EO5LQNLI2FZOZ3RZOUMBT
+Message-ID-Hash: GPO7EARCGJMKHW5KUORRIT5IWUTZBNLL
+X-Message-ID-Hash: GPO7EARCGJMKHW5KUORRIT5IWUTZBNLL
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SQMVSXPAB32EO5LQNLI2FZOZ3RZOUMBT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GPO7EARCGJMKHW5KUORRIT5IWUTZBNLL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,96 +124,151 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Running sparse (make C=1) on tsa.c raises a lot of warning such as:
-  --- 8< ---
+Running sparse (make C=1) on qmc.c raises a lot of warning such as:
+  ...
   warning: incorrect type in assignment (different address spaces)
-     expected void *[noderef] si_regs
-     got void [noderef] __iomem *
-  --- 8< ---
+     expected struct cpm_buf_desc [usertype] *[noderef] __iomem bd
+     got struct cpm_buf_desc [noderef] [usertype] __iomem *txbd_free
+  ...
 
 Indeed, some variable were declared 'type *__iomem var' instead of
 'type __iomem *var'.
 
 Use the correct declaration to remove these warnings.
 
-Fixes: 1d4ba0b81c1c ("soc: fsl: cpm1: Add support for TSA")
+Fixes: 3178d58e0b97 ("soc: fsl: cpm1: Add support for QMC")
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 Signed-off-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 ---
- drivers/soc/fsl/qe/tsa.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/soc/fsl/qe/qmc.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/soc/fsl/qe/tsa.c b/drivers/soc/fsl/qe/tsa.c
-index 3646153117b3..e0527b9efd05 100644
---- a/drivers/soc/fsl/qe/tsa.c
-+++ b/drivers/soc/fsl/qe/tsa.c
-@@ -98,9 +98,9 @@
- #define TSA_SIRP	0x10
- 
- struct tsa_entries_area {
--	void *__iomem entries_start;
--	void *__iomem entries_next;
--	void *__iomem last_entry;
-+	void __iomem *entries_start;
-+	void __iomem *entries_next;
-+	void __iomem *last_entry;
+diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
+index b3c292c9a14e..7ad0d77f1740 100644
+--- a/drivers/soc/fsl/qe/qmc.c
++++ b/drivers/soc/fsl/qe/qmc.c
+@@ -175,7 +175,7 @@ struct qmc_chan {
+ 	struct list_head list;
+ 	unsigned int id;
+ 	struct qmc *qmc;
+-	void *__iomem s_param;
++	void __iomem *s_param;
+ 	enum qmc_mode mode;
+ 	u64	tx_ts_mask;
+ 	u64	rx_ts_mask;
+@@ -203,9 +203,9 @@ struct qmc_chan {
+ struct qmc {
+ 	struct device *dev;
+ 	struct tsa_serial *tsa_serial;
+-	void *__iomem scc_regs;
+-	void *__iomem scc_pram;
+-	void *__iomem dpram;
++	void __iomem *scc_regs;
++	void __iomem *scc_pram;
++	void __iomem *dpram;
+ 	u16 scc_pram_offset;
+ 	cbd_t __iomem *bd_table;
+ 	dma_addr_t bd_dma_addr;
+@@ -218,37 +218,37 @@ struct qmc {
+ 	struct qmc_chan *chans[64];
  };
  
- struct tsa_tdm {
-@@ -117,8 +117,8 @@ struct tsa_tdm {
- 
- struct tsa {
- 	struct device *dev;
--	void *__iomem si_regs;
--	void *__iomem si_ram;
-+	void __iomem *si_regs;
-+	void __iomem *si_ram;
- 	resource_size_t si_ram_sz;
- 	spinlock_t	lock;
- 	int tdms; /* TSA_TDMx ORed */
-@@ -135,27 +135,27 @@ static inline struct tsa *tsa_serial_get_tsa(struct tsa_serial *tsa_serial)
- 	return container_of(tsa_serial, struct tsa, serials[tsa_serial->id]);
+-static inline void qmc_write16(void *__iomem addr, u16 val)
++static inline void qmc_write16(void __iomem *addr, u16 val)
+ {
+ 	iowrite16be(val, addr);
  }
  
--static inline void tsa_write32(void *__iomem addr, u32 val)
-+static inline void tsa_write32(void __iomem *addr, u32 val)
+-static inline u16 qmc_read16(void *__iomem addr)
++static inline u16 qmc_read16(void __iomem *addr)
+ {
+ 	return ioread16be(addr);
+ }
+ 
+-static inline void qmc_setbits16(void *__iomem addr, u16 set)
++static inline void qmc_setbits16(void __iomem *addr, u16 set)
+ {
+ 	qmc_write16(addr, qmc_read16(addr) | set);
+ }
+ 
+-static inline void qmc_clrbits16(void *__iomem addr, u16 clr)
++static inline void qmc_clrbits16(void __iomem *addr, u16 clr)
+ {
+ 	qmc_write16(addr, qmc_read16(addr) & ~clr);
+ }
+ 
+-static inline void qmc_write32(void *__iomem addr, u32 val)
++static inline void qmc_write32(void __iomem *addr, u32 val)
  {
  	iowrite32be(val, addr);
  }
  
--static inline void tsa_write8(void *__iomem addr, u32 val)
-+static inline void tsa_write8(void __iomem *addr, u32 val)
- {
- 	iowrite8(val, addr);
- }
- 
--static inline u32 tsa_read32(void *__iomem addr)
-+static inline u32 tsa_read32(void __iomem *addr)
+-static inline u32 qmc_read32(void *__iomem addr)
++static inline u32 qmc_read32(void __iomem *addr)
  {
  	return ioread32be(addr);
  }
  
--static inline void tsa_clrbits32(void *__iomem addr, u32 clr)
-+static inline void tsa_clrbits32(void __iomem *addr, u32 clr)
+-static inline void qmc_setbits32(void *__iomem addr, u32 set)
++static inline void qmc_setbits32(void __iomem *addr, u32 set)
  {
- 	tsa_write32(addr, tsa_read32(addr) & ~clr);
+ 	qmc_write32(addr, qmc_read32(addr) | set);
  }
+@@ -318,7 +318,7 @@ int qmc_chan_write_submit(struct qmc_chan *chan, dma_addr_t addr, size_t length,
+ {
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+-	cbd_t *__iomem bd;
++	cbd_t __iomem *bd;
+ 	u16 ctrl;
+ 	int ret;
  
--static inline void tsa_clrsetbits32(void *__iomem addr, u32 clr, u32 set)
-+static inline void tsa_clrsetbits32(void __iomem *addr, u32 clr, u32 set)
+@@ -374,7 +374,7 @@ static void qmc_chan_write_done(struct qmc_chan *chan)
+ 	void (*complete)(void *context);
+ 	unsigned long flags;
+ 	void *context;
+-	cbd_t *__iomem bd;
++	cbd_t __iomem *bd;
+ 	u16 ctrl;
+ 
+ 	/*
+@@ -425,7 +425,7 @@ int qmc_chan_read_submit(struct qmc_chan *chan, dma_addr_t addr, size_t length,
  {
- 	tsa_write32(addr, (tsa_read32(addr) & ~clr) | set);
- }
-@@ -313,7 +313,7 @@ static u32 tsa_serial_id2csel(struct tsa *tsa, u32 serial_id)
- static int tsa_add_entry(struct tsa *tsa, struct tsa_entries_area *area,
- 			 u32 count, u32 serial_id)
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+-	cbd_t *__iomem bd;
++	cbd_t __iomem *bd;
+ 	u16 ctrl;
+ 	int ret;
+ 
+@@ -488,7 +488,7 @@ static void qmc_chan_read_done(struct qmc_chan *chan)
+ 	void (*complete)(void *context, size_t size);
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+-	cbd_t *__iomem bd;
++	cbd_t __iomem *bd;
+ 	void *context;
+ 	u16 datalen;
+ 	u16 ctrl;
+@@ -663,7 +663,7 @@ static void qmc_chan_reset_rx(struct qmc_chan *chan)
  {
--	void *__iomem addr;
-+	void __iomem *addr;
- 	u32 left;
- 	u32 val;
- 	u32 cnt;
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+-	cbd_t *__iomem bd;
++	cbd_t __iomem *bd;
+ 	u16 ctrl;
+ 
+ 	spin_lock_irqsave(&chan->rx_lock, flags);
+@@ -694,7 +694,7 @@ static void qmc_chan_reset_tx(struct qmc_chan *chan)
+ {
+ 	struct qmc_xfer_desc *xfer_desc;
+ 	unsigned long flags;
+-	cbd_t *__iomem bd;
++	cbd_t __iomem *bd;
+ 	u16 ctrl;
+ 
+ 	spin_lock_irqsave(&chan->tx_lock, flags);
 -- 
 2.41.0
 

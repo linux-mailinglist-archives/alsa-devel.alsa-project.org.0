@@ -2,84 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EE2579D496
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 17:16:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54EA479D652
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 18:30:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65F3F4E;
-	Tue, 12 Sep 2023 17:16:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65F3F4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45B44886;
+	Tue, 12 Sep 2023 18:29:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45B44886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694531813;
-	bh=OG76LHlfGJHYkxKaHllr4SLoZMBHB960bsox/kYXmQQ=;
+	s=default; t=1694536246;
+	bh=+ne2QoXtf7yPAarnt2iHbPmV1YKRfcKbyuDLCVGZRtY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mpIfG4MmUjAZ1JxIELBoIqZiuksFdrNihKbwXdnW+upqc5SYo8fJrPplreEqyP5JQ
-	 njuIBnBfANGU4jpKZPlMhvcivlqLJogaiyPECjxUnMvhjRvcxu/0RjngiddPvS1vhx
-	 9t7g6FnpCSF/H9UgMCZxymt0egW1+GIpoGDt87ok=
+	b=pSCnRe9vuyYUmpfgpG2ojBg3vtC3WRtBbZhK5zMmE8+1FWWE6aEeetQcHc2YpDkCr
+	 FxQD8Fp167J8UhjXqmr0Fklf8PjeXH9ZkKB94npoq87RYIymKeX0hLbVPWwA7OLH0P
+	 obOmkecajr3heuBRE+j/kpmbqdcHBKJlEtNSQqQY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F229F80552; Tue, 12 Sep 2023 17:15:53 +0200 (CEST)
+	id B4407F80551; Tue, 12 Sep 2023 18:29:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DB38F80246;
-	Tue, 12 Sep 2023 17:15:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54B8CF80246;
+	Tue, 12 Sep 2023 18:29:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24276F80425; Tue, 12 Sep 2023 17:15:49 +0200 (CEST)
+	id B98AEF80425; Tue, 12 Sep 2023 18:29:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5BF1EF80212
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 17:15:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BF1EF80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DA85F80212
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 18:29:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DA85F80212
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Oo+6QA32
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id D9F36B81E2E;
-	Tue, 12 Sep 2023 15:15:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DA55C433C7;
-	Tue, 12 Sep 2023 15:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694531737;
-	bh=OG76LHlfGJHYkxKaHllr4SLoZMBHB960bsox/kYXmQQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Oo+6QA32tcA7Rmixlq1ZvNMqSHv0isoNpqQxy0GgmprY4fbhbLrRgt8ivlBvhAxAU
-	 8IxOb8YTUm3dF83yoL4BRsbMd6Oo5o7cgCzx/z1+X9yiQeW4VEmC0LGXLp8WEhQIrd
-	 xpEZrCq8cQ6AsyhmEHJreKu+jBAaTxCWPw+UNdr9bCjofTpyuD02HNgyCs941vrpHd
-	 Fotvc546EVqSP6hZHZnOsr82LMl1s2a01zSj7xUS2bO8VCRqjf7gzzBn1l8oqQf5WL
-	 LmfagrNExrgb5aBz4J5A19Xq1BewVm3hJ1+3woCMwkhmXyhBgJ2fR2fbio+bs44XHH
-	 uqk3mQX+JlxAw==
-Received: (nullmailer pid 814342 invoked by uid 1000);
-	Tue, 12 Sep 2023 15:15:35 -0000
-Date: Tue, 12 Sep 2023 10:15:35 -0500
-From: Rob Herring <robh@kernel.org>
-To: Joerg Schambacher <joerg.hifiberry@gmail.com>
-Cc: a-krasser@ti.com, joerg@hifiberry.com,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] ASoC: pcm512x: Adds bindings for TAS575x devices
-Message-ID: <20230912151535.GA812148-robh@kernel.org>
-References: <20230907160851.14241-1-joerg.hifiberry@gmail.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=TsePVlmE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694536185; x=1726072185;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+ne2QoXtf7yPAarnt2iHbPmV1YKRfcKbyuDLCVGZRtY=;
+  b=TsePVlmE8K0hmxUrNr/jgNCEyGyOcaJa1gezQDVEtTHaaHQWQPGr9Um1
+   XLMZwGd9wB33sTcvQ6TgVW8PR9i3HfXOEANes6HK+O9m3UGBBKg4ZV5sJ
+   BybrnINNUmPPTWTlKdc5m2SyzmkbbYquezS424angYnwcQKymsWqob01f
+   dt+j++BCtLkcKyxPLycBGFrXrA74hToxuhMvWkYHa+T6ZNe+zLdFk5E3H
+   H5CKT+NhvXnOb1plqdspBkkRj0Nfn7nsbJ2VRw3CXsVTl4HL74h0huP+A
+   bk5K1mlCYrjwrgeqp0LnEx6fvYneUhWyKylQ5zLkq83jTznP9hcQ2k4FF
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="464801241"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000";
+   d="scan'208";a="464801241"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 09:20:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="746957326"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000";
+   d="scan'208";a="746957326"
+Received: from lkp-server02.sh.intel.com (HELO 0a6943a0b3e1) ([10.239.97.151])
+  by fmsmga007.fm.intel.com with ESMTP; 12 Sep 2023 09:20:42 -0700
+Received: from kbuild by 0a6943a0b3e1 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qg67w-0000E6-0b;
+	Tue, 12 Sep 2023 16:20:37 +0000
+Date: Wed, 13 Sep 2023 00:11:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Shenghao Ding <shenghao-ding@ti.com>, tiwai@suse.de
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, robh+dt@kernel.org,
+	andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com,
+	perex@perex.cz, pierre-louis.bossart@linux.intel.com,
+	kevin-lu@ti.com, 13916275206@139.com, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
+	mengdong.lin@intel.com, baojun.xu@ti.com, thomas.gfeller@q-drop.com,
+	peeyush@ti.com, navada@ti.com, broonie@kernel.org,
+	gentuser@gmail.com, Shenghao Ding <shenghao-ding@ti.com>
+Subject: Re: [PATCH v1] ALSA: hda/tas2781: Support ACPI_ID both TXNW2781 and
+ TIAS2781
+Message-ID: <202309122358.aEcJnIUJ-lkp@intel.com>
+References: <20230910072704.1359-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230907160851.14241-1-joerg.hifiberry@gmail.com>
-Message-ID-Hash: 7JW5ZNZWFWAU7PMY4YMRY7UQPW26WVNW
-X-Message-ID-Hash: 7JW5ZNZWFWAU7PMY4YMRY7UQPW26WVNW
-X-MailFrom: SRS0=xM+6=E4=robh_at_kernel.org=rob@kernel.org
+In-Reply-To: <20230910072704.1359-1-shenghao-ding@ti.com>
+Message-ID-Hash: YSKQNMSH6CB3IMAMRGSGEXYX4OR6FF3O
+X-Message-ID-Hash: YSKQNMSH6CB3IMAMRGSGEXYX4OR6FF3O
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7JW5ZNZWFWAU7PMY4YMRY7UQPW26WVNW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YSKQNMSH6CB3IMAMRGSGEXYX4OR6FF3O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,55 +113,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Sep 07, 2023 at 06:08:51PM +0200, Joerg Schambacher wrote:
-> The TAS5754/6 power amplifiers use the same pcm512x driver with
-> only minor restictions described in the bindings document.
-> 
-> Signed-off-by: Joerg Schambacher <joerg.hifiberry@gmail.com>
-> ---
->  .../devicetree/bindings/sound/pcm512x.txt     | 22 +++++++++++++++----
->  1 file changed, 18 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/pcm512x.txt b/Documentation/devicetree/bindings/sound/pcm512x.txt
-> index 3aae3b41bd8e..b16cd0463695 100644
-> --- a/Documentation/devicetree/bindings/sound/pcm512x.txt
-> +++ b/Documentation/devicetree/bindings/sound/pcm512x.txt
-> @@ -1,12 +1,12 @@
-> -PCM512x audio CODECs
-> +PCM512x and TAS575x audio CODECs/amplifiers
->  
->  These devices support both I2C and SPI (configured with pin strapping
-> -on the board).
-> +on the board). The TAS575x devices only support I2C.
->  
->  Required properties:
->  
-> -  - compatible : One of "ti,pcm5121", "ti,pcm5122", "ti,pcm5141" or
-> -                 "ti,pcm5142"
-> +  - compatible : One of "ti,pcm5121", "ti,pcm5122", "ti,pcm5141",
-> +                 "ti,pcm5142", "ti,tas5754" or "ti,tas5756"
->  
->    - reg : the I2C address of the device for I2C, the chip select
->            number for SPI.
-> @@ -25,6 +25,7 @@ Optional properties:
->      through <6>.  The device will be configured for clock input on the
->      given pll-in pin and PLL output on the given pll-out pin.  An
->      external connection from the pll-out pin to the SCLK pin is assumed.
-> +    Caution: the TAS-desvices only support gpios 1,2 and 3
->  
->  Examples:
->  
-> @@ -50,3 +51,16 @@ Examples:
->  		pll-in = <3>;
->  		pll-out = <6>;
->  	};
-> +
-> +	tas5756: tas5756@4f {
-> +		compatible = "ti,tas5756";
+Hi Shenghao,
 
-Is there anything new here? Just a different compatible doesn't justify 
-another example.
+kernel test robot noticed the following build warnings:
 
-With that dropped,
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on tiwai-sound/for-linus linus/master v6.6-rc1 next-20230912]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+url:    https://github.com/intel-lab-lkp/linux/commits/Shenghao-Ding/ALSA-hda-tas2781-Support-ACPI_ID-both-TXNW2781-and-TIAS2781/20230910-153010
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230910072704.1359-1-shenghao-ding%40ti.com
+patch subject: [PATCH v1] ALSA: hda/tas2781: Support ACPI_ID both TXNW2781 and TIAS2781
+config: i386-buildonly-randconfig-003-20230912 (https://download.01.org/0day-ci/archive/20230912/202309122358.aEcJnIUJ-lkp@intel.com/config)
+compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230912/202309122358.aEcJnIUJ-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309122358.aEcJnIUJ-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> sound/pci/hda/tas2781_hda_i2c.c:665:24: warning: variable 'tas_priv' is uninitialized when used here [-Wuninitialized]
+                   return dev_err_probe(tas_priv->dev, -ENODEV,
+                                        ^~~~~~~~
+   sound/pci/hda/tas2781_hda_i2c.c:656:33: note: initialize the variable 'tas_priv' to silence this warning
+           struct tasdevice_priv *tas_priv;
+                                          ^
+                                           = NULL
+   1 warning generated.
+
+
+vim +/tas_priv +665 sound/pci/hda/tas2781_hda_i2c.c
+
+   653	
+   654	static int tas2781_hda_i2c_probe(struct i2c_client *clt)
+   655	{
+   656		struct tasdevice_priv *tas_priv;
+   657		int ret, i;
+   658	
+   659		/* Check TIAS2781 or TXNW2781 */
+   660		for (i = 0; i < ARRAY_SIZE(tas2781_acpi_hda_match); i++)
+   661			if (strstr(dev_name(&clt->dev), tas2781_acpi_hda_match[i].id))
+   662				break;
+   663	
+   664		if (i == ARRAY_SIZE(tas2781_acpi_hda_match))
+ > 665			return dev_err_probe(tas_priv->dev, -ENODEV,
+   666				"Device not available\n");
+   667	
+   668		tas_priv = tasdevice_kzalloc(clt);
+   669		if (!tas_priv)
+   670			return -ENOMEM;
+   671	
+   672		tas_priv->irq_info.irq = clt->irq;
+   673		ret = tas2781_read_acpi(tas_priv, tas2781_acpi_hda_match[i].id);
+   674		if (ret)
+   675			return dev_err_probe(tas_priv->dev, ret,
+   676				"Platform not supported\n");
+   677	
+   678		ret = tasdevice_init(tas_priv);
+   679		if (ret)
+   680			goto err;
+   681	
+   682		pm_runtime_set_autosuspend_delay(tas_priv->dev, 3000);
+   683		pm_runtime_use_autosuspend(tas_priv->dev);
+   684		pm_runtime_mark_last_busy(tas_priv->dev);
+   685		pm_runtime_set_active(tas_priv->dev);
+   686		pm_runtime_get_noresume(tas_priv->dev);
+   687		pm_runtime_enable(tas_priv->dev);
+   688	
+   689		pm_runtime_put_autosuspend(tas_priv->dev);
+   690	
+   691		ret = component_add(tas_priv->dev, &tas2781_hda_comp_ops);
+   692		if (ret) {
+   693			dev_err(tas_priv->dev, "Register component failed: %d\n", ret);
+   694			pm_runtime_disable(tas_priv->dev);
+   695			goto err;
+   696		}
+   697	
+   698		tas2781_reset(tas_priv);
+   699	err:
+   700		if (ret)
+   701			tas2781_hda_remove(&clt->dev);
+   702		return ret;
+   703	}
+   704	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

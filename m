@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5586579D43A
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 17:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE2579D496
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 17:16:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AED2DBC0;
-	Tue, 12 Sep 2023 16:59:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED2DBC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65F3F4E;
+	Tue, 12 Sep 2023 17:16:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65F3F4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694530842;
-	bh=xuo3FQJBuHtKVaZ47fDycI+jaARYxTGdjsIR1CB+gpQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1694531813;
+	bh=OG76LHlfGJHYkxKaHllr4SLoZMBHB960bsox/kYXmQQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Av3ToL+2kcmCAhFMCMZ8VeAteaSc3slUaM8QNG1HqZoHjUelTa7vJHCglyGu0xL8O
-	 7xre406GOLClLHyh6eWx0ttSDdrMamrngsBWdrN4nWDVQVp9Qn9YgswOtD9nueDl3T
-	 553iX20ZLzwFD6K7WvOAeUVEMSTbtvbj8Y7OU3jM=
+	b=mpIfG4MmUjAZ1JxIELBoIqZiuksFdrNihKbwXdnW+upqc5SYo8fJrPplreEqyP5JQ
+	 njuIBnBfANGU4jpKZPlMhvcivlqLJogaiyPECjxUnMvhjRvcxu/0RjngiddPvS1vhx
+	 9t7g6FnpCSF/H9UgMCZxymt0egW1+GIpoGDt87ok=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2ECAF80563; Tue, 12 Sep 2023 16:59:02 +0200 (CEST)
+	id 8F229F80552; Tue, 12 Sep 2023 17:15:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97D09F8055A;
-	Tue, 12 Sep 2023 16:59:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DB38F80246;
+	Tue, 12 Sep 2023 17:15:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74A07F80425; Tue, 12 Sep 2023 16:58:58 +0200 (CEST)
+	id 24276F80425; Tue, 12 Sep 2023 17:15:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD79AF80246
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 16:58:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD79AF80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BF1EF80212
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 17:15:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BF1EF80212
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=N+yz3y4f
+ header.s=k20201202 header.b=Oo+6QA32
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 33AB3CE1A21;
-	Tue, 12 Sep 2023 14:58:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413D8C433C7;
-	Tue, 12 Sep 2023 14:58:45 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id D9F36B81E2E;
+	Tue, 12 Sep 2023 15:15:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DA55C433C7;
+	Tue, 12 Sep 2023 15:15:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694530726;
-	bh=xuo3FQJBuHtKVaZ47fDycI+jaARYxTGdjsIR1CB+gpQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=N+yz3y4fbg0tyoshpVBvM3cZdgcpeOdeH5TYWk9OJruL6rMM9GPJT/ow/9KZc+/KD
-	 FUcLv3z9uz+tY7WTax0F4wVZ+12zSTd3XhMvcEpkG9eVi+QfN1T0BixL6SemZRq3Gt
-	 6KAV2trBEDW9ldFaUI8y7vgcdCuKDuFANOE3ESusez3OF9kI8ItOVQd+JXORuzTVW8
-	 c+hKZp6pipFW9FbEqD1/4gNcBJyIOFc/HEVxFOggTDpfupzvcYxWfxs+7ze1FNV1h3
-	 Vulem5hSJB/DkhP9SBcOa2A8uYBf6+l34Oupd67ikntb6AWuLDtaNMgQxHQyrVZNti
-	 sCzqKJ9yhghwA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- August Wikerfors <git@augustwikerfors.se>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-In-Reply-To: <20230911213409.6106-1-git@augustwikerfors.se>
-References: <20230911213409.6106-1-git@augustwikerfors.se>
-Subject: Re: [PATCH] ASoC: amd: yc: Fix non-functional mic on Lenovo 82QF
- and 82UG
-Message-Id: <169453072498.64014.17577108685886768504.b4-ty@kernel.org>
-Date: Tue, 12 Sep 2023 15:58:44 +0100
+	s=k20201202; t=1694531737;
+	bh=OG76LHlfGJHYkxKaHllr4SLoZMBHB960bsox/kYXmQQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Oo+6QA32tcA7Rmixlq1ZvNMqSHv0isoNpqQxy0GgmprY4fbhbLrRgt8ivlBvhAxAU
+	 8IxOb8YTUm3dF83yoL4BRsbMd6Oo5o7cgCzx/z1+X9yiQeW4VEmC0LGXLp8WEhQIrd
+	 xpEZrCq8cQ6AsyhmEHJreKu+jBAaTxCWPw+UNdr9bCjofTpyuD02HNgyCs941vrpHd
+	 Fotvc546EVqSP6hZHZnOsr82LMl1s2a01zSj7xUS2bO8VCRqjf7gzzBn1l8oqQf5WL
+	 LmfagrNExrgb5aBz4J5A19Xq1BewVm3hJ1+3woCMwkhmXyhBgJ2fR2fbio+bs44XHH
+	 uqk3mQX+JlxAw==
+Received: (nullmailer pid 814342 invoked by uid 1000);
+	Tue, 12 Sep 2023 15:15:35 -0000
+Date: Tue, 12 Sep 2023 10:15:35 -0500
+From: Rob Herring <robh@kernel.org>
+To: Joerg Schambacher <joerg.hifiberry@gmail.com>
+Cc: a-krasser@ti.com, joerg@hifiberry.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ASoC: pcm512x: Adds bindings for TAS575x devices
+Message-ID: <20230912151535.GA812148-robh@kernel.org>
+References: <20230907160851.14241-1-joerg.hifiberry@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: 6N4AKZJPUUX7FDZLNPCOHL6QVAPETWER
-X-Message-ID-Hash: 6N4AKZJPUUX7FDZLNPCOHL6QVAPETWER
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230907160851.14241-1-joerg.hifiberry@gmail.com>
+Message-ID-Hash: 7JW5ZNZWFWAU7PMY4YMRY7UQPW26WVNW
+X-Message-ID-Hash: 7JW5ZNZWFWAU7PMY4YMRY7UQPW26WVNW
+X-MailFrom: SRS0=xM+6=E4=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6N4AKZJPUUX7FDZLNPCOHL6QVAPETWER/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7JW5ZNZWFWAU7PMY4YMRY7UQPW26WVNW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,41 +100,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 11 Sep 2023 23:34:09 +0200, August Wikerfors wrote:
-> Like the Lenovo 82TL and 82V2, the Lenovo 82QF (Yoga 7 14ARB7) and 82UG
-> (Legion S7 16ARHA7) both need a quirk entry for the internal microphone to
-> function. Commit c008323fe361 ("ASoC: amd: yc: Fix a non-functional mic on
-> Lenovo 82SJ") restricted the quirk that previously matched "82" to "82V2",
-> breaking microphone functionality on these devices. Fix this by adding
-> specific quirks for these models, as was done for the Lenovo 82TL.
+On Thu, Sep 07, 2023 at 06:08:51PM +0200, Joerg Schambacher wrote:
+> The TAS5754/6 power amplifiers use the same pcm512x driver with
+> only minor restictions described in the bindings document.
 > 
-> [...]
+> Signed-off-by: Joerg Schambacher <joerg.hifiberry@gmail.com>
+> ---
+>  .../devicetree/bindings/sound/pcm512x.txt     | 22 +++++++++++++++----
+>  1 file changed, 18 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/pcm512x.txt b/Documentation/devicetree/bindings/sound/pcm512x.txt
+> index 3aae3b41bd8e..b16cd0463695 100644
+> --- a/Documentation/devicetree/bindings/sound/pcm512x.txt
+> +++ b/Documentation/devicetree/bindings/sound/pcm512x.txt
+> @@ -1,12 +1,12 @@
+> -PCM512x audio CODECs
+> +PCM512x and TAS575x audio CODECs/amplifiers
+>  
+>  These devices support both I2C and SPI (configured with pin strapping
+> -on the board).
+> +on the board). The TAS575x devices only support I2C.
+>  
+>  Required properties:
+>  
+> -  - compatible : One of "ti,pcm5121", "ti,pcm5122", "ti,pcm5141" or
+> -                 "ti,pcm5142"
+> +  - compatible : One of "ti,pcm5121", "ti,pcm5122", "ti,pcm5141",
+> +                 "ti,pcm5142", "ti,tas5754" or "ti,tas5756"
+>  
+>    - reg : the I2C address of the device for I2C, the chip select
+>            number for SPI.
+> @@ -25,6 +25,7 @@ Optional properties:
+>      through <6>.  The device will be configured for clock input on the
+>      given pll-in pin and PLL output on the given pll-out pin.  An
+>      external connection from the pll-out pin to the SCLK pin is assumed.
+> +    Caution: the TAS-desvices only support gpios 1,2 and 3
+>  
+>  Examples:
+>  
+> @@ -50,3 +51,16 @@ Examples:
+>  		pll-in = <3>;
+>  		pll-out = <6>;
+>  	};
+> +
+> +	tas5756: tas5756@4f {
+> +		compatible = "ti,tas5756";
 
-Applied to
+Is there anything new here? Just a different compatible doesn't justify 
+another example.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+With that dropped,
 
-Thanks!
-
-[1/1] ASoC: amd: yc: Fix non-functional mic on Lenovo 82QF and 82UG
-      commit: 1263cc0f414d212129c0f1289b49b7df77f92084
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Reviewed-by: Rob Herring <robh@kernel.org>

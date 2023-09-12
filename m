@@ -2,95 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C6179CF61
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 13:08:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD1979CF6A
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 13:08:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7378E96;
-	Tue, 12 Sep 2023 13:07:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7378E96
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8C30EA0;
+	Tue, 12 Sep 2023 13:07:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8C30EA0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694516902;
-	bh=QKG1SWF3HKhPRUequWYKXhEJas6cFzK5Ex3YtJRhqkw=;
+	s=default; t=1694516926;
+	bh=uH08/dbbJuUzQfJ3fDnYU4o0Wf5ErNYBhPuoXZfyMG8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ENHY+Pk0Pdu9wL4K3D9v+qn6qepzuXmIaYMeYzToXzMS23LECCMyiHzzUAu2xF4Gl
-	 ggCBSRb3phWkGP7Z6vvuD/Iad95bhBHFsutDKm9S84p5jiO2DHlaI7VGmOV6SeFGLM
-	 ALPVBzxWVUryUb5/hhA1yIIn5LZX8ELiAS1+p/w4=
+	b=DacqbmPCXWfa/XuTwt5QjHLSVS1GDMXj1BY3Yk0l+hyPWXcqWG4uRveS5LVAMRTHT
+	 FpuJM1Jq/jTVuBBJSEEZRuvrOFYrOhWg/yOFx6LZ4Pia60pCAoqnOjnzyh/wPgYPSK
+	 AeirsitFiUbK5+rU+0bKJpqJUvC0IByeKcOlEnfI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1DA8F80578; Tue, 12 Sep 2023 13:07:04 +0200 (CEST)
+	id 3D020F80570; Tue, 12 Sep 2023 13:07:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0EF1F8047D;
-	Tue, 12 Sep 2023 13:07:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 034F8F8055B;
+	Tue, 12 Sep 2023 13:07:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2CCFF8047D; Tue, 12 Sep 2023 13:05:53 +0200 (CEST)
+	id D6EC7F80537; Tue, 12 Sep 2023 13:06:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
- [IPv6:2607:f8b0:4864:20::b36])
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [IPv6:2607:f8b0:4864:20::1136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AAC6F80212
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 13:05:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AAC6F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id ABE80F80431
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 13:06:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABE80F80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ng+y0V0V
-Received: by mail-yb1-xb36.google.com with SMTP id
- 3f1490d57ef6-d7f0a60a159so4766885276.0
+ header.s=google header.b=AnU9Cfvd
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-59b4ec8d9c1so46221947b3.0
         for <alsa-devel@alsa-project.org>;
- Tue, 12 Sep 2023 04:05:14 -0700 (PDT)
+ Tue, 12 Sep 2023 04:06:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1694516708; x=1695121508;
+        d=linaro.org; s=google; t=1694516768; x=1695121568;
  darn=alsa-project.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8FMoBWtmvLq6bgdekThyp6v4fhBAV0YiqC8BS8aCPcE=;
-        b=ng+y0V0V/LPHafQzkCt/FjVLRJX0vcb/BHrz86RogRuy1FIjxSvJ0QqSi6LuRqrkvG
-         6ARYj9tFXUjfJm7eRBz8ivLosp2cdsQTjYEv6oeH6Q0dz3srpdEqORvFspHu5Pa0FMXN
-         XuEsajdZzR344QZzLXltYm02HOvVW50tgp9H3N20Q9nygknwuJR1Ktl6+8YiU4aj2xrZ
-         Tj8jMKdJiqk569nVNLigRKbXmCuCpUaXV70F+7LxO6Txp7wZ+SzyFTI+8P1q5+oIW7Hq
-         fW7KEDRbZLj74LJh8SdqOqQt3hbrSYpfHLfFIC/MS9sn6MOmX686nYzBgUKZnh0046OV
-         bjRQ==
+        bh=nxeKap40n9N0Jct85TnQoxJYlNgRlyoVOdviavwIIv8=;
+        b=AnU9Cfvd604r1lyw7nffmzTGhPXEdMOtRFg1BL66h6B0cz0fm5uUSgTj/E4y3OiOQm
+         izXLVCybo+IlrKPSqAJ4E4iZVB03dskfNDbzeidcsT9IF3BdjUGwFF93St7AQY1ar63c
+         +4ZkdPPyz6WTiIeETlkdm3TAnlDfLqIVxF96oMb7BQIW7XiM6eo6JO+rSDohdYIRtM2l
+         8oMlK+TOK7AivIY5kilDnKRAtI2/r7jDAEN/SCwoq1EA4RSgX1eAOtHEZDy37xIECpj7
+         oC+BHU2ffhmBZj1+rT4soonDU4nye1tj+Y9BHrPB5lDCJ76RSbQmxUTA046mJ0AyviVX
+         S3fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694516708; x=1695121508;
+        d=1e100.net; s=20230601; t=1694516768; x=1695121568;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8FMoBWtmvLq6bgdekThyp6v4fhBAV0YiqC8BS8aCPcE=;
-        b=IwnQkZltVzDSuF77JHGs1a/LdYnzVRg6fay1Ri8Psa2gI+X3C75Ktfbcw7PC0QvM91
-         WpjRCsySUZMbGPQxTUgBkdULBICU2UrxmwCFgIkQwx/ILYmy0afXN0R6wPgka5DQZngv
-         cUfIKvKc7OCk9a4zBsaapV7E53SXDcwJ/tvFKi3NxIFOgFCkxtGIoreHycHUc66KNI+o
-         jsPvhkyaQ8ThKquj6Wr+/Kag4ZTJdRteSV/1lgtlRHlJkxEZphZ+c8OcetVLDpJ3rXWS
-         K5Qq3gFrqrv/cdTlnfDNQ4RknHIZ7/HIagJC+mQedy7+blOdu5R4rATMmOfcje3e1giU
-         H4KQ==
-X-Gm-Message-State: AOJu0YxH47frHV9K3DO4cPAcsK4As9EiUhJMUUW9LODxo9y8Ue+Q91wB
-	JmF0Teuyqe+rwJYDZXMtoXW0E95nw30HkYcIjzaHZA==
+        bh=nxeKap40n9N0Jct85TnQoxJYlNgRlyoVOdviavwIIv8=;
+        b=dW8VyW6qdC9qGLAUp0ADiU4WvZTR+1Ntdf1f6aQKE54PMfdNtTKNxOywJ60jazcK15
+         RWcQs1TVSuSV0wIKpk4hHmR3sdpCOM0eGKhGrrt/N/9dyzAdsUZk3Z+7ARah7M+6BFT+
+         6cnXNAxaNdlzjKQUmY6q2h4m4+pgemIgyfH9wiK/2ieLUlPOMzfUddRmXgozntX7hp1D
+         0Xjn63dA41/ueXmQgIK/8mtt+bPTduCy1vh5+RivLrRJZwHwxMyFN602b9RZio+wxHJY
+         bhLVSQjneSw2UXol6l2p8puE81LKROslcY5yiNaLVGZG+DvLmKzvCz69I3Z+31rAKls6
+         6ZPw==
+X-Gm-Message-State: AOJu0YzohCKYA+r6e9eRAwODZP3pDKeZnNjF5BCoXYePLXxNv+Wrz/bs
+	2yOMD6nuszG0bw51Sq+sJENGjA/nAPTYfJvLj/OzOw==
 X-Google-Smtp-Source: 
- AGHT+IHWFG9XShCR9EYCQbjpGN6Qxg22q5tUHNLhGUJSf212PqAwCH8zHTtn0AYfPfJADbtFAnVTC3aGLAvqi8JMMgU=
-X-Received: by 2002:a25:d695:0:b0:d62:6514:45b7 with SMTP id
- n143-20020a25d695000000b00d62651445b7mr11205815ybg.37.1694516708153; Tue, 12
- Sep 2023 04:05:08 -0700 (PDT)
+ AGHT+IGyZPp4TVH1sBukbcNRmYX2EySx2o/za6wxn39EVFdbUk9RivbE+m6qOSfkNS/rkWMpLDTgnTAoDhF0TgN1JVo=
+X-Received: by 2002:a5b:743:0:b0:d79:d23f:b49c with SMTP id
+ s3-20020a5b0743000000b00d79d23fb49cmr10905306ybq.35.1694516768133; Tue, 12
+ Sep 2023 04:06:08 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230912081527.208499-1-herve.codina@bootlin.com>
- <20230912101505.225899-1-herve.codina@bootlin.com>
-In-Reply-To: <20230912101505.225899-1-herve.codina@bootlin.com>
+ <20230912101510.225920-1-herve.codina@bootlin.com>
+In-Reply-To: <20230912101510.225920-1-herve.codina@bootlin.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 12 Sep 2023 13:04:56 +0200
+Date: Tue, 12 Sep 2023 13:05:57 +0200
 Message-ID: 
- <CACRpkdbxdMZt4E1SF1v9as-jw=TpvS1mk2TQqAgywMBLbKaNoA@mail.gmail.com>
-Subject: Re: [PATCH v5 28/31] pinctrl: Add support for the Lantic PEF2256
- pinmux
+ <CACRpkdZ2svQJVG4wiJu90X6HhKudMuAerz12zw2nd84ekLaEJA@mail.gmail.com>
+Subject: Re: [PATCH v5 29/31] MAINTAINERS: Add the Lantiq PEF2256 driver entry
 To: Herve Codina <herve.codina@bootlin.com>
 Cc: "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>,
@@ -116,8 +115,8 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: AF72XXATDGZ4T3IPEYZ27AFMTPMW7Y46
-X-Message-ID-Hash: AF72XXATDGZ4T3IPEYZ27AFMTPMW7Y46
+Message-ID-Hash: FMNIHOLE33YF5TRV67NDSFSJNSLOA6MV
+X-Message-ID-Hash: FMNIHOLE33YF5TRV67NDSFSJNSLOA6MV
 X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AF72XXATDGZ4T3IPEYZ27AFMTPMW7Y46/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMNIHOLE33YF5TRV67NDSFSJNSLOA6MV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,106 +138,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Herve,
-
-thanks for your patch!
-
 On Tue, Sep 12, 2023 at 12:15=E2=80=AFPM Herve Codina <herve.codina@bootlin=
 .com> wrote:
 
-> The Lantiq PEF2256 is a framer and line interface component designed to
-> fulfill all required interfacing between an analog E1/T1/J1 line and the
-> digital PCM system highway/H.100 bus.
->
-> This kind of component can be found in old telecommunication system.
-> It was used to digital transmission of many simultaneous telephone calls
-> by time-division multiplexing. Also using HDLC protocol, WAN networks
-> can be reached through the framer.
->
-> This pinmux support handles the pin muxing part (pins RP(A..D) and pins
-> XP(A..D)) of the PEF2256.
+> After contributing the driver, add myself as the maintainer for the
+> Lantiq PEF2256 driver.
 >
 > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 > Signed-off-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+> ---
+>  MAINTAINERS | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8b987f2c8633..dbc5867016bc 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -11876,6 +11876,15 @@ S:     Maintained
+>  F:     arch/mips/lantiq
+>  F:     drivers/soc/lantiq
+>
+> +LANTIQ PEF2256 DRIVER
+> +M:     Herve Codina <herve.codina@bootlin.com>
+> +S:     Maintained
+> +F:     Documentation/devicetree/bindings/net/lantiq,pef2256.yaml
+> +F:     drivers/net/wan/framer/pef2256/
+> +F:     drivers/pinctrl/pinctrl-pef2256-regs.h
+> +F:     drivers/pinctrl/pinctrl-pef2256.c
 
-Nice to see this as a proper pin control driver!
-
->  drivers/pinctrl/pinctrl-pef2256-regs.h |  65 ++++++
->  drivers/pinctrl/pinctrl-pef2256.c      | 308 +++++++++++++++++++++++++
-
-Do you really need a separate header just for some registers?
-But it's a matter of taste so I'm not gonna complain if you want
-it this way.
-
-> +config PINCTRL_PEF2256
-> +       tristate "Lantiq PEF2256 (FALC56) pin controller driver"
-> +       depends on OF && FRAMER_PEF2256
-> +       select PINMUX
-
-select PINCONF
-
-> +       select GENERIC_PINCONF
-
-This brings it in implicitly but I prefer that you just select it.
-
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-
-I think SPDX mandates that you start the tag with C99 comments
-
-// SPDX-License-Identifier: GPL-2.0-only
-
-> +       /* We map 1 group <-> 1 pin */
-
-Also known as "the qualcomm trick", but hey: it's fine.
-
-> +static int pef2256_register_pinctrl(struct pef2256_pinctrl *pef2256)
-> +{
-> +       struct pinctrl_dev      *pctrl;
-> +
-> +       pef2256->pctrl_desc.name    =3D dev_name(pef2256->dev);
-> +       pef2256->pctrl_desc.owner   =3D THIS_MODULE;
-> +       pef2256->pctrl_desc.pctlops =3D &pef2256_pctlops;
-> +       pef2256->pctrl_desc.pmxops  =3D &pef2256_pmxops;
-> +       if (pef2256->version =3D=3D PEF2256_VERSION_1_2) {
-> +               pef2256->pctrl_desc.pins  =3D pef2256_v12_pins;
-> +               pef2256->pctrl_desc.npins =3D ARRAY_SIZE(pef2256_v12_pins=
-);
-> +               pef2256->functions  =3D pef2256_v12_functions;
-> +               pef2256->nfunctions =3D ARRAY_SIZE(pef2256_v12_functions)=
-;
-> +       } else {
-> +               pef2256->pctrl_desc.pins  =3D pef2256_v2x_pins;
-> +               pef2256->pctrl_desc.npins =3D ARRAY_SIZE(pef2256_v2x_pins=
-);
-> +               pef2256->functions  =3D pef2256_v2x_functions;
-> +               pef2256->nfunctions =3D ARRAY_SIZE(pef2256_v2x_functions)=
-;
-> +       }
-> +
-> +       pctrl =3D devm_pinctrl_register(pef2256->dev, &pef2256->pctrl_des=
-c, pef2256);
-> +       if (IS_ERR(pctrl)) {
-> +               dev_err(pef2256->dev, "pinctrl driver registration failed=
-\n");
-> +               return PTR_ERR(pctrl);
-> +       }
-> +
-> +       return 0;
-
-You could use
-return dev_err_probe(...);
-
-> +       pef2256_reset_pinmux(pef2256_pinctrl);
-> +       ret =3D pef2256_register_pinctrl(pef2256_pinctrl);
-> +       if (ret)
-> +               return ret;
-
-Or you could use it down here.
-
-With or without these changes (because they are nitpicks)
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Just use a glob expression:
+F:     drivers/pinctrl/pinctrl-pef2256-*
 
 Yours,
 Linus Walleij

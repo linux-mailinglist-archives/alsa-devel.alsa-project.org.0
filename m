@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A382379D679
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 18:37:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE6179D67D
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 18:38:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A366886;
-	Tue, 12 Sep 2023 18:36:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A366886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 651FEDF8;
+	Tue, 12 Sep 2023 18:37:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 651FEDF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694536660;
-	bh=GxKIUea0MR3qucRWRL0Hx83U7cwPGTLCUKUSG5y0gTo=;
+	s=default; t=1694536711;
+	bh=OJuoXIE82hjK2NBMYhWXwpJGkmlI7rC+5Tx9u3yV2tM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MuLZ10S9ipp0Ku8kAKoaczc+W/QC0r6wZSv+Xmv8ac3hSdPd6+dPeuUTi9yQXtZxL
-	 CLN5vibsIa0/3HtJ1ffsbR/g2yyJzfkbgROUs/xoGF5yd29dZ05vj5VTnNONeE4hHi
-	 VQca63DbIRwJ5YKdaT6BL7ACQpKMd8nTWayQH5RI=
+	b=oG2Zx8ukMjJxw5CAc30al4+812yTUJQrGhpUT9cpDlJ5cWY4Q6E8/DyZIiK+j4qGo
+	 nFlhdrpurTF/NfwN0l6Au5TmD6f1Y7YFQZ9aJqxW+8eG8x135T0hkA0KtLC1sCTH1h
+	 53UeXO3nDf7P5/EeRIOFwDd06fN4aDfuI/liKF48=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2081F80549; Tue, 12 Sep 2023 18:36:49 +0200 (CEST)
+	id 4C16CF8055A; Tue, 12 Sep 2023 18:37:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56C3DF80246;
-	Tue, 12 Sep 2023 18:36:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9BA8F80558;
+	Tue, 12 Sep 2023 18:37:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CD3EF80425; Tue, 12 Sep 2023 18:36:45 +0200 (CEST)
+	id E0EACF8055A; Tue, 12 Sep 2023 18:37:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BA616F80212
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 18:36:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA616F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0754F80425
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 18:37:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0754F80425
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A2ju+hny
+ header.s=k20201202 header.b=Ps2S5DYS
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 44CB561455;
-	Tue, 12 Sep 2023 16:36:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C44DC433C9;
-	Tue, 12 Sep 2023 16:36:34 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTPS id D2844CE1DCE;
+	Tue, 12 Sep 2023 16:37:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35ED1C433C7;
+	Tue, 12 Sep 2023 16:37:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694536600;
-	bh=GxKIUea0MR3qucRWRL0Hx83U7cwPGTLCUKUSG5y0gTo=;
+	s=k20201202; t=1694536632;
+	bh=OJuoXIE82hjK2NBMYhWXwpJGkmlI7rC+5Tx9u3yV2tM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A2ju+hny7e7p8svy4BT1Z0NWlDaSWqAUMU0jO3tWdOGUwVvOTr5ryi6qKB1r00soR
-	 6MgqcPWs8U3o80SVJWEZP/K5R0lchPS8+Me+Zpv9QSsqKYlQpMMVd2HACNtZytqfdF
-	 NtGigKM+tgZZDmmbdhKNWm+43BcRVD5N0dCD3PxKOjLpEDsDS8nE6CF8knFeh2PrWY
-	 8iLnY+50Ain9WkIk9dFb7Ym/UT0XgLiHBOFDMizqDtfcH6KvXAnZUBW0w7FfFGgWQ7
-	 P8Pi1T+dbds7cdbZIYKgLuqbsimrLRVpxMZ0R6b7s3jy7/R16ly99fRsE5xC7FbpMA
-	 BipSJh9HkWnmw==
-Date: Tue, 12 Sep 2023 17:36:32 +0100
+	b=Ps2S5DYSbulUYf7oy7lT6QUeIC8SEE8uDrovxyzlP1aFanperwJfPxgxOSDoMicdj
+	 QPhK/QjxkpPvjv2poRuKEjUgTqjp60TdQnRQmmahJid4JusPVASg0K1uVbLr45UAB9
+	 O+q5IVvxkSBtPB4uIoSzebjqIZKeWLsg1NRa9ESumUogVOWqga9FHZ4uTwbMwFliV4
+	 inf0fEeH4WTZISjvzOruneKr+bXI0QcpZaEpr0gdpaoAWUmP+DefmPc84zsLhd9NP2
+	 YObhh1gBw/Dws7ynhREpR3QXWW0o3PhgfgfBYRLDlXE9yJVBmWttawahid5gfYz9Cd
+	 Kjln+OFCXKa7w==
+Date: Tue, 12 Sep 2023 17:37:03 +0100
 From: Conor Dooley <conor@kernel.org>
 To: Herve Codina <herve.codina@bootlin.com>
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -86,18 +87,18 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	Simon Horman <horms@kernel.org>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v5 06/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
- Fix example property name
-Message-ID: <20230912-marathon-pecan-a9d001f7e015@spud>
+Subject: Re: [PATCH v5 07/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
+ Add 'additionalProperties: false' in child nodes
+Message-ID: <20230912-pancreas-hacked-ddcaa726fa8e@spud>
 References: <20230912081527.208499-1-herve.codina@bootlin.com>
- <20230912081527.208499-7-herve.codina@bootlin.com>
+ <20230912081527.208499-8-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="XR0sKUlOqSjiyY1L"
+	protocol="application/pgp-signature"; boundary="H5/71ZKZWMUncSI5"
 Content-Disposition: inline
-In-Reply-To: <20230912081527.208499-7-herve.codina@bootlin.com>
-Message-ID-Hash: HXBVY4K6G4UF2OQWOXMEJJHHZG2JRVOH
-X-Message-ID-Hash: HXBVY4K6G4UF2OQWOXMEJJHHZG2JRVOH
+In-Reply-To: <20230912081527.208499-8-herve.codina@bootlin.com>
+Message-ID-Hash: TFDKVSP5LTEO6AVQPP2OW5HEZJAW265E
+X-Message-ID-Hash: TFDKVSP5LTEO6AVQPP2OW5HEZJAW265E
 X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HXBVY4K6G4UF2OQWOXMEJJHHZG2JRVOH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TFDKVSP5LTEO6AVQPP2OW5HEZJAW265E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,18 +121,16 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---XR0sKUlOqSjiyY1L
+--H5/71ZKZWMUncSI5
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 12, 2023 at 10:14:57AM +0200, Herve Codina wrote:
-> The given example mentions the 'fsl,mode' property whereas the
-> correct property name, the one described, is 'fsl,operational-mode'.
+On Tue, Sep 12, 2023 at 10:14:58AM +0200, Herve Codina wrote:
+> Additional properties in child node should not be allowed.
 >=20
-> Fix the example to use the correct property name.
+> Prevent them adding 'additionalProperties: false'
 >=20
-> Fixes: a9b121327c93 ("dt-bindings: soc: fsl: cpm_qe: Add QMC controller")
 > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
@@ -140,57 +139,38 @@ Thanks,
 Conor.
 
 > ---
->  .../bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml           | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  .../devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml     | 1 +
+>  1 file changed, 1 insertion(+)
 >=20
 > diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-sc=
 c-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-=
 qmc.yaml
-> index ec888f48cac8..450a0354cb1d 100644
+> index 450a0354cb1d..82d9beb48e00 100644
 > --- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.y=
 aml
 > +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.y=
 aml
-> @@ -137,7 +137,7 @@ examples:
->          channel@16 {
->              /* Ch16 : First 4 even TS from all routed from TSA */
->              reg =3D <16>;
-> -            fsl,mode =3D "transparent";
-> +            fsl,operational-mode =3D "transparent";
->              fsl,reverse-data;
->              fsl,tx-ts-mask =3D <0x00000000 0x000000aa>;
->              fsl,rx-ts-mask =3D <0x00000000 0x000000aa>;
-> @@ -146,7 +146,7 @@ examples:
->          channel@17 {
->              /* Ch17 : First 4 odd TS from all routed from TSA */
->              reg =3D <17>;
-> -            fsl,mode =3D "transparent";
-> +            fsl,operational-mode =3D "transparent";
->              fsl,reverse-data;
->              fsl,tx-ts-mask =3D <0x00000000 0x00000055>;
->              fsl,rx-ts-mask =3D <0x00000000 0x00000055>;
-> @@ -155,7 +155,7 @@ examples:
->          channel@19 {
->              /* Ch19 : 8 TS (TS 8..15) from all routed from TSA */
->              reg =3D <19>;
-> -            fsl,mode =3D "hdlc";
-> +            fsl,operational-mode =3D "hdlc";
->              fsl,tx-ts-mask =3D <0x00000000 0x0000ff00>;
->              fsl,rx-ts-mask =3D <0x00000000 0x0000ff00>;
->          };
+> @@ -64,6 +64,7 @@ patternProperties:
+>      description:
+>        A channel managed by this controller
+>      type: object
+> +    additionalProperties: false
+> =20
+>      properties:
+>        reg:
 > --=20
 > 2.41.0
 >=20
 
---XR0sKUlOqSjiyY1L
+--H5/71ZKZWMUncSI5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZQCTkAAKCRB4tDGHoIJi
-0qkSAQDCtuqFutdZCBawqlE2z8M36+DZG+UYXQsNC7oJKZRkAwD/czQYT6Dla3tv
-mNhSBDRL50Z7rrG+GUiJRWBasgZy0Ak=
-=+Z+2
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZQCTrwAKCRB4tDGHoIJi
+0n+XAQCw6AgUOq0NyPZHrHWu5ogYxBjVGRRZ4L314GuJF/TwRAEA3G14ilDkYP5o
+3fMneddHCQlNQIVPUgNd/ldquYguZwQ=
+=eFLQ
 -----END PGP SIGNATURE-----
 
---XR0sKUlOqSjiyY1L--
+--H5/71ZKZWMUncSI5--

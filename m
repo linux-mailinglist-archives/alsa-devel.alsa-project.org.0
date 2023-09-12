@@ -2,93 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F66279D9D7
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 22:00:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 519FB79DA8D
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 23:05:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F1BC93A;
-	Tue, 12 Sep 2023 21:59:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F1BC93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3725A84C;
+	Tue, 12 Sep 2023 23:04:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3725A84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694548803;
-	bh=9aolbvVGXe/o5wJcSDgi7kIHANgfNpY59ibfl3KF8d8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1694552747;
+	bh=Vn/+r9lrRj3XCF0f1OgbLrVWHe/dDEBlspgHejgs8pM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FVVZMcFRrUr6tUifX+U114BldFU2uePsroQ/9wzNPl+rXNisSDQeIU3K7hmxeBKln
-	 3mkkg2YiTOCKHKKB7jnAt+GibIPk1UfWmBySHVSUnrTE3+o3D4RG08gBxOHgtqfOU7
-	 XKD6IdL9UVY7PEY1PW2Vagzs2tLq1sjkT4QG2Tbs=
+	b=UfoYgA0tY8MxI5yleHvCatwxMpZ85Ysndgs3JER0cgG94dfCdZqKclVxGiM+8sjav
+	 L/f1oScKg7MWM0LtwC0A4J5pLpje8V5U7m0qDloshfGhm/TC4lEFF1xBIRQA4oEhip
+	 Lr645pdj03Pd/jHM7dxaPtV60oWaLsn9Q69GUtHc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EF03F80549; Tue, 12 Sep 2023 21:58:53 +0200 (CEST)
+	id 96611F8055B; Tue, 12 Sep 2023 23:04:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E504BF80246;
-	Tue, 12 Sep 2023 21:58:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECB86F80246;
+	Tue, 12 Sep 2023 23:04:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DCEF8F80425; Tue, 12 Sep 2023 21:58:49 +0200 (CEST)
+	id D0337F80425; Tue, 12 Sep 2023 23:04:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 728D8F8007C
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 21:58:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728D8F8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D11EF8007C
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 23:04:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D11EF8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=NxKn67Qt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694548725; x=1726084725;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9aolbvVGXe/o5wJcSDgi7kIHANgfNpY59ibfl3KF8d8=;
-  b=NxKn67QtGayMOS09YaSgj6/PvOkt57RLWDajssTjtp5CV9DywY/j/jVV
-   W4jZBs+HsNCMKXYyekaKMYeOEKjD7qP25YKyihL5+j28aqiWiL03O6Zn2
-   ci5murBIgzMLauvhL1N5K+sepCTfVbjjQZ+TxOVDTfDw8bkExZtxoWG4/
-   3qb4qMSjwJlfoOd56MLJ70tYYnJVOyIGXdXzJjM+xZGFYEnBmf6xLJqrW
-   DxbC6KPgwHQUz+knXumFusPF7f6gknGVWMGCHJ1Bh0KCUyNnlMVY72jlD
-   3NhQFeDkHuCzH+LrDM8SLjy3nQWcQYuSipjHbYx3IuxwXiRo1UL6pMGWX
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="382287539"
-X-IronPort-AV: E=Sophos;i="6.02,141,1688454000";
-   d="scan'208";a="382287539"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 12:54:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="693604621"
-X-IronPort-AV: E=Sophos;i="6.02,141,1688454000";
-   d="scan'208";a="693604621"
-Received: from lkp-server02.sh.intel.com (HELO 47e905db7d2b) ([10.239.97.151])
-  by orsmga003.jf.intel.com with ESMTP; 12 Sep 2023 12:54:22 -0700
-Received: from kbuild by 47e905db7d2b with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qg9Sj-0000D1-1x;
-	Tue, 12 Sep 2023 19:54:18 +0000
-Date: Wed, 13 Sep 2023 03:53:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ma Ke <make_ruc2021@163.com>, perex@perex.cz, tiwai@suse.com,
-	cujomalainey@chromium.org, maciej.szmigiero@oracle.com,
-	clecigne@google.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: control: do not access controls without possession
- of r_w lock
-Message-ID: <202309130328.UdCL3yzt-lkp@intel.com>
-References: <20230912084530.3307329-1-make_ruc2021@163.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=K2EiLPrI
+Received: by mail-yb1-xb34.google.com with SMTP id
+ 3f1490d57ef6-d80089712e5so357884276.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 12 Sep 2023 14:04:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1694552683; x=1695157483;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Vn/+r9lrRj3XCF0f1OgbLrVWHe/dDEBlspgHejgs8pM=;
+        b=K2EiLPrI+NZK3J9rptGiFbcGbSogr9XTXZA8Cu1nm6kxnQfjGvWPS0syks25xkWoNW
+         ZACX2D0yM2dLBHjx7s5hdq2XjopHM3cFOcdPluti9pUJTYvwtqrG0fct05EuhyLduoTG
+         F0/0/gUBG6yDFg7yVL/s9VnlvaU5yaiT96usPOQp+1Qyb7BvWIjrCzWX/mCD0T0ehMAN
+         xr2mC7cq64pNNs/Bf+HSZ/ADL8OQjfwChd97uSuAeWCPWf4FlhO5uzNw2CDaxgICquhw
+         6vdtgW0DCBxKvwSaLt6eqmyZyzU+z9zVALrY7/bLrGo5oT0ofDIyogWAoiReU1zeiPII
+         nH4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694552683; x=1695157483;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Vn/+r9lrRj3XCF0f1OgbLrVWHe/dDEBlspgHejgs8pM=;
+        b=vJqL3YKWNC5okFAZdOPt5JgiCbJZZmG18jswZ3MLCmqRGJTzQvPT+g7yTypWo3Hrid
+         gEZfOHbm+7gHje+E0nuQhTH6BbI+PrJIxl4LGe79gosv2+TfsNpGbNSS1ERuG0hkxmYD
+         J9p1GpWvLvS4HZDR1qge8vHckGo4VRDp7jD4+EEoyEP13hGyukk1YbbJhdGekzmkoXYt
+         A0+SsDLgaH19AbdzuTx9a0NWmJndpG0jkU3u1W10ztf5rp3UF3R0LyrOj5fw9Dik2ECv
+         JEHRRcZTcxu4mRlOp9OTmWOFTXS994y4ZjciATcx3sLlrywySxl8N0rCgf89+mU2UYZl
+         pPyg==
+X-Gm-Message-State: AOJu0Yxzyw+Jf8fBnSXL+OYDIgumwd5YZODVSl0CGC6W0HPMf+Nxdp3t
+	zFwGuZNZrxhJaaYVCfBIVyfQ+hpESgli6U/EiKvrZA==
+X-Google-Smtp-Source: 
+ AGHT+IGQDuLaoE4eOyZT+Z8hNNsgfwvWorKJwQ3GNnopbwgh3VM6Y+HWcMTMFBMaepKaqB0s4OiEEYQ95/LJVmcUlZY=
+X-Received: by 2002:a25:aa6f:0:b0:d78:414d:1910 with SMTP id
+ s102-20020a25aa6f000000b00d78414d1910mr4091514ybi.25.1694552683091; Tue, 12
+ Sep 2023 14:04:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230912084530.3307329-1-make_ruc2021@163.com>
-Message-ID-Hash: TDUGMQ6H33HYM637X5MQCS7RQVGKYC4R
-X-Message-ID-Hash: TDUGMQ6H33HYM637X5MQCS7RQVGKYC4R
-X-MailFrom: lkp@intel.com
+References: <20230912081527.208499-1-herve.codina@bootlin.com>
+ <20230912101505.225899-1-herve.codina@bootlin.com>
+ <CACRpkdbxdMZt4E1SF1v9as-jw=TpvS1mk2TQqAgywMBLbKaNoA@mail.gmail.com>
+ <71761f94-14ea-4e2a-a079-c74dfa32387a@sirena.org.uk>
+In-Reply-To: <71761f94-14ea-4e2a-a079-c74dfa32387a@sirena.org.uk>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 12 Sep 2023 23:04:24 +0200
+Message-ID: 
+ <CACRpkdbZK8GUgOcLA2D=7nDejK9cT=bxwP+HcC0GOKr-0yCJ4w@mail.gmail.com>
+Subject: Re: [PATCH v5 28/31] pinctrl: Add support for the Lantic PEF2256
+ pinmux
+To: Mark Brown <broonie@kernel.org>
+Cc: Herve Codina <herve.codina@bootlin.com>,
+ "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
+ Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Randy Dunlap <rdunlap@infradead.org>,
+	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: ZGFZPCVU5WJE2SQUFWZYDUPGIY6XGURM
+X-Message-ID-Hash: ZGFZPCVU5WJE2SQUFWZYDUPGIY6XGURM
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TDUGMQ6H33HYM637X5MQCS7RQVGKYC4R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZGFZPCVU5WJE2SQUFWZYDUPGIY6XGURM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,67 +140,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Ma,
+On Tue, Sep 12, 2023 at 4:31=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+> On Tue, Sep 12, 2023 at 01:04:56PM +0200, Linus Walleij wrote:
+> > On Tue, Sep 12, 2023 at 12:15=E2=80=AFPM Herve Codina <herve.codina@boo=
+tlin.com> wrote:
+>
+> > > +/* SPDX-License-Identifier: GPL-2.0 */
+> > > +/*
+>
+> > I think SPDX mandates that you start the tag with C99 comments
+>
+> > // SPDX-License-Identifier: GPL-2.0-only
+>
+> Not for headers, they should use C style since they might be included in
+> contexts where C++ isn't supported.
 
-kernel test robot noticed the following build errors:
+Oh right. Thanks Mark!
 
-[auto build test ERROR on tiwai-sound/for-next]
-[also build test ERROR on tiwai-sound/for-linus linus/master v6.6-rc1 next-20230912]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Ma-Ke/ALSA-control-do-not-access-controls-without-possession-of-r_w-lock/20230912-164832
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230912084530.3307329-1-make_ruc2021%40163.com
-patch subject: [PATCH] ALSA: control: do not access controls without possession of r_w lock
-config: arm-randconfig-r032-20230913 (https://download.01.org/0day-ci/archive/20230913/202309130328.UdCL3yzt-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230913/202309130328.UdCL3yzt-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309130328.UdCL3yzt-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> sound/core/control.c:593:2: error: use of undeclared identifier 'count'
-     593 |         count = kcontrol->count;
-         |         ^
-   sound/core/control.c:594:22: error: use of undeclared identifier 'count'
-     594 |         for (idx = 0; idx < count; idx++)
-         |                             ^
-   2 errors generated.
-
-
-vim +/count +593 sound/core/control.c
-
-   576	
-   577	static int __snd_ctl_remove(struct snd_card *card,
-   578				    struct snd_kcontrol *kcontrol,
-   579				    bool remove_hash)
-   580	{
-   581		unsigned int idx;
-   582	
-   583		lockdep_assert_held_write(&card->controls_rwsem);
-   584	
-   585		if (snd_BUG_ON(!card || !kcontrol))
-   586			return -EINVAL;
-   587		list_del(&kcontrol->list);
-   588	
-   589		if (remove_hash)
-   590			remove_hash_entries(card, kcontrol);
-   591	
-   592		card->controls_count -= kcontrol->count;
- > 593		count = kcontrol->count;
-   594		for (idx = 0; idx < count; idx++)
-   595			snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
-   596		snd_ctl_free_one(kcontrol);
-   597		return 0;
-   598	}
-   599	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yours,
+Linus Walleij

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E490D79CC1A
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 11:41:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE98279CC75
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 11:52:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC33DA4B;
-	Tue, 12 Sep 2023 11:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC33DA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7631A4B;
+	Tue, 12 Sep 2023 11:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7631A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694511660;
-	bh=DLOyTLfb9R8IJZRevtRjjsVOxaGdW2lXynr+P6j/V30=;
+	s=default; t=1694512378;
+	bh=NuDSgU/za9u2Y0vgU21V368MH+0liwIWfP/620NIUoc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OPyBcBjZajxsE+3qUSZreCTTkMYUb8XTEwDXjgf5E9pDaXQe/5CKxxVBCZZJxPSid
-	 lzdcE4CXM3xpJvIe9bU0zSQDkcgNjWz5OtnTgQMUQQk4m2pi90xVtjLBo3h0UqqQ4J
-	 S7MsPrPv3HwDHkIOQp2SdapE1VGXRL3+Pa+VlKms=
+	b=Jbl4JaMN1kzSwfEP9a7Kpzcq3pv9bUbqHUxvkn+QNjboPqj8cINUNE+p1Id8Zvmp1
+	 jw+JkuniKeJJQVtDGM7q5v4SWoAMArGzibO/ai7i16TYWo6D8B3TkwFCzhqf6PjFMZ
+	 GrSRzYRPyXz04R1Jen9+uJ7apEAWsxHeQ53NegzI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19AF8F80551; Tue, 12 Sep 2023 11:40:08 +0200 (CEST)
+	id 5B69CF80431; Tue, 12 Sep 2023 11:52:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 915A6F80246;
-	Tue, 12 Sep 2023 11:40:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 036CEF80246;
+	Tue, 12 Sep 2023 11:52:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F4BFF80425; Tue, 12 Sep 2023 11:40:04 +0200 (CEST)
+	id 6B91FF80425; Tue, 12 Sep 2023 11:52:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,27 +36,27 @@ Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
  [IPv6:2001:4b98:dc4:8::221])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2DD03F800AA
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 11:39:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DD03F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 93A29F800AA
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 11:52:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93A29F800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=bI7lpfAf
-Received: by mail.gandi.net (Postfix) with ESMTPA id C1FAE240082;
-	Tue, 12 Sep 2023 09:27:53 +0000 (UTC)
+ header.s=gm1 header.b=K+nnYXVg
+Received: by mail.gandi.net (Postfix) with ESMTPA id 5A722240009;
+	Tue, 12 Sep 2023 09:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1694511597;
+	t=1694512320;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YiX9aOtaC+6K2XdrRqRYZkRlaV8Okxw4XwCIYaNdukw=;
-	b=bI7lpfAfWtU7Q8ViyDs1nq0+U9EuyVWula6gYSA2xoQBxxiPKuUfPHwf0kFXX4/rKOiDjy
-	7YHWUW2sqrIHCt4LcolKyHfopgkS/HC2eAlX5zl6S55NTVbWr880OpKkWoujJ5an3pOb5b
-	+oUAJAV47RPTT624Dlxkebtw+4W2NJQfjYRBSZqpokaCEm5dflZEn/dksvX42jlQN2m6hX
-	gD9FP8Z0CYaY0ZYoJUpfFkzYQ5vK10sVMOropkSPxdmx0Qj0RYqZjQxdk+2ochGuenl0Ex
-	WEct+LKOA6aV4VWVRH2k+p+rShJagQqsPaaKXfmXj2oYkVpjRMU/Wed8vOOdKg==
+	bh=ScPjzuZaLLYh2lcosF7mjC3LbbKogbqWDUhQ8RkAceU=;
+	b=K+nnYXVgVTeIYLV1BYZk8yVPM7a2nPu/2JA6GWMyyv0Za8enlurHjBH7plSt2lkrUaQgFx
+	0f+eic3JBBgKxtWXmU15F2NOL2ZoHFXm8dROGgnxxRWdTKbO53xzFHJjRrH2cKPixxWiIQ
+	X0H50mqA/O7gee/qxhpcScSAQrz6oC5amb4tHHTsy3EQ30w3liig4hh60CmVmm0cSjrsOm
+	3+A4lbr4FIsGWAyRl0hBgn4ip8FNO3Untij7ggUFAU3Q5C3z+B+ux/Tq3eCFHsmlxJXwfW
+	EQItj5FZbLmxsodLOd0QDPWT6RUBUWUp7yQWKgN05HapEUcrPwoojI25LbtKJQ==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -91,18 +91,18 @@ Cc: netdev@vger.kernel.org,
 	Simon Horman <horms@kernel.org>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 06/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc: Fix
- example property name
-Date: Tue, 12 Sep 2023 10:14:57 +0200
-Message-ID: <20230912081527.208499-7-herve.codina@bootlin.com>
+Subject: [PATCH v5 07/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc: Add
+ 'additionalProperties: false' in child nodes
+Date: Tue, 12 Sep 2023 10:14:58 +0200
+Message-ID: <20230912081527.208499-8-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230912081527.208499-1-herve.codina@bootlin.com>
 References: <20230912081527.208499-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: OGYDL27ELUHTXB4RU5EL7SA4ZET6IOQO
-X-Message-ID-Hash: OGYDL27ELUHTXB4RU5EL7SA4ZET6IOQO
+Message-ID-Hash: SRXA6CD2YQP5WEW2I62NVYH5ULYVL56L
+X-Message-ID-Hash: SRXA6CD2YQP5WEW2I62NVYH5ULYVL56L
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGYDL27ELUHTXB4RU5EL7SA4ZET6IOQO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SRXA6CD2YQP5WEW2I62NVYH5ULYVL56L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,48 +124,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The given example mentions the 'fsl,mode' property whereas the
-correct property name, the one described, is 'fsl,operational-mode'.
+Additional properties in child node should not be allowed.
 
-Fix the example to use the correct property name.
+Prevent them adding 'additionalProperties: false'
 
-Fixes: a9b121327c93 ("dt-bindings: soc: fsl: cpm_qe: Add QMC controller")
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- .../bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml           | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml     | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-index ec888f48cac8..450a0354cb1d 100644
+index 450a0354cb1d..82d9beb48e00 100644
 --- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
 +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-@@ -137,7 +137,7 @@ examples:
-         channel@16 {
-             /* Ch16 : First 4 even TS from all routed from TSA */
-             reg = <16>;
--            fsl,mode = "transparent";
-+            fsl,operational-mode = "transparent";
-             fsl,reverse-data;
-             fsl,tx-ts-mask = <0x00000000 0x000000aa>;
-             fsl,rx-ts-mask = <0x00000000 0x000000aa>;
-@@ -146,7 +146,7 @@ examples:
-         channel@17 {
-             /* Ch17 : First 4 odd TS from all routed from TSA */
-             reg = <17>;
--            fsl,mode = "transparent";
-+            fsl,operational-mode = "transparent";
-             fsl,reverse-data;
-             fsl,tx-ts-mask = <0x00000000 0x00000055>;
-             fsl,rx-ts-mask = <0x00000000 0x00000055>;
-@@ -155,7 +155,7 @@ examples:
-         channel@19 {
-             /* Ch19 : 8 TS (TS 8..15) from all routed from TSA */
-             reg = <19>;
--            fsl,mode = "hdlc";
-+            fsl,operational-mode = "hdlc";
-             fsl,tx-ts-mask = <0x00000000 0x0000ff00>;
-             fsl,rx-ts-mask = <0x00000000 0x0000ff00>;
-         };
+@@ -64,6 +64,7 @@ patternProperties:
+     description:
+       A channel managed by this controller
+     type: object
++    additionalProperties: false
+ 
+     properties:
+       reg:
 -- 
 2.41.0
 

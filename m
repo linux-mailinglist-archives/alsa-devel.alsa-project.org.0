@@ -2,85 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D54279C9ED
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7957F79CA3D
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:40:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78B48A4C;
-	Tue, 12 Sep 2023 10:28:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78B48A4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8030886;
+	Tue, 12 Sep 2023 10:39:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8030886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694507371;
-	bh=0p/1q46yhmf778rHQ0SL4+DL3+yaVcl3v9Emkm3DAvI=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1694508031;
+	bh=4ejql24HEMpBoTtiKSAXpLvVWBPjkQdUnHC8bPFBtto=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=FG2iRMdl2VwsETxuIdn/ZFb3JYSP0bFluZ9FUQZuv0mwvfFYVrVFiEZJHGv+HOVnL
-	 1rvfgPpD3Yvzwrv80zlp76lbHW94M6PeJBBGe6CrF0RA2O3YPd/yBvjmEz3KKqZj4b
-	 iY+atRhKSNbBzGXJyAO0IfYerKF+zl4XlGg5f7uI=
+	b=HS28mff57ICtSHeZ1CZmvxQ3PIOOo8Ia26Y8iL9Iw5Np8bInslGT9W/AW4inzlfQh
+	 ce2k4cXGq9y3pcDfNin/aBo4jZNBqhDH2uafMzZ1Qo3cGh0dm2VbA63irTgnLxsTtH
+	 Thic+7tKpH0oLozZVETgBwpV9o+XBv5RiXdgjuLU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1AD4F8055A; Tue, 12 Sep 2023 10:28:36 +0200 (CEST)
+	id A58D3F80552; Tue, 12 Sep 2023 10:39:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC3DFF80549;
-	Tue, 12 Sep 2023 10:28:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CDEDF80246;
+	Tue, 12 Sep 2023 10:39:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C310FF8055B; Tue, 12 Sep 2023 10:28:30 +0200 (CEST)
+	id 47623F80425; Tue, 12 Sep 2023 10:39:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47D0AF800AA
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:28:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47D0AF800AA
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 38C8SF8R02406487,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.92/5.92) with ESMTPS id 38C8SF8R02406487
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 12 Sep 2023 16:28:15 +0800
-Received: from RTEXMBS02.realtek.com.tw (172.21.6.95) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Tue, 12 Sep 2023 16:28:15 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Tue, 12 Sep 2023 16:28:14 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
- RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
- 15.01.2375.007; Tue, 12 Sep 2023 16:28:13 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Update alc287_fixup_bind_dacs()
-Thread-Topic: Update alc287_fixup_bind_dacs()
-Thread-Index: AdnlUol8I+Z0iGB9Tiie4ML4h3gAPA==
-Date: Tue, 12 Sep 2023 08:28:13 +0000
-Message-ID: <e3f2aac3fe6a47079d728a6443358cc2@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXMBS02.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: multipart/mixed;
-	boundary="_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_"
+	by alsa1.perex.cz (Postfix) with ESMTPS id F103FF800AA
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:39:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F103FF800AA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Y/oe5eIj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694507953; x=1726043953;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=4ejql24HEMpBoTtiKSAXpLvVWBPjkQdUnHC8bPFBtto=;
+  b=Y/oe5eIjvRL8ToDnzadIMOHTSJEQpCtHcUnuSXlFzMSG+dqC5SZdZWxO
+   8RO9YlbXQSkegL5xdgukG4i0qgrg++UkrjgWyQdmeftj65HQ7vL/4skAk
+   r6RhZQ8vw6MjRcqAa1hqxxIpmgxspaDCmDEAWrOUjvj0X8TDB0eUW7GPt
+   a5DtIENy0TAilzf2O526hac6gMzdYUslQ8cUd0oKYuUkK3gDuGzDNAvVk
+   opX0MjGqUv2DWhcV/wexVKLMDUWIBXzgJBC1GlxF6s58GieYrTmd2EnIi
+   zROQ/yI5KCtPt0LOJZ9jORFf5j4+SFVbpZyVaJFx7qMfkHfo2vrJl5+dy
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="381015227"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000";
+   d="scan'208";a="381015227"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 01:39:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="833826778"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000";
+   d="scan'208";a="833826778"
+Received: from mkidd-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.217.72])
+  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 01:39:06 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: tiwai@suse.com,
+	perex@perex.cz,
+	arnd@arndb.de
+Cc: masahiroy@kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: core: Increase the name array size for debugfs
+ directory name
+Date: Tue, 12 Sep 2023 11:39:10 +0300
+Message-ID: <20230912083910.15994-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: RTWKTI45Z4O4YPRAEKPNBVA7YOEXNUXL
-X-Message-ID-Hash: RTWKTI45Z4O4YPRAEKPNBVA7YOEXNUXL
-X-MailFrom: kailang@realtek.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: SEVXQ25C54XEWTWTJD35KWQR53OGYGDT
+X-Message-ID-Hash: SEVXQ25C54XEWTWTJD35KWQR53OGYGDT
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTWKTI45Z4O4YPRAEKPNBVA7YOEXNUXL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SEVXQ25C54XEWTWTJD35KWQR53OGYGDT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,47 +106,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+The idx is guarantied to be less than SNDRV_CARDS (max 256 or 8) by the
+code in snd_card_init(), however the compiler does not see that.
+Compiling with W=1 results:
 
-Hi Takashi,
+sound/core/init.c: In function ‘snd_card_init’:
+sound/core/init.c:367:28: error: ‘%d’ directive writing between 1 and 10 bytes into a region of size 4 [-Werror=format-overflow=]
+  367 |         sprintf(name, "card%d", idx);
+      |                            ^~
+sound/core/init.c:367:23: note: directive argument in the range [0, 2147483646]
+  367 |         sprintf(name, "card%d", idx);
+      |                       ^~~~~~~~
+sound/core/init.c:367:9: note: ‘sprintf’ output between 6 and 15 bytes into a destination of size 8
+  367 |         sprintf(name, "card%d", idx);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
 
-Two speakers platform will common use same function.
-So, attach patch was an update.
+While the code is correct, we need to silence the compiler somehow.
+It could be done by limiting the range in sprintf like
+sprintf(name, "card%d", idx % SNDRV_CARDS);
+sprintf(name, "card%hhd", idx);
+etc
 
-BR,
-Kailang
+These are too workaroundish. Increase the name array to 15 instead which
+looks better and only adds 7 bytes on stack.
 
---_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_
-Content-Type: application/octet-stream;
-	name="0000-two-speaker-platform.patch"
-Content-Description: 0000-two-speaker-platform.patch
-Content-Disposition: attachment; filename="0000-two-speaker-platform.patch";
-	size=1162; creation-date="Tue, 12 Sep 2023 07:38:33 GMT";
-	modification-date="Tue, 12 Sep 2023 07:51:32 GMT"
-Content-Transfer-Encoding: base64
+The warnings got brought to light by a recent patch upstream:
+commit 6d4ab2e97dcf ("extrawarn: enable format and stringop overflow warnings in W=1")
 
-RnJvbSA4NjY5NjZkYzQ2MDU3YzJkNzk4Y2VlZjZhMzM1Zjk1YmVjZDQ4ZDRjIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IFR1ZSwgMTIgU2VwIDIwMjMgMTU6MzE6NDkgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEZpeGVkIHR3byBzcGVha2VyIHBsYXRmb3JtCgpJZiBzeXN0ZW0gaGFz
-IHR3byBzcGVha2VycyBhbmQgb25lIGNvbm5lY3QgdG8gMHgxNCBwaW4sIHVzZSB0aGlzIGZ1bmN0
-aW9uIHdpbGwgZGlzYWJsZSBpdC4KCkZpeGVzOmU0MzI1MmRiN2UyMCAoIkFMU0E6IGhkYS9yZWFs
-dGVrIC0gQUxDMjg3IEkyUyBzcGVha2VyIHBsYXRmb3JtIHN1cHBvcnQiKQpTaWduZWQtb2ZmLWJ5
-OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQv
-cGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpp
-bmRleCBiN2U3OGJmY2ZmZDguLjg4N2MxYjE2Mzg2NSAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hk
-YS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAg
-LTcwNzMsOCArNzA3MywxMCBAQCBzdGF0aWMgdm9pZCBhbGMyODdfZml4dXBfYmluZF9kYWNzKHN0
-cnVjdCBoZGFfY29kZWMgKmNvZGVjLAogCXNuZF9oZGFfb3ZlcnJpZGVfY29ubl9saXN0KGNvZGVj
-LCAweDE3LCBBUlJBWV9TSVpFKGNvbm4pLCBjb25uKTsKIAlzcGVjLT5nZW4ucHJlZmVycmVkX2Rh
-Y3MgPSBwcmVmZXJyZWRfcGFpcnM7CiAJc3BlYy0+Z2VuLmF1dG9fbXV0ZV92aWFfYW1wID0gMTsK
-LQlzbmRfaGRhX2NvZGVjX3dyaXRlX2NhY2hlKGNvZGVjLCAweDE0LCAwLCBBQ19WRVJCX1NFVF9Q
-SU5fV0lER0VUX0NPTlRST0wsCi0JCQkgICAgMHgwKTsgLyogTWFrZSBzdXJlIDB4MTQgd2FzIGRp
-c2FibGUgKi8KKwlpZiAoc3BlYy0+Z2VuLmF1dG9jZmcuc3BlYWtlcl9waW5zWzBdICE9IDB4MTQp
-IHsKKwkJc25kX2hkYV9jb2RlY193cml0ZV9jYWNoZShjb2RlYywgMHgxNCwgMCwgQUNfVkVSQl9T
-RVRfUElOX1dJREdFVF9DT05UUk9MLAorCQkJCQkweDApOyAvKiBNYWtlIHN1cmUgMHgxNCB3YXMg
-ZGlzYWJsZSAqLworCX0KIH0KIAogCg==
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+Hi,
 
---_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_--
+The mentioned commit causes other build failures with W=1 at least in
+sound/usb/mixer_scarlett_gen2.c
+sound/usb/mixer.c
+sound/soc/codecs/hdac_hdmi.c
+sound/hda/intel-sdw-acpi.c
+
+Some of them are also false and we need to find a workaround, but
+I think the scarlett case might be valid.
+
+Regards,
+Peter
+
+ sound/core/init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/core/init.c b/sound/core/init.c
+index d61bde1225f2..d8a13a76d241 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -279,7 +279,7 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
+ {
+ 	int err;
+ #ifdef CONFIG_SND_DEBUG
+-	char name[8];
++	char name[15];
+ #endif
+ 
+ 	if (extra_size > 0)
+-- 
+2.42.0
+

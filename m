@@ -2,90 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7957F79CA3D
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C4A79CA96
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:51:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8030886;
-	Tue, 12 Sep 2023 10:39:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8030886
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE788950;
+	Tue, 12 Sep 2023 10:50:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE788950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694508031;
-	bh=4ejql24HEMpBoTtiKSAXpLvVWBPjkQdUnHC8bPFBtto=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HS28mff57ICtSHeZ1CZmvxQ3PIOOo8Ia26Y8iL9Iw5Np8bInslGT9W/AW4inzlfQh
-	 ce2k4cXGq9y3pcDfNin/aBo4jZNBqhDH2uafMzZ1Qo3cGh0dm2VbA63irTgnLxsTtH
-	 Thic+7tKpH0oLozZVETgBwpV9o+XBv5RiXdgjuLU=
+	s=default; t=1694508688;
+	bh=w+2jDHnL+K2GSYrM4PrNVINIoRLiElza0bikDjxuiqE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=TGugQS5LOpAiyUUcaNXPDxUAGGsFupHE0Wyd5kouCsN/2tIDMDJPruaRzRKeefPn6
+	 GdR/+kXnrT6jz1XPWDvbdBtUcVzeAbPB+HwszhAU+gt61GcwkMjv9AAGVRh53lfIQF
+	 rWGRGNjGO8SdCTxfw+foI1AcLG++QZvFPDVGHnm8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A58D3F80552; Tue, 12 Sep 2023 10:39:20 +0200 (CEST)
+	id 4A05AF80246; Tue, 12 Sep 2023 10:50:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CDEDF80246;
-	Tue, 12 Sep 2023 10:39:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7B97F80246;
+	Tue, 12 Sep 2023 10:50:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47623F80425; Tue, 12 Sep 2023 10:39:16 +0200 (CEST)
+	id EB053F80425; Tue, 12 Sep 2023 10:50:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F103FF800AA
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:39:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F103FF800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1B785F800AA
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B785F800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Y/oe5eIj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694507953; x=1726043953;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=4ejql24HEMpBoTtiKSAXpLvVWBPjkQdUnHC8bPFBtto=;
-  b=Y/oe5eIjvRL8ToDnzadIMOHTSJEQpCtHcUnuSXlFzMSG+dqC5SZdZWxO
-   8RO9YlbXQSkegL5xdgukG4i0qgrg++UkrjgWyQdmeftj65HQ7vL/4skAk
-   r6RhZQ8vw6MjRcqAa1hqxxIpmgxspaDCmDEAWrOUjvj0X8TDB0eUW7GPt
-   a5DtIENy0TAilzf2O526hac6gMzdYUslQ8cUd0oKYuUkK3gDuGzDNAvVk
-   opX0MjGqUv2DWhcV/wexVKLMDUWIBXzgJBC1GlxF6s58GieYrTmd2EnIi
-   zROQ/yI5KCtPt0LOJZ9jORFf5j4+SFVbpZyVaJFx7qMfkHfo2vrJl5+dy
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="381015227"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000";
-   d="scan'208";a="381015227"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 01:39:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="833826778"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000";
-   d="scan'208";a="833826778"
-Received: from mkidd-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.251.217.72])
-  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 01:39:06 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: tiwai@suse.com,
-	perex@perex.cz,
-	arnd@arndb.de
-Cc: masahiroy@kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: core: Increase the name array size for debugfs
- directory name
-Date: Tue, 12 Sep 2023 11:39:10 +0300
-Message-ID: <20230912083910.15994-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.42.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SEVXQ25C54XEWTWTJD35KWQR53OGYGDT
-X-Message-ID-Hash: SEVXQ25C54XEWTWTJD35KWQR53OGYGDT
-X-MailFrom: peter.ujfalusi@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=eW1YZYxL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=yKM33t8E
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 56B191F85D;
+	Tue, 12 Sep 2023 08:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1694508623;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KyBRNaYAj1FKVpZu9HTV7I7nxJWl2NPUn/LfwzF1WeI=;
+	b=eW1YZYxLFqxyWkULT6ZYZrK3h/QcYe+vuzo+A5rmti1vihVjukYpzwz0+Gr0kPWGrXx3JG
+	BowZ6Sad+tkbiDlYbYRAm9A/v1FpfJwMVJFhNrlEl4klsuFKV72hurstQMIPAWAT1CCfEM
+	Nh1QDJVu1KqrOnUilB/A4vuQ99gKOK4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1694508623;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KyBRNaYAj1FKVpZu9HTV7I7nxJWl2NPUn/LfwzF1WeI=;
+	b=yKM33t8EHd+XHmiR+zbPECsds0tfw8Jgv5kxkR4URSa4w32uf1pdsQsVeebl9tVtyHy3N3
+	cFYGvoKjbVnhduDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 19703139DB;
+	Tue, 12 Sep 2023 08:50:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 5+cNBU8mAGWhJgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 12 Sep 2023 08:50:23 +0000
+Date: Tue, 12 Sep 2023 10:50:22 +0200
+Message-ID: <87o7i77p2p.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ma Ke <make_ruc2021@163.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	cujomalainey@chromium.org,
+	maciej.szmigiero@oracle.com,
+	clecigne@google.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: control: do not access controls without possession
+ of r_w lock
+In-Reply-To: <20230912084530.3307329-1-make_ruc2021@163.com>
+References: <20230912084530.3307329-1-make_ruc2021@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ROIHVXXKDRURELACL5B5KVTY5A76UMKX
+X-Message-ID-Hash: ROIHVXXKDRURELACL5B5KVTY5A76UMKX
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SEVXQ25C54XEWTWTJD35KWQR53OGYGDT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ROIHVXXKDRURELACL5B5KVTY5A76UMKX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,66 +123,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The idx is guarantied to be less than SNDRV_CARDS (max 256 or 8) by the
-code in snd_card_init(), however the compiler does not see that.
-Compiling with W=1 results:
+On Tue, 12 Sep 2023 10:45:30 +0200,
+Ma Ke wrote:
+> 
+> we should not access any of its memory when we don't ensure possession of
+> a read/write lock. Otherwise we risk a use after free access, which allows
+> local users to cause a denial of service and obtain sensitive information
+> from kernel memory.
 
-sound/core/init.c: In function ‘snd_card_init’:
-sound/core/init.c:367:28: error: ‘%d’ directive writing between 1 and 10 bytes into a region of size 4 [-Werror=format-overflow=]
-  367 |         sprintf(name, "card%d", idx);
-      |                            ^~
-sound/core/init.c:367:23: note: directive argument in the range [0, 2147483646]
-  367 |         sprintf(name, "card%d", idx);
-      |                       ^~~~~~~~
-sound/core/init.c:367:9: note: ‘sprintf’ output between 6 and 15 bytes into a destination of size 8
-  367 |         sprintf(name, "card%d", idx);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
+This function is called always under card->controls_rwsem.
+So it should be OK as is.
 
-While the code is correct, we need to silence the compiler somehow.
-It could be done by limiting the range in sprintf like
-sprintf(name, "card%d", idx % SNDRV_CARDS);
-sprintf(name, "card%hhd", idx);
-etc
 
-These are too workaroundish. Increase the name array to 15 instead which
-looks better and only adds 7 bytes on stack.
+thanks,
 
-The warnings got brought to light by a recent patch upstream:
-commit 6d4ab2e97dcf ("extrawarn: enable format and stringop overflow warnings in W=1")
+Takashi
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
-Hi,
-
-The mentioned commit causes other build failures with W=1 at least in
-sound/usb/mixer_scarlett_gen2.c
-sound/usb/mixer.c
-sound/soc/codecs/hdac_hdmi.c
-sound/hda/intel-sdw-acpi.c
-
-Some of them are also false and we need to find a workaround, but
-I think the scarlett case might be valid.
-
-Regards,
-Peter
-
- sound/core/init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/core/init.c b/sound/core/init.c
-index d61bde1225f2..d8a13a76d241 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -279,7 +279,7 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
- {
- 	int err;
- #ifdef CONFIG_SND_DEBUG
--	char name[8];
-+	char name[15];
- #endif
- 
- 	if (extra_size > 0)
--- 
-2.42.0
-
+> 
+> Signed-off-by: Ma Ke <make_ruc2021@163.com>
+> ---
+>  sound/core/control.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/core/control.c b/sound/core/control.c
+> index 59c8658966d4..98782cc68ee1 100644
+> --- a/sound/core/control.c
+> +++ b/sound/core/control.c
+> @@ -590,7 +590,8 @@ static int __snd_ctl_remove(struct snd_card *card,
+>  		remove_hash_entries(card, kcontrol);
+>  
+>  	card->controls_count -= kcontrol->count;
+> -	for (idx = 0; idx < kcontrol->count; idx++)
+> +	count = kcontrol->count;
+> +	for (idx = 0; idx < count; idx++)
+>  		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
+>  	snd_ctl_free_one(kcontrol);
+>  	return 0;
+> -- 
+> 2.37.2
+> 

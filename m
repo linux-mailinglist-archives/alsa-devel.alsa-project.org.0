@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE6179D67D
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 18:38:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB55979D777
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 19:23:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 651FEDF8;
-	Tue, 12 Sep 2023 18:37:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 651FEDF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CA64950;
+	Tue, 12 Sep 2023 19:22:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CA64950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694536711;
-	bh=OJuoXIE82hjK2NBMYhWXwpJGkmlI7rC+5Tx9u3yV2tM=;
+	s=default; t=1694539391;
+	bh=rRrJDnsPwd8jMYw4Teztqav9PlNugqhsqBqwAuwaVlo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oG2Zx8ukMjJxw5CAc30al4+812yTUJQrGhpUT9cpDlJ5cWY4Q6E8/DyZIiK+j4qGo
-	 nFlhdrpurTF/NfwN0l6Au5TmD6f1Y7YFQZ9aJqxW+8eG8x135T0hkA0KtLC1sCTH1h
-	 53UeXO3nDf7P5/EeRIOFwDd06fN4aDfuI/liKF48=
+	b=qRFbDMFhQoBunq2E5EgvYAyYb83vN3QVseGmFs4MufA/9xQ6wxskaCIOzCZkK21X1
+	 L3X+w+rDE5jp0zdUVWpWYsZ6PZWd6qL9+w7ScBahW6ZAXG+w9CHrb8OE7Hu6NVl2KS
+	 7fN6aa/KHWIRMmNFTK+8Q6rag+ANmreZGjrPp46M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C16CF8055A; Tue, 12 Sep 2023 18:37:23 +0200 (CEST)
+	id DD6B0F80551; Tue, 12 Sep 2023 19:22:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9BA8F80558;
-	Tue, 12 Sep 2023 18:37:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 683E0F8007C;
+	Tue, 12 Sep 2023 19:22:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0EACF8055A; Tue, 12 Sep 2023 18:37:19 +0200 (CEST)
+	id 54F7CF80425; Tue, 12 Sep 2023 19:22:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0754F80425
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 18:37:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0754F80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id 31130F8007C
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 19:22:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31130F8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Ps2S5DYS
+ header.s=k20201202 header.b=Iii5UWu1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id D2844CE1DCE;
-	Tue, 12 Sep 2023 16:37:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35ED1C433C7;
-	Tue, 12 Sep 2023 16:37:06 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 3109AB81BBB;
+	Tue, 12 Sep 2023 17:22:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5492C433C8;
+	Tue, 12 Sep 2023 17:22:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694536632;
-	bh=OJuoXIE82hjK2NBMYhWXwpJGkmlI7rC+5Tx9u3yV2tM=;
+	s=k20201202; t=1694539326;
+	bh=rRrJDnsPwd8jMYw4Teztqav9PlNugqhsqBqwAuwaVlo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ps2S5DYSbulUYf7oy7lT6QUeIC8SEE8uDrovxyzlP1aFanperwJfPxgxOSDoMicdj
-	 QPhK/QjxkpPvjv2poRuKEjUgTqjp60TdQnRQmmahJid4JusPVASg0K1uVbLr45UAB9
-	 O+q5IVvxkSBtPB4uIoSzebjqIZKeWLsg1NRa9ESumUogVOWqga9FHZ4uTwbMwFliV4
-	 inf0fEeH4WTZISjvzOruneKr+bXI0QcpZaEpr0gdpaoAWUmP+DefmPc84zsLhd9NP2
-	 YObhh1gBw/Dws7ynhREpR3QXWW0o3PhgfgfBYRLDlXE9yJVBmWttawahid5gfYz9Cd
-	 Kjln+OFCXKa7w==
-Date: Tue, 12 Sep 2023 17:37:03 +0100
+	b=Iii5UWu1mdHxD2eSbuXqs6kx4AHgW0/LoRft/f7lyOXJm52Rgi8Ss5jvrOQ7BrJTL
+	 HGjHS80pVjavTF4tfpykYr5T/7fkgKiE9YpmlWEPyBR3aNc+/hYiE191mnmhexl3o1
+	 CRosDNzzFYjKhuhcjmbbUjN7j01k4T3tOUv4i5jUygNoHPfOGH8XZQUtk5OaNdJ9eW
+	 pYLBfVy1Flo6/FS3VYYYvSj35AGFS9ADHfByzFRZStVVmWm0ObNv49tZznX+1faQlU
+	 TpLaRb6QGs2E99A0+EPgis0PHVuXqBCvx2SRZ1SqYeDb/y2Uldr0StaNvnp99RkhVo
+	 nBx3TcaF+l1Gw==
+Date: Tue, 12 Sep 2023 18:21:58 +0100
 From: Conor Dooley <conor@kernel.org>
 To: Herve Codina <herve.codina@bootlin.com>
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -87,18 +87,18 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	Simon Horman <horms@kernel.org>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v5 07/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
- Add 'additionalProperties: false' in child nodes
-Message-ID: <20230912-pancreas-hacked-ddcaa726fa8e@spud>
+Subject: Re: [PATCH v5 08/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
+ Add support for QMC HDLC
+Message-ID: <20230912-capable-stash-c7a3e33078ac@spud>
 References: <20230912081527.208499-1-herve.codina@bootlin.com>
- <20230912081527.208499-8-herve.codina@bootlin.com>
+ <20230912101018.225246-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="H5/71ZKZWMUncSI5"
+	protocol="application/pgp-signature"; boundary="bf5FPf5K5KaccQV9"
 Content-Disposition: inline
-In-Reply-To: <20230912081527.208499-8-herve.codina@bootlin.com>
-Message-ID-Hash: TFDKVSP5LTEO6AVQPP2OW5HEZJAW265E
-X-Message-ID-Hash: TFDKVSP5LTEO6AVQPP2OW5HEZJAW265E
+In-Reply-To: <20230912101018.225246-1-herve.codina@bootlin.com>
+Message-ID-Hash: PJUW4I6RMBAAWPDXKHWCVNNVDLJX6NCR
+X-Message-ID-Hash: PJUW4I6RMBAAWPDXKHWCVNNVDLJX6NCR
 X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TFDKVSP5LTEO6AVQPP2OW5HEZJAW265E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PJUW4I6RMBAAWPDXKHWCVNNVDLJX6NCR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,56 +121,84 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---H5/71ZKZWMUncSI5
+--bf5FPf5K5KaccQV9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 12, 2023 at 10:14:58AM +0200, Herve Codina wrote:
-> Additional properties in child node should not be allowed.
+On Tue, Sep 12, 2023 at 12:10:18PM +0200, Herve Codina wrote:
+> The QMC (QUICC mutichannel controller) is a controller present in some
+> PowerQUICC SoC such as MPC885.
+> The QMC HDLC uses the QMC controller to transfer HDLC data.
 >=20
-> Prevent them adding 'additionalProperties: false'
+> Additionally, a framer can be connected to the QMC HDLC.
+> If present, this framer is the interface between the TDM bus used by the
+> QMC HDLC and the E1/T1 line.
+> The QMC HDLC can use this framer to get information about the E1/T1 line
+> and configure the E1/T1 line.
 >=20
 > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
-Thanks,
-Conor.
-
 > ---
->  .../devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml     | 1 +
->  1 file changed, 1 insertion(+)
+>  .../bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml   | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 >=20
 > diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-sc=
 c-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-=
 qmc.yaml
-> index 450a0354cb1d..82d9beb48e00 100644
+> index 82d9beb48e00..b5073531f3f1 100644
 > --- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.y=
 aml
 > +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.y=
 aml
-> @@ -64,6 +64,7 @@ patternProperties:
->      description:
->        A channel managed by this controller
->      type: object
-> +    additionalProperties: false
+> @@ -101,6 +101,16 @@ patternProperties:
+>            Channel assigned Rx time-slots within the Rx time-slots routed=
+ by the
+>            TSA to this cell.
 > =20
->      properties:
->        reg:
+> +      compatible:
+> +        const: fsl,qmc-hdlc
+> +
+> +      fsl,framer:
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+> +        description:
+> +          phandle to the framer node. The framer is in charge of an E1/T=
+1 line
+> +          interface connected to the TDM bus. It can be used to get the =
+E1/T1 line
+> +          status such as link up/down.
+
+Sounds like this fsl,framer property should depend on the compatible
+being present, no?
+
+Thanks,
+Conor.
+
+> +
+>      required:
+>        - reg
+>        - fsl,tx-ts-mask
+> @@ -159,5 +169,8 @@ examples:
+>              fsl,operational-mode =3D "hdlc";
+>              fsl,tx-ts-mask =3D <0x00000000 0x0000ff00>;
+>              fsl,rx-ts-mask =3D <0x00000000 0x0000ff00>;
+> +
+> +            compatible =3D "fsl,qmc-hdlc";
+> +            fsl,framer =3D <&framer>;
+>          };
+>      };
 > --=20
 > 2.41.0
 >=20
 
---H5/71ZKZWMUncSI5
+--bf5FPf5K5KaccQV9
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZQCTrwAKCRB4tDGHoIJi
-0n+XAQCw6AgUOq0NyPZHrHWu5ogYxBjVGRRZ4L314GuJF/TwRAEA3G14ilDkYP5o
-3fMneddHCQlNQIVPUgNd/ldquYguZwQ=
-=eFLQ
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZQCeNgAKCRB4tDGHoIJi
+0iOYAQDpq19XBQVxAut3ryCZTWFRliPi5kerZHMkKGzgUwIbKwEA+gnc9IR2Iao6
+Qt/bYjPuz9mjrBe0gcXcC3CDZicWwAE=
+=QoY/
 -----END PGP SIGNATURE-----
 
---H5/71ZKZWMUncSI5--
+--bf5FPf5K5KaccQV9--

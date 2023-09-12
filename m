@@ -2,97 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE8979D665
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 18:35:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A382379D679
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 18:37:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62522DF6;
-	Tue, 12 Sep 2023 18:34:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62522DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A366886;
+	Tue, 12 Sep 2023 18:36:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A366886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694536507;
-	bh=bP9CoYlsZ1PJPB39SBHdJeu7jbNnBsg7za84Eianutw=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1694536660;
+	bh=GxKIUea0MR3qucRWRL0Hx83U7cwPGTLCUKUSG5y0gTo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S3WN5gi1+5YP5Z80nK80gO4vMnn16t3RBbzh4doHIbAXekNikTJQFjBQyF4wO7Ie5
-	 CWhLfZUwI0X0Ueu4CMjr+hZjE9JwbYznoVVbA2wnS3rLw7KpcQwaeynvklYsD16RfR
-	 WtzmVZVzpPzw4AJnY66vm2F2vjuZg8cr6te6JdX4=
+	b=MuLZ10S9ipp0Ku8kAKoaczc+W/QC0r6wZSv+Xmv8ac3hSdPd6+dPeuUTi9yQXtZxL
+	 CLN5vibsIa0/3HtJ1ffsbR/g2yyJzfkbgROUs/xoGF5yd29dZ05vj5VTnNONeE4hHi
+	 VQca63DbIRwJ5YKdaT6BL7ACQpKMd8nTWayQH5RI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2513EF80570; Tue, 12 Sep 2023 18:34:16 +0200 (CEST)
+	id B2081F80549; Tue, 12 Sep 2023 18:36:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BA1FF8055B;
-	Tue, 12 Sep 2023 18:34:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56C3DF80246;
+	Tue, 12 Sep 2023 18:36:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAB6BF80212; Tue, 12 Sep 2023 18:34:11 +0200 (CEST)
+	id 9CD3EF80425; Tue, 12 Sep 2023 18:36:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8676F8047D
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 18:32:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8676F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA616F80212
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 18:36:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA616F80212
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=mOg3F+2q
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38CFSmvB002448;
-	Tue, 12 Sep 2023 11:32:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=zuTD6xUOqe5ttLHRaL7ledsFp6jAZIFBIzNeGgXzKvE=; b=
-	mOg3F+2qsNELUfeanFVa1JWQI/QI5yLIsitAFFHbQq305NxzzHM0O1gmS9m0sCph
-	6bBYKrWXMhOuVn3WOwQVUXDGUMGeOBYyeUHogp0GWauI1PkRO4i3vatt/JGvyleA
-	eRZfOP6QNciZTgOsrbkXQJnQL20Xajv52GeHWQZTmw8q3IHZ+QOtw/B/APLMr6Ee
-	CQ/2wyGqCS6UyB0u3CPb8nf6HZR+93gt8y3DsG1MBduRCwKDyIfT7rpXfzbHnCVg
-	yGyeQt8k3ukSpPrNHoNhD/dzSy7Ae4DjDR0eIzdWZXXKAmiApskWeNc9Xq93kVpI
-	IxdA15J465rIjgg3/mcFIA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t0p3xkxdb-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 12 Sep 2023 11:32:12 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 12 Sep
- 2023 17:32:08 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Tue, 12 Sep 2023 17:32:08 +0100
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.125])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1CAD9357E;
-	Tue, 12 Sep 2023 16:32:08 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
-        <yung-chuan.liao@linux.intel.com>, <kai.vehmanen@linux.intel.com>,
-        <peter.ujfalusi@linux.intel.com>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-kernel@vger.kernel.org>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: [PATCH 4/4] ASoC: cs35l56: Use PCI SSID as the firmware UID
-Date: Tue, 12 Sep 2023 17:32:07 +0100
-Message-ID: <20230912163207.3498161-5-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230912163207.3498161-1-rf@opensource.cirrus.com>
-References: <20230912163207.3498161-1-rf@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=A2ju+hny
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 44CB561455;
+	Tue, 12 Sep 2023 16:36:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C44DC433C9;
+	Tue, 12 Sep 2023 16:36:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694536600;
+	bh=GxKIUea0MR3qucRWRL0Hx83U7cwPGTLCUKUSG5y0gTo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A2ju+hny7e7p8svy4BT1Z0NWlDaSWqAUMU0jO3tWdOGUwVvOTr5ryi6qKB1r00soR
+	 6MgqcPWs8U3o80SVJWEZP/K5R0lchPS8+Me+Zpv9QSsqKYlQpMMVd2HACNtZytqfdF
+	 NtGigKM+tgZZDmmbdhKNWm+43BcRVD5N0dCD3PxKOjLpEDsDS8nE6CF8knFeh2PrWY
+	 8iLnY+50Ain9WkIk9dFb7Ym/UT0XgLiHBOFDMizqDtfcH6KvXAnZUBW0w7FfFGgWQ7
+	 P8Pi1T+dbds7cdbZIYKgLuqbsimrLRVpxMZ0R6b7s3jy7/R16ly99fRsE5xC7FbpMA
+	 BipSJh9HkWnmw==
+Date: Tue, 12 Sep 2023 17:36:32 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Qiang Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+	Simon Horman <horms@kernel.org>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v5 06/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
+ Fix example property name
+Message-ID: <20230912-marathon-pecan-a9d001f7e015@spud>
+References: <20230912081527.208499-1-herve.codina@bootlin.com>
+ <20230912081527.208499-7-herve.codina@bootlin.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 7hYpPUTJ90bkPvCtkdDOjw6LX3fN5cDL
-X-Proofpoint-GUID: 7hYpPUTJ90bkPvCtkdDOjw6LX3fN5cDL
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: P4HKSY2APKTIMKREYLG3Q63HFBQ2TWQL
-X-Message-ID-Hash: P4HKSY2APKTIMKREYLG3Q63HFBQ2TWQL
-X-MailFrom: prvs=4619193f72=rf@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="XR0sKUlOqSjiyY1L"
+Content-Disposition: inline
+In-Reply-To: <20230912081527.208499-7-herve.codina@bootlin.com>
+Message-ID-Hash: HXBVY4K6G4UF2OQWOXMEJJHHZG2JRVOH
+X-Message-ID-Hash: HXBVY4K6G4UF2OQWOXMEJJHHZG2JRVOH
+X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P4HKSY2APKTIMKREYLG3Q63HFBQ2TWQL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HXBVY4K6G4UF2OQWOXMEJJHHZG2JRVOH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,59 +119,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-If the driver properties do not define a cirrus,firmware-uid try to get the
-PCI SSID as the UID.
 
-On PCI-based systems the PCI SSID is used to uniquely identify the specific
-sound hardware. This is the standard mechanism for x86 systems and is the
-way to get a unique system identifier for systems that use the CS35L56 on
-SoundWire.
+--XR0sKUlOqSjiyY1L
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-For non-SoundWire systems there is no Windows equivalent of the ASoC driver
-in I2C/SPI mode. These would be:
+On Tue, Sep 12, 2023 at 10:14:57AM +0200, Herve Codina wrote:
+> The given example mentions the 'fsl,mode' property whereas the
+> correct property name, the one described, is 'fsl,operational-mode'.
+>=20
+> Fix the example to use the correct property name.
+>=20
+> Fixes: a9b121327c93 ("dt-bindings: soc: fsl: cpm_qe: Add QMC controller")
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
-1. HDA systems, which are handled by the HDA subsystem.
-2. Linux-specific systems.
-3. Composite devices where the cs35l56 is not present in ACPI and is
-   configured using software nodes.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Case 2 can use the firmware-uid property, though the PCI SSID is supported
-as an alternative, as it is the standard PCI mechanism.
+Thanks,
+Conor.
 
-Case 3 is a SoundWire system where some other codec is the SoundWire bridge
-device and CS35L56 is not listed in ACPI. As these are SoundWire systems
-they will normally use the PCI SSID.
+> ---
+>  .../bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml           | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-sc=
+c-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-=
+qmc.yaml
+> index ec888f48cac8..450a0354cb1d 100644
+> --- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.y=
+aml
+> +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.y=
+aml
+> @@ -137,7 +137,7 @@ examples:
+>          channel@16 {
+>              /* Ch16 : First 4 even TS from all routed from TSA */
+>              reg =3D <16>;
+> -            fsl,mode =3D "transparent";
+> +            fsl,operational-mode =3D "transparent";
+>              fsl,reverse-data;
+>              fsl,tx-ts-mask =3D <0x00000000 0x000000aa>;
+>              fsl,rx-ts-mask =3D <0x00000000 0x000000aa>;
+> @@ -146,7 +146,7 @@ examples:
+>          channel@17 {
+>              /* Ch17 : First 4 odd TS from all routed from TSA */
+>              reg =3D <17>;
+> -            fsl,mode =3D "transparent";
+> +            fsl,operational-mode =3D "transparent";
+>              fsl,reverse-data;
+>              fsl,tx-ts-mask =3D <0x00000000 0x00000055>;
+>              fsl,rx-ts-mask =3D <0x00000000 0x00000055>;
+> @@ -155,7 +155,7 @@ examples:
+>          channel@19 {
+>              /* Ch19 : 8 TS (TS 8..15) from all routed from TSA */
+>              reg =3D <19>;
+> -            fsl,mode =3D "hdlc";
+> +            fsl,operational-mode =3D "hdlc";
+>              fsl,tx-ts-mask =3D <0x00000000 0x0000ff00>;
+>              fsl,rx-ts-mask =3D <0x00000000 0x0000ff00>;
+>          };
+> --=20
+> 2.41.0
+>=20
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l56.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+--XR0sKUlOqSjiyY1L
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index f2e7c6d0be46..e6e366333a47 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -772,9 +772,20 @@ static int cs35l56_component_probe(struct snd_soc_component *component)
- {
- 	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
- 	struct dentry *debugfs_root = component->debugfs_root;
-+	unsigned short vendor, device;
- 
- 	BUILD_BUG_ON(ARRAY_SIZE(cs35l56_tx_input_texts) != ARRAY_SIZE(cs35l56_tx_input_values));
- 
-+	if (!cs35l56->dsp.system_name &&
-+	    (snd_soc_card_get_pci_ssid(component->card, &vendor, &device) == 0)) {
-+		cs35l56->dsp.system_name = devm_kasprintf(cs35l56->base.dev,
-+							  GFP_KERNEL,
-+							  "%04x%04x",
-+							  vendor, device);
-+		if (!cs35l56->dsp.system_name)
-+			return -ENOMEM;
-+	}
-+
- 	if (!wait_for_completion_timeout(&cs35l56->init_completion,
- 					 msecs_to_jiffies(5000))) {
- 		dev_err(cs35l56->base.dev, "%s: init_completion timed out\n", __func__);
--- 
-2.30.2
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZQCTkAAKCRB4tDGHoIJi
+0qkSAQDCtuqFutdZCBawqlE2z8M36+DZG+UYXQsNC7oJKZRkAwD/czQYT6Dla3tv
+mNhSBDRL50Z7rrG+GUiJRWBasgZy0Ak=
+=+Z+2
+-----END PGP SIGNATURE-----
+
+--XR0sKUlOqSjiyY1L--

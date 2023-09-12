@@ -2,81 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A2B79D932
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 20:54:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A9679D981
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 21:24:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68C20852;
-	Tue, 12 Sep 2023 20:53:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68C20852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35C9AA4D;
+	Tue, 12 Sep 2023 21:24:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35C9AA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694544867;
-	bh=c5MoM7K26Y6Ig2vjPilGqVaI3GXtkYhCH6M+BYGhRpU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1694546691;
+	bh=L5LXCOa8/2p57HUzV4WLPFe2Xu5lNiNBgeYv6A6lup4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=T35fSz/WImUuy+E04JUaFaLXTTerPtZqr8sPfk/oYl09E9GQUBkldDDwQxuS2Vqbx
-	 0j5+xOe1TIkXMsBZcwDRvaAc+Vq8hnbMtP2iK0FSr86jBAL1QMD2j5rZJcGugZFDy7
-	 OmmmfISf6iV4upeeGbF6R2uT9i8w+VuOCySJVJ2g=
+	b=OzRDhKVjyCwtK/HPbp8qltXHIZWbjcup79P0+jnRZOUPUkX1F3F/NQAhmg81aBJE6
+	 tuS1IBnp4gaRrSFdYNTglMb6IVrz4s4erGWELJK1moVE8vAniCw8cuVG3xAlv6z+5B
+	 tmWOC2akBfWqGSTcZbfyaopgJ4Z/wGE9wlkiiIqc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B019FF8047D; Tue, 12 Sep 2023 20:53:16 +0200 (CEST)
+	id 5C52BF80246; Tue, 12 Sep 2023 21:23:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EEDEF80246;
-	Tue, 12 Sep 2023 20:53:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD4CDF80246;
+	Tue, 12 Sep 2023 21:23:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB0C1F80431; Tue, 12 Sep 2023 20:53:12 +0200 (CEST)
+	id BD359F80425; Tue, 12 Sep 2023 21:23:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 49C04F80212
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 20:53:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49C04F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2750FF80212
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 21:23:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2750FF80212
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MN+fAqw7
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=iGMNuICe
+Received: from notapiano (zone.collabora.co.uk [167.235.23.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id 41C2FCE1E61;
-	Tue, 12 Sep 2023 18:53:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D2EC433CA;
-	Tue, 12 Sep 2023 18:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694544785;
-	bh=c5MoM7K26Y6Ig2vjPilGqVaI3GXtkYhCH6M+BYGhRpU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=MN+fAqw78wvbnOpbrJbGhSo4/0OstHYFOrpHyLFMKABoSnOMfDb7U07N4fD4IWd+x
-	 9Kq6q4bBUS/DBc9/LBkDAJPWngv2Dvf3Aw/bnpe9WHsawwdS2z9dziiyfL+W2WGtuG
-	 /C+VaCauYlkaVNp3JVkHASlzVcNdcTbF9X5SpqnMJXoR8sE10/aliOOCLXOJ+aQ75+
-	 FkUUkosFznrtxC5nnDo4efVbVImkUgGZZ9SvzDIUoN+HzeMaFUkB8nIvueVB2COQzw
-	 CrY0gTxGE4/A02YrEl0L56qtzvhbFpV/rRZaddWYqXhro+AiWMfdCHJDk240GfLAoO
-	 4LKWXPfRKpHjA==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Julia Lawall <julia.lawall@inria.fr>
-In-Reply-To: <8734zlilmd.wl-kuninori.morimoto.gx@renesas.com>
-References: <8734zlilmd.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: rsnd: remove unneeded of_node_put()
-Message-Id: <169454478362.2415953.17566079859537841556.b4-ty@kernel.org>
-Date: Tue, 12 Sep 2023 19:53:03 +0100
+	(Authenticated sender: nfraprado)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 16E3566072FA;
+	Tue, 12 Sep 2023 20:23:37 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1694546619;
+	bh=L5LXCOa8/2p57HUzV4WLPFe2Xu5lNiNBgeYv6A6lup4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iGMNuICeZavLkjCjzs0HR+aITpCAoLOzcgQo2B7IjI/edLsI4fMJ/cJmE5kh5ztrv
+	 759iOSvTYFhUZNT2o+Z2o9+ckESdkjk4VJ6aE/oQNX2y4mVJ6aYH0fEhRkRiwo4e5V
+	 dQnJk6R42GtChT5a08UERktaP4mGRy7HkJlN2gcbFJPPxJP1p9NxgmYjCPYbRCOw7G
+	 TF6FU0QlfRafRa7CKhJ/Y7KNh4lHgUyd+IVJMuRD5edD57JftZqR2vsjDFGYYtzIta
+	 Fib19nE1fo5qmo99YuvD4SpUTIQ8uPcjik5UnooUaQVMNkvpLzeT9LYaJimDQrdWta
+	 82TDu0ONiYN2Q==
+Date: Tue, 12 Sep 2023 15:23:34 -0400
+From: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.com>, kernel@collabora.com,
+	Jaroslav Kysela <perex@perex.cz>, Shuah Khan <shuah@kernel.org>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH] kselftest/alsa: Mark test plan as skipped when no cards
+ are available
+Message-ID: <a12b1144-bea0-4bd7-a429-da800dc8f568@notapiano>
+References: <20230908181242.95714-1-nfraprado@collabora.com>
+ <0fa0901e-d271-438d-bc2b-11399ad3b07c@sirena.org.uk>
+ <868a8f08-ba39-4550-8e7b-0572ea03c4e7@notapiano>
+ <ZP8kLM5ln2YBCHap@finisterre.sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: P5BJIDIOMX3HFRLBEGM6WS3WOK4KTQIP
-X-Message-ID-Hash: P5BJIDIOMX3HFRLBEGM6WS3WOK4KTQIP
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZP8kLM5ln2YBCHap@finisterre.sirena.org.uk>
+Message-ID-Hash: BOU6K2RGUQZBRBCWZVZPPFXWDV2I6BPR
+X-Message-ID-Hash: BOU6K2RGUQZBRBCWZVZPPFXWDV2I6BPR
+X-MailFrom: nfraprado@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P5BJIDIOMX3HFRLBEGM6WS3WOK4KTQIP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BOU6K2RGUQZBRBCWZVZPPFXWDV2I6BPR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,36 +105,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 11 Sep 2023 00:45:03 +0000, Kuninori Morimoto wrote:
-> The loop is not using "node", of_node_put(node) is not needed.
+On Mon, Sep 11, 2023 at 03:29:00PM +0100, Mark Brown wrote:
+> On Mon, Sep 11, 2023 at 08:35:37AM -0400, Nícolas F. R. A. Prado wrote:
+> > On Sat, Sep 09, 2023 at 12:08:22AM +0100, Mark Brown wrote:
 > 
+> > > Why?
 > 
+> > To better reflect the actual test plan status. If 0 tests were run, it doesn't
+> > really make sense to say that the test plan passed, rather it was skipped since
+> > nothing was run. So with this change, if there's a regression that prevents the
+> > soundcard driver from even probing, the result won't be "pass", but "skip", and
+> > the reason 'No soundcard available' will be in the logs.
+> 
+> So, I would interpret the overall result for the suite as being "No
+> errors were found in any of the cards discovered" if there is no
+> configuration file specified which enumerates the set of cards that are
+> expected (if there is a config file that's a different matter, we know
+> what we're expecting).  I'm not sure that the different behaviour for 0
+> cards is super useful.
 
-Applied to
+Right... So what we want to be doing is adding a config file for every platform
+defining the card(s) and PCMs expected, so that when they're missing a test
+failure will be triggered which is even more helpful. Although I've noticed that
+only missing PCMs are detected currently, but I imagine it should be possible to
+to extend the code to detect missing cards as well.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: rsnd: remove unneeded of_node_put()
-      commit: b399dc73f012e463dad38410c147467a292ba4bb
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+I take it the intention is to expand the conf.d directory with configs for all
+platforms currently being tested then? There's only one example file there so I
+wasn't sure.
 
 Thanks,
-Mark
-
+Nícolas

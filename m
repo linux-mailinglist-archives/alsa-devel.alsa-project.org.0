@@ -2,108 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE98279CC75
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 11:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D54279C9ED
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Sep 2023 10:29:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7631A4B;
-	Tue, 12 Sep 2023 11:52:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7631A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78B48A4C;
+	Tue, 12 Sep 2023 10:28:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78B48A4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694512378;
-	bh=NuDSgU/za9u2Y0vgU21V368MH+0liwIWfP/620NIUoc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Jbl4JaMN1kzSwfEP9a7Kpzcq3pv9bUbqHUxvkn+QNjboPqj8cINUNE+p1Id8Zvmp1
-	 jw+JkuniKeJJQVtDGM7q5v4SWoAMArGzibO/ai7i16TYWo6D8B3TkwFCzhqf6PjFMZ
-	 GrSRzYRPyXz04R1Jen9+uJ7apEAWsxHeQ53NegzI=
+	s=default; t=1694507371;
+	bh=0p/1q46yhmf778rHQ0SL4+DL3+yaVcl3v9Emkm3DAvI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FG2iRMdl2VwsETxuIdn/ZFb3JYSP0bFluZ9FUQZuv0mwvfFYVrVFiEZJHGv+HOVnL
+	 1rvfgPpD3Yvzwrv80zlp76lbHW94M6PeJBBGe6CrF0RA2O3YPd/yBvjmEz3KKqZj4b
+	 iY+atRhKSNbBzGXJyAO0IfYerKF+zl4XlGg5f7uI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5B69CF80431; Tue, 12 Sep 2023 11:52:07 +0200 (CEST)
+	id A1AD4F8055A; Tue, 12 Sep 2023 10:28:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 036CEF80246;
-	Tue, 12 Sep 2023 11:52:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC3DFF80549;
+	Tue, 12 Sep 2023 10:28:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B91FF80425; Tue, 12 Sep 2023 11:52:04 +0200 (CEST)
+	id C310FF8055B; Tue, 12 Sep 2023 10:28:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::221])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93A29F800AA
-	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 11:52:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93A29F800AA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=K+nnYXVg
-Received: by mail.gandi.net (Postfix) with ESMTPA id 5A722240009;
-	Tue, 12 Sep 2023 09:39:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1694512320;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ScPjzuZaLLYh2lcosF7mjC3LbbKogbqWDUhQ8RkAceU=;
-	b=K+nnYXVgVTeIYLV1BYZk8yVPM7a2nPu/2JA6GWMyyv0Za8enlurHjBH7plSt2lkrUaQgFx
-	0f+eic3JBBgKxtWXmU15F2NOL2ZoHFXm8dROGgnxxRWdTKbO53xzFHJjRrH2cKPixxWiIQ
-	X0H50mqA/O7gee/qxhpcScSAQrz6oC5amb4tHHTsy3EQ30w3liig4hh60CmVmm0cSjrsOm
-	3+A4lbr4FIsGWAyRl0hBgn4ip8FNO3Untij7ggUFAU3Q5C3z+B+ux/Tq3eCFHsmlxJXwfW
-	EQItj5FZbLmxsodLOd0QDPWT6RUBUWUp7yQWKgN05HapEUcrPwoojI25LbtKJQ==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Qiang Zhao <qiang.zhao@nxp.com>,
-	Li Yang <leoyang.li@nxp.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	alsa-devel@alsa-project.org,
-	Simon Horman <horms@kernel.org>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 07/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc: Add
- 'additionalProperties: false' in child nodes
-Date: Tue, 12 Sep 2023 10:14:58 +0200
-Message-ID: <20230912081527.208499-8-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230912081527.208499-1-herve.codina@bootlin.com>
-References: <20230912081527.208499-1-herve.codina@bootlin.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 47D0AF800AA
+	for <alsa-devel@alsa-project.org>; Tue, 12 Sep 2023 10:28:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47D0AF800AA
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 38C8SF8R02406487,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.92/5.92) with ESMTPS id 38C8SF8R02406487
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 12 Sep 2023 16:28:15 +0800
+Received: from RTEXMBS02.realtek.com.tw (172.21.6.95) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Tue, 12 Sep 2023 16:28:15 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Tue, 12 Sep 2023 16:28:14 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
+ RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
+ 15.01.2375.007; Tue, 12 Sep 2023 16:28:13 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Update alc287_fixup_bind_dacs()
+Thread-Topic: Update alc287_fixup_bind_dacs()
+Thread-Index: AdnlUol8I+Z0iGB9Tiie4ML4h3gAPA==
+Date: Tue, 12 Sep 2023 08:28:13 +0000
+Message-ID: <e3f2aac3fe6a47079d728a6443358cc2@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXMBS02.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: multipart/mixed;
+	boundary="_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: SRXA6CD2YQP5WEW2I62NVYH5ULYVL56L
-X-Message-ID-Hash: SRXA6CD2YQP5WEW2I62NVYH5ULYVL56L
-X-MailFrom: herve.codina@bootlin.com
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: RTWKTI45Z4O4YPRAEKPNBVA7YOEXNUXL
+X-Message-ID-Hash: RTWKTI45Z4O4YPRAEKPNBVA7YOEXNUXL
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SRXA6CD2YQP5WEW2I62NVYH5ULYVL56L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTWKTI45Z4O4YPRAEKPNBVA7YOEXNUXL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,27 +101,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Additional properties in child node should not be allowed.
+--_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Prevent them adding 'additionalProperties: false'
+Hi Takashi,
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- .../devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml     | 1 +
- 1 file changed, 1 insertion(+)
+Two speakers platform will common use same function.
+So, attach patch was an update.
 
-diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-index 450a0354cb1d..82d9beb48e00 100644
---- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-+++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-@@ -64,6 +64,7 @@ patternProperties:
-     description:
-       A channel managed by this controller
-     type: object
-+    additionalProperties: false
- 
-     properties:
-       reg:
--- 
-2.41.0
+BR,
+Kailang
 
+--_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_
+Content-Type: application/octet-stream;
+	name="0000-two-speaker-platform.patch"
+Content-Description: 0000-two-speaker-platform.patch
+Content-Disposition: attachment; filename="0000-two-speaker-platform.patch";
+	size=1162; creation-date="Tue, 12 Sep 2023 07:38:33 GMT";
+	modification-date="Tue, 12 Sep 2023 07:51:32 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA4NjY5NjZkYzQ2MDU3YzJkNzk4Y2VlZjZhMzM1Zjk1YmVjZDQ4ZDRjIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFR1ZSwgMTIgU2VwIDIwMjMgMTU6MzE6NDkgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlayAtIEZpeGVkIHR3byBzcGVha2VyIHBsYXRmb3JtCgpJZiBzeXN0ZW0gaGFz
+IHR3byBzcGVha2VycyBhbmQgb25lIGNvbm5lY3QgdG8gMHgxNCBwaW4sIHVzZSB0aGlzIGZ1bmN0
+aW9uIHdpbGwgZGlzYWJsZSBpdC4KCkZpeGVzOmU0MzI1MmRiN2UyMCAoIkFMU0E6IGhkYS9yZWFs
+dGVrIC0gQUxDMjg3IEkyUyBzcGVha2VyIHBsYXRmb3JtIHN1cHBvcnQiKQpTaWduZWQtb2ZmLWJ5
+OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQv
+cGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpp
+bmRleCBiN2U3OGJmY2ZmZDguLjg4N2MxYjE2Mzg2NSAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hk
+YS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAg
+LTcwNzMsOCArNzA3MywxMCBAQCBzdGF0aWMgdm9pZCBhbGMyODdfZml4dXBfYmluZF9kYWNzKHN0
+cnVjdCBoZGFfY29kZWMgKmNvZGVjLAogCXNuZF9oZGFfb3ZlcnJpZGVfY29ubl9saXN0KGNvZGVj
+LCAweDE3LCBBUlJBWV9TSVpFKGNvbm4pLCBjb25uKTsKIAlzcGVjLT5nZW4ucHJlZmVycmVkX2Rh
+Y3MgPSBwcmVmZXJyZWRfcGFpcnM7CiAJc3BlYy0+Z2VuLmF1dG9fbXV0ZV92aWFfYW1wID0gMTsK
+LQlzbmRfaGRhX2NvZGVjX3dyaXRlX2NhY2hlKGNvZGVjLCAweDE0LCAwLCBBQ19WRVJCX1NFVF9Q
+SU5fV0lER0VUX0NPTlRST0wsCi0JCQkgICAgMHgwKTsgLyogTWFrZSBzdXJlIDB4MTQgd2FzIGRp
+c2FibGUgKi8KKwlpZiAoc3BlYy0+Z2VuLmF1dG9jZmcuc3BlYWtlcl9waW5zWzBdICE9IDB4MTQp
+IHsKKwkJc25kX2hkYV9jb2RlY193cml0ZV9jYWNoZShjb2RlYywgMHgxNCwgMCwgQUNfVkVSQl9T
+RVRfUElOX1dJREdFVF9DT05UUk9MLAorCQkJCQkweDApOyAvKiBNYWtlIHN1cmUgMHgxNCB3YXMg
+ZGlzYWJsZSAqLworCX0KIH0KIAogCg==
+
+--_002_e3f2aac3fe6a47079d728a6443358cc2realtekcom_--

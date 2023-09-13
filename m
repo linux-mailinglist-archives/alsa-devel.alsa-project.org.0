@@ -2,74 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB1EA79E516
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 12:38:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD83179E57A
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 12:57:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B3C9A4B;
-	Wed, 13 Sep 2023 12:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B3C9A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB82D9F6;
+	Wed, 13 Sep 2023 12:56:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB82D9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694601520;
-	bh=etBJWDoqlj5WnvYC09TbS89X/Yc3eus9l32Uhba0pSg=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ilWdSo8yzVRBbVwibviVGluaAnv84x5vC+jVMkzqEEzxm+P2cyHL3B3O7wROm5IGM
-	 1oLoeeNzMto6UgT0XEMJAWuTTq4KjBM35pEPKuoIeKUbpT0pHMy9AJFU6EcrQvEtsj
-	 eyhOKvQmkrv7zJVWoPwvmAaIh5DAmGpSmPu7F05M=
+	s=default; t=1694602653;
+	bh=7zKWllqNpufIGQKkp3M02DaPOPfaIyuVruYujMZGUaI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=M0vPTv/2Qj7W8kwHV4E6lFDi1BLSNzIn5SLbXC/JK0k9b9/GiWkWXtDEE+9K5nVi5
+	 GaeYbCXVc0FGNTrVqS8ALf+BEd5ZC6u6dVLgKgrJSfbrb9DoQN8GvCdZOB0DEFojMq
+	 yguf9HXbErbzvmxZgCHn2+ObLgMG/spFHYN8XhvM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C127F80558; Wed, 13 Sep 2023 12:37:49 +0200 (CEST)
+	id 66596F80551; Wed, 13 Sep 2023 12:56:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56FBDF80246;
-	Wed, 13 Sep 2023 12:37:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F17BF80246;
+	Wed, 13 Sep 2023 12:56:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE036F80425; Wed, 13 Sep 2023 12:37:45 +0200 (CEST)
+	id 39F2AF80425; Wed, 13 Sep 2023 12:56:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 878F0F8007C
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 12:37:39 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 130F611CB;
-	Wed, 13 Sep 2023 12:37:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 130F611CB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1694601459; bh=EE5lF1i3XxnQOCYicS8HxoiR9OhpN1lSVuXGqttTucE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=OqTbcgLZmLyxLVWP5R8Lxek/YpI/FEa9exTqal9/iRIDva/QcOQBYRqIvJDok6TJ0
-	 l9CifO20os9GIWFP3F22Zi1NmFZYn5lu8RN7GTDt59DNhl6LFZpkefcnRRqJ7799Oe
-	 Xv1XRFZOITKW3vfa9X+WSaezw4A0/K+D2pR71JvQ=
-Received: from p1gen4.perex-int.cz (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 13 Sep 2023 12:37:35 +0200 (CEST)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [RFC PATCH v2] ALSA: pcm: Introduce MSBITS subformat API extension
-Date: Wed, 13 Sep 2023 12:37:16 +0200
-Message-ID: <20230913103716.67315-1-perex@perex.cz>
-X-Mailer: git-send-email 2.41.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84678F8007C
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 12:56:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84678F8007C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=BUNWMlZh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694602574; x=1726138574;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=7zKWllqNpufIGQKkp3M02DaPOPfaIyuVruYujMZGUaI=;
+  b=BUNWMlZhLaaWyX+qApkGU2XNgyEJDlKM/quZMl/l0IwWyewyjZGDtV7/
+   3kReXtMmhNh01AEzdEmB3XZ0/uqbhErrfd0VtJLW3nO8iwEOsn9otXSMn
+   UavysjfIN0ChIqSPe/leArwWBR9ttZH9AMy20Bm6GnFulNuK5Pri5F2OH
+   +DewNvDa90Zj2hggjY0WutujnsuOPfWhlSyc+rrQtKsjveSUambe7eJbZ
+   SfurqH5EemiS+dwTSO2sOoUQOkTEC5KrjtfO+rV6ZAXdU27CRKZXLpERO
+   JeQlZLn0I7iLNGKn0zFaLtEeeDR9ocYNo2zr6sQH9riKVxdnEtG9EFGFY
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="464996431"
+X-IronPort-AV: E=Sophos;i="6.02,143,1688454000";
+   d="scan'208";a="464996431"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2023 03:56:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="693810585"
+X-IronPort-AV: E=Sophos;i="6.02,143,1688454000";
+   d="scan'208";a="693810585"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.91])
+ ([10.94.0.91])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2023 03:56:05 -0700
+Message-ID: <92b2b69e-3175-651f-45bb-d9ae11eaec82@linux.intel.com>
+Date: Wed, 13 Sep 2023 12:56:03 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: M5GOWBJHVIHHMB6DV6MW6XTBNSILRHI6
-X-Message-ID-Hash: M5GOWBJHVIHHMB6DV6MW6XTBNSILRHI6
-X-MailFrom: perex@perex.cz
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [PATCH 1/4] ASoC: soc-card: Add storage for PCI SSID
+Content-Language: en-US
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ kai.vehmanen@linux.intel.com, peter.ujfalusi@linux.intel.com
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Cezary Rojewski <cezary.rojewski@intel.com>
+References: <20230912163207.3498161-1-rf@opensource.cirrus.com>
+ <20230912163207.3498161-2-rf@opensource.cirrus.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230912163207.3498161-2-rf@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: GBNGR34DADSMYXNR752FIM5YCDRR6GQP
+X-Message-ID-Hash: GBNGR34DADSMYXNR752FIM5YCDRR6GQP
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -81,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M5GOWBJHVIHHMB6DV6MW6XTBNSILRHI6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GBNGR34DADSMYXNR752FIM5YCDRR6GQP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,257 +111,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Improve granularity of format selection for linear formats by adding
-constants representing MAX, 20, 24 most significant bits.
+On 9/12/2023 6:32 PM, Richard Fitzgerald wrote:
+> Add members to struct snd_soc_card to store the PCI subsystem ID (SSID)
+> of the soundcard.
+> 
+> The PCI specification provides two registers to store a vendor-specific
+> SSID that can be read by drivers to uniquely identify a particular
+> "soundcard". This is defined in the PCI specification to distinguish
+> products that use the same silicon (and therefore have the same silicon
+> ID) so that product-specific differences can be applied.
+> 
+> PCI only defines 0xFFFF as an invalid value. 0x0000 is not defined as
+> invalid. So the usual pattern of zero-filling the struct and then
+> assuming a zero value unset will not work. A flag is included to
+> indicate when the SSID information has been filled in.
+> 
+> Unlike DMI information, which has a free-format entirely up to the vendor,
+> the PCI SSID has a strictly defined format and a registry of vendor IDs.
+> 
+> It is usual in Windows drivers that the SSID is used as the sole identifier
+> of the specific end-product and the Windows driver contains tables mapping
+> that to information about the hardware setup, rather than using ACPI
+> properties.
+> 
+> This SSID is important information for ASoC components that need to apply
+> hardware-specific configuration on PCI-based systems.
+> 
+> As the SSID is a generic part of the PCI specification and is treated as
+> identifying the "soundcard", it is reasonable to include this information
+> in struct snd_soc_card, instead of components inventing their own custom
+> ways to pass this information around.
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> ---
+>   include/sound/soc-card.h | 37 +++++++++++++++++++++++++++++++++++++
+>   include/sound/soc.h      | 11 +++++++++++
+>   2 files changed, 48 insertions(+)
+> 
+> diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
+> index fc94dfb0021f..e8ff2e089cd0 100644
+> --- a/include/sound/soc-card.h
+> +++ b/include/sound/soc-card.h
 
-The MAX means the maximum number of significant bits which can
-the physical format hold. For 32-bit formats, MAX is related
-to 32 bits. For 8-bit formats, MAX is related to 8 bits etc.
+...
 
-The drivers may use snd_pcm_hw_constraint_subformats with
-a simple format -> subformats table.
+> diff --git a/include/sound/soc.h b/include/sound/soc.h
+> index 509386ff5212..81ed08c5c67d 100644
+> --- a/include/sound/soc.h
+> +++ b/include/sound/soc.h
+> @@ -929,6 +929,17 @@ struct snd_soc_card {
+>   #ifdef CONFIG_DMI
+>   	char dmi_longname[80];
+>   #endif /* CONFIG_DMI */
+> +
+> +#ifdef CONFIG_PCI
+> +	/*
+> +	 * PCI does not define 0 as invalid, so pci_subsystem_set indicates
+> +	 * whether a value has been written to these fields.
+> +	 */
+> +	unsigned short pci_subsystem_vendor;
+> +	unsigned short pci_subsystem_device;
+> +	bool pci_subsystem_set;
+> +#endif /* CONFIG_PCI */
+> +
+>   	char topology_shortname[32];
+>   
+>   	struct device *dev;
 
-Original proposal - https://lore.kernel.org/alsa-devel/20230811164853.1797547-1-cezary.rojewski@intel.com/
-
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-
----
-
-v2:
-  - added link to the original proposal (RFC)
-  - reshuffle declarations in snd_pcm_hw_rule_subformats
-  - remove nmemd from description - snd_pcm_hw_constraint_subformats
-  - more strict handling for SNDRV_PCM_SUBFORMAT_MSBITS_MAX in
-    fixup_unreferenced_params
-  - fixed sparse warning (unsigned int -> snd_pcm_format_t)
----
- include/sound/pcm.h               | 17 +++++++++
- include/uapi/sound/asound.h       |  7 ++--
- sound/core/pcm_lib.c              | 59 +++++++++++++++++++++++++++++++
- sound/core/pcm_native.c           | 25 ++++++++++---
- tools/include/uapi/sound/asound.h |  7 ++--
- 5 files changed, 107 insertions(+), 8 deletions(-)
-
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 2a815373dac1..59ad45b42e03 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -217,6 +217,12 @@ struct snd_pcm_ops {
- #define SNDRV_PCM_FMTBIT_U20		SNDRV_PCM_FMTBIT_U20_BE
- #endif
- 
-+#define _SNDRV_PCM_SUBFMTBIT(fmt)	BIT((__force int)SNDRV_PCM_SUBFORMAT_##fmt)
-+#define SNDRV_PCM_SUBFMTBIT_STD		_SNDRV_PCM_SUBFMTBIT(STD)
-+#define SNDRV_PCM_SUBFMTBIT_MSBITS_MAX	_SNDRV_PCM_SUBFMTBIT(MSBITS_MAX)
-+#define SNDRV_PCM_SUBFMTBIT_MSBITS_20	_SNDRV_PCM_SUBFMTBIT(MSBITS_20)
-+#define SNDRV_PCM_SUBFMTBIT_MSBITS_24	_SNDRV_PCM_SUBFMTBIT(MSBITS_24)
-+
- struct snd_pcm_file {
- 	struct snd_pcm_substream *substream;
- 	int no_compat_mmap;
-@@ -290,6 +296,13 @@ struct snd_pcm_hw_constraint_ranges {
- 	unsigned int mask;
- };
- 
-+#define SNDRV_PCM_FORMAT_CONSTRAINT_END (~0)
-+
-+struct snd_pcm_hw_constraint_subformat {
-+	snd_pcm_format_t format;	/* SNDRV_PCM_FORMAT_* */
-+	u32 subformats;			/* SNDRV_PCM_SUBFMTBIT_* */
-+};
-+
- /*
-  * userspace-provided audio timestamp config to kernel,
-  * structure is for internal use only and filled with dedicated unpack routine
-@@ -375,6 +388,7 @@ struct snd_pcm_runtime {
- 	unsigned int rate_num;
- 	unsigned int rate_den;
- 	unsigned int no_period_wakeup: 1;
-+	unsigned int subformat_constraint: 1;
- 
- 	/* -- SW params; see struct snd_pcm_sw_params for comments -- */
- 	int tstamp_mode;
-@@ -1068,6 +1082,9 @@ int snd_pcm_hw_constraint_ratdens(struct snd_pcm_runtime *runtime,
- 				  unsigned int cond,
- 				  snd_pcm_hw_param_t var,
- 				  const struct snd_pcm_hw_constraint_ratdens *r);
-+int snd_pcm_hw_constraint_subformats(struct snd_pcm_runtime *runtime,
-+				     unsigned int cond,
-+				     struct snd_pcm_hw_constraint_subformat *subformats);
- int snd_pcm_hw_constraint_msbits(struct snd_pcm_runtime *runtime, 
- 				 unsigned int cond,
- 				 unsigned int width,
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index f9939da41122..d5b9cfbd9cea 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -142,7 +142,7 @@ struct snd_hwdep_dsp_image {
-  *                                                                           *
-  *****************************************************************************/
- 
--#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 15)
-+#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 16)
- 
- typedef unsigned long snd_pcm_uframes_t;
- typedef signed long snd_pcm_sframes_t;
-@@ -267,7 +267,10 @@ typedef int __bitwise snd_pcm_format_t;
- 
- typedef int __bitwise snd_pcm_subformat_t;
- #define	SNDRV_PCM_SUBFORMAT_STD		((__force snd_pcm_subformat_t) 0)
--#define	SNDRV_PCM_SUBFORMAT_LAST	SNDRV_PCM_SUBFORMAT_STD
-+#define	SNDRV_PCM_SUBFORMAT_MSBITS_MAX	((__force snd_pcm_subformat_t) 1)
-+#define	SNDRV_PCM_SUBFORMAT_MSBITS_20	((__force snd_pcm_subformat_t) 2)
-+#define	SNDRV_PCM_SUBFORMAT_MSBITS_24	((__force snd_pcm_subformat_t) 3)
-+#define	SNDRV_PCM_SUBFORMAT_LAST	SNDRV_PCM_SUBFORMAT_MSBITS_24
- 
- #define SNDRV_PCM_INFO_MMAP		0x00000001	/* hardware supports mmap */
- #define SNDRV_PCM_INFO_MMAP_VALID	0x00000002	/* period data are valid during transfer */
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index a11cd7d6295f..cb376e428f59 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1404,6 +1404,65 @@ int snd_pcm_hw_constraint_ratdens(struct snd_pcm_runtime *runtime,
- }
- EXPORT_SYMBOL(snd_pcm_hw_constraint_ratdens);
- 
-+static int snd_pcm_hw_rule_subformats(struct snd_pcm_hw_params *params,
-+				      struct snd_pcm_hw_rule *rule)
-+{
-+	const struct snd_pcm_hw_constraint_subformat *sf;
-+	snd_pcm_format_t k;
-+	struct snd_mask m;
-+	struct snd_mask *fmask = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
-+	struct snd_mask *mask = hw_param_mask(params, SNDRV_PCM_HW_PARAM_SUBFORMAT);
-+	bool found;
-+
-+	snd_mask_none(&m);
-+	snd_mask_set(&m, (__force unsigned)SNDRV_PCM_SUBFORMAT_STD);
-+	pcm_for_each_format(k) {
-+		if (!snd_mask_test(fmask, k))
-+			continue;
-+		found = false;
-+		for (sf = rule->private; sf && sf->format != SNDRV_PCM_FORMAT_CONSTRAINT_END; sf++) {
-+			if (sf->format != k)
-+				continue;
-+			found = true;
-+			m.bits[0] |= sf->subformats;
-+			break;
-+		}
-+		if (!found && snd_pcm_format_linear(k))
-+			snd_mask_set(&m, (__force unsigned)SNDRV_PCM_SUBFORMAT_MSBITS_MAX);
-+	}
-+	return snd_mask_refine(mask, &m);
-+}
-+
-+/**
-+ * snd_pcm_hw_constraint_subformats - add a hw constraint subformats rule
-+ * @runtime: PCM runtime instance
-+ * @cond: condition bits
-+ * @subformats: array with struct snd_pcm_subformat elements
-+ *
-+ * This constraint will set relation between format and subformats.
-+ * The STD and MAX subformats are handled automatically. If the driver
-+ * does not set this constraint, only STD and MAX subformats are handled.
-+ *
-+ * Return: Zero if successful, or a negative error code on failure.
-+ */
-+int snd_pcm_hw_constraint_subformats(struct snd_pcm_runtime *runtime,
-+				     unsigned int cond,
-+				     struct snd_pcm_hw_constraint_subformat *subformats)
-+{
-+	int ret;
-+
-+	ret = snd_pcm_hw_rule_add(runtime, cond, -1,
-+				  snd_pcm_hw_rule_subformats,
-+				  (void*) subformats,
-+				  SNDRV_PCM_HW_PARAM_SUBFORMAT,
-+				  SNDRV_PCM_HW_PARAM_FORMAT, -1);
-+	if (ret < 0)
-+		return ret;
-+	runtime->subformat_constraint = 1;
-+	return 0;
-+}
-+EXPORT_SYMBOL(snd_pcm_hw_constraint_subformats);
-+
- static int snd_pcm_hw_rule_msbits(struct snd_pcm_hw_params *params,
- 				  struct snd_pcm_hw_rule *rule)
- {
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index bd9ddf412b46..d4442b458c3c 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -479,6 +479,7 @@ static int fixup_unreferenced_params(struct snd_pcm_substream *substream,
- {
- 	const struct snd_interval *i;
- 	const struct snd_mask *m;
-+	struct snd_mask *m_rw;
- 	int err;
- 
- 	if (!params->msbits) {
-@@ -487,6 +488,21 @@ static int fixup_unreferenced_params(struct snd_pcm_substream *substream,
- 			params->msbits = snd_interval_value(i);
- 	}
- 
-+	if (params->msbits) {
-+		m = hw_param_mask_c(params, SNDRV_PCM_HW_PARAM_FORMAT);
-+		if (snd_mask_single(m)) {
-+			snd_pcm_format_t format = (__force snd_pcm_format_t)snd_mask_min(m);
-+			if (snd_pcm_format_linear(format) &&
-+			    snd_pcm_format_width(format) != params->msbits) {
-+				m_rw = hw_param_mask(params, SNDRV_PCM_HW_PARAM_SUBFORMAT);
-+				snd_mask_reset(m_rw,
-+					       (__force unsigned)SNDRV_PCM_SUBFORMAT_MSBITS_MAX);
-+				if (snd_mask_empty(m_rw))
-+					return -EINVAL;
-+			}
-+		}
-+	}
-+
- 	if (!params->rate_den) {
- 		i = hw_param_interval_c(params, SNDRV_PCM_HW_PARAM_RATE);
- 		if (snd_interval_single(i)) {
-@@ -2634,10 +2650,11 @@ static int snd_pcm_hw_constraints_complete(struct snd_pcm_substream *substream)
- 	if (err < 0)
- 		return err;
- 
--	err = snd_pcm_hw_constraint_mask(runtime, SNDRV_PCM_HW_PARAM_SUBFORMAT,
--					 PARAM_MASK_BIT(SNDRV_PCM_SUBFORMAT_STD));
--	if (err < 0)
--		return err;
-+	if (!runtime->subformat_constraint) {
-+		err = snd_pcm_hw_constraint_subformats(runtime, 0, NULL);
-+		if (err < 0)
-+			return err;
-+	}
- 
- 	err = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_CHANNELS,
- 					   hw->channels_min, hw->channels_max);
-diff --git a/tools/include/uapi/sound/asound.h b/tools/include/uapi/sound/asound.h
-index f9939da41122..d5b9cfbd9cea 100644
---- a/tools/include/uapi/sound/asound.h
-+++ b/tools/include/uapi/sound/asound.h
-@@ -142,7 +142,7 @@ struct snd_hwdep_dsp_image {
-  *                                                                           *
-  *****************************************************************************/
- 
--#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 15)
-+#define SNDRV_PCM_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 16)
- 
- typedef unsigned long snd_pcm_uframes_t;
- typedef signed long snd_pcm_sframes_t;
-@@ -267,7 +267,10 @@ typedef int __bitwise snd_pcm_format_t;
- 
- typedef int __bitwise snd_pcm_subformat_t;
- #define	SNDRV_PCM_SUBFORMAT_STD		((__force snd_pcm_subformat_t) 0)
--#define	SNDRV_PCM_SUBFORMAT_LAST	SNDRV_PCM_SUBFORMAT_STD
-+#define	SNDRV_PCM_SUBFORMAT_MSBITS_MAX	((__force snd_pcm_subformat_t) 1)
-+#define	SNDRV_PCM_SUBFORMAT_MSBITS_20	((__force snd_pcm_subformat_t) 2)
-+#define	SNDRV_PCM_SUBFORMAT_MSBITS_24	((__force snd_pcm_subformat_t) 3)
-+#define	SNDRV_PCM_SUBFORMAT_LAST	SNDRV_PCM_SUBFORMAT_MSBITS_24
- 
- #define SNDRV_PCM_INFO_MMAP		0x00000001	/* hardware supports mmap */
- #define SNDRV_PCM_INFO_MMAP_VALID	0x00000002	/* period data are valid during transfer */
--- 
-2.41.0
+This looks bit weird to me, snd_soc_card is _generic_ struct which is 
+not device specific in any way, and now you add fields for PCI, can't 
+this somehow be done using drvdata or something?
 

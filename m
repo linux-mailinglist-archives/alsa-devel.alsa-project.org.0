@@ -2,93 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7DF7A0C2D
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 20:05:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F062F7A0C2E
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 20:05:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE3BFDEE;
-	Thu, 14 Sep 2023 20:04:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE3BFDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AE58DF0;
+	Thu, 14 Sep 2023 20:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AE58DF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694714715;
-	bh=e76tetz0/W+MU34AEbp7BxOKWrLWgK3XahhKTkpggMo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ldjruHZk0pMCZF2iO0WZp+hq5n4OHDPCakpIvHkU1hjP/uqh45wh4BT2OX2qOVj6y
-	 sDOyoZA0uVuwAmSQ5/WfCF57RYI3WAEegXFEtqUFkwDxp8+zwWCNwyYL7Jd2IYvtro
-	 i9AWSqrUSO73KyhbOCkIoMyVuXbGRvyr7iKDiOLs=
+	s=default; t=1694714732;
+	bh=h8Q8yGby4IIHCpFoT1m9DtZaxwEiR5sSZyoZBnPMujE=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tXvVdIz+EyswYrxebrYrqpboz5e/Bqk0Ix08P0qbkflALmbBMft0kR1uRWAb5z79Q
+	 JIW8c4DP+rurvzc60PJYa6nknyfsgBijb6ehXd287n9sKi8HdCA4vTaYje7EtSWeWG
+	 qB0JVf4dLi9WGZu1zlzwY9xcKVnvEmq+uIwD30WY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 981F5F8056F; Thu, 14 Sep 2023 20:03:32 +0200 (CEST)
+	id 40EF0F8058C; Thu, 14 Sep 2023 20:03:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4662F8056F;
-	Thu, 14 Sep 2023 20:03:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95672F8057F;
+	Thu, 14 Sep 2023 20:03:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE30DF80425; Wed, 13 Sep 2023 08:50:10 +0200 (CEST)
+	id 11EB1F80425; Wed, 13 Sep 2023 10:18:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp1.hiworks.co.kr (smtp1.hiworks.co.kr [121.254.168.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 247C4F801F5
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 08:50:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 247C4F801F5
-Received: (qmail 137128 invoked from network); 13 Sep 2023 15:49:58 +0900
-Received: from unknown (HELO hiworks.co.kr) (192.168.10.37)
-	by 0 (qmail 1.03 + ejcp v14) with SMTP;
-	13 Sep 2023 15:49:58 +0900
-Received: (qmail 192671 invoked from network); 13 Sep 2023 15:49:57 +0900
-Received: from unknown (HELO saram-MINIPC-PN53..)
- (mwkim@gaonchips.com@220.88.49.178)
-	by 0 (qmail 1.03 + ejcp v14) with SMTP;
-	13 Sep 2023 15:49:57 +0900
-X-Authinfo: HIWORKS SMTP authenticated
- <mwkim@gaonchips.com|220.88.49.178|mwkim@gaonchips.com|230913154957_8612192425>
-X-MailFrom-INFO: Info <country_code:KR|rbl_level:0>
-From: Myunguk Kim <mwkim@gaonchips.com>
-To: krzysztof.kozlowski@linaro.org
-Cc: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	fido_max@inbox.ru,
-	joabreu@synopsys.com,
-	krzysztof.kozlowski+dt@linaro.org,
-	kuninori.morimoto.gx@renesas.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	mwkim@gaonchips.com,
-	perex@perex.cz,
-	robh+dt@kernel.org,
-	tiwai@suse.com,
-	u.kleine-koenig@pengutronix.de,
-	xingyu.wu@starfivetech.com
-Subject: Re: [PATCH] ASoC: dwc: Add Single DMA mode support
-Date: Wed, 13 Sep 2023 15:43:07 +0900
-Message-Id: <20230913064306.1862804-1-mwkim@gaonchips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <644e3564-994d-0b51-7d58-dac6afc1e0ec@linaro.org>
-References: <644e3564-994d-0b51-7d58-dac6afc1e0ec@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id E202EF80212
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 10:18:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E202EF80212
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=lQSQuDBt
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-3ff7d73a6feso68777105e9.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 13 Sep 2023 01:18:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1694593107; x=1695197907;
+ darn=alsa-project.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rL0QYm+4DpNU20BBRJmcQSCbvNXdp8splkqH77lfanI=;
+        b=lQSQuDBt9LQr+nIqNtp67PE/AuqeV2spkZECAHU1kz53qBsZqwzdWLtLQEfDJqKJnY
+         dBYkyrl11ClJAU15UxS7xXtrvt2ShPuwQFtl58j6b8ODBvdIizrYz0PGv6Ygdu249rzB
+         BORgLg6BXD37F4opNBTkXr3WNG7VvhBLQd7T9/O30Vhni/V/nySIRx5YLOQsyz3In3/x
+         ZmZOxO8HylFBN7yx6KbIOkDySzvu8zdMYAxm+FW2wt4py45q59snwFtJPFh9nD9pBUtx
+         PUy8T+aBrTnfYMPoNPXv75BX4DEB54AFa1GVuAWnWwADX3czaUzjP447bzATjzs0sn3L
+         0xug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694593107; x=1695197907;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rL0QYm+4DpNU20BBRJmcQSCbvNXdp8splkqH77lfanI=;
+        b=G/yZaSMAzDNMfhaFTCV+o0a5YVHUk5kmQwX6AO3IUnJhYdSWUDGpUU08XcN31TePXZ
+         xHlkuDGFkqtVpX6ZfSuwXCrH+6/r9Qc73PfJ2IXsssmGujV9ddTQ1AF4NVJ91FTnUdy5
+         Srgv2Jr28RGXYkWbBT2Amxx51QtAWCRdd0B4GM0M51zF3LmWGy1r1sayCQgLdOUcalYh
+         3X2Opznbq5LERAHFAVdjNBtkbogri0gKhHfVYJZBEgmKwTY804BxxVjbqE1Db7l3RDan
+         zBnt+wVkxZwpYzFrjH9Ho4kkvC6IeTTWfLtnR0vECXUJ5DZ80D7BCw/z0K87S7sgjh0p
+         kZqQ==
+X-Gm-Message-State: AOJu0Yy78HHBPURlmefIBynQ6dADZzCWiissT4RSkX+lYsOlFSGvxt1s
+	SBCPOwZgYG+kcvOMtELx44FKlw==
+X-Google-Smtp-Source: 
+ AGHT+IGFO0CwSx+Hl2v9TdNBISeq9HBmh94Hh3tAzgvAXxD6wKVhKIFaJvI+u/oy1HGcv/6YLqtxUg==
+X-Received: by 2002:a05:600c:108b:b0:3fe:207c:1aea with SMTP id
+ e11-20020a05600c108b00b003fe207c1aeamr1314950wmd.23.1694593106762;
+        Wed, 13 Sep 2023 01:18:26 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id
+ f18-20020a7bcd12000000b00402f7e473b7sm1285889wmj.15.2023.09.13.01.18.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 Sep 2023 01:18:26 -0700 (PDT)
+Date: Wed, 13 Sep 2023 11:18:22 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Weidong Wang <wangweidong.a@awinic.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Nick Li <liweilei@awinic.com>,
+	Colin Ian King <colin.i.king@gmail.com>,
+	Ben Yi <yijiangtao@awinic.com>, Tom Rix <trix@redhat.com>,
+	alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] ASoC: codecs: aw88395: Fix some error codes
+Message-ID: <81476e78-05c2-4656-b754-f314c7ccdb81@moroto.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: mwkim@gaonchips.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: TI7TLEICESXQFCNWWICP4WAVKLCXBJQ6
-X-Message-ID-Hash: TI7TLEICESXQFCNWWICP4WAVKLCXBJQ6
-X-Mailman-Approved-At: Thu, 14 Sep 2023 18:03:23 +0000
+Message-ID-Hash: FADZDB6ARJIJB5FKK3VHUTZUDNJSALLB
+X-Message-ID-Hash: FADZDB6ARJIJB5FKK3VHUTZUDNJSALLB
+X-Mailman-Approved-At: Thu, 14 Sep 2023 18:03:24 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TI7TLEICESXQFCNWWICP4WAVKLCXBJQ6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FADZDB6ARJIJB5FKK3VHUTZUDNJSALLB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,17 +121,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->> This is not dependent on a specific vendor, 
->> but is intended to describe 
->> the properties of the signal(single/burst request) connection 
->> relationship between i2s and dma.
->
-> How does this relationship depend on hardware?
+These error paths should return -EINVAL instead of success.
 
-When designing a SoC, it depends on the RTL and Bus connection.
-My company has two types of configuration SoC: single and burst 
-to meet ASIC customer's requirements.
+Fixes: 7f4ec77802aa ("ASoC: codecs: Add code for bin parsing compatible with aw88261")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ sound/soc/codecs/aw88395/aw88395_lib.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks,
-myunguk
+diff --git a/sound/soc/codecs/aw88395/aw88395_lib.c b/sound/soc/codecs/aw88395/aw88395_lib.c
+index 8ee1baa03269..87dd0ccade4c 100644
+--- a/sound/soc/codecs/aw88395/aw88395_lib.c
++++ b/sound/soc/codecs/aw88395/aw88395_lib.c
+@@ -452,11 +452,13 @@ static int aw_dev_parse_reg_bin_with_hdr(struct aw_device *aw_dev,
+ 	if ((aw_bin->all_bin_parse_num != 1) ||
+ 		(aw_bin->header_info[0].bin_data_type != DATA_TYPE_REGISTER)) {
+ 		dev_err(aw_dev->dev, "bin num or type error");
++		ret = -EINVAL;
+ 		goto parse_bin_failed;
+ 	}
+ 
+ 	if (aw_bin->header_info[0].valid_data_len % 4) {
+ 		dev_err(aw_dev->dev, "bin data len get error!");
++		ret = -EINVAL;
+ 		goto parse_bin_failed;
+ 	}
+ 
+-- 
+2.39.2
 

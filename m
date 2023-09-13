@@ -2,85 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4DC579F327
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 22:50:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE6079F34F
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 22:55:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9044D84C;
-	Wed, 13 Sep 2023 22:49:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9044D84C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0100852;
+	Wed, 13 Sep 2023 22:55:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0100852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694638199;
-	bh=TPp8uZFB0/jwp1EDhvKFZZGBI1llyQdj0zqebEXZ3/A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Cs5lcOlesNUr9HZrdWZQjEullQLvPJkTtgwoSQb0eZKtcRMMEoUCXoVYsK0CSmOqM
-	 ji9NDZ7um0gb+xD38rchJxSBWHyZnJO5bAFst1rw8ZKa3pWJbVAZHsitasedwP7eou
-	 guz+nlBrUHtIQ/+vrfy5iJOOC4Qzo5Ex1J/D3Za8=
+	s=default; t=1694638555;
+	bh=6xOkHNVdY0S5bLxrwP2LBKo+uA1WkDFNX31okXsuivc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=d0edqWPneLJQ9oUQFIc+vb7QgRk+jpFCmQXW+3+FSFWQi1hbltwD72N8cCLn0SHaY
+	 SP4F0lvaF01dAvMqauXNHGmdA8JgtokpW3HIlG3XNRMv3yG6FBTC6bav5p9z+EYJEp
+	 2QmCpGkE4TqxFYHYNoIzzspUp+SQ3uUqLDxauK50=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9456F80558; Wed, 13 Sep 2023 22:49:08 +0200 (CEST)
+	id DBF1FF80552; Wed, 13 Sep 2023 22:54:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAB95F80246;
-	Wed, 13 Sep 2023 22:49:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70874F80246;
+	Wed, 13 Sep 2023 22:54:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8912FF80425; Wed, 13 Sep 2023 22:49:03 +0200 (CEST)
+	id 8BC4CF80425; Wed, 13 Sep 2023 22:54:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 819DEF80212
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 22:48:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 819DEF80212
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lnsD/7Ow
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 465EF61752;
-	Wed, 13 Sep 2023 20:48:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0D3C433C9;
-	Wed, 13 Sep 2023 20:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694638132;
-	bh=TPp8uZFB0/jwp1EDhvKFZZGBI1llyQdj0zqebEXZ3/A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=lnsD/7OwVBBCmurWsce1FrMMCcYPQnnHpplnqrDNoe/w2MRN4C/umJHkiOLCCkb86
-	 OWB/3+AYda6S/d6tAXI4ukhebJEpqT7yvfnBqUZ3rz03655LNlG0u1fumBFwZDCddo
-	 8vMBT2+HMdmPFOwjZVHQ4GPWNo4VlueinzrVSz9iF1wENPZ6QbRZbtALGN/eb5ruoX
-	 FZ52QQk1FxtViC+fauFgizWZ3jfKh4NlskH8V4vlsNlDLNOn8eoMAgmt54nMT4f99J
-	 5F61kN0zLhZXoJMgj4iH7IzqK4ZtvhxF5PgR7Rk5MtUPH9FwONo5L4yujsbp8gB19f
-	 6PuZJKswUBm5A==
-From: Mark Brown <broonie@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org, YHCHuang@nuvoton.com,
- KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, WTLI@nuvoton.com,
- SJLIN0@nuvoton.com, scott6986@gmail.com, supercraig0719@gmail.com,
- dardar923@gmail.com
-In-Reply-To: <20230913064003.2925997-1-wtli@nuvoton.com>
-References: <20230913064003.2925997-1-wtli@nuvoton.com>
-Subject: Re: [PATCH] ASoC: nau8821: Revise MICBIAS control for power
- saving.
-Message-Id: <169463809596.94259.13475036447436979290.b4-ty@kernel.org>
-Date: Wed, 13 Sep 2023 21:48:15 +0100
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B344F80212
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 22:54:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B344F80212
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: 7JMFQ3XRDTEMWZZVGZ2TO763VEWV44EA
-X-Message-ID-Hash: 7JMFQ3XRDTEMWZZVGZ2TO763VEWV44EA
-X-MailFrom: broonie@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1694638477700409412-webhooks-bot@alsa-project.org>
+References: <1694638477700409412-webhooks-bot@alsa-project.org>
+Subject: No sound output from ALC4080 on MSI X670-P
+Message-Id: <20230913205440.8BC4CF80425@alsa1.perex.cz>
+Date: Wed, 13 Sep 2023 22:54:40 +0200 (CEST)
+Message-ID-Hash: CGTATZ4VFEMIPXDA7LE5RX7NRPQLDLPL
+X-Message-ID-Hash: CGTATZ4VFEMIPXDA7LE5RX7NRPQLDLPL
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7JMFQ3XRDTEMWZZVGZ2TO763VEWV44EA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CGTATZ4VFEMIPXDA7LE5RX7NRPQLDLPL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,37 +69,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 13 Sep 2023 14:40:03 +0800, Seven Lee wrote:
-> The patch helps save power by control MICBIAS. The headset's
-> MICBIAS should be disabled without button requirement.
-> 
-> 
+alsa-project/alsa-ucm-conf issue #352 was opened from gopokyo-colinn:
 
-Applied to
+Hello.  I have the MSI x670-P motherboard which has ALC4080 which is USB audio.  I am provided with two USB audio devices, SPDIF and Speakers.  There are 2.1, 5.1, and 7.1 profiles.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I updated alsa to what was in debian.  My USB-Audio.conf file has an entry for my motherboard, but the ALC4080 conf file does not have a special case for my motherboard.
 
-Thanks!
+I do not know if my audio is supposed to be working or not.  I am running Ubuntu which replaced pulseaudio with pipewire.  I am not sure of where to start looking or how to troubleshoot this issue.  Any help would be appreciated.
 
-[1/1] ASoC: nau8821: Revise MICBIAS control for power saving.
-      commit: 8885ab34201c5c34a82539ba2753e8e743b38f38
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/352
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

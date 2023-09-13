@@ -2,91 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F27179ED1C
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 17:34:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E7679EDEB
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 18:03:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C232D852;
-	Wed, 13 Sep 2023 17:33:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C232D852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E904950;
+	Wed, 13 Sep 2023 18:03:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E904950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694619254;
-	bh=w4eOXdxxEVpvJRthlhaH92nifcMz3GmSivudS7jagvk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=rLMlgB7Iov6mIKSjiv1gUdbZMtcMdNf8f1VPDBqd0g9IQ/4ZTk3vy/u7836EoP9g/
-	 b8Lfjpdu5TAKGpnqUOPPECOBCjVb83441b7F7f7XsQm7UwFSVZ+Xj1qm/9dYCMD8rB
-	 n5JeYf9jU9jzdHZT4wooyQXBxObl4jM2McJX7IEY=
+	s=default; t=1694621036;
+	bh=Fc/n/Sc0dEy0WIX1DxUSjPln+fBMG7ne0OW7o2s+B5w=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=V6O1aQGu84ogOetM+9WUV5BlL7a/Win/Kd3PAtnCGaXO1cy9SvsZzWxbUq1WNIRuK
+	 HmT8eNfQ1KZnHNMDd5W/aTtQrpZBt0YtscsZr1pjx2punIb1hjo0R57PjE13doZwBl
+	 VnKEvArdF6U6fWWQcDGLSkd2kmCwx7c+UITfQqN0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37B21F8007C; Wed, 13 Sep 2023 17:33:24 +0200 (CEST)
+	id 16629F8055C; Wed, 13 Sep 2023 18:03:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3A25F801F5;
-	Wed, 13 Sep 2023 17:33:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADF30F80246;
+	Wed, 13 Sep 2023 18:03:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80036F80425; Wed, 13 Sep 2023 17:33:18 +0200 (CEST)
+	id 51925F80425; Wed, 13 Sep 2023 18:03:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33DEBF801F5
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 17:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33DEBF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5F754F801F5
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 18:02:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F754F801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CSdc05sw
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id D9EFDB82189;
-	Wed, 13 Sep 2023 15:33:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB9CC433C8;
-	Wed, 13 Sep 2023 15:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694619186;
-	bh=w4eOXdxxEVpvJRthlhaH92nifcMz3GmSivudS7jagvk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CSdc05swdFI+Usg6TPK+loCrKdjcCDoD1l3eV91+bwpg9zqRnvz5+aPx2ibFa2Fo+
-	 uRXQRALXPUo+Ctds8aJoAih2KTot+U3jqSStD6Ik+9HHGu73OA7p0UXd476CdW2ebO
-	 sq7OXF18Qa4JIGGYdSmXiZeHIrRv2Lp/1p4E4FTtArHa4yvdivVEZsS3XuE3c8a7tK
-	 UkuqyAMJOc7oxW6WwGVXFKy+fnXsrgER+81eHlo5tvcZ1abF082K1Wahmkkkt4hXM+
-	 Ixh57M0SW2OStwN98jdOiHFiTDnEKlVpltLqON9IY6n7Aln2jSEuwLkRHH8rDaoxIG
-	 hxNzcOcJ7MpmA==
-Date: Wed, 13 Sep 2023 16:33:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>
-Cc: Takashi Iwai <tiwai@suse.com>, kernel@collabora.com,
-	Jaroslav Kysela <perex@perex.cz>, Shuah Khan <shuah@kernel.org>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH] kselftest/alsa: Mark test plan as skipped when no cards
- are available
-Message-ID: <ae381a70-3236-4792-9c3e-19d67a4377a1@sirena.org.uk>
-References: <20230908181242.95714-1-nfraprado@collabora.com>
- <0fa0901e-d271-438d-bc2b-11399ad3b07c@sirena.org.uk>
- <868a8f08-ba39-4550-8e7b-0572ea03c4e7@notapiano>
- <ZP8kLM5ln2YBCHap@finisterre.sirena.org.uk>
- <a12b1144-bea0-4bd7-a429-da800dc8f568@notapiano>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=erKjCEdl
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38DFQNmf015064;
+	Wed, 13 Sep 2023 11:02:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=4
+	dxWaJPvr2QnmomnbN1/XJKlzqqGpJ4ZCyl1FkfwbuU=; b=erKjCEdlTFErWs6yb
+	/6S5kNShx40qWneHewW/2h5stjBXxq2lL9yJNGgmlmIryCpOKXZqhfuG/zQueSjU
+	ZyoaIcmixgPDBa1EENn1dqZAmnFNkIbV/CCrQqqIQ1ZJUwHFhTAyPeNE54ks2ios
+	tghEtHGb0Z3wPQWWcu+b9M2pJ4JiSRhe/dfqNW4QEM0mbiCJGxXxNs4YapYjjB/A
+	r00svrhucWYpBKOLYhdXMZOJ8VdW7cBn/j0GiTvRycpZ5gXJZA7YF5mAYoxhTNyp
+	gzkdsI2hf+d9cOdDzktRbCfqIZYL7xnIO8L93vdSb7DjwDWEC/eOhXherWvzHo2A
+	yJNcg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t2y7u155j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 13 Sep 2023 11:02:52 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 13 Sep
+ 2023 17:02:50 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.37 via Frontend Transport; Wed, 13 Sep 2023 17:02:50 +0100
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.125])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 393F915B9;
+	Wed, 13 Sep 2023 16:02:50 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-kernel@vger.kernel.org>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: wm_adsp: Fix missing locking in
+ wm_adsp_[read|write]_ctl()
+Date: Wed, 13 Sep 2023 17:02:50 +0100
+Message-ID: <20230913160250.3700346-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HVlTO/OC556kjwhz"
-Content-Disposition: inline
-In-Reply-To: <a12b1144-bea0-4bd7-a429-da800dc8f568@notapiano>
-X-Cookie: Use extra care when cleaning on stairs.
-Message-ID-Hash: 5ZVY6IKL3JRNPSYNBDLBAWM2RQGKNWAT
-X-Message-ID-Hash: 5ZVY6IKL3JRNPSYNBDLBAWM2RQGKNWAT
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: Zy09iuh4OJHrYMobOncWbEkyA3PD04ba
+X-Proofpoint-ORIG-GUID: Zy09iuh4OJHrYMobOncWbEkyA3PD04ba
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: M4OZGQ3MZMOMHH5ZT5K2I5DM5BW2MSPT
+X-Message-ID-Hash: M4OZGQ3MZMOMHH5ZT5K2I5DM5BW2MSPT
+X-MailFrom: prvs=4620548a1c=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZVY6IKL3JRNPSYNBDLBAWM2RQGKNWAT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M4OZGQ3MZMOMHH5ZT5K2I5DM5BW2MSPT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,59 +109,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+wm_adsp_read_ctl() and wm_adsp_write_ctl() must hold the cs_dsp pwr_lock
+mutex when calling cs_dsp_coeff_read_ctrl() and cs_dsp_coeff_write_ctrl().
 
---HVlTO/OC556kjwhz
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+These functions aren't currently used so this fix doesn't need
+to be backported.
+---
+ sound/soc/codecs/wm_adsp.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-On Tue, Sep 12, 2023 at 03:23:34PM -0400, N=EDcolas F. R. A. Prado wrote:
-> On Mon, Sep 11, 2023 at 03:29:00PM +0100, Mark Brown wrote:
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index 6fc34f41b175..d1b9238d391e 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -687,7 +687,10 @@ int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 	struct wm_coeff_ctl *ctl;
+ 	int ret;
+ 
++	mutex_lock(&dsp->cs_dsp.pwr_lock);
+ 	ret = cs_dsp_coeff_write_ctrl(cs_ctl, 0, buf, len);
++	mutex_unlock(&dsp->cs_dsp.pwr_lock);
++
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -703,8 +706,14 @@ EXPORT_SYMBOL_GPL(wm_adsp_write_ctl);
+ int wm_adsp_read_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 		     unsigned int alg, void *buf, size_t len)
+ {
+-	return cs_dsp_coeff_read_ctrl(cs_dsp_get_ctl(&dsp->cs_dsp, name, type, alg),
+-				      0, buf, len);
++	int ret;
++
++	mutex_lock(&dsp->cs_dsp.pwr_lock);
++	ret = cs_dsp_coeff_read_ctrl(cs_dsp_get_ctl(&dsp->cs_dsp, name, type, alg),
++				     0, buf, len);
++	mutex_unlock(&dsp->cs_dsp.pwr_lock);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(wm_adsp_read_ctl);
+ 
+-- 
+2.30.2
 
-> > So, I would interpret the overall result for the suite as being "No
-> > errors were found in any of the cards discovered" if there is no
-> > configuration file specified which enumerates the set of cards that are
-> > expected (if there is a config file that's a different matter, we know
-> > what we're expecting).  I'm not sure that the different behaviour for 0
-> > cards is super useful.
-
-> Right... So what we want to be doing is adding a config file for every pl=
-atform
-> defining the card(s) and PCMs expected, so that when they're missing a te=
-st
-> failure will be triggered which is even more helpful. Although I've notic=
-ed that
-> only missing PCMs are detected currently, but I imagine it should be poss=
-ible to
-> to extend the code to detect missing cards as well.
-
-It seems like a reasonable approach for systems that do want to have
-this confirmation.
-
-> I take it the intention is to expand the conf.d directory with configs fo=
-r all
-> platforms currently being tested then? There's only one example file ther=
-e so I
-> wasn't sure.
-
-I think it's a question for people working on individual systems if they
-want that coverage, for example I don't really care for the things in my
-CI because I have higher level stuff which will notice any newly missing
-tests so I don't need the test to do anything here.
-
---HVlTO/OC556kjwhz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUB1isACgkQJNaLcl1U
-h9B5dgf/cLXB70t6XRr3Q6R/yRGtT8S2hofbEAcc5/fjzyJfBGpuC9e2QDtn43LX
-nz2xx0PD72h2gg4yD3s80zc4wiGHOSaPAeDVCS/7VmxA37k18yP7pinIl/0LM+3s
-6vAOZvpQCRqNjIWJo9F/2/FfUVTKkYZ6rhXPfsTLG2de4U2oTe3zi5qc5/4hBpTh
-PteqY+OK6m6/27zm3uva3vJml6vnpeofBwo+IHp6+RYLMcF1xWw3rJFv4VlOSGOf
-GgbfY5xaOqnTHaCGVGRqQhQXRly3/iKRqv+goyPm/s/0PFgQfzIWtot9O0+0OIum
-4v44q+DWxTLjtgGlJh0VINsZdWiBFw==
-=ivXT
------END PGP SIGNATURE-----
-
---HVlTO/OC556kjwhz--

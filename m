@@ -2,83 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3DD879F1FD
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 21:24:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C5679F29A
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 22:10:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4693886;
-	Wed, 13 Sep 2023 21:23:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4693886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 927FF852;
+	Wed, 13 Sep 2023 22:09:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927FF852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694633076;
-	bh=QfR5uL7jkH9fN/GXcOqieRXILCGTEgQbU5IKZvV/ryo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DzDKXDgcXtleWBNRTUd3CzbEiOWZP6/54T+U3Kl5We7NATsYJl7tnGavWWhNcbvJB
-	 pMn0ISZ3pf49l9d0iRo5d/Zsn7sPJKtTK6blG8vhR/l3I7kPy7cocuZ9sVLA8ssajx
-	 PE0jfXRBU5ljsF/HLpuDdfs/1TpLMv6mAc+VdHZM=
+	s=default; t=1694635817;
+	bh=7CsrycQCo+izQk1aeLr+jVMQtYiNL14zBnqgk5MMCi8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=u3aX2VqfbZSDHfyG9fbH9Y7F584/AAVeYUHZgWgA05Cx0WXlYyKxDr0VPlvphXq/+
+	 wgf5QiZCZUzvvCrBSg230YKN/QBWQjfv2d/LjWxNcGdq3IcUl3XpyHHO60uDhcXpJS
+	 mKvXs9i+nropetgRUiGJySbJvy44vhQq7MPuIoe0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5674FF80425; Wed, 13 Sep 2023 21:23:45 +0200 (CEST)
+	id 236E3F80246; Wed, 13 Sep 2023 22:09:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 033F8F80246;
-	Wed, 13 Sep 2023 21:23:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A005EF80246;
+	Wed, 13 Sep 2023 22:09:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6ADB8F80425; Wed, 13 Sep 2023 21:23:40 +0200 (CEST)
+	id 0A7B6F80246; Wed, 13 Sep 2023 22:09:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7206EF801F5
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 21:23:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7206EF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B67DF8007C
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 22:09:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B67DF8007C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qugAZELA
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id CCFEACE1CDE;
-	Wed, 13 Sep 2023 19:23:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45135C433C7;
-	Wed, 13 Sep 2023 19:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694633009;
-	bh=QfR5uL7jkH9fN/GXcOqieRXILCGTEgQbU5IKZvV/ryo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qugAZELA8l6Z9vO1Slj8OBV1wbWwSrtkj1edugAZCuf5BmW3p/S+3JURrIuCNGLJj
-	 Nd+iQfbaXbquSyZrmt8aGfYTHQKXiyuKwBu4GKr9EXRq4kGaSkrX+twiYh2u4ctoUd
-	 guzTjnsAMKZYOrdxU1Geu4qFcmrL0O3pJ4TOmZGQQKh7KHRzyebrQrO9+ZSBeMvILW
-	 gNPTkxAiD1mRbkmFzQdbLNrbPyA9OnA9zhZAFrYnZwGxlrCBZL7xffbAWLLNHGkQBm
-	 tgI7i7ktwniCAUZv7c1oODQrjA8yq0sy25BzCGlO8RayrLQ8mgSAdVgS0J3OHBKge7
-	 538gxGpUhR4KQ==
-Date: Wed, 13 Sep 2023 20:23:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Matthias Reichl <hias@horus.com>
-Cc: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: hdmi-codec: Fix broken channel map reporting
-Message-ID: <83837f8e-d8f2-44bd-a580-9ccc25f5f378@sirena.org.uk>
-References: <20230909114633.3193-1-hias@horus.com>
- <ZPxo8qKMDkmBqGxw@finisterre.sirena.org.uk>
- <ZP2zKg88n4MaD53z@camel3.lan>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=BDuz78Kb
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-1c3d6d88231so1653395ad.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 13 Sep 2023 13:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1694635747; x=1695240547;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ssLwR83eKKn7bLWXsf/SFAPjAl3l+ME4EQDX8KF3MhE=;
+        b=BDuz78KbBdx7Aj+v+jTVdB5If6YymbD6vUONvyq/FGySxwWJGRF1kZabc4wt4Kl8I4
+         SejjMUUHJMnHqFzwd4fjKckRytff4YKdb5FTz8gUNN3OMD+25nnncpYcuezIqvULCVGo
+         Ct3Pp415b1pdv5HXJOou6BW1/9Vcnxkoekuh4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694635747; x=1695240547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ssLwR83eKKn7bLWXsf/SFAPjAl3l+ME4EQDX8KF3MhE=;
+        b=N+6T2nK4DPCnT0pn2PfwTtjT5xxqmKYORGAGctpQRldwxjESET+zgpzrrR13ZA8tm+
+         u0HHPhGOiWVmrHHefw38ZRIB1JNSBRxz9Y9v5scN6RPe1p3X6QJ8uiT6CJyqIMC6XvoE
+         glSYWsWRyv5Wcz0ZwYdEVjjlRf6OEeM30AWF+3JMNM/y/Ld3RF5luJWU9ZZsGYhrXwMV
+         h7thuD+oPFZZp9cY9AbRoGNarrKjtRdIrf68t6JoEN8Uszu4ZWGswfHeg14CehC5EfCM
+         beXtnj1wFoWtL4f+jlxMC6uRMWCm1ZogsDqy3LIRRfAYdmIFwtsyYv9BxNjQeBvoXzVY
+         ygpg==
+X-Gm-Message-State: AOJu0YwfMj3fpzsx+XbtdPMME5psjER5Tc8zBMJqfuNfV2OaXOk7bWfP
+	i4RO8/tWvTTcSu439mtbjg053ue8+M0MiYqsqw==
+X-Google-Smtp-Source: 
+ AGHT+IGq21mIkLro2IywwowuflgM+JiqzI3b8i7fYHNMp0aj3iHGNM/KYz40Eph785DbBoooiZYyNA==
+X-Received: by 2002:a17:902:7c0a:b0:1c3:2ee6:3802 with SMTP id
+ x10-20020a1709027c0a00b001c32ee63802mr2807963pll.47.1694635745742;
+        Wed, 13 Sep 2023 13:09:05 -0700 (PDT)
+Received: from localhost ([2620:15c:9d:4:a3c9:d58:99ff:86e9])
+        by smtp.gmail.com with UTF8SMTPSA id
+ e4-20020a170902b78400b001b8b73da7b1sm12262pls.227.2023.09.13.13.09.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 Sep 2023 13:09:05 -0700 (PDT)
+From: cujomalainey@chromium.org
+To: alsa-devel@alsa-project.org
+Cc: Curtis Malainey <cujomalainey@chromium.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Geoff Levand <geoff@infradead.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Subject: [RFC PATCH v2 1/2] ALSA: core: add snd_device_init
+Date: Wed, 13 Sep 2023 13:07:42 -0700
+Message-ID: <20230913200846.1894258-1-cujomalainey@chromium.org>
+X-Mailer: git-send-email 2.42.0.283.g2d96d420d3-goog
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3TYo9BTnfsqsKfIl"
-Content-Disposition: inline
-In-Reply-To: <ZP2zKg88n4MaD53z@camel3.lan>
-X-Cookie: Use extra care when cleaning on stairs.
-Message-ID-Hash: MOIB5EKKNMAKGYFC6BKZXUAQW77BUVKD
-X-Message-ID-Hash: MOIB5EKKNMAKGYFC6BKZXUAQW77BUVKD
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EK43APCY2EV4T3M7SW4KWAGQVPDAPUO3
+X-Message-ID-Hash: EK43APCY2EV4T3M7SW4KWAGQVPDAPUO3
+X-MailFrom: cujomalainey@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MOIB5EKKNMAKGYFC6BKZXUAQW77BUVKD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EK43APCY2EV4T3M7SW4KWAGQVPDAPUO3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,41 +119,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Curtis Malainey <cujomalainey@chromium.org>
 
---3TYo9BTnfsqsKfIl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Begin allowing refactored modules to allocate their own device but use a
+common initialization procedure for their devices.
 
-On Sun, Sep 10, 2023 at 02:14:34PM +0200, Matthias Reichl wrote:
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+---
+ include/sound/core.h |  1 +
+ sound/core/init.c    | 19 ++++++++++++++++---
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
-> An alternative would be to set chmap_idx to HDMI_CODEC_CHMAP_IDX_UNKNOWN
-> in the non-PCM case so the channel map control will return UNKNOWN for
-> all channels. i.e. use this code instead:
+diff --git a/include/sound/core.h b/include/sound/core.h
+index dfef0c9d4b9f7..a4744e142c7e3 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -240,6 +240,7 @@ extern struct dentry *sound_debugfs_root;
+ void snd_request_card(int card);
+ 
+ int snd_device_alloc(struct device **dev_p, struct snd_card *card);
++void snd_device_init(struct device *dev, struct snd_card *card);
+ 
+ int snd_register_device(int type, struct snd_card *card, int dev,
+ 			const struct file_operations *f_ops,
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 22c0d217b8608..87b5368d20350 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -132,15 +132,28 @@ int snd_device_alloc(struct device **dev_p, struct snd_card *card)
+ 	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
+ 	if (!dev)
+ 		return -ENOMEM;
++	snd_device_init(dev, card);
++	*dev_p = dev;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_device_alloc);
++
++/**
++ * snd_device_init - Initialize struct device for sound devices
++ * @dev_p: pointer to store the allocated device
++ * @card: card to assign, optional
++ *
++ * For releasing the allocated device, call put_device().
++ */
++void snd_device_init(struct device *dev, struct snd_card *card)
++{
+ 	device_initialize(dev);
+ 	if (card)
+ 		dev->parent = &card->card_dev;
+ 	dev->class = &sound_class;
+ 	dev->release = default_release_alloc;
+-	*dev_p = dev;
+-	return 0;
+ }
+-EXPORT_SYMBOL_GPL(snd_device_alloc);
++EXPORT_SYMBOL_GPL(snd_device_init);
+ 
+ static int snd_card_init(struct snd_card *card, struct device *parent,
+ 			 int idx, const char *xid, struct module *module,
+-- 
+2.42.0.283.g2d96d420d3-goog
 
->         if (pcm_audio)
->                 hcp->chmap_idx = ca_id;
->         else
->                 hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
-
-> Any input on that topic is highly appreciated.
-
-This is going to depend a bit on what userspace is expecting which I
-don't have a good feel for.  The above does look reasonable TBH, I'm
-tempted to go for that.
-
---3TYo9BTnfsqsKfIl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUCDCwACgkQJNaLcl1U
-h9CBIgf/eWJz65fYn7j4U9Ui++jhmfh+EvXDvcw3S4Ft+iFvS9RhO5ou+Ia6qvsl
-nJfHj6qAy6rPwSnRnIzZkG4NeoDeiJR/CvEO5JhHdcEDLzLJg2RBqHrsSMH4fjs+
-6DSgsVIFvh4fK9293jc53BcTPTEytZ7nBcNFAzribip5GYds0EClg+qLqWRLI92X
-KcQc2wzNDL/pWuXJlp7yZRFo+mCE97NksHVNFntbR/PxDRiy9P8bXkdz09pvTzly
-WLOIHdthbMSZ2yh1W2UTnJ8Nufq9irV12odDSX5Og6qYJnaiWTLfuwlT1P4+5pql
-E1BgeWagaKYtL8OFGHCF9A/OUrvRXA==
-=6Coe
------END PGP SIGNATURE-----
-
---3TYo9BTnfsqsKfIl--

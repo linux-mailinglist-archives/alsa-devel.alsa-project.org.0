@@ -2,92 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A373F79E347
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 11:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD71B79E3F3
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Sep 2023 11:40:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27E7993A;
-	Wed, 13 Sep 2023 11:13:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27E7993A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 621E2886;
+	Wed, 13 Sep 2023 11:39:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 621E2886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694596470;
-	bh=VG6V4ukHC529W2hH3FCZgm6FniJtv+CyYtQ7+HR3P5s=;
+	s=default; t=1694598041;
+	bh=AFPkf81JiqACjKxsag5lm5MCBmk/FWJjDDbZ5Lp7fwc=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nh6FLSgEo9UMzBchsoRw2h7IQLOt7IUVCCchOh1lruTwTgVfrKjL8lO/TR21M7fGV
-	 dgbFNBJFZvZLg8pvrqcShajBnnyr119uv9umgAIRI076s79EpeRwCY4nZhZyEn3F/b
-	 ZQBVdeiIvW5diYJU5TE2bD3/JE4tYx86qIbvRNhg=
+	b=Fq58obgAKSi5v3j56YbBFcK8O1lrLd7zO+lyyTXpscTC3YqTwW568UiWOxnLo1G6m
+	 XuxAMPJt2SgGxpbp8siHEO2q0/+cImJFoVJLYT/7oSZ8Iw2vXF4FSjT7FQepqiaCxh
+	 dTHc3RPtubXnd/4VjZUfoV3krtZzVx5kQZNljybM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F7F1F80246; Wed, 13 Sep 2023 11:13:39 +0200 (CEST)
+	id E3414F8047D; Wed, 13 Sep 2023 11:39:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 407C7F80246;
-	Wed, 13 Sep 2023 11:13:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98BF4F80246;
+	Wed, 13 Sep 2023 11:39:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5DF9F80425; Wed, 13 Sep 2023 11:13:34 +0200 (CEST)
+	id CEB60F80425; Wed, 13 Sep 2023 11:39:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94F4BF801F5
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 11:13:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94F4BF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id ECB9FF801F5
+	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 11:39:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECB9FF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fx1adWBz
+ header.s=Intel header.b=hFs8CJdk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694596409; x=1726132409;
+  t=1694597979; x=1726133979;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=VG6V4ukHC529W2hH3FCZgm6FniJtv+CyYtQ7+HR3P5s=;
-  b=fx1adWBzFmqW/Ocs+5wyJ+KWdZuGloUPIP/s8N0QAMZ461mA0TM0DlpN
-   6ZRcAohYuDh2nMvZE42mdGxRZqHT7OyKhIYBcKIos/9SE/FxLY3FfCTLB
-   9AYGjoDtSk3QOCbzV9l27l5/JdyEWuIVGzmaborAxgxA9VGYFW43kkAUz
-   vWhFTyTn358JtEZNMOZxIYOgUkb739CTJpc2lU9JNc+MvdZAKQsAdQXY6
-   CIx/xRtdAxBy4NvhBad6tSkzY1+/lQyfgRkGAFnfH+E4Ff/Ay8Ziu7bQs
-   ajmkkoftxSUD9J13TH6jDecKpJkJ6vRMMaKUfpkgKE57gxt59KaJwIz9K
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="378519728"
+  bh=AFPkf81JiqACjKxsag5lm5MCBmk/FWJjDDbZ5Lp7fwc=;
+  b=hFs8CJdkXuCqXqYeoLiZ+L/Zrn0PmvuavSuno/ThATFx6OHqo6kj+IUe
+   rfTz4onUmD8ibJx9k866UKGgLu/ykFhmUqJvYH5BY5131Am/lU3cmH8Ej
+   dA0yPHsLcpkhddmoMnVwsoSSEdmxqFczKE/xbms/sWJh9d9HQ2sD4z/WP
+   +WGHP1NAw8k+H9nG1S8xeTu0S2h3KHQLdMcSeol68AW1w0PykjRb2ioCS
+   wI7sSs5GI0dLcVKcMcSor0I6vBEvoSAVcLbfI05fo6kOXQNezByKS8gwU
+   dqYJbPJJJ4lAipdEAJ6uWIl6A80VJTyD4ZQZCxiCbVb4lZE3LeMx0lPrN
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="464982306"
 X-IronPort-AV: E=Sophos;i="6.02,142,1688454000";
-   d="scan'208";a="378519728"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2023 02:13:23 -0700
+   d="scan'208";a="464982306"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2023 02:39:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="737420904"
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="867720893"
 X-IronPort-AV: E=Sophos;i="6.02,142,1688454000";
-   d="scan'208";a="737420904"
+   d="scan'208";a="867720893"
 Received: from mduman-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.48.209])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Sep 2023 02:13:20 -0700
+  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2023 02:39:29 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	tiwai@suse.com,
+To: tiwai@suse.com,
 	perex@perex.cz,
 	arnd@arndb.de
-Cc: alsa-devel@alsa-project.org,
+Cc: masahiroy@kernel.org,
 	linux-kernel@vger.kernel.org,
-	masahiroy@kernel.org
-Subject: [PATCH] ASoC: hdac_hdmi: Remove temporary string use in
- create_fill_jack_kcontrols
-Date: Wed, 13 Sep 2023 12:13:25 +0300
-Message-ID: <20230913091325.16877-1-peter.ujfalusi@linux.intel.com>
+	alsa-devel@alsa-project.org,
+	maciej.szmigiero@oracle.com
+Subject: [PATCH] ALSA: usb-audio: mixer: Remove temporary string use in
+ parse_clock_source_unit
+Date: Wed, 13 Sep 2023 12:39:33 +0300
+Message-ID: <20230913093933.24564-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KEVTPCTFFUGUSILIW6WOBU4Q5UF2BSJW
-X-Message-ID-Hash: KEVTPCTFFUGUSILIW6WOBU4Q5UF2BSJW
+Message-ID-Hash: HYXR74EX2IWCAHRSL73ZRMHO42K4FCQ2
+X-Message-ID-Hash: HYXR74EX2IWCAHRSL73ZRMHO42K4FCQ2
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KEVTPCTFFUGUSILIW6WOBU4Q5UF2BSJW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HYXR74EX2IWCAHRSL73ZRMHO42K4FCQ2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,20 +107,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There is no need to use temporary strings to construct the kcontrol names,
-devm_kasprintf can be used to replace the snprintf + devm_kstrdup pairs.
+The kctl->id.name can be directly passed to snd_usb_copy_string_desc() and
+if the string has been fetched the suffix can be appended with the
+append_ctl_name() call.
+The temporary name string becomes redundant and can be removed.
 
 This change will also fixes the following compiler warning/error (W=1):
 
-sound/soc/codecs/hdac_hdmi.c: In function ‘hdac_hdmi_jack_port_init’:
-sound/soc/codecs/hdac_hdmi.c:1793:63: error: ‘ Switch’ directive output may be truncated writing 7 bytes into a region of size between 1 and 32 [-Werror=format-truncation=]
- 1793 |                         snprintf(kc_name, sizeof(kc_name), "%s Switch", xname);
-      |                                                               ^~~~~~~
-In function ‘create_fill_jack_kcontrols’,
-    inlined from ‘hdac_hdmi_jack_port_init’ at sound/soc/codecs/hdac_hdmi.c:1871:8:
-sound/soc/codecs/hdac_hdmi.c:1793:25: note: ‘snprintf’ output between 8 and 39 bytes into a destination of size 32
- 1793 |                         snprintf(kc_name, sizeof(kc_name), "%s Switch", xname);
-      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sound/usb/mixer.c: In function ‘parse_audio_unit’:
+sound/usb/mixer.c:1972:29: error: ‘ Validity’ directive output may be truncated writing 9 bytes into a region of size between 1 and 44 [-Werror=format-truncation=]
+ 1972 |                          "%s Validity", name);
+      |                             ^~~~~~~~~
+In function ‘parse_clock_source_unit’,
+    inlined from ‘parse_audio_unit’ at sound/usb/mixer.c:2892:10:
+sound/usb/mixer.c:1971:17: note: ‘snprintf’ output between 10 and 53 bytes into a destination of size 44
+ 1971 |                 snprintf(kctl->id.name, sizeof(kctl->id.name),
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1972 |                          "%s Validity", name);
+      |                          ~~~~~~~~~~~~~~~~~~~~
 cc1: all warnings being treated as errors
 
 The warnings got brought to light by a recent patch upstream:
@@ -130,42 +132,34 @@ commit 6d4ab2e97dcf ("extrawarn: enable format and stringop overflow warnings in
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/codecs/hdac_hdmi.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ sound/usb/mixer.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-index 8b6b76029694..b9c5ffbfb5ba 100644
---- a/sound/soc/codecs/hdac_hdmi.c
-+++ b/sound/soc/codecs/hdac_hdmi.c
-@@ -1771,7 +1771,6 @@ static int create_fill_jack_kcontrols(struct snd_soc_card *card,
- {
- 	struct hdac_hdmi_pin *pin;
- 	struct snd_kcontrol_new *kc;
--	char kc_name[NAME_SIZE], xname[NAME_SIZE];
- 	char *name;
- 	int i = 0, j;
- 	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
-@@ -1785,14 +1784,14 @@ static int create_fill_jack_kcontrols(struct snd_soc_card *card,
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 9105ec623120..985b1aea9cdc 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1929,7 +1929,6 @@ static int parse_clock_source_unit(struct mixer_build *state, int unitid,
+ 	struct uac_clock_source_descriptor *hdr = _ftr;
+ 	struct usb_mixer_elem_info *cval;
+ 	struct snd_kcontrol *kctl;
+-	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+ 	int ret;
  
- 	list_for_each_entry(pin, &hdmi->pin_list, head) {
- 		for (j = 0; j < pin->num_ports; j++) {
--			snprintf(xname, sizeof(xname), "hif%d-%d Jack",
--						pin->nid, pin->ports[j].id);
--			name = devm_kstrdup(component->dev, xname, GFP_KERNEL);
-+			name = devm_kasprintf(component->dev, GFP_KERNEL,
-+					      "hif%d-%d Jack",
-+					      pin->nid, pin->ports[j].id);
- 			if (!name)
- 				return -ENOMEM;
--			snprintf(kc_name, sizeof(kc_name), "%s Switch", xname);
--			kc[i].name = devm_kstrdup(component->dev, kc_name,
--							GFP_KERNEL);
-+
-+			kc[i].name = devm_kasprintf(component->dev, GFP_KERNEL,
-+						    "%s Switch", name);
- 			if (!kc[i].name)
- 				return -ENOMEM;
+ 	if (state->mixer->protocol != UAC_VERSION_2)
+@@ -1966,10 +1965,9 @@ static int parse_clock_source_unit(struct mixer_build *state, int unitid,
  
+ 	kctl->private_free = snd_usb_mixer_elem_free;
+ 	ret = snd_usb_copy_string_desc(state->chip, hdr->iClockSource,
+-				       name, sizeof(name));
++				       kctl->id.name, sizeof(kctl->id.name));
+ 	if (ret > 0)
+-		snprintf(kctl->id.name, sizeof(kctl->id.name),
+-			 "%s Validity", name);
++		append_ctl_name(kctl, " Validity");
+ 	else
+ 		snprintf(kctl->id.name, sizeof(kctl->id.name),
+ 			 "Clock Source %d Validity", hdr->bClockID);
 -- 
 2.42.0
 

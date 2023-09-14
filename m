@@ -2,94 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D9D979F6C0
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 03:56:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B98F879F991
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 06:34:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54B9193A;
-	Thu, 14 Sep 2023 03:55:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54B9193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C12A4950;
+	Thu, 14 Sep 2023 06:33:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C12A4950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694656578;
-	bh=mlGKyzEE2qx03CZ4V/fq80BFyvGbaNnoxihP+Doyi3U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1694666045;
+	bh=S64CCdcFCaVDh08HsNXN8nQuKt1aKTaOL0roTrAAAlo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=n2Pkjb2NmUY2sy4OTqEXZtutw1MaX5qgdwrIPtoOJz0FaQI0HCrdgevS8i4YWSZOL
-	 Znv63C/s2JER7lD9NRJBZ44ff6FUHCaZRmD/hByV3aiU70/MqUKQI74j7G1yfJvear
-	 M8Nq+Mw9lu1Pkc/FArVbN/TmCl8v+XNDfJDp7uyI=
+	b=Ejtg+KDNU4MR4oL+sAR88nKBWvfx10gM5jpVFCyvDvcuGG2vILaIgXQqnatY176eW
+	 fGYfrwvnnd3YrFXPJ0fuugCb1gsV7sTdHtnUe0Hr3y3Wpnuwaa4UzUCWYPhI6HRCTX
+	 4CtYkEnY1EzfsnY/2ss1FqhQJCLAeHh1CFvn0+pM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98C40F8055C; Thu, 14 Sep 2023 03:55:27 +0200 (CEST)
+	id E5E09F80552; Thu, 14 Sep 2023 06:33:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06FAFF80246;
-	Thu, 14 Sep 2023 03:55:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB664F80246;
+	Thu, 14 Sep 2023 06:33:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2589EF80425; Thu, 14 Sep 2023 03:55:23 +0200 (CEST)
+	id CCDC9F80246; Thu, 14 Sep 2023 06:21:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [IPv6:2607:f8b0:4864:20::531])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 68866F80141
-	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 03:55:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68866F80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id A945DF801F5
+	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 06:16:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A945DF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IRCdyEER
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0213F61BCB;
-	Thu, 14 Sep 2023 01:55:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10FCC433CA;
-	Thu, 14 Sep 2023 01:55:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694656512;
-	bh=mlGKyzEE2qx03CZ4V/fq80BFyvGbaNnoxihP+Doyi3U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IRCdyEERw7xjtmKDS7YYYpJ1tOJb4osTbDQD205vWbq0xMk27UABoOUf/0OlQYjv8
-	 m+tc3Q1AVz2y6nb4TL21GFc4KSGbD0LV8I4BFoP5V6xq1SKEYRp3gFBNJpThl5PXfB
-	 v7rxsnGbL8HMc7zyvYBetC/UR/cqOkUj2JvAToIDY0FQEZHB6spHYGylU+9fDRwqOv
-	 v2ovb4KFdLdJ65de+uyf/4cROiE1O05GK3V3fZ67vqqz4C4HFPsUjABjKzfB/hkhIK
-	 pOFnYDRXerZvxZL5YTCGahBsBHirdToJB8ipGFaWh7NvQVP2KeIM7AuNJx5EjmZO/g
-	 qbYf+Z7Xahq4A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Shubh <shubhisroking@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	mario.limonciello@amd.com,
-	xazrael@hotmail.com,
-	Syed.SabaKareem@amd.com,
-	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.5 5/7] ASoC: amd: yc: Add DMI entries to support
- Victus by HP Gaming Laptop 15-fb0xxx (8A3E)
-Date: Wed, 13 Sep 2023 21:54:49 -0400
-Message-Id: <20230914015459.51740-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230914015459.51740-1-sashal@kernel.org>
-References: <20230914015459.51740-1-sashal@kernel.org>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=X3mGXIqK
+Received: by mail-pg1-x531.google.com with SMTP id
+ 41be03b00d2f7-573d52030fbso425939a12.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 13 Sep 2023 21:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1694664980; x=1695269780;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8puwwYQ2UBHFNT37XGmqgv1DiqsgZEnUlgOGxcY1CkI=;
+        b=X3mGXIqKchgzprdHF27+IsZmqSFWrfJGfgPSm2r03q4fCsvDLx701IUaIM/iRbrz/h
+         19/yDKhM8A/JfjUzo7Ctus6mgJBRPMSRcp+5CtwxiRHV7WfNv00vEE1HUMebqUvQtaTw
+         OWej/fodb0NsQn2dTNGR5MZh3w2yGxzL1dDYDoXfdtvfhAegg3fVKuXEkrvT/WgfPjgO
+         BLc+0eZdjWz5GucYLqxbdNAaurCkHeJjCxxqN613xkA7iTvkmkxok3Yf1bzBGem3cat/
+         XI/y3RNtlk30SqxO0gLx0uI3UVeKcqRrp/tQ/Qvop329Msv80/gnzwzFJ0Vc0g2q9MKE
+         OrWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694664980; x=1695269780;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8puwwYQ2UBHFNT37XGmqgv1DiqsgZEnUlgOGxcY1CkI=;
+        b=RdHqi67i0ouySltmWIqWZ5cEwatZdZzqIhMoslgbOfU9x9oR1PSISAnMvhOXVlw/qz
+         iJgt0yYbUDElMtui7uJqRr8Np4oKCuNnUpQQ9BXl2JRci7yZiv4snGcavd8FgwvLBrcG
+         Wvxm6zGNGUgkYRbzlRMvnODyPV0agCKQNX0GxAuhgqkH1zUmTHuQRZ0CVSE8xcN/eIsi
+         Jsx5C3mF9ZjeeZiE6vpLzHul9dt4YTol0MBkav+SPKgmJCnHLmYbrD4u1/U/KuF59lvY
+         G7IdDdeTNptv7wRw7VFg+zkqN27AsFnugoLPTVRea+/OPUoDZdFh/n8QhbgSWtH9WG4B
+         pYew==
+X-Gm-Message-State: AOJu0YzHV49MtJ8Pn3tPutaq0CK77pbO+NTiOJHVS+xz1JIhNKfN4yBH
+	2Vcw4feC6QWmscs2zs/pY9fO6GKJGFhj7NoaKQw=
+X-Google-Smtp-Source: 
+ AGHT+IG1H/excJAZALaS7Szk8UIlXc6WBaAkKS8RGfBe1uXqguojuCxZhqPLQuUcfrs4/2j7RKsHN6OjN5qPo+LU23U=
+X-Received: by 2002:a05:6a21:4886:b0:13a:e955:d958 with SMTP id
+ av6-20020a056a21488600b0013ae955d958mr4295356pzc.7.1694664979937; Wed, 13 Sep
+ 2023 21:16:19 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.5.3
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HQ2MIEVH5CJI3GZC23H474QXTLNGACI3
-X-Message-ID-Hash: HQ2MIEVH5CJI3GZC23H474QXTLNGACI3
-X-MailFrom: sashal@kernel.org
+References: <20230913102656.2966757-1-chancel.liu@nxp.com>
+In-Reply-To: <20230913102656.2966757-1-chancel.liu@nxp.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 14 Sep 2023 12:16:08 +0800
+Message-ID: 
+ <CAA+D8ANDcxY_SZ0qNax7LvkJj_yaY5syzEc6RoOmxjYEut0NOw@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: imx-rpmsg: Set ignore_pmdown_time for dai_link
+To: Chancel Liu <chancel.liu@nxp.com>
+Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+	shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: OOE5A2Y463IN4MZLCYS772ZFENOFZC27
+X-Message-ID-Hash: OOE5A2Y463IN4MZLCYS772ZFENOFZC27
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQ2MIEVH5CJI3GZC23H474QXTLNGACI3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOE5A2Y463IN4MZLCYS772ZFENOFZC27/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,39 +120,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Shubh <shubhisroking@gmail.com>
+On Wed, Sep 13, 2023 at 6:27=E2=80=AFPM Chancel Liu <chancel.liu@nxp.com> w=
+rote:
+>
+> i.MX rpmsg sound cards work on codec slave mode. MCLK will be disabled
+> by CPU DAI driver in hw_free(). Some codec requires MCLK present at
+> power up/down sequence. So need to set ignore_pmdown_time to power down
+> codec immediately before MCLK is turned off.
+>
+> Take WM8962 as an example, if MCLK is disabled before DAPM power down
+> playback stream, FIFO error will arise in WM8962 which will have bad
+> impact on playback next.
+>
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
 
-[ Upstream commit d1cf5d30b43f1a331032ebf3e11d9e366ab0f885 ]
+Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-This model requires an additional detection quirk to
-enable the internal microphone.
-
-Signed-off-by: Shubh <shubhisroking@gmail.com>
-Link: https://lore.kernel.org/r/20230902150807.133523-1-shubhisroking@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index b304b3562c82b..f7ee792bd1be9 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -325,6 +325,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8A22"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8A3E"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
--- 
-2.40.1
-
+Best regards
+Wang Shengjiu
+> ---
+>  sound/soc/fsl/imx-rpmsg.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
+> index 3c7b95db2eac..b578f9a32d7f 100644
+> --- a/sound/soc/fsl/imx-rpmsg.c
+> +++ b/sound/soc/fsl/imx-rpmsg.c
+> @@ -89,6 +89,14 @@ static int imx_rpmsg_probe(struct platform_device *pde=
+v)
+>                             SND_SOC_DAIFMT_NB_NF |
+>                             SND_SOC_DAIFMT_CBC_CFC;
+>
+> +       /*
+> +        * i.MX rpmsg sound cards work on codec slave mode. MCLK will be
+> +        * disabled by CPU DAI driver in hw_free(). Some codec requires M=
+CLK
+> +        * present at power up/down sequence. So need to set ignore_pmdow=
+n_time
+> +        * to power down codec immediately before MCLK is turned off.
+> +        */
+> +       data->dai.ignore_pmdown_time =3D 1;
+> +
+>         /* Optional codec node */
+>         ret =3D of_parse_phandle_with_fixed_args(np, "audio-codec", 0, 0,=
+ &args);
+>         if (ret) {
+> --
+> 2.25.1
+>

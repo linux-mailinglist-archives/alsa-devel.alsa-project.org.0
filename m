@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA3047A06FE
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 16:12:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0701D7A06F2
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 16:10:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B1CE886;
-	Thu, 14 Sep 2023 16:12:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B1CE886
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4535846;
+	Thu, 14 Sep 2023 16:09:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4535846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694700773;
-	bh=KUgZPRTukqyv6bhXTNuEIAtyKESr5YryOLyzkkcPud8=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1694700619;
+	bh=9mrMSq3PC2SZDwmy2J42QCWfmoFhe7s2RWAFD4cfCk0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QEP16eiYiXgjnATBSojOfKCUBKHAlCkS5KY+r0h+PJOLCxdbo3CpHDRD87ukCX8jT
-	 vzp8xlrKslJFWoGZDOjTshM/e0Gkhr9raKvsxZmNQxB1FeB4g8ZkVYdTd2CIhN1N6j
-	 Is3CVxqFjo6GzHJfxT6ELSjegsge1zvb97WwMxXo=
+	b=GFDg5tK0m3t30OcPTidBl9wyTPgK3jeP5XTC4puOfCMrkf5cqnkN3bXnEOJQCSp+L
+	 f+Oar0sNZrXU0UmeZ8b3qWcZXC+dvS6stj38lsRZJxQ2bZq1LdXt19cvA1FnCI02o6
+	 MsPvPVd1lW1pWcYVYDFuWlxurTKmiLoIGxFc7+QM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7A98F80537; Thu, 14 Sep 2023 16:11:42 +0200 (CEST)
+	id E2E4FF80558; Thu, 14 Sep 2023 16:09:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D42EF80212;
-	Thu, 14 Sep 2023 16:11:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88C67F80212;
+	Thu, 14 Sep 2023 16:09:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38951F80246; Thu, 14 Sep 2023 16:11:38 +0200 (CEST)
+	id CAB3FF80246; Thu, 14 Sep 2023 16:09:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 262BDF80141
-	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 16:11:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 262BDF80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id C28F7F80141
+	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 16:08:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C28F7F80141
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RVScO51t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694700695; x=1726236695;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=KUgZPRTukqyv6bhXTNuEIAtyKESr5YryOLyzkkcPud8=;
-  b=RVScO51t0RXombPxw3eFpJXk4FmJqiD/VlPV+QsgoHKkH/6kb0eNltnK
-   Re1lCHGmLLPk3NgtclN5uX6PGjvHgxs/kuJD/k5cTZcn2SaJ6sPtzKDHn
-   1hl7CnLA23NUyZsT1DrdyfdWFoGLMDVERs3JckpyOiml+hHTQ0v0qBsxa
-   COSHemVZ1EyZ5l7z5S1h3tGnXrtS5156HToCJFDv6OnqVxQT4IAxqNjow
-   D10Jp2Y/EMEzsHXlpzuWfrBz3V3rkhED0+uc12hASyrrzAIkDrFpfQezv
-   RjZJhNlbR953FSbPl62+e8NAxKQbUe+ADAHHobJcTCQ56keSHwNFANE/h
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="369243008"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000";
-   d="scan'208";a="369243008"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 06:25:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="747729971"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000";
-   d="scan'208";a="747729971"
-Received: from pakurapo-mobl3.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.37.8])
-  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 06:24:59 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH v2] ASoC: SOF: ipc4-topology: fix wrong sizeof argument
-Date: Thu, 14 Sep 2023 16:25:04 +0300
-Message-ID: <20230914132504.18463-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.42.0
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=LxEo36sU
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38E3ihQq012982;
+	Thu, 14 Sep 2023 09:08:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=4
+	HgihXxVrhiu2Qr7o1AFiNL6OECM0mNgN7UuJbdBwcg=; b=LxEo36sUTZ9NjyabM
+	APBU5ZX9VP3h7y/Ta68+R0QT17lDzPTbi5ppoD9d2Yi1KY3Vg5emY1/qgBDF17K7
+	JujFfWW/VZqkxmtvtIY6dYQI5oj6G86X+T6lo1teMmhG23vX6F4hxAAQZk48Mqb0
+	6n7kpxtPrea/DxIWp1967yGbyG6F68pSqvhh2f/xBe/q+k744mon1YLNYjB3VtIc
+	XLhDIDP/vn7CL8K26uLNeiyF64d/x3Bymf2PBPKQcK92tU6Mh8jL1ma+NysSxHrW
+	IdoczHSn7HYGwogKxVbBcpQLHQW63atRQzJ/+vrYkbcAaddRmUC5PeOCAPOj1uIV
+	kJ8Dg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t2y7u2gp8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 14 Sep 2023 09:08:56 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Thu, 14 Sep
+ 2023 15:08:54 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.37 via Frontend Transport; Thu, 14 Sep 2023 15:08:54 +0100
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.65.215])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 48E9C15B4;
+	Thu, 14 Sep 2023 14:08:54 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-kernel@vger.kernel.org>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: [PATCH] ALSA: hda: cs35l56: Don't 'return ret' if ret is always zero
+Date: Thu, 14 Sep 2023 15:08:52 +0100
+Message-ID: <20230914140852.7112-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4CGI4DQFPVHNNREN3DBE3HPMH2EY33FQ
-X-Message-ID-Hash: 4CGI4DQFPVHNNREN3DBE3HPMH2EY33FQ
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-GUID: npi1-VwBihTbS2d2xtl1agzUXGFvtmK9
+X-Proofpoint-ORIG-GUID: npi1-VwBihTbS2d2xtl1agzUXGFvtmK9
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: EWBA3SBJOF2DXRA4XPN2NPZIWXBUL7MS
+X-Message-ID-Hash: EWBA3SBJOF2DXRA4XPN2NPZIWXBUL7MS
+X-MailFrom: prvs=46218c6399=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,41 +99,40 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4CGI4DQFPVHNNREN3DBE3HPMH2EY33FQ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EWBA3SBJOF2DXRA4XPN2NPZIWXBUL7MS/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+The final return in cs35l56_hda_posture_get() was returning the
+value of 'ret', but ret is always zero at this point. So this
+can be a simple 'return 0'.
 
-available_fmt is a pointer.
-
-Fixes: 4fdef47a44d6 ("ASoC: SOF: ipc4-topology: Add new tokens for input/output pin format count")
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/sof/ipc4-topology.c | 2 +-
+ sound/pci/hda/cs35l56_hda.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index f2a30cd31378..7cb63e6b24dc 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -231,7 +231,7 @@ static int sof_ipc4_get_audio_fmt(struct snd_soc_component *scomp,
- 
- 	ret = sof_update_ipc_object(scomp, available_fmt,
- 				    SOF_AUDIO_FMT_NUM_TOKENS, swidget->tuples,
--				    swidget->num_tuples, sizeof(available_fmt), 1);
-+				    swidget->num_tuples, sizeof(*available_fmt), 1);
- 	if (ret) {
- 		dev_err(scomp->dev, "Failed to parse audio format token count\n");
+diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
+index a9844336bdc9..c64600280f02 100644
+--- a/sound/pci/hda/cs35l56_hda.c
++++ b/sound/pci/hda/cs35l56_hda.c
+@@ -216,11 +216,11 @@ static int cs35l56_hda_posture_get(struct snd_kcontrol *kcontrol,
+ 	if (ret)
  		return ret;
+ 
+ 	ucontrol->value.integer.value[0] = pos;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int cs35l56_hda_posture_put(struct snd_kcontrol *kcontrol,
+ 				   struct snd_ctl_elem_value *ucontrol)
+ {
 -- 
-2.42.0
+2.30.2
 

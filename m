@@ -2,104 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B98F879F991
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 06:34:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E8B279FC13
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 08:34:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C12A4950;
-	Thu, 14 Sep 2023 06:33:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C12A4950
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDF5A886;
+	Thu, 14 Sep 2023 08:33:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDF5A886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694666045;
-	bh=S64CCdcFCaVDh08HsNXN8nQuKt1aKTaOL0roTrAAAlo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Ejtg+KDNU4MR4oL+sAR88nKBWvfx10gM5jpVFCyvDvcuGG2vILaIgXQqnatY176eW
-	 fGYfrwvnnd3YrFXPJ0fuugCb1gsV7sTdHtnUe0Hr3y3Wpnuwaa4UzUCWYPhI6HRCTX
-	 4CtYkEnY1EzfsnY/2ss1FqhQJCLAeHh1CFvn0+pM=
+	s=default; t=1694673277;
+	bh=Xf9w9+pCbZU4uXTQbZmMSQnSgDzhBDcLmgnTsSiBRE4=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JP/K7oH/PLXodzzpBlMh/hddLZFmuZO0Zt02vFt4bh2C4nJHbFzmB9kflguFkXtlI
+	 ua1MoMzHWkXOqc4tBY0w1Be5pQl7MOy6GqDtPwqphNKIvCGa2TdtbFDcZqnNWbpGqN
+	 d7ArXh5J5h7Oa0+KTScmJIZkXzmFrQ0Km4sIzv64=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5E09F80552; Thu, 14 Sep 2023 06:33:05 +0200 (CEST)
+	id CFD15F80537; Thu, 14 Sep 2023 08:33:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB664F80246;
-	Thu, 14 Sep 2023 06:33:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3CB6F80212;
+	Thu, 14 Sep 2023 08:33:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CCDC9F80246; Thu, 14 Sep 2023 06:21:07 +0200 (CEST)
+	id 34818F8055B; Thu, 14 Sep 2023 08:30:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A945DF801F5
-	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 06:16:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A945DF801F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=X3mGXIqK
-Received: by mail-pg1-x531.google.com with SMTP id
- 41be03b00d2f7-573d52030fbso425939a12.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 13 Sep 2023 21:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1694664980; x=1695269780;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8puwwYQ2UBHFNT37XGmqgv1DiqsgZEnUlgOGxcY1CkI=;
-        b=X3mGXIqKchgzprdHF27+IsZmqSFWrfJGfgPSm2r03q4fCsvDLx701IUaIM/iRbrz/h
-         19/yDKhM8A/JfjUzo7Ctus6mgJBRPMSRcp+5CtwxiRHV7WfNv00vEE1HUMebqUvQtaTw
-         OWej/fodb0NsQn2dTNGR5MZh3w2yGxzL1dDYDoXfdtvfhAegg3fVKuXEkrvT/WgfPjgO
-         BLc+0eZdjWz5GucYLqxbdNAaurCkHeJjCxxqN613xkA7iTvkmkxok3Yf1bzBGem3cat/
-         XI/y3RNtlk30SqxO0gLx0uI3UVeKcqRrp/tQ/Qvop329Msv80/gnzwzFJ0Vc0g2q9MKE
-         OrWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694664980; x=1695269780;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8puwwYQ2UBHFNT37XGmqgv1DiqsgZEnUlgOGxcY1CkI=;
-        b=RdHqi67i0ouySltmWIqWZ5cEwatZdZzqIhMoslgbOfU9x9oR1PSISAnMvhOXVlw/qz
-         iJgt0yYbUDElMtui7uJqRr8Np4oKCuNnUpQQ9BXl2JRci7yZiv4snGcavd8FgwvLBrcG
-         Wvxm6zGNGUgkYRbzlRMvnODyPV0agCKQNX0GxAuhgqkH1zUmTHuQRZ0CVSE8xcN/eIsi
-         Jsx5C3mF9ZjeeZiE6vpLzHul9dt4YTol0MBkav+SPKgmJCnHLmYbrD4u1/U/KuF59lvY
-         G7IdDdeTNptv7wRw7VFg+zkqN27AsFnugoLPTVRea+/OPUoDZdFh/n8QhbgSWtH9WG4B
-         pYew==
-X-Gm-Message-State: AOJu0YzHV49MtJ8Pn3tPutaq0CK77pbO+NTiOJHVS+xz1JIhNKfN4yBH
-	2Vcw4feC6QWmscs2zs/pY9fO6GKJGFhj7NoaKQw=
-X-Google-Smtp-Source: 
- AGHT+IG1H/excJAZALaS7Szk8UIlXc6WBaAkKS8RGfBe1uXqguojuCxZhqPLQuUcfrs4/2j7RKsHN6OjN5qPo+LU23U=
-X-Received: by 2002:a05:6a21:4886:b0:13a:e955:d958 with SMTP id
- av6-20020a056a21488600b0013ae955d958mr4295356pzc.7.1694664979937; Wed, 13 Sep
- 2023 21:16:19 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230913102656.2966757-1-chancel.liu@nxp.com>
-In-Reply-To: <20230913102656.2966757-1-chancel.liu@nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 14 Sep 2023 12:16:08 +0800
-Message-ID: 
- <CAA+D8ANDcxY_SZ0qNax7LvkJj_yaY5syzEc6RoOmxjYEut0NOw@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: imx-rpmsg: Set ignore_pmdown_time for dai_link
-To: Chancel Liu <chancel.liu@nxp.com>
-Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
-	shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C978F80212
+	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 08:30:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C978F80212
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A8EA11A0638;
+	Thu, 14 Sep 2023 08:30:39 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 45DC31A062C;
+	Thu, 14 Sep 2023 08:30:39 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5F6141834869;
+	Thu, 14 Sep 2023 14:30:37 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: hverkuil@xs4all.nl,
+	sakari.ailus@iki.fi,
+	tfiga@chromium.org,
+	m.szyprowski@samsung.com,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: OOE5A2Y463IN4MZLCYS772ZFENOFZC27
-X-Message-ID-Hash: OOE5A2Y463IN4MZLCYS772ZFENOFZC27
-X-MailFrom: shengjiu.wang@gmail.com
+Subject: [RFC PATCH v3 0/9] Add audio support in v4l2 framework
+Date: Thu, 14 Sep 2023 13:53:56 +0800
+Message-Id: <1694670845-17070-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: A7TY5G7BQPNSMKK3TI7KWVT5CF7ALSYV
+X-Message-ID-Hash: A7TY5G7BQPNSMKK3TI7KWVT5CF7ALSYV
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOE5A2Y463IN4MZLCYS772ZFENOFZC27/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A7TY5G7BQPNSMKK3TI7KWVT5CF7ALSYV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,51 +93,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Sep 13, 2023 at 6:27=E2=80=AFPM Chancel Liu <chancel.liu@nxp.com> w=
-rote:
->
-> i.MX rpmsg sound cards work on codec slave mode. MCLK will be disabled
-> by CPU DAI driver in hw_free(). Some codec requires MCLK present at
-> power up/down sequence. So need to set ignore_pmdown_time to power down
-> codec immediately before MCLK is turned off.
->
-> Take WM8962 as an example, if MCLK is disabled before DAPM power down
-> playback stream, FIFO error will arise in WM8962 which will have bad
-> impact on playback next.
->
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Audio signal processing also has the requirement for memory to
+memory similar as Video.
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+This asrc memory to memory (memory ->asrc->memory) case is a non
+real time use case.
 
-Best regards
-Wang Shengjiu
-> ---
->  sound/soc/fsl/imx-rpmsg.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
-> index 3c7b95db2eac..b578f9a32d7f 100644
-> --- a/sound/soc/fsl/imx-rpmsg.c
-> +++ b/sound/soc/fsl/imx-rpmsg.c
-> @@ -89,6 +89,14 @@ static int imx_rpmsg_probe(struct platform_device *pde=
-v)
->                             SND_SOC_DAIFMT_NB_NF |
->                             SND_SOC_DAIFMT_CBC_CFC;
->
-> +       /*
-> +        * i.MX rpmsg sound cards work on codec slave mode. MCLK will be
-> +        * disabled by CPU DAI driver in hw_free(). Some codec requires M=
-CLK
-> +        * present at power up/down sequence. So need to set ignore_pmdow=
-n_time
-> +        * to power down codec immediately before MCLK is turned off.
-> +        */
-> +       data->dai.ignore_pmdown_time =3D 1;
-> +
->         /* Optional codec node */
->         ret =3D of_parse_phandle_with_fixed_args(np, "audio-codec", 0, 0,=
- &args);
->         if (ret) {
-> --
-> 2.25.1
->
+User fills the input buffer to the asrc module, after conversion, then asrc
+sends back the output buffer to user. So it is not a traditional ALSA playback
+and capture case.
+
+It is a specific use case,  there is no reference in current kernel.
+v4l2 memory to memory is the closed implementation,  v4l2 current
+support video, image, radio, tuner, touch devices, so it is not
+complicated to add support for this specific audio case.
+
+Because we had implemented the "memory -> asrc ->i2s device-> codec"
+use case in ALSA.  Now the "memory->asrc->memory" needs
+to reuse the code in asrc driver, so the first 3 patches is for refining
+the code to make it can be shared by the "memory->asrc->memory"
+driver.
+
+The main change is in the v4l2 side, A /dev/vl4-audioX will be created,
+user applications only use the ioctl of v4l2 framework.
+
+Other change is to add memory to memory support for two kinds of i.MX ASRC
+module.
+
+changes in v3:
+- Modify documents for adding audio m2m support
+- Add audio virtual m2m driver
+- Defined V4L2_AUDIO_FMT_LPCM format type for audio.
+- Defined V4L2_CAP_AUDIO_M2M capability type for audio m2m case.
+- with modification in v4l-utils, pass v4l2-compliance test.
+
+changes in v2:
+- decouple the implementation in v4l2 and ALSA
+- implement the memory to memory driver as a platfrom driver
+  and move it to driver/media
+- move fsl_asrc_common.h to include/sound folder
+
+Shengjiu Wang (9):
+  ASoC: fsl_asrc: define functions for memory to memory usage
+  ASoC: fsl_easrc: define functions for memory to memory usage
+  ASoC: fsl_asrc: move fsl_asrc_common.h to include/sound
+  ASoC: fsl_asrc: register m2m platform device
+  ASoC: fsl_easrc: register m2m platform device
+  media: v4l2: Add audio capture and output support
+  media: uapi: Add V4L2_CID_USER_IMX_ASRC_RATIO_MOD control
+  media: audm2m: add virtual driver for audio memory to memory
+  media: imx-asrc: Add memory to memory driver
+
+ .../userspace-api/media/v4l/audio-formats.rst |   15 +
+ .../userspace-api/media/v4l/buffer.rst        |    6 +
+ .../userspace-api/media/v4l/control.rst       |    5 +
+ .../userspace-api/media/v4l/dev-audio.rst     |   63 +
+ .../userspace-api/media/v4l/devices.rst       |    1 +
+ .../media/v4l/pixfmt-aud-lpcm.rst             |   31 +
+ .../userspace-api/media/v4l/pixfmt.rst        |    1 +
+ .../media/v4l/vidioc-enum-fmt.rst             |    2 +
+ .../userspace-api/media/v4l/vidioc-g-fmt.rst  |    4 +
+ .../media/v4l/vidioc-querycap.rst             |    3 +
+ .../media/videodev2.h.rst.exceptions          |    2 +
+ .../media/common/videobuf2/videobuf2-v4l2.c   |    4 +
+ drivers/media/platform/nxp/Kconfig            |   12 +
+ drivers/media/platform/nxp/Makefile           |    1 +
+ drivers/media/platform/nxp/imx-asrc.c         | 1058 +++++++++++++++++
+ drivers/media/test-drivers/Kconfig            |    9 +
+ drivers/media/test-drivers/Makefile           |    1 +
+ drivers/media/test-drivers/audm2m.c           |  767 ++++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |    1 +
+ drivers/media/v4l2-core/v4l2-dev.c            |   17 +
+ drivers/media/v4l2-core/v4l2-ioctl.c          |   53 +
+ include/media/v4l2-dev.h                      |    2 +
+ include/media/v4l2-ioctl.h                    |   34 +
+ .../fsl => include/sound}/fsl_asrc_common.h   |   54 +
+ include/uapi/linux/v4l2-controls.h            |    1 +
+ include/uapi/linux/videodev2.h                |   25 +
+ sound/soc/fsl/fsl_asrc.c                      |  162 +++
+ sound/soc/fsl/fsl_asrc.h                      |    4 +-
+ sound/soc/fsl/fsl_asrc_dma.c                  |    2 +-
+ sound/soc/fsl/fsl_easrc.c                     |  239 ++++
+ sound/soc/fsl/fsl_easrc.h                     |    8 +-
+ 31 files changed, 2584 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/userspace-api/media/v4l/audio-formats.rst
+ create mode 100644 Documentation/userspace-api/media/v4l/dev-audio.rst
+ create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-aud-lpcm.rst
+ create mode 100644 drivers/media/platform/nxp/imx-asrc.c
+ create mode 100644 drivers/media/test-drivers/audm2m.c
+ rename {sound/soc/fsl => include/sound}/fsl_asrc_common.h (60%)
+
+-- 
+2.34.1
+

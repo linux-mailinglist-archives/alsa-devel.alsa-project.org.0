@@ -2,103 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A6757A0759
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 16:30:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3463D7A076B
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 16:35:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F378C83A;
-	Thu, 14 Sep 2023 16:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F378C83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B498FA4D;
+	Thu, 14 Sep 2023 16:34:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B498FA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694701818;
-	bh=MgiG4l/fHzNNkK0HjACVjuTdRx6HvJMXlY9v9vu5L68=;
+	s=default; t=1694702099;
+	bh=uf3sAgbIblySVnPorTgMZT1bs33dJ+Tzc8/ehPhd8VM=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JRE7JmRFcSCrMf4C1tn3ykDEIX9frt7l+Rgq3CVPQwXOyRVwacFqhCGLbOeCiBABH
-	 /IQT4/+rE85nYwmEX08j0ACDaCRPPldBmPPr95msN+XcRKKnk6MS/9bPjoHvXzB5Pw
-	 Z7BQ5H/Qd3SoRUy2oE4Qg/rjbv0m4cJ7LU7mbtnc=
+	b=dDBnLp5mxzGOF3OoZO/kc2yHp2y+mNepf0R0xUqLO1UuxFVRSYmUlfgWoIICKI/qZ
+	 OLnx40+6YHRhguVo+9Hz3v2vibWR3/SLc8T0/pf3cw8gI81pZX27LYlcR1DOkbR4SH
+	 yxklwWDoXhdBZdQbNFm0soMNBP+PQZ07QAkviCmY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74C69F801F5; Thu, 14 Sep 2023 16:29:27 +0200 (CEST)
+	id 9061EF8047D; Thu, 14 Sep 2023 16:34:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2219EF80212;
-	Thu, 14 Sep 2023 16:29:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7CB1F80212;
+	Thu, 14 Sep 2023 16:34:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02F33F80246; Thu, 14 Sep 2023 16:29:21 +0200 (CEST)
+	id 5B5C6F80246; Thu, 14 Sep 2023 16:33:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0974EF80141
-	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 16:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0974EF80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1EF64F801F5
+	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 16:33:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EF64F801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=clsjyHng;
+ header.s=susede2_rsa header.b=Ljr+tYJJ;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=MuPvWmJy
+ header.s=susede2_ed25519 header.b=7qh9OFq6
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AC16E218F0;
-	Thu, 14 Sep 2023 14:29:11 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9B3AC1F854;
+	Thu, 14 Sep 2023 14:33:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1694701751;
+	t=1694702026;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2cQqm3IxLFOpNf1wNNro2m2AP7w9Qrx243MKxUbDrug=;
-	b=clsjyHnglaHWQoHtjJbOXG+74XyDfkQuidTS+CW6rTfrlYbcXFZe+5wpqYtlS7m1t5e483
-	dsB+Mx3gEYWvxbKd49pYdngvlKhWbBupSV5EBLkbjm2u/RQeXyOoU9T+nO0ZVE6+2hRgav
-	y7YpRa4obHYN3gT2VaDpzMEoQ/5CDnc=
+	bh=d5rEenZBwSJn6DR04Z5FgCyx5EyiMtGMUTcETZbYacg=;
+	b=Ljr+tYJJSNtXB4Q4C75WoxfD7PYX5b/oW/jYm3OG4qtXtYCnUd5yxr9bFJj0n/q/bVOl0N
+	5KfrsQlcU95vjGmPkMdeFQbtcteXAHJ9fdej4LUTqnnvngqnS0xz4qXTo/8wcPScqnMgoe
+	tLvlzeXQCCMIMgXtNT603U6H/RQMwZk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1694701751;
+	s=susede2_ed25519; t=1694702026;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2cQqm3IxLFOpNf1wNNro2m2AP7w9Qrx243MKxUbDrug=;
-	b=MuPvWmJy9St++Q7vQIiRQqZ5ko+Ty17s9S8fFiCWNaxow+Jl4sj2pkQWSElXyOkvLj0b4n
-	fj7PJwsLtmjbcCBQ==
+	bh=d5rEenZBwSJn6DR04Z5FgCyx5EyiMtGMUTcETZbYacg=;
+	b=7qh9OFq6eaAfDxTbuP2fqhGRuPIWp0JM66TYAF3827YYtUKBXlptPOat3UkNcHB2AAE/PT
+	ODwoJOqgr9OQfbCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 86F60139DB;
-	Thu, 14 Sep 2023 14:29:11 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C953139DB;
+	Thu, 14 Sep 2023 14:33:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 9osnILcYA2VFdAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 14 Sep 2023 14:29:11 +0000
-Date: Thu, 14 Sep 2023 16:29:11 +0200
-Message-ID: <871qf0zv48.wl-tiwai@suse.de>
+	id dGa9FcoZA2XXdgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 14 Sep 2023 14:33:46 +0000
+Date: Thu, 14 Sep 2023 16:33:45 +0200
+Message-ID: <87y1h8ygc6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<alsa-devel@alsa-project.org>,
-	<patches@opensource.cirrus.com>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ALSA: hda: cs35l56: Fix missing RESET GPIO if _SUB is
- missing
-In-Reply-To: <20230914121120.6201-1-rf@opensource.cirrus.com>
-References: <20230914121120.6201-1-rf@opensource.cirrus.com>
+To: cujomalainey@chromium.org
+Cc: alsa-devel@alsa-project.org,	Jaroslav Kysela <perex@perex.cz>,	Takashi
+ Iwai <tiwai@suse.com>,	Geoff Levand <geoff@infradead.org>,	Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,	Ivan
+ Orlov <ivan.orlov0322@gmail.com>,	Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>
+Subject: Re: [RFC PATCH v2 1/2] ALSA: core: add snd_device_init
+In-Reply-To: <20230913200846.1894258-1-cujomalainey@chromium.org>
+References: <20230913200846.1894258-1-cujomalainey@chromium.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 7G427EGYB437T4VTU47MNDRN5IVHEU24
-X-Message-ID-Hash: 7G427EGYB437T4VTU47MNDRN5IVHEU24
+Message-ID-Hash: ZXXDL2S5VMMANBFHHYO2NXOL6NQIWOAL
+X-Message-ID-Hash: ZXXDL2S5VMMANBFHHYO2NXOL6NQIWOAL
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7G427EGYB437T4VTU47MNDRN5IVHEU24/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZXXDL2S5VMMANBFHHYO2NXOL6NQIWOAL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,47 +121,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 14 Sep 2023 14:11:20 +0200,
-Richard Fitzgerald wrote:
+On Wed, 13 Sep 2023 22:07:42 +0200,
+cujomalainey@chromium.org wrote:
 > 
-> In cs35l56_hda_read_acpi() do not return if ACPI _SUB is missing.
+> From: Curtis Malainey <cujomalainey@chromium.org>
 > 
-> A missing _SUB means that the driver cannot load a system-specific
-> firmware, because the firmware is identified by the _SUB. But it can
-> fallback to a generic firmware. Unfortunately this was being handled
-> by immediately returning 0, which would skip the remaining ACPI
-> configuration in cs35l56_hda_read_acpi() and so it would not get the
-> RESET GPIO.
+> Begin allowing refactored modules to allocate their own device but use a
+> common initialization procedure for their devices.
 > 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Fixes: 73cfbfa9caea ("ALSA: hda/cs35l56: Add driver for Cirrus Logic CS35L56 amplifier")
+> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 > ---
->  sound/pci/hda/cs35l56_hda.c | 14 +++++---------
->  1 file changed, 5 insertions(+), 9 deletions(-)
+>  include/sound/core.h |  1 +
+>  sound/core/init.c    | 19 ++++++++++++++++---
+>  2 files changed, 17 insertions(+), 3 deletions(-)
 > 
-> diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-> index 9e4976bdb5e0..a9844336bdc9 100644
-> --- a/sound/pci/hda/cs35l56_hda.c
-> +++ b/sound/pci/hda/cs35l56_hda.c
-> @@ -864,15 +864,11 @@ static int cs35l56_hda_read_acpi(struct cs35l56_hda *cs35l56, int id)
+> diff --git a/include/sound/core.h b/include/sound/core.h
+> index dfef0c9d4b9f7..a4744e142c7e3 100644
+> --- a/include/sound/core.h
+> +++ b/include/sound/core.h
+> @@ -240,6 +240,7 @@ extern struct dentry *sound_debugfs_root;
+>  void snd_request_card(int card);
 >  
->  	sub = acpi_get_subsystem_id(ACPI_HANDLE(cs35l56->base.dev));
+>  int snd_device_alloc(struct device **dev_p, struct snd_card *card);
+> +void snd_device_init(struct device *dev, struct snd_card *card);
 >  
-> -	if (IS_ERR(sub)) {
-> -		/* If no ACPI SUB, return 0 and fallback to legacy firmware path, otherwise fail */
-> -		if (PTR_ERR(sub) == -ENODATA)
-> -			return 0;
-> -		else
-> -			return PTR_ERR(sub);
-> -	}
-> -
-> -	cs35l56->system_name = sub;
-> +	if (IS_ERR(sub))
-> +		dev_err_probe(cs35l56->base.dev, PTR_ERR(sub),
-> +			      "Read ACPI _SUB failed: fallback to generic firmware\n");
+>  int snd_register_device(int type, struct snd_card *card, int dev,
+>  			const struct file_operations *f_ops,
+> diff --git a/sound/core/init.c b/sound/core/init.c
+> index 22c0d217b8608..87b5368d20350 100644
+> --- a/sound/core/init.c
+> +++ b/sound/core/init.c
+> @@ -132,15 +132,28 @@ int snd_device_alloc(struct device **dev_p, struct snd_card *card)
+>  	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
+>  	if (!dev)
+>  		return -ENOMEM;
+> +	snd_device_init(dev, card);
+> +	*dev_p = dev;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(snd_device_alloc);
+> +
+> +/**
+> + * snd_device_init - Initialize struct device for sound devices
+> + * @dev_p: pointer to store the allocated device
+> + * @card: card to assign, optional
+> + *
+> + * For releasing the allocated device, call put_device().
+> + */
+> +void snd_device_init(struct device *dev, struct snd_card *card)
+> +{
+>  	device_initialize(dev);
+>  	if (card)
+>  		dev->parent = &card->card_dev;
+>  	dev->class = &sound_class;
+>  	dev->release = default_release_alloc;
 
-Do we want to show as an error?  Since the driver continue to work, it
-could be rather dev_info()?
+I'd rather leave release unset here and mention in the function
+description to set release in each caller side.
+default_release_alloc() calls kfree(), and certainly it doesn't match
+with this call.
 
 
 thanks,

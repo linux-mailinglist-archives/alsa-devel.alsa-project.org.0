@@ -2,94 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DAB27A08A1
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 17:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA3047A06FE
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Sep 2023 16:12:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B765E93A;
-	Thu, 14 Sep 2023 17:07:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B765E93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B1CE886;
+	Thu, 14 Sep 2023 16:12:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B1CE886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694704109;
-	bh=vNpK3vKTvXAn2nEQwG4uNUlRiH/o4ga8EvveqoV30vA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cNi3m3TOGwVUtH3Q6SEgKqLIZoxyxiibGN0+ffF54CqBOf7RCJW7isPz9kUqI1j5L
-	 kktcnwr23TPlQhYPtSHB/HmyiLkXooG5avPw8ayagzqEbJp8xL7hoxNeCcmRHD5oqz
-	 4x+5VhHS+tkTaw+e2mc7dk0HdReT5dv5RFGSix8A=
+	s=default; t=1694700773;
+	bh=KUgZPRTukqyv6bhXTNuEIAtyKESr5YryOLyzkkcPud8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=QEP16eiYiXgjnATBSojOfKCUBKHAlCkS5KY+r0h+PJOLCxdbo3CpHDRD87ukCX8jT
+	 vzp8xlrKslJFWoGZDOjTshM/e0Gkhr9raKvsxZmNQxB1FeB4g8ZkVYdTd2CIhN1N6j
+	 Is3CVxqFjo6GzHJfxT6ELSjegsge1zvb97WwMxXo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAB7FF805AD; Thu, 14 Sep 2023 17:06:30 +0200 (CEST)
+	id B7A98F80537; Thu, 14 Sep 2023 16:11:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF78CF80587;
-	Thu, 14 Sep 2023 17:06:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D42EF80212;
+	Thu, 14 Sep 2023 16:11:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1570F80425; Wed, 13 Sep 2023 05:55:26 +0200 (CEST)
+	id 38951F80246; Thu, 14 Sep 2023 16:11:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp4.hiworks.co.kr (smtp4.hiworks.co.kr [121.254.168.203])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D9B09F80212
-	for <alsa-devel@alsa-project.org>; Wed, 13 Sep 2023 05:54:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9B09F80212
-Received: (qmail 13978 invoked from network); 13 Sep 2023 12:54:47 +0900
-Received: from unknown (HELO hiworks.co.kr) (192.168.10.101)
-	by 0 (qmail 1.03 + ejcp v14) with SMTP;
-	13 Sep 2023 12:54:47 +0900
-Received: (qmail 62196 invoked from network); 13 Sep 2023 12:54:47 +0900
-Received: from unknown (HELO saram-MINIPC-PN53..)
- (mwkim@gaonchips.com@220.88.49.178)
-	by 0 (qmail 1.03 + ejcp v14) with SMTP;
-	13 Sep 2023 12:54:47 +0900
-X-Authinfo: HIWORKS SMTP authenticated
- <mwkim@gaonchips.com|220.88.49.178|mwkim@gaonchips.com|230913125447_297661931>
-X-MailFrom-INFO: Info <country_code:KR|rbl_level:0>
-From: Myunguk Kim <mwkim@gaonchips.com>
-To: krzysztof.kozlowski@linaro.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id 262BDF80141
+	for <alsa-devel@alsa-project.org>; Thu, 14 Sep 2023 16:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 262BDF80141
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RVScO51t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694700695; x=1726236695;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=KUgZPRTukqyv6bhXTNuEIAtyKESr5YryOLyzkkcPud8=;
+  b=RVScO51t0RXombPxw3eFpJXk4FmJqiD/VlPV+QsgoHKkH/6kb0eNltnK
+   Re1lCHGmLLPk3NgtclN5uX6PGjvHgxs/kuJD/k5cTZcn2SaJ6sPtzKDHn
+   1hl7CnLA23NUyZsT1DrdyfdWFoGLMDVERs3JckpyOiml+hHTQ0v0qBsxa
+   COSHemVZ1EyZ5l7z5S1h3tGnXrtS5156HToCJFDv6OnqVxQT4IAxqNjow
+   D10Jp2Y/EMEzsHXlpzuWfrBz3V3rkhED0+uc12hASyrrzAIkDrFpfQezv
+   RjZJhNlbR953FSbPl62+e8NAxKQbUe+ADAHHobJcTCQ56keSHwNFANE/h
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="369243008"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000";
+   d="scan'208";a="369243008"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2023 06:25:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="747729971"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000";
+   d="scan'208";a="747729971"
+Received: from pakurapo-mobl3.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.37.8])
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2023 06:24:59 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	fido_max@inbox.ru,
-	joabreu@synopsys.com,
-	krzysztof.kozlowski+dt@linaro.org,
-	kuninori.morimoto.gx@renesas.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	mwkim@gaonchips.com,
-	perex@perex.cz,
-	robh+dt@kernel.org,
-	tiwai@suse.com,
-	u.kleine-koenig@pengutronix.de,
-	xingyu.wu@starfivetech.com
-Subject: Re: [PATCH] ASoC: dwc: Add Single DMA mode support
-Date: Wed, 13 Sep 2023 11:53:43 +0900
-Message-Id: <20230913025342.1460157-1-mwkim@gaonchips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <bf43b771-35e3-1b37-24f5-e21b2c34a415@linaro.org>
-References: <bf43b771-35e3-1b37-24f5-e21b2c34a415@linaro.org>
+	pierre-louis.bossart@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com
+Subject: [PATCH v2] ASoC: SOF: ipc4-topology: fix wrong sizeof argument
+Date: Thu, 14 Sep 2023 16:25:04 +0300
+Message-ID: <20230914132504.18463-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MailFrom: mwkim@gaonchips.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: 4CGI4DQFPVHNNREN3DBE3HPMH2EY33FQ
+X-Message-ID-Hash: 4CGI4DQFPVHNNREN3DBE3HPMH2EY33FQ
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MLJOZIN7BBNEW7ZENLOYLUPAJROZBW4A
-X-Message-ID-Hash: MLJOZIN7BBNEW7ZENLOYLUPAJROZBW4A
-X-Mailman-Approved-At: Thu, 14 Sep 2023 15:06:22 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MLJOZIN7BBNEW7ZENLOYLUPAJROZBW4A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4CGI4DQFPVHNNREN3DBE3HPMH2EY33FQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,16 +106,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> Bindings are always separate patch.
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Okay, I will send v2.
+available_fmt is a pointer.
 
-> This was not tested. Missing vendor prefix, type.
->
-> Anyway please provide some explanation why this cannot be deduced from
-> the compatible.
+Fixes: 4fdef47a44d6 ("ASoC: SOF: ipc4-topology: Add new tokens for input/output pin format count")
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/ipc4-topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This is not dependent on a specific vendor, 
-but is intended to describe 
-the properties of the signal(single/burst request) connection 
-relationship between i2s and dma.
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index f2a30cd31378..7cb63e6b24dc 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -231,7 +231,7 @@ static int sof_ipc4_get_audio_fmt(struct snd_soc_component *scomp,
+ 
+ 	ret = sof_update_ipc_object(scomp, available_fmt,
+ 				    SOF_AUDIO_FMT_NUM_TOKENS, swidget->tuples,
+-				    swidget->num_tuples, sizeof(available_fmt), 1);
++				    swidget->num_tuples, sizeof(*available_fmt), 1);
+ 	if (ret) {
+ 		dev_err(scomp->dev, "Failed to parse audio format token count\n");
+ 		return ret;
+-- 
+2.42.0
+

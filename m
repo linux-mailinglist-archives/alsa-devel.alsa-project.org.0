@@ -2,117 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A90DF7A1BDA
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 12:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ACA47A1D18
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 13:06:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6756A4E;
-	Fri, 15 Sep 2023 12:14:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6756A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26C3484B;
+	Fri, 15 Sep 2023 13:05:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C3484B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694772905;
-	bh=Yoyoia96zFf7pc3EkO+XUpKhVWsPgcx6Hula+GPXspo=;
+	s=default; t=1694776000;
+	bh=hOyiTxdftFAjmpAlocJ9lFxzTFRptiSSvs7eM0255YI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kQegoTAhlriaDHnhd0dvxw5BlMmIkF8FsjAQl5i6Adu8uoBB12kGM5FhbL6mnjJrw
-	 469kIPNwL4LB4P8GgCHi8Boz9R+JvFuu7Wnn6PEX6UmIYUpWFQ8D4yXlxXmSMekOhp
-	 l1nWAzu37Vyl3uDNatsgt1/LiZI0QIYopnK/tcR8=
+	b=BJraYup03dZzvh1zCilRkL6XGcOe3Rkk6Tfn4B9+A40X+sNroR8tbIlZClgw6ZSFT
+	 pcW+NOPKkNGQI+xH5vu9sIkCZrF5t0JPIh2+GU3NyGS+7wG2DoSMnJN67wTDQItZHp
+	 yUiCeYpUssEi9doB+Sbz0o7isi07rJkTvR2CRo9s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29B61F8055A; Fri, 15 Sep 2023 12:14:15 +0200 (CEST)
+	id B89B0F80141; Fri, 15 Sep 2023 13:05:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDF64F8047D;
-	Fri, 15 Sep 2023 12:14:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07574F80246;
+	Fri, 15 Sep 2023 13:05:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A5FFF8055A; Fri, 15 Sep 2023 12:14:12 +0200 (CEST)
+	id 800D0F80425; Fri, 15 Sep 2023 13:05:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 77F9DF8007C
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 12:14:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77F9DF8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id EA1E7F801F5
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 13:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA1E7F801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm2 header.b=FM6OtPPH;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=F40xsTRk
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.west.internal (Postfix) with ESMTP id 529723200909;
-	Fri, 15 Sep 2023 06:14:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Fri, 15 Sep 2023 06:14:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1694772845; x=
-	1694859245; bh=+/9n243Kd+TJF7GWxzWl3//BhNaA0LIy0GnM5MVTSWE=; b=F
-	M6OtPPHimjWzFLoedmw9V/BZifR/dw2rrUzvYYoRiLgkQ6yGrgt6QXyczaW9p1eA
-	J+9XZXR80rRQotIVluXvPzDAAi9JxczocY11uONV6QdbN/5WKqMQB1sRtPofVz8t
-	RXdd88VuM/AVQ9rfKvugQSAl37XM5pEJIjINgQOa0wq0DgG05OWoZdOxTcB2a9t5
-	XwUUfHG2uw+wjPobqVl+ZvKa03CmWilW7RHCgTFLYOWJGKn/VhgJo9/Ui9L8ea0b
-	bjstOIHPvdOPPV0yBCWdAWX09dHZH8rSa+3/ezzVawjhT81/F+1GtBLyh+itAS+M
-	eGOkn3IjeiL4Rg8hezDfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1694772845; x=1694859245; bh=+/9n243Kd+TJF
-	7GWxzWl3//BhNaA0LIy0GnM5MVTSWE=; b=F40xsTRkxCfTK35a3z6KrKi5X6M8O
-	m+JJq/0iXxTaV2V/S1bX4aQmUEZg9Kb5cOS8lsAsaHSd/PiqwCttKfpNv693Ra34
-	ppmlVKXz7Hp2SGsBeE6h6igr6hbHVhOMiylr6il27M6zqNXW0G/CZgft6G1H39Hb
-	7B5vw7FFooqFWZOW21142FkLIoyrfqG486vwOJFIITIRNDkU7NtKyKUwfnyscg2V
-	5l32c6Q8OKuWXqp1mWV7AbVIS3ju66ZWrZ5dON4k1q5RwGmFH6jUXNnrHTyu17+G
-	xvJzkoPgqMGWMsulYBrRCg2fcwknpOMiqNcmNzaaAwIDcCXrmXpOPY9CQ==
-X-ME-Sender: <xms:bS4EZfrCOemGgCusBSmOtLoqmwlfkcyxwxTwWyGCyHg46s89a9Kkqw>
-    <xme:bS4EZZq8MgVqZoTjeGRBFl8TrGI8-yf-zPjYGqaDkGJqlf7a6f2-P2WJd7UOy6wqf
-    Hv8r0msdrwspcy0fEA>
-X-ME-Received: 
- <xmr:bS4EZcMBZS0htkHmnCCsnuGwi2W67vALci4OXLMze5MNJDU_baexV1c3-CLOG8qJ6hoveTCjRLMxZnNzYVWkPPaNq3t_jSQhGg>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedviedrudejvddgvdefucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
-    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
-    hjpheqnecuggftrfgrthhtvghrnhephefhhfettefgkedvieeuffevveeufedtlefhjeei
-    ieetvdelfedtgfefuedukeeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
-    hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:bS4EZS5ePhI-VP0FSGjVg8Sjo28taI3zhgLYlyA2yPmzUcnLBC_Y5g>
-    <xmx:bS4EZe4x17_LpLe8wbVGuxEDzhBrLcwgr6YbOFEpuwSZrANBie-MpA>
-    <xmx:bS4EZaiyyvFqt_OZIScnkRJQQ4HBEd9EN8hMF3k5YzP0JshXd4BuXA>
-    <xmx:bS4EZTh0mRxEBldEnZhcgrVPlDqPtzEIOZgEtUZijTuNbAvIBPdl6w>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 15 Sep 2023 06:14:04 -0400 (EDT)
-Date: Fri, 15 Sep 2023 19:14:02 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 11/13] ALSA: firewire: Fix -Wformat-truncation warning
- for MIDI stream names
-Message-ID: <20230915101402.GB157572@workstation.local>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20230915082802.28684-1-tiwai@suse.de>
- <20230915082802.28684-12-tiwai@suse.de>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=WpDsJsuw
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6167461EE3;
+	Fri, 15 Sep 2023 11:05:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47547C433C8;
+	Fri, 15 Sep 2023 11:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694775933;
+	bh=hOyiTxdftFAjmpAlocJ9lFxzTFRptiSSvs7eM0255YI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WpDsJsuw/XYb/kdsFriqTellUdxp3bv3hoVp+QKf5Zpd8MhP0Gs9q8g0/SNyC4oSI
+	 As8VAsqgLMD6cOuFT6sTDAOZ3oXGRMxIEoHxhnSUvvRmqg0/WML6mljnfDFQhkqDL5
+	 yZFxquEeaZDlA8oinuSE2akhgUhcCDZDSP5aSXL+c4XwciNfqVqekVgovMX4sfRRhx
+	 zgRlwHnnDr8lfFn9IpPKhxPn8RuYby5Kw94sDqy1xI8iSHxducXC1Wn0DS0zJ3bq+d
+	 EuOqmeCiZp5VyB0kqNE8kjNZcAgL7lolHLaZlVUC6MoDWNzGCRA3dKY1lVAH8zcwi0
+	 zAyT/8woJ3GJw==
+Date: Fri, 15 Sep 2023 12:05:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: John Watts <contact@jookia.org>
+Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] ASoC: dt-bindings: wlf,wm8782: Add wlf,fsampen
+ property
+Message-ID: <5af3315a-7d28-456d-ae36-9984bc8a36e0@sirena.org.uk>
+References: <20230913171552.92252-1-contact@jookia.org>
+ <20230913171552.92252-4-contact@jookia.org>
+ <20230914145234.GA1275176-robh@kernel.org>
+ <ZQPuJXcmHABQFaQl@titan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fvWBAkIAAADLULEo"
 Content-Disposition: inline
-In-Reply-To: <20230915082802.28684-12-tiwai@suse.de>
-Message-ID-Hash: SQ7QSN6M5MZ5HSHA4TSO6JDGVQ5F2FW2
-X-Message-ID-Hash: SQ7QSN6M5MZ5HSHA4TSO6JDGVQ5F2FW2
-X-MailFrom: o-takashi@sakamocchi.jp
+In-Reply-To: <ZQPuJXcmHABQFaQl@titan>
+X-Cookie: Gravity brings me down.
+Message-ID-Hash: QNNOETSGCX3DPAWJI2FHQLVFRNTBR3JG
+X-Message-ID-Hash: QNNOETSGCX3DPAWJI2FHQLVFRNTBR3JG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SQ7QSN6M5MZ5HSHA4TSO6JDGVQ5F2FW2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNNOETSGCX3DPAWJI2FHQLVFRNTBR3JG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,31 +108,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
 
-On Fri, Sep 15, 2023 at 10:28:00AM +0200, Takashi Iwai wrote:
-> The compile warnings at filling MIDI stream name strings are all
-> false-positive; the number of streams can't go so high.
-> 
-> For suppressing the warning, replace snprintf() with scnprintf().
-> As stated in the above, truncation doesn't matter.
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->  sound/firewire/bebob/bebob_midi.c         |  6 +++---
->  sound/firewire/dice/dice-midi.c           |  4 ++--
->  sound/firewire/digi00x/digi00x-midi.c     | 14 +++++++-------
->  sound/firewire/fireface/ff-midi.c         |  4 ++--
->  sound/firewire/fireworks/fireworks_midi.c |  4 ++--
->  sound/firewire/motu/motu-midi.c           |  4 ++--
->  sound/firewire/oxfw/oxfw-midi.c           |  6 +++---
->  sound/firewire/tascam/tascam-midi.c       | 12 ++++++------
->  8 files changed, 27 insertions(+), 27 deletions(-)
+--fvWBAkIAAADLULEo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+On Fri, Sep 15, 2023 at 03:39:49PM +1000, John Watts wrote:
+> On Thu, Sep 14, 2023 at 09:52:34AM -0500, Rob Herring wrote:
+> > What's the default if the property is not present?
+>=20
+> 0. Should I specify it here?
 
+Yes.
 
-Thanks
+--fvWBAkIAAADLULEo
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Takashi Sakamoto
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUEOncACgkQJNaLcl1U
+h9Alnwf9EPsqr1HyoMSzQWvu19hw6Elkc/4CZFN7c83HmYYYCw9czGwXkWmepk/7
+pdGCA6F7elZgl4NSe5uVT9oufbHDplEwq5p7PCW4kK+V5q0THsxxNXfG9QvWb+LV
+xbHHM2IBeAUR1Vb9Ah7aauT0Ub+ZzQxwSRcbmq5Vue3Q7OiVEc5PNPt+PVonR9uU
+/kl6+rj7bQGjTPZBPODjqPNTzuKq0ZiW2fNBIS1BRj/rOGqzdmufuXPNmbRL3RLF
+U8BdngqaatpTb/MDsqYBrJlcruyd2ohW/Wzmo7KVkSbHYRZn5xssz2w5hKW4L0Ds
+kvORxQle7O2YX/3zfrfRDhp0GQL5rQ==
+=rfmv
+-----END PGP SIGNATURE-----
+
+--fvWBAkIAAADLULEo--

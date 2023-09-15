@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC6787A17CA
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 09:51:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8972C7A17E2
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 09:58:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3269ADF5;
-	Fri, 15 Sep 2023 09:50:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3269ADF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A44BA9F6;
+	Fri, 15 Sep 2023 09:57:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A44BA9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694764286;
-	bh=YV7wiUPxH40qX3QFyXronw880qBrpYFVzzX3+75uL5k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=NWjlJeoETsARG//z+N1F1TIKyvwP1E6Lf7oMGlSwPRmqxsyBGhfblLV5LznQ8AojW
-	 sgLSeC/4DIrfVsQiRvg5Ze7VspvFlZlDaFK9t9tSYr5+PXUqiPYilvly7FCBHn0kR0
-	 xqzntluF6gPq98Dw28+DIGix6VfkZLFzzgbqK7OQ=
+	s=default; t=1694764726;
+	bh=Tn9oxM7Nk2s+bFo9hm0UDWLjqTRrU/ymSSS76x6wC1A=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gUYTPGdvvagYvCqsNf+WQK5MOdgp/sQPZnph2w7F5KaDCMnOAgC83OgHVFYUEA3ka
+	 6wXP5DBF82mHZ2ft3wrVGGUPlvOwtu6GdAtRwmPSvL8C0dGvc5KR1ujVvEuTRG4XK7
+	 4pyVjlnBcR3kD7oKwOQGFCnsyySI5HOmYuBa2TP0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02BD7F805A0; Fri, 15 Sep 2023 09:49:37 +0200 (CEST)
+	id 25910F80246; Fri, 15 Sep 2023 09:57:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71F4EF80588;
-	Fri, 15 Sep 2023 09:49:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0633F80246;
+	Fri, 15 Sep 2023 09:57:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A0BDF8059F; Fri, 15 Sep 2023 09:49:34 +0200 (CEST)
+	id 4678EF80425; Fri, 15 Sep 2023 09:57:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0B4C4F8047D
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 09:49:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B4C4F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id C9DCAF8007C
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 09:57:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9DCAF8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Y1+5JXAS
+ header.s=Intel header.b=hGOZrKu0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694764147; x=1726300147;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=YV7wiUPxH40qX3QFyXronw880qBrpYFVzzX3+75uL5k=;
-  b=Y1+5JXAS1IexVSr2/DxXpfjO9GayEOj3mBTID4wFw726D1SogQCxbBWR
-   zMCpNbyssVZn6W0ALC1r9ECIomPplK25Ld7OLn9ZzEBzKoJUSB/XMgm3r
-   mPHjk3L5I4VGwOZjUHnjpucNU8yOB6Ot4IKCPd8kR0UtgCnE4EQ4xqS/d
-   EeiSGhICJ8Z4WL7l8pbRFp6GkiXAoj3XRBjwkMVL2S+B71hFx2flHWpe6
-   iqSOeFGH3SRgx2edLHNp0034efFxowf8TRp1pwftqXPBJUQy5qSxr4T8S
-   llMo2Ptt0LpOJ/3Vmpj8kII+vpspXiaIATzJy+AfHnIF2t6hjzLm0qzKH
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="376527562"
+  t=1694764671; x=1726300671;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Tn9oxM7Nk2s+bFo9hm0UDWLjqTRrU/ymSSS76x6wC1A=;
+  b=hGOZrKu0+TXzOQTaE3ZUFRFW4OTqPfGkPo8ZDE7ayA3xTUINOdgBp/gk
+   6V0QMBijLdvoCip4R1nBuEHB0jj7r8V9unIGchJ8KGs5BgmJmLG9v/Obm
+   RHcfNYWN3SJmM0MlGTI+z5CU2wtEx4ZadI+FuIsJV0ZDOOVRp6Ux1Tou9
+   YjMyp5UzTaPHC0RjLoWBaThBrTboM3nkQzYU+c1KdzJxHni0cx9VN/38s
+   7EuQfAi7u7QR9WvYfFbb8QgHX2oj2HT2BePZ5hf8MxG773NufGQTU9gcP
+   H5bd6Rwp0jnTdEzZ7xu1osjLZePJf8tXRz+51mQp2Vd7r8/4U7upepQeu
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="445647569"
 X-IronPort-AV: E=Sophos;i="6.02,148,1688454000";
-   d="scan'208";a="376527562"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 00:48:54 -0700
+   d="scan'208";a="445647569"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 00:57:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779998602"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="888147574"
 X-IronPort-AV: E=Sophos;i="6.02,148,1688454000";
-   d="scan'208";a="779998602"
+   d="scan'208";a="888147574"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 00:47:44 -0700
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 00:57:09 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.de
@@ -75,17 +74,16 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	bard.liao@intel.com,
 	peter.ujfalusi@linux.intel.com,
-	ckeepax@opensource.cirrus.com
-Subject: [PATCH 4/4] ASoC: intel: sof_sdw: Increment be_id in init_dai_link
-Date: Fri, 15 Sep 2023 15:56:11 +0800
-Message-Id: <20230915075611.1619548-5-yung-chuan.liao@linux.intel.com>
+	arun.t@intel.com
+Subject: [PATCH 1/1] ASoC: Intel: common: add ACPI matching tables for Arrow
+ Lake
+Date: Fri, 15 Sep 2023 16:06:35 +0800
+Message-Id: <20230915080635.1619942-1-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230915075611.1619548-1-yung-chuan.liao@linux.intel.com>
-References: <20230915075611.1619548-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UKCV7DAB7L37SMXXGNM5W4REHWSCQPW3
-X-Message-ID-Hash: UKCV7DAB7L37SMXXGNM5W4REHWSCQPW3
+Message-ID-Hash: NILMYFVBG5ZZZSQDLD7V7PZ4Q7ICVKKZ
+X-Message-ID-Hash: NILMYFVBG5ZZZSQDLD7V7PZ4Q7ICVKKZ
 X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UKCV7DAB7L37SMXXGNM5W4REHWSCQPW3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NILMYFVBG5ZZZSQDLD7V7PZ4Q7ICVKKZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,141 +105,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+From: Arun T <arun.t@intel.com>
 
-Rather than incrementing the ID for the dai_links in many places
-throughout the code, just increment it each time we initialise a new DAI
-link.
+Initial support for ARL w/ RT711
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Arun T <arun.t@intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 30 ++++++++++++++----------------
- 1 file changed, 14 insertions(+), 16 deletions(-)
+ include/sound/soc-acpi-intel-match.h          |  2 +
+ sound/soc/intel/common/Makefile               |  1 +
+ .../intel/common/soc-acpi-intel-arl-match.c   | 51 +++++++++++++++++++
+ 3 files changed, 54 insertions(+)
+ create mode 100644 sound/soc/intel/common/soc-acpi-intel-arl-match.c
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 335048dfae53..752bfce1ea01 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -20,8 +20,6 @@ static int quirk_override = -1;
- module_param_named(quirk, quirk_override, int, 0444);
- MODULE_PARM_DESC(quirk, "Board-specific quirk override");
+diff --git a/include/sound/soc-acpi-intel-match.h b/include/sound/soc-acpi-intel-match.h
+index e49b97d9e3ff..845e7608ac37 100644
+--- a/include/sound/soc-acpi-intel-match.h
++++ b/include/sound/soc-acpi-intel-match.h
+@@ -32,6 +32,7 @@ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_lnl_machines[];
++extern struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_machines[];
  
--#define INC_ID(BE, LINK)	do { (BE)++; (LINK)++; } while (0)
--
- static void log_quirks(struct device *dev)
- {
- 	if (SOF_JACK_JDSRC(sof_sdw_quirk))
-@@ -1089,14 +1087,14 @@ static int get_dailink_info(struct device *dev,
- }
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_sdw_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cfl_sdw_machines[];
+@@ -42,6 +43,7 @@ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_sdw_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_lnl_sdw_machines[];
++extern struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_sdw_machines[];
  
- static void init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_links,
--			  int be_id, char *name, int playback, int capture,
-+			  int *be_id, char *name, int playback, int capture,
- 			  struct snd_soc_dai_link_component *cpus, int cpus_num,
- 			  struct snd_soc_dai_link_component *codecs, int codecs_num,
- 			  int (*init)(struct snd_soc_pcm_runtime *rtd),
- 			  const struct snd_soc_ops *ops)
- {
--	dev_dbg(dev, "create dai link %s, id %d\n", name, be_id);
--	dai_links->id = be_id;
-+	dev_dbg(dev, "create dai link %s, id %d\n", name, *be_id);
-+	dai_links->id = (*be_id)++;
- 	dai_links->name = name;
- 	dai_links->platforms = platform_component;
- 	dai_links->num_platforms = ARRAY_SIZE(platform_component);
-@@ -1112,7 +1110,7 @@ static void init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_links
- }
- 
- static int init_simple_dai_link(struct device *dev, struct snd_soc_dai_link *dai_links,
--				int be_id, char *name, int playback, int capture,
-+				int *be_id, char *name, int playback, int capture,
- 				const char *cpu_dai_name,
- 				const char *codec_name, const char *codec_dai_name,
- 				int (*init)(struct snd_soc_pcm_runtime *rtd),
-@@ -1484,7 +1482,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
- 		playback = (stream == SNDRV_PCM_STREAM_PLAYBACK);
- 		capture = (stream == SNDRV_PCM_STREAM_CAPTURE);
- 
--		init_dai_link(dev, dai_links + *link_index, (*be_id)++, name,
-+		init_dai_link(dev, dai_links + *link_index, be_id, name,
- 			      playback, capture, cpus, cpu_dai_num, codecs, codec_num,
- 			      NULL, &sdw_ops);
- 
-@@ -1674,7 +1672,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		playback = info->dais[0].direction[SNDRV_PCM_STREAM_PLAYBACK];
- 		capture = info->dais[0].direction[SNDRV_PCM_STREAM_CAPTURE];
- 
--		ret = init_simple_dai_link(dev, dai_links + link_index, be_id, name,
-+		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, name,
- 					   playback, capture, cpu_dai_name,
- 					   codec_name, info->dais[0].dai_name,
- 					   NULL, info->ops);
-@@ -1685,7 +1683,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		if (ret < 0)
- 			return ret;
- 
--		INC_ID(be_id, link_index);
-+		link_index++;
- 	}
- 
- DMIC:
-@@ -1696,16 +1694,16 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 			goto HDMI;
- 		}
- 
--		ret = init_simple_dai_link(dev, dai_links + link_index, be_id, "dmic01",
-+		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, "dmic01",
- 					   0, 1, // DMIC only supports capture
- 					   "DMIC01 Pin", "dmic-codec", "dmic-hifi",
- 					   sof_sdw_dmic_init, NULL);
- 		if (ret)
- 			return ret;
- 
--		INC_ID(be_id, link_index);
-+		link_index++;
- 
--		ret = init_simple_dai_link(dev, dai_links + link_index, be_id, "dmic16k",
-+		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, "dmic16k",
- 					   0, 1, // DMIC only supports capture
- 					   "DMIC16k Pin", "dmic-codec", "dmic-hifi",
- 					   /* don't call sof_sdw_dmic_init() twice */
-@@ -1713,7 +1711,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		if (ret)
- 			return ret;
- 
--		INC_ID(be_id, link_index);
-+		link_index++;
- 	}
- 
- HDMI:
-@@ -1731,14 +1729,14 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 			codec_dai_name = "snd-soc-dummy-dai";
- 		}
- 
--		ret = init_simple_dai_link(dev, dai_links + link_index, be_id, name,
-+		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, name,
- 					   1, 0, // HDMI only supports playback
- 					   cpu_dai_name, codec_name, codec_dai_name,
- 					   sof_sdw_hdmi_init, NULL);
- 		if (ret)
- 			return ret;
- 
--		INC_ID(be_id, link_index);
-+		link_index++;
- 	}
- 
- 	if (sof_sdw_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
-@@ -1748,7 +1746,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-BT", port);
- 		cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", port);
- 
--		ret = init_simple_dai_link(dev, dai_links + link_index, be_id, name,
-+		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, name,
- 					   1, 1, cpu_dai_name, asoc_dummy_dlc.name,
- 					   asoc_dummy_dlc.dai_name, NULL, NULL);
- 		if (ret)
+ /*
+  * generic table used for HDA codec-based platforms, possibly with
+diff --git a/sound/soc/intel/common/Makefile b/sound/soc/intel/common/Makefile
+index 07aa37dd90e9..f7370e5b4e9e 100644
+--- a/sound/soc/intel/common/Makefile
++++ b/sound/soc/intel/common/Makefile
+@@ -10,6 +10,7 @@ snd-soc-acpi-intel-match-objs := soc-acpi-intel-byt-match.o soc-acpi-intel-cht-m
+ 	soc-acpi-intel-tgl-match.o soc-acpi-intel-ehl-match.o \
+ 	soc-acpi-intel-jsl-match.o soc-acpi-intel-adl-match.o \
+ 	soc-acpi-intel-rpl-match.o soc-acpi-intel-mtl-match.o \
++	soc-acpi-intel-arl-match.o \
+ 	soc-acpi-intel-lnl-match.o \
+ 	soc-acpi-intel-hda-match.o \
+ 	soc-acpi-intel-sdw-mockup-match.o
+diff --git a/sound/soc/intel/common/soc-acpi-intel-arl-match.c b/sound/soc/intel/common/soc-acpi-intel-arl-match.c
+new file mode 100644
+index 000000000000..e52797aae6e6
+--- /dev/null
++++ b/sound/soc/intel/common/soc-acpi-intel-arl-match.c
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * soc-apci-intel-arl-match.c - tables and support for ARL ACPI enumeration.
++ *
++ * Copyright (c) 2023 Intel Corporation.
++ */
++
++#include <sound/soc-acpi.h>
++#include <sound/soc-acpi-intel-match.h>
++
++static const struct snd_soc_acpi_endpoint single_endpoint = {
++	.num = 0,
++	.aggregated = 0,
++	.group_position = 0,
++	.group_id = 0,
++};
++
++static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
++	{
++		.adr = 0x000020025D071100ull,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt711"
++	}
++};
++
++static const struct snd_soc_acpi_link_adr arl_rvp[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_0_adr),
++		.adr_d = rt711_0_adr,
++	},
++	{}
++};
++
++struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_machines[] = {
++	{},
++};
++EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_arl_machines);
++
++/* this table is used when there is no I2S codec present */
++struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_sdw_machines[] = {
++	{
++		.link_mask = 0x1, /* link0 required */
++		.links = arl_rvp,
++		.drv_name = "sof_sdw",
++		.sof_tplg_filename = "sof-arl-rt711.tplg",
++	},
++	{},
++};
++EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_arl_sdw_machines);
 -- 
 2.25.1
 

@@ -2,100 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 927887A18E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 10:33:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E74C7A18EA
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 10:33:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F30B4E88;
-	Fri, 15 Sep 2023 10:32:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F30B4E88
+	by alsa0.perex.cz (Postfix) with ESMTPS id 538DCA4D;
+	Fri, 15 Sep 2023 10:32:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 538DCA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694766802;
-	bh=wNmoSdb7j2poAiJ2XjaiJXXhInnkS/FAulrMuAiWK1g=;
+	s=default; t=1694766829;
+	bh=7a2pAZv+lVyqQv5oMAegiTF/XssIWnDCr68dZjHxxGI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Vz/1bnLoymRFg1/gWJ1NVDaTmvc2ilCv/4dWSJBwFJR0lrRyu2iwR+FgupF3Lheuj
-	 Ettd+T1ump02hggG1Bm4JpRIb7PtnbOk1s5IKBvSJdVcAgcRzJROtH2VPGL/+N7oax
-	 5zsjumJLbpde+VO3mT/HYz0ydtXk7291kRqvOWtc=
+	b=ZSs3n7Rupbfwj03QQOqyhGEFLwnbE8ROvfPeAJbtalZvsqOUzUT2EtH+euJVJTZX6
+	 hp3suvcvaVT3Ztjj5efcPQXenalbZLnEoaDwuTBH+tyrDvR2HOPMvkbsFptwbT1qqH
+	 J6IEnAvbDi64hXILzQTBgN2WyzYM0hOFhDuLHdtA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0D08F80551; Fri, 15 Sep 2023 10:30:57 +0200 (CEST)
+	id F36B9F80552; Fri, 15 Sep 2023 10:31:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06D7DF80549;
-	Fri, 15 Sep 2023 10:30:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F4ADF80552;
+	Fri, 15 Sep 2023 10:31:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F4E1F8055A; Fri, 15 Sep 2023 10:30:52 +0200 (CEST)
+	id 9EC1BF80552; Fri, 15 Sep 2023 10:31:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EA13EF80431
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 10:30:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA13EF80431
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0F2C4F8007C
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 10:31:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F2C4F8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=U/I1BlOO;
+ header.s=susede2_rsa header.b=rwOdIsx5;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=USh0L8qF
+ header.s=susede2_ed25519 header.b=TL/0dtrA
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 72D421F854;
-	Fri, 15 Sep 2023 08:30:42 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DC06A2187D;
+	Fri, 15 Sep 2023 08:31:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1694766642;
+	t=1694766681;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zoR8tH7vOlEjpM7/Kw9ZxTVK2aFUWFOqSHx/UDPS8ik=;
-	b=U/I1BlOOWmkpVT48c0L3LQBW14Z2Rx6jbYyFX9TMt0ltP3JPLIzt6/SB+5/ylat7Hx2xG5
-	T2rPzGYvCb3hNACqQ64H79Y7q2JVUFWKodeABg8KawsybMuLZBHLtjjf+fHk8huqhWCMYL
-	qyybZ0ip1q/t6Qk9jp+8zIjdmFkOIz8=
+	bh=q2Beeu5CPtfOOLJTu6GgdOUwpcTJvByrQgKRtH+jqas=;
+	b=rwOdIsx5ZAji3I0kvtYRyEICeSjZDJV7AVZfAxDjDdpOAcxgxt7gzfFquV4VyKf6b66TSW
+	4h0H0MXSuhcNz4Hze9nvbFE7pW+7IwOvh/kzd7vfuTQszdxZBkjTttVSnSQBHeq+C273iJ
+	yM+gkJkCViqw3tRNMg3KI78JHlMJXtM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1694766642;
+	s=susede2_ed25519; t=1694766681;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zoR8tH7vOlEjpM7/Kw9ZxTVK2aFUWFOqSHx/UDPS8ik=;
-	b=USh0L8qF8jRettgkGx44cfRh7VoF24TMPbOk+ugVeXy4yPI6NY799WST4tjYYgOBLVFYpk
-	4a4mqR3VGGwDTiAw==
+	bh=q2Beeu5CPtfOOLJTu6GgdOUwpcTJvByrQgKRtH+jqas=;
+	b=TL/0dtrAOQ0daQwqQtmkkm+RqbpF2gHaH80OM/UQymRDE9BlRwlq2dFQIFRInUtCGXGzuh
+	6JP9BH3KnlKnSiBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4AADD1358A;
-	Fri, 15 Sep 2023 08:30:42 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A05491358A;
+	Fri, 15 Sep 2023 08:31:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id x4tUETIWBGX7QgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 15 Sep 2023 08:30:42 +0000
-Date: Fri, 15 Sep 2023 10:30:41 +0200
-Message-ID: <87pm2jx2ha.wl-tiwai@suse.de>
+	id GnXmJVkWBGVuQwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 15 Sep 2023 08:31:21 +0000
+Date: Fri, 15 Sep 2023 10:31:21 +0200
+Message-ID: <87o7i3x2g6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Re: Lenovo ThinkCentre M70q pop noise
-In-Reply-To: <315900e2efef42fd9855eacfeb443abd@realtek.com>
-References: <315900e2efef42fd9855eacfeb443abd@realtek.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<patches@opensource.cirrus.com>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] ALSA: hda: cs35l56: Fix missing RESET GPIO if _SUB is
+ missing
+In-Reply-To: <20230914152525.20829-1-rf@opensource.cirrus.com>
+References: <20230914152525.20829-1-rf@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 6MHUFVBGZJAPZAU4MNC3YKHS5D2ZE4A4
-X-Message-ID-Hash: 6MHUFVBGZJAPZAU4MNC3YKHS5D2ZE4A4
+Message-ID-Hash: BFFRABZSVZQIJPIXKZRDGDXDJMHDEQ5E
+X-Message-ID-Hash: BFFRABZSVZQIJPIXKZRDGDXDJMHDEQ5E
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MHUFVBGZJAPZAU4MNC3YKHS5D2ZE4A4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BFFRABZSVZQIJPIXKZRDGDXDJMHDEQ5E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,14 +120,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 15 Sep 2023 09:16:43 +0200,
-Kailang wrote:
+On Thu, 14 Sep 2023 17:25:25 +0200,
+Richard Fitzgerald wrote:
 > 
-> Hi Takashi,
+> In cs35l56_hda_read_acpi() do not return if ACPI _SUB is missing.
 > 
-> Attach was a patch for solving boot up pop noise.
+> A missing _SUB means that the driver cannot load a system-specific
+> firmware, because the firmware is identified by the _SUB. But it can
+> fallback to a generic firmware. Unfortunately this was being handled
+> by immediately returning 0, which would skip the remaining ACPI
+> configuration in cs35l56_hda_read_acpi() and so it would not get the
+> RESET GPIO.
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> Fixes: 73cfbfa9caea ("ALSA: hda/cs35l56: Add driver for Cirrus Logic CS35L56 amplifier")
 
-Thanks, applied with a slight correction of the patch subject.
+Thanks, applied now.
 
 
 Takashi

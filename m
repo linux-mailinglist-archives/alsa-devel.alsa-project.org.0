@@ -2,101 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29E507A1A1C
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 11:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1367C7A1A38
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 11:18:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18DA384B;
-	Fri, 15 Sep 2023 11:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18DA384B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C1DE950;
+	Fri, 15 Sep 2023 11:17:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C1DE950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694769256;
-	bh=qzqZMSrlm8MofmMbgfIS1NfrvrvfbnjrGbA44oN3XSU=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=sANBP2BdytXy0kKAG69TFv6j5K4gWF/2Pw6H9ZQIObJ+Cfw2rvBz3ddqn5EktVsD3
-	 ixUgQtDIpLCnk4554IZsoS5Mv4q4ezV3yDPZJgSpY87QjY+rXcd2O9Sh43+QUpOTGD
-	 QqIIz3skv9xYgDVDce8C1HIyBxjq4h7xVuRXM55Q=
+	s=default; t=1694769503;
+	bh=CDwlISH8mA5+8r/atwWQjOKJK6Fu8LdmLkEDKau+iAQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rVsLF7qz714NU68dcUJgnnzRswG1P20UyUDWquDCDu4nqk0V0bXbcdIQ+nI8fCWkh
+	 z5BomxINcQdzV14NKGv489mc2rlOm+RUN9lR/xfY3pBWjnWIWz2k/wfAhhQVoDm4Hk
+	 GjDkd40Za0qu5PEnnkNLXNGm97HU8LAuGDeGszNg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 054DAF80549; Fri, 15 Sep 2023 11:13:24 +0200 (CEST)
+	id EA19AF80558; Fri, 15 Sep 2023 11:17:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 762F5F80425;
-	Fri, 15 Sep 2023 11:13:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2246DF80246;
+	Fri, 15 Sep 2023 11:17:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 237C9F80537; Fri, 15 Sep 2023 11:13:20 +0200 (CEST)
+	id 761D9F80425; Fri, 15 Sep 2023 11:17:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 60792F80246
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 11:13:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60792F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id D3A52F80141
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 11:17:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A52F80141
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=H7JSq7M4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=+59tMBi1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0B7A11F8AB;
-	Fri, 15 Sep 2023 09:13:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1694769196; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FU5N5ZUFYLEztewH7EzVmK64E92xSnsafUMID+RqehM=;
-	b=H7JSq7M406uQW6rl6dRIpnTsSelSeW7FhZUi1ncJ7ITVnl2c6a+LG2WWTG2MITuqaJWoGp
-	/ePzFHm1s8nTHWm/JCExmsBgIor3aQE6yQX9uQ9nw2Gu8HGH0+wwDi/sFaInyeycvuXe+9
-	n5WJzv/RMkuTlAPOoQj1oQxdR8M4uxU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1694769196;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FU5N5ZUFYLEztewH7EzVmK64E92xSnsafUMID+RqehM=;
-	b=+59tMBi1fRyFCpYIDu5fLvl6wFAuv/1DYssZ9Fi7RUdjx2Ob/n+QamESsMUKGXc+mib3iZ
-	SYtvHBv1BDniOjCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E3B4113A34;
-	Fri, 15 Sep 2023 09:13:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id EHWjNisgBGWcWQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 15 Sep 2023 09:13:15 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ALSA: riptide: Fix -Wformat-truncation warning for
- longname string
-Date: Fri, 15 Sep 2023 11:13:13 +0200
-Message-Id: <20230915091313.5988-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230915091313.5988-1-tiwai@suse.de>
-References: <20230915091313.5988-1-tiwai@suse.de>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=J0h7d6Cg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694769427; x=1726305427;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=CDwlISH8mA5+8r/atwWQjOKJK6Fu8LdmLkEDKau+iAQ=;
+  b=J0h7d6CgnwN2bPmfjfeadX5bjSuqBjByWDaRPSzovSK8r4NWWrQydJjl
+   JrByLBUGghwpLd8zwWv6URKkeN2vc6Jy/lNxOqpmv+/q6ISWRN0ftdJnz
+   4N5J3rNdsLME3Um6OdiBYFfbV41sV6ROfxmBmFG3WvVT9NNiMhTL3LwIA
+   VockiNi4M15CicN8n8CfYqqwtRCVltSFyIfHwdhnUJOb8wf6BncYZb8pv
+   gtoEiVnfURkjx2zqvwRfFwHo++zf7uqcrIOqAcyviPVMMxKFKdyF5EEvG
+   aUb4YdbpGCq496F3zZ5ooZOi/a/ODpMNqqOxu+zPK7/1R00ZJNSxX7L2L
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="369524153"
+X-IronPort-AV: E=Sophos;i="6.02,148,1688454000";
+   d="scan'208";a="369524153"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 02:17:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="744906235"
+X-IronPort-AV: E=Sophos;i="6.02,148,1688454000";
+   d="scan'208";a="744906235"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.91])
+ ([10.94.0.91])
+  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 02:16:59 -0700
+Message-ID: <1c887615-0e59-8556-e2ab-b985033519d7@linux.intel.com>
+Date: Fri, 15 Sep 2023 11:16:57 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] ASoC: hdaudio.c: Add missing check for devm_kstrdup
+Content-Language: en-US
+To: Chen Ni <nichen@iscas.ac.cn>, cezary.rojewski@intel.com,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ kuninori.morimoto.gx@renesas.com, brent.lu@intel.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20230915021344.3078-1-nichen@iscas.ac.cn>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20230915021344.3078-1-nichen@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QOA4B6264PFDP63Y437IVDNWQHXWF6SI
-X-Message-ID-Hash: QOA4B6264PFDP63Y437IVDNWQHXWF6SI
-X-MailFrom: tiwai@suse.de
+Message-ID-Hash: T5ZLQVJKOQOVZ5QKZGQ4ZUK6VSHHTD5E
+X-Message-ID-Hash: T5ZLQVJKOQOVZ5QKZGQ4ZUK6VSHHTD5E
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QOA4B6264PFDP63Y437IVDNWQHXWF6SI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T5ZLQVJKOQOVZ5QKZGQ4ZUK6VSHHTD5E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,43 +113,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The filling of card->longname can be gracefully truncated, as it's
-only informative.  Use scnprintf() and suppress the superfluous
-compile warning with -Wformat-truncation.
+On 9/15/2023 4:13 AM, Chen Ni wrote:
+> Because of the potential failure of the devm_kstrdup(), the
+> dl[i].codecs->name could be NULL.
+> Therefore, we need to check it and return -ENOMEM in order to transfer
+> the error.
+> 
+> Fixes: 97030a43371e ("ASoC: Intel: avs: Add HDAudio machine board")
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+> ---
+>   sound/soc/intel/avs/boards/hdaudio.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/sound/soc/intel/avs/boards/hdaudio.c b/sound/soc/intel/avs/boards/hdaudio.c
+> index cb00bc86ac94..8876558f19a1 100644
+> --- a/sound/soc/intel/avs/boards/hdaudio.c
+> +++ b/sound/soc/intel/avs/boards/hdaudio.c
+> @@ -55,6 +55,9 @@ static int avs_create_dai_links(struct device *dev, struct hda_codec *codec, int
+>   			return -ENOMEM;
+>   
+>   		dl[i].codecs->name = devm_kstrdup(dev, cname, GFP_KERNEL);
+> +		if (!dl[i].codecs->name)
+> +			return -ENOMEM;
+> +
+>   		dl[i].codecs->dai_name = pcm->name;
+>   		dl[i].num_codecs = 1;
+>   		dl[i].num_cpus = 1;
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/riptide/riptide.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+Good catch
 
-diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
-index b37c877c2c16..9dee0345f22c 100644
---- a/sound/pci/riptide/riptide.c
-+++ b/sound/pci/riptide/riptide.c
-@@ -2105,15 +2105,15 @@ __snd_card_riptide_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
- 	strcpy(card->driver, "RIPTIDE");
- 	strcpy(card->shortname, "Riptide");
- #ifdef SUPPORT_JOYSTICK
--	snprintf(card->longname, sizeof(card->longname),
--		 "%s at 0x%lx, irq %i mpu 0x%x opl3 0x%x gameport 0x%x",
--		 card->shortname, chip->port, chip->irq, chip->mpuaddr,
--		 chip->opladdr, chip->gameaddr);
-+	scnprintf(card->longname, sizeof(card->longname),
-+		  "%s at 0x%lx, irq %i mpu 0x%x opl3 0x%x gameport 0x%x",
-+		  card->shortname, chip->port, chip->irq, chip->mpuaddr,
-+		  chip->opladdr, chip->gameaddr);
- #else
--	snprintf(card->longname, sizeof(card->longname),
--		 "%s at 0x%lx, irq %i mpu 0x%x opl3 0x%x",
--		 card->shortname, chip->port, chip->irq, chip->mpuaddr,
--		 chip->opladdr);
-+	scnprintf(card->longname, sizeof(card->longname),
-+		  "%s at 0x%lx, irq %i mpu 0x%x opl3 0x%x",
-+		  card->shortname, chip->port, chip->irq, chip->mpuaddr,
-+		  chip->opladdr);
- #endif
- 	snd_riptide_proc_init(chip);
- 	err = snd_card_register(card);
--- 
-2.35.3
-
+Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>

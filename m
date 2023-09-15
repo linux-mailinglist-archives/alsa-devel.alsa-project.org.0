@@ -2,127 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 340127A1901
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 10:37:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC86B7A1902
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 10:37:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0DADE10;
-	Fri, 15 Sep 2023 10:36:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0DADE10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E886E97;
+	Fri, 15 Sep 2023 10:36:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E886E97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694767046;
-	bh=agloKg28g9/YDRsW6JpbMHgCzMLCcZvfA0DO3+uFT6U=;
-	h=From:Subject:Date:To:Cc:Reply-To:List-Id:List-Archive:List-Help:
-	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=q9h9FKOObcZ0Bc5Ki3dfaP5i07wEuc4z0GQ6prIcuij8nMZtJHkAfjlHtNzxFcyJz
-	 NsBf02qJbuBe7OVqOUKIrQXtxP5YgtFfM86sn6OcaYD9SpZbBnvJP9aiv/LWBP4iAv
-	 yzlplAbTXJ29M250sXBRBVMWCyLR8HP4e6FEjYi4=
+	s=default; t=1694767056;
+	bh=XMe4gH+B08X5RMvEPdEtSh9tiAuQiRRQ1ocx6OSJQ90=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=UPzvK3wbOQGOSh99AFZVUcQ4rrZBZJjPpkBqi5p4joL7J3tQQnrNJMAcsedmuOs2b
+	 LtB1efq1IyKF0PJNSxmYewgODpOzRZcmjTxMdDnmAaLi+7wYrj6prCy6eioI5XZUbA
+	 qcA5lp0DpOoadMdVDXoF60UQ9KXWkU4Nd6aOaqps=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB584F8058C; Fri, 15 Sep 2023 10:35:58 +0200 (CEST)
+	id C599DF805A9; Fri, 15 Sep 2023 10:36:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A122F80570;
-	Fri, 15 Sep 2023 10:35:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A31CF8059F;
+	Fri, 15 Sep 2023 10:36:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0806DF801F5; Fri, 15 Sep 2023 10:12:25 +0200 (CEST)
+	id E81A0F80425; Fri, 15 Sep 2023 10:12:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2BFFF801F5
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 10:12:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2BFFF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id BF42FF8007C
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 10:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF42FF8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=biImRSYA
+ header.s=k20201202 header.b=dd8dFNbr
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id C4F45CE29F2;
-	Fri, 15 Sep 2023 08:12:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ED4DEC433C9;
-	Fri, 15 Sep 2023 08:12:07 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2934C61F8B;
+	Fri, 15 Sep 2023 08:12:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B242AC113C9;
+	Fri, 15 Sep 2023 08:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694765528;
-	bh=agloKg28g9/YDRsW6JpbMHgCzMLCcZvfA0DO3+uFT6U=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=biImRSYA1Gz9ex5hNnBvsCHN9Ke70AUTaJ/1oXos0Jp7PNytynhYDldZqmwGGwqIG
-	 wBDKtPE0OTqUI1L63BvWt/+LCgVBbLdZCfr41q3wmoGf4wSW/aJrIfFwombizAcdZg
-	 qvSoZF/En9YlofX7qoeahgKwyA5XkjPRaozJcx0YgybsjABHPXaJjBTEuBtzK8LPQW
-	 jobWx6+oa9+BDtivYaoAnYXnxx8o2rsLE386o7+u+Um3TgcOPHoXDeCO9Jw/08P+7h
-	 vQQ0+r6aW6E3rdL67GLQm+1B22ApzP0EDxkQv5g6EBJoCtur/p98vje3l/BQ6kXwd+
-	 Ok5Q7hby1Jxgw==
+	s=k20201202; t=1694765530;
+	bh=XMe4gH+B08X5RMvEPdEtSh9tiAuQiRRQ1ocx6OSJQ90=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=dd8dFNbrY2eKv5BRVvT9o7FRHU/OSRYHdQMWdGRr2AWBOEfhPNrC55aNndGAnVLvy
+	 FrBLQytKnx10TBNJqjIfDZEQmZw6vuYquqC0pa4MY4HDFampDtnptsz9kimaWeb2Gs
+	 xfoVYwrMArjX1NOqqC0cw6HAEMspStNvFUXpZsJeraImtsnaoA6/uJvBSaSWt3Gxyg
+	 k+/gSDp+B0M1rTgoHviUfPX7aN99M0OSsQKEPMGqktocnkzjXAvYOa4o1V118AKIey
+	 +WBonlUVjrcBwapo60n6fsxSARWMWQAfNeu2hxdd7syYJdGavqpkLKlTMBPBS7yfvJ
+	 fgrNojU9LJWGw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C23FEEE6436;
-	Fri, 15 Sep 2023 08:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A084FEE6442;
+	Fri, 15 Sep 2023 08:12:10 +0000 (UTC)
 From: 
  Nikita Shubin via B4 Relay <devnull+nikita.shubin.maquefel.me@kernel.org>
-Subject: [PATCH v4 00/42] ep93xx device tree conversion
-Date: Fri, 15 Sep 2023 11:10:42 +0300
-Message-Id: <20230915-ep93xx-v4-0-a1d779dcec10@maquefel.me>
+Date: Fri, 15 Sep 2023 11:11:24 +0300
+Subject: [PATCH v4 42/42] ASoC: cirrus: edb93xx: Delete driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIMRBGUC/2WOzQ6CMBCEX8X07JJ2lx/15HsYDwUWu1GKtkgwh
- ncXuBjj8ctMvpm3ihyEozps3irwIFE6P0O63ajKWX9hkHpmhRpJ5zoDvu9pHEGbqsjJFIw1qrl
- c2shQBusrt9RbG3sOS3AP3Mi4LpzOMzeha6F3ge3Xm2JqkDLExOxIIxjwcpXeJtE9S/HH1j6e3
- PAtaXlROol9F17r54EW8d+9gUAD1TnZrDFGE/84ztM0fQBYHN69+gAAAA==
-To: Hartley Sweeten <hsweeten@visionengravers.com>,
+Message-Id: <20230915-ep93xx-v4-42-a1d779dcec10@maquefel.me>
+References: <20230915-ep93xx-v4-0-a1d779dcec10@maquefel.me>
+In-Reply-To: <20230915-ep93xx-v4-0-a1d779dcec10@maquefel.me>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Alexander Sverdlin <alexander.sverdlin@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Lukasz Majewski <lukma@denx.de>,
- Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Nikita Shubin <nikita.shubin@maquefel.me>,
- Sebastian Reichel <sre@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Mark Brown <broonie@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Damien Le Moal <dlemoal@kernel.org>, Sergey Shtylyov <s.shtylyov@omp.ru>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-spi@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-ide@vger.kernel.org,
- linux-input@vger.kernel.org, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Andrew Lunn <andrew@lunn.ch>
+ Nikita Shubin <nikita.shubin@maquefel.me>, Arnd Bergmann <arnd@arndb.de>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Takashi Iwai <tiwai@suse.de>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>
 X-Mailer: b4 0.13-dev-e3e53
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1694765525; l=10008;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1694765525; l=5005;
  i=nikita.shubin@maquefel.me; s=20230718; h=from:subject:message-id;
- bh=agloKg28g9/YDRsW6JpbMHgCzMLCcZvfA0DO3+uFT6U=; =?utf-8?q?b=3DlFhzja5WXyxz?=
- =?utf-8?q?/PLTphurB/M7+sirpyh84veoDhmItUYEygTnM2rKc8vgA4hyFJjn2QEJembynYrr?=
- my3ZXC3QCmFL6iSycW9kRWpVdxebuBU00lnoSjSyA95RpVxeZd1i
+ bh=5H/AhoUK+yJvLHtkGvg+ugJ2oZLcgzPnv9WeEQfV0LM=; =?utf-8?q?b=3DmRW5JHllCeDr?=
+ =?utf-8?q?2+GVsnn0VnCeZcdbrCNIg/utv5YqO/00LhjkGtz4t+3jK1nbYNA+OLQtkKcu7SND?=
+ 1C2oQEn3Df1lu2o2VOW9k8BbRop4tIde8JPYWLb18AFvmhYpnzLs
 X-Developer-Key: i=nikita.shubin@maquefel.me; a=ed25519;
  pk=vqf5YIUJ7BJv3EJFaNNxWZgGuMgDH6rwufTLflwU9ac=
 X-Endpoint-Received: 
@@ -134,16 +100,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: EZOAMVAXRCXXNLPM4DMONRJW2L3AZAVS
-X-Message-ID-Hash: EZOAMVAXRCXXNLPM4DMONRJW2L3AZAVS
-X-Mailman-Approved-At: Fri, 15 Sep 2023 08:35:54 +0000
+Message-ID-Hash: CLBMDXDVBBERWQMTEJQFVGKZEZYZIPYG
+X-Message-ID-Hash: CLBMDXDVBBERWQMTEJQFVGKZEZYZIPYG
+X-Mailman-Approved-At: Fri, 15 Sep 2023 08:35:55 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 Reply-To: nikita.shubin@maquefel.me
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZOAMVAXRCXXNLPM4DMONRJW2L3AZAVS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLBMDXDVBBERWQMTEJQFVGKZEZYZIPYG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,225 +118,173 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This series aims to convert ep93xx from platform to full device tree support.
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 
-The main goal is to receive ACK's to take it via Arnd's arm-soc branch.
+Can be replaced with "simple-audio-card" for the rates up to 50kHz, refer
+to commit "ARM: dts: ep93xx: Add EDB9302 DT".
 
-Major changes:
-- drop newline at the end from each YAML files
-- rename dma and clk bindings headers to match first compatible
-- shrink SoC exported functions number to only 2
-- dropped some ep93xx_pata fixes from these series
-- dropped m48t86 stuff from these series
-
-Bit thanks to Andy Shevchenko for thorough review.
-
-Some parts are were sent in advance, so these series depends on the
-following:
-
-Link: https://lore.kernel.org/all/20230823-m48t86_device_tree-v2-0-21ff275f949d@maquefel.me/
-Link: https://lore.kernel.org/all/20230823-ep93xx_pata_fixes-v1-0-d7e7229be148@maquefel.me/
-
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Acked-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Nikita Shubin <nikita.shubin@maquefel.me>
 ---
-Changes in v4:
+ sound/soc/cirrus/Kconfig   |   9 ----
+ sound/soc/cirrus/Makefile  |   4 --
+ sound/soc/cirrus/edb93xx.c | 117 ---------------------------------------------
+ 3 files changed, 130 deletions(-)
 
-- gpio: ep93xx: split device in multiple
-  - s/generic_handle_irq/generic_handle_domain_irq/
-  - s/int offset/irq_hw_number_t offset/ though now it looks a bit odd to me
-  - drop i = 0
-  - drop 'error'
-  - use dev_err_probe withour printing devname once again
-
-dt-bindings: clock: Add Cirrus EP93xx
-  - renamed cirrus,ep93xx-clock.h -> cirrus,ep9301-clk.h
-
-clk: ep93xx: add DT support for Cirrus EP93xx
-  - drop unused includes
-  - use .name only for xtali, pll1, pll2 parents
-  - convert // to /*
-  - pass clk_parent_data instead of char* clock name
-
-dt-bindings: pinctrl: Add Cirrus EP93xx
-  - s/additionalProperties/unevaluatedProperties/
-
-dt-bindings: soc: Add Cirrus EP93xx
-  - move syscon to soc directory
-  - add vendor prefix
-  - make reboot same style as pinctrl, clk
-  - use absolute path for ref
-  - expand example
-
-soc: Add SoC driver for Cirrus ep93xx
-  - s/0xf0000000/GENMASK(31, 28)/
-  - s/ret/ep93xx_chip_revision(map)/
-  - drop symbol exports
-  - convert to platform driver
-
-dt-bindings: rtc: Add Cirrus EP93xx
-  - allOf: with $ref to rtc.yaml
-  - s/additionalProperties/unevaluatedProperties/
-
-dt-bindings: watchdog: Add Cirrus EP93x
-  - drop description
-  - reword
-
-power: reset: Add a driver for the ep93xx reset
-  - lets use 'GPL-2.0+' instead of '(GPL-2.0)'
-  - s/of_device/of/
-  - drop mdelay with warning
-  - return 0 at the end
-
-net: cirrus: add DT support for Cirrus EP93xx
-  - fix leaking np
-
-mtd: nand: add support for ts72xx
-  - +bits.h
-  - drop comment
-  - ok to fwnode_get_next_child_node
-  - use goto to put handle and nand and report error
-
-ARM: dts: add Cirrus EP93XX SoC .dtsi
-  - add simple-bus for ebi, as we don't require to setup anything
-  - add arm,pl011 compatible to uart nodes
-  - drop i2c-gpio, as it's isn't used anywhere
-
-ARM: dts: ep93xx: add ts7250 board
-  - generic node name for temperature-sensor
-  - drop i2c
-  - move nand, rtc, watchdog to ebi node
+diff --git a/sound/soc/cirrus/Kconfig b/sound/soc/cirrus/Kconfig
+index 38a83c4dcc2d..97def4e53fbc 100644
+--- a/sound/soc/cirrus/Kconfig
++++ b/sound/soc/cirrus/Kconfig
+@@ -31,12 +31,3 @@ config SND_EP93XX_SOC_I2S_WATCHDOG
  
-- Link to v3: https://lore.kernel.org/r/20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me
+ endif # if SND_EP93XX_SOC_I2S
+ 
+-config SND_EP93XX_SOC_EDB93XX
+-	tristate "SoC Audio support for Cirrus Logic EDB93xx boards"
+-	depends on SND_EP93XX_SOC && (MACH_EDB9301 || MACH_EDB9302 || MACH_EDB9302A || MACH_EDB9307A || MACH_EDB9315A)
+-	select SND_EP93XX_SOC_I2S
+-	select SND_SOC_CS4271_I2C if I2C
+-	select SND_SOC_CS4271_SPI if SPI_MASTER
+-	help
+-	  Say Y or M here if you want to add support for I2S audio on the
+-	  Cirrus Logic EDB93xx boards.
+diff --git a/sound/soc/cirrus/Makefile b/sound/soc/cirrus/Makefile
+index 19a86daad660..5916c03888cb 100644
+--- a/sound/soc/cirrus/Makefile
++++ b/sound/soc/cirrus/Makefile
+@@ -6,7 +6,3 @@ snd-soc-ep93xx-i2s-objs	 			:= ep93xx-i2s.o
+ obj-$(CONFIG_SND_EP93XX_SOC)			+= snd-soc-ep93xx.o
+ obj-$(CONFIG_SND_EP93XX_SOC_I2S)		+= snd-soc-ep93xx-i2s.o
+ 
+-# EP93XX Machine Support
+-snd-soc-edb93xx-objs				:= edb93xx.o
+-
+-obj-$(CONFIG_SND_EP93XX_SOC_EDB93XX)		+= snd-soc-edb93xx.o
+diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
+deleted file mode 100644
+index f49caab21a25..000000000000
+--- a/sound/soc/cirrus/edb93xx.c
++++ /dev/null
+@@ -1,117 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * SoC audio for EDB93xx
+- *
+- * Copyright (c) 2010 Alexander Sverdlin <subaparts@yandex.ru>
+- *
+- * This driver support CS4271 codec being master or slave, working
+- * in control port mode, connected either via SPI or I2C.
+- * The data format accepted is I2S or left-justified.
+- * DAPM support not implemented.
+- */
+-
+-#include <linux/platform_device.h>
+-#include <linux/gpio.h>
+-#include <linux/module.h>
+-#include <linux/soc/cirrus/ep93xx.h>
+-#include <sound/core.h>
+-#include <sound/pcm.h>
+-#include <sound/soc.h>
+-#include <asm/mach-types.h>
+-
+-static int edb93xx_hw_params(struct snd_pcm_substream *substream,
+-			     struct snd_pcm_hw_params *params)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+-	int err;
+-	unsigned int mclk_rate;
+-	unsigned int rate = params_rate(params);
+-
+-	/*
+-	 * According to CS4271 datasheet we use MCLK/LRCK=256 for
+-	 * rates below 50kHz and 128 for higher sample rates
+-	 */
+-	if (rate < 50000)
+-		mclk_rate = rate * 64 * 4;
+-	else
+-		mclk_rate = rate * 64 * 2;
+-
+-	err = snd_soc_dai_set_sysclk(codec_dai, 0, mclk_rate,
+-				     SND_SOC_CLOCK_IN);
+-	if (err)
+-		return err;
+-
+-	return snd_soc_dai_set_sysclk(cpu_dai, 0, mclk_rate,
+-				      SND_SOC_CLOCK_OUT);
+-}
+-
+-static const struct snd_soc_ops edb93xx_ops = {
+-	.hw_params	= edb93xx_hw_params,
+-};
+-
+-SND_SOC_DAILINK_DEFS(hifi,
+-	DAILINK_COMP_ARRAY(COMP_CPU("ep93xx-i2s")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("spi0.0", "cs4271-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("ep93xx-i2s")));
+-
+-static struct snd_soc_dai_link edb93xx_dai = {
+-	.name		= "CS4271",
+-	.stream_name	= "CS4271 HiFi",
+-	.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+-			  SND_SOC_DAIFMT_CBC_CFC,
+-	.ops		= &edb93xx_ops,
+-	SND_SOC_DAILINK_REG(hifi),
+-};
+-
+-static struct snd_soc_card snd_soc_edb93xx = {
+-	.name		= "EDB93XX",
+-	.owner		= THIS_MODULE,
+-	.dai_link	= &edb93xx_dai,
+-	.num_links	= 1,
+-};
+-
+-static int edb93xx_probe(struct platform_device *pdev)
+-{
+-	struct snd_soc_card *card = &snd_soc_edb93xx;
+-	int ret;
+-
+-	ret = ep93xx_i2s_acquire();
+-	if (ret)
+-		return ret;
+-
+-	card->dev = &pdev->dev;
+-
+-	ret = snd_soc_register_card(card);
+-	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card() failed: %d\n",
+-			ret);
+-		ep93xx_i2s_release();
+-	}
+-
+-	return ret;
+-}
+-
+-static void edb93xx_remove(struct platform_device *pdev)
+-{
+-	struct snd_soc_card *card = platform_get_drvdata(pdev);
+-
+-	snd_soc_unregister_card(card);
+-	ep93xx_i2s_release();
+-}
+-
+-static struct platform_driver edb93xx_driver = {
+-	.driver		= {
+-		.name	= "edb93xx-audio",
+-	},
+-	.probe		= edb93xx_probe,
+-	.remove_new	= edb93xx_remove,
+-};
+-
+-module_platform_driver(edb93xx_driver);
+-
+-MODULE_AUTHOR("Alexander Sverdlin <subaparts@yandex.ru>");
+-MODULE_DESCRIPTION("ALSA SoC EDB93xx");
+-MODULE_LICENSE("GPL");
+-MODULE_ALIAS("platform:edb93xx-audio");
 
----
-Alexander Sverdlin (2):
-      ARM: dts: ep93xx: Add EDB9302 DT
-      ASoC: cirrus: edb93xx: Delete driver
-
-Nikita Shubin (40):
-      gpio: ep93xx: split device in multiple
-      ARM: ep93xx: add swlocked prototypes
-      dt-bindings: clock: Add Cirrus EP93xx
-      clk: ep93xx: add DT support for Cirrus EP93xx
-      dt-bindings: pinctrl: Add Cirrus EP93xx
-      pinctrl: add a Cirrus ep93xx SoC pin controller
-      dt-bindings: power: reset: Add ep93xx reset
-      power: reset: Add a driver for the ep93xx reset
-      dt-bindings: soc: Add Cirrus EP93xx
-      soc: Add SoC driver for Cirrus ep93xx
-      dt-bindings: timers: Add Cirrus EP93xx
-      clocksource: ep93xx: Add driver for Cirrus Logic EP93xx
-      dt-bindings: rtc: Add Cirrus EP93xx
-      rtc: ep93xx: add DT support for Cirrus EP93xx
-      dt-bindings: watchdog: Add Cirrus EP93x
-      watchdog: ep93xx: add DT support for Cirrus EP93xx
-      dt-bindings: pwm: Add Cirrus EP93xx
-      pwm: ep93xx: add DT support for Cirrus EP93xx
-      dt-bindings: spi: Add Cirrus EP93xx
-      spi: ep93xx: add DT support for Cirrus EP93xx
-      dt-bindings: net: Add Cirrus EP93xx
-      net: cirrus: add DT support for Cirrus EP93xx
-      dt-bindings: dma: Add Cirrus EP93xx
-      dma: cirrus: add DT support for Cirrus EP93xx
-      dt-bindings: mtd: Add ts7200 nand-controller
-      mtd: nand: add support for ts72xx
-      dt-bindings: ata: Add Cirrus EP93xx
-      ata: pata_ep93xx: add device tree support
-      dt-bindings: input: Add Cirrus EP93xx keypad
-      input: keypad: ep93xx: add DT support for Cirrus EP93xx
-      dt-bindings: wdt: Add ts72xx
-      wdt: ts72xx: add DT support for ts72xx
-      gpio: ep93xx: add DT support for gpio-ep93xx
-      ARM: dts: add Cirrus EP93XX SoC .dtsi
-      ARM: dts: ep93xx: add ts7250 board
-      ARM: ep93xx: DT for the Cirrus ep93xx SoC platforms
-      pwm: ep93xx: drop legacy pinctrl
-      ata: pata_ep93xx: remove legacy pinctrl use
-      ARM: ep93xx: delete all boardfiles
-      ARM: ep93xx: soc: drop defines
-
- .../bindings/arm/cirrus/cirrus,ep9301.yaml         |   38 +
- .../bindings/ata/cirrus,ep9312-pata.yaml           |   42 +
- .../bindings/clock/cirrus,ep9301-clk.yaml          |   46 +
- .../bindings/dma/cirrus,ep9301-dma-m2m.yaml        |   69 +
- .../bindings/dma/cirrus,ep9301-dma-m2p.yaml        |  121 ++
- .../bindings/input/cirrus,ep9307-keypad.yaml       |   87 ++
- .../devicetree/bindings/mtd/technologic,nand.yaml  |   45 +
- .../devicetree/bindings/net/cirrus,ep9301-eth.yaml |   59 +
- .../bindings/pinctrl/cirrus,ep9301-pinctrl.yaml    |   57 +
- .../bindings/power/reset/cirrus,ep9301-reboot.yaml |   34 +
- .../devicetree/bindings/pwm/cirrus,ep9301-pwm.yaml |   46 +
- .../devicetree/bindings/rtc/cirrus,ep9301-rtc.yaml |   42 +
- .../bindings/soc/cirrus/cirrus,ep9301-syscon.yaml  |   71 +
- .../devicetree/bindings/spi/cirrus,ep9301-spi.yaml |   61 +
- .../bindings/timer/cirrus,ep9301-timer.yaml        |   49 +
- .../bindings/watchdog/cirrus,ep9301-wdt.yaml       |   42 +
- .../bindings/watchdog/technologic,ts7200-wdt.yaml  |   45 +
- arch/arm/Makefile                                  |    1 -
- arch/arm/boot/dts/cirrus/Makefile                  |    4 +
- arch/arm/boot/dts/cirrus/ep93xx-bk3.dts            |  124 ++
- arch/arm/boot/dts/cirrus/ep93xx-edb9302.dts        |  180 +++
- arch/arm/boot/dts/cirrus/ep93xx-ts7250.dts         |  143 ++
- arch/arm/boot/dts/cirrus/ep93xx.dtsi               |  454 +++++++
- arch/arm/mach-ep93xx/Kconfig                       |   20 +-
- arch/arm/mach-ep93xx/Makefile                      |   11 -
- arch/arm/mach-ep93xx/clock.c                       |  733 ----------
- arch/arm/mach-ep93xx/core.c                        | 1017 --------------
- arch/arm/mach-ep93xx/dma.c                         |  114 --
- arch/arm/mach-ep93xx/edb93xx.c                     |  344 -----
- arch/arm/mach-ep93xx/ep93xx-regs.h                 |   38 -
- arch/arm/mach-ep93xx/gpio-ep93xx.h                 |  111 --
- arch/arm/mach-ep93xx/hardware.h                    |   25 -
- arch/arm/mach-ep93xx/irqs.h                        |   76 --
- arch/arm/mach-ep93xx/platform.h                    |   42 -
- arch/arm/mach-ep93xx/soc.h                         |  212 ---
- arch/arm/mach-ep93xx/ts72xx.c                      |  422 ------
- arch/arm/mach-ep93xx/ts72xx.h                      |   94 --
- arch/arm/mach-ep93xx/vision_ep9307.c               |  311 -----
- drivers/ata/pata_ep93xx.c                          |   33 +-
- drivers/clk/Kconfig                                |    8 +
- drivers/clk/Makefile                               |    1 +
- drivers/clk/clk-ep93xx.c                           |  753 +++++++++++
- drivers/clocksource/Kconfig                        |   11 +
- drivers/clocksource/Makefile                       |    1 +
- .../clocksource}/timer-ep93xx.c                    |  155 ++-
- drivers/dma/ep93xx_dma.c                           |  125 +-
- drivers/gpio/gpio-ep93xx.c                         |  331 ++---
- drivers/input/keyboard/ep93xx_keypad.c             |   74 +-
- drivers/mtd/nand/raw/Kconfig                       |    7 +
- drivers/mtd/nand/raw/Makefile                      |    1 +
- drivers/mtd/nand/raw/technologic-nand-controller.c |  166 +++
- drivers/net/ethernet/cirrus/ep93xx_eth.c           |   63 +-
- drivers/pinctrl/Kconfig                            |    7 +
- drivers/pinctrl/Makefile                           |    1 +
- drivers/pinctrl/pinctrl-ep93xx.c                   | 1429 ++++++++++++++++++++
- drivers/power/reset/Kconfig                        |   10 +
- drivers/power/reset/Makefile                       |    1 +
- drivers/power/reset/ep93xx-restart.c               |   85 ++
- drivers/pwm/pwm-ep93xx.c                           |   26 +-
- drivers/rtc/rtc-ep93xx.c                           |    8 +
- drivers/soc/Kconfig                                |    1 +
- drivers/soc/Makefile                               |    1 +
- drivers/soc/cirrus/Kconfig                         |   12 +
- drivers/soc/cirrus/Makefile                        |    2 +
- drivers/soc/cirrus/soc-ep93xx.c                    |  215 +++
- drivers/spi/spi-ep93xx.c                           |   28 +-
- drivers/watchdog/ep93xx_wdt.c                      |    8 +
- drivers/watchdog/ts72xx_wdt.c                      |    8 +
- include/dt-bindings/clock/cirrus,ep9301-clk.h      |   41 +
- include/dt-bindings/dma/cirrus,ep93xx-dma.h        |   26 +
- include/linux/platform_data/dma-ep93xx.h           |   25 +-
- include/linux/platform_data/eth-ep93xx.h           |   10 -
- include/linux/platform_data/keypad-ep93xx.h        |   32 -
- include/linux/soc/cirrus/ep93xx.h                  |   29 +-
- sound/soc/cirrus/Kconfig                           |    9 -
- sound/soc/cirrus/Makefile                          |    4 -
- sound/soc/cirrus/edb93xx.c                         |  117 --
- 77 files changed, 5126 insertions(+), 4168 deletions(-)
----
-base-commit: bdc09c8e8b16d494ccd1c56e903e78dd76455a35
-change-id: 20230605-ep93xx-01c76317e2d2
-
-Best regards,
 -- 
-Nikita Shubin <nikita.shubin@maquefel.me>
+2.39.2
 

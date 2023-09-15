@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCFB47A1E81
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:21:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35BB37A1EB4
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:27:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF34BDEC;
-	Fri, 15 Sep 2023 14:20:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF34BDEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E41D1CE;
+	Fri, 15 Sep 2023 14:26:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E41D1CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694780469;
-	bh=/KtARGUTNUYC8Ta5XYT5RkLqgJzSTPMc685aQmGQyy8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1694780858;
+	bh=JOeaiOvA9aSzfqtb72DtC8F5kZInpmUOpbcL9asatYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tbIHLWhkph7PiXuiKO3TPyFS8xKYnW1Tp5gxBjUojNdXUEj1fnVN3rSPNtZvtG6iA
-	 JP3SDg64vbR6oTM1T8JdtIeN3YYJ1zihmliPGgMebRiJePpYyWo6SmcjCxYTi5spGW
-	 jJ3hkhwe3B6q4JUSFbOGnOlD1oosPvdxZxgOkJ54=
+	b=g1/UGG3EXYmqNw7YbeUInq5qfu5+u5/rE1XNdh2sKhyewZZRJBby3NHYwCUxhG+LJ
+	 1L0OqFvRhVZVDqLKl0kwkiPp7QhMRaPJiC7SISEupJ8pORR8q3yzyGK+Y5f/jgAI6R
+	 s16ttT0matnfMZzALhNXsiyEefaW6+FO96RXWF3I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83F0AF805AB; Fri, 15 Sep 2023 14:18:56 +0200 (CEST)
+	id 62EC3F80551; Fri, 15 Sep 2023 14:26:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE75FF805A1;
-	Fri, 15 Sep 2023 14:18:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02056F80246;
+	Fri, 15 Sep 2023 14:26:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41EC9F80564; Fri, 15 Sep 2023 14:18:50 +0200 (CEST)
+	id 74CB2F80425; Fri, 15 Sep 2023 14:26:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,47 +36,53 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5E997F80425
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:18:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E997F80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2C858F80141
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:26:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C858F80141
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ksDRS4lH
+ header.s=k20201202 header.b=lqsAO6gf
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id DBCE1B82DAD;
-	Fri, 15 Sep 2023 12:18:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22177C433C7;
-	Fri, 15 Sep 2023 12:18:42 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 4360EB82DDE;
+	Fri, 15 Sep 2023 12:26:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768C7C433C8;
+	Fri, 15 Sep 2023 12:26:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694780325;
-	bh=/KtARGUTNUYC8Ta5XYT5RkLqgJzSTPMc685aQmGQyy8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ksDRS4lHnXSTx570FtYG6CkhT/488rFhigHVkAnyxOwJnclr/nWb47WJkwZXapJyT
-	 3NxfGQ/yTV6vYVh/66GzUNcLauKm/nax+unW3ndN5x00TqNcT+GYjY8HaCAX+UZ9Ek
-	 s3Ux/zSHRrV1c8rfpnxfRLXs46SIVWzyKJW5HnV6nzy8IUKrT/dkOa4p0DYLPUF5Nb
-	 z2ldAWD3+XGabuDKhnWNHoUO+biRprqtPDYxIwD7+73iRlCnjw9mDz8AUty6Hozn6G
-	 DksFgAO8b9adC4HWHLzUP2yKOk9OzlsXzPpuc++B3fZwCno/SJSBcw8c2JRh3cYVuE
-	 10lYzQ2DIkSJQ==
+	s=k20201202; t=1694780772;
+	bh=JOeaiOvA9aSzfqtb72DtC8F5kZInpmUOpbcL9asatYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lqsAO6gfiPtIyCZa6PvfTrsBBx8PbvTyahGSVVl5JCl68zD/er9oQ5a1hf9IfFfnu
+	 sQtcx+14SO2pE1jJhLZmlqDM8fcWLaSaPFqbqlqBk1nkCLKU6kJePXDSRk5De4cW//
+	 zEJGITFYLVuM9LLOhNUb2phka7l8RsUko8Dh2vNwb6yO0h0q96/3qMpAAamAqC7Ya6
+	 V4JJhMHFT0YHF/F6g10zOyvXFZJ888T/ixbJ6r7LPwLW9aanT1CTrxSbRUC658437F
+	 MNM7ND6wf/IVaidLRNfEtCs5D0mw3kFCCH198OD2YRGmRq7L3P2cGMiEnwbM03BLp+
+	 8MNl5kLPYclDA==
+Date: Fri, 15 Sep 2023 13:26:06 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com
-In-Reply-To: <20230914132504.18463-1-peter.ujfalusi@linux.intel.com>
-References: <20230914132504.18463-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v2] ASoC: SOF: ipc4-topology: fix wrong sizeof argument
-Message-Id: <169478032268.22068.13080757296727762399.b4-ty@kernel.org>
-Date: Fri, 15 Sep 2023 13:18:42 +0100
+To: nikita.shubin@maquefel.me
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	Takashi Iwai <tiwai@suse.de>, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v4 42/42] ASoC: cirrus: edb93xx: Delete driver
+Message-ID: <63fd4212-6544-4fa3-b10b-f7f38137b06c@sirena.org.uk>
+References: <20230915-ep93xx-v4-0-a1d779dcec10@maquefel.me>
+ <20230915-ep93xx-v4-42-a1d779dcec10@maquefel.me>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: RKQD7YYMVQ3TATP4XN3E75TA3NR3O44I
-X-Message-ID-Hash: RKQD7YYMVQ3TATP4XN3E75TA3NR3O44I
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WBj+u/ilrjOP7tNM"
+Content-Disposition: inline
+In-Reply-To: <20230915-ep93xx-v4-42-a1d779dcec10@maquefel.me>
+X-Cookie: Gravity brings me down.
+Message-ID-Hash: 3TBXGFB73KOTG66O2CQIAE2BHVSFTXAZ
+X-Message-ID-Hash: 3TBXGFB73KOTG66O2CQIAE2BHVSFTXAZ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RKQD7YYMVQ3TATP4XN3E75TA3NR3O44I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TBXGFB73KOTG66O2CQIAE2BHVSFTXAZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,36 +104,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 14 Sep 2023 16:25:04 +0300, Peter Ujfalusi wrote:
-> available_fmt is a pointer.
-> 
-> 
 
-Applied to
+--WBj+u/ilrjOP7tNM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Sep 15, 2023 at 11:11:24AM +0300, Nikita Shubin via B4 Relay wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+>=20
+> Can be replaced with "simple-audio-card" for the rates up to 50kHz, refer
+> to commit "ARM: dts: ep93xx: Add EDB9302 DT".
 
-Thanks!
+Please use audio-graph-card2 for new systems, it's a more flexible
+replacement.
 
-[1/1] ASoC: SOF: ipc4-topology: fix wrong sizeof argument
-      commit: 6ba59c008f08e84b3c87be10f3391c9735e4f833
+--WBj+u/ilrjOP7tNM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUETV0ACgkQJNaLcl1U
+h9DUgwf9GWnPbx+GEF+jTZxt9NpWNVd7+WyyyAyfFMpRrGXjysCtrKkWTDFQ/uJ9
+e2UK5xCHpf0WVNmGDG0WRvlgzlI5POCCE9H+YkIPBBsGQZtnxmj57PLRQpv1DYlL
+YUuCITGE67RgEMwQHRu6XJh9gW5PY9deRRaKWW6+kWFNiED72G12gOB1/obftnUh
+A7EowQO3vQrAGDG4dic9OvUbZ66ihwd+t9BDtWa17rmo/0lZ3eahi6hu2pCegArr
+Avi5x/S2zdW2Bns7BbwxFcaYfuhX3psY9cszsw43tGWs9ZZNQIRltCi/KGONgl4H
+6lDc29Bhf+aYxXDaKsch4Bq6oAxDcA==
+=hBHf
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--WBj+u/ilrjOP7tNM--

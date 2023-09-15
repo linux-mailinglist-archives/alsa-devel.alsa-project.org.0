@@ -2,35 +2,35 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 550407A18E7
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 10:33:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 927887A18E8
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 10:33:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDB48E73;
-	Fri, 15 Sep 2023 10:32:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB48E73
+	by alsa0.perex.cz (Postfix) with ESMTPS id F30B4E88;
+	Fri, 15 Sep 2023 10:32:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F30B4E88
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694766784;
-	bh=74gKOM0V0y5u596d0Ym8zR6EbA2xua4lcyhFXs9xeeo=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=HV/8SiOEPkreb6jZw/krzycWLSJjxX5s2uwnPaMB7hJiJI158NcSL4xoI3Oitio/u
-	 Ctbpy6+G02IWg/wGTEUt/1pB4A8qGbIW934u8R66gVnl8v9sgl0piUuZ817Erxq4+r
-	 EzqDMdNRUNXn3hmhMALSjaVQCh7J//hmbDvGXNo4=
+	s=default; t=1694766802;
+	bh=wNmoSdb7j2poAiJ2XjaiJXXhInnkS/FAulrMuAiWK1g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Vz/1bnLoymRFg1/gWJ1NVDaTmvc2ilCv/4dWSJBwFJR0lrRyu2iwR+FgupF3Lheuj
+	 Ettd+T1ump02hggG1Bm4JpRIb7PtnbOk1s5IKBvSJdVcAgcRzJROtH2VPGL/+N7oax
+	 5zsjumJLbpde+VO3mT/HYz0ydtXk7291kRqvOWtc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66F08F80607; Fri, 15 Sep 2023 10:28:52 +0200 (CEST)
+	id B0D08F80551; Fri, 15 Sep 2023 10:30:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27A45F80600;
-	Fri, 15 Sep 2023 10:28:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06D7DF80549;
+	Fri, 15 Sep 2023 10:30:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0A9EF805C2; Fri, 15 Sep 2023 10:28:33 +0200 (CEST)
+	id 6F4E1F8055A; Fri, 15 Sep 2023 10:30:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
 	version=3.4.6
 Received: from smtp-out2.suse.de (smtp-out2.suse.de
  [IPv6:2001:67c:2178:6::1d])
@@ -38,65 +38,64 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88BF8F8055A
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 10:28:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88BF8F8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id EA13EF80431
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 10:30:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA13EF80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=1CXyouo7;
+ header.s=susede2_rsa header.b=U/I1BlOO;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jp+bojQh
+ header.s=susede2_ed25519 header.b=USh0L8qF
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3C0B01F8AB;
-	Fri, 15 Sep 2023 08:28:08 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 72D421F854;
+	Fri, 15 Sep 2023 08:30:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1694766488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	t=1694766642;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lWfAWtIwS+XBYDB/cr3DPp7t1T1jDMwuqzSJKm3yX2A=;
-	b=1CXyouo7KNRn3TBQkHtIpqVYh9aTVphB51VDKFzxJ3BJN3exm3g0iz5MPgAXxpYK+be5ts
-	DZtZ0R8erYTvFrNk6B178QnE5XT4dvjVYBbtZDPWlCkjnfRfWKeSnAQRDPgq6t38U/9XFq
-	yyXR661i6UKhKN3iURLmD5KmTuP1h3I=
+	bh=zoR8tH7vOlEjpM7/Kw9ZxTVK2aFUWFOqSHx/UDPS8ik=;
+	b=U/I1BlOOWmkpVT48c0L3LQBW14Z2Rx6jbYyFX9TMt0ltP3JPLIzt6/SB+5/ylat7Hx2xG5
+	T2rPzGYvCb3hNACqQ64H79Y7q2JVUFWKodeABg8KawsybMuLZBHLtjjf+fHk8huqhWCMYL
+	qyybZ0ip1q/t6Qk9jp+8zIjdmFkOIz8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1694766488;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	s=susede2_ed25519; t=1694766642;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lWfAWtIwS+XBYDB/cr3DPp7t1T1jDMwuqzSJKm3yX2A=;
-	b=jp+bojQhkIL/lj375n5OD3eQXABG6s1NQ9GzTQnqJz2oAVNUCb1mgjIyOklk1Jp7bH0ziS
-	WUwkRKBtYGhDOkAQ==
+	bh=zoR8tH7vOlEjpM7/Kw9ZxTVK2aFUWFOqSHx/UDPS8ik=;
+	b=USh0L8qF8jRettgkGx44cfRh7VoF24TMPbOk+ugVeXy4yPI6NY799WST4tjYYgOBLVFYpk
+	4a4mqR3VGGwDTiAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1FB0A1358A;
-	Fri, 15 Sep 2023 08:28:08 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4AADD1358A;
+	Fri, 15 Sep 2023 08:30:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id eDlhBpgVBGVfQQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 15 Sep 2023 08:28:08 +0000
+	id x4tUETIWBGX7QgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 15 Sep 2023 08:30:42 +0000
+Date: Fri, 15 Sep 2023 10:30:41 +0200
+Message-ID: <87pm2jx2ha.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/13] ALSA: hda: generic: Check potential mixer name string
- truncation
-Date: Fri, 15 Sep 2023 10:28:02 +0200
-Message-Id: <20230915082802.28684-14-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230915082802.28684-1-tiwai@suse.de>
-References: <20230915082802.28684-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IRCIWY5YQHPWSLM63PVPWDPLIAUKTGSI
-X-Message-ID-Hash: IRCIWY5YQHPWSLM63PVPWDPLIAUKTGSI
+To: Kailang <kailang@realtek.com>
+Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Re: Lenovo ThinkCentre M70q pop noise
+In-Reply-To: <315900e2efef42fd9855eacfeb443abd@realtek.com>
+References: <315900e2efef42fd9855eacfeb443abd@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 6MHUFVBGZJAPZAU4MNC3YKHS5D2ZE4A4
+X-Message-ID-Hash: 6MHUFVBGZJAPZAU4MNC3YKHS5D2ZE4A4
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IRCIWY5YQHPWSLM63PVPWDPLIAUKTGSI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MHUFVBGZJAPZAU4MNC3YKHS5D2ZE4A4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,35 +117,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-add_control_with_pfx() constructs a mixer name element with the fixed
-size, and it got compile warnings with -Wformat-truncation.
+On Fri, 15 Sep 2023 09:16:43 +0200,
+Kailang wrote:
+> 
+> Hi Takashi,
+> 
+> Attach was a patch for solving boot up pop noise.
 
-Although the size overflow is very unlikely, let's have a sanity check
-of the string size and returns the error if it really doesn't fit
-instead of silent truncation.
+Thanks, applied with a slight correction of the patch subject.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/hda_generic.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index dbf7aa88e0e3..bf685d01259d 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -998,7 +998,11 @@ static int add_control_with_pfx(struct hda_gen_spec *spec, int type,
- 				const char *sfx, int cidx, unsigned long val)
- {
- 	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
--	snprintf(name, sizeof(name), "%s %s %s", pfx, dir, sfx);
-+	int len;
-+
-+	len = snprintf(name, sizeof(name), "%s %s %s", pfx, dir, sfx);
-+	if (snd_BUG_ON(len >= sizeof(name)))
-+		return -EINVAL;
- 	if (!add_control(spec, type, name, cidx, val))
- 		return -ENOMEM;
- 	return 0;
--- 
-2.35.3
-
+Takashi

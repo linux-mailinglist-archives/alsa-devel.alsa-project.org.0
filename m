@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690BD7A1EE9
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B42C7A1EE8
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:42:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEC5DDEE;
-	Fri, 15 Sep 2023 14:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEC5DDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79E6EA4A;
+	Fri, 15 Sep 2023 14:41:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79E6EA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694781734;
-	bh=UAXLDE6WMKwXnDGkOr95bOXY75KS5faYVhSOFTxfxzI=;
+	s=default; t=1694781726;
+	bh=9SpmP9nyA0bIyq9diuUGx7TkBuhSmaRmDr/P1UcmsIQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YYzW124xeWoqZ5NJ9KeSA0dZop1dTY74KoAxGa2r9wax83XKpLPUeb+KUQJRoovDc
-	 ib7Suk9FkiDDfQ6SeFdYS/qs/OlZ0MeJanjboT7dp87dG//YwH/SKGmR6oaRiCEwhP
-	 1OEAcBdTYqZlfFOfzoJtyhAUMHGj2g2EGelmindc=
+	b=pXzLRaQIzPV0xb1JddQ+GkstIQVQPSSMkgAWgqeEkdJ6bF8yhr/5VmGTeAl1WqGwM
+	 yLu9sRS3XmnlY3aDmiMA3lIyt6vENSabuua87qMMddW9enZ+pOoK/lCjP0cJIPyzSl
+	 aaU4eZyKwyaE2NS+uuikpXMqqcryzXU54IvbgMFY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D04FBF8057B; Fri, 15 Sep 2023 14:40:34 +0200 (CEST)
+	id E6BA0F8057C; Fri, 15 Sep 2023 14:40:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DEBAF8057A;
-	Fri, 15 Sep 2023 14:40:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AEEBF8007C;
+	Fri, 15 Sep 2023 14:40:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F0F6F8056F; Fri, 15 Sep 2023 14:40:30 +0200 (CEST)
+	id 495AFF8056F; Fri, 15 Sep 2023 14:40:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,39 +35,39 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 437DBF8007C
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:40:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 437DBF8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id E19C9F80425
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E19C9F80425
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=LKiX+k/r
+ header.s=Intel header.b=UF53dgRq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694781617; x=1726317617;
+  t=1694781618; x=1726317618;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=UAXLDE6WMKwXnDGkOr95bOXY75KS5faYVhSOFTxfxzI=;
-  b=LKiX+k/rK1UAcqZUVauYWkseimpEM3JftAE4VNq1mne2nJ/CDQ1mCg7S
-   7nL02BgEKRjckSCreqt4N9dUDFLHZ69KHVKxJcvRrjCh1PVDlvzjUyPi/
-   dWDPmZ2FxlYXAzwrgk8gO7gfyflBsTix6RrfQN6/Y1/0rJ/PPrBuzEuYa
-   EYgBMF/lsQ95gm6y4lmZqcpbWsheZfK2/Tk+kiEuvIB8ckzUhP7zUBGUg
-   fdAHIBRaOODrM3QxCFgOYawlExOwZKmVMKSTTx/Ly+j1jhMB0wTjNlr2n
-   AzHXobVkHfUDN4npe/I7mBj5tZPH2har+wBKb8x0LaQ2Uq+K+sNE7Bo8v
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="358653104"
+  bh=9SpmP9nyA0bIyq9diuUGx7TkBuhSmaRmDr/P1UcmsIQ=;
+  b=UF53dgRqbuYeCULEneyI98nO5QtxbVyv+4oFjeLRJDl4PMOnNu4ZE9jz
+   AiXMgqMwNB0cVwrwuCenZ2Am5nho5PRemfMoFv4b1CVyqZQDR3Bk9wpSU
+   LoLDNr15eqGDi2mocMILQIPaRQasK6mBebXC9hjo3Re+knvp0PuNwMV4t
+   jQSLCPksIEkjV94rWHuM6T6934kFk+rfg5aXBBkmAnY45AQfqWz/fQDEY
+   yepRM+5edL2lDstAcy1R+NIr9jLznUdaAMMgmUGPdWVo+YP86ttsDBVaI
+   vDv8A3Mj/mXpn+Ww0f5eOKbdlmbo/3NakTFhH6pijYrURleH/fW8r/AeJ
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="358653113"
 X-IronPort-AV: E=Sophos;i="6.02,149,1688454000";
-   d="scan'208";a="358653104"
+   d="scan'208";a="358653113"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
   by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 05:40:12 -0700
+ 15 Sep 2023 05:40:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="774304520"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="774304534"
 X-IronPort-AV: E=Sophos;i="6.02,149,1688454000";
-   d="scan'208";a="774304520"
+   d="scan'208";a="774304534"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
   by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 05:40:07 -0700
+ 15 Sep 2023 05:40:10 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.de
@@ -78,16 +78,16 @@ Cc: alsa-devel@alsa-project.org,
 	brent.lu@intel.com,
 	uday.m.bhat@intel.com,
 	balamurugan.c@intel.com
-Subject: [PATCH 01/19] ASoC: Intel: sof_rt5682: cleanup unnecessary quirk flag
-Date: Fri, 15 Sep 2023 20:48:34 +0800
-Message-Id: <20230915124852.1696857-2-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 02/19] ASoC: Intel: ssp-common: support codec detection
+Date: Fri, 15 Sep 2023 20:48:35 +0800
+Message-Id: <20230915124852.1696857-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230915124852.1696857-1-yung-chuan.liao@linux.intel.com>
 References: <20230915124852.1696857-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IAF4SE72XWHFS2HFW2KJH3C3JHA7P2MS
-X-Message-ID-Hash: IAF4SE72XWHFS2HFW2KJH3C3JHA7P2MS
+Message-ID-Hash: TV6XQCXYRESF7M6LFGCCTLJPAQJ4HB4K
+X-Message-ID-Hash: TV6XQCXYRESF7M6LFGCCTLJPAQJ4HB4K
 X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IAF4SE72XWHFS2HFW2KJH3C3JHA7P2MS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TV6XQCXYRESF7M6LFGCCTLJPAQJ4HB4K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,238 +111,233 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Brent Lu <brent.lu@intel.com>
 
-Remove SOF_RT5682_MCLK_24MHZ flag from JSL and CML/WHL board configs
-since the information could be retrieved from SOF API. The macro
-itself is removed as well.
+Create a new common module to host functions which could be shared
+among SSP machine drivers. Add functions to detect headphone codec and
+speaker amplifier via ACPI system at runtime in order to remove codec
+type quirks in machine drivers.
 
 Signed-off-by: Brent Lu <brent.lu@intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 122 ++++++++++++++--------------
- 1 file changed, 59 insertions(+), 63 deletions(-)
+ sound/soc/intel/boards/Kconfig          |   3 +
+ sound/soc/intel/boards/Makefile         |   3 +
+ sound/soc/intel/boards/sof_ssp_common.c | 101 ++++++++++++++++++++++++
+ sound/soc/intel/boards/sof_ssp_common.h |  71 +++++++++++++++++
+ 4 files changed, 178 insertions(+)
+ create mode 100644 sound/soc/intel/boards/sof_ssp_common.c
+ create mode 100644 sound/soc/intel/boards/sof_ssp_common.h
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index fae091b9b55c..b3e90794f4e6 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -34,7 +34,6 @@
- #define SOF_RT5682_SSP_CODEC(quirk)		((quirk) & GENMASK(2, 0))
- #define SOF_RT5682_SSP_CODEC_MASK			(GENMASK(2, 0))
- #define SOF_RT5682_MCLK_EN			BIT(3)
--#define SOF_RT5682_MCLK_24MHZ			BIT(4)
- #define SOF_SPEAKER_AMP_PRESENT		BIT(5)
- #define SOF_RT5682_SSP_AMP_SHIFT		6
- #define SOF_RT5682_SSP_AMP_MASK                 (GENMASK(8, 6))
-@@ -119,7 +118,6 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "WhiskeyLake Client"),
- 		},
- 		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(1)),
- 	},
- 	{
-@@ -133,7 +131,6 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "Dooly"),
- 		},
- 		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_RT1015_SPEAKER_AMP_PRESENT |
-@@ -145,7 +142,6 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_FAMILY, "Google_Hatch"),
- 		},
- 		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_RT5682_SSP_AMP(1)),
-@@ -295,51 +291,60 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct snd_soc_jack *jack;
- 	int extra_jack_data;
--	int ret;
-+	int ret, mclk_freq;
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index f5974619889f..2b735a1ac181 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -38,6 +38,9 @@ config SND_SOC_INTEL_SOF_REALTEK_COMMON
+ config SND_SOC_INTEL_SOF_CIRRUS_COMMON
+ 	tristate
  
--	/* need to enable ASRC function for 24MHz mclk rate */
--	if ((sof_rt5682_quirk & SOF_RT5682_MCLK_EN) &&
--	    (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ)) {
--		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
--			rt5682s_sel_asrc_clk_src(component,
--						 RT5682S_DA_STEREO1_FILTER |
--						 RT5682S_AD_STEREO1_FILTER,
--						 RT5682S_CLK_SEL_I2S1_ASRC);
--		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
--			rt5645_sel_asrc_clk_src(component,
--						RT5645_DA_STEREO_FILTER |
--						RT5645_AD_STEREO_FILTER,
--						RT5645_CLK_SEL_I2S1_ASRC);
--			rt5645_sel_asrc_clk_src(component,
--						RT5645_DA_MONO_L_FILTER |
--						RT5645_DA_MONO_R_FILTER,
--						RT5645_CLK_SEL_I2S2_ASRC);
--		} else
--			rt5682_sel_asrc_clk_src(component,
--						RT5682_DA_STEREO1_FILTER |
--						RT5682_AD_STEREO1_FILTER,
--						RT5682_CLK_SEL_I2S1_ASRC);
--	}
-+	if (sof_rt5682_quirk & SOF_RT5682_MCLK_EN) {
-+		mclk_freq = sof_dai_get_mclk(rtd);
-+		if (mclk_freq <= 0) {
-+			dev_err(rtd->dev, "invalid mclk freq %d\n", mclk_freq);
-+			return -EINVAL;
-+		}
- 
--	if (sof_rt5682_quirk & SOF_RT5682_MCLK_BYTCHT_EN) {
--		/*
--		 * The firmware might enable the clock at
--		 * boot (this information may or may not
--		 * be reflected in the enable clock register).
--		 * To change the rate we must disable the clock
--		 * first to cover these cases. Due to common
--		 * clock framework restrictions that do not allow
--		 * to disable a clock that has not been enabled,
--		 * we need to enable the clock first.
--		 */
--		ret = clk_prepare_enable(ctx->mclk);
--		if (!ret)
--			clk_disable_unprepare(ctx->mclk);
-+		/* need to enable ASRC function for 24MHz mclk rate */
-+		if (mclk_freq == 24000000) {
-+			dev_info(rtd->dev, "enable ASRC\n");
- 
--		ret = clk_set_rate(ctx->mclk, 19200000);
-+			if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
-+				rt5682s_sel_asrc_clk_src(component,
-+							 RT5682S_DA_STEREO1_FILTER |
-+							 RT5682S_AD_STEREO1_FILTER,
-+							 RT5682S_CLK_SEL_I2S1_ASRC);
-+			else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+				rt5645_sel_asrc_clk_src(component,
-+							RT5645_DA_STEREO_FILTER |
-+							RT5645_AD_STEREO_FILTER,
-+							RT5645_CLK_SEL_I2S1_ASRC);
-+				rt5645_sel_asrc_clk_src(component,
-+							RT5645_DA_MONO_L_FILTER |
-+							RT5645_DA_MONO_R_FILTER,
-+							RT5645_CLK_SEL_I2S2_ASRC);
-+			} else
-+				rt5682_sel_asrc_clk_src(component,
-+							RT5682_DA_STEREO1_FILTER |
-+							RT5682_AD_STEREO1_FILTER,
-+							RT5682_CLK_SEL_I2S1_ASRC);
-+		}
- 
--		if (ret)
--			dev_err(rtd->dev, "unable to set MCLK rate\n");
-+		if (sof_rt5682_quirk & SOF_RT5682_MCLK_BYTCHT_EN) {
-+			/*
-+			 * The firmware might enable the clock at
-+			 * boot (this information may or may not
-+			 * be reflected in the enable clock register).
-+			 * To change the rate we must disable the clock
-+			 * first to cover these cases. Due to common
-+			 * clock framework restrictions that do not allow
-+			 * to disable a clock that has not been enabled,
-+			 * we need to enable the clock first.
-+			 */
-+			ret = clk_prepare_enable(ctx->mclk);
-+			if (!ret)
-+				clk_disable_unprepare(ctx->mclk);
++config SND_SOC_INTEL_SOF_SSP_COMMON
++	tristate
 +
-+			ret = clk_set_rate(ctx->mclk, 19200000);
+ if SND_SOC_INTEL_CATPT
+ 
+ config SND_SOC_INTEL_HASWELL_MACH
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index 936888112952..ce03a0be1a92 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -96,3 +96,6 @@ obj-$(CONFIG_SND_SOC_INTEL_SOF_REALTEK_COMMON) += snd-soc-intel-sof-realtek-comm
+ 
+ snd-soc-intel-sof-cirrus-common-objs += sof_cirrus_common.o
+ obj-$(CONFIG_SND_SOC_INTEL_SOF_CIRRUS_COMMON) += snd-soc-intel-sof-cirrus-common.o
 +
-+			if (ret)
-+				dev_err(rtd->dev, "unable to set MCLK rate\n");
-+		}
- 	}
- 
- 	/*
-@@ -413,17 +418,9 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 
- 		/* get the tplg configured mclk. */
- 		pll_in = sof_dai_get_mclk(rtd);
--
--		/* mclk from the quirk is the first choice */
--		if (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ) {
--			if (pll_in != 24000000)
--				dev_warn(rtd->dev, "configure wrong mclk in tplg, please use 24MHz.\n");
--			pll_in = 24000000;
--		} else if (pll_in == 0) {
--			/* use default mclk if not specified correct in topology */
--			pll_in = 19200000;
--		} else if (pll_in < 0) {
--			return pll_in;
-+		if (pll_in <= 0) {
-+			dev_err(rtd->dev, "invalid mclk freq %d\n", pll_in);
-+			return -EINVAL;
- 		}
- 	} else {
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
-@@ -451,7 +448,12 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 
- 	/* when MCLK is 512FS, no need to set PLL configuration additionally. */
- 	if (pll_in == pll_out)
--		clk_id = RT5682S_SCLK_S_MCLK;
-+		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
-+			clk_id = RT5682S_SCLK_S_MCLK;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			clk_id = RT5645_SCLK_S_MCLK;
-+		else
-+			clk_id = RT5682_SCLK_S_MCLK;
- 	else {
- 		/* Configure pll for codec */
- 		ret = snd_soc_dai_set_pll(codec_dai, pll_id, pll_source, pll_in,
-@@ -1071,7 +1073,6 @@ static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "cml_rt1015_rt5682",
- 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_RT1015_SPEAKER_AMP_PRESENT |
-@@ -1080,7 +1081,6 @@ static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "jsl_rt5682_rt1015",
- 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_RT1015_SPEAKER_AMP_PRESENT |
-@@ -1089,7 +1089,6 @@ static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "jsl_rt5682_mx98360",
- 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_MAX98360A_SPEAKER_AMP_PRESENT |
-@@ -1098,7 +1097,6 @@ static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "jsl_rt5682_rt1015p",
- 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_RT1015P_SPEAKER_AMP_PRESENT |
-@@ -1107,7 +1105,6 @@ static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "jsl_rt5682",
- 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0)),
- 	},
- 	{
-@@ -1271,7 +1268,6 @@ static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "jsl_rt5650",
- 		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
--					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(0) |
- 					SOF_SPEAKER_AMP_PRESENT |
- 					SOF_RT5682_SSP_AMP(1)),
++snd-soc-intel-sof-ssp-common-objs += sof_ssp_common.o
++obj-$(CONFIG_SND_SOC_INTEL_SOF_SSP_COMMON) += snd-soc-intel-sof-ssp-common.o
+diff --git a/sound/soc/intel/boards/sof_ssp_common.c b/sound/soc/intel/boards/sof_ssp_common.c
+new file mode 100644
+index 000000000000..41a258e45a61
+--- /dev/null
++++ b/sound/soc/intel/boards/sof_ssp_common.c
+@@ -0,0 +1,101 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2023 Intel Corporation. All rights reserved.
++
++#include <linux/device.h>
++#include <sound/soc-acpi.h>
++#include "sof_ssp_common.h"
++
++/*
++ * Codec probe function
++ */
++#define CODEC_MAP_ENTRY(n, h, t)	\
++	{				\
++		.name = n,		\
++		.acpi_hid = h,		\
++		.codec_type = t,	\
++	}
++
++struct codec_map {
++	const char *name;
++	const char *acpi_hid;
++	enum sof_ssp_codec codec_type;
++};
++
++static const struct codec_map codecs[] = {
++	/* Cirrus Logic */
++	CODEC_MAP_ENTRY("CS42L42", CS42L42_ACPI_HID, CODEC_CS42L42),
++
++	/* Dialog */
++	CODEC_MAP_ENTRY("DA7219", DA7219_ACPI_HID, CODEC_DA7219),
++
++	/* Everest */
++	CODEC_MAP_ENTRY("ES8316", ES8316_ACPI_HID, CODEC_ES8316),
++	CODEC_MAP_ENTRY("ES8326", ES8326_ACPI_HID, CODEC_ES8326),
++	CODEC_MAP_ENTRY("ES8336", ES8336_ACPI_HID, CODEC_ES8336),
++
++	/* Nuvoton */
++	CODEC_MAP_ENTRY("NAU8825", NAU8825_ACPI_HID, CODEC_NAU8825),
++
++	/* Realtek */
++	CODEC_MAP_ENTRY("RT5650", RT5650_ACPI_HID, CODEC_RT5650),
++	CODEC_MAP_ENTRY("RT5682", RT5682_ACPI_HID, CODEC_RT5682),
++	CODEC_MAP_ENTRY("RT5682S", RT5682S_ACPI_HID, CODEC_RT5682S),
++};
++
++static const struct codec_map amps[] = {
++	/* Cirrus Logic */
++	CODEC_MAP_ENTRY("CS35L41", CS35L41_ACPI_HID, CODEC_CS35L41),
++
++	/* Maxim */
++	CODEC_MAP_ENTRY("MAX98357A", MAX_98357A_ACPI_HID, CODEC_MAX98357A),
++	CODEC_MAP_ENTRY("MAX98360A", MAX_98360A_ACPI_HID, CODEC_MAX98360A),
++	CODEC_MAP_ENTRY("MAX98373", MAX_98373_ACPI_HID, CODEC_MAX98373),
++	CODEC_MAP_ENTRY("MAX98390", MAX_98390_ACPI_HID, CODEC_MAX98390),
++
++	/* Nuvoton */
++	CODEC_MAP_ENTRY("NAU8318", NAU8318_ACPI_HID, CODEC_NAU8318),
++
++	/* Realtek */
++	CODEC_MAP_ENTRY("RT1011", RT1011_ACPI_HID, CODEC_RT1011),
++	CODEC_MAP_ENTRY("RT1015", RT1015_ACPI_HID, CODEC_RT1015),
++	CODEC_MAP_ENTRY("RT1015P", RT1015P_ACPI_HID, CODEC_RT1015P),
++	CODEC_MAP_ENTRY("RT1019P", RT1019P_ACPI_HID, CODEC_RT1019P),
++	CODEC_MAP_ENTRY("RT1308", RT1308_ACPI_HID, CODEC_RT1308),
++};
++
++enum sof_ssp_codec sof_ssp_detect_codec_type(struct device *dev)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(codecs); i++) {
++		if (!acpi_dev_present(codecs[i].acpi_hid, NULL, -1))
++			continue;
++
++		dev_dbg(dev, "codec %s found\n", codecs[i].name);
++		return codecs[i].codec_type;
++	}
++
++	return CODEC_NONE;
++}
++EXPORT_SYMBOL_NS(sof_ssp_detect_codec_type, SND_SOC_INTEL_SOF_SSP_COMMON);
++
++enum sof_ssp_codec sof_ssp_detect_amp_type(struct device *dev)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(amps); i++) {
++		if (!acpi_dev_present(amps[i].acpi_hid, NULL, -1))
++			continue;
++
++		dev_dbg(dev, "amp %s found\n", amps[i].name);
++		return amps[i].codec_type;
++	}
++
++	return CODEC_NONE;
++}
++EXPORT_SYMBOL_NS(sof_ssp_detect_amp_type, SND_SOC_INTEL_SOF_SSP_COMMON);
++
++MODULE_DESCRIPTION("ASoC Intel SOF Common Machine Driver Helpers");
++MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/intel/boards/sof_ssp_common.h b/sound/soc/intel/boards/sof_ssp_common.h
+new file mode 100644
+index 000000000000..e3fd6fb1db1c
+--- /dev/null
++++ b/sound/soc/intel/boards/sof_ssp_common.h
+@@ -0,0 +1,71 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright(c) 2023 Intel Corporation.
++ */
++
++#ifndef __SOF_SSP_COMMON_H
++#define __SOF_SSP_COMMON_H
++
++/* Cirrus Logic */
++#define CS35L41_ACPI_HID	"CSC3541"
++#define CS42L42_ACPI_HID	"10134242"
++
++/* Dialog */
++#define DA7219_ACPI_HID		"DLGS7219"
++
++/* Everest */
++#define ES8316_ACPI_HID		"ESSX8316"
++#define ES8326_ACPI_HID		"ESSX8326"
++#define ES8336_ACPI_HID		"ESSX8336"
++
++#define MAX_98357A_ACPI_HID	"MX98357A"
++#define MAX_98360A_ACPI_HID	"MX98360A"
++#define MAX_98373_ACPI_HID	"MX98373"
++#define MAX_98390_ACPI_HID	"MX98390"
++
++/* Nuvoton */
++#define NAU8318_ACPI_HID	"NVTN2012"
++#define NAU8825_ACPI_HID	"10508825"
++
++/* Realtek */
++#define RT1011_ACPI_HID		"10EC1011"
++#define RT1015_ACPI_HID		"10EC1015"
++#define RT1015P_ACPI_HID	"RTL1015"
++#define RT1019P_ACPI_HID	"RTL1019"
++#define RT1308_ACPI_HID		"10EC1308"
++#define RT5650_ACPI_HID		"10EC5650"
++#define RT5682_ACPI_HID		"10EC5682"
++#define RT5682S_ACPI_HID	"RTL5682"
++
++enum sof_ssp_codec {
++	CODEC_NONE,
++
++	/* headphone codec */
++	CODEC_CS42L42,
++	CODEC_DA7219,
++	CODEC_ES8316,
++	CODEC_ES8326,
++	CODEC_ES8336,
++	CODEC_NAU8825,
++	CODEC_RT5650,
++	CODEC_RT5682,
++	CODEC_RT5682S,
++
++	/* speaker amplifier */
++	CODEC_CS35L41,
++	CODEC_MAX98357A,
++	CODEC_MAX98360A,
++	CODEC_MAX98373,
++	CODEC_MAX98390,
++	CODEC_NAU8318,
++	CODEC_RT1011,
++	CODEC_RT1015,
++	CODEC_RT1015P,
++	CODEC_RT1019P,
++	CODEC_RT1308,
++};
++
++enum sof_ssp_codec sof_ssp_detect_codec_type(struct device *dev);
++enum sof_ssp_codec sof_ssp_detect_amp_type(struct device *dev);
++
++#endif /* __SOF_SSP_COMMON_H */
 -- 
 2.25.1
 

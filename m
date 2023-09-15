@@ -2,92 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C0EE7A1DA3
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 13:44:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2837A1E6B
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:19:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 640C493A;
-	Fri, 15 Sep 2023 13:43:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 640C493A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01FA6820;
+	Fri, 15 Sep 2023 14:18:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01FA6820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694778270;
-	bh=SYmstbt0LQw+wocgMfpIIE8Oaex7gGlxRsW9kAeUI6s=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1694780378;
+	bh=9CZN8UKVh0IMA7mGPQDg2n2MWfLCPjxdgly6itLhbJQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HsTZDZXTxGmoz5/hcprTEY9Ehvujw40azYaQruLvRrCbgTKesutTollT9SK9sq2UT
-	 kmZW1zGeFEzPYFfGh9D7LO0Kjy0O5q1XlvnDh+5PFiAF2Dn48ZmVbaMEZKtLIprr/2
-	 8S7XWaIZrP5/3CvPCHfnTrDANSqnMGMrPGs2cCF0=
+	b=nJI6iGpASnuWG1lBb5KT7Vp//LDsca5VB1GsqRMuuN+N3Nz/2gyRv0i0irU/TenhJ
+	 uqgdzc331Cw+TbdchoONmV1G7PEbL3QxA1qmV3JYFo1Wu0rlM4QrJ+3wzzSMyg/ZbA
+	 qu7tMItgnCBpmifXr0ufSxwmFd0xGkLVNMrPBuaA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 355F9F80246; Fri, 15 Sep 2023 13:43:40 +0200 (CEST)
+	id B75FDF80246; Fri, 15 Sep 2023 14:18:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1510F80425;
-	Fri, 15 Sep 2023 13:43:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D332F80425;
+	Fri, 15 Sep 2023 14:18:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 845AAF80425; Fri, 15 Sep 2023 13:43:35 +0200 (CEST)
+	id AFFE2F80425; Fri, 15 Sep 2023 14:18:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EDA99F80537
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 13:43:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDA99F80537
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40E6CF80141
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:18:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40E6CF80141
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=kTdpuBTe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1694778204; x=1726314204;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=SYmstbt0LQw+wocgMfpIIE8Oaex7gGlxRsW9kAeUI6s=;
-  b=kTdpuBTefJo8wdhPok3KTYFPUYtEiWZaAK0CPjf7tcfOABCbRHMkI7ni
-   fizmH91By+0I35LvSeR2YUFPHcbnGY1H55ik+Tl4XGOgQuaj3bTQ6DMsk
-   US7ZQgU/kYoGsNOT+Q4t+2xtxKuD0CZjFkmjgRUaWH5AMVvBVw8OJ4qLf
-   FbjaLHMqRDd5t/FAADnbrydyw7vP+YdwTBn7nt+A0Jx02h2qqeGGEiMAh
-   iPQQ0DUoysXGr+RBFls6tDHAmngplyk1NBtJgib0/iWKrbwwaYUBiHvsV
-   5yBFEul7sGbL3jYBXQGPDY2DgqoEe+j+eNiYgGUgZyLiI0ebNTyTVva7I
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="359485246"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000";
-   d="scan'208";a="359485246"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 04:43:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="744954114"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000";
-   d="scan'208";a="744954114"
-Received: from brhacker-mobl26.amr.corp.intel.com (HELO [10.252.48.34])
- ([10.252.48.34])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 04:43:18 -0700
-Message-ID: <81010324-1f1b-4706-bbcd-09c3babaeaa7@linux.intel.com>
-Date: Fri, 15 Sep 2023 14:43:22 +0300
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=TRQ4LtDk
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id B8CE6B82DAD;
+	Fri, 15 Sep 2023 12:18:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49EA9C433C8;
+	Fri, 15 Sep 2023 12:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1694780313;
+	bh=9CZN8UKVh0IMA7mGPQDg2n2MWfLCPjxdgly6itLhbJQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=TRQ4LtDkPv3AM8zaL1MO3ZWDWqukIYS+aG0fbhSxlGc/Pasfu+1+mc+ceE9Q3g3eS
+	 o+hIAXVwh5rtdddGi7PFPby8AFnqc2sTzxYy+ZeFVPHCQZGHP+Ji2VSdOLrA6HASGC
+	 HMnpiOK7aC4U1oBl+cDAutebk69NsoVLwjK+z1i5d/p7Ryzk8UKiNE5KuNYRKHPjxB
+	 j1rtPBo30ajWunO8vQMAOGXU5mM1RlAeiPGE9jgmd0NkO073wscu/tuwvtbPLlKfYd
+	 aiWdtxOVWx2dK2MCiouLjUBqJ+/XECB3/8216Pp/AOyNB1dtAZr/rhJG5lNb7MOu7T
+	 X3VfKeV7MWxlg==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ yung-chuan.liao@linux.intel.com
+In-Reply-To: <20230914124725.17397-1-peter.ujfalusi@linux.intel.com>
+References: <20230914124725.17397-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: sof-audio: Fix DSP core put imbalance on
+ widget setup failure
+Message-Id: <169478031081.22068.8123502186332558865.b4-ty@kernel.org>
+Date: Fri, 15 Sep 2023 13:18:30 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] ASoC: SOF: ipc4/Intel: Implement split fw library
- loading
-Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- guennadi.liakhovetski@linux.intel.com, chao.song@linux.intel.com
-References: <20230915113912.1405-1-peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230915113912.1405-1-peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: L463CGJVABULK7WBG4GCL3CL2S7SFF53
-X-Message-ID-Hash: L463CGJVABULK7WBG4GCL3CL2S7SFF53
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-034f2
+Message-ID-Hash: ZOMYFRYEYVSQOCCRU5ZCWMSKRYCPPEU7
+X-Message-ID-Hash: ZOMYFRYEYVSQOCCRU5ZCWMSKRYCPPEU7
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L463CGJVABULK7WBG4GCL3CL2S7SFF53/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZOMYFRYEYVSQOCCRU5ZCWMSKRYCPPEU7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,40 +99,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 15/09/2023 14:39, Peter Ujfalusi wrote:
-> Hi,
+On Thu, 14 Sep 2023 15:47:25 +0300, Peter Ujfalusi wrote:
+> In case the widget setup fails we should only decrement the core usage
+> count if the sof_widget_free_unlocked() has not been called as part of
+> the error handling.
+> sof_widget_free_unlocked() calls snd_sof_dsp_core_put() and the additional
+> core_put will cause imbalance in core usage count.
+> Use the existing use_count_decremented to handle this issue.
 > 
-> This series implements support for split library loading to comply with the HDA
-> DMA programming sequence recommendation, which is:
-> 1. DSP side DMA programming and GEN bit set to 1
-> 2. host side DMA programming and RUN bit set to 1
-> 
-> The SOF support for library loading is based on this sequence, backwards
-> compatibility with older reference firmware is supported (where only the
-> LOAD_LIBRARY message is supported).
-> 
-> Regards,
-> Peter
-> ---
-> Peter Ujfalusi (3):
->   ASoC: SOF: Intel: hda: Add definition for SDxFIFOS.FIFOS mask
->   ASoC: SOF: ipc4: Add new message type:
->     SOF_IPC4_GLB_LOAD_LIBRARY_PREPARE
->   ASoC: SOF: Intel: hda-loader: Add support for split library loading
+> [...]
 
-There is something off with my scripts, one patch is missing, send the
-series again with the four patch, please ignore this set.
+Applied to
 
-> 
->  include/sound/sof/ipc4/header.h  | 15 +++++++++---
->  sound/soc/sof/intel/hda-loader.c | 42 ++++++++++++++++++++++++++++++--
->  sound/soc/sof/intel/hda-stream.c |  2 +-
->  sound/soc/sof/intel/hda.h        |  3 +++
->  sound/soc/sof/ipc4.c             |  1 +
->  5 files changed, 56 insertions(+), 7 deletions(-)
-> 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
--- 
-Péter
+Thanks!
+
+[1/1] ASoC: SOF: sof-audio: Fix DSP core put imbalance on widget setup failure
+      commit: bb0216d4db9ecaa51af45d8504757becbe5c050d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35BB37A1EB4
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8112C7A1EEB
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Sep 2023 14:42:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E41D1CE;
-	Fri, 15 Sep 2023 14:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E41D1CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAD18AEA;
+	Fri, 15 Sep 2023 14:42:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAD18AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694780858;
-	bh=JOeaiOvA9aSzfqtb72DtC8F5kZInpmUOpbcL9asatYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=g1/UGG3EXYmqNw7YbeUInq5qfu5+u5/rE1XNdh2sKhyewZZRJBby3NHYwCUxhG+LJ
-	 1L0OqFvRhVZVDqLKl0kwkiPp7QhMRaPJiC7SISEupJ8pORR8q3yzyGK+Y5f/jgAI6R
-	 s16ttT0matnfMZzALhNXsiyEefaW6+FO96RXWF3I=
+	s=default; t=1694781770;
+	bh=wjTnUecFMHY60czI9aK2gYJcFw8a7fWEbC9CHw8DHF0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=SDJ0LR2nCZXsyGXZOTsM1/w8XspIHLolJp5bIpkWlh/CsE5nC5RHxTI8UbGZ/Xt4A
+	 Bup7IcYeu9tzlIv90AIihaRRshDTlTBaAEGGGfTbPG1cHh63tnIOh6M3J2N37png2Z
+	 jRtCzaARMA28nneN29AQC2ml+SOl1akxcgyzH8YI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62EC3F80551; Fri, 15 Sep 2023 14:26:20 +0200 (CEST)
+	id 883BEF80579; Fri, 15 Sep 2023 14:40:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02056F80246;
-	Fri, 15 Sep 2023 14:26:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFD9AF80579;
+	Fri, 15 Sep 2023 14:40:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74CB2F80425; Fri, 15 Sep 2023 14:26:16 +0200 (CEST)
+	id 2D382F80570; Fri, 15 Sep 2023 14:40:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C858F80141
-	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:26:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C858F80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0AD0AF80431
+	for <alsa-devel@alsa-project.org>; Fri, 15 Sep 2023 14:40:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AD0AF80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lqsAO6gf
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 4360EB82DDE;
-	Fri, 15 Sep 2023 12:26:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768C7C433C8;
-	Fri, 15 Sep 2023 12:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694780772;
-	bh=JOeaiOvA9aSzfqtb72DtC8F5kZInpmUOpbcL9asatYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lqsAO6gfiPtIyCZa6PvfTrsBBx8PbvTyahGSVVl5JCl68zD/er9oQ5a1hf9IfFfnu
-	 sQtcx+14SO2pE1jJhLZmlqDM8fcWLaSaPFqbqlqBk1nkCLKU6kJePXDSRk5De4cW//
-	 zEJGITFYLVuM9LLOhNUb2phka7l8RsUko8Dh2vNwb6yO0h0q96/3qMpAAamAqC7Ya6
-	 V4JJhMHFT0YHF/F6g10zOyvXFZJ888T/ixbJ6r7LPwLW9aanT1CTrxSbRUC658437F
-	 MNM7ND6wf/IVaidLRNfEtCs5D0mw3kFCCH198OD2YRGmRq7L3P2cGMiEnwbM03BLp+
-	 8MNl5kLPYclDA==
-Date: Fri, 15 Sep 2023 13:26:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: nikita.shubin@maquefel.me
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Takashi Iwai <tiwai@suse.de>, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH v4 42/42] ASoC: cirrus: edb93xx: Delete driver
-Message-ID: <63fd4212-6544-4fa3-b10b-f7f38137b06c@sirena.org.uk>
-References: <20230915-ep93xx-v4-0-a1d779dcec10@maquefel.me>
- <20230915-ep93xx-v4-42-a1d779dcec10@maquefel.me>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=nEFMvwz3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1694781619; x=1726317619;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wjTnUecFMHY60czI9aK2gYJcFw8a7fWEbC9CHw8DHF0=;
+  b=nEFMvwz31OeICFJwqR+sdiX8n6r+bfuymx0gqeZvFMzb/ToyAI3afOCQ
+   d9FL2GykBqRa+cDyuV0ReUD9DL8XPXktSygmSLP/RUIKCXdyHOrRmv5Xl
+   7TD+E3IrLY0x3lcEMFb6I735EtIVu0+c07Oz70X3azJFugjqD3EmSt1HS
+   tHJMC+PdHxzt+5JZTMKEpjL+yNIs9CPvM2YFK7vBEN5G1Xrsg0DDNf+om
+   4EDSqNslavRAnBs4J/4ndAUQACufXusVhagRzmZRamzkbXkSwDlazla7V
+   cmsJKUZkwBOUB1rHodfvFDgBd6TQ/HWfbsEe3ljYmew4G69B47IEyxiWX
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="465601064"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000";
+   d="scan'208";a="465601064"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 05:40:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="815161610"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000";
+   d="scan'208";a="815161610"
+Received: from brhacker-mobl26.amr.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.48.34])
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 05:40:09 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	pierre-louis.bossart@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	rander.wang@intel.com
+Subject: [PATCH] ASoC: SOF: core: Only call sof_ops_free() on remove if the
+ probe was successful
+Date: Fri, 15 Sep 2023 15:40:15 +0300
+Message-ID: <20230915124015.19637-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WBj+u/ilrjOP7tNM"
-Content-Disposition: inline
-In-Reply-To: <20230915-ep93xx-v4-42-a1d779dcec10@maquefel.me>
-X-Cookie: Gravity brings me down.
-Message-ID-Hash: 3TBXGFB73KOTG66O2CQIAE2BHVSFTXAZ
-X-Message-ID-Hash: 3TBXGFB73KOTG66O2CQIAE2BHVSFTXAZ
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: KPZ7JYUADN4QFFVAQDG7BT7BBOFAIGWM
+X-Message-ID-Hash: KPZ7JYUADN4QFFVAQDG7BT7BBOFAIGWM
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,44 +97,43 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TBXGFB73KOTG66O2CQIAE2BHVSFTXAZ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+Archived-At: <>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+All the fail paths during probe will free up the ops, on remove we should
+only free it if the probe was successful.
 
---WBj+u/ilrjOP7tNM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Fixes: bc433fd76fae ("ASoC: SOF: Add ops_free")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+---
+ sound/soc/sof/core.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-On Fri, Sep 15, 2023 at 11:11:24AM +0300, Nikita Shubin via B4 Relay wrote:
-> From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
->=20
-> Can be replaced with "simple-audio-card" for the rates up to 50kHz, refer
-> to commit "ARM: dts: ep93xx: Add EDB9302 DT".
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 30db685cc5f4..2d1616b81485 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -486,10 +486,9 @@ int snd_sof_device_remove(struct device *dev)
+ 		snd_sof_ipc_free(sdev);
+ 		snd_sof_free_debug(sdev);
+ 		snd_sof_remove(sdev);
++		sof_ops_free(sdev);
+ 	}
+ 
+-	sof_ops_free(sdev);
+-
+ 	/* release firmware */
+ 	snd_sof_fw_unload(sdev);
+ 
+-- 
+2.42.0
 
-Please use audio-graph-card2 for new systems, it's a more flexible
-replacement.
-
---WBj+u/ilrjOP7tNM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUETV0ACgkQJNaLcl1U
-h9DUgwf9GWnPbx+GEF+jTZxt9NpWNVd7+WyyyAyfFMpRrGXjysCtrKkWTDFQ/uJ9
-e2UK5xCHpf0WVNmGDG0WRvlgzlI5POCCE9H+YkIPBBsGQZtnxmj57PLRQpv1DYlL
-YUuCITGE67RgEMwQHRu6XJh9gW5PY9deRRaKWW6+kWFNiED72G12gOB1/obftnUh
-A7EowQO3vQrAGDG4dic9OvUbZ66ihwd+t9BDtWa17rmo/0lZ3eahi6hu2pCegArr
-Avi5x/S2zdW2Bns7BbwxFcaYfuhX3psY9cszsw43tGWs9ZZNQIRltCi/KGONgl4H
-6lDc29Bhf+aYxXDaKsch4Bq6oAxDcA==
-=hBHf
------END PGP SIGNATURE-----
-
---WBj+u/ilrjOP7tNM--

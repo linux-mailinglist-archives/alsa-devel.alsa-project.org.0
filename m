@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573017A2C79
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 02:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1A97A2C8B
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 02:36:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 092FADF1;
-	Sat, 16 Sep 2023 02:34:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 092FADF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19548DF3;
+	Sat, 16 Sep 2023 02:35:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19548DF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694824522;
-	bh=Pq3TXDnQqn52Y8HEjlCmCUGu2A2+GIbyTgFfMxVuvnY=;
+	s=default; t=1694824606;
+	bh=Ok29SQT4hf9FydiW7VbtGp1b87yLgUb53lStlF3H940=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sejED0/Eki79EcS4CpijqcaW+cUUVu7krZX26mOfAwPL24Mw4wh6p68AOJwlBMfBX
-	 FhfFDaxXk+I14x9/QMxRDcXN3t90WeIzS1M8NbipsiK01Rv264g89DDim9Tf/c15Al
-	 EKc5GhfCFzPmR3i5uRBB6rvjwMQ7m0WmCE1hPUBg=
+	b=GZOKTQeF6HZpTY9NfB9FZdKvpmEPiwu/0RtdlCqjjTc4h7OPwJe//HEGyDVcs/Z3E
+	 zrEO046i4hvAR6ElG/1eipv1vY6K7na3roFsDAD/8Cw17HWDSWbm00RiAABkIRjqhx
+	 Ehik00Cfl10coL8IOns7hqXEyiOseBet0bCNoj14=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50DA1F80558; Sat, 16 Sep 2023 02:34:31 +0200 (CEST)
+	id C20C2F80246; Sat, 16 Sep 2023 02:35:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2CB0F80246;
-	Sat, 16 Sep 2023 02:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A080F8047D;
+	Sat, 16 Sep 2023 02:35:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 795BDF80425; Sat, 16 Sep 2023 02:34:26 +0200 (CEST)
+	id 17EB5F80537; Sat, 16 Sep 2023 02:35:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
 	version=3.4.6
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A758F8007C
-	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 02:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A758F8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id C9183F80246
+	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 02:35:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9183F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=R//svzoP
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-99c1c66876aso325607266b.2
+ header.s=google header.b=ySVxbZ2E
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-9ada6b0649fso351742166b.1
         for <alsa-devel@alsa-project.org>;
- Fri, 15 Sep 2023 17:34:22 -0700 (PDT)
+ Fri, 15 Sep 2023 17:35:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1694824461; x=1695429261;
+        d=linaro.org; s=google; t=1694824539; x=1695429339;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PKWI1/9uW8B4xBhYUhaMnOR3gT8g2FpjpC0atQQWm14=;
-        b=R//svzoPo1QJiQRm4PCeipt+zAP0nd+/2X7vPoQHkTKx5onQLtCt93mrL0mQeyZ5hc
-         mwg2MMN792DeJd5Dgr7yIOmdQ0GY3few6x326beaGnhIvhQu4XU4xmpSZkIpbvlumYo8
-         kgRIWWCKk2z62AbpV1dgqZtHisFgpn/LtOxEMQwBnqaYlmfkXPo2XoPSzDitstcwc17I
-         IP8rXeWDnZA7hy172sOJz3/E5OaWvz3uPIWrmPMjaEgchaNj5DWevFBwXl0Sf83p0Po0
-         vxqEG9ejNOZZcNJ7md2L4lFXc/dCbubaKiTaJsKQxOnLiHTSok/gfdTofKtSB9VTAbe4
-         0hHw==
+        bh=iXuRcmz9wFRVf0opm5Y/r1mXGp6VsOD0Ok9XbCh2sOc=;
+        b=ySVxbZ2EDKaQ5qV8rSmwuh8JUqUqUuudx5xHRkCUtQfdvXn7ZZUoNackXS98KDWo22
+         CeMnAybKvDbZyg0g2jAzfpsg4+Z6vvtKDsPdTWOjvGMJDtJhM78JzPe/NnmDsCmduDyQ
+         faZHO+jsnD2TPZnwo0rt09WxdJYdD2IY+8+H3phdixCu4RJDKpv8tHnr+j0hYJF4KDyW
+         89mcdRWVbS/bZe9QQduJEzM3RY6c+PquSC2jurPlCqgAPy7z54YyCI7d7ehwq9bQNHDS
+         ZnBPRDihRJ8I6s5z/c99cUK9H1OLVn1eyM4Sr4V7lxW9/3Y/ucQNmUYHjWI73QG07iyX
+         9zjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1694824461; x=1695429261;
+        d=1e100.net; s=20230601; t=1694824539; x=1695429339;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PKWI1/9uW8B4xBhYUhaMnOR3gT8g2FpjpC0atQQWm14=;
-        b=vExsboDqg4UHwRsSugxCe+iLOwduWFf9Nyt7Jz4mgpgZ7LCLj/oPv5sjS5X0HWXYgG
-         4sqkakU5XG91inQcRP26fOba52qe2dMOXf2NG17XUC5E8S9bAhtJ2iQiE3H4H0Z3tFGr
-         TXXN6Lo0XFKHXzejUAhOA6ujCbL2tx1lbfVB2uqAX91T0E62XA5XXeEUdOzcTYYJt+At
-         ddVYzH+dBUwrgEdonc4HkIyk/eBrIw7vhkr7Yoy/IhgURh1lBgdJLheJUJ53k+Gv0j80
-         Dpgd42XSiZKk4xgtDMjSCRUEmpWMducVYijcu0jd1hWQ2eT/hN58g7XnkttZJYbX+Unr
-         RnwA==
-X-Gm-Message-State: AOJu0YznCm/vUJZPC77QQv8PBVjqwedHXGPFbLdKZhoQYf1g4d1TwBB9
-	kdJ+XtjupQTyEfOTMkd1m9gUXA==
+        bh=iXuRcmz9wFRVf0opm5Y/r1mXGp6VsOD0Ok9XbCh2sOc=;
+        b=Yt1P9P/1RyQv1G1SNySh88NGV1jVuEW7jOzvdel2TtqQNdk0J2UNAnOxNpGBnwrqTR
+         8pLnE4Pkq2ZSV+cV2DXFwOTWlIdXDxprso5JkTV69+B0i/pittbr6/CZTiDQpo5p9O2q
+         zX6yPpiFBCrz+rfxijdddZw0p+90M5bLiGRr6I0QBDtKHz8MlFWekMnyydYKx2BlUYbo
+         1fO9xzzqofLrOalEFEaw2l/jCiRl6MPvigvI2cenDmFPLvR7KOuTs6EeyYjgja1sRTKC
+         2Ku2+Wadk6L3CiWgvqEBas/BiMj5UrxHHe+xGWLycrh2iknXZ077gTIoUihtGBBGAeI+
+         8jYw==
+X-Gm-Message-State: AOJu0YyxCEFEu3IVv6xRjnqa8/FhepdhFXDuN4Y/d4ezzB9vXkCAxmUz
+	umZuPPYtMcaxRObb2azdvyUwJQ==
 X-Google-Smtp-Source: 
- AGHT+IG/6e5icQ1FKKOHQ8EpeI6y/tsc8LIx1fuPOHY7vrdOJcOP4rH2jhD27RYjXQ7pFgZxef6SBw==
-X-Received: by 2002:a17:907:2cce:b0:99d:f2dc:97e3 with SMTP id
- hg14-20020a1709072cce00b0099df2dc97e3mr2667553ejc.20.1694824461266;
-        Fri, 15 Sep 2023 17:34:21 -0700 (PDT)
+ AGHT+IHzn5BzHsdnc6mQ+RCTL/g/12pdzqDKmc1xZslP3PEa2jUU9guE2A4T1Uy2y3QYG3d9gswQ8w==
+X-Received: by 2002:a17:906:3099:b0:9a1:d5de:5e3 with SMTP id
+ 25-20020a170906309900b009a1d5de05e3mr2686078ejv.54.1694824538825;
+        Fri, 15 Sep 2023 17:35:38 -0700 (PDT)
 Received: from [192.168.37.154]
  (178235177186.dynamic-4-waw-k-1-1-0.vectranet.pl. [178.235.177.186])
         by smtp.gmail.com with ESMTPSA id
- jw24-20020a17090776b800b009a168ab6ee2sm3035669ejc.164.2023.09.15.17.34.18
+ jw24-20020a17090776b800b009a168ab6ee2sm3035669ejc.164.2023.09.15.17.35.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Sep 2023 17:34:20 -0700 (PDT)
-Message-ID: <fc3cecda-72dd-4b7f-8839-95bd04481038@linaro.org>
-Date: Sat, 16 Sep 2023 02:34:17 +0200
+        Fri, 15 Sep 2023 17:35:38 -0700 (PDT)
+Message-ID: <6e66d821-1275-4830-a898-bb82c333dcc5@linaro.org>
+Date: Sat, 16 Sep 2023 02:35:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/33] ASoC: qcom: qdsp6: Add USB backend ASoC driver
- for Q6
+Subject: Re: [PATCH v6 13/33] dt-bindings: usb: dwc3: Add
+ snps,num-hc-interrupters definition
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
  gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
@@ -104,7 +104,7 @@ Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org
 References: <20230916001026.315-1-quic_wcheng@quicinc.com>
- <20230916001026.315-11-quic_wcheng@quicinc.com>
+ <20230916001026.315-14-quic_wcheng@quicinc.com>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -141,11 +141,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20230916001026.315-11-quic_wcheng@quicinc.com>
+In-Reply-To: <20230916001026.315-14-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UURWYLYVZX74ZHPA6DGXWWAWCGY34UQ2
-X-Message-ID-Hash: UURWYLYVZX74ZHPA6DGXWWAWCGY34UQ2
+Message-ID-Hash: H5XQJSYNIMXQPF3PQHVZPRWF6YU3I4QS
+X-Message-ID-Hash: H5XQJSYNIMXQPF3PQHVZPRWF6YU3I4QS
 X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -158,7 +158,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UURWYLYVZX74ZHPA6DGXWWAWCGY34UQ2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H5XQJSYNIMXQPF3PQHVZPRWF6YU3I4QS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -168,19 +168,15 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 16.09.2023 02:10, Wesley Cheng wrote:
-> Create a USB BE component that will register a new USB port to the ASoC USB
-> framework.  This will handle determination on if the requested audio
-> profile is supported by the USB device currently selected.
+> Add a new definition for specifying how many XHCI secondary interrupters
+> can be allocated.  XHCI in general can potentially support up to 1024
+> interrupters, which some uses may want to limit depending on how many
+> users utilize the interrupters.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 > ---
-[...]
-
-> +	ret = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
-> +	if (ret < 0)
-> +		data->priv.sid = -1;
-> +	else
-> +		data->priv.sid = args.args[0] & SID_MASK;
-SID masking is done in the devicetree.
+Any reason for a DWC3-specific property? Why not just
+use the XHCI-common one from patch 14 and error out if
+a value of more than 8 is found?
 
 Konrad

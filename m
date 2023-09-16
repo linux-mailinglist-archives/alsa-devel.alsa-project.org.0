@@ -2,83 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF8857A2CF2
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 03:15:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F7017A2CF3
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 03:15:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A518BE8B;
-	Sat, 16 Sep 2023 03:14:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A518BE8B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5C48E94;
+	Sat, 16 Sep 2023 03:14:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5C48E94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694826928;
-	bh=ZnjlEj98hFQQmsZsTmFla9uF/838RJCPiORahjtKy74=;
+	s=default; t=1694826942;
+	bh=J5e03yZd7Sk+R0FI6BNLHst3hPjDQleRw4pHwxvjJig=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ScCr69haSfVAF/io6eflher3RJbqh8jrNNPQVRmr4WMHNTrCCoH3Mq/QGKUk27oyD
-	 Bei+bc9lhaGgR/An34nhiYohnF1DgmkpgjiH/GEOhCnYcN+WL0flKprPXVkWzOWDKU
-	 /UIbR+9y+4rNfKKsi8/S6UxHnH2ALJyuFAnnHyf8=
+	b=BGOW2ygmMKFu0nCVSQ5cOHsvfKRGn7TtgnyTOQWbS1YvpCDF294d5ezLnmmxt6UnW
+	 J6uiYF/YYxWjrW7Y554AwSqaEl3pefw+VnYdxx32OhJoQuRj60eL3aVLyoXAg+Ho56
+	 T0QTVZ35FLls+oTk1vqz3CxLIkw5MDKo4Jv1xgYU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B05EF805E9; Sat, 16 Sep 2023 03:12:11 +0200 (CEST)
+	id 258EEF80537; Sat, 16 Sep 2023 03:12:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDE74F805E9;
-	Sat, 16 Sep 2023 03:12:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10C66F805EF;
+	Sat, 16 Sep 2023 03:12:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A7A9F805B5; Sat, 16 Sep 2023 03:11:57 +0200 (CEST)
+	id A8998F805C2; Sat, 16 Sep 2023 03:11:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFA8BF805B1
-	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 03:11:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA8BF805B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7AEEF805AF
+	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 03:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7AEEF805AF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=S1xHpqLC
+ header.s=k20201202 header.b=Rk9fbqGi
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id A7338CE2E51;
-	Sat, 16 Sep 2023 01:11:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65F9C433C7;
-	Sat, 16 Sep 2023 01:11:48 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTPS id 06D0DCE2CD5;
+	Sat, 16 Sep 2023 01:11:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71094C433C9;
+	Sat, 16 Sep 2023 01:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694826711;
-	bh=ZnjlEj98hFQQmsZsTmFla9uF/838RJCPiORahjtKy74=;
+	s=k20201202; t=1694826712;
+	bh=J5e03yZd7Sk+R0FI6BNLHst3hPjDQleRw4pHwxvjJig=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=S1xHpqLC9Y6gq/hRVu7xdsKfo68I57/FOw56qL1IGwQSfvbdXnCWtUz+ehokB0+My
-	 jvKHh+pZn1aVBvYCTh83loYxt2qb03bZ1DXgPCX2ardp+4/O/NjMiC8Bc06+n5ipr2
-	 KF19K4TwWEoZ/7HcCoJNCI9MohDz3gQNwiQGrAHdJuTsrWH0sVBX5vkqrU+KhLgJnT
-	 Q3n9YYbVWkIH8zXsI2a/jlxc2R+m1DU+J6lpLSOjjYiXdSam9M5YhvRWqhQESZSloi
-	 2mNMMdcofFGlS1LGu45bcBc5T+tIKzeCpsEZm9348OO1umyO4m29VbAKhlFrq8ZUHn
-	 4oAHxCAufaElg==
+	b=Rk9fbqGiVwOQR9pCauvREG2zCiaSyUgBFUWBlai77aIMxQfT7NgdOKDLz9nC+pxFW
+	 PV4Kgj2lvMwvutiFmcpEyB+Jcn3yNuGI0NZGokNTacbHAqcifUBrgiunm0cLa15nrt
+	 h//SIu6d3ScmQmxDir9Tau4bNsLzZjynLO4XMPxhMx9Fu9g8DbdCGOsMdxrK441G/s
+	 gapSv/pwcozCUjuoWeug688ahw5NHpkinaUf+HKfAdIpyahVRaI+Lpln8E/LC/zkRu
+	 n9gZVGasi0M32ICf29izK0TQwayRogPUJwfPR1PfbVuUBtWjCeMy1FhhRmXMXamkWP
+	 TzFRCjrNciNdQ==
 From: Mark Brown <broonie@kernel.org>
-To: James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Colin Ian King <colin.i.king@gmail.com>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20230915092639.31074-1-colin.i.king@gmail.com>
-References: <20230915092639.31074-1-colin.i.king@gmail.com>
-Subject: Re: [PATCH][next] ASoC: cs42l43: make const array controls static
-Message-Id: <169482670859.606223.14038286756818345691.b4-ty@kernel.org>
-Date: Sat, 16 Sep 2023 02:11:48 +0100
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com
+In-Reply-To: <20230915144300.120100-1-ckeepax@opensource.cirrus.com>
+References: <20230915144300.120100-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs42l43: Add shared IRQ flag for shutters
+Message-Id: <169482671117.606223.17161304969957211847.b4-ty@kernel.org>
+Date: Sat, 16 Sep 2023 02:11:51 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: E4DQNMZI2JZTEYUFD3CKBWPBYIWPBHM4
-X-Message-ID-Hash: E4DQNMZI2JZTEYUFD3CKBWPBYIWPBHM4
+Message-ID-Hash: HFKFY5QJVWNGBFZTM2PUE5CTEHJVTSB7
+X-Message-ID-Hash: HFKFY5QJVWNGBFZTM2PUE5CTEHJVTSB7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E4DQNMZI2JZTEYUFD3CKBWPBYIWPBHM4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HFKFY5QJVWNGBFZTM2PUE5CTEHJVTSB7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,9 +97,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 15 Sep 2023 10:26:39 +0100, Colin Ian King wrote:
-> Don't populate the const array controls on the stack, instead make it
-> static.
+On Fri, 15 Sep 2023 15:43:00 +0100, Charles Keepax wrote:
+> The microphone and speaker shutters on cs42l43 can be configured to
+> trigger from the same GPIO, in this case the current code returns an
+> error as we attempt to request two IRQ handlers for the same IRQ. Fix
+> this by always requesting the shutter IRQs with the IRQF_SHARED flag.
 > 
 > 
 
@@ -112,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l43: make const array controls static
-      commit: 9dc098e3d7297ec895436a799f5faf27d430674c
+[1/1] ASoC: cs42l43: Add shared IRQ flag for shutters
+      commit: c923e7759a29cf67aa4dda77b816263771380f86
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C58FF7A2CEC
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 03:14:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 736F37A2CED
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 03:14:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 252F3E85;
-	Sat, 16 Sep 2023 03:13:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 252F3E85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08930E8C;
+	Sat, 16 Sep 2023 03:13:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08930E8C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694826842;
-	bh=3bfpoTTBraLH1Jzf2Rr5UWezhNvJDhXcEz0iPF8bH6Q=;
+	s=default; t=1694826857;
+	bh=Q765KB9+qjKbm8q2YdIPlbtX8d3INC50BInrobNMT+o=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gkXT+ISkKtLgsmvyP9TumDX0VxnXdGUKa6Kpzu6knn0AKIhD+8T1wehrxUalSDSG1
-	 +DobUszF9CVzKVl9sDFJUJ1tzv9K9NLNIcKXZFlGaR+J5zKWiy3ohk9hQPGqRnCbUP
-	 vU/4rsmDmhaF8dw9AuZAM+HBvc4/B3zi4/LJt0wc=
+	b=UIG7u2ZqpqaOZedfPXOpkZRGXiNsDek9LqLMbLUd/NVQUYCDrUN0Qhc+dpx1mjHG8
+	 iHCKYggAHMXyYTrevykWyoGq2+iLpAs/JtFiWgYn2k9tkjG3DOGxQPr7TnNnpyIAEJ
+	 oM1qVtpXkj45g65UYwdUgrGKh3QceiibCATYLs2Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 005F3F805AE; Sat, 16 Sep 2023 03:11:54 +0200 (CEST)
+	id 95263F805BA; Sat, 16 Sep 2023 03:11:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E253F80570;
-	Sat, 16 Sep 2023 03:11:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A161AF805B1;
+	Sat, 16 Sep 2023 03:11:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3554F80571; Sat, 16 Sep 2023 03:11:45 +0200 (CEST)
+	id 98FB7F80587; Sat, 16 Sep 2023 03:11:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DA6AFF80141
-	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 03:11:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA6AFF80141
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4D188F80564
+	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 03:11:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D188F80564
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AOYH9ucZ
+ header.s=k20201202 header.b=L9jVJMWr
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 45684B80CA1;
-	Sat, 16 Sep 2023 01:11:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81B6C433CB;
-	Sat, 16 Sep 2023 01:11:36 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTPS id 02690CE2E51;
+	Sat, 16 Sep 2023 01:11:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4569C433C9;
+	Sat, 16 Sep 2023 01:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694826698;
-	bh=3bfpoTTBraLH1Jzf2Rr5UWezhNvJDhXcEz0iPF8bH6Q=;
+	s=k20201202; t=1694826700;
+	bh=Q765KB9+qjKbm8q2YdIPlbtX8d3INC50BInrobNMT+o=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AOYH9ucZD3FnF6teZmF2UkdIkk+SrbvMaMWVaMVwRobYeRzAgzVH34NGioJN2xfwP
-	 pFtf7L+z1nPUcfhJhGHSLMJbuyPOPcwtF+LmBcf30f0rBoFZNQBp6EYJHEHJIn9rEw
-	 Oe9A+ZvhgQcs8GQT7jpcZsb02/mv1wzO3fR3oJUhaMbkTF4hEDfKB7/ncsfLFiuCgx
-	 QChs+Oo5ffkfRMlQVWJbX3HG/7X5ap/PSubh/4HXpEvy/XNv1iSTbc62byR7XBiUcw
-	 gev9bzb98BfPNbYjlNLj+D5tTNAxynVR4N7T+RPVwcbRSiJy1PRZBeUgaIslgWBLFk
-	 Hx9OyVfteLqqg==
+	b=L9jVJMWrEU7GsQU6el4kOZ6CM2CjhViGfrK96AXbpi+d5joDqwA0jQXVWdtWG4g/r
+	 7whycC1jjMhgUOtYvfgPk0jZAUdhYNqkuhfBcNDlp6ksnourlTfpKDyQZxq3ommx0l
+	 Crkle4obOPJcUUsbSiyDSnt70viu6sn0Yu8/HvqKLMzyfTGZB5fayggy01I/coRs4i
+	 t56PXPaNm+C1zz20JpkadsMvrq7T9sw1hfv1J/I83RnN0zMm/mvcloKUAdL+Un/3GG
+	 gyhme+1Yym0QSz0iXhEKEzyP0V/DrPW32diJZjHy7DnVJ9/dPh012i6zzL2/r+5sUq
+	 15U+UV4gsEDZw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- guennadi.liakhovetski@linux.intel.com, chao.song@linux.intel.com
-In-Reply-To: <20230915114018.1701-1-peter.ujfalusi@linux.intel.com>
-References: <20230915114018.1701-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: SOF: ipc4/Intel: Implement split fw library
- loading
-Message-Id: <169482669660.606223.8992641407768095448.b4-ty@kernel.org>
-Date: Sat, 16 Sep 2023 02:11:36 +0100
+ bard.liao@intel.com, peter.ujfalusi@linux.intel.com,
+ ckeepax@opensource.cirrus.com
+In-Reply-To: <20230915075611.1619548-1-yung-chuan.liao@linux.intel.com>
+References: <20230915075611.1619548-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 0/4] ASoC: intel: sof_sdw: Remove large global CPUs
+ array
+Message-Id: <169482669865.606223.11147122522996550997.b4-ty@kernel.org>
+Date: Sat, 16 Sep 2023 02:11:38 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: CDH67GWD7ZXTIAZQFRO3T7UBMPHXIZAK
-X-Message-ID-Hash: CDH67GWD7ZXTIAZQFRO3T7UBMPHXIZAK
+Message-ID-Hash: QTYF2XW36K6M3CEGLDXUIQSDU4KYG3NR
+X-Message-ID-Hash: QTYF2XW36K6M3CEGLDXUIQSDU4KYG3NR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CDH67GWD7ZXTIAZQFRO3T7UBMPHXIZAK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QTYF2XW36K6M3CEGLDXUIQSDU4KYG3NR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,15 +98,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 15 Sep 2023 14:40:14 +0300, Peter Ujfalusi wrote:
-> This series implements support for split library loading to comply with the HDA
-> DMA programming sequence recommendation, which is:
-> 1. DSP side DMA programming and GEN bit set to 1
-> 2. host side DMA programming and RUN bit set to 1
+On Fri, 15 Sep 2023 15:56:07 +0800, Bard Liao wrote:
+> Rather than keeping a single array of CPU dai link components allocate a
+> smaller one for each DAI link, this reduces the amount of state that
+> needs to be passed back and forth in the driver.
 > 
-> The SOF support for library loading is based on this sequence, backwards
-> compatibility with older reference firmware is supported (where only the
-> LOAD_LIBRARY message is supported).
+> Charles Keepax (4):
+>   ASoC: intel: sof_sdw: Move sdw_pin_index into private struct
+>   ASoC: intel: sof_sdw: Add simple DAI link creation helper
+>   ASoC: intel: sof_sdw: Make create_sdw_dailink allocate link components
+>   ASoC: intel: sof_sdw: Increment be_id in init_dai_link
 > 
 > [...]
 
@@ -117,14 +117,14 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: SOF: ipc4: Convert status code 2 and 15 to -EOPNOTSUPP
-      commit: c2d8f17ed0c70816737cbf8f530d2178ee6affbb
-[2/4] ASoC: SOF: Intel: hda: Add definition for SDxFIFOS.FIFOS mask
-      commit: 369ea9f82c279e88a52217b56dc1f973de57ac56
-[3/4] ASoC: SOF: ipc4: Add new message type: SOF_IPC4_GLB_LOAD_LIBRARY_PREPARE
-      commit: 4f0f3c774947fdd3c4236cef9372b329c276845c
-[4/4] ASoC: SOF: Intel: hda-loader: Add support for split library loading
-      commit: 5a8a9d70ecac3acbd49e70ad8f85153c0315643e
+[1/4] ASoC: intel: sof_sdw: Move sdw_pin_index into private struct
+      commit: fc46ecf34782c0d3ec8224ce6003a2631f8a93f1
+[2/4] ASoC: intel: sof_sdw: Add simple DAI link creation helper
+      commit: b359760d95eecaabd081c1c2cd58e0a15fe5a68c
+[3/4] ASoC: intel: sof_sdw: Make create_sdw_dailink allocate link components
+      commit: f6c0273ba936c80632f5edfb5659e49b8bf6b6a9
+[4/4] ASoC: intel: sof_sdw: Increment be_id in init_dai_link
+      commit: 7a35d05f1e7687bbb57b97efe6d0af560826507e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9807B7A2CEE
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 03:14:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ECFC7A2CF1
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Sep 2023 03:15:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EAB1E92;
-	Sat, 16 Sep 2023 03:13:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EAB1E92
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7703FE7F;
+	Sat, 16 Sep 2023 03:14:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7703FE7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694826877;
-	bh=nvgkVq14DgfwbmuVFuVSFi9zupSUMPWrzMEtqJxm+HM=;
+	s=default; t=1694826907;
+	bh=dZR0GWf50FStNbx7lZqfkCWNcNcaGnGld8hlfIFXDoQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NswYT2z7Eu6n68RWIdCqjpWgolzQumKZe/g7QLtTLvuAfbMXaT21jYgZrnwZvFzX7
-	 nVbG6B1L1NhOsRzaL0CSew4yL2EXpYB0AfCPTak6mIKh2cue/KnfQbBPdFqEz8MRLN
-	 1FOjhytvXsX5xLTO7vUC18mzIkLrZWc07Vs1mpr8=
+	b=qFhPmWuKh64ZtVu227//FVl3E3X+FS9zZbdVrihyu7zf9c2Wf46bzmzwExHqNJRnD
+	 3liBEIelcWjuZA91xmDWwIakQE/AyzKFKvkTqKCbozXp+dgda6bc1HvzfbQ8l9Ys0t
+	 GWm1YDP3PX4DZIKZXj9yuRGuFGB/ta2reXH0p0pw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62F6AF805CA; Sat, 16 Sep 2023 03:12:01 +0200 (CEST)
+	id 6F538F805E5; Sat, 16 Sep 2023 03:12:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94171F805C0;
-	Sat, 16 Sep 2023 03:12:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1576F805E0;
+	Sat, 16 Sep 2023 03:12:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3212EF805A8; Sat, 16 Sep 2023 03:11:50 +0200 (CEST)
+	id 2B9AFF805AC; Sat, 16 Sep 2023 03:11:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E970FF80568
-	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 03:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E970FF80568
+	by alsa1.perex.cz (Postfix) with ESMTPS id CEB6EF80564
+	for <alsa-devel@alsa-project.org>; Sat, 16 Sep 2023 03:11:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEB6EF80564
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=G1sHTeBN
+ header.s=k20201202 header.b=WfYxS0YY
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id D0FA2CE2E4D;
-	Sat, 16 Sep 2023 01:11:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C254DC433C7;
-	Sat, 16 Sep 2023 01:11:40 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 06815621D9;
+	Sat, 16 Sep 2023 01:11:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A54ACC433C9;
+	Sat, 16 Sep 2023 01:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1694826702;
-	bh=nvgkVq14DgfwbmuVFuVSFi9zupSUMPWrzMEtqJxm+HM=;
+	s=k20201202; t=1694826704;
+	bh=dZR0GWf50FStNbx7lZqfkCWNcNcaGnGld8hlfIFXDoQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=G1sHTeBNAaFSuLXcxc/0haQhQUiHtiZsF0oaFCdu/GL2jRqypLmzjr+VPOyaSWoF8
-	 72EqFlNvCPyoSMVfT8APDCwwgj9nsJBuiMS8Uz8pvpM9HStEdlmpVIPz11Q+OP7sD7
-	 wwD+9NLyJ7C1udXoS6n+HzcjstKaVaxKto7dHLCRhKsObOuQ/jMXUy6STooAaHxv35
-	 TFwNC1LbZKhiOS7WDdMayh+4ESZgV1YCw/3Fy5VO4eXYBYiOh77ixnRNexmwDnwm5t
-	 gVLVb6AYp8uacT2Yrv6WkWEQbyje9HV+NLgb900NNF8b59q2TDbMpO/RAYPo51wfT4
-	 wc0C9pcnqsSOw==
+	b=WfYxS0YY0XOuDjqmrm3yjJytcyKtbt2+hc/wIbi4AyGXUOBYDG3B9bph9itL0B2wI
+	 HdmfJGh8jBR9ypqBb0A3/J9YErVptaLnUFg4Tlj/zt3220xc01dXNn8iPvBbra5JT4
+	 mTpxgwzdMPXZL8jPqmSiQabgaDx3BxL+sUoSo6EY23geX2G+bYaNw93fnBLj8YAtCR
+	 xfPJLmSViZnSyA7/pWJ4jWbiGsqS+Kxwp0PZJuZJSs0ThO0Ak/6p9qPKFNPj3i+iSU
+	 a8o1MSgGmEwEDLMDIVHPRz46n/ibZAZ68dQCIyWarmNCB6lKpeK6nBMRmMzPZvJALi
+	 TVuuwKP1PIEAA==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com, peter.ujfalusi@linux.intel.com, arun.t@intel.com
-In-Reply-To: <20230915080635.1619942-1-yung-chuan.liao@linux.intel.com>
-References: <20230915080635.1619942-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 1/1] ASoC: Intel: common: add ACPI matching tables for
- Arrow Lake
-Message-Id: <169482670051.606223.17684306734062535167.b4-ty@kernel.org>
-Date: Sat, 16 Sep 2023 02:11:40 +0100
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, rander.wang@intel.com
+In-Reply-To: <20230915124015.19637-1-peter.ujfalusi@linux.intel.com>
+References: <20230915124015.19637-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: core: Only call sof_ops_free() on remove if
+ the probe was successful
+Message-Id: <169482670239.606223.6198823189854629531.b4-ty@kernel.org>
+Date: Sat, 16 Sep 2023 02:11:42 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: OQHXWFMKKVCHMSNH6IKPEYOZ6ZT6QC67
-X-Message-ID-Hash: OQHXWFMKKVCHMSNH6IKPEYOZ6ZT6QC67
+Message-ID-Hash: 6CHKYSMIBKJDSBGJ4WWFIPJDV7E7PO4H
+X-Message-ID-Hash: 6CHKYSMIBKJDSBGJ4WWFIPJDV7E7PO4H
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OQHXWFMKKVCHMSNH6IKPEYOZ6ZT6QC67/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6CHKYSMIBKJDSBGJ4WWFIPJDV7E7PO4H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,8 +100,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 15 Sep 2023 16:06:35 +0800, Bard Liao wrote:
-> Initial support for ARL w/ RT711
+On Fri, 15 Sep 2023 15:40:15 +0300, Peter Ujfalusi wrote:
+> All the fail paths during probe will free up the ops, on remove we should
+> only free it if the probe was successful.
 > 
 > 
 
@@ -110,8 +112,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: common: add ACPI matching tables for Arrow Lake
-      commit: 24af0d7c0f9f49a243b77e607e3f4a4737386b59
+[1/1] ASoC: SOF: core: Only call sof_ops_free() on remove if the probe was successful
+      commit: 31bb7bd9ffee50d09ec931998b823a86132ab807
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,102 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A12F7A4D70
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 17:50:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A87797A4D80
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 17:51:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A62356C0;
-	Mon, 18 Sep 2023 17:49:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A62356C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EA3E84C;
+	Mon, 18 Sep 2023 17:50:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EA3E84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695052199;
-	bh=mseSK3ZSewXYklzOE4h9nvxnkWqsILfV0Wha+coMKfk=;
+	s=default; t=1695052303;
+	bh=5vVRRIMRpw9TlKH03arTPuw54dcVNjJBKqGe/6Dm2us=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NfRUE6tAXPVvaJD9l2yvF4xbULJsl9wNsWVcByMv8ma1FHUW9rozA7N8qQ0396UIZ
-	 oCSXwWFv4soebTwIjiX5mmn+KkluMAbKtfVmDVDquIhwRdF38Pa9aYpoUeJFdkamJr
-	 8VkBEmO8EcsSEcjk4xo6dLWWr5+oltjJ2WmJw7vg=
+	b=cTNm3QN8PtM98wKQjTQgbItlYcNinpnk2mph8q9yTFanV5f3Qjre4bF2YhNm0UBuh
+	 bSqJs8lAhAOHihK+cMIHopXZ+BTXlqWgN3XgR6dadwKBEgw46rrw9o3Vy+ZQNb7k4T
+	 WKzdNaAUmdsoN6Lkjr14DQUHC0CPUwg9Eg/bG2lw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31F17F80124; Mon, 18 Sep 2023 17:49:09 +0200 (CEST)
+	id CF777F801F5; Mon, 18 Sep 2023 17:50:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE807F801F5;
-	Mon, 18 Sep 2023 17:49:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AD50F801F5;
+	Mon, 18 Sep 2023 17:50:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24638F8025A; Mon, 18 Sep 2023 17:49:05 +0200 (CEST)
+	id 4A77DF8025A; Mon, 18 Sep 2023 17:50:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8C6C4F80124
-	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 17:48:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C6C4F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8E57AF80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 17:50:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E57AF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=CLFa/s66;
+ header.s=susede2_rsa header.b=OjzR0dW4;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=/0vvBK5v
+ header.s=susede2_ed25519 header.b=Wnrv7YTI
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CE8611FFA7;
-	Mon, 18 Sep 2023 15:48:58 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 160AD1FFAC;
+	Mon, 18 Sep 2023 15:50:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1695052138;
+	t=1695052246;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+TBDXEFXeuwNuiuJhWMyvfIEB4DoLQi0V//jCdnTRzE=;
-	b=CLFa/s6695YKVHXk1v9UW0qPvnXIwdX9wpSMTu/17LIoz+v5d/frv05iuT4cZlcXqw8X0j
-	+fCZhJddxUJhcUDAuPZnK2Jgd5g+02vAzWuB2sHU3aodPt+D0Oks8N/D9ABRVmrQzG+hm5
-	CodUGv5lFlU3+nE2Hbs1eyiZ4NrIISk=
+	bh=Gf5BkZ5IzrW9iwCzUAOZVf+s8scPXOgVMyd4DdHLa60=;
+	b=OjzR0dW4HY3eGKaMsHgysq+7YPs+Ro0AhmcbRLIG5xb+pcQGjI3wpVI+2mqyl0frHCBHX3
+	qnnddJkSn/CuOlfxRsLySH+ZY4DLnkA8mS6tEwo9OYf89/nwjYX5wLpOqn2p4NbP4oTcXQ
+	yQj1Z9v/kjwkuPLEw21iUN1pp3nt/6k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1695052138;
+	s=susede2_ed25519; t=1695052246;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+TBDXEFXeuwNuiuJhWMyvfIEB4DoLQi0V//jCdnTRzE=;
-	b=/0vvBK5vCUFyZNKHCEP+REFNt3NM9oSpmwh+henQXgNNK0NSwPpe8fIJLkNpskv7ZoSYrB
-	OXEvNbGN2kfHMbAg==
+	bh=Gf5BkZ5IzrW9iwCzUAOZVf+s8scPXOgVMyd4DdHLa60=;
+	b=Wnrv7YTIwP/OMVi7SfHJpPeyFlc5d196f38dXrfSWwt9ax093mCaMmEG4HG0DDaTxuyV6K
+	x1rsncGCT4YzbABA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A31FF13480;
-	Mon, 18 Sep 2023 15:48:58 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D812F13480;
+	Mon, 18 Sep 2023 15:50:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id p/LvJmpxCGXuZgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 18 Sep 2023 15:48:58 +0000
-Date: Mon, 18 Sep 2023 17:48:57 +0200
-Message-ID: <87pm2fzdli.wl-tiwai@suse.de>
+	id /UWoM9VxCGUKaAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 18 Sep 2023 15:50:45 +0000
+Date: Mon, 18 Sep 2023 17:50:45 +0200
+Message-ID: <87o7hzzdii.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Geoffrey D. Bennett" <g@b4.vu>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	Philippe Perrot <philippe@perrot-net.fr>
-Subject: Re: [PATCH 0/4] ALSA: scarlett2: Driver updates
-In-Reply-To: <cover.1694705811.git.g@b4.vu>
-References: <cover.1694705811.git.g@b4.vu>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<patches@opensource.cirrus.com>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/2] ALSA: hda: cs35l56: Handle speaker id GPIOs
+In-Reply-To: <20230918095129.440-1-rf@opensource.cirrus.com>
+References: <20230918095129.440-1-rf@opensource.cirrus.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 7IMV7UYYYVCWJTBLAC2T7FL6RI2AYYH4
-X-Message-ID-Hash: 7IMV7UYYYVCWJTBLAC2T7FL6RI2AYYH4
+Message-ID-Hash: GVPSRZZZUJSQHG4BQP2D3676OG4EJAMQ
+X-Message-ID-Hash: GVPSRZZZUJSQHG4BQP2D3676OG4EJAMQ
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7IMV7UYYYVCWJTBLAC2T7FL6RI2AYYH4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GVPSRZZZUJSQHG4BQP2D3676OG4EJAMQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,41 +119,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 14 Sep 2023 19:31:37 +0200,
-Geoffrey D. Bennett wrote:
+On Mon, 18 Sep 2023 11:51:27 +0200,
+Richard Fitzgerald wrote:
 > 
-> Hi Takashi,
+> Some manufacturers use multiple sources of speakers. Motherboard
+> GPIOs are set to indicate which type of speaker is fitted so that
+> the correct tunings can be loaded. Patch #1 adds support for this
+> and patch #2 adds a KUnit test for the new code.
 > 
-> I think it's time to enable this driver by default because:
-> 
-> - Early versions of this mixer driver did not work on all hardware, so
->   out of caution the driver was disabled by default and had to be
->   explicitly enabled with device_setup=1.
-> 
-> - Since commit 764fa6e686e0 ("ALSA: usb-audio: scarlett2: Fix device
->   hang with ehci-pci") (21/May/2021) no more problems of this nature
->   have been reported.
-> 
-> - Therefore, patch 1 in this series proposes to enable the driver by
->   default, but provide a new device_setup option to disable the driver
->   in case that is needed.
-> 
-> Patch 3 adds support for the Clarett 8Pre USB. This is the first
-> device supported by this driver which is controlled identically to
-> another, so patch 2 first allows sharing the device_info struct
-> between models.
-> 
-> Patch 4 adds the specific product series name (like "Scarlett Gen 2")
-> to various messages so the text is correct without being unwieldy &
-> generic (like "Scarlett Gen 2/3/Clarett USB/Clarett+").
-> 
-> Geoffrey D. Bennett (4):
->   ALSA: scarlett2: Default mixer driver to enabled
->   ALSA: scarlett2: Move USB IDs out from device_info struct
->   ALSA: scarlett2: Add support for Clarett 8Pre USB
->   ALSA: scarlett2: Add correct product series name to messages
+> Richard Fitzgerald (2):
+>   ALSA: hda: cs35l56: Add support for speaker id
+>   ALSA: hda: cirrus_scodec: Add KUnit test
 
-Applied all four patches now.
-Thanks.
+Applied both patches to for-next branch now.
+
+
+thanks,
 
 Takashi

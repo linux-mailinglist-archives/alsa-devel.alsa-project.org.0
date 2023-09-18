@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE47C7A4AB6
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 15:43:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C99E7A4AB4
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 15:43:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B591852;
-	Mon, 18 Sep 2023 15:42:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B591852
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC14E93A;
+	Mon, 18 Sep 2023 15:42:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC14E93A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695044614;
-	bh=GA8VlHDMdmcVDZ3lRaKAia5d6PdwAqVOFHsMlwEcNgs=;
+	s=default; t=1695044590;
+	bh=uFo3JTP2alB99rkg19E443MKdeHnjsbmxR/ux1VI5Z8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YjL5Rk8Dq44Kv/vvYYeU5DC4feqlWE07MMeIBjwas2j8pxubbrwXqrhewVRXErXSv
-	 Dlm/Np7OGsg/edZHeXHEwZrcRiNeOMKr/2Zn0ePm4h7/qUK2DH1Iv4qSVpSmb8ikzC
-	 Ht6AmW0oba0rtgPfnR4+mc8T7RSUbv132uFYw+cY=
+	b=kee0ziQCKcX4wes5IkkL+GRhAnoKJLWh6/WTdB34yp5xSIoDsIeQ/5xVqdbmSKzn1
+	 NZWQZgbMMHmoAWoAHdDbFPWQUWav9gXxwWGWFFYocYx9GTMdnVYGrN4kIx31A8Y+KC
+	 Vh0iHad4tAla6U8Ec6UsyzkkloT+smS8azv8a/dI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D93CF805E1; Mon, 18 Sep 2023 15:40:47 +0200 (CEST)
+	id 4DCB3F805D3; Mon, 18 Sep 2023 15:40:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54715F805D7;
-	Mon, 18 Sep 2023 15:40:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DA20F805CB;
+	Mon, 18 Sep 2023 15:40:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F18CEF805B3; Mon, 18 Sep 2023 15:40:35 +0200 (CEST)
+	id 0E78CF805B2; Mon, 18 Sep 2023 15:40:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,38 +35,38 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AE82FF805AD
+	by alsa1.perex.cz (Postfix) with ESMTPS id B00E4F8025A
 	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 15:40:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE82FF805AD
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B00E4F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=e9IMfQ5H
+ header.s=Intel header.b=MgmDqqFS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1695044433; x=1726580433;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GA8VlHDMdmcVDZ3lRaKAia5d6PdwAqVOFHsMlwEcNgs=;
-  b=e9IMfQ5HwUZDW51WRsqEUVN1Y4uq6IB7Jklr1PpBjyXhJ1BuEcmJvif/
-   uBJNQXIV4lXcdwPRQIBQrQpoEPCWn90N5kslkb+P0/zN3NNINuGk/ay9G
-   0RY4XA7umOYnmLNf26jxrjOFwVNg3hGO1H+NfM6zdNkJUX/by6rd4RlFb
-   d5ezivg1BAvdcoNMxgux4CT77LsyAGuS/gsi4xYKiw3xiIK9Gyqx0t6Ik
-   HN04cNjSVf6lPU5PgRX7DC+x6TWRB3xa3829WEpR1DO09OmOJ0TG/zeXu
-   9Dqmo70APGHofGCKZsymIdLbOpnPxDe3jFm6Gd6vtY6i7nMi2fL4HLW/P
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="466003804"
+  bh=uFo3JTP2alB99rkg19E443MKdeHnjsbmxR/ux1VI5Z8=;
+  b=MgmDqqFSHvqlczY2dTh0QiUB1Ni9Au8/iIzsTM0+a9STrpXnOrLBFwjp
+   nnTirBrDPh5C8mvc8My4nlXvpi+LPiLJcUUlqMFaWCHIcpIL3JRGEYsfr
+   i4NLgDoU9A2Vw+/V2NkNkWWXSYJHJPeJDBf4A/cMwUB7+rxdn9XEPu1xr
+   jYWZtIJ8qnJJ8lslVDwIIrP75tzFehwnmoHmCAaIVJVhDyw9bvUmpoKdu
+   wJS/AUBmjETLR39Ih2wCbOsim/B5f8UaTqK/QkgBjLif8Uq9k9Y+bozz4
+   8dEMexRb4aPnK/8/EHQ9V1Grx7PRYhiYdhK+2QMEpxy9BDQNkLFhKhpbJ
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="466003812"
 X-IronPort-AV: E=Sophos;i="6.02,156,1688454000";
-   d="scan'208";a="466003804"
+   d="scan'208";a="466003812"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
   by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2023 06:40:20 -0700
+ 18 Sep 2023 06:40:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="745825932"
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="745825941"
 X-IronPort-AV: E=Sophos;i="6.02,156,1688454000";
-   d="scan'208";a="745825932"
+   d="scan'208";a="745825941"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orsmga002.jf.intel.com with ESMTP; 18 Sep 2023 06:40:17 -0700
+  by orsmga002.jf.intel.com with ESMTP; 18 Sep 2023 06:40:19 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.com,
@@ -76,17 +76,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v2 07/17] ALSA: hda/hdmi: Switch to new stream-format
+Subject: [PATCH v2 08/17] ALSA: hda/ca0132: Switch to new stream-format
  interface
-Date: Mon, 18 Sep 2023 15:39:30 +0200
-Message-Id: <20230918133940.3676091-8-cezary.rojewski@intel.com>
+Date: Mon, 18 Sep 2023 15:39:31 +0200
+Message-Id: <20230918133940.3676091-9-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230918133940.3676091-1-cezary.rojewski@intel.com>
 References: <20230918133940.3676091-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7TKGNMYGOSTNBZWVPOSM4ZNTQV464A42
-X-Message-ID-Hash: 7TKGNMYGOSTNBZWVPOSM4ZNTQV464A42
+Message-ID-Hash: MWY34PRS5QXFRZBN2XPGMNZ2JRTZCCO2
+X-Message-ID-Hash: MWY34PRS5QXFRZBN2XPGMNZ2JRTZCCO2
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TKGNMYGOSTNBZWVPOSM4ZNTQV464A42/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MWY34PRS5QXFRZBN2XPGMNZ2JRTZCCO2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,32 +113,23 @@ maximum one, use the new format calculation mechanism.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/pci/hda/patch_hdmi.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/pci/hda/patch_ca0132.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 687b8b8fd7ac..dff2d7221982 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1655,7 +1655,6 @@ static void hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+index 748a3c40966e..aa312441604f 100644
+--- a/sound/pci/hda/patch_ca0132.c
++++ b/sound/pci/hda/patch_ca0132.c
+@@ -3022,8 +3022,7 @@ static int dma_convert_to_hda_format(struct hda_codec *codec,
+ {
+ 	unsigned int format_val;
  
- #define I915_SILENT_RATE		48000
- #define I915_SILENT_CHANNELS		2
--#define I915_SILENT_FORMAT		SNDRV_PCM_FORMAT_S16_LE
- #define I915_SILENT_FORMAT_BITS	16
- #define I915_SILENT_FMT_MASK		0xf
+-	format_val = snd_hdac_calc_stream_format(sample_rate,
+-				channels, SNDRV_PCM_FORMAT_S32_LE, 32, 0);
++	format_val = snd_hdac_stream_format(channels, 32, sample_rate);
  
-@@ -1668,8 +1667,8 @@ static void silent_stream_enable_i915(struct hda_codec *codec,
- 				 per_pin->dev_id, I915_SILENT_RATE);
- 
- 	/* trigger silent stream generation in hw */
--	format = snd_hdac_calc_stream_format(I915_SILENT_RATE, I915_SILENT_CHANNELS,
--					     I915_SILENT_FORMAT, I915_SILENT_FORMAT_BITS, 0);
-+	format = snd_hdac_stream_format(I915_SILENT_CHANNELS, I915_SILENT_FORMAT_BITS,
-+					I915_SILENT_RATE);
- 	snd_hda_codec_setup_stream(codec, per_pin->cvt_nid,
- 				   I915_SILENT_FMT_MASK, I915_SILENT_FMT_MASK, format);
- 	usleep_range(100, 200);
+ 	if (hda_format)
+ 		*hda_format = (unsigned short)format_val;
 -- 
 2.25.1
 

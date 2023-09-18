@@ -2,98 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 141BA7A3C9F
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Sep 2023 22:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35B907A4348
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 09:45:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AACA1E2;
-	Sun, 17 Sep 2023 22:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AACA1E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8573DD8;
+	Mon, 18 Sep 2023 09:44:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8573DD8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1694982825;
-	bh=LA5dzD2L3YHuhGexc8xd6TfJQbIj4PlVNa2HI4ZpbfM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1695023108;
+	bh=yKQnhwROPgBxtT3qPp87K27/ZjeM5Ph5R/RXjStKULc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HLJWu+C+J0IVd2a5Y0Zkcjs4PGV/YqvkSL9DYcd3DiKBjVdgMpINpCg5g4eHEvq63
-	 O5rC9DBTlwnMpBdBo94Xp5NLkjVOcCrgH5GjBnxJ+f8Dudwns21H/62cNjYHUh94w+
-	 oEPxVsrIZjJ1IYV/MCKqnsrFjaYsehWel2cmzD9A=
+	b=QldU6zV3n49N4vP8LudjW91gjxkmaPIechX47fkZqJec8GnZX2wtC8Di0n2Ex7bEi
+	 2ex9XwGvf64KV7sR8rnhIknCigo6h8IE72skYXIidvjksT2pf+R7fHwntOvMc474nN
+	 M99SLx/F9GGhB+rC72o8DJHlbYVLl/6kG/RNynSE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C159AF8055B; Sun, 17 Sep 2023 22:32:54 +0200 (CEST)
+	id E7F6AF80552; Mon, 18 Sep 2023 09:44:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A428F801D5;
-	Sun, 17 Sep 2023 22:32:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E830F801D5;
+	Mon, 18 Sep 2023 09:44:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9DA38F801F5; Sun, 17 Sep 2023 22:32:47 +0200 (CEST)
+	id 315A8F801F5; Mon, 18 Sep 2023 09:43:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H5,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 193FAF800F4
-	for <alsa-devel@alsa-project.org>; Sun, 17 Sep 2023 22:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 193FAF800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id C79FAF80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 09:43:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C79FAF80124
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=AaNISD6+
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 20E13B80B32;
-	Sun, 17 Sep 2023 20:32:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3C8C433CA;
-	Sun, 17 Sep 2023 20:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1694982741;
-	bh=LA5dzD2L3YHuhGexc8xd6TfJQbIj4PlVNa2HI4ZpbfM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AaNISD6+AwGGns6CQeZkqfo67OyVA6LDknpk3BWJjFCtWatuFDt8NxrukRj7e1ohc
-	 3rSrvR9jNwdEKJIvmAw1l9WHN36Y5EKsNDced6wGDOslYRga/MUaQBjrpyvTOnpJBy
-	 7ARWj+E288t5bRPxF3vBFXpsEBegMS3Tn5Qnx6qM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Randy Dunlap <rdunlap@infradead.org>,
-	kernel test robot <lkp@intel.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-um@lists.infradead.org,
-	Tejun Heo <tj@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nicolas Schier <nicolas@fjasle.eu>,
-	linux-kbuild@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 312/511] um: Fix hostaudio build errors
-Date: Sun, 17 Sep 2023 21:12:19 +0200
-Message-ID: <20230917191121.358402280@linuxfoundation.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230917191113.831992765@linuxfoundation.org>
-References: <20230917191113.831992765@linuxfoundation.org>
-User-Agent: quilt/0.67
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=keY1QUS7
+Received: by mail.gandi.net (Postfix) with ESMTPSA id E2503C000B;
+	Mon, 18 Sep 2023 07:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1695022989;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yImr8034vhbpOmwr9ltkLzW5eGzffuc8l1c+tIEQu4k=;
+	b=keY1QUS7dtQt/GsW5vOiYAwTOlPRGRRxUYperfcoQ3wCmbAj7I76ON/0gdvYrWD/tWoiYL
+	Hn2p1FGMOpV7FuqzU15Nt0trTIa4GFq+b3F4Y28Uz6Ve9PGSwCgX4jLzvbWGR8Yu1pLEU2
+	1NsWUihV3cVL74ZjiCyIFfG1zGI8LQKIzhHCMa2BxY0+rOJWZITaXBmNywrfT6C1fyWcdT
+	BT636wpK0zzG/fVKstJkQo/SGNr6otVeseu8nm3FvgklIDVTPkEnJ5ewMLWMjVYTzmE0Xf
+	nT6R9OlIbFGA9Kw5pzgn3EYX71nox4MtzDHt0P9KrBj9kFNiHbI+pVNi3AYXKQ==
+Date: Mon, 18 Sep 2023 09:42:39 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang
+ Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
+ <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
+ <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Christophe
+ Leroy <christophe.leroy@csgroup.eu>, Randy Dunlap <rdunlap@infradead.org>,
+ netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>, Christophe
+ JAILLET <christophe.jaillet@wanadoo.fr>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v5 08/31] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
+ Add support for QMC HDLC
+Message-ID: <20230918094239.4d2d0c32@bootlin.com>
+In-Reply-To: <20230913-unburned-overturn-41b83e1eed25@spud>
+References: <20230912081527.208499-1-herve.codina@bootlin.com>
+	<20230912101018.225246-1-herve.codina@bootlin.com>
+	<20230912-capable-stash-c7a3e33078ac@spud>
+	<20230913092640.76934b31@bootlin.com>
+	<20230913-unruly-recite-7dbbbd7e63e0@spud>
+	<20230913165250.02bab2ad@bootlin.com>
+	<20230913-oversold-delay-05368e5de9fe@spud>
+	<20230913-unburned-overturn-41b83e1eed25@spud>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OTNGCU47A4CNLKZVLJ4AN23Y5FLP4KRF
-X-Message-ID-Hash: OTNGCU47A4CNLKZVLJ4AN23Y5FLP4KRF
-X-MailFrom: gregkh@linuxfoundation.org
+X-GND-Sasl: herve.codina@bootlin.com
+Message-ID-Hash: JEEISAAJ33EY3FETYZAVVUZF2I4M6UGX
+X-Message-ID-Hash: JEEISAAJ33EY3FETYZAVVUZF2I4M6UGX
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OTNGCU47A4CNLKZVLJ4AN23Y5FLP4KRF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JEEISAAJ33EY3FETYZAVVUZF2I4M6UGX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,152 +119,103 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hi Conor,
 
-------------------
+On Wed, 13 Sep 2023 15:59:41 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-From: Randy Dunlap <rdunlap@infradead.org>
+> On Wed, Sep 13, 2023 at 03:56:16PM +0100, Conor Dooley wrote:
+> > On Wed, Sep 13, 2023 at 04:52:50PM +0200, Herve Codina wrote:  
+> > > On Wed, 13 Sep 2023 15:42:45 +0100
+> > > Conor Dooley <conor@kernel.org> wrote:
+> > >   
+> > > > On Wed, Sep 13, 2023 at 09:26:40AM +0200, Herve Codina wrote:  
+> > > > > Hi Conor,
+> > > > > 
+> > > > > On Tue, 12 Sep 2023 18:21:58 +0100
+> > > > > Conor Dooley <conor@kernel.org> wrote:
+> > > > >     
+> > > > > > On Tue, Sep 12, 2023 at 12:10:18PM +0200, Herve Codina wrote:    
+> > > > > > > The QMC (QUICC mutichannel controller) is a controller present in some
+> > > > > > > PowerQUICC SoC such as MPC885.
+> > > > > > > The QMC HDLC uses the QMC controller to transfer HDLC data.
+> > > > > > > 
+> > > > > > > Additionally, a framer can be connected to the QMC HDLC.
+> > > > > > > If present, this framer is the interface between the TDM bus used by the
+> > > > > > > QMC HDLC and the E1/T1 line.
+> > > > > > > The QMC HDLC can use this framer to get information about the E1/T1 line
+> > > > > > > and configure the E1/T1 line.
+> > > > > > > 
+> > > > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > > > > ---
+> > > > > > >  .../bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml   | 13 +++++++++++++
+> > > > > > >  1 file changed, 13 insertions(+)
+> > > > > > > 
+> > > > > > > diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
+> > > > > > > index 82d9beb48e00..b5073531f3f1 100644
+> > > > > > > --- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
+> > > > > > > +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
+> > > > > > > @@ -101,6 +101,16 @@ patternProperties:
+> > > > > > >            Channel assigned Rx time-slots within the Rx time-slots routed by the
+> > > > > > >            TSA to this cell.
+> > > > > > >  
+> > > > > > > +      compatible:
+> > > > > > > +        const: fsl,qmc-hdlc
+> > > > > > > +
+> > > > > > > +      fsl,framer:
+> > > > > > > +        $ref: /schemas/types.yaml#/definitions/phandle
+> > > > > > > +        description:
+> > > > > > > +          phandle to the framer node. The framer is in charge of an E1/T1 line
+> > > > > > > +          interface connected to the TDM bus. It can be used to get the E1/T1 line
+> > > > > > > +          status such as link up/down.      
+> > > > > > 
+> > > > > > Sounds like this fsl,framer property should depend on the compatible
+> > > > > > being present, no?    
+> > > > > 
+> > > > > Well from the implementation point of view, only the QMC HDLC driver uses this
+> > > > > property.
+> > > > > 
+> > > > > From the hardware description point of view, this property means that the time slots
+> > > > > handled by this channel are connected to the framer. So I think it makes sense for
+> > > > > any channel no matter the compatible (even if compatible is not present).
+> > > > > 
+> > > > > Should I change and constraint the fsl,framer property to the compatible presence ?
+> > > > > If so, is the following correct for this contraint ?
+> > > > >    --- 8< ---
+> > > > >    dependencies:
+> > > > >      - fsl,framer: [ compatible ];
+> > > > >    --- 8< ---    
+> > > > 
+> > > > The regular sort of
+> > > > if:
+> > > > 	compatible:
+> > > > 		contains:
+> > > > 			const: foo
+> > > > then:
+> > > > 	required:
+> > > > 		- fsl,framer
+> > > > would fit the bill, no?  
+> > > 
+> > > Not sure.
+> > > "fsl,framer" is an optional property (depending on the hardware we can have
+> > > a framer or not).  
+> > 
+> > Ah apologies, I had it backwards! Your suggestion seems fair in that
+> > case.  
+> 
+> Or actually,
+> if:
+> 	compatible:
+> 		not:
+> 	 		contains:
+> 	 			const: foo
+>  then:
+>  	properties:
+>  		fsl,framer: false
+> ? That should do the trick in a more conventional way.
 
-[ Upstream commit db4bfcba7bb8d10f00bba2a3da6b9a9c2a1d7b71 ]
+Thanks for this proposal.
+I will use it in the next iteration.
 
-Use "select" to ensure that the required kconfig symbols are set
-as expected.
-Drop HOSTAUDIO since it is now equivalent to UML_SOUND.
-
-Set CONFIG_SOUND=m in ARCH=um defconfig files to maintain the
-status quo of the default configs.
-
-Allow SOUND with UML regardless of HAS_IOMEM. Otherwise there is a
-kconfig warning for unmet dependencies. (This was not an issue when
-SOUND was defined in arch/um/drivers/Kconfig. I have done 50 randconfig
-builds and didn't find any issues.)
-
-This fixes build errors when CONFIG_SOUND is not set:
-
-ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_cleanup_module':
-hostaudio_kern.c:(.exit.text+0xa): undefined reference to `unregister_sound_mixer'
-ld: hostaudio_kern.c:(.exit.text+0x15): undefined reference to `unregister_sound_dsp'
-ld: arch/um/drivers/hostaudio_kern.o: in function `hostaudio_init_module':
-hostaudio_kern.c:(.init.text+0x19): undefined reference to `register_sound_dsp'
-ld: hostaudio_kern.c:(.init.text+0x31): undefined reference to `register_sound_mixer'
-ld: hostaudio_kern.c:(.init.text+0x49): undefined reference to `unregister_sound_dsp'
-
-and this kconfig warning:
-WARNING: unmet direct dependencies detected for SOUND
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: d886e87cb82b ("sound: make OSS sound core optional")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: lore.kernel.org/r/202307141416.vxuRVpFv-lkp@intel.com
-Cc: Richard Weinberger <richard@nod.at>
-Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-um@lists.infradead.org
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Masahiro Yamada <masahiroy@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Nicolas Schier <nicolas@fjasle.eu>
-Cc: linux-kbuild@vger.kernel.org
-Cc: alsa-devel@alsa-project.org
-Reviewed-by: Masahiro Yamada <masahiroy@kernel.org>
-Signed-off-by: Richard Weinberger <richard@nod.at>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/um/configs/i386_defconfig   |  1 +
- arch/um/configs/x86_64_defconfig |  1 +
- arch/um/drivers/Kconfig          | 16 +++-------------
- arch/um/drivers/Makefile         |  2 +-
- sound/Kconfig                    |  2 +-
- 5 files changed, 7 insertions(+), 15 deletions(-)
-
-diff --git a/arch/um/configs/i386_defconfig b/arch/um/configs/i386_defconfig
-index fb51bd206dbed..4d7f99a02c1eb 100644
---- a/arch/um/configs/i386_defconfig
-+++ b/arch/um/configs/i386_defconfig
-@@ -35,6 +35,7 @@ CONFIG_TTY_CHAN=y
- CONFIG_XTERM_CHAN=y
- CONFIG_CON_CHAN="pts"
- CONFIG_SSL_CHAN="pts"
-+CONFIG_SOUND=m
- CONFIG_UML_SOUND=m
- CONFIG_DEVTMPFS=y
- CONFIG_DEVTMPFS_MOUNT=y
-diff --git a/arch/um/configs/x86_64_defconfig b/arch/um/configs/x86_64_defconfig
-index 477b873174243..4bdd83008f623 100644
---- a/arch/um/configs/x86_64_defconfig
-+++ b/arch/um/configs/x86_64_defconfig
-@@ -33,6 +33,7 @@ CONFIG_TTY_CHAN=y
- CONFIG_XTERM_CHAN=y
- CONFIG_CON_CHAN="pts"
- CONFIG_SSL_CHAN="pts"
-+CONFIG_SOUND=m
- CONFIG_UML_SOUND=m
- CONFIG_DEVTMPFS=y
- CONFIG_DEVTMPFS_MOUNT=y
-diff --git a/arch/um/drivers/Kconfig b/arch/um/drivers/Kconfig
-index f145842c40b94..3dd74d369f995 100644
---- a/arch/um/drivers/Kconfig
-+++ b/arch/um/drivers/Kconfig
-@@ -104,24 +104,14 @@ config SSL_CHAN
- 
- config UML_SOUND
- 	tristate "Sound support"
-+	depends on SOUND
-+	select SOUND_OSS_CORE
- 	help
- 	  This option enables UML sound support.  If enabled, it will pull in
--	  soundcore and the UML hostaudio relay, which acts as a intermediary
-+	  the UML hostaudio relay, which acts as a intermediary
- 	  between the host's dsp and mixer devices and the UML sound system.
- 	  It is safe to say 'Y' here.
- 
--config SOUND
--	tristate
--	default UML_SOUND
--
--config SOUND_OSS_CORE
--	bool
--	default UML_SOUND
--
--config HOSTAUDIO
--	tristate
--	default UML_SOUND
--
- endmenu
- 
- menu "UML Network Devices"
-diff --git a/arch/um/drivers/Makefile b/arch/um/drivers/Makefile
-index cd1a58bb3e9cd..dc0e6fe77de10 100644
---- a/arch/um/drivers/Makefile
-+++ b/arch/um/drivers/Makefile
-@@ -54,7 +54,7 @@ obj-$(CONFIG_UML_NET) += net.o
- obj-$(CONFIG_MCONSOLE) += mconsole.o
- obj-$(CONFIG_MMAPPER) += mmapper_kern.o 
- obj-$(CONFIG_BLK_DEV_UBD) += ubd.o 
--obj-$(CONFIG_HOSTAUDIO) += hostaudio.o
-+obj-$(CONFIG_UML_SOUND) += hostaudio.o
- obj-$(CONFIG_NULL_CHAN) += null.o 
- obj-$(CONFIG_PORT_CHAN) += port.o
- obj-$(CONFIG_PTY_CHAN) += pty.o
-diff --git a/sound/Kconfig b/sound/Kconfig
-index e56d96d2b11ca..1903c35d799e1 100644
---- a/sound/Kconfig
-+++ b/sound/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- menuconfig SOUND
- 	tristate "Sound card support"
--	depends on HAS_IOMEM
-+	depends on HAS_IOMEM || UML
- 	help
- 	  If you have a sound card in your computer, i.e. if it can say more
- 	  than an occasional beep, say Y.
--- 
-2.40.1
-
-
-
+Regards,
+Hervé

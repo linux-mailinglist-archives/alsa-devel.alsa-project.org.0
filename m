@@ -2,112 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFBCB7A4D99
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 17:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A6D7A4DEB
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 18:03:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0469A852;
-	Mon, 18 Sep 2023 17:53:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0469A852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D78C84C;
+	Mon, 18 Sep 2023 18:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D78C84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695052473;
-	bh=X3rA4Ffzqh41AVhajIFnC2lGHCxkI4fRndJYNXyebW0=;
+	s=default; t=1695053030;
+	bh=+LLgwqHb6GQC4RhNKwx34ayJCmzZnPjpzpsWvS+BOOE=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lmcb0RrPYV86nKLOgsocew+eWi1DrYlFeqtCD0NJbVzZKr5/4Io+hhMRHbdmezgUC
-	 ywTxEAHdUhlwyQ5nPA7OC4ylPuDe1wY8398KtsUYVm2QWdD6xOwvMKD70zsM7l8Z5D
-	 gAWuD1Q+P4lxy1f1uqpcF67tmp7ewCtdOf4pgMVU=
+	b=KvqSGjXGhaRmfeDqjxrzH3xtNQNV5V+KUBAwJNUPm8dimAfa73Q5L3wyd7kl001yq
+	 zvh5wHoaWc4NH9AQehMFM8RQkMBvGFbfD016p+TkstxUAryBngOzzalOnXORuM/oCN
+	 Ftf8eY3xRvD5WtmriBNTIW+I45vHotGZHk4vnPOk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E1CFF80551; Mon, 18 Sep 2023 17:53:42 +0200 (CEST)
+	id 7F18EF80124; Mon, 18 Sep 2023 18:02:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23DA2F801F5;
-	Mon, 18 Sep 2023 17:53:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D54E3F801F5;
+	Mon, 18 Sep 2023 18:02:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75E0CF8025A; Mon, 18 Sep 2023 17:53:38 +0200 (CEST)
+	id 558CDF8025A; Mon, 18 Sep 2023 18:02:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4868BF80124
-	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 17:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4868BF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id A5890F80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 18:02:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5890F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Gn/qofhd;
+ header.s=susede2_rsa header.b=hGFISqIz;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=iJNHd02t
+ header.s=susede2_ed25519 header.b=HblmAmij
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C78BA21E1F;
-	Mon, 18 Sep 2023 15:53:34 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E14621FFC4;
+	Mon, 18 Sep 2023 16:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1695052414;
+	t=1695052963;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7DK8KR3fPs8whrEH8j0R/iUaebjoMVvA4LCOE3UH58k=;
-	b=Gn/qofhdRe9yFSQ9We8JjC0Btj6seP5I5QTH8OCft6OcQKHs9X2c6awtAUboy7FRm+o5gA
-	SjkySP6pWw2/cVv7lUT4JPY5Fofh645YCZp+v7jF/r9fIVeLScJen8RzcxiV6rK9A8ol9f
-	QQRpF3XdQpEBZbBsQeId9XgpcN5/CjU=
+	bh=+X6CuOngB6cPBpJB3gLgbrZrld8Zt4DS5xEFhmy5N90=;
+	b=hGFISqIzEHVG06hAWT1QtkjOfVDPFpNoe5N9aJyQ9xDxtfLStSZry2QLO4AfHX1IX4lppI
+	CqIcO+iLyMwL4tmWp5XL9QCDx+jU812ncW+9KBjZuu8LIBdS6PY/bn2pKYXjRiJ8UGQcAx
+	ktJ9X/AUyBP1/uJD6zYfyJeMmHWXHm8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1695052414;
+	s=susede2_ed25519; t=1695052963;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7DK8KR3fPs8whrEH8j0R/iUaebjoMVvA4LCOE3UH58k=;
-	b=iJNHd02thBKEU43GpxNoLcaBjB9Wr/IDWtzDY2NTcEfG09qokv6QShSMAeZLARN3Dum8Dm
-	YmlWOF31ieo2EKBA==
+	bh=+X6CuOngB6cPBpJB3gLgbrZrld8Zt4DS5xEFhmy5N90=;
+	b=HblmAmijIRgN8fDPl8I/+fAANM5Es9HG4LMPH19DMRG5CDPmabZtih5PLKOI4BITRokASm
+	8gU7tYLtl5j21lCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 98A6913480;
-	Mon, 18 Sep 2023 15:53:34 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C437813480;
+	Mon, 18 Sep 2023 16:02:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id uSweJH5yCGVmaQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 18 Sep 2023 15:53:34 +0000
-Date: Mon, 18 Sep 2023 17:53:34 +0200
-Message-ID: <87led3zddt.wl-tiwai@suse.de>
+	id QnXpLqN0CGWUbgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 18 Sep 2023 16:02:43 +0000
+Date: Mon, 18 Sep 2023 18:02:42 +0200
+Message-ID: <87h6nrzcyl.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: YE Chengfeng <cyeaa@connect.ust.hk>
-Cc: "perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"yunjunlee@chromium.org" <yunjunlee@chromium.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: =?GB2312?B?u9i4tDo=?= [PATCH] ALSA: dummy: Fix &dpcm->lock
- deadlock issues
-In-Reply-To: 
- <TYCP286MB1188D5F722F42601A08DA29D8AF4A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
-References: 
- <TYCP286MB1188FEE149369A32D90DCE288A21A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
-	<87edlzwgti.wl-tiwai@suse.de>
-	<TYCP286MB1188D860B56B9FF1FCAA79148A26A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
-	<TYCP286MB1188D5F722F42601A08DA29D8AF4A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
+To: Randy Li <ayaka@soulik.info>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: how to connect a midi client to non midi hardware sound card
+In-Reply-To: <156dd557-7ae3-8e76-7fb7-6a8ac407e4c3@soulik.info>
+References: <156dd557-7ae3-8e76-7fb7-6a8ac407e4c3@soulik.info>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MKTOBNXJNQESUIJJHHQBABMOAJ7TFR6Y
-X-Message-ID-Hash: MKTOBNXJNQESUIJJHHQBABMOAJ7TFR6Y
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 35UPSXFPZDY64VWTJJTMCNETCRRYG6CF
+X-Message-ID-Hash: 35UPSXFPZDY64VWTJJTMCNETCRRYG6CF
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -120,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MKTOBNXJNQESUIJJHHQBABMOAJ7TFR6Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/35UPSXFPZDY64VWTJJTMCNETCRRYG6CF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,26 +117,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 17 Sep 2023 19:26:13 +0200,
-YE Chengfeng wrote:
+On Thu, 07 Sep 2023 18:52:40 +0200,
+Randy Li wrote:
 > 
-> Hi Takashi,
+> Hello All
 > 
-> Sorry for interrupt you again after such a long time. I just notice there was an old patch posted[1] from you that made pcm pointer() and trigger() callbacks could being able to be executed under non-atomic context, by using mutex instead of spin_lock_irq().
+> I am trying to refresh the ttymidi project, I have sent the merge
+> request to support the midi baudrate.
 > 
-> I find several similar deadlocks like this one on other places(inside pointer() and trigger() callbacks and being interrupted by hardirq), I am confusing whether they could be real deadlocks, as if these callbacks are executed under non-atomic context then they could be real problem.
+> The problem is the sound card in my PC is too new that it doesn't have
+> a midi input(I think the old hardware does).
+> 
+> amidi -l would report:
+> 
+> "cannot determine device number: Inappropriate ioctl for device"
+> 
+> I think it is SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE won't work here.
+> 
+> Could I still use snd_seq_open() to create a midi client to the
+> system's sound card.
+> 
+> Or I should try something different to make midi input work?
 
-It can't be a problem.  The new code path with mutex() is enabled only
-when the PCM nonatomic flag is explicitly defined by the driver.
-And the dummy driver doesn't, i.e. it still uses the traditional
-atomic PCM ops, hence spin_lock() without the irq-save can be used
-fine in the atomic ops like pointer or trigger.
+The situation isn't really clear to me, just a wild guess: you're
+running a sequencer client and want to expose it as a (virtual) MIDI
+device that is accessed via rawmidi API?  If so, you can use
+snd-virmidi driver and bind a sequencer client:port to a virtual
+rawmidi device.
 
 
 Takashi
-
-> 
-> Thanks much if you are available to reply,
-> Chengfeng
-> 
-> [1] https://patchwork.kernel.org/project/alsa-devel/patch/1409572832-32553-2-git-send-email-tiwai@suse.de/

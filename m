@@ -2,93 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C1A37A4A80
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 15:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8514C7A4A87
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 15:16:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A71B20C;
-	Mon, 18 Sep 2023 15:07:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A71B20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5AC11EC;
+	Mon, 18 Sep 2023 15:15:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5AC11EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695042487;
-	bh=hsho6zwJgdGzMVL4844nsBVJLIQBFgjfSPu5NS4R7o8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=homefOaEq0saP+5xSA0xYjt6yrsMabfhS5L5pB3sfByPZ+Q9jNqjxpqeGH30q87B4
-	 N9z3JMg6To1en3M67dDpdPOrUEfu24X/fnh59pBIq5++cWBByBWoXke3C1arsKeMJN
-	 XQfc5d4EN9l08UtyFsYdI+5KN1svc/B15aMKrSfo=
+	s=default; t=1695043005;
+	bh=FtIPupAgoajGdhtCQzmapwF+AUP8svBgsX55hKl9MSE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mQsCPDIHdLHmR4ByiAx91RXUw+nmfuk6n6zzzyE9nix1vgsD5dy0jLk2GSpnpTw37
+	 2XroolbUvr3fGmU+Rtqm3zJBR9aQr4HpCRNK2HcIeHEbpszYUNRjqJecFaI7K1kLD/
+	 9X6gAkPn+asjbVAQw9seKVKFtNyPHyEZJzlAvZj4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9FDB7F80552; Mon, 18 Sep 2023 15:07:16 +0200 (CEST)
+	id EB40CF8025A; Mon, 18 Sep 2023 15:15:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F50CF80125;
-	Mon, 18 Sep 2023 15:07:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C61CF801F5;
+	Mon, 18 Sep 2023 15:15:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95B36F80125; Mon, 18 Sep 2023 15:07:12 +0200 (CEST)
+	id 10FEBF801F5; Mon, 18 Sep 2023 15:15:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out-220.mta1.migadu.com (out-220.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::dc])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC3A1F80124
-	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 15:07:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC3A1F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 21ED5F80125
+	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 15:15:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21ED5F80125
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mYtySxGM
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id E5AD3CE0F8B;
-	Mon, 18 Sep 2023 13:07:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA87BC433CD;
-	Mon, 18 Sep 2023 13:06:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695042419;
-	bh=hsho6zwJgdGzMVL4844nsBVJLIQBFgjfSPu5NS4R7o8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mYtySxGMysdHsCIovmnvfHlg2AaCRdxOSMVbY5d92dapcymNtg/kl2qtiuus9BWWP
-	 O5xRQVUXhyPqGfR3NU5kIxPupa2m0Hpp1SeCCC1aK3hnqJqUYS/p6IFu2lT2qGFGBz
-	 YW0d9AwawXYSSHY61bLTtA4GMOT+UThCQ7b3Vz5AtA15rH7ZpPmGv91UF0UAvH8V19
-	 HFKDgIVwF4TB+7Qw79Q22nieQnypZNGrTjB+gEDcVTZiLNNQl5C+jEHIpGcFdJGjwg
-	 o4QQU9vPvO2j6M82ZFhGAaJUAmaWXXglLUVf0IzSeHB/1AJZM3ezI5cbQuHY8bPBsh
-	 wcTWASdhyv78A==
-Date: Mon, 18 Sep 2023 14:06:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: wangweidong.a@awinic.com
-Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.com,
-	herve.codina@bootlin.com, shumingf@realtek.com, 13916275206@139.com,
-	ryans.lee@analog.com, linus.walleij@linaro.org,
-	ckeepax@opensource.cirrus.com, povik+lin@cutebit.org, arnd@arndb.de,
-	harshit.m.mogalapalli@oracle.com, u.kleine-koenig@pengutronix.de,
-	yang.lee@linux.alibaba.com, liweilei@awinic.com,
-	yijiangtao@awinic.com, trix@redhat.com, colin.i.king@gmail.com,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ unprotected) header.d=jookia.org header.i=@jookia.org header.a=rsa-sha256
+ header.s=key1 header.b=0Cv0iCXp
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jookia.org; s=key1;
+	t=1695042943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pfa3PBg9asYKtNt2koiep7HfxuIir4IkICmX1c8bfJw=;
+	b=0Cv0iCXpSncpg9/iBG2W/hr3ugd7Y6aCght+CRTbusQBhXrfkoyA5e3PqQAVcCNmSrKE10
+	bFRCKoSTwnljO2/jOD21GAH9z4qCHGdOPWlA3r/nJ64qGw2H7cCwfQmc6jvmqtFAVuJv5j
+	YjAzkWFqdFp9/rFy0yOiFg/kYyfVynqPM2BBOYQ5vWSSKy3CWwD0lVFVWPRZ/J6fYBzkcr
+	Wz1w9KkU9qpGG1K9hZn5iJexFKp8hrHD4Gmn1qEgxlaCeZGPVyoIWVzxQOv2lmGP+eTm6h
+	X/6sdcR7IwrSKdKHWOsBqTKN5S08v9k5dTh2SBP2ja393+93AshOUuudHaFhQQ==
+From: John Watts <contact@jookia.org>
+To: alsa-devel@alsa-project.org
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	John Watts <contact@jookia.org>,
+	patches@opensource.cirrus.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V3 3/5] ASoC: codecs: Add code for bin parsing compatible
- with aw87390
-Message-ID: <b695fab0-1f0e-468c-a6c7-aa1003473c32@sirena.org.uk>
-References: <20230918115255.33171-1-wangweidong.a@awinic.com>
- <20230918115255.33171-4-wangweidong.a@awinic.com>
+Subject: [PATCH v4 0/3] ASoC: wm8782: Allow higher audio rates
+Date: Mon, 18 Sep 2023 23:15:29 +1000
+Message-ID: <20230918131532.2257615-1-contact@jookia.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5z+Fx5DotXtZSz3Z"
-Content-Disposition: inline
-In-Reply-To: <20230918115255.33171-4-wangweidong.a@awinic.com>
-X-Cookie: Never kick a man, unless he's down.
-Message-ID-Hash: Q5WOP6HWPVDT7RZLXI6FQJT22PA2OIMY
-X-Message-ID-Hash: Q5WOP6HWPVDT7RZLXI6FQJT22PA2OIMY
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
+Message-ID-Hash: ZYS2G7WPVTBIOXQLT72Z6SHU3UEDSX5O
+X-Message-ID-Hash: ZYS2G7WPVTBIOXQLT72Z6SHU3UEDSX5O
+X-MailFrom: contact@jookia.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5WOP6HWPVDT7RZLXI6FQJT22PA2OIMY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZYS2G7WPVTBIOXQLT72Z6SHU3UEDSX5O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,38 +100,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The wm8782 supports higher audio rates than just 48kHz. This is
+configured by setting the FSAMPEN pin on the codec chip.
 
---5z+Fx5DotXtZSz3Z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This patch series introduces the 'wlf,fsampen' device tree property
+to indicate the pin status and control the maximum rate available
+when using the codec.
 
-On Mon, Sep 18, 2023 at 07:52:53PM +0800, wangweidong.a@awinic.com wrote:
+v3 -> v4:
+- Default value is specified in device tree documentation
 
-> Add aw87390 compatible code to the aw88395_lib.c file
-> so that it can parse aw87390's bin file
-> Modify function return value
-> Remove the fade-enable property because other properties
-> already implement thi functionality.
-> Modify the transmission method of parameters.
+v2 -> v3:
+- Rate is now properly constrained using ALSA constraints
 
-This would be easier to review if it were split up so that the
-refactorings are separate commits, removing fade enable is a separate
-commit and then finally just the changes to add the new CODEC are done.
-That way each individual commit is both smaller and simpler.
+v1 -> v2:
+- Switched from max-rate property to wlf,fsampen property
+- Clarified property is optional, not required
 
---5z+Fx5DotXtZSz3Z
-Content-Type: application/pgp-signature; name="signature.asc"
+John Watts (3):
+  ASoC: wm8782: Constrain maximum audio rate at runtime
+  ASoC: wm8782: Use wlf,fsampen device tree property
+  ASoC: dt-bindings: wlf,wm8782: Add wlf,fsampen property
 
------BEGIN PGP SIGNATURE-----
+ .../devicetree/bindings/sound/wm8782.txt      |  7 +++
+ sound/soc/codecs/wm8782.c                     | 63 +++++++++++++++----
+ 2 files changed, 57 insertions(+), 13 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUIS2kACgkQJNaLcl1U
-h9Aj0wf/VncxZlHRbBN0E5dNaMspwCt53RF7zzRX8acE4xwwNEi9RATZwZnamY1B
-QHozPKBCqDrLv0QTnW2g/ZsForhKwa/q826C7X3ROhrp3O2aKrt25Nypbtn0Lup/
-4lRZ5r33uo4FOoh6t+Uj7+eCVaRnTENvmoMwn+8pfIWzmNpX8SrjKuB84kY3Ouh7
-8M5qt2/G9TwArVShx8v+ovZUf99Vbm/zQP3PueyLJfH/hJxm1j51zNBHhESEoThT
-tUdelqK0GXX3F3JKSc/o2B/WDmk5unSx/uE7N65Y/hcgn1qZ7FBjuur/jR8uy424
-Et6u5OOpx0tplM8EO5FVl1hZG+pUgA==
-=12+n
------END PGP SIGNATURE-----
+-- 
+2.42.0
 
---5z+Fx5DotXtZSz3Z--

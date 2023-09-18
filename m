@@ -2,114 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B04A7A4955
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 14:12:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1A37A4A80
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 15:08:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B339820C;
-	Mon, 18 Sep 2023 14:11:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B339820C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A71B20C;
+	Mon, 18 Sep 2023 15:07:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A71B20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695039128;
-	bh=pt126yEkTKq8koA6xcUg1qahv0mj2MeoYr28CFMlTbg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1695042487;
+	bh=hsho6zwJgdGzMVL4844nsBVJLIQBFgjfSPu5NS4R7o8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=coQKmnhcpmJpgT3Nx8tDVaefHqvQ05aiuJFbJn/CwlmdAX04qC4SLM9j7K0RsOI4f
-	 MPkqhneBSkjLKC0L/p9Q5j7KsHJ6Go4IhaAtxP8OtvEu4hzIPI/fcZSY4SBBMtxdQm
-	 Nj33C+IBXGvPEv7QUoLBDqcDcozKT2LldUmHsyao=
+	b=homefOaEq0saP+5xSA0xYjt6yrsMabfhS5L5pB3sfByPZ+Q9jNqjxpqeGH30q87B4
+	 N9z3JMg6To1en3M67dDpdPOrUEfu24X/fnh59pBIq5++cWBByBWoXke3C1arsKeMJN
+	 XQfc5d4EN9l08UtyFsYdI+5KN1svc/B15aMKrSfo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2BDD9F80494; Mon, 18 Sep 2023 14:11:18 +0200 (CEST)
+	id 9FDB7F80552; Mon, 18 Sep 2023 15:07:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1487F801D5;
-	Mon, 18 Sep 2023 14:11:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F50CF80125;
+	Mon, 18 Sep 2023 15:07:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73A55F801F5; Mon, 18 Sep 2023 14:11:15 +0200 (CEST)
+	id 95B36F80125; Mon, 18 Sep 2023 15:07:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED793F800AA
-	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 14:11:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED793F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC3A1F80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 15:07:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC3A1F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=aETRdK6I
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2c00e1d4c08so12762251fa.3
-        for <alsa-devel@alsa-project.org>;
- Mon, 18 Sep 2023 05:11:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1695039069; x=1695643869;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nNg5sBvXpTkFIEXWpv9DgGZCDJnmvTQX83kuJA0NYGE=;
-        b=aETRdK6IWWlzUXJMHTbX0IyC6fHxUZlFKk8v+3WrfVTkC/7tRZnairNxBtDObRPjPD
-         EE70zhQkNba7aW5vNSE8I7UrEHaMvUQeZ7WnBxXPoo/jQvo1ACUMr62Praiur1wmogBQ
-         iO95d2RVHdz5Y5Xpo02ygJ8vBa8cxpQUe4DkrP2qPowITB60vt/5T2vFCwmt5Us57k3N
-         AJh7Fv5758Tzp6OwqVoK3rmWNeNtUY02R5uj3IOdzxzMQovbtQWwYeYr25EbcjQAJaF/
-         w3Ea9U9/1xRmTCmtKhwpz9Blo+eqszrHTGbKybBPiC18C23S+6HJ1EPw4TsjCDmG72LJ
-         H5Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695039069; x=1695643869;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nNg5sBvXpTkFIEXWpv9DgGZCDJnmvTQX83kuJA0NYGE=;
-        b=u19KQbHrK8BCwP7Ij7f/Hg3RsrJkTl6ZNWTRiFoD1nmAmeMYCUSqb+c7E589pAUVWz
-         L1Xufahjj4TCZkziJfbUJDHisOK41kg1veh+N3wn6SlYaS9PuReNFPe7OVdKDhZBPi/E
-         G541t1xFvau1OkbbZYdfBDHgHflcDKSsmalHZrtaurQm+OJj4BgtCQXmrn28OvcQCAck
-         NRxQ1yjFNhqwfpc6SwivbNtDy5BF8GokCXKn9806/wSuC2D9laoHssEvgXvppP36Dd2n
-         X5lGbkKwCalf/QKluwwuvWdF8etX/sJCIg7/D5LYt5V2lT5FmPjSKvj6RhUDWHSUnF8t
-         p26Q==
-X-Gm-Message-State: AOJu0YxyeNde4k1by2JwLK+W8QyQUWERUa4kjKO69iIraUlDv6m73qq8
-	59yvpjZWuF9dRSjVCVw7t/7iYA==
-X-Google-Smtp-Source: 
- AGHT+IFwerwMQ9p0BqOOgGf8TfiZGafrKqJF/xTtLKwKD07Ub3Rfj01f0aVJZ19zwA3dnMtXaMRXaA==
-X-Received: by 2002:a05:651c:2115:b0:2bf:df8c:4e56 with SMTP id
- a21-20020a05651c211500b002bfdf8c4e56mr8540093ljq.39.1695039068635;
-        Mon, 18 Sep 2023 05:11:08 -0700 (PDT)
-Received: from [172.25.80.114] ([217.67.225.27])
-        by smtp.gmail.com with ESMTPSA id
- rp9-20020a170906d96900b0099e05fb8f95sm6346237ejb.137.2023.09.18.05.11.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Sep 2023 05:11:08 -0700 (PDT)
-Message-ID: <ed222918-68ca-cb57-15b8-57f45cdb5a5b@linaro.org>
-Date: Mon, 18 Sep 2023 14:11:07 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=mYtySxGM
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by sin.source.kernel.org (Postfix) with ESMTPS id E5AD3CE0F8B;
+	Mon, 18 Sep 2023 13:07:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA87BC433CD;
+	Mon, 18 Sep 2023 13:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695042419;
+	bh=hsho6zwJgdGzMVL4844nsBVJLIQBFgjfSPu5NS4R7o8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mYtySxGMysdHsCIovmnvfHlg2AaCRdxOSMVbY5d92dapcymNtg/kl2qtiuus9BWWP
+	 O5xRQVUXhyPqGfR3NU5kIxPupa2m0Hpp1SeCCC1aK3hnqJqUYS/p6IFu2lT2qGFGBz
+	 YW0d9AwawXYSSHY61bLTtA4GMOT+UThCQ7b3Vz5AtA15rH7ZpPmGv91UF0UAvH8V19
+	 HFKDgIVwF4TB+7Qw79Q22nieQnypZNGrTjB+gEDcVTZiLNNQl5C+jEHIpGcFdJGjwg
+	 o4QQU9vPvO2j6M82ZFhGAaJUAmaWXXglLUVf0IzSeHB/1AJZM3ezI5cbQuHY8bPBsh
+	 wcTWASdhyv78A==
+Date: Mon, 18 Sep 2023 14:06:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: wangweidong.a@awinic.com
+Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	perex@perex.cz, tiwai@suse.com, rf@opensource.cirrus.com,
+	herve.codina@bootlin.com, shumingf@realtek.com, 13916275206@139.com,
+	ryans.lee@analog.com, linus.walleij@linaro.org,
+	ckeepax@opensource.cirrus.com, povik+lin@cutebit.org, arnd@arndb.de,
+	harshit.m.mogalapalli@oracle.com, u.kleine-koenig@pengutronix.de,
+	yang.lee@linux.alibaba.com, liweilei@awinic.com,
+	yijiangtao@awinic.com, trix@redhat.com, colin.i.king@gmail.com,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V3 3/5] ASoC: codecs: Add code for bin parsing compatible
+ with aw87390
+Message-ID: <b695fab0-1f0e-468c-a6c7-aa1003473c32@sirena.org.uk>
+References: <20230918115255.33171-1-wangweidong.a@awinic.com>
+ <20230918115255.33171-4-wangweidong.a@awinic.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: Add Richtek rtq9128 audio
- amplifier
-Content-Language: en-US
-To: cy_huang@richtek.com, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Allen Lin <allen_lin@richtek.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <1695030341-20711-1-git-send-email-cy_huang@richtek.com>
- <1695030341-20711-2-git-send-email-cy_huang@richtek.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <1695030341-20711-2-git-send-email-cy_huang@richtek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JK4EHT6KWD3RCYLFYB66OX3LAFERNFMS
-X-Message-ID-Hash: JK4EHT6KWD3RCYLFYB66OX3LAFERNFMS
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5z+Fx5DotXtZSz3Z"
+Content-Disposition: inline
+In-Reply-To: <20230918115255.33171-4-wangweidong.a@awinic.com>
+X-Cookie: Never kick a man, unless he's down.
+Message-ID-Hash: Q5WOP6HWPVDT7RZLXI6FQJT22PA2OIMY
+X-Message-ID-Hash: Q5WOP6HWPVDT7RZLXI6FQJT22PA2OIMY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JK4EHT6KWD3RCYLFYB66OX3LAFERNFMS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5WOP6HWPVDT7RZLXI6FQJT22PA2OIMY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,72 +109,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18/09/2023 11:45, cy_huang@richtek.com wrote:
-> From: ChiYuan Huang <cy_huang@richtek.com>
-> 
-> Create richtek,rtq9128.yaml for rtq9128 amplifier.
-> 
-> Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
-> ---
->  .../bindings/sound/richtek,rtq9128.yaml       | 51 +++++++++++++++++++
->  1 file changed, 51 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/richtek,rtq9128.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/richtek,rtq9128.yaml b/Documentation/devicetree/bindings/sound/richtek,rtq9128.yaml
-> new file mode 100644
-> index 000000000000..a79694c2b169
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/richtek,rtq9128.yaml
-> @@ -0,0 +1,51 @@
-> +# SPDX-License-Identifier: GPL-2.0
 
-Dual license is needed. Just like checkpatch is asking for.
+--5z+Fx5DotXtZSz3Z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/richtek,rtq9128.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Richtek RTQ9128 Automative Audio Power Amplifier
-> +
-> +maintainers:
-> +  - ChiYuan Huang <cy_huang@richtek.com>
-> +
-> +description: |
+On Mon, Sep 18, 2023 at 07:52:53PM +0800, wangweidong.a@awinic.com wrote:
 
-Do not need '|' unless you need to preserve formatting.
+> Add aw87390 compatible code to the aw88395_lib.c file
+> so that it can parse aw87390's bin file
+> Modify function return value
+> Remove the fade-enable property because other properties
+> already implement thi functionality.
+> Modify the transmission method of parameters.
 
-> +  The RTQ9128 is a ultra-low output noise, high-efficiency, four-channel
-> +  class-D audio power amplifier and delivering 4x75W into 4OHm at 10%
-> +  THD+N from a 25V supply in automotive applications.
-> +
+This would be easier to review if it were split up so that the
+refactorings are separate commits, removing fade enable is a separate
+commit and then finally just the changes to add the new CODEC are done.
+That way each individual commit is both smaller and simpler.
 
-Missing ref to dai common.
+--5z+Fx5DotXtZSz3Z
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - richtek,rtq9128
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  enable-gpios:
-> +    maxItems: 1
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#sound-dai-cells'
-> +
-> +unevaluatedProperties: false
+-----BEGIN PGP SIGNATURE-----
 
-This goes with mentioned $ref. Alone would not be correct.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUIS2kACgkQJNaLcl1U
+h9Aj0wf/VncxZlHRbBN0E5dNaMspwCt53RF7zzRX8acE4xwwNEi9RATZwZnamY1B
+QHozPKBCqDrLv0QTnW2g/ZsForhKwa/q826C7X3ROhrp3O2aKrt25Nypbtn0Lup/
+4lRZ5r33uo4FOoh6t+Uj7+eCVaRnTENvmoMwn+8pfIWzmNpX8SrjKuB84kY3Ouh7
+8M5qt2/G9TwArVShx8v+ovZUf99Vbm/zQP3PueyLJfH/hJxm1j51zNBHhESEoThT
+tUdelqK0GXX3F3JKSc/o2B/WDmk5unSx/uE7N65Y/hcgn1qZ7FBjuur/jR8uy424
+Et6u5OOpx0tplM8EO5FVl1hZG+pUgA==
+=12+n
+-----END PGP SIGNATURE-----
 
-
-Best regards,
-Krzysztof
-
+--5z+Fx5DotXtZSz3Z--

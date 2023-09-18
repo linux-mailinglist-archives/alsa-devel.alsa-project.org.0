@@ -2,51 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECC1E7A48E2
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 13:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EBEB7A48E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Sep 2023 13:55:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2971CA4A;
-	Mon, 18 Sep 2023 13:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2971CA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3A62823;
+	Mon, 18 Sep 2023 13:54:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3A62823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695038110;
-	bh=6+FiM3cQiBaq44evE7pOihMB+TtsUrWgZ2mMbYnZ8PI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VoUsFYQx6PFbNwS/30d6NJK2Vfiz/7lxuztbMgiI9VIPtNfQ7Drcn3kKqUqS3HxMi
-	 G0WHt3Fo4CWELCKdzy8hgEjFw3kyFBWu3k0FJwMNgRCSnt4FY3serIi0BS/Z/1Oc5v
-	 +yycSjIiJnvfYcLZ/nFBCOWMRyE9vB9adt91NvdM=
+	s=default; t=1695038134;
+	bh=nqKt+ET/CiAXiVFwBu1OWbcyCv1YjcKfvDd2UksFFKw=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=jZ37XP0Bwz8NMqTvbghgaHcCwLjjrEvTvb6mWPGmPB0PFSHW8aj8ywWrzOmSgZd34
+	 VouBgRxaeshwmk0fheAZ+OnVi7LIx5yMdul7VUaCpfTXS5LcwxhM5FpyXTf2CF4IM8
+	 GGhaFSyNX2ipepXWNUmomvRjfW5CFeU5d3pQeIKY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F70EF8057D; Mon, 18 Sep 2023 13:53:37 +0200 (CEST)
+	id 29445F805A0; Mon, 18 Sep 2023 13:53:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B871F80571;
-	Mon, 18 Sep 2023 13:53:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87560F80580;
+	Mon, 18 Sep 2023 13:53:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99EABF80578; Mon, 18 Sep 2023 13:53:34 +0200 (CEST)
+	id 57B18F80588; Mon, 18 Sep 2023 13:53:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com
- [115.124.28.5])
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com
+ [115.124.28.125])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DFA57F8056F
-	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 13:53:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFA57F8056F
+	by alsa1.perex.cz (Postfix) with ESMTPS id C86E4F80579
+	for <alsa-devel@alsa-project.org>; Mon, 18 Sep 2023 13:53:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C86E4F80579
 X-Alimail-AntiSpam: 
- AC=CONTINUE;BC=0.1414002|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.302725-0.000405716-0.696869;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047199;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=28;RT=28;SR=0;TI=SMTPD_---.Ui7aPWT_1695037993;
+ AC=CONTINUE;BC=0.06712908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00716367-0.000217502-0.992619;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047203;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=27;RT=27;SR=0;TI=SMTPD_---.Ui7aPee_1695038001;
 Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.Ui7aPWT_1695037993)
+ fp:SMTPD_---.Ui7aPee_1695038001)
           by smtp.aliyun-inc.com;
-          Mon, 18 Sep 2023 19:53:21 +0800
+          Mon, 18 Sep 2023 19:53:29 +0800
 From: wangweidong.a@awinic.com
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -75,17 +74,17 @@ To: lgirdwood@gmail.com,
 	alsa-devel@alsa-project.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>
-Subject: [PATCH V3 2/5] ASoC: dt-bindings: Add schema for "awinic,aw87390"
-Date: Mon, 18 Sep 2023 19:52:52 +0800
-Message-ID: <20230918115255.33171-3-wangweidong.a@awinic.com>
+Subject: [PATCH V3 3/5] ASoC: codecs: Add code for bin parsing compatible with
+ aw87390
+Date: Mon, 18 Sep 2023 19:52:53 +0800
+Message-ID: <20230918115255.33171-4-wangweidong.a@awinic.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230918115255.33171-1-wangweidong.a@awinic.com>
 References: <20230918115255.33171-1-wangweidong.a@awinic.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JGLXXGQXYAKTRXH5422QYBJ54OXKQDJV
-X-Message-ID-Hash: JGLXXGQXYAKTRXH5422QYBJ54OXKQDJV
+Message-ID-Hash: OH53I7HYVH2MOSMHWN5XG7MCVLZV56FW
+X-Message-ID-Hash: OH53I7HYVH2MOSMHWN5XG7MCVLZV56FW
 X-MailFrom: wangweidong.a@awinic.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JGLXXGQXYAKTRXH5422QYBJ54OXKQDJV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OH53I7HYVH2MOSMHWN5XG7MCVLZV56FW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,80 +108,307 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Weidong Wang <wangweidong.a@awinic.com>
 
-Add a DT schema for describing awinic aw87390 audio amplifiers.
-They are controlled using I2C.
+Add aw87390 compatible code to the aw88395_lib.c file
+so that it can parse aw87390's bin file
+Modify function return value
+Remove the fade-enable property because other properties
+already implement thi functionality.
+Modify the transmission method of parameters.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
 ---
- .../bindings/sound/awinic,aw87390.yaml        | 58 +++++++++++++++++++
- 1 file changed, 58 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
+ sound/soc/codecs/aw88395/aw88395.c        |  9 ++---
+ sound/soc/codecs/aw88395/aw88395.h        |  2 +-
+ sound/soc/codecs/aw88395/aw88395_device.c | 47 ++++++-----------------
+ sound/soc/codecs/aw88395/aw88395_device.h |  6 +--
+ sound/soc/codecs/aw88395/aw88395_lib.c    | 25 +++++++-----
+ sound/soc/codecs/aw88395/aw88395_reg.h    |  1 +
+ 6 files changed, 35 insertions(+), 55 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
-new file mode 100644
-index 000000000000..ba9d8767c5d5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/awinic,aw87390.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/soc/codecs/aw88395/aw88395.c b/sound/soc/codecs/aw88395/aw88395.c
+index 9dcd75dd799a..77227c8f01f6 100644
+--- a/sound/soc/codecs/aw88395/aw88395.c
++++ b/sound/soc/codecs/aw88395/aw88395.c
+@@ -175,9 +175,8 @@ static int aw88395_profile_info(struct snd_kcontrol *kcontrol,
+ {
+ 	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
+ 	struct aw88395 *aw88395 = snd_soc_component_get_drvdata(codec);
+-	const char *prof_name;
+-	char *name;
+-	int count;
++	char *prof_name, *name;
++	int count, ret;
+ 
+ 	uinfo->type = SNDRV_CTL_ELEM_TYPE_ENUMERATED;
+ 	uinfo->count = 1;
+@@ -196,8 +195,8 @@ static int aw88395_profile_info(struct snd_kcontrol *kcontrol,
+ 	name = uinfo->value.enumerated.name;
+ 	count = uinfo->value.enumerated.item;
+ 
+-	prof_name = aw88395_dev_get_prof_name(aw88395->aw_pa, count);
+-	if (!prof_name) {
++	ret = aw88395_dev_get_prof_name(aw88395->aw_pa, count, &prof_name);
++	if (ret) {
+ 		strscpy(uinfo->value.enumerated.name, "null",
+ 						strlen("null") + 1);
+ 		return 0;
+diff --git a/sound/soc/codecs/aw88395/aw88395.h b/sound/soc/codecs/aw88395/aw88395.h
+index 8036ba27f68d..c2a4f0cb8cd5 100644
+--- a/sound/soc/codecs/aw88395/aw88395.h
++++ b/sound/soc/codecs/aw88395/aw88395.h
+@@ -16,7 +16,7 @@
+ 
+ #define AW88395_DSP_16_DATA_MASK		(0x0000ffff)
+ 
+-#define AW88395_I2C_NAME			"aw88395_smartpa"
++#define AW88395_I2C_NAME			"aw88395"
+ 
+ #define AW88395_RATES (SNDRV_PCM_RATE_8000_48000 | \
+ 			SNDRV_PCM_RATE_96000)
+diff --git a/sound/soc/codecs/aw88395/aw88395_device.c b/sound/soc/codecs/aw88395/aw88395_device.c
+index 33eda3741464..fd1f67d5f22f 100644
+--- a/sound/soc/codecs/aw88395/aw88395_device.c
++++ b/sound/soc/codecs/aw88395/aw88395_device.c
+@@ -297,9 +297,6 @@ static void aw_dev_fade_in(struct aw_device *aw_dev)
+ 	int fade_step = aw_dev->fade_step;
+ 	int i;
+ 
+-	if (!aw_dev->fade_en)
+-		return;
+-
+ 	if (fade_step == 0 || aw_dev->fade_in_time == 0) {
+ 		aw_dev_set_volume(aw_dev, fade_in_vol);
+ 		return;
+@@ -320,9 +317,6 @@ static void aw_dev_fade_out(struct aw_device *aw_dev)
+ 	int fade_step = aw_dev->fade_step;
+ 	int i;
+ 
+-	if (!aw_dev->fade_en)
+-		return;
+-
+ 	if (fade_step == 0 || aw_dev->fade_out_time == 0) {
+ 		aw_dev_set_volume(aw_dev, AW88395_MUTE_VOL);
+ 		return;
+@@ -1062,10 +1056,6 @@ static int aw_dev_update_reg_container(struct aw_device *aw_dev,
+ 		aw_dev_set_volume(aw_dev, vol_desc->ctl_volume);
+ 	}
+ 
+-	/* keep min volume */
+-	if (aw_dev->fade_en)
+-		aw_dev_set_volume(aw_dev, AW88395_MUTE_VOL);
+-
+ 	aw_dev_get_dsp_config(aw_dev, &aw_dev->dsp_cfg);
+ 
+ 	return ret;
+@@ -1306,7 +1296,9 @@ int aw88395_dev_fw_update(struct aw_device *aw_dev, bool up_dsp_fw_en, bool forc
+ 		return -EPERM;
+ 	}
+ 
+-	prof_name = aw88395_dev_get_prof_name(aw_dev, aw_dev->prof_index);
++	ret = aw88395_dev_get_prof_name(aw_dev, aw_dev->prof_index, &prof_name);
++	if (ret)
++		return ret;
+ 
+ 	dev_dbg(aw_dev->dev, "start update %s", prof_name);
+ 
+@@ -1594,37 +1586,19 @@ static void aw88395_parse_channel_dt(struct aw_device *aw_dev)
+ 	u32 channel_value;
+ 	int ret;
+ 
+-	ret = of_property_read_u32(np, "sound-channel", &channel_value);
++	ret = of_property_read_u32(np, "awinic,audio-channel", &channel_value);
+ 	if (ret) {
+ 		dev_dbg(aw_dev->dev,
+-			"read sound-channel failed,use default 0");
++			"read audio-channel failed,use default 0");
+ 		aw_dev->channel = AW88395_DEV_DEFAULT_CH;
+ 		return;
+ 	}
+ 
+-	dev_dbg(aw_dev->dev, "read sound-channel value is: %d",
++	dev_dbg(aw_dev->dev, "read audio-channel value is: %d",
+ 			channel_value);
+ 	aw_dev->channel = channel_value;
+ }
+ 
+-static void aw88395_parse_fade_enable_dt(struct aw_device *aw_dev)
+-{
+-	struct device_node *np = aw_dev->dev->of_node;
+-	u32 fade_en;
+-	int ret;
+-
+-	ret = of_property_read_u32(np, "fade-enable", &fade_en);
+-	if (ret) {
+-		dev_dbg(aw_dev->dev,
+-			"read fade-enable failed, close fade_in_out");
+-		fade_en = AW88395_FADE_IN_OUT_DEFAULT;
+-	}
+-
+-	dev_dbg(aw_dev->dev, "read fade-enable value is: %d", fade_en);
+-
+-	aw_dev->fade_en = fade_en;
+-}
+-
+ static int aw_dev_init(struct aw_device *aw_dev)
+ {
+ 	aw_dev->chip_id = AW88395_CHIP_ID;
+@@ -1639,7 +1613,6 @@ static int aw_dev_init(struct aw_device *aw_dev)
+ 	aw_dev->fade_step = AW88395_VOLUME_STEP_DB;
+ 	aw_dev->volume_desc.ctl_volume = AW88395_VOL_DEFAULT_VALUE;
+ 	aw88395_parse_channel_dt(aw_dev);
+-	aw88395_parse_fade_enable_dt(aw_dev);
+ 
+ 	return 0;
+ }
+@@ -1673,7 +1646,7 @@ int aw88395_dev_set_profile_index(struct aw_device *aw_dev, int index)
+ }
+ EXPORT_SYMBOL_GPL(aw88395_dev_set_profile_index);
+ 
+-char *aw88395_dev_get_prof_name(struct aw_device *aw_dev, int index)
++int aw88395_dev_get_prof_name(struct aw_device *aw_dev, int index, char **prof_name)
+ {
+ 	struct aw_prof_info *prof_info = &aw_dev->prof_info;
+ 	struct aw_prof_desc *prof_desc;
+@@ -1681,12 +1654,14 @@ char *aw88395_dev_get_prof_name(struct aw_device *aw_dev, int index)
+ 	if ((index >= aw_dev->prof_info.count) || (index < 0)) {
+ 		dev_err(aw_dev->dev, "index[%d] overflow count[%d]",
+ 			index, aw_dev->prof_info.count);
+-		return NULL;
++		return -EINVAL;
+ 	}
+ 
+ 	prof_desc = &aw_dev->prof_info.prof_desc[index];
+ 
+-	return prof_info->prof_name_list[prof_desc->id];
++	*prof_name = prof_info->prof_name_list[prof_desc->id];
 +
-+title: Awinic Aw87390 Audio Amplifier
-+
-+maintainers:
-+  - Weidong Wang <wangweidong.a@awinic.com>
-+
-+description:
-+  The awinic aw87390 is specifically designed to improve
-+  the musical output dynamic range, enhance the overall
-+  sound quallity, which is a new high efficiency, low
-+  noise, constant large volume, 6th Smart K audio amplifier.
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: awinic,aw87390
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  awinic,audio-channel:
-+    description:
-+      It is used to distinguish multiple PA devices, so that different
-+      configurations can be loaded to different PA devices
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 7
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#sound-dai-cells"
-+  - awinic,audio-channel
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        audio-codec@58 {
-+            compatible = "awinic,aw87390";
-+            reg = <0x58>;
-+            #sound-dai-cells = <0>;
-+            awinic,audio-channel = <0>;
-+        };
-+    };
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(aw88395_dev_get_prof_name);
+ 
+diff --git a/sound/soc/codecs/aw88395/aw88395_device.h b/sound/soc/codecs/aw88395/aw88395_device.h
+index caf730753167..791c8c106557 100644
+--- a/sound/soc/codecs/aw88395/aw88395_device.h
++++ b/sound/soc/codecs/aw88395/aw88395_device.h
+@@ -141,6 +141,7 @@ struct aw_device {
+ 	unsigned char prof_cur;
+ 	unsigned char prof_index;
+ 	unsigned char dsp_crc_st;
++	unsigned char dsp_cfg;
+ 	u16 chip_id;
+ 
+ 	unsigned int channel;
+@@ -151,9 +152,6 @@ struct aw_device {
+ 	struct regmap *regmap;
+ 	char *acf;
+ 
+-	u32 fade_en;
+-	unsigned char dsp_cfg;
+-
+ 	u32 dsp_fw_len;
+ 	u32 dsp_cfg_len;
+ 	u8 platform;
+@@ -183,7 +181,7 @@ int aw88395_dev_fw_update(struct aw_device *aw_dev, bool up_dsp_fw_en, bool forc
+ void aw88395_dev_set_volume(struct aw_device *aw_dev, unsigned short set_vol);
+ int aw88395_dev_get_prof_data(struct aw_device *aw_dev, int index,
+ 			struct aw_prof_desc **prof_desc);
+-char *aw88395_dev_get_prof_name(struct aw_device *aw_dev, int index);
++int aw88395_dev_get_prof_name(struct aw_device *aw_dev, int index, char **prof_name);
+ int aw88395_dev_set_profile_index(struct aw_device *aw_dev, int index);
+ int aw88395_dev_get_profile_index(struct aw_device *aw_dev);
+ int aw88395_dev_get_profile_count(struct aw_device *aw_dev);
+diff --git a/sound/soc/codecs/aw88395/aw88395_lib.c b/sound/soc/codecs/aw88395/aw88395_lib.c
+index 8ee1baa03269..a0a429ca9768 100644
+--- a/sound/soc/codecs/aw88395/aw88395_lib.c
++++ b/sound/soc/codecs/aw88395/aw88395_lib.c
+@@ -452,12 +452,16 @@ static int aw_dev_parse_reg_bin_with_hdr(struct aw_device *aw_dev,
+ 	if ((aw_bin->all_bin_parse_num != 1) ||
+ 		(aw_bin->header_info[0].bin_data_type != DATA_TYPE_REGISTER)) {
+ 		dev_err(aw_dev->dev, "bin num or type error");
++		ret = -EINVAL;
+ 		goto parse_bin_failed;
+ 	}
+ 
+-	if (aw_bin->header_info[0].valid_data_len % 4) {
+-		dev_err(aw_dev->dev, "bin data len get error!");
+-		goto parse_bin_failed;
++	if (aw_dev->chip_id == AW88261_CHIP_ID) {
++		if (aw_bin->header_info[0].valid_data_len % 4) {
++			dev_err(aw_dev->dev, "bin data len get error!");
++			ret = -EINVAL;
++			goto parse_bin_failed;
++		}
+ 	}
+ 
+ 	prof_desc->sec_desc[AW88395_DATA_TYPE_REG].data =
+@@ -579,9 +583,9 @@ static int aw_dev_parse_dev_default_type(struct aw_device *aw_dev,
+ }
+ 
+ static int aw88261_dev_cfg_get_valid_prof(struct aw_device *aw_dev,
+-				struct aw_all_prof_info all_prof_info)
++				struct aw_all_prof_info *all_prof_info)
+ {
+-	struct aw_prof_desc *prof_desc = all_prof_info.prof_desc;
++	struct aw_prof_desc *prof_desc = all_prof_info->prof_desc;
+ 	struct aw_prof_info *prof_info = &aw_dev->prof_info;
+ 	int num = 0;
+ 	int i;
+@@ -621,9 +625,9 @@ static int aw88261_dev_cfg_get_valid_prof(struct aw_device *aw_dev,
+ }
+ 
+ static int aw88395_dev_cfg_get_valid_prof(struct aw_device *aw_dev,
+-				struct aw_all_prof_info all_prof_info)
++				struct aw_all_prof_info *all_prof_info)
+ {
+-	struct aw_prof_desc *prof_desc = all_prof_info.prof_desc;
++	struct aw_prof_desc *prof_desc = all_prof_info->prof_desc;
+ 	struct aw_prof_info *prof_info = &aw_dev->prof_info;
+ 	struct aw_sec_data_desc *sec_desc;
+ 	int num = 0;
+@@ -701,12 +705,13 @@ static int aw_dev_load_cfg_by_hdr(struct aw_device *aw_dev,
+ 
+ 	switch (aw_dev->chip_id) {
+ 	case AW88395_CHIP_ID:
+-		ret = aw88395_dev_cfg_get_valid_prof(aw_dev, *all_prof_info);
++		ret = aw88395_dev_cfg_get_valid_prof(aw_dev, all_prof_info);
+ 		if (ret < 0)
+ 			goto exit;
+ 		break;
+ 	case AW88261_CHIP_ID:
+-		ret = aw88261_dev_cfg_get_valid_prof(aw_dev, *all_prof_info);
++	case AW87390_CHIP_ID:
++		ret = aw88261_dev_cfg_get_valid_prof(aw_dev, all_prof_info);
+ 		if (ret < 0)
+ 			goto exit;
+ 		break;
+@@ -799,6 +804,7 @@ static int aw_get_dev_scene_count_v1(struct aw_device *aw_dev, struct aw_contain
+ 		ret = 0;
+ 		break;
+ 	case AW88261_CHIP_ID:
++	case AW87390_CHIP_ID:
+ 		for (i = 0; i < cfg_hdr->ddt_num; ++i) {
+ 			if (((cfg_dde[i].data_type == ACF_SEC_TYPE_REG) ||
+ 			     (cfg_dde[i].data_type == ACF_SEC_TYPE_HDR_REG)) &&
+@@ -839,6 +845,7 @@ static int aw_get_default_scene_count_v1(struct aw_device *aw_dev,
+ 		ret = 0;
+ 		break;
+ 	case AW88261_CHIP_ID:
++	case AW87390_CHIP_ID:
+ 		for (i = 0; i < cfg_hdr->ddt_num; ++i) {
+ 			if (((cfg_dde[i].data_type == ACF_SEC_TYPE_REG) ||
+ 			     (cfg_dde[i].data_type == ACF_SEC_TYPE_HDR_REG)) &&
+diff --git a/sound/soc/codecs/aw88395/aw88395_reg.h b/sound/soc/codecs/aw88395/aw88395_reg.h
+index e7a7c02efaf3..d0a273387313 100644
+--- a/sound/soc/codecs/aw88395/aw88395_reg.h
++++ b/sound/soc/codecs/aw88395/aw88395_reg.h
+@@ -97,6 +97,7 @@
+ enum aw88395_id {
+ 	AW88395_CHIP_ID = 0x2049,
+ 	AW88261_CHIP_ID = 0x2113,
++	AW87390_CHIP_ID = 0x76,
+ };
+ 
+ #define AW88395_REG_MAX		(0x7D)
 -- 
 2.41.0
 

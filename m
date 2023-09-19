@@ -2,91 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E5D7A5726
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 03:52:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 597A57A57F9
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 05:45:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE430886;
-	Tue, 19 Sep 2023 03:51:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE430886
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1E50A4A;
+	Tue, 19 Sep 2023 05:44:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1E50A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695088342;
-	bh=Rw11hdiBfbfg6RCT6LpE/HLxNM9yZ1ymEinpihnurPs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1695095112;
+	bh=FmJ2Jkuktoi/4h8QlHnlZU4IWKrI2nLnMkgQEyEoozA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eE6r43lqs6OdGO8pkRIn44Uqc2KL5DDwUidjbZLNjIqa29Yum+Ad1ylyh6AWI0q6Y
-	 Zpd3m8WbsaSCZroCHtD9jxPqZz+jH9K+XGGjxcWURt/W0z3vCY2qq7M8yhVRXeABpU
-	 SCYPgbxewbH+bkEejdNCM2CY2SmbOH4xf7t65v4A=
+	b=Eg/vfJWo13a4LQaB3Nmx94udk/zCH9OMHoyPyaXoNK3cGJ6l/sPJZg7t6EwXea2Vk
+	 ma4MJ+soeYKyn/8JTYwMsyzmPVsjVz6C7tZQlIVUG6V7XaWG5dvSku2C9eaTecG8NN
+	 2pdBsKzfsKSUUhiB+0433NpgKrQFjuwMYvrMOD9w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D356AF801F5; Tue, 19 Sep 2023 03:51:31 +0200 (CEST)
+	id 5270CF80549; Tue, 19 Sep 2023 05:43:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1A13F8025A;
-	Tue, 19 Sep 2023 03:51:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DD79F801F5;
+	Tue, 19 Sep 2023 05:43:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E207F80494; Tue, 19 Sep 2023 03:51:22 +0200 (CEST)
+	id CC6DAF8025A; Tue, 19 Sep 2023 05:43:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 371D2F80124
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 03:51:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 371D2F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 50A30F800F4
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 05:43:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50A30F800F4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=X9NhpiXp
+ header.s=Intel header.b=Lv5igxUX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695088274; x=1726624274;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Rw11hdiBfbfg6RCT6LpE/HLxNM9yZ1ymEinpihnurPs=;
-  b=X9NhpiXpyT3YOYTMPwwOJX1jE10Mu1NrzdH7QLUqa3peXTUbvaLht/Yl
-   9BNs2k/otAV9gUjHRM5dBE7l9AgFqvwBljOGONFSoz8rRouhlehFkp1//
-   IMhc99O33mLdYGkI1rF3+XZcRQTdRQLwEAUmu3c4Yq1TiyBHrZauGoM3A
-   fZQDPfjJKRWm0MhB5P5NqB0hvlS2+JIA1x/oIoIHxztjRdt7rQiCGNs0V
-   Ugtxn6mtoDkLiC5dfMTktN9lBP8lSURT7Oulw3TgrqPnupDILN7py1osM
-   RgDqkjFc2ptNo8td+7VkyiQ35X1V2oxzsqY6VAWDnwrQ+Ewtr/Cgfxj3N
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="377136209"
+  t=1695095003; x=1726631003;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FmJ2Jkuktoi/4h8QlHnlZU4IWKrI2nLnMkgQEyEoozA=;
+  b=Lv5igxUX9OZySn6ssFzX4VX6qpYVY//mwqXXihfp4eVi8MHyry5BmY2l
+   giUqFR0K0vE4y6Dr+gA9+teqz6eluM2Agrsak1rRb2pHhs+Qibk1+7kK6
+   2VY4cxXX6tzrVqeO5T7ag45dnpxGGueds+19UK69uCK4afjJHgqyM15H8
+   +DmBlmDEadSqNKGxovoZ7lWVysmYdNDw72JS3mIMzfoEBypkErASVEQ2l
+   3ozkO6aQ6uSuvRmn+sVi2uFkTYclaS7dc3sv+W8u/5Owcc3b1NAMbAIJJ
+   39CMqiB+5fNOmle8MmLGeWmL43V0ZbhV1asF312d5KSx4F6Hw4e575bU4
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="382595214"
 X-IronPort-AV: E=Sophos;i="6.02,158,1688454000";
-   d="scan'208";a="377136209"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2023 18:51:03 -0700
+   d="scan'208";a="382595214"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2023 20:43:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="811545624"
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="781158134"
 X-IronPort-AV: E=Sophos;i="6.02,158,1688454000";
-   d="scan'208";a="811545624"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2023 18:51:00 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	bard.liao@intel.com,
-	peter.ujfalusi@linux.intel.com
-Subject: [PATCH 2/2] ASoC: Intel: soc-acpi-intel-mtl-match: add acpi match
- table for cdb35l56-eight-c
-Date: Tue, 19 Sep 2023 10:00:11 +0800
-Message-Id: <20230919020011.1896041-3-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230919020011.1896041-1-yung-chuan.liao@linux.intel.com>
-References: <20230919020011.1896041-1-yung-chuan.liao@linux.intel.com>
+   d="scan'208";a="781158134"
+Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
+  by orsmga001.jf.intel.com with ESMTP; 18 Sep 2023 20:43:14 -0700
+Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qiRd3-0006qq-1S;
+	Tue, 19 Sep 2023 03:43:02 +0000
+Date: Tue, 19 Sep 2023 11:41:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ivan Orlov <ivan.orlov0322@gmail.com>, perex@perex.cz, tiwai@suse.com,
+	corbet@lwn.net
+Cc: oe-kbuild-all@lists.linux.dev, Ivan Orlov <ivan.orlov0322@gmail.com>,
+	alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org
+Subject: Re: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
+Message-ID: <202309191140.FdOk1qDx-lkp@intel.com>
+References: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6O4K6ZTLDZZIIS2ZX4NC4IPZDCNPJBJW
-X-Message-ID-Hash: 6O4K6ZTLDZZIIS2ZX4NC4IPZDCNPJBJW
-X-MailFrom: yung-chuan.liao@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
+Message-ID-Hash: YP7UVWJXLJLBF7YITUG5S5QI5UMGUA4D
+X-Message-ID-Hash: YP7UVWJXLJLBF7YITUG5S5QI5UMGUA4D
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,141 +100,95 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6O4K6ZTLDZZIIS2ZX4NC4IPZDCNPJBJW/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YP7UVWJXLJLBF7YITUG5S5QI5UMGUA4D/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Chao Song <chao.song@linux.intel.com>
+Hi Ivan,
 
-This patch adds acpi match table for cdb35l56-eight-c
-AIC board from Cirrus Logic.
+kernel test robot noticed the following build warnings:
 
-The codec layout is configured as:
-    - Link0: CS42L43 Jack
-    - Link1: 2x CS35L56 Speaker
-    - Link2: 2x CS35L56 Speaker
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on tiwai-sound/for-linus linus/master v6.6-rc2 next-20230918]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Chao Song <chao.song@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- .../intel/common/soc-acpi-intel-mtl-match.c   | 78 +++++++++++++++++++
- 1 file changed, 78 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Ivan-Orlov/ALSA-Add-new-driver-for-Marian-M2-sound-card/20230919-021236
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230918181044.7257-2-ivan.orlov0322%40gmail.com
+patch subject: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
+config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20230919/202309191140.FdOk1qDx-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230919/202309191140.FdOk1qDx-lkp@intel.com/reproduce)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-index 0304246d2922..b6409d2bd1fb 100644
---- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-@@ -92,6 +92,20 @@ static const struct snd_soc_acpi_endpoint rt712_endpoints[] = {
- 	},
- };
- 
-+static const struct snd_soc_acpi_endpoint spk_2_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 2,
-+	.group_id = 1,
-+};
-+
-+static const struct snd_soc_acpi_endpoint spk_3_endpoint = {
-+	.num = 0,
-+	.aggregated = 1,
-+	.group_position = 3,
-+	.group_id = 1,
-+};
-+
- static const struct snd_soc_acpi_adr_device rt711_sdca_0_adr[] = {
- 	{
- 		.adr = 0x000030025D071101ull,
-@@ -211,6 +225,45 @@ static const struct snd_soc_acpi_link_adr mtl_712_only[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_adr_device cs42l43_0_adr[] = {
-+	{
-+		.adr = 0x00003001FA424301ull,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "cs42l43"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device cs35l56_1_adr[] = {
-+	{
-+		.adr = 0x00013701FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+		.name_prefix = "cs35l56-8"
-+	},
-+	{
-+		.adr = 0x00013601FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_3_endpoint,
-+		.name_prefix = "cs35l56-7"
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device cs35l56_2_adr[] = {
-+	{
-+		.adr = 0x00023301FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+		.name_prefix = "cs35l56-1"
-+	},
-+	{
-+		.adr = 0x00023201FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_2_endpoint,
-+		.name_prefix = "cs35l56-2"
-+	}
-+};
-+
- static const struct snd_soc_acpi_link_adr rt5682_link2_max98373_link0[] = {
- 	/* Expected order: jack -> amp */
- 	{
-@@ -317,6 +370,25 @@ static const struct snd_soc_acpi_link_adr cs42l42_link0_max98363_link2[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_link_adr mtl_cs42l43_cs35l56[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(cs42l43_0_adr),
-+		.adr_d = cs42l43_0_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(cs35l56_1_adr),
-+		.adr_d = cs35l56_1_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(cs35l56_2_adr),
-+		.adr_d = cs35l56_2_adr,
-+	},
-+	{}
-+};
-+
- /* this table is used when there is no I2S codec present */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 	/* mockup tests need to be first */
-@@ -350,6 +422,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-mtl-rt1318-l12-rt714-l0.tplg"
- 	},
-+	{
-+		.link_mask = GENMASK(2, 0),
-+		.links = mtl_cs42l43_cs35l56,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-mtl-cs42l43-l0-cs35l56-l12.tplg",
-+	},
- 	{
- 		.link_mask = GENMASK(3, 0),
- 		.links = mtl_3_in_1_sdca,
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309191140.FdOk1qDx-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   sound/pci/marianm2.c: In function 'snd_marian_hw_params':
+>> sound/pci/marianm2.c:466:13: warning: variable 'buffer_frames' set but not used [-Wunused-but-set-variable]
+     466 |         int buffer_frames;
+         |             ^~~~~~~~~~~~~
+
+
+vim +/buffer_frames +466 sound/pci/marianm2.c
+
+   460	
+   461	static int snd_marian_hw_params(struct snd_pcm_substream *substream,
+   462					struct snd_pcm_hw_params *params)
+   463	{
+   464		struct marian_card *marian = snd_pcm_substream_chip(substream);
+   465		unsigned int speedmode;
+ > 466		int buffer_frames;
+   467	
+   468		buffer_frames = SUBSTREAM_BUF_SIZE / M2_FRAME_SIZE;
+   469	
+   470		if (params_rate(params) < RATE_SLOW)
+   471			speedmode = SPEEDMODE_SLOW;
+   472		else if (params_rate(params) < RATE_FAST)
+   473			speedmode = SPEEDMODE_FAST;
+   474	
+   475		if (speedmode > marian->desc->speedmode_max) {
+   476			dev_err(marian->card->dev,
+   477				"Requested rate (%u Hz) higher than card's maximum\n",
+   478				params_rate(params));
+   479			_snd_pcm_hw_param_setempty(params, SNDRV_PCM_HW_PARAM_RATE);
+   480			return -EBUSY;
+   481		}
+   482	
+   483		spin_lock(&marian->reglock);
+   484		if (marian->desc->set_speedmode)
+   485			marian->desc->set_speedmode(marian, speedmode);
+   486		else
+   487			marian_generic_set_speedmode(marian, speedmode);
+   488	
+   489		marian->detune = 0;
+   490	
+   491		marian_generic_set_dco(marian, params_rate(params), 0);
+   492		spin_unlock(&marian->reglock);
+   493	
+   494		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+   495			snd_pcm_set_runtime_buffer(substream, &marian->playback_buf);
+   496		else
+   497			snd_pcm_set_runtime_buffer(substream, &marian->capture_buf);
+   498	
+   499		// apply optional card specific hw constraints
+   500		if (marian->desc->hw_constraints_func)
+   501			marian->desc->hw_constraints_func(marian, substream, params);
+   502	
+   503		return 0;
+   504	}
+   505	
+
 -- 
-2.25.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

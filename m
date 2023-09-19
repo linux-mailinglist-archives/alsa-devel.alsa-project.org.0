@@ -2,93 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 597A57A57F9
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 05:45:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B587A596C
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 07:36:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1E50A4A;
-	Tue, 19 Sep 2023 05:44:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1E50A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2F4DA4A;
+	Tue, 19 Sep 2023 07:35:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2F4DA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695095112;
-	bh=FmJ2Jkuktoi/4h8QlHnlZU4IWKrI2nLnMkgQEyEoozA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Eg/vfJWo13a4LQaB3Nmx94udk/zCH9OMHoyPyaXoNK3cGJ6l/sPJZg7t6EwXea2Vk
-	 ma4MJ+soeYKyn/8JTYwMsyzmPVsjVz6C7tZQlIVUG6V7XaWG5dvSku2C9eaTecG8NN
-	 2pdBsKzfsKSUUhiB+0433NpgKrQFjuwMYvrMOD9w=
+	s=default; t=1695101763;
+	bh=Sh5Uuga/OqB70gjoeoxiwU9bIX19o1wj8HEYCscKB5g=;
+	h=From:Subject:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=QN5FB4A0oKteDt95plQh5AX0zFrzyRvuDozLKcqazKbBAS56lyyu48VIAhVRXm4ho
+	 4Ki+qTb+pNp5QUtPO67OxfWkjE3QoaPtQd885A61QATiS83nPUYt5s0JTMyVhCnrer
+	 6UJe/IUIGgFWGM5kzbaJjohndGp0fU7qIqb7tChM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5270CF80549; Tue, 19 Sep 2023 05:43:53 +0200 (CEST)
+	id 01EEEF8047D; Tue, 19 Sep 2023 07:34:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DD79F801F5;
-	Tue, 19 Sep 2023 05:43:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 652AAF801F5;
+	Tue, 19 Sep 2023 07:34:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC6DAF8025A; Tue, 19 Sep 2023 05:43:33 +0200 (CEST)
+	id 92DCAF8025A; Tue, 19 Sep 2023 07:34:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No,
+ score=-0.2 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2070a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::70a])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50A30F800F4
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 05:43:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50A30F800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61B53F80125
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 07:34:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61B53F80125
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Lv5igxUX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695095003; x=1726631003;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FmJ2Jkuktoi/4h8QlHnlZU4IWKrI2nLnMkgQEyEoozA=;
-  b=Lv5igxUX9OZySn6ssFzX4VX6qpYVY//mwqXXihfp4eVi8MHyry5BmY2l
-   giUqFR0K0vE4y6Dr+gA9+teqz6eluM2Agrsak1rRb2pHhs+Qibk1+7kK6
-   2VY4cxXX6tzrVqeO5T7ag45dnpxGGueds+19UK69uCK4afjJHgqyM15H8
-   +DmBlmDEadSqNKGxovoZ7lWVysmYdNDw72JS3mIMzfoEBypkErASVEQ2l
-   3ozkO6aQ6uSuvRmn+sVi2uFkTYclaS7dc3sv+W8u/5Owcc3b1NAMbAIJJ
-   39CMqiB+5fNOmle8MmLGeWmL43V0ZbhV1asF312d5KSx4F6Hw4e575bU4
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="382595214"
-X-IronPort-AV: E=Sophos;i="6.02,158,1688454000";
-   d="scan'208";a="382595214"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2023 20:43:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="781158134"
-X-IronPort-AV: E=Sophos;i="6.02,158,1688454000";
-   d="scan'208";a="781158134"
-Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
-  by orsmga001.jf.intel.com with ESMTP; 18 Sep 2023 20:43:14 -0700
-Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qiRd3-0006qq-1S;
-	Tue, 19 Sep 2023 03:43:02 +0000
-Date: Tue, 19 Sep 2023 11:41:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>, perex@perex.cz, tiwai@suse.com,
-	corbet@lwn.net
-Cc: oe-kbuild-all@lists.linux.dev, Ivan Orlov <ivan.orlov0322@gmail.com>,
-	alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org
-Subject: Re: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
-Message-ID: <202309191140.FdOk1qDx-lkp@intel.com>
-References: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=Wnwh6aVl
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ek6m7E8LxERerMLSYSoDHd1IAGMywt0rHOE2uBuxepftMJxdpeTehqptrK6QVU3izOzXkWkIPFdlocmpkJ6fvmeVZzf4FYDzMnopfNEe62HgvG0S9r8CCjII7c3F2laAyRvGkd8mhBvRBaHuq/wx3eXCDrCkRjOsVcXxRswSD26KDEYp2jzHxULFWOehLNygwfHdvnl+ox2YAsmyoGUl350LmRw9pmODxKWJzdv38REsY2MZWi3OeAFy7FxA1vys/1q1V35EQPizeW9f2OhdM4kZNVwbvzTwkZUTm4JP3yPyS7Hmq1Yt69UMCCvohe9ntqrgvk77cmJXz7s6GpCdtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KTTZdYiHCkcmpM/G9vC0iDK46wnFG//HttFuHvjBVUc=;
+ b=AXv7ql5j7iMuLVvMB5+93ocBrwW7TOCi9C1x/6b8bI799pzy8xx1m8VJTzvf9qrgRBVMhPqHVtPog1XQeAaL5Ih9TP7ZlFVuWHGcvheR5k46CJa73R5mA4R878mO5DCGGRbsDnmo7uYCWOP5uXHhYHGQ5iR4gIYWFOkPkdO+MDHMnhJeqERmhLp0tRyUnhn6FSna97RZkvS1WU8YvhfsVXpHmPaTJJXuYWMxInDqC/Qv06fN2WQcQnYqwevwnKWi5GtCvKd3nS7XHZkvlXoFynv3I8CyHrg0w5DB0VwPRDgxBYuQ2Rrn/eeLteYZ5kGzGyXQWuKIdcVTZ6IXIqnpVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KTTZdYiHCkcmpM/G9vC0iDK46wnFG//HttFuHvjBVUc=;
+ b=Wnwh6aVly8A+wWJt1DBkFRFACtvNhhmDv8cv3wODXt1TGT8+0EmJRnW+a4C5OFz8C+AvDo7UKO2qs3SH/fZjji1Ewvt+V91oSvzr7Vd0hgF2pLS550rbqjPQg3IT4I85c3+NNRwwiKwGV+jISGm0HYcFG+LTZQg9YVyJS5vSs/M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by OS3PR01MB8068.jpnprd01.prod.outlook.com (2603:1096:604:172::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.27; Tue, 19 Sep
+ 2023 05:34:19 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::8c08:d94c:8e54:9b5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::8c08:d94c:8e54:9b5d%6]) with mapi id 15.20.6792.026; Tue, 19 Sep 2023
+ 05:34:18 +0000
+Message-ID: <87o7hy7mlh.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH] ASoC: simple-card: fixup asoc_simple_probe() error handling
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 19 Sep 2023 05:34:18 +0000
+X-ClientProxiedBy: TYCPR01CA0142.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b7::11) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
-Message-ID-Hash: YP7UVWJXLJLBF7YITUG5S5QI5UMGUA4D
-X-Message-ID-Hash: YP7UVWJXLJLBF7YITUG5S5QI5UMGUA4D
-X-MailFrom: lkp@intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS3PR01MB8068:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70991f86-30cc-48c3-9e45-08dbb8d211f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	KEqvtHWHd6IpYsbHIjZ7FFaGJk3D9LNhw3G8F4c/1ZmRN+A5kr4pk4GOz8lScWryjlHa1RqyafX6hCqEDema8mp0nwi3851YCi5CuTwLov9DkpiR13t7kvlsKS36rx60p8HAWRdfOQ+4BZ6ZBN1MierL2zMH6zuhnu8bsNVPJ/nuQD+WYHqfafg3uvU70aY/5D9DRxg2yaiLMJyWUbxRXD16Md37d+0CRFmMhpZpCyPnnF5BBzji6tOXLcg2DaMlWyG1lLxR9oYAMA4AZULwjoLZjNLOmo2WC2asf7i0FZsiHQ+KoFfM0puTLal5gZyvKcxjyAKk+/wAxQn3Guisc9EoeB1fNagWgqs3yhkYiQweCYZhhqhD6cBUVnps01z/bfzd7yAsE1s+suNVsBHJz1WVQZEzrK/674bldt8fDsaYselsa5YAN6gxylwY+vBxnQIhQRKUGQwvo5ItPtELNgzT/3V7Y8Z75XL/z1SuQDjBDT8cNjDgFfc+Lwh7A2pzJfn0PF6uZ/CMvbnBQTc52mb7W87p7tigoNSTYK5WAlHvhOpRd2UaIuO64/wjrphJjRr1iHSLX9S2UcscDkF0n2ARVrMjVQKGshoFyCqoFNXOicFzlhxo41nx0O5ymYBXRU+LPokX+0KFmgoIteyAcQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(346002)(39860400002)(376002)(136003)(366004)(451199024)(1800799009)(186009)(6486002)(6506007)(36756003)(478600001)(83380400001)(26005)(86362001)(2906002)(5660300002)(2616005)(54906003)(6916009)(41300700001)(6512007)(52116002)(66476007)(316002)(66556008)(8936002)(38100700002)(8676002)(4326008)(38350700002)(66946007)(21314003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?JAJnBJfgddT4osQvSxWfFB0qa8f6vsahlXVnlC266UnoI2I4LAuExXRnOWn6?=
+ =?us-ascii?Q?EWUB6X+OOB4adpmq7eaxU921XJzV75uat9IL6tvKaGcCJKUkucC9yFQ4KB7D?=
+ =?us-ascii?Q?kKOIG+50CDz44rLE5GG7hW89cYtwHXyyK7OIh68IhIh6fS4pZTsVtz8Sfgkq?=
+ =?us-ascii?Q?yObOPumugyw83Es+Q5rOBOsgSLt0ckUaaJ9/Wd252tS3VR49blxS5H9U8idP?=
+ =?us-ascii?Q?YKf7/ciWSybyadavp2/3uOp9p7879NXPv5JIvhGhp95S4KvIW9trjFyrVDAt?=
+ =?us-ascii?Q?TtsWh9mpo8gi0bt6DOOIytgajo7OzDhEI+zKq/SfamsSExR7QgPrTV2Y3YqZ?=
+ =?us-ascii?Q?JLAZ731OfXhRXmcJjLOGaAEvaRFoPcLu3yTrOFgg5auyXQDU8+p56PqSbr/u?=
+ =?us-ascii?Q?u2XeQ21UvQubVeFlLkGWQEAan7wVB+RmqtlEaPltmJGjJUN9d1XPq39qXIKf?=
+ =?us-ascii?Q?wNETmht/qP2tWpdTUgxuiEPNkrfxUsIammSJChctFglCP2SiZcjsSP+XIymv?=
+ =?us-ascii?Q?+J52OVEurTUUegdiPr67pSYCbJpjwWxU8/6DZhxcGvhnLJEknX4e7TpSPFpS?=
+ =?us-ascii?Q?VyJRiwNt/Mquz1cz/cMZ2c2HBZG9PIySuDjRmpLXt62J6UU/LyapYD47u2ne?=
+ =?us-ascii?Q?4ZlJcduNEx6kQiqQzPtuadjl5/Q/V1D2BDrU0xOLl1FPUJkNrJ9SNduMwEOw?=
+ =?us-ascii?Q?sjtfLw0hXzvQl0b/2iXhigvu+GDc70n+AAIUHCvbXZ9oAeCSFerBxAYclvJL?=
+ =?us-ascii?Q?uL9RQrCxGS+mWaIKqW4/nQ7xv1Pt+Jrb84fVxidBFkUbpSBGff+/qXkBmLu1?=
+ =?us-ascii?Q?pAg39+QaOvCcg5NOXbUhwpzXIu4cziD/h0fz8fTE7PzCJVZ3PbJdlUEyeafl?=
+ =?us-ascii?Q?3iPt5FegoAXPQKwDcHdo3LtLNmwux6ILH87X1mG+6aY2g5qM25QQvcFrkq/+?=
+ =?us-ascii?Q?vDvcqvsSGGffqDVnz31dT4p6V98i+loztQEA1PLdyN9gL8JpL+OuoqPydZ6L?=
+ =?us-ascii?Q?PQzaecAzLba08eNw7gXXfSdNUW++YlmQOw9tb0wtCbMT+TP6NjAN1pVm4r7u?=
+ =?us-ascii?Q?cYeL37IfPXFDXL+8XRoFUWGD128JSNS85LpoFY2GHkk6YulhrNB+qFTvJ/J1?=
+ =?us-ascii?Q?Q2eOqEJCSMiUePeEF/b0ZgzC6uULOvCwW7GllstjmP4kITLizKrJ80YMw8by?=
+ =?us-ascii?Q?QQ7e9KL2VyIuBs0Ck/WRhmJkJvM8wATmKQvmkpcdgerqg4igI9EEmKX4QN13?=
+ =?us-ascii?Q?RvVDNNZPHSgZru8Wx9ZS/dCYLe5iDvRtfGD8kVFxZrg3/zIkPCxozxoc4seB?=
+ =?us-ascii?Q?evId/Vf972xca/XaWEgjYMkAwKXFYXtlG+JN4cUsIkRJPC/zTYszHkBeVltJ?=
+ =?us-ascii?Q?fFpH3Bj/lkxPOAaP/ZXVskx/xeMvuYEq2FKuW0bqRT1yxjKR2HuElih/r8/l?=
+ =?us-ascii?Q?6NxfoZOFoivy1R6tnS5pFs7/oQW0BMZhfRO0RyhIzBDFqRqXSdZx2l1QCY5N?=
+ =?us-ascii?Q?YXnWFzDaffTHg8lljUz/UHu5ZnUKVRzt3fzTDc6bkq9KTdFNPyXpsodAApG2?=
+ =?us-ascii?Q?HFS9Ggiz9e4M/cSvmnbdbF676FQBi7nN4q/074igpjrnxynK0uJsnPmQc8jp?=
+ =?us-ascii?Q?QVeKG52Rehjjt/6j0SbacxA=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 70991f86-30cc-48c3-9e45-08dbb8d211f1
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2023 05:34:18.8057
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ VDGthG13RG4Xx7F/6NPQtqcZB9WjfVoYTTka4ASSUVhEORVYQkbDSQhyx/G1PvD++gvTMcV2G1s9o8ZfgPomznCEzI7agK6hO3qg2U5x6G2Gzz83cJMEG27v22JQIF5a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8068
+Message-ID-Hash: OI52APBT4CGVJHXZ3GWYCJOKXSSJDNQU
+X-Message-ID-Hash: OI52APBT4CGVJHXZ3GWYCJOKXSSJDNQU
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YP7UVWJXLJLBF7YITUG5S5QI5UMGUA4D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OI52APBT4CGVJHXZ3GWYCJOKXSSJDNQU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,86 +159,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Ivan,
+asoc_simple_probe() is used for both "DT probe" (A) and "platform probe"
+(B). It uses "goto err" when error case, but it is not needed for
+"platform probe" case (B). Thus it is using "return" directly there.
 
-kernel test robot noticed the following build warnings:
+	static int asoc_simple_probe(...)
+	{
+ ^		if (...) {
+ |			...
+(A)			if (ret < 0)
+ |				goto err;
+ v		} else {
+ ^			...
+ |			if (ret < 0)
+(B)				return -Exxx;
+ v		}
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on tiwai-sound/for-linus linus/master v6.6-rc2 next-20230918]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+		...
+ ^		if (ret < 0)
+(C)			goto err;
+ v		...
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ivan-Orlov/ALSA-Add-new-driver-for-Marian-M2-sound-card/20230919-021236
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230918181044.7257-2-ivan.orlov0322%40gmail.com
-patch subject: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
-config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20230919/202309191140.FdOk1qDx-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230919/202309191140.FdOk1qDx-lkp@intel.com/reproduce)
+	err:
+(D)		simple_util_clean_reference(card);
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309191140.FdOk1qDx-lkp@intel.com/
+		return ret;
+	}
 
-All warnings (new ones prefixed by >>):
+Both case are using (C) part, and it calls (D) when err case.
+But (D) will do nothing for (B) case.
+Because of these behavior, current code itself is not wrong,
+but is confusable, and more, static analyzing tool will warning on
+(B) part (should use goto err).
 
-   sound/pci/marianm2.c: In function 'snd_marian_hw_params':
->> sound/pci/marianm2.c:466:13: warning: variable 'buffer_frames' set but not used [-Wunused-but-set-variable]
-     466 |         int buffer_frames;
-         |             ^~~~~~~~~~~~~
+To avoid static analyzing tool warning, this patch uses "goto err"
+on (B) part.
 
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+Because original report was for "ASoC: generic: convert not to use asoc_xxx()"
+patch, but it is not directly related to it, it doesn't have "Closes" tag.
 
-vim +/buffer_frames +466 sound/pci/marianm2.c
+ sound/soc/generic/simple-card.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-   460	
-   461	static int snd_marian_hw_params(struct snd_pcm_substream *substream,
-   462					struct snd_pcm_hw_params *params)
-   463	{
-   464		struct marian_card *marian = snd_pcm_substream_chip(substream);
-   465		unsigned int speedmode;
- > 466		int buffer_frames;
-   467	
-   468		buffer_frames = SUBSTREAM_BUF_SIZE / M2_FRAME_SIZE;
-   469	
-   470		if (params_rate(params) < RATE_SLOW)
-   471			speedmode = SPEEDMODE_SLOW;
-   472		else if (params_rate(params) < RATE_FAST)
-   473			speedmode = SPEEDMODE_FAST;
-   474	
-   475		if (speedmode > marian->desc->speedmode_max) {
-   476			dev_err(marian->card->dev,
-   477				"Requested rate (%u Hz) higher than card's maximum\n",
-   478				params_rate(params));
-   479			_snd_pcm_hw_param_setempty(params, SNDRV_PCM_HW_PARAM_RATE);
-   480			return -EBUSY;
-   481		}
-   482	
-   483		spin_lock(&marian->reglock);
-   484		if (marian->desc->set_speedmode)
-   485			marian->desc->set_speedmode(marian, speedmode);
-   486		else
-   487			marian_generic_set_speedmode(marian, speedmode);
-   488	
-   489		marian->detune = 0;
-   490	
-   491		marian_generic_set_dco(marian, params_rate(params), 0);
-   492		spin_unlock(&marian->reglock);
-   493	
-   494		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-   495			snd_pcm_set_runtime_buffer(substream, &marian->playback_buf);
-   496		else
-   497			snd_pcm_set_runtime_buffer(substream, &marian->capture_buf);
-   498	
-   499		// apply optional card specific hw constraints
-   500		if (marian->desc->hw_constraints_func)
-   501			marian->desc->hw_constraints_func(marian, substream, params);
-   502	
-   503		return 0;
-   504	}
-   505	
-
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index fbb682747f59..a8bc4e45816d 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -678,10 +678,12 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 		struct snd_soc_dai_link *dai_link = priv->dai_link;
+ 		struct simple_dai_props *dai_props = priv->dai_props;
+ 
++		ret = -EINVAL;
++
+ 		cinfo = dev->platform_data;
+ 		if (!cinfo) {
+ 			dev_err(dev, "no info for asoc-simple-card\n");
+-			return -EINVAL;
++			goto err;
+ 		}
+ 
+ 		if (!cinfo->name ||
+@@ -690,7 +692,7 @@ static int asoc_simple_probe(struct platform_device *pdev)
+ 		    !cinfo->platform ||
+ 		    !cinfo->cpu_dai.name) {
+ 			dev_err(dev, "insufficient asoc_simple_card_info settings\n");
+-			return -EINVAL;
++			goto err;
+ 		}
+ 
+ 		cpus			= dai_link->cpus;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.25.1
+

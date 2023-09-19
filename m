@@ -2,96 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D64E67A668F
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 16:24:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 457A77A6811
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 17:28:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F3CBE72;
-	Tue, 19 Sep 2023 16:23:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F3CBE72
+	by alsa0.perex.cz (Postfix) with ESMTPS id E56E0A4E;
+	Tue, 19 Sep 2023 17:27:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E56E0A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695133470;
-	bh=nyfm0L9J1fsqjvtCWjXbNdNJSUQDtcw8ykzrjrNHJRI=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=C0aKsm/3q2XLixF9SRn31JEJl1im5Ma4H20IHjwJQRu3u+arpYUPz4hWAMwztFExf
-	 iR8nkQ6ZlEBHitSc338BPq9LNI2DWA+frQbOEdHgPdOWp6F1ZJqtPsR9TVZpVhAiKr
-	 aaS0g5Yo/La/AfjJV/gzAV9f3EzBao6EPftJR7j0=
+	s=default; t=1695137300;
+	bh=2jEbRBdj0yQgcAERAHc0+iGw8y5hMp6viTr59c8MhQ8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=UNRgA9DuFhyVFfn+Z5VHZ0FWRLvU3O7fy9NoFxoCK++/aOffZNRwb9A8Gl84bo/kc
+	 F1ozWvpVK8RzZJZ6iPOw8wHc6UhtBcsoWCEfMKXOMd0Hsnv4rL7KG951AQxJ8ZQxNI
+	 qxMlhVlHLs/Bnwm4Ru7sgqgr5meZyYszubY8Nw2M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 472B1F8057D; Tue, 19 Sep 2023 16:23:15 +0200 (CEST)
+	id B3353F801F5; Tue, 19 Sep 2023 17:27:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CF16F80578;
-	Tue, 19 Sep 2023 16:23:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58CBBF801F5;
+	Tue, 19 Sep 2023 17:27:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67373F80567; Tue, 19 Sep 2023 16:23:09 +0200 (CEST)
+	id 23792F8025A; Tue, 19 Sep 2023 17:27:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3B2BBF8025A
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 16:22:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B2BBF8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id C45B9F80124
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 17:27:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C45B9F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Y/W5lFN6
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38JASjjG009787;
-	Tue, 19 Sep 2023 09:22:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=PzgE18K4PqO8dXD62uIrqgRS5xHATb17ID0/Z6vMJHE=; b=
-	Y/W5lFN6Ww362RIki5eyz9Pz5k2bLV7R0V9gTqDyFJlF0PFTKIMdw9YkxUoDXh0d
-	FivnqVAWxHD4B0m+U0NgGNd3bgk3ny/QycoITMiY2cGRCrLYa92Wmb+eltr3G6uV
-	m4jXX4EtTWv5NgX2dron0a6j+mODol793c4IKmtnn0vakpD6/Yvjm8JG51GjTFvV
-	7qsp16q2ak7t5j3TsVNd22cM/5WQqNEfKQUpzOoG9t2jHCoCaq8gk7mkBWs5Kr5m
-	9hryQaAaUgUJYef2tr/W5XlBiLs2kl9WZKaA8tsOzZVV2pqF0HqzqSLNXrSjgoVA
-	fUsj2DtEv4H0tN+l8DXpJQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3t58shu592-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 Sep 2023 09:22:52 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 19 Sep
- 2023 15:22:50 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Tue, 19 Sep 2023 15:22:50 +0100
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.135])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3017411AB;
-	Tue, 19 Sep 2023 14:22:50 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Stefan Binding
-	<sbinding@opensource.cirrus.com>
-Subject: [PATCH v3 2/2] ALSA: hda: cs35l41: Add read-only ALSA control for
- forced mute
-Date: Tue, 19 Sep 2023 15:22:40 +0100
-Message-ID: <20230919142240.467682-3-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230919142240.467682-1-sbinding@opensource.cirrus.com>
-References: <20230919142240.467682-1-sbinding@opensource.cirrus.com>
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=AMO7Efh8
+Received: from notapiano.myfiosgateway.com (zone.collabora.co.uk
+ [167.235.23.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nfraprado)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id ABFB066030BF;
+	Tue, 19 Sep 2023 16:27:06 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1695137228;
+	bh=2jEbRBdj0yQgcAERAHc0+iGw8y5hMp6viTr59c8MhQ8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=AMO7Efh87cuQ63p4ytCwVimcppjonpe8HZJxNoLe/GLFeVmcxE26Em2Er5xbNteBm
+	 MqN1Lt+kzhW9ZWx/xO/uG0KaFmlm1IAlLmaZ09dze3Ebm9jyU9/pFusZH5/mW/gHus
+	 /6uA/cv8PC/ShZa7wfmnJSIgxPPQWgH0P839PcaiusOQlNyNbK0cU0+Y+Ej0YAztmA
+	 FcvHkQv9VNZw9FFo66nYX2+XpSkVDdH4kj/F3nQZxMzaw6AtIE9nwvRRW0QqpbuFaR
+	 pPjSon57N4touuWBrzijaShWBJAQWWydRJ5J55OKs0xjJbWVf3gssY7mp4kJnnIAmi
+	 MrRWUpZgrajzw==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: kernel@collabora.com,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] kselftest/alsa: pcm-test: Report cards declared in config but
+ missing
+Date: Tue, 19 Sep 2023 11:26:21 -0400
+Message-ID: <20230919152702.100617-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: HeOibzYEYfZoCoLcPl0rqONd95R7EBXo
-X-Proofpoint-ORIG-GUID: HeOibzYEYfZoCoLcPl0rqONd95R7EBXo
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: J5XDP7NHTNPXTPDGCCGVMXSM2NANK3TH
-X-Message-ID-Hash: J5XDP7NHTNPXTPDGCCGVMXSM2NANK3TH
-X-MailFrom: prvs=4626bb6a22=sbinding@opensource.cirrus.com
+Message-ID-Hash: ZTB4ZPHTIEKDTXEZZ6X7URFGMGE3HQBV
+X-Message-ID-Hash: ZTB4ZPHTIEKDTXEZZ6X7URFGMGE3HQBV
+X-MailFrom: nfraprado@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J5XDP7NHTNPXTPDGCCGVMXSM2NANK3TH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZTB4ZPHTIEKDTXEZZ6X7URFGMGE3HQBV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,85 +106,247 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When the CS35L41 amp is requested to mute using the ACPI
-notification mechanism, userspace is not notified that the amp
-is muted. To allow userspace to know about the mute, add an
-ALSA control which tracks the forced mute override.
-This control does not track the overall mute state of the amp,
-since the amp is only unmuted during playback anyway, instead
-it tracks the mute override request from the ACPI notification.
+When parsing the configs, keep track of card configurations that match
+the current system but haven't matched any card, and report those as
+test failures as they represent that a card which was expected to be
+present on the system is missing. This allows the configuration files to
+not only be used to detect missing PCM devices (which is currently
+possible) but also that the soundcard hasn't been registered at all.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+
 ---
- sound/pci/hda/cs35l41_hda.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 7b56bceea9e8..dd10b4cd3d1a 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -972,6 +972,15 @@ static int cs35l41_fw_load_ctl_get(struct snd_kcontrol *kcontrol,
+ tools/testing/selftests/alsa/alsa-local.h |  10 +++
+ tools/testing/selftests/alsa/conf.c       | 100 ++++++++++++----------
+ tools/testing/selftests/alsa/pcm-test.c   |  10 +++
+ 3 files changed, 73 insertions(+), 47 deletions(-)
+
+diff --git a/tools/testing/selftests/alsa/alsa-local.h b/tools/testing/selftests/alsa/alsa-local.h
+index de030dc23bd1..29143ef52101 100644
+--- a/tools/testing/selftests/alsa/alsa-local.h
++++ b/tools/testing/selftests/alsa/alsa-local.h
+@@ -24,4 +24,14 @@ int conf_get_bool(snd_config_t *root, const char *key1, const char *key2, int de
+ void conf_get_string_array(snd_config_t *root, const char *key1, const char *key2,
+ 			   const char **array, int array_size, const char *def);
+ 
++struct card_cfg_data {
++	int card;
++	snd_config_t *config;
++	const char *filename;
++	const char *config_id;
++	struct card_cfg_data *next;
++};
++
++extern struct card_cfg_data *conf_cards;
++
+ #endif /* __ALSA_LOCAL_H */
+diff --git a/tools/testing/selftests/alsa/conf.c b/tools/testing/selftests/alsa/conf.c
+index 2f1685a3eae1..00925eb8d9f4 100644
+--- a/tools/testing/selftests/alsa/conf.c
++++ b/tools/testing/selftests/alsa/conf.c
+@@ -19,14 +19,7 @@
+ 
+ #define SYSFS_ROOT "/sys"
+ 
+-struct card_data {
+-	int card;
+-	snd_config_t *config;
+-	const char *filename;
+-	struct card_data *next;
+-};
+-
+-static struct card_data *conf_cards;
++struct card_cfg_data *conf_cards;
+ 
+ static const char *alsa_config =
+ "ctl.hw {\n"
+@@ -97,9 +90,9 @@ snd_config_t *get_alsalib_config(void)
+ 	return config;
+ }
+ 
+-static struct card_data *conf_data_by_card(int card, bool msg)
++static struct card_cfg_data *conf_data_by_card(int card, bool msg)
+ {
+-	struct card_data *conf;
++	struct card_cfg_data *conf;
+ 
+ 	for (conf = conf_cards; conf; conf = conf->next) {
+ 		if (conf->card == card) {
+@@ -229,55 +222,31 @@ static bool sysfs_match(const char *sysfs_root, snd_config_t *config)
+ 	return iter > 0;
+ }
+ 
+-static bool test_filename1(int card, const char *filename, const char *sysfs_card_root)
++static void assign_card_config(int card, const char *sysfs_card_root)
+ {
+-	struct card_data *data, *data2;
+-	snd_config_t *config, *sysfs_config, *card_config, *sysfs_card_config, *node;
+-	snd_config_iterator_t i, next;
++	struct card_cfg_data *data;
++	snd_config_t *sysfs_card_config;
+ 
+-	config = conf_load_from_file(filename);
+-	if (snd_config_search(config, "sysfs", &sysfs_config) ||
+-	    snd_config_get_type(sysfs_config) != SND_CONFIG_TYPE_COMPOUND)
+-		ksft_exit_fail_msg("Missing global sysfs block in filename %s\n", filename);
+-	if (snd_config_search(config, "card", &card_config) ||
+-	    snd_config_get_type(card_config) != SND_CONFIG_TYPE_COMPOUND)
+-		ksft_exit_fail_msg("Missing global card block in filename %s\n", filename);
+-	if (!sysfs_match(SYSFS_ROOT, sysfs_config))
+-		return false;
+-	snd_config_for_each(i, next, card_config) {
+-		node = snd_config_iterator_entry(i);
+-		if (snd_config_search(node, "sysfs", &sysfs_card_config) ||
+-		    snd_config_get_type(sysfs_card_config) != SND_CONFIG_TYPE_COMPOUND)
+-			ksft_exit_fail_msg("Missing card sysfs block in filename %s\n", filename);
++	for (data = conf_cards; data; data = data->next) {
++		snd_config_search(data->config, "sysfs", &sysfs_card_config);
+ 		if (!sysfs_match(sysfs_card_root, sysfs_card_config))
+ 			continue;
+-		data = malloc(sizeof(*data));
+-		if (!data)
+-			ksft_exit_fail_msg("Out of memory\n");
+-		data2 = conf_data_by_card(card, false);
+-		if (data2)
+-			ksft_exit_fail_msg("Duplicate card '%s' <-> '%s'\n", filename, data2->filename);
++
+ 		data->card = card;
+-		data->filename = filename;
+-		data->config = node;
+-		data->next = conf_cards;
+-		conf_cards = data;
+-		return true;
++		break;
+ 	}
+-	return false;
+ }
+ 
+-static bool test_filename(const char *filename)
++static void assign_card_configs(void)
+ {
+ 	char fn[128];
+ 	int card;
+ 
+ 	for (card = 0; card < 32; card++) {
+ 		snprintf(fn, sizeof(fn), "%s/class/sound/card%d", SYSFS_ROOT, card);
+-		if (access(fn, R_OK) == 0 && test_filename1(card, filename, fn))
+-			return true;
++		if (access(fn, R_OK) == 0)
++			assign_card_config(card, fn);
+ 	}
+-	return false;
+ }
+ 
+ static int filename_filter(const struct dirent *dirent)
+@@ -296,6 +265,41 @@ static int filename_filter(const struct dirent *dirent)
  	return 0;
  }
  
-+static int cs35l41_mute_override_ctl_get(struct snd_kcontrol *kcontrol,
-+					 struct snd_ctl_elem_value *ucontrol)
++static bool match_config(const char *filename)
 +{
-+	struct cs35l41_hda *cs35l41 = snd_kcontrol_chip(kcontrol);
++	struct card_cfg_data *data;
++	snd_config_t *config, *sysfs_config, *card_config, *sysfs_card_config, *node;
++	snd_config_iterator_t i, next;
 +
-+	ucontrol->value.integer.value[0] = cs35l41->mute_override;
-+	return 0;
++	config = conf_load_from_file(filename);
++	if (snd_config_search(config, "sysfs", &sysfs_config) ||
++	    snd_config_get_type(sysfs_config) != SND_CONFIG_TYPE_COMPOUND)
++		ksft_exit_fail_msg("Missing global sysfs block in filename %s\n", filename);
++	if (snd_config_search(config, "card", &card_config) ||
++	    snd_config_get_type(card_config) != SND_CONFIG_TYPE_COMPOUND)
++		ksft_exit_fail_msg("Missing global card block in filename %s\n", filename);
++	if (!sysfs_match(SYSFS_ROOT, sysfs_config))
++		return false;
++	snd_config_for_each(i, next, card_config) {
++		node = snd_config_iterator_entry(i);
++		if (snd_config_search(node, "sysfs", &sysfs_card_config) ||
++		    snd_config_get_type(sysfs_card_config) != SND_CONFIG_TYPE_COMPOUND)
++			ksft_exit_fail_msg("Missing card sysfs block in filename %s\n", filename);
++
++		data = malloc(sizeof(*data));
++		if (!data)
++			ksft_exit_fail_msg("Out of memory\n");
++		data->filename = filename;
++		data->config = node;
++		data->card = -1;
++		if (snd_config_get_id(node, &data->config_id))
++			ksft_exit_fail_msg("snd_config_get_id failed for card\n");
++		data->next = conf_cards;
++		conf_cards = data;
++	}
++	return true;
 +}
 +
- static void cs35l41_fw_load_work(struct work_struct *work)
+ void conf_load(void)
  {
- 	struct cs35l41_hda *cs35l41 = container_of(work, struct cs35l41_hda, fw_load_work);
-@@ -1055,6 +1064,7 @@ static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
- {
- 	char fw_type_ctl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
- 	char fw_load_ctl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-+	char mute_override_ctl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
- 	struct snd_kcontrol_new fw_type_ctl = {
- 		.name = fw_type_ctl_name,
- 		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-@@ -1069,12 +1079,21 @@ static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
- 		.get = cs35l41_fw_load_ctl_get,
- 		.put = cs35l41_fw_load_ctl_put,
- 	};
-+	struct snd_kcontrol_new mute_override_ctl = {
-+		.name = mute_override_ctl_name,
-+		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+		.info = snd_ctl_boolean_mono_info,
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ | SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.get = cs35l41_mute_override_ctl_get,
-+	};
- 	int ret;
- 
- 	scnprintf(fw_type_ctl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s DSP1 Firmware Type",
- 		  cs35l41->amp_name);
- 	scnprintf(fw_load_ctl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s DSP1 Firmware Load",
- 		  cs35l41->amp_name);
-+	scnprintf(mute_override_ctl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s Forced Mute Status",
-+		  cs35l41->amp_name);
- 
- 	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&fw_type_ctl, cs35l41));
- 	if (ret) {
-@@ -1092,6 +1111,15 @@ static int cs35l41_create_controls(struct cs35l41_hda *cs35l41)
- 
- 	dev_dbg(cs35l41->dev, "Added Control %s\n", fw_load_ctl.name);
- 
-+	ret = snd_ctl_add(cs35l41->codec->card, snd_ctl_new1(&mute_override_ctl, cs35l41));
-+	if (ret) {
-+		dev_err(cs35l41->dev, "Failed to add KControl %s = %d\n", mute_override_ctl.name,
-+			ret);
-+		return ret;
-+	}
+ 	const char *fn = "conf.d";
+@@ -311,17 +315,19 @@ void conf_load(void)
+ 		if (filename == NULL)
+ 			ksft_exit_fail_msg("Out of memory\n");
+ 		sprintf(filename, "%s/%s", fn, namelist[j]->d_name);
+-		if (test_filename(filename))
++		if (match_config(filename))
+ 			filename = NULL;
+ 		free(filename);
+ 		free(namelist[j]);
+ 	}
+ 	free(namelist);
 +
-+	dev_dbg(cs35l41->dev, "Added Control %s\n", mute_override_ctl.name);
-+
- 	return 0;
++	assign_card_configs();
  }
  
+ void conf_free(void)
+ {
+-	struct card_data *conf;
++	struct card_cfg_data *conf;
+ 
+ 	while (conf_cards) {
+ 		conf = conf_cards;
+@@ -332,7 +338,7 @@ void conf_free(void)
+ 
+ snd_config_t *conf_by_card(int card)
+ {
+-	struct card_data *conf;
++	struct card_cfg_data *conf;
+ 
+ 	conf = conf_data_by_card(card, true);
+ 	if (conf)
+diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
+index c0a39818c5a4..de664dedb541 100644
+--- a/tools/testing/selftests/alsa/pcm-test.c
++++ b/tools/testing/selftests/alsa/pcm-test.c
+@@ -566,6 +566,7 @@ void *card_thread(void *data)
+ int main(void)
+ {
+ 	struct card_data *card;
++	struct card_cfg_data *conf;
+ 	struct pcm_data *pcm;
+ 	snd_config_t *global_config, *cfg;
+ 	int num_pcm_tests = 0, num_tests, num_std_pcm_tests;
+@@ -583,6 +584,10 @@ int main(void)
+ 
+ 	find_pcms();
+ 
++	for (conf = conf_cards; conf; conf = conf->next)
++		if (conf->card < 0)
++			num_missing++;
++
+ 	num_std_pcm_tests = conf_get_count(default_pcm_config, "test", NULL);
+ 
+ 	for (pcm = pcm_list; pcm != NULL; pcm = pcm->next) {
+@@ -598,6 +603,11 @@ int main(void)
+ 
+ 	ksft_set_plan(num_missing + num_pcm_tests);
+ 
++	for (conf = conf_cards; conf; conf = conf->next)
++		if (conf->card < 0)
++			ksft_test_result_fail("test.missing.%s.%s\n",
++					      conf->filename, conf->config_id);
++
+ 	for (pcm = pcm_missing; pcm != NULL; pcm = pcm->next) {
+ 		ksft_test_result(false, "test.missing.%d.%d.%d.%s\n",
+ 				 pcm->card, pcm->device, pcm->subdevice,
 -- 
-2.34.1
+2.42.0
 

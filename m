@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A627A5FF2
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:46:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75E47A5FF1
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:45:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45605E86;
-	Tue, 19 Sep 2023 12:45:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45605E86
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D8E6E84;
+	Tue, 19 Sep 2023 12:45:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D8E6E84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695120379;
-	bh=aaMLuEiP7TVXj7E8zb9XY4W/RIc703I1jPOLEd+vB3I=;
+	s=default; t=1695120358;
+	bh=jSjrZPIxqBCPPykYn5idzXFgdMVgMGsndrwh31h84P4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lnCKh24QkBTwTPhjXj5BOW290g4MdDZiyMsTg70FrPEUNTbZxBy+hMy5fWvvpLJkr
-	 gTr45PaeAylXD1TnNkhHPYfLf3C7h0/aEH01fKz79P7cA7A8BIlb0DCymuPNRgTmPz
-	 e9ToTm9gynBAxxJzSfgJ4TSsQChChJjGxMek9p1c=
+	b=i4P+uI84Arzqs2aos2NbDTJLysNLow1qHSw8p20IhMWEqHaKsTgCOZoMslBAvsmEM
+	 VPnwxoSqCiuwMR8AN8tVTdaxIY/kVwsujv3fuS88EZXJsAxOfKgU5vydh6xjibSaAF
+	 JDIo1dhb7G3vXypDUGpBPQJBfJbH7OcAmsvkCPFo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7FEDF805FD; Tue, 19 Sep 2023 12:42:57 +0200 (CEST)
+	id B3E54F805EE; Tue, 19 Sep 2023 12:42:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7896FF805F4;
-	Tue, 19 Sep 2023 12:42:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A245F805E7;
+	Tue, 19 Sep 2023 12:42:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24993F805CA; Tue, 19 Sep 2023 12:42:51 +0200 (CEST)
+	id E02A4F805D6; Tue, 19 Sep 2023 12:42:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8E249F805C2
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E249F805C2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 67CCFF805B3
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67CCFF805B3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JrSY10fM
+ header.s=Intel header.b=oE/vvYwH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1695120167; x=1726656167;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=aaMLuEiP7TVXj7E8zb9XY4W/RIc703I1jPOLEd+vB3I=;
-  b=JrSY10fMmENV2s6PyxuQfD9g7ZqQLvZj16j7bMVNkRwwkap7aO+0hzvg
-   HEnMuRPLgsCFQD4eIPLzm6QcA3hbDyXOg8pc6wko31LUmVZU10TjjxbLj
-   oLkbik+eO3SvtGCu+MP3/3Yo7WgRrTu2cfdu9pRGmQhntjYLJwojGJJ6F
-   EAtlZcVtCKYoQ0IivvAL7I9BbFCXaN86g68/5v4JtRJNO82g4yFvJUd5s
-   t6D0/oSUbmUYVqPQoneYFKFKS21VHo/KdDf/lDDRLc1CR8ccuKOKIBjHO
-   RIhx17qUx9COegrXRN1nYdgOBpGAwKqy02QuBNUlUPhsZfx0UG7XlDLMD
+  bh=jSjrZPIxqBCPPykYn5idzXFgdMVgMGsndrwh31h84P4=;
+  b=oE/vvYwH4C2Iu42Hy7VeLjs1g+KjhRd7fNZsKSpd3o9d9FWlyuKs4kP6
+   FIJCmsrjTW1WgJPFD7houAzQU33ya1L/qcTEjlXfzRemK8cLLqvQJJZ2h
+   D3y4+L/MwwAZ/Kyt5iY76Nt4kWyZRWSonfELMt+u5TKvcubZd3QY1SIkK
+   51mCHl6u1lFc8b61DHf1vsqaWKw4p1CKX0MUIkFMcNaBxAWM+2OQWGQfP
+   BiokQSYT2TFLMAi0V31DFuDOR2kb7tvooAWR8HE5JCPgEDuWVWhp/S2vO
+   IJo+qGDVcHBcODvHfgIMhJ6RVKKs4Ow2Wa0trwp88L8qYw2D1jlrCV6t2
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="382658514"
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="382658520"
 X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
-   d="scan'208";a="382658514"
+   d="scan'208";a="382658520"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 03:42:43 -0700
+ 19 Sep 2023 03:42:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="722823302"
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="722823306"
 X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
-   d="scan'208";a="722823302"
+   d="scan'208";a="722823306"
 Received: from mokashi-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.50.26])
   by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 03:42:40 -0700
+ 19 Sep 2023 03:42:43 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -78,16 +78,16 @@ Cc: alsa-devel@alsa-project.org,
 	kai.vehmanen@linux.intel.com,
 	daniel.baluta@nxp.com,
 	rander.wang@intel.com
-Subject: [PATCH 8/9] ASoC: SOF: mediatek: Use generic names for IPC types
-Date: Tue, 19 Sep 2023 13:42:25 +0300
-Message-ID: <20230919104226.32239-9-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 9/9] ASoC: SOF: Drop unused IPC type defines
+Date: Tue, 19 Sep 2023 13:42:26 +0300
+Message-ID: <20230919104226.32239-10-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230919104226.32239-1-peter.ujfalusi@linux.intel.com>
 References: <20230919104226.32239-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KTFGNG37HBM6MNOO3B4A2ULPO5EAQ4KZ
-X-Message-ID-Hash: KTFGNG37HBM6MNOO3B4A2ULPO5EAQ4KZ
+Message-ID-Hash: IDX57I47HIJS6AJ75OWEXF6GWIH5H5EM
+X-Message-ID-Hash: IDX57I47HIJS6AJ75OWEXF6GWIH5H5EM
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTFGNG37HBM6MNOO3B4A2ULPO5EAQ4KZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDX57I47HIJS6AJ75OWEXF6GWIH5H5EM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,9 +109,8 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use the new SOF_IPC_TYPE_3 in core code.
-
-No functional changes, just renaming.
+The SOF stack now uses the generic names for the IPC type, the defines can
+be dropped.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
@@ -119,84 +118,23 @@ Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/mediatek/mt8186/mt8186.c | 20 ++++++++++----------
- sound/soc/sof/mediatek/mt8195/mt8195.c | 10 +++++-----
- 2 files changed, 15 insertions(+), 15 deletions(-)
+ include/sound/sof.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c b/sound/soc/sof/mediatek/mt8186/mt8186.c
-index f587edf9e0a7..8544d65bc2cf 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.c
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
-@@ -607,16 +607,16 @@ static struct snd_sof_of_mach sof_mt8186_machs[] = {
+diff --git a/include/sound/sof.h b/include/sound/sof.h
+index 31121c6df027..268d0ca0f69f 100644
+--- a/include/sound/sof.h
++++ b/include/sound/sof.h
+@@ -57,9 +57,6 @@ enum sof_ipc_type {
+ 	SOF_IPC_TYPE_COUNT
+ };
  
- static const struct sof_dev_desc sof_of_mt8186_desc = {
- 	.of_machines = sof_mt8186_machs,
--	.ipc_supported_mask	= BIT(SOF_IPC),
--	.ipc_default		= SOF_IPC,
-+	.ipc_supported_mask	= BIT(SOF_IPC_TYPE_3),
-+	.ipc_default		= SOF_IPC_TYPE_3,
- 	.default_fw_path = {
--		[SOF_IPC] = "mediatek/sof",
-+		[SOF_IPC_TYPE_3] = "mediatek/sof",
- 	},
- 	.default_tplg_path = {
--		[SOF_IPC] = "mediatek/sof-tplg",
-+		[SOF_IPC_TYPE_3] = "mediatek/sof-tplg",
- 	},
- 	.default_fw_filename = {
--		[SOF_IPC] = "sof-mt8186.ri",
-+		[SOF_IPC_TYPE_3] = "sof-mt8186.ri",
- 	},
- 	.nocodec_tplg_filename = "sof-mt8186-nocodec.tplg",
- 	.ops = &sof_mt8186_ops,
-@@ -681,16 +681,16 @@ static struct snd_sof_of_mach sof_mt8188_machs[] = {
- 
- static const struct sof_dev_desc sof_of_mt8188_desc = {
- 	.of_machines = sof_mt8188_machs,
--	.ipc_supported_mask	= BIT(SOF_IPC),
--	.ipc_default		= SOF_IPC,
-+	.ipc_supported_mask	= BIT(SOF_IPC_TYPE_3),
-+	.ipc_default		= SOF_IPC_TYPE_3,
- 	.default_fw_path = {
--		[SOF_IPC] = "mediatek/sof",
-+		[SOF_IPC_TYPE_3] = "mediatek/sof",
- 	},
- 	.default_tplg_path = {
--		[SOF_IPC] = "mediatek/sof-tplg",
-+		[SOF_IPC_TYPE_3] = "mediatek/sof-tplg",
- 	},
- 	.default_fw_filename = {
--		[SOF_IPC] = "sof-mt8188.ri",
-+		[SOF_IPC_TYPE_3] = "sof-mt8188.ri",
- 	},
- 	.nocodec_tplg_filename = "sof-mt8188-nocodec.tplg",
- 	.ops = &sof_mt8188_ops,
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
-index 7d6a568556ea..fab2d5af8610 100644
---- a/sound/soc/sof/mediatek/mt8195/mt8195.c
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
-@@ -635,16 +635,16 @@ static struct snd_sof_of_mach sof_mt8195_machs[] = {
- 
- static const struct sof_dev_desc sof_of_mt8195_desc = {
- 	.of_machines = sof_mt8195_machs,
--	.ipc_supported_mask	= BIT(SOF_IPC),
--	.ipc_default		= SOF_IPC,
-+	.ipc_supported_mask	= BIT(SOF_IPC_TYPE_3),
-+	.ipc_default		= SOF_IPC_TYPE_3,
- 	.default_fw_path = {
--		[SOF_IPC] = "mediatek/sof",
-+		[SOF_IPC_TYPE_3] = "mediatek/sof",
- 	},
- 	.default_tplg_path = {
--		[SOF_IPC] = "mediatek/sof-tplg",
-+		[SOF_IPC_TYPE_3] = "mediatek/sof-tplg",
- 	},
- 	.default_fw_filename = {
--		[SOF_IPC] = "sof-mt8195.ri",
-+		[SOF_IPC_TYPE_3] = "sof-mt8195.ri",
- 	},
- 	.nocodec_tplg_filename = "sof-mt8195-nocodec.tplg",
- 	.ops = &sof_mt8195_ops,
+-#define SOF_IPC		SOF_IPC_TYPE_3
+-#define SOF_INTEL_IPC4	SOF_IPC_TYPE_4
+-
+ /*
+  * SOF Platform data.
+  */
 -- 
 2.42.0
 

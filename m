@@ -2,95 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6837A5FB7
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:34:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06E87A5FB8
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:35:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63ED0886;
-	Tue, 19 Sep 2023 12:34:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63ED0886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FC3AEA2;
+	Tue, 19 Sep 2023 12:34:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FC3AEA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695119693;
-	bh=oNIfn8PTiNAtFaKe2i09mRBXultjqQqs6Kem5Nb7VTo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1695119713;
+	bh=CK3a1unOvMUGDdfuujjAYkHvNuWQooHuBjxLRNExYpE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y5Zn4yTLL2vYSOuh55i4LfGmXbPLJAcHI2LlCDy9CNyX+5fYqs9DV2tGXRL0t86Bw
-	 AE7NdyQ/pZj442KbIFxgeMSZxKG+moRSzRzSPZhPmNtB8pqXs14ziy6my21MnoqsWr
-	 dp5A2tvoLx9Ds4pwnUZtQhrdBeH2bhexjrMH2Nj4=
+	b=HAvgBoIVTOdYc99AtRiRbsVT7wjBBrBzRhdmwLrlf6G0Zsi+j1+Xtrvz+X46mslBN
+	 1rHQpyJmlfJsSV1gMJlihnmWh9LMLeh0eI+c1x1L7wkCJzRwm+eTWjeAXk0CDRQQLs
+	 KhBflPNEtYxXITwgm5u/r8Y08YZqfpadxfE9twkU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB468F805E8; Tue, 19 Sep 2023 12:31:53 +0200 (CEST)
+	id 932E5F805F5; Tue, 19 Sep 2023 12:31:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65AFBF805E1;
-	Tue, 19 Sep 2023 12:31:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9997F805EE;
+	Tue, 19 Sep 2023 12:31:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F7D4F80558; Tue, 19 Sep 2023 12:31:43 +0200 (CEST)
+	id A4AD2F805BE; Tue, 19 Sep 2023 12:31:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F052EF80552
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F052EF80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 03A39F80125
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:31:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03A39F80125
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=ofYTe7h0
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38J4KMC0022193;
-	Tue, 19 Sep 2023 05:31:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=MiZQzycTDUQoJWH55mk/Jeqxw7RC6OuM/QCFkp1lvYU=; b=
-	ofYTe7h0Iz2s217vf/cFglEOqScUeaG/FAONW3+oIEytwMsSJsMjRqvospiD+uma
-	nss+dhKwXY50LpzYkHf3P1CVy7YynEJ1yiWduqHwfF7LqEtWRubPuQpzJXbHveW8
-	V2/54xODHTrHvTwmTrIAAmEW8jy/9JE5vcc/0dUzeaF5R9EHTNeImHUe5Qx74Qmw
-	sY+qFXOu6Lh8aZboXB3vvLQ2nEn8nXwYoRG0OKoghXBJ6uSFPoJ2Q4h0s8JJfDDL
-	/crGOD9j5SxmN58LLpfCe00/kxCpWf1ss/0+AGR8by1t6SSTKW+qHqmfHPu6ykTV
-	9eKiBl1t3xEzdLfW6sOzIw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t59ry3p1j-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 Sep 2023 05:31:19 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 19 Sep
- 2023 11:31:16 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Tue, 19 Sep 2023 11:31:16 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8922F11AA;
-	Tue, 19 Sep 2023 10:31:16 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <patches@opensource.cirrus.com>
-Subject: [PATCH 4/5] ASoC: cs42l43: Move headset bias sense enable earlier in
- process
-Date: Tue, 19 Sep 2023 11:31:15 +0100
-Message-ID: <20230919103116.580305-5-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230919103116.580305-1-ckeepax@opensource.cirrus.com>
-References: <20230919103116.580305-1-ckeepax@opensource.cirrus.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=AtDSwwBq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1695119479; x=1726655479;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=CK3a1unOvMUGDdfuujjAYkHvNuWQooHuBjxLRNExYpE=;
+  b=AtDSwwBqG0lpdJG6xcwHvhqn6YyLqcNhWmVoR8meejzYfD4wJad0z6Mr
+   emjbI8c7fujH0szumGxQ3gVNqvOOAdZqnjiLNlTRiD+NYY+kHilayWc4i
+   5KoFxCLS487PkKn0BcRUy/J36sqJPk8UWge3X0o4FgRtw4R+rHYr8H7AW
+   obvJyt+lwbkLq36whJtul11o+scW0v5cNkvCbwt8TF2Bxr6otshda+3Tc
+   /32mabPMzcvXtQovwpb8byJy2NvrQx7YDNR5cvKsJPq2eZk2t8fqHkvOz
+   5Kc6WCEZiF7RIPMlnPW2UwDY+kJS0MIoV8hPMjuDxayve7X3pIHOzFnTf
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="443990515"
+X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
+   d="scan'208";a="443990515"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 03:31:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="861486883"
+X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
+   d="scan'208";a="861486883"
+Received: from mokashi-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.50.26])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 03:31:14 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	pierre-louis.bossart@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com
+Subject: [PATCH 3/3] ASoC: SOF: ipc4-control: Add support for ALSA enum
+ control
+Date: Tue, 19 Sep 2023 13:31:15 +0300
+Message-ID: <20230919103115.30783-4-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230919103115.30783-1-peter.ujfalusi@linux.intel.com>
+References: <20230919103115.30783-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: Y1BOLuZk31NAxN4HfatWPb8P8N_FcpLZ
-X-Proofpoint-ORIG-GUID: Y1BOLuZk31NAxN4HfatWPb8P8N_FcpLZ
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: X4YQ5ZQ76KQENHR2NAKE62UL3KEP5V4O
-X-Message-ID-Hash: X4YQ5ZQ76KQENHR2NAKE62UL3KEP5V4O
-X-MailFrom: prvs=4626caf035=ckeepax@opensource.cirrus.com
+Message-ID-Hash: VU466TYK65PXZY3RJM7CC6HHUA5BYPSA
+X-Message-ID-Hash: VU466TYK65PXZY3RJM7CC6HHUA5BYPSA
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X4YQ5ZQ76KQENHR2NAKE62UL3KEP5V4O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VU466TYK65PXZY3RJM7CC6HHUA5BYPSA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,95 +109,157 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Currently the bias sense is enabled along with the button detect, but
-this has two problems. Firstly, the detections themselves arn't covered
-by the bias sense, potentially resulting in pops and secondly, the
-sequence of enabling/disabling looks like:
+Enum controls use generic param_id and a generic struct where the data
+is passed to the firmware.
 
-enable bias
-enable bias sense
-disable bias sense
-disable bias
-
-When the bias sense is disabled but the bias is still on the clamp is
-removed and a pop results. Fix both of these issues by moving the bias
-sense enable/disable to be along with the bias itself. With a resulting
-sequence of:
-
-enable bias sense
-enable bias
-disable bias
-disable bias sense
-
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/codecs/cs42l43-jack.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ sound/soc/sof/ipc4-control.c  | 64 +++++++++++++++++++++++++++++++++++
+ sound/soc/sof/ipc4-topology.c | 33 ++++++++++++++++++
+ 2 files changed, 97 insertions(+)
 
-diff --git a/sound/soc/codecs/cs42l43-jack.c b/sound/soc/codecs/cs42l43-jack.c
-index 7bd7cc1779506..66923cf2fdaff 100644
---- a/sound/soc/codecs/cs42l43-jack.c
-+++ b/sound/soc/codecs/cs42l43-jack.c
-@@ -250,6 +250,15 @@ static void cs42l43_start_hs_bias(struct cs42l43_codec *priv, bool force_high)
- 	if (!force_high && priv->bias_low)
- 		val = 0x2 << CS42L43_HSBIAS_MODE_SHIFT;
- 
-+	if (priv->bias_sense_ua) {
-+		regmap_update_bits(cs42l43->regmap,
-+				   CS42L43_HS_BIAS_SENSE_AND_CLAMP_AUTOCONTROL,
-+				   CS42L43_HSBIAS_SENSE_EN_MASK |
-+				   CS42L43_AUTO_HSBIAS_CLAMP_EN_MASK,
-+				   CS42L43_HSBIAS_SENSE_EN_MASK |
-+				   CS42L43_AUTO_HSBIAS_CLAMP_EN_MASK);
-+	}
-+
- 	regmap_update_bits(cs42l43->regmap, CS42L43_MIC_DETECT_CONTROL_1,
- 			   CS42L43_HSBIAS_MODE_MASK, val);
- 
-@@ -267,6 +276,13 @@ static void cs42l43_stop_hs_bias(struct cs42l43_codec *priv)
- 
- 	regmap_update_bits(cs42l43->regmap, CS42L43_HS2,
- 			   CS42L43_HS_CLAMP_DISABLE_MASK, 0);
-+
-+	if (priv->bias_sense_ua) {
-+		regmap_update_bits(cs42l43->regmap,
-+				   CS42L43_HS_BIAS_SENSE_AND_CLAMP_AUTOCONTROL,
-+				   CS42L43_HSBIAS_SENSE_EN_MASK |
-+				   CS42L43_AUTO_HSBIAS_CLAMP_EN_MASK, 0);
-+	}
+diff --git a/sound/soc/sof/ipc4-control.c b/sound/soc/sof/ipc4-control.c
+index cabdd891c644..938efaceb81c 100644
+--- a/sound/soc/sof/ipc4-control.c
++++ b/sound/soc/sof/ipc4-control.c
+@@ -297,6 +297,63 @@ static int sof_ipc4_switch_get(struct snd_sof_control *scontrol,
+ 	return 0;
  }
  
- irqreturn_t cs42l43_bias_detect_clamp(int irq, void *data)
-@@ -318,15 +334,6 @@ static void cs42l43_start_button_detect(struct cs42l43_codec *priv)
- 	regmap_update_bits(cs42l43->regmap, CS42L43_MIC_DETECT_CONTROL_1,
- 			   CS42L43_BUTTON_DETECT_MODE_MASK |
- 			   CS42L43_MIC_LVL_DET_DISABLE_MASK, val);
--
--	if (priv->bias_sense_ua) {
--		regmap_update_bits(cs42l43->regmap,
--				   CS42L43_HS_BIAS_SENSE_AND_CLAMP_AUTOCONTROL,
--				   CS42L43_HSBIAS_SENSE_EN_MASK |
--				   CS42L43_AUTO_HSBIAS_CLAMP_EN_MASK,
--				   CS42L43_HSBIAS_SENSE_EN_MASK |
--				   CS42L43_AUTO_HSBIAS_CLAMP_EN_MASK);
--	}
++static bool sof_ipc4_enum_put(struct snd_sof_control *scontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	struct snd_soc_component *scomp = scontrol->scomp;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct snd_sof_widget *swidget;
++	bool widget_found = false;
++	bool change = false;
++	unsigned int i;
++	u32 value;
++	int ret;
++
++	/* update each channel */
++	for (i = 0; i < scontrol->num_channels; i++) {
++		value = ucontrol->value.enumerated.item[i];
++		change = change || (value != cdata->chanv[i].value);
++		cdata->chanv[i].channel = i;
++		cdata->chanv[i].value = value;
++	}
++
++	if (!pm_runtime_active(scomp->dev))
++		return change;
++
++	/* find widget associated with the control */
++	list_for_each_entry(swidget, &sdev->widget_list, list) {
++		if (swidget->comp_id == scontrol->comp_id) {
++			widget_found = true;
++			break;
++		}
++	}
++
++	if (!widget_found) {
++		dev_err(scomp->dev, "Failed to find widget for kcontrol %s\n", scontrol->name);
++		return false;
++	}
++
++	ret = sof_ipc4_set_generic_control_data(sdev, swidget, scontrol, true);
++	if (ret < 0)
++		return false;
++
++	return change;
++}
++
++static int sof_ipc4_enum_get(struct snd_sof_control *scontrol,
++			     struct snd_ctl_elem_value *ucontrol)
++{
++	struct sof_ipc4_control_data *cdata = scontrol->ipc_control_data;
++	unsigned int i;
++
++	/* read back each channel */
++	for (i = 0; i < scontrol->num_channels; i++)
++		ucontrol->value.enumerated.item[i] = cdata->chanv[i].value;
++
++	return 0;
++}
++
+ static int sof_ipc4_set_get_bytes_data(struct snd_sof_dev *sdev,
+ 				       struct snd_sof_control *scontrol,
+ 				       bool set, bool lock)
+@@ -562,6 +619,11 @@ static int sof_ipc4_widget_kcontrol_setup(struct snd_sof_dev *sdev, struct snd_s
+ 				ret = sof_ipc4_set_get_bytes_data(sdev, scontrol,
+ 								  true, false);
+ 				break;
++			case SND_SOC_TPLG_CTL_ENUM:
++			case SND_SOC_TPLG_CTL_ENUM_VALUE:
++				ret = sof_ipc4_set_generic_control_data(sdev, swidget,
++									scontrol, false);
++				break;
+ 			default:
+ 				break;
+ 			}
+@@ -605,6 +667,8 @@ const struct sof_ipc_tplg_control_ops tplg_ipc4_control_ops = {
+ 	.volume_get = sof_ipc4_volume_get,
+ 	.switch_put = sof_ipc4_switch_put,
+ 	.switch_get = sof_ipc4_switch_get,
++	.enum_put = sof_ipc4_enum_put,
++	.enum_get = sof_ipc4_enum_get,
+ 	.bytes_put = sof_ipc4_bytes_put,
+ 	.bytes_get = sof_ipc4_bytes_get,
+ 	.bytes_ext_put = sof_ipc4_bytes_ext_put,
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index ef18379e0f19..bf91c8786162 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -2128,6 +2128,36 @@ static int sof_ipc4_control_load_volume(struct snd_sof_dev *sdev, struct snd_sof
+ 	return 0;
  }
  
- static void cs42l43_stop_button_detect(struct cs42l43_codec *priv)
-@@ -335,13 +342,6 @@ static void cs42l43_stop_button_detect(struct cs42l43_codec *priv)
- 
- 	dev_dbg(priv->dev, "Stop button detect\n");
- 
--	if (priv->bias_sense_ua) {
--		regmap_update_bits(cs42l43->regmap,
--				   CS42L43_HS_BIAS_SENSE_AND_CLAMP_AUTOCONTROL,
--				   CS42L43_HSBIAS_SENSE_EN_MASK |
--				   CS42L43_AUTO_HSBIAS_CLAMP_EN_MASK, 0);
--	}
--
- 	regmap_update_bits(cs42l43->regmap, CS42L43_MIC_DETECT_CONTROL_1,
- 			   CS42L43_BUTTON_DETECT_MODE_MASK |
- 			   CS42L43_MIC_LVL_DET_DISABLE_MASK,
++static int sof_ipc4_control_load_enum(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
++{
++	struct sof_ipc4_control_data *control_data;
++	struct sof_ipc4_msg *msg;
++	int i;
++
++	scontrol->size = struct_size(control_data, chanv, scontrol->num_channels);
++
++	/* scontrol->ipc_control_data will be freed in sof_control_unload */
++	scontrol->ipc_control_data = kzalloc(scontrol->size, GFP_KERNEL);
++	if (!scontrol->ipc_control_data)
++		return -ENOMEM;
++
++	control_data = scontrol->ipc_control_data;
++	control_data->index = scontrol->index;
++
++	msg = &control_data->msg;
++	msg->primary = SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_LARGE_CONFIG_SET);
++	msg->primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
++	msg->primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
++
++	msg->extension = SOF_IPC4_MOD_EXT_MSG_PARAM_ID(SOF_IPC4_ENUM_CONTROL_PARAM_ID);
++
++	/* Default, initial value for enums: first enum entry is selected (0) */
++	for (i = 0; i < scontrol->num_channels; i++)
++		control_data->chanv[i].channel = i;
++
++	return 0;
++}
++
+ static int sof_ipc4_control_load_bytes(struct snd_sof_dev *sdev, struct snd_sof_control *scontrol)
+ {
+ 	struct sof_ipc4_control_data *control_data;
+@@ -2202,6 +2232,9 @@ static int sof_ipc4_control_setup(struct snd_sof_dev *sdev, struct snd_sof_contr
+ 		return sof_ipc4_control_load_volume(sdev, scontrol);
+ 	case SND_SOC_TPLG_CTL_BYTES:
+ 		return sof_ipc4_control_load_bytes(sdev, scontrol);
++	case SND_SOC_TPLG_CTL_ENUM:
++	case SND_SOC_TPLG_CTL_ENUM_VALUE:
++		return sof_ipc4_control_load_enum(sdev, scontrol);
+ 	default:
+ 		break;
+ 	}
 -- 
-2.39.2
+2.42.0
 

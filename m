@@ -2,84 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360917A5F0D
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 816587A5FAF
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:33:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65555A4A;
-	Tue, 19 Sep 2023 12:08:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65555A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAB72DEB;
+	Tue, 19 Sep 2023 12:33:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAB72DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695118160;
-	bh=itUnSJXLn9yGvv/1aouTT5nNHJEY8NbOndeV8HQeOA4=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
+	s=default; t=1695119635;
+	bh=AQEygjwWobu9aADRjQd30Uw9Bg5AtfVlvwFFGEKqZ7Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bztlKg4lJTSXWgzIbtt8FIz7/B+h1D17KjuGq96xFMFTncQ0eOy1nPkPbLoxSBIz2
-	 TNbDPIH2/rVDkUr6CT5m42M6znqRCYjX9uMM/V2HH0RowQf/jk5U2jc6Be9ISa1To+
-	 GTn4m/FbKeXuV1vinvm7czbOFE85oxfKBtDJzlX4=
+	b=clTWVAjRIz5D9MptpOpKf+ss3EB9ZWyctZ+rS0ffJ9URzwMdfiAmGZhE2HE+6Q4U4
+	 K2/MF5DsGrfkjrQEcafk5ICiyfDYUCRnaGlYVwbfeVS/Zn44sYiCa6KskASqeKZsAF
+	 haoPiloUNfK+5dEg83wLopoYH/nGhEqsCsEZdI+0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92468F8055A; Tue, 19 Sep 2023 12:08:10 +0200 (CEST)
+	id 4A611F805BA; Tue, 19 Sep 2023 12:31:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41338F801F5;
-	Tue, 19 Sep 2023 12:08:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9069F80552;
+	Tue, 19 Sep 2023 12:31:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24DD7F8025A; Tue, 19 Sep 2023 12:08:08 +0200 (CEST)
+	id 8FC37F805B5; Tue, 19 Sep 2023 12:31:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 058AFF80124
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:07:55 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 75F8C11D3;
-	Tue, 19 Sep 2023 12:07:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 75F8C11D3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1695118074; bh=g71YaR2NX363/3hfBwRMHi2sPcajcnv/d3ZHoD5pU0Y=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=v8FSjQwX6wzLm6reWTLUtrTYTEqb9vLYBDTv5XB2hYRsGfxECHEYW+tGLO1MJqyvF
-	 JtafJO9S1svGnN64jHuMIB88lLClBr9D5B4vWd5yKMzIMo8W52I9TfHhDkPDh7mkBJ
-	 2Wj5GAOhPmJLceFblRZlxGEq/hDXJqHZW0lmwy0I=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Tue, 19 Sep 2023 12:07:51 +0200 (CEST)
-Message-ID: <0e6aac35-eb1f-311d-b246-cec5aefab62c@perex.cz>
-Date: Tue, 19 Sep 2023 12:07:50 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27BE3F8055A
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:31:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27BE3F8055A
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=cDlYlbqa
+Received: by mail-pf1-x431.google.com with SMTP id
+ d2e1a72fcca58-68fe2470d81so5065716b3a.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 19 Sep 2023 03:31:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1695119480; x=1695724280;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=poXRhJkAK9WV5aSXIh3udSLaQthmauT46bnS65tSwgw=;
+        b=cDlYlbqaXURZUY+Uc+wKEmoI0RfYkW6GP39QdkYjPUi7bt0nzIza3XxGKFI/YN8O4f
+         Pg8+VDeXeSWmauxgLHd7aRbJFSlxSiBlKmWYxdR7cA/Y8PeGWPWkYofQ2RyHKawzZpg5
+         qsGx3svnIMUdxCzz6z2h4WauAM1DAYCDmGO4qqjtyBK/8j4cjXYh+JFSLyLN4sUekU/Z
+         Ep5Qpi//s3PFE3ORp3RJ4er9yWv16i3Kw15drsxgxADIjccCjDpELKg7GfyBFF2WON88
+         KZdGWbN7oNuNFuKjPH27YavNrgYRT9r0uszbWDcZzUqNJosiSxxzh4N+3Jg+YxXibfoB
+         KGJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695119480; x=1695724280;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=poXRhJkAK9WV5aSXIh3udSLaQthmauT46bnS65tSwgw=;
+        b=Dtl3u4cvB8b6FAfOi8ceGFbqJHZAWqb4EVhe7GVTESAq7UTTbwLAAygXKW4MeqY5zL
+         sBj+SXksqrVMOflPHHqcWpFb9EuqNEijR+vgVzWRnaM2jMF2fX43fMHZ49GJkxk+/L2d
+         Z6G2XPe7QnHB+T7Xoqd35aBSFR76PcmLOqgNKp21CMCYsM2hj1YnxCEl0dRvBpMInyOW
+         ppTrabOPr23JxFzaYS+7+bDAkdeJUCbnD/lyJACP5NvjRxxaNxdu9rj+1xUYRUk9MpfP
+         53/hQeGhTCJ/MRX2n+xfsrXqto/96Nfp6bGlM795VJt0YgXngeXIYDi2E5DWtJJs460H
+         DnsA==
+X-Gm-Message-State: AOJu0YxAG0IwCJsPr4t4n2OXx6tdCSwzI8NN4Wv3BHHZMi9fHJIFSswJ
+	xqevsSUUf/xjGPAiIKHNfBEUMefBKcy7+uZJSvY=
+X-Google-Smtp-Source: 
+ AGHT+IF2IrXOt2RYELwf5x84VPabpFw4QGMztiaMU7bExwDdHhtZrXyi6RfYOP2G3QKtRk4KmBIA4VwK+hfHlEDEo9c=
+X-Received: by 2002:a05:6a00:1516:b0:68f:c6f8:1451 with SMTP id
+ q22-20020a056a00151600b0068fc6f81451mr14271558pfu.16.1695119480225; Tue, 19
+ Sep 2023 03:31:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20230912162526.7138-1-perex@perex.cz>
- <fd153436-d128-c1b9-dee0-ba03224fa013@intel.com>
- <f7dfdbd9-b8c0-fd65-1280-256e9a82fca2@perex.cz>
- <63b3eb26-3a76-5993-bd65-c3461a264b95@intel.com>
- <de412997-627d-9ad2-b9c2-cbdb78b70f5d@perex.cz>
- <89b0c3e8-2834-ba69-831b-51ea0621edb6@intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [RFC PATCH] ALSA: pcm: Introduce MSBITS subformat API extension
-In-Reply-To: <89b0c3e8-2834-ba69-831b-51ea0621edb6@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: U6DUNWFXWI5FEEDH57GHLEKT757AH6H5
-X-Message-ID-Hash: U6DUNWFXWI5FEEDH57GHLEKT757AH6H5
-X-MailFrom: perex@perex.cz
+References: <1694670845-17070-1-git-send-email-shengjiu.wang@nxp.com>
+ <1694670845-17070-7-git-send-email-shengjiu.wang@nxp.com>
+ <ZQLdxMaqFYUukt4J@valkosipuli.retiisi.eu>
+In-Reply-To: <ZQLdxMaqFYUukt4J@valkosipuli.retiisi.eu>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 19 Sep 2023 18:31:09 +0800
+Message-ID: 
+ <CAA+D8AMB1zxSs_RgeoeUKxzWsNuEb0xANUZ0KxLX9UsQR8D=9Q@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 6/9] media: v4l2: Add audio capture and output
+ support
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, hverkuil@xs4all.nl,
+ tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: IANL5LU36QX47KBVRFVNWSKJ35H2CW7Q
+X-Message-ID-Hash: IANL5LU36QX47KBVRFVNWSKJ35H2CW7Q
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U6DUNWFXWI5FEEDH57GHLEKT757AH6H5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IANL5LU36QX47KBVRFVNWSKJ35H2CW7Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,111 +125,268 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 19. 09. 23 11:28, Cezary Rojewski wrote:
-> On 2023-09-18 5:04 PM, Jaroslav Kysela wrote:
->> On 18. 09. 23 15:55, Cezary Rojewski wrote:
-> 
-> ...
-> 
->>>> This is for a special case when the drivers do not set
->>>> snd_pcm_hw_constraint_subformats (all current drivers). In this case,
->>>> the default is to handle STD and MAX subformat bits.
->>>>
->>>> This constraint should be applied only one time. So this prevents to
->>>> install it twice.
->>>
->>> I believe we could avoid special-case approach. Have a copy/intersection
->>> helpers in place and utilize iterations-with-sentinel-entry. Provided
->>> such in v2 of my series.
->>
->> I don't think that it's required to carry the format->subformat map in
->> struct snd_pcm_hardware. Only few drivers will use it, so the separate
->> constraint is fine. Also, you can remove a lot of your added code to the
->> pcm_misc and ASoC core (copy, masking, allocating) when the affected
->> drivers install the map using the constraint call.
-> 
-> I believe the question isn't how few or how many, but are there users or
-> not. The answer to that question is: there are users of the subformat
-> feature.
-> 
-> Adding an array of subformats to the snd_pcm_hardware makes things
-> explicit, example being sound/soc/intel/avs/pcm.c. That's a win from
-> maintenance point of view. Another thing is that we could utilize
-> subformat to drop msbits entirely in the future. To summarize, to make
-> subformat a first class citizen, we should avoid special-casing anything
-> related to it.
+On Thu, Sep 14, 2023 at 6:17=E2=80=AFPM Sakari Ailus <sakari.ailus@iki.fi> =
+wrote:
+>
+> Hi Shenjiu,
+>
+> Thanks for the update.
+>
+> On Thu, Sep 14, 2023 at 01:54:02PM +0800, Shengjiu Wang wrote:
+> > Audio signal processing has the requirement for memory to
+> > memory similar as Video.
+> >
+> > This patch is to add this support in v4l2 framework, defined
+> > new buffer type V4L2_BUF_TYPE_AUDIO_CAPTURE and
+> > V4L2_BUF_TYPE_AUDIO_OUTPUT, defined new format v4l2_audio_format
+> > for audio case usage.
+> >
+> > Defined V4L2_AUDIO_FMT_LPCM format type for audio.
+>
+> This would be nicer as a separate patch. Also see the related comments
+> below.
 
-I would argue that the snd_pcm_hardware is just a static template which is 
-refined by constraints (runtime) anyway. The new constraint which is called 
-directly in the PCM open callback means really minimal changes in the core 
-code and ASoC core code. We can implement more robust way on demand in future 
-when we have a better picture for the subformat mask usage.
+OK,  will separate it.
 
->> Few points:
->>
->> 1) PCM API interface changes should be separate, you mixing unused
->> helpers and separating vital functionality for drivers
-> 
-> What I could do is shuffle the code a bit e.g.: let snd_pcm_hw_copy() be
-> introduced along the ASoC changes. Frankly that was the initial approach
-> (forgotten to update the commit message of 04/17 so it still talks about
-> code that's no longer part of the commit).
+>
+> >
+> > Defined V4L2_CAP_AUDIO_M2M capability type for audio memory
+> > to memory case.
+> >
+> > The created audio device is named "/dev/v4l-audioX".
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  .../userspace-api/media/v4l/audio-formats.rst | 15 +++++
+> >  .../userspace-api/media/v4l/buffer.rst        |  6 ++
+> >  .../userspace-api/media/v4l/dev-audio.rst     | 63 +++++++++++++++++++
+> >  .../userspace-api/media/v4l/devices.rst       |  1 +
+> >  .../media/v4l/pixfmt-aud-lpcm.rst             | 31 +++++++++
+> >  .../userspace-api/media/v4l/pixfmt.rst        |  1 +
+> >  .../media/v4l/vidioc-enum-fmt.rst             |  2 +
+> >  .../userspace-api/media/v4l/vidioc-g-fmt.rst  |  4 ++
+> >  .../media/v4l/vidioc-querycap.rst             |  3 +
+> >  .../media/videodev2.h.rst.exceptions          |  2 +
+> >  .../media/common/videobuf2/videobuf2-v4l2.c   |  4 ++
+> >  drivers/media/v4l2-core/v4l2-dev.c            | 17 +++++
+> >  drivers/media/v4l2-core/v4l2-ioctl.c          | 53 ++++++++++++++++
+> >  include/media/v4l2-dev.h                      |  2 +
+> >  include/media/v4l2-ioctl.h                    | 34 ++++++++++
+> >  include/uapi/linux/videodev2.h                | 25 ++++++++
+> >  16 files changed, 263 insertions(+)
+> >  create mode 100644 Documentation/userspace-api/media/v4l/audio-formats=
+.rst
+> >  create mode 100644 Documentation/userspace-api/media/v4l/dev-audio.rst
+> >  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-aud-lp=
+cm.rst
+> >
+> > diff --git a/Documentation/userspace-api/media/v4l/audio-formats.rst b/=
+Documentation/userspace-api/media/v4l/audio-formats.rst
+> > new file mode 100644
+> > index 000000000000..bc52712d20d3
+> > --- /dev/null
+> > +++ b/Documentation/userspace-api/media/v4l/audio-formats.rst
+> > @@ -0,0 +1,15 @@
+> > +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> > +
+> > +.. _audio-formats:
+> > +
+> > +*************
+> > +Audio Formats
+> > +*************
+> > +
+> > +These formats are used for :ref:`audio` interface only.
+> > +
+> > +
+> > +.. toctree::
+> > +    :maxdepth: 1
+> > +
+> > +    pixfmt-aud-lpcm
+> > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Documen=
+tation/userspace-api/media/v4l/buffer.rst
+> > index 04dec3e570ed..80cf2cb20dfe 100644
+> > --- a/Documentation/userspace-api/media/v4l/buffer.rst
+> > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
+> > @@ -438,6 +438,12 @@ enum v4l2_buf_type
+> >      * - ``V4L2_BUF_TYPE_META_OUTPUT``
+> >        - 14
+> >        - Buffer for metadata output, see :ref:`metadata`.
+> > +    * - ``V4L2_BUF_TYPE_AUDIO_CAPTURE``
+> > +      - 15
+> > +      - Buffer for audio capture, see :ref:`audio`.
+> > +    * - ``V4L2_BUF_TYPE_AUDIO_OUTPUT``
+> > +      - 16
+> > +      - Buffer for audio output, see :ref:`audio`.
+> >
+> >
+> >  .. _buffer-flags:
+> > diff --git a/Documentation/userspace-api/media/v4l/dev-audio.rst b/Docu=
+mentation/userspace-api/media/v4l/dev-audio.rst
+> > new file mode 100644
+> > index 000000000000..f9bcf0c7b056
+> > --- /dev/null
+> > +++ b/Documentation/userspace-api/media/v4l/dev-audio.rst
+> > @@ -0,0 +1,63 @@
+> > +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> > +
+> > +.. _audiodev:
+> > +
+> > +******************
+> > +audio Interface
+>
+> Capital "A"?
 
-The first patch should cover the vital code which is required for the 
-subformat extension in the PCM core code. When we have this base, you can work 
-on other things.
+OK,  will modify it.
 
->> 2) if you copy 90% of my code, I don't think that Suggested-by: tag is fine
->>
->> Could you do your work on top of my patch?
-> 
-> I'm afraid this isn't a fair claim. The feature is driven by validation
-> and this has been conducted be me or my folks entirely. Given the scarce
-> guidance provided in [1] I still provided a valid WIP in [2] and
-> expected to iterate over it given the feedback. Closing the discussion
-> by taking a single patch away from the series and re-authoring it is not
-> a welcoming way to do a review. Perhaps Co-developed-by: then?
+>
+> > +******************
+>
+> Too many asterisks (same a few lines above, too).
 
-I don't follow you. My patch can be also changed - I've not heard any review 
-except cosmetic changes. I am just telling you that the patch is a good base 
-for all other changes. I think that the best way is to finish the base 
-extension in sound/core at first without any helpers and so on and then work 
-on other parts.
+ok, will update it.
 
-> Please note that the code differs. I do believe that splitting the API
-> and the constrains into separate patches is a better approach from
-> maintenance point of view.
+>
+> > +
+> > +The audio interface is implemented on audio device nodes. The audio de=
+vice
+> > +which uses application software for modulation or demodulation. This
+> > +interface is intended for controlling and data streaming of such devic=
+es
+> > +
+> > +Audio devices are accessed through character device special files name=
+d
+> > +``/dev/v4l-audio``
+> > +
+> > +Querying Capabilities
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Device nodes supporting the audio capture and output interface set the
+> > +``V4L2_CAP_AUDIO_M2M`` flag in the ``device_caps`` field of the
+> > +:c:type:`v4l2_capability` structure returned by the :c:func:`VIDIOC_QU=
+ERYCAP`
+> > +ioctl.
+> > +
+> > +At least one of the read/write or streaming I/O methods must be suppor=
+ted.
+> > +
+> > +
+> > +Data Format Negotiation
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +The audio device uses the :ref:`format` ioctls to select the capture f=
+ormat.
+> > +The audio buffer content format is bound to that selected format. In a=
+ddition
+> > +to the basic :ref:`format` ioctls, the :c:func:`VIDIOC_ENUM_FMT` ioctl=
+ must be
+> > +supported as well.
+> > +
+> > +To use the :ref:`format` ioctls applications set the ``type`` field of=
+ the
+> > +:c:type:`v4l2_format` structure to ``V4L2_BUF_TYPE_AUDIO_CAPTURE`` or =
+to
+> > +``V4L2_BUF_TYPE_AUDIO_OUTPUT``. Both drivers and applications must set=
+ the
+> > +remainder of the :c:type:`v4l2_format` structure to 0.
+> > +
+> > +.. c:type:: v4l2_audio_format
+> > +
+> > +.. tabularcolumns:: |p{1.4cm}|p{2.4cm}|p{13.5cm}|
+> > +
+> > +.. flat-table:: struct v4l2_audio_format
+> > +    :header-rows:  0
+> > +    :stub-columns: 0
+> > +    :widths:       1 1 2
+> > +
+> > +    * - __u32
+> > +      - ``rate``
+> > +      - The sample rate, set by the application. The range is [5512, 7=
+68000].
+> > +    * - __u32
+> > +      - ``format``
+> > +      - The sample format, set by the application. format is defined a=
+s
+> > +        SNDRV_PCM_FORMAT_S8, SNDRV_PCM_FORMAT_U8, ...,
+> > +    * - __u32
+> > +      - ``channels``
+> > +      - The channel number, set by the application. channel number ran=
+ge is
+> > +        [1, 32].
+> > +    * - __u32
+> > +      - ``buffersize``
+> > +      - Maximum buffer size in bytes required for data. The value is s=
+et by the
+> > +        driver.
+> > diff --git a/Documentation/userspace-api/media/v4l/devices.rst b/Docume=
+ntation/userspace-api/media/v4l/devices.rst
+> > index 8bfbad65a9d4..8261f3468489 100644
+> > --- a/Documentation/userspace-api/media/v4l/devices.rst
+> > +++ b/Documentation/userspace-api/media/v4l/devices.rst
+> > @@ -24,3 +24,4 @@ Interfaces
+> >      dev-event
+> >      dev-subdev
+> >      dev-meta
+> > +    dev-audio
+> > diff --git a/Documentation/userspace-api/media/v4l/pixfmt-aud-lpcm.rst =
+b/Documentation/userspace-api/media/v4l/pixfmt-aud-lpcm.rst
+> > new file mode 100644
+> > index 000000000000..f9ebe2a05f69
+> > --- /dev/null
+> > +++ b/Documentation/userspace-api/media/v4l/pixfmt-aud-lpcm.rst
+> > @@ -0,0 +1,31 @@
+> > +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> > +
+> > +.. _v4l2-aud-fmt-lpcm:
+> > +
+> > +*************************
+> > +V4L2_AUDIO_FMT_LPCM ('LPCM')
+> > +*************************
+> > +
+> > +Linear Pulse-Code Modulation (LPCM)
+> > +
+> > +
+> > +Description
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +This describes audio format used by the audio memory to memory driver.
+> > +
+> > +It contains the following fields:
+> > +
+> > +.. flat-table::
+> > +    :widths: 1 4
+> > +    :header-rows:  1
+> > +    :stub-columns: 0
+> > +
+> > +    * - Field
+> > +      - Description
+> > +    * - u32 samplerate;
+> > +      - which is the number of times per second that samples are taken=
+.
+> > +    * - u32 sampleformat;
+> > +      - which determines the number of possible digital values that ca=
+n be used to represent each sample
+>
+> 80 characters (or less) per line, please.
 
-It does not make sense to extend API without constraints. The splitting does 
-not help here.
+Ok, will change it.
 
-> Proposed readability improvements have also
-> been applied in v2. For reasons provided in previous paragraphs, I chose > to avoid the chicken-bit and treat subformat constraints in generic
-> fashion. Also, validation shows that without updating
-> snd_pcm_subformat_names[] in pcm.c the code ends with UBSAN during
+>
+> Which values could this field have and what do they signify?
 
-Yes, I missed that. I can put it to my v3 when we agree on the constraints.
+The values are SNDRV_PCM_FORMAT_S8, SNDRV_PCM_FORMAT_U8...
+which are the PCM format, defined in ALSA.
 
-> runtime. I've already addressed that, even in v1.
-> 
-> I'm happy to continue the technical discussion as there are still points
-> to discuss. Let's do so in v2 of the series [3].
+>
+> > +    * - u32 channels;
+> > +      - channel number for each sample.
+>
+> I suppose the rest of the buffer would be samples? This should be
+> documented. I think there are also different ways the data could be
+> arrangeed and this needs to be documented, too.
 
-Unfortunately, you are not working with the technical discussion anyway. 
-Changing comments adding empty lines, renaming variables to make you happy is 
-not a nice way to co-operate with others and then act as the author of the 
-CODE (not comments) is really bad. Everyone has own coding style and you're 
-forcing your opinion.
+All data in the buffer are the samples,  the 'samplerate', 'sampleformat'
+'channels'  I list here is try to describe the samples.
+I was confused how to write this document, so I list the characters.
 
-Also, I though about {} end-of-array mark (remove 
-SNDRV_PCM_FORMAT_CONSTRAINT_END), but I found that I prefer to have the 
-possibility to skip the MSBITS_MAX settings for the given format. It may make 
-sense in a situation when the MSBITS configuration is too rare to be added as 
-the API bit.
-
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+Best regards
+Wang Shengjiu

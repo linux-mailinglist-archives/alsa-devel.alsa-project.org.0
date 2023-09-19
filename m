@@ -2,91 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C5567A5FA7
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:33:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE85D7A5FA2
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 12:33:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0E3BE87;
-	Tue, 19 Sep 2023 12:32:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0E3BE87
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52595E7F;
+	Tue, 19 Sep 2023 12:32:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52595E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695119610;
-	bh=StBHIzcE1F7elEhaUhCawc0k/90MkJvFumgX7RYuvVI=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1695119592;
+	bh=qvW5azuNXvtpHNf//svPpcEGXeNfi1tNSfNSW0/6BTI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XJEQ9AMRPslfdl5hj+VrFTnncIcAM7s5bNdDF24GU9sUEPK/+T2m92QM+3YyzVI6m
-	 CQ23z4qc/mC8yNa7wyCczTvEQMDXFYfG3MRB5gd3a9uQe/I+vt2BzUKmaTjOgyQ9Rc
-	 2Jy1jvBHMUXR1vubl3Zi2As0PK49hZrc7T1TI99Q=
+	b=GXIcwbLOFyhEafu+JLKPCgoEkYavoUphzlyggI4B4iywgIs4D3oCeitrTJfTI5Tkh
+	 AvhlNFSc4os5GIQPG8028g0fctDgQWCYxhNuTCi4haV8nxg3zo6W4GNYJh4P8OqM7G
+	 +Y2pE39wnEu6FUDYZxxO1iCRcEVDQ22SSyAjFv4g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12444F805A0; Tue, 19 Sep 2023 12:31:36 +0200 (CEST)
+	id 0BEAEF8057E; Tue, 19 Sep 2023 12:31:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8678EF805A1;
-	Tue, 19 Sep 2023 12:31:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C54CF8057E;
+	Tue, 19 Sep 2023 12:31:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95F5BF8057A; Tue, 19 Sep 2023 12:31:30 +0200 (CEST)
+	id 90414F8055B; Tue, 19 Sep 2023 12:31:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D05FBF80549
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D05FBF80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id 080AFF80124
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 12:31:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 080AFF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=XfjOqRrC
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38J4RRCZ031661;
-	Tue, 19 Sep 2023 05:31:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=a
-	VqstsaBSD2K7gIVkXXt0j+hccLECROHmsTT3NOhKeI=; b=XfjOqRrC5hsESJzQI
-	RX0WZBsOue44L8ArhsOvc+Tmi3/nLFuJFFbmqMCKwJgyVWLwTn7QSz5fvDR/c9yV
-	HTyaL4Dq/X3GHa2ta4ft2WXnY/2kK4Y1ykpK69XwgAEgd0JEje2SZM41OJa+nHuv
-	TX+7oiCy3pJa5cfGxyv6mmjXPUrVgXk349BwdhD31Vlz8PY9uk16omx9uNVBq4Ae
-	roLeorHG/4LIJAJVlaef+GFH5s3DKZB3IZywCK+AYqCvVvUGKgGHFkwEVxP2eRpu
-	JOZG4gxixugGbe8tNoy7PvtHN7xCopJy84QaZ/s3y58U9RDP36hs0pcuAyvaWt91
-	LwsYA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t59ry3p1h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 19 Sep 2023 05:31:18 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 19 Sep
- 2023 11:31:16 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
- Transport; Tue, 19 Sep 2023 11:31:16 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4B50D11AA;
-	Tue, 19 Sep 2023 10:31:16 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <patches@opensource.cirrus.com>
-Subject: [PATCH 0/5] Minor default jack pop performance updates
-Date: Tue, 19 Sep 2023 11:31:11 +0100
-Message-ID: <20230919103116.580305-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=lqBggsyp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1695119477; x=1726655477;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=qvW5azuNXvtpHNf//svPpcEGXeNfi1tNSfNSW0/6BTI=;
+  b=lqBggsyphPHxVh8xnL/nDo4uD9e+kvLhyhY3E4R8BUT9pVbG6/qtHydj
+   Cjer3nQPg4VWQJCRIekv58dmnC8XsY13MsuFVff7p4+/DlIsljx89zghy
+   /zfJ56eJ80eCcwGOQckdcpX2vmU/ddo8MXM8jYmhEfxFqp3BzhXC676i3
+   3jcQYht3m33KUT0xv0kKpgeleZ437cisuc0kD3qi5pb4wODvaFQgLSix9
+   JsiOaVyt/YwwWBL3zjpHLXdBcxzskTyk1ty8z9MLwwQ1hw210fCnFbXex
+   +82Ax0ZErP7HTC6hRHlBecfTL9YKKPqQsLUVExeZPXx/u+68cyPpFaeGk
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="443990493"
+X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
+   d="scan'208";a="443990493"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 03:31:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="861486831"
+X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
+   d="scan'208";a="861486831"
+Received: from mokashi-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.50.26])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 03:31:07 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	pierre-louis.bossart@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com
+Subject: [PATCH 0/3] ASoC: SOF: ipc4-control: Support for Switch and Enum
+ controls
+Date: Tue, 19 Sep 2023 13:31:12 +0300
+Message-ID: <20230919103115.30783-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: N3nK7fLmcEH4KA41Fb4LgyXwu73fLjEV
-X-Proofpoint-ORIG-GUID: N3nK7fLmcEH4KA41Fb4LgyXwu73fLjEV
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: SG3XMRNRPI4M6I5ILWPLDLR2ZNKZIEAN
-X-Message-ID-Hash: SG3XMRNRPI4M6I5ILWPLDLR2ZNKZIEAN
-X-MailFrom: prvs=4626caf035=ckeepax@opensource.cirrus.com
+Message-ID-Hash: FC6YZR6MGIO6CJDWBZJI4CYZNA4MO4JF
+X-Message-ID-Hash: FC6YZR6MGIO6CJDWBZJI4CYZNA4MO4JF
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SG3XMRNRPI4M6I5ILWPLDLR2ZNKZIEAN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FC6YZR6MGIO6CJDWBZJI4CYZNA4MO4JF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,23 +106,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Some small updates to the driver defaults to ensure a good pop
-performance on jack insert and removal.
+Hi,
 
-Thanks,
-Charles
+Currently IPC4 has no notion of a switch or enum type of control which is a
+generic concept in ALSA.
 
-Charles Keepax (5):
-  dt-bindings: ASoC: cirrus,cs42l43: Update a couple of default values
-  ASoC: cs42l43: Lower default type detect time
-  ASoC: cs42l43: Enable bias sense by default
-  ASoC: cs42l43: Move headset bias sense enable earlier in process
-  ASoC: cs42l43: Extend timeout on bias sense timeout
+The generic support for these control types will be as follows:
 
- .../bindings/sound/cirrus,cs42l43.yaml        |  4 +-
- sound/soc/codecs/cs42l43-jack.c               | 38 +++++++++----------
- 2 files changed, 21 insertions(+), 21 deletions(-)
+- large config is used to send the channel-value par array
+- param_id of a SWITCH type is 200
+- param_id of an ENUM type is 201
+
+Each module need to support a switch or/and enum must handle these
+universal param_ids.
+The message payload is described by struct sof_ipc4_control_msg_payload.
+
+Regards,
+Peter
+---
+Peter Ujfalusi (3):
+  ASoC: SOF: ipc4-topology: Add definition for generic switch/enum
+    control
+  ASoC: SOF: ipc4-control: Add support for ALSA switch control
+  ASoC: SOF: ipc4-control: Add support for ALSA enum control
+
+ sound/soc/sof/ipc4-control.c  | 175 +++++++++++++++++++++++++++++++++-
+ sound/soc/sof/ipc4-topology.c |  49 +++++++++-
+ sound/soc/sof/ipc4-topology.h |  19 +++-
+ 3 files changed, 237 insertions(+), 6 deletions(-)
 
 -- 
-2.39.2
+2.42.0
 

@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D4F7A5C7C
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 10:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C716B7A5CC3
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 10:41:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A47DAEA;
-	Tue, 19 Sep 2023 10:27:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A47DAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6C5C9F6;
+	Tue, 19 Sep 2023 10:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6C5C9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695112095;
-	bh=SdFFbhC/VcdqZI/WpPp/xZ/CoVrwDc9IOpQWX5AyUEM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1695112866;
+	bh=NCHUqcGvIH7Nxqyq2cDNeSZjOi7wP/zk/c3WJom6zNI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nPWzpRevykreg/jjoJ/Nw4AePKWOeVZzRZq4Pov6/vs97Rgs3hPjbavWmg41xMfqS
-	 ljvja39sQpmI8Vojag95MCXeSuXc/4pMnXIziTtSo8uHYyERHv5BBkpO6aGnY8vI43
-	 g5jcBcg+988rFzNgsIpH+hBKFvjdLOhaiVj8jhik=
+	b=egK4mgSsB9CpOX2vburolkLm9YwB0wwBGzV6PPwmqMsiMW6VpBpoWq8X/xJBCaqHU
+	 MXZmXOJgKsFjiuP439KIBKC3DwEuz7M88A9j7LajsKC2CIc+BMDbEcK+OYgW1stLmE
+	 u65mI0ChREYJc9Kge5TVz6WM4qXK3d/HYCNt48vM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5D3FEF801F5; Tue, 19 Sep 2023 10:27:05 +0200 (CEST)
+	id 0F8F4F8025A; Tue, 19 Sep 2023 10:39:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCA37F80125;
-	Tue, 19 Sep 2023 10:27:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A0D9F80125;
+	Tue, 19 Sep 2023 10:39:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64F4EF801F5; Tue, 19 Sep 2023 10:27:01 +0200 (CEST)
+	id 54B14F801F5; Tue, 19 Sep 2023 10:39:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 999A7F80124
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 10:26:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 999A7F80124
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=iPXfo/bH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695112017; x=1726648017;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SdFFbhC/VcdqZI/WpPp/xZ/CoVrwDc9IOpQWX5AyUEM=;
-  b=iPXfo/bHs94mr9E9Pih3I4WaRfC/IGlde76v23kVcsYp6EJCU5gBP7qg
-   Ys9Ue18YfIJUKzvoC0KwaIOA+lpWtVTEsEYV7ayRXlWudglHl7vv9obH3
-   PPzx9i9H0mEGCzgJTxqkKnt2pJr96K4PiOTf3cd5GMysSJRdtq18vA1XH
-   hsAbcUOflPNNbSKEOvrD8yxnnTAQclscXxvvPG0fxtk8RtY+/kPy51a8G
-   qQaRIO9QFCvkunWGbGIL6slbzmzLmSpACfd7KaBxFBhwBb0fxaW99TvS3
-   sfix6KD+ATB9762VO5iiv7450vjgILlcQKcUo3soAn9EIOSkamnhIiDMv
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="379787641"
-X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
-   d="scan'208";a="379787641"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 01:26:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="775455695"
-X-IronPort-AV: E=Sophos;i="6.02,159,1688454000";
-   d="scan'208";a="775455695"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 01:26:51 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	bard.liao@intel.com,
-	peter.ujfalusi@linux.intel.com
-Subject: [PATCH] ASoC: Intel: soc-acpi: fix Dell SKU 0B34
-Date: Tue, 19 Sep 2023 16:36:06 +0800
-Message-Id: <20230919083606.1920202-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id D9756F800F4
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 10:39:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9756F800F4
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 38J8ddTiB3327648,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.92/5.92) with ESMTPS id 38J8ddTiB3327648
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 19 Sep 2023 16:39:39 +0800
+Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Tue, 19 Sep 2023 16:39:40 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Tue, 19 Sep 2023 16:39:39 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
+ RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
+ 15.01.2375.007; Tue, 19 Sep 2023 16:39:39 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: New Lenovo MTL platform
+Thread-Topic: New Lenovo MTL platform
+Thread-Index: Adnq1LeQH4JNluaFTnGFES3wVjJ+ug==
+Date: Tue, 19 Sep 2023 08:39:39 +0000
+Message-ID: <8d63c6e360124e3ea2523753050e6f05@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXMBS05.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: multipart/mixed;
+	boundary="_002_8d63c6e360124e3ea2523753050e6f05realtekcom_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FL27MDJVPPYHTMFHMMJXBTMB3O4JWKCT
-X-Message-ID-Hash: FL27MDJVPPYHTMFHMMJXBTMB3O4JWKCT
-X-MailFrom: yung-chuan.liao@linux.intel.com
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: OSH7ZEGIMQA3PTTGOT2FGQ3FR3DKX24G
+X-Message-ID-Hash: OSH7ZEGIMQA3PTTGOT2FGQ3FR3DKX24G
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FL27MDJVPPYHTMFHMMJXBTMB3O4JWKCT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OSH7ZEGIMQA3PTTGOT2FGQ3FR3DKX24G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,53 +100,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+--_002_8d63c6e360124e3ea2523753050e6f05realtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The rule for the SoundWire tables is that the platforms with more
-devices need to be added first. We broke that rule with the Dell SKU
-0B34, and caused the second amplifier for SKU 0AF3 to be ignored.
+Hi Takashi,
 
-The fix is simple, we need to move the single-amplifier entry after
-the two-amplifier one.
+SSID:0x231f Lenovo new MTL platform.
+Attach patch will support it.
 
-Fixes: b62a1a839b48 ("ASoC: Intel: soc-acpi: add tables for Dell SKU 0B34")
-Closes: https://github.com/thesofproject/linux/issues/4559
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Chao Song <chao.song@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/intel/common/soc-acpi-intel-adl-match.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+BR,
+Kailang
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index b513eceb60c3..6e712ad954c8 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -674,18 +674,18 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-adl-rt1316-l2-mono-rt714-l3.tplg",
- 	},
--	{
--		.link_mask = 0x3, /* rt1316 on link1 & rt714 on link0 */
--		.links = adl_sdw_rt1316_link1_rt714_link0,
--		.drv_name = "sof_sdw",
--		.sof_tplg_filename = "sof-adl-rt1316-l1-mono-rt714-l0.tplg",
--	},
- 	{
- 		.link_mask = 0x7, /* rt714 on link0 & two rt1316s on link1 and link2 */
- 		.links = adl_sdw_rt1316_link12_rt714_link0,
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-adl-rt1316-l12-rt714-l0.tplg",
- 	},
-+	{
-+		.link_mask = 0x3, /* rt1316 on link1 & rt714 on link0 */
-+		.links = adl_sdw_rt1316_link1_rt714_link0,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-adl-rt1316-l1-mono-rt714-l0.tplg",
-+	},
- 	{
- 		.link_mask = 0x5, /* 2 active links required */
- 		.links = adl_sdw_rt1316_link2_rt714_link0,
--- 
-2.25.1
+--_002_8d63c6e360124e3ea2523753050e6f05realtekcom_
+Content-Type: application/octet-stream;
+	name="0000-alc287-lenovo-platform.patch"
+Content-Description: 0000-alc287-lenovo-platform.patch
+Content-Disposition: attachment;
+	filename="0000-alc287-lenovo-platform.patch"; size=1131;
+	creation-date="Tue, 19 Sep 2023 08:29:08 GMT";
+	modification-date="Tue, 19 Sep 2023 08:34:31 GMT"
+Content-Transfer-Encoding: base64
 
+RnJvbSAyZjgzZjZhMmI3OTI5MWNmMTg1YTExNGU1NjdjM2EzYjY4NjBhMjM3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFR1ZSwgMTkgU2VwIDIwMjMgMTY6Mjc6MTYgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlayAtIEFMQzI4NyBSZWFsdGVrIEkyUyBzcGVha2VyIHBsYXRmb3JtIHN1cHBv
+cnQKCk5ldyBwbGF0Zm9ybSBTU0lEOjB4MjMxZi4KMHgxNyB3YXMgb25seSBzcGVha2VyIHBpbiwg
+REFDIGFzc2lnbmVkIHdpbGwgYmUgMHgwMy4gSGVhZHBob25lIGFzc2lnbmVkIHRvIDB4MDIuClBs
+YXliYWNrIHZpYSBoZWFkcGhvbmUgd2lsbCBnZXQgRVEgZmlsdGVyIHByb2Nlc3NpbmcuU28saXQg
+bmVlZHMgdG8gc3dhcCBEQUMuIAoKU2lnbmVkLW9mZi1ieTogS2FpbGFuZyBZYW5nIDxrYWlsYW5n
+QHJlYWx0ZWsuY29tPgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMg
+Yi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCA4ODNhN2U4NjViYzUuLjc1MTc4
+M2YzYTE1YyAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIv
+c291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTEwNTc3LDYgKzEwNTc3LDEwIEBAIHN0
+YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2hkYV9waW5fcXVpcmsgYWxjMjY5X3Bpbl9maXh1cF90Ymxb
+XSA9IHsKIAkJezB4MTcsIDB4OTAxNzAxMTB9LAogCQl7MHgxOSwgMHgwM2ExMTAzMH0sCiAJCXsw
+eDIxLCAweDAzMjExMDIwfSksCisJU05EX0hEQV9QSU5fUVVJUksoMHgxMGVjMDI4NywgMHgxN2Fh
+LCAiTGVub3ZvIiwgQUxDMjg3X0ZJWFVQX1RISU5LUEFEX0kyU19TUEssCisJCXsweDE3LCAweDkw
+MTcwMTEwfSwgLyogMHgyMzFmIHdpdGggUlRLIEkyUyBBTVAgKi8KKwkJezB4MTksIDB4MDRhMTEw
+NDB9LAorCQl7MHgyMSwgMHgwNDIxMTAyMH0pLAogCVNORF9IREFfUElOX1FVSVJLKDB4MTBlYzAy
+ODYsIDB4MTAyNSwgIkFjZXIiLCBBTEMyODZfRklYVVBfQUNFUl9BSU9fTUlDX05PX1BSRVNFTkNF
+LAogCQl7MHgxMiwgMHg5MGE2MDEzMH0sCiAJCXsweDE3LCAweDkwMTcwMTEwfSwK
+
+--_002_8d63c6e360124e3ea2523753050e6f05realtekcom_--

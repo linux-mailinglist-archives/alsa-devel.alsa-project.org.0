@@ -2,80 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 453C47A5CAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 10:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C687A5C3E
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Sep 2023 10:15:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 342BCA4E;
-	Tue, 19 Sep 2023 10:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 342BCA4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D181FE85;
+	Tue, 19 Sep 2023 10:14:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D181FE85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695112512;
-	bh=GjUd5JrPVUTZ+uXOPJyhDhqF0PGaayXuvljzgD4jIT0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=przQGsszv99m0GXO04tyg6qZKE3NAaI8Wyr8msryrOIYHeQuN4PEcRDmbrDIRLkIy
-	 xcccRgyXjxG5veLH9oI9Gub/ThYZSXZSuGem1SBUle9CGmegUwLF7oWu1ZpEyPwvex
-	 snr7eYXW3IwJ2mZYlj/0YoeOk4kj1X1nFTJZxMeY=
+	s=default; t=1695111302;
+	bh=s+w29d+a7aelr52mJO3hvu+Y8Foh6yczjzPAz+AnKBA=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=WYgYq22aX3uwNeIcAfnZtiEdlrCYESMClAXoOsLBXOpzTtaQilf1WNC+x/LdafGVe
+	 PLswYRvugGaDwy5TNTCvdN2AIOh7cxl+TKogIOMvZvPREXyR6Cvb5EFa8NQWE/sDTU
+	 2k++APTEqPxgV5YYfgXxPjRghqH5Hi0A6SP+aEOg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADFF5F80124; Tue, 19 Sep 2023 10:34:21 +0200 (CEST)
+	id 804BAF8025A; Tue, 19 Sep 2023 10:12:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D8D1F80125;
-	Tue, 19 Sep 2023 10:34:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AB7BF8025A;
+	Tue, 19 Sep 2023 10:12:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AA6BF801F5; Tue, 19 Sep 2023 10:34:18 +0200 (CEST)
+	id 539E6F8047D; Tue, 19 Sep 2023 10:12:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DC4CBF800F4
-	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 10:34:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC4CBF800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19846F800F4
+	for <alsa-devel@alsa-project.org>; Tue, 19 Sep 2023 10:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19846F800F4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=AtiGWzxA
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 22F266150B;
-	Tue, 19 Sep 2023 08:34:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC501C433C8;
-	Tue, 19 Sep 2023 08:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1695112452;
-	bh=GjUd5JrPVUTZ+uXOPJyhDhqF0PGaayXuvljzgD4jIT0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AtiGWzxAv4yxncx/+5wXNovuRsCQi+rJ17Kf++2HQ1/8ECj4pQLL7tZve/THkefpk
-	 qhgWsqNNJXs22cGByYLHp0hUwPLl8bJqdQnidn3+jh9IVkLuzQeRV0sJPmxFvzLEtI
-	 d46W8WsykEAMxJxacbzi5cnRJTm/aEilZUhCHTM8=
-Date: Tue, 19 Sep 2023 10:04:28 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>
-Cc: perex@perex.cz, tiwai@suse.com, corbet@lwn.net,
-	alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
-Message-ID: <2023091955-dried-popsicle-f3d8@gregkh>
-References: <20230918181044.7257-1-ivan.orlov0322@gmail.com>
- <20230918181044.7257-2-ivan.orlov0322@gmail.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=YUWvgRNV
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38J4d85s014465;
+	Tue, 19 Sep 2023 03:12:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=A
+	g2GXYyDdeYDs+7O7yJ7LYA8JwJg0eO6pVS18lspYAU=; b=YUWvgRNV8x1bEdT5Z
+	p0ETV6VIfSiCWsRhXq1Iyul33MRSy2/nP2wSzdUvYywBYpVX5NzENdqQbG5Cbwx+
+	OYLrKO4G2ZhKfZ8kgduQw7ys/Ykny2DGBnOcCcz3nJOcI12EcRhazw9e8kTbpwo3
+	gTJmoT5+vlTWvbcODXj+mOjkzUnnOjgXf8cjS6UyhQZCX4TNu5SxTAnt65nzCU+S
+	J+4R+lbeuDvt9pzyUA9jkfPDn5U3TeyYWgbPUxpk/H3TO+nO7TvZRJorj8R5txSs
+	sWrIfTZ6vTias6cweUbbWBeakDIarA/G2bVnEtFf2zLX6SeLB+T+QTtPvmrS8usC
+	h+tvg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t59ry3hb2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 19 Sep 2023 03:12:00 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 19 Sep
+ 2023 09:11:57 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.37 via Frontend Transport; Tue, 19 Sep 2023 09:11:57 +0100
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.64.21])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D536B11AB;
+	Tue, 19 Sep 2023 08:11:56 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-kernel@vger.kernel.org>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: [PATCH] ALSA: hda: cs35l56: Use the new RUNTIME_PM_OPS() macro
+Date: Tue, 19 Sep 2023 09:11:53 +0100
+Message-ID: <20230919081153.19793-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
-Message-ID-Hash: JUOA2VBBZFRGOAQDOFVTTSK4DRSNZCHW
-X-Message-ID-Hash: JUOA2VBBZFRGOAQDOFVTTSK4DRSNZCHW
-X-MailFrom: gregkh@linuxfoundation.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: bNnQAanUo07wYwhJY3ooL2_nUDSL2mii
+X-Proofpoint-ORIG-GUID: bNnQAanUo07wYwhJY3ooL2_nUDSL2mii
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 4BYM4OUF2MG3Z7UK3FI5K2VAKDLCNZ5U
+X-Message-ID-Hash: 4BYM4OUF2MG3Z7UK3FI5K2VAKDLCNZ5U
+X-MailFrom: prvs=462624de38=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,22 +99,53 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUOA2VBBZFRGOAQDOFVTTSK4DRSNZCHW/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4BYM4OUF2MG3Z7UK3FI5K2VAKDLCNZ5U/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Sep 18, 2023 at 10:10:44PM +0400, Ivan Orlov wrote:
-> +
-> +#define DEBUG
+Use RUNTIME_PM_OPS() instead of the old SET_RUNTIME_PM_OPS().
+This means we don't need  __maybe_unused on the functions.
 
-Do you mean to have DEBUG enabled at all times?  Shouldn't this be a
-runtime issue with the normal dynamic debug infrastructure?
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/pci/hda/cs35l56_hda.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-thanks,
+diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
+index d3cfdad7dd76..b61e1de8c4bf 100644
+--- a/sound/pci/hda/cs35l56_hda.c
++++ b/sound/pci/hda/cs35l56_hda.c
+@@ -106,7 +106,7 @@ static void cs35l56_hda_playback_hook(struct device *dev, int action)
+ 	}
+ }
+ 
+-static int __maybe_unused cs35l56_hda_runtime_suspend(struct device *dev)
++static int cs35l56_hda_runtime_suspend(struct device *dev)
+ {
+ 	struct cs35l56_hda *cs35l56 = dev_get_drvdata(dev);
+ 
+@@ -116,7 +116,7 @@ static int __maybe_unused cs35l56_hda_runtime_suspend(struct device *dev)
+ 	return cs35l56_runtime_suspend_common(&cs35l56->base);
+ }
+ 
+-static int __maybe_unused cs35l56_hda_runtime_resume(struct device *dev)
++static int cs35l56_hda_runtime_resume(struct device *dev)
+ {
+ 	struct cs35l56_hda *cs35l56 = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1026,7 +1026,7 @@ void cs35l56_hda_remove(struct device *dev)
+ EXPORT_SYMBOL_NS_GPL(cs35l56_hda_remove, SND_HDA_SCODEC_CS35L56);
+ 
+ const struct dev_pm_ops cs35l56_hda_pm_ops = {
+-	SET_RUNTIME_PM_OPS(cs35l56_hda_runtime_suspend, cs35l56_hda_runtime_resume, NULL)
++	RUNTIME_PM_OPS(cs35l56_hda_runtime_suspend, cs35l56_hda_runtime_resume, NULL)
+ 	SYSTEM_SLEEP_PM_OPS(cs35l56_hda_system_suspend, cs35l56_hda_system_resume)
+ 	LATE_SYSTEM_SLEEP_PM_OPS(cs35l56_hda_system_suspend_late,
+ 				 cs35l56_hda_system_resume_early)
+-- 
+2.30.2
 
-greg k-h

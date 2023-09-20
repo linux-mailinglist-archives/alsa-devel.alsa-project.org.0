@@ -2,108 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52DA57A94BB
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 15:25:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BCA77A94BC
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 15:25:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2FF7E92;
-	Thu, 21 Sep 2023 15:24:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2FF7E92
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79136E86;
+	Thu, 21 Sep 2023 15:25:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79136E86
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695302742;
-	bh=+fkPXRPdVstynPHGk4w9UgEKJcmvJdZ1sFSMw6sYnEI=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=cFn4Caiwxx6nIXRcLHpjSufkJtKYS4rKqwPzB4VtgIV8JSPDGGiqEMp+TA3zzCfPq
-	 rvDXLx+41EjfNjPEleaxwwi4dRSozls3PAI0VQlEoSX+kUzA9HkbKcMBmlZA7QorVl
-	 banqtlSYlGjTjNhmGEJMwcso564eQ7lVtxoVXgFU=
+	s=default; t=1695302757;
+	bh=k+VkgCyYluhse4witHXmjVNtCCL59oR5Q2xpPkznbkI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=o1UWW1XCu8Yqie4u+SFEMnWqkrMEsuQAKmr6h+768+i8fsZIulhwL1MYsgMuxOwS8
+	 FAGDrKZgmQJD7yCLcVDFnVAQwiveLCQRGahUd9Mo+lAIfW2MI3Uc3E72m+gkirXL7u
+	 YvxcsOtfl74qW9/rBH0NkV6glzzq3RF4gkqp8620=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CD12F805F4; Thu, 21 Sep 2023 15:23:02 +0200 (CEST)
+	id 0FADBF805F8; Thu, 21 Sep 2023 15:23:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4819DF805EB;
-	Thu, 21 Sep 2023 15:23:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 587E3F80563;
+	Thu, 21 Sep 2023 15:23:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7EE3F8025A; Wed, 20 Sep 2023 06:18:48 +0200 (CEST)
+	id 83215F8025A; Wed, 20 Sep 2023 16:52:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc
+ [IPv6:2a02:c205:3004:2154::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F3E8F80125
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 06:18:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F3E8F80125
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Zb+wCa5f
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2c108e106f0so4634461fa.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 19 Sep 2023 21:18:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695183520; x=1695788320;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=+fkPXRPdVstynPHGk4w9UgEKJcmvJdZ1sFSMw6sYnEI=;
-        b=Zb+wCa5fp/nBBQbr9nrRYjd8g2CfbgIRV7Nn9vm5I9q8CiAsxwvSsMjWVTFweZ+uAH
-         cHX7VwTfFWYbbNNyhSiuZfcZToD+GM0SNWJQv0b36hzXd71odOCEXgj+O6G1Sth8kUkr
-         rmPIR84pyoEiBruAgKYwOa9tzwPm3fnxu7V+qoilqYJIeeKCSe/qmRZqNA6SqFcp/gY/
-         9SZ4N48BXHztfQCwutlOaHQy9cBGA3wHg0s4iSDzx+vTrRtFwb3DN1vQuOPW3XpTLtmG
-         p//BrnZ9V1VWHAMz0wb2vt4z0UgTkG4+fdE4dn7ayzkut1OPF4kuTJnuzF3JZULtQHAP
-         JooA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695183520; x=1695788320;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+fkPXRPdVstynPHGk4w9UgEKJcmvJdZ1sFSMw6sYnEI=;
-        b=Lqz6uaZaIm/7CmdVR9m7JmfX4R821F/dYj7dcr+f8xkL/RLOTMt+9s7voHG6ckJth7
-         EKWbfMsvZzM6G4fm2iJQNt95/6aFpTrD8rcH3i/+txe36xim2fSg/z09QWLMbLIdEJ2T
-         kLp8fgRy7WN/Vvdl0HPAOb+dpTiVDRE8DR8wwnX7HMPcy9Kj8d1pvcJe+fUeHOdgY2Lg
-         TBGp9fYU5S0CijLDdNwYrfwmxNhgre07O/hLw8QRsFPort5T5erD/0xLzqPbIIgUlEYJ
-         yCYHskssK0sgqKtYeMvWhmvcFSrqteQEpeVrkmT6GhU69epRuxyN/QUqvshyVVKPESDy
-         b7WQ==
-X-Gm-Message-State: AOJu0YzcxbfxkBefFkbN1a+e6zHkih5xC4LSV4auogatxOeN1Eq1bTER
-	AbrPj/nYlkDNPwEOvVBzItk8TGyj4sn+Eql2ez451VRXPoOICvE3
-X-Google-Smtp-Source: 
- AGHT+IHcUUN3UeK/0FtxmnSmjr5hlxfzMuGqTs8KNbXwHRawArbK0BZ6sri7guVyxMa8uOXKA9anW5KXwzWS0M/mChE=
-X-Received: by 2002:a2e:6a09:0:b0:2bd:1f8d:e89d with SMTP id
- f9-20020a2e6a09000000b002bd1f8de89dmr1091573ljc.3.1695183519608; Tue, 19 Sep
- 2023 21:18:39 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 536DFF800AA
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 16:52:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 536DFF800AA
+Received: from pd9e2f2b6.dip0.t-ipconnect.de ([217.226.242.182] helo=aktux)
+	by mail.andi.de1.cc with esmtpsa  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <andreas@kemnade.info>)
+	id 1qiyYh-0040UG-5J; Wed, 20 Sep 2023 16:52:06 +0200
+Date: Wed, 20 Sep 2023 16:52:04 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tony Lindgren <tony@atomide.com>
+Cc: =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@gmail.com>,
+ bcousson@baylibre.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ jarkko.nikula@bitmer.com, dmitry.torokhov@gmail.com,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/3] ASoC: ti: omap-mcbsp: Ignore errors for getting
+ fck_src
+Message-ID: <20230920165204.0fbc0ff3@aktux>
+In-Reply-To: <20230920063353.GQ5285@atomide.com>
+References: <20230705190324.355282-1-andreas@kemnade.info>
+	<20230705190324.355282-2-andreas@kemnade.info>
+	<7d58d52d-2087-45af-b29e-2515b63ead13@gmail.com>
+	<20230920063353.GQ5285@atomide.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-From: yu tian <tianyucode9603@gmail.com>
-Date: Wed, 20 Sep 2023 12:18:28 +0800
-Message-ID: 
- <CADMex3N0yR60Hzkbg5Qx5MNZaqmx59-HKDB=MEEMvG2fL4QM_Q@mail.gmail.com>
-Subject: sound/hda: Module loading problem of controller and codec
-To: tiwai@suse.com
-Cc: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-MailFrom: tianyucode9603@gmail.com
+X-MailFrom: andreas@kemnade.info
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XW6SPX5QB246SBDJRQFBD73TB2IBFHM6
-X-Message-ID-Hash: XW6SPX5QB246SBDJRQFBD73TB2IBFHM6
+Message-ID-Hash: 7ZRKNLW2B4SLBYBKNEAZ5X4YBQO65RG4
+X-Message-ID-Hash: 7ZRKNLW2B4SLBYBKNEAZ5X4YBQO65RG4
 X-Mailman-Approved-At: Thu, 21 Sep 2023 13:22:53 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XW6SPX5QB246SBDJRQFBD73TB2IBFHM6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ZRKNLW2B4SLBYBKNEAZ5X4YBQO65RG4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,16 +91,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Takashi,
-The following commit only gives a warning in menuconfig:
-"Set to Y if you want auto-loading the codec driver"
+Hi,
 
-d8f66c71d547 ("ALSA: hda - Add warning texts when codec driver Kconfig
-doesn't match")
-78e34f34ac27 ("ALSA: hda - remove PCI dependency in Kconfig")
+On Wed, 20 Sep 2023 09:33:53 +0300
+Tony Lindgren <tony@atomide.com> wrote:
 
-The problem with module loading is because when SND_HDA=3Dy,
-sound/pci/hda/hda_bind.c is not compiled as a module.There is a
-=E2=80=9C#ifdef MODULE=E2=80=9C in the codec_bind_module function in this f=
-ile. Why
-can't it be deleted directly?Or am I missing something?
+> Hi,
+>=20
+> * P=C3=A9ter Ujfalusi <peter.ujfalusi@gmail.com> [230919 18:25]:
+> >=20
+> >=20
+> > On 7/5/23 22:03, Andreas Kemnade wrote: =20
+> > > Commit 349355ce3a05 ("ARM: OMAP2+: Drop legacy platform data for omap=
+4 mcbsp")
+> > > dropped prcm_fck for omap4, =20
+>=20
+> The prcm_fck should be there in the dts for each mcbsp interconnect targe
+> module as "fck" alias and get's enabled/disabled when the mcbsp driver
+> calls runtime PM.
+>=20
+> So maybe the description should explain that things broke as the aliases
+> for prcm_fck and pad_ck no longer get added.
+>=20
+> > it also dropped the pad_fck for that matter. =20
+>=20
+> OK so an alias is needed for that too.
+>=20
+> That's the MCPDM_CLKCTRL pad_clks_ck alias, right? Seems like the
+> pad_clks_ck should be claimed by the mcpdm and mcbsp drivers if they are
+> used? I guess it would be for some external device use case?
+>=20
+> > > so the clk_src might not be >available making the
+> > > clk_get(src) fail. =20
+> >=20
+> > Wow, so OMAP4 audio is pretty broken if would ever need to select FCLK?
+> > By default we don't on OMAP4, but this is astonishing. =20
+>=20
+> So sounds like we just got lucky because of -ENOSUCHUSERS? The mcbsp works
+> for me, not sure how come I'm not seeing this issue, does it now only work
+> for the default clock source?
+>=20
+Well, I did not run into any problems (besides of no sound output)
+as long as I tried to use the codec side as bitclock/frameclock-master and
+that is what droid4 does...
+
+Regards,
+Andreas

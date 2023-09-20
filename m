@@ -2,45 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646AD7A8965
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 18:26:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 071227A8966
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 18:27:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C357A4A;
-	Wed, 20 Sep 2023 18:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C357A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 835E8A4D;
+	Wed, 20 Sep 2023 18:26:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 835E8A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695227215;
-	bh=RqgySJ17ze7rLUI/SS0jzL8LN8CO1W6nlt0s4842QFI=;
-	h=Subject:From:To:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=gNeJYtP8rowNRjVc3lIunCmBLHd+zlj1kJ1MwE91Uxz63auWaNjDZ/+XALqWo3XWO
-	 DqRg+EEt6eFI2W1SwhlRIMztA+LN3cAAxtz1a+4s0aqBMmw1EJ/Ql83mSQWoxpquYA
-	 U2wuayQchMFGgcreK9MlKxKQDE+EAcj1yPj6F7/I=
+	s=default; t=1695227245;
+	bh=Kw8oLjNO5cB9v5haKJjDyc+WCifcThIwqmyNXDmoPz0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=sMo6mw7B44+KiXAQuxhdrkNuCg+RRJ6KoxdM9r0tOIOnI0pjJiNyVABBYPaRpdH9q
+	 YzZEUdSfM8ix7gaGRNeQxm7bQyz22FEdhLZ9dPI0esixaYfqKOcSqIma/cpw6PIwUQ
+	 5KR9F4GM1voJA6VMyPDXPp4j/e2WzqzvmZlpXLwc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05632F8025A; Wed, 20 Sep 2023 18:25:55 +0200 (CEST)
+	id 52B49F80551; Wed, 20 Sep 2023 18:26:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A5FFF801F5;
-	Wed, 20 Sep 2023 18:25:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B26DF80558;
+	Wed, 20 Sep 2023 18:26:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3249BF8047D; Wed, 20 Sep 2023 18:25:52 +0200 (CEST)
-Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
- [10.254.200.11])
-	by alsa1.perex.cz (Postfix) with ESMTP id 274FDF80125
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 18:25:52 +0200 (CEST)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: S0ix issues and Cirrus Amp on HP Elitebook 845 G10
-From: alsamail@lenielsen.de
-To: alsa-devel@alsa-project.org
-Date: Wed, 20 Sep 2023 16:25:52 -0000
-Message-ID: <169522715215.21.8751817512777154985@mailman-web.alsa-project.org>
-User-Agent: HyperKitty on https://mailman.alsa-project.org/
-Message-ID-Hash: 2HMBNGI4NPT45YZASBUUHJTQPFMIW33L
-X-Message-ID-Hash: 2HMBNGI4NPT45YZASBUUHJTQPFMIW33L
-X-MailFrom: alsamail@lenielsen.de
+	id 5829DF8055A; Wed, 20 Sep 2023 18:26:09 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40817F801F5
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 18:26:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40817F801F5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=sVt4nV0G;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=p8FsJlTC
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B0705221CC;
+	Wed, 20 Sep 2023 16:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1695227164;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OLn8yWRXNtM1vzeh+k8IzT+RT5YudYxnSIDB4ufkXsA=;
+	b=sVt4nV0GM8aBnWV5AaWOmn/g3abQZs8Fu97MDTWPbAcDOIsHeN3BeuJ7UZvdCDOHFGV3+I
+	5QxdcL0y+6RH+3DmElbXvHJI8oH1KZIboR4BSjf8E6/9AFWw/gjUiGYCIrcMs6VdPNSQ5+
+	N3HgmhWpBrItxa2xdXlwNaFPOWsA6L8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1695227164;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OLn8yWRXNtM1vzeh+k8IzT+RT5YudYxnSIDB4ufkXsA=;
+	b=p8FsJlTCf5DaWE9S3MfPxSeY2Db97u6w7H4FXAkFhBw7uPaC3tcTWwA65QCoSSjWlVrGXq
+	ldg6DUvQW3khmxDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 76CC61333E;
+	Wed, 20 Sep 2023 16:26:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id xQMJHBwdC2WoZQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 20 Sep 2023 16:26:04 +0000
+Date: Wed, 20 Sep 2023 18:26:04 +0200
+Message-ID: <87bkdwvmjn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?ISO-8859-1?Q?=22N=EDcolas_F=2E_R=2E_A=2E_Prado=22?=
+ <nfraprado@collabora.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	kernel@collabora.com,
+	Jaroslav Kysela <perex@perex.cz>,
+	Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH] kselftest/alsa: pcm-test: Report cards declared in config
+ but missing
+In-Reply-To: <20230919152702.100617-1-nfraprado@collabora.com>
+References: <20230919152702.100617-1-nfraprado@collabora.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZQPM3FWXMXPBDBCHCA3YL3NNJ4L3BOAC
+X-Message-ID-Hash: ZQPM3FWXMXPBDBCHCA3YL3NNJ4L3BOAC
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -52,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2HMBNGI4NPT45YZASBUUHJTQPFMIW33L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQPM3FWXMXPBDBCHCA3YL3NNJ4L3BOAC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -61,18 +129,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+On Tue, 19 Sep 2023 17:26:21 +0200,
+Nícolas F. R. A. Prado wrote:
+> 
+> When parsing the configs, keep track of card configurations that match
+> the current system but haven't matched any card, and report those as
+> test failures as they represent that a card which was expected to be
+> present on the system is missing. This allows the configuration files to
+> not only be used to detect missing PCM devices (which is currently
+> possible) but also that the soundcard hasn't been registered at all.
+> 
+> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-my HP Elitebook 845 G10 has issues with S0ix deep sleep which seem to be somehow related to the Cirrus AMP.
-The following log entry appears right before the issue occurs:
-
-2023-09-12 21:03:27,588 DEBUG:	cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Failed to read MBOX STS: -121
-2023-09-12 21:03:27,588 DEBUG:	cs35l41-hda i2c-CSC3551:00-cs35l41-hda.1: Failed to read MBOX STS: -121
+Applied now.  Thanks.
 
 
-I have already asked at AMD's gitlab regarding the s0ix issues, but we could not find a solution.
-See https://gitlab.freedesktop.org/drm/amd/-/issues/2808#note_2082084 for logs and different tests and kernels
-
-OS / Kernel: Pop!_OS with 6.5 Kernel
-CPU: Ryzen 7 7840U
-Bios / Firmware: everything is up to date
+Takashi

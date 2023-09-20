@@ -2,103 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB9677A73C5
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 09:12:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A047A73F1
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 09:24:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5253FAEA;
-	Wed, 20 Sep 2023 09:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5253FAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F920AE8;
+	Wed, 20 Sep 2023 09:23:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F920AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695193923;
-	bh=UKlzRQJ9PllxgAujiCDZAH0EUhsmVBI6thQ7K8ZKXxU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1695194651;
+	bh=PtxtSOuLocH/R6OOw7Mt+JsQORK0M7/eLndO6eSYUQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YlTboW+FUlySjPWzKP8Pz2XbtoNOdvH7Ui8CWIi+yh/0wDmnO0CD/QUpGedE/6Oy6
-	 f19etwpXQDbqvUsJLibfgFLc0zIlFazeHWMdqMUmnWykUdo+tKELDGy91KG3yAsnbT
-	 bMCwDzdI8q4k5MUohMweZyZd2QCjJgvIqSRiVSJ8=
+	b=mJwMW4F7ElJn4QhTgEf+CJE0joO7v256L0ThXi8n00n6rdFR2AK5J4TXxU1O1miyL
+	 PNu+rp1YeiHJQseG5jhIDFDsAlRdH6EzuYYdKj5zn2uofi+WDkc1A5HswjxVoe5yBA
+	 7r251FWm4GBrs3xAe5VUsC6bXVZhtEpZVkgKXTp0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7B51F80552; Wed, 20 Sep 2023 09:11:12 +0200 (CEST)
+	id 0A30FF80494; Wed, 20 Sep 2023 09:23:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5628EF801F5;
-	Wed, 20 Sep 2023 09:11:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96910F801F5;
+	Wed, 20 Sep 2023 09:23:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A66DF8025A; Wed, 20 Sep 2023 09:11:06 +0200 (CEST)
+	id 34FCEF8025A; Wed, 20 Sep 2023 09:22:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 98626F80125
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 09:11:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98626F80125
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42DF8F800F4
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 09:22:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42DF8F800F4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ob61XTTG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=5pTs7JXV
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EHgJvla6
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A03E31F7AB;
-	Wed, 20 Sep 2023 07:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1695193862;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VPIfa9RSJC+r1M9uLaZPB6rbX0Q0q/vQnrnbkBxoW0c=;
-	b=ob61XTTG8b2RWji4wqUNbb+EBLgzhXtRcrY7XLt6pIDe97+P0lANLmR1xce8dcfV4gUtrS
-	KYO5nmY+5pD6R9mlRZj+3Dvwo1fwrQ7gfxOTzDPFAE212WnA1RB6/RO7f5kSjP1kK21ttM
-	HIl8qtrn8tv3Sl69oJJMoronf398bBs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1695193862;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VPIfa9RSJC+r1M9uLaZPB6rbX0Q0q/vQnrnbkBxoW0c=;
-	b=5pTs7JXV/My8HFV1U2CI/HJH1qKXjI6hhWWC+o6Dio/4hQXW/3vrEoBB0fdQl68ug+jMOw
-	C7e6JUoWaEHpcsBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 81CD81333E;
-	Wed, 20 Sep 2023 07:11:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +a7vHgabCmUFKgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 20 Sep 2023 07:11:02 +0000
-Date: Wed, 20 Sep 2023 09:11:02 +0200
-Message-ID: <87zg1huxo9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: yu tian <tianyucode9603@gmail.com>
-Cc: tiwai@suse.com,
-	alsa-devel@alsa-project.org
-Subject: Re: sound/hda: Module loading problem of controller and codec
-In-Reply-To: 
- <CADMex3N0yR60Hzkbg5Qx5MNZaqmx59-HKDB=MEEMvG2fL4QM_Q@mail.gmail.com>
-References: 
- <CADMex3N0yR60Hzkbg5Qx5MNZaqmx59-HKDB=MEEMvG2fL4QM_Q@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-2022-JP
-Message-ID-Hash: BRKPDAQ53GM4DZVYYU4HCUK2NEY5IPBP
-X-Message-ID-Hash: BRKPDAQ53GM4DZVYYU4HCUK2NEY5IPBP
-X-MailFrom: tiwai@suse.de
+	by sin.source.kernel.org (Postfix) with ESMTPS id 4F853CE134C;
+	Wed, 20 Sep 2023 07:22:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7313C433C9;
+	Wed, 20 Sep 2023 07:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695194567;
+	bh=PtxtSOuLocH/R6OOw7Mt+JsQORK0M7/eLndO6eSYUQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EHgJvla6Htp1tLIxB6zTpnzPafu6LQFd8TTE8dk8nRvjHieqjZkkB5OpWVtZI9oxT
+	 7AbJUk+geiijXbfheQwzdOqDl9389UuMZ22mCmqkiJedN+50kt5ccZd/EzWGxYexQS
+	 crzcHaDUdZXXuw4o/iMDZ5sfyT7zg0woZeIaXjNaMav/jyQmH35+jHzGucewRW6pmX
+	 Q0TJt0lGVeAA3GRdu7JNLDht+RggZKYRTa669vvJUTqGbDQd1pq3450pwP4G4jA2s/
+	 doS86lPW39TGc9QoL/2/nQmRHeea5FXruHu6uxzxtYF7W5OH1/xqO1hCNN0wyk4JCT
+	 sSRZeTv9QmUrQ==
+Date: Wed, 20 Sep 2023 09:22:44 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 34/54] ASoC: soundwire: convert not to use asoc_xxx()
+Message-ID: <ZQqdxFfRwIU9iaAD@matsya>
+References: <87h6o0s275.wl-kuninori.morimoto.gx@renesas.com>
+ <874jk0qnga.wl-kuninori.morimoto.gx@renesas.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <874jk0qnga.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID-Hash: J3VO3IJXWU6UXRIXY7A2ZVSPOZMK3XPL
+X-Message-ID-Hash: J3VO3IJXWU6UXRIXY7A2ZVSPOZMK3XPL
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRKPDAQ53GM4DZVYYU4HCUK2NEY5IPBP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J3VO3IJXWU6UXRIXY7A2ZVSPOZMK3XPL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,32 +102,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 20 Sep 2023 06:18:28 +0200,
-yu tian wrote:
-> 
-> Hi Takashi,
-> The following commit only gives a warning in menuconfig:
-> "Set to Y if you want auto-loading the codec driver"
-> 
-> d8f66c71d547 ("ALSA: hda - Add warning texts when codec driver Kconfig
-> doesn't match")
-> 78e34f34ac27 ("ALSA: hda - remove PCI dependency in Kconfig")
-> 
-> The problem with module loading is because when SND_HDA=y,
-> sound/pci/hda/hda_bind.c is not compiled as a module.There is a
-> “#ifdef MODULE“ in the codec_bind_module function in this file. Why
-> can't it be deleted directly?Or am I missing something?
+On 11-09-23, 23:50, Kuninori Morimoto wrote:
+> ASoC is now unified asoc_xxx() into snd_soc_xxx().
+> This patch convert asoc_xxx() to snd_soc_xxx().
 
-You seem looking at things other way round.  The problem is not
-because of '#ifdef MODULE'.  It's rather because of the code behavior
-and the expected results.
+Acked-by: Vinod Koul <vkoul@kernel.org>
 
-The current code there requires the module loading for binding when
-the HDA stuff is built as modules.  Although you may reduce the ifdef,
-it doesn't mean that the behavior would change.  Hence, when
-CONFIG_SND_HDA=y and codecs are modules, those codecs will be never
-bound, no matter with or without ifdef.  That's the reason of the
-warning there.
-
-
-Takashi
+-- 
+~Vinod

@@ -2,116 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDAA37A7923
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 12:26:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 853687A7954
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 12:32:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4C17DEB;
-	Wed, 20 Sep 2023 12:25:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4C17DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E165D950;
+	Wed, 20 Sep 2023 12:31:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E165D950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695205570;
-	bh=LEqP3to5kSUXIEEmF3hYJ+S30P+OVmIUNYqyWTgGVvw=;
-	h=Date:Subject:References:To:Cc:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jPFxBUYo2YKa95rWWe5xjQun1TBXPIaKDMKmI44av+T0yW4MCnGe/lDYhGNxBrpMD
-	 PyFGe+1u0FG2PGN35nne7JSGDaNP4JGkMN1q/VhhZCfyXNeXgAd9lkMTFZA3KCbfBd
-	 b3gc7hl36ks1G+UWF/5qISrYak0ok8b0GOoU/5Lk=
+	s=default; t=1695205964;
+	bh=VHdMwDYSCXBSA0NiX9vl8x9cRqVQmCdsx5na/wA57+E=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=eX4r416JUowuMSHHQxxlG6i7yrUI6kssIuiqI5fjciJ6WYFY2ChrahWtEH93Yt2Ah
+	 RBNgrgfWgvPbVleG0Xd5Doay3YZMJdLY9nFFBpZp1Ok7n9jPy/24adDN9ll70vT/0e
+	 X2E6DXpNBLiA9iP/HSlVMgQu+lVmGypAg4Tc2KZI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4048BF80125; Wed, 20 Sep 2023 12:25:20 +0200 (CEST)
+	id 40FF1F80549; Wed, 20 Sep 2023 12:31:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8341F80125;
-	Wed, 20 Sep 2023 12:25:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE29AF80125;
+	Wed, 20 Sep 2023 12:31:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 76F2CF801F5; Wed, 20 Sep 2023 12:25:16 +0200 (CEST)
+	id EEBDDF801F5; Wed, 20 Sep 2023 12:31:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No,
- score=-5.0 required=5.0 tests=HTML_MESSAGE,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from asave01.hostfactory.ch (asave01.hostfactory.ch [185.117.170.1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 815D9F800F4
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 12:25:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 815D9F800F4
-Received: from server11.hostfactory.ch ([185.117.169.60])
-	by asave01.hostfactory.ch with esmtps (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <michele.perrone@weiss.ch>)
-	id 1qiuOL-00F3kM-J2; Wed, 20 Sep 2023 12:25:11 +0200
-Received: from [192.168.0.85]
- (156.14.3.213.static.wline.lns.sme.cust.swisscom.ch [213.3.14.156])
-	(Authenticated sender: michele.perrone@weiss.ch)
-	by server11.hostfactory.ch (Postfix) with ESMTPSA id ECAA74011A3D3;
-	Wed, 20 Sep 2023 12:25:07 +0200 (CEST)
-Message-ID: <2644a27e-aa51-4d11-9890-988c02f9631e@weiss.ch>
-Date: Wed, 20 Sep 2023 12:25:07 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5C687F800F4
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 12:31:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C687F800F4
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F3D0361B5A;
+	Wed, 20 Sep 2023 10:31:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA096C433C8;
+	Wed, 20 Sep 2023 10:31:31 +0000 (UTC)
+Message-ID: <7b3c5c8e-7b8b-43c1-8059-13e7c2f2b262@xs4all.nl>
+Date: Wed, 20 Sep 2023 12:31:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Fwd: Re: MAN301 external clock issues (Re: [PATCH] ALSA: dice: add
- stream format parameters for Weiss devices)
-Content-Language: en-US
-References: <99c82e03-7323-4d4d-8ced-7fd773138f6e@weiss.ch>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: Takashi Iwai <tiwai@suse.de>, Rolf Anderegg <rolf.anderegg@weiss.ch>,
- alsa-devel@alsa-project.org
-From: Michele Perrone <michele.perrone@weiss.ch>
-In-Reply-To: <99c82e03-7323-4d4d-8ced-7fd773138f6e@weiss.ch>
-X-Forwarded-Message-Id: <99c82e03-7323-4d4d-8ced-7fd773138f6e@weiss.ch>
-X-PPP-Message-ID: 
- <169520550829.31684.1007482696909072213@server11.hostfactory.ch>
-X-PPP-Vhost: weiss.ch
-X-Originating-IP: 185.117.169.60
-X-SpamExperts-Domain: outboundprotection.hostfactory.ch
-X-SpamExperts-Username: 185.117.169.60
-Authentication-Results: hostfactory.ch;
- auth=pass smtp.auth=185.117.169.60@outboundprotection.hostfactory.ch
-X-SpamExperts-Outgoing-Class: ham
-X-SpamExperts-Outgoing-Evidence: Combined (0.12)
-X-Recommended-Action: accept
-X-Filter-ID: 
- Pt3MvcO5N4iKaDQ5O6lkdGlMVN6RH8bjRMzItlySaT80WC5yg1ftl76rGYe6+xgzPUtbdvnXkggZ
- 3YnVId/Y5jcf0yeVQAvfjHznO7+bT5ynOqv5wVH0VS/etXvrFNNzaJlM0GUlwLkcZrRacppWhTh3
- wKoTBNAKgp9qBcKLgDljPyzCxIJm7qFlTroi9VKv/7Rl0Dd5eFQ0eM8i42SsSUGlz8CJSOMrvzx9
- TVg3RkVD616lhcpgfhVi/IENG2PRp8jZ4AoGBlDR94YkH0RjFcsS2wyX4wFvfD5xwAerAR9lOVrL
- YTpDlVt2LhrK2BfEQs6EgGedxeuvfrMrARjFPGdDtN/2cBsaR8p7RVNO0vXk/agSvtgte2zCXW1J
- lwXnVmkAHwHuPWE1+MMVWSY/DErqhy+tapdwJ8uKml1tG0Pt3JsC5e/DlYVV9jqBtc/t9a3fvBg8
- I7q5hFKojyxxcVkDWpg3cUqnTXK7+jR2jt1xuwt6BW/LqWzUw+fkjzpuRAwX31WVY5lWjWxuGSRu
- xdeJD5/Wl4aBF+CY0mxh2pSR7yU2QIWCTCd5A9CNaN6pRWtLR0Mn2ASypXTCTfApisVZPVE5xgLw
- XEbnvqUcIYd16SviU/hmLrTy1VycMwgpTs2BZNjhN1NaK5LAGwujj33UzKaibcXCMztdU5OxbHAz
- rxMg36Jn7L4UIiMZgOGil2hsR99u5gXb6tWyU4Ig+a0jiD6XqsJZtjQxlyCdsez2hboJ1sHD93yk
- U2WEJHrlCtbEguydx7+/OTtKDkewxfJ6DcjLH9PvBV/k1+oUINF8n6keo/2ef0bGZ0Uisg8CbZVN
- 4NTBUrEDj1SPmTBxtOQ7idC564HPQBiw1dCeYtfXE+I53wZSkstgjzhKtDrtgcxVxWy4b2kTdalQ
- jRLp2SyiUF2AJZ1QrWKEE58+XwcKUCZ0tsh7gYLXbSqSm9WZx1ILoEx8qz9oR4D+d8dkH+C1LXbN
- jyFcag1clVEejgbdjKzPlwftnaBy0ehO99jiTPI3niUsrRv1n/PK9pAbm6Tr3pQZv6RcTO7z7Tdv
- sMgnJXsrAoZkwMikWJbAJWw03jR5NeVaJQBh0uawl0Cg8sRZ+ATCUj4u0XmPDtAfhCkr94ZlIK28
- jWwYXvNEsJFM21XLIJAOtNbl33sd4Q7NgbK8077bKr8r1UF38Pkt1hgrBnzcyz4YpNRToixck2YU
- MS+4ayUpOtEhdxekWDmK9g==
-X-Report-Abuse-To: spam@asave01.hostfactory.ch
-Message-ID-Hash: YFXKKXO2YCGAD5QKMD2ZAMYFJ5AOGZQT
-X-Message-ID-Hash: YFXKKXO2YCGAD5QKMD2ZAMYFJ5AOGZQT
-X-MailFrom: michele.perrone@weiss.ch
+Subject: Re: [RFC PATCH v4 01/11] ASoC: fsl_asrc: define functions for memory
+ to memory usage
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1695202370-24678-1-git-send-email-shengjiu.wang@nxp.com>
+ <1695202370-24678-2-git-send-email-shengjiu.wang@nxp.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <1695202370-24678-2-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 3Y4T5PYSDYD4TZFJPC2F2ZLGMKDTVHUC
+X-Message-ID-Hash: 3Y4T5PYSDYD4TZFJPC2F2ZLGMKDTVHUC
+X-MailFrom: SRS0=B5sV=FE=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YFXKKXO2YCGAD5QKMD2ZAMYFJ5AOGZQT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3Y4T5PYSDYD4TZFJPC2F2ZLGMKDTVHUC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,43 +135,296 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGkgVGFrYXNoaSwNCg0KT24gMTkvMDkvMjMgMTY6MDksIFRha2FzaGkgU2FrYW1vdG8gd3JvdGU6
-DQo+IEZvciB0aGUgY2FzZSBvZiBleHRlcm5hbCBzb3VyY2Ugb2YgY2xvY2ssIHlvdSBuZWVkIHRv
-IGNvbmZpZ3VyZSB0aGUNCj4gc2FtcGxpbmcgcmF0ZSBpbiBkZXZpY2UgYnkgeW91ciBoYW5kLCBi
-eSBhY2Nlc2luZyB0byBHTE9CQUxfQ0xPQ0tfU0VMRUNUDQo+IG9mZnNldCBpbiBnbG9iYWwgc2Vj
-dGlvbiBvZiBUQ0FUIHByb3RvY29sLg0KSSdtIGFibGUgdG8gZG8gdGhpcyBmcm9tIHRoZSBrZXJu
-ZWwgc3BhY2UsIGJ1dCBJIHdvdWxkbid0IGtub3cgaG93IHRvDQphY2hpZXZlIHRoaXMgaW4gdGhl
-IHVzZXItc3BhY2Ugd2l0aG91dCBzd2l0Y2hpbmcgYmFjayBhbmQgZm9ydGggYmV0d2Vlbg0KaW50
-ZXJuYWwgYW5kIGV4dGVybmFsIGNsb2NrIHNvdXJjZS4NCg0KTW9yZW92ZXIsIHRoZXJlIHNlZW1z
-IHRvIGJlIG5vICd3cml0ZScgaGFuZGxlciBpbnN0YWxsZWQgaW5zaWRlDQonc25kX2RpY2VfY3Jl
-YXRlX2h3ZGVwKCknWzJdLCBzbyB1c2luZyAnc25kX2h3ZGVwX3dyaXRlKCknIGZyb20NCnVzZXIt
-c3BhY2UgQUxTQSBpcyBub3QgcG9zc2libGUuDQoNClRoZSBvbmx5IG9wdGlvbiBJIHNlZSBpcyBh
-ZGRpbmcgYSBuZXcgY29udHJvbCB0bw0KJ3NuZF9rY29udHJvbF9uZXcgY29udHJvbHNbXSdbM10s
-IGluc2lkZSAnZGljZV9zbmRfY3RsX2NvbnN0cnVjdCgpJ1szXQ0KaW4gb3VyIEFWL0MgY29kZS4N
-Cg0KQnV0IEkgZG9uJ3QgdGhpbmsgdGhpcyBpcyB0aGUgYmVzdCBzb2x1dGlvbiwgaW4gdmlldyBv
-ZiB0aGUgZmFjdCB0aGUgd2UNCndpbGwgYmUgc3dpdGNoaW5nIHRvIHNuZC1maXJld2lyZS1jdGwt
-c2VydmljZXNbNF0gaW4gdGhlIG5lYXIgZnV0dXJlLg0KPiBJIHByb2dyYW1tZWQgQUxTQSBkaWNl
-IGRyaXZlciB0byBiZWhhdmUgbGlrZSB0aGF0Lg0KPg0KPiBUaGUgZHJpdmVyIGNvbmZpZ3VyZXMg
-dGhlIHRhcmdldCBkZXZpY2UgZm9yIHNhbXBsaW5nIHJhdGUgd2hpY2ggQUxTQSBQQ00NCj4gYXBw
-bGljYXRpb24gZXhwZWN0cyB3aGVuIHRoZSBkZXZpY2UgdXNlcyBpbnRlcm5hbCBzb3VyY2Ugb2Yg
-Y2xvY2suIFdoZW4NCj4gdGhlIGRldmljZSBpcyBjb25maWd1cmVkIHRvIHVzZSBleHRlcm5hbCBz
-b3VyY2Ugb2YgY2xvY2ssIHRoZSBkcml2ZXINCj4gYWRkcyBjb25zdHJhaW5zIHRvIEFMU0EgUENN
-IGhhcmR3YXJlIGNvbmZpZ3VyYXRpb24gc28gdGhhdCB0aGUgYXBwbGljYXRpb24NCj4gd29ya3Mg
-d2l0aCBjdXJyZW50IHNhbXBsaW5nIHJhdGUgY29uZmlndXJlZCBpbiBkZXZpY2UuDQpUaGFua3Mg
-Zm9yIGV4cGxhaW5pbmcgdGhpcy4gSSBoYXZlIG5vdyBmb3VuZCB0aGUgcGxhY2UgaW4gdGhlIGNv
-ZGUgd2hlcmUNCnlvdSBkbyB0aGlzWzFdLg0KDQpNYXkgSSBhc2ssIHdoYXQgaXMgdGhlIHJlYXNv
-biBmb3IgdGhpcyBsaW1pdGF0aW9uPyBJIGRvbid0IHNlZSBhbnkNCnJlbGV2YW50IGNvbm5lY3Rp
-b24gYmV0d2VlbiB0aGF0IGxhc3QgdXNlZCBpbnRlcm5hbCBzYW1wbGluZyByYXRlLCBhbmQNCnRo
-ZSBjdXJyZW50IGV4dGVybmFsIHNhbXBsaW5nIHJhdGUuDQoNCk1vcmVvdmVyLCB0aGUgRElDRSBk
-cml2ZXIgaXMgYWJsZSB0byBzZWUgdGhlIGV4dGVybmFsIHNhbXBsaW5nIHJhdGUgaW4NCnJlYWwt
-dGltZS4gU28gd2hlbiB0aGUgZXh0ZXJuYWwgY2xvY2sgcmF0ZSBpcyBzZWxlY3RlZCBhbmQgbG9j
-a2VkLA0Kd291bGRuJ3QgaXQgbWFrZSBzZW5zZSB0aGF0IHRoZSBkZXZpY2UgcmF0ZSBmb2xsb3dl
-ZCB0aGUgZXh0ZXJuYWwgcmF0ZQ0KYXV0b21hdGljYWxseSwgd2l0aG91dCB1c2VyLXNwYWNlIGlu
-dGVydmVudGlvbj8NCj4gUmVnYXJkcw0KPg0KPiBUYWthc2hpIFNha2Ftb3RvDQpLaW5kIHJlZ2Fy
-ZHMsDQpNaWNoZWxlIFBlcnJvbmUNCg0KWzFdaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xp
-bnV4L2Jsb2IvdjYuNi1yYzIvc291bmQvZmlyZXdpcmUvZGljZS9kaWNlLXBjbS5jI0wyMDENClsy
-XWh0dHBzOi8vZ2l0aHViLmNvbS90b3J2YWxkcy9saW51eC9ibG9iL3Y2LjYtcmMyL3NvdW5kL2Zp
-cmV3aXJlL2RpY2UvZGljZS1od2RlcC5jI0wxNjcNClszXWh0dHBzOi8vZ2l0aHViLmNvbS93ZWlz
-cy1lbmdpbmVlcmluZy9zbmQtZGljZS9ibG9iLzVhOTU0OTZjMDY2NjA0OGJjNWJjOGMwN2IzZTFk
-NzRmMzkyZGM5YTQvZGljZS1hdmMuYyNMNjYxDQpbNF1odHRwczovL2dpdGh1Yi5jb20vYWxzYS1w
-cm9qZWN0L3NuZC1maXJld2lyZS1jdGwtc2VydmljZXMNCg==
+On 20/09/2023 11:32, Shengjiu Wang wrote:
+> ASRC can be used on memory to memory case, define several
+> functions for m2m usage.
+> 
+> m2m_start_part_one: first part of the start steps
+> m2m_start_part_two: second part of the start steps
+> m2m_stop_part_one: first part of stop steps
+> m2m_stop_part_two: second part of stop steps, optional
+> m2m_check_format: check format is supported or not
+> m2m_calc_out_len: calculate output length according to input length
+> m2m_get_maxburst: burst size for dma
+> m2m_pair_suspend: suspend function of pair, optional.
+> m2m_pair_resume: resume function of pair
+> get_output_fifo_size: get remaining data size in FIFO
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  sound/soc/fsl/fsl_asrc.c        | 150 ++++++++++++++++++++++++++++++++
+>  sound/soc/fsl/fsl_asrc.h        |   2 +
+>  sound/soc/fsl/fsl_asrc_common.h |  42 +++++++++
+>  3 files changed, 194 insertions(+)
+> 
+> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+> index b793263291dc..f9d830e0957f 100644
+> --- a/sound/soc/fsl/fsl_asrc.c
+> +++ b/sound/soc/fsl/fsl_asrc.c
+> @@ -1063,6 +1063,145 @@ static int fsl_asrc_get_fifo_addr(u8 dir, enum asrc_pair_index index)
+>  	return REG_ASRDx(dir, index);
+>  }
+>  
+> +/* Get sample numbers in FIFO */
+> +static unsigned int fsl_asrc_get_output_fifo_size(struct fsl_asrc_pair *pair)
+> +{
+> +	struct fsl_asrc *asrc = pair->asrc;
+> +	enum asrc_pair_index index = pair->index;
+> +	u32 val;
+> +
+> +	regmap_read(asrc->regmap, REG_ASRFST(index), &val);
+> +
+> +	val &= ASRFSTi_OUTPUT_FIFO_MASK;
+> +
+> +	return val >> ASRFSTi_OUTPUT_FIFO_SHIFT;
+> +}
+> +
+> +static int fsl_asrc_m2m_start_part_one(struct fsl_asrc_pair *pair)
+> +{
+> +	struct fsl_asrc_pair_priv *pair_priv = pair->private;
+> +	struct fsl_asrc *asrc = pair->asrc;
+> +	struct device *dev = &asrc->pdev->dev;
+> +	struct asrc_config config;
+> +	int ret;
+> +
+> +	/* fill config */
+> +	config.pair = pair->index;
+> +	config.channel_num = pair->channels;
+> +	config.input_sample_rate = pair->rate[IN];
+> +	config.output_sample_rate = pair->rate[OUT];
+> +	config.input_format = pair->sample_format[IN];
+> +	config.output_format = pair->sample_format[OUT];
+> +	config.inclk = INCLK_NONE;
+> +	config.outclk = OUTCLK_ASRCK1_CLK;
+> +
+> +	pair_priv->config = &config;
+> +	ret = fsl_asrc_config_pair(pair, true);
+> +	if (ret) {
+> +		dev_err(dev, "failed to config pair: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	fsl_asrc_start_pair(pair);
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_asrc_m2m_start_part_two(struct fsl_asrc_pair *pair)
+> +{
+> +	/*
+> +	 * Clear DMA request during the stall state of ASRC:
+> +	 * During STALL state, the remaining in input fifo would never be
+> +	 * smaller than the input threshold while the output fifo would not
+> +	 * be bigger than output one. Thus the DMA request would be cleared.
+> +	 */
+> +	fsl_asrc_set_watermarks(pair, ASRC_FIFO_THRESHOLD_MIN,
+> +				ASRC_FIFO_THRESHOLD_MAX);
+> +
+> +	/* Update the real input threshold to raise DMA request */
+> +	fsl_asrc_set_watermarks(pair, ASRC_M2M_INPUTFIFO_WML,
+> +				ASRC_M2M_OUTPUTFIFO_WML);
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_asrc_m2m_stop_part_one(struct fsl_asrc_pair *pair)
+> +{
+> +	fsl_asrc_stop_pair(pair);
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_asrc_m2m_check_format(u8 dir, u32 format)
+> +{
+> +	u64 support_format = FSL_ASRC_FORMATS;
+> +
+> +	if (dir == IN)
+> +		support_format |= SNDRV_PCM_FMTBIT_S8;
+> +
+> +	if (!(1 << format & support_format))
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_asrc_m2m_check_rate(u8 dir, u32 rate)
+> +{
+> +	if (rate < 5512 || rate > 192000)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +static int fsl_asrc_m2m_check_channel(u8 dir, u32 channels)
+> +{
+> +	if (channels < 1 || channels > 10)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +/* calculate capture data length according to output data length and sample rate */
+> +static int fsl_asrc_m2m_calc_out_len(struct fsl_asrc_pair *pair, int input_buffer_length)
+> +{
+> +	unsigned int in_width, out_width;
+> +	unsigned int channels = pair->channels;
+> +	unsigned int in_samples, out_samples;
+> +	unsigned int out_length;
+> +
+> +	in_width = snd_pcm_format_physical_width(pair->sample_format[IN]) / 8;
+> +	out_width = snd_pcm_format_physical_width(pair->sample_format[OUT]) / 8;
+> +
+> +	in_samples = input_buffer_length / in_width / channels;
+> +	out_samples = pair->rate[OUT] * in_samples / pair->rate[IN];
+> +	out_length = (out_samples - ASRC_OUTPUT_LAST_SAMPLE) * out_width * channels;
+> +
+> +	return out_length;
+> +}
+> +
+> +static int fsl_asrc_m2m_get_maxburst(u8 dir, struct fsl_asrc_pair *pair)
+> +{
+> +	struct fsl_asrc *asrc = pair->asrc;
+> +	struct fsl_asrc_priv *asrc_priv = asrc->private;
+> +	int wml = (dir == IN) ? ASRC_M2M_INPUTFIFO_WML : ASRC_M2M_OUTPUTFIFO_WML;
+> +
+> +	if (!asrc_priv->soc->use_edma)
+> +		return wml * pair->channels;
+> +	else
+> +		return 1;
+> +}
+> +
+> +static int fsl_asrc_m2m_pair_resume(struct fsl_asrc_pair *pair)
+> +{
+> +	struct fsl_asrc *asrc = pair->asrc;
+> +	int i;
+> +
+> +	for (i = 0; i < pair->channels * 4; i++)
+> +		regmap_write(asrc->regmap, REG_ASRDI(pair->index), 0);
+> +
+> +	return 0;
+> +}
+> +
+>  static int fsl_asrc_runtime_resume(struct device *dev);
+>  static int fsl_asrc_runtime_suspend(struct device *dev);
+>  
+> @@ -1147,6 +1286,17 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+>  	asrc->get_fifo_addr = fsl_asrc_get_fifo_addr;
+>  	asrc->pair_priv_size = sizeof(struct fsl_asrc_pair_priv);
+>  
+> +	asrc->m2m_start_part_one = fsl_asrc_m2m_start_part_one;
+> +	asrc->m2m_start_part_two = fsl_asrc_m2m_start_part_two;
+> +	asrc->m2m_stop_part_one = fsl_asrc_m2m_stop_part_one;
+> +	asrc->get_output_fifo_size = fsl_asrc_get_output_fifo_size;
+> +	asrc->m2m_check_format = fsl_asrc_m2m_check_format;
+> +	asrc->m2m_check_rate = fsl_asrc_m2m_check_rate;
+> +	asrc->m2m_check_channel = fsl_asrc_m2m_check_channel;
+> +	asrc->m2m_calc_out_len = fsl_asrc_m2m_calc_out_len;
+> +	asrc->m2m_get_maxburst = fsl_asrc_m2m_get_maxburst;
+> +	asrc->m2m_pair_resume = fsl_asrc_m2m_pair_resume;
+> +
+>  	if (of_device_is_compatible(np, "fsl,imx35-asrc")) {
+>  		asrc_priv->clk_map[IN] = input_clk_map_imx35;
+>  		asrc_priv->clk_map[OUT] = output_clk_map_imx35;
+> diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
+> index 86d2422ad606..1c492eb237f5 100644
+> --- a/sound/soc/fsl/fsl_asrc.h
+> +++ b/sound/soc/fsl/fsl_asrc.h
+> @@ -12,6 +12,8 @@
+>  
+>  #include  "fsl_asrc_common.h"
+>  
+> +#define ASRC_M2M_INPUTFIFO_WML		0x4
+> +#define ASRC_M2M_OUTPUTFIFO_WML		0x2
+>  #define ASRC_DMA_BUFFER_NUM		2
+>  #define ASRC_INPUTFIFO_THRESHOLD	32
+>  #define ASRC_OUTPUTFIFO_THRESHOLD	32
+> diff --git a/sound/soc/fsl/fsl_asrc_common.h b/sound/soc/fsl/fsl_asrc_common.h
+> index 7e1c13ca37f1..7f7e725075fe 100644
+> --- a/sound/soc/fsl/fsl_asrc_common.h
+> +++ b/sound/soc/fsl/fsl_asrc_common.h
+> @@ -34,6 +34,11 @@ enum asrc_pair_index {
+>   * @pos: hardware pointer position
+>   * @req_dma_chan: flag to release dev_to_dev chan
+>   * @private: pair private area
+> + * @complete: dma task complete
+> + * @sample_format: format of m2m
+> + * @rate: rate of m2m
+> + * @buf_len: buffer length of m2m
+> + * @req_pair: flag for request pair
+>   */
+>  struct fsl_asrc_pair {
+>  	struct fsl_asrc *asrc;
+> @@ -49,6 +54,13 @@ struct fsl_asrc_pair {
+>  	bool req_dma_chan;
+>  
+>  	void *private;
+> +
+> +	/* used for m2m */
+> +	struct completion complete[2];
+> +	snd_pcm_format_t sample_format[2];
+> +	unsigned int rate[2];
+> +	unsigned int buf_len[2];
+> +	bool req_pair;
+>  };
+>  
+>  /**
+> @@ -72,6 +84,19 @@ struct fsl_asrc_pair {
+>   * @request_pair: function pointer
+>   * @release_pair: function pointer
+>   * @get_fifo_addr: function pointer
+> + * @m2m_start_part_one: function pointer
+> + * @m2m_start_part_two: function pointer
+> + * @m2m_stop_part_one: function pointer
+> + * @m2m_stop_part_two: function pointer
+> + * @m2m_check_format: function pointer
+> + * @m2m_check_rate: function pointer
+> + * @m2m_check_channel: function pointer
+> + * @m2m_calc_out_len: function pointer
+> + * @m2m_get_maxburst: function pointer
+> + * @m2m_pair_suspend: function pointer
+> + * @m2m_pair_resume: function pointer
+> + * @m2m_set_ratio_mod: function pointer
+> + * @get_output_fifo_size: function pointer
+>   * @pair_priv_size: size of pair private struct.
+>   * @private: private data structure
+>   */
+> @@ -97,6 +122,23 @@ struct fsl_asrc {
+>  	int (*request_pair)(int channels, struct fsl_asrc_pair *pair);
+>  	void (*release_pair)(struct fsl_asrc_pair *pair);
+>  	int (*get_fifo_addr)(u8 dir, enum asrc_pair_index index);
+> +
+> +	int (*m2m_start_part_one)(struct fsl_asrc_pair *pair);
+> +	int (*m2m_start_part_two)(struct fsl_asrc_pair *pair);
+> +	int (*m2m_stop_part_one)(struct fsl_asrc_pair *pair);
+> +	int (*m2m_stop_part_two)(struct fsl_asrc_pair *pair);
+> +
+> +	int (*m2m_check_format)(u8 dir, u32 format);
+
+I think it will be easier if this just returns the u64 with the supported formats
+for the given direction. That will be helpful for enum_fmt.
+
+> +	int (*m2m_check_rate)(u8 dir, u32 rate);
+
+This should just map the rate to something that is valid. V4L2 allows drivers
+to modify the requested format to whatever is valid, and that can be used here.
+
+> +	int (*m2m_check_channel)(u8 dir, u32 channels);
+
+This can do the same (i.e., map to a valid number of channels).
+
+Regards,
+
+	Hans
+
+> +
+> +	int (*m2m_calc_out_len)(struct fsl_asrc_pair *pair, int input_buffer_length);
+> +	int (*m2m_get_maxburst)(u8 dir, struct fsl_asrc_pair *pair);
+> +	int (*m2m_pair_suspend)(struct fsl_asrc_pair *pair);
+> +	int (*m2m_pair_resume)(struct fsl_asrc_pair *pair);
+> +	int (*m2m_set_ratio_mod)(struct fsl_asrc_pair *pair, int val);
+> +
+> +	unsigned int (*get_output_fifo_size)(struct fsl_asrc_pair *pair);
+>  	size_t pair_priv_size;
+>  
+>  	void *private;
+

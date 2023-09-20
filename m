@@ -2,149 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B8857A8891
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 17:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF2EF7A8894
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 17:39:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89CF9AE9;
-	Wed, 20 Sep 2023 17:37:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89CF9AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E681D1F6;
+	Wed, 20 Sep 2023 17:39:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E681D1F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695224317;
-	bh=roJBxXVO43WmgYUWDA7GB2NSaFrqqhVrkRjVvx50V6o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=I8a+OWUS3VvbO0MohWD37a6j47F09nInddd1fN+HHkdbvQdHARtYKpnyy/B0UBtAI
-	 fRMDIs4mi7+u46338xC5HM28Juqdws4ygzK00meEt18ooWFzFzpwQTJLebAtds9ndS
-	 0AbuOVHNs3q4wo5dvviDMVbKBeeGcBqK77Xh9XgE=
+	s=default; t=1695224394;
+	bh=4gyXCBnrlqcGMYoIWPbjV5wf9sCClHXyno5V82uj9AQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=crLqZOHN2+c7qNYnKNY0OtxECth+cAdvVcS387UDv5yfcGyIKIhRII8acdrJ8oODw
+	 /sluwCnyLKi2+4w9zDgkLHD1Ep5d8SknpWTteJtbhb+z0VKio/EjXSu2i/oFEPWH4d
+	 iKEvu06To0Y1Q8/iDctoUc4gtzawWb9qFA9sI3bo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A967DF80568; Wed, 20 Sep 2023 17:36:57 +0200 (CEST)
+	id 3C7ACF80552; Wed, 20 Sep 2023 17:38:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AD2AF8055B;
-	Wed, 20 Sep 2023 17:36:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDD09F801F5;
+	Wed, 20 Sep 2023 17:38:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 872B7F8025A; Wed, 20 Sep 2023 17:36:52 +0200 (CEST)
+	id 5C401F8047D; Wed, 20 Sep 2023 17:38:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,T_SPF_PERMERROR,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe1a::61a])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 892E7F800AA
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 17:36:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 892E7F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2C6E6F800F4
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 17:38:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C6E6F800F4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=j4zNa5Ni
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BO5afJrjc2f/m8JlI8GgnGR8dYRBOeESFHG2xH/NHfdogB+RIQmZcKEnZcDythTI+cj0rVeAWmVnv6iNuNhmen1rzyVWJFhrNM4TBCAajgw/GUb3Sz3VgPbEVwBi7pFp0i/gWPFpQqb8ae0mScaANvD50unI3IT6qcGwrlzLW6UFzpFKjkNntVTQdtQif4gC+CoUl5hWgFkkRdl6jFv4kDuxzkD863gUCXetkeB56JTPjxnPcrP4zF4WK3naKmyhVarpGKDWpsnLjxtfMqAQhj6xES01fb1dtPhSVnrJ1VnZGrmCF8uYLzh3YR+gU4EI0qHkLI4JQ191MgWm3Jb+Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1p3DtpI6COQt/4oHI9e0pD2r6uqixpQQm+2XLnkcfog=;
- b=LN+aV5fGM1fsZNCiipQb251/PB4QknrIx89QfGCBxt/x7e/gtXOrKbmlQ5a77/Ilt6w7GK+rH/Ldz1oZ40zrUBdeZUV0r3kAoXOH4O/Ljd/VeNklmGfVLf4uqhS5VkikiFYJeeY3HuwUueffEafMeumFqJcrPw5J3AaGzXTZbiwsroQhkyTseF91Oy0FRfAfHhLPNy7ePFjK2lcE7MpapGG3ixp51QQTPgOg7llYy4/0ZzMf1CVSd95Qa1WSAgNcBO4tVLKoT+7y9Y7hgPHZIYCw3c9a4fhwueD0TtXGIrqz3NnA/XqhM2u9HZNuD9WWszEPOHzHQ+c55j20tJvl6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1p3DtpI6COQt/4oHI9e0pD2r6uqixpQQm+2XLnkcfog=;
- b=j4zNa5NirNFdZNkGftJr7B5tTOvGy84TUNKBDojXU3cYaJcU7YAr/cYCw8JBLKNbyBgUxi46YSHlkzZQ7t4q5tepZyIpPSOzidIIePk8xZdaoXua1fANHHym9+/FQVS7hwg5WIOEdQ1xuMhIHGhKMHvdh1vJJv6S7QE3JHc6br8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by DUZPR04MB9748.eurprd04.prod.outlook.com (2603:10a6:10:4e0::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.26; Wed, 20 Sep
- 2023 15:36:42 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::51f9:b8d2:7ddd:c74f]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::51f9:b8d2:7ddd:c74f%6]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
- 15:36:42 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bApCH1ld
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1695224316; x=1726760316;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=4gyXCBnrlqcGMYoIWPbjV5wf9sCClHXyno5V82uj9AQ=;
+  b=bApCH1ldGjnv0CD49zwrIZ+pr7F44xTIpwj/p4b5IGnb30nBl1xBXxEi
+   4fDzpMK+6Do9d8AKTdndBLvYLsSkJHPoSLrp+FXPhj8aVvf09eHvQMSSm
+   BVxQEz4KHMpDcSDDkGJ0VUI3+/5ySKdkm4PjZnDKw972wLYFu0gENxi5M
+   q5VLgBhS9NKVazdYDb/C2DaR8gQ2FaA7oniSOtY0r47npe6gRfVcTBnSD
+   f1BZYN3hUBkp3fxooZaPUmqgh5/2JuODJ9SvCV9oPyuQyCbdtGCgZnbrW
+   ypNtEpClKFzZrHSDLJ9b1Mf/dWZ23Ge3vggxk5Aw73HfPI6MF9QH6QF2O
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="370569829"
+X-IronPort-AV: E=Sophos;i="6.03,162,1694761200";
+   d="scan'208";a="370569829"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2023 08:38:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="1077485504"
+X-IronPort-AV: E=Sophos;i="6.03,162,1694761200";
+   d="scan'208";a="1077485504"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by fmsmga005.fm.intel.com with ESMTP; 20 Sep 2023 08:38:23 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id ABFA671B; Wed, 20 Sep 2023 18:38:22 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [PATCH v2 1/1] ASoC: soc-pcm.c: Make sure DAI parameters cleared if
- the DAI becomes inactive
-Date: Wed, 20 Sep 2023 23:36:21 +0800
-Message-Id: <20230920153621.711373-2-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230920153621.711373-1-chancel.liu@nxp.com>
-References: <20230920153621.711373-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0037.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::13) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	tiwai@suse.com,
+	llvm@lists.linux.dev,
+	alsa-devel@alsa-project.org,
+	Nick Desaulniers <ndesaulniers@google.com>
+Subject: [PATCH v1 1/1] device property: Replace custom implementation of
+ COUNT_ARGS()
+Date: Wed, 20 Sep 2023 18:38:19 +0300
+Message-Id: <20230920153819.2069869-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DUZPR04MB9748:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd3ebdf7-b97a-4cc5-c650-08dbb9ef63a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	Iekk4sAQ/PM/pyT1diqvkD5cdXp0p2AdqwKHsO9tTL/QwMlmazl3Yjf55f8BDoJrR7FaLznSJ8mWxzfTfjUmGii0SF9X2+2o4RKiqHWk27ao19vyCMySRXSfGAX0Y78CdLDv0a3bSkBqJ72PEzdrNx4RyW3G+EWGvQbCzL162mFb8wdWsQpPSgVh/wDHEfltfRRrIaaES1Ii1ftRBu637NiQhfKIJxc27ubimwYSfk32HrfAXhqBoD4YG3URf3+h+ft7LcOqkWfFQLHZm5CsPve2IuIClWPYNY+f2Fk0DwgHWpJ9AUo6DH7KFL/zCKVuErpT0SPdofq3rW5YiRuc0RJt0Di/fMl679EyVr8QfIsp2+bMEzK7HEvudbHyk3tWZAcdmkhDsGNKUJjPiHxDzrcLF0m797UJlQBUwUKfuvGnU0TG91xNqpcBCcXD7BrTCFw39ZgT+0Ea5nq0xwvg6+U0xpnzcgbjz4i3aWfQNuFXS8meeRvI2ITg/R71dN8uJeZZiVrZ66bPjGclW5u1DJVqEsBpHX+Q4qzSto02nvM+lXFcjRhqTtvFcjbvSuSmPCRxvDJmbaqrmxJkufbVFdO7mWF5hJvVJIbAGRgeSND6fGMNAK5E6IKeXz9Gsnr2
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(366004)(346002)(39860400002)(376002)(186009)(451199024)(1800799009)(6666004)(6512007)(52116002)(6506007)(6486002)(36756003)(86362001)(66476007)(66556008)(41300700001)(38100700002)(66946007)(316002)(478600001)(38350700002)(1076003)(8936002)(4326008)(8676002)(26005)(44832011)(5660300002)(83380400001)(2616005)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?7KHSRA+zbTm37vf5UzBno6DNY3ox+hyoqFK9JCgdKy1z6f8ESF6Gfv3L3MjU?=
- =?us-ascii?Q?E4d7ovvlSYiGqj88TVZuus0PAdxbcDZzeedhuZ6SsF1y2P9ZdzSmwXwfFH1Z?=
- =?us-ascii?Q?dCdfVGbdsmvs8Ci+yT9q3hKs1uGL8ePgfKZKvrkiB74BpLFHB9Kipeb0kZ95?=
- =?us-ascii?Q?+7i/6EW1ODFIofJMbEcCdvfY80rGC4B8B0msIU0QmBeyYzxGY29NkuuFrN/Y?=
- =?us-ascii?Q?yLLgiFHpbZvzpUGGG4eqETDHmWK5I8Qz4ASkFVPYzzEQkhv11/BpwFucnfHr?=
- =?us-ascii?Q?OqILpHFZGSIpOLw9DATFzgiybhnW084uICpRThNhOHKY70SLzBArsjsKgkyK?=
- =?us-ascii?Q?QWIlIdSyo9cfst7It8D+m1hWXP/inafkxl+v38lMjMzhLEit9N4pHy6cWf/b?=
- =?us-ascii?Q?Vi9v7ferPTJp1muwgj5fEvUbdI0Kuz9RaxLIuvj97vKPkbfbYLXl/ei4bKml?=
- =?us-ascii?Q?VQD5mbyOveXgiiN1F7FEMFZs67JDvdT0mmGjwIC5GIxgUMEn+nLd1KjhyBNd?=
- =?us-ascii?Q?nK/PqrtUADJhFAGvKe/j8qFNVHFYcBJr05Ou0fwtsYVlb3C4ZSyUYrMKmCRy?=
- =?us-ascii?Q?BqRR5vfe+2nV/FMKbJ2TTtBjdkXro1v8M6xcA1HudHB5SIXMgBI1J7z4c0Mx?=
- =?us-ascii?Q?DFiDIPBKkpHtu7G2ry7gMpx/0o//NG6tQZrfPClo0Ytca2/YNkOo6Bj0wZbf?=
- =?us-ascii?Q?kzIJD4COAtfeaKa/1DFJr8EkXsxRMXP7RHpsE2dXCY6iB5ylGe/XrkrzNxZ/?=
- =?us-ascii?Q?1hYfD1DoGBPlh2EgpL+L0xsnYftQJqTBM3fQLFyNTnmozogJ77KjgIJaPcpX?=
- =?us-ascii?Q?MxRqtUWvBdgWacNHt178KK1O+wevZDbZJpU+bOD9QRZYL5N2I50ackTH4/lD?=
- =?us-ascii?Q?DIDEnXrTtAi8hurwhiD25rzBqJj7PxofuNooHMF7GLXEF3uqnVTGWZ9dUAhF?=
- =?us-ascii?Q?9zhZc12yOmTBF0pGVYg954KpGj3Ux0Fut4yUcvcVYJ5VscXiE7L8NB+fZNIy?=
- =?us-ascii?Q?YxEIjkzt0CmnqsKvtL2glX2/TohGe4wVChClvKsnNEPCXtNI7xG2qsYUi20y?=
- =?us-ascii?Q?G5KqNgY6CVkQNgL0Lr8uLBS4S7SVkl4wN+vOdHhh7DJS8nV/YjNtDpnUZyRT?=
- =?us-ascii?Q?W1zf/gwdBb0NDUbqvvz/0VAc8OMw1ViTMkZzDu5+/3oBaJ7FubWKmsGca3sx?=
- =?us-ascii?Q?TUGmtft+4kTptmPMjYPwQ61HohmZdoAiRtsC8/n9mFKCmkGxyXCJpZFmKkKg?=
- =?us-ascii?Q?pPpOong8hmN8XS2YjhYWW/pf8aZ71zudeQhgFtdhTtchJ7T1ulJ93ARQsTNW?=
- =?us-ascii?Q?m5zF5W9kl64m8Y9rPOrALFHYGNzgw2hVX4cigMctRqARPshslF5nTvUao5Lw?=
- =?us-ascii?Q?US/isUPNV7CeKM1nJK/+s0CXni/TCQElCc5SoL9dgnKNXVQ4ZYdH2aYX9s5h?=
- =?us-ascii?Q?iA66Tu8cJr97r1Cexnahfm5esSTmbcC6OnA/ZiWbV8CYpfjT+c+lmBpS2HM4?=
- =?us-ascii?Q?W+2ePuknBVYvh5HDzsP42J129TtKzX+Bu6BE6Q8untJP1Y5JlsKaQKdEFNlA?=
- =?us-ascii?Q?p4L75DwO4yDH/U12kD3d5KHxUooPAOW7O+iAC6Hf?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- bd3ebdf7-b97a-4cc5-c650-08dbb9ef63a2
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 15:36:42.4686
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- YlSZf+ln78Jt6Q/QV7RpV69oLCK3G7ufM7xwAaIv06kB0OX7TpMDvpBPtGWP4HkV5VoLbE8cuUm25wxqgn1kEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9748
-Message-ID-Hash: OUWKW5EATK47U5DA4HILJ4GUD6MKYX4G
-X-Message-ID-Hash: OUWKW5EATK47U5DA4HILJ4GUD6MKYX4G
-X-MailFrom: chancel.liu@nxp.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 6OSPQFPDYDJI3JTUYQ6DEVNMF4I7ZMXL
+X-Message-ID-Hash: 6OSPQFPDYDJI3JTUYQ6DEVNMF4I7ZMXL
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -156,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OUWKW5EATK47U5DA4HILJ4GUD6MKYX4G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6OSPQFPDYDJI3JTUYQ6DEVNMF4I7ZMXL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -165,74 +112,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The commit 1da681e52853 ("ASoC: soc-pcm.c: Clear DAIs parameters after
-stream_active is updated") tries to make sure DAI parameters can be
-cleared properly through moving the cleanup to the place where stream
-active status is updated. However, it will cause the cleanup only
-happening in soc_pcm_close().
+Replace custom and non-portable implementation of COUNT_ARGS().
 
-Suppose a case: aplay -Dhw:0 44100.wav 48000.wav. The case calls
-soc_pcm_open()->soc_pcm_hw_params()->soc_pcm_hw_free()->
-soc_pcm_hw_params()->soc_pcm_hw_free()->soc_pcm_close() in order. The
-parameters would be remained in the system even if the playback of
-44100.wav is finished.
-
-The case requires us clearing parameters in phase of soc_pcm_hw_free().
-However, moving the DAI parameters cleanup back to soc_pcm_hw_free()
-has the risk that DAIs parameters never be cleared if there're more
-than one stream, see commit 1da681e52853 ("ASoC: soc-pcm.c: Clear DAIs
-parameters after stream_active is updated") for more details.
-
-To meet all these requirements, in addition to do DAI parameters
-cleanup in soc_pcm_hw_free(), also check it in soc_pcm_close() to make
-sure DAI parameters cleared if the DAI becomes inactive.
-
-Fixes: 1da681e52853 ("ASoC: soc-pcm.c: Clear DAIs parameters after stream_active is updated")
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Fixes: e64b674bc9d7 ("software node: implement reference properties")
+Reported-by: Nick Desaulniers <ndesaulniers@google.com>
+Closes: https://lore.kernel.org/r/ZQoILN6QCjzosCOs@google.com
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/soc-pcm.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+ include/linux/property.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 3aa6b988cb4b..6cf4cd667d03 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -698,14 +698,12 @@ static int soc_pcm_clean(struct snd_soc_pcm_runtime *rtd,
+diff --git a/include/linux/property.h b/include/linux/property.h
+index 1684fca930f7..55c2692ffa8c 100644
+--- a/include/linux/property.h
++++ b/include/linux/property.h
+@@ -10,6 +10,7 @@
+ #ifndef _LINUX_PROPERTY_H_
+ #define _LINUX_PROPERTY_H_
  
- 	if (!rollback) {
- 		snd_soc_runtime_deactivate(rtd, substream->stream);
--		/* clear the corresponding DAIs parameters when going to be inactive */
--		for_each_rtd_dais(rtd, i, dai) {
--			if (snd_soc_dai_active(dai) == 0)
--				soc_pcm_set_dai_params(dai, NULL);
- 
--			if (snd_soc_dai_stream_active(dai, substream->stream) == 0)
--				snd_soc_dai_digital_mute(dai, 1, substream->stream);
--		}
-+		/* Make sure DAI parameters cleared if the DAI becomes inactive */
-+		for_each_rtd_dais(rtd, i, dai)
-+			if (snd_soc_dai_active(dai) == 0 &&
-+			    (dai->rate || dai->channels || dai->sample_bits))
-+				soc_pcm_set_dai_params(dai, NULL);
- 	}
- 
- 	for_each_rtd_dais(rtd, i, dai)
-@@ -936,6 +934,15 @@ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
- 
- 	snd_soc_dpcm_mutex_assert_held(rtd);
- 
-+	/* clear the corresponding DAIs parameters when going to be inactive */
-+	for_each_rtd_dais(rtd, i, dai) {
-+		if (snd_soc_dai_active(dai) == 1)
-+			soc_pcm_set_dai_params(dai, NULL);
-+
-+		if (snd_soc_dai_stream_active(dai, substream->stream) == 1)
-+			snd_soc_dai_digital_mute(dai, 1, substream->stream);
-+	}
-+
- 	/* run the stream event */
- 	snd_soc_dapm_stream_stop(rtd, substream->stream);
++#include <linux/args.h>
+ #include <linux/bits.h>
+ #include <linux/fwnode.h>
+ #include <linux/stddef.h>
+@@ -314,7 +315,7 @@ struct software_node_ref_args {
+ #define SOFTWARE_NODE_REFERENCE(_ref_, ...)			\
+ (const struct software_node_ref_args) {				\
+ 	.node = _ref_,						\
+-	.nargs = ARRAY_SIZE(((u64[]){ 0, ##__VA_ARGS__ })) - 1,	\
++	.nargs = COUNT_ARGS(__VA_ARGS__),			\
+ 	.args = { __VA_ARGS__ },				\
+ }
  
 -- 
-2.25.1
+2.40.0.1.gaa8946217a0b
 

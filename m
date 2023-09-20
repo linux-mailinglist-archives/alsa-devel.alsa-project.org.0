@@ -2,101 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 689DE7A881D
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 17:21:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22E027A888B
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 17:37:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E68DA823;
-	Wed, 20 Sep 2023 17:20:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E68DA823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32491822;
+	Wed, 20 Sep 2023 17:36:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32491822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695223275;
-	bh=EmXFqkTuFNEaiLGXrgBSisJ8kBCI85FLrWVY62a5974=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Obrxf+OhzUsT18XgHhtR6/2Vihucn6tZRJegR3AWPrKgjEJl1fo85VU436dPNzXzs
-	 C4/TEzX4Jf1b0tfwp6Jz656llceSywaF+Lex2FewPHscxnNInFlt6itHBrmvuejZTL
-	 3txobBftWCJMlhLi7EmgBxpNJeb8sKV2qXmy0xwo=
+	s=default; t=1695224267;
+	bh=gIw5cZPg0jXoHBQEgKh8X6VOza3msHrcfiaW8O6LT4I=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bj6RrjQjwezJUO5Bj9Z9hfJ2LPaAVrcVQPhUGt6C5dflQiuI9gsESo1WoVe++zvSs
+	 EwdqjZK/e0Mt5D3TeE9cihgvkQVNkNGL3y8lORAc/uiKTF2P3H8RjZFTK7w1kvH2+E
+	 Xv4CRy1QRDhkScypO2UpBymvvf15LqXReM3bwRnA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6826AF80552; Wed, 20 Sep 2023 17:20:24 +0200 (CEST)
+	id 55C81F800F4; Wed, 20 Sep 2023 17:36:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27044F801F5;
-	Wed, 20 Sep 2023 17:20:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9C13F801F5;
+	Wed, 20 Sep 2023 17:36:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA0BFF8025A; Wed, 20 Sep 2023 17:20:19 +0200 (CEST)
+	id A276CF8047D; Wed, 20 Sep 2023 17:36:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2061a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe1a::61a])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AFE4FF800F4
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 17:20:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFE4FF800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0FA24F800F4
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 17:36:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FA24F800F4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PGuza+Gv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695223214; x=1726759214;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EmXFqkTuFNEaiLGXrgBSisJ8kBCI85FLrWVY62a5974=;
-  b=PGuza+GvFTJgqzBmjTc0PB5HAbx6PF8470p3UB3N9jkdUDxKW/7micWJ
-   9ezf0rsrRToqMT6TQLJ/CY+00lYzX7MBvmGJ5Qbh8VWibxLQA+CXTz0kA
-   jo/PoeobljU/JHbxpe6XO/jceq50SHmS+jq5pmA4vCmS1oYId00SQlHUf
-   iwu/Egw31IRawARKmzawfsKuwDju/Yt4QZ/L5Sh1Pg9wYcwROgGzboMLS
-   otg0BGVVm61/fiZniLl/lns2yln8tXNCu9vJmffiFCaFAXWBmUzIgbekn
-   vFG1w3SmazdzPLN6M5T3PDKQ2mxTHHgZwLhI5Dv/PY/h4Ib60SeK4hI5U
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="444349109"
-X-IronPort-AV: E=Sophos;i="6.03,162,1694761200";
-   d="scan'208";a="444349109"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2023 08:19:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="862024014"
-X-IronPort-AV: E=Sophos;i="6.03,162,1694761200";
-   d="scan'208";a="862024014"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2023 08:19:55 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.97-RC0)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qiyzY-0000000Gc8Z-1pGW;
-	Wed, 20 Sep 2023 18:19:52 +0300
-Date: Wed, 20 Sep 2023 18:19:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>, tiwai@suse.com,
-	alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-acpi@vger.kernel.org
-Subject: Re: [PATCH 2/2] ALSA: hda: cirrus_scodec: Add KUnit test
-Message-ID: <ZQsNl146RFAYdjSL@smile.fi.intel.com>
-References: <20230918095129.440-1-rf@opensource.cirrus.com>
- <20230918095129.440-3-rf@opensource.cirrus.com>
- <ZQoILN6QCjzosCOs@google.com>
- <874jjpwd4i.wl-tiwai@suse.de>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=qTCXZko4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nYoRJ0BfeMy28zK770K1fy6O3Xre4xKYVEK5S/rZxbb/d8ohK08lHxvwkzVkxtuih14huB4DTNJXxm8W7Z/L74ZiZelZs8ou68bg+wZf+1i8yjBkE0evhhkm40stFCtfyAlrzmR6dJ/FtfItDjI51esRyN2Cf0qUzy1+hH2h1mLlZz2crqYaPq744eHW8xqWVZ7LtAGAa4jQeCgF1yAHggmzvrft1Lez+njwZ4pdTdnd8tLLjd79zdE+kkoFYCN27dnpRPlDgSPDIc3RBNQ132QZyPsbXa/lnB9YIBOETXYgw+VeqeB3tlFIP/FlPpOb8JdQfD4tIihQ9IiBwOYyGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pUPoKTtJAGz2bWN3S7LB+iQwI/DdO5FNtE1ERK6mLwg=;
+ b=ivEtjpBnIo8rXYvYxwuEanTZQqORjMb72NzBo6cBv+0M3zMwa3Zvbn6C2SCMkBf/yedaveDkALnVp4uBl0cpPBtVHrG+aaEn1jebW+c9NKLdE8tMQeHgnXuRWmtkFxd9Gk4PGpMvrOrXajNmMvOjD70TiG1axVCaee1S1JUq2jyU7wGuhAt0Xv3RVoOyZUKzgPL9Ke49NOcVE8ipfjA99ukdLwACtL61QY8RBnrUkN0moMq2GnnymOipi6jVLD30WnTxENVAgTIH03yoovSD2sI61ct7xWLDo4640302scGK5hA9OPIywRaxuao9iHVcUmFn+1GEf98MZdoh0UZ68w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pUPoKTtJAGz2bWN3S7LB+iQwI/DdO5FNtE1ERK6mLwg=;
+ b=qTCXZko4RQyy+myTEfjdSYZNH6zuV4JcVgre0lnrwps+CtLfbL87qG7kbJOd9X+u/jKYj+wq4w2iZuGF3DxnJWUVD4KgRNy+g8uztPxHmzGWJi0XtnHpnxa45Mv4rMhifoBi8vY666ryzVW1rzkxvwsIrb50DQ6Azk2gj/NciTo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
+ by DUZPR04MB9748.eurprd04.prod.outlook.com (2603:10a6:10:4e0::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.26; Wed, 20 Sep
+ 2023 15:36:39 +0000
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::51f9:b8d2:7ddd:c74f]) by DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::51f9:b8d2:7ddd:c74f%6]) with mapi id 15.20.6792.026; Wed, 20 Sep 2023
+ 15:36:39 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Cc: Chancel Liu <chancel.liu@nxp.com>
+Subject: [PATCH v2 0/1] ASoC: soc-pcm.c: Make sure DAI parameters cleared if
+ the DAI becomes inactive
+Date: Wed, 20 Sep 2023 23:36:20 +0800
+Message-Id: <20230920153621.711373-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0037.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::13) To DB9PR04MB9498.eurprd04.prod.outlook.com
+ (2603:10a6:10:360::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <874jjpwd4i.wl-tiwai@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: W5VGGAKV7OGPHYAWQ7Q6PGVIOSHDUTPE
-X-Message-ID-Hash: W5VGGAKV7OGPHYAWQ7Q6PGVIOSHDUTPE
-X-MailFrom: andriy.shevchenko@linux.intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DUZPR04MB9748:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca98d04c-5b2a-4952-0030-08dbb9ef6204
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	V2RnLZisZ6/StIBSTRKQp/SMLfqaXYLiAW3C2/9lLlzJZjPXS3naxgvkQ13cc6BcRztNgLX8dO1/9HeSR3ShSgL1gxV3ELl6mRCkNzfGKfis6BGomuQbOmh7NDxyaaZgs/AycH7tZirVfZbawc9nHaP7mS/xwlll0SiDhyNF/tPqgN05pLp5XsHnPd9q6cB7x4dP5eCM1luB26+nyDOHQG4M6z0jXCCfLFcG56//EJZsWTgAAzSOL9WsGe/8a0VLKdMhjKtsRx8ZO1mPbUpR6KL8nkDeHmCbXlaKegXRbsubDspdHPP7TzPnlcEFMS7aKH964/zkBPDuqMFBmJOAEN/OZHw36yRS4xWZ09k8kb0h0DnjF/NKvKYp+OCdWqdjSrhM4i+3hMSWKUO6oP7q6uWTAJLnEfLmmkRpZEv4q+Pnjrrw6JXJMyj5BfYy4pDTf+lp8bQ9EUop8p88NydqGJNtplT7NmikSUhkZ389eZnu0Y3Kb0U9tZvQyrgK6tluJmgvC/eF8EV8x1qZ34kMq+ULYc6cNIEq/yAHXpgA4oqGXBc+RFz3ZJO8MvmDdx8KUcInANar7fIXIaUtPuueUQT7CSyOFCl/dB6Fyq1G05w=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(366004)(346002)(39860400002)(376002)(186009)(451199024)(1800799009)(966005)(6666004)(6512007)(52116002)(6506007)(6486002)(36756003)(86362001)(66476007)(66556008)(41300700001)(38100700002)(66946007)(316002)(478600001)(38350700002)(1076003)(8936002)(4326008)(8676002)(26005)(44832011)(5660300002)(83380400001)(2616005)(2906002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?10kqLl+vnwnZPC/NVGUeJzAnBbZR2jokMNFm9U8BcvsmvUXe5vC+uRp+w5pk?=
+ =?us-ascii?Q?N05BRmpJJ9VyxOF+Zr0OLGjPgBAhgnEEZdcHombMiLRs2u0CODG0mQ1Ryda2?=
+ =?us-ascii?Q?mKwC1qW6EWHdTGNIx+nVBiOKpJUNCBoz2JCFtDoeaWDz15o1cAm4EL+KyiiI?=
+ =?us-ascii?Q?X9B0cjZrfTTfLmVqNgLr8m6uY3Mvk/kONknRfCtm705PoQCw3fIuvIhik0lU?=
+ =?us-ascii?Q?93efHcBdbcTUFnAV5/rZKHCTcAG85+ShnCavSWgt0vEHy2XZC9UxYhg981YW?=
+ =?us-ascii?Q?4k7aXWukvE59AVG4VtszjXZnbMgHZ3Av8tWCQHnvFaWnUo+kKwbfNF5oIGVH?=
+ =?us-ascii?Q?iVN07Fqpl/kuHEQwmYCO42upXiRHAll1atwoEqDLy8SL2axPkBYPzHVQx1mv?=
+ =?us-ascii?Q?80bEoIbkfFWPIQL25xNcZJJ009qZ3dOsVgq9ntqmsZF015lJhX4D8B3HQF0G?=
+ =?us-ascii?Q?zjHlZgHUntkLxXeUFFLFqH/bpIh0IpamN4nL0lQYJkZQqFw2WvzysMmj6sMD?=
+ =?us-ascii?Q?APZ84MsGa/Dzm3GqB8bmNJyZKgR4jJeT0zkBqY9A/OOHL/SvhYTZBIgoUdIW?=
+ =?us-ascii?Q?ovTMRorhMbiAxiviVWbp1XIk5/aTXd3OlXyDs9h4rhQuDoSemOnhuMK0hipN?=
+ =?us-ascii?Q?lg04U4Mv6hERL0tX+n4dyj8O/h3CZa7iJGv3tTL30nrJIeffloUqj5YP1ojx?=
+ =?us-ascii?Q?+ThNyc7JaoE2dfdWMUxv2V7SwA7oy+52dxClXHx8SQJK5cDQx1JdXF1CYO34?=
+ =?us-ascii?Q?VgpSJT4+94mKmWTHe8vT2GOJtigkSu/6S1LdpDhRrjTUKbiHztw42H0j1K/I?=
+ =?us-ascii?Q?sWk66xqjRvG9L9U7o/BId+LTb4ZCL6+M3lEnZRFkYxG8V9Na1OqpOg1Fn5fI?=
+ =?us-ascii?Q?rk2JQprtxMo2lDJ73SazMz6y4HSyJuZjWTj2CzXgksk7jMnXpeiTYTJU/l+g?=
+ =?us-ascii?Q?Lm2RvQ6utrvwQC/oCB0f6o5uof3sVFc9/t3FCosxj6JaGpmnt9MNBvsfJdcl?=
+ =?us-ascii?Q?dPGwvhMndt3NzkN1ctcuzsFm6QYnTPJN/n4SQLujXmEl/FsYsqbW/gI5VUOH?=
+ =?us-ascii?Q?4a44jafsHhXUN3wlZaHkBnOgQjT2BiaCdTzlw7fsU9dz90vu0ItgM54u7c/m?=
+ =?us-ascii?Q?gm1D0Algh/Y5di9zYIT+JV3sAkeByojyaQYQG6apLcA/AmeiXLXXafVcZwM2?=
+ =?us-ascii?Q?NLsls/dIi3YXbGGIh00HnLiLnz9uK0FXhyn4CtNvXTIEum+bUZ2o1wKr2ipV?=
+ =?us-ascii?Q?P7ID3DUCqTIoCm1IsqDsylHlP+pOirYXnWUGAvjzMpoT7KqJZz643/b56bAf?=
+ =?us-ascii?Q?vGid6RiRbh+4gkrxh1/N0HSHjdwAIWDNkVftyk4A1HWFGrTmOq0erOHJBZd7?=
+ =?us-ascii?Q?8oU23s20QUX2DhHm2PAdIPyGbUujUoy3q6xfzSKEnI7NNYLeGDqz2hKA3Kwy?=
+ =?us-ascii?Q?Nlh2OrzN8mV3p8YLfD5uVKKSOF1qBiDoAhNuPnK3IOhBYL0uLAOjReG4WG9X?=
+ =?us-ascii?Q?QuHSW5lBDqgwDDyl3P9mEe5Mpt8wdlFsDn4AaZ2JMYfPlDkQNKvQ4p5wmUSW?=
+ =?us-ascii?Q?oJFu6qXJ/4XdFlNxuOeioElLrYjiiBKWqYBHUZrO?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ ca98d04c-5b2a-4952-0030-08dbb9ef6204
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2023 15:36:39.8248
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ ahxiEhQAoVwPNCsLw9bjbz1V2ePvVVDnKs0MKPTzehIn1f5yAHEJjRbvnpW63apPw9nBYCpajcWt+LBXF9clNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9748
+Message-ID-Hash: RQTEW2ZHSZRI7OFUIR7RFFGEBK2N65IL
+X-Message-ID-Hash: RQTEW2ZHSZRI7OFUIR7RFFGEBK2N65IL
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W5VGGAKV7OGPHYAWQ7Q6PGVIOSHDUTPE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RQTEW2ZHSZRI7OFUIR7RFFGEBK2N65IL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,56 +162,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Sep 20, 2023 at 08:51:57AM +0200, Takashi Iwai wrote:
-> On Tue, 19 Sep 2023 22:44:28 +0200,
-> Nick Desaulniers wrote:
-> > 
-> > On Mon, Sep 18, 2023 at 10:51:29AM +0100, Richard Fitzgerald wrote:
-> (snip)
-> > > +static void cirrus_scodec_test_set_gpio_ref_arg(struct software_node_ref_args *arg,
-> > > +						int gpio_num)
-> > > +{
-> > > +	struct software_node_ref_args template =
-> > > +		SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, gpio_num, 0);
-> > 
-> > I'm observing the following error when building with:
-> > 
-> > $ make LLVM=1 -j128 allmodconfig sound/pci/hda/cirrus_scodec_test.o
-> > 
-> > sound/pci/hda/cirrus_scodec_test.c:151:60: error: initializer element is not a compile-time constant
-> >   151 |                 SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, gpio_num, 0);
-> >       |                                                                          ^~~~~~~~
-> > /builds/linux/include/linux/property.h:291:37: note: expanded from macro 'SOFTWARE_NODE_REFERENCE'
-> >   291 |         .nargs = ARRAY_SIZE(((u64[]){ 0, ##__VA_ARGS__ })) - 1, \
-> >       |                                            ^~~~~~~~~~~
-> > /builds/linux/include/linux/kernel.h:57:75: note: expanded from macro 'ARRAY_SIZE'
-> >    57 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-> >       |                                                                           ^~~
-> > /builds/linux/include/linux/compiler.h:228:59: note: expanded from macro '__must_be_array'
-> >   228 | #define __must_be_array(a)      BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
-> >       |                                                                ^
-> > /builds/linux/include/linux/compiler_types.h:366:63: note: expanded from macro '__same_type'
-> >   366 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-> >       |                                                               ^
-> > /builds/linux/include/linux/build_bug.h:16:62: note: expanded from macro 'BUILD_BUG_ON_ZERO'
-> >    16 | #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
-> >       |                                                              ^
-> 
-> Hm, this looks like some inconsistent handling of the temporary array
-> passed to ARRAY_SIZE() in the SOFTWARE_NODE_REFERENCE macro.  LLVM
-> can't treat it if it contains a variable in the given array, while GCC
-> doesn't care.
-> 
-> A hackish workaround would be the patch like below, but it's really
-> ugly.  Ideally speaking, it should be fixed in linux/properties.h, but
-> I have no idea how to fix there for LLVM.
-> 
-> Adding more relevant people to Cc.
+It's reasonable that DAI parameters should be cleared if current DAI becomes
+inactive.
 
-Thank you, I think it's quite easy to fix. Lemme cook the patch...
+Only check DAI active status in soc_pcm_hw_free() is not enough since there's
+the risk that DAI parameters never be cleared if there're more than one stream
+[see A]. Only check DAI active status in soc_pcm_close() is also not enough
+since it will cause the cleanup just happening in soc_pcm_close() [see B].
 
--- 
-With Best Regards,
-Andy Shevchenko
+[A] For example, we have stream1 and stream2 for DAI about to stop. stream2
+executes soc_pcm_hw_free() before stream1 executes soc_pcm_close(). At the
+moment, stream2 should clear current DAI parameters because stream1 passed the
+cleanup stage in soc_pcm_hw_free() and stream2 in fact is the only active
+stream which has a chance to do clean up. Since DAI active status is not yet
+updated by stream1 in soc_pcm_close(), stream2 doesn't know itself should clear
+DAI parameters. In result both stream1 and stream2 don't clear the parameters.
 
+[B] Suppose a case: aplay -Dhw:0 44100.wav 48000.wav
+In this case, we call soc_pcm_open()->soc_pcm_hw_params()->soc_pcm_hw_free()
+->soc_pcm_hw_params()->soc_pcm_hw_free()->soc_pcm_close() in order. The DAI
+parameters would be remained in the system even if the playback of 44100.wav is
+finished.
+
+In conclusion, it's better to check DAI active status in both soc_pcm_hw_free()
+and soc_pcm_close() which makes sure DAI parameters cleared if the DAI becomes
+inactive.
+
+changes in v2:
+- Patch v1 link: https://lore.kernel.org/all/20230112065834.580192-1-chancel.liu@nxp.com/
+  Patch v1 tries to introduce a usage count called hw_params_count to fix issue
+  on DAI parameters cleanup. However it's not a good fix because not
+  considering hw_params() and hw_free() are not symmetrical and hw_params()
+  might be called multilpe times by user.
+- Both check DAI active status in soc_pcm_hw_free() and soc_pcm_close() which
+  makes sure DAI parameters cleared if the DAI becomes inactive.
+
+Chancel Liu (1):
+  ASoC: soc-pcm.c: Make sure DAI parameters cleared if the DAI becomes
+    inactive
+
+ sound/soc/soc-pcm.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+
+--
+2.25.1
 

@@ -2,97 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61CBA7A7602
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 10:37:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 477947A7632
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 10:43:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAAE8A4B;
-	Wed, 20 Sep 2023 10:36:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAAE8A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EAFFA4B;
+	Wed, 20 Sep 2023 10:42:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EAFFA4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695199068;
-	bh=Tp9JsVqis5h2cpSImtkW2hG/vez8ue4v0b/cvBwcbuk=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1695199402;
+	bh=zPUICiC9IfbnKTdlyFeZmL9jdk6iWITEvTjj+6CRcqo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Z0VPJAVY1K/YBI01qS0FLw+7fQDd/6IbIDzJwuLjkzub0kYrz+lqU2w0aZKmrCpBQ
-	 8208kYYQ3wnkuyrIPZDgPmH+Zp34e0sf51CxmUMO6QvgGX3zGKFq/Q+vXmPwYhrqAs
-	 fvcpHOTlTWuFCITIwTPD1eA+QmRkVsi7Xvel9VSU=
+	b=eYoM2T3CFMiR1xt/HlfnyqYgW7J233bbWLz1dPvmXrFPeJb2oJLFVPBZv4J+Aasbm
+	 QWtG2Ght+LLqrFE3VoeuJ9CugOUQyrMnAlnyuHRKWRT7mFhzDyUEbOczpWfqY4/FrY
+	 SkISt0acMdgI0ttQGjQO9jdhiiGj6BL7ziX6sQ4A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC659F80558; Wed, 20 Sep 2023 10:36:57 +0200 (CEST)
+	id 8818AF8047D; Wed, 20 Sep 2023 10:42:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C94BF801F5;
-	Wed, 20 Sep 2023 10:36:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39E4BF801F5;
+	Wed, 20 Sep 2023 10:42:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68CC3F8025A; Wed, 20 Sep 2023 10:36:54 +0200 (CEST)
+	id CB1ACF8025A; Wed, 20 Sep 2023 10:42:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4E4C6F800F4
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 10:36:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E4C6F800F4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 112DBF800AA
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 10:42:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 112DBF800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=if5DCWGC
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38K7981o027268;
-	Wed, 20 Sep 2023 03:36:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=Jyhl8Y3oyKx0h61
-	XhFzFxdqJ/5lcrhBpmC44A35uauo=; b=if5DCWGCmdPJwH1e6vLubzJLxpPLorJ
-	HHEQqU8u2HKeJFlKUp/oGO9nDSTuSeyD/4xKrX2s3h0g21lnCeuGEVZZVFd8tZHB
-	9Hv00LXIZG4LVMdWiS7wp3//4j+wWO6DL/p7vVCI5rEGIOF5oQGfFltKotmXhOrc
-	Wg9j+2T+o4EQDVVUYmdJ2vx43YO9h1QeGQLFficEtxBhBoeYmITQpV4NlJ+2G/XU
-	QvCDF2CZ62EAMKnW+gvt5nUxSguvnZvsIUnqf24xU30XfrFpWYyuYUlYvUxT+Ekx
-	T5JCarzkVst47mj8rLeFw5wfFS+yv8E6sycBI3FuZ3IU9PA7oQaz7LQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3t58shv53w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 20 Sep 2023 03:36:49 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 20 Sep
- 2023 09:36:47 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Wed, 20 Sep 2023 09:36:47 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C65882A1;
-	Wed, 20 Sep 2023 08:36:47 +0000 (UTC)
-Date: Wed, 20 Sep 2023 08:36:47 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Rob Herring <robh@kernel.org>
-CC: <broonie@kernel.org>, <lgirdwood@gmail.com>,
-        <krzysztof.kozlowski+dt@linaro.org>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <patches@opensource.cirrus.com>
-Subject: Re: [PATCH 1/5] dt-bindings: ASoC: cirrus,cs42l43: Update a couple
- of default values
-Message-ID: <20230920083647.GD103419@ediswmail.ad.cirrus.com>
-References: <20230919103116.580305-1-ckeepax@opensource.cirrus.com>
- <20230919103116.580305-2-ckeepax@opensource.cirrus.com>
- <20230919192302.GA51154-robh@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230919192302.GA51154-robh@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: Ah6d-omvyVXmVaEwUDIeH2zF7LmXg4xL
-X-Proofpoint-ORIG-GUID: Ah6d-omvyVXmVaEwUDIeH2zF7LmXg4xL
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: EPLEBUTIU53ZJZFQGSCU53WRLBN6DCEY
-X-Message-ID-Hash: EPLEBUTIU53ZJZFQGSCU53WRLBN6DCEY
-X-MailFrom: prvs=46278edbb0=ckeepax@opensource.cirrus.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=DnPrnIJe;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=kTHnCRY2
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B5B7022476;
+	Wed, 20 Sep 2023 08:42:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1695199339;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pgZwt1T4d3hqvoQNUQ17EeQ3XSK0TCSwEQOyJOeNjhM=;
+	b=DnPrnIJeqRiZu04zLpzzJdvXZs85anv9N55kSKe4KevOMka/Z3Db/X4CWlXgVgCaXM0Gax
+	mk8lNcu6iIsvjYuEwOH99zYKL2pe0+jEjZKk7JQ6gVcud7gQvta2K/sd8lJ+270a79lK8j
+	53cnpNpNSKuVlwFKF1O/Q514y7qQoZY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1695199339;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pgZwt1T4d3hqvoQNUQ17EeQ3XSK0TCSwEQOyJOeNjhM=;
+	b=kTHnCRY2vVNXTDOfIKdsXnboCL/f4BXoyBcZA5SeIq0/xa5N7jBxpxv5jnHIhhVKW8S98M
+	ZH3yksLM2yM8kOAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 76F26132C7;
+	Wed, 20 Sep 2023 08:42:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 4xEJHGuwCmWSXAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 20 Sep 2023 08:42:19 +0000
+Date: Wed, 20 Sep 2023 10:42:18 +0200
+Message-ID: <87o7hxutg5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: Nick Desaulniers <ndesaulniers@google.com>,
+	<tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<patches@opensource.cirrus.com>,
+	<linux-kernel@vger.kernel.org>,
+	<llvm@lists.linux.dev>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus
+	<heikki.krogerus@linux.intel.com>,
+	Sakari Ailus
+	<sakari.ailus@linux.intel.com>,
+	<linux-acpi@vger.kernel.org>
+Subject: Re: [PATCH 2/2] ALSA: hda: cirrus_scodec: Add KUnit test
+In-Reply-To: <9e2291c1-9a6c-ba6b-ea0f-ad130d2596f4@opensource.cirrus.com>
+References: <20230918095129.440-1-rf@opensource.cirrus.com>
+	<20230918095129.440-3-rf@opensource.cirrus.com>
+	<ZQoILN6QCjzosCOs@google.com>
+	<874jjpwd4i.wl-tiwai@suse.de>
+	<9e2291c1-9a6c-ba6b-ea0f-ad130d2596f4@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: FO26AMS43RP44YCSKSHLWHW6U63SFFCT
+X-Message-ID-Hash: FO26AMS43RP44YCSKSHLWHW6U63SFFCT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EPLEBUTIU53ZJZFQGSCU53WRLBN6DCEY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FO26AMS43RP44YCSKSHLWHW6U63SFFCT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,22 +133,130 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Sep 19, 2023 at 02:23:02PM -0500, Rob Herring wrote:
-> On Tue, Sep 19, 2023 at 11:31:12AM +0100, Charles Keepax wrote:
-> > The bias sense is being enabled by default in the driver, and the
-> > default detect time is being dropped slightly. Update the binding
-> > document to match.
+On Wed, 20 Sep 2023 10:27:58 +0200,
+Richard Fitzgerald wrote:
 > 
-> That's not really a compatible change. If I wrote my DT expecting bias 
-> sense was disabled by default then the OS changes behavior, my 
-> platform behavior would change. Maybe that doesn't matter here? IDK. 
-> It's on you if this breaks anyone, so:
+> On 20/9/23 07:51, Takashi Iwai wrote:
+> > On Tue, 19 Sep 2023 22:44:28 +0200,
+> > Nick Desaulniers wrote:
+> >> 
+> >> On Mon, Sep 18, 2023 at 10:51:29AM +0100, Richard Fitzgerald wrote:
+> > (snip)
+> >>> +static void cirrus_scodec_test_set_gpio_ref_arg(struct software_node_ref_args *arg,
+> >>> +						int gpio_num)
+> >>> +{
+> >>> +	struct software_node_ref_args template =
+> >>> +		SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, gpio_num, 0);
+> >> 
+> >> I'm observing the following error when building with:
+> >> 
+> >> $ make LLVM=1 -j128 allmodconfig sound/pci/hda/cirrus_scodec_test.o
+> >> 
+> >> sound/pci/hda/cirrus_scodec_test.c:151:60: error: initializer element is not a compile-time constant
+> >>    151 |                 SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, gpio_num, 0);
+> >>        |                                                                          ^~~~~~~~
+> >> /builds/linux/include/linux/property.h:291:37: note: expanded from macro 'SOFTWARE_NODE_REFERENCE'
+> >>    291 |         .nargs = ARRAY_SIZE(((u64[]){ 0, ##__VA_ARGS__ })) - 1, \
+> >>        |                                            ^~~~~~~~~~~
+> >> /builds/linux/include/linux/kernel.h:57:75: note: expanded from macro 'ARRAY_SIZE'
+> >>     57 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+> >>        |                                                                           ^~~
+> >> /builds/linux/include/linux/compiler.h:228:59: note: expanded from macro '__must_be_array'
+> >>    228 | #define __must_be_array(a)      BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
+> >>        |                                                                ^
+> >> /builds/linux/include/linux/compiler_types.h:366:63: note: expanded from macro '__same_type'
+> >>    366 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+> >>        |                                                               ^
+> >> /builds/linux/include/linux/build_bug.h:16:62: note: expanded from macro 'BUILD_BUG_ON_ZERO'
+> >>     16 | #define BUILD_BUG_ON_ZERO(e) ((int)(sizeof(struct { int:(-!!(e)); })))
+> >>        |                                                              ^
+> > 
+> > Hm, this looks like some inconsistent handling of the temporary array
+> > passed to ARRAY_SIZE() in the SOFTWARE_NODE_REFERENCE macro.  LLVM
+> > can't treat it if it contains a variable in the given array, while GCC
+> > doesn't care.
+> > 
+> > A hackish workaround would be the patch like below, but it's really
+> > ugly.  Ideally speaking, it should be fixed in linux/properties.h, but
+> > I have no idea how to fix there for LLVM.
+> > 
+> > Adding more relevant people to Cc.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> > 
+> > --- a/sound/pci/hda/cirrus_scodec_test.c
+> > +++ b/sound/pci/hda/cirrus_scodec_test.c
+> > @@ -148,8 +148,9 @@ static void cirrus_scodec_test_set_gpio_ref_arg(struct software_node_ref_args *a
+> >   						int gpio_num)
+> >   {
+> >   	struct software_node_ref_args template =
+> > -		SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, gpio_num, 0);
+> > +		SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, 0, 0);
+> >   +	template.args[0] = gpio_num;
+> >   	*arg = template;
+> >   }
+> >   
 > 
-> Acked-by: Rob Herring <robh@kernel.org>
+> The tests must generate sw nodes dynamically, not a fixed const struct.
+> I wanted to avoid directly accessing the internals of the SW node
+> structures. Use only the macros.
 > 
+> I can rewrite this code to open-code the construction of the
+> software_node_ref_args. Or I can wait a while in case anyone has a
+> suggested fix for the macros.
+> 
+> Its seems reasonable that you should be able to create software nodes
+> dynamically. A "real" use of these might need to construct the data from
+> some other data that is not known at runtime (for example, where the
+> ACPI provides some information but not the necessary info).
 
-Yeah I appreciate that, but this should be fine, the part is very
-very new. The only systems using the part are still in development.
+Yeah, fixing the macro would be ideal.
 
-Thanks,
-Charles
+An easy and compromise solution would be to factor out the
+ARRAY_SIZE() call and allow giving nargs explicitly.
+
+e.g.
+
+--- a/include/linux/property.h
++++ b/include/linux/property.h
+@@ -285,13 +285,18 @@ struct software_node_ref_args {
+ 	u64 args[NR_FWNODE_REFERENCE_ARGS];
+ };
+ 
+-#define SOFTWARE_NODE_REFERENCE(_ref_, ...)			\
++#define __SOFTWARE_NODE_REFERENCE(_ref_, _nargs_, ...)		\
+ (const struct software_node_ref_args) {				\
+ 	.node = _ref_,						\
+-	.nargs = ARRAY_SIZE(((u64[]){ 0, ##__VA_ARGS__ })) - 1,	\
++	.nargs = _nargs_,					\
+ 	.args = { __VA_ARGS__ },				\
+ }
+ 
++#define SOFTWARE_NODE_REFERENCE(_ref_, ...) \
++	__SOFTWARE_NODE_REFERENCE(_ref_,\
++		ARRAY_SIZE(((u64[]){ 0, ##__VA_ARGS__ })) - 1,\
++		##__VA_ARGS__)
++
+ /**
+  * struct property_entry - "Built-in" device property representation.
+  * @name: Name of the property.
+--- a/sound/pci/hda/cirrus_scodec_test.c
++++ b/sound/pci/hda/cirrus_scodec_test.c
+@@ -148,7 +148,7 @@ static void cirrus_scodec_test_set_gpio_ref_arg(struct software_node_ref_args *a
+ 						int gpio_num)
+ {
+ 	struct software_node_ref_args template =
+-		SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, gpio_num, 0);
++		__SOFTWARE_NODE_REFERENCE(&cirrus_scodec_test_gpio_swnode, 2, gpio_num, 0);
+ 
+ 	*arg = template;
+ }
+
+
+... though I'm not convinced by this change, either.
+
+
+Takashi

@@ -2,85 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 229177A8922
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 18:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA33B7A8991
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Sep 2023 18:35:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47DD6A4A;
-	Wed, 20 Sep 2023 18:00:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47DD6A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CA63852;
+	Wed, 20 Sep 2023 18:34:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CA63852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695225658;
-	bh=TgtnsvbGOUf8/0QiUmZytL37sBH2oYZX/bZUhckgbWU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=dYT90W/Ok+TiqlKGTFLYJ2kGgWdsBXIYF/j2bw2FIESWSYnDYKTflVwov9Dq+1MVX
-	 IZbP81vCZhimp633Yy+0GBK9XH/XuLfBGmpUqwVY0gp2Br/PysmKzkXNDEMUi5z702
-	 yWlr2xfEEDiewIQVujyNFtjJNuIgfgRJNYiecdMY=
+	s=default; t=1695227703;
+	bh=7hSRkKZyAQuLdmtG3IpGVabeDKXVkCKlHL2CDGkks5M=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KL45zWnSdn0XSFT57SDMrt665yALnxvvzuy4xyc9DD9uzhbbwwJG3aNLNaCd2qUgU
+	 81lxeLROQWzZd7tDq9g/JeEHkP4KMr8BoRJCxz8v8eq+HscUxnR4FdOH9T4LNsHsHG
+	 fUNBa+R+v4Nn9ceD7cleqzssVtin5AkPp0iueH9s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 000B1F80558; Wed, 20 Sep 2023 17:59:47 +0200 (CEST)
+	id 42A65F80549; Wed, 20 Sep 2023 18:33:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56CC3F801F5;
-	Wed, 20 Sep 2023 17:59:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C40F8F8025A;
+	Wed, 20 Sep 2023 18:33:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85D63F8025A; Wed, 20 Sep 2023 17:59:44 +0200 (CEST)
+	id BE660F8047D; Wed, 20 Sep 2023 18:33:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AE827F80125
-	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 17:59:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE827F80125
+	by alsa1.perex.cz (Postfix) with ESMTPS id C852EF80125
+	for <alsa-devel@alsa-project.org>; Wed, 20 Sep 2023 18:33:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C852EF80125
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZJkPEMCB
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4EF4761D18;
-	Wed, 20 Sep 2023 15:59:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1E8C433C8;
-	Wed, 20 Sep 2023 15:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695225578;
-	bh=TgtnsvbGOUf8/0QiUmZytL37sBH2oYZX/bZUhckgbWU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZJkPEMCBo+sXlFkUNsfJxYxt0aDsH8bSEpxSVkhOlXV8YRypx58EO6CWrZiWsKb1M
-	 FDDK6ykYVM6VWpu993IiZiF8hm8CrMlDczIeOuLFFqVbU1QNta1+1PLawVO5tlEdid
-	 B10WocAKfwAbIkD3GggqrFQsJ79ofEPp+h8eNjStcr0U1ncEdM9XHTAwcu8wi+a23X
-	 4NcyNZHzvgT2KtQk33pbRHMNVRK4qAsq7C2L3qIbvI4RIyeI402aF6vuSg2PE30b55
-	 zQ9hd9WNZSDs7qD6KaXrh93CPnjJZkjfHKERT7BFjIcri9H4Yjrie3P04D/Ykha+0U
-	 rEF/Zj6gdaI1A==
-Date: Wed, 20 Sep 2023 16:59:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>
-Cc: Takashi Iwai <tiwai@suse.com>, kernel@collabora.com,
-	Jaroslav Kysela <perex@perex.cz>, Shuah Khan <shuah@kernel.org>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH] kselftest/alsa: pcm-test: Report cards declared in
- config but missing
-Message-ID: <b1658cfc-74b6-44c5-9e2b-816772ff58a1@sirena.org.uk>
-References: <20230919152702.100617-1-nfraprado@collabora.com>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=KfC4n0lH
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38KFt6MX023727;
+	Wed, 20 Sep 2023 11:33:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=/
+	BLxOc/tkBmcLEyGBDmhNnSyPG+SVhl9atiXF3hiU6g=; b=KfC4n0lHvxP+ihzuD
+	IkYtwTBsPjnPqZMaHby2Byy6Ny1bZhHhNPBb/f2V8/mS9y3i5OEJzAI97GpRFu2Q
+	E4oaJ4KFn8BWUHdsC0itH5kOLNwSmmN/fvATnd0Ngaxm1mJfnKfNVY+O72ThkLVT
+	YyM2A+BXkT/AsWxbKshA0KnqZ4dV2L3C0F3VANiiSzfjk1zRkq7M7vonBlQBSrXs
+	9oXHPElq5MkRyE8xSAlN7M9tLvBp9/ihRQfsLDQNrBY/xyrMpq2oE9UM+uhOxgC5
+	bt0t6e/MrUpD7A6/Bq50abi2ZozhQLxdgYSdui3kA0Ey8DCBWFT1rwowLtG2oley
+	5Syqw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3t58shvnd5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 Sep 2023 11:33:38 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 20 Sep
+ 2023 17:33:36 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.37 via Frontend Transport; Wed, 20 Sep 2023 17:33:36 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.135])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5D9FC458;
+	Wed, 20 Sep 2023 16:33:36 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Stefan Binding
+	<sbinding@opensource.cirrus.com>
+Subject: [PATCH v4 0/4] Support mute notifications for CS35L41 HDA
+Date: Wed, 20 Sep 2023 16:54:46 +0100
+Message-ID: <20230920155450.576287-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TR7m/tl8KYNB3BtE"
-Content-Disposition: inline
-In-Reply-To: <20230919152702.100617-1-nfraprado@collabora.com>
-X-Cookie: Even a hawk is an eagle among crows.
-Message-ID-Hash: N7GG66IAEWDXH32TJ57NOVCKLJD67AMC
-X-Message-ID-Hash: N7GG66IAEWDXH32TJ57NOVCKLJD67AMC
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: uF6gvtROUZ6B4XvAkqDpBQLy8315B14s
+X-Proofpoint-ORIG-GUID: uF6gvtROUZ6B4XvAkqDpBQLy8315B14s
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: ZYASISQYJDUQ2BBAG7UHCTZ5SMKHO63I
+X-Message-ID-Hash: ZYASISQYJDUQ2BBAG7UHCTZ5SMKHO63I
+X-MailFrom: prvs=462798be35=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N7GG66IAEWDXH32TJ57NOVCKLJD67AMC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZYASISQYJDUQ2BBAG7UHCTZ5SMKHO63I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,35 +108,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Some systems use a special keyboard shortcut to mute speaker audio.
+On systems using CS35L41 HDA which have this shortcut, add a
+mechanism which uses ACPI notifications to determine when the
+shortcut is pressed, and then mute the amps inside the driver.
 
---TR7m/tl8KYNB3BtE
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Since this is not a normal mute mechanism, it does not go through
+userspace. To allow userspace to be able to track this special
+state, add an ALSA control which tracks the state of this forced
+mute
 
-On Tue, Sep 19, 2023 at 11:26:21AM -0400, N=EDcolas F. R. A. Prado wrote:
-> When parsing the configs, keep track of card configurations that match
-> the current system but haven't matched any card, and report those as
-> test failures as they represent that a card which was expected to be
-> present on the system is missing. This allows the configuration files to
-> not only be used to detect missing PCM devices (which is currently
-> possible) but also that the soundcard hasn't been registered at all.
+Changes since v2:
+- Fixed compile issue when CONFIG_ACPI is missing
 
-Reviewed-by: Mark Brown <broonie@kernel.org>
+Changes since v3:
+- Split first patch into 3 separate patches
+- Ensure all acpi code is protected by check for CONFIG_ACPI in
+realtek driver
 
---TR7m/tl8KYNB3BtE
-Content-Type: application/pgp-signature; name="signature.asc"
+Stefan Binding (4):
+  ALSA: hda: cs35l41: Add notification support into component binding
+  ALSA: hda/realtek: Support ACPI Notification framework via component
+    binding
+  ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA
+  ALSA: hda: cs35l41: Add read-only ALSA control for forced mute
 
------BEGIN PGP SIGNATURE-----
+ sound/pci/hda/cs35l41_hda.c   | 132 ++++++++++++++++++++++++++++++----
+ sound/pci/hda/cs35l41_hda.h   |   3 +
+ sound/pci/hda/hda_component.h |   4 ++
+ sound/pci/hda/patch_realtek.c |  83 ++++++++++++++++++++-
+ 4 files changed, 208 insertions(+), 14 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmULFuQACgkQJNaLcl1U
-h9Ahigf/dKE+gXp9ZH4jZ1QZyixn2tKUPrKHFW0rcLc22QxUNfiy8PHk75LjKCXJ
-o+rCl7qjgygLrfSiPNOsBbqeoW+v4G932AuYCGpMZKI2/u1oDTNg7NTnBcJTw4xz
-fDYMOrZ+1z96gZHeOAZJa3C10hgkWMz72duAVMWb4b1S03kyRY7EboUzFc5bgqSi
-SpnwJoQweI0DRjAsK4FoITvWctL4krn1l5eMOClIIA9CgHZKjORGeQD6ReIDZ16N
-Dwkc6jRHnprFA4bWxcMCHzCAIY4MdP+EA6B2i7baLfwodjo1tRNRCUDXPXworCwP
-e7QJf2nIQGkX9IvdZXSwXkwcZxgWMg==
-=XtEC
------END PGP SIGNATURE-----
+-- 
+2.34.1
 
---TR7m/tl8KYNB3BtE--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 619137AA465
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 00:07:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D192E7AA46B
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 00:08:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7A1BE80;
-	Fri, 22 Sep 2023 00:06:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7A1BE80
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4407EECE;
+	Fri, 22 Sep 2023 00:07:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4407EECE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695334062;
-	bh=vfp1vYsJhP65DJajo3BGcTcFH/h5LnmigvSgsxrqyN0=;
+	s=default; t=1695334115;
+	bh=8YEBwJty5d/XxzZG7HGGadc5+/YywJgoHwqmD3HhuGE=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b17SmSehhPFyc09aRw6b5hWIb1IAAeQXLSbDn5N9BoPVcpKV4N2mYXoVOA+bCXSBn
-	 Pup706y290b0U/ZMKwJ/r4z6wnGns15qAYPK4XiBt4gp7OVW8jpSSX8aE7X3bY90+W
-	 xJXqufjvtUE8oiUKz4iPWk9HHbUezh5xlIi2biRM=
+	b=bdCUZp8eUXzVEYLdUZCabc6Gvqp8J4fBr42gPgy95fzLXRJr7NZaz/VvSKbcqlpWG
+	 H/WnpMYJrDI4k47p+G3yZ48uEkE92OCg/bElAt4cb+66S8X64ZdwwqapZiMh/82IzL
+	 MJQ/0n5vJAor6uhXtnOiN2dZ8l3RrEcwSP9VjvzU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9C78F805C0; Fri, 22 Sep 2023 00:06:39 +0200 (CEST)
+	id 4FEF8F8057E; Fri, 22 Sep 2023 00:07:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DDBCF805B3;
-	Fri, 22 Sep 2023 00:06:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BC37F8058C;
+	Fri, 22 Sep 2023 00:07:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2803BF801F5; Thu, 21 Sep 2023 23:52:16 +0200 (CEST)
+	id 1EF5BF801F5; Thu, 21 Sep 2023 23:52:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,42 +36,42 @@ Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34217F80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2E2DEF8057D
 	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 23:49:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34217F80587
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E2DEF8057D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=RLqeTvYK
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=XOpSG5LQ
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38LKjbbP031840;
+ 38LLNSwD017648;
 	Thu, 21 Sep 2023 21:49:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=qcppdkim1;
- bh=vqgnZdckmuHqwFaC8TZurCxmlWYXa/Ehk007pmQMbZ8=;
- b=RLqeTvYK8NDf70WL110kS3Kmpn4vXDYKGCWuHGU/zYoowJ3GJLD9ozxOr87Bg16eN9Wq
- Zd+JAuDmK5emcvQreXD3dHiXdCqVpWdu/2a+mqfIIv9PQY6ezM3fUlZWQB3wAqynNxVU
- 8nmwtweVUnC3XSZCFu/o2PR54BYI+mitnInf3YiEimMe4+JWKAjeQBfrCbCAheX3OfbN
- KDSNmBVbTC59NYPqrasWebIhO5j3vAcxCeKjDbv2kzLD93Ovbpq8h0gmSCkjFDD5u/3U
- 6zjVgq6YVIzt359S+B4BiIt9jMifxXZsYKqrkjVjHvP2kUFnpaplHqDfSERLzx1zEuMs nw==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=eMuCxRzjFJNCzXTHvKDH/OMHNktU6HnB8lTCQMc4++s=;
+ b=XOpSG5LQ+MRCluIjn3D2eElcX2j0zSDjH0tI7QtqpWxdSIaDwYH+wOeF7+DRkWutKtRV
+ HlpCZLxwpAmxZBwNXX/Jcgh++MONSRggkEX1TC9O7fP9fzX7q+wy6G1P8v5sp+/eHdiU
+ ll9TObpu77CA8W0yVOn1odN+jERkWv8CGzl3ZXJrtZhf1hEN2aPMqqhXIYGUpNRvEV14
+ UNJ3w8JPoV5XgIazBWLVUBb5AGgwy3y8J4jziZvN+Vb8rqlKPBhz9BVsNitRiZ9LQJD4
+ FuhBFUUFHdV2xQEa7Hrtn+6zd9uDLlIsEW3bzBC5qkUBcfA1JmS3ABgFEKbEH19CQRJa 3Q==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t8uknr96u-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t8txg8cax-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Thu, 21 Sep 2023 21:49:21 +0000
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 38LLmv5M032099
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 38LLmvTT009012
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Thu, 21 Sep 2023 21:48:57 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
  nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.36; Thu, 21 Sep 2023 14:48:56 -0700
+ 15.2.1118.36; Thu, 21 Sep 2023 14:48:57 -0700
 From: Wesley Cheng <quic_wcheng@quicinc.com>
 To: <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
         <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
@@ -83,10 +83,10 @@ To: <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
 CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
         <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
         <devicetree@vger.kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: [PATCH v7 13/33] dt-bindings: usb: dwc3: Limit num-hc-interrupters
+Subject: [PATCH v7 14/33] dt-bindings: usb: xhci: Add num-hc-interrupters
  definition
-Date: Thu, 21 Sep 2023 14:48:23 -0700
-Message-ID: <20230921214843.18450-14-quic_wcheng@quicinc.com>
+Date: Thu, 21 Sep 2023 14:48:24 -0700
+Message-ID: <20230921214843.18450-15-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230921214843.18450-1-quic_wcheng@quicinc.com>
 References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
@@ -98,19 +98,19 @@ X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: ycws4Fa1Gky-xCbGcyQosTgpE310_DID
-X-Proofpoint-ORIG-GUID: ycws4Fa1Gky-xCbGcyQosTgpE310_DID
+X-Proofpoint-ORIG-GUID: I3sUxCcARr2qP7pPqXGP1D9O-m3ml8CD
+X-Proofpoint-GUID: I3sUxCcARr2qP7pPqXGP1D9O-m3ml8CD
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-09-21_19,2023-09-21_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- mlxlogscore=603 priorityscore=1501 phishscore=0 mlxscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2309180000
- definitions=main-2309210189
-Message-ID-Hash: FJSMZZDXDMJHEBYK4V6D6VBRABGL3MPK
-X-Message-ID-Hash: FJSMZZDXDMJHEBYK4V6D6VBRABGL3MPK
+ clxscore=1015
+ priorityscore=1501 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 mlxlogscore=638 mlxscore=0 phishscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2309210189
+Message-ID-Hash: G3SR26YEPCUOSA7TEZE5Y3JVCJSKKNVQ
+X-Message-ID-Hash: G3SR26YEPCUOSA7TEZE5Y3JVCJSKKNVQ
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,35 +123,39 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FJSMZZDXDMJHEBYK4V6D6VBRABGL3MPK/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3SR26YEPCUOSA7TEZE5Y3JVCJSKKNVQ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Ensure that the number of XHCI secondary interrupters defined for a DWC3
-based implementation is limited to 8.  XHCI in general can potentially
-support up to 1024 interrupters.
+Add the definition for how many interrupts the XHCI host controller should
+allocate.  XHCI can potentially support up to 1024 interrupters, which
+implementations may want to limit.
 
+Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
- Documentation/devicetree/bindings/usb/snps,dwc3.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ Documentation/devicetree/bindings/usb/usb-xhci.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
-index a696f23730d3..1be78be1805b 100644
---- a/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
-+++ b/Documentation/devicetree/bindings/usb/snps,dwc3.yaml
-@@ -376,6 +376,10 @@ properties:
-     items:
-       enum: [1, 4, 8, 16, 32, 64, 128, 256]
+diff --git a/Documentation/devicetree/bindings/usb/usb-xhci.yaml b/Documentation/devicetree/bindings/usb/usb-xhci.yaml
+index 180a261c3e8f..4238ae896ef6 100644
+--- a/Documentation/devicetree/bindings/usb/usb-xhci.yaml
++++ b/Documentation/devicetree/bindings/usb/usb-xhci.yaml
+@@ -29,6 +29,12 @@ properties:
+     description: Interrupt moderation interval
+     default: 5000
  
 +  num-hc-interrupters:
-+    maximum: 8
-+    default: 1
++    description: Maximum number of interrupters to allocate
++    $ref: /schemas/types.yaml#/definitions/uint16
++    minimum: 1
++    maximum: 1024
 +
-   port:
-     $ref: /schemas/graph.yaml#/properties/port
-     description:
+ additionalProperties: true
+ 
+ examples:

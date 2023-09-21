@@ -2,94 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778257AA275
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 23:18:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF2C57AA420
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 00:01:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71124AE8;
-	Thu, 21 Sep 2023 23:17:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71124AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9966C86F;
+	Fri, 22 Sep 2023 00:00:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9966C86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695331108;
-	bh=4WzhXX1uaBfz0iPkLduXsSe9s+j07QrDW6eVjUz4YQc=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QlFmvetUrizCHJQiqGXg/PH1yrpr+rFS1VNQDaORjXVLtLK4kQT7zdaQtm22jK4AH
-	 w0RpfqycHne31aw40V5o0qC6C0H+Pi/GAcApHsSEQiM+D2AmpRVjcmWBHYZr/Ek+vK
-	 1c85bSZ3AnMeidskHh8Ao/gKSwu74+JzryA0cXyk=
+	s=default; t=1695333665;
+	bh=04YywNfTmy0B5gdD+KrF//iIBFuU9M8KutfL16NuXCQ=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=u7/xHDNIwLzPHpORGWj0IpQJfSI8tfbbxHj6oZDMh86TmfbvQTApV9n+B9tNJ2QZk
+	 CY+0nvDU2NyxaGjQeZBmnJHXNMvDAIIYC237x+P4eVXZ2Mq3rg9TilL/mje3QmjqbQ
+	 ZmyLJs2UNHE7iGr2nzF+fPFfMixfG6FYvN0SQjC4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DFF6F80558; Thu, 21 Sep 2023 23:17:26 +0200 (CEST)
+	id B8BB5F80125; Fri, 22 Sep 2023 00:00:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 747CCF80125;
-	Thu, 21 Sep 2023 23:17:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15A1AF801F5;
+	Fri, 22 Sep 2023 00:00:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F011EF80124; Thu, 21 Sep 2023 23:11:34 +0200 (CEST)
+	id 1B8D0F80589; Thu, 21 Sep 2023 23:50:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87B85F80124
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 23:08:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87B85F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 67E5AF8025A
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 23:49:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67E5AF8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=Xq+7sEqK
-Received: from notapiano.myfiosgateway.com (unknown
- [IPv6:2600:4041:5b1a:cd00:524d:e95d:1a9c:492a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nfraprado)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id E071366072A2;
-	Thu, 21 Sep 2023 22:08:03 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1695330485;
-	bh=4WzhXX1uaBfz0iPkLduXsSe9s+j07QrDW6eVjUz4YQc=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Xq+7sEqKMT1vt4K2chwQVwiFPZh87u8UZcHR85YtRTxEST+m/bOEzap9pEDI/jlvN
-	 Bc2E4iawedB1CvcQfsWQ+SdjoYUMhCQ6w5uIybBe4T4KSyGY2ZH3qEyepqXCq8TylO
-	 REOdNMAuaQ95GP79HV1mStHUe0Zb1hued3xRm6AhJgpipF59NKVzsvi9fe2x3b4p0Y
-	 dWp3gWQsUx+IbolK/IvPrioWEF97/lKb6ENurhUFp9thNde9DqTs/n15P4CGbvoyO5
-	 w/glxgy8t7xhjp2/QuKtQ1ZHA2VftQ23iKelU92xiazICGo+rMJeA9B2Wq76p6J1Am
-	 p6bhSKYwpqY8g==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: kernel@collabora.com,
-	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mediatek@lists.infradead.org
-Subject: [RFC PATCH] kselftest/alsa: Add configuration for
- mt8192-asurada-spherion
-Date: Thu, 21 Sep 2023 17:07:42 -0400
-Message-ID: <20230921210800.230330-1-nfraprado@collabora.com>
-X-Mailer: git-send-email 2.42.0
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=lBolqkkk
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38LLGdLs020622;
+	Thu, 21 Sep 2023 21:48:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=qcppdkim1;
+ bh=ZseVt8TpXNsPnD9gXvZiESwKDgOnEM+cyJSdOPfVtyQ=;
+ b=lBolqkkkqztymt1dXfYc7FKe1h92tjLFV4yU0xSQan9awKeycOYYD5dEepjhSmq/FpPL
+ Wwfo46yBtn9gImVbw5F1sVTZ4ErzRW/KDZd3wUqQisKnzZJSMzmmci8qCO1wlc8C0Rf+
+ jdbJi8umOzz+cRAwB34AUPEefZed5VgFqdprijWxm+rHlBJzlsh5zRBTlIowFdFJ3MZa
+ G8hH7yyLyjXvyb5S2c2dx118dzPC/39l7C41v+B8zW+fMK1kI7PFddkK8H9Ex44zd+zn
+ Mf9Prm2mwIH1jLTiXFvHy9xwl41PfeK2FZVN1w8FJ1NVsgn+1jQjGzLt6Gg5jgaIVOTy ZA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t8u0hgbuu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 Sep 2023 21:48:54 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 38LLmrKo031031
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 Sep 2023 21:48:53 GMT
+Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.36; Thu, 21 Sep 2023 14:48:53 -0700
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+To: <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
+        <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+        <tiwai@suse.com>, <agross@kernel.org>, <andersson@kernel.org>,
+        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
+        <Thinh.Nguyen@synopsys.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        Mathias Nyman <mathias.nyman@linux.intel.com>,
+        Wesley Cheng <quic_wcheng@quicinc.com>
+Subject: [PATCH v7 02/33] xhci: add helper to stop endpoint and wait for
+ completion
+Date: Thu, 21 Sep 2023 14:48:12 -0700
+Message-ID: <20230921214843.18450-3-quic_wcheng@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NTY5A7LSV2XJXG3VEF3ROGQVRXAPQWX7
-X-Message-ID-Hash: NTY5A7LSV2XJXG3VEF3ROGQVRXAPQWX7
-X-MailFrom: nfraprado@collabora.com
+Content-Type: text/plain
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: LgI0xRcvfOVAlYKOfwKnz2s5pci5exze
+X-Proofpoint-GUID: LgI0xRcvfOVAlYKOfwKnz2s5pci5exze
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-21_19,2023-09-21_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 bulkscore=0
+ mlxlogscore=999 clxscore=1015 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2309210188
+Message-ID-Hash: QDT4AOE3TQNR5SWFDQO6B7BGEDFXRWY2
+X-Message-ID-Hash: QDT4AOE3TQNR5SWFDQO6B7BGEDFXRWY2
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,98 +125,217 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NTY5A7LSV2XJXG3VEF3ROGQVRXAPQWX7/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QDT4AOE3TQNR5SWFDQO6B7BGEDFXRWY2/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a configuration file for the mt8192-asurada-spherion platform to
-validate that the card and PCMs used for speaker, headphone and
-microphones (internal and headset) are correctly exposed to userspace.
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Expose xhci_stop_endpoint_sync() which is a synchronous variant of
+xhci_queue_stop_endpoint().  This is useful for client drivers that are
+using the secondary interrupters, and need to stop/clean up the current
+session.  The stop endpoint command handler will also take care of cleaning
+up the ring.
 
+Modifications to repurpose the new API into existing stop endpoint
+sequences was implemented by Wesley Cheng.
+
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
+Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
-Sending this patch as RFC because I'd like to ask a question. What would
-be the most suitable entry to identify the card in a future-proof way?
+ drivers/usb/host/xhci-hub.c | 29 +++---------------
+ drivers/usb/host/xhci.c     | 60 +++++++++++++++++++++++++++----------
+ drivers/usb/host/xhci.h     |  2 ++
+ 3 files changed, 50 insertions(+), 41 deletions(-)
 
-I have used the card ID here, but given that it is generated at runtime
-with the purpose of being unique among the cards present on the system
-(and I couldn't find any documentation that states it is stable), I'm
-not sure it is supposed to be relied on.
-
-The card ID is derived from the driver name or card longname, which are
-themselves stable given userspace (alsa-ucm-conf) relies on them, but
-those aren't exposed through sysfs so I can't check for them here.
-
-Another option would be to look for the card number 0. But in the (very
-unlikely) case that another soundcard would be connected to the platform
-and detected first during boot, it wouldn't work.
-
-Yet another option would be to look at the device's uevent file for
-the compatible as defined in the Devicetree, ie
-
-        path "device/uevent"
-        regex "OF_COMPATIBLE_.*=mediatek,mt8192_mt6359_rt1015p_rt5682"
-
-Though it is possible (in rare circumstances) for the compatible in the
-Devicetree to need to be updated to enable a driver behavior that isn't
-backward compatible.
-
-I realize most of these issues are very rare and probably won't ever
-occur, but it seems worthwhile to use the most future-proof mechanism
-available to identify the card to avoid unnecessary maintenance, even
-more so considering the example would be followed by future
-configurations.
-
-Thanks,
-Nícolas
-
- .../alsa/conf.d/mt8192-asurada-spherion.conf  | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
- create mode 100644 tools/testing/selftests/alsa/conf.d/mt8192-asurada-spherion.conf
-
-diff --git a/tools/testing/selftests/alsa/conf.d/mt8192-asurada-spherion.conf b/tools/testing/selftests/alsa/conf.d/mt8192-asurada-spherion.conf
-new file mode 100644
-index 000000000000..6a7e15dc17da
---- /dev/null
-+++ b/tools/testing/selftests/alsa/conf.d/mt8192-asurada-spherion.conf
-@@ -0,0 +1,32 @@
-+sysfs [
-+	{
-+		path "firmware/devicetree/base/compatible"
-+		regex "google,spherion"
-+	}
-+]
+diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
+index 0054d02239e2..2f7309bdc922 100644
+--- a/drivers/usb/host/xhci-hub.c
++++ b/drivers/usb/host/xhci-hub.c
+@@ -489,7 +489,6 @@ EXPORT_SYMBOL_GPL(xhci_find_slot_id_by_port);
+ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+ {
+ 	struct xhci_virt_device *virt_dev;
+-	struct xhci_command *cmd;
+ 	unsigned long flags;
+ 	int ret;
+ 	int i;
+@@ -501,10 +500,6 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+ 
+ 	trace_xhci_stop_device(virt_dev);
+ 
+-	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
+-	if (!cmd)
+-		return -ENOMEM;
+-
+ 	spin_lock_irqsave(&xhci->lock, flags);
+ 	for (i = LAST_EP_INDEX; i > 0; i--) {
+ 		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
+@@ -521,7 +516,7 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+ 			if (!command) {
+ 				spin_unlock_irqrestore(&xhci->lock, flags);
+ 				ret = -ENOMEM;
+-				goto cmd_cleanup;
++				goto out;
+ 			}
+ 
+ 			ret = xhci_queue_stop_endpoint(xhci, command, slot_id,
+@@ -529,30 +524,14 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+ 			if (ret) {
+ 				spin_unlock_irqrestore(&xhci->lock, flags);
+ 				xhci_free_command(xhci, command);
+-				goto cmd_cleanup;
++				goto out;
+ 			}
+ 		}
+ 	}
+-	ret = xhci_queue_stop_endpoint(xhci, cmd, slot_id, 0, suspend);
+-	if (ret) {
+-		spin_unlock_irqrestore(&xhci->lock, flags);
+-		goto cmd_cleanup;
+-	}
+-
+-	xhci_ring_cmd_db(xhci);
+ 	spin_unlock_irqrestore(&xhci->lock, flags);
++	ret = xhci_stop_endpoint_sync(xhci, &virt_dev->eps[0], suspend);
+ 
+-	/* Wait for last stop endpoint command to finish */
+-	wait_for_completion(cmd->completion);
+-
+-	if (cmd->status == COMP_COMMAND_ABORTED ||
+-	    cmd->status == COMP_COMMAND_RING_STOPPED) {
+-		xhci_warn(xhci, "Timeout while waiting for stop endpoint command\n");
+-		ret = -ETIME;
+-	}
+-
+-cmd_cleanup:
+-	xhci_free_command(xhci, cmd);
++out:
+ 	return ret;
+ }
+ 
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 3fd2b58ee1d3..163d533d6200 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -2758,6 +2758,46 @@ static int xhci_reserve_bandwidth(struct xhci_hcd *xhci,
+ 	return -ENOMEM;
+ }
+ 
++/*
++ * Synchronous XHCI stop endpoint helper.  Issues the stop endpoint command and
++ * waits for the command completion before returning.
++ */
++int xhci_stop_endpoint_sync(struct xhci_hcd *xhci, struct xhci_virt_ep *ep, int suspend)
++{
++	struct xhci_command *command;
++	unsigned long flags;
++	int ret;
 +
-+card.mt8192 {
-+	sysfs [
-+		{
-+			path "id"
-+			regex "mt8192mt6359rt1"
-+		}
-+	]
++	command = xhci_alloc_command(xhci, true, GFP_KERNEL);
++	if (!command)
++		return -ENOMEM;
 +
-+	pcm.0.0 {
-+		PLAYBACK {
-+		}
++	spin_lock_irqsave(&xhci->lock, flags);
++	ret = xhci_queue_stop_endpoint(xhci, command, ep->vdev->slot_id,
++				       ep->ep_index, suspend);
++	if (ret < 0) {
++		spin_unlock_irqrestore(&xhci->lock, flags);
++		goto out;
 +	}
-+	pcm.3.0 {
-+		PLAYBACK {
-+		}
++
++	xhci_ring_cmd_db(xhci);
++	spin_unlock_irqrestore(&xhci->lock, flags);
++
++	ret = wait_for_completion_timeout(command->completion, msecs_to_jiffies(3000));
++	if (!ret)
++		xhci_warn(xhci, "%s: Unable to stop endpoint.\n",
++				__func__);
++
++	if (command->status == COMP_COMMAND_ABORTED ||
++	    command->status == COMP_COMMAND_RING_STOPPED) {
++		xhci_warn(xhci, "Timeout while waiting for stop endpoint command\n");
++		ret = -ETIME;
 +	}
-+	pcm.10.0 {
-+		CAPTURE {
-+		}
-+	}
-+	pcm.11.0 {
-+		CAPTURE {
-+		}
-+	}
++out:
++	xhci_free_command(xhci, command);
++
++	return ret;
 +}
--- 
-2.42.0
-
+ 
+ /* Issue a configure endpoint command or evaluate context command
+  * and wait for it to finish.
+@@ -3078,7 +3118,7 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+ 	struct xhci_virt_device *vdev;
+ 	struct xhci_virt_ep *ep;
+ 	struct xhci_input_control_ctx *ctrl_ctx;
+-	struct xhci_command *stop_cmd, *cfg_cmd;
++	struct xhci_command *cfg_cmd;
+ 	unsigned int ep_index;
+ 	unsigned long flags;
+ 	u32 ep_flag;
+@@ -3118,10 +3158,6 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+ 	if (ep_flag == SLOT_FLAG || ep_flag == EP0_FLAG)
+ 		return;
+ 
+-	stop_cmd = xhci_alloc_command(xhci, true, GFP_NOWAIT);
+-	if (!stop_cmd)
+-		return;
+-
+ 	cfg_cmd = xhci_alloc_command_with_ctx(xhci, true, GFP_NOWAIT);
+ 	if (!cfg_cmd)
+ 		goto cleanup;
+@@ -3144,23 +3180,16 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+ 		goto cleanup;
+ 	}
+ 
+-	err = xhci_queue_stop_endpoint(xhci, stop_cmd, udev->slot_id,
+-					ep_index, 0);
++	spin_unlock_irqrestore(&xhci->lock, flags);
++
++	err = xhci_stop_endpoint_sync(xhci, ep, 0);
+ 	if (err < 0) {
+-		spin_unlock_irqrestore(&xhci->lock, flags);
+-		xhci_free_command(xhci, cfg_cmd);
+ 		xhci_dbg(xhci, "%s: Failed to queue stop ep command, %d ",
+ 				__func__, err);
+ 		goto cleanup;
+ 	}
+ 
+-	xhci_ring_cmd_db(xhci);
+-	spin_unlock_irqrestore(&xhci->lock, flags);
+-
+-	wait_for_completion(stop_cmd->completion);
+-
+ 	spin_lock_irqsave(&xhci->lock, flags);
+-
+ 	/* config ep command clears toggle if add and drop ep flags are set */
+ 	ctrl_ctx = xhci_get_input_control_ctx(cfg_cmd->in_ctx);
+ 	if (!ctrl_ctx) {
+@@ -3192,7 +3221,6 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+ 
+ 	xhci_free_command(xhci, cfg_cmd);
+ cleanup:
+-	xhci_free_command(xhci, stop_cmd);
+ 	spin_lock_irqsave(&xhci->lock, flags);
+ 	if (ep->ep_state & EP_SOFT_CLEAR_TOGGLE)
+ 		ep->ep_state &= ~EP_SOFT_CLEAR_TOGGLE;
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index d706a27ec0a3..898b6434dc27 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -2125,6 +2125,8 @@ void xhci_ring_doorbell_for_active_rings(struct xhci_hcd *xhci,
+ void xhci_cleanup_command_queue(struct xhci_hcd *xhci);
+ void inc_deq(struct xhci_hcd *xhci, struct xhci_ring *ring);
+ unsigned int count_trbs(u64 addr, u64 len);
++int xhci_stop_endpoint_sync(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
++			    int suspend);
+ 
+ /* xHCI roothub code */
+ void xhci_set_link_state(struct xhci_hcd *xhci, struct xhci_port *port,

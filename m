@@ -2,106 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9B327A91C6
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 08:27:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7927A91C7
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 08:28:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CFCEA4B;
-	Thu, 21 Sep 2023 08:27:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CFCEA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C266A4D;
+	Thu, 21 Sep 2023 08:27:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C266A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695277673;
-	bh=FZ6Fg6dIBda98WTJiazj2eZzkbOz8fNLB/McAz3Hx20=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1695277715;
+	bh=M+L7+F55WM4eBb+OG7TotbuMyHtiWu3cAjnynoCMZjc=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mRVRAELKihYYI1KhNFU+RB71uuKJWrtsaKMPJgW6fcdWTRjDre7m3xIUsPtFWPz+z
-	 gKKu1myJIRtQfBgYM1zHhhOrKM/14lx+Jh+flhFE3xKKTXw/CawIFuZIDx6SVNGlzz
-	 tMoJvoT9zzYkr/fABzDX1XlxxPBxAZAi7i6y4EKY=
+	b=Ih4iUfSv/Q/CDUeDQWmzAkeNjED7EE82PhUPsuQWG2VopuEaCfgHwKCmH1p0BlDFi
+	 LX+i/redyU+6rzpRlSYLzqZYxaXI8R6D+vJqHt8XgmUuWjYVZ/9AoY6DtJMW+nDWvB
+	 mlOP7/QtKgGJzX32UeyNH9pqioudvF7uXwMIRe1E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A05C0F80124; Thu, 21 Sep 2023 08:26:54 +0200 (CEST)
+	id 19FD1F8055B; Thu, 21 Sep 2023 08:26:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06125F801F5;
-	Thu, 21 Sep 2023 08:26:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CB2FF8055B;
+	Thu, 21 Sep 2023 08:26:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4CE5F8025A; Thu, 21 Sep 2023 08:24:53 +0200 (CEST)
+	id 04F67F8025A; Thu, 21 Sep 2023 08:25:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=-4.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CDD2AF800AA
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 08:24:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDD2AF800AA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=iLBQaTiG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=JApG9Tmm
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 52A93F800AA
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 08:25:21 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id DD58C1A5A;
+	Thu, 21 Sep 2023 08:25:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz DD58C1A5A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1695277520; bh=h1+29ujJVsZjgKz4znBsbmS5rDXG1dS4MFnQRdPOSuo=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=tnP64pn1xlKaMU2pKdbgv5NYedTGfp+tnQhM1LgkKx3BiqdjiOFTw6SZYRUigR5hr
+	 Pyw76pc5a+UEt9tzJFvTJcajTkLSQxcOfFnpTzoKa60ehdbKX6u5+lGt6IR+8VneOf
+	 TkBm/qsx0Kyfcy/TB4cZy9JbaYY58X3Rj/Anhalc=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E6C00207B4;
-	Thu, 21 Sep 2023 06:24:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1695277485;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fzevEupZOeMHULGlXmrBX0p1fGc8/puuPIGI/o6Y7cE=;
-	b=iLBQaTiG9lomdXbN6oRdohF/3ihI7lAKIL/UZMlplOETUIpTchesZAbkdhUJ5e+ldZ17Vl
-	F801yQXtSZkmoyPOxVkeSZ4wX0zQqiFgeXYzTlzjwcSNcwaKaGR/r/v1HyZtNaFEB4l2Nn
-	pnRpx+02OS+oykzQ/DVz23SHK6CfzxE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1695277485;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fzevEupZOeMHULGlXmrBX0p1fGc8/puuPIGI/o6Y7cE=;
-	b=JApG9Tmmlr90NzfHH5hmXAet2Dya5Fh8ddrG0JGh8j9kfMyzIm91qxwRX8P5qSBQAV5n0X
-	IL9KypAHrHM6d/BQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BE061134B0;
-	Thu, 21 Sep 2023 06:24:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id TnFiLa3hC2XIWAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 21 Sep 2023 06:24:45 +0000
-Date: Thu, 21 Sep 2023 08:24:46 +0200
-Message-ID: <874jjoujpt.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Abby Ricart <aricart@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASUS ROG G533Q
-In-Reply-To: 
- <CAE+SJcJ+pPob5cMZHoP01XPjU-zZjmku2YuHOWoo9gM0ruCkcQ@mail.gmail.com>
-References: 
- <CAE+SJcJ+pPob5cMZHoP01XPjU-zZjmku2YuHOWoo9gM0ruCkcQ@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: H3F27RQUUIGYM6CXCONBEMOZB4H4OHV5
-X-Message-ID-Hash: H3F27RQUUIGYM6CXCONBEMOZB4H4OHV5
-X-MailFrom: tiwai@suse.de
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Thu, 21 Sep 2023 08:25:13 +0200 (CEST)
+Message-ID: <be2ec481-fb35-52be-0847-199d446b6431@perex.cz>
+Date: Thu, 21 Sep 2023 08:25:13 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
+ tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, amadeuszx.slawinski@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com
+References: <20230918133940.3676091-1-cezary.rojewski@intel.com>
+ <20230918133940.3676091-2-cezary.rojewski@intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2 01/17] ALSA: pcm: Introduce MSBITS subformat interface
+In-Reply-To: <20230918133940.3676091-2-cezary.rojewski@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: NCVKLU5FETTFLBEDBCD2AAOINX4NNJIX
+X-Message-ID-Hash: NCVKLU5FETTFLBEDBCD2AAOINX4NNJIX
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,44 +87,82 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3F27RQUUIGYM6CXCONBEMOZB4H4OHV5/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NCVKLU5FETTFLBEDBCD2AAOINX4NNJIX/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 20 Sep 2023 18:28:42 +0200,
-Abby Ricart wrote:
+On 18. 09. 23 15:39, Cezary Rojewski wrote:
+> Improve granularity of format selection for S32/U32 formats by adding
+> constants representing 20, 24 and MAX most significant bits.
 > 
-> The same quirk applied to the ASUS G533Z is also applicable to the ASUS
-> G533Q (of which I am an owner and have thus tested).
+> To make it easy for drivers to utilize those constants, introduce
+> snd_pcm_subformat_width() and snd_pcm_hw_params_bps(). While the former
+> is self-explanatory, the latter returns the bit-per-sample value based
+> on format and subformat characteristics of the provided hw_params.
+> snd_pcm_hw_copy() helps with copying a hardware parameters space as with
+> introduction of subformats the operations becomes non-trivial.
 > 
-> Signed-off-by: Abelardo Ricart <aricart@gmail.com>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
-The patch can't be applied cleanly.
-Please fix your mailer setup not to break spaces and resubmit.
+...
 
+>   struct snd_pcm_hardware {
+>   	unsigned int info;		/* SNDRV_PCM_INFO_* */
+>   	u64 formats;			/* SNDRV_PCM_FMTBIT_* */
+> +	struct snd_pcm_subformat *subformats;
 
-thanks,
+I don't think that it's required to add subformats to the hardware template. 
+The new constraint can handle subformat refining without the template 
+modifications (pointer to map table is stored privately to this constraint).
 
-Takashi
+Also, I miss the constraint handling here. Without the constraint, the new API 
+is not functional and it does not make sense to split the constraint code to 
+other patch.
 
-> ---
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index b7e78bfcffd8..7bb3c1e05bf2 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -9781,6 +9781,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->   SND_PCI_QUIRK(0x1043, 0x1493, "ASUS GV601V", ALC285_FIXUP_ASUS_HEADSET_MIC),
->   SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A",
-> ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
->   SND_PCI_QUIRK(0x1043, 0x1573, "ASUS GZ301V", ALC285_FIXUP_ASUS_HEADSET_MIC),
-> + SND_PCI_QUIRK(0x1043, 0x1602, "ASUS ROG Strix G15 (G533Q)",
-> ALC285_FIXUP_ASUS_G533Z_PINS),
->   SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
->   SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
->   SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
-> 
+> +int snd_pcm_hw_params_bps(const struct snd_pcm_hw_params *p);
+
+This may be probably inline function. See bellow.
+
+> +	kfree(runtime->hw.subformats);
+
+Do we really need to do an assumption about allocations for this field? The 
+driver may use a static structure. No problem, when this is not added to 
+runtime->hw.
+
+> +int snd_pcm_hw_params_bps(const struct snd_pcm_hw_params *p)
+> +{
+> +	snd_pcm_subformat_t subformat = params_subformat(p);
+> +	snd_pcm_format_t format = params_format(p);
+> +	int width;
+> +
+> +	switch (format) {
+> +	case SNDRV_PCM_FORMAT_S32_LE:
+> +	case SNDRV_PCM_FORMAT_U32_LE:
+> +	case SNDRV_PCM_FORMAT_S32_BE:
+> +	case SNDRV_PCM_FORMAT_U32_BE:
+> +		width = snd_pcm_subformat_width(subformat);
+
+This is not a correct implementation. The width should be returned for MAX 
+subformat (== snd_pcm_format_width value). See bellow.
+
+> +int snd_pcm_subformat_width(snd_pcm_subformat_t subformat)
+
+This function should probably have two arguments - format + subformat to 
+return the correct information. The MAX subformat should return 
+snd_pcm_format_width value.
+
+> +int snd_pcm_hw_copy(struct snd_pcm_hardware *hw, const struct snd_pcm_hardware *from)
+
+This function is not required, if only the constraint function handles the 
+subformat refining.
+
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

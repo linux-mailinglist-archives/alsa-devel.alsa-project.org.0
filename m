@@ -2,113 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A570B7A9546
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 16:32:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C6A7A956A
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 17:03:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24EB6AE8;
-	Thu, 21 Sep 2023 16:31:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24EB6AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 424E6AE9;
+	Thu, 21 Sep 2023 17:02:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 424E6AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695306733;
-	bh=Nrq94KamFVevL7clUKv5HC/Mha+q4u547nnTcIcKwHo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=NKx6RL0xVGMLOYDLHmSc3BnOJxAgThiQSX3GFe5Se4n6ZmybvlSsZL7NWAdDd/d2B
-	 d/T8P28GCTFVUmj33Y9Fl2b8bNQsSgzPnUTjDDO7RUYMBYbe2huCBtE5Zu2HKoZ1/+
-	 XKK01z9eo/eLeWjfkfsmRLlGMidXdfJreGWnhWYQ=
+	s=default; t=1695308620;
+	bh=shaRBQmsfUTVkybTQ5PU1OcWUhpihgEjFoC0hGzDWIU=;
+	h=Subject:From:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jd2ijuL5C/fjTlHyYkQWksbA5ePpW5k7wsKtSj/pmXJRVg4mWuEpj61CTGc+jAKMJ
+	 eKLJTRXDdclbudubWRSvtzMu9gQP/8b42IQeP7IppNvYgYx2L+9ptDRWXHThgRfCse
+	 bzlY5mbKyhNJqMtfN8QM/MHRwas5imNsWw/6FGNs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 869C2F80551; Thu, 21 Sep 2023 16:31:22 +0200 (CEST)
+	id 25D15F8055C; Thu, 21 Sep 2023 17:02:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A87FF801F5;
-	Thu, 21 Sep 2023 16:31:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 676FDF8055B;
+	Thu, 21 Sep 2023 17:02:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A5F2F8025A; Thu, 21 Sep 2023 16:31:19 +0200 (CEST)
+	id 53586F8025A; Thu, 21 Sep 2023 16:59:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25225F80124
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 16:31:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25225F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74988F80124
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 16:59:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74988F80124
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=QjNf/Iud;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=kEWSE2x6
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 849B7338B3;
-	Thu, 21 Sep 2023 14:31:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1695306676;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gbtl7dz+n4fDBv0PgjZKo5ChiNEcFdxRNfUeAX7a31E=;
-	b=QjNf/IudJ7JfO3uvISbbCQPAWArxoaH0lUK1juoSGXaZZY59UoSbvzfkWjbTwLPgZYilC0
-	e4xBLl4LH0JtV1L9pe5uZ89gMJzw2qV7XZPFGi6Ctv/AblAXnVUhmKarWjp0fXFMxqtp4k
-	2oY3Er8pCqoDoN/M1OWHH+o4UmtaR/k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1695306676;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gbtl7dz+n4fDBv0PgjZKo5ChiNEcFdxRNfUeAX7a31E=;
-	b=kEWSE2x6ACj7FstIpG622Gv6HR3GzUBs29H6qvf8UnuH0y1qZ/NMxIzO8wmcdtn9/zPDlH
-	vbVZSENG4UCylkDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 56BD913513;
-	Thu, 21 Sep 2023 14:31:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ELjzE7RTDGV7WQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 21 Sep 2023 14:31:16 +0000
-Date: Thu, 21 Sep 2023 16:31:15 +0200
-Message-ID: <8734z7zjgs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Re: Change model for those Lenovo Thinkpad 8 SSIDs
-In-Reply-To: <82a45234327c4c50b4988a27e9f64c37@realtek.com>
-References: <82a45234327c4c50b4988a27e9f64c37@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 5WHHRUMXVVQ5N6STTEYGSWOH7ZH44WJ5
-X-Message-ID-Hash: 5WHHRUMXVVQ5N6STTEYGSWOH7ZH44WJ5
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=nqfA60qm
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-50307759b65so1998829e87.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 21 Sep 2023 07:59:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1695308390; x=1695913190;
+ darn=alsa-project.org;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=y2cRr9MR3inkHivewxgnnyGI8y8gUo1y4W6FkvAgzTY=;
+        b=nqfA60qmEKTLyvP7hrtTAYk7aRc9X3KO90aP2iuRJDn1b3fJBCGCBicvAftOcczQjk
+         AtL+j1ULtBMl3zclMAfb8Kx+7Olq4UC3NclDxwT2WjYP5lm9LTvd9KPZpB3EBeyZexaC
+         rYcjbwKXB4kocuTqlsPh8VKkURTXsV+3UB35NCqXmeDZFexIUxan9rggzJYCUNx2vMkI
+         Yr/BnD3cirsFCFEQzg+Nk0kQxl9AE0GJ10yErWbnoAx+nIlOT2VdN30y0iyN1xv70MgY
+         y0lxj12tgAFVt7Fa474fjS53GLpk482K2u6ZraijcmT80qo5T3yjwz8SbhLN3vxJ/Ob5
+         8N4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695308390; x=1695913190;
+        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
+         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=y2cRr9MR3inkHivewxgnnyGI8y8gUo1y4W6FkvAgzTY=;
+        b=WKZ4UTJpp4vZ996j6LgVZrlcEnfeBZI50C7MqNjJZP8DzheHdMowYV+iU+2W61CbbV
+         1kyt2LY4vxC3BspTjYThOGWK5kecjcSzqSHmf/0TcRpZNXiF4GdA/cK7Km5Y2UpECVbr
+         L640d4iWPZgUcQIHoU9pWKuzMIbB+Y9JFBiQJBI7U01X6WKhn/SNaY1OWSDdmcBXyOeS
+         R1v9wTyDTpdfVL3J4l4Ql2MKHvwhlPOwvh+5TLKdpvJUNyEEJfa95dkur3RPZ6AoCd92
+         MhB55oZJhAjTC6jcnOO69fumGj4iPNXoSvsHXo+bn6IiSckIvW2KXV22efmjwGX567MJ
+         fY2Q==
+X-Gm-Message-State: AOJu0Yz9qunbJ23ihgYNbjq+a32DTducttAJSH9aI5D1X5/X6wWusdH+
+	XUhyywejpqtZgezjcntHIOU=
+X-Google-Smtp-Source: 
+ AGHT+IHcq103dNlblMZBQY/j6iBfw4bjgl3Ly21aJcgJdHUNGAfybxeqKUdIET9dZUi0Y+dCo0YrMg==
+X-Received: by 2002:a05:6512:2813:b0:503:3803:9e99 with SMTP id
+ cf19-20020a056512281300b0050338039e99mr6882214lfb.15.1695308390088;
+        Thu, 21 Sep 2023 07:59:50 -0700 (PDT)
+Received: from ?IPv6:2600:1700:7c80:b060::49? ([2600:1700:7c80:b060::49])
+        by smtp.gmail.com with ESMTPSA id
+ l29-20020ac24a9d000000b00503258fa962sm316840lfp.199.2023.09.21.07.59.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 21 Sep 2023 07:59:49 -0700 (PDT)
+Message-ID: <ae875c6cd54089a108007f6d32aca2c8e61c0c2e.camel@gmail.com>
+Subject: [PATCHv5] ALSA: hda/realtek: Add quirk for ASUS ROG G533Q
+From: Abelardo Ricart <aricart@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Date: Thu, 21 Sep 2023 10:59:47 -0400
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 
+MIME-Version: 1.0
+X-MailFrom: aricart@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: XE537TEFKVDJ5FC6IMUXV5EPSE2FKCQP
+X-Message-ID-Hash: XE537TEFKVDJ5FC6IMUXV5EPSE2FKCQP
+X-Mailman-Approved-At: Thu, 21 Sep 2023 15:01:55 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5WHHRUMXVVQ5N6STTEYGSWOH7ZH44WJ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XE537TEFKVDJ5FC6IMUXV5EPSE2FKCQP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,15 +117,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 21 Sep 2023 09:36:35 +0200,
-Kailang wrote:
-> 
-> Hi Takashi,
-> 
-> Change model for those SSIDs.
-> This was use CS AMP for speaker. So, it also need to fixed DAC 0x02 for 0x17 pin.
+The same quirk applied to the ASUS G533Z is also applicable to the ASUS G53=
+3Q (of which I am an owner and have thus tested).
 
-Thanks, applied.
+Signed-off-by: Abelardo Ricart <aricart@gmail.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index b7e78bfcffd8..7bb3c1e05bf2 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9781,6 +9781,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] =
+=3D {
+ 	SND_PCI_QUIRK(0x1043, 0x1493, "ASUS GV601V", ALC285_FIXUP_ASUS_HEADSET_MI=
+C),
+ 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_Z=
+ENBOOK_UX31A),
+ 	SND_PCI_QUIRK(0x1043, 0x1573, "ASUS GZ301V", ALC285_FIXUP_ASUS_HEADSET_MI=
+C),
++	SND_PCI_QUIRK(0x1043, 0x1602, "ASUS ROG Strix G15 (G533Q)", ALC285_FIXUP_=
+ASUS_G533Z_PINS),
+ 	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK)=
+,
+ 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_=
+2),
+ 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+--
+2.42.0
 
-Takashi

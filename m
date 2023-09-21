@@ -2,113 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C6A7A956A
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 17:03:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD89D7A956C
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 17:05:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 424E6AE9;
-	Thu, 21 Sep 2023 17:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 424E6AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A47D6DE5;
+	Thu, 21 Sep 2023 17:04:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A47D6DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695308620;
-	bh=shaRBQmsfUTVkybTQ5PU1OcWUhpihgEjFoC0hGzDWIU=;
-	h=Subject:From:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jd2ijuL5C/fjTlHyYkQWksbA5ePpW5k7wsKtSj/pmXJRVg4mWuEpj61CTGc+jAKMJ
-	 eKLJTRXDdclbudubWRSvtzMu9gQP/8b42IQeP7IppNvYgYx2L+9ptDRWXHThgRfCse
-	 bzlY5mbKyhNJqMtfN8QM/MHRwas5imNsWw/6FGNs=
+	s=default; t=1695308701;
+	bh=oo4GNctLz8Shf19nIoryBMjQyKRYmeTybgYDXDbksM4=;
+	h=From:In-Reply-To:References:To:Cc:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PK06mOcjVuWOKDXjGhDGhn7VoCB/74myuV4YDZ62ZklyCf0fpOQw1ZQI8fwFeCJwp
+	 0ZYyJc1EhKphtP7O2rqfpYiYsiEJ+Tiycjdg+Eei9f8y27fUKB8UB8wYeqniY6XxEU
+	 VMvGZzYqEN4h/zuTWJSH19r/1cmNLLjYZ+aSH/gM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25D15F8055C; Thu, 21 Sep 2023 17:02:00 +0200 (CEST)
+	id 6CF25F80125; Thu, 21 Sep 2023 17:04:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 676FDF8055B;
-	Thu, 21 Sep 2023 17:02:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24EEFF801F5;
+	Thu, 21 Sep 2023 17:04:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53586F8025A; Thu, 21 Sep 2023 16:59:54 +0200 (CEST)
+	id 601A9F8025A; Thu, 21 Sep 2023 17:04:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74988F80124
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 16:59:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74988F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id C26F0F80125
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 17:03:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C26F0F80125
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=nqfA60qm
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-50307759b65so1998829e87.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 21 Sep 2023 07:59:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695308390; x=1695913190;
- darn=alsa-project.org;
-        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y2cRr9MR3inkHivewxgnnyGI8y8gUo1y4W6FkvAgzTY=;
-        b=nqfA60qmEKTLyvP7hrtTAYk7aRc9X3KO90aP2iuRJDn1b3fJBCGCBicvAftOcczQjk
-         AtL+j1ULtBMl3zclMAfb8Kx+7Olq4UC3NclDxwT2WjYP5lm9LTvd9KPZpB3EBeyZexaC
-         rYcjbwKXB4kocuTqlsPh8VKkURTXsV+3UB35NCqXmeDZFexIUxan9rggzJYCUNx2vMkI
-         Yr/BnD3cirsFCFEQzg+Nk0kQxl9AE0GJ10yErWbnoAx+nIlOT2VdN30y0iyN1xv70MgY
-         y0lxj12tgAFVt7Fa474fjS53GLpk482K2u6ZraijcmT80qo5T3yjwz8SbhLN3vxJ/Ob5
-         8N4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695308390; x=1695913190;
-        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
-         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y2cRr9MR3inkHivewxgnnyGI8y8gUo1y4W6FkvAgzTY=;
-        b=WKZ4UTJpp4vZ996j6LgVZrlcEnfeBZI50C7MqNjJZP8DzheHdMowYV+iU+2W61CbbV
-         1kyt2LY4vxC3BspTjYThOGWK5kecjcSzqSHmf/0TcRpZNXiF4GdA/cK7Km5Y2UpECVbr
-         L640d4iWPZgUcQIHoU9pWKuzMIbB+Y9JFBiQJBI7U01X6WKhn/SNaY1OWSDdmcBXyOeS
-         R1v9wTyDTpdfVL3J4l4Ql2MKHvwhlPOwvh+5TLKdpvJUNyEEJfa95dkur3RPZ6AoCd92
-         MhB55oZJhAjTC6jcnOO69fumGj4iPNXoSvsHXo+bn6IiSckIvW2KXV22efmjwGX567MJ
-         fY2Q==
-X-Gm-Message-State: AOJu0Yz9qunbJ23ihgYNbjq+a32DTducttAJSH9aI5D1X5/X6wWusdH+
-	XUhyywejpqtZgezjcntHIOU=
-X-Google-Smtp-Source: 
- AGHT+IHcq103dNlblMZBQY/j6iBfw4bjgl3Ly21aJcgJdHUNGAfybxeqKUdIET9dZUi0Y+dCo0YrMg==
-X-Received: by 2002:a05:6512:2813:b0:503:3803:9e99 with SMTP id
- cf19-20020a056512281300b0050338039e99mr6882214lfb.15.1695308390088;
-        Thu, 21 Sep 2023 07:59:50 -0700 (PDT)
-Received: from ?IPv6:2600:1700:7c80:b060::49? ([2600:1700:7c80:b060::49])
-        by smtp.gmail.com with ESMTPSA id
- l29-20020ac24a9d000000b00503258fa962sm316840lfp.199.2023.09.21.07.59.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Sep 2023 07:59:49 -0700 (PDT)
-Message-ID: <ae875c6cd54089a108007f6d32aca2c8e61c0c2e.camel@gmail.com>
-Subject: [PATCHv5] ALSA: hda/realtek: Add quirk for ASUS ROG G533Q
-From: Abelardo Ricart <aricart@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
-Date: Thu, 21 Sep 2023 10:59:47 -0400
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=GQfJ8UMY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1695308634;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oo4GNctLz8Shf19nIoryBMjQyKRYmeTybgYDXDbksM4=;
+	b=GQfJ8UMYKv46yIYlJv5tigFbHc0cc7U7UX0714JeO8zupajORR7/E1xo/XYAbkyE3oBk9t
+	RjBuvG7odqghg+2Ngea267373gvcHruXV4k99eegTPVdqo+HJrLzqU2w+di4bepy5InHCg
+	ij7IXN39K1Qltr4PmbUilCJaiIPWHWM=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-679-hp6VtaakNtupnp-MguiVZA-1; Thu, 21 Sep 2023 11:03:47 -0400
+X-MC-Unique: hp6VtaakNtupnp-MguiVZA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7FF71C01EA3;
+	Thu, 21 Sep 2023 15:03:37 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.42.28.216])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A56CC40C200E;
+	Thu, 21 Sep 2023 15:03:29 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <87o7hvzn12.wl-tiwai@suse.de>
+References: <87o7hvzn12.wl-tiwai@suse.de>
+ <20230920222231.686275-1-dhowells@redhat.com>
+ <20230920222231.686275-2-dhowells@redhat.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: dhowells@redhat.com, Jens Axboe <axboe@kernel.dk>,
+    Al Viro <viro@zeniv.linux.org.uk>,
+    Linus Torvalds <torvalds@linux-foundation.org>,
+    Christoph Hellwig <hch@lst.de>,
+    Christian Brauner <christian@brauner.io>,
+    David Laight <David.Laight@ACULAB.COM>,
+    Matthew Wilcox <willy@infradead.org>,
+    Jeff Layton <jlayton@kernel.org>, linux-fsdevel@vger.kernel.org,
+    linux-block@vger.kernel.org, linux-mm@kvack.org,
+    netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+    Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+    Suren Baghdasaryan <surenb@google.com>,
+    Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+    alsa-devel@alsa-project.org
+Subject: Re: [PATCH v5 01/11] sound: Fix snd_pcm_readv()/writev() to use iov
+ access functions
 MIME-Version: 1.0
-X-MailFrom: aricart@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <809185.1695308608.1@warthog.procyon.org.uk>
+Date: Thu, 21 Sep 2023 16:03:28 +0100
+Message-ID: <809186.1695308608@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Message-ID-Hash: SWKRTAWLTO3OC7MWOOHZQ7VYADG3HQIF
+X-Message-ID-Hash: SWKRTAWLTO3OC7MWOOHZQ7VYADG3HQIF
+X-MailFrom: dhowells@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XE537TEFKVDJ5FC6IMUXV5EPSE2FKCQP
-X-Message-ID-Hash: XE537TEFKVDJ5FC6IMUXV5EPSE2FKCQP
-X-Mailman-Approved-At: Thu, 21 Sep 2023 15:01:55 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XE537TEFKVDJ5FC6IMUXV5EPSE2FKCQP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SWKRTAWLTO3OC7MWOOHZQ7VYADG3HQIF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,33 +124,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The same quirk applied to the ASUS G533Z is also applicable to the ASUS G53=
-3Q (of which I am an owner and have thus tested).
+Takashi Iwai <tiwai@suse.de> wrote:
 
-Signed-off-by: Abelardo Ricart <aricart@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+> Would you apply it through your tree, or shall I apply this one via
+> sound git tree?
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index b7e78bfcffd8..7bb3c1e05bf2 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9781,6 +9781,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] =
-=3D {
- 	SND_PCI_QUIRK(0x1043, 0x1493, "ASUS GV601V", ALC285_FIXUP_ASUS_HEADSET_MI=
-C),
- 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_Z=
-ENBOOK_UX31A),
- 	SND_PCI_QUIRK(0x1043, 0x1573, "ASUS GZ301V", ALC285_FIXUP_ASUS_HEADSET_MI=
-C),
-+	SND_PCI_QUIRK(0x1043, 0x1602, "ASUS ROG Strix G15 (G533Q)", ALC285_FIXUP_=
-ASUS_G533Z_PINS),
- 	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK)=
-,
- 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_=
-2),
- 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
---
-2.42.0
+It's a prerequisite for a later patch in this series, so I'd prefer to keep it
+with my other patches.
+
+David
 

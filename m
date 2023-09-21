@@ -2,68 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262E27A942E
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 14:17:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9C7A7A944C
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 14:35:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5531A4A;
-	Thu, 21 Sep 2023 14:16:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5531A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 075FEA4B;
+	Thu, 21 Sep 2023 14:34:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 075FEA4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695298656;
-	bh=YXpKcY1zj9CbhWrNoJOaRCo5if0SZJ8FAfi8Te+CR3k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1695299747;
+	bh=zacGcCQNPddYg6wI6xsuje7lsd2ePZLjuXKCOmBglgY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jfxcxMykBWktwXC78qrlBrKF81EnIbRBAYJVm/Gfxouek27n6wAHKfESh0UaNWdvA
-	 8Ao1RwDDgYc5qjE/ChF68DbcM2GvbGhzsKF1b9FSKe6nLej8AThxuUz9yWT+sBs9uz
-	 G/gD4sgu8KLbZLBJE67sx/BveWmvii3fzPRvap2w=
+	b=jLVVY5ornlKBcp9W5efigTcMAH13LvPdWZAIsxwHDD6G43ddFIGwFflRNJFGaY3ZM
+	 FVPgqmp3KCmK213SaVWrEB63eMfpq6tHB1/bw5W6aOirvsW4smCRTRt8PUXZpbqNNu
+	 RB8VQTJPHeK1fL1JpeAuuDRonAqY9AiVi1FeW6fg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 699B9F80549; Thu, 21 Sep 2023 14:16:45 +0200 (CEST)
+	id 2CA96F80124; Thu, 21 Sep 2023 14:34:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2148F801F5;
-	Thu, 21 Sep 2023 14:16:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9E9FF801F5;
+	Thu, 21 Sep 2023 14:34:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFF0DF8025A; Thu, 21 Sep 2023 14:16:39 +0200 (CEST)
+	id D0FCAF8025A; Thu, 21 Sep 2023 14:34:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from muru.com (muru.com [72.249.23.125])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9DC8F80124
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 14:16:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9DC8F80124
-Received: from localhost (localhost [127.0.0.1])
-	by muru.com (Postfix) with ESMTPS id BA1328109;
-	Thu, 21 Sep 2023 12:16:27 +0000 (UTC)
-Date: Thu, 21 Sep 2023 15:16:26 +0300
-From: Tony Lindgren <tony@atomide.com>
-To: =?utf-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@gmail.com>
-Cc: Andreas Kemnade <andreas@kemnade.info>, bcousson@baylibre.com,
-	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, jarkko.nikula@bitmer.com,
-	dmitry.torokhov@gmail.com, linux-omap@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/3] ASoC: ti: omap-mcbsp: Ignore errors for getting
- fck_src
-Message-ID: <20230921121626.GT5285@atomide.com>
-References: <20230705190324.355282-1-andreas@kemnade.info>
- <20230705190324.355282-2-andreas@kemnade.info>
- <7d58d52d-2087-45af-b29e-2515b63ead13@gmail.com>
- <20230920063353.GQ5285@atomide.com>
- <dac768d2-2c66-4d6b-b3d3-d1ef69103c76@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dac768d2-2c66-4d6b-b3d3-d1ef69103c76@gmail.com>
-Message-ID-Hash: DBF2YXIWBJCUB2J2HLH4ZQVWUJWIQNZN
-X-Message-ID-Hash: DBF2YXIWBJCUB2J2HLH4ZQVWUJWIQNZN
-X-MailFrom: tony@atomide.com
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 29E51F80124
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 14:34:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29E51F80124
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=NGGmLTC9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7qmWLwF9
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 76DB81FF92;
+	Thu, 21 Sep 2023 12:34:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1695299676;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s3PAjVQpTlMd9Gu0cRfBf3FIuzmNRq3LvspgelyA/Nk=;
+	b=NGGmLTC91fXHacMyxxDZTzXktxIYQfRANaaIVE2Hz5+m4SwHrYy3iuH577CzvPtAaTHACz
+	i96MUFqBj9A4F2BUcUEA8nA+XMzS6QoWm8Cdu2bK67iDUUYDqLttU9s5PBsKMmahTaX4Sa
+	AdCLhLaKzgczY4om35oFOpACBtalbNk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1695299676;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s3PAjVQpTlMd9Gu0cRfBf3FIuzmNRq3LvspgelyA/Nk=;
+	b=7qmWLwF9F6iknQ4fUecTouPNdTu6nssyW90AAfQKWubGaWmR4GS1kH3KM60vLrRLAY9Ird
+	PVdkZVH8fUa+BlCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 485FF134B0;
+	Thu, 21 Sep 2023 12:34:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id ueK6EFw4DGXcHAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 21 Sep 2023 12:34:36 +0000
+Date: Thu, 21 Sep 2023 14:34:35 +0200
+Message-ID: <87pm2bzov8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <arnd@arndb.de>,
+	<treding@nvidia.com>,
+	<llvm@lists.linux.dev>,
+	<oe-kbuild-all@lists.linux.dev>,
+	<alsa-devel@alsa-project.org>
+Subject: Re: [tiwai-sound:for-next 36/38]
+ sound/pci/hda/cirrus_scodec_test.c:151:60: error: initializer element is not
+ a compile-time constant
+In-Reply-To: <0a4644bc-d345-9988-2eb6-e95c8db06219@opensource.cirrus.com>
+References: <202309210751.TXlnuEMF-lkp@intel.com>
+	<0a4644bc-d345-9988-2eb6-e95c8db06219@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: STYBL4I4NGRRT4RINAGIMA2IJI3KB4YH
+X-Message-ID-Hash: STYBL4I4NGRRT4RINAGIMA2IJI3KB4YH
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -75,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DBF2YXIWBJCUB2J2HLH4ZQVWUJWIQNZN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/STYBL4I4NGRRT4RINAGIMA2IJI3KB4YH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -84,23 +123,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-* Péter Ujfalusi <peter.ujfalusi@gmail.com> [230920 17:40]:
-> It is not the parent's fck, it is the PRCM clock which is selected as
-> the sourcee of the clock generator (CLKS) for BCLK/FSYNC. That is the
-> functional clock as well for the McBSP instance.
-
-Oh OK
-
-> Out of reset it is using the PRCM source which is fine in all current users.
-> I would do this fix or workaround in a different way: instead of
-> ignoring the error, avoid it in the first place. Do nothing if the
-> already selected clock is requested.
-> That would remove the error and will fail in case the reparenting is not
-> working -> boards will know this and might be able to do something about
-> it in a reasonable way.
+On Thu, 21 Sep 2023 11:23:14 +0200,
+Richard Fitzgerald wrote:
 > 
-> How that sounds?
+> On 21/9/23 00:35, kernel test robot wrote:
+> > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+> > head:   72f6a13022f3bf16df305b75c32f95ece263a5ce
+> > commit: 2144833e7b41459fa2d52bb0676f0ab4920cf32c [36/38] ALSA: hda: cirrus_scodec: Add KUnit test
+> > config: hexagon-randconfig-r041-20211219 (https://download.01.org/0day-ci/archive/20230921/202309210751.TXlnuEMF-lkp@intel.com/config)
+> > compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
+> > reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230921/202309210751.TXlnuEMF-lkp@intel.com/reproduce)
+> > 
+> > If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> > the same patch/commit), kindly add following tags
+> > | Reported-by: kernel test robot <lkp@intel.com>
+> > | Closes: https://lore.kernel.org/oe-kbuild-all/202309210751.TXlnuEMF-lkp@intel.com/
+> > 
+> > All errors (new ones prefixed by >>):
+> > 
+> >     In file included from sound/pci/hda/cirrus_scodec_test.c:9:
+> >     In file included from include/linux/gpio/driver.h:6:
+> >     In file included from include/linux/irqchip/chained_irq.h:10:
+> >     In file included from include/linux/irq.h:20:
+> >     In file included from include/linux/io.h:13:
+> >     In file included from arch/hexagon/include/asm/io.h:337:
+> >     include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+> >             val = __raw_readb(PCI_IOBASE + addr);
+> >                               ~~~~~~~~~~ ^
+> >     include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+> >             val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+> >                                                             ~~~~~~~~~~ ^
+> >     include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+> >     #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+> >                                                       ^
+> 
+> This looks like it has nothing to do with cirrus_scodec_test, it's just
+> unfortunate that including gpio/driver.h results in also including io.h.
 
-Sounds good to me :)
+Yeah, I believe this part is irrelevant can be ignored.  It's included
+as a part of (single) log.
 
-Tony
+Only the line indicated with the marker ">>" is interesting, and
+that's what Andy already fixed in properties.h.
+
+
+thanks,
+
+Takashi

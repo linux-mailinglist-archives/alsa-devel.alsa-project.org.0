@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3987A95C5
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 18:34:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A859A7A95C6
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 18:34:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5684BE9C;
-	Thu, 21 Sep 2023 18:33:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5684BE9C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14F68E10;
+	Thu, 21 Sep 2023 18:33:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14F68E10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695314046;
-	bh=UPQ0Zrax+eCF7OJmrL4/OguCSthZYXjp/oX9HvOnGL0=;
+	s=default; t=1695314064;
+	bh=H43DsDU/RmLDaEl6eOKwt5T7tmutU77sEJ06ee0iqD8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WMBs9gE55BZcsbhpzScMs6oLfSmaFCg/V1ehQxqBpHfstNz84ecOQ1qgQ8VtrCoiC
-	 DrPA1ZcjctpE9gVyeneb+TO63qvcuY7Na7dTxRbdHj8CIeAoDQwkqWIuH6fpGu6gyS
-	 MjmmvQcBs/brsIh2y+AHe55Q/yc4lvtw888ifICw=
+	b=iMo0vCZgydh27iuZ44SB+pnizNtzeJdsjK3siu+S8TpWwLzO7obI6qkj6W/Irp8cp
+	 qZ4K4dKRjaNrpwAsFJUDtAj77p8KS8w/oH7xUxLDuHRD4grmEBTZV9y3w+8H0652el
+	 xNCcft3aGF8mcVNqxdf7txgLCi7vW/adaJeqbwD8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43999F805FC; Thu, 21 Sep 2023 18:30:51 +0200 (CEST)
+	id 4F210F8060F; Thu, 21 Sep 2023 18:30:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B387F805F3;
-	Thu, 21 Sep 2023 18:30:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D25C7F80607;
+	Thu, 21 Sep 2023 18:30:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB16FF80558; Thu, 21 Sep 2023 18:30:37 +0200 (CEST)
+	id 584F5F805EF; Thu, 21 Sep 2023 18:30:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD9D6F80558
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 18:30:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD9D6F80558
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87D5BF801F5
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 18:30:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87D5BF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LmAUkdzO
+ header.s=k20201202 header.b=AFcwJO2a
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id E1988CE228C;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C5CA961ADA;
+	Thu, 21 Sep 2023 16:30:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFACCC611A7;
 	Thu, 21 Sep 2023 16:30:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18BDC611A3;
-	Thu, 21 Sep 2023 16:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695313829;
-	bh=UPQ0Zrax+eCF7OJmrL4/OguCSthZYXjp/oX9HvOnGL0=;
+	s=k20201202; t=1695313831;
+	bh=H43DsDU/RmLDaEl6eOKwt5T7tmutU77sEJ06ee0iqD8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=LmAUkdzOtEMtKAUpDJ9biKyq9g9za06Y1rbG0zzk78BMLel6ZScB76w3n5vUeYGmC
-	 qhqGNCyetFmcBDupj8QQA2SgL5nIIzFfjQTmqhcP5zA3MdXZg5SAcirkd1nm4qAtI6
-	 GC6kF1S3/nGkia3D24Fm2y6IrYtY9w0LDNoIlrbMhFs3XiSyJsT8APodpml2Itu7PB
-	 tPhZUAswa6oMJNIrLMREdAxWm1I+4B8jUuyfzdhlVaKgseXwqzke+soj0DQRZx2bLB
-	 N8usMxTKDJM52g031/iX27WClVkDImwkFgm/i4sv5mOE3CZdHr0GMssRzAF5SCPj3F
-	 wknJTfhQcg2AA==
+	b=AFcwJO2ac/NhmC/ILDrN2YVf6OO344kixEXsAw2GOVeIrHIp8H72OC6bLTibPLcdJ
+	 ai0NjtmBD15yMK1PwbsZGdZwOZw3EcgUx+j9UfxZmYUdSOCCbzGK29GfUQwEj2C5qb
+	 Aj23mzLLZDI3ExFlv7F7/+Ve+a1Z/ZoG5Wua613qxkvP/S+VE6IE78+N0DEZBjOKrm
+	 BquFlNYTtN4XU0XFKci7TPQujloO745FSjC74tFBuxpPYMDG4Uv1K3yZXjnU5bRriE
+	 zmT1bJLgwMTX4jucYH5yiITKwypdiOUuUOYptIyAjHPlLT13HeQ0/aOlh+hDiSW8Ha
+	 CcqXhzBtWEMqg==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- daniel.baluta@nxp.com, rander.wang@intel.com
-In-Reply-To: <20230919104226.32239-1-peter.ujfalusi@linux.intel.com>
-References: <20230919104226.32239-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/9] ASoC: SOF: Use generic IPC type identifiers
-Message-Id: <169531382764.61074.12617582283625643667.b4-ty@kernel.org>
-Date: Thu, 21 Sep 2023 17:30:27 +0100
+ bard.liao@intel.com, peter.ujfalusi@linux.intel.com
+In-Reply-To: <20230919020011.1896041-1-yung-chuan.liao@linux.intel.com>
+References: <20230919020011.1896041-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: intel: Add CS42L43 sdw machine driver
+ support
+Message-Id: <169531382970.61074.5109700499295851468.b4-ty@kernel.org>
+Date: Thu, 21 Sep 2023 17:30:29 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: 72XVFU7RTX334PT35XOID2B672BZUNAY
-X-Message-ID-Hash: 72XVFU7RTX334PT35XOID2B672BZUNAY
+Message-ID-Hash: J5QJSWBCNHMZRQ37GSM4RW7TC7HN4EHB
+X-Message-ID-Hash: J5QJSWBCNHMZRQ37GSM4RW7TC7HN4EHB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72XVFU7RTX334PT35XOID2B672BZUNAY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J5QJSWBCNHMZRQ37GSM4RW7TC7HN4EHB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,15 +98,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 19 Sep 2023 13:42:17 +0300, Peter Ujfalusi wrote:
-> rename the IPC type defines to be more generic and intuitive:
-> SOF_IPC -> SOF_IPC_TYPE_3
-> SOF_INTEL_IPC4 -> SOF_IPC_TYPE_4
+On Tue, 19 Sep 2023 10:00:09 +0800, Bard Liao wrote:
+> Add cs42l43 codec support to sof_sdw machine driver.
 > 
-> No functional change, just renaming all around.
+> Bard Liao (1):
+>   ASoC: intel: sof_sdw: Add CS42L43 CODEC support
 > 
-> Regards,
-> Peter
+> Chao Song (1):
+>   ASoC: Intel: soc-acpi-intel-mtl-match: add acpi match table for
+>     cdb35l56-eight-c
 > 
 > [...]
 
@@ -116,24 +116,10 @@ Applied to
 
 Thanks!
 
-[1/9] ASoC: SOF: Introduce generic names for IPC types
-      commit: 6974f2cd2fa94fef663133af23722cf607853e22
-[2/9] ASoC: SOF: sof-pci-dev: Update the ipc_type module parameter description
-      commit: 1dff26582677849684204f3231cc7cdcb49fdb9a
-[3/9] ASoC: SOF: Kconfig: Rename SND_SOC_SOF_INTEL_IPC4 to SND_SOC_SOF_IPC4
-      commit: 82f4b383829322a19f91159cdfdaf6437f56dec6
-[4/9] ASoC: SOF: Use generic names for IPC types
-      commit: ebe18b1587aa548df09875c372ebb66e63cd5141
-[5/9] ASoC: SOF: amd: Use generic names for IPC types
-      commit: 3104c3267e95aec0e3bb41c4f13ae7b1703ad3f9
-[6/9] ASoC: SOF: imx: Use generic names for IPC types
-      commit: 6a645a5537619e43a8561462d5a8dd2cc74d26b6
-[7/9] ASoC: SOF: Intel: Use generic names for IPC types
-      commit: a8fffb94475fbcced74527a20182741b5ef3e5d4
-[8/9] ASoC: SOF: mediatek: Use generic names for IPC types
-      commit: 0f7e753fc3851aac8aeea6b551cbbcf6ca9093dd
-[9/9] ASoC: SOF: Drop unused IPC type defines
-      commit: 7b5300e90a781a37a058fce68dac0f7aaebf041b
+[1/2] ASoC: intel: sof_sdw: Add CS42L43 CODEC support
+      commit: 06d94b43fc39af16d3d74a93d27ee92902b56bc6
+[2/2] ASoC: Intel: soc-acpi-intel-mtl-match: add acpi match table for cdb35l56-eight-c
+      commit: 05fe62842804d644d986cb248ca871335b2628af
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

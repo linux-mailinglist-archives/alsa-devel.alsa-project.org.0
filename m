@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B44517A95BE
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 18:32:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 545D47A95C1
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Sep 2023 18:33:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBE59DF4;
-	Thu, 21 Sep 2023 18:31:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBE59DF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98F91AE9;
+	Thu, 21 Sep 2023 18:32:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98F91AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695313949;
-	bh=x01Kxm/9gYMEc3tRd6K+OX6u8aPjjVNrTUQsLyR+bh4=;
+	s=default; t=1695313995;
+	bh=qWPFMLFVEGIMCxbPPxnVC3lrckrj+Dp8mEfTPqVrRdc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tNv78ggZJAt9FzK8GGxDKscGTRHOhliKfYzmiVIsfJvM1YipecizcqbkDz7+v+hKI
-	 hIx9Tq5WLFCGSBNCRXo+l3ICuSTx8CvTqXeT1GLRkBiJbe2+wmh1jOfIOMOqftepoV
-	 qCdaha0EvTpPN+egSL6vji1jUV53gqCIg8Idv/LM=
+	b=XujT7qoFqz2hQDlMdInKIzYW834cSJQFBbMUuKb7qd2ul3fY9R6JuJJ0R4NHVz3J6
+	 wz5QW0VyKlGreJjq78bCNUFAO7ic+E+TwsJXcX7jnhmWtw3aftQy4gk6mSbKBVGrQD
+	 OxsmXI4yS9QdCb6RBHLsAsIG6i8o1cd+ASQ16jD0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 630E1F805D2; Thu, 21 Sep 2023 18:30:37 +0200 (CEST)
+	id 433C6F805E2; Thu, 21 Sep 2023 18:30:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68E8DF8047D;
-	Thu, 21 Sep 2023 18:30:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACA9BF805E2;
+	Thu, 21 Sep 2023 18:30:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8E2CF8059F; Thu, 21 Sep 2023 18:30:25 +0200 (CEST)
+	id 843FBF805B4; Thu, 21 Sep 2023 18:30:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A6C4FF8055A
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 18:30:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6C4FF8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8CEEF801F5
+	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 18:30:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8CEEF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FNedpMNV
+ header.s=k20201202 header.b=KhQKn3V9
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2EC4361F31;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6E44461ADA;
+	Thu, 21 Sep 2023 16:30:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F77C611A3;
 	Thu, 21 Sep 2023 16:30:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559EBC611A7;
-	Thu, 21 Sep 2023 16:30:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695313820;
-	bh=x01Kxm/9gYMEc3tRd6K+OX6u8aPjjVNrTUQsLyR+bh4=;
+	s=k20201202; t=1695313822;
+	bh=qWPFMLFVEGIMCxbPPxnVC3lrckrj+Dp8mEfTPqVrRdc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=FNedpMNVBuLXklKrexRLNACz6FR9IbuPvG0QlMqhjK7AhKPtyc4bNI5e+cdzcv/SN
-	 GK+8VztBWBTDT3cKs6HlLbcXxWVAjDwuGmf/fZm0Cn8T+pClNfYPN2VUym8huoAkOj
-	 BO+dn6JENh/8F8W+JqE9FLzWqtky5dPzP29RsLai9/EOFaBU1Vq0qT/6u7H6nwV1dF
-	 P6obK7VhKjXzoKqz+7jGNmAHWjKmDDP/d7tntSv0EZ5rGpg3bojsXPyq4B2JG/vy8n
-	 o1bqH+VhXSMN9Ro+LIDib9qDDaHs+TA/RcZQd6TWdswCC8HMMyVkSIT/fJmnOsaMpq
-	 Je9nX2cAhjrbw==
+	b=KhQKn3V9g5BW/9Qhj8g3nQutYyZtf0oDqr2EChiXQHNOgmBqLGSDzRlv9BkbSE2pd
+	 xu4NamnCoNh5ilhn4Fci3On1MbP4Rztvf0Imr3ay2F0dnzFfikPVdEUtkNVQWXz2a/
+	 qMaFQxSbd+wVLomHSN0u/dWQp3Dy6Fjl3cU5lOR8iG4yo6AeMNaZ1qIujnLpos32ba
+	 3uqdVzEW1nZqEaoJBGFimrm0M9Z/MajLGpHpt73CMLRL6sbnnOmXOavkdpcLxCnYk4
+	 On7oul8niR17ROzZA3z1FOszGHhWjhmMsjCt507SSAZALEoDyHFDEjaoCusjoweE3s
+	 ErbHu6jBacTkQ==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com, peter.ujfalusi@linux.intel.com
-In-Reply-To: <20230919092125.1922468-1-yung-chuan.liao@linux.intel.com>
-References: <20230919092125.1922468-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw: add support for SKU 0B14
-Message-Id: <169531381906.61074.12846477501137066646.b4-ty@kernel.org>
-Date: Thu, 21 Sep 2023 17:30:19 +0100
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com, guennadi.liakhovetski@linux.intel.com
+In-Reply-To: <20230919092416.4137-1-peter.ujfalusi@linux.intel.com>
+References: <20230919092416.4137-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/9] ASoC: SOF: ipc4/Intel: Support for firmware
+ exception handling
+Message-Id: <169531382089.61074.2227011623338990885.b4-ty@kernel.org>
+Date: Thu, 21 Sep 2023 17:30:20 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-034f2
-Message-ID-Hash: EEC77DGHAKDABQ4K2KQNLXXD4FEPJOMR
-X-Message-ID-Hash: EEC77DGHAKDABQ4K2KQNLXXD4FEPJOMR
+Message-ID-Hash: 3BYV436D23DWENPMNBYTGHVVFSPCUAV4
+X-Message-ID-Hash: 3BYV436D23DWENPMNBYTGHVVFSPCUAV4
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,18 +90,28 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EEC77DGHAKDABQ4K2KQNLXXD4FEPJOMR/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BYV436D23DWENPMNBYTGHVVFSPCUAV4/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 19 Sep 2023 17:21:25 +0800, Bard Liao wrote:
-> One more missing SKU in the list.
+On Tue, 19 Sep 2023 12:24:07 +0300, Peter Ujfalusi wrote:
+> When a firmware crashes it creats a panic information into a telemetry slot.
+> The panic format is defined by Zephyr, includes stack and additional information
+> to help to identify the reason for the crash.
+> Part of the firmware exception handling the firmware also sends an
+> EXCEPTION_CAUGHT notification.
 > 
+> This series implements the kernel side handling of the exception:
+> print information into the kernel log
+> export the whole telemetry slot to user space for tools extract additional
+> information from the panic dump.
 > 
+> [...]
 
 Applied to
 
@@ -107,8 +119,24 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: sof_sdw: add support for SKU 0B14
-      commit: fb0b8d299781be8d46b3612aa96cef28da0d93f4
+[1/9] ASoC: SOF: Xtensa: dump ar registers to restore call stack
+      commit: 58bb5081cba130f12c26d8e4d5e9416a0272f07e
+[2/9] ASoC: SOF: ipc4-mtrace: move debug slot related definitions to header.h
+      commit: 4287205065f244f4d40ae6aa7875b3ebffedcf8d
+[3/9] ASoC: SOF: ipc4: add a helper function to search debug slot
+      commit: a397899f81d52202265d4977a99085f53e426826
+[4/9] ASoC: SOF: ipc4: add definition of telemetry slot for exception handling
+      commit: ab05061d25806515358d184eb4d305f7f12befdc
+[5/9] ASoC: SOF: ipc4: add exception node in sof debugfs directory
+      commit: 80b567f8995757d36008f835853cea8d2f7c34c0
+[6/9] ASoC: SOF: Intel: add telemetry retrieval support on Intel platforms
+      commit: c8b54a2f7af41740b5faad2f6846d927b14369ca
+[7/9] ASoC: SOF: Intel: mtl: dump dsp stack
+      commit: e449b18ff03c2f90430d00486fd713854b28c077
+[8/9] ASoC: SOF: Intel: hda: add ipc4 FW panic support on CAVS 2.5+ platforms
+      commit: eb6e5dab11401c64f5d5576c71e5fc0a4c7b321a
+[9/9] ASoC: SOF: ipc4: handle EXCEPTION_CAUGHT notification from firmware
+      commit: c1c48fd6bbe788458e3685fea74bdb3cb148ff93
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

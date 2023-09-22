@@ -2,139 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0B797AB072
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 13:19:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3117AB25C
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 14:43:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 122BBE76;
-	Fri, 22 Sep 2023 13:18:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 122BBE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE920E75;
+	Fri, 22 Sep 2023 14:42:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE920E75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695381587;
-	bh=AVw18ZJcWe95JEPPwc/8PlFQPqC+Jsrx7IcBM+bpt34=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1695386591;
+	bh=1UUNn7UwKo13TynwAo5l0tLN5l7Z5ANcrHVyDiBSu70=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZppcsFFtcVAUTNinIFx0TF7pPOXLiUIJswAd4/p1Nr+tMBpZCVHd5O6Dk+xk05URV
-	 ADaoBybgWKa00d5KMbMduiO25wLXGzDWq/0GENsvU0OXlXotb0Zrq5oAWa5mF5XYVT
-	 taHi3yXNVHsAk97efSl3LmkBcshVwbnspCcQW6Kw=
+	b=Zw/RuQeNxdPhbbriPi9/8uJUj5jv3lr0wEEV4FVQTbTxLIMMWfvOjcY1b8rvb2Ja6
+	 OjMpi4fWNlCF9yBrjvx4mZaueJo5FyUTU7vSNNcChLrAndDXGScgTem0124fB5oCch
+	 7/hq86696YJOAl/PgzT7YL7WYfDTAI1QYbOrkbmE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DDB5F80494; Fri, 22 Sep 2023 13:18:56 +0200 (CEST)
+	id 7D2B2F8047D; Fri, 22 Sep 2023 14:42:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24E6FF80125;
-	Fri, 22 Sep 2023 13:18:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DC32F80124;
+	Fri, 22 Sep 2023 14:41:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45935F801F5; Fri, 22 Sep 2023 13:18:53 +0200 (CEST)
+	id 1B48DF801F5; Fri, 22 Sep 2023 11:57:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.7 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A08E9F800F4
-	for <alsa-devel@alsa-project.org>; Fri, 22 Sep 2023 13:18:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A08E9F800F4
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2F6FA62274;
-	Fri, 22 Sep 2023 11:18:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46DE7C433C7;
-	Fri, 22 Sep 2023 11:18:43 +0000 (UTC)
-Message-ID: <355bfaf0-c742-4c3d-ad12-c16ef1d1ae69@xs4all.nl>
-Date: Fri, 22 Sep 2023 13:18:41 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42843F800F4
+	for <alsa-devel@alsa-project.org>; Fri, 22 Sep 2023 11:57:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42843F800F4
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=marliere.net header.i=ricardo@marliere.net
+ header.a=rsa-sha256 header.s=zmail header.b=n8ydStTO
+ARC-Seal: i=1; a=rsa-sha256; t=1695376624; cv=none;
+	d=zohomail.com; s=zohoarc;
+	b=G02MAYnz4vsElkJioQi2M66CtNnnmCo6vKxX8OYluReTpMiefMZwBV/2PfjST8MIlq+ZtksEOAGtBunNmK4VMRelIfOxnfll6dcFu4h6LKjAN4rcGS91Okr6Yf9l4p/HHIT36BNfMg2bNOK0lrhj5nsXPpUUFXiGh0fkghwoo5M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc;
+	t=1695376624;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+	bh=ChCUGhgrB37iVI3Jg9e5dZ5Wq3H394srZL/HegY6ww4=;
+	b=I1Goo+q0G8oQ7vUmJdXXL8+2pcAg+Xo4ThPOlNpF+nYBWgVUwCcO1ZMT5Bz52u8obmJ3R6Su0lVctHqNp6aKYcYwVEDSz09fSQJjPPESL27OXjz7lovIkbiUySR8569z3sKDadISyu9jv5hZcr9ZK4zHJxpXDrELOJNUGY5B43E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=marliere.net;
+	spf=pass  smtp.mailfrom=ricardo@marliere.net;
+	dmarc=pass header.from=<ricardo@marliere.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1695376624;
+	s=zmail; d=marliere.net; i=ricardo@marliere.net;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=ChCUGhgrB37iVI3Jg9e5dZ5Wq3H394srZL/HegY6ww4=;
+	b=n8ydStTOIZQLKjZxF9Hh88d5+Cx+gVlYOm6wu6A8vcI8C0Jupe6T11PbCJCpSq7r
+	RcKvqKIr0pZBXrQx5adkT0Fd3fdWZS6dvtG1E7VN5th8XV/rsEt5AfdeRp/1Ge/wM7B
+	InFPa4bi+8Ym2Q8sooqEMG9pxrKf49KH2Z5CK09U=
+Received: from localhost (177.104.93.54 [177.104.93.54]) by mx.zohomail.com
+	with SMTPS id 1695376622146592.4625420091922;
+ Fri, 22 Sep 2023 02:57:02 -0700 (PDT)
+Date: Fri, 22 Sep 2023 06:56:59 -0300
+From: "Ricardo B. Marliere" <ricardo@marliere.net>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ruslan Bilovol <ruslan.bilovol@gmail.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linuxfoundation.org,
+ syzbot+59875ffef5cb9c9b29e9@syzkaller.appspotmail.com
+Subject: Re: [PATCH] sound: usb: increase snd_card alloc size
+Message-ID: <w6azqrep2c37i5i5yc5zp67cyhgyfwbiygax3depapzrkpesdl@twqvzqqsvkfh>
+References: <20230922005152.163640-1-ricardo@marliere.net>
+ <87h6nmegt9.wl-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 09/11] media: uapi: Add
- V4L2_CID_USER_IMX_ASRC_RATIO_MOD control
-Content-Language: en-US, nl
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-References: <1695202370-24678-1-git-send-email-shengjiu.wang@nxp.com>
- <1695202370-24678-10-git-send-email-shengjiu.wang@nxp.com>
- <fbedcbf1-d925-47d6-b9fb-c9e15263c117@xs4all.nl>
- <CAA+D8APyNGFSry1GUv6TOW0nKYHKSwQd5bTcRNuT7cu0Xf8eUA@mail.gmail.com>
- <5292ce53-643e-44f0-b2cc-cb66efee9712@xs4all.nl>
- <CAA+D8AMZN59uTRs2sOrSeVb5AGopTzurNVCTNwJOVPahfEXd+w@mail.gmail.com>
- <2d44d574-08e5-4db3-87d9-5d12657f8935@xs4all.nl>
- <CAA+D8AN+Uz+3CN9BnD5R_gp5opD1v-D8FBjANRpGrH43Ac2tdg@mail.gmail.com>
- <c3d08bc5-49af-4967-8d06-572219cad9de@xs4all.nl>
- <CAA+D8AMDN+0VZJ0BwfjqV2qxv99-WvqePTjkdo1xO7jhM8O=xw@mail.gmail.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Autocrypt: addr=hverkuil@xs4all.nl; keydata=
- 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
-In-Reply-To: 
- <CAA+D8AMDN+0VZJ0BwfjqV2qxv99-WvqePTjkdo1xO7jhM8O=xw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6PJ36AMSMQDBFG7FD6IJKISPWFTDCBCA
-X-Message-ID-Hash: 6PJ36AMSMQDBFG7FD6IJKISPWFTDCBCA
-X-MailFrom: SRS0=3Zpk=FG=xs4all.nl=hverkuil@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87h6nmegt9.wl-tiwai@suse.de>
+X-ZohoMailClient: External
+X-MailFrom: ricardo@marliere.net
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: NJPD3VKG6IPW7E3XDHNU45FF6JAWKCC5
+X-Message-ID-Hash: NJPD3VKG6IPW7E3XDHNU45FF6JAWKCC5
+X-Mailman-Approved-At: Fri, 22 Sep 2023 12:41:56 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6PJ36AMSMQDBFG7FD6IJKISPWFTDCBCA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJPD3VKG6IPW7E3XDHNU45FF6JAWKCC5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,282 +108,226 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22/09/2023 12:52, Shengjiu Wang wrote:
-> On Fri, Sep 22, 2023 at 4:54 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
->>
->> Hi Shengjiu,
->>
->> On 22/09/2023 04:51, Shengjiu Wang wrote:
->>> On Thu, Sep 21, 2023 at 10:09 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
->>>>
->>>> On 21/09/2023 13:13, Shengjiu Wang wrote:
->>>>> On Thu, Sep 21, 2023 at 3:11 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
->>>>>>
->>>>>> On 21/09/2023 08:55, Shengjiu Wang wrote:
->>>>>>> On Wed, Sep 20, 2023 at 6:19 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
->>>>>>>>
->>>>>>>> On 20/09/2023 11:32, Shengjiu Wang wrote:
->>>>>>>>> The input clock and output clock may not be the accurate
->>>>>>>>> rate as the sample rate, there is some drift, so the convert
->>>>>>>>> ratio of i.MX ASRC module need to be changed according to
->>>>>>>>> actual clock rate.
->>>>>>>>>
->>>>>>>>> Add V4L2_CID_USER_IMX_ASRC_RATIO_MOD control for user to
->>>>>>>>> adjust the ratio.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
->>>>>>>>> ---
->>>>>>>>>  Documentation/userspace-api/media/v4l/control.rst | 5 +++++
->>>>>>>>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c         | 1 +
->>>>>>>>>  include/uapi/linux/v4l2-controls.h                | 1 +
->>>>>>>>>  3 files changed, 7 insertions(+)
->>>>>>>>>
->>>>>>>>> diff --git a/Documentation/userspace-api/media/v4l/control.rst b/Documentation/userspace-api/media/v4l/control.rst
->>>>>>>>> index 4463fce694b0..2bc175900a34 100644
->>>>>>>>> --- a/Documentation/userspace-api/media/v4l/control.rst
->>>>>>>>> +++ b/Documentation/userspace-api/media/v4l/control.rst
->>>>>>>>> @@ -318,6 +318,11 @@ Control IDs
->>>>>>>>>      depending on particular custom controls should check the driver name
->>>>>>>>>      and version, see :ref:`querycap`.
->>>>>>>>>
->>>>>>>>> +.. _v4l2-audio-imx:
->>>>>>>>> +
->>>>>>>>> +``V4L2_CID_USER_IMX_ASRC_RATIO_MOD``
->>>>>>>>> +    sets the rasampler ratio modifier of i.MX asrc module.
->>>>>>>>
->>>>>>>> rasampler -> resampler (I think?)
->>>>>>>>
->>>>>>>> This doesn't document at all what the type of the control is or how to interpret it.
->>>>>>>>
->>>>>>>>> +
->>>>>>>>>  Applications can enumerate the available controls with the
->>>>>>>>>  :ref:`VIDIOC_QUERYCTRL` and
->>>>>>>>>  :ref:`VIDIOC_QUERYMENU <VIDIOC_QUERYCTRL>` ioctls, get and set a
->>>>>>>>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>>>>>>>> index 8696eb1cdd61..16f66f66198c 100644
->>>>>>>>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>>>>>>>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>>>>>>>> @@ -1242,6 +1242,7 @@ const char *v4l2_ctrl_get_name(u32 id)
->>>>>>>>>       case V4L2_CID_COLORIMETRY_CLASS:        return "Colorimetry Controls";
->>>>>>>>>       case V4L2_CID_COLORIMETRY_HDR10_CLL_INFO:               return "HDR10 Content Light Info";
->>>>>>>>>       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:      return "HDR10 Mastering Display";
->>>>>>>>> +     case V4L2_CID_USER_IMX_ASRC_RATIO_MOD:                  return "ASRC RATIO MOD";
->>>>>>>>
->>>>>>>> Let's stay consistent with the other control names:
->>>>>>>>
->>>>>>>> "ASRC Ratio Modifier"
->>>>>>>>
->>>>>>>> But if this is a driver specific control, then this doesn't belong here.
->>>>>>>>
->>>>>>>> Driver specific controls are defined in the driver itself, including this
->>>>>>>> description.
->>>>>>>>
->>>>>>>> Same for the control documentation: if it is driver specific, then that
->>>>>>>> typically is documented either in a driver-specific public header, or
->>>>>>>> possibly in driver-specific documentation (Documentation/admin-guide/media/).
->>>>>>>>
->>>>>>>> But is this imx specific? Wouldn't other similar devices need this?
->>>>>>>
->>>>>>> It is imx specific.
->>>>>>
->>>>>> Why? I'm not opposed to this, but I wonder if you looked at datasheets of
->>>>>> similar devices from other vendors: would they use something similar?
->>>>>
->>>>> I tried to find some datasheets for other vendors, but failed to find them.
->>>>> So I don't know how they implement this part.
->>>>>
->>>>> Ratio modification on i.MX is to modify the configured ratio.
->>>>> For example, the input rate is 44.1kHz,  output rate is 48kHz,
->>>>> configured ratio = 441/480,   the ratio modification is to modify
->>>>> the fractional part of (441/480) with small steps.  because the
->>>>> input clock or output clock has drift in the real hardware.
->>>>> The ratio modification is signed value, it is added to configured
->>>>> ratio.
->>>>>
->>>>> In our case, we have some sysfs interface for user to get the
->>>>> clock from input audio device and output audio device, user
->>>>> need to calculate the ratio dynamically , then configure the
->>>>> modification to driver
->>>>
->>>> So this ratio modifier comes into play when either the audio input
->>>> or audio output (or both) are realtime audio inputs/outputs where
->>>> the sample rate is not a perfect 44.1 or 48 kHz, but slightly different?
->>>
->>> yes.
->>>
->>>>
->>>> If you would use this resampler to do offline resampling (i.e. resample
->>>> a 44.1 kHz wav file to a 48 kHz wav file), then this wouldn't be needed,
->>>> correct?
->>>
->>> yes.
->>>
->>>>
->>>> When dealing with realtime audio, userspace will know how to get the
->>>> precise sample rate, but that is out-of-scope of this driver. Here
->>>> you just need a knob to slightly tweak the resampling ratio.
->>>>
->>>> If my understanding is correct, then I wonder if it is such a good
->>>> idea to put the rate into the v4l2_audio_format: it really has nothing
->>>> to do with the audio format as it is stored in memory.
->>>>
->>>> What if you would drop that 'rate' field and instead create just a single
->>>> control for the resampling ratio. This can use struct v4l2_fract to represent
->>>> a fraction. It would be more work since v4l2_fract is currently not supported
->>>> for controls, but it is not hard to add support for that (just a bit tedious)
->>>> and I actually think this might be a perfect solution.
->>>>
->>>> That way userspace can quite precisely tweak the ratio on the fly, and
->>>> it is a generic solution as well instead of mediatek specific.
->>>>
->>>
->>> (rate, channel, format) are the basic parameters for audio stream.
->>> For example, if there is decoder/encoder requirement, the rate field is
->>> still needed,  I think the rate shouldn't be removed.
->>
->> The v4l2_format struct is meant to describe the format of the data in memory,
->> not the rate at which the data has to be processed. It is the same for video:
->> v4l2_format describes the memory layout of the video data, not the framerate.
->> That is done through other ioctls (VIDIOC_S/G_PARM, a horrible ioctl, but
->> that's another story). So for audio the channel and format fields define how
->> the audio data is laid out in memory, but the rate has nothing to do with
->> that.
->>
->> For this resampler you don't even need the rate at all, all you need is the
->> rate ratio, right? I.e. there is no difference when resampling from 10 kHz to 20 kHz
->> vs. 30 kHz to 60 kHz, the ratio is the same.
->>
->> Or is that too simplistic and the hardware needs the actual rates as well?
->>
->> Remember that I am a video guy, not an audio guy, so apologies if I ask stupid
->> questions!
->>
->> Regardless, I don't believe the rate belongs to the audio format struct. It's
->> not how v4l2_format works. If the rate is needed, then that is probably best
->> done through controls, one for the source (output queue) and one for the
->> destination (capture queue).
->>
+On 23/09/22 10:46AM, Takashi Iwai wrote:
+> On Fri, 22 Sep 2023 02:51:53 +0200,
+> Ricardo B. Marliere wrote:
+> > 
+> > Syzbot reports a slab-out-of-bounds read of a snd_card object. When
+> > snd_usb_audio_create calls snd_card_new, it passes sizeof(*chip) as the
+> > extra_size argument, which is not enough in this case.
+> > 
+> > Relevant logs below:
+> > 
+> > BUG: KASAN: slab-out-of-bounds in imon_probe+0x2983/0x3910
+> > Read of size 1 at addr ffff8880436a2c71 by task kworker/1:2/777
+> > (...)
+> > The buggy address belongs to the object at ffff8880436a2000
+> >  which belongs to the cache kmalloc-4k of size 4096
+> > The buggy address is located 1 bytes to the right of
+> >  allocated 3184-byte region [ffff8880436a2000, ffff8880436a2c70)
+> > 
+> > Reported-by: syzbot+59875ffef5cb9c9b29e9@syzkaller.appspotmail.com
+> > Closes: https://lore.kernel.org/all/000000000000a838aa0603cc74d6@google.co/m
+> > Signed-off-by: Ricardo B. Marliere <ricardo@marliere.net>
+> > ---
+> >  sound/usb/card.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/sound/usb/card.c b/sound/usb/card.c
+> > index 1b2edc0fd2e9..6578326d33e8 100644
+> > --- a/sound/usb/card.c
+> > +++ b/sound/usb/card.c
+> > @@ -619,7 +619,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+> >  	}
+> >  
+> >  	err = snd_card_new(&intf->dev, index[idx], id[idx], THIS_MODULE,
+> > -			   sizeof(*chip), &card);
+> > +			   sizeof(*chip) + 2, &card);
 > 
-> I am also not familiar with V4L2.  So I try not to touch too many things in
-> V4L2.
+> Sorry, it's no-no.  We have to fix the cause of the OOB access instead
+> of papering over with a random number of increase.
+
+Hey Takashi, you are right.
+
+> Unfortunately, most important piece of information is trimmed in the
+> changelog, so I can't judge what's going on.  The only useful info
+> there is that it's something to do with imon driver, but it's
+> completely independent from USB-audio.  How does it access to the
+> external memory allocated by snd-usb-audio driver at all?
 > 
-> The current asrc memory to memory is implemented based on the alsa
-> asrc driver,  that asrc alsa driver needs 'rate' parameter.
-> 
-> The struct v4l2_vbi_format has a value: sampling_rate,  is there any reason
-> here?
+> Before jumping to the solution, we must understand the problem.
 
-That has nothing to do with the frame rate. In the case of VBI it is the sampling
-rate with which the receiver hardware samples the data, and it is needed in order
-to interpret the data. It is an old API, and I suspect that today I would use a
-control for this as well.
+The link mentioned in the "Closes:" tag contains the logs pasted below.
+I will continue to investigate the root cause of this oob access, please
+let me know if you have any clue I should look into.
 
-> 
-> if use controls,  do I need to define a new one?
+Thanks for reviewing!
+-	Ricardo
 
-Yes.
+==================================================================
+BUG: KASAN: slab-out-of-bounds in imon_init_intf1 drivers/media/rc/imon.c:2323 [inline]
+BUG: KASAN: slab-out-of-bounds in imon_probe+0x298f/0x38f0 drivers/media/rc/imon.c:2449
+Read of size 1 at addr ffff888069cbac71 by task kworker/1:3/5066
 
-"SOURCE_RATE" and "TARGET_RATE" perhaps? Or some variation on that? "DEST_RATE" would
-also work.
+CPU: 1 PID: 5066 Comm: kworker/1:3 Not tainted 6.5.0-rc7-next-20230821-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/26/2023
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0xd9/0x1b0 lib/dump_stack.c:106
+ print_address_description mm/kasan/report.c:364 [inline]
+ print_report+0xc4/0x620 mm/kasan/report.c:475
+ kasan_report+0xda/0x110 mm/kasan/report.c:588
+ imon_init_intf1 drivers/media/rc/imon.c:2323 [inline]
+ imon_probe+0x298f/0x38f0 drivers/media/rc/imon.c:2449
+ usb_probe_interface+0x307/0x930 drivers/usb/core/driver.c:396
+ call_driver_probe drivers/base/dd.c:579 [inline]
+ really_probe+0x234/0xc90 drivers/base/dd.c:658
+ __driver_probe_device+0x1de/0x4b0 drivers/base/dd.c:800
+ driver_probe_device+0x4c/0x1a0 drivers/base/dd.c:830
+ __device_attach_driver+0x1d4/0x300 drivers/base/dd.c:958
+ bus_for_each_drv+0x157/0x1d0 drivers/base/bus.c:457
+ __device_attach+0x1e8/0x4b0 drivers/base/dd.c:1030
+ bus_probe_device+0x17c/0x1c0 drivers/base/bus.c:532
+ device_add+0x11f1/0x1b40 drivers/base/core.c:3623
+ usb_set_configuration+0x10cb/0x1c40 drivers/usb/core/message.c:2207
+ usb_generic_driver_probe+0xca/0x130 drivers/usb/core/generic.c:238
+ usb_probe_device+0xda/0x2c0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:579 [inline]
+ really_probe+0x234/0xc90 drivers/base/dd.c:658
+ __driver_probe_device+0x1de/0x4b0 drivers/base/dd.c:800
+ driver_probe_device+0x4c/0x1a0 drivers/base/dd.c:830
+ __device_attach_driver+0x1d4/0x300 drivers/base/dd.c:958
+ bus_for_each_drv+0x157/0x1d0 drivers/base/bus.c:457
+ __device_attach+0x1e8/0x4b0 drivers/base/dd.c:1030
+ bus_probe_device+0x17c/0x1c0 drivers/base/bus.c:532
+ device_add+0x11f1/0x1b40 drivers/base/core.c:3623
+ usb_new_device+0xd80/0x1960 drivers/usb/core/hub.c:2589
+ hub_port_connect drivers/usb/core/hub.c:5440 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5580 [inline]
+ port_event drivers/usb/core/hub.c:5740 [inline]
+ hub_event+0x2daf/0x4e00 drivers/usb/core/hub.c:5822
+ process_one_work+0x887/0x15d0 kernel/workqueue.c:2630
+ process_scheduled_works kernel/workqueue.c:2703 [inline]
+ worker_thread+0x8bb/0x1290 kernel/workqueue.c:2784
+ kthread+0x33a/0x430 kernel/kthread.c:388
+ ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
+ </TASK>
 
-I'm wondering about the unit, mostly because I really don't like that rate modifier
-control. If you would specify the rate in mHz, would that give enough precision to
-tweak the audio rate if needed?
+Allocated by task 5066:
+ kasan_save_stack+0x33/0x50 mm/kasan/common.c:45
+ kasan_set_track+0x25/0x30 mm/kasan/common.c:52
+ ____kasan_kmalloc mm/kasan/common.c:374 [inline]
+ __kasan_kmalloc+0xa2/0xb0 mm/kasan/common.c:383
+ kasan_kmalloc include/linux/kasan.h:198 [inline]
+ __do_kmalloc_node mm/slab_common.c:1004 [inline]
+ __kmalloc+0x60/0x100 mm/slab_common.c:1017
+ kmalloc include/linux/slab.h:604 [inline]
+ kzalloc include/linux/slab.h:721 [inline]
+ snd_card_new+0x74/0x110 sound/core/init.c:184
+ snd_usb_audio_create sound/usb/card.c:621 [inline]
+ usb_audio_probe+0x1905/0x3c60 sound/usb/card.c:827
+ usb_probe_interface+0x307/0x930 drivers/usb/core/driver.c:396
+ call_driver_probe drivers/base/dd.c:579 [inline]
+ really_probe+0x234/0xc90 drivers/base/dd.c:658
+ __driver_probe_device+0x1de/0x4b0 drivers/base/dd.c:800
+ driver_probe_device+0x4c/0x1a0 drivers/base/dd.c:830
+ __device_attach_driver+0x1d4/0x300 drivers/base/dd.c:958
+ bus_for_each_drv+0x157/0x1d0 drivers/base/bus.c:457
+ __device_attach+0x1e8/0x4b0 drivers/base/dd.c:1030
+ bus_probe_device+0x17c/0x1c0 drivers/base/bus.c:532
+ device_add+0x11f1/0x1b40 drivers/base/core.c:3623
+ usb_set_configuration+0x10cb/0x1c40 drivers/usb/core/message.c:2207
+ usb_generic_driver_probe+0xca/0x130 drivers/usb/core/generic.c:238
+ usb_probe_device+0xda/0x2c0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:579 [inline]
+ really_probe+0x234/0xc90 drivers/base/dd.c:658
+ __driver_probe_device+0x1de/0x4b0 drivers/base/dd.c:800
+ driver_probe_device+0x4c/0x1a0 drivers/base/dd.c:830
+ __device_attach_driver+0x1d4/0x300 drivers/base/dd.c:958
+ bus_for_each_drv+0x157/0x1d0 drivers/base/bus.c:457
+ __device_attach+0x1e8/0x4b0 drivers/base/dd.c:1030
+ bus_probe_device+0x17c/0x1c0 drivers/base/bus.c:532
+ device_add+0x11f1/0x1b40 drivers/base/core.c:3623
+ usb_new_device+0xd80/0x1960 drivers/usb/core/hub.c:2589
+ hub_port_connect drivers/usb/core/hub.c:5440 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5580 [inline]
+ port_event drivers/usb/core/hub.c:5740 [inline]
+ hub_event+0x2daf/0x4e00 drivers/usb/core/hub.c:5822
+ process_one_work+0x887/0x15d0 kernel/workqueue.c:2630
+ process_scheduled_works kernel/workqueue.c:2703 [inline]
+ worker_thread+0x8bb/0x1290 kernel/workqueue.c:2784
+ kthread+0x33a/0x430 kernel/kthread.c:388
+ ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
 
-And that would also be a generic API, rather than mediatek specific.
+The buggy address belongs to the object at ffff888069cba000
+ which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 1 bytes to the right of
+ allocated 3184-byte region [ffff888069cba000, ffff888069cbac70)
 
-Regards,
+The buggy address belongs to the physical page:
+page:ffffea0001a72e00 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x69cb8
+head:ffffea0001a72e00 order:3 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000840(slab|head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: 0xffffffff()
+raw: 00fff00000000840 ffff888012c42140 dead000000000122 0000000000000000
+raw: 0000000000000000 0000000000040004 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0x1d2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC|__GFP_HARDWALL), pid 27, tgid 27 (kworker/1:1), ts 97911259229, free_ts 34249861969
+ set_page_owner include/linux/page_owner.h:31 [inline]
+ post_alloc_hook+0x2cf/0x340 mm/page_alloc.c:1530
+ prep_new_page mm/page_alloc.c:1537 [inline]
+ get_page_from_freelist+0x10d7/0x31b0 mm/page_alloc.c:3213
+ __alloc_pages+0x1d0/0x4a0 mm/page_alloc.c:4469
+ alloc_pages+0x1a9/0x270 mm/mempolicy.c:2298
+ alloc_slab_page mm/slub.c:1870 [inline]
+ allocate_slab+0x251/0x380 mm/slub.c:2017
+ new_slab mm/slub.c:2070 [inline]
+ ___slab_alloc+0x8be/0x1570 mm/slub.c:3223
+ __slab_alloc.constprop.0+0x56/0xa0 mm/slub.c:3322
+ __slab_alloc_node mm/slub.c:3375 [inline]
+ slab_alloc_node mm/slub.c:3468 [inline]
+ __kmem_cache_alloc_node+0x137/0x350 mm/slub.c:3517
+ __do_kmalloc_node mm/slab_common.c:1003 [inline]
+ __kmalloc_node_track_caller+0x50/0x100 mm/slab_common.c:1024
+ kmalloc_reserve+0xef/0x270 net/core/skbuff.c:575
+ __alloc_skb+0x12b/0x330 net/core/skbuff.c:644
+ alloc_skb include/linux/skbuff.h:1286 [inline]
+ nsim_dev_trap_skb_build drivers/net/netdevsim/dev.c:748 [inline]
+ nsim_dev_trap_report drivers/net/netdevsim/dev.c:805 [inline]
+ nsim_dev_trap_report_work+0x29e/0xc70 drivers/net/netdevsim/dev.c:850
+ process_one_work+0x887/0x15d0 kernel/workqueue.c:2630
+ process_scheduled_works kernel/workqueue.c:2703 [inline]
+ worker_thread+0x8bb/0x1290 kernel/workqueue.c:2784
+ kthread+0x33a/0x430 kernel/kthread.c:388
+ ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:147
+page last free stack trace:
+ reset_page_owner include/linux/page_owner.h:24 [inline]
+ free_pages_prepare mm/page_alloc.c:1130 [inline]
+ free_unref_page_prepare+0x476/0xa40 mm/page_alloc.c:2342
+ free_unref_page+0x33/0x3b0 mm/page_alloc.c:2435
+ free_contig_range+0xb6/0x190 mm/page_alloc.c:6385
+ destroy_args+0x768/0x990 mm/debug_vm_pgtable.c:1028
+ debug_vm_pgtable+0x1d7e/0x3e00 mm/debug_vm_pgtable.c:1408
+ do_one_initcall+0x117/0x630 init/main.c:1232
+ do_initcall_level init/main.c:1294 [inline]
+ do_initcalls init/main.c:1310 [inline]
+ do_basic_setup init/main.c:1329 [inline]
+ kernel_init_freeable+0x5c2/0x900 init/main.c:1547
+ kernel_init+0x1c/0x2a0 init/main.c:1437
+ ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:304
 
-	Hans
-
-> 
-> best regards
-> wang shengjiu
-> 
->> Regards,
->>
->>         Hans
->>
->>>
->>> tweak ratio is not always needed by use case. As you said, for
->>> file to file conversion, it is not needed, so keeping 'rate' is necessary.
->>>
->>> best regards
->>> wang shengjiu
->>>
->>>> Regards,
->>>>
->>>>         Hans
->>>>
->>>>>
->>>>> May be other vendors has similar implementation. or make
->>>>> the definition be generic is an option.
->>>>>
->>>>> best regards
->>>>> wang shengjiu
->>>>>
->>>>>>
->>>>>> And the very short description you gave in the commit log refers to input
->>>>>> and output clock: how would userspace know those clock frequencies? In
->>>>>> other words, what information does userspace need in order to set this
->>>>>> control correctly? And is that information actually available? How would
->>>>>> you use this control?
->>>>>>
->>>>>> I don't really understand how this is supposed to be used.
->>>>>>
->>>>>>>
->>>>>>> Does this mean that I need to create a header file in include/uapi/linux
->>>>>>> folder to put this definition?  I just hesitate if this is necessary.
->>>>>>
->>>>>> Yes, put it there. There are some examples of this already:
->>>>>>
->>>>>> include/uapi/linux/aspeed-video.h
->>>>>> include/uapi/linux/max2175.h
->>>>>>
->>>>>>>
->>>>>>> There is folder Documentation/userspace-api/media/drivers/ for drivers
->>>>>>> Should this document in this folder, not in the
->>>>>>> Documentation/admin-guide/media/?
->>>>>>
->>>>>> Yes, you are correct. For the headers above, the corresponding documentation
->>>>>> is in:
->>>>>>
->>>>>> Documentation/userspace-api/media/drivers/aspeed-video.rst
->>>>>> Documentation/userspace-api/media/drivers/max2175.rst
->>>>>>
->>>>>> So you have some examples as reference.
->>>>>>
->>>>>> Frankly, what is in admin-guide and in userspace-api is a bit random, it
->>>>>> probably could use a cleanup.
->>>>>>
->>>>>> Regards,
->>>>>>
->>>>>>         Hans
->>>>>>
->>>>>>>
->>>>>>> Best regards
->>>>>>> Wang shengjiu
->>>>>>>>
->>>>>>>>>       default:
->>>>>>>>>               return NULL;
->>>>>>>>>       }
->>>>>>>>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
->>>>>>>>> index c3604a0a3e30..b1c319906d12 100644
->>>>>>>>> --- a/include/uapi/linux/v4l2-controls.h
->>>>>>>>> +++ b/include/uapi/linux/v4l2-controls.h
->>>>>>>>> @@ -162,6 +162,7 @@ enum v4l2_colorfx {
->>>>>>>>>  /* The base for the imx driver controls.
->>>>>>>>>   * We reserve 16 controls for this driver. */
->>>>>>>>>  #define V4L2_CID_USER_IMX_BASE                       (V4L2_CID_USER_BASE + 0x10b0)
->>>>>>>>> +#define V4L2_CID_USER_IMX_ASRC_RATIO_MOD     (V4L2_CID_USER_IMX_BASE + 0)
->>>>>>>>>
->>>>>>>>>  /*
->>>>>>>>>   * The base for the atmel isc driver controls.
->>>>>>>>
->>>>>>>> Regards,
->>>>>>>>
->>>>>>>>         Hans
->>>>>>
->>>>
->>
+Memory state around the buggy address:
+ ffff888069cbab00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff888069cbab80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff888069cbac00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc fc
+                                                             ^
+ ffff888069cbac80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888069cbad00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
 

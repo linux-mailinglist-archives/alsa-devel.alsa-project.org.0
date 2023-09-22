@@ -2,106 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8237AB1B5
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 14:04:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC857AB238
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 14:35:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B29F1E12;
-	Fri, 22 Sep 2023 14:03:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B29F1E12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53FD1E7B;
+	Fri, 22 Sep 2023 14:34:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FD1E7B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695384245;
-	bh=fPtAXis1fewUnUMnrSzi4Is3JaQCt/rG8aIHxDhOVbg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1695386107;
+	bh=RzoEDKgXA9Plve5Vj9i1yQ82lvCPe4tIm9i1J+xrNbo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VnD6gNkKXDOaCutlt8s6e0A0DXfOCBgNxTVgggUxlFgpqvxE4TRbJ6jWQEcr/nq5B
-	 SyaFuxnH5dlqOykyQzarqS/SJqA5rcLPgMg+7H/OPTf+DBuVW2Sy/hJSUzyzgAzPpN
-	 ay776wIivVe6Qpx49bw53yxrnVWwr54zGNF6iJb4=
+	b=QXCgsOTkYGdc9WmmpO4wa45tH84MI0kFavBbSLnX+xSHFoijwSdfO3gLlYqor6PHc
+	 tX4D+CiSaNZFyjXDIBzi6uluB+86x2gH7yYC8CzmvLHB994wzJAD6Oj15JhdRdowLO
+	 wFLJzh3Mdl5Dd4/Z35qn9LyZND4TnYP7W9CKgee4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38198F80005; Fri, 22 Sep 2023 14:03:15 +0200 (CEST)
+	id 7D73EF8047D; Fri, 22 Sep 2023 14:34:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF91DF80125;
-	Fri, 22 Sep 2023 14:03:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EC91F80124;
+	Fri, 22 Sep 2023 14:34:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3A56F801F5; Fri, 22 Sep 2023 14:03:10 +0200 (CEST)
+	id 683AFF80125; Fri, 22 Sep 2023 14:34:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+X-Spam-Level: 
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF30AF80124
-	for <alsa-devel@alsa-project.org>; Fri, 22 Sep 2023 14:02:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF30AF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 66BC2F800AA
+	for <alsa-devel@alsa-project.org>; Fri, 22 Sep 2023 14:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66BC2F800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=IO1dDP3e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695384165;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7BA8QLNemiJIXUC+XXC0PAivfRO0j2uaFr7AQHg4nPM=;
-	b=IO1dDP3etDIUgSVMHmWumrWh0mMiZgmUyegLeO+q9CzDv0dErv1wo9jMQjtpAZ1JMWsBKo
-	UuXMPbxS/5vBiEN521ytolwruWcf5yr4L43lFZtaB32iMPRekwcNsyidZW4tAnpFVF73oN
-	AgdUp0RrQ+8O5spKwi1Kl5yGF6TsEEo=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-578-VMVqFlzOOAy8DJUDv5pSRw-1; Fri, 22 Sep 2023 08:02:41 -0400
-X-MC-Unique: VMVqFlzOOAy8DJUDv5pSRw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=fail reason="signature verification failed" (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=WXWXW5xB
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CD583816C82;
-	Fri, 22 Sep 2023 12:02:40 +0000 (UTC)
-Received: from warthog.procyon.org.com (unknown [10.42.28.216])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 590362156701;
-	Fri, 22 Sep 2023 12:02:37 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: David Howells <dhowells@redhat.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Christian Brauner <christian@brauner.io>,
-	David Laight <David.Laight@ACULAB.COM>,
-	Matthew Wilcox <willy@infradead.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.de>,
-	Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	alsa-devel@alsa-project.org
-Subject: [PATCH v6 03/13] sound: Fix snd_pcm_readv()/writev() to use iov
- access functions
-Date: Fri, 22 Sep 2023 13:02:17 +0100
-Message-ID: <20230922120227.1173720-4-dhowells@redhat.com>
-In-Reply-To: <20230922120227.1173720-1-dhowells@redhat.com>
-References: <20230922120227.1173720-1-dhowells@redhat.com>
-MIME-Version: 1.0
+	by sin.source.kernel.org (Postfix) with ESMTPS id 0810ECE243B;
+	Fri, 22 Sep 2023 12:33:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68252C433C7;
+	Fri, 22 Sep 2023 12:33:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695386016;
+	bh=RzoEDKgXA9Plve5Vj9i1yQ82lvCPe4tIm9i1J+xrNbo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=WXWXW5xBiYKZk3MrZ3MFLRAgcBn0R31B8ZNj2AuqPCzk+0Wzk6sgKzXf7UHDyh/n0
+	 dV4FcaGJTmvygVdouHHwRcrTHWKun9ktn8gwloWlIF7vCBQS1eWCq/O5AKOlDJVmnt
+	 XLNSnLPYo1j9Gug2yMjntpdQjIWXPUeFu5xqBC7rC2UnpsFat6nj8TcuhfXh01qJUC
+	 jeZGohmVpJSgSmtql/ZqFWiYyvRnDAsPOAm1VZJFoYdvCRBTE1apiup+5laG9NfQ9O
+	 01D9CnITZPeK7d4eGlyMYc7adVzZk112bEqkg6sTtQpxhWLKexeAtRKB2ViyP8mOuY
+	 j4yZ3wRBvNfYQ==
+Received: (nullmailer pid 2919399 invoked by uid 1000);
+	Fri, 22 Sep 2023 12:33:32 -0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Message-ID-Hash: HM3W3275VDQIRG3PJP3BOHOFAZ6XCSKX
-X-Message-ID-Hash: HM3W3275VDQIRG3PJP3BOHOFAZ6XCSKX
-X-MailFrom: dhowells@redhat.com
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Randy Dunlap <rdunlap@infradead.org>, Takashi Iwai <tiwai@suse.com>,
+ Simon Horman <horms@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-gpio@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ netdev@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Andrew Lunn <andrew@lunn.ch>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ alsa-devel@alsa-project.org, Paolo Abeni <pabeni@redhat.com>,
+ Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Shengjiu Wan
+ g <shengjiu.wang@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ devicetree@vger.kernel.org, Li Yang <leoyang.li@nxp.com>,
+ Qiang Zhao <qiang.zhao@nxp.com>
+In-Reply-To: <20230922075913.422435-26-herve.codina@bootlin.com>
+References: <20230922075913.422435-1-herve.codina@bootlin.com>
+ <20230922075913.422435-26-herve.codina@bootlin.com>
+Message-Id: <169538601225.2919383.2942072541503354871.robh@kernel.org>
+Subject: Re: [PATCH v6 25/30] dt-bindings: net: Add the Lantiq PEF2256
+ E1/T1/J1 framer
+Date: Fri, 22 Sep 2023 07:33:32 -0500
+Message-ID-Hash: GRNI3UYCETM5GOOMQPKRXUJNFEFCRHN4
+X-Message-ID-Hash: GRNI3UYCETM5GOOMQPKRXUJNFEFCRHN4
+X-MailFrom: SRS0=kpay=FG=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HM3W3275VDQIRG3PJP3BOHOFAZ6XCSKX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GRNI3UYCETM5GOOMQPKRXUJNFEFCRHN4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,41 +118,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix snd_pcm_readv()/writev() to use iov access functions rather than poking
-at the iov_iter internals directly.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-cc: Jens Axboe <axboe@kernel.dk>
-cc: Suren Baghdasaryan <surenb@google.com>
-cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-cc: alsa-devel@alsa-project.org
----
- sound/core/pcm_native.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Fri, 22 Sep 2023 09:59:00 +0200, Herve Codina wrote:
+> The Lantiq PEF2256 is a framer and line interface component designed to
+> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> digital PCM system highway/H.100 bus.
+> 
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+> ---
+>  .../bindings/net/lantiq,pef2256.yaml          | 214 ++++++++++++++++++
+>  1 file changed, 214 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/lantiq,pef2256.yaml
+> 
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index bd9ddf412b46..9a69236fa207 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3527,7 +3527,7 @@ static ssize_t snd_pcm_readv(struct kiocb *iocb, struct iov_iter *to)
- 	if (runtime->state == SNDRV_PCM_STATE_OPEN ||
- 	    runtime->state == SNDRV_PCM_STATE_DISCONNECTED)
- 		return -EBADFD;
--	if (!to->user_backed)
-+	if (!user_backed_iter(to))
- 		return -EINVAL;
- 	if (to->nr_segs > 1024 || to->nr_segs != runtime->channels)
- 		return -EINVAL;
-@@ -3567,7 +3567,7 @@ static ssize_t snd_pcm_writev(struct kiocb *iocb, struct iov_iter *from)
- 	if (runtime->state == SNDRV_PCM_STATE_OPEN ||
- 	    runtime->state == SNDRV_PCM_STATE_DISCONNECTED)
- 		return -EBADFD;
--	if (!from->user_backed)
-+	if (!user_backed_iter(from))
- 		return -EINVAL;
- 	if (from->nr_segs > 128 || from->nr_segs != runtime->channels ||
- 	    !frame_aligned(runtime, iov->iov_len))
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/lantiq,pef2256.yaml: properties:lantiq,data-rate-bps: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230922075913.422435-26-herve.codina@bootlin.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 

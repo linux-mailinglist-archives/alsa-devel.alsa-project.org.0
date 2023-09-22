@@ -2,116 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 062A67AA44F
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 00:06:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61AA77AA72D
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Sep 2023 04:58:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5AF67E99;
-	Fri, 22 Sep 2023 00:05:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AF67E99
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95125DF5;
+	Fri, 22 Sep 2023 04:57:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95125DF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695333968;
-	bh=lqGGEPlKAWfcDVQdcE7hhuPF7KSqVbPiPzL4NV5aybQ=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1695351529;
+	bh=3tUBv898VIdVY1Pe9vEOCDdxofQ1Z11yD6auiHwNQDo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TcclhUoNB8tGowL8qSrtE1TzdfC0j8OQ/XwUpd98dopHokASThQKzSwUcFAIcadeP
-	 AXYhv/IJ+Bcm1YghO9VXAIL9sJz1vZ+g/UmqPIQMdHycRhEdwFq2s/L0/q0R3M18He
-	 L0IWA8kxv8FvCI8xbB8jNrsMaR3mUUe2vFhhPr+w=
+	b=LI49wYXLlyqYuoGxxdQe7C8oQ4E/Zea5GjR5/Lelv8LF+gjFc0Ua6uzG0BvykFXiV
+	 e6WOIALrxNBIubPH7izJJHhuasjtraK2W97UPGYLBbO1O2Nm8rM8gNU9hx/Ak7F2KG
+	 HAEZY3YAk6ypVxBCraxdOhxyfFfZOKL7Y/5tvlyI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C7C4F805AD; Fri, 22 Sep 2023 00:05:12 +0200 (CEST)
+	id C79CFF8047D; Fri, 22 Sep 2023 04:57:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4DE2F8055B;
-	Fri, 22 Sep 2023 00:05:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90F0CF80125;
+	Fri, 22 Sep 2023 04:57:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 844EDF801F5; Thu, 21 Sep 2023 23:51:43 +0200 (CEST)
+	id E12FDF801F5; Fri, 22 Sep 2023 04:52:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 28557F8056F
-	for <alsa-devel@alsa-project.org>; Thu, 21 Sep 2023 23:49:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28557F8056F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F389F800F4
+	for <alsa-devel@alsa-project.org>; Fri, 22 Sep 2023 04:51:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F389F800F4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=MepJ+upG
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38LJp8sC021537;
-	Thu, 21 Sep 2023 21:49:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=qcppdkim1;
- bh=jt0oIgTyqjbTXFE8R+uBXHTwbnogDehsEUidVF5fLmc=;
- b=MepJ+upGMC1sdTcJTSVbHR4RoDqNx6wVoRzmygug+04KquPz9HEL7lRSToIR0rsC9fX9
- C5mY3pk8tiXTyL3cPecy9FBFpfIyZbVNdqhaEsS5EAa5gEDA74vaf836/dJWmBuGAn5I
- dGYJgPZTUcOFQeZTK4mpVPSgK/RA7NUj3WIxeGg6HdmFF2/CgJNiUsPT+SvvVzw+/wJE
- x1Y2U7iOjT9gXMVYRUsg8KztGRfaGldOab8l6JOFWLCX83DsgQ7X88s5mtzFhLsEsSqG
- ycmoHrGJlPxdHNCtlx01i+/mgnXYny9LvK+E1IYmkptE9OpvPMW7RYA1H/mJWlQ0wMN3 FA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3t8u5n0bqa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 21 Sep 2023 21:49:18 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 38LLn36L012662
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 21 Sep 2023 21:49:03 GMT
-Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.36; Thu, 21 Sep 2023 14:49:02 -0700
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-To: <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
-        <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-        <tiwai@suse.com>, <agross@kernel.org>, <andersson@kernel.org>,
-        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
-        <Thinh.Nguyen@synopsys.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: [PATCH v7 33/33] ASoC: usb: Rediscover USB SND devices on USB port
- add
-Date: Thu, 21 Sep 2023 14:48:43 -0700
-Message-ID: <20230921214843.18450-34-quic_wcheng@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20230921214843.18450-1-quic_wcheng@quicinc.com>
-References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=exiruIn4
+Received: by mail-pj1-x1033.google.com with SMTP id
+ 98e67ed59e1d1-2746889aa89so1163982a91.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 21 Sep 2023 19:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1695351104; x=1695955904;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EYkrqB9uA7M+0eOAqW1r8qSkknHUZhDVrIi/aSlq6T8=;
+        b=exiruIn4v8zaHS0S+4ohyD7Gmm/DhgCSFEqEDdCQEwlWMb5I+C9xL2+F1oM6x3ghdJ
+         DBViM6ssueewlIULwuVpdxx1wkwXZFB+6DA1pOfC4N9vlIX2V4IBn03wPUBhNNB4YFtd
+         E9vUDD+fu81XwD/KINp975vvgtaI8RZg/s/5Ks069w3Vc4Taoz4cEydXtEPs3scu5Uy9
+         PZBnutmSu47MBlJMAiPGWKgNYED6BbmrYFWQ0L+O4hrXU0LIFtc7+jqw+ikImfbZg1H2
+         WdNCpLezbpQp80JG65nN1n60im/31ef7LnTUOEsvLKPe4s6Kz0IVgrgZfqa3Wsuo9ABl
+         0BIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695351104; x=1695955904;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EYkrqB9uA7M+0eOAqW1r8qSkknHUZhDVrIi/aSlq6T8=;
+        b=ZoXGaVGFbMycwABokaUBi8ZHqdF0XLIo01p0viKzcaFcwh0PI/blgsjc2WejzjCpPP
+         JElcUH0ZdIgN05z8q9ip2U/2uLwi/Jncrn18g3IxSmeFtnP68g/Mi1kF42Le2H1udg5d
+         Q5/RKEBiEZjk9KxlEoM5beXYy6OEQVeXnBMtrrS6uxYKT4VMLXEIAhNNuobhkpAJa+qT
+         aPdlKqP3TizwjDzwjX01JUKyjArwXgs3pinyWDOBInguAynhQ5tdXABZFdMahVhJ75Lv
+         qBkRKBoZ8jPEH9SFFnRaM1dXgankVFHiTziJmezD5jip0W1cnTHDPT28TRte6wZeyqVV
+         gKxw==
+X-Gm-Message-State: AOJu0Yzgscon0azT1THbRP8YU8TsTOC5SF4rM18Q1SbgZixQTu9GC2KA
+	ttzgLSxtAF+vdONGG/MsexlqYoKESdaIHahzzc4=
+X-Google-Smtp-Source: 
+ AGHT+IGtiz5wXyrbAhyFg8avb8jX5ymjFN23gqRi0pY8tk76E77xHmkQsY5RA8geWyon6mrn/RqdLparfr1kcZjp+nY=
+X-Received: by 2002:a17:90b:19cb:b0:276:cd68:6081 with SMTP id
+ nm11-20020a17090b19cb00b00276cd686081mr5418829pjb.40.1695351103836; Thu, 21
+ Sep 2023 19:51:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Ge7Hcxdn640ava6jWa6SIXk8D6arxYXD
-X-Proofpoint-GUID: Ge7Hcxdn640ava6jWa6SIXk8D6arxYXD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-09-21_19,2023-09-21_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- priorityscore=1501 malwarescore=0 spamscore=0 bulkscore=0 impostorscore=0
- lowpriorityscore=0 mlxscore=0 clxscore=1015 adultscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2309210189
-Message-ID-Hash: IDKVZPQ7WD3Y4GIFOB7MVJLHKD3RR7OZ
-X-Message-ID-Hash: IDKVZPQ7WD3Y4GIFOB7MVJLHKD3RR7OZ
-X-MailFrom: quic_wcheng@quicinc.com
+References: <1695202370-24678-1-git-send-email-shengjiu.wang@nxp.com>
+ <1695202370-24678-10-git-send-email-shengjiu.wang@nxp.com>
+ <fbedcbf1-d925-47d6-b9fb-c9e15263c117@xs4all.nl>
+ <CAA+D8APyNGFSry1GUv6TOW0nKYHKSwQd5bTcRNuT7cu0Xf8eUA@mail.gmail.com>
+ <5292ce53-643e-44f0-b2cc-cb66efee9712@xs4all.nl>
+ <CAA+D8AMZN59uTRs2sOrSeVb5AGopTzurNVCTNwJOVPahfEXd+w@mail.gmail.com>
+ <2d44d574-08e5-4db3-87d9-5d12657f8935@xs4all.nl>
+In-Reply-To: <2d44d574-08e5-4db3-87d9-5d12657f8935@xs4all.nl>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 22 Sep 2023 10:51:32 +0800
+Message-ID: 
+ <CAA+D8AN+Uz+3CN9BnD5R_gp5opD1v-D8FBjANRpGrH43Ac2tdg@mail.gmail.com>
+Subject: Re: [RFC PATCH v4 09/11] media: uapi: Add
+ V4L2_CID_USER_IMX_ASRC_RATIO_MOD
+ control
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: TMKEOTZY6JHM36B364KBW2CWWSM3SNJ6
+X-Message-ID-Hash: TMKEOTZY6JHM36B364KBW2CWWSM3SNJ6
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDKVZPQ7WD3Y4GIFOB7MVJLHKD3RR7OZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TMKEOTZY6JHM36B364KBW2CWWSM3SNJ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,52 +130,240 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In case the USB backend device has not been initialized/probed, USB SND
-device connections can still occur.  When the USB backend is eventually
-made available, previous USB SND device connections are not communicated to
-the USB backend.  Call snd_usb_rediscover_devices() to generate the connect
-callbacks for all USB SND devices connected.  This will allow for the USB
-backend to be updated with the current set of devices available.
+On Thu, Sep 21, 2023 at 10:09=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl> =
+wrote:
+>
+> On 21/09/2023 13:13, Shengjiu Wang wrote:
+> > On Thu, Sep 21, 2023 at 3:11=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.n=
+l> wrote:
+> >>
+> >> On 21/09/2023 08:55, Shengjiu Wang wrote:
+> >>> On Wed, Sep 20, 2023 at 6:19=E2=80=AFPM Hans Verkuil <hverkuil@xs4all=
+.nl> wrote:
+> >>>>
+> >>>> On 20/09/2023 11:32, Shengjiu Wang wrote:
+> >>>>> The input clock and output clock may not be the accurate
+> >>>>> rate as the sample rate, there is some drift, so the convert
+> >>>>> ratio of i.MX ASRC module need to be changed according to
+> >>>>> actual clock rate.
+> >>>>>
+> >>>>> Add V4L2_CID_USER_IMX_ASRC_RATIO_MOD control for user to
+> >>>>> adjust the ratio.
+> >>>>>
+> >>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> >>>>> ---
+> >>>>>  Documentation/userspace-api/media/v4l/control.rst | 5 +++++
+> >>>>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c         | 1 +
+> >>>>>  include/uapi/linux/v4l2-controls.h                | 1 +
+> >>>>>  3 files changed, 7 insertions(+)
+> >>>>>
+> >>>>> diff --git a/Documentation/userspace-api/media/v4l/control.rst b/Do=
+cumentation/userspace-api/media/v4l/control.rst
+> >>>>> index 4463fce694b0..2bc175900a34 100644
+> >>>>> --- a/Documentation/userspace-api/media/v4l/control.rst
+> >>>>> +++ b/Documentation/userspace-api/media/v4l/control.rst
+> >>>>> @@ -318,6 +318,11 @@ Control IDs
+> >>>>>      depending on particular custom controls should check the drive=
+r name
+> >>>>>      and version, see :ref:`querycap`.
+> >>>>>
+> >>>>> +.. _v4l2-audio-imx:
+> >>>>> +
+> >>>>> +``V4L2_CID_USER_IMX_ASRC_RATIO_MOD``
+> >>>>> +    sets the rasampler ratio modifier of i.MX asrc module.
+> >>>>
+> >>>> rasampler -> resampler (I think?)
+> >>>>
+> >>>> This doesn't document at all what the type of the control is or how =
+to interpret it.
+> >>>>
+> >>>>> +
+> >>>>>  Applications can enumerate the available controls with the
+> >>>>>  :ref:`VIDIOC_QUERYCTRL` and
+> >>>>>  :ref:`VIDIOC_QUERYMENU <VIDIOC_QUERYCTRL>` ioctls, get and set a
+> >>>>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/me=
+dia/v4l2-core/v4l2-ctrls-defs.c
+> >>>>> index 8696eb1cdd61..16f66f66198c 100644
+> >>>>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>>>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>>>> @@ -1242,6 +1242,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+> >>>>>       case V4L2_CID_COLORIMETRY_CLASS:        return "Colorimetry C=
+ontrols";
+> >>>>>       case V4L2_CID_COLORIMETRY_HDR10_CLL_INFO:               retur=
+n "HDR10 Content Light Info";
+> >>>>>       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:      retur=
+n "HDR10 Mastering Display";
+> >>>>> +     case V4L2_CID_USER_IMX_ASRC_RATIO_MOD:                  retur=
+n "ASRC RATIO MOD";
+> >>>>
+> >>>> Let's stay consistent with the other control names:
+> >>>>
+> >>>> "ASRC Ratio Modifier"
+> >>>>
+> >>>> But if this is a driver specific control, then this doesn't belong h=
+ere.
+> >>>>
+> >>>> Driver specific controls are defined in the driver itself, including=
+ this
+> >>>> description.
+> >>>>
+> >>>> Same for the control documentation: if it is driver specific, then t=
+hat
+> >>>> typically is documented either in a driver-specific public header, o=
+r
+> >>>> possibly in driver-specific documentation (Documentation/admin-guide=
+/media/).
+> >>>>
+> >>>> But is this imx specific? Wouldn't other similar devices need this?
+> >>>
+> >>> It is imx specific.
+> >>
+> >> Why? I'm not opposed to this, but I wonder if you looked at datasheets=
+ of
+> >> similar devices from other vendors: would they use something similar?
+> >
+> > I tried to find some datasheets for other vendors, but failed to find t=
+hem.
+> > So I don't know how they implement this part.
+> >
+> > Ratio modification on i.MX is to modify the configured ratio.
+> > For example, the input rate is 44.1kHz,  output rate is 48kHz,
+> > configured ratio =3D 441/480,   the ratio modification is to modify
+> > the fractional part of (441/480) with small steps.  because the
+> > input clock or output clock has drift in the real hardware.
+> > The ratio modification is signed value, it is added to configured
+> > ratio.
+> >
+> > In our case, we have some sysfs interface for user to get the
+> > clock from input audio device and output audio device, user
+> > need to calculate the ratio dynamically , then configure the
+> > modification to driver
+>
+> So this ratio modifier comes into play when either the audio input
+> or audio output (or both) are realtime audio inputs/outputs where
+> the sample rate is not a perfect 44.1 or 48 kHz, but slightly different?
 
-The chip array entries are all populated and removed while under the
-register_mutex, so going over potential race conditions:
+yes.
 
-Thread#1:
-  q6usb_component_probe()
-    --> snd_soc_usb_add_port()
-      --> snd_usb_rediscover_devices()
-        --> mutex_lock(register_mutex)
+>
+> If you would use this resampler to do offline resampling (i.e. resample
+> a 44.1 kHz wav file to a 48 kHz wav file), then this wouldn't be needed,
+> correct?
 
-Thread#2
-  --> usb_audio_disconnect()
-    --> mutex_lock(register_mutex)
+yes.
 
-So either thread#1 or thread#2 will complete first.  If
+>
+> When dealing with realtime audio, userspace will know how to get the
+> precise sample rate, but that is out-of-scope of this driver. Here
+> you just need a knob to slightly tweak the resampling ratio.
+>
+> If my understanding is correct, then I wonder if it is such a good
+> idea to put the rate into the v4l2_audio_format: it really has nothing
+> to do with the audio format as it is stored in memory.
+>
+> What if you would drop that 'rate' field and instead create just a single
+> control for the resampling ratio. This can use struct v4l2_fract to repre=
+sent
+> a fraction. It would be more work since v4l2_fract is currently not suppo=
+rted
+> for controls, but it is not hard to add support for that (just a bit tedi=
+ous)
+> and I actually think this might be a perfect solution.
+>
+> That way userspace can quite precisely tweak the ratio on the fly, and
+> it is a generic solution as well instead of mediatek specific.
+>
 
-Thread#1 completes before thread#2:
-  SOC USB will notify DPCM backend of the device connection.  Shortly
-  after, once thread#2 runs, we will get a disconnect event for the
-  connected device.
+(rate, channel, format) are the basic parameters for audio stream.
+For example, if there is decoder/encoder requirement, the rate field is
+still needed,  I think the rate shouldn't be removed.
 
-Thread#2 completes before thread#1:
-  Then during snd_usb_rediscover_devices() it won't notify of any
-  connection for that particular chip index.
+tweak ratio is not always needed by use case. As you said, for
+file to file conversion, it is not needed, so keeping 'rate' is necessary.
 
-Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
----
- sound/soc/soc-usb.c | 2 ++
- 1 file changed, 2 insertions(+)
+best regards
+wang shengjiu
 
-diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
-index 619f9bfd6999..7df7f93cf5a2 100644
---- a/sound/soc/soc-usb.c
-+++ b/sound/soc/soc-usb.c
-@@ -115,6 +115,8 @@ struct snd_soc_usb *snd_soc_usb_add_port(struct device *dev, void *priv,
- 	list_add_tail(&usb->list, &usb_ctx_list);
- 	mutex_unlock(&ctx_mutex);
- 
-+	snd_usb_rediscover_devices();
-+
- 	return usb;
- }
- EXPORT_SYMBOL_GPL(snd_soc_usb_add_port);
+> Regards,
+>
+>         Hans
+>
+> >
+> > May be other vendors has similar implementation. or make
+> > the definition be generic is an option.
+> >
+> > best regards
+> > wang shengjiu
+> >
+> >>
+> >> And the very short description you gave in the commit log refers to in=
+put
+> >> and output clock: how would userspace know those clock frequencies? In
+> >> other words, what information does userspace need in order to set this
+> >> control correctly? And is that information actually available? How wou=
+ld
+> >> you use this control?
+> >>
+> >> I don't really understand how this is supposed to be used.
+> >>
+> >>>
+> >>> Does this mean that I need to create a header file in include/uapi/li=
+nux
+> >>> folder to put this definition?  I just hesitate if this is necessary.
+> >>
+> >> Yes, put it there. There are some examples of this already:
+> >>
+> >> include/uapi/linux/aspeed-video.h
+> >> include/uapi/linux/max2175.h
+> >>
+> >>>
+> >>> There is folder Documentation/userspace-api/media/drivers/ for driver=
+s
+> >>> Should this document in this folder, not in the
+> >>> Documentation/admin-guide/media/?
+> >>
+> >> Yes, you are correct. For the headers above, the corresponding documen=
+tation
+> >> is in:
+> >>
+> >> Documentation/userspace-api/media/drivers/aspeed-video.rst
+> >> Documentation/userspace-api/media/drivers/max2175.rst
+> >>
+> >> So you have some examples as reference.
+> >>
+> >> Frankly, what is in admin-guide and in userspace-api is a bit random, =
+it
+> >> probably could use a cleanup.
+> >>
+> >> Regards,
+> >>
+> >>         Hans
+> >>
+> >>>
+> >>> Best regards
+> >>> Wang shengjiu
+> >>>>
+> >>>>>       default:
+> >>>>>               return NULL;
+> >>>>>       }
+> >>>>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linu=
+x/v4l2-controls.h
+> >>>>> index c3604a0a3e30..b1c319906d12 100644
+> >>>>> --- a/include/uapi/linux/v4l2-controls.h
+> >>>>> +++ b/include/uapi/linux/v4l2-controls.h
+> >>>>> @@ -162,6 +162,7 @@ enum v4l2_colorfx {
+> >>>>>  /* The base for the imx driver controls.
+> >>>>>   * We reserve 16 controls for this driver. */
+> >>>>>  #define V4L2_CID_USER_IMX_BASE                       (V4L2_CID_USE=
+R_BASE + 0x10b0)
+> >>>>> +#define V4L2_CID_USER_IMX_ASRC_RATIO_MOD     (V4L2_CID_USER_IMX_BA=
+SE + 0)
+> >>>>>
+> >>>>>  /*
+> >>>>>   * The base for the atmel isc driver controls.
+> >>>>
+> >>>> Regards,
+> >>>>
+> >>>>         Hans
+> >>
+>

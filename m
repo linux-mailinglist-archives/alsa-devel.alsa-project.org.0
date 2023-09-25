@@ -2,102 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAE6C7AD995
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Sep 2023 15:52:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7397AD9E8
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Sep 2023 16:17:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 972C1A4E;
-	Mon, 25 Sep 2023 15:51:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 972C1A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2503DDEB;
+	Mon, 25 Sep 2023 16:16:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2503DDEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695649922;
-	bh=7QIDUSdzG0npmZFc3wBqPyiQ3lMUFngPAvkyQkwoE6o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fukkR56SecfonLbMuVuPQWu4pbDOQF4V6/9rTJHn6D+iMXtoZGkQIYahfr9P6bT79
-	 FGhdAVJlxdboMlDVOF3JvYgwUA+hFgJMdovKaVkSPo4Xr3mC6B25oSrX4gUqfYxjF+
-	 lPm9Nnux1otywbveH3tzfj4utkT3Z7baVx468PLE=
+	s=default; t=1695651441;
+	bh=LUR+AKiVlZrZhSGF0QYevS0GzPlQ4jsivIMXOtUxibk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=W+Hjd4pN65Vh5UHSvGvOg0Bdq5NBXV1acXKaiyNClZLKtjCsQItMarc0/bQ/XH9Hq
+	 KgmrFeKOcq8Qahqh+y4GWEBTOLVRtLRjsxvqNqQWh2B9CR+HgL3ep36+POTdVcH7ye
+	 fN9fbVY23o7PWpIwI84v0BxoLKYcXxjF7GVshbRg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 027B0F80553; Mon, 25 Sep 2023 15:51:12 +0200 (CEST)
+	id 7F048F8001D; Mon, 25 Sep 2023 16:16:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C00E7F80166;
-	Mon, 25 Sep 2023 15:51:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0EC8F80166;
+	Mon, 25 Sep 2023 16:16:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9FAE2F8016A; Mon, 25 Sep 2023 15:51:07 +0200 (CEST)
+	id 36E75F80552; Mon, 25 Sep 2023 16:16:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::227])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63DB0F8001D
-	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 15:50:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63DB0F8001D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 764F9F8001D
+	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 16:16:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 764F9F8001D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=fgmbfV17
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 1ACB520003;
-	Mon, 25 Sep 2023 13:50:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1695649855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vKSyVssNGXpwuZBiOav013PZuKtEgGXdrsg4u/3aceE=;
-	b=fgmbfV17sTrAXSP+UGikfGs9yRQIdCNszisJ3LPyj2bUqQe1En3z/EC2zeVfOpL7dQ0Sor
-	9vdQFy3t7fAOBR5a3cLGQehT6l6ajmK2WOA4+os/9/aBAwlVEnitY5D2Ow0i21bM2BjumD
-	jQTvGRiyNEQowpG4VGdyGMh5upTVvN9eABTermy5HVNLWnE8hc9McGf+2WDa5BvyvCdokN
-	uvrD05smenth7Nvk2vVvonZ8TK2huLy7epZzwJrek6H+Pv7rv8GLThplybWlnvvhYPNdhI
-	ZUNQpGTv54ppl9bVicKKao5kcVqcYeuX7P55RXWU9LbMiC0Halam01cJpahvvg==
-Date: Mon, 25 Sep 2023 15:50:49 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang
- Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Christophe
- Leroy <christophe.leroy@csgroup.eu>, Randy Dunlap <rdunlap@infradead.org>,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>, Christophe
- JAILLET <christophe.jaillet@wanadoo.fr>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v6 08/30] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
- Add support for QMC HDLC
-Message-ID: <20230925154929.2b6a9cab@bootlin.com>
-In-Reply-To: <e02ebde7-f208-40a4-bb10-aa5962ee9864@linaro.org>
-References: <20230922075913.422435-1-herve.codina@bootlin.com>
-	<20230922075913.422435-9-herve.codina@bootlin.com>
-	<5efae150-3d92-81b8-5c25-68846d27132e@linaro.org>
-	<20230925101703.1bf083f1@bootlin.com>
-	<5b804a1a-6bfd-429d-ad84-696b7ecef72d@linaro.org>
-	<20230925122758.43963736@bootlin.com>
-	<e02ebde7-f208-40a4-bb10-aa5962ee9864@linaro.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RKMRcujq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1695651379; x=1727187379;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=LUR+AKiVlZrZhSGF0QYevS0GzPlQ4jsivIMXOtUxibk=;
+  b=RKMRcujqpGjOtdbllAGv7yqQG3f85wB7QzdXU2H7w3ZgwwPDOXTb7GVR
+   D+rRFLyNpgbzlnVkP+1KgenR+YQcJjdpBcng3O5jO4orK9vLBCjge592Y
+   GBlbB2gu0n+qTCazEfhpxUTkKtteU4WPuIguNWmMqe0guY3vSq2YAaLqh
+   jlyDQxsi/JRNwsAJ4Qt1ZF35qglU1ZJKBRSQllHUPV+Qkl8y7xtJeFFHY
+   bnCQaZTYGCbDE/zaKBVpTuk6OFDd0+iZ4QEbJeRwgw9uVGNy02atg+2S2
+   6mi96BhQ1lU5Uv0iErxR5h/wtM35oJEsdMPBJqFKFvWbTKPeyraQpXMaa
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="361514113"
+X-IronPort-AV: E=Sophos;i="6.03,175,1694761200";
+   d="scan'208";a="361514113"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2023 07:07:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="783508140"
+X-IronPort-AV: E=Sophos;i="6.03,175,1694761200";
+   d="scan'208";a="783508140"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+  by orsmga001.jf.intel.com with ESMTP; 25 Sep 2023 07:07:23 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: broonie@kernel.org,
+	tiwai@suse.com
+Cc: alsa-devel@alsa-project.org,
+	perex@perex.cz,
+	amadeuszx.slawinski@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	hdegoede@redhat.com,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH v2 0/4] ALSA: hda: Abstract and update HOST-stream setup
+ procedure
+Date: Mon, 25 Sep 2023 16:06:12 +0200
+Message-Id: <20230925140616.26892-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: LVO6M47CC6OVYU6IA5VESEQ2IXG4GN7F
-X-Message-ID-Hash: LVO6M47CC6OVYU6IA5VESEQ2IXG4GN7F
-X-MailFrom: herve.codina@bootlin.com
+Message-ID-Hash: RNCVZ4CVF5PBJOXFLIAIBQVBPHKEP7NR
+X-Message-ID-Hash: RNCVZ4CVF5PBJOXFLIAIBQVBPHKEP7NR
+X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LVO6M47CC6OVYU6IA5VESEQ2IXG4GN7F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RNCVZ4CVF5PBJOXFLIAIBQVBPHKEP7NR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,110 +105,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 25 Sep 2023 12:44:35 +0200
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+The patchset targets two intertwined topics:
 
-> On 25/09/2023 12:27, Herve Codina wrote:
-> > On Mon, 25 Sep 2023 10:21:15 +0200
-> > Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> >   
-> >> On 25/09/2023 10:17, Herve Codina wrote:  
-> >>> Hi Krzysztof,
-> >>>
-> >>> On Sat, 23 Sep 2023 19:39:49 +0200
-> >>> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> >>>     
-> >>>> On 22/09/2023 09:58, Herve Codina wrote:    
-> >>>>> The QMC (QUICC mutichannel controller) is a controller present in some
-> >>>>> PowerQUICC SoC such as MPC885.
-> >>>>> The QMC HDLC uses the QMC controller to transfer HDLC data.
-> >>>>>
-> >>>>> Additionally, a framer can be connected to the QMC HDLC.
-> >>>>> If present, this framer is the interface between the TDM bus used by the
-> >>>>> QMC HDLC and the E1/T1 line.
-> >>>>> The QMC HDLC can use this framer to get information about the E1/T1 line
-> >>>>> and configure the E1/T1 line.
-> >>>>>
-> >>>>> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> >>>>> ---
-> >>>>>  .../soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml      | 24 +++++++++++++++++++
-> >>>>>  1 file changed, 24 insertions(+)
-> >>>>>
-> >>>>> diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-> >>>>> index 82d9beb48e00..61dfd5ef7407 100644
-> >>>>> --- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-> >>>>> +++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml
-> >>>>> @@ -101,6 +101,27 @@ patternProperties:
-> >>>>>            Channel assigned Rx time-slots within the Rx time-slots routed by the
-> >>>>>            TSA to this cell.
-> >>>>>  
-> >>>>> +      compatible:
-> >>>>> +        const: fsl,qmc-hdlc      
-> >>>>
-> >>>> Why this is not a device/SoC specific compatible?    
-> >>>
-> >>> This compatible is present in a QMC channel.
-> >>> The parent node (the QMC itself) contains a compatible with device/SoC:
-> >>> --- 8< ---
-> >>>   compatible:
-> >>>     items:
-> >>>       - enum:
-> >>>           - fsl,mpc885-scc-qmc
-> >>>           - fsl,mpc866-scc-qmc
-> >>>       - const: fsl,cpm1-scc-qmc
-> >>> --- 8< ---
-> >>>
-> >>> At the child level (ie QMC channel), I am not sure that adding device/SoC
-> >>> makes sense. This compatible indicates that the QMC channel is handled by
-> >>> the QMC HDLC driver.
-> >>> At this level, whatever the device/SoC, we have to be QMC compliant.
-> >>>
-> >>> With these details, do you still think I need to change the child (channel)
-> >>> compatible ?    
-> >>
-> >> From OS point of view, you have a driver binding to this child-level
-> >> compatible. How do you enforce Linux driver binding based on parent
-> >> compatible? I looked at your next patch and I did not see it.  
-> > 
-> > We do not need to have the child driver binding based on parent.  
-> 
-> Exactly, that's what I said.
-> 
-> > We have to ensure that the child handles a QMC channel and the parent provides
-> > a QMC channel.
-> > 
-> > A QMC controller (parent) has to implement the QMC API (include/soc/fsl/qe/qmc.h)
-> > and a QMC channel driver (child) has to use the QMC API.  
-> 
-> How does this solve my concerns? Sorry, I do not understand. Your driver
-> is a platform driver and binds to the generic compatible. How do you
-> solve regular compatibility issues (need for quirks) if parent
-> compatible is not used?
-> 
-> How does being QMC compliant affects driver binding and
-> compatibility/quirks?
-> 
-> We are back to my original question and I don't think you answered to
-> any of the concerns.
+The driver shall poll SDxFIFOS to ensure a valid value is set by the
+controller after programming SDxFMT. Due to amount of users and
+limited-number of configuration available in our CI when compared to
+overall possibilities on the market, the check is non-blocking.
 
-Well, to be sure that I understand correctly, do you mean that I should
-provide a compatible for the child (HDLC) with something like this:
---- 8< ---
-  compatible:
-    items:
-      - enum:
-          - fsl,mpc885-qmc-hdlc
-          - fsl,mpc866-qmc-hdlc
-      - const: fsl,cpm1-qmc-hdlc
-      - const: fsl,qmc-hdlc
---- 8< ---
+Second topic relates to stream setup procedure. The procedure differs
+between HDAudio controller device revisions. Right now those differences
+are handled directly by a platform driver. Existing top-level
+'if (pci->device == APL)' could be replaced by a abstraction in lower
+parts of the code instead.
 
-If so, I didn't do that because a QMC channel consumer (driver matching
-fsl,qmc-hdlc) doesn't contains any SoC specific part.
-It uses the channel as a communication channel to send/receive HDLC frames
-to/from this communication channel.
-All the specific SoC part is handled by the QMC controller (parent) itself and
-not by any consumer (child).
+With that done, the two users are updated accordingly. In avs-driver
+case, this updates the flow to the recommended one.
 
-Best regards,
-Hervé
+Changes in v2:
+- fixed ->host_setup assignment in patch 02/04
+
+Cezary Rojewski (4):
+  ALSA: hda: Poll SDxFIFOS after programming SDxFMT
+  ALSA: hda: Introduce HOST stream setup mechanism
+  ASoC: Intel: avs: Use helper to setup HOST stream
+  ASoC: Intel: Skylake: Use helper to setup HOST stream
+
+ include/sound/hda_register.h      |  2 ++
+ include/sound/hdaudio.h           |  3 +++
+ include/sound/hdaudio_ext.h       |  3 +++
+ sound/hda/ext/hdac_ext_stream.c   | 41 +++++++++++++++++++++++++++++++
+ sound/hda/hdac_stream.c           |  8 ++++++
+ sound/soc/intel/avs/pcm.c         |  2 +-
+ sound/soc/intel/skylake/skl-pcm.c | 14 +----------
+ 7 files changed, 59 insertions(+), 14 deletions(-)
+
+-- 
+2.25.1
+

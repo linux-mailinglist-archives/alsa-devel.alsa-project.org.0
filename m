@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806E97AD9FC
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Sep 2023 16:23:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538D87ADB29
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Sep 2023 17:16:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1EF2DEB;
-	Mon, 25 Sep 2023 16:22:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1EF2DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9223ABC0;
+	Mon, 25 Sep 2023 17:15:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9223ABC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695651798;
-	bh=dFBkREyUEOoJo/7sr+HgtlYEdliPsXp958T+5A/8gS4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=aHqUBPyLswLy41WmwD6T4uEvoGhbkVRlBfC4lT/SVSTGeecQb7rOaa5uy1iPZCvah
-	 /531U+11mnIGqWgdvqkmpXJcJac9JklkAduPVyaZLx2etBZgpkA57OU3LCooInO8Bf
-	 w12nL54AFO92WegYcOStf+/Y/nFIMrYyc33GFJhU=
+	s=default; t=1695654963;
+	bh=T78uu9U2Ehd1HrNobgc8IUUbn9wsjXLHPFaC0Gkz8MU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=lnh+nzMRYzGgsIdxMql0+nIrALbLWbzE4zWK198IsfeqJRvc9AMrSGHevjTF54jp3
+	 Funns/alPL7BaiZQBN9dtqcksGwdGvjjSNLQQye3IqucXPpHEmZNVhHbpX7bC2JQyj
+	 I+TGIE70hReXJQSenjvXqsCcCdYw4wDj8vU4qjtk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F54CF8047D; Mon, 25 Sep 2023 16:22:28 +0200 (CEST)
+	id 5B150F8047D; Mon, 25 Sep 2023 17:15:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C002DF80166;
-	Mon, 25 Sep 2023 16:22:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC4A3F80166;
+	Mon, 25 Sep 2023 17:15:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5A10EF8016A; Mon, 25 Sep 2023 16:22:25 +0200 (CEST)
+	id 0A73EF8016A; Mon, 25 Sep 2023 17:14:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4AA66F8001D
-	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 16:22:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA66F8001D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A4E6F800AA
+	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 17:14:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A4E6F800AA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TdvD0ZzH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695651741; x=1727187741;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dFBkREyUEOoJo/7sr+HgtlYEdliPsXp958T+5A/8gS4=;
-  b=TdvD0ZzHAjEO7rok7WInEGfSVCzBctmL3qPHotB4Hx7PFXAxB7+ceE9U
-   VZq+oVVmxkGX+vwPijjWN5MmcvZyI6sCZrjfgTmAW9FepKqbFZtuogoQJ
-   Wv0g2XPtf+EggwDixa1T2YOQbxQSOqBID5j5W4XZRCfsVw9U4vNS8gvWO
-   W3Kyjb+8IjqvT6hfJjYU1YuUbmmXDyh3u9/VPOaO7EkAiEOP8OFiwVVrd
-   j8PIsaQ5jW8FEI0sJPU/9uoEruAGt2IN5qkNd8hHHaHQ+WrvOTlNnnGda
-   mKhwtE8DEw5S6CnRAMhUPh/fI1eBayckGHq5luX/ocSGlHIfgKn3V/rxW
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="371583815"
-X-IronPort-AV: E=Sophos;i="6.03,175,1694761200";
-   d="scan'208";a="371583815"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2023 07:22:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="777664327"
-X-IronPort-AV: E=Sophos;i="6.03,175,1694761200";
-   d="scan'208";a="777664327"
-Received: from lkp-server02.sh.intel.com (HELO 32c80313467c) ([10.239.97.151])
-  by orsmga008.jf.intel.com with ESMTP; 25 Sep 2023 07:22:14 -0700
-Received: from kbuild by 32c80313467c with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qkmTU-0001Zj-08;
-	Mon, 25 Sep 2023 14:22:12 +0000
-Date: Mon, 25 Sep 2023 22:22:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
-	tiwai@suse.com
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH 2/4] ALSA: hda: Introduce HOST stream setup mechanism
-Message-ID: <202309252200.gnjksNmD-lkp@intel.com>
-References: <20230925115844.18795-3-cezary.rojewski@intel.com>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=ZG3777JS
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38PBieUO025114;
+	Mon, 25 Sep 2023 10:14:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=W
+	HXl4xdBH7oIae2xk+WqYNuDkHaLd41yOcEJ0WuOa9g=; b=ZG3777JSKZJLMXkkc
+	yYwRlwAcHfJdGJGlTTl/QO9fkyuE+vILgTaAM+6s7WRy4HCneupT2XWWMpU5o6ry
+	FBkwVtqv1tWjUCtiLO2R/bst+px811E4wmagbC/4ah05h55/ckoQPHBgJPIqIVV7
+	2CGOkJS94nG716VWUariaZP7XQbF54X7p+7Ysrto1IEy6FL4DAuJI5J9Wy3mcBwf
+	jKMOWevfU52O8BYDI00hwCczi8kre4RLfvz0/ohuHmqzI15xUeXw7cFu1JjAdrke
+	2yjH9G4VzRhZeCw8t+YXPhNDGZlvlfOItMynjwBVfcxE0datGr21ihS2Qf8EXa2k
+	NnhWQ==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3t9veja69h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 25 Sep 2023 10:14:49 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Mon, 25 Sep
+ 2023 16:14:48 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
+ Transport; Mon, 25 Sep 2023 16:14:48 +0100
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.90.238.160])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CEA8C11CD;
+	Mon, 25 Sep 2023 15:14:45 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <stable@vger.kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>,
+        Mark Brown <broonie@kernel.org>
+Subject: [PATCH 6.4, 6.5] ASoC: cs35l56: Disable low-power hibernation mode
+Date: Mon, 25 Sep 2023 16:14:43 +0100
+Message-ID: <20230925151443.28956-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230925115844.18795-3-cezary.rojewski@intel.com>
-Message-ID-Hash: QSIB6QZWNYWHT5YE6QLPQONIRUUCTXHM
-X-Message-ID-Hash: QSIB6QZWNYWHT5YE6QLPQONIRUUCTXHM
-X-MailFrom: lkp@intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: -OFlxHOuJDNx62BothL6OVSGO-mCrdT7
+X-Proofpoint-ORIG-GUID: -OFlxHOuJDNx62BothL6OVSGO-mCrdT7
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: M3XTFRW42SDKEACZXGEBFHJXU4GUB3AR
+X-Message-ID-Hash: M3XTFRW42SDKEACZXGEBFHJXU4GUB3AR
+X-MailFrom: prvs=463205a1dc=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSIB6QZWNYWHT5YE6QLPQONIRUUCTXHM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M3XTFRW42SDKEACZXGEBFHJXU4GUB3AR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,70 +110,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Cezary,
+commit 18789be8e0d9fbb78b2290dcf93f500726ed19f0 upstream.
+Please apply to 6.4 and 6.5.
 
-kernel test robot noticed the following build warnings:
+Do not allow the CS35L56 to be put into its lowest power
+"hibernation" mode. This only affects I2C because "hibernation"
+is already disabled on SPI and SoundWire.
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on tiwai-sound/for-linus broonie-sound/for-next linus/master v6.6-rc3 next-20230925]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Recent firmwares need a different wake-up sequence. Until
+that sequence has been specified, the chip "hibernation" mode
+must be disabled otherwise it can intermittently fail to wake.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Cezary-Rojewski/ALSA-hda-Poll-SDxFIFOS-after-programming-SDxFMT/20230925-200351
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230925115844.18795-3-cezary.rojewski%40intel.com
-patch subject: [PATCH 2/4] ALSA: hda: Introduce HOST stream setup mechanism
-config: x86_64-buildonly-randconfig-002-20230925 (https://download.01.org/0day-ci/archive/20230925/202309252200.gnjksNmD-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230925/202309252200.gnjksNmD-lkp@intel.com/reproduce)
+Backport note: This is the same change as upstream commit, to delete
+one line, but the upstream commit would not apply cleanly on older
+branches because of minor differences to the surrounding code.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309252200.gnjksNmD-lkp@intel.com/
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20230912133841.3480466-1-rf@opensource.cirrus.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/cs35l56-i2c.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-All warnings (new ones prefixed by >>):
-
->> sound/hda/ext/hdac_ext_stream.c:28: warning: Function parameter or member 'hext_stream' not described in 'snd_hdac_ext_host_stream_setup'
->> sound/hda/ext/hdac_ext_stream.c:41: warning: Function parameter or member 'hstream' not described in 'snd_hdac_apl_host_stream_setup'
-
-
-vim +28 sound/hda/ext/hdac_ext_stream.c
-
-    20	
-    21	/**
-    22	 * snd_hdac_ext_host_stream_setup - Setup a HOST stream.
-    23	 * @hext_stream - HDAudio stream to set up.
-    24	 *
-    25	 * Return: Zero on success or negative error code.
-    26	 */
-    27	int snd_hdac_ext_host_stream_setup(struct hdac_ext_stream *hext_stream)
-  > 28	{
-    29		return hext_stream->host_setup(hdac_stream(hext_stream));
-    30	}
-    31	EXPORT_SYMBOL_GPL(snd_hdac_ext_host_stream_setup);
-    32	
-    33	/**
-    34	 * snd_hdac_apl_host_stream_setup - Setup a HOST stream following procedure
-    35	 *                                  recommended for ApolloLake devices.
-    36	 * @hstream - HDAudio stream to set up.
-    37	 *
-    38	 * Return: Zero on success or negative error code.
-    39	 */
-    40	static int snd_hdac_apl_host_stream_setup(struct hdac_stream *hstream)
-  > 41	{
-    42		struct hdac_ext_stream *hext_stream = stream_to_hdac_ext_stream(hstream);
-    43		int ret;
-    44	
-    45		snd_hdac_ext_stream_decouple(hstream->bus, hext_stream, false);
-    46		ret = snd_hdac_stream_setup(hstream);
-    47		snd_hdac_ext_stream_decouple(hstream->bus, hext_stream, true);
-    48	
-    49		return ret;
-    50	}
-    51	
-
+diff --git a/sound/soc/codecs/cs35l56-i2c.c b/sound/soc/codecs/cs35l56-i2c.c
+index c613a2554fa3..494adabd4f43 100644
+--- a/sound/soc/codecs/cs35l56-i2c.c
++++ b/sound/soc/codecs/cs35l56-i2c.c
+@@ -27,7 +27,6 @@ static int cs35l56_i2c_probe(struct i2c_client *client)
+ 		return -ENOMEM;
+ 
+ 	cs35l56->dev = dev;
+-	cs35l56->can_hibernate = true;
+ 
+ 	i2c_set_clientdata(client, cs35l56);
+ 	cs35l56->regmap = devm_regmap_init_i2c(client, regmap_config);
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.30.2
+

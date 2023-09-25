@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA7827AD766
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Sep 2023 14:01:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C70C17AD76A
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Sep 2023 14:02:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84A34DF2;
-	Mon, 25 Sep 2023 14:00:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A34DF2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEDC2BC0;
+	Mon, 25 Sep 2023 14:01:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEDC2BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695643282;
-	bh=MF9lDA6/EaF3UADBeH4ct7pCLhNdyB4UQHyIiCdlMhY=;
+	s=default; t=1695643331;
+	bh=7IaqF9tqYde7TGQs9NJExhz5C/UJMuSbNyTLxe/uCYo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r7OaZpsuyAKXJoZ3hRJi2uAJ2oh6pSQyYMVDhUq0h4D/RoONTdKKwH3BqG6KDFKWn
-	 BDvdZOy9KTI+u8fCZxplB4W3mM8AcdVPu4MnskNfAIHNqT7Qs/tuSe+GFXXg/T//wU
-	 JQ1um/EVL/t/Evx1qGut1erbZnAmswqhKjQy+KCg=
+	b=gOvYkzZ54JsSnJvIEUywh3J/Z5E7P17Pd8YKtuFpJi37qDvHQV3t7RXj5IXCaTFQQ
+	 wzl3Mm7/xBgE60piYnvR0vkh43wVi7D+pUVSHgtA+2ntE0xqikBgc4AVlTDMvFgbJH
+	 q070ZzP8BEuZaVKJUbZjS+to5bQu5dizvcK4uWhc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22C96F80551; Mon, 25 Sep 2023 13:59:42 +0200 (CEST)
+	id 1ED41F80578; Mon, 25 Sep 2023 14:00:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E2ADF80568;
-	Mon, 25 Sep 2023 13:59:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E229F80571;
+	Mon, 25 Sep 2023 14:00:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40532F80551; Mon, 25 Sep 2023 13:59:38 +0200 (CEST)
+	id 3A943F8047D; Mon, 25 Sep 2023 14:00:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,38 +36,38 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E90CDF80166
-	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 13:59:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E90CDF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62C82F80290
+	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 13:59:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62C82F80290
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Y7oB4Xd3
+ header.s=Intel header.b=HdOdjufG
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1695643173; x=1727179173;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=MF9lDA6/EaF3UADBeH4ct7pCLhNdyB4UQHyIiCdlMhY=;
-  b=Y7oB4Xd33sWGkrW+ljet0Ms0KBSXZKLSgHV7ZmLTBhZDOZ3F0JH5l0sD
-   njtcygy/dDcQPUlnQws6ujeLGzi0XTCabmAdMmv5OsLlUVme5TdOX8X2r
-   /gPgzNW3oIXsLmu+r7emtMPpKJJfNlQE4I50yG0iFLBcI5ml4rq7uGCSW
-   vEETSNl8uRqfjVSv1rnENzOhB2vJ4k/fTBG8b/B/eJgmsK0AhjJ+nAuxF
-   mMCjhOoGA2uk94VuvF3a7bkDJQea0l5f4+qQikOFiDsuEDVg34Gw/kB6i
-   I2GcJFYRE8MUfTFOxDu+j6DcYEObwVCpgxc1r3rT5Tt57jkn2YxCntD+w
+  bh=7IaqF9tqYde7TGQs9NJExhz5C/UJMuSbNyTLxe/uCYo=;
+  b=HdOdjufGHVxrcEjpC7k8vB3aOpXOLq7OY9mZFrOb+Wzi1+vTzjfrgmP+
+   24VfoqnngX6Havrx3id+xCfk0jZoN2SV+Bnj7VnrFCFs/rtuIzzswGf0/
+   Wx5eZlwMgy+AQQVPplyeruXV/ylmcDQcOD7DnEbFS2fM3qKyXITE5kXiF
+   HKWIQhQRL44rZ7jiYRmXBbNMefqo6cg+NmlWhCKtYbex07awelz9X7UCh
+   DWVLc0bMTXdIxTul8oHugLY1z4dGYi5/mbRgZymmuXeFAm39HG2+pCPOf
+   5Sc32VdYME341ns9W/UW2tXzfRL/zmNDQciuW85wjXdkIK26cE2g2q8Pv
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="383993017"
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="383993025"
 X-IronPort-AV: E=Sophos;i="6.03,174,1694761200";
-   d="scan'208";a="383993017"
+   d="scan'208";a="383993025"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2023 04:59:27 -0700
+ 25 Sep 2023 04:59:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="813938122"
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="813938132"
 X-IronPort-AV: E=Sophos;i="6.03,174,1694761200";
-   d="scan'208";a="813938122"
+   d="scan'208";a="813938132"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmsmga008.fm.intel.com with ESMTP; 25 Sep 2023 04:59:25 -0700
+  by fmsmga008.fm.intel.com with ESMTP; 25 Sep 2023 04:59:27 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.com
@@ -77,16 +77,16 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 2/4] ALSA: hda: Introduce HOST stream setup mechanism
-Date: Mon, 25 Sep 2023 13:58:42 +0200
-Message-Id: <20230925115844.18795-3-cezary.rojewski@intel.com>
+Subject: [PATCH 3/4] ASoC: Intel: avs: Use helper to setup HOST stream
+Date: Mon, 25 Sep 2023 13:58:43 +0200
+Message-Id: <20230925115844.18795-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230925115844.18795-1-cezary.rojewski@intel.com>
 References: <20230925115844.18795-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FHU4MW65K64GR5RVGC6EL6OQ5C2PLP3U
-X-Message-ID-Hash: FHU4MW65K64GR5RVGC6EL6OQ5C2PLP3U
+Message-ID-Hash: 5R6N4GBQKR5GFHK5G32ZYALPNANOINKZ
+X-Message-ID-Hash: 5R6N4GBQKR5GFHK5G32ZYALPNANOINKZ
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,123 +99,35 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FHU4MW65K64GR5RVGC6EL6OQ5C2PLP3U/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5R6N4GBQKR5GFHK5G32ZYALPNANOINKZ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-HDAudio stream setup procedure differs between revisions of the
-controller device. Currently the differences are handled directly within
-AudioDSP platform drivers with if-statements. Implement a more generic
-approach and expose a function that a platform driver may use to ensure
-the correct procedure is followed each time.
+snd_hdac_ext_host_stream_setup() abstracts the procedure details away.
+Simplify the code by using it.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/sound/hdaudio_ext.h     |  3 +++
- sound/hda/ext/hdac_ext_stream.c | 41 +++++++++++++++++++++++++++++++++
- 2 files changed, 44 insertions(+)
+ sound/soc/intel/avs/pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
-index 511211f4a2b6..d32959cb71d2 100644
---- a/include/sound/hdaudio_ext.h
-+++ b/include/sound/hdaudio_ext.h
-@@ -60,6 +60,8 @@ struct hdac_ext_stream {
- 	bool link_locked:1;
- 	bool link_prepared;
+diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+index 8565a530706d..e628fdfdc018 100644
+--- a/sound/soc/intel/avs/pcm.c
++++ b/sound/soc/intel/avs/pcm.c
+@@ -625,7 +625,7 @@ static int avs_dai_fe_prepare(struct snd_pcm_substream *substream, struct snd_so
+ 	if (ret < 0)
+ 		return ret;
  
-+	int (*host_setup)(struct hdac_stream *);
-+
- 	struct snd_pcm_substream *link_substream;
- };
+-	ret = snd_hdac_stream_setup(hdac_stream(host_stream));
++	ret = snd_hdac_ext_host_stream_setup(host_stream);
+ 	if (ret < 0)
+ 		return ret;
  
-@@ -86,6 +88,7 @@ void snd_hdac_ext_stream_start(struct hdac_ext_stream *hext_stream);
- void snd_hdac_ext_stream_clear(struct hdac_ext_stream *hext_stream);
- void snd_hdac_ext_stream_reset(struct hdac_ext_stream *hext_stream);
- int snd_hdac_ext_stream_setup(struct hdac_ext_stream *hext_stream, int fmt);
-+int snd_hdac_ext_host_stream_setup(struct hdac_ext_stream *hext_stream);
- 
- struct hdac_ext_link {
- 	struct hdac_bus *bus;
-diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
-index 11b7119cc47e..292bbf91acd0 100644
---- a/sound/hda/ext/hdac_ext_stream.c
-+++ b/sound/hda/ext/hdac_ext_stream.c
-@@ -10,12 +10,45 @@
-  */
- 
- #include <linux/delay.h>
-+#include <linux/pci.h>
-+#include <linux/pci_ids.h>
- #include <linux/slab.h>
- #include <sound/pcm.h>
- #include <sound/hda_register.h>
- #include <sound/hdaudio_ext.h>
- #include <sound/compress_driver.h>
- 
-+/**
-+ * snd_hdac_ext_host_stream_setup - Setup a HOST stream.
-+ * @hext_stream - HDAudio stream to set up.
-+ *
-+ * Return: Zero on success or negative error code.
-+ */
-+int snd_hdac_ext_host_stream_setup(struct hdac_ext_stream *hext_stream)
-+{
-+	return hext_stream->host_setup(hdac_stream(hext_stream));
-+}
-+EXPORT_SYMBOL_GPL(snd_hdac_ext_host_stream_setup);
-+
-+/**
-+ * snd_hdac_apl_host_stream_setup - Setup a HOST stream following procedure
-+ *                                  recommended for ApolloLake devices.
-+ * @hstream - HDAudio stream to set up.
-+ *
-+ * Return: Zero on success or negative error code.
-+ */
-+static int snd_hdac_apl_host_stream_setup(struct hdac_stream *hstream)
-+{
-+	struct hdac_ext_stream *hext_stream = stream_to_hdac_ext_stream(hstream);
-+	int ret;
-+
-+	snd_hdac_ext_stream_decouple(hstream->bus, hext_stream, false);
-+	ret = snd_hdac_stream_setup(hstream);
-+	snd_hdac_ext_stream_decouple(hstream->bus, hext_stream, true);
-+
-+	return ret;
-+}
-+
- /**
-  * snd_hdac_ext_stream_init - initialize each stream (aka device)
-  * @bus: HD-audio core bus
-@@ -55,9 +88,16 @@ static void snd_hdac_ext_stream_init(struct hdac_bus *bus,
- int snd_hdac_ext_stream_init_all(struct hdac_bus *bus, int start_idx,
- 				 int num_stream, int dir)
- {
-+	struct pci_dev *pci = to_pci_dev(bus->dev);
-+	int (*setup_op)(struct hdac_stream *);
- 	int stream_tag = 0;
- 	int i, tag, idx = start_idx;
- 
-+	if (pci->device == PCI_DEVICE_ID_INTEL_HDA_APL)
-+		setup_op = snd_hdac_stream_setup;
-+	else
-+		setup_op = snd_hdac_apl_host_stream_setup;
-+
- 	for (i = 0; i < num_stream; i++) {
- 		struct hdac_ext_stream *hext_stream =
- 				kzalloc(sizeof(*hext_stream), GFP_KERNEL);
-@@ -66,6 +106,7 @@ int snd_hdac_ext_stream_init_all(struct hdac_bus *bus, int start_idx,
- 		tag = ++stream_tag;
- 		snd_hdac_ext_stream_init(bus, hext_stream, idx, dir, tag);
- 		idx++;
-+		hext_stream->host_setup = setup_op;
- 	}
- 
- 	return 0;
 -- 
 2.25.1
 

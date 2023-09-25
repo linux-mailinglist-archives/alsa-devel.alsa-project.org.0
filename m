@@ -2,85 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C0C07B3EE2
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 09:54:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D15D7B3EE6
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:02:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A14DAE72;
-	Sat, 30 Sep 2023 09:53:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A14DAE72
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1201DEC;
+	Sat, 30 Sep 2023 10:02:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1201DEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696060473;
-	bh=UwQWIh9SOaYteIOPVSkDxn6jTGF3KGJHmr91uS/4MeE=;
+	s=default; t=1696060974;
+	bh=s1bEVdACqjpHadIktSmTo5nBbnYcheE/nDdSaAFrQ+E=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=sGQXRQBshd7ewiC+2ClZlCeHVPwBl7QFOKc6imW4dV4ZI6lQSh/1s9Z9e9hBjBGg2
-	 YdoQeO+1yEjmQZySBXlcSn7FF4cMcuRdA2+Rcu4cI9MbQVkNCVZYEE483zKrOqTbKh
-	 d17aV3+eq+vQEvu6OpKK7Ru9GJOHoXj45TsyIp7M=
+	b=RjpBH4CJDQ/qZQioSD/YaLRCUYLf8js/jTk0Ltphd97OPxSVwDiECSMqq7tWrA1c6
+	 olu+Uy04o1VBX7Fipj3eoRH8emIlXA8wes6PU/cTXx25qLzIGa/0sGhgFH/1KKdUjF
+	 A2W4hLDwcANMogwhSaYtHzXg34L5aBRN7m3fFsNs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC030F805A1; Sat, 30 Sep 2023 09:52:46 +0200 (CEST)
+	id 045F3F8047D; Sat, 30 Sep 2023 10:02:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 800E1F80580;
-	Sat, 30 Sep 2023 09:52:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63ED0F8016A;
+	Sat, 30 Sep 2023 10:02:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2BC4F801F5; Sat, 23 Sep 2023 11:12:30 +0200 (CEST)
+	id C3578F8016A; Mon, 25 Sep 2023 10:39:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from m15.mail.163.com (m15.mail.163.com [45.254.50.220])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9125F80124;
-	Sat, 23 Sep 2023 11:12:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9125F80124
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70C38F8001D
+	for <alsa-devel@alsa-project.org>; Mon, 25 Sep 2023 10:38:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C38F8001D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=GnLHGbsO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id; bh=ZUc8rH3JH24hVz72L8
-	JLGGyF3jsgN3UUrwoBzdxOYYU=; b=GnLHGbsO5jBxAcTI2j/nQYDX+XUV0sJgnr
-	zYPehDskxe4z3xY+brbLfQjJNAeQtbcAjYahFe6HTcJW4/0J9yu/DPIi+1ujqmyb
-	ljkJ4uQKmnOgLrsOdo2Do9Nq/yI5Ry8RcfNi/9UtoZpCuYXpKSqJuY+nU/ATcxxv
-	Cu74ej9Fo=
-Received: from localhost.localdomain (unknown [223.104.131.178])
-	by zwqz-smtp-mta-g2-0 (Coremail) with SMTP id
- _____wAXQADzqw5lGKWdAg--.46891S2;
-	Sat, 23 Sep 2023 17:12:20 +0800 (CST)
-From: liuhaoran <liuhaoran14@163.com>
-To: perex@perex.cz
-Cc: tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	sound-open-firmware@alsa-project.org,
-	liuhaoran <liuhaoran14@163.com>
-Subject: [PATCH] ASoC: SOF: Intel: Add error handling in hda_dsp_trace_release
-Date: Sat, 23 Sep 2023 17:12:16 +0800
-Message-Id: <20230923091216.26325-1-liuhaoran14@163.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=huaqin-corp-partner-google-com.20230601.gappssmtp.com
+ header.i=@huaqin-corp-partner-google-com.20230601.gappssmtp.com
+ header.a=rsa-sha256 header.s=20230601 header.b=mDpEq5/+
+Received: by mail-pj1-x102e.google.com with SMTP id
+ 98e67ed59e1d1-27747002244so1461106a91.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 25 Sep 2023 01:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=huaqin-corp-partner-google-com.20230601.gappssmtp.com; s=20230601;
+ t=1695631137; x=1696235937; darn=alsa-project.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KDlQRlGUPTfJlUUMPRtJLma/aq2eNwYNR02CUUOI7A8=;
+        b=mDpEq5/+hQcI8rzG8qzJs6aYrzda4pVfvkQXCfWqINCVjPyiyrduYZC7lM2evXffEj
+         N4n9/VF3K0gHV5Ty1+7Yl6b11+aTLkEAnS/vslGxcqTJecmNwDqkNvPKbYkRpfF/mPZP
+         10z4gszVrkAgkzt8JUoId5+0IWrnjGWOWzkOPxFI7scbAO5EF8pG+EPmZ2AAj/fYmgbM
+         lZO3QnnthkTi6/7pdfVjvLHdkZMWJ4TQaTk2aJuEhXv81gJN9Z2q/rBk4QLr56Y00zis
+         HmBiBHbXTRZrMJDCdjlYH8BGoB+LpEfSZ2M3tA8l3TSKdlP/Za+DgKvbzLiEi/bcfhan
+         6B0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695631137; x=1696235937;
+        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KDlQRlGUPTfJlUUMPRtJLma/aq2eNwYNR02CUUOI7A8=;
+        b=RhfTix9huPPbFpDBJuq5EkkbpnzGUWIYZj4L7smSubslIXaNYj+3wmQB2LJo8J/g47
+         apqUzAJe1pOEuPh1HZ4Qi9IiHjj87PHY0YO3I5CbK1NGPK6yLt+kPi4DhSRyM7ru/YrN
+         +QdjBNXLtXxND90IJgoYIGnd3/5B4jQ8ZYtJ+vwoXAwidNLoz9lmYSWJxVFxyovofKJS
+         abYy8/SC2SHz3CwjaZyT0ecfB1HvzsYO6LWnWpZlQMcCcDOIAoTE66CmWuQgTZfjOFma
+         7VH4JcEkJHiHYw9rGk6xsTgVBwv+sh3iDOGbup0RcQBvuHfLCQ1KVWOgl8OAYWfoGsHs
+         JeNQ==
+X-Gm-Message-State: AOJu0Yyyygathtk9H69wUPGUguSKqvtsV9DWX6W4UyYNu/L2GLh3WHaZ
+	Pvvq7+yU15DK4NnOn2JLPzGlvg==
+X-Google-Smtp-Source: 
+ AGHT+IGRzWUFKvAXUdW7P/gM1pTcDYhfc2VIx4gXPNUiXkY34HMjyU1m/YIX7/WbQhw3zmUkXjMlHQ==
+X-Received: by 2002:a17:90a:2a4a:b0:26d:2bac:a0bb with SMTP id
+ d10-20020a17090a2a4a00b0026d2baca0bbmr5300954pjg.6.1695631137400;
+        Mon, 25 Sep 2023 01:38:57 -0700 (PDT)
+Received: from ubuntu.huaqin.com ([101.78.151.205])
+        by smtp.gmail.com with ESMTPSA id
+ 14-20020a17090a004e00b0025dc5749b4csm10141132pjb.21.2023.09.25.01.38.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 Sep 2023 01:38:57 -0700 (PDT)
+From: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
+To: lgirdwood@gmail.com,
+	perex@perex.cz,
+	trevor.wu@mediatek.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
+Subject: [v1 0/2] ASoC: mediatek: mt8188-mt6359: add rt5682s support
+Date: Mon, 25 Sep 2023 16:38:45 +0800
+Message-Id: 
+ <20230925083847.1496-1-xiazhengqiao@huaqin.corp-partner.google.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: _____wAXQADzqw5lGKWdAg--.46891S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKryfWr17ury5Jr13Cw1kAFb_yoWDCFbEyw
-	4I93yrWFyqkrZ5tr1Ykr9ay39xWrs2gFykA3WUtF9rG34UA3ykC3WDXrsrWrWDWryfX3W8
-	Gr9Fg348Aa4fXjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjasj7UUUUU==
-X-Originating-IP: [223.104.131.178]
-X-CM-SenderInfo: xolxxtxrud0iqu6rljoofrz/1tbiThXzgmNh-Pwp-gAAs-
-X-MailFrom: liuhaoran14@163.com
+X-MailFrom: xiazhengqiao@huaqin.corp-partner.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XEHAQSEYH4Z4FROXQAUHSKTF4EXVC5JO
-X-Message-ID-Hash: XEHAQSEYH4Z4FROXQAUHSKTF4EXVC5JO
-X-Mailman-Approved-At: Sat, 30 Sep 2023 07:52:41 +0000
+Message-ID-Hash: 2T64OVDWUSNEDPEBJH62JYOTIIGURRQN
+X-Message-ID-Hash: 2T64OVDWUSNEDPEBJH62JYOTIIGURRQN
+X-Mailman-Approved-At: Sat, 30 Sep 2023 08:01:58 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XEHAQSEYH4Z4FROXQAUHSKTF4EXVC5JO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2T64OVDWUSNEDPEBJH62JYOTIIGURRQN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,42 +122,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch adds error-handling for the hda_dsp_stream_put() inside
-the hda_dsp_trace_release function in the hda-trace.c file.
+To use RT5682S as the codec and MAX98390 as the amp, add a new
+sound card named mt8188_rt5682.
 
-Signed-off-by: liuhaoran <liuhaoran14@163.com>
----
- sound/soc/sof/intel/hda-trace.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+xiazhengqiao (2):
+  ASoC: dt-bindings: mediatek,mt8188-mt6359: add RT5682S support
+  ASoC: mediatek: mt8188-mt6359: add rt5682s support
 
-diff --git a/sound/soc/sof/intel/hda-trace.c b/sound/soc/sof/intel/hda-trace.c
-index cbb9bd7770e6..5dcd43b9cbe4 100644
---- a/sound/soc/sof/intel/hda-trace.c
-+++ b/sound/soc/sof/intel/hda-trace.c
-@@ -73,13 +73,22 @@ int hda_dsp_trace_release(struct snd_sof_dev *sdev)
- {
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
- 	struct hdac_stream *hstream;
-+	int ret;
- 
- 	if (hda->dtrace_stream) {
- 		hstream = &hda->dtrace_stream->hstream;
--		hda_dsp_stream_put(sdev,
-+		ret = hda_dsp_stream_put(sdev,
- 				   SNDRV_PCM_STREAM_CAPTURE,
- 				   hstream->stream_tag);
-+
- 		hda->dtrace_stream = NULL;
-+
-+		if (ret < 0) {
-+			dev_dbg(sdev->dev,
-+				"stream put failed: %d\n", ret);
-+			return ret;
-+		}
-+
- 		return 0;
- 	}
- 
+ .../sound/mediatek,mt8188-mt6359.yaml         |   1 +
+ sound/soc/mediatek/Kconfig                    |   1 +
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 154 +++++++++++++++++-
+ 3 files changed, 155 insertions(+), 1 deletion(-)
+
 -- 
 2.17.1
 

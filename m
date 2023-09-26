@@ -2,81 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B661C7AE707
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Sep 2023 09:39:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4507A7AE71D
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Sep 2023 09:48:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E266BC0;
-	Tue, 26 Sep 2023 09:38:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E266BC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30A8CA4D;
+	Tue, 26 Sep 2023 09:47:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30A8CA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695713972;
-	bh=lAxQ/0UTOT6och3JNE/pLFZ/B7SYTjvg5W8X6grQGBY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1695714528;
+	bh=vl35SqT6As6GYRAB1JyOE9/QeFzf9D4iT44T99JNDlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=unvR4EhFdRMe/mDzVt2Nk/dclr9vU0S3gT/aK5S5zPB9jY5bO2TjgFpnoDk7Uv0F4
-	 o561SE810aDKcqUxQGlIpxS/QR5W6pGnHB7/GGX7vXEJnK4isgbx7w7gajSbhpAI11
-	 Dct5vSKP6ohi8PBx00sDiJvliAtPhVuUKT/m3JsU=
+	b=ocUUZerP5UoBSYNVto8cRP8MllerjGrby7VGbKi6G8C/QEP/ov6f2Vt9LosgWWGAc
+	 mXbLS+0/CH6XUHcRWEqH8d2vwfSwFMCTJYhgwWAqzTIXqlloa1jpI7CjIk0aM3jq37
+	 gWFSS891W8fgb4PUDeSxlKf6LM+CRWdrHVRrDAGY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8E51F80166; Tue, 26 Sep 2023 09:38:41 +0200 (CEST)
+	id 8A9F6F80552; Tue, 26 Sep 2023 09:47:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28C3CF80166;
-	Tue, 26 Sep 2023 09:38:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45662F80166;
+	Tue, 26 Sep 2023 09:47:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 610F3F8016A; Tue, 26 Sep 2023 09:38:36 +0200 (CEST)
+	id 5D102F8016A; Tue, 26 Sep 2023 09:47:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 54B97F80130
-	for <alsa-devel@alsa-project.org>; Tue, 26 Sep 2023 09:38:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B97F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8966F80130
+	for <alsa-devel@alsa-project.org>; Tue, 26 Sep 2023 09:47:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8966F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=D/eiAEd9
+ header.s=k20201202 header.b=JjUhAaao
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id BC908611CF;
-	Tue, 26 Sep 2023 07:38:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CE8C433C8;
-	Tue, 26 Sep 2023 07:38:21 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id E8D12B80C66;
+	Tue, 26 Sep 2023 07:47:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91C3C433C7;
+	Tue, 26 Sep 2023 07:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695713903;
-	bh=lAxQ/0UTOT6och3JNE/pLFZ/B7SYTjvg5W8X6grQGBY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=D/eiAEd9O7qxPjQYtvyYsV5HfDWJqAGs+tQOLry/aU2hDtmR/zW5+YU1KtmydfsHp
-	 C0J3CsoFZNG1AhbK+0Y6yhj0gsdTfd2g4w1YZhozlLPUtQkOFTTLVf11CgzofhXV8p
-	 n4CwZWGDfuF0AjEyIuEsEnyohJZ2jUi8LY/CglKKJI3JhFj5iy0oTeeCzKliDrb27p
-	 igIL6E9l4L+/aLKYxmaP///lzIu9Zqz1g3/wE6cU83jGpdxq5kixEpxnK+hTuvRd6D
-	 KoLDpLPDCNSIGSmSBpQD+4m4p5essANZndQBCmB3f5ySBvnUyVh/63ndLohSJroQ/a
-	 bMb+lPS3CIYRQ==
+	s=k20201202; t=1695714455;
+	bh=vl35SqT6As6GYRAB1JyOE9/QeFzf9D4iT44T99JNDlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JjUhAaaoMDko8sv9+IFAdtVK2RNanulH1ZWFUiB1DPHQE7cHVcsGafcs8JEz0Vsaw
+	 mS9dPobqyU+cvTEo1zmOaQ/21D5jUVnWXrgkQkd3M+qYg/8kfRi7p6lHnMEgPMrk+h
+	 D8lCCVtAczUF7D03AL5w34mfyQd0S5MSrI/6FefEn5G5o+JBHOQCqlVMc7BE67xyQg
+	 BqUksUX/eKNggweBScJtbTmo0lKvSq25NB/NLy70aSszQAox93L8xic42RY01Nj4LE
+	 152ryVriErwTu1sUfFrFk6XPN+sIY2Ez54b1ppXxdguEyE7bxlzVgLE5724i75oLKp
+	 lsXcr6Pq1b6JA==
+Date: Tue, 26 Sep 2023 09:47:32 +0200
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Manuel Lauss <manuel.lauss@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: alsa-devel@alsa-project.org, linux-sh@vger.kernel.org,
- kernel test robot <lkp@intel.com>
-In-Reply-To: <20230925125646.3681807-1-geert+renesas@glider.be>
-References: <20230925125646.3681807-1-geert+renesas@glider.be>
-Subject: Re: [PATCH] ASoC: sh: dma-sh7760: Use %pad and %zu to format
- dma_addr_t and size_t
-Message-Id: <169571390161.2496919.5867587395937945663.b4-ty@kernel.org>
-Date: Tue, 26 Sep 2023 09:38:21 +0200
+To: wangweidong.a@awinic.com
+Cc: 13916275206@139.com, alsa-devel@alsa-project.org, arnd@arndb.de,
+	ckeepax@opensource.cirrus.com, colin.i.king@gmail.com,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	harshit.m.mogalapalli@oracle.com, herve.codina@bootlin.com,
+	krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
+	linus.walleij@linaro.org, linux-kernel@vger.kernel.org,
+	liweilei@awinic.com, perex@perex.cz, povik+lin@cutebit.org,
+	rf@opensource.cirrus.com, robh+dt@kernel.org, ryans.lee@analog.com,
+	shumingf@realtek.com, tiwai@suse.com, trix@redhat.com,
+	u.kleine-koenig@pengutronix.de, yang.lee@linux.alibaba.com,
+	yijiangtao@awinic.com
+Subject: Re: [PATCH V4 4/7] ASoC: codecs: Add code for bin parsing compatible
+ with aw87390
+Message-ID: <ZRKMlCd+Ys5kGXVw@finisterre.sirena.org.uk>
+References: <ZRGT2oLQaJBVVYFH@finisterre.sirena.org.uk>
+ <20230926070436.486530-1-wangweidong.a@awinic.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: 34KHS24INDAR5GVESSIF44NKNI5ZVS5R
-X-Message-ID-Hash: 34KHS24INDAR5GVESSIF44NKNI5ZVS5R
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tZVZOycL8pVKc0vY"
+Content-Disposition: inline
+In-Reply-To: <20230926070436.486530-1-wangweidong.a@awinic.com>
+X-Cookie: Save energy:  Drive a smaller shell.
+Message-ID-Hash: YYM2ZUGVZEWYBOIBUVR6VF4DIRMWJH67
+X-Message-ID-Hash: YYM2ZUGVZEWYBOIBUVR6VF4DIRMWJH67
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,49 +98,63 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/34KHS24INDAR5GVESSIF44NKNI5ZVS5R/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YYM2ZUGVZEWYBOIBUVR6VF4DIRMWJH67/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 25 Sep 2023 14:56:46 +0200, Geert Uytterhoeven wrote:
-> sound/soc/sh/dma-sh7760.c: In function ‘camelot_prepare’:
-> ./include/linux/kern_levels.h:5:25: warning: format ‘%lx’ expects argument of type ‘long unsigned int’, but argument 2 has type ‘unsigned int’ [-Wformat=]
->     5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
-> sound/soc/sh/dma-sh7760.c:198:9: note: in expansion of macro ‘pr_debug’
->   198 |         pr_debug("PCM data: addr 0x%08lx len %d\n",
->       |         ^~~~~~~~
-> 
-> [...]
 
-Applied to
+--tZVZOycL8pVKc0vY
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Sep 26, 2023 at 03:04:30PM +0800, wangweidong.a@awinic.com wrote:
+> On Mon, Sep 25, 2023 at 16:06:18 +0200, broonie@kernel.org wrote:
 
-Thanks!
+> > /build/stage/linux/sound/soc/codecs/aw88395/aw88395.c:199:21: error: to=
+o few arg
+> > uments to function =E2=80=98aw88395_dev_get_prof_name=E2=80=99
+> >  199 |         prof_name =3D aw88395_dev_get_prof_name(aw88395->aw_pa, =
+count);
+> >      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~
+> > In file included from /build/stage/linux/sound/soc/codecs/aw88395/aw883=
+95.c:17:
+> > /build/stage/linux/sound/soc/codecs/aw88395/aw88395_device.h:184:5: not=
+e: declar
+> > ed here
+> >  184 | int aw88395_dev_get_prof_name(struct aw_device *aw_dev, int inde=
+x, char=20
+> > **prof_name);
+> >      |     ^~~~~~~~~~~~~~~~~~~~~~~~~
 
-[1/1] ASoC: sh: dma-sh7760: Use %pad and %zu to format dma_addr_t and size_t
-      commit: 1056063756d7bbd5e49532278448cd28ecb8f359
+> I did not get this error when compiling base on "2cf0f715623872823a72e451=
+243bbf555d10d032"
+> and the changes to this function are already in [patch V4 3/7]
+> Can you tell me how to modify it?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Apply every patch in sequence and check that it builds individually,
+including for configs like the x86 allmodconfig.  I don't specifically
+know what the context was here, I'm just reporting the failure my CI
+found.  If you're confident things are fixed then resend.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--tZVZOycL8pVKc0vY
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUSjJQACgkQJNaLcl1U
+h9AhNQf+PgXK+9hFtAV8TDEBHilOTUoirrT7GLRXtflsuD4DNlW9QYMd+UEt6YT5
+lfNWJhq9hhwcgdAfc2L8n22a+WN+tt5iEv1r4V0lRXxhvoxuWiWoPcM4z+Udr5KG
+Oj49aBdhZ0XMtu8z4YzhDJtra5cO19kvv+1t8zI+9XKYUSuUc4PrVDDWdCU1LSMm
+8jnd/Q5ViOky26oktO/JMDD9rpIIE023Zwvyrz1/gadhZsodwUP0UUwXs+dR1KVF
+3sLPU61KC9TVfPrtRESiFUn+rj6FW4qk6m6H/vFq83UksIBF3V2H1M5Nk9m/meyV
+JY+hC93fqWPdqhpqPJSTC5loPpwfNw==
+=5Afg
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
-
+--tZVZOycL8pVKc0vY--

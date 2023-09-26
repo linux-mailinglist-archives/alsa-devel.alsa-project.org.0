@@ -2,97 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C657AEDF6
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Sep 2023 15:30:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8267AEDFA
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Sep 2023 15:31:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7775A1DF;
-	Tue, 26 Sep 2023 15:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7775A1DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 630C1A4D;
+	Tue, 26 Sep 2023 15:30:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 630C1A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695735026;
-	bh=hQygGpH9vdBbIjX6Pc0b4k68vo2vvccyaO42y3zqld4=;
+	s=default; t=1695735060;
+	bh=79FC3srKKG3spQOst3tPiHPgsoH5SA3xDY6dbVQFc64=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sVHTvPzkxq9XmSF2fEiPLBqGh10sqwUJMxLiaB2R2lsFAjX1vvv+Ph+GCvJ2Z1i6M
-	 FShkdVp5MvCfn2muACw3uusyNdyi6PzBdbg07gkN3OfaCpvl8FQ/8u2f89QsRE3dSx
-	 usuS4wxGxsYKluHjwWvEzH+dMgfnUHY10Zkih1n0=
+	b=Cm3VxzEg4kH0+vGGIze51sW3rZsBJAFmiRsEn3Uvi04M8p3cH+MfCGfVlMYqI9+1I
+	 LZL0jxYGvLTypzfh8laMnpiovFz9eCNe1ZB3L9siXLWawnjOL7H24ckwjreBKJuuAe
+	 Uz9PbFi2ArPaOYj7ImbYvHLgFhBr5By64K2VJw60=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5810F80579; Tue, 26 Sep 2023 15:28:49 +0200 (CEST)
+	id 0F2A2F805AF; Tue, 26 Sep 2023 15:28:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46063F80578;
-	Tue, 26 Sep 2023 15:28:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5210F805A9;
+	Tue, 26 Sep 2023 15:28:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 505BDF80290; Tue, 26 Sep 2023 15:26:28 +0200 (CEST)
+	id 8C750F8016A; Tue, 26 Sep 2023 15:26:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4BAEFF800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0EF0FF801D5
 	for <alsa-devel@alsa-project.org>; Tue, 26 Sep 2023 15:25:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BAEFF800AE
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EF0FF801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=nKUW8U2G
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2c01d22f332so118382281fa.0
+ header.s=google header.b=zw74uiVq
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5041bb9ce51so14036144e87.1
         for <alsa-devel@alsa-project.org>;
  Tue, 26 Sep 2023 06:25:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1695734735; x=1696339535;
+        d=linaro.org; s=google; t=1695734737; x=1696339537;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=7XQ+0fmcxQn7hNEx2giW0ptNoy4+ucZSflc29tgLhQk=;
-        b=nKUW8U2GldH3WQ4LhtRRZlOBJO3RgnN5J9EKYlXcGC68GkzMp4G5De4eCGkxRcBWkK
-         1XsEpnY9dwG3+eELr4dJmV3JMxq/bdYWL0430YHOeqbxah3KvPCK9SbpGwRpRF9IylZ0
-         dbkBRV9b2DfYIuLbGy1NneCwlMq6N/5FHNVWhRBJx971bFlzNxFPHz1Mof0N0yxC9G4I
-         Ult8VpYXrqrpjLjEL9SVh8c+FzYqEirqRgZagICiDqYD26QyvNc1MzFVSjXjjcjI+zWn
-         62RdsbFS3dkKLB9s0nHIMjOOOwm9Ik+Om/k1+1JTiy7ys/dfhIDUmBpCMaIlZWF5wBgO
-         UqOg==
+        bh=AQREjlFdBBHyFFcqZ7B0gSxB7/oIU5kFAtRf/hN0PRg=;
+        b=zw74uiVqzwDg0IsNwoYcCoDROkENs2FK+rAEjNw2F2DhewuSTb0iY7nonp9LECIKPc
+         xuXzTT+5gAh+J3Ubd2LECtzbeNF6LTEUd8VSoWVntM890oLvxnHA3A3cW+I27ru40Dge
+         3wBPI2DnDvKYWDWlEO2dKVVk87gEowo/hGmdM+66fiPyb9CiiLEYAqbL/Ky1n7ddKAzH
+         KMbXQKotIRZr49rXe6k4VMXZ9TO3ydwvn1WNvj+DN5V+8VcRoh2PVs0FV3uy5fAlNsFe
+         HYxBsiPxD+Ui5JXrL9l6Xgj86Wu83pyUYVexKizffQ1WAHRp+u2H38DM6AwQn55nX+GB
+         xtPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695734735; x=1696339535;
+        d=1e100.net; s=20230601; t=1695734737; x=1696339537;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7XQ+0fmcxQn7hNEx2giW0ptNoy4+ucZSflc29tgLhQk=;
-        b=JRwUwCrYYnESb+HaAm18KIm0PbnOaq/yqpesB3ZPySc9wHRZts2LvpbRYUWaV6L/5X
-         49rbfnDX9+eS+rhwli/x6A+Pe0OkwGHCy2ZaudDKVRTmCSrNYwKLCmQUQ4X4qL2am3oB
-         OcM4exP0XmtTp/jtmKHTuFgS/t6kDdZf5w2nDdmybbcnUdqmPoei5q6Oj6bkzDUwfoRd
-         +3eEFdoYIvrnyCK8TMer92vrU44/QxMQTag5iwN99i743J+91XS7w66YJk+ogWAi5l8r
-         Xsn933dMSRW1TeDoVXN8znxEj1+EwCsGG4ScmbtvBfPEnATu0UAqmnZAkSMyCYAuQ+dh
-         xHJw==
-X-Gm-Message-State: AOJu0YwwiXCOuMnq6KceZhwKRDS+bQpxILHqYSGKovSdomPMS2orhWdT
-	S4qXYqd+acbL0Zqb8dCOfrd28w==
+        bh=AQREjlFdBBHyFFcqZ7B0gSxB7/oIU5kFAtRf/hN0PRg=;
+        b=miHeuOUcg9wLmwaobaoMtUokKMO5Y0+zJ+zHNH3g1lTHVuEowYxVTBWQwEQou0BfAe
+         wklunxMehQIRNLCx0AU/zZeo6taK+YgW97FLIeUfcgA3wvKKtm51JNqnd3kDUHuFa+5R
+         WJcoJQ5K8U2d8fiCT7fSYaF8suYfNthc7WxL7R/o4EZa7+FKE1EuK5bkd5zsAq28U8Na
+         dPmNhECJUIm1quVqFT0Rg+d/ltYpLxYH4PAclddjh1aTakjIdl7rSgI7G4E5YRLEOeuL
+         eR78kl3atkL51AZzOQfhRx1nV7k4cY8Xh/YAvUMyVYrZ+iyy4qlkwupLYzMkUMldATZl
+         aF0A==
+X-Gm-Message-State: AOJu0YxWItxxPVlB9KLRzxnvbNO+nbY1LaJ14hazLznACLuc9MHdgK0N
+	AZCVtN6BYc4RmVC7Z72Dy4frnQ==
 X-Google-Smtp-Source: 
- AGHT+IFPY5U0WllM4x+pCqepZzgVMk893pXwxBLYC4R7FotIFz3M4lxB3pAWd8pzSINV2/2J4ivVlA==
-X-Received: by 2002:ac2:4c45:0:b0:501:c6d8:6029 with SMTP id
- o5-20020ac24c45000000b00501c6d86029mr998788lfk.33.1695734735650;
-        Tue, 26 Sep 2023 06:25:35 -0700 (PDT)
+ AGHT+IHMuys/v1z41Pq9CuIIy/ftelPDGx7bWyJ6wtsGQexyv6AD5OHzXbCy8nEIXF0Y020uO07SZQ==
+X-Received: by 2002:a05:6512:104f:b0:500:b7dc:6c90 with SMTP id
+ c15-20020a056512104f00b00500b7dc6c90mr9505051lfb.36.1695734736594;
+        Tue, 26 Sep 2023 06:25:36 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238])
         by smtp.gmail.com with ESMTPSA id
- eq25-20020a056512489900b0050307bf2bcdsm2221540lfb.247.2023.09.26.06.25.34
+ eq25-20020a056512489900b0050307bf2bcdsm2221540lfb.247.2023.09.26.06.25.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Sep 2023 06:25:35 -0700 (PDT)
+        Tue, 26 Sep 2023 06:25:36 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 26 Sep 2023 15:25:29 +0200
-Subject: [PATCH 1/5] ASoC: ti: Convert N810 ASoC to GPIO descriptors
+Date: Tue, 26 Sep 2023 15:25:30 +0200
+Subject: [PATCH 2/5] ASoC: ti: Convert RX51 to use exclusively GPIO
+ descriptors
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230926-descriptors-asoc-ti-v1-1-60cf4f8adbc5@linaro.org>
+Message-Id: <20230926-descriptors-asoc-ti-v1-2-60cf4f8adbc5@linaro.org>
 References: <20230926-descriptors-asoc-ti-v1-0-60cf4f8adbc5@linaro.org>
 In-Reply-To: <20230926-descriptors-asoc-ti-v1-0-60cf4f8adbc5@linaro.org>
 To: Tony Lindgren <tony@atomide.com>,
@@ -103,8 +104,8 @@ To: Tony Lindgren <tony@atomide.com>,
 Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  alsa-devel@alsa-project.org, Linus Walleij <linus.walleij@linaro.org>
 X-Mailer: b4 0.12.3
-Message-ID-Hash: D2YLENNRRPTHNAEEZVAKFMAPEPPCQF6U
-X-Message-ID-Hash: D2YLENNRRPTHNAEEZVAKFMAPEPPCQF6U
+Message-ID-Hash: MHNZDWNMBR3X47H7YWM4EC67V2XEDOZ3
+X-Message-ID-Hash: MHNZDWNMBR3X47H7YWM4EC67V2XEDOZ3
 X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -117,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D2YLENNRRPTHNAEEZVAKFMAPEPPCQF6U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MHNZDWNMBR3X47H7YWM4EC67V2XEDOZ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,128 +127,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The N810 uses GPIO descriptors pretty much exclusively, but not
-for ASoC, so let's fix it. Register the pins in a descriptor table
-in the machine since the ASoC device is not using device tree.
+The RX51/Nokia n900 uses the legacy GPIO header to convert a GPIO
+back to the global GPIO numberspace and then the jack using it
+in the snd_soc_jack_add_gpios() call immediately looks up the
+corresponding descriptor again.
 
-Use static locals for the GPIO descriptors because I'm not able
-to experient with better state storage on any real hardware. Others
-using the N810 can come afterwards and improve this.
+The snd_soc_jack_add_gpios() handles GPIOs passed with devices
+just fine: pass in the device instead, and rename the GPIO
+to match the property in the device tree, and it should work
+all the same but without all the trouble.
 
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
- arch/arm/mach-omap2/board-n8x0.c | 10 ++++++++++
- sound/soc/ti/n810.c              | 31 +++++++++++++++++--------------
- 2 files changed, 27 insertions(+), 14 deletions(-)
+ sound/soc/ti/rx51.c | 19 ++++---------------
+ 1 file changed, 4 insertions(+), 15 deletions(-)
 
-diff --git a/arch/arm/mach-omap2/board-n8x0.c b/arch/arm/mach-omap2/board-n8x0.c
-index 8e3b5068d4ab..31755a378c73 100644
---- a/arch/arm/mach-omap2/board-n8x0.c
-+++ b/arch/arm/mach-omap2/board-n8x0.c
-@@ -498,6 +498,15 @@ struct menelaus_platform_data n8x0_menelaus_platform_data = {
- 	.late_init = n8x0_menelaus_late_init,
- };
+diff --git a/sound/soc/ti/rx51.c b/sound/soc/ti/rx51.c
+index 322c398d209b..047f852c79a9 100644
+--- a/sound/soc/ti/rx51.c
++++ b/sound/soc/ti/rx51.c
+@@ -10,7 +10,6 @@
+  */
  
-+static struct gpiod_lookup_table nokia810_asoc_gpio_table = {
-+	.dev_id = "soc-audio",
-+	.table = {
-+		GPIO_LOOKUP("gpio-0-15", 10, "headset", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("gpio-80-111", 21, "speaker", GPIO_ACTIVE_HIGH),
-+		{ }
-+	},
-+};
-+
- static int __init n8x0_late_initcall(void)
- {
- 	if (!board_caps)
-@@ -505,6 +514,7 @@ static int __init n8x0_late_initcall(void)
- 
- 	n8x0_mmc_init();
- 	n8x0_usb_init();
-+	gpiod_add_lookup_table(&nokia810_asoc_gpio_table);
- 
- 	return 0;
- }
-diff --git a/sound/soc/ti/n810.c b/sound/soc/ti/n810.c
-index ed217b34f846..71a2a90bad2b 100644
---- a/sound/soc/ti/n810.c
-+++ b/sound/soc/ti/n810.c
-@@ -15,14 +15,14 @@
- #include <sound/soc.h>
- 
- #include <asm/mach-types.h>
+ #include <linux/delay.h>
 -#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
+ #include <linux/platform_device.h>
+ #include <linux/gpio/consumer.h>
  #include <linux/module.h>
- #include <linux/platform_data/asoc-ti-mcbsp.h>
+@@ -33,7 +32,6 @@ enum {
  
- #include "omap-mcbsp.h"
+ struct rx51_audio_pdata {
+ 	struct gpio_desc *tvout_selection_gpio;
+-	struct gpio_desc *jack_detection_gpio;
+ 	struct gpio_desc *eci_sw_gpio;
+ 	struct gpio_desc *speaker_amp_gpio;
+ };
+@@ -198,7 +196,7 @@ static struct snd_soc_jack rx51_av_jack;
  
--#define N810_HEADSET_AMP_GPIO	10
--#define N810_SPEAKER_AMP_GPIO	101
-+static struct gpio_desc *n810_headset_amp;
-+static struct gpio_desc *n810_speaker_amp;
- 
- enum {
- 	N810_JACK_DISABLED,
-@@ -187,9 +187,9 @@ static int n810_spk_event(struct snd_soc_dapm_widget *w,
- 			  struct snd_kcontrol *k, int event)
+ static struct snd_soc_jack_gpio rx51_av_jack_gpios[] = {
+ 	{
+-		.name = "avdet-gpio",
++		.name = "jack-detection",
+ 		.report = SND_JACK_HEADSET,
+ 		.invert = 1,
+ 		.debounce_time = 200,
+@@ -263,7 +261,6 @@ static const struct snd_kcontrol_new aic34_rx51_controls[] = {
+ static int rx51_aic34_init(struct snd_soc_pcm_runtime *rtd)
  {
- 	if (SND_SOC_DAPM_EVENT_ON(event))
--		gpio_set_value(N810_SPEAKER_AMP_GPIO, 1);
-+		gpiod_set_value(n810_speaker_amp, 1);
- 	else
--		gpio_set_value(N810_SPEAKER_AMP_GPIO, 0);
-+		gpiod_set_value(n810_speaker_amp, 0);
+ 	struct snd_soc_card *card = rtd->card;
+-	struct rx51_audio_pdata *pdata = snd_soc_card_get_drvdata(card);
+ 	int err;
  
- 	return 0;
- }
-@@ -198,9 +198,9 @@ static int n810_jack_event(struct snd_soc_dapm_widget *w,
- 			   struct snd_kcontrol *k, int event)
- {
- 	if (SND_SOC_DAPM_EVENT_ON(event))
--		gpio_set_value(N810_HEADSET_AMP_GPIO, 1);
-+		gpiod_set_value(n810_headset_amp, 1);
- 	else
--		gpio_set_value(N810_HEADSET_AMP_GPIO, 0);
-+		gpiod_set_value(n810_headset_amp, 0);
- 
- 	return 0;
- }
-@@ -327,14 +327,19 @@ static int __init n810_soc_init(void)
- 	clk_set_parent(sys_clkout2_src, func96m_clk);
- 	clk_set_rate(sys_clkout2, 12000000);
- 
--	if (WARN_ON((gpio_request(N810_HEADSET_AMP_GPIO, "hs_amp") < 0) ||
--		    (gpio_request(N810_SPEAKER_AMP_GPIO, "spk_amp") < 0))) {
--		err = -EINVAL;
-+	n810_headset_amp = devm_gpiod_get(&n810_snd_device->dev,
-+					  "headphone", GPIOD_OUT_LOW);
-+	if (IS_ERR(n810_headset_amp)) {
-+		err = PTR_ERR(n810_headset_amp);
- 		goto err4;
+ 	snd_soc_limit_volume(card, "TPA6130A2 Headphone Playback Volume", 42);
+@@ -283,9 +280,9 @@ static int rx51_aic34_init(struct snd_soc_pcm_runtime *rtd)
+ 		return err;
  	}
  
--	gpio_direction_output(N810_HEADSET_AMP_GPIO, 0);
--	gpio_direction_output(N810_SPEAKER_AMP_GPIO, 0);
-+	n810_speaker_amp = devm_gpiod_get(&n810_snd_device->dev,
-+					  "speaker", GPIOD_OUT_LOW);
-+	if (IS_ERR(n810_speaker_amp)) {
-+		err = PTR_ERR(n810_speaker_amp);
-+		goto err4;
-+	}
+-	/* prepare gpio for snd_soc_jack_add_gpios */
+-	rx51_av_jack_gpios[0].gpio = desc_to_gpio(pdata->jack_detection_gpio);
+-	devm_gpiod_put(card->dev, pdata->jack_detection_gpio);
++	rx51_av_jack_gpios[0].gpiod_dev = card->dev;
++	/* Name is assigned in the struct */
++	rx51_av_jack_gpios[0].idx = 0;
  
- 	return 0;
- err4:
-@@ -351,8 +356,6 @@ static int __init n810_soc_init(void)
+ 	err = snd_soc_jack_add_gpios(&rx51_av_jack,
+ 				     ARRAY_SIZE(rx51_av_jack_gpios),
+@@ -425,14 +422,6 @@ static int rx51_soc_probe(struct platform_device *pdev)
+ 		return PTR_ERR(pdata->tvout_selection_gpio);
+ 	}
  
- static void __exit n810_soc_exit(void)
- {
--	gpio_free(N810_SPEAKER_AMP_GPIO);
--	gpio_free(N810_HEADSET_AMP_GPIO);
- 	clk_put(sys_clkout2_src);
- 	clk_put(sys_clkout2);
- 	clk_put(func96m_clk);
+-	pdata->jack_detection_gpio = devm_gpiod_get(card->dev,
+-						    "jack-detection",
+-						    GPIOD_ASIS);
+-	if (IS_ERR(pdata->jack_detection_gpio)) {
+-		dev_err(card->dev, "could not get jack detection gpio\n");
+-		return PTR_ERR(pdata->jack_detection_gpio);
+-	}
+-
+ 	pdata->eci_sw_gpio = devm_gpiod_get(card->dev, "eci-switch",
+ 					    GPIOD_OUT_HIGH);
+ 	if (IS_ERR(pdata->eci_sw_gpio)) {
 
 -- 
 2.34.1

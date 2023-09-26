@@ -2,102 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD1E97AE828
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Sep 2023 10:34:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4E67AED93
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Sep 2023 15:03:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 031BAA4E;
-	Tue, 26 Sep 2023 10:33:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 031BAA4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35DB7A4A;
+	Tue, 26 Sep 2023 15:02:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35DB7A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695717288;
-	bh=dbbX1FFj5odJESaYerWrSHZZitlFANR1mu4B8lsyCEg=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=vhKyXPDwtDFtI0K1SSFp8eQNZ/5LJJaTRp0Q9WnL4/4AErhBQWFUljiON5XQrCnAb
-	 8aJP86wVQqPxMd6bkbx3UUYnEohbkXpBuqE/g0EsslRJSQoLreQBOklU4S41wJ+BKX
-	 qBFeqvq8UdjHZLZnnqEZVQ8n8HUtz3rLmOyexpZg=
+	s=default; t=1695733392;
+	bh=PU0fWrPi2wnyXnpIwY9YIk3MU1KBxKDqXRUb7dlII4M=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=mQNQ3NHpJUfo/NAu9bXW0hHG6MxX2uCGt3YGbQAMMyPxCHjlopzkSO9kxFrDCxm/x
+	 46zoP4QVjlWzEBIjo+qEF1aH9+IbU3C9t63vyqC+Ol1TCSmGddveZwKLvxjdc9R2kp
+	 kFy1KTyRowPJ09YRwUxdUCliAHXA0hkQPveRJmQ8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6239DF80290; Tue, 26 Sep 2023 10:33:48 +0200 (CEST)
+	id 91F01F801D5; Tue, 26 Sep 2023 15:01:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCA83F80166;
-	Tue, 26 Sep 2023 10:33:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 908A3F80166;
+	Tue, 26 Sep 2023 15:01:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D498F8016A; Tue, 26 Sep 2023 10:33:43 +0200 (CEST)
+	id BA332F8016A; Tue, 26 Sep 2023 15:00:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4BA4AF8001D
-	for <alsa-devel@alsa-project.org>; Tue, 26 Sep 2023 10:33:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BA4AF8001D
+	by alsa1.perex.cz (Postfix) with ESMTPS id CEBD4F8001D
+	for <alsa-devel@alsa-project.org>; Tue, 26 Sep 2023 14:59:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEBD4F8001D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=CQSJsrUH
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38Q50jYn008767;
-	Tue, 26 Sep 2023 03:33:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=pAigu0GNj8nsOQO
-	fvrw9g4qUfEwLPwCd3czBjlCEqgE=; b=CQSJsrUH2IFeRqEisV/o6fnrhKPVocY
-	ClBdQbnZEdE8PTsF/GlnNdzzq/H251jFHPFxmKdIrMQ+oYOx+b2EXP5CDXEZZBaZ
-	tUZyNMwBj1k1l7GjU7Ljor51HSeVRE7GBhCxKouqkcLfH+636+o1QwA/DewBvZTB
-	XBUv7Q/QKugNX1IwUfc7AoQBEFmKs/jK9IBsagTteRn7NRC/0nCOQ2P8SurhSRrV
-	f1t+5Pn47ddUaK2RDk9tZG5JG63GtOsKD4Fg6OULSPDuaM7avT9Z8+bxhv2gnVj5
-	r6b6zZwYhdzZcwU4HM7l5FDMwIXNzjC5ypW91UNCVz5yjxeSHVcA4AQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t9wdxktyf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 26 Sep 2023 03:33:32 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 26 Sep
- 2023 09:33:30 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Tue, 26 Sep 2023 09:33:30 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DE7E411CD;
-	Tue, 26 Sep 2023 08:33:29 +0000 (UTC)
-Date: Tue, 26 Sep 2023 08:33:29 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-CC: David Rhodes <david.rhodes@cirrus.com>,
-        James Schulman
-	<james.schulman@cirrus.com>,
-        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood
-	<lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>,
-        Richard Fitzgerald
-	<rf@opensource.cirrus.com>,
-        Takashi Iwai <tiwai@suse.com>, <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH v2 39/54] ASoC: codec: cs47lxx: convert not to use
- asoc_xxx()
-Message-ID: <20230926083329.GK103419@ediswmail.ad.cirrus.com>
-References: <87edilihhg.wl-kuninori.morimoto.gx@renesas.com>
- <87ttrhfo3e.wl-kuninori.morimoto.gx@renesas.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=b+Ypagne
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id ED792CE1391;
+	Tue, 26 Sep 2023 12:59:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC51C433C8;
+	Tue, 26 Sep 2023 12:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695733147;
+	bh=PU0fWrPi2wnyXnpIwY9YIk3MU1KBxKDqXRUb7dlII4M=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=b+YpagnepcbUHx80T7k3ml7KCb3JhFC31t8LW9vdMVJk/kcJ5IWDTxpS9u61qoXzE
+	 2kXBApS+UwtcgzL4CeoYqjXb0atf/X2582EqKA7bZbuaXzptBxPVdqG2LmTiJRmJLt
+	 dEtD099OPi6qilVxVuJ+dlS+9D/2Nh8j+78QtRi9DabSCTCVXqbA5vUoJKNg93hjWm
+	 RmmF1zjt3dEybUn1HgY8zR4LwekJgQcq2yexzKaoYuVJv3V4tPW2xJcDHSJ6EL5dz1
+	 NY3Wba5i5N7PlxOGWGzplO+FDF2m78r/BZ2MsjCmyZMpc6N3uNXnay5fWP5ebW5Thc
+	 YTihssY+1phMg==
+From: Mark Brown <broonie@kernel.org>
+To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1695202992-24864-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1695202992-24864-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: use integer type for fll_id and
+ pll_id
+Message-Id: <169573314495.2623437.8401087365242286082.b4-ty@kernel.org>
+Date: Tue, 26 Sep 2023 14:59:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <87ttrhfo3e.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: MC0hPptXhD6pZaG5ydsX4W5T9ocHlttA
-X-Proofpoint-GUID: MC0hPptXhD6pZaG5ydsX4W5T9ocHlttA
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: OGK6PHBBSC42EYITEQMHHBSBT72EJBC2
-X-Message-ID-Hash: OGK6PHBBSC42EYITEQMHHBSBT72EJBC2
-X-MailFrom: prvs=4633103414=ckeepax@opensource.cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: IWY6NHREZ4TBSA3ALTNLXVE4LQ3MXD25
+X-Message-ID-Hash: IWY6NHREZ4TBSA3ALTNLXVE4LQ3MXD25
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGK6PHBBSC42EYITEQMHHBSBT72EJBC2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWY6NHREZ4TBSA3ALTNLXVE4LQ3MXD25/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,14 +97,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Sep 26, 2023 at 06:25:10AM +0000, Kuninori Morimoto wrote:
-> ASoC is now unified asoc_xxx() into snd_soc_xxx().
-> This patch convert asoc_xxx() to snd_soc_xxx().
+On Wed, 20 Sep 2023 17:43:12 +0800, Shengjiu Wang wrote:
+> As the pll_id and pll_id can be zero (WM8960_SYSCLK_AUTO)
+> with the commit 2bbc2df46e67 ("ASoC: wm8960: Make automatic the
+> default clocking mode")
 > 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
+> Then the machine driver will skip to call set_sysclk() and set_pll()
+> for codec, when the sysclk rate is different with what wm8960 read
+> at probe, the output sound frequency is wrong.
+> 
+> [...]
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: fsl-asoc-card: use integer type for fll_id and pll_id
+      commit: 2b21207afd06714986a3d22442ed4860ba4f9ced
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark
+

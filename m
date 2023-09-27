@@ -2,122 +2,159 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F3ED7B3EF7
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B4E7B3EFA
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:07:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 806EBE97;
-	Sat, 30 Sep 2023 10:06:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 806EBE97
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6FD2E85;
+	Sat, 30 Sep 2023 10:06:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FD2E85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061223;
-	bh=3oc2Ko0wDW+eb1NEs0miIHM9RFSBjGdk2lyfCNBhW5U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KNHMew7ojUZNImswENe8ToY9FocZTY4/+/zICJkg30je6NPW/3Wj6+XuA/0Ehkia5
-	 zsEXFCbrw8dneIbyaxfcH779kiBHGJa5ai1dD/Q94oh1RKvd0gIZKPp8eBjOClmlGH
-	 bvJPCAQ0gtazZvbWcqfNgoyQ9GGJLpm7R7kNFB+c=
+	s=default; t=1696061262;
+	bh=0pyXd+1V2iixb30l5ew99GePMh/gPQrqvX8vtezE+XY=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dwvxe202D+jcCHQe86gnAnDiRFgRbEcFnitOsIMHHIMFbLvgiKQwb1cOESadPER//
+	 /Y0v1iSh/d79HJ2C3vvGG4ai4jUusqQhLLBuX0T9YmAaHEn3rS4GaODAM6FkSP2Ts9
+	 rtTycq7Gk40PYIKtCoBmYaaJ3NkbTKSy0BmoZkXQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C860BF805A1; Sat, 30 Sep 2023 10:06:02 +0200 (CEST)
+	id 4E1E3F805B2; Sat, 30 Sep 2023 10:06:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED675F805A8;
-	Sat, 30 Sep 2023 10:06:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7273FF805C6;
+	Sat, 30 Sep 2023 10:06:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD988F8047D; Wed, 27 Sep 2023 05:36:32 +0200 (CEST)
+	id 274A3F8016A; Wed, 27 Sep 2023 09:18:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_PASS,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20721.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7d00::721])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D79CFF80166
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 05:36:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D79CFF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id A0864F800AA
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 09:17:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0864F800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=huaqin-corp-partner-google-com.20230601.gappssmtp.com
- header.i=@huaqin-corp-partner-google-com.20230601.gappssmtp.com
- header.a=rsa-sha256 header.s=20230601 header.b=GabmrA2o
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-690b7cb71aeso7704089b3a.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 26 Sep 2023 20:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=huaqin-corp-partner-google-com.20230601.gappssmtp.com; s=20230601;
- t=1695785779; x=1696390579; darn=alsa-project.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4dZFig+3lzqh/aktoSPWYMfOgcYhjyowi8/cXJ999RM=;
-        b=GabmrA2o0wChZup/0ezDpRSCZSTlLYs3DZ7IsR3IQOM06MLJt7U1lFcRb5Br1Yh+hE
-         Ue2LEpdpDBidrqNuVUU/VgEAE9aVLidfxCbdXdJKYnEdCsdIvvil0OyznGSsgdtdG3Yz
-         kbiRvI1pJ+lOLsHeAPVm0Iu1vVDna9ze//P+Dm/VPOF/svqwRI7CxuFj+SahQFfDgRX8
-         b00kcJQoGj973pIeI1e/yr6Tbi9AuDonK9xMig4SifQyZl8rrXCEEJJDM4S5GfdPx8PF
-         v2F1MGM1jSjOHWCZJ7fS/HQ1hWXpTaXqZ8iCPMCLlY1X3EPdxsalX7Sj8h/++rxIYTVZ
-         +Xxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695785779; x=1696390579;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4dZFig+3lzqh/aktoSPWYMfOgcYhjyowi8/cXJ999RM=;
-        b=ejMWTBzk50axHdmT045JSeF2BePOzJTMr8Y3RVeOMKF6lf2IQdaBVqu77yYM851Nh2
-         c4aP9qvg9N3IWZys6acOqoXff4P88xBwu08GrvSo2iGKQ7OmG4+DI+PuOKqZDcZxVaE1
-         CufdRKKbZaUiIImQy2926xIbsq43Blgn+2MkOtvIHH3TCrWiVlTCXFSkZn6rv6SoW6m5
-         WHy5wfRllCo0d35h5c8eurJdjsNPCZFJFiuozQO1Wf2Qd3ln4hbQTpKh1hRySD0WvTni
-         wpWIoz18p5VDHjMhk97nA8q52Y0Llm55lS/AXK+Ueo7iswVZpqeMEeongPdVMISIYJsK
-         sH4A==
-X-Gm-Message-State: AOJu0Yx+lZ4sw+brkYn+Y0qPFwzhM+G10I0Q3YVP9HhN3VRi8M2pfF+r
-	8w8NEZG+wqJO++2Eka4qpELteA==
-X-Google-Smtp-Source: 
- AGHT+IECPIa3OEa/VOUrQGvdi+LlV4SzWBSp039xcVtZI1syUXVx65cyhfC41kTUUSGf0HWo37eDZw==
-X-Received: by 2002:a62:ee06:0:b0:68f:a92a:8509 with SMTP id
- e6-20020a62ee06000000b0068fa92a8509mr5668270pfi.7.1695785779387;
-        Tue, 26 Sep 2023 20:36:19 -0700 (PDT)
-Received: from ubuntu.huaqin.com ([101.78.151.205])
-        by smtp.gmail.com with ESMTPSA id
- i14-20020aa787ce000000b006870ed427b2sm11067570pfo.94.2023.09.26.20.36.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Sep 2023 20:36:19 -0700 (PDT)
-From: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
-To: broonie@kernel.org,
-	robh+dt@kernel.org,
-	tiwai@suse.com,
-	trevor.wu@mediatek.com,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patchwork-bot@kernel.org
-Cc: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
-Subject: [v3 2/2] ASoC: mediatek: mt8188-mt6359: add rt5682s support
-Date: Wed, 27 Sep 2023 11:36:08 +0800
-Message-Id: 
- <20230927033608.16920-3-xiazhengqiao@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: 
- <20230927033608.16920-1-xiazhengqiao@huaqin.corp-partner.google.com>
-References: 
- <20230927033608.16920-1-xiazhengqiao@huaqin.corp-partner.google.com>
-X-MailFrom: xiazhengqiao@huaqin.corp-partner.google.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=thp4.onmicrosoft.com header.i=@thp4.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-thp4-onmicrosoft-com header.b=CW2RZoqq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l8tnG+ooNytfkZ8Y5Jp+gbVGhUMXqh1qdkgK0Ss41dPdQucrArzmtKcbOjYoH8DYvZQdNXODANzOWskWG7Axs+UKhPIneoLoNoRKODg/lajAwm7TgT60h/vS/LZnCiJi14jpvQTihUNHgQq1gkASQB0wev7reiMNfWbkVAY4/aOoGOv3m8oVFBou/lqfrsOCQAU+ABBzXJipCvkEfRVmrEyIKpUvFzJ4yDDdOi4gq5Gxzzs/E8xnNkWluYoGGaNAf0AnL39+Gkd02qNtOcvckbfZbZYbtRNkmHncIiVdOF2qB1ADwWykPQtlhu36sH6BO7J7l02cdcKUqsBw9Z9NWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kz3XYqTtB5rKjaXHlJYz8iXfTu8NRYY75Rmdz7lhSbc=;
+ b=XrCUNao3BaLzo21PxWZCsJEyHQzCCEd4IxB1QHavgs9wkmxHK7jlr9U+f3U61I4Emaa55H3sR97i2ZKWjml98NDcoeLIc5Ng8iWFrBlEUtdp5rKKgN5DpRScr7RbWXoslmivVkEZzqMO+pZ8qUgZFIMWqbUdk+J5/CKtPR9MZbzS6vJwUKWGLaKpzDZllrlBbrwyh9rwJE/zUN6ZoygSFTiR8StQxFA1fS+T/FxaxohPq/bF7IIvVK2AJDM+8QQqa27PsqjNWwyJamueM8gA78LzM2vsXpvzRGeJ5ZAwQUdj4t4ZNBsyLaa8GhmjNQuCdTJ4jyhhcR9/OG+M4acXlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=thp.io; dmarc=pass action=none header.from=thp.io; dkim=pass
+ header.d=thp.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thp4.onmicrosoft.com;
+ s=selector2-thp4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kz3XYqTtB5rKjaXHlJYz8iXfTu8NRYY75Rmdz7lhSbc=;
+ b=CW2RZoqqzTmgvnbeBLrt9qItPaxBHjmoEOxg+fe6OfN727i7ZTrRINo99MokSxzRaecitb1zkHF6q4GxJumEyA7GGPWJBawq8icIDwI4eiRfafCS3FlRRu2pL1cwe2/eUCht8YQp3UR2BK4p4ejS1DydztHQqooj0ZkVKucQJ1c=
+Received: from VE1P194MB0781.EURP194.PROD.OUTLOOK.COM (2603:10a6:800:162::9)
+ by AM9P194MB1410.EURP194.PROD.OUTLOOK.COM (2603:10a6:20b:3a2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Wed, 27 Sep
+ 2023 07:17:32 +0000
+Received: from VE1P194MB0781.EURP194.PROD.OUTLOOK.COM
+ ([fe80::cb1e:b98e:d4c9:5b66]) by VE1P194MB0781.EURP194.PROD.OUTLOOK.COM
+ ([fe80::cb1e:b98e:d4c9:5b66%3]) with mapi id 15.20.6813.027; Wed, 27 Sep 2023
+ 07:17:32 +0000
+From: Thomas Perl <m@thp.io>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"trivial@kernel.org" <trivial@kernel.org>
+Subject: [PATCH] sound: fix name of SIS7013 sound chip in comment
+Thread-Topic: [PATCH] sound: fix name of SIS7013 sound chip in comment
+Thread-Index: AQHZ8RKuxe0zyijipE66NieRcGAh1g==
+Date: Wed, 27 Sep 2023 07:17:32 +0000
+Message-ID: <5E4B5CA1-1109-4C82-A581-838ACF19A15D@thp.io>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=thp.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VE1P194MB0781:EE_|AM9P194MB1410:EE_
+x-ms-office365-filtering-correlation-id: 68803cf8-e7d2-4e4f-160c-08dbbf29d0de
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ gbUf5kfrbgN6SB3BONiUOMa4DAJopMcVNsKSUxUtqx6A/b2YBLUUZngXqVojHsRmAFruKqOtUvmK3N74mtP5hR8ostKN59gT2UihRTVbBBuj2cwD9eC+k2Jk2qsO5NxpJSrLcyOv622D53Tg6p6Ov4lGp5f0Ct+u1pZn4RSXeCnGWLW72RF9LqiK6Y4vdDjTp1hf+juzV4F/jdiP21gkHFtOjTiTujTwVOZ4ph5nqOhO3J+2ByHleaBLHL6mlUmNf9IWsGROCBzzzhnROKHRVH2+sjxZq+ncpE5xWPFlDH/Zr66FSc1+jjh2YiyCNwGfHcAMfEvvzcdi8by6Mcq9oFzbiufcWIeXHa0++5+bw0fun1rPnhi/dPrHawe9yrEgfFnqtkXV8FamFeHyCXPkEYhJIi7AYXMMSjBC9IqX5APGbiQMpEssVGDbottTfyqRwuAuJup68KnsKMYvbI6i9b6ql1ACBdABXDjXIKJYL9tgGZaCLoOSccOIhsTzTL0mQ322WP6bJUR1zCfbIXX42izxJP4wS41oBSkKOBNKSo/9dfRZqTwmaD67Lnhk9DsNaE4GI/3iCp9wVRJONNXpJkYopXL8X5jnc3Nv4BeQ1sovLSL4tawRK0ddXTOZORjujelLpI81Pzn+FG7VZWjhQtxiSpue2kCCppxfalZLKECIH2WSXmxLx/59HyVyh3Vkm8vc6wgs5MQth09TSyHmng==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1P194MB0781.EURP194.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(39830400003)(396003)(366004)(346002)(230922051799003)(1800799009)(186009)(451199024)(66946007)(2616005)(6486002)(6506007)(6512007)(38100700002)(38070700005)(36756003)(86362001)(33656002)(122000001)(83380400001)(41300700001)(316002)(8676002)(8936002)(66556008)(66446008)(66476007)(5660300002)(110136005)(76116006)(2906002)(4744005)(64756008)(71200400001)(478600001)(341764005)(49092004)(45980500001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?NHJkrjEKenMLGJ+/iea4DzC2IjH6MDgynsdFxQ5DUHlryzBg2Usg0LWiBgkU?=
+ =?us-ascii?Q?r391TYsc3nh0l+7zq7fMdUue9CgjeASVjeTpyYPS7aMs+oFOpFEMx3P2M7rh?=
+ =?us-ascii?Q?V3Gv3Nt8r+sUT3VsCYE50GDIvRDqGlLQBjjVNqGBlZi//jD/rJ418Ad0n3xO?=
+ =?us-ascii?Q?XY4Qp9s+kk7QGnQm5cVgadkjs5Tv8v/I7lIP9fzGMcqxh3Dt8lRmfhDRTyQN?=
+ =?us-ascii?Q?Ff9G+WCY2RlRqMWL0fcfjrHINiVFwfcWtuiz4JtAuTBC8bZE5KO/XqNB2t83?=
+ =?us-ascii?Q?wz6fcA7Eud/edPYHJaQusIi/tvUjivhG3AY6i5Hw0B7ivLQ7BKMqTVguDL7K?=
+ =?us-ascii?Q?3oOmelgUPbHcEfQuocTmIh4BtiawKvbm3TLA6duFMS6SRiIAXwxxTOv/g9AL?=
+ =?us-ascii?Q?8u6IDwDnQeo1AZf77iw1o4yjjl7Lvk7UyF5GU7xNa+dV822yPVWuG7BX5kQT?=
+ =?us-ascii?Q?mF5RMpIpaS6rv//f85mdzlS3EA6okL6rXiIkxLAM4duBIHpz8bb+LdZQUWMg?=
+ =?us-ascii?Q?fn4Rb92YEfLUoMiyLuJSddPHaB8tIzLNm5Z48GgX/BxdAN4xnC5LwtQx74JQ?=
+ =?us-ascii?Q?Jmjo75WhZLBjbtZqx9nNHzoRF3Z0USiGiP7Fcw4Y5jYGUiTOIUNWrAfVcbhB?=
+ =?us-ascii?Q?bg/zBP8Jos0S3IeBYLaZKKJ2DAWbXxw5E8N/zJ1Leci9S212Qin9shuUe9Ko?=
+ =?us-ascii?Q?PmvILF2xbUowSdMotlJ3au3pqNq4SXlb8pFRTByel7Uev6u9HxIcy4hpkLuX?=
+ =?us-ascii?Q?c9ZHsjEZahHIhjtF0/ZSIA/cyagf0+kjrg8mDp8gqEy1sQPs7TkH9LShwzN9?=
+ =?us-ascii?Q?hwvyjlVRGFzQVgkZhWLWYwgupbRqIhHalVC8me9dAupvtp4Qm+pXc/pbJyUB?=
+ =?us-ascii?Q?TBP5sQCxLG2+ewB7cZTUcUeSmrIf6cRq7P4vmzfmqpQEz6wX2UrWFeHKYVp9?=
+ =?us-ascii?Q?syqIipIu2BXRaAJZVmAYdkKjLP0Yk16EjgFR0xrZJja5xqz/FBHdDjhxmZRh?=
+ =?us-ascii?Q?bA/sS0yNF2xemcuWCd3nixAnFb3gTJxX71hM0umgi1OQqBrkPIcXsszJuALL?=
+ =?us-ascii?Q?g9pasQyKWp20aFWu9QlLeRuPEe7OU1+e9iXAAhBo0b1S5l/4fYwoCbcPyeg4?=
+ =?us-ascii?Q?kdNi0Q95iv4zVEzfTN6VZJJkyBrIE+2Fr8BtOpMK+Dz68pKd/97TMYT47oWl?=
+ =?us-ascii?Q?OZYoVzbOYdu6OwqumCqlmgwXsqz9Hu41wZjzKn6DGNWxOtj45KrXOrk6K9ce?=
+ =?us-ascii?Q?WI7OAmjye05rScbB3rDEYCk9ZVssOJzDTta8q6qU98GgY0dthQQzTSJegYNV?=
+ =?us-ascii?Q?cY0fkdcn5BSlhzhRpRfSPZxGb0tyk7BDhJ1IvyK/2nJPwhmJpJCos2cGKlVG?=
+ =?us-ascii?Q?i0IaTEwx5DNRERlflHfv5E1rpqlqJFNx5VrnW92BJA6I0aXevx1fOpOJgoKH?=
+ =?us-ascii?Q?fdCR4XaiK7GdgbMWlw1wyYMoWAIqUJlE7h/GAtx57Clr/D72rulojnxYspPd?=
+ =?us-ascii?Q?1hmc23UVAPWUJVIUue89MMcj2sY7DUsFdm5z4FLpODo0iyXqJp/vnXkqPVFz?=
+ =?us-ascii?Q?pOV04KtSR54musKKbcATDU2uf9h+Pc4Dr8UKrsUDsbPPtWWqwXu3to0Yokpx?=
+ =?us-ascii?Q?cJtJ6nfXYrVwM3feZ0dBYvIjhWimrW2B8rwvVtH3EVkKuC1lnADeab3pU8bM?=
+ =?us-ascii?Q?SInKnA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9461B13B7C74EC4EA2A12A45932EF67B@EURP194.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: thp.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VE1P194MB0781.EURP194.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 68803cf8-e7d2-4e4f-160c-08dbbf29d0de
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2023 07:17:32.1542
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9b407b73-c466-49a2-b0d8-a8ff83188813
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ Pp6KA7hhbHe5GLe/z0rWvYvMBy1mtbMI1hSpU0s7zTndq6P96KDA6feo8xhCk1H2LG9IJrN96j6LTc1FWdYgGUxC+71RWi+QtXFu7XC2bQQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9P194MB1410
+X-MailFrom: m@thp.io
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: IXHWHHO7G476MXKWLAIWHRYUZBIOAE4T
-X-Message-ID-Hash: IXHWHHO7G476MXKWLAIWHRYUZBIOAE4T
-X-Mailman-Approved-At: Sat, 30 Sep 2023 08:05:56 +0000
+Message-ID-Hash: 7DGFJMI6QH6F4Z6KJOGYAFSSUO4DG4IS
+X-Message-ID-Hash: 7DGFJMI6QH6F4Z6KJOGYAFSSUO4DG4IS
+X-Mailman-Approved-At: Sat, 30 Sep 2023 08:06:32 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IXHWHHO7G476MXKWLAIWHRYUZBIOAE4T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7DGFJMI6QH6F4Z6KJOGYAFSSUO4DG4IS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,263 +163,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To use RT5682S as the codec and MAX98390 as the amp, add a new
-sound card named mt8188_rt5682s.
+While grep'ing for SIS7012, I noticed that there is
+only one reference to it in sound/pci/intel8x0m.c,
+while most of its code lives in sound/pci/intel8x0.c.
 
-Signed-off-by: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
+This probably was a simple copy'n'paste mistake, as
+the sound/pci/intel8x0m.c driver implements support
+for SIS7013 (see DEVICE_SIS), and the two devices
+seem to share the same behavior / registers.
+
+Signed-off-by: Thomas Perl <m@thp.io>
 ---
- sound/soc/mediatek/Kconfig                |   1 +
- sound/soc/mediatek/mt8188/mt8188-mt6359.c | 141 +++++++++++++++++++++-
- 2 files changed, 140 insertions(+), 2 deletions(-)
+ sound/pci/intel8x0m.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index 8d1bc8814486..43c8fea00439 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -250,6 +250,7 @@ config SND_SOC_MT8188_MT6359
- 	select SND_SOC_MAX98390
- 	select SND_SOC_NAU8315
- 	select SND_SOC_NAU8825
-+	select SND_SOC_RT5682S
- 	help
- 	  This adds support for ASoC machine driver for MediaTek MT8188
- 	  boards with the MT6359 and other I2S audio codecs.
-diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-index e2416b981e1f..66f246126728 100644
---- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-@@ -17,6 +17,7 @@
- #include "mt8188-afe-common.h"
- #include "../../codecs/nau8825.h"
- #include "../../codecs/mt6359.h"
-+#include "../../codecs/rt5682.h"
- #include "../common/mtk-afe-platform-driver.h"
- #include "../common/mtk-soundcard-driver.h"
- #include "../common/mtk-dsp-sof-common.h"
-@@ -32,7 +33,7 @@
-  #define TEST_MISO_DONE_2	BIT(29)
- 
- #define NAU8825_HS_PRESENT	BIT(0)
--
-+#define RT5682S_HS_PRESENT	BIT(1)
- /*
-  * Maxim MAX98390
-  */
-@@ -52,6 +53,8 @@
- #define SOF_DMA_UL4 "SOF_DMA_UL4"
- #define SOF_DMA_UL5 "SOF_DMA_UL5"
- 
-+#define RT5682S_CODEC_DAI     "rt5682s-aif1"
-+
- /* FE */
- SND_SOC_DAILINK_DEFS(playback2,
- 		     DAILINK_COMP_ARRAY(COMP_CPU("DL2")),
-@@ -258,6 +261,17 @@ static struct snd_soc_jack_pin nau8825_jack_pins[] = {
- 	},
- };
- 
-+static struct snd_soc_jack_pin rt5682s_jack_pins[] = {
-+	{
-+		.pin    = "Headphone Jack",
-+		.mask   = SND_JACK_HEADPHONE,
-+	},
-+	{
-+		.pin    = "Headset Mic",
-+		.mask   = SND_JACK_MICROPHONE,
-+	},
-+};
-+
- struct mt8188_card_data {
- 	const char *name;
- 	unsigned long quirk;
-@@ -316,10 +330,18 @@ static const struct snd_soc_dapm_widget mt8188_nau8825_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- };
- 
-+static const struct snd_soc_dapm_widget mt8188_rt5682s_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+};
-+
- static const struct snd_kcontrol_new mt8188_nau8825_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- };
- 
-+static const struct snd_kcontrol_new mt8188_rt5682s_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+};
-+
- static const struct snd_soc_dapm_route mt8188_mt6359_routes[] = {
- 	/* SOF Uplink */
- 	{SOF_DMA_UL4, NULL, "O034"},
-@@ -772,6 +794,55 @@ static int mt8188_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
- };
- 
-+static int mt8188_rt5682s_codec_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
-+	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
-+	struct snd_soc_jack *jack = &priv->headset_jack;
-+	int ret;
-+
-+	ret = snd_soc_dapm_new_controls(&card->dapm, mt8188_rt5682s_widgets,
-+					ARRAY_SIZE(mt8188_rt5682s_widgets));
-+	if (ret) {
-+		dev_err(rtd->dev, "unable to add rt5682s card widget, ret %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_add_card_controls(card, mt8188_rt5682s_controls,
-+					ARRAY_SIZE(mt8188_rt5682s_controls));
-+	if (ret) {
-+		dev_err(rtd->dev, "unable to add rt5682s card controls, ret %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
-+					 SND_JACK_HEADSET | SND_JACK_BTN_0 |
-+					 SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-+					 SND_JACK_BTN_3,
-+					 jack,
-+					 rt5682s_jack_pins,
-+					 ARRAY_SIZE(rt5682s_jack_pins));
-+	if (ret) {
-+		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+	ret = snd_soc_component_set_jack(component, jack, NULL);
-+
-+	if (ret) {
-+		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+};
-+
- static void mt8188_nau8825_codec_exit(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
-@@ -779,6 +850,13 @@ static void mt8188_nau8825_codec_exit(struct snd_soc_pcm_runtime *rtd)
- 	snd_soc_component_set_jack(component, NULL, NULL);
- }
- 
-+static void mt8188_rt5682s_codec_exit(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
-+
-+	snd_soc_component_set_jack(component, NULL, NULL);
-+}
-+
- static int mt8188_nau8825_hw_params(struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *params)
- {
-@@ -813,6 +891,51 @@ static const struct snd_soc_ops mt8188_nau8825_ops = {
- 	.hw_params = mt8188_nau8825_hw_params,
- };
- 
-+static int mt8188_rt5682s_i2s_hw_params(struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	unsigned int rate = params_rate(params);
-+	int bitwidth;
-+	int ret;
-+
-+	bitwidth = snd_pcm_format_width(params_format(params));
-+	if (bitwidth < 0) {
-+		dev_err(card->dev, "invalid bit width: %d\n", bitwidth);
-+		return bitwidth;
-+	}
-+
-+	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x00, 0x0, 0x2, bitwidth);
-+	if (ret) {
-+		dev_err(card->dev, "failed to set tdm slot\n");
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dai_set_pll(codec_dai, RT5682_PLL1, RT5682_PLL1_S_BCLK1,
-+				  rate * 32, rate * 512);
-+	if (ret) {
-+		dev_err(card->dev, "failed to set pll\n");
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
-+				     rate * 512, SND_SOC_CLOCK_IN);
-+	if (ret) {
-+		dev_err(card->dev, "failed to set sysclk\n");
-+		return ret;
-+	}
-+
-+	return snd_soc_dai_set_sysclk(cpu_dai, 0, rate * 128,
-+				      SND_SOC_CLOCK_OUT);
-+}
-+
-+static const struct snd_soc_ops mt8188_rt5682s_i2s_ops = {
-+	.hw_params = mt8188_rt5682s_i2s_hw_params,
-+};
-+
- static int mt8188_sof_be_hw_params(struct snd_pcm_substream *substream,
- 				   struct snd_pcm_hw_params *params)
- {
-@@ -1148,7 +1271,7 @@ static void mt8188_fixup_controls(struct snd_soc_card *card)
- 	struct mt8188_card_data *card_data = (struct mt8188_card_data *)priv->private_data;
- 	struct snd_kcontrol *kctl;
- 
--	if (card_data->quirk & NAU8825_HS_PRESENT) {
-+	if (card_data->quirk & (NAU8825_HS_PRESENT | RT5682S_HS_PRESENT)) {
- 		struct snd_soc_dapm_widget *w, *next_w;
- 
- 		for_each_card_widgets_safe(card, w, next_w) {
-@@ -1190,6 +1313,7 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 	struct snd_soc_dai_link *dai_link;
- 	bool init_mt6359 = false;
- 	bool init_nau8825 = false;
-+	bool init_rt5682s = false;
- 	bool init_max98390 = false;
- 	bool init_dumb = false;
- 	int ret, i;
-@@ -1306,6 +1430,13 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
- 					dai_link->exit = mt8188_nau8825_codec_exit;
- 					init_nau8825 = true;
- 				}
-+			} else if (!strcmp(dai_link->codecs->dai_name, RT5682S_CODEC_DAI)) {
-+				dai_link->ops = &mt8188_rt5682s_i2s_ops;
-+				if (!init_rt5682s) {
-+					dai_link->init = mt8188_rt5682s_codec_init;
-+					dai_link->exit = mt8188_rt5682s_codec_exit;
-+					init_rt5682s = true;
-+				}
- 			} else {
- 				if (strcmp(dai_link->codecs->dai_name, "snd-soc-dummy-dai")) {
- 					if (!init_dumb) {
-@@ -1343,9 +1474,15 @@ static struct mt8188_card_data mt8188_nau8825_card = {
- 	.quirk = NAU8825_HS_PRESENT,
- };
- 
-+static struct mt8188_card_data mt8188_rt5682s_card = {
-+	.name = "mt8188_rt5682s",
-+	.quirk = RT5682S_HS_PRESENT,
-+};
-+
- static const struct of_device_id mt8188_mt6359_dt_match[] = {
- 	{ .compatible = "mediatek,mt8188-mt6359-evb", .data = &mt8188_evb_card, },
- 	{ .compatible = "mediatek,mt8188-nau8825", .data = &mt8188_nau8825_card, },
-+	{ .compatible = "mediatek,mt8188-rt5682s", .data = &mt8188_rt5682s_card, },
- 	{ /* sentinel */ },
- };
- MODULE_DEVICE_TABLE(of, mt8188_mt6359_dt_match);
--- 
-2.17.1
+diff --git a/sound/pci/intel8x0m.c b/sound/pci/intel8x0m.c
+index 2845cc006d0c..653ecca78238 100644
+--- a/sound/pci/intel8x0m.c
++++ b/sound/pci/intel8x0m.c
+@@ -918,7 +918,7 @@ static int snd_intel8x0m_ich_chip_init(struct intel8x0m=
+ *chip, int probing)
+  }
+    if (chip->device_type =3D=3D DEVICE_SIS) {
+- /* unmute the output on SIS7012 */
++ /* unmute the output on SIS7013 */
+  iputword(chip, 0x4c, igetword(chip, 0x4c) | 1);
+  }
+  --  2.39.2
 

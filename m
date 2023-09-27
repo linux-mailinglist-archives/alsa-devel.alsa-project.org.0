@@ -2,84 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C0527B0931
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 17:47:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D8F7B0A19
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 18:27:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52144A4A;
-	Wed, 27 Sep 2023 17:46:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52144A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9FC29F6;
+	Wed, 27 Sep 2023 18:26:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9FC29F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695829640;
-	bh=3FrmzdhTjw5LrzQOkp7joeY5gnZ08aQFmDto0Xk2RDo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1695832050;
+	bh=K8bZBgGbsHrC9qTb2Lx7B8632Fst7h2du5FBLgDZNEA=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rLU0PwM4Ls1d/WbL/OH3Eer+doEPBZFhN/oNS5qMYgHUS+EE1uk0QM3cTL49DrJcx
-	 q4zOW8/Y4rEx48MMNxdRc+l/0NS7PKxmZ/FxKODXrG28FM7CpnuG8XKcN68PSvghNY
-	 CUhU3giNJctSILldfbDXBxLY7me8toKRQ4tFuebU=
+	b=qme604J4eMKlu5o74z8nzWpxvMJM8lH/KbLFwTBhMHqwwRRji0Rmzfs7u5Sd0jz2e
+	 F20JpB8pNq0Q3DcRYbCXxNPJ7Yx3Ti2QOnlzHFs9U2Gu3f252pqKsIBwQHeU22hZ+n
+	 cZ/++epobMmYUBTIV8XVrnmapAWBdSKy7PspuHVY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA10DF801D5; Wed, 27 Sep 2023 17:46:29 +0200 (CEST)
+	id 71942F80551; Wed, 27 Sep 2023 18:26:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68081F80166;
-	Wed, 27 Sep 2023 17:46:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 213C6F80166;
+	Wed, 27 Sep 2023 18:26:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E98D5F8016A; Wed, 27 Sep 2023 17:46:22 +0200 (CEST)
+	id AC2E7F8016A; Wed, 27 Sep 2023 18:26:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C28D5F8007C
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 17:46:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C28D5F8007C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=Jdg7Mxy7
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 6C8B561908;
-	Wed, 27 Sep 2023 15:46:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0BF3C4339A;
-	Wed, 27 Sep 2023 15:46:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1695829572;
-	bh=3FrmzdhTjw5LrzQOkp7joeY5gnZ08aQFmDto0Xk2RDo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Jdg7Mxy7D4jA3i/D43lRGIJqPBosdIidu+hvsXP+OFbf9RJUra9kj9VAaMLtfVDvi
-	 TuqLRrSNTNOxsuIqgQEGQ5UTKdkx+hQ1wfba6lvehEnem1vjSaVZWhwhxCct6RgvZT
-	 Q+mAjxijzvfVYio8cGhCNgDjKCPl6uDErTNJjvxE=
-Date: Wed, 27 Sep 2023 17:46:09 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	agross@kernel.org, andersson@kernel.org, konrad.dybcio@linaro.org,
-	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org, srinivas.kandagatla@linaro.org,
-	bgoswami@quicinc.com, Thinh.Nguyen@synopsys.com,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 00/33] Introduce QC USB SND audio offloading support
-Message-ID: <2023092752-hardcover-surviving-b9d1@gregkh>
-References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
- <ZRREZl6XLzyY4K95@finisterre.sirena.org.uk>
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0787F80130
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 18:26:31 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9E83F11ED;
+	Wed, 27 Sep 2023 18:26:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9E83F11ED
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1695831990; bh=k+hr6qJrV6jG/uOr7Xk8xDT8VJ38SwhnTqbGz6zGZZQ=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=pSa7UE0hkyTGjKNfiFWYaATjzhEnv7iSBwktqO9+zpqw0+QP6oiATqOp4BFXb0XwS
+	 Qt9DXmoEJnlmSqxWShzbymMz6FWWjZEDDB/4XYyRn6rbN/8G+ffG/oSjludBsmJ2ej
+	 MX2TgQFEgt1pQ0NflxVbNn5HY30xt7uH3W5i1YQQ=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 27 Sep 2023 18:26:20 +0200 (CEST)
+Message-ID: <5cafee23-b1fe-4ee5-8f62-6080707403da@perex.cz>
+Date: Wed, 27 Sep 2023 18:26:19 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZRREZl6XLzyY4K95@finisterre.sirena.org.uk>
-Message-ID-Hash: KKF3XJT6DJAOZ6HNQ4TMH36IRL7ISF2T
-X-Message-ID-Hash: KKF3XJT6DJAOZ6HNQ4TMH36IRL7ISF2T
-X-MailFrom: gregkh@linuxfoundation.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: sboyce@blueyonder.co.uk, Randy Dunlap <rdunlap@infradead.org>,
+ Bagas Sanjaya <bagasdotme@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux ALSA <alsa-devel@alsa-project.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
+References: <213f93b5-bffe-479f-a111-f8a7e44cd293@blueyonder.co.uk>
+ <61821f15-78e2-4594-8f39-545ecaa97000@infradead.org>
+ <5903832d-7d27-4847-b161-48b9f7e92ee6@blueyonder.co.uk>
+ <ZRLWIkyngsasQbQ7@debian.me>
+ <6a6d7683-78f2-4511-976d-eb42d3b59c89@blueyonder.co.uk>
+ <40672e60-3913-4794-b84a-742b7c16d361@infradead.org>
+ <4b2c3b4e-9b21-4f80-95e1-58aa7f58131e@blueyonder.co.uk>
+Content-Language: en-US
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Ryzen 9 7950x sound module does not not build
+In-Reply-To: <4b2c3b4e-9b21-4f80-95e1-58aa7f58131e@blueyonder.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LSCZRAR7MX5YTIUBIBI26KIVPEYHUATD
+X-Message-ID-Hash: LSCZRAR7MX5YTIUBIBI26KIVPEYHUATD
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KKF3XJT6DJAOZ6HNQ4TMH36IRL7ISF2T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSCZRAR7MX5YTIUBIBI26KIVPEYHUATD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,19 +104,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Sep 27, 2023 at 05:04:06PM +0200, Mark Brown wrote:
-> On Thu, Sep 21, 2023 at 02:48:10PM -0700, Wesley Cheng wrote:
-> > Several Qualcomm based chipsets can support USB audio offloading to a
-> > dedicated audio DSP, which can take over issuing transfers to the USB
-> > host controller.  The intention is to reduce the load on the main
-> > processors in the SoC, and allow them to be placed into lower power modes.
-> 
-> I had a few small comments in reply to some of the patches but overall
-> the ASoC sides of this look fine to me.  I didn't really look at the USB
-> side at all, I'm not sure I understand it enough to have any useful
-> thoughts anyway.
+On 27. 09. 23 13:27, Sid Boyce wrote:
+> On 26/09/2023 23:13, Randy Dunlap wrote:
+>> lspci -vv
 
-Thanks for reviewing those portions, I'll look at the USB bits next week
-when I get back from traveling.
+> 0b:00.6 Audiodevice: Advanced Micro Devices, Inc. [AMD] Family 17h/19h
+> HD AudioController
+>          DeviceName: Realtek ALC897 Audio
+>          Subsystem: ASUSTeK Computer Inc. Device 87fb
 
-greg k-h
+It looks like a standard HDA hardware. The acp module may not be relevant. You 
+should see some inputs/outputs for this card in pipewire - the snd-hda-intel 
+module is loaded.
+
+But this hardware may require a new quirk, when the generic code does not work 
+for you. I suggest to look to the HDA driver documentation in 
+Documentation/sound/hd-audio tree.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

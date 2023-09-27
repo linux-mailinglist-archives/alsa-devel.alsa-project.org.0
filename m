@@ -2,104 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45547AFBFD
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 09:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FE047AFF99
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 11:14:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9A3C84B;
-	Wed, 27 Sep 2023 09:25:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9A3C84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C102A1F2;
+	Wed, 27 Sep 2023 11:13:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C102A1F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695799595;
-	bh=s1bOiCnIyEHrsE6jKa/U3IZY/dZiZBgXVK3g5WhsznI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1695806071;
+	bh=5ni2a/DB+QDF/FumPKPmxhwyxTIswmMyT0P7nFDDOjU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HEbSt/GX7n40tQMR8dqANYZZdmlSo953rZdv23/t+sLq4+2myydKvoP/DhBV47q5z
-	 8TO9rp1YDJxdeMQVY6y6WiD+jRHbz7fMYHheonkhzSuS02kWR6nlOseG0GUXknsISK
-	 9w33hVo/xqkJhqrPGmpS8QNKquwfkGwSb7TC1ci8=
+	b=LUYlflsQF3nsv02L0lCKnDiI7SVXVuOU21Ji1irgr8vbued4GdUYyStZoyGk8elgV
+	 TBJ+fXuyi4CVCMDRRwSmcDcHtGMghi3qA+8BBstq/rb4RTRLzmPzPPjnCBVQqfkdWu
+	 OJZ8Nn19uI4omxkRHPIGU0EFPreu7VqYTc5/8VJM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BB0EF800AA; Wed, 27 Sep 2023 09:25:45 +0200 (CEST)
+	id 34BD4F80553; Wed, 27 Sep 2023 11:13:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0766F80166;
-	Wed, 27 Sep 2023 09:25:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E66B9F80166;
+	Wed, 27 Sep 2023 11:13:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10592F8016A; Wed, 27 Sep 2023 09:24:37 +0200 (CEST)
+	id 761D5F8016A; Wed, 27 Sep 2023 11:13:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D65F0F80130
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 09:24:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D65F0F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE563F80130
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 11:13:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE563F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=CUxDSg3d
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D1DB71C0005;
-	Wed, 27 Sep 2023 07:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1695799465;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y7lheL/fPD30+qWF6kotkKYQgHBfzDpYHPBkU7rqwKc=;
-	b=CUxDSg3duEvh2iFUudjI4nwvl79l+61/0VAmFQSu2LRxhgpcqiWvVArxluGLfvz8i5H50g
-	/1E6SCgjLvpCudreDT7YjSUJNoddPGTSsaP4qgW8mWZk1r2YQFIKYrFJ/YEM0vSjcRIouF
-	jAG7C/ETkfGIPjGdzUf59swSIoGJQUGcVuuayMkzk8au+5Sk7KAiVV36+GbS/U8eAaBUBo
-	Pb/APoI1htl9U6jlR0NLt4TNlSJhGv0qMJmsS+9RrcsdPKtRdRr7gPHjPd+Eba7D0t9cHn
-	BMVN9LDMWuIFiKvBLMP4Ihx4uyZvHi66OO4LFFFAfTsgo3N8lhrCfO7XudhEyQ==
-Date: Wed, 27 Sep 2023 09:24:18 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, Qiang
- Zhao <qiang.zhao@nxp.com>, Li Yang <leoyang.li@nxp.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, Christophe
- Leroy <christophe.leroy@csgroup.eu>, Randy Dunlap <rdunlap@infradead.org>,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>, Christophe
- JAILLET <christophe.jaillet@wanadoo.fr>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v6 08/30] dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc:
- Add support for QMC HDLC
-Message-ID: <20230927092418.6a5326ce@bootlin.com>
-In-Reply-To: <e8ee6529-b194-4588-96c0-1459f214d005@linaro.org>
-References: <20230922075913.422435-1-herve.codina@bootlin.com>
-	<20230922075913.422435-9-herve.codina@bootlin.com>
-	<5efae150-3d92-81b8-5c25-68846d27132e@linaro.org>
-	<20230925101703.1bf083f1@bootlin.com>
-	<5b804a1a-6bfd-429d-ad84-696b7ecef72d@linaro.org>
-	<20230925122758.43963736@bootlin.com>
-	<e02ebde7-f208-40a4-bb10-aa5962ee9864@linaro.org>
-	<20230925154929.2b6a9cab@bootlin.com>
-	<e8ee6529-b194-4588-96c0-1459f214d005@linaro.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Ol/Uxc7P
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id ECE65CE19B5;
+	Wed, 27 Sep 2023 09:13:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1247C433C8;
+	Wed, 27 Sep 2023 09:13:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1695806005;
+	bh=5ni2a/DB+QDF/FumPKPmxhwyxTIswmMyT0P7nFDDOjU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ol/Uxc7PcT/MtG/rPG+r7m+HvHrK7JO+Z40E79QzTlG7bW7aKNMPuoLcyB30Oev2u
+	 yJnnJUKl+pf2JidNgW7Uw7J+XSQ9mUzfviLiYb5wHE4YO3/CJSlluw83Wih1+TlMD9
+	 VMWvLPtA/SUgt0wLYBt4GnUmmDxY4TVaXUGuqoMDVTzbBKGcs0bzUUPMpkIhP0h8r5
+	 H9Y7w/9v571/uQQJPGwtRfZHzP58g+8XjwZNGjKUc2QnuU33HuoYU5yrqKicyjuV1A
+	 8e72codJFL4mEsdffKV+PW1jLf+xcb/wXxOsYIKFGRipodHP9B5RrTIFIqZ7WK0lC3
+	 YLo/abeR+foMA==
+Date: Wed, 27 Sep 2023 11:13:22 +0200
+From: Mark Brown <broonie@kernel.org>
+To: cy_huang@richtek.com
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Allen Lin <allen_lin@richtek.com>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codecs: rtq9128: Add TDM data source selection
+Message-ID: <ZRPyMolOIjLBWXPC@finisterre.sirena.org.uk>
+References: <1695780376-32301-1-git-send-email-cy_huang@richtek.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: GUS6PXTH573AJOZ5PG32BBVZOBEK4SGP
-X-Message-ID-Hash: GUS6PXTH573AJOZ5PG32BBVZOBEK4SGP
-X-MailFrom: herve.codina@bootlin.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5fIGTM3mlZcEO9YK"
+Content-Disposition: inline
+In-Reply-To: <1695780376-32301-1-git-send-email-cy_huang@richtek.com>
+X-Cookie: Save energy:  Drive a smaller shell.
+Message-ID-Hash: M3WK6KUX6W3VMS37AGCK4QLWNP4Q5K5S
+X-Message-ID-Hash: M3WK6KUX6W3VMS37AGCK4QLWNP4Q5K5S
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GUS6PXTH573AJOZ5PG32BBVZOBEK4SGP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M3WK6KUX6W3VMS37AGCK4QLWNP4Q5K5S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,99 +97,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Krzysztof,
 
-On Tue, 26 Sep 2023 22:59:14 +0200
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+--5fIGTM3mlZcEO9YK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On 25/09/2023 15:50, Herve Codina wrote:
-> >>>>> With these details, do you still think I need to change the child (channel)
-> >>>>> compatible ?      
-> >>>>
-> >>>> From OS point of view, you have a driver binding to this child-level
-> >>>> compatible. How do you enforce Linux driver binding based on parent
-> >>>> compatible? I looked at your next patch and I did not see it.    
-> >>>
-> >>> We do not need to have the child driver binding based on parent.    
-> >>
-> >> Exactly, that's what I said.
-> >>  
-> >>> We have to ensure that the child handles a QMC channel and the parent provides
-> >>> a QMC channel.
-> >>>
-> >>> A QMC controller (parent) has to implement the QMC API (include/soc/fsl/qe/qmc.h)
-> >>> and a QMC channel driver (child) has to use the QMC API.    
-> >>
-> >> How does this solve my concerns? Sorry, I do not understand. Your driver
-> >> is a platform driver and binds to the generic compatible. How do you
-> >> solve regular compatibility issues (need for quirks) if parent
-> >> compatible is not used?
-> >>
-> >> How does being QMC compliant affects driver binding and
-> >> compatibility/quirks?
-> >>
-> >> We are back to my original question and I don't think you answered to
-> >> any of the concerns.  
-> > 
-> > Well, to be sure that I understand correctly, do you mean that I should
-> > provide a compatible for the child (HDLC) with something like this:
-> > --- 8< ---
-> >   compatible:
-> >     items:
-> >       - enum:
-> >           - fsl,mpc885-qmc-hdlc
-> >           - fsl,mpc866-qmc-hdlc
-> >       - const: fsl,cpm1-qmc-hdlc
-> >       - const: fsl,qmc-hdlc
-> > --- 8< ---  
-> 
-> Yes, more or less, depending on actual compatibility and SoC-family.
-> Maybe "fsl,cpm1-qmc-hdlc" item in the middle is not needed.
+On Wed, Sep 27, 2023 at 10:06:16AM +0800, cy_huang@richtek.com wrote:
 
-Ok,
-I will keep "fsl,cpm1-qmc-hdlc". The CPM1 is the co-processor present in these
-SoCs and it handles the QMC controller. So, it makes sense to have it in this
-binding.
+> Since rtq9128 can support 4 channel I2S mode audio data, there are two
+> dedicated data input pins for CH12 and CH34.  But in TDM mode, input
+> source was already drived on one data pin for multiple data slots. In
+> this case, only one input source is needed for TDM mode.
+>=20
+> This patch is to add the data source pin selection for CH12 and CH34.
 
-I plan to add support for other SoCs in the future and for these SoCs, the
-co-processor is not the CPM1. So, it makes sense to keep "fsl,cpm1-qmc-hdlc"
-to identify the co-processor.
+> +	SOC_ENUM("CH12 TDM Data Select", rtq9128_ch12_tdm_data_select_enum),
+> +	SOC_ENUM("CH34 TDM Data Select", rtq9128_ch34_tdm_data_select_enum),
 
-> 
-> > 
-> > If so, I didn't do that because a QMC channel consumer (driver matching
-> > fsl,qmc-hdlc) doesn't contains any SoC specific part.  
-> 
-> Just like hundreds of other drivers. :)
-> 
-> There is a paragraph about specific compatibles here:
-> https://www.kernel.org/doc/html/latest/devicetree/bindings/writing-schema.html
-> 
-> 
-> > It uses the channel as a communication channel to send/receive HDLC frames
-> > to/from this communication channel.
-> > All the specific SoC part is handled by the QMC controller (parent) itself and
-> > not by any consumer (child).  
-> 
-> OK, so you guarantee in 100% for this hardware and all future (including
-> designs unknown currently), that they will be 100% compatible with
-> existing QMC channel consumer (child, matching fsl,qmc-hdlc) driver,
-> thus there will be no need for any quirk. Specifically, there will be no
-> chances that it would be reasonable to re-use the same driver for child
-> (currently fsl,qmc-hdlc) in different parent.
+Is this something that's going to be changing dynamically at runtime or
+should this be a device property that's set either by firmware or when
+we're doing the TDM setup?  This sounds like something I'd expect to be
+fixed by the board design.
 
-Right,
-compatible strings with SoC and co-processor will be added in the next iteration.
+--5fIGTM3mlZcEO9YK
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks for your feedback.
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
-Hervé
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUT8jEACgkQJNaLcl1U
+h9AD9gf/XjwqNVU01O8geeDs/n0uPuij3TFEV+9FdQXoWkepHbUHI3z9MKx9QH2w
+mrLYz27YdS0unjrkqXZk6L53daybs2KxJQCb1HlV3/YsFiwsWII6ZCYeAZASTwFs
+SOXf8ZJmdkgXJxf0lYq+m7dNCG6e9EVqC2XlUWvbnUdVkYstni7TKSK7i/lvoT/1
++4WezkK8onTaoz3mprbc2TBDGfwATC5LA7E2CGZ0734rZd9XjyzY0wK8SPJn5cL3
+1rNPGqvjzdc+f6VtpVKvZHK3JhONqKMCX+DWrf6Wx24QxjA5xzYpKMBviVSzEbMh
+MDPRg6Bo5Dl8fezHnz75NQjf2hUBog==
+=oiAQ
+-----END PGP SIGNATURE-----
 
-> 
-> P.S. If you received this email twice, apologies, I have here troubles
-> with internet.
-> 
-> Best regards,
-> Krzysztof
-> 
+--5fIGTM3mlZcEO9YK--

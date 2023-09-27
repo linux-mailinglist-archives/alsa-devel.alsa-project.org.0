@@ -2,113 +2,170 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585677B3F10
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:12:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005A77B3F11
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:12:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2CC6F99;
-	Sat, 30 Sep 2023 10:11:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2CC6F99
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A8A31497;
+	Sat, 30 Sep 2023 10:12:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A8A31497
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061557;
-	bh=XcKcx1P3dkEvRJFLj6Dk/MrHQejwFEeYURAcp+nsFow=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=seNcEyKytkTzdhFQTY0itWwnVVAjPWXz+a5lw7yaU+qkrADpG+kOJQxSkYmA6xF39
-	 ODN/X36rdSoKWSER9QahKlQOgUlKc5+q5+wPy0/x+g2LlrlD79HCzeYLQQviLsvEmy
-	 WH85qmRYI5pmSw/VAjrY0f1AXybgO5CL+nLt5yFM=
+	s=default; t=1696061573;
+	bh=u7lcLTLeQSvNmpNELUNSAJ4u51HtuG/gmWbhu6hLq68=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=m8yDPVZwtkb1dijqPBy+BTESvPat6GcApPKeooJMknqe7dVEaEt0zG1toiHbwLux4
+	 5I+4bfrAlLsdHBS9iTJmchekhYGzvkpNUgM1eup7Rgu8+syCU88Ug/pkGExUhsXoag
+	 v76yF2oI5u9NpHdwhAW5e5vdCg2UtlHOpXi60TSk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FF32F805A1; Sat, 30 Sep 2023 10:09:32 +0200 (CEST)
+	id 28751F805C1; Sat, 30 Sep 2023 10:09:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A038BF8055A;
-	Sat, 30 Sep 2023 10:09:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CB1CF805A9;
+	Sat, 30 Sep 2023 10:09:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6562EF8016A; Wed, 27 Sep 2023 21:35:28 +0200 (CEST)
+	id 583F2F8016A; Wed, 27 Sep 2023 21:42:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2071e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::71e])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD122F8007C
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 21:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD122F8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9AE7FF80130
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 21:42:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AE7FF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Mm5bzzlB
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3215f19a13aso11710775f8f.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 27 Sep 2023 12:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695843319; x=1696448119;
- darn=alsa-project.org;
-        h=mime-version:message-id:cc:to:subject:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=b/kwHgGSPER833mfnZsloSnG2/QVneER5ld9wWGGfCM=;
-        b=Mm5bzzlBtVxy3y5cdJhgMJ4m0eryTsxIV6y6q1Qq65BGoQtVl4DY2QVYlgt7Z9GJMX
-         Y3KXI/7mALF8KJfZcS3Hls8ynpM4HvHFiZLmOkMz1IXbvk5i6uKIAjIAXSTSfZM5MvRt
-         uTCZ5I6g9DNeAY8FkfuSlhG4G3oZlX8jCap0V6z5w73gsoXmpMiHuguERiNvScBfaa7w
-         rpB8A/qJPTJxA/U0ZORxAfPE7kdvt971hWPm/ws0gvj0KdY2KGnsIo2tboblFuazqcKN
-         kQQbnhA/iXpuzRJqtj/bJuDrFWSekgDWT+IYNHSoc+iap18fTTzjz5nD0voGEn0hhKVx
-         J3YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695843319; x=1696448119;
-        h=mime-version:message-id:cc:to:subject:from:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=b/kwHgGSPER833mfnZsloSnG2/QVneER5ld9wWGGfCM=;
-        b=LoxHGHExJJNkd5i0RdHOfHm1meVuS4L9R7pwd8ggYbW0NmsW+wTqYv3oMg5bRhr7Ma
-         p5kTSNBBx9p21r9ooirBVqCL+YJS1VllIejabXaBtuoUmqc1LduM2bgNbo/7MeIKUuO/
-         /9VDQVDZnlhhNN/ZvL65253SadAlLMxOjanwDJRSxERP8IzVKj/ak32WtOMnAPJb5b0i
-         yfy+y6xQBHXfNm9+lN/FcjyzPcjdezIzuGhk1h4Zl843fdOhkrN2VL3+CpGQycMoHBW5
-         cLkdzr6xn4CQdlCApNxqf9lJpbDl9Qn3XFACAI3x26LLifBT68gLebtPq5/CmXqudPkM
-         n1jw==
-X-Gm-Message-State: AOJu0YznXfKa/u21hwyODBXk7ZalazqpFrIDkQKHiv7MgMKyeGZb7z6Y
-	W7Hj3JoO+wX5oKVASBBTyX0=
-X-Google-Smtp-Source: 
- AGHT+IHl9dYpXN9XqXHiG6al2NGt7W95zzeD9nIMVhn3PlsdI/RctpeCZKJ/BoF5mQLG7aW3oIiarw==
-X-Received: by 2002:a05:6000:1112:b0:321:6a61:e45a with SMTP id
- z18-20020a056000111200b003216a61e45amr3040357wrw.15.1695843319317;
-        Wed, 27 Sep 2023 12:35:19 -0700 (PDT)
-Received: from yoga ([2001:638:904:ffe5:5742:c50f:bd0:6aa6])
-        by smtp.gmail.com with ESMTPSA id
- m4-20020adff384000000b00321673de0d7sm2379099wro.25.2023.09.27.12.35.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 Sep 2023 12:35:18 -0700 (PDT)
-Date: Wed, 27 Sep 2023 21:35:12 +0200
-From: Sven Frotscher <sven.frotscher@gmail.com>
-Subject: [PATCH v2] ASoC: amd: yc: Fix non-functional mic on Lenovo 82YM
-To: broonie@kernel.org
-Cc: git@augustwikerfors.se, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org, mario.limonciello@amd.com,
-	regressions@lists.linux.dev
-Message-Id: <O2TN1S.57QJOL6TXOBC1@gmail.com>
-X-Mailer: geary/44.1
+ unprotected) header.d=catalina.com header.i=@catalina.com header.a=rsa-sha256
+ header.s=selector2 header.b=s/COONZ9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JluHtgMGHDe4bTY3ApSYA+KPCZsZUoFzpQ+tX9gDIDwW0U0auqshCHSoi6AU7mjHgn95IIcsRrSAG6t7y4kciBDg08nSvC/s/oEnmGFa170u+cQZfPQAOi3z2cCVXw/mxO3TajYr5kVgsTDnrE7gzOdsPyCs6m71u9qKt6O45Oupcg5HaqeoksTzdnNkZqTRgtvDE6aNUgsRHRGzH7rtL23mAyusTV3dRDXluVSl5HNWB9e1hSn/8z9cv399G4QySgEvlBNjwKFydsUMUT+FlUvdGxFGpAUuW+90JBd3UDNy3Bm+au0Xp5O+XW7iIAodpvSdr0OygZ6pq87AlScUHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=smggSEslaszTtFJb0j2WwjDP7iq8BGWbMTep/JPJaWI=;
+ b=cyptajcQadBodrdW84+1Ton4cKj7cChY322qj4OasqntLKr7wbMmEEMafbU1H5Fa+BpHffLJKY+74RT4891I0D24OH/eGESArpJNivOw/HYUkIDSDWpb1aPUe43Rn3JS7RvxTYQOQDAwChrLpf4+h5T9ayHyJtUCCCzIVOPH4XCOTDyeynEScPBNpND5mCpjagAdgumdLvuSMqsg/TLfwFQVVoJLlZOpLLHF7hdq21XsUDj7qT7IcaV8ox4vjRKaQxyDtO4PrLv3JecJInsDiSa+lyep9QnqAzouIKtAyEdEQhMFcB5f6QQ/idEXbyjgDnx+9DffF86deHCvASW1Ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=catalina.com; dmarc=pass action=none header.from=catalina.com;
+ dkim=pass header.d=catalina.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=catalina.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=smggSEslaszTtFJb0j2WwjDP7iq8BGWbMTep/JPJaWI=;
+ b=s/COONZ9RkwAju1fQqSON5YjQPlDFHv6YdNf1hQmDkDXQg9iuzpp8Z7d9QDTnG61BseHlnF4aoZB2LDSEkQzOoJ+3K8LkKZlC2u2+8UoWdG44mFW1LAVquyBdhxmbIe8IPkVx1Uq8GZBX9x9llrBjwbbampxG45HhMmc2zSAbjRvNEHecpXOni1pkqmrId/RkJFQhWrM0m3Uw7/KJJXAlqDt/WNHAjvv49iwlOnmb3JMDKuldN91Bb0p+gcbT1G1Q2qhRocPtvbW9C4dC0R4d/CEuVwHIrUyHZZgbuxBll64cuo83VHIy4DPDOVAuCW2UeVoOhhIbzAZ9WIB/VP9bA==
+Received: from BN0PR02MB8045.namprd02.prod.outlook.com (2603:10b6:408:16d::23)
+ by SN4PR0201MB8774.namprd02.prod.outlook.com (2603:10b6:806:201::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Wed, 27 Sep
+ 2023 19:42:03 +0000
+Received: from BN0PR02MB8045.namprd02.prod.outlook.com
+ ([fe80::c299:5e12:81ba:6b8]) by BN0PR02MB8045.namprd02.prod.outlook.com
+ ([fe80::c299:5e12:81ba:6b8%6]) with mapi id 15.20.6813.027; Wed, 27 Sep 2023
+ 19:42:03 +0000
+From: Terry Hummel <Terry.Hummel@catalina.com>
+To: Jaroslav Kysela <perex@perex.cz>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>
+CC: Dulani McLaurin <Dulani.McLaurin@catalina.com>
+Subject: Re: Bug Report: Audio issues with CentOS7
+Thread-Topic: Bug Report: Audio issues with CentOS7
+Thread-Index: 
+ AQHZ3zuyVOwv+LHOWkuu6+CmLUIUyLAL1gOAgABkb/WAAAqSgIAAAIjLgAnHAsGAGSiCpw==
+Date: Wed, 27 Sep 2023 19:42:02 +0000
+Message-ID: 
+ <BN0PR02MB80452C633CC1051952559BD2FAC2A@BN0PR02MB8045.namprd02.prod.outlook.com>
+References: 
+ <BN0PR02MB80455425D6077DEC556A4F83FAE9A@BN0PR02MB8045.namprd02.prod.outlook.com>
+ <20945414-c6c0-acf7-8340-9e7697b0e833@perex.cz>
+ <BN0PR02MB8045C507932EEDF72FB62783FAE8A@BN0PR02MB8045.namprd02.prod.outlook.com>
+ <62624a24-67a9-bebc-b704-ad3df2cf1da5@perex.cz>
+ <BN0PR02MB804509BCA42A091EE530A553FAE8A@BN0PR02MB8045.namprd02.prod.outlook.com>
+ <BN0PR02MB8045F24D2428321D1872C51EFAF2A@BN0PR02MB8045.namprd02.prod.outlook.com>
+In-Reply-To: 
+ <BN0PR02MB8045F24D2428321D1872C51EFAF2A@BN0PR02MB8045.namprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=catalina.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN0PR02MB8045:EE_|SN4PR0201MB8774:EE_
+x-ms-office365-filtering-correlation-id: 5078a2f4-fe57-4995-3d6c-08dbbf91d2c0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ gIIWxcrBmMzOrmE06f7mqCDlT3iOPMGSrqUJyOagLyIDuLa/b0GCSjJkJCuoHg4UFkXZjqwn42jc2UMEzU1NaLZLdrH1Bc4Pgq+ivrOyhLZRvEcds7ElVUe6KwR6FAszu3yaQmOflKHSZhS/06DdA/2qfoOQxW33UQjWAQBa1kEKow6+UGoY6Y+R8L1yEQRhbYmY8C3XQq0L8WN1W/MLBHNP11D7A4ekqS/5/mpi6d3lka+Idw+I/Ep+E7kcyCW/zwMZJjhTo6y/7zp8WmS88S66AIpNCuggwaFOCqIUC3/J/RfYXdQ/A+DTYPFWeuBUaO+K3PqYZLV6E4Me+F2vYYxGc5R4DnRLu3VpuEfNjULDQYmZa3MiiiYt16Luo3uJQic0B014kJ3U/Lgo48kNncsILGdwUDgGprsylzhDwdPKVcyRcTPlrVu7MR2xitKQrZCBxItNV9cm7bjSWrFAJmh2sCpFOUej8ID3/cOhz6c0x1wXqyX4ikqml6ckum722OnzNUAslmNLAwlhpSGB2wLGfSgSnPqB24oVcqBvnkbdAGFa/LWXKhc0T3MRYho12QM/yyhYnmN2nzNgByd5LbMYzDS/J4qWF8D7KkMvw1H7fvj3qko2s0nktsk/ndewq68sbPuse4Gsi4f9GWjZ+w==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR02MB8045.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(366004)(39860400002)(346002)(376002)(230922051799003)(1800799009)(451199024)(186009)(107886003)(26005)(7696005)(53546011)(6506007)(9686003)(122000001)(2013699003)(166002)(86362001)(38070700005)(38100700002)(55016003)(33656002)(64756008)(83380400001)(316002)(66446008)(8936002)(4326008)(52536014)(66556008)(66476007)(8676002)(66946007)(110136005)(76116006)(5660300002)(41300700001)(19627405001)(2906002)(71200400001)(478600001)(966005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?t758gNE7tD+K/ScqtcDXQDMX85hTWSgGetEjN6XFmuVz8VqQQAgJkd61j1u6?=
+ =?us-ascii?Q?BprVkbbpQBEPpDh04xQ8t4fWufJezBfDDeJgGcAjAkNP9/508/cFE4UoZfYf?=
+ =?us-ascii?Q?XkC9F0YpQuu80JS5hvpSdKVvDcWdSajVdAlxwV7nQLuatCEhfmJsFTfCuW9z?=
+ =?us-ascii?Q?cAOHh22yAxIQ5ielZBYobth2TvCmK8TdaTYXKdCwQ6TntKFhehobr53J+Mfb?=
+ =?us-ascii?Q?hoXYO7f0fBT+T5iB6UQaT9vmguB9SU3mccON30ATABDVIr1IHlNQVuP2P2Kt?=
+ =?us-ascii?Q?vRYnDFEyQqBP39OxeFGv1cmFRCS52FPzY0QyUvQtj8oXD+YsPSQwkgJG2wdF?=
+ =?us-ascii?Q?zpIWwJmsuSymld///H7rTf1UQ71DnSVHM0tDzrTCnGSxT7Dd5N9eIKKgoZSV?=
+ =?us-ascii?Q?RCVAbNY8nB1dJ2+jcA+MuPm27DATR/n2/NyzPSaEmQgQIfeAoWpUiNBgjrIw?=
+ =?us-ascii?Q?vo+xp8GnUqPaQKfuKQoqO4sIKO7rOpWbjyKNk4QsFp38dEXefXa7RVXfsn0L?=
+ =?us-ascii?Q?eaankBPnIPHMCasUjr4noHRUwLegxtg/xe17M8Hd+VxFYLs5UpCLFs4VtNBr?=
+ =?us-ascii?Q?iUikj8M5Em37aA5ejHxIR8DV3j+PkX/N+XrsuxY06fvRLAYkvjYfSdSUwb46?=
+ =?us-ascii?Q?OPImO5maYSyjYZjlzyBPLfAi4fCNgKJK+dFh2k2Xma38NlYWDcmGA7vchpEM?=
+ =?us-ascii?Q?TMiXHZjgyCZoKhNFneLWAhUqKzjOJjooUDhh+/PnIzUNbjRI2ZpfdbYw0nTy?=
+ =?us-ascii?Q?RmRKQlUjvWu8Q7JOzo/7trZMPInmfZMecCb5xguuAoJx8lpzFx0BUVd0VsMx?=
+ =?us-ascii?Q?mweTvaQGk9tdxZEa/fRCdAkp+9JM7T4Ht4C7WH1se+izrkrZNHccoPPPU2Mf?=
+ =?us-ascii?Q?W7g8Z57eRrg/JjsBFAZBfImc3MEXgMz2Qt8QnLEmnumTfPu0IbO5A6iZwz6W?=
+ =?us-ascii?Q?8VrzYiOc6EIAxJdhgIp2Nge/o55682jOh1l9IdyIkp8hYajasJUHedBMwLuC?=
+ =?us-ascii?Q?GqLKtNCr5jgshGky5WwwB0sUkvlCwYcU2gu2O8IxkMR20AQr7zwmouAEplE1?=
+ =?us-ascii?Q?gZuMTVeDE6dfA4GriIK2kRTADeOSaxIZW9fiIwzSagD//+kXFl7vbcWS0fRC?=
+ =?us-ascii?Q?8HtYB9E35y1AVQE9ls5xiygc8I0UYwFQGOXZMNPo6n21YinIbRzYbPa3C11X?=
+ =?us-ascii?Q?JCiHmjkRN8Qkv+LwoPVoerlS2oHwdlMbbRG/V7HFDpV03b1+mH8N+fNF5jZm?=
+ =?us-ascii?Q?smqRjD3A31HS2KzuscBUrolOKKo+YG5QIuc73jrqvq/SZCwPbgCP4xSvM3Sx?=
+ =?us-ascii?Q?/f78QtZgOIWmbEDlRFibRKSeDH++dt3edPJtTUmQASiTaMm5GyI8mnWDcsFG?=
+ =?us-ascii?Q?ncd2QHWwskNMWKrNvCBOlhBakrXVETmil51zSs7roQLrolB5rH4MS3V8NFt2?=
+ =?us-ascii?Q?2GyWCOv/a66NfVmUFJEuNMfW3zmYqkJQuoORy1iq+7mtWMMbiioPwQx3cj/C?=
+ =?us-ascii?Q?djgzMU1Hug+n9xrWRvDTXx5nx3uR4UGQJqOSjlWy3MZEiUZByqHMNfK5/UqI?=
+ =?us-ascii?Q?cmoHDH/2eYeflI8apZQ=3D?=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-X-MailFrom: sven.frotscher@gmail.com
+X-OriginatorOrg: catalina.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR02MB8045.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5078a2f4-fe57-4995-3d6c-08dbbf91d2c0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2023 19:42:03.0015
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 2eddc39c-2996-4c2a-ab97-f767c39ea155
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ fcmnJeAsqrSPoJvKWjUHqs/h92pmnjz/k3BUehg/xM5A8RGQWJJ1WqNfLSNAcr9TBhEqT0o9tfh7OeBtSw6LLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR0201MB8774
+X-MailFrom: Terry.Hummel@catalina.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AXZ4F4664ZU6NGZJO7SIGVIT65NEN4FS
-X-Message-ID-Hash: AXZ4F4664ZU6NGZJO7SIGVIT65NEN4FS
+Message-ID-Hash: EO5ICPM5FBSSF2YDKTXYYGEGOTX3KRDA
+X-Message-ID-Hash: EO5ICPM5FBSSF2YDKTXYYGEGOTX3KRDA
 X-Mailman-Approved-At: Sat, 30 Sep 2023 08:09:27 +0000
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXZ4F4664ZU6NGZJO7SIGVIT65NEN4FS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XSGBOVNAU7AAGS3FTI2ZJ4FYMGCMTDNT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,46 +174,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Jaroslav.
 
-Like the Lenovo 82TL, 82V2, 82QF and 82UG, the 82YM (Yoga 7 14ARP8)
-requires an entry in the quirk list to enable the internal microphone.
-The latter two received similar fixes in commit 1263cc0f414d.
+I was curious if you had a chance to look at the alsa-info report I sent and was wondering what your thoughts are.
 
-Fixes: c008323fe361 ("ASoC: amd: yc: Fix a non-functional mic on Lenovo 
-82SJ")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sven Frotscher <sven.frotscher@gmail.com>
----
-v1->v2 changes:
-* add Fixes and Cc tags to commit message
-* remove redundant LKML link from commit message
-* fix mangled diff
+Do you think this wouldn't be an issue with more recent versions of CentOS?
 
-sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
-1 file changed, 7 insertions(+)
+Thanks for your time.
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c 
-b/sound/soc/amd/yc/acp6x-mach.c
-index 3d8a51351e29..e3d2b9d01552 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -241,6 +241,13 @@ static const struct dmi_system_id 
-yc_acp_quirk_table[] = {
- 		DMI_MATCH(DMI_PRODUCT_NAME, "82V2"),
- 	}
- 	},
-+	{
-+	.driver_data = &acp6x_card,
-+	.matches = {
-+		DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+		DMI_MATCH(DMI_PRODUCT_NAME, "82YM"),
-+	}
-+	},
- 	{
- 	.driver_data = &acp6x_card,
- 	.matches = {
+Terry
+________________________________
+From: Terry Hummel <Terry.Hummel@catalina.com>
+Sent: Monday, September 11, 2023 3:28 PM
+To: Jaroslav Kysela <perex@perex.cz>; alsa-devel@alsa-project.org <alsa-devel@alsa-project.org>
+Cc: Dulani McLaurin <Dulani.McLaurin@catalina.com>
+Subject: Re: Bug Report: Audio issues with CentOS7
+
+Hello Jaroslav.
+
+I didn't have success getting the speakers to work with alsa-mixer. So, I ran alsa-info.sh as you suggested. This is the URL where the text file is located:
+
+URL: http://alsa-project.org/db/?f=e1111847b82553f2dbd6015a36334f74b4402024<http://www.alsa-project.org/db/?f=e1111847b82553f2dbd6015a36334f74b4402024>
+
+Thanks,
+Terry
+
+________________________________
+From: Terry Hummel <Terry.Hummel@catalina.com>
+Sent: Tuesday, September 5, 2023 10:08 AM
+To: Jaroslav Kysela <perex@perex.cz>; alsa-devel@alsa-project.org <alsa-devel@alsa-project.org>
+Cc: Dulani McLaurin <Dulani.McLaurin@catalina.com>
+Subject: Re: Bug Report: Audio issues with CentOS7
+
+Ok. I'll give that a try. The CentOS7 image we have on these systems is minimal and the alsamixer module is not installed.
+
+I'll get it loaded and run the tests you mentioned.
+
+Thank you,
+Terry
+
+________________________________
+From: Jaroslav Kysela <perex@perex.cz>
+Sent: Tuesday, September 5, 2023 10:03 AM
+To: Terry Hummel <Terry.Hummel@catalina.com>; alsa-devel@alsa-project.org <alsa-devel@alsa-project.org>
+Cc: Dulani McLaurin <Dulani.McLaurin@catalina.com>
+Subject: Re: Bug Report: Audio issues with CentOS7
+
+[You don't often get email from perex@perex.cz. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+
+CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+
+
+On 05. 09. 23 15:51, Terry Hummel wrote:
+> Hi Jaroslav. Thank you very much for your input.
+>
+> I created the alsa-beep.conf file in the /etc/modprobe.d/ folder and rebooted.
+> When the system came up, I still couldn't get the speaker to make a sound via
+> the beep command. I attached the .conf file just in case you wanted to confirm
+> the contents.
+
+Try to check mixer settings (Beep etc.) - e.g. `alsamixer -c 0` command.
+
+If it does not help, run alsa-info.sh and show the URL with your dump.
+
+                                                Jaroslav
+
 --
-2.42.0
-
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

@@ -2,92 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363547B03DE
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 14:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83EC47B0499
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 14:47:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 938D6DEE;
-	Wed, 27 Sep 2023 14:19:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 938D6DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5335D8;
+	Wed, 27 Sep 2023 14:46:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5335D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695817233;
-	bh=A+ZNfWcntoWdGqsZJUyQcqQsgWieVCj5sU1bcngIqno=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=i90xeG8PFhyTKMCZPhU/vKazVPlSnejLMtXY204qn3vx+AIIw7gOSXOuwqEm402F3
-	 qeXmla7My//bes6wOyPIjwrekGN2f2IXIBolA6Agyd2p5PvV+mFG7IColQesQkzoSN
-	 bsdCziOJkzImKK6DeXP5WBD3JA4BJdS0/PbNXkUw=
+	s=default; t=1695818858;
+	bh=TFtP+slZPMjWB233kpUUcEHI9Dte3zQ9j4tA/PWkX4Q=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=apU6xLOqwE588AK8EehpyiH3FHnqV2i71JvZgPbwskl049ON82BH354GvhQbzKVUh
+	 5ztJxiZcuUtTBPvxai+8IzsVrRwSWlujXPJ+JQfKIXTUsMQI3lnPQP8wfBwiVZ6DWT
+	 8Z0XV2SXintXyBut9sXnYShHs3G29n8m3nIhZw90=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40FB5F8055A; Wed, 27 Sep 2023 14:18:37 +0200 (CEST)
+	id 984F3F8016A; Wed, 27 Sep 2023 14:46:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EA33F80567;
-	Wed, 27 Sep 2023 14:18:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45F14F80166;
+	Wed, 27 Sep 2023 14:46:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 030B8F80568; Wed, 27 Sep 2023 14:18:32 +0200 (CEST)
+	id 4E38EF8016A; Wed, 27 Sep 2023 14:46:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com
- [115.124.28.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8915CF8055B
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 14:17:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8915CF8055B
-X-Alimail-AntiSpam: 
- AC=CONTINUE;BC=0.06712908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0177229-0.000429353-0.981848;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047198;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=29;RT=29;SR=0;TI=SMTPD_---.Upkf40J_1695817064;
-Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.Upkf40J_1695817064)
-          by smtp.aliyun-inc.com;
-          Wed, 27 Sep 2023 20:17:51 +0800
-From: wangweidong.a@awinic.com
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	wangweidong.a@awinic.com,
-	shumingf@realtek.com,
-	rf@opensource.cirrus.com,
-	herve.codina@bootlin.com,
-	arnd@arndb.de,
-	13916275206@139.com,
-	ryans.lee@analog.com,
-	linus.walleij@linaro.org,
-	ckeepax@opensource.cirrus.com,
-	doug@schmorgal.com,
-	fido_max@inbox.ru,
-	harshit.m.mogalapalli@oracle.com,
-	liweilei@awinic.com,
-	yang.lee@linux.alibaba.com,
-	u.kleine-koenig@pengutronix.de,
-	yijiangtao@awinic.com,
-	dan.carpenter@linaro.org,
-	colin.i.king@gmail.com,
-	trix@redhat.com,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH V5 8/8] ASoC: codecs: Add aw87390 amplifier driver
-Date: Wed, 27 Sep 2023 20:16:34 +0800
-Message-ID: <20230927121634.94822-9-wangweidong.a@awinic.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230927121634.94822-1-wangweidong.a@awinic.com>
-References: <20230927121634.94822-1-wangweidong.a@awinic.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 471D4F8007C
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 14:46:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 471D4F8007C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=nh1FD70O
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38R79Y3L002836;
+	Wed, 27 Sep 2023 07:46:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	PODMain02222019; bh=nQ779awHgknzMWhlFfvoIYl03BuqDk3HaZgk2JIod4M=; b=
+	nh1FD70OOPoFtAMxaKJobUwsN3B+tGsPLQyZDxv4zw9pkZHEVv6B0dTuvPZW7w+C
+	kgMGyfOArbpHc3Qq5EHUZtStn+6/TEp6Mjz2OaGWb6UiMwSxcq94T1gCWcUGV2oC
+	vGRzn7tcXYJJopQF6g2+baXpIxQRsepJ5Td16lo55Y/XFN2HSMJNG7IcFnMQ6EpQ
+	yqRlUuTg2/tg5K61ofoUFpCeJYrYmPmOIWemEuTbagpCVBgdUcY9mGoX3cUbUdFl
+	yCypQWZEQQYLnFGC/OmtKnB4dZxhscbSsaFPoWY6bEQhJ9nUXYj4CzcB9kattglu
+	UoQJWthsxChNgu6JkcYUCA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3t9wdxnv7x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 27 Sep 2023 07:46:14 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 27 Sep
+ 2023 13:46:12 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
+ Transport; Wed, 27 Sep 2023 13:46:12 +0100
+Received: from [198.61.65.112] (EDIN4L06LR3.ad.cirrus.com [198.61.65.112])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CE7E911AB;
+	Wed, 27 Sep 2023 12:46:11 +0000 (UTC)
+Message-ID: <c8acbf4a-4c00-8bb0-e54c-9eebbd436ff4@opensource.cirrus.com>
+Date: Wed, 27 Sep 2023 13:46:11 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Z3FJUBOMHNM2OAPCT3XKPUZRFRCNOTYT
-X-Message-ID-Hash: Z3FJUBOMHNM2OAPCT3XKPUZRFRCNOTYT
-X-MailFrom: wangweidong.a@awinic.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] ALSA: hda: cirrus_scodec: fix an error code
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+        James Schulman
+	<james.schulman@cirrus.com>
+CC: David Rhodes <david.rhodes@cirrus.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>, <kernel-janitors@vger.kernel.org>
+References: <5eea7fd5-67c8-4ed4-b5b3-b85dfb7572cc@moroto.mountain>
+Content-Language: en-US
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <5eea7fd5-67c8-4ed4-b5b3-b85dfb7572cc@moroto.mountain>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 00_LNlPyZLhzEYOCDgQQu_hWSMIgmWqM
+X-Proofpoint-GUID: 00_LNlPyZLhzEYOCDgQQu_hWSMIgmWqM
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3XXSJOT5SHCU4ZUNEX6IVAPXUU2YJ6YW
+X-Message-ID-Hash: 3XXSJOT5SHCU4ZUNEX6IVAPXUU2YJ6YW
+X-MailFrom: prvs=4634a7858c=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z3FJUBOMHNM2OAPCT3XKPUZRFRCNOTYT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3XXSJOT5SHCU4ZUNEX6IVAPXUU2YJ6YW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,652 +115,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Weidong Wang <wangweidong.a@awinic.com>
+On 27/9/23 13:44, Dan Carpenter wrote:
+> The "ret" variable is zero but we should return -EINVAL.
+> 
+> Fixes: 2144833e7b41 ("ALSA: hda: cirrus_scodec: Add KUnit test")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
+>   sound/pci/hda/cirrus_scodec_test.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/pci/hda/cirrus_scodec_test.c b/sound/pci/hda/cirrus_scodec_test.c
+> index 5eb590cd4fe2..8ae373676bd1 100644
+> --- a/sound/pci/hda/cirrus_scodec_test.c
+> +++ b/sound/pci/hda/cirrus_scodec_test.c
+> @@ -137,8 +137,8 @@ static int cirrus_scodec_test_create_gpio(struct kunit *test)
+>   	priv->gpio_priv = dev_get_drvdata(&priv->gpio_pdev->dev);
+>   	if (!priv->gpio_priv) {
+>   		platform_device_put(priv->gpio_pdev);
+> -		KUNIT_FAIL(test, "Failed to get gpio private data: %d\n", ret);
+> -		return ret;
+> +		KUNIT_FAIL(test, "Failed to get gpio private data\n");
+> +		return -EINVAL;
+>   	}
+>   
+>   	return 0;
 
-Add i2c and amplifier registration for aw87390 and
-their associated operation functions.
+Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
----
- sound/soc/codecs/Kconfig   |  15 +-
- sound/soc/codecs/Makefile  |   2 +
- sound/soc/codecs/aw87390.c | 462 +++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/aw87390.h |  85 +++++++
- 4 files changed, 562 insertions(+), 2 deletions(-)
- create mode 100644 sound/soc/codecs/aw87390.c
- create mode 100644 sound/soc/codecs/aw87390.h
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index f1e1dbc509f6..8c101919259f 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -54,6 +54,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_ALC5632
- 	imply SND_SOC_AUDIO_IIO_AUX
- 	imply SND_SOC_AW8738
-+	imply SND_SOC_AW87390
- 	imply SND_SOC_AW88395
- 	imply SND_SOC_AW88261
- 	imply SND_SOC_BT_SCO
-@@ -638,12 +639,12 @@ config SND_SOC_AW8738
- 	  operation mode using the Awinic-specific one-wire pulse control.
- 
- config SND_SOC_AW88395_LIB
-+	select CRC8
- 	tristate
- 
- config SND_SOC_AW88395
- 	tristate "Soc Audio for awinic aw88395"
- 	depends on I2C
--	select CRC8
- 	select CRC32
- 	select REGMAP_I2C
- 	select GPIOLIB
-@@ -657,7 +658,6 @@ config SND_SOC_AW88395
- config SND_SOC_AW88261
- 	tristate "Soc Audio for awinic aw88261"
- 	depends on I2C
--	select CRC8
- 	select REGMAP_I2C
- 	select GPIOLIB
- 	select SND_SOC_AW88395_LIB
-@@ -668,6 +668,17 @@ config SND_SOC_AW88261
- 	  boost converter can be adjusted smartly according to
- 	  the input amplitude.
- 
-+config SND_SOC_AW87390
-+	tristate "Soc Audio for awinic aw87390"
-+	depends on I2C
-+	select REGMAP_I2C
-+	select SND_SOC_AW88395_LIB
-+	help
-+	  The awinic aw87390 is specifically designed to improve
-+	  the musical output dynamic range, enhance the overall
-+	  sound quallity, which is a new high efficiency, low
-+	  noise, constant large volume, 6th Smart K audio amplifier.
-+
- config SND_SOC_BD28623
- 	tristate "ROHM BD28623 CODEC"
- 	help
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index a87e56938ce5..60df97b67c01 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -47,6 +47,7 @@ snd-soc-ak5558-objs := ak5558.o
- snd-soc-arizona-objs := arizona.o arizona-jack.o
- snd-soc-audio-iio-aux-objs := audio-iio-aux.o
- snd-soc-aw8738-objs := aw8738.o
-+snd-soc-aw87390-objs := aw87390.o
- snd-soc-aw88395-lib-objs := aw88395/aw88395_lib.o
- snd-soc-aw88395-objs := aw88395/aw88395.o \
- 			aw88395/aw88395_device.o
-@@ -434,6 +435,7 @@ obj-$(CONFIG_SND_SOC_ALC5632)	+= snd-soc-alc5632.o
- obj-$(CONFIG_SND_SOC_ARIZONA)	+= snd-soc-arizona.o
- obj-$(CONFIG_SND_SOC_AUDIO_IIO_AUX)	+= snd-soc-audio-iio-aux.o
- obj-$(CONFIG_SND_SOC_AW8738)	+= snd-soc-aw8738.o
-+obj-$(CONFIG_SND_SOC_AW87390)	+= snd-soc-aw87390.o
- obj-$(CONFIG_SND_SOC_AW88395_LIB) += snd-soc-aw88395-lib.o
- obj-$(CONFIG_SND_SOC_AW88395)	+=snd-soc-aw88395.o
- obj-$(CONFIG_SND_SOC_AW88261)	+=snd-soc-aw88261.o
-diff --git a/sound/soc/codecs/aw87390.c b/sound/soc/codecs/aw87390.c
-new file mode 100644
-index 000000000000..8efae3b73eea
---- /dev/null
-+++ b/sound/soc/codecs/aw87390.c
-@@ -0,0 +1,462 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// aw87390.c  --  AW87390 ALSA SoC Audio driver
-+//
-+// Copyright (c) 2023 awinic Technology CO., LTD
-+//
-+// Author: Weidong Wang <wangweidong.a@awinic.com>
-+//
-+
-+#include <linux/i2c.h>
-+#include <linux/firmware.h>
-+#include <linux/regmap.h>
-+#include <sound/soc.h>
-+#include "aw87390.h"
-+#include "aw88395/aw88395_data_type.h"
-+#include "aw88395/aw88395_device.h"
-+
-+static const struct regmap_config aw87390_remap_config = {
-+	.val_bits = 8,
-+	.reg_bits = 8,
-+	.max_register = AW87390_REG_MAX,
-+	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.val_format_endian = REGMAP_ENDIAN_BIG,
-+};
-+
-+static int aw87390_dev_reg_update(struct aw_device *aw_dev,
-+					unsigned char *data, unsigned int len)
-+{
-+	int i, ret;
-+
-+	if (!data) {
-+		dev_err(aw_dev->dev, "data is NULL\n");
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < len; i = i + 2) {
-+		if (data[i] == AW87390_DELAY_REG_ADDR) {
-+			usleep_range(data[i + 1] * AW87390_REG_DELAY_TIME,
-+					data[i + 1] * AW87390_REG_DELAY_TIME + 10);
-+			continue;
-+		}
-+		ret = regmap_write(aw_dev->regmap, data[i], data[i + 1]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int aw87390_dev_get_prof_name(struct aw_device *aw_dev, int index, char **prof_name)
-+{
-+	struct aw_prof_info *prof_info = &aw_dev->prof_info;
-+	struct aw_prof_desc *prof_desc;
-+
-+	if ((index >= aw_dev->prof_info.count) || (index < 0)) {
-+		dev_err(aw_dev->dev, "index[%d] overflow count[%d]\n",
-+			index, aw_dev->prof_info.count);
-+		return -EINVAL;
-+	}
-+
-+	prof_desc = &aw_dev->prof_info.prof_desc[index];
-+
-+	*prof_name = prof_info->prof_name_list[prof_desc->id];
-+
-+	return 0;
-+}
-+
-+static int aw87390_dev_get_prof_data(struct aw_device *aw_dev, int index,
-+			struct aw_prof_desc **prof_desc)
-+{
-+	if ((index >= aw_dev->prof_info.count) || (index < 0)) {
-+		dev_err(aw_dev->dev, "%s: index[%d] overflow count[%d]\n",
-+				__func__, index, aw_dev->prof_info.count);
-+		return -EINVAL;
-+	}
-+
-+	*prof_desc = &aw_dev->prof_info.prof_desc[index];
-+
-+	return 0;
-+}
-+
-+static int aw87390_dev_fw_update(struct aw_device *aw_dev)
-+{
-+	struct aw_prof_desc *prof_index_desc;
-+	struct aw_sec_data_desc *sec_desc;
-+	char *prof_name;
-+	int ret;
-+
-+	ret = aw87390_dev_get_prof_name(aw_dev, aw_dev->prof_index, &prof_name);
-+	if (ret) {
-+		dev_err(aw_dev->dev, "get prof name failed\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(aw_dev->dev, "start update %s", prof_name);
-+
-+	ret = aw87390_dev_get_prof_data(aw_dev, aw_dev->prof_index, &prof_index_desc);
-+	if (ret) {
-+		dev_err(aw_dev->dev, "aw87390_dev_get_prof_data failed\n");
-+		return ret;
-+	}
-+
-+	/* update reg */
-+	sec_desc = prof_index_desc->sec_desc;
-+	ret = aw87390_dev_reg_update(aw_dev, sec_desc[AW88395_DATA_TYPE_REG].data,
-+					sec_desc[AW88395_DATA_TYPE_REG].len);
-+	if (ret) {
-+		dev_err(aw_dev->dev, "update reg failed\n");
-+		return ret;
-+	}
-+
-+	aw_dev->prof_cur = aw_dev->prof_index;
-+
-+	return ret;
-+}
-+
-+static int aw87390_power_off(struct aw_device *aw_dev)
-+{
-+	int ret;
-+
-+	if (aw_dev->status == AW87390_DEV_PW_OFF) {
-+		dev_info(aw_dev->dev, "already power off\n");
-+		return 0;
-+	}
-+
-+	ret = regmap_write(aw_dev->regmap, AW87390_SYSCTRL_REG, AW87390_POWER_DOWN_VALUE);
-+	if (ret)
-+		return ret;
-+	aw_dev->status = AW87390_DEV_PW_OFF;
-+
-+	return ret;
-+}
-+
-+static int aw87390_power_on(struct aw_device *aw_dev)
-+{
-+	int ret;
-+
-+	if (aw_dev->status == AW87390_DEV_PW_ON) {
-+		dev_info(aw_dev->dev, "already power on\n");
-+		return 0;
-+	}
-+
-+	if (!aw_dev->fw_status) {
-+		dev_err(aw_dev->dev, "fw not load\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = regmap_write(aw_dev->regmap, AW87390_SYSCTRL_REG, AW87390_POWER_DOWN_VALUE);
-+	if (ret)
-+		return ret;
-+
-+	ret = aw87390_dev_fw_update(aw_dev);
-+	if (ret) {
-+		dev_err(aw_dev->dev, "%s load profile failed\n", __func__);
-+		return ret;
-+	}
-+	aw_dev->status = AW87390_DEV_PW_ON;
-+
-+	return ret;
-+}
-+
-+static int aw87390_dev_set_profile_index(struct aw_device *aw_dev, int index)
-+{
-+	if ((index >= aw_dev->prof_info.count) || (index < 0))
-+		return -EINVAL;
-+
-+	if (aw_dev->prof_index == index)
-+		return -EPERM;
-+
-+	aw_dev->prof_index = index;
-+
-+	return 0;
-+}
-+
-+static int aw87390_profile_info(struct snd_kcontrol *kcontrol,
-+			 struct snd_ctl_elem_info *uinfo)
-+{
-+	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
-+	struct aw87390 *aw87390 = snd_soc_component_get_drvdata(codec);
-+	char *prof_name, *name;
-+	int count, ret;
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_ENUMERATED;
-+	uinfo->count = 1;
-+
-+	count = aw87390->aw_pa->prof_info.count;
-+	if (count <= 0) {
-+		uinfo->value.enumerated.items = 0;
-+		return 0;
-+	}
-+
-+	uinfo->value.enumerated.items = count;
-+
-+	if (uinfo->value.enumerated.item >= count)
-+		uinfo->value.enumerated.item = count - 1;
-+
-+	name = uinfo->value.enumerated.name;
-+	count = uinfo->value.enumerated.item;
-+
-+	ret = aw87390_dev_get_prof_name(aw87390->aw_pa, count, &prof_name);
-+	if (ret) {
-+		strscpy(uinfo->value.enumerated.name, "null",
-+						strlen("null") + 1);
-+		return 0;
-+	}
-+
-+	strscpy(name, prof_name, sizeof(uinfo->value.enumerated.name));
-+
-+	return 0;
-+}
-+
-+static int aw87390_profile_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
-+	struct aw87390 *aw87390 = snd_soc_component_get_drvdata(codec);
-+
-+	ucontrol->value.integer.value[0] = aw87390->aw_pa->prof_index;
-+
-+	return 0;
-+}
-+
-+static int aw87390_profile_set(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
-+	struct aw87390 *aw87390 = snd_soc_component_get_drvdata(codec);
-+	int ret;
-+
-+	mutex_lock(&aw87390->lock);
-+	ret = aw87390_dev_set_profile_index(aw87390->aw_pa, ucontrol->value.integer.value[0]);
-+	if (ret) {
-+		dev_dbg(codec->dev, "profile index does not change\n");
-+		mutex_unlock(&aw87390->lock);
-+		return 0;
-+	}
-+
-+	if (aw87390->aw_pa->status == AW87390_DEV_PW_ON) {
-+		aw87390_power_off(aw87390->aw_pa);
-+		aw87390_power_on(aw87390->aw_pa);
-+	}
-+
-+	mutex_unlock(&aw87390->lock);
-+
-+	return 1;
-+}
-+
-+static const struct snd_kcontrol_new aw87390_controls[] = {
-+	AW87390_PROFILE_EXT("AW87390 Profile Set", aw87390_profile_info,
-+		aw87390_profile_get, aw87390_profile_set),
-+};
-+
-+static int aw87390_request_firmware_file(struct aw87390 *aw87390)
-+{
-+	const struct firmware *cont = NULL;
-+	int ret;
-+
-+	aw87390->aw_pa->fw_status = AW87390_DEV_FW_FAILED;
-+
-+	ret = request_firmware(&cont, AW87390_ACF_FILE, aw87390->aw_pa->dev);
-+	if (ret)
-+		return dev_err_probe(aw87390->aw_pa->dev, ret,
-+					"load [%s] failed!\n", AW87390_ACF_FILE);
-+
-+	dev_dbg(aw87390->aw_pa->dev, "loaded %s - size: %zu\n",
-+			AW87390_ACF_FILE, cont ? cont->size : 0);
-+
-+	aw87390->aw_cfg = devm_kzalloc(aw87390->aw_pa->dev, cont->size + sizeof(int), GFP_KERNEL);
-+	if (!aw87390->aw_cfg) {
-+		release_firmware(cont);
-+		return -ENOMEM;
-+	}
-+
-+	aw87390->aw_cfg->len = (int)cont->size;
-+	memcpy(aw87390->aw_cfg->data, cont->data, cont->size);
-+	release_firmware(cont);
-+
-+	ret = aw88395_dev_load_acf_check(aw87390->aw_pa, aw87390->aw_cfg);
-+	if (ret) {
-+		dev_err(aw87390->aw_pa->dev, "load [%s] failed !\n", AW87390_ACF_FILE);
-+		return ret;
-+	}
-+
-+	mutex_lock(&aw87390->lock);
-+
-+	ret = aw88395_dev_cfg_load(aw87390->aw_pa, aw87390->aw_cfg);
-+	if (ret)
-+		dev_err(aw87390->aw_pa->dev, "aw_dev acf parse failed\n");
-+
-+	mutex_unlock(&aw87390->lock);
-+
-+	return ret;
-+}
-+
-+static int aw87390_drv_event(struct snd_soc_dapm_widget *w,
-+				struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct aw87390 *aw87390 = snd_soc_component_get_drvdata(component);
-+	struct aw_device *aw_dev = aw87390->aw_pa;
-+	int ret;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		ret = aw87390_power_on(aw_dev);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		ret = aw87390_power_off(aw_dev);
-+		break;
-+	default:
-+		dev_err(aw_dev->dev, "%s: invalid event %d\n", __func__, event);
-+		ret = -EINVAL;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct snd_soc_dapm_widget aw87390_dapm_widgets[] = {
-+	SND_SOC_DAPM_INPUT("IN"),
-+	SND_SOC_DAPM_PGA_E("SPK PA", SND_SOC_NOPM, 0, 0, NULL, 0, aw87390_drv_event,
-+			       SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_OUTPUT("OUT"),
-+};
-+
-+static const struct snd_soc_dapm_route aw87390_dapm_routes[] = {
-+	{ "SPK PA", NULL, "IN" },
-+	{ "OUT", NULL, "SPK PA" },
-+};
-+
-+static int aw87390_codec_probe(struct snd_soc_component *component)
-+{
-+	struct aw87390 *aw87390 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	ret = aw87390_request_firmware_file(aw87390);
-+	if (ret)
-+		return dev_err_probe(aw87390->aw_pa->dev, ret,
-+				"aw87390_request_firmware_file failed\n");
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver soc_codec_dev_aw87390 = {
-+	.probe = aw87390_codec_probe,
-+	.dapm_widgets = aw87390_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(aw87390_dapm_widgets),
-+	.dapm_routes = aw87390_dapm_routes,
-+	.num_dapm_routes = ARRAY_SIZE(aw87390_dapm_routes),
-+	.controls = aw87390_controls,
-+	.num_controls = ARRAY_SIZE(aw87390_controls),
-+};
-+
-+static void aw87390_parse_channel_dt(struct aw87390 *aw87390)
-+{
-+	struct aw_device *aw_dev = aw87390->aw_pa;
-+	struct device_node *np = aw_dev->dev->of_node;
-+	u32 channel_value = AW87390_DEV_DEFAULT_CH;
-+
-+	of_property_read_u32(np, "awinic,audio-channel", &channel_value);
-+
-+	aw_dev->channel = channel_value;
-+}
-+
-+static int aw87390_init(struct aw87390 **aw87390, struct i2c_client *i2c, struct regmap *regmap)
-+{
-+	struct aw_device *aw_dev;
-+	unsigned int chip_id;
-+	int ret;
-+
-+	/* read chip id */
-+	ret = regmap_read(regmap, AW87390_ID_REG, &chip_id);
-+	if (ret) {
-+		dev_err(&i2c->dev, "%s read chipid error. ret = %d\n", __func__, ret);
-+		return ret;
-+	}
-+
-+	if (chip_id != AW87390_CHIP_ID) {
-+		dev_err(&i2c->dev, "unsupported device\n");
-+		return -ENXIO;
-+	}
-+
-+	dev_info(&i2c->dev, "chip id = 0x%x\n", chip_id);
-+
-+	aw_dev = devm_kzalloc(&i2c->dev, sizeof(*aw_dev), GFP_KERNEL);
-+	if (!aw_dev)
-+		return -ENOMEM;
-+
-+	(*aw87390)->aw_pa = aw_dev;
-+	aw_dev->i2c = i2c;
-+	aw_dev->regmap = regmap;
-+	aw_dev->dev = &i2c->dev;
-+	aw_dev->chip_id = AW87390_CHIP_ID;
-+	aw_dev->acf = NULL;
-+	aw_dev->prof_info.prof_desc = NULL;
-+	aw_dev->prof_info.count = 0;
-+	aw_dev->prof_info.prof_type = AW88395_DEV_NONE_TYPE_ID;
-+	aw_dev->channel = AW87390_DEV_DEFAULT_CH;
-+	aw_dev->fw_status = AW87390_DEV_FW_FAILED;
-+	aw_dev->prof_index = AW87390_INIT_PROFILE;
-+	aw_dev->status = AW87390_DEV_PW_OFF;
-+
-+	aw87390_parse_channel_dt(*aw87390);
-+
-+	return ret;
-+}
-+
-+static int aw87390_i2c_probe(struct i2c_client *i2c)
-+{
-+	struct aw87390 *aw87390;
-+	int ret;
-+
-+	ret = i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C);
-+	if (!ret)
-+		return dev_err_probe(&i2c->dev, -ENXIO, "check_functionality failed\n");
-+
-+	aw87390 = devm_kzalloc(&i2c->dev, sizeof(*aw87390), GFP_KERNEL);
-+	if (!aw87390)
-+		return -ENOMEM;
-+
-+	mutex_init(&aw87390->lock);
-+
-+	i2c_set_clientdata(i2c, aw87390);
-+
-+	aw87390->regmap = devm_regmap_init_i2c(i2c, &aw87390_remap_config);
-+	if (IS_ERR(aw87390->regmap))
-+		return dev_err_probe(&i2c->dev, PTR_ERR(aw87390->regmap),
-+					"failed to init regmap\n");
-+
-+	/* aw pa init */
-+	ret = aw87390_init(&aw87390, i2c, aw87390->regmap);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(aw87390->regmap, AW87390_ID_REG, AW87390_SOFT_RESET_VALUE);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_snd_soc_register_component(&i2c->dev,
-+				&soc_codec_dev_aw87390, NULL, 0);
-+	if (ret)
-+		dev_err(&i2c->dev, "failed to register aw87390: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static const struct i2c_device_id aw87390_i2c_id[] = {
-+	{ AW87390_I2C_NAME, 0 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, aw87390_i2c_id);
-+
-+static struct i2c_driver aw87390_i2c_driver = {
-+	.driver = {
-+		.name = AW87390_I2C_NAME,
-+	},
-+	.probe = aw87390_i2c_probe,
-+	.id_table = aw87390_i2c_id,
-+};
-+module_i2c_driver(aw87390_i2c_driver);
-+
-+MODULE_DESCRIPTION("ASoC AW87390 PA Driver");
-+MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/codecs/aw87390.h b/sound/soc/codecs/aw87390.h
-new file mode 100644
-index 000000000000..54c268c18e72
---- /dev/null
-+++ b/sound/soc/codecs/aw87390.h
-@@ -0,0 +1,85 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// aw87390.h  --  aw87390 ALSA SoC Audio driver
-+//
-+// Copyright (c) 2023 awinic Technology CO., LTD
-+//
-+// Author: Weidong Wang <wangweidong.a@awinic.com>
-+//
-+
-+#ifndef __AW87390_H__
-+#define __AW87390_H__
-+
-+#define AW87390_ID_REG			(0x00)
-+#define AW87390_SYSCTRL_REG		(0x01)
-+#define AW87390_MDCTRL_REG		(0x02)
-+#define AW87390_CPOVP_REG		(0x03)
-+#define AW87390_CPP_REG		(0x04)
-+#define AW87390_PAG_REG		(0x05)
-+#define AW87390_AGC3P_REG		(0x06)
-+#define AW87390_AGC3PA_REG		(0x07)
-+#define AW87390_AGC2P_REG		(0x08)
-+#define AW87390_AGC2PA_REG		(0x09)
-+#define AW87390_AGC1PA_REG		(0x0A)
-+#define AW87390_SYSST_REG		(0x59)
-+#define AW87390_SYSINT_REG		(0x60)
-+#define AW87390_DFT_SYSCTRL_REG	(0x61)
-+#define AW87390_DFT_MDCTRL_REG		(0x62)
-+#define AW87390_DFT_CPADP_REG		(0x63)
-+#define AW87390_DFT_AGCPA_REG		(0x64)
-+#define AW87390_DFT_POFR_REG		(0x65)
-+#define AW87390_DFT_OC_REG		(0x66)
-+#define AW87390_DFT_ADP1_REG		(0x67)
-+#define AW87390_DFT_REF_REG		(0x68)
-+#define AW87390_DFT_LDO_REG		(0x69)
-+#define AW87390_ADP1_REG		(0x70)
-+#define AW87390_ADP2_REG		(0x71)
-+#define AW87390_NG1_REG		(0x72)
-+#define AW87390_NG2_REG		(0x73)
-+#define AW87390_NG3_REG		(0x74)
-+#define AW87390_CP_REG			(0x75)
-+#define AW87390_AB_REG			(0x76)
-+#define AW87390_TEST_REG		(0x77)
-+#define AW87390_ENCR_REG		(0x78)
-+#define AW87390_DELAY_REG_ADDR		(0xFE)
-+
-+#define AW87390_SOFT_RESET_VALUE	(0xAA)
-+#define AW87390_POWER_DOWN_VALUE	(0x00)
-+#define AW87390_REG_MAX		(0xFF)
-+#define AW87390_DEV_DEFAULT_CH		(0)
-+#define AW87390_INIT_PROFILE		(0)
-+#define AW87390_REG_DELAY_TIME		(1000)
-+#define AW87390_I2C_NAME		"aw87390"
-+#define AW87390_ACF_FILE		"aw87390_acf.bin"
-+
-+#define AW87390_PROFILE_EXT(xname, profile_info, profile_get, profile_set) \
-+{ \
-+	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, \
-+	.name = xname, \
-+	.info = profile_info, \
-+	.get = profile_get, \
-+	.put = profile_set, \
-+}
-+
-+enum aw87390_id {
-+	AW87390_CHIP_ID = 0x76,
-+};
-+
-+enum {
-+	AW87390_DEV_FW_FAILED = 0,
-+	AW87390_DEV_FW_OK,
-+};
-+
-+enum {
-+	AW87390_DEV_PW_OFF = 0,
-+	AW87390_DEV_PW_ON,
-+};
-+
-+struct aw87390 {
-+	struct aw_device *aw_pa;
-+	struct mutex lock;
-+	struct regmap *regmap;
-+	struct aw_container *aw_cfg;
-+};
-+
-+#endif
--- 
-2.41.0
-
+Thanks.

@@ -2,121 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFDEF7B3EFE
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:08:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 288D77B3EFF
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:09:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 390F1E7C;
-	Sat, 30 Sep 2023 10:07:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 390F1E7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBC9AEDC;
+	Sat, 30 Sep 2023 10:08:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBC9AEDC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061326;
-	bh=vKQ9zk7gKDr6lrRl/kJNUi3SS6Du419smBZbrOypBSE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pEuUbgxA/pxdOAHc3PIwNMczimzLuF8hBBE16EHFuHmmiQME+OC/bbpuJgNREyVnl
-	 UhM6PfbbfUQg8sE33JdLoQ6XSDse5lCHWBcfODuzfMblIbMKmujpcLCnqxRfwWVyBm
-	 4qipfeqWPrNdddUcLnraOAD7jepvdHA3j+ldtXWg=
+	s=default; t=1696061341;
+	bh=IjRi2C9d+1iihdr5PPf00qmqaEcEdtZT/5YA/9/rWgo=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tjzmfJfjarTLH/EN8MN2kdd5ANcC6K/rpVA7cPr4Ju5LB4wPzh06lViVNboF1KfxA
+	 i60F6gpguhz7p+xG8oUVkgdW6NeIzhCef6rE3xAs6ONc20ir4WYkH1MkoryOLYIlGF
+	 82E7C5Fw/5lIVrqCZZGFAd02TcmLIIIN5FJkUFjo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7CD02F8060F; Sat, 30 Sep 2023 10:06:51 +0200 (CEST)
+	id B4F71F80620; Sat, 30 Sep 2023 10:06:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58EB5F8055C;
-	Sat, 30 Sep 2023 10:06:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2943FF80580;
+	Sat, 30 Sep 2023 10:06:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D489F8016A; Wed, 27 Sep 2023 13:27:21 +0200 (CEST)
+	id 27A5EF8016A; Wed, 27 Sep 2023 13:35:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	T_SPF_TEMPERROR,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from csmtpq1-prd-nl1-vmo.edge.unified.services
- (csmtpq1-prd-nl1-vmo.edge.unified.services [84.116.50.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8384FF80130
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 13:27:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8384FF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id AFF38F80130
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 13:35:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFF38F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=blueyonder.co.uk header.i=@blueyonder.co.uk
- header.a=rsa-sha256 header.s=meg.feb2017 header.b=bBY6LGvO
-Received: from csmtp4-prd-nl1-vmo.nl1.unified.services ([100.107.82.18]
- helo=csmtp4-prd-nl1-vmo.edge.unified.services)
-	by csmtpq1-prd-nl1-vmo.edge.unified.services with esmtps  (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <sboyce@blueyonder.co.uk>)
-	id 1qlSh3-00BblJ-UG
-	for alsa-devel@alsa-project.org; Wed, 27 Sep 2023 13:27:01 +0200
-Received: from [192.168.10.244] ([82.32.17.210])
-	by csmtp4-prd-nl1-vmo.edge.unified.services with ESMTPA
-	id lSh3qyt7YwQmmlSh3qSF1N; Wed, 27 Sep 2023 13:27:01 +0200
-X-SourceIP: 82.32.17.210
-X-Authenticated-Sender: sboyce@blueyonder.co.uk
-X-Spam: 0
-X-Authority: v=2.4 cv=RNt1Xau+ c=1 sm=1 tr=0 ts=65141185 cx=a_exe
- a=xwbGgp66NgX51+oEeDXSrg==:117 a=xwbGgp66NgX51+oEeDXSrg==:17
- a=IkcTkHD0fZMA:10 a=zNV7Rl7Rt7sA:10 a=x7bEGLp0ZPQA:10
- a=0v1b5-HTeeM4QniLAwgA:9 a=QEXdDO2ut3YA:10
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=blueyonder.co.uk;
-	s=meg.feb2017; t=1695814021;
-	bh=Yv9ymRqN7bz/9Zd/poLje8Q7REupOL0fOfYrUu04h/k=;
-	h=Date:Reply-To:Subject:To:Cc:References:From:In-Reply-To;
-	b=bBY6LGvOLLH/IbU66OhaMBn5TA2MZqxWRMlD+ZwM86KKqC7WFRwX+NpfqLmoT4rSE
-	 Tgy6g4YBc6sm07oduLZp8DMlqE7zHVC0YuQkySxaNiuSTIPH8acNkTsYybui2LTqq+
-	 OANgQcox6zMq7cKGnQbMc7lYFyLUDV0sHLwr1gno+uS4q3k3KvtCZunP/IDdicTL+Q
-	 /sLGEdsyTvfoVXA/2vGO3ausSKB0PmDTsInRuPqblxEQFDHhPF8cl0tQ46wWlEFm9V
-	 NV/K+T5QXx+UFqpLZDSWdHlgUpqXeGpZYT+boQuTmOTvlJPsZuJc2j9xPg9iRFwE07
-	 aVNNXXYNh3gmQ==
-Message-ID: <4b2c3b4e-9b21-4f80-95e1-58aa7f58131e@blueyonder.co.uk>
-Date: Wed, 27 Sep 2023 12:27:00 +0100
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=d8nnpLbh
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 46e09a7af769-6bc9c01e154so5860970a34.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 27 Sep 2023 04:35:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1695814544; x=1696419344;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=/RHfKURYW+rujQXoW6nOOC0qH2otqVlHZzY03WcXw7I=;
+        b=d8nnpLbhR7/vVJR1m3WvRC8cU5jIeucrC/Gp4U69Qlk8yEg4l9Ba8FFfEetI548psu
+         9yyK+SzJ8GI0M/txNEKnfFMy8VOoukddLSnf44yR5I0Jgd7z8jRqiIKflJgwhieVvo2u
+         iHHUxcYPrJ9K4Q6+C+JoXbtPF95mBmPJIJtffqiVgBoUE69T3aiIiQ7h9MO67lcvTGWV
+         g4u83tsVeZjvu417kBripBCeMAihAeIlc1sV0cdkgEaekm7e+QJLn2DFsoMbFvf/4cP8
+         xXYwdyRCQoSy/vhZVL2KjiaVS4z9ChX/p8QnDhBvtwKe0QZdVarfAgLcciDkRU+lDjmo
+         VRzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695814544; x=1696419344;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/RHfKURYW+rujQXoW6nOOC0qH2otqVlHZzY03WcXw7I=;
+        b=Gf1NIB5A2ocQXE1DHIszI66qZodgqff5LT/x+exN3/pdryHDrbws46PK03glksYLDf
+         FX42dyMtNPq1YBUH8wqBMy19bv9TfamFn4+NhjTN2f921o+Jb8WlblEDAzgTZDM6iJAF
+         nDDdE+4d2OMLSIzQZ567EMOkcEDPwy0vP3k60Zd78JAh4xgxw5OarmYhpokwiI1cnf6A
+         xr9T0pMowTCkfPypni04lIFg8FXoZvBTnXIZ9pdGrRZ5Y8WqoJir2eV84a/PbLHb1ec1
+         IExZlbWxrjadM52CN5v5godl8SZLva4zagezHwRDPB175cavid9PpBgQs37XCLVjb95E
+         r5qQ==
+X-Gm-Message-State: AOJu0YwiBofsrYLNNioiR7xQDN/Kpew8ywYFGZaeChS7fJxaxIqmTHqb
+	sTSLD4O+8RCT+Ut9b05OEvsBsmSCVWa3gf5cJ3oymiD7vIoFQvA4
+X-Google-Smtp-Source: 
+ AGHT+IFXHb14Ocu/EbBG2pQXYStNdA4kNUpPT6YoERKp59r6JohnFuxqoOy0NmZdKk+PevbozAcmrmGTCr+wOhB+TWU=
+X-Received: by 2002:a9d:4b83:0:b0:6bc:9c01:c2ca with SMTP id
+ k3-20020a9d4b83000000b006bc9c01c2camr2997411otf.16.1695814543656; Wed, 27 Sep
+ 2023 04:35:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Ryzen 9 7950x sound module does not not build
-Content-Language: en-GB
-To: Randy Dunlap <rdunlap@infradead.org>, Bagas Sanjaya
- <bagasdotme@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ALSA <alsa-devel@alsa-project.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <213f93b5-bffe-479f-a111-f8a7e44cd293@blueyonder.co.uk>
- <61821f15-78e2-4594-8f39-545ecaa97000@infradead.org>
- <5903832d-7d27-4847-b161-48b9f7e92ee6@blueyonder.co.uk>
- <ZRLWIkyngsasQbQ7@debian.me>
- <6a6d7683-78f2-4511-976d-eb42d3b59c89@blueyonder.co.uk>
- <40672e60-3913-4794-b84a-742b7c16d361@infradead.org>
-From: Sid Boyce <sboyce@blueyonder.co.uk>
-Organization: blueyonder.co.uk
-In-Reply-To: <40672e60-3913-4794-b84a-742b7c16d361@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: 
- MS4xfHjfA/CrKzraXoJULEBuTwXh9B/opZ0YhHqWaBgKfqrjEqddl6fD98TTeOAvCmY1ONU0eOYop2WUUTGSmROFWAPPGATxmH/dOuFYeZ94PfidlJzRi6bd
- Y85nu7raFM3v/jjk8/pXPblSvApmgQQ6qTZPWibX8hFHPamd2YT62L3ksqBF0aP2/e5vYA9K9CzLyIQWYQqxR8sfDp0iOxoND3/trOEpNYiv+6LtgaTD/Mh3
- 5t7CMsTAJjsxBzb3Im8gEnAzq1ywdw8dArP+3YG97lGPSVMaei+tMrzrUaIv29H/xa0oLtpLpNzePyCaArZI4alAgPDvs665vod402iNohVL+nbMtdLd4FaY
- iBBBoHQHqKJtPQrW1ETZQdMuTmCtipKViLOZhKrdxZY5FUIHKqq6tZ6XnvM9Hbz6NenmRQz6
-X-MailFrom: sboyce@blueyonder.co.uk
+From: Sepp Kyster <sepp.kyster@gmail.com>
+Date: Wed, 27 Sep 2023 13:35:32 +0200
+Message-ID: 
+ <CA+c8_P_Vv_3zpapsLHjYQ59_VUn3U7cUDuA0U44KcqmbRhyNDA@mail.gmail.com>
+Subject: Linux Pop OS Audio Problems
+To: alsa-devel@alsa-project.org
+X-MailFrom: sepp.kyster@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: QWQODDYHJHOXOE6457GLHOEQ3OM7DVDJ
-X-Message-ID-Hash: QWQODDYHJHOXOE6457GLHOEQ3OM7DVDJ
+Message-ID-Hash: 4R3TAFKZBXR5JKYSODTISNQBY6OIWWXH
+X-Message-ID-Hash: 4R3TAFKZBXR5JKYSODTISNQBY6OIWWXH
 X-Mailman-Approved-At: Sat, 30 Sep 2023 08:06:35 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: sboyce@blueyonder.co.uk
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QWQODDYHJHOXOE6457GLHOEQ3OM7DVDJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4R3TAFKZBXR5JKYSODTISNQBY6OIWWXH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,145 +111,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 26/09/2023 23:13, Randy Dunlap wrote:
-> lspci -vv
-
-
-01:00.1 Audiodevice: NVIDIA Corporation Device 10fa (rev a1)
-        Subsystem: NVIDIA Corporation Device 1f82
-        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- 
-ParErr- Stepping- SERR- FastB2B- DisINTx-
-        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- 
-<TAbort- <MAbort- >SERR- <PERR- INTx-
-        Latency: 0, Cache Line Size: 64 bytes
-        Interrupt: pin B routed to IRQ 80
-        IOMMU group: 11
-        Region 0: Memory at fc080000 (32-bit, non-prefetchable) [size=16K]
-        Capabilities: [60] Power Management version 3
-                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA 
-PME(D0-,D1-,D2-,D3hot-,D3cold-)
-                Status: D3 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
-        Capabilities: [68] MSI: Enable- Count=1/1 Maskable- 64bit+
-                Address: 0000000000000000  Data: 0000
-        Capabilities: [78] Express (v2) Endpoint, MSI 00
-                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s 
-unlimited, L1 <64us
-                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset- 
-SlotPowerLimit 75W
-                DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
-                        RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
-                        MaxPayload 256 bytes, MaxReadReq 512 bytes
-                DevSta: CorrErr+ NonFatalErr- FatalErr- UnsupReq+ 
-AuxPwr- TransPend-
-                LnkCap: Port #0, Speed 8GT/s, Width x16, ASPM L0s L1, 
-Exit Latency L0s <512ns, L1 <4us
-                        ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp+
-                LnkCtl: ASPM L0s L1 Enabled; RCB 64 bytes, Disabled- 
-CommClk+
-                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
-                LnkSta: Speed 2.5GT/s (downgraded), Width x16
-                        TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
-                DevCap2: Completion Timeout: Range AB, TimeoutDis+ 
-NROPrPrP- LTR+
-                         10BitTagComp- 10BitTagReq- OBFF Via message, 
-ExtFmt- EETLPPrefix-
-                         EmergencyPowerReduction Not Supported, 
-EmergencyPowerReductionInit-
-                         FRS- TPHComp- ExtTPHComp-
-                         AtomicOpsCap: 32bit- 64bit- 128bitCAS-
-                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- 
-LTR- 10BitTagReq- OBFF Disabled,
-                         AtomicOpsCtl: ReqEn-
-                LnkSta2: Current De-emphasis Level: -3.5dB, 
-EqualizationComplete- EqualizationPhase1-
-                         EqualizationPhase2- EqualizationPhase3- 
-LinkEqualizationRequest-
-                         Retimer- 2Retimers- CrosslinkRes: unsupported
-        Capabilities: [100 v2] Advanced Error Reporting
-                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- 
-UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
-                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- 
-UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
-                UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- 
-UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
-                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- 
-AdvNonFatalErr-
-                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- 
-AdvNonFatalErr+
-                AERCap: First Error Pointer: 00, ECRCGenCap- ECRCGenEn- 
-ECRCChkCap- ECRCChkEn-
-                        MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
-                HeaderLog: 00000000 00000000 00000000 00000000
-        Kernel driver in use: snd_hda_intel
-        Kernel modules: snd_hda_intel
-
-0b:00.6 Audiodevice: Advanced Micro Devices, Inc. [AMD] Family 17h/19h 
-HD AudioController
-        DeviceName: Realtek ALC897 Audio
-        Subsystem: ASUSTeK Computer Inc. Device 87fb
-        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- 
-ParErr- Stepping- SERR- FastB2B- DisINTx+
-        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- 
-<TAbort- <MAbort- >SERR- <PERR- INTx-
-        Latency: 0, Cache Line Size: 64 bytes
-        Interrupt: pin C routed to IRQ 81
-        IOMMU group: 24
-        Region 0: Memory at fc500000 (32-bit, non-prefetchable) [size=32K]
-        Capabilities: [48] Vendor Specific Information: Len=08 <?>
-        Capabilities: [50] Power Management version 3
-                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA 
-PME(D0+,D1-,D2-,D3hot+,D3cold+)
-                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
-        Capabilities: [64] Express (v2) Endpoint, MSI 00
-                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s 
-<4us, L1 unlimited
-                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset- 
-SlotPowerLimit 0W
-                DevCtl: CorrErr- NonFatalErr- FatalErr- UnsupReq-
-                        RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
-                        MaxPayload 256 bytes, MaxReadReq 512 bytes
-                DevSta: CorrErr- NonFatalErr- FatalErr- UnsupReq- 
-AuxPwr- TransPend-
-                LnkCap: Port #0, Speed 16GT/s, Width x16, ASPM L0s L1, 
-Exit Latency L0s <64ns, L1 <1us
-                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
-                LnkCtl: ASPM Disabled; RCB 64 bytes, Disabled- CommClk+
-                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
-                LnkSta: Speed 16GT/s, Width x16
-                        TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
-                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+ 
-NROPrPrP- LTR-
-                         10BitTagComp+ 10BitTagReq- OBFF Not Supported, 
-ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
-                         EmergencyPowerReduction Not Supported, 
-EmergencyPowerReductionInit-
-                         FRS- TPHComp- ExtTPHComp-
-                         AtomicOpsCap: 32bit- 64bit- 128bitCAS-
-                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- 
-LTR- 10BitTagReq- OBFF Disabled,
-                         AtomicOpsCtl: ReqEn-
-                LnkSta2: Current De-emphasis Level: -3.5dB, 
-EqualizationComplete- EqualizationPhase1-
-                         EqualizationPhase2- EqualizationPhase3- 
-LinkEqualizationRequest-
-                         Retimer- 2Retimers- CrosslinkRes: unsupported
-        Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
-                Address: 00000000fee00000  Data: 0000
-        Capabilities: [100 v1] Vendor Specific Information: ID=0001 
-Rev=1 Len=010 <?>
-        Capabilities: [2a0 v1] Access Control Services
-                ACSCap: SrcValid- TransBlk- ReqRedir- CmpltRedir- 
-UpstreamFwd- EgressCtrl- DirectTrans-
-                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- 
-UpstreamFwd- EgressCtrl- DirectTrans-
-        Kernel driver in use: snd_hda_intel
-        Kernel modules: snd_hda_intel
-
-
-
-
--- 
-Sid Boyce ... Hamradio License G3VBV, Keen licensed Private Pilot
-Retired IBM/Amdahl Mainframes and Sun/Fujitsu Servers Tech Support Specialist
-Microsoft Windows Free Zone - Linux used for all Computing Tasks
-
+SGVsbG8sDQooSSBob3BlIHRoaXMgaXMgdGhlIHJpZ2h0IGFkZHJlc3MgdG8gc2VuZCB0aGlzIHRv
+LCBpZiBub3QgSSBzaW5jZXJlbHkNCmFwb2xvZ2lzZSEpDQpJIHJlY2VudGx5IGluc3RhbGxlZCBM
+aW51eCBvbiBteSBsYXB0b3AgYW5kIGhhdmVuJ3QgYmVlbiBhYmxlIHRvIHVzZSB0aGUNCmJ1aWx0
+LWluIHNwZWFrZXJzIHNpbmNlLCB3aGlsZSBleHRlcm5hbCBkZXZpY2VzIC0gYm90aCB3aXJlZCBh
+bmQgd2lyZWxlc3MgLQ0Kd29yayBmaW5lLiBJIHJhbiB0aGUgYWxzYS1pbmZvIGNvbW1hbmQgaW4g
+dGVybWluYWwgYW5kIGdvdCB0aGVzZSByZXN1bHRzDQpodHRwOi8vYWxzYS1wcm9qZWN0Lm9yZy9k
+Yi8/Zj0yNGNmODY4MDRhOTM4Y2IyMDk3MWNmYjg2NzUyN2U2MjhkYjdmMjdhDQoNClRoYW5rIHlv
+dSBmb3IgeW91ciBoZWxwIGluIGFkdmFuY2UNClNlYg0K

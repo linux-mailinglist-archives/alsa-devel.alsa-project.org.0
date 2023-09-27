@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB2617B079F
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 17:05:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B327B0911
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 17:41:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16FF3A4A;
-	Wed, 27 Sep 2023 17:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16FF3A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AC66829;
+	Wed, 27 Sep 2023 17:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AC66829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695827141;
-	bh=Fh7uxefVzjYj+SNOl9+w47xMZ9VhHXNUi7h48gwdBh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1695829304;
+	bh=x9Xjoxw1wWfzOvw3oe+Sccdh87mRS3OjWXdgfIp/vPc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nWSGl3hR5zvUT3NwhOoHBlHSEP/f9dh+HxsyGbaohEuTLTbaKAvSyj7Y0pt7x3W/Q
-	 vhHcXI9ckr3qPPkLzk0bPYoNEFG+2/LWc85JGaEX3hKp3JuyLrYR9ZOOdHlN+CUg2w
-	 2ZufIwtx7eyE0hvAvwFSqlz0dMaGiz/5DsSqjtcs=
+	b=g8pauLu2taH1qxI1zTGEmZa1udJLkaIafwpNFOrlCC7uSv5Wup8qm/hjZwQ9xFjb4
+	 MW+ws3/fqVY+nxVto9SPTQabADb3+SpYDv7wkgXbaqChTvXoou3ZJv+q0vllxAMeof
+	 QYK3zbt9f+ESMMDkIbqLTckcuQ/6tVyIp1l9K3Zk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E0E7F8047D; Wed, 27 Sep 2023 17:04:22 +0200 (CEST)
+	id BFA35F8047D; Wed, 27 Sep 2023 17:40:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCB54F80166;
-	Wed, 27 Sep 2023 17:04:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CF93F80166;
+	Wed, 27 Sep 2023 17:40:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D781DF8007C; Wed, 27 Sep 2023 17:04:18 +0200 (CEST)
+	id C1DA4F8016A; Wed, 27 Sep 2023 17:40:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 83AC7F8007C
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 17:04:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83AC7F8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2BEC2F8007C
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 17:40:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BEC2F8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OoYRbQhn
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id BC8446170D;
-	Wed, 27 Sep 2023 15:04:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E849EC433C8;
-	Wed, 27 Sep 2023 15:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695827049;
-	bh=Fh7uxefVzjYj+SNOl9+w47xMZ9VhHXNUi7h48gwdBh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OoYRbQhnlWD7NYoeVEzx8sS/nAb65g+FNCHqp+ywdfIprHlT/QzZGQLSbeOj7Y2LM
-	 IMGOdlwjm+7kasFVsfUSiKLPFEGhvQSNyQz535K21nFdaeX6KScBgAfsM3ilqdExTv
-	 Xxb1qhd6S/mCRgalO1Zlr6moHX6/MvF/IR7666OrBxaPa51LTQ5gj8Pqxa6/R2RQc6
-	 CDP7DlmODJfbNNsbXhtMnWpjmVVdkAubl1QVR7BAKhUA9VuxLgSobU9cxLpXbVht2H
-	 IbhZTwUbCD03D5sTI3lS1AdMFNQiOQCLTJoJBmVmDf2RcFBJdUsAptDJpkNCis2N7R
-	 yNgtJHlkl7VLQ==
-Date: Wed, 27 Sep 2023 17:04:06 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	agross@kernel.org, andersson@kernel.org, konrad.dybcio@linaro.org,
-	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org, srinivas.kandagatla@linaro.org,
-	bgoswami@quicinc.com, Thinh.Nguyen@synopsys.com,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 00/33] Introduce QC USB SND audio offloading support
-Message-ID: <ZRREZl6XLzyY4K95@finisterre.sirena.org.uk>
-References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+ unprotected) header.d=infradead.org header.i=@infradead.org
+ header.a=rsa-sha256 header.s=bombadil.20210309 header.b=TZ6RcMnJ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=72jRNynXt3ukIvLR0wRaL2GdkMONebQKaLu0YQx+HHA=; b=TZ6RcMnJXB0WwuxNc4UqBd8nCR
+	BERiU1jAYOI/WacKBIQ4nVqT0hp29LqKGyWr+mJa3ey9ZGy/KIqHxNZCJ7Of/I+Yby3E7bVZibwqI
+	cwEuhspNiDSRxLMjYaCoyzwXejBL5LZosrUiQI7i7pOL2CjpWWiOu249PsPiiVjTmZzATM7mzDWHx
+	0Y0ibVnMb76rTYa6x2v3GjkTfVz6I8vj+eCaWeJRF9GQUWJYYtVpvZlyuEcsz9e8pkgh93AAjDvco
+	RKSoCZ9i2ACQkMFk2PXsbgClLkNPXBS523Wo1GQGtHNDFtThnIZyAGSyy8OgF1mLD6e+8rt6XUfHj
+	tvE/Wyiw==;
+Received: from [50.53.46.231] (helo=[192.168.254.15])
+	by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+	id 1qlWe9-001KOT-0C;
+	Wed, 27 Sep 2023 15:40:17 +0000
+Message-ID: <7afa193e-6bf1-4792-89e1-ca72bc4588e9@infradead.org>
+Date: Wed, 27 Sep 2023 08:40:16 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="v5MN6DoLWR8mu6Uc"
-Content-Disposition: inline
-In-Reply-To: <20230921214843.18450-1-quic_wcheng@quicinc.com>
-X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: SI45WUMZK6ZEDHUV4MDB5OJW4F4VFDPH
-X-Message-ID-Hash: SI45WUMZK6ZEDHUV4MDB5OJW4F4VFDPH
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: Ryzen 9 7950x sound module does not not build
+Content-Language: en-US
+To: sboyce@blueyonder.co.uk, Bagas Sanjaya <bagasdotme@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux ALSA <alsa-devel@alsa-project.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <213f93b5-bffe-479f-a111-f8a7e44cd293@blueyonder.co.uk>
+ <61821f15-78e2-4594-8f39-545ecaa97000@infradead.org>
+ <5903832d-7d27-4847-b161-48b9f7e92ee6@blueyonder.co.uk>
+ <ZRLWIkyngsasQbQ7@debian.me>
+ <6a6d7683-78f2-4511-976d-eb42d3b59c89@blueyonder.co.uk>
+ <40672e60-3913-4794-b84a-742b7c16d361@infradead.org>
+ <4b2c3b4e-9b21-4f80-95e1-58aa7f58131e@blueyonder.co.uk>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <4b2c3b4e-9b21-4f80-95e1-58aa7f58131e@blueyonder.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: XBFBXOTIWA3G4QXBXVTMFSGXTXVQ3CPT
+X-Message-ID-Hash: XBFBXOTIWA3G4QXBXVTMFSGXTXVQ3CPT
+X-MailFrom: rdunlap@infradead.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SI45WUMZK6ZEDHUV4MDB5OJW4F4VFDPH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XBFBXOTIWA3G4QXBXVTMFSGXTXVQ3CPT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,36 +105,114 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---v5MN6DoLWR8mu6Uc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Sep 21, 2023 at 02:48:10PM -0700, Wesley Cheng wrote:
-> Several Qualcomm based chipsets can support USB audio offloading to a
-> dedicated audio DSP, which can take over issuing transfers to the USB
-> host controller.  The intention is to reduce the load on the main
-> processors in the SoC, and allow them to be placed into lower power modes.
+On 9/27/23 04:27, Sid Boyce wrote:
+> On 26/09/2023 23:13, Randy Dunlap wrote:
 
-I had a few small comments in reply to some of the patches but overall
-the ASoC sides of this look fine to me.  I didn't really look at the USB
-side at all, I'm not sure I understand it enough to have any useful
-thoughts anyway.
+|| The snd-rpl-pci-acp6x driver only supports
+|| vendor=0x1022, device=0x15e2, and PCI revision=0x62.
 
-Thanks for taking on this work and pushing it forwards!
+>> lspci -vv
+> 
+> 
+> 01:00.1 Audiodevice: NVIDIA Corporation Device 10fa (rev a1)
+>        Subsystem: NVIDIA Corporation Device 1f82
+>        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+>        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+>        Latency: 0, Cache Line Size: 64 bytes
+>        Interrupt: pin B routed to IRQ 80
+>        IOMMU group: 11
+>        Region 0: Memory at fc080000 (32-bit, non-prefetchable) [size=16K]
+>        Capabilities: [60] Power Management version 3
+>                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+>                Status: D3 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+>        Capabilities: [68] MSI: Enable- Count=1/1 Maskable- 64bit+
+>                Address: 0000000000000000  Data: 0000
+>        Capabilities: [78] Express (v2) Endpoint, MSI 00
+>                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s unlimited, L1 <64us
+>                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset- SlotPowerLimit 75W
+>                DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
+>                        RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+>                        MaxPayload 256 bytes, MaxReadReq 512 bytes
+>                DevSta: CorrErr+ NonFatalErr- FatalErr- UnsupReq+ AuxPwr- TransPend-
+>                LnkCap: Port #0, Speed 8GT/s, Width x16, ASPM L0s L1, Exit Latency L0s <512ns, L1 <4us
+>                        ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp+
+>                LnkCtl: ASPM L0s L1 Enabled; RCB 64 bytes, Disabled- CommClk+
+>                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+>                LnkSta: Speed 2.5GT/s (downgraded), Width x16
+>                        TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+>                DevCap2: Completion Timeout: Range AB, TimeoutDis+ NROPrPrP- LTR+
+>                         10BitTagComp- 10BitTagReq- OBFF Via message, ExtFmt- EETLPPrefix-
+>                         EmergencyPowerReduction Not Supported, EmergencyPowerReductionInit-
+>                         FRS- TPHComp- ExtTPHComp-
+>                         AtomicOpsCap: 32bit- 64bit- 128bitCAS-
+>                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- LTR- 10BitTagReq- OBFF Disabled,
+>                         AtomicOpsCtl: ReqEn-
+>                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete- EqualizationPhase1-
+>                         EqualizationPhase2- EqualizationPhase3- LinkEqualizationRequest-
+>                         Retimer- 2Retimers- CrosslinkRes: unsupported
+>        Capabilities: [100 v2] Advanced Error Reporting
+>                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+>                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+>                UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
+>                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr-
+>                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr+
+>                AERCap: First Error Pointer: 00, ECRCGenCap- ECRCGenEn- ECRCChkCap- ECRCChkEn-
+>                        MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
+>                HeaderLog: 00000000 00000000 00000000 00000000
+>        Kernel driver in use: snd_hda_intel
+>        Kernel modules: snd_hda_intel
+> 
+> 0b:00.6 Audiodevice: Advanced Micro Devices, Inc. [AMD] Family 17h/19h HD AudioController
+>        DeviceName: Realtek ALC897 Audio
+>        Subsystem: ASUSTeK Computer Inc. Device 87fb
+>        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+>        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+>        Latency: 0, Cache Line Size: 64 bytes
+>        Interrupt: pin C routed to IRQ 81
+>        IOMMU group: 24
+>        Region 0: Memory at fc500000 (32-bit, non-prefetchable) [size=32K]
+>        Capabilities: [48] Vendor Specific Information: Len=08 <?>
+>        Capabilities: [50] Power Management version 3
+>                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+>                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+>        Capabilities: [64] Express (v2) Endpoint, MSI 00
+>                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 unlimited
+>                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset- SlotPowerLimit 0W
+>                DevCtl: CorrErr- NonFatalErr- FatalErr- UnsupReq-
+>                        RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+>                        MaxPayload 256 bytes, MaxReadReq 512 bytes
+>                DevSta: CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr- TransPend-
+>                LnkCap: Port #0, Speed 16GT/s, Width x16, ASPM L0s L1, Exit Latency L0s <64ns, L1 <1us
+>                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
+>                LnkCtl: ASPM Disabled; RCB 64 bytes, Disabled- CommClk+
+>                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+>                LnkSta: Speed 16GT/s, Width x16
+>                        TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+>                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+ NROPrPrP- LTR-
+>                         10BitTagComp+ 10BitTagReq- OBFF Not Supported, ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
+>                         EmergencyPowerReduction Not Supported, EmergencyPowerReductionInit-
+>                         FRS- TPHComp- ExtTPHComp-
+>                         AtomicOpsCap: 32bit- 64bit- 128bitCAS-
+>                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis- LTR- 10BitTagReq- OBFF Disabled,
+>                         AtomicOpsCtl: ReqEn-
+>                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete- EqualizationPhase1-
+>                         EqualizationPhase2- EqualizationPhase3- LinkEqualizationRequest-
+>                         Retimer- 2Retimers- CrosslinkRes: unsupported
+>        Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
+>                Address: 00000000fee00000  Data: 0000
+>        Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
+>        Capabilities: [2a0 v1] Access Control Services
+>                ACSCap: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+>                ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd- EgressCtrl- DirectTrans-
+>        Kernel driver in use: snd_hda_intel
+>        Kernel modules: snd_hda_intel
+> 
 
---v5MN6DoLWR8mu6Uc
-Content-Type: application/pgp-signature; name="signature.asc"
+Sid, do you have some reason to believe that one of these devices should use the
+snd-rpl-pci-acp6x driver?  I don't see that either one of them is the correct
+vendor/device ID pair for that driver, but I would prefer that someone who is
+familiar with the driver & device jump in here...
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUURGYACgkQJNaLcl1U
-h9Dqbwf+IjGM0SqVY6JygsCSY//2jwGE9TwO7eKPIstE59vTT8nUChjguFf/r4fA
-yntz81LedOC/DpouBDxrsmSo9RE0YK9Dz5G5jQblfdR5ezb6lNsuYImHiDf0rDqF
-59UW9ToO4gBFmb+fejb8P8bBYv0Ujsph0giOCxV43qnV0+sqpJwJ61ljpsp9nsdG
-/8nPW67BrOuCnyVZiB6/nObyEh1hs3yaFJLwTcYePx1/fSBgvpdcnXZeM/XZXKKp
-ePHfKstLMBqYwYjgkKtO/dCYjTyPwAYOSew8XUSkwhzITEd77oxS3Ekk7eTebZEJ
-UZ0RbZmQ9jOt4uNmDAujdrkq4KvcaQ==
-=IXNE
------END PGP SIGNATURE-----
-
---v5MN6DoLWR8mu6Uc--
+-- 
+~Randy

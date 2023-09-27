@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B7D47B0021
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 11:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C72DF7B0028
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Sep 2023 11:32:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B7433E;
-	Wed, 27 Sep 2023 11:30:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B7433E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1288AAE8;
+	Wed, 27 Sep 2023 11:31:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1288AAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695807057;
-	bh=PoynAhC42Ct+N5LxHx/oBa8Zl3onSqNPhKu1yqqfuCE=;
+	s=default; t=1695807144;
+	bh=cZsA2Bwd5dQg9fYOxwh55qsutXEo02ZTNVCxfZZnx0U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oOjRtADzvHLQp0J0I6DjfcH+bguRSir7c7whZdQhrvXcIwiitaT7qcm5j/PNPrVWq
-	 5IkoWu3wVUDEw9pdTxvHEAxJBJb6Uqfw80coNN1h1Hw7J9fGC84iBwKNLM1YNztG57
-	 EqpKngCKWfSR6pTBHme2SX3eUi07eoKpTGaRz4og=
+	b=npDwRdjbllRWGiEkXpaY4NOgNo8FaFhKRsTnGSoX0gi3zZQEOQYRJC+Y+a/+CQWF2
+	 8m9oOB1uSQMiorVajnSISF1fWhaWw26RFmkRrY3K4kRdyLiHcrYAkkJot4DUp14htw
+	 16abo5ORSITqwdL2xQfCrU7doJio0j9QAwPkIt+4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 066AFF80130; Wed, 27 Sep 2023 11:30:06 +0200 (CEST)
+	id A8F74F80558; Wed, 27 Sep 2023 11:31:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FA3FF80166;
-	Wed, 27 Sep 2023 11:30:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 705A7F8047D;
+	Wed, 27 Sep 2023 11:31:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4D52F8016A; Wed, 27 Sep 2023 11:29:57 +0200 (CEST)
+	id 0EBD3F8016A; Wed, 27 Sep 2023 11:31:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,67 +34,47 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F7E0F80130
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 11:29:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F7E0F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id B94FBF80130
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 11:31:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B94FBF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=I46iMBzn
+ header.s=k20201202 header.b=Y8P+kEwL
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 19E576163D;
-	Wed, 27 Sep 2023 09:29:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BF5C433C7;
-	Wed, 27 Sep 2023 09:29:41 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 5D3956175D;
+	Wed, 27 Sep 2023 09:31:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A4EC433C8;
+	Wed, 27 Sep 2023 09:31:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695806981;
-	bh=PoynAhC42Ct+N5LxHx/oBa8Zl3onSqNPhKu1yqqfuCE=;
+	s=k20201202; t=1695807085;
+	bh=cZsA2Bwd5dQg9fYOxwh55qsutXEo02ZTNVCxfZZnx0U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I46iMBznA20yjD8uhY5Qh9Ki6oMk1pBVm3P7nWXi/Mt6g5XG/sSBgeI+alGlhDjyv
-	 Rp+wcfJ+1yNmiLkI99DrGrHYZ57KbA+kccDiooBhQPHxymj/oL5MCv0lxJAVPnAn0c
-	 y9Ds7V8pNS/a4vQqy/nJD5Jo19U6zjcNoNokZKHlMZLpNbPHtCZeCDEbJDpQ5STvGa
-	 tV0DK2K8ZhNPWhyjn2iIrCcc5mUAHbMHsupiyOzBrUjFuJEznhfEXWM8puzd8oxvMX
-	 Kk2fxTFBxUct64Pg2DCGj4ceXwRsSe0W1gsCVHN/P3jRUPsls15U3mfVG7+Dn1TxKa
-	 A+sG9yBWlHU5Q==
-Date: Wed, 27 Sep 2023 11:29:39 +0200
+	b=Y8P+kEwL06U8frDbg5i9jjN17qhUSZOwPiDgpdAZnQx4QfYGB4Tq9t0bTW8k7ilfg
+	 B4atijvydEMAXhYsJ9jRBWZmoMC1KQZhZEA+Mo2mg/gWhXxZbFr8chYsw/wpJFwVU8
+	 pJdy1RIOxSvpdQ3zIYR3SwqBEy2ScBMVyzaQ7hXvh4JnWbGjuM+VfROVbMJ9QGNMmw
+	 fNLlASOB0x/r+vSOMA6pL4tRQyNaSzGnHRKChxpe4T07nUqBshzpkq0mEyVz3gH14B
+	 vHTBYztxuERLxslIQmqkBrn6yBsCHVnyY27UVJQnG9oqXbaaJ+OV/k+conhKfeD8yn
+	 rCKTp92Pcyytg==
+Date: Wed, 27 Sep 2023 11:31:22 +0200
 From: Mark Brown <broonie@kernel.org>
 To: Chancel Liu <chancel.liu@nxp.com>
-Cc: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"robh+dt@kernel.org" <robh+dt@kernel.org>,
-	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"shengjiu.wang@gmail.com" <shengjiu.wang@gmail.com>,
-	"Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
-	"festevam@gmail.com" <festevam@gmail.com>,
-	"nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"shawnguo@kernel.org" <shawnguo@kernel.org>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: Re: [PATCH v2 1/2] ASoC: dt-bindings: fsl_rpmsg: List DAPM
- endpoints ignoring system suspend
-Message-ID: <ZRP2A1hvuB8ZymBK@finisterre.sirena.org.uk>
-References: <20230925110946.3156100-1-chancel.liu@nxp.com>
- <ZRF8KI11IVf6NzpL@finisterre.sirena.org.uk>
- <DB9PR04MB94987AC750B4AB02DCBC44C8E3C2A@DB9PR04MB9498.eurprd04.prod.outlook.com>
+Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/1] ASoC: soc-pcm.c: Make sure DAI parameters cleared
+ if the DAI becomes inactive
+Message-ID: <ZRP2aghTvU4x3FUR@finisterre.sirena.org.uk>
+References: <20230920153621.711373-1-chancel.liu@nxp.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M0KDERL2YfXElnfx"
+	protocol="application/pgp-signature"; boundary="CnAeQwTRQV9vuxnA"
 Content-Disposition: inline
-In-Reply-To: 
- <DB9PR04MB94987AC750B4AB02DCBC44C8E3C2A@DB9PR04MB9498.eurprd04.prod.outlook.com>
+In-Reply-To: <20230920153621.711373-1-chancel.liu@nxp.com>
 X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: SEPBN4NPCOZWBBFOGMHLHW6Q7HJUBN47
-X-Message-ID-Hash: SEPBN4NPCOZWBBFOGMHLHW6Q7HJUBN47
+Message-ID-Hash: URXKLXZUWWG2BHKWTAWOZSSLF7PRUEGU
+X-Message-ID-Hash: URXKLXZUWWG2BHKWTAWOZSSLF7PRUEGU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SEPBN4NPCOZWBBFOGMHLHW6Q7HJUBN47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/URXKLXZUWWG2BHKWTAWOZSSLF7PRUEGU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,41 +97,43 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---M0KDERL2YfXElnfx
+--CnAeQwTRQV9vuxnA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 27, 2023 at 03:07:49AM +0000, Chancel Liu wrote:
+On Wed, Sep 20, 2023 at 11:36:20PM +0800, Chancel Liu wrote:
+> It's reasonable that DAI parameters should be cleared if current DAI beco=
+mes
+> inactive.
+>=20
+> Only check DAI active status in soc_pcm_hw_free() is not enough since the=
+re's
+> the risk that DAI parameters never be cleared if there're more than one s=
+tream
+> [see A]. Only check DAI active status in soc_pcm_close() is also not enou=
+gh
+> since it will cause the cleanup just happening in soc_pcm_close() [see B].
 
-> > This is a fairly standard DSP playback case as far as I can see so it
-> > should work with DAPM without needing this obviously use case specific
-> > stuff peering into the Linux implementation.  Generally this is done by
-> > tagging endpoint widgets and DAIs as ignore_suspend, DAPM will then
-> > figure out the rest of the widgets in the path.
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
 
-> Yes, indeed I meant to let driver get DAPM endpoints from the "fsl,lpa-widgets"
-> property and then set these endpoints as ignore_suspend if the sound card is
-> running in this use case. Do you think the description for the use case can be
-> simplified since it's a common use case?
-
-This is a card problem - the driver for rpmsg shouldn't need to worry
-about it.  Any bindings extensions should be at the card level rather
-than in a specific driver, we could probably use something in the
-generic properties that they're all using.
-
---M0KDERL2YfXElnfx
+--CnAeQwTRQV9vuxnA
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUT9gIACgkQJNaLcl1U
-h9Co/gf/YdAlws18Znc1Leg2ZPsdDGFeaWbgTuNgdJBfXu7DkM5EBpJwJitNdYBH
-ee4d/A5s4cPYEwNBF6APc8Kuoo6ZLSzUUVTIoEVo3hx90x3VMkYHMG4ZrmbGHM1j
-Q2Nb8wflfskYqPjLus1P4DcBWKulBIM1xfQGN3G4XZefa653qnNWGAoJLrIJr0BT
-z5wh8S+9QtDJosvub7my40MWeV9d4i3yNywRESPCV7oFQd6c0WwDPrW6XxUClSEt
-sKPmpp8TyP7AfzZoFiHYh3/97Qhm04LSjlNAybae7/XqRS6zFJGYi1rCSaT5Oaol
-AklEsC5VrCYgCthrJITSvQd79yOuyg==
-=w/+0
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUT9mkACgkQJNaLcl1U
+h9CZ7gf/TT2l6M7xebGR8UgDez3KbRn8MJrAq4wQDPw4rST8oHs5jSgX59/Neefh
+fvfZ1NIAmstyP9g1O8lHM7H4ROVZ8vBgXNbqNgRdXWTssOHpadjJqWXkSOE3UYv6
+ZDfdPcZuapuT8p65DUv7lsnZaKogJ/WuW8uR5+9cmVFP6CZ/A4r6kzMoqi2W6B6h
+UeTKydJrVgo+X0pfO8OJdbjU+3np4ozx7rc19yU2m3l1pM4ZJrDL6A2/3929MZkn
+83aOAoiyNXUZb2JXXdoxeFj9UtR11Aq/32oKdHt0VXLyNgpo9Ak2q//08KGTStaL
+3eFeQDEsvL/YLfyGPR3xwiKxFNk7fw==
+=IksO
 -----END PGP SIGNATURE-----
 
---M0KDERL2YfXElnfx--
+--CnAeQwTRQV9vuxnA--

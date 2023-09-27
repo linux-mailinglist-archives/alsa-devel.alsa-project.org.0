@@ -2,145 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257917B3F02
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E3717B3F03
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:10:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B273EBD;
-	Sat, 30 Sep 2023 10:08:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B273EBD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F517E94;
+	Sat, 30 Sep 2023 10:09:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F517E94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061389;
-	bh=lPyOq2/iefkMVgmIuceyqd1lbS45mr3+hgRWL8/gzZU=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=fXliDJMUyaLkZsR6HfTbHpI+saLKftM8zNhy0X094UcWZwgYHYZsTVmYG9ijXgIIq
-	 tdba5cgJq5aDMXr4LsGjjNDDu3kRN1itnZPwdlA/996hYFAOFhwzFnJPEbeO/jdpit
-	 sJ0orv/sHFU70+3+hdFTNHOLyFjFUQeORYFLfXSU=
+	s=default; t=1696061411;
+	bh=r1S8zuj5RE0h20wGs3X3w42cEbms3UFCaW0sq0bq254=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=IVd9uC1IHU0H485RdQZvs3yJ+VW0yTPKQc+BFVXzjttSKm2HBlvyPKhMG5M5KHrV9
+	 TcvrIAHdY7IhmpwN4OvzdkOll69vH3yANdIKVU5ADr3jRu9ok83wNsTGw9LWrzp67Q
+	 TpVZ0CCySQpNxggzXzQqAcYgow9EA3jkTkTYIyzs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F843F8065B; Sat, 30 Sep 2023 10:07:03 +0200 (CEST)
+	id 0ED19F80681; Sat, 30 Sep 2023 10:07:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEA3DF8064C;
-	Sat, 30 Sep 2023 10:07:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A8C4F805F0;
+	Sat, 30 Sep 2023 10:07:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B3D6F8016A; Wed, 27 Sep 2023 14:44:11 +0200 (CEST)
+	id 12748F80166; Wed, 27 Sep 2023 15:13:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AB7ABF80130
-	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 14:44:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB7ABF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id EF296F8007C
+	for <alsa-devel@alsa-project.org>; Wed, 27 Sep 2023 15:13:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF296F8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=IRvVRQd5
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-405524e6740so90000445e9.1
+ header.s=google header.b=FumfOgr8
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40572aeb6d0so75965165e9.1
         for <alsa-devel@alsa-project.org>;
- Wed, 27 Sep 2023 05:44:06 -0700 (PDT)
+ Wed, 27 Sep 2023 06:13:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1695818645; x=1696423445;
+        d=linaro.org; s=google; t=1695820381; x=1696425181;
  darn=alsa-project.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=eV/iObVOjNdpAvz3lG/ln1pocXCMm2I9lf4wBt2iVFs=;
-        b=IRvVRQd5r7Mz4ftgAE2hJL3+TTIqDtVsIffYSvQ4yx4819t9Cw1ifZaqpy0wFNyFEA
-         2QdKJ9Jxnw5Nebl9JiXeyXDPBcr3Mg5WvnNBBnCUV9HjtmLfs0FexAf3Zx2s9MTqNXa/
-         KRPQeEXR+Jp6NDppZ4PmstsMwvwVzu5eAFmQB/kQiFXDXsmJVG+60dQnjRSTktyjrf7Q
-         GL3M2izsz9SphVfxHXrSAbILXadwrQmGfSIqY7vlo/OpS/Vkx5lsZZRnh4JQeLBliFAU
-         H/dkfLnkiUZ7Kthgl2bwuAwOykHr+A+WQJ5Oxj9WPr2OC+Go0aVQq4GNUhNlGEEqUfsE
-         cFaw==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=LjEJIhDS4gJpPQVa0J4l2zKN5/ndNnbpVlOxJdWLqKM=;
+        b=FumfOgr82Hf1NfQMH22KGeJ0CQHxDoFH5vtxKCmSRvcRUccqGXxFlvykaMw+EKWRi2
+         zAorQTzJElwns8JRAqCB8gqbMSql7AL0cAjlnXKH1cvzYA5CyYO3iNPM1wY3oy6zveVj
+         1CkbJ61+40fofhxz9GhNM6qLZEQ9JJ5NL/Jst8DyLmn9WWlZDrc0vNVYhC2ZqhpmRE5Z
+         ccI33GoEgI9BqAwf+eH7QBSoWHaGC0KRwyUV/F4QQVjQ/dcYC6+lw/2f1Py6A4f2ADmq
+         Wqn+NIGupke6VQsUfSZoqIK3hDM0G755oOY6wWsfMSP1V9SYVbufJSH5HV8btBRcWetJ
+         uKmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695818645; x=1696423445;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eV/iObVOjNdpAvz3lG/ln1pocXCMm2I9lf4wBt2iVFs=;
-        b=jkfukljJ5odySAk8lhG/z6oYT7XfLUZFA6e7hts98JcaMOeqTYqpKNeZs9HfEmIKUw
-         PcGgIyst46fBJRnEJFLihE4qcxNyx8JNT65tP/pANL5GYMpJYsOlLGDNYJ7tjTT2PuCL
-         P3nyCSgc90nzOzKigcJS1pdILDYGwSKUo3KJiIfTBZgzJ79psDX2Ly/Ivhv6Sbaz8U9z
-         ti95Wd1VuX+c5Zm/uIWsPXQBCvDeDmuyQP9GxGvdmJ1mJXVs5QA1EOhHFRuzWpu1uhYv
-         k8ze+6erLz0BRgFc8KMUa1nLD0kMInn3qtD/MOQfycRCf8BUrieK24YbpWjzSkKtb9Nf
-         Xyzw==
-X-Gm-Message-State: AOJu0YxaNAiiOl7eUHDn/I4YLqxF1n2zvY2R0ffcZuExeXsS9mKN0Zrx
-	cHoICVmEYnFmbBukNvBoojGa7A==
+        d=1e100.net; s=20230601; t=1695820381; x=1696425181;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LjEJIhDS4gJpPQVa0J4l2zKN5/ndNnbpVlOxJdWLqKM=;
+        b=ZEE5a9s256Px5jiJ48aSjpMCQjMc74Ams3Wgn1oWzDQbX3aebjhoW/Lf1lH2S7W0Vo
+         JD6fkFy3x3bErBDoYFxBAHfL54WvYP6wWOVyzinnpeYgqwTzRI4lt08X9h/tEm0yNPax
+         Muv7544YmT8vkedoEz7m8kBQALg1QARnn+RvCPwSp9w4HzXCNRX4gUicOfqO+VvmRC95
+         1YaC8Om2ZyQIX3jsVDD06C3b7zE141uLuVYmDdRfsvdTiJ6S9pT0ClkUQnvj+SJPcUIU
+         iMmxM2s8fm0iVINccIBx20q+Y75Z4+g7AEltYs7lhj1HJ+dD0GWLnpxBi/uEiP5J18y6
+         fakQ==
+X-Gm-Message-State: AOJu0YxhzRadU0l9C8ssZJtGcsMlKLOtbsckrWz/i1qng8wVGfn8V/UC
+	Zg6JFL0Gx4Kdq4+c/lSjEnDiDw==
 X-Google-Smtp-Source: 
- AGHT+IFn+P/SI2/I2/gsxtiwld1WN2Rq/yE5OgOfu5Z2qxoxqkMq9FCOAA4ZlPaluoR2JWkiB2382w==
-X-Received: by 2002:a1c:7418:0:b0:401:1b58:72f7 with SMTP id
- p24-20020a1c7418000000b004011b5872f7mr1911931wmc.38.1695818645544;
-        Wed, 27 Sep 2023 05:44:05 -0700 (PDT)
+ AGHT+IEwVtUCx/Tt513h6sD4GTqmeMlw1bFudbkMznlk83J31/qYCbn5yBepxFngnTxWI51kMnSPpA==
+X-Received: by 2002:a05:600c:2604:b0:3fe:d1e9:e6b8 with SMTP id
+ h4-20020a05600c260400b003fed1e9e6b8mr2086160wma.12.1695820381191;
+        Wed, 27 Sep 2023 06:13:01 -0700 (PDT)
 Received: from localhost ([102.36.222.112])
         by smtp.gmail.com with ESMTPSA id
- 9-20020a05600c234900b00405959bbf4fsm6752008wmq.19.2023.09.27.05.44.04
+ y1-20020a05600c364100b003fefe70ec9csm1865074wmq.10.2023.09.27.06.13.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 Sep 2023 05:44:05 -0700 (PDT)
-Date: Wed, 27 Sep 2023 15:44:01 +0300
+        Wed, 27 Sep 2023 06:13:00 -0700 (PDT)
+Date: Wed, 27 Sep 2023 16:12:50 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: James Schulman <james.schulman@cirrus.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
-	kernel-janitors@vger.kernel.org
-Subject: [PATCH] ALSA: hda: cirrus_scodec: fix an error code
-Message-ID: <5eea7fd5-67c8-4ed4-b5b3-b85dfb7572cc@moroto.mountain>
+To: wangweidong.a@awinic.com
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	perex@perex.cz, tiwai@suse.com, shumingf@realtek.com,
+	rf@opensource.cirrus.com, herve.codina@bootlin.com, arnd@arndb.de,
+	13916275206@139.com, ryans.lee@analog.com, linus.walleij@linaro.org,
+	ckeepax@opensource.cirrus.com, doug@schmorgal.com,
+	fido_max@inbox.ru, harshit.m.mogalapalli@oracle.com,
+	liweilei@awinic.com, yang.lee@linux.alibaba.com,
+	u.kleine-koenig@pengutronix.de, yijiangtao@awinic.com,
+	colin.i.king@gmail.com, trix@redhat.com,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V5 3/8] ASoC: codecs: Modify the code related to the
+ property
+Message-ID: <c442a175-f04f-44ea-b7ee-a6de81963f4c@kadam.mountain>
+References: <20230927121634.94822-1-wangweidong.a@awinic.com>
+ <20230927121634.94822-4-wangweidong.a@awinic.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+In-Reply-To: <20230927121634.94822-4-wangweidong.a@awinic.com>
 X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5IRE36GOIMYDR7BGU34UOKKCY3G5KLUM
-X-Message-ID-Hash: 5IRE36GOIMYDR7BGU34UOKKCY3G5KLUM
-X-Mailman-Approved-At: Sat, 30 Sep 2023 08:06:38 +0000
+Message-ID-Hash: 3WID5NGKQVUG73UA2LC2MFWKAXPYYWMZ
+X-Message-ID-Hash: 3WID5NGKQVUG73UA2LC2MFWKAXPYYWMZ
+X-Mailman-Approved-At: Sat, 30 Sep 2023 08:07:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WID5NGKQVUG73UA2LC2MFWKAXPYYWMZ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The "ret" variable is zero but we should return -EINVAL.
+On Wed, Sep 27, 2023 at 08:16:29PM +0800, wangweidong.a@awinic.com wrote:
+> From: Weidong Wang <wangweidong.a@awinic.com>
+> 
+> Remove the "fade-enable" property because other properties
+> already implement this functionality.
+> Rename "sound-channel" to "awinic,audio-channel",
+> this is to be consistent with the "awinic,aw88395.yaml" file
 
-Fixes: 2144833e7b41 ("ALSA: hda: cirrus_scodec: Add KUnit test")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- sound/pci/hda/cirrus_scodec_test.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This feels like it should be split into two patches.
 
-diff --git a/sound/pci/hda/cirrus_scodec_test.c b/sound/pci/hda/cirrus_scodec_test.c
-index 5eb590cd4fe2..8ae373676bd1 100644
---- a/sound/pci/hda/cirrus_scodec_test.c
-+++ b/sound/pci/hda/cirrus_scodec_test.c
-@@ -137,8 +137,8 @@ static int cirrus_scodec_test_create_gpio(struct kunit *test)
- 	priv->gpio_priv = dev_get_drvdata(&priv->gpio_pdev->dev);
- 	if (!priv->gpio_priv) {
- 		platform_device_put(priv->gpio_pdev);
--		KUNIT_FAIL(test, "Failed to get gpio private data: %d\n", ret);
--		return ret;
-+		KUNIT_FAIL(test, "Failed to get gpio private data\n");
-+		return -EINVAL;
- 	}
- 
- 	return 0;
--- 
-2.39.2
+patch 4/9: remove the "fade-enable property".
+Btw, which other properties implement this.  Can you add that to the
+commit message?
+
+patch 5/9: Rename "sound-channel" to "awinic,audio-channel".
+
+regards,
+dan carpenter
 

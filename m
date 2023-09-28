@@ -2,82 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 604007B215C
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 17:31:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B3D7B2198
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 17:45:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E224826;
-	Thu, 28 Sep 2023 17:31:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E224826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EF1BBC0;
+	Thu, 28 Sep 2023 17:44:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EF1BBC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695915114;
-	bh=y+XzefTDuzOGmnvWULOFTtScjrjmZPiE+7bhlENCgY0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1695915918;
+	bh=VwrhKjh12fUApNcKKqpl1ze0J0pgon/boyKGrxNe9wA=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hOayrPt+QuxJf5RONm1Cfv5ePVmp0V+kxXyZhqqHGdawyK+c8+dwEtNaXVXW+e9H0
-	 ti6UDnzIESX/D4uApSCHVZKeAMXZSt4xzRF+R2WEU2DCaFe7WCLRB9MLPwoRVdP2zP
-	 KdEha/2dUoPyZ/etEE19ugV+eLQL7+2kxixWuybU=
+	b=rNSfc44KSaeTbD5yEs7WaMw5H3tmkIlS8QxRQvh0SUmIWQ4RPv65aQstcn2s20gC+
+	 zxvGWCxK4FnHVIDruufm1P0n+yiGt3z2A662bf8b6i/AkAtjYZwWMsm/NTURr/4sCx
+	 Y+UFPwhWif06tyYHrzP5XT1OwLBFMMS4ODid5GPI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A2B1F8016A; Thu, 28 Sep 2023 17:30:56 +0200 (CEST)
+	id E748BF801D5; Thu, 28 Sep 2023 17:44:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 339A0F8016A;
-	Thu, 28 Sep 2023 17:30:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79F63F8016A;
+	Thu, 28 Sep 2023 17:44:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5DCBDF801D5; Thu, 28 Sep 2023 17:30:51 +0200 (CEST)
+	id 8195BF801D5; Thu, 28 Sep 2023 17:44:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EDB45F8007C
-	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 17:30:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDB45F8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 11934F8007C
+	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 17:43:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11934F8007C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Ez4MRi+d
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id E0F9ACE2251;
-	Thu, 28 Sep 2023 15:30:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2548C433CC;
-	Thu, 28 Sep 2023 15:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695915041;
-	bh=y+XzefTDuzOGmnvWULOFTtScjrjmZPiE+7bhlENCgY0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Ez4MRi+dzkya4gPApf6IYhxpuRe/C7//ZXslrvvu3sVwJGUjzYQHw7HIL1Ig60FqJ
-	 homOB0FtSYVotZN2u7Ps1pG9v0mvl/R9ITXTu2xyWwRrCX3hAepsxlyp1LL92WC1qS
-	 ODpjWlU5kMfgUQk+XPafhRxVeE7hrbPNWakPYdraj6CWvNIPQHSqg3aTDB7zULrLiM
-	 nZS7//oHX5ZlZlleWMGbZnY4iTvLaRe00Z1hHzGkdY9qf6d6X1IHOh/5v/VnmGVgRE
-	 XCD6D7h5uVstxAgfim/zNC0FL0wcpf5Hq/WB9PoYZ53ASx09nwY8bmV/DHQFSRaVXO
-	 DlBH56ZFTYKNA==
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <20230928134706.662947-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230928134706.662947-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ASoC: doc: Update codec to codec examples
-Message-Id: <169591504194.2784036.18160613305252062828.b4-ty@kernel.org>
-Date: Thu, 28 Sep 2023 17:30:41 +0200
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=fL9+e7J6
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38SE466G015807;
+	Thu, 28 Sep 2023 17:43:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	selector1; bh=6T7vbZG0OatVCzrOUmocqe0etbqi1byTjrfN1YkQoYE=; b=fL
+	9+e7J6OIfXQpnq6WHBL/m56cPdxye7XORHa4e/GNn4iRdwCB0xFD6o9ZYQAKjon0
+	f5HUbpw4Ix0frpU2kvNOCKVFEwvWJkKOW73YVT5JyV0zLHgtzzUoWl3F6cNmAKyb
+	UMJPEsjoC/guC48wUILQSbN7Si/bPAqspVm4Q3K3XGjySUlhB1Ii3rkoxn0sLfEZ
+	QTCJA/iLyCDE7Z3wF+OtyrjFecFf1Iv05IMiVA3on6mQuM8jXNiIL8GzxWIOG19k
+	bvhuhV8dKqjrhD3PqRPht1jClNa+HxVU65W9phEQjlLo203IyNwiok9UQGizuRnh
+	T6hK4Mp3G6d5dheHFACg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t9qbx76ha-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 28 Sep 2023 17:43:53 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F3259100057;
+	Thu, 28 Sep 2023 17:43:48 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8F6EC24B8AC;
+	Thu, 28 Sep 2023 17:43:48 +0200 (CEST)
+Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 28 Sep
+ 2023 17:43:46 +0200
+Message-ID: <3c232c26-e03c-31ec-8ec8-f99c86a3ab83@foss.st.com>
+Date: Thu, 28 Sep 2023 17:43:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: T6SOPEQ3FZDFJWF4GLNGZ4NGEOGVQEPU
-X-Message-ID-Hash: T6SOPEQ3FZDFJWF4GLNGZ4NGEOGVQEPU
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v4 05/11] firewall: introduce stm32_firewall framework
+To: Simon Horman <horms@kernel.org>
+CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
+        <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
+        <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
+        <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
+        <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
+        <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
+        <peng.fan@oss.nxp.com>, <linux-crypto@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230811100731.108145-1-gatien.chevallier@foss.st.com>
+ <20230811100731.108145-6-gatien.chevallier@foss.st.com>
+ <ZNeSiFQGdOXbR+2S@vergenet.net>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <ZNeSiFQGdOXbR+2S@vergenet.net>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.201.20.32]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-28_15,2023-09-28_02,2023-05-22_02
+Message-ID-Hash: SNUXPQPZXP7C3XBBJUQSYQRZPI47KBZJ
+X-Message-ID-Hash: SNUXPQPZXP7C3XBBJUQSYQRZPI47KBZJ
+X-MailFrom: prvs=86354623ef=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T6SOPEQ3FZDFJWF4GLNGZ4NGEOGVQEPU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SNUXPQPZXP7C3XBBJUQSYQRZPI47KBZJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,38 +137,204 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 28 Sep 2023 15:47:06 +0200, Amadeusz Sławiński wrote:
-> There are examples in documentation for codec to codec connection.
-> However they show method before recent series of patches which renamed
-> the fields. Update documentation accordingly.
+
+
+On 8/12/23 16:09, Simon Horman wrote:
+> On Fri, Aug 11, 2023 at 12:07:25PM +0200, Gatien Chevallier wrote:
 > 
+> ...
+> 
+>> diff --git a/drivers/bus/stm32_firewall.c b/drivers/bus/stm32_firewall.c
+>> new file mode 100644
+>> index 000000000000..900f3b052a66
+>> --- /dev/null
+>> +++ b/drivers/bus/stm32_firewall.c
+>> @@ -0,0 +1,293 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (C) 2023, STMicroelectronics - All Rights Reserved
+>> + */
+>> +
+>> +#include <linux/bitfield.h>
+>> +#include <linux/bits.h>
+>> +#include <linux/bus/stm32_firewall_device.h>
+>> +#include <linux/device.h>
+>> +#include <linux/err.h>
+>> +#include <linux/init.h>
+>> +#include <linux/io.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of.h>
+>> +#include <linux/of_platform.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/types.h>
+>> +#include <linux/slab.h>
+>> +
+>> +#include "stm32_firewall.h"
+>> +
+>> +/* Corresponds to STM32_FIREWALL_MAX_EXTRA_ARGS + firewall ID */
+>> +#define STM32_FIREWALL_MAX_ARGS		(STM32_FIREWALL_MAX_EXTRA_ARGS + 1)
+>> +
+>> +static LIST_HEAD(firewall_controller_list);
+>> +static DEFINE_MUTEX(firewall_controller_list_lock);
+>> +
+>> +/* Firewall device API */
+>> +int stm32_firewall_get_firewall(struct device_node *np, struct stm32_firewall *firewall,
+>> +				unsigned int nb_firewall)
+>> +{
+>> +	struct stm32_firewall_controller *ctrl;
+>> +	struct of_phandle_iterator it;
+>> +	unsigned int i, j = 0;
+>> +	int err;
+>> +
+>> +	if (!firewall || !nb_firewall)
+>> +		return -EINVAL;
+>> +
+>> +	/* Parse property with phandle parsed out */
+>> +	of_for_each_phandle(&it, err, np, "feature-domains", "#feature-domain-cells", 0) {
+>> +		struct of_phandle_args provider_args;
+>> +		struct device_node *provider = it.node;
+>> +		const char *fw_entry;
+>> +		bool match = false;
+>> +
+>> +		if (err) {
+>> +			pr_err("Unable to get feature-domains property for node %s\n, err: %d",
+>> +			       np->full_name, err);
+>> +			of_node_put(provider);
+>> +			return err;
+>> +		}
+>> +
+>> +		if (j > nb_firewall) {
+>> +			pr_err("Too many firewall controllers");
+>> +			of_node_put(provider);
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		provider_args.args_count = of_phandle_iterator_args(&it, provider_args.args,
+>> +								    STM32_FIREWALL_MAX_ARGS);
+>> +
+>> +		/* Check if the parsed phandle corresponds to a registered firewall controller */
+>> +		mutex_lock(&firewall_controller_list_lock);
+>> +		list_for_each_entry(ctrl, &firewall_controller_list, entry) {
+>> +			if (ctrl->dev->of_node->phandle == it.phandle) {
+>> +				match = true;
+>> +				firewall[j].firewall_ctrl = ctrl;
+>> +				break;
+>> +			}
+>> +		}
+>> +		mutex_unlock(&firewall_controller_list_lock);
+>> +
+>> +		if (!match) {
+>> +			firewall[j].firewall_ctrl = NULL;
+>> +			pr_err("No firewall controller registered for %s\n", np->full_name);
+>> +			of_node_put(provider);
+>> +			return -ENODEV;
+>> +		}
+>> +
+>> +		err = of_property_read_string_index(np, "feature-domain-names", j, &fw_entry);
+>> +		if (err == 0)
+>> +			firewall[j].entry = fw_entry;
+>> +
+>> +		/* Handle the case when there are no arguments given along with the phandle */
+>> +		if (provider_args.args_count < 0 ||
+>> +		    provider_args.args_count > STM32_FIREWALL_MAX_ARGS) {
+>> +			of_node_put(provider);
+>> +			return -EINVAL;
+>> +		} else if (provider_args.args_count == 0) {
+>> +			firewall[j].extra_args_size = 0;
+>> +			firewall[j].firewall_id = U32_MAX;
+>> +			j++;
+>> +			continue;
+>> +		}
+>> +
+>> +		/* The firewall ID is always the first argument */
+>> +		firewall[j].firewall_id = provider_args.args[0];
+>> +
+>> +		/* Extra args start at the third argument */
+>> +		for (i = 0; i < provider_args.args_count; i++)
+>> +			firewall[j].extra_args[i] = provider_args.args[i + 1];
+> 
+> Hi Gatien,
+> 
+> Above it is checked that the maximum value of provider_args.args_count is
+> STM32_FIREWALL_MAX_ARGS.
+> So here the maximum value of i is STM32_FIREWALL_MAX_ARGS - 1.
+> 
+> STM32_FIREWALL_MAX_ARGS is defined as STM32_FIREWALL_MAX_EXTRA_ARGS + 1
+> And STM32_FIREWALL_MAX_EXTRA_ARGS is defined as 5.
+> So the maximum value of i is (5 + 1 - 1) = 5.
+> 
+> firewall[j] is of type struct stm32_firewall.
+> And its args field has STM32_FIREWALL_MAX_EXTRA_ARGS (5) elements.
+> Thus the maximum valid index is (5 - 1) = 4.
+> 
+> But the line above may access index 5.
+> 
+> Flagged by Smatch.
 > 
 
-Applied to
+Hi Simon,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Thank you for pointing this out.
 
-Thanks!
+I'll correct it for V5.
 
-[1/1] ASoC: doc: Update codec to codec examples
-      commit: b5d5c87986d5bfb72320170e76d94eae48635fc1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Best regards,
+Gatien
+>> +
+>> +		/* Remove the firewall ID arg that is not an extra argument */
+>> +		firewall[j].extra_args_size = provider_args.args_count - 1;
+>> +
+>> +		j++;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL_GPL(stm32_firewall_get_firewall);
+> 
+> ...
+> 
+>> diff --git a/include/linux/bus/stm32_firewall_device.h b/include/linux/bus/stm32_firewall_device.h
+>> new file mode 100644
+>> index 000000000000..7b4450a8ec15
+>> --- /dev/null
+>> +++ b/include/linux/bus/stm32_firewall_device.h
+>> @@ -0,0 +1,141 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (C) 2023, STMicroelectronics - All Rights Reserved
+>> + */
+>> +
+>> +#ifndef STM32_FIREWALL_DEVICE_H
+>> +#define STM32_FIREWALL_DEVICE_H
+>> +
+>> +#include <linux/of.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/types.h>
+>> +
+>> +#define STM32_FIREWALL_MAX_EXTRA_ARGS		5
+>> +
+>> +/* Opaque reference to stm32_firewall_controller */
+>> +struct stm32_firewall_controller;
+>> +
+>> +/**
+>> + * struct stm32_firewall - Information on a device's firewall. Each device can have more than one
+>> + *			   firewall.
+>> + *
+>> + * @firewall_ctrl:		Pointer referencing a firewall controller of the device. It is
+>> + *				opaque so a device cannot manipulate the controller's ops or access
+>> + *				the controller's data
+>> + * @extra_args:			Extra arguments that are implementation dependent
+>> + * @entry:			Name of the firewall entry
+>> + * @extra_args_size:		Number of extra arguments
+>> + * @firewall_id:		Firewall ID associated the device for this firewall controller
+>> + */
+>> +struct stm32_firewall {
+>> +	struct stm32_firewall_controller *firewall_ctrl;
+>> +	u32 extra_args[STM32_FIREWALL_MAX_EXTRA_ARGS];
+>> +	const char *entry;
+>> +	size_t extra_args_size;
+>> +	u32 firewall_id;
+>> +};
+> 
+> ...

@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E3DE7B18CD
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 12:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0620B7B18CF
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 12:59:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60A83E75;
-	Thu, 28 Sep 2023 12:58:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60A83E75
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DDA8DEC;
+	Thu, 28 Sep 2023 12:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DDA8DEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695898778;
-	bh=Q3Mj5h8UAC3aVv25e3aSpCoXKucabxVF42v/AmLOM+g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KW8BsHEniZVUx1IH4cdOKQada1obHE8l9diVXal9C3ZjRR6RJSMR3Wow9LH/diXSf
-	 ghsGwT29I8+X/LneOi1Z9Gi5uQyyduZsloby/+GCghmd/YIZWXcEv7fbijHHMVZA0x
-	 BX+ZTS39yY3GxHa7H7Gczoh3ZgYBhNqj9FQ4D3Mc=
+	s=default; t=1695898797;
+	bh=DAtF7Nanx0WiH8tLqnIUlUfZMY8O9veuTB68uZoyOP0=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=E8/NTVpuTVSPy/pDtuYBqtrnt62lvSuRtysy9vo2euKiskSCoID4xgnmMDjU/+MfI
+	 5I/kKDgYqT0XPxHxrlLZ2r5B5amjwlwDpwIxZYfu3NQEXxAAjJwDd7fZu070RGOTB4
+	 6l5eVtmnw1/BFLyYF7AQ6/xh7EhwlDS2eZcvqkxQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66BE0F8057C; Thu, 28 Sep 2023 12:58:12 +0200 (CEST)
+	id 19431F805AC; Thu, 28 Sep 2023 12:58:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3B34F8057C;
-	Thu, 28 Sep 2023 12:58:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53A7AF8059F;
+	Thu, 28 Sep 2023 12:58:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19ECDF8057C; Thu, 28 Sep 2023 12:58:07 +0200 (CEST)
+	id 4403FF805A0; Thu, 28 Sep 2023 12:58:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com
- [115.124.28.73])
+	UNPARSEABLE_RELAY shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com
+ [115.124.28.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC950F80564
-	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 12:58:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC950F80564
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27B8AF80570
+	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 12:58:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27B8AF80570
 X-Alimail-AntiSpam: 
- AC=CONTINUE;BC=0.1364492|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.302725-0.000405716-0.696869;FP=5027444005160210874|1|1|20|0|-1|-1|-1;HT=ay29a033018047205;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=31;RT=31;SR=0;TI=SMTPD_---.UqYH8KI_1695898668;
+ AC=CONTINUE;BC=0.06796907|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00100946-0.000196734-0.998794;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047204;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=30;RT=30;SR=0;TI=SMTPD_---.UqYH8TR_1695898676;
 Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.UqYH8KI_1695898668)
+ fp:SMTPD_---.UqYH8TR_1695898676)
           by smtp.aliyun-inc.com;
-          Thu, 28 Sep 2023 18:57:56 +0800
+          Thu, 28 Sep 2023 18:58:04 +0800
 From: wangweidong.a@awinic.com
 To: girdwood@gmail.com,
 	broonie@kernel.org,
@@ -78,17 +78,16 @@ To: girdwood@gmail.com,
 	alsa-devel@alsa-project.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>
-Subject: [PATCH V6 02/10] ASoC: dt-bindings: Add schema for "awinic,aw87390"
-Date: Thu, 28 Sep 2023 18:57:19 +0800
-Message-ID: <20230928105727.47273-3-wangweidong.a@awinic.com>
+Subject: [PATCH V6 03/10] ASoC: codecs: Remove the "fade-enable property"
+Date: Thu, 28 Sep 2023 18:57:20 +0800
+Message-ID: <20230928105727.47273-4-wangweidong.a@awinic.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230928105727.47273-1-wangweidong.a@awinic.com>
 References: <20230928105727.47273-1-wangweidong.a@awinic.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Y73JUELJJZZJB4AKVVCUHJFJIOI4R72K
-X-Message-ID-Hash: Y73JUELJJZZJB4AKVVCUHJFJIOI4R72K
+Message-ID-Hash: DAZOZWIZNGT7W7Z7SHK3QCXBW2PWL7N5
+X-Message-ID-Hash: DAZOZWIZNGT7W7Z7SHK3QCXBW2PWL7N5
 X-MailFrom: wangweidong.a@awinic.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y73JUELJJZZJB4AKVVCUHJFJIOI4R72K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DAZOZWIZNGT7W7Z7SHK3QCXBW2PWL7N5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,80 +111,105 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Weidong Wang <wangweidong.a@awinic.com>
 
-Add a DT schema for describing awinic aw87390 audio amplifiers.
-They are controlled using I2C.
+Remove the "fade-enable" property because the "fade_step" property
+already implement this functionality.
 
 Signed-off-by: Weidong Wang <wangweidong.a@awinic.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../bindings/sound/awinic,aw87390.yaml        | 58 +++++++++++++++++++
- 1 file changed, 58 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
+ sound/soc/codecs/aw88395/aw88395_device.c | 29 -----------------------
+ sound/soc/codecs/aw88395/aw88395_device.h |  4 +---
+ 2 files changed, 1 insertion(+), 32 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
-new file mode 100644
-index 000000000000..ba9d8767c5d5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/awinic,aw87390.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/awinic,aw87390.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Awinic Aw87390 Audio Amplifier
-+
-+maintainers:
-+  - Weidong Wang <wangweidong.a@awinic.com>
-+
-+description:
-+  The awinic aw87390 is specifically designed to improve
-+  the musical output dynamic range, enhance the overall
-+  sound quallity, which is a new high efficiency, low
-+  noise, constant large volume, 6th Smart K audio amplifier.
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: awinic,aw87390
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  awinic,audio-channel:
-+    description:
-+      It is used to distinguish multiple PA devices, so that different
-+      configurations can be loaded to different PA devices
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 7
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#sound-dai-cells"
-+  - awinic,audio-channel
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        audio-codec@58 {
-+            compatible = "awinic,aw87390";
-+            reg = <0x58>;
-+            #sound-dai-cells = <0>;
-+            awinic,audio-channel = <0>;
-+        };
-+    };
+diff --git a/sound/soc/codecs/aw88395/aw88395_device.c b/sound/soc/codecs/aw88395/aw88395_device.c
+index 33eda3741464..25b32cdceeec 100644
+--- a/sound/soc/codecs/aw88395/aw88395_device.c
++++ b/sound/soc/codecs/aw88395/aw88395_device.c
+@@ -297,9 +297,6 @@ static void aw_dev_fade_in(struct aw_device *aw_dev)
+ 	int fade_step = aw_dev->fade_step;
+ 	int i;
+ 
+-	if (!aw_dev->fade_en)
+-		return;
+-
+ 	if (fade_step == 0 || aw_dev->fade_in_time == 0) {
+ 		aw_dev_set_volume(aw_dev, fade_in_vol);
+ 		return;
+@@ -320,9 +317,6 @@ static void aw_dev_fade_out(struct aw_device *aw_dev)
+ 	int fade_step = aw_dev->fade_step;
+ 	int i;
+ 
+-	if (!aw_dev->fade_en)
+-		return;
+-
+ 	if (fade_step == 0 || aw_dev->fade_out_time == 0) {
+ 		aw_dev_set_volume(aw_dev, AW88395_MUTE_VOL);
+ 		return;
+@@ -1062,10 +1056,6 @@ static int aw_dev_update_reg_container(struct aw_device *aw_dev,
+ 		aw_dev_set_volume(aw_dev, vol_desc->ctl_volume);
+ 	}
+ 
+-	/* keep min volume */
+-	if (aw_dev->fade_en)
+-		aw_dev_set_volume(aw_dev, AW88395_MUTE_VOL);
+-
+ 	aw_dev_get_dsp_config(aw_dev, &aw_dev->dsp_cfg);
+ 
+ 	return ret;
+@@ -1607,24 +1597,6 @@ static void aw88395_parse_channel_dt(struct aw_device *aw_dev)
+ 	aw_dev->channel = channel_value;
+ }
+ 
+-static void aw88395_parse_fade_enable_dt(struct aw_device *aw_dev)
+-{
+-	struct device_node *np = aw_dev->dev->of_node;
+-	u32 fade_en;
+-	int ret;
+-
+-	ret = of_property_read_u32(np, "fade-enable", &fade_en);
+-	if (ret) {
+-		dev_dbg(aw_dev->dev,
+-			"read fade-enable failed, close fade_in_out");
+-		fade_en = AW88395_FADE_IN_OUT_DEFAULT;
+-	}
+-
+-	dev_dbg(aw_dev->dev, "read fade-enable value is: %d", fade_en);
+-
+-	aw_dev->fade_en = fade_en;
+-}
+-
+ static int aw_dev_init(struct aw_device *aw_dev)
+ {
+ 	aw_dev->chip_id = AW88395_CHIP_ID;
+@@ -1639,7 +1611,6 @@ static int aw_dev_init(struct aw_device *aw_dev)
+ 	aw_dev->fade_step = AW88395_VOLUME_STEP_DB;
+ 	aw_dev->volume_desc.ctl_volume = AW88395_VOL_DEFAULT_VALUE;
+ 	aw88395_parse_channel_dt(aw_dev);
+-	aw88395_parse_fade_enable_dt(aw_dev);
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/codecs/aw88395/aw88395_device.h b/sound/soc/codecs/aw88395/aw88395_device.h
+index caf730753167..d32d16c89509 100644
+--- a/sound/soc/codecs/aw88395/aw88395_device.h
++++ b/sound/soc/codecs/aw88395/aw88395_device.h
+@@ -141,6 +141,7 @@ struct aw_device {
+ 	unsigned char prof_cur;
+ 	unsigned char prof_index;
+ 	unsigned char dsp_crc_st;
++	unsigned char dsp_cfg;
+ 	u16 chip_id;
+ 
+ 	unsigned int channel;
+@@ -151,9 +152,6 @@ struct aw_device {
+ 	struct regmap *regmap;
+ 	char *acf;
+ 
+-	u32 fade_en;
+-	unsigned char dsp_cfg;
+-
+ 	u32 dsp_fw_len;
+ 	u32 dsp_cfg_len;
+ 	u8 platform;
 -- 
 2.41.0
 

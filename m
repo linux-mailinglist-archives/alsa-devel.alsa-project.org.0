@@ -2,80 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC9737B2034
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 16:53:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3ACD7B2035
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 16:54:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65AEDE79;
-	Thu, 28 Sep 2023 16:52:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65AEDE79
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E893DFA;
+	Thu, 28 Sep 2023 16:53:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E893DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695912813;
-	bh=chePX/SYayvnhA9C26rs98NM+t613nF7ydh4AzYC8O8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=GFtLR7PqGP6v6AfRO+pecTyGwQ6EgJKvppGuCNkSXffv+6emsK0SxavLx0OCxS2Ta
-	 goIEMUKMW+OApvp6o/vjbffPvgPean4FfGq8xv3oeSjC96Z74Exnvn7nGpadBhkqyR
-	 +FBXeM8MmQUWw82jAByOUfMxSwJ57HHApr2Gg+84=
+	s=default; t=1695912842;
+	bh=UDwgpsFaqJPQIaERJt0/68ArFF8Y8pOIEo7g0mVwDXo=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=ZTKa98y4VpIYXjRMzgMGqt9bLVd5/DxfHfBIfYhWw3eiK/SCqRPIevuCZxqJo0TKY
+	 txA074INV0E+onQ3CiKhKf3DhUpBa1eFWDMXC3SbbWnXkCz445GQBDPuIq0T6fHpFZ
+	 umK5DSlrE3WYt7M93Uy4OeA4LVFTiycXzmxU8/qI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D29FF805A9; Thu, 28 Sep 2023 16:51:42 +0200 (CEST)
+	id 0DD85F805B0; Thu, 28 Sep 2023 16:51:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E334BF80563;
-	Thu, 28 Sep 2023 16:51:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FE6BF805AE;
+	Thu, 28 Sep 2023 16:51:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E07AEF80578; Thu, 28 Sep 2023 16:51:37 +0200 (CEST)
+	id 9D2D2F8059F; Thu, 28 Sep 2023 16:51:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 898C7F8047D
-	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 16:51:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 898C7F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7C21BF8057C
+	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 16:51:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C21BF8057C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZYG51XpL
+ header.s=k20201202 header.b=cUdEkHic
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 34E83CE21D8;
-	Thu, 28 Sep 2023 14:51:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C585C43397;
-	Thu, 28 Sep 2023 14:51:26 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id D6163CE220E;
+	Thu, 28 Sep 2023 14:51:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9F5C433CB;
+	Thu, 28 Sep 2023 14:51:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695912688;
-	bh=chePX/SYayvnhA9C26rs98NM+t613nF7ydh4AzYC8O8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ZYG51XpLTAQxCl3dQmuiHqqV5f1x/wwlk4hp8cdO5uo+sSITeMLwRS+fczhSYAP59
-	 rxoP58+YlzvSjiBFda423UCh/bNTY/EaL2PmSKeNSTrTndEjDoFTxoKPscsMOuQDci
-	 1ev0DhB0dq+0RyvgWKT0jkH42v9XEZXXnyzOcoQWi0+LMKzeU3/6q9J98d2zpvZ67e
-	 O/QJX3SAL8ctmlJ95Mj1ctUkykrrglXUhY5i9M5zVZU6fI7phUIUxb1ygzwskuKZH6
-	 P3SSaT6Zd/L/RorkaP1buhIsLBJz+QZX7imkHzBhQUoEoVCv+5a17xIcndUE0qrkSH
-	 GPaGJP48Pbcyw==
+	s=k20201202; t=1695912693;
+	bh=UDwgpsFaqJPQIaERJt0/68ArFF8Y8pOIEo7g0mVwDXo=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=cUdEkHiciM0mv5hG2BcjyXZyaxtx35Qdlhx7zOd4qrKmFlkRXUpAWnO24HQDwp+Xh
+	 Xeh2zchaFxGhApn/JBsPbFAfhbWKFo0dy8kkSteYi6rARRzwJeAzyu/UeqNvMsHc0X
+	 FX2eqbx8yApqeJn+nqbJdmPzzWRsKGPlCbcDr9laDQjEVJR+eD4/E0Nf/XJNCmuioT
+	 CtgYYWX+jr+sTZG8l1GaGi9z3nx3MC0oORo6qO0xlSFU7Df60/va/sBBr8e3czJlIP
+	 3iyWkYNJgsblYJZ9oo/olarM+B0zRiul33O4SjeMtlzssKhACqYuwBqamkjLnhRIUS
+	 cr10r0EpfznVA==
 From: Mark Brown <broonie@kernel.org>
-To: james.schulman@cirrus.com,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Cc: david.rhodes@cirrus.com, rf@opensource.cirrus.com, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Abaci Robot <abaci@linux.alibaba.com>
-In-Reply-To: <20230928085200.48635-1-jiapeng.chong@linux.alibaba.com>
-References: <20230928085200.48635-1-jiapeng.chong@linux.alibaba.com>
-Subject: Re: [PATCH] ASoC: cs42l43: Remove useless else
-Message-Id: <169591268759.2776105.1120997506461467883.b4-ty@kernel.org>
-Date: Thu, 28 Sep 2023 16:51:27 +0200
+To: girdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, perex@perex.cz,
+ tiwai@suse.com, rf@opensource.cirrus.com, shumingf@realtek.com,
+ herve.codina@bootlin.com, rdunlap@infradead.org, 13916275206@139.com,
+ ryans.lee@analog.com, linus.walleij@linaro.org,
+ ckeepax@opensource.cirrus.com, doug@schmorgal.com,
+ ajye_huang@compal.corp-partner.google.com, harshit.m.mogalapalli@oracle.com,
+ arnd@arndb.de, yang.lee@linux.alibaba.com, u.kleine-koenig@pengutronix.de,
+ liweilei@awinic.com, yijiangtao@awinic.com, trix@redhat.com,
+ dan.carpenter@linaro.org, colin.i.king@gmail.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, wangweidong.a@awinic.com
+In-Reply-To: <20230928105727.47273-1-wangweidong.a@awinic.com>
+References: <20230928105727.47273-1-wangweidong.a@awinic.com>
+Subject: Re: [PATCH V6 00/10] ASoC: codecs: Add aw87390 amplifier driver
+Message-Id: <169591268992.2776105.11416924593302192678.b4-ty@kernel.org>
+Date: Thu, 28 Sep 2023 16:51:29 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: 4G7OSUCS2ZPIZ5PESENG2EDLPRNKLLRW
-X-Message-ID-Hash: 4G7OSUCS2ZPIZ5PESENG2EDLPRNKLLRW
+Message-ID-Hash: MSOA7COJDI4ELZZQUYMJQVCN4AADSMTW
+X-Message-ID-Hash: MSOA7COJDI4ELZZQUYMJQVCN4AADSMTW
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,21 +94,26 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MSOA7COJDI4ELZZQUYMJQVCN4AADSMTW/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 28 Sep 2023 16:52:00 +0800, Jiapeng Chong wrote:
-> The assignment of the else and if branches is the same, so the else
-> here is redundant, so we remove it.
+On Thu, 28 Sep 2023 18:57:17 +0800, wangweidong.a@awinic.com wrote:
+> The awinic aw87390 is a new high efficiency, low noise,
+> constant large volume, 6th Smart K audio amplifier.
 > 
-> ./sound/soc/codecs/cs42l43-sdw.c:35:1-3: WARNING: possible condition with no effect (if == else).
+> Add a DT schema for describing awinic aw87390 audio amplifiers.
+> They are controlled using I2C.
 > 
+> Modify some code for aw88261 and aw88395
 > 
+> [...]
 
 Applied to
 
@@ -109,8 +121,26 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l43: Remove useless else
-      commit: 67fcdbfd9e133be69c9541a806f6ccfe594fa9a9
+[01/10] ASoC: dt-bindings: awinic,aw88395: Add properties for multiple PA support
+        commit: b99d8d8adfda1f9220dd2ee9bdb96ba02dc62bd7
+[02/10] ASoC: dt-bindings: Add schema for "awinic,aw87390"
+        commit: 457b6587c112e162d3bec871c7b93359168d5c0a
+[03/10] ASoC: codecs: Remove the "fade-enable property"
+        commit: 085370aa8c880da7014d0d8f93343fc1d21104b8
+[04/10] ASoC: codecs: Rename "sound-channel" to "awinic,audio-channel"
+        commit: 74ff4f22d81e97b5c2505cee2ff743fc9249d9e2
+[05/10] ASoC: codecs: Modify the transmission method of parameters
+        commit: e83219c94abb4ad977f6b2b8be7d466ef0c2248f
+[06/10] ASoC: codecs: Modify i2c driver name
+        commit: 6a4c3ce3f06cee1c25420cae8634269021ef8504
+[07/10] ASoC: codecs: Add code for bin parsing compatible with aw87390
+        commit: b116c832c9e84843c64eed087271e29b3bc6c1b8
+[08/10] ASoC: codecs: Rename "sync-flag" to "awinic,sync-flag"
+        commit: c786770ed8a53836490f6157f40ef83c7149ee75
+[09/10] ASoC: codecs: Modify the transmission mode of function parameters
+        commit: f83287a72551833a6fe2fc96f334b26e6eba77e8
+[10/10] ASoC: codecs: Add aw87390 amplifier driver
+        commit: 37b4346ed8681660ae60de4facc3d499d8e5cf2a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

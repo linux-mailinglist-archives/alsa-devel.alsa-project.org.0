@@ -2,92 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D167B134F
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 08:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9BD27B13DA
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 09:08:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADB7C84B;
-	Thu, 28 Sep 2023 08:46:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADB7C84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 810B61E9;
+	Thu, 28 Sep 2023 09:07:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 810B61E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695883617;
-	bh=U0umej93QMuoD9Ybad/9HjSO3RP+rgA6M+hwVEUyjFU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=as2HhdSSB3JgJznHCk0CCZotJD1C4cWn+HRruOlv10oI6x03L5UtgkYYfw9FBvZID
-	 nNgJhcY4GNeHVL5r+Pl7vqj8yq9ImqrQrN3UPzOv8vSD1FQ1gKtIg8Pbco2w+TfkHu
-	 yfNmWYzaOpp3a/P2Kz3w/7fWwTcnzBZaSHFR03Tw=
+	s=default; t=1695884892;
+	bh=huLpjSBbIB422a4bse8u0/UbTq1xaVwzEHsX2zcatFw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ZKFKfMBHYQdl7rRPXC29laa51gIwanSsJUiUCA4K03DbLbfIYBJJ0+8ZaS6DmS5Xc
+	 2brzOk6QbE0NXk7PIF/MT28XaLtWEnYZkrDOoKkjTBW1PxgeHzbzS/+dsEA0TD6bqf
+	 429Nc1rBUffhibkcKLLx63jWFQBJd6cSqbSw1X9c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 510B7F8047D; Thu, 28 Sep 2023 08:45:30 +0200 (CEST)
+	id 16BCBF80549; Thu, 28 Sep 2023 09:07:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D96DF8016A;
-	Thu, 28 Sep 2023 08:45:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA969F80290;
+	Thu, 28 Sep 2023 09:07:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98246F801D5; Thu, 28 Sep 2023 08:44:00 +0200 (CEST)
+	id 484F6F8047D; Thu, 28 Sep 2023 09:07:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com
- [115.124.28.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::227])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 787C7F800AE
-	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 08:43:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 787C7F800AE
-X-Alimail-AntiSpam: 
- AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0023292-4.2477e-05-0.997628;FP=0|0|0|0|0|-1|-1|-1;HT=ay29a033018047205;MF=wangweidong.a@awinic.com;NM=1;PH=DS;RN=29;RT=29;SR=0;TI=SMTPD_---.UqKxdRM_1695883411;
-Received: from ubuntu-VirtualBox..(mailfrom:wangweidong.a@awinic.com
- fp:SMTPD_---.UqKxdRM_1695883411)
-          by smtp.aliyun-inc.com;
-          Thu, 28 Sep 2023 14:43:39 +0800
-From: wangweidong.a@awinic.com
-To: dan.carpenter@linaro.org
-Cc: 13916275206@139.com,
-	alsa-devel@alsa-project.org,
-	arnd@arndb.de,
-	broonie@kernel.org,
-	ckeepax@opensource.cirrus.com,
-	colin.i.king@gmail.com,
-	conor+dt@kernel.org,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 55429F8007C
+	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 09:07:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55429F8007C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=EKjQuSgg
+Received: by mail.gandi.net (Postfix) with ESMTPA id 89AE02000E;
+	Thu, 28 Sep 2023 07:06:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1695884823;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=lnFAGavK2u/fQ1i6a9xMAG68CBIHJMsAt/wLkQrQapc=;
+	b=EKjQuSgg6zgqSM1OpGjlPhP8PKPohiqUeV0ifd00v56j0U3JHmgKVzc6LwVkraIpJeVDAV
+	W0qkHpMWy5KSjy4Dq8JLusLV0dawesfcicOnB5owY9scGXtebLOSoOFPk5He0G9yJ9YWBN
+	j674zAXkAVUJNP6M84pT4TwmPbZ5cQ+br4K5ZNmAQ7Dlal8Pgvo/jtDKH/4XXkEzvH04rG
+	55OKSIymLLuuPKOYrM0YpyqGaBvwMRu+ikszLdslIWKiEHjXARgO5fH2whmrksN4smf9OO
+	4+b5z/LDXqqbrAZY8VhjCFmeJCR2kD8KaTLNe1hSkCRLL4y3jyHye4DU6oWiNg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Qiang Zhao <qiang.zhao@nxp.com>,
+	Li Yang <leoyang.li@nxp.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	devicetree@vger.kernel.org,
-	doug@schmorgal.com,
-	fido_max@inbox.ru,
-	harshit.m.mogalapalli@oracle.com,
-	herve.codina@bootlin.com,
-	krzysztof.kozlowski+dt@linaro.org,
-	lgirdwood@gmail.com,
-	linus.walleij@linaro.org,
 	linux-kernel@vger.kernel.org,
-	liweilei@awinic.com,
-	perex@perex.cz,
-	rf@opensource.cirrus.com,
-	robh+dt@kernel.org,
-	ryans.lee@analog.com,
-	shumingf@realtek.com,
-	tiwai@suse.com,
-	trix@redhat.com,
-	u.kleine-koenig@pengutronix.de,
-	wangweidong.a@awinic.com,
-	yang.lee@linux.alibaba.com,
-	yijiangtao@awinic.com
-Subject: Re: [PATCH V5 8/8] ASoC: codecs: Add aw87390 amplifier driver
-Date: Thu, 28 Sep 2023 14:43:30 +0800
-Message-ID: <20230928064330.104265-1-wangweidong.a@awinic.com>
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	alsa-devel@alsa-project.org,
+	Simon Horman <horms@kernel.org>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v7 00/30] Add support for QMC HDLC,
+ framer infrastructure and PEF2256 framer
+Date: Thu, 28 Sep 2023 09:06:18 +0200
+Message-ID: <20230928070652.330429-1-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <464ada20-072d-48f8-a270-155dfd4a06b9@kadam.mountain>
-References: <464ada20-072d-48f8-a270-155dfd4a06b9@kadam.mountain>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: V3ZNJLWIB4ZICOT6PH7XTIZP4JCAVIUB
-X-Message-ID-Hash: V3ZNJLWIB4ZICOT6PH7XTIZP4JCAVIUB
-X-MailFrom: wangweidong.a@awinic.com
+X-GND-Sasl: herve.codina@bootlin.com
+Message-ID-Hash: WAEBDULIYAJF6EIT2LCC4VG3IZHP7YE4
+X-Message-ID-Hash: WAEBDULIYAJF6EIT2LCC4VG3IZHP7YE4
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +110,8 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WAEBDULIYAJF6EIT2LCC4VG3IZHP7YE4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,368 +120,354 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thank you very much for your review, but I have some questions
-I would like to discuss with you
+Hi,
 
-> On Wed, Sep 27, 2023 at 08:16:34PM +0800, wangweidong.a@awinic.com wrote:
->> @@ -668,6 +668,17 @@ config SND_SOC_AW88261
->>  	  boost converter can be adjusted smartly according to
->>  	  the input amplitude.
->>  
->> +config SND_SOC_AW87390
->> +	tristate "Soc Audio for awinic aw87390"
+I have a system where I need to handle an HDLC interface and some audio
+data.
 
-> Capitalize A in Awinic.
+The HDLC data are transferred using a TDM bus on which a PEF2256
+(E1/T1 framer) is present. The PEF2256 transfers data from/to the TDM
+bus to/from the E1 line. This PEF2256 is connected to a PowerQUICC SoC
+for the control path and the TDM is connected to the SoC (QMC component)
+for the data path.
 
-Thank you very much, but our company prefers to 
-use awinic rather than Awinic
+>From the QMC HDLC driver, I need to handle HDLC data using the QMC,
+carrier detection using the PEF2256 (E1 line carrier) and set/get some
+PEF2256 configuration.
 
->> +	depends on I2C
->> +	select REGMAP_I2C
->> +	select SND_SOC_AW88395_LIB
->> +	help
->> +	  The awinic aw87390 is specifically designed to improve
->> +	  the musical output dynamic range, enhance the overall
->> +	  sound quallity, which is a new high efficiency, low
+The QMC HDLC driver considers the PEF2256 as a generic framer.
+It performs operations that involve the PEF2256 through the generic
+framer API.
 
-> s/quallity/quality/.
+The audio data are exchanged with the PEF2256 using a CPU DAI connected
+to the TDM bus through the QMC and the PEF2256 needs to be seen as a
+codec in order to be linked to the CPU DAI.
+The codec handles the carrier detection using the PEF2256 and reports
+the carrier state to the ALSA subsystem using the ASoC jack detection.
 
-Thank you very much. I'll correct it
+The codec, even if instantiated by the PEF2256 driver, considers the
+PEF2256 as a generic framer.
 
->> +	  noise, constant large volume, 6th Smart K audio amplifier.
->> +
->>  config SND_SOC_BD28623
->>  	tristate "ROHM BD28623 CODEC"
->>  	help
+The generic framer has:
+ - 2 consumers (QMC HDLC drv and codec)
+ - 1 provider (PEF2256)
 
-> [ snip ]
+So, the design is the following:
+                        +------------------+           +---------+
+                        | QMC              | <- TDM -> | PEF2256 | <-> E1
+     +---------+        |  +-------------+ |           |         |
+     | CPU DAI | <-data--> | QMC channel | |           |         |
+     +---------+        |  +-------------+ |           |         |
++--------------+        |  +-------------+ |           |         |
+| QMC HDLC drv | <-data--> | QMC channel | |           |         |
++--------------+        |  +-------------+ |           |         |
+     ^                  +------------------+           |         |
+     |   +--------+     +-------------+                |         |
+     +-> | framer | <-> | PEF2256 drv | <- local bus ->|         |
+         |        |     |             |                +---------+
+     +-> |        |     |             |
+     |   +--------+     |  +-------+  |
+     +-------------------> | codec |  |
+                        |  +-------+  |
+                        +-------------+
 
->> diff --git a/sound/soc/codecs/aw87390.c b/sound/soc/codecs/aw87390.c
->> new file mode 100644
->> index 000000000000..8efae3b73eea
->> --- /dev/null
->> +++ b/sound/soc/codecs/aw87390.c
->> @@ -0,0 +1,462 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
+Further more, the TDM timeslots used by the QMC HDLC driver need to be
+configured at runtime (QMC dynamic timeslots).
 
-> Checkpatch complains about this.  It should just be GPL-2.0, the "only"
-> is assumed unless there is a + as in "GPL-2.0+".  You might want to
-> run scripts/checkpatch.pl --strict on your patch.
+Several weeks ago, I sent two series related to this topic:
+ - Add the Lantiq PEF2256 audio support [1]
+ - RFC Add support for QMC HDLC and PHY [2]
+This current series is a rework of these two series taking into account
+feedbacks previously received.
 
-Thank you very much.
-Our company uses the GPL-2.0-only all the time, 
-and I see a lot of GPL-2.0-only in other drivers.
+In order to implement all of this, I do the following:
+ 1) Perform some fixes (patches 1, 2, 3, 4, 5, 6, 7)
+ 2) Introduce the QMC HDLC driver (patches 8, 9, 10, 11)
+ 3) Add QMC dynamic timeslot support (patches 12 - 22)
+ 4) Add timeslots change support in QMC HDLC (patch 23)
+ 5) Introduce framer infrastructure (patch 24)
+ 6) Add PEF2256 framer provider (patches 25, 26, 27, 28)
+ 7) Add framer codec as a framer consumer (patch 29)
+ 8) Add framer support as a framer consumer in QMC HDLC (patch 30)
 
->> +//
->> +// aw87390.c  --  AW87390 ALSA SoC Audio driver
->> +//
->> +// Copyright (c) 2023 awinic Technology CO., LTD
->> +//
->> +// Author: Weidong Wang <wangweidong.a@awinic.com>
->> +//
->> +
->> +#include <linux/i2c.h>
->> +#include <linux/firmware.h>
->> +#include <linux/regmap.h>
->> +#include <sound/soc.h>
->> +#include "aw87390.h"
->> +#include "aw88395/aw88395_data_type.h"
->> +#include "aw88395/aw88395_device.h"
->> +
->> +static const struct regmap_config aw87390_remap_config = {
->> +	.val_bits = 8,
->> +	.reg_bits = 8,
->> +	.max_register = AW87390_REG_MAX,
->> +	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
->> +	.val_format_endian = REGMAP_ENDIAN_BIG,
->> +};
->> +
->> +static int aw87390_dev_reg_update(struct aw_device *aw_dev,
->> +					unsigned char *data, unsigned int len)
->> +{
->> +	int i, ret;
->> +
->> +	if (!data) {
->> +		dev_err(aw_dev->dev, "data is NULL\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	for (i = 0; i < len; i = i + 2) {
->> +		if (data[i] == AW87390_DELAY_REG_ADDR) {
->> +			usleep_range(data[i + 1] * AW87390_REG_DELAY_TIME,
->> +					data[i + 1] * AW87390_REG_DELAY_TIME + 10);
->> +			continue;
->> +		}
->> +		ret = regmap_write(aw_dev->regmap, data[i], data[i + 1]);
+The series contains the full story and detailed modifications.
+If needed, the series can be split and/or commits can be squashed.
+Let me know.
 
-> This assumes that len is an even number...  Maybe write it as:
->
->	for (i = 0; i < len - 1; i += 2) {
->
->Although that assumes len can't be zero so maybe it's not a win...
-
-Thank you very much. I will modify it.
-
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int aw87390_dev_get_prof_name(struct aw_device *aw_dev, int index, char **prof_name)
->> +{
->> +	struct aw_prof_info *prof_info = &aw_dev->prof_info;
->> +	struct aw_prof_desc *prof_desc;
->> +
->> +	if ((index >= aw_dev->prof_info.count) || (index < 0)) {
->> +		dev_err(aw_dev->dev, "index[%d] overflow count[%d]\n",
->> +			index, aw_dev->prof_info.count);
-
-...
-
->> +
->> +	/* update reg */
->> +	sec_desc = prof_index_desc->sec_desc;
->> +	ret = aw87390_dev_reg_update(aw_dev, sec_desc[AW88395_DATA_TYPE_REG].data,
->> +					sec_desc[AW88395_DATA_TYPE_REG].len);
->> +	if (ret) {
->> +		dev_err(aw_dev->dev, "update reg failed\n");
->> +		return ret;
->> +	}
->> +
->> +	aw_dev->prof_cur = aw_dev->prof_index;
->> +
->> +	return ret;
-
-> Just "return 0;" here.  It's the same but zero is more clear.
-
-Thank you very much. I will modify it.
-
->> +}
->> +
->> +static int aw87390_power_off(struct aw_device *aw_dev)
->> +{
->> +	int ret;
->> +
->> +	if (aw_dev->status == AW87390_DEV_PW_OFF) {
->> +		dev_info(aw_dev->dev, "already power off\n");
->> +		return 0;
->> +	}
->> +
->> +	ret = regmap_write(aw_dev->regmap, AW87390_SYSCTRL_REG, AW87390_POWER_DOWN_VALUE);
->> +	if (ret)
->> +		return ret;
->> +	aw_dev->status = AW87390_DEV_PW_OFF;
->> +
->> +	return ret;
-
-> return 0;
-
-Thank you very much. I will modify it.
-
->> +}
->> +
->> +static int aw87390_power_on(struct aw_device *aw_dev)
->> +{
->> +	int ret;
->> +
->> +	if (aw_dev->status == AW87390_DEV_PW_ON) {
->> +		dev_info(aw_dev->dev, "already power on\n");
-
-> Change this dev_info() to dev_dbg().
-
-Thank you very much. I will modify it.
-
->> +		return 0;
->> +	}
->> +
->> +	if (!aw_dev->fw_status) {
->> +		dev_err(aw_dev->dev, "fw not load\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	ret = regmap_write(aw_dev->regmap, AW87390_SYSCTRL_REG, AW87390_POWER_DOWN_VALUE);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = aw87390_dev_fw_update(aw_dev);
->> +	if (ret) {
->> +		dev_err(aw_dev->dev, "%s load profile failed\n", __func__);
->> +		return ret;
->> +	}
->> +	aw_dev->status = AW87390_DEV_PW_ON;
->> +
->> +	return ret;
-
-> return 0;
-
-Thank you very much. I will modify it.
-
->> +}
->> +
->> +static int aw87390_dev_set_profile_index(struct aw_device *aw_dev, int index)
->> +{
->> +	if ((index >= aw_dev->prof_info.count) || (index < 0))
->> +		return -EINVAL;
->> +
->> +	if (aw_dev->prof_index == index)
->> +		return -EPERM;
->> +
->> +	aw_dev->prof_index = index;
->> +
->> +	return 0;
-> +}
-
-...
-
->> +
->> +static const struct snd_kcontrol_new aw87390_controls[] = {
->> +	AW87390_PROFILE_EXT("AW87390 Profile Set", aw87390_profile_info,
->> +		aw87390_profile_get, aw87390_profile_set),
->> +};
->> +
->> +static int aw87390_request_firmware_file(struct aw87390 *aw87390)
->> +{
->> +	const struct firmware *cont = NULL;
->> +	int ret;
->> +
->> +	aw87390->aw_pa->fw_status = AW87390_DEV_FW_FAILED;
->> +
->> +	ret = request_firmware(&cont, AW87390_ACF_FILE, aw87390->aw_pa->dev);
->> +	if (ret)
->> +		return dev_err_probe(aw87390->aw_pa->dev, ret,
->> +					"load [%s] failed!\n", AW87390_ACF_FILE);
->> +
->> +	dev_dbg(aw87390->aw_pa->dev, "loaded %s - size: %zu\n",
->> +			AW87390_ACF_FILE, cont ? cont->size : 0);
->> +
->> +	aw87390->aw_cfg = devm_kzalloc(aw87390->aw_pa->dev, cont->size + sizeof(int), GFP_KERNEL);
-
-> Use struct_size().
->
->	aw87390->aw_cfg = devm_kzalloc(aw87390->aw_pa->dev,
->				       struct_size(aw87390->aw_cfg, data, cont->size),
->				       GFP_KERNEL);
->
-
-Thank you very much. I will modify it.
-
->> +	if (!aw87390->aw_cfg) {
->> +		release_firmware(cont);
->> +		return -ENOMEM;
->> +	}
->> +
->> +	aw87390->aw_cfg->len = (int)cont->size;
-
-> No need for this scary looking cast.
-
-Thank you very much. I will modify it to
-"aw87390->aw_cfg->len = cont->size;"
-
->> +	memcpy(aw87390->aw_cfg->data, cont->data, cont->size);
->> +	release_firmware(cont);
->> +
->> +	ret = aw88395_dev_load_acf_check(aw87390->aw_pa, aw87390->aw_cfg);
->> +	if (ret) {
->> +		dev_err(aw87390->aw_pa->dev, "load [%s] failed !\n", AW87390_ACF_FILE);
-
-> No space before !.
-
-Thank you very much. I will modify it.
-
->> +		return ret;
->> +	}
->> +
->> +	mutex_lock(&aw87390->lock);
->> +
->> +	ret = aw88395_dev_cfg_load(aw87390->aw_pa, aw87390->aw_cfg);
-
-...
-
->> +static int aw87390_init(struct aw87390 **aw87390, struct i2c_client *i2c, struct regmap *regmap)
->> +{
->> +	struct aw_device *aw_dev;
->> +	unsigned int chip_id;
->> +	int ret;
->> +
->> +	/* read chip id */
->> +	ret = regmap_read(regmap, AW87390_ID_REG, &chip_id);
->> +	if (ret) {
->> +		dev_err(&i2c->dev, "%s read chipid error. ret = %d\n", __func__, ret);
->> +		return ret;
->> +	}
->> +
->> +	if (chip_id != AW87390_CHIP_ID) {
->> +		dev_err(&i2c->dev, "unsupported device\n");
->> +		return -ENXIO;
->> +	}
->> +
->> +	dev_info(&i2c->dev, "chip id = 0x%x\n", chip_id);
-
-> Make this dev_dbg().
-
-Thank you very much. I will modify it.
-
->> +
->> +	aw_dev = devm_kzalloc(&i2c->dev, sizeof(*aw_dev), GFP_KERNEL);
->> +	if (!aw_dev)
->> +		return -ENOMEM;
->> +
->> +	(*aw87390)->aw_pa = aw_dev;
->> +	aw_dev->i2c = i2c;
->> +	aw_dev->regmap = regmap;
->> +	aw_dev->dev = &i2c->dev;
->> +	aw_dev->chip_id = AW87390_CHIP_ID;
->> +	aw_dev->acf = NULL;
->> +	aw_dev->prof_info.prof_desc = NULL;
->> +	aw_dev->prof_info.count = 0;
->> +	aw_dev->prof_info.prof_type = AW88395_DEV_NONE_TYPE_ID;
->> +	aw_dev->channel = AW87390_DEV_DEFAULT_CH;
->> +	aw_dev->fw_status = AW87390_DEV_FW_FAILED;
->> +	aw_dev->prof_index = AW87390_INIT_PROFILE;
->> +	aw_dev->status = AW87390_DEV_PW_OFF;
->> +
->> +	aw87390_parse_channel_dt(*aw87390);
->> +
->> +	return ret;
-
-> return 0;
-
-Thank you very much. I will modify it.
-
->> +}
->> +
->> +static int aw87390_i2c_probe(struct i2c_client *i2c)
->> +{
->> +	struct aw87390 *aw87390;
->> +	int ret;
-
-...
-
->> +static const struct i2c_device_id aw87390_i2c_id[] = {
->> +	{ AW87390_I2C_NAME, 0 },
->> +	{ }
->> +};
->> +MODULE_DEVICE_TABLE(i2c, aw87390_i2c_id);
->> +
->> +static struct i2c_driver aw87390_i2c_driver = {
->> +	.driver = {
->> +		.name = AW87390_I2C_NAME,
->> +	},
->> +	.probe = aw87390_i2c_probe,
->> +	.id_table = aw87390_i2c_id,
->> +};
->> +module_i2c_driver(aw87390_i2c_driver);
->> +
->> +MODULE_DESCRIPTION("ASoC AW87390 PA Driver");
->> +MODULE_LICENSE("GPL v2");
-
-> This is another checkpatch thing.  It should just be
-> MODULE_LICENSE("GPL");
-
-Thank you very much, but our company follows the "GPL v2"
-So I want to still use it
+Compare to the previous iteration
+  https://lore.kernel.org/linux-kernel/20230922075913.422435-1-herve.codina@bootlin.com/
+This v7 series:
+ - Fixes the framer binding removing the '$ref'.
+   commit 033d0b1 ("Add '-bps' as a standard unit suffix for bits per second")
+   was recently added in https://github.com/devicetree-org/dt-schema/
+   Even if not yet present in an dt-schema release, '-bps' is an
+   official standard suffix and so '$ref' is no more needed.
+ - Fixes the QMC channel binding.
 
 Best regards,
-Weidong Wang
+Hervé
+
+[1]: https://lore.kernel.org/all/20230417171601.74656-1-herve.codina@bootlin.com/
+[2]: https://lore.kernel.org/all/20230323103154.264546-1-herve.codina@bootlin.com/
+
+Changes v6 -> v7
+
+  - Patch 8
+    Move the 'compatible' property to the first property.
+    Add device/SoC specific compatible strings.
+    Add 'Reviewed-by: Rob Herring <robh@kernel.org>'
+
+  - Patch 25
+    Remove '$ref' from the lantiq,data-rate-bps property. '-bps' is now
+    a standard suffix.
+
+Changes v5 -> v6
+
+  - All patches
+    Remove 'Signed-off-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+    These Sob were added by Christophe when he sent the v4 while I was
+    on vacation.
+    https://lore.kernel.org/linux-kernel/992a2b31-e21f-eee3-8bfc-a65b69fe5bd7@csgroup.eu/
+
+  - Patch 6, 7
+    Add 'Acked-by: Conor Dooley <conor.dooley@microchip.com>'
+    Add 'Acked-by: Rob Herring <robh@kernel.org>'
+
+  - Patch 8
+    Add a constraint on fsl,framer.
+
+  - Patch 25
+    Fix clocks description (inconsistent capitalisation)
+    Use '8-bit' instead of '8bit'
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Removed patch 26 (patch applied)
+
+  - Patch 26 (patch 27 in v5)
+    Add 'Reviewed-by: Linus Walleij <linus.walleij@linaro.org>'
+
+  - Patch 27 (patch 28 in v5)
+    Move registers definition to .c file and remove .h file
+    Add 'select PINCONF' in Kconfig
+    Use dev_err_probe()
+    Add 'Reviewed-by: Linus Walleij <linus.walleij@linaro.org>'
+
+  - Patch 28 (patch 29 in v5)
+    Remove .h file
+
+Changes v4 -> v5
+
+  - Patches 1 to 5
+    No changes
+
+  - Patch 6 (new in v5)
+    Fix QMC binding example
+
+  - Patch 7 (new in v5)
+    Add missing 'additionalProperties: false'
+
+  - Patch 8 (new in v5, replace v4 patch 6)
+    Add QMC HDLC properties in the QMC channel node
+    Renamed the 'framer' property to 'fsl,framer'
+
+  - Patch 9 (new in v5)
+    Add support for QMC child devices
+
+  - Patch 10 (patch 7 in v4)
+    No changes
+
+  - Patch 11 (patch 8 in v4)
+    Remove fsl,qmc-hdlc.yaml (no more existing file)
+
+  - Patches 12 to 22 (patches 9 to 19 in v4)
+    No changes
+
+  - Patch 23 (patch 20 in v4)
+    Remove unused variable initializations
+    Remove extra space
+
+  - Patch 24 (patch 21 in v4)
+    Improve Kconfig help text
+    Fix variable declaration (reverse xmas tree)
+    Fix typos and extra spaces
+    Fix documentation issues raised by 'kernel-doc -none'
+    Move of_node_put() and kfree() out of the mutex
+    Replace ida_simple_{get,remove}() by ida_{alloc,free}()
+    Support framer device-tree nodes without '#framer-cells' property
+
+  - Patch 25 (patch 22 in v4)
+    Fix $ref in the pinctrl subnode
+    Remove '#framer-cells' property
+    Add needed '|'
+
+  - Patch 26 (patch 23 in v4)
+    Fix a typo in the commit subject
+
+  - Patches 27, 28, 29 (patch 24, 25, 26 in v4)
+    No changes
+
+  - Patch 30 (patch 27 in v4)
+    Fix a typo in the commit log
+
+  - Patch 31 (patch 28 in v4)
+    Used 'fsl,framer' property name instead of 'framer'
+
+Changes v3 -> v4
+
+  - Patch 21
+    Fixes build failure with CONFIG_MODULES
+
+Changes v2 -> v3
+
+  - Patches 1, 2, 3, 4
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - New patch
+    Remove inline keyword from the existing registers accessors helpers
+
+  - Patch 6 (patches 5, 27 in v2)
+    Update the binding title
+    Squash patch 27
+
+  - Patch 7 (patch 6 in v2)
+    Remove the cast in netdev_to_qmc_hdlc()
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 8 (patch 7 in v2): No change
+
+  - Patches 9, 10 (patches 8, 9 in v2)
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 11 (patch 10 in v2)
+    Remove inline keyword from the introduced qmc_clrsetbits16() helper
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patches 12, 13, 14, 15, 16, 17, 18, 19, 20
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 21 (patch 20 in v2)
+    Remove unneeded framer NULL pointer check
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 22 (patch 21 in v2)
+    Change sclkr and sclkx clocks description
+    Remove the framer phandle property from the framer subnodes
+    (ie. from framer-codec nodes)
+
+  - Patch 23 (patch 22 in v2)
+    Initialize 'disabled' variable at declaration
+    Fix commit log
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 24 (patch 23 in v2)
+    Remove inline keyword from the existing registers accessors helpers
+    Use dev_warn_ratelimited() in default interrupt handler
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 25 (patch 24 in v2)
+    Replace #include "linux/bitfield.h" by #include <linux/bitfield.h>
+    Fold the pinctrl anonymous struct into the struct pef2256_pinctrl
+    Update commit log
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 26 (patch 25 in v2)
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 27 (patch 26 in v2)
+    Fix error message
+    Changed the ch.max computation in framer_dai_hw_rule_channels_by_format()
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+  - Patch 28
+    Add 'Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>'
+
+Changes v1 -> v2
+  - Patches 1, 2 (New in v2)
+    Fix __iomem addresses declaration
+
+  - Patch 19 (17 in v1)
+    Fix a compilation warning
+
+  - Patch 26 (24 in v1)
+    Fix a typo in Kconfig file
+    Fix issues raised by sparse (make C=1)
+
+Herve Codina (30):
+  soc: fsl: cpm1: tsa: Fix __iomem addresses declaration
+  soc: fsl: cpm1: qmc: Fix __iomem addresses declaration
+  soc: fsl: cpm1: qmc: Fix rx channel reset
+  soc: fsl: cpm1: qmc: Extend the API to provide Rx status
+  soc: fsl: cpm1: qmc: Remove inline function specifiers
+  dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc: Fix example property name
+  dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc: Add
+    'additionalProperties: false' in child nodes
+  dt-bindings: soc: fsl: cpm_qe: cpm1-scc-qmc: Add support for QMC HDLC
+  soc: fsl: cpm1: qmc: Add support for child devices
+  net: wan: Add support for QMC HDLC
+  MAINTAINERS: Add the Freescale QMC HDLC driver entry
+  soc: fsl: cpm1: qmc: Introduce available timeslots masks
+  soc: fsl: cpm1: qmc: Rename qmc_setup_tsa* to qmc_init_tsa*
+  soc: fsl: cpm1: qmc: Introduce qmc_chan_setup_tsa*
+  soc: fsl: cpm1: qmc: Remove no more needed checks from
+    qmc_check_chans()
+  soc: fsl: cpm1: qmc: Check available timeslots in qmc_check_chans()
+  soc: fsl: cpm1: qmc: Add support for disabling channel TSA entries
+  soc: fsl: cpm1: qmc: Split Tx and Rx TSA entries setup
+  soc: fsl: cpm1: qmc: Introduce is_tsa_64rxtx flag
+  soc: fsl: cpm1: qmc: Handle timeslot entries at channel start() and
+    stop()
+  soc: fsl: cpm1: qmc: Remove timeslots handling from setup_chan()
+  soc: fsl: cpm1: qmc: Introduce functions to change timeslots at
+    runtime
+  wan: qmc_hdlc: Add runtime timeslots changes support
+  net: wan: Add framer framework support
+  dt-bindings: net: Add the Lantiq PEF2256 E1/T1/J1 framer
+  net: wan: framer: Add support for the Lantiq PEF2256 framer
+  pinctrl: Add support for the Lantic PEF2256 pinmux
+  MAINTAINERS: Add the Lantiq PEF2256 driver entry
+  ASoC: codecs: Add support for the framer codec
+  net: wan: fsl_qmc_hdlc: Add framer support
+
+ .../bindings/net/lantiq,pef2256.yaml          | 213 +++++
+ .../soc/fsl/cpm_qe/fsl,cpm1-scc-qmc.yaml      |  37 +-
+ MAINTAINERS                                   |  15 +
+ drivers/net/wan/Kconfig                       |  14 +
+ drivers/net/wan/Makefile                      |   3 +
+ drivers/net/wan/framer/Kconfig                |  39 +
+ drivers/net/wan/framer/Makefile               |   7 +
+ drivers/net/wan/framer/framer-core.c          | 887 ++++++++++++++++++
+ drivers/net/wan/framer/pef2256/Makefile       |   8 +
+ drivers/net/wan/framer/pef2256/pef2256-regs.h | 250 +++++
+ drivers/net/wan/framer/pef2256/pef2256.c      | 880 +++++++++++++++++
+ drivers/net/wan/fsl_qmc_hdlc.c                | 820 ++++++++++++++++
+ drivers/pinctrl/Kconfig                       |  15 +
+ drivers/pinctrl/Makefile                      |   1 +
+ drivers/pinctrl/pinctrl-pef2256.c             | 358 +++++++
+ drivers/soc/fsl/qe/qmc.c                      | 592 +++++++++---
+ drivers/soc/fsl/qe/tsa.c                      |  22 +-
+ include/linux/framer/framer-provider.h        | 194 ++++
+ include/linux/framer/framer.h                 | 205 ++++
+ include/linux/framer/pef2256.h                |  31 +
+ include/soc/fsl/qe/qmc.h                      |  27 +-
+ sound/soc/codecs/Kconfig                      |  15 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/framer-codec.c               | 413 ++++++++
+ sound/soc/fsl/fsl_qmc_audio.c                 |   2 +-
+ 25 files changed, 4910 insertions(+), 140 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/lantiq,pef2256.yaml
+ create mode 100644 drivers/net/wan/framer/Kconfig
+ create mode 100644 drivers/net/wan/framer/Makefile
+ create mode 100644 drivers/net/wan/framer/framer-core.c
+ create mode 100644 drivers/net/wan/framer/pef2256/Makefile
+ create mode 100644 drivers/net/wan/framer/pef2256/pef2256-regs.h
+ create mode 100644 drivers/net/wan/framer/pef2256/pef2256.c
+ create mode 100644 drivers/net/wan/fsl_qmc_hdlc.c
+ create mode 100644 drivers/pinctrl/pinctrl-pef2256.c
+ create mode 100644 include/linux/framer/framer-provider.h
+ create mode 100644 include/linux/framer/framer.h
+ create mode 100644 include/linux/framer/pef2256.h
+ create mode 100644 sound/soc/codecs/framer-codec.c
+
+-- 
+2.41.0
+

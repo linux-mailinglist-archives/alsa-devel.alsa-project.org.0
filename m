@@ -2,122 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DC237B2823
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Sep 2023 00:11:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 072047B283D
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Sep 2023 00:14:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AC71A4E;
-	Fri, 29 Sep 2023 00:10:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AC71A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EB5CBC0;
+	Fri, 29 Sep 2023 00:13:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EB5CBC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695939105;
-	bh=Oye+qu5M1rw33cduZCzNnCsGCI5bMEhFSrorjTd5OUE=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=iBWWpZU7haY8av9sxEtZ+1giaiZl53Ysbfi3tBMaO+kiTzrmHyEuh7fJdszjmerRF
-	 2BTQQHODbBnRwMzdQCmS6vTMzypzx+R6J2uvLZOGky+lq0i5lY0XNUBn4zVUkMjWsB
-	 rWBHb7IcLOaSnUCOF9QTaCwT9sld2nNJHC5HWYFk=
+	s=default; t=1695939244;
+	bh=a+y8xbiYPy5idDNLFyX2nsxR4rx6ATSe8RjGqbv8dE0=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=h/sagH6hPY7CJ3E8yyurzH9RblVIynPEOjQHHikfSLw10ebIslfYfVPlAZl8OVVFE
+	 gvkP3dC0+/1El1TADF5hiQH+iHWFPAa0y4KtN01DkHuvgPggeoa6ctZ8ncQa6xZEL+
+	 KwIIRj35LQtN180j4pQt6Chv9RdlVKOiLQUM94/M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B9E1F80549; Fri, 29 Sep 2023 00:10:54 +0200 (CEST)
+	id 7C39AF80553; Fri, 29 Sep 2023 00:13:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0DF4F8016A;
-	Fri, 29 Sep 2023 00:10:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D392BF8047D;
+	Fri, 29 Sep 2023 00:13:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E1F6F801D5; Fri, 29 Sep 2023 00:10:49 +0200 (CEST)
+	id 31717F80290; Fri, 29 Sep 2023 00:13:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81D75F80166
-	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 00:10:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D75F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id D3CA2F80166
+	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 00:12:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3CA2F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=aNWY771b
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38SLMrYD005712;
-	Thu, 28 Sep 2023 22:10:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=uk+G1kp/tg9sdS+9uFAYBPz89f84jH42slLz163CM0A=;
- b=aNWY771bOrjm5LLfcK+bUkOwd2QJAYdn6UORXLtisHn8J0yGhx3AwhFwkN5a2vQL9F+m
- vExDIAjZSXaBJKCu/0xkb/zt2+uk+9W0IJX8XWoEID+N58NAwHhekr6qeGS97W0aZ1Lc
- hBPX21lNFDFNG+ATyKCfAxpQTenFu6P8d81FI0I6MXrTls0iCnmEM2J21X8OoJ95IQHy
- d71y9zZQFovSIgw4U3HJpxX89IFa4ytYVmMLy3PxfptcvriisQz7oOuVCbtzmnze2s5e
- vtYIl62J/0QdeUqnjMyA3x/c0jv0tK4i6PAmesVKbCSNHndVXOqQe2TMeBVsbFxBaFee hw==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tct5gu7bv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 28 Sep 2023 22:10:36 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 38SMAa9R031137
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 28 Sep 2023 22:10:36 GMT
-Received: from [10.71.112.36] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Thu, 28 Sep
- 2023 15:10:35 -0700
-Message-ID: <0cbc80f2-4238-c9c6-7954-2d6d7e750446@quicinc.com>
-Date: Thu, 28 Sep 2023 15:10:34 -0700
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=VFLJD8Na
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-50308217223so21136647e87.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 28 Sep 2023 15:12:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1695939176; x=1696543976;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=O6rklr6oFZBRP3XLshOSG7uTOA1JIwCF+2vk+UW3dq0=;
+        b=VFLJD8NaGs6CGYn+xpSUtsoDE2uG7EBouEd2w1KwkUfbObQMnMSYi4u96lwYqEcBTU
+         fdFC00JQO8JCp/KhRAl/oGSOKLkJiiWoaGSAzEOSVm+tsJb/ls4RGkAq57YHe4yCUVh4
+         KBYFLPpuBBzssV4l8KIlOn58IWmWYQchOn8Awd9PftISC8GUxeeWzcoHabJ9c2+My9dU
+         m9Su8LmXLs+3dHk/XSX1Z8jYkEX6azIyoisrS1egMyYCESV0/MAqgCIwhgP3agxR6Uy7
+         cz6v17E0muK9LEzFi1M4SA0bi6ge3Qkg6Uf/Dm6kRXIxZIESrHe7TuZx43u5Uw7smezi
+         oEww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695939176; x=1696543976;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O6rklr6oFZBRP3XLshOSG7uTOA1JIwCF+2vk+UW3dq0=;
+        b=lcfCOGQEjMeQL7uwdZAEYhCyYeK2xdr1ZGJ3VuvlT920DjVZeiqyQI/ty2XeTtiJhQ
+         mcgiG8k3FEF+T6qKzl1AIBhjCIaxNhrvt+4QNgA3Z/apqM9X1A6oN2IYiGhY+n24ugj9
+         giGaDAeOYevJfWGLvovXQJfaBlourypkfpxlfzIPi2UzmLGl94HCgd49KwBlQMsygWsw
+         6vKEBV0jXIO2bvfgm+THwI9VgufxFGvwLB4bZdqxC947WFBAPaWPHp1jKCUWgfUQmnMc
+         LzFgmb6V78ehyLCiGkok1e5hfe84A/VXTGPDxT8qBJvn1Lsxf6pr6HyL/ja2aKJmtlxm
+         uXpw==
+X-Gm-Message-State: AOJu0YyuLLeSWw+s28OsGxLkYpe1ERqTJHTYmrY9y5BQl2/3CqCXrGau
+	O9ew9sFEvU+kgb6gECJqH+ziyS3RNngw1lTNnKE=
+X-Google-Smtp-Source: 
+ AGHT+IGS4laI4UHVLnIkjLSrMRmia+rD8yaRDC1PhmkavvJYotFSmpNaF2s2LDwJ/U3xrGw2O5pC9A==
+X-Received: by 2002:a05:6512:3095:b0:500:94c5:6e06 with SMTP id
+ z21-20020a056512309500b0050094c56e06mr2394386lfd.56.1695939176271;
+        Thu, 28 Sep 2023 15:12:56 -0700 (PDT)
+Received: from [127.0.1.1] ([85.235.12.238])
+        by smtp.gmail.com with ESMTPSA id
+ r27-20020ac25a5b000000b005030cef433esm3271964lfn.94.2023.09.28.15.12.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 Sep 2023 15:12:55 -0700 (PDT)
+From: Linus Walleij <linus.walleij@linaro.org>
+Subject: [PATCH v2 0/4] Convert Rockchip ASoC drivers to GPIO descriptors
+Date: Fri, 29 Sep 2023 00:12:53 +0200
+Message-Id: <20230929-descriptors-asoc-rockchip-v2-0-2d2c0e043aab@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v7 02/33] xhci: add helper to stop endpoint and wait for
- completion
-Content-Language: en-US
-To: Mathias Nyman <mathias.nyman@linux.intel.com>, <mathias.nyman@intel.com>,
-        <gregkh@linuxfoundation.org>, <lgirdwood@gmail.com>,
-        <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
-        <agross@kernel.org>, <andersson@kernel.org>,
-        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
-        <Thinh.Nguyen@synopsys.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
-        <devicetree@vger.kernel.org>
-References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
- <20230921214843.18450-3-quic_wcheng@quicinc.com>
- <6e9d2094-0bf9-b2ac-29f3-99115b456fdb@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <6e9d2094-0bf9-b2ac-29f3-99115b456fdb@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: N-MC0TjGQafJ131XUacYB100yuWmPZQF
-X-Proofpoint-GUID: N-MC0TjGQafJ131XUacYB100yuWmPZQF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-09-28_21,2023-09-28_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- malwarescore=0 mlxlogscore=999 impostorscore=0 phishscore=0 adultscore=0
- suspectscore=0 priorityscore=1501 mlxscore=0 bulkscore=0 clxscore=1015
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2309280190
-Message-ID-Hash: WRV7GXHAI4K3ZAOQU3TQQEAMU7NOTM54
-X-Message-ID-Hash: WRV7GXHAI4K3ZAOQU3TQQEAMU7NOTM54
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGX6FWUC/32NQQ6CMBBFr0Jm7RhaGkFX3MOwqEOBiYY2M4ZoC
+ He3krh1+X7y3l9Bg3BQuBQrSFhYOc4Z7KEAmvw8BuQ+M9jSVuXZnrAPSsLpGUXRaySUSHeaOGF
+ TVd4NN6rJDJD9JGHg196+dpkn1my996vFfNdftflTXQyW6I2z3tne1U3dPnj2Eo9RRui2bfsAI
+ fpisMMAAAA=
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ Linus Walleij <linus.walleij@linaro.org>
+X-Mailer: b4 0.12.3
+Message-ID-Hash: KYDH3N3KFN4A43CUSSF7BZVU2NRNLOOJ
+X-Message-ID-Hash: KYDH3N3KFN4A43CUSSF7BZVU2NRNLOOJ
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRV7GXHAI4K3ZAOQU3TQQEAMU7NOTM54/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KYDH3N3KFN4A43CUSSF7BZVU2NRNLOOJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,214 +125,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mathias,
+The Rockchip drivers are pretty straight-forward to convert
+over to using GPIO descriptors.
 
-On 9/28/2023 6:31 AM, Mathias Nyman wrote:
-> On 22.9.2023 0.48, Wesley Cheng wrote:
->> From: Mathias Nyman <mathias.nyman@linux.intel.com>
->>
->> Expose xhci_stop_endpoint_sync() which is a synchronous variant of
->> xhci_queue_stop_endpoint().  This is useful for client drivers that are
->> using the secondary interrupters, and need to stop/clean up the current
->> session.  The stop endpoint command handler will also take care of 
->> cleaning
->> up the ring.
->>
->> Modifications to repurpose the new API into existing stop endpoint
->> sequences was implemented by Wesley Cheng.
->>
->> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
->> Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   drivers/usb/host/xhci-hub.c | 29 +++---------------
->>   drivers/usb/host/xhci.c     | 60 +++++++++++++++++++++++++++----------
->>   drivers/usb/host/xhci.h     |  2 ++
->>   3 files changed, 50 insertions(+), 41 deletions(-)
->>
->> diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
->> index 0054d02239e2..2f7309bdc922 100644
->> --- a/drivers/usb/host/xhci-hub.c
->> +++ b/drivers/usb/host/xhci-hub.c
->> @@ -489,7 +489,6 @@ EXPORT_SYMBOL_GPL(xhci_find_slot_id_by_port);
->>   static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int 
->> suspend)
->>   {
->>       struct xhci_virt_device *virt_dev;
->> -    struct xhci_command *cmd;
->>       unsigned long flags;
->>       int ret;
->>       int i;
->> @@ -501,10 +500,6 @@ static int xhci_stop_device(struct xhci_hcd 
->> *xhci, int slot_id, int suspend)
->>       trace_xhci_stop_device(virt_dev);
->> -    cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
->> -    if (!cmd)
->> -        return -ENOMEM;
->> -
->>       spin_lock_irqsave(&xhci->lock, flags);
->>       for (i = LAST_EP_INDEX; i > 0; i--) {
->>           if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
->> @@ -521,7 +516,7 @@ static int xhci_stop_device(struct xhci_hcd *xhci, 
->> int slot_id, int suspend)
->>               if (!command) {
->>                   spin_unlock_irqrestore(&xhci->lock, flags);
->>                   ret = -ENOMEM;
->> -                goto cmd_cleanup;
->> +                goto out;
->>               }
->>               ret = xhci_queue_stop_endpoint(xhci, command, slot_id,
->> @@ -529,30 +524,14 @@ static int xhci_stop_device(struct xhci_hcd 
->> *xhci, int slot_id, int suspend)
->>               if (ret) {
->>                   spin_unlock_irqrestore(&xhci->lock, flags);
->>                   xhci_free_command(xhci, command);
->> -                goto cmd_cleanup;
->> +                goto out;
->>               }
->>           }
->>       }
->> -    ret = xhci_queue_stop_endpoint(xhci, cmd, slot_id, 0, suspend);
->> -    if (ret) {
->> -        spin_unlock_irqrestore(&xhci->lock, flags);
->> -        goto cmd_cleanup;
->> -    }
->> -
->> -    xhci_ring_cmd_db(xhci);
->>       spin_unlock_irqrestore(&xhci->lock, flags);
->> +    ret = xhci_stop_endpoint_sync(xhci, &virt_dev->eps[0], suspend);
-> 
-> I didn't take this new xhci_stop_endpoint_sync() helper into use as it 
-> causes an extra
-> xhci spinlock release and reacquire here.
-> 
-> Also the memory allocation flags differ, GFP_NOIO is turned into 
-> GFP_KERNEL after this change.
-> 
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+Changes in v2:
+- Make the GPIOs properly optional in the first patch, preserving the
+  old semantics of the driver.
+- Link to v1: https://lore.kernel.org/r/20230928-descriptors-asoc-rockchip-v1-0-a142a42d4787@linaro.org
 
-Thanks for the review.  I agree with the points made.  I wasn't sure if 
-the extra unlock/lock would cause issues if we've already queued the 
-stop ep for the other eps used by the device.
+---
+Linus Walleij (4):
+      ASoC: rockchip: Convert RK3288 HDMI to GPIO descriptors
+      ASoC: rockchip: Drop includes from RK3399
+      ASoC: rockchip: Drop includes from Rockchip MAX98090
+      ASoC: rockchip: Drop includes from Rockchip RT5645
 
-I think addressing the flags might be straightforward, we can just pass 
-it in as an argument.  At least for this change in particular, is the 
-concern that there could be another XHCI command queued before the stop 
-endpoint command is?
+ sound/soc/rockchip/rk3288_hdmi_analog.c | 46 ++++++++++-----------------------
+ sound/soc/rockchip/rk3399_gru_sound.c   |  2 --
+ sound/soc/rockchip/rockchip_max98090.c  |  2 --
+ sound/soc/rockchip/rockchip_rt5645.c    |  2 --
+ 4 files changed, 14 insertions(+), 38 deletions(-)
+---
+base-commit: 0bb80ecc33a8fb5a682236443c1e740d5c917d1d
+change-id: 20230926-descriptors-asoc-rockchip-833a4fbc7c1f
 
->> -    /* Wait for last stop endpoint command to finish */
->> -    wait_for_completion(cmd->completion);
->> -
->> -    if (cmd->status == COMP_COMMAND_ABORTED ||
->> -        cmd->status == COMP_COMMAND_RING_STOPPED) {
->> -        xhci_warn(xhci, "Timeout while waiting for stop endpoint 
->> command\n");
->> -        ret = -ETIME;
->> -    }
->> -
->> -cmd_cleanup:
->> -    xhci_free_command(xhci, cmd);
->> +out:
->>       return ret;
->>   }
->> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
->> index 3fd2b58ee1d3..163d533d6200 100644
->> --- a/drivers/usb/host/xhci.c
->> +++ b/drivers/usb/host/xhci.c
->> @@ -2758,6 +2758,46 @@ static int xhci_reserve_bandwidth(struct 
->> xhci_hcd *xhci,
->>       return -ENOMEM;
->>   }
->> +/*
->> + * Synchronous XHCI stop endpoint helper.  Issues the stop endpoint 
->> command and
->> + * waits for the command completion before returning.
->> + */
->> +int xhci_stop_endpoint_sync(struct xhci_hcd *xhci, struct 
->> xhci_virt_ep *ep, int suspend)
->> +{
->> +    struct xhci_command *command;
->> +    unsigned long flags;
->> +    int ret;
->> +
->> +    command = xhci_alloc_command(xhci, true, GFP_KERNEL);
->> +    if (!command)
->> +        return -ENOMEM;
->> +
->> +    spin_lock_irqsave(&xhci->lock, flags);
->> +    ret = xhci_queue_stop_endpoint(xhci, command, ep->vdev->slot_id,
->> +                       ep->ep_index, suspend);
->> +    if (ret < 0) {
->> +        spin_unlock_irqrestore(&xhci->lock, flags);
->> +        goto out;
->> +    }
->> +
->> +    xhci_ring_cmd_db(xhci);
->> +    spin_unlock_irqrestore(&xhci->lock, flags);
->> +
->> +    ret = wait_for_completion_timeout(command->completion, 
->> msecs_to_jiffies(3000));
->> +    if (!ret)
->> +        xhci_warn(xhci, "%s: Unable to stop endpoint.\n",
->> +                __func__);
->> +
->> +    if (command->status == COMP_COMMAND_ABORTED ||
->> +        command->status == COMP_COMMAND_RING_STOPPED) {
->> +        xhci_warn(xhci, "Timeout while waiting for stop endpoint 
->> command\n");
->> +        ret = -ETIME;
->> +    }
->> +out:
->> +    xhci_free_command(xhci, command);
->> +
->> +    return ret;
->> +}
->>   /* Issue a configure endpoint command or evaluate context command
->>    * and wait for it to finish.
->> @@ -3078,7 +3118,7 @@ static void xhci_endpoint_reset(struct usb_hcd 
->> *hcd,
->>       struct xhci_virt_device *vdev;
->>       struct xhci_virt_ep *ep;
->>       struct xhci_input_control_ctx *ctrl_ctx;
->> -    struct xhci_command *stop_cmd, *cfg_cmd;
->> +    struct xhci_command *cfg_cmd;
->>       unsigned int ep_index;
->>       unsigned long flags;
->>       u32 ep_flag;
->> @@ -3118,10 +3158,6 @@ static void xhci_endpoint_reset(struct usb_hcd 
->> *hcd,
->>       if (ep_flag == SLOT_FLAG || ep_flag == EP0_FLAG)
->>           return;
->> -    stop_cmd = xhci_alloc_command(xhci, true, GFP_NOWAIT);
->> -    if (!stop_cmd)
->> -        return;
->> -
->>       cfg_cmd = xhci_alloc_command_with_ctx(xhci, true, GFP_NOWAIT);
->>       if (!cfg_cmd)
->>           goto cleanup;
->> @@ -3144,23 +3180,16 @@ static void xhci_endpoint_reset(struct usb_hcd 
->> *hcd,
->>           goto cleanup;
->>       }
->> -    err = xhci_queue_stop_endpoint(xhci, stop_cmd, udev->slot_id,
->> -                    ep_index, 0);
->> +    spin_unlock_irqrestore(&xhci->lock, flags);
->> +
-> 
-> Same here, extra unlock -> lock, and GFP flags differ.
-> 
-> 
-
-My intention here (minus the GFP flags) was that the locking was mainly 
-for setting the EP state flag -- EP_SOFT_CLEAR_TOGGLE.  If that was set, 
-then new TD queues are blocked.  Seems like that was why there is a 
-check like this afterwards:
-
-if (!list_empty(&ep->ring->td_list)) {
-
-So I believed that releasing the lock here was going to be ok, because 
-by that point since the flag is set, nothing would be able to be added 
-to the td_list.
-
-Thanks
-Wesley Cheng
+Best regards,
+-- 
+Linus Walleij <linus.walleij@linaro.org>
 

@@ -2,83 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69BCF7B3F18
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:14:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2933D7B3F1A
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:15:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C044EFF3;
-	Sat, 30 Sep 2023 10:14:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C044EFF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 244B6DF4;
+	Sat, 30 Sep 2023 10:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 244B6DF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061691;
-	bh=YFz06tyz8dox0aTM8iOPD4rsxYYRBNTMX2fJD4ZB+4U=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1696061722;
+	bh=yNWrvg9RSxhcL8gRvSU8wZSW9cS1tY0WKMBXB8EEnRE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=drklX23TI+GFvxjsA684Yq019g8k1M7Z27Y/lK8bWfnWcalv0Z1dUtLRBzVMu/Kq9
-	 Zb9JmrmOWsuRX08dIJfXgq7TAwQIryzIwKY7NkKDYpqOe1NWW6IHG6z4Et0kqBnPdM
-	 couS517V/A8ZbPDpn5R234S6YbUPtYDDaKyKLV9Y=
+	b=bz068QBLqu4FUFw3LjJWiWVwLPD+VoG5rxpbCS8ZcypX0sgKr80jl38zSKtwAwX+i
+	 s+O2I0FnLfSOO5MuQzsNMDLR9630QxhKtOGH26ti9gMVCJ7Epe57z9LoMJwsSZ0AUt
+	 5wihWQ02eYiABOceCf9AgGpHW1i35Yf+YgLplXvU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0797CF805D2; Sat, 30 Sep 2023 10:12:07 +0200 (CEST)
+	id 9362AF80602; Sat, 30 Sep 2023 10:12:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAE7DF805AC;
-	Sat, 30 Sep 2023 10:12:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4A5EF805ED;
+	Sat, 30 Sep 2023 10:12:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0F6BF80290; Thu, 28 Sep 2023 05:42:01 +0200 (CEST)
+	id B95FBF801D5; Thu, 28 Sep 2023 08:59:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mg.richtek.com (mg.richtek.com [220.130.44.152])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13828F801D5
-	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 05:41:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13828F801D5
-X-MailGates: (SIP:2,PASS,NONE)(compute_score:DELIVER,40,3)
-Received: from 192.168.10.46
-	by mg.richtek.com with MailGates ESMTPS Server V6.0(1978095:0:AUTH_RELAY)
-	(envelope-from <cy_huang@richtek.com>)
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256/256);
- Thu, 28 Sep 2023 11:41:10 +0800 (CST)
-Received: from ex3.rt.l (192.168.10.46) by ex3.rt.l (192.168.10.46) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.25; Thu, 28 Sep
- 2023 11:41:10 +0800
-Received: from linuxcarl2.richtek.com (192.168.10.154) by ex3.rt.l
- (192.168.10.45) with Microsoft SMTP Server id 15.2.1118.25 via Frontend
- Transport; Thu, 28 Sep 2023 11:41:10 +0800
-From: <cy_huang@richtek.com>
-To: Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>
-CC: Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh+dt@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, ChiYuan Huang <cy_huang@richtek.com>, Allen Lin
-	<allen_lin@richtek.com>, <devicetree@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ASoC: codecs: rtq9128: Add TDM input source select
-Date: Thu, 28 Sep 2023 11:41:08 +0800
-Message-ID: <1695872468-24433-3-git-send-email-cy_huang@richtek.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1695872468-24433-1-git-send-email-cy_huang@richtek.com>
-References: <1695872468-24433-1-git-send-email-cy_huang@richtek.com>
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C15FFF800AE
+	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 08:59:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C15FFF800AE
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=SlFDTF4g
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-405497850dbso106386045e9.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 27 Sep 2023 23:59:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1695884353; x=1696489153;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IxtdkWUQyRUGTWll+i5PkjZHj3/ZutnR3Ko0Ft8Vpf4=;
+        b=SlFDTF4gT/7evC5YPP/LRyb9lNCKOZtWdBAXDdUUq2HsVhJlkuciZDmhmz2szHI16M
+         DODYWZACOG5z2fInL9dyvVVsepeCUmCxAH9huahuXQ58M4m6SFExyH4GjRtETBrWVAPw
+         bW4JYIQLgw3VYQxVuDQqYr5wNGndFVdmp4HrfmNiVH+m1Hze2QNZcsA9WCupiBMT46hQ
+         cfn4/rXa7c0sApIMvR8zsBEQR4zP0bH7IcxaTQkkEmd1hR88+XIdyTQbFSDS+4jbqf5q
+         5z3IpRIJIG3FBVsGuSISUYrLwHpkphqesDF/gli7yc6uXKgqWw08fxu9Hlda7c8QrAqG
+         9Uug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695884353; x=1696489153;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IxtdkWUQyRUGTWll+i5PkjZHj3/ZutnR3Ko0Ft8Vpf4=;
+        b=tOmhHPENnQyPain1caai9prw62KpHDRYMxzuCc86alaFXy2pgykzJZO1ngcEDnmcsZ
+         s1AgU+dv3YtmZcfiXlYTcgOgs9tH3Oi4/59xFtJWpuySuwwEY9BPASqb3OrPuvzi63+G
+         UG3vCYHTwQvz6o8bhkLcj0Yeuny2hrpWwVPSUSjcWZH6RBgRwDBiefOdJ7Jb3aIP8Y8y
+         xCUv/HXLZefrxo2VD5tLPnjWaRlphWINjcmgnTV4q3PTPrIVW/MFlVXccS2S3BKOTpll
+         cPYWrgQJYrY1K5XZIKHZBUrT8abisCpqNfDPfj7rvpl+RXsM7QBOFEPW0k2Wjg410nHj
+         NN8w==
+X-Gm-Message-State: AOJu0Yy7fAtmWCBAD596KM9jn2vJvOAsY2WeXVdMbvwAGVZkJqUgj3is
+	kbXXXoRyuQP6qYTYcOhE9J97/g==
+X-Google-Smtp-Source: 
+ AGHT+IGKeFwM5Om0OMVfRkBh1YdUioiRAuzKQMZJEqVhiuiiZ7tZD589pp+o//kNbzitL+JePrtmtw==
+X-Received: by 2002:a05:600c:3b22:b0:406:5303:9be2 with SMTP id
+ m34-20020a05600c3b2200b0040653039be2mr304954wms.0.1695884353220;
+        Wed, 27 Sep 2023 23:59:13 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id
+ z4-20020a05600c220400b003fe61c33df5sm6326296wml.3.2023.09.27.23.59.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 27 Sep 2023 23:59:12 -0700 (PDT)
+Date: Thu, 28 Sep 2023 09:59:10 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: wangweidong.a@awinic.com
+Cc: 13916275206@139.com, alsa-devel@alsa-project.org, arnd@arndb.de,
+	broonie@kernel.org, ckeepax@opensource.cirrus.com,
+	colin.i.king@gmail.com, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, doug@schmorgal.com, fido_max@inbox.ru,
+	harshit.m.mogalapalli@oracle.com, herve.codina@bootlin.com,
+	krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
+	linus.walleij@linaro.org, linux-kernel@vger.kernel.org,
+	liweilei@awinic.com, perex@perex.cz, rf@opensource.cirrus.com,
+	robh+dt@kernel.org, ryans.lee@analog.com, shumingf@realtek.com,
+	tiwai@suse.com, trix@redhat.com, u.kleine-koenig@pengutronix.de,
+	yang.lee@linux.alibaba.com, yijiangtao@awinic.com
+Subject: Re: [PATCH V5 8/8] ASoC: codecs: Add aw87390 amplifier driver
+Message-ID: <71f6bff0-c173-4de2-aed0-38ed2c15ec59@kadam.mountain>
+References: <464ada20-072d-48f8-a270-155dfd4a06b9@kadam.mountain>
+ <20230928064330.104265-1-wangweidong.a@awinic.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MailFrom: prvs=1631658C43=cy_huang@richtek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230928064330.104265-1-wangweidong.a@awinic.com>
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2WEDS6IOWUA6F5EHRRXGEOMYGSN45OS4
-X-Message-ID-Hash: 2WEDS6IOWUA6F5EHRRXGEOMYGSN45OS4
+Message-ID-Hash: 4ZKD5XZJ3YYXVPMETJ4DRRZSCR3PFKZ4
+X-Message-ID-Hash: 4ZKD5XZJ3YYXVPMETJ4DRRZSCR3PFKZ4
 X-Mailman-Approved-At: Sat, 30 Sep 2023 08:11:56 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2WEDS6IOWUA6F5EHRRXGEOMYGSN45OS4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4ZKD5XZJ3YYXVPMETJ4DRRZSCR3PFKZ4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -87,78 +130,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: ChiYuan Huang <cy_huang@richtek.com>
+On Thu, Sep 28, 2023 at 02:43:30PM +0800, wangweidong.a@awinic.com wrote:
+> Thank you very much for your review, but I have some questions
+> I would like to discuss with you
+> 
+> > On Wed, Sep 27, 2023 at 08:16:34PM +0800, wangweidong.a@awinic.com wrote:
+> >> @@ -668,6 +668,17 @@ config SND_SOC_AW88261
+> >>  	  boost converter can be adjusted smartly according to
+> >>  	  the input amplitude.
+> >>  
+> >> +config SND_SOC_AW87390
+> >> +	tristate "Soc Audio for awinic aw87390"
+> 
+> > Capitalize A in Awinic.
+> 
+> Thank you very much, but our company prefers to 
+> use awinic rather than Awinic
 
-Pase the property to decide the TDM input source comes from 'DATA1' or
-'DATA2 pin.
+Ah.  Fine.  I did Google the company name but hadn't scrolled down
+far enough.
 
-Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
----
- sound/soc/codecs/rtq9128.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/rtq9128.c b/sound/soc/codecs/rtq9128.c
-index 926b79ed8078..371d622c6214 100644
---- a/sound/soc/codecs/rtq9128.c
-+++ b/sound/soc/codecs/rtq9128.c
-@@ -14,6 +14,7 @@
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
-+#include <linux/property.h>
- #include <linux/regmap.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -41,6 +42,7 @@
- 
- #define RTQ9128_CHSTAT_VAL_MASK	GENMASK(1, 0)
- #define RTQ9128_DOLEN_MASK	GENMASK(7, 6)
-+#define RTQ9128_TDMSRCIN_MASK	GENMASK(5, 4)
- #define RTQ9128_AUDBIT_MASK	GENMASK(5, 4)
- #define RTQ9128_AUDFMT_MASK	GENMASK(3, 0)
- #define RTQ9128_MSMUTE_MASK	BIT(0)
-@@ -59,6 +61,7 @@ struct rtq9128_data {
- 	struct gpio_desc *enable;
- 	int tdm_slots;
- 	int tdm_slot_width;
-+	bool tdm_input_data2_select;
- };
- 
- struct rtq9128_init_reg {
-@@ -484,7 +487,7 @@ static int rtq9128_dai_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mas
- 	struct rtq9128_data *data = snd_soc_dai_get_drvdata(dai);
- 	struct snd_soc_component *comp = dai->component;
- 	struct device *dev = dai->dev;
--	unsigned int mask, start_loc;
-+	unsigned int mask, start_loc, srcin_select;
- 	int i, frame_length, ret;
- 
- 	dev_dbg(dev, "%s: slot %d slot_width %d, tx/rx mask 0x%x 0x%x\n", __func__, slots,
-@@ -530,6 +533,14 @@ static int rtq9128_dai_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mas
- 		}
- 	}
- 
-+	srcin_select = data->tdm_input_data2_select ? RTQ9128_TDMSRCIN_MASK : 0;
-+	ret = snd_soc_component_update_bits(comp, RTQ9128_REG_SDO_SEL, RTQ9128_TDMSRCIN_MASK,
-+					    srcin_select);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to configure TDM source input select\n");
-+		return ret;
-+	}
-+
- 	data->tdm_slots = slots;
- 	data->tdm_slot_width = slot_width;
- 
-@@ -672,6 +683,9 @@ static int rtq9128_probe(struct i2c_client *i2c)
- 	else if (data->enable)
- 		usleep_range(10000, 11000);
- 
-+	data->tdm_input_data2_select = device_property_read_bool(dev,
-+								 "richtek,tdm-input-data2-select");
-+
- 	i2c_set_clientdata(i2c, data);
- 
- 	/*
--- 
-2.34.1
+regards,
+dan carpenter
 

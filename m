@@ -2,70 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D6D17B1E12
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 15:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F352F7B1E93
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Sep 2023 15:36:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39D1EDF3;
-	Thu, 28 Sep 2023 15:22:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D1EDF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E80ADEC;
+	Thu, 28 Sep 2023 15:35:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E80ADEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695907416;
-	bh=7+U9RPh4/2aJTevbvyq1l+9yFq3+VAEfrkvWMH8+KUg=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ADwaXGxa/I1QmNMbtbmkOJW/5VEV59dwaDrt5J1ng7Lp44j3AhPXZTlftvDjOvozu
-	 dCfljOsS6v1DCCSZdIcoRNuJzlB5eOSfdjHnSkSoW1JrB36XzIMxrqadxvQeuDoFAO
-	 88R0KfAenm7ntaaHvEcT0F7qGZ4/Oz/IiUTMC+Z0=
+	s=default; t=1695908164;
+	bh=2q/ofJbjVnxsiWF4wpyLGs7XzpOCXPm/6xI4ePXLves=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=O4eingds2agZyIzUiqulun2Bc66zcho95PG88SW12d0Cxd7HQ1M71s2cfMCBYgBi/
+	 iw+aWnm7AUn0xXmxekfVHRZf3c03vED86PgGDngt1i5+ZDc9eRhUv5wzkPPkXswKd+
+	 Xct9sx/0B7kTdx32lB+FZaQxHPneCV4a+T35nmP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3F70F80130; Thu, 28 Sep 2023 15:22:45 +0200 (CEST)
+	id B5886F80551; Thu, 28 Sep 2023 15:35:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68FD7F80552;
-	Thu, 28 Sep 2023 15:22:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D1D2F8016A;
+	Thu, 28 Sep 2023 15:35:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6A277F80553; Thu, 28 Sep 2023 15:22:42 +0200 (CEST)
+	id BD51CF801D5; Thu, 28 Sep 2023 15:35:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9A4C6F80551
-	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 15:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A4C6F80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id BE2D3F80130
+	for <alsa-devel@alsa-project.org>; Thu, 28 Sep 2023 15:35:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE2D3F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QPYoE1EO
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 63FEDCE1F43;
-	Thu, 28 Sep 2023 13:22:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C7FC433C9;
-	Thu, 28 Sep 2023 13:22:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1695907352;
-	bh=7+U9RPh4/2aJTevbvyq1l+9yFq3+VAEfrkvWMH8+KUg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=QPYoE1EOVj9zGvXE4rPZihqysnSaqNWKLTOO6vaqv6eOMG1yZNOjTnHh8FNonQSS3
-	 54FkKEsP4as4ez7nzvbOf9aWNar63l0n5HTJp2Zkpyd2kK64Jjv58xvF52BjmngavR
-	 Dkj9KKPlK8TUDb9xXcA0VGu1Ggl9id7oOhqAi3H/pPq5SxiCpLHnnfjHl1IQiWFw+u
-	 MC/Y2WkAUBZdp3+XxEMeGiFZNxcb63Nt3s5iH9oS5v/lCElLRFOiQsnziar1WcgXhZ
-	 d2DdPzyGu/bVfer14QcyGUJEuGnMqc6s+WqDFgEogRcPrPPi+VsiQe8JGAKZVTvUwC
-	 n8ELJWmg9f/4g==
-Message-ID: <1f6247152e1aadc016657d6836ef03c8.broonie@kernel.org>
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.6-rc4
-Date: Thu, 28 Sep 2023 15:22:25 +0200
-Message-ID-Hash: UPDE6TQ2NB27OZB2LSBSYNPZATR4AXED
-X-Message-ID-Hash: UPDE6TQ2NB27OZB2LSBSYNPZATR4AXED
-X-MailFrom: broonie@kernel.org
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=M6cRgirD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1695908103; x=1727444103;
+  h=message-id:date:mime-version:to:cc:references:from:
+   subject:in-reply-to:content-transfer-encoding;
+  bh=2q/ofJbjVnxsiWF4wpyLGs7XzpOCXPm/6xI4ePXLves=;
+  b=M6cRgirDyCgjsfV8+TxX7l3zfc3P8wmpwSPPSypTOsK95luZgVSwSRLA
+   EyECF30T6A7c8bFiKUQYZF2O9YZLL26IeUZWCAuP/y3dWRcNUktLKU4sD
+   ALE+jhKBbiekco9DLbEecAki/rXYfd8F+YZ0VEwy/zmj4hW3WXOl32L0d
+   0wOuBTuwv62ujHSXHST3f6MdsfUt+gLcCY+32w9M+eHHFTqQfotL5BSXq
+   b3oHCBBJBbfVPSnj1b6OBmOdBB8va0u/UXiaHxhKx0qfeXBtB5sRPhBTu
+   WWDrjV4Qlh75lDS/2Y9dYyeOLQlsjOZONJARgvkNakkDXtg/yqDqWqLE1
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="381968822"
+X-IronPort-AV: E=Sophos;i="6.03,184,1694761200";
+   d="scan'208";a="381968822"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2023 06:30:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="923216353"
+X-IronPort-AV: E=Sophos;i="6.03,184,1694761200";
+   d="scan'208";a="923216353"
+Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
+ ([10.237.72.199])
+  by orsmga005.jf.intel.com with ESMTP; 28 Sep 2023 06:30:28 -0700
+Message-ID: <6e9d2094-0bf9-b2ac-29f3-99115b456fdb@linux.intel.com>
+Date: Thu, 28 Sep 2023 16:31:52 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Content-Language: en-US
+To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
+ gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, agross@kernel.org, andersson@kernel.org,
+ konrad.dybcio@linaro.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ Thinh.Nguyen@synopsys.com
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+ <20230921214843.18450-3-quic_wcheng@quicinc.com>
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+Subject: Re: [PATCH v7 02/33] xhci: add helper to stop endpoint and wait for
+ completion
+In-Reply-To: <20230921214843.18450-3-quic_wcheng@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: NONHHM3NHQYTDF4IW3BNGYYJULG5KLLX
+X-Message-ID-Hash: NONHHM3NHQYTDF4IW3BNGYYJULG5KLLX
+X-MailFrom: mathias.nyman@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -77,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UPDE6TQ2NB27OZB2LSBSYNPZATR4AXED/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NONHHM3NHQYTDF4IW3BNGYYJULG5KLLX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,63 +115,184 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 31bb7bd9ffee50d09ec931998b823a86132ab807:
+On 22.9.2023 0.48, Wesley Cheng wrote:
+> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+> 
+> Expose xhci_stop_endpoint_sync() which is a synchronous variant of
+> xhci_queue_stop_endpoint().  This is useful for client drivers that are
+> using the secondary interrupters, and need to stop/clean up the current
+> session.  The stop endpoint command handler will also take care of cleaning
+> up the ring.
+> 
+> Modifications to repurpose the new API into existing stop endpoint
+> sequences was implemented by Wesley Cheng.
+> 
+> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+> Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>   drivers/usb/host/xhci-hub.c | 29 +++---------------
+>   drivers/usb/host/xhci.c     | 60 +++++++++++++++++++++++++++----------
+>   drivers/usb/host/xhci.h     |  2 ++
+>   3 files changed, 50 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
+> index 0054d02239e2..2f7309bdc922 100644
+> --- a/drivers/usb/host/xhci-hub.c
+> +++ b/drivers/usb/host/xhci-hub.c
+> @@ -489,7 +489,6 @@ EXPORT_SYMBOL_GPL(xhci_find_slot_id_by_port);
+>   static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+>   {
+>   	struct xhci_virt_device *virt_dev;
+> -	struct xhci_command *cmd;
+>   	unsigned long flags;
+>   	int ret;
+>   	int i;
+> @@ -501,10 +500,6 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+>   
+>   	trace_xhci_stop_device(virt_dev);
+>   
+> -	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
+> -	if (!cmd)
+> -		return -ENOMEM;
+> -
+>   	spin_lock_irqsave(&xhci->lock, flags);
+>   	for (i = LAST_EP_INDEX; i > 0; i--) {
+>   		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
+> @@ -521,7 +516,7 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+>   			if (!command) {
+>   				spin_unlock_irqrestore(&xhci->lock, flags);
+>   				ret = -ENOMEM;
+> -				goto cmd_cleanup;
+> +				goto out;
+>   			}
+>   
+>   			ret = xhci_queue_stop_endpoint(xhci, command, slot_id,
+> @@ -529,30 +524,14 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+>   			if (ret) {
+>   				spin_unlock_irqrestore(&xhci->lock, flags);
+>   				xhci_free_command(xhci, command);
+> -				goto cmd_cleanup;
+> +				goto out;
+>   			}
+>   		}
+>   	}
+> -	ret = xhci_queue_stop_endpoint(xhci, cmd, slot_id, 0, suspend);
+> -	if (ret) {
+> -		spin_unlock_irqrestore(&xhci->lock, flags);
+> -		goto cmd_cleanup;
+> -	}
+> -
+> -	xhci_ring_cmd_db(xhci);
+>   	spin_unlock_irqrestore(&xhci->lock, flags);
+> +	ret = xhci_stop_endpoint_sync(xhci, &virt_dev->eps[0], suspend);
 
-  ASoC: SOF: core: Only call sof_ops_free() on remove if the probe was successful (2023-09-15 17:14:22 +0100)
+I didn't take this new xhci_stop_endpoint_sync() helper into use as it causes an extra
+xhci spinlock release and reacquire here.
 
-are available in the Git repository at:
+Also the memory allocation flags differ, GFP_NOIO is turned into GFP_KERNEL after this change.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.6-rc4
+>   
+> -	/* Wait for last stop endpoint command to finish */
+> -	wait_for_completion(cmd->completion);
+> -
+> -	if (cmd->status == COMP_COMMAND_ABORTED ||
+> -	    cmd->status == COMP_COMMAND_RING_STOPPED) {
+> -		xhci_warn(xhci, "Timeout while waiting for stop endpoint command\n");
+> -		ret = -ETIME;
+> -	}
+> -
+> -cmd_cleanup:
+> -	xhci_free_command(xhci, cmd);
+> +out:
+>   	return ret;
+>   }
+>   
+> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+> index 3fd2b58ee1d3..163d533d6200 100644
+> --- a/drivers/usb/host/xhci.c
+> +++ b/drivers/usb/host/xhci.c
+> @@ -2758,6 +2758,46 @@ static int xhci_reserve_bandwidth(struct xhci_hcd *xhci,
+>   	return -ENOMEM;
+>   }
+>   
+> +/*
+> + * Synchronous XHCI stop endpoint helper.  Issues the stop endpoint command and
+> + * waits for the command completion before returning.
+> + */
+> +int xhci_stop_endpoint_sync(struct xhci_hcd *xhci, struct xhci_virt_ep *ep, int suspend)
+> +{
+> +	struct xhci_command *command;
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	command = xhci_alloc_command(xhci, true, GFP_KERNEL);
+> +	if (!command)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_irqsave(&xhci->lock, flags);
+> +	ret = xhci_queue_stop_endpoint(xhci, command, ep->vdev->slot_id,
+> +				       ep->ep_index, suspend);
+> +	if (ret < 0) {
+> +		spin_unlock_irqrestore(&xhci->lock, flags);
+> +		goto out;
+> +	}
+> +
+> +	xhci_ring_cmd_db(xhci);
+> +	spin_unlock_irqrestore(&xhci->lock, flags);
+> +
+> +	ret = wait_for_completion_timeout(command->completion, msecs_to_jiffies(3000));
+> +	if (!ret)
+> +		xhci_warn(xhci, "%s: Unable to stop endpoint.\n",
+> +				__func__);
+> +
+> +	if (command->status == COMP_COMMAND_ABORTED ||
+> +	    command->status == COMP_COMMAND_RING_STOPPED) {
+> +		xhci_warn(xhci, "Timeout while waiting for stop endpoint command\n");
+> +		ret = -ETIME;
+> +	}
+> +out:
+> +	xhci_free_command(xhci, command);
+> +
+> +	return ret;
+> +}
+>   
+>   /* Issue a configure endpoint command or evaluate context command
+>    * and wait for it to finish.
+> @@ -3078,7 +3118,7 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+>   	struct xhci_virt_device *vdev;
+>   	struct xhci_virt_ep *ep;
+>   	struct xhci_input_control_ctx *ctrl_ctx;
+> -	struct xhci_command *stop_cmd, *cfg_cmd;
+> +	struct xhci_command *cfg_cmd;
+>   	unsigned int ep_index;
+>   	unsigned long flags;
+>   	u32 ep_flag;
+> @@ -3118,10 +3158,6 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+>   	if (ep_flag == SLOT_FLAG || ep_flag == EP0_FLAG)
+>   		return;
+>   
+> -	stop_cmd = xhci_alloc_command(xhci, true, GFP_NOWAIT);
+> -	if (!stop_cmd)
+> -		return;
+> -
+>   	cfg_cmd = xhci_alloc_command_with_ctx(xhci, true, GFP_NOWAIT);
+>   	if (!cfg_cmd)
+>   		goto cleanup;
+> @@ -3144,23 +3180,16 @@ static void xhci_endpoint_reset(struct usb_hcd *hcd,
+>   		goto cleanup;
+>   	}
+>   
+> -	err = xhci_queue_stop_endpoint(xhci, stop_cmd, udev->slot_id,
+> -					ep_index, 0);
+> +	spin_unlock_irqrestore(&xhci->lock, flags);
+> +
 
-for you to fetch changes up to 7e1fe5d9e7eae67e218f878195d1d348d01f9af7:
+Same here, extra unlock -> lock, and GFP flags differ.
 
-  ASoC: SOF: amd: fix for firmware reload failure after playback (2023-09-27 11:08:05 +0200)
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.6
+> +	err = xhci_stop_endpoint_sync(xhci, ep, 0);
 
-There's quite a lot of changes here, but a lot of them are simple quirks
-or device IDs rather than actual fixes.  The fixes that are here are all
-quite device specific and relatively minor.
+Thanks
+Mathias
 
-----------------------------------------------------------------
-Alex Bee (1):
-      dt-bindings: ASoC: rockchip: Add compatible for RK3128 spdif
-
-Balamurugan C (2):
-      ASoC: Intel: soc-acpi: Add entry for sof_es8336 in MTL match table.
-      ASoC: Intel: soc-acpi: Add entry for HDMI_In capture support in MTL match table
-
-Kuninori Morimoto (2):
-      ASoC: simple-card-utils: fixup simple_util_startup() error handling
-      ASoC: simple-card: fixup asoc_simple_probe() error handling
-
-Mark Brown (1):
-      ASoC: Intel: soc-acpi: Adding Es83x6 codec entry and
-
-Miquel Raynal (1):
-      ASoC: soc-generic-dmaengine-pcm: Fix function name in comment
-
-Pierre-Louis Bossart (2):
-      ASoC: Intel: soc-acpi: fix Dell SKU 0B34
-      ASoC: Intel: sof_sdw: add support for SKU 0B14
-
-Shengjiu Wang (2):
-      ASoC: fsl_sai: Don't disable bitclock for i.MX8MP
-      ASoC: fsl-asoc-card: use integer type for fll_id and pll_id
-
-Vijendar Mukunda (1):
-      ASoC: SOF: amd: fix for firmware reload failure after playback
-
- .../devicetree/bindings/sound/rockchip-spdif.yaml  |  1 +
- sound/soc/fsl/fsl-asoc-card.c                      | 12 +++++++----
- sound/soc/fsl/fsl_sai.c                            |  9 ++++++--
- sound/soc/generic/simple-card-utils.c              |  3 ++-
- sound/soc/generic/simple-card.c                    |  6 ++++--
- sound/soc/intel/boards/sof_es8336.c                | 10 +++++++++
- sound/soc/intel/boards/sof_sdw.c                   | 10 +++++++++
- sound/soc/intel/common/soc-acpi-intel-adl-match.c  | 12 +++++------
- sound/soc/intel/common/soc-acpi-intel-mtl-match.c  | 25 ++++++++++++++++++++++
- sound/soc/soc-generic-dmaengine-pcm.c              |  4 ++--
- sound/soc/sof/amd/pci-rmb.c                        |  1 -
- 11 files changed, 75 insertions(+), 18 deletions(-)

@@ -2,90 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 645287B36CF
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Sep 2023 17:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069B07B36FB
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Sep 2023 17:36:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B96BDDFA;
-	Fri, 29 Sep 2023 17:27:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B96BDDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7265DDE5;
+	Fri, 29 Sep 2023 17:36:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7265DDE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696001275;
-	bh=lDhaMhZT4eROF80/UUA/0Uxbim5qKJVk0kbddzbxy5A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1696001818;
+	bh=ti/iY/I8rL5lxV45hGyYfqiTkZyE90nEyx2osM8ZrS4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RYry9GRjyjAPQd3Rfv7wzGPAguhDSZim9xlT+3/YAWz9Srex/TUDgf1HEE3tMUAQE
-	 Mt8v/7/OvIU7M3ZKrUrrWsKBUmKqIHxmW30WVwsXh0fgo9lyxnpJMfpIgDNl/ashNO
-	 EUAt7czVgwxWkQjPSREpcu91fTBKYHlhwENdS+qU=
+	b=BuaXXXJ/+Z++nHaEAmDHVfcPE8pjxGbY4gNEk/kkOmJ7EC8s6ZMrn4zPbO+H76E99
+	 hE7n5hHvii0vMLYLlEi7Kyl9TkDOZBG/WNiQmLKl8/1e9AdxpIiT1gCx+0P7T95hbZ
+	 v7vUdD+nn4hlrw7KkfZr0cumlyL1KZhn3F7cTQqk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68F72F80579; Fri, 29 Sep 2023 17:26:43 +0200 (CEST)
+	id D3AE9F80553; Fri, 29 Sep 2023 17:35:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED6AAF8016A;
-	Fri, 29 Sep 2023 17:26:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BD73F8016A;
+	Fri, 29 Sep 2023 17:35:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55F16F8047D; Fri, 29 Sep 2023 17:26:39 +0200 (CEST)
+	id 92A14F801D5; Fri, 29 Sep 2023 17:35:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 002A5F800AE;
-	Fri, 29 Sep 2023 17:26:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 002A5F800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3E5CF8007C
+	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 17:35:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3E5CF8007C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
+	dkim=fail reason="signature verification failed" (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EAVdYtcd
+ header.s=k20201202 header.b=LNMo1g0S
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id B6947CE243B;
-	Fri, 29 Sep 2023 15:26:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919EBC433C8;
-	Fri, 29 Sep 2023 15:26:32 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 023C361FC1;
+	Fri, 29 Sep 2023 15:35:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAC20C433B6;
+	Fri, 29 Sep 2023 15:35:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696001192;
-	bh=lDhaMhZT4eROF80/UUA/0Uxbim5qKJVk0kbddzbxy5A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EAVdYtcdU7LbMT5mB0H40Y++kEoixqMQmO92aqFWb5/089IhYoVt2GYxEYF3uh9vL
-	 Q9eK8bRTs1e1NiTLWTG+ElyrswOnyjU9F5Ck2f4CnSli2X6fh4T9AFbxeahccx800M
-	 bWIl9mPuhQYBX2ad5MhCLLVvucA4vuPs7AN4FaMpLPPA3bo+e4ehpCyYQAcC/mWfoj
-	 MyKVBpZPwQBdFF1Wvien2+ycV6tzuwTNBRwyePjUVpD9s8RgjJt9suptarx0pKUGpn
-	 93MaPdMngBav8czmpcmZGkV+pDB3TCxPkidVBf4wi8IbZC9B+s49qZuvSl3JI7cX3Y
-	 JtCxKw3W4tHGA==
-Date: Fri, 29 Sep 2023 17:26:30 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
-	sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH v5 03/12] ASoC: SOF: Intel: hda: start splitting the probe
-Message-ID: <ZRbspls+UDl1g9Kw@finisterre.sirena.org.uk>
-References: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
- <20230929145123.233838-4-maarten.lankhorst@linux.intel.com>
+	s=k20201202; t=1696001734;
+	bh=ti/iY/I8rL5lxV45hGyYfqiTkZyE90nEyx2osM8ZrS4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=LNMo1g0SUF0MshCK7LlJJbQzOUCYhoIrwB0l6YUZb0PbLJcbMcvwykPloDmyIsYoi
+	 xeuehITcBmi1duzE7qO/Gf+8zjPBf4h/K12XsEQitc121OMB5jVeYkH3oXiLB7xWxu
+	 kXUNZMRei9/6rqt0Q0FMOWrglBmLQ6sJLLP/YSybuNwXFYIlkJRtXU6iTpLssd7fwG
+	 O22v6dCSsNK8eDTRkhxq5FT0KmsluuikuLnEg+u32nnRXryeQgN+oHyNvrBL5WohX2
+	 f8izjKJFjvLfLIKunnmccRHUFUKTzmEt2CUc3FVbzHa8YcLJunWI1jUweUpca0UaXk
+	 lp7u+svNF7Etg==
+Received: (nullmailer pid 3601357 invoked by uid 1000);
+	Fri, 29 Sep 2023 15:35:24 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nNJvjSCekUlNJmUN"
-Content-Disposition: inline
-In-Reply-To: <20230929145123.233838-4-maarten.lankhorst@linux.intel.com>
-X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: QM7GVWT6JYI5LRNY34SVNMOHUQMM4FCP
-X-Message-ID-Hash: QM7GVWT6JYI5LRNY34SVNMOHUQMM4FCP
-X-MailFrom: broonie@kernel.org
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Cc: ulf.hansson@linaro.org, Frank Rowand <frowand.list@gmail.com>,
+ edumazet@google.com, jic23@kernel.org, richardcochran@gmail.com,
+ krzysztof.kozlowski+dt@linaro.org, linux-iio@vger.kernel.org,
+ fabrice.gasnier@foss.st.com, linux-mmc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+ davem@davemloft.net, kuba@kernel.org, Oleksii_Moisieiev@epam.com,
+ hugues.fruchet@foss.st.com, linux-arm-kernel@lists.infradead.org,
+ linux-usb@vger.kernel.org, conor+dt@kernel.org,
+ linux-phy@lists.infradead.org, mchehab@kernel.org,
+ linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-i2c@vger.kernel.org, vkoul@kernel.org, linux-spi@vger.kernel.org,
+ olivier.moysan@foss.st.com, linux-serial@vger.kernel.org, arnd@kernel.org,
+ alsa-devel@alsa-project.org, herbert@gondor.apana.org.au,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ gregkh@linuxfoundation.org, dmaengine@vger.kernel.org,
+ alexandre.torgue@foss.st.com, lee@kernel.org, peng.fan@oss.nxp.com, arnaud
+ .pouliquen@foss.st.com, catalin.marinas@arm.com, will@kernel.org,
+ pabeni@redhat.com, robh+dt@kernel.org, andi.shyti@kernel.org
+In-Reply-To: <20230929142852.578394-3-gatien.chevallier@foss.st.com>
+References: <20230929142852.578394-1-gatien.chevallier@foss.st.com>
+ <20230929142852.578394-3-gatien.chevallier@foss.st.com>
+Message-Id: <169600172300.3601265.2185363377386180804.robh@kernel.org>
+Subject: Re: [PATCH v5 02/11] dt-bindings: treewide: add access-controller
+ description
+Date: Fri, 29 Sep 2023 10:35:24 -0500
+Message-ID-Hash: VKJCZGB7YVK7JQGW77UJKUT2HNRGYAJ7
+X-Message-ID-Hash: VKJCZGB7YVK7JQGW77UJKUT2HNRGYAJ7
+X-MailFrom: SRS0=CpPV=FN=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,9 +104,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QM7GVWT6JYI5LRNY34SVNMOHUQMM4FCP/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VKJCZGB7YVK7JQGW77UJKUT2HNRGYAJ7/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -107,34 +113,82 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---nNJvjSCekUlNJmUN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 29 Sep 2023 16:28:43 +0200, Gatien Chevallier wrote:
+> access-controller is an optional property that allows a peripheral to
+> refer to one or more domain access controller(s).
+> 
+> Description of this property is added to all peripheral binding files of
+> the peripheral under the STM32 firewall controllers. It allows an accurate
+> representation of the hardware, where various peripherals are connected
+> to this firewall bus. The firewall can then check the peripheral accesses
+> before allowing it to probe.
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> 
+> Changes in V5:
+> 	- Discarded review tags as the content has changed
+> 	- Renamed feature-domains to access-controller
+> 	- Removed extra blank line in st,stm32-timers.yaml
+> 
+> Changes in V4:
+> 	- Added Jonathan's tag for IIO
+> 
+> Changes in V2:
+> 	- Add missing "feature-domains" property declaration
+> 	  in bosch,m_can.yaml and st,stm32-cryp.yaml files
+> 
+>  Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dma.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml    | 4 ++++
+>  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml   | 4 ++++
+>  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml | 4 ++++
+>  Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml    | 4 ++++
+>  .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml        | 4 ++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml    | 4 ++++
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml          | 4 ++++
+>  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml    | 4 ++++
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml        | 4 ++++
+>  Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml  | 4 ++++
+>  .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/rng/st,stm32-rng.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml     | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-sai.yaml     | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml | 4 ++++
+>  Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/spi/st,stm32-spi.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/usb/dwc2.yaml               | 4 ++++
+>  26 files changed, 104 insertions(+)
+> 
 
-On Fri, Sep 29, 2023 at 04:51:17PM +0200, Maarten Lankhorst wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->=20
-> This patch moves the initial parts of the probe to the probe_early()
-> callback, which provides a much faster decision on whether the SOF
-> driver shall deal with a specific platform or yield to other Intel
-> drivers.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Acked-by: Mark Brown <broonie@kernel.org>
+yamllint warnings/errors:
 
---nNJvjSCekUlNJmUN
-Content-Type: application/pgp-signature; name="signature.asc"
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml: access-controller: missing type definition
 
------BEGIN PGP SIGNATURE-----
+doc reference errors (make refcheckdocs):
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUW7KUACgkQJNaLcl1U
-h9Auawf7BMxLdqOC4O+3unPmYXu0UREWcv1GvxY15x+dxyY7G/UbwROjXwNBbQon
-eU5Na3quTlz4vosPRD+tl/0JWKxgs1DN0sE2YSCd+wSDD3D6fQ18RP+g5bnBllFr
-4FVEZoKmvnC//vVsGVU1odH3iD66vmLVT7RiMkthuAyH0cZ8QGMEk3LVjV4EffCo
-G5aAZ0DwOjQ0V3GOMBOE0JIu4kHR4rsYdqiTiUV7S67kYcuWocpq0XaXOQBTcz5v
-6kqZlEbmYr+FAw//sd527ZEee1OrkaiATXfmk1QMwAiKolqim9MkVUuipcOwL0Zr
-xr52aSvKJ3JWyqVG+9R2yvI4tzzUtQ==
-=0WSI
------END PGP SIGNATURE-----
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230929142852.578394-3-gatien.chevallier@foss.st.com
 
---nNJvjSCekUlNJmUN--
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

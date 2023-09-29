@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E26CF7B30EA
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Sep 2023 12:56:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62867B314D
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Sep 2023 13:25:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2556D3E;
-	Fri, 29 Sep 2023 12:56:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2556D3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CBE7A4A;
+	Fri, 29 Sep 2023 13:24:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CBE7A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1695985018;
-	bh=kPZ6wR/vAMk4xhV5l5oUC1T7NeXF+/f+Wn9iGkBY46s=;
+	s=default; t=1695986748;
+	bh=vN0YpWhvFadGhFnYHYZLvTr/VtQq8Y2lza7Xb2m0tNU=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Pseg+M8CWDDZ1tOp4ZroxSAPFLC9ytvMSqYEmxcb0ZGrl+6S/XYrSTiyLbVCXH4mr
-	 kMj4oOv9WJoWkKph34N3JjBGnBVbxTtPbsrv/Wla3GuePlbEsXQKQnnLyxBoFHPiCP
-	 R6zcmReSk1Vc2VTlxeA45+Dl/ZCu1lhiAhI3xSAY=
+	b=HQdxD5LM6ITTLbGKrd8P8jwrG52d9JMv2H/kV9JHB1dc1eVxug8wSpgMkDZr27RzT
+	 URFWeZ3GEhXQMnpeoZ1KYeFYN77S5k1Venqbf6TR1pItFRoCsP/CChxOa4uoCmh3ty
+	 MKP6lN8BuZbKwbfVzCt2QfyTmjFerxj7/tjuC42k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0E9FF80553; Fri, 29 Sep 2023 12:56:07 +0200 (CEST)
+	id 2464DF80552; Fri, 29 Sep 2023 13:24:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C019F8016A;
-	Fri, 29 Sep 2023 12:56:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D7D6F801D5;
+	Fri, 29 Sep 2023 13:24:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56208F801D5; Fri, 29 Sep 2023 12:56:02 +0200 (CEST)
+	id 3022EF80553; Fri, 29 Sep 2023 13:24:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 836EFF8007C
-	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 12:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 836EFF8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46E16F801D5
+	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 13:24:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E16F801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=SKnA9KZZ
+ header.s=Intel header.b=j5V9n1Zf
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1695984958; x=1727520958;
+  t=1695986679; x=1727522679;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=kPZ6wR/vAMk4xhV5l5oUC1T7NeXF+/f+Wn9iGkBY46s=;
-  b=SKnA9KZZvEOc7lGcfgrRKLVwOHU2ZuTsxMnjkmJ1zJvIi0bNe3JoxNrx
-   VJiZT/twYT1FnlE8kuZlX4QYLXsbV1WDObbvRlp7SosXKNJiTZoyMuXra
-   etmfEGRdCdcIhwgUPe+Hd7UdyIhZDey7xp5EWBTTfaapbTJ2E9TkMvOjn
-   aCgs1QfJtFveDK7C3M174Mv9qFGTkrNz8NAb5AwRdR7ggBBCts/+ivqOg
-   k/2U57lqj1mho3UIxlSVGyWzDVK/h2pegU1B6AS90yJLwpb6HuYnNTq26
-   CINUNltVxoJDiz7iFHnXvIiPArW1widkS4RGV6mFgNHbI7u50LcPllKCn
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="372629968"
+  bh=vN0YpWhvFadGhFnYHYZLvTr/VtQq8Y2lza7Xb2m0tNU=;
+  b=j5V9n1Zfe2yUJaUOLJ8yTUlC239BQ9uUbpAeOI0L1O6J+piviY9qZIry
+   U+LhDH6XVc5CkwHqqWHPgscCEM+3WP5hl/ovTXNjpqIrAHRf9hZtJHuhH
+   OgsFgper05ei9N5SJugrwtGKLcJ1XSgAhEWtoSYAyTHpWMRRhtap2yNlC
+   AwWrjXiybCF5MarNQYTREnjJXFM8yNrpJyIdMgj81dN1dwZfssAwqzMXj
+   jnp1BKueR9kZpBcFzuwiiL/FTpgRlU1jUMIKQGUpJfRGYCBpwdm96Bivh
+   dHgRDjxLR64rUwFopQXH3J6JFvPtozvsWZakABtjgVoMM+nTINCNZQdga
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="880231"
 X-IronPort-AV: E=Sophos;i="6.03,187,1694761200";
-   d="scan'208";a="372629968"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 03:55:53 -0700
+   d="scan'208";a="880231"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2023 04:24:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="785062923"
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="753353605"
 X-IronPort-AV: E=Sophos;i="6.03,187,1694761200";
-   d="scan'208";a="785062923"
+   d="scan'208";a="753353605"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga001.jf.intel.com with ESMTP; 29 Sep 2023 03:55:37 -0700
+  by fmsmga007.fm.intel.com with ESMTP; 29 Sep 2023 04:24:26 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-To: Vinod Koul <vkoul@kernel.org>
+To: Mark Brown <broonie@kernel.org>
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
 	alsa-devel@alsa-project.org,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-Subject: [PATCH] soundwire: Use snd_soc_substream_to_rtd() to obtain rtd
-Date: Fri, 29 Sep 2023 12:55:46 +0200
-Message-Id: <20230929105546.774332-1-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 0/6] ASoC: Intel: avs: QoL fixes
+Date: Fri, 29 Sep 2023 13:24:30 +0200
+Message-Id: <20230929112436.787058-1-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: O7WFZELA2TP5ZKDWEXSZFOLOQKFVSB6B
-X-Message-ID-Hash: O7WFZELA2TP5ZKDWEXSZFOLOQKFVSB6B
+Message-ID-Hash: P5NUQJ5EMT4IWB6Q2VDHGUNVUFPPNCBA
+X-Message-ID-Hash: P5NUQJ5EMT4IWB6Q2VDHGUNVUFPPNCBA
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,56 +96,43 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O7WFZELA2TP5ZKDWEXSZFOLOQKFVSB6B/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P5NUQJ5EMT4IWB6Q2VDHGUNVUFPPNCBA/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+Set of fixes mainly cleaning up code, but also correcting some minor HW
+assumptions.
 
-Utilize the helper function instead of casting from ->private_data
-directly.
+Amadeusz Sławiński (2):
+  ASoC: Intel: avs: Use generic size defines
+  ASoC: Intel: avs: Preallocate memory for module configuration
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- drivers/soundwire/stream.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Cezary Rojewski (3):
+  ASoC: Intel: avs: Move IPC error messages one level down
+  ASoC: Intel: avs: Keep module refcount up when gathering traces
+  ASoC: Intel: avs: Drop superfluous stream decoupling
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 69719b335bcb..652aae4e221d 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -1717,7 +1717,7 @@ EXPORT_SYMBOL(sdw_deprepare_stream);
- static int set_stream(struct snd_pcm_substream *substream,
- 		      struct sdw_stream_runtime *sdw_stream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct snd_soc_dai *dai;
- 	int ret = 0;
- 	int i;
-@@ -1770,7 +1770,7 @@ EXPORT_SYMBOL(sdw_alloc_stream);
- int sdw_startup_stream(void *sdw_substream)
- {
- 	struct snd_pcm_substream *substream = sdw_substream;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct sdw_stream_runtime *sdw_stream;
- 	char *name;
- 	int ret;
-@@ -1814,7 +1814,7 @@ EXPORT_SYMBOL(sdw_startup_stream);
- void sdw_shutdown_stream(void *sdw_substream)
- {
- 	struct snd_pcm_substream *substream = sdw_substream;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct sdw_stream_runtime *sdw_stream;
- 	struct snd_soc_dai *dai;
- 
+Wu Zhou (1):
+  ASoC: Intel: avs: Disable DSP before loading basefw
+
+ sound/soc/intel/avs/avs.h       |  38 ++++-------
+ sound/soc/intel/avs/cldma.h     |   4 +-
+ sound/soc/intel/avs/core.c      |   5 ++
+ sound/soc/intel/avs/debugfs.c   |   4 ++
+ sound/soc/intel/avs/ipc.c       |  52 ++++++++++-----
+ sound/soc/intel/avs/loader.c    |   4 ++
+ sound/soc/intel/avs/messages.c  | 112 ++++++--------------------------
+ sound/soc/intel/avs/messages.h  |   4 +-
+ sound/soc/intel/avs/path.c      |  31 +++++----
+ sound/soc/intel/avs/pcm.c       |   2 -
+ sound/soc/intel/avs/registers.h |   4 +-
+ 11 files changed, 103 insertions(+), 157 deletions(-)
+
 -- 
 2.34.1
 

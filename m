@@ -2,43 +2,43 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE727B3F27
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B6E7B3F28
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:18:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98DD614F9;
-	Sat, 30 Sep 2023 10:17:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98DD614F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBFCA1516;
+	Sat, 30 Sep 2023 10:17:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBFCA1516
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061915;
-	bh=QO9vBvQhyf4JQWEZWikFj8LzX5m4/5IMZnxQgRl2dKU=;
+	s=default; t=1696061926;
+	bh=T40bAk6n6xn0LLlpl7XDDxVgMjZEIn7Ftw6a7oESWOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CzoENYVyNhBlDMfgA5emU4PWgfkfshWtNhty5g+UgQvNPbRSwb144Lv1AyKouvcgk
-	 FZFKIB04HCiIuX+Vf4zB/wrjYlGlySfyKEF5m+nkoOueT2/Dri4IVSDp3oLI67ntnD
-	 67niuWGEoY742L1LpfyHCnfqfmxAqmfhQy56FC2I=
+	b=XSP3mWD5tgtfO/etmCsKaYZtRHtrmD9cLvmnDeUybVqrdfqvixOz80HyhOYNRQU7g
+	 r5Nw5vTodCZTg1Z41kA8gcMUiSROhcyCwC8f1jZhaRt3k6uMFb320ri9nForxai3o6
+	 Yi91QiyFUFdiAqglbOUgrzL2FAtY5+nYcQMi4zds=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A859F80683; Sat, 30 Sep 2023 10:12:54 +0200 (CEST)
+	id A38E3F805D9; Sat, 30 Sep 2023 10:12:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6144AF8067A;
-	Sat, 30 Sep 2023 10:12:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E4D9F80682;
+	Sat, 30 Sep 2023 10:12:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D6F6F80166; Fri, 29 Sep 2023 16:51:49 +0200 (CEST)
+	id 4E197F80564; Fri, 29 Sep 2023 16:51:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+X-Spam-Status: No,
+ score=-4.7 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8144FF8055C;
-	Fri, 29 Sep 2023 16:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8144FF8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1B9CF8016A;
+	Fri, 29 Sep 2023 16:51:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1B9CF8016A
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -54,15 +54,18 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Daniel Baluta <daniel.baluta@nxp.com>,
 	linux-kernel@vger.kernel.org,
-	sound-open-firmware@alsa-project.org
-Subject: [PATCH v5 07/12] ALSA: hda/i915: Allow xe as match for
- i915_component_master_match
-Date: Fri, 29 Sep 2023 16:51:21 +0200
-Message-Id: <20230929145123.233838-8-maarten.lankhorst@linux.intel.com>
+	sound-open-firmware@alsa-project.org,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH v5 08/12] ASoC: Intel: avs: Move snd_hdac_i915_init to before
+ probe_work.
+Date: Fri, 29 Sep 2023 16:51:22 +0200
+Message-Id: <20230929145123.233838-9-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
 References: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-MailFrom: mlankhorst@mblankhorst.nl
 X-Mailman-Rule-Hits: nonmember-moderation
@@ -70,15 +73,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: KZ4BUNEGYB3ZPQ5LPGGWRFMU7IRPHAV7
-X-Message-ID-Hash: KZ4BUNEGYB3ZPQ5LPGGWRFMU7IRPHAV7
+Message-ID-Hash: ACV653QGJNSLPMME5ZP7KMOO2HHRPJ4Y
+X-Message-ID-Hash: ACV653QGJNSLPMME5ZP7KMOO2HHRPJ4Y
 X-Mailman-Approved-At: Sat, 30 Sep 2023 08:12:29 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KZ4BUNEGYB3ZPQ5LPGGWRFMU7IRPHAV7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ACV653QGJNSLPMME5ZP7KMOO2HHRPJ4Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -87,36 +90,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Xe is a new driver for intel GPU's that shares the sound related code
-with i915.
+Now that we can use -EPROBE_DEFER, it's no longer required to spin off
+the snd_hdac_i915_init into a workqueue. It's likely the whole workqueue
+can be destroyed, but I don't have the means to test this.
 
-The modprobe mechanism is being replaced by the -EPROBE_DEFER mechanism,
-so we don't need to add a modprobe xe call. Adding this would have
-required a telepathy module to correctly guess whether to load i915 or
-xe.
+Removing the workqueue would simplify init even further, but is left
+as exercise for the reviewer.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Acked-by: Mark Brown <broonie@kernel.org>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/hda/hdac_i915.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/intel/avs/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index ffa35d7a367c0..0765e5350e7ba 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -115,7 +115,8 @@ static int i915_component_master_match(struct device *dev, int subcomponent,
- 	hdac_pci = to_pci_dev(bus->dev);
- 	i915_pci = to_pci_dev(dev);
+diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
+index bbb40339c75f4..8a20639582487 100644
+--- a/sound/soc/intel/avs/core.c
++++ b/sound/soc/intel/avs/core.c
+@@ -191,10 +191,6 @@ static void avs_hda_probe_work(struct work_struct *work)
  
--	if (!strcmp(dev->driver->name, "i915") &&
-+	if ((!strcmp(dev->driver->name, "i915") ||
-+		 !strcmp(dev->driver->name, "xe")) &&
- 	    subcomponent == I915_COMPONENT_AUDIO &&
- 	    connectivity_check(i915_pci, hdac_pci))
- 		return 1;
+ 	pm_runtime_set_active(bus->dev); /* clear runtime_error flag */
+ 
+-	ret = snd_hdac_i915_init(bus, true);
+-	if (ret < 0)
+-		dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
+-
+ 	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
+ 	avs_hdac_bus_init_chip(bus, true);
+ 	avs_hdac_bus_probe_codecs(bus);
+@@ -465,10 +461,19 @@ static int avs_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
+ 	pci_set_drvdata(pci, bus);
+ 	device_disable_async_suspend(dev);
+ 
++	ret = snd_hdac_i915_init(bus, false);
++	if (ret == -EPROBE_DEFER)
++		goto err_i915_init;
++	else if (ret < 0)
++		dev_info(bus->dev, "i915 init unsuccessful: %d\n", ret);
++
+ 	schedule_work(&adev->probe_work);
+ 
+ 	return 0;
+ 
++err_i915_init:
++	pci_clear_master(pci);
++	pci_set_drvdata(pci, NULL);
+ err_acquire_irq:
+ 	snd_hdac_bus_free_stream_pages(bus);
+ 	snd_hdac_ext_stream_free_all(bus);
 -- 
 2.39.2
 

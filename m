@@ -2,94 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8276C7B3F1E
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:16:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A077B3F1F
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 10:16:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 211D314A9;
-	Sat, 30 Sep 2023 10:15:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 211D314A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA78F99;
+	Sat, 30 Sep 2023 10:15:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA78F99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696061783;
-	bh=4obIZ+10ckeVMZcbOVIG1esu1eGUX5gk6OFocjgA65U=;
+	s=default; t=1696061799;
+	bh=VI6HYd6UgYicBB5CrODZXk5YP4jf4qxtcgYyDe4zYZ4=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=svIhDmSQKKcLBTmne9FK9AefjVWdHCOBJcEranfToGeVLnsK/1/EixADTHSR2vBeh
-	 GmnbuLaV8k7105TtahHWac9aIJUpqzw6HgxvptBtgRJ225fNHORknD0yDDm8oXv1vJ
-	 +GMIf7BC1Iy7Yslukq5LU5AtKsJnX5iZgfkciQno=
+	b=HjTLOyFENBgaw41F0BTKxwj/FkyYIvSjZd+x0kVSIlOINHe4n/sspBemf++3RZ2YJ
+	 kCAmjhOcVeKt/Nt2vR8btqVy5s5oeuYhVLJ8T9bPHH4vtM0IPKvh58Wy7dNqdND36s
+	 /bc0TrFqRdFjR4mh1akCqkJQ+s1BZMSrkg8h843A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F5F6F8057E; Sat, 30 Sep 2023 10:12:29 +0200 (CEST)
+	id 2C398F80624; Sat, 30 Sep 2023 10:12:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C353CF805AA;
-	Sat, 30 Sep 2023 10:12:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9E68F805E2;
+	Sat, 30 Sep 2023 10:12:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 886C3F801D5; Fri, 29 Sep 2023 15:01:59 +0200 (CEST)
+	id 8FF8DF80549; Fri, 29 Sep 2023 16:51:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+X-Spam-Status: No,
+ score=-4.7 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F17BBF8016A
-	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 15:01:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F17BBF8016A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256
- header.s=mail header.b=Sf24mHE1
-Received: from localhost (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 438B540C6D;
-	Fri, 29 Sep 2023 15:01:50 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
-	by localhost (disroot.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id yBXZ-MBNDPfL; Fri, 29 Sep 2023 15:01:49 +0200 (CEST)
-From: Antoine Gennart <gennartan@disroot.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1695992509; bh=4obIZ+10ckeVMZcbOVIG1esu1eGUX5gk6OFocjgA65U=;
-	h=From:To:Cc:Subject:Date;
-	b=Sf24mHE1kBIPLQAA9oQAqTezyw8bAS7NbZU4GyPD4nuS7wNkMJcOM9/0mSHWLm28U
-	 SqD2d3fDeMQ+LJyJqz3VHnp2MwIV1xnDLIYMK2CgHBUVCqtBIhW7CfeH19zkYvVbej
-	 NJkylyBAogtE5nc1ul1NU75i04P7NV8fmBot1z54MvgDLVJ3ellrwbaj+NBY5qG+/C
-	 /dybzk8P5vq8e1n++QR5XPWHoviR4209/zJ47Ch8TAeXbZ/qMhn+6v2zP5ovWhvlpv
-	 a3gArvJSnmg0nHV//2inNvgQtppYYj2G3P8R3LG07gOhkzp/G0L/tDxcQTCqwjaIQH
-	 yfQaUOErQJ/AA==
-To: linux-kernel@vger.kernel.org
-Cc: shenghao-ding@ti.com,
-	kevin-lu@ti.com,
-	baojun.xu@ti.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	Antoine Gennart <gennartan@disroot.org>
-Subject: [PATCH] audio: tlv320adc3xxx: BUG: Correct micbias setting
-Date: Fri, 29 Sep 2023 15:01:17 +0200
-Message-Id: <20230929130117.77661-1-gennartan@disroot.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64933F8007C;
+	Fri, 29 Sep 2023 16:51:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64933F8007C
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: [PATCH v5 00/12] sound: Use -EPROBE_DEFER instead of i915 module
+ loading.
+Date: Fri, 29 Sep 2023 16:51:14 +0200
+Message-Id: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MailFrom: gennartan@disroot.org
+X-MailFrom: mlankhorst@mblankhorst.nl
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CBIIRUIIMB7KOQXZUTDGEAHRIBAJRQH2
-X-Message-ID-Hash: CBIIRUIIMB7KOQXZUTDGEAHRIBAJRQH2
-X-Mailman-Approved-At: Sat, 30 Sep 2023 08:11:57 +0000
+Message-ID-Hash: 63SFEILCDPBPZ5RNAR4EJX3K3MLOUNX7
+X-Message-ID-Hash: 63SFEILCDPBPZ5RNAR4EJX3K3MLOUNX7
+X-Mailman-Approved-At: Sat, 30 Sep 2023 08:12:27 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CBIIRUIIMB7KOQXZUTDGEAHRIBAJRQH2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/63SFEILCDPBPZ5RNAR4EJX3K3MLOUNX7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,36 +86,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The micbias setting for tlv320adc can also have the value '3' which
-means that the micbias ouput pin is connected to the input pin AVDD.
+Explicitly loading i915 becomes a problem when upstreaming the new intel driver
+for Tiger Lake and higher graphics (xe). By loading i915, it doesn't wait for
+driver load of xe, and will fail completely before it loads.
 
-Signed-off-by: Antoine Gennart <gennartan@disroot.org>
----
- sound/soc/codecs/tlv320adc3xxx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+-EPROBE_DEFER has to be returned before any device is created in probe(),
+otherwise the removal of the device will cause EPROBE_DEFER to try again
+in an infinite loop.
 
-diff --git a/sound/soc/codecs/tlv320adc3xxx.c b/sound/soc/codecs/tlv320adc3xxx.c
-index b976c1946286..420bbf588efe 100644
---- a/sound/soc/codecs/tlv320adc3xxx.c
-+++ b/sound/soc/codecs/tlv320adc3xxx.c
-@@ -293,7 +293,7 @@
- #define ADC3XXX_BYPASS_RPGA		0x80
- 
- /* MICBIAS control bits */
--#define ADC3XXX_MICBIAS_MASK		0x2
-+#define ADC3XXX_MICBIAS_MASK		0x3
- #define ADC3XXX_MICBIAS1_SHIFT		5
- #define ADC3XXX_MICBIAS2_SHIFT		3
- 
-@@ -1099,7 +1099,7 @@ static int adc3xxx_parse_dt_micbias(struct adc3xxx *adc3xxx,
- 	unsigned int val;
- 
- 	if (!of_property_read_u32(np, propname, &val)) {
--		if (val >= ADC3XXX_MICBIAS_AVDD) {
-+		if (val > ADC3XXX_MICBIAS_AVDD) {
- 			dev_err(dev, "Invalid property value for '%s'\n", propname);
- 			return -EINVAL;
- 		}
+The conversion is done in gradual steps. First I add an argument to
+snd_hdac_i915_init to allow for -EPROBE_DEFER so I can convert each driver
+separately. Then I convert each driver to move snd_hdac_i915_init out of the
+workqueue. Finally I drop the ability to choose modprobe behavior after the
+last user is converted.
+
+Compared to previous version, I added a fix for sof_ops_free() missing call,
+renamed probe_no_wq and remove_no_wq to probe_early/probe_late, and fixed
+the resulting fallout.
+
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: sound-open-firmware@alsa-project.org
+
+Maarten Lankhorst (10):
+  ASoC/SOF/core: Ensure sof_ops_free() is still called when probe never
+    ran.
+  ALSA: hda/intel: Fix error handling in azx_probe()
+  ALSA: hda/i915: Allow override of gpu binding.
+  ALSA: hda/i915: Add an allow_modprobe argument to snd_hdac_i915_init
+  ALSA: hda/i915: Allow xe as match for i915_component_master_match
+  ASoC: Intel: avs: Move snd_hdac_i915_init to before probe_work.
+  ALSA: hda/intel: Move snd_hdac_i915_init to before probe_work.
+  ASoC: Intel: Skylake: Move snd_hdac_i915_init to before probe_work.
+  ASoC: SOF: Intel: Move binding to display driver outside of deferred
+    probe
+  ALSA: hda/i915: Remove extra argument from snd_hdac_i915_init
+
+Pierre-Louis Bossart (2):
+  ASoC: SOF: core: Add probe_early and remove_late callbacks
+  ASoC: SOF: Intel: hda: start splitting the probe
+
+ sound/hda/hdac_i915.c                | 24 ++++++-----
+ sound/pci/hda/hda_intel.c            | 60 ++++++++++++++--------------
+ sound/soc/intel/avs/core.c           | 13 ++++--
+ sound/soc/intel/skylake/skl.c        | 31 +++++---------
+ sound/soc/sof/core.c                 | 17 +++++++-
+ sound/soc/sof/intel/hda-common-ops.c |  2 +
+ sound/soc/sof/intel/hda.c            | 30 +++++++++-----
+ sound/soc/sof/intel/hda.h            |  2 +
+ sound/soc/sof/ops.h                  | 16 ++++++++
+ sound/soc/sof/sof-priv.h             |  2 +
+ 10 files changed, 119 insertions(+), 78 deletions(-)
+
 -- 
-2.34.1
+2.39.2
 

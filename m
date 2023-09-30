@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54C277B3EDC
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 09:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CC417B3EDD
+	for <lists+alsa-devel@lfdr.de>; Sat, 30 Sep 2023 09:49:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DFB3DEC;
-	Sat, 30 Sep 2023 09:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DFB3DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D7B3DF3;
+	Sat, 30 Sep 2023 09:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D7B3DF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696060113;
-	bh=Y7QiAYKkQxy2u7FQHtvNQn8QyS6CL3Y+O43Ca9dU3ME=;
+	s=default; t=1696060164;
+	bh=2U0iD3gdL6LQFqNuQisPjagQo4ampNnCxpAxvRD1OKk=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gDn1fXFhtkEPC2CF5Srugiz1mwGaOdcd+Kj56IT8WJul0JEgr0bb2BxDug7I2wWHl
-	 mbcc1voEKSdxALh62yMS0EQUrHNNQFnY8+jotAwZ1OGdGBp81bqGjTINbnVo9wZ/8R
-	 htR6b0mGDXtBfLHhM9ZrMfLNiGxK8KlSCdWo6b6s=
+	b=Bwgo/qnIjoOnkKTdYHt8Lhc6hcrbAshaIQYlkP3G8IJi0y7ng4GQYWyqysrBQfaY0
+	 GHBGY853rSO2n5I4lcz3CYVZMs14BtqSfPTrAHe2sUHdGhyjgFSItVp9mhFIpBBshq
+	 CUK1YRcweoK4ytpfgsvQzJxrvcJz4sH0x9f5PxA8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18E90F80130; Sat, 30 Sep 2023 09:47:42 +0200 (CEST)
+	id B68F2F8055A; Sat, 30 Sep 2023 09:47:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF3D6F8016A;
-	Sat, 30 Sep 2023 09:47:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46B7BF8055A;
+	Sat, 30 Sep 2023 09:47:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BAFF6F801D5; Sat, 30 Sep 2023 09:46:01 +0200 (CEST)
+	id E6FA0F801D5; Sat, 30 Sep 2023 09:47:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,65 +37,71 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A921F80130
-	for <alsa-devel@alsa-project.org>; Sat, 30 Sep 2023 09:45:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A921F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B1BCF800AE
+	for <alsa-devel@alsa-project.org>; Sat, 30 Sep 2023 09:47:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B1BCF800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=NC8omcu8;
+ header.s=susede2_rsa header.b=tVyw5F/6;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=nh6M0I2V
+ header.s=susede2_ed25519 header.b=LAqBoxiE
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C23331F461;
-	Sat, 30 Sep 2023 07:45:55 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 528331F461;
+	Sat, 30 Sep 2023 07:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1696059955;
+	t=1696060054;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VuuVYE59C3eyjUJI0rvtdgnZfz9kxF29/6q3f5PcBoI=;
-	b=NC8omcu8p/v75iVTn8aR0nGgz1dUffOgh56qpDbwTzmof5kdXYUB01CBFzQ95uCNusu24L
-	0onFXGjLGBdxl9cWcx/kACm7Btf3KeAi3zXX7YXQsjbbvHiFUhXIfrvBJwHzO1ndc8VDa/
-	4+GSiMgJ3gEnp/dgQbcTwcIcLAidGNc=
+	bh=gx6ZDz4Ci8UnJkKANfhVZGkBcGUTdk3xx4yitDS/fZE=;
+	b=tVyw5F/6QCdOLj7if58Md+ZUR3nQm5otb9P0XHIhBqFbLZApUQ1NQatbqUVE4G7oGw/McN
+	Sauwj+P9w4DO6xVUutJhlHltXJp0h6ELlMzWm7zVW+6ccUs5O94lCVSP3x3AxSQ7dKf0QS
+	SSBI34uRRmojSmc+VRINxSp/HNK5gxY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1696059955;
+	s=susede2_ed25519; t=1696060054;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VuuVYE59C3eyjUJI0rvtdgnZfz9kxF29/6q3f5PcBoI=;
-	b=nh6M0I2V1bWNk+GyxL5RTRQ/vwU7TSJrzzBgwkkcN8nE3inBeQ9wlR9JuGnGlgMR3hXWe+
-	vo5n5aFZDT5Kx5BA==
+	bh=gx6ZDz4Ci8UnJkKANfhVZGkBcGUTdk3xx4yitDS/fZE=;
+	b=LAqBoxiE9Bu4pTBaXLkV3o/Yv7UIoPrZpDTYRIcdlVx/v5Ewl/G/YFnfumzW2yMFKqkPfm
+	UEfBLLkW98IkioBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B743D13499;
-	Sat, 30 Sep 2023 07:45:55 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 408AA13499;
+	Sat, 30 Sep 2023 07:47:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id hQdwLDPSF2VLMAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 30 Sep 2023 07:45:55 +0000
-Date: Sat, 30 Sep 2023 09:45:55 +0200
-Message-ID: <s5hv8bs5cjw.wl-tiwai@suse.de>
+	id zeNlD5bSF2XbMAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sat, 30 Sep 2023 07:47:34 +0000
+Date: Sat, 30 Sep 2023 09:47:33 +0200
+Message-ID: <s5httrc5ch6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.6-rc4
-In-Reply-To: <1f6247152e1aadc016657d6836ef03c8.broonie@kernel.org>
-References: <1f6247152e1aadc016657d6836ef03c8.broonie@kernel.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: James Schulman <james.schulman@cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: cirrus_scodec: fix an error code
+In-Reply-To: <5eea7fd5-67c8-4ed4-b5b3-b85dfb7572cc@moroto.mountain>
+References: <5eea7fd5-67c8-4ed4-b5b3-b85dfb7572cc@moroto.mountain>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: MGUFAJBTRLP2KLNICPWWYX4UV6AW74WF
-X-Message-ID-Hash: MGUFAJBTRLP2KLNICPWWYX4UV6AW74WF
+Message-ID-Hash: 62YZP26QXNSHTFNCVPTHQER4XY4NLTXB
+X-Message-ID-Hash: 62YZP26QXNSHTFNCVPTHQER4XY4NLTXB
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGUFAJBTRLP2KLNICPWWYX4UV6AW74WF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/62YZP26QXNSHTFNCVPTHQER4XY4NLTXB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,32 +123,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 28 Sep 2023 15:22:25 +0200,
-Mark Brown wrote:
+On Wed, 27 Sep 2023 14:44:01 +0200,
+Dan Carpenter wrote:
 > 
-> The following changes since commit 31bb7bd9ffee50d09ec931998b823a86132ab807:
+> The "ret" variable is zero but we should return -EINVAL.
 > 
->   ASoC: SOF: core: Only call sof_ops_free() on remove if the probe was successful (2023-09-15 17:14:22 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.6-rc4
-> 
-> for you to fetch changes up to 7e1fe5d9e7eae67e218f878195d1d348d01f9af7:
-> 
->   ASoC: SOF: amd: fix for firmware reload failure after playback (2023-09-27 11:08:05 +0200)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.6
-> 
-> There's quite a lot of changes here, but a lot of them are simple quirks
-> or device IDs rather than actual fixes.  The fixes that are here are all
-> quite device specific and relatively minor.
+> Fixes: 2144833e7b41 ("ALSA: hda: cirrus_scodec: Add KUnit test")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 
-Thanks, pulled now.
-
-I've been traveling in this week, so I'm going to send a PR in the
-next week.
+Applied now.  Thanks.
 
 
 Takashi

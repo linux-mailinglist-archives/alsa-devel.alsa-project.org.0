@@ -2,115 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0AA47B9B7A
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CB37B9B7B
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:48:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF21EAE8;
-	Thu,  5 Oct 2023 09:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF21EAE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0877CE12;
+	Thu,  5 Oct 2023 09:47:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0877CE12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492060;
-	bh=n8c5VPqof5cSz/xeEzUcmLspOpPdFu7ZTPAoFiNDi+g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DieXa62/uBHOxzMSlhnwsREqqDKaRAyWzvGO1Onv3h6hYHYlVzXzUJRBgRLMXrzhW
-	 dIGATBg5t32zKubUYHeAtlhkE1nT7ZjPmNMMtzaj+HXp3CLrLs2OaLOvMbDeFGSDE6
-	 pfy83j1ELqdP7C7nXKgfHWeQsxcjOKOrYiE0PDeY=
+	s=default; t=1696492111;
+	bh=vTJNiOwVF4b2pGfzGVb8ZHxmmjupc/KlN8DrOG4IFn0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FAmlZ7nZFRSKhcbS9ymp7PCsqRhofoNQLzU8bTL5ZvBKzH/oAGdtlO5WMP2EmwkCU
+	 s+hIhTc1up5ACPBxiSRXReCOq89NvALm6yu0JQtw2eL5H/m5kA3mLG3efU4MHuZcV2
+	 3qn2AqDgMCh7upiClLcPbrMYXIMQ9bAhdf9FjQGc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 790CEF80552; Thu,  5 Oct 2023 09:46:49 +0200 (CEST)
+	id CA62EF80564; Thu,  5 Oct 2023 09:46:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3BE9F80310;
-	Thu,  5 Oct 2023 09:46:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89E41F8055C;
+	Thu,  5 Oct 2023 09:46:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B827CF801D5; Fri, 29 Sep 2023 17:35:38 +0200 (CEST)
+	id 97F88F80290; Sat, 30 Sep 2023 11:56:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HELO_DYNAMIC_IPADDR,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RDNS_DYNAMIC,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com
+ [162.62.57.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0734FF8007C
-	for <alsa-devel@alsa-project.org>; Fri, 29 Sep 2023 17:35:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0734FF8007C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9CADAF8007C
+	for <alsa-devel@alsa-project.org>; Sat, 30 Sep 2023 11:56:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CADAF8007C
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dLE9nEAz
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 68E34B81FF3;
-	Fri, 29 Sep 2023 15:35:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4186C433C7;
-	Fri, 29 Sep 2023 15:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696001729;
-	bh=n8c5VPqof5cSz/xeEzUcmLspOpPdFu7ZTPAoFiNDi+g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dLE9nEAz7xekqFIavm5dEJULK3Af4aiyLsSYoYDepzYMqvw4BVd56r19mCA7b5ove
-	 YEWaLF6IxaIZpcLVg07pFTX5C8bu2DWEUlQy2TM3PZMnRVQ1eHzv7tZChTjYGAUpYK
-	 5rjIOl+kGt9fV0ruN3IkDiHN78H0wW6m4rxcLIxHP5bueH1MbBWdJXCW8KclvSlw/E
-	 NyyDtTE8ZoMz1nJRKZNonHppUVkdK7mv+8Px297LBx1RECgAPUEcg8MHOP+sQ7uVJd
-	 hyYm5Soq2Y0bJvcEGJBidVI1rjZAkeY+3gKimZgrdAkVdAKaNqrCsbYjhbO2zPKadh
-	 ox3UJzGXhqyQQ==
-Received: (nullmailer pid 3601354 invoked by uid 1000);
-	Fri, 29 Sep 2023 15:35:24 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key,
+ unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256
+ header.s=s201512 header.b=TuKoQkK9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1696067754;
+	bh=bT0oatsp3pkSMaLKyp4Qrnd8ADAIwJtCgQOgUa+Ug6s=;
+	h=From:To:Cc:Subject:Date;
+	b=TuKoQkK9X8Tv/fYSIyblHvvdW+UufLSrjkAx3URg/JKCmbrNy0KF0zRsaE9btFXr2
+	 /VmA1LLESWreGNqd7b53bP7rHIehOldJtF1hBpxvrK3HH1I+WTOqLcXUE4K/wikUjP
+	 z+nS2mehFg77CO5Yu5yQfX98UWNEGOt1NTeWQGqI=
+Received: from KernelDevBox.byted.org ([180.184.51.40])
+	by newxmesmtplogicsvrszb9-0.qq.com (NewEsmtp) with SMTP
+	id DF306A2B; Sat, 30 Sep 2023 17:55:51 +0800
+X-QQ-mid: xmsmtpt1696067751ty35czsma
+Message-ID: <tencent_4F37C9B5315B7960041E8E0ADDA869128F08@qq.com>
+X-QQ-XMAILINFO: MBf0q8AysQnBhAPO+DycjfzqE4Ij8dAVEqskp0OipBIJ1hs7gNgQbeHUOFMDom
+	 jOhD4yriDBYsMsOjrlj14H3u2/egNFnAa8SxkXJumF5w9XcdwgZbCwGmp1knEbPPSuCdd3vI3rxH
+	 89PT7Y4FgpwBCBVrTGpY47mcsPpOYU3N3tdCGrlPP3XpfPj10kyEG2GFZj7E0WXKI0DOi04N+J5R
+	 BErCXvlfI/e+dj0/+BhdP8oJLS65iw2+9ic2EwexRHeKhdNXnljqyL/gQ2MBB5dVLe4kgjIYZEUI
+	 OVLOGzEWyQE/kJBDr5Ai2Xc7BTcTAWv2VN9MLgDRoIc9ZU9eL1BgpcW1o67/jD3OPYsAAdWfmoLG
+	 1SBr4e9b4cDQAHkwwat7U4ra+Bw7s2mFk3j9FYV8pobC4wvgsPRqHNUEWZm4Fy/goBHvJsN4I07T
+	 OjgQruxTHdaxYjbrudqRKBB6Z/yhFB13Hfigc49YnNWhRsn6cbrf/px/7ZuK5ECWbjkT31tdgwxh
+	 ruwe0/C7zH2KhiYxBHtpgFBFEMxVUoF9Q+dZpq7z9AKuHIJtpflK4LJNNqRcgopVXkUvNCdvvhC4
+	 OhAcrVjTwT/27ZDZYN+DqY/1wZXCDRRH0DQNd0r4stLaBA7bUfmqlAv3NxBSzaciKJyLo++iMP4S
+	 FCsvhT+V1FmhvwaeWfu/Vl7i2EvkUYmUDqq7/zR4QqByZHDMTdXf8B8HtR6ESBgQCE9Uypf1E/vo
+	 uQGzwjkGiwY8mq83BuovzaPJKAc+7VfzgaU6Kvl6vfmTmu9AN1oclynyAQbv7lAUit/71Z0yFpkn
+	 z/KDzb0Z4yyrCX1tzIASdjJqIOb+YdIvLvlRh8imNubfgnURz3egLq6+4EDTOp14ttjee4iVjigv
+	 6BQ2RoW2aF08NLhpKKakMNeffpQ5MWmTPKwr2sFeZUCdFORoG9N4mKPvOfe5haJU36OapYsHiQ12
+	 jW0muUv6qqW4t18uxamGutGbUL0mYv0fEhK6rM2LPzrqd48xxrpFSiPJkjJasx
+X-QQ-XMRINFO: Mp0Kj//9VHAxr69bL5MkOOs=
+From: Zhang Shurong <zhang_shurong@foxmail.com>
+To: oder_chiou@realtek.com
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Zhang Shurong <zhang_shurong@foxmail.com>
+Subject: [PATCH] ASoC: rt5682: Fix regulator enable/disable sequence
+Date: Sat, 30 Sep 2023 17:55:50 +0800
+X-OQ-MSGID: <20230930095550.99344-1-zhang_shurong@foxmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Cc: arnd@kernel.org, linux-phy@lists.infradead.org,
-	linux-mmc@vger.kernel.org, dmaengine@vger.kernel.org,
-	robh+dt@kernel.org, jic23@kernel.org, davem@davemloft.net,
-	kuba@kernel.org, pabeni@redhat.com, linux-spi@vger.kernel.org,
-	linux-i2c@vger.kernel.org, olivier.moysan@foss.st.com,
-	linux-media@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>, edumazet@google.com,
-	linux-stm32@st-md-mailman.stormreply.com, ulf.hansson@linaro.org,
-	richardcochran@gmail.com, will@kernel.org,
-	linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, arnaud.pouliquen@foss.st.com,
-	linux-serial@vger.kernel.org, alexandre.torgue@foss.st.com,
-	Frank Rowand <frowand.list@gmail.com>, andi.shyti@kernel.org,
-	linux-usb@vger.kernel.org, peng.fan@oss.nxp.com, lee@kernel.org,
-	fabrice.gasnier@foss.st.com, conor+dt@kernel.org,
-	Oleksii_Moisieiev@epam.com, herbert@gondor.apana.org.au,
-	linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
-	al@alsa-project.org, sa-devel@alsa-project.org,
-	hugues.fruchet@foss.st.com, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, mchehab@kernel.org, vkoul@kernel.org,
-	gregkh@linuxfoundation.org
-In-Reply-To: <20230929142852.578394-2-gatien.chevallier@foss.st.com>
-References: <20230929142852.578394-1-gatien.chevallier@foss.st.com>
- <20230929142852.578394-2-gatien.chevallier@foss.st.com>
-Message-Id: <169600172184.3601218.2121908606358610119.robh@kernel.org>
-Subject: Re: [PATCH v5 01/11] dt-bindings: document generic access
- controller
-Date: Fri, 29 Sep 2023 10:35:24 -0500
-X-MailFrom: SRS0=CpPV=FN=robh_at_kernel.org=rob@kernel.org
-X-Mailman-Rule-Hits: implicit-dest
+Content-Transfer-Encoding: 8bit
+X-MailFrom: zhang_shurong@foxmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; max-recipients; max-size; news-moderation; no-subject;
- digests; suspicious-header
-Message-ID-Hash: CGWEAT4TLYYYV3AMKZFVM2F7UFGLO6OO
-X-Message-ID-Hash: CGWEAT4TLYYYV3AMKZFVM2F7UFGLO6OO
-X-Mailman-Approved-At: Thu, 05 Oct 2023 07:46:43 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: MR7MDX4J5RLQZ3I7C26VKASHNMAGGPAB
+X-Message-ID-Hash: MR7MDX4J5RLQZ3I7C26VKASHNMAGGPAB
+X-Mailman-Approved-At: Thu, 05 Oct 2023 07:46:44 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CGWEAT4TLYYYV3AMKZFVM2F7UFGLO6OO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MR7MDX4J5RLQZ3I7C26VKASHNMAGGPAB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,63 +108,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This will attempt to disable the regulators if the initial enable fails
+which is a bug.
 
-On Fri, 29 Sep 2023 16:28:42 +0200, Gatien Chevallier wrote:
-> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-> 
-> Introducing of the generic access controller bindings for the
-> access controller provider and consumer devices. Those bindings are
-> intended to allow a better handling of accesses to resources in a
-> hardware architecture supporting several compartments.
-> 
-> This patch is based on [1]. It is integrated in this patchset as it
-> provides a use-case for it.
-> 
-> Diffs with [1]:
-> 	- Rename feature-domain* properties to access-control* to narrow
-> 	  down the scope of the binding
-> 	- YAML errors and typos corrected.
-> 	- Example updated
-> 	- Some rephrasing in the binding description
-> 
-> [1]: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> 
-> ---
-> Changes in V5:
-> 	- Diffs with [1]
-> 	- Discarded the [IGNORE] tag as the patch is now part of the
-> 	  patchset
-> 
->  .../access-controllers/access-controller.yaml | 90 +++++++++++++++++++
->  1 file changed, 90 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controller.yaml
-> 
+Fix this bug by modifying the code to the correct sequence.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
+---
+ sound/soc/codecs/rt5682-i2c.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/access-controllers/access-controller.yaml: access-control-provider: missing type definition
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230929142852.578394-2-gatien.chevallier@foss.st.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+index b05b4f73d8aa..fbad1ed06626 100644
+--- a/sound/soc/codecs/rt5682-i2c.c
++++ b/sound/soc/codecs/rt5682-i2c.c
+@@ -157,11 +157,6 @@ static int rt5682_i2c_probe(struct i2c_client *i2c)
+ 		return ret;
+ 	}
+ 
+-	ret = devm_add_action_or_reset(&i2c->dev, rt5682_i2c_disable_regulators,
+-				       rt5682);
+-	if (ret)
+-		return ret;
+-
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(rt5682->supplies),
+ 				    rt5682->supplies);
+ 	if (ret) {
+@@ -169,6 +164,11 @@ static int rt5682_i2c_probe(struct i2c_client *i2c)
+ 		return ret;
+ 	}
+ 
++	ret = devm_add_action_or_reset(&i2c->dev, rt5682_i2c_disable_regulators,
++				       rt5682);
++	if (ret)
++		return ret;
++
+ 	ret = rt5682_get_ldo1(rt5682, &i2c->dev);
+ 	if (ret)
+ 		return ret;
+-- 
+2.30.2
 

@@ -2,91 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A18D47B46C2
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Oct 2023 12:27:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 882CD7B48F0
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Oct 2023 19:51:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6D53DED;
-	Sun,  1 Oct 2023 12:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D53DED
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3A52DED;
+	Sun,  1 Oct 2023 19:50:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3A52DED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696156030;
-	bh=s9/p99kT0VYsx4yrVdBNhfgZ/TYCwb1BgJDgHsY9SKc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1696182668;
+	bh=OlGOYkXdiabEgmDbaGoWgkKX+CGtDzDfITk9gFpfz6I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LjAGl1Cp8vpA/K3IOzoEbvgFT10Pczia9i7W5Q4j8cfIiUNJgwX2OcsSgSL3cDSRi
-	 zfhzGaOfSngqjHIFQNyTyoavXU6/tIPgOHDcaiYUuqP2yl9KPYh1QhlQQvBN+ROlDg
-	 qcTYGTk12atnk5y3H7fPb29igzdkhQ+js2ZDoSxw=
+	b=rW0AVE2+I/8fCKfW/qoMogseZKrdzXQn4MoQ2tozbgSvjBC7MDt72mAemxEXirGbv
+	 FRVyeL/DCa1CiHN7vFwvau7EyUkwhFvNAxtawY405ftnbnwSdPReOUy5hwRrFK2fMn
+	 PAk0/lBTOaBaZqJx/1yNd4WO+6yVCISN+7jfeRww=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CB93F80557; Sun,  1 Oct 2023 12:26:19 +0200 (CEST)
+	id 8D8E4F80310; Sun,  1 Oct 2023 19:50:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5E7DF802E8;
-	Sun,  1 Oct 2023 12:26:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E381AF802E8;
+	Sun,  1 Oct 2023 19:50:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D435CF80310; Sun,  1 Oct 2023 12:26:14 +0200 (CEST)
+	id 1C9DDF80310; Sun,  1 Oct 2023 19:48:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from bitmer.com (server-237-49.tentacle.cloud [185.179.237.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97821F801EB;
-	Sun,  1 Oct 2023 12:26:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97821F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0F07FF80166
+	for <alsa-devel@alsa-project.org>; Sun,  1 Oct 2023 19:48:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F07FF80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=NPsd1NtM
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 14B0360B65;
-	Sun,  1 Oct 2023 10:26:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3025BC433C8;
-	Sun,  1 Oct 2023 10:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696155962;
-	bh=s9/p99kT0VYsx4yrVdBNhfgZ/TYCwb1BgJDgHsY9SKc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NPsd1NtMIOV36cBYv5g/jT6AEaaeRDZyk7BW+L4HreTrkgYqWZ6x/TSUsZ+7ziNuZ
-	 9Rn8LeX9PMe2KSTLnINi2MSMiiO26q3sflB+2mIAkWnqpQvaO9UWVLS50Rfqw9iVQN
-	 lWv7Xl2FYH2bElZYg9JgmonlH8t4RRvIpkyo86m8g/WR/KnzH4ZeMVh2iBoPPr7gSR
-	 LFfA1QJb0J8ASgI3RaRIPYTIxifizJH6DCzM7yATRtvJGiOju8/6so3rmZdVbLnGCN
-	 WVykFaHCUXCKuNfmtqjVXArcnKLffNwv9QsfHlQ0YsR3Au7i7d3bbyDTgMYeMf2T3J
-	 sCGAx0vyocx/A==
-Date: Sun, 1 Oct 2023 11:25:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH][next] ASoC: SOF: ipc4-topology: Use size_add() in call
- to struct_size()
-Message-ID: <ZRlJN9qVOv7CIu1N@finisterre.sirena.org.uk>
-References: <ZQSr15AYJpDpipg6@work>
- <169601489953.3012131.13922425518082792309.b4-ty@chromium.org>
+ unprotected) header.d=bitmer.com header.i=@bitmer.com header.a=rsa-sha256
+ header.s=key header.b=YTF5G9Ob
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitmer.com;
+	 s=key; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=OHJV4Sbao8KEygABucM61Za6AzpYax4JS41eeNRQYSs=; b=YTF5G9ObZ+7XoTL8MThpatt+pN
+	pNsI0Soe8j7Yz+THsOmlhlCovsxh71VAIbOdc1JjLArOXvO6neSNUpdxHBZfwl4f56jzeP584UsEP
+	vGArS0TbjG54Aw/hkGncx3VfGK0i4DGxnoU6XJNxr0mHSqjF3YnDk2HYcuIgmOFFq1vvgfQ3LN18e
+	0e2QoyvEoD5++jXLomIElCsh7Eep7bPVJfbN8JqCR4x0Q3ByV8g3qYsrVSITs9Z8gctSGjr2Yicem
+	R5pyUr1BXJDfjnCPGKL+AMA7WUEdYgAP8KWT2to6DTHPn6iuIuTV1TRJQ400m1RZmEQArQP8NQ3u+
+	/+p2wJwQ==;
+Received: from 91-158-0-106.elisa-laajakaista.fi ([91.158.0.106]
+ helo=[192.168.0.12])
+	by bitmer.com with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <jarkko.nikula@bitmer.com>)
+	id 1qn0Y7-0000Yz-Ov; Sun, 01 Oct 2023 20:48:11 +0300
+Message-ID: <d402fbdb-fba7-412b-ae1e-470ad253981e@bitmer.com>
+Date: Sun, 1 Oct 2023 20:48:06 +0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ueidA5gUlRHLLhJj"
-Content-Disposition: inline
-In-Reply-To: <169601489953.3012131.13922425518082792309.b4-ty@chromium.org>
-X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: QCAJE33LK76ODQK5SAVTSENTE37HRRLB
-X-Message-ID-Hash: QCAJE33LK76ODQK5SAVTSENTE37HRRLB
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] ASoC: ti: Convert RX51 to use exclusively GPIO
+ descriptors
+Content-Language: en-US
+To: Linus Walleij <linus.walleij@linaro.org>, Tony Lindgren
+ <tony@atomide.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ alsa-devel@alsa-project.org
+References: <20230926-descriptors-asoc-ti-v1-0-60cf4f8adbc5@linaro.org>
+ <20230926-descriptors-asoc-ti-v1-2-60cf4f8adbc5@linaro.org>
+From: Jarkko Nikula <jarkko.nikula@bitmer.com>
+In-Reply-To: <20230926-descriptors-asoc-ti-v1-2-60cf4f8adbc5@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: KCGYT6DWV5YIT46CBIZRYUATYPEOOSAM
+X-Message-ID-Hash: KCGYT6DWV5YIT46CBIZRYUATYPEOOSAM
+X-MailFrom: jarkko.nikula@bitmer.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,45 +95,27 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QCAJE33LK76ODQK5SAVTSENTE37HRRLB/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KCGYT6DWV5YIT46CBIZRYUATYPEOOSAM/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 9/26/23 16:25, Linus Walleij wrote:
+> The RX51/Nokia n900 uses the legacy GPIO header to convert a GPIO
+> back to the global GPIO numberspace and then the jack using it
+> in the snd_soc_jack_add_gpios() call immediately looks up the
+> corresponding descriptor again.
+> 
+> The snd_soc_jack_add_gpios() handles GPIOs passed with devices
+> just fine: pass in the device instead, and rename the GPIO
+> to match the property in the device tree, and it should work
+> all the same but without all the trouble.
+> 
+> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+> ---
 
---ueidA5gUlRHLLhJj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Sep 29, 2023 at 12:14:59PM -0700, Kees Cook wrote:
-> On Fri, 15 Sep 2023 13:09:11 -0600, Gustavo A. R. Silva wrote:
-
-> > If, for any reason, the open-coded arithmetic causes a wraparound,
-> > the protection that `struct_size()` adds against potential integer
-> > overflows is defeated. Fix this by hardening call to `struct_size()`
-> > with `size_add()`.
-
-> [1/1] ASoC: SOF: ipc4-topology: Use size_add() in call to struct_size()
->       https://git.kernel.org/kees/c/93d2858dd630
-
-Why is this bypassing the ASoC tree?
-
---ueidA5gUlRHLLhJj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUZSTYACgkQJNaLcl1U
-h9BtXAf+JtOZ1WQU2/T+zUaB9MU7XCgIHdDZoo2/uFRURhrBqZb+sQe0NWOJRR7J
-6hWBccpjhIJU34f2MqHtmZdYLxWIPUsK4QrSF6sBA0/2L4cUaTpqsn3fFczMkAkc
-W2zwOj1mPDz+VAdHrlSSi0JY3DMjVJX4needmY9LG2vajHvi7eLmVk0W0pdBBlt5
-YdTLfdPyDCBzTFEnwu9Oj0B5PGDaEWZoZ8E2DSRnr6rOEJ/t0QBGPtY/kJeWes20
-AGI592EbRVJT22z5eWOXQuyVz/S1n7kUSqngUTSkJC2LN6ijELH8O4frF4BM3p6M
-afdsDhRrIbChhtiVd3YcWOWNsAXm/A==
-=OPOT
------END PGP SIGNATURE-----
-
---ueidA5gUlRHLLhJj--
+Tested-by: Jarkko Nikula <jarkko.nikula@bitmer.com>

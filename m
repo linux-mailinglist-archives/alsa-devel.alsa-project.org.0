@@ -2,78 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70FCF7B554F
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 16:37:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1C4A7B5605
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 17:09:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65BD99F6;
-	Mon,  2 Oct 2023 16:36:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65BD99F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id B585E84B;
+	Mon,  2 Oct 2023 17:08:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B585E84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696257463;
-	bh=TXICFjvrUxSGKALmtqaZcXdsiPx3FPSDTUSVF1I5lFQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
+	s=default; t=1696259360;
+	bh=J+OwmH7fnLd3FjX0c5iBU4C0cZpYv0irsXmd/Nc8juo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MNYBobAP6FYwP8D1IL8DAx12XfEqq9XiTdl3U45jRprBZuUuzJ98bSrBuWZPBwYog
-	 5GLx8yuqIg63+vflcQlClQFF0i3OsPM+O8cj2nKLAa4SZ6X4RvTjnXPEO/DALCrde0
-	 ygYsdpK53Zt2ZqugNpAZhDnpXIUZSifOG2xWFElc=
+	b=YYAbsrirAtu68Irc8WggTvXPiKy2/ak+NZEx7sTDW5CSsggcAn5rXnJih6SHJBa8P
+	 XbIvFl7tsk0tOyv4kO/+mA1ZQUY1a/mhwF+RMcsdnVf2FxLp1zXp15geQb/0KmF+q+
+	 3gp+orJ4sdqA+X6dIUbzm4nwRUD3zujwar/nmoX0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C43F1F80310; Mon,  2 Oct 2023 16:36:52 +0200 (CEST)
+	id 25B80F802E8; Mon,  2 Oct 2023 17:08:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37E9DF801EB;
-	Mon,  2 Oct 2023 16:36:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A17FDF802E8;
+	Mon,  2 Oct 2023 17:08:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 467BEF80310; Mon,  2 Oct 2023 16:36:47 +0200 (CEST)
+	id 69BD7F80310; Mon,  2 Oct 2023 17:08:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3134CF800C1
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 16:36:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3134CF800C1
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
-	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	id 1qnK2D-0007cK-38; Mon, 02 Oct 2023 16:36:33 +0200
-Message-ID: <5ef915d0-82af-4b85-88e4-d4078228c38d@leemhuis.info>
-Date: Mon, 2 Oct 2023 16:36:32 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6258DF80166
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 17:08:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6258DF80166
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=atF4iQwi
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id B74C3CE10E4;
+	Mon,  2 Oct 2023 15:08:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ED2AC433C7;
+	Mon,  2 Oct 2023 15:08:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696259284;
+	bh=J+OwmH7fnLd3FjX0c5iBU4C0cZpYv0irsXmd/Nc8juo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=atF4iQwivM2vmRHpHXqaQtNheefwRwC5MjGvX2c4mKcZwXwQvKGjY2e6hq8f8EVKj
+	 0kStVfFoD8spZca0Kuo+IP28Cyj93OQ6KkOBjhTuBY0euutoi+jq2ZuwBhJ1Yye73X
+	 SKAwqtIKHBgSW30WTST2zMd97Ix1lNTdBTqrUIv5rNMyLMo8Oszwlh3J5mePVyppfU
+	 oT+gB8D+YpHaPxu+oEoJW/nTGLgR5Noi1z+Lflc0O1EO/zFSU4MKmAB5xP6p46hMh6
+	 BO1V0QHJbtc3u91m60YTKhfJGBYbwP7ycVh25X3WDUb94drOOkHqa29unh+etrWD47
+	 +8ktmKV608gCw==
+Date: Mon, 2 Oct 2023 16:07:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: hverkuil@xs4all.nl, sakari.ailus@iki.fi, tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz,
+	tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [RFC PATCH v5 01/11] ASoC: fsl_asrc: define functions for memory
+ to memory usage
+Message-ID: <7af54654-d4d5-498e-bd53-78ad54e6d818@sirena.org.uk>
+References: <1695891619-32393-1-git-send-email-shengjiu.wang@nxp.com>
+ <1695891619-32393-2-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ASoC: amd: yc: Fix non-functional mic on Lenovo 82YM
-Content-Language: en-US, de-DE
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Linux regressions mailing list <regressions@lists.linux.dev>,
- Mark Brown <broonie@kernel.org>
-Cc: Sven Frotscher <sven.frotscher@gmail.com>, git@augustwikerfors.se,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>
-References: <20230927223758.18870-1-sven.frotscher@gmail.com>
- <46560887-0b6e-42ac-96c3-b4dbc1d7cb61@leemhuis.info>
- <4fa7d39d-dc34-4550-97fa-2b089f364cca@sirena.org.uk>
- <0a3feafc-b843-420a-9b04-c835f8210c1a@amd.com>
- <048d9715-9cb2-4bc0-b8b0-5e30a0db54c7@leemhuis.info>
- <28e38593-4861-4d61-b27d-994328ea4e82@amd.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <28e38593-4861-4d61-b27d-994328ea4e82@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: 
- webpack.hosteurope.de;regressions@leemhuis.info;1696257400;9f6aacd2;
-X-HE-SMSGID: 1qnK2D-0007cK-38
-Message-ID-Hash: I4XKOO5C4ADIHUR55HLKA4EKKQ3VCLTP
-X-Message-ID-Hash: I4XKOO5C4ADIHUR55HLKA4EKKQ3VCLTP
-X-MailFrom: regressions@leemhuis.info
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KuYuv5Y+mxgMeyVy"
+Content-Disposition: inline
+In-Reply-To: <1695891619-32393-2-git-send-email-shengjiu.wang@nxp.com>
+X-Cookie: Postage will be paid by addressee.
+Message-ID-Hash: VN6A2IS5QUR5FQQGJ5NL5Y3NU55TZVDQ
+X-Message-ID-Hash: VN6A2IS5QUR5FQQGJ5NL5Y3NU55TZVDQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -82,11 +91,10 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I4XKOO5C4ADIHUR55HLKA4EKKQ3VCLTP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VN6A2IS5QUR5FQQGJ5NL5Y3NU55TZVDQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,67 +103,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 02.10.23 16:20, Mario Limonciello wrote:
-> On 10/2/2023 09:13, Linux regression tracking (Thorsten Leemhuis) wrote:
->> On 02.10.23 15:47, Mario Limonciello wrote:
->>> On 10/2/2023 06:52, Mark Brown wrote:
->>>> On Mon, Oct 02, 2023 at 11:32:48AM +0200, Linux regression tracking
->>>> (Thorsten Leemhuis) wrote:
->>>>
->>>>> Makes me wonder: How many more such quirk entries will be needed? Will
->>>>> we have all machines listed soon, or do we expect that future Lenovo
->>>>> hardware will need entries as well? If it's the latter: are quirks
->>>>> really the right solution here, or do they just hide some bug or then
->>>>> need for code that automatically handles things?
->>>>
->>>> x86 firmware descriptions are terrible, it's just an endless procession
->>>> of quirks.  The model for ACPI is not to describe key information in
->>>> the
->>>> kernel and instead on Windows load device specific information from
->>>> separately supplied tables.  On Linux that translates into these
->>>> endless
->>>> quirks, on Windows it's platform specific drivers for otherwise generic
->>>> audio hardware.
->>>
->>> I knew there was a TON of "82" prefix systems from Lenovo so it was an
->>> educated guess that all of them needed DMIC support.  This was incorrect
->>> because one of them didn't have DMIC and that caused a no mic support
->>> problem on that system.
->>>
->>> So in the case of this seemingly endless list of systems being added to
->>> enable DMIC support Mark is right, Windows does it differently.
->>
->> Now I understand things better, many thx. But please allow me one more
->> question from the cheap seats:
->>
->> Seems before c008323fe361 things worked for a lot of systems for about
->> one year thx to 2232b2dd8cd4 (which added the wide "82" prefix quirk).
->> We then made that one machine work with c008323fe361, but broke a lot of
->> others with it that now need to be fixed with additional quirks; that
->> "TON of 82 prefix systems" sounds like we might not be close to the end
->> of that journey.
->>
->> So can't we just do it the other way around and assume DMIC support on
->> Lenovo 82* machines, except on those where we know it to cause trouble?
->>
->> Again: you are the experts here. If you are positive that we soon got
->> all machines covered where c008323fe361 causes a regression, then I
->> guess it's best to continue the patch we're on.
-> 
-> I don't like lists
 
-And I don't like if we let people run into regressions knowingly. ;)
+--KuYuv5Y+mxgMeyVy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> that enable something for a ton of systems and then
-> lists that disable something for a subset of them.  This becomes
-> difficult to maintain.
+On Thu, Sep 28, 2023 at 05:00:09PM +0800, Shengjiu Wang wrote:
 
-Well, I had more thought along the lines of "do enable DMIC on Lenovo
-82*, unless the following dmi (the one from c008323fe361) matches". But
-I assume that's not easy to realize with the quirks table, so I guess
-that is out. Whatever.
+> m2m_start_part_one: first part of the start steps
+> m2m_start_part_two: second part of the start steps
+> m2m_stop_part_one: first part of stop steps
+> m2m_stop_part_two: second part of stop steps, optional
 
-Well, I rest my case. But I guess I might come back to this if multiple
-additional regressions reports come it due to c008323fe361.
+The part_one/two naming isn't amazing here.  Looking at the rest of the
+code it looks like this is a prepare/trigger type distinction where the
+first part is configuring things prior to DMA setup and the second part
+is actually starting the transfer.  Perhaps _config()/_start() instead?
 
-Ciao, Thorsten
+--KuYuv5Y+mxgMeyVy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUa3MwACgkQJNaLcl1U
+h9CpqAf+LBBYky8048zO16jau031dm9xveIOz9PkuENbvo2Uh2rQKQMPbnuhWDLH
+h27vidoat8VGo5MFaqpCAKpJA+PReOLkzI4sk71WcW3RaNJ5MofIQO3E5ZIXanKo
+ZqsjDFWImiT68/LPs/u7jjgl801Z3IgQ1ozVJgM0NyZr7w/mu603A8gnbenRNZyA
+JLcybnLQ0CGi9P23UKjCLBJx4dZpvFgm6K31K175IcDnx+cOn5CBEyHe9nyhEI/S
+iXFtO85ddjkuxyepQMqlED8ipo5sSZLgrHHGpTB13DmY08jDnFSQQH9czc/mLNty
+KoKv69c+UgkKI6BSQ0hue4iiY/oIOg==
+=Cq0X
+-----END PGP SIGNATURE-----
+
+--KuYuv5Y+mxgMeyVy--

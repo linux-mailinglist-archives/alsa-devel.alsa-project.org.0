@@ -2,104 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911AE7B5B3B
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 21:25:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD867B5BD3
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 22:08:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E35B2A4A;
-	Mon,  2 Oct 2023 21:25:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E35B2A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BD0584A;
+	Mon,  2 Oct 2023 22:08:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BD0584A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696274758;
-	bh=8XpaGSp4HNCwzkLa0W6cdAh4A35ekt0CBRD0Q4PDeyw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1696277337;
+	bh=p4/Ox2US61EptiLUbGPCfXE+69JFOTAwrVU/zTNaUu8=;
+	h=Date:From:Subject:To:CC:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=q6mu2FF6WDdPfYLQoPr+tU4Mjxge8cdg4sj7KfLtweJzIQ6Psta5Tludex9HX/tod
-	 x3RM6pK1j84TAtkUzIieFdFhB2ST/LRIcnPBHj/j+v8QOwjnziYJseqoX+FMQXpqOD
-	 aYoElu84P7M4JBjMn3L2wjpg8rEmKF7+AbKOOYVQ=
+	b=HqBKsLAQNoxeLP+/mwVF0nqZoLNHKtA8wNONb6OEDkbDCBVNFuMfD9bKX10bksKuW
+	 lxwJ3I3GKNMUqBgTRync5k/rIKtwpmF/uCaL2xrO9mruM5yCvquhetiwjk+GTRjDF6
+	 0RK6T9v8LGF2o8xs0EiYlDqgK0lVm2ea4QshIjlg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71471F80549; Mon,  2 Oct 2023 21:24:48 +0200 (CEST)
+	id 572FDF80551; Mon,  2 Oct 2023 22:08:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F537F802E8;
-	Mon,  2 Oct 2023 21:24:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4744F802E8;
+	Mon,  2 Oct 2023 22:08:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D491F80310; Mon,  2 Oct 2023 21:24:44 +0200 (CEST)
+	id 2DE15F80310; Mon,  2 Oct 2023 22:08:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-8.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 66532F801EB
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 21:24:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66532F801EB
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-5a1ec43870cso1880487b3.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 02 Oct 2023 12:24:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696274675; x=1696879475;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dVY5oe6cxZolq597xXeHHc74+BUTHOMrBBxd13HG4jU=;
-        b=e/q42cevVOCZrWMc4Y3QjodfJfNq5UEpPdkUfb5uAAOYdshE7wn02Xdfjk8xNXM1DV
-         fDBXfROen04cDaMKeDxMHKScKFI24NlHpv7w6lS04skJmG/APwgIKoxH7mCClFMuLoVp
-         0QMIF5/1TF3C90mhzouLyL1fulqG20gWFTj+almmN76aun0uacH9YTu0iT6s0BHnmi8F
-         9Yq5Uk/B5yWj4z2TudLxIGA8/5iNJ5HM6MDtL6u974szNsuMDSDfgRcCkVu1/jI/9YYc
-         xsl0F1/wo3VfcWv0y1ZThYn5eY3y+woWSJr6T3LfmeizbzCVJk13Nn8ug8t+oO8qEO6D
-         Knlg==
-X-Gm-Message-State: AOJu0YzYXNKs65YUCpxS0b4RVV4j5efobS+C5aD4zsc/YLmUhlsh3UDX
-	0KkVzCwaeg6VhZ0Qu8ItQkCtQCs//KQnPQ==
-X-Google-Smtp-Source: 
- AGHT+IFHz57Ss1K/dqQ8UuQyEoZul9I3O5ieXfdAq7ZMmFJVZL28SdNQK5W73clexX9RGLQ12AHtIQ==
-X-Received: by 2002:a05:690c:a8d:b0:59e:9fbc:a16c with SMTP id
- ci13-20020a05690c0a8d00b0059e9fbca16cmr12826760ywb.35.1696274674970;
-        Mon, 02 Oct 2023 12:24:34 -0700 (PDT)
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com.
- [209.85.128.178])
-        by smtp.gmail.com with ESMTPSA id
- z188-20020a8165c5000000b005929fd6a6c7sm7955751ywb.41.2023.10.02.12.24.34
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Oct 2023 12:24:34 -0700 (PDT)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-59f6441215dso1683767b3.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 02 Oct 2023 12:24:34 -0700 (PDT)
-X-Received: by 2002:a0d:d9c2:0:b0:576:7dfc:e73e with SMTP id
- b185-20020a0dd9c2000000b005767dfce73emr12588061ywe.32.1696274674269; Mon, 02
- Oct 2023 12:24:34 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4BBDDF801EB
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 22:07:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BBDDF801EB
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=S2NKsnDR
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 392JLIHE025970;
+	Mon, 2 Oct 2023 20:07:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : from : subject : to : cc : references : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=Z3xXx0H/L0mcvqYI2I+swhGIxxYamMPE9q4cn6HWt9Y=;
+ b=S2NKsnDRdgZafzS8OD5/Rk2+xuUjGO04lp0FEYEBdUanmdAK6+WkhA8+N0Untg7Yx8A2
+ ttt55h7DI1UmqWkyy/8ESrcP5IayU4BB6YLti2AcA4bEWp6cDTVAKWO9W0HBks0hMRN4
+ 4Ma5PazGDPBHzl0umQB0o1TmOWlof96hG5OATZdWw14mCv6KGabAyVzS4kE1DKWwgVZq
+ u6QewDv0UgCEmTW4HIeG9DKtoe7SbXRnw7mA6jTtaY+NCF3iwwVBXrJw33yJYevosh9G
+ hP82dzn9cwAHyp1pBCcsO4qcE6xrKWbfPNHqcvjze72dSKbIWYyQb9LmwKKPo3E/HhxX Hg==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tg1v38dpn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Oct 2023 20:07:33 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 392K7Wig022867
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 2 Oct 2023 20:07:33 GMT
+Received: from [10.110.49.236] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Mon, 2 Oct
+ 2023 13:07:31 -0700
+Message-ID: <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
+Date: Mon, 2 Oct 2023 13:07:28 -0700
 MIME-Version: 1.0
-References: <20231002090434.1896-1-shenghao-ding@ti.com>
-In-Reply-To: <20231002090434.1896-1-shenghao-ding@ti.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 2 Oct 2023 21:24:21 +0200
-X-Gmail-Original-Message-ID: 
- <CAMuHMdXr5oRgkFqYZnPe3Xdyq_QjtzhfL8Wa_e9JA0S1XhEhWw@mail.gmail.com>
-Message-ID: 
- <CAMuHMdXr5oRgkFqYZnPe3Xdyq_QjtzhfL8Wa_e9JA0S1XhEhWw@mail.gmail.com>
-Subject: Re: [PATCH v1] ASoC: tas2781: fixed compiling issue in m68k
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: broonie@kernel.org, robh+dt@kernel.org, andriy.shevchenko@linux.intel.com,
-	lgirdwood@gmail.com, perex@perex.cz, pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com, 13916275206@139.com, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
-	mengdong.lin@intel.com, baojun.xu@ti.com, thomas.gfeller@q-drop.com,
-	peeyush@ti.com, navada@ti.com, tiwai@suse.de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: XFJKBLCEBBOLADTP6P4IL6PZKGAXJ3JZ
-X-Message-ID-Hash: XFJKBLCEBBOLADTP6P4IL6PZKGAXJ3JZ
-X-MailFrom: geert.uytterhoeven@gmail.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+Subject: Re: [PATCH v7 01/33] xhci: add support to allocate several
+ interrupters
+To: Mathias Nyman <mathias.nyman@linux.intel.com>, <mathias.nyman@intel.com>,
+        <gregkh@linuxfoundation.org>, <lgirdwood@gmail.com>,
+        <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
+        <agross@kernel.org>, <andersson@kernel.org>,
+        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
+        <Thinh.Nguyen@synopsys.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
+        <devicetree@vger.kernel.org>
+References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+ <20230921214843.18450-2-quic_wcheng@quicinc.com>
+ <10ad0613-7e88-dbe8-c5a2-d535f8e9db03@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <10ad0613-7e88-dbe8-c5a2-d535f8e9db03@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: xX1n7h8flvizu3XZUSm3EWnjGgn-2B-1
+X-Proofpoint-ORIG-GUID: xX1n7h8flvizu3XZUSm3EWnjGgn-2B-1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-02_15,2023-10-02_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ phishscore=0 mlxscore=0 mlxlogscore=622 suspectscore=0 bulkscore=0
+ clxscore=1015 spamscore=0 impostorscore=0 priorityscore=1501 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310020154
+Message-ID-Hash: C3WPQEDTAH2PMSQO5WKSKBC5RHLNHF2C
+X-Message-ID-Hash: C3WPQEDTAH2PMSQO5WKSKBC5RHLNHF2C
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XFJKBLCEBBOLADTP6P4IL6PZKGAXJ3JZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C3WPQEDTAH2PMSQO5WKSKBC5RHLNHF2C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,201 +138,569 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Shenghao,
+Hi Mathias,
 
-Thanks for your patch!
+On 9/28/2023 3:31 AM, Mathias Nyman wrote:
+> On 22.9.2023 0.48, Wesley Cheng wrote:
+>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>
+>> Modify the XHCI drivers to accommodate for handling multiple event 
+>> rings in
+>> case there are multiple interrupters.  Add the required APIs so 
+>> clients are
+>> able to allocate/request for an interrupter ring, and pass this 
+>> information
+>> back to the client driver.  This allows for users to handle the resource
+>> accordingly, such as passing the event ring base address to an audio DSP.
+>> There is no actual support for multiple MSI/MSI-X vectors.
+>>
+>> Factoring out XHCI interrupter APIs and structures done by Wesley 
+>> Cheng, in
+>> order to allow for USB class drivers to utilze them.
+>>
+>> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+>> Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
+>>   drivers/usb/host/xhci-debugfs.c |  2 +-
+>>   drivers/usb/host/xhci-mem.c     | 93 ++++++++++++++++++++++++++++++---
+>>   drivers/usb/host/xhci-ring.c    |  2 +-
+>>   drivers/usb/host/xhci.c         | 49 ++++++++++-------
+>>   drivers/usb/host/xhci.h         | 77 +--------------------------
+>>   include/linux/usb/xhci-intr.h   | 86 ++++++++++++++++++++++++++++++
+>>   6 files changed, 207 insertions(+), 102 deletions(-)
+>>   create mode 100644 include/linux/usb/xhci-intr.h
+>>
+>> diff --git a/drivers/usb/host/xhci-debugfs.c 
+>> b/drivers/usb/host/xhci-debugfs.c
+>> index 99baa60ef50f..15a8402ee8a1 100644
+>> --- a/drivers/usb/host/xhci-debugfs.c
+>> +++ b/drivers/usb/host/xhci-debugfs.c
+>> @@ -693,7 +693,7 @@ void xhci_debugfs_init(struct xhci_hcd *xhci)
+>>                        "command-ring",
+>>                        xhci->debugfs_root);
+>> -    xhci_debugfs_create_ring_dir(xhci, &xhci->interrupter->event_ring,
+>> +    xhci_debugfs_create_ring_dir(xhci, 
+>> &xhci->interrupters[0]->event_ring,
+>>                        "event-ring",
+>>                        xhci->debugfs_root);
+>> diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
+>> index 8714ab5bf04d..2f9228d7d22d 100644
+>> --- a/drivers/usb/host/xhci-mem.c
+>> +++ b/drivers/usb/host/xhci-mem.c
+>> @@ -1837,6 +1837,26 @@ xhci_free_interrupter(struct xhci_hcd *xhci, 
+>> struct xhci_interrupter *ir)
+>>       kfree(ir);
+>>   }
+>> +void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct 
+>> xhci_interrupter *ir)
+>> +{
+>> +    struct xhci_hcd *xhci = hcd_to_xhci(hcd);
+>> +    unsigned int intr_num;
+>> +
+>> +    /* interrupter 0 is primary interrupter, don't touchit */
+>> +    if (!ir || !ir->intr_num || ir->intr_num >= 
+>> xhci->max_interrupters) {
+>> +        xhci_dbg(xhci, "Invalid secondary interrupter, can't remove\n");
+>> +        return;
+>> +    }
+>> +
+>> +    /* fixme, should we check xhci->interrupter[intr_num] == ir */
+>> +    spin_lock(&xhci->lock);
+> 
+> Needs to be spin_lock_irq() ir spin_lock_irqsave() as xhci->lock is used 
+> in interrupt handler.
+> 
+> 
+>> +    intr_num = ir->intr_num;
+>> +    xhci_free_interrupter(xhci, ir);
+>> +    xhci->interrupters[intr_num] = NULL;
+>> +    spin_unlock(&xhci->lock);
+> 
+> likewise
+> 
 
-On Mon, Oct 2, 2023 at 4:38=E2=80=AFPM Shenghao Ding <shenghao-ding@ti.com>=
- wrote:
-> fixed m68k compiling issue: mapping table can save code field; storing th=
-e
+Let me check these again.  In general, I think I will use both the 
+xhci->mutex and xhci->lock where needed, because I believe we'd run into 
+sleep while atomic issues while freeing the DMA memory.  Will rework 
+this and submit in the next rev.
 
-Please replicate the actual error message from the compiler, so it
-is recorded in the commit description, and easy to find when someone
-searches for the actual error message
+>> +}
+>> +EXPORT_SYMBOL_GPL(xhci_remove_secondary_interrupter);
+>> +
+>>   void xhci_mem_cleanup(struct xhci_hcd *xhci)
+>>   {
+>>       struct device    *dev = xhci_to_hcd(xhci)->self.sysdev;
+>> @@ -1844,9 +1864,13 @@ void xhci_mem_cleanup(struct xhci_hcd *xhci)
+>>       cancel_delayed_work_sync(&xhci->cmd_timer);
+>> -    xhci_free_interrupter(xhci, xhci->interrupter);
+>> -    xhci->interrupter = NULL;
+>> -    xhci_dbg_trace(xhci, trace_xhci_dbg_init, "Freed primary event 
+>> ring");
+>> +    for (i = 0; i < xhci->max_interrupters; i++) {
+>> +        if (xhci->interrupters[i]) {
+>> +            xhci_free_interrupter(xhci, xhci->interrupters[i]);
+>> +            xhci->interrupters[i] = NULL;
+>> +        }
+>> +    }
+>> +    xhci_dbg_trace(xhci, trace_xhci_dbg_init, "Freed interrupters");
+>>       if (xhci->cmd_ring)
+>>           xhci_ring_free(xhci, xhci->cmd_ring);
+>> @@ -1916,6 +1940,7 @@ void xhci_mem_cleanup(struct xhci_hcd *xhci)
+>>       for (i = 0; i < xhci->num_port_caps; i++)
+>>           kfree(xhci->port_caps[i].psi);
+>>       kfree(xhci->port_caps);
+>> +    kfree(xhci->interrupters);
+>>       xhci->num_port_caps = 0;
+>>       xhci->usb2_rhub.ports = NULL;
+>> @@ -1924,6 +1949,7 @@ void xhci_mem_cleanup(struct xhci_hcd *xhci)
+>>       xhci->rh_bw = NULL;
+>>       xhci->ext_caps = NULL;
+>>       xhci->port_caps = NULL;
+>> +    xhci->interrupters = NULL;
+>>       xhci->page_size = 0;
+>>       xhci->page_shift = 0;
+>> @@ -2276,6 +2302,13 @@ xhci_add_interrupter(struct xhci_hcd *xhci, 
+>> struct xhci_interrupter *ir,
+>>           return -EINVAL;
+>>       }
+>> +    if (xhci->interrupters[intr_num]) {
+>> +        xhci_warn(xhci, "Interrupter%d\n already set up", intr_num);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    xhci->interrupters[intr_num] = ir;
+>> +    ir->intr_num = intr_num;
+>>       ir->ir_set = &xhci->run_regs->ir_set[intr_num];
+>>       /* set ERST count with the number of entries in the segment 
+>> table */
+>> @@ -2295,10 +2328,53 @@ xhci_add_interrupter(struct xhci_hcd *xhci, 
+>> struct xhci_interrupter *ir,
+>>       return 0;
+>>   }
+>> +struct xhci_interrupter *
+>> +xhci_create_secondary_interrupter(struct usb_hcd *hcd)
+>> +{
+>> +    struct xhci_hcd *xhci = hcd_to_xhci(hcd);
+>> +    struct xhci_interrupter *ir;
+>> +    unsigned int i;
+>> +    int err = -ENOSPC;
+>> +
+>> +    if (!xhci->interrupters)
+>> +        return NULL;
+>> +
+>> +    ir = xhci_alloc_interrupter(xhci, GFP_KERNEL);
+>> +    if (!ir)
+>> +        return NULL;
+>> +
+>> +    spin_lock_irq(&xhci->lock);
+>> +
+>> +    /* Find available secondary interrupter, interrupter0 is 
+>> reserverd for primary */
+> 
+> reserved
+> 
+>> +    for (i = 1; i < xhci->max_interrupters; i++) {
+>> +        if (xhci->interrupters[i] == NULL) {
+>> +            err = xhci_add_interrupter(xhci, ir, i);
+>> +            break;
+>> +        }
+>> +    }
+>> +
+>> +    spin_unlock_irq(&xhci->lock);
+>> +    if (err) {
+>> +        xhci_warn(xhci, "Failed to add secondary interrupter, max 
+>> interrupters %d\n",
+>> +            xhci->max_interrupters);
+>> +        xhci_free_interrupter(xhci, ir);
+>> +        ir = NULL;
+>> +        goto out;
+>> +    }
+>> +
+>> +    xhci_dbg(xhci, "Add secondary interrupter %d, max interrupters 
+>> %d\n",
+>> +         i, xhci->max_interrupters);
+>> +
+>> +out:
+>> +    return ir;
+>> +}
+>> +EXPORT_SYMBOL_GPL(xhci_create_secondary_interrupter);
+>> +
+>>   int xhci_mem_init(struct xhci_hcd *xhci, gfp_t flags)
+>>   {
+>> -    dma_addr_t    dma;
+>> +    struct xhci_interrupter *ir;
+>>       struct device    *dev = xhci_to_hcd(xhci)->self.sysdev;
+>> +    dma_addr_t    dma;
+>>       unsigned int    val, val2;
+>>       u64        val_64;
+>>       u32        page_size, temp;
+>> @@ -2422,11 +2498,14 @@ int xhci_mem_init(struct xhci_hcd *xhci, gfp_t 
+>> flags)
+>>       /* Allocate and set up primary interrupter 0 with an event ring. */
+>>       xhci_dbg_trace(xhci, trace_xhci_dbg_init,
+>>                  "Allocating primary event ring");
+>> -    xhci->interrupter = xhci_alloc_interrupter(xhci, flags);
+>> -    if (!xhci->interrupter)
+>> +    xhci->interrupters = kcalloc_node(xhci->max_interrupters, 
+>> sizeof(*xhci->interrupters),
+>> +                      flags, dev_to_node(dev));
+>> +
+>> +    ir = xhci_alloc_interrupter(xhci, flags);
+>> +    if (!ir)
+>>           goto fail;
+>> -    if (xhci_add_interrupter(xhci, xhci->interrupter, 0))
+>> +    if (xhci_add_interrupter(xhci, ir, 0))
+>>           goto fail;
+>>       xhci->isoc_bei_interval = AVOID_BEI_INTERVAL_MAX;
+>> diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+>> index 1dde53f6eb31..93233cf5ff21 100644
+>> --- a/drivers/usb/host/xhci-ring.c
+>> +++ b/drivers/usb/host/xhci-ring.c
+>> @@ -3074,7 +3074,7 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd)
+>>       writel(status, &xhci->op_regs->status);
+>>       /* This is the handler of the primary interrupter */
+>> -    ir = xhci->interrupter;
+>> +    ir = xhci->interrupters[0];
+>>       if (!hcd->msi_enabled) {
+>>           u32 irq_pending;
+>>           irq_pending = readl(&ir->ir_set->irq_pending);
+>> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+>> index e1b1b64a0723..3fd2b58ee1d3 100644
+>> --- a/drivers/usb/host/xhci.c
+>> +++ b/drivers/usb/host/xhci.c
+>> @@ -456,7 +456,7 @@ static int xhci_init(struct usb_hcd *hcd)
+>>   static int xhci_run_finished(struct xhci_hcd *xhci)
+>>   {
+>> -    struct xhci_interrupter *ir = xhci->interrupter;
+>> +    struct xhci_interrupter *ir = xhci->interrupters[0];
+>>       unsigned long    flags;
+>>       u32        temp;
+>> @@ -508,7 +508,7 @@ int xhci_run(struct usb_hcd *hcd)
+>>       u64 temp_64;
+>>       int ret;
+>>       struct xhci_hcd *xhci = hcd_to_xhci(hcd);
+>> -    struct xhci_interrupter *ir = xhci->interrupter;
+>> +    struct xhci_interrupter *ir = xhci->interrupters[0];
+>>       /* Start the xHCI host controller runningonly after the USB 2.0 
+>> roothub
+>>        * is setup.
+>>        */
+>> @@ -572,7 +572,7 @@ void xhci_stop(struct usb_hcd *hcd)
+>>   {
+>>       u32 temp;
+>>       struct xhci_hcd *xhci = hcd_to_xhci(hcd);
+>> -    struct xhci_interrupter *ir = xhci->interrupter;
+>> +    struct xhci_interrupter *ir = xhci->interrupters[0];
+>>       mutex_lock(&xhci->mutex);
+>> @@ -668,36 +668,49 @@ EXPORT_SYMBOL_GPL(xhci_shutdown);
+>>   #ifdef CONFIG_PM
+>>   static void xhci_save_registers(struct xhci_hcd *xhci)
+>>   {
+>> -    struct xhci_interrupter *ir = xhci->interrupter;
+>> +    struct xhci_interrupter *ir;
+>> +    unsigned int i;
+>>       xhci->s3.command = readl(&xhci->op_regs->command);
+>>       xhci->s3.dev_nt = readl(&xhci->op_regs->dev_notification);
+>>       xhci->s3.dcbaa_ptr = xhci_read_64(xhci,&xhci->op_regs->dcbaa_ptr);
+>>       xhci->s3.config_reg = readl(&xhci->op_regs->config_reg);
+>> -    if (!ir)
+>> -        return;
+>> +    /* save both primary and all secondary interrupters */
+>> +    for (i = 0; i < xhci->max_interrupters; i++) {
+>> +        ir = xhci->interrupters[i];
+>> +        if (!ir)
+>> +            continue;
+>> -    ir->s3_erst_size = readl(&ir->ir_set->erst_size);
+>> -    ir->s3_erst_base = xhci_read_64(xhci, &ir->ir_set->erst_base);
+>> -    ir->s3_erst_dequeue = xhci_read_64(xhci, &ir->ir_set->erst_dequeue);
+>> -    ir->s3_irq_pending = readl(&ir->ir_set->irq_pending);
+>> -    ir->s3_irq_control = readl(&ir->ir_set->irq_control);
+>> +        ir->s3_erst_size = readl(&ir->ir_set->erst_size);
+>> +        ir->s3_erst_base = xhci_read_64(xhci, &ir->ir_set->erst_base);
+>> +        ir->s3_erst_dequeue = xhci_read_64(xhci, 
+>> &ir->ir_set->erst_dequeue);
+>> +        ir->s3_irq_pending = readl(&ir->ir_set->irq_pending);
+>> +        ir->s3_irq_control = readl(&ir->ir_set->irq_control);
+>> +    }
+>>   }
+>>   static void xhci_restore_registers(struct xhci_hcd *xhci)
+>>   {
+>> -    struct xhci_interrupter *ir = xhci->interrupter;
+>> +    struct xhci_interrupter *ir;
+>> +    unsigned int i;
+>>       writel(xhci->s3.command, &xhci->op_regs->command);
+>>       writel(xhci->s3.dev_nt, &xhci->op_regs->dev_notification);
+>>       xhci_write_64(xhci, xhci->s3.dcbaa_ptr, &xhci->op_regs->dcbaa_ptr);
+>>       writel(xhci->s3.config_reg, &xhci->op_regs->config_reg);
+>> -    writel(ir->s3_erst_size, &ir->ir_set->erst_size);
+>> -    xhci_write_64(xhci, ir->s3_erst_base, &ir->ir_set->erst_base);
+>> -    xhci_write_64(xhci, ir->s3_erst_dequeue, &ir->ir_set->erst_dequeue);
+>> -    writel(ir->s3_irq_pending, &ir->ir_set->irq_pending);
+>> -    writel(ir->s3_irq_control, &ir->ir_set->irq_control);
+>> +
+>> +    for (i = 0; i < xhci->max_interrupters; i++) {
+>> +        ir = xhci->interrupters[i];
+>> +        if (!ir)
+>> +            continue;
+>> +
+>> +        writel(ir->s3_erst_size, &ir->ir_set->erst_size);
+>> +        xhci_write_64(xhci, ir->s3_erst_base, &ir->ir_set->erst_base);
+>> +        xhci_write_64(xhci, ir->s3_erst_dequeue, 
+>> &ir->ir_set->erst_dequeue);
+>> +        writel(ir->s3_irq_pending, &ir->ir_set->irq_pending);
+>> +        writel(ir->s3_irq_control, &ir->ir_set->irq_control);
+>> +    }
+>>   }
+>>   static void xhci_set_cmd_ring_deq(struct xhci_hcd *xhci)
+>> @@ -1059,7 +1072,7 @@ int xhci_resume(struct xhci_hcd *xhci, 
+>> pm_message_t msg)
+>>           xhci_dbg(xhci, "// Disabling event ring interrupts\n");
+>>           temp = readl(&xhci->op_regs->status);
+>>           writel((temp & ~0x1fff) | STS_EINT, &xhci->op_regs->status);
+>> -        xhci_disable_interrupter(xhci->interrupter);
+>> +        xhci_disable_interrupter(xhci->interrupters[0]);
+>>           xhci_dbg(xhci, "cleaning up memory\n");
+>>           xhci_mem_cleanup(xhci);
+> 
+> All code above looks like it should be its own patch.
+> 
+> The header shuffling below part of somethine else.
+>  >> diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+>> index 7e282b4522c0..d706a27ec0a3 100644
+>> --- a/drivers/usb/host/xhci.h
+>> +++ b/drivers/usb/host/xhci.h
+>> @@ -17,6 +17,7 @@
+>>   #include <linux/kernel.h>
+>>   #include <linux/usb/hcd.h>
+>>   #include <linux/io-64-nonatomic-lo-hi.h>
+>> +#include <linux/usb/xhci-intr.h>
+>>   /* Code sharing between pci-quirks and xhci hcd */
+>>   #include    "xhci-ext-caps.h"
+>> @@ -1541,18 +1542,6 @@ static inline const char 
+>> *xhci_trb_type_string(u8 type)
+>>   #define AVOID_BEI_INTERVAL_MIN    8
+>>   #define AVOID_BEI_INTERVAL_MAX    32
+>> -struct xhci_segment {
+>> -    union xhci_trb        *trbs;
+>> -    /* private to HCD */
+>> -    struct xhci_segment    *next;
+>> -    dma_addr_t       dma;
+>> -    /* Max packet sized bounce buffer for td-fragmant alignment */
+>> -    dma_addr_t       bounce_dma;
+>> -    void            *bounce_buf;
+>> -    unsigned int        bounce_offs;
+>> -    unsigned int        bounce_len;
+>> -};
+>> -
+>>   enum xhci_cancelled_td_status {
+>>       TD_DIRTY = 0,
+>>       TD_HALTED,
+>> @@ -1585,16 +1574,6 @@ struct xhci_cd {
+>>       union xhci_trb        *cmd_trb;
+>>   };
+>> -enum xhci_ring_type {
+>> -    TYPE_CTRL = 0,
+>> -    TYPE_ISOC,
+>> -    TYPE_BULK,
+>> -    TYPE_INTR,
+>> -    TYPE_STREAM,
+>> -    TYPE_COMMAND,
+>> -    TYPE_EVENT,
+>> -};
+>> -
+>>   static inline const char *xhci_ring_type_string(enum xhci_ring_type 
+>> type)
+>>   {
+>>       switch (type) {
+>> @@ -1615,46 +1594,6 @@ static inline const char 
+>> *xhci_ring_type_string(enum xhci_ring_type type)
+>>       }
+>>       return "UNKNOWN";
+>> -}
+>> -
+>> -struct xhci_ring {
+>> -    struct xhci_segment    *first_seg;
+>> -    struct xhci_segment    *last_seg;
+>> -    union  xhci_trb        *enqueue;
+>> -    struct xhci_segment    *enq_seg;
+>> -    union  xhci_trb        *dequeue;
+>> -    struct xhci_segment    *deq_seg;
+>> -    struct list_head    td_list;
+>> -    /*
+>> -     * Write the cycle state into the TRB cycle field to give 
+>> ownership of
+>> -     * the TRB to the host controller (if we are the producer), or to 
+>> check
+>> -     * if we own the TRB (if we are the consumer).  See section 4.9.1.
+>> -     */
+>> -    u32            cycle_state;
+>> -    unsigned int        stream_id;
+>> -    unsigned int        num_segs;
+>> -    unsigned int        num_trbs_free; /* used only by xhci DbC */
+>> -    unsigned int        bounce_buf_len;
+>> -    enum xhci_ring_type    type;
+>> -    bool            last_td_was_short;
+>> -    struct radix_tree_root    *trb_address_map;
+>> -};
+>> -
+>> -struct xhci_erst_entry {
+>> -    /* 64-bit event ring segment address */
+>> -    __le64    seg_addr;
+>> -    __le32    seg_size;
+>> -    /* Set to zero */
+>> -    __le32    rsvd;
+>> -};
+>> -
+>> -struct xhci_erst {
+>> -    struct xhci_erst_entry    *entries;
+>> -    unsigned int        num_entries;
+>> -    /* xhci->event_ring keeps track of segment dma addresses */
+>> -    dma_addr_t       erst_dma_addr;
+>> -    /* Num entries the ERST can contain */
+>> -    unsigned int        erst_size;
+>>   };
+>>   struct xhci_scratchpad {
+>> @@ -1707,18 +1646,6 @@ struct xhci_bus_state {
+>>       unsigned long        resuming_ports;
+>>   };
+>> -struct xhci_interrupter {
+>> -    struct xhci_ring    *event_ring;
+>> -    struct xhci_erst    erst;
+>> -    struct xhci_intr_reg __iomem *ir_set;
+>> -    unsigned int        intr_num;
+>> -    /* For interrupter registers save and restore over suspend/resume */
+>> -    u32    s3_irq_pending;
+>> -    u32    s3_irq_control;
+>> -    u32    s3_erst_size;
+>> -    u64    s3_erst_base;
+>> -    u64    s3_erst_dequeue;
+>> -};
+>>   /*
+>>    * It can take up to 20 ms to transition from RExit to U0 onthe
+>>    * Intel Lynx Point LP xHCI host.
+>> @@ -1799,7 +1726,7 @@ struct xhci_hcd {
+>>       struct reset_control *reset;
+>>       /* data structures */
+>>       struct xhci_device_context_array *dcbaa;
+>> -    struct xhci_interrupter *interrupter;
+>> +    struct xhci_interrupter **interrupters;
+>>       struct xhci_ring    *cmd_ring;
+>>       unsigned int            cmd_ring_state;
+>>   #define CMD_RING_STATE_RUNNING         (1 << 0)
+>> diff --git a/include/linux/usb/xhci-intr.h 
+>> b/include/linux/usb/xhci-intr.h
+>> new file mode 100644
+>> index 000000000000..e0091ee2c73a
+>> --- /dev/null
+>> +++ b/include/linux/usb/xhci-intr.h
+>> @@ -0,0 +1,86 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +#ifndef __LINUX_XHCI_INTR_H
+>> +#define __LINUX_XHCI_INTR_H
+>> +
+>> +#include <linux/kernel.h>
+>> +
+>> +struct xhci_erst_entry {
+>> +    /* 64-bit event ring segment address */
+>> +    __le64    seg_addr;
+>> +    __le32    seg_size;
+>> +    /* Set to zero */
+>> +    __le32    rsvd;
+>> +};
+>> +
+>> +enum xhci_ring_type {
+>> +    TYPE_CTRL = 0,
+>> +    TYPE_ISOC,
+>> +    TYPE_BULK,
+>> +    TYPE_INTR,
+>> +    TYPE_STREAM,
+>> +    TYPE_COMMAND,
+>> +    TYPE_EVENT,
+>> +};
+>> +
+>> +struct xhci_erst {
+>> +    struct xhci_erst_entry    *entries;
+>> +    unsigned int        num_entries;
+>> +    /* xhci->event_ring keeps track of segment dma addresses */
+>> +    dma_addr_t       erst_dma_addr;
+>> +    /* Num entries the ERST can contain */
+>> +    unsigned int        erst_size;
+>> +};
+>> +
+>> +struct xhci_segment {
+>> +    union xhci_trb        *trbs;
+>> +    /* private to HCD */
+>> +    struct xhci_segment    *next;
+>> +    dma_addr_t       dma;
+>> +    /* Max packet sized bounce buffer for td-fragmant alignment */
+>> +    dma_addr_t       bounce_dma;
+>> +    void            *bounce_buf;
+>> +    unsigned int        bounce_offs;
+>> +    unsigned int        bounce_len;
+>> +};
+>> +
+>> +struct xhci_ring {
+>> +    struct xhci_segment    *first_seg;
+>> +    struct xhci_segment    *last_seg;
+>> +    union  xhci_trb        *enqueue;
+>> +    struct xhci_segment    *enq_seg;
+>> +    union  xhci_trb        *dequeue;
+>> +    struct xhci_segment    *deq_seg;
+>> +    struct list_head    td_list;
+>> +    /*
+>> +     * Write the cycle state into the TRB cycle field to give 
+>> ownership of
+>> +     * the TRB to the host controller (if we are the producer), or to 
+>> check
+>> +     * if we own the TRB (if we are the consumer).  See section 4.9.1.
+>> +     */
+>> +    u32            cycle_state;
+>> +    unsigned int        stream_id;
+>> +    unsigned int        num_segs;
+>> +    unsigned int        num_trbs_free;
+>> +    unsigned int        num_trbs_free_temp;
+>> +    unsigned int        bounce_buf_len;
+>> +    enum xhci_ring_type    type;
+>> +    bool            last_td_was_short;
+>> +    struct radix_tree_root    *trb_address_map;
+>> +};
+>> +
+>> +struct xhci_interrupter {
+>> +    struct xhci_ring    *event_ring;
+>> +    struct xhci_erst    erst;
+>> +    struct xhci_intr_reg __iomem *ir_set;
+>> +    unsigned int        intr_num;
+>> +    /* For interrupter registers save and restore over suspend/resume */
+>> +    u32    s3_irq_pending;
+>> +    u32    s3_irq_control;
+>> +    u32    s3_erst_size;
+>> +    u64    s3_erst_base;
+>> +    u64    s3_erst_dequeue;
+>> +};
+>> +
+>> +struct xhci_interrupter *
+>> +xhci_create_secondary_interrupter(struct usb_hcd *hcd);
+>> +void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct 
+>> xhci_interrupter *ir);
+>> +#endif
+>>
+> 
+> Not convinced we want to share all these xhci private structures in a 
+> separate
+> header outside of the xhci code.
+> 
+> As much as possible should be abstracted and added to the xhci sideband
+> API in patch 3/33 instead of sharing these.
 
->From the Reported-by (which is not included in the actual description,
-as it is below the "---"):
+It gets a bit difficult because xhci_create_secondary_interrupter() will 
+return struct xhci_interrupter, so that the class (offload) driver can 
+fetch information about the event ring.  So part of that is that the 
+class driver has to reference struct xhci_ring as well.
 
-       {standard input}: Assembler messages:
-    >> {standard input}:992: Error: value -148 out of range
-       {standard input}:992: Error: value of ffffff6c too large for
-field of 1 byte at 0000045f
+Instead of exposing all these into a header file, what do you think 
+about adding the drivers/xhci path as an include directory in the class 
+driver make arguments in the makefile?
 
-> dev_idx as a member of block can reduce unnecessary  time and system
-> resource comsumption of dev_idx mapping every time the block data writing
-> to the dsp.
-
-I am sorry, but I don't understand what this means.
-Can you please elaborate?
-
-Also, can you please explain what the real issue is?
-(My first guess when seeing the error message before was that a  signed
- integer is truncated to an unsigned char or so, but I couldn't see
- immediately where that is happening)
-
-> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
->
-> ---
-> Changes in v1:
->  - | Reported-by: kernel test robot <lkp@intel.com>
->    | Closes:
->    | https://lore.kernel.org/oe-kbuild-all/202309222048.RnSqEIK5-lkp@inte=
-l.
->    | com/
-
-> --- a/include/sound/tas2781-dsp.h
-> +++ b/include/sound/tas2781-dsp.h
-> @@ -77,6 +77,11 @@ struct tasdev_blk {
->         unsigned int nr_cmds;
->         unsigned int blk_size;
->         unsigned int nr_subblocks;
-> +       /* fixed m68k compiling issue, storing the dev_idx as a member of=
- block
-> +        * can reduce unnecessary timeand system resource comsumption of
-> +        * dev_idx mapping every time the block data writing to the dsp.
-> +        */
-
-What is so special about "m68k" that it (1) fails there (and only there?
-and only for some config/compiler combos, as it builds fine for me?),
-and (2) is needed to mention this in comments all over the place?
-
-> +       unsigned char dev_idx;
->         unsigned char *data;
->  };
->
-> diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781=
--fmwlib.c
-> index eb55abae0d7b..e27775d834e9 100644
-> --- a/sound/soc/codecs/tas2781-fmwlib.c
-> +++ b/sound/soc/codecs/tas2781-fmwlib.c
-> @@ -80,10 +80,72 @@ struct tas_crc {
->         unsigned char len;
->  };
->
-> +struct blktyp_devidx_map {
-> +       unsigned char blktyp;
-> +       unsigned char dev_idx;
-> +};
-> +
->  static const char deviceNumber[TASDEVICE_DSP_TAS_MAX_DEVICE] =3D {
->         1, 2, 1, 2, 1, 1, 0, 2, 4, 3, 1, 2, 3, 4
->  };
->
-> +/* fixed m68k compiling issue: mapping table can save code field */
-> +static const struct blktyp_devidx_map ppc3_tas2781_mapping_table[] =3D {
-> +       { MAIN_ALL_DEVICES_1X, 0x80 },
-> +       { MAIN_DEVICE_A_1X, 0x81 },
-> +       { COEFF_DEVICE_A_1X, 0xC1 },
-> +       { PRE_DEVICE_A_1X, 0xC1 },
-> +       { PRE_SOFTWARE_RESET_DEVICE_A, 0xC1 },
-> +       { POST_SOFTWARE_RESET_DEVICE_A, 0xC1 },
-> +       { MAIN_DEVICE_B_1X, 0x82 },
-> +       { COEFF_DEVICE_B_1X, 0xC2 },
-> +       { PRE_DEVICE_B_1X, 0xC2 },
-> +       { PRE_SOFTWARE_RESET_DEVICE_B, 0xC2 },
-> +       { POST_SOFTWARE_RESET_DEVICE_B, 0xC2 },
-> +       { MAIN_DEVICE_C_1X, 0x83 },
-> +       { COEFF_DEVICE_C_1X, 0xC3 },
-> +       { PRE_DEVICE_C_1X, 0xC3 },
-> +       { PRE_SOFTWARE_RESET_DEVICE_C, 0xC3 },
-> +       { POST_SOFTWARE_RESET_DEVICE_C, 0xC3 },
-> +       { MAIN_DEVICE_D_1X, 0x84 },
-> +       { COEFF_DEVICE_D_1X, 0xC4 },
-> +       { PRE_DEVICE_D_1X, 0xC4 },
-> +       { PRE_SOFTWARE_RESET_DEVICE_D, 0xC4 },
-> +       { POST_SOFTWARE_RESET_DEVICE_D, 0xC4 },
-> +};
-> +
-> +static const struct blktyp_devidx_map ppc3_mapping_table[] =3D {
-> +       { MAIN_ALL_DEVICES_1X, 0x80 },
-> +       { MAIN_DEVICE_A_1X, 0x81 },
-> +       { COEFF_DEVICE_A_1X, 0xC1 },
-> +       { PRE_DEVICE_A_1X, 0xC1 },
-> +       { MAIN_DEVICE_B_1X, 0x82 },
-> +       { COEFF_DEVICE_B_1X, 0xC2 },
-> +       { PRE_DEVICE_B_1X, 0xC2 },
-> +       { MAIN_DEVICE_C_1X, 0x83 },
-> +       { COEFF_DEVICE_C_1X, 0xC3 },
-> +       { PRE_DEVICE_C_1X, 0xC3 },
-> +       { MAIN_DEVICE_D_1X, 0x84 },
-> +       { COEFF_DEVICE_D_1X, 0xC4 },
-> +       { PRE_DEVICE_D_1X, 0xC4 },
-> +};
-> +
-> +static const struct blktyp_devidx_map non_ppc3_mapping_table[] =3D {
-> +       { MAIN_ALL_DEVICES, 0x80 },
-> +       { MAIN_DEVICE_A, 0x81 },
-> +       { COEFF_DEVICE_A, 0xC1 },
-> +       { PRE_DEVICE_A, 0xC1 },
-> +       { MAIN_DEVICE_B, 0x82 },
-> +       { COEFF_DEVICE_B, 0xC2 },
-> +       { PRE_DEVICE_B, 0xC2 },
-> +       { MAIN_DEVICE_C, 0x83 },
-> +       { COEFF_DEVICE_C, 0xC3 },
-> +       { PRE_DEVICE_C, 0xC3 },
-> +       { MAIN_DEVICE_D, 0x84 },
-> +       { COEFF_DEVICE_D, 0xC4 },
-> +       { PRE_DEVICE_D, 0xC4 },
-> +};
-> +
->  static struct tasdevice_config_info *tasdevice_add_config(
->         struct tasdevice_priv *tas_priv, unsigned char *config_data,
->         unsigned int config_size, int *status)
-> @@ -316,6 +378,37 @@ int tasdevice_rca_parser(void *context, const struct=
- firmware *fmw)
->  }
->  EXPORT_SYMBOL_NS_GPL(tasdevice_rca_parser, SND_SOC_TAS2781_FMWLIB);
->
-> +/* fixed m68k compiling issue: mapping table can save code field */
-> +static unsigned char map_dev_idx(struct tasdevice_fw *tas_fmw,
-> +       struct tasdev_blk *block)
-> +{
-> +
-> +       struct blktyp_devidx_map *p =3D
-> +               (struct blktyp_devidx_map *)non_ppc3_mapping_table;
-
-Please do not cast away constness when not needed (also below).
-
-> +       struct tasdevice_dspfw_hdr *fw_hdr =3D &(tas_fmw->fw_hdr);
-> +       struct tasdevice_fw_fixed_hdr *fw_fixed_hdr =3D &(fw_hdr->fixed_h=
-dr);
-> +
-> +       int i, n =3D ARRAY_SIZE(non_ppc3_mapping_table);
-
-size_t
-
-> +       unsigned char dev_idx =3D 0;
-> +
-> +       if (fw_fixed_hdr->ppcver >=3D PPC3_VERSION_TAS2781) {
-> +               p =3D (struct blktyp_devidx_map *)ppc3_tas2781_mapping_ta=
-ble;
-> +               n =3D ARRAY_SIZE(ppc3_tas2781_mapping_table);
-> +       } else if (fw_fixed_hdr->ppcver >=3D PPC3_VERSION) {
-> +               p =3D (struct blktyp_devidx_map *)ppc3_mapping_table;
-> +               n =3D ARRAY_SIZE(ppc3_mapping_table);
-> +       }
-> +
-> +       for (i =3D 0; i < n; i++) {
-> +               if (block->type =3D=3D p[i].blktyp) {
-> +                       dev_idx =3D p[i].dev_idx;
-> +                       break;
-> +               }
-> +       }
-> +
-> +       return dev_idx;
-> +}
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Thanks
+Wesley Cheng

@@ -2,71 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50AEC7B4F18
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 11:33:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7BC77B50C8
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 13:01:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21E5ADF0;
-	Mon,  2 Oct 2023 11:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21E5ADF0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6687DEB;
+	Mon,  2 Oct 2023 13:00:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6687DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696239238;
-	bh=tnPTHOI7XytPLfHuIGFQp6gW7Bk4STYo7KC6dL2AgOY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
+	s=default; t=1696244464;
+	bh=lUBPNIWpDvjHX8I98WirEls2JkxV4/o074urcrO7lc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eyrw3PV8oUrJjRHvvZzi6+bWQ6nVVsy4f1YkWcowtFYCbLpi/q5hpGvWFEEG2qdQW
-	 tN+ym+Pq/GdGXHe3BggOetFxZvScAyhx94Vit+AymeCg1H+7fBPD7yDG3JnrJG7rgk
-	 Qx/ot7qVNMnODQSH8zvc1r/5BiqkPQwo0lJoa8uE=
+	b=UiA+o2kV7glfKgiLDo+DvCgcm+GGPTAEVfiximnbZbbopMpxbhoL7XNWOqo5CDFpq
+	 LGFH+QRP30GMqsznddU4TWcogL/aIJ1inSgz5hsc/5AoAze6bBVhQkjkeIo7DSkf/T
+	 Hk87zSfgrdOrlWzDw3iQKyIl7UkE+xiLMUi/SZys=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84CA6F80552; Mon,  2 Oct 2023 11:33:07 +0200 (CEST)
+	id 1A794F80549; Mon,  2 Oct 2023 13:00:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 293D4F802E8;
-	Mon,  2 Oct 2023 11:33:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F6CAF802E8;
+	Mon,  2 Oct 2023 13:00:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6501F80310; Mon,  2 Oct 2023 11:33:02 +0200 (CEST)
+	id 3188FF80310; Mon,  2 Oct 2023 13:00:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41C12F80166
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 11:32:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41C12F80166
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
-	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	id 1qnFIJ-0007Xi-6c; Mon, 02 Oct 2023 11:32:51 +0200
-Message-ID: <46560887-0b6e-42ac-96c3-b4dbc1d7cb61@leemhuis.info>
-Date: Mon, 2 Oct 2023 11:32:48 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73137F80166;
+	Mon,  2 Oct 2023 12:59:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73137F80166
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=uFkgOuEt
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id D93D4CE0E83;
+	Mon,  2 Oct 2023 10:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06359C433C9;
+	Mon,  2 Oct 2023 10:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696244394;
+	bh=lUBPNIWpDvjHX8I98WirEls2JkxV4/o074urcrO7lc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uFkgOuEtIDIjXaSSXt/PFQcRlOw/GbqlZHzhVadAKGoQmFEXk9IuDCnVku7/bEcOt
+	 V8lW3oZ23trVQAcoS5oIS8hmtzQqrmJzT7SROtNsvHqFN1grInXjiA/TuYqXx+EqLT
+	 nkUq89SORBvYg6mVUw/I8GYplVJNNGYmWP+PrwnFCzvNk8OViZCLMS6JsjaRgmL2uC
+	 blJoFRJq1l+z9KVP9rEm8ZDiofm8lkggAPty8ezQPlbub2Bpg/Ypp5oyqbAc3kQWA8
+	 AlcsUBM56q+yklqUJYlU/Jict4HTERCmkaCPvHCmrVz4d9xW+rG1Ji+hXgXKs6aXwK
+	 OINs6zWiFd6qQ==
+Date: Mon, 2 Oct 2023 11:59:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH][next] ASoC: SOF: ipc4-topology: Use size_add() in call
+ to struct_size()
+Message-ID: <b5e0bfc8-88cc-4428-8554-66b4da9c9acf@sirena.org.uk>
+References: <ZQSr15AYJpDpipg6@work>
+ <169601489953.3012131.13922425518082792309.b4-ty@chromium.org>
+ <ZRlJN9qVOv7CIu1N@finisterre.sirena.org.uk>
+ <202310011335.28B55A3BE@keescook>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ASoC: amd: yc: Fix non-functional mic on Lenovo 82YM
-Content-Language: en-US, de-DE
-To: Sven Frotscher <sven.frotscher@gmail.com>, broonie@kernel.org,
- mario.limonciello@amd.com
-Cc: git@augustwikerfors.se, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
-References: <20230927223758.18870-1-sven.frotscher@gmail.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <20230927223758.18870-1-sven.frotscher@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: 
- webpack.hosteurope.de;regressions@leemhuis.info;1696239175;6b305401;
-X-HE-SMSGID: 1qnFIJ-0007Xi-6c
-Message-ID-Hash: ZLHAZ6JFKA2EVQNYNBQBMR76FDQ4WCM6
-X-Message-ID-Hash: ZLHAZ6JFKA2EVQNYNBQBMR76FDQ4WCM6
-X-MailFrom: regressions@leemhuis.info
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jHjeUkQ9vroTCASR"
+Content-Disposition: inline
+In-Reply-To: <202310011335.28B55A3BE@keescook>
+X-Cookie: Postage will be paid by addressee.
+Message-ID-Hash: A2F2FRQZ5RDXQMCFBQGAIN3ZGBQ4L562
+X-Message-ID-Hash: A2F2FRQZ5RDXQMCFBQGAIN3ZGBQ4L562
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -75,11 +96,10 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZLHAZ6JFKA2EVQNYNBQBMR76FDQ4WCM6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2F2FRQZ5RDXQMCFBQGAIN3ZGBQ4L562/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,55 +108,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-[adding Takashi to this, in case he wants to chime in]
 
-Sven, first off, thx for taking care of this.
+--jHjeUkQ9vroTCASR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 28.09.23 00:36, Sven Frotscher wrote:
-> Like the Lenovo 82TL, 82V2, 82QF and 82UG, the 82YM (Yoga 7 14ARP8)
-> requires an entry in the quirk list to enable the internal microphone.
->
-> The latter two received similar fixes in commit 1263cc0f414d
-> ("ASoC: amd: yc: Fix non-functional mic on Lenovo 82QF and 82UG").
->> Fixes: c008323fe361 ("ASoC: amd: yc: Fix a non-functional mic on
-Lenovo 82SJ")
+On Sun, Oct 01, 2023 at 01:37:04PM -0700, Kees Cook wrote:
+> On Sun, Oct 01, 2023 at 11:25:59AM +0100, Mark Brown wrote:
 
-FWIW, apparently the Leonovo Yoga Slim 7 Pro 82UU needs an quirk entry
-as well: https://bugzilla.kernel.org/show_bug.cgi?id=217063#c23
+> > Why is this bypassing the ASoC tree?
 
-Makes me wonder: How many more such quirk entries will be needed? Will
-we have all machines listed soon, or do we expect that future Lenovo
-hardware will need entries as well? If it's the latter: are quirks
-really the right solution here, or do they just hide some bug or then
-need for code that automatically handles things?
+> Hi! Sorry, I can drop it if you want to take it? I tend to collect trivial
+> hardening changes with reviews that haven't been otherwise commented on
+> for at least 2 weeks.
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+Yes, it's in my queue - 2 weeks is really rather fast between people not
+being available and waiting for driver authors to review if they
+normally look at things.
 
+--jHjeUkQ9vroTCASR
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sven Frotscher <sven.frotscher@gmail.com>
->
-> [...]
->
-> diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-> index 94e9eb8e73f2..15a864dcd7bd 100644
-> --- a/sound/soc/amd/yc/acp6x-mach.c
-> +++ b/sound/soc/amd/yc/acp6x-mach.c
-> @@ -241,6 +241,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
->  			DMI_MATCH(DMI_PRODUCT_NAME, "82V2"),
->  		}
->  	},
-> +	{
-> +		.driver_data = &acp6x_card,
-> +		.matches = {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "82YM"),
-> +		}
-> +	},
->  	{
->  		.driver_data = &acp6x_card,
->  		.matches = {
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUaoqMACgkQJNaLcl1U
+h9Ba+Qf/dXs8T5y+jACKhiUt2Q8jXwBJIZcnab5H86E5MOnONXQyTG+rozhIbvdQ
+5FibdLoYXrDu+EbviyhKagsSr0D4fDTPUvKubBR+DXOjVDWMcaKW+bVQTXHa428T
+xzsMvPVvjVOlmA8vPux7nv26XtV0HLuJE+Ym2EzBlqFiQefjbb+6pwfw5/ZbOc/s
+6DKIpT1kWL8cWb3zlhHsssQhnS5xVj+3qGb77NjiIme07oBr4Vl6PJW+6Nt+HrIy
+GrWfE7kVfTHb5ph7OEesv68rG7bkEcsz/l7KP10XwjBMO/E6bCyqzKum3iIBxhWg
+OSFTopV/X+x+PWLesMM5w7oenKni3A==
+=qPZ5
+-----END PGP SIGNATURE-----
+
+--jHjeUkQ9vroTCASR--

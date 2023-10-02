@@ -2,86 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6B167B53A9
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 15:05:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D987B53C6
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 15:15:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B766AE0E;
-	Mon,  2 Oct 2023 15:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B766AE0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F7FADF9;
+	Mon,  2 Oct 2023 15:15:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F7FADF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696251924;
-	bh=AFn+gVXbUD0U4Y6bUXqTweEbLHVA0KrcQKlngrIzbJ4=;
+	s=default; t=1696252550;
+	bh=HuaILnKaqJkgCcuZj0uhvKwWfMGfSaYcyoOOPL8N3Ug=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QM89ZmKgBuFAK6WdJsHdQCOe5MsAr6+Fk32q/cxRyrhAzMDVrJbUk4CeeIeX9yz3b
-	 VU+Fj97l6qMmiE0VWyRCDiq1mEDtiy8/iGqSKj0jTqXgs3ggCz05RS73zi60XRa0sT
-	 zRlkPUtr/+ExcoxZvqQ7i3TRdX5E4vDwuyjSIaXc=
+	b=mGSMIhfPbcKeBorb77ZGsIHmwHEhHPfeX4F2+8/nm5wQlhEsl3IjiRqC6xa1vRb9h
+	 HSIUJF2ZYUnso5oxQXNsbw2jSS1aqDpkGFcFdksLfK1TTABTz4OhDuCYtltUiD3tPS
+	 Wu913mD0WQBPdG229eleBMb5+2r/b7YFqb1qXW9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4116CF802E8; Mon,  2 Oct 2023 15:04:34 +0200 (CEST)
+	id 9EF3DF800C1; Mon,  2 Oct 2023 15:14:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5364F802E8;
-	Mon,  2 Oct 2023 15:04:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 203C4F802E8;
+	Mon,  2 Oct 2023 15:14:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24022F80310; Mon,  2 Oct 2023 15:04:30 +0200 (CEST)
+	id DAC91F80310; Mon,  2 Oct 2023 15:14:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CE6AF800C1
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 15:04:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CE6AF800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5332DF80166
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 15:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5332DF80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=m3xKYy6a
+ header.s=k20201202 header.b=nyxj3Bm9
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 4C860CE0E26;
-	Mon,  2 Oct 2023 13:04:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56B2C433C7;
-	Mon,  2 Oct 2023 13:04:18 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 25E6FCE0E67;
+	Mon,  2 Oct 2023 13:14:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B20C433C8;
+	Mon,  2 Oct 2023 13:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696251861;
-	bh=AFn+gVXbUD0U4Y6bUXqTweEbLHVA0KrcQKlngrIzbJ4=;
+	s=k20201202; t=1696252484;
+	bh=HuaILnKaqJkgCcuZj0uhvKwWfMGfSaYcyoOOPL8N3Ug=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m3xKYy6amE4sejsfFYH8X2/F22UfVwfhG3qQDtBSK2Sk9lu9vm3DA9+PiIMuDkVIA
-	 6x8JSfOzNGbU/scZWI3UbLrrG5R7/sp2z8XbYRJBCetpMRwID/jZR92vJHnwdeuQLf
-	 h7ZGaPS4qfsMzcO0bV9IAJHjD7QrbPZy0l5ON0Q+mtw2fPYP1zjHIGtQAbRt/XiVuq
-	 1HBp+KOnq6EuJtASfW5G4IxzxtypXIgEJ2Z422Etd7kGHwccAVkAV9ZXoCE6GSjASj
-	 9dNj2Tvz9G3cWQxAZv52eUtdF+doS2I4oImit/a0NvNFw1+Epyky0yG5W9ub5STiTv
-	 +eysXJ9BIWcLQ==
-Date: Mon, 2 Oct 2023 14:04:15 +0100
+	b=nyxj3Bm9iKxI/T17uFMykPGU1tTM7jVoFjG4QkCsRe4xLgXU0SNoiBzmpGqOQZR7D
+	 Krc3mkFWTAUtaF+MyUbwio62QhKKRk2Yea0YYP5vfditpWH6kCTNEjWCL1r5l/woGm
+	 LqbkTjiWtTWlV6ThgMN19+3YVO5Y9ZhoZu2zlqDQFXxdgYD4PB1r0YTXSSdJ6DLfOu
+	 HaEnTOpmRtJOqVMHA1q0uJFa8sHXvQv9U9draxNyirFHxy4XnLJ1e0SDZqfDf+/MX3
+	 EXVM+X1t+aZ5zLAUwpz7mfsZTsqJarJgILGGApfmvXswJWO9w7UMj9Cirqkyb/AFTo
+	 0ZfZSytatbVfA==
+Date: Mon, 2 Oct 2023 14:14:38 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Sven Frotscher <sven.frotscher@gmail.com>
-Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
-	mario.limonciello@amd.com, git@augustwikerfors.se,
-	alsa-devel@alsa-project.org, lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v4] ASoC: amd: yc: Fix non-functional mic on Lenovo 82YM
-Message-ID: <89698b5f-a616-4f49-802a-21326a868c7f@sirena.org.uk>
-References: <20230927223758.18870-1-sven.frotscher@gmail.com>
- <46560887-0b6e-42ac-96c3-b4dbc1d7cb61@leemhuis.info>
- <4fa7d39d-dc34-4550-97fa-2b089f364cca@sirena.org.uk>
- <541ac45b-8de7-4fa2-85ee-456d34e60aa9@leemhuis.info>
- <64c78944-4d62-4eda-b92b-3b415fea3333@sirena.org.uk>
- <65KW1S.A6C8VBV29YCM@gmail.com>
+To: Antoine Gennart <gennartan@disroot.org>
+Cc: linux-kernel@vger.kernel.org, shenghao-ding@ti.com, kevin-lu@ti.com,
+	baojun.xu@ti.com, lgirdwood@gmail.com, perex@perex.cz,
+	tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] audio: tlv320adc3xxx: BUG: Correct micbias setting
+Message-ID: <d5250bc9-403e-4b2a-a5c9-1c3711caef68@sirena.org.uk>
+References: <20230929130117.77661-1-gennartan@disroot.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="T3pA0U+bnE9JGR4j"
+	protocol="application/pgp-signature"; boundary="omQMoXSCBIHz/SbF"
 Content-Disposition: inline
-In-Reply-To: <65KW1S.A6C8VBV29YCM@gmail.com>
+In-Reply-To: <20230929130117.77661-1-gennartan@disroot.org>
 X-Cookie: Postage will be paid by addressee.
-Message-ID-Hash: BLCH4OTRH52C5GPS7MFS4SFW6FSRJFIC
-X-Message-ID-Hash: BLCH4OTRH52C5GPS7MFS4SFW6FSRJFIC
+Message-ID-Hash: 36Y6LWK7RV7AINGXUJ7CR3BXZVTZM4ZD
+X-Message-ID-Hash: 36Y6LWK7RV7AINGXUJ7CR3BXZVTZM4ZD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BLCH4OTRH52C5GPS7MFS4SFW6FSRJFIC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/36Y6LWK7RV7AINGXUJ7CR3BXZVTZM4ZD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,35 +97,33 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---T3pA0U+bnE9JGR4j
+--omQMoXSCBIHz/SbF
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Oct 02, 2023 at 03:00:42PM +0200, Sven Frotscher wrote:
-> Am Mo, 2. Okt 2023 um 13:54:59 +01:00:00 schrieb Mark Brown
+On Fri, Sep 29, 2023 at 03:01:17PM +0200, Antoine Gennart wrote:
+> The micbias setting for tlv320adc can also have the value '3' which
+> means that the micbias ouput pin is connected to the input pin AVDD.
 
-> > Until someone tests or otherwise provides specific information on a
-> > given machine we're just guessing about how it's wired up.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-> What specific information are we talking about here? I have the 82YM in
-> front of me and could help investigate.
-
-We need to know what magic set of quirks makes the thing work.  Are you
-saying that your patch doesn't actually do that?
-
---T3pA0U+bnE9JGR4j
+--omQMoXSCBIHz/SbF
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUav84ACgkQJNaLcl1U
-h9Cz6Qf9H7niacF30Y0k3OYJeoCcMMTuQYXuwjRZLJuCVOI/Uq8KIC/E3ovi+GX8
-CEcICKguhEX6gtzClAEOWWdRRmLubWi4kHEfZAaMMmKdNxa3xMEqazvbKLK1gidP
-1Mq4xx7BmNDoK1CSVInPoPl1Q5S9CEUOr9T855Mio0rY+4SjjOcTKjCmw9+SSkPr
-mpMTIdixcEm235K5rOh8KNcGtYqXmDvSHE0VFtkPu9iTC5Ik3Rh/CF4iC5Yl7u8u
-wkjKg+LSPqSTuf+FNJjqYARLOLFsTYhcbKQIcweBRHSxLDz9XHZSni20mX3V4Zlt
-t6c9FH0ejAjo0hZbJ9p8VRqOJJHHnA==
-=SH/+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUawj0ACgkQJNaLcl1U
+h9Dhpgf+Mpc4EGYGbWS6TYHo7x660bBHpu32KWRzDoyKjmkmbTBakRX4niRBRqFN
+kFvgfT/+UY1AV7dT/FTRb8qcAfIJvkCJkul7iIY/2DjVcr4Xm1779DqIE/zqnfri
+qI+TJ7f4jgzl1XbAzG/3t4VT4HJsUo7Y3ajlAo2ZjQyePFRDeEEnZQ5i4oCXrq2u
+3lKrvCzt5nnE1fVGPtj7vRHgnBmBuFiu47f38aEbG5CTY4zSHF69w4yrHDNI1E9m
+FGSSaHn9N32xr00GeD2UGS0JYzfR4n+cAfTWMPKXKqgB+FzniGVEDOBNXgbdgnFX
+dP5me0cXpACy2E5Yn7vBghaXy2K9wg==
+=jAA9
 -----END PGP SIGNATURE-----
 
---T3pA0U+bnE9JGR4j--
+--omQMoXSCBIHz/SbF--

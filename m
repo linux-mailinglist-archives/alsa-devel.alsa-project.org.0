@@ -2,96 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FAA27B5460
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 15:55:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0B227B54C6
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 16:14:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80ABAE11;
-	Mon,  2 Oct 2023 15:55:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80ABAE11
+	by alsa0.perex.cz (Postfix) with ESMTPS id A641FDEC;
+	Mon,  2 Oct 2023 16:14:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A641FDEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696254951;
-	bh=wodXjkvg3WGGOxLatk25xNHy2uoN+Ht6II6Y4FBjNBM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1696256097;
+	bh=vtsFilx2VTNxt77peLshnVCZwlt0hO5/O5caTMysMts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tVs5NxaS0zEVtSKCU+MuOgyWGA9SqA3Hrn3Ly+4r46jXwEkKRiQhZpPWCGwMQ3krY
-	 CvRBggTbXj+1r7mvqEqmm3Rt2QpXYximw+bg5nV2i9aZdyutwFGP3h/quZwgVD7iT+
-	 Z1Jk1/8He9iOQB5Ig/KIHDyf80N84zHzOaUWylx4=
+	b=cPevJwavooDI4Hk7URpfJ5bKW6U7rfKnowwCiqJryGLGW3bm+3dDh6nvKqatD8xcC
+	 3oVOLtWtP/GbcTu5ZxsbqD3dQ3La984EePM50mKnKnMVGyAjdl5jH8asFgm46goL+e
+	 AkU17fI7ZEvkDElTm3vekJk1C0bLZ+W8LekaOqtA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83BEDF8047D; Mon,  2 Oct 2023 15:54:40 +0200 (CEST)
+	id 11721F80553; Mon,  2 Oct 2023 16:14:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00046F802E8;
-	Mon,  2 Oct 2023 15:54:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF829F802E8;
+	Mon,  2 Oct 2023 16:14:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38BDEF80310; Mon,  2 Oct 2023 15:54:37 +0200 (CEST)
+	id 893CDF80310; Mon,  2 Oct 2023 16:14:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA5A6F800C1
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 15:54:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA5A6F800C1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
- header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=wmZJVmYE
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id CC83F9C284E;
-	Mon,  2 Oct 2023 09:54:30 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id 5dk_7z5j0X8T; Mon,  2 Oct 2023 09:54:30 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 438EC9C28CB;
-	Mon,  2 Oct 2023 09:54:30 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 438EC9C28CB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1696254870; bh=VOhLDE4guYQyg/wALA55JZ6elxZ+BJaLxqSVBh30BYw=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=wmZJVmYEKhrNtNRw6OTedHQPdp+xbTFDIE86uBxGhUzMxLq8ExHrBiNZ/hJ20OpO+
-	 FulZ+036wubqcvzi+f/YiBSPn5qm8MAfa5PxHQlzCG3aI0r80KY/9Z2h2++aDV7Zcm
-	 324c29l2gbKu0ViNRJ9E/9XHkEj/DvopjcHMw8Teeaivpjo7n5fUgDItYGv9yoqPwH
-	 tOAriO0txjQQS6gYtxzO9ewY9vqe3AQF4NpNVgTzFDvVYOxm/ATPp9d1Yz/UoPMgH2
-	 VwA3CHLYj473c2tYjWOFXqwh4drWnIWGEVxParWrIJH3VgAnmAkawfD/YvQzqtfL66
-	 z6BZ7tGpGzTEA==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id msSSIJSOvmn5; Mon,  2 Oct 2023 09:54:30 -0400 (EDT)
-Received: from t14pdgleonec.localnet
- (lmontsouris-657-1-69-118.w80-15.abo.wanadoo.fr [80.15.101.118])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 8D9129C284E;
-	Mon,  2 Oct 2023 09:54:29 -0400 (EDT)
-From: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com>
-To: elinor.montmasson@savoirfairelinux.com, Mark Brown <broonie@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Xiubo.Lee@gmail.com, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 01/10] ASoC: fsl-asoc-card: add new compatible for dummy
- codec
-Date: Mon, 02 Oct 2023 15:54:28 +0200
-Message-ID: <5105906.Z0T98nBDOH@t14pdgleonec>
-In-Reply-To: 
- <CAA+D8AM3RyrWOB4pmYgF4+q+X7Ro7coyDbGpsC4qzg_NX20N6Q@mail.gmail.com>
-References: <20230901144550.520072-1-elinor.montmasson@savoirfairelinux.com>
- <20230901144550.520072-2-elinor.montmasson@savoirfairelinux.com>
- <CAA+D8AM3RyrWOB4pmYgF4+q+X7Ro7coyDbGpsC4qzg_NX20N6Q@mail.gmail.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8617EF801EB
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 16:13:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8617EF801EB
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	id 1qnJgH-0003Y1-AM; Mon, 02 Oct 2023 16:13:53 +0200
+Message-ID: <048d9715-9cb2-4bc0-b8b0-5e30a0db54c7@leemhuis.info>
+Date: Mon, 2 Oct 2023 16:13:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Message-ID-Hash: 4OQEZ44HYRHGWBV5VUEPSP5TRNSPMGRM
-X-Message-ID-Hash: 4OQEZ44HYRHGWBV5VUEPSP5TRNSPMGRM
-X-MailFrom: philip-dylan.gleonec@savoirfairelinux.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] ASoC: amd: yc: Fix non-functional mic on Lenovo 82YM
+Content-Language: en-US, de-DE
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Mark Brown <broonie@kernel.org>,
+ Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Sven Frotscher <sven.frotscher@gmail.com>, git@augustwikerfors.se,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
+References: <20230927223758.18870-1-sven.frotscher@gmail.com>
+ <46560887-0b6e-42ac-96c3-b4dbc1d7cb61@leemhuis.info>
+ <4fa7d39d-dc34-4550-97fa-2b089f364cca@sirena.org.uk>
+ <0a3feafc-b843-420a-9b04-c835f8210c1a@amd.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <0a3feafc-b843-420a-9b04-c835f8210c1a@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: 
+ webpack.hosteurope.de;regressions@leemhuis.info;1696256037;2750f13f;
+X-HE-SMSGID: 1qnJgH-0003Y1-AM
+Message-ID-Hash: FXKKZ2H2IMAR5PBCZ7CKXZSY2QBPJHMX
+X-Message-ID-Hash: FXKKZ2H2IMAR5PBCZ7CKXZSY2QBPJHMX
+X-MailFrom: regressions@leemhuis.info
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,10 +80,11 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OQEZ44HYRHGWBV5VUEPSP5TRNSPMGRM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FXKKZ2H2IMAR5PBCZ7CKXZSY2QBPJHMX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,25 +93,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On lundi 11 septembre 2023 10:21:17 CEST Shengjiu Wang wrote:
-> Add Mark
+On 02.10.23 15:47, Mario Limonciello wrote:
+> On 10/2/2023 06:52, Mark Brown wrote:
+>> On Mon, Oct 02, 2023 at 11:32:48AM +0200, Linux regression tracking
+>> (Thorsten Leemhuis) wrote:
+>>
+>>> Makes me wonder: How many more such quirk entries will be needed? Will
+>>> we have all machines listed soon, or do we expect that future Lenovo
+>>> hardware will need entries as well? If it's the latter: are quirks
+>>> really the right solution here, or do they just hide some bug or then
+>>> need for code that automatically handles things?
+>>
+>> x86 firmware descriptions are terrible, it's just an endless procession
+>> of quirks.  The model for ACPI is not to describe key information in the
+>> kernel and instead on Windows load device specific information from
+>> separately supplied tables.  On Linux that translates into these endless
+>> quirks, on Windows it's platform specific drivers for otherwise generic
+>> audio hardware.
 > 
-> In the "Question about simple-audio-card with dummy CODEC"
-> Mark said dummy codec may not be used. we should have a driver
-> to describe the codec.
+> I knew there was a TON of "82" prefix systems from Lenovo so it was an
+> educated guess that all of them needed DMIC support.  This was incorrect
+> because one of them didn't have DMIC and that caused a no mic support
+> problem on that system.
 > 
-> Best regards
-> wang shengjiu
+> So in the case of this seemingly endless list of systems being added to
+> enable DMIC support Mark is right, Windows does it differently.
 
-Hello,
+Now I understand things better, many thx. But please allow me one more
+question from the cheap seats:
 
-I'm following up since Elinor is currently absent.
-I had the opportunity to meet Mark and asked for his advice: we will modify 
-the patchset to use the spdif_receiver and spdif_transceiver codecs instead of 
-the dummy codec. 
-Thanks for the review.
+Seems before c008323fe361 things worked for a lot of systems for about
+one year thx to 2232b2dd8cd4 (which added the wide "82" prefix quirk).
+We then made that one machine work with c008323fe361, but broke a lot of
+others with it that now need to be fixed with additional quirks; that
+"TON of 82 prefix systems" sounds like we might not be close to the end
+of that journey.
 
-Best regards,
-Philip-Dylan Gleonec
+So can't we just do it the other way around and assume DMIC support on
+Lenovo 82* machines, except on those where we know it to cause trouble?
 
+Again: you are the experts here. If you are positive that we soon got
+all machines covered where c008323fe361 causes a regression, then I
+guess it's best to continue the patch we're on.
 
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.

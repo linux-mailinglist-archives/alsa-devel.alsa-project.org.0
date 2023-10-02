@@ -2,113 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 049707B5809
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 18:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 340F27B58C5
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 19:32:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B25A485D;
-	Mon,  2 Oct 2023 18:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B25A485D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46FFCA4A;
+	Mon,  2 Oct 2023 19:31:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46FFCA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696265418;
-	bh=+ndZbwKiAJHi6yTQFerP95tlmJVKfVotqvNHfM2SzU0=;
+	s=default; t=1696267921;
+	bh=OdlZ5THuUArLfRy0wPc5UG7mfiwyH1fEuvpKiBXwcrk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Uomx80BfO9osa8KBi+G1+Hti1y9h1SqmxXHzYv1laaoytZX6xQEH/2fakBchzTKEI
-	 Y1EDlC6VFCUvqyOKboeVeK3n7nuPRmvCINrqeOS1LhCVYxTwZeCILRQcqinurNhe4n
-	 X94QcwtPyNb8S2vn2b8fs9y3s6orxPrhQjzk2H5M=
+	b=OX2IHVt4bRJBAu5lPaw+06BpQzZ4VOfqHFsWpMOrUcX27uR/t3PhgYX1ZSHGaJ1b4
+	 I++0YZWZUyvVX+teJZ8UTpyGfuABtOpmH/j9RgvsKe+Qc/fns7oC2CzTll3o9S2cO7
+	 ebnAiZNQmAVrFo57T0pnW3YMAeMqABxeRgdOieLM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 235A1F80557; Mon,  2 Oct 2023 18:49:27 +0200 (CEST)
+	id CE76CF80552; Mon,  2 Oct 2023 19:30:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A94C2F802E8;
-	Mon,  2 Oct 2023 18:49:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56076F802E8;
+	Mon,  2 Oct 2023 19:30:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 513CFF8047D; Mon,  2 Oct 2023 18:49:23 +0200 (CEST)
+	id 9B326F80310; Mon,  2 Oct 2023 19:30:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC9C3F801EB
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 18:49:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC9C3F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 410E6F800C1
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 19:30:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 410E6F800C1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=iOlNk3/0
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-1c328b53aeaso149556225ad.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 02 Oct 2023 09:49:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1696265353; x=1696870153;
- darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=b7XJ5dqJNV5CR1Ji4WUBRRsOzTxjBAVuiqQFOAjz294=;
-        b=iOlNk3/0uGDmk7yBiii6ZI2P9LTlzHHim1CV+7jLx27L48KucAJOJ7chdTG1HlWW46
-         zMVND5VF9Mp5Z6Yzh0VH6R7rNEwI33t6iySmzJXZeTHWcg0f+KNjLCNOEy7n/TxkyutJ
-         T7oKD+aOoXC3ocjoAJvZ3u288e0pm90I83sNA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696265353; x=1696870153;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b7XJ5dqJNV5CR1Ji4WUBRRsOzTxjBAVuiqQFOAjz294=;
-        b=eYJGm10DMdZG/JG29mZPMdCtmbMa+AavhC+xPxQesHhjCoitGhucXr59dXfK5S9trX
-         L0ERqxqOR5KiB0zisMZI5jTqk80MQwElfxDFr2yuRxUJTVuBzAxk7rNkjb0frPV8+6q+
-         5hOI+ZzDs5SVg9slqYTpzVcaoevB+8pRgS4BI3j6sm8QR73zJfjtwoAg7Yy81GIXnhxs
-         iaMYjiG3SSki+ayze4Xyfd+/pm6yiV9WmSLPTQeJ56okA5pxj4OFl8uqVowSSw1cbZc2
-         kwkDY6tLHFp/UHO0zTVibCjOHl4+jtdQkPMdZ9HchL/hoQdd4LHiWbGM8jA5x5NoJDcx
-         qyig==
-X-Gm-Message-State: AOJu0YwCURsBexFRPJQGxibHnGEeSdEg1Xw1sJA4ncayjXvTbzbkEV3B
-	tnAjt0E4OE5A8herCrRnzK+RidQTaLyqgnMAqh4=
-X-Google-Smtp-Source: 
- AGHT+IHrv23LVD12gIvMlECOZzW2oxgMdBZp+C3BsK92+u/yOg4JgdFuJ1c1G1mAfbhW7PBrvKLhkg==
-X-Received: by 2002:a17:903:2788:b0:1c1:e380:b128 with SMTP id
- jw8-20020a170903278800b001c1e380b128mr11306748plb.60.1696265352674;
-        Mon, 02 Oct 2023 09:49:12 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241])
-        by smtp.gmail.com with ESMTPSA id
- g6-20020a170902740600b001c63429fa89sm12200145pll.247.2023.10.02.09.49.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Oct 2023 09:49:11 -0700 (PDT)
-Date: Mon, 2 Oct 2023 09:49:10 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH][next] ASoC: SOF: ipc4-topology: Use size_add() in call
- to struct_size()
-Message-ID: <202310020948.DEFCF4F@keescook>
-References: <ZQSr15AYJpDpipg6@work>
- <169625984488.65718.9772394979337795498.b4-ty@kernel.org>
+	dkim=fail reason="signature verification failed" (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=WLDvTlVr
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 1EE0E60F8F;
+	Mon,  2 Oct 2023 17:30:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B79C433C7;
+	Mon,  2 Oct 2023 17:30:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696267825;
+	bh=OdlZ5THuUArLfRy0wPc5UG7mfiwyH1fEuvpKiBXwcrk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WLDvTlVrxZp+ubgMERGBLIgHk6VMW4gyrqvh6mAAY+mHvtfSK005LoanH0gVddMIF
+	 dv6MrJ8iXIX8S5kE74NfsNKvWsSgPX0bl4B/psz3ESsD5XzS7o4s96vlCPREA25czC
+	 tijyU5A+aReBkq0z80oyP9APXu6XkA7ib7irSiLHoPG9kzDlpUYeOMLna/gyLBZz8Q
+	 tcAgkYfXWtiFK93iad2cRXQY12s76l3zqk3dF2u2o8+S58OpoSymvEwH5IRF1I4g2t
+	 PUu/LV3ItEkvomp2fk/sFlrkgrkeKKqHFuyIkMgWKp3SENERPcMqNcLi2GvRCK8K2E
+	 q4ZQpq6SN+/+A==
+Received: (nullmailer pid 2046960 invoked by uid 1000);
+	Mon, 02 Oct 2023 17:30:19 -0000
+Date: Mon, 2 Oct 2023 12:30:19 -0500
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Cc: Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
+	herbert@gondor.apana.org.au, davem@davemloft.net,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	alexandre.torgue@foss.st.com, vkoul@kernel.org, jic23@kernel.org,
+	olivier.moysan@foss.st.com, arnaud.pouliquen@foss.st.com,
+	mchehab@kernel.org, fabrice.gasnier@foss.st.com,
+	andi.shyti@kernel.org, ulf.hansson@linaro.org, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, hugues.fruchet@foss.st.com,
+	lee@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+	arnd@kernel.org, richardcochran@gmail.com,
+	Frank Rowand <frowand.list@gmail.com>, peng.fan@oss.nxp.com,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
+	netdev@vger.kernel.org, linux-p@alsa-project.org,
+	hy@lists.infradead.org, linux-serial@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v5 01/11] dt-bindings: document generic access controller
+Message-ID: <20231002173019.GA2037244-robh@kernel.org>
+References: <20230929142852.578394-1-gatien.chevallier@foss.st.com>
+ <20230929142852.578394-2-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <169625984488.65718.9772394979337795498.b4-ty@kernel.org>
-Message-ID-Hash: TP46NNF6QGTJBXUJHP7ZIORSWZ73JQXF
-X-Message-ID-Hash: TP46NNF6QGTJBXUJHP7ZIORSWZ73JQXF
-X-MailFrom: keescook@chromium.org
+In-Reply-To: <20230929142852.578394-2-gatien.chevallier@foss.st.com>
+Message-ID-Hash: ATKTSRVLOONFIY73X6GTDD3JVHSYIBKY
+X-Message-ID-Hash: ATKTSRVLOONFIY73X6GTDD3JVHSYIBKY
+X-MailFrom: SRS0=McIo=FQ=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,35 +106,155 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TP46NNF6QGTJBXUJHP7ZIORSWZ73JQXF/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ATKTSRVLOONFIY73X6GTDD3JVHSYIBKY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Oct 02, 2023 at 04:17:24PM +0100, Mark Brown wrote:
-> On Fri, 15 Sep 2023 13:09:11 -0600, Gustavo A. R. Silva wrote:
-> > If, for any reason, the open-coded arithmetic causes a wraparound,
-> > the protection that `struct_size()` adds against potential integer
-> > overflows is defeated. Fix this by hardening call to `struct_size()`
-> > with `size_add()`.
-> > 
-> > 
+On Fri, Sep 29, 2023 at 04:28:42PM +0200, Gatien Chevallier wrote:
+> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 > 
-> Applied to
+> Introducing of the generic access controller bindings for the
+> access controller provider and consumer devices. Those bindings are
+> intended to allow a better handling of accesses to resources in a
+> hardware architecture supporting several compartments.
 > 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> This patch is based on [1]. It is integrated in this patchset as it
+> provides a use-case for it.
 > 
-> Thanks!
+> Diffs with [1]:
+> 	- Rename feature-domain* properties to access-control* to narrow
+> 	  down the scope of the binding
+> 	- YAML errors and typos corrected.
+> 	- Example updated
+> 	- Some rephrasing in the binding description
 > 
-> [1/1] ASoC: SOF: ipc4-topology: Use size_add() in call to struct_size()
->       commit: 3746284c233d5cf5f456400e61cd4a46a69c6e8c
+> [1]: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b
+> 
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> 
+> ---
+> Changes in V5:
+> 	- Diffs with [1]
+> 	- Discarded the [IGNORE] tag as the patch is now part of the
+> 	  patchset
+> 
+>  .../access-controllers/access-controller.yaml | 90 +++++++++++++++++++
+>  1 file changed, 90 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controller.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/access-controllers/access-controller.yaml b/Documentation/devicetree/bindings/access-controllers/access-controller.yaml
+> new file mode 100644
+> index 000000000000..9d305fccc333
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/access-controllers/access-controller.yaml
+> @@ -0,0 +1,90 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/access-controllers/access-controller.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Generic Domain Access Controller
+> +
+> +maintainers:
+> +  - Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> +
+> +description: |+
+> +  Common access controllers properties
+> +
+> +  Access controllers are in charge of stating which of the hardware blocks under
+> +  their responsibility (their domain) can be accesssed by which compartment. A
+> +  compartment can be a cluster of CPUs (or coprocessors), a range of addresses
+> +  or a group of hardware blocks. An access controller's domain is the set of
+> +  resources covered by the access controller.
+> +
+> +  This device tree bindings can be used to bind devices to their access
+> +  controller provided by access-controller property. In this case, the device is
+> +  a consumer and the access controller is the provider.
+> +
+> +  An access controller can be represented by any node in the device tree and
+> +  can provide one or more configuration parameters, needed to control parameters
+> +  of the consumer device. A consumer node can refer to the provider by phandle
+> +  and a set of phandle arguments, specified by '#access-controller-cells'
+> +  property in the access controller node.
+> +
+> +  Access controllers are typically used to set/read the permissions of a
+> +  hardware block and grant access to it. Any of which depends on the access
+> +  controller. The capabilities of each access controller are defined by the
+> +  binding of the access controller device.
+> +
+> +  Each node can be a consumer for the several access controllers.
+> +
+> +# always select the core schema
+> +select: true
+> +
+> +properties:
+> +  "#access-controller-cells":
+> +    $ref: /schemas/types.yaml#/definitions/uint32
 
-Thanks! I've dropped it from my tree.
+Drop. "#.*-cells" already defines the type.
 
--Kees
+> +    description:
+> +      Number of cells in a access-controller specifier;
+> +      Can be any value as specified by device tree binding documentation
+> +      of a particular provider.
+> +
+> +  access-control-provider:
+> +    description:
+> +      Indicates that the node is an access controller.
 
--- 
-Kees Cook
+Drop. The presence of "#access-controller-cells" is enough to do that.
+
+> +
+> +  access-controller-names:
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +    description:
+> +      A list of access-controller names, sorted in the same order as
+> +      access-controller entries. Consumer drivers will use
+> +      access-controller-names to match with existing access-controller entries.
+> +
+> +  access-controller:
+
+For consistency with other provider bindings: access-controllers
+
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description:
+> +      A list of access controller specifiers, as defined by the
+> +      bindings of the access-controller provider.
+> +
+> +additionalProperties: true
+> +
+> +examples:
+> +  - |
+> +    uart_controller: access-controller@50000 {
+> +        reg = <0x50000 0x10>;
+> +        access-control-provider;
+> +        #access-controller-cells = <2>;
+> +    };
+> +
+> +    bus_controller: bus@60000 {
+> +        reg = <0x60000 0x10000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
+> +        access-control-provider;
+> +        #access-controller-cells = <3>;
+> +
+> +        uart4: serial@60100 {
+> +            reg = <0x60100 0x400>;
+> +            access-controller = <&uart_controller 1 2>,
+> +                                <&bus_controller 1 3 5>;
+> +            access-controller-names = "controller", "bus-controller";
+
+Not great names. It should indicate what access is being controlled 
+locally. Perhaps "reg" for register access, "dma" or "bus" for bus 
+master access. (Not sure what your uart_controller is controlling access 
+to.)
+
+Rob

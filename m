@@ -2,100 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5477B5718
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 18:09:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 049707B5809
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 18:50:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32F4485D;
-	Mon,  2 Oct 2023 18:08:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32F4485D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B25A485D;
+	Mon,  2 Oct 2023 18:49:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B25A485D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696262985;
-	bh=A8RHgRJTdq1YDreXk6pMR2+4zGGe3daZlhUNpP+YvT0=;
+	s=default; t=1696265418;
+	bh=+ndZbwKiAJHi6yTQFerP95tlmJVKfVotqvNHfM2SzU0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SqaH02EMhGr/8WlU1syFdnmOjdxSsN4B0hHgRGCAT4nU9uLxqGXsEdE0GxBAB1w4e
-	 Rrj/7INqILogNuDPJiTV93j9PdsrA5x4ithUEtURxNaAkGI2Sbo8RWzJ9e4cq5v/4b
-	 UO7PTreGx8ET1ugHV3QtET53QteaFsR4LnWp4l/s=
+	b=Uomx80BfO9osa8KBi+G1+Hti1y9h1SqmxXHzYv1laaoytZX6xQEH/2fakBchzTKEI
+	 Y1EDlC6VFCUvqyOKboeVeK3n7nuPRmvCINrqeOS1LhCVYxTwZeCILRQcqinurNhe4n
+	 X94QcwtPyNb8S2vn2b8fs9y3s6orxPrhQjzk2H5M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B6F7F80551; Mon,  2 Oct 2023 18:08:54 +0200 (CEST)
+	id 235A1F80557; Mon,  2 Oct 2023 18:49:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4052BF802E8;
-	Mon,  2 Oct 2023 18:08:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A94C2F802E8;
+	Mon,  2 Oct 2023 18:49:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3714F802E8; Mon,  2 Oct 2023 18:08:50 +0200 (CEST)
+	id 513CFF8047D; Mon,  2 Oct 2023 18:49:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8B132F800C1
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 18:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B132F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC9C3F801EB
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 18:49:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC9C3F801EB
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uHpSZwV+
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 3A78FB8119C;
-	Mon,  2 Oct 2023 16:08:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEAD3C433C7;
-	Mon,  2 Oct 2023 16:08:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696262924;
-	bh=A8RHgRJTdq1YDreXk6pMR2+4zGGe3daZlhUNpP+YvT0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uHpSZwV+lJDbbehLSb/Spt3d5nct5tqN+zguTdzkPGP78BtxJA5slWfkTHCE8nFQo
-	 5Yp3/oCpoJUvujCt8oxxEYnhBkzbbfdWcUXXSLMC2qKfBUPFd2AhM75roBWtzG12r+
-	 zyO3n4G2YX0Ps18ARR/RDgmN7gspcIylPGhayXOz1Z3HxoUpPcb7dfOrvn+RuO5jOI
-	 k2O/32V4DaM8k2gyvWyggG3PutfRoMw1ofZehwhbd+Ft3ixdNjLhr1VYMPu4nJnQko
-	 xeOCGFGk/lxGzbnX61GXQT0EuQIbzaoX+ArQPRhaz4CGLZCfceZXmw3nFUYhiiDYic
-	 5M3ipz/e+xiTA==
-Received: (nullmailer pid 1849866 invoked by uid 1000);
-	Mon, 02 Oct 2023 16:08:40 -0000
-Date: Mon, 2 Oct 2023 11:08:40 -0500
-From: Rob Herring <robh@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, Xiubo Li <Xiubo.Lee@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	alsa-devel@alsa-project.org, "David S. Miller" <davem@davemloft.net>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Rob Herring <robh+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
-	linuxppc-dev@lists.ozlabs.org, Qiang Zhao <qiang.zhao@nxp.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Li Yang <leoyang.li@nxp.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, linux-gpio@vg,
-	er.kernel.org@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: Re: [PATCH v7 25/30] dt-bindings: net: Add the Lantiq PEF2256
- E1/T1/J1 framer
-Message-ID: <169626292036.1849826.7381200671829119399.robh@kernel.org>
-References: <20230928070652.330429-1-herve.codina@bootlin.com>
- <20230928070652.330429-26-herve.codina@bootlin.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=iOlNk3/0
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-1c328b53aeaso149556225ad.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 02 Oct 2023 09:49:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1696265353; x=1696870153;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=b7XJ5dqJNV5CR1Ji4WUBRRsOzTxjBAVuiqQFOAjz294=;
+        b=iOlNk3/0uGDmk7yBiii6ZI2P9LTlzHHim1CV+7jLx27L48KucAJOJ7chdTG1HlWW46
+         zMVND5VF9Mp5Z6Yzh0VH6R7rNEwI33t6iySmzJXZeTHWcg0f+KNjLCNOEy7n/TxkyutJ
+         T7oKD+aOoXC3ocjoAJvZ3u288e0pm90I83sNA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696265353; x=1696870153;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b7XJ5dqJNV5CR1Ji4WUBRRsOzTxjBAVuiqQFOAjz294=;
+        b=eYJGm10DMdZG/JG29mZPMdCtmbMa+AavhC+xPxQesHhjCoitGhucXr59dXfK5S9trX
+         L0ERqxqOR5KiB0zisMZI5jTqk80MQwElfxDFr2yuRxUJTVuBzAxk7rNkjb0frPV8+6q+
+         5hOI+ZzDs5SVg9slqYTpzVcaoevB+8pRgS4BI3j6sm8QR73zJfjtwoAg7Yy81GIXnhxs
+         iaMYjiG3SSki+ayze4Xyfd+/pm6yiV9WmSLPTQeJ56okA5pxj4OFl8uqVowSSw1cbZc2
+         kwkDY6tLHFp/UHO0zTVibCjOHl4+jtdQkPMdZ9HchL/hoQdd4LHiWbGM8jA5x5NoJDcx
+         qyig==
+X-Gm-Message-State: AOJu0YwCURsBexFRPJQGxibHnGEeSdEg1Xw1sJA4ncayjXvTbzbkEV3B
+	tnAjt0E4OE5A8herCrRnzK+RidQTaLyqgnMAqh4=
+X-Google-Smtp-Source: 
+ AGHT+IHrv23LVD12gIvMlECOZzW2oxgMdBZp+C3BsK92+u/yOg4JgdFuJ1c1G1mAfbhW7PBrvKLhkg==
+X-Received: by 2002:a17:903:2788:b0:1c1:e380:b128 with SMTP id
+ jw8-20020a170903278800b001c1e380b128mr11306748plb.60.1696265352674;
+        Mon, 02 Oct 2023 09:49:12 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241])
+        by smtp.gmail.com with ESMTPSA id
+ g6-20020a170902740600b001c63429fa89sm12200145pll.247.2023.10.02.09.49.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Oct 2023 09:49:11 -0700 (PDT)
+Date: Mon, 2 Oct 2023 09:49:10 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH][next] ASoC: SOF: ipc4-topology: Use size_add() in call
+ to struct_size()
+Message-ID: <202310020948.DEFCF4F@keescook>
+References: <ZQSr15AYJpDpipg6@work>
+ <169625984488.65718.9772394979337795498.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230928070652.330429-26-herve.codina@bootlin.com>
-Message-ID-Hash: DWIW2QSZLW3NBCL7VWAIO432CKRQGDBX
-X-Message-ID-Hash: DWIW2QSZLW3NBCL7VWAIO432CKRQGDBX
-X-MailFrom: SRS0=McIo=FQ=robh_at_kernel.org=rob@kernel.org
+In-Reply-To: <169625984488.65718.9772394979337795498.b4-ty@kernel.org>
+Message-ID-Hash: TP46NNF6QGTJBXUJHP7ZIORSWZ73JQXF
+X-Message-ID-Hash: TP46NNF6QGTJBXUJHP7ZIORSWZ73JQXF
+X-MailFrom: keescook@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,28 +120,35 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWIW2QSZLW3NBCL7VWAIO432CKRQGDBX/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TP46NNF6QGTJBXUJHP7ZIORSWZ73JQXF/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Thu, 28 Sep 2023 09:06:43 +0200, Herve Codina wrote:
-> The Lantiq PEF2256 is a framer and line interface component designed to
-> fulfill all required interfacing between an analog E1/T1/J1 line and the
-> digital PCM system highway/H.100 bus.
+On Mon, Oct 02, 2023 at 04:17:24PM +0100, Mark Brown wrote:
+> On Fri, 15 Sep 2023 13:09:11 -0600, Gustavo A. R. Silva wrote:
+> > If, for any reason, the open-coded arithmetic causes a wraparound,
+> > the protection that `struct_size()` adds against potential integer
+> > overflows is defeated. Fix this by hardening call to `struct_size()`
+> > with `size_add()`.
+> > 
+> > 
 > 
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-> ---
->  .../bindings/net/lantiq,pef2256.yaml          | 213 ++++++++++++++++++
->  1 file changed, 213 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/lantiq,pef2256.yaml
+> Applied to
 > 
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> 
+> Thanks!
+> 
+> [1/1] ASoC: SOF: ipc4-topology: Use size_add() in call to struct_size()
+>       commit: 3746284c233d5cf5f456400e61cd4a46a69c6e8c
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Thanks! I've dropped it from my tree.
 
+-Kees
+
+-- 
+Kees Cook

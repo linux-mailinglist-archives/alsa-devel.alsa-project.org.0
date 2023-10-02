@@ -2,78 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACA77B562E
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 17:19:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D5437B5630
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 17:19:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E918CE7A;
-	Mon,  2 Oct 2023 17:18:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E918CE7A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 603E0E85;
+	Mon,  2 Oct 2023 17:18:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 603E0E85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696259946;
-	bh=QyLUHxCnjq96dRqqAZ2R16rfPM/ceuxmjSOr/ybBiBU=;
+	s=default; t=1696259975;
+	bh=ER6oLVHxt79NWJRk4i6TQYMDnVPa/mQSBVn1tmMNCvk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m/UqQh647qYHOC5jBjEu915/NvS7sNtTW0s1E6+qYIk3chU9Ulyn584scUhJpOvqp
-	 KTzr/A2pXEmr4DDFZfQ1w4rDTsaqyoxD+eUwhkeO6MearxzIAJ4DSqr5Nva8MYdT/o
-	 c2SVC+LxXBDWxat45KFqB5CgGl1bYNOI/3QnENFc=
+	b=pnBB7aQuSznAi0QJxRpMstPO3r3R3O4k+6hoo4WEiiJBw4cyM1m3FzTXu9LyPaeFW
+	 Htf2TjjQtU1OF4JiUnoochouCOeYAZvSrboWNCIR20X89KZ9vtM9O7qWV3ONJOm5Ot
+	 F0rRUiRcHv7LIOLXodkPEkS2zOu6KEoSLb+1Ji2Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A40B4F8055A; Mon,  2 Oct 2023 17:17:54 +0200 (CEST)
+	id CFF61F8059F; Mon,  2 Oct 2023 17:18:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D102F8057B;
-	Mon,  2 Oct 2023 17:17:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBC94F80553;
+	Mon,  2 Oct 2023 17:18:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85A3CF80549; Mon,  2 Oct 2023 17:17:48 +0200 (CEST)
+	id CA5E3F8055C; Mon,  2 Oct 2023 17:18:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF02DF80166
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 17:17:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF02DF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 77C5DF80587
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 17:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77C5DF80587
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=shb7TX2p
+ header.s=k20201202 header.b=NxQuX+QI
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id C45F360C78;
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0A80B60F4B;
+	Mon,  2 Oct 2023 15:17:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B693C433C8;
 	Mon,  2 Oct 2023 15:17:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FB3C433C7;
-	Mon,  2 Oct 2023 15:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696259853;
-	bh=QyLUHxCnjq96dRqqAZ2R16rfPM/ceuxmjSOr/ybBiBU=;
+	s=k20201202; t=1696259857;
+	bh=ER6oLVHxt79NWJRk4i6TQYMDnVPa/mQSBVn1tmMNCvk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=shb7TX2pHDxTEKlFWlXNf7G/y9RynF7jCe2sTyhieqYayrT8GFNgN5Ms8FsUjjlXr
-	 7mAUglbGkf4x9wdWlSM6ZT75sOaxvdG8rbFkmBv8UW+qqCVuy7u/27qLDoe+lUMEJi
-	 cOo/Lq9By4bWG7yB7M94s89Vdl18nX23j7kPeHiSaaVfjvgGCj72/A9hOApYv4mlSP
-	 ylBwSsEQrwPEiGhnRf95LIhCTdHrqYYcVnfVrpr9zcNjQ1IsNfESSzeah6YmCOOcfj
-	 NFcfzlO/Emx8z3pOLivStTFPTS2egqJFrhIjNvy8zJB4xzvBbxOnQlxXwqqhU1xJf1
-	 fYw5rKJaKcXOg==
+	b=NxQuX+QICNK9ffUBus5qmweKQ0JZMHcxdvRWiiOil8fkQD3VXK9x+JEoOLi4NFTo2
+	 ewJI1kBalKZbVTai3b5QD1rs202AWarmW5ZmYm/NP4UoNLOcuS2zmaD8IzLBb53GUk
+	 bpeutcVFTgB1KxBNFjxVRIPHsWVgDN/C83drI2xrr0wb1KzpmZPSMuv8gD9H0dKBMD
+	 6ixWQzbSVb5P5xKChC/JILDPZJvq+wHzjpC29cOI6GD74AITUhHjWKnVsKOOkqJxe4
+	 r3PK+Nw/rvhYkCGNG7y7+QYUoZtpBh3ExDZu+/ZOG/ImJMQUiFd2vrFARfFXRBpYWw
+	 zriimCuzJOerw==
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>
-In-Reply-To: <20231002084629.903103-1-amadeuszx.slawinski@linux.intel.com>
-References: <20231002084629.903103-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: Remove unused variable
-Message-Id: <169625985165.65718.11092639345516180535.b4-ty@kernel.org>
-Date: Mon, 02 Oct 2023 16:17:31 +0100
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: robh+dt@kernel.org, andriy.shevchenko@linux.intel.com,
+ lgirdwood@gmail.com, perex@perex.cz, pierre-louis.bossart@linux.intel.com,
+ kevin-lu@ti.com, 13916275206@139.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
+ mengdong.lin@intel.com, baojun.xu@ti.com, thomas.gfeller@q-drop.com,
+ peeyush@ti.com, navada@ti.com, tiwai@suse.de
+In-Reply-To: <20231002090434.1896-1-shenghao-ding@ti.com>
+References: <20231002090434.1896-1-shenghao-ding@ti.com>
+Subject: Re: [PATCH v1] ASoC: tas2781: fixed compiling issue in m68k
+Message-Id: <169625985375.65718.17717967920351925508.b4-ty@kernel.org>
+Date: Mon, 02 Oct 2023 16:17:33 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: 5TW7BPJPSKI45V7EKEE3XH2OKMLBIPPP
-X-Message-ID-Hash: 5TW7BPJPSKI45V7EKEE3XH2OKMLBIPPP
+Message-ID-Hash: 25LEOF5BX2MFVC36SAS2GWBU7OOO57F5
+X-Message-ID-Hash: 25LEOF5BX2MFVC36SAS2GWBU7OOO57F5
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5TW7BPJPSKI45V7EKEE3XH2OKMLBIPPP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/25LEOF5BX2MFVC36SAS2GWBU7OOO57F5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,9 +100,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 02 Oct 2023 10:46:29 +0200, Amadeusz Sławiński wrote:
-> Recent commit removed the only user of bus variable in
-> avs_dai_fe_prepare(), also remove the variable itself.
+On Mon, 02 Oct 2023 17:04:33 +0800, Shenghao Ding wrote:
+> fixed m68k compiling issue: mapping table can save code field; storing the
+> dev_idx as a member of block can reduce unnecessary  time and system
+> resource comsumption of dev_idx mapping every time the block data writing
+> to the dsp.
 > 
 > 
 
@@ -107,8 +114,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: avs: Remove unused variable
-      commit: 045059e4d3ce39104323fe01da61374ba73f31b3
+[1/1] ASoC: tas2781: fixed compiling issue in m68k
+      commit: 4c556d1ea5a771a91f946964d931b4974a6b917e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

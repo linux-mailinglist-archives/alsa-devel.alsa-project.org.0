@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 340F27B58C5
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 19:32:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB127B5A16
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Oct 2023 20:31:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46FFCA4A;
-	Mon,  2 Oct 2023 19:31:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46FFCA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45B2586E;
+	Mon,  2 Oct 2023 20:31:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45B2586E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696267921;
-	bh=OdlZ5THuUArLfRy0wPc5UG7mfiwyH1fEuvpKiBXwcrk=;
+	s=default; t=1696271516;
+	bh=1//f2YouULqAiADtTsQpdUerbTsC5x6cElTMSDp4Lbs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OX2IHVt4bRJBAu5lPaw+06BpQzZ4VOfqHFsWpMOrUcX27uR/t3PhgYX1ZSHGaJ1b4
-	 I++0YZWZUyvVX+teJZ8UTpyGfuABtOpmH/j9RgvsKe+Qc/fns7oC2CzTll3o9S2cO7
-	 ebnAiZNQmAVrFo57T0pnW3YMAeMqABxeRgdOieLM=
+	b=lxr4FyPsTtjmEn1C21TyWrybBiRaQXyx6FQet68iyuyyKnuoAgNE6lKZrZAtyrPAG
+	 33/Hqt8WVKW+BIbmJdNo57Al+PqxUyetrRUDSrWqxrbiycoLR6fkCm8eH/ODvZbGRw
+	 6yvQruWoInc8vvluHHGi+AA59OOx9ag86/q/gQ+o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE76CF80552; Mon,  2 Oct 2023 19:30:50 +0200 (CEST)
+	id 9309FF8055C; Mon,  2 Oct 2023 20:31:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56076F802E8;
-	Mon,  2 Oct 2023 19:30:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46E00F801EB;
+	Mon,  2 Oct 2023 20:31:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B326F80310; Mon,  2 Oct 2023 19:30:44 +0200 (CEST)
+	id ED2FAF802E8; Mon,  2 Oct 2023 20:31:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
@@ -37,31 +37,31 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 410E6F800C1
-	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 19:30:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 410E6F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id CFB9CF801EB
+	for <alsa-devel@alsa-project.org>; Mon,  2 Oct 2023 20:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFB9CF801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=fail reason="signature verification failed" (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WLDvTlVr
+ header.s=k20201202 header.b=bi3H48gw
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1EE0E60F8F;
-	Mon,  2 Oct 2023 17:30:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B79C433C7;
-	Mon,  2 Oct 2023 17:30:20 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 5374460FC0;
+	Mon,  2 Oct 2023 18:30:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEC6C433C7;
+	Mon,  2 Oct 2023 18:30:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696267825;
-	bh=OdlZ5THuUArLfRy0wPc5UG7mfiwyH1fEuvpKiBXwcrk=;
+	s=k20201202; t=1696271447;
+	bh=1//f2YouULqAiADtTsQpdUerbTsC5x6cElTMSDp4Lbs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WLDvTlVrxZp+ubgMERGBLIgHk6VMW4gyrqvh6mAAY+mHvtfSK005LoanH0gVddMIF
-	 dv6MrJ8iXIX8S5kE74NfsNKvWsSgPX0bl4B/psz3ESsD5XzS7o4s96vlCPREA25czC
-	 tijyU5A+aReBkq0z80oyP9APXu6XkA7ib7irSiLHoPG9kzDlpUYeOMLna/gyLBZz8Q
-	 tcAgkYfXWtiFK93iad2cRXQY12s76l3zqk3dF2u2o8+S58OpoSymvEwH5IRF1I4g2t
-	 PUu/LV3ItEkvomp2fk/sFlrkgrkeKKqHFuyIkMgWKp3SENERPcMqNcLi2GvRCK8K2E
-	 q4ZQpq6SN+/+A==
-Received: (nullmailer pid 2046960 invoked by uid 1000);
-	Mon, 02 Oct 2023 17:30:19 -0000
-Date: Mon, 2 Oct 2023 12:30:19 -0500
+	b=bi3H48gw6TxHb/xgPIWTF4A7VE+gxBmVvSU7jPU4eG84RKGCb36Q1H8oCpmZDY7pl
+	 Ez9aM3h3TYpqzKl1n3EzY6ldb8JrMq4tTDUeLBFWupzS8hMjEIU0HRFa+zRC2yckIQ
+	 +CJlbmZVTJ8Fak0tJp+DJIPt2x8poJRCXlkBuPceq1pvv4sqBs9uLCeF9S3OHv4ANC
+	 kz0kBvAdjIVIqPgS3qT6PGfaOJqNodNT3afHaTiLHzKX38+4mIcUZjRpbnxt+zbMhU
+	 75XjXJAAf1jf9ezT5DAg6EvXJsMp4PLdmP64J66+EIYyaGwwTL2vB+qopg+2ZMR941
+	 wVgsHp9MLI2Ug==
+Received: (nullmailer pid 2308269 invoked by uid 1000);
+	Mon, 02 Oct 2023 18:30:41 -0000
+Date: Mon, 2 Oct 2023 13:30:41 -0500
 From: Rob Herring <robh@kernel.org>
 To: Gatien Chevallier <gatien.chevallier@foss.st.com>
 Cc: Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
@@ -84,16 +84,16 @@ Cc: Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
 	netdev@vger.kernel.org, linux-p@alsa-project.org,
 	hy@lists.infradead.org, linux-serial@vger.kernel.org,
 	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v5 01/11] dt-bindings: document generic access controller
-Message-ID: <20231002173019.GA2037244-robh@kernel.org>
+Subject: Re: [PATCH v5 03/11] dt-bindings: bus: document RIFSC
+Message-ID: <20231002183041.GA2062984-robh@kernel.org>
 References: <20230929142852.578394-1-gatien.chevallier@foss.st.com>
- <20230929142852.578394-2-gatien.chevallier@foss.st.com>
+ <20230929142852.578394-4-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230929142852.578394-2-gatien.chevallier@foss.st.com>
-Message-ID-Hash: ATKTSRVLOONFIY73X6GTDD3JVHSYIBKY
-X-Message-ID-Hash: ATKTSRVLOONFIY73X6GTDD3JVHSYIBKY
+In-Reply-To: <20230929142852.578394-4-gatien.chevallier@foss.st.com>
+Message-ID-Hash: Q72BAWVO2KY7UHLFYCQGORNQCKJFLKNY
+X-Message-ID-Hash: Q72BAWVO2KY7UHLFYCQGORNQCKJFLKNY
 X-MailFrom: SRS0=McIo=FQ=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ATKTSRVLOONFIY73X6GTDD3JVHSYIBKY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q72BAWVO2KY7UHLFYCQGORNQCKJFLKNY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,146 +115,150 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Sep 29, 2023 at 04:28:42PM +0200, Gatien Chevallier wrote:
-> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+On Fri, Sep 29, 2023 at 04:28:44PM +0200, Gatien Chevallier wrote:
+> Document RIFSC (RIF security controller). RIFSC is a firewall controller
+> composed of different kinds of hardware resources.
 > 
-> Introducing of the generic access controller bindings for the
-> access controller provider and consumer devices. Those bindings are
-> intended to allow a better handling of accesses to resources in a
-> hardware architecture supporting several compartments.
-> 
-> This patch is based on [1]. It is integrated in this patchset as it
-> provides a use-case for it.
-> 
-> Diffs with [1]:
-> 	- Rename feature-domain* properties to access-control* to narrow
-> 	  down the scope of the binding
-> 	- YAML errors and typos corrected.
-> 	- Example updated
-> 	- Some rephrasing in the binding description
-> 
-> [1]: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> 
 > ---
+> 
 > Changes in V5:
-> 	- Diffs with [1]
-> 	- Discarded the [IGNORE] tag as the patch is now part of the
-> 	  patchset
+> 	- Renamed feature-domain* to access-control*
 > 
->  .../access-controllers/access-controller.yaml | 90 +++++++++++++++++++
->  1 file changed, 90 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controller.yaml
+> Changes in V2:
+> 	- Corrected errors highlighted by Rob's robot
+> 	- No longer define the maxItems for the "feature-domains"
+> 	  property
+> 	- Fix example (node name, status)
+> 	- Declare "feature-domain-names" as an optional
+> 	  property for child nodes
+> 	- Fix description of "feature-domains" property
 > 
-> diff --git a/Documentation/devicetree/bindings/access-controllers/access-controller.yaml b/Documentation/devicetree/bindings/access-controllers/access-controller.yaml
+>  .../bindings/bus/st,stm32mp25-rifsc.yaml      | 105 ++++++++++++++++++
+>  1 file changed, 105 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
 > new file mode 100644
-> index 000000000000..9d305fccc333
+> index 000000000000..c28fceff3036
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/access-controllers/access-controller.yaml
-> @@ -0,0 +1,90 @@
+> +++ b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
+> @@ -0,0 +1,105 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/access-controllers/access-controller.yaml#
+> +$id: http://devicetree.org/schemas/bus/st,stm32mp25-rifsc.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Generic Domain Access Controller
+> +title: STM32 Resource isolation framework security controller
 > +
 > +maintainers:
-> +  - Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
 > +
-> +description: |+
-> +  Common access controllers properties
+> +description: |
+> +  Resource isolation framework (RIF) is a comprehensive set of hardware blocks
+> +  designed to enforce and manage isolation of STM32 hardware resources like
+> +  memory and peripherals.
 > +
-> +  Access controllers are in charge of stating which of the hardware blocks under
-> +  their responsibility (their domain) can be accesssed by which compartment. A
-> +  compartment can be a cluster of CPUs (or coprocessors), a range of addresses
-> +  or a group of hardware blocks. An access controller's domain is the set of
-> +  resources covered by the access controller.
-> +
-> +  This device tree bindings can be used to bind devices to their access
-> +  controller provided by access-controller property. In this case, the device is
-> +  a consumer and the access controller is the provider.
-> +
-> +  An access controller can be represented by any node in the device tree and
-> +  can provide one or more configuration parameters, needed to control parameters
-> +  of the consumer device. A consumer node can refer to the provider by phandle
-> +  and a set of phandle arguments, specified by '#access-controller-cells'
-> +  property in the access controller node.
-> +
-> +  Access controllers are typically used to set/read the permissions of a
-> +  hardware block and grant access to it. Any of which depends on the access
-> +  controller. The capabilities of each access controller are defined by the
-> +  binding of the access controller device.
-> +
-> +  Each node can be a consumer for the several access controllers.
-> +
-> +# always select the core schema
-> +select: true
+> +  The RIFSC (RIF security controller) is composed of three sets of registers,
+> +  each managing a specific set of hardware resources:
+> +    - RISC registers associated with RISUP logic (resource isolation device unit
+> +      for peripherals), assign all non-RIF aware peripherals to zero, one or
+> +      any security domains (secure, privilege, compartment).
+> +    - RIMC registers: associated with RIMU logic (resource isolation master
+> +      unit), assign all non RIF-aware bus master to one security domain by
+> +      setting secure, privileged and compartment information on the system bus.
+> +      Alternatively, the RISUP logic controlling the device port access to a
+> +      peripheral can assign target bus attributes to this peripheral master port
+> +      (supported attribute: CID).
+> +    - RISC registers associated with RISAL logic (resource isolation device unit
+> +      for address space - Lite version), assign address space subregions to one
+> +      security domains (secure, privilege, compartment).
 > +
 > +properties:
+> +  compatible:
+> +    contains:
+> +      const: st,stm32mp25-rifsc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges: true
+> +
 > +  "#access-controller-cells":
-> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    const: 1
 
-Drop. "#.*-cells" already defines the type.
-
-> +    description:
-> +      Number of cells in a access-controller specifier;
-> +      Can be any value as specified by device tree binding documentation
-> +      of a particular provider.
-> +
-> +  access-control-provider:
-> +    description:
-> +      Indicates that the node is an access controller.
-
-Drop. The presence of "#access-controller-cells" is enough to do that.
+You should define what the cells contain here.
 
 > +
-> +  access-controller-names:
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    description:
-> +      A list of access-controller names, sorted in the same order as
-> +      access-controller entries. Consumer drivers will use
-> +      access-controller-names to match with existing access-controller entries.
+> +  access-control-provider: true
 > +
-> +  access-controller:
+> +patternProperties:
+> +  "^.*@[0-9a-f]+$":
+> +    description: Peripherals
+> +    type: object
 
-For consistency with other provider bindings: access-controllers
+       additionalProperties: true
 
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description:
-> +      A list of access controller specifiers, as defined by the
-> +      bindings of the access-controller provider.
+> +    properties:
+> +      access-controller:
+> +        minItems: 1
+> +        description:
+> +          The phandle of the firewall controller of the peripheral and the
+> +          platform-specific firewall ID of the peripheral.
 > +
-> +additionalProperties: true
+> +      access-controller-names:
+> +        minItems: 1
+
+Drop all this. You have to define these in the specific device schemas 
+anyways.
+
+> +
+> +    required:
+> +      - access-controller
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - access-control-provider
+> +  - "#access-controller-cells"
+> +  - ranges
+> +
+> +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    uart_controller: access-controller@50000 {
-> +        reg = <0x50000 0x10>;
-> +        access-control-provider;
-> +        #access-controller-cells = <2>;
-> +    };
+> +    // In this example, the usart2 device refers to rifsc as its domain
+> +    // controller.
+> +    // Access rights are verified before creating devices.
 > +
-> +    bus_controller: bus@60000 {
-> +        reg = <0x60000 0x10000>;
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    rifsc: bus@42080000 {
+> +        compatible = "st,stm32mp25-rifsc";
+> +        reg = <0x42080000 0x1000>;
 > +        #address-cells = <1>;
 > +        #size-cells = <1>;
-> +        ranges;
 > +        access-control-provider;
-> +        #access-controller-cells = <3>;
+> +        #access-controller-cells = <1>;
+> +        ranges;
 > +
-> +        uart4: serial@60100 {
-> +            reg = <0x60100 0x400>;
-> +            access-controller = <&uart_controller 1 2>,
-> +                                <&bus_controller 1 3 5>;
-> +            access-controller-names = "controller", "bus-controller";
-
-Not great names. It should indicate what access is being controlled 
-locally. Perhaps "reg" for register access, "dma" or "bus" for bus 
-master access. (Not sure what your uart_controller is controlling access 
-to.)
-
-Rob
+> +        usart2: serial@400e0000 {
+> +              compatible = "st,stm32h7-uart";
+> +              reg = <0x400e0000 0x400>;
+> +              interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+> +              clocks = <&ck_flexgen_08>;
+> +              access-controller = <&rifsc 32>;
+> +        };
+> +    };
+> -- 
+> 2.25.1
+> 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB17F7B9B88
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:51:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D35D7B9B89
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:51:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57EB4E10;
-	Thu,  5 Oct 2023 09:50:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57EB4E10
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA8D7E81;
+	Thu,  5 Oct 2023 09:50:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA8D7E81
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492273;
-	bh=ct+lYwk0RAjsp1USi7lXD91ecKZ/AGk529/60UUmB7s=;
+	s=default; t=1696492303;
+	bh=KHe4uCcX+P2eCK4CBz8/0xFuZpRP+gJITHjGpepJDfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nW1WNjU+QJWQTGeCo01u2L9ufW1cks8ATNGRT+ahsK/4JrICHL6AIRJosgE3tppVE
-	 WZyyixHifi3/og2urYGxqm6OrkJPeUofyWX1y7dV0GT7PmM1acMHDuF/aevPmiAVA1
-	 B7q8HFiZE+lsLo8XhXo3WPq8sxhQ76v5YPZhNnA4=
+	b=u563hLEOscC0NEuv9uKfbN6CWtWCgLZeGe5xW7zzDeVegqYiMlmeq3/g2OX9RQ4Lk
+	 +SA/wkjVqUOIsbkp4FC5Eg8ES4wyz3oRzL+83pFOGYr3Tocbvw3TXY6cD2P6vInz6Y
+	 Kjh4ZJq4ymVAxxXrJUmEoC4+6KHbP8rq7cDaCuuE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1DF61F80571; Thu,  5 Oct 2023 09:50:10 +0200 (CEST)
+	id 6F170F8059F; Thu,  5 Oct 2023 09:50:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C7F8F80578;
-	Thu,  5 Oct 2023 09:50:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE4AAF8057C;
+	Thu,  5 Oct 2023 09:50:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DEEFEF802E8; Mon,  2 Oct 2023 18:52:20 +0200 (CEST)
+	id 50559F80549; Mon,  2 Oct 2023 18:52:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
@@ -36,29 +36,29 @@ Received: from mblankhorst.nl (lankhorst.se
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 68464F80310;
-	Mon,  2 Oct 2023 18:52:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68464F80310
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7AE01F802E8;
+	Mon,  2 Oct 2023 18:52:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AE01F802E8
 From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
 	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
 	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Daniel Baluta <daniel.baluta@nxp.com>,
 	linux-kernel@vger.kernel.org,
 	sound-open-firmware@alsa-project.org
-Subject: [PATCH v5 11/12] ASoC: SOF: Intel: Move binding to display driver
- outside of deferred probe
-Date: Mon,  2 Oct 2023 18:52:14 +0200
-Message-Id: <20231002165214.17879-1-maarten.lankhorst@linux.intel.com>
+Subject: [PATCH v5 12/12] ALSA: hda/i915: Remove extra argument from
+ snd_hdac_i915_init
+Date: Mon,  2 Oct 2023 18:52:21 +0200
+Message-Id: <20231002165221.17916-1-maarten.lankhorst@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
 References: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
@@ -70,34 +70,27 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: B5GYNA4JIFDILN5FAIVSRTBNG5PXEZO3
-X-Message-ID-Hash: B5GYNA4JIFDILN5FAIVSRTBNG5PXEZO3
+Message-ID-Hash: CSJ24RJFVS4O33VY4UMZEEX24MC7G2EQ
+X-Message-ID-Hash: CSJ24RJFVS4O33VY4UMZEEX24MC7G2EQ
 X-Mailman-Approved-At: Thu, 05 Oct 2023 07:50:00 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B5GYNA4JIFDILN5FAIVSRTBNG5PXEZO3/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CSJ24RJFVS4O33VY4UMZEEX24MC7G2EQ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now that we can use -EPROBE_DEFER, it's no longer required to spin off
-the snd_hdac_i915_init into a workqueue.
-
-Use the -EPROBE_DEFER mechanism instead, which must be returned in the
-probe function.
-
-The previously added probe_early can be used for this,
-and we also use the newly added remove_late for unbinding afterwards.
+Now that all drivers have moved from modprobe loading to
+handling -EPROBE_DEFER, we can remove the argument again.
 
 Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
 Cc: Jaroslav Kysela <perex@perex.cz>
 Cc: Takashi Iwai <tiwai@suse.com>
@@ -114,90 +107,119 @@ Cc: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
 Cc: sound-open-firmware@alsa-project.org
 
- sound/soc/sof/intel/hda-common-ops.c |  1 +
- sound/soc/sof/intel/hda.c            | 14 ++++++--------
- sound/soc/sof/intel/hda.h            |  1 +
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ include/sound/hda_i915.h        |  4 ++--
+ sound/hda/hdac_i915.c           | 14 +++-----------
+ sound/pci/hda/hda_intel.c       |  2 +-
+ sound/soc/intel/avs/core.c      |  2 +-
+ sound/soc/intel/skylake/skl.c   |  2 +-
+ sound/soc/sof/intel/hda-codec.c |  2 +-
+ 6 files changed, 9 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-common-ops.c b/sound/soc/sof/intel/hda-common-ops.c
-index 1cc18fb2b75bb..26105d8f1bdc7 100644
---- a/sound/soc/sof/intel/hda-common-ops.c
-+++ b/sound/soc/sof/intel/hda-common-ops.c
-@@ -19,6 +19,7 @@ struct snd_sof_dsp_ops sof_hda_common_ops = {
- 	.probe_early	= hda_dsp_probe_early,
- 	.probe		= hda_dsp_probe,
- 	.remove		= hda_dsp_remove,
-+	.remove_late	= hda_dsp_remove_late,
+diff --git a/include/sound/hda_i915.h b/include/sound/hda_i915.h
+index f91bd66360865..6b79614a893b9 100644
+--- a/include/sound/hda_i915.h
++++ b/include/sound/hda_i915.h
+@@ -9,12 +9,12 @@
  
- 	/* Register IO uses direct mmio */
- 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 86a2571488bcc..32ac0581f9f63 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -1160,6 +1160,7 @@ int hda_dsp_probe_early(struct snd_sof_dev *sdev)
- 		return -ENOMEM;
- 	sdev->pdata->hw_pdata = hdev;
- 	hdev->desc = chip;
-+	ret = hda_init(sdev);
- 
- err:
- 	return ret;
-@@ -1195,9 +1196,6 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 
- 	/* set up HDA base */
- 	bus = sof_to_bus(sdev);
--	ret = hda_init(sdev);
--	if (ret < 0)
--		goto hdac_bus_unmap;
- 
- 	if (sdev->dspless_mode_selected)
- 		goto skip_dsp_setup;
-@@ -1307,8 +1305,6 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 		iounmap(sdev->bar[HDA_DSP_BAR]);
- hdac_bus_unmap:
- 	platform_device_unregister(hdev->dmic_dev);
--	iounmap(bus->remap_addr);
--	hda_codec_i915_exit(sdev);
- 
- 	return ret;
- }
-@@ -1317,7 +1313,6 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ #ifdef CONFIG_SND_HDA_I915
+ void snd_hdac_i915_set_bclk(struct hdac_bus *bus);
+-int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe);
++int snd_hdac_i915_init(struct hdac_bus *bus);
+ #else
+ static inline void snd_hdac_i915_set_bclk(struct hdac_bus *bus)
  {
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
- 	const struct sof_intel_dsp_desc *chip = hda->desc;
--	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct pci_dev *pci = to_pci_dev(sdev->dev);
- 	struct nhlt_acpi_table *nhlt = hda->nhlt;
- 
-@@ -1368,10 +1363,13 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
- 	if (!sdev->dspless_mode_selected)
- 		iounmap(sdev->bar[HDA_DSP_BAR]);
- 
--	iounmap(bus->remap_addr);
-+	return 0;
-+}
- 
-+int hda_dsp_remove_late(struct snd_sof_dev *sdev)
-+{
-+	iounmap(sof_to_bus(sdev)->remap_addr);
- 	sof_hda_bus_exit(sdev);
--
- 	hda_codec_i915_exit(sdev);
- 
+ }
+-static inline int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
++static inline int snd_hdac_i915_init(struct hdac_bus *bus)
+ {
+ 	return -ENODEV;
+ }
+diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
+index 0765e5350e7ba..365c36fdf2058 100644
+--- a/sound/hda/hdac_i915.c
++++ b/sound/hda/hdac_i915.c
+@@ -156,7 +156,7 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
+  *
+  * Returns zero for success or a negative error code.
+  */
+-int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
++int snd_hdac_i915_init(struct hdac_bus *bus)
+ {
+ 	struct drm_audio_component *acomp;
+ 	int err;
+@@ -172,18 +172,10 @@ int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
+ 	acomp = bus->audio_component;
+ 	if (!acomp)
+ 		return -ENODEV;
+-	if (allow_modprobe && !acomp->ops) {
+-		if (!IS_ENABLED(CONFIG_MODULES) ||
+-		    !request_module("i915")) {
+-			/* 60s timeout */
+-			wait_for_completion_killable_timeout(&acomp->master_bind_complete,
+-							     msecs_to_jiffies(60 * 1000));
+-		}
+-	}
+ 	if (!acomp->ops) {
+-		int err = allow_modprobe ? -ENODEV : -EPROBE_DEFER;
+ 		snd_hdac_acomp_exit(bus);
+-		return dev_err_probe(bus->dev, err, "couldn't bind with audio component\n");
++		return dev_err_probe(bus->dev, -EPROBE_DEFER,
++				     "couldn't bind with audio component\n");
+ 	}
  	return 0;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index e13cdc933ca6b..8e846684279e7 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -576,6 +576,7 @@ struct sof_intel_hda_stream {
- int hda_dsp_probe_early(struct snd_sof_dev *sdev);
- int hda_dsp_probe(struct snd_sof_dev *sdev);
- int hda_dsp_remove(struct snd_sof_dev *sdev);
-+int hda_dsp_remove_late(struct snd_sof_dev *sdev);
- int hda_dsp_core_power_up(struct snd_sof_dev *sdev, unsigned int core_mask);
- int hda_dsp_core_run(struct snd_sof_dev *sdev, unsigned int core_mask);
- int hda_dsp_enable_core(struct snd_sof_dev *sdev, unsigned int core_mask);
+ }
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 5cf7676114dc6..5255df16fbac5 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2138,7 +2138,7 @@ static int azx_probe(struct pci_dev *pci,
+ #ifdef CONFIG_SND_HDA_I915
+ 	/* bind with i915 if needed */
+ 	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT) {
+-		err = snd_hdac_i915_init(azx_bus(chip), false);
++		err = snd_hdac_i915_init(azx_bus(chip));
+ 		if (err < 0) {
+ 			/* if the controller is bound only with HDMI/DP
+ 			 * (for HSW and BDW), we need to abort the probe;
+diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
+index 8a20639582487..33044f353575d 100644
+--- a/sound/soc/intel/avs/core.c
++++ b/sound/soc/intel/avs/core.c
+@@ -461,7 +461,7 @@ static int avs_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
+ 	pci_set_drvdata(pci, bus);
+ 	device_disable_async_suspend(dev);
+ 
+-	ret = snd_hdac_i915_init(bus, false);
++	ret = snd_hdac_i915_init(bus);
+ 	if (ret == -EPROBE_DEFER)
+ 		goto err_i915_init;
+ 	else if (ret < 0)
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index 24bdbe2a53bec..f46f109d5856e 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -1056,7 +1056,7 @@ static int skl_probe(struct pci_dev *pci,
+ 	}
+ 
+ 	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)) {
+-		err = snd_hdac_i915_init(bus, false);
++		err = snd_hdac_i915_init(bus);
+ 		if (err < 0)
+ 			goto out_dmic_unregister;
+ 	}
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index f1fd5b44aaac9..8a5e99a898ecb 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
+ 		return 0;
+ 
+ 	/* i915 exposes a HDA codec for HDMI audio */
+-	ret = snd_hdac_i915_init(bus, true);
++	ret = snd_hdac_i915_init(bus);
+ 	if (ret < 0)
+ 		return ret;
+ 
 -- 
 2.39.2
 

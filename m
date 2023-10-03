@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D04187B6F49
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 19:09:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6F57B6F4E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 19:10:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADC9283E;
-	Tue,  3 Oct 2023 19:08:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADC9283E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FAB184A;
+	Tue,  3 Oct 2023 19:09:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FAB184A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696352981;
-	bh=z0khdQB11BoA0tQ40lKmz5sxH1m9xC78cFe/yLn2g6o=;
+	s=default; t=1696353040;
+	bh=c2Amx6bwFllppZWhw8zB9Zq4+W/JCoESVGF4gZggaYM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C3Vdz/ztfBUuoTFfDSYsAizH6xS33gmMUMMJXDVmBZz0soeUkyKgfWBo2cJaq7wXY
-	 Y0Z8NJTTJ1273fnKbG+MYIoR6udRhjZWtbtRtArRwf54gdY/T0Uw6SDqj+6q7QMWob
-	 72dMB6CiIW62R/iojnhlg7OleesRXvTf1eOFjULU=
+	b=TJ/Pc/vB5sN3XFrCbEDxZuxNH5E1maFCqN/wSi8aSIYLi0JWIllxTadQDPFN0Jrwv
+	 G8hAs9LqtzgW1EuLlW6uZTqDxXFKyeiU49eWU5p6N+26lxgWYNJ/jjoS9BQjVOkdgd
+	 Ned3UrR4fzAmglTo3fom3x6wjS854gP2UNdyOJqg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07A68F80552; Tue,  3 Oct 2023 19:08:50 +0200 (CEST)
+	id 6AD57F8057A; Tue,  3 Oct 2023 19:08:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2455AF80310;
-	Tue,  3 Oct 2023 19:08:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C693CF80571;
+	Tue,  3 Oct 2023 19:08:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B7A2F80551; Tue,  3 Oct 2023 19:08:45 +0200 (CEST)
+	id 3976BF8047D; Tue,  3 Oct 2023 19:08:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8FE58F801EB
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 19:08:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FE58F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA53EF80310
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 19:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA53EF80310
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=oIucdHji
+ header.s=k20201202 header.b=njLVv3nX
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id B4516612DF;
+	by sin.source.kernel.org (Postfix) with ESMTP id 3D500CE1413;
+	Tue,  3 Oct 2023 17:08:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA139C433CB;
 	Tue,  3 Oct 2023 17:08:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67FCC433C8;
-	Tue,  3 Oct 2023 17:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696352915;
-	bh=z0khdQB11BoA0tQ40lKmz5sxH1m9xC78cFe/yLn2g6o=;
+	s=k20201202; t=1696352917;
+	bh=c2Amx6bwFllppZWhw8zB9Zq4+W/JCoESVGF4gZggaYM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=oIucdHjiAoMeu9S2B2ofb7H1+u6bLJgvxIzwxoJhO5ggZBy5WKoRWI6T/dVPA55vU
-	 x8abIexv0M0heossk7yTWtHBnA4FXmaLLqsN/ypGorLlRpzY/2oIhdHjnnYE9ZA2Lb
-	 csq7Di/OPv8lTrB5UVU91m3/6IZZAm3RFPP/8yZz2ayqOCntxWpkcrnlkxbe1QrnFb
-	 PF2LCKBuCD2tEvmvRi6YpVntehrK9uC1+TOjXNPaSerqQfzDcfDD7YC2uMLnZufN2D
-	 6kbBR+Q67GVa9Ca7sv3l6UWKsCgY+/LRZC1iE3aHXM11qu5OXJDU5kJoAEfOUJKDWJ
-	 I20U96sourupg==
+	b=njLVv3nX1o4MOD24uGsN7Q7lYhGER1gt6o5JaKCzoD2RF+azLcdEq3jJe/a0bo+DS
+	 GwjuQWcBBMntcj4AqIbunDSINJ+FcHshd9CAUddVntBYT9GD4bVaqE0QRNzm4zSEkz
+	 GcCVWVgMmw2V4A9dUm+5u7AnVzRnQ1b+cXiroCAW6Vl5vcdY2ljb/6rWsWhNku1PJK
+	 2ETgSSCrmT8zIGz+6dJ9aBpkB7HuIvsncZ+mjS54I5ANomltyMGVdPx1qm800sGRNn
+	 QTCHPIgZ73ZMzNqm6iHgBJdTnJmAo/hFK+orPDoJEWigTWDPv38Gh0kP8HGeednneS
+	 z19ntSi8Kapug==
 From: Mark Brown <broonie@kernel.org>
-To: Weidong Wang <wangweidong.a@awinic.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20231002-aw88261-reset-v2-0-837cb1e7b95c@fairphone.com>
-References: <20231002-aw88261-reset-v2-0-837cb1e7b95c@fairphone.com>
-Subject: Re: [PATCH v2 0/2] Remove reset GPIO for AW88261
-Message-Id: <169635291227.42044.6654746210996061480.b4-ty@kernel.org>
-Date: Tue, 03 Oct 2023 18:08:32 +0100
+To: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ Bragatheswaran Manickavel <bragathemanick0908@gmail.com>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230930165050.7793-1-bragathemanick0908@gmail.com>
+References: <20230930165050.7793-1-bragathemanick0908@gmail.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: rt5616: Convert to dtschema
+Message-Id: <169635291560.42044.12417015204070109267.b4-ty@kernel.org>
+Date: Tue, 03 Oct 2023 18:08:35 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: LWGSZB6Q3NFCCBIMHOBXL57JORJ4FZRK
-X-Message-ID-Hash: LWGSZB6Q3NFCCBIMHOBXL57JORJ4FZRK
+Message-ID-Hash: YVKEOWX4LVFKLM5YRDNRQNVMFMFDBFCC
+X-Message-ID-Hash: YVKEOWX4LVFKLM5YRDNRQNVMFMFDBFCC
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LWGSZB6Q3NFCCBIMHOBXL57JORJ4FZRK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YVKEOWX4LVFKLM5YRDNRQNVMFMFDBFCC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,9 +97,8 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 02 Oct 2023 16:00:10 +0200, Luca Weiss wrote:
-> The AW88261 chip doesn't have a reset gpio, so remove it from the
-> bindings and from the driver.
+On Sat, 30 Sep 2023 22:20:50 +0530, Bragatheswaran Manickavel wrote:
+> Convert the rt5616 audio CODEC bindings to DT schema
 > 
 > 
 
@@ -111,10 +108,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: awinic,aw88395: Remove reset-gpios from AW88261
-      commit: c7b94e8614e35f1919b51c23fe590884149ae341
-[2/2] ASoC: codecs: aw88261: Remove non-existing reset gpio
-      commit: 4eed047b76fa8f56af478ca7e6d56ca7e5330cf2
+[1/1] ASoC: dt-bindings: rt5616: Convert to dtschema
+      commit: 943bcc742ec4d7da4d26477f2188940ecad76569
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

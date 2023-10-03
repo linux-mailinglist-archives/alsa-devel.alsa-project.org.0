@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB2297B6A4C
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 15:21:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B20A7B6A51
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 15:21:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49EAF82C;
-	Tue,  3 Oct 2023 15:20:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49EAF82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 297911F1;
+	Tue,  3 Oct 2023 15:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 297911F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696339262;
-	bh=bL/2RWcdfIs3uBPgbF0uigzU0E9baOJfVQtweOW66cA=;
+	s=default; t=1696339300;
+	bh=NJkZa5fLpnbgCQvHqK6BhiW9OOqCSp7Z7g/SgMcQrpU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HxYPlC5DhPk68UQJ8gmFptQA5SkXjrSi/0sED2PS3+WeBLj8x1LwA4E46nxeNVSm2
-	 el7RI319RXG4d2d/oBch2Anx/ECGp30Y2scw/8MzH7hPkAGECKahntD/22XdW7ZulV
-	 RK6ErrEHUJ+q+2FRO0zY/LsnQTVBS1XOrGwJMlTQ=
+	b=lh5TsVmLzi3X5T8D3NZ52vLZblQaDUMH1BahLmbZSLn13FCNMYKq1KaWmeQBeLpOY
+	 tDRCLB8XbhqBpHu9Q5PDhtvMECOypldgx3BarNhwSWeSsSB+hKcQr1LPfN5nRGnyc8
+	 DMfhgTDAkM5s/EFVHwmyxLQPXZmF8G95v8WN9788=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4960F80166; Tue,  3 Oct 2023 15:20:11 +0200 (CEST)
+	id F1DF5F80551; Tue,  3 Oct 2023 15:20:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F095F80310;
-	Tue,  3 Oct 2023 15:20:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCEF2F8055B;
+	Tue,  3 Oct 2023 15:20:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 894C0F8047D; Tue,  3 Oct 2023 15:20:07 +0200 (CEST)
+	id C14CBF80551; Tue,  3 Oct 2023 15:20:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5042F80166
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 15:20:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5042F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8866F80551
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 15:20:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8866F80551
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gzECuFYF
+ header.s=k20201202 header.b=QFOK/NZ0
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 2578861207;
+	by sin.source.kernel.org (Postfix) with ESMTP id 26197CE1822;
+	Tue,  3 Oct 2023 13:20:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551ACC433C9;
 	Tue,  3 Oct 2023 13:19:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841B1C433C8;
-	Tue,  3 Oct 2023 13:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696339197;
-	bh=bL/2RWcdfIs3uBPgbF0uigzU0E9baOJfVQtweOW66cA=;
+	s=k20201202; t=1696339200;
+	bh=NJkZa5fLpnbgCQvHqK6BhiW9OOqCSp7Z7g/SgMcQrpU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=gzECuFYFB67U4/QV8U0/sDvcEva1Sf84KNvoRerS3j/7DAF81qoa2nMJI6e4EfFfF
-	 0Zkddvo2m2t3Te2gYMxksxAc81cTubgsjNXZb0DtLEt4H7nhc15BntmCEuRXysBluw
-	 myNuOy3UwOGNvwAnxUIHM0t1WWQhz2eI0WhHA3aIPWlL81WNJ50H8NBmeFxyPaPIz0
-	 xcpa1OgK26QjdvZc5QqKUtN0MKsI3C9wlabBJweHrICjwqfDNYSAgwYVo7qwmQ50e1
-	 CZPEIoCFcrm/QiJ+trSkBB+juv46OGfLf8xH1Kk/0OA7NTvfbuW+i81KbRwLDEpi6T
-	 XD1/QYTGP1MWA==
+	b=QFOK/NZ0NO5ULyQzVv9DPmSEE5+ADtNYsyxawwv9uEfVm5xe6bzS6q0gTbdC9izIG
+	 s5CQ3ByprQkxQWhH4jY7slLRVypdKWkVp5l0BB2cWc9b5idtryTAqojvlxA3IhKbOL
+	 hfSwNR3ZdIYTmQTXQBX6scSHd3OVlvspe7dzi1gFNDC8nUSNZGsWOgxi4CyXIAh7k4
+	 EIedJe/PL2nXTcduhBQpR5xsd0klKxPC0hArBigD23P/iTwnkKsHvrjmnnPH/jecBM
+	 6XiDBmyhmEQ4f1hwasmcijXI3YsYLk13BHwp1h+RsEhCslBJ2OjzSNPHxPC1ETFwg2
+	 Re1jZM+7sTrBw==
 From: Mark Brown <broonie@kernel.org>
 To: Joerg Schambacher <joerg.hifiberry@gmail.com>
 Cc: a-krasser@ti.com, joerg@hifiberry.com,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20230929150555.405388-1-joerg.hifiberry@gmail.com>
-References: <20230929150555.405388-1-joerg.hifiberry@gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: pcm512x: Adds bindings for TAS575x
- devices
-Message-Id: <169633919521.32637.15894077647457160748.b4-ty@kernel.org>
-Date: Tue, 03 Oct 2023 14:19:55 +0100
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Zhang Qilong <zhangqilong3@huawei.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230929150722.405415-1-joerg.hifiberry@gmail.com>
+References: <20230929150722.405415-1-joerg.hifiberry@gmail.com>
+Subject: Re: [PATCH v2 2/2] ASoC: Adds support for TAS575x to the pcm512x
+ driver
+Message-Id: <169633919804.32637.4231540899734549446.b4-ty@kernel.org>
+Date: Tue, 03 Oct 2023 14:19:58 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: V2CFNWW6LHZLAIDAF4C6QTJQZWG4QVNH
-X-Message-ID-Hash: V2CFNWW6LHZLAIDAF4C6QTJQZWG4QVNH
+Message-ID-Hash: 4VPTLWXPX6FUVYUP6I5C2EVEPJPC2ALX
+X-Message-ID-Hash: 4VPTLWXPX6FUVYUP6I5C2EVEPJPC2ALX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,19 +90,24 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V2CFNWW6LHZLAIDAF4C6QTJQZWG4QVNH/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4VPTLWXPX6FUVYUP6I5C2EVEPJPC2ALX/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 29 Sep 2023 17:05:55 +0200, Joerg Schambacher wrote:
-> The TAS5754/6 power amplifiers use the same pcm512x driver with
-> only minor restictions described in the bindings document.
+On Fri, 29 Sep 2023 17:07:20 +0200, Joerg Schambacher wrote:
+> Enables the existing pcm512x driver to control the almost
+> compatible TAS5754 and -76 amplifers. Both amplifiers support
+> only an I2C interface and the internal PLL must be always
+> on to provide necessary clocks to the amplifier section.
+> Tested on TAS5756 with support from Andreas Arbesser-Krasser
+> from Texas Instruments <a-krasser@ti.com>
 > 
-> 
+> [...]
 
 Applied to
 
@@ -109,8 +115,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: pcm512x: Adds bindings for TAS575x devices
-      commit: 736b884a7b68c4eeb66dbf75b97c8ec9b9eeff7f
+[2/2] ASoC: Adds support for TAS575x to the pcm512x driver
+      commit: 1f817805262c2c34142291da376d4932d3c493bc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

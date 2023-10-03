@@ -2,107 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3833D7B663D
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 12:18:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8DE17B6659
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 12:26:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C12B83E;
-	Tue,  3 Oct 2023 12:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C12B83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 353E6844;
+	Tue,  3 Oct 2023 12:25:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 353E6844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696328303;
-	bh=gz1G32NpltRZqjFg6bpZFDxQ9gKj2W33wlCujOs8NqY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1696328773;
+	bh=2F8+9AFi92S4BBwNQp6sXHuqNBtfALWTMhiW0ztqhAI=;
+	h=Date:Subject:To:References:From:Cc:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GosGs4jR3YaPPuuJOqapDiF9jv4ZOShUNZTK2oVcD+9nT5RmphgxrB0VOdwI+M3Lx
-	 XG6rTehPgX4X8Ya2U5L0TjVfDNyYIyRGumLlNqZYZsx03CZYGk5NdPU4xT5XkJi/nR
-	 ogYTsHxytNB1tVTEjxfTfnDumiAmrXShhut7uHEU=
+	b=G9qISOFoGJ4tmw5CTx3GaUH8R067PBqYaua1VTyiAV/1U2CeH2tJYuYry4Ic4amZK
+	 zV00J6KrWQwGIixaLPNW+RuqMOtsVyL12b9yEJbRC1uC1gf8TTZYB2T3he8HKRFZuu
+	 NDxXfjriXfyCxKWgX9ERzaRtTSyng4qZ3zKOO+Mo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64014F80130; Tue,  3 Oct 2023 12:17:32 +0200 (CEST)
+	id 76784F80549; Tue,  3 Oct 2023 12:25:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CFA9F80310;
-	Tue,  3 Oct 2023 12:17:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2276FF80310;
+	Tue,  3 Oct 2023 12:25:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81AE7F8047D; Tue,  3 Oct 2023 12:17:26 +0200 (CEST)
+	id 9726AF8047D; Tue,  3 Oct 2023 12:25:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C178F801EB
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 12:17:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C178F801EB
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-59f6e6b7600so8364567b3.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 03 Oct 2023 03:17:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696328229; x=1696933029;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5DZsLBpVAosCAPqQeZ7sGwOoAu9EmebzedDkf2LRpxg=;
-        b=bEBMW1hTFc+eW6pJcBO7p4nsVlu4mWyfg7Yc1kEUwAZxLcwhpFt5U1dPMVbcyTfq4Y
-         iGP0B+StgJjfEAsebK6hVLbqHFdBRX9ZSCCKHhVg4DMTwdrWpa8jYQBT9rDsAn4fkFRw
-         pEAkDu+HMcOy6XZ3M5d3YGa8G3a20YuHE6ka8cqW7Kz9Gd5nX5tH0Z4PdGKmSX+NAi2Q
-         HLRvaXfMzR+JXDyULSsEQP8E0BDYNl3xvT+0VYDDqK3MxySH+Es62qO+VNwdOKfh24ev
-         zGzddsmx8rbqoXGlyl/gaBxovAVW6yQfN2zshMm+AhrYc+KIdHf5FwzeWTPU1mbhXysE
-         uZEw==
-X-Gm-Message-State: AOJu0YwBh0fAAwPc/s95ku+g+grPYPEQXNkvIRgn7tsKYeB2eOoblcT6
-	3oZ7vxSojrUOKC/CxcbMF83Ahc9YCK6ZAw==
-X-Google-Smtp-Source: 
- AGHT+IGs6GHXwx3ChjPjiSawqaQZ55HP6RHykbgijhZ843LCpRGZshDGCqT+T7pBngaLWKGZjTm5ZA==
-X-Received: by 2002:a0d:d7cc:0:b0:58f:96d8:e7ad with SMTP id
- z195-20020a0dd7cc000000b0058f96d8e7admr14178692ywd.18.1696328228866;
-        Tue, 03 Oct 2023 03:17:08 -0700 (PDT)
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com.
- [209.85.128.176])
-        by smtp.gmail.com with ESMTPSA id
- z184-20020a8189c1000000b00594fb0e2db3sm273522ywf.138.2023.10.03.03.17.08
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Oct 2023 03:17:08 -0700 (PDT)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-59f4f80d084so8443697b3.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 03 Oct 2023 03:17:08 -0700 (PDT)
-X-Received: by 2002:a05:690c:ecf:b0:59f:4ee0:26e8 with SMTP id
- cs15-20020a05690c0ecf00b0059f4ee026e8mr1857503ywb.21.1696328228270; Tue, 03
- Oct 2023 03:17:08 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6131AF80166
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 12:24:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6131AF80166
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	id 1qncaH-0002AJ-7T; Tue, 03 Oct 2023 12:24:57 +0200
+Message-ID: <aa54a70c-e7fc-4ca2-9a4d-425675ed0be3@leemhuis.info>
+Date: Tue, 3 Oct 2023 12:24:56 +0200
 MIME-Version: 1.0
-References: <20231002090434.1896-1-shenghao-ding@ti.com>
- <CAMuHMdXr5oRgkFqYZnPe3Xdyq_QjtzhfL8Wa_e9JA0S1XhEhWw@mail.gmail.com>
- <ZRvWQQzrvtzkJ/UV@smile.fi.intel.com>
-In-Reply-To: <ZRvWQQzrvtzkJ/UV@smile.fi.intel.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 3 Oct 2023 12:16:56 +0200
-X-Gmail-Original-Message-ID: 
- <CAMuHMdU0SUJd8wduTcZ6XZjcDvEFSCOgbwc4Fbcu0U3pVH=PRg@mail.gmail.com>
-Message-ID: 
- <CAMuHMdU0SUJd8wduTcZ6XZjcDvEFSCOgbwc4Fbcu0U3pVH=PRg@mail.gmail.com>
-Subject: Re: [PATCH v1] ASoC: tas2781: fixed compiling issue in m68k
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Shenghao Ding <shenghao-ding@ti.com>, broonie@kernel.org,
- robh+dt@kernel.org,
-	lgirdwood@gmail.com, perex@perex.cz, pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com, 13916275206@139.com, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
-	mengdong.lin@intel.com, baojun.xu@ti.com, thomas.gfeller@q-drop.com,
-	peeyush@ti.com, navada@ti.com, tiwai@suse.de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: O4UDKGCGLFQZLNOMHBYWFTW4JIQEDCK3
-X-Message-ID-Hash: O4UDKGCGLFQZLNOMHBYWFTW4JIQEDCK3
-X-MailFrom: geert.uytterhoeven@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: amd: yc: Fix non-functional mic on Lenovo Yoga Slim
+ 7 Pro 14ARH7 82UU
+Content-Language: en-US, de-DE
+To: Markus Meier <kerneldev@epic-bytes.net>, alsa-devel@alsa-project.org
+References: <10347605.nUPlyArG6x@kali>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Mark Brown <broonie@kernel.org>, Sven Frotscher <sven.frotscher@gmail.com>,
+ August Wikerfors <git@augustwikerfors.se>
+In-Reply-To: <10347605.nUPlyArG6x@kali>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: 
+ webpack.hosteurope.de;regressions@leemhuis.info;1696328711;1d0bd62f;
+X-HE-SMSGID: 1qncaH-0002AJ-7T
+Message-ID-Hash: 4CN7MBCQPJOFZT7NJLRU647CZFT6LTZY
+X-Message-ID-Hash: 4CN7MBCQPJOFZT7NJLRU647CZFT6LTZY
+X-MailFrom: regressions@leemhuis.info
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,44 +77,70 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4UDKGCGLFQZLNOMHBYWFTW4JIQEDCK3/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4CN7MBCQPJOFZT7NJLRU647CZFT6LTZY/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Andy,
-
-On Tue, Oct 3, 2023 at 10:52=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
-> On Mon, Oct 02, 2023 at 09:24:21PM +0200, Geert Uytterhoeven wrote:
-> > On Mon, Oct 2, 2023 at 4:38=E2=80=AFPM Shenghao Ding <shenghao-ding@ti.=
-com> wrote:
+On 02.10.23 23:04, Markus Meier wrote:
+> 
+> I own a  Lenovo Yoga Slim 7 Pro 14ARH7 where the microphone is not showing up.
+> I added the system to the quirk table and the mic is working correctly (but 
+> with very low volume) now.
+> 
+> Here's an except from dmidecode:
+> System Information
+>         Manufacturer: LENOVO
+>         Product Name: 82UU
+>         Version: Yoga Slim 7 Pro 14ARH7
+>         SKU Number: LENOVO_MT_82UU_BU_idea_FM_Yoga Slim 7 Pro 14ARH7
+>         Family: Yoga Slim 7 Pro 14ARH7
 >
-> ...
+> Please add this patch to the kernel and add it to the stable kernels too. I 
+> guess the microphone should have worked before. Seems to be a regression 
+> introduced by c008323fe361bd62a43d9fb29737dacd5c067fb7
+>
+> [-- Attachment #2: yoga-slim-7-pro-82UU-microphone.patch --]
+> [-- Type: text/x-patch, Size: 451 bytes --]
+> 
+> --- a/sound/soc/amd/yc/acp6x-mach.c	2023-09-29 19:31:03.753786095 +0200
+> +++ b/sound/soc/amd/yc/acp6x-mach.c	2023-09-29 19:32:06.414276453 +0200
+> @@ -217,6 +217,13 @@
+>  		.driver_data = &acp6x_card,
+>  		.matches = {
+>  			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "82UU"),
+> +		}
+> +	},
+> +	{
+> +		.driver_data = &acp6x_card,
+> +		.matches = {
+> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+>  			DMI_MATCH(DMI_PRODUCT_NAME, "82V2"),
+>  		}
+>  	},
 
-> I believe patch is already in the Mark's tree, so we now ought to live wi=
-th it.
+I CCed a bunch of lists and people to make sure everyone is aware of
+that patch, as it otherwise might fall through the cracks.
 
-I know. I would still like to know what is the real cause.
-It might resurrect again, here or in other code.
+Markus, quick question: do you have (a) an interest in contributing a
+change to Linux or (b) did you just post this because Mario asked you to
+do so in https://bugzilla.kernel.org/show_bug.cgi?id=217063#c25 ?
 
-Gr{oetje,eeting}s,
+If it's (a) then you might want to take a closer look at
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+, as your patch lacks a few important things before it can be applied
+(most notably a Signed-off-by tag)
 
-                        Geert
+If it's (b) I wonder if it would be easier for everyone involved if some
+kernel developer could create a patch own their own, as that likely is
+way easier to review and thus likely gets the problem resolved a lot faster.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Ciao, Thorsten

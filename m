@@ -2,153 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 221D27B6DEA
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 18:03:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F8C7B6D99
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 17:58:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D340DE5;
-	Tue,  3 Oct 2023 18:02:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D340DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C25A845;
+	Tue,  3 Oct 2023 17:57:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C25A845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696349002;
-	bh=h+DtSnVBP12aetOuLOGx+i6/WHFgyH0QPlUwjV6ftMs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=K6yPTWNlbFr6XIOM/x3/pUl8dQ1Hks2s8PW+eMuFn+CHRCi0VUGQSFv7YwWhVje8z
-	 HNy6K4aSKpTXhSDjVWyGTQN6zJhyeXCmXZdAo/Req6JCF0vYHsOdFzr3yCOF/JzRtx
-	 8EulwrPQczvIBeFYR3L9Sr0migNYS8UjGpGhDq68=
+	s=default; t=1696348722;
+	bh=QQf6ijVj+PyrKIDcuL9n9LbXefRYaf38N5/86AyT35k=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GigVuHVQfmj2wiFWvzFV3CcLNInAa4YCrACDxnxDJc1H5UDqJSAm8kD5h9wiOxgH0
+	 ZIl4ih3whIGG5W9xowQsD++dw9mZGDEPpnblBgQWuBmrKp+KSlkNdc86pq8m/eYWLq
+	 knz7rSnRoch/gloBPuH/DDOm6uzyOa6JR3PKNQE4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 745AFF80557; Tue,  3 Oct 2023 18:02:31 +0200 (CEST)
+	id 8216CF8055A; Tue,  3 Oct 2023 17:57:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E972DF80310;
-	Tue,  3 Oct 2023 18:02:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A60E9F80310;
+	Tue,  3 Oct 2023 17:57:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92C1FF805AA; Tue,  3 Oct 2023 17:58:49 +0200 (CEST)
+	id 16FBFF80551; Tue,  3 Oct 2023 17:57:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CAF6F80578
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 17:58:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CAF6F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C516F80310
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 17:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C516F80310
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XUz7+KZR
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 38B1A612D7;
-	Tue,  3 Oct 2023 15:58:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2BFC433BD;
-	Tue,  3 Oct 2023 15:58:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696348711;
-	bh=h+DtSnVBP12aetOuLOGx+i6/WHFgyH0QPlUwjV6ftMs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XUz7+KZRCFoct/l8nCvYjB+m1leRF8k2uFxAv9aS8+cjm+ezua3LvXgehxXstGf19
-	 4oACJyyU6uy686EARKf5HTrjnLfIQqQ/ooGQtzFifd8W+samAb5P+kKTHlyYCbudii
-	 Mgr+dBJ8vPlLyDG2ZGFIxMawrrHYGG/IyZdE09FNuWGuDqdqyHqEmjGq2MWaTnVOjR
-	 E7SJWTugAiK6E9Fk55AwjOI15o9iQPiapUqGvlH03Zffvp64LoHReV/JMwv9G5PRiH
-	 lzMxsoRLsWJXlSD3XD/BjhsBgxYQzXBfGBz0+mkX/HRkKPWV61c87HbO/Y+LJV3ofL
-	 btdrCu7/n7t+w==
-Received: from johan by xi.lan with local (Exim 4.96)
-	(envelope-from <johan+linaro@kernel.org>)
-	id 1qnhnG-000752-1H;
-	Tue, 03 Oct 2023 17:58:42 +0200
-From: Johan Hovold <johan+linaro@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=DLq7k4pZ
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-99bdeae1d0aso198477966b.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 03 Oct 2023 08:57:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1696348635; x=1696953435;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=umZ+8oKDYfik3oT0i9Ef96i8g6lg2rgWnjuQEEXA5OA=;
+        b=DLq7k4pZ0yxWU2HwAI0H+mVs2Hr/nvT6UWakvHCn0RwmcP/ZmD4Bdm+JuMhpiQw061
+         N8p6c+na4v6SOp2qIvQVRQIu6L2Cpzfzc5v0OG1vu/PYC2SMmavKNBEvdXDxwgXspLFO
+         7MlFPnuBxvqUocL1JT9MX7P6ct6Kd+PUxoVaVlH/5+zFZK2smIwx/DFssAlnVG/HW1k7
+         3v56T7qdhBA2TxQd2YkvNR9B3yf/LZoOay7MQy4/SncwE/zcDHdH3SMKLQOfRVrEI+pT
+         ko9g55Fk63RU23ra4pua+C4ih4yGZ/mufPgJyVxE2kVACaODe+ecVovCUSIgnwV9qYeD
+         a9sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696348635; x=1696953435;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=umZ+8oKDYfik3oT0i9Ef96i8g6lg2rgWnjuQEEXA5OA=;
+        b=sS2/DbIfivb2edlLCuTDkLh7BfoBWVtD9CZ3SYavn2QC9KzbVPLk8iLru0A+lkTR/h
+         EJtGleTN8zk/et5Za3avkmmcfV8PLfNnEmg/QpXnl3KFxsW0fZaXgf4mH3A4Toy7N+U1
+         ROJMw0G3qWf16m1rdw16eBvHLTvhtHEhvp2b5Wu0MZYHLiUXvtrvev2UqJ55mfUpvd5J
+         EZ8R3oroxMQYCQhJPLa3hhMyGfON1bgBV+4UKyoYVukIN6x1hlxULuV7zsN69dfz0Mjl
+         XX07oLwlmzIYBva3J/n7aXTAmTg6KfxGwYbv3rQ2arYvcsztmDvwX7UwrSwRtGk6mVr8
+         YioQ==
+X-Gm-Message-State: AOJu0Yz4MsO5DMrQigStL51IqLxKzT6ax3F7nNZMs+T8blQkHr0ouPDg
+	pe6quSS5urHVE2UH5YG691oebQ==
+X-Google-Smtp-Source: 
+ AGHT+IHdJHFnpnjzifSM5/sGMF/eTk/Jh1MeVpKW1pBhyHkKe/pZiH+yTfo51m2c9cQjrpdYVAyiRQ==
+X-Received: by 2002:a17:906:13:b0:9ae:588e:142 with SMTP id
+ 19-20020a170906001300b009ae588e0142mr14014095eja.67.1696348634904;
+        Tue, 03 Oct 2023 08:57:14 -0700 (PDT)
+Received: from krzk-bin.. (5-157-101-10.dyn.eolo.it. [5.157.101.10])
+        by smtp.gmail.com with ESMTPSA id
+ w25-20020a170906481900b0099bc2d1429csm1288088ejq.72.2023.10.03.08.57.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Oct 2023 08:57:14 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
 	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
 	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan+linaro@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 7/7] ASoC: codecs: wcd938x-sdw: fix runtime PM imbalance on
- probe errors
-Date: Tue,  3 Oct 2023 17:55:58 +0200
-Message-ID: <20231003155558.27079-8-johan+linaro@kernel.org>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231003155558.27079-1-johan+linaro@kernel.org>
-References: <20231003155558.27079-1-johan+linaro@kernel.org>
+	linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 0/2] ASoC: codecs: fix widget name comparisons
+Date: Tue,  3 Oct 2023 17:57:08 +0200
+Message-Id: <20231003155710.821315-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZQOE6NZ7JBY6BE7W4G3ZZEF7QBAJYWWU
-X-Message-ID-Hash: ZQOE6NZ7JBY6BE7W4G3ZZEF7QBAJYWWU
-X-MailFrom: johan+linaro@kernel.org
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: VMS2RUU5WRQ3YZ3QCY5DBRMAFFSIYADS
+X-Message-ID-Hash: VMS2RUU5WRQ3YZ3QCY5DBRMAFFSIYADS
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQOE6NZ7JBY6BE7W4G3ZZEF7QBAJYWWU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VMS2RUU5WRQ3YZ3QCY5DBRMAFFSIYADS/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Make sure to balance the runtime PM operations, including the disable
-count, on probe errors and on driver unbind.
+Hi,
 
-Fixes: 16572522aece ("ASoC: codecs: wcd938x-sdw: add SoundWire driver")
-Cc: stable@vger.kernel.org      # 5.14
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
----
- sound/soc/codecs/wcd938x-sdw.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+Some codec drivers compare widget names with strcmp, ignoring the component
+name prefix.  If prefix is used, the comparisons start failing.
+Add a helper to fix the issue.
 
-diff --git a/sound/soc/codecs/wcd938x-sdw.c b/sound/soc/codecs/wcd938x-sdw.c
-index 1baea04480e2..a1f04010da95 100644
---- a/sound/soc/codecs/wcd938x-sdw.c
-+++ b/sound/soc/codecs/wcd938x-sdw.c
-@@ -1278,7 +1278,18 @@ static int wcd9380_probe(struct sdw_slave *pdev,
- 	pm_runtime_set_active(dev);
- 	pm_runtime_enable(dev);
- 
--	return component_add(dev, &wcd938x_sdw_component_ops);
-+	ret = component_add(dev, &wcd938x_sdw_component_ops);
-+	if (ret)
-+		goto err_disable_rpm;
-+
-+	return 0;
-+
-+err_disable_rpm:
-+	pm_runtime_disable(dev);
-+	pm_runtime_set_suspended(dev);
-+	pm_runtime_dont_use_autosuspend(dev);
-+
-+	return ret;
- }
- 
- static int wcd9380_remove(struct sdw_slave *pdev)
-@@ -1287,6 +1298,10 @@ static int wcd9380_remove(struct sdw_slave *pdev)
- 
- 	component_del(dev, &wcd938x_sdw_component_ops);
- 
-+	pm_runtime_disable(dev);
-+	pm_runtime_set_suspended(dev);
-+	pm_runtime_dont_use_autosuspend(dev);
-+
- 	return 0;
- }
- 
+If the approach looks good, I will fix other codec drivers.
+
+Best regards,
+Krzysztof
+
+Krzysztof Kozlowski (2):
+  ASoC: soc-dapm: Add helper for comparing widget name
+  ASoC: codecs: wsa-macro: handle component name prefix
+
+ include/sound/soc-dapm.h           |  1 +
+ sound/soc/codecs/lpass-wsa-macro.c |  4 ++--
+ sound/soc/soc-component.c          |  1 +
+ sound/soc/soc-dapm.c               | 12 ++++++++++++
+ 4 files changed, 16 insertions(+), 2 deletions(-)
+
 -- 
-2.41.0
+2.34.1
 

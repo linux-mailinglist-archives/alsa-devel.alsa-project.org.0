@@ -2,73 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9127B9B8C
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:52:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B1D7B9B91
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:53:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3CC8E9D;
-	Thu,  5 Oct 2023 09:51:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3CC8E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A67F5EB4;
+	Thu,  5 Oct 2023 09:52:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A67F5EB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492343;
-	bh=udaKZLIi1CYObfyyh2v53zS71KdRSemhW+CCyu9kXBA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OBYXoiDAf3+hfxayiAlOKx6oBcmxYb0w0LF5v4lWaHuik3dg+7BIcMa1rO2pxynyD
-	 Khrsf1x3Q+311cz5eiysIZaUEmLxXPWEPGD3WHTx4gwppe1pKzgrEIRWNaJL/K6Gm9
-	 DzmDNmSlHl8g+gIVrBccccRpvHNkIHap0G0fATuc=
+	s=default; t=1696492420;
+	bh=Zx3fESiS/i74KO00IW0q4mV27h8jE9ah2aZl7h8BibY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=derqiQlhsQisGobmfVVunxy2UHJCBA6eFVm2SQXxMJMZPBJvWEg4Rq2xJHOBMhBdU
+	 7DKDgJVFZv+V+kCqOutM0klx6fe+mbXDgLH4/DxOWrvNO38M9Bw/TjzFT6K6wyveSn
+	 JrJsxtcQEfgvfvXPM1VQZHs/kPjhUQyDLjDRGSL4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF08BF805C0; Thu,  5 Oct 2023 09:50:22 +0200 (CEST)
+	id 9D8EEF8057B; Thu,  5 Oct 2023 09:51:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93489F805BE;
-	Thu,  5 Oct 2023 09:50:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE240F8055C;
+	Thu,  5 Oct 2023 09:51:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9379FF80549; Tue,  3 Oct 2023 18:44:15 +0200 (CEST)
+	id 6BFA4F80549; Tue,  3 Oct 2023 20:13:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F1F0F80130
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 18:43:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F1F0F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08FC2F80166
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 20:13:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08FC2F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=fail reason="signature verification failed" (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pRzVJ8q6
+ header.s=k20201202 header.b=cBDgF9Wk
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 00B45B8189E;
-	Tue,  3 Oct 2023 16:43:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FF8C433CB;
-	Tue,  3 Oct 2023 16:43:47 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id A575EB81AB8;
+	Tue,  3 Oct 2023 18:13:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0E2C433C9;
+	Tue,  3 Oct 2023 18:13:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696351434;
-	bh=udaKZLIi1CYObfyyh2v53zS71KdRSemhW+CCyu9kXBA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=pRzVJ8q6Rb5uiqU+dnQJEpdNWgphcVDvSeQQcUOR2iixRAyI5OtOF6tmz8muII4kC
-	 XyYnU71T03jKBiE/bFUeb64Z3oGsYQoj8Vg1yae94aBeVClHI247g0b/ivMNvRv7R5
-	 OQ6Mt9hZDfx9ryBBXvAOruH/M+sXm4QJPR7F1dgCch5Y8opvwr9qnVfE0CtQO1WEjA
-	 mMFDzi5vdxueFwNglRpwtRlE1bVGTL3tZGcrveOlGW+vx7N0CaOwaIah2K6iXz8XPo
-	 MSbJWu5TQuX/YuP7M8A/Ece2v/V+7NRk7SygsZapKn4gjwrKCAAankcMKOHcRYV9zv
-	 eX1li6P/M7+xg==
-Received: (nullmailer pid 783967 invoked by uid 1000);
-	Tue, 03 Oct 2023 16:43:40 -0000
+	s=k20201202; t=1696356800;
+	bh=Zx3fESiS/i74KO00IW0q4mV27h8jE9ah2aZl7h8BibY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=cBDgF9Wkv3DGDxeLaFs8i1qxUV1wqSGNonkOM8CxfTyjsRUIhEkpOFPBQ+w4wmgGo
+	 eKXXZ0tiWqFNWKcWAKQj2JzoSAxOXyyqtJ+nfz4aoeQuetdYZ5H1lVAQZZifAFn0vJ
+	 JLouLftl3zb5r2KD8/bis/57AktFfQpbujSCqKntCJYDLmBEqbem3FWMvoA2X/LiOA
+	 nuuAB9yOG/qtUJjMUJPJP6MPrrmQ1hhpSg8BuP8FAHTmbUSKNJZuJep7FMeIGWHeAW
+	 9uqaRRAP1R2QMJK83q9u8SVP8ZUUCNCS0HOAyh4USKAfJr7DseWNTCp6ScNyPqPzCo
+	 9TwTntgPyaYXQ==
+Received: (nullmailer pid 1020034 invoked by uid 1000);
+	Tue, 03 Oct 2023 18:13:14 -0000
 From: Rob Herring <robh@kernel.org>
-Date: Tue, 03 Oct 2023 11:43:11 -0500
-Subject: [PATCH 5/5] ASoC: Use device_get_match_data()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20231003-dt-asoc-header-cleanups-v1-5-308666806378@kernel.org>
-References: <20231003-dt-asoc-header-cleanups-v1-0-308666806378@kernel.org>
-In-Reply-To: <20231003-dt-asoc-header-cleanups-v1-0-308666806378@kernel.org>
 To: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
  Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -114,8 +106,15 @@ To: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  patches@opensource.cirrus.com, linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH RESEND 0/5] ASoC: DT matching and header cleanups
+Date: Tue,  3 Oct 2023 13:13:09 -0500
+Message-Id: <20231003-dt-asoc-header-cleanups-v1-0-05b5d6447e5a@kernel.org>
+X-Mailer: git-send-email 2.40.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.13-dev
-X-MailFrom: robh@kernel.org
+Content-Transfer-Encoding: 8bit
+X-MailFrom: SRS0=FdhD=FR=robh_at_kernel.org=rob@kernel.org
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,15 +122,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: HT3IR3ELPZWSUTRNLV4XZ3UCAQO5K7IT
-X-Message-ID-Hash: HT3IR3ELPZWSUTRNLV4XZ3UCAQO5K7IT
-X-Mailman-Approved-At: Thu, 05 Oct 2023 07:50:01 +0000
+Message-ID-Hash: KGIEDNCTJC7YNCK7SEZQNXNLBRUEGKTG
+X-Message-ID-Hash: KGIEDNCTJC7YNCK7SEZQNXNLBRUEGKTG
+X-Mailman-Approved-At: Thu, 05 Oct 2023 07:51:19 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HT3IR3ELPZWSUTRNLV4XZ3UCAQO5K7IT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KGIEDNCTJC7YNCK7SEZQNXNLBRUEGKTG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,544 +139,194 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use preferred device_get_match_data() instead of of_match_device() to
-get the driver match data. With this, adjust the includes to explicitly
-include the correct headers.
+(Got a bunch of bounces on the first try. Something weird going on with 
+the To header best I can tell. Retrying with git-send-email instead of 
+b4.)
+
+This is a series is part of ongoing clean-ups related to device
+matching and DT related implicit includes. Essentially of_device.h has
+a bunch of implicit includes and generally isn't needed any nore except
+for of_match_device(). As we also generally want to get rid of
+of_match_device() as well, I've done that so we're not updating the
+includes twice.
 
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- sound/soc/intel/keembay/kmb_platform.c | 13 +------------
- sound/soc/qcom/lpass-cpu.c             | 15 +++++----------
- sound/soc/rockchip/rockchip_i2s.c      |  8 +++-----
- sound/soc/rockchip/rockchip_i2s_tdm.c  | 20 +++++++-------------
- sound/soc/rockchip/rockchip_pdm.c      |  6 +-----
- sound/soc/samsung/smdk_wm8994.c        | 27 +++------------------------
- sound/soc/stm/stm32_i2s.c              |  7 ++-----
- sound/soc/stm/stm32_sai.c              |  8 ++++----
- sound/soc/stm/stm32_sai_sub.c          |  6 +-----
- sound/soc/stm/stm32_spdifrx.c          |  8 ++------
- sound/soc/tegra/tegra210_amx.c         |  7 +------
- sound/soc/ti/davinci-evm.c             |  7 ++-----
- sound/soc/ti/davinci-mcasp.c           |  9 ++++-----
- sound/soc/ti/omap-mcbsp.c              | 10 ++++------
- 14 files changed, 40 insertions(+), 111 deletions(-)
+Rob Herring (5):
+      ASoC: Explicitly include correct DT includes
+      ASoC: Drop unnecessary of_match_device() calls
+      ASoC: da7218: Use i2c_get_match_data()
+      ASoC: qcom/lpass: Constify struct lpass_variant
+      ASoC: Use device_get_match_data()
 
-diff --git a/sound/soc/intel/keembay/kmb_platform.c b/sound/soc/intel/keembay/kmb_platform.c
-index e929497a5eb5..37ea2e1d2e92 100644
---- a/sound/soc/intel/keembay/kmb_platform.c
-+++ b/sound/soc/intel/keembay/kmb_platform.c
-@@ -11,7 +11,6 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <sound/dmaengine_pcm.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -820,7 +819,6 @@ static int kmb_plat_dai_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
- 	struct snd_soc_dai_driver *kmb_i2s_dai;
--	const struct of_device_id *match;
- 	struct device *dev = &pdev->dev;
- 	struct kmb_i2s_info *kmb_i2s;
- 	struct resource *res;
-@@ -831,16 +829,7 @@ static int kmb_plat_dai_probe(struct platform_device *pdev)
- 	if (!kmb_i2s)
- 		return -ENOMEM;
- 
--	kmb_i2s_dai = devm_kzalloc(dev, sizeof(*kmb_i2s_dai), GFP_KERNEL);
--	if (!kmb_i2s_dai)
--		return -ENOMEM;
--
--	match = of_match_device(kmb_plat_of_match, &pdev->dev);
--	if (!match) {
--		dev_err(&pdev->dev, "Error: No device match found\n");
--		return -ENODEV;
--	}
--	kmb_i2s_dai = (struct snd_soc_dai_driver *) match->data;
-+	kmb_i2s_dai = (struct snd_soc_dai_driver *)device_get_match_data(&pdev->dev);
- 
- 	/* Prepare the related clocks */
- 	kmb_i2s->clk_apb = devm_clk_get(dev, "apb_clk");
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 18aff2654f89..ac0feb89b458 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -9,7 +9,6 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -1106,7 +1105,6 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	const struct lpass_variant *variant;
- 	struct device *dev = &pdev->dev;
--	const struct of_device_id *match;
- 	int ret, i, dai_id;
- 
- 	dsp_of_node = of_parse_phandle(pdev->dev.of_node, "qcom,adsp", 0);
-@@ -1121,17 +1119,14 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, drvdata);
- 
--	match = of_match_device(dev->driver->of_match_table, dev);
--	if (!match || !match->data)
-+	variant = device_get_match_data(dev);
-+	if (!variant)
- 		return -EINVAL;
- 
--	if (of_device_is_compatible(dev->of_node, "qcom,lpass-cpu-apq8016")) {
--		dev_warn(dev, "%s compatible is deprecated\n",
--			 match->compatible);
--	}
-+	if (of_device_is_compatible(dev->of_node, "qcom,lpass-cpu-apq8016"))
-+		dev_warn(dev, "qcom,lpass-cpu-apq8016 compatible is deprecated\n");
- 
--	drvdata->variant = (struct lpass_variant *)match->data;
--	variant = drvdata->variant;
-+	drvdata->variant = variant;
- 
- 	of_lpass_cpu_parse_dai_data(dev, drvdata);
- 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 74e7d6ee0f28..b0c3ef030e06 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -10,8 +10,8 @@
- #include <linux/module.h>
- #include <linux/mfd/syscon.h>
- #include <linux/delay.h>
-+#include <linux/of.h>
- #include <linux/of_gpio.h>
--#include <linux/of_device.h>
- #include <linux/clk.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/pm_runtime.h>
-@@ -736,7 +736,6 @@ static int rockchip_i2s_init_dai(struct rk_i2s_dev *i2s, struct resource *res,
- static int rockchip_i2s_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct rk_i2s_dev *i2s;
- 	struct snd_soc_dai_driver *dai;
- 	struct resource *res;
-@@ -752,11 +751,10 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
- 
- 	i2s->grf = syscon_regmap_lookup_by_phandle(node, "rockchip,grf");
- 	if (!IS_ERR(i2s->grf)) {
--		of_id = of_match_device(rockchip_i2s_match, &pdev->dev);
--		if (!of_id || !of_id->data)
-+		i2s->pins = device_get_match_data(&pdev->dev);
-+		if (!i2s->pins)
- 			return -EINVAL;
- 
--		i2s->pins = of_id->data;
- 	}
- 
- 	/* try to prepare related clocks */
-diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
-index 111740166449..7e996550d1df 100644
---- a/sound/soc/rockchip/rockchip_i2s_tdm.c
-+++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
-@@ -73,7 +73,7 @@ struct rk_i2s_tdm_dev {
- 	struct snd_dmaengine_dai_dma_data playback_dma_data;
- 	struct reset_control *tx_reset;
- 	struct reset_control *rx_reset;
--	struct rk_i2s_soc_data *soc_data;
-+	const struct rk_i2s_soc_data *soc_data;
- 	bool is_master_mode;
- 	bool io_multiplex;
- 	bool mclk_calibrate;
-@@ -1275,21 +1275,21 @@ static const struct txrx_config rv1126_txrx_config[] = {
- 	{ 0xff800000, 0x10260, RV1126_I2S0_CLK_TXONLY, RV1126_I2S0_CLK_RXONLY },
- };
- 
--static struct rk_i2s_soc_data px30_i2s_soc_data = {
-+static const struct rk_i2s_soc_data px30_i2s_soc_data = {
- 	.softrst_offset = 0x0300,
- 	.configs = px30_txrx_config,
- 	.config_count = ARRAY_SIZE(px30_txrx_config),
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rk1808_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rk1808_i2s_soc_data = {
- 	.softrst_offset = 0x0300,
- 	.configs = rk1808_txrx_config,
- 	.config_count = ARRAY_SIZE(rk1808_txrx_config),
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rk3308_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rk3308_i2s_soc_data = {
- 	.softrst_offset = 0x0400,
- 	.grf_reg_offset = 0x0308,
- 	.grf_shift = 5,
-@@ -1298,14 +1298,14 @@ static struct rk_i2s_soc_data rk3308_i2s_soc_data = {
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rk3568_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rk3568_i2s_soc_data = {
- 	.softrst_offset = 0x0400,
- 	.configs = rk3568_txrx_config,
- 	.config_count = ARRAY_SIZE(rk3568_txrx_config),
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rv1126_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rv1126_i2s_soc_data = {
- 	.softrst_offset = 0x0300,
- 	.configs = rv1126_txrx_config,
- 	.config_count = ARRAY_SIZE(rv1126_txrx_config),
-@@ -1542,7 +1542,6 @@ static int rockchip_i2s_tdm_rx_path_prepare(struct rk_i2s_tdm_dev *i2s_tdm,
- static int rockchip_i2s_tdm_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct rk_i2s_tdm_dev *i2s_tdm;
- 	struct resource *res;
- 	void __iomem *regs;
-@@ -1554,13 +1553,8 @@ static int rockchip_i2s_tdm_probe(struct platform_device *pdev)
- 
- 	i2s_tdm->dev = &pdev->dev;
- 
--	of_id = of_match_device(rockchip_i2s_tdm_match, &pdev->dev);
--	if (!of_id)
--		return -EINVAL;
--
- 	spin_lock_init(&i2s_tdm->lock);
--	i2s_tdm->soc_data = (struct rk_i2s_soc_data *)of_id->data;
--
-+	i2s_tdm->soc_data = device_get_match_data(&pdev->dev);
- 	i2s_tdm->frame_width = 64;
- 
- 	i2s_tdm->clk_trcm = TRCM_TXRX;
-diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
-index 93048ed937e4..d16a4a67a6a2 100644
---- a/sound/soc/rockchip/rockchip_pdm.c
-+++ b/sound/soc/rockchip/rockchip_pdm.c
-@@ -571,7 +571,6 @@ static int rockchip_pdm_path_parse(struct rk_pdm_dev *pdm, struct device_node *n
- static int rockchip_pdm_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
--	const struct of_device_id *match;
- 	struct rk_pdm_dev *pdm;
- 	struct resource *res;
- 	void __iomem *regs;
-@@ -581,10 +580,7 @@ static int rockchip_pdm_probe(struct platform_device *pdev)
- 	if (!pdm)
- 		return -ENOMEM;
- 
--	match = of_match_device(rockchip_pdm_match, &pdev->dev);
--	if (match)
--		pdm->version = (uintptr_t)match->data;
--
-+	pdm->version = (enum rk_pdm_version)device_get_match_data(&pdev->dev);
- 	if (pdm->version == RK_PDM_RK3308) {
- 		pdm->reset = devm_reset_control_get(&pdev->dev, "pdm-m");
- 		if (IS_ERR(pdm->reset))
-diff --git a/sound/soc/samsung/smdk_wm8994.c b/sound/soc/samsung/smdk_wm8994.c
-index 271735253425..def92cc09f9c 100644
---- a/sound/soc/samsung/smdk_wm8994.c
-+++ b/sound/soc/samsung/smdk_wm8994.c
-@@ -31,15 +31,6 @@
- /* SMDK has a 16.934MHZ crystal attached to WM8994 */
- #define SMDK_WM8994_FREQ 16934000
- 
--struct smdk_wm8994_data {
--	int mclk1_rate;
--};
--
--/* Default SMDKs */
--static struct smdk_wm8994_data smdk_board_data = {
--	.mclk1_rate = SMDK_WM8994_FREQ,
--};
--
- static int smdk_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
-@@ -135,8 +126,8 @@ static struct snd_soc_card smdk = {
- 	.num_links = ARRAY_SIZE(smdk_dai),
- };
- 
--static const struct of_device_id samsung_wm8994_of_match[] __maybe_unused = {
--	{ .compatible = "samsung,smdk-wm8994", .data = &smdk_board_data },
-+static const struct of_device_id samsung_wm8994_of_match[] = {
-+	{ .compatible = "samsung,smdk-wm8994" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, samsung_wm8994_of_match);
-@@ -146,15 +137,9 @@ static int smdk_audio_probe(struct platform_device *pdev)
- 	int ret;
- 	struct device_node *np = pdev->dev.of_node;
- 	struct snd_soc_card *card = &smdk;
--	struct smdk_wm8994_data *board;
--	const struct of_device_id *id;
- 
- 	card->dev = &pdev->dev;
- 
--	board = devm_kzalloc(&pdev->dev, sizeof(*board), GFP_KERNEL);
--	if (!board)
--		return -ENOMEM;
--
- 	if (np) {
- 		smdk_dai[0].cpus->dai_name = NULL;
- 		smdk_dai[0].cpus->of_node = of_parse_phandle(np,
-@@ -170,12 +155,6 @@ static int smdk_audio_probe(struct platform_device *pdev)
- 		smdk_dai[0].platforms->of_node = smdk_dai[0].cpus->of_node;
- 	}
- 
--	id = of_match_device(samsung_wm8994_of_match, &pdev->dev);
--	if (id)
--		*board = *((struct smdk_wm8994_data *)id->data);
--
--	platform_set_drvdata(pdev, board);
--
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 
- 	if (ret)
-@@ -187,7 +166,7 @@ static int smdk_audio_probe(struct platform_device *pdev)
- static struct platform_driver smdk_audio_driver = {
- 	.driver		= {
- 		.name	= "smdk-audio-wm8994",
--		.of_match_table = of_match_ptr(samsung_wm8994_of_match),
-+		.of_match_table = samsung_wm8994_of_match,
- 		.pm	= &snd_soc_pm_ops,
- 	},
- 	.probe		= smdk_audio_probe,
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 06a42130f5e4..46098e111142 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1024,7 +1024,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 			      struct stm32_i2s_data *i2s)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct reset_control *rst;
- 	struct resource *res;
- 	int irq, ret;
-@@ -1032,10 +1031,8 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	if (!np)
- 		return -ENODEV;
- 
--	of_id = of_match_device(stm32_i2s_ids, &pdev->dev);
--	if (of_id)
--		i2s->regmap_conf = (const struct regmap_config *)of_id->data;
--	else
-+	i2s->regmap_conf = device_get_match_data(&pdev->dev);
-+	if (!i2s->regmap_conf)
- 		return -EINVAL;
- 
- 	i2s->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
-index 8e21e6f886fc..b45ee7e24f22 100644
---- a/sound/soc/stm/stm32_sai.c
-+++ b/sound/soc/stm/stm32_sai.c
-@@ -151,8 +151,8 @@ static int stm32_sai_set_sync(struct stm32_sai_data *sai_client,
- static int stm32_sai_probe(struct platform_device *pdev)
- {
- 	struct stm32_sai_data *sai;
-+	const struct stm32_sai_conf *conf;
- 	struct reset_control *rst;
--	const struct of_device_id *of_id;
- 	u32 val;
- 	int ret;
- 
-@@ -164,9 +164,9 @@ static int stm32_sai_probe(struct platform_device *pdev)
- 	if (IS_ERR(sai->base))
- 		return PTR_ERR(sai->base);
- 
--	of_id = of_match_device(stm32_sai_ids, &pdev->dev);
--	if (of_id)
--		memcpy(&sai->conf, (const struct stm32_sai_conf *)of_id->data,
-+	conf = device_get_match_data(&pdev->dev);
-+	if (conf)
-+		memcpy(&sai->conf, (const struct stm32_sai_conf *)conf,
- 		       sizeof(struct stm32_sai_conf));
- 	else
- 		return -EINVAL;
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 8bcb98d9b64e..ad2492efb1cd 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1506,7 +1506,6 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- static int stm32_sai_sub_probe(struct platform_device *pdev)
- {
- 	struct stm32_sai_sub_data *sai;
--	const struct of_device_id *of_id;
- 	const struct snd_dmaengine_pcm_config *conf = &stm32_sai_pcm_config;
- 	int ret;
- 
-@@ -1514,10 +1513,7 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 	if (!sai)
- 		return -ENOMEM;
- 
--	of_id = of_match_device(stm32_sai_sub_ids, &pdev->dev);
--	if (!of_id)
--		return -EINVAL;
--	sai->id = (uintptr_t)of_id->data;
-+	sai->id = (uintptr_t)device_get_match_data(&pdev->dev);
- 
- 	sai->pdev = pdev;
- 	mutex_init(&sai->ctrl_lock);
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index a359b528b26b..9eed3c57e3f1 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -908,17 +908,13 @@ static int stm32_spdifrx_parse_of(struct platform_device *pdev,
- 				  struct stm32_spdifrx_data *spdifrx)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct resource *res;
- 
- 	if (!np)
- 		return -ENODEV;
- 
--	of_id = of_match_device(stm32_spdifrx_ids, &pdev->dev);
--	if (of_id)
--		spdifrx->regmap_conf =
--			(const struct regmap_config *)of_id->data;
--	else
-+	spdifrx->regmap_conf = device_get_match_data(&pdev->dev);
-+	if (!spdifrx->regmap_conf)
- 		return -EINVAL;
- 
- 	spdifrx->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-diff --git a/sound/soc/tegra/tegra210_amx.c b/sound/soc/tegra/tegra210_amx.c
-index 95816f6007bd..dd1a2c77c6ea 100644
---- a/sound/soc/tegra/tegra210_amx.c
-+++ b/sound/soc/tegra/tegra210_amx.c
-@@ -535,18 +535,13 @@ static int tegra210_amx_platform_probe(struct platform_device *pdev)
- 	struct tegra210_amx *amx;
- 	void __iomem *regs;
- 	int err;
--	const struct of_device_id *match;
- 	struct tegra210_amx_soc_data *soc_data;
- 
--	match = of_match_device(tegra210_amx_of_match, dev);
--
--	soc_data = (struct tegra210_amx_soc_data *)match->data;
--
- 	amx = devm_kzalloc(dev, sizeof(*amx), GFP_KERNEL);
- 	if (!amx)
- 		return -ENOMEM;
- 
--	amx->soc_data = soc_data;
-+	amx->soc_data = device_get_match_data(dev);
- 
- 	dev_set_drvdata(dev, amx);
- 
-diff --git a/sound/soc/ti/davinci-evm.c b/sound/soc/ti/davinci-evm.c
-index ae7fdd761a7a..1bf333d2740d 100644
---- a/sound/soc/ti/davinci-evm.c
-+++ b/sound/soc/ti/davinci-evm.c
-@@ -175,20 +175,17 @@ static struct snd_soc_card evm_soc_card = {
- static int davinci_evm_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	const struct of_device_id *match;
- 	struct snd_soc_dai_link *dai;
- 	struct snd_soc_card_drvdata_davinci *drvdata = NULL;
- 	struct clk *mclk;
- 	int ret = 0;
- 
--	match = of_match_device(of_match_ptr(davinci_evm_dt_ids), &pdev->dev);
--	if (!match) {
-+	dai = (struct snd_soc_dai_link *) device_get_match_data(&pdev->dev);
-+	if (!dai) {
- 		dev_err(&pdev->dev, "Error: No device match found\n");
- 		return -ENODEV;
- 	}
- 
--	dai = (struct snd_soc_dai_link *) match->data;
--
- 	evm_soc_card.dai_link = dai;
- 
- 	dai->codecs->of_node = of_parse_phandle(np, "ti,audio-codec", 0);
-diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
-index 7e7d665a5504..b892d66f7847 100644
---- a/sound/soc/ti/davinci-mcasp.c
-+++ b/sound/soc/ti/davinci-mcasp.c
-@@ -21,8 +21,6 @@
- #include <linux/clk.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
--#include <linux/of_platform.h>
--#include <linux/of_device.h>
- #include <linux/platform_data/davinci_asp.h>
- #include <linux/math64.h>
- #include <linux/bitmap.h>
-@@ -1882,9 +1880,10 @@ static bool davinci_mcasp_have_gpiochip(struct davinci_mcasp *mcasp)
- static int davinci_mcasp_get_config(struct davinci_mcasp *mcasp,
- 				    struct platform_device *pdev)
- {
--	const struct of_device_id *match = of_match_device(mcasp_dt_ids, &pdev->dev);
- 	struct device_node *np = pdev->dev.of_node;
- 	struct davinci_mcasp_pdata *pdata = NULL;
-+	const struct davinci_mcasp_pdata *match_pdata =
-+		device_get_match_data(&pdev->dev);
- 	const u32 *of_serial_dir32;
- 	u32 val;
- 	int i;
-@@ -1893,8 +1892,8 @@ static int davinci_mcasp_get_config(struct davinci_mcasp *mcasp,
- 		pdata = pdev->dev.platform_data;
- 		pdata->dismod = DISMOD_LOW;
- 		goto out;
--	} else if (match) {
--		pdata = devm_kmemdup(&pdev->dev, match->data, sizeof(*pdata),
-+	} else if (match_pdata) {
-+		pdata = devm_kmemdup(&pdev->dev, match_pdata, sizeof(*pdata),
- 				     GFP_KERNEL);
- 		if (!pdata)
- 			return -ENOMEM;
-diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-index bfe51221f541..7643a54592f5 100644
---- a/sound/soc/ti/omap-mcbsp.c
-+++ b/sound/soc/ti/omap-mcbsp.c
-@@ -13,7 +13,6 @@
- #include <linux/device.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -1360,23 +1359,22 @@ MODULE_DEVICE_TABLE(of, omap_mcbsp_of_match);
- static int asoc_mcbsp_probe(struct platform_device *pdev)
- {
- 	struct omap_mcbsp_platform_data *pdata = dev_get_platdata(&pdev->dev);
-+	const struct omap_mcbsp_platform_data *match_pdata =
-+		device_get_match_data(&pdev->dev);
- 	struct omap_mcbsp *mcbsp;
--	const struct of_device_id *match;
- 	int ret;
- 
--	match = of_match_device(omap_mcbsp_of_match, &pdev->dev);
--	if (match) {
-+	if (match_pdata) {
- 		struct device_node *node = pdev->dev.of_node;
- 		struct omap_mcbsp_platform_data *pdata_quirk = pdata;
- 		int buffer_size;
- 
--		pdata = devm_kzalloc(&pdev->dev,
-+		pdata = devm_kmemdup(&pdev->dev, match_pdata,
- 				     sizeof(struct omap_mcbsp_platform_data),
- 				     GFP_KERNEL);
- 		if (!pdata)
- 			return -ENOMEM;
- 
--		memcpy(pdata, match->data, sizeof(*pdata));
- 		if (!of_property_read_u32(node, "ti,buffer-size", &buffer_size))
- 			pdata->buffer_size = buffer_size;
- 		if (pdata_quirk)
+ sound/soc/atmel/atmel_wm8904.c                     |  1 -
+ sound/soc/atmel/mchp-i2s-mcc.c                     |  2 +-
+ sound/soc/atmel/tse850-pcm5142.c                   |  1 -
+ sound/soc/bcm/cygnus-ssp.c                         |  2 +-
+ sound/soc/codecs/adau1701.c                        |  1 -
+ sound/soc/codecs/adau1977-spi.c                    |  1 -
+ sound/soc/codecs/ak4104.c                          |  2 +-
+ sound/soc/codecs/ak4118.c                          |  2 +-
+ sound/soc/codecs/ak4375.c                          |  2 +-
+ sound/soc/codecs/ak4458.c                          |  2 +-
+ sound/soc/codecs/ak4613.c                          |  2 +-
+ sound/soc/codecs/ak4642.c                          |  2 +-
+ sound/soc/codecs/ak5386.c                          |  7 +---
+ sound/soc/codecs/ak5558.c                          |  2 +-
+ sound/soc/codecs/cs35l32.c                         |  2 +-
+ sound/soc/codecs/cs35l33.c                         |  2 -
+ sound/soc/codecs/cs35l34.c                         |  2 +-
+ sound/soc/codecs/cs35l35.c                         |  3 +-
+ sound/soc/codecs/cs35l36.c                         |  3 +-
+ sound/soc/codecs/cs35l41-i2c.c                     |  2 +-
+ sound/soc/codecs/cs35l41.c                         |  1 -
+ sound/soc/codecs/cs4270.c                          |  2 +-
+ sound/soc/codecs/cs4271.c                          | 22 +++--------
+ sound/soc/codecs/cs42l42.c                         |  1 -
+ sound/soc/codecs/cs42l56.c                         |  2 +-
+ sound/soc/codecs/cs42xx8-i2c.c                     |  2 +-
+ sound/soc/codecs/cs43130.c                         |  3 +-
+ sound/soc/codecs/cs4349.c                          |  2 +-
+ sound/soc/codecs/da7213.c                          |  2 +-
+ sound/soc/codecs/da7218.c                          | 29 +--------------
+ sound/soc/codecs/da7218.h                          |  2 +-
+ sound/soc/codecs/da7219.c                          |  2 +-
+ sound/soc/codecs/da9055.c                          |  1 -
+ sound/soc/codecs/es8328.c                          |  1 -
+ sound/soc/codecs/gtm601.c                          |  2 +-
+ sound/soc/codecs/lpass-macro-common.c              |  2 +-
+ sound/soc/codecs/mt6351.c                          |  2 +-
+ sound/soc/codecs/mt6358.c                          |  2 +-
+ sound/soc/codecs/mt6359-accdet.c                   |  4 --
+ sound/soc/codecs/mt6359.c                          |  2 +-
+ sound/soc/codecs/nau8540.c                         |  2 +-
+ sound/soc/codecs/pcm1681.c                         |  2 -
+ sound/soc/codecs/rt715.c                           |  2 -
+ sound/soc/codecs/sgtl5000.c                        |  2 +-
+ sound/soc/codecs/sma1303.c                         |  2 +-
+ sound/soc/codecs/sta32x.c                          |  3 +-
+ sound/soc/codecs/sta350.c                          |  3 +-
+ sound/soc/codecs/tas5086.c                         |  6 +--
+ sound/soc/codecs/tas571x.c                         |  2 +-
+ sound/soc/codecs/uda1334.c                         |  2 +-
+ sound/soc/codecs/wm8510.c                          |  2 +-
+ sound/soc/codecs/wm8523.c                          |  2 +-
+ sound/soc/codecs/wm8524.c                          |  2 +-
+ sound/soc/codecs/wm8580.c                          |  2 +-
+ sound/soc/codecs/wm8711.c                          |  2 +-
+ sound/soc/codecs/wm8728.c                          |  2 +-
+ sound/soc/codecs/wm8731-i2c.c                      |  2 +-
+ sound/soc/codecs/wm8731-spi.c                      |  2 +-
+ sound/soc/codecs/wm8737.c                          |  2 +-
+ sound/soc/codecs/wm8741.c                          |  2 +-
+ sound/soc/codecs/wm8750.c                          |  2 +-
+ sound/soc/codecs/wm8753.c                          |  2 +-
+ sound/soc/codecs/wm8770.c                          |  2 +-
+ sound/soc/codecs/wm8776.c                          |  2 +-
+ sound/soc/codecs/wm8804.c                          |  1 -
+ sound/soc/fsl/efika-audio-fabric.c                 |  4 +-
+ sound/soc/fsl/fsl_aud2htx.c                        |  3 +-
+ sound/soc/fsl/fsl_mqs.c                            |  2 +-
+ sound/soc/fsl/fsl_rpmsg.c                          |  3 +-
+ sound/soc/fsl/fsl_sai.c                            |  3 +-
+ sound/soc/fsl/fsl_spdif.c                          |  4 +-
+ sound/soc/fsl/imx-audmux.c                         |  1 -
+ sound/soc/fsl/imx-card.c                           |  3 +-
+ sound/soc/fsl/imx-rpmsg.c                          |  3 +-
+ sound/soc/fsl/mpc5200_dma.c                        |  4 +-
+ sound/soc/fsl/mpc5200_psc_ac97.c                   |  3 +-
+ sound/soc/fsl/mpc5200_psc_i2s.c                    |  3 +-
+ sound/soc/fsl/mpc8610_hpcd.c                       |  2 +-
+ sound/soc/fsl/p1022_ds.c                           |  2 +-
+ sound/soc/fsl/p1022_rdk.c                          |  2 +-
+ sound/soc/fsl/pcm030-audio-fabric.c                |  3 +-
+ sound/soc/generic/audio-graph-card.c               |  2 -
+ sound/soc/generic/audio-graph-card2.c              |  2 -
+ sound/soc/generic/simple-card.c                    |  2 +-
+ sound/soc/generic/test-component.c                 |  2 +-
+ sound/soc/intel/keembay/kmb_platform.c             | 13 +------
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c         |  2 -
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c |  2 +-
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c        |  2 +-
+ .../mt8186/mt8186-mt6366-da7219-max98357.c         |  2 +-
+ .../mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c |  2 +-
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c          |  2 +-
+ .../mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c  |  2 +-
+ sound/soc/mediatek/mt8195/mt8195-mt6359.c          |  2 +-
+ sound/soc/mxs/mxs-saif.c                           |  1 -
+ sound/soc/mxs/mxs-sgtl5000.c                       |  1 -
+ sound/soc/qcom/apq8096.c                           |  2 +-
+ sound/soc/qcom/lpass-apq8016.c                     |  6 +--
+ sound/soc/qcom/lpass-cdc-dma.c                     |  2 +-
+ sound/soc/qcom/lpass-cpu.c                         | 43 ++++++++++------------
+ sound/soc/qcom/lpass-ipq806x.c                     |  2 +-
+ sound/soc/qcom/lpass-platform.c                    | 36 +++++++++---------
+ sound/soc/qcom/lpass-sc7180.c                      |  6 +--
+ sound/soc/qcom/lpass-sc7280.c                      |  6 +--
+ sound/soc/qcom/lpass.h                             |  2 +-
+ sound/soc/qcom/qdsp6/q6apm-dai.c                   |  2 +-
+ sound/soc/qcom/qdsp6/q6asm-dai.c                   |  2 +-
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c          |  1 -
+ sound/soc/qcom/qdsp6/q6routing.c                   |  3 +-
+ sound/soc/qcom/sc7180.c                            |  2 +-
+ sound/soc/qcom/sc7280.c                            |  2 +-
+ sound/soc/qcom/sc8280xp.c                          |  2 +-
+ sound/soc/qcom/sdm845.c                            |  2 +-
+ sound/soc/qcom/sm8250.c                            |  2 +-
+ sound/soc/rockchip/rockchip_i2s.c                  |  8 ++--
+ sound/soc/rockchip/rockchip_i2s_tdm.c              | 24 ++++--------
+ sound/soc/rockchip/rockchip_max98090.c             |  3 +-
+ sound/soc/rockchip/rockchip_pdm.c                  |  7 +---
+ sound/soc/samsung/aries_wm8994.c                   |  1 -
+ sound/soc/samsung/arndale.c                        |  2 +-
+ sound/soc/samsung/i2s.c                            |  2 -
+ sound/soc/samsung/midas_wm1811.c                   |  2 -
+ sound/soc/samsung/odroid.c                         |  1 -
+ sound/soc/samsung/smdk_wm8994.c                    | 28 ++------------
+ sound/soc/samsung/snow.c                           |  1 -
+ sound/soc/sh/fsi.c                                 |  1 -
+ sound/soc/sh/rcar/core.c                           |  1 +
+ sound/soc/sh/rcar/rsnd.h                           |  4 +-
+ sound/soc/sh/rcar/src.c                            |  1 +
+ sound/soc/sh/rcar/ssi.c                            |  2 +
+ sound/soc/sh/rz-ssi.c                              |  1 -
+ sound/soc/stm/stm32_i2s.c                          |  7 +---
+ sound/soc/stm/stm32_sai.c                          |  8 ++--
+ sound/soc/stm/stm32_sai_sub.c                      |  6 +--
+ sound/soc/stm/stm32_spdifrx.c                      |  8 +---
+ sound/soc/sunxi/sun4i-codec.c                      |  4 --
+ sound/soc/sunxi/sun4i-i2s.c                        |  2 +-
+ sound/soc/sunxi/sun4i-spdif.c                      |  3 +-
+ sound/soc/sunxi/sun50i-codec-analog.c              |  3 +-
+ sound/soc/sunxi/sun50i-dmic.c                      |  2 +-
+ sound/soc/sunxi/sun8i-codec-analog.c               |  1 -
+ sound/soc/sunxi/sun8i-codec.c                      |  2 +-
+ sound/soc/tegra/tegra186_asrc.c                    |  3 +-
+ sound/soc/tegra/tegra186_dspk.c                    |  2 +-
+ sound/soc/tegra/tegra20_spdif.c                    |  2 +-
+ sound/soc/tegra/tegra210_adx.c                     |  3 +-
+ sound/soc/tegra/tegra210_amx.c                     | 10 +----
+ sound/soc/tegra/tegra210_dmic.c                    |  2 +-
+ sound/soc/tegra/tegra210_i2s.c                     |  2 +-
+ sound/soc/tegra/tegra210_mixer.c                   |  3 +-
+ sound/soc/tegra/tegra210_mvc.c                     |  3 +-
+ sound/soc/tegra/tegra210_ope.c                     |  3 +-
+ sound/soc/tegra/tegra210_peq.c                     |  1 -
+ sound/soc/tegra/tegra210_sfc.c                     |  1 -
+ sound/soc/tegra/tegra30_i2s.c                      |  1 -
+ sound/soc/tegra/tegra_asoc_machine.c               |  1 -
+ sound/soc/tegra/tegra_audio_graph_card.c           |  2 +-
+ sound/soc/ti/davinci-evm.c                         |  7 +---
+ sound/soc/ti/davinci-mcasp.c                       |  9 ++---
+ sound/soc/ti/omap-dmic.c                           |  2 +-
+ sound/soc/ti/omap-mcbsp.c                          | 10 ++---
+ sound/soc/ti/omap-mcpdm.c                          |  2 +-
+ 162 files changed, 205 insertions(+), 390 deletions(-)
+---
+base-commit: c9f2baaa18b5ea8f006a2b3a616da9597c71d15e
+change-id: 20231003-dt-asoc-header-cleanups-87f2cf5a2205
 
+Best regards,
 -- 
-2.40.1
+Rob Herring <robh@kernel.org>
 

@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F4D7B6DAE
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EDAC7B6DAC
 	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 17:59:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E386E0D;
-	Tue,  3 Oct 2023 17:58:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E386E0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E580EE74;
+	Tue,  3 Oct 2023 17:58:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E580EE74
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696348773;
-	bh=x4+F/ayjzolbI5Z0chsY8fDErsz5v4RnO2hda7AbeCk=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ACmtPrykDQIb/8HZyhHH4oEFbeoXvZ/+opcOHeXCBkeu1rg4NzFiCdvnTg8iyhkQR
-	 bK7ESp2txaH9mGKACaW9sugNSvRTKGXdwPMwZLoO59Q3KgpEPm9iCdJx8O84R51Md7
-	 DsxyG1xXOlTsZKgim1aXmOVlPs9AaR2CjtbOCiXI=
+	s=default; t=1696348776;
+	bh=d3VaEwaFlyeMPWg3YHua4F4aRB7Tfwof5FHIy9UNucg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GZPy0b/cqa6JWrLTs1RgEOIm5wvd3jWXgCLiajTanw8Y+RLETfqGDdKn2TzN2ggT4
+	 fJeAxsM1m62Vr+w0gSuO1RLca9CCud1fiZREfkc3lgXTivnx81mHuur8YBJerqcdYi
+	 4WxkDJeDbyc9SxnvmpILNfz5i1GxoRYodKoP2H6I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F11E0F801EB; Tue,  3 Oct 2023 17:58:42 +0200 (CEST)
+	id EA347F80558; Tue,  3 Oct 2023 17:58:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 309B6F8055C;
-	Tue,  3 Oct 2023 17:58:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FA97F8055C;
+	Tue,  3 Oct 2023 17:58:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27E26F80570; Tue,  3 Oct 2023 17:58:37 +0200 (CEST)
+	id D889AF8055C; Tue,  3 Oct 2023 17:58:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8947F80310
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 17:58:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8947F80310
+	by alsa1.perex.cz (Postfix) with ESMTPS id B1710F801EB
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 17:58:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1710F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IBYUGpgV
+ header.s=k20201202 header.b=NSXp24s3
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id D9910B81B67;
+	by dfw.source.kernel.org (Postfix) with ESMTP id 3A9CD61194;
 	Tue,  3 Oct 2023 15:58:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0063C433C9;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADCEC433C8;
 	Tue,  3 Oct 2023 15:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1696348710;
-	bh=x4+F/ayjzolbI5Z0chsY8fDErsz5v4RnO2hda7AbeCk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=IBYUGpgVFFgQoig5s2QW9LJjtYjJMW/WRBBlkYxbnXnMZ72pTEve2G2zYTs8NlzQC
-	 DMROuAtz1IOdXT2P7PH5FdCV2TyV7+4d+EQjSzOHLqYHZTd2v0m+wPGemgTuUu76+V
-	 DzsFOHEzOqMe9GBFpU+3L2CHK+MoMjTj72OQPe3km4ANp0YzfFJ++XYMhXZ8wWlyiM
-	 F3Oq2/pvgfp6fu79JHz3ushUpTm2PB7R06dNmYLJ0BqJJnrOzgNc5xV1XIWgYr7+B3
-	 pXaj4vaMuVdbf4wYl6hR62AurNdj0Cy3OqHOzg6idqQCl6mCJSnW5UvTMnvyXrwNW2
-	 UGGkHRPlmsqdA==
+	bh=d3VaEwaFlyeMPWg3YHua4F4aRB7Tfwof5FHIy9UNucg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NSXp24s3e8mvkSzjU7j3jfbsRkiRrdsCcyLfcSU7362Ak3Pd1N7fODvRQ4m+VKKlW
+	 Ai8Q9kjjgXWiyuSP/UM391TIW0Bb83+rnOv39UL8WfvkKMRRldnqm7Qfez/ONMhCi6
+	 0apiliYSifzA+dQq+cQXY60acuMFANuvzSEgJNsTLlztN80W43GeWCiFkH32Zxlk05
+	 Mh5r91tfqDbY9cDihmDPBpsSWJUJ9J4dXWsv23MS2ejPJ2b8+ODoMlGKXscZnE3nsC
+	 EPMYYoX4pvJj+SvCzca2F2OHaufKQE70zf9O73lQJ1kf8RKYR3fmBoX0hs8UTxRTA4
+	 5S2mdKljgQBSg==
 Received: from johan by xi.lan with local (Exim 4.96)
 	(envelope-from <johan+linaro@kernel.org>)
-	id 1qnhnF-00074l-2r;
-	Tue, 03 Oct 2023 17:58:41 +0200
+	id 1qnhnF-00074n-3C;
+	Tue, 03 Oct 2023 17:58:42 +0200
 From: Johan Hovold <johan+linaro@kernel.org>
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
@@ -70,15 +70,18 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan+linaro@kernel.org>
-Subject: [PATCH 0/7] ASoC: codecs: wcd938x: fix probe and bind error handling
-Date: Tue,  3 Oct 2023 17:55:51 +0200
-Message-ID: <20231003155558.27079-1-johan+linaro@kernel.org>
+	Johan Hovold <johan+linaro@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/7] ASoC: codecs: wcd938x: drop bogus bind error handling
+Date: Tue,  3 Oct 2023 17:55:52 +0200
+Message-ID: <20231003155558.27079-2-johan+linaro@kernel.org>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20231003155558.27079-1-johan+linaro@kernel.org>
+References: <20231003155558.27079-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MEQ2JI4VGOL43KWL5SRAPHN467AIHEJO
-X-Message-ID-Hash: MEQ2JI4VGOL43KWL5SRAPHN467AIHEJO
+Message-ID-Hash: T5IFSN52S4MCZGSK2TWKIIFXLNXAT5MI
+X-Message-ID-Hash: T5IFSN52S4MCZGSK2TWKIIFXLNXAT5MI
 X-MailFrom: johan+linaro@kernel.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -90,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MEQ2JI4VGOL43KWL5SRAPHN467AIHEJO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T5IFSN52S4MCZGSK2TWKIIFXLNXAT5MI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,30 +102,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The wcd938x codec driver happily ignores error handling, something which
-has bitten us in the past when we hit a probe deferral:
+Drop the bogus error handling for a soundwire device backcast during
+bind() that cannot fail.
 
-	https://lore.kernel.org/lkml/20230705123018.30903-1-johan+linaro@kernel.org/
+Fixes: 16572522aece ("ASoC: codecs: wcd938x-sdw: add SoundWire driver")
+Cc: stable@vger.kernel.org      # 5.14
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+---
+ sound/soc/codecs/wcd938x.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-Fix up the remaining probe and component bind paths that left resources
-allocated and registered after errors to avoid similar future issues.
-
-Johan
-
-
-Johan Hovold (7):
-  ASoC: codecs: wcd938x: drop bogus bind error handling
-  ASoC: codecs: wcd938x: fix unbind tear down order
-  ASoC: codecs: wcd938x: fix resource leaks on bind errors
-  ASoC: codecs: wcd938x: fix regulator leaks on probe errors
-  ASoC: codecs: wcd938x: fix runtime PM imbalance on remove
-  ASoC: codecs: wcd938x-sdw: fix use after free on driver unbind
-  ASoC: codecs: wcd938x-sdw: fix runtime PM imbalance on probe errors
-
- sound/soc/codecs/wcd938x-sdw.c | 27 +++++++++++-
- sound/soc/codecs/wcd938x.c     | 76 +++++++++++++++++++++++++---------
- 2 files changed, 83 insertions(+), 20 deletions(-)
-
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index a3c680661377..cf1eaf678fc2 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -3448,10 +3448,6 @@ static int wcd938x_bind(struct device *dev)
+ 	wcd938x->sdw_priv[AIF1_CAP] = dev_get_drvdata(wcd938x->txdev);
+ 	wcd938x->sdw_priv[AIF1_CAP]->wcd938x = wcd938x;
+ 	wcd938x->tx_sdw_dev = dev_to_sdw_dev(wcd938x->txdev);
+-	if (!wcd938x->tx_sdw_dev) {
+-		dev_err(dev, "could not get txslave with matching of dev\n");
+-		return -EINVAL;
+-	}
+ 
+ 	/* As TX is main CSR reg interface, which should not be suspended first.
+ 	 * expicilty add the dependency link */
 -- 
 2.41.0
 

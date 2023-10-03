@@ -2,224 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D35D7B9B89
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B9CE7B9B8A
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:51:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA8D7E81;
-	Thu,  5 Oct 2023 09:50:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA8D7E81
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EADCE7A;
+	Thu,  5 Oct 2023 09:51:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EADCE7A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492303;
-	bh=KHe4uCcX+P2eCK4CBz8/0xFuZpRP+gJITHjGpepJDfs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1696492311;
+	bh=srL5i+/e0G3CukFOmGUtr7cVnpNzFbTFe9gkCTIdyWA=;
+	h=Date:From:Subject:To:Cc:References:In-reply-to:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=u563hLEOscC0NEuv9uKfbN6CWtWCgLZeGe5xW7zzDeVegqYiMlmeq3/g2OX9RQ4Lk
-	 +SA/wkjVqUOIsbkp4FC5Eg8ES4wyz3oRzL+83pFOGYr3Tocbvw3TXY6cD2P6vInz6Y
-	 Kjh4ZJq4ymVAxxXrJUmEoC4+6KHbP8rq7cDaCuuE=
+	b=fQuP0qCovOJdBtviufJ7vuorQxZxfkkRB4F7ScIjdv86ok4JxfcE4G6Yta5VZHZKA
+	 NpzL2oRCf3i3PsgM6jGGZ9I7Q25HJshr2RspuvZB1qi8aymkBOHBxYB91406mKlrD0
+	 zVH3cut3Ug2Med23R9DUuxdFv2CwH8Q0aCfBiq0o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F170F8059F; Thu,  5 Oct 2023 09:50:13 +0200 (CEST)
+	id B7DD1F805AB; Thu,  5 Oct 2023 09:50:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE4AAF8057C;
-	Thu,  5 Oct 2023 09:50:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDDCCF8058C;
+	Thu,  5 Oct 2023 09:50:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50559F80549; Mon,  2 Oct 2023 18:52:27 +0200 (CEST)
+	id 7298DF801EB; Tue,  3 Oct 2023 11:39:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mblankhorst.nl (lankhorst.se
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from abi149hd126.arn1.oracleemaildelivery.com
+ (abi149hd126.arn1.oracleemaildelivery.com [129.149.84.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7AE01F802E8;
-	Mon,  2 Oct 2023 18:52:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AE01F802E8
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	sound-open-firmware@alsa-project.org
-Subject: [PATCH v5 12/12] ALSA: hda/i915: Remove extra argument from
- snd_hdac_i915_init
-Date: Mon,  2 Oct 2023 18:52:21 +0200
-Message-Id: <20231002165221.17916-1-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
-References: <20230929145123.233838-1-maarten.lankhorst@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: mlankhorst@mblankhorst.nl
+	by alsa1.perex.cz (Postfix) with ESMTPS id BEA02F801EB
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 11:39:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEA02F801EB
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=augustwikerfors.se header.i=@augustwikerfors.se
+ header.a=rsa-sha256 header.s=oci-arn1-20220924 header.b=cpgEdHA1;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=arn1.rp.oracleemaildelivery.com
+ header.i=@arn1.rp.oracleemaildelivery.com header.a=rsa-sha256
+ header.s=prod-arn-20211201 header.b=QR2wy4jK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=oci-arn1-20220924;
+ d=augustwikerfors.se;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=gEeJIPzvzVkyH+NRCBLOt631AmVlDSMa/1+fcXZ5V4I=;
+ b=cpgEdHA1ORayguhDshh9wTP273qjpW9M1AEv2E4g4Cl29ZWg5r1mH2yQZiv7bvza4jtei32plCuz
+   xrOp+y2PRzTxz4ohLM1vEH8wFD7AO190Pg3f2pGTinv0QTjeLyndsdouOPzSBaGPwL2+wRq+BXDE
+   y4Vkjq/Ua7LsrUj0zbPb3DHvAp+3OqhmJrOBGBff28PdGfH5TRGZ62rXowuO0Hh4xbjxXAXJjLpF
+   Y2lf5pA2rroTKih3DTlZLT4zjZMbJVPWzjRW2X4PyqyKS03F7VWy9Le/qS+RUXqhYT/usiT/7bX1
+   LsWmHf/zbMQfsfEhZhlHdkvEULO4k9PlZAFCQA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=prod-arn-20211201;
+ d=arn1.rp.oracleemaildelivery.com;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=gEeJIPzvzVkyH+NRCBLOt631AmVlDSMa/1+fcXZ5V4I=;
+ b=QR2wy4jKD7aeG2qoZH9lOmWHQ2qKOYh6omKF8BbKgeRMdqEvCNxLyNobAysrmGW/SnAxnI1mBQfa
+   3RvVg2Pbi3uwsZiuke6f0B+DfFXV0FkBqQRAZAIgLuwkihb/xZPnciLaK5eofpaK9AJBJbYXbcu2
+   DY4JbAevTRD7GbnWeYSEgMAt2tUtBNjnfJbPynzBtUXpVX+plz9TYpmiGx5e607kBYlTZlKj9uQ/
+   Na9wLkhQD8u6J3iUGuKhilCT2h+onXyjwNwWWI13gR75V5F/Z0bzWs6IJ7JobxsgfRv6l1dYyDDf
+   uVu/8kbCekfc4QJGJs022DR+HpvO23OebZMZlA==
+Received: by omta-ad1-fd3-401-eu-stockholm-1.omtaad1.vcndparn.oraclevcn.com
+ (Oracle Communications Messaging Server 8.1.0.1.20230808 64bit (built Aug  8
+ 2023))
+ with ESMTPS id
+ <0S1Y007FC5H7XO30@omta-ad1-fd3-401-eu-stockholm-1.omtaad1.vcndparn.oraclevcn.com>
+ for alsa-devel@alsa-project.org; Tue, 03 Oct 2023 09:39:07 +0000 (GMT)
+Message-id: <99eb37e0-5ade-4137-93d5-901f598f4082@augustwikerfors.se>
+Date: Tue, 3 Oct 2023 11:39:04 +0200
+MIME-version: 1.0
+From: August Wikerfors <git@augustwikerfors.se>
+Subject: Re: [PATCH] ASoC: amd: yc: Fix non-functional mic on Lenovo Yoga Slim
+ 7 Pro 14ARH7 82UU
+To: Markus Meier <kerneldev@epic-bytes.net>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, regressions@lists.linux.dev
+References: <10347605.nUPlyArG6x@kali>
+Content-language: en-US
+In-reply-to: <10347605.nUPlyArG6x@kali>
+Content-type: text/plain; charset=UTF-8; format=flowed
+Content-transfer-encoding: 7bit
+Reporting-Meta: 
+ AAHPA+lGEgh+LcklqCHZGU1AP61IUJVJAlVMR4F30wXN/+sMVQlUrFG9qeJ7+B13
+ 94A63Ql7MW3ThyqPcApzRL3tvPxJ5j49hsFWXrSEtKfjZLuMK3RFX5OY6W9lZ/eX
+ pIlSjtmgyIO+BFcKYkmT1p3M+v1CJkdwxYeXTi/gVE6/r7NELHFlJ5ad8SOhxdKq
+ Xbra2yBh136OOf4H0MUmlqt+GsA/vcdQJ8X1HvM/TjJmBiXFuwHTtCCcnnCLbKwk
+ ONB+CbfOXipgQRvMbA/xrJNf4R1HRVmTYpWCFwa4JQaZoBpvrJgAqtwDqrNVl/8J
+ OR50CehqFbvn3pkP8jeI6+BsphV0QYk7EtYw9BW36urgFkbWm3F+ijqTHuSG3zQT
+ FHYGph8dAR2OX97+ZJRTW7fWUbJSiZi+I4dtloba3bUDtCpd3YqCXmH0qDXD5uyO BeOjrw==
+X-MailFrom: 
+ bounces+alsa-devel=alsa-project.org@arn1.rp.oracleemaildelivery.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CSJ24RJFVS4O33VY4UMZEEX24MC7G2EQ
-X-Message-ID-Hash: CSJ24RJFVS4O33VY4UMZEEX24MC7G2EQ
-X-Mailman-Approved-At: Thu, 05 Oct 2023 07:50:00 +0000
+Message-ID-Hash: UEQXJEWYYP5HHMTIMG2AUGH3IXYJQHF6
+X-Message-ID-Hash: UEQXJEWYYP5HHMTIMG2AUGH3IXYJQHF6
+X-Mailman-Approved-At: Thu, 05 Oct 2023 07:50:01 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CSJ24RJFVS4O33VY4UMZEEX24MC7G2EQ/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UEQXJEWYYP5HHMTIMG2AUGH3IXYJQHF6/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now that all drivers have moved from modprobe loading to
-handling -EPROBE_DEFER, we can remove the argument again.
+[+Cc Mark, Mario, regressions]
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>
-Cc: alsa-devel@alsa-project.org
-Cc: linux-kernel@vger.kernel.org
-Cc: sound-open-firmware@alsa-project.org
+Hi Markus,
 
- include/sound/hda_i915.h        |  4 ++--
- sound/hda/hdac_i915.c           | 14 +++-----------
- sound/pci/hda/hda_intel.c       |  2 +-
- sound/soc/intel/avs/core.c      |  2 +-
- sound/soc/intel/skylake/skl.c   |  2 +-
- sound/soc/sof/intel/hda-codec.c |  2 +-
- 6 files changed, 9 insertions(+), 17 deletions(-)
+On 2023-10-02 23:04, Markus Meier wrote:
+> Hi,
+> 
+> I own a  Lenovo Yoga Slim 7 Pro 14ARH7 where the microphone is not showing up.
+> I added the system to the quirk table and the mic is working correctly (but
+> with very low volume) now.
+> 
+> Here's an except from dmidecode:
+> System Information
+>          Manufacturer: LENOVO
+>          Product Name: 82UU
+>          Version: Yoga Slim 7 Pro 14ARH7
+>          SKU Number: LENOVO_MT_82UU_BU_idea_FM_Yoga Slim 7 Pro 14ARH7
+>          Family: Yoga Slim 7 Pro 14ARH7
+> 
+> Please add this patch to the kernel
+Please read [1] for how to properly format and submit kernel patches. In
+particular your patch is missing a "Signed-off-by:" line and it should
+ideally be sent inline instead of as an attachment (it is strongly
+recommended to use git send-email for this, see [2] for a tutorial on
+how to set up and use it).
 
-diff --git a/include/sound/hda_i915.h b/include/sound/hda_i915.h
-index f91bd66360865..6b79614a893b9 100644
---- a/include/sound/hda_i915.h
-+++ b/include/sound/hda_i915.h
-@@ -9,12 +9,12 @@
- 
- #ifdef CONFIG_SND_HDA_I915
- void snd_hdac_i915_set_bclk(struct hdac_bus *bus);
--int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe);
-+int snd_hdac_i915_init(struct hdac_bus *bus);
- #else
- static inline void snd_hdac_i915_set_bclk(struct hdac_bus *bus)
- {
- }
--static inline int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
-+static inline int snd_hdac_i915_init(struct hdac_bus *bus)
- {
- 	return -ENODEV;
- }
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index 0765e5350e7ba..365c36fdf2058 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -156,7 +156,7 @@ static int i915_gfx_present(struct pci_dev *hdac_pci)
-  *
-  * Returns zero for success or a negative error code.
-  */
--int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
-+int snd_hdac_i915_init(struct hdac_bus *bus)
- {
- 	struct drm_audio_component *acomp;
- 	int err;
-@@ -172,18 +172,10 @@ int snd_hdac_i915_init(struct hdac_bus *bus, bool allow_modprobe)
- 	acomp = bus->audio_component;
- 	if (!acomp)
- 		return -ENODEV;
--	if (allow_modprobe && !acomp->ops) {
--		if (!IS_ENABLED(CONFIG_MODULES) ||
--		    !request_module("i915")) {
--			/* 60s timeout */
--			wait_for_completion_killable_timeout(&acomp->master_bind_complete,
--							     msecs_to_jiffies(60 * 1000));
--		}
--	}
- 	if (!acomp->ops) {
--		int err = allow_modprobe ? -ENODEV : -EPROBE_DEFER;
- 		snd_hdac_acomp_exit(bus);
--		return dev_err_probe(bus->dev, err, "couldn't bind with audio component\n");
-+		return dev_err_probe(bus->dev, -EPROBE_DEFER,
-+				     "couldn't bind with audio component\n");
- 	}
- 	return 0;
- }
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 5cf7676114dc6..5255df16fbac5 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2138,7 +2138,7 @@ static int azx_probe(struct pci_dev *pci,
- #ifdef CONFIG_SND_HDA_I915
- 	/* bind with i915 if needed */
- 	if (chip->driver_caps & AZX_DCAPS_I915_COMPONENT) {
--		err = snd_hdac_i915_init(azx_bus(chip), false);
-+		err = snd_hdac_i915_init(azx_bus(chip));
- 		if (err < 0) {
- 			/* if the controller is bound only with HDMI/DP
- 			 * (for HSW and BDW), we need to abort the probe;
-diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
-index 8a20639582487..33044f353575d 100644
---- a/sound/soc/intel/avs/core.c
-+++ b/sound/soc/intel/avs/core.c
-@@ -461,7 +461,7 @@ static int avs_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
- 	pci_set_drvdata(pci, bus);
- 	device_disable_async_suspend(dev);
- 
--	ret = snd_hdac_i915_init(bus, false);
-+	ret = snd_hdac_i915_init(bus);
- 	if (ret == -EPROBE_DEFER)
- 		goto err_i915_init;
- 	else if (ret < 0)
-diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index 24bdbe2a53bec..f46f109d5856e 100644
---- a/sound/soc/intel/skylake/skl.c
-+++ b/sound/soc/intel/skylake/skl.c
-@@ -1056,7 +1056,7 @@ static int skl_probe(struct pci_dev *pci,
- 	}
- 
- 	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)) {
--		err = snd_hdac_i915_init(bus, false);
-+		err = snd_hdac_i915_init(bus);
- 		if (err < 0)
- 			goto out_dmic_unregister;
- 	}
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index f1fd5b44aaac9..8a5e99a898ecb 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -415,7 +415,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
- 		return 0;
- 
- 	/* i915 exposes a HDA codec for HDMI audio */
--	ret = snd_hdac_i915_init(bus, true);
-+	ret = snd_hdac_i915_init(bus);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.39.2
+Also, since this fixes a regression caused by a commit that has been
+backported to stable, see below for "Cc:" and "Fixes:" tags that should
+be added above "Signed-off-by:" to ensure the fix also gets backported
+in a timely manner [3].
 
+> and add it to the stable kernels too. I
+Cc: stable@vger.kernel.org
+
+> guess the microphone should have worked before. Seems to be a regression
+> introduced by c008323fe361bd62a43d9fb29737dacd5c067fb7
+Fixes: c008323fe361 ("ASoC: amd: yc: Fix a non-functional mic on Lenovo 82SJ")
+
+[1] https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+[2] https://git-send-email.io/
+[3] https://www.kernel.org/doc/html/latest/process/handling-regressions.html#what-s-important-when-fixing-regressions
+
+Regards,
+August Wikerfors

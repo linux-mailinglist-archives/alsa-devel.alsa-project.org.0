@@ -2,113 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C2D7B6C45
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 16:52:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3EA47B6C9E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Oct 2023 17:06:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21ED884B;
-	Tue,  3 Oct 2023 16:51:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21ED884B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D87911E9;
+	Tue,  3 Oct 2023 17:05:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D87911E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696344762;
-	bh=4BCkttYSm3qnyD/46rujqTGR8YdzNX+IqUfFVChFQYw=;
+	s=default; t=1696345574;
+	bh=CPfWUJJWFpLHcomvLp2yeLVl3p8vBkO0FtA5j0Nemhs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dhfNaq5EUCIci7JoYxbwcD67z+g34mu6S0jTk0pp1xzlrKdKwhofj0NrDkriZM6Mg
-	 11HWWyCfnBOccX7pFGMGkh9wb0Y1wca5U6zNnxsmWS1C8qgrXvatUA7TpehKfu4N6m
-	 TzlnIKsm9BvTU2zzic4+yOOqN7dPqgekntwKxFFo=
+	b=BRL7rqLxJZIz1iRFoYnjTPPE01Iud8AIbxAUaeaoyTBNeHrw9kOe1OTI3HBAxXQXe
+	 1uOJAYi9OXWkuk2D6gaO2Ok1pJDr855XBv/Q9h3JUEtPlvDfGGsMlxuGbLv2HZrSAk
+	 xGCbEogk0l+6uUtlUA5D+3Hd25x6uLgiFY2Ttlhc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7CD5F80130; Tue,  3 Oct 2023 16:51:51 +0200 (CEST)
+	id A2EE7F80166; Tue,  3 Oct 2023 17:04:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38F7BF80310;
-	Tue,  3 Oct 2023 16:51:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27C19F80166;
+	Tue,  3 Oct 2023 17:04:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B5E6F8047D; Tue,  3 Oct 2023 16:51:47 +0200 (CEST)
+	id 3069FF8047D; Tue,  3 Oct 2023 17:04:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.meier-coaching.de (mail.epic-bytes.net [45.83.105.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62B6CF801EB
-	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 16:51:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62B6CF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7AEDBF801EB
+	for <alsa-devel@alsa-project.org>; Tue,  3 Oct 2023 17:04:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AEDBF801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bgdev-pl.20230601.gappssmtp.com
- header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=jiKpRvXn
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-405497850dbso10120565e9.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 03 Oct 2023 07:51:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1696344700;
- x=1696949500; darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PbI1RQ5tA31jmForDpjaNDHFXNvHWaIh5Ez7RFreokA=;
-        b=jiKpRvXniHNXItYLlcu10PH9NirA03IbBtgS59wb7iPyL54c0Zyr2AlUP+2GPjOYBR
-         7i4Yxlk5vXkeiFlwI3BuZEzjdlA6YYvWWF1ROMlz8HsqSF1p7S679qL7+lNda3TYWBCU
-         a9+UiGQIBnw+YDaHctgA9MgiTCOMc2oQDXUOxRkP3g6ocYcH/nnknf41r8WIvBQFq6Vg
-         3zXRt/nLUnAFRv6zuNfscv2I79p4HGK5Vz8XCeaSXi4ymuDou/fqfYqZPQxhJjnrmZpx
-         M4VFo0gJ/nkzOMQBsZZX9nC4bCk24HoTLAnVtrSDLm/HM4L2uID0IlMEUL0Iu43K9+T7
-         N9tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696344700; x=1696949500;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PbI1RQ5tA31jmForDpjaNDHFXNvHWaIh5Ez7RFreokA=;
-        b=ulEdEROU012hBfrhdZN7dwB3UWjw76Ysj0vmIMcst1LKhwTuXNiUp9/wBQlLQfA6cW
-         MAwE+v78TfzWSyXNJWk9qc7MftIRn+NP2voqdTqpcFtETDgrdapO00B8Hao8uxj9AJo9
-         CSvKFECQGDPoUfIqfq9kYYYtTyFCT1ps80uNO8OON5WiULrXmjLOPBUhLDYRihmnT4pP
-         oR6tVPkIp0uwfMXFbXIx0S1p1X5aWrOUJblRWnUjqCZRf0fz+mdHPhBeQyltIFCkW98R
-         ZD/H08aInP2PsFZRdFoJSNsJ2r5dDZsu75Ok5MK60FgE6LHWVHKraPorgZ35v4H6foT5
-         Pw3A==
-X-Gm-Message-State: AOJu0YwhtyyE1ory+U18Rn4l+Bu2IqKDcOi79lTjz/ozArVvhVycwkqR
-	2sO9Jq4jqZ5vwDB/F3ODtMCMLw==
-X-Google-Smtp-Source: 
- AGHT+IGDe8qyl3H7tHp7/i95Dcbrmv2tEdTDIgA+Gz7COGg95rm2oNQU9BoqqS4J9fllDu6b//glNA==
-X-Received: by 2002:a1c:f709:0:b0:3fe:1cac:37d5 with SMTP id
- v9-20020a1cf709000000b003fe1cac37d5mr13510551wmh.4.1696344699849;
-        Tue, 03 Oct 2023 07:51:39 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:1f2d:3479:a5de:fa35])
-        by smtp.gmail.com with ESMTPSA id
- c15-20020a05600c0acf00b003fe29f6b61bsm1462773wmr.46.2023.10.03.07.51.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Oct 2023 07:51:39 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Linus Walleij <linus.walleij@linaro.org>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-	James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com
-Subject: [PATCH 21/36] pinctrl: cirrus: use new pinctrl GPIO helpers
-Date: Tue,  3 Oct 2023 16:50:59 +0200
-Message-Id: <20231003145114.21637-22-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231003145114.21637-1-brgl@bgdev.pl>
-References: <20231003145114.21637-1-brgl@bgdev.pl>
+ unprotected) header.d=epic-bytes.net header.i=@epic-bytes.net
+ header.a=rsa-sha256 header.s=2020 header.b=JFq/ZLqS
+From: Markus Meier <kerneldev@epic-bytes.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epic-bytes.net;
+	s=2020; t=1696345466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qVteM+WyhCWgGKmgpjhnWHSPzBzizjYf1Mb5ewbwwLc=;
+	b=JFq/ZLqSlpnnLU/2G+6t7Dy+lzyi4pGx2eX+ogWFbWuAhW/uq0i4OmT6EK4Y0CIQ9G9myM
+	rws652AqnFxfjAxYIDyrAZA7WQkSoavZyRPzRvzqWGxjnsrk2V6GjQhyzq+x68+/a+TkvO
+	qa95ohwhQ3xdv2GeS5unOhTAGIYh5Fej8XoTlA6zy5VadG+3PvxqXYVt6LK8aToYnaSagL
+	CL8w6plrNuFPm9FaSPk7MvNX0qM8/JLKPbKDuCnb6ywGQWMObOOu4sSP58hPb9SxplVJoQ
+	GUFmWgsPnd2DSa3OEhG7eDCndatFHxo6pdzjtZLfEJID0dpjNiwT/JlR1pXN9Q==
+Authentication-Results: ORIGINATING;
+	auth=pass smtp.auth=markus smtp.mailfrom=kerneldev@epic-bytes.net
+To: Markus Meier <kerneldev@epic-bytes.net>, alsa-devel@alsa-project.org,
+ Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Mark Brown <broonie@kernel.org>, Sven Frotscher <sven.frotscher@gmail.com>,
+ August Wikerfors <git@augustwikerfors.se>
+Subject: 
+ Re: [PATCH] ASoC: amd: yc: Fix non-functional mic on Lenovo Yoga Slim 7 Pro
+ 14ARH7 82UU
+Date: Tue, 03 Oct 2023 17:04:25 +0200
+Message-ID: <4836369.GXAFRqVoOG@mobile>
+In-Reply-To: <aa54a70c-e7fc-4ca2-9a4d-425675ed0be3@leemhuis.info>
+References: 
+ <10347605.nUPlyArG6x@kali>
+ <aa54a70c-e7fc-4ca2-9a4d-425675ed0be3@leemhuis.info>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IDYYIXBNRV4AO4N4ZA3I2567E3VUE7E7
-X-Message-ID-Hash: IDYYIXBNRV4AO4N4ZA3I2567E3VUE7E7
-X-MailFrom: brgl@bgdev.pl
+Content-Type: multipart/signed; boundary="nextPart1865545.tdWV9SEqCh";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+Message-ID-Hash: FJDA7PEEASUPU67DTLBCLF53O33CXGQ6
+X-Message-ID-Hash: FJDA7PEEASUPU67DTLBCLF53O33CXGQ6
+X-MailFrom: kerneldev@epic-bytes.net
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDYYIXBNRV4AO4N4ZA3I2567E3VUE7E7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FJDA7PEEASUPU67DTLBCLF53O33CXGQ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,53 +100,114 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+--nextPart1865545.tdWV9SEqCh
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
+From: Markus Meier <kerneldev@epic-bytes.net>
+Date: Tue, 03 Oct 2023 17:04:25 +0200
+Message-ID: <4836369.GXAFRqVoOG@mobile>
+In-Reply-To: <aa54a70c-e7fc-4ca2-9a4d-425675ed0be3@leemhuis.info>
+MIME-Version: 1.0
 
-Replace the pinctrl helpers taking the global GPIO number as argument
-with the improved variants that instead take a pointer to the GPIO chip
-and the controller-relative offset.
+Am Dienstag, 3. Oktober 2023, 12:24:56 CEST schrieben Sie:
+> On 02.10.23 23:04, Markus Meier wrote:
+> > I own a  Lenovo Yoga Slim 7 Pro 14ARH7 where the microphone is not showing
+> > up. I added the system to the quirk table and the mic is working
+> > correctly (but with very low volume) now.
+> > 
+> > Here's an except from dmidecode:
+> > System Information
+> > 
+> >         Manufacturer: LENOVO
+> >         Product Name: 82UU
+> >         Version: Yoga Slim 7 Pro 14ARH7
+> >         SKU Number: LENOVO_MT_82UU_BU_idea_FM_Yoga Slim 7 Pro 14ARH7
+> >         Family: Yoga Slim 7 Pro 14ARH7
+> > 
+> > Please add this patch to the kernel and add it to the stable kernels too.
+> > I
+> > guess the microphone should have worked before. Seems to be a regression
+> > introduced by c008323fe361bd62a43d9fb29737dacd5c067fb7
+> > 
+> > [-- Attachment #2: yoga-slim-7-pro-82UU-microphone.patch --]
+> > [-- Type: text/x-patch, Size: 451 bytes --]
+> > 
+> > --- a/sound/soc/amd/yc/acp6x-mach.c	2023-09-29 19:31:03.753786095 
++0200
+> > +++ b/sound/soc/amd/yc/acp6x-mach.c	2023-09-29 19:32:06.414276453 
++0200
+> > @@ -217,6 +217,13 @@
+> > 
+> >  		.driver_data = &acp6x_card,
+> >  		.matches = {
+> >  		
+> >  			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> > 
+> > +			DMI_MATCH(DMI_PRODUCT_NAME, "82UU"),
+> > +		}
+> > +	},
+> > +	{
+> > +		.driver_data = &acp6x_card,
+> > +		.matches = {
+> > +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> > 
+> >  			DMI_MATCH(DMI_PRODUCT_NAME, "82V2"),
+> >  		
+> >  		}
+> >  	
+> >  	},
+> 
+> I CCed a bunch of lists and people to make sure everyone is aware of
+> that patch, as it otherwise might fall through the cracks.
+> 
+> Markus, quick question: do you have (a) an interest in contributing a
+> change to Linux or (b) did you just post this because Mario asked you to
+> do so in https://bugzilla.kernel.org/show_bug.cgi?id=217063#c25 ?
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
----
- drivers/pinctrl/cirrus/pinctrl-cs42l43.c   | 4 ++--
- drivers/pinctrl/cirrus/pinctrl-lochnagar.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Nope I don't plan to become some kind of kernel developer. I just want to use 
+my notebook without any issues and want to help others who want to use this 
+device with Linux too. I just followed Mario's suggestions. I thought it would 
+be easier for everyone when I create a patch, try if it works and then submit 
+it to a bugtracker to get the bug fixed.
 
-diff --git a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c b/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
-index c09646318419..097e4dcdda36 100644
---- a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
-+++ b/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
-@@ -508,7 +508,7 @@ static void cs42l43_gpio_set(struct gpio_chip *chip, unsigned int offset, int va
- 
- static int cs42l43_gpio_direction_in(struct gpio_chip *chip, unsigned int offset)
- {
--	return pinctrl_gpio_direction_input(chip->base + offset);
-+	return pinctrl_gpio_direction_input_new(chip, offset);
- }
- 
- static int cs42l43_gpio_direction_out(struct gpio_chip *chip,
-@@ -516,7 +516,7 @@ static int cs42l43_gpio_direction_out(struct gpio_chip *chip,
- {
- 	cs42l43_gpio_set(chip, offset, value);
- 
--	return pinctrl_gpio_direction_output(chip->base + offset);
-+	return pinctrl_gpio_direction_output_new(chip, offset);
- }
- 
- static int cs42l43_gpio_add_pin_ranges(struct gpio_chip *chip)
-diff --git a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
-index 0b78cf611afe..f3c8a8c14e14 100644
---- a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
-+++ b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
-@@ -1098,7 +1098,7 @@ static int lochnagar_gpio_direction_out(struct gpio_chip *chip,
- {
- 	lochnagar_gpio_set(chip, offset, value);
- 
--	return pinctrl_gpio_direction_output(chip->base + offset);
-+	return pinctrl_gpio_direction_output_new(chip, offset);
- }
- 
- static int lochnagar_fill_func_groups(struct lochnagar_pin_priv *priv)
--- 
-2.39.2
+> If it's (a) then you might want to take a closer look at
+> https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+> , as your patch lacks a few important things before it can be applied
+> (most notably a Signed-off-by tag)
+> 
+> If it's (b) I wonder if it would be easier for everyone involved if some
+> kernel developer could create a patch own their own, as that likely is
+> way easier to review and thus likely gets the problem resolved a lot faster.
+
+Please feel free to create a patch based on mine, when it's easier and faster 
+that way. I don't really care as long as the microphone is working in one of 
+the next kernel releases. 
+
+Thanks for your help Thorsten. I really enjoyed your Heise Kernel-Log series 
+and I really miss those series. Was always a pleasure to read that.
+
+Kind regards
+Markus
+
+
+--nextPart1865545.tdWV9SEqCh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEERBSE7v1a64GvZ1KmZ8XdFW0AfzsFAmUcLXkACgkQZ8XdFW0A
+fzseVAf9GbHjcHa2amWp0h43dfHGYjL9JR3njUJnLGfz4JWEyNBfaDtYatzr0YjY
+7TNxkbqH/lbGWoTsIBzHO540T2VmTLluHpQDWdB2xL857gIgPH5Ddtg1CUjODK2H
+xTyqnHvURs2QadjITFN5ox3z32RjkXxBjIAA6C0xF/CXg+WXsxG9fPqZhifAhqxJ
+LcE1D5K0VWT7qrbIJ2SHQy0GCHz98bOx7rNkduLNspyHwtVgG+ujgMRo2jDa1yBH
+OGat/Tf/It66GQs18PAnuW3rM5EZKNt7PE5XDX9jT5wgnG5DkkdygGPdZo1lhrnj
+r2W9M96d5MphyPQm9YcopDbMPOnseQ==
+=F8i4
+-----END PGP SIGNATURE-----
+
+--nextPart1865545.tdWV9SEqCh--
+
+
 

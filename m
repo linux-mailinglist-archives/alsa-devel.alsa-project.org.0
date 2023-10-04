@@ -2,184 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 028E07B9B9B
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:56:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 329727B9B9C
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:56:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FDFCEBF;
-	Thu,  5 Oct 2023 09:55:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FDFCEBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BD44ED8;
+	Thu,  5 Oct 2023 09:55:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BD44ED8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492578;
-	bh=UwmYmNSJ5N9bCYGOhkqk5VQCOP5kX+Bk4CRe0KBh2OU=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1696492588;
+	bh=ND6e8zppS+/0buxG1psBpDzddtzWLjPsHvkMnqKjyIs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sfzUDi3oexK5GL1Whqf6Qdtv7rOgV2s6Kn0aZ95SODDK2yIUApA6WvCYvzXG1Dlr1
-	 qO3wy2gQm9moyXBw8EQMzbUjmv0gLp6B+uVGj2vBLO4RYKoXFHCPSPsuCnvW3uceWs
-	 a9dNc0J+cwCYVRmxYfPWoRbc/AUK9SjjBIsVYfT8=
+	b=F2y92GPBX50I8e64Bp3tWOGhOAgk3vb4cB9ZKFEma+EtmNFyI0IQtIOvNvj5+41c6
+	 8M/7NGqCeulHo7aZkuRNJ05JFpFS40otDDzEa1FvqcJLRw7Pb2TwZGDHueA7SIAmCS
+	 JxphDRC++e9JeHZtvXEEID7/OB8fFJWAi7gQ+4xI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 317FFF805DA; Thu,  5 Oct 2023 09:52:44 +0200 (CEST)
+	id A5DEBF805D4; Thu,  5 Oct 2023 09:52:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1BBDF805C5;
-	Thu,  5 Oct 2023 09:52:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00E3AF805C1;
+	Thu,  5 Oct 2023 09:52:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7207F8047D; Wed,  4 Oct 2023 10:33:47 +0200 (CEST)
+	id A2B8FF8047D; Wed,  4 Oct 2023 16:00:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 40D6AF800C1
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 10:33:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40D6AF800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id C743BF800C1
+	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 16:00:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C743BF800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=MKm1hEnL
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39461LK5031802;
-	Wed, 4 Oct 2023 03:33:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=C03Kz69TBbxck4h
-	yYh7pZ/332ziUW1qlTgjfP8Qf2Tg=; b=MKm1hEnLBCfTn8s5VJjtjUgmfX/JTvm
-	+OrRe1LWGGwQbaoNRf2GWfGYSjE6o45VTn1nyuudObMD4lODrlfjwrOlZtVOx6Qh
-	37dHacwtaXA6jLq+M2WNBVm7MVHRQldFk2ZTFgTKQLNtyASpRXzz9EnpGq5mzSc1
-	mIMYUabBH9Wst4ROoD5x0QVA1i/N1k5SpI3r8ACY7STWH5NcYwovm835M+4Z/TW8
-	KlIAE8jw8j9AiyEpmE+APRK5qiC22T5sHotstaVVs1Lm9quG99MahE/rVrK66KPe
-	3huRn/gK94po0HHXw77W4HccUrAoZSUK4itBjTrTuVLYFTYwHrdWGyw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3th2dt85sm-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Oct 2023 03:33:35 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 4 Oct
- 2023 09:33:32 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
- Transport; Wed, 4 Oct 2023 09:33:32 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4BC2AB06;
-	Wed,  4 Oct 2023 08:33:32 +0000 (UTC)
-Date: Wed, 4 Oct 2023 08:33:32 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Rob Herring <robh@kernel.org>
-CC: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-        Mark Brown
-	<broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai
-	<tiwai@suse.com>,
-        Nicolas Ferre <nicolas.ferre@microchip.com>,
-        "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>,
-        Peter Rosin <peda@axentia.se>, "Ray
- Jui" <rjui@broadcom.com>,
-        Scott Branden <sbranden@broadcom.com>,
-        "Lars-Peter
- Clausen" <lars@metafoo.de>,
-        Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-        James Schulman <james.schulman@cirrus.com>,
-        David Rhodes
-	<david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Support Opensource <support.opensource@diasemi.com>,
-        Matthias Brugger
-	<matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>,
-        Shenghao Ding
-	<shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu
-	<baojun.xu@ti.com>, Oder Chiou <oder_chiou@realtek.com>,
-        Fabio Estevam
-	<festevam@gmail.com>,
-        Kiseok Jo <kiseok.jo@irondevice.com>,
-        Kevin Cernekee
-	<cernekee@chromium.org>,
-        Shengjiu Wang <shengjiu.wang@gmail.com>,
-        Xiubo Li
-	<Xiubo.Lee@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
-        Shawn Guo
-	<shawnguo@kernel.org>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        "Pengutronix
- Kernel Team" <kernel@pengutronix.de>,
-        NXP Linux Team <linux-imx@nxp.com>,
-        Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-        Banajit Goswami
-	<bgoswami@quicinc.com>,
-        Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Sylwester Nawrocki
-	<s.nawrocki@samsung.com>,
-        Chen-Yu Tsai <wens@csie.org>,
-        Jernej Skrabec
-	<jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>,
-        Ban Tao
-	<fengzheng923@gmail.com>,
-        Thierry Reding <thierry.reding@gmail.com>,
-        "Jonathan Hunter" <jonathanh@nvidia.com>,
-        Peter Ujfalusi
-	<peter.ujfalusi@gmail.com>,
-        Jarkko Nikula <jarkko.nikula@bitmer.com>,
-        Cezary
- Rojewski <cezary.rojewski@intel.com>,
-        Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>,
-        Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>,
-        Bard Liao
-	<yung-chuan.liao@linux.intel.com>,
-        Ranjani Sridharan
-	<r.anjani.sridharan@linux.intel.com>,
-        Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>,
-        Olivier Moysan <olivier.moysan@foss.st.com>,
-        Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-        Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>, <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [PATCH 2/5] ASoC: Drop unnecessary of_match_device() calls
-Message-ID: <20231004083332.GQ103419@ediswmail.ad.cirrus.com>
-References: <20231003-dt-asoc-header-cleanups-v1-0-308666806378@kernel.org>
- <20231003-dt-asoc-header-cleanups-v1-2-308666806378@kernel.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=lQJZdM6p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1696428053; x=1727964053;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ND6e8zppS+/0buxG1psBpDzddtzWLjPsHvkMnqKjyIs=;
+  b=lQJZdM6plITS4+vEf+htybn4eok/oPkj+EFv3td+w8LpYTnOv3ECFhr1
+   rVF2TV87xRIYmevFV8RkkTQzJBDckB03J3Cw0HaaQemL6TpvmASJFq4kP
+   TSe7H4DQXMaC05RI/J/JdvcMvAq/PkOAAd6u39nlTOPiVUeNP0XQAJ040
+   4faFU8rtpACTG9NqxD7kRST4hCjlMnHB0xpSGd1T75Jefb4H0BWrfc+WI
+   9OAWtCQrg6uiJEY0G8bQ0gjLfyczx01aQJoZR+OhOcG2BIyF65qDdApdC
+   h+YTA96GYAzTfONzi9PbHOMh15Y9bzt9+0S+LXHrETkEW/XxVo3FQ96gk
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="382041003"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200";
+   d="scan'208";a="382041003"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 07:00:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="1082512034"
+X-IronPort-AV: E=Sophos;i="6.03,200,1694761200";
+   d="scan'208";a="1082512034"
+Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
+ ([10.237.72.199])
+  by fmsmga005.fm.intel.com with ESMTP; 04 Oct 2023 07:00:41 -0700
+Message-ID: <843897f1-3ce5-f8da-5f10-7d8a68849fd2@intel.com>
+Date: Wed, 4 Oct 2023 17:02:06 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20231003-dt-asoc-header-cleanups-v1-2-308666806378@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: cvmrx7nPMYCDUdYHAhx7anCT9XLT2sn8
-X-Proofpoint-GUID: cvmrx7nPMYCDUdYHAhx7anCT9XLT2sn8
-X-Proofpoint-Spam-Reason: safe
-X-MailFrom: prvs=5641f542b1=ckeepax@opensource.cirrus.com
-X-Mailman-Rule-Hits: max-recipients
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Subject: Re: [PATCH v7 01/33] xhci: add support to allocate several
+ interrupters
+To: Wesley Cheng <quic_wcheng@quicinc.com>,
+ Mathias Nyman <mathias.nyman@linux.intel.com>, gregkh@linuxfoundation.org,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ agross@kernel.org, andersson@kernel.org, konrad.dybcio@linaro.org,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ Thinh.Nguyen@synopsys.com
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+ <20230921214843.18450-2-quic_wcheng@quicinc.com>
+ <10ad0613-7e88-dbe8-c5a2-d535f8e9db03@linux.intel.com>
+ <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@intel.com>
+In-Reply-To: <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MailFrom: mathias.nyman@intel.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: BZMLH4VL3QQHDXPRHADE567WHAOLOLDC
-X-Message-ID-Hash: BZMLH4VL3QQHDXPRHADE567WHAOLOLDC
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: I2DZMMDSD7QZXB5ERKXGI2NAVBRCVRBH
+X-Message-ID-Hash: I2DZMMDSD7QZXB5ERKXGI2NAVBRCVRBH
 X-Mailman-Approved-At: Thu, 05 Oct 2023 07:52:34 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BZMLH4VL3QQHDXPRHADE567WHAOLOLDC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2DZMMDSD7QZXB5ERKXGI2NAVBRCVRBH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -188,17 +117,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Oct 03, 2023 at 11:43:08AM -0500, Rob Herring wrote:
-> If probe is reached, we've already matched the device and in the case of
-> DT matching, the struct device_node pointer will be set. Therefore, there
-> is no need to call of_match_device() in probe.
+On 2.10.2023 23.07, Wesley Cheng wrote:
+> Hi Mathias,
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
+> On 9/28/2023 3:31 AM, Mathias Nyman wrote:
+>> On 22.9.2023 0.48, Wesley Cheng wrote:
+>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>>
+>>> Modify the XHCI drivers to accommodate for handling multiple event rings in
+>>> case there are multiple interrupters.  Add the required APIs so clients are
+>>> able to allocate/request for an interrupter ring, and pass this information
+>>> back to the client driver.  This allows for users to handle the resource
+>>> accordingly, such as passing the event ring base address to an audio DSP.
+>>> There is no actual support for multiple MSI/MSI-X vectors.
+>>>
+>>> Factoring out XHCI interrupter APIs and structures done by Wesley Cheng, in
+>>> order to allow for USB class drivers to utilze them.
+>>>
+>>>   }
+>>> +void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct xhci_interrupter *ir)
+>>> +{
+>>> +    struct xhci_hcd *xhci = hcd_to_xhci(hcd);
+>>> +    unsigned int intr_num;
+>>> +
+>>> +    /* interrupter 0 is primary interrupter, don't touchit */
+>>> +    if (!ir || !ir->intr_num || ir->intr_num >= xhci->max_interrupters) {
+>>> +        xhci_dbg(xhci, "Invalid secondary interrupter, can't remove\n");
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    /* fixme, should we check xhci->interrupter[intr_num] == ir */
+>>> +    spin_lock(&xhci->lock);
+>>
+>> Needs to be spin_lock_irq() ir spin_lock_irqsave() as xhci->lock is used in interrupt handler.
+>>
+>>
+>>> +    intr_num = ir->intr_num;
+>>> +    xhci_free_interrupter(xhci, ir);
+>>> +    xhci->interrupters[intr_num] = NULL;
+>>> +    spin_unlock(&xhci->lock);
+>>
+>> likewise
+>>
+> 
+> Let me check these again.  In general, I think I will use both the xhci->mutex and 
+> xhci->lock where needed, because I believe we'd run into sleep while atomic issues
+> while freeing the DMA memory.  Will rework this and submit in the next rev.
+> 
 
-For the cirrus bits:
+Maybe we need to split xhci_free_interrupter() into separate remove and free functions
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Did some work on this, and on the sideband api in general.
 
-Thanks,
-Charles
+Code still has a lot of FIXMEs, and it's completely untested, but to avoid us
+from doing duplicate work I pushed it to my feature_interrupters branch anyway
+
+git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git feature_interrupters
+https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters
+
+Thanks
+-Mathias
+

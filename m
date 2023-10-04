@@ -2,123 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DCA7B98A1
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 01:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEB107B98B9
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 01:36:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F764A4A;
-	Thu,  5 Oct 2023 01:16:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F764A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 722C1DE5;
+	Thu,  5 Oct 2023 01:35:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 722C1DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696461467;
-	bh=bNYCeV4+N3kFQbj/JIQgj/UbJ4NBwFqR13AJBx9EryI=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
+	s=default; t=1696462582;
+	bh=0L6avEQk0DoCZCrxxdcK2ZEASCrl5DGkUszENZcT4B8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Z40zZoc8w54NtS10S5Ge9jhO9vJa18q4PcA5/vJ6UUVGV0/J70yjlNksIzMZaB6Ue
-	 0MCGxH9LFoOqOGNpJv6aAmQUjFWAoVzmmF5UQFXizTRT+r7qGZxN5Lq3aNBXIVSj3M
-	 xbMqgCvlDdZQjgHLGnTEvO1TCh7h1pmbJvQaoFz4=
+	b=koa7ctdbe8nd+eC05DTCpdIRsP8mdixrUqS9IJ2U8icXpKhnZ0Tt2uaYBIO6HA1Du
+	 vcDw/FPWfS/5Kj199ecJkPm3tLu1MGCtmQNdSWoCvAEKZH0bJDdwrxS7gRhRmtxDcC
+	 R8A2hsZ0QJrOu4qMbDYwnK16iyyuJdNJAAyaoaPw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72DCEF80551; Thu,  5 Oct 2023 01:16:56 +0200 (CEST)
+	id DA88DF800C1; Thu,  5 Oct 2023 01:35:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C43FAF80310;
-	Thu,  5 Oct 2023 01:16:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 829B5F80310;
+	Thu,  5 Oct 2023 01:35:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 229B1F8047D; Thu,  5 Oct 2023 01:16:12 +0200 (CEST)
+	id 0DB38F8047D; Thu,  5 Oct 2023 01:35:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20731.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::731])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 12366F80166
-	for <alsa-devel@alsa-project.org>; Thu,  5 Oct 2023 01:15:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12366F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id E2DA5F800C1
+	for <alsa-devel@alsa-project.org>; Thu,  5 Oct 2023 01:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2DA5F800C1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=arunraghavan.net header.i=@arunraghavan.net
- header.a=rsa-sha256 header.s=fm2 header.b=BWHzOQwB;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=rqSMR/lQ
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.west.internal (Postfix) with ESMTP id CAE943200A28;
-	Wed,  4 Oct 2023 19:15:54 -0400 (EDT)
-Received: from imap41 ([10.202.2.91])
-  by compute5.internal (MEProxy); Wed, 04 Oct 2023 19:15:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	arunraghavan.net; h=cc:cc:content-type:content-type:date:date
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1696461354; x=1696547754; bh=uUkiegyyK/lntvNpIzWSoeP6zNCwtt1mOVQ
-	cmRDl8d4=; b=BWHzOQwBznU8UH44SRtcDi2DThbGciN63DklNG1jHjohzglnqdF
-	GxDHQclCOyVmMpVn8lY9qRNp0U8t1pkQkwB94efwa+ZGD7IuFQ7VtBrm5fJRx/q/
-	n3GikvpX4LIIOj19rUohf4pyZ3L0JYHnOiIpqEkof/ILeZ3O2YPiohZDN+6ZcR9u
-	Ww5pYXmqFtOi9icHoHduisU8yVmv037Qh9X5bzusMSDpiO8tOPmfpY2FJs+BC72f
-	798SaLiZ2pF+fTXHzLAtfbZFZ05kdndxkq7qEygL/9e5dYtjOsNY/xeBJ6v5aH5L
-	PSh3GvcnpprncaeciHR/M/hw7Hb7r4XwtRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1696461354; x=1696547754; bh=uUkiegyyK/lnt
-	vNpIzWSoeP6zNCwtt1mOVQcmRDl8d4=; b=rqSMR/lQmAIEwAvMaD1NffKs/jMO4
-	juNPYcvu0UQhnE9BU3N4EVokWl6mK7t//mhfa3uiFA4WBrM4wdc4qiYGbklRQZYl
-	3w/joKanSETqZUWObnuJK2zmYdji12zcgl05NMivlE5ZWJg+GZNp+hKE615eXsdr
-	U6Tc8W+WlmziQopT9ijuS+wTWHkVEDDBE6HaNJsHsCNeNnY11KGTIfRlZnnqUHP0
-	qVjamOORc8rBJwjCAoNkrqlgDPUcSHpqTE/xuIvlgOV7Co6NvdOepNuUtZnS1zMS
-	kWnNdxG4Bhbx43LQJBKlwu/zXSPV2U/J+JRs4CAHFWfleSIO9C/JAntEQ==
-X-ME-Sender: <xms:KfIdZfKbt-Bhzug4GtTSx9N3fHSCtEHNnUZtmPJmRnRNJbCP81Pq4A>
-    <xme:KfIdZTLuVouye-7F6rQnGopnbVPtVX_CCyJ6CWoCkhVQoANhuLb9OBJ7GknkEe79h
-    HHCX_-jTWKcGSoqSQ>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvkedrgeefgddulecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdetrhhu
-    nhcutfgrghhhrghvrghnfdcuoegrrhhunhesrghruhhnrhgrghhhrghvrghnrdhnvghtqe
-    enucggtffrrghtthgvrhhnpeevfeegiedvhfeuffdtffdufedtkeehuedujefgleettdei
-    tdektdegjeehjeekheenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdhgihhthhhusg
-    drtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
-    pegrrhhunhesrghruhhnrhgrghhhrghvrghnrdhnvght
-X-ME-Proxy: <xmx:KfIdZXuvfFecj9ByS32MZdu-ikbOz2HpkW3p4lEXZFeeR7QxLDo0zQ>
-    <xmx:KfIdZYalBvpZfMUFbD7WDWvI-LMPpW5oXdHGycDTnC9Z4PjleIfrpg>
-    <xmx:KfIdZWaiVnVRSkJ40IEXQIQkJfQsngILLQvqZWNQgABTVOf7b7FZQA>
-    <xmx:KvIdZdz_qcCPebgpg9VyZg9LzvCvXMPY71cw5YQCxezBOjCMy66XLw>
-Feedback-ID: i42c0435e:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id F193A234007E; Wed,  4 Oct 2023 19:15:52 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-958-g1b1b911df8-fm-20230927.002-g1b1b911d
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=Wz2dzhgx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XcO/jUziZWUoUGyFw46H6yZR57awKm8PVI+VSpnZ9izDQ9jO5ahDNU7lKR7CeWrwoSEAXjYA0ANQQpD2kcIMriSearVPBThGnCYyEyIgWCf/iR4VhT1GZkq2K6rushaQVOrIKGLxChiQGNPCYOnfOEPJ0dm8MtdGZV5TOHAhK6IunzpeDwDwbfELrqf3RT7WpqLBZyeSOufkl1P49b2YtmrgqJdUJiku5eeAHAOrLWvdJhNwWNozhWfdkMDrOPXoFn4PCC2n6Ss4r6s2esGgXvhDgxmxjlk4KhhspB4ai0nvprwJ7nkcE+3mc5Y72DrBWJ3nLJj8ydg6HXjW8al5qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0L6avEQk0DoCZCrxxdcK2ZEASCrl5DGkUszENZcT4B8=;
+ b=HzK8aanf3iR6+b0zt8G9UGPrI6WwFsUtTCZMbF+wgNVZJITxdt0AHDf7SPkNsBT9F2Ux1HaKp8XGlM3NOVQnRYqc7yyzdx2Az/2ArTHrYX4GcIwrqiH4spq7QgBwM+pQ4PpNmeEzgrFmtR2dgp7rFESg1+CExrpGv6YMesJv4b94prmu7XmuvtsdA/QLmmhCv3w37QYrTBlVBbt8YR/myDsBpdQ+L+qiEOXM0gmfcGgmy/atMItigRasqIXPh1h7zVz9Mptfx4itlpanyz29+c3k0IXa4+Pb07FADDwsoXH57LNzsKw8s0b9s+UniuBn/UO/DuSYxBlpwT2azcwL2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0L6avEQk0DoCZCrxxdcK2ZEASCrl5DGkUszENZcT4B8=;
+ b=Wz2dzhgxAWwdHBmXTejz26CSkHrnqYMoP6Byh041JZhTOr/vWQrRgV/hAychFUC11SkzxRXRbZ/JL2DSVO+Rc1jOcYCTzNDzXNno9R9HgYywiVsTVIaKf5/Az20YCnugVnpN8bpukH2BOU40uOLI/4YgsQW+2lM84181/nxnMo8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TY3PR01MB10518.jpnprd01.prod.outlook.com (2603:1096:400:319::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.34; Wed, 4 Oct
+ 2023 23:35:10 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d2a3:45df:a180:595c]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d2a3:45df:a180:595c%6]) with mapi id 15.20.6838.033; Wed, 4 Oct 2023
+ 23:35:10 +0000
+Message-ID: <87r0maezbn.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Mark Brown
+ <broonie@kernel.org>,
+	Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH 1/2] ASoC: soc-pcm.c: fixup validation check of multi
+ CPU/Codec on soc_get_playback_capture()
+In-Reply-To: <1jcyxuy002.fsf@starbuckisacylon.baylibre.com>
+References: <87il7mg69z.wl-kuninori.morimoto.gx@renesas.com>
+	<87h6n6g69d.wl-kuninori.morimoto.gx@renesas.com>
+	<6c249580-ccdd-453f-9051-ca2a32dc4189@linux.intel.com>
+	<1jcyxuy002.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 4 Oct 2023 23:35:10 +0000
+X-ClientProxiedBy: TY2PR0101CA0042.apcprd01.prod.exchangelabs.com
+ (2603:1096:404:8000::28) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Message-Id: <2504b014-08b2-4f39-83f6-5072b5ec4ea8@app.fastmail.com>
-In-Reply-To: <4154b125-35c8-b15a-8706-54b9eb3cb5e0@ivitera.com>
-References: <6ebc2456-a46b-bc47-da76-7a341414c1fb@ivitera.com>
- <35766f0f-784d-d37a-6d07-665f9ee88331@ivitera.com>
- <27b4b607-5d71-4e5d-a0ff-530c25752213@app.fastmail.com>
- <4154b125-35c8-b15a-8706-54b9eb3cb5e0@ivitera.com>
-Date: Wed, 04 Oct 2023 19:15:32 -0400
-From: "Arun Raghavan" <arun@arunraghavan.net>
-To: "Pavel Hofman" <pavel.hofman@ivitera.com>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Cc: "Julian Scheel" <julian@jusst.de>, "Takashi Iwai" <tiwai@suse.de>,
- "Ruslan Bilovol" <ruslan.bilovol@gmail.com>,
- "Jerome Brunet" <jbrunet@baylibre.com>
-Subject: Re: RFC: usb: gadget: u_audio: Notifying gadget that host started
- playback/capture?
-Content-Type: text/plain
-Message-ID-Hash: DCXBGB4AXXNBCOX456THLO76I23CKKSP
-X-Message-ID-Hash: DCXBGB4AXXNBCOX456THLO76I23CKKSP
-X-MailFrom: arun@arunraghavan.net
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB10518:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5717b016-805a-4ed6-d015-08dbc5328cae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	7eMxfkftupp0D0X52l08InIXbvV8W47eGw3uJO2QjxA9nrnWszzbzKywazXfx/sMUyQxx3joQ+HzyLwKbul6Q4WYne4yylOsoN58VgVOEO4UxRAA0HIHs93/5rdZhu8XZxzTqPheZaX/Q8L6BVxIZ8qx11CVR95d/TJR7SK+yiZ9Fx1TffqtmWJyGq5DhK/7JBIzk350ObJ5zmrC7mki2PVokbFNeRxefPtgWK4jk7n0paNpOSDu/YZO7tQCUraDwKNPKz/vQLXucOl3TH2RSk3V1eGu5EDhmH/kpBk1nWcZT+S0RDGUNzJUbiFvZ8zDYksBFSWwU8Q/nP3lB662KfWfLZJn/jmf5nfA4cCB0Y0+8JdvmSTL4uxzUYCaLmSPcBJQcYIMNCcSuuy+wJTuUQ0TVqTaIX/0Qsk8o6awxZpLVaiw9vIVHyo8CIO4jDGaZT0OVEXzylVeFsd0/yDqOksTLphJgJTD42mWWX9qI1Psa5cdVqMI2GZUGJWvy5AK5JcciNufkjip1aZ5VNeTuVitWVZgBNJku2otRPyYrGTkI/n+5gk4KqW8lfLUSe7V0qGnRUeqkUF9xPX38M7XB4ZbkZ0FKDo0HAbGEGXJPeAxIj4pVn+PUJl5wy/lImhA
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(396003)(366004)(39860400002)(376002)(136003)(230922051799003)(1800799009)(64100799003)(186009)(451199024)(6486002)(36756003)(6512007)(38350700002)(52116002)(6506007)(86362001)(478600001)(66946007)(66476007)(54906003)(316002)(66556008)(6916009)(41300700001)(2616005)(38100700002)(26005)(8936002)(4326008)(8676002)(5660300002)(83380400001)(4744005)(2906002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?3TZDpSz0Rk68E7HlxDmb1bRJGH2eBJ0AULPAxFLqb42DYUAyFK/mRFdECznD?=
+ =?us-ascii?Q?Ht7SxZG7728k6PtWeDYzt05yny+B7EPtmZeg/oiF+/ZjG9/WWUL+iO+WMaIx?=
+ =?us-ascii?Q?nVArpsJqaKZvQdgHWLw9e7zf3p+7le8RA0POy6rTQ0SD/eUA0u8M1om4GaCl?=
+ =?us-ascii?Q?q76PAyE3ALT6gumZwt/ac7rYCmeGDoIavl0z0z72VFQpNpa8+vCYAl82gtHY?=
+ =?us-ascii?Q?+gMdkeOUCtpR0lndtIia9sZq2LoFgQSqaIbF2yq9vzuESKv1DB7X6A7XtQWg?=
+ =?us-ascii?Q?5YYY1zhm3iMVCVh53jOMcOLExmCG8JOGMYQz3z1fRfcEvQmT2E7zAu4VwTx4?=
+ =?us-ascii?Q?Q53M160Qof+h2+BZfp517708PsoebOx/8aZkxX5cV/Jt1Je1hd3UhGPobV3M?=
+ =?us-ascii?Q?DRYginJ3h23c2MV15eY2ZAotdfn5BwCKUQYQHXZsnYUXjQY7J5Na8nQ2hoGm?=
+ =?us-ascii?Q?gt5Lyw+cuGH4KJ2gThftMXt1elgJitNsgt+SDU33Ca2rdjEzYVKlWJpUrOz3?=
+ =?us-ascii?Q?hAoW1DXWR0EBlEuQB20Ssskb9ZTAIJKiPJG+Wz1EKpdV3ZRYS/STV6LnPYkI?=
+ =?us-ascii?Q?Qrm/KSnxFhqMMfAv1IQXzjWal3Wsx1LUL0eRD9N8y37obmVbNEqffXTnSUlp?=
+ =?us-ascii?Q?4eG42PZ/5e1Mv6zk9pt70HuCh6pTwwuscQcyLC0CTe53i7mjTfpLilgrCdrY?=
+ =?us-ascii?Q?P7ES9w5bsslu4g2I1Wt7KPXPBTLG/pcggr/5+Rqd5tOvFI2IvdQhPcUjF1Y+?=
+ =?us-ascii?Q?jjGQn/b1TrUlCZ3nqeRNJYQvc6qVfC2uVl2OKut9poKaxSioY/yCAT/4veXs?=
+ =?us-ascii?Q?tjqaOS2ujYjHZBefCc/Fq/MGK/oxhZOjM5FHIfvDWf1lrP69traf+rF2QQ+Y?=
+ =?us-ascii?Q?fjtDwRsLxTKXQk/tGSm1YF3QH8tv9sltv0N2jRcZBpprnkTQliA9jQu6uMeQ?=
+ =?us-ascii?Q?+ygHA8RcaTrfu50pIlKn7ilqAvVq27Mi6Ex6kZ3VtoxXy0roO3tEbk8FP68B?=
+ =?us-ascii?Q?Lggq/huENQOEUCburhYA0cktr7IqwzBNSgQCWWOvbsOTtoMw6HKI3jwEXrL2?=
+ =?us-ascii?Q?tVnhNYCYE7CD3mfbSUllpUOcQ70WVXmSDzMl9wLy86VD5UTjT7lZBnlwqvuw?=
+ =?us-ascii?Q?M/svAPEXoCH5fr4hr+hzxFOpKHsMfAcihyK1ASsvvYhkiVaAu19halsU82Zn?=
+ =?us-ascii?Q?fTA5cFf71kR+WsM8rH0NDCupO1SlxH7PwH12IBR7QmcAdfCX1O4pomLm8t9R?=
+ =?us-ascii?Q?A1hhDMxSf50/uA+UWX3srysP9rXtkaO7VKXx+7cIbrqkGViKBtkrFtyS8AwG?=
+ =?us-ascii?Q?DJsBq7BDVa/LY2BGOSCMRc25xSxtvzEa9MdikaU8kcsSW1C8qLGua8cy9bdG?=
+ =?us-ascii?Q?iPjlWW38/E5hJwDxhcIh+emXpu966S0rA0s/AKH81nZ3VNF2qidERSHQWXk+?=
+ =?us-ascii?Q?SJRWVgAhxFEaUmIn7vSERVf9m4xbSDsJDfLcYD4ZdX3uDUHGeGnIK/NeXE/N?=
+ =?us-ascii?Q?09NL3JD/Ti2tU6kR2sP2k2DMX04KKa/EhZjK8qQs20jks62XV5PM6/S+KS/I?=
+ =?us-ascii?Q?eHGRjIsvKg5Hmgdz35bPj0qnmffM45l3bS7QcfBNPx3ssEO6JUO6VTPLFb6x?=
+ =?us-ascii?Q?vJFDewbSohAS1XHqYi7dUv0=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5717b016-805a-4ed6-d015-08dbc5328cae
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 23:35:10.4115
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Jc7oZKnV+Donbf9g0nHs+if4TB/sCaequ8Rk6vJvgeU8V19pbc8lJsoprv0bdEmpSNnBOzUAETcailYUUOfo+2TMi1pDWt3xRr5+L+Tup3XdGAG6uIrHeI4a1iMM55fB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10518
+Message-ID-Hash: PW4I4MSKFDKDKVJET2HITODZZGC6IWY7
+X-Message-ID-Hash: PW4I4MSKFDKDKVJET2HITODZZGC6IWY7
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -130,7 +158,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DCXBGB4AXXNBCOX456THLO76I23CKKSP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PW4I4MSKFDKDKVJET2HITODZZGC6IWY7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,87 +167,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 22 Sep 2023, at 3:09 AM, Pavel Hofman wrote:
-> Dne 21. 09. 23 v 3:30 Arun Raghavan napsal(a):
->> Hi folks,
->> 
->> On Fri, 1 Oct 2021, at 8:38 AM, Pavel Hofman wrote:
->>> Hi,
->>>
->>> Dne 08. 09. 21 v 10:21 Pavel Hofman napsal(a):
->>>> Hi,
->>>>
->>>> The current audio gadget has no way to inform the gadget side that the
->>>> host side has started playback/capture and that gadget-side alsa
->>>> processes should be started.
->>>>
->>>> Playback/capture processes on the host side do not get stuck without the
->>>> gadget side consuming/producing data (OUT requests are ignored in
->>>> u_audio_iso_complete, IN ones send initial zeros in their req->buf).
->>>>
->>>> However, playback/capture processes on the gadget side get stuck without
->>>> the host side sending playback OUT packets or capture IN requests and
->>>> time out with error. If there was a way to inform the gadget side that
->>>> playback/capture has started on the host side, the gadget clients could
->>>> react accordingly.
->>>>
->>>
->>> I drafted a simple patch for u_audio.c which defines read-only boolean
->>> ctl elems "Capture Requested" and "Playback Requested". Their values are
->>> set/reset in methods u_audio_start_capture/playback and
->>> u_audio_stop_capture/playback, i.e. at changes of respective altsettings
->>> from 0 to 1 and back. Every ctl elem value change sends notification via
->>> snd_ctl_notify. The principle works OK for capture/playback start/stop
->>> on the host, as monitored by alsactl:
->>>
->>> pi@raspberrypi:~ $ alsactl monitor hw:UAC2Gadget
->>> node hw:UAC2Gadget, #4 (3,0,0,Capture Requested,0) VALUE
->>> node hw:UAC2Gadget, #4 (3,0,0,Capture Requested,0) VALUE
->>> node hw:UAC2Gadget, #3 (3,0,0,Playback Requested,0) VALUE
->>> node hw:UAC2Gadget, #3 (3,0,0,Playback Requested,0) VALUE
->>>
->>> However at enumeration the USB host switches both playback and capture
->>> altsettings repeatedly, generating "fake" events from the gadget side
->>> POW. The host even sends regular-sized EP-OUT packets filled with zeros
->>> during enumeration (tested on linux only for now).
->>>
->>> Please is there any way to "detect" the enumeration stage to mask out
->>> the "fake" playback/capture start/stop events?
->>>
->>> The attached patch does not apply cleanly to mainline u_audio.c because
->>> it's rebased on other patches not submitted yet but it's only a
->>> discussion inducer for now.
->> 
->> Resurrecting this one -- is there any input on how we want to deal wit letting UAC gadgets know when the host is sending/receiving data?
->
-> The current version uses the Playback/Capture Rate alsa ctls with 
-> notifications 
-> https://lore.kernel.org/all/20220121155308.48794-8-pavel.hofman@ivitera.com/
->
-> Example of handling is e.g. https://github.com/pavhofman/gaudio_ctl , 
-> the controller is being used in a number of projects, mostly DIY.
->
-> Recently Qualcomm devs have submitted patches for alternative approach 
-> using uevents 
-> https://lore.kernel.org/lkml/2023050801-handshake-refusing-0367@gregkh/T/#mcd6b346f3ddab6ab34792be0141633bb362d168f 
-> and later versions. The detection is identical, monitoring change in 
-> altsetting from 0 to non zero and back (methods 
-> u_audio_[start/stop]_[capture/playback]), just a different means of 
-> communicating the events to userspace.
->
-> Both methods (using the same principle) suffer from not knowing what's 
-> going on the host side and cannot differentiate between player really 
-> starting playback vs. UAC2 host driver or Pulseaudio shortly checking 
-> device availability. That's why the gaudio_ctl controller can debounce 
-> the playback/capture start 
-> https://github.com/pavhofman/gaudio_ctl#debouncing . But that is just an 
-> ugly workaround...
 
-Thank you for the links, Pavel! This all makes sense.
+Hi Jerome, Pierre-Louis
 
-I guess the uevent mechanism is more "general" than the ALSA ctl for clients that want to plug in, listen and do $something. Not sure if there are other pros/cons of either approach.
+Thank you for your feedback
 
-I wonder if it might not be good to have some debouncing in the kernel rather than having every client have to implement this.
+> Here is an example:
+> 1 CPU - 1 dai link - 2 codecs:
+> * 1 codec handles the playback and just that
+> * the other does same capture
+(snip)
+> Going with 'all must be valid for the direction' makes this use case
+> impossible. Each codec would disable the direction of the other one.
 
-Cheers,
-Arun
+Ah..., OK, I see...
+
+> Do you have an actual problem because/error because of this ?
+
+CPU/Codec N:M support is added on ASoC, but the code is hackish,
+so I want makes it more generic.
+In the same time, this DAI validation check which is related to it
+is too much complex for now.
+
+I will re-consider around there.
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

@@ -2,81 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311E57B8639
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 19:16:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41FEB7B86CA
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 19:42:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C05DA4E;
-	Wed,  4 Oct 2023 19:15:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C05DA4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36295A4E;
+	Wed,  4 Oct 2023 19:41:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36295A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696439789;
-	bh=PgL3evwIOV/77BxTPntvEU/hYBN5ZLqrDoo7IwbFWG8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1696441341;
+	bh=K/tg8/w4CVZM+MMZbqiJI4I0lw8Qwa2sMwfhdev7ubQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LviTZz1tJVL2l9LOapfRXYSnq47bhwA+aROvSmUIWl03AbDRh0ixzA5xlcE8Apsnb
-	 z80AKksHS4XbU7o09BAMLU/OWq35gQIVKK06Ure9lPrBhXj66GtFgqGTg0rQxM8FdF
-	 1qUfqV6lsz6h1rWSWOws2peR5UCo5EiF/DZpWL0k=
+	b=pz6DQOYnvKY8cvSS5KLrpAT8D7EApDXz9jG7gWLLgtkkHiaxX297nnW2WUB/pMXjE
+	 WVe3H74gmFSWKDXSCsMccFoZ3uKFVwhhHQ+LVnEJ2XZ9rdE2FdFk5seRZMfBeNZL0l
+	 pBQKGP5aMLTpg5vTga+eqpHCPwWQ8HgPYH3ptcC0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32C9FF80563; Wed,  4 Oct 2023 19:15:09 +0200 (CEST)
+	id 4A0C3F8047D; Wed,  4 Oct 2023 19:41:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC55FF8055A;
-	Wed,  4 Oct 2023 19:15:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E79B9F80166;
+	Wed,  4 Oct 2023 19:41:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B4B4F8055B; Wed,  4 Oct 2023 19:15:05 +0200 (CEST)
+	id BFC8DF80130; Wed,  4 Oct 2023 19:40:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FB75F80557
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 19:14:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FB75F80557
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8CDCCF80130
+	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 19:39:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CDCCF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LhDWcvdK
+ header.s=k20201202 header.b=OeKoTfCe
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 73D59615FF;
-	Wed,  4 Oct 2023 17:14:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB23C433CB;
-	Wed,  4 Oct 2023 17:14:51 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id F1C3061635;
+	Wed,  4 Oct 2023 17:39:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D07C433C7;
+	Wed,  4 Oct 2023 17:39:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696439693;
-	bh=PgL3evwIOV/77BxTPntvEU/hYBN5ZLqrDoo7IwbFWG8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=LhDWcvdKs4il6Kx4Zt2qDoMbzPqBgvPotLQPmvaiQVcKRZtr7Z98AFeujETSwmPTi
-	 tppbp1BGoqUVR96OqQtgXi6WuJQ4CEiNRXF2bwLnUzUgM5eF2dzud3gWblIGVb7uTI
-	 6Yb3fXdyiJ1dOZhgyRFwvdn0+INoCG3sdWYc0Kcn2sJUnytZ8Zzx7zzYcF6TxF8EgT
-	 Q5OwpK1fCThYYivVt3raoMEoEXz3nzESPI4/VlkquXOoxNFRdavMduHlUtA+q4m96j
-	 EuH7/ldDqqmnxa4aRiiIoSQaOeqZ6EjiEJbPi25nVyzm+Td7izJhRN9vn7sVyzyAOv
-	 GhauZ7rUlihJw==
+	s=k20201202; t=1696441193;
+	bh=K/tg8/w4CVZM+MMZbqiJI4I0lw8Qwa2sMwfhdev7ubQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OeKoTfCewQffVeEdL4VkIXNCVSD9d9NunmbLsCQ4KZkE5fGE3EzF5s2CJMEFTkFUR
+	 9+Rp0Lnw0r+oc+Gh5cs7EiGtRjCli4Pt6URVlEReTs6A8YRyKnMlwZuVSsvN5yl8ae
+	 nXnm9skgJdM3YBXLd0m7/YSlo87hzvKhk8PwH4P4i+Th69UGbjXYVgi82wU+QW8gDS
+	 TI0fbqAPstYUmGmbBYwsdfYqwZqe7LynkAtCAyxbEKu53rOqqPRSC9TsSL7q66drdJ
+	 IeRPQWuLX595ZGXfia1I+HXaRR8rGBrwp321J0JJdtnGTVTOmuXonAq7ANk6wMljxf
+	 w1+um5izaFBhA==
+Date: Wed, 4 Oct 2023 18:39:41 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, shengjiu.wang@nxp.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, aford173@gmail.com,
- Fabio Estevam <festevam@denx.de>
-In-Reply-To: <20231004122935.2250889-1-festevam@gmail.com>
-References: <20231004122935.2250889-1-festevam@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: fsl,micfil: Document
- #sound-dai-cells
-Message-Id: <169643969102.45803.10283738118906505047.b4-ty@kernel.org>
-Date: Wed, 04 Oct 2023 18:14:51 +0100
+To: Rob Herring <robh@kernel.org>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Peter Rosin <peda@axentia.se>, Lars-Peter Clausen <lars@metafoo.de>,
+	nuno.sa@analog.com, James Schulman <james.schulman@cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Oder Chiou <oder_chiou@realtek.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kiseok Jo <kiseok.jo@irondevice.com>,
+	Kevin Cernekee <cernekee@chromium.org>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Ban Tao <fengzheng923@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: Re: [PATCH v2 1/5] ASoC: Explicitly include correct DT includes
+Message-ID: <72f8f521-93f0-4e3d-929c-f7478622ddb3@sirena.org.uk>
+References: <20231004-dt-asoc-header-cleanups-v2-0-e77765080cbc@kernel.org>
+ <20231004-dt-asoc-header-cleanups-v2-1-e77765080cbc@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: MRCCXEAV6HXEVRVYOJMIUWKHH5L5BCPB
-X-Message-ID-Hash: MRCCXEAV6HXEVRVYOJMIUWKHH5L5BCPB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K1Dh/zQH53UxpeTH"
+Content-Disposition: inline
+In-Reply-To: <20231004-dt-asoc-header-cleanups-v2-1-e77765080cbc@kernel.org>
+X-Cookie: I thought YOU silenced the guard!
+Message-ID-Hash: GA55CU7HNYQYQZO2ELO3UPG6LAG55BRA
+X-Message-ID-Hash: GA55CU7HNYQYQZO2ELO3UPG6LAG55BRA
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MRCCXEAV6HXEVRVYOJMIUWKHH5L5BCPB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GA55CU7HNYQYQZO2ELO3UPG6LAG55BRA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,41 +129,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 04 Oct 2023 09:29:35 -0300, Fabio Estevam wrote:
-> imx8mp.dtsi passes #sound-dai-cells = <0> in the micfil node.
-> 
-> Document #sound-dai-cells to fix the following schema warning:
-> 
-> audio-controller@30ca0000: '#sound-dai-cells' does not match any of the regexes: 'pinctrl-[0-9]+'
-> from schema $id: http://devicetree.org/schemas/sound/fsl,micfil.yaml#
-> 
-> [...]
 
-Applied to
+--K1Dh/zQH53UxpeTH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Oct 04, 2023 at 10:58:05AM -0500, Rob Herring wrote:
+> The DT of_device.h and of_platform.h date back to the separate
+> of_platform_bus_type before it was merged into the regular platform bus.
+> As part of that merge prepping Arm DT support 13 years ago, they
+> "temporarily" include each other. They also include platform_device.h
+> and of.h. As a result, there's a pretty much random mix of those include
+> files used throughout the tree. In order to detangle these headers and
+> replace the implicit includes with struct declarations, users need to
+> explicitly include the correct includes.
 
-Thanks!
+This is breaking various builds for me, for example arm64 defconfig:
 
-[1/1] ASoC: dt-bindings: fsl,micfil: Document #sound-dai-cells
-      commit: 1426b9ba7c453755d182ebf7e7f2367ba249dcf4
+/build/stage/linux/sound/soc/rockchip/rockchip_i2s_tdm.c: In function =E2=
+=80=98rockchip_i2s_tdm_probe=E2=80=99:
+/build/stage/linux/sound/soc/rockchip/rockchip_i2s_tdm.c:1557:17: error: im=
+plicit declaration of function =E2=80=98of_match_device=E2=80=99; did you m=
+ean =E2=80=98of_match_node=E2=80=99? [-Werror=3Dimplicit-function-declarati=
+on]
+ 1557 |         of_id =3D of_match_device(rockchip_i2s_tdm_match, &pdev->de=
+v);
+      |                 ^~~~~~~~~~~~~~~
+      |                 of_match_node
+/build/stage/linux/sound/soc/rockchip/rockchip_i2s_tdm.c:1557:15: warning: =
+assignment to =E2=80=98const struct of_device_id *=E2=80=99 from =E2=80=98i=
+nt=E2=80=99 makes pointer from integer without a cast [-Wint-conversion]
+ 1557 |         of_id =3D of_match_device(rockchip_i2s_tdm_match, &pdev->de=
+v);
+      |               ^
+/build/stage/linux/sound/soc/tegra/tegra210_amx.c: In function =E2=80=98teg=
+ra210_amx_platform_probe=E2=80=99:
+/build/stage/linux/sound/soc/tegra/tegra210_amx.c:541:17: error: implicit d=
+eclaration of function =E2=80=98of_match_device=E2=80=99; did you mean =E2=
+=80=98of_match_node=E2=80=99? [-Werror=3Dimplicit-function-declaration]
+  541 |         match =3D of_match_device(tegra210_amx_of_match, dev);
+      |                 ^~~~~~~~~~~~~~~
+      |                 of_match_node
+/build/stage/linux/sound/soc/tegra/tegra210_amx.c:541:15: warning: assignme=
+nt to =E2=80=98const struct of_device_id *=E2=80=99 from =E2=80=98int=E2=80=
+=99 makes pointer from integer without a cast [-Wint-conversion]
+  541 |         match =3D of_match_device(tegra210_amx_of_match, dev);
+      |               ^
+cc1: some warnings being treated as errors
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+multi_v7_defconfig is also broken.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--K1Dh/zQH53UxpeTH
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUdo10ACgkQJNaLcl1U
+h9Cx8gf/XCPMEtGS0YkOT48jnbRA+1YlgQJR8uZlu9+gze7VMTlA1QqBf04fiiA9
+I6p4yAWbk8inm8rqWm9T75tCz/xi0cZrcoQHPEFGYgneMyXkkoapTGe/PQbR9ZIT
+grUfha4+oIa2oZXQjYL1tV3U/hfjGjRG6dPR9n+92qlgwLfwdMUhOy7Nn752+xHF
+f6Igs59sXl5kvZTQVUb7Hkt9jfkBRz3QfUWiYcp9bJCblkEv9tWhi1YgLua+fUQY
+VjxE2e4zNB+Z2z3A9zlFKhTB/9yBIaRma+Qp3PElEYmsQQry9nRssA/aXS5Jccon
+7fWLNWj6wDBzZjKCwf69j2cORg/HHw==
+=RFjB
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
-
+--K1Dh/zQH53UxpeTH--

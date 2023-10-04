@@ -2,126 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E5A7B7665
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 03:47:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EDC77B79AF
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 10:09:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDB5E839;
-	Wed,  4 Oct 2023 03:46:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDB5E839
+	by alsa0.perex.cz (Postfix) with ESMTPS id B340583E;
+	Wed,  4 Oct 2023 10:08:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B340583E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696384051;
-	bh=wPxzKYDcfskL7kLtHxOiOqbT2fX70Le/QyTXEgKxqFM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=GUEpWKLO4GbZeO6MOZmvOmxepeaRHDi4WK329o82biB9E567ZmKUQPe39szENTcKM
-	 yboiKEB5xwrk5zqi/ddbCoYKfI0Nh6Su4Jg6nz1f4nkup9bmY0ZasPC2ZfCqOfquOf
-	 FC0aPGV5cxlsQ09kfITtWls2UZ7ONcEhOnLkqzT4=
+	s=default; t=1696406974;
+	bh=VjQZzxP1/yH6suedWq436rrm9SbueRIlHAmlKCrJuA4=;
+	h=From:Subject:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=I9iIHeaxFmLFLEMGCfYgFGDfdMNuABeGk0IlacHhozjdIr8bBFkHaPXg723xDNQJc
+	 1/4bzo29Z9tiN2EdBICsfJniAlzuBbkSqKR5w0PJpH6QJu3MnK+iVHoJ+KGx2sMZyl
+	 OoymfCcA01vO/rrhtuhKROfDllZ0LEpkzTcVoDrE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58964F800C1; Wed,  4 Oct 2023 03:46:41 +0200 (CEST)
+	id 58681F80549; Wed,  4 Oct 2023 10:08:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF291F80310;
-	Wed,  4 Oct 2023 03:46:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA68EF80310;
+	Wed,  4 Oct 2023 10:08:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D496F8047D; Wed,  4 Oct 2023 03:46:35 +0200 (CEST)
+	id B6394F8047D; Wed,  4 Oct 2023 10:07:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from omta36.uswest2.a.cloudfilter.net
- (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+X-Spam-Status: No,
+ score=-4.2 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20705.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::705])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DF08CF80130
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 03:46:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF08CF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6FF3F80166
+	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 10:07:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6FF3F80166
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=embeddedor.com header.i=@embeddedor.com
- header.a=rsa-sha256 header.s=default header.b=XuCfZVCH
-Received: from eig-obgw-5009a.ext.cloudfilter.net ([10.0.29.176])
-	by cmsmtp with ESMTP
-	id nn1gqUaJPMZBknqxxqUeh1; Wed, 04 Oct 2023 01:46:21 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22])
-	by cmsmtp with ESMTPS
-	id nqxwqmFPumWDSnqxwqBPQT; Wed, 04 Oct 2023 01:46:21 +0000
-X-Authority-Analysis: v=2.4 cv=HY0H8wI8 c=1 sm=1 tr=0 ts=651cc3ed
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=Dx1Zrv+1i3YEdDUMOX3koA==:17
- a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
- a=IkcTkHD0fZMA:10 a=bhdUkHdE2iEA:10 a=wYkD_t78qR0A:10 a=pGLkceISAAAA:8
- a=VwQbUJbxAAAA:8 a=iox4zFpeAAAA:8 a=foHCeV_ZAAAA:8 a=NEAV23lmAAAA:8
- a=cm27Pg_UAAAA:8 a=IaUvMuFcDdv1ADpriA4A:9 a=QEXdDO2ut3YA:10
- a=AjGcO6oz07-iQ99wixmX:22 a=WzC6qhA0u3u7Ye7llzcV:22 a=h8a9FgHX5U4dIE3jaWyr:22
- a=xmb-EsYY8bH0VWELuYED:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=aQi0SGsm4QcdWyVW84ENcOXnkIwO2ZFqykwHJAizI1E=; b=XuCfZVCHbScmtR2kQ4l5F7QEDn
-	1b9GaD3yZIMP5D0CMaFKITWP0XiYORZxwgp/8Jxv35THpGlLIZcGjnCmiaPXGaWP2v+3MnGUaYPBM
-	CZrXxEc0MJEkvZXo0RlKsyOEnSJVZsgg0qIfr5FcyfY3QQmWkSgnn/xJszygyvzY1PLioQsXtZPP2
-	ih0r21z9/IKDJSoZMipJLMrqnBaLQJ/SQXh5axKVRgWnDn1PByJl7fOuB8KAH6qY9bvmJ20E7F3kN
-	O0R+BULFU6YlGEo7aTpmv1JVfzqD979j6GvbIauu5+44+Aey0xPeDcxerCkeBtsB12AHwTVc4pgVP
-	KoxDlzoQ==;
-Received: from 94-238-9-39.abo.bbox.fr ([94.238.9.39]:48880
- helo=[192.168.1.98])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1qnp2w-001ZYs-1Y;
-	Tue, 03 Oct 2023 18:43:22 -0500
-Message-ID: <509b7545-ca05-b806-2874-a38cbdbfe732@embeddedor.com>
-Date: Wed, 4 Oct 2023 01:43:17 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=D4cszFjc
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=djAlRB8Fe/1wnXhbeYPpbi7Pwuzuwi4a+sldQGa/gMO318tbIBIXF9IkCMdb0Sh1VVB1FEv323VUM1MJ2+FBJ1WQ8hT76gx81Ag7SNJ8SLfI0PcfLCkpOZwqXfhHnUtYVT3BURHQozdu3l3EsZNHb3eEvp8/SeYuf2v/TL65qdiJbAzs1mgwEozzkPGwMmaO2pU9HzXuXoJ3lSY3jAtJaHJVjMjNhkPmfpS/aTrbxiZjq/DUyjmsRTozCHfAXMQo/xQVEsAObclReQkvJnm+Pe9Jg8x8sQWZBPLp63rwD5ug5avsCvBgryjScGsyae1Ln6ILYkz3NY6olMPs4PmvdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JfmQHM0RzfkheIdZ+N3w6J3kn0+StUQLr+XYWliRXcE=;
+ b=QVfbfHKqIYRHzy4VQCLDDDSeguECzrOB6+2dS27g+/BGXbHZmkI5Ap170iC9KobrOa1gsuHkUsSgDAJDBYjMDx0BWn5iDUN0igUC9dvgYBXduWavMjG6ycnf5UF3PmBizx8iHZxgFLjhyjvHRHxGBU/i5bl57D7XXZSeh7ckFgobewqRjl6V+FpWVrTxvzsFmcIGHZkdEnORSjJlZ7KrQAzs19cKveiO3QZTOjtihLxYhDHnQ9+RHHgYBhXk3OOC5ImBlB3oGK4em9S+e7qnsrSrpmZlHAJXU3auZrOruOfRhNrHE4XnBASz0IwZqK5fYpujqYXfTh4BUnltuFYooQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JfmQHM0RzfkheIdZ+N3w6J3kn0+StUQLr+XYWliRXcE=;
+ b=D4cszFjcsbdW1r1xvd5eRnEalgHpvHRjMzaR6sXsCx6W6Tz+ExJn6cd9MovuiJtkcgIfDblAjGSuqrm+IW6AUgoqNuZad6fgFlT8Or4UzuPPRXZaJ4eRsTbuWHk4nZ5x17QlXIKnsrRhYcLv6jlJqPyBLWXB6OxWygyHVuowOf4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYAPR01MB5691.jpnprd01.prod.outlook.com (2603:1096:404:805a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.35; Wed, 4 Oct
+ 2023 08:07:20 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d2a3:45df:a180:595c]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d2a3:45df:a180:595c%6]) with mapi id 15.20.6838.033; Wed, 4 Oct 2023
+ 08:07:20 +0000
+Message-ID: <87il7mg69z.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH 0/2] ASoC: CPU/Codec connection cleanup - step1
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 4 Oct 2023 08:07:20 +0000
+X-ClientProxiedBy: TYAPR01CA0045.jpnprd01.prod.outlook.com
+ (2603:1096:404:28::33) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] ASoC: soc-dapm: Annotate struct snd_soc_dapm_widget_list
- with __counted_by
-Content-Language: en-US
-To: Kees Cook <keescook@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, alsa-devel@alsa-project.org,
- linux-hardening@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Tom Rix <trix@redhat.com>,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-References: <20231003232852.work.257-kees@kernel.org>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20231003232852.work.257-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 94.238.9.39
-X-Source-L: No
-X-Exim-ID: 1qnp2w-001ZYs-1Y
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 94-238-9-39.abo.bbox.fr ([192.168.1.98]) [94.238.9.39]:48880
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 0
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: 
- MS4xfDURYyS3O0Q+b8EUMp6b97ao0u1POcswz2QTnDQv0/4wWrZLJyTtF4Ecwyax9n7mW6rhUJJSMtjaF5xDGM+g9CwBTX7T5mLCb4rkKfctWKoTil9L32tQ
- ROFT4nNFwcnFaZcWL0CZaRevRhGp3k+l0doMxHxj3s/lbM5qlyYMLBGO/Ku6JQEptnBdbVMAOmpFGQ/EO0olxgSqAetj83d7LaCSM+QlkLZI5ITnqd5armYV
-Message-ID-Hash: PY5TT7D32QX7EXDZVGECG3F5BDIMSJ7H
-X-Message-ID-Hash: PY5TT7D32QX7EXDZVGECG3F5BDIMSJ7H
-X-MailFrom: gustavo@embeddedor.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYAPR01MB5691:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5e028ba-9a5c-4ead-3e97-08dbc4b0ef14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Xs3t6f51LDGoUuAq/rU5wmJBhem/glPh/e4B2N2D5G7mjIdDjIEKpg7KyrKSdMGks1zMqVmFhpfPmeec7MXYPAqPDwT3VY9biCVc+zCQWX4+kCTiPnB+eHLNp7SKNqbwJ8pTOWCTyNV0Pkn6dN0yTvYB+vRugsQis9S7fuLxIsZTZSgFzbgUVBosB3xzZaqj2D7PtvWSq8Pc4G9mvz1U0rj4bCEaQf5xmW+/zbOXf+R6IIzMc90/Ps99AtZD9+n0/mVd3dW3tUnqh9MXm2N88IE8ljA1eDZqgIZ8PH4K6QQKvYdLIrG/rN8fdSsT9Gkp22nQ6sIJQ9OSrjp5IYTTjJ9uwfew/i+kiaLiv5Lw5rNWcPGVwU2C6raE/kqBiqIrWcKjXDss0gWTg/gReRPWSjCNFHYlGFLamOHP1FYxR38svqjlIMM4Rr89+YPTiueXJ/npGhQ3BJfPsVyq8oo1wb4iYRvZLjutHfMKXQ/doH34PQWS3qjDkNkHMH9Ps83SmwwwE025HYFMhZroE+K4G0OUns27VBbYaTqYfs0WY+8zuBIjms4L5JPGhXP3G7YbWVX3MDGf8Tga5zEHhoBsdzovNUGPbF6UtnFpfPJRm8Vw47KhYKGarEsp6RzeyGfE
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(396003)(136003)(39860400002)(376002)(230922051799003)(186009)(1800799009)(451199024)(64100799003)(66556008)(38100700002)(38350700002)(66946007)(54906003)(6916009)(41300700001)(66476007)(316002)(6486002)(478600001)(2906002)(86362001)(4744005)(5660300002)(8676002)(4326008)(8936002)(83380400001)(6506007)(6512007)(52116002)(2616005)(26005)(36756003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?GmV7xapAHqsqG3qko8VqvfzdtyGiqW/bEroBsBSItFzNWHc1j+BSvJxVVq6s?=
+ =?us-ascii?Q?OrRUAu0Rw+2mR7/TlRtBeqrnQPlMKeC8OlRvFqoe/ZwcAC3jO4EBe/iyZdVV?=
+ =?us-ascii?Q?QAJPG3vdrfmAX738knEmrPKsV2vsp2YbgELByL9FYhzXLWI63wXj5p4Ub+UK?=
+ =?us-ascii?Q?l/y0wL77VHf8xzwvc/7xdwUHwVEjfS9L2e4sgMRsvxdHr3tdSGrC7lRzAPvQ?=
+ =?us-ascii?Q?KP/AkN9xdV3lWV/3RBkm5S5q302nZcu2laETsEXC/b4O1HBszMjR/bfKmFEn?=
+ =?us-ascii?Q?1HZ14K9iXZpkpfbg0KVSbvbFZzLssoX2BMkK3TuF5cLUI81F2huqwM6aDnR0?=
+ =?us-ascii?Q?2QSdfeJK1AFq+tPIIDKD4L/OVJ/1Uwq1gzgBgE08UIluMIBJhHyWYHsk6aE7?=
+ =?us-ascii?Q?UCOsyYibub7z5NnfPEXsWj+Dryi5tESf5JPJ7K7z96onZ3SvPwi48yACDKBa?=
+ =?us-ascii?Q?AGgm25NGYyUtYBNb97nzdF2rqAJiMCwlljYBy2Ioze18YJ9eH82l8oCkLRO/?=
+ =?us-ascii?Q?GWY7OOe9roGCBi0lXOAYlqouI1X1TvPwBWbt54VGQDHohEWtgtcwXGK7D26o?=
+ =?us-ascii?Q?r7qq11qlRS46ig8Bge7MDlfLOG7LMV0LyipzPNlOtbXu0MoFlDO69X/Or2Ie?=
+ =?us-ascii?Q?dXkpKX7Ri9hg4Sk8L9wMJclFDHnQCoVXXjdhtKHtQmRWDOd71B6G7jQh4n9u?=
+ =?us-ascii?Q?VUF/T/IOMcomUYZ3aU2R4FyTGwukCnAGTPbeG7vKKIqEa3OnOPaEHb9wTmBO?=
+ =?us-ascii?Q?474KIkyokMIzTYNG1ezhwbKk88VLQpRBR8I+RphZWUZfy4vVEZAQkvIYos5K?=
+ =?us-ascii?Q?LhupE3hh2PLOpuPMlrXvwksNnnQkXQI12aFr13+7N/V3Dv1vWydVlqDE26lK?=
+ =?us-ascii?Q?7e//CIn4yNew2cmSUrly2B/pq2mFvlAkWWg7u7Pu71OM2VyaylZiQhgeQzqn?=
+ =?us-ascii?Q?9DxVHeNL99sEgyuJ8XBcRSBhpqMQFjM/Cpl0yGNvC2nnRraZ7h3Jc01qw9UU?=
+ =?us-ascii?Q?HHxum7Piedq98nFsUN2W3wP3+yTzQbwMAXCxu9j+bCg3wnv/ocXF2L31VLsi?=
+ =?us-ascii?Q?jpxh/NEu8KHxbTY39rh/foiijh2tBaGOV//Sc9oI6OjxWWFyhTLRhusAJqZS?=
+ =?us-ascii?Q?npTHGoQrNhMTSC+ZpNpuc7yz1OWBEnM038VRsdyRILLbIR49ZTbZeErQ4Dq4?=
+ =?us-ascii?Q?feDJCPzJYK4yTRC/en0TrAL2R18T6kFu9fr4jfJNzFwXnbGx5YgZ/NwBdcF1?=
+ =?us-ascii?Q?fbh+u+i3pSlJ8rAgCBGiILyOBF4tBf3Y3csNTyHFBIXhYjewVPRIpmEtjuFE?=
+ =?us-ascii?Q?scoO1Lns8bqz52MdbT9GHUU+0gJBbXeuXWIQe6yDzCoM0Gk0i4OBS4SE4k8B?=
+ =?us-ascii?Q?bO4hoXC9RNTsDVK9llxn44lb037PKVfpuI7RHB8VybrIt9324pIeHruHunVG?=
+ =?us-ascii?Q?4PWK5w2e+kBuxv9goR4AOJVFPPwVQGjEKPdwVqruwNLLfy64f4eMOP5l95fC?=
+ =?us-ascii?Q?4oZTuTHH7Z/rCY/DevjT7SudM/6oT5PxwJOpCzWVnZxFKsF6l2PYfBPwehhB?=
+ =?us-ascii?Q?BxATNkXkWJywosNfeYd7t5j1YZQZ0aEduI58ZyHkQE8KglRGE5q2jSIPUL2Y?=
+ =?us-ascii?Q?Gkh0te/JFSbL2awSl0Qp5wk=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ d5e028ba-9a5c-4ead-3e97-08dbc4b0ef14
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2023 08:07:20.8658
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ L1ZbwXmwgbFsGH22+Mq6HsEXz9Qsu12iO6Jo49CQEyb2RbzpY2GHhzCKV/nJW9seMF0dl1boSdBH8G4kX3XqSNyOiUN6UI2zGKocaPeksYW/k9CQIVpR2VLmOUEKtFiw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB5691
+Message-ID-Hash: S4S3PBSXOXN7WKOOWTPWC2MIS3OQWABT
+X-Message-ID-Hash: S4S3PBSXOXN7WKOOWTPWC2MIS3OQWABT
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -133,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PY5TT7D32QX7EXDZVGECG3F5BDIMSJ7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S4S3PBSXOXN7WKOOWTPWC2MIS3OQWABT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,63 +160,24 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+Hi Mark
+Cc Pierre-Louis
 
-On 10/4/23 01:28, Kees Cook wrote:
-> Prepare for the coming implementation by GCC and Clang of the __counted_by
-> attribute. Flexible array members annotated with __counted_by can have
-> their accesses bounds-checked at run-time via CONFIG_UBSAN_BOUNDS (for
-> array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
-> functions).
-> 
-> As found with Coccinelle[1], add __counted_by for struct snd_soc_dapm_widget_list.
-> Additionally, since the element count member must be set before accessing
-> the annotated flexible array member, move its initialization earlier.
-> 
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-hardening@vger.kernel.org
-> Link: https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci [1]
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+I would like to post CPU/Codec connection cleanup patch-set,
+but it needs to be tested at many situation.
+Thus, I have separate it into small sub-patch-set, and this is step1 of it.
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Current soc_get_playback_capture() is checking validation of CPU/Codec,
+but it is too complex, and unfortunately wrong when multi CPU/Codec case.
+This patch fixup and cleanup it.
 
-Thanks
---
-Gustavo
+Kuninori Morimoto (2):
+  ASoC: soc-pcm.c: fixup validation check of multi CPU/Codec on soc_get_playback_capture()
+  ASoC: soc-pcm.c: factorize CPU/Codec validation check on soc_get_playback_capture()
 
-> ---
->   include/sound/soc-dapm.h | 2 +-
->   sound/soc/soc-dapm.c     | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
-> index d2faec9a323e..51516c93916e 100644
-> --- a/include/sound/soc-dapm.h
-> +++ b/include/sound/soc-dapm.h
-> @@ -717,7 +717,7 @@ struct snd_soc_dapm_context {
->   /* A list of widgets associated with an object, typically a snd_kcontrol */
->   struct snd_soc_dapm_widget_list {
->   	int num_widgets;
-> -	struct snd_soc_dapm_widget *widgets[];
-> +	struct snd_soc_dapm_widget *widgets[] __counted_by(num_widgets);
->   };
->   
->   #define for_each_dapm_widgets(list, i, widget)				\
-> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-> index 2512aadf95f7..2e3df47c9cf3 100644
-> --- a/sound/soc/soc-dapm.c
-> +++ b/sound/soc/soc-dapm.c
-> @@ -497,8 +497,8 @@ static int dapm_kcontrol_add_widget(struct snd_kcontrol *kcontrol,
->   	if (!new_wlist)
->   		return -ENOMEM;
->   
-> -	new_wlist->widgets[n - 1] = widget;
->   	new_wlist->num_widgets = n;
-> +	new_wlist->widgets[n - 1] = widget;
->   
->   	data->wlist = new_wlist;
->   
+ sound/soc/soc-pcm.c | 55 ++++++++++++++++++---------------------------
+ 1 file changed, 22 insertions(+), 33 deletions(-)
+
+-- 
+2.25.1
+

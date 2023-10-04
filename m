@@ -2,113 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FEB7B86CA
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 19:42:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0A8B7B8A9A
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 20:37:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36295A4E;
-	Wed,  4 Oct 2023 19:41:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36295A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC145A4A;
+	Wed,  4 Oct 2023 20:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC145A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696441341;
-	bh=K/tg8/w4CVZM+MMZbqiJI4I0lw8Qwa2sMwfhdev7ubQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1696444648;
+	bh=l2Vy7dcBtmWkZCjePdvnKJDsdyYpnBkQGjTthUmW6Ww=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pz6DQOYnvKY8cvSS5KLrpAT8D7EApDXz9jG7gWLLgtkkHiaxX297nnW2WUB/pMXjE
-	 WVe3H74gmFSWKDXSCsMccFoZ3uKFVwhhHQ+LVnEJ2XZ9rdE2FdFk5seRZMfBeNZL0l
-	 pBQKGP5aMLTpg5vTga+eqpHCPwWQ8HgPYH3ptcC0=
+	b=dvuNFP0c6/ZXjgKJzBt+Y5z/Zd/tGGCoXPshW8vKjHmzSxB45Lgd5pgnZe0NkB2dz
+	 yym7/SIcSG1CZG51rvqGaT1i/0qi737FdeAjQM1QS80yEPH0vEET33BhcVLg4hVuIH
+	 w78hj/jKilAyCEhxjakjZNYUwmC1F+Xp1joRJN+0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A0C3F8047D; Wed,  4 Oct 2023 19:41:19 +0200 (CEST)
+	id 4BE1DF80549; Wed,  4 Oct 2023 20:36:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E79B9F80166;
-	Wed,  4 Oct 2023 19:41:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4655F80310;
+	Wed,  4 Oct 2023 20:36:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BFC8DF80130; Wed,  4 Oct 2023 19:40:48 +0200 (CEST)
+	id E8A40F8047D; Wed,  4 Oct 2023 20:36:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CDCCF80130
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 19:39:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CDCCF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id A5C74F80130
+	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 20:35:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5C74F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OeKoTfCe
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id F1C3061635;
-	Wed,  4 Oct 2023 17:39:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D07C433C7;
-	Wed,  4 Oct 2023 17:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696441193;
-	bh=K/tg8/w4CVZM+MMZbqiJI4I0lw8Qwa2sMwfhdev7ubQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OeKoTfCewQffVeEdL4VkIXNCVSD9d9NunmbLsCQ4KZkE5fGE3EzF5s2CJMEFTkFUR
-	 9+Rp0Lnw0r+oc+Gh5cs7EiGtRjCli4Pt6URVlEReTs6A8YRyKnMlwZuVSsvN5yl8ae
-	 nXnm9skgJdM3YBXLd0m7/YSlo87hzvKhk8PwH4P4i+Th69UGbjXYVgi82wU+QW8gDS
-	 TI0fbqAPstYUmGmbBYwsdfYqwZqe7LynkAtCAyxbEKu53rOqqPRSC9TsSL7q66drdJ
-	 IeRPQWuLX595ZGXfia1I+HXaRR8rGBrwp321J0JJdtnGTVTOmuXonAq7ANk6wMljxf
-	 w1+um5izaFBhA==
-Date: Wed, 4 Oct 2023 18:39:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Peter Rosin <peda@axentia.se>, Lars-Peter Clausen <lars@metafoo.de>,
-	nuno.sa@analog.com, James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Oder Chiou <oder_chiou@realtek.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Kiseok Jo <kiseok.jo@irondevice.com>,
-	Kevin Cernekee <cernekee@chromium.org>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Ban Tao <fengzheng923@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Jarkko Nikula <jarkko.nikula@bitmer.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: Re: [PATCH v2 1/5] ASoC: Explicitly include correct DT includes
-Message-ID: <72f8f521-93f0-4e3d-929c-f7478622ddb3@sirena.org.uk>
-References: <20231004-dt-asoc-header-cleanups-v2-0-e77765080cbc@kernel.org>
- <20231004-dt-asoc-header-cleanups-v2-1-e77765080cbc@kernel.org>
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=AfcnYAjL
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 394FBLvr028282;
+	Wed, 4 Oct 2023 18:35:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=6M3YAebF9rrs3opK3mpTD1jmedIyRT/cMOQ6DDH1tyM=;
+ b=AfcnYAjLVk8hVxmWmdF/yylUGqfIZ7FeD1F4DB9WeY2hh1UuUaO8K8wzGq8ENxXacTBv
+ +rXSm3UKVxoh9zjzKMby24VOV44iXS4UiH+RgCqYC8p/eg4/8vz4et4tjPoOwYPM4B4q
+ duDpI5J0Dr9MHLh4hLwsjAQZOps3/HLypCaDY9fIcuMU6YyyGj6OgzDanbRsqcki2GAi
+ 2ujp+RKWMC8xWFH56kRquJsGwybxookOCZVxSPiNqMMm/Z89gpgUGFNEdLbTr4ZyTIdm
+ WvAqoiCoOL9fA3OTtsRUCuK3AydDvMiu0GhTgKM0stQKqOcKGtZuH+vz4/U4Wny8iARN Jw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3th2gq1t4n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 04 Oct 2023 18:35:45 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 394IZhC3025160
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 4 Oct 2023 18:35:44 GMT
+Received: from [10.71.112.36] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Wed, 4 Oct
+ 2023 11:35:10 -0700
+Message-ID: <2127ef61-e263-2a0e-438a-6baa125aa70d@quicinc.com>
+Date: Wed, 4 Oct 2023 11:35:06 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="K1Dh/zQH53UxpeTH"
-Content-Disposition: inline
-In-Reply-To: <20231004-dt-asoc-header-cleanups-v2-1-e77765080cbc@kernel.org>
-X-Cookie: I thought YOU silenced the guard!
-Message-ID-Hash: GA55CU7HNYQYQZO2ELO3UPG6LAG55BRA
-X-Message-ID-Hash: GA55CU7HNYQYQZO2ELO3UPG6LAG55BRA
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v7 01/33] xhci: add support to allocate several
+ interrupters
+Content-Language: en-US
+To: Mathias Nyman <mathias.nyman@intel.com>,
+        Mathias Nyman
+	<mathias.nyman@linux.intel.com>,
+        <gregkh@linuxfoundation.org>, <lgirdwood@gmail.com>,
+        <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
+        <agross@kernel.org>, <andersson@kernel.org>,
+        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
+        <Thinh.Nguyen@synopsys.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
+        <devicetree@vger.kernel.org>
+References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
+ <20230921214843.18450-2-quic_wcheng@quicinc.com>
+ <10ad0613-7e88-dbe8-c5a2-d535f8e9db03@linux.intel.com>
+ <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
+ <843897f1-3ce5-f8da-5f10-7d8a68849fd2@intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <843897f1-3ce5-f8da-5f10-7d8a68849fd2@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 6qI8t9feb8uXz-ckzPnXYaJeZ5ViYC9L
+X-Proofpoint-ORIG-GUID: 6qI8t9feb8uXz-ckzPnXYaJeZ5ViYC9L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-04_10,2023-10-02_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0
+ lowpriorityscore=0 phishscore=0 mlxlogscore=598 mlxscore=0 impostorscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310040136
+Message-ID-Hash: P6B7MXAFEQCVPAJV7PG42BTP2JBUFIJ3
+X-Message-ID-Hash: P6B7MXAFEQCVPAJV7PG42BTP2JBUFIJ3
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GA55CU7HNYQYQZO2ELO3UPG6LAG55BRA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P6B7MXAFEQCVPAJV7PG42BTP2JBUFIJ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,70 +142,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Mathias,
 
---K1Dh/zQH53UxpeTH
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/4/2023 7:02 AM, Mathias Nyman wrote:
+> On 2.10.2023 23.07, Wesley Cheng wrote:
+>> Hi Mathias,
+>>
+>> On 9/28/2023 3:31 AM, Mathias Nyman wrote:
+>>> On 22.9.2023 0.48, Wesley Cheng wrote:
+>>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>>>
+>>>> Modify the XHCI drivers to accommodate for handling multiple event 
+>>>> rings in
+>>>> case there are multiple interrupters.  Add the required APIs so 
+>>>> clients are
+>>>> able to allocate/request for an interrupter ring, and pass this 
+>>>> information
+>>>> back to the client driver.  This allows for users to handle the 
+>>>> resource
+>>>> accordingly, such as passing the event ring base address to an audio 
+>>>> DSP.
+>>>> There is no actual support for multiple MSI/MSI-X vectors.
+>>>>
+>>>> Factoring out XHCI interrupter APIs and structures done by Wesley 
+>>>> Cheng, in
+>>>> order to allow for USB class drivers to utilze them.
+>>>>
+>>>>   }
+>>>> +void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct 
+>>>> xhci_interrupter *ir)
+>>>> +{
+>>>> +    struct xhci_hcd *xhci = hcd_to_xhci(hcd);
+>>>> +    unsigned int intr_num;
+>>>> +
+>>>> +    /* interrupter 0 is primary interrupter, don't touchit */
+>>>> +    if (!ir || !ir->intr_num || ir->intr_num >= 
+>>>> xhci->max_interrupters) {
+>>>> +        xhci_dbg(xhci, "Invalid secondary interrupter, can't 
+>>>> remove\n");
+>>>> +        return;
+>>>> +    }
+>>>> +
+>>>> +    /* fixme, should we check xhci->interrupter[intr_num] == ir */
+>>>> +    spin_lock(&xhci->lock);
+>>>
+>>> Needs to be spin_lock_irq() ir spin_lock_irqsave() as xhci->lock is 
+>>> used in interrupt handler.
+>>>
+>>>
+>>>> +    intr_num = ir->intr_num;
+>>>> +    xhci_free_interrupter(xhci, ir);
+>>>> +    xhci->interrupters[intr_num] = NULL;
+>>>> +    spin_unlock(&xhci->lock);
+>>>
+>>> likewise
+>>>
+>>
+>> Let me check these again.  In general, I think I will use both the 
+>> xhci->mutex and xhci->lock where needed, because I believe we'd run 
+>> into sleep while atomic issues
+>> while freeing the DMA memory.  Will rework this and submit in the next 
+>> rev.
+>>
+> 
+> Maybe we need to split xhci_free_interrupter() into separate remove and 
+> free functions
+> 
 
-On Wed, Oct 04, 2023 at 10:58:05AM -0500, Rob Herring wrote:
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it was merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
+Thanks for sharing the work you've been doing.  Yes, I did something 
+similar as well on my end, but will refactor in your code and re-test.
 
-This is breaking various builds for me, for example arm64 defconfig:
+> Did some work on this, and on the sideband api in general.
+> 
+> Code still has a lot of FIXMEs, and it's completely untested, but to 
+> avoid us
+> from doing duplicate work I pushed it to my feature_interrupters branch 
+> anyway
+> 
+> git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git 
+> feature_interrupters
+> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
+> 
 
-/build/stage/linux/sound/soc/rockchip/rockchip_i2s_tdm.c: In function =E2=
-=80=98rockchip_i2s_tdm_probe=E2=80=99:
-/build/stage/linux/sound/soc/rockchip/rockchip_i2s_tdm.c:1557:17: error: im=
-plicit declaration of function =E2=80=98of_match_device=E2=80=99; did you m=
-ean =E2=80=98of_match_node=E2=80=99? [-Werror=3Dimplicit-function-declarati=
-on]
- 1557 |         of_id =3D of_match_device(rockchip_i2s_tdm_match, &pdev->de=
-v);
-      |                 ^~~~~~~~~~~~~~~
-      |                 of_match_node
-/build/stage/linux/sound/soc/rockchip/rockchip_i2s_tdm.c:1557:15: warning: =
-assignment to =E2=80=98const struct of_device_id *=E2=80=99 from =E2=80=98i=
-nt=E2=80=99 makes pointer from integer without a cast [-Wint-conversion]
- 1557 |         of_id =3D of_match_device(rockchip_i2s_tdm_match, &pdev->de=
-v);
-      |               ^
-/build/stage/linux/sound/soc/tegra/tegra210_amx.c: In function =E2=80=98teg=
-ra210_amx_platform_probe=E2=80=99:
-/build/stage/linux/sound/soc/tegra/tegra210_amx.c:541:17: error: implicit d=
-eclaration of function =E2=80=98of_match_device=E2=80=99; did you mean =E2=
-=80=98of_match_node=E2=80=99? [-Werror=3Dimplicit-function-declaration]
-  541 |         match =3D of_match_device(tegra210_amx_of_match, dev);
-      |                 ^~~~~~~~~~~~~~~
-      |                 of_match_node
-/build/stage/linux/sound/soc/tegra/tegra210_amx.c:541:15: warning: assignme=
-nt to =E2=80=98const struct of_device_id *=E2=80=99 from =E2=80=98int=E2=80=
-=99 makes pointer from integer without a cast [-Wint-conversion]
-  541 |         match =3D of_match_device(tegra210_amx_of_match, dev);
-      |               ^
-cc1: some warnings being treated as errors
+Ok.  Initial look at it seems like it will be fine, but will integrate 
+and make changes where needed.
 
-multi_v7_defconfig is also broken.
-
---K1Dh/zQH53UxpeTH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUdo10ACgkQJNaLcl1U
-h9Cx8gf/XCPMEtGS0YkOT48jnbRA+1YlgQJR8uZlu9+gze7VMTlA1QqBf04fiiA9
-I6p4yAWbk8inm8rqWm9T75tCz/xi0cZrcoQHPEFGYgneMyXkkoapTGe/PQbR9ZIT
-grUfha4+oIa2oZXQjYL1tV3U/hfjGjRG6dPR9n+92qlgwLfwdMUhOy7Nn752+xHF
-f6Igs59sXl5kvZTQVUb7Hkt9jfkBRz3QfUWiYcp9bJCblkEv9tWhi1YgLua+fUQY
-VjxE2e4zNB+Z2z3A9zlFKhTB/9yBIaRma+Qp3PElEYmsQQry9nRssA/aXS5Jccon
-7fWLNWj6wDBzZjKCwf69j2cORg/HHw==
-=RFjB
------END PGP SIGNATURE-----
-
---K1Dh/zQH53UxpeTH--
+Thanks
+Wesley Cheng

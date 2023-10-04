@@ -2,111 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32B2A7B8460
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 18:00:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 333B17B854E
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 18:31:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52C9B852;
-	Wed,  4 Oct 2023 17:59:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52C9B852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B651857;
+	Wed,  4 Oct 2023 18:30:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B651857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696435233;
-	bh=udaKZLIi1CYObfyyh2v53zS71KdRSemhW+CCyu9kXBA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cNLVqQ1rdcO5fp9yb9XuR28KT5soJDHZF6v78dLuEP0QcbXKbUIFR5wHoNyhGi56f
-	 YPF4iczLrGIaX0GjsBFNUT2SQjQYHEvl9Pgu4CvmJOMAXYX2A29OsMUcwJXC14LaAK
-	 W67G0iRE1qaXlKRNHRoFPx0Fh+r2zum/BsTPzovs=
+	s=default; t=1696437106;
+	bh=uSnchzkPtZLxXEC2hNSNYOZI/3SoUT695SNv+i0+ifM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MbKi6QS/ZLNMeUnBmXfvxyugTfcuIPQ+eGWX0wrHTM83WkfPYk2K3PRdm5O97oQaI
+	 UsOaoEZvp9zNKV1llkb9qBto70cqYfP2piUTmnOWGMgKJK3ovYXwwL1tudy114r77S
+	 yI7iGLY5QW5qktQKvrStqS+0ctMX7LdmZqi4FTQA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A824F805AC; Wed,  4 Oct 2023 17:58:54 +0200 (CEST)
+	id C66BAF80551; Wed,  4 Oct 2023 18:30:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61A47F80557;
-	Wed,  4 Oct 2023 17:58:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 435AAF8047D;
+	Wed,  4 Oct 2023 18:30:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B354F805A9; Wed,  4 Oct 2023 17:58:50 +0200 (CEST)
+	id 366BEF8047D; Wed,  4 Oct 2023 18:30:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 72CFFF80130
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 17:58:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72CFFF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 705E2F80130
+	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 18:30:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 705E2F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GHJGV5yo
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id DB92BCE1DA7;
-	Wed,  4 Oct 2023 15:58:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1A9C433CA;
-	Wed,  4 Oct 2023 15:58:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696435109;
-	bh=udaKZLIi1CYObfyyh2v53zS71KdRSemhW+CCyu9kXBA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GHJGV5yogUF1GVAfm1+hoouEbJjqXzlYXy4PkL+oVZvAvxb8BuJE9n7nTLzuElc0/
-	 M3bVrY2xGE26X7Ga6WjCTedrGkwT09MJ6NcRrIRkFfyNMJUQsa2/w3YKM8MVOe0n4v
-	 +Ua7Z++nAU3pSkDxf2Jzy8r9GlgvTxLFVqxVlF4kpVAJ6poLflB5zmaldE4gfCzCSE
-	 d9ey3Dqk1bDafRnaLq1LH7iT9xA/7bt3gV7NPK2+Xlmk38BrIJmM7dWQU157iC75/B
-	 GuZW2uQrJnIvl+WgzbRBlnVo2S1AvXqbk058ak+B/bnG5qyqFsmI/t3NlggsYyAQVs
-	 VhK0HTM1bz1jg==
-Received: (nullmailer pid 3222243 invoked by uid 1000);
-	Wed, 04 Oct 2023 15:58:09 -0000
-From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Peter Rosin <peda@axentia.se>,
- Lars-Peter Clausen <lars@metafoo.de>, nuno.sa@analog.com,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Oder Chiou <oder_chiou@realtek.com>,
- Fabio Estevam <festevam@gmail.com>, Kiseok Jo <kiseok.jo@irondevice.com>,
- Kevin Cernekee <cernekee@chromium.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Ban Tao <fengz
- heng923@gmail.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH v2 5/5] ASoC: Use device_get_match_data()
-Date: Wed,  4 Oct 2023 10:58:09 -0500
-Message-Id: <20231004-dt-asoc-header-cleanups-v2-5-e77765080cbc@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231004-dt-asoc-header-cleanups-v2-0-e77765080cbc@kernel.org>
-References: <20231004-dt-asoc-header-cleanups-v2-0-e77765080cbc@kernel.org>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=SCuiwDv9
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-9a9f139cd94so700566b.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 04 Oct 2023 09:30:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1696437036; x=1697041836;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZwQca6O5TUZpsEPN/2hcx/QMSO8jnzGhlyFu3rhBscM=;
+        b=SCuiwDv9ZVNSGGYC2sJYO6E0WQ0jgvt3pYJQiCx09F+kijnRH1rEhFQuvv1F0BlPMK
+         pknvfxqXUhkeNY1tCVH/Mo7TgCbxYVIcWD1O9KQyA0oCsPCivv18FureqN3Jh0Ra2ff0
+         WgBe7DTJymwf8QNc8Q+NYyYAN7gw8YEULY11wACkPykvL9ZRBF1LLZGuuoPZXO7Y6FOe
+         NkSavN7oPJDCB9G+ELIQYVo8O6F+6cc31F7Qphi10bQ9PGUFYCkRYfdtmUjBvKAtr+Jl
+         EDeNU2SEk3mnzOE6MUWfEbd6fjEI9ro1BVNMzGnUvmANBFj3gj3a8z5MU39j9uCShnVT
+         nrrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696437036; x=1697041836;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZwQca6O5TUZpsEPN/2hcx/QMSO8jnzGhlyFu3rhBscM=;
+        b=XTYRP6I6zL72M+5gJ2dvKzia6x2dyBklp4MWLYtN+jIl5Nl7MT6FBsYNaI10V2JHzF
+         eUGlQppGplwca1GWKErixmuE4xbmHTEcp7xrSSqqtvHP/5tm5nikuFiIzanW4kCv+4Sx
+         LOO7hMy8q2IIAZfq9c1dxcKSjcbbLDnMlAhIzQOSOEypSnig5MnxPch20ul6pzxjcRRU
+         cObjL6BuCognEH541oolZ0l8+tql4vEQ5lzwzJ6RX6kk7ymC1Oeu+auXoAf6ysZzOs3R
+         vSKMqnnte/UzK6e0wLWNKV2jpYwsVbz5kVW/kYrW9RS3zcw9Bthg7avceR3be0mHU0iR
+         hEJA==
+X-Gm-Message-State: AOJu0Yyu4Jnn+xnrOjaU6Rh38nMM9YlGL4EqMZ3jXqaP275NF3pXvsyp
+	EXjJaG9ZuvOAbByM0oagi+zmog==
+X-Google-Smtp-Source: 
+ AGHT+IE9v5jPqyhMR480KMRuqa9F6S2fCZypeRwKq7VdOsoAo3KvQZ/dHSb2DgA0cn6DDsC/0JnosQ==
+X-Received: by 2002:a17:906:209:b0:9a9:e5bb:eddc with SMTP id
+ 9-20020a170906020900b009a9e5bbeddcmr2636791ejd.16.1696437036512;
+        Wed, 04 Oct 2023 09:30:36 -0700 (PDT)
+Received: from krzk-bin.. (5-157-101-10.dyn.eolo.it. [5.157.101.10])
+        by smtp.gmail.com with ESMTPSA id
+ kt12-20020a170906aacc00b009a1b857e3a5sm3041038ejb.54.2023.10.04.09.30.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Oct 2023 09:30:36 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH] ASoC: qcom: reduce number of binding headers includes
+Date: Wed,  4 Oct 2023 18:30:30 +0200
+Message-Id: <20231004163030.670039-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.13-dev
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: E2TITYO46XIGBOH63JNNW2QRRBQE4ZSW
-X-Message-ID-Hash: E2TITYO46XIGBOH63JNNW2QRRBQE4ZSW
-X-MailFrom: SRS0=zsuR=FS=robh_at_kernel.org=rob@kernel.org
+Message-ID-Hash: LTKXEI3PWL4QA5PS4KQ5YHXGGXA5CI4V
+X-Message-ID-Hash: LTKXEI3PWL4QA5PS4KQ5YHXGGXA5CI4V
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2TITYO46XIGBOH63JNNW2QRRBQE4ZSW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LTKXEI3PWL4QA5PS4KQ5YHXGGXA5CI4V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,544 +123,339 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use preferred device_get_match_data() instead of of_match_device() to
-get the driver match data. With this, adjust the includes to explicitly
-include the correct headers.
+Move the includes of binding headers from Qualcomm SoC sound drivers
+headers to unit files actually using these bindings.  This reduces the
+amount of work for C preprocessor and makes usage of bindings easier to
+follow.  No impact expected on final binaries.
 
-Signed-off-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/intel/keembay/kmb_platform.c | 13 +------------
- sound/soc/qcom/lpass-cpu.c             | 15 +++++----------
- sound/soc/rockchip/rockchip_i2s.c      |  8 +++-----
- sound/soc/rockchip/rockchip_i2s_tdm.c  | 20 +++++++-------------
- sound/soc/rockchip/rockchip_pdm.c      |  6 +-----
- sound/soc/samsung/smdk_wm8994.c        | 27 +++------------------------
- sound/soc/stm/stm32_i2s.c              |  7 ++-----
- sound/soc/stm/stm32_sai.c              |  8 ++++----
- sound/soc/stm/stm32_sai_sub.c          |  6 +-----
- sound/soc/stm/stm32_spdifrx.c          |  8 ++------
- sound/soc/tegra/tegra210_amx.c         |  7 +------
- sound/soc/ti/davinci-evm.c             |  7 ++-----
- sound/soc/ti/davinci-mcasp.c           |  9 ++++-----
- sound/soc/ti/omap-mcbsp.c              | 10 ++++------
- 14 files changed, 40 insertions(+), 111 deletions(-)
+ sound/soc/qcom/apq8016_sbc.c            | 1 +
+ sound/soc/qcom/common.c                 | 2 +-
+ sound/soc/qcom/lpass-cdc-dma.c          | 1 +
+ sound/soc/qcom/lpass-cpu.c              | 1 +
+ sound/soc/qcom/lpass-platform.c         | 1 +
+ sound/soc/qcom/lpass.h                  | 1 -
+ sound/soc/qcom/qdsp6/q6afe-clocks.c     | 1 +
+ sound/soc/qcom/qdsp6/q6afe-dai.c        | 1 +
+ sound/soc/qcom/qdsp6/q6afe.c            | 1 +
+ sound/soc/qcom/qdsp6/q6afe.h            | 2 --
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 1 +
+ sound/soc/qcom/qdsp6/q6apm.h            | 1 -
+ sound/soc/qcom/qdsp6/q6asm-dai.c        | 1 +
+ sound/soc/qcom/qdsp6/q6asm.c            | 1 +
+ sound/soc/qcom/qdsp6/q6asm.h            | 1 -
+ sound/soc/qcom/qdsp6/q6prm-clocks.c     | 2 +-
+ sound/soc/qcom/qdsp6/q6routing.c        | 2 ++
+ sound/soc/qcom/sc7180.c                 | 2 +-
+ sound/soc/qcom/sc7280.c                 | 2 ++
+ sound/soc/qcom/sc8280xp.c               | 1 +
+ sound/soc/qcom/sdm845.c                 | 1 +
+ sound/soc/qcom/sdw.c                    | 2 +-
+ sound/soc/qcom/sm8250.c                 | 1 +
+ 23 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/intel/keembay/kmb_platform.c b/sound/soc/intel/keembay/kmb_platform.c
-index e929497a5eb5..37ea2e1d2e92 100644
---- a/sound/soc/intel/keembay/kmb_platform.c
-+++ b/sound/soc/intel/keembay/kmb_platform.c
-@@ -11,7 +11,6 @@
- #include <linux/io.h>
+diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
+index ff9f6a1c95df..efbdbb4dd753 100644
+--- a/sound/soc/qcom/apq8016_sbc.c
++++ b/sound/soc/qcom/apq8016_sbc.c
+@@ -16,6 +16,7 @@
+ #include <sound/soc.h>
+ #include <uapi/linux/input-event-codes.h>
+ #include <dt-bindings/sound/apq8016-lpass.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include "common.h"
+ #include "qdsp6/q6afe.h"
+ 
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index f2d1e3009cd2..483bbf53a541 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -2,10 +2,10 @@
+ // Copyright (c) 2018, Linaro Limited.
+ // Copyright (c) 2018, The Linux Foundation. All rights reserved.
+ 
++#include <dt-bindings/sound/qcom,q6afe.h>
  #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <sound/dmaengine_pcm.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -820,7 +819,6 @@ static int kmb_plat_dai_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
- 	struct snd_soc_dai_driver *kmb_i2s_dai;
--	const struct of_device_id *match;
- 	struct device *dev = &pdev->dev;
- 	struct kmb_i2s_info *kmb_i2s;
- 	struct resource *res;
-@@ -831,16 +829,7 @@ static int kmb_plat_dai_probe(struct platform_device *pdev)
- 	if (!kmb_i2s)
- 		return -ENOMEM;
+ #include <sound/jack.h>
+ #include <linux/input-event-codes.h>
+-#include "qdsp6/q6afe.h"
+ #include "common.h"
  
--	kmb_i2s_dai = devm_kzalloc(dev, sizeof(*kmb_i2s_dai), GFP_KERNEL);
--	if (!kmb_i2s_dai)
--		return -ENOMEM;
--
--	match = of_match_device(kmb_plat_of_match, &pdev->dev);
--	if (!match) {
--		dev_err(&pdev->dev, "Error: No device match found\n");
--		return -ENODEV;
--	}
--	kmb_i2s_dai = (struct snd_soc_dai_driver *) match->data;
-+	kmb_i2s_dai = (struct snd_soc_dai_driver *)device_get_match_data(&pdev->dev);
+ static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
+diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dma.c
+index 8221e2cbe35c..586f23049447 100644
+--- a/sound/soc/qcom/lpass-cdc-dma.c
++++ b/sound/soc/qcom/lpass-cdc-dma.c
+@@ -5,6 +5,7 @@
+  * lpass-cdc-dma.c -- ALSA SoC CDC DMA CPU DAI driver for QTi LPASS
+  */
  
- 	/* Prepare the related clocks */
- 	kmb_i2s->clk_apb = devm_clk_get(dev, "apb_clk");
++#include <dt-bindings/sound/qcom,lpass.h>
+ #include <linux/clk.h>
+ #include <linux/module.h>
+ #include <linux/export.h>
 diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 18aff2654f89..ac0feb89b458 100644
+index 39571fed4001..d15039bb7f82 100644
 --- a/sound/soc/qcom/lpass-cpu.c
 +++ b/sound/soc/qcom/lpass-cpu.c
-@@ -9,7 +9,6 @@
+@@ -5,6 +5,7 @@
+  * lpass-cpu.c -- ALSA SoC CPU DAI driver for QTi LPASS
+  */
+ 
++#include <dt-bindings/sound/qcom,lpass.h>
+ #include <linux/clk.h>
  #include <linux/kernel.h>
  #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 73e3d39bd24c..5b99b41956ed 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -5,6 +5,7 @@
+  * lpass-platform.c -- ALSA SoC platform driver for QTi LPASS
+  */
+ 
++#include <dt-bindings/sound/qcom,lpass.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/export.h>
+ #include <linux/kernel.h>
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index bdfe66ec3314..dd5e2ccad5d8 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -12,7 +12,6 @@
+ #include <linux/compiler.h>
  #include <linux/platform_device.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -1106,7 +1105,6 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	const struct lpass_variant *variant;
- 	struct device *dev = &pdev->dev;
--	const struct of_device_id *match;
- 	int ret, i, dai_id;
+ #include <linux/regmap.h>
+-#include <dt-bindings/sound/qcom,lpass.h>
+ #include "lpass-hdmi.h"
  
- 	dsp_of_node = of_parse_phandle(pdev->dev.of_node, "qcom,adsp", 0);
-@@ -1121,17 +1119,14 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, drvdata);
+ #define LPASS_AHBIX_CLOCK_FREQUENCY		131072000
+diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
+index 1ccab64ff00b..84b9018c36ba 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
++++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2020, Linaro Limited
  
--	match = of_match_device(dev->driver->of_match_table, dev);
--	if (!match || !match->data)
-+	variant = device_get_match_data(dev);
-+	if (!variant)
- 		return -EINVAL;
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/clk-provider.h>
+diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+index 3faa7e0eb0dd..a9c4f896a7df 100644
+--- a/sound/soc/qcom/qdsp6/q6afe-dai.c
++++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2018, Linaro Limited
  
--	if (of_device_is_compatible(dev->of_node, "qcom,lpass-cpu-apq8016")) {
--		dev_warn(dev, "%s compatible is deprecated\n",
--			 match->compatible);
--	}
-+	if (of_device_is_compatible(dev->of_node, "qcom,lpass-cpu-apq8016"))
-+		dev_warn(dev, "qcom,lpass-cpu-apq8016 compatible is deprecated\n");
- 
--	drvdata->variant = (struct lpass_variant *)match->data;
--	variant = drvdata->variant;
-+	drvdata->variant = variant;
- 
- 	of_lpass_cpu_parse_dai_data(dev, drvdata);
- 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 74e7d6ee0f28..b0c3ef030e06 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -10,8 +10,8 @@
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
  #include <linux/module.h>
- #include <linux/mfd/syscon.h>
- #include <linux/delay.h>
-+#include <linux/of.h>
- #include <linux/of_gpio.h>
--#include <linux/of_device.h>
- #include <linux/clk.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/pm_runtime.h>
-@@ -736,7 +736,6 @@ static int rockchip_i2s_init_dai(struct rk_i2s_dev *i2s, struct resource *res,
- static int rockchip_i2s_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct rk_i2s_dev *i2s;
- 	struct snd_soc_dai_driver *dai;
- 	struct resource *res;
-@@ -752,11 +751,10 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
+diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
+index 919e326b9462..91d39f6ad0bd 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.c
++++ b/sound/soc/qcom/qdsp6/q6afe.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2018, Linaro Limited
  
- 	i2s->grf = syscon_regmap_lookup_by_phandle(node, "rockchip,grf");
- 	if (!IS_ERR(i2s->grf)) {
--		of_id = of_match_device(rockchip_i2s_match, &pdev->dev);
--		if (!of_id || !of_id->data)
-+		i2s->pins = device_get_match_data(&pdev->dev);
-+		if (!i2s->pins)
- 			return -EINVAL;
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/slab.h>
+ #include <linux/kernel.h>
+ #include <linux/uaccess.h>
+diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
+index 30fd77e2f458..65d0676075e1 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.h
++++ b/sound/soc/qcom/qdsp6/q6afe.h
+@@ -3,8 +3,6 @@
+ #ifndef __Q6AFE_H__
+ #define __Q6AFE_H__
  
--		i2s->pins = of_id->data;
- 	}
- 
- 	/* try to prepare related clocks */
-diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.c b/sound/soc/rockchip/rockchip_i2s_tdm.c
-index 111740166449..7e996550d1df 100644
---- a/sound/soc/rockchip/rockchip_i2s_tdm.c
-+++ b/sound/soc/rockchip/rockchip_i2s_tdm.c
-@@ -73,7 +73,7 @@ struct rk_i2s_tdm_dev {
- 	struct snd_dmaengine_dai_dma_data playback_dma_data;
- 	struct reset_control *tx_reset;
- 	struct reset_control *rx_reset;
--	struct rk_i2s_soc_data *soc_data;
-+	const struct rk_i2s_soc_data *soc_data;
- 	bool is_master_mode;
- 	bool io_multiplex;
- 	bool mclk_calibrate;
-@@ -1275,21 +1275,21 @@ static const struct txrx_config rv1126_txrx_config[] = {
- 	{ 0xff800000, 0x10260, RV1126_I2S0_CLK_TXONLY, RV1126_I2S0_CLK_RXONLY },
- };
- 
--static struct rk_i2s_soc_data px30_i2s_soc_data = {
-+static const struct rk_i2s_soc_data px30_i2s_soc_data = {
- 	.softrst_offset = 0x0300,
- 	.configs = px30_txrx_config,
- 	.config_count = ARRAY_SIZE(px30_txrx_config),
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rk1808_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rk1808_i2s_soc_data = {
- 	.softrst_offset = 0x0300,
- 	.configs = rk1808_txrx_config,
- 	.config_count = ARRAY_SIZE(rk1808_txrx_config),
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rk3308_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rk3308_i2s_soc_data = {
- 	.softrst_offset = 0x0400,
- 	.grf_reg_offset = 0x0308,
- 	.grf_shift = 5,
-@@ -1298,14 +1298,14 @@ static struct rk_i2s_soc_data rk3308_i2s_soc_data = {
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rk3568_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rk3568_i2s_soc_data = {
- 	.softrst_offset = 0x0400,
- 	.configs = rk3568_txrx_config,
- 	.config_count = ARRAY_SIZE(rk3568_txrx_config),
- 	.init = common_soc_init,
- };
- 
--static struct rk_i2s_soc_data rv1126_i2s_soc_data = {
-+static const struct rk_i2s_soc_data rv1126_i2s_soc_data = {
- 	.softrst_offset = 0x0300,
- 	.configs = rv1126_txrx_config,
- 	.config_count = ARRAY_SIZE(rv1126_txrx_config),
-@@ -1542,7 +1542,6 @@ static int rockchip_i2s_tdm_rx_path_prepare(struct rk_i2s_tdm_dev *i2s_tdm,
- static int rockchip_i2s_tdm_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct rk_i2s_tdm_dev *i2s_tdm;
- 	struct resource *res;
- 	void __iomem *regs;
-@@ -1554,13 +1553,8 @@ static int rockchip_i2s_tdm_probe(struct platform_device *pdev)
- 
- 	i2s_tdm->dev = &pdev->dev;
- 
--	of_id = of_match_device(rockchip_i2s_tdm_match, &pdev->dev);
--	if (!of_id)
--		return -EINVAL;
+-#include <dt-bindings/sound/qcom,q6afe.h>
 -
- 	spin_lock_init(&i2s_tdm->lock);
--	i2s_tdm->soc_data = (struct rk_i2s_soc_data *)of_id->data;
--
-+	i2s_tdm->soc_data = device_get_match_data(&pdev->dev);
- 	i2s_tdm->frame_width = 64;
+ #define AFE_PORT_MAX		129
  
- 	i2s_tdm->clk_trcm = TRCM_TXRX;
-diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
-index 93048ed937e4..d16a4a67a6a2 100644
---- a/sound/soc/rockchip/rockchip_pdm.c
-+++ b/sound/soc/rockchip/rockchip_pdm.c
-@@ -571,7 +571,6 @@ static int rockchip_pdm_path_parse(struct rk_pdm_dev *pdm, struct device_node *n
- static int rockchip_pdm_probe(struct platform_device *pdev)
- {
- 	struct device_node *node = pdev->dev.of_node;
--	const struct of_device_id *match;
- 	struct rk_pdm_dev *pdm;
- 	struct resource *res;
- 	void __iomem *regs;
-@@ -581,10 +580,7 @@ static int rockchip_pdm_probe(struct platform_device *pdev)
- 	if (!pdm)
- 		return -ENOMEM;
+ #define MSM_AFE_PORT_TYPE_RX 0
+diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+index 7ad604b80e25..a3864eea02d5 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
++++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2021, Linaro Limited
  
--	match = of_match_device(rockchip_pdm_match, &pdev->dev);
--	if (match)
--		pdm->version = (uintptr_t)match->data;
--
-+	pdm->version = (enum rk_pdm_version)device_get_match_data(&pdev->dev);
- 	if (pdm->version == RK_PDM_RK3308) {
- 		pdm->reset = devm_reset_control_get(&pdev->dev, "pdm-m");
- 		if (IS_ERR(pdm->reset))
-diff --git a/sound/soc/samsung/smdk_wm8994.c b/sound/soc/samsung/smdk_wm8994.c
-index 271735253425..def92cc09f9c 100644
---- a/sound/soc/samsung/smdk_wm8994.c
-+++ b/sound/soc/samsung/smdk_wm8994.c
-@@ -31,15 +31,6 @@
- /* SMDK has a 16.934MHZ crystal attached to WM8994 */
- #define SMDK_WM8994_FREQ 16934000
- 
--struct smdk_wm8994_data {
--	int mclk1_rate;
--};
--
--/* Default SMDKs */
--static struct smdk_wm8994_data smdk_board_data = {
--	.mclk1_rate = SMDK_WM8994_FREQ,
--};
--
- static int smdk_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
-@@ -135,8 +126,8 @@ static struct snd_soc_card smdk = {
- 	.num_links = ARRAY_SIZE(smdk_dai),
- };
- 
--static const struct of_device_id samsung_wm8994_of_match[] __maybe_unused = {
--	{ .compatible = "samsung,smdk-wm8994", .data = &smdk_board_data },
-+static const struct of_device_id samsung_wm8994_of_match[] = {
-+	{ .compatible = "samsung,smdk-wm8994" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, samsung_wm8994_of_match);
-@@ -146,15 +137,9 @@ static int smdk_audio_probe(struct platform_device *pdev)
- 	int ret;
- 	struct device_node *np = pdev->dev.of_node;
- 	struct snd_soc_card *card = &smdk;
--	struct smdk_wm8994_data *board;
--	const struct of_device_id *id;
- 
- 	card->dev = &pdev->dev;
- 
--	board = devm_kzalloc(&pdev->dev, sizeof(*board), GFP_KERNEL);
--	if (!board)
--		return -ENOMEM;
--
- 	if (np) {
- 		smdk_dai[0].cpus->dai_name = NULL;
- 		smdk_dai[0].cpus->of_node = of_parse_phandle(np,
-@@ -170,12 +155,6 @@ static int smdk_audio_probe(struct platform_device *pdev)
- 		smdk_dai[0].platforms->of_node = smdk_dai[0].cpus->of_node;
- 	}
- 
--	id = of_match_device(samsung_wm8994_of_match, &pdev->dev);
--	if (id)
--		*board = *((struct smdk_wm8994_data *)id->data);
--
--	platform_set_drvdata(pdev, board);
--
- 	ret = devm_snd_soc_register_card(&pdev->dev, card);
- 
- 	if (ret)
-@@ -187,7 +166,7 @@ static int smdk_audio_probe(struct platform_device *pdev)
- static struct platform_driver smdk_audio_driver = {
- 	.driver		= {
- 		.name	= "smdk-audio-wm8994",
--		.of_match_table = of_match_ptr(samsung_wm8994_of_match),
-+		.of_match_table = samsung_wm8994_of_match,
- 		.pm	= &snd_soc_pm_ops,
- 	},
- 	.probe		= smdk_audio_probe,
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 06a42130f5e4..46098e111142 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1024,7 +1024,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 			      struct stm32_i2s_data *i2s)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct reset_control *rst;
- 	struct resource *res;
- 	int irq, ret;
-@@ -1032,10 +1031,8 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	if (!np)
- 		return -ENODEV;
- 
--	of_id = of_match_device(stm32_i2s_ids, &pdev->dev);
--	if (of_id)
--		i2s->regmap_conf = (const struct regmap_config *)of_id->data;
--	else
-+	i2s->regmap_conf = device_get_match_data(&pdev->dev);
-+	if (!i2s->regmap_conf)
- 		return -EINVAL;
- 
- 	i2s->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
-index 8e21e6f886fc..b45ee7e24f22 100644
---- a/sound/soc/stm/stm32_sai.c
-+++ b/sound/soc/stm/stm32_sai.c
-@@ -151,8 +151,8 @@ static int stm32_sai_set_sync(struct stm32_sai_data *sai_client,
- static int stm32_sai_probe(struct platform_device *pdev)
- {
- 	struct stm32_sai_data *sai;
-+	const struct stm32_sai_conf *conf;
- 	struct reset_control *rst;
--	const struct of_device_id *of_id;
- 	u32 val;
- 	int ret;
- 
-@@ -164,9 +164,9 @@ static int stm32_sai_probe(struct platform_device *pdev)
- 	if (IS_ERR(sai->base))
- 		return PTR_ERR(sai->base);
- 
--	of_id = of_match_device(stm32_sai_ids, &pdev->dev);
--	if (of_id)
--		memcpy(&sai->conf, (const struct stm32_sai_conf *)of_id->data,
-+	conf = device_get_match_data(&pdev->dev);
-+	if (conf)
-+		memcpy(&sai->conf, (const struct stm32_sai_conf *)conf,
- 		       sizeof(struct stm32_sai_conf));
- 	else
- 		return -EINVAL;
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 8bcb98d9b64e..ad2492efb1cd 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1506,7 +1506,6 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- static int stm32_sai_sub_probe(struct platform_device *pdev)
- {
- 	struct stm32_sai_sub_data *sai;
--	const struct of_device_id *of_id;
- 	const struct snd_dmaengine_pcm_config *conf = &stm32_sai_pcm_config;
- 	int ret;
- 
-@@ -1514,10 +1513,7 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 	if (!sai)
- 		return -ENOMEM;
- 
--	of_id = of_match_device(stm32_sai_sub_ids, &pdev->dev);
--	if (!of_id)
--		return -EINVAL;
--	sai->id = (uintptr_t)of_id->data;
-+	sai->id = (uintptr_t)device_get_match_data(&pdev->dev);
- 
- 	sai->pdev = pdev;
- 	mutex_init(&sai->ctrl_lock);
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index a359b528b26b..9eed3c57e3f1 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -908,17 +908,13 @@ static int stm32_spdifrx_parse_of(struct platform_device *pdev,
- 				  struct stm32_spdifrx_data *spdifrx)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	const struct of_device_id *of_id;
- 	struct resource *res;
- 
- 	if (!np)
- 		return -ENODEV;
- 
--	of_id = of_match_device(stm32_spdifrx_ids, &pdev->dev);
--	if (of_id)
--		spdifrx->regmap_conf =
--			(const struct regmap_config *)of_id->data;
--	else
-+	spdifrx->regmap_conf = device_get_match_data(&pdev->dev);
-+	if (!spdifrx->regmap_conf)
- 		return -EINVAL;
- 
- 	spdifrx->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-diff --git a/sound/soc/tegra/tegra210_amx.c b/sound/soc/tegra/tegra210_amx.c
-index 95816f6007bd..dd1a2c77c6ea 100644
---- a/sound/soc/tegra/tegra210_amx.c
-+++ b/sound/soc/tegra/tegra210_amx.c
-@@ -535,18 +535,13 @@ static int tegra210_amx_platform_probe(struct platform_device *pdev)
- 	struct tegra210_amx *amx;
- 	void __iomem *regs;
- 	int err;
--	const struct of_device_id *match;
- 	struct tegra210_amx_soc_data *soc_data;
- 
--	match = of_match_device(tegra210_amx_of_match, dev);
--
--	soc_data = (struct tegra210_amx_soc_data *)match->data;
--
- 	amx = devm_kzalloc(dev, sizeof(*amx), GFP_KERNEL);
- 	if (!amx)
- 		return -ENOMEM;
- 
--	amx->soc_data = soc_data;
-+	amx->soc_data = device_get_match_data(dev);
- 
- 	dev_set_drvdata(dev, amx);
- 
-diff --git a/sound/soc/ti/davinci-evm.c b/sound/soc/ti/davinci-evm.c
-index ae7fdd761a7a..1bf333d2740d 100644
---- a/sound/soc/ti/davinci-evm.c
-+++ b/sound/soc/ti/davinci-evm.c
-@@ -175,20 +175,17 @@ static struct snd_soc_card evm_soc_card = {
- static int davinci_evm_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	const struct of_device_id *match;
- 	struct snd_soc_dai_link *dai;
- 	struct snd_soc_card_drvdata_davinci *drvdata = NULL;
- 	struct clk *mclk;
- 	int ret = 0;
- 
--	match = of_match_device(of_match_ptr(davinci_evm_dt_ids), &pdev->dev);
--	if (!match) {
-+	dai = (struct snd_soc_dai_link *) device_get_match_data(&pdev->dev);
-+	if (!dai) {
- 		dev_err(&pdev->dev, "Error: No device match found\n");
- 		return -ENODEV;
- 	}
- 
--	dai = (struct snd_soc_dai_link *) match->data;
--
- 	evm_soc_card.dai_link = dai;
- 
- 	dai->codecs->of_node = of_parse_phandle(np, "ti,audio-codec", 0);
-diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
-index 7e7d665a5504..b892d66f7847 100644
---- a/sound/soc/ti/davinci-mcasp.c
-+++ b/sound/soc/ti/davinci-mcasp.c
-@@ -21,8 +21,6 @@
- #include <linux/clk.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
--#include <linux/of_platform.h>
--#include <linux/of_device.h>
- #include <linux/platform_data/davinci_asp.h>
- #include <linux/math64.h>
- #include <linux/bitmap.h>
-@@ -1882,9 +1880,10 @@ static bool davinci_mcasp_have_gpiochip(struct davinci_mcasp *mcasp)
- static int davinci_mcasp_get_config(struct davinci_mcasp *mcasp,
- 				    struct platform_device *pdev)
- {
--	const struct of_device_id *match = of_match_device(mcasp_dt_ids, &pdev->dev);
- 	struct device_node *np = pdev->dev.of_node;
- 	struct davinci_mcasp_pdata *pdata = NULL;
-+	const struct davinci_mcasp_pdata *match_pdata =
-+		device_get_match_data(&pdev->dev);
- 	const u32 *of_serial_dir32;
- 	u32 val;
- 	int i;
-@@ -1893,8 +1892,8 @@ static int davinci_mcasp_get_config(struct davinci_mcasp *mcasp,
- 		pdata = pdev->dev.platform_data;
- 		pdata->dismod = DISMOD_LOW;
- 		goto out;
--	} else if (match) {
--		pdata = devm_kmemdup(&pdev->dev, match->data, sizeof(*pdata),
-+	} else if (match_pdata) {
-+		pdata = devm_kmemdup(&pdev->dev, match_pdata, sizeof(*pdata),
- 				     GFP_KERNEL);
- 		if (!pdata)
- 			return -ENOMEM;
-diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-index bfe51221f541..7643a54592f5 100644
---- a/sound/soc/ti/omap-mcbsp.c
-+++ b/sound/soc/ti/omap-mcbsp.c
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/module.h>
+diff --git a/sound/soc/qcom/qdsp6/q6apm.h b/sound/soc/qcom/qdsp6/q6apm.h
+index f486bd639b9f..c248c8d2b1ab 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.h
++++ b/sound/soc/qcom/qdsp6/q6apm.h
 @@ -13,7 +13,6 @@
+ #include <linux/of_platform.h>
+ #include <linux/jiffies.h>
+ #include <linux/soc/qcom/apr.h>
+-#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+ #include "audioreach.h"
+ 
+ #define APM_PORT_MAX		127
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 5e14cd0a38de..a7e37c6e4e92 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2018, Linaro Limited
+ 
++#include <dt-bindings/sound/qcom,q6asm.h>
+ #include <linux/init.h>
+ #include <linux/err.h>
+ #include <linux/module.h>
+diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
+index 195780f75d05..06a802f9dba5 100644
+--- a/sound/soc/qcom/qdsp6/q6asm.c
++++ b/sound/soc/qcom/qdsp6/q6asm.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2018, Linaro Limited
+ 
++#include <dt-bindings/sound/qcom,q6asm.h>
+ #include <linux/mutex.h>
+ #include <linux/wait.h>
+ #include <linux/module.h>
+diff --git a/sound/soc/qcom/qdsp6/q6asm.h b/sound/soc/qcom/qdsp6/q6asm.h
+index 394604c34943..0103d8dae5da 100644
+--- a/sound/soc/qcom/qdsp6/q6asm.h
++++ b/sound/soc/qcom/qdsp6/q6asm.h
+@@ -2,7 +2,6 @@
+ #ifndef __Q6_ASM_H__
+ #define __Q6_ASM_H__
+ #include "q6dsp-common.h"
+-#include <dt-bindings/sound/qcom,q6asm.h>
+ 
+ /* ASM client callback events */
+ #define CMD_PAUSE			0x0001
+diff --git a/sound/soc/qcom/qdsp6/q6prm-clocks.c b/sound/soc/qcom/qdsp6/q6prm-clocks.c
+index 73b0cbac73d4..4c574b48ab00 100644
+--- a/sound/soc/qcom/qdsp6/q6prm-clocks.c
++++ b/sound/soc/qcom/qdsp6/q6prm-clocks.c
+@@ -1,13 +1,13 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2021, Linaro Limited
+ 
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/clk-provider.h>
+ #include <linux/module.h>
  #include <linux/device.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -1360,23 +1359,22 @@ MODULE_DEVICE_TABLE(of, omap_mcbsp_of_match);
- static int asoc_mcbsp_probe(struct platform_device *pdev)
- {
- 	struct omap_mcbsp_platform_data *pdata = dev_get_platdata(&pdev->dev);
-+	const struct omap_mcbsp_platform_data *match_pdata =
-+		device_get_match_data(&pdev->dev);
- 	struct omap_mcbsp *mcbsp;
--	const struct of_device_id *match;
- 	int ret;
+ #include <linux/platform_device.h>
+-#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+ #include "q6dsp-lpass-clocks.h"
+ #include "q6prm.h"
  
--	match = of_match_device(omap_mcbsp_of_match, &pdev->dev);
--	if (match) {
-+	if (match_pdata) {
- 		struct device_node *node = pdev->dev.of_node;
- 		struct omap_mcbsp_platform_data *pdata_quirk = pdata;
- 		int buffer_size;
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index c583faae3a3e..c0856c10d0a8 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -2,6 +2,8 @@
+ // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2018, Linaro Limited
  
--		pdata = devm_kzalloc(&pdev->dev,
-+		pdata = devm_kmemdup(&pdev->dev, match_pdata,
- 				     sizeof(struct omap_mcbsp_platform_data),
- 				     GFP_KERNEL);
- 		if (!pdata)
- 			return -ENOMEM;
++#include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/init.h>
+ #include <linux/err.h>
+ #include <linux/module.h>
+diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
+index d1fd40e3f7a9..b2211212c53c 100644
+--- a/sound/soc/qcom/sc7180.c
++++ b/sound/soc/qcom/sc7180.c
+@@ -4,6 +4,7 @@
+ //
+ // sc7180.c -- ALSA SoC Machine driver for SC7180
  
--		memcpy(pdata, match->data, sizeof(*pdata));
- 		if (!of_property_read_u32(node, "ti,buffer-size", &buffer_size))
- 			pdata->buffer_size = buffer_size;
- 		if (pdata_quirk)
-
++#include <dt-bindings/sound/qcom,lpass.h>
+ #include <dt-bindings/sound/sc7180-lpass.h>
+ #include <linux/gpio.h>
+ #include <linux/gpio/consumer.h>
+@@ -19,7 +20,6 @@
+ #include "../codecs/rt5682.h"
+ #include "../codecs/rt5682s.h"
+ #include "common.h"
+-#include "lpass.h"
+ 
+ #define DEFAULT_MCLK_RATE		19200000
+ #define RT5682_PLL1_FREQ (48000 * 512)
+diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
+index c23df4c8f341..f61989d6b57d 100644
+--- a/sound/soc/qcom/sc7280.c
++++ b/sound/soc/qcom/sc7280.c
+@@ -4,6 +4,8 @@
+ //
+ // ALSA SoC Machine driver for sc7280
+ 
++#include <dt-bindings/sound/qcom,lpass.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/input.h>
+ #include <linux/module.h>
+ #include <linux/of_device.h>
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index cfb9c8dbd599..6d4a43f94d51 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2022, Linaro Limited
+ 
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/of_device.h>
+diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+index 25b964dea6c5..fed5673b61ba 100644
+--- a/sound/soc/qcom/sdm845.c
++++ b/sound/soc/qcom/sdm845.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2018, The Linux Foundation. All rights reserved.
+  */
+ 
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/of_device.h>
+diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
+index ce89c0a33ef0..dd275123d31d 100644
+--- a/sound/soc/qcom/sdw.c
++++ b/sound/soc/qcom/sdw.c
+@@ -2,9 +2,9 @@
+ // Copyright (c) 2018, Linaro Limited.
+ // Copyright (c) 2018, The Linux Foundation. All rights reserved.
+ 
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/module.h>
+ #include <sound/soc.h>
+-#include "qdsp6/q6afe.h"
+ #include "sdw.h"
+ 
+ int qcom_snd_sdw_prepare(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+index 6558bf2e14e8..b7e1a5496cfd 100644
+--- a/sound/soc/qcom/sm8250.c
++++ b/sound/soc/qcom/sm8250.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2020, Linaro Limited
+ 
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/of_device.h>
 -- 
-2.40.1
+2.34.1
 

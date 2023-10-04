@@ -2,113 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329727B9B9C
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:56:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C3EB7B9B9E
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BD44ED8;
-	Thu,  5 Oct 2023 09:55:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BD44ED8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4904DEBB;
+	Thu,  5 Oct 2023 09:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4904DEBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492588;
-	bh=ND6e8zppS+/0buxG1psBpDzddtzWLjPsHvkMnqKjyIs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=F2y92GPBX50I8e64Bp3tWOGhOAgk3vb4cB9ZKFEma+EtmNFyI0IQtIOvNvj5+41c6
-	 8M/7NGqCeulHo7aZkuRNJ05JFpFS40otDDzEa1FvqcJLRw7Pb2TwZGDHueA7SIAmCS
-	 JxphDRC++e9JeHZtvXEEID7/OB8fFJWAi7gQ+4xI=
+	s=default; t=1696492599;
+	bh=mXecwSlIa+2lEb5FZdHlSZON91HoveqpkhZ5VVzkRrk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HGN1NiszgBd4pltbwpAw6IdL/6pfCuL92rpoO8p3vdkDHfu4i139kt5V6oZB8jL4z
+	 4NOP78b23/Ih43TJOY90iAhkJcL9hmo7Im51eS4wD6sWur9/vb8p0blH/FoUEmcWOS
+	 U7UfzUE1PdUwOE+uHToWdEpRvgup3DoT3x3XarpY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5DEBF805D4; Thu,  5 Oct 2023 09:52:46 +0200 (CEST)
+	id 5BA6BF80616; Thu,  5 Oct 2023 09:52:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00E3AF805C1;
-	Thu,  5 Oct 2023 09:52:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2524F80601;
+	Thu,  5 Oct 2023 09:52:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2B8FF8047D; Wed,  4 Oct 2023 16:00:58 +0200 (CEST)
+	id 43D52F800C1; Wed,  4 Oct 2023 16:56:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C743BF800C1
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 16:00:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C743BF800C1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lQJZdM6p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1696428053; x=1727964053;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ND6e8zppS+/0buxG1psBpDzddtzWLjPsHvkMnqKjyIs=;
-  b=lQJZdM6plITS4+vEf+htybn4eok/oPkj+EFv3td+w8LpYTnOv3ECFhr1
-   rVF2TV87xRIYmevFV8RkkTQzJBDckB03J3Cw0HaaQemL6TpvmASJFq4kP
-   TSe7H4DQXMaC05RI/J/JdvcMvAq/PkOAAd6u39nlTOPiVUeNP0XQAJ040
-   4faFU8rtpACTG9NqxD7kRST4hCjlMnHB0xpSGd1T75Jefb4H0BWrfc+WI
-   9OAWtCQrg6uiJEY0G8bQ0gjLfyczx01aQJoZR+OhOcG2BIyF65qDdApdC
-   h+YTA96GYAzTfONzi9PbHOMh15Y9bzt9+0S+LXHrETkEW/XxVo3FQ96gk
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="382041003"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200";
-   d="scan'208";a="382041003"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 07:00:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="1082512034"
-X-IronPort-AV: E=Sophos;i="6.03,200,1694761200";
-   d="scan'208";a="1082512034"
-Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
- ([10.237.72.199])
-  by fmsmga005.fm.intel.com with ESMTP; 04 Oct 2023 07:00:41 -0700
-Message-ID: <843897f1-3ce5-f8da-5f10-7d8a68849fd2@intel.com>
-Date: Wed, 4 Oct 2023 17:02:06 +0300
+	by alsa1.perex.cz (Postfix) with ESMTPS id 810A3F800C1;
+	Wed,  4 Oct 2023 16:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 810A3F800C1
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Cc: Maarten Lankhorst <dev@lankhorst.se>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: [PATCH v6 00/12] sound: Use -EPROBE_DEFER instead of i915 module
+ loading.
+Date: Wed,  4 Oct 2023 16:55:28 +0200
+Message-Id: <20231004145540.32321-1-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v7 01/33] xhci: add support to allocate several
- interrupters
-To: Wesley Cheng <quic_wcheng@quicinc.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>, gregkh@linuxfoundation.org,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- agross@kernel.org, andersson@kernel.org, konrad.dybcio@linaro.org,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
- Thinh.Nguyen@synopsys.com
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
- <20230921214843.18450-2-quic_wcheng@quicinc.com>
- <10ad0613-7e88-dbe8-c5a2-d535f8e9db03@linux.intel.com>
- <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@intel.com>
-In-Reply-To: <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MailFrom: mathias.nyman@intel.com
+X-MailFrom: mlankhorst@mblankhorst.nl
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: I2DZMMDSD7QZXB5ERKXGI2NAVBRCVRBH
-X-Message-ID-Hash: I2DZMMDSD7QZXB5ERKXGI2NAVBRCVRBH
-X-Mailman-Approved-At: Thu, 05 Oct 2023 07:52:34 +0000
+Message-ID-Hash: JM5I4OY4YGTVE6FERZTEUKFUDWGXIFEP
+X-Message-ID-Hash: JM5I4OY4YGTVE6FERZTEUKFUDWGXIFEP
+X-Mailman-Approved-At: Thu, 05 Oct 2023 07:52:35 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2DZMMDSD7QZXB5ERKXGI2NAVBRCVRBH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JM5I4OY4YGTVE6FERZTEUKFUDWGXIFEP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,64 +86,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2.10.2023 23.07, Wesley Cheng wrote:
-> Hi Mathias,
-> 
-> On 9/28/2023 3:31 AM, Mathias Nyman wrote:
->> On 22.9.2023 0.48, Wesley Cheng wrote:
->>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
->>>
->>> Modify the XHCI drivers to accommodate for handling multiple event rings in
->>> case there are multiple interrupters.  Add the required APIs so clients are
->>> able to allocate/request for an interrupter ring, and pass this information
->>> back to the client driver.  This allows for users to handle the resource
->>> accordingly, such as passing the event ring base address to an audio DSP.
->>> There is no actual support for multiple MSI/MSI-X vectors.
->>>
->>> Factoring out XHCI interrupter APIs and structures done by Wesley Cheng, in
->>> order to allow for USB class drivers to utilze them.
->>>
->>>   }
->>> +void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct xhci_interrupter *ir)
->>> +{
->>> +    struct xhci_hcd *xhci = hcd_to_xhci(hcd);
->>> +    unsigned int intr_num;
->>> +
->>> +    /* interrupter 0 is primary interrupter, don't touchit */
->>> +    if (!ir || !ir->intr_num || ir->intr_num >= xhci->max_interrupters) {
->>> +        xhci_dbg(xhci, "Invalid secondary interrupter, can't remove\n");
->>> +        return;
->>> +    }
->>> +
->>> +    /* fixme, should we check xhci->interrupter[intr_num] == ir */
->>> +    spin_lock(&xhci->lock);
->>
->> Needs to be spin_lock_irq() ir spin_lock_irqsave() as xhci->lock is used in interrupt handler.
->>
->>
->>> +    intr_num = ir->intr_num;
->>> +    xhci_free_interrupter(xhci, ir);
->>> +    xhci->interrupters[intr_num] = NULL;
->>> +    spin_unlock(&xhci->lock);
->>
->> likewise
->>
-> 
-> Let me check these again.  In general, I think I will use both the xhci->mutex and 
-> xhci->lock where needed, because I believe we'd run into sleep while atomic issues
-> while freeing the DMA memory.  Will rework this and submit in the next rev.
-> 
+From: Maarten Lankhorst <dev@lankhorst.se>
 
-Maybe we need to split xhci_free_interrupter() into separate remove and free functions
+Explicitly loading i915 becomes a problem when upstreaming the new intel driver
+for Tiger Lake and higher graphics (xe). By loading i915, it doesn't wait for
+driver load of xe, and will fail completely before it loads.
 
-Did some work on this, and on the sideband api in general.
+-EPROBE_DEFER has to be returned before any device is created in probe(),
+otherwise the removal of the device will cause EPROBE_DEFER to try again
+in an infinite loop.
 
-Code still has a lot of FIXMEs, and it's completely untested, but to avoid us
-from doing duplicate work I pushed it to my feature_interrupters branch anyway
+The conversion is done in gradual steps. First I add an argument to
+snd_hdac_i915_init to allow for -EPROBE_DEFER so I can convert each driver
+separately. Then I convert each driver to move snd_hdac_i915_init out of the
+workqueue. Finally I drop the ability to choose modprobe behavior after the
+last user is converted.
 
-git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git feature_interrupters
-https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters
+Compared to previous version, I added a fix for sof_ops_free() missing call,
+renamed probe_no_wq and remove_no_wq to probe_early/probe_late, and fixed
+the resulting fallout.
 
-Thanks
--Mathias
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: sound-open-firmware@alsa-project.org
+
+Maarten Lankhorst (10):
+  ASoC: SOF: core: Ensure sof_ops_free() is still called when probe
+    never ran.
+  ALSA: hda: Intel: Fix error handling in azx_probe()
+  ALSA: hda: i915: Allow override of gpu binding.
+  ALSA: hda: i915: Add an allow_modprobe argument to snd_hdac_i915_init
+  ALSA: hda: i915: Allow xe as match for i915_component_master_match
+  ASoC: Intel: avs: Move snd_hdac_i915_init to before probe_work.
+  ALSA: hda: Intel: Move snd_hdac_i915_init to before probe_work.
+  ASoC: Intel: Skylake: Move snd_hdac_i915_init to before probe_work.
+  ASoC: SOF: Intel: Move binding to display driver outside of deferred
+    probe
+  ALSA: hda: i915: Remove extra argument from snd_hdac_i915_init
+
+Pierre-Louis Bossart (2):
+  ASoC: SOF: core: Add probe_early and remove_late callbacks
+  ASoC: SOF: Intel: hda: start splitting the probe
+
+ sound/hda/hdac_i915.c                | 24 ++++++-----
+ sound/pci/hda/hda_intel.c            | 60 ++++++++++++++--------------
+ sound/soc/intel/avs/core.c           | 13 ++++--
+ sound/soc/intel/skylake/skl.c        | 31 +++++---------
+ sound/soc/sof/core.c                 | 17 +++++++-
+ sound/soc/sof/intel/hda-common-ops.c |  2 +
+ sound/soc/sof/intel/hda.c            | 32 ++++++++-------
+ sound/soc/sof/intel/hda.h            |  2 +
+ sound/soc/sof/ops.h                  | 16 ++++++++
+ sound/soc/sof/sof-priv.h             |  2 +
+ 10 files changed, 118 insertions(+), 81 deletions(-)
+
+-- 
+2.40.1
 

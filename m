@@ -2,126 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A8B7B8A9A
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 20:37:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B1B77B8ADF
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Oct 2023 20:42:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC145A4A;
-	Wed,  4 Oct 2023 20:36:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC145A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22B01DE5;
+	Wed,  4 Oct 2023 20:41:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22B01DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696444648;
-	bh=l2Vy7dcBtmWkZCjePdvnKJDsdyYpnBkQGjTthUmW6Ww=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=dvuNFP0c6/ZXjgKJzBt+Y5z/Zd/tGGCoXPshW8vKjHmzSxB45Lgd5pgnZe0NkB2dz
-	 yym7/SIcSG1CZG51rvqGaT1i/0qi737FdeAjQM1QS80yEPH0vEET33BhcVLg4hVuIH
-	 w78hj/jKilAyCEhxjakjZNYUwmC1F+Xp1joRJN+0=
+	s=default; t=1696444934;
+	bh=gnRpsP+7CnP0yiRI2VNQVjPOHCBbxw61Jj5irU9iDk8=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=E0TEvoXfWp3WXDBOkUiXG1B7MMR8fw6dEyf9K36GAS7l65Xx0ZejEb4RkuXPR0IHS
+	 d+Fyx6W8fqZvolks+UD1Jk8OB15TMwcsUVwy6XDxiuCDG2GCkjH+WINiQwAVNU3+At
+	 /6FktuZpaai3BTUE5HaE71QpgvQ9XufdxGpmMEhE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BE1DF80549; Wed,  4 Oct 2023 20:36:38 +0200 (CEST)
+	id 7862BF80552; Wed,  4 Oct 2023 20:41:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4655F80310;
-	Wed,  4 Oct 2023 20:36:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAD2FF80310;
+	Wed,  4 Oct 2023 20:41:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8A40F8047D; Wed,  4 Oct 2023 20:36:01 +0200 (CEST)
+	id 06417F8047D; Wed,  4 Oct 2023 20:39:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A5C74F80130
-	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 20:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5C74F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46481F800C1
+	for <alsa-devel@alsa-project.org>; Wed,  4 Oct 2023 20:39:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46481F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=AfcnYAjL
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 394FBLvr028282;
-	Wed, 4 Oct 2023 18:35:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=6M3YAebF9rrs3opK3mpTD1jmedIyRT/cMOQ6DDH1tyM=;
- b=AfcnYAjLVk8hVxmWmdF/yylUGqfIZ7FeD1F4DB9WeY2hh1UuUaO8K8wzGq8ENxXacTBv
- +rXSm3UKVxoh9zjzKMby24VOV44iXS4UiH+RgCqYC8p/eg4/8vz4et4tjPoOwYPM4B4q
- duDpI5J0Dr9MHLh4hLwsjAQZOps3/HLypCaDY9fIcuMU6YyyGj6OgzDanbRsqcki2GAi
- 2ujp+RKWMC8xWFH56kRquJsGwybxookOCZVxSPiNqMMm/Z89gpgUGFNEdLbTr4ZyTIdm
- WvAqoiCoOL9fA3OTtsRUCuK3AydDvMiu0GhTgKM0stQKqOcKGtZuH+vz4/U4Wny8iARN Jw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3th2gq1t4n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Oct 2023 18:35:45 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 394IZhC3025160
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 4 Oct 2023 18:35:44 GMT
-Received: from [10.71.112.36] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Wed, 4 Oct
- 2023 11:35:10 -0700
-Message-ID: <2127ef61-e263-2a0e-438a-6baa125aa70d@quicinc.com>
-Date: Wed, 4 Oct 2023 11:35:06 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v7 01/33] xhci: add support to allocate several
- interrupters
-Content-Language: en-US
-To: Mathias Nyman <mathias.nyman@intel.com>,
-        Mathias Nyman
-	<mathias.nyman@linux.intel.com>,
-        <gregkh@linuxfoundation.org>, <lgirdwood@gmail.com>,
-        <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
-        <agross@kernel.org>, <andersson@kernel.org>,
-        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
-        <Thinh.Nguyen@synopsys.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
-        <devicetree@vger.kernel.org>
-References: <20230921214843.18450-1-quic_wcheng@quicinc.com>
- <20230921214843.18450-2-quic_wcheng@quicinc.com>
- <10ad0613-7e88-dbe8-c5a2-d535f8e9db03@linux.intel.com>
- <e3f3c8cd-6338-da08-d988-4d2ed68280e6@quicinc.com>
- <843897f1-3ce5-f8da-5f10-7d8a68849fd2@intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <843897f1-3ce5-f8da-5f10-7d8a68849fd2@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 6qI8t9feb8uXz-ckzPnXYaJeZ5ViYC9L
-X-Proofpoint-ORIG-GUID: 6qI8t9feb8uXz-ckzPnXYaJeZ5ViYC9L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-04_10,2023-10-02_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- lowpriorityscore=0 phishscore=0 mlxlogscore=598 mlxscore=0 impostorscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0 adultscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2310040136
-Message-ID-Hash: P6B7MXAFEQCVPAJV7PG42BTP2JBUFIJ3
-X-Message-ID-Hash: P6B7MXAFEQCVPAJV7PG42BTP2JBUFIJ3
-X-MailFrom: quic_wcheng@quicinc.com
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Lrmit3Gz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1696444745; x=1727980745;
+  h=date:from:to:cc:subject:message-id;
+  bh=gnRpsP+7CnP0yiRI2VNQVjPOHCBbxw61Jj5irU9iDk8=;
+  b=Lrmit3Gz6iEYOVHy/RdZyIjmZdCkEPDgZT4IdkZNty1gA50Tx0jfb2i2
+   N6QreSxLt5AaVyAa42w5daf5dJlmqwVhoZz8KxPqE0VWSKie7hi6hIn+Q
+   nFvoZuM5jcaZyyBmLtWxoC5D3NnT9WHMgSsHZe0zSk9rkL50wACv+lW1j
+   RZWVo80aK7MqHGBVzx4oPDv2vidr6FRmCiv2IwdmwIQ90qUXHYKWAt6EE
+   oVKT2kdkhrZlFsitHqPaolvIzGkSqD243ivijCNL4V3pWzNfL234TqF8Z
+   QDrz8Yygo/ies87SjmzG2+mmT3MfewFrorNJT3e95dcTMGgz6a0z1JxzZ
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="383169024"
+X-IronPort-AV: E=Sophos;i="6.03,201,1694761200";
+   d="scan'208";a="383169024"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2023 11:39:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="780909668"
+X-IronPort-AV: E=Sophos;i="6.03,201,1694761200";
+   d="scan'208";a="780909668"
+Received: from lkp-server02.sh.intel.com (HELO c3b01524d57c) ([10.239.97.151])
+  by orsmga008.jf.intel.com with ESMTP; 04 Oct 2023 11:38:57 -0700
+Received: from kbuild by c3b01524d57c with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qo6lq-000KVR-39;
+	Wed, 04 Oct 2023 18:38:54 +0000
+Date: Thu, 05 Oct 2023 02:37:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ alsa-devel@alsa-project.org, bpf@vger.kernel.org, gfs2@lists.linux.dev,
+ intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, ntfs3@lists.linux.dev
+Subject: [linux-next:master] BUILD REGRESSION
+ 33b64befb1a28bca3f5a9ed9807d2f87e976c63a
+Message-ID: <202310050242.IY1kedcV-lkp@intel.com>
+User-Agent: s-nail v14.9.24
+Message-ID-Hash: 4OROHBF45ZRFKNHSMKXGCVKFJYJU6E3D
+X-Message-ID-Hash: 4OROHBF45ZRFKNHSMKXGCVKFJYJU6E3D
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -133,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P6B7MXAFEQCVPAJV7PG42BTP2JBUFIJ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OROHBF45ZRFKNHSMKXGCVKFJYJU6E3D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,90 +104,312 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mathias,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 33b64befb1a28bca3f5a9ed9807d2f87e976c63a  Add linux-next specific files for 20231004
 
-On 10/4/2023 7:02 AM, Mathias Nyman wrote:
-> On 2.10.2023 23.07, Wesley Cheng wrote:
->> Hi Mathias,
->>
->> On 9/28/2023 3:31 AM, Mathias Nyman wrote:
->>> On 22.9.2023 0.48, Wesley Cheng wrote:
->>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
->>>>
->>>> Modify the XHCI drivers to accommodate for handling multiple event 
->>>> rings in
->>>> case there are multiple interrupters.  Add the required APIs so 
->>>> clients are
->>>> able to allocate/request for an interrupter ring, and pass this 
->>>> information
->>>> back to the client driver.  This allows for users to handle the 
->>>> resource
->>>> accordingly, such as passing the event ring base address to an audio 
->>>> DSP.
->>>> There is no actual support for multiple MSI/MSI-X vectors.
->>>>
->>>> Factoring out XHCI interrupter APIs and structures done by Wesley 
->>>> Cheng, in
->>>> order to allow for USB class drivers to utilze them.
->>>>
->>>>   }
->>>> +void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct 
->>>> xhci_interrupter *ir)
->>>> +{
->>>> +    struct xhci_hcd *xhci = hcd_to_xhci(hcd);
->>>> +    unsigned int intr_num;
->>>> +
->>>> +    /* interrupter 0 is primary interrupter, don't touchit */
->>>> +    if (!ir || !ir->intr_num || ir->intr_num >= 
->>>> xhci->max_interrupters) {
->>>> +        xhci_dbg(xhci, "Invalid secondary interrupter, can't 
->>>> remove\n");
->>>> +        return;
->>>> +    }
->>>> +
->>>> +    /* fixme, should we check xhci->interrupter[intr_num] == ir */
->>>> +    spin_lock(&xhci->lock);
->>>
->>> Needs to be spin_lock_irq() ir spin_lock_irqsave() as xhci->lock is 
->>> used in interrupt handler.
->>>
->>>
->>>> +    intr_num = ir->intr_num;
->>>> +    xhci_free_interrupter(xhci, ir);
->>>> +    xhci->interrupters[intr_num] = NULL;
->>>> +    spin_unlock(&xhci->lock);
->>>
->>> likewise
->>>
->>
->> Let me check these again.  In general, I think I will use both the 
->> xhci->mutex and xhci->lock where needed, because I believe we'd run 
->> into sleep while atomic issues
->> while freeing the DMA memory.  Will rework this and submit in the next 
->> rev.
->>
-> 
-> Maybe we need to split xhci_free_interrupter() into separate remove and 
-> free functions
-> 
+Error/Warning reports:
 
-Thanks for sharing the work you've been doing.  Yes, I did something 
-similar as well on my end, but will refactor in your code and re-test.
+https://lore.kernel.org/oe-kbuild-all/202309122047.cRi9yJrq-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202309192314.VBsjiIm5-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202309212121.cul1pTRa-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202309212339.hxhBu2F1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202309221945.uwcQ56zg-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310041744.d34gIv9V-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310042215.w9PG3Rqs-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202310042342.Bv7kezcd-lkp@intel.com
 
-> Did some work on this, and on the sideband api in general.
-> 
-> Code still has a lot of FIXMEs, and it's completely untested, but to 
-> avoid us
-> from doing duplicate work I pushed it to my feature_interrupters branch 
-> anyway
-> 
-> git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git 
-> feature_interrupters
-> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
-> 
+Error/Warning: (recently discovered and may have been fixed)
 
-Ok.  Initial look at it seems like it will be fine, but will integrate 
-and make changes where needed.
+Documentation/gpu/amdgpu/thermal:43: ./drivers/gpu/drm/amd/pm/amdgpu_pm.c:988: WARNING: Unexpected indentation.
+drivers/cpufreq/sti-cpufreq.c:215:50: warning: '%d' directive output may be truncated writing between 1 and 10 bytes into a region of size 2 [-Wformat-truncation=]
+drivers/net/ethernet/intel/ice/ice_dpll.c:1066: undefined reference to `ice_get_cgu_state'
+drivers/net/ethernet/intel/ice/ice_dpll.c:1666: undefined reference to `ice_cgu_get_pin_freq_supp'
+drivers/net/ethernet/intel/ice/ice_dpll.c:1802: undefined reference to `ice_get_cgu_rclk_pin_info'
+drivers/net/ethernet/intel/ice/ice_lib.c:3979: undefined reference to `ice_is_phy_rclk_present'
+fs/bcachefs/bcachefs_format.h:215:25: warning: 'p' offset 3 in 'struct bkey' isn't aligned to 4 [-Wpacked-not-aligned]
+fs/bcachefs/bcachefs_format.h:217:25: warning: 'version' offset 27 in 'struct bkey' isn't aligned to 4 [-Wpacked-not-aligned]
+fs/gfs2/inode.c:1876:14: sparse:    struct gfs2_glock *
+fs/gfs2/inode.c:1876:14: sparse:    struct gfs2_glock [noderef] __rcu *
+fs/gfs2/super.c:1543:17: sparse:    struct gfs2_glock *
+fs/gfs2/super.c:1543:17: sparse:    struct gfs2_glock [noderef] __rcu *
+include/linux/fortify-string.h:57:33: warning: writing 8 bytes into a region of size 0 [-Wstringop-overflow=]
+kernel/bpf/helpers.c:1906:19: warning: no previous declaration for 'bpf_percpu_obj_new_impl' [-Wmissing-declarations]
+kernel/bpf/helpers.c:1942:18: warning: no previous declaration for 'bpf_percpu_obj_drop_impl' [-Wmissing-declarations]
+kernel/bpf/helpers.c:2477:18: warning: no previous declaration for 'bpf_throw' [-Wmissing-declarations]
+ld: drivers/net/ethernet/intel/ice/ice_dpll.c:1646: undefined reference to `ice_cgu_get_pin_name'
+ld: drivers/net/ethernet/intel/ice/ice_dpll.c:1647: undefined reference to `ice_cgu_get_pin_type'
+ld: drivers/net/ethernet/intel/ice/ice_lib.c:3984: undefined reference to `ice_is_cgu_present'
+ld: drivers/net/ethernet/intel/ice/ice_lib.c:3986: undefined reference to `ice_is_clock_mux_present_e810t'
+loongarch64-linux-ld: ice_dpll.c:(.text+0xb78): undefined reference to `ice_cgu_get_pin_type'
+s390-linux-ld: ice_dpll.c:(.text+0xa4c): undefined reference to `ice_cgu_get_pin_type'
+s390-linux-ld: ice_dpll.c:(.text+0xaf0): undefined reference to `ice_cgu_get_pin_freq_supp'
+s390-linux-ld: ice_lib.c:(.text+0x4c7a): undefined reference to `ice_is_cgu_present'
+s390-linux-ld: ice_lib.c:(.text+0x4c96): undefined reference to `ice_is_clock_mux_present_e810t'
+sound/pci/hda/cirrus_scodec_test.c:151:60: error: initializer element is not a compile-time constant
 
-Thanks
-Wesley Cheng
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+Documentation/devicetree/bindings/mfd/qcom-pm8xxx.yaml:
+fs/ntfs3/bitmap.c:662 wnd_init() warn: Please consider using kvcalloc instead of kvmalloc_array
+fs/ntfs3/super.c:466:23: sparse: sparse: unknown escape sequence: '\%'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- arc-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- arc-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- arm-allmodconfig
+|   `-- drivers-cpufreq-sti-cpufreq.c:warning:d-directive-output-may-be-truncated-writing-between-and-bytes-into-a-region-of-size
+|-- arm-allyesconfig
+|   `-- drivers-cpufreq-sti-cpufreq.c:warning:d-directive-output-may-be-truncated-writing-between-and-bytes-into-a-region-of-size
+|-- arm64-allmodconfig
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- arm64-allyesconfig
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- i386-randconfig-006-20231004
+|   |-- drivers-net-ethernet-intel-ice-ice_dpll.c:undefined-reference-to-ice_cgu_get_pin_freq_supp
+|   |-- drivers-net-ethernet-intel-ice-ice_dpll.c:undefined-reference-to-ice_get_cgu_rclk_pin_info
+|   |-- drivers-net-ethernet-intel-ice-ice_dpll.c:undefined-reference-to-ice_get_cgu_state
+|   |-- drivers-net-ethernet-intel-ice-ice_lib.c:undefined-reference-to-ice_is_phy_rclk_present
+|   |-- ld:drivers-net-ethernet-intel-ice-ice_dpll.c:undefined-reference-to-ice_cgu_get_pin_name
+|   |-- ld:drivers-net-ethernet-intel-ice-ice_dpll.c:undefined-reference-to-ice_cgu_get_pin_type
+|   |-- ld:drivers-net-ethernet-intel-ice-ice_lib.c:undefined-reference-to-ice_is_cgu_present
+|   `-- ld:drivers-net-ethernet-intel-ice-ice_lib.c:undefined-reference-to-ice_is_clock_mux_present_e810t
+|-- i386-randconfig-061-20231004
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-atomic_t-usertype-v-got-struct-atomic_t-noderef-__rcu
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-file-got-struct-file-noderef-__rcu-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-file-noderef-__rcu-file-got-struct-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-file-noderef-__rcu-file_reloaded-got-struct-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-return-expression-(different-address-spaces)-expected-struct-file-got-struct-file-noderef-__rcu-file_reloaded
+|   |-- fs-gfs2-inode.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-gfs2-inode.c:sparse:struct-gfs2_glock
+|   |-- fs-gfs2-inode.c:sparse:struct-gfs2_glock-noderef-__rcu
+|   |-- fs-gfs2-super.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-gfs2-super.c:sparse:struct-gfs2_glock
+|   |-- fs-gfs2-super.c:sparse:struct-gfs2_glock-noderef-__rcu
+|   `-- fs-ntfs3-super.c:sparse:sparse:unknown-escape-sequence:
+|-- i386-randconfig-062-20231004
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-atomic_t-usertype-v-got-struct-atomic_t-noderef-__rcu
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-file-got-struct-file-noderef-__rcu-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-file-noderef-__rcu-file-got-struct-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-file-noderef-__rcu-file_reloaded-got-struct-file
+|   `-- fs-file.c:sparse:sparse:incorrect-type-in-return-expression-(different-address-spaces)-expected-struct-file-got-struct-file-noderef-__rcu-file_reloaded
+|-- i386-randconfig-063-20231004
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-atomic_t-usertype-v-got-struct-atomic_t-noderef-__rcu
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-struct-file-got-struct-file-noderef-__rcu-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-file-noderef-__rcu-file-got-struct-file
+|   |-- fs-file.c:sparse:sparse:incorrect-type-in-assignment-(different-address-spaces)-expected-struct-file-noderef-__rcu-file_reloaded-got-struct-file
+|   `-- fs-file.c:sparse:sparse:incorrect-type-in-return-expression-(different-address-spaces)-expected-struct-file-got-struct-file-noderef-__rcu-file_reloaded
+|-- loongarch-randconfig-001-20231004
+|   `-- Documentation-devicetree-bindings-mfd-qcom-pm8xxx.yaml:
+|-- loongarch-randconfig-r001-20230813
+|   `-- loongarch64-linux-ld:ice_dpll.c:(.text):undefined-reference-to-ice_cgu_get_pin_type
+|-- m68k-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- m68k-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- mips-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- mips-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- openrisc-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- openrisc-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- parisc-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- parisc-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- parisc64-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- powerpc-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   |-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- powerpc-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   |-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- s390-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   |-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- s390-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   |-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- s390-randconfig-r033-20220907
+|   |-- s390-linux-ld:ice_dpll.c:(.text):undefined-reference-to-ice_cgu_get_pin_freq_supp
+|   |-- s390-linux-ld:ice_dpll.c:(.text):undefined-reference-to-ice_cgu_get_pin_type
+|   |-- s390-linux-ld:ice_lib.c:(.text):undefined-reference-to-ice_is_cgu_present
+|   `-- s390-linux-ld:ice_lib.c:(.text):undefined-reference-to-ice_is_clock_mux_present_e810t
+|-- sparc-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- sparc-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- sparc64-allmodconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- sparc64-allyesconfig
+|   |-- fs-bcachefs-bcachefs_format.h:warning:p-offset-in-struct-bkey-isn-t-aligned-to
+|   `-- fs-bcachefs-bcachefs_format.h:warning:version-offset-in-struct-bkey-isn-t-aligned-to
+|-- x86_64-allnoconfig
+|   `-- Documentation-gpu-amdgpu-thermal:.-drivers-gpu-drm-amd-pm-amdgpu_pm.c:WARNING:Unexpected-indentation.
+|-- x86_64-allyesconfig
+|   `-- include-linux-fortify-string.h:warning:writing-bytes-into-a-region-of-size
+|-- x86_64-randconfig-002-20231004
+|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_drop_impl
+|   |-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_percpu_obj_new_impl
+|   `-- kernel-bpf-helpers.c:warning:no-previous-declaration-for-bpf_throw
+`-- x86_64-randconfig-161-20231003
+    `-- fs-ntfs3-bitmap.c-wnd_init()-warn:Please-consider-using-kvcalloc-instead-of-kvmalloc_array
+clang_recent_errors
+|-- hexagon-randconfig-r003-20221116
+|   `-- bin-bash:line:Segmentation-fault-LLVM_OBJCOPY-llvm-objcopy-pahole-J-btf_gen_floats-j-lang_exclude-rust-skip_encoding_btf_inconsistent_proto-btf_gen_optimized-btf_base-vmlinux-drivers-power-supply-bq25
+`-- hexagon-randconfig-r036-20230213
+    `-- sound-pci-hda-cirrus_scodec_test.c:error:initializer-element-is-not-a-compile-time-constant
+
+elapsed time: 720m
+
+configs tested: 119
+configs skipped: 2
+
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allmodconfig   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                   randconfig-001-20231004   gcc  
+arm                              allmodconfig   gcc  
+arm                               allnoconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                       multi_v4t_defconfig   gcc  
+arm                   randconfig-001-20231004   gcc  
+arm64                            allmodconfig   gcc  
+arm64                             allnoconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+csky                             allmodconfig   gcc  
+csky                              allnoconfig   gcc  
+csky                             allyesconfig   gcc  
+csky                                defconfig   gcc  
+i386                             allmodconfig   gcc  
+i386                              allnoconfig   gcc  
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-001-20231004   gcc  
+i386         buildonly-randconfig-002-20231004   gcc  
+i386         buildonly-randconfig-003-20231004   gcc  
+i386         buildonly-randconfig-004-20231004   gcc  
+i386         buildonly-randconfig-005-20231004   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                  randconfig-001-20231004   gcc  
+i386                  randconfig-002-20231004   gcc  
+i386                  randconfig-003-20231004   gcc  
+i386                  randconfig-004-20231004   gcc  
+i386                  randconfig-005-20231004   gcc  
+i386                  randconfig-006-20231004   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                        allyesconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch             randconfig-001-20231004   gcc  
+m68k                             allmodconfig   gcc  
+m68k                              allnoconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze                       allmodconfig   gcc  
+microblaze                        allnoconfig   gcc  
+microblaze                       allyesconfig   gcc  
+microblaze                          defconfig   gcc  
+mips                             allmodconfig   gcc  
+mips                              allnoconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                            ar7_defconfig   gcc  
+mips                       rbtx49xx_defconfig   clang
+nios2                            allmodconfig   gcc  
+nios2                             allnoconfig   gcc  
+nios2                            allyesconfig   gcc  
+nios2                               defconfig   gcc  
+openrisc                         allmodconfig   gcc  
+openrisc                          allnoconfig   gcc  
+openrisc                         allyesconfig   gcc  
+openrisc                            defconfig   gcc  
+openrisc                  or1klitex_defconfig   gcc  
+parisc                           allmodconfig   gcc  
+parisc                            allnoconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                          allyesconfig   gcc  
+powerpc                     asp8347_defconfig   gcc  
+powerpc                   bluestone_defconfig   clang
+powerpc                     ep8248e_defconfig   gcc  
+powerpc                       holly_defconfig   gcc  
+powerpc                 mpc832x_rdb_defconfig   clang
+powerpc                      walnut_defconfig   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                              allnoconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+sh                               allmodconfig   gcc  
+sh                                allnoconfig   gcc  
+sh                               allyesconfig   gcc  
+sh                                  defconfig   gcc  
+sh                     magicpanelr2_defconfig   gcc  
+sh                     sh7710voipgw_defconfig   gcc  
+sh                            shmin_defconfig   gcc  
+sparc                            allmodconfig   gcc  
+sparc                             allnoconfig   gcc  
+sparc                            allyesconfig   gcc  
+sparc                               defconfig   gcc  
+sparc64                          allmodconfig   gcc  
+sparc64                          allyesconfig   gcc  
+sparc64                             defconfig   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                randconfig-001-20231004   gcc  
+x86_64                randconfig-002-20231004   gcc  
+x86_64                randconfig-003-20231004   gcc  
+x86_64                randconfig-004-20231004   gcc  
+x86_64                randconfig-005-20231004   gcc  
+x86_64                          rhel-8.3-rust   clang
+x86_64                               rhel-8.3   gcc  
+xtensa                  nommu_kc705_defconfig   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

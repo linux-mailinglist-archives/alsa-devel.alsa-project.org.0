@@ -2,111 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F937B9BA6
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 09:58:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A2F27B9CA3
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Oct 2023 12:59:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0305EF2;
-	Thu,  5 Oct 2023 09:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0305EF2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43882AE9;
+	Thu,  5 Oct 2023 12:58:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43882AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696492724;
-	bh=EyQSg8bSeCFCx7Ppnf+GkgXs4RV8cgcTzsZnbG2xzj0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1696503570;
+	bh=lpZA39v5SnIRDC7l7LsxZrl19vs2WsIC/6TcqgPdEjk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C/wkp2gOpnA68HhcM6GVLJ3FIDlxAIDSj/IKd8gJsiJvW8DqfDo1DQnCo1h2q7KNf
-	 PIdSXIyKsbQRsPj9Zuzp28UKuzG4vQz5fISOknArwEquBS0L2qR5ODmB+gjgdnyxdi
-	 77zsg6qT08zyyyUapFJBAPGVPA9zvIR8GZpqLkzk=
+	b=Ep8PYfeEEWImHRS7zRI6U4hvkDXQm5O61+DM2edcwAjPRaOiarHciOtmwiL3xbYly
+	 KY55hl0V0Bnw3vcR29WMvHoQHIoxeXh27xbzWusosUUwH2DIYWsUbqyuRHmhkPzgpm
+	 eU2gUZfgOroyw4/Pro7S81OTqSn8lrr/U/AZnnvk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 292C6F80681; Thu,  5 Oct 2023 09:53:10 +0200 (CEST)
+	id B66B7F800C1; Thu,  5 Oct 2023 12:58:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE484F805E4;
-	Thu,  5 Oct 2023 09:53:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52E16F80310;
+	Thu,  5 Oct 2023 12:58:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B0FAF80683; Thu,  5 Oct 2023 09:53:03 +0200 (CEST)
+	id 533ECF8047D; Thu,  5 Oct 2023 12:58:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F1047F80563
-	for <alsa-devel@alsa-project.org>; Thu,  5 Oct 2023 09:52:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1047F80563
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4AA33F800C1;
+	Thu,  5 Oct 2023 12:58:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA33F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=iNh0vAqY
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-99de884ad25so118825466b.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 05 Oct 2023 00:52:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1696492375; x=1697097175;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cm78yTq+4+JEr7sdqQ4kBse0aE3dfNiiuqyM5NvDPh0=;
-        b=iNh0vAqY6ImbmqTHKzVLguyXAG7uH7kPb98L5ay8lJSM5ltDI/th1wazLOfhIAtude
-         NrlYlo1yK5puogTZ4Hc0I+kx7YQ46c/TF/UpIxREmLmIQlJNWC5W6xmm9jRi34ztOGTg
-         mHF5kIUVSLqHaf1U+mxcUKG6ZclJ7eIXtqN31d05k9w2clZRDYWTYx1ysQCW9/Wwt0ln
-         d0fDzYiTDTlXub6s8BODCfSmU/4MeuuOcSzPb+/SacZTU0un5iX8jU8brQR4dEEHnA7g
-         rJWkkZ36IPw0XiwSrgEmnZ6yWo482+H+g/2pdLGo2z+m4iR8BX/PPA5HO0GjNW7i97tw
-         OF+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696492375; x=1697097175;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cm78yTq+4+JEr7sdqQ4kBse0aE3dfNiiuqyM5NvDPh0=;
-        b=B9P5cQNP3k3kts6Ne9GJKzrRUdpU8GekN+MpBphgYe5HY8jdLba2WqGosEw/SawEFJ
-         YB79lX+uovM7lnZ5dwCNN/TEV6Hak0UjSz5bNT1KO2OuEVPRcM5JNw4QY925TdxonlFO
-         YaVyVXtrfKPNSgFa9EfYMriMMVDpSsUyTLltS9e4YF0A5ACbJtjRv9D/8XFoWModaF3l
-         dXjQlTz2z7aJ4xEUEEEIXx8vqGOmVakIDOEHNRGFMDpjsmMlQMBnZnakljuie8aH0P3D
-         R5EXN5kvtCa+RM/vihsdVTfUN1YTQBkTQuB0BuK0yqqr2r66VNDxXUesP6vRYFeS0wEZ
-         5rFw==
-X-Gm-Message-State: AOJu0YyVqo1O0UwSj1bPJZ3ypjLxtf0+2nD9P18/LToSIfneKy/bdLQa
-	TgKBLx4R81GUGd1OA2Tz4FA4Fg==
-X-Google-Smtp-Source: 
- AGHT+IETcShgHGDNS6NDLn57L1RzUtV/ujBOSvyYMycJxCUU38u8IVpPaaq69/B9/xqxmSgkLr0pcw==
-X-Received: by 2002:a17:906:3197:b0:9af:4561:591d with SMTP id
- 23-20020a170906319700b009af4561591dmr4064788ejy.18.1696492375032;
-        Thu, 05 Oct 2023 00:52:55 -0700 (PDT)
-Received: from krzk-bin.. (5-157-101-10.dyn.eolo.it. [5.157.101.10])
-        by smtp.gmail.com with ESMTPSA id
- l12-20020a170906078c00b009b94fe3fc47sm722051ejc.159.2023.10.05.00.52.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Oct 2023 00:52:54 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v2 2/2] ASoC: qcom: reduce number of binding headers includes
-Date: Thu,  5 Oct 2023 09:52:50 +0200
-Message-Id: <20231005075250.88159-2-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231005075250.88159-1-krzysztof.kozlowski@linaro.org>
-References: <20231005075250.88159-1-krzysztof.kozlowski@linaro.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=VRL82jfi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1696503508; x=1728039508;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lpZA39v5SnIRDC7l7LsxZrl19vs2WsIC/6TcqgPdEjk=;
+  b=VRL82jfiP1E9Y9TJrCYeyqRxrbwWcfaAYfnMCATYIPg89hnpdVWaG/8u
+   o5bZgvCH2HpEdd2J07s5lFZk3GB62wnQGusxaYgcS0LnOFzRcyojZYqvn
+   7AYOcqn/hluToUchUVoPBhcvg5N301eSTCFdhSDwHLmtMjXbsMyCXnXcR
+   XDoHgwdngX0uzpkqEszF7IjjIFnnRtKmw+EWlGlGsvBKpySuGGMg4vMml
+   u4eDMB8m2Tn7Xq6EXGrcG+UIkDggS/eNN4I+oLnomrbTN7ZOfS8T8lcdN
+   MnkG2ahaRsbmFjSZb3lD769Q4ZbJ5GfKQS8ldfzqIdGEnWQeoT+shz0Ae
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="387340124"
+X-IronPort-AV: E=Sophos;i="6.03,202,1694761200";
+   d="scan'208";a="387340124"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2023 03:58:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="751739054"
+X-IronPort-AV: E=Sophos;i="6.03,202,1694761200";
+   d="scan'208";a="751739054"
+Received: from szeseong-mobl.gar.corp.intel.com (HELO [10.251.222.152])
+ ([10.251.222.152])
+  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2023 03:58:16 -0700
+Message-ID: <b4a010aa-b547-42ad-844f-849f287abd54@linux.intel.com>
+Date: Thu, 5 Oct 2023 13:58:26 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 11/12] ASoC: SOF: Intel: Move binding to display driver
+ outside of deferred probe
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Alsa-devel <alsa-devel@alsa-project.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+References: <20231004145540.32321-1-maarten.lankhorst@linux.intel.com>
+ <20231004145540.32321-12-maarten.lankhorst@linux.intel.com>
+ <alpine.DEB.2.22.394.2310041953090.3390143@eliteleevi.tm.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: 
+ <alpine.DEB.2.22.394.2310041953090.3390143@eliteleevi.tm.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: H5JWIYPYYPOFISKAV2GWAQKOISIHCSTF
-X-Message-ID-Hash: H5JWIYPYYPOFISKAV2GWAQKOISIHCSTF
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Message-ID-Hash: MJ35HXJDWKPEK5XCZFHHU2NVW3H66H2R
+X-Message-ID-Hash: MJ35HXJDWKPEK5XCZFHHU2NVW3H66H2R
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,294 +109,95 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H5JWIYPYYPOFISKAV2GWAQKOISIHCSTF/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJ35HXJDWKPEK5XCZFHHU2NVW3H66H2R/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Move the includes of binding headers from Qualcomm SoC sound drivers
-headers to unit files actually using these bindings.  This reduces the
-amount of work for C preprocessor and makes usage of bindings easier to
-follow.  No impact expected on the final binaries.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
----
+On 04/10/2023 19:59, Kai Vehmanen wrote:
+> Hi,
+> 
+> I'm good with rest of the series, but one patch requires work.
+> 
+> On Wed, 4 Oct 2023, Maarten Lankhorst wrote:
+> 
+>> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
+>> the snd_hdac_i915_init into a workqueue.
+>>
+>> Use the -EPROBE_DEFER mechanism instead, which must be returned in the
+>> probe function.
+>>
+>> The previously added probe_early can be used for this,
+>> and we also use the newly added remove_late for unbinding afterwards.
+> [...]
+>> --- a/sound/soc/sof/intel/hda-common-ops.c
+>> +++ b/sound/soc/sof/intel/hda-common-ops.c
+>> @@ -19,6 +19,7 @@ struct snd_sof_dsp_ops sof_hda_common_ops = {
+>>  	.probe_early	= hda_dsp_probe_early,
+>>  	.probe		= hda_dsp_probe,
+>>  	.remove		= hda_dsp_remove,
+>> +	.remove_late	= hda_dsp_remove_late,
+>>  
+>>  	/* Register IO uses direct mmio */
+>>  
+>> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+>> index 86a2571488bc..4eb7f04b8ae1 100644
+>> --- a/sound/soc/sof/intel/hda.c
+>> +++ b/sound/soc/sof/intel/hda.c
+>> @@ -1160,6 +1160,7 @@ int hda_dsp_probe_early(struct snd_sof_dev *sdev)
+>>  		return -ENOMEM;
+>>  	sdev->pdata->hw_pdata = hdev;
+>>  	hdev->desc = chip;
+>> +	ret = hda_init(sdev);
+>>  
+>>  err:
+>>  	return ret;
+> 
+> I don't think this works. The hda_codec_i915_init() errors are ignored in 
+> hda_init() so this never returns -EPROBE_DEFER.
+> 
+> So something like this is needed on top (tested quickly on one SOF 
+> machine and this blocks SOF load until i915 or xe driver is loaded):
+> 
+> --cut--
+> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+> index 9025bfaf6a7e..8b17c82dcc89 100644
+> --- a/sound/soc/sof/intel/hda.c
+> +++ b/sound/soc/sof/intel/hda.c
+> @@ -863,13 +863,20 @@ static int hda_init(struct snd_sof_dev *sdev)
+>         /* init i915 and HDMI codecs */
+>         ret = hda_codec_i915_init(sdev);
+>         if (ret < 0)
+> -               dev_warn(sdev->dev, "init of i915 and HDMI codec 
+> failed\n");
+> +               dev_warn(sdev->dev, "init of i915 and HDMI codec failed 
+> (%d)\n", ret);
 
-Changes in v2:
-1. Do not remove include of dt-bindings/sound/qcom,lpass.h from the
-   sound/soc/qcom/lpass.h, because it is actually used there. This fixes
-   kernel test robot report.
----
- sound/soc/qcom/apq8016_sbc.c            | 1 +
- sound/soc/qcom/common.c                 | 2 +-
- sound/soc/qcom/qdsp6/q6afe-clocks.c     | 1 +
- sound/soc/qcom/qdsp6/q6afe-dai.c        | 1 +
- sound/soc/qcom/qdsp6/q6afe.c            | 1 +
- sound/soc/qcom/qdsp6/q6afe.h            | 2 --
- sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 1 +
- sound/soc/qcom/qdsp6/q6apm.h            | 1 -
- sound/soc/qcom/qdsp6/q6asm-dai.c        | 1 +
- sound/soc/qcom/qdsp6/q6asm.c            | 1 +
- sound/soc/qcom/qdsp6/q6asm.h            | 1 -
- sound/soc/qcom/qdsp6/q6prm-clocks.c     | 2 +-
- sound/soc/qcom/qdsp6/q6routing.c        | 2 ++
- sound/soc/qcom/sc7180.c                 | 1 -
- sound/soc/qcom/sc7280.c                 | 1 +
- sound/soc/qcom/sc8280xp.c               | 1 +
- sound/soc/qcom/sdm845.c                 | 1 +
- sound/soc/qcom/sdw.c                    | 2 +-
- sound/soc/qcom/sm8250.c                 | 1 +
- 19 files changed, 16 insertions(+), 8 deletions(-)
+we should not print anything or maximum dev_dbg in case of EPROBE_DEFER.
 
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index ff9f6a1c95df..efbdbb4dd753 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -16,6 +16,7 @@
- #include <sound/soc.h>
- #include <uapi/linux/input-event-codes.h>
- #include <dt-bindings/sound/apq8016-lpass.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include "common.h"
- #include "qdsp6/q6afe.h"
- 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index f2d1e3009cd2..483bbf53a541 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -2,10 +2,10 @@
- // Copyright (c) 2018, Linaro Limited.
- // Copyright (c) 2018, The Linux Foundation. All rights reserved.
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <sound/jack.h>
- #include <linux/input-event-codes.h>
--#include "qdsp6/q6afe.h"
- #include "common.h"
- 
- static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
-diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-index 1ccab64ff00b..84b9018c36ba 100644
---- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2020, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/clk-provider.h>
-diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
-index 3faa7e0eb0dd..a9c4f896a7df 100644
---- a/sound/soc/qcom/qdsp6/q6afe-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
- // Copyright (c) 2018, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/module.h>
-diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-index 919e326b9462..91d39f6ad0bd 100644
---- a/sound/soc/qcom/qdsp6/q6afe.c
-+++ b/sound/soc/qcom/qdsp6/q6afe.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
- // Copyright (c) 2018, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/slab.h>
- #include <linux/kernel.h>
- #include <linux/uaccess.h>
-diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
-index 30fd77e2f458..65d0676075e1 100644
---- a/sound/soc/qcom/qdsp6/q6afe.h
-+++ b/sound/soc/qcom/qdsp6/q6afe.h
-@@ -3,8 +3,6 @@
- #ifndef __Q6AFE_H__
- #define __Q6AFE_H__
- 
--#include <dt-bindings/sound/qcom,q6afe.h>
--
- #define AFE_PORT_MAX		129
- 
- #define MSM_AFE_PORT_TYPE_RX 0
-diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-index 7ad604b80e25..a3864eea02d5 100644
---- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2021, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/module.h>
-diff --git a/sound/soc/qcom/qdsp6/q6apm.h b/sound/soc/qcom/qdsp6/q6apm.h
-index f486bd639b9f..c248c8d2b1ab 100644
---- a/sound/soc/qcom/qdsp6/q6apm.h
-+++ b/sound/soc/qcom/qdsp6/q6apm.h
-@@ -13,7 +13,6 @@
- #include <linux/of_platform.h>
- #include <linux/jiffies.h>
- #include <linux/soc/qcom/apr.h>
--#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
- #include "audioreach.h"
- 
- #define APM_PORT_MAX		127
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 5e14cd0a38de..a7e37c6e4e92 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
- // Copyright (c) 2018, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6asm.h>
- #include <linux/init.h>
- #include <linux/err.h>
- #include <linux/module.h>
-diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
-index 195780f75d05..06a802f9dba5 100644
---- a/sound/soc/qcom/qdsp6/q6asm.c
-+++ b/sound/soc/qcom/qdsp6/q6asm.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
- // Copyright (c) 2018, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6asm.h>
- #include <linux/mutex.h>
- #include <linux/wait.h>
- #include <linux/module.h>
-diff --git a/sound/soc/qcom/qdsp6/q6asm.h b/sound/soc/qcom/qdsp6/q6asm.h
-index 394604c34943..0103d8dae5da 100644
---- a/sound/soc/qcom/qdsp6/q6asm.h
-+++ b/sound/soc/qcom/qdsp6/q6asm.h
-@@ -2,7 +2,6 @@
- #ifndef __Q6_ASM_H__
- #define __Q6_ASM_H__
- #include "q6dsp-common.h"
--#include <dt-bindings/sound/qcom,q6asm.h>
- 
- /* ASM client callback events */
- #define CMD_PAUSE			0x0001
-diff --git a/sound/soc/qcom/qdsp6/q6prm-clocks.c b/sound/soc/qcom/qdsp6/q6prm-clocks.c
-index 73b0cbac73d4..4c574b48ab00 100644
---- a/sound/soc/qcom/qdsp6/q6prm-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6prm-clocks.c
-@@ -1,13 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2021, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/clk-provider.h>
- #include <linux/module.h>
- #include <linux/device.h>
- #include <linux/platform_device.h>
--#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
- #include "q6dsp-lpass-clocks.h"
- #include "q6prm.h"
- 
-diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
-index c583faae3a3e..c0856c10d0a8 100644
---- a/sound/soc/qcom/qdsp6/q6routing.c
-+++ b/sound/soc/qcom/qdsp6/q6routing.c
-@@ -2,6 +2,8 @@
- // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
- // Copyright (c) 2018, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6asm.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/init.h>
- #include <linux/err.h>
- #include <linux/module.h>
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-index d1fd40e3f7a9..21becfd5aff4 100644
---- a/sound/soc/qcom/sc7180.c
-+++ b/sound/soc/qcom/sc7180.c
-@@ -19,7 +19,6 @@
- #include "../codecs/rt5682.h"
- #include "../codecs/rt5682s.h"
- #include "common.h"
--#include "lpass.h"
- 
- #define DEFAULT_MCLK_RATE		19200000
- #define RT5682_PLL1_FREQ (48000 * 512)
-diff --git a/sound/soc/qcom/sc7280.c b/sound/soc/qcom/sc7280.c
-index 095756883050..f61989d6b57d 100644
---- a/sound/soc/qcom/sc7280.c
-+++ b/sound/soc/qcom/sc7280.c
-@@ -5,6 +5,7 @@
- // ALSA SoC Machine driver for sc7280
- 
- #include <dt-bindings/sound/qcom,lpass.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/input.h>
- #include <linux/module.h>
- #include <linux/of_device.h>
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index cfb9c8dbd599..6d4a43f94d51 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2022, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/of_device.h>
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 25b964dea6c5..fed5673b61ba 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2018, The Linux Foundation. All rights reserved.
-  */
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/of_device.h>
-diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
-index ce89c0a33ef0..dd275123d31d 100644
---- a/sound/soc/qcom/sdw.c
-+++ b/sound/soc/qcom/sdw.c
-@@ -2,9 +2,9 @@
- // Copyright (c) 2018, Linaro Limited.
- // Copyright (c) 2018, The Linux Foundation. All rights reserved.
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <sound/soc.h>
--#include "qdsp6/q6afe.h"
- #include "sdw.h"
- 
- int qcom_snd_sdw_prepare(struct snd_pcm_substream *substream,
-diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-index 6558bf2e14e8..b7e1a5496cfd 100644
---- a/sound/soc/qcom/sm8250.c
-+++ b/sound/soc/qcom/sm8250.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2020, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/of_device.h>
+> +
+> +       if (ret < 0 && ret != -ENODEV)
+> +               goto out;
+>  
+>         /* get controller capabilities */
+>         ret = hda_dsp_ctrl_get_caps(sdev);
+>         if (ret < 0)
+>                 dev_err(sdev->dev, "error: get caps error\n");
+>  
+> +out:
+> +       if (ret < 0)
+> +               iounmap(sof_to_bus(sdev)->remap_addr);
+> +
+>         return ret;
+>  }
+> --cut--
+> 
+> Br, Kai
+
 -- 
-2.34.1
-
+Péter

@@ -2,93 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73BC27BB208
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 09:12:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A4E77BB40D
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 11:16:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66E4C1DD;
-	Fri,  6 Oct 2023 09:11:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66E4C1DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8E39826;
+	Fri,  6 Oct 2023 11:15:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8E39826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696576344;
-	bh=rM04QNF83DbXEdI05diJhC14LTLT2iGFWHeRrD+pYoU=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qU8k6w3ry/93E/K3bfKuDqPvo+iHeJRGY74TG3oWs+ekGszCRl/f65n3s/1yoXxPd
-	 T8gUuGrIe4S+M3PcpmHjM3xSsB17UVfhlLctsmAQa2VArpDnfzHVDETbGIayI9HgP5
-	 MykkN1CL/nVcXpDYwOl0sYyYRrAriLmxEdbOnXpk=
+	s=default; t=1696583800;
+	bh=mpsTz++DaZJss3EYK4Hw0W0Qu8a0Xgrlxd9n/8GHMUM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=YXwrQpvo72L8iMAHWk5WNfsmfMxI4V0ng96E8tpx8MHsBn7r0Lmho/Nv7SleVOwPM
+	 c2bpqtaOcRH3Y+gd5FoHLMCGQLklgPHnO1LjjUcqeXYuoF6H8D2nTdK9X739uQlXPw
+	 Qrg0Tx6j9GOLlXCrvaoV4/6SHVPkRQwVjurRzjnY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A05DFF80558; Fri,  6 Oct 2023 09:11:33 +0200 (CEST)
+	id 80F88F80310; Fri,  6 Oct 2023 11:15:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31020F80310;
-	Fri,  6 Oct 2023 09:11:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3BD9F8047D;
+	Fri,  6 Oct 2023 11:15:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12541F8047D; Fri,  6 Oct 2023 09:08:38 +0200 (CEST)
+	id 2E5FEF8047D; Thu,  5 Oct 2023 13:26:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No,
+ score=-6.5 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D2337F801EB
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 09:08:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2337F801EB
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 396786IT01526042,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/2.92/5.92) with ESMTPS id 396786IT01526042
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 6 Oct 2023 15:08:06 +0800
-Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.17; Fri, 6 Oct 2023 15:08:06 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 6 Oct 2023 15:08:05 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
- RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
- 15.01.2375.007; Fri, 6 Oct 2023 15:08:05 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Intel RVP board change model
-Thread-Topic: Intel RVP board change model
-Thread-Index: Adn4I3n7aoo5V46ZSiu2wz08AyJNDg==
-Date: Fri, 6 Oct 2023 07:08:05 +0000
-Message-ID: <28112f54c0c6496f97ac845645bc0256@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXDAG01.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: multipart/mixed;
-	boundary="_002_28112f54c0c6496f97ac845645bc0256realtekcom_"
+	by alsa1.perex.cz (Postfix) with ESMTPS id 738F1F801EB;
+	Thu,  5 Oct 2023 13:26:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 738F1F801EB
+Message-ID: <ee92964c-c277-a258-5081-cf0a19ccff79@lankhorst.se>
+Date: Thu, 5 Oct 2023 13:26:18 +0200
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: J42VEQMMZCZ5XHKWUJI55YEYWI25Y25V
-X-Message-ID-Hash: J42VEQMMZCZ5XHKWUJI55YEYWI25Y25V
-X-MailFrom: kailang@realtek.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v6 11/12] ASoC: SOF: Intel: Move binding to display driver
+ outside of deferred probe
+To: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Alsa-devel <alsa-devel@alsa-project.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+References: <20231004145540.32321-1-maarten.lankhorst@linux.intel.com>
+ <20231004145540.32321-12-maarten.lankhorst@linux.intel.com>
+ <alpine.DEB.2.22.394.2310041953090.3390143@eliteleevi.tm.intel.com>
+ <b4a010aa-b547-42ad-844f-849f287abd54@linux.intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <b4a010aa-b547-42ad-844f-849f287abd54@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MailFrom: dev@lankhorst.se
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: CYCCV2ET3D4PIZDXGK2G3ZRQ2ID4KALC
+X-Message-ID-Hash: CYCCV2ET3D4PIZDXGK2G3ZRQ2ID4KALC
+X-Mailman-Approved-At: Fri, 06 Oct 2023 09:15:44 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J42VEQMMZCZ5XHKWUJI55YEYWI25Y25V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYCCV2ET3D4PIZDXGK2G3ZRQ2ID4KALC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,61 +91,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_28112f54c0c6496f97ac845645bc0256realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Takashi,
 
-Intel RVP board has lose headset Mic issue via reboot state.
-Attach patch will solve it.
+On 2023-10-05 12:58, Péter Ujfalusi wrote:
+> 
+> 
+> On 04/10/2023 19:59, Kai Vehmanen wrote:
+>> Hi,
+>>
+>> I'm good with rest of the series, but one patch requires work.
+>>
+>> On Wed, 4 Oct 2023, Maarten Lankhorst wrote:
+>>
+>>> Now that we can use -EPROBE_DEFER, it's no longer required to spin off
+>>> the snd_hdac_i915_init into a workqueue.
+>>>
+>>> Use the -EPROBE_DEFER mechanism instead, which must be returned in the
+>>> probe function.
+>>>
+>>> The previously added probe_early can be used for this,
+>>> and we also use the newly added remove_late for unbinding afterwards.
+>> [...]
+>>> --- a/sound/soc/sof/intel/hda-common-ops.c
+>>> +++ b/sound/soc/sof/intel/hda-common-ops.c
+>>> @@ -19,6 +19,7 @@ struct snd_sof_dsp_ops sof_hda_common_ops = {
+>>>   	.probe_early	= hda_dsp_probe_early,
+>>>   	.probe		= hda_dsp_probe,
+>>>   	.remove		= hda_dsp_remove,
+>>> +	.remove_late	= hda_dsp_remove_late,
+>>>   
+>>>   	/* Register IO uses direct mmio */
+>>>   
+>>> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+>>> index 86a2571488bc..4eb7f04b8ae1 100644
+>>> --- a/sound/soc/sof/intel/hda.c
+>>> +++ b/sound/soc/sof/intel/hda.c
+>>> @@ -1160,6 +1160,7 @@ int hda_dsp_probe_early(struct snd_sof_dev *sdev)
+>>>   		return -ENOMEM;
+>>>   	sdev->pdata->hw_pdata = hdev;
+>>>   	hdev->desc = chip;
+>>> +	ret = hda_init(sdev);
+>>>   
+>>>   err:
+>>>   	return ret;
+>>
+>> I don't think this works. The hda_codec_i915_init() errors are ignored in
+>> hda_init() so this never returns -EPROBE_DEFER.
+>>
+>> So something like this is needed on top (tested quickly on one SOF
+>> machine and this blocks SOF load until i915 or xe driver is loaded):
+>>
+>> --cut--
+>> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+>> index 9025bfaf6a7e..8b17c82dcc89 100644
+>> --- a/sound/soc/sof/intel/hda.c
+>> +++ b/sound/soc/sof/intel/hda.c
+>> @@ -863,13 +863,20 @@ static int hda_init(struct snd_sof_dev *sdev)
+>>          /* init i915 and HDMI codecs */
+>>          ret = hda_codec_i915_init(sdev);
+>>          if (ret < 0)
+>> -               dev_warn(sdev->dev, "init of i915 and HDMI codec
+>> failed\n");
+>> +               dev_warn(sdev->dev, "init of i915 and HDMI codec failed
+>> (%d)\n", ret);
+> 
+> we should not print anything or maximum dev_dbg in case of EPROBE_DEFER.
+There's dev_err_probe, which is dev_err on error, or sets the reason for 
+deferred probe to the arguments if the error is -EPROBE_DEFER.
 
-BR,
-Kailang
-
---_002_28112f54c0c6496f97ac845645bc0256realtekcom_
-Content-Type: application/octet-stream; name="0000-Intel-rvp-board.patch"
-Content-Description: 0000-Intel-rvp-board.patch
-Content-Disposition: attachment; filename="0000-Intel-rvp-board.patch";
-	size=2042; creation-date="Tue, 03 Oct 2023 08:57:57 GMT";
-	modification-date="Fri, 06 Oct 2023 07:04:30 GMT"
-Content-Transfer-Encoding: base64
-
-RnJvbSAxMWUwNzI4ZTE2NmRkZGQ5YzU3OWQ3M2U2OGI5YWZjYzJjYzUyMTZkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgNiBPY3QgMjAyMyAxNDo0NzozNyArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
-IGhkYS9yZWFsdGVrOiBDaGFuZ2UgbW9kZWwgZm9yIEludGVsIFJWUCBib2FyZAoKSW50ZWwgUlZQ
-IGJvYXJkICgweDEyY2MpIGhhcyBIZWFkc2V0IE1pYyBpc3N1ZSBmb3IgcmVib290LgpJZiBzeXN0
-ZW0gcGx1Z2dlZCBoZWFkc2V0IHdoZW4gc3lzdGVtIHJlYm9vdCB0aGUgaGVhZHNldCBNaWMgd2Fz
-IGdvbmUuCgpGaXhlczoxYTkzZjEwYzViMTIgKCJBTFNBOiBoZGEvcmVhbHRlazogQWRkICJJbnRl
-bCBSZWZlcmVuY2UgYm9hcmQiIGFuZCAiTlVDIDEzIiBTU0lEIGluIHRoZSBBTEMyNTYiKQpTaWdu
-ZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CmRpZmYgLS1naXQg
-YS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVh
-bHRlay5jCmluZGV4IDc1MTc4M2YzYTE1Yy4uZGRjYjI2ZmQ4NjEyIDEwMDY0NAotLS0gYS9zb3Vu
-ZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0
-ZWsuYwpAQCAtOTg1NCw3ICs5ODU0LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1
-aXJrIGFsYzI2OV9maXh1cF90YmxbXSA9IHsKIAlTTkRfUENJX1FVSVJLKDB4MTBlYywgMHgxMjRj
-LCAiSW50ZWwgUmVmZXJlbmNlIGJvYXJkIiwgQUxDMjk1X0ZJWFVQX0NIUk9NRV9CT09LKSwKIAlT
-TkRfUENJX1FVSVJLKDB4MTBlYywgMHgxMjUyLCAiSW50ZWwgUmVmZXJlbmNlIGJvYXJkIiwgQUxD
-Mjk1X0ZJWFVQX0NIUk9NRV9CT09LKSwKIAlTTkRfUENJX1FVSVJLKDB4MTBlYywgMHgxMjU0LCAi
-SW50ZWwgUmVmZXJlbmNlIGJvYXJkIiwgQUxDMjk1X0ZJWFVQX0NIUk9NRV9CT09LKSwKLQlTTkRf
-UENJX1FVSVJLKDB4MTBlYywgMHgxMmNjLCAiSW50ZWwgUmVmZXJlbmNlIGJvYXJkIiwgQUxDMjI1
-X0ZJWFVQX0hFQURTRVRfSkFDSyksCisJU05EX1BDSV9RVUlSSygweDEwZWMsIDB4MTJjYywgIklu
-dGVsIFJlZmVyZW5jZSBib2FyZCIsIEFMQzI5NV9GSVhVUF9DSFJPTUVfQk9PSyksCiAJU05EX1BD
-SV9RVUlSSygweDEwZjcsIDB4ODMzOCwgIlBhbmFzb25pYyBDRi1TWjYiLCBBTEMyNjlfRklYVVBf
-SEVBRFNFVF9NT0RFKSwKIAlTTkRfUENJX1FVSVJLKDB4MTQ0ZCwgMHhjMTA5LCAiU2Ftc3VuZyBB
-dGl2IGJvb2sgOSAoTlA5MDBYM0cpIiwgQUxDMjY5X0ZJWFVQX0lOVl9ETUlDKSwKIAlTTkRfUENJ
-X1FVSVJLKDB4MTQ0ZCwgMHhjMTY5LCAiU2Ftc3VuZyBOb3RlYm9vayA5IFBlbiAoTlA5MzBTQkUt
-SzAxVVMpIiwgQUxDMjk4X0ZJWFVQX1NBTVNVTkdfQU1QKSwKQEAgLTEwMDkxLDcgKzEwMDkxLDcg
-QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1aXJrIGFsYzI2OV9maXh1cF90YmxbXSA9
-IHsKIAlTTkRfUENJX1FVSVJLKDB4ODA4NiwgMHgyMDc0LCAiSW50ZWwgTlVDIDgiLCBBTEMyMzNf
-RklYVVBfSU5URUxfTlVDOF9ETUlDKSwKIAlTTkRfUENJX1FVSVJLKDB4ODA4NiwgMHgyMDgwLCAi
-SW50ZWwgTlVDIDggUnVnZ2VkIiwgQUxDMjU2X0ZJWFVQX0lOVEVMX05VQzhfUlVHR0VEKSwKIAlT
-TkRfUENJX1FVSVJLKDB4ODA4NiwgMHgyMDgxLCAiSW50ZWwgTlVDIDEwIiwgQUxDMjU2X0ZJWFVQ
-X0lOVEVMX05VQzEwKSwKLQlTTkRfUENJX1FVSVJLKDB4ODA4NiwgMHgzMDM4LCAiSW50ZWwgTlVD
-IDEzIiwgQUxDMjI1X0ZJWFVQX0hFQURTRVRfSkFDSyksCisJU05EX1BDSV9RVUlSSygweDgwODYs
-IDB4MzAzOCwgIkludGVsIE5VQyAxMyIsIEFMQzI5NV9GSVhVUF9DSFJPTUVfQk9PSyksCiAJU05E
-X1BDSV9RVUlSSygweGYxMTEsIDB4MDAwMSwgIkZyYW1ld29yayBMYXB0b3AiLCBBTEMyOTVfRklY
-VVBfRlJBTUVXT1JLX0xBUFRPUF9NSUNfTk9fUFJFU0VOQ0UpLAogCiAjaWYgMAo=
-
---_002_28112f54c0c6496f97ac845645bc0256realtekcom_--
+~Maarten

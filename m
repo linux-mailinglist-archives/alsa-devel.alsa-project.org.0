@@ -2,92 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 663D67BBD23
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 18:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 389057BBDF3
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 19:46:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61B68100;
-	Fri,  6 Oct 2023 18:44:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61B68100
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6FE1DD;
+	Fri,  6 Oct 2023 19:45:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6FE1DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696610717;
-	bh=yvhNsLnwiyr48VtlTcC6g0J3+g5Eo4mUItGUwTt7yjo=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=PIDy2QJ50PtsU0Y7m/xHN95sy0PZg7JV4DAhMsEeJZTx1/JKFo7BIm8aatpglqfab
-	 7i5xbNhQJ8pqvloN419oRIGRZwaol9SPC2k1TrMSwNO4MwnoYWlF5Cx4WsrZPj+NgP
-	 xVqB0qXTB5ZXfTXx/vcAxy7UsiIvbCDpfri7ZptI=
+	s=default; t=1696614404;
+	bh=TDpf7Zays0i5xYa3D0s7/h7z4/kVQ5biiVskG163g/U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=IgPAn5FXQbjPifrSSJEoGfDKp9jB0wiJGHPzFylJlmCKl4o0NjEsro0Io8IKBoW8x
+	 NR5dU7aZd9f2SptguTcOOVvfB7ZXWEmsqed6I3BvAwDuJZXJ6+C43uozyyV04SWm9W
+	 /YAKYMc1FDFfFH6rI7oxs7EcAKsF3ZdPUAP1+Myo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8979F80551; Fri,  6 Oct 2023 18:44:26 +0200 (CEST)
+	id AFEDBF80551; Fri,  6 Oct 2023 19:45:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74CC8F80310;
-	Fri,  6 Oct 2023 18:44:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43BA1F80310;
+	Fri,  6 Oct 2023 19:45:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4780F8047D; Fri,  6 Oct 2023 18:44:21 +0200 (CEST)
+	id EF0F2F80549; Fri,  6 Oct 2023 19:45:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 351A0F80130
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 18:44:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 351A0F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id D53A9F80166
+	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 19:45:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D53A9F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=hN1uLARq
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3965fxui025983;
-	Fri, 6 Oct 2023 11:44:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=p
-	H+b7cTnbRfSavq8cBv4h/A1y4bvx50yn5YvvvNOCj0=; b=hN1uLARqUxZxNaej5
-	5gux3uKBYvy/j2b8lnFGtq4n8vdSjuXAnXV/WZIHiS9XabcXwFE5sRogoiHpeBs0
-	UpYYbxzylxn54K2IkLihlN4tQOOjfc6GOf0YeJ/J7ZVi4+hWewm2uzNq9YEBLBFc
-	2x9nzxNKOH8n2iHpCTAnJ6qm4VoBKgiB6JcXmCe6txiPllpKKrXQooZGJX6xAK9p
-	cKdy9z4WUwinbqPVeOevciZE+9OCz4+hji5A5pDIXlW6yTxNt73Y7DjY/dWlJxbH
-	Td/obIFZ7TCI+6BSQv7vwTUseKAZtOUuLRoCdVcHsyOMilaGRkxf3SJynoRxpPWl
-	y5LZg==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3th2dtc30q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Oct 2023 11:44:10 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Fri, 6 Oct
- 2023 17:44:08 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
- Transport; Fri, 6 Oct 2023 17:44:08 +0100
-Received: from work-debian.ad.cirrus.com (unknown [198.61.64.45])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0E3B2B2F;
-	Fri,  6 Oct 2023 16:44:08 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Richard Fitzgerald
-	<rf@opensource.cirrus.com>
-Subject: [PATCH] ASoC: cs35l56: Fix illegal use of init_completion()
-Date: Fri, 6 Oct 2023 17:44:05 +0100
-Message-ID: <20231006164405.253796-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CSxq9UX2
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 018C4B829C4;
+	Fri,  6 Oct 2023 17:45:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95ECC433C7;
+	Fri,  6 Oct 2023 17:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696614337;
+	bh=TDpf7Zays0i5xYa3D0s7/h7z4/kVQ5biiVskG163g/U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=CSxq9UX2iLHEdtldpALXjKuaDKmV/VgD99oBHuLy94opX0uR2JFsKXsjIlLZgKnh3
+	 2GCRX3VnNDmUuJ20VzRQX1CDCnTT5q2wRy84Q1VR1GK84X4H/AXj2yJQQH47yYiSDQ
+	 LveK7A5Q8jC2SWgnP1ApFQOSM5KynFvlwIdGR90PPtJdvXFdd8QWZpAeZkeFLGuwkh
+	 Tf+FdFIAydQ2JNi4CRyaK78XMffFZZgbw/Qq25+KX9YX3WUgXiu8z+2a3oH7RBuGKn
+	 JRZNxKdUTOrvc6qTCHbIGrkB+QvUACh7Kqo1VJMqKyfhpfTL7Ojqum8eorfsibZB29
+	 vn+7q7nUV78Hw==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com
+In-Reply-To: <20231006084454.19170-1-peter.ujfalusi@linux.intel.com>
+References: <20231006084454.19170-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/2] ASoC: SOF: ipc4: Take priority into cosideration
+ when sorting pipelines
+Message-Id: <169661433550.222574.4025409220042329587.b4-ty@kernel.org>
+Date: Fri, 06 Oct 2023 18:45:35 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: y9UfC_QQ_r_8KptxzeJwrtZ5C0U7ECQu
-X-Proofpoint-GUID: y9UfC_QQ_r_8KptxzeJwrtZ5C0U7ECQu
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: UKJPGZFTFDBJJPVJRTQREDLMRVXQESAO
-X-Message-ID-Hash: UKJPGZFTFDBJJPVJRTQREDLMRVXQESAO
-X-MailFrom: prvs=5643372036=rf@opensource.cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: FE6PWVTJHIIF7RSO7EWPJTMLVODRWPW5
+X-Message-ID-Hash: FE6PWVTJHIIF7RSO7EWPJTMLVODRWPW5
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,35 +87,52 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UKJPGZFTFDBJJPVJRTQREDLMRVXQESAO/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FE6PWVTJHIIF7RSO7EWPJTMLVODRWPW5/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix cs35l56_patch() to call reinit_completion() to reinitialize
-the completion object.
+On Fri, 06 Oct 2023 11:44:52 +0300, Peter Ujfalusi wrote:
+> Add pipeline priority support for IPC4: Add support for parsing pipeline
+> priorities from the topology. This will be used to break the tie between
+> pipelines to set the trigger order when multiple pipelines are triggered
+> simultaneously.
+> 
+> Regards,
+> Peter
+> 
+> [...]
 
-It was incorrectly using init_completion().
+Applied to
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: e49611252900 ("ASoC: cs35l56: Add driver for Cirrus Logic CS35L56")
----
- sound/soc/codecs/cs35l56.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index 232af4e8faa4..8ccdd3f134a5 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -708,3 +708,3 @@ static void cs35l56_patch(struct cs35l56_private *cs35l56)
- 
--	init_completion(&cs35l56->init_completion);
-+	reinit_completion(&cs35l56->init_completion);
- 
--- 
-2.30.2
+Thanks!
+
+[1/2] ASoC: SOF: IPC4: get pipeline priority from topology
+      commit: ae67b6371d0432e3fe25993189e89f814ec1e4d0
+[2/2] ASoC: SOF: IPC4: sort pipeline based on priority
+      commit: 4df7d6a61f2c0e0920f4f4caa02e41797974a487
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

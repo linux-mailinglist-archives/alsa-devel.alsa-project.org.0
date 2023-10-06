@@ -2,108 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE2067BB351
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 10:37:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F4A7BB369
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 10:41:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E23E1E3;
-	Fri,  6 Oct 2023 10:36:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E23E1E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1229E1EB;
+	Fri,  6 Oct 2023 10:40:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1229E1EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696581432;
-	bh=KtBfDnC5QE3SQefK/lpnA2k/F1dmertOLh45/HgIiZA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=CE19Ju4uNWyZ8u89PW2p2pjtP/48o2wFBkvANHybNay7t50uzWttvR41HvF72Dv7w
-	 S/JNmoaX/McJPLYsSCutDag87vZCJXW772hqNukGVPbqP50H1g08ju5jvdv2FVMbLn
-	 9HUFN+xErVU8ZiM70sROnQsiI59Wp6wYKJBjI39E=
+	s=default; t=1696581695;
+	bh=kqQ5bWxKMTPCKD5vuBMw+imGjAeFsgAw52rlBTXKLYI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=XWLrqwsKI7Kn4GV1uNnqZDYICD5tlVqys2romSmLkeqWgoE4lcGwrcw6d1cwHmdzL
+	 ysjSxWVgCQGWrTmKHTf2w2jLIuTdqOM3NARIEJ8R+vU3VnO5Nb0d43BQc/6AvbYI2J
+	 WAwBuuIx6Jv+Q+VXxh85igwf4KRQXCSE5ptCnG+o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68008F8047D; Fri,  6 Oct 2023 10:36:19 +0200 (CEST)
+	id C08E4F80553; Fri,  6 Oct 2023 10:40:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BA70F80310;
-	Fri,  6 Oct 2023 10:36:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 533E5F80310;
+	Fri,  6 Oct 2023 10:40:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E9F4F8047D; Fri,  6 Oct 2023 10:36:09 +0200 (CEST)
+	id 5D8A0F80310; Fri,  6 Oct 2023 10:40:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DBC9F80130
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 10:35:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DBC9F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 385F1F8047D
+	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 10:40:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 385F1F8047D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=wP2UXOhu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UhUaC8ON
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6BDBF1F45F;
-	Fri,  6 Oct 2023 08:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1696581357;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZGO2mlUqE3aPcsibFoQXFlBLId1U3oI6EbfB7CylCGI=;
-	b=wP2UXOhuOPQagS4qtjhTDzOcJuBmqZQagcfwVqH74ZrdSomM771xtKx2HusMgvXX2t8vRU
-	Q9AHM8DQNRsnBvPCfLO1SqNw1qChCJE18GgPl2qRrDiGhgBSIdPbpOsblcmopRWlMfflKq
-	I4NQSQxpUVFk6fNFzmnRcFF8SU296Io=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1696581357;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZGO2mlUqE3aPcsibFoQXFlBLId1U3oI6EbfB7CylCGI=;
-	b=UhUaC8ONSa4MQOaXEnJZh82SKSYlYnn6Nro96QOl8VO42nDc7URMp0BCzwdElCIibJ+vrL
-	CSLUS6HXWR9G/QCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2575F13A2E;
-	Fri,  6 Oct 2023 08:35:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id KvsuCO3GH2W+GQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 06 Oct 2023 08:35:57 +0000
-Date: Fri, 06 Oct 2023 10:35:56 +0200
-Message-ID: <87zg0ww3kj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ma Ke <make_ruc2021@163.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	mhocko@suse.com,
-	mgorman@techsingularity.net,
-	42.hyeyoo@gmail.com,
-	surenb@google.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ALSA: pcm: oss: Fix race at SNDCTL_DSP_SETTRIGGER
-In-Reply-To: <20230921135837.3590897-1-make_ruc2021@163.com>
-References: <20230921135837.3590897-1-make_ruc2021@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: IJMCNVVZMM7Z6NIWZMDQJAVD7J6HNCNR
-X-Message-ID-Hash: IJMCNVVZMM7Z6NIWZMDQJAVD7J6HNCNR
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RC4ex6m4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1696581636; x=1728117636;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kqQ5bWxKMTPCKD5vuBMw+imGjAeFsgAw52rlBTXKLYI=;
+  b=RC4ex6m4wo5gZJzE+7Sk0vNKlJKpqSkN5zYeJ/e+NP/Kd39ViEs4Jlfg
+   qCbmksafXBv3lqMn3RkbDe6QDAhmhJrOtJF/HsGPAq/jZbkBvQheUga86
+   Qh0gFxW4aWlX/YZ+ewpa9cdPrRTPghbOJlvDJXsmSfsRl4eubhNnKBdez
+   lK0UWMKCPQBoin0wYvtoDUy3wC3aMXWl3d05n2ziAbJrX2RO1247Bw+T4
+   ILhysBseiv7Q2P8YNICI/HYgmLSm2gxWjAwc+gkhezTODqIhzrc+l/iGm
+   GXKrr8xkzrkCKcjaso+og0mV3eFSf8CmhTkyCCPOJXk2MxfcMb+cQZkB3
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10854"; a="383596364"
+X-IronPort-AV: E=Sophos;i="6.03,203,1694761200";
+   d="scan'208";a="383596364"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 01:40:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10854"; a="999260435"
+X-IronPort-AV: E=Sophos;i="6.03,203,1694761200";
+   d="scan'208";a="999260435"
+Received: from mesalamy-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.42.190])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 01:40:30 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	pierre-louis.bossart@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	cujomalainey@chromium.org
+Subject: [PATCH] ASoC: SOF: sof-client: fix build when only IPC4 is selected
+Date: Fri,  6 Oct 2023 11:40:41 +0300
+Message-ID: <20231006084041.18100-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3KVEL46N2LJDOWSSAFNTZ74TLBAVB4OO
+X-Message-ID-Hash: 3KVEL46N2LJDOWSSAFNTZ74TLBAVB4OO
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IJMCNVVZMM7Z6NIWZMDQJAVD7J6HNCNR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KVEL46N2LJDOWSSAFNTZ74TLBAVB4OO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,85 +106,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 21 Sep 2023 15:58:37 +0200,
-Ma Ke wrote:
-> 
-> There is a small race window at snd_pcm_oss_set_trigger() that is
-> called from OSS PCM SNDCTL_DSP_SETTRIGGER ioctl; namely the function
-> calls snd_pcm_oss_make_ready() at first, then takes the params_lock
-> mutex for the rest. When the stream is set up again by another thread
-> between them, it leads to inconsistency, and may result in unexpected
-> results such as NULL dereference of OSS buffer as a fuzzer spotted
-> recently.
-> The fix is simply to cover snd_pcm_oss_make_ready() call into the same
-> params_lock mutex with snd_pcm_oss_make_ready_locked() variant.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Sorry for the late response, as I've been (still) off since the last
-week.
+When IPC3 is not selected, sof-client.c still makes a hard-coded
+reference to an IPC3-specific function:
 
-The code change itself looks OK, but unlike the change (with almost
-same changelog) in commit 8423f0b6d513, this won't hit a serious
-problem like NULL dereference.  The code path merely sets
-runtime->oss.trigger and start_threshold flags, then issues the ioctl
-outside the lock.
+ERROR: modpost: "sof_ipc3_do_rx_work" [sound/soc/sof/snd-sof.ko]
+undefined!
 
-Unless you really hit a problem with a fuzzer, the changelog is
-misleading and better to be rewritten.
+Fix by making the code conditional.
 
+Closes: https://github.com/thesofproject/linux/issues/4581
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/sof-client.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-thanks,
+diff --git a/sound/soc/sof/sof-client.c b/sound/soc/sof/sof-client.c
+index 3f636b82173e..9dce7f53b482 100644
+--- a/sound/soc/sof/sof-client.c
++++ b/sound/soc/sof/sof-client.c
+@@ -305,7 +305,8 @@ EXPORT_SYMBOL_NS_GPL(sof_client_ipc_tx_message, SND_SOC_SOF_CLIENT);
+ 
+ int sof_client_ipc_rx_message(struct sof_client_dev *cdev, void *ipc_msg, void *msg_buf)
+ {
+-	if (cdev->sdev->pdata->ipc_type == SOF_IPC_TYPE_3) {
++	if (IS_ENABLED(CONFIG_SND_SOC_SOF_IPC3) &&
++	    cdev->sdev->pdata->ipc_type == SOF_IPC_TYPE_3) {
+ 		struct sof_ipc_cmd_hdr *hdr = ipc_msg;
+ 
+ 		if (hdr->size < sizeof(hdr)) {
+-- 
+2.42.0
 
-Takashi
-
-> 
-> Signed-off-by: Ma Ke <make_ruc2021@163.com>
-> ---
->  sound/core/oss/pcm_oss.c | 20 ++++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-> index 728c211142d1..fd9d23c3684b 100644
-> --- a/sound/core/oss/pcm_oss.c
-> +++ b/sound/core/oss/pcm_oss.c
-> @@ -2083,21 +2083,16 @@ static int snd_pcm_oss_set_trigger(struct snd_pcm_oss_file *pcm_oss_file, int tr
->  	psubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
->  	csubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
->  
-> -	if (psubstream) {
-> -		err = snd_pcm_oss_make_ready(psubstream);
-> -		if (err < 0)
-> -			return err;
-> -	}
-> -	if (csubstream) {
-> -		err = snd_pcm_oss_make_ready(csubstream);
-> -		if (err < 0)
-> -			return err;
-> -	}
->        	if (psubstream) {
->        		runtime = psubstream->runtime;
->  		cmd = 0;
->  		if (mutex_lock_interruptible(&runtime->oss.params_lock))
->  			return -ERESTARTSYS;
-> +		err = snd_pcm_oss_make_ready_locked(psubstream);
-> +		if (err < 0) {
-> +			mutex_unlock(&runtime->oss.params_lock);
-> +			return err;
-> +		}
->  		if (trigger & PCM_ENABLE_OUTPUT) {
->  			if (runtime->oss.trigger)
->  				goto _skip1;
-> @@ -2128,6 +2123,11 @@ static int snd_pcm_oss_set_trigger(struct snd_pcm_oss_file *pcm_oss_file, int tr
->  		cmd = 0;
->  		if (mutex_lock_interruptible(&runtime->oss.params_lock))
->  			return -ERESTARTSYS;
-> +		err = snd_pcm_oss_make_ready_locked(csubstream);
-> +		if (err < 0) {
-> +			mutex_unlock(&runtime->oss.params_lock);
-> +			return err;
-> +		}
->  		if (trigger & PCM_ENABLE_INPUT) {
->  			if (runtime->oss.trigger)
->  				goto _skip2;
-> -- 
-> 2.37.2
-> 

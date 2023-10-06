@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFC177BB9B1
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 15:47:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DAC47BB9BF
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 15:48:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B694810E;
-	Fri,  6 Oct 2023 15:46:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B694810E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0F701DD;
+	Fri,  6 Oct 2023 15:47:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0F701DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696600051;
-	bh=1hpn3nP6r3zSnkayS0z7he39YlD32r29evSoMMc3ya8=;
-	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JQRAyU9RHoN4UxK9fRScCmN1EMqdmdndRKvu6MML7/3HEz9bih/3ZvZxbDbUcQLHr
-	 6Vg/7dV+GQRJ4WkvyN6GdacAHJ7PY1vESytnQ3RWkn+Z4oiGarjJQHbO5g397uWhpF
-	 gyHLW27NF0m4DHEQqZ5yFaZmiSceN6dNDm3uHvV4=
+	s=default; t=1696600110;
+	bh=eObD6Y61uE/FIXO2g6KI1xEFA+/bAwbiQUGCINAWMC4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Ih6hV2MXoE4swmUkZzvG2yJep6zjCTCZ4gtbF8DH6bIQXL7Na2swboLufOUjP2T7I
+	 ki80EAY9IV8dv99g1NvFeFGyFO4pOy8ghK2MR2BOsduoeqQsXWvAxaTv1i6aQj2wca
+	 pSVrSi99vuFE70zuK6xnLjN/0bhV2T/pxnyT4Ur4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D33DF8047D; Fri,  6 Oct 2023 15:46:40 +0200 (CEST)
+	id 215DEF8057C; Fri,  6 Oct 2023 15:46:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BBADF801EB;
-	Fri,  6 Oct 2023 15:46:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EC86F8057B;
+	Fri,  6 Oct 2023 15:46:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 991E4F80557; Fri,  6 Oct 2023 15:46:35 +0200 (CEST)
+	id B2B4CF80558; Fri,  6 Oct 2023 15:46:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E4E6F80130
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 15:46:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E4E6F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37430F801EB
+	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 15:46:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37430F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=LSYhMSlK
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2bff936e10fso38982261fa.1
+ header.s=google header.b=Q34td4WN
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-504b84d59cbso2836102e87.3
         for <alsa-devel@alsa-project.org>;
- Fri, 06 Oct 2023 06:46:28 -0700 (PDT)
+ Fri, 06 Oct 2023 06:46:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1696599987; x=1697204787;
+        d=linaro.org; s=google; t=1696599988; x=1697204788;
  darn=alsa-project.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=iyIWSI35ioF9P5y4BP7rlGwfh5ltYmHyWesLeZ41VQA=;
-        b=LSYhMSlKDexknXfgc39EsV1QVl474tsWTtE9ksX9p19MZ5RG72x7jky/O6VuamlcZ9
-         OZKFlZWk0KwYU05EVKOPchztAX7HypU7ImHWPgT5DTvfB/NeMd1z5wMACKCrHJ1wIeA4
-         XWilqI3LLn2g7nJ4l7nyJTSQluFHynAO+w9q/V7/LKddt3VSfpeFRDm5S7vlavhPuRwh
-         L4Uf3CImKcsY9FyXjwmuRqw3PuTrV/3oyTaccRC0mHdkuvTcwBNDXun3zGiJFtI4k+s3
-         AWuWaGjNmFZOdqGzwqKdnrILEhYf5COFQVhyGXzmXloEJiMEz7SG4TPNUlWn/yauCz0L
-         FAMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696599987; x=1697204787;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=iyIWSI35ioF9P5y4BP7rlGwfh5ltYmHyWesLeZ41VQA=;
-        b=Wb5/KJa946wuUp9fo3y+fpVKyPZcWP6D4xTBpN6IdXzENTvPhYKtU8QgD5yjx6zBzt
-         iieKknEqSfTRjcs3s/xRrDMPI3Umk1koEfpwforCvgWWHHPo9/fqNV3Fd8k3VAXH8oRY
-         w1bd24NoNn0blizav5NY4Aan3DHVQ9YmQEuZCBXjJ+FWUN01gXhAwgXYIQ3dbXJg0hzx
-         cjwvuhiCb9cbiTdejmPalEwCNG5b+0nWo/a1gG+xcvyud99zlMKcBFxrwiHRZvmGYO6A
-         c+DD/mTarW8Vf00HOnw3r10V/oiUxzWMQQsW6n6NQod1pg1s/Zgp30c1J3ggVvZp4/UE
-         tfrQ==
-X-Gm-Message-State: AOJu0YwCEkrBFC4XFMvpUkm5bvR1eIIRIqvGKDQ/0OmXB9BkGW+mMYrc
-	bqGhHImJab9N+5pyOb0ItBk8mw==
+        bh=tcctjBppf75NLO6YkO8Pl2INJRmj2vKxlHT5saQtZoY=;
+        b=Q34td4WNzCOg5YcBKPntcbxBMYz/KwwF4Wiq4CSDWLqYLoZRh9qAlvbQL1dT4DzMvC
+         gDTdrzlgqWaROFN25qoTErvfiJ9apoTTh4gxgb/mJiAv/qjoOw6UQcEooAeTFqSJmrVA
+         KsIK1rx0efPWo5f6Sq3C+W/hauHIv5nlMVN2FWPA+ycdbMaHJ4qFNNojMXu47shzXE8l
+         RhMyCp80J2I9lQrduUgAsQXkcuyNehRUjRcMUOX66c4MlgRM2JyWKPF8xmzLzB0wQ2mh
+         jad9F+0hIRbxdp84/CCUT+1eCM4oKBugTihIPLLIbq6n3jJFsEg3zyYFxRtMskNeKa5y
+         CdGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696599988; x=1697204788;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tcctjBppf75NLO6YkO8Pl2INJRmj2vKxlHT5saQtZoY=;
+        b=QfktZWSyxuopjzRhUqDCkPfYxHcSn5o9xdet+NdJWsufkR0r6hok6DZHQnAluXlsZL
+         mZb4Rg3SBplAT/L2hq7YLCntQZf/0r/JCOcSLAhf8Ord9ObE2W7pWHLxN17fRutpopSU
+         c+6NhZ6SJwYokYsgEHk/jlQGwkpYrUe+x05RL9qfNgsQHh0E4YUQBQzewfertwzcuuaI
+         0QAM6XP+rf2t9mwg8N7hj8U8fmfjvYdWtO7YT5Pgyau8sZ29oNLqLAKKDA60HZQeoyRA
+         zSyQkKD85MFo0VNXjNDqjIv0chAj3rUhtIGhnGJUjE4XpoeHqvn8M2p95g/W/iFW7K+D
+         NGGQ==
+X-Gm-Message-State: AOJu0YxXfYf+C9n0RWoKvC57G76gxqNKtsuqFZUnBYcTr50wNdvgN/Yo
+	8TQB8UBwZGCfTqiNaXZwNND8nw==
 X-Google-Smtp-Source: 
- AGHT+IHGZbYm5OyG87d6TAKeG9ICFcG1L5jBwIGzi+m4DbZK7DRyNC9xmJcbHkphJg8oT5Yn4KFEDw==
-X-Received: by 2002:a05:6512:313c:b0:500:96dd:f95a with SMTP id
- p28-20020a056512313c00b0050096ddf95amr4307682lfd.24.1696599987078;
-        Fri, 06 Oct 2023 06:46:27 -0700 (PDT)
+ AGHT+IGGfV3zI+nczOVhjRr4Mwdj1t6P4p9VuGFvQPwS1+LInpdbM8MctPtTPICaU62NLB0lwNF8YA==
+X-Received: by 2002:ac2:5f62:0:b0:4fe:5860:7abf with SMTP id
+ c2-20020ac25f62000000b004fe58607abfmr5744253lfc.13.1696599988003;
+        Fri, 06 Oct 2023 06:46:28 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238])
         by smtp.gmail.com with ESMTPSA id
- v25-20020a197419000000b004fe37199b87sm308733lfe.156.2023.10.06.06.46.26
+ v25-20020a197419000000b004fe37199b87sm308733lfe.156.2023.10.06.06.46.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Oct 2023 06:46:26 -0700 (PDT)
+        Fri, 06 Oct 2023 06:46:27 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Subject: [PATCH 0/8] Convert Mediatek ASoC codecs to use GPIO descriptors
-Date: Fri, 06 Oct 2023 15:46:23 +0200
-Message-Id: <20231006-descriptors-asoc-mediatek-v1-0-07fe79f337f5@linaro.org>
+Date: Fri, 06 Oct 2023 15:46:24 +0200
+Subject: [PATCH 1/8] gpiolib: of: Add quirk for mt2701-cs42448 ASoC sound
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAK8PIGUC/x3MTQqEMAxA4atI1gZS/xZzlcFFbVMNopVEhgHx7
- haX3+K9C4xV2OBTXaD8E5O8F7i6grD4fWaUWAwNNa0jGjCyBZXjzGroLQfcOIo/eUVyoU2pI+r
- jBKU/lJP83/d3vO8Hdr86wWsAAAA=
+Message-Id: <20231006-descriptors-asoc-mediatek-v1-1-07fe79f337f5@linaro.org>
+References: <20231006-descriptors-asoc-mediatek-v1-0-07fe79f337f5@linaro.org>
+In-Reply-To: <20231006-descriptors-asoc-mediatek-v1-0-07fe79f337f5@linaro.org>
 To: Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -103,8 +104,8 @@ Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  alsa-devel@alsa-project.org, Linus Walleij <linus.walleij@linaro.org>
 X-Mailer: b4 0.12.3
-Message-ID-Hash: PPI3MPHBTODFMTWSUZ4TJLCUNK2MUZOR
-X-Message-ID-Hash: PPI3MPHBTODFMTWSUZ4TJLCUNK2MUZOR
+Message-ID-Hash: 73JIKBOI2ZWFCUO7EQYZES4ROLX5M7PZ
+X-Message-ID-Hash: 73JIKBOI2ZWFCUO7EQYZES4ROLX5M7PZ
 X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -117,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PPI3MPHBTODFMTWSUZ4TJLCUNK2MUZOR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/73JIKBOI2ZWFCUO7EQYZES4ROLX5M7PZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,39 +127,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert over the Mediatek codecs to use GPIO descriptors.
-
-One few-liner affects gpiolib-of.h, I don't think there
-will be conflicts so I suggest that all of this can be
-merged through ASoC after review.
+These gpio names are due to old DT bindings not following the
+"-gpio"/"-gpios" conventions. Handle it using a quirk so the
+driver can just look up the GPIOs.
 
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
-Linus Walleij (8):
-      gpiolib: of: Add quirk for mt2701-cs42448 ASoC sound
-      ASoC: mediatek: mt2701-cs42448: Convert to GPIO descriptors
-      ASoC: mt8173-max98090: Drop unused include
-      ASoC: mt8173-rt5650-rt5514: Drop unused includes
-      ASoC: mt8173-rt5650-rt5676: Drop unused includes
-      ASoC: mt8173-rt5650: Drop unused includes
-      ASoC: mt8186-mt6366-rt1019-rt5682s: Drop unused include
-      ASoC: mt8192-afe-gpio: Drop unused include
+ drivers/gpio/gpiolib-of.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/gpio/gpiolib-of.c                          |  4 ++
- sound/soc/mediatek/mt2701/mt2701-cs42448.c         | 54 +++++++++-------------
- sound/soc/mediatek/mt8173/mt8173-max98090.c        |  1 -
- sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c   |  2 -
- sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c   |  2 -
- sound/soc/mediatek/mt8173/mt8173-rt5650.c          |  2 -
- sound/soc/mediatek/mt8186/mt8186-afe-gpio.c        |  1 -
- .../mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c |  1 -
- sound/soc/mediatek/mt8192/mt8192-afe-gpio.c        |  1 -
- 9 files changed, 26 insertions(+), 42 deletions(-)
----
-base-commit: 0bb80ecc33a8fb5a682236443c1e740d5c917d1d
-change-id: 20231006-descriptors-asoc-mediatek-01c3ff4005db
+diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+index 531faabead0f..d9525d95e818 100644
+--- a/drivers/gpio/gpiolib-of.c
++++ b/drivers/gpio/gpiolib-of.c
+@@ -512,6 +512,10 @@ static struct gpio_desc *of_find_gpio_rename(struct device_node *np,
+ #if IS_ENABLED(CONFIG_SND_SOC_CS42L56)
+ 		{ "reset",	"cirrus,gpio-nreset",	"cirrus,cs42l56" },
+ #endif
++#if IS_ENABLED(CONFIG_SND_SOC_MT2701_CS42448)
++		{ "i2s1-in-sel-gpio1",	NULL,	"mediatek,mt2701-cs42448-machine" },
++		{ "i2s1-in-sel-gpio2",	NULL,	"mediatek,mt2701-cs42448-machine" },
++#endif
+ #if IS_ENABLED(CONFIG_SND_SOC_TLV320AIC3X)
+ 		{ "reset",	"gpio-reset",	"ti,tlv320aic3x" },
+ 		{ "reset",	"gpio-reset",	"ti,tlv320aic33" },
 
-Best regards,
 -- 
-Linus Walleij <linus.walleij@linaro.org>
+2.34.1
 

@@ -2,108 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4DD17BB373
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 10:46:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9504F7BB376
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 10:47:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F8CE10E;
-	Fri,  6 Oct 2023 10:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F8CE10E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 133A61E4;
+	Fri,  6 Oct 2023 10:46:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 133A61E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696582010;
-	bh=+QGTbs0PKLm0Vf/5zpwCiUOxyLtqiFAIbDtuxkX1zBQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MSqkRPH5YMbMktzLQpFz/lGkWyiGXIybxm3xXldYe3hAhkdGWQq8TFo24RIAa++EU
-	 tZ85104ljBkztFyaRiPFr93Ho0EnIlQWagFSxdiiEHEUzwBMz/b9Ueziv7JsM2tcGD
-	 fGcGW5vV+GaQRKPkGwntKhPmwX9poa9sQTvaCTXM=
+	s=default; t=1696582061;
+	bh=VG3aCr6mV5q4NPBrYY00pvU6MR58McuKNhltpn7Iaf4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=axUVOHe+gJ93QBv4kXnH/N6e0QU4visI/PpzK9ou3UnBEl5mcjB6HU23qsh4lmCBB
+	 u0gg4Sxlwvoq5OGjpTvG+TcHzZexVXmA8qL02ZabvP6tvCV3682buFayaCFaVeYHcT
+	 fI3puwSgF1vmSvjsCCXSfhpvUbNEMwJ5EDcblUVs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 882F7F80552; Fri,  6 Oct 2023 10:45:59 +0200 (CEST)
+	id 0809DF80563; Fri,  6 Oct 2023 10:46:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32AF9F80310;
-	Fri,  6 Oct 2023 10:45:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D954F8055B;
+	Fri,  6 Oct 2023 10:46:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7057FF8047D; Fri,  6 Oct 2023 10:44:28 +0200 (CEST)
+	id E54FDF8047D; Fri,  6 Oct 2023 10:45:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F16EAF801EB
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 10:44:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F16EAF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id EFDDDF801EB
+	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 10:45:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFDDDF801EB
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=E7lDi/16;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=2O3hMjHz
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A6A3F1F8A4;
-	Fri,  6 Oct 2023 08:44:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1696581863;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MoQdbnuKO1w6sODFUz+7uIcyFrhzqRX6HUxbmD1gDpE=;
-	b=E7lDi/16NsK4mF0pPODq3x1S637KMxa4Z+zqn0YfBAhAMTPS85qSdZWM29T7YZzJKwbwn9
-	F6mIQUApmoGLP7Q5bxnn1MWWCeYYLN8x//1HUvzcj5xnV89Qpql/W2aOtdUF9atYbjGZem
-	TWQWJuqgjXV/1kpIfmpA2XPuDzrBtTQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1696581863;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MoQdbnuKO1w6sODFUz+7uIcyFrhzqRX6HUxbmD1gDpE=;
-	b=2O3hMjHzp1kDqrw4YHpx4guuf71lEyxWcZi+STLFydqHocCsCFlyL9G5mq8/PrOQDMCuoa
-	Rvr1IsX/p++5lqAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E01813A2E;
-	Fri,  6 Oct 2023 08:44:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id uHjiGefIH2XqHgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 06 Oct 2023 08:44:23 +0000
-Date: Fri, 06 Oct 2023 10:44:22 +0200
-Message-ID: <87y1ggw36h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: broonie@kernel.org,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	perex@perex.cz,
-	amadeuszx.slawinski@linux.intel.com,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=m1H4mvmS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1696581936; x=1728117936;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=VG3aCr6mV5q4NPBrYY00pvU6MR58McuKNhltpn7Iaf4=;
+  b=m1H4mvmSBzgQSn6X05gv1mqWjC+1LG19/QQxPkdIZbe/r2toCq6owWTt
+   10+BBRs+b14jabOYsbxIu9dON6iY6HkCP3NTU2vhc6T4C16VGZNtNM96O
+   KHSnpEV0eundzzpbEHVGL0f2p+ZKY42H6M91l5sBE77vKHN60ECgVDJfS
+   mWcZd3B0WC/As3a8H3lqfyjZmcg27BYKNf31esIlCqxnVsP4V1W3Gye2J
+   ysfoVRvJ8/ZNefRPQ7B3ifDXlJxMd56fboBFim2HqUlio6LslivUzMM2K
+   C5m8eFWBXYTkURx2GEAfzvj6G3R2RfXnQo/D+Qa5OBPBbv2MQRgGhKBc6
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10854"; a="5263805"
+X-IronPort-AV: E=Sophos;i="6.03,203,1694761200";
+   d="scan'208";a="5263805"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 01:44:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10854"; a="868266277"
+X-IronPort-AV: E=Sophos;i="6.03,203,1694761200";
+   d="scan'208";a="868266277"
+Received: from mesalamy-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.42.190])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 01:44:42 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
-	hdegoede@redhat.com
-Subject: Re: [PATCH v3 0/4] ALSA: hda: Abstract and update HOST-stream setup
- procedure
-In-Reply-To: <20230926080623.43927-1-cezary.rojewski@intel.com>
-References: <20230926080623.43927-1-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ODYLENSCDK7ONHGAQAOSMACCCJRPL2PM
-X-Message-ID-Hash: ODYLENSCDK7ONHGAQAOSMACCCJRPL2PM
-X-MailFrom: tiwai@suse.de
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	rander.wang@intel.com
+Subject: [PATCH 0/2] ASoC: SOF: ipc4: Take priority into cosideration when
+ sorting pipelines
+Date: Fri,  6 Oct 2023 11:44:52 +0300
+Message-ID: <20231006084454.19170-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WRLNUQPYWCB755TQFMAR35B5RZZ33M3F
+X-Message-ID-Hash: WRLNUQPYWCB755TQFMAR35B5RZZ33M3F
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ODYLENSCDK7ONHGAQAOSMACCCJRPL2PM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRLNUQPYWCB755TQFMAR35B5RZZ33M3F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,43 +107,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 26 Sep 2023 10:06:19 +0200,
-Cezary Rojewski wrote:
-> 
-> The patchset targets two intertwined topics:
-> 
-> The driver shall poll SDxFIFOS to ensure a valid value is set by the
-> controller after programming SDxFMT. Due to amount of users and
-> limited-number of configuration available in our CI when compared to
-> overall possibilities on the market, the check is non-blocking.
-> 
-> Second topic relates to stream setup procedure. The procedure differs
-> between HDAudio controller device revisions. Right now those differences
-> are handled directly by a platform driver. Existing top-level
-> 'if (pci->device == APL)' could be replaced by a abstraction in lower
-> parts of the code instead.
-> 
-> With that done, the two users are updated accordingly. In avs-driver
-> case, this updates the flow to the recommended one.
-> 
-> Changes in v3:
-> - fixed issues pointed out by scripts/kernel-doc
-> 
-> Changes in v2:
-> - fixed ->host_setup assignment in patch 02/04
-> 
-> Cezary Rojewski (4):
->   ALSA: hda: Poll SDxFIFOS after programming SDxFMT
->   ALSA: hda: Introduce HOST stream setup mechanism
->   ASoC: Intel: avs: Use helper to setup HOST stream
->   ASoC: Intel: Skylake: Use helper to setup HOST stream
+Hi,
 
-Sorry for the late reaction, as I've been (still) off since the last
-week.
+Add pipeline priority support for IPC4: Add support for parsing pipeline
+priorities from the topology. This will be used to break the tie between
+pipelines to set the trigger order when multiple pipelines are triggered
+simultaneously.
 
-Now applied now to for-next branch.
+Regards,
+Peter
+---
+Rander Wang (2):
+  ASoC: SOF: IPC4: get pipeline priority from topology
+  ASoC: SOF: IPC4: sort pipeline based on priority
 
+ sound/soc/sof/ipc4-pcm.c      | 55 +++++++++++++++++++++++++++++------
+ sound/soc/sof/ipc4-topology.c |  5 ++--
+ 2 files changed, 48 insertions(+), 12 deletions(-)
 
-thanks,
+-- 
+2.42.0
 
-Takashi

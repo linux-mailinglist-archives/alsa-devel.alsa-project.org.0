@@ -2,75 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F9A7BB71C
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 14:00:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33CFE7BB796
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Oct 2023 14:30:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDEA91DD;
-	Fri,  6 Oct 2023 13:59:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDEA91DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ED3B1DD;
+	Fri,  6 Oct 2023 14:29:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ED3B1DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696593626;
-	bh=CmEeg3jHAdohk23mZokIcnJCapY1URD8PLyyV1HLdsA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
+	s=default; t=1696595401;
+	bh=i+tHIh6p7+3Bn0drk1iLd1cq52dxKjVTbPZmg0ig+j0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DY+VvQc7ecnXo0+EE0KIL93E5cX3aZbx+VW3QMkqpbTLP9Ilo6wjBwmUnqRCotBGF
-	 WfKuYmrDNrMjfx+2QSLbVRgibFAHiUdIUraYzhdoAj8Lh7L5jKrv/Zg/6dTjv8TEsm
-	 L8lHlgD6c7qTHVZ68rqfZKe6uAL84ppQNHVzQQpI=
+	b=kVPw57r2K9NkSWTNpuSBiW1XVANrQcctzaloHwxIy1dxHcJUV5tUmYDlnicQP7i7h
+	 gaMrbU5VVumaOPI7EB9E+1C+xXm0G6HSsUVznrserAf8QETwCtNV2LleIeO//Anl1Z
+	 6uRn9raqduhlN0vDpXdLzPAKT0RaiLw1Wj3lXdoQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59A5DF80557; Fri,  6 Oct 2023 13:59:35 +0200 (CEST)
+	id AB37EF80553; Fri,  6 Oct 2023 14:29:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07A0EF80310;
-	Fri,  6 Oct 2023 13:59:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDA85F80310;
+	Fri,  6 Oct 2023 14:29:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2FE73F8047D; Fri,  6 Oct 2023 13:59:31 +0200 (CEST)
+	id F13C7F8047D; Fri,  6 Oct 2023 14:29:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F6D7F80130
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 13:59:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F6D7F80130
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
-	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	id 1qojUI-0006Lx-Bk; Fri, 06 Oct 2023 13:59:22 +0200
-Message-ID: <62e54bf9-18fe-41cb-86d4-20f24074d267@leemhuis.info>
-Date: Fri, 6 Oct 2023 13:59:21 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: amd: yc: Fix non-functional mic on Lenovo Yoga Slim
- 7 Pro 14ARH7 82UU
-Content-Language: en-US, de-DE
-To: Markus Meier <kerneldev@epic-bytes.net>, alsa-devel@alsa-project.org,
- Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Mark Brown <broonie@kernel.org>, Sven Frotscher <sven.frotscher@gmail.com>,
- August Wikerfors <git@augustwikerfors.se>
-References: <10347605.nUPlyArG6x@kali>
- <aa54a70c-e7fc-4ca2-9a4d-425675ed0be3@leemhuis.info>
- <4836369.GXAFRqVoOG@mobile>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <4836369.GXAFRqVoOG@mobile>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: 
- webpack.hosteurope.de;regressions@leemhuis.info;1696593565;5eacbf86;
-X-HE-SMSGID: 1qojUI-0006Lx-Bk
-Message-ID-Hash: FLL2CF2TFKJPJRV6R7MBJ57UEI7VAMO6
-X-Message-ID-Hash: FLL2CF2TFKJPJRV6R7MBJ57UEI7VAMO6
-X-MailFrom: regressions@leemhuis.info
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6E39F80166
+	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 14:28:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6E39F80166
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=n2T49ba4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=LU0Gn3nO
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A7A0B2185E;
+	Fri,  6 Oct 2023 12:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1696595333;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=19fza9UpSQFMbeUbmSc2kXavuBRsRubHtP/IBKGDEhM=;
+	b=n2T49ba4xszCOSYeN5amDeJ7WFpwnzbKxNXa1TTGBYiuy+Q3tbDDwzbCKf3CIGr3KY2J0t
+	Y/7rOeNWlm98XRtcDmWPZjeVTTHd295UCNGxIijKdeUgxjytDWCsR7Yk79RaRMm+bLg879
+	Hbsn1Pz1TL1XKGUUI4jQVRF0g8SNdig=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1696595333;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=19fza9UpSQFMbeUbmSc2kXavuBRsRubHtP/IBKGDEhM=;
+	b=LU0Gn3nO8K1ZCM/L1s2jlu04xED3blDIU8oYRIgwFSAnNu5v4h/RRqR4iH9RRU0GGXlxzm
+	80NgtPu6omkQm1Cg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 85F2313586;
+	Fri,  6 Oct 2023 12:28:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 2qanH4X9H2WNHAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 06 Oct 2023 12:28:53 +0000
+Date: Fri, 06 Oct 2023 14:28:53 +0200
+Message-ID: <875y3kue7u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.6-rc5
+In-Reply-To: <20231006104947.6783DC43395@smtp.kernel.org>
+References: <20231006104947.6783DC43395@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 5FQL5BQDRSKPQTO6IBRWNUHIBQXDKJIN
+X-Message-ID-Hash: 5FQL5BQDRSKPQTO6IBRWNUHIBQXDKJIN
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -79,11 +105,10 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FLL2CF2TFKJPJRV6R7MBJ57UEI7VAMO6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5FQL5BQDRSKPQTO6IBRWNUHIBQXDKJIN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,56 +117,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 03.10.23 17:04, Markus Meier wrote:
-> Am Dienstag, 3. Oktober 2023, 12:24:56 CEST schrieben Sie:
->> On 02.10.23 23:04, Markus Meier wrote:
->>> I own a  Lenovo Yoga Slim 7 Pro 14ARH7 where the microphone is not showing
->>> up. I added the system to the quirk table and the mic is working
->>> correctly (but with very low volume) now.
-> [...]
->> I CCed a bunch of lists and people to make sure everyone is aware of
->> that patch, as it otherwise might fall through the cracks.
->>
->> Markus, quick question: do you have (a) an interest in contributing a
->> change to Linux or (b) did you just post this because Mario asked you to
->> do so in https://bugzilla.kernel.org/show_bug.cgi?id=217063#c25 ?
+On Fri, 06 Oct 2023 12:49:38 +0200,
+Mark Brown wrote:
 > 
-> Nope I don't plan to become some kind of kernel developer. I just want to use 
-> my notebook without any issues and want to help others who want to use this 
-> device with Linux too. I just followed Mario's suggestions. I thought it would 
-> be easier for everyone when I create a patch, try if it works and then submit 
-> it to a bugtracker to get the bug fixed.
+> The following changes since commit 31bb7bd9ffee50d09ec931998b823a86132ab807:
+> 
+>   ASoC: SOF: core: Only call sof_ops_free() on remove if the probe was successful (2023-09-15 17:14:22 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.6-rc5
+> 
+> for you to fetch changes up to 1426b9ba7c453755d182ebf7e7f2367ba249dcf4:
+> 
+>   ASoC: dt-bindings: fsl,micfil: Document #sound-dai-cells (2023-10-04 13:58:54 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: More fixes for v6.6
+> 
+> Some additional fixes for v6.6, some fairly unremarkable driver specific
+> ones and a couple of minor core fixes for error handling and improved
+> logging.
 
-And that's good, as that way we know that the fix works, so many thx for
-it. It's just that the patch description needs to be more like the
-following.
+Pulled now.  Thanks.
 
-"""
-The 82UU (Lenovo Yoga Slim 7 Pro 14ARH7) requires an entry in the quirk
-list to enable the internal microphone, just like many other Lenovo 82*
-devices recently added.
 
-Fixes: c008323fe361 ("ASoC: amd: yc: Fix a non-functional mic on Lenovo
-82SJ")
-Cc: stable@vger.kernel.org
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=217063#c23
-"""
-
-Add another line right below with your sign-off, as explained here:
-
-https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
-
-Then send it again. The patch likely must be inline (but maybe Mark
-accepts attached patches as well, not sure, some maintainers do).
-
-If you want the easy way out, just reply to your mail that started this
-thread (with me in CC) with a signed-off-by tag for the patch, then I'll
-handle the rest.
-
-> [...]
-> Thanks for your help Thorsten. I really enjoyed your Heise Kernel-Log series 
-> and I really miss those series. Was always a pleasure to read that.
-
-Thx, great to hear!
-
-Ciao, Thorsten
+Takashi

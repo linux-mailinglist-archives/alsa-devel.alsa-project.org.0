@@ -2,122 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 010D67BC5BC
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Oct 2023 09:47:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20C567BC5BD
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Oct 2023 09:47:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F24091F6;
-	Sat,  7 Oct 2023 09:46:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F24091F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BB2874C;
+	Sat,  7 Oct 2023 09:47:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BB2874C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696664824;
-	bh=LdrtZ43DSAsZ59IN4KiUVAR5cs3WbC45n622Kd5imJY=;
+	s=default; t=1696664874;
+	bh=EPqSyTCn/O20avnBdXohNXkWT7ftPi4FBS3E2U9UFdA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kbKIjj5s5fSclrCWG1dGxJo6tlmLSwlnHaNWez+imk2691cPK1BST8vgYilTqMxgA
-	 /kUjSPk7lQE3o9xPnKfhkaE8x4UTz+S7aolmkF50WPcn0hgFtuaDr3WZfFzeeT6Pph
-	 JeWrlCWM7zmTuHlGSzJWrt0tWs/qwVJtp3k/sUZ8=
+	b=jwS51tqggCwwi4HBrbNwyq4674Y97pxoJRqSLipt9LcLOjvpd6CTxjzNiYHdwyQqy
+	 8HY8c3nKHUgrUZU0VqdW6Yy3yzeDY3d7mvFo1URC4V08fYgg3Hr5GExWXKQ3WuvKgK
+	 G+hp/TYU3J/d2NheZTNNMWXkLMTd0vbY6Ev1jlx0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82ECCF80310; Sat,  7 Oct 2023 09:46:13 +0200 (CEST)
+	id 0C409F80571; Sat,  7 Oct 2023 09:46:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F35FF80310;
-	Sat,  7 Oct 2023 09:46:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA27AF8055B;
+	Sat,  7 Oct 2023 09:46:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5999F8047D; Fri,  6 Oct 2023 20:03:05 +0200 (CEST)
+	id E7AF3F8047D; Fri,  6 Oct 2023 20:06:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
 	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 69D70F80130
-	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 20:03:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69D70F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 01B3DF80130
+	for <alsa-devel@alsa-project.org>; Fri,  6 Oct 2023 20:06:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01B3DF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=QcOhZYM9
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3175e1bb38cso376313f8f.1
+ header.s=20230601 header.b=O8CHCjiS
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-406aaccb41dso5143625e9.0
         for <alsa-devel@alsa-project.org>;
- Fri, 06 Oct 2023 11:03:00 -0700 (PDT)
+ Fri, 06 Oct 2023 11:06:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696615379; x=1697220179;
+        d=gmail.com; s=20230601; t=1696615600; x=1697220400;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DW5DjcAJlISg3sn4dnbscxpT4hEh5MjXjjwSsYat0ec=;
-        b=QcOhZYM9bkFvN6qDRAHIUaWkjqJ0UWE8+Vsf/cJnRrQH9k0fR8Nxm7EClNcwac+p7u
-         JWz84vl0aKwb1G6482BGAeMF4q+Lo0sPxoxz+fOc58Pa6VaXEyq9JDMerQPt5LFp3x0j
-         SX79UVp2RqP9RVGcTsVkZXyULuYoeav9zilR6a8XvbIT6IENu4wIXLKdsfp57nmyL8ey
-         zH1yAemmssamJ5LN/pyQmvjip1Qz6X+jovKvtGoF6JmMytn1DS8mVeJNmCM4MOsa4qLC
-         n5inIiEM1O/YnjgTZ3A+F961GsBfM9U31SPtoXXLtkdg7SWax8yItyTz4+Z4OxaiNd1X
-         z5Cw==
+        bh=cm3rU0s+wij9WVyx3Qhj5G5fmBbZgp+XmLtSeaB6d2U=;
+        b=O8CHCjiS5yE7zi54NqoBrd4imiYpr9Eq53XhiSzMmZ5jkF+jl4SKair+7jeUFU0SAB
+         i2dQHPyW5YlCfjeFpMLe9PagWyTJiu3UqZJGcSAWQWjhpzyhETUuWZWD6io+7wpW8Mt3
+         kgGBgL6fc9CDFN26McU6jARbI8BIHWfi5uCeX7pm5o13QoGwvjGEGfVKIYjxOPj+CLlO
+         vICBABDIYwaYLLYWEHQqub2qGV9yTXgg87FeY81Wch3E1q6LRReUqlwLXxzucFRs5VRT
+         OBk2gy+6EaXoP5F4UJxWWKqBSArNvhlIMyDOg/LIup0UOLa/8uf8lzDzQN3KGSjNSbBs
+         HmOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696615379; x=1697220179;
+        d=1e100.net; s=20230601; t=1696615600; x=1697220400;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DW5DjcAJlISg3sn4dnbscxpT4hEh5MjXjjwSsYat0ec=;
-        b=BYvYBMmlfYRsqGiwG40EERWXPf2voEvohpy9++FXzXT5MSVjrTfFvTYONdnXAQYZTm
-         ERx70xMwAFTE+FoEUwfBbe01PVXFn6euXHnAHe1E98HeCUJxyLjJnGuBYO55lxlXsqzZ
-         6SAT84TPj7njhLG0x01kcwDiRs4T6S893JDZymhI+/DzNvI2kAs544u3qKEf4guJhuTF
-         9dtUz7g+d1ljYH5TxmECjxNXIfnjGukiOFYfJSUaOksoUOG+FCo+tiOHCKsu6by3eXK3
-         VtX1hRJ06F8KaG3xGQ/f1iGyHyAopTTn83Z7L0c3SRBqdlOuSrN0ollQ0voXZIWJXuKX
-         yAMA==
-X-Gm-Message-State: AOJu0YxUuYD9itoHR0rblXumeXlO95BiOcsSioo/QtRcfceN7qDCMbFW
-	ihqNdRJILeiX97bKTX7/cY4=
+        bh=cm3rU0s+wij9WVyx3Qhj5G5fmBbZgp+XmLtSeaB6d2U=;
+        b=JfIUj+dnN6BomYQMM7o9fD8yaQ9uPKbLufeOE9KmpLrrQzoJlBYVTyakJkRVNddpbT
+         Q7h2T0KT8/EvPujsPYksjZz0x/EB3SvG6j346rfaTHIrn053DtLa00xqQJmNugkn32X+
+         63rloso6Am4KdESLadpR10AO9h9HCk+44ErvtxZCOx5wDnV1ML1FWwx0d0hhximxYB6p
+         gRfwCB+4yi4IdwFs9ysS26oecx2uAuCpf2+TuaT2AoMR3OaTcZq7wVAlXqV+l5PvC67s
+         BnQMR5pj3sCs9UbSx42sOfGI6z+BamWBezt8seIgKAqmeSRYFot66shlClTmX5f55C42
+         3/ow==
+X-Gm-Message-State: AOJu0YwfQLDLgLSOonVlwVnF6kuoIG7TQlN9eWHHw2YjiqNyY3AwJyDi
+	GySCPAjb5SHjCrqZyyQqm+ogeIQyVPIV+w==
 X-Google-Smtp-Source: 
- AGHT+IE3rPgMYpXgMKooXH0DQLexRyaKcUcmKebwZM6Kl3hFNlUUhmaaSDA2KHIsA8aGt7JMQzno8A==
-X-Received: by 2002:a5d:5687:0:b0:317:73e3:cf41 with SMTP id
- f7-20020a5d5687000000b0031773e3cf41mr7453777wrv.1.1696615378930;
-        Fri, 06 Oct 2023 11:02:58 -0700 (PDT)
+ AGHT+IEbbIpQ+E7sgB0llYkcPQJK3+3Sog2yKB7MyyaZhZ3taDN1yVM75GHsqn8cu9e0OgVsnL2jOQ==
+X-Received: by 2002:a05:600c:474b:b0:401:c07f:72bd with SMTP id
+ w11-20020a05600c474b00b00401c07f72bdmr8262114wmo.4.1696615600162;
+        Fri, 06 Oct 2023 11:06:40 -0700 (PDT)
 Received: from ?IPV6:2a01:4b00:e405:da00:cf04:a7d5:e45d:73bf?
  ([2a01:4b00:e405:da00:cf04:a7d5:e45d:73bf])
         by smtp.gmail.com with ESMTPSA id
- v11-20020a5d6b0b000000b00324853fc8adsm2129192wrw.104.2023.10.06.11.02.58
+ f17-20020a1c6a11000000b004063ea92492sm4215134wmc.22.2023.10.06.11.06.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Oct 2023 11:02:58 -0700 (PDT)
-Message-ID: <2fa1f433-326a-8eb6-b01e-e34ff82a2dd9@gmail.com>
-Date: Fri, 6 Oct 2023 19:02:56 +0100
+        Fri, 06 Oct 2023 11:06:39 -0700 (PDT)
+Message-ID: <e82750a9-d12f-77e4-0284-71d502f58254@gmail.com>
+Date: Fri, 6 Oct 2023 19:06:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
 Subject: Re: [PATCH 1/2] ALSA: aloop: Add support for the non-interleaved
  access mode
 Content-Language: en-US
-To: Jaroslav Kysela <perex@perex.cz>, tiwai@suse.com
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+To: Takashi Iwai <tiwai@suse.de>
+Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 References: <20230927113555.14877-1-ivan.orlov0322@gmail.com>
- <b9b2ea05-9d10-d263-f08a-5e3cf1f33a9d@perex.cz>
+ <87sf6ow2t6.wl-tiwai@suse.de>
 From: Ivan Orlov <ivan.orlov0322@gmail.com>
-In-Reply-To: <b9b2ea05-9d10-d263-f08a-5e3cf1f33a9d@perex.cz>
+In-Reply-To: <87sf6ow2t6.wl-tiwai@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-MailFrom: ivan.orlov0322@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: TLOASCUSBU2QRXNUNRU6WHHD7IANM7GW
-X-Message-ID-Hash: TLOASCUSBU2QRXNUNRU6WHHD7IANM7GW
-X-Mailman-Approved-At: Sat, 07 Oct 2023 07:46:08 +0000
+Message-ID-Hash: WV4FNISHPP35NWQEVT4GHSM5ZC4NURPU
+X-Message-ID-Hash: WV4FNISHPP35NWQEVT4GHSM5ZC4NURPU
+X-Mailman-Approved-At: Sat, 07 Oct 2023 07:46:14 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TLOASCUSBU2QRXNUNRU6WHHD7IANM7GW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WV4FNISHPP35NWQEVT4GHSM5ZC4NURPU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,8 +127,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/5/23 08:23, Jaroslav Kysela wrote:
-> On 27. 09. 23 13:35, Ivan Orlov wrote:
+On 10/6/23 09:52, Takashi Iwai wrote:
+> On Wed, 27 Sep 2023 13:35:54 +0200,
+> Ivan Orlov wrote:
+>>
 >> The current version of the loopback driver supports interleaved access
 >> mode only. This patch introduces support for the non-interleaved
 >> access mode.
@@ -146,28 +149,17 @@ On 10/5/23 08:23, Jaroslav Kysela wrote:
 >>
 >> Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
 > 
-> Nice extension. Thank you.
+> Sorry for the late reaction, as I've been (still) off since the last
+> week.
 > 
->> +static void copy_play_buf_part_n(struct loopback_pcm *play, struct 
->> loopback_pcm *capt,
->> +                 unsigned int size, unsigned int src_off, unsigned 
->> int dst_off)
-> 
-> I would probably prefer to have dst,src,size arguments to follow memcpy, 
-> but it's really nitpicking.
-> 
-> Reviewed-by: Jaroslav Kysela <perex@perex.cz>
-> 
->                      Jaroslav
+> Now applied both patches.  Thanks.
 > 
 
-Hi Jaroslav,
+Hi Takashi,
 
-Thank you for the review!
-
-I agree that parameters similar to the memcpy would look better than 
-that, I'll keep it in mind when I send the next patch :)
+No worries and thank you for applying both patches :)
 
 --
 Kind regards,
 Ivan Orlov
+

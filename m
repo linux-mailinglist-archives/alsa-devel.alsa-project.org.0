@@ -2,122 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61BF37BC56E
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Oct 2023 09:12:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04127BC5BF
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Oct 2023 09:48:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2E6810E;
-	Sat,  7 Oct 2023 09:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2E6810E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F734839;
+	Sat,  7 Oct 2023 09:47:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F734839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696662775;
-	bh=hhwnjAAsSP/l6Ouvz51yvgFr2KhtwUVcVrsPzDXmuko=;
+	s=default; t=1696664894;
+	bh=KO0nduTNMomrjOt1SRnzALLs4QKWjdkzhO3pn0UG5dA=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lvOPkTwUvO5exXVa50XItWYLAtb/K1QiTPJM5iaSqtfGPZMA0U02+Mz5vxUTvmLHU
-	 /k7CIJ5oL7t3fVhe73pWNLzYqw5t0tZ5shNP/wZ4ETYCfJ4D3SNSPMZD9sMaO+xhn0
-	 HZdfhtj0v2mlyVoZH2YKxU9Io6SVQF1hXyCdtPIg=
+	b=kBr85VMeFahwugvRVUYocH06Xb0vXO9UG83fq3PInZVbP8EGJg3SyShbyLzOr2cp0
+	 YMCI0PlxdKIFHm9YZn1WIMIbqHp/vahTIq7XQh85tJEp4eX0j1FFDqRC6/bZroq+BS
+	 G8ugqKQsfvSB7ptlS9vm/ElLHG45j4rPyEDoAj2I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14A3AF800C1; Sat,  7 Oct 2023 09:12:05 +0200 (CEST)
+	id D56EDF805A8; Sat,  7 Oct 2023 09:46:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E602F80310;
-	Sat,  7 Oct 2023 09:12:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 359FCF80587;
+	Sat,  7 Oct 2023 09:46:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CDD5F8047D; Sat,  7 Oct 2023 09:10:45 +0200 (CEST)
+	id D0C99F8055B; Sat,  7 Oct 2023 09:12:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-2.8 required=5.0 tests=RCVD_IN_DNSWL_HI,RDNS_NONE,
+	SPF_HELO_NONE,SPF_SOFTFAIL shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail.andi.de1.cc (unknown [IPv6:2a02:c205:3004:2154::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CBA9F80130
-	for <alsa-devel@alsa-project.org>; Sat,  7 Oct 2023 09:10:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CBA9F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=IHmQa+iI;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ruTz2Cra
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 958EA21866;
-	Sat,  7 Oct 2023 07:10:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1696662637;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Wlo7idDxPZ+X6QoHcs7nsfqSU9sd9ptHbEToKA0UFs=;
-	b=IHmQa+iIvKK27N+gsv8zf70v0YSnAS1hyAxvwvh9zy6H5blt74Vct7UarNYTP2ZYh30r8d
-	fknfkWyXDvn/XyPsYH3TyZcSXLWVs+vRVrA17rEXLgHq68sVzNsjnxCh7sP5ECeYiryAfI
-	uv0AvGdnUZ5RZAiZ9xCDeFtRJhlxD1c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1696662637;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Wlo7idDxPZ+X6QoHcs7nsfqSU9sd9ptHbEToKA0UFs=;
-	b=ruTz2CrapckWYJL0CQOvNgZURFlfTGiDumoBoKiiepMDASibOhiYXF2fcQHTRMxEgBO0ag
-	341CLhUyRoqXefAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7214C13479;
-	Sat,  7 Oct 2023 07:10:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id QsjOGm0EIWVHdAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 07 Oct 2023 07:10:37 +0000
-Date: Sat, 07 Oct 2023 09:10:36 +0200
-Message-ID: <87y1geucur.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Michael Wang <michael-mw.wang@broadcom.com>
-Cc: alsa-devel@alsa-project.org,
-	Abdul Khan <abdul.khan@broadcom.com>,
-	Yuming Wen <yuming.wen@broadcom.com>
-Subject: Re: time to remove COPYING.GPL from alsa-plugins? (issue #45)
-In-Reply-To: 
- <CANAqB7LBRjAH1UOwA5AtoVjw7veoPBzH_HkoPv3bogmgBgaZAA@mail.gmail.com>
-References: 
- <CANAqB7JFnNbbd0+zEKrSW6mSnVrGr8MPJ9ESnsNc3uXQdkFEZw@mail.gmail.com>
-	<87r0m8w2nf.wl-tiwai@suse.de>
-	<CANAqB7LBRjAH1UOwA5AtoVjw7veoPBzH_HkoPv3bogmgBgaZAA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: POAGQK4NS42JWLW7VVIFHHGZDCD3REZB
-X-Message-ID-Hash: POAGQK4NS42JWLW7VVIFHHGZDCD3REZB
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id E6800F80310
+	for <alsa-devel@alsa-project.org>; Sat,  7 Oct 2023 09:12:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6800F80310
+Received: from p5dc58360.dip0.t-ipconnect.de ([93.197.131.96] helo=aktux)
+	by mail.andi.de1.cc with esmtpsa  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <andreas@kemnade.info>)
+	id 1qp1Ti-004bwu-Lz; Sat, 07 Oct 2023 09:11:58 +0200
+Date: Sat, 7 Oct 2023 09:11:56 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tony Lindgren <tony@atomide.com>
+Cc: =?UTF-8?B?UMOpdGVy?= Ujfalusi <peter.ujfalusi@gmail.com>,
+ bcousson@baylibre.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ jarkko.nikula@bitmer.com, dmitry.torokhov@gmail.com,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/3] ASoC: ti: omap-mcbsp: Ignore errors for getting
+ fck_src
+Message-ID: <20231007091156.588d7ba1@aktux>
+In-Reply-To: <20231007062518.GM34982@atomide.com>
+References: <20230705190324.355282-1-andreas@kemnade.info>
+	<20230705190324.355282-2-andreas@kemnade.info>
+	<7d58d52d-2087-45af-b29e-2515b63ead13@gmail.com>
+	<20230920063353.GQ5285@atomide.com>
+	<dac768d2-2c66-4d6b-b3d3-d1ef69103c76@gmail.com>
+	<20230921121626.GT5285@atomide.com>
+	<20231006102348.GK34982@atomide.com>
+	<20231006213003.0fbac87a@aktux>
+	<20231007062518.GM34982@atomide.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-MailFrom: andreas@kemnade.info
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: H56TGF6R2ZX7EOXRMJAET7X5IWUM2PHZ
+X-Message-ID-Hash: H56TGF6R2ZX7EOXRMJAET7X5IWUM2PHZ
+X-Mailman-Approved-At: Sat, 07 Oct 2023 07:46:16 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POAGQK4NS42JWLW7VVIFHHGZDCD3REZB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H56TGF6R2ZX7EOXRMJAET7X5IWUM2PHZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,94 +95,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 07 Oct 2023 02:12:20 +0200,
-Michael Wang wrote:
-> 
-> Hi Takashi,
-> 
-> Thanks for taking time to address this issue.
-> 
-> Yes, rate_samplerate.c is dual licensed (LGPL or GPLv2).   However,
-> depending on one's interpretation, someone MAY conclude that the
-> rate_samplerate plugin is licensed as GPLv2 for a commercial entity
-> such as Broadcom.
-> 
-> The first line in the license is:
-> 
-> "This plugin code is supposed to be used and distributed primarily
-> under GPL v2 or later..."
-> 
-> The second line says:
-> 
-> "However, if you already own a commercial license to use libsamplerate
-> for dynamic linking, this plugin code can be used and distributed also
-> under LGPL v2.1 or later."
-> 
-> But Broadcom does not own a "commercial license to use libsamplerate"
-> since libsamplerate basically eliminated the need for a commercial
-> license in 2016 when it was released with the 2-Clause BSD license.
-> So it is not clear whether the first sentence (GPLv2) or the second
-> sentence (LGPLv2) applies to Broadcom.
-> 
-> So I am trying to eliminate any possibility of different
-> interpretations by requesting that the license in rate_samplerate.c
-> and the alsa-plugins be updated to reflect the current license status
-> of libsamplerate.
+On Sat, 7 Oct 2023 09:25:18 +0300
+Tony Lindgren <tony@atomide.com> wrote:
 
-OK, then I think we can simply move to LGPL-only for that plugin.
-Luckily, I'm the sole author of that piece of code, so it's legally OK
-to relicense.
+> * Andreas Kemnade <andreas@kemnade.info> [231006 19:30]:
+> > On Fri, 6 Oct 2023 13:23:48 +0300
+> > Tony Lindgren <tony@atomide.com> wrote:  
+> > > Here's what I think the regression fix for omap4 clocks would be, the
+> > > old main_clk is not the same as the module clock that we get by default.
+> > > If this looks OK I'll do a similar fix also for omap5.
+> > > 
+> > > Or is something else also needed?
+> > >   
+> > 
+> > hmm,
+> > audio output works, the waring is away, but something new is here:  
+> 
+> OK good to hear it works, I'll send out fixes for omap4 and 5, seems
+> the runtime PM warning is something different.
+> 
+> > omap-mcbsp 40124000.mcbsp: Runtime PM usage count underflow!
+> > # cat /sys/bus/platform/devices/40124000.mcbsp/power/runtime_status 
+> > active
+> > 
+> > even with no sound.  
+> 
+Well, it is a regression caused by your fix. Without it (and not reverting
+the already applied ignore patch), runtime is properly suspended. Don't know
+why yet.
 
-
-Takashi
-
-> 
-> 
-> Thank you,
-> Michael
-> 
-> 
-> 
-> 
-> On Fri, Oct 6, 2023 at 1:55 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> > On Wed, 27 Sep 2023 20:26:31 +0200,
-> > Michael Wang wrote:
-> > >
-> > > Hi Alsa-devs and Mr Iwai,
-> > >
-> > > Sorry for the spam, I am resending this in plain text mode this time.
-> > >
-> > > It seems the only thing in alsa-plugins that has a GPL license is
-> > > rate/rate_samplerate.c, and that is due to the license of
-> > > libsamplerate.  But in 2016, libsamplerate dropped the commercial/GPL
-> > > part of its license and was released with the 2-Clause BSD license.
-> > > So I was wondering if the license for rate_samplerate.c can be updated
-> > > to remove the GPL license, which means the COPYING.GPL file can also
-> > > be removed from the alsa-plugins package?
-> > >
-> > > I have created issue #54 in github.com/alsa-project/alsa-plugins, but
-> > > so far, no action.
-> > >
-> > > Should I submit a pull request?
-> >
-> > The code allows LGPL, too.  What's the problem with it?
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-> 
-> -- 
-> This electronic communication and the information and any files transmitted 
-> with it, or attached to it, are confidential and are intended solely for 
-> the use of the individual or entity to whom it is addressed and may contain 
-> information that is confidential, legally privileged, protected by privacy 
-> laws, or otherwise restricted from disclosure to anyone else. If you are 
-> not the intended recipient or the person responsible for delivering the 
-> e-mail to the intended recipient, you are hereby notified that any use, 
-> copying, distributing, dissemination, forwarding, printing, or copying of 
-> this e-mail is strictly prohibited. If you received this e-mail in error, 
-> please return the e-mail to the sender, delete it from your computer, and 
-> destroy any printed copy of it.
-> Verifying...
+Regards,
+Andreas

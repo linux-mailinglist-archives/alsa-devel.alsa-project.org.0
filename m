@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5A577BE5AA
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 17:59:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6A07BE5AB
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 17:59:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9BACE82;
-	Mon,  9 Oct 2023 17:58:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9BACE82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EEBBE75;
+	Mon,  9 Oct 2023 17:58:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EEBBE75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696867143;
-	bh=h/2OGL5SMu3c1+9KuAlrZr3ary3o7VxlJJc7S34VSuI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=CpcfRNTonGJSysKD1MSOl9ZVw+B3JqaocKMIO+m8io/DxkJkYBmjTUdyCvFPw2+Ai
-	 NsPFFx2pdh4ANRRQ1cIa4Xsi90yr6HmRMdGQpOAO/cMqSPvwRTdDrsWzicCqz26nO4
-	 p0qwKgDRkTTxh8yAgAFoEdxLctc87paSY2W356NQ=
+	s=default; t=1696867152;
+	bh=JIQkC+0Be4DVYZ+uaLpvlmzAMgNRpGBFxiIdL+YbT3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=lQCyUJXugoDUaTrGUzDSIqERWCYtCKgYgjQTgzzehljATUwxjQoOIbxd6b7ZqYgVN
+	 XkslR/f3e4pTdIpCBPcfMFnwoAJhOzahboKc72VGJy6TN2vANDT8oKfMk0sr3G1U6b
+	 BrBtemfnOuiGS1thyrV3UqXJbcILrbw0I91bSqec=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AB22CF80536; Mon,  9 Oct 2023 17:57:24 +0200 (CEST)
+	id 9BBFAF8057D; Mon,  9 Oct 2023 17:57:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66CBCF80552;
-	Mon,  9 Oct 2023 17:57:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D58EEF80564;
+	Mon,  9 Oct 2023 17:57:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4044F80536; Sun,  8 Oct 2023 03:46:51 +0200 (CEST)
+	id F0AF2F80310; Sun,  8 Oct 2023 03:46:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 89A7EF80130
-	for <alsa-devel@alsa-project.org>; Sun,  8 Oct 2023 03:46:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A7EF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9CDCDF8027B
+	for <alsa-devel@alsa-project.org>; Sun,  8 Oct 2023 03:46:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CDCDF8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=huaqin-corp-partner-google-com.20230601.gappssmtp.com
  header.i=@huaqin-corp-partner-google-com.20230601.gappssmtp.com
- header.a=rsa-sha256 header.s=20230601 header.b=nY2tveRl
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3af8b4a557dso2360450b6e.0
+ header.a=rsa-sha256 header.s=20230601 header.b=Hbv186f6
+Received: by mail-pf1-x432.google.com with SMTP id
+ d2e1a72fcca58-692d2e8c003so3345491b3a.1
         for <alsa-devel@alsa-project.org>;
- Sat, 07 Oct 2023 18:46:41 -0700 (PDT)
+ Sat, 07 Oct 2023 18:46:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=huaqin-corp-partner-google-com.20230601.gappssmtp.com; s=20230601;
- t=1696729599; x=1697334399; darn=alsa-project.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dn+LeH/wVxtkvKkasM+uoFktIvDnLaQJ5n5AGroHogY=;
-        b=nY2tveRlSslrPNqwt3A//1/SBhdNKCOZLMSxErm8cnUPJIAIiVS6+fQCs1ncpOTrCr
-         hh6MnnkyNv9AjLLBvQ/Cxb/YVVAlE6w8gpZcafti8WWY9iFNERfBwtBPz/0Xtu0Q9HZ7
-         k9zdR7Nscsmgy3SI6iWPg79swu7y5Fj9y12DcFsr2kZVsDBk05FS/FBT91mhR5xRZq5g
-         raOzsucv0OfnlGH6qlHgCLF4YX61pLDIhRKo1os/dthuWEN3o24uveAvNHi4Eb1KuvCS
-         ZHS/9zwVD3oK8KQgrwP0pe1AxLzmT8VpDCBrHGXoxejg1PXCPPTC3mAr3hTQ6pdY9LDb
-         r9oA==
+ t=1696729604; x=1697334404; darn=alsa-project.org;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AnkYs5/BG/9GOQBaCWwWyOfl1fNQBQrw4AiO+6MYmI8=;
+        b=Hbv186f6hpze7KMR3CtdlC66NJf0PrsM+WJe9wbwNOVtk2zn9SoOUIGGHA+dvLkV82
+         +pEZZ56M3Nwr0JSry11MNgw+SWUL4GlbsehbpaNgB64EDe0Zt0PXNjcY5G364yPAE4Wj
+         o/rMnbkv07YabTDeS8wn6zHfsOB4J5tavIvRq8uHVp+pzryEws0ttDTtLwF60DT0IuhB
+         EDXPnOWc74V6VxhaBj33MMl9XTUPP5P7PiMUXymrzIJGmphA+PMlsB3ciFhMm+FHSqsj
+         Hj/HSRs+SzC2YWp3DSi+rp0y48Xyitz5ZjwyQwmP7fjVSoqMdIEpJSeIddQG8+dO9RR6
+         w4iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696729599; x=1697334399;
-        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dn+LeH/wVxtkvKkasM+uoFktIvDnLaQJ5n5AGroHogY=;
-        b=bKcc2DK7lmooa3NXklNe4emj119TkfgomXfysBv5PRPdC92YNaQQigVx9cg0sZjvMd
-         s1cHpwu5bwH63+M6r2cQRy/qpkXHbMy4KtxVWL5cf0CcReFsDEwKtjQdOtDxjGu0CxNU
-         Q/kS0z9TSQTpJw6dNvAk2cPc+ar0GjtwPzS60hwbYPVe6R5ao/5Hf3mPCdZEugBw9zfP
-         Y0zCA+nRR/VAsGfabYBzatfnyZScr2IqS0/4v4zH/F/sNhB0GFq7RP+sst/v11f1bv6v
-         ty0AHUgA595jnCWbmxG772Wx6rG7IbMotqz+P8EyLcgl9hbcdveUGBI7TOEBPx1G85Yd
-         aYtA==
-X-Gm-Message-State: AOJu0Ywo3Zq8RhFWtBi0EqTornub7V9W6zDPBTzn2RdXArLLw4VqpMkv
-	UPmfqBTC6aIU6NOgkMazMlPc7g==
+        d=1e100.net; s=20230601; t=1696729604; x=1697334404;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AnkYs5/BG/9GOQBaCWwWyOfl1fNQBQrw4AiO+6MYmI8=;
+        b=Vs1/sc+WjTvu0gosfHtX5uUZBcsquVDHkNOzB7kWA7cwfxGCT/pjaCbcCj62UKYCJx
+         zvLqYokg76WyWrewBDd5y7kzPwWbw+MG6JozWWGuUxxKGOBwpxT2KvDe9tlyK9g1E4rU
+         bOKqBtVzCQrjtpInfeXph0A2KzoQ+qYfrgfn4H6PnP5l9y7reEC/kJner0173A6OqJXg
+         3AVtVWd2XQIlf75mmOKrK7ZrPv2UE61xY9bJQniZ2KHjgTh1+xj7BRZSet9kvGXsT8tJ
+         cHELnqAkP2otnaKTGft+EazHHu+3qRO2viQBp0u/X3E1Kx5rLzbPmxRRKgak2Ec1++Xo
+         lXsg==
+X-Gm-Message-State: AOJu0YwBt6w8MJFLf9KnYZOtb0clXf2PBhyYY3WRl6fMetBZGS0EvIpU
+	4VUwE5HJM9r7MJHy5zr/g1joOg==
 X-Google-Smtp-Source: 
- AGHT+IE6yFex+CBBnGk+rQNeKa/UkrEvSdChHNpjRS3shM7fIg4wakRnaXyA0jVOySczm3ooSu1FnA==
-X-Received: by 2002:a05:6808:3081:b0:3af:71cf:2b52 with SMTP id
- bl1-20020a056808308100b003af71cf2b52mr17002866oib.27.1696729598914;
-        Sat, 07 Oct 2023 18:46:38 -0700 (PDT)
+ AGHT+IGWr16rliwrfcLVvoGiO2V3+fKoKVyKcsYrbchWrREpwol8Erq4V6J5un5az6Bk51HfqHF5TA==
+X-Received: by 2002:a05:6a20:8425:b0:135:bf8d:b758 with SMTP id
+ c37-20020a056a20842500b00135bf8db758mr13343502pzd.16.1696729603504;
+        Sat, 07 Oct 2023 18:46:43 -0700 (PDT)
 Received: from ubuntu.huaqin.com ([101.78.151.205])
         by smtp.gmail.com with ESMTPSA id
- v1-20020a63bf01000000b00563826c66eesm4888846pgf.61.2023.10.07.18.46.34
+ v1-20020a63bf01000000b00563826c66eesm4888846pgf.61.2023.10.07.18.46.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Oct 2023 18:46:38 -0700 (PDT)
+        Sat, 07 Oct 2023 18:46:43 -0700 (PDT)
 From: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
 To: lgirdwood@gmail.com,
 	robh+dt@kernel.org,
@@ -98,62 +99,60 @@ Cc: alsa-devel@alsa-project.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
-Subject: [v4 0/2] ASoC: mediatek: mt8188-mt6359: add rt5682s support
-Date: Sun,  8 Oct 2023 09:46:27 +0800
+Subject: [v4 1/2] ASoC: dt-bindings: mediatek,mt8188-mt6359: add RT5682S
+ support
+Date: Sun,  8 Oct 2023 09:46:28 +0800
 Message-Id: 
- <20231008014629.4971-1-xiazhengqiao@huaqin.corp-partner.google.com>
+ <20231008014629.4971-2-xiazhengqiao@huaqin.corp-partner.google.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: 
+ <20231008014629.4971-1-xiazhengqiao@huaqin.corp-partner.google.com>
+References: 
+ <20231008014629.4971-1-xiazhengqiao@huaqin.corp-partner.google.com>
 X-MailFrom: xiazhengqiao@huaqin.corp-partner.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DBNPU3BPI7V5VTTRZFCQV4QWFRCQPZB2
-X-Message-ID-Hash: DBNPU3BPI7V5VTTRZFCQV4QWFRCQPZB2
-X-Mailman-Approved-At: Mon, 09 Oct 2023 15:57:18 +0000
+Message-ID-Hash: P7U3VTKRSOT4H5VFTXD5QCDRRTUJ24N2
+X-Message-ID-Hash: P7U3VTKRSOT4H5VFTXD5QCDRRTUJ24N2
+X-Mailman-Approved-At: Mon, 09 Oct 2023 15:57:19 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DBNPU3BPI7V5VTTRZFCQV4QWFRCQPZB2/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P7U3VTKRSOT4H5VFTXD5QCDRRTUJ24N2/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To use RT5682S as the codec and MAX98390 as the amp, add a new
-sound card named mt8188_rt5682s.
+Add compatible string "mediatek,mt8188-rt5682s" to support new board
+with rt5682s codec.
 
-Changes in v4:
-- add more reviewers
-- Link to v3: https://patchwork.kernel.org/project/alsa-devel/patch/20230927033608.16920-2-xiazhengqiao@huaqin.corp-partner.google.com/ 
-              https://patchwork.kernel.org/project/alsa-devel/patch/20230927033608.16920-3-xiazhengqiao@huaqin.corp-partner.google.com/
+Signed-off-by: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v3:
-- PATCH 2/2: modify mt8186_rt5682s_i2s_hw_params to mt8188_rt5682s_i2s_hw_params
-- Link to v2: https://lore.kernel.org/all/20230926040901.20338-3-xiazhengqiao@huaqin.corp-partner.google.com/ 
-              https://lore.kernel.org/all/20230926040901.20338-2-xiazhengqiao@huaqin.corp-partner.google.com/
-   
-Changes in v2:
-- PATCH 1/2: Modify mt8188_rt5682 to mt8188_rt5682s
-- PATCH 2/2: Modify all string "rt5682" to "rt5682s" and merge code 
-             in mt8188_fixup_controls
-- Link to v1: https://lore.kernel.org/all/20230925083847.1496-3-xiazhengqiao@huaqin.corp-partner.google.com/
-              https://lore.kernel.org/all/20230925083847.1496-2-xiazhengqiao@huaqin.corp-partner.google.com/
-
-xiazhengqiao (2):
-  ASoC: dt-bindings: mediatek,mt8188-mt6359: add RT5682S support
-  ASoC: mediatek: mt8188-mt6359: add rt5682s support
-
- .../sound/mediatek,mt8188-mt6359.yaml         |   1 +
- sound/soc/mediatek/Kconfig                    |   1 +
- sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 141 +++++++++++++++++-
- 3 files changed, 141 insertions(+), 2 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
+index 43b3b67bdf3b..4c8c95057ef7 100644
+--- a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
++++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
+@@ -17,6 +17,7 @@ properties:
+     enum:
+       - mediatek,mt8188-mt6359-evb
+       - mediatek,mt8188-nau8825
++      - mediatek,mt8188-rt5682s
+ 
+   audio-routing:
+     description:
 -- 
 2.17.1
 

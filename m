@@ -2,107 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17B67BCDF4
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Oct 2023 13:05:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 330927BCEA8
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Oct 2023 15:57:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71D99208;
-	Sun,  8 Oct 2023 13:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71D99208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75614208;
+	Sun,  8 Oct 2023 15:56:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75614208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696763141;
-	bh=vCqlJo8FqMtcmRaF/pU4r/VoZYENK98niLfnThUcTz4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pBUx6gW3sDi8PHP9fJ6VQRrYzCIQzvF38izoXubPtJ/idxztCUu2F0Ku6zwCzcjKt
-	 taxY912LEs0Lj+/gmaLg7wzqhrNLW1HdTBE+8jjmaVQPThCY4ykYrZa4QfnNCrwuIS
-	 dJDYS1xL+2/R1JdbIN+u+tu7zGLWsQbJbhNIOo1Y=
+	s=default; t=1696773454;
+	bh=/G0jexD2zKIcKQbI/PfXkbuAyRKml+7hljltMrttdtk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DPI0Y7Qdgon3+U00IzghnksEYrNxiBqjf81oPUzViwn+ZN4su1FcmRCBQdRmA55FZ
+	 iDwV4ZNCnGx5n7TeCPpGWT9B+wVAilhqGFI3adGoG43P5DBs7pvw56Fd7nCT6zSViW
+	 0r5z8mKVmmlCqaZYlx089OvouNK7JH2uY/JtTePc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E38DEF802BE; Sun,  8 Oct 2023 13:04:50 +0200 (CEST)
+	id D49AAF80557; Sun,  8 Oct 2023 15:56:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DF19F8027B;
-	Sun,  8 Oct 2023 13:04:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 891FCF8027B;
+	Sun,  8 Oct 2023 15:56:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4F4DF802BE; Sun,  8 Oct 2023 13:02:48 +0200 (CEST)
+	id 0B8DBF802BE; Sun,  8 Oct 2023 15:56:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HK_RANDOM_ENVFROM,
 	HK_RANDOM_FROM,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED741F8019B
-	for <alsa-devel@alsa-project.org>; Sun,  8 Oct 2023 13:02:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED741F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45F29F80130
+	for <alsa-devel@alsa-project.org>; Sun,  8 Oct 2023 15:56:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45F29F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=M6zLeg5l
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-534659061afso5975907a12.3
+ header.s=20230601 header.b=SsSCFuRv
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-9b2cee40de8so806362566b.1
         for <alsa-devel@alsa-project.org>;
- Sun, 08 Oct 2023 04:02:40 -0700 (PDT)
+ Sun, 08 Oct 2023 06:56:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696762960; x=1697367760;
+        d=gmail.com; s=20230601; t=1696773390; x=1697378190;
  darn=alsa-project.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=I2BwMPIdqGU2NqgXy5cot4/7RwrAa6qLkUv4kvr0lFI=;
-        b=M6zLeg5lWQIldd5JZhkHRbqqxVLJzeu+/VrexrEf/R9C8quYBk8ACWYhzwPOXMsDf3
-         wYJO9WK/11joQMLiEGrekPPGWPM5qPjUOK48Vsw4eVI8HC3jeIFuJlqdmv7Ya+YlOHYE
-         xlttmSFVnBuXAzlMmHqlkYwYY5qR4wFlgToQrRndd8YYuB1Cgj/oHY2v5XSIA4AoxQNH
-         WXLa3fsBcYkzT7RHmuJZlvdV+i3xAY255od1xGArlaSKRp3l4wDUdcxbdS7rLzhIYkJF
-         smhdhlRY66DWD+xDAOHDfk7xgAqLppSFH65C/mCWAhmlDA4heWfAAZ11YGZXI3bv9lEP
-         m2Tw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9nZ3UEZX/H5fd+AnU4563AsWAEhqsNM6T83YJUnEb/g=;
+        b=SsSCFuRv4PzZgRMH3PWr6JrNU486+eH+uM7HLvYdnNbVX5W3MAzccNkiWioNYcWI3H
+         ocUy4Oxqs2yVR/SspF3Pw0DTOMyb8SWzf9rpdqjDRRrQvSAosJcbrB73IwsRMNeGu1kr
+         xfuWMglR1guUsgEWr0xdO/uLBIx4DReQ8baxdnYO1gIKN84/zrK6KUS4+R/IdwiYzNQo
+         4YTaIW2NUNCdqaGZUjzFFityk+yK5fvkxDu1uTTL/G4KsFT6hg91zvETfNIDNjOFdH/+
+         V1EVW5buu/7Yb/n4SNqxj2jkJ93/+gYuTiVivL+qrPwYj2FQ4IMW+o2xqTBbiu12pbQ9
+         nWwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696762960; x=1697367760;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=I2BwMPIdqGU2NqgXy5cot4/7RwrAa6qLkUv4kvr0lFI=;
-        b=pYtpqLaQnEYlMbMdlj24TICmRf9uQjiPOii/DuHBoUTPElf8XKYAuIRz00YgqGE3Pu
-         0PddlgbfFsqhKYB0UAAnS7SkYayMhVSVbR2OIKTCUIdzWn3wSyiYe/Jo+nQPRvvMhwt5
-         IgSsjFEJKKOfra9miYwP3y925lXY3GlyTfb8fasdYC9uSKNWj8dKpVLDBAL9Vqp1V0FC
-         KGZZkwLarMD2Tv/A68IdYzCow0YFJhfQm0UKAW4St/MHD406Sqy4czmNeR+6jUA+7OIS
-         UDG22mIF7cB81g2N4LblDRHD6E+HvXKSA+gm31YnweM2gAQm4W3UkCap74KTkAjH0/0A
-         EGTw==
-X-Gm-Message-State: AOJu0Yx8pcaxMpYpvi+GH+66GYvz2Jk6UAnM4Q/gYYBEZLakDcDv1p8i
-	+KDvybiz1cM2GKAgZI5Ljzk=
+        d=1e100.net; s=20230601; t=1696773390; x=1697378190;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9nZ3UEZX/H5fd+AnU4563AsWAEhqsNM6T83YJUnEb/g=;
+        b=crHfFswVChmd/x8b0TD4jywU7BT+JvbsMuvPZvjGKsrUgykqd5r3ErCEaL5dQZ8Ed1
+         Ka2zPRuzWirr2c4qdybawjSay+umrw704eLxsoDwQjKKDs0kWkXaRf6EX8254bdr09qv
+         kEt08p5oIhIfB1Mc5V2ptXxh1zgDymwHBxO22AdRBJ4E9anMfGcilgoCYV5k6KomeXvf
+         qGFKwMKGgM3U3PAOkT3GO8xQDArGrtUA7JdbTAe7FDJT1n0Vnd3j8Fm3CuIhGUgrnhLH
+         dr9UpG3yUc/j7sc7QTRKeUnmH+XzvFdZlKYDRu0wsJs1mj+t2DyW7LqFgA+H6yHnor7+
+         yZzA==
+X-Gm-Message-State: AOJu0YwdwR2i+rf4l0YEmf9IAxmrfl/oVXBtGuC3BOafLDwq+UOuYnKF
+	r8aRSKx1Eh3s7+QHAgUT3bE=
 X-Google-Smtp-Source: 
- AGHT+IHy1m45sSABny17HsA0YPMhRhLbvYZX41pT4wKfbzc5vlhxyd/WQ3jpRgofkFJqcis5pkKN6A==
-X-Received: by 2002:aa7:c393:0:b0:533:c55f:582a with SMTP id
- k19-20020aa7c393000000b00533c55f582amr11125186edq.27.1696762959595;
-        Sun, 08 Oct 2023 04:02:39 -0700 (PDT)
-Received: from dell.localnet (77-255-201-154.dynamic.inetia.pl.
+ AGHT+IG8Rly7FzpbJ/g1gH4vMA56Ssf7FxPsRBhdP2hwm1MPeAcX9KH+JQVvGbdQ+SP+Lw+vGqvBBw==
+X-Received: by 2002:a17:907:2d8c:b0:9ad:93c8:c483 with SMTP id
+ gt12-20020a1709072d8c00b009ad93c8c483mr7845988ejc.2.1696773389834;
+        Sun, 08 Oct 2023 06:56:29 -0700 (PDT)
+Received: from dell.intranet (77-255-201-154.dynamic.inetia.pl.
  [77.255.201.154])
         by smtp.gmail.com with ESMTPSA id
- r9-20020aa7d589000000b0052576969ef8sm4832770edq.14.2023.10.08.04.02.38
+ ci24-20020a170906c35800b00992ea405a79sm5513503ejb.166.2023.10.08.06.56.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Oct 2023 04:02:38 -0700 (PDT)
+        Sun, 08 Oct 2023 06:56:29 -0700 (PDT)
 From: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Janusz Krzysztofik <jmkrzyszt@gmail.com>
-Subject: Re: [PATCH] ASoC: ti: ams-delta: Fix cx81801_receive() argument types
-Date: Sun, 08 Oct 2023 13:02:36 +0200
-Message-ID: <4229381.1IzOArtZ34@dell>
-In-Reply-To: <8377873.NyiUUSuA9g@dell>
-References: 
- <20231007213820.376360-1-jmkrzyszt@gmail.com>
- <2023100811-shakable-derby-0b91@gregkh> <8377873.NyiUUSuA9g@dell>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>
+Subject: [PATCH] ASoC: ti: ams-delta: Allow it to be test compiled
+Date: Sun,  8 Oct 2023 15:53:10 +0200
+Message-ID: <20231008135601.542356-1-jmkrzyszt@gmail.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2707487.BddDVKsqQX";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-Message-ID-Hash: QCOSXHGMILWGWAG7ZCJPCSI4IOLUVDLK
-X-Message-ID-Hash: QCOSXHGMILWGWAG7ZCJPCSI4IOLUVDLK
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: I6R2LVVKFI4TWFU4LDFXS4LHX2LH5X2B
+X-Message-ID-Hash: I6R2LVVKFI4TWFU4LDFXS4LHX2LH5X2B
 X-MailFrom: jmkrzyszt@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QCOSXHGMILWGWAG7ZCJPCSI4IOLUVDLK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I6R2LVVKFI4TWFU4LDFXS4LHX2LH5X2B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,103 +122,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---nextPart2707487.BddDVKsqQX
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"; protected-headers="v1"
-From: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Sun, 08 Oct 2023 13:02:36 +0200
-Message-ID: <4229381.1IzOArtZ34@dell>
-In-Reply-To: <8377873.NyiUUSuA9g@dell>
-MIME-Version: 1.0
+The driver is now built only when MACH_AMS_DELTA is selected, which
+requires a very specific selection of ARCH settings.  As a consequence, it
+gets very little attention from build-bots, if not none.
 
-Dnia niedziela, 8 pa=C5=BAdziernika 2023 11:42:50 CEST Janusz Krzysztofik p=
-isze:
-> Dnia niedziela, 8 pa=C5=BAdziernika 2023 07:04:39 CEST Greg Kroah-Hartman=
- pisze:
-> > On Sat, Oct 07, 2023 at 11:38:18PM +0200, Janusz Krzysztofik wrote:
-> > > Since types of arguments accepted by tty_ldis_ops::receive_buf() have
-> > > changed, the driver no longer builds.
-> > >=20
-> > > .../linux/sound/soc/ti/ams-delta.c:403:24: error: initialization of '=
-void (*)(struct tty_struct *, const u8 *, const u8 *, size_t)' {aka 'void (=
-*)(struct tty_struct *, const unsigned char *, const unsigned char *, unsig=
-ned int)'} from incompatible pointer type 'void (*)(struct tty_struct *, co=
-nst u8 *, const char *, int)' {aka 'void (*)(struct tty_struct *, const uns=
-igned char *, const char *, int)'} [-Werror=3Dincompatible-pointer-types]
-> > >   403 |         .receive_buf =3D cx81801_receive,
-> > >=20
-> > > Fix it.
-> > >=20
-> > > Fixes: e8161447bb0c ("tty: make tty_ldisc_ops::*buf*() hooks operate =
-on size_t")
-> > > Fixes: 892bc209f250 ("tty: use u8 for flags")
-> > > Signed-off-by: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-> > > ---
-> > >  sound/soc/ti/ams-delta.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > Odd no built-bots caught this, maybe no one normally builds this file?
->=20
-> The driver depends on SND, SND_SOC and TTY, but can't be selected=20
-> individually, only via its user. =20
+Drop the driver dependency on <asm/mach-types.h>, no longer required since
+conversion to snd_soc_register_card() and drop of machine_is_ams_delta().
+With that in place, allow the driver to be built in any environment as
+long as COMPILE_TEST is selected.  Take care of not selecting
+SND_SOC_OMAP_MCBSP if COMMON_CLK is not selected.
 
-Sorry, that was an ASoC board driver, not a CODEC driver, that required the=
-=20
-fix.
+Signed-off-by: Janusz Krzysztofik <jmkrzyszt@gmail.com>
+---
+ sound/soc/ti/Kconfig     | 5 +++--
+ sound/soc/ti/ams-delta.c | 2 --
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-> Then, it usually builds when=20
-> CONFIG_SND_SOC_OMAP_AMS_DELTA=3Dy, and that's probably uncommon due to=20
-> specific dependencies. =20
-
-In addition to SOUND, SND, SND_SOC and TTY, this ASoC board driver depends=
-=20
-on MACH_AMS_DELTA, then on ARM, MMU, ARCH_MULTI_V4T, !ARCH_MULTI_V6,=20
-!ARCH_MULTI_V7, CPU_LITTLE_ENDIAN, ATAGS, ARCH_OMAP1 and ARCH_OMAP15XX. =20
-Let me check if it builds without those machine dependencies, then we can=20
-cover it by COMPILE_TEST.
-
-Thanks,
-Janusz
-
-> However, cx20442 can also be selected and built=20
-> with CONFIG_COMPILE_TEST=3Dy and CONFIG_SND_SOC_ALL_CODECS=3Dy.  Since si=
-milar=20
-> approach seems to apply to quite a number of ASoC CODECs, maybe build-bot=
-s=20
-> should pay special attention to select SND_SOC_ALL_CODECS more frequently=
-,=20
-> like they probably do with COMPILE_TEST.
->=20
-> Thanks,
-> Janusz
->=20
-> > Anyway, I'll pick this up in my tty tree now, thanks!
-> >=20
-> > greg k-h
-> >=20
->=20
->=20
-
-
---nextPart2707487.BddDVKsqQX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEnyr6IsGnTYAeAkHJ2WqSnltsjBoFAmUijEwACgkQ2WqSnlts
-jBqpygf/TZYnhnJ79SYUbtDpvKJvQn4573Q7v/l2znOGa1OJTKp7WpamhXlqXOct
-rTHSJ4md10EXlw3e7OhmSWwP4fhrMIASzHYYPmlX7LYXZedRkSbaOFC+kOSDhKYW
-ZHhJrEfTOpfd968L/0cLd2Sg913OJqYQzThlUXk40v3VQNnkSZMH9Ma/DqasAOWE
-j8MmaxtqOEwuQwFNoOnwAHGcHz5fMO2xgijTrhpMrZLx8cWLoY/1DuFk1jUBy9B7
-/27avelGo4+IhBSC6ysZa6QueVOrfUWGcFnsXwUG6SCE4AMh11z3mecoSlwO8jcB
-hEoZ+9f8JJ3bRxtCUDvAm0mTkc0i0g==
-=cxua
------END PGP SIGNATURE-----
-
---nextPart2707487.BddDVKsqQX--
-
-
+diff --git a/sound/soc/ti/Kconfig b/sound/soc/ti/Kconfig
+index 593be22503b5..e22e41af3226 100644
+--- a/sound/soc/ti/Kconfig
++++ b/sound/soc/ti/Kconfig
+@@ -125,8 +125,9 @@ config SND_SOC_OMAP_ABE_TWL6040
+ 
+ config SND_SOC_OMAP_AMS_DELTA
+ 	tristate "SoC Audio support for Amstrad E3 (Delta) videophone"
+-	depends on MACH_AMS_DELTA && TTY
+-	select SND_SOC_OMAP_MCBSP
++	depends on MACH_AMS_DELTA || COMPILE_TEST
++	depends on TTY
++	select SND_SOC_OMAP_MCBSP if COMMON_CLK
+ 	select SND_SOC_CX20442
+ 	help
+ 	  Say Y  or M if you want to add support  for SoC audio device
+diff --git a/sound/soc/ti/ams-delta.c b/sound/soc/ti/ams-delta.c
+index 371943350fdf..7436cca2d2e0 100644
+--- a/sound/soc/ti/ams-delta.c
++++ b/sound/soc/ti/ams-delta.c
+@@ -16,8 +16,6 @@
+ #include <sound/soc.h>
+ #include <sound/jack.h>
+ 
+-#include <asm/mach-types.h>
+-
+ #include <linux/platform_data/asoc-ti-mcbsp.h>
+ 
+ #include "omap-mcbsp.h"
+-- 
+2.42.0
 

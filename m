@@ -2,153 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A1E7BE5A9
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 17:58:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A577BE5AA
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 17:59:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1506CE85;
-	Mon,  9 Oct 2023 17:57:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1506CE85
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9BACE82;
+	Mon,  9 Oct 2023 17:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9BACE82
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696867094;
-	bh=r2sV2doypAlbB9wakBXiDHbgGfeqKqceo4LqYdnL2M4=;
-	h=Date:To:From:Subject:Reply-To:List-Id:List-Archive:List-Help:
-	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=tdLdsYC0RK0OZ8mVaLsFFb/zqa228/fXHWar5asXHf1i2gzV/NlqP+zIxRwSCTSLB
-	 9AyBUU0v6iUlFD0ljhIfFBq/bWUare7w/yNc2zQPiiKZcAknYvgCA+UUFtSEsnEW1z
-	 eUDZfjrue9udmycVhDWLKT5CZBG52uqU5iPyvQnc=
+	s=default; t=1696867143;
+	bh=h/2OGL5SMu3c1+9KuAlrZr3ary3o7VxlJJc7S34VSuI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CpcfRNTonGJSysKD1MSOl9ZVw+B3JqaocKMIO+m8io/DxkJkYBmjTUdyCvFPw2+Ai
+	 NsPFFx2pdh4ANRRQ1cIa4Xsi90yr6HmRMdGQpOAO/cMqSPvwRTdDrsWzicCqz26nO4
+	 p0qwKgDRkTTxh8yAgAFoEdxLctc87paSY2W356NQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88B10F802BE; Mon,  9 Oct 2023 17:57:22 +0200 (CEST)
+	id AB22CF80536; Mon,  9 Oct 2023 17:57:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE921F8027B;
-	Mon,  9 Oct 2023 17:57:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66CBCF80552;
+	Mon,  9 Oct 2023 17:57:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABB98F8047D; Sat,  7 Oct 2023 13:44:10 +0200 (CEST)
+	id E4044F80536; Sun,  8 Oct 2023 03:46:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6ACDCF801EB
-	for <alsa-devel@alsa-project.org>; Sat,  7 Oct 2023 13:44:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ACDCF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 89A7EF80130
+	for <alsa-devel@alsa-project.org>; Sun,  8 Oct 2023 03:46:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A7EF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=jLicWJxj
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-1c60778a3bfso24969455ad.1
+ unprotected) header.d=huaqin-corp-partner-google-com.20230601.gappssmtp.com
+ header.i=@huaqin-corp-partner-google-com.20230601.gappssmtp.com
+ header.a=rsa-sha256 header.s=20230601 header.b=nY2tveRl
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3af8b4a557dso2360450b6e.0
         for <alsa-devel@alsa-project.org>;
- Sat, 07 Oct 2023 04:44:03 -0700 (PDT)
+ Sat, 07 Oct 2023 18:46:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696679041; x=1697283841;
- darn=alsa-project.org;
-        h=content-transfer-encoding:subject:from:to:content-language:reply-to
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=huaqin-corp-partner-google-com.20230601.gappssmtp.com; s=20230601;
+ t=1696729599; x=1697334399; darn=alsa-project.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RAOEMwlAn3oe/W9lVBHM+ePb4EYJS/tiOc3Kz3nTE8g=;
-        b=jLicWJxj0QQyhj/rxLWtpVN8gFMWIg1Yk4kOnyAO4BjBB2fwJ8y93z0nS+SVo6zIDG
-         mfcgtHTOmU7zNypot4nZQCKI4i8QwoDTWnPUtVR6kPjnSMbYWwUqxUliDqHgBM24PPdD
-         x4cXuoVk84YTXByosKy3OoTAvc4JUIdikdsuTo6JoX9aPsXc2tMLTbTngiRUjWxEYjTS
-         DUR/gLifD1BgO8Xcwd6q7QUQJJ06mvh07YCqNXjC0UkYOTAomRXq+agq7w4NBOMVh34u
-         yZpXHUweeJeVlp5JDz1A/pJs5oFV3PzspWscrkOFlzKgpogdlJSykr1MI7BjxH/sr0Wr
-         PJsQ==
+        bh=dn+LeH/wVxtkvKkasM+uoFktIvDnLaQJ5n5AGroHogY=;
+        b=nY2tveRlSslrPNqwt3A//1/SBhdNKCOZLMSxErm8cnUPJIAIiVS6+fQCs1ncpOTrCr
+         hh6MnnkyNv9AjLLBvQ/Cxb/YVVAlE6w8gpZcafti8WWY9iFNERfBwtBPz/0Xtu0Q9HZ7
+         k9zdR7Nscsmgy3SI6iWPg79swu7y5Fj9y12DcFsr2kZVsDBk05FS/FBT91mhR5xRZq5g
+         raOzsucv0OfnlGH6qlHgCLF4YX61pLDIhRKo1os/dthuWEN3o24uveAvNHi4Eb1KuvCS
+         ZHS/9zwVD3oK8KQgrwP0pe1AxLzmT8VpDCBrHGXoxejg1PXCPPTC3mAr3hTQ6pdY9LDb
+         r9oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696679041; x=1697283841;
-        h=content-transfer-encoding:subject:from:to:content-language:reply-to
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RAOEMwlAn3oe/W9lVBHM+ePb4EYJS/tiOc3Kz3nTE8g=;
-        b=VRMLCPdRfxX2jk9i5iWW1xxHgu5v1++9JpD8fKJqszSVG/KgSq0koBYhJQxhZ1mn36
-         uNHLcnO0iyjrMZSZJzITJ1YcF6iq/g3hKdMjKZZsirkcDBTZnzkarRPxNfbfIaI+UtWN
-         pWkhfzQNLSnu+/B62clJIoipTh7VOHPBvBZ75hbHlLUmoRAVghzlOWL9/nIAmX1DGibw
-         qpeLHXE58lSnFq2Km16kmHTP1qS4OjroF1SX5sxJU7/8gFO4sVqtOvmPqVewmGk/d5zb
-         LtTsY0AGis5H7C/+Mt1DTWWOEnB3Da4uvsSgKE7VwjaX8jwfZtNNqP0QgQcQ9k/5Y0VY
-         SeGg==
-X-Gm-Message-State: AOJu0Yw+LGyWu9JWJ0kbkvksUjtIEi3ERaBx/fmBp1spfUR00rPCu6tI
-	XLOLBNV7b7yTfD6Zv3XXHK2QSSFSsO5tGQ==
+        d=1e100.net; s=20230601; t=1696729599; x=1697334399;
+        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dn+LeH/wVxtkvKkasM+uoFktIvDnLaQJ5n5AGroHogY=;
+        b=bKcc2DK7lmooa3NXklNe4emj119TkfgomXfysBv5PRPdC92YNaQQigVx9cg0sZjvMd
+         s1cHpwu5bwH63+M6r2cQRy/qpkXHbMy4KtxVWL5cf0CcReFsDEwKtjQdOtDxjGu0CxNU
+         Q/kS0z9TSQTpJw6dNvAk2cPc+ar0GjtwPzS60hwbYPVe6R5ao/5Hf3mPCdZEugBw9zfP
+         Y0zCA+nRR/VAsGfabYBzatfnyZScr2IqS0/4v4zH/F/sNhB0GFq7RP+sst/v11f1bv6v
+         ty0AHUgA595jnCWbmxG772Wx6rG7IbMotqz+P8EyLcgl9hbcdveUGBI7TOEBPx1G85Yd
+         aYtA==
+X-Gm-Message-State: AOJu0Ywo3Zq8RhFWtBi0EqTornub7V9W6zDPBTzn2RdXArLLw4VqpMkv
+	UPmfqBTC6aIU6NOgkMazMlPc7g==
 X-Google-Smtp-Source: 
- AGHT+IGfZIj9euX5H/q4CH/J8Ia5FRw2GFKi+0WZG1VzQCUuMB+PPiPemeWVcrVRH2zTF8btD/MkFw==
-X-Received: by 2002:a17:902:e74d:b0:1c7:7c2c:f846 with SMTP id
- p13-20020a170902e74d00b001c77c2cf846mr12977267plf.67.1696679041426;
-        Sat, 07 Oct 2023 04:44:01 -0700 (PDT)
-Received: from [192.168.1.11] (203-174-143-14.can.static-ipl.aapt.com.au.
- [203.174.143.14])
+ AGHT+IE6yFex+CBBnGk+rQNeKa/UkrEvSdChHNpjRS3shM7fIg4wakRnaXyA0jVOySczm3ooSu1FnA==
+X-Received: by 2002:a05:6808:3081:b0:3af:71cf:2b52 with SMTP id
+ bl1-20020a056808308100b003af71cf2b52mr17002866oib.27.1696729598914;
+        Sat, 07 Oct 2023 18:46:38 -0700 (PDT)
+Received: from ubuntu.huaqin.com ([101.78.151.205])
         by smtp.gmail.com with ESMTPSA id
- 13-20020a170902c10d00b001bf6ea340a9sm5664116pli.159.2023.10.07.04.43.59
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Oct 2023 04:44:00 -0700 (PDT)
-Message-ID: <9c7b08fc-7f00-4894-a5b2-f3fc5f99e022@gmail.com>
-Date: Sat, 7 Oct 2023 22:43:57 +1100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-AU
-To: alsa-devel@alsa-project.org
-From: Brett Worth <brett.worth@gmail.com>
-Subject: [PATCH] hda/realtek: Add SND_PCI_QUIRK entry for the Dell XPS 9530
- laptop for dual speakers
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MailFrom: brett.worth@gmail.com
+ v1-20020a63bf01000000b00563826c66eesm4888846pgf.61.2023.10.07.18.46.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Oct 2023 18:46:38 -0700 (PDT)
+From: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
+To: lgirdwood@gmail.com,
+	robh+dt@kernel.org,
+	broonie@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	trevor.wu@mediatek.com,
+	maso.huang@mediatek.com
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
+Subject: [v4 0/2] ASoC: mediatek: mt8188-mt6359: add rt5682s support
+Date: Sun,  8 Oct 2023 09:46:27 +0800
+Message-Id: 
+ <20231008014629.4971-1-xiazhengqiao@huaqin.corp-partner.google.com>
+X-Mailer: git-send-email 2.17.1
+X-MailFrom: xiazhengqiao@huaqin.corp-partner.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OPQ5MRG65VOUXBY2C4YFGXSQDSTI6JY3
-X-Message-ID-Hash: OPQ5MRG65VOUXBY2C4YFGXSQDSTI6JY3
+Message-ID-Hash: DBNPU3BPI7V5VTTRZFCQV4QWFRCQPZB2
+X-Message-ID-Hash: DBNPU3BPI7V5VTTRZFCQV4QWFRCQPZB2
 X-Mailman-Approved-At: Mon, 09 Oct 2023 15:57:18 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: brett@worth.au
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPQ5MRG65VOUXBY2C4YFGXSQDSTI6JY3/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DBNPU3BPI7V5VTTRZFCQV4QWFRCQPZB2/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Dell XPS 9530, like previous XPS laptops like the 9520 and 9510 have dual speakers in 
-each channel.
+To use RT5682S as the codec and MAX98390 as the amp, add a new
+sound card named mt8188_rt5682s.
 
-If the ALC289_FIXUP_DUAL_SPK flag is not set in sound/pci/hda/patch_realtek.c only the 
-tweeter will work and therefore make the sound quality terrible.
+Changes in v4:
+- add more reviewers
+- Link to v3: https://patchwork.kernel.org/project/alsa-devel/patch/20230927033608.16920-2-xiazhengqiao@huaqin.corp-partner.google.com/ 
+              https://patchwork.kernel.org/project/alsa-devel/patch/20230927033608.16920-3-xiazhengqiao@huaqin.corp-partner.google.com/
 
-This patch has not been tested but is derived from a previous patch attempt from a 
-different user called Pentracillin which was rejected.
+Changes in v3:
+- PATCH 2/2: modify mt8186_rt5682s_i2s_hw_params to mt8188_rt5682s_i2s_hw_params
+- Link to v2: https://lore.kernel.org/all/20230926040901.20338-3-xiazhengqiao@huaqin.corp-partner.google.com/ 
+              https://lore.kernel.org/all/20230926040901.20338-2-xiazhengqiao@huaqin.corp-partner.google.com/
+   
+Changes in v2:
+- PATCH 1/2: Modify mt8188_rt5682 to mt8188_rt5682s
+- PATCH 2/2: Modify all string "rt5682" to "rt5682s" and merge code 
+             in mt8188_fixup_controls
+- Link to v1: https://lore.kernel.org/all/20230925083847.1496-3-xiazhengqiao@huaqin.corp-partner.google.com/
+              https://lore.kernel.org/all/20230925083847.1496-2-xiazhengqiao@huaqin.corp-partner.google.com/
 
-$ diff -r -up a b
-diff -r -up a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
---- a/sound/pci/hda/patch_realtek.c     2023-10-07 22:16:36.129618972 +1100
-+++ b/sound/pci/hda/patch_realtek.c     2023-10-07 22:16:52.645258218 +1100
-@@ -9412,6 +9412,7 @@ static const struct snd_pci_quirk alc269
-        SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570", ALC289_FIXUP_DUAL_SPK),
-        SND_PCI_QUIRK(0x1028, 0x0b37, "Dell Inspiron 16 Plus 7620 2-in-1", 
-ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
-        SND_PCI_QUIRK(0x1028, 0x0b71, "Dell Inspiron 16 Plus 7620", 
-ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
-+       SND_PCI_QUIRK(0x1028, 0x0beb, "Dell XPS 15 9530", ALC289_FIXUP_DUAL_SPK),
-        SND_PCI_QUIRK(0x1028, 0x0c03, "Dell Precision 5340", 
-ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
-        SND_PCI_QUIRK(0x1028, 0x0c19, "Dell Precision 3340", ALC236_FIXUP_DELL_DUAL_CODECS),
-        SND_PCI_QUIRK(0x1028, 0x0c1a, "Dell Precision 3340", ALC236_FIXUP_DELL_DUAL_CODECS),
+xiazhengqiao (2):
+  ASoC: dt-bindings: mediatek,mt8188-mt6359: add RT5682S support
+  ASoC: mediatek: mt8188-mt6359: add rt5682s support
 
+ .../sound/mediatek,mt8188-mt6359.yaml         |   1 +
+ sound/soc/mediatek/Kconfig                    |   1 +
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 141 +++++++++++++++++-
+ 3 files changed, 141 insertions(+), 2 deletions(-)
 
-I don't have much confidence that this patch request will meet the requirements.
-
-Brett
+-- 
+2.17.1
 

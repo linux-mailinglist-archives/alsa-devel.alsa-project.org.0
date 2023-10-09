@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 393827BE84B
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 19:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A238E7BE8B4
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 19:52:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02465EC0;
-	Mon,  9 Oct 2023 19:35:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02465EC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9139EEBB;
+	Mon,  9 Oct 2023 19:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9139EEBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696873004;
-	bh=8tsOknoSZNrI5lLbriprtzrcWwXydj4Bi/9jI9hvshQ=;
-	h=Date:Subject:To:References:Cc:From:In-Reply-To:List-Id:
+	s=default; t=1696873929;
+	bh=ZDhJqOJMdsU7dJI/IxlKV0R264Ko4eg2Uqt/Bnq4Ds0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A4PDjpLBU333a2I1Z5gwQbWLnIVNGbEK4DN2iTkYpnVi5l30kp+42X06/ePqR8kOf
-	 0MqySJg/4plOOl4+r55Ng84rwBak8vQgIjgLhjBeEmeqhUf42q3M7EFtGAE8w6NixD
-	 ytg9CQB/28m4MHmsgUIW3chy4TfHIeD/PG4VuW9w=
+	b=R4PYaVgly6dxNuMkM5nv7RrlvQt2Eq7wOQ8qM4GTBpYiCyhj4drc5IOoMkURoqkYJ
+	 fxALyEzN73bwiLVxvPxs5PkT9AkiE34K/+7EzbpALX7/rCk7+KUjITbIL7NHa0ueJU
+	 Tk226Pvu1kzym6d7A8ZeVJ2GIgeOdEu6xZ30Ibck=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B866F80552; Mon,  9 Oct 2023 19:35:53 +0200 (CEST)
+	id D31B4F80553; Mon,  9 Oct 2023 19:51:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D60BFF80166;
-	Mon,  9 Oct 2023 19:35:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8ADCDF80166;
+	Mon,  9 Oct 2023 19:51:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B813DF802BE; Mon,  9 Oct 2023 19:35:47 +0200 (CEST)
+	id E76A5F802BE; Mon,  9 Oct 2023 19:51:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CBD0BF80130
-	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 19:35:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBD0BF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id A4FECF8015B
+	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 19:51:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4FECF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Lhz74lyQ
+ header.s=Intel header.b=GvElpvDT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1696872939; x=1728408939;
-  h=message-id:date:mime-version:subject:to:references:cc:
-   from:in-reply-to:content-transfer-encoding;
-  bh=8tsOknoSZNrI5lLbriprtzrcWwXydj4Bi/9jI9hvshQ=;
-  b=Lhz74lyQZ8w8bNXfx8fW16jCKggze/P/TACaKC65wFQMILB/kSuk7mG6
-   xxmwqQb7ERVjBCHRKVSI/KYHK0qXN+IQ8rOW1ETTgTMoxafd9PoFf7DXI
-   SiZ2twzS74FLQMVjPoESkECiFKnk2/2GZKDzwJvDanD0uuIBRntmgvJX2
-   qOsD208XvRT4qLiPi7aa8HC+CspOlZJAIhHQ8oePS3lBN9iFPzt8xalX/
-   GN736PmJHRHVUPgQLs5X3DiIqT27tWSfcklFE9iknb/SvMAsZq3BHY0Va
-   2SUkABCucykiyoeHb5PB9LPEgO7eNy1HHvjI/f4ePpFzn4Cok8UzTyCip
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="388072694"
+  t=1696873873; x=1728409873;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=ZDhJqOJMdsU7dJI/IxlKV0R264Ko4eg2Uqt/Bnq4Ds0=;
+  b=GvElpvDToA491dZ9rwlf0cXk7DHEwzHRmnZzqcnl3OgDBqbp5MA4rIP6
+   BO0MJC1AogYpDZ9jvspNq0f34Y9wbWhxQTE8Nx3pblYbEmrBSAypHskF+
+   AePLrhMZByxOrazzvu3PyBqypRQtAP7u+oYgNd6d3ypa33rMMc+aCA1OV
+   YyI8aMlfxY3OpTYwV4kq9bXXVuL6AkXx8OWcKst1GlABCdHcikvatxfoP
+   ip3TxrFWmynJbQ1wBndSV3VHHK5Ee32+bHdyVPgRxhTdLuD1N2uBD3aD9
+   58WbDPZiA9h8Pvjzc3T28eO9VBDEbYIZdWTXxDQtI1Ol9lFAEDvZdUZNx
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="364499382"
 X-IronPort-AV: E=Sophos;i="6.03,210,1694761200";
-   d="scan'208";a="388072694"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 10:35:33 -0700
+   d="scan'208";a="364499382"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2023 10:51:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="843799715"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="823415116"
 X-IronPort-AV: E=Sophos;i="6.03,210,1694761200";
-   d="scan'208";a="843799715"
+   d="scan'208";a="823415116"
 Received: from cyortiz-mobl.amr.corp.intel.com (HELO [10.213.176.51])
  ([10.213.176.51])
-  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 10:35:34 -0700
-Message-ID: <2cfbeaab-9bdc-499b-8525-2296c0481cf4@linux.intel.com>
-Date: Mon, 9 Oct 2023 13:35:33 -0400
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2023 10:51:07 -0700
+Message-ID: <46f10d4e-4de4-478b-939f-9d0fc2dfb04a@linux.intel.com>
+Date: Mon, 9 Oct 2023 13:51:06 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] hda/realtek: Add SND_PCI_QUIRK entry for the Dell XPS
  9530 laptop for dual speakers
 Content-Language: en-US
-To: brett@worth.au, alsa-devel@alsa-project.org
-References: <9c7b08fc-7f00-4894-a5b2-f3fc5f99e022@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <9c7b08fc-7f00-4894-a5b2-f3fc5f99e022@gmail.com>
+To: brett@worth.au, alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+References: <9c7b08fc-7f00-4894-a5b2-f3fc5f99e022@gmail.com>
+ <2cfbeaab-9bdc-499b-8525-2296c0481cf4@linux.intel.com>
+In-Reply-To: <2cfbeaab-9bdc-499b-8525-2296c0481cf4@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NU2422MNWZG53P55Z7PIQISMHGRSNRBY
-X-Message-ID-Hash: NU2422MNWZG53P55Z7PIQISMHGRSNRBY
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 3NMNRNPD76E345PR3BN3KBLECCKGPKTI
+X-Message-ID-Hash: 3NMNRNPD76E345PR3BN3KBLECCKGPKTI
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NU2422MNWZG53P55Z7PIQISMHGRSNRBY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NMNRNPD76E345PR3BN3KBLECCKGPKTI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,47 +109,24 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 10/7/23 07:43, Brett Worth wrote:
-> The Dell XPS 9530, like previous XPS laptops like the 9520 and 9510 have
-> dual speakers in each channel.
+On 10/9/23 13:35, Pierre-Louis Bossart wrote:
 > 
-> If the ALC289_FIXUP_DUAL_SPK flag is not set in
-> sound/pci/hda/patch_realtek.c only the tweeter will work and therefore
-> make the sound quality terrible.
 > 
-> This patch has not been tested but is derived from a previous patch
-> attempt from a different user called Pentracillin which was rejected.
+> On 10/7/23 07:43, Brett Worth wrote:
+>> The Dell XPS 9530, like previous XPS laptops like the 9520 and 9510 have
+>> dual speakers in each channel.
+>>
+>> If the ALC289_FIXUP_DUAL_SPK flag is not set in
+>> sound/pci/hda/patch_realtek.c only the tweeter will work and therefore
+>> make the sound quality terrible.
+>>
+>> This patch has not been tested but is derived from a previous patch
+>> attempt from a different user called Pentracillin which was rejected.
+> 
+> This looks like the same issue posted here
+> https://github.com/thesofproject/linux/issues/4624. I added a link to
+> see if others can test.
 
-This looks like the same issue posted here
-https://github.com/thesofproject/linux/issues/4624. I added a link to
-see if others can test.
+feedback was quick, this patch doesn't seem to solve the problem
 
-> $ diff -r -up a b
-> diff -r -up a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> --- a/sound/pci/hda/patch_realtek.c     2023-10-07 22:16:36.129618972 +1100
-> +++ b/sound/pci/hda/patch_realtek.c     2023-10-07 22:16:52.645258218 +1100
-> @@ -9412,6 +9412,7 @@ static const struct snd_pci_quirk alc269
->        SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570",
-> ALC289_FIXUP_DUAL_SPK),
->        SND_PCI_QUIRK(0x1028, 0x0b37, "Dell Inspiron 16 Plus 7620
-> 2-in-1", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
->        SND_PCI_QUIRK(0x1028, 0x0b71, "Dell Inspiron 16 Plus 7620",
-> ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
-> +       SND_PCI_QUIRK(0x1028, 0x0beb, "Dell XPS 15 9530",
-> ALC289_FIXUP_DUAL_SPK),
->        SND_PCI_QUIRK(0x1028, 0x0c03, "Dell Precision 5340",
-> ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
->        SND_PCI_QUIRK(0x1028, 0x0c19, "Dell Precision 3340",
-> ALC236_FIXUP_DELL_DUAL_CODECS),
->        SND_PCI_QUIRK(0x1028, 0x0c1a, "Dell Precision 3340",
-> ALC236_FIXUP_DELL_DUAL_CODECS),
-
-
-
-> I don't have much confidence that this patch request will meet the
-> requirements.
-
-Your Signed-off tag is needed, along with a commit title and message.
-Also Cc: maintainers.
-
-
+https://github.com/thesofproject/linux/issues/4624#issuecomment-1753416738

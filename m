@@ -2,65 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADBF67BEACC
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 21:44:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E70C47BEAE8
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 21:52:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 008E1EDF;
-	Mon,  9 Oct 2023 21:44:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 008E1EDF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AEA2EDB;
+	Mon,  9 Oct 2023 21:51:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AEA2EDB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696880695;
-	bh=YfxqTSYOT3VS+bRSZm1IokFfH9SJpPuVC57XIHPEazM=;
+	s=default; t=1696881159;
+	bh=A0xz3kxYosXOJXpCRvAUD8uTyrE2L/ZtJobCdIqS3s4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=byRFr7IU6Ir7aq4fvosREXuQJHW6u4thmlW9vbSt6m6uxKd8G+fXQA39HynUUOTfX
-	 WQlgrMZ1EnLcxqkbNi2IrRxcQNw35CgyxqVV/LwDp1T1zFVzeiOsPQ2KqiUMjnCMkD
-	 xc02XbLglWJa10ip3X0xV8R/3l5vycgSqMTg80cU=
+	b=iHV1oTCQeuZn8zlH9NZU9YunXyu3s5n6yoaEExWMElZuAX2fXU79/h+SMtRIZKcri
+	 f0Z2u6rHUq8pTNlf9c7vRdrFftM2K8Y+wMy1KyyclWcffqbflHAs/AzRQThjx7bl3c
+	 KTLKNtZnnNg9KFA4h5TE3hAyR1nIYmQYcSRn79Jk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5ADC6F802BE; Mon,  9 Oct 2023 21:44:04 +0200 (CEST)
+	id 5329BF80552; Mon,  9 Oct 2023 21:51:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 156CCF8027B;
-	Mon,  9 Oct 2023 21:44:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED6EAF8027B;
+	Mon,  9 Oct 2023 21:51:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C28CAF802BE; Mon,  9 Oct 2023 21:44:00 +0200 (CEST)
+	id 79549F802BE; Mon,  9 Oct 2023 21:51:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92D49F80130
-	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 21:43:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92D49F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 844ACF8015B
+	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 21:51:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 844ACF8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jZQrpLLa
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id EF40F61338;
-	Mon,  9 Oct 2023 19:43:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A64C433C7;
-	Mon,  9 Oct 2023 19:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696880631;
-	bh=YfxqTSYOT3VS+bRSZm1IokFfH9SJpPuVC57XIHPEazM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jZQrpLLa+O8FD3mcAg/kZXws2IqrU5KE7NC8BhjKtYoS4Wh0V95J3DbXqVVsdQ0wo
-	 E77MJtmvY5Jh5rBuhAvMKkSK6pp+nEHyKLrai3ps3UxZEHqia+3y0VPgPAPAtDXdTu
-	 vhgafmCDi5B97DYvx5yYdB0DCg5bq9aqMHjzrYkl1rQBVyf0NrcntDBid9mbYPp1FF
-	 RMLJ5LjbpeY4eLR5bttaBKGYqL8C5/6lKuD4nsPXbH+TSNlvRZ5g5pV3n/Xqp9+sdM
-	 Dap7fMsY5FnGpVY8VqrTQN4q0PALJGZ0wYxYA1I10uME5vWOuL7QUq94Sz8Nk5q3uq
-	 PE0ivw3SRxXQg==
-Date: Mon, 9 Oct 2023 20:43:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kees Cook <keescook@chromium.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=GH9t4jNX
+Received: by mail-pj1-x102d.google.com with SMTP id
+ 98e67ed59e1d1-27ce160938fso128932a91.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 09 Oct 2023 12:51:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1696881100; x=1697485900;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=K2qK3/RPJGcH/Y4e4B3fj0OlYjfNOjt5OVjwpAAdhYw=;
+        b=GH9t4jNXJY08NqVdsgyzMzSOAr1BmUW77paKFNglVHj9HuJJ4qRLBRtLX7Mn87irk9
+         cGlcecU/IoNmoPP225j95oPGvP9+RtROU8xtaOrRsrkMIxl/zx2ewOYQ0qU/LKElvcJB
+         S0ah08fnjlIzzGgEkKbblR2kZhHZLz9Z5L67s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696881100; x=1697485900;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K2qK3/RPJGcH/Y4e4B3fj0OlYjfNOjt5OVjwpAAdhYw=;
+        b=OuqIOTkV8SKWf2OMLRgzBNQHWQbEIR7LhvgTAWLsyeprrwnfLtGVq3yt5/LXGiNISa
+         UD6Ew7+vHDnUjP+yVHXWdcxtSiXm+htoOjJGBAWGwP0go/8KYnAu1z1KY6+BA28Sb0YN
+         xo3R9uU4D4pRRt9aP2H78WNPJFpMYRNYAAmWZIQqfjxNzBKshEPSjfTxtnvCxoPSXAdU
+         gDEGnNM6+IGtwaQT/zr7eh/6Ytj6iPs2mzRBMJ2yVb2ILC7O49nJOW4jQonS53BLImzC
+         6uP1uHEgVJSIU5iZuc8GZ3vFvoHVGi0rpUcRA/sG2qMeH269xgGyo5Bcrt74q2K5ke8y
+         f6fw==
+X-Gm-Message-State: AOJu0YwQIz2DaNtjNdzw2ffX9o8/uc4h/Eo4BXrwyGcKER+iRpdRSfK6
+	hsaac9N5ETEcDNrdlP9OyCzMXSZWTjiZFcRjLxI=
+X-Google-Smtp-Source: 
+ AGHT+IErKu5nijcGQNO4C5TTmPCzq/DLxiROmTLvRJ5rM8E6o7Mvo2fsCJGqYmjn1eMmUSEOjczf4w==
+X-Received: by 2002:a17:90b:4d8b:b0:27c:df02:88b3 with SMTP id
+ oj11-20020a17090b4d8b00b0027cdf0288b3mr787340pjb.8.1696881099801;
+        Mon, 09 Oct 2023 12:51:39 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241])
+        by smtp.gmail.com with ESMTPSA id
+ ct19-20020a17090af59300b0026b3a86b0d5sm8806769pjb.33.2023.10.09.12.51.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Oct 2023 12:51:39 -0700 (PDT)
+Date: Mon, 9 Oct 2023 12:51:37 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Mark Brown <broonie@kernel.org>
 Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -71,20 +96,19 @@ Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
 	llvm@lists.linux.dev, linux-hardening@vger.kernel.org
 Subject: Re: [PATCH] ASoC: apple: mca: Annotate struct mca_data with
  __counted_by
-Message-ID: <6d665575-7658-4619-a763-438e0d3aaf2e@sirena.org.uk>
+Message-ID: <202310091251.B877B4AF@keescook>
 References: <20230922175050.work.819-kees@kernel.org>
  <202310061321.E7247C52B@keescook>
  <6c7db067-78f2-4637-8064-3dc7c0489b90@sirena.org.uk>
  <202310090958.27F5025BDB@keescook>
+ <6d665575-7658-4619-a763-438e0d3aaf2e@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wbIehCkvRN7FYjXS"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <202310090958.27F5025BDB@keescook>
-X-Cookie: What is the sound of one hand clapping?
-Message-ID-Hash: PFBYXFCRXJQ6WTRUM3K4OZ2XJK4P5HCA
-X-Message-ID-Hash: PFBYXFCRXJQ6WTRUM3K4OZ2XJK4P5HCA
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <6d665575-7658-4619-a763-438e0d3aaf2e@sirena.org.uk>
+Message-ID-Hash: QGD5AUPZWM6H4GI7E6B6U3GWGHJCJHTH
+X-Message-ID-Hash: QGD5AUPZWM6H4GI7E6B6U3GWGHJCJHTH
+X-MailFrom: keescook@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,126 +120,23 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PFBYXFCRXJQ6WTRUM3K4OZ2XJK4P5HCA/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGD5AUPZWM6H4GI7E6B6U3GWGHJCJHTH/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, Oct 09, 2023 at 08:43:44PM +0100, Mark Brown wrote:
+> Off the top of my head I'd say wait at least three weeks for this sort
+> of patch before doing anything and then prefer to do a resend, that's
+> should avoid most issues.  If you're going to just apply things yourself
+> I'd suggest waiting for -rc6 or so before doing so (assuming the patches
+> were initially sent reasonably early), that does seem like a reasonable
+> backstop so things don't completely miss releases.
 
---wbIehCkvRN7FYjXS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Okay, sounds good. Thanks for the clarification!
 
-On Mon, Oct 09, 2023 at 10:17:33AM -0700, Kees Cook wrote:
-> On Fri, Oct 06, 2023 at 09:53:49PM +0100, Mark Brown wrote:
-
-> > Please don't send content free pings and please allow a reasonable time
-> > for review.  People get busy, go on holiday, attend conferences and so=
-=20
-> > on so unless there is some reason for urgency (like critical bug fixes)
-> > please allow at least a couple of weeks for review.  If there have been
-> > review comments then people may be waiting for those to be addressed.
-
-> I'm happy to do whatever you'd like for this kind of thing, but I'm
-> annoyed by this likely automated response seems to ask for the things
-> that have already happened or generally don't make sense. :P
-
-It's a form letter so not quite automated but sure.  Since it's the same
-form letter I send for all these pings it covers a bunch of things that
-might not apply in each individual case.
-
-> - It _has_ been 2 weeks.
-
-That's *at least* two weeks.  For a non-urgent change like this I'd
-generally go with longer than that, for example I'd originally had these
-changes queued for -rc5 to give the driver maintainers a couple of weeks
-to look at them (my scripting understands -rcs more than dates so you'll
-see more patches going in on Mondays). =20
-
-> - Review comments have _not_ required changes.
-> - Sending a no-change patch is just as much email as sending a ping.
-
-A no-change patch is directly and readily actionable, a ping typically
-requires going and digging out the original mail or sending a reply
-asking for a resend.
-
-> - It's not content-free: I'm asking if you're going to take it;
->   patches have gotten lost in the past, so it's a valid question.
-
-That is not something I can meaningfully distinguish from being content
-free, it provides no new information.  Something with content would be
-for example information about dependencies progressing.
-
-> - I'm not interested in other subsystems, I'm interested in yours. :P
-
-> You've made it clear you don't want me to pick up these kinds of trivial
-> patches that would normally go through your tree, so I'm left waiting
-> with no indication if you've seen the patch.
-
-Sure, but that seems fairly normal for the kernel - when sending this
-sort of stuff myself I'd be leaving it more like a month before I got
-particularly worried.  One way or another it seems fairly common for
-things to be left for at least a couple of weeks with things like
-waiting for review, restrictions on when patches actually get applied
-and just people being busy or whatever.
-
-Personally for incoming patches when I'm leaving time for driver
-maintainers I tend to go for leaving things for a -rc or two - things
-like who's involved, how early it is in the week when the original patch
-gets sent and how late in the release cycle we are will factor in there.
-More urgent things like fixes will tend to go faster, minor stuff that
-just needs to be handled sometime before the next release will tend to
-be slower.
-
-I don't send out mails saying that I've reviewed and queued things
-before actually applying them since doing that tends to discourage other
-people from doing review and I'd rather they did, this means I don't
-generally send out entirely positive review comments prior to applying
-anything unless I'm actively chasing for feedback from someone.  It can
-also be a bit confusing for people if I tell them something is OK then
-later run into test issues.
-
-> My normal routine with treewide changes is to pick up trivial stuff that
-> has gotten review but the traditional maintainer hasn't responded to
-> in 2 weeks.
-
-> Do you want these kinds of patches to be re-sent every 2 weeks if they
-> haven't been replied to by you?
-
-No, please leave it longer - that's the main thing here, you're not
-leaving adequate time for non-urgent patches like this.  If you leave it
-two weeks for maintainer review and I also leave it two weeks for
-maintainer review then we will both expire the timers at the same time
-and we're going to trample over each other.  For me it will typically be
-a bit more or less than two weeks rather than two weeks to the day but
-IIRC the time you applied something it was while the patch was actually
-running through my CI.
-
-Off the top of my head I'd say wait at least three weeks for this sort
-of patch before doing anything and then prefer to do a resend, that's
-should avoid most issues.  If you're going to just apply things yourself
-I'd suggest waiting for -rc6 or so before doing so (assuming the patches
-were initially sent reasonably early), that does seem like a reasonable
-backstop so things don't completely miss releases.
-
---wbIehCkvRN7FYjXS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUkV/AACgkQJNaLcl1U
-h9Cx6wf+Mp6vpDV8u/RSsfNyyeauwAka4z1Hlk5P6r1BUk1ILsu1HZenW134Gs9B
-TVvsTnRHXt+ncyEVjC/JOrPHanYdJ1mAuTeYA9zYpmq1KnxE/Nkj+wUwbyytSpq4
-JDiC5X03Vfra9BWkTKlFzOTpRkfOj5nXukvKxsHPZS2g3j5eEH/V2ZbEk6Wp0b8b
-M9dU6NviQJtpgCPKtj1R4D7HQ5MZ6IWagIHWk0P8sxU6aM6QJkTJlUv4eZ/gWh+Y
-0gMPR0XkpoITVUbXrpvpPN2jAthOMMm+erfm9E8pb1eceGv+UKTJR8f6ELtojzU/
-4jy8hXGLu/8ghtVcLfX+6p9YQAP1wA==
-=d//l
------END PGP SIGNATURE-----
-
---wbIehCkvRN7FYjXS--
+-- 
+Kees Cook

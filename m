@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E817BE634
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 18:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5567BE638
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 18:20:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87024EBE;
-	Mon,  9 Oct 2023 18:19:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87024EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AD88ECA;
+	Mon,  9 Oct 2023 18:20:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AD88ECA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696868444;
-	bh=gkyeCucWHf0UPKQjtfcwMc3717M1vXRgjVqByo3d1Qo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=WNE7lCdfS7Q1P/xNbIJ2BTm1ABeKOJr1Vengp89akLjhpOtrUREkUcc0eTX3FdMge
-	 1cq6w3iNaIW9NAT5UkL3xM++UEtCSZbW8sr0Kap6XF/EBXclkLXSblF5iH8UNgO00x
-	 /OU0lRbqydObiTuF3xoQP456KC8ik6lsiGwQZMdE=
+	s=default; t=1696868452;
+	bh=z6yr09RTbY+vBbPiE9irQn/sce73HKsMlGyR/Bbw4K8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=V1EVMTLoyr1vBkKpOI0u4mDs033UYwFdgX9/Cu1gVy+Xpv+gyWDW0d1K9vu2Mzofa
+	 q3RBqpu5uVk8d1H4joiFzWr42bsHWM5FBlWT67RtKy5r4khLRuLJLtYBZmxG+jtzGD
+	 wPonbKFXxiF7v0KQE67sDj4Y9E4qGvBB+2v15G4k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C615BF80568; Mon,  9 Oct 2023 18:19:08 +0200 (CEST)
+	id 23BB9F8057F; Mon,  9 Oct 2023 18:19:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F349F8055C;
-	Mon,  9 Oct 2023 18:19:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E507AF8055B;
+	Mon,  9 Oct 2023 18:19:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD3ACF80563; Mon,  9 Oct 2023 18:19:05 +0200 (CEST)
+	id 0F159F80563; Mon,  9 Oct 2023 18:19:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E9B1F80553
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60CCAF8055B
 	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 18:18:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E9B1F80553
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60CCAF8055B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aRZvLtrS
+ header.s=k20201202 header.b=d7tIzyvM
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id C6FE5CE108C;
+	by sin.source.kernel.org (Postfix) with ESMTP id D23EECE17F5;
+	Mon,  9 Oct 2023 16:18:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88AEFC433C8;
 	Mon,  9 Oct 2023 16:18:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E8CC433C7;
-	Mon,  9 Oct 2023 16:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696868333;
-	bh=gkyeCucWHf0UPKQjtfcwMc3717M1vXRgjVqByo3d1Qo=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=aRZvLtrSEzexpMxcLbb9fEIj9PrqerwrngWL08mur9lvbJPmFJooNVKd7ExcXmp8Q
-	 J20YXEqMxewDDKq2mmG4LWFM6DkaRteITbjhoHBJTIXokR5Z8F7SdTyCmKjB65Asvc
-	 waTD6RJU7+85dAsS/wPbs5yeg3ubabhUtSlMNImBAJVuB5slOKDs+kRMxHdjkt/3pC
-	 e80BudsNFRDICSa9TlPJctsI9qDimmR/R+gN0UcxEfFrdfZCOug9iPJMYJeY+CQLR+
-	 JakzussiRfNylaUapSjF0lYt7izBV+XnJ2mCrBoD/sM6GHzVMTpemjuJk2+f2J6L+E
-	 4263YhT0J3sQQ==
+	s=k20201202; t=1696868335;
+	bh=z6yr09RTbY+vBbPiE9irQn/sce73HKsMlGyR/Bbw4K8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=d7tIzyvMklZSjUJ3iPelluGg1uQA3RlW5d9ZpLm4axxc/FA5+7oeicawuR4mFdEYb
+	 SLEgC8ONPWxNzHPrStYBFI0x+LNVESDR1uAbcaPyRV0Cin+LTMkjgItCntqmD0eo5t
+	 ponK+Sk8DBvCLJsQcM56kL7kn/EX2Tscpj5WbO5VcEAU5y5NYUwuZOdVcPbTmeRgwy
+	 5mwEW62OEPZaFxR2JvJ36ZuilnOwvfG2FFKx6gapctie0mRQwXGA/H3OaJtqAjTNrH
+	 zBvnRUSpGUEuiLg/tHACEdkoAELDGpwtLHF4ID9Ap1RW4b/eXCQNVJJhjQMLUriMDP
+	 3JdxcND04It8g==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20231005075250.88159-1-krzysztof.kozlowski@linaro.org>
-References: <20231005075250.88159-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v2 1/2] ASoC: qcom: explicitly include binding headers
- when used
-Message-Id: <169686833118.101967.4629707459259465678.b4-ty@kernel.org>
-Date: Mon, 09 Oct 2023 17:18:51 +0100
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ cujomalainey@chromium.org
+In-Reply-To: <20231006084041.18100-1-peter.ujfalusi@linux.intel.com>
+References: <20231006084041.18100-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: sof-client: fix build when only IPC4 is
+ selected
+Message-Id: <169686833328.101967.1607871264971694226.b4-ty@kernel.org>
+Date: Mon, 09 Oct 2023 17:18:53 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: MCYFKO24JMGISTA575LGTODHVP5BY3IR
-X-Message-ID-Hash: MCYFKO24JMGISTA575LGTODHVP5BY3IR
+Message-ID-Hash: 3NNV6T4OADU5PKY6PAKR7O6TRH7VOD7O
+X-Message-ID-Hash: 3NNV6T4OADU5PKY6PAKR7O6TRH7VOD7O
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MCYFKO24JMGISTA575LGTODHVP5BY3IR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NNV6T4OADU5PKY6PAKR7O6TRH7VOD7O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,12 +97,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 05 Oct 2023 09:52:49 +0200, Krzysztof Kozlowski wrote:
-> Few units use qcom,lpass.h binding headers but they rely on them being
-> included through a different header.  Make the usage explicit which
-> allows easier to find the users of a header.
+On Fri, 06 Oct 2023 11:40:41 +0300, Peter Ujfalusi wrote:
+> When IPC3 is not selected, sof-client.c still makes a hard-coded
+> reference to an IPC3-specific function:
 > 
+> ERROR: modpost: "sof_ipc3_do_rx_work" [sound/soc/sof/snd-sof.ko]
+> undefined!
 > 
+> Fix by making the code conditional.
+> 
+> [...]
 
 Applied to
 
@@ -110,10 +114,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: qcom: explicitly include binding headers when used
-      commit: 0f729a285b4ef7d0cd2497c22233c42037486a7e
-[2/2] ASoC: qcom: reduce number of binding headers includes
-      commit: 528a4a0bb010489abc3bb298c85c8ffb7ebe7735
+[1/1] ASoC: SOF: sof-client: fix build when only IPC4 is selected
+      commit: d65d4a2c3867a04ee4ae9c99747a6398b58e269b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

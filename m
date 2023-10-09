@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A238E7BE8B4
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 19:52:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB76E7BE9B5
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Oct 2023 20:37:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9139EEBB;
-	Mon,  9 Oct 2023 19:51:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9139EEBB
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD652EA1;
+	Mon,  9 Oct 2023 20:37:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD652EA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696873929;
-	bh=ZDhJqOJMdsU7dJI/IxlKV0R264Ko4eg2Uqt/Bnq4Ds0=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1696876675;
+	bh=cleXwwfg4OCGw1Kekzev2WGKdvehBL0Gc1xi4pIDrp0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R4PYaVgly6dxNuMkM5nv7RrlvQt2Eq7wOQ8qM4GTBpYiCyhj4drc5IOoMkURoqkYJ
-	 fxALyEzN73bwiLVxvPxs5PkT9AkiE34K/+7EzbpALX7/rCk7+KUjITbIL7NHa0ueJU
-	 Tk226Pvu1kzym6d7A8ZeVJ2GIgeOdEu6xZ30Ibck=
+	b=ufsj6rB4enf8M/y66f+OIVAevhXjCrktOWBuTUE2ZPW2qK+102xKD8ttmUNfZLT8Y
+	 4YJZjC0d3NuFFc79MFjv5xufIheZ+J0sWrBbm4paTiiTnJYOZyBCgWvHl7G2Z22UZ3
+	 aJLtWhUAGwo9hbtDnubcUkAOCFlRg2KFPFGw3jjA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D31B4F80553; Mon,  9 Oct 2023 19:51:18 +0200 (CEST)
+	id 2E400F802BE; Mon,  9 Oct 2023 20:36:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ADCDF80166;
-	Mon,  9 Oct 2023 19:51:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69381F802BE;
+	Mon,  9 Oct 2023 20:36:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E76A5F802BE; Mon,  9 Oct 2023 19:51:15 +0200 (CEST)
+	id AAFD5F80536; Mon,  9 Oct 2023 20:36:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4FECF8015B
-	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 19:51:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4FECF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B84B3F80166
+	for <alsa-devel@alsa-project.org>; Mon,  9 Oct 2023 20:36:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84B3F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=GvElpvDT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1696873873; x=1728409873;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=ZDhJqOJMdsU7dJI/IxlKV0R264Ko4eg2Uqt/Bnq4Ds0=;
-  b=GvElpvDToA491dZ9rwlf0cXk7DHEwzHRmnZzqcnl3OgDBqbp5MA4rIP6
-   BO0MJC1AogYpDZ9jvspNq0f34Y9wbWhxQTE8Nx3pblYbEmrBSAypHskF+
-   AePLrhMZByxOrazzvu3PyBqypRQtAP7u+oYgNd6d3ypa33rMMc+aCA1OV
-   YyI8aMlfxY3OpTYwV4kq9bXXVuL6AkXx8OWcKst1GlABCdHcikvatxfoP
-   ip3TxrFWmynJbQ1wBndSV3VHHK5Ee32+bHdyVPgRxhTdLuD1N2uBD3aD9
-   58WbDPZiA9h8Pvjzc3T28eO9VBDEbYIZdWTXxDQtI1Ol9lFAEDvZdUZNx
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="364499382"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200";
-   d="scan'208";a="364499382"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 10:51:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="823415116"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200";
-   d="scan'208";a="823415116"
-Received: from cyortiz-mobl.amr.corp.intel.com (HELO [10.213.176.51])
- ([10.213.176.51])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 10:51:07 -0700
-Message-ID: <46f10d4e-4de4-478b-939f-9d0fc2dfb04a@linux.intel.com>
-Date: Mon, 9 Oct 2023 13:51:06 -0400
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=lRVKJnS8
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 4FD4ACE19D1;
+	Mon,  9 Oct 2023 18:36:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2E92C433C8;
+	Mon,  9 Oct 2023 18:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1696876577;
+	bh=cleXwwfg4OCGw1Kekzev2WGKdvehBL0Gc1xi4pIDrp0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=lRVKJnS86mkBgUwHEKu3kTFmSyz0+HRJuREm/e4ClHEh1+kRaNQ0DZNol8dHUriEU
+	 MNX+R3wWHACHrBArrmULIe7ymsvBD4q8CMJn11vgxPdNOc72FMylFe60KtEQEKXHaS
+	 T2Ujs52iMz2UKlImVbFCPfNuoA+lzj+nuJt7VwIn6uw72hhQvtLGQ2QAlfiSFmkNEc
+	 6UAA3hV9J73+xnqT4RgkckUG8QdipOceou+nwaYBhqAqdDrDSF1vAqzKi5mIee85OC
+	 d5ZFnpbbIEjUMv8z380k9BIVNG1LB+SHEeLJ685xGevfbyzZJ2Z/NIdFcXeqkMznXG
+	 hgebKbLav8evA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Heiko Stuebner <heiko@sntech.de>,
+ Linus Walleij <linus.walleij@linaro.org>
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org,
+ linux-rockchip@lists.infradead.org
+In-Reply-To: <20230929-descriptors-asoc-rockchip-v2-0-2d2c0e043aab@linaro.org>
+References: <20230929-descriptors-asoc-rockchip-v2-0-2d2c0e043aab@linaro.org>
+Subject: Re: [PATCH v2 0/4] Convert Rockchip ASoC drivers to GPIO
+ descriptors
+Message-Id: <169687657441.138823.7986058351382162360.b4-ty@kernel.org>
+Date: Mon, 09 Oct 2023 19:36:14 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hda/realtek: Add SND_PCI_QUIRK entry for the Dell XPS
- 9530 laptop for dual speakers
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: brett@worth.au, alsa-devel@alsa-project.org
-Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-References: <9c7b08fc-7f00-4894-a5b2-f3fc5f99e022@gmail.com>
- <2cfbeaab-9bdc-499b-8525-2296c0481cf4@linux.intel.com>
-In-Reply-To: <2cfbeaab-9bdc-499b-8525-2296c0481cf4@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3NMNRNPD76E345PR3BN3KBLECCKGPKTI
-X-Message-ID-Hash: 3NMNRNPD76E345PR3BN3KBLECCKGPKTI
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: IUWBDSHBW2IDLAXWMD6HBWBDLC6PMRU4
+X-Message-ID-Hash: IUWBDSHBW2IDLAXWMD6HBWBDLC6PMRU4
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NMNRNPD76E345PR3BN3KBLECCKGPKTI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUWBDSHBW2IDLAXWMD6HBWBDLC6PMRU4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,26 +98,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 10/9/23 13:35, Pierre-Louis Bossart wrote:
+On Fri, 29 Sep 2023 00:12:53 +0200, Linus Walleij wrote:
+> The Rockchip drivers are pretty straight-forward to convert
+> over to using GPIO descriptors.
 > 
 > 
-> On 10/7/23 07:43, Brett Worth wrote:
->> The Dell XPS 9530, like previous XPS laptops like the 9520 and 9510 have
->> dual speakers in each channel.
->>
->> If the ALC289_FIXUP_DUAL_SPK flag is not set in
->> sound/pci/hda/patch_realtek.c only the tweeter will work and therefore
->> make the sound quality terrible.
->>
->> This patch has not been tested but is derived from a previous patch
->> attempt from a different user called Pentracillin which was rejected.
-> 
-> This looks like the same issue posted here
-> https://github.com/thesofproject/linux/issues/4624. I added a link to
-> see if others can test.
 
-feedback was quick, this patch doesn't seem to solve the problem
+Applied to
 
-https://github.com/thesofproject/linux/issues/4624#issuecomment-1753416738
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/4] ASoC: rockchip: Convert RK3288 HDMI to GPIO descriptors
+      commit: 15b26d8165b39a07f038fb4d2b67a04c50463eb9
+[2/4] ASoC: rockchip: Drop includes from RK3399
+      commit: 3116dc2e16542d56bd173e90ce1893bed697a830
+[3/4] ASoC: rockchip: Drop includes from Rockchip MAX98090
+      commit: 7214141067922836b48157e8266335096a0ea4ea
+[4/4] ASoC: rockchip: Drop includes from Rockchip RT5645
+      commit: 329b017ccdf80cdcc3550f6caecbf2bc80a67432
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

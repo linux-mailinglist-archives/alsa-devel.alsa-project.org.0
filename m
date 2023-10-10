@@ -2,90 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2FE47BF6D5
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Oct 2023 11:08:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 520AC7BF89C
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Oct 2023 12:26:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FB30102D;
-	Tue, 10 Oct 2023 11:07:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FB30102D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0ABDC14F4;
+	Tue, 10 Oct 2023 12:25:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0ABDC14F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696928889;
-	bh=RpOgGZRGVhfUaO4u/weyo+Vj7fpIhUpNL+R1Rudo1sU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=EpJaGYgjaVbkBVFtMy7mViZGDnSuO9kS5JhVUiP2vMO1ZCNqCjTHchqTviQLfnRMJ
-	 L855KyGTqpRB6t5Y1s8WCAlSIl8RrxU5qDkbAM1KXNT6CyIOSlVmXCxzOPoeiBbZQ1
-	 epVPQV2xvsHeuQHXdU8hF4Lp6N1OzYY++UmyITeM=
+	s=default; t=1696933596;
+	bh=eclUJLKE2tn9x0AxY37CzdNYdn06+dFVhjrhoXMhmtc=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qg2nbu5YadeBZoJtvy//k6WxR1gDj9Nvr+vPxqHk0PL3NJhiGFFCq4n+3ri+a7ZZU
+	 xwdFQz9RZttewqZrWj7TgTLAdEeZbYyLSMlMomapPlkXu/F1fOARqGgfe9A6okkI6C
+	 Dlu+6CEu9XGZRCPyQF2/YS785v8SOYz55Bd09apk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 894C6F80558; Tue, 10 Oct 2023 11:07:18 +0200 (CEST)
+	id 76D25F80567; Tue, 10 Oct 2023 12:24:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32D9AF8019B;
-	Tue, 10 Oct 2023 11:07:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEBB2F8055B;
+	Tue, 10 Oct 2023 12:24:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03D8AF8027B; Tue, 10 Oct 2023 11:07:14 +0200 (CEST)
+	id 14031F802BE; Tue, 10 Oct 2023 12:24:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C003CF80130
-	for <alsa-devel@alsa-project.org>; Tue, 10 Oct 2023 11:06:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C003CF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 98E6FF80130
+	for <alsa-devel@alsa-project.org>; Tue, 10 Oct 2023 12:24:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98E6FF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=f8nnC0ti
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 0B84766030BF;
-	Tue, 10 Oct 2023 10:06:57 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1696928817;
-	bh=RpOgGZRGVhfUaO4u/weyo+Vj7fpIhUpNL+R1Rudo1sU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=f8nnC0tixyeaQ39u6/zLCNXjdI3HCSnbV0aG9spQlHPTvmtsY9fuR/Eg3S4KNwWr9
-	 xwWd+6bIX27CapM/QJtvN/HV1xGU+Z9iB00208mLMM6o+Ug97skqP6ezFr2YYdQM1/
-	 7yoh8SzwIBNKh5cSpwdK87bwkQzPPhIuXI7q3gcWlQNFUSzInj6xVY4MQ1x5/62mge
-	 24qZ58CT09x5R1V/fdhbrQy6piCWQNkeBxm3eQnk2813+63IvY7YuVjTDWS7dOKNLb
-	 RhWKIhvO/W+/RbTXivZo0SZk3TCBG4f08miEAxd/0h2F+3t3iC37tZhF4c83cxMHbg
-	 XNj810FLiNykA==
-Message-ID: <673dcc99-cf42-81ff-47fe-e20079a5e17c@collabora.com>
-Date: Tue, 10 Oct 2023 11:06:54 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=TRHWt0Ky
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 39A7lgWQ020417;
+	Tue, 10 Oct 2023 05:24:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=e
+	hQDW4OCxe0t0n3Rmmo3JU4cvesPwbEw+cTH9CpbbjU=; b=TRHWt0KyfnITHppT7
+	zr0DPx0XkLolwoKUXlvo2kWOBO7nP5uXj7B2py7ym9HD6qqXrAdkU7lWLfWgGst8
+	RUxbPrDF0vvnszlfwEvecxV0d/uP6vuzmnxztOi961YpVh9pmvMWagGvcCJd8Fke
+	JXSN5dQX8IKR73r3XMCFfv2B4IIPJg/O/5wSHL8e4PDOl6kLWBQJsl+KKVtUwxPv
+	PcKbt6CMFQx+JZyVBES1Ra0r5hRif0oAzZc8iaCSeRc0IVA04jLPtYcZLuwjrRK+
+	I8IbwQUeOdzHZ4ZKvYCpBGvOgruIDm2DBCqNwUAdId27Fhxfm+sNvFBBmGzexgi/
+	DWxAA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3tkhhaj8w1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 10 Oct 2023 05:24:27 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 10 Oct
+ 2023 11:24:26 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
+ Transport; Tue, 10 Oct 2023 11:24:26 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0F69746B;
+	Tue, 10 Oct 2023 10:24:26 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+        <patches@opensource.cirrus.com>
+Subject: [PATCH v2 1/2] ASoC: dt-bindings: cirrus,cs42l43: Update values for
+ bias sense
+Date: Tue, 10 Oct 2023 11:24:24 +0100
+Message-ID: <20231010102425.3662364-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Subject: Re: [v5 2/2] ASoC: mediatek: mt8188-mt6359: add rt5682s support
-Content-Language: en-US
-To: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>,
- lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- matthias.bgg@gmail.com, perex@perex.cz, trevor.wu@mediatek.com
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-References: 
- <20231010023738.8241-1-xiazhengqiao@huaqin.corp-partner.google.com>
- <20231010023738.8241-3-xiazhengqiao@huaqin.corp-partner.google.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: 
- <20231010023738.8241-3-xiazhengqiao@huaqin.corp-partner.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 7OWLYIX7YBWY6L7AIW554CSCHMSNQN3S
-X-Message-ID-Hash: 7OWLYIX7YBWY6L7AIW554CSCHMSNQN3S
-X-MailFrom: angelogioacchino.delregno@collabora.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 2sswtg7ynSaiV0-6SsqCawI4igxNZL1j
+X-Proofpoint-GUID: 2sswtg7ynSaiV0-6SsqCawI4igxNZL1j
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: AAF54J23ICSJEN6M6BE2FCKJ5KDFJ22C
+X-Message-ID-Hash: AAF54J23ICSJEN6M6BE2FCKJ5KDFJ22C
+X-MailFrom: prvs=5647b14960=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OWLYIX7YBWY6L7AIW554CSCHMSNQN3S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AAF54J23ICSJEN6M6BE2FCKJ5KDFJ22C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,13 +109,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 10/10/23 04:37, xiazhengqiao ha scritto:
-> To use RT5682S as the codec and MAX98390 as the amp, add a new
-> sound card named mt8188_rt5682s.
-> 
-> Signed-off-by: xiazhengqiao <xiazhengqiao@huaqin.corp-partner.google.com>
-> Reviewed-by: Trevor Wu <trevor.wu@mediatek.com>
+Due to an error in the datasheet the bias sense values currently don't
+match the hardware. Whilst this is a change to the binding no devices
+have yet shipped so updating the binding will not cause any issues.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
 
+Just rebased on v6.6-rc5. Worth noting the conflicting patch was:
+
+aa7627111c68 ("ASoC: dt-bindings: ASoC: cirrus,cs42l43: Update a couple of default values")
+
+Thanks,
+Charles
+
+ Documentation/devicetree/bindings/sound/cirrus,cs42l43.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l43.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs42l43.yaml
+index 7a6de938b11d1..4118aa54bbd55 100644
+--- a/Documentation/devicetree/bindings/sound/cirrus,cs42l43.yaml
++++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l43.yaml
+@@ -82,7 +82,7 @@ properties:
+     description:
+       Current at which the headset micbias sense clamp will engage, 0 to
+       disable.
+-    enum: [ 0, 14, 23, 41, 50, 60, 68, 86, 95 ]
++    enum: [ 0, 14, 24, 43, 52, 61, 71, 90, 99 ]
+     default: 0
+ 
+   cirrus,bias-ramp-ms:
+-- 
+2.39.2
 

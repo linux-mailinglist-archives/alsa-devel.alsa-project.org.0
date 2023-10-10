@@ -2,95 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A94F57BF886
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Oct 2023 12:25:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A677BF903
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Oct 2023 12:51:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 894531283;
-	Tue, 10 Oct 2023 12:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 894531283
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17DF91283;
+	Tue, 10 Oct 2023 12:50:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17DF91283
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1696933545;
-	bh=Ol2n8qfwHjlN8M1tiK/TGEuDdE8TekYwXdvIb+35Ml8=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1696935063;
+	bh=TCxtOEOHqePHEFVdddBUAHs1oAZDQvzfb5xAjEMMhLc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FIWAPo9G1U5V//oSJoiOu6SCqnR7+zB14AfQc0UshuJAnFZYW3Sw3YA5ajkkDIGII
-	 aWNsAux+HeLj2fENM3kstvXeYJSzZuN4tMqQ652BKtewXcpoAhRhNTaui41jK3jn7P
-	 caQJUVERFosDoYNd5XAUiifxBUYng451U1GcGV7Q=
+	b=KpeKGeBov7k6W4UkY56ctkOAAbwdu0iqdM0d1R2wpmBuOv1wccXRTZJYlbcGoxmfd
+	 1vdaRveKm2U/MK5vaayIGeUkgO3wVLXr1CrL/JNkznD1qCYRR2Rt84sxU7IvVrVfQw
+	 u9OpaY4gjVb4RrusnBnz3g7I6NmPPQPjOyb2MFJE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E335BF80557; Tue, 10 Oct 2023 12:24:54 +0200 (CEST)
+	id 868F6F80130; Tue, 10 Oct 2023 12:50:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69022F8027B;
-	Tue, 10 Oct 2023 12:24:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B25DF8027B;
+	Tue, 10 Oct 2023 12:50:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D70A5F80310; Tue, 10 Oct 2023 12:24:35 +0200 (CEST)
+	id BCC35F802BE; Tue, 10 Oct 2023 12:50:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F3DDAF80166
-	for <alsa-devel@alsa-project.org>; Tue, 10 Oct 2023 12:24:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3DDAF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 817C5F80166;
+	Tue, 10 Oct 2023 12:49:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 817C5F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=WQjsiKww
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39A7lgWR020417;
-	Tue, 10 Oct 2023 05:24:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=w3b3+6R0F1QShjM+MNfhDHhJ14lnXJRd0dtRxOHVNgc=; b=
-	WQjsiKww/WM27AwPCANzMRLvw6hfjWL3ILGqBB83l+REtbGMfc7AWmPv7uN4kIMH
-	/YnGtXCnIIhWJCk9RWQZwG5QU024KaCmm8rpyHMYWxdcUCnrHC3V/M0ZxORMJtmk
-	UhH+CMO00HL1ydz9C6MTJJCyAyZNAD/ov4EseApOHoCnNHL/549nAEYTk5OUrLAW
-	uQlsNQ/pQkgMwGr9SmAyl20PzmTXEk5Ig8O6NE04GJcX+veiXUAU7Qjzfei0ng7y
-	PGrslwDXFFkAP2PS4prJaEVEvKnykyJsDxtpY6/cKDqoUY4Nac558+sAzV+JVd92
-	xnf82B95DR5nvi34vmSFLA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3tkhhaj8w1-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 10 Oct 2023 05:24:28 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 10 Oct
- 2023 11:24:26 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
- Transport; Tue, 10 Oct 2023 11:24:26 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1F61911AC;
-	Tue, 10 Oct 2023 10:24:26 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
-        <patches@opensource.cirrus.com>
-Subject: [PATCH v2 2/2] ASoC: cs42l43: Update values for bias sense
-Date: Tue, 10 Oct 2023 11:24:25 +0100
-Message-ID: <20231010102425.3662364-2-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231010102425.3662364-1-ckeepax@opensource.cirrus.com>
-References: <20231010102425.3662364-1-ckeepax@opensource.cirrus.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=XRQ9H3oN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1696935000; x=1728471000;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=TCxtOEOHqePHEFVdddBUAHs1oAZDQvzfb5xAjEMMhLc=;
+  b=XRQ9H3oNqTHbJBjmoBX9TTfPL1+PB4K4wx1pBxSS1ks5IGCQE0uhuYhK
+   q5P0pwgpneOtGxm6iG028MI7iVmcLgQabxAyyzLh0zKhQdLpJeZX3D8vM
+   OY078ndCeC/81lA0duCP7c+/Q10/5VVY+TxINTYA2AIm/9m6Nc/8qZ//2
+   9L4arY5HtOHOenmaBXl9Wyvfrbzg+PSnjtl0v+k4vvSwuET1vMlNrr2rE
+   1J0elefEwJgXwYP8HdHQsaYKjYnyzkH+FqWUS/kZhVvcILU2WHQj+1Lpo
+   +YNPRTu4Yv9dv7R0cf+fo/VWdxYhNyrJFtzqUYISleA2F0HJhoIuEamIn
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="374704405"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200";
+   d="scan'208";a="374704405"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2023 03:49:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="703262298"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200";
+   d="scan'208";a="703262298"
+Received: from smirnovi-mobl2.ger.corp.intel.com (HELO [10.249.36.74])
+ ([10.249.36.74])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2023 03:49:20 -0700
+Message-ID: <fe03aa27-697a-4bfb-bd9c-7866da198f6c@linux.intel.com>
+Date: Tue, 10 Oct 2023 13:49:33 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/13] sound: Use -EPROBE_DEFER instead of i915 module
+ loading.
+Content-Language: en-US
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+References: <20231009115437.99976-1-maarten.lankhorst@linux.intel.com>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20231009115437.99976-1-maarten.lankhorst@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: Hp2yAx6ccrLF2oxyPrSAfKjc2JmtXXU8
-X-Proofpoint-GUID: Hp2yAx6ccrLF2oxyPrSAfKjc2JmtXXU8
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: YUMIGADEWHJ3C72NNOD3RL4ERR7XLOSY
-X-Message-ID-Hash: YUMIGADEWHJ3C72NNOD3RL4ERR7XLOSY
-X-MailFrom: prvs=5647b14960=ckeepax@opensource.cirrus.com
+Message-ID-Hash: MDS5HGZMV44BYQK6RENCSHTU6NHYVNCZ
+X-Message-ID-Hash: MDS5HGZMV44BYQK6RENCSHTU6NHYVNCZ
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YUMIGADEWHJ3C72NNOD3RL4ERR7XLOSY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MDS5HGZMV44BYQK6RENCSHTU6NHYVNCZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,34 +115,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Due to an error in the datasheet the bias sense values currently don't
-match the hardware. Whilst this is a change to the binding no devices
-have yet shipped so updating the binding will not cause any issues.
+Hi Maarteen,
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
+On 09/10/2023 14:54, Maarten Lankhorst wrote:
+> Explicitly loading i915 becomes a problem when upstreaming the new intel driver
+> for Tiger Lake and higher graphics (xe). By loading i915, it doesn't wait for
+> driver load of xe, and will fail completely before it loads.
+> 
+> -EPROBE_DEFER has to be returned before any device is created in probe(),
+> otherwise the removal of the device will cause EPROBE_DEFER to try again
+> in an infinite loop.
+> 
+> The conversion is done in gradual steps. First I add an argument to
+> snd_hdac_i915_init to allow for -EPROBE_DEFER so I can convert each driver
+> separately. Then I convert each driver to move snd_hdac_i915_init out of the
+> workqueue. Finally I drop the ability to choose modprobe behavior after the
+> last user is converted.
+> 
+> Compared to previous version, I added the patch
+> "ASoC: SOF: Intel: Fix error handling in hda_init()"
 
-Just rebased on v6.6-rc5.
+Thank you for the updates.
 
-Thanks,
-Charles
+to all:
+Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
- sound/soc/codecs/cs42l43-jack.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+and for sound/soc/sof/ :
+Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-diff --git a/sound/soc/codecs/cs42l43-jack.c b/sound/soc/codecs/cs42l43-jack.c
-index 92e37bc1df9dc..9f5f1a92561d1 100644
---- a/sound/soc/codecs/cs42l43-jack.c
-+++ b/sound/soc/codecs/cs42l43-jack.c
-@@ -34,7 +34,7 @@ static const unsigned int cs42l43_accdet_db_ms[] = {
- static const unsigned int cs42l43_accdet_ramp_ms[] = { 10, 40, 90, 170 };
- 
- static const unsigned int cs42l43_accdet_bias_sense[] = {
--	14, 23, 41, 50, 60, 68, 86, 95, 0,
-+	14, 24, 43, 52, 61, 71, 90, 99, 0,
- };
- 
- static int cs42l43_find_index(struct cs42l43_codec *priv, const char * const prop,
+
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+> Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Daniel Baluta <daniel.baluta@nxp.com>
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: sound-open-firmware@alsa-project.org
+> 
+> Maarten Lankhorst (11):
+>   ASoC: SOF: core: Ensure sof_ops_free() is still called when probe
+>     never ran.
+>   ASoC: SOF: Intel: Fix error handling in hda_init()
+>   ALSA: hda: Intel: Fix error handling in azx_probe()
+>   ALSA: hda: i915: Allow override of gpu binding.
+>   ALSA: hda: i915: Add an allow_modprobe argument to snd_hdac_i915_init
+>   ALSA: hda: i915: Allow xe as match for i915_component_master_match
+>   ASoC: Intel: avs: Move snd_hdac_i915_init to before probe_work.
+>   ALSA: hda: Intel: Move snd_hdac_i915_init to before probe_work.
+>   ASoC: Intel: Skylake: Move snd_hdac_i915_init to before probe_work.
+>   ASoC: SOF: Intel: Move binding to display driver outside of deferred
+>     probe
+>   ALSA: hda: i915: Remove extra argument from snd_hdac_i915_init
+> 
+> Pierre-Louis Bossart (2):
+>   ASoC: SOF: core: Add probe_early and remove_late callbacks
+>   ASoC: SOF: Intel: hda: start splitting the probe
+> 
+>  sound/hda/hdac_i915.c                | 24 ++++++-----
+>  sound/pci/hda/hda_intel.c            | 60 ++++++++++++++--------------
+>  sound/soc/intel/avs/core.c           | 13 ++++--
+>  sound/soc/intel/skylake/skl.c        | 31 +++++---------
+>  sound/soc/sof/core.c                 | 17 +++++++-
+>  sound/soc/sof/intel/hda-common-ops.c |  2 +
+>  sound/soc/sof/intel/hda.c            | 46 +++++++++++++--------
+>  sound/soc/sof/intel/hda.h            |  2 +
+>  sound/soc/sof/ops.h                  | 16 ++++++++
+>  sound/soc/sof/sof-priv.h             |  2 +
+>  10 files changed, 129 insertions(+), 84 deletions(-)
+> 
+
 -- 
-2.39.2
-
+Péter

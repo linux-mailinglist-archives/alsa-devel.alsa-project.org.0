@@ -2,162 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 351237C5292
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 13:54:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8937C5373
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 14:18:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D0F71592;
-	Wed, 11 Oct 2023 13:53:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D0F71592
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D5DD15AF;
+	Wed, 11 Oct 2023 14:17:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D5DD15AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697025254;
-	bh=R+PnSj23kQsHFIOifqz+wLnnCoC6PNcpEgVCHsVo7Cc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=CjwX7StgKtYvvInwNF4vsAurrATOlSey5khU79BpEIeZbONsscgj/f3uthqXjHcu6
-	 l+MkO0hNID4gW40vmCUKHR7t/puUggBRZOaiRyAl+rJDZeuuTqK9foU+LljJxsX+Io
-	 vKwemrMnPQdWtxh+qyQBn7tzN0n0l90UyiiR1P/I=
+	s=default; t=1697026694;
+	bh=00zbyYRltCiVZ/ks7XjE1rWOHI8f3jdEG/5USA+G5j8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ceB6Mz8welPywVykPaxMhmB1O/H+5pL+LcUtnyAiTYQfGFHHvzUqiM4wyGHpcE6OO
+	 Ox1zdpUPnfXnSYp2Bjmz90ejTw5MFgEn/pLjNFeAeKpRgo4BVcBp965glm9BhnxA7j
+	 X+iek/mEYeJ81VJp0QtEJDG3a+H00Jik59Ey+y1s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51B6DF80553; Wed, 11 Oct 2023 13:53:22 +0200 (CEST)
+	id CF43AF80567; Wed, 11 Oct 2023 14:17:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FF97F8027B;
-	Wed, 11 Oct 2023 13:53:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27CFAF80553;
+	Wed, 11 Oct 2023 14:17:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85045F802BE; Wed, 11 Oct 2023 13:50:53 +0200 (CEST)
+	id 25824F80536; Wed, 11 Oct 2023 14:17:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20610.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaf::610])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B49D6F80130
-	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 13:48:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B49D6F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 88D6AF80130
+	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 14:17:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88D6AF80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=kVU1hys6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VmoXBf3OCpagqAbbVL/nVrDYJDghFVd4Otz8sOhoeDBeaYAeenwiJXChbCtN8DK7ZW+7gsTy55/BTrCI/zVteL2Rmd79l5laVZUnIPT2o7sBTZR333gihmBh/PQDlx38A0Sz1MMYRl/GRLe7/U1NSJj/1ptykiDRJc7wbvMWU7eObJ6Q0NZybB+zwl8wc97XvoHLBL+YIWselul5uxKzS2LDrrXPP2yRg8jaPLAWNF6GfWrgAxxTsRc1fFYTlRGKVDvotwzmHtSDqd+bQaWslsyZccM/wROkD0tJe/FhWzhEYSHSpr+/tCW4Rg3YnI/68q+IWkLT6PxnPFlJ8GMadw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JEyCPyZgpvDOSO3JuNyZDEiyTPUOU88DIYgf377bypU=;
- b=eDr0GOrqQbzCsSw+DE5ax/2yNCG6Q6DfOmi1WttacHLDJiptBGmmIRSyZHogVvHN96gqzARLkHmXj7MDvgg/YVEg4Q9sXVQzfTJ7lxfCe9HPc5guo+1gQPZ5aorO8wSgdoCefAGY9/nfeKA3YZ/9cGM2vtOgiMUK1KIjP6tYL1w6aHheELWC4gy8tgryj/RCUvLWMxF+n2pyWcnqrpBdzpe5BSgulnKldSCGE0K+vT8ztJ+RsYdiF23GKW4lI6VVHP0Ib2uBHPQnoRtRLAozogVBIZV0LHX42NPtoXhHxm15kzvGPVsEMzQk/zuHfFT+ydSCj0cop9o20hBovvOQZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JEyCPyZgpvDOSO3JuNyZDEiyTPUOU88DIYgf377bypU=;
- b=kVU1hys65GSu7GT2rjAqVgMaBkn54msdhiHJl0ojh/It0vcdhsOoKdUwdEu9dmJRHDmKl3HNkq5hnL7qs8C34MK/cMpge7p7Ebo7iBm9MlRMrEnfrECLNgqpVJfc+35Rldodh/KEOOZSIAf5e2xEb3Vcyf2m8WFZeq3JkCo26pA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by DB9PR04MB8300.eurprd04.prod.outlook.com (2603:10a6:10:243::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.38; Wed, 11 Oct
- 2023 11:48:35 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::51f9:b8d2:7ddd:c74f]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::51f9:b8d2:7ddd:c74f%6]) with mapi id 15.20.6863.032; Wed, 11 Oct 2023
- 11:48:35 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	shawnguo@kernel.org,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=gBDvinfK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1697026628; x=1728562628;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=00zbyYRltCiVZ/ks7XjE1rWOHI8f3jdEG/5USA+G5j8=;
+  b=gBDvinfKCJ3nCsNVWRoRmtIncCLwHWOzrdStE+S+GSd7DKaO/5ZeqhSY
+   dIn+WTG8LDQVVYYXyiP8fUGN6zC7gXpX2CsyN6vWMeZKb1VJMz41q5uJn
+   dg3TCwnei8QBB9NZTTxAMPYjECT8pO93j+IGgeHFALR5ZjXlwThI3Ltar
+   CuL8lqJfGP259i/uDtYcezkw6N9G/iaTQ7/81cvzHUFhsQiK8t2AnAPoK
+   RWK8eCTE0sV22RM+Hjvk0agNtnOBYzTGpwFKvAKxkISFLsvCQ+MLubaBL
+   x4AG+wEq/97JpXKKxMbZHdU+y+GAEKd39pHTJgNN4hLErRkhQtivUQjDt
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="374988316"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200";
+   d="scan'208";a="374988316"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 05:16:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="747428331"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200";
+   d="scan'208";a="747428331"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+  by orsmga007.jf.intel.com with ESMTP; 11 Oct 2023 05:16:54 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
 	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [PATCH v3 2/2] ASoC: imx-rpmsg: Force codec power on in low power
- audio mode
-Date: Wed, 11 Oct 2023 19:47:59 +0800
-Message-Id: <20231011114759.1073757-2-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231011114759.1073757-1-chancel.liu@nxp.com>
-References: <20231011114759.1073757-1-chancel.liu@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0025.apcprd02.prod.outlook.com
- (2603:1096:4:195::21) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 00/16] Harden SSP boards and add TDM support
+Date: Wed, 11 Oct 2023 14:16:47 +0200
+Message-Id: <20231011121703.363652-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DB9PR04MB8300:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4aaf73d0-a7c7-44ba-f37f-08dbca50004e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	iXGJYhJBz1JNhOEZrX1ZOZCrWmh3mEHeeZ2+tvYRHswluru7+9Kav4vEsakfRsjaxw4dghP9mSlo1pc6tuw5uJEl87Wqwwu62EDI+i7ScIzIToY1SOLLU19svbg2mBHO0p4HgD4YNRIdErEvo+CDAq/8pL0eotAnxcYh1wtR4YXRUOPe1WToeMkbMJgHVmagFUCLQ08os/8vXcj3a0s2TZ3uu8Rr9GKI8b1nkVNl3ozjAWvjVyM8EBbW3hm/OFyfy8rKBl9mf4VCvoYUJO5O5etjxnbYw8Bb7d+FaYKuOHpAdsredEoylCTYk4vhYm2EkTodWVTrxpEg0rtNqXST6NHnsErJoXwVhyQ4BrRKAEndaOaFJ4JOh/f2mFv3/0AmvecSyik5VB7JjkRHeXICV4H+PtsSm2a4bAOrR+nGGQoZBJdZutJJhekRa0sR5rX+TrObkBkao4QgXSRqSvjUKzDLksPmzdLLyshYEY4aNKI2HdOm5RdnW86JTff8vWTpMPmbGrZRMNY8Gc3LL9EI8dTS9DrWA7oSGoN0VNyJqUWoOe5mK2UNsbits/TU/adwdjaxT/gqa1n9uvA9kUFkVkrHDPiiEHdmF4GSg3IPPnR6iCJwZnYvvw6VTi6O0gP7x6P6YHUvBWg2HHhPcySLbqbxRKBqHO7EXi20wUgR370=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(136003)(39860400002)(376002)(346002)(366004)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(6506007)(6512007)(52116002)(1076003)(478600001)(921005)(44832011)(6486002)(6666004)(2616005)(26005)(83380400001)(7416002)(2906002)(5660300002)(66556008)(66946007)(66476007)(8936002)(8676002)(4326008)(316002)(41300700001)(2013699003)(36756003)(86362001)(38100700002)(38350700002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?tT8uBSan+CMGGBbaQlBRmBodU8ItOjjgVoKimDg20IFS5OI29pFTPB7pF9JR?=
- =?us-ascii?Q?a/bGj6IPEw8Ih2uosUtQ242o38wu3iHk6tVVWYVjV9q6alknzajIXshkXSww?=
- =?us-ascii?Q?LPNuUR5k5/jh8nE9u1nAUjNlUvzEfZXDfyAwLD1XpkYC/2FE+U56jEIkltrP?=
- =?us-ascii?Q?kYyPX+4MN5tXFQMCp/ZMpwn0fSdDUqBSZcb66WK1TS5ivKm76H8mkbdvZdRn?=
- =?us-ascii?Q?Veup3facm54lKI6jwtzFrKHUMELqH2/n0lFupqogJyyZrVm26yNH1mLnlQn6?=
- =?us-ascii?Q?LTXOBe5jtIg0mmo3aThQLLs3oJpI2eeTfj7J5vJPTSTjNELNKlHfB2Uzx6IJ?=
- =?us-ascii?Q?XtIjIz/vkM2XOdiBhdXK9DEUiL8WGKLgFLmikAb54STwcgC3Er7/0uaNkE9X?=
- =?us-ascii?Q?sm0DAVlEP6K1l15OUW+uiIJAtcm21EBeD+ExD288/PWr+DB/DEiTQMzaZX0q?=
- =?us-ascii?Q?dzKUQg90JUcaX4KvAuWCO+yzHxzDpWzNSBRIOie5ZMs9AYQtt7+1gQK2OSXh?=
- =?us-ascii?Q?Fjmd9agVGwNERwQeho6p8+YJEd224qG74/BNp0OHQBSAOu/DWejAvIWRLh3l?=
- =?us-ascii?Q?ntLhxVQ06zxgdPGcf8S0IPDt6VLNXHcZq7EW8FqEGwb9U3Onojvx4tyX395H?=
- =?us-ascii?Q?lEt+7XsHQ0pg+EA4Kdx5qlKkOYUh6Jvva3cge26kLG7FKQqEq0mGzhcP9bIC?=
- =?us-ascii?Q?yHQEKMUyr+R1bzG9oC7HwAZFK9fyEKHOQeMtiuL8YJ6aObLVker0pjRmGW1n?=
- =?us-ascii?Q?1HbRso0cgXfln48qoOb7LsIiGM5xodf7/3Iil+wr8I0DSX2fmnShBsIRMrQn?=
- =?us-ascii?Q?59jDeIzfLpmDMDsCnG/7xfEDzfnwz5aCemuaBa+VQ1Dtxqy6lh86Ru7BAeFz?=
- =?us-ascii?Q?NUAB/guGlqbpnV0oKBffYMOmztSTfEn9KjW9Sn+X2Da0QN8MKaJldKuYxRzl?=
- =?us-ascii?Q?w78ARlEBqseaRzvcy/RyvObbEPXyhvTi+XE4SpLQMNFdwXZNojPYe0tdy3Pd?=
- =?us-ascii?Q?XGMAZpMBSWy4LCA4GVr5T6BUcBQHGUplW5/ZmL8YLGbh34LOBIHd+Jmn4UO7?=
- =?us-ascii?Q?yHJP+eigk2OTMnH43QGsSxUr4vbCv0Fpb943SdUpziMEAnN0QQP+FxG1kKa7?=
- =?us-ascii?Q?meGpTMuU/9FBETyjiZ9Im4jxmQQQI+YgTRTjFOR1BUVDhljaQmB4vpjgFmKf?=
- =?us-ascii?Q?yspHOQ+rgSBxHQYO7FCHqkqGcMGfVpLHh26MHKU935cuX+4lfCOkhbtCWJLV?=
- =?us-ascii?Q?9UodHKAiMecF80YTnbeJ/xQ62EfqbKArduczm0LY9zxgeoJb7/arWCOukOR8?=
- =?us-ascii?Q?Ejg+KmbI9fJYk16c6q6jejYgdoHZdYxqqL+erXT1UiFpFAPPtZyHqXiHyjfh?=
- =?us-ascii?Q?NaRcMXLlWeNM+4OxroOM6ixtab8STgYDC0qQc0a/pLRcCEHDFDfU/ts0TObF?=
- =?us-ascii?Q?7g/6iJrK1H4eC0m0NKGXL6aERcfqmZRDwYKJTBEalzIZBk7VXz5rGZZ8gIF9?=
- =?us-ascii?Q?Nc8FJMZ9LmsugMhCZnttnhqgZNJLEGvKuVQa+AhJtfzOWxu4oU2uJ5Fi4HTk?=
- =?us-ascii?Q?AREgBepKIW35zbo2eSs/d2D1zSiJEpXbWUm57SYW?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4aaf73d0-a7c7-44ba-f37f-08dbca50004e
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2023 11:48:35.5959
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 2F+eTIYlGmO19vSLRM+9hU57kWWgiYcrV6QLTxVHY8rkXGJWwirUnima3FY/616fko8mbw89wSmbe1cjlOhEoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8300
-Message-ID-Hash: CI4UWODHFK5REUHEMO4WXKKDZSJTJQME
-X-Message-ID-Hash: CI4UWODHFK5REUHEMO4WXKKDZSJTJQME
-X-MailFrom: chancel.liu@nxp.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LSEASUP4267QX44XRTWMMTOLEK7XVJSW
+X-Message-ID-Hash: LSEASUP4267QX44XRTWMMTOLEK7XVJSW
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -169,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CI4UWODHFK5REUHEMO4WXKKDZSJTJQME/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSEASUP4267QX44XRTWMMTOLEK7XVJSW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -178,106 +105,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Low power audio mode requires binding codec still power on while Acore
-enters into suspend so Mcore can continue playback music.
+In quite a few places in code there are checks for number of SSPs
+present on system, to reduce maintenance burden introduce helper
+functions allowing to get SSP and TDM from machine board configuration.
 
-ASoC machine driver acquires DAPM endpoints through reading
-"lpa-widgets" property from DT and then forces the path between these
-endpoints ignoring suspend.
+Current mechanism replaces "%d" present in some routes and widget names
+with SSP number. However there are also configurations which make use of
+of TDM number, in which case expected behavior would be to have string
+in form of SSP:TDM - see implementation of avs_i2s_platform_register()
+in sound/soc/intel/avs/pcm.c. Implement custom function, which parses
+string and make use of it when parsing topology. While at it make sure
+that we generate dynamic names only if there is no multiple SSPs or TDMs
+defined.
 
-If the rpmsg sound card is in low power audio mode, the suspend/resume
-callback of binding codec is overridden to disable the suspend/resume.
+Migrate all boards to handle TDM if requested.
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
- sound/soc/fsl/imx-rpmsg.c | 58 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+Amadeusz Sławiński (16):
+  ASoC: Intel: avs: Only create SSP%d snd_soc_dai_driver when requested
+  ASoC: Intel: avs: Introduce helper functions for SSP and TDM handling
+  ASoC: Intel: avs: Improve topology parsing of dynamic strings
+  ASoC: Intel: avs: i2s_test: Validate machine board configuration
+  ASoC: Intel: avs: rt274: Validate machine board configuration
+  ASoC: Intel: avs: rt5682: Validate machine board configuration
+  ASoC: Intel: avs: max98357a: Validate machine board configuration
+  ASoC: Intel: avs: rt298: Validate machine board configuration
+  ASoC: Intel: avs: da7219: Validate machine board configuration
+  ASoC: Intel: avs: es8336: Validate machine board configuration
+  ASoC: Intel: avs: max98373: Validate machine board configuration
+  ASoC: Intel: avs: max98927: Validate machine board configuration
+  ASoC: Intel: avs: nau8825: Validate machine board configuration
+  ASoC: Intel: avs: rt286: Validate machine board configuration
+  ASoC: Intel: avs: rt5663: Validate machine board configuration
+  ASoC: Intel: avs: ssm4567: Validate machine board configuration
 
-diff --git a/sound/soc/fsl/imx-rpmsg.c b/sound/soc/fsl/imx-rpmsg.c
-index a9324712e3fa..2c54c92fb911 100644
---- a/sound/soc/fsl/imx-rpmsg.c
-+++ b/sound/soc/fsl/imx-rpmsg.c
-@@ -20,8 +20,11 @@ struct imx_rpmsg {
- 	struct snd_soc_dai_link dai;
- 	struct snd_soc_card card;
- 	unsigned long sysclk;
-+	bool lpa;
- };
- 
-+static struct dev_pm_ops lpa_pm;
-+
- static const struct snd_soc_dapm_widget imx_rpmsg_dapm_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_SPK("Ext Spk", NULL),
-@@ -38,6 +41,58 @@ static int imx_rpmsg_late_probe(struct snd_soc_card *card)
- 	struct device *dev = card->dev;
- 	int ret;
- 
-+	if (data->lpa) {
-+		struct snd_soc_component *codec_comp;
-+		struct device_node *codec_np;
-+		struct device_driver *codec_drv;
-+		struct device *codec_dev = NULL;
-+
-+		codec_np = data->dai.codecs->of_node;
-+		if (codec_np) {
-+			struct platform_device *codec_pdev;
-+			struct i2c_client *codec_i2c;
-+
-+			codec_i2c = of_find_i2c_device_by_node(codec_np);
-+			if (codec_i2c)
-+				codec_dev = &codec_i2c->dev;
-+			if (!codec_dev) {
-+				codec_pdev = of_find_device_by_node(codec_np);
-+				if (codec_pdev)
-+					codec_dev = &codec_pdev->dev;
-+			}
-+		}
-+		if (codec_dev) {
-+			codec_comp = snd_soc_lookup_component_nolocked(codec_dev, NULL);
-+			if (codec_comp) {
-+				int i, num_widgets;
-+				const char *widgets;
-+				struct snd_soc_dapm_context *dapm;
-+
-+				num_widgets = of_property_count_strings(data->card.dev->of_node,
-+									"lpa-widgets");
-+				for (i = 0; i < num_widgets; i++) {
-+					of_property_read_string_index(data->card.dev->of_node,
-+								      "lpa-widgets",
-+								      i, &widgets);
-+					dapm = snd_soc_component_get_dapm(codec_comp);
-+					snd_soc_dapm_ignore_suspend(dapm, widgets);
-+				}
-+			}
-+			codec_drv = codec_dev->driver;
-+			if (codec_drv->pm) {
-+				memcpy(&lpa_pm, codec_drv->pm, sizeof(lpa_pm));
-+				lpa_pm.suspend = NULL;
-+				lpa_pm.resume = NULL;
-+				lpa_pm.freeze = NULL;
-+				lpa_pm.thaw = NULL;
-+				lpa_pm.poweroff = NULL;
-+				lpa_pm.restore = NULL;
-+				codec_drv->pm = &lpa_pm;
-+			}
-+			put_device(codec_dev);
-+		}
-+	}
-+
- 	if (!data->sysclk)
- 		return 0;
- 
-@@ -137,6 +192,9 @@ static int imx_rpmsg_probe(struct platform_device *pdev)
- 		goto fail;
- 	}
- 
-+	if (of_property_read_bool(np, "fsl,enable-lpa"))
-+		data->lpa = true;
-+
- 	data->card.dev = &pdev->dev;
- 	data->card.owner = THIS_MODULE;
- 	data->card.dapm_widgets = imx_rpmsg_dapm_widgets;
+ sound/soc/intel/avs/board_selection.c  |   2 +-
+ sound/soc/intel/avs/boards/da7219.c    |  17 +++--
+ sound/soc/intel/avs/boards/es8336.c    |  18 +++--
+ sound/soc/intel/avs/boards/i2s_test.c  |  55 ++++++++-----
+ sound/soc/intel/avs/boards/max98357a.c |  18 +++--
+ sound/soc/intel/avs/boards/max98373.c  |  18 +++--
+ sound/soc/intel/avs/boards/max98927.c  |  18 +++--
+ sound/soc/intel/avs/boards/nau8825.c   |  18 +++--
+ sound/soc/intel/avs/boards/rt274.c     |  18 +++--
+ sound/soc/intel/avs/boards/rt286.c     |  19 +++--
+ sound/soc/intel/avs/boards/rt298.c     |  18 +++--
+ sound/soc/intel/avs/boards/rt5663.c    |  18 +++--
+ sound/soc/intel/avs/boards/rt5682.c    |  18 +++--
+ sound/soc/intel/avs/boards/ssm4567.c   |  18 +++--
+ sound/soc/intel/avs/pcm.c              |  28 ++++---
+ sound/soc/intel/avs/topology.c         | 102 +++++++++++++++++++------
+ sound/soc/intel/avs/utils.h            |  65 ++++++++++++++++
+ 17 files changed, 346 insertions(+), 122 deletions(-)
+ create mode 100644 sound/soc/intel/avs/utils.h
+
 -- 
-2.25.1
+2.34.1
 

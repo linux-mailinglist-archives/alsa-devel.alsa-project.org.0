@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195CB7C53AC
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 14:22:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22B6F7C53A9
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 14:22:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E98616C9;
-	Wed, 11 Oct 2023 14:21:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E98616C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C9A516CB;
+	Wed, 11 Oct 2023 14:21:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C9A516CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697026964;
-	bh=Ym72QCp0pYvKGTuUavzqX0XL60x93uJTIpye1XHqgGk=;
+	s=default; t=1697026953;
+	bh=rig0i5SlHvNLnqyGWw6lYF6YH9YHeCbrKue532/lv/I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=e18HII6fKqPYrfEdUJ+oYroAWxvXIyisJFvph9VZZ7M+2JXKNr3flpz+WRqKxznKj
-	 w2blUXH5cyVh+MqZ7faCwwp/16bRkDpJEG6wHpdtkNS22ga2AU7r/EcX58WKtDlhEV
-	 4X5pEQqek4SrQ266m4SYJAME5aNuGDou8uMm6yKw=
+	b=BeytZgpyaTGiF7Op03y4yw3nrlwcNGBcO23a5HYS6A6db//TwEj+9T8nxaliW6uuE
+	 WMu4FfOeKydCcaB1Hy39Miq7P7mt45u2bkGbN7BRFkd3LQblpgpWNw6O0T6V5UKYNj
+	 v60cqvtPjNrXBeNTK2lI+xEGZW5TLgcMxIahVsN8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB288F80567; Wed, 11 Oct 2023 14:20:20 +0200 (CEST)
+	id 53064F80563; Wed, 11 Oct 2023 14:20:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2DCBF80567;
-	Wed, 11 Oct 2023 14:20:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24B90F802E8;
+	Wed, 11 Oct 2023 14:20:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C438F80310; Wed, 11 Oct 2023 14:20:14 +0200 (CEST)
+	id C73C3F80553; Wed, 11 Oct 2023 14:20:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
 	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 616D5F802BE
-	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 14:17:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 616D5F802BE
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1756F802E8
+	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 14:17:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1756F802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=M5BT+H7u
+ header.s=Intel header.b=UfsWXQxZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1697026634; x=1728562634;
+  t=1697026635; x=1728562635;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Ym72QCp0pYvKGTuUavzqX0XL60x93uJTIpye1XHqgGk=;
-  b=M5BT+H7u16lxwe3tcWi+y7j4G4+SZMTqeJYN9ANrnMho6f5ksN0qzYRN
-   1kcCXtZFp0I8CSNqtEJy1O1PEMHQQauPEzb2eXjst93/3mWWI6oi0jkuu
-   pTJ4dsiqjct7B6b7E+1bK9V+gFhoQZkJM6+5jtSW2xP6dnzubXwGRFV9t
-   8BXQNXNJhdWqUC3jqdtC1kIOX4MdMhM9LhXKcUlti22uakUgg8+TtrIbl
-   gdum4l+a8qGds/AJDdiZxNlU06MIVy9zI6HMoUN4I3rzr7TY8n9E07boM
-   IfqmtcsBU74jGzzh+nmyEMoeG3uhHwELLX3yDzwmVfu7isun7J+XLPoy6
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="374988397"
+  bh=rig0i5SlHvNLnqyGWw6lYF6YH9YHeCbrKue532/lv/I=;
+  b=UfsWXQxZOpyIjl4NwkUy7S5WcsKkO2mp5aDeL9PK0+UiH50Ze1ER4AxB
+   cRhIkw2lzadDchyIDL/t3twy+lEKVJp98X+blXpz+cQZAExfjGPVvYSUI
+   LmIz5ZZBVJzghp8rGVKehCMNHLt6oHb1TbY3B17jHFCxTLkCVn3Um4J57
+   +OkuwYnHxgOlLnqm22GGV9DLGucOIQz3bPs2IJe1qFTHU54xXsHQ4v6Xh
+   M3bGDRmFfBzvPIm9mtRF1OngFKvn8dklDZdP8zsmhww0Vdd13OiEsBgo3
+   yac90kQf68qzo4H+i0RgNjpAlf4zthrWU6+ut4qnWmMC8EJMFyyE4LX5L
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="374988415"
 X-IronPort-AV: E=Sophos;i="6.03,214,1694761200";
-   d="scan'208";a="374988397"
+   d="scan'208";a="374988415"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 05:17:03 -0700
+ 11 Oct 2023 05:17:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="747428360"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="747428364"
 X-IronPort-AV: E=Sophos;i="6.03,214,1694761200";
-   d="scan'208";a="747428360"
+   d="scan'208";a="747428364"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga007.jf.intel.com with ESMTP; 11 Oct 2023 05:17:02 -0700
+  by orsmga007.jf.intel.com with ESMTP; 11 Oct 2023 05:17:04 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
@@ -76,18 +76,18 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 	alsa-devel@alsa-project.org,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-Subject: [PATCH 04/16] ASoC: Intel: avs: i2s_test: Validate machine board
+Subject: [PATCH 05/16] ASoC: Intel: avs: rt274: Validate machine board
  configuration
-Date: Wed, 11 Oct 2023 14:16:51 +0200
-Message-Id: <20231011121703.363652-5-amadeuszx.slawinski@linux.intel.com>
+Date: Wed, 11 Oct 2023 14:16:52 +0200
+Message-Id: <20231011121703.363652-6-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231011121703.363652-1-amadeuszx.slawinski@linux.intel.com>
 References: <20231011121703.363652-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7JW2PNQTWNRALFVVKYXWDW6TSSJVOQUH
-X-Message-ID-Hash: 7JW2PNQTWNRALFVVKYXWDW6TSSJVOQUH
+Message-ID-Hash: XZIQEEIKJXNTB5F3E27FBAUGZBUBU6LU
+X-Message-ID-Hash: XZIQEEIKJXNTB5F3E27FBAUGZBUBU6LU
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7JW2PNQTWNRALFVVKYXWDW6TSSJVOQUH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XZIQEEIKJXNTB5F3E27FBAUGZBUBU6LU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,23 +109,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-I2S test board can be used in any SSP and TDM configuration.
+Allow for board to be used with TDMs.
 
 Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/avs/boards/i2s_test.c | 55 ++++++++++++++++++---------
- 1 file changed, 38 insertions(+), 17 deletions(-)
+ sound/soc/intel/avs/boards/rt274.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/intel/avs/boards/i2s_test.c b/sound/soc/intel/avs/boards/i2s_test.c
-index 1dd0c59a8d91..3d03e1eed3a9 100644
---- a/sound/soc/intel/avs/boards/i2s_test.c
-+++ b/sound/soc/intel/avs/boards/i2s_test.c
-@@ -12,9 +12,10 @@
+diff --git a/sound/soc/intel/avs/boards/rt274.c b/sound/soc/intel/avs/boards/rt274.c
+index b376d4c2d706..157183b1de24 100644
+--- a/sound/soc/intel/avs/boards/rt274.c
++++ b/sound/soc/intel/avs/boards/rt274.c
+@@ -13,6 +13,7 @@
  #include <sound/soc.h>
  #include <sound/soc-acpi.h>
- #include <sound/soc-dapm.h>
+ #include "../../../codecs/rt274.h"
 +#include "../utils.h"
+ 
+ #define AVS_RT274_FREQ_OUT	24000000
+ #define AVS_RT274_BE_FIXUP_RATE	48000
+@@ -145,7 +146,7 @@ static int avs_rt274_be_fixup(struct snd_soc_pcm_runtime *runtime, struct snd_pc
+ }
  
  static int avs_create_dai_link(struct device *dev, const char *platform_name, int ssp_port,
 -			       struct snd_soc_dai_link **dai_link)
@@ -133,7 +138,7 @@ index 1dd0c59a8d91..3d03e1eed3a9 100644
  {
  	struct snd_soc_dai_link_component *platform;
  	struct snd_soc_dai_link *dl;
-@@ -26,12 +27,14 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+@@ -157,13 +158,15 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
  
  	platform->name = platform_name;
  
@@ -141,124 +146,35 @@ index 1dd0c59a8d91..3d03e1eed3a9 100644
 +	dl->name = devm_kasprintf(dev, GFP_KERNEL,
 +				  AVS_STRING_FMT("SSP", "-Codec", ssp_port, tdm_slot));
  	dl->cpus = devm_kzalloc(dev, sizeof(*dl->cpus), GFP_KERNEL);
- 	if (!dl->name || !dl->cpus)
+ 	dl->codecs = devm_kzalloc(dev, sizeof(*dl->codecs), GFP_KERNEL);
+ 	if (!dl->name || !dl->cpus || !dl->codecs)
  		return -ENOMEM;
  
 -	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", ssp_port);
 +	dl->cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
 +					    AVS_STRING_FMT("SSP", " Pin", ssp_port, tdm_slot));
- 	dl->codecs = &snd_soc_dummy_dlc;
+ 	dl->codecs->name = devm_kasprintf(dev, GFP_KERNEL, "i2c-INT34C2:00");
+ 	dl->codecs->dai_name = devm_kasprintf(dev, GFP_KERNEL, RT274_CODEC_DAI);
  	if (!dl->cpus->dai_name || !dl->codecs->name || !dl->codecs->dai_name)
- 		return -ENOMEM;
-@@ -51,7 +54,7 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
- 	return 0;
- }
- 
--static int avs_create_dapm_routes(struct device *dev, int ssp_port,
-+static int avs_create_dapm_routes(struct device *dev, int ssp_port, int tdm_slot,
- 				  struct snd_soc_dapm_route **routes, int *num_routes)
- {
- 	struct snd_soc_dapm_route *dr;
-@@ -61,13 +64,17 @@ static int avs_create_dapm_routes(struct device *dev, int ssp_port,
- 	if (!dr)
- 		return -ENOMEM;
- 
--	dr[0].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%dpb", ssp_port);
--	dr[0].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
-+	dr[0].sink = devm_kasprintf(dev, GFP_KERNEL,
-+				    AVS_STRING_FMT("ssp", "pb", ssp_port, tdm_slot));
-+	dr[0].source = devm_kasprintf(dev, GFP_KERNEL,
-+				      AVS_STRING_FMT("ssp", " Tx", ssp_port, tdm_slot));
- 	if (!dr[0].sink || !dr[0].source)
- 		return -ENOMEM;
- 
--	dr[1].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
--	dr[1].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%dcp", ssp_port);
-+	dr[1].sink = devm_kasprintf(dev, GFP_KERNEL,
-+				    AVS_STRING_FMT("ssp", " Rx", ssp_port, tdm_slot));
-+	dr[1].source = devm_kasprintf(dev, GFP_KERNEL,
-+				      AVS_STRING_FMT("ssp", "cp", ssp_port, tdm_slot));
- 	if (!dr[1].sink || !dr[1].source)
- 		return -ENOMEM;
- 
-@@ -77,7 +84,7 @@ static int avs_create_dapm_routes(struct device *dev, int ssp_port,
- 	return 0;
- }
- 
--static int avs_create_dapm_widgets(struct device *dev, int ssp_port,
-+static int avs_create_dapm_widgets(struct device *dev, int ssp_port, int tdm_slot,
- 				   struct snd_soc_dapm_widget **widgets, int *num_widgets)
- {
- 	struct snd_soc_dapm_widget *dw;
-@@ -89,13 +96,15 @@ static int avs_create_dapm_widgets(struct device *dev, int ssp_port,
- 
- 	dw[0].id = snd_soc_dapm_hp;
- 	dw[0].reg = SND_SOC_NOPM;
--	dw[0].name = devm_kasprintf(dev, GFP_KERNEL, "ssp%dpb", ssp_port);
-+	dw[0].name = devm_kasprintf(dev, GFP_KERNEL,
-+				    AVS_STRING_FMT("ssp", "pb", ssp_port, tdm_slot));
- 	if (!dw[0].name)
- 		return -ENOMEM;
- 
- 	dw[1].id = snd_soc_dapm_mic;
- 	dw[1].reg = SND_SOC_NOPM;
--	dw[1].name = devm_kasprintf(dev, GFP_KERNEL, "ssp%dcp", ssp_port);
-+	dw[1].name = devm_kasprintf(dev, GFP_KERNEL,
-+				    AVS_STRING_FMT("ssp", "cp", ssp_port, tdm_slot));
- 	if (!dw[1].name)
- 		return -ENOMEM;
- 
-@@ -115,33 +124,45 @@ static int avs_i2s_test_probe(struct platform_device *pdev)
+@@ -211,13 +214,16 @@ static int avs_rt274_probe(struct platform_device *pdev)
+ 	struct snd_soc_jack *jack;
  	struct device *dev = &pdev->dev;
  	const char *pname;
- 	int num_routes, num_widgets;
 -	int ssp_port, ret;
 +	int ssp_port, tdm_slot, ret;
  
  	mach = dev_get_platdata(dev);
  	pname = mach->mach_params.platform;
 -	ssp_port = __ffs(mach->mach_params.i2s_link_mask);
-+
-+	if (!avs_mach_singular_ssp(mach)) {
-+		dev_err(dev, "Invalid SSP configuration\n");
-+		return -EINVAL;
-+	}
-+	ssp_port = avs_mach_ssp_port(mach);
-+
-+	if (!avs_mach_singular_tdm(mach, ssp_port)) {
-+		dev_err(dev, "Invalid TDM configuration\n");
-+		return -EINVAL;
-+	}
-+	tdm_slot = avs_mach_ssp_tdm(mach, ssp_port);
- 
- 	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
- 	if (!card)
- 		return -ENOMEM;
- 
--	card->name = devm_kasprintf(dev, GFP_KERNEL, "ssp%d-loopback", ssp_port);
-+	card->name = devm_kasprintf(dev, GFP_KERNEL,
-+				    AVS_STRING_FMT("ssp", "-loopback", ssp_port, tdm_slot));
- 	if (!card->name)
- 		return -ENOMEM;
  
 -	ret = avs_create_dai_link(dev, pname, ssp_port, &dai_link);
++	ret = avs_mach_get_ssp_tdm(dev, mach, &ssp_port, &tdm_slot);
++	if (ret)
++		return ret;
++
 +	ret = avs_create_dai_link(dev, pname, ssp_port, tdm_slot, &dai_link);
  	if (ret) {
- 		dev_err(dev, "Failed to create dai link: %d\n", ret);
- 		return ret;
- 	}
- 
--	ret = avs_create_dapm_routes(dev, ssp_port, &routes, &num_routes);
-+	ret = avs_create_dapm_routes(dev, ssp_port, tdm_slot, &routes, &num_routes);
- 	if (ret) {
- 		dev_err(dev, "Failed to create dapm routes: %d\n", ret);
- 		return ret;
- 	}
- 
--	ret = avs_create_dapm_widgets(dev, ssp_port, &widgets, &num_widgets);
-+	ret = avs_create_dapm_widgets(dev, ssp_port, tdm_slot, &widgets, &num_widgets);
- 	if (ret) {
- 		dev_err(dev, "Failed to create dapm widgets: %d\n", ret);
+ 		dev_err(dev, "Failed to create dai link: %d", ret);
  		return ret;
 -- 
 2.34.1

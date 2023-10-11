@@ -2,91 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE7787C5E49
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 22:23:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D657C5F13
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 23:22:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1408DF1;
-	Wed, 11 Oct 2023 22:22:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1408DF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B3B1E10;
+	Wed, 11 Oct 2023 23:22:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B3B1E10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697055797;
-	bh=oEPFEr69GOFnlvxRi+OQJiP0bTLBwUD6RP2Enyu8lR0=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XhNViKKckCxz6Kts1FJqCsmyM0nArNhAv+CL1ZBbyGA2fFFs46mn3w5j7ZTMpYPgr
-	 LnM/WRF6Alv2wKwwT6g/kIYFND0RcoU2Z8GrfmTojIPARj4pluHCOU7Mgy9rGhHGQc
-	 aP/nhKIrCENPCGLu7ivAaV1LS0strjgnXTUWjlL0=
+	s=default; t=1697059371;
+	bh=AVRwgDQBx8JR4FI59OdGoNJiJ8cIUcgjj4IXSMlvioQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nelA3CNxduP+KHpJk5nKxCiSUXVuHWjVepm4vPGGEfSVYSYLZWCvKkBqFI5bLAe2E
+	 qu3BysdYiFyfIaUJOBKEe2aqug16uxvxQBfmTNdBB1qfvdR7UfVK4AmY8nRtTgzKyF
+	 8I3mkBh4bEUtffZF8R8sEiiqapWHMShT1IUPDXxc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1784CF802E8; Wed, 11 Oct 2023 22:22:27 +0200 (CEST)
+	id BA227F80553; Wed, 11 Oct 2023 23:22:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8D7EF8027B;
-	Wed, 11 Oct 2023 22:22:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A86CF8027B;
+	Wed, 11 Oct 2023 23:22:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3FF5AF802BE; Wed, 11 Oct 2023 22:22:22 +0200 (CEST)
+	id 0B2E2F802BE; Wed, 11 Oct 2023 23:21:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 046CAF80130
-	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 22:22:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 046CAF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8A9C2F8015B
+	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 23:21:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A9C2F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=peocWnSI
+ header.s=k20201202 header.b=FeuXDh0P
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 5D52ECE23DF;
-	Wed, 11 Oct 2023 20:22:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1E7C433C7;
-	Wed, 11 Oct 2023 20:22:08 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id EF1DF61993;
+	Wed, 11 Oct 2023 21:21:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91DAC433C7;
+	Wed, 11 Oct 2023 21:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697055729;
-	bh=oEPFEr69GOFnlvxRi+OQJiP0bTLBwUD6RP2Enyu8lR0=;
-	h=From:Date:Subject:To:Cc:From;
-	b=peocWnSImSksa62GSPAn85I3k+ZvLdOPgLVoQt5Vuy/sPj9YK66RvBb43iKxBOHw3
-	 cTYd37njxwYGCpuF/kg+f3j13Ac7nBoaxAPKxrwoxX3sjmEn6nNRqGEvJS7KinK40l
-	 /Jupky0h+QKMjw3UNe41uZ5qN/0C/xdymc0SIB+ijTje5xbC0zb9h8uwmOi6hy2Lyf
-	 m1QSEDD3/AMXmF5nRmsoTUoYtmF2e10dVbo/NkvAjZMH4Sx+ygoFrNajvGY1KVjYhB
-	 XW6GNOoURwhir5Ko3mFOsF3A2/IOixOk0bRvqiezLMVcyJ27s4npOofcwqAANBZz/g
-	 o8Wrxk/tqXgFA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Wed, 11 Oct 2023 13:21:51 -0700
-Subject: [PATCH] ASoC: tegra: Fix -Wuninitialized in
- tegra210_amx_platform_probe()
+	s=k20201202; t=1697059300;
+	bh=AVRwgDQBx8JR4FI59OdGoNJiJ8cIUcgjj4IXSMlvioQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FeuXDh0Pe588U/HI3BCDaX6/Siicbxz/VlUUPwNzcB1plpChg61yRxaACWVX/bjSC
+	 nE+bO3Enh9zLr1XTmn8fs3TB86TrpmoJitanCKs7mKDUtfwu4NVWMpZKg4UYSjJ6PR
+	 iKOXjQH5t3NmEXPQk0drsmr9nEvgsXE0u3AOh9r0kNXveyTarxxueqkiNNLq7JU3jk
+	 3HiJONE5kHoL17J76por3LVwuqyLpztPecYx2kZCVzeOMZbpN7FQ43vmu9rHskAXu2
+	 Dxkib8VXSvqRiYme9D+JO6GhZ8TLtx/LGd0RqSFvGjXzJGVF9yMOFPGD5QH4uAweK9
+	 1VfwaI6sLQqWw==
+Date: Wed, 11 Oct 2023 22:21:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Chancel Liu <chancel.liu@nxp.com>
+Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
+	shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: sound-card-common: List DAPM
+ endpoints ignoring system suspend
+Message-ID: <f639c88d-371a-4c72-a906-47d643b24ca8@sirena.org.uk>
+References: <20231011114759.1073757-1-chancel.liu@nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: 
- <20231011-asoc-tegra-fix-uninit-soc_data-v1-1-0ef0ab44cf48@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAN4DJ2UC/x2NQQqAMAwEvyI5G2grIvgVEYlt1FyqtFUE8e8Gj
- zMssw9kTsIZ+uqBxJdk2aOCrSvwG8WVUYIyOOMaa6xFyrvHwmsiXOTGM0qUgiqnQEWdD2ZeWkN
- d40AjR2Kd/QfD+L4fw2s7k3AAAAA=
-To: broonie@kernel.org, robh@kernel.org
-Cc: lgirdwood@gmail.com, thierry.reding@gmail.com, jonathanh@nvidia.com,
- ndesaulniers@google.com, trix@redhat.com, alsa-devel@alsa-project.org,
- linux-tegra@vger.kernel.org, llvm@lists.linux.dev, patches@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.13-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1815; i=nathan@kernel.org;
- h=from:subject:message-id; bh=oEPFEr69GOFnlvxRi+OQJiP0bTLBwUD6RP2Enyu8lR0=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDKnqzB88WXaLHs65y1J1srv9tdnW2KAIqa2lLzVmTw+t/
- aXNcU2go5SFQYyDQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEzkVQ0jw4/wh6eyfp06I+s8
- L1XEO+GPR/N+s5y60A0X2YoMwxjeizD893I9Hef6XIDJYtaaUOO7zObp1vWV/Esu6ua4v7UT91J
- jAAA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
-Message-ID-Hash: ABK36RCN3IR4SR4LELRLSZILZ4G63OGA
-X-Message-ID-Hash: ABK36RCN3IR4SR4LELRLSZILZ4G63OGA
-X-MailFrom: nathan@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BGyLCGLG2m53YbE3"
+Content-Disposition: inline
+In-Reply-To: <20231011114759.1073757-1-chancel.liu@nxp.com>
+X-Cookie: What an artist dies with me!
+Message-ID-Hash: QBERDUPYB7AM7UJPUFRHHH4OI32BWT3T
+X-Message-ID-Hash: QBERDUPYB7AM7UJPUFRHHH4OI32BWT3T
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ABK36RCN3IR4SR4LELRLSZILZ4G63OGA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBERDUPYB7AM7UJPUFRHHH4OI32BWT3T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,51 +102,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Clang warns (or errors with CONFIG_WERROR=y):
 
-  sound/soc/tegra/tegra210_amx.c:553:10: error: variable 'soc_data' is uninitialized when used here [-Werror,-Wuninitialized]
-    553 |                                             soc_data->regmap_conf);
-        |                                             ^~~~~~~~
+--BGyLCGLG2m53YbE3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-A refactoring removed the initialization of this variable but its use
-was not updated. Use the soc_data value in the amx variable to resolve
-the warning and remove the soc_data variable, as it is now entirely
-unused.
+On Wed, Oct 11, 2023 at 07:47:58PM +0800, Chancel Liu wrote:
 
-Closes: https://github.com/ClangBuiltLinux/linux/issues/1943
-Fixes: 9958d85968ed ("ASoC: Use device_get_match_data()")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- sound/soc/tegra/tegra210_amx.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+> +  lpa-widgets:
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +    description: |
+> +      A list of DAPM endpoints which mark paths between these endpoints should
+> +      not be disabled when system enters in suspend state. LPA means low power
+> +      audio case. For example on asymmetric multiprocessor, there are Cortex-A
 
-diff --git a/sound/soc/tegra/tegra210_amx.c b/sound/soc/tegra/tegra210_amx.c
-index dd1a2c77c6ea..91e405909e0f 100644
---- a/sound/soc/tegra/tegra210_amx.c
-+++ b/sound/soc/tegra/tegra210_amx.c
-@@ -535,7 +535,6 @@ static int tegra210_amx_platform_probe(struct platform_device *pdev)
- 	struct tegra210_amx *amx;
- 	void __iomem *regs;
- 	int err;
--	struct tegra210_amx_soc_data *soc_data;
- 
- 	amx = devm_kzalloc(dev, sizeof(*amx), GFP_KERNEL);
- 	if (!amx)
-@@ -550,7 +549,7 @@ static int tegra210_amx_platform_probe(struct platform_device *pdev)
- 		return PTR_ERR(regs);
- 
- 	amx->regmap = devm_regmap_init_mmio(dev, regs,
--					    soc_data->regmap_conf);
-+					    amx->soc_data->regmap_conf);
- 	if (IS_ERR(amx->regmap)) {
- 		dev_err(dev, "regmap init failed\n");
- 		return PTR_ERR(amx->regmap);
+I suspect that the DT maintainers would prefer that this description be
+workshopped a bit to remove the Linux specifics.  I think the key thing
+here is that these are endpoints that can be active over suspend of the
+main application processor that the current operating system is running
+(system DT stuff is an interesting corner case here...), and the example
+is probably a bit specific.  Other bindings use "audio sound widgets"
+rather than "DAPM widgets".
 
----
-base-commit: 59825951707eccf92782e109c04772d34fc07eb6
-change-id: 20231011-asoc-tegra-fix-uninit-soc_data-fcd0bf50a732
+We also shouldn't see that these endpoints "should not be disabled"
+since that implies that they should be left on even if they aren't
+active which isn't quite the case, instead it's that we can continue
+playing an audio stream through them in suspend.
 
-Best regards,
--- 
-Nathan Chancellor <nathan@kernel.org>
+--BGyLCGLG2m53YbE3
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUnEdwACgkQJNaLcl1U
+h9D14gf+M9bhmpfCPDRUmqCUaPutP6E3jikRfcnDJMN9NCqZQlZqmvNPDkZwflpC
+0ANUsCcytMbUuzBoQIYoSCtfFDer2msQyvVQxVsM9P1zwX7Qfbal8vTlZGk4ysr7
+p81AT1+S+qs9386uzQSK+WFqMoEEZYzgOY8GDvdEZFl2I1JlfB6+f47nyxYwYylv
+GD1iiiRKguqj0FMRWINIxBRehf+/SSZ2dLu6lYVAl2ZlGkKZgtJAylmDGVVHWAiG
+YWYHw1UUmuTqUtdcsHd0h5Yz1fv5QWhhOSaGSLrrzg58vMBhsC/JfP+ntn7pF5eD
+Wi4I4SBZmZibAjPsU4MD29pkvvjasQ==
+=c0uT
+-----END PGP SIGNATURE-----
+
+--BGyLCGLG2m53YbE3--

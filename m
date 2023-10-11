@@ -2,136 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09DB47C93CC
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Oct 2023 11:29:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D947C93CD
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Oct 2023 11:29:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B298E0D;
-	Sat, 14 Oct 2023 11:28:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B298E0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFC2CE7E;
+	Sat, 14 Oct 2023 11:29:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFC2CE7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697275778;
-	bh=mutMKgc4ya+CgA/o70qiNv2LYmv55lohohvj+F3DMi0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1697275797;
+	bh=Jz4OlK8SO7WuNQt+Df4xaT9gbzfEepuwWgV21H1UNuQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hPeaNWBhpusADZquIZcQ/kDzOykHi0Xzr136nFUx7uXOZdp1yovBMTCEGk4nzWZLw
-	 VoG0h3zfesZmMBTaPIX4DlsjdK7cf8IKWu7S1lxPx7rk2cBsClUejJUJbjs0K7GEm7
-	 +QRokrNWVtUQY5ct/+MmdcYEE2SoN9nkoDSb5cP8=
+	b=JLgCmryg2tGzwa38XwIfEZqfPkRFqnixCsORRUab2AXUdYVrIzhni8R63VbtGrPOn
+	 KFrKP4O9y3ll/LogqWdjrTea83i3AWkCj8V93RWxHhiDEbi1mnYxvnWW/tk80jPGaE
+	 BdHUblSrPha9vZO93aVrft3pdRzz0jquhVbZHlr4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84A01F805AA; Sat, 14 Oct 2023 11:27:44 +0200 (CEST)
+	id E8588F805C1; Sat, 14 Oct 2023 11:27:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDB02F805AA;
-	Sat, 14 Oct 2023 11:27:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A5CDF805B2;
+	Sat, 14 Oct 2023 11:27:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B089F80310; Tue, 10 Oct 2023 20:33:33 +0200 (CEST)
+	id 6B2A2F802BE; Wed, 11 Oct 2023 05:59:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFC14F8019B
-	for <alsa-devel@alsa-project.org>; Tue, 10 Oct 2023 20:33:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC14F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id E2966F8015B
+	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 05:58:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2966F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tLfOxeeD
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 12CCE61460;
-	Tue, 10 Oct 2023 18:33:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1991C433C8;
-	Tue, 10 Oct 2023 18:32:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696962787;
-	bh=mutMKgc4ya+CgA/o70qiNv2LYmv55lohohvj+F3DMi0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=tLfOxeeDr3Mw777b1OV5HKBpmCoUSeYUB1seqcT+v5P7be++hBmAZyDEDuyoTfgWL
-	 3BLKYc9GGJwsURZHX93GVaDL50IWDK8LRhUKu6dHFsMSCI2Pm7l5knUq9/VQTMOVaq
-	 BBFyId1KZMuJ/w2K5oGWrmlWfKG6CTi/JTESk1grIC8pLr09qLpa6meJJetQXiwhm+
-	 E3s2XKVJ5q4JRPxyhzBT1BJ0R5hUBQeLC0yeCq5NS6Y5bagM9/HUHeGOZcwbw/zOcm
-	 Gwhz5aQXKUQt6X3AhpOalY6jLP+uL6qiG9B/nzHMgJ10i2z3+gihzWslKNsvFNZo4c
-	 6jpQ35nWLN+kQ==
-From: Mark Brown <broonie@kernel.org>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Peter Rosin <peda@axentia.se>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Lars-Peter Clausen <lars@metafoo.de>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Oder Chiou <oder_chiou@realtek.com>,
- Fabio Estevam <festevam@gmail.com>, Kiseok Jo <kiseok.jo@irondevice.com>,
- Kevin Cernekee <cernekee@chromium.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- NXP Linux Team <linux-imx@nxp.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Heiko Stuebner <heiko@sntech.de>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Ban Tao <fengzheng923@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <"r anjani.sridharan"@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20231003-dt-asoc-header-cleanups-v1-0-05b5d6447e5a@kernel.org>
-References: <20231003-dt-asoc-header-cleanups-v1-0-05b5d6447e5a@kernel.org>
-Subject: Re: [PATCH RESEND 0/5] ASoC: DT matching and header cleanups
-Message-Id: <169696277523.221758.9535958307548510833.b4-ty@kernel.org>
-Date: Tue, 10 Oct 2023 19:32:55 +0100
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=ivc8Er/d
+Received: by mail-pg1-x533.google.com with SMTP id
+ 41be03b00d2f7-5859b1c92a0so4796137a12.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 10 Oct 2023 20:58:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1696996737; x=1697601537;
+ darn=alsa-project.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QEyu6E8jF0cZwmaZteltmY/shCbPk8pZ1SswHOZY1R4=;
+        b=ivc8Er/d1n9hfFg+mrE3hrYEfvowf+q1mBR4ISSQ0y4csnTv7ud+5zqA4Fwcosc7Iw
+         2C1oQE22RhKs1EjWL09f1zw41bEHccRiDdPqpB9ew6dvtid931acLlljw8EZK57KT8+o
+         g4mnQM/0O3rzNB0sQ4rI2htGmQR2FdKfvWj3DXuLissXpFkc/TfrYVo16VvNDNEqAwwz
+         zVOJQlAWalkPziOmUtK3ogkn8TuSuEdoyCra9bO6fudPmEZ5c6mxqwpt/oPLWOz6pBtB
+         +z9asmnjKXNvEkfYs/VvtGYMvZwwduaI6CbY1BRMVuZcrIh/Eix/ZLBGNJt83zWsmpLU
+         ciEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696996737; x=1697601537;
+        h=in-reply-to:from:content-language:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=QEyu6E8jF0cZwmaZteltmY/shCbPk8pZ1SswHOZY1R4=;
+        b=jG4E/BxP96tz0x9fVUDS8fPUI10BwhXoxkBupwtZPlNEvhEF4HO+KoWyKzH3hjQh75
+         k/32hJHB6VReV/sw4s0BISzJD8F6hfZVh2OsIzEUbxD6d+KnXi0tBoMwUKNPbEwH3PTJ
+         B6ALGOiwZZmVKrE3qqAtCRx6ZV7bCLsbPNkeYkLM9XCq8NrvuKrioLtJKFxT93dVCxwO
+         EkWqbR+S45THcDzbDoleDUwiRqDkyMvZft+wOZqP4flen/rkXMWZDk8Hto/rj6+RxhEc
+         fT4ZfuKy+wxrYyKkFkONFwSS/1HcZMUCYhpprO7PhtJRMCeKnbb/xZiUsYoBq2dM0Xu6
+         t10Q==
+X-Gm-Message-State: AOJu0Yze7N3YOBG6oEMLc+UXpQDN/XcPkbNyr+Vc2Oew426uHiRk2tQU
+	W0uEdQrW3nOyK7zbuJVkLNY=
+X-Google-Smtp-Source: 
+ AGHT+IEWwp4rl+923ewnlWsBDSDre4takEfOg5ZojuT3s27P8A+vin7amYwKBjYsL7zpFOenVqV/5A==
+X-Received: by 2002:a17:902:864c:b0:1bd:da96:dc70 with SMTP id
+ y12-20020a170902864c00b001bdda96dc70mr19381021plt.49.1696996736959;
+        Tue, 10 Oct 2023 20:58:56 -0700 (PDT)
+Received: from [192.168.1.11] (203-174-143-14.can.static-ipl.aapt.com.au.
+ [203.174.143.14])
+        by smtp.gmail.com with ESMTPSA id
+ jf3-20020a170903268300b001c755810f89sm12678359plb.181.2023.10.10.20.58.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Oct 2023 20:58:56 -0700 (PDT)
+Message-ID: <c857c071-27bb-4b4c-936e-716946126b65@gmail.com>
+Date: Wed, 11 Oct 2023 14:58:50 +1100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-X-MailFrom: broonie@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hda/realtek: Add SND_PCI_QUIRK entry for the Dell XPS
+ 9530 laptop for dual speakers
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ brett@worth.au, alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+References: <9c7b08fc-7f00-4894-a5b2-f3fc5f99e022@gmail.com>
+ <2cfbeaab-9bdc-499b-8525-2296c0481cf4@linux.intel.com>
+ <46f10d4e-4de4-478b-939f-9d0fc2dfb04a@linux.intel.com>
+Content-Language: en-AU
+From: Brett Worth <brett.worth@gmail.com>
+In-Reply-To: <46f10d4e-4de4-478b-939f-9d0fc2dfb04a@linux.intel.com>
+X-MailFrom: brett.worth@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: PR3LLZRYXSPF4ZTLS7XBPAWEA32ORPT4
-X-Message-ID-Hash: PR3LLZRYXSPF4ZTLS7XBPAWEA32ORPT4
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: RU5F7QCFC5S7BRNGVG2ZCAW3J76OOUTN
+X-Message-ID-Hash: RU5F7QCFC5S7BRNGVG2ZCAW3J76OOUTN
 X-Mailman-Approved-At: Sat, 14 Oct 2023 09:25:25 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
+Reply-To: brett@worth.au
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PR3LLZRYXSPF4ZTLS7XBPAWEA32ORPT4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RU5F7QCFC5S7BRNGVG2ZCAW3J76OOUTN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,53 +129,8 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 03 Oct 2023 13:13:09 -0500, Rob Herring wrote:
-> (Got a bunch of bounces on the first try. Something weird going on with
-> the To header best I can tell. Retrying with git-send-email instead of
-> b4.)
-> 
-> This is a series is part of ongoing clean-ups related to device
-> matching and DT related implicit includes. Essentially of_device.h has
-> a bunch of implicit includes and generally isn't needed any nore except
-> for of_match_device(). As we also generally want to get rid of
-> of_match_device() as well, I've done that so we're not updating the
-> includes twice.
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/5] ASoC: Explicitly include correct DT includes
-      commit: 340d79a14d6ab5066ba40651764db20bd151aea7
-[2/5] ASoC: Drop unnecessary of_match_device() calls
-      commit: 56c075b2d31c626370481a62d334a0575f751522
-[3/5] ASoC: da7218: Use i2c_get_match_data()
-      commit: fe26425518862020449cb2c9709e62cc76a56de2
-[4/5] ASoC: qcom/lpass: Constify struct lpass_variant
-      commit: ec5236c2e6ec1ce62237a2e9345dd2ffc4fc6d56
-[5/5] ASoC: Use device_get_match_data()
-      commit: 9958d85968ed2df4b704105fd2a9c3669eb9cd97
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+T24gMTAvMTAvMjMgMDQ6NTEsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOg0KPiBmZWVkYmFj
+ayB3YXMgcXVpY2ssIHRoaXMgcGF0Y2ggZG9lc24ndCBzZWVtIHRvIHNvbHZlIHRoZSBwcm9ibGVt
+DQoNCk9LLsKgIFRoYW5rcy7CoCBUaGlzIHdpbGwganVzdCBoYXZlIHRvIHN0YXkgYnJva2VuLg0K
+DQpCcmV0dA0KDQotLSANCi0tIC8pIF8gXyBfL18vIC8gLyAvX18gXyBfLy8NCiAgIC9fKS88Lz0g
+LyAvIChfKF8vL18vLzwgLy8vDQo=

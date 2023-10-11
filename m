@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 458607C57C1
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 17:08:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF197C5943
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 18:35:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FCB216F8;
-	Wed, 11 Oct 2023 17:07:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FCB216F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3B4A1709;
+	Wed, 11 Oct 2023 18:34:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3B4A1709
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697036917;
-	bh=8c7ow3r0v7L/3vxLn67gJ7U9jhG5P3D98ExqsyocpYw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=U0ToHlNlyqUeCJdFQA0yLEVmTTVcK1Q3dOkfLHbHKpEc5ZL/Gb8YmFc7hzujI68c5
-	 s2xWC2djEi8xhpPJtbvPFQqKN+ph7+2mORRjp/17dx8vws1+0qzsL3Rc9bhbrNNmAj
-	 WcdY+tmVc3sCaHvTb2MjXpHs+RKkWrEpsFYl6Bqw=
+	s=default; t=1697042111;
+	bh=0ukNua8ATcr87S7Mj/tfUq8qS5fWkkUOik0pOHeRlEQ=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=BBzbo8kKSRllMlv5PuKtZ0zs2YfBLQi5yCqpxNFAausGry4AfodL3qyP3ienrlfS8
+	 gPp73EZeEPKD0WCAxypSctvZZ25i8PJPYudxMS+YdDlNbP0QSX/MJWLtCcuSiWfw5t
+	 r4pcEgF+CiQgP+XlsBqAssXppHOjbRZJqoWj7tIs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE117F80536; Wed, 11 Oct 2023 17:07:46 +0200 (CEST)
+	id 1CFC7F80552; Wed, 11 Oct 2023 18:34:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D053F8027B;
-	Wed, 11 Oct 2023 17:07:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C33E4F80166;
+	Wed, 11 Oct 2023 18:34:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CDBC3F802BE; Wed, 11 Oct 2023 17:07:41 +0200 (CEST)
+	id 12C47F802BE; Wed, 11 Oct 2023 18:34:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 188ABF8015B
-	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 17:07:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 188ABF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0B35F80166
+	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 18:34:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B35F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OWKn/u0z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1697036858; x=1728572858;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=8c7ow3r0v7L/3vxLn67gJ7U9jhG5P3D98ExqsyocpYw=;
-  b=OWKn/u0zaT1izW9c+TOTmVsqSP99CRRgZcQVyX8JfDpzgJpDr+kmxPFX
-   zU1vmbvHCXgMc/nQEqHYlkArDFWOF7I2046nMOm93d1U7Iq32Lrqzg/bl
-   RWOsxv2feSXA+87JOUy4HPtkjF5LBUzshuKyY22kZa3vgPbMEOn5KKEBi
-   /rDjzVA6nt6lwTfwJaSFeTvfKzbCPBIna7/S6Bv3KozpFITicpgERD3Ym
-   IPHY2MeS+exMxcAzdyOjT30pH3uYFDcrDIgaKw6P8yZFhyShcKt69dPl0
-   Ia9mg5g/5nbVf2asi0hs8KxlpiM+5SDoJ2CR5+BjGcyPv/EBwaCkmJOMB
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="415734245"
-X-IronPort-AV: E=Sophos;i="6.03,216,1694761200";
-   d="scan'208";a="415734245"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 08:05:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="1001150966"
-X-IronPort-AV: E=Sophos;i="6.03,216,1694761200";
-   d="scan'208";a="1001150966"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.91])
- ([10.94.0.91])
-  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 08:05:07 -0700
-Message-ID: <836c70f3-7423-4321-84cf-31f54e42b163@linux.intel.com>
-Date: Wed, 11 Oct 2023 17:05:05 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=izsJ6koh
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 39B69HGL028515;
+	Wed, 11 Oct 2023 11:34:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=b
+	77U65NzPhkgOKHWlwkTamYPj/TOXrDCPIuZPvkXAr8=; b=izsJ6koh2FMzwGjfe
+	N22ZfK1++M6CsJuWJk2wX1XK066MkOCCZzBpTOo235TU6a81Ux9pPlN4z19jAIq1
+	6BwshNm6vPyqjXk5Isd2LASyuGmPsOBRDpRrKAJHluQi6VZDyyc6n3Mm6dAU9cKy
+	JbhaWtZRSBuiSa0UU43B9a984OP0cnzn52blgigBe/iqk6gOYa8aFzfQvQyXGdrs
+	CgjdEjGVZMCOz7K8NHUGwbJ0814cys6I0sEXapd9DX3vUatk2M1u0biHjKuNolal
+	2x2o+CRzYgF83g2N6vlALp1n6VcVB7yHugaD87I5WwB+4RRn29CfPBF4IlDk7lMX
+	7Zayw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3tnp64gvmh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 11 Oct 2023 11:34:00 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Wed, 11 Oct
+ 2023 17:33:58 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.37 via Frontend
+ Transport; Wed, 11 Oct 2023 17:33:58 +0100
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.65.230])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id ED81B11AA;
+	Wed, 11 Oct 2023 16:33:57 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Simon Trimmer
+	<simont@opensource.cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: [PATCH] ALSA: hda: cs35l56: Enable low-power hibernation mode on i2c
+Date: Wed, 11 Oct 2023 17:33:55 +0100
+Message-ID: <20231011163355.18183-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/16] ASoC: Intel: avs: Introduce helper functions for
- SSP and TDM handling
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai
- <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org
-References: <20231011121703.363652-1-amadeuszx.slawinski@linux.intel.com>
- <20231011121703.363652-3-amadeuszx.slawinski@linux.intel.com>
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20231011121703.363652-3-amadeuszx.slawinski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MK6L5WRI5IEFMV5IRYQTDQM5QWRYEAYL
-X-Message-ID-Hash: MK6L5WRI5IEFMV5IRYQTDQM5QWRYEAYL
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-GUID: QG4T2Kyo7OWCR0NkwwwzoTUhlAOXlLTw
+X-Proofpoint-ORIG-GUID: QG4T2Kyo7OWCR0NkwwwzoTUhlAOXlLTw
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: D6GS2C7QAJ4UIZ4QP2O6IMJTHIDDGXWQ
+X-Message-ID-Hash: D6GS2C7QAJ4UIZ4QP2O6IMJTHIDDGXWQ
+X-MailFrom: prvs=56482167b5=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MK6L5WRI5IEFMV5IRYQTDQM5QWRYEAYL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D6GS2C7QAJ4UIZ4QP2O6IMJTHIDDGXWQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,29 +110,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/11/2023 2:16 PM, Amadeusz Sławiński wrote:
-> In quite a few places in code there are checks for number of SSPs
-> present on system, to reduce maintenance burden introduce helper
-> functions allowing to get SSP and TDM from machine board configuration.
-> 
-> Additionally in boards we use SSP and TDM to generate quite a few
-> strings, it could be done like:
-> if (tdms)
-> 	dl->name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d:%d-Codec",
-> 		ssp_port, tdm_slot);
-> else
-> 	dl->name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-Codec",
-> 		ssp_port);
-> 
-> but quite quickly code ends up with spaghetti of similar if elses.
-> Instead introduce macro which can be used to generate correct string,
-> allowing to minimize code to something like:
-> dl->name = devm_kasprintf(dev, GFP_KERNEL, AVS_STRING_FMT("SSP", "-Codec",
-> 		ssp_port, tdm_slot));
-> 
-> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+From: Simon Trimmer <simont@opensource.cirrus.com>
 
-And apparently we didn't catch that functions in header should be 
-static, which leads to linking problems when everything is built-in, I 
-will send v2 tomorrow.
+This can now be re-enabled as the sequence to reliably wake the device
+has been implemented in the shared ASoC code.
+
+This has a functional dependency on commit 3df761bdbc8b
+("ASoC: cs35l56: Wake transactions need to be issued twice")
+
+To protect against this, enabling hibernation is conditional on
+CS35L56_WAKE_HOLD_TIME_US being defined, which indicates that the new
+hibernation sequences are available.
+
+Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/pci/hda/cs35l56_hda_i2c.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/pci/hda/cs35l56_hda_i2c.c b/sound/pci/hda/cs35l56_hda_i2c.c
+index 757a4d193e0f..a9ef6d86de83 100644
+--- a/sound/pci/hda/cs35l56_hda_i2c.c
++++ b/sound/pci/hda/cs35l56_hda_i2c.c
+@@ -21,6 +21,10 @@ static int cs35l56_hda_i2c_probe(struct i2c_client *clt)
+ 		return -ENOMEM;
+ 
+ 	cs35l56->base.dev = &clt->dev;
++
++#ifdef CS35L56_WAKE_HOLD_TIME_US
++	cs35l56->base.can_hibernate = true;
++#endif
+ 	cs35l56->base.regmap = devm_regmap_init_i2c(clt, &cs35l56_regmap_i2c);
+ 	if (IS_ERR(cs35l56->base.regmap)) {
+ 		ret = PTR_ERR(cs35l56->base.regmap);
+-- 
+2.30.2
+

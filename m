@@ -2,121 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E3D7C5F1C
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Oct 2023 23:29:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A510D7C61E1
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 02:38:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92D49E72;
-	Wed, 11 Oct 2023 23:28:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92D49E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86B8ADF0;
+	Thu, 12 Oct 2023 02:37:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86B8ADF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697059774;
-	bh=1ve8LtG3NXV87jvNQPL3WmMLFReoLt3u51LYipJjPdE=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1697071078;
+	bh=RdfDVk4Tn/AgFKhnuaA2gNy0l6cyNbUefJRkhBP6c/w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ciVidsxqr+nfQFmMEmOh0dlQRJ/6SFDDNFBTC6Cx9yFws2TCG+VDZ+WvC6j8xccKx
-	 o5ThQ0V/ceyw1tala2uLrZL5KzdTDs3MQjbNBVdISKhCKF4iUtuovmFe/B/3SyDbSI
-	 TKsMPCEN8lUUeoVEW212KFt1Qq8TNb9YOnW7C8xA=
+	b=GRDffmCRmPYu4GtZ/mWGVLfqaw1A9YGmwpDMvpso56Pe7S6R+VO4A+07LB6jdBUO3
+	 DfQi6vFSD5hFB2BGdz9rmOkDhGR5dQVuo90Us8ZWzN1acmkHp+Wp9qsk43Rkc9qlH+
+	 Jr9GdTK6DORTvsFvJ7XBQUl3cMshuTcBVO40xsg4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EC6FF80557; Wed, 11 Oct 2023 23:28:43 +0200 (CEST)
+	id E45D9F80558; Thu, 12 Oct 2023 02:37:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94BD8F8027B;
-	Wed, 11 Oct 2023 23:28:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D188F8027B;
+	Thu, 12 Oct 2023 02:37:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0715EF802BE; Wed, 11 Oct 2023 23:28:36 +0200 (CEST)
+	id 8D97BF802BE; Thu, 12 Oct 2023 02:37:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 90AF4F8015B
-	for <alsa-devel@alsa-project.org>; Wed, 11 Oct 2023 23:28:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90AF4F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0D375F8019B
+	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 02:36:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D375F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=Nol6CFDo
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39BLLorF026505;
-	Wed, 11 Oct 2023 21:28:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=YV+V1QT7WH4TWPolqZP1tvIu4h5bgrG/c8p+KKr0FoQ=;
- b=Nol6CFDoHUzR4MONkVTbjPlDGX8jVqu+DqjvbqlByQojNsd+P5PUQji3uQkMkNyEx/2S
- 5L8blqit0HWXQxoVAeP1EZs/iVACZdp8Ta+QIe4RPdY1umbSFP4kGotR6AFmcncynZnk
- oahwPh5qBb7S4BzteERSwdbC/8Soe6MKEqc2CmEUyU6jDd1k8Mdxoo8bWCuklBuUdBKI
- MKvabTmCS2Bar6e2adlK6oMnL8Nu2Q5voYPAzqGKGnn1TDISOEWh4O5m1zsSzp63XONF
- xJj0JAeOIR0GtT+EEmgyj8qGZxecN8tjDe4nkXpSULibMPnY9zLne8cR6F9A6iGBgU/y Ig==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tnsmq1nmr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Oct 2023 21:28:14 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 39BLSC9L011144
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Oct 2023 21:28:13 GMT
-Received: from [10.71.115.198] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Wed, 11 Oct
- 2023 14:28:12 -0700
-Message-ID: <a9b172cd-1840-2949-2244-9a75d2bb7990@quicinc.com>
-Date: Wed, 11 Oct 2023 14:28:07 -0700
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=cMmYgL2X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1697071013; x=1728607013;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RdfDVk4Tn/AgFKhnuaA2gNy0l6cyNbUefJRkhBP6c/w=;
+  b=cMmYgL2XDGr/FsZdk7yGuUPEMZJTOrmGXULo0WI0G8Dn917f0w6zfIL/
+   bbkmSex14hXIm5HyaLCpAZ7Fmq/HSPGfueVw7Vf8VbTmCUYydinKeeOeN
+   DQirSJV0FTqjQ6wdOJthH44hbYzFI3sDSwEF4kWrnJIDYIEdPoB8gLaWa
+   4EpydY+iYKYhDBCwCUQ8n6VsqB6IBRLMQi1BCPR6QY5dHRLYIxL1BNYoG
+   vuX20MwQ/JPlSJvd6dwgFHDREE36eY9dHf831n+QYdi0Xh1igrf+U2GmC
+   riqtA7bAZBNQGHe9VeawHvZQAZ/tBaIpCytWwtqkzYXEzTiUphwV3Zb2g
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="384657058"
+X-IronPort-AV: E=Sophos;i="6.03,217,1694761200";
+   d="scan'208";a="384657058"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 17:36:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="897869939"
+X-IronPort-AV: E=Sophos;i="6.03,217,1694761200";
+   d="scan'208";a="897869939"
+Received: from lkp-server02.sh.intel.com (HELO f64821696465) ([10.239.97.151])
+  by fmsmga001.fm.intel.com with ESMTP; 11 Oct 2023 17:34:59 -0700
+Received: from kbuild by f64821696465 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qqjgy-0002uH-0P;
+	Thu, 12 Oct 2023 00:36:44 +0000
+Date: Thu, 12 Oct 2023 08:35:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+	alsa-devel@alsa-project.org,
+	Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH 04/16] ASoC: Intel: avs: i2s_test: Validate machine board
+ configuration
+Message-ID: <202310120853.cfVtZkHx-lkp@intel.com>
+References: <20231011121703.363652-5-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v8 25/34] ASoC: dt-bindings: Update example for enabling
- USB offload on SM8250
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-CC: <bgoswami@quicinc.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
-        <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>,
-        <konrad.dybcio@linaro.org>, <conor+dt@kernel.org>,
-        <linux-usb@vger.kernel.org>, <andersson@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <srinivas.kandagatla@linaro.org>,
-        <linux-kernel@vger.kernel.org>, <agross@kernel.org>,
-        <mathias.nyman@intel.com>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
-        <krzysztof.kozlowski+dt@linaro.org>, <linux-arm-msm@vger.kernel.org>
-References: <20231011002146.1821-1-quic_wcheng@quicinc.com>
- <20231011002146.1821-26-quic_wcheng@quicinc.com>
- <169699146438.2560961.3220166947763848754.robh@kernel.org>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <169699146438.2560961.3220166947763848754.robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: Mx5Ycg9ohRBABrFQFgGJzpQmgg0YzsHa
-X-Proofpoint-ORIG-GUID: Mx5Ycg9ohRBABrFQFgGJzpQmgg0YzsHa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-11_16,2023-10-11_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0
- mlxlogscore=999 lowpriorityscore=0 adultscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 bulkscore=0 clxscore=1015 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2310110189
-Message-ID-Hash: SFQ3W5WOZLBKTN3BVNWZBHSZMW5U6ZHR
-X-Message-ID-Hash: SFQ3W5WOZLBKTN3BVNWZBHSZMW5U6ZHR
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231011121703.363652-5-amadeuszx.slawinski@linux.intel.com>
+Message-ID-Hash: BVHMNIAZX6HN4CQ7OPXII3OOIVQPUKRM
+X-Message-ID-Hash: BVHMNIAZX6HN4CQ7OPXII3OOIVQPUKRM
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SFQ3W5WOZLBKTN3BVNWZBHSZMW5U6ZHR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BVHMNIAZX6HN4CQ7OPXII3OOIVQPUKRM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,74 +112,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Rob,
+Hi Amadeusz,
 
-On 10/10/2023 7:31 PM, Rob Herring wrote:
-> 
-> On Tue, 10 Oct 2023 17:21:37 -0700, Wesley Cheng wrote:
->> Add an example on enabling of USB offload for the Q6DSP.  The routing can
->> be done by the mixer, which can pass the multimedia stream to the USB
->> backend.
->>
->> Acked-by: Rob Herring <robh@kernel.org>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   .../devicetree/bindings/sound/qcom,sm8250.yaml    | 15 +++++++++++++++
->>   1 file changed, 15 insertions(+)
->>
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> Error: Documentation/devicetree/bindings/sound/qcom,sm8250.example.dts:97.44-45 syntax error
-> FATAL ERROR: Unable to parse input tree
-> make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb] Error 1
-> make[2]: *** Waiting for unfinished jobs....
-> make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1427: dt_binding_check] Error 2
-> make: *** [Makefile:234: __sub-make] Error 2
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231011002146.1821-26-quic_wcheng@quicinc.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+kernel test robot noticed the following build errors:
 
-Would you happen to know what the error is in this case?  I made sure I 
-was running the latest dtschema (v2023.9) and had yamllint installed as 
-well.  When I took a look at the DTB and DTS output it looked ok...
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on next-20231011]
+[cannot apply to tiwai-sound/for-next tiwai-sound/for-linus linus/master v6.6-rc5]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-             usb-dai-link {
-                 link-name = "USB Playback";
-                 cpu {
-                     sound-dai = <&q6afedai USB_RX>;//--->syntax error?
-                 };
+url:    https://github.com/intel-lab-lkp/linux/commits/Amadeusz-S-awi-ski/ASoC-Intel-avs-Only-create-SSP-d-snd_soc_dai_driver-when-requested/20231011-202503
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20231011121703.363652-5-amadeuszx.slawinski%40linux.intel.com
+patch subject: [PATCH 04/16] ASoC: Intel: avs: i2s_test: Validate machine board configuration
+config: powerpc-randconfig-003-20231012 (https://download.01.org/0day-ci/archive/20231012/202310120853.cfVtZkHx-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231012/202310120853.cfVtZkHx-lkp@intel.com/reproduce)
 
-                 codec {
-                     sound-dai = <&usbdai USB_RX>;
-                 };
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310120853.cfVtZkHx-lkp@intel.com/
 
-                 platform {
-                     sound-dai = <&q6routing>;
-                 };
-             };
+All errors (new ones prefixed by >>):
 
-I didn't make any changes to this in between v7 and v8, but v7 passed:
-https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230921214843.18450-25-quic_wcheng@quicinc.com/
+   powerpc-linux-ld: sound/soc/intel/avs/boards/i2s_test.o: in function `avs_mach_singular_ssp':
+>> i2s_test.c:(.text+0x0): multiple definition of `avs_mach_singular_ssp'; sound/soc/intel/avs/topology.o:topology.c:(.text+0x1e80): first defined here
+   powerpc-linux-ld: sound/soc/intel/avs/boards/i2s_test.o: in function `avs_mach_ssp_port':
+>> i2s_test.c:(.text+0x44): multiple definition of `avs_mach_ssp_port'; sound/soc/intel/avs/topology.o:topology.c:(.text+0x1ec4): first defined here
+   powerpc-linux-ld: sound/soc/intel/avs/boards/i2s_test.o: in function `avs_mach_singular_tdm':
+>> i2s_test.c:(.text+0x88): multiple definition of `avs_mach_singular_tdm'; sound/soc/intel/avs/topology.o:topology.c:(.text+0x1f08): first defined here
+   powerpc-linux-ld: sound/soc/intel/avs/boards/i2s_test.o: in function `avs_mach_ssp_tdm':
+>> i2s_test.c:(.text+0x8c8): multiple definition of `avs_mach_ssp_tdm'; sound/soc/intel/avs/topology.o:topology.c:(.text+0x3214): first defined here
+   powerpc-linux-ld: sound/soc/intel/avs/boards/i2s_test.o: in function `avs_mach_get_ssp_tdm':
+>> i2s_test.c:(.text+0x938): multiple definition of `avs_mach_get_ssp_tdm'; sound/soc/intel/avs/topology.o:topology.c:(.text+0x3284): first defined here
 
-Thanks
-Wesley Cheng
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

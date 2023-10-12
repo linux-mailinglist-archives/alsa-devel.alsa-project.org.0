@@ -2,85 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A7487C727C
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 18:26:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E597C7502
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 19:44:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7E84839;
-	Thu, 12 Oct 2023 18:25:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E84839
+	by alsa0.perex.cz (Postfix) with ESMTPS id A08E4836;
+	Thu, 12 Oct 2023 19:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A08E4836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697127988;
-	bh=9feK3ItMeeWwJ7VIPlyWwFyXf9aBwpQbldW6FpaCPok=;
+	s=default; t=1697132655;
+	bh=3Rqje43f72angmkB/9A+IImplnlSOfXYr0ju7Rq6x6A=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LaXH1PBEkwwZVqMuxHJ0UooOMvO19PmuL9XzrBVhczeDgS2LOhFbf1ifbgt6vRRMx
-	 LWNimuDhY4Q1Am0Ofxg2EEuG7Qfn98KK4DJl/0SyTL4z52DdyWqMseMFHKN1Lwnn+O
-	 RQRyfsVbxlyrbw4+JevDkMO17prJpEXEBQDmDRu4=
+	b=SRKGDoO1tExC9/qxzw5efF8ThUT0nRl4jmdNsyWzlQZftekASFYcBFmI3pC39/I9G
+	 FJqaMAbZjyQdJlR/MvVUNFF1mO1QnjaioGkWon/A4jy6k2JjEQjocZbjWjVJ37vQlw
+	 +iFSlX65hz6YpFXwo71JvPSOk3QBE/cUjdIVzn88=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40DC5F80310; Thu, 12 Oct 2023 18:25:38 +0200 (CEST)
+	id 9F51CF80563; Thu, 12 Oct 2023 19:42:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EE64F8027B;
-	Thu, 12 Oct 2023 18:25:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80FB5F802E8;
+	Thu, 12 Oct 2023 19:42:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90D8EF802BE; Thu, 12 Oct 2023 18:25:32 +0200 (CEST)
+	id 3E5D4F802BE; Thu, 12 Oct 2023 19:42:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46FAEF8019B
-	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 18:25:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46FAEF8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84B54F80130
+	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 19:42:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84B54F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MmifaNqV
+ header.s=k20201202 header.b=b6fHFi3i
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id E5A6DB8253C;
-	Thu, 12 Oct 2023 16:25:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CCC2C433C8;
-	Thu, 12 Oct 2023 16:25:22 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 4F20DB825B8;
+	Thu, 12 Oct 2023 17:42:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06485C433C7;
+	Thu, 12 Oct 2023 17:42:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697127924;
-	bh=9feK3ItMeeWwJ7VIPlyWwFyXf9aBwpQbldW6FpaCPok=;
+	s=k20201202; t=1697132558;
+	bh=3Rqje43f72angmkB/9A+IImplnlSOfXYr0ju7Rq6x6A=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=MmifaNqVW0KF2jEk/QREfOeHUJJUTjUuR3z0Y7YzK/2lxDPf9rHQGgKgaHY65EXWd
-	 6A37+tC0FyDH0IMKT7Ape4MnoBEOrVGKvU4RIsui53qz7heLWtCnPICUmj+yprUCuc
-	 y/lmrDPTmwebPd65iJ+2z2dEr03L1Hpcz3dlzsPShupRgJsA9uNtbI5kUJgFNBtn7d
-	 dghuOJvsMkZXBhaHMk6fu7dC8hFFs0XdZmdQ5Bb22ZpEtUP8bd6Zg/l9lpQXRVsRPB
-	 8aRf5Ww2EVmOdoQ2W1uN02GQAhG+B8FMklmXGFFe2AFvS9TU9Ce270JNi0ElWgr3vt
-	 sYha2tz+uzW0Q==
-Received: (nullmailer pid 1188735 invoked by uid 1000);
-	Thu, 12 Oct 2023 16:25:22 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	b=b6fHFi3iY/oWT/KPevXnxEjuGPA8waGRRJYOLr45VcflxJfoMzMaTsANkJgcLxUzJ
+	 62lbBJ+rWh1H7G+0VlOVqGMZWXowgBx1jqC4dfkk1rdl1nX5jfH9IjaiWJm18UCast
+	 JiIr6k/ihu8WpEYusBGKDgKJ0HdyGJGNrF4d1jg/fuURQg2gLQGD35390RxUEjRrXs
+	 tkk6EmsC77g/25L7V1X7vIrzVPILbH3gloSqdMEzB5IFT7hDqv77MVmKc+2bKrkMEw
+	 tByn5g00wdvCJ98JOMsQVtKboa/Lq3Fg/aZjIpW61RjHOjTBWZPUbcyvhdro4IGbFy
+	 fFoIq5Hwu1jfA==
+From: Mark Brown <broonie@kernel.org>
+To: robh@kernel.org, Nathan Chancellor <nathan@kernel.org>
+Cc: lgirdwood@gmail.com, thierry.reding@gmail.com, jonathanh@nvidia.com,
+ ndesaulniers@google.com, trix@redhat.com, alsa-devel@alsa-project.org,
+ linux-tegra@vger.kernel.org, llvm@lists.linux.dev, patches@lists.linux.dev
+In-Reply-To: 
+ <20231011-asoc-tegra-fix-uninit-soc_data-v1-1-0ef0ab44cf48@kernel.org>
+References: 
+ <20231011-asoc-tegra-fix-uninit-soc_data-v1-1-0ef0ab44cf48@kernel.org>
+Subject: Re: [PATCH] ASoC: tegra: Fix -Wuninitialized in
+ tegra210_amx_platform_probe()
+Message-Id: <169713255573.343479.16669481673546969427.b4-ty@kernel.org>
+Date: Thu, 12 Oct 2023 18:42:35 +0100
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Eugen Hristev <eugen.hristev@collabora.com>
-Cc: angelogioacchino.delregno@collabora.com, devicetree@vger.kernel.org,
- kernel@collabora.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- matthias.bgg@gmail.com, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- broonie@kernel.org, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, lgirdwood@gmail.com,
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20231012151538.468893-1-eugen.hristev@collabora.com>
-References: <20231012151538.468893-1-eugen.hristev@collabora.com>
-Message-Id: <169712792200.1188719.6103742227495646067.robh@kernel.org>
-Subject: Re: [PATCH v3] dt-bindings: arm: mediatek: convert audsys and
- mt2701-afe-pcm to yaml
-Date: Thu, 12 Oct 2023 11:25:22 -0500
-Message-ID-Hash: PVB2KYJCZEHRIUNEFP3S2OEK7BK6AIKQ
-X-Message-ID-Hash: PVB2KYJCZEHRIUNEFP3S2OEK7BK6AIKQ
-X-MailFrom: rob@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: 3Y342JYRFXLK2LXZSX3H76XYWAKPX2EW
+X-Message-ID-Hash: 3Y342JYRFXLK2LXZSX3H76XYWAKPX2EW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PVB2KYJCZEHRIUNEFP3S2OEK7BK6AIKQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3Y342JYRFXLK2LXZSX3H76XYWAKPX2EW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,55 +98,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Thu, 12 Oct 2023 18:15:38 +0300, Eugen Hristev wrote:
-> Convert the mediatek,audsys binding to YAML, together with the associated
-> binding bindings/sound/mt2701-afe-pcm.yaml .
+On Wed, 11 Oct 2023 13:21:51 -0700, Nathan Chancellor wrote:
+> Clang warns (or errors with CONFIG_WERROR=y):
 > 
-> Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
-> ---
-> Changes in v3:
-> - not added Rb Conor Dooley since the patch was changed in a big essence
-> - As per review by Krzysztof, also convert the mt2701-afe-pcm and reference
-> the correct schema in the audsys binding.
+>   sound/soc/tegra/tegra210_amx.c:553:10: error: variable 'soc_data' is uninitialized when used here [-Werror,-Wuninitialized]
+>     553 |                                             soc_data->regmap_conf);
+>         |                                             ^~~~~~~~
 > 
-> Changes in v2:
-> - remove comment reference to inexistent binding
+> A refactoring removed the initialization of this variable but its use
+> was not updated. Use the soc_data value in the amx variable to resolve
+> the warning and remove the soc_data variable, as it is now entirely
+> unused.
 > 
-> 
->  .../bindings/arm/mediatek/mediatek,audsys.txt |  39 ---
->  .../arm/mediatek/mediatek,audsys.yaml         | 153 ++++++++++++
->  .../bindings/sound/mt2701-afe-pcm.txt         | 146 -----------
->  .../bindings/sound/mt2701-afe-pcm.yaml        | 229 ++++++++++++++++++
->  4 files changed, 382 insertions(+), 185 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.txt
->  create mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/mt2701-afe-pcm.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/mt2701-afe-pcm.yaml
-> 
+> [...]
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Applied to
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/sound/mt2701-afe-pcm.yaml:11:4: [error] missing starting space in comment (comments)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-dtschema/dtc warnings/errors:
+Thanks!
 
-doc reference errors (make refcheckdocs):
+[1/1] ASoC: tegra: Fix -Wuninitialized in tegra210_amx_platform_probe()
+      commit: 41cb1126bed152f7679417834ad7ea39f2252dfb
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231012151538.468893-1-eugen.hristev@collabora.com
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-pip3 install dtschema --upgrade
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Thanks,
+Mark
 

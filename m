@@ -2,100 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 771917C7186
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 17:31:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7487C727C
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 18:26:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1644A836;
-	Thu, 12 Oct 2023 17:30:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1644A836
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7E84839;
+	Thu, 12 Oct 2023 18:25:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E84839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697124686;
-	bh=ZtcSIbjB2WpeZfQRyCvdpc+0MAvoSIsAVFQJFGWoAZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697127988;
+	bh=9feK3ItMeeWwJ7VIPlyWwFyXf9aBwpQbldW6FpaCPok=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dLt8QYQMYNxqjNDFNtwoFBJsf9X0pAhBB2FtZtMKcrH7ygWQgtpYz75assc+aBbUO
-	 FIzQ+oGzXqwBtVat1MYzyWNJVuv4gnZaj0NccJaMYWpOYtkhc1zJ95hkHWdr7H4Ure
-	 YjVAQwkOG1YdBBj9xonMk7SSx6HDspxgGseXPrmg=
+	b=LaXH1PBEkwwZVqMuxHJ0UooOMvO19PmuL9XzrBVhczeDgS2LOhFbf1ifbgt6vRRMx
+	 LWNimuDhY4Q1Am0Ofxg2EEuG7Qfn98KK4DJl/0SyTL4z52DdyWqMseMFHKN1Lwnn+O
+	 RQRyfsVbxlyrbw4+JevDkMO17prJpEXEBQDmDRu4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A3FEF8019B; Thu, 12 Oct 2023 17:30:35 +0200 (CEST)
+	id 40DC5F80310; Thu, 12 Oct 2023 18:25:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E7F3F8027B;
-	Thu, 12 Oct 2023 17:30:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EE64F8027B;
+	Thu, 12 Oct 2023 18:25:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98D0EF802BE; Thu, 12 Oct 2023 17:30:30 +0200 (CEST)
+	id 90D8EF802BE; Thu, 12 Oct 2023 18:25:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BBD58F80130
-	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 17:30:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBD58F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46FAEF8019B
+	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 18:25:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46FAEF8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
+	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=sNlqy8im
+ header.s=k20201202 header.b=MmifaNqV
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id AA24FB824CA;
-	Thu, 12 Oct 2023 15:30:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F77C433C8;
-	Thu, 12 Oct 2023 15:30:13 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id E5A6DB8253C;
+	Thu, 12 Oct 2023 16:25:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CCC2C433C8;
+	Thu, 12 Oct 2023 16:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697124617;
-	bh=ZtcSIbjB2WpeZfQRyCvdpc+0MAvoSIsAVFQJFGWoAZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sNlqy8imXhwlW5ogqsGatXLJh6x3ULy2dxsaSxs56ggFVkTV6XlGelwtvmknbj7Xu
-	 ShUCZ/8OXslZolbuuvyrBlxLrcJ01GSlmz7CSJEaxf3rAcgbPMbnfuFHufU09E90RW
-	 5ApYEGyJHTTls7cFvAibnKaw6QYJ/MgybICMj+V6qAR0vsGzNnF3N6loiEvhXeakbo
-	 Tc8RBxaMuLt9cw9IyN5cmf2yVbPk/7zrWOf/NIL+18Z146Hj24oQ+EZR236LNiKgxH
-	 rW8s1EpB9lyTQA3S/nGP0hy8u95XFa9UJYnNgK7IXnZV4NIWHKMv5YsKgXN/Jehq6j
-	 lkrAiKBqcY2gw==
-Received: (nullmailer pid 821925 invoked by uid 1000);
-	Thu, 12 Oct 2023 15:30:12 -0000
-Date: Thu, 12 Oct 2023 10:30:12 -0500
-From: Rob Herring <robh@kernel.org>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Cc: Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
- herbert@gondor.apana.org.au, davem@davemloft.net,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- alexandre.torgue@foss.st.com, vkoul@kernel.org, jic23@kernel.org,
- olivier.moysan@foss.st.com, arnaud.pouliquen@foss.st.com, mchehab@kernel.org,
- fabrice.gasnier@foss.st.com, andi.shyti@kernel.org, ulf.hansson@linaro.org,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- hugues.fruchet@foss.st.com, lee@kernel.org, will@kernel.org,
- catalin.marinas@arm.com, arnd@kernel.org, richardcochran@gmail.com,
- Frank Rowand <frowand.list@gmail.com>, peng.fan@oss.nxp.com,
- linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, linux-p
- .hy@lists.infradead.org, linux-serial@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v6 10/11] ARM: dts: stm32: add ETZPC as a system bus for
- STM32MP15x boards
-Message-ID: <20231012153012.GA698406-robh@kernel.org>
-References: <20231010125719.784627-1-gatien.chevallier@foss.st.com>
- <20231010125719.784627-11-gatien.chevallier@foss.st.com>
- <20231010184212.GA1221641-robh@kernel.org>
- <8f1b6915-68be-a525-c5d5-37f0983c14de@foss.st.com>
+	s=k20201202; t=1697127924;
+	bh=9feK3ItMeeWwJ7VIPlyWwFyXf9aBwpQbldW6FpaCPok=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=MmifaNqVW0KF2jEk/QREfOeHUJJUTjUuR3z0Y7YzK/2lxDPf9rHQGgKgaHY65EXWd
+	 6A37+tC0FyDH0IMKT7Ape4MnoBEOrVGKvU4RIsui53qz7heLWtCnPICUmj+yprUCuc
+	 y/lmrDPTmwebPd65iJ+2z2dEr03L1Hpcz3dlzsPShupRgJsA9uNtbI5kUJgFNBtn7d
+	 dghuOJvsMkZXBhaHMk6fu7dC8hFFs0XdZmdQ5Bb22ZpEtUP8bd6Zg/l9lpQXRVsRPB
+	 8aRf5Ww2EVmOdoQ2W1uN02GQAhG+B8FMklmXGFFe2AFvS9TU9Ce270JNi0ElWgr3vt
+	 sYha2tz+uzW0Q==
+Received: (nullmailer pid 1188735 invoked by uid 1000);
+	Thu, 12 Oct 2023 16:25:22 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8f1b6915-68be-a525-c5d5-37f0983c14de@foss.st.com>
-Message-ID-Hash: 6DIC2PYQS3AAIFGN4A7L7QSWJ46XHYOD
-X-Message-ID-Hash: 6DIC2PYQS3AAIFGN4A7L7QSWJ46XHYOD
+From: Rob Herring <robh@kernel.org>
+To: Eugen Hristev <eugen.hristev@collabora.com>
+Cc: angelogioacchino.delregno@collabora.com, devicetree@vger.kernel.org,
+ kernel@collabora.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ matthias.bgg@gmail.com, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, lgirdwood@gmail.com,
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20231012151538.468893-1-eugen.hristev@collabora.com>
+References: <20231012151538.468893-1-eugen.hristev@collabora.com>
+Message-Id: <169712792200.1188719.6103742227495646067.robh@kernel.org>
+Subject: Re: [PATCH v3] dt-bindings: arm: mediatek: convert audsys and
+ mt2701-afe-pcm to yaml
+Date: Thu, 12 Oct 2023 11:25:22 -0500
+Message-ID-Hash: PVB2KYJCZEHRIUNEFP3S2OEK7BK6AIKQ
+X-Message-ID-Hash: PVB2KYJCZEHRIUNEFP3S2OEK7BK6AIKQ
 X-MailFrom: rob@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6DIC2PYQS3AAIFGN4A7L7QSWJ46XHYOD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PVB2KYJCZEHRIUNEFP3S2OEK7BK6AIKQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,65 +101,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Oct 11, 2023 at 10:49:58AM +0200, Gatien CHEVALLIER wrote:
-> Hi Rob,
+
+On Thu, 12 Oct 2023 18:15:38 +0300, Eugen Hristev wrote:
+> Convert the mediatek,audsys binding to YAML, together with the associated
+> binding bindings/sound/mt2701-afe-pcm.yaml .
 > 
-> On 10/10/23 20:42, Rob Herring wrote:
-> > On Tue, Oct 10, 2023 at 02:57:18PM +0200, Gatien Chevallier wrote:
-> > > ETZPC is a firewall controller. Put all peripherals filtered by the
-> > > ETZPC as ETZPC subnodes and reference ETZPC as an
-> > > access-control-provider.
-> > > 
-> > > For more information on which peripheral is securable or supports MCU
-> > > isolation, please read the STM32MP15 reference manual.
-> > > 
-> > > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> > > ---
-> > > 
-> > > Changes in V6:
-> > >      	- Renamed access-controller to access-controllers
-> > >      	- Removal of access-control-provider property
-> > > 
-> > > Changes in V5:
-> > >      	- Renamed feature-domain* to access-control*
-> > > 
-> > >   arch/arm/boot/dts/st/stm32mp151.dtsi  | 2756 +++++++++++++------------
-> > >   arch/arm/boot/dts/st/stm32mp153.dtsi  |   52 +-
-> > >   arch/arm/boot/dts/st/stm32mp15xc.dtsi |   19 +-
-> > >   3 files changed, 1450 insertions(+), 1377 deletions(-)
-> > 
-> > This is not reviewable. Change the indentation and any non-functional
-> > change in one patch and then actual changes in another.
+> Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+> ---
+> Changes in v3:
+> - not added Rb Conor Dooley since the patch was changed in a big essence
+> - As per review by Krzysztof, also convert the mt2701-afe-pcm and reference
+> the correct schema in the audsys binding.
 > 
-> Ok, I'll make it easier to read.
+> Changes in v2:
+> - remove comment reference to inexistent binding
 > 
-> > 
-> > This is also an ABI break. Though I'm not sure it's avoidable. All the
-> > devices below the ETZPC node won't probe on existing kernel. A
-> > simple-bus fallback for ETZPC node should solve that.
-> > 
 > 
-> I had one issue when trying with a simple-bus fallback that was the
-> drivers were probing even though the access rights aren't correct.
-> Hence the removal of the simple-bus compatible in the STM32MP25 patch.
+>  .../bindings/arm/mediatek/mediatek,audsys.txt |  39 ---
+>  .../arm/mediatek/mediatek,audsys.yaml         | 153 ++++++++++++
+>  .../bindings/sound/mt2701-afe-pcm.txt         | 146 -----------
+>  .../bindings/sound/mt2701-afe-pcm.yaml        | 229 ++++++++++++++++++
+>  4 files changed, 382 insertions(+), 185 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.txt
+>  create mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/mt2701-afe-pcm.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt2701-afe-pcm.yaml
+> 
 
-But it worked before, right? So the difference is you have either added 
-new devices which need setup or your firmware changed how devices are 
-setup (or not setup). Certainly can't fix the latter case. You just need 
-to be explicit about what you are doing to users.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/sound/mt2701-afe-pcm.yaml:11:4: [error] missing starting space in comment (comments)
 
-> Even though a node is tagged with the OF_POPULATED flag when checking
-> the access rights with the firewall controller, it seems that when
-> simple-bus is probing, there's no check of this flag.
+dtschema/dtc warnings/errors:
 
-It shouldn't. Those flags are for creating the devices (or not) and 
-removing only devices of_platform_populate() created.
+doc reference errors (make refcheckdocs):
 
-> of_platform_populate() checks and sets the OF_POPULATED_BUS flag.
-> Maybe that is my error and the firewall bus populate should set
-> OF_POPULATED_BUS instead of OF_POPULATED. Is that correct?
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231012151538.468893-1-eugen.hristev@collabora.com
 
-Shrug. Off hand, I'd say probably not, but am not certain.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-Rob
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

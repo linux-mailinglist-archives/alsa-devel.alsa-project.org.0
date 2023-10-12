@@ -2,114 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BD757C75A1
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 20:06:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 017D77C7669
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 21:10:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5407F839;
-	Thu, 12 Oct 2023 20:05:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5407F839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2216B829;
+	Thu, 12 Oct 2023 21:09:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2216B829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697133963;
-	bh=7KsOpJq0UTg4bRkoCNsGsVXSkD9nVg1SYf7bxbhBtWg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Emx34mPa8+1CE5TlZOlE2IfuQ/YlPSIlVfpPmaOpmU1TSwahBVHa1RXoFNXm6LNEe
-	 f+m2CftIl+Dv4q9vYs7CIBSl28uMq9UpBPeLmdqR3+PKXX29uI6Bhh+3br67ru+dQT
-	 CslY2+RijVL8jtha5YWidl3htNEM0wxz4/siu4Pw=
+	s=default; t=1697137800;
+	bh=Q8HZSVtvBQ0/zuT5D+O30G41fLyZtkNOA5vOioL+BNc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qiiKW5eStuF2g48xj3jMMP3Xd/nXMR7Eg5zC6bdilDkD2jwAOBYO8CJHJBT79OJqZ
+	 Vdb9litxL+9AC136wNJaqKHI7q97TJKUQ6nSVxt22yFWUybdU6rXK5UpkjnNmPsY/i
+	 +waA87jEi+CbPmzmaVg/z0mB4yj8GjF+8LjfjS4I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1871F802BE; Thu, 12 Oct 2023 20:05:12 +0200 (CEST)
+	id 5D3F3F80570; Thu, 12 Oct 2023 21:09:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A151F8027B;
-	Thu, 12 Oct 2023 20:05:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB325F80571;
+	Thu, 12 Oct 2023 21:09:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79D92F802BE; Thu, 12 Oct 2023 20:05:08 +0200 (CEST)
+	id 8B25FF8019B; Thu, 12 Oct 2023 21:09:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E250EF8015B
-	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 20:05:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E250EF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D7B88F8019B
+	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 21:08:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7B88F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Nz18Y4lW
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-53e08e439c7so1809607a12.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 12 Oct 2023 11:05:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697133903; x=1697738703;
- darn=alsa-project.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QfIb1D07nfI+0Ch1761SwKK3aO/nbsGIC751epSoaTc=;
-        b=Nz18Y4lWR1JAgiKCAHNv90ZvZCi/wEdaCIjLwHHml8DKr91NemODxtwhb8jq6lnDj/
-         EtDuciBlvdJ2HyiA4qJqg3XkNhtbVCas1YujLAnOEbofT9t7z/RA91BK2p+9qBNVR0DQ
-         OO7xgLnrcTC5ta3if19+LNvs9hfWrk0PwCUv6QL9INkhbOmDszm019UMVGniP4W9frRK
-         g7NMnOxN13UABTr8XjyOV9dCT11kJhWFvB9z8xhZJfxF6FHw9a44pwuLklxHLvikf2+1
-         8cXdOn/4wCSH3oU3aFMRiHc8/5aRzkTatptQ+/RqVnRpDUzbXCRl8J2vzT8MnegppNYD
-         /cFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697133903; x=1697738703;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=QfIb1D07nfI+0Ch1761SwKK3aO/nbsGIC751epSoaTc=;
-        b=Km3yDrdfK69H9MkRYu1PXRa21vgIKA2ATmuBddb5GSq8vAKfwdgzcmVeAcSbfGsr6p
-         aeHxZ/eHO49egs4Xg4l8Sa45i4y1Khx2OGZWDRljVAMocgIlceVWt3Ydg1OY+ky9MoPG
-         qe2SReu7HXeqAGHXkLxGthNUh7SySaZNMvk4d/ggx2wqaUY+EbhwKWxuyit4l8mud9Cv
-         4D/xbEcqf3taDz627UKugtoebSP7yOGNVKYmgLwQC8sTm+Kh9t/lSa/vI6rAJfU5dzxD
-         q81J+SlR7ZFhHtaqFIrtNYIv71+ddU7aBVAleOb4iy4YeB9ONSmfxCh6HonOMp7H0bNb
-         w4uA==
-X-Gm-Message-State: AOJu0YxMzwP+KiZovKHUuovlyFL8EuviuRvOQuJ465l37+kkqf3k8tuD
-	d951Mxekxrn9rWX6qbtmSaiVE6hV5fY=
-X-Google-Smtp-Source: 
- AGHT+IFdStcd3c2GGinYpRXye7AwYjUTLBoOWruKg6//W80bNpLA3+vpu34T9qw3GrF5BXwkZ696Ig==
-X-Received: by 2002:a17:906:310b:b0:9ae:5765:c134 with SMTP id
- 11-20020a170906310b00b009ae5765c134mr22622471ejx.15.1697133902720;
-        Thu, 12 Oct 2023 11:05:02 -0700 (PDT)
-Received: from orome.fritz.box
- (p200300e41f3f4900f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f3f:4900:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id
- a24-20020a170906685800b009828e26e519sm11289137ejs.122.2023.10.12.11.05.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Oct 2023 11:05:02 -0700 (PDT)
-Date: Thu, 12 Oct 2023 20:05:00 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: broonie@kernel.org, robh@kernel.org, lgirdwood@gmail.com,
-	jonathanh@nvidia.com, ndesaulniers@google.com, trix@redhat.com,
-	alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org,
-	llvm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH] ASoC: tegra: Fix -Wuninitialized in
- tegra210_amx_platform_probe()
-Message-ID: <ZSg1TEvIMu2qDzhm@orome.fritz.box>
-References: 
- <20231011-asoc-tegra-fix-uninit-soc_data-v1-1-0ef0ab44cf48@kernel.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=TrhlBr/I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1697137736; x=1728673736;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Q8HZSVtvBQ0/zuT5D+O30G41fLyZtkNOA5vOioL+BNc=;
+  b=TrhlBr/IMJQJ8wUCb/AxkVSGWiXtFZAJroX3OFK52M3IpkCR6BzZsSGn
+   Z5hDPUJPPx0gaauKfhPj4ZRyDnC86V4oh7qems46A6P14/WBcK8pK38si
+   B0Cma9hzZodnpK2/0dZzjQZrQRR4n8LvBvDl7fCcKEpHMJ+3lGperu0YX
+   4s+EyDB6Dwuq+P2DnDEtg7p3wN9G8dQ4PKUteDzTjND2T3Ew/gGIdvy7Z
+   BKXzxoWui+dzN7XGnawPqSlCsXAjjj4Ml98xC4kLTnz6icVJBKyelrF/Z
+   03Xj4tF7B1r0WMZaw9qCvvSOTGm4VeMGv9vh8qIMMMgAvKSnRmuV9ex88
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="416060163"
+X-IronPort-AV: E=Sophos;i="6.03,219,1694761200";
+   d="scan'208";a="416060163"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2023 12:08:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="845108039"
+X-IronPort-AV: E=Sophos;i="6.03,219,1694761200";
+   d="scan'208";a="845108039"
+Received: from gchoudha-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.hsd1.md.comcast.net) ([10.212.114.241])
+  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2023 12:08:36 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Cc: tiwai@suse.de,
+	broonie@kernel.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 00/23] ASoC: Intel: boards: updates for 6.7
+Date: Thu, 12 Oct 2023 15:08:03 -0400
+Message-Id: <20231012190826.142619-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="edj+BPVW5o8cXPI2"
-Content-Disposition: inline
-In-Reply-To: 
- <20231011-asoc-tegra-fix-uninit-soc_data-v1-1-0ef0ab44cf48@kernel.org>
-User-Agent: Mutt/2.2.12 (2023-09-09)
-Message-ID-Hash: NXRM6F3WQRGJWA74GA76Y224Z2CNAAMS
-X-Message-ID-Hash: NXRM6F3WQRGJWA74GA76Y224Z2CNAAMS
-X-MailFrom: thierry.reding@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZA4374PZVQLRFUBLK2CCSALURCQV3PTS
+X-Message-ID-Hash: ZA4374PZVQLRFUBLK2CCSALURCQV3PTS
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NXRM6F3WQRGJWA74GA76Y224Z2CNAAMS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZA4374PZVQLRFUBLK2CCSALURCQV3PTS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,61 +102,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+A couple of new boards, one DMI quirk fix and a nice cleanup from
+Brent Lu to make all HDMI stuff common across drivers.
 
---edj+BPVW5o8cXPI2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Balamurugan C (1):
+  ASoC: Intel: MTL: Add entry for HDMI-In capture support to non-I2S
+    codec boards.
 
-On Wed, Oct 11, 2023 at 01:21:51PM -0700, Nathan Chancellor wrote:
-> Clang warns (or errors with CONFIG_WERROR=3Dy):
->=20
->   sound/soc/tegra/tegra210_amx.c:553:10: error: variable 'soc_data' is un=
-initialized when used here [-Werror,-Wuninitialized]
->     553 |                                             soc_data->regmap_co=
-nf);
->         |                                             ^~~~~~~~
->=20
-> A refactoring removed the initialization of this variable but its use
-> was not updated. Use the soc_data value in the amx variable to resolve
-> the warning and remove the soc_data variable, as it is now entirely
-> unused.
->=20
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/1943
-> Fixes: 9958d85968ed ("ASoC: Use device_get_match_data()")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  sound/soc/tegra/tegra210_amx.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+Bard Liao (4):
+  ASoC: Intel: soc-acpi-intel-rpl-match: add rt711-l0-rt1316-l12 support
+  ASoC: Intel: soc-acpi-intel-mtl-match: add rt713 rt1316 config
+  ASoC: Intel: sof_sdw_rt_sdca_jack_common: add rt713 support
+  ASoC: Intel: sof_sdw_rt712_sdca: construct cards->components by
+    name_prefix
 
-I see that Mark was quicker and this is already applied, but just for
-the record, this fixes an OOPS that I started seeing recently but hadn't
-gotten around to look at more closely, so I guess:
+Brent Lu (17):
+  ASoC: Intel: sof_cs42l42: remove hdac-hdmi support
+  ASoC: Intel: sof_da7219: remove hdac-hdmi support
+  ASoC: Intel: sof_nau8825: remove hdac-hdmi support
+  ASoC: Intel: sof_rt5682: remove hdac-hdmi support
+  ASoC: Intel: sof_ssp_amp: remove hdac-hdmi support
+  ASoC: Intel: sof_hdmi: add common header for HDMI
+  ASoC: Intel: sof_cs42l42: use sof_hdmi_private to init HDMI
+  ASoC: Intel: sof_da7219: use sof_hdmi_private to init HDMI
+  ASoC: Intel: sof_nau8825: use sof_hdmi_private to init HDMI
+  ASoC: Intel: sof_rt5682: use sof_hdmi_private to init HDMI
+  ASoC: Intel: sof_sdw: use sof_hdmi_private to init HDMI
+  ASoC: Intel: sof_ssp_amp: use sof_hdmi_private to init HDMI
+  ASoC: Intel: board_helpers: new module for common functions
+  ASoC: Intel: sof_cs42l42: use common module for HDMI link
+  ASoC: Intel: sof_nau8825: use common module for HDMI link
+  ASoC: Intel: sof_rt5682: use common module for HDMI link
+  ASoC: Intel: sof_ssp_amp: use common module for HDMI link
 
-Tested-by: Thierry Reding <treding@nvidia.com>
+Pierre-Louis Bossart (1):
+  ASoC: Intel: sof_sdw: update HP Omen match
 
-And thanks!
+ sound/soc/intel/boards/Kconfig                |  11 +-
+ sound/soc/intel/boards/Makefile               |   3 +
+ sound/soc/intel/boards/sof_board_helpers.c    | 112 +++++++++++
+ sound/soc/intel/boards/sof_board_helpers.h    |  54 +++++
+ sound/soc/intel/boards/sof_cs42l42.c          | 184 +++---------------
+ sound/soc/intel/boards/sof_da7219.c           |  40 ++--
+ sound/soc/intel/boards/sof_hdmi_common.h      |  24 +++
+ sound/soc/intel/boards/sof_nau8825.c          | 124 +++---------
+ sound/soc/intel/boards/sof_rt5682.c           | 184 ++++--------------
+ sound/soc/intel/boards/sof_sdw.c              |  14 +-
+ sound/soc/intel/boards/sof_sdw_common.h       |   4 +-
+ sound/soc/intel/boards/sof_sdw_hdmi.c         |  30 +--
+ sound/soc/intel/boards/sof_sdw_rt712_sdca.c   |   6 +-
+ .../boards/sof_sdw_rt_sdca_jack_common.c      |   8 +
+ sound/soc/intel/boards/sof_ssp_amp.c          | 176 ++++-------------
+ .../intel/common/soc-acpi-intel-mtl-match.c   |  72 +++++++
+ .../intel/common/soc-acpi-intel-rpl-match.c   |  25 +++
+ 17 files changed, 458 insertions(+), 613 deletions(-)
+ create mode 100644 sound/soc/intel/boards/sof_board_helpers.c
+ create mode 100644 sound/soc/intel/boards/sof_board_helpers.h
+ create mode 100644 sound/soc/intel/boards/sof_hdmi_common.h
 
-Thierry
+-- 
+2.39.2
 
---edj+BPVW5o8cXPI2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmUoNUwACgkQ3SOs138+
-s6FvjxAAsd5bwFFR8vGCLIUjLqquDW0xtQm0nZacYaJmO059dJTozlND+izhpVvt
-wwh1GxcniMG5Qg55FmxG82icd4V+3JmtKvCjSx32DO0CsdlOUg/JHTwifRI8mr2d
-9a45DaeInh8pCQpYiEf3EjPZ+vuoDH0YKivuJwL+UGcCTzWyuA4Aoh8NciHJASQw
-4Bwc3uq4dmvS/Ax2DgUO3/9hY0nEHT6o0Ke9xyPeQ+ZlBi9m304dY7Y53jNi8IWG
-p8BF62VBiLqDh3icmqFTVd7NuBdkhjDP3BFvv8WjKssC5dv/e+/3wZT6od4EBK3j
-ru+ZTDwzkx7sOuaS+UZ01D49LjCRS9Jq64XJxe1vUo5w97w297KanCgCIMo5AFQA
-brqk8n9t9EluL2hgSlT7PidybAvsFO59dfhh+IraBhKUIe0j1gmFLtqU6UIVGosb
-PoMqiQyuW29sLUABzGQY3zus38U8XI64DQC+nqAsrsvpSkwk5KgRdDqJ5DYhqVE1
-qbFzPC9ONgM21oDzSybEuN1hDG1fHhhrLg8vMjWTjyDQInsv0J+vpobpnzuAdhOX
-qVxYan5FyZThbet9v2/s/fK50P5S1+a9ShKSLlNkpAw9MLTrepd/SP9w7cw2ZLF2
-TGp2g902Pnle5sSbNPqTYrtbEx1+lnhCpJvee8+Uf3WwrTzZbAc=
-=WcBW
------END PGP SIGNATURE-----
-
---edj+BPVW5o8cXPI2--

@@ -2,120 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 760977C7083
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 16:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1587C7141
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 17:18:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 469AA91;
-	Thu, 12 Oct 2023 16:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 469AA91
+	by alsa0.perex.cz (Postfix) with ESMTPS id A62BE83B;
+	Thu, 12 Oct 2023 17:17:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A62BE83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697121734;
-	bh=a2EwLT97Y11bcyIh9PjOgFnjMkmwcv8p8D0zD80G9c8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1697123894;
+	bh=wkNatcmAAsiN89y/BEjMEPTf0SckBa0ujMJ8mn3C4FE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BMVyglQ0jzl15lplAi2xG4k6Q14PkuKZEKhlQM82osY7I5G7LfEIovBObq/qb1ZOa
-	 TwxnG+LGPXLhRpqr1Fv8p8WVRg+XXh4fHJCe3bDychbzwbha2WiGGJ9QdpeA2xyXMO
-	 846QkA4xF4vUREhlbKSciZBiLgWWLOs1ktv49GV0=
+	b=Ncyg6FnKsqN3lqk65IQ7V/o/QNRwFRoBKeMBQTOHrreqp5PZQmfRepehGWpuj4ifs
+	 9cWuBeQaypoOybVUaaVZsIHsukxW0NMH/N3uunwqKNMxbz+f9SGGdMn44BHimJoVE1
+	 50BVzmTdRy7b2DGK1iYIypAlL9alvFxBhyLXgM/M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3292F80552; Thu, 12 Oct 2023 16:41:03 +0200 (CEST)
+	id 2901EF80552; Thu, 12 Oct 2023 17:17:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E8E5F8019B;
-	Thu, 12 Oct 2023 16:41:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C79ACF8027B;
+	Thu, 12 Oct 2023 17:17:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7733F802BE; Thu, 12 Oct 2023 16:40:58 +0200 (CEST)
+	id 4499AF802BE; Thu, 12 Oct 2023 17:17:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7424AF8019B
-	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 16:40:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7424AF8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id AD771F80130
+	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 17:17:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD771F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=eaBvOOJY
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2c1886777d9so12619621fa.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=NgZ9O8mL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1697123827;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N61O7dqOv5z704fPtB1xO3U6E0vm18ayN3uykalF+0E=;
+	b=NgZ9O8mLHfE3kDFAULyvQat2wyhr4nDcrOxab0H7D5LKNnzMkdj8xQjCMbPWqxpv+J29RM
+	swhgJkAj9tv7Gm+dACZipSYGw2+rsOL2DKa7JdQGYPIrDzwrpdZFjCpTpmo8+/434XJDFf
+	IM2ClNHkRnrhFyhgPWIAC+KVJ5Swouk=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-671-QJ1WJur0MPys-Xc6ZUjU-w-1; Thu, 12 Oct 2023 11:16:59 -0400
+X-MC-Unique: QJ1WJur0MPys-Xc6ZUjU-w-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-32d931872cbso371693f8f.0
         for <alsa-devel@alsa-project.org>;
- Thu, 12 Oct 2023 07:40:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697121645; x=1697726445;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3kw/R5D+s3aJanIgvu3nf4Gs9+0fYmqPraYbms7U3dY=;
-        b=eaBvOOJYBBfZw8usSaQgi5DBeXRLv+IUzNrEwDC2uSZCqC950O7ZgcBLGZWxYXxPJT
-         MwzuZmNJYFcCxcZz55/ILwq/oPNYbhznh/HHZW4pH+TXqY1pcVKBMgY6GmM3Q4ZHcGlA
-         28qg9PhXpl3yxwZH+2l/+KUUk3lvOfnDibG7D+IMU1eQt7jtjtZgg1NZdGl+tb8Q/P6x
-         i1mbE5i1e2LRHTNwzGe6OsrFBA8TxCYWPfOL9fSm5YekT13BUPI6Yp2RKFs02Wn+xFnp
-         LMs7QYVs0rhSfPmot67iGH12TkzxOWz+i892riEUBtRA1MEY2yr11fNpcgJuHVKuKbek
-         H62A==
+ Thu, 12 Oct 2023 08:16:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697121645; x=1697726445;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3kw/R5D+s3aJanIgvu3nf4Gs9+0fYmqPraYbms7U3dY=;
-        b=A9WH1csWuDa3Ur0JsYZdBr4nHuWpy4slZAvimnGLm9EeKrjYy2huwFaE4SbPF+vLFt
-         xe+ce+J477v5t5yDdUKu2etndHGulRS7vbRfSZE+MoGNFHc0UxofQAcUEDeYF5dnPgGU
-         oYN046N1H+3mZYrLFc8WrAQP5iC4bXNokL3CVqttK0uiNLux1q7D2JqIW+VB0L8FjJth
-         qnNyiVCaJinWm83a5K4hOaZhtW1sA4Z1w0TzavI3Ip8AjDRzClZfPujcWWf9oms45GuX
-         eWEUdfL1PpKi/qcQqbdyxvbOSEWVASr5E9+Sh2UZSinMJaSBeuhTqwylp6Rj47dYX/qN
-         epeA==
-X-Gm-Message-State: AOJu0Yxohyl7+rtFd8b4Hb1BMEAzeK+vVZMStU1V1mojIVAFqM64Nn15
-	7FYMz8xllHtJjfVvXh8/Ock=
+        d=1e100.net; s=20230601; t=1697123818; x=1697728618;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=N61O7dqOv5z704fPtB1xO3U6E0vm18ayN3uykalF+0E=;
+        b=v73y2POVLl2hLuCf6h8JDHEYjoyXyT+iw6E2D+6vqBAW9x+c4LA1mq55NCt5JIL5VU
+         3bSSgFUnP8AmIpeBOC17stijCjkBmAK4S1RwhR+kx1zf0ogyKAtA1yOSpHF4UlU7qrO+
+         y7qWPBHxNXKlKZ7sH8oxK2wnfugs/58Xh8Fa9aKCeMmE6nGPEPJ2XcLM8PdDeRuzNYJz
+         SwVWwosditRJyV2C6YLFVCz7/en6QTRq96p9UtCbQ3tBOdHX+Kv9vSyB3Q6gwzIDf4wj
+         4uGdrMWFfH9pJ1ZiS2sq1pnls4CjEb4IDk45CH2gXC6sC6qSkMsvDDOaPiRGsFRFEzj3
+         BY3g==
+X-Gm-Message-State: AOJu0YxqizPyOfs6AXShtClw9C9LjH8DUjRQS1zOyP+RLygOBAyiyPb8
+	TeGAymFZIRRQKe/hpqAnyyNaMmGAlvNeuQ3hPGe4XZeuY9fVh4v/uIKpTn0jur04p9aMGbe2b50
+	vXKWO925guS5lHkhszH+wCdI=
+X-Received: by 2002:adf:ef8f:0:b0:31f:a718:4cb6 with SMTP id
+ d15-20020adfef8f000000b0031fa7184cb6mr19319519wro.46.1697123818305;
+        Thu, 12 Oct 2023 08:16:58 -0700 (PDT)
 X-Google-Smtp-Source: 
- AGHT+IGH41yXs+O99grdygoszPTYW1zPKpN4EmD/LKIiUtotZlFPT/goo7+MpuARd/B4135q9i6NQg==
-X-Received: by 2002:a05:6512:4002:b0:504:369d:f11c with SMTP id
- br2-20020a056512400200b00504369df11cmr24729653lfb.34.1697121644971;
-        Thu, 12 Oct 2023 07:40:44 -0700 (PDT)
-Received: from ?IPV6:2001:999:704:2143:20b5:8471:77bf:6204?
- ([2001:999:704:2143:20b5:8471:77bf:6204])
+ AGHT+IHAFMy3JuuSbtpHzX18yLnNQpgdXSKnknNcM2R6XmpX/8dk97710VScPX4tGnGORP82f1D0NA==
+X-Received: by 2002:adf:ef8f:0:b0:31f:a718:4cb6 with SMTP id
+ d15-20020adfef8f000000b0031fa7184cb6mr19319482wro.46.1697123817569;
+        Thu, 12 Oct 2023 08:16:57 -0700 (PDT)
+Received: from redhat.com ([2a06:c701:73d2:bf00:e379:826:5137:6b23])
         by smtp.gmail.com with ESMTPSA id
- b17-20020a056512025100b005042ae13de4sm2854806lfo.302.2023.10.12.07.40.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Oct 2023 07:40:44 -0700 (PDT)
-Message-ID: <db511d14-f2fe-4b4e-bd13-223e7a33f933@gmail.com>
-Date: Thu, 12 Oct 2023 17:41:34 +0300
+ b5-20020a056000054500b00326dd5486dcsm18711740wrf.107.2023.10.12.08.16.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Oct 2023 08:16:56 -0700 (PDT)
+Date: Thu, 12 Oct 2023 11:16:54 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+Cc: anton.yakovlev@opensynergy.com, perex@perex.cz, tiwai@suse.com,
+	virtualization@lists.linux-foundation.org,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	pbonzini@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+	manos.pitsidianakis@linaro.org, mripard@redhat.com
+Subject: Re: [RFC PATCH] ALSA: virtio: use copy and fill_silence callbacks
+Message-ID: <20231012111525-mutt-send-email-mst@kernel.org>
+References: <ZSgMeoMx6NX2zCx/@fedora>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ASoC: ti: omap-mcbsp: Ignore errors for getting
- fck_src
-To: Andreas Kemnade <andreas@kemnade.info>, Tony Lindgren <tony@atomide.com>
-Cc: bcousson@baylibre.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- jarkko.nikula@bitmer.com, dmitry.torokhov@gmail.com,
- linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20230705190324.355282-1-andreas@kemnade.info>
- <20230705190324.355282-2-andreas@kemnade.info>
- <7d58d52d-2087-45af-b29e-2515b63ead13@gmail.com>
- <20230920063353.GQ5285@atomide.com>
- <dac768d2-2c66-4d6b-b3d3-d1ef69103c76@gmail.com>
- <20230921121626.GT5285@atomide.com> <20231006102348.GK34982@atomide.com>
- <20231006213003.0fbac87a@aktux> <20231007062518.GM34982@atomide.com>
- <20231007091156.588d7ba1@aktux>
-Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
-In-Reply-To: <20231007091156.588d7ba1@aktux>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VPRY3JP6WDWWMMVLJ46E6KH3P75TPWI3
-X-Message-ID-Hash: VPRY3JP6WDWWMMVLJ46E6KH3P75TPWI3
-X-MailFrom: peter.ujfalusi@gmail.com
+In-Reply-To: <ZSgMeoMx6NX2zCx/@fedora>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: 72LYZFCOR75K6OZXEWGZBYZHAXE5E7B6
+X-Message-ID-Hash: 72LYZFCOR75K6OZXEWGZBYZHAXE5E7B6
+X-MailFrom: mst@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VPRY3JP6WDWWMMVLJ46E6KH3P75TPWI3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72LYZFCOR75K6OZXEWGZBYZHAXE5E7B6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,34 +132,352 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 07/10/2023 10:11, Andreas Kemnade wrote:
->> OK good to hear it works, I'll send out fixes for omap4 and 5, seems
->> the runtime PM warning is something different.
->>
->>> omap-mcbsp 40124000.mcbsp: Runtime PM usage count underflow!
->>> # cat /sys/bus/platform/devices/40124000.mcbsp/power/runtime_status 
->>> active
->>>
->>> even with no sound.  
->>
-> Well, it is a regression caused by your fix. Without it (and not reverting
-> the already applied ignore patch), runtime is properly suspended. Don't know
-> why yet.
+On Thu, Oct 12, 2023 at 05:10:50PM +0200, Matias Ezequiel Vara Larsen wrote:
+> This commit replaces the mmap mechanism with the copy() and
+> fill_silence() callbacks for both capturing and playback for the
+> virtio-sound driver. This change is required to prevent the updating of
+> the content of a buffer that is already in the available ring.
+> 
+> The current mechanism splits a dma buffer into descriptors that are
+> exposed to the device. This dma buffer is shared with the user
+> application. When the device consumes a buffer, the driver moves the
+> request from the used ring to available ring.
+> 
+> The driver exposes the buffer to the device without knowing if the
+> content has been updated from the user. The section 2.8.21.1 of the
+> virtio spec states that: "The device MAY access the descriptor chains
+> the driver created and the memory they refer to immediately". If the
+> device picks up buffers from the available ring just after it is
+> notified, it happens that the content may be old.
+> 
+> By providing the copy() callback, the driver first updates the content
+> of the buffer, and then, exposes the buffer to the device by enqueuing
+> it in the available ring. Thus, device always picks up a buffer that is
+> updated.
+> 
+> For capturing, the driver starts by exposing all the available buffers
+> to device. After device updates the content of a buffer, it enqueues it
+> in the used ring. It is only after the copy() for capturing is issued
+> that the driver re-enqueues the buffer in the available ring.
+> 
+> Note that the copy() function assumes that user is always writing a
+> period. Testing shows that this is true but I may be wrong. This RFC
+> aims at clarifying this.
+> 
+> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 
-I guess it is because of the pm_runtime_put_sync() in the
-omap2_mcbsp_set_clks_src() around the fclk re-parenting.
-That is a bit dubious thing for sure. We need to disable the device to
-be able to re-parent the fclk but if we disable the device it is going
-to be powered down, right? I think we have appropriate context handling,
-so it might work, but it is certainly not a rock solid code... If you
-have a stream running already, you don't really want to kill the McBSP.
 
-The problem is that this mux is outside of the McBSP IP, so we need a
-system level (iow, clk API) way to change it runtime.
+Thank you for working on this!
 
-What is the machine driver where this happens? If you set the sysclk in
-hw_params of the machine driver, it will be OK, but if you do that in
-probe time then it is likely going to fail as you experienced
+> ---
+>  sound/virtio/virtio_pcm.c     | 11 ++--
+>  sound/virtio/virtio_pcm.h     |  9 +++-
+>  sound/virtio/virtio_pcm_msg.c | 50 ++++++++++++++++---
+>  sound/virtio/virtio_pcm_ops.c | 94 +++++++++++++++++++++++++++++++----
+>  4 files changed, 137 insertions(+), 27 deletions(-)
+> 
+> diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
+> index c10d91fff2fb..bfe982952303 100644
+> --- a/sound/virtio/virtio_pcm.c
+> +++ b/sound/virtio/virtio_pcm.c
+> @@ -104,8 +104,6 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
+>  	 * only message-based transport.
+>  	 */
+>  	vss->hw.info =
+> -		SNDRV_PCM_INFO_MMAP |
+> -		SNDRV_PCM_INFO_MMAP_VALID |
+>  		SNDRV_PCM_INFO_BATCH |
+>  		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>  		SNDRV_PCM_INFO_INTERLEAVED |
+> @@ -471,12 +469,11 @@ int virtsnd_pcm_build_devs(struct virtio_snd *snd)
+>  			for (kss = ks->substream; kss; kss = kss->next)
+>  				vs->substreams[kss->number]->substream = kss;
+>  
+> -			snd_pcm_set_ops(vpcm->pcm, i, &virtsnd_pcm_ops);
+> +			if (i == SNDRV_PCM_STREAM_CAPTURE)
+> +				snd_pcm_set_ops(vpcm->pcm, i, &virtsnd_pcm_capture_ops);
+> +			else
+> +				snd_pcm_set_ops(vpcm->pcm, i, &virtsnd_pcm_playback_ops);
+>  		}
+> -
+> -		snd_pcm_set_managed_buffer_all(vpcm->pcm,
+> -					       SNDRV_DMA_TYPE_VMALLOC, NULL,
+> -					       0, 0);
+>  	}
+>  
+>  	return 0;
+> diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+> index 062eb8e8f2cf..1c1106ec971f 100644
+> --- a/sound/virtio/virtio_pcm.h
+> +++ b/sound/virtio/virtio_pcm.h
+> @@ -50,6 +50,8 @@ struct virtio_pcm_substream {
+>  	struct work_struct elapsed_period;
+>  	spinlock_t lock;
+>  	size_t buffer_bytes;
+> +	u8 *buffer;
+> +	size_t buffer_sz;
+>  	size_t hw_ptr;
+>  	bool xfer_enabled;
+>  	bool xfer_xrun;
+> @@ -90,7 +92,8 @@ struct virtio_pcm {
+>  	struct virtio_pcm_stream streams[SNDRV_PCM_STREAM_LAST + 1];
+>  };
+>  
+> -extern const struct snd_pcm_ops virtsnd_pcm_ops;
+> +extern const struct snd_pcm_ops virtsnd_pcm_playback_ops;
+> +extern const struct snd_pcm_ops virtsnd_pcm_capture_ops;
+>  
+>  int virtsnd_pcm_validate(struct virtio_device *vdev);
+>  
+> @@ -117,7 +120,9 @@ int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
+>  
+>  void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss);
+>  
+> -int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss);
+> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, bool single);
+> +
+> +int virtsnd_pcm_msg_send_locked(struct virtio_pcm_substream *vss, bool single);
+>  
+>  unsigned int virtsnd_pcm_msg_pending_num(struct virtio_pcm_substream *vss);
+>  
+> diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
+> index aca2dc1989ba..9a5f9814cb62 100644
+> --- a/sound/virtio/virtio_pcm_msg.c
+> +++ b/sound/virtio/virtio_pcm_msg.c
+> @@ -132,7 +132,6 @@ static void virtsnd_pcm_sg_from(struct scatterlist *sgs, int nsgs, u8 *data,
+>  int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
+>  			  unsigned int periods, unsigned int period_bytes)
+>  {
+> -	struct snd_pcm_runtime *runtime = vss->substream->runtime;
+>  	unsigned int i;
+>  
+>  	vss->msgs = kcalloc(periods, sizeof(*vss->msgs), GFP_KERNEL);
+> @@ -142,7 +141,7 @@ int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
+>  	vss->nmsgs = periods;
+>  
+>  	for (i = 0; i < periods; ++i) {
+> -		u8 *data = runtime->dma_area + period_bytes * i;
+> +		u8 *data = vss->buffer + period_bytes * i;
+>  		int sg_num = virtsnd_pcm_sg_num(data, period_bytes);
+>  		struct virtio_pcm_msg *msg;
+>  
+> @@ -186,10 +185,12 @@ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss)
+>  /**
+>   * virtsnd_pcm_msg_send() - Send asynchronous I/O messages.
+>   * @vss: VirtIO PCM substream.
+> + * @single: true to enqueue a single message, false to enqueue all of them.
+>   *
+>   * All messages are organized in an ordered circular list. Each time the
+> - * function is called, all currently non-enqueued messages are added to the
+> - * virtqueue. For this, the function keeps track of two values:
+> + * function is called, first non-enqueued message is added to the virtqueue.
+> + * When single is True, only the first message is enqueued. When False, all the
+> + * available messages are enqueued.  The function keeps track of two values:
+>   *
+>   *   msg_last_enqueued = index of the last enqueued message,
+>   *   msg_count = # of pending messages in the virtqueue.
+> @@ -198,7 +199,7 @@ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss)
+>   *          spinlocks to be held by caller.
+>   * Return: 0 on success, -errno on failure.
+>   */
+> -int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss)
+> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, bool single)
+>  {
+>  	struct snd_pcm_runtime *runtime = vss->substream->runtime;
+>  	struct virtio_snd *snd = vss->snd;
+> @@ -211,6 +212,13 @@ int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss)
+>  	i = (vss->msg_last_enqueued + 1) % runtime->periods;
+>  	n = runtime->periods - vss->msg_count;
+>  
+> +	if (single) {
+> +		if (n < 1)
+> +			return -EFAULT;
+> +
+> +		n = 1;
+> +	}
+> +
+>  	for (; n; --n, i = (i + 1) % runtime->periods) {
+>  		struct virtio_pcm_msg *msg = vss->msgs[i];
+>  		struct scatterlist *psgs[] = {
+> @@ -250,6 +258,36 @@ int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss)
+>  	return 0;
+>  }
+>  
+> +/**
+> + * virtsnd_pcm_msg_send_locked() - Send asynchronous I/O messages.
+> + * @vss: VirtIO PCM substream.
+> + * @single: true to enqueue a single message, false to enqueue all of them.
+> + *
+> + * This function holds the tx/rx queue and the VirtIO substream spinlocks
+> + * before calling virtsnd_pcm_msg_send(). This is a wrapper function to ease
+> + * the invocation of virtsnd_pcm_msg_send().
+> + *
+> + * Context: Any context.
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +
+> +int virtsnd_pcm_msg_send_locked(struct virtio_pcm_substream *vss, bool single)
+> +{
+> +	struct virtio_snd_queue *queue;
+> +	int rc;
+> +	unsigned long flags;
+> +
+> +	queue = virtsnd_pcm_queue(vss);
+> +
+> +	spin_lock_irqsave(&queue->lock, flags);
+> +	spin_lock(&vss->lock);
+> +	rc = virtsnd_pcm_msg_send(vss, single);
+> +	spin_unlock(&vss->lock);
+> +	spin_unlock_irqrestore(&queue->lock, flags);
+> +
+> +	return rc;
+> +}
+> +
+>  /**
+>   * virtsnd_pcm_msg_pending_num() - Returns the number of pending I/O messages.
+>   * @vss: VirtIO substream.
+> @@ -320,8 +358,6 @@ static void virtsnd_pcm_msg_complete(struct virtio_pcm_msg *msg,
+>  					le32_to_cpu(msg->status.latency_bytes));
+>  
+>  		schedule_work(&vss->elapsed_period);
+> -
+> -		virtsnd_pcm_msg_send(vss);
+>  	} else if (!vss->msg_count) {
+>  		wake_up_all(&vss->msg_empty);
+>  	}
+> diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+> index f8bfb87624be..a208439dbff8 100644
+> --- a/sound/virtio/virtio_pcm_ops.c
+> +++ b/sound/virtio/virtio_pcm_ops.c
+> @@ -238,6 +238,11 @@ static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
+>  	 */
+>  	virtsnd_pcm_msg_free(vss);
+>  
+> +	vss->buffer_sz = params_buffer_bytes(hw_params);
+> +	vss->buffer = alloc_pages_exact(vss->buffer_sz, GFP_KERNEL);
+> +	if (!vss->buffer)
+> +		return -ENOMEM;
+> +
+>  	return virtsnd_pcm_msg_alloc(vss, params_periods(hw_params),
+>  				     params_period_bytes(hw_params));
+>  }
+> @@ -257,6 +262,11 @@ static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
+>  	if (!virtsnd_pcm_msg_pending_num(vss))
+>  		virtsnd_pcm_msg_free(vss);
+>  
+> +	if (vss->buffer) {
+> +		free_pages_exact(vss->buffer, vss->buffer_sz);
+> +		vss->buffer = NULL;
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> @@ -331,15 +341,18 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
+>  	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+>  		queue = virtsnd_pcm_queue(vss);
+>  
+> -		spin_lock_irqsave(&queue->lock, flags);
+> -		spin_lock(&vss->lock);
+> -		rc = virtsnd_pcm_msg_send(vss);
+> -		if (!rc)
+> -			vss->xfer_enabled = true;
+> -		spin_unlock(&vss->lock);
+> -		spin_unlock_irqrestore(&queue->lock, flags);
+> -		if (rc)
+> -			return rc;
+> +		// The buffers should be exposed first during capturing so that
+> +		// the device can consume them. Capturing cannot begin
+> +		// otherwise.
+> +		if (vss->direction == SNDRV_PCM_STREAM_CAPTURE) {
+> +			rc = virtsnd_pcm_msg_send_locked(vss, false);
+> +			if (rc)
+> +				return rc;
+> +		}
+> +
+> +		spin_lock_irqsave(&vss->lock, flags);
+> +		vss->xfer_enabled = true;
+> +		spin_unlock_irqrestore(&vss->lock, flags);
+>  
+>  		msg = virtsnd_pcm_ctl_msg_alloc(vss, VIRTIO_SND_R_PCM_START,
+>  						GFP_KERNEL);
+> @@ -450,8 +463,66 @@ virtsnd_pcm_pointer(struct snd_pcm_substream *substream)
+>  	return hw_ptr;
+>  }
+>  
+> -/* PCM substream operators map. */
+> -const struct snd_pcm_ops virtsnd_pcm_ops = {
+> +static int virtsnd_pcm_pb_copy(struct snd_pcm_substream *substream,
+> +			       int channel, unsigned long pos, struct iov_iter
+> +			       *src, unsigned long count)
+> +{
+> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+> +
+> +	if (unlikely(pos + count > vss->buffer_sz))
+> +		return -EINVAL;
+> +
+> +	if (copy_from_iter(vss->buffer + pos, count, src) != count)
+> +		return -EFAULT;
+> +
+> +	return virtsnd_pcm_msg_send_locked(vss, true);
+> +}
+> +
+> +static int virtsnd_pcm_cap_copy(struct snd_pcm_substream *substream,
+> +				int channel, unsigned long pos, struct iov_iter
+> +				*dst, unsigned long count)
+> +{
+> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+> +
+> +	if (unlikely(pos + count > vss->buffer_sz))
+> +		return -EINVAL;
+> +
+> +	if (copy_to_iter(vss->buffer + pos, count, dst) != count)
+> +		return -EFAULT;
+> +
+> +	return virtsnd_pcm_msg_send_locked(vss, true);
+> +}
+> +
+> +static int virtsnd_pcm_pb_silence(struct snd_pcm_substream *substream, int channel,
+> +				  unsigned long pos, unsigned long count)
+> +{
+> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+> +
+> +	if (unlikely(pos + count > vss->buffer_sz))
+> +		return -EINVAL;
+> +
+> +	memset(vss->buffer + pos, 0, count);
+> +
+> +	return virtsnd_pcm_msg_send_locked(vss, true);
+> +}
+> +
+> +/* PCM substream operators map for playback. */
+> +const struct snd_pcm_ops virtsnd_pcm_playback_ops = {
+> +	.open = virtsnd_pcm_open,
+> +	.close = virtsnd_pcm_close,
+> +	.ioctl = snd_pcm_lib_ioctl,
+> +	.hw_params = virtsnd_pcm_hw_params,
+> +	.hw_free = virtsnd_pcm_hw_free,
+> +	.prepare = virtsnd_pcm_prepare,
+> +	.trigger = virtsnd_pcm_trigger,
+> +	.sync_stop = virtsnd_pcm_sync_stop,
+> +	.pointer = virtsnd_pcm_pointer,
+> +	.copy = virtsnd_pcm_pb_copy,
+> +	.fill_silence = virtsnd_pcm_pb_silence,
+> +};
+> +
+> +/* PCM substream operators map for capturing. */
+> +const struct snd_pcm_ops virtsnd_pcm_capture_ops = {
+>  	.open = virtsnd_pcm_open,
+>  	.close = virtsnd_pcm_close,
+>  	.ioctl = snd_pcm_lib_ioctl,
+> @@ -461,4 +532,5 @@ const struct snd_pcm_ops virtsnd_pcm_ops = {
+>  	.trigger = virtsnd_pcm_trigger,
+>  	.sync_stop = virtsnd_pcm_sync_stop,
+>  	.pointer = virtsnd_pcm_pointer,
+> +	.copy = virtsnd_pcm_cap_copy,
+>  };
+> 
+> base-commit: 8a749fd1a8720d4619c91c8b6e7528c0a355c0aa
+> -- 
+> 2.41.0
 
--- 
-Péter

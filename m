@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6464B7C8788
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Oct 2023 16:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455827C879C
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Oct 2023 16:15:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88B2A83B;
-	Fri, 13 Oct 2023 16:11:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88B2A83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8B4B84A;
+	Fri, 13 Oct 2023 16:14:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8B4B84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697206342;
-	bh=yblgfOK1RNan7Z74qeOHcSvb7Lln2WHm9wFm6gXbhf8=;
+	s=default; t=1697206530;
+	bh=xiakfY2yzTf4fr07QKBhbaZia1Xj2Zm55HyF6h2uAk8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Q6wC97hhggdzK7EaQ6BQObxIVQWGp7pg6d+G0cZUyXEU8L5jSVNVVMHkT7T6R8sch
-	 zM/igG/VtpVzjfENDBXPnKmBfRuKSpyEdUcjJNTlQ51iQWre62KWwnd+Mx2W7N0V3h
-	 qpVOLwiZsvIirkLmdOa1cxpjTw11hry+22ZaD8OQ=
+	b=akItTWp/13kHbCilHg64FVu3SHpvCEQw9haKvb7Tk+A9XnMiENhsuNC0OkUeP0pp1
+	 ghcccaQ0pNzkUMzwftwttqx03h7BM/+7J8qrReesbNEi5HNMxoC2NamUklF6nGL+vX
+	 rWY6nURU58qI+iAabFMk5KdU7dRIYGSCYq//OlJc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20E4EF802BE; Fri, 13 Oct 2023 16:11:11 +0200 (CEST)
+	id 6438DF80552; Fri, 13 Oct 2023 16:14:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F0A0F8027B;
-	Fri, 13 Oct 2023 16:11:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C856F8027B;
+	Fri, 13 Oct 2023 16:14:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AF71F802BE; Fri, 13 Oct 2023 16:11:08 +0200 (CEST)
+	id D3B9CF802BE; Fri, 13 Oct 2023 16:14:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 08F46F80166
-	for <alsa-devel@alsa-project.org>; Fri, 13 Oct 2023 16:11:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08F46F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CFE6F80166
+	for <alsa-devel@alsa-project.org>; Fri, 13 Oct 2023 16:14:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CFE6F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BDgw2I9R
+ header.s=k20201202 header.b=eie1oeb/
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 881EE620F4;
-	Fri, 13 Oct 2023 14:11:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76931C433C7;
-	Fri, 13 Oct 2023 14:10:59 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id C435DB82B40;
+	Fri, 13 Oct 2023 14:14:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97711C433C7;
+	Fri, 13 Oct 2023 14:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697206260;
-	bh=yblgfOK1RNan7Z74qeOHcSvb7Lln2WHm9wFm6gXbhf8=;
+	s=k20201202; t=1697206452;
+	bh=xiakfY2yzTf4fr07QKBhbaZia1Xj2Zm55HyF6h2uAk8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BDgw2I9RUVi8FmfXMdDwfGWWNWixrlRokLda/7jno+fJ0koZRbGXp4dIOEsmtjntk
-	 6fTddidzhz/mBuaPzrgogyNNdQ4S/lmQAX+MOzr6brBSVnw8KeMcPv8anPgzJdIlKd
-	 4trW7twlDDnTL7za8haPzW56eNNAUr/sVEvMqRvex2XCQQRRqBNKLpBFiZJEMthMLz
-	 0RKpWnMpUztZPjibvq/g53a3cHwBso92RdxE1Hu11O9jXTAoWHQ+EnBQkRbto/DNjS
-	 qQ8ECY/K6f3DxAk2jfce54Obn1QWtZMLUuYoodqBF+OM0hH1f5lS2YGjeCbn5ELlkc
-	 kJow/8QLddtPw==
-Date: Fri, 13 Oct 2023 15:10:56 +0100
+	b=eie1oeb/SCDdqnrwYuRPCFdXKakAcbC4fy0M9ybafZEXiNV3IeqYb1gvNpDVkEE3j
+	 Www067T/upZIUOG9A+eM9To7syVYOSs6IcdGRvfc3pKtEc+j59snOOmCI0aXOfNwKw
+	 ZyRFGRH2Z8mb5jpMOW6oJzHZleZmD+fm4o+YkilcRholE/pm/IaGdRlhdQHoR/QSGh
+	 4myH/6Swbjp/PL20e8IlsuI7TyX+d5aF2KwlopT/Ue3kCUFTPznyoj544KT6s34ZM3
+	 2ekxKjK+RXQ+xVdq5kSQPHxNAe7g+iiZT13j0YJ3iFWj2WkcArLg8Jlx4Xgw2TGh+X
+	 lrjqV830Nn2IA==
+Date: Fri, 13 Oct 2023 15:14:08 +0100
 From: Mark Brown <broonie@kernel.org>
-To: wangweidong.a@awinic.com
-Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: wangweidong.a@awinic.com, lgirdwood@gmail.com, robh+dt@kernel.org,
 	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
 	perex@perex.cz, tiwai@suse.com, herve.codina@bootlin.com,
 	shumingf@realtek.com, rf@opensource.cirrus.com, arnd@arndb.de,
@@ -73,17 +73,18 @@ Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
 	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH V1 3/3] ASoC: codecs: Add aw88399 amplifier driver
-Message-ID: <ZSlP8GvTAOe35peC@finisterre.sirena.org.uk>
+Message-ID: <ZSlQsDzNXqyRVXAf@finisterre.sirena.org.uk>
 References: <20231013104220.279953-1-wangweidong.a@awinic.com>
  <20231013104220.279953-4-wangweidong.a@awinic.com>
+ <37a2d2d1-5ede-4f88-b4e7-d9750336465d@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ralK2eSCf+ixFXP0"
+	protocol="application/pgp-signature"; boundary="/Bt6tNOD8qhkOtxB"
 Content-Disposition: inline
-In-Reply-To: <20231013104220.279953-4-wangweidong.a@awinic.com>
+In-Reply-To: <37a2d2d1-5ede-4f88-b4e7-d9750336465d@linaro.org>
 X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: FL2DQCKGIQ6Y5IPHB3RK6ZCVTFTU7L2B
-X-Message-ID-Hash: FL2DQCKGIQ6Y5IPHB3RK6ZCVTFTU7L2B
+Message-ID-Hash: IKBKJNOT7WFG7EP2WYISI3PIQXFH4D6H
+X-Message-ID-Hash: IKBKJNOT7WFG7EP2WYISI3PIQXFH4D6H
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FL2DQCKGIQ6Y5IPHB3RK6ZCVTFTU7L2B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IKBKJNOT7WFG7EP2WYISI3PIQXFH4D6H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,78 +107,41 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---ralK2eSCf+ixFXP0
+--/Bt6tNOD8qhkOtxB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Oct 13, 2023 at 06:42:20PM +0800, wangweidong.a@awinic.com wrote:
+On Fri, Oct 13, 2023 at 01:50:41PM +0200, Krzysztof Kozlowski wrote:
+> On 13/10/2023 12:42, wangweidong.a@awinic.com wrote:
 
-This looks good - some *very* minor comments below.
+> > +static void aw88399_hw_reset(struct aw88399 *aw88399)
+> > +{
+> > +	if (aw88399->reset_gpio) {
+> > +		gpiod_set_value_cansleep(aw88399->reset_gpio, 0);
+> > +		usleep_range(AW88399_1000_US, AW88399_1000_US + 10);
+> > +		gpiod_set_value_cansleep(aw88399->reset_gpio, 1);
 
-> +static const struct regmap_config aw88399_remap_config = {
-> +	.val_bits = 16,
-> +	.reg_bits = 8,
-> +	.max_register = AW88399_REG_MAX - 1,
+> Why do you leave the device in reset state? I think you wanted these
+> reverted.
 
-I see this is already the case for the aw88261 driver but it is a bit
-weird that _REG_MAX isn't the maximum register - it looks like it should
-probably be _NUM_REG.  Not the end of the world though.
+I imagine practical systems aren't using the inversion that gpiolib can
+do via the bindings, this is already the case for the other drivers
+sharing the binding.  TBH the use for things like reset lines has always
+seemed like it causes more confusion and error than it solves.
 
-> +static int aw_dev_dsp_update_container(struct aw_device *aw_dev,
-> +			unsigned char *data, unsigned int len, unsigned short base)
-> +{
-> +	int i, ret;
-> +
-> +#ifdef AW88399_DSP_I2C_WRITES
-> +	u32 tmp_len;
-
-This looks like debug code which can hopefully be removed in favour of
-the regmap implementation?
-
-> +static int aw88399_codec_probe(struct snd_soc_component *component)
-> +{
-> +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(component);
-> +	struct aw88399 *aw88399 = snd_soc_component_get_drvdata(component);
-> +	int ret;
-> +
-> +	ret = aw88399_request_firmware_file(aw88399);
-> +	if (ret < 0) {
-> +		dev_err(aw88399->aw_pa->dev, "%s failed\n", __func__);
-> +		return ret;
-> +	}
-> +
-> +	INIT_DELAYED_WORK(&aw88399->start_work, aw88399_startup_work);
-> +
-> +	/* add widgets */
-> +	ret = snd_soc_dapm_new_controls(dapm, aw88399_dapm_widgets,
-> +							ARRAY_SIZE(aw88399_dapm_widgets));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* add route */
-> +	ret = snd_soc_dapm_add_routes(dapm, aw88399_audio_map,
-> +							ARRAY_SIZE(aw88399_audio_map));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = snd_soc_add_component_controls(component, aw88399_controls,
-> +							ARRAY_SIZE(aw88399_controls));
-
-You should just be able to pass these arrays in the component strucutre?
-
---ralK2eSCf+ixFXP0
+--/Bt6tNOD8qhkOtxB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUpT+8ACgkQJNaLcl1U
-h9CaAggAgc0J/p2bTSZNLjaIAKHFr9ldNYbl+3tMxNJwBnPfL3p07scPxSt/foY8
-rLrtsYpfxKahAjbKlN1R9JtZVYuMyUfO33ed2Ww093sWB513nZMd31yCzh1+sY1g
-DlRT6ezLSe2XTkGTt2mFyzJcqLZOIrIzfOndism4/Esuk872ziqlaMTjq/2GBLVb
-WNY4D5bUcRxlFl1jphCDCSsJYCy9lpZMLaHPWrlbJh0tq1k5r7WvJ/rG0vOhGQTN
-GT5x1j0CifyeA5x5TjI/wWuJhAVRjHxc4NYaI8806i34cybrI8JUIf98JYyD/M7+
-7xDFdzxO/GXPZzSRctMol3uf+grzhQ==
-=22g1
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUpULAACgkQJNaLcl1U
+h9D31wf+LSw0mI4Eah0LGJWQfl5PpXcpkbD6bVg/ql2yS7Exi2pm5cMxMf5Thmhw
+7Js/Io7XmJ+vFRJsDXRuEWdoLwvhpR/Tnaokvf6XEyEh5FA/vbvkMQae1aA0s9xy
+1muspCbfG18y4N+lkzSzBL34kfuMZvUimK8e8VxCQqUdQK9hwvPeEkcA+Ujij+Mn
+yhjBAuyHcR7/Mz8SM9Y+CU0rmca4QEtZQfHZvU9jKoRnEYJvX9c1LVdGjXrABPIi
+cTY7xj33xVXMn496S2fG1eBwZUm38r1FWKzLW4dT8Yv1ncwETMkTJPPgEATFqvEh
+5kWjYdboiDHre3ELXVH43f/6tiRpfQ==
+=POXu
 -----END PGP SIGNATURE-----
 
---ralK2eSCf+ixFXP0--
+--/Bt6tNOD8qhkOtxB--

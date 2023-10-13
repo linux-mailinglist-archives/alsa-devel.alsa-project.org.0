@@ -2,87 +2,154 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8CCE7C7811
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Oct 2023 22:48:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42AE7C7AE4
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Oct 2023 02:35:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3DDF826;
-	Thu, 12 Oct 2023 22:47:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3DDF826
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6362844;
+	Fri, 13 Oct 2023 02:34:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6362844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697143728;
-	bh=aRI71YpV2+d2IfU0eZ+HabZAmiGR+yyp2A4+ZTsQCm8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697157319;
+	bh=S/OrT1UOK5tWAchLwcZF565LZISNKnXFSFo+7jocURY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WCRX0PFXuO+NC1s+xfAUUfeYumnKxS0H5/ADajUC+EuJ9g4rkFatBSFqR75cHn/6O
-	 R/uPDtVXU4tIeIqennU0+wVa3mSv8bMZd6FMAeXdZo/yJiwuPG1qi1mhs1w9/MxvDE
-	 4XspDCJFdx0n0a654s3Fde/CLZc1wsx5A2xQKySA=
+	b=JXHfyPsu4ZHAW4Q9fW71Tkiqm6xyEhntdRqheini2K91QyyRPDmxtM25YcSB8a7iU
+	 nCKEZOLoIHpCTo7XYE+W9cU/YaL+piZictfnvhoKltGckxglU3allcy4S8k0Iiy0Ec
+	 KlPI/p9QceM++OCS7dLtxHMYH6U1TYxqngkPr+Uo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0CF2F802BE; Thu, 12 Oct 2023 22:47:57 +0200 (CEST)
+	id 409E4F80310; Fri, 13 Oct 2023 02:33:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BF4FF8027B;
-	Thu, 12 Oct 2023 22:47:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F875F80166;
+	Fri, 13 Oct 2023 02:33:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D219F802BE; Thu, 12 Oct 2023 22:47:52 +0200 (CEST)
+	id 34819F802BE; Fri, 13 Oct 2023 02:33:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20703.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::703])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81173F8015B
-	for <alsa-devel@alsa-project.org>; Thu, 12 Oct 2023 22:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81173F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id C9227F8019B
+	for <alsa-devel@alsa-project.org>; Fri, 13 Oct 2023 02:33:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9227F8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jwW6XONp
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 0DE7AB8270F;
-	Thu, 12 Oct 2023 20:47:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D11C433C7;
-	Thu, 12 Oct 2023 20:47:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697143662;
-	bh=aRI71YpV2+d2IfU0eZ+HabZAmiGR+yyp2A4+ZTsQCm8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jwW6XONp9+IMeAdLC1MyMWFkTL/L1Hr+ur2t+B5NP0UUDc9ONKaqHTzvv0oxqvS9/
-	 /jXz/mBCECQ846jut7nzwMpEVmoV4xcaSarxfTXPF9zQUCeLVeXpWbQSGeWElukxpH
-	 hmK9Xu879p9WIcxTglg170fsF1NK+WWmRk+1etdS2+gsznWZdx4SghDduB8FUkFTTI
-	 D5aLPEDFrX/Ew+4GELA8rAyIl0CXXsS9jBSxEzf4TvcKz0L3tTGLy3DfL+c4iBoH8Y
-	 V9I7A1mtfNwuYaOTFpgho6RY5aglBHpgGTC2DZO9Cw9eDAHayKrqnTF0tLqIkf0Fdz
-	 OpimIrub0090Q==
-Received: (nullmailer pid 1712886 invoked by uid 1000);
-	Thu, 12 Oct 2023 20:47:39 -0000
-Date: Thu, 12 Oct 2023 15:47:39 -0500
-From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com, shawnguo@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: sound-card-common: List DAPM
- endpoints ignoring system suspend
-Message-ID: <20231012204739.GA1706264-robh@kernel.org>
-References: <20231011114759.1073757-1-chancel.liu@nxp.com>
- <f639c88d-371a-4c72-a906-47d643b24ca8@sirena.org.uk>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=BpgfkoyG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eitW72cJiLMW+PmDUax/rPvKyjiWwI30GRUr8HJzZ+PzTxhAEEs80oCf9jw9tjkLyxuK0JLJ5+XnA/51vdcxd/RG/ffCp4FxzTM7DZOZmlTTIXxiWZr2zVN7nMhTpx3Wq2AJMicdfqIejXmEFNgwpXCZ9VJy6SMG9JeWMMtiEqiNi51B414LzF9APJmypUykkyGl28pUUOZd3CygQaXrp6rh6ax+uc4F5YGz+mzrlm14AYHuXysp2ck7q4G7+ZOEGVH2asqWY5VYGKf6HMAZ/WgR3MgHotOn5TAgH1ijVYbuqC1jt8y9Y2JQZt8N6qxPz1gkr2b82WFY835LFk/VJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wrbQqJrj2QCri56lxQ60P12tMzAjbPudfl3/Wsd4kkE=;
+ b=iNqprtr1s79IkcgD/MifNnVbonSSGRwJhYEh/PK3wfWIpzHbgkiDEg4sRne45QZHMRG/+WSXmZ3EwYYwfG7nWxDr3/Rrm/EE8u3Vo/MDOlNxK3XQsT1Zj7c97E6luqWg2i/cfPgEwiza51IKBbKACdL7KsQvhPOINOAW4AR28lqU0V1j91igIzamZhxFXFBEcFEiC31LiSTF5WwY3PjM9AMqu8Q248sdCdNwhD/xVi84imeaPPdequpW2mq5xBpztXDW92xPMnmsnj2ox3rlBk+e7eDxKgEwggD4Z06rJ2xssuqlPm5P0PbJvX+f5J2GjYZpChzrWf9fcbnOrRbVrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wrbQqJrj2QCri56lxQ60P12tMzAjbPudfl3/Wsd4kkE=;
+ b=BpgfkoyG+f5yNMDWHV/NjRsxXUipiFoQ3B6Z08DhwTLb1fLP3QO6kIcdet4UOgoUg590/Z+rO1gFfUKiHQyzjZ5WzHJUybVNxXy8an3njf7EiStnS/R5SFxam0a68SVTUdmzMFMsRLSnTgTTdBvtYxe5A+crKk4cBMq3Ke9yoDU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TYCPR01MB5919.jpnprd01.prod.outlook.com (2603:1096:400:43::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6863.46; Fri, 13 Oct
+ 2023 00:33:35 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d2a3:45df:a180:595c]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::d2a3:45df:a180:595c%6]) with mapi id 15.20.6863.046; Fri, 13 Oct 2023
+ 00:33:35 +0000
+Message-ID: <87wmvr8ioy.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	bard.liao@intel.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] dt-bindings: audio-graph-port: add ch-maps
+ property
+In-Reply-To: <20231012-storage-directory-548905001d10@spud>
+References: <877cnsy6bl.wl-kuninori.morimoto.gx@renesas.com>
+	<871qe0y6aq.wl-kuninori.morimoto.gx@renesas.com>
+	<20231012-storage-directory-548905001d10@spud>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 13 Oct 2023 00:33:34 +0000
+X-ClientProxiedBy: TY1PR01CA0201.jpnprd01.prod.outlook.com (2603:1096:403::31)
+ To OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f639c88d-371a-4c72-a906-47d643b24ca8@sirena.org.uk>
-Message-ID-Hash: EUSZ6XTDSMWVV3P6KLFJV6XUD5XQYP2B
-X-Message-ID-Hash: EUSZ6XTDSMWVV3P6KLFJV6XUD5XQYP2B
-X-MailFrom: rob@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB5919:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a6483e2-114b-4c0a-d30b-08dbcb8408f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	3R8nitXROcDGcKttdKLaTb0PA95UIbRxbW2x+TqIzIG9JUzgrW4vm3aHNLM+biaRXoynuD6rS/lfpWbz2LmYCPFY9kdbru6FsCNrhGCvAlgDsJE3xaDmLU0jn0umDbRFNhgIzCVEypZnSG1ahkNCgRC97QL0+Gk+jTKidypk/5isrAtso9kr8XCUfz28J5/xTHhGOER7ZARIwhbTyen4Yb5PZXQFgXHco6b92Gs7kuW0O4bZ/6A5jHrkEVO+fvoMRsJV2dNUOotMEU94dJHPSvgpc+EYz/g55cxrd86iUn3Fp5vpwLhRjVMMye1DXMsJGGktWiSawzkwFDqglstHJ4zokDxnUqWeCfeAdRBVkdYfMbYQI87tEZzvweO7Tip6XVP5nnBVLiwK91mqMgJI7tJWMbCa2keqsSv8l9yWZom3RSrFoSDEBX6r+dJFKD3iYFNrrQwY+qeyazb/xe1XTLQCd950mZgr8vFY73UQNVHA8oBmUcRtdRbasxauG5PP4BHt6Bs+Equ0VsgmTVZeBDvkXAwuw/Fp1SgUb+XAsmEAWk6tsd9J6outsV7+TdqgB3kgfsBAIXuePRLbaF35twZv6qzXOqAJA0eaXV7TbhWy/4q4fThuSYdajsxmgIqmXo3czrO2O64vOwF7MtD8kQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(39860400002)(346002)(396003)(366004)(376002)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(52116002)(83380400001)(2013699003)(26005)(2616005)(7416002)(2906002)(4326008)(41300700001)(8676002)(8936002)(36756003)(5660300002)(86362001)(6512007)(6506007)(6486002)(66946007)(66556008)(66476007)(316002)(54906003)(6916009)(478600001)(38100700002)(38350700002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?KkJwn4g81pvQ8Kf/alANtUMOjInffxDPUC1kGt4uE+FlYQbfBod3vxxh6pu0?=
+ =?us-ascii?Q?UINfF2k3t2kEV/wizD3tuyoXuvWUPhUBNWv+LO2T24oM1q1oQt92r1l4suHI?=
+ =?us-ascii?Q?RoOS4JwQXxGGR3+bmw4mnxEkRnd5xYetQOs2xfX0UzAtOfrI2nq2myBCOzR/?=
+ =?us-ascii?Q?Wm85duMjyxvS/h/BS1C2MbRkex6CkGVbOsT/CvDE0CXNmeP7Q2wd1PNaRuPE?=
+ =?us-ascii?Q?9gN4Yf0njZDEcA3VI+0qJHuHJpXxve+zGAJJA1zDqi/bqU3vFTbXQsexqPQf?=
+ =?us-ascii?Q?BlGwtGjmAZn5jgmqbjwNZ/tVEzk6KT5wwIAhtyX+RVcilzMxGH4sWzZqZoDg?=
+ =?us-ascii?Q?WpRFYygELEEfHyeL0zArvskKG6r2di3oKMVzp4yIZt66ZpX2K6Gbx9wetevy?=
+ =?us-ascii?Q?ktWgI0LCfiasdFY6zBsW5VHDJeoSe6TpMWNt0NGD1Yb3ctB9YQ0p1VDurzez?=
+ =?us-ascii?Q?i38wKj+gozgSVjGkzrl4rIeZRxed2TIdKmTIqVA3sXi8uV73IHScenSuLuZS?=
+ =?us-ascii?Q?ppEbbJU8KkrZh2V/yhRGaaen8tv31t1itdLr2r6oWFWeKYErJzQQq2chIsvb?=
+ =?us-ascii?Q?ljCwoqW2erwbTvIPXImbz0nDJOowOpKLTEs6OOMAw6DTgJMq5UhIl+1NumTh?=
+ =?us-ascii?Q?Fot87x6V/Vx4b843NjXCSTKGpb1YaH0Tjzuzl7FzEbFswLiFCL7tsxviPUn4?=
+ =?us-ascii?Q?/ndz3EM73aqdTBXI5+xco2X65m61z898VZ9jz27x9gqdYCBcVHXgdBf8bupi?=
+ =?us-ascii?Q?5tGy1ENoXqCsg5Bzfl7eoHS/Ga0yl0kTz8w9NjchZ5YlpO8A8ooEB+9L0EiA?=
+ =?us-ascii?Q?jmgYDsO08f8ulW6NG/k9ykydaFVuJxgnVxn0HtpeaAzrKTOvEdla9IwFW5Uw?=
+ =?us-ascii?Q?RNrSlcNFcl3Q5aoDz8TGr8PYjo5J06cS9L5X5RBw4U/az/YRc9gK/+AxHKrZ?=
+ =?us-ascii?Q?aJ/BUMQ8/J5aCPiP6f3FLfvisEbsYFpyRUal6P2OcSm1qMB2C8UtVCABd6iU?=
+ =?us-ascii?Q?2f8s7co5lbymaBGQls3vFQqVHyGhVxiw7n1OpQ3Dzb9XEBcTUhICM5l4YjYy?=
+ =?us-ascii?Q?asQUtA/ARFTASJ8ZtrpJjpyfrKCO4OPPgq2tJ0+vXihX1DSzHRWiyb6Sj+el?=
+ =?us-ascii?Q?uzSrqbbPfdZLd9X9FA2e/9BJXu94IzSlU2ESHNo54JCnp0Ek2XgzDt0mc/ia?=
+ =?us-ascii?Q?IM6jEhU1ZMx/Gpqz4rBG+DkF4af8zBnM6qPRCE+t/7l9aENMoJ3Gf8M408vp?=
+ =?us-ascii?Q?v+/rR6H54X8Lr96nIBDqZMjbVv+OROvdiJ8hhV9gOiWX/pHK+/cfo5K7oSxy?=
+ =?us-ascii?Q?0vKnjgdYBwuD3PafkUPv0AtB1zBs61XIlUkmY3CZ64GaS0MHJn7wIWU64XDo?=
+ =?us-ascii?Q?fMem+fIfRxbHcgzgpEOPu6zq+Rh+ap/DGEFDLYXJ2nuDvwZUQKx3O9Xd6h12?=
+ =?us-ascii?Q?ORa5pGapKmU614ufK2Nzme4XzCBU8Y8OPvUbCHVlvq858IgLPjbGXuAgN9li?=
+ =?us-ascii?Q?EFA5vAM6x04DCmpLNjdJ9Gl02UuJdDvA6iNi9/jVOW55m/rGc0u6nMg1kCn8?=
+ =?us-ascii?Q?DplE2FVftGet1Fm6laWXx51n+xJeP+PgY/Hg2lFxIug+beNn2X48vJtGyJ2M?=
+ =?us-ascii?Q?byGsXHqEBayuODYbcPDkWGA=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 9a6483e2-114b-4c0a-d30b-08dbcb8408f8
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2023 00:33:35.1536
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ GPxIqj5kLPHc+GgnUjV6UhCNJk1sJ1vGUDlZ1WCS9KF/vlHMdJsr8YDFYu44yVF5+uMyW+fQgycfb2Jlf4u2yTQi6cWZlny0SV+lfJWZCRyX6qGH2MmED0fuAP9JTg05
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB5919
+Message-ID-Hash: PVRNNPUFVJBQMUT34GGK37SYF2UXCWF2
+X-Message-ID-Hash: PVRNNPUFVJBQMUT34GGK37SYF2UXCWF2
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +161,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EUSZ6XTDSMWVV3P6KLFJV6XUD5XQYP2B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PVRNNPUFVJBQMUT34GGK37SYF2UXCWF2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,36 +170,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Oct 11, 2023 at 10:21:33PM +0100, Mark Brown wrote:
-> On Wed, Oct 11, 2023 at 07:47:58PM +0800, Chancel Liu wrote:
+
+Hi Conor
+
+Thank you for your feedback
+
+> > This patch adds ch-maps property to enable handling CPU:Codec = N:M
+> > connection.
+> > 
+> > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > ---
+(snip)
+> > +      ch-maps:
+> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
 > 
-> > +  lpa-widgets:
-> > +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> > +    description: |
-> > +      A list of DAPM endpoints which mark paths between these endpoints should
-> > +      not be disabled when system enters in suspend state. LPA means low power
-> > +      audio case. For example on asymmetric multiprocessor, there are Cortex-A
-> 
-> I suspect that the DT maintainers would prefer that this description be
-> workshopped a bit to remove the Linux specifics.
+> Most of what I said on the last version applies here too. Only the
+> s/_/-/ was done. Is there a reason you ignored those comments?
 
-And Cortex A/M specifics if this is a common binding.
+Ah sorry. I thought you wanted was add your address on To/Cc for
+all patch-set.
+
+> I only got this one patch, so I have no context at all for this change.
+> Given that, and since I know almost nothing about sound stuff...
+(snip)
+> ...I have absolutely no idea how I would populate "ch_maps" correctly.
+> Please describe (in the binding) what this property actually does
+> & how to use it. Also, properties use -s not _s.
+
+Some Sound want to use multiple connections between CPUs (N) and Codecs (M).
+Current audio-graph-card2 driver is already supporting 1:N / N:1 / N:N
+connections, this patch expand it.
+
+These are implemented by using Of-Graph.
+For example N:N connection case, it is expressed like below.
+One note here is that cpu0/cpu1 and codec0/codec1 are *not* independent.
+We need to consider cpu0/cpu1 pair and codec0/codec1 pair.
+
+ep (endpoint)
+
+	(A)						(B)
+	<- port ->   <- port ->       <- port ->      <- port ->
+		          ax(ep) <--> (ep)bx
+	cpu0(ep) <--> (ep)a0		  b0(ep) <--> (ep)codec0
+	cpu1(ep) <--> (ep)a1		  b1(ep) <--> (ep)codec1
 
 
->  I think the key thing
-> here is that these are endpoints that can be active over suspend of the
-> main application processor that the current operating system is running
-> (system DT stuff is an interesting corner case here...), and the example
-> is probably a bit specific.  Other bindings use "audio sound widgets"
-> rather than "DAPM widgets".
-> 
-> We also shouldn't see that these endpoints "should not be disabled"
-> since that implies that they should be left on even if they aren't
-> active which isn't quite the case, instead it's that we can continue
-> playing an audio stream through them in suspend.
+In N:N case, it is assuming cpu0/codec0, and cpu1/codec1 has related.
+This patch expand (A)/(B) part to N:M (N != M). Then, ch-maps indicates
+how these are related.
 
-This seems like one of those things that everyone has/does, and everyone 
-handles it a bit differently. I applaud trying to do something common, 
-but it isn't really common until we have multiple users.
+	(A)						(B)
+	<- port ->   <- port ->       <- port ->      <- port ->
+		          ax(ep) <--> (ep)bx
+	cpu0(ep) <--> (ep)a0		  b0(ep) <--> (ep)codec0
+	cpu1(ep) <--> (ep)a1		  b1(ep) <--> (ep)codec1
+=>	cpu2(ep) <--> (ep)a2
 
-Rob
+	ch-maps = <0 0 1>
+
+ch-maps = <0 0 1> means, 
+	cpu0 <-> codec0
+	cpu1 <-> codec0
+	cpu2 <-> codec1
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

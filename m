@@ -2,99 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 029AE7C903A
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Oct 2023 00:24:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 083A57C9037
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Oct 2023 00:23:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB4EDF1;
-	Sat, 14 Oct 2023 00:23:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB4EDF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BB7883B;
+	Sat, 14 Oct 2023 00:22:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BB7883B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697235860;
-	bh=rg4UGscGMxesn/Ng7C8DgLhgb75kOFpu1RFwbvoHWiQ=;
+	s=default; t=1697235820;
+	bh=yF2Q7ng4BO/0bNqNzg+OGX3edKvUXFE8sRAPvpn8ZJo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HmZhf3iKz5asK3dcHNfwXIO2mR34mBqLW/LC9RQ2jLY1akI4kuePE5vQ8FOOUx4oC
-	 7sE7CzCYW8ehs1txZlWKnDUyms/QWaXvkQg/3QA7YdTU9o6Tm3KIBZ568F4lsrz0UG
-	 5Fhw8qd4fgLwoIkYPgiTf+qr93+m2KyHt13olqyY=
+	b=GvZ/1miQCxWjLsiGhLpapqKQ84Rh5RcT8CPZAslmIktCZW+9wxKxbyv/VzPMGsi5I
+	 TLDGjuiy5SP+eDWWEC63xNY07vJ+twy3zFAwk7+N7d+KBx+W039yq7FZeD1TcKXaN7
+	 7+/Mb03guZ0YW4rDYYrnkDGr14/PyLif1H12AUJU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2ACA2F802E8; Sat, 14 Oct 2023 00:23:08 +0200 (CEST)
+	id 96529F805A0; Sat, 14 Oct 2023 00:21:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A25DF8027B;
-	Sat, 14 Oct 2023 00:23:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7875F805A9;
+	Sat, 14 Oct 2023 00:21:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AC7DF802E8; Sat, 14 Oct 2023 00:23:05 +0200 (CEST)
+	id 53BDCF802E8; Sat, 14 Oct 2023 00:20:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C035F8019B
-	for <alsa-devel@alsa-project.org>; Sat, 14 Oct 2023 00:20:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C035F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7486FF8027B
+	for <alsa-devel@alsa-project.org>; Sat, 14 Oct 2023 00:20:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7486FF8027B
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
 	by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1qrQVy-0003u5-Qp; Sat, 14 Oct 2023 00:20:14 +0200
+	id 1qrQVw-0003uC-6H; Sat, 14 Oct 2023 00:20:12 +0200
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.94.2)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1qrQVv-001URA-CZ; Sat, 14 Oct 2023 00:20:11 +0200
+	id 1qrQVv-001URD-JE; Sat, 14 Oct 2023 00:20:11 +0200
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
 	(envelope-from <ukl@pengutronix.de>)
-	id 1qrQVv-00FrH0-2F; Sat, 14 Oct 2023 00:20:11 +0200
+	id 1qrQVv-00FrH4-9h; Sat, 14 Oct 2023 00:20:11 +0200
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Rob Herring <robh@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wang Yufen <wangyufen@huawei.com>,
-	Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Astrid Rost <astrid.rost@axis.com>,
-	Robert Hancock <robert.hancock@calian.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Sameer Pujar <spujar@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
 	alsa-devel@alsa-project.org,
-	kernel@pengutronix.de,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH 4/7] ASoC: simple-card-utils: Make simple_util_remove() return
- void
-Date: Sat, 14 Oct 2023 00:19:50 +0200
-Message-ID: <20231013221945.1489203-13-u.kleine-koenig@pengutronix.de>
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	kernel@pengutronix.de
+Subject: [PATCH 5/7] ASoC: meson: Make meson_card_remove() return void
+Date: Sat, 14 Oct 2023 00:19:51 +0200
+Message-ID: <20231013221945.1489203-14-u.kleine-koenig@pengutronix.de>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231013221945.1489203-9-u.kleine-koenig@pengutronix.de>
 References: <20231013221945.1489203-9-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4890;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2962;
  i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=rg4UGscGMxesn/Ng7C8DgLhgb75kOFpu1RFwbvoHWiQ=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlKcKGL/n3H0zBmYbBzfwwn0/S3LeJpoZbTMsSH
- HTIS/gbK3eJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZSnChgAKCRCPgPtYfRL+
- TvXzB/9OK2CuojbMg5wW/zm2mMiLcGkVhvxLYL1K6cFryasc2dPnJbFSnIY6yfLP0u6LmlzxOKX
- 8StxWYXnpVTuM89nzV7jz1lO/wM3Lymb0pg16hOyo4XFGXc2prKtCEhmPz2ZJdUxi08GyxJTXdC
- pPwnQcAmqpwk2O7v58LpC4AyBFFRxbCGdMba2CZDz3wQ8o3MxcflT7zEJzBJiiYnW90jQqUAbX4
- xprDn/3PGncmua3RkVvA6VJpp3J5Upano0KXw1p+LPk4S+LpxP9qzqI15jAUWU3fZ0YdF7/9Sbv
- R+HovEKevmUBv33CbkfJv90pZIinxbr5vq/oSadeBE1UShgQ
+ bh=yF2Q7ng4BO/0bNqNzg+OGX3edKvUXFE8sRAPvpn8ZJo=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlKcKHnrjMUvX5oysin1crHzg1x1xYF02Horo6o
+ vPoRHC1nheJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZSnChwAKCRCPgPtYfRL+
+ Tmm+CACpOts6HE9b9hyqqncrhckXQLavS2qdjGfrlZ74Retu3o4BrjF0Ho9Eep0YyRBFa/GO9zk
+ bLHgnB6Trr/uXT7wqct/v/1G0godBI9CqlvGQ3EMJnLo04jKjURN8Bv48BJe+cFxU3FWcTvPhzS
+ zw+S1/+m3a+x4lD7EvUKIGvzyOvqNLFLyw3HWeqwchXjCbF/M7iiYMY17ikaPfdqEMQl//Xrqg7
+ JFOGTHgPhFSYKICrH+y3m3+JikstRYb1amhs4lRHu62wqDOBsE7ZESaCQ/CGGLtHQAgbEtgSGCd
+ OoEtVbD0rmSuRY7G9/04hQZgq+Xz84tFoF04Zo4ZSV8pv2ey
 X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -103,8 +94,8 @@ X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: 6AW7XOHAF3SABM3FVQLFILYTKBHA3CFR
-X-Message-ID-Hash: 6AW7XOHAF3SABM3FVQLFILYTKBHA3CFR
+Message-ID-Hash: 6DTCDUWNA4UTG42EQAE4DWJF7XUPUTMB
+X-Message-ID-Hash: 6DTCDUWNA4UTG42EQAE4DWJF7XUPUTMB
 X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -117,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6AW7XOHAF3SABM3FVQLFILYTKBHA3CFR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6DTCDUWNA4UTG42EQAE4DWJF7XUPUTMB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,117 +125,74 @@ quest to make the remove callback return void. In the first step of this
 quest all drivers are converted to .remove_new() which already returns
 void.
 
-simple_util_remove() returned zero unconditionally. Make it return void
+meson_card_remove() returned zero unconditionally. Make it return void
 instead and convert all users to struct platform_device::remove_new().
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
- include/sound/simple_card_utils.h                   | 2 +-
- sound/soc/generic/audio-graph-card.c                | 2 +-
- sound/soc/generic/audio-graph-card2-custom-sample.c | 2 +-
- sound/soc/generic/audio-graph-card2.c               | 2 +-
- sound/soc/generic/simple-card-utils.c               | 4 +---
- sound/soc/generic/simple-card.c                     | 2 +-
- sound/soc/tegra/tegra_audio_graph_card.c            | 2 +-
- 7 files changed, 7 insertions(+), 9 deletions(-)
+ sound/soc/meson/axg-card.c         | 2 +-
+ sound/soc/meson/gx-card.c          | 2 +-
+ sound/soc/meson/meson-card-utils.c | 4 +---
+ sound/soc/meson/meson-card.h       | 2 +-
+ 4 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index 18e7a0b89395..e5da10b4c43b 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -188,7 +188,7 @@ int simple_util_init_aux_jacks(struct simple_util_priv *priv,
- 				char *prefix);
- int simple_util_init_priv(struct simple_util_priv *priv,
- 			       struct link_info *li);
--int simple_util_remove(struct platform_device *pdev);
-+void simple_util_remove(struct platform_device *pdev);
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 18b16274449e..3180aa4d3a15 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -360,7 +360,7 @@ MODULE_DEVICE_TABLE(of, axg_card_of_match);
  
- int graph_util_card_probe(struct snd_soc_card *card);
- int graph_util_is_ports0(struct device_node *port);
-diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index 704f32bda24d..76a9f1e8cdd5 100644
---- a/sound/soc/generic/audio-graph-card.c
-+++ b/sound/soc/generic/audio-graph-card.c
-@@ -644,7 +644,7 @@ static struct platform_driver graph_card = {
- 		.of_match_table = graph_of_match,
- 	},
- 	.probe = graph_probe,
--	.remove = simple_util_remove,
-+	.remove_new = simple_util_remove,
- };
- module_platform_driver(graph_card);
+ static struct platform_driver axg_card_pdrv = {
+ 	.probe = meson_card_probe,
+-	.remove = meson_card_remove,
++	.remove_new = meson_card_remove,
+ 	.driver = {
+ 		.name = "axg-sound-card",
+ 		.of_match_table = axg_card_of_match,
+diff --git a/sound/soc/meson/gx-card.c b/sound/soc/meson/gx-card.c
+index 01beac1d927f..f1539e542638 100644
+--- a/sound/soc/meson/gx-card.c
++++ b/sound/soc/meson/gx-card.c
+@@ -130,7 +130,7 @@ MODULE_DEVICE_TABLE(of, gx_card_of_match);
  
-diff --git a/sound/soc/generic/audio-graph-card2-custom-sample.c b/sound/soc/generic/audio-graph-card2-custom-sample.c
-index 4dc65e249ecb..1b6ccd2de964 100644
---- a/sound/soc/generic/audio-graph-card2-custom-sample.c
-+++ b/sound/soc/generic/audio-graph-card2-custom-sample.c
-@@ -176,7 +176,7 @@ static struct platform_driver custom_card = {
- 		.of_match_table = custom_of_match,
- 	},
- 	.probe	= custom_probe,
--	.remove	= simple_util_remove,
-+	.remove_new = simple_util_remove,
- };
- module_platform_driver(custom_card);
- 
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 1344e1adfc67..7146611df730 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -1224,7 +1224,7 @@ static struct platform_driver graph_card = {
- 		.of_match_table = graph_of_match,
- 	},
- 	.probe	= graph_probe,
--	.remove	= simple_util_remove,
-+	.remove_new = simple_util_remove,
- };
- module_platform_driver(graph_card);
- 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 11f186ea662a..cfa70a56ff0f 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -958,13 +958,11 @@ int simple_util_init_priv(struct simple_util_priv *priv,
+ static struct platform_driver gx_card_pdrv = {
+ 	.probe = meson_card_probe,
+-	.remove = meson_card_remove,
++	.remove_new = meson_card_remove,
+ 	.driver = {
+ 		.name = "gx-sound-card",
+ 		.of_match_table = gx_card_of_match,
+diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
+index c81099218597..ed6c7e2f609c 100644
+--- a/sound/soc/meson/meson-card-utils.c
++++ b/sound/soc/meson/meson-card-utils.c
+@@ -327,13 +327,11 @@ int meson_card_probe(struct platform_device *pdev)
  }
- EXPORT_SYMBOL_GPL(simple_util_init_priv);
+ EXPORT_SYMBOL_GPL(meson_card_probe);
  
--int simple_util_remove(struct platform_device *pdev)
-+void simple_util_remove(struct platform_device *pdev)
+-int meson_card_remove(struct platform_device *pdev)
++void meson_card_remove(struct platform_device *pdev)
  {
- 	struct snd_soc_card *card = platform_get_drvdata(pdev);
+ 	struct meson_card *priv = platform_get_drvdata(pdev);
  
- 	simple_util_clean_reference(card);
+ 	meson_card_clean_references(priv);
 -
 -	return 0;
  }
- EXPORT_SYMBOL_GPL(simple_util_remove);
+ EXPORT_SYMBOL_GPL(meson_card_remove);
  
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 048357ae7ae6..9c79ff6a568f 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -827,7 +827,7 @@ static struct platform_driver simple_card = {
- 		.of_match_table = simple_of_match,
- 	},
- 	.probe = simple_probe,
--	.remove = simple_util_remove,
-+	.remove_new = simple_util_remove,
- };
+diff --git a/sound/soc/meson/meson-card.h b/sound/soc/meson/meson-card.h
+index a5374324a189..a0d693e4f460 100644
+--- a/sound/soc/meson/meson-card.h
++++ b/sound/soc/meson/meson-card.h
+@@ -49,6 +49,6 @@ int meson_card_set_fe_link(struct snd_soc_card *card,
+ 			   bool is_playback);
  
- module_platform_driver(simple_card);
-diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
-index 8b48813c2c59..feba9d42bbc5 100644
---- a/sound/soc/tegra/tegra_audio_graph_card.c
-+++ b/sound/soc/tegra/tegra_audio_graph_card.c
-@@ -248,7 +248,7 @@ static struct platform_driver tegra_audio_graph_card = {
- 		.of_match_table = graph_of_tegra_match,
- 	},
- 	.probe = tegra_audio_graph_probe,
--	.remove = simple_util_remove,
-+	.remove_new = simple_util_remove,
- };
- module_platform_driver(tegra_audio_graph_card);
+ int meson_card_probe(struct platform_device *pdev);
+-int meson_card_remove(struct platform_device *pdev);
++void meson_card_remove(struct platform_device *pdev);
  
+ #endif /* _MESON_SND_CARD_H */
 -- 
 2.42.0
 

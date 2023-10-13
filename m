@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A457C8A9E
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Oct 2023 18:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED7E7C8C13
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Oct 2023 19:11:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8612A84A;
-	Fri, 13 Oct 2023 18:15:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8612A84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D346852;
+	Fri, 13 Oct 2023 19:10:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D346852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697213809;
-	bh=eZ+fvPLkMyb+DJfFUnuMWJsRKI1Y554XSjCKOcKo0bw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697217065;
+	bh=skmjxOUJLbI5ygBC/KBxQoBx8cL7mS97WiCTqeCHlYw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y5VduTyZtYQbuUxYlACftilO0yopgL35saem9iLa/Rt+MPGqzhmi4g+KjbSfGSGbc
-	 KtxD9BY5K7+3Oa+o8QwPJdOp/IR0A1Y40y46wKrdnIdUIYKFl/aKy6Q+OyUZ4h9c1v
-	 IvKvUVRok8kAI1m4eIqkB9Bc1l7XdONAqXMltmnE=
+	b=JrljSS8tzfTq9Fx0x30or1+Kc4TFmlTSIgBTcrEvdzSxmbB+7qcdEICAXvFgz1xPm
+	 os8nPGWBzz3SjYBYBjiMur7gml/vuEZuYIKem8IRn+X7xR/VckRKgbEVVZ7HXiMduf
+	 /EwilbgYkuhtCc0KhvCGsjA5FcHEI5NN+dt1j4Eg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFACAF8015B; Fri, 13 Oct 2023 18:15:29 +0200 (CEST)
+	id 437C5F80536; Fri, 13 Oct 2023 19:09:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98186F8027B;
-	Fri, 13 Oct 2023 18:15:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E697CF8055A;
+	Fri, 13 Oct 2023 19:09:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75D03F802BE; Fri, 13 Oct 2023 18:13:45 +0200 (CEST)
+	id 62193F8019B; Fri, 13 Oct 2023 19:09:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F04BFF8015B
-	for <alsa-devel@alsa-project.org>; Fri, 13 Oct 2023 18:13:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F04BFF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9B6FF8027B
+	for <alsa-devel@alsa-project.org>; Fri, 13 Oct 2023 19:07:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9B6FF8027B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KHTGGbsS
+ header.s=k20201202 header.b=f6itFyHD
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id C3442B82BA2;
-	Fri, 13 Oct 2023 16:12:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B01C433C8;
-	Fri, 13 Oct 2023 16:12:37 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id B917B61017;
+	Fri, 13 Oct 2023 17:07:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61657C433C7;
+	Fri, 13 Oct 2023 17:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697213560;
-	bh=eZ+fvPLkMyb+DJfFUnuMWJsRKI1Y554XSjCKOcKo0bw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KHTGGbsSkL6J3HabN3JEbUMbtfWYVI+0YkRkcWfsynfc1mr/Un8+/xkFMUYNPT2VZ
-	 sYFk2sMnK8RJNENBt5m9VlwBeQvJgYNHbpJ6opUh6572YB8Z5hyYWRZE5GER1Pu+fL
-	 7yaefd6AV1raTSy+XU3HLJQbdw5X7h8RmmDl1ETDRzVK4FACVvT87ij/F/+dDTvtba
-	 3ahRbpEvVnobrvdLe4ce5uyRvNSYNLN9gsxRpcIyhiEihXj1MeAQGAOf4j4kd/foAT
-	 yiAcmMp4Iap6+dIybibxd3Bqmy1UXYBMtyGbDYFsrhpu8f2JaF8uGOw41rPS1M7EFK
-	 kQB5fooRvJwDA==
-Date: Fri, 13 Oct 2023 17:12:35 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] dt-bindings: audio-graph-port: add ch-maps
- property
-Message-ID: <20231013-planner-irate-8e411cc54a48@spud>
-References: <877cnsy6bl.wl-kuninori.morimoto.gx@renesas.com>
- <871qe0y6aq.wl-kuninori.morimoto.gx@renesas.com>
- <20231012-storage-directory-548905001d10@spud>
- <87wmvr8ioy.wl-kuninori.morimoto.gx@renesas.com>
- <ZSllNtm4ZnUnkiV2@finisterre.sirena.org.uk>
+	s=k20201202; t=1697216871;
+	bh=skmjxOUJLbI5ygBC/KBxQoBx8cL7mS97WiCTqeCHlYw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=f6itFyHDrYdvbyZDsMDWGzFqb8O7C8l63+AVPb89k+uKG7H6Rvft++laXaoArqLyJ
+	 2+yq94fOPSwOcYFthT/z0U/qbCE6s5tOF7gHjzjFExqPTsaId1RsXf4lP5VQtUbxlW
+	 ExM2c1nJpmnh/3vOy7xDjDZZ3uQl9WdjlM3158a5p7G+FYQOKwI/QW8pMuBmqJdEZY
+	 0JxPZYEPAWkXzdmtaJkINQaASZCkyZ2edMrUp8iZeRMDrtUY6gtBYvlqfUnYzB9217
+	 8RXgih72ubhgM3RDJsApIUZwrPbuUaLzNEFifpBktdMPG34uc4G7kzzWHayp1AGg3s
+	 nS+G1QYVCljDg==
+From: Mark Brown <broonie@kernel.org>
+To: Roy Chateau <roy.chateau@mep-info.com>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20231013110239.473123-1-roy.chateau@mep-info.com>
+References: <20231013110239.473123-1-roy.chateau@mep-info.com>
+Subject: Re: [PATCH] ASoC: codecs: tas2780: Fix log of failed reset via
+ I2C.
+Message-Id: <169721687019.2968842.13695931645768185437.b4-ty@kernel.org>
+Date: Fri, 13 Oct 2023 18:07:50 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="YKanpJSQoSs+i+/r"
-Content-Disposition: inline
-In-Reply-To: <ZSllNtm4ZnUnkiV2@finisterre.sirena.org.uk>
-Message-ID-Hash: PAOTC3L7IQL65MN5VTGRKFJHAZR5SYXF
-X-Message-ID-Hash: PAOTC3L7IQL65MN5VTGRKFJHAZR5SYXF
-X-MailFrom: conor@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: 2E4CPLRHLMUPA5CISGONJA2SAKNSHOQQ
+X-Message-ID-Hash: 2E4CPLRHLMUPA5CISGONJA2SAKNSHOQQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PAOTC3L7IQL65MN5VTGRKFJHAZR5SYXF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2E4CPLRHLMUPA5CISGONJA2SAKNSHOQQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,63 +98,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 13 Oct 2023 13:02:39 +0200, Roy Chateau wrote:
+> Correctly log failures of reset via I2C.
+> 
+> 
 
---YKanpJSQoSs+i+/r
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Fri, Oct 13, 2023 at 04:41:42PM +0100, Mark Brown wrote:
-> On Fri, Oct 13, 2023 at 12:33:34AM +0000, Kuninori Morimoto wrote:
->=20
-> > > > +      ch-maps:
-> > > > +        $ref: /schemas/types.yaml#/definitions/uint32-array
->=20
-> > > I only got this one patch, so I have no context at all for this chang=
-e.
-> > > Given that, and since I know almost nothing about sound stuff...
-> > (snip)
-> > > ...I have absolutely no idea how I would populate "ch_maps" correctly.
-> > > Please describe (in the binding) what this property actually does
-> > > & how to use it. Also, properties use -s not _s.
->=20
-> > Some Sound want to use multiple connections between CPUs (N) and Codecs=
- (M).
-> > Current audio-graph-card2 driver is already supporting 1:N / N:1 / N:N
-> > connections, this patch expand it.
->=20
-> Some of this explanation needs to go into the binding - someone reading
-> the binding should really be able to figure out what numbers to put in
-> there without looking at the code.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Absolutely :)
+Thanks!
 
-> > ch-maps =3D <0 0 1> means,=20
-> > 	cpu0 <-> codec0
-> > 	cpu1 <-> codec0
-> > 	cpu2 <-> codec1
+[1/1] ASoC: codecs: tas2780: Fix log of failed reset via I2C.
+      commit: 4e9a429ae80657bdc502d3f5078e2073656ec5fd
 
-What happens when you want to convey that codec0 & codec1 are both
-connected to cpu0 & codec2 is connected to cpu1?
-How would that be described in a DT?
-Or is that not something anyone would even want to do?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> > Thank you for your help !!
->=20
-> So probably somthing along the lines of saying "there should be one
-> element in the array for each CPU DAI, this should be the CODEC number
-> to route to" (that's probably still a bit unclear but roughly that).
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---YKanpJSQoSs+i+/r
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+Mark
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZSlscwAKCRB4tDGHoIJi
-0mMmAP9Nb483b0dBaBUFHXG0WX2fOcV2+9tOiuO5YHM7z5uF2wD/c5bcMJsmpzS0
-yqb+QJFoKLGVpbitjhIhLtUc975zRgk=
-=88E7
------END PGP SIGNATURE-----
-
---YKanpJSQoSs+i+/r--

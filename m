@@ -2,122 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 975B97C93EA
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Oct 2023 11:32:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E2C7C93EB
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Oct 2023 11:32:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6DA4EB1;
-	Sat, 14 Oct 2023 11:31:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6DA4EB1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71564EB6;
+	Sat, 14 Oct 2023 11:31:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71564EB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697275939;
-	bh=wMjWb+MEJleKQyBP78j7HODdSMMr0fW7vzrxoEeP5sQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HFto7eniiLVKMAkVf0UdXYULJedu0QqpogeUt3H3fIshfn/id5MAi0J4T5Pr1koqE
-	 toRsVvoK08jdBlcmsdnTtqU9TwUuOGdKv2PphxGXB9hX9j/tIf40mdKdzoxZ9HMBab
-	 iF2YLHa5U+1KjJh9ooPlfCpXHIPOb/BMA+pY6dH4=
+	s=default; t=1697275950;
+	bh=Qiml3W9UvPfOkKKYCK7USTbhDEvTF/R3THCSPCZgD2E=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=geArhsK9m7uUEemTbG0LllBfG66yPbNp+JSBPCTSQPsQmf4Svkdlf85eiM95HfGHy
+	 bCvtD/wQgbmLpKe/78T8DlnMf6BZBiU2Bp/AdQFMmfhVRJo3RLGRM2ciKUvu4h7/S1
+	 8rDHEe8qES/YdCq8FR1tpRhni06bVLe+RoYcFrf0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2122DF80552; Sat, 14 Oct 2023 11:28:05 +0200 (CEST)
+	id 4A4B2F8061E; Sat, 14 Oct 2023 11:28:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A4EAF80614;
-	Sat, 14 Oct 2023 11:28:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB3EAF80552;
+	Sat, 14 Oct 2023 11:28:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EBFC1F802BE; Fri, 13 Oct 2023 23:12:12 +0200 (CEST)
+	id 681A1F802BE; Sat, 14 Oct 2023 08:35:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64B32F80166
-	for <alsa-devel@alsa-project.org>; Fri, 13 Oct 2023 23:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64B32F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 200B6F80130
+	for <alsa-devel@alsa-project.org>; Sat, 14 Oct 2023 08:35:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 200B6F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=KrtjO5Ia
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-99c3c8adb27so396488766b.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=hB58/zVM
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5045cb9c091so3564934e87.3
         for <alsa-devel@alsa-project.org>;
- Fri, 13 Oct 2023 14:12:02 -0700 (PDT)
+ Fri, 13 Oct 2023 23:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1697231522; x=1697836322;
+        d=gmail.com; s=20230601; t=1697265349; x=1697870149;
  darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=UHVs5ZMbCMnK4OZxIw3w4X3jAnHxQSIJjis2sL1D3HI=;
-        b=KrtjO5IaRFUQ1oWVnHxYbdmfUFkd6+oJfUxislaT0daqwPl09oddKUgSCuHK36m3+6
-         L8igQSChq6minUmT+0OZthBl7QjVXvZVuk9rRF0qCXpOhgE/Vn0GT0Ad6jm4Zpu3yIwD
-         dJyH8EeKKTOj4AJUFDMWrTQQA27zlMGP/+7Mw=
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RJyWt/G9UgfvUHmmjADyY97GEgcUxAnVJZD4ohf6ujU=;
+        b=hB58/zVMeczGq4tplpgvKom8v7E8qnGODkL3Wy8YZloS3VH/U2BAj64aVJDOPq5I53
+         97YAURH6OwD383s6ndlJVy0xGv++pvg77CDeY0DhI0fWOOspZNhxcm4u2D16ytkABnMN
+         hX0U0l1v8jZJgO2m7tNB1GE43Lx4LkUwdFoP9HzLAH1A7xpkAnCKY+R3LuCzcXHiKltU
+         WJZQKb8uS+SUYsUoNFTnA8Nj0wlK9dDD3Z5dW3X604BiVVcCBmscP4wfhs7vaHh7v9p3
+         oitBbYCJrLMo2NN6+rU5Rk1PBtlHBdUqYiTgkKr6HuWiqs5grfptRFO8V4IViPMyFCPr
+         DW4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697231522; x=1697836322;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1697265349; x=1697870149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UHVs5ZMbCMnK4OZxIw3w4X3jAnHxQSIJjis2sL1D3HI=;
-        b=KPyazUXVHM/pYBv1HoM5NVTB33fo84xP7Jh0PjEBeFxZcj4O/Ipc3nMPOiT5xPWPPu
-         M0R63gHkJk+h9Ud8GpJi1cg3/vulfHHZI+lW4GyrAKtP6O5veOIzW33Xfmo5N/z1yphw
-         6/4oS5pPfLVubHkdAwEdWXKcu9afjKemqz6haBG5fjRTOj4rHzNNDylR8wQUFW7JCmPt
-         PRxuYozOmMctWRH3+oU/IIo/9ORy0dTjphE13HP62vKglnyVExLDsOMVyhdXtXev11YV
-         AdO5gLXIcvyR0go2mJOLM176cYLdH1VxqnlZJWleEqT0j0iwoov57o0pIPWiRy+2lUHF
-         In8w==
-X-Gm-Message-State: AOJu0Yyy21CjPraXJd7iFKIhgZj33MMLsBV5Ksz9XJWBdmGVaI1XIUp/
-	tYFc66e+wfErPBfHGFY5jiQhk/lwO2WyaT21AaQt/w==
+        bh=RJyWt/G9UgfvUHmmjADyY97GEgcUxAnVJZD4ohf6ujU=;
+        b=wS2q+JtUNRlqgfR6aFmkaZGyx96uWn7Za7tK6HZYOACsPzKu451njAQlimrNRiNUSX
+         J3yJgjvw7Z/ognmEBNDO1eC9As/wtEJ+6OsZ+w6/IoZUgvWh4g9BNeqenbt2gqGXs1LD
+         NGViE9gHb2iCq6fsjoJW1Nmvtw9nZ0Vozb5cHRS+Enbedp0+mwzL/wfxIXP0C/sxpjoP
+         SJh8SpWH0OC/ffsQeDxQY7CNFMsBPBEXwVMlTv9QwdF/wnhMYurg3RFRzR53sgFPWBxQ
+         39FTfsnC2Qe3WYOVbRHd4R6ZKyci5YZv9nFu7mwvzkj/7weBG8muAleXdjL+jWUKsNI3
+         CANQ==
+X-Gm-Message-State: AOJu0YzPeFJX6qfn8STgNgYhtTVSiMbKs/txsCtLERMJS/D8Q8trTAga
+	OmFPRVvfhXflqq7F7WnYdOU=
 X-Google-Smtp-Source: 
- AGHT+IEuNA+Q2Yxxws7amOJuXWe3ey6jbnUkGbWIJda+AVzB6s8jOrXT89FhBxT8kIo26PoR154bP2xzv0Ano/B3pdA=
-X-Received: by 2002:a17:907:60cb:b0:9be:7b67:1673 with SMTP id
- hv11-20020a17090760cb00b009be7b671673mr337821ejc.1.1697231521525; Fri, 13 Oct
- 2023 14:12:01 -0700 (PDT)
+ AGHT+IEy1YVM+k76/k7sHjrEvJ2I9VtPmniChxu10UiPmEh5XOEZX1I4i/sNqFMuzVTFUlqoFOy4rQ==
+X-Received: by 2002:ac2:4199:0:b0:506:8d2a:e31f with SMTP id
+ z25-20020ac24199000000b005068d2ae31fmr14219474lfh.46.1697265348575;
+        Fri, 13 Oct 2023 23:35:48 -0700 (PDT)
+Received: from flex1911-laptop.. ([85.172.95.194])
+        by smtp.googlemail.com with ESMTPSA id
+ x9-20020a056512078900b00507a0098424sm302560lfr.109.2023.10.13.23.35.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Oct 2023 23:35:48 -0700 (PDT)
+From: Artem Borisov <dedsa2002@gmail.com>
+To: 
+Cc: perex@perex.cz,
+	Artem Borisov <dedsa2002@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for ASUS ROG GU603ZV
+Date: Sat, 14 Oct 2023 09:34:46 +0300
+Message-ID: <20231014063458.13474-1-dedsa2002@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20231013200851.347042-1-robh@kernel.org>
-In-Reply-To: <20231013200851.347042-1-robh@kernel.org>
-From: Simon Glass <sjg@chromium.org>
-Date: Fri, 13 Oct 2023 14:11:50 -0700
-Message-ID: 
- <CAPnjgZ0Uh7RTvYfLjEL7g1NjC1pO8-xJuj9RBSVVnwviAwzF0Q@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Drop kernel copy of common reserved-memory
- bindings
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
-	Julien Massot <julien.massot@iot.bzh>, Trevor Wu <trevor.wu@mediatek.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-MailFrom: sjg@google.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: dedsa2002@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: N5YXC3EVE7OZ4PGB3LULM63QUGRNYOE2
-X-Message-ID-Hash: N5YXC3EVE7OZ4PGB3LULM63QUGRNYOE2
-X-Mailman-Approved-At: Sat, 14 Oct 2023 09:27:01 +0000
+Message-ID-Hash: MXWLRITYZKZPNRR4BBVOZIZ3PXNENEZU
+X-Message-ID-Hash: MXWLRITYZKZPNRR4BBVOZIZ3PXNENEZU
+X-Mailman-Approved-At: Sat, 14 Oct 2023 09:27:52 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N5YXC3EVE7OZ4PGB3LULM63QUGRNYOE2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MXWLRITYZKZPNRR4BBVOZIZ3PXNENEZU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,32 +120,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 13 Oct 2023 at 13:45, Rob Herring <robh@kernel.org> wrote:
->
-> The common reserved-memory bindings have recently been copied from the
-> kernel tree into dtschema. The preference is to host common, stable
-> bindings in dtschema. As reserved-memory is documented in the DT Spec,
-> it meets the criteria.
->
-> The v2023.09 version of dtschema is what contains the reserved-memory
-> schemas we depend on, so bump the minimum version to that. Otherwise,
-> references to these schemas will generate errors.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  Documentation/devicetree/bindings/Makefile    |   2 +-
->  .../remoteproc/renesas,rcar-rproc.yaml        |   2 +-
->  .../bindings/reserved-memory/framebuffer.yaml |  52 -----
->  .../reserved-memory/memory-region.yaml        |  40 ----
->  .../reserved-memory/reserved-memory.txt       |   2 +-
->  .../reserved-memory/reserved-memory.yaml      | 181 ------------------
->  .../reserved-memory/shared-dma-pool.yaml      |  97 ----------
->  .../bindings/sound/mediatek,mt8188-afe.yaml   |   2 +-
->  8 files changed, 4 insertions(+), 374 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/reserved-memory/framebuffer.yaml
->  delete mode 100644 Documentation/devicetree/bindings/reserved-memory/memory-region.yaml
->  delete mode 100644 Documentation/devicetree/bindings/reserved-memory/reserved-memory.yaml
->  delete mode 100644 Documentation/devicetree/bindings/reserved-memory/shared-dma-pool.yaml
->
+Enables the SPI-connected Cirrus amp and the required pins
+for headset mic detection.
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
+As of BIOS version 313 it is still necessary to modify the
+ACPI table to add the related _DSD properties:
+  https://gist.github.com/Flex1911/1bce378645fc95a5743671bd5deabfc8
+
+Signed-off-by: Artem Borisov <dedsa2002@gmail.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3eeecf67c..29c267ea3 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9787,6 +9787,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1463, "Asus GA402X", ALC285_FIXUP_ASUS_I2C_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1473, "ASUS GU604V", ALC285_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1483, "ASUS GU603V", ALC285_FIXUP_ASUS_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1043, 0x1663, "ASUS GU603ZV", ALC285_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1493, "ASUS GV601V", ALC285_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+ 	SND_PCI_QUIRK(0x1043, 0x1573, "ASUS GZ301V", ALC285_FIXUP_ASUS_HEADSET_MIC),
+-- 
+2.41.0
+

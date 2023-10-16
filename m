@@ -2,100 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB3A7CA93C
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Oct 2023 15:18:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C98E07CA95C
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Oct 2023 15:29:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC716868;
-	Mon, 16 Oct 2023 15:17:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC716868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FD1884A;
+	Mon, 16 Oct 2023 15:28:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FD1884A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697462322;
-	bh=TSb9GxD5oEeI6PePIO1j8fweqhj9PYyACbhpg9yRRMU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697462955;
+	bh=SeVdWfcncmZfLe1JlsiEzV6fQmdpre6533LL01Hmd+g=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P9PygExLwxBHejYk47/FodBr4zUMAhyYZVMFB/ZyB86nW49mZ4LqgO5MxGK6ZlWFw
-	 3AikhwNVRuyskV9J3qnXMbEt0P7WDQWkTMG+cvF8KlxK/l0SzH4604uplJciHT15wT
-	 Xw07+pcSszQ5Y5Y93XSB5sW1FqIemioyr2mDpB/M=
+	b=ZBYaolY1reMrjAKZwFdSripDIwSGdaV88Qw24BFm+hJg7CrFaE6OffkTG3tZbGhWS
+	 2hkDtuIihvOE2KTiU2ZA48FNPKKtVzXuzm5YG9KZmOlhWndv0wcPt8NA5+pulw81g7
+	 aPu7pdqn7T0FM1ALZyNPXP431jSwV1PhdRlMk634=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2145F80557; Mon, 16 Oct 2023 15:17:26 +0200 (CEST)
+	id BB652F80553; Mon, 16 Oct 2023 15:28:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FF95F80557;
-	Mon, 16 Oct 2023 15:17:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 715C5F80236;
+	Mon, 16 Oct 2023 15:28:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DEF3F8055A; Mon, 16 Oct 2023 15:17:23 +0200 (CEST)
+	id 00841F8025F; Mon, 16 Oct 2023 15:28:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5285F80558
-	for <alsa-devel@alsa-project.org>; Mon, 16 Oct 2023 15:17:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5285F80558
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A7fgNdSx
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 18B1FB81603;
-	Mon, 16 Oct 2023 13:17:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90DF8C433C8;
-	Mon, 16 Oct 2023 13:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697462235;
-	bh=TSb9GxD5oEeI6PePIO1j8fweqhj9PYyACbhpg9yRRMU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A7fgNdSxwKQ4ttsJo+HVlMcDisGXhNgNP/FcfBU30+LmCVjzYMc6peeGkKk7Zhchs
-	 4kBpr71VXyksh3CTaRrfZY0B/7L08C6DOZDfMaYpZnix96I9vSm2q2M8nAipp6yJPe
-	 kJGcFWjhC7QAnSuIKc6pkcEm6k0KdPhFouF6xc/8QAXvFfRupyCCPkNkbkHhlGyqgw
-	 C4g7L3xPSsT0Wh3H03UYY+XlMY1KKaVvficA3P/yoFjkIHIoSUCPMxW6KyYYWvctPo
-	 YDvBP9eKVA8zUgm7CzV7fCFUprNdfcoMBQEkoBL+Zryl1+0mYxy/KOHNLsKu3vLxKE
-	 RaQ4ZdCPd7Kfg==
-Date: Mon, 16 Oct 2023 14:17:08 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chancel Liu <chancel.liu@nxp.com>
-Cc: Rob Herring <robh@kernel.org>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"shengjiu.wang@gmail.com" <shengjiu.wang@gmail.com>,
-	"Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
-	"festevam@gmail.com" <festevam@gmail.com>,
-	"nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"shawnguo@kernel.org" <shawnguo@kernel.org>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: Re: [PATCH v3 1/2] ASoC: dt-bindings: sound-card-common: List
- DAPM endpoints ignoring system suspend
-Message-ID: <09061842-ce15-4f24-8098-56ecbb4fb6a2@sirena.org.uk>
-References: <20231011114759.1073757-1-chancel.liu@nxp.com>
- <f639c88d-371a-4c72-a906-47d643b24ca8@sirena.org.uk>
- <20231012204739.GA1706264-robh@kernel.org>
- <DB9PR04MB94987AD33756548323D8D101E3D7A@DB9PR04MB9498.eurprd04.prod.outlook.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0ECAFF80236
+	for <alsa-devel@alsa-project.org>; Mon, 16 Oct 2023 15:28:15 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id CBC2B1A6F;
+	Mon, 16 Oct 2023 15:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz CBC2B1A6F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1697462894; bh=alJbiiYlEBJjIArEQkZcuyzsDsd/9S8qJVha+9bBfR8=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=NWtmMpjx08QRxurYgdFmVIKnHOVKrPHFBl25kimy9tJkiY8P3br/mFV4ORXBaf9EO
+	 lsNoDyvcukCCRMNa0TAE6rZIAiWOwW7TQ5tclnIfUwgkwoav9K+b8MYX0bPWme6lWQ
+	 QtxCztVjSEtV22F9ggCHfnqMRMFbYjUvir3vN/6U=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Mon, 16 Oct 2023 15:28:11 +0200 (CEST)
+Message-ID: <123242ed-c343-dab8-fed1-9f5d2da44d7a@perex.cz>
+Date: Mon, 16 Oct 2023 15:28:11 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CxOpNCJuLtIFp8ru"
-Content-Disposition: inline
-In-Reply-To: 
- <DB9PR04MB94987AD33756548323D8D101E3D7A@DB9PR04MB9498.eurprd04.prod.outlook.com>
-X-Cookie: If you're happy, you're successful.
-Message-ID-Hash: JFCL42KCFEC6EXFCGHTYWLXKEM3LIDES
-X-Message-ID-Hash: JFCL42KCFEC6EXFCGHTYWLXKEM3LIDES
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Cc: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
+References: <ZSqehHhedJQY9h/1@m.b4.vu>
+ <76c1526d-78be-92d2-cf2b-148278394575@perex.cz> <ZS0tajzKr68CZ5uA@m.b4.vu>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH RFC] ALSA: scarlett2: Add ioctls for user-space access
+In-Reply-To: <ZS0tajzKr68CZ5uA@m.b4.vu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PXK6LVZW2ABMSSQRKK7DLEHGHZKHCRHX
+X-Message-ID-Hash: PXK6LVZW2ABMSSQRKK7DLEHGHZKHCRHX
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JFCL42KCFEC6EXFCGHTYWLXKEM3LIDES/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PXK6LVZW2ABMSSQRKK7DLEHGHZKHCRHX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,40 +95,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 16. 10. 23 14:32, Geoffrey D. Bennett wrote:
+> On Mon, Oct 16, 2023 at 09:04:21AM +0200, Jaroslav Kysela wrote:
+>> On 14. 10. 23 15:58, Geoffrey D. Bennett wrote:
+>>> In order to support functions such as firmware upgrade from
+>>> user-space, add ioctls for submitting arbitrary proprietary requests
+>>> through scarlett2_usb() and requesting/releasing exclusive access.
+>>> ---
+>>>
+>>> Hi Takashi,
+>>>
+>>> I recently figured how to update the firmware on Scarlett Gen 2+
+>>> devices. I think the best way to implement this is with an ioctl
+>>> giving access to the scarlett2_usb() function from user-space, plus
+>>> two ioctls to request/release exclusive access.
+>>>
+>>> Does something like this seem reasonable?
+>>
+>> Maybe you can use libusb for this job without an additional kernel
+>> interface. It allows to detach the USB kernel driver and attach it again
+>> when the job is complete.
+> 
+> Hi Jaroslav,
+> 
+> I considered using libusb (I used it during initial development of the
+> driver), and if the only purpose of the ioctl would be for firmware
+> updates then it would be reasonable to detach the kernel driver for
+> that. However...
+> 
+> Beyond just being able to do firmware operations, that ioctl would
+> also allow access to all of the configuration space using cmd =
+> SCARLETT2_USB_GET_DATA and SCARLETT2_USB_SET_DATA. I think this would
+> be the cleanest way to allow implementing non-mixer related
+> functionality in user-space, such as reading the current firmware
+> version, reading/updating the device name and channel names, and
+> updating the software configuration space for Focusrite Control
+> compatibility to name a few. These sorts of applications need to be
+> able to make these proprietary requests through the scarlett2 driver
+> to avoid disrupting it (or disrupting audio).
 
---CxOpNCJuLtIFp8ru
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for this bigger picture. But except the firmware upgrade, all those 
+functions seem to be implementable in a more abstract way using standard 
+control API. Note that we can assign the controls also to card (e.g. 
+SNDRV_CTL_ELEM_IFACE_CARD) to classify them as non-mixer.
 
-On Mon, Oct 16, 2023 at 12:08:56PM +0000, Chancel Liu wrote:
+					Jaroslav
 
-> Thanks Mark and Rob for your advice. In fact, it's common use case. We can see
-> many drivers set widgets ignoring suspend. I will remove the linux specifics
-> and focus on the key concept. How about the modification on the property name
-> and description as following:
->   ignore-suspend-widgets:
->     description: |
->       A list of audio sound widgets which are marked ignoring system suspend.
-> 	  Paths between these endpoints are still active over suspend of the main
-> 	  application processor that the current operating system is running.
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
-That's probably fine from my point of view.  There's likely a better way
-of saying system suspend but I'm not immediately seeing it and it could
-always be improved later.
-
---CxOpNCJuLtIFp8ru
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUtN9MACgkQJNaLcl1U
-h9AMyAf/RUOysUsrGEWQC4UlZkLrJEHxMIM6hDxLpZweAie5qQ6rOFMl5ft3BFZC
-M9J42RBQwCyAqpmArKhQR1Dr5TMgf0VdaoOmFWLc0xQpMc25W88cIEafU8y+mUua
-e6K/k0aIyYZdjwkP4Es88cLi8iA9nl66TBMbNNhVCPFu4ANu/cxaDwEYfisTIfAR
-JYHPBdK8nZkSRUGu15z5IswGwSChMEvpWGPfbaz030xacAabehc3JcPSUv+2ogKN
-xiEDDICnrN7oi4QKyUgw+Hsd1AnWhJmU3mJ6cNrh8DStFdq1XfWFD0jzbeQLCRC2
-vM+z/sNri+7PeKmxVzfVXTZTJUZkrQ==
-=HWHj
------END PGP SIGNATURE-----
-
---CxOpNCJuLtIFp8ru--

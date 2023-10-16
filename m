@@ -2,88 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9566B7CA754
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Oct 2023 13:59:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B327CA79C
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Oct 2023 14:03:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7109782B;
-	Mon, 16 Oct 2023 13:58:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7109782B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B410852;
+	Mon, 16 Oct 2023 14:03:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B410852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697457580;
-	bh=EESOofAGoz0NJ85srEifh5w8COAeKPVtpl6yq3ANTCE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697457833;
+	bh=Yicfrv9iC3iszbtfjFAJWRt4PkNe8jCDlj9Xnos7Z5o=;
+	h=Date:From:Subject:To:CC:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EEAM8rlrNOqxyBzEnft1c5gHCUITkASwk4Ee8kFYx7YwnjinCsObPHztrYxmjfg7J
-	 RvuVJ7r1UfX85bqdVMgQQxLnDNKdBo6sMaTOIyNTxV+osAseJbaFBL2zdDbCpS0EsY
-	 jKH7u1pJVs4a1H0ZF5rwzMXDNMTaYNhHP9/q5DBk=
+	b=HL0wZPiaSCTX3drDRgn9WY7ppESNY4SJikBMcm2yTaPVuxSh0g/5aKm4Mh0Oz2VBy
+	 +1J2THOWqStcCy5Tc9WoS9wSv8S7VkVhK4tfSLHPYG5Cj3QI9mIQiH6ADnc0+XMTTA
+	 f/LAkkSt39332b0akMzKn3SmeDrVIIIyikEvsmww=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADEDBF80536; Mon, 16 Oct 2023 13:58:49 +0200 (CEST)
+	id ABD21F8024E; Mon, 16 Oct 2023 14:03:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E011F8024E;
-	Mon, 16 Oct 2023 13:58:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EC6DF8024E;
+	Mon, 16 Oct 2023 14:03:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48E9AF8025F; Mon, 16 Oct 2023 13:58:44 +0200 (CEST)
+	id 76676F8025F; Mon, 16 Oct 2023 14:02:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 109AAF800C9
-	for <alsa-devel@alsa-project.org>; Mon, 16 Oct 2023 13:58:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 109AAF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62A9DF8019B
+	for <alsa-devel@alsa-project.org>; Mon, 16 Oct 2023 14:02:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62A9DF8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Y31U7l5i
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8527560F0D;
-	Mon, 16 Oct 2023 11:58:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C462C433C7;
-	Mon, 16 Oct 2023 11:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697457509;
-	bh=EESOofAGoz0NJ85srEifh5w8COAeKPVtpl6yq3ANTCE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y31U7l5iU6fQUg3L0jXo9GwzTkJDEY+e2mdZcP5NqGiN1lrL/pVj6A2L/uNPuv0UO
-	 zbTU40Kt3ftbIJLn7L2xbKjOcnMj0k0p+nkZQhwnMSIWv7V2V2NK/zcO8gJt4j3daD
-	 wbpxUiMFsnD/AcQD4gszG99sEeXVRlzgE609wIHz3vo16LwRx55KJhS4gS4oJ+Mi4k
-	 2el9EK0gyKARui7sUQXrl60X10sfAxFR83haLmSbZOeksFMbDQVtd3Cx/q/mVmTQV7
-	 7G0u95GkvqOYaeC6oUCZCy+81zFMPF7n6i5rX82N5FRLr1TiOaPjW04mqEB3XevyIE
-	 JInxUqv450MXg==
-Date: Mon, 16 Oct 2023 12:58:21 +0100
-From: Mark Brown <broonie@kernel.org>
-To: wangweidong.a@awinic.com
-Cc: 13916275206@139.com, alsa-devel@alsa-project.org, arnd@arndb.de,
-	ckeepax@opensource.cirrus.com, colin.i.king@gmail.com,
-	conor+dt@kernel.org, dan.carpenter@linaro.org,
-	devicetree@vger.kernel.org, fido_max@inbox.ru,
-	herve.codina@bootlin.com, krzysztof.kozlowski+dt@linaro.org,
-	lgirdwood@gmail.com, linus.walleij@linaro.org,
-	linux-kernel@vger.kernel.org, liweilei@awinic.com, perex@perex.cz,
-	rf@opensource.cirrus.com, robh+dt@kernel.org, ryans.lee@analog.com,
-	sebastian.reichel@collabora.com, shumingf@realtek.com,
-	tiwai@suse.com, trix@redhat.com, yijiangtao@awinic.com
-Subject: Re: [PATCH V1 3/3] ASoC: codecs: Add aw88399 amplifier driver
-Message-ID: <38cab9a5-4fdf-4b50-b4e0-6a63beacab11@sirena.org.uk>
-References: <ZSlP8GvTAOe35peC@finisterre.sirena.org.uk>
- <20231016081017.46963-1-wangweidong.a@awinic.com>
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=1J98O2Dj
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 39G7h1Um007323;
+	Mon, 16 Oct 2023 14:02:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+	message-id:date:mime-version:from:subject:to:cc:references
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	selector1; bh=GEtT1vGNrN2L3qXSsS6BjSB5ruMmKsplVyDRLRyeo9Y=; b=1J
+	98O2DjQg2zsjt4f510btLN/TCgkmPUp32hr+x1F3zVIG6OoZLfC3Cbyjc01lX9nZ
+	VSS73Gn48GLdu2Pj2PdtzQCh6rQpYFXh63DE6xW8H+rsFN1zzvxxEYZ+i7yOrOVy
+	1ybut4hcc4ZKwAQt8fVMxknPbllcUus7znWDRJmPQvi1rHJqIrPWzqu6PICGgi4T
+	lPhNG+AgOBhZOVBNR4OCi7G99qM+FbpiuaYRVCuRKuOTObDyKtkIfcpdvYv/o3Zu
+	vwBRb1d9cJyQS7368vGtITam91qeWebiryaExexOXLeN9hsY/CpxbuHNjAGKdma9
+	ZC1Ob39vbFcYhfvYRXtg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tr4hyn1db-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 16 Oct 2023 14:02:47 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3AB9A10005B;
+	Mon, 16 Oct 2023 14:02:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A384A22F7D3;
+	Mon, 16 Oct 2023 14:02:45 +0200 (CEST)
+Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 16 Oct
+ 2023 14:02:43 +0200
+Message-ID: <b16ed06f-66fd-457b-9610-a67ad07deb60@foss.st.com>
+Date: Mon, 16 Oct 2023 14:02:39 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="I2KqOEZVLNH8WqF7"
-Content-Disposition: inline
-In-Reply-To: <20231016081017.46963-1-wangweidong.a@awinic.com>
-X-Cookie: If you're happy, you're successful.
-Message-ID-Hash: YW747T5BTUVRNZ6VRWPZCVWY2MD7DNBS
-X-Message-ID-Hash: YW747T5BTUVRNZ6VRWPZCVWY2MD7DNBS
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+Subject: Re: [PATCH v6 10/11] ARM: dts: stm32: add ETZPC as a system bus for
+ STM32MP15x boards
+To: Rob Herring <robh@kernel.org>
+CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
+ <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
+        <peng.fan@oss.nxp.com>, <linux-crypto@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-p.hy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20231010125719.784627-1-gatien.chevallier@foss.st.com>
+ <20231010125719.784627-11-gatien.chevallier@foss.st.com>
+ <20231010184212.GA1221641-robh@kernel.org>
+ <8f1b6915-68be-a525-c5d5-37f0983c14de@foss.st.com>
+ <20231012153012.GA698406-robh@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20231012153012.GA698406-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.201.20.32]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-16_05,2023-10-12_01,2023-05-22_02
+Message-ID-Hash: 7OLJ6HDR43L5BKUSOD4FV4EJOLWCMLB4
+X-Message-ID-Hash: 7OLJ6HDR43L5BKUSOD4FV4EJOLWCMLB4
+X-MailFrom: prvs=8653c1564a=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YW747T5BTUVRNZ6VRWPZCVWY2MD7DNBS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OLJ6HDR43L5BKUSOD4FV4EJOLWCMLB4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,47 +139,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Rob,
 
---I2KqOEZVLNH8WqF7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 10/12/23 17:30, Rob Herring wrote:
+> On Wed, Oct 11, 2023 at 10:49:58AM +0200, Gatien CHEVALLIER wrote:
+>> Hi Rob,
+>>
+>> On 10/10/23 20:42, Rob Herring wrote:
+>>> On Tue, Oct 10, 2023 at 02:57:18PM +0200, Gatien Chevallier wrote:
+>>>> ETZPC is a firewall controller. Put all peripherals filtered by the
+>>>> ETZPC as ETZPC subnodes and reference ETZPC as an
+>>>> access-control-provider.
+>>>>
+>>>> For more information on which peripheral is securable or supports MCU
+>>>> isolation, please read the STM32MP15 reference manual.
+>>>>
+>>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>>> ---
+>>>>
+>>>> Changes in V6:
+>>>>       	- Renamed access-controller to access-controllers
+>>>>       	- Removal of access-control-provider property
+>>>>
+>>>> Changes in V5:
+>>>>       	- Renamed feature-domain* to access-control*
+>>>>
+>>>>    arch/arm/boot/dts/st/stm32mp151.dtsi  | 2756 +++++++++++++------------
+>>>>    arch/arm/boot/dts/st/stm32mp153.dtsi  |   52 +-
+>>>>    arch/arm/boot/dts/st/stm32mp15xc.dtsi |   19 +-
+>>>>    3 files changed, 1450 insertions(+), 1377 deletions(-)
+>>>
+>>> This is not reviewable. Change the indentation and any non-functional
+>>> change in one patch and then actual changes in another.
+>>
+>> Ok, I'll make it easier to read.
+>>
+>>>
+>>> This is also an ABI break. Though I'm not sure it's avoidable. All the
+>>> devices below the ETZPC node won't probe on existing kernel. A
+>>> simple-bus fallback for ETZPC node should solve that.
+>>>
+>>
+>> I had one issue when trying with a simple-bus fallback that was the
+>> drivers were probing even though the access rights aren't correct.
+>> Hence the removal of the simple-bus compatible in the STM32MP25 patch.
+> 
+> But it worked before, right? So the difference is you have either added
+> new devices which need setup or your firmware changed how devices are
+> setup (or not setup). Certainly can't fix the latter case. You just need
+> to be explicit about what you are doing to users.
+> 
 
-On Mon, Oct 16, 2023 at 04:10:17PM +0800, wangweidong.a@awinic.com wrote:
-> On Fri, Oct 13, 2023 at 03:10:56 PM +0100, broonie@kernel.org wrote:
+I should've specified it was during a test where I deliberately set
+incorrect rights on a peripheral and enabled its node to see if the
+firewall would allow the creation of the device.
 
-> >> +static int aw_dev_dsp_update_container(struct aw_device *aw_dev,
-> >> +			unsigned char *data, unsigned int len, unsigned short base)
-> >> +{
-> >> +	int i, ret;
-> >> +
-> >> +#ifdef AW88399_DSP_I2C_WRITES
-> >> +	u32 tmp_len;
+> 
+>> Even though a node is tagged with the OF_POPULATED flag when checking
+>> the access rights with the firewall controller, it seems that when
+>> simple-bus is probing, there's no check of this flag.
+> 
+> It shouldn't. Those flags are for creating the devices (or not) and
+> removing only devices of_platform_populate() created.
+> 
 
-> > This looks like debug code which can hopefully be removed in favour of
-> > the regmap implementation?
+About the "simple-bus" being a fallback, I think I understood why I saw
+that the devices were created.
 
-> Thank you very much, but this is not a debugging statement, This is designed
-> to be compatible with different platforms that may not support continuous
-> writing.
+All devices under a node whose compatible is "simple-bus" are created
+in of_platform_device_create_pdata(), called by
+of_platform_default_populate_init() at arch_initcall level. This
+before the firewall-controller has a chance to populate it's bus.
 
-If this is needed for platform comaptibility then it needs to be
-something selected at runtime, ideally regmap would be able to hide
-whatever's going on but perhaps the register address loading complicates
-things there.
+Therefore, when I flag nodes when populating the firewall-bus, the
+devices are already created. The "simple-bus" mechanism is not a
+fallback here as it precedes the driver probe.
 
---I2KqOEZVLNH8WqF7
-Content-Type: application/pgp-signature; name="signature.asc"
+Is there a safe way to safely remove/disable a device created this way?
+Devices that are under the firewall controller (simple-bus) node
+should not be probed before it as they're child of it.
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+Gatien
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUtJVwACgkQJNaLcl1U
-h9DeUAf9GxJLIrDPtoBWNfziL7xDN8MMHR4vboUOGd/9/eMsg6et0MCSu+5QzwaZ
-oTvhMCnN1w5fQjm182eLWMKbnZ/NeuwVfsgyqaGEuP8JW/2+Tct7ag8LEZadlpcz
-fnPjeDA5YMMTeVeNplkojJmFfaJjLuggt7o6xwKp36/ZV6AJlhj29y+LK+snV8eL
-77jQR75a+ZU2OYdy8GAUaN8HS4cv8ln6U0YcGxlNjrF+VLOqfy7d2abbdBYPRkis
-arUpxgW+qXYLpR53CyZGQnbWGXMpWyEZBiIGWNXuxq+IFstrOTyIUp/K4FWJ5t2A
-YBUyyUaSuiFQNQGYb2V3IaV2khuftg==
-=tkTS
------END PGP SIGNATURE-----
-
---I2KqOEZVLNH8WqF7--
+>> of_platform_populate() checks and sets the OF_POPULATED_BUS flag.
+>> Maybe that is my error and the firewall bus populate should set
+>> OF_POPULATED_BUS instead of OF_POPULATED. Is that correct?
+> 
+> Shrug. Off hand, I'd say probably not, but am not certain.
+> 
+> Rob

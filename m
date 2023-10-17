@@ -2,108 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B51B7CC41B
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Oct 2023 15:13:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE767CC4C3
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Oct 2023 15:29:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48FD884B;
-	Tue, 17 Oct 2023 15:12:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48FD884B
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB393200;
+	Tue, 17 Oct 2023 15:28:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB393200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697548388;
-	bh=xspecGBIPEYJRX/pUzyo7ZfPbs4yWOwsr3QfOC5VLMo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1697549389;
+	bh=gVBfrkH+WQvimBimH4R7r+86yGiCyHVXGO5mZ1GE73Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=M9iol5iwaZCFop767vHcRSE+d/K3Wh/6nyTfiRuybDOWSqHK3o9/mt4CYMQN8B8in
-	 GRYce4E+sH95e/pNorr44Ty05skETA+RKOH8x/ZkwBjyCT8/wpufsK1PqubRbsSh88
-	 lClEUYxOMB65vzuzh7Sz/Q+Hpf/0hACws9ZmL5co=
+	b=CzfqGbVgHdhq4/wrg4Iz5pAywGGyCFrDSAZXIrMvkb1rC2a3EGUYzMJX7EAtjPagH
+	 C/tFQyj2pgBJBc6ZX1hcSodCEt2XmrCYNh+RAg6VXok2iYEOfRLBIh4+p7STaUEC7m
+	 LaWsq/LYSJlepNo8R7IBFPZ98WMihc3iARcHcRto=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D5F4F8025F; Tue, 17 Oct 2023 15:11:58 +0200 (CEST)
+	id 06A0CF8024E; Tue, 17 Oct 2023 15:28:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8385F8025F;
-	Tue, 17 Oct 2023 15:11:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CD4CF8024E;
+	Tue, 17 Oct 2023 15:28:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E5CFF8027B; Tue, 17 Oct 2023 15:11:55 +0200 (CEST)
+	id 67178F8025F; Tue, 17 Oct 2023 15:28:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DFFD1F8024E
-	for <alsa-devel@alsa-project.org>; Tue, 17 Oct 2023 15:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFFD1F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A0EEF80166
+	for <alsa-devel@alsa-project.org>; Tue, 17 Oct 2023 15:28:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A0EEF80166
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=JGL7UdwB
-Received: by mail-pj1-x1030.google.com with SMTP id
- 98e67ed59e1d1-27db9fdec0dso653661a91.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=LQsVsuz8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1697549315;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PhVqTbabL6sq7HN9XgiUy3YMvpy6i23xCHUppYbkIyo=;
+	b=LQsVsuz82lI/7p5wmJFg1C/RmL8eGS4oGz0UUtasF3eSqJJ3nen5cj6X9lA9CMw4lnAGVk
+	VAkJIaupIJdSEwkFKaDi8FoZlmEAPX+ta0pC9H9xRAnbZVQtERbXGXlQpU5RHgvfe1GZJa
+	zGqPEhmSblw3Ku43nVnaCW54xX8t1vM=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-35-jtH9342nNJa_5q9S3E8g6A-1; Tue, 17 Oct 2023 09:28:33 -0400
+X-MC-Unique: jtH9342nNJa_5q9S3E8g6A-1
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-3ae5ac8de14so8733652b6e.2
         for <alsa-devel@alsa-project.org>;
- Tue, 17 Oct 2023 06:11:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697548303; x=1698153103;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZR0lvXNWa+KZWACYioSVtSt46AnrhMQeWnf4o7PuupY=;
-        b=JGL7UdwBKZd3K3yi6Oh6cs7qbbKjDMwYzqLk4/ubu5lTtKYG05e/Ypf08pFn2uffhm
-         AIHy6h6AIqo34V4rAsiiJrpDni8/Vef8jCzHBA+N1jnUqDjOtiWFud0tmBrfqyLkVowc
-         4zhSxKQa1uA5MgDkdj8ImWIuKC1Qa1g7Dt3fGePlqr5uXgOnIrmhbe0v4kI7eXp0dV8v
-         wFfSNx6fuXJxP5o/wMMbAQ2mvOeTXxvXhcoULevEjV+OCmvnX5HIXaZB4Zmm0Yi46o4w
-         om3mkq5/VoUhsCyC4ZRNP2PszoR6lkVCP8+5InRbzGF+wUtj87xxuzqPLhSXQqHE70Dh
-         FC9A==
+ Tue, 17 Oct 2023 06:28:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697548303; x=1698153103;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZR0lvXNWa+KZWACYioSVtSt46AnrhMQeWnf4o7PuupY=;
-        b=hS6vlzrsX/vXYvaFnZlGcoHe+Nn7cQAbw9RHf73KrAqz3tIesZNJ8pEZ4K1k8X5dXZ
-         X/zG2s1T3N+DWRGlp9BSjivx7FBm+i+mu1U8Uxnts/bXUacc6Rrihjryb1ZgvP9lfzls
-         QtZoAmF0dTseSnxerOYnWTRdHadj2f8jZ8C0zLJdHPTf/OSI2ztt3AgzN9PANmSUma2t
-         wv5sRLqvk3pKY6CbqBXwMKExTeFul7oOsq1Ct0NJVINMS8HzpWjlGuB7oij3DxIduJFx
-         H7ayWY+BG8VQ0pDD6hB+GnU6imScS4yZmS0D2ZGQ1SgMn2OVP/Cq38mIcjNFkvyUiUWT
-         XbVA==
-X-Gm-Message-State: AOJu0YywRwgYb+PI39MIuA6yUSZa3Q+zdSgvScG8Cz8o4EZVidJ0u3c7
-	MNU5K/sng3V3dvqH5p0uzo1fV6FhO7CgcJzcrBI=
+        d=1e100.net; s=20230601; t=1697549313; x=1698154113;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PhVqTbabL6sq7HN9XgiUy3YMvpy6i23xCHUppYbkIyo=;
+        b=w7+a7pGUGgCZtxZrWb5mtFIyfe1j4laltoMJ49Cq7I0drcWdCRpkaxfEpUj3qDxybJ
+         ZyyZl/wE9bVtKqCpGx2AtNh1bVciC8j3mJLYc1D1TpWJfHddoS/02AwNVPL1dqJA0F5Q
+         XZMhaiAoghJn9Gp2l7lld7YVgPhzJe81jAT0zGv7PpPY27DcR6vjANbXYx+mWIg9o5ZT
+         XL6F7hLVbaOZjtoQ+hCTrAgBwgPTEPnhLZ2zUQ0/o3VfO2clIubhziz8aQQetuI39n3t
+         aN2RKMxXK/Q8DNpEBvXrhUDbJTrtBnuroQRI8hXLlVfN6Z7JUjcx8hjBgCAQhGJaQ4cN
+         o2jw==
+X-Gm-Message-State: AOJu0YyJUweprGJvc+W457qUrKPfHsXmVKSapjaoG93kKt+TocfC7NQa
+	8iTc3AuWzRHhxWm+cfDasYnDB3kvlepQ1BK4EJvAu1ChXKG7KZan7QOjNrmTEelq5S2XFgrZ8Sx
+	Y1mXB2Mq/0o4Wu+31CUY8KUA=
+X-Received: by 2002:a05:6808:4d6:b0:3a7:2598:ab2c with SMTP id
+ a22-20020a05680804d600b003a72598ab2cmr2405577oie.7.1697549313041;
+        Tue, 17 Oct 2023 06:28:33 -0700 (PDT)
 X-Google-Smtp-Source: 
- AGHT+IFrQ1NG7B+VSK//LkRe3alEimDYu691RrrNrQKVM3nlgR/aGFEypskEhUbX4QOe27vGKtyJ4TDXusWKdjybNXA=
-X-Received: by 2002:a17:90a:58:b0:27d:30d5:c0f8 with SMTP id
- 24-20020a17090a005800b0027d30d5c0f8mr2022540pjb.43.1697548303126; Tue, 17 Oct
- 2023 06:11:43 -0700 (PDT)
+ AGHT+IEmNw+G5EzFy/KsOuP+UAGm3kI1m0UlUNmnuPcxkv/nPe5RZHf5Bux/Bi8iFz94fB4vQTIW5g==
+X-Received: by 2002:a05:6808:4d6:b0:3a7:2598:ab2c with SMTP id
+ a22-20020a05680804d600b003a72598ab2cmr2405528oie.7.1697549312492;
+        Tue, 17 Oct 2023 06:28:32 -0700 (PDT)
+Received: from sgarzare-redhat (host-87-12-185-56.business.telecomitalia.it.
+ [87.12.185.56])
+        by smtp.gmail.com with ESMTPSA id
+ e7-20020a0caa47000000b0064f5d70d072sm553752qvb.37.2023.10.17.06.28.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Oct 2023 06:28:31 -0700 (PDT)
+Date: Tue, 17 Oct 2023 15:28:05 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
+	anton.yakovlev@opensynergy.com, perex@perex.cz, tiwai@suse.com,
+	virtualization@lists.linux-foundation.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+	pbonzini@redhat.com, stefanha@redhat.com, manos.pitsidianakis@linaro.org,
+	mripard@redhat.com
+Subject: Re: [RFC PATCH] ALSA: virtio: use copy and fill_silence callbacks
+Message-ID: <g7hi2yqqiee5tyehuyn422uzxz6tc3kfbahgjaykrnpm43zisn@prfjfy7isuv7>
+References: <ZSgMeoMx6NX2zCx/@fedora>
+ <20231012111525-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-References: <1697185865-27528-1-git-send-email-shengjiu.wang@nxp.com>
- <1697185865-27528-10-git-send-email-shengjiu.wang@nxp.com>
- <a0dfe959-3b32-4d03-9f1b-8f3c1054ecf7@xs4all.nl>
-In-Reply-To: <a0dfe959-3b32-4d03-9f1b-8f3c1054ecf7@xs4all.nl>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 17 Oct 2023 21:11:31 +0800
-Message-ID: 
- <CAA+D8AP1a-Vioy2Cr7dZ4wErXpkm7g9Caw-yPKc9jbWpPnN0JQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v6 09/11] media: uapi: Add audio rate controls support
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org,
-	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: V3FZKJ77J3SLQEHA7KXFOIFATOYKI37S
-X-Message-ID-Hash: V3FZKJ77J3SLQEHA7KXFOIFATOYKI37S
-X-MailFrom: shengjiu.wang@gmail.com
+In-Reply-To: <20231012111525-mutt-send-email-mst@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+Message-ID-Hash: VPZAIVCYE3FCPAOPWM3HJOHBFNPTJWXP
+X-Message-ID-Hash: VPZAIVCYE3FCPAOPWM3HJOHBFNPTJWXP
+X-MailFrom: sgarzare@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V3FZKJ77J3SLQEHA7KXFOIFATOYKI37S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VPZAIVCYE3FCPAOPWM3HJOHBFNPTJWXP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,373 +135,367 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Oct 16, 2023 at 9:16=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl> w=
-rote:
+On Thu, Oct 12, 2023 at 11:16:54AM -0400, Michael S. Tsirkin wrote:
+>On Thu, Oct 12, 2023 at 05:10:50PM +0200, Matias Ezequiel Vara Larsen wrote:
+>> This commit replaces the mmap mechanism with the copy() and
+>> fill_silence() callbacks for both capturing and playback for the
+>> virtio-sound driver. This change is required to prevent the updating of
+>> the content of a buffer that is already in the available ring.
+>>
+>> The current mechanism splits a dma buffer into descriptors that are
+>> exposed to the device. This dma buffer is shared with the user
+>> application. When the device consumes a buffer, the driver moves the
+>> request from the used ring to available ring.
+>>
+>> The driver exposes the buffer to the device without knowing if the
+>> content has been updated from the user. The section 2.8.21.1 of the
+>> virtio spec states that: "The device MAY access the descriptor chains
+>> the driver created and the memory they refer to immediately". If the
+>> device picks up buffers from the available ring just after it is
+>> notified, it happens that the content may be old.
+>>
+>> By providing the copy() callback, the driver first updates the content
+>> of the buffer, and then, exposes the buffer to the device by enqueuing
+>> it in the available ring. Thus, device always picks up a buffer that is
+>> updated.
+>>
+>> For capturing, the driver starts by exposing all the available buffers
+>> to device. After device updates the content of a buffer, it enqueues it
+>> in the used ring. It is only after the copy() for capturing is issued
+>> that the driver re-enqueues the buffer in the available ring.
+>>
+>> Note that the copy() function assumes that user is always writing a
+>> period. Testing shows that this is true but I may be wrong. This RFC
+>> aims at clarifying this.
+>>
+>> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
 >
-> Hi Shengjiu,
 >
-> On 13/10/2023 10:31, Shengjiu Wang wrote:
-> > Fixed point controls are used by the user to configure
-> > the audio sample rate to driver.
-> >
-> > Add V4L2_CID_ASRC_SOURCE_RATE and V4L2_CID_ASRC_DEST_RATE
-> > new IDs for ASRC rate control.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  .../userspace-api/media/v4l/common.rst        |  1 +
-> >  .../media/v4l/ext-ctrls-fixed-point.rst       | 36 +++++++++++++++++++
-> >  .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 +++
-> >  .../media/v4l/vidioc-queryctrl.rst            |  7 ++++
-> >  .../media/videodev2.h.rst.exceptions          |  1 +
-> >  drivers/media/v4l2-core/v4l2-ctrls-core.c     |  5 +++
-> >  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  4 +++
-> >  include/media/v4l2-ctrls.h                    |  2 ++
-> >  include/uapi/linux/v4l2-controls.h            | 13 +++++++
-> >  include/uapi/linux/videodev2.h                |  3 ++
-> >  10 files changed, 76 insertions(+)
-> >  create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls-fix=
-ed-point.rst
-> >
-> > diff --git a/Documentation/userspace-api/media/v4l/common.rst b/Documen=
-tation/userspace-api/media/v4l/common.rst
-> > index ea0435182e44..35707edffb13 100644
-> > --- a/Documentation/userspace-api/media/v4l/common.rst
-> > +++ b/Documentation/userspace-api/media/v4l/common.rst
-> > @@ -52,6 +52,7 @@ applicable to all devices.
-> >      ext-ctrls-fm-rx
-> >      ext-ctrls-detect
-> >      ext-ctrls-colorimetry
-> > +    ext-ctrls-fixed-point
->
-> Rename this to ext-ctrls-audio-m2m.
->
-> >      fourcc
-> >      format
-> >      planar-apis
-> > diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-poin=
-t.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-point.rst
-> > new file mode 100644
-> > index 000000000000..2ef6e250580c
-> > --- /dev/null
-> > +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-point.rst
-> > @@ -0,0 +1,36 @@
-> > +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
-> > +
-> > +.. _fixed-point-controls:
-> > +
-> > +***************************
-> > +Fixed Point Control Reference
->
-> This is for audio controls. "Fixed Point" is just the type, and it doesn'=
-t make
-> sense to group fixed point controls. But it does make sense to group the =
-audio
-> controls.
->
-> V4L2 controls can be grouped into classes. Basically it is a way to put c=
-ontrols
-> into categories, and for each category there is also a control that gives=
- a
-> description of the class (see 2.15.15 in
-> https://linuxtv.org/downloads/v4l-dvb-apis-new/driver-api/v4l2-controls.h=
-tml#introduction)
->
-> If you use e.g. 'v4l2-ctl -l' to list all the controls, then you will see=
- that
-> they are grouped based on what class of control they are.
->
-> So I think it would be a good idea to create a new control class for M2M =
-audio controls,
-> instead of just adding them to the catch-all 'User Controls' class.
->
-> Search e.g. for V4L2_CTRL_CLASS_COLORIMETRY and V4L2_CID_COLORIMETRY_CLAS=
-S to see how
-> it is done.
->
-> M2M_AUDIO would probably be a good name for the class.
->
-> > +***************************
-> > +
-> > +These controls are intended to support an asynchronous sample
-> > +rate converter.
->
-> Add ' (ASRC).' at the end to indicate the common abbreviation for
-> that.
->
-> > +
-> > +.. _v4l2-audio-asrc:
-> > +
-> > +``V4L2_CID_ASRC_SOURCE_RATE``
-> > +    sets the resampler source rate.
-> > +
-> > +``V4L2_CID_ASRC_DEST_RATE``
-> > +    sets the resampler destination rate.
->
-> Document the unit (Hz) for these two controls.
->
-> > +
-> > +.. c:type:: v4l2_ctrl_fixed_point
-> > +
-> > +.. cssclass:: longtable
-> > +
-> > +.. tabularcolumns:: |p{1.5cm}|p{5.8cm}|p{10.0cm}|
-> > +
-> > +.. flat-table:: struct v4l2_ctrl_fixed_point
-> > +    :header-rows:  0
-> > +    :stub-columns: 0
-> > +    :widths:       1 1 2
-> > +
-> > +    * - __u32
->
-> Hmm, shouldn't this be __s32?
->
-> > +      - ``integer``
-> > +      - integer part of fixed point value.
-> > +    * - __s32
->
-> and this __u32?
->
-> You want to be able to use this generic type as a signed value.
->
-> > +      - ``fractional``
-> > +      - fractional part of fixed point value, which is Q31.
-> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.r=
-st b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> > index f9f73530a6be..1811dabf5c74 100644
-> > --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> > +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> > @@ -295,6 +295,10 @@ still cause this situation.
-> >        - ``p_av1_film_grain``
-> >        - A pointer to a struct :c:type:`v4l2_ctrl_av1_film_grain`. Vali=
-d if this control is
-> >          of type ``V4L2_CTRL_TYPE_AV1_FILM_GRAIN``.
-> > +    * - struct :c:type:`v4l2_ctrl_fixed_point` *
-> > +      - ``p_fixed_point``
-> > +      - A pointer to a struct :c:type:`v4l2_ctrl_fixed_point`. Valid i=
-f this control is
-> > +        of type ``V4L2_CTRL_TYPE_FIXED_POINT``.
-> >      * - void *
-> >        - ``ptr``
-> >        - A pointer to a compound type which can be an N-dimensional arr=
-ay
-> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst=
- b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-> > index 4d38acafe8e1..9285f4f39eed 100644
-> > --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-> > +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
-> > @@ -549,6 +549,13 @@ See also the examples in :ref:`control`.
-> >        - n/a
-> >        - A struct :c:type:`v4l2_ctrl_av1_film_grain`, containing AV1 Fi=
-lm Grain
-> >          parameters for stateless video decoders.
-> > +    * - ``V4L2_CTRL_TYPE_FIXED_POINT``
-> > +      - n/a
-> > +      - n/a
-> > +      - n/a
-> > +      - A struct :c:type:`v4l2_ctrl_fixed_point`, containing parameter=
- which has
-> > +        integer part and fractional part, i.e. audio sample rate.
-> > +
-> >
-> >  .. raw:: latex
-> >
-> > diff --git a/Documentation/userspace-api/media/videodev2.h.rst.exceptio=
-ns b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
-> > index e61152bb80d1..2faa5a2015eb 100644
-> > --- a/Documentation/userspace-api/media/videodev2.h.rst.exceptions
-> > +++ b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
-> > @@ -167,6 +167,7 @@ replace symbol V4L2_CTRL_TYPE_AV1_SEQUENCE :c:type:=
-`v4l2_ctrl_type`
-> >  replace symbol V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY :c:type:`v4l2_ctrl_=
-type`
-> >  replace symbol V4L2_CTRL_TYPE_AV1_FRAME :c:type:`v4l2_ctrl_type`
-> >  replace symbol V4L2_CTRL_TYPE_AV1_FILM_GRAIN :c:type:`v4l2_ctrl_type`
-> > +replace symbol V4L2_CTRL_TYPE_FIXED_POINT :c:type:`v4l2_ctrl_type`
-> >
-> >  # V4L2 capability defines
-> >  replace define V4L2_CAP_VIDEO_CAPTURE device-capabilities
-> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/=
-v4l2-core/v4l2-ctrls-core.c
-> > index a662fb60f73f..7a616ac91059 100644
-> > --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> > @@ -1168,6 +1168,8 @@ static int std_validate_compound(const struct v4l=
-2_ctrl *ctrl, u32 idx,
-> >               if (!area->width || !area->height)
-> >                       return -EINVAL;
-> >               break;
-> > +     case V4L2_CTRL_TYPE_FIXED_POINT:
-> > +             break;
->
-> Hmm, this would need this patch 'v4l2-ctrls: add support for V4L2_CTRL_WH=
-ICH_MIN/MAX_VAL':
->
-> https://patchwork.linuxtv.org/project/linux-media/patch/20231010022136.15=
-04015-7-yunkec@google.com/
->
-> since min and max values are perfectly fine for a fixed point value.
->
-> Even a step value (currently not supported in that patch) would make sens=
-e.
->
-> But I wonder if we couldn't simplify this: instead of creating a v4l2_ctr=
-l_fixed_point,
-> why not represent the fixed point value as a Q31.32. Then the standard
-> minimum/maximum/step values can be used, and it acts like a regular V4L2_=
-TYPE_INTEGER64.
->
-> Except that both userspace and drivers need to multiply it with 2^-32 to =
-get the actual
-> value.
->
-> So in enum v4l2_ctrl_type add:
->
->         V4L2_CTRL_TYPE_FIXED_POINT =3D 10,
->
-> (10, because it is no longer a compound type).
+>Thank you for working on this!
 
-Seems we don't need V4L2_CTRL_TYPE_FIXED_POINT, just use V4L2_TYPE_INTEGER6=
-4?
+Yep, +1!
 
-The reason I use the 'integer' and 'fractional' is that I want
-'integer' to be the normal sample
-rate, for example 48kHz.  The 'fractional' is the difference with
-normal sample rate.
+@Michael do you think we should cc stable and add a Fixes tag since
+the driver is not following the virtio spec?
 
-For example, the rate =3D 47998.12345.  so integer =3D 48000,  fractional=
-=3D -1.87655.
+Or it is too risky?
 
-So if we use s64 for rate, then in driver need to convert the rate to
-the closed normal
-sample rate + fractional.
+IIUC snd_pcm_ops is changed a bit from previous versions, so we may have
+to adapt the patch for stable branches.
 
-best regards
-wang shengjiu
+Stefano
 
 >
-> >
-> >       default:
-> >               return -EINVAL;
-> > @@ -1868,6 +1870,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l=
-2_ctrl_handler *hdl,
-> >       case V4L2_CTRL_TYPE_AREA:
-> >               elem_size =3D sizeof(struct v4l2_area);
-> >               break;
-> > +     case V4L2_CTRL_TYPE_FIXED_POINT:
-> > +             elem_size =3D sizeof(struct v4l2_ctrl_fixed_point);
-> > +             break;
-> >       default:
-> >               if (type < V4L2_CTRL_COMPOUND_TYPES)
-> >                       elem_size =3D sizeof(s32);
-> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/=
-v4l2-core/v4l2-ctrls-defs.c
-> > index 8696eb1cdd61..d8f232df6b6a 100644
-> > --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> > @@ -1602,6 +1602,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, e=
-num v4l2_ctrl_type *type,
-> >       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
-> >               *type =3D V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
-> >               break;
-> > +     case V4L2_CID_ASRC_SOURCE_RATE:
-> > +     case V4L2_CID_ASRC_DEST_RATE:
-> > +             *type =3D V4L2_CTRL_TYPE_FIXED_POINT;
-> > +             break;
-> >       default:
-> >               *type =3D V4L2_CTRL_TYPE_INTEGER;
-> >               break;
-> > diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-> > index 59679a42b3e7..645e4cccafc7 100644
-> > --- a/include/media/v4l2-ctrls.h
-> > +++ b/include/media/v4l2-ctrls.h
-> > @@ -56,6 +56,7 @@ struct video_device;
-> >   * @p_av1_tile_group_entry:  Pointer to an AV1 tile group entry struct=
-ure.
-> >   * @p_av1_frame:             Pointer to an AV1 frame structure.
-> >   * @p_av1_film_grain:                Pointer to an AV1 film grain stru=
-cture.
-> > + * @p_fixed_point:           Pointer to a struct v4l2_ctrl_fixed_point=
-.
-> >   * @p:                               Pointer to a compound value.
-> >   * @p_const:                 Pointer to a constant compound value.
-> >   */
-> > @@ -89,6 +90,7 @@ union v4l2_ctrl_ptr {
-> >       struct v4l2_ctrl_av1_tile_group_entry *p_av1_tile_group_entry;
-> >       struct v4l2_ctrl_av1_frame *p_av1_frame;
-> >       struct v4l2_ctrl_av1_film_grain *p_av1_film_grain;
-> > +     struct v4l2_ctrl_fixed_point *p_fixed_point;
-> >       void *p;
-> >       const void *p_const;
-> >  };
-> > diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4=
-l2-controls.h
-> > index c3604a0a3e30..91096259e3ea 100644
-> > --- a/include/uapi/linux/v4l2-controls.h
-> > +++ b/include/uapi/linux/v4l2-controls.h
-> > @@ -112,6 +112,8 @@ enum v4l2_colorfx {
-> >
-> >  /* last CID + 1 */
-> >  #define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
-> > +#define V4L2_CID_ASRC_SOURCE_RATE            (V4L2_CID_BASE + 45)
-> > +#define V4L2_CID_ASRC_DEST_RATE                      (V4L2_CID_BASE + =
-46)
+>> ---
+>>  sound/virtio/virtio_pcm.c     | 11 ++--
+>>  sound/virtio/virtio_pcm.h     |  9 +++-
+>>  sound/virtio/virtio_pcm_msg.c | 50 ++++++++++++++++---
+>>  sound/virtio/virtio_pcm_ops.c | 94 +++++++++++++++++++++++++++++++----
+>>  4 files changed, 137 insertions(+), 27 deletions(-)
+>>
+>> diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
+>> index c10d91fff2fb..bfe982952303 100644
+>> --- a/sound/virtio/virtio_pcm.c
+>> +++ b/sound/virtio/virtio_pcm.c
+>> @@ -104,8 +104,6 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
+>>  	 * only message-based transport.
+>>  	 */
+>>  	vss->hw.info =
+>> -		SNDRV_PCM_INFO_MMAP |
+>> -		SNDRV_PCM_INFO_MMAP_VALID |
+>>  		SNDRV_PCM_INFO_BATCH |
+>>  		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>>  		SNDRV_PCM_INFO_INTERLEAVED |
+>> @@ -471,12 +469,11 @@ int virtsnd_pcm_build_devs(struct virtio_snd *snd)
+>>  			for (kss = ks->substream; kss; kss = kss->next)
+>>  				vs->substreams[kss->number]->substream = kss;
+>>
+>> -			snd_pcm_set_ops(vpcm->pcm, i, &virtsnd_pcm_ops);
+>> +			if (i == SNDRV_PCM_STREAM_CAPTURE)
+>> +				snd_pcm_set_ops(vpcm->pcm, i, &virtsnd_pcm_capture_ops);
+>> +			else
+>> +				snd_pcm_set_ops(vpcm->pcm, i, &virtsnd_pcm_playback_ops);
+>>  		}
+>> -
+>> -		snd_pcm_set_managed_buffer_all(vpcm->pcm,
+>> -					       SNDRV_DMA_TYPE_VMALLOC, NULL,
+>> -					       0, 0);
+>>  	}
+>>
+>>  	return 0;
+>> diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
+>> index 062eb8e8f2cf..1c1106ec971f 100644
+>> --- a/sound/virtio/virtio_pcm.h
+>> +++ b/sound/virtio/virtio_pcm.h
+>> @@ -50,6 +50,8 @@ struct virtio_pcm_substream {
+>>  	struct work_struct elapsed_period;
+>>  	spinlock_t lock;
+>>  	size_t buffer_bytes;
+>> +	u8 *buffer;
+>> +	size_t buffer_sz;
+>>  	size_t hw_ptr;
+>>  	bool xfer_enabled;
+>>  	bool xfer_xrun;
+>> @@ -90,7 +92,8 @@ struct virtio_pcm {
+>>  	struct virtio_pcm_stream streams[SNDRV_PCM_STREAM_LAST + 1];
+>>  };
+>>
+>> -extern const struct snd_pcm_ops virtsnd_pcm_ops;
+>> +extern const struct snd_pcm_ops virtsnd_pcm_playback_ops;
+>> +extern const struct snd_pcm_ops virtsnd_pcm_capture_ops;
+>>
+>>  int virtsnd_pcm_validate(struct virtio_device *vdev);
+>>
+>> @@ -117,7 +120,9 @@ int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
+>>
+>>  void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss);
+>>
+>> -int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss);
+>> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, bool single);
+>> +
+>> +int virtsnd_pcm_msg_send_locked(struct virtio_pcm_substream *vss, bool single);
+>>
+>>  unsigned int virtsnd_pcm_msg_pending_num(struct virtio_pcm_substream *vss);
+>>
+>> diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
+>> index aca2dc1989ba..9a5f9814cb62 100644
+>> --- a/sound/virtio/virtio_pcm_msg.c
+>> +++ b/sound/virtio/virtio_pcm_msg.c
+>> @@ -132,7 +132,6 @@ static void virtsnd_pcm_sg_from(struct scatterlist *sgs, int nsgs, u8 *data,
+>>  int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
+>>  			  unsigned int periods, unsigned int period_bytes)
+>>  {
+>> -	struct snd_pcm_runtime *runtime = vss->substream->runtime;
+>>  	unsigned int i;
+>>
+>>  	vss->msgs = kcalloc(periods, sizeof(*vss->msgs), GFP_KERNEL);
+>> @@ -142,7 +141,7 @@ int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
+>>  	vss->nmsgs = periods;
+>>
+>>  	for (i = 0; i < periods; ++i) {
+>> -		u8 *data = runtime->dma_area + period_bytes * i;
+>> +		u8 *data = vss->buffer + period_bytes * i;
+>>  		int sg_num = virtsnd_pcm_sg_num(data, period_bytes);
+>>  		struct virtio_pcm_msg *msg;
+>>
+>> @@ -186,10 +185,12 @@ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss)
+>>  /**
+>>   * virtsnd_pcm_msg_send() - Send asynchronous I/O messages.
+>>   * @vss: VirtIO PCM substream.
+>> + * @single: true to enqueue a single message, false to enqueue all of them.
+>>   *
+>>   * All messages are organized in an ordered circular list. Each time the
+>> - * function is called, all currently non-enqueued messages are added to the
+>> - * virtqueue. For this, the function keeps track of two values:
+>> + * function is called, first non-enqueued message is added to the virtqueue.
+>> + * When single is True, only the first message is enqueued. When False, all the
+>> + * available messages are enqueued.  The function keeps track of two values:
+>>   *
+>>   *   msg_last_enqueued = index of the last enqueued message,
+>>   *   msg_count = # of pending messages in the virtqueue.
+>> @@ -198,7 +199,7 @@ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss)
+>>   *          spinlocks to be held by caller.
+>>   * Return: 0 on success, -errno on failure.
+>>   */
+>> -int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss)
+>> +int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, bool single)
+>>  {
+>>  	struct snd_pcm_runtime *runtime = vss->substream->runtime;
+>>  	struct virtio_snd *snd = vss->snd;
+>> @@ -211,6 +212,13 @@ int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss)
+>>  	i = (vss->msg_last_enqueued + 1) % runtime->periods;
+>>  	n = runtime->periods - vss->msg_count;
+>>
+>> +	if (single) {
+>> +		if (n < 1)
+>> +			return -EFAULT;
+>> +
+>> +		n = 1;
+>> +	}
+>> +
+>>  	for (; n; --n, i = (i + 1) % runtime->periods) {
+>>  		struct virtio_pcm_msg *msg = vss->msgs[i];
+>>  		struct scatterlist *psgs[] = {
+>> @@ -250,6 +258,36 @@ int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss)
+>>  	return 0;
+>>  }
+>>
+>> +/**
+>> + * virtsnd_pcm_msg_send_locked() - Send asynchronous I/O messages.
+>> + * @vss: VirtIO PCM substream.
+>> + * @single: true to enqueue a single message, false to enqueue all of them.
+>> + *
+>> + * This function holds the tx/rx queue and the VirtIO substream spinlocks
+>> + * before calling virtsnd_pcm_msg_send(). This is a wrapper function to ease
+>> + * the invocation of virtsnd_pcm_msg_send().
+>> + *
+>> + * Context: Any context.
+>> + * Return: 0 on success, -errno on failure.
+>> + */
+>> +
+>> +int virtsnd_pcm_msg_send_locked(struct virtio_pcm_substream *vss, bool single)
+>> +{
+>> +	struct virtio_snd_queue *queue;
+>> +	int rc;
+>> +	unsigned long flags;
+>> +
+>> +	queue = virtsnd_pcm_queue(vss);
+>> +
+>> +	spin_lock_irqsave(&queue->lock, flags);
+>> +	spin_lock(&vss->lock);
+>> +	rc = virtsnd_pcm_msg_send(vss, single);
+>> +	spin_unlock(&vss->lock);
+>> +	spin_unlock_irqrestore(&queue->lock, flags);
+>> +
+>> +	return rc;
+>> +}
+>> +
+>>  /**
+>>   * virtsnd_pcm_msg_pending_num() - Returns the number of pending I/O messages.
+>>   * @vss: VirtIO substream.
+>> @@ -320,8 +358,6 @@ static void virtsnd_pcm_msg_complete(struct virtio_pcm_msg *msg,
+>>  					le32_to_cpu(msg->status.latency_bytes));
+>>
+>>  		schedule_work(&vss->elapsed_period);
+>> -
+>> -		virtsnd_pcm_msg_send(vss);
+>>  	} else if (!vss->msg_count) {
+>>  		wake_up_all(&vss->msg_empty);
+>>  	}
+>> diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+>> index f8bfb87624be..a208439dbff8 100644
+>> --- a/sound/virtio/virtio_pcm_ops.c
+>> +++ b/sound/virtio/virtio_pcm_ops.c
+>> @@ -238,6 +238,11 @@ static int virtsnd_pcm_hw_params(struct snd_pcm_substream *substream,
+>>  	 */
+>>  	virtsnd_pcm_msg_free(vss);
+>>
+>> +	vss->buffer_sz = params_buffer_bytes(hw_params);
+>> +	vss->buffer = alloc_pages_exact(vss->buffer_sz, GFP_KERNEL);
+>> +	if (!vss->buffer)
+>> +		return -ENOMEM;
+>> +
+>>  	return virtsnd_pcm_msg_alloc(vss, params_periods(hw_params),
+>>  				     params_period_bytes(hw_params));
+>>  }
+>> @@ -257,6 +262,11 @@ static int virtsnd_pcm_hw_free(struct snd_pcm_substream *substream)
+>>  	if (!virtsnd_pcm_msg_pending_num(vss))
+>>  		virtsnd_pcm_msg_free(vss);
+>>
+>> +	if (vss->buffer) {
+>> +		free_pages_exact(vss->buffer, vss->buffer_sz);
+>> +		vss->buffer = NULL;
+>> +	}
+>> +
+>>  	return 0;
+>>  }
+>>
+>> @@ -331,15 +341,18 @@ static int virtsnd_pcm_trigger(struct snd_pcm_substream *substream, int command)
+>>  	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+>>  		queue = virtsnd_pcm_queue(vss);
+>>
+>> -		spin_lock_irqsave(&queue->lock, flags);
+>> -		spin_lock(&vss->lock);
+>> -		rc = virtsnd_pcm_msg_send(vss);
+>> -		if (!rc)
+>> -			vss->xfer_enabled = true;
+>> -		spin_unlock(&vss->lock);
+>> -		spin_unlock_irqrestore(&queue->lock, flags);
+>> -		if (rc)
+>> -			return rc;
+>> +		// The buffers should be exposed first during capturing so that
+>> +		// the device can consume them. Capturing cannot begin
+>> +		// otherwise.
+>> +		if (vss->direction == SNDRV_PCM_STREAM_CAPTURE) {
+>> +			rc = virtsnd_pcm_msg_send_locked(vss, false);
+>> +			if (rc)
+>> +				return rc;
+>> +		}
+>> +
+>> +		spin_lock_irqsave(&vss->lock, flags);
+>> +		vss->xfer_enabled = true;
+>> +		spin_unlock_irqrestore(&vss->lock, flags);
+>>
+>>  		msg = virtsnd_pcm_ctl_msg_alloc(vss, VIRTIO_SND_R_PCM_START,
+>>  						GFP_KERNEL);
+>> @@ -450,8 +463,66 @@ virtsnd_pcm_pointer(struct snd_pcm_substream *substream)
+>>  	return hw_ptr;
+>>  }
+>>
+>> -/* PCM substream operators map. */
+>> -const struct snd_pcm_ops virtsnd_pcm_ops = {
+>> +static int virtsnd_pcm_pb_copy(struct snd_pcm_substream *substream,
+>> +			       int channel, unsigned long pos, struct iov_iter
+>> +			       *src, unsigned long count)
+>> +{
+>> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+>> +
+>> +	if (unlikely(pos + count > vss->buffer_sz))
+>> +		return -EINVAL;
+>> +
+>> +	if (copy_from_iter(vss->buffer + pos, count, src) != count)
+>> +		return -EFAULT;
+>> +
+>> +	return virtsnd_pcm_msg_send_locked(vss, true);
+>> +}
+>> +
+>> +static int virtsnd_pcm_cap_copy(struct snd_pcm_substream *substream,
+>> +				int channel, unsigned long pos, struct iov_iter
+>> +				*dst, unsigned long count)
+>> +{
+>> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+>> +
+>> +	if (unlikely(pos + count > vss->buffer_sz))
+>> +		return -EINVAL;
+>> +
+>> +	if (copy_to_iter(vss->buffer + pos, count, dst) != count)
+>> +		return -EFAULT;
+>> +
+>> +	return virtsnd_pcm_msg_send_locked(vss, true);
+>> +}
+>> +
+>> +static int virtsnd_pcm_pb_silence(struct snd_pcm_substream *substream, int channel,
+>> +				  unsigned long pos, unsigned long count)
+>> +{
+>> +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+>> +
+>> +	if (unlikely(pos + count > vss->buffer_sz))
+>> +		return -EINVAL;
+>> +
+>> +	memset(vss->buffer + pos, 0, count);
+>> +
+>> +	return virtsnd_pcm_msg_send_locked(vss, true);
+>> +}
+>> +
+>> +/* PCM substream operators map for playback. */
+>> +const struct snd_pcm_ops virtsnd_pcm_playback_ops = {
+>> +	.open = virtsnd_pcm_open,
+>> +	.close = virtsnd_pcm_close,
+>> +	.ioctl = snd_pcm_lib_ioctl,
+>> +	.hw_params = virtsnd_pcm_hw_params,
+>> +	.hw_free = virtsnd_pcm_hw_free,
+>> +	.prepare = virtsnd_pcm_prepare,
+>> +	.trigger = virtsnd_pcm_trigger,
+>> +	.sync_stop = virtsnd_pcm_sync_stop,
+>> +	.pointer = virtsnd_pcm_pointer,
+>> +	.copy = virtsnd_pcm_pb_copy,
+>> +	.fill_silence = virtsnd_pcm_pb_silence,
+>> +};
+>> +
+>> +/* PCM substream operators map for capturing. */
+>> +const struct snd_pcm_ops virtsnd_pcm_capture_ops = {
+>>  	.open = virtsnd_pcm_open,
+>>  	.close = virtsnd_pcm_close,
+>>  	.ioctl = snd_pcm_lib_ioctl,
+>> @@ -461,4 +532,5 @@ const struct snd_pcm_ops virtsnd_pcm_ops = {
+>>  	.trigger = virtsnd_pcm_trigger,
+>>  	.sync_stop = virtsnd_pcm_sync_stop,
+>>  	.pointer = virtsnd_pcm_pointer,
+>> +	.copy = virtsnd_pcm_cap_copy,
+>>  };
+>>
+>> base-commit: 8a749fd1a8720d4619c91c8b6e7528c0a355c0aa
+>> --
+>> 2.41.0
 >
-> This patch needs to be split in three parts:
->
-> 1) Add the new M2M_AUDIO control class,
-> 2) Add the new V4L2_CTRL_TYPE_FIXED_POINT type,
-> 3) Add the new controls.
->
-> These are all independent changes, so separating them makes it easier to
-> review.
->
-> >
-> >  /* USER-class private control IDs */
-> >
-> > @@ -3488,4 +3490,15 @@ struct v4l2_ctrl_av1_film_grain {
-> >  #define V4L2_CID_MPEG_MFC51_BASE        V4L2_CID_CODEC_MFC51_BASE
-> >  #endif
-> >
-> > +/**
-> > + * struct v4l2_ctrl_fixed_point - fixed point parameter.
-> > + *
-> > + * @rate_integer: integer part of fixed point value.
-> > + * @rate_fractional: fractional part of fixed point value
-> > + */
-> > +struct v4l2_ctrl_fixed_point {
-> > +     __u32 integer;
->
-> __s32?
->
-> > +     __u32 fractional;
-> > +};
-> > +
-> >  #endif
-> > diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videod=
-ev2.h
-> > index 2ac7b989394c..3ef32c09c2fa 100644
-> > --- a/include/uapi/linux/videodev2.h
-> > +++ b/include/uapi/linux/videodev2.h
-> > @@ -1888,6 +1888,7 @@ struct v4l2_ext_control {
-> >               struct v4l2_ctrl_av1_tile_group_entry __user *p_av1_tile_=
-group_entry;
-> >               struct v4l2_ctrl_av1_frame __user *p_av1_frame;
-> >               struct v4l2_ctrl_av1_film_grain __user *p_av1_film_grain;
-> > +             struct v4l2_ctrl_fixed_point __user *p_fixed_point;
-> >               void __user *ptr;
-> >       };
-> >  } __attribute__ ((packed));
-> > @@ -1966,6 +1967,8 @@ enum v4l2_ctrl_type {
-> >       V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY =3D 0x281,
-> >       V4L2_CTRL_TYPE_AV1_FRAME            =3D 0x282,
-> >       V4L2_CTRL_TYPE_AV1_FILM_GRAIN       =3D 0x283,
-> > +
-> > +     V4L2_CTRL_TYPE_FIXED_POINT          =3D 0x290,
-> >  };
-> >
-> >  /*  Used in the VIDIOC_QUERYCTRL ioctl for querying controls */
->
-> Regards,
->
->         Hans
+

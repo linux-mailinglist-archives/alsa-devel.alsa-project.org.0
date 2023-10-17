@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 049027CD0BD
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 01:27:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18D077CD0BE
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 01:27:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 799A784B;
-	Wed, 18 Oct 2023 01:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 799A784B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A11C0DF1;
+	Wed, 18 Oct 2023 01:27:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A11C0DF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697585261;
-	bh=xwQ0iV/rBOQYg8kGL3cqHi/fxn3tom61XgY6fDIexWM=;
+	s=default; t=1697585270;
+	bh=+nR7voVu9E6cM5UVFVpm5Nh+7Uh8hmXLmgaIcz+rKVA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nc5887+JVKJLpUSfo1jSi4YnCHpD3WcxipiuQFwpLAjFLWljyT/hZKg2hcm8sL9w7
-	 LrMacW5yPpPSrAqi5eISFQmbypKzkDvyStQNqfLCEyc1E1DfAO4PKxrbSUybzIB6U0
-	 yfRAEMiLWR5pT1dMmOEm3MCIrlXtFthSDU97MTD8=
+	b=qza/CRR2XRG9dgd2WXHURx/jJ51tgTe2MuQd2tgba0mW/E/geej34+RUAlGCojBBY
+	 pFNdKXQ0WN2uAWBBZ94ARCVdXxsJZ5BBuz84sI6OWKppVrFe1OW3ADqhC2XZO8role
+	 qATpWxMfaZBskADeJP6FNYsyy3VCZ7/eEtGrxOgM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A526F80608; Wed, 18 Oct 2023 01:23:56 +0200 (CEST)
+	id 81E14F8060B; Wed, 18 Oct 2023 01:23:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8264F80602;
-	Wed, 18 Oct 2023 01:23:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 382B1F8060A;
+	Wed, 18 Oct 2023 01:23:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8C65F805BD; Wed, 18 Oct 2023 01:23:43 +0200 (CEST)
+	id 8D2B0F805BF; Wed, 18 Oct 2023 01:23:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,65 +35,64 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21E40F80564
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 01:23:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21E40F80564
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4D292F80571
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 01:23:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D292F80571
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dO2REhrk
+ header.s=Intel header.b=QK2QUIAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1697585014; x=1729121014;
+  t=1697585015; x=1729121015;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=xwQ0iV/rBOQYg8kGL3cqHi/fxn3tom61XgY6fDIexWM=;
-  b=dO2REhrkRRPtHLkYLwgjXrC0kCuSbrHBccplzihbN+cqPVPSiMHbTOqX
-   c1d8Y8k3mPx44x9yNXy76D+BqgE1FCpnv6M/nSqZW36FvJ0isT4DTgbuH
-   WbwiTVkjj+Ie5pfCtcPAtEswUZ9a+NWoVGdqBYEMdg9P2o8G8guUICLiI
-   6u6Nrjd5cbBWdv5o2Zqx7vMrU7v9femr8pxcVQXCoOWAH3u9LQWfXnbO9
-   lNtljY36tGELpsOgDts+8s/VelT+smknkSbHsTqUPdUtxsYjtAYm95Oy1
-   2O7RyGIQTG1VHrRIjXwACVoY0YA8H8akBxtAz3DIRyhHjNixIbbu2jsP+
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="384778251"
+  bh=+nR7voVu9E6cM5UVFVpm5Nh+7Uh8hmXLmgaIcz+rKVA=;
+  b=QK2QUIAFk3tPZHY8voARSb3Dh5sHe/WP2tJvDKqB29tZB6bwRqT7OAOg
+   s7eArPYBxxe4ZltUtMZ2oF8sZd4dif/OtNPSuMBcQXWdgkF99fSpGt/LP
+   FAQP+/Cqq8/ICDZ5UoZpfczyuKoLFygItaKhC4ERZpie94ANmcBQkT11z
+   uFS/s4/sQsWwmrqWz3RrcH0/3buep+IFiMMqVe03KN4xJwp24DMhgeFjh
+   LmmfZXdcLbPP/mssVmuneYgORq8w1Y5QGOOubYbd8zykvbw87b8sYXLvn
+   M8M0h/ANGn6Q5tK3ESs3Nxxdh2CU5apLMAzocZu2IacESf0gE1uQ+ta2I
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="384778258"
 X-IronPort-AV: E=Sophos;i="6.03,233,1694761200";
-   d="scan'208";a="384778251"
+   d="scan'208";a="384778258"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 16:23:32 -0700
+ 17 Oct 2023 16:23:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="826637527"
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="826637534"
 X-IronPort-AV: E=Sophos;i="6.03,233,1694761200";
-   d="scan'208";a="826637527"
+   d="scan'208";a="826637534"
 Received: from asprado-mobl2.amr.corp.intel.com (HELO [10.212.55.179])
  ([10.212.55.179])
   by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 16:23:31 -0700
-Message-ID: <b503058d-e23f-4a63-99b8-f0a62b2a2557@linux.intel.com>
-Date: Tue, 17 Oct 2023 18:11:57 -0500
+ 17 Oct 2023 16:23:32 -0700
+Message-ID: <5667241d-6976-4b44-8edd-79ee426415eb@linux.intel.com>
+Date: Tue, 17 Oct 2023 18:16:18 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 34/34] ASoC: usb: Rediscover USB SND devices on USB
- port add
+Subject: Re: [PATCH v4 1/4] ASoC: makes CPU/Codec channel connection map more
+ generic
 Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
- gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, agross@kernel.org, andersson@kernel.org,
- konrad.dybcio@linaro.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
- Thinh.Nguyen@synopsys.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20231017200109.11407-1-quic_wcheng@quicinc.com>
- <20231017200109.11407-35-quic_wcheng@quicinc.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Mark Brown <broonie@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+References: <87zg0jwdnz.wl-kuninori.morimoto.gx@renesas.com>
+ <87y1g3wdng.wl-kuninori.morimoto.gx@renesas.com>
+ <d3c97c54-d149-4bed-9013-3f07bc6a7f52@linux.intel.com>
+ <874jiokg1r.wl-kuninori.morimoto.gx@renesas.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231017200109.11407-35-quic_wcheng@quicinc.com>
+In-Reply-To: <874jiokg1r.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZWS5WUA6JJCRPVHGNQXQOZTKYQRWF6YW
-X-Message-ID-Hash: ZWS5WUA6JJCRPVHGNQXQOZTKYQRWF6YW
+Message-ID-Hash: I4TLZJYNFNPZHAEATKA22CUANNWP7RAE
+X-Message-ID-Hash: I4TLZJYNFNPZHAEATKA22CUANNWP7RAE
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZWS5WUA6JJCRPVHGNQXQOZTKYQRWF6YW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I4TLZJYNFNPZHAEATKA22CUANNWP7RAE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,40 +116,42 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 10/17/23 15:01, Wesley Cheng wrote:
-> In case the USB backend device has not been initialized/probed, USB SND
-> device connections can still occur.  When the USB backend is eventually
-> made available, previous USB SND device connections are not communicated to
-> the USB backend.  Call snd_usb_rediscover_devices() to generate the connect
-> callbacks for all USB SND devices connected.  This will allow for the USB
-> backend to be updated with the current set of devices available.
+On 10/17/23 18:03, Kuninori Morimoto wrote:
 > 
-> The chip array entries are all populated and removed while under the
-> register_mutex, so going over potential race conditions:
+> Hi Pierre-Louis
 > 
-> Thread#1:
->   q6usb_component_probe()
->     --> snd_soc_usb_add_port()
->       --> snd_usb_rediscover_devices()
->         --> mutex_lock(register_mutex)
+> Thank you for your test.
 > 
-> Thread#2
->   --> usb_audio_disconnect()
->     --> mutex_lock(register_mutex)
+>>>  		/*
+>>>  		 * construct cpu channel mask by combining ch_mask of each
+>>>  		 * codec which maps to the cpu.
+>>> +		 * see
+>>> +		 *	soc.h :: [dai_link->ch_maps Image sample]
+>>>  		 */
+>>> -		for_each_rtd_codec_dais(rtd, j, codec_dai) {
+>>> -			if (rtd->dai_link->codec_ch_maps[j].connected_cpu_id == i)
+>>> -				ch_mask |= rtd->dai_link->codec_ch_maps[j].ch_mask;
+>>> +		if (rtd->dai_link->num_cpus >= rtd->dai_link->num_codecs) {
+>>> +			/* .ch_map is from CPU */
+>>> +			ch_mask = rtd->dai_link->ch_maps[i].ch_mask;
+>>
+>> ... and for a FE dailink there's no ch_maps so this results in a kernel
+>> oops.
 > 
-> So either thread#1 or thread#2 will complete first.  If
+> Hmm... this is strange...
 > 
-> Thread#1 completes before thread#2:
->   SOC USB will notify DPCM backend of the device connection.  Shortly
->   after, once thread#2 runs, we will get a disconnect event for the
->   connected device.
+> New snd_soc_compensate_connection_map() will add default ch_maps for all
+> dai_link...
 > 
-> Thread#2 completes before thread#1:
->   Then during snd_usb_rediscover_devices() it won't notify of any
->   connection for that particular chip index.
-Looks like you are assuming the regular USB audio stuff is probed first?
+> Oh, is it using topology or something which doesn't call
+> snd_soc_bind_card() ? If so could you please try to call
+> snd_soc_compensate_connection_map() ?
+> (I guess it is using soc_tplg_fe_link_create() ?)
+> 
+> If it could solve your issue, v5 will handle it.
 
-What if it's not the case? Have you tested with a manual 'blacklist' and
-"modprobe" sequence long after all the DSP stuff is initialized?
+Sorry, not following what the suggestion is.
 
-It really reminds me of audio+display issues, and the same opens apply IMHO.
+Yes all our solutions are based on the topology, and I don't really
+understand the benefit of a ch_map for an FE? the codec_dai is a dummy
+one...

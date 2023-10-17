@@ -2,112 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB167CC405
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Oct 2023 15:09:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B51B7CC41B
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Oct 2023 15:13:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FFFA1F1;
-	Tue, 17 Oct 2023 15:08:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FFFA1F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48FD884B;
+	Tue, 17 Oct 2023 15:12:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48FD884B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697548169;
-	bh=8joyC6pGw9d6EvJ9iIkNVR+enKkDPxZngFInI3S2ZHc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1697548388;
+	bh=xspecGBIPEYJRX/pUzyo7ZfPbs4yWOwsr3QfOC5VLMo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cVRISJxGwtAxqEkykPIWUH00AwGwwHmcFx6qLZqjWPdzzYc+lUr8yUwBSn4O5+ajH
-	 EU7qYXWm1qlDjWMkPBe2WZN03n1UsxJlafqwJe4Xkqek1zR7tgv67kg3s5SqJdfIKn
-	 VGEomdMjeBPLdtw8dmVNZAfQ+P47WChhelDvAGEw=
+	b=M9iol5iwaZCFop767vHcRSE+d/K3Wh/6nyTfiRuybDOWSqHK3o9/mt4CYMQN8B8in
+	 GRYce4E+sH95e/pNorr44Ty05skETA+RKOH8x/ZkwBjyCT8/wpufsK1PqubRbsSh88
+	 lClEUYxOMB65vzuzh7Sz/Q+Hpf/0hACws9ZmL5co=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71419F80557; Tue, 17 Oct 2023 15:08:38 +0200 (CEST)
+	id 0D5F4F8025F; Tue, 17 Oct 2023 15:11:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77E9DF8024E;
-	Tue, 17 Oct 2023 15:08:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8385F8025F;
+	Tue, 17 Oct 2023 15:11:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF257F8025F; Tue, 17 Oct 2023 15:08:29 +0200 (CEST)
+	id 6E5CFF8027B; Tue, 17 Oct 2023 15:11:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 724A7F80236
-	for <alsa-devel@alsa-project.org>; Tue, 17 Oct 2023 15:08:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724A7F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id DFFD1F8024E
+	for <alsa-devel@alsa-project.org>; Tue, 17 Oct 2023 15:11:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFFD1F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QVsiqViT
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40566f8a093so54591355e9.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=JGL7UdwB
+Received: by mail-pj1-x1030.google.com with SMTP id
+ 98e67ed59e1d1-27db9fdec0dso653661a91.0
         for <alsa-devel@alsa-project.org>;
- Tue, 17 Oct 2023 06:08:19 -0700 (PDT)
+ Tue, 17 Oct 2023 06:11:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697548098; x=1698152898;
+        d=gmail.com; s=20230601; t=1697548303; x=1698153103;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JZoA1Ego1HM4HIX412AargOJWZVAL/5W3iCMJBbaTKc=;
-        b=QVsiqViT6h74pEEKFWB83LmeB8QwxzqEu7bKDrQNwwhFFc1Ku/ExAAbJi/P7wQmx/4
-         F21npwBRUWkNoQwuYXZKb2bknkYQa3WlI/y+uRwgbMZptpcPNWZbZF7K3pGnBO41obFi
-         b/p8UknemddFecEy3kwGapw2VJSMiX2tBEyvrgZTKO4Ol/No38b2eDxIyjZJmPQZ6EAO
-         MCGH9Y2CtfePXnanX+wfm2Teeo9JY4jh4HFC2bEVwGTEaFCSgwdniSH60S1JW9ulWbKG
-         3PxOs4R/FoBJ/dSDA4yvaciffZRC3qhY78eLpL0yER4mIpK3uHr0e496UR6mtV5WO27u
-         e0SA==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZR0lvXNWa+KZWACYioSVtSt46AnrhMQeWnf4o7PuupY=;
+        b=JGL7UdwBKZd3K3yi6Oh6cs7qbbKjDMwYzqLk4/ubu5lTtKYG05e/Ypf08pFn2uffhm
+         AIHy6h6AIqo34V4rAsiiJrpDni8/Vef8jCzHBA+N1jnUqDjOtiWFud0tmBrfqyLkVowc
+         4zhSxKQa1uA5MgDkdj8ImWIuKC1Qa1g7Dt3fGePlqr5uXgOnIrmhbe0v4kI7eXp0dV8v
+         wFfSNx6fuXJxP5o/wMMbAQ2mvOeTXxvXhcoULevEjV+OCmvnX5HIXaZB4Zmm0Yi46o4w
+         om3mkq5/VoUhsCyC4ZRNP2PszoR6lkVCP8+5InRbzGF+wUtj87xxuzqPLhSXQqHE70Dh
+         FC9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697548098; x=1698152898;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JZoA1Ego1HM4HIX412AargOJWZVAL/5W3iCMJBbaTKc=;
-        b=CZE2jBpGaaGfp48h0zI9sW5FWQkpazMA67l1h6WfMat9BPdkzqHw8NVqSQKWWBJZKA
-         7qeYMvXvrXcIcFqWzmwx3ezhlo4NeHK1Liz33JFlwcVEki98WhBgw3Cfci4RtWcfNTE4
-         WJu0CriOouwgqsA5DPUqkkGPfFXbqVp+HeeO5N2PNGqvqTpFDltut398Qvc5/qsYuslB
-         4WMQMwrE5UiE5Mz8rjgUIGip7eqGVUwJ4OrPGVBtxDe6N/xLoL16sTH+313//wi5iQH4
-         hBB+kL02bp0Fbp8y2re72H8GxKAcTYtEpbHmY3hanecR1kbf47RpDG/fLirBBE7bZdBT
-         UwPg==
-X-Gm-Message-State: AOJu0YxAAl+O7XyPVdXfD7b2MwtnAdxjQuTija0yuDI+RLsa601kvh6F
-	7J9oNRvE37ue6QbEqAU4w9hZqA==
+        d=1e100.net; s=20230601; t=1697548303; x=1698153103;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZR0lvXNWa+KZWACYioSVtSt46AnrhMQeWnf4o7PuupY=;
+        b=hS6vlzrsX/vXYvaFnZlGcoHe+Nn7cQAbw9RHf73KrAqz3tIesZNJ8pEZ4K1k8X5dXZ
+         X/zG2s1T3N+DWRGlp9BSjivx7FBm+i+mu1U8Uxnts/bXUacc6Rrihjryb1ZgvP9lfzls
+         QtZoAmF0dTseSnxerOYnWTRdHadj2f8jZ8C0zLJdHPTf/OSI2ztt3AgzN9PANmSUma2t
+         wv5sRLqvk3pKY6CbqBXwMKExTeFul7oOsq1Ct0NJVINMS8HzpWjlGuB7oij3DxIduJFx
+         H7ayWY+BG8VQ0pDD6hB+GnU6imScS4yZmS0D2ZGQ1SgMn2OVP/Cq38mIcjNFkvyUiUWT
+         XbVA==
+X-Gm-Message-State: AOJu0YywRwgYb+PI39MIuA6yUSZa3Q+zdSgvScG8Cz8o4EZVidJ0u3c7
+	MNU5K/sng3V3dvqH5p0uzo1fV6FhO7CgcJzcrBI=
 X-Google-Smtp-Source: 
- AGHT+IHQQcRJ2l2z5ACeKhLx0EU5+tkVqbX7z2FlB8ExzyQZVxwqvYP3UbLI5+TaHSg9F2rN0eHPvw==
-X-Received: by 2002:a05:600c:1906:b0:401:aa8f:7562 with SMTP id
- j6-20020a05600c190600b00401aa8f7562mr1731260wmq.11.1697548098235;
-        Tue, 17 Oct 2023 06:08:18 -0700 (PDT)
-Received: from [192.168.86.24] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- v20-20020a05600c429400b00402d34ea099sm9718777wmc.29.2023.10.17.06.08.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Oct 2023 06:08:17 -0700 (PDT)
-Message-ID: <7aca4eff-edb9-2ae5-1146-68e4530f76be@linaro.org>
-Date: Tue, 17 Oct 2023 14:08:17 +0100
+ AGHT+IFrQ1NG7B+VSK//LkRe3alEimDYu691RrrNrQKVM3nlgR/aGFEypskEhUbX4QOe27vGKtyJ4TDXusWKdjybNXA=
+X-Received: by 2002:a17:90a:58:b0:27d:30d5:c0f8 with SMTP id
+ 24-20020a17090a005800b0027d30d5c0f8mr2022540pjb.43.1697548303126; Tue, 17 Oct
+ 2023 06:11:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 2/3] ASoC: qcom: q6afe: check ADSP version when setting
- clocks
-Content-Language: en-US
-To: =?UTF-8?Q?Otto_Pfl=c3=bcger?= <otto.pflueger@abscue.de>,
- linux-arm-msm@vger.kernel.org
-Cc: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20231014172624.75301-1-otto.pflueger@abscue.de>
- <20231014172624.75301-3-otto.pflueger@abscue.de>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20231014172624.75301-3-otto.pflueger@abscue.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7VUCXFZSBP773HJ7ULXQ5GS5IIATQ4EK
-X-Message-ID-Hash: 7VUCXFZSBP773HJ7ULXQ5GS5IIATQ4EK
-X-MailFrom: srinivas.kandagatla@linaro.org
+References: <1697185865-27528-1-git-send-email-shengjiu.wang@nxp.com>
+ <1697185865-27528-10-git-send-email-shengjiu.wang@nxp.com>
+ <a0dfe959-3b32-4d03-9f1b-8f3c1054ecf7@xs4all.nl>
+In-Reply-To: <a0dfe959-3b32-4d03-9f1b-8f3c1054ecf7@xs4all.nl>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 17 Oct 2023 21:11:31 +0800
+Message-ID: 
+ <CAA+D8AP1a-Vioy2Cr7dZ4wErXpkm7g9Caw-yPKc9jbWpPnN0JQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v6 09/11] media: uapi: Add audio rate controls support
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: V3FZKJ77J3SLQEHA7KXFOIFATOYKI37S
+X-Message-ID-Hash: V3FZKJ77J3SLQEHA7KXFOIFATOYKI37S
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7VUCXFZSBP773HJ7ULXQ5GS5IIATQ4EK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V3FZKJ77J3SLQEHA7KXFOIFATOYKI37S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,114 +124,373 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thanks Otto for the patch,
-some comments below
+On Mon, Oct 16, 2023 at 9:16=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl> w=
+rote:
+>
+> Hi Shengjiu,
+>
+> On 13/10/2023 10:31, Shengjiu Wang wrote:
+> > Fixed point controls are used by the user to configure
+> > the audio sample rate to driver.
+> >
+> > Add V4L2_CID_ASRC_SOURCE_RATE and V4L2_CID_ASRC_DEST_RATE
+> > new IDs for ASRC rate control.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  .../userspace-api/media/v4l/common.rst        |  1 +
+> >  .../media/v4l/ext-ctrls-fixed-point.rst       | 36 +++++++++++++++++++
+> >  .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 +++
+> >  .../media/v4l/vidioc-queryctrl.rst            |  7 ++++
+> >  .../media/videodev2.h.rst.exceptions          |  1 +
+> >  drivers/media/v4l2-core/v4l2-ctrls-core.c     |  5 +++
+> >  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  4 +++
+> >  include/media/v4l2-ctrls.h                    |  2 ++
+> >  include/uapi/linux/v4l2-controls.h            | 13 +++++++
+> >  include/uapi/linux/videodev2.h                |  3 ++
+> >  10 files changed, 76 insertions(+)
+> >  create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls-fix=
+ed-point.rst
+> >
+> > diff --git a/Documentation/userspace-api/media/v4l/common.rst b/Documen=
+tation/userspace-api/media/v4l/common.rst
+> > index ea0435182e44..35707edffb13 100644
+> > --- a/Documentation/userspace-api/media/v4l/common.rst
+> > +++ b/Documentation/userspace-api/media/v4l/common.rst
+> > @@ -52,6 +52,7 @@ applicable to all devices.
+> >      ext-ctrls-fm-rx
+> >      ext-ctrls-detect
+> >      ext-ctrls-colorimetry
+> > +    ext-ctrls-fixed-point
+>
+> Rename this to ext-ctrls-audio-m2m.
+>
+> >      fourcc
+> >      format
+> >      planar-apis
+> > diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-poin=
+t.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-point.rst
+> > new file mode 100644
+> > index 000000000000..2ef6e250580c
+> > --- /dev/null
+> > +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-point.rst
+> > @@ -0,0 +1,36 @@
+> > +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> > +
+> > +.. _fixed-point-controls:
+> > +
+> > +***************************
+> > +Fixed Point Control Reference
+>
+> This is for audio controls. "Fixed Point" is just the type, and it doesn'=
+t make
+> sense to group fixed point controls. But it does make sense to group the =
+audio
+> controls.
+>
+> V4L2 controls can be grouped into classes. Basically it is a way to put c=
+ontrols
+> into categories, and for each category there is also a control that gives=
+ a
+> description of the class (see 2.15.15 in
+> https://linuxtv.org/downloads/v4l-dvb-apis-new/driver-api/v4l2-controls.h=
+tml#introduction)
+>
+> If you use e.g. 'v4l2-ctl -l' to list all the controls, then you will see=
+ that
+> they are grouped based on what class of control they are.
+>
+> So I think it would be a good idea to create a new control class for M2M =
+audio controls,
+> instead of just adding them to the catch-all 'User Controls' class.
+>
+> Search e.g. for V4L2_CTRL_CLASS_COLORIMETRY and V4L2_CID_COLORIMETRY_CLAS=
+S to see how
+> it is done.
+>
+> M2M_AUDIO would probably be a good name for the class.
+>
+> > +***************************
+> > +
+> > +These controls are intended to support an asynchronous sample
+> > +rate converter.
+>
+> Add ' (ASRC).' at the end to indicate the common abbreviation for
+> that.
+>
+> > +
+> > +.. _v4l2-audio-asrc:
+> > +
+> > +``V4L2_CID_ASRC_SOURCE_RATE``
+> > +    sets the resampler source rate.
+> > +
+> > +``V4L2_CID_ASRC_DEST_RATE``
+> > +    sets the resampler destination rate.
+>
+> Document the unit (Hz) for these two controls.
+>
+> > +
+> > +.. c:type:: v4l2_ctrl_fixed_point
+> > +
+> > +.. cssclass:: longtable
+> > +
+> > +.. tabularcolumns:: |p{1.5cm}|p{5.8cm}|p{10.0cm}|
+> > +
+> > +.. flat-table:: struct v4l2_ctrl_fixed_point
+> > +    :header-rows:  0
+> > +    :stub-columns: 0
+> > +    :widths:       1 1 2
+> > +
+> > +    * - __u32
+>
+> Hmm, shouldn't this be __s32?
+>
+> > +      - ``integer``
+> > +      - integer part of fixed point value.
+> > +    * - __s32
+>
+> and this __u32?
+>
+> You want to be able to use this generic type as a signed value.
+>
+> > +      - ``fractional``
+> > +      - fractional part of fixed point value, which is Q31.
+> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.r=
+st b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > index f9f73530a6be..1811dabf5c74 100644
+> > --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > @@ -295,6 +295,10 @@ still cause this situation.
+> >        - ``p_av1_film_grain``
+> >        - A pointer to a struct :c:type:`v4l2_ctrl_av1_film_grain`. Vali=
+d if this control is
+> >          of type ``V4L2_CTRL_TYPE_AV1_FILM_GRAIN``.
+> > +    * - struct :c:type:`v4l2_ctrl_fixed_point` *
+> > +      - ``p_fixed_point``
+> > +      - A pointer to a struct :c:type:`v4l2_ctrl_fixed_point`. Valid i=
+f this control is
+> > +        of type ``V4L2_CTRL_TYPE_FIXED_POINT``.
+> >      * - void *
+> >        - ``ptr``
+> >        - A pointer to a compound type which can be an N-dimensional arr=
+ay
+> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst=
+ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > index 4d38acafe8e1..9285f4f39eed 100644
+> > --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > @@ -549,6 +549,13 @@ See also the examples in :ref:`control`.
+> >        - n/a
+> >        - A struct :c:type:`v4l2_ctrl_av1_film_grain`, containing AV1 Fi=
+lm Grain
+> >          parameters for stateless video decoders.
+> > +    * - ``V4L2_CTRL_TYPE_FIXED_POINT``
+> > +      - n/a
+> > +      - n/a
+> > +      - n/a
+> > +      - A struct :c:type:`v4l2_ctrl_fixed_point`, containing parameter=
+ which has
+> > +        integer part and fractional part, i.e. audio sample rate.
+> > +
+> >
+> >  .. raw:: latex
+> >
+> > diff --git a/Documentation/userspace-api/media/videodev2.h.rst.exceptio=
+ns b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > index e61152bb80d1..2faa5a2015eb 100644
+> > --- a/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > +++ b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > @@ -167,6 +167,7 @@ replace symbol V4L2_CTRL_TYPE_AV1_SEQUENCE :c:type:=
+`v4l2_ctrl_type`
+> >  replace symbol V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY :c:type:`v4l2_ctrl_=
+type`
+> >  replace symbol V4L2_CTRL_TYPE_AV1_FRAME :c:type:`v4l2_ctrl_type`
+> >  replace symbol V4L2_CTRL_TYPE_AV1_FILM_GRAIN :c:type:`v4l2_ctrl_type`
+> > +replace symbol V4L2_CTRL_TYPE_FIXED_POINT :c:type:`v4l2_ctrl_type`
+> >
+> >  # V4L2 capability defines
+> >  replace define V4L2_CAP_VIDEO_CAPTURE device-capabilities
+> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/=
+v4l2-core/v4l2-ctrls-core.c
+> > index a662fb60f73f..7a616ac91059 100644
+> > --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > @@ -1168,6 +1168,8 @@ static int std_validate_compound(const struct v4l=
+2_ctrl *ctrl, u32 idx,
+> >               if (!area->width || !area->height)
+> >                       return -EINVAL;
+> >               break;
+> > +     case V4L2_CTRL_TYPE_FIXED_POINT:
+> > +             break;
+>
+> Hmm, this would need this patch 'v4l2-ctrls: add support for V4L2_CTRL_WH=
+ICH_MIN/MAX_VAL':
+>
+> https://patchwork.linuxtv.org/project/linux-media/patch/20231010022136.15=
+04015-7-yunkec@google.com/
+>
+> since min and max values are perfectly fine for a fixed point value.
+>
+> Even a step value (currently not supported in that patch) would make sens=
+e.
+>
+> But I wonder if we couldn't simplify this: instead of creating a v4l2_ctr=
+l_fixed_point,
+> why not represent the fixed point value as a Q31.32. Then the standard
+> minimum/maximum/step values can be used, and it acts like a regular V4L2_=
+TYPE_INTEGER64.
+>
+> Except that both userspace and drivers need to multiply it with 2^-32 to =
+get the actual
+> value.
+>
+> So in enum v4l2_ctrl_type add:
+>
+>         V4L2_CTRL_TYPE_FIXED_POINT =3D 10,
+>
+> (10, because it is no longer a compound type).
 
-On 14/10/2023 18:26, Otto Pflüger wrote:
-> There are two APIs for setting clocks: the old one that uses
-> AFE_PARAM_ID_INT_DIGITAL_CDC_CLK_CONFIG and AFE_PARAM_ID_LPAIF_CLK_CONFIG,
-> and the new one which uses AFE_PARAM_ID_CLOCK_SET.
-> 
-> ADSP firmware version 2.6 only provides the old API, while newer
-> firmware versions only provide the new API.
-> 
-> Implement LPAIF_BIT_CLK and LPAIF_DIG_CLK for both APIs so that users
-> don't have to care about the firmware version. Also fall back to
-> setting AFE_PARAM_ID_INT_DIGITAL_CDC_CLK_CONFIG in q6afe_set_lpass_clock
-> when setting the new Q6AFE_LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE
-> clock is requested to allow specifying it in the device tree on older
-> platforms too.
-> 
-> Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
-> ---
->   sound/soc/qcom/qdsp6/q6afe.c | 81 ++++++++++++++++++++++++++++++++++++
->   1 file changed, 81 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-> index 91d39f6ad0bd..87bdf741e5f6 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe.c
-> @@ -1111,6 +1111,32 @@ int q6afe_set_lpass_clock(struct device *dev, int clk_id, int attri,
->   	struct q6afe *afe = dev_get_drvdata(dev->parent);
->   	struct afe_clk_set cset = {0,};
->   
-> +	/*
-> +	 * v2 clocks specified in the device tree may not be supported by the
-> +	 * firmware. If this is the digital codec core clock, fall back to the
-> +	 * old method for setting it.
-> +	 */
-> +	if (q6core_get_adsp_version() < Q6_ADSP_VERSION_2_7) {
-> +		struct q6afe_port *port;
-> +		struct afe_digital_clk_cfg dcfg = {0,};
-> +		int ret;
-> +
-> +		if (clk_id != Q6AFE_LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE)
-> +			return -EINVAL;
-> +
+Seems we don't need V4L2_CTRL_TYPE_FIXED_POINT, just use V4L2_TYPE_INTEGER6=
+4?
 
-<---
-> +		port = q6afe_port_get_from_id(dev, PRIMARY_MI2S_RX);
-> +		if (IS_ERR(port))
-> +			return PTR_ERR(port);
-> +
-> +		dcfg.i2s_cfg_minor_version = AFE_API_VERSION_I2S_CONFIG;
-> +		dcfg.clk_val = freq;
-> +		dcfg.clk_root = 5;
-> +		ret = q6afe_set_digital_codec_core_clock(port, &dcfg);
-> +
-> +		q6afe_port_put(port);
---->
+The reason I use the 'integer' and 'fractional' is that I want
+'integer' to be the normal sample
+rate, for example 48kHz.  The 'fractional' is the difference with
+normal sample rate.
 
-Could you pl explain what are we doing in this snippet?
+For example, the rate =3D 47998.12345.  so integer =3D 48000,  fractional=
+=3D -1.87655.
 
-Isn't this what is exactly done in q6afe_mi2s_set_sysclk(LPAIF_DIG_CLK...)
+So if we use s64 for rate, then in driver need to convert the rate to
+the closed normal
+sample rate + fractional.
 
+best regards
+wang shengjiu
 
-
-
-> +		return ret;
-> +	}
-> +
->   	cset.clk_set_minor_version = AFE_API_VERSION_CLOCK_SET;
->   	cset.clk_id = clk_id;
->   	cset.clk_freq_in_hz = freq;
-> @@ -1124,6 +1150,41 @@ int q6afe_set_lpass_clock(struct device *dev, int clk_id, int attri,
->   }
->   EXPORT_SYMBOL_GPL(q6afe_set_lpass_clock);
->   
-...
-
->   int q6afe_port_set_sysclk(struct q6afe_port *port, int clk_id,
->   			  int clk_src, int clk_root,
->   			  unsigned int freq, int dir)
-> @@ -1133,6 +1194,26 @@ int q6afe_port_set_sysclk(struct q6afe_port *port, int clk_id,
->   	struct afe_digital_clk_cfg dcfg = {0,};
->   	int ret;
->   
-> +	if (q6core_get_adsp_version() >= Q6_ADSP_VERSION_2_7) {
-> +		/* Always use the new clock API on newer platforms. */
-> +		switch (clk_id) {
-> +		case LPAIF_DIG_CLK:
-> +			clk_src = Q6AFE_LPASS_CLK_ATTRIBUTE_COUPLE_NO;
-> +			clk_root = Q6AFE_LPASS_CLK_ROOT_DEFAULT;
-> +			clk_id = Q6AFE_LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE;
-> +			break;
-> +		case LPAIF_BIT_CLK:
-> +			clk_src = Q6AFE_LPASS_CLK_ATTRIBUTE_COUPLE_NO;
-> +			clk_root = Q6AFE_LPASS_CLK_ROOT_DEFAULT;
-> +			clk_id = q6afe_get_v2_bit_clk_id(port);
-> +			if (clk_id < 0)
-> +				return clk_id;
-> +			break;
-> +		default:
-> +			break;
-> +		}
-> +	}
-
-This should be probably done in machine driver or q6afe-dai, not in q6afe.
-
-
-> +
->   	switch (clk_id) {
->   	case LPAIF_DIG_CLK:
->   		dcfg.i2s_cfg_minor_version = AFE_API_VERSION_I2S_CONFIG;
+>
+> >
+> >       default:
+> >               return -EINVAL;
+> > @@ -1868,6 +1870,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l=
+2_ctrl_handler *hdl,
+> >       case V4L2_CTRL_TYPE_AREA:
+> >               elem_size =3D sizeof(struct v4l2_area);
+> >               break;
+> > +     case V4L2_CTRL_TYPE_FIXED_POINT:
+> > +             elem_size =3D sizeof(struct v4l2_ctrl_fixed_point);
+> > +             break;
+> >       default:
+> >               if (type < V4L2_CTRL_COMPOUND_TYPES)
+> >                       elem_size =3D sizeof(s32);
+> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/=
+v4l2-core/v4l2-ctrls-defs.c
+> > index 8696eb1cdd61..d8f232df6b6a 100644
+> > --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> > @@ -1602,6 +1602,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, e=
+num v4l2_ctrl_type *type,
+> >       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
+> >               *type =3D V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
+> >               break;
+> > +     case V4L2_CID_ASRC_SOURCE_RATE:
+> > +     case V4L2_CID_ASRC_DEST_RATE:
+> > +             *type =3D V4L2_CTRL_TYPE_FIXED_POINT;
+> > +             break;
+> >       default:
+> >               *type =3D V4L2_CTRL_TYPE_INTEGER;
+> >               break;
+> > diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+> > index 59679a42b3e7..645e4cccafc7 100644
+> > --- a/include/media/v4l2-ctrls.h
+> > +++ b/include/media/v4l2-ctrls.h
+> > @@ -56,6 +56,7 @@ struct video_device;
+> >   * @p_av1_tile_group_entry:  Pointer to an AV1 tile group entry struct=
+ure.
+> >   * @p_av1_frame:             Pointer to an AV1 frame structure.
+> >   * @p_av1_film_grain:                Pointer to an AV1 film grain stru=
+cture.
+> > + * @p_fixed_point:           Pointer to a struct v4l2_ctrl_fixed_point=
+.
+> >   * @p:                               Pointer to a compound value.
+> >   * @p_const:                 Pointer to a constant compound value.
+> >   */
+> > @@ -89,6 +90,7 @@ union v4l2_ctrl_ptr {
+> >       struct v4l2_ctrl_av1_tile_group_entry *p_av1_tile_group_entry;
+> >       struct v4l2_ctrl_av1_frame *p_av1_frame;
+> >       struct v4l2_ctrl_av1_film_grain *p_av1_film_grain;
+> > +     struct v4l2_ctrl_fixed_point *p_fixed_point;
+> >       void *p;
+> >       const void *p_const;
+> >  };
+> > diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4=
+l2-controls.h
+> > index c3604a0a3e30..91096259e3ea 100644
+> > --- a/include/uapi/linux/v4l2-controls.h
+> > +++ b/include/uapi/linux/v4l2-controls.h
+> > @@ -112,6 +112,8 @@ enum v4l2_colorfx {
+> >
+> >  /* last CID + 1 */
+> >  #define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
+> > +#define V4L2_CID_ASRC_SOURCE_RATE            (V4L2_CID_BASE + 45)
+> > +#define V4L2_CID_ASRC_DEST_RATE                      (V4L2_CID_BASE + =
+46)
+>
+> This patch needs to be split in three parts:
+>
+> 1) Add the new M2M_AUDIO control class,
+> 2) Add the new V4L2_CTRL_TYPE_FIXED_POINT type,
+> 3) Add the new controls.
+>
+> These are all independent changes, so separating them makes it easier to
+> review.
+>
+> >
+> >  /* USER-class private control IDs */
+> >
+> > @@ -3488,4 +3490,15 @@ struct v4l2_ctrl_av1_film_grain {
+> >  #define V4L2_CID_MPEG_MFC51_BASE        V4L2_CID_CODEC_MFC51_BASE
+> >  #endif
+> >
+> > +/**
+> > + * struct v4l2_ctrl_fixed_point - fixed point parameter.
+> > + *
+> > + * @rate_integer: integer part of fixed point value.
+> > + * @rate_fractional: fractional part of fixed point value
+> > + */
+> > +struct v4l2_ctrl_fixed_point {
+> > +     __u32 integer;
+>
+> __s32?
+>
+> > +     __u32 fractional;
+> > +};
+> > +
+> >  #endif
+> > diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videod=
+ev2.h
+> > index 2ac7b989394c..3ef32c09c2fa 100644
+> > --- a/include/uapi/linux/videodev2.h
+> > +++ b/include/uapi/linux/videodev2.h
+> > @@ -1888,6 +1888,7 @@ struct v4l2_ext_control {
+> >               struct v4l2_ctrl_av1_tile_group_entry __user *p_av1_tile_=
+group_entry;
+> >               struct v4l2_ctrl_av1_frame __user *p_av1_frame;
+> >               struct v4l2_ctrl_av1_film_grain __user *p_av1_film_grain;
+> > +             struct v4l2_ctrl_fixed_point __user *p_fixed_point;
+> >               void __user *ptr;
+> >       };
+> >  } __attribute__ ((packed));
+> > @@ -1966,6 +1967,8 @@ enum v4l2_ctrl_type {
+> >       V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY =3D 0x281,
+> >       V4L2_CTRL_TYPE_AV1_FRAME            =3D 0x282,
+> >       V4L2_CTRL_TYPE_AV1_FILM_GRAIN       =3D 0x283,
+> > +
+> > +     V4L2_CTRL_TYPE_FIXED_POINT          =3D 0x290,
+> >  };
+> >
+> >  /*  Used in the VIDIOC_QUERYCTRL ioctl for querying controls */
+>
+> Regards,
+>
+>         Hans

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB5627CD0C1
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 01:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8455C7CD0C0
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 01:28:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1422DE84;
-	Wed, 18 Oct 2023 01:27:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1422DE84
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCB1FE7A;
+	Wed, 18 Oct 2023 01:27:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCB1FE7A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697585321;
-	bh=2UKUUSI67P7VTV+D5P7W1dLNBm5HCyoV51RKoH6boYk=;
+	s=default; t=1697585309;
+	bh=7I1Y4nnQBV4/2CN7n+iQSuwae/PdMJVhORVRJRUVvoo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cl2xHYplbneWO5hk+l5lBit8Hm3EzzL+sa5VeBeJ7rEoimjJSxMV4IhZ+uipKMMGf
-	 VKa5t1HhR6Iym2VF757Juu9qQ0WWPZQYtcoGWjgKw6joZsda6vgXIw5btVsaMq6375
-	 ykTB6oQU95Cepb8pMtRWXkznBCXc3oKLNJIy/2C0=
+	b=vAfsStKG07AbVSTAKmUHNswJq3fnReJFlB6IyMPUCoB4q8uce8Qe9ZNL66jK7LuD0
+	 y01EXruSVduV7wnEbkShUSjKwIXwLDvkvH1Kpq0djM0B81q5irU0dXCxUWbmhhPyfy
+	 XcD13KgQnXvf+oeR/os7sx/tnEwva6rFjJZn6xMs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC347F80631; Wed, 18 Oct 2023 01:24:19 +0200 (CEST)
+	id CD8C5F80620; Wed, 18 Oct 2023 01:24:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75337F80621;
-	Wed, 18 Oct 2023 01:24:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2584BF80618;
+	Wed, 18 Oct 2023 01:24:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFAFDF80619; Wed, 18 Oct 2023 01:24:14 +0200 (CEST)
+	id 29C96F8061D; Wed, 18 Oct 2023 01:24:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,46 +35,46 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6926F8032D
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 01:23:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6926F8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3718FF80536
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 01:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3718FF80536
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ji2ab5J6
+ header.s=Intel header.b=Iyp9sWGd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1697585002; x=1729121002;
+  t=1697585003; x=1729121003;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=2UKUUSI67P7VTV+D5P7W1dLNBm5HCyoV51RKoH6boYk=;
-  b=ji2ab5J6jZVDh9Wpgv53JYJXZDhkm9xTEsZqP5kZQBVrbqtF9+rvC8Hw
-   8KdpclygcMqIBZr9zOAitWq+r9+JHAoKpc9BoN74XL31KNNYeqXZE1cAS
-   YpR3f26j4++J1Fk/mTWP5l9sOjVJz4b09QvY1ghuNhCZ8u0KBb+Dh/Kdg
-   eC9JT4SuVO9yWCMUiNIlIuXeKGpCN1nXbMWKS7o4HXVA/pl1D3dToxGI1
-   tgFfDRRenqS2ppSZOW4m6rJIVn6ITEMEeNgItufgbmamjiLsnAGseX6a3
-   RoIec7fd4mzH8vvwX5O15d4bx0jyTolUq7J5hu/LcbmlwX/SQiPf2ufaL
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="384778104"
+  bh=7I1Y4nnQBV4/2CN7n+iQSuwae/PdMJVhORVRJRUVvoo=;
+  b=Iyp9sWGdXDBksgoSbkDsug92Lj123wk+91uuXYo//580shLl2BiBmWvV
+   ToM681qSMsWzyJkm8xX6anxggnqm+Kh7b29CE0np8UB8I5ZZh2qvJndcF
+   gZ9coMd/X6GyBrSFmq5Xu/yOUjjfjw9rF5Q6JoEjD7yBp3m5timlomq5s
+   dR0LasS/XcWPVMCe1nApKW/aq5YjdbEu/qb8tGqyd7jcGIR+YqCv2m/Ek
+   DbxXnGPv/7Ho9OxUe0fy3i20t3nz/RJkjrYe09cNkZ1CBuGrWBNA4tWXP
+   Hn2a1H1KyEEC++7G2WJlM8logPRMC+UsvrwveRdEm6wlCKhE6D9+EeQm4
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="384778120"
 X-IronPort-AV: E=Sophos;i="6.03,233,1694761200";
-   d="scan'208";a="384778104"
+   d="scan'208";a="384778120"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 16:23:18 -0700
+ 17 Oct 2023 16:23:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="826637465"
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="826637471"
 X-IronPort-AV: E=Sophos;i="6.03,233,1694761200";
-   d="scan'208";a="826637465"
+   d="scan'208";a="826637471"
 Received: from asprado-mobl2.amr.corp.intel.com (HELO [10.212.55.179])
  ([10.212.55.179])
   by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 16:23:17 -0700
-Message-ID: <ad851c66-5c5f-4bbb-b278-7b0c49b3cb07@linux.intel.com>
-Date: Tue, 17 Oct 2023 17:29:05 -0500
+ 17 Oct 2023 16:23:18 -0700
+Message-ID: <dbb1f64b-8112-4a2f-9138-616e04bdc53c@linux.intel.com>
+Date: Tue, 17 Oct 2023 17:33:25 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 20/34] ALSA: usb-audio: Check for support for requested
- audio format
+Subject: Re: [PATCH v9 21/34] ASoC: usb: Add PCM format check API for USB
+ backend
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
  gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
@@ -87,13 +87,13 @@ Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org
 References: <20231017200109.11407-1-quic_wcheng@quicinc.com>
- <20231017200109.11407-21-quic_wcheng@quicinc.com>
+ <20231017200109.11407-22-quic_wcheng@quicinc.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231017200109.11407-21-quic_wcheng@quicinc.com>
+In-Reply-To: <20231017200109.11407-22-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AT2P6RT4UTACVF5FPZ4T5NUX5FL6WEOZ
-X-Message-ID-Hash: AT2P6RT4UTACVF5FPZ4T5NUX5FL6WEOZ
+Message-ID-Hash: CKWTCFZDL5UTA34CTFMY6YSF2D37T6RR
+X-Message-ID-Hash: CKWTCFZDL5UTA34CTFMY6YSF2D37T6RR
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AT2P6RT4UTACVF5FPZ4T5NUX5FL6WEOZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CKWTCFZDL5UTA34CTFMY6YSF2D37T6RR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,90 +118,61 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 10/17/23 15:00, Wesley Cheng wrote:
-> Allow for checks on a specific USB audio device to see if a requested PCM
-> format is supported.  This is needed for support for when playback is
+> Introduce a check for if a particular PCM format is supported by the USB
 
-This is needed for support when playback is
+Introduce a helper to check if a ...
 
-> initiated by the ASoC USB backend path.
+> audio device connected.  If the USB audio device does not have an audio
+> profile which can support the requested format, then notify the USB
+> backend.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 > ---
->  sound/usb/card.c | 40 ++++++++++++++++++++++++++++++++++++++++
->  sound/usb/card.h | 11 +++++++++++
->  2 files changed, 51 insertions(+)
+>  include/sound/soc-usb.h |  3 +++
+>  sound/soc/soc-usb.c     | 13 +++++++++++++
+>  2 files changed, 16 insertions(+)
 > 
-> diff --git a/sound/usb/card.c b/sound/usb/card.c
-> index c0b312e264bf..88f431917c15 100644
-> --- a/sound/usb/card.c
-> +++ b/sound/usb/card.c
-> @@ -162,6 +162,46 @@ int snd_usb_unregister_platform_ops(void)
+> diff --git a/include/sound/soc-usb.h b/include/sound/soc-usb.h
+> index 58c686f4f7ba..c6ddc055c4cd 100644
+> --- a/include/sound/soc-usb.h
+> +++ b/include/sound/soc-usb.h
+> @@ -37,6 +37,9 @@ struct snd_soc_usb {
+>  	void *priv_data;
+>  };
+>  
+> +int snd_soc_usb_find_format(int card_idx, struct snd_pcm_hw_params *params,
+> +			int direction);
+> +
+>  int snd_soc_usb_connect(struct device *usbdev, struct snd_soc_usb_device *sdev);
+>  int snd_soc_usb_disconnect(struct device *usbdev, struct snd_soc_usb_device *sdev);
+>  void *snd_soc_usb_find_priv_data(struct device *usbdev);
+> diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
+> index 73b1bcc3b506..7407678a993e 100644
+> --- a/sound/soc/soc-usb.c
+> +++ b/sound/soc/soc-usb.c
+> @@ -63,6 +63,19 @@ void *snd_soc_usb_find_priv_data(struct device *dev)
 >  }
->  EXPORT_SYMBOL_GPL(snd_usb_unregister_platform_ops);
+>  EXPORT_SYMBOL_GPL(snd_soc_usb_find_priv_data);
 >  
-> +/*
-> + * Checks to see if requested audio profile, i.e sample rate, # of
-> + * channels, etc... is supported by the substream associated to the
-> + * USB audio device.
-> + */
-> +struct snd_usb_stream *snd_usb_find_suppported_substream(int card_idx,
-> +			struct snd_pcm_hw_params *params, int direction)
+> +int snd_soc_usb_find_format(int card_idx, struct snd_pcm_hw_params *params,
+> +			int direction)
 > +{
-> +	struct snd_usb_audio *chip;
-> +	struct snd_usb_substream *subs = NULL;
-
-useless init?
-
 > +	struct snd_usb_stream *as;
-> +	const struct audioformat *fmt;
 > +
-> +	/*
-> +	 * Register mutex is held when populating and clearing usb_chip
-> +	 * array.
-> +	 */
-> +	mutex_lock(&register_mutex);
-> +	chip = usb_chip[card_idx];
-> +	if (!chip) {
-> +		mutex_unlock(&register_mutex);
-> +		return NULL;
-> +	}
+> +	as = snd_usb_find_suppported_substream(card_idx, params, direction);
+> +	if (!as)
+> +		return -EOPNOTSUPP;
 > +
-> +	if (enable[card_idx]) {
-> +		list_for_each_entry(as, &chip->pcm_list, list) {
-> +			subs = &as->substream[direction];
-> +			fmt = snd_usb_find_substream_format(subs, params);
-> +			if (fmt) {
-> +				mutex_unlock(&register_mutex);
-> +				return as;
-> +			}
-> +		}
-> +	}
-> +	mutex_unlock(&register_mutex);
-> +
-> +	return NULL;
+> +	return 0;
 > +}
-> +EXPORT_SYMBOL_GPL(snd_usb_find_suppported_substream);
-> +
->  /*
->   * disconnect streams
->   * called from usb_audio_disconnect()
-> diff --git a/sound/usb/card.h b/sound/usb/card.h
-> index 2884912adc96..e26292363cf0 100644
-> --- a/sound/usb/card.h
-> +++ b/sound/usb/card.h
-> @@ -216,4 +216,15 @@ struct snd_usb_platform_ops {
->  
->  int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops);
->  int snd_usb_unregister_platform_ops(void);
-> +
-> +#if IS_ENABLED(CONFIG_SND_USB_AUDIO)
-> +struct snd_usb_stream *snd_usb_find_suppported_substream(int card_idx,
-> +			struct snd_pcm_hw_params *params, int direction);
-> +#else
-> +static struct snd_usb_stream *snd_usb_find_suppported_substream(int card_idx,
-> +			struct snd_pcm_hw_params *params, int direction)
-> +{
-> +	return NULL;
-> +}
-> +#endif /* IS_ENABLED(CONFIG_SND_USB_AUDIO) */
->  #endif /* __USBAUDIO_CARD_H */
+> +EXPORT_SYMBOL_GPL(snd_soc_usb_find_format);
+
+Is this the right way to check for formats?
+
+formats are defined within the scope of an endpoint, and those endpoints
+are themselves defined within the scope of an interface?
+
+I don't see a notion of endpoint here. Does this assume all endpoints
+are valid, or maybe the existence of a single endpoint in a device?
+
+Confused.

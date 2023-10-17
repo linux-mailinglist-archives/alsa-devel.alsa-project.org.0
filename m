@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17E807CCA05
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Oct 2023 19:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2BE77CCA04
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Oct 2023 19:41:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 501EB84B;
-	Tue, 17 Oct 2023 19:40:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 501EB84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D004D852;
+	Tue, 17 Oct 2023 19:40:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D004D852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697564505;
-	bh=tbY7wgGRlO6v5IUjQhW+hckUTRT1IP/RqORMcLcgk+8=;
+	s=default; t=1697564474;
+	bh=0XW0onhMsdWHTogZuCFXILzxbu1EahYG2jAHnvIRFiI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qBWceMDthuM8hrDFc0hghPJbWno/msENOHRck65BWZBXySr4nj5GtsWmQPkgZ6grG
-	 OWuC/gjCKm7VC1uV6dJBexeBZSqTB0Wn4StyOqhwczfpvC44uwsyu09w7ionvcDOuu
-	 1is6fhId7K5YmQNKXtyt6se8s0DU0TTAGK4eqATo=
+	b=lYLRhGMjZUZKQQtGTQ+YeXzyh3nhdzdh+VMcfxgMOAXtEOVg+esErQGv7PCMshomX
+	 NPIQd4lq1+MelEJDFbk9qQLjiRyZMISelTr2cN2S/4KqJzHETdu7rsqegwWznU8NXr
+	 0aNq8iItqW/1/3z6jQnB3Befxn+2och1LNgiP5EU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 079C8F80564; Tue, 17 Oct 2023 19:40:05 +0200 (CEST)
+	id 5D1CFF8024E; Tue, 17 Oct 2023 19:40:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C74FF8055A;
-	Tue, 17 Oct 2023 19:40:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99322F8024E;
+	Tue, 17 Oct 2023 19:40:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59B02F8025F; Tue, 17 Oct 2023 19:40:00 +0200 (CEST)
+	id 7DB99F8027B; Tue, 17 Oct 2023 19:39:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,47 +37,47 @@ Received: from sin.source.kernel.org (sin.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BE0EFF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44519F8024E
 	for <alsa-devel@alsa-project.org>; Tue, 17 Oct 2023 19:39:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE0EFF80166
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44519F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SwIVnnEe
+ header.s=k20201202 header.b=Rw6hcHRo
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id AFE89CE204B;
+	by sin.source.kernel.org (Postfix) with ESMTP id 08B10CE2075;
+	Tue, 17 Oct 2023 17:39:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73614C433CB;
 	Tue, 17 Oct 2023 17:39:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A258C433C8;
-	Tue, 17 Oct 2023 17:39:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697564384;
-	bh=tbY7wgGRlO6v5IUjQhW+hckUTRT1IP/RqORMcLcgk+8=;
+	s=k20201202; t=1697564387;
+	bh=0XW0onhMsdWHTogZuCFXILzxbu1EahYG2jAHnvIRFiI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=SwIVnnEeSl3s6cGRsKx8rDN9O6cfILhT9uiTQpr4+svVReYz3okZbW6PfgYQMJf1t
-	 hKZAZNxjj8ersJiDzQoE5PFs8vUL+zpznTSuDprjCVQQ3ZI3fadEJ7VgD7qxTj6CnW
-	 2c6On+F5wHiovG2jjc1ye3vC5heV90Y0CkXbFdvnI5p8Oqa/MYjaGnfFDQNuQO8cKW
-	 Anbb7VaLIV2t6N9Etk15JCVoX9ZSmP6oUfqk3pBHVsmVJX4Lbpax8hPVcq/iLMx6p3
-	 +Q9X9hDttPCdj7BTRjY4iiTDqJj9UowiDqhORG6r2xKD0WpkxugEpyRLI0dXpyBt+e
-	 t+pwuWqzFJUfA==
+	b=Rw6hcHRoSeoapz3OQTXjIuZxdryPugYP8E+cShs6K+4+QzVkPCmtPR6Fp+03Asz4P
+	 t17VNQMBGnZsEGuW9jn5sxL1OABwon+z58CxBVYLb8VsrZGgloXB4KNJveklGCYlfm
+	 DlzlasgrRO+leNYvBUaSZG++brezMhCaB1AZhmcQRZrNTP+e2mBqdFpaTIrkQTSHVl
+	 g2Ow7GKIW0Xs+6E9ZQOrWatwzNYA1OuX3IelnVGnrEa+jzrdo7Mif8rMybaDTvbMHw
+	 e/vAhlEB+ZSvTRhriVTelOw+a5jDZ4clQLTA1rtT5rkE0Or6CwdSg5QdDTh6A/If4e
+	 mFdmtBcFPwvXg==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Daniel Beer <daniel.beer@igorinstitute.com>, Rob Herring <robh@kernel.org>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20231016155547.2973853-1-robh@kernel.org>
-References: <20231016155547.2973853-1-robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: tas5805m: Disallow undefined
- properties
-Message-Id: <169756438301.1863854.2005606398222182933.b4-ty@kernel.org>
-Date: Tue, 17 Oct 2023 18:39:43 +0100
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20231017071939.953343-1-Vijendar.Mukunda@amd.com>
+References: <20231017071939.953343-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: ps: enable wake capability for acp pci
+ driver
+Message-Id: <169756438519.1863854.149905912969891191.b4-ty@kernel.org>
+Date: Tue, 17 Oct 2023 18:39:45 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: 5WORZ7L3I3MUVPIDHFMDCJZ3JJDG24WG
-X-Message-ID-Hash: 5WORZ7L3I3MUVPIDHFMDCJZ3JJDG24WG
+Message-ID-Hash: Y5DR3QOZKSQECX62PTG23TZJ5YO4XPDE
+X-Message-ID-Hash: Y5DR3QOZKSQECX62PTG23TZJ5YO4XPDE
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5WORZ7L3I3MUVPIDHFMDCJZ3JJDG24WG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5DR3QOZKSQECX62PTG23TZJ5YO4XPDE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,15 +99,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 16 Oct 2023 10:55:47 -0500, Rob Herring wrote:
-> Device specific bindings should not allow undefined properties. This is
-> accomplished in json-schema with 'additionalProperties: false'.
-> 
-> Examples should be last in the schema, so move additionalProperties up
-> while we're here.
+On Tue, 17 Oct 2023 12:49:36 +0530, Vijendar Mukunda wrote:
+> Enable wake capability for acp pci driver for Pink Sardine
+> platform.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -115,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: tas5805m: Disallow undefined properties
-      commit: 086357275fc7635c5a2856c667b3d2f7604403fa
+[1/1] ASoC: amd: ps: enable wake capability for acp pci driver
+      commit: 70227e1574e47a759422beec78675f1c19e56e25
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

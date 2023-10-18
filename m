@@ -2,149 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475837CD4A0
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 08:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 479037CD57A
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 09:26:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEF1A84A;
-	Wed, 18 Oct 2023 08:45:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEF1A84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B1D3857;
+	Wed, 18 Oct 2023 09:26:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B1D3857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697611594;
-	bh=j2axR2JlnkQSMaxRqUJzlGAA0pCfZZYX0VvXb6CYqiw=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LGKRju2S54fcftr6eGVRI7+j7ckNYkGe52eslD5TBu+BhflZT+qQ+tKIldyh0X12C
-	 66VZW2OB6ur+y0MUh+RGxhWaoS4ghGeOEBXPoNyiaxaGmpyFBVAFywnFWD+ijeIDEZ
-	 dbkhMEPv+Se4ASwm3Gh+CCNRNoqy5Q0wIZ7k0sFg=
+	s=default; t=1697614015;
+	bh=5qhhhNYiui8rhJMyrj2lsDUG4jM3CxemEs5u2meo5vI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PwAh3EBza9LL1PiLq4nqLiAT4QfyqVxEUlyXf/Ta3wz0Cn6SnSpxDG37BxLs8jmFQ
+	 3Bg1jpBfpfYmQhVslt+4VmtEttsoe0GXXmHoYkagWSAvNIo1ifcjnEbIBoMAxY7ryh
+	 AeM76uLtQUQI3GxKr6nU87hqO7VbDsK+YhHwgXfw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AA1CF80536; Wed, 18 Oct 2023 08:45:44 +0200 (CEST)
+	id 859ACF8055A; Wed, 18 Oct 2023 09:26:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0409F8024E;
-	Wed, 18 Oct 2023 08:45:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FD50F800C9;
+	Wed, 18 Oct 2023 09:26:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD527F8025F; Wed, 18 Oct 2023 08:45:37 +0200 (CEST)
+	id E16F0F8025F; Wed, 18 Oct 2023 09:24:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-2.1 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2072e.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::72e])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38814F8019B
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 08:45:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38814F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A581F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 09:24:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A581F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=dm.renesas.com header.i=@dm.renesas.com
- header.a=rsa-sha256 header.s=selector1 header.b=MGnj30xU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K9TCgNV08nJN/6hOAjPO5cItguWEJqdnLgXlD0n9uIAQLxMRus6uCP0S7xFROk1rbLsqT8yqhn3zkCa0K53VfolxJYcs/nk+dlIYOOz0tA7qVvR4ykZpaIR8OCUTDL0xcWE3+lg8Qwd4A28ixX+oXC2xK/t+nFCFPEf0wi7tO9RqtgilQQ8oVl1lIFv0guHmFr7618YYNjcs5vVck0PLul3fjQY9qmIjufSQjOQBS2l4KyU7IFiCFj5X0XZVByhp8ScQWW4QypnrSpdDihMX9hNwPAr2D4kegRl6UtKR3H+jmjTyi7L+wvchqvWqQifPi9lQu6Ur/xY5vvhfgMTY1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T//IsHu/57tcI9MH3jc8qWB2+0BddAf7dVlWNJGqnTY=;
- b=TiHngVtWFzsuzBTAy5zLkIxdePVTQRI2t6gklKMq9tSW1Xx5LQLN0HC81YA9yVuUVudk9MqHO/GtHpzZdg/NH6d+YvvPjyhAeDFbwTHhE5yRxhs4QCizSpKyXP7+8zJeG2d7STmjqZQkA50URW5NmPjtVEHJZZg49phbIdfqaO80LE0+wBNggoZp4OXXD1dxfIq1ErJKcWjh5If79ppTyuURD+srzyPLI/FWXjDnPsjFRWOwHRVy9MDilGORl8Nh3eSmaUX7dFAhDlM9c1fKEErTNIaiVR9BOnlBAvcJfgGSp8gydZ1mgiPwAfXhskw6gd4vsZ4Duq8eoCbypVdGZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dm.renesas.com; dmarc=pass action=none
- header.from=dm.renesas.com; dkim=pass header.d=dm.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dm.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T//IsHu/57tcI9MH3jc8qWB2+0BddAf7dVlWNJGqnTY=;
- b=MGnj30xUQ2iWXcV11/SsL5F9WE/B8jYtD2z/gzwfxgLuPszDfVbvgdiE9Jt7A/u/Hcz2s/ZNc6TqZJ6gGBYPRoTwwKPjoSi6Jev6rYknmCq93KB1TpEHYsImm3XARQ5ISbKrRKcCWENsiKRMnbp0toK+0lBxznF8+DsBlE0+1zQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=dm.renesas.com;
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
- by TY3PR01MB9889.jpnprd01.prod.outlook.com (2603:1096:400:22b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Wed, 18 Oct
- 2023 06:45:14 +0000
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::fb92:32d0:d0f6:a589]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::fb92:32d0:d0f6:a589%7]) with mapi id 15.20.6907.021; Wed, 18 Oct 2023
- 06:45:14 +0000
-From: David Rau <David.Rau.opensource@dm.renesas.com>
-To: broonie@kernel.org
-Cc: support.opensource@diasemi.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	David Rau <David.Rau.opensource@dm.renesas.com>
-Subject: [PATCH] ASoC: da7213: Add new kcontrol for tonegen
-Date: Wed, 18 Oct 2023 14:44:44 +0800
-Message-Id: <20231018064444.23186-1-David.Rau.opensource@dm.renesas.com>
-X-Mailer: git-send-email 2.17.1
-Content-Type: text/plain
-X-ClientProxiedBy: TY2PR06CA0030.apcprd06.prod.outlook.com
- (2603:1096:404:2e::18) To OS3PR01MB6641.jpnprd01.prod.outlook.com
- (2603:1096:604:10b::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=egJnY/CW
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-1c5cd27b1acso54896825ad.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 18 Oct 2023 00:24:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1697613841; x=1698218641;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NkayxJt/bJa0QjZcpVGHOieYcDb5vZ1W7z3OnjC4Mnk=;
+        b=egJnY/CWpwXH/LkwpxuI+nhUwPApTWhBiUPfdU3oEuKXuDI4hX1/2dXAEj5HTZYg8m
+         oyri+aHnH9HjP16MGH9IQRrTRIT3fr74A+BSrbS1QFPAj7R2GcXDIuMIE61J1nSRalp2
+         4yTqjAfdB9nmjhP98M3yr/U5sseZIJSMj/n0MykYOsD2m+BRsQg7+WRu6exqY01zhriu
+         kOO+RKhc1KAGJWn8T7t7T6Snmw94ea1Xv2C43A6nniMSkIhOgNHP/otvNZeXwjKD8HP+
+         myzU70+3yLmzPPwiyFsPzYQCvFFgzQspKBxEGHHlDUTzzOxhrGe1XIh5gAF3+zXZKyKi
+         9JvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697613841; x=1698218641;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NkayxJt/bJa0QjZcpVGHOieYcDb5vZ1W7z3OnjC4Mnk=;
+        b=emiThsM1kBcQ4xsaRM7AifNCEEKJAxyiVT8kHTaDqDMStFXg5icHj/Uz4lJKVQo8Kg
+         A3uW1H2fsXpBOzD0g/6FkP9/nFJwoqBNPuTJ97PEhILUSAhFM55bPI2ESZ5D18co6QP9
+         IRCmssc9E17Z95g5B8ho2sr0pK0m8ok9OdF8Tl5PXkfzzb8dU5UggsAYdSB0+eL4z7Pe
+         O4X3nYZF+YUlIRDia39DEbmoXWxHsYMzadpmA4LVZvIJ3cG9lhCDhzf2Qzwi6b8VjQt3
+         WmippLV2F73MA9PlK/d8zSpxNyy4B4xKTFdLTZdcTHLy78fO0Mwq04CCdYKwMAFNifen
+         CN8g==
+X-Gm-Message-State: AOJu0YxW76fie1d65RlqevenGd9hdZ/y4y390qx/VeDZQ+QRR536BrPm
+	QvDWLs65nuDxXGtL2tN1A9ShMb41Z0+iCDKOP6Q=
+X-Google-Smtp-Source: 
+ AGHT+IF+ihrDo21LQvRLu/3xxeRqLNUGIn7O3dmUJubR1KERWqgk+wuqH96y8L+yThsOI9I3rJ7SMnXYjYNv5EhEKws=
+X-Received: by 2002:a17:902:c78a:b0:1ca:8b74:17ff with SMTP id
+ w10-20020a170902c78a00b001ca8b7417ffmr3899639pla.26.1697613841230; Wed, 18
+ Oct 2023 00:24:01 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB6641:EE_|TY3PR01MB9889:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8919d0ef-0261-4b07-9f33-08dbcfa5c7b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	EBF614U4NM49zw/0865zuLUfvfSxT/VsbPiTxXFvg68iBTILb6uPVOdwqC5kgyE+jVWPxgDZsCi6D/dfvYi8W3uwgS572L9d+5Vyw3IgChITdawNpdvNn5sM1uCYCZCNpKnaiRU03iu+v2kqbxmgBPgFDZ9hPpMmQrL27KJhrKX7TF+fooaT7ue79Cl9r5BaZB7UjONujaQGYnYWK+I3ITM1gAfEK1GE2WnGPYsTbwYa8tM+D/QruodcROOoJBNlmAKWUyxthMOKeite0oRawutjTh7q383vRmYeXoH7GhynG9GPy2fMqS7nFXVnD/PLua8awYQqtcfJssYlGeXtR0UqWsE2ZXVbt0eTEdYD21+w2xFmhjQgPt8zrcWp0GnLEdISRBiSXj2NF3NcO5s744flyOYs9rB8ZfeBCP0fAvqWEwPUK6p23rjWKbWpNWCZ+7YYFTcC0WYoEmfsZFBRe1dqRa4UR+KNFGi1Lcb9T20WuIzYJ8cfiqojYnbDmUcCZF8/fv6SMkmC5/Ja9HMA7U0FSj3oIgHIJTnl69ykwBsKW6lI1EY17r8V1PAAnONj/UM+6qfyjs7u4d/0mS1TVisAP3bpcWIVefO+/0TrITHanDqucqEs+UizaQ+WCMUd
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB6641.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(39860400002)(346002)(396003)(366004)(230922051799003)(451199024)(186009)(1800799009)(64100799003)(1076003)(2616005)(107886003)(26005)(6506007)(6512007)(52116002)(83380400001)(4326008)(478600001)(41300700001)(5660300002)(6486002)(316002)(8936002)(2906002)(8676002)(30864003)(6916009)(66946007)(66476007)(66556008)(38100700002)(6666004)(86362001)(103116003)(38350700005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?7lOCZpYKr9ShSkyNFAjddqk5jIoc5yU7ZSYyCvwGajOgcH4bRPPCs3sEWLgh?=
- =?us-ascii?Q?vHsuUn2tj3EeBUwBFNleucJV7vLHKUm7K9vOvPBfcflLqlXPol/7YpRDVqU6?=
- =?us-ascii?Q?GJuqzgnQ9MGLSNMx+ifcUAA9RFG0n9vGJ57LlLD44Wziet3BeULVDVznRz3A?=
- =?us-ascii?Q?NL9pg62tOIZZ3jSUK9C63Ygg9mE66295rY2aWtr4cS6pCUMDD5QWLIWEpg2X?=
- =?us-ascii?Q?l10hrukuVkR3v9g93ZalXY4VAIw+Nvj2XAxjmH6BoCz/4CYD8BfVJXGRK1LE?=
- =?us-ascii?Q?NRObAKmNt/tWyCMB/7POcnMADVX+yvmlKVToEsip0ggs1wZ7h8GHQkVmqk9R?=
- =?us-ascii?Q?yk196A1VvF7xi228smFZ9oR7x5Kuv+UgEn0INDdEWFxIxEifMU4yfMlI12+8?=
- =?us-ascii?Q?4Tr625azBJ85anoDah+59Tfw4Q4TVyluQmbqlxEPmsX9O2liihn4ODAtuc0k?=
- =?us-ascii?Q?PFpnYZQdATtioEEMiZR9wKL5+9xKmSEuCMYrt7qZExwv/8/l4IsDMcs5vnz7?=
- =?us-ascii?Q?AcUruf5JVQPraivQ5UYRISFYkIehyW8eZxMO1cKQzIJsPkpXtnC5c8pwFtvI?=
- =?us-ascii?Q?dKzOtmlXAaIm/iBbA8qhXN8GYafuDT4CaCC72XJoJl14kJaUCrhZgtXrheKZ?=
- =?us-ascii?Q?DEWEHQ+lxwlb4K2q/5wPSkne/TfqJfXwVf9szGi2HqKpUT3P4S0UfCLP5AqH?=
- =?us-ascii?Q?ylHd/Bf//1w8sndLet7UnWT8jLHsSF424yAzopyqUmwwKoNIT+oTEZc+yg73?=
- =?us-ascii?Q?UuXEEM7O6awOMuCRXMjhDDBSvUbOfR4Mpr2V2eXMT7ragoYdLsKHXVDIiNf2?=
- =?us-ascii?Q?mWkf+OlSd3ZsumKNsq2ebsGM1rS6bvii76fSbrzD072zRFlo6B2q8qRPVITc?=
- =?us-ascii?Q?FJkS5K6YIX8k6ugeQohfeGvJ6Hojx6Oc1oxnZjChaC6VkNEzmVzNzxkVYdM6?=
- =?us-ascii?Q?oKhCO5/FtT2Eu/x2iCeAcc+r+SoU4cUoKf4GkqHK//08WDTZUWoP7DEK5Xha?=
- =?us-ascii?Q?YtE5EdvXiBWxyukJrvkK/Q7WkuprhPuELZW7QbcHHBDPb9fN22olrAzbRmby?=
- =?us-ascii?Q?lP1S3m3XJuYhLGqn78VaWfV3U3NH/hTIULrCqEVTSQrybMu3Bp4O+LReaqXw?=
- =?us-ascii?Q?pKlVnx9Lxx3qng1MYaZnZAOEmwtldptS7XzhAk7KOtIc2V6OL4shGdflx04l?=
- =?us-ascii?Q?F7fOhpGR5Tzn6mM/07AHc7nC+NbJHfbli8OdwVQUH2X87dcniwUgiP0NLAyG?=
- =?us-ascii?Q?qZU94WUOoM6NsTyyttoUZaie+ZtxzocbzzeelEGzHsSaPljXKuYvwujgdshu?=
- =?us-ascii?Q?+uj/wrkQZp0mw3WH/k1jsqSNXnFqWfp1tNF/1PPBuM4/GFvToFoSG+qOFOkd?=
- =?us-ascii?Q?VnP0kxONf6mK3zdbeo1UTru6wS5x4p5GGoPtTYhjNzRFqJhncZKHJr0WMPwM?=
- =?us-ascii?Q?kqvu3MN26Zswcginf93R7j0w8HSwZFZ2qcllhPDndlbB97CWkxK13xICv+L4?=
- =?us-ascii?Q?NMwuAULqtH/aknsNyjqLQyVtnIxASNZKqi5b6LkYDbJGnbAY4wMijGQLVZUF?=
- =?us-ascii?Q?Umjnn3nIBwcSVpDWrYv+WFv9ZrIXSfxEDz6e74TTOA7SfJvdxDcbFH+wJFZb?=
- =?us-ascii?Q?Ow=3D=3D?=
-X-OriginatorOrg: dm.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 8919d0ef-0261-4b07-9f33-08dbcfa5c7b0
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 06:45:14.1530
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- K0s/mPsVRkICoVaDC6wcZJVD1osfzo+abirNeVUCV0bojmzEQL9TXKbuijHjXgfeJY5S1Wqqw294Di8olqDLtt6vGGYrXH0nkFYFdmwxYJI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9889
-Message-ID-Hash: SXO7SNFNMBOR4IKIJWN3UJM67XKD4BKK
-X-Message-ID-Hash: SXO7SNFNMBOR4IKIJWN3UJM67XKD4BKK
-X-MailFrom: David.Rau.opensource@dm.renesas.com
+References: <1697185865-27528-1-git-send-email-shengjiu.wang@nxp.com>
+ <1697185865-27528-10-git-send-email-shengjiu.wang@nxp.com>
+ <a0dfe959-3b32-4d03-9f1b-8f3c1054ecf7@xs4all.nl>
+ <CAA+D8AP1a-Vioy2Cr7dZ4wErXpkm7g9Caw-yPKc9jbWpPnN0JQ@mail.gmail.com>
+ <0ae6d9e1-bdd9-45ab-9749-8b0cb5c624ff@xs4all.nl>
+ <CAA+D8AMa9tpMq08XsUuAtV0DLWbLOwsfYjd30NJ3OBezkTs5YA@mail.gmail.com>
+In-Reply-To: 
+ <CAA+D8AMa9tpMq08XsUuAtV0DLWbLOwsfYjd30NJ3OBezkTs5YA@mail.gmail.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 18 Oct 2023 15:23:49 +0800
+Message-ID: 
+ <CAA+D8AOJ=Akp5AmE4PCy=O=TGYaP3Cn0jLveL-aoqV3tFAVPSg@mail.gmail.com>
+Subject: Re: [RFC PATCH v6 09/11] media: uapi: Add audio rate controls support
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: GRF6U4G2TRMMT35UXHXUBDRARSJJF7BT
+X-Message-ID-Hash: GRF6U4G2TRMMT35UXHXUBDRARSJJF7BT
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -156,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SXO7SNFNMBOR4IKIJWN3UJM67XKD4BKK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GRF6U4G2TRMMT35UXHXUBDRARSJJF7BT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -165,345 +128,436 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add new kcontrol for tone generator
+On Wed, Oct 18, 2023 at 10:27=E2=80=AFAM Shengjiu Wang <shengjiu.wang@gmail=
+.com> wrote:
+>
+> On Tue, Oct 17, 2023 at 9:37=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl>=
+ wrote:
+> >
+> > On 17/10/2023 15:11, Shengjiu Wang wrote:
+> > > On Mon, Oct 16, 2023 at 9:16=E2=80=AFPM Hans Verkuil <hverkuil@xs4all=
+.nl> wrote:
+> > >>
+> > >> Hi Shengjiu,
+> > >>
+> > >> On 13/10/2023 10:31, Shengjiu Wang wrote:
+> > >>> Fixed point controls are used by the user to configure
+> > >>> the audio sample rate to driver.
+> > >>>
+> > >>> Add V4L2_CID_ASRC_SOURCE_RATE and V4L2_CID_ASRC_DEST_RATE
+> > >>> new IDs for ASRC rate control.
+> > >>>
+> > >>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > >>> ---
+> > >>>  .../userspace-api/media/v4l/common.rst        |  1 +
+> > >>>  .../media/v4l/ext-ctrls-fixed-point.rst       | 36 +++++++++++++++=
+++++
+> > >>>  .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 +++
+> > >>>  .../media/v4l/vidioc-queryctrl.rst            |  7 ++++
+> > >>>  .../media/videodev2.h.rst.exceptions          |  1 +
+> > >>>  drivers/media/v4l2-core/v4l2-ctrls-core.c     |  5 +++
+> > >>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  4 +++
+> > >>>  include/media/v4l2-ctrls.h                    |  2 ++
+> > >>>  include/uapi/linux/v4l2-controls.h            | 13 +++++++
+> > >>>  include/uapi/linux/videodev2.h                |  3 ++
+> > >>>  10 files changed, 76 insertions(+)
+> > >>>  create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls=
+-fixed-point.rst
+> > >>>
+> > >>> diff --git a/Documentation/userspace-api/media/v4l/common.rst b/Doc=
+umentation/userspace-api/media/v4l/common.rst
+> > >>> index ea0435182e44..35707edffb13 100644
+> > >>> --- a/Documentation/userspace-api/media/v4l/common.rst
+> > >>> +++ b/Documentation/userspace-api/media/v4l/common.rst
+> > >>> @@ -52,6 +52,7 @@ applicable to all devices.
+> > >>>      ext-ctrls-fm-rx
+> > >>>      ext-ctrls-detect
+> > >>>      ext-ctrls-colorimetry
+> > >>> +    ext-ctrls-fixed-point
+> > >>
+> > >> Rename this to ext-ctrls-audio-m2m.
+> > >>
+> > >>>      fourcc
+> > >>>      format
+> > >>>      planar-apis
+> > >>> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-=
+point.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-point.rst
+> > >>> new file mode 100644
+> > >>> index 000000000000..2ef6e250580c
+> > >>> --- /dev/null
+> > >>> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-fixed-point.r=
+st
+> > >>> @@ -0,0 +1,36 @@
+> > >>> +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> > >>> +
+> > >>> +.. _fixed-point-controls:
+> > >>> +
+> > >>> +***************************
+> > >>> +Fixed Point Control Reference
+> > >>
+> > >> This is for audio controls. "Fixed Point" is just the type, and it d=
+oesn't make
+> > >> sense to group fixed point controls. But it does make sense to group=
+ the audio
+> > >> controls.
+> > >>
+> > >> V4L2 controls can be grouped into classes. Basically it is a way to =
+put controls
+> > >> into categories, and for each category there is also a control that =
+gives a
+> > >> description of the class (see 2.15.15 in
+> > >> https://linuxtv.org/downloads/v4l-dvb-apis-new/driver-api/v4l2-contr=
+ols.html#introduction)
+> > >>
+> > >> If you use e.g. 'v4l2-ctl -l' to list all the controls, then you wil=
+l see that
+> > >> they are grouped based on what class of control they are.
+> > >>
+> > >> So I think it would be a good idea to create a new control class for=
+ M2M audio controls,
+> > >> instead of just adding them to the catch-all 'User Controls' class.
+> > >>
+> > >> Search e.g. for V4L2_CTRL_CLASS_COLORIMETRY and V4L2_CID_COLORIMETRY=
+_CLASS to see how
+> > >> it is done.
+> > >>
+> > >> M2M_AUDIO would probably be a good name for the class.
+> > >>
+> > >>> +***************************
+> > >>> +
+> > >>> +These controls are intended to support an asynchronous sample
+> > >>> +rate converter.
+> > >>
+> > >> Add ' (ASRC).' at the end to indicate the common abbreviation for
+> > >> that.
+> > >>
+> > >>> +
+> > >>> +.. _v4l2-audio-asrc:
+> > >>> +
+> > >>> +``V4L2_CID_ASRC_SOURCE_RATE``
+> > >>> +    sets the resampler source rate.
+> > >>> +
+> > >>> +``V4L2_CID_ASRC_DEST_RATE``
+> > >>> +    sets the resampler destination rate.
+> > >>
+> > >> Document the unit (Hz) for these two controls.
+> > >>
+> > >>> +
+> > >>> +.. c:type:: v4l2_ctrl_fixed_point
+> > >>> +
+> > >>> +.. cssclass:: longtable
+> > >>> +
+> > >>> +.. tabularcolumns:: |p{1.5cm}|p{5.8cm}|p{10.0cm}|
+> > >>> +
+> > >>> +.. flat-table:: struct v4l2_ctrl_fixed_point
+> > >>> +    :header-rows:  0
+> > >>> +    :stub-columns: 0
+> > >>> +    :widths:       1 1 2
+> > >>> +
+> > >>> +    * - __u32
+> > >>
+> > >> Hmm, shouldn't this be __s32?
+> > >>
+> > >>> +      - ``integer``
+> > >>> +      - integer part of fixed point value.
+> > >>> +    * - __s32
+> > >>
+> > >> and this __u32?
+> > >>
+> > >> You want to be able to use this generic type as a signed value.
+> > >>
+> > >>> +      - ``fractional``
+> > >>> +      - fractional part of fixed point value, which is Q31.
+> > >>> diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctr=
+ls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > >>> index f9f73530a6be..1811dabf5c74 100644
+> > >>> --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > >>> +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > >>> @@ -295,6 +295,10 @@ still cause this situation.
+> > >>>        - ``p_av1_film_grain``
+> > >>>        - A pointer to a struct :c:type:`v4l2_ctrl_av1_film_grain`. =
+Valid if this control is
+> > >>>          of type ``V4L2_CTRL_TYPE_AV1_FILM_GRAIN``.
+> > >>> +    * - struct :c:type:`v4l2_ctrl_fixed_point` *
+> > >>> +      - ``p_fixed_point``
+> > >>> +      - A pointer to a struct :c:type:`v4l2_ctrl_fixed_point`. Val=
+id if this control is
+> > >>> +        of type ``V4L2_CTRL_TYPE_FIXED_POINT``.
+> > >>>      * - void *
+> > >>>        - ``ptr``
+> > >>>        - A pointer to a compound type which can be an N-dimensional=
+ array
+> > >>> diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl=
+.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > >>> index 4d38acafe8e1..9285f4f39eed 100644
+> > >>> --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > >>> +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > >>> @@ -549,6 +549,13 @@ See also the examples in :ref:`control`.
+> > >>>        - n/a
+> > >>>        - A struct :c:type:`v4l2_ctrl_av1_film_grain`, containing AV=
+1 Film Grain
+> > >>>          parameters for stateless video decoders.
+> > >>> +    * - ``V4L2_CTRL_TYPE_FIXED_POINT``
+> > >>> +      - n/a
+> > >>> +      - n/a
+> > >>> +      - n/a
+> > >>> +      - A struct :c:type:`v4l2_ctrl_fixed_point`, containing param=
+eter which has
+> > >>> +        integer part and fractional part, i.e. audio sample rate.
+> > >>> +
+> > >>>
+> > >>>  .. raw:: latex
+> > >>>
+> > >>> diff --git a/Documentation/userspace-api/media/videodev2.h.rst.exce=
+ptions b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > >>> index e61152bb80d1..2faa5a2015eb 100644
+> > >>> --- a/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > >>> +++ b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > >>> @@ -167,6 +167,7 @@ replace symbol V4L2_CTRL_TYPE_AV1_SEQUENCE :c:t=
+ype:`v4l2_ctrl_type`
+> > >>>  replace symbol V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY :c:type:`v4l2_c=
+trl_type`
+> > >>>  replace symbol V4L2_CTRL_TYPE_AV1_FRAME :c:type:`v4l2_ctrl_type`
+> > >>>  replace symbol V4L2_CTRL_TYPE_AV1_FILM_GRAIN :c:type:`v4l2_ctrl_ty=
+pe`
+> > >>> +replace symbol V4L2_CTRL_TYPE_FIXED_POINT :c:type:`v4l2_ctrl_type`
+> > >>>
+> > >>>  # V4L2 capability defines
+> > >>>  replace define V4L2_CAP_VIDEO_CAPTURE device-capabilities
+> > >>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/me=
+dia/v4l2-core/v4l2-ctrls-core.c
+> > >>> index a662fb60f73f..7a616ac91059 100644
+> > >>> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > >>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > >>> @@ -1168,6 +1168,8 @@ static int std_validate_compound(const struct=
+ v4l2_ctrl *ctrl, u32 idx,
+> > >>>               if (!area->width || !area->height)
+> > >>>                       return -EINVAL;
+> > >>>               break;
+> > >>> +     case V4L2_CTRL_TYPE_FIXED_POINT:
+> > >>> +             break;
+> > >>
+> > >> Hmm, this would need this patch 'v4l2-ctrls: add support for V4L2_CT=
+RL_WHICH_MIN/MAX_VAL':
+> > >>
+> > >> https://patchwork.linuxtv.org/project/linux-media/patch/202310100221=
+36.1504015-7-yunkec@google.com/
+> > >>
+> > >> since min and max values are perfectly fine for a fixed point value.
+> > >>
+> > >> Even a step value (currently not supported in that patch) would make=
+ sense.
+> > >>
+> > >> But I wonder if we couldn't simplify this: instead of creating a v4l=
+2_ctrl_fixed_point,
+> > >> why not represent the fixed point value as a Q31.32. Then the standa=
+rd
+> > >> minimum/maximum/step values can be used, and it acts like a regular =
+V4L2_TYPE_INTEGER64.
+> > >>
+> > >> Except that both userspace and drivers need to multiply it with 2^-3=
+2 to get the actual
+> > >> value.
+> > >>
+> > >> So in enum v4l2_ctrl_type add:
+> > >>
+> > >>         V4L2_CTRL_TYPE_FIXED_POINT =3D 10,
+> > >>
+> > >> (10, because it is no longer a compound type).
+> > >
+> > > Seems we don't need V4L2_CTRL_TYPE_FIXED_POINT, just use V4L2_TYPE_IN=
+TEGER64?
+> > >
+> > > The reason I use the 'integer' and 'fractional' is that I want
+> > > 'integer' to be the normal sample
+> > > rate, for example 48kHz.  The 'fractional' is the difference with
+> > > normal sample rate.
+> > >
+> > > For example, the rate =3D 47998.12345.  so integer =3D 48000,  fracti=
+onal=3D -1.87655.
+> > >
+> > > So if we use s64 for rate, then in driver need to convert the rate to
+> > > the closed normal
+> > > sample rate + fractional.
+> >
+> > That wasn't what the documentation said :-)
+> >
+> > So this is really two controls: one for the 'normal sample rate' (whate=
+ver 'normal'
+> > means in this context) and the offset to the actual sample rate.
+> >
+> > Presumably the 'normal' sample rate is set once, while the offset chang=
+es
+> > regularly.
+> >
+> > But why do you need the 'normal' sample rate? With audio resampling I a=
+ssume
+> > you resample from one rate to another, so why do you need a third 'norm=
+al'
+> > rate?
+> >
+>
+> 'Normal' rate is used to select the prefilter table.
+>
 
-Signed-off-by: David Rau <David.Rau.opensource@dm.renesas.com>
----
- sound/soc/codecs/da7213.c | 171 +++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/da7213.h |  64 +++++++++++++-
- 2 files changed, 233 insertions(+), 2 deletions(-)
+Currently I think we may define
+V4L2_CID_M2M_AUDIO_SOURCE_RATE
+V4L2_CID_M2M_AUDIO_DEST_RATE
+V4L2_CID_M2M_AUDIO_ASRC_RATIO_MOD
 
-diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-index 3a6449c44b23..31f32de0e1ed 100644
---- a/sound/soc/codecs/da7213.c
-+++ b/sound/soc/codecs/da7213.c
-@@ -55,6 +55,7 @@ static const DECLARE_TLV_DB_SCALE(hp_vol_tlv, -5700, 100, 0);
- static const DECLARE_TLV_DB_SCALE(lineout_vol_tlv, -4800, 100, 0);
- static const DECLARE_TLV_DB_SCALE(alc_threshold_tlv, -9450, 150, 0);
- static const DECLARE_TLV_DB_SCALE(alc_gain_tlv, 0, 600, 0);
-+static const DECLARE_TLV_DB_SCALE(da7213_tonegen_gain_tlv, -4500, 300, 0);
- 
- /* ADC and DAC voice mode (8kHz) high pass cutoff value */
- static const char * const da7213_voice_hpf_corner_txt[] = {
-@@ -86,6 +87,23 @@ static SOC_ENUM_SINGLE_DECL(da7213_adc_audio_hpf_corner,
- 			    DA7213_AUDIO_HPF_CORNER_SHIFT,
- 			    da7213_audio_hpf_corner_txt);
- 
-+static const char * const da7213_tonegen_dtmf_key_txt[] = {
-+	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D",
-+	"*", "#"
-+};
-+
-+static const struct soc_enum da7213_tonegen_dtmf_key =
-+	SOC_ENUM_SINGLE(DA7213_TONE_GEN_CFG1, DA7213_DTMF_REG_SHIFT,
-+			DA7213_DTMF_REG_MAX, da7213_tonegen_dtmf_key_txt);
-+
-+static const char * const da7213_tonegen_swg_sel_txt[] = {
-+	"Sum", "SWG1", "SWG2", "Sum"
-+};
-+
-+static const struct soc_enum da7213_tonegen_swg_sel =
-+	SOC_ENUM_SINGLE(DA7213_TONE_GEN_CFG2, DA7213_SWG_SEL_SHIFT,
-+			DA7213_SWG_SEL_MAX, da7213_tonegen_swg_sel_txt);
-+
- /* Gain ramping rate value */
- static const char * const da7213_gain_ramp_rate_txt[] = {
- 	"nominal rate * 8", "nominal rate * 16", "nominal rate / 16",
-@@ -191,6 +209,64 @@ static SOC_ENUM_SINGLE_DECL(da7213_alc_integ_release_rate,
-  * Control Functions
-  */
- 
-+/* Locked Kcontrol calls */
-+static int da7213_volsw_locked_get(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	mutex_lock(&da7213->ctrl_lock);
-+	ret = snd_soc_get_volsw(kcontrol, ucontrol);
-+	mutex_unlock(&da7213->ctrl_lock);
-+
-+	return ret;
-+}
-+
-+static int da7213_volsw_locked_put(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	mutex_lock(&da7213->ctrl_lock);
-+	ret = snd_soc_put_volsw(kcontrol, ucontrol);
-+	mutex_unlock(&da7213->ctrl_lock);
-+
-+	return ret;
-+}
-+
-+static int da7213_enum_locked_get(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	mutex_lock(&da7213->ctrl_lock);
-+	ret = snd_soc_get_enum_double(kcontrol, ucontrol);
-+	mutex_unlock(&da7213->ctrl_lock);
-+
-+	return ret;
-+}
-+
-+static int da7213_enum_locked_put(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	mutex_lock(&da7213->ctrl_lock);
-+	ret = snd_soc_put_enum_double(kcontrol, ucontrol);
-+	mutex_unlock(&da7213->ctrl_lock);
-+
-+	return ret;
-+}
-+
-+/* ALC */
- static int da7213_get_alc_data(struct snd_soc_component *component, u8 reg_val)
- {
- 	int mid_data, top_data;
-@@ -376,6 +452,64 @@ static int da7213_put_alc_sw(struct snd_kcontrol *kcontrol,
- 	return snd_soc_put_volsw(kcontrol, ucontrol);
- }
- 
-+/* ToneGen */
-+static int da7213_tonegen_freq_get(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mixer_ctrl =
-+		(struct soc_mixer_control *) kcontrol->private_value;
-+	unsigned int reg = mixer_ctrl->reg;
-+	__le16 val;
-+	int ret;
-+
-+	mutex_lock(&da7213->ctrl_lock);
-+	ret = regmap_raw_read(da7213->regmap, reg, &val, sizeof(val));
-+	mutex_unlock(&da7213->ctrl_lock);
-+
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Frequency value spans two 8-bit registers, lower then upper byte.
-+	 * Therefore we need to convert to host endianness here.
-+	 */
-+	ucontrol->value.integer.value[0] = le16_to_cpu(val);
-+
-+	return 0;
-+}
-+
-+static int da7213_tonegen_freq_put(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct da7213_priv *da7213 = snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mixer_ctrl =
-+		(struct soc_mixer_control *) kcontrol->private_value;
-+	unsigned int reg = mixer_ctrl->reg;
-+	__le16 val_new, val_old;
-+	int ret;
-+
-+	/*
-+	 * Frequency value spans two 8-bit registers, lower then upper byte.
-+	 * Therefore we need to convert to little endian here to align with
-+	 * HW registers.
-+	 */
-+	val_new = cpu_to_le16(ucontrol->value.integer.value[0]);
-+
-+	mutex_lock(&da7213->ctrl_lock);
-+	ret = regmap_raw_read(da7213->regmap, reg, &val_old, sizeof(val_old));
-+	if (ret == 0 && (val_old != val_new))
-+		ret = regmap_raw_write(da7213->regmap, reg,
-+				&val_new, sizeof(val_new));
-+	mutex_unlock(&da7213->ctrl_lock);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return val_old != val_new;
-+}
- 
- /*
-  * KControls
-@@ -477,6 +611,37 @@ static const struct snd_kcontrol_new da7213_snd_controls[] = {
- 	SOC_DOUBLE_R("Headphone ZC Switch", DA7213_HP_L_CTRL, DA7213_HP_R_CTRL,
- 		     DA7213_ZC_EN_SHIFT, DA7213_ZC_EN_MAX, DA7213_NO_INVERT),
- 
-+	/* Tone Generator */
-+	SOC_SINGLE_EXT_TLV("ToneGen Volume", DA7213_TONE_GEN_CFG2,
-+			   DA7213_TONE_GEN_GAIN_SHIFT, DA7213_TONE_GEN_GAIN_MAX,
-+			   DA7213_NO_INVERT, da7213_volsw_locked_get,
-+			   da7213_volsw_locked_put, da7213_tonegen_gain_tlv),
-+	SOC_ENUM_EXT("ToneGen DTMF Key", da7213_tonegen_dtmf_key,
-+		     da7213_enum_locked_get, da7213_enum_locked_put),
-+	SOC_SINGLE_EXT("ToneGen DTMF Switch", DA7213_TONE_GEN_CFG1,
-+		       DA7213_DTMF_EN_SHIFT, DA7213_SWITCH_EN_MAX,
-+		       DA7213_NO_INVERT, da7213_volsw_locked_get,
-+		       da7213_volsw_locked_put),
-+	SOC_SINGLE_EXT("ToneGen Start", DA7213_TONE_GEN_CFG1,
-+		       DA7213_START_STOPN_SHIFT, DA7213_SWITCH_EN_MAX,
-+		       DA7213_NO_INVERT, da7213_volsw_locked_get,
-+		       da7213_volsw_locked_put),
-+	SOC_ENUM_EXT("ToneGen Sinewave Gen Type", da7213_tonegen_swg_sel,
-+		     da7213_enum_locked_get, da7213_enum_locked_put),
-+	SOC_SINGLE_EXT("ToneGen Sinewave1 Freq", DA7213_TONE_GEN_FREQ1_L,
-+		       DA7213_FREQ1_L_SHIFT, DA7213_FREQ_MAX, DA7213_NO_INVERT,
-+		       da7213_tonegen_freq_get, da7213_tonegen_freq_put),
-+	SOC_SINGLE_EXT("ToneGen Sinewave2 Freq", DA7213_TONE_GEN_FREQ2_L,
-+		       DA7213_FREQ2_L_SHIFT, DA7213_FREQ_MAX, DA7213_NO_INVERT,
-+		       da7213_tonegen_freq_get, da7213_tonegen_freq_put),
-+	SOC_SINGLE_EXT("ToneGen On Time", DA7213_TONE_GEN_ON_PER,
-+		       DA7213_BEEP_ON_PER_SHIFT, DA7213_BEEP_ON_OFF_MAX,
-+		       DA7213_NO_INVERT, da7213_volsw_locked_get,
-+		       da7213_volsw_locked_put),
-+	SOC_SINGLE("ToneGen Off Time", DA7213_TONE_GEN_OFF_PER,
-+		   DA7213_BEEP_OFF_PER_SHIFT, DA7213_BEEP_ON_OFF_MAX,
-+		   DA7213_NO_INVERT),
-+
- 	/* Gain Ramping controls */
- 	SOC_DOUBLE_R("Aux Gain Ramping Switch", DA7213_AUX_L_CTRL,
- 		     DA7213_AUX_R_CTRL, DA7213_GAIN_RAMP_EN_SHIFT,
-@@ -765,7 +930,7 @@ static int da7213_dai_event(struct snd_soc_dapm_widget *w,
- 		/* Check SRM has locked */
- 		do {
- 			pll_status = snd_soc_component_read(component, DA7213_PLL_STATUS);
--			if (pll_status & DA7219_PLL_SRM_LOCK) {
-+			if (pll_status & DA7213_PLL_SRM_LOCK) {
- 				srm_lock = true;
- 			} else {
- 				++i;
-@@ -1931,6 +2096,9 @@ static int da7213_probe(struct snd_soc_component *component)
- 		da7213->fixed_clk_auto_pll = true;
- 	}
- 
-+	/* Default infinite tone gen, start/stop by Kcontrol */
-+	snd_soc_component_write(component, DA7213_TONE_GEN_CYCLES, DA7213_BEEP_CYCLES_MASK);
-+
- 	return 0;
- }
- 
-@@ -2078,4 +2246,5 @@ module_i2c_driver(da7213_i2c_driver);
- 
- MODULE_DESCRIPTION("ASoC DA7213 Codec driver");
- MODULE_AUTHOR("Adam Thomson <Adam.Thomson.Opensource@diasemi.com>");
-+MODULE_AUTHOR("David Rau <David.Rau.opensource@dm.renesas.com>");
- MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
-index 4ca9cfdea06d..505b731c0adb 100644
---- a/sound/soc/codecs/da7213.h
-+++ b/sound/soc/codecs/da7213.h
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2013 Dialog Semiconductor
-  *
-  * Author: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-+ * Author: David Rau <David.Rau.opensource@dm.renesas.com>
-  */
- 
- #ifndef _DA7213_H
-@@ -135,13 +136,24 @@
- #define DA7213_DAC_NG_ON_THRESHOLD	0xB1
- #define DA7213_DAC_NG_CTRL		0xB2
- 
-+#define DA7213_TONE_GEN_CFG1		0xB4
-+#define DA7213_TONE_GEN_CFG2		0xB5
-+#define DA7213_TONE_GEN_CYCLES		0xB6
-+#define DA7213_TONE_GEN_FREQ1_L		0xB7
-+#define DA7213_TONE_GEN_FREQ1_U		0xB8
-+#define DA7213_TONE_GEN_FREQ2_L		0xB9
-+#define DA7213_TONE_GEN_FREQ2_U		0xBA
-+#define DA7213_TONE_GEN_ON_PER		0xBB
-+#define DA7213_TONE_GEN_OFF_PER		0xBC
- 
- /*
-  * Bit fields
-  */
- 
-+#define DA7213_SWITCH_EN_MAX		0x1
-+
- /* DA7213_PLL_STATUS = 0x03 */
--#define DA7219_PLL_SRM_LOCK					(0x1 << 1)
-+#define DA7213_PLL_SRM_LOCK					(0x1 << 1)
- 
- /* DA7213_SR = 0x22 */
- #define DA7213_SR_8000						(0x1 << 0)
-@@ -484,6 +496,55 @@
- #define DA7213_DAC_NG_EN_SHIFT					7
- #define DA7213_DAC_NG_EN_MAX					0x1
- 
-+/* DA7213_TONE_GEN_CFG1 = 0xB4 */
-+#define DA7213_DTMF_REG_SHIFT		0
-+#define DA7213_DTMF_REG_MASK		(0xF << 0)
-+#define DA7213_DTMF_REG_MAX		16
-+#define DA7213_DTMF_EN_SHIFT		4
-+#define DA7213_DTMF_EN_MASK		(0x1 << 4)
-+#define DA7213_START_STOPN_SHIFT	7
-+#define DA7213_START_STOPN_MASK		(0x1 << 7)
-+
-+/* DA7213_TONE_GEN_CFG2 = 0xB5 */
-+#define DA7213_SWG_SEL_SHIFT		0
-+#define DA7213_SWG_SEL_MASK		(0x3 << 0)
-+#define DA7213_SWG_SEL_MAX		4
-+#define DA7213_SWG_SEL_SRAMP		(0x3 << 0)
-+#define DA7213_TONE_GEN_GAIN_SHIFT	4
-+#define DA7213_TONE_GEN_GAIN_MASK	(0xF << 4)
-+#define DA7213_TONE_GEN_GAIN_MAX	0xF
-+#define DA7213_TONE_GEN_GAIN_MINUS_9DB	(0x3 << 4)
-+#define DA7213_TONE_GEN_GAIN_MINUS_15DB	(0x5 << 4)
-+
-+/* DA7213_TONE_GEN_CYCLES = 0xB6 */
-+#define DA7213_BEEP_CYCLES_SHIFT	0
-+#define DA7213_BEEP_CYCLES_MASK		(0x7 << 0)
-+
-+/* DA7213_TONE_GEN_FREQ1_L = 0xB7 */
-+#define DA7213_FREQ1_L_SHIFT	0
-+#define DA7213_FREQ1_L_MASK	(0xFF << 0)
-+#define DA7213_FREQ_MAX		0xFFFF
-+
-+/* DA7213_TONE_GEN_FREQ1_U = 0xB8 */
-+#define DA7213_FREQ1_U_SHIFT	0
-+#define DA7213_FREQ1_U_MASK	(0xFF << 0)
-+
-+/* DA7213_TONE_GEN_FREQ2_L = 0xB9 */
-+#define DA7213_FREQ2_L_SHIFT	0
-+#define DA7213_FREQ2_L_MASK	(0xFF << 0)
-+
-+/* DA7213_TONE_GEN_FREQ2_U = 0xBA */
-+#define DA7213_FREQ2_U_SHIFT	0
-+#define DA7213_FREQ2_U_MASK	(0xFF << 0)
-+
-+/* DA7213_TONE_GEN_ON_PER = 0xBB */
-+#define DA7213_BEEP_ON_PER_SHIFT	0
-+#define DA7213_BEEP_ON_PER_MASK		(0x3F << 0)
-+#define DA7213_BEEP_ON_OFF_MAX		0x3F
-+
-+/* DA7213_TONE_GEN_OFF_PER = 0xBC */
-+#define DA7213_BEEP_OFF_PER_SHIFT	0
-+#define DA7213_BEEP_OFF_PER_MASK	(0x3F << 0)
- 
- /*
-  * General defines
-@@ -534,6 +595,7 @@ enum da7213_supplies {
- /* Codec private data */
- struct da7213_priv {
- 	struct regmap *regmap;
-+	struct mutex ctrl_lock;
- 	struct regulator_bulk_data supplies[DA7213_NUM_SUPPLIES];
- 	struct clk *mclk;
- 	unsigned int mclk_rate;
--- 
-2.17.1
+All of them can be V4L2_CTRL_TYPE_INTEGER.
 
+RATIO_MOD was defined in the very beginning version.
+I think it is better to let users calculate this value.
+
+The reason is:
+if we define the offset for source rate and dest rate in
+driver separately,  when offset of source rate is set,
+driver don't know if it needs to wait or not the dest rate
+offset,  then go to calculate the ratio_mod.
+
+best regards
+wang shengjiu
+
+> Best regards
+> Wang Shengjiu
+>
+> > Regards,
+> >
+> >         Hans
+> >
+> > >
+> > > best regards
+> > > wang shengjiu
+> > >
+> > >>
+> > >>>
+> > >>>       default:
+> > >>>               return -EINVAL;
+> > >>> @@ -1868,6 +1870,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct=
+ v4l2_ctrl_handler *hdl,
+> > >>>       case V4L2_CTRL_TYPE_AREA:
+> > >>>               elem_size =3D sizeof(struct v4l2_area);
+> > >>>               break;
+> > >>> +     case V4L2_CTRL_TYPE_FIXED_POINT:
+> > >>> +             elem_size =3D sizeof(struct v4l2_ctrl_fixed_point);
+> > >>> +             break;
+> > >>>       default:
+> > >>>               if (type < V4L2_CTRL_COMPOUND_TYPES)
+> > >>>                       elem_size =3D sizeof(s32);
+> > >>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/me=
+dia/v4l2-core/v4l2-ctrls-defs.c
+> > >>> index 8696eb1cdd61..d8f232df6b6a 100644
+> > >>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> > >>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> > >>> @@ -1602,6 +1602,10 @@ void v4l2_ctrl_fill(u32 id, const char **nam=
+e, enum v4l2_ctrl_type *type,
+> > >>>       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
+> > >>>               *type =3D V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
+> > >>>               break;
+> > >>> +     case V4L2_CID_ASRC_SOURCE_RATE:
+> > >>> +     case V4L2_CID_ASRC_DEST_RATE:
+> > >>> +             *type =3D V4L2_CTRL_TYPE_FIXED_POINT;
+> > >>> +             break;
+> > >>>       default:
+> > >>>               *type =3D V4L2_CTRL_TYPE_INTEGER;
+> > >>>               break;
+> > >>> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.=
+h
+> > >>> index 59679a42b3e7..645e4cccafc7 100644
+> > >>> --- a/include/media/v4l2-ctrls.h
+> > >>> +++ b/include/media/v4l2-ctrls.h
+> > >>> @@ -56,6 +56,7 @@ struct video_device;
+> > >>>   * @p_av1_tile_group_entry:  Pointer to an AV1 tile group entry st=
+ructure.
+> > >>>   * @p_av1_frame:             Pointer to an AV1 frame structure.
+> > >>>   * @p_av1_film_grain:                Pointer to an AV1 film grain =
+structure.
+> > >>> + * @p_fixed_point:           Pointer to a struct v4l2_ctrl_fixed_p=
+oint.
+> > >>>   * @p:                               Pointer to a compound value.
+> > >>>   * @p_const:                 Pointer to a constant compound value.
+> > >>>   */
+> > >>> @@ -89,6 +90,7 @@ union v4l2_ctrl_ptr {
+> > >>>       struct v4l2_ctrl_av1_tile_group_entry *p_av1_tile_group_entry=
+;
+> > >>>       struct v4l2_ctrl_av1_frame *p_av1_frame;
+> > >>>       struct v4l2_ctrl_av1_film_grain *p_av1_film_grain;
+> > >>> +     struct v4l2_ctrl_fixed_point *p_fixed_point;
+> > >>>       void *p;
+> > >>>       const void *p_const;
+> > >>>  };
+> > >>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linu=
+x/v4l2-controls.h
+> > >>> index c3604a0a3e30..91096259e3ea 100644
+> > >>> --- a/include/uapi/linux/v4l2-controls.h
+> > >>> +++ b/include/uapi/linux/v4l2-controls.h
+> > >>> @@ -112,6 +112,8 @@ enum v4l2_colorfx {
+> > >>>
+> > >>>  /* last CID + 1 */
+> > >>>  #define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
+> > >>> +#define V4L2_CID_ASRC_SOURCE_RATE            (V4L2_CID_BASE + 45)
+> > >>> +#define V4L2_CID_ASRC_DEST_RATE                      (V4L2_CID_BAS=
+E + 46)
+> > >>
+> > >> This patch needs to be split in three parts:
+> > >>
+> > >> 1) Add the new M2M_AUDIO control class,
+> > >> 2) Add the new V4L2_CTRL_TYPE_FIXED_POINT type,
+> > >> 3) Add the new controls.
+> > >>
+> > >> These are all independent changes, so separating them makes it easie=
+r to
+> > >> review.
+> > >>
+> > >>>
+> > >>>  /* USER-class private control IDs */
+> > >>>
+> > >>> @@ -3488,4 +3490,15 @@ struct v4l2_ctrl_av1_film_grain {
+> > >>>  #define V4L2_CID_MPEG_MFC51_BASE        V4L2_CID_CODEC_MFC51_BASE
+> > >>>  #endif
+> > >>>
+> > >>> +/**
+> > >>> + * struct v4l2_ctrl_fixed_point - fixed point parameter.
+> > >>> + *
+> > >>> + * @rate_integer: integer part of fixed point value.
+> > >>> + * @rate_fractional: fractional part of fixed point value
+> > >>> + */
+> > >>> +struct v4l2_ctrl_fixed_point {
+> > >>> +     __u32 integer;
+> > >>
+> > >> __s32?
+> > >>
+> > >>> +     __u32 fractional;
+> > >>> +};
+> > >>> +
+> > >>>  #endif
+> > >>> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/vi=
+deodev2.h
+> > >>> index 2ac7b989394c..3ef32c09c2fa 100644
+> > >>> --- a/include/uapi/linux/videodev2.h
+> > >>> +++ b/include/uapi/linux/videodev2.h
+> > >>> @@ -1888,6 +1888,7 @@ struct v4l2_ext_control {
+> > >>>               struct v4l2_ctrl_av1_tile_group_entry __user *p_av1_t=
+ile_group_entry;
+> > >>>               struct v4l2_ctrl_av1_frame __user *p_av1_frame;
+> > >>>               struct v4l2_ctrl_av1_film_grain __user *p_av1_film_gr=
+ain;
+> > >>> +             struct v4l2_ctrl_fixed_point __user *p_fixed_point;
+> > >>>               void __user *ptr;
+> > >>>       };
+> > >>>  } __attribute__ ((packed));
+> > >>> @@ -1966,6 +1967,8 @@ enum v4l2_ctrl_type {
+> > >>>       V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY =3D 0x281,
+> > >>>       V4L2_CTRL_TYPE_AV1_FRAME            =3D 0x282,
+> > >>>       V4L2_CTRL_TYPE_AV1_FILM_GRAIN       =3D 0x283,
+> > >>> +
+> > >>> +     V4L2_CTRL_TYPE_FIXED_POINT          =3D 0x290,
+> > >>>  };
+> > >>>
+> > >>>  /*  Used in the VIDIOC_QUERYCTRL ioctl for querying controls */
+> > >>
+> > >> Regards,
+> > >>
+> > >>         Hans
+> >

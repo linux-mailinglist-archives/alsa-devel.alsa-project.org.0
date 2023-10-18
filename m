@@ -2,124 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29CC77CE633
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 20:20:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FEA67CE664
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 20:27:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22323829;
-	Wed, 18 Oct 2023 20:19:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22323829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 541B082B;
+	Wed, 18 Oct 2023 20:26:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 541B082B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697653229;
-	bh=a/iIUral/t60wx/IYH3yOnxJL77RmRDo+/GNI3Tdk4g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1697653648;
+	bh=97E3yC4BQi+fmr4qzJQxTJ5rxTwt5RTXRGszFzVrnzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ArvkxaR9u7/JhmemZR2T8tor0EaaT3u+UsMuV+ZFaY3MhFs98XrpM6DteftzrvkgD
-	 jUxwG2MRyGROwBZNqBCfbD89i0NpBgFHlDclCD/GweyCuvhY2G5N2FZTshUFokyA9c
-	 IkoFUhaATdZGKVUnUGEHnYmOJdHWZ4fGBaTmrTHA=
+	b=vIgKCPhV8OPwipFcnN9YFy+MueNWL+jlzAUODsX4ni/3YY4GT0uJ593TkfwedcoWr
+	 IlT6qzHSUMzEv5pkfUD1XdrKd0S768jdm5UcDyTpZD3ijdgbd4Q6oHDNm3fd3G6S00
+	 A+WrNS6KJebMCrAFPpx/T9fqN90uFZ4bWhm2SpEk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40D19F8025F; Wed, 18 Oct 2023 20:19:37 +0200 (CEST)
+	id AD10EF8019B; Wed, 18 Oct 2023 20:26:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CBB9F8024E;
-	Wed, 18 Oct 2023 20:19:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E1A7F8024E;
+	Wed, 18 Oct 2023 20:26:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8CC0CF8055A; Wed, 18 Oct 2023 20:11:34 +0200 (CEST)
+	id 9A91DF8025F; Wed, 18 Oct 2023 20:25:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E1FE4F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 20:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1FE4F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 033BEF8019B
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 20:25:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 033BEF8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=CbSZ76Ww;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=CUK5UiSw
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A189C1F383;
-	Wed, 18 Oct 2023 18:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1697652510;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TBWy0yJD3Qc8MehKuc/utJCOUPeZchS71/oNchRHj8A=;
-	b=CbSZ76Wwlf7RvzZol+U/7+6EyYNRbbYLUop7lzLGzYBF+AWiwuHVon8cr9/hmnuS6m/4QM
-	vyLng2IcaolYG57fkZZaCHaC50UE5cZG0QZn/91nC4MoERs8U4uU9MRWeSeDgonD4tSSTC
-	m+Iaiga3AUK6RfYDAItu1YaubG8gRjo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1697652510;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TBWy0yJD3Qc8MehKuc/utJCOUPeZchS71/oNchRHj8A=;
-	b=CUK5UiSwBAY8oicKc6CArcGVDTKVPIdXH3dEs4NHVaUCfO8C6qzidFtIHGHQJ4y92K97bm
-	Iy/T9wq+vm9mxMDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7C33213915;
-	Wed, 18 Oct 2023 18:08:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id BHlmHR4fMGXmRwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 18 Oct 2023 18:08:30 +0000
-Date: Wed, 18 Oct 2023 20:08:30 +0200
-Message-ID: <87zg0fls69.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.6-rc6
-In-Reply-To: <20231018142236.A433EC433C7@smtp.kernel.org>
-References: <20231018142236.A433EC433C7@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-7.29 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 REPLY(-4.00)[];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.19)[71.04%];
-	 FREEMAIL_CC(0.00)[gmail.com,alsa-project.org]
-Message-ID-Hash: RW346D5DZGHUZCASAE4DEGK23F6RHB53
-X-Message-ID-Hash: RW346D5DZGHUZCASAE4DEGK23F6RHB53
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=WY9p+aUw
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id CDC5CCE2686;
+	Wed, 18 Oct 2023 18:25:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE47EC433C9;
+	Wed, 18 Oct 2023 18:25:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1697653508;
+	bh=97E3yC4BQi+fmr4qzJQxTJ5rxTwt5RTXRGszFzVrnzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WY9p+aUwVDj4FKNmX4fn0l7t9KvSIKR+Skerlsrm2aRfjVeQIBS5/qloXWzYJAi06
+	 mJ8/XaNnSiVN+ozyUO5qNfIl+hupnUVwAUX0LXHhaaq1Rd5DxcX8hTOpuqjRoFBQ5k
+	 l73MaDt0vlbR765bg8evALISkDv4PyJ8vujwjMNG2nRAgMzgkOeohSZIHToGrV2y0v
+	 n3+XRLDOo0UV1/Oot3LVgkLCwGarOe+q2g7dYP/n3sgoNgxpABYahFe2oBtor/Owjg
+	 FsT1dXL7PuAl2DcICUOCI0a9GE0G3m6ro1K4HxXpo8dD2sx42iG8/Ea4i/zTtBlwXO
+	 0ZT+/YnwlCc4Q==
+Date: Wed, 18 Oct 2023 19:25:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] dt-bindings: audio-graph-port: add ch-maps
+ property
+Message-ID: <77d3d1e5-7120-4a5b-99c0-c34407f63d5b@sirena.org.uk>
+References: <877cnsy6bl.wl-kuninori.morimoto.gx@renesas.com>
+ <871qe0y6aq.wl-kuninori.morimoto.gx@renesas.com>
+ <20231012-storage-directory-548905001d10@spud>
+ <87wmvr8ioy.wl-kuninori.morimoto.gx@renesas.com>
+ <ZSllNtm4ZnUnkiV2@finisterre.sirena.org.uk>
+ <20231013-planner-irate-8e411cc54a48@spud>
+ <874jirxul6.wl-kuninori.morimoto.gx@renesas.com>
+ <20231017-darkness-jackknife-5cf32246a079@spud>
+ <871qdskbuu.wl-kuninori.morimoto.gx@renesas.com>
+ <20231018-object-renewable-6e03bce41ff4@spud>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6a3rttStc9U4TCn4"
+Content-Disposition: inline
+In-Reply-To: <20231018-object-renewable-6e03bce41ff4@spud>
+X-Cookie: Santa Claus is watching!
+Message-ID-Hash: JJTIA74EPKULOOGPGGODBVH4VRE22WUL
+X-Message-ID-Hash: JJTIA74EPKULOOGPGGODBVH4VRE22WUL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -131,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RW346D5DZGHUZCASAE4DEGK23F6RHB53/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JJTIA74EPKULOOGPGGODBVH4VRE22WUL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,32 +110,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 18 Oct 2023 16:22:28 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 1426b9ba7c453755d182ebf7e7f2367ba249dcf4:
-> 
->   ASoC: dt-bindings: fsl,micfil: Document #sound-dai-cells (2023-10-04 13:58:54 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.6-rc6
-> 
-> for you to fetch changes up to e8ecffd9962fe051d53a0761921b26d653b3df6b:
-> 
->   ASoC: da7219: Correct the process of setting up Gnd switch in AAD (2023-10-17 12:59:13 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.6
-> 
-> A fairly large set of fixes here but all driver specific, the biggest
-> block is Johan's work shaking out issues with device setup and teardown
-> for the wcd938x driver which is a relatively large but clearly broken
-> down set of changes.
-> 
-> There is one core helper function added as part of a fix for wsa-macro.
 
-Pulled now, thanks.
+--6a3rttStc9U4TCn4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Oct 18, 2023 at 08:57:17AM +0100, Conor Dooley wrote:
+> On Wed, Oct 18, 2023 at 12:34:01AM +0000, Kuninori Morimoto wrote:
 
-Takashi
+> > > That seems like a very unintuitive interface. If there were 32 CPUs a=
+nd
+> > > 30 codecs, then it'd be very inconvenient for a human reader to grok =
+the
+> > > configuration.
+
+> > I don't think such huge number connection will be used...
+
+I suspect that if we run into systems with very large numbers of devices
+on a single bus they'll either want to do something more dynamic and use
+it as a switch or be very regular which makes writing things a lot more
+manageable.
+
+> Your binding allows for that though!
+> I really don't like the number of elements inverting the meaning of the
+> property.
+
+I have to say I'm not a big fan of that either.  It might be easier to
+map each channel to a slot number on the link, each DAI could then have
+an independent map and the kernel could compare DAI slots to join things
+up. =20
+
+--6a3rttStc9U4TCn4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUwIv4ACgkQJNaLcl1U
+h9D+8Af/S4jMsPVirXuX4PyvmGux12iiyC7NaZ+7jP4zLFKHWVhrm4DWkGe9bNiW
+iGeelPWcgE17AVNBkIPLdb6EP6GNiaESxJl4j2RgzHbKY0VQkrKZdqK2Mnm9RMAa
+n2KQ2+7xM7JvspApaG+yu6TvLFqKPxCUS/VV65dfdcbei6lI4aKmt/aQFd8ZuhvC
+cvSFH7/d1YnvYKB8YI+7DBFcoG5ZiXfKe1kVNUaMmfYGM+6KTvIV5y/7aSqzLApp
+BO7B3o1YwCO4K2JKV4vg0keZNopxufaKAD2T8xmrZZmmiXouUdidHlbHEOex9621
+wyBsHSbMHCkABSmEijwdVJjitIZzpg==
+=+teJ
+-----END PGP SIGNATURE-----
+
+--6a3rttStc9U4TCn4--

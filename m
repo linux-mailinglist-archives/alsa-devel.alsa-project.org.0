@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F7447CD1F7
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 03:46:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D6F87CD224
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 04:08:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 766BA91;
-	Wed, 18 Oct 2023 03:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 766BA91
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF733836;
+	Wed, 18 Oct 2023 04:07:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF733836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697593610;
-	bh=bvFCljt/9uzbgx0x+W52QNF33Aio4C/JtS/EzH1SwNw=;
+	s=default; t=1697594922;
+	bh=NutRBuN1UeWBAT98Y1BeAF7eahplRTv4u6lk5jIYMic=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eiIUK1u0FeIiHcXBvailIk5PaNM/AZFhgRxC9YOaV9cXEW5vwflK/3KcSXz0WLg/F
-	 KbWqVx/WvZ2/xrSjIBtPSpfxkTXVsGIihCM4loFbztcTqWh0NBPK4nQ5I0Q87sSKsM
-	 snXlKrl673puBiZp5Ur0JohMb+R1pyiS8hbV88/A=
+	b=q8gVvEyhK5gv+KEKyuqAqFKZV/xBMf+6sUKrbYJqHMVPYvUfMXmi4y4Lop5Aji+ZD
+	 rM1NN+BVDv+f/0YIb79njIp79sBbjq5tUT3g+SO2wC96TVLPmkSukkdlO/qCkwRrCw
+	 DZvbjYBWgyfebEPCFwl/KVi9G7Mwnn0UxaI5glLI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D116DF8055C; Wed, 18 Oct 2023 03:45:59 +0200 (CEST)
+	id 437C8F80536; Wed, 18 Oct 2023 04:07:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 451CEF8024E;
-	Wed, 18 Oct 2023 03:45:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54630F8024E;
+	Wed, 18 Oct 2023 04:07:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6E0AF8025F; Wed, 18 Oct 2023 03:45:54 +0200 (CEST)
+	id 313DBF8025F; Wed, 18 Oct 2023 04:07:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 28DE9F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 03:45:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28DE9F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B8BDF80236
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 04:07:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B8BDF80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=gJy343Hp
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=k8FRfebc
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39I1TXF5025070;
-	Wed, 18 Oct 2023 01:45:39 GMT
+ 39I1oOeB025756;
+	Wed, 18 Oct 2023 02:07:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=qcppdkim1;
- bh=7yjyvokzCfgl7R/uV8V92m+jYndtQZxbuN5PfVfkT6M=;
- b=gJy343HptdFrCM4CZUuVgRbneK6t2XPV8jqRnP3WZ8HDD7WZSJp/RHsH/BcF/cN1TP26
- dWW3JZ4Ijwf9gO6DtSvhffit73gDBjIJgWwD+V8YFeJOJdmc6NZig+lcV+F9urKXy9O3
- zoFc4Sv1+KzzYDeHbt5FdxMbrv+KlGFi4EWLUtgAmnVuYc4yoeBRp+vOYOpg5lClSRCt
- YJRpp1GYU3cYQFTyqPZisSasM6qeIU7m7xnmiskTE9MpRweeCuiAbaSn4XeX3Zjg4u2b
- Wy2w1ZQ+plPIFREK5A2oTAdDIalKWzoR1F7BBYFbP4WO/3eFi/Pg9++hcY2PrVOlCniO OQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ bh=ZtNt64VNU1SsvqasCFCcRFAS3qPKkxZ+7k2bN0abCgI=;
+ b=k8FRfebcaPuNyPts1pnk+4330OH22W0o81uwh7O8JPv0N6qVAU8woGpFWIjtoWf5aWpH
+ pT5ivcFN/F/5xXVNCB1oA2to6rBuKRQDT49KFrzSDf5t0cyUjeZKtJH2j4ZqArHmauEp
+ Wc0Ts0f24JupV2S8K3gmu5d14JF3/msXj/CwmOeM+atQlMzHMAEVOao94e/1k8hdIgOa
+ VlHhj7Mnj9SuOnBO1apP8sYNn5Z3myKjZb5KN5sY5mU3pwxYRzxhIk+ODP6Nzl4RyhQO
+ P+l2jIWVLHv2nyTGq0x1ix5xQaPuuhoHlqNn7skEVfI8erVeBflAsk6lfeyd3f56GeSu NA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tsaky3m7w-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tsvxws9tt-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Oct 2023 01:45:39 +0000
+	Wed, 18 Oct 2023 02:07:20 +0000
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 39I1jcQj003733
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 39I27JD4032754
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Oct 2023 01:45:38 GMT
+	Wed, 18 Oct 2023 02:07:19 GMT
 Received: from [10.71.115.127] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Tue, 17 Oct
- 2023 18:45:37 -0700
-Message-ID: <c72bcf47-af0b-8819-1c30-06b51358381e@quicinc.com>
-Date: Tue, 17 Oct 2023 18:45:36 -0700
+ 2023 19:07:18 -0700
+Message-ID: <fb9c9c18-7383-da2f-86e3-348999b065bd@quicinc.com>
+Date: Tue, 17 Oct 2023 19:07:18 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.1
-Subject: Re: [PATCH v9 09/34] ASoC: qcom: qdsp6: Introduce USB AFE port to
- q6dsp
+Subject: Re: [PATCH v9 07/34] ASoC: Add SOC USB APIs for adding an USB backend
 Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
         <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
@@ -92,31 +91,31 @@ CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
         <devicetree@vger.kernel.org>
 References: <20231017200109.11407-1-quic_wcheng@quicinc.com>
- <20231017200109.11407-10-quic_wcheng@quicinc.com>
- <7aa4ea87-9d1f-400a-bcc5-b56e5b4500c6@linux.intel.com>
+ <20231017200109.11407-8-quic_wcheng@quicinc.com>
+ <8eb90a7a-8649-4a31-9997-d970915510bf@linux.intel.com>
 From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <7aa4ea87-9d1f-400a-bcc5-b56e5b4500c6@linux.intel.com>
+In-Reply-To: <8eb90a7a-8649-4a31-9997-d970915510bf@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01b.na.qualcomm.com (10.47.209.197)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: V99T9WNETYh1v8qA15HgxbgxEtwoiO1y
-X-Proofpoint-ORIG-GUID: V99T9WNETYh1v8qA15HgxbgxEtwoiO1y
+X-Proofpoint-GUID: 9YDWsrNqH69mHL5udDVXDdGz8Xg6XRHO
+X-Proofpoint-ORIG-GUID: 9YDWsrNqH69mHL5udDVXDdGz8Xg6XRHO
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-17_08,2023-10-17_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 mlxscore=0 adultscore=0 priorityscore=1501
- mlxlogscore=999 suspectscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2309180000 definitions=main-2310180013
-Message-ID-Hash: ZQLAOQLI2LEAEYGLEUD6JKUVKQJWY6MM
-X-Message-ID-Hash: ZQLAOQLI2LEAEYGLEUD6JKUVKQJWY6MM
+ priorityscore=1501
+ malwarescore=0 impostorscore=0 adultscore=0 clxscore=1015 mlxscore=0
+ suspectscore=0 phishscore=0 mlxlogscore=999 lowpriorityscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310180016
+Message-ID-Hash: AWGRN73H3DVAQ43NEOHAMNEP576JYCAP
+X-Message-ID-Hash: AWGRN73H3DVAQ43NEOHAMNEP576JYCAP
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -129,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQLAOQLI2LEAEYGLEUD6JKUVKQJWY6MM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AWGRN73H3DVAQ43NEOHAMNEP576JYCAP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,210 +139,164 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Hi Pierre,
 
-On 10/17/2023 2:32 PM, Pierre-Louis Bossart wrote:
+On 10/17/2023 2:48 PM, Pierre-Louis Bossart wrote:
 > 
 > 
 > On 10/17/23 15:00, Wesley Cheng wrote:
->> The QC ADSP is able to support USB playback endpoints, so that the main
+>> Some platforms may have support for offloading USB audio devices to a
+>> dedicated audio DSP.  Introduce a set of APIs that allow for management of
+>> USB sound card and PCM devices enumerated by the USB SND class driver.
+>> This allows for the ASoC components to be aware of what USB devices are
 > 
-> playback only?
-> 
-
-Correct, playback only at this time.
-
->> application processor can be placed into lower CPU power modes.  This adds
->> the required AFE port configurations and port start command to start an
->> audio session.
->>
->> Specifically, the QC ADSP can support all potential endpoints that are
->> exposed by the audio data interface.  This includes, feedback endpoints
->> (both implicit and explicit) as well as the isochronous (data) endpoints.
-> 
-> implicit feedback means support for capture. This is confusing...
+> USB devices or USB endpoints? or both?
 > 
 
-I mean, a USB device can expose a capture path, but as of now, we won't 
-enable the offloading to the audio DSP for it.  However, if we're 
-executing playback, and device does support implicit feedback, we will 
-pass that along to the audio DSP to utilize.
+USB devices.  At least in our case, which endpoints being used will be 
+part of handling of the stream start QMI request coming from the audio 
+DSP at a later stage.
 
->> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
->> +			   struct snd_pcm_hw_params *params,
->> +			   struct snd_soc_dai *dai)
+>> available for offloading.
+> 
+>> +/**
+>> + * struct snd_soc_usb_device
+>> + * @card_idx - sound card index associated with USB device
+>> + * @chip_idx - USB sound chip array index
+>> + * @num_playback - number of playback streams
+>> + * @num_capture - number of capture streams
+> 
+> presumably excluding explicit feedback streams?
+> 
+
+That's correct.  This doesn't include explicit streams.  This is going 
+to be done during the stage mentioned above.  We find the alternate USB 
+interface that supports the requested audio profile.  From there the USB 
+SND already checks for if any feedback mechanism is used.
+
+>> + **/
+>> +struct snd_soc_usb_device {
+>> +	int card_idx;
+>> +	int chip_idx;
+>> +	int num_playback;
+>> +	int num_capture;
+>> +};
+>> +
+>> +/**
+>> + * struct snd_soc_usb
+>> + * @list - list head for SND SOC struct list
+>> + * @dev - USB backend device reference
+>> + * @component - reference to ASoC component
+>> + * @connection_status_cb - callback to notify connection events
+>> + * @priv_data - driver data
+>> + **/
+>> +struct snd_soc_usb {
+>> +	struct list_head list;
+>> +	struct device *dev;
+> 
+> usbdev for consistency with the API below?
+> 
+
+This is not the usbdev, but the device reference to the DPCM backend DAI 
+(q6usb)
+
+>> +	struct snd_soc_component *component;
+> 
+> could you use component only and infer the device from component->dev?
+> 
+
+True, will look into that.
+
+>> +	int (*connection_status_cb)(struct snd_soc_usb *usb,
+>> +			struct snd_soc_usb_device *sdev, bool connected);
+>> +	void *priv_data;
+>> +};
+>> +
+>> +int snd_soc_usb_connect(struct device *usbdev, struct snd_soc_usb_device *sdev);
+>> +int snd_soc_usb_disconnect(struct device *usbdev, struct snd_soc_usb_device *sdev);
+>> +void *snd_soc_usb_get_priv_data(struct device *usbdev);
+>> +
+>> +struct snd_soc_usb *snd_soc_usb_add_port(struct device *dev, void *priv,
+> 
+> struct device *usbdev for consistency ?
+> 
+>> +			int (*connection_cb)(struct snd_soc_usb *usb,
+>> +			struct snd_soc_usb_device *sdev, bool connected));
+>> +int snd_soc_usb_remove_port(struct device *dev);
+> 
+> struct device *usbdev for consistency ?
+> 
+> 
+>> +struct snd_soc_usb *snd_soc_usb_add_port(struct device *dev, void *priv,
+>> +			int (*connection_cb)(struct snd_soc_usb *usb,
+>> +			struct snd_soc_usb_device *sdev, bool connected))> +{
+>> +	struct snd_soc_usb *usb;
+>> +
+>> +	usb = devm_kzalloc(dev, sizeof(*usb), GFP_KERNEL);
+>> +	if (!usb)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	usb->connection_status_cb = connection_cb;
+>> +	usb->dev = dev;
+>> +	usb->priv_data = priv;
+>> +
+>> +	mutex_lock(&ctx_mutex);
+>> +	list_add_tail(&usb->list, &usb_ctx_list);
+>> +	mutex_unlock(&ctx_mutex);
+>> +
+>> +	return usb;
+>> +}
+>> +EXPORT_SYMBOL_GPL(snd_soc_usb_add_port);
+>> +
+>> +/**
+>> + * snd_soc_usb_remove_port() - Remove a USB backend port
+>> + * @dev: USB backend device
+>> + *
+>> + * Remove a USB backend device from USB SND SOC.  Memory is freed when USB
+>> + * backend is removed.
+> 
+> when the USB backend driver is unbound?
+> 
+
+Will rename.
+
+>> + *
+>> + */
+>> +int snd_soc_usb_remove_port(struct device *dev)
 >> +{
->> +	struct q6afe_dai_data *dai_data = dev_get_drvdata(dai->dev);
->> +	int channels = params_channels(params);
->> +	int rate = params_rate(params);
->> +	struct q6afe_usb_cfg *usb = &dai_data->port_config[dai->id].usb_audio;
+>> +	struct snd_soc_usb *ctx, *tmp;
 >> +
->> +	usb->sample_rate = rate;
->> +	usb->num_channels = channels;
->> +
->> +	switch (params_format(params)) {
->> +	case SNDRV_PCM_FORMAT_U16_LE:
->> +	case SNDRV_PCM_FORMAT_S16_LE:
->> +	case SNDRV_PCM_FORMAT_SPECIAL:
-> 
-> what does FORMAT_SPECIAL mean? the only other reference I see to this is
-> related to SLIMbus, not sure how this is related?
-> 
-
-Thanks for catching this.  It shouldn't be included in this path.
-
->> +		usb->bit_width = 16;
->> +		break;
->> +	case SNDRV_PCM_FORMAT_S24_LE:
->> +	case SNDRV_PCM_FORMAT_S24_3LE:
->> +		usb->bit_width = 24;
->> +		break;
->> +	case SNDRV_PCM_FORMAT_S32_LE:
->> +		usb->bit_width = 32;
->> +		break;
->> +	default:
->> +		dev_err(dai->dev, "%s: invalid format %d\n",
->> +			__func__, params_format(params));
->> +		return -EINVAL;
+>> +	mutex_lock(&ctx_mutex);
+>> +	list_for_each_entry_safe(ctx, tmp, &usb_ctx_list, list) {
+>> +		if (ctx->dev == dev) {
+>> +			list_del(&ctx->list);
+>> +			break;
+>> +		}
 >> +	}
+>> +	mutex_unlock(&ctx_mutex);
 >> +
 >> +	return 0;
+> 
+> can this return void to align with the current trend?
+> 
+
+Sure.
+
 >> +}
-> 
->> @@ -617,6 +655,9 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
->>   	{"TX_CODEC_DMA_TX_5", NULL, "TX_CODEC_DMA_TX_5 Capture"},
->>   	{"RX_CODEC_DMA_RX_6 Playback", NULL, "RX_CODEC_DMA_RX_6"},
->>   	{"RX_CODEC_DMA_RX_7 Playback", NULL, "RX_CODEC_DMA_RX_7"},
+>> +EXPORT_SYMBOL_GPL(snd_soc_usb_remove_port);
 >> +
->> +	/* USB playback AFE port receives data for playback, hence use the RX port */
->> +	{"USB Playback", NULL, "USB_RX"},
+>> +/**
+>> + * snd_soc_usb_connect() - Notification of USB device connection
+>> + * @usbdev: USB bus device
+>> + * @card_idx: USB SND card instance
+>> + *
+>> + * Notify of a new USB SND device connection.  The card_idx can be used to
+>> + * handle how the DPCM backend selects, which device to enable USB offloading
+>> + * on.
 > 
-> Capture for implicit feedback?
-> 
-
-Please refer to the above comment.
-
->>   };
->>   
->>   static int msm_dai_q6_dai_probe(struct snd_soc_dai *dai)
->> @@ -644,6 +685,18 @@ static int msm_dai_q6_dai_remove(struct snd_soc_dai *dai)
->>   	return 0;
->>   }
->>   
->> +static const struct snd_soc_dai_ops q6usb_ops = {
->> +	.probe		= msm_dai_q6_dai_probe,
->> +	.prepare	= q6afe_dai_prepare,
->> +	.hw_params	= q6usb_hw_params,
-> 
-> this is rather confusing with two different layers used for hw_params
-> and prepare? Additional comments or explanations wouldn't hurt.
+> card_idx is not used below, and I don't see how this relates to a
+> notification?
 > 
 
-I thought this was how the ASoC design was.  Each DAI defined for a 
-particular path has it own set of callbacks implemented to bring up any 
-required resources for that entity.  So in this case, it initializes the 
-"cpu" DAI, which is the main component that handles communication with 
-the audio DSP.
-
->> +	.shutdown	= q6afe_dai_shutdown,
->> +	/*
->> +	 * Startup callback not needed, as AFE port start command passes the PCM
->> +	 * parameters within the AFE command, which is provided by the PCM core
->> +	 * during the prepare() stage.
-> 
-> This doesn't really explain why you need a shutdown?
-> 
-> 
-
-Sure, I'll add a comment.  shutdown() is needed to actually issue a AFE 
-port stop command to stop pumping audio data on a particular AFE port. 
-This occurs when userspace closes the PCM device for the platform sound 
-card, and is triggered for all linked DAIs.
-
->> + * struct afe_param_id_usb_audio_dev_latency_mode
->> + * @cfg_minor_version: Minor version used for tracking USB audio device
->> + * configuration.
->> + * Supported values:
->> + *     AFE_API_MINOR_VERSION_USB_AUDIO_LATENCY_MODE
->> + * @mode: latency mode for the USB audio device
-> 
-> what are the different latency modes? and is this related to the latency
-> reporting that was added in the USB2 audio class IIRC?
-> 
-
-Must've missed removing this part during one of the earlier revision 
-cleanups I had done.  We aren't setting this parameter currently on the 
-AFE side, and it isn't utilized either in the audio DSP, so I will 
-remove this definition.
-
->> +static int afe_port_send_usb_dev_param(struct q6afe_port *port, struct q6afe_usb_cfg *cfg)
->> +{
->> +	union afe_port_config *pcfg = &port->port_cfg;
->> +	struct afe_param_id_usb_audio_dev_params usb_dev;
->> +	struct afe_param_id_usb_audio_dev_lpcm_fmt lpcm_fmt;
->> +	struct afe_param_id_usb_audio_svc_interval svc_int;
->> +	int ret = 0;
-> 
-> useless init overridden...
-
-Will fix this.
-
->> +
->> +	if (!pcfg) {
->> +		dev_err(port->afe->dev, "%s: Error, no configuration data\n", __func__);
->> +		ret = -EINVAL;
->> +		goto exit;
->> +	}
->> +
->> +	memset(&usb_dev, 0, sizeof(usb_dev));
->> +	memset(&lpcm_fmt, 0, sizeof(lpcm_fmt));
->> +	memset(&svc_int, 0, sizeof(svc_int));
->> +
->> +	usb_dev.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
->> +	ret = q6afe_port_set_param_v2(port, &usb_dev,
-> 
-> .... here
-> 
->> +				      AFE_PARAM_ID_USB_AUDIO_DEV_PARAMS,
->> +				      AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(usb_dev));
->> +	if (ret) {
->> +		dev_err(port->afe->dev, "%s: AFE device param cmd failed %d\n",
->> +			__func__, ret);
->> +		goto exit;
->> +	}
->> +
->> +	lpcm_fmt.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
->> +	lpcm_fmt.endian = pcfg->usb_cfg.endian;
->> +	ret = q6afe_port_set_param_v2(port, &lpcm_fmt,
->> +				      AFE_PARAM_ID_USB_AUDIO_DEV_LPCM_FMT,
->> +				      AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(lpcm_fmt));
->> +	if (ret) {
->> +		dev_err(port->afe->dev, "%s: AFE device param cmd LPCM_FMT failed %d\n",
->> +			__func__, ret);
->> +		goto exit;
->> +	}
->> +
->> +	svc_int.cfg_minor_version = AFE_API_MINOR_VERSION_USB_AUDIO_CONFIG;
->> +	svc_int.svc_interval = pcfg->usb_cfg.service_interval;
->> +	ret = q6afe_port_set_param_v2(port, &svc_int,
->> +				      AFE_PARAM_ID_USB_AUDIO_SVC_INTERVAL,
->> +				      AFE_MODULE_AUDIO_DEV_INTERFACE, sizeof(svc_int));
->> +	if (ret)
->> +		dev_err(port->afe->dev, "%s: AFE device param cmd svc_interval failed %d\n",
->> +			__func__, ret);
->> +
->> +exit:
->> +	return ret;
->> +}
-> 
->> -#define AFE_PORT_MAX		129
->> +#define AFE_PORT_MAX		137
-> 
-> does this mean 8 ports are reserved for USB?
-> 
-> Or is this 137 just a random index coming from the AFE design?
-> 
-> 
-
-Its the latter.  Each port has a defined number/ID on the audio DSP AFE end.
+Will fix this comment.
 
 Thanks
 Wesley Cheng

@@ -2,184 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C2A7CD12D
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 02:16:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041187CD146
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 02:27:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5898282A;
-	Wed, 18 Oct 2023 02:15:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5898282A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7DFA82A;
+	Wed, 18 Oct 2023 02:26:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7DFA82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697588203;
-	bh=rxwaXK7wsHQ9yjJMtig2FrHLjvYQY+JGipH32QfMqIQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1697588822;
+	bh=Rzwp0RMZKluXf2SdyJxc4Kg4DbYOhHuemLEwfPwYYOM=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gHcP8vnI0gWwzDuHTZUld/nTnlJVs/tVTk0tfqtU1zFv6QTCpN5cdC1nELI4KIoIp
-	 2LrgrW8xPWHKsTdkw+vEOA5X6qm9VGhkgiTEca228dJSqfMQfl7ZqaDdttjwaJuCmV
-	 aiIYagldzyuUHqasoSdZT1BTpuhXuQz2cTvpQ9GQ=
+	b=fSYFWoN4YNeb9iWhTyFbp1xRvUqKd7QCSiYctj3tPk5rMIkRYFN1RHlIBBq2m43vU
+	 aAD1GWNUNozPaip5v8cIEVlRKe0IArKyggyrEGZkA3cxZSHyopF0hgJPX9PHvZZYEW
+	 RRe0BWqFSNy/mvKpkyJwYCAsE1SWZ+rdJURg4IK8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A12EAF8032D; Wed, 18 Oct 2023 02:15:52 +0200 (CEST)
+	id D7144F8027B; Wed, 18 Oct 2023 02:26:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 637A3F8024E;
-	Wed, 18 Oct 2023 02:15:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E954F8024E;
+	Wed, 18 Oct 2023 02:26:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9BAAF8025F; Wed, 18 Oct 2023 02:15:49 +0200 (CEST)
+	id A225CF8025F; Wed, 18 Oct 2023 02:26:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu
- [18.185.115.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 749DBF800C9
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 02:15:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 749DBF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id C0109F8019B
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 02:25:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0109F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=opensynergy.com header.i=@opensynergy.com
- header.a=rsa-sha256 header.s=TM-DKIM-20210503141657 header.b=hTsIpO9w
-Received: from 104.47.7.168_.trendmicro.com (unknown [172.21.184.89])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 8F615100004F7;
-	Wed, 18 Oct 2023 00:15:41 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1697588140.972000
-X-TM-MAIL-UUID: d38766e5-5abb-4ca8-b512-331d9a606d38
-Received: from DEU01-BE0-obe.outbound.protection.outlook.com (unknown
- [104.47.7.168])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id
- ED8D810001285;
-	Wed, 18 Oct 2023 00:15:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FEyrQuPf/Ki5clpRRyoKfphe9J6z/VxEVJ9489qUNxVBgqOm9r1tPOrcf9SHwPftA6edNZtkQBpeEGPS8uxmtebCrnEw7tUwGIpWqper+063KXzv+oODA6Um/WglBzg9rHh1H0wX1Mzb6tFEF8HatPQK3+3K8cE9Qj9LC4IiJkRqa5wYPiBko1ZtlDd+QJwSsrZCVq08exAvRxG6pLtLCgmyWW1FDtOQbU2PD4tWYXHl0O9LGU5s5qsJ2Q7QWeqWrranKAOvmFmRM/lyXWP2Pw1HVwCq86UzGYTOyK8A+qVOivnBu4l24xVynqclKQni3gmC3m4HEDJVN7iwB+BMcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VjuGpLsF92lho6XO92Q4+gSdbPTMmYDqaDG+7JwAl3k=;
- b=aGUyu9vDF6FQDPncAx8eL5nC2mR99zVUGxR7rk2UeQpthd8MG/y0MXkRziNDtTi+Q+Uj23X/z7JQQqAe14i1FPGWwjA92russBUG5rg/6CuaWCHcHGx/bFQp8PJpLP7yXR6qTOXJhV8IYLal4+kiCLH9ufvwzNgNmVOxL/z4CGosha34Tltpn6EqXyZh9vkSdjkXQhGeDNchs1x01hkDOKRuCWADsZJlKeq+X72Vde9CjDQugRK5dGuhvSCiBt4xkRlR8RXuaS6A6DhfFy7QOzi6G7YP0KdTFXBZqbFqsUeZPMDTJcG9qytzr9+/gwTc2ccZisHVL3acpaoiq5EBvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opensynergy.com;
-Message-ID: <28e51b45-2221-4d6d-b160-977991833908@opensynergy.com>
-Date: Wed, 18 Oct 2023 09:15:18 +0900
-Subject: Re: [RFC PATCH] ALSA: virtio: use copy and fill_silence callbacks
-To: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-Cc: mst@redhat.com, perex@perex.cz, tiwai@suse.com,
- virtualization@lists.linux-foundation.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, pbonzini@redhat.com, stefanha@redhat.com,
- sgarzare@redhat.com, manos.pitsidianakis@linaro.org, mripard@redhat.com
-References: <ZSgMeoMx6NX2zCx/@fedora>
- <6384c982-2b6d-474b-bf29-d495422aff20@opensynergy.com>
- <ZS6EBZ7oyGB9nhay@fedora>
-Content-Language: en-US
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-In-Reply-To: <ZS6EBZ7oyGB9nhay@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0056.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::7) To FR0P281MB2382.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:22::9)
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=IcG+bLna
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39HNO5P7026973;
+	Wed, 18 Oct 2023 00:25:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=15RYQdT6m7iWcWeSsv90aUlOyCZ517t+tMdVefgstE8=;
+ b=IcG+bLna/+YaL/0UE5HxdYsa15Xv7+DhS2TRhKFhvwPI3KTZdlGL3nCsMkEk8vko1taV
+ JABsmS+bsRUA1N7spOqYoM1IhmO1QaA+KTcs+40u+95vKPUeJgo+pIXyGI+koigz9xNr
+ ow/QN/hVDq9X16P0KSk3vZeDuMcUSiGfHRiQhlLK/UgIG3GaUvPSZU56+n/Ua3VirGo7
+ Mj8j+SU/+u1iV7t743cvP4tRy86u0HWB/UJtehEMC3fnjMsDRFPnAkGChEYGLCSbLDaf
+ LTAL2l1ejfGrkfp0ghFp1FIha0rmYf9u4NHrjDqOoj7Ogsp85HPX5dsUjaNVlf/ug8Tv +g==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3tsr7c1r9c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 18 Oct 2023 00:25:55 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 39I0PsdZ012718
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 18 Oct 2023 00:25:54 GMT
+Received: from [10.71.115.127] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Tue, 17 Oct
+ 2023 17:25:53 -0700
+Message-ID: <366d50fa-500f-e884-d48a-197e65bb2fb7@quicinc.com>
+Date: Tue, 17 Oct 2023 17:25:47 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: FR0P281MB2382:EE_|BE1P281MB2290:EE_
-X-MS-Office365-Filtering-Correlation-Id: cdaa388b-e2c9-42ff-fd57-08dbcf6f5b57
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	QU87f/q6P8+jdrFQCG74i7k6UB2BXpcKRBhyGJRO8dn4XVVnnOBexa2hwyeMfTHQrTcY0BHbmnYLpq4w7rjhzH6XD3PXfUakLGHfwwLIA3rQoTXh5LXRWPfSfTF1u6CRhXvUsmIYr1KssLHCSj2Wnxr7eDF+Rptq33AzNPfpedgG9Fdgyz1s/ez85VBheFctEIiWWqfK2QmA1EJKu9RoDxdJzU2JEu0FUdabZBoewP9oFTShmzPnPDFiyIrfkk8WMGFaFt62WEJSNT3UoOhnIrlWAfUdjTNdiusTl/RFkBwboOX9mmLUVlJLSyXNkzkdib1TtY/coLLIpTKUzKwkWd8McFDrt0zC5lc208gU6CQ+qEMCp2M7AmRMVj0T+xgFzVS1B1/kfoofKPU+s2cbCEXbRh9EzFjUWhJTrkMi9ofh9m45tx5Pv7yFgCospXEeS8KGl5atRv4sJgErv1lmlQGuuaMJ1UtXb62IDlNhGqsB2PUhzJrtHX7p5LqAs8vJKdQg9DIgw//YNNPzc2bLTtrIIRwXtwmG+vs+mjTiZ5gpPCE2UbzOQxKee/0UmWB+L6bKTBXt2+BuBBvAffqnVcOUzFvvOHydNxw6P4H+uZVKqFDV4CsrxPJ8ErhEX4MvLS1veNWUBLqDIZGAuUOjIA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR0P281MB2382.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(396003)(366004)(39840400004)(376002)(230922051799003)(186009)(64100799003)(1800799009)(451199024)(26005)(31686004)(38100700002)(41300700001)(5660300002)(44832011)(66476007)(66556008)(42186006)(66946007)(8936002)(8676002)(4326008)(7416002)(4744005)(6916009)(31696002)(86362001)(316002)(53546011)(478600001)(2906002)(2616005)(36756003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?NmlZYU9VYktyS01abzMvejE3KzZYUE11dGtRNUsyRHZEeVRiUlhIYnIzbWc4?=
- =?utf-8?B?bVV3dWdPUzZKRDNVUHZsQ3FtYjVzYk52SUFydEpsajBmclhnUWljeGE2RXBW?=
- =?utf-8?B?cGRlRDFKUjJ5MmwvVzFQaVUzUjVtWXpPcTZzdG9uYnB0VDNrUkhFZjNuemd1?=
- =?utf-8?B?dkpiZC8rSHZZczNHMCtCelpRL2ZxZis4bVJYSDVmV3JyTFVMa0ZCeXRKcnM3?=
- =?utf-8?B?MGx6cVVleGRVRDh6SVIvamFoZ3BPYTNQK2hXeUozclpsaW5YTkZXbG50SlZD?=
- =?utf-8?B?VnFUOUlYZ0ZmV0NYallnSnRMRk1PdHhqQ3ZzU2k1aW5sSm1hbno2TWdwZ0tK?=
- =?utf-8?B?NG16bzk1eXh6SFZpcGR1a1ZrUG1tRlprS2dIRjhBMXZaOUltZ21McVVENFgv?=
- =?utf-8?B?VllpMktXQjdBTFhjL2R1MTJraFpQdmxtcCs1RXBqRDlkajBjd2thYUNLVVNn?=
- =?utf-8?B?WU9OMkF5M1lHVUNaeEhzYk9sSmFIeUM2cnJ3dUVYMUNndVdFaklrMXozMDVG?=
- =?utf-8?B?KzJJVzBFekpObW4zVjVnREZoU3FrOFdYdFdLSDV2eUp5akUwblo2N05naUxN?=
- =?utf-8?B?RDhoQ0FqN1ZIcm16TmFGWnluWUhNb21pZkdmVkhCUkRXeW1qbHNoQ3hHNWd2?=
- =?utf-8?B?RThXZ3hiV1hGS3B4aWY0dk0zZWZFS0lhR01nU3dWWDVPMXNWa240WUg5Vmhr?=
- =?utf-8?B?NzBEOHdoVzgydGFLRjF0TE9ML2xvamdoMEk3bHd3RWwxNTBpbFV5M2s5b00x?=
- =?utf-8?B?QS9WWWNGRjR4aDh0OHpmTndaU2E3R0NSNGpmUXkrRnVUZlVYMjZoL0dGLzll?=
- =?utf-8?B?T2JNdjNjNUx2M1lGK1Z2NGZGcXlNZ1J0VmpRV2JQMStweWowYVhPakFWUkxM?=
- =?utf-8?B?RGlmYzdVaXJRbm1oY1FSRUx0VUI2ajhlRU9Fd1BBUjc5YXhYNnpxUUF2dm9B?=
- =?utf-8?B?TjAyZVAzRTk4ZFdFTFlidjhTMkw2SlZSVTZRTmMzU2R1dXlqdXVKM2pJVDYr?=
- =?utf-8?B?eVB0SjUrcEJvdzdUWmx2MmRqemV5RzlCMFlHd05IZFVuV2tiWXpsTzhtcktn?=
- =?utf-8?B?TDNtaUIxWUkza2gybjhJeC95MFpPc2plUW5jY3ZjOUNBdllxUXhuWUs2bm95?=
- =?utf-8?B?WlFFeVVBUGhjaC9EV0xHcnozZGExeGZ0Yk9JUlNneWJCYzVrTjBpS2s5Wk5q?=
- =?utf-8?B?NHlQcXEySUIvN0R0ZjR1dXdEMWRyaGlJU2hmVGV6VE1Lb3JvR2JNZEZ0UlNB?=
- =?utf-8?B?eHlPUDUzRWRPazRlZm5ZaWYvVzB4YmJXSThuQ3ZvVTlPQVl5THQ1NXlXVTRa?=
- =?utf-8?B?WU5CdnNoU3hnYm1XSzBIOTBwemlGanlvU0cwNHVwMm5hR0NxKzRNYitWT0FW?=
- =?utf-8?B?RmlwQllIRGV6YzRwRHdqbmhMTmNQc0hTdnhqbWJQeXFXYjJkQ3lOa2dIbUp0?=
- =?utf-8?B?cnY4RjdvWDQ1cFd1b2xJWEl3d09zUGhsYlBvSkkxV296Q1Fzdm90WmtwRjF3?=
- =?utf-8?B?VGNvZFp3a1d5K05EekhUZ1F3RkpuM09hZWV1VFVKUmJWdmQrMFU4Um4xSE8r?=
- =?utf-8?B?RHpPU2F1Z1pLYXZVWDhPNlZHaU9ET1ZEWVlpcVFBUmlVb3Nla3NGQ2VlaE5K?=
- =?utf-8?B?d1U1MW54Q1A4K3ppb0xIcUx4ZlpUeVpyVEZDOTcvbG1CVVJZVVI4NW1MWFBq?=
- =?utf-8?B?N01rMlpuWXF3V2pQS3lPQWtEOE5VaURCb1JzVHo1aFE2WFVwNE4wQWZ2eTA0?=
- =?utf-8?B?ZWVHcVpwaE9uOWF1QUV6SzFYUEZuZVFEYjYwREtVZUZ4RWcrMk5zSFV0cHN4?=
- =?utf-8?B?WGNPelA3ODA3Y21lQTRXNTZJd0FrayttOTZEV1I4RGVMUk9ndG5nc0srbjVv?=
- =?utf-8?B?RmJhd08xSTBnemtZYmhySW9BSHNjRXRwLzVYc3Brc2N6bGNZM2QzODgyQjVv?=
- =?utf-8?B?SXJqZk9vVnp6ckNmSnl3UHhlbDMyellITzJudVM3aUMvcUx6VHFhMXpia0t5?=
- =?utf-8?B?UHN1OVFnRkFDeTJ5djBwQlBXeThrUko2QWYrd2NEdEJCQWh0UXRUYmFPdldO?=
- =?utf-8?B?bHFnT0pPNUlMc2pXQWhRT1NlU3diZXhyR1RiWVF2OHpQUHh5WlM5bThhUTlj?=
- =?utf-8?Q?rkQqgWuNBmSovYmvSoZMIfoG6?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- cdaa388b-e2c9-42ff-fd57-08dbcf6f5b57
-X-MS-Exchange-CrossTenant-AuthSource: FR0P281MB2382.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2023 00:15:39.1746
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- SoDscNCANC29Y6QU7l2pRzE4HFjKrcxhnun2s2lmGVjQzvD3iQ9kcfSzxnG8kKV6fkl4of48ZAOikQSMQSwkcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BE1P281MB2290
-X-TM-AS-ERS: 104.47.7.168-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-27942.003
-X-TMASE-Result: 10--8.304000-4.000000
-X-TMASE-MatchedRID: +c13yJDs901TzAVQ78TKJRhvdi92BBAu+HAk4j3F9/Qa9RqlFbRIduAA
-	SvqZjfN4M2ta6t23unXTsSdxipbi+7dpEPyORLdV0RneM2u5ms9W1n4bHTHoQZXVwPqFeiBVT0B
-	RZNI+YwbANog326X8vo19zNGhZoVDsM/3m9ko3yj27frq98KnmgaG4Utj+sREcYO7LzLWqS6Xn7
-	CqFttPWxjSLVDqKI5E8BB++qkUITWZDRZvymtiMn7DsKL7bCLU
-X-TMASE-XGENCLOUD: 54600590-e107-48d1-8b60-efb7cefc22e0-0-0-200-0
-X-TM-Deliver-Signature: E80A9620F45A3CA3C6291C30DB18BAAF
-X-TM-Addin-Auth: /mXZCuS4ctFgXJQPaxm7A2Q8/sfBvTnBbeBj+x5F2/precZizm9nOqzCO9+
-	9mA+K/jpIB86KjFcqmdn9/YwgyMGRHzsuPr2238+ytOb4TXdpZVhFaZNa5vDKBHvxgrsEBQDZ7R
-	JWY6aWM5H+iovWpLf7YeQnAr2flfDX0emq9AeSckuOjjvaCpJJPMhufVT/gfgHMx6jixhZ0msLc
-	h+k2kb3C1uc4IggswgksRofczonZQPvxXGnDAOCVe6kj7wPoIBZzaT56U8PXiifrFQCuvqaHRWB
-	3LP9xABtYs66/8s=.B1QJHwPnJ24MfwB19uvkS6/5gMCIGd7qEj+4BZkokFB7q6lJcHRQIrUDym
-	c0QEO+wBNie82NoxMeM0cKzhfl/hJfdqk45WgKAV1JI6RKRT5xQz2QJTtUYqv7EQakL6x8Icyy5
-	jSImbp2KSi35ipH3ccExektRdhfa57IouwPwFm8iEkAl9bcczHf5Wc8cQ8elHNaFpvmxmyq2sB7
-	1OWjfPUMXfxSC+bW789OHA/icQzglST573a8nvaBJ+g2T5cEg9NeFlPJXXBsEgCr3YfZUWgwvXL
-	oNpsPgLggChWtMbR0mi0Ia7uC7cP4QySYEz5lnOBq/Hq76A0KFLlQmgdE8g==
-X-TM-Addin-ProductCode: EMS
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1697588141;
-	bh=rxwaXK7wsHQ9yjJMtig2FrHLjvYQY+JGipH32QfMqIQ=; l=393;
-	h=Date:To:From;
-	b=hTsIpO9wa+IfpIzgum0b1VXB8UnHH3NjtzX39+8yO/pZ8RIb5p6V0qgQMgm0GphId
-	 l9bG6OR3WQh+BskpSdJdxQAWIFhvSLS3SJZY1paLphReojfjK0AnXmTWX3Xs/euNFX
-	 9PRzMUI3wbjg0kf5H9okr6ApmfoNS7hr6mkDy/k1fNuRc2/Nq93o7OS/4lZ1mATCTP
-	 l4ZVDygujmwZ7M7Vy/a7o+Gf3l1wRqE++mqNqQw9ypBJk1V9ykqu4JB+XbdNO4DXNf
-	 UiHgYn2N1Oz0RxvobKrtf/HwQt7+0S2bWqntlQ2eU+dRr+CV08rXoyhmJ4eVzQzLjr
-	 Hu3POQdVApPEA==
-Message-ID-Hash: 4UIW5HMUGXPEHBBR4YQWFO5B7UMR3L4F
-X-Message-ID-Hash: 4UIW5HMUGXPEHBBR4YQWFO5B7UMR3L4F
-X-MailFrom: Anton.Yakovlev@opensynergy.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v9 00/34] Introduce QC USB SND audio offloading support
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        <mathias.nyman@intel.com>, <gregkh@linuxfoundation.org>,
+        <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+        <tiwai@suse.com>, <agross@kernel.org>, <andersson@kernel.org>,
+        <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
+        <Thinh.Nguyen@synopsys.com>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
+        <devicetree@vger.kernel.org>
+References: <20231017200109.11407-1-quic_wcheng@quicinc.com>
+ <9942bb93-31ea-4574-940f-98d87a2fc127@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <9942bb93-31ea-4574-940f-98d87a2fc127@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: taLlUA-GgwY8lg2uCsRZXu6Wnb8EXH4V
+X-Proofpoint-GUID: taLlUA-GgwY8lg2uCsRZXu6Wnb8EXH4V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-17_07,2023-10-17_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1011 bulkscore=0 adultscore=0
+ impostorscore=0 mlxscore=0 priorityscore=1501 mlxlogscore=999
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310180000
+Message-ID-Hash: ZF6DBDT2BVI7ZPFHDDRQQYW5OKCVY6YI
+X-Message-ID-Hash: ZF6DBDT2BVI7ZPFHDDRQQYW5OKCVY6YI
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -191,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4UIW5HMUGXPEHBBR4YQWFO5B7UMR3L4F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZF6DBDT2BVI7ZPFHDDRQQYW5OKCVY6YI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -200,23 +136,187 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Matias,
+Hi Pierre,
 
-On 17.10.2023 21:54, Matias Ezequiel Vara Larsen wrote:
-> Hello Anton,
+On 10/17/2023 1:58 PM, Pierre-Louis Bossart wrote:
+> It's been a very long time since I reviewed earlier versions, and I am
+> still lost on terminology and concepts. The explanations below should
+> really be added as a .rst file in Documentation for reference, not just
+> as a cover letter.
 > 
-> Thanks for your help! I am going to send a second version of the patch
-> with your changes. Is it OK if I add you with the "Co-developed-by"
-> tag?.
 
-Yes, I'm fine with that. :)
+Thanks for the review!
 
+Sure, maybe I can write a more comprehensive documentation that saves 
+these details somewhere.  Will add a RST documentation for material 
+where necessary.
 
-Best regards,
+>> Several Qualcomm based chipsets can support USB audio offloading to a
+>> dedicated audio DSP, which can take over issuing transfers to the USB
+>> host controller.  The intention is to reduce the load on the main
+>> processors in the SoC, and allow them to be placed into lower power modes.
+>> There are several parts to this design:
+>>    1. Adding ASoC binding layer
+>>    2. Create a USB backend for Q6DSP
+> 
+> "backend" is a loaded terms for ASoC. Can you clarify which part of the
+> ascii art below is a 'backend'?
+> 
 
--- 
-Anton Yakovlev
-Senior Software Engineer
+This would be the Q6USB entity which is the DPCM backend for this 
+particular audio path.
 
-OpenSynergy GmbH
-Rotherstr. 20, 10245 Berlin
+>>    3. Introduce XHCI interrupter support
+>>    4. Create vendor ops for the USB SND driver
+>>
+>>        USB                          |            ASoC
+>> --------------------------------------------------------------------
+>>                                     |  _________________________
+>>                                     | |sm8250 platform card     |
+>>                                     | |_________________________|
+>>                                     |         |           |
+>>                                     |      ___V____   ____V____
+>>                                     |     |Q6USB   | |Q6AFE    |
+>>                                     |     |"codec" | |"cpu"    |
+>>                                     |     |________| |_________|
+>>                                     |         ^  ^        ^
+>>                                     |         |  |________|
+>>                                     |      ___V____    |
+>>                                     |     |SOC-USB |   |
+>>     ________       ________               |        |   |
+>>    |USB SND |<--->|QC offld|<------------>|________|   |
+>>    |(card.c)|     |        |<----------                |
+>>    |________|     |________|___     | |                |
+>>        ^               ^       |    | |    ____________V_________
+>>        |               |       |    | |   |APR/GLINK             |
+>>     __ V_______________V_____  |    | |   |______________________|
+>>    |USB SND (endpoint.c)     | |    | |              ^
+>>    |_________________________| |    | |              |
+>>                ^               |    | |   ___________V___________
+>>                |               |    | |->|audio DSP              |
+>>     ___________V_____________  |    |    |_______________________|
+>>    |XHCI HCD                 |<-    |
+>>    |_________________________|      |
+>>
+>>
+>> Adding ASoC binding layer:
+>> soc-usb: Intention is to treat a USB port similar to a headphone jack.
+> 
+> What is a 'port'? USB refers to "interfaces" and "endpoints". Is a
+> "port" a 1:1 mapping to "endpoint"?
+> 
+> Below I read "AFE port" so not sure what concepts refer to what.
+> 
+
+"Port" in this explanation refers to the USB port.  So the audio device 
+connected.  You are right that a USB device can enumerate w/ multiple 
+interfaces (ie UAC + HID + ...) so the closest relation to "port" is 
+"interface."  It is not a 1:1 mapping w/ the number of endpoints exposed 
+by a device.
+
+"AFE port" is just something that has been termed from the audio DSP 
+end, so that concept of port is not related to the port where USB 
+devices are connected to.  This is something that is defined within the 
+audio DSP.
+
+>> The port is always present on the device, but cable/pin status can be
+>> enabled/disabled.  Expose mechanisms for USB backend ASoC drivers to
+>> communicate with USB SND.
+>>
+>> Create a USB backend for Q6DSP:
+>> q6usb: Basic backend driver that will be responsible for maintaining the
+> 
+> The asciiart above suggests that q6usb exposes a codec DAI - but the
+> backend dailink is created by the platform card?
+> 
+
+That is my understanding, at least.  The machine driver (sm8250.c) has 
+an API that parses our DT node for the DAI relationships 
+(qcom_snd_parse_of()), and seems to also create the dailinks.
+
+>> resources needed to initiate a playback stream using the Q6DSP.  Will
+> 
+> is capture supported? there's explicit references to "num_capture" in
+> following patches.
+> 
+
+We (QCOM) do not support capture at the moment, but the num_capture was 
+added to the soc-usb driver, which is platform independent.  This is in 
+case other vendors want to add this support, but have capture included 
+as well.
+
+>> be the entity that checks to make sure the connected USB audio device
+>> supports the requested PCM format.  If it does not, the PCM open call will
+>> fail, and userpsace ALSA can take action accordingly.
+>>
+>> Introduce XHCI interrupter support:
+>> XHCI HCD supports multiple interrupters, which allows for events to be routed
+>> to different event rings.  This is determined by "Interrupter Target" field
+>> specified in Section "6.4.1.1 Normal TRB" of the XHCI specification.
+>>
+>> Events in the offloading case will be routed to an event ring that is assigned
+>> to the audio DSP.
+>>
+>> Create vendor ops for the USB SND driver:
+>> qc_audio_offload: This particular driver has several components associated
+>> with it:
+>> - QMI stream request handler
+>> - XHCI interrupter and resource management
+>> - audio DSP memory management
+>>
+>> When the audio DSP wants to enable a playback stream, the request is first
+>> received by the ASoC platform sound card.  Depending on the selected route,
+>> ASoC will bring up the individual DAIs in the path.  The Q6USB backend DAI
+>> will send an AFE port start command (with enabling the USB playback path), and
+>> the audio DSP will handle the request accordingly.
+> 
+> what about capture, e.g. for a headset?
+> 
+
+Not supported yet at the moment.
+
+>> Part of the AFE USB port start handling will have an exchange of control
+>> messages using the QMI protocol.  The qc_audio_offload driver will populate the
+>> buffer information:
+>> - Event ring base address
+>> - EP transfer ring base address
+>>
+>> and pass it along to the audio DSP.  All endpoint management will now be handed
+>> over to the DSP, and the main processor is not involved in transfers.
+>>
+>> Overall, implementing this feature will still expose separate sound card and PCM
+>> devices for both the platorm card and USB audio device:
+> 
+> typo: platform
+> 
+
+Thanks, will fix this.
+
+>>   0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
+>>                        SM8250-MTP-WCD9380-WSA8810-VA-DMIC
+> 
+> How do you plan on exposing the USB PCM device?
+> 
+> The lines above are really cryptic, and with no USB reference in any of
+> the short/long card names it's not obvious that this card is different
+> from the no-offload case, is it?
+> 
+
+In the end, since the offload case is handled by the audio DSP, it would 
+have to go through the platform/machine sound card.  That is the sm8250 
+device above.
+
+>>   1 [Audio          ]: USB-Audio - USB Audio
+>>                        Generic USB Audio at usb-xhci-hcd.1.auto-1.4, high speed
+> 
+> likewise some sort of qualifier would be useful to show that card 0 and
+> card 1 can target the same USB endpoints.
+> 
+
+Do userspace entities look at this card string?  Assuming there is only 
+one platform card, there are situations where maybe multiple USB audio 
+devices are connected to the same USB root hub, so offloading can happen 
+on any one of them (not at the same time).
+
+Thanks
+Wesley Cheng

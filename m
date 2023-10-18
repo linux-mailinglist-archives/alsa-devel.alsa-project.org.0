@@ -2,85 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F397CDC72
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 14:57:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FAE77CDC7C
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Oct 2023 14:58:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58C9C1D7;
-	Wed, 18 Oct 2023 14:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58C9C1D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B72B9868;
+	Wed, 18 Oct 2023 14:58:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72B9868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697633839;
-	bh=RfajBlwcuXvS+TumbX+H26qssz1sCsAhi7MdYhWbndc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697633934;
+	bh=p/Yb2NW+0kcOx9jkWgIDtkZ7XjZ3M8v6rVtc55E6rnI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JeSzVt6j58ucaAaB1NvMPcFGS0IcH+zU+sqAfKTPUWb5fV7urMaMDffxErakk6cKQ
-	 mEOL1IdokB4triz9Qs08i6egVpQwDU1c+pioI0HYzhwoqkntQf7/DrBsIECfrke/jT
-	 PjB1DXSpKZ6xG/KMb78yjcJ/dLIhjjJwqN0qwxCM=
+	b=KkacvClAXYBnItZKxmc6gQBUzUbHWH6U0XOBtvYozil58A+0YvJbmpmXO+qm0/MmM
+	 6n9cJHuzK30b/arPoQpaF/0+n1Gi6jJEKOPDP6OM3/fxiVeCVmtWuiaKBETO5dKco1
+	 CrPaP8h45MwNOQtZv+ogUlRtY4TY9wh8nPlGGGjU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F2ABF80558; Wed, 18 Oct 2023 14:56:29 +0200 (CEST)
+	id 892AFF8024E; Wed, 18 Oct 2023 14:58:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9C32F8024E;
-	Wed, 18 Oct 2023 14:56:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BB7AF8025F;
+	Wed, 18 Oct 2023 14:58:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0C68F8025F; Wed, 18 Oct 2023 14:56:24 +0200 (CEST)
+	id DE32EF8025F; Wed, 18 Oct 2023 14:58:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No,
+ score=-4.7 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DA353F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 14:56:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA353F800C9
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MJVkvpwr
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8751BF80236
+	for <alsa-devel@alsa-project.org>; Wed, 18 Oct 2023 14:57:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8751BF80236
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 6C26A6106C;
-	Wed, 18 Oct 2023 12:56:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA518C433C8;
-	Wed, 18 Oct 2023 12:56:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697633778;
-	bh=RfajBlwcuXvS+TumbX+H26qssz1sCsAhi7MdYhWbndc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MJVkvpwrSgXAy6qscSeVWxmppjv3m8n4+kX+4AHQ14KMDidYa9FDRWG1HZLJYOetF
-	 bjmQdZUNaS7DMv9iAYakN7DzObetRdzpsgVz5TlhdcmTvAoHhpRsO4VgW7zJRrTjvH
-	 JyX88p2CZz9M1iJQAcQ22FXKBwOOtTXdd4j1hBSY49tVOlX9COd0jkM+7WByoOpBCB
-	 WKnprgmC/NsbLe4ii21o2elYvR+OHBKVGJNMKKBHA8QMD15FVqPqP9RbuyNRizwID+
-	 1ESgcoh9BLGO68YjQlkoxeJRXAErVYY/mC5Wj1qGcqKlGqgI7+kFdvu8Yvs5p0bB7G
-	 qYnqMZ5nYBpkA==
-Date: Wed, 18 Oct 2023 13:56:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: codecs: wsa884x: allow sharing reset GPIO
-Message-ID: <b7aeda24-d638-45b7-8e30-80d287f498f8@sirena.org.uk>
-References: <20231018100055.140847-1-krzysztof.kozlowski@linaro.org>
- <3aa9e3a7-9417-44b4-87d8-fcf1a8b46daf@sirena.org.uk>
- <84f9f1c4-0627-4986-8160-b4ab99469b81@linaro.org>
+	by ams.source.kernel.org (Postfix) with ESMTP id CA106B82357;
+	Wed, 18 Oct 2023 12:57:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13865C433C8;
+	Wed, 18 Oct 2023 12:57:53 +0000 (UTC)
+Message-ID: <83c7dae1-4910-4e85-8b7e-bd803eac9523@xs4all.nl>
+Date: Wed, 18 Oct 2023 14:57:52 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SeEMerEnyAsMxP6P"
-Content-Disposition: inline
-In-Reply-To: <84f9f1c4-0627-4986-8160-b4ab99469b81@linaro.org>
-X-Cookie: Santa Claus is watching!
-Message-ID-Hash: IVVVBSSSYGC2UGDL4GZ45JFEDHDAGUYE
-X-Message-ID-Hash: IVVVBSSSYGC2UGDL4GZ45JFEDHDAGUYE
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v6 10/11] media: imx-asrc: Add memory to memory driver
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <1697185865-27528-1-git-send-email-shengjiu.wang@nxp.com>
+ <1697185865-27528-11-git-send-email-shengjiu.wang@nxp.com>
+ <677abf53-651a-42d3-ac65-c2a7d0b63fe6@xs4all.nl>
+ <CAA+D8ANKVwwqoYKo=rZGx029BykH9eDv=-VCQ3PP9p-k8faJ_w@mail.gmail.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: 
+ <CAA+D8ANKVwwqoYKo=rZGx029BykH9eDv=-VCQ3PP9p-k8faJ_w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LKMAKSNMPRLQXM2YTZHEVX3ZB3V2YQ5R
+X-Message-ID-Hash: LKMAKSNMPRLQXM2YTZHEVX3ZB3V2YQ5R
+X-MailFrom: SRS0=w3EN=GA=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IVVVBSSSYGC2UGDL4GZ45JFEDHDAGUYE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LKMAKSNMPRLQXM2YTZHEVX3ZB3V2YQ5R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,44 +132,185 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 18/10/2023 14:53, Shengjiu Wang wrote:
+> On Mon, Oct 16, 2023 at 10:01 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
+>>
+>> On 13/10/2023 10:31, Shengjiu Wang wrote:
+>>> Implement the ASRC memory to memory function using
+>>> the v4l2 framework, user can use this function with
+>>> v4l2 ioctl interface.
+>>>
+>>> User send the output and capture buffer to driver and
+>>> driver store the converted data to the capture buffer.
+>>>
+>>> This feature can be shared by ASRC and EASRC drivers
+>>>
+>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+>>> ---
+>>>  drivers/media/platform/nxp/Kconfig    |   12 +
+>>>  drivers/media/platform/nxp/Makefile   |    1 +
+>>>  drivers/media/platform/nxp/imx-asrc.c | 1248 +++++++++++++++++++++++++
+>>>  3 files changed, 1261 insertions(+)
+>>>  create mode 100644 drivers/media/platform/nxp/imx-asrc.c
+>>>
+>>> diff --git a/drivers/media/platform/nxp/Kconfig b/drivers/media/platform/nxp/Kconfig
+>>> index 40e3436669e2..8234644ee341 100644
+>>> --- a/drivers/media/platform/nxp/Kconfig
+>>> +++ b/drivers/media/platform/nxp/Kconfig
+>>> @@ -67,3 +67,15 @@ config VIDEO_MX2_EMMAPRP
+>>>
+>>>  source "drivers/media/platform/nxp/dw100/Kconfig"
+>>>  source "drivers/media/platform/nxp/imx-jpeg/Kconfig"
+>>> +
+>>> +config VIDEO_IMX_ASRC
+>>> +     tristate "NXP i.MX ASRC M2M support"
+>>> +     depends on V4L_MEM2MEM_DRIVERS
+>>> +     depends on MEDIA_SUPPORT
+>>> +     select VIDEOBUF2_DMA_CONTIG
+>>> +     select V4L2_MEM2MEM_DEV
+>>> +     help
+>>> +         Say Y if you want to add ASRC M2M support for NXP CPUs.
+>>> +         It is a complement for ASRC M2P and ASRC P2M features.
+>>> +         This option is only useful for out-of-tree drivers since
+>>> +         in-tree drivers select it automatically.
+>>> diff --git a/drivers/media/platform/nxp/Makefile b/drivers/media/platform/nxp/Makefile
+>>> index 4d90eb713652..1325675e34f5 100644
+>>> --- a/drivers/media/platform/nxp/Makefile
+>>> +++ b/drivers/media/platform/nxp/Makefile
+>>> @@ -9,3 +9,4 @@ obj-$(CONFIG_VIDEO_IMX8MQ_MIPI_CSI2) += imx8mq-mipi-csi2.o
+>>>  obj-$(CONFIG_VIDEO_IMX_MIPI_CSIS) += imx-mipi-csis.o
+>>>  obj-$(CONFIG_VIDEO_IMX_PXP) += imx-pxp.o
+>>>  obj-$(CONFIG_VIDEO_MX2_EMMAPRP) += mx2_emmaprp.o
+>>> +obj-$(CONFIG_VIDEO_IMX_ASRC) += imx-asrc.o
+>>> diff --git a/drivers/media/platform/nxp/imx-asrc.c b/drivers/media/platform/nxp/imx-asrc.c
+>>> new file mode 100644
+>>> index 000000000000..373ca2b5ec90
+>>> --- /dev/null
+>>> +++ b/drivers/media/platform/nxp/imx-asrc.c
+>>> @@ -0,0 +1,1248 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +//
+>>> +// Copyright (C) 2014-2016 Freescale Semiconductor, Inc.
+>>> +// Copyright (C) 2019-2023 NXP
+>>> +//
+>>> +// Freescale ASRC Memory to Memory (M2M) driver
+>>> +
+>>> +#include <linux/dma/imx-dma.h>
+>>> +#include <linux/pm_runtime.h>
+>>> +#include <media/v4l2-ctrls.h>
+>>> +#include <media/v4l2-device.h>
+>>> +#include <media/v4l2-event.h>
+>>> +#include <media/v4l2-fh.h>
+>>> +#include <media/v4l2-ioctl.h>
+>>> +#include <media/v4l2-mem2mem.h>
+>>> +#include <media/videobuf2-dma-contig.h>
+>>> +#include <sound/dmaengine_pcm.h>
+>>> +#include <sound/fsl_asrc_common.h>
+>>> +
+>>> +#define V4L_CAP OUT
+>>> +#define V4L_OUT IN
+>>> +
+>>> +#define ASRC_xPUT_DMA_CALLBACK(dir) \
+>>> +     (((dir) == V4L_OUT) ? asrc_input_dma_callback \
+>>> +     : asrc_output_dma_callback)
+>>> +
+>>> +#define DIR_STR(dir) (dir) == V4L_OUT ? "out" : "cap"
+>>> +
+>>> +#define ASRC_M2M_BUFFER_SIZE (512 * 1024)
+>>> +#define ASRC_M2M_PERIOD_SIZE (48 * 1024)
+>>> +#define ASRC_M2M_SG_NUM (20)
+>>
+>> Where do all these values come from? How do they relate?
+>> Some comments would be welcome.
+>>
+>> Esp. ASRC_M2M_SG_NUM is a bit odd.
+>>
+>>> +
+>>> +struct asrc_fmt {
+>>> +     u32     fourcc;
+>>> +     snd_pcm_format_t     format;
+>>
+>> Do you need this field? If not, then you can drop the whole
+>> struct and just use u32 fourcc in the formats[] array.
+>>
+>>> +};
+>>> +
+>>> +struct asrc_pair_m2m {
+>>> +     struct fsl_asrc_pair *pair;
+>>> +     struct asrc_m2m *m2m;
+>>> +     struct v4l2_fh fh;
+>>> +     struct v4l2_ctrl_handler ctrl_handler;
+>>> +     int channels[2];
+>>> +     struct v4l2_ctrl_fixed_point src_rate;
+>>> +     struct v4l2_ctrl_fixed_point dst_rate;
+>>> +
+>>> +};
+>>> +
+>>> +struct asrc_m2m {
+>>> +     struct fsl_asrc_m2m_pdata pdata;
+>>> +     struct v4l2_device v4l2_dev;
+>>> +     struct v4l2_m2m_dev *m2m_dev;
+>>> +     struct video_device *dec_vdev;
+>>> +     struct mutex mlock; /* v4l2 ioctls serialization */
+>>> +     struct platform_device *pdev;
+>>> +};
+>>> +
+>>> +static struct asrc_fmt formats[] = {
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_S8,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_S16_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_U16_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_S24_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_S24_3LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_U24_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_U24_3LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_S32_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_U32_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_S20_3LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_U20_3LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_FLOAT_LE,
+>>> +     },
+>>> +     {
+>>> +             .fourcc = V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE,
+>>> +     },
+>>> +};
+>>> +
+>>> +#define NUM_FORMATS ARRAY_SIZE(formats)
+>>> +
+>>> +static snd_pcm_format_t convert_fourcc(u32 fourcc) {
+>>> +
+>>> +     return (__force snd_pcm_format_t)v4l2_fourcc_to_audfmt(fourcc);
+>>
+>> Is this cast something that should be done in the v4l2_fourcc_to_audfmt
+>> define instead?
+> 
+> need to avoid include asound.h in videodev2.h,  so add this cast in driver.
 
---SeEMerEnyAsMxP6P
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It's a #define, so just including videodev2.h won't require asound.h.
 
-On Wed, Oct 18, 2023 at 02:38:00PM +0200, Krzysztof Kozlowski wrote:
-> On 18/10/2023 14:35, Mark Brown wrote:
+Regards,
 
-> > How do the speakers coordinate?
+	Hans
 
-> They don't and that's the generic problem of many Linux drivers. Not
-> only this one, but others as well.
-
-> Device unbind (remove()) or runtime suspend of one speaker will affect
-> other speaker. I don't think any other drivers solved this, because this
-> is rather core's GPIO issue, thus I am not solving it here either. :(
-
-I'd expect that the GPIO users should coordiante directly rather than
-rely on the GPIO API to do the coordination for them - there aren't
-enough semantics in the GPIO itself to do much more except possibly
-provide discovery services (which would be nice).  Look at how the
-regulator API manages multiple regulators sharing an enable GPIO for
-example, it adds an additional layer of reference counting when it
-identifies a shared GPIO.
-
---SeEMerEnyAsMxP6P
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUv1eoACgkQJNaLcl1U
-h9Arjwf+MY/q21wh5tBoMbw8vn1r4Ag4O1t2M+4gxxtLbqzpaWKPc99mHcw04BMC
-1ddMktsfr9bnWH0PBXYhrKahMdfDlXrotllyDtWS0i9hQUOhrgFKj0r4192NDc4q
-do9drmxc8ikNhIP4AWqQTj0uLXEwRuHqj4gXnak6M0ScAi9cLYo0BvIBi/g8f+jY
-U609DqfVDLVbntcAVB+b6j087AwW1drZ4cj2XV7TppJtUE1IWku3rlb95zm2jC0B
-SwQI49ZkObNk2YiErX33Q9qmIitZbtgLvBR3DHsZHlBaswBT/IApJRnu1VOJsHX4
-/56/6Ela2XeuYcFE3rPB0ExOstsO+g==
-=lF0c
------END PGP SIGNATURE-----
-
---SeEMerEnyAsMxP6P--

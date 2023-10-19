@@ -2,78 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B1AF7CF726
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 13:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 076897CF733
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 13:42:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD4BA1DA;
-	Thu, 19 Oct 2023 13:39:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD4BA1DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BEAF1EC;
+	Thu, 19 Oct 2023 13:41:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BEAF1EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697715629;
-	bh=676Rjq+LE+0fgew437xG06OYxKy/BUx3vyMw4uKlDRY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1697715728;
+	bh=zFJ31eXbJDMkRLWAUkyjKDUm5+ZrWpDws7et1zq/7TY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A+ftFW+2QUsjXrDX8DE0I50o59itVnj92PpQDIaKAmMLsIU8kr3lvR4tX5TmFbkre
-	 PGoMJIeBr4yii3ZKEixTbjOllvC2LhTmo4i58+HKwa0S7CNhMajftE/ElXJ/7zk1lu
-	 VICZQeSUMk6VbZ+Ov1qWP4RfS9W5D3+sC7QMhBb8=
+	b=MNFq2KvozxN2wtu6fTlxHD/n/G951sf+c7x7AyUlVkssz+vdb/L5EHF28CWCL52Ok
+	 zEerpist5yr/oS/msb+w0mGatBI7rD95A42keJO+wUtTkwCaRAZ7zT61Kb0I/VX8W0
+	 8sR9VaiwTqHD2pAvmUZSnpNq3HrdOlvyAOvgH79E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0DC8F80557; Thu, 19 Oct 2023 13:39:38 +0200 (CEST)
+	id EAB57F8024E; Thu, 19 Oct 2023 13:41:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93283F8024E;
-	Thu, 19 Oct 2023 13:39:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAB8BF800C9;
+	Thu, 19 Oct 2023 13:41:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D312F8025F; Thu, 19 Oct 2023 13:39:34 +0200 (CEST)
+	id 8080FF8027B; Thu, 19 Oct 2023 13:41:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 752BFF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 13:39:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 752BFF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E7DAF800C9
+	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 13:41:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E7DAF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=nxuvfXr0
+ header.s=k20201202 header.b=VDBcDBIi
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 0FFF2CE2BBB;
-	Thu, 19 Oct 2023 11:39:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1174C433C9;
-	Thu, 19 Oct 2023 11:39:19 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9681260C92;
+	Thu, 19 Oct 2023 11:41:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8D4C433CC;
+	Thu, 19 Oct 2023 11:41:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697715561;
-	bh=676Rjq+LE+0fgew437xG06OYxKy/BUx3vyMw4uKlDRY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=nxuvfXr0NdkqgNKDibvY5zZVlOquM0vrsHJ6aWJa8REP1fYrVCrJY7tEm5597yMn6
-	 AjB+GUHDS0cVa7DJkgTkLQculCExmRAxd/vb5CpFSCfHPJPJ3R/hWgXMPFehieFweP
-	 3+cjJ8TtNGSpXeUysAOTJw8H+MJ6Ejd/iMXJ+AL43Im9+pPAZw7A4G16NpkQBTLZjF
-	 NtKjRt4Iy9iAvKsULXe8sjSD9J8XBaq8224kdOHDuwCbugvwT31+bNgarWkV0EPQ52
-	 ejXLmm7nNFx1EbleUkBO+uSVaJQt6NjFgZVlzIhIeWNSixEoP79NcVrxqBwZnyLhV2
-	 QAJ9q4wZ0WFAg==
+	s=k20201202; t=1697715662;
+	bh=zFJ31eXbJDMkRLWAUkyjKDUm5+ZrWpDws7et1zq/7TY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VDBcDBIifXtJCjbhtUZXa8vevpQJOxLdxlQcbNDujxz6ywYlRYDu+4Iiqy7inYDhV
+	 vayn8Vg9VvABvpM7tX6Z+MBQRza9BytY9ghKdLfRAV/MruEbvUYkSm4IVvWcdhMBW5
+	 QgZCDJYhVqJGZ/3Km45vyDSUV6nBy1sS6tC8NOroGvanL8InJyRBX7/FgQ1xRMZNZe
+	 JizaRzTbsO2745WJs8uDUMBvXtEDKq4cPUofRV+P/uqS9YGD/4HuA4fQANmx+r12IZ
+	 tWI4WJQLMARoF0cT5tm1Rlz1gISYxxsFiSuGmhzdidE0OkNSD10S1qp6THqHa0u5tJ
+	 ofewMRgEk+ulQ==
+Date: Thu, 19 Oct 2023 12:40:57 +0100
 From: Mark Brown <broonie@kernel.org>
-To: David Rau <David.Rau.opensource@dm.renesas.com>
-Cc: support.opensource@diasemi.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20231018064444.23186-1-David.Rau.opensource@dm.renesas.com>
-References: <20231018064444.23186-1-David.Rau.opensource@dm.renesas.com>
-Subject: Re: [PATCH] ASoC: da7213: Add new kcontrol for tonegen
-Message-Id: <169771555936.23143.9693813241096265778.b4-ty@kernel.org>
-Date: Thu, 19 Oct 2023 12:39:19 +0100
+To: Janusz Krzysztofik <jmkrzyszt@gmail.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: ti: ams-delta: Allow it to be test compiled
+Message-ID: <9bbab4c8-f616-4abc-9eee-022c19c6921d@sirena.org.uk>
+References: <20231008135601.542356-1-jmkrzyszt@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: EK5PKDA7P7QEGWZVMOPFJKDLBJWKQRJO
-X-Message-ID-Hash: EK5PKDA7P7QEGWZVMOPFJKDLBJWKQRJO
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rJpf5KhErWczI+JQ"
+Content-Disposition: inline
+In-Reply-To: <20231008135601.542356-1-jmkrzyszt@gmail.com>
+X-Cookie: Save energy:  Drive a smaller shell.
+Message-ID-Hash: 3SZNLBBVCF2QACGHGNB7I5MIA7DUOML6
+X-Message-ID-Hash: 3SZNLBBVCF2QACGHGNB7I5MIA7DUOML6
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,45 +89,39 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EK5PKDA7P7QEGWZVMOPFJKDLBJWKQRJO/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3SZNLBBVCF2QACGHGNB7I5MIA7DUOML6/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 18 Oct 2023 14:44:44 +0800, David Rau wrote:
-> Add new kcontrol for tone generator
-> 
-> 
 
-Applied to
+--rJpf5KhErWczI+JQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Sun, Oct 08, 2023 at 03:53:10PM +0200, Janusz Krzysztofik wrote:
+> The driver is now built only when MACH_AMS_DELTA is selected, which
+> requires a very specific selection of ARCH settings.  As a consequence, it
+> gets very little attention from build-bots, if not none.
 
-Thanks!
+Acked-by: Mark Brown <broonie@kernel.org>
 
-[1/1] ASoC: da7213: Add new kcontrol for tonegen
-      commit: 64c3259b5f86963c5214e63cfadedaa2278ba0ed
+--rJpf5KhErWczI+JQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUxFckACgkQJNaLcl1U
+h9DHpwf/f4imUxP1IUlBS5zbmBYxSlrnJnvcq+nnx74N7CWo6LPYnn2/7hQHNOCu
+XUBv1ekL42okvqVQ9iEXE92BtM0qkKmjminn6dsKuARZGJO/Wsqd5888h8cGvVF/
+Tto+BTJ8Zvze/lBVhL3W8UACbeLRvZ54a4tVegAT7OqkqUAFs+SnrVujzy/8G4zb
+mEb1NtbNnAHNh3fX726JlrCNW/jECc2cKrD5f3z//K+ixjxYfh5ldVajk7AV0kxD
+iUOhqWmxTltKZzh9g/AXpWnS2x0W9enLmx1xhC07kEhWaVeTL5U2hHsOgF3U+DUr
+f8K8/lguuC7ta6Svtkm5nc+9L+9Tdg==
+=eB4A
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--rJpf5KhErWczI+JQ--

@@ -2,101 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05B2A7CFDF9
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 17:34:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24917CFE08
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 17:37:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57BB484A;
-	Thu, 19 Oct 2023 17:33:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57BB484A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02A7B82B;
+	Thu, 19 Oct 2023 17:36:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02A7B82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697729681;
-	bh=lAXEsiNfFv5qCpsZ+UzdFKERp6Sg56PDkraULpTuRe0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nkAgMooQjxqTD4YiMnZK2nsqIrr6WMupTCvwS3RRCoM3wVHKblew2iotfRveY1qrW
-	 7Mqxqkd7ehEr3QKdfo6kC1WENDjkK5dsIilXi6SAUlRSe+AwCtlsOlvO1EPkt+UWEt
-	 1Rxiq991ECZv2GXTlmoXC4Q/qAVhS2uxO3PXWa3g=
+	s=default; t=1697729821;
+	bh=eUAKUz4YO8Xz0F8S0fshm9MDqf6cMfgxetxviE2JtMs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mt/dI6B+qdSEzpvbJ/JEaFIIhCXR12bVULnCRnK5FFUKGJPMf8SMgwQT9bx/PBlsS
+	 ofAExrCE8U/1XUE/48Hqe7r9M6POYTO/wrL1xoIYqT0UUEfOX9BwMt4tTB9jZkYVzo
+	 gPU5y8fWSf9M593w/a3rPRJy8lvW6ezrScQLAvJs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F6D5F8019B; Thu, 19 Oct 2023 17:33:41 +0200 (CEST)
+	id C118AF80553; Thu, 19 Oct 2023 17:36:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5C0EF8019B;
-	Thu, 19 Oct 2023 17:33:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C3F1F8025F;
+	Thu, 19 Oct 2023 17:36:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28491F8025F; Thu, 19 Oct 2023 17:32:27 +0200 (CEST)
+	id F1886F8027B; Thu, 19 Oct 2023 17:36:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61029F8019B
-	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 17:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61029F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3DD2DF800C9
+	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 17:36:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DD2DF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=X2EVSuKb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1697729539; x=1729265539;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=lAXEsiNfFv5qCpsZ+UzdFKERp6Sg56PDkraULpTuRe0=;
-  b=X2EVSuKbQAJPDVocRumfqBX8vZcI4HJW2+ala5wV4WlPoArqOXqH02Yi
-   MpXVe1kZgzOzhvMJ/6h1a+ME1AE0JJ+jlRIlreIwH3V5nWwgbFCwWJyrA
-   Ey4l4yzx0glBDGu7jR+6mjcVkkTsk8n67y6QKjUYI41IdSrNiiwliBdo1
-   NAtjdH1oBykQyFALKjDzJWgP4idhhgkehZq8ngnNhiOWdy/3G9N6pDuSD
-   gF8ynK+u9++7zD5bOjWqHOG2XdZaULFosurgwsclnQvAGW4ozRrmaEpvb
-   Mfgs+hUeTM5JUCLeAGw1e7/qxyOxO7mJZGXiYngWl2dTI5n0gqrykdh0D
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10868"; a="365630929"
-X-IronPort-AV: E=Sophos;i="6.03,237,1694761200";
-   d="scan'208";a="365630929"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2023 08:32:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10868"; a="847729709"
-X-IronPort-AV: E=Sophos;i="6.03,237,1694761200";
-   d="scan'208";a="847729709"
-Received: from mttran4-mobl2.amr.corp.intel.com (HELO [10.213.160.204])
- ([10.213.160.204])
-  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2023 08:32:13 -0700
-Message-ID: <246c670b-1d98-454e-b0d3-0fa40f7c5e03@linux.intel.com>
-Date: Thu, 19 Oct 2023 10:32:12 -0500
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=fbBx7lS6
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-53e04b17132so13427477a12.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 19 Oct 2023 08:36:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1697729760; x=1698334560;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tulhhblHrcCah8iPxnvKfrb/Qib8qF8UaGqM5t3jbq0=;
+        b=fbBx7lS63ynn2pBTXx0TD9Xjw34MBDPgzTDPFv/kNIzE5jzVtxgi11VzPAGXH/VKVW
+         vkvvL99/yWz4TxRq3RcjdnHNf+hIK/bzOqOdM6JDEhesXb2EmX3Q0Hf9D0LPh8h5Zchj
+         HYIgvXiFQvkikXy3i9kK/A7KtvgiGb54Whph++FGsjUbS4I2XGL30OGNJgTGjPXM+D47
+         JT/3zVf4DMa38DGuzIbeJMNa4QYO7+eUd4soE7eTyf8j17tGtyvIuXHKOg+kxRMCN3B1
+         z23I4YkBu19N2uNTiFONlqzc2gS+odV1HCZ9p1243f0Zw4hq2oZ4ptkSxsnah2ALu9iU
+         iRoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697729760; x=1698334560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tulhhblHrcCah8iPxnvKfrb/Qib8qF8UaGqM5t3jbq0=;
+        b=OOW37zi2dwp1HbzANHq3KPZGczbXrKRlOPSNDc4UFuLWULQH+N1syKWoF4F3qLa08F
+         6KYVD2onA5OGRxrILBttNkPs0dN2zholAsIF+nl4L+hdRNJhB7qrlDk4gciJqyiCgsj3
+         f6NB26YYq4YL4pNKf80olQ/oaBFFEekPK2aZ75tZ8u+coqpBxYEijThCoalSc1iqQSEA
+         Wr52ZPLpXptJmyazlXHBNg3KH2fSM1srnG8I8GABgqq6B/gioAVbo3UUFNZxKNVqNDqJ
+         EdqGb6KrQsDbzRqU6+XQ9JiprjYX+1OvjaSf/4mp+arqicX4bVtPceQKpaeLXtBpFsuc
+         H20A==
+X-Gm-Message-State: AOJu0Yyp1oqmD7g71Pm3TEwRCaE9rfz4xjZGjisQOiV3je3DwWBJVDm/
+	iaW2IP86a3Ii3tfLGC6Dhgp5Yg==
+X-Google-Smtp-Source: 
+ AGHT+IGNhUCwSgjJIlC+Kc1pNz6Qg02U10hXnQsaMQCy/FidnXeNoyfRdij7ZAi4eWS4G4DjWbAC/w==
+X-Received: by 2002:a05:6402:2741:b0:53d:8320:efcb with SMTP id
+ z1-20020a056402274100b0053d8320efcbmr2430553edd.36.1697729760130;
+        Thu, 19 Oct 2023 08:36:00 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.218.126])
+        by smtp.gmail.com with ESMTPSA id
+ c64-20020a509fc6000000b0053ebafe7a60sm4743875edf.59.2023.10.19.08.35.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Oct 2023 08:35:59 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 1/2] ASoC: dt-bindings: qcom,q6dsp-lpass-ports: Add WSA2 audio
+ ports IDs
+Date: Thu, 19 Oct 2023 17:35:40 +0200
+Message-Id: <20231019153541.49753-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH][TEST-REQUEST] ASoC: makes CPU/Codec channel connection
- map more generic
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
-Cc: Mark Brown <broonie@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org
-References: <87zg0jwdnz.wl-kuninori.morimoto.gx@renesas.com>
- <87y1g3wdng.wl-kuninori.morimoto.gx@renesas.com>
- <d3c97c54-d149-4bed-9013-3f07bc6a7f52@linux.intel.com>
- <874jiokg1r.wl-kuninori.morimoto.gx@renesas.com>
- <5667241d-6976-4b44-8edd-79ee426415eb@linux.intel.com>
- <8734y8kd1a.wl-kuninori.morimoto.gx@renesas.com>
- <87y1fzpdxe.wl-kuninori.morimoto.gx@renesas.com>
- <87wmvjpdut.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87wmvjpdut.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QKVBZ7WHGE7JXVNPKU4IGMFJYKMV26DM
-X-Message-ID-Hash: QKVBZ7WHGE7JXVNPKU4IGMFJYKMV26DM
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: RHKCYNQN6ODSN6JJOMN337UAVSVWUOMS
+X-Message-ID-Hash: RHKCYNQN6ODSN6JJOMN337UAVSVWUOMS
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKVBZ7WHGE7JXVNPKU4IGMFJYKMV26DM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHKCYNQN6ODSN6JJOMN337UAVSVWUOMS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,62 +132,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Add defines for audio ports used on Qualcomm WSA2 LPASS (Low Power
+Audio SubSystem).
 
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-On 10/18/23 21:04, Kuninori Morimoto wrote:
-> Current ASoC CPU:Codec = N:M connection is using connection mapping idea,
-> but it is used for CPU < Codec case only. We want to use it for any case.
-> 
-> By this patch, not only N:M connection, but all existing connection
-> (1:1, 1:N, N:N) will use same connection mapping.
-> Because it will use default mapping, no conversion patch is needed
-> to exising CPU/Codec drivers.
-> 
-> More over, CPU:Codec = M:N (M > N) also supported in the same time.
-> 
-> Link: https://lore.kernel.org/r/87fs6wuszr.wl-kuninori.morimoto.gx@renesas.com
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+index 39f203256c4f..c5ea35abf129 100644
+--- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
++++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+@@ -139,6 +139,11 @@
+ #define DISPLAY_PORT_RX_5	133
+ #define DISPLAY_PORT_RX_6	134
+ #define DISPLAY_PORT_RX_7	135
++#define WSA2_CODEC_DMA_RX_0	136
++#define WSA2_CODEC_DMA_TX_0	137
++#define WSA2_CODEC_DMA_RX_1	138
++#define WSA2_CODEC_DMA_TX_1	139
++#define WSA2_CODEC_DMA_TX_2	140
+ 
+ #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
+ #define LPASS_CLK_ID_PRI_MI2S_EBIT	2
+-- 
+2.34.1
 
-No issues detected with this patch by the Intel CI (other than the usual
-suspend-resume timeouts that have nothing to do with this patch), see
-https://github.com/thesofproject/linux/pull/4632
-
-Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Thanks Morimoto-san!
-
-
-> +				if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
-> +				    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
-> +					has_playback = 1;
-> +				if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
-> +				    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
-> +					has_capture = 1;
->  			}
-> +		}
-> +		/* .ch_map is from Codec */
-> +		else {
-> +			for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> +				cpu_dai = snd_soc_rtd_to_cpu(rtd, dai_link->ch_maps[i].connected_node);
-> +
-> +				if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
-> +				    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
-> +					has_playback = 1;
-> +				if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
-> +				    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
-
-while we're at it, can we also clean-up the weird extra spaces - unless
-they were intentional?
-
-> +					has_capture = 1;
->  
-> -			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
-> -			    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
-> -				has_playback = 1;
-> -			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
-> -			    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
-> -				has_capture = 1;
-> +			}
->  		}
->  	}
->  

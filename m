@@ -2,82 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 076897CF733
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 13:42:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 496AC7CFA53
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 15:04:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BEAF1EC;
-	Thu, 19 Oct 2023 13:41:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BEAF1EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58D371F2;
+	Thu, 19 Oct 2023 15:03:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58D371F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697715728;
-	bh=zFJ31eXbJDMkRLWAUkyjKDUm5+ZrWpDws7et1zq/7TY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1697720686;
+	bh=VgSvxH67qt9LKjm5+c5G2G8wQo6a1gXmEAilB1I2dfg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MNFq2KvozxN2wtu6fTlxHD/n/G951sf+c7x7AyUlVkssz+vdb/L5EHF28CWCL52Ok
-	 zEerpist5yr/oS/msb+w0mGatBI7rD95A42keJO+wUtTkwCaRAZ7zT61Kb0I/VX8W0
-	 8sR9VaiwTqHD2pAvmUZSnpNq3HrdOlvyAOvgH79E=
+	b=kgOlnV1s8hrfkoui+XFtD9t3Gir/+VIMLRoiufbYfjKCycP+Mks4H18xWWI8/RqLI
+	 Sn/R41Ag7gHPOGQWZkufSPTAwsec9nCQmq+MVuL4jqHk60fHoT4CPFtY+t9iwhwpsH
+	 BbNIFwOHQphRQlYn+of76UtvwCNheBKtGE2MRFos=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAB57F8024E; Thu, 19 Oct 2023 13:41:17 +0200 (CEST)
+	id B4838F8025F; Thu, 19 Oct 2023 15:03:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAB8BF800C9;
-	Thu, 19 Oct 2023 13:41:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46E8CF8024E;
+	Thu, 19 Oct 2023 15:03:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8080FF8027B; Thu, 19 Oct 2023 13:41:15 +0200 (CEST)
+	id AB76EF8025F; Thu, 19 Oct 2023 15:03:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.3 required=5.0 tests=DATE_IN_PAST_12_24,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3E7DAF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 13:41:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E7DAF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id C27BFF80166
+	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 15:03:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C27BFF80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VDBcDBIi
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9681260C92;
-	Thu, 19 Oct 2023 11:41:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8D4C433CC;
-	Thu, 19 Oct 2023 11:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697715662;
-	bh=zFJ31eXbJDMkRLWAUkyjKDUm5+ZrWpDws7et1zq/7TY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VDBcDBIifXtJCjbhtUZXa8vevpQJOxLdxlQcbNDujxz6ywYlRYDu+4Iiqy7inYDhV
-	 vayn8Vg9VvABvpM7tX6Z+MBQRza9BytY9ghKdLfRAV/MruEbvUYkSm4IVvWcdhMBW5
-	 QgZCDJYhVqJGZ/3Km45vyDSUV6nBy1sS6tC8NOroGvanL8InJyRBX7/FgQ1xRMZNZe
-	 JizaRzTbsO2745WJs8uDUMBvXtEDKq4cPUofRV+P/uqS9YGD/4HuA4fQANmx+r12IZ
-	 tWI4WJQLMARoF0cT5tm1Rlz1gISYxxsFiSuGmhzdidE0OkNSD10S1qp6THqHa0u5tJ
-	 ofewMRgEk+ulQ==
-Date: Thu, 19 Oct 2023 12:40:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Janusz Krzysztofik <jmkrzyszt@gmail.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: ti: ams-delta: Allow it to be test compiled
-Message-ID: <9bbab4c8-f616-4abc-9eee-022c19c6921d@sirena.org.uk>
-References: <20231008135601.542356-1-jmkrzyszt@gmail.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=LgAeuv4L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1697720594; x=1729256594;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=VgSvxH67qt9LKjm5+c5G2G8wQo6a1gXmEAilB1I2dfg=;
+  b=LgAeuv4LdvaOrRXTOj0vQ1rbonWNWfeCubwIquCoNQmxUkuOJ3vBX8k+
+   XtTq2jHZ2C2cDE5gNPtTSxJcaSPjTSmcVAuJRuhmcjkFRNxaKwyQSt3kd
+   ZdSsmWS0EJd/aETBG9/k4JSM7oxGm4hpvXj6uNycQwPLqwLQZKU6GRzja
+   G+euzr/V8tvLAZTU31HJ98l6U/a/O1s2sJVJc1tE/Uk/AjQOEfz9OSavj
+   V+P06bhq0e9q5Lk4PZI3PqLL2UfOxNPiwVz+bwyQre+IbwBLGVC+Nm5Dh
+   voNa74L15mNi5GN/nCOtMdAQ/VvKScMvrjIQXhzmzaMOWlUhQKxSF/Fgk
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10868"; a="385115727"
+X-IronPort-AV: E=Sophos;i="6.03,237,1694761200";
+   d="scan'208";a="385115727"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2023 06:01:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10868"; a="757014468"
+X-IronPort-AV: E=Sophos;i="6.03,237,1694761200";
+   d="scan'208";a="757014468"
+Received: from mttran4-mobl2.amr.corp.intel.com (HELO [10.213.160.204])
+ ([10.213.160.204])
+  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2023 06:01:45 -0700
+Message-ID: <ec25bb67-6c83-430b-bc79-234c03801250@linux.intel.com>
+Date: Wed, 18 Oct 2023 20:00:00 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rJpf5KhErWczI+JQ"
-Content-Disposition: inline
-In-Reply-To: <20231008135601.542356-1-jmkrzyszt@gmail.com>
-X-Cookie: Save energy:  Drive a smaller shell.
-Message-ID-Hash: 3SZNLBBVCF2QACGHGNB7I5MIA7DUOML6
-X-Message-ID-Hash: 3SZNLBBVCF2QACGHGNB7I5MIA7DUOML6
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 09/34] ASoC: qcom: qdsp6: Introduce USB AFE port to
+ q6dsp
+To: Wesley Cheng <quic_wcheng@quicinc.com>, mathias.nyman@intel.com,
+ gregkh@linuxfoundation.org, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, agross@kernel.org, andersson@kernel.org,
+ konrad.dybcio@linaro.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
+ Thinh.Nguyen@synopsys.com
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20231017200109.11407-1-quic_wcheng@quicinc.com>
+ <20231017200109.11407-10-quic_wcheng@quicinc.com>
+ <7aa4ea87-9d1f-400a-bcc5-b56e5b4500c6@linux.intel.com>
+ <c72bcf47-af0b-8819-1c30-06b51358381e@quicinc.com>
+ <2f05708e-3ee8-472e-a24f-6f3eb118133c@linux.intel.com>
+ <fcaa93ba-3ca4-5a18-d3bd-afebe8def327@quicinc.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <fcaa93ba-3ca4-5a18-d3bd-afebe8def327@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3BOFIPSPOZ6AND7PLCDCHTWIOM5QRVHQ
+X-Message-ID-Hash: 3BOFIPSPOZ6AND7PLCDCHTWIOM5QRVHQ
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,8 +110,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3SZNLBBVCF2QACGHGNB7I5MIA7DUOML6/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BOFIPSPOZ6AND7PLCDCHTWIOM5QRVHQ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -98,30 +120,37 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---rJpf5KhErWczI+JQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Sun, Oct 08, 2023 at 03:53:10PM +0200, Janusz Krzysztofik wrote:
-> The driver is now built only when MACH_AMS_DELTA is selected, which
-> requires a very specific selection of ARCH settings.  As a consequence, it
-> gets very little attention from build-bots, if not none.
+>>>>> Specifically, the QC ADSP can support all potential endpoints that are
+>>>>> exposed by the audio data interface.  This includes, feedback
+>>>>> endpoints
+>>>>> (both implicit and explicit) as well as the isochronous (data)
+>>>>> endpoints.
+>>>>
+>>>> implicit feedback means support for capture. This is confusing...
+>>>>
+>>>
+>>> I mean, a USB device can expose a capture path, but as of now, we won't
+>>> enable the offloading to the audio DSP for it.  However, if we're
+>>> executing playback, and device does support implicit feedback, we will
+>>> pass that along to the audio DSP to utilize.
+>>
+>> Not following. Implicit feedback means a capture stream *SHALL* be
+>> started. Are you saying this capture stream is hidden and handled at the
+>> DSP level only? If yes, what prevents you from exposing the capture
+>> stream to userspace as well?
+>>
+>> I must be missing something.
+>>
+> 
+> My understanding is that with implicit feedback endpoints, it allows for
+> another data endpoint in the opposite direction to be utilized as a
+> feedback endpoint (versus having to expose another EP, such as in the
+> case of explicit feedback).  For example, if we are enabling the
+> playback path (and the device does have a capture data ep) then the data
+> ep used for the capture path can be used.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+That's right, so all the plumbing is enabled for the capture path...
+Making a decision to discard the data is very odd, all the work has
+already been done at lower levels, so why not expose the captured data?
 
---rJpf5KhErWczI+JQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUxFckACgkQJNaLcl1U
-h9DHpwf/f4imUxP1IUlBS5zbmBYxSlrnJnvcq+nnx74N7CWo6LPYnn2/7hQHNOCu
-XUBv1ekL42okvqVQ9iEXE92BtM0qkKmjminn6dsKuARZGJO/Wsqd5888h8cGvVF/
-Tto+BTJ8Zvze/lBVhL3W8UACbeLRvZ54a4tVegAT7OqkqUAFs+SnrVujzy/8G4zb
-mEb1NtbNnAHNh3fX726JlrCNW/jECc2cKrD5f3z//K+ixjxYfh5ldVajk7AV0kxD
-iUOhqWmxTltKZzh9g/AXpWnS2x0W9enLmx1xhC07kEhWaVeTL5U2hHsOgF3U+DUr
-f8K8/lguuC7ta6Svtkm5nc+9L+9Tdg==
-=eB4A
------END PGP SIGNATURE-----
-
---rJpf5KhErWczI+JQ--

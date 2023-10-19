@@ -2,121 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F6317CFAAF
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 15:15:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D90D7CFAC4
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 15:19:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F0651DC;
-	Thu, 19 Oct 2023 15:14:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F0651DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64DF23E7;
+	Thu, 19 Oct 2023 15:18:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64DF23E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697721339;
-	bh=9O4TmoAh19nuslojCWm2jla8CRPUJPelGqQ/TvzLNTQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fY4vKzjeXcgrBQn3ty6B88iJxgLXtDL3o1UaLWx6476ccUqtjBDWZrSnjDRJL8sOD
-	 V4dTm7Ik10eQXUAA6dt+hB6vv2C19azGHUSynrESYzb64Pn50Q1T/QGHLtev3pUnVG
-	 BZWhr3hfWaKrlmPyVZKRUr0nxZPwK1t+Lv9X2x2o=
+	s=default; t=1697721556;
+	bh=qSK0VBrRbQ0cRxnGYX08Q3zan83wa6SdoohFgsvqGyg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JVFRQmJ6yFFdtkrQNdZ8M/YWAHx9VHQ9RRYGUFO2csrSVHud2XBBggSN4CiG4oPfH
+	 1f57bfmw1TMfhwwn1TvXqmUFRfzi2gzeQrbQpErO0baI69pXSuBMNonoA56bSz9X4U
+	 87TSDOAkIQ/UJVUUjAd7QqBSJ7ZcSEMZV43h435o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C540F8027B; Thu, 19 Oct 2023 15:14:48 +0200 (CEST)
+	id 78B10F80536; Thu, 19 Oct 2023 15:18:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C086F8024E;
-	Thu, 19 Oct 2023 15:14:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1CF7F8024E;
+	Thu, 19 Oct 2023 15:18:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B91A2F8025F; Thu, 19 Oct 2023 15:14:44 +0200 (CEST)
+	id 295B9F8025F; Thu, 19 Oct 2023 15:18:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED16DF8019B
-	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 15:14:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED16DF8019B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=k8QaYAPG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZTN+jpYy
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D94E01F45B;
-	Thu, 19 Oct 2023 13:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1697721279;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ad2yGFlgqsXc5fOXSftarb8IyUvwJ4uVWMbg3jPmy18=;
-	b=k8QaYAPG+/h/4ilW6jgbxaUIWHVNu1gXmrj7CKBZhWedddNFu+gQvMc28SBD3AILit8N6+
-	3XpDUk+Or+H9XlKlmIaddEwSy1JO435AkdLldoV5D3q8PXB9csu42hOGXrKI3ynk91dMvn
-	GdQ6LTDBwTKs8Pul+9HNP0pjdVlk8ac=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1697721279;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ad2yGFlgqsXc5fOXSftarb8IyUvwJ4uVWMbg3jPmy18=;
-	b=ZTN+jpYyxu/l/PD7JBWUvpj2qtvXsG6CpWvs9wazSnHvq4uJ9WvVbrDsryfsr0my4NFW9G
-	mVl01ew3HwKkYkCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A6ABD1357F;
-	Thu, 19 Oct 2023 13:14:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ORywJ78rMWWgWAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 19 Oct 2023 13:14:39 +0000
-Date: Thu, 19 Oct 2023 15:14:39 +0200
-Message-ID: <87o7gulpog.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id CCAC9F8019B
+	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 15:18:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCAC9F8019B
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <m.felsch@pengutronix.de>)
+	id 1qtSue-0006tu-SQ; Thu, 19 Oct 2023 15:18:08 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	perex@perex.cz
-Subject: Re: Migrating this list to a different platform (take 2)
-In-Reply-To: <20231017-coroner-blurt-edffe8@meerkat>
-References: <20231017-coroner-blurt-edffe8@meerkat>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-3.10 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.00)[43.11%]
-Message-ID-Hash: 5UZLGS4OIQHF5QG23ENLV7X4IN5NSIAA
-X-Message-ID-Hash: 5UZLGS4OIQHF5QG23ENLV7X4IN5NSIAA
-X-MailFrom: tiwai@suse.de
+	kernel@pengutronix.de
+Subject: [PATCH] ASoC: tlv320aic31xx: switch to gpiod_set_value_cansleep
+Date: Thu, 19 Oct 2023 15:18:06 +0200
+Message-Id: <20231019131806.381280-1-m.felsch@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::28
+X-SA-Exim-Mail-From: m.felsch@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: FZLMCETRKMER73W6BGBGNHHAU7AU2FZZ
+X-Message-ID-Hash: FZLMCETRKMER73W6BGBGNHHAU7AU2FZZ
+X-MailFrom: m.felsch@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +76,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UZLGS4OIQHF5QG23ENLV7X4IN5NSIAA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FZLMCETRKMER73W6BGBGNHHAU7AU2FZZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,50 +85,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 17 Oct 2023 22:25:27 +0200,
-Konstantin Ryabitsev wrote:
-> 
-> Hello, all:
-> 
-> I'm told that a while back there were some discussions to migrate this list to
-> vger, but the process never really got finalized.
-> 
-> I would like to restart this discussion again, because I am in the middle of
-> vger list migrations and it seems like an opportune moment to bring this up.
-> 
-> There are the following benefits to gain after migration:
-> 
-> - it becomes an open list that doesn't require much moderator involvement
-> - the messages are DMARC-compliant when received by subscribers
-> - the infrastructure is supported and monitored by LF IT 24/7
-> 
-> However, there will be the following impacts:
-> 
-> - we can try to set up a forward from the old address, but previous attempts
->   to do so with mailman had mixed results
-> - if the old address is set up to forward mail to the new address, then anyone
->   sending to both addresses will get doubles of everything, which can be
->   annoying
-> - setting up a hard bounce at the old address would probably be preferable,
->   but it's a "ripping off the bandaid" kind of approach
-> 
-> If you are interested in migrating the list, I suggest we move it to
-> alsa-devel@lists.linux.dev and not vger, solely because vger is in the process
-> of migration itself and it would be easier to use the lists.linux.dev domain
-> at this stage than to go with vger.kernel.org.
-> 
-> I am happy to provide any more info if you have any questions.
-> 
-> -K
+Switch to gpiod_set_value_cansleep() to support gpiochips which can
+sleep like i2c gpio expanders.
 
-Thanks Konstantin!
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+---
+ sound/soc/codecs/tlv320aic31xx.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-I personally find that it'd be a significant improvement to be an open
-list; it was often problems that manual approvals took long when
-admins are off due to vacation or sickness.
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index 9611aa8acb0d..4d7c5a80c6ed 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -1208,7 +1208,7 @@ static int aic31xx_regulator_event(struct notifier_block *nb,
+ 		 * supplies was disabled.
+ 		 */
+ 		if (aic31xx->gpio_reset)
+-			gpiod_set_value(aic31xx->gpio_reset, 1);
++			gpiod_set_value_cansleep(aic31xx->gpio_reset, 1);
+ 
+ 		regcache_mark_dirty(aic31xx->regmap);
+ 		dev_dbg(aic31xx->dev, "## %s: DISABLE received\n", __func__);
+@@ -1222,9 +1222,9 @@ static int aic31xx_reset(struct aic31xx_priv *aic31xx)
+ 	int ret = 0;
+ 
+ 	if (aic31xx->gpio_reset) {
+-		gpiod_set_value(aic31xx->gpio_reset, 1);
++		gpiod_set_value_cansleep(aic31xx->gpio_reset, 1);
+ 		ndelay(10); /* At least 10ns */
+-		gpiod_set_value(aic31xx->gpio_reset, 0);
++		gpiod_set_value_cansleep(aic31xx->gpio_reset, 0);
+ 	} else {
+ 		ret = regmap_write(aic31xx->regmap, AIC31XX_RESET, 1);
+ 	}
+-- 
+2.39.2
 
-But the whole decision depends on Jaroslav, after all, who has been
-administrating the list since the beginning.
-
-
-Takashi

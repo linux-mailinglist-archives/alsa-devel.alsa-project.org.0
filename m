@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24917CFE08
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 17:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D497CFE12
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 17:38:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02A7B82B;
-	Thu, 19 Oct 2023 17:36:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02A7B82B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86950844;
+	Thu, 19 Oct 2023 17:37:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86950844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697729821;
-	bh=eUAKUz4YO8Xz0F8S0fshm9MDqf6cMfgxetxviE2JtMs=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mt/dI6B+qdSEzpvbJ/JEaFIIhCXR12bVULnCRnK5FFUKGJPMf8SMgwQT9bx/PBlsS
-	 ofAExrCE8U/1XUE/48Hqe7r9M6POYTO/wrL1xoIYqT0UUEfOX9BwMt4tTB9jZkYVzo
-	 gPU5y8fWSf9M593w/a3rPRJy8lvW6ezrScQLAvJs=
+	s=default; t=1697729903;
+	bh=X9Xw0NSbM4goJc/MQqALLGsnyj/Ebs6lMKLJmapXHiw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QKjTpOt+IRj5bSSi0Dhvpg51qJnYZFdrz+gkkvyBUceGRcPzHfKDHjLgdKCOtI7Gd
+	 uwcYNFqVDJTHG3zowYz5fyI1YDGL+qGfVhXZmO8657i00wNIWD8YMF0xSSGnQ8thxL
+	 NuUaVyx2J7QNcusdDjiTmhENtYoQaq+KGFI8WzKw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C118AF80553; Thu, 19 Oct 2023 17:36:10 +0200 (CEST)
+	id 5247AF80536; Thu, 19 Oct 2023 17:37:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C3F1F8025F;
-	Thu, 19 Oct 2023 17:36:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEE85F8025F;
+	Thu, 19 Oct 2023 17:37:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1886F8027B; Thu, 19 Oct 2023 17:36:05 +0200 (CEST)
+	id 43398F8027B; Thu, 19 Oct 2023 17:37:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
 	version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3DD2DF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 17:36:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DD2DF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id C520EF8024E
+	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 17:36:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C520EF8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=fbBx7lS6
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-53e04b17132so13427477a12.0
+ header.s=google header.b=XiNep+jk
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-53db1fbee70so13618772a12.2
         for <alsa-devel@alsa-project.org>;
- Thu, 19 Oct 2023 08:36:00 -0700 (PDT)
+ Thu, 19 Oct 2023 08:36:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1697729760; x=1698334560;
+        d=linaro.org; s=google; t=1697729761; x=1698334561;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tulhhblHrcCah8iPxnvKfrb/Qib8qF8UaGqM5t3jbq0=;
-        b=fbBx7lS63ynn2pBTXx0TD9Xjw34MBDPgzTDPFv/kNIzE5jzVtxgi11VzPAGXH/VKVW
-         vkvvL99/yWz4TxRq3RcjdnHNf+hIK/bzOqOdM6JDEhesXb2EmX3Q0Hf9D0LPh8h5Zchj
-         HYIgvXiFQvkikXy3i9kK/A7KtvgiGb54Whph++FGsjUbS4I2XGL30OGNJgTGjPXM+D47
-         JT/3zVf4DMa38DGuzIbeJMNa4QYO7+eUd4soE7eTyf8j17tGtyvIuXHKOg+kxRMCN3B1
-         z23I4YkBu19N2uNTiFONlqzc2gS+odV1HCZ9p1243f0Zw4hq2oZ4ptkSxsnah2ALu9iU
-         iRoQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/BSOa/ysYuWf3yTm4IHQkqxUatJT3g/WJSTaVnMkDXw=;
+        b=XiNep+jkRrB8h4io4eUzLNyQ11frLtQsvr2aIS8D0OpNFd3B8JeDaCG57bbC4LTTso
+         i6tGn/t8WBkmbQk7TiHAbuJNs3bfo99HdGJ0ZaNUFVhjsdzNHC2LwIIkh179CsWX0mUG
+         DkV9A3LjtN+EHXpJmlQK/beabG/izF3ZUutTkq0lks1HKwXemSOZMU6iJHzsVex1/Q2f
+         qOuakGn5CmWzEDM73Y9Uv+CWdJBxekUgMixoRakp9sP7c8g+cTBx82QutalXYDzMIPSz
+         NlnPMb4uN9l9zq5Cs5JxyFCd2h+RakCJgqBLrzsZSRHqTQi13/wxDXHRi8VW3DWlHcaJ
+         ScZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697729760; x=1698334560;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tulhhblHrcCah8iPxnvKfrb/Qib8qF8UaGqM5t3jbq0=;
-        b=OOW37zi2dwp1HbzANHq3KPZGczbXrKRlOPSNDc4UFuLWULQH+N1syKWoF4F3qLa08F
-         6KYVD2onA5OGRxrILBttNkPs0dN2zholAsIF+nl4L+hdRNJhB7qrlDk4gciJqyiCgsj3
-         f6NB26YYq4YL4pNKf80olQ/oaBFFEekPK2aZ75tZ8u+coqpBxYEijThCoalSc1iqQSEA
-         Wr52ZPLpXptJmyazlXHBNg3KH2fSM1srnG8I8GABgqq6B/gioAVbo3UUFNZxKNVqNDqJ
-         EdqGb6KrQsDbzRqU6+XQ9JiprjYX+1OvjaSf/4mp+arqicX4bVtPceQKpaeLXtBpFsuc
-         H20A==
-X-Gm-Message-State: AOJu0Yyp1oqmD7g71Pm3TEwRCaE9rfz4xjZGjisQOiV3je3DwWBJVDm/
-	iaW2IP86a3Ii3tfLGC6Dhgp5Yg==
+        d=1e100.net; s=20230601; t=1697729761; x=1698334561;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/BSOa/ysYuWf3yTm4IHQkqxUatJT3g/WJSTaVnMkDXw=;
+        b=PUCMbUliB7Cezsc+n1eRRRe0rycQP0MwKFMeq1qg2kOteL65KyRcAa1L+a8ZxQF87O
+         N6+V+GwbtFdtzvtU8Nvz+DVmOuJnu7yfWQ8Z6rY5fyj5K9HA0+lzjpNG8MmbKp0HUTaj
+         LSLn9IWYCqTttPGqTenFS379mG7rZZqRFaI8uvdGHwSE0wBrXGrSgkBdW3k28317GPvH
+         eUoOwLlhnQkwmYB3Yvz8SqXHgzld6lzjyph0z0W/ggQU4bXW/PpqWF+xX4wF59yTdOQh
+         dDHgdCn+VCS0/v0/R7RDAShK2b8L5JS6NZSQoKFpgRxO2nLIx+gj0RaTR5aJlGX5oXRy
+         gs5g==
+X-Gm-Message-State: AOJu0Yy9MK48rCLRP24tC1pdYBjx1tNfPI+mRkhq22hP6pcZUkd5vJH+
+	0gxZTUQx12Y8AzxnNDaq1PZpOA==
 X-Google-Smtp-Source: 
- AGHT+IGNhUCwSgjJIlC+Kc1pNz6Qg02U10hXnQsaMQCy/FidnXeNoyfRdij7ZAi4eWS4G4DjWbAC/w==
-X-Received: by 2002:a05:6402:2741:b0:53d:8320:efcb with SMTP id
- z1-20020a056402274100b0053d8320efcbmr2430553edd.36.1697729760130;
-        Thu, 19 Oct 2023 08:36:00 -0700 (PDT)
+ AGHT+IFXYH7+hKuQQl+Fqbwy+yO2TSI4ihbMrNPxs0SPhL+f20RzcSdgUJdVyGGNe4Mo2eUVbR2SKA==
+X-Received: by 2002:a50:9e87:0:b0:53e:34c5:ad8e with SMTP id
+ a7-20020a509e87000000b0053e34c5ad8emr2060982edf.19.1697729761711;
+        Thu, 19 Oct 2023 08:36:01 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.218.126])
         by smtp.gmail.com with ESMTPSA id
- c64-20020a509fc6000000b0053ebafe7a60sm4743875edf.59.2023.10.19.08.35.58
+ c64-20020a509fc6000000b0053ebafe7a60sm4743875edf.59.2023.10.19.08.36.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Oct 2023 08:35:59 -0700 (PDT)
+        Thu, 19 Oct 2023 08:36:01 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -102,15 +104,16 @@ To: Andy Gross <agross@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 1/2] ASoC: dt-bindings: qcom,q6dsp-lpass-ports: Add WSA2 audio
- ports IDs
-Date: Thu, 19 Oct 2023 17:35:40 +0200
-Message-Id: <20231019153541.49753-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 2/2] ASoC: qcom: Add support for WSA2 LPASS
+Date: Thu, 19 Oct 2023 17:35:41 +0200
+Message-Id: <20231019153541.49753-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231019153541.49753-1-krzysztof.kozlowski@linaro.org>
+References: <20231019153541.49753-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RHKCYNQN6ODSN6JJOMN337UAVSVWUOMS
-X-Message-ID-Hash: RHKCYNQN6ODSN6JJOMN337UAVSVWUOMS
+Message-ID-Hash: 22WTQMCJ6WTULUH3H2TUAQXD522HAONN
+X-Message-ID-Hash: 22WTQMCJ6WTULUH3H2TUAQXD522HAONN
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHKCYNQN6ODSN6JJOMN337UAVSVWUOMS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22WTQMCJ6WTULUH3H2TUAQXD522HAONN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,30 +135,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add defines for audio ports used on Qualcomm WSA2 LPASS (Low Power
-Audio SubSystem).
+Add support for Qualcomm WSA2 LPASS (Low Power Audio SubSystem) audio
+ports to several Qualcomm ADSP drivers: Q6APM LPASS DAIs, Q6DSP LPASS
+ports and shared Q6DSP Soundwire code.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c  | 5 +++++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c | 6 ++++++
+ sound/soc/qcom/sdw.c                     | 5 +++++
+ 3 files changed, 16 insertions(+)
 
-diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-index 39f203256c4f..c5ea35abf129 100644
---- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-+++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-@@ -139,6 +139,11 @@
- #define DISPLAY_PORT_RX_5	133
- #define DISPLAY_PORT_RX_6	134
- #define DISPLAY_PORT_RX_7	135
-+#define WSA2_CODEC_DMA_RX_0	136
-+#define WSA2_CODEC_DMA_TX_0	137
-+#define WSA2_CODEC_DMA_RX_1	138
-+#define WSA2_CODEC_DMA_TX_1	139
-+#define WSA2_CODEC_DMA_TX_2	140
+diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+index c5e065a21e27..2ae10f9dc78e 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
++++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
+@@ -36,6 +36,9 @@ static int q6dma_set_channel_map(struct snd_soc_dai *dai,
+ 	case WSA_CODEC_DMA_TX_0:
+ 	case WSA_CODEC_DMA_TX_1:
+ 	case WSA_CODEC_DMA_TX_2:
++	case WSA2_CODEC_DMA_TX_0:
++	case WSA2_CODEC_DMA_TX_1:
++	case WSA2_CODEC_DMA_TX_2:
+ 	case VA_CODEC_DMA_TX_0:
+ 	case VA_CODEC_DMA_TX_1:
+ 	case VA_CODEC_DMA_TX_2:
+@@ -60,6 +63,8 @@ static int q6dma_set_channel_map(struct snd_soc_dai *dai,
+ 		break;
+ 	case WSA_CODEC_DMA_RX_0:
+ 	case WSA_CODEC_DMA_RX_1:
++	case WSA2_CODEC_DMA_RX_0:
++	case WSA2_CODEC_DMA_RX_1:
+ 	case RX_CODEC_DMA_RX_0:
+ 	case RX_CODEC_DMA_RX_1:
+ 	case RX_CODEC_DMA_RX_2:
+diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
+index 4919001de08b..a6502884531d 100644
+--- a/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
++++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c
+@@ -557,6 +557,11 @@ static struct snd_soc_dai_driver q6dsp_audio_fe_dais[] = {
+ 	Q6AFE_CDC_DMA_RX_DAI(WSA_CODEC_DMA_RX_1),
+ 	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_1),
+ 	Q6AFE_CDC_DMA_TX_DAI(WSA_CODEC_DMA_TX_2),
++	Q6AFE_CDC_DMA_RX_DAI(WSA2_CODEC_DMA_RX_0),
++	Q6AFE_CDC_DMA_TX_DAI(WSA2_CODEC_DMA_TX_0),
++	Q6AFE_CDC_DMA_RX_DAI(WSA2_CODEC_DMA_RX_1),
++	Q6AFE_CDC_DMA_TX_DAI(WSA2_CODEC_DMA_TX_1),
++	Q6AFE_CDC_DMA_TX_DAI(WSA2_CODEC_DMA_TX_2),
+ 	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_0),
+ 	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_1),
+ 	Q6AFE_CDC_DMA_TX_DAI(VA_CODEC_DMA_TX_2),
+@@ -622,6 +627,7 @@ struct snd_soc_dai_driver *q6dsp_audio_ports_set_config(struct device *dev,
+ 			q6dsp_audio_fe_dais[i].ops = cfg->q6tdm_ops;
+ 			break;
+ 		case WSA_CODEC_DMA_RX_0 ... RX_CODEC_DMA_RX_7:
++		case WSA2_CODEC_DMA_RX_0 ... WSA2_CODEC_DMA_TX_2:
+ 			q6dsp_audio_fe_dais[i].ops = cfg->q6dma_ops;
+ 			break;
+ 		default:
+diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
+index 1a41419c7eb8..612865b26f88 100644
+--- a/sound/soc/qcom/sdw.c
++++ b/sound/soc/qcom/sdw.c
+@@ -21,6 +21,8 @@ int qcom_snd_sdw_prepare(struct snd_pcm_substream *substream,
+ 	switch (cpu_dai->id) {
+ 	case WSA_CODEC_DMA_RX_0:
+ 	case WSA_CODEC_DMA_RX_1:
++	case WSA2_CODEC_DMA_RX_0:
++	case WSA2_CODEC_DMA_RX_1:
+ 	case RX_CODEC_DMA_RX_0:
+ 	case RX_CODEC_DMA_RX_1:
+ 	case TX_CODEC_DMA_TX_0:
+@@ -70,6 +72,7 @@ int qcom_snd_sdw_hw_params(struct snd_pcm_substream *substream,
  
- #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
- #define LPASS_CLK_ID_PRI_MI2S_EBIT	2
+ 	switch (cpu_dai->id) {
+ 	case WSA_CODEC_DMA_RX_0:
++	case WSA2_CODEC_DMA_RX_0:
+ 	case RX_CODEC_DMA_RX_0:
+ 	case RX_CODEC_DMA_RX_1:
+ 	case TX_CODEC_DMA_TX_0:
+@@ -98,6 +101,8 @@ int qcom_snd_sdw_hw_free(struct snd_pcm_substream *substream,
+ 	switch (cpu_dai->id) {
+ 	case WSA_CODEC_DMA_RX_0:
+ 	case WSA_CODEC_DMA_RX_1:
++	case WSA2_CODEC_DMA_RX_0:
++	case WSA2_CODEC_DMA_RX_1:
+ 	case RX_CODEC_DMA_RX_0:
+ 	case RX_CODEC_DMA_RX_1:
+ 	case TX_CODEC_DMA_TX_0:
 -- 
 2.34.1
 

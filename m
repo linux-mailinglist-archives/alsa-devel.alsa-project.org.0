@@ -2,134 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 226717CF1B8
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 09:53:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25F967CF1FB
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Oct 2023 10:06:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30EB2829;
-	Thu, 19 Oct 2023 09:53:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30EB2829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B572857;
+	Thu, 19 Oct 2023 10:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B572857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697702038;
-	bh=vdftc6yDy6LBU6MhnQvUw5mKmnszES4w/j5FuhUDFJI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1697702787;
+	bh=el3R2q8bJhLS09Xe5Rkf62rAafB0MmVgXTxS+XNrHKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vfOkSvAhzExOVXdxTq/qDt0MIfSLW/oX7m6D8Hx4CZpA6mL+bzt189CWsqEe7RXh3
-	 ZzGVFjf+jrMAuEEqp0dzXpmy+2++PWj3h1V3vrv/cuPQVL2AZmHOZy9PanOk9KD4Yd
-	 xcdpLJqBZT+lEoijzLtyi8JqX4Wz7MBZtYirGSRE=
+	b=XZlrp6bfGv/hnFIUzeN0wSMcKgApe0gEJ/oRVl91QsxtAhchA6qvI1bddm9UQWibH
+	 nEYH4fV42mxTaQ2LBvq8snwX5qeMwlLaVOgs73qnwWHchYv7Sfpa8twspBUE8o4DB0
+	 3/kYX6Hu8O+/KmxYfqGGn6bh0ZTTO0+zBxDB8dYc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13EEEF80558; Thu, 19 Oct 2023 09:52:39 +0200 (CEST)
+	id B672AF800C9; Thu, 19 Oct 2023 10:05:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7118BF8024E;
-	Thu, 19 Oct 2023 09:52:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27283F8019B;
+	Thu, 19 Oct 2023 10:05:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8425CF8025F; Thu, 19 Oct 2023 09:48:33 +0200 (CEST)
+	id C237BF8024E; Thu, 19 Oct 2023 10:03:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A71FF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 09:48:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A71FF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8E472F800C9
+	for <alsa-devel@alsa-project.org>; Thu, 19 Oct 2023 10:03:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E472F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YPZn9wvx;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=PT0jLXyC
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 55FA721A8F;
-	Thu, 19 Oct 2023 07:48:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1697701684;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/up6iImzBECVgP8c98Qc7+rf+zQeyWGka8GeTnc3DCM=;
-	b=YPZn9wvxOErWDxedcWf6qxY/tne2bYLEIwIPFdxg4u5PKnyb7N8aX3/gTEjCW7GUJL/aso
-	oxXaal8jwTwKefWUhELQnZ0mSmTDdDMxKyAo5jN6L+968c/kPq7YVm26D4J+YV5asJQXeq
-	bpU8HwVFbsJzKb9kmIxEVArk1FdBdik=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1697701684;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/up6iImzBECVgP8c98Qc7+rf+zQeyWGka8GeTnc3DCM=;
-	b=PT0jLXyC9vnCMN83KCZKNrviDMg2DqUNIlKTK8M5TIk+HHsPWnBgX7P2TAyTSAHRtov4TW
-	UD+JCqVtHGT488DA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F1F651357F;
-	Thu, 19 Oct 2023 07:48:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +GgdOjPfMGUjIgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 19 Oct 2023 07:48:03 +0000
-Date: Thu, 19 Oct 2023 09:48:03 +0200
-Message-ID: <87y1fzkq8c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Cc: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
-	mst@redhat.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	virtualization@lists.linux-foundation.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	pbonzini@redhat.com,
-	stefanha@redhat.com,
-	sgarzare@redhat.com,
-	manos.pitsidianakis@linaro.org,
-	mripard@redhat.com
-Subject: Re: [PATCH v2] ALSA: virtio: use copy and fill_silence callbacks
-In-Reply-To: <e50c5a67-d2b7-4ef1-8aaa-309437fa8cb5@opensynergy.com>
-References: <ZS+392ZzVIoEyv8n@fedora>
-	<871qdrn6sg.wl-tiwai@suse.de>
-	<e50c5a67-d2b7-4ef1-8aaa-309437fa8cb5@opensynergy.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-10.10 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 RCPT_COUNT_TWELVE(0.00)[13];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-Message-ID-Hash: OE7MIHXVNGVSFZOWMU7HRHYWR4WUO5YB
-X-Message-ID-Hash: OE7MIHXVNGVSFZOWMU7HRHYWR4WUO5YB
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=e2b7c9hR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1697702589; x=1729238589;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=el3R2q8bJhLS09Xe5Rkf62rAafB0MmVgXTxS+XNrHKM=;
+  b=e2b7c9hRvIsGBnUJKOpX13W0HijrQr9KwysXTd/DDx7Qx6T+m8fsdYAP
+   aPH4R+k/hCaGCxpmfwd4+SHbJaLLAQouEKRXw2QQiE+O+57xKLZwvVnbk
+   u7v8xmgpDiGiYDl2ky4PTv3cBERkpTkSWT2b5++adaBx2UqoWBr0V00+5
+   6a3QYkwpuVSBT8rm429NRVioj8xSH07B6G/sFBu5LXinpNBKg9xW5VS/l
+   UOIpYSeId3s902dNBaRoylo8ppV643Y9UcGi59GrqDNJzQHttje/FWkPa
+   d/+nTEB/N3Uuert/WmdWQXAb/pcftit+9dR3nsqayUwDrEI8mrjnLkaX2
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="452665939"
+X-IronPort-AV: E=Sophos;i="6.03,236,1694761200";
+   d="scan'208";a="452665939"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2023 01:03:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="750427438"
+X-IronPort-AV: E=Sophos;i="6.03,236,1694761200";
+   d="scan'208";a="750427438"
+Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
+  by orsmga007.jf.intel.com with ESMTP; 19 Oct 2023 01:03:00 -0700
+Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qtNzd-0001qW-1u;
+	Thu, 19 Oct 2023 08:02:57 +0000
+Date: Thu, 19 Oct 2023 16:01:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Julien Massot <julien.massot@iot.bzh>,
+	Trevor Wu <trevor.wu@mediatek.com>
+Cc: oe-kbuild-all@lists.linux.dev, Simon Glass <sjg@chromium.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop kernel copy of common reserved-memory
+ bindings
+Message-ID: <202310191537.20z1Aolb-lkp@intel.com>
+References: <20231013200851.347042-1-robh@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231013200851.347042-1-robh@kernel.org>
+Message-ID-Hash: SQDES3A2FOFSRZWOEEUDQU3DCKGGRVG3
+X-Message-ID-Hash: SQDES3A2FOFSRZWOEEUDQU3DCKGGRVG3
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -141,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OE7MIHXVNGVSFZOWMU7HRHYWR4WUO5YB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SQDES3A2FOFSRZWOEEUDQU3DCKGGRVG3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,145 +122,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 19 Oct 2023 03:20:19 +0200,
-Anton Yakovlev wrote:
-> 
-> Hi Takashi,
-> 
-> On 19.10.2023 03:07, Takashi Iwai wrote:
-> > On Wed, 18 Oct 2023 12:48:23 +0200,
-> > Matias Ezequiel Vara Larsen wrote:
-> >> 
-> >> This commit replaces the mmap mechanism with the copy() and
-> >> fill_silence() callbacks for both capturing and playback for the
-> >> virtio-sound driver. This change is required to prevent the updating of
-> >> the content of a buffer that is already in the available ring.
-> >> 
-> >> The current mechanism splits a dma buffer into descriptors that are
-> >> exposed to the device. This dma buffer is shared with the user
-> >> application. When the device consumes a buffer, the driver moves the
-> >> request from the used ring to available ring.
-> >> 
-> >> The driver exposes the buffer to the device without knowing if the
-> >> content has been updated from the user. The section 2.8.21.1 of the
-> >> virtio spec states that: "The device MAY access the descriptor chains
-> >> the driver created and the memory they refer to immediately". If the
-> >> device picks up buffers from the available ring just after it is
-> >> notified, it happens that the content may be old.
-> >> 
-> >> By providing the copy() callback, the driver first updates the content
-> >> of the buffer, and then, exposes the buffer to the device by enqueuing
-> >> it in the available ring. Thus, device always picks up a buffer that is
-> >> updated. During copy(), the number of requests enqueued depends on the
-> >> "pos" and "bytes" arguments. The length of each request is period_size
-> >> bytes.
-> >> 
-> >> For capturing, the driver starts by exposing all the available buffers
-> >> to device. After device updates the content of a buffer, it enqueues it
-> >> in the used ring. It is only after the copy() for capturing is issued
-> >> that the driver re-enqueues the buffer in the available ring.
-> >> 
-> >> Co-developed-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-> >> Signed-off-by: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
-> >> ---
-> >> Changelog:
-> >> v1 -> v2:
-> >>   * Use snd_pcm_set_managed_buffer_all()for buffer allocation/freeing.
-> >>   * Make virtsnd_pcm_msg_send() generic by specifying the offset and size
-> >>     for the modified part of the buffer; this way no assumptions need to
-> >>     be made.
-> >>   * Disable SNDRV_PCM_INFO_NO_REWINDS since now only sequential
-> >>     reading/writing of frames is supported.
-> >>   * Correct comment at virtsnd_pcm_msg_send().
-> >>   * v1 patch at:
-> >>     https://ddec1-0-en-ctp.trendmicro.com:443/wis/clicktime/v1/query?url=https%3a%2f%2flore.kernel.org%2flkml%2f20231016151000.GE119987%40fedora%2ft%2f&umid=2f305b77-83e7-47b6-a461-a8ca67d0bfe2&auth=53c7c7de28b92dfd96e93d9dd61a23e634d2fbec-2d5775265e7e1741ae8eb783a3cb78ed553093c1
-> >> 
-> >>   sound/virtio/virtio_pcm.c     |  7 ++-
-> >>   sound/virtio/virtio_pcm.h     |  9 ++--
-> >>   sound/virtio/virtio_pcm_msg.c | 93 ++++++++++++++++++++++-------------
-> >>   sound/virtio/virtio_pcm_ops.c | 81 +++++++++++++++++++++++++-----
-> >>   4 files changed, 137 insertions(+), 53 deletions(-)
-> > 
-> > Most of the code changes look good, but I wonder:
-> > 
-> >> 
-> >> diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
-> >> index c10d91fff2fb..66d67eef1bcc 100644
-> >> --- a/sound/virtio/virtio_pcm.c
-> >> +++ b/sound/virtio/virtio_pcm.c
-> >> @@ -104,12 +104,11 @@ static int virtsnd_pcm_build_hw(struct virtio_pcm_substream *vss,
-> >>   	 * only message-based transport.
-> >>   	 */
-> >>   	vss->hw.info =
-> >> -		SNDRV_PCM_INFO_MMAP |
-> >> -		SNDRV_PCM_INFO_MMAP_VALID |
-> > 
-> > Do we need the removal of those MMAP features inevitably?
-> > Usually mmap can still work even if the driver implements the copy
-> > ops.  Those aren't always mutual exclusive.
-> 
-> The driver uses a message queue to communicate with the device. Thus,
-> the audio buffer is sliced into several I/O requests (= number of
-> periods) of the same size (= period size).
-> 
-> Before this, all such requests were enqueued when the substream started,
-> and immediately re-enqueued once the request is completed. This approach
-> made it possible to add mmap support. But for mmap there are no explicit
-> notifications from the application how many frames were written or read.
-> Thus, it was assumed that the virtual device should read/write frames to
-> requests based on timings. And there are some problems here:
-> 
->   1. This was found to violate the virtio specification: if a request is
->      already in the queue, the device can safely read/write there at any
->      time.
->   2. It looks like this breaks the use case with swiotlb. Personally I'm
->      not sure how the application handles DMA ownership in the case of
->      mmaped buffer.
-> 
-> To correctly implement mmap support, instead of transferring data via a
-> message queue, the driver and device must have a shared memory region.
-> We can add mmap in the future when we expand the functionality of the
-> device to support such shared memory.
+Hi Rob,
 
-Ah, then this implementation might be an overkill.  You're still using
-the (intermediate) vmalloc buffer allocated via PCM managed mode, and
-the actual data is copied from/to there.  So it doesn't conflict with
-the mmap operation at all.
+kernel test robot noticed the following build errors:
 
-I guess that the problem you're trying to solve (the immediate data
-transfer to the queue) can be implemented rather via PCM ack callback
-instead.  ALSA PCM core notifies the possible data transfer via PCM
-ack callback right after each change of appl_ptr or hw_ptr, including
-each read/write op or mmap commit.  Then the driver can check the
-change of appl_ptr (or hw_ptr for capture), fetch the newly available
-data, and queue it immediately.
+[auto build test ERROR on robh/for-next]
+[also build test ERROR on krzk-dt/for-next remoteproc/rproc-next broonie-sound/for-next linus/master v6.6-rc6 next-20231018]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Usually together with the use of ack callback, the driver sets
-SNDRV_PCM_INFO_SYNC_APPLPTR flag.  This prevents the mmap of the PCM
-control record (not the audio data) and enforces the use of
-SNDRV_PCM_IOCTL_SYNC_PTR ioctl instead (so that the driver always gets
-the ack callback).
+url:    https://github.com/intel-lab-lkp/linux/commits/Rob-Herring/dt-bindings-Drop-kernel-copy-of-common-reserved-memory-bindings/20231017-125913
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/20231013200851.347042-1-robh%40kernel.org
+patch subject: [PATCH] dt-bindings: Drop kernel copy of common reserved-memory bindings
+config: arm64-allyesconfig (https://download.01.org/0day-ci/archive/20231019/202310191537.20z1Aolb-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20231019/202310191537.20z1Aolb-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310191537.20z1Aolb-lkp@intel.com/
 
-thanks,
+All errors (new ones prefixed by >>):
 
-Takashi
+   sort: -:2: disorder: 2023.8.dev2+gd5e5147
+>> ERROR: dtschema minimum version is v2023.9
 
-
-> 
-> 
-> Best regards,
-> 
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> 
-> -- 
-> Anton Yakovlev
-> Senior Software Engineer
-> 
-> OpenSynergy GmbH
-> Rotherstr. 20, 10245 Berlin
-> 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

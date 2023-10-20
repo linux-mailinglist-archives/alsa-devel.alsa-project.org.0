@@ -2,147 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CDA57D088B
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Oct 2023 08:34:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF10F7D0919
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Oct 2023 09:01:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6256A836;
-	Fri, 20 Oct 2023 08:34:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6256A836
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF64082B;
+	Fri, 20 Oct 2023 09:00:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF64082B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697783696;
-	bh=kVcwWjeHrek0Bz2iT1y5FAowk7d0mGXcoljwHZ3LuWo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1697785291;
+	bh=i4mTARCVWP8DkJ2Otpts6FP0G4A/z5hhPw3/uPcBoM8=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NTlkyv+/bbIAqgAlfvKdWPKEsfHS5WyK5TZjxupn2u5p9ecoVokHpoSDIiNvf+O5x
-	 yPSHgySBrXIpy7RDsyGcnhwulSHGa/dHkUmd5mtWav2CVQGXZLoCM+OoJ3y6kDTz5Z
-	 7jNk3LirjzJxHEdIAYlvRzPAl0YrheTkMAdhaBGc=
+	b=KsvV1O7/Vdx2CD8QY/nBhDQnE7rnM4qfvU9nQLgVh7/zPSk402pA/F5KL66vvPYj+
+	 Qgb+cFrqfWjS0ySnZzc6wDmbJibCere0yChhzTHezbYLFrZ738vSi0zpNKlyBEoozU
+	 oQbMdc7sIrboobyIP9HUcnA2kFV8YuagxValikoM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4D2BF805A9; Fri, 20 Oct 2023 08:33:01 +0200 (CEST)
+	id 5F6C8F80552; Fri, 20 Oct 2023 09:00:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 401D6F805A8;
-	Fri, 20 Oct 2023 08:33:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 114D7F8024E;
+	Fri, 20 Oct 2023 09:00:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11EABF8025F; Fri, 20 Oct 2023 08:29:48 +0200 (CEST)
+	id 94C9DF8025F; Fri, 20 Oct 2023 09:00:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20614.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::614])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A39ECF800C9;
-	Fri, 20 Oct 2023 08:29:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A39ECF800C9
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=a+LUbgs/
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VnpwQAidu+BeoP5zv3Re3xuC1SwKqi67i5aEF7qmvF63Z/vkMrrGQDXfVV3d1ghy7IcVu74geS0rexVVMHvM3kYvFBX4MTnXhNPIVKWq/ZaYKdXoY3lWuYFl7l3wWA0DaV8NQktUTiowAhqGWUF5uQv43ob3S2I+LiR0993krntTj538mIZkcWNCD+1XkKRWNjymw71DQWNa21GD8yY6GYSBEOoNzyZTSpJQaeB4x19ViHomrnsDdEalHqlhHCdVjD3+zxWewPWEPjUzLGwhVKdlD9I9TGbdLMnIRcDux0ehffUUS7xHt060lmNVkZhoxY+XaVpjAfktRlCLUwbzDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dhvlEbtYPqsqSwqLx7qvx9U5elUq/N1zyRAd5QzxH80=;
- b=gYszyTr0MbEaQKA06xXticQ2WAHxKFS4iZc+Ao5PZ9ByblxUIr0BBKApF06/NbeCzroLLyScicUJPa+LDhI5lA74Expv2KxiR9SZ8qgrUjQA07H1h44cM2k1wn2CnaGmrWiEGSr+hfsJKn9SQ7E4O6MOVEvcHgEbIn2C7I7f0MRessjfUYnrnfGdF47aHSLmg7HHMXCxwiSvbhDJiJ4OweOkwrxazP+2NmLfN6dkd0Izne4FiUHNyC74wrgfLP0+uB82/iwVZVPFtXITrIr76+sSkojtI2V+jdkQXAK/ohbISfJWvrUB0NSNMrGwlIuXSsvPVKF7jPApF+ILRdLv3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dhvlEbtYPqsqSwqLx7qvx9U5elUq/N1zyRAd5QzxH80=;
- b=a+LUbgs//0/El/NCUxS/MvWyQKQkxyH6rJhV9KDTlvBiPAB/NBwSG/mfEOcMp5v0iqiYfX4oVQ1JwNmVElw8tg0sdolMY7FSJIVViGyhbVJTsEoWAoUYk1f5VM20IJKYEfKthFY69hZfjN5iQV/NIMirmWvzfWjCxAguXaRdWdk=
-Received: from SN7PR04CA0217.namprd04.prod.outlook.com (2603:10b6:806:127::12)
- by PH7PR12MB5617.namprd12.prod.outlook.com (2603:10b6:510:133::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.21; Fri, 20 Oct
- 2023 06:29:35 +0000
-Received: from SA2PEPF00001506.namprd04.prod.outlook.com
- (2603:10b6:806:127:cafe::83) by SN7PR04CA0217.outlook.office365.com
- (2603:10b6:806:127::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.26 via Frontend
- Transport; Fri, 20 Oct 2023 06:29:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001506.mail.protection.outlook.com (10.167.242.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6907.20 via Frontend Transport; Fri, 20 Oct 2023 06:29:35 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 20 Oct
- 2023 01:29:34 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 20 Oct
- 2023 01:29:33 -0500
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27
- via Frontend Transport; Fri, 20 Oct 2023 01:29:28 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, "Bard
- Liao" <yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Chao Song
-	<chao.song@intel.com>, Venkata Prasad Potturu
-	<venkataprasad.potturu@amd.com>, V sujith kumar Reddy
-	<Vsujithkumar.Reddy@amd.com>, Mastan Katragadda <Mastan.Katragadda@amd.com>,
-	"moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
-	<sound-open-firmware@alsa-project.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 5/5] ASoC: SOF: amd: add option to use sram for data bin
- loading
-Date: Fri, 20 Oct 2023 11:58:15 +0530
-Message-ID: <20231020062822.3913760-5-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231020062822.3913760-1-Vijendar.Mukunda@amd.com>
-References: <20231020062822.3913760-1-Vijendar.Mukunda@amd.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7919BF8019B
+	for <alsa-devel@alsa-project.org>; Fri, 20 Oct 2023 09:00:30 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 207E41A5C;
+	Fri, 20 Oct 2023 09:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 207E41A5C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1697785229; bh=BkE5d1CevKdet4YeuqW2oQyL+Ncc7thsyUdHwizdmYo=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=KXln3Pefkqp2D4iAC67i6sIxr8ebf88H2yKgVb0+E53j+aBuBjKzKkNSyt3arEdw2
+	 HaIiePS/3AgD/9unt5y97HNRAMWUHobMQhTOOEBmZaYCc/iSjH8TsBKoCv5UyaMHBZ
+	 GKaZB/YDeCRsLL17LV4i5xP8rKHyBPVsAzSpeKok=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Fri, 20 Oct 2023 09:00:25 +0200 (CEST)
+Message-ID: <003be6b3-63eb-d850-2805-0a8ed6cf5b18@perex.cz>
+Date: Fri, 20 Oct 2023 09:00:24 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001506:EE_|PH7PR12MB5617:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce8e0cf2-bd17-4976-9b4b-08dbd135eda7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	FX8pOiNwNG8QlUJjsJLFvF2EA3ku2qa6fH5S9xeBqYoe9zFps+wBwAKiMqHdgszl8REycTez/hc8N+DLtwsY4bQnqsINqtLKrKPQU5Y/6jyBzGh/lc9GYroWd1v7LiOf420l6KdL9KYDs7a+P9n3ml+35Rj5f8gTQdhtWiaDlrs0y8LRO+JjuUiiPGqhp8z/nLNGej+3oSkSqIasR3D+ci+NW1n+tJBqSlq/zsmX4JQRUVTcAwy36RCdyM+LFKQnroaVIppyvTYqFYDIWRbhuRDbO3XoXtyub/4GsC6g/KcLAGXYZR4CzJQsu0EWtNKdhI1qj+05d7PTgJURjAp/ylwA+og5e4yQdFuSOmNJ9dcBRfbp218i/BL+YLG45J8B7caIDcC33dgqcyNFqVpyvDchePg0UbhSuonSD3pgjR0UAopXd5EE79SD4af+E6cIff2v+a9s/+oTpWzmkMES3ZTKgBtXAPnnExtSRe/tjdMZXDo8wGJG6XTpaQek3jeLZGaOoSA5AN8jgiVVI1dN5x2iiUxddjS2BECWF8MoZyu5yia4IGHPiKovNnR8hmTvCMNoe/SsRwN55mekiZ/5NVLTwtTFacFs91gXBmv41bAi96Ea4N51dkFTJLLrouEDCeABz14tFJG27yXALeHFao3tVdBgOQhjEOCf0gjETzPHeR/R5nhSe3MkqF2ThHHVQy65cBI86kaF+sWE2Tgj56pSAOefGDm88mDInVshNiFPeqr42U1CZutlVbQl/39Mrvwvtml1GxnOgVVImE5j5A==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(396003)(39860400002)(346002)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(82310400011)(36840700001)(40470700004)(46966006)(6916009)(6666004)(336012)(426003)(7696005)(478600001)(47076005)(36860700001)(70586007)(70206006)(316002)(26005)(36756003)(83380400001)(1076003)(2616005)(54906003)(41300700001)(81166007)(5660300002)(82740400003)(356005)(7416002)(40460700003)(8676002)(8936002)(4326008)(2906002)(40480700001)(86362001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2023 06:29:35.3088
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ce8e0cf2-bd17-4976-9b4b-08dbd135eda7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	SA2PEPF00001506.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5617
-Message-ID-Hash: 3JQV2VP4Z7U45JL5BXWYNGOMVX4KW4OQ
-X-Message-ID-Hash: 3JQV2VP4Z7U45JL5BXWYNGOMVX4KW4OQ
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de
+References: <20231017-coroner-blurt-edffe8@meerkat>
+ <8f62db8c-b10c-0256-a56c-28b998d1a3bc@perex.cz>
+ <20231019-posture-cache-fe060b@meerkat>
+ <9879e427-5dd0-43ee-bacb-0b0b452ea348@sirena.org.uk>
+ <20231019-extinct-importer-8e3fce@meerkat>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Migrating this list to a different platform (take 2)
+In-Reply-To: <20231019-extinct-importer-8e3fce@meerkat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: UJC6DA2FQVDSRLAGVMF5SOWGF32GNSSS
+X-Message-ID-Hash: UJC6DA2FQVDSRLAGVMF5SOWGF32GNSSS
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -154,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3JQV2VP4Z7U45JL5BXWYNGOMVX4KW4OQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UJC6DA2FQVDSRLAGVMF5SOWGF32GNSSS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,155 +99,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Provide an option to load DSP data bin to ACP SRAM.
+On 19. 10. 23 18:25, Konstantin Ryabitsev wrote:
+> On Thu, Oct 19, 2023 at 03:34:18PM +0100, Mark Brown wrote:
+>>> There's a third option -- instead of migrating the alsa-devel list, we can
+>>> migrate all activity to linux-sound@vger.kernel.org. It's an existing list
+>>> that currently sees about 5 messages a year (and most of them are cc'd to
+>>> alsa-devel anyway).
+>>
+>> That would definitely work well from my point of view.
+> 
+> Okay, since it doesn't really affect anything, I've reconfigured the patchwork
+> side of things to accept patches sent both to alsa-devel and linux-sound. If
+> you do want to go down the route of shifting everything towards linux-sound,
+> the next step (once everyone is in agreement), is to make the changes to
+> MAINTAINERS. You don't have to do all subsystems at once, you can start with
+> the SOUND subsystem to trial things out and then shift others if everything is
+> working correctly.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/sof/amd/acp-loader.c | 46 +++++++++++++++++++++++++++++-----
- sound/soc/sof/amd/acp.h        | 10 +++++++-
- 2 files changed, 49 insertions(+), 7 deletions(-)
+If it's an overall agreement, we can move the driver related threads and the 
+patch handling to linux-sound mailing list and keep alsa-devel list for the 
+user space packages and the project related discussions. I'll send an initial 
+patch for MAINTAINERS ASAP.
 
-diff --git a/sound/soc/sof/amd/acp-loader.c b/sound/soc/sof/amd/acp-loader.c
-index d35d47d7e311..e05eb7a86dd4 100644
---- a/sound/soc/sof/amd/acp-loader.c
-+++ b/sound/soc/sof/amd/acp-loader.c
-@@ -19,8 +19,9 @@
- #include "acp-dsp-offset.h"
- #include "acp.h"
- 
--#define FW_BIN		0
--#define FW_DATA_BIN	1
-+#define FW_BIN			0
-+#define FW_DATA_BIN		1
-+#define FW_SRAM_DATA_BIN	2
- 
- #define FW_BIN_PTE_OFFSET	0x00
- #define FW_DATA_BIN_PTE_OFFSET	0x08
-@@ -49,7 +50,6 @@ int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_t
- 			u32 offset, void *src, size_t size)
- {
- 	struct pci_dev *pci = to_pci_dev(sdev->dev);
--	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
- 	struct acp_dev_data *adata;
- 	void *dest;
- 	u32 dma_size, page_count;
-@@ -86,9 +86,18 @@ int acp_dsp_block_write(struct snd_sof_dev *sdev, enum snd_sof_fw_blk_type blk_t
- 		adata->is_dram_in_use = true;
- 		break;
- 	case SOF_FW_BLK_TYPE_SRAM:
--		offset = offset - desc->sram_pte_offset;
--		memcpy_to_scratch(sdev, offset, src, size);
--		return 0;
-+		if (!adata->sram_data_buf) {
-+			adata->sram_data_buf = dma_alloc_coherent(&pci->dev,
-+								  ACP_DEFAULT_SRAM_LENGTH,
-+								  &adata->sram_dma_addr,
-+								  GFP_ATOMIC);
-+			if (!adata->sram_data_buf)
-+				return -ENOMEM;
-+		}
-+		adata->fw_sram_data_bin_size = size + offset;
-+		dest = adata->sram_data_buf + offset;
-+		adata->is_sram_in_use = true;
-+		break;
- 	default:
- 		dev_err(sdev->dev, "bad blk type 0x%x\n", blk_type);
- 		return -EINVAL;
-@@ -123,6 +132,10 @@ static void configure_pte_for_fw_loading(int type, int num_pages, struct acp_dev
- 		offset = adata->fw_bin_page_count * 8;
- 		addr = adata->dma_addr;
- 		break;
-+	case FW_SRAM_DATA_BIN:
-+		offset = (adata->fw_bin_page_count + ACP_DRAM_PAGE_COUNT) * 8;
-+		addr = adata->sram_dma_addr;
-+		break;
- 	default:
- 		dev_err(sdev->dev, "Invalid data type %x\n", type);
- 		return;
-@@ -189,6 +202,22 @@ int acp_dsp_pre_fw_run(struct snd_sof_dev *sdev)
- 		if (ret < 0)
- 			dev_err(sdev->dev, "acp dma transfer status: %d\n", ret);
- 	}
-+	if (adata->is_sram_in_use) {
-+		configure_pte_for_fw_loading(FW_SRAM_DATA_BIN, ACP_SRAM_PAGE_COUNT, adata);
-+		src_addr = ACP_SYSTEM_MEMORY_WINDOW + ACP_DEFAULT_SRAM_LENGTH +
-+			   (page_count * ACP_PAGE_SIZE);
-+		dest_addr = ACP_SRAM_BASE_ADDRESS;
-+
-+		ret = configure_and_run_dma(adata, src_addr, dest_addr,
-+					    adata->fw_sram_data_bin_size);
-+		if (ret < 0) {
-+			dev_err(sdev->dev, "acp dma configuration failed: %d\n", ret);
-+			return ret;
-+		}
-+		ret = acp_dma_status(adata, 0);
-+		if (ret < 0)
-+			dev_err(sdev->dev, "acp dma transfer status: %d\n", ret);
-+	}
- 
- 	if (desc->rev > 3) {
- 		/* Cache Window enable */
-@@ -205,6 +234,11 @@ int acp_dsp_pre_fw_run(struct snd_sof_dev *sdev)
- 				  adata->dma_addr);
- 		adata->data_buf = NULL;
- 	}
-+	if (adata->is_sram_in_use) {
-+		dma_free_coherent(&pci->dev, ACP_DEFAULT_SRAM_LENGTH, adata->sram_data_buf,
-+				  adata->sram_dma_addr);
-+		adata->sram_data_buf = NULL;
-+	}
- 	return ret;
- }
- EXPORT_SYMBOL_NS(acp_dsp_pre_fw_run, SND_SOC_SOF_AMD_COMMON);
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 2d1f57e1365a..c536cfde0e44 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -56,7 +56,7 @@
- #define ACP_IRAM_BASE_ADDRESS			0x000000
- #define ACP_DRAM_BASE_ADDRESS			0x01000000
- #define ACP_DRAM_PAGE_COUNT			128
--
-+#define ACP_SRAM_BASE_ADDRESS			0x3806000
- #define ACP_DSP_TO_HOST_IRQ			0x04
- 
- #define ACP_RN_PCI_ID				0x01
-@@ -88,6 +88,8 @@
- #define PROBE_STATUS_BIT			BIT(31)
- 
- #define ACP_FIRMWARE_SIGNATURE			0x100
-+#define ACP_DEFAULT_SRAM_LENGTH			0x00080000
-+#define ACP_SRAM_PAGE_COUNT			128
- 
- enum clock_source {
- 	ACP_CLOCK_96M = 0,
-@@ -194,13 +196,18 @@ struct acp_dev_data {
- 	struct platform_device *dmic_dev;
- 	unsigned int fw_bin_size;
- 	unsigned int fw_data_bin_size;
-+	unsigned int fw_sram_data_bin_size;
- 	const char *fw_code_bin;
- 	const char *fw_data_bin;
-+	const char *fw_sram_data_bin;
- 	u32 fw_bin_page_count;
-+	u32 fw_data_bin_page_count;
- 	dma_addr_t sha_dma_addr;
- 	u8 *bin_buf;
- 	dma_addr_t dma_addr;
- 	u8 *data_buf;
-+	dma_addr_t sram_dma_addr;
-+	u8 *sram_data_buf;
- 	bool signed_fw_image;
- 	struct dma_descriptor dscr_info[ACP_MAX_DESC];
- 	struct acp_dsp_stream stream_buf[ACP_MAX_STREAM];
-@@ -209,6 +216,7 @@ struct acp_dev_data {
- 	struct acp_dsp_stream *probe_stream;
- 	bool enable_fw_debug;
- 	bool is_dram_in_use;
-+	bool is_sram_in_use;
- };
- 
- void memcpy_to_scratch(struct snd_sof_dev *sdev, u32 offset, unsigned int *src, size_t bytes);
+						Jaroslav
+
 -- 
-2.34.1
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

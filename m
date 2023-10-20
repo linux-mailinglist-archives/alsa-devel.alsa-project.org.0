@@ -2,83 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 827B97D3CED
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 18:56:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6CCE7D3F6C
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 20:41:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96C5C84B;
-	Mon, 23 Oct 2023 18:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96C5C84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39EB985D;
+	Mon, 23 Oct 2023 20:40:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39EB985D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698080189;
-	bh=Hpe7ekaJs73CJgZf5fhyangHoKF2l+kv/gkvQP5ZgmA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1698086499;
+	bh=7I76GhrFH1ankannClmf806vy5yk8xmXcsOuatft2C8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RRN6UWOA3UG64HlWrJV7KY7BNtfjpdo15Y4rar3o7gd4sjs0KX/Iv81QYoxujKYT4
-	 l8JpJ4b/azzCa8qVxwcsLGO+w6zSPUXcwg+YQsWVbRdlTbaR5Uz6lMX9guyAVdHBVz
-	 fgs/W8gKMlnVNU+38KlBaLL6FIzsTdeexW8k8PiU=
+	b=O4yJ35noPoGtGkUuqlvE0u8q/N7UTxRB0cKOE6Oz83NnfT1jvOC6cCC364QgPz0vq
+	 4e6dXYbCwPGQi4uw5J3L0mLpjsKIH62wUGMoLclZfvOFCTSKaYRaa8+H+us8nO2FqW
+	 N4kwhqjqqC+msC9kAgkkkuYDxIB7fSPN01/rPdCk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22A4EF8055A; Mon, 23 Oct 2023 18:55:30 +0200 (CEST)
+	id 8C5C6F80537; Mon, 23 Oct 2023 20:40:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B29D0F8032D;
-	Mon, 23 Oct 2023 18:55:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA36BF8032D;
+	Mon, 23 Oct 2023 20:40:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97979F804F3; Mon, 23 Oct 2023 18:55:28 +0200 (CEST)
+	id BCB32F804F3; Mon, 23 Oct 2023 20:40:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EF0B2F80134
-	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 18:55:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF0B2F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18E57F8024E;
+	Mon, 23 Oct 2023 20:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18E57F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YhmS5jI0
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 77DCC625CB;
-	Mon, 23 Oct 2023 16:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF1CC433C7;
-	Mon, 23 Oct 2023 16:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698080121;
-	bh=Hpe7ekaJs73CJgZf5fhyangHoKF2l+kv/gkvQP5ZgmA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YhmS5jI05JwAioYZMc0FUT+5OFTFXShOEqQJCKnqWdA2tAS9QqOYhjLqNVCKDlATx
-	 LJuHsmtQA55nvPrV/HcQ/b9Jhm+9gxHsIdrIfw3r8LIN/8c6eC84kpEkNXkV2/GCLL
-	 XsfhMmfaq+u34YgutzjKqJKxiplQUcdVW+cU4e6ZS9B0XKhhVgwoTBlaCJ16UcuaOm
-	 sZWNJ7jzyjTUDsoEh6WRqtlh60agRqnpxxgxfPCbB2+6bTRTGvKLV6+zzMvbcXKXjj
-	 /cUNJ5GU+3B6KJgT9LeG58dn66g2hGW2tfTq6Mkq5JS9pFWm1c+ezfplQif+GuHKNz
-	 qUIldiPM+LTLQ==
-Date: Mon, 23 Oct 2023 17:55:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
-	KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, SJLIN0@nuvoton.com,
-	scott6986@gmail.com, supercraig0719@gmail.com, dardar923@gmail.com
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nau8821: Add DMIC slew rate
- selection
-Message-ID: <20231023-company-coziness-0b50388abfaa@spud>
-References: <20231023021537.617980-1-wtli@nuvoton.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=lMZGd3l9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1698086419; x=1729622419;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=7I76GhrFH1ankannClmf806vy5yk8xmXcsOuatft2C8=;
+  b=lMZGd3l9sk4+OaCKKSULF0dCOm2k5AQmVq6Pfie2WqD3/nqisjZh6j6o
+   4oD7MrtLxWXrS6nokXHtw4fDT5jdX1wFGSFrCW0vOydt/qh0xK5+HsZQ3
+   2jGq6yHXZuHVpFff4B5Bi45gBBHNch3JKapJaghWFc7Juhs2t4/eEzUxU
+   lJS9TMZTmGagDsF9d7ANvt6xDFjJcVTG9ZUqcVHAt0Ij9ovyRA0rKE+SO
+   bIR6pkOV9tQuIk+I+JuUUuZjf8Gkoa7qlBJ7zR8P9OGViq8sm1p4lZrAS
+   WisEyRHQqCGsxUFcVz8jYiVdCLDEYwFauGq8mDWqpTlUfLc7aUDKpwqAm
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="390788529"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200";
+   d="scan'208";a="390788529"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2023 11:40:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="824048819"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200";
+   d="scan'208";a="824048819"
+Received: from weiyiwil-mobl.amr.corp.intel.com (HELO [10.212.122.211])
+ ([10.212.122.211])
+  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2023 11:40:02 -0700
+Message-ID: <fb7cf366-b659-4321-b81b-ca76704a85ab@linux.intel.com>
+Date: Fri, 20 Oct 2023 16:21:27 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6XhV5INvunCnaq1A"
-Content-Disposition: inline
-In-Reply-To: <20231023021537.617980-1-wtli@nuvoton.com>
-Message-ID-Hash: CHXDG6O7H7WODSYGRBKLQ564SKS2UW7F
-X-Message-ID-Hash: CHXDG6O7H7WODSYGRBKLQ564SKS2UW7F
-X-MailFrom: conor@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] ALSA: SOF: sof-pci-dev: Fix community key quirk
+ detection
+Content-Language: en-US
+To: Curtis Malainey <cujomalainey@google.com>,
+ Mark Hasemeyer <markhas@chromium.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Curtis Malainey <cujomalainey@chromium.org>, stable@vger.kernel.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org
+References: 
+ <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
+ <CAOReqxhrhzWh-aO5kt-7yqcfX9CbHW-WBgBAqQ9FqeUj-h1o=A@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: 
+ <CAOReqxhrhzWh-aO5kt-7yqcfX9CbHW-WBgBAqQ9FqeUj-h1o=A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: BJYVAQHKACPXOSTTAHQXX3OZCGE7T5H3
+X-Message-ID-Hash: BJYVAQHKACPXOSTTAHQXX3OZCGE7T5H3
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CHXDG6O7H7WODSYGRBKLQ564SKS2UW7F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BJYVAQHKACPXOSTTAHQXX3OZCGE7T5H3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,67 +120,20 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---6XhV5INvunCnaq1A
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Fri, Oct 20, 2023 at 2:00 PM Mark Hasemeyer <markhas@chromium.org> wrote:
+>>
+>> Some Chromebooks do not populate the product family DMI value resulting
+>> in firmware load failures.
+>>
+>> Add another quirk detection entry that looks for "Google" in the BIOS
+>> version. Theoretically, PRODUCT_FAMILY could be replaced with
+>> BIOS_VERSION, but it is left as a quirk to be conservative.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Mark Hasemeyer <markhas@chromium.org>
+> 
+> Acked-by: Curtis Malainey <cujomalainey@chromium.org>
 
-Hey,
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-On Mon, Oct 23, 2023 at 10:15:36AM +0800, Seven Lee wrote:
-> Add input with DMIC slew rate selection
->=20
-> Signed-off-by: Seven Lee <wtli@nuvoton.com>
-> ---
->  .../devicetree/bindings/sound/nuvoton,nau8821.yaml         | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml=
- b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> index 3e54abd4ca74..5f7f2eed4834 100644
-> --- a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> @@ -89,6 +89,12 @@ properties:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      default: 3072000
-> =20
-> +  nuvoton,dmic-slew-rate-selection:
-> +    description: number from 0 to 7 that sets DMIC slew rate.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    maximum: 7
-> +    default: 0
-
-I'd much rather this was an enum of possible values in $unit, than what
-appears to be values you want to write to a register.
-
-Cheers,
-Conor.
-
-> +
->    nuvoton,left-input-single-end:
->      description: Enable left input with single-ended settings if set.
->          For the headset mic application, the single-ended control is
-> @@ -127,6 +133,7 @@ examples:
->              nuvoton,jack-insert-debounce =3D <7>;
->              nuvoton,jack-eject-debounce =3D <0>;
->              nuvoton,dmic-clk-threshold =3D <3072000>;
-> +            nuvoton,dmic-slew-rate-selection=3D <0>;
->              #sound-dai-cells =3D <0>;
->          };
->      };
-> --=20
-> 2.25.1
->=20
-
---6XhV5INvunCnaq1A
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZTalcwAKCRB4tDGHoIJi
-0lUgAP0dICzYGKOkFJyrsYF0Pcon1DPv052uYcDE0imGelULMQD9FUUVcAFtlJFy
-ayCgZF3Du2NWFIzNgjEbBbFyfd77GQQ=
-=7mpV
------END PGP SIGNATURE-----
-
---6XhV5INvunCnaq1A--
+Now let's see how the machine drivers need to be updated...

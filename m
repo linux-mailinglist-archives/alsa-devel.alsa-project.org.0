@@ -2,82 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4E87D0F1F
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Oct 2023 13:50:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 651FE7D0F47
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Oct 2023 13:59:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B4A6844;
-	Fri, 20 Oct 2023 13:49:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B4A6844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FE0B83B;
+	Fri, 20 Oct 2023 13:58:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FE0B83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697802637;
-	bh=uULk3t4devNFRJcWv4csQQ75izkHgbp5jCQYZEJbvek=;
+	s=default; t=1697803166;
+	bh=hgzML6+OkKEZo9orZ2B4XMz4xyPZIW1HsH8NObcq26Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EhYA4oK2TwFA0VVaC381zLSfBERaS12qMwc0OCB5+uFAyxBGxDnBqN9FvvBH53tDb
-	 j7gmRXUZU3JDeVfAPuImeoQFmlK0hyVNXybpfMLfmyYf78nOxqzge4iQhp8S8IpZeI
-	 /me+ufqEMLIdZ386V4ocg1HVqDnAIYudubAeSOKs=
+	b=PyYpg43fNYpWvo85/NpRlBgLQERyMA5srC452CIMSD2zEPyxeMy+GzHXefv3hbQvo
+	 Fpl/Y1JxiAyuVT5Ww3HpkSR2LqJCgtw7bDTyVPfFtSW9LNwFdwaFneKAl1gIvUzgrc
+	 4EH+rndp9HNvuqyxvUFkvFLYc+jRW2kzcab6kUyg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D696F80552; Fri, 20 Oct 2023 13:49:46 +0200 (CEST)
+	id B8681F8024E; Fri, 20 Oct 2023 13:58:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33427F8024E;
-	Fri, 20 Oct 2023 13:49:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B12BF8024E;
+	Fri, 20 Oct 2023 13:58:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58CEFF8025F; Fri, 20 Oct 2023 13:49:41 +0200 (CEST)
+	id DAEFCF8025F; Fri, 20 Oct 2023 13:58:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46E60F8019B
-	for <alsa-devel@alsa-project.org>; Fri, 20 Oct 2023 13:49:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E60F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 065B9F8019B
+	for <alsa-devel@alsa-project.org>; Fri, 20 Oct 2023 13:58:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 065B9F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VSupLyn4
+ header.s=k20201202 header.b=lJfbIk+b
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id AEDEACE3816;
-	Fri, 20 Oct 2023 11:49:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC05C433CA;
-	Fri, 20 Oct 2023 11:49:29 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 698FE6208A;
+	Fri, 20 Oct 2023 11:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D424FC433C8;
+	Fri, 20 Oct 2023 11:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1697802570;
-	bh=uULk3t4devNFRJcWv4csQQ75izkHgbp5jCQYZEJbvek=;
+	s=k20201202; t=1697803103;
+	bh=hgzML6+OkKEZo9orZ2B4XMz4xyPZIW1HsH8NObcq26Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VSupLyn4z0RgSk1s3p/NXyrms0WxcZmX2l78dSxRUAVmZNBPmwE2Xv3dPTnvjzjRH
-	 oQ9ftT7H4jcJ7wsjyPkWsjZikgkw6c9yvNj+5BSLfVKqxVlqB0hBKxhz1BZS1CA21R
-	 YATvE9URSMY4Haw+rAudozop5IkOdTP8liJ07T5Zg4Z/5GAQFLiitlPmtdNsVkr6P2
-	 MOR2t+y34zmGOqYUEgy/PczjfrHWBCdjjAwvnRbDv9LJgPHDmETXHs80Lw36cKX+3U
-	 JK8Ih2ZqYW4CEMWURjUr+3ON7/iEBh8IUyHPsDiNFsPDngTiUJzyOh0jAO7S/M9v9G
-	 FEsc9VbHrYQnw==
-Date: Fri, 20 Oct 2023 12:49:26 +0100
+	b=lJfbIk+bODkAScfSGDHEq+PLNjXPWWSsU+m/xUitudtsy5RhTn38Y403l0mmABOQ7
+	 aktFocybnTVSYyGpsCX0JqQtQU97Djc3QILHLLCMvO844SodK5UfHPEYTzNMsMP9wL
+	 7HaEm+i48Acl+5fbosR8Ag9paz2Od7QKAQBYuQZtDL8Mdk3q4gz9iTLR2o3BIq2ebm
+	 Xmcvcyvn20O5Bo84NGFE1Awj7lG54eVFa6eWE1bBrgTalLeVb9joOHzU/x52BCXcP8
+	 dSt9Fc+5IrRaORbgozVFunhDsjvrxacYtP6lTzHrXGIFfbVcdFSjL4yq3NXVNO91X2
+	 IxUCJneVxvayA==
+Date: Fri, 20 Oct 2023 12:58:17 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
-	Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] MAINTAINERS: ALSA: change mailing list to linux-sound on
- vger
-Message-ID: <cdc1563a-6b91-4666-a081-d6fe0a56d2d8@sirena.org.uk>
-References: <20231020071247.973909-1-perex@perex.cz>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Conor Dooley <conor@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] dt-bindings: audio-graph-port: add ch-maps
+ property
+Message-ID: <ad696b38-3bca-4cc9-8e9d-81dce9686de4@sirena.org.uk>
+References: <20231012-storage-directory-548905001d10@spud>
+ <87wmvr8ioy.wl-kuninori.morimoto.gx@renesas.com>
+ <ZSllNtm4ZnUnkiV2@finisterre.sirena.org.uk>
+ <20231013-planner-irate-8e411cc54a48@spud>
+ <874jirxul6.wl-kuninori.morimoto.gx@renesas.com>
+ <20231017-darkness-jackknife-5cf32246a079@spud>
+ <871qdskbuu.wl-kuninori.morimoto.gx@renesas.com>
+ <20231018-object-renewable-6e03bce41ff4@spud>
+ <77d3d1e5-7120-4a5b-99c0-c34407f63d5b@sirena.org.uk>
+ <878r7yqeo4.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+8N4ASwwIG2IyxwS"
+	protocol="application/pgp-signature"; boundary="esXYev3zreSbHTkV"
 Content-Disposition: inline
-In-Reply-To: <20231020071247.973909-1-perex@perex.cz>
+In-Reply-To: <878r7yqeo4.wl-kuninori.morimoto.gx@renesas.com>
 X-Cookie: teamwork, n.:
-Message-ID-Hash: J5CYJV4DSFRGIIXQPX5HX6VO2SCXQP7Y
-X-Message-ID-Hash: J5CYJV4DSFRGIIXQPX5HX6VO2SCXQP7Y
+Message-ID-Hash: 2AGDP3D27W4VDZ3KYR7WIG37Z553ZYDX
+X-Message-ID-Hash: 2AGDP3D27W4VDZ3KYR7WIG37Z553ZYDX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J5CYJV4DSFRGIIXQPX5HX6VO2SCXQP7Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2AGDP3D27W4VDZ3KYR7WIG37Z553ZYDX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,36 +112,36 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---+8N4ASwwIG2IyxwS
+--esXYev3zreSbHTkV
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 20, 2023 at 09:12:47AM +0200, Jaroslav Kysela wrote:
-> As discussed on alsa-devel mailing list [1], it is useful to have an open
-> mailing list to avoid moderation delays for the kernel patch work. Use
-> linux-sound mailing list for kernel driver related threads.
->=20
-> In the first stage, change the list for the ALSA core, ASoC and tests.
->=20
-> [1] https://lore.kernel.org/alsa-devel/20231019-posture-cache-fe060b@meer=
-kat/
+On Fri, Oct 20, 2023 at 01:13:31AM +0000, Kuninori Morimoto wrote:
 
-Reviewed-by: Mark Brown <broonie@kernel.org>
+> DT
+> 		(A)						(B)
+> 		<- port ->   <- port ->       <- port ->      <- port ->
+> 			          ax(ep) <--> (ep)bx
+> 	map=<0>	cpu0(ep) <--> (ep)a0		  b0(ep) <--> (ep)codec0  map=<0>
+> 	map=<1>	cpu1(ep) <--> (ep)a1		  b1(ep) <--> (ep)codec1  map=<1 2>
+> 	map=<2>	cpu2(ep) <--> (ep)a2					  ~~~~~~~~~
 
---+8N4ASwwIG2IyxwS
+I think that looks like what I was thinking of, yes.  Might be
+misreading it though!
+
+--esXYev3zreSbHTkV
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUyaUUACgkQJNaLcl1U
-h9DV1wf+JfQ1+irAJWTy+8Xybo6lzJi6gZx4Kk9fKlMDtuPUmNA/mIue2ndzFUW5
-i14CryvkKUYyb99uA3i8eADi2ruTBjJaFvRoBWgfxoM+tadh6a7xiPiuMA55TZAX
-n4NDXl8NH9ZeMrTiPI8HQ9KSEcr4uU4bhZvwuqT562AvzfZyQszAgNoi1tuDMb0s
-JvS1QmgFPGXNCfai+25Vra5xbdwfhwSo9vnyHZFrqBy5OJF9BgyloJAa0nChFY7N
-g0pqj8tDPiaLZO+o1vENKWif5mIyiLg46Pp8Etjv42xe84s1S2q6RV8Us4U0/2p/
-/XK6ASbKxW4FIPaiSoUy1mYr5HBYxw==
-=eNvC
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUya1kACgkQJNaLcl1U
+h9BN8gf/f/SHp+53AbjL9/at/+jwsiphdCM3VMOemva8S7CsKEpjdSFr9MfZtRVR
+78obwdoyzDD+ZZn58KUnuPC+Uh0092rLKx+CG8SzvMCLpD+BWZysK98dmP5AYk8F
+ZjvZpX/z4MhTtkDBPaHfLDQ0T8itq7FwlsGYnvl/fXHDc2wqPV22gkcYLBFoOEtl
+e81NELusQ0eCvAWn22Efqnmu5bYY7gvd2FjV8W0AOqW1Mq7wictoL+DnXP5blTHY
+w6Uow+hZRH9jdIBxyFU/vePaW5iswWze5lGcWXSi2cDUT/cosaaLQ0S8GKcWhR5l
+qRUJeioHr1FsTkUs3+S8Vn3kRS6t5w==
+=X52B
 -----END PGP SIGNATURE-----
 
---+8N4ASwwIG2IyxwS--
+--esXYev3zreSbHTkV--

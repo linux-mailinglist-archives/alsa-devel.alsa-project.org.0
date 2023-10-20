@@ -2,115 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E79237D17F0
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Oct 2023 23:20:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A25437D17F6
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Oct 2023 23:22:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D97986C1;
-	Fri, 20 Oct 2023 23:19:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D97986C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEFF484A;
+	Fri, 20 Oct 2023 23:22:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEFF484A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697836838;
-	bh=GU1ETC6wMRqttrOzmZqn4snE3S27ZmklzChpzhp9wzU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1697836977;
+	bh=BLrgnESXlM0bQhQQkhWCSUxl2XgKQbgE2i5fnpBrc3g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i+8JR85cfy9pPOsIOz9B5/iNE4fycjFk2sZSS4eVTFmwKmq9Qkflcj5mChN4e4xRx
-	 d2qzAgpq0LrU8H9r6ddoRgHR8P79VJKLbrb/OPQO3OgwqimTl/h70uW4s0fwg7umEH
-	 XR2sDK9RWFeBqxNaF4OTmCaOuA3iEpSGMmG9jsSo=
+	b=AIi0sBIsplPnQkyE3OqmQFCa6A5ADemxqN10oHY06O0g64QdsvDtGjv2RgRqQLjqq
+	 X/kaIis4kmG1ILOrZtmIVZwvyuOq2PILSShRscDn6KScGR2T1M9Y2oeQmTCNFMAdXA
+	 JPIWf+KsEH06QvUVvCj/5vAABtpNYejGytaqFzDc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8ADD5F80563; Fri, 20 Oct 2023 23:19:48 +0200 (CEST)
+	id 6FFDAF80553; Fri, 20 Oct 2023 23:22:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78912F8024E;
-	Fri, 20 Oct 2023 23:19:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15636F8024E;
+	Fri, 20 Oct 2023 23:22:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E97C0F8027B; Fri, 20 Oct 2023 23:19:42 +0200 (CEST)
+	id 01D28F8025F; Fri, 20 Oct 2023 23:22:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
-	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 30BEAF80236
-	for <alsa-devel@alsa-project.org>; Fri, 20 Oct 2023 23:19:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30BEAF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6CD1F800C9;
+	Fri, 20 Oct 2023 23:21:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6CD1F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20230601 header.b=QPhK8Ckh
-Received: by mail-pg1-x52c.google.com with SMTP id
- 41be03b00d2f7-5ab2cb900fcso885892a12.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 20 Oct 2023 14:19:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1697836775; x=1698441575;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a9YjEIQWy6daCcnZfKUCk0eX4Io5MUDbFHgVHcjxrWk=;
-        b=QPhK8CkhPczWZAX1P8ZcGkSX837lFS7WFDyW0NflJNhFfOHyH64HkaRLNajNPzKXRY
-         y+sMkF5T0t06SHsznBddApo5YkpS14eCqbf6zCxqk0w/PPkVowCHJ6vRmC9+19ZPc+S+
-         IMsdxN/9kSPof85JjMcx+tK7CM1HPvf/Yai5funnEKdyWNf19TPvk4X2uD7ygoR3s3jP
-         F0G6IvoqR7GZ0qFAnsnTXgoE7fdV8rPNXQYZGPAKgck8dIPTQCtDKzw4kW0g7L2i8w/R
-         UmUra4Z66d9Egzx60sdiswNjintbYjHQxllpu4FiXsDIE83wRi9Izj7gvr83oRW5lIYc
-         h0Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697836775; x=1698441575;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=a9YjEIQWy6daCcnZfKUCk0eX4Io5MUDbFHgVHcjxrWk=;
-        b=ezU3Bdke5FJnFSZxYHcyhQEWSOH82+iEy1Kd6iRUeH93jPi/YxzC6EqxjKphvUpXSF
-         G9h+epwvChPkt7AEW+7aAZwMRso5BMhRl6tJ4gh/JL3fR5L2AylL72SXaqpKeUJSvoDv
-         7yWQ/KF4mdI6bXczPf1MNK44YgV6Z0QZBgjPrfFXXnpNmzT8XVSozDctc6kSY9lfrLmP
-         hGLhpktJmMlO6ag4qu2bk9aAa8lwUd4z6gXje7It42M4H+DIoeaNCrTAOT8BfpZtSU0b
-         UmQj52I6m+fSfpNTLB4EHW4u6gMUQUlP43nWd9YYGYK3Y+Hu+rdQkZWZQ7TSyfBk5oCz
-         s75A==
-X-Gm-Message-State: AOJu0YxE6a8Ez09+zPxKt5oAVWb1KZJMmT0gmr2tKnqljeWHtHnN8fTF
-	9d1uhcUwzZcBwTSWKbXiVIm9yIrWagGOmMGWoGUi1A==
-X-Google-Smtp-Source: 
- AGHT+IFAnBcyEirWRbOHDgQa0BipdQ3XDegYyx70W6pwGiyHgf1ILQcSADmA0O0n6k0IJ1PfErLWMZ7dzz68cVep4C8=
-X-Received: by 2002:a17:90b:1e53:b0:271:7cd6:165d with SMTP id
- pi19-20020a17090b1e5300b002717cd6165dmr2893154pjb.26.1697836774929; Fri, 20
- Oct 2023 14:19:34 -0700 (PDT)
-MIME-Version: 1.0
-References: 
- <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
-In-Reply-To: 
- <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Fri, 20 Oct 2023 14:19:23 -0700
-Message-ID: 
- <CAOReqxhrhzWh-aO5kt-7yqcfX9CbHW-WBgBAqQ9FqeUj-h1o=A@mail.gmail.com>
-Subject: Re: [PATCH v1] ALSA: SOF: sof-pci-dev: Fix community key quirk
- detection
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=tbAx+zdT
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id DAECACE2BE0;
+	Fri, 20 Oct 2023 21:21:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2948C433C7;
+	Fri, 20 Oct 2023 21:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1697836915;
+	bh=BLrgnESXlM0bQhQQkhWCSUxl2XgKQbgE2i5fnpBrc3g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tbAx+zdTw3EmJEMpY/z3xQDVT6pMUekObKYRuLy18CAvtNXOLDqT2TQkAHws9I/Ox
+	 kbtovzNKZzwGZmJnhfSKgwZZwdkzmnBE7S6J+6Sl1bJbFOGiXPDOGNIbaiF7wOPGDc
+	 7Zo1Ek8L3/NabFUuQoMPIMDPL6vfe/73k1XKI7nL/5SVtLcmovXnqihFFEDFOy50ge
+	 4XjMZUEtakggZKWIykJMPZU2NPdHya4DravYwENNSY0TgOkS7TDL7jwt6Jp+vokjeP
+	 o8YqjvoA92DhhxAviAa+UeWkU4AWlMO+fjcvpVM45IWFXR3zSA+toM2YMVXdBSg7B8
+	 6DZAyiECd4psQ==
+Date: Fri, 20 Oct 2023 22:21:48 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Mark Hasemeyer <markhas@chromium.org>
 Cc: LKML <linux-kernel@vger.kernel.org>,
 	Curtis Malainey <cujomalainey@chromium.org>, stable@vger.kernel.org,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
 	Jaroslav Kysela <perex@perex.cz>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, sound-open-firmware@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: VZAKZZGPJ26AN3BTKDPRXQXLJQ7XGDXT
-X-Message-ID-Hash: VZAKZZGPJ26AN3BTKDPRXQXLJQ7XGDXT
-X-MailFrom: cujomalainey@google.com
+	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH v1] ALSA: SOF: sof-pci-dev: Fix community key quirk
+ detection
+Message-ID: <79d83b16-518c-4fb1-9652-662a552e3ef3@sirena.org.uk>
+References: 
+ <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bvpm8AcR9ruTek1u"
+Content-Disposition: inline
+In-Reply-To: 
+ <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
+X-Cookie: teamwork, n.:
+Message-ID-Hash: LXPHQIIR47RDXFN4YWIKZEHCLEABB6YS
+X-Message-ID-Hash: LXPHQIIR47RDXFN4YWIKZEHCLEABB6YS
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VZAKZZGPJ26AN3BTKDPRXQXLJQ7XGDXT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXPHQIIR47RDXFN4YWIKZEHCLEABB6YS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,49 +109,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Curtis Malainey | Chrome OS Audio Senior Software Engineer |
-cujomalainey@google.com | Sound Open Firmware Lead
 
+--bvpm8AcR9ruTek1u
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 20, 2023 at 2:00=E2=80=AFPM Mark Hasemeyer <markhas@chromium.or=
-g> wrote:
->
+On Fri, Oct 20, 2023 at 02:59:53PM -0600, Mark Hasemeyer wrote:
 > Some Chromebooks do not populate the product family DMI value resulting
 > in firmware load failures.
->
+>=20
 > Add another quirk detection entry that looks for "Google" in the BIOS
 > version. Theoretically, PRODUCT_FAMILY could be replaced with
 > BIOS_VERSION, but it is left as a quirk to be conservative.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mark Hasemeyer <markhas@chromium.org>
 
-Acked-by: Curtis Malainey <cujomalainey@chromium.org>
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-> ---
->
->  sound/soc/sof/sof-pci-dev.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-> index 1d706490588e..64b326e3ef85 100644
-> --- a/sound/soc/sof/sof-pci-dev.c
-> +++ b/sound/soc/sof/sof-pci-dev.c
-> @@ -145,6 +145,13 @@ static const struct dmi_system_id community_key_plat=
-forms[] =3D {
->                         DMI_MATCH(DMI_PRODUCT_FAMILY, "Google"),
->                 }
->         },
-> +       {
-> +               .ident =3D "Google firmware",
-> +               .callback =3D chromebook_use_community_key,
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_BIOS_VERSION, "Google"),
-> +               }
-> +       },
->         {},
->  };
->
-> --
-> 2.42.0.655.g421f12c284-goog
->
+--bvpm8AcR9ruTek1u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUy72sACgkQJNaLcl1U
+h9AxzAf/Ys7JElKki9A5mFI+I/HvoapP5WVYJNn5ppsCL/Dr6gn1KkfoZxqx7csY
+OC1getUOZyrh8/6iqxWKOyyfd6M7wi/CrRYVyRVRnKngH9f9B92K8cKa8HQI3o2t
+MvTmnMvg4w0Cpb3scmXznUv6XjdE7pkjHiK4A5OQ2KjiJqjXmqvo7OEOr/D4FNEn
+VOMJOG7zCxIfqS121p9ko65ovDfgvrT5FeJBuHeURQkIKXphtP2W5NzwitML4c4H
+wBqJd7ZwkikVYzZOSdAXRVQY6huD79jPrbERTp9bDIrEkFsDO47Q9XmxCnl1A4gs
+lz5u3eUIF++Y/RxoX9dxNSj4Zh7DTg==
+=Bm0n
+-----END PGP SIGNATURE-----
+
+--bvpm8AcR9ruTek1u--

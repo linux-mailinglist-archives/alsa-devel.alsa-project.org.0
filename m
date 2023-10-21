@@ -2,124 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A8E87D1BB1
-	for <lists+alsa-devel@lfdr.de>; Sat, 21 Oct 2023 09:59:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5E87D1D7D
+	for <lists+alsa-devel@lfdr.de>; Sat, 21 Oct 2023 16:32:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAFE0836;
-	Sat, 21 Oct 2023 09:58:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAFE0836
+	by alsa0.perex.cz (Postfix) with ESMTPS id C08C0832;
+	Sat, 21 Oct 2023 16:31:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08C0832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1697875176;
-	bh=MMHq48gleOw2iwXh0tYldIg+Sej4AjXb9Yf72opNS8Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LtYvZTdAxzf36KSkqb4rrcR0KO5FSxCh6tunrPkGSxzPTjfoImVYtSNxY4uw47p//
-	 yjXA7p8f773SeoaiUrPOcaRK57Ia2VA7VoGIhAl+KJ2zgBuq8TMMHi8ltfuJBktsk5
-	 dQ3yzE9pLmqZsP6yvJ01lzI4ye5tVAZHJeE2vxqU=
+	s=default; t=1697898750;
+	bh=JVqwtD96APy09LLksW4TxawD3GByRpXnrDYOI5dmXUM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bVcxMjurN5KmgWrEg1dUWZWgTQQd7nAvQ8oUovy4eqHDbQCQXb1ef4xQIaPXALMgs
+	 b5MIRjYaanbcAmnumgGECAUKzr9QvIeo2wUr/N8/V+LGixDxO+1v8IFWKf7FfQMy0R
+	 nPJvMNuTMa0wTFw39rBXOMfchdwtaT3XG+rKym+4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B59CF8025F; Sat, 21 Oct 2023 09:58:46 +0200 (CEST)
+	id 2F910F8032D; Sat, 21 Oct 2023 16:31:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F403EF8024E;
-	Sat, 21 Oct 2023 09:58:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6BA6F8024E;
+	Sat, 21 Oct 2023 16:31:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7A30F8025F; Sat, 21 Oct 2023 09:56:55 +0200 (CEST)
+	id E2F36F8025F; Sat, 21 Oct 2023 16:31:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5417BF80236
-	for <alsa-devel@alsa-project.org>; Sat, 21 Oct 2023 09:56:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5417BF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id CCB8DF80166
+	for <alsa-devel@alsa-project.org>; Sat, 21 Oct 2023 16:31:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCB8DF80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=gOtgRH0r;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=0a3K30d4
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=R1WjvG/3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1697898682;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=NU7VBh/6Ma/QwKJ7w6i1Rs0u+taH0flV/SFRvioR6mQ=;
+	b=R1WjvG/3YMjzScqQSubvX0HsWHomKFBDLCdklN3oo7xTEgBXq1m+Ouwep54T0wu34o+I9B
+	Glp4iRvObt1pTzPB8yO/eubv/5Hmr7hndb0GL6efYWgFLRydOMEA9kRu0429vTTWQSbqGM
+	ZE10fSceqJdy0zij01DNGMP4H0TxNeg=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-283-SfftkgtJPdqXRQn1JPPCsg-1; Sat, 21 Oct 2023 10:31:18 -0400
+X-MC-Unique: SfftkgtJPdqXRQn1JPPCsg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 134191F6E6;
-	Sat, 21 Oct 2023 07:56:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1697875006;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=loqil4vVJkXdsf1K2sGLuBM3hJxxy8jiM2dwi9PKjpc=;
-	b=gOtgRH0rvf+XQ79V374pRXWaW2ZJlGg97mM9VU2hyMZ0DqhdB2Gb4ms1f/rQPqD7/+FAvN
-	vMEG82FZd2DOMgaJcC1MXfk3kQBIY1foQ8DsDzkVdxPb7HFAvLKoNbnhWFOuKQJs7YxIbt
-	wtPtmO4rYzYvdTfRdhdx+/0yz5hTCSA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1697875006;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=loqil4vVJkXdsf1K2sGLuBM3hJxxy8jiM2dwi9PKjpc=;
-	b=0a3K30d4SzGKE4GSjkb1U0bZFcBQ3JlZ9ANuQm6QYDIvFOe3sgCQNXHrZLPkwzvJAHBbua
-	91oX78rBku/Qe3Aw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E6A8013A2A;
-	Sat, 21 Oct 2023 07:56:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id gPZWNz2EM2XcHQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 21 Oct 2023 07:56:45 +0000
-Date: Sat, 21 Oct 2023 09:56:45 +0200
-Message-ID: <87h6mkif2a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC updates for v6.7
-In-Reply-To: <20231020212909.268F5C433C7@smtp.kernel.org>
-References: <20231020212909.268F5C433C7@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-9.64 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 REPLY(-4.00)[];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-2.54)[97.94%];
-	 FREEMAIL_CC(0.00)[gmail.com,alsa-project.org]
-Message-ID-Hash: XDAXOW5XMRNBAG3YH6XB4TEVEWOBFMHZ
-X-Message-ID-Hash: XDAXOW5XMRNBAG3YH6XB4TEVEWOBFMHZ
-X-MailFrom: tiwai@suse.de
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8089529ABA36;
+	Sat, 21 Oct 2023 14:31:18 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.192.56])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 735F840C6F7B;
+	Sat, 21 Oct 2023 14:31:17 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <bard.liao@intel.com>,
+	alsa-devel@alsa-project.org,
+	Hans de Goede <hdegoede@redhat.com>
+Subject: [PATCH alsa-ucm-conf] chtnau8824: Mono speaker fixes
+Date: Sat, 21 Oct 2023 16:31:09 +0200
+Message-ID: <20231021143109.52210-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+Message-ID-Hash: DN3VHD6TCTHRARI5OUMMIEDNTECN7OL5
+X-Message-ID-Hash: DN3VHD6TCTHRARI5OUMMIEDNTECN7OL5
+X-MailFrom: hdegoede@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -131,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XDAXOW5XMRNBAG3YH6XB4TEVEWOBFMHZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DN3VHD6TCTHRARI5OUMMIEDNTECN7OL5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,40 +105,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 20 Oct 2023 23:28:58 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 99d426c6dd2d6f9734617ec12def856ee35b9218:
-> 
->   ASoC: cs42l43: Update values for bias sense (2023-10-10 12:50:40 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.7
-> 
-> for you to fetch changes up to 45f1b12e0366a750d65e92307685964488a3b6f4:
-> 
->   ASoC: Intel: more machine driver updates for 6.7 (2023-10-19 21:02:18 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Updates for v6.7
-> 
-> This is quite a large set of changes but mostly due to API cleanups and
-> in driver specific ways rather than due to anything subsystem wide.
-> Highlights include:
-> 
->  - Standardisation of API prefixes on snd_soc_, removing asoc_.
->  - GPIO API usage improvements.
->  - Support for HDA patches.
->  - Lots of work on SOF, including crash dump support.
->  - Support for AMD platforms with es83xx, Awinc AT87390, many Intel
->    platforms, many Mediatek platforms, Qualcomm SM6115,  Richtek RTQ9128
->    and Texas Instruments TAS575x.
+2 mono speaker setup fixes:
 
-Thanks, pulled now.
+1. Use the kernel's components string to check for a mono-speaker device
+when the board has a components string.
 
-Now we can apply a cleanup to make the remaining remove_late callback
-void.  I'm going to submit the patch later.
+2. So far known nau8824 boards with a mono speaker where using the right
+speaker channel, which is unusual. Normally mono speaker setups use
+only the left speaker channel. The Cyberbook T116 tablet is a nau8824
+based model, which indeed uses the left speaker channel for its single
+speaker.
 
+Modify ucm2/codecs/nau8824/MonoSpeaker.conf to send a left+right
+channel mix to both speaker channels, so that things will work
+independent of which speaker channel is used for a mono setup.
 
-Takashi
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ ucm2/Intel/chtnau8824/HiFi.conf      | 15 +++++++++++++++
+ ucm2/codecs/nau8824/MonoSpeaker.conf |  7 ++++---
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/ucm2/Intel/chtnau8824/HiFi.conf b/ucm2/Intel/chtnau8824/HiFi.conf
+index c3d830d..1a1faf4 100644
+--- a/ucm2/Intel/chtnau8824/HiFi.conf
++++ b/ucm2/Intel/chtnau8824/HiFi.conf
+@@ -14,6 +14,21 @@ If.Controls {
+ 	}
+ }
+ 
++# Figure out which components are in use on the device, we check both the
++# components string (present on newer kernels) as well as checking for DMI
++# strings for compatibility with older kernels. Note DMI matches for new
++# models should only be added to the kernel, this UCM profile will then
++# automatically pick up the info from the components string.
++
++If.components-mono-spk {
++	Condition {
++		Type String
++		Haystack "${CardComponents}"
++		Needle "cfg-spk:1"
++	}
++	True.Define.Speaker "MonoSpeaker"
++}
++
+ If.cfg-mspk {
+ 	Condition {
+ 		Type RegexMatch
+diff --git a/ucm2/codecs/nau8824/MonoSpeaker.conf b/ucm2/codecs/nau8824/MonoSpeaker.conf
+index 6b4ef8a..5428133 100644
+--- a/ucm2/codecs/nau8824/MonoSpeaker.conf
++++ b/ucm2/codecs/nau8824/MonoSpeaker.conf
+@@ -11,9 +11,10 @@ SectionDevice."Speaker" {
+ 	]
+ 
+ 	EnableSequence [
+-		# nau8824 mono speaker boards have the speaker on the right chan
+-		cset "name='Speaker Left DACL Volume' 0"
+-		cset "name='Speaker Left DACR Volume' 0"
++		# Some nau8824 mono speaker boards have the speaker on the right chan
++		# others on the left, enable output of both channels on both speakers
++		cset "name='Speaker Left DACL Volume' 1"
++		cset "name='Speaker Left DACR Volume' 1"
+ 		cset "name='Speaker Right DACL Volume' 1"
+ 		cset "name='Speaker Right DACR Volume' 1"
+ 		cset "name='Ext Spk Switch' on"
+-- 
+2.41.0
+

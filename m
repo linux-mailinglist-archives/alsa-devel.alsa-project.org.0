@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF8E7D2F56
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 11:59:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3ECA7D2F5B
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 12:00:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8B6AE8F;
-	Mon, 23 Oct 2023 11:59:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8B6AE8F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 412FFE7C;
+	Mon, 23 Oct 2023 11:59:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 412FFE7C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698055199;
-	bh=iXjF3RPCmBoWQ+GKpaYH8Hub2UMRDp2Tg63QY6VTcuI=;
+	s=default; t=1698055219;
+	bh=pykBYUeyGmLpMLya3KYa/eooDqdhJ2+KUocu953QcuY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gUItwWvHTitPTg4mwr2Ip8OTqq5WmnSiUhpXAbfdL1NUXm3EXT3gIkH+8BDMrC9ej
-	 4sfxN/IrF4j6dMPWi/gutxgY6vwOY7nZCq0Uh9TFfStJUh8xmXoCwjwS9whoByUpsq
-	 pWH0XQ1nmeTBIkBr8ihmqG6GZJdVDxvt/9fAL/t8=
+	b=HfFFS6X+6di/Pb4qHvJDHOtqzUIXoYjic7gyXqNZtaIeEk8SussOCtFU7j325I1Fb
+	 Kswvtdaq0etO5Me/xTqCwJw1X2fWO4N+wuPoAka4Y+3fyHaHh+/+cxhthU8683aXgp
+	 6aVJlef5rBul3L/tdmF8YBNGofnaJkLku0PYU0lk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 445DEF80621; Mon, 23 Oct 2023 11:55:31 +0200 (CEST)
+	id 1311CF80616; Mon, 23 Oct 2023 11:55:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBD85F80616;
-	Mon, 23 Oct 2023 11:55:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FD38F80616;
+	Mon, 23 Oct 2023 11:55:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4DADF805E3; Mon, 23 Oct 2023 11:55:11 +0200 (CEST)
+	id 2C010F805E9; Mon, 23 Oct 2023 11:55:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DFECF805E0
-	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 11:55:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DFECF805E0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4474EF805D9
+	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 11:55:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4474EF805D9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=MSjwI1ZC
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4079ed65582so24037335e9.1
+ header.s=google header.b=GWf7H9uf
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-32db188e254so2253435f8f.0
         for <alsa-devel@alsa-project.org>;
- Mon, 23 Oct 2023 02:55:08 -0700 (PDT)
+ Mon, 23 Oct 2023 02:55:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1698054907; x=1698659707;
+        d=linaro.org; s=google; t=1698054909; x=1698659709;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L7AsNVigM8lbJ2TEkTHkh3DJVAWVStJtaNwYVukOeww=;
-        b=MSjwI1ZCARsYBY1ln/pa1SxI9nctI/h6KpzHJf+ZzJGp0pCo/Z+WmpdCabmmI/zVOz
-         +8NzQlpwDxNBagS/J44/sROxQn+omBuuxNBE0QfGk3h5dFWGuzjTXC0rQgnn27wcQO0i
-         abhe9/UG3oSF32W+lIjuzKkwfMFYY8Bff/3VVBH/VHHZbz8dlwSiEKwQ9FrPdH7AgLX+
-         G7r4few8sD0biLK/Nipg3PW8N0YbfLSEG9J6ZFHYU0d4nfEKg0nclFWyNumHXP+W/Mty
-         HmjFnzomkQY2ZodIpWxeOcSbkuJSWfdRPeqzQbsQ1ZYksu2pFGcQjUEiVOhaJRlwbMIS
-         AFdg==
+        bh=ZC07USduWdC7NjdC5xCXcdF31ciW6Iy95zkt28zTytw=;
+        b=GWf7H9ufoDe9b6wFLyDN7FhHhcO6FxQ7QZxhSqSIRR4Vbzv/EK3IummkQ2WcYcAkYA
+         NNZWE7PFsHtlUXGErgDkUpaMdssDvm456N0cd1D6BSTVjVmHuP92ExvqSXCJSKo9jtN5
+         bp8FxTLi2mm6/mq9t1nuWg9Y4+dFeiGQ9n+yR458zG/rgJMdeeAU/mSIkcKmCjdHtiGk
+         sjsDliTyUTRlswkSX28jO3mAAZgYH9d2m5r14dZnjYSNV1HcfgO1DtcI4tOz1+GkZ9VI
+         SxIUxrZf/i5YCfrOQYLy/ehtvL1NImyGEtwwKLjcJKtYTFUjEQ2Zd0e3MVUyhYUS5GM3
+         ZRRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698054907; x=1698659707;
+        d=1e100.net; s=20230601; t=1698054909; x=1698659709;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=L7AsNVigM8lbJ2TEkTHkh3DJVAWVStJtaNwYVukOeww=;
-        b=jluCdLw0JtHc1G9Sf6Vb1FTUZ3GgBvy6DA/1f+MO0S14ZJeTzPZyItfhzfvOW1C9tE
-         /DC9OTXQoVBOVQI55Wv9A0ZYJdjgjuODf3VqpuElBXrN5gZzm5VfY7CDEmq7cdvheUjQ
-         t300BMBRRSWxKSyKQ7luyBJEWLDkkeYUXi4kDOVw0JpHIiKAoQJtaoOldGy3mpxxvrSS
-         DBksrpIuqt+6/n1l7IgI5Ra60pjPaubb9sVk1Zl+sMl1ii7+tLT1NNmQglMhjh/WECNm
-         Q7f3jEl86IW99B5BFNQVYf5zNObCRzYbPTE+LZo9Z1EyaMFgHDg2FOF2ooIG/I3olLwu
-         fNyQ==
-X-Gm-Message-State: AOJu0YxMAcFJgcLQo+XiqSRnjX0vmJ7uajF0Ot7VctyFuwFubh/cV7FW
-	nyTxY4Ww5cVABEtXocKi8bHwqg==
+        bh=ZC07USduWdC7NjdC5xCXcdF31ciW6Iy95zkt28zTytw=;
+        b=qMS+VTzgYyuUxm3fIkiQ8V9FE5fde5rnC/iuA2leUU7RrZ4yud/DkQBAQ4J4REkOm4
+         6CTX4PVkOxDtgWzmmLVeH1WBd8y38nLU8NgNuNC4ykuWEkUn+LdPWFdayTDLLVZRgKcS
+         Nb3ra1HTAuFIGwLnzKGVU3ZPGF7IXIt4QTB5EosUR9QzzxWoZ5qBU86DDN7cMx2WlnBA
+         fWF4q4KZkUD10E6scch95tcdHWFbZvqxPB8cERMvN3oClhzkhsHk4Alnrr19hNBMMxHs
+         IsIZEKiAVR1aUS5GuAg904TYuDv26jgKx/se1kHe17h5/4wYh6aDtsz+835y+IO4p42T
+         UkIg==
+X-Gm-Message-State: AOJu0YzIuLuR9GJRFuF0FJYOHgPn2y8cByD8oVbfijSRL8Rw6PtcO8/E
+	7vwj5hgVZljtCELy2YmSxv4IsQ==
 X-Google-Smtp-Source: 
- AGHT+IG0DaJTatBkYQl759RhB3DEXbNMmxDZLlPU/SGS2hOJRk1TRuMc/RVGopj7Uuqttkf+UNyBLw==
-X-Received: by 2002:adf:cf11:0:b0:32d:967d:1baf with SMTP id
- o17-20020adfcf11000000b0032d967d1bafmr5476727wrj.1.1698054907228;
-        Mon, 23 Oct 2023 02:55:07 -0700 (PDT)
+ AGHT+IEj7uxeA3nMNUo9sdq2wgfqK3o3A7RdYb9gMk09HGqmRvuI7EP8mG67nJpViU+BpTyEwFeWzQ==
+X-Received: by 2002:adf:e80a:0:b0:32d:8c6d:cda4 with SMTP id
+ o10-20020adfe80a000000b0032d8c6dcda4mr6419354wrm.43.1698054909354;
+        Mon, 23 Oct 2023 02:55:09 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.218.126])
         by smtp.gmail.com with ESMTPSA id
- u14-20020a5d468e000000b00323330edbc7sm7428801wrq.20.2023.10.23.02.55.05
+ u14-20020a5d468e000000b00323330edbc7sm7428801wrq.20.2023.10.23.02.55.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Oct 2023 02:55:06 -0700 (PDT)
+        Mon, 23 Oct 2023 02:55:08 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -108,17 +108,17 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-mediatek@lists.infradead.org,
 	linux-tegra@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [RFT PATCH 15/17] ASoC: mediatek: mt8192: Handle component name
+Subject: [RFT PATCH 16/17] ASoC: samsung: speyside: Handle component name
  prefix
-Date: Mon, 23 Oct 2023 11:54:26 +0200
-Message-Id: <20231023095428.166563-16-krzysztof.kozlowski@linaro.org>
+Date: Mon, 23 Oct 2023 11:54:27 +0200
+Message-Id: <20231023095428.166563-17-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231023095428.166563-1-krzysztof.kozlowski@linaro.org>
 References: <20231023095428.166563-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4XYT27FC5UYBMZG6XIXN6K6YMEPRUZPD
-X-Message-ID-Hash: 4XYT27FC5UYBMZG6XIXN6K6YMEPRUZPD
+Message-ID-Hash: JQEBYESTB5KFJ2IBFAMZBVL7CTCAPAX4
+X-Message-ID-Hash: JQEBYESTB5KFJ2IBFAMZBVL7CTCAPAX4
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -131,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4XYT27FC5UYBMZG6XIXN6K6YMEPRUZPD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQEBYESTB5KFJ2IBFAMZBVL7CTCAPAX4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,52 +145,25 @@ to include also the component's name prefix.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/mediatek/mt8192/mt8192-dai-adda.c | 4 ++--
- sound/soc/mediatek/mt8192/mt8192-dai-i2s.c  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/samsung/speyside.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-dai-adda.c b/sound/soc/mediatek/mt8192/mt8192-dai-adda.c
-index 4919535e2759..36d33032a37a 100644
---- a/sound/soc/mediatek/mt8192/mt8192-dai-adda.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-dai-adda.c
-@@ -435,7 +435,7 @@ static int mtk_adda_mtkaif_cfg_event(struct snd_soc_dapm_widget *w,
- 			regmap_write(afe->regmap, AFE_ADDA6_MTKAIF_CFG0,
- 				     0x00010000);
+diff --git a/sound/soc/samsung/speyside.c b/sound/soc/samsung/speyside.c
+index 43519572dc69..79476e8eb680 100644
+--- a/sound/soc/samsung/speyside.c
++++ b/sound/soc/samsung/speyside.c
+@@ -111,9 +111,9 @@ static int speyside_jack_polarity;
+ static int speyside_get_micbias(struct snd_soc_dapm_widget *source,
+ 				struct snd_soc_dapm_widget *sink)
+ {
+-	if (speyside_jack_polarity && (strcmp(source->name, "MICB1") == 0))
++	if (speyside_jack_polarity && (snd_soc_dapm_widget_name_cmp(source, "MICB1") == 0))
+ 		return 1;
+-	if (!speyside_jack_polarity && (strcmp(source->name, "MICB2") == 0))
++	if (!speyside_jack_polarity && (snd_soc_dapm_widget_name_cmp(source, "MICB2") == 0))
+ 		return 1;
  
--			if (strcmp(w->name, "ADDA_MTKAIF_CFG") == 0 &&
-+			if (snd_soc_dapm_widget_name_cmp(w, "ADDA_MTKAIF_CFG") == 0 &&
- 			    (afe_priv->mtkaif_chosen_phase[0] < 0 ||
- 			     afe_priv->mtkaif_chosen_phase[1] < 0)) {
- 				dev_warn(afe->dev,
-@@ -444,7 +444,7 @@ static int mtk_adda_mtkaif_cfg_event(struct snd_soc_dapm_widget *w,
- 					 afe_priv->mtkaif_chosen_phase[0],
- 					 afe_priv->mtkaif_chosen_phase[1]);
- 				break;
--			} else if (strcmp(w->name, "ADDA6_MTKAIF_CFG") == 0 &&
-+			} else if (snd_soc_dapm_widget_name_cmp(w, "ADDA6_MTKAIF_CFG") == 0 &&
- 				   afe_priv->mtkaif_chosen_phase[2] < 0) {
- 				dev_warn(afe->dev,
- 					 "%s(), mtkaif_chosen_phase[2]:%d\n",
-diff --git a/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c b/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
-index ea516d63d94d..47dc7ec4cae7 100644
---- a/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
-@@ -623,13 +623,13 @@ static int mtk_apll_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		if (strcmp(w->name, APLL1_W_NAME) == 0)
-+		if (snd_soc_dapm_widget_name_cmp(w, APLL1_W_NAME) == 0)
- 			mt8192_apll1_enable(afe);
- 		else
- 			mt8192_apll2_enable(afe);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
--		if (strcmp(w->name, APLL1_W_NAME) == 0)
-+		if (snd_soc_dapm_widget_name_cmp(w, APLL1_W_NAME) == 0)
- 			mt8192_apll1_disable(afe);
- 		else
- 			mt8192_apll2_disable(afe);
+ 	return 0;
 -- 
 2.34.1
 

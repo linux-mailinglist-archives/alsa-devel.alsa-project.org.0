@@ -2,92 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10D567D368F
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 14:30:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFFA7D3766
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 15:04:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FA0C84B;
-	Mon, 23 Oct 2023 14:29:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FA0C84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 172E884D;
+	Mon, 23 Oct 2023 15:03:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 172E884D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698064222;
-	bh=9p0AntcfbOKVuz+XGkFoDt43sFlFjI4w0DiNbSxTxHo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1698066248;
+	bh=PQvdAQWdIlAriZMizBkgAgiU3Z/NjBXu+3Xss+bAWig=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Vf8k6+/IDT70DOoETruVuDBkPjIO72TIx0kc0l5Ri33Xwpsy7d2tneLqcG3//5+2p
-	 XmKWojy7eXXFAsX2A2or4ZdNbpNpvMs72vQjQexBl/KS96hYLVjFn40dNj/+StSAmW
-	 Qtz6bTc4nfwah216Hsh5iJR6MrjGNzva01+o4E8Y=
+	b=Uj93Wpk9denxroIgQRqhoSkjsJVY8s9OC/In/EJd49IgDr4J0xu7CqUQSVeLNbPw0
+	 KS8b/1q01lPvkguNX53TG+0twGKdLpuf+MVbzAW44wF8y2Agj342ycG940uVNqJ8VG
+	 pt1t5lqYE9Ik0gwU+89tzMx1Vox4SphWnD//OO+o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05EF9F8024E; Mon, 23 Oct 2023 14:29:31 +0200 (CEST)
+	id 5153AF80134; Mon, 23 Oct 2023 15:03:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 911B7F8032D;
-	Mon, 23 Oct 2023 14:29:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83104F8032D;
+	Mon, 23 Oct 2023 15:03:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDED2F804F3; Mon, 23 Oct 2023 14:29:25 +0200 (CEST)
+	id 862A4F804F3; Mon, 23 Oct 2023 15:03:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 32911F8024E
-	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 14:29:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32911F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74F08F8024E
+	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 15:03:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74F08F8024E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=T95jzUUf
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id F00DCB81200;
-	Mon, 23 Oct 2023 12:29:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B3DC433C7;
-	Mon, 23 Oct 2023 12:29:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698064153;
-	bh=9p0AntcfbOKVuz+XGkFoDt43sFlFjI4w0DiNbSxTxHo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T95jzUUffCVGKFhalCFOb3kmXNlmWGvOqolVd0L+7uAjMX0CXHdAeSg7iPHiQCv6b
-	 XiDAsKRUp1fwZ9uurXiIFh14DPgoM9ht1G5am2BqVeNaki82nLZMdwttRex6D55zHX
-	 1kQxMG7BgXkhZpipvIV8hKqTH/cm7rSPk78XmSFdcN5CRvxGyHwx+5L4a8JpjC/fYg
-	 FCowMNLrp/S3jFHkEYZQwkbGo4WzfjimgX7w0ZLvfzmtgU3KulDSV4DnBdA7P7YSpi
-	 6dF27XjIDcsKFfo/CSe3ubV0DR9UpwQV29kkO2nuw4vqcTr94MTVPP9dDkB1KP4KzT
-	 LLFQ7E5MFjnPA==
-Date: Mon, 23 Oct 2023 13:29:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: wangweidong.a@awinic.com
-Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	perex@perex.cz, tiwai@suse.com, shumingf@realtek.com,
-	rf@opensource.cirrus.com, herve.codina@bootlin.com,
-	ckeepax@opensource.cirrus.com, 13916275206@139.com,
-	ryans.lee@analog.com, linus.walleij@linaro.org,
-	sebastian.reichel@collabora.com,
-	ajye_huang@compal.corp-partner.google.com,
-	harshit.m.mogalapalli@oracle.com, arnd@arndb.de,
-	colin.i.king@gmail.com, dan.carpenter@linaro.org, trix@redhat.com,
-	liweilei@awinic.com, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	yijiangtao@awinic.com
-Subject: Re: [PATCH V2 3/4] ASoC: codecs: Add code for bin parsing compatible
- with aw88399
-Message-ID: <21bfa0bb-d936-402d-9ca9-6bcf181a0f35@sirena.org.uk>
-References: <20231020083426.302925-1-wangweidong.a@awinic.com>
- <20231020083426.302925-4-wangweidong.a@awinic.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="epJqc3ICM0Spx94I"
-Content-Disposition: inline
-In-Reply-To: <20231020083426.302925-4-wangweidong.a@awinic.com>
-X-Cookie: Disc space -- the final frontier!
-Message-ID-Hash: DT33FVOKOU5QHBHAW77YE5GLQURD3FUV
-X-Message-ID-Hash: DT33FVOKOU5QHBHAW77YE5GLQURD3FUV
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=NF+lkv68;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=N/txoNvC
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6114A1FE10;
+	Mon, 23 Oct 2023 13:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1698066182;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1yw8BoQ6trsZPlywIUDNuA5oBRM9Q33rCq1UHuSFl2Q=;
+	b=NF+lkv68NwNJJp3VElDysvvYhoiwKuYltMS3eAh8epsCGyTIRJ1nVRCTpBfO+JSYkpm2hz
+	jqMlZ0Vc6FA+Dxa68eOzl1qnOfljX7r11fr+DFUPKXP6R1aNRT7rUFgnkesoLb7xVgiE5C
+	81D4l/Tnv0Il1L/RZiqlJPaL+xYpOr4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1698066182;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1yw8BoQ6trsZPlywIUDNuA5oBRM9Q33rCq1UHuSFl2Q=;
+	b=N/txoNvCTX6fg5NswfpA1tkz2dg2TAzU1KG6ebI9I2/vy7+cpNV8aXItzniyDxlDnPc1BK
+	sIUiOr6yCMv24wAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1BFC7132FD;
+	Mon, 23 Oct 2023 13:03:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id x0hpBAZvNmX6PwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 23 Oct 2023 13:03:02 +0000
+Date: Mon, 23 Oct 2023 15:03:01 +0200
+Message-ID: <87wmvdwkxm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	Mark Brown <broonie@kernel.org>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] MAINTAINERS: ALSA: change mailing list to linux-sound on
+ vger
+In-Reply-To: <20231020071247.973909-1-perex@perex.cz>
+References: <20231020071247.973909-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [-4.55 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_HAM(-2.95)[99.79%];
+	 FROM_HAS_DN(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-3.00)[-1.000];
+	 RCPT_COUNT_FIVE(0.00)[6];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 TO_DN_ALL(0.00)[];
+	 NEURAL_HAM_SHORT(-1.00)[-1.000];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[];
+	 FREEMAIL_CC(0.00)[alsa-project.org,suse.com,kernel.org,gmail.com,linuxfoundation.org]
+Message-ID-Hash: 576M3W74LZ3GJHUETPT4I2NOKUYWRG3H
+X-Message-ID-Hash: 576M3W74LZ3GJHUETPT4I2NOKUYWRG3H
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DT33FVOKOU5QHBHAW77YE5GLQURD3FUV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/576M3W74LZ3GJHUETPT4I2NOKUYWRG3H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,42 +145,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 20 Oct 2023 09:12:47 +0200,
+Jaroslav Kysela wrote:
+> 
+> As discussed on alsa-devel mailing list [1], it is useful to have an open
+> mailing list to avoid moderation delays for the kernel patch work. Use
+> linux-sound mailing list for kernel driver related threads.
+> 
+> In the first stage, change the list for the ALSA core, ASoC and tests.
+> 
+> [1] https://lore.kernel.org/alsa-devel/20231019-posture-cache-fe060b@meerkat/
+> 
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Ivan Orlov <ivan.orlov0322@gmail.com>
+> Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
---epJqc3ICM0Spx94I
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Oct 20, 2023 at 04:34:25PM +0800, wangweidong.a@awinic.com wrote:
-> From: Weidong Wang <wangweidong.a@awinic.com>
->=20
-> Add aw88399 compatible code to the aw88395_lib.c file
-> so that it can parse aw88399's bin file.
-
-This doesn't apply against current code, please check and resend:
-
-Applying: ASoC: codecs: Add code for bin parsing compatible with aw88399
-Using index info to reconstruct a base tree...
-M	sound/soc/codecs/aw88395/aw88395_lib.c
-M	sound/soc/codecs/aw88395/aw88395_reg.h
-Falling back to patching base and 3-way merge...
-Auto-merging sound/soc/codecs/aw88395/aw88395_reg.h
-Auto-merging sound/soc/codecs/aw88395/aw88395_lib.c
+Applied to for-next branch now.  Thanks.
 
 
---epJqc3ICM0Spx94I
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmU2Zw4ACgkQJNaLcl1U
-h9BRnQf/e8OI4BUyMbll1FxLsSxKd/uMEJW3/Q3iIKUHcY3Co+mV/dNXbJquzZxc
-y5A628DP72PFoSSttDaeD+ryG7L+IVViXyr2qieCq134de1NapdIijs9D3h+hRqm
-aQ1N+FeXiuXSIz6tVfHQz4gO+zSUZtKXJCxpCDMPzpOCVeULps1wtnjNBjiXa+AZ
-OHnjTZxWN9uB4RvF8uQfZetE8IYKzdHnqb4KJqXzBjb6XE6aFBCFuGFuntsJw4bC
-X/mex6L1MZj051V77HufhwgRv9NOZj2jLGdHws9Lj6efK63c1mGsYgXSXVFc+PBu
-tOjCez7YLOQ1TCSgxDDjo+JAYkpbKw==
-=eJ2K
------END PGP SIGNATURE-----
-
---epJqc3ICM0Spx94I--
+Takashi

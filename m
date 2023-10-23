@@ -2,89 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BD0A7D3F80
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 20:48:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE7907D403E
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 21:24:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC69A84A;
-	Mon, 23 Oct 2023 20:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC69A84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A37384B;
+	Mon, 23 Oct 2023 21:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A37384B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698086895;
-	bh=a/Xz0HDBkYNts4VwVAiPTWCIxUNlPTz08F7wjXZ7R6c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1698089071;
+	bh=LSTYuF3NJoqz6yujuaasHtp0Kr+22sI1wrXEUp6G61g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Lo/F517z3JQHMiRyEA/240/mQeLp9Tr8Yc5hSrP/DmaOUrkPz0TnPAGPkiPJJPKOZ
-	 9gLBZAAPDZJKY82tRh/Yexlc/qxvbMfuG1KHKxh4DJU7tgYxwzPKjfP/yk8zNKEIe1
-	 CfeaGca6OZqmr6tDwpLGzx6QOL+yqvQzr5YDCphM=
+	b=QGn814uHtDatxOUAJrYkQUfz32EVrXeBakDJSfAys+2jwz3nAMNMu1HLjPodMypaA
+	 RSOSLwSsJkxBnsYvV6G9twI72IqBh+S+qZPC8gl/J6uNEKaAN6tFjEqMpuveKkO5gF
+	 eMAY1ZhTZKLHMtKq9VnXWoXuzAdSConCVCa6/C08=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 926B8F80553; Mon, 23 Oct 2023 20:47:25 +0200 (CEST)
+	id C9C56F80527; Mon, 23 Oct 2023 21:23:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38286F80027;
-	Mon, 23 Oct 2023 20:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A8E8F8032D;
+	Mon, 23 Oct 2023 21:23:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 504B9F804F3; Mon, 23 Oct 2023 20:47:21 +0200 (CEST)
+	id C5014F804F3; Mon, 23 Oct 2023 21:23:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BF6EDF8024E
-	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 20:47:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF6EDF8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 89479F8024E
+	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 21:23:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89479F8024E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FMaIbhT9
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id EEB4161D0B;
-	Mon, 23 Oct 2023 18:47:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C872AC433C7;
-	Mon, 23 Oct 2023 18:47:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698086835;
-	bh=a/Xz0HDBkYNts4VwVAiPTWCIxUNlPTz08F7wjXZ7R6c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FMaIbhT92gQicOE0RaU+MomlzKqDUDWqJyFyNI6vv2nvgcLxzX4OrBbrblun9bVRt
-	 Qpy9plL6kXIwUNtUVFPXJ0Pi3F7ddmLt6wKNoppso5jCkasrL7fzziczCHLvMcyazu
-	 UtfObdMXYMtacNNXK9f5ZMPBgfTsg1Xa6prt+WA9IxGsagL1q4zotG24ZiUI+Mu/Yt
-	 F77btmTK5cfTGPV/8I1qM2E1OMPAdYPvPdsHcjG+z8knLZFwptcEHgRuAGhShWSEmz
-	 Jiy0Wv2cqtrgd7seYvYwZqKsAhK6gMrZM5FWI5fMQaTI8AqSQ87lXRLvFvKSGjJurU
-	 ixwX2SW2yeUDA==
-Date: Mon, 23 Oct 2023 19:47:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 5/5] dt-bindings: audio-graph-port: add ch-map-idx
- property
-Message-ID: <4565f60c-ee6b-442a-b509-e54e60cf77ae@sirena.org.uk>
-References: <874jihlx44.wl-kuninori.morimoto.gx@renesas.com>
- <87wmvdkiif.wl-kuninori.morimoto.gx@renesas.com>
- <20231023-security-tadpole-8b4fd45a96da@spud>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=c54r4BYv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1698088997;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XHuTTuE/+TRZWcTASJvUu0u9v/tZhQOQ+wZgzwWALPY=;
+	b=c54r4BYvVMhvLiqkKzpibGiEUXzdjHNe8yCCVpWps9ImM0U/z4cThEQc9To7+BAw4ypKha
+	advUvadfsX745FTOAvJIuoL6Q4Wbc55WSpf+7zKJYtz3k3vwBc4iBSghhSSsGVnKNDx68i
+	Nlmb3gykCYHjdmdwjKYVVCPrQyGvw7E=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-255-wqXRgHyEM16GvAklzTq33g-1; Mon, 23 Oct 2023 15:23:16 -0400
+X-MC-Unique: wqXRgHyEM16GvAklzTq33g-1
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-9c749c28651so211622566b.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 23 Oct 2023 12:23:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698088994; x=1698693794;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XHuTTuE/+TRZWcTASJvUu0u9v/tZhQOQ+wZgzwWALPY=;
+        b=t0X6/Yc2vlvMZDb8kALUT88DX0K2uiNTkPtN68qyv6uHWV5WQ1QSQ8424k5PL+J2ib
+         cIJBmHvz1FNaLz0dO16og93VdgNrBcpKHa+Y/Sn/ys1vOJmNAtmDAq6qMRfxcmG315J7
+         kKTDAQJLKos38Sv02jb5rbOcdKO02XPI0OLMZMBKB4tCT8FnxXdqNUAxow23xVX/GcM7
+         zG/vjlune/v/DKQl2AF77zD6PoUqh3hmhVkvF0bpwEmf/ucieTk3nbpJS2reB664att8
+         gztwq25DItdYwb8atrWax8Jd1VtCETKlX3fFV4lAfxM1VxeuMJ1XyY/RnjA77//+XpX3
+         952w==
+X-Gm-Message-State: AOJu0Yxl/emNW06fxQ+nczNLtm+rL2s81W7+e4BMqGEPwZyiu7IoPziP
+	gZ8kufo6pk85A7UT0hAY0hgXn2MvNyhEDbZuA4DWmVMIruWVwoEOLJoUPcdJideADi0ZHuPm5Me
+	vwrBnNtrHt6g+9Q2TunvL4dQ=
+X-Received: by 2002:a17:907:1b1c:b0:9bd:a7a5:3a5a with SMTP id
+ mp28-20020a1709071b1c00b009bda7a53a5amr6942197ejc.36.1698088994273;
+        Mon, 23 Oct 2023 12:23:14 -0700 (PDT)
+X-Google-Smtp-Source: 
+ AGHT+IES+4vjiiYd5o/2k73kRjoq/AwCI4sp3wlPyZnznzY8NWqy0x6yqSvcGI37g2R/fk2yoFEGHA==
+X-Received: by 2002:a17:907:1b1c:b0:9bd:a7a5:3a5a with SMTP id
+ mp28-20020a1709071b1c00b009bda7a53a5amr6942190ejc.36.1698088993971;
+        Mon, 23 Oct 2023 12:23:13 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id
+ xa17-20020a170907b9d100b009b913aa7cdasm7106778ejc.92.2023.10.23.12.23.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Oct 2023 12:23:13 -0700 (PDT)
+Message-ID: <3a8ef188-ac22-44ca-d847-975841f7cd9c@redhat.com>
+Date: Mon, 23 Oct 2023 21:23:12 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XwBwEXjWxYuqPtGK"
-Content-Disposition: inline
-In-Reply-To: <20231023-security-tadpole-8b4fd45a96da@spud>
-X-Cookie: Never reveal your best argument.
-Message-ID-Hash: J2RWALBDWYQDYFYRFGKK7FFXGVNEYHGM
-X-Message-ID-Hash: J2RWALBDWYQDYFYRFGKK7FFXGVNEYHGM
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 1/6] ASoC: Intel: soc-acpi-cht: Add Lenovo Yoga Tab 3 Pro
+ YT3-X90 quirk
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org
+References: <20231021211534.114991-1-hdegoede@redhat.com>
+ <fb56b3fd-769c-4524-acf4-3324424c4b5a@linux.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <fb56b3fd-769c-4524-acf4-3324424c4b5a@linux.intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 4AG4AZBXG5ZT7I2AZRXZAXRWLF3RV6RB
+X-Message-ID-Hash: 4AG4AZBXG5ZT7I2AZRXZAXRWLF3RV6RB
+X-MailFrom: hdegoede@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2RWALBDWYQDYFYRFGKK7FFXGVNEYHGM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4AG4AZBXG5ZT7I2AZRXZAXRWLF3RV6RB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,37 +139,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
---XwBwEXjWxYuqPtGK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 10/23/23 20:45, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 10/21/23 16:15, Hans de Goede wrote:
+>> The Lenovo Yoga Tab 3 Pro YT3-X90 x86 tablet, which ships with Android with
+>> a custom kernel as factory OS, does not list the used WM5102 codec inside
+>> its DSDT.
+>>
+>> Workaround this with a new snd_soc_acpi_intel_baytrail_machines[] entry
+>> which matches on the SST id instead of the codec id like nocodec does,
+>> combined with using a machine_quirk callback which returns NULL on
+>> other machines to skip the new entry on other machines.
+> 
+> The work-around sounds fine, but out of curiosity what causes the codec
+> driver to probe if there's no ACPI HID?
+> 
+> Really wondering how we avoid the -517 error code with the deferred
+> probe never completing because the codec driver never probed and
+> registered the needed components?
 
-On Mon, Oct 23, 2023 at 05:50:42PM +0100, Conor Dooley wrote:
-> On Mon, Oct 23, 2023 at 05:36:09AM +0000, Kuninori Morimoto wrote:
 
-> > +      ch-map-idx:
+These x86 android tablets ship with pretty broken DSDTs with
+A whole bunch of (usually i2c) devices missing like
+e.g. the touchscreen and the accelerometer.
 
-> I would rather this be spelt out as "channel-map-index" - although I
-> don't know if that is the best name for the property, as it seems very
-> tied to a single operating systems variable names.
-> I'll leave it to Mark as to whether there is a less linux implementation
-> coupled name for this property.
+For the factory Android install this is not an issue because
+it uses drivers which instantiate the i2c-clients itself using
+hardcoded i2c-bus, i2c-address and irqs.
 
-It's not particularly Linux coupled, this is a fairly general concept.
+To make this work under Linux I've written a special helper
+"driver" which loads only on these broken DSDT devices
+based on DMI modalias and then identifies the exact
+model (also by DMI) and instantiates the correct devices
+from this "driver" (really more of an old fashioned
+board file). This code also adds all the necessary
+properties, etc. to make standard drivers work, so all
+model specific knowledge missing from the DSDT is encoded
+in this special x86-android-tablets driver.
 
---XwBwEXjWxYuqPtGK
-Content-Type: application/pgp-signature; name="signature.asc"
+I've also submitted a patch for that driver to instantiate
+the codec SPI device using spi_device_id matching instead
+of acpi_device_id matching:
 
------BEGIN PGP SIGNATURE-----
+https://lore.kernel.org/platform-driver-x86/20231014205314.59333-5-hdegoede@redhat.com/
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmU2v60ACgkQJNaLcl1U
-h9BO1Af+Im6NJd2L0W8mO6oRNcZSrhse7QemDP7SfjBM6bFGBKMFD6Tcn0zAjB8c
-2xblx9ExlOtai797tCAKEaApwAscvP1Vl82p2cWCDqqObiXzerpvPFn4rJ9n2JS1
-llSr2FHd+dQ4bnnJgtzBAS9gln2V11MpQYc5ep7Hp3gXAsXabHQutQo8nTjf4nfX
-XCLcQjL2i+FNJc1mMWVgE4mojXZZj8AARUV/eytEvN377GGAcW/lDx4bNXLTot8/
-Ox6vNu8YsAlJQgax+bS/eKdNEqcC8xy2yqsR/JL+aLWKAqy1/0ezYGgPUNZQgXRQ
-FsYbcUMNSRrJlXQQNmvmy/gv8956tQ==
-=msxI
------END PGP SIGNATURE-----
+So this is the other side of the puzzle, I hope this
+helps explain how I actually got this working.
 
---XwBwEXjWxYuqPtGK--
+Regards,
+
+Hans
+
+

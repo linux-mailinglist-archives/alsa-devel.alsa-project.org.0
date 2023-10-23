@@ -2,137 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621367D2C1B
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 10:02:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA18A7D2CDF
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 10:38:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6468E82A;
-	Mon, 23 Oct 2023 10:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6468E82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B6B284D;
+	Mon, 23 Oct 2023 10:37:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B6B284D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698048172;
-	bh=cXcavZLYKA6ePb4bZ3J+rdCpRU4TWpBisbmTrdg3cIQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=aV/iKHE4jw8DNmRN7hT1Uq6YlWrrkdPYGBVD/DDIHkNUbpOm4W2gr5HshXzAL973L
-	 idVCWXHvRJiUxFKiccTu1vbUQIeV6LR/sWdKNSAWH3k7iLxvCk1URACOwfM3N8PzbL
-	 1ffFwwSxf3G0m8lys25WgSY2FgXBVvazcaI7UuJU=
+	s=default; t=1698050297;
+	bh=+1TD6gIKvizzWgduE6srJb75VOzxPoaqmssCxccZD3Y=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=l87fgyiRHfFruA9DWe4kkuFb+hwYgmh97ZhE3pkKt0diUBPfHGORptrJ/OKNxB+d3
+	 gZv3ik8v25VVOXKX90lBaEqbQ39oPvx0TVcXmt2XRSIfN+WVz58s5miw9RfofOSEsh
+	 EPMZM1dJRO6U9q5RSDqdWpGkHW9bichIZJ3mk5gE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE0A1F80536; Mon, 23 Oct 2023 10:02:01 +0200 (CEST)
+	id DC4F0F80552; Mon, 23 Oct 2023 10:37:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 962C6F8032D;
-	Mon, 23 Oct 2023 10:02:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AA97F80027;
+	Mon, 23 Oct 2023 10:37:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA555F804F3; Mon, 23 Oct 2023 10:01:56 +0200 (CEST)
+	id 5EA60F804F3; Mon, 23 Oct 2023 10:37:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C3D09F80134
-	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 10:01:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3D09F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id 213A9F80027
+	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 10:37:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 213A9F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QeRGzrVl
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1D423CE1E60;
-	Mon, 23 Oct 2023 08:01:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47E4C433C9;
-	Mon, 23 Oct 2023 08:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698048107;
-	bh=cXcavZLYKA6ePb4bZ3J+rdCpRU4TWpBisbmTrdg3cIQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QeRGzrVldPnHT7utM4U6q4izZw5sOoyiGly4vdGCu5ImKWBRRQry1kzA4hc0R1fG5
-	 XOge9qGplMOpdSipj08tvfpUZZCo2UTzf0ZiJfI7PcjPeVTnEvzbavZVixcxVLDAvJ
-	 bqK33l+5qaioGFgL1quBxtmofNfVilEcdusjKQLTi5WXkSfwsh4wUXKd7cTBj1g9fY
-	 6q6R1/ivjBMpshsGnXDlabEWJznaQuNc4G7P6kh6oweL3nyQAqzRJ1hcvuh9JJUxyf
-	 PuFoFt+VAxnljkeBqtj5xYUD+sJX4NLhsS/BLMLu9NlbSclSzlawm0pEj0/boTlO+F
-	 lysTaTSwikcKQ==
-Message-ID: <edeebfab-e26c-4c18-8126-190c3e834521@kernel.org>
-Date: Mon, 23 Oct 2023 10:01:35 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=xBXRN7zt
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2b9c907bc68so44599131fa.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 23 Oct 2023 01:37:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1698050235; x=1698655035;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=me2MC4nn/CV3tpkA7KZB34ZTwycbNAKshOBYMr2X+Pk=;
+        b=xBXRN7zt4wWA3fkN0ztvwPTP83MHu/3rDqZASAir5Q4vAFU2M7SGv8fRWaK43F4JuG
+         OaaQwcBVovxfQjJgg09r2EOmsmFIUmluTz28ZkWxEGJn7sFZWTndcvD1cF6pFEqGycjq
+         HEKhJsN+xHcuDrtsl1XejzVX5Oz3UmiI0Kxy6tvMH5dNsLrgCZ1TiVxxJrnyNj0MNM7u
+         jwybQeSn4mojzyqnqFZmwNTCqvzfQsJIkkUHPmch+bfShcb5O+Sc3SsReq0W48qeOgMN
+         /iknBZxXK3N4uTs0Wckf/6lEbQ66H0FhurDWzfDdyRAQFMoVr02/kxZtJN05XlTaMFpy
+         SQoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698050235; x=1698655035;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=me2MC4nn/CV3tpkA7KZB34ZTwycbNAKshOBYMr2X+Pk=;
+        b=XQ+5AJZjIwdp+fdPeHXoQEt0wUx38iY0bq/AgXaQn6632Gs8j6eGlkFgWm5CYW4EWN
+         Bb+0gw/B9zUrvRqn/ISGkN5JFkw1QYRePzuJbLuv0uDfrTqXccT/r0BXr5lQBd6KjzCh
+         n3yzpR76aiUYi1BkwwX8W5ROc0DhXOzE+zC7j/V0dHDKXufCVXvomkddMlq/783gTA86
+         ky9duGfWAxH+0M+2PDDPxQv/wbfBPLiEjzhn4shopVByZ7oLzFioJcqK299UMZqU2OPO
+         0b2XOOoBztoFx9Gh8HTdZMxFPLlqBFnzGlcm2DrJubptjY6QN9d1Tiu81lI+ME5JxixK
+         Yd+A==
+X-Gm-Message-State: AOJu0Yz7PAN3xwVbOxsHdiHP3eLTQw7M4NSU0RzshFkisvPwVXgihYoD
+	XnsvKW0KHNuIaDCjUhZ4qutcPA==
+X-Google-Smtp-Source: 
+ AGHT+IHlKoNRRLj9D+bLl/GMYZXBlYtqehKTnbdPLVHoetbAT9+UytWeVgCL/DfTleBsee6/yAUHYQ==
+X-Received: by 2002:a2e:a589:0:b0:2c5:1a8e:e4c9 with SMTP id
+ m9-20020a2ea589000000b002c51a8ee4c9mr6107923ljp.31.1698050234775;
+        Mon, 23 Oct 2023 01:37:14 -0700 (PDT)
+Received: from [192.168.86.24] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ az20-20020a05600c601400b004054dcbf92asm8758062wmb.20.2023.10.23.01.37.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Oct 2023 01:37:14 -0700 (PDT)
+Message-ID: <06a2c115-278a-47e0-b5ba-74639b6b23aa@linaro.org>
+Date: Mon, 23 Oct 2023 09:37:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/13] ASoC: amd: acp: Add acp6.3 pci legacy driver
- support
-To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com,
- venkataprasad.potturu@amd.com, arungopal.kondaveeti@amd.com,
- mastan.katragadda@amd.com, juan.martinez@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- V Sujith Kumar Reddy <vsujithkumar.reddy@amd.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Yang Li <yang.lee@linux.alibaba.com>,
- Dan Carpenter <dan.carpenter@linaro.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: qcom,q6dsp-lpass-ports: Add WSA2
+ audio ports IDs
 Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
-Content-Type: text/plain; charset=UTF-8
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Banajit Goswami <bgoswami@quicinc.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20231019153541.49753-1-krzysztof.kozlowski@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20231019153541.49753-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ME2B5BIPVDNPRRE4DWDV7CHULSP267MD
-X-Message-ID-Hash: ME2B5BIPVDNPRRE4DWDV7CHULSP267MD
-X-MailFrom: krzk@kernel.org
+Message-ID-Hash: JNHKEL6CNMSHVJOF6OEU5HLQRSCBDPVO
+X-Message-ID-Hash: JNHKEL6CNMSHVJOF6OEU5HLQRSCBDPVO
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -144,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ME2B5BIPVDNPRRE4DWDV7CHULSP267MD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNHKEL6CNMSHVJOF6OEU5HLQRSCBDPVO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,46 +131,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 21/10/2023 16:50, Syed Saba Kareem wrote:
-> Add pci legacy driver support and create platform driver for
-> acp6.3 based platforms.
+Hi Krzysztof,
+
+On 19/10/2023 16:35, Krzysztof Kozlowski wrote:
+> Add defines for audio ports used on Qualcomm WSA2 LPASS (Low Power
+> Audio SubSystem).
 > 
-> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  sound/soc/amd/acp/acp-legacy-common.c |   4 +
->  sound/soc/amd/acp/acp-pci.c           |   4 +
->  sound/soc/amd/acp/acp63.c             | 314 ++++++++++++++++++++++++++
->  sound/soc/amd/acp/amd.h               |   4 +
->  4 files changed, 326 insertions(+)
->  create mode 100644 sound/soc/amd/acp/acp63.c
+>   include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 5 +++++
+>   1 file changed, 5 insertions(+)
 > 
+> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> index 39f203256c4f..c5ea35abf129 100644
+> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> @@ -139,6 +139,11 @@
+>   #define DISPLAY_PORT_RX_5	133
+>   #define DISPLAY_PORT_RX_6	134
+>   #define DISPLAY_PORT_RX_7	135
+> +#define WSA2_CODEC_DMA_RX_0	136
+> +#define WSA2_CODEC_DMA_TX_0	137
+> +#define WSA2_CODEC_DMA_RX_1	138
+> +#define WSA2_CODEC_DMA_TX_1	139
+> +#define WSA2_CODEC_DMA_TX_2	140
+>   
 
+Patches looks fine as it is, but do you realize that this s a dead code 
+w.r.t upstream.
+WSA2 is used only with 4 speaker setup and in such cases we use WSA 
+codec dma to drive 4 channels.
 
-> +
-> +static const struct dev_pm_ops acp63_dma_pm_ops = {
-> +	SET_SYSTEM_SLEEP_PM_OPS(NULL, acp63_pcm_resume)
-> +};
-> +
-> +static struct platform_driver acp63_driver = {
-> +	.probe = acp63_audio_probe,
-> +	.remove_new = acp63_audio_remove,
-> +	.driver = {
-> +		.name = "acp_asoc_acp63",
-> +		.pm = &acp63_dma_pm_ops,
-> +	},
-> +};
-> +
-> +module_platform_driver(acp63_driver);
-> +
-> +MODULE_DESCRIPTION("AMD ACP acp63 Driver");
-> +MODULE_IMPORT_NS(SND_SOC_ACP_COMMON);
-> +MODULE_LICENSE("Dual BSD/GPL");
-> +MODULE_ALIAS("platform:" DRV_NAME);
+So WSA2 will not be used by itself.
+I would prefer support for this to be added when we are really able to 
+test WSA2 by itself.
 
-You should not need MODULE_ALIAS() in normal cases. If you need it,
-usually it means your device ID table is wrong.
+thanks,
+Srini
 
-
-Best regards,
-Krzysztof
-
+>   #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
+>   #define LPASS_CLK_ID_PRI_MI2S_EBIT	2

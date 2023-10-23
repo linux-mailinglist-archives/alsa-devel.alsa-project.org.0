@@ -2,81 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3F2A7D3F57
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 20:35:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1113B7D3F7A
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Oct 2023 20:46:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2F9C846;
-	Mon, 23 Oct 2023 20:35:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2F9C846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D48584B;
+	Mon, 23 Oct 2023 20:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D48584B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698086157;
-	bh=mxVaLf3SUAkIWLdEpZT8qhdQisgiaf1e9hz+ZutW38w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1698086798;
+	bh=jDwciitYmk8u5u8zSmhyK5TzvFy4ruKbgSjxwCQTnn4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nd4GOCQG1O8x68yb+XcoPQAcAuqwHXvkR74taU5J+/uCUbHXTg58KR7EjhrmJ/NAm
-	 E/DzPNLwWZ43ea17wSn7n79EDvaDxzzvVc1kQIWFulnvTyHz0+Rd9J+oJ+vPpTn5gY
-	 x+Ez6ea/54VhNj07JdEDnvj9jp9GLI1HEIvoRTFQ=
+	b=oCy1FeWGbElP8Z2xtqQn4lc4RqU/D6mO9atc6ngUSB6Qoh9k4qokDGdL1hbvBsJaX
+	 Hinao7hXFUe0uKWcxqmeU5JltQ+lOOGqowU9pc+gOO3mUR7J5psQ1taJMXZEulWhGj
+	 Lgwctx8cFS5mp4dCQE5P7gTsu20R1IhQIT6ocQh0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13D5DF80537; Mon, 23 Oct 2023 20:35:07 +0200 (CEST)
+	id 0959AF8032D; Mon, 23 Oct 2023 20:45:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D31A7F8032D;
-	Mon, 23 Oct 2023 20:35:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABAF0F8032D;
+	Mon, 23 Oct 2023 20:45:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F4B3F804F3; Mon, 23 Oct 2023 20:35:02 +0200 (CEST)
+	id CD439F804F3; Mon, 23 Oct 2023 20:45:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 859C6F80027
-	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 20:34:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 859C6F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60768F8024E
+	for <alsa-devel@alsa-project.org>; Mon, 23 Oct 2023 20:45:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60768F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XVsLuEdg
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 33690B82076;
-	Mon, 23 Oct 2023 18:34:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75EDFC433C7;
-	Mon, 23 Oct 2023 18:34:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698086094;
-	bh=mxVaLf3SUAkIWLdEpZT8qhdQisgiaf1e9hz+ZutW38w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XVsLuEdg5TCsQL6y3nSbofgAqsEQdCYFHBVeiYhadeZx/Sta+WbyMNW9pgW+O1ydS
-	 9CdMNxy91JKwuLSVn/6VyBTmepaweHPq+AlD7kO/8Z03bWiebwgXD1vLHL/DiDXrl6
-	 sfQ9CUrry4jIWGcwpWpExo8QYpJVR7PBnZxtOZB/0KziBT+gtIQa4MuOXxRz7pm9hh
-	 AKJKlfCniOyiPpninrwDoZV9pGF6VL+bUJN8WZtpuPIk1F5p2knqv+P9u2FDhxjNRV
-	 eNxqUaGh9faCajcLWnQNtyc44R8rLMOVStDUrTL823g6mWF09QeJ4ybQXFOq6O6V9Z
-	 C2vawlTTx60BQ==
-Date: Mon, 23 Oct 2023 19:34:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH for-next] ASoC: SOF: Make return of remove_late void, too
-Message-ID: <990885fe-4fff-430a-af3f-6136b6c4a9c9@sirena.org.uk>
-References: <20231023153605.863-1-tiwai@suse.de>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=HbsFlgC4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1698086713; x=1729622713;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=jDwciitYmk8u5u8zSmhyK5TzvFy4ruKbgSjxwCQTnn4=;
+  b=HbsFlgC434nJ2kuYpQaKYnyDKhZBzxLnFHKByoyD1cuTszmO3RyXKgBl
+   lK05Gb7bbAJv3G6cwZY/St57lw0hv3c5Sn/TUUpRzPGWWfz5ooKqw5VY+
+   OSmWs634F1qvWGpfy8e6L9ixpEoFdnvMFaVR3nfEVVB4uX6HvkEMfptqL
+   AexmpBOlvkOfKCy2o4i8rHrq/TcKKciisRb4IomhhVC5bTW1jBQuN5cvl
+   2YDSmm2SCYjloL424djWhHUXaOvXjaQNxHkY9NKbBHxFVCQoXB5ioc9mp
+   jKyP25MUtPfdQia57crP8Rmq04qnUVYKma00IU8nc3brBUnQRHTYIARRQ
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="390789272"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200";
+   d="scan'208";a="390789272"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2023 11:45:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="848857211"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200";
+   d="scan'208";a="848857211"
+Received: from weiyiwil-mobl.amr.corp.intel.com (HELO [10.212.122.211])
+ ([10.212.122.211])
+  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2023 11:45:09 -0700
+Message-ID: <fb56b3fd-769c-4524-acf4-3324424c4b5a@linux.intel.com>
+Date: Mon, 23 Oct 2023 13:45:08 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SRzaipjvYrsLhIOp"
-Content-Disposition: inline
-In-Reply-To: <20231023153605.863-1-tiwai@suse.de>
-X-Cookie: Never reveal your best argument.
-Message-ID-Hash: F7Z4NWTDZCYRHACD2NH7IBVMSYFVE5GV
-X-Message-ID-Hash: F7Z4NWTDZCYRHACD2NH7IBVMSYFVE5GV
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] ASoC: Intel: soc-acpi-cht: Add Lenovo Yoga Tab 3 Pro
+ YT3-X90 quirk
+Content-Language: en-US
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org
+References: <20231021211534.114991-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20231021211534.114991-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PD5EE54LPH2MEUG3G3BLZETBT7KS3HM7
+X-Message-ID-Hash: PD5EE54LPH2MEUG3G3BLZETBT7KS3HM7
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F7Z4NWTDZCYRHACD2NH7IBVMSYFVE5GV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PD5EE54LPH2MEUG3G3BLZETBT7KS3HM7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,34 +111,21 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---SRzaipjvYrsLhIOp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 23, 2023 at 05:36:05PM +0200, Takashi Iwai wrote:
-> Like the change we've done for remove callback, the newly introduced
-> remove_late callback should be changed to void return, too.
->=20
-> Fixes: 17baaa1f950b ("ASoC: SOF: core: Add probe_early and remove_late ca=
-llbacks")
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+On 10/21/23 16:15, Hans de Goede wrote:
+> The Lenovo Yoga Tab 3 Pro YT3-X90 x86 tablet, which ships with Android with
+> a custom kernel as factory OS, does not list the used WM5102 codec inside
+> its DSDT.
+> 
+> Workaround this with a new snd_soc_acpi_intel_baytrail_machines[] entry
+> which matches on the SST id instead of the codec id like nocodec does,
+> combined with using a machine_quirk callback which returns NULL on
+> other machines to skip the new entry on other machines.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+The work-around sounds fine, but out of curiosity what causes the codec
+driver to probe if there's no ACPI HID?
 
---SRzaipjvYrsLhIOp
-Content-Type: application/pgp-signature; name="signature.asc"
+Really wondering how we avoid the -517 error code with the deferred
+probe never completing because the codec driver never probed and
+registered the needed components?
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmU2vMkACgkQJNaLcl1U
-h9Bibgf/ccVE7pnkfCj7jX5zedFtfnVNNcGk6gjSYqQ6I2+S7nsFQIZBRcV+rkNw
-QBD/0ljxtSNqcJ7TF1cW94hckrF9uvllIm2J2Yim1/VIWYlmiInebyqcNTU/N+tx
-2zmHpDtF53zsdUR8Wzl5WSR5ea4Zz5klpsIn6zOlpGC2ZKfgXhqsAk8DL/SiEmX7
-KokRSsf6lUgu5qsey3uPD1FkQoWD0MaxsuECXoHVUI2N4DG1RfuyAdBouNES350m
-TBbY29DulbACaFGtnVCVqMqyYW6dllTSJytbvgeHo0qufNuXHy51x/D43kt0ERCj
-gYWlIEORW+mNMGV8iY2H799HeQ77Fw==
-=TjlJ
------END PGP SIGNATURE-----
-
---SRzaipjvYrsLhIOp--

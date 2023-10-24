@@ -2,90 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC827D5366
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 15:57:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46FFB7D5369
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 15:58:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1AEEDED;
-	Tue, 24 Oct 2023 15:56:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1AEEDED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E19793A;
+	Tue, 24 Oct 2023 15:57:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E19793A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698155848;
-	bh=0930Zc5PLhlW9IrMow+5YSnJulYTnXkVZpf2XT9rHOM=;
+	s=default; t=1698155879;
+	bh=8jvIMLGisAcUgtRBNwIN/hemzPipfyGWCOmlGRRca60=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WX8q852cZgTKafer0yM+bG2/qk37u93nP+0A/FOUSwe1OL1Q8J6wIWQG8dS9y/pE7
-	 OR8eD9A/oRRa/y8f+uwOvUmpR7Btpm3//Wckx15qVkXIwmNLlDWDfmeMct3XJ7vwC9
-	 TsYZiB0Z4sN+6xc22BGSEVy2JvPWvUafpBz1qtbo=
+	b=fdpYPbqsjm/KyJfp6nYiLZ3/OSVQgXSVdXIe9XgiF9twcg0ZmU/qaX8C8XQBdcejt
+	 0aWmsyfrE8Ma3846lTWOE5ioAYLMdTeNiSG1kSyaA6XFGy4+VkbE/duYIwd0bE3AM8
+	 lrwLupJCOwOmI+4PRTVYqXN56dPaGzoSZS1SCxlc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B77F8F8058C; Tue, 24 Oct 2023 15:55:35 +0200 (CEST)
+	id 546FBF805AE; Tue, 24 Oct 2023 15:55:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F300F80580;
-	Tue, 24 Oct 2023 15:55:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 429A0F805AB;
+	Tue, 24 Oct 2023 15:55:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29DEAF80157; Tue, 24 Oct 2023 15:55:30 +0200 (CEST)
+	id D0CB5F80578; Tue, 24 Oct 2023 15:55:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F215AF80157;
-	Tue, 24 Oct 2023 15:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F215AF80157
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC8B1F80224
+	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 15:55:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC8B1F80224
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aITkYplf
+ header.s=k20201202 header.b=XbFIkH1M
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id E58FFB816CA;
-	Tue, 24 Oct 2023 13:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7372C433CA;
-	Tue, 24 Oct 2023 13:55:15 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 8954CB82487;
+	Tue, 24 Oct 2023 13:55:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29C9C433C7;
+	Tue, 24 Oct 2023 13:55:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698155720;
-	bh=0930Zc5PLhlW9IrMow+5YSnJulYTnXkVZpf2XT9rHOM=;
+	s=k20201202; t=1698155723;
+	bh=8jvIMLGisAcUgtRBNwIN/hemzPipfyGWCOmlGRRca60=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=aITkYplfcCnRGR/37STiRK0dmzVAM1C8P/IWpqqiCKonXeRQetrProLGxHxpt2ZXV
-	 Ixk4p1ujlVbHhe9oMyd/SReKDd7Zt+P916hOFIQl+gbQquM4PXd43p4xisiKRdzTiy
-	 5WzCVcG9Kt+HOPS6W0iCHTQnQyVrlmAhvGn/mUfA51Z4fYQx6dt9V33z1Hq3RmL0vd
-	 Br6LnVqOad3LV0JD60eL5VeULq9+cHF6yl/WTaH2Way6PDqczuS1t57nkytMT4vD9f
-	 HQv80iqs2nDvzhh25kPTVm6xaxktlqxTIatflBcvzDd5eg1t5r+k5QQjAqWC3wwN8p
-	 JDxE4tcwV24oA==
+	b=XbFIkH1MxZ31QF+UmkqPQgoR+l+Jr5YkvCH9oicW3/7GU/wIzoW0Khxi7Iz6H7SAk
+	 q6cdH2boSDYKN8Sjj4xhwuiC34jQSi7DcoT4Xh7XDjNLZuXVlVtQjeAvf8ToiLd5T5
+	 Sn0N5sZNJl++46kVuPmjo3WM/2Yx+5ZAusCkuMw8anZiBAVMc7+dpwxtPN5YXO2S0X
+	 5hH8QN2X0b+ekvP6AiaYZsjmqjTjljZw4hRMC0x55jCEqzl7b63kSljt8jlHv08Ff/
+	 h5lCWsafPdfF0s0NR+PKiYNvAIRvce88+nhrOouowBqORxx+/m7KqszvDuXmUF27OK
+	 qzzAJukUyBuJw==
 From: Mark Brown <broonie@kernel.org>
-To: LKML <linux-kernel@vger.kernel.org>,
- Mark Hasemeyer <markhas@chromium.org>
-Cc: Curtis Malainey <cujomalainey@chromium.org>, stable@vger.kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- sound-open-firmware@alsa-project.org
-In-Reply-To: 
- <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
-References: 
- <20231020145953.v1.1.Iaf5702dc3f8af0fd2f81a22ba2da1a5e15b3604c@changeid>
-Subject: Re: [PATCH v1] ALSA: SOF: sof-pci-dev: Fix community key quirk
- detection
-Message-Id: <169815571552.69390.1942183928809208155.b4-ty@kernel.org>
-Date: Tue, 24 Oct 2023 14:55:15 +0100
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Marian Postevca <posteuca@mutex.one>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20231020062822.3913760-1-Vijendar.Mukunda@amd.com>
+References: <20231020062822.3913760-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 1/5] ASoC: amd: Add acpi machine id for acp6.3 version
+ based platform
+Message-Id: <169815572028.69390.10419908653780701208.b4-ty@kernel.org>
+Date: Tue, 24 Oct 2023 14:55:20 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: AZ5V43XQJKSZUASLJFLTYY5LWK3MWRMO
-X-Message-ID-Hash: AZ5V43XQJKSZUASLJFLTYY5LWK3MWRMO
+Message-ID-Hash: OBJHYIQEDKIJDKQJWSYZNV2ZHA757WQX
+X-Message-ID-Hash: OBJHYIQEDKIJDKQJWSYZNV2ZHA757WQX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AZ5V43XQJKSZUASLJFLTYY5LWK3MWRMO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBJHYIQEDKIJDKQJWSYZNV2ZHA757WQX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,15 +99,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 20 Oct 2023 14:59:53 -0600, Mark Hasemeyer wrote:
-> Some Chromebooks do not populate the product family DMI value resulting
-> in firmware load failures.
+On Fri, 20 Oct 2023 11:58:11 +0530, Vijendar Mukunda wrote:
+> Add acpi machine id for ACP6.3 version based platform and configure
+> driver data to enable SOF sound card support on newer boards.
 > 
-> Add another quirk detection entry that looks for "Google" in the BIOS
-> version. Theoretically, PRODUCT_FAMILY could be replaced with
-> BIOS_VERSION, but it is left as a quirk to be conservative.
 > 
-> [...]
 
 Applied to
 
@@ -123,8 +111,16 @@ Applied to
 
 Thanks!
 
-[1/1] ALSA: SOF: sof-pci-dev: Fix community key quirk detection
-      commit: 7dd692217b861a8292ff8ac2c9d4458538fd6b96
+[1/5] ASoC: amd: Add acpi machine id for acp6.3 version based platform
+      commit: bb98b592cfd387eccc9430d4cd5ebc1678775a88
+[2/5] ASoC: SOF: amd: add support for acp6.3 based platform
+      commit: 848c0d34f70c4c9f6f166ec891d309936a26aa14
+[3/5] ASoC: SOF: amd: increase DSP cache window range
+      commit: 4dbee5104b7858e39d94b2512ab99b82b8feb894
+[4/5] ASoC: SOF: amd: refactor acp dram usage for data bin loading
+      commit: 135e0d49cde383395afcaf285d6304be9230a06f
+[5/5] ASoC: SOF: amd: add option to use sram for data bin loading
+      commit: 145d7e5ae8f4e553478232fe3095379b60fa5496
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

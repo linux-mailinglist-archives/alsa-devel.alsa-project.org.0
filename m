@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 254F67D4B47
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 10:56:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C122C7D4B4A
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 10:56:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7E65AE8;
-	Tue, 24 Oct 2023 10:55:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7E65AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28264E0E;
+	Tue, 24 Oct 2023 10:55:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28264E0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698137791;
-	bh=dr+lBL0FhFKWb9fkKS+Z6wsuWwCRxXkpjetaSpWWU+U=;
+	s=default; t=1698137802;
+	bh=VI/Y25XEqSA3SbhcywY0RAYmG7kmKXN4kUFw9lzcX+k=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=QLKoK8c8p/OClNCkMGjB5rKys7xcTMrG28Tk9gAgkuR3hP4aNewD5p0g5Zr+Pw4Cv
-	 iYNXYp2FR5mLCoP6Beowkzj5KaQ2vmw/DhwhkSAJ3UmMl29DZoxOAZDZ356EGNAwhJ
-	 ZKfEuXzXTdANHxWiWr1S9mqTbe9n5LFVQ07uSNTU=
+	b=RwJumMNJqgx7VcRuFgI5ce9VmhpDF8gKmIPLjdUG/ZkENmLnBSZWBjr3Au8cvSiux
+	 GKjZ5tlXPgo+7Y0VsK46W/gs0dUadzSvuBg4KMb06YZfQ2oomKz7LxZW6OyAqOJn5k
+	 S4NMXddh/ZlCKX2oFLmkjNdzcFJ21ilhVW9AqRR8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 987F7F80563; Tue, 24 Oct 2023 10:54:52 +0200 (CEST)
+	id 24265F8059F; Tue, 24 Oct 2023 10:54:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCE11F80157;
-	Tue, 24 Oct 2023 10:54:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6776F8057F;
+	Tue, 24 Oct 2023 10:54:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 400F2F80224; Tue, 24 Oct 2023 10:54:47 +0200 (CEST)
+	id 9B41FF80157; Tue, 24 Oct 2023 10:54:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 14472F80165
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D2CAF8019B
 	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 10:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14472F80165
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D2CAF8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=bPW+1Zcd
+ header.a=rsa-sha256 header.s=mail header.b=j90A8ETr
 Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
  [2.237.20.237])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
@@ -51,23 +51,23 @@ Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id BCA126607333;
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 5BEDE6607331;
 	Tue, 24 Oct 2023 09:54:41 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1698137682;
-	bh=dr+lBL0FhFKWb9fkKS+Z6wsuWwCRxXkpjetaSpWWU+U=;
+	bh=VI/Y25XEqSA3SbhcywY0RAYmG7kmKXN4kUFw9lzcX+k=;
 	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=bPW+1ZcdTwOj8FBFdw4I1Syr+MSKAzRplZWmKVS/Oha2M90esVoa40WRkeVK6YskO
-	 ApEVEqmiNecwv6GeZZUYLGaKA0ENmqYZzd0uEJ5nOZ1F3VjggVuL112IH1bSN4PwUz
-	 BPX8ehk3k/QfbNBxFzEqij0ZP4ScW2EEFBCR5+SPeXtujlLhGddPioGPNYDMDtNhIa
-	 AcreHulGkzPzw4tHY89U7nnqI2HmQXEVf1M1uJONmTdnSb368Q4KXe6Bny81oRs8AX
-	 3/hrOPRv48li6rfPnCgbVH2CKyw4txDkHZL7wyUcxmN1P9N+P7yq2jCGJLhq6mZOn9
-	 yw4/8S1kzLmGw==
-Message-ID: <faee7aea-bf08-4a5b-be88-e04656039844@collabora.com>
-Date: Tue, 24 Oct 2023 10:54:39 +0200
+	b=j90A8ETr4geEi4CEGY63sExDY6LWoWzC9w34VLmFbz0Ax27274b3bX6FLA5Yla7Ye
+	 NrvHZFwdSWyZFEV1FV2AkxkUpE/uT/dcNVpASPz2NOgr+WmX53SHpee81XPUdzxx2T
+	 VQrE89O2dlVmhg74VaAI77C0/JKZytqyKv4VQx6T2O7VnWSvnBxTvNhJa1E9dwWeTq
+	 dwgAX6K71QVhXaU102he57qygE3ubL4CBtJIrP9dUER7mAYpixoOZotRZltP4yRR8X
+	 qzAC91kVbLPsz9qwuKOIR60Tec2gtPiWVDY8EgQtgbpDBHbWPazJHQ7YNTsAUiuzFq
+	 u+TOsYfNg1szA==
+Message-ID: <72e5b30e-d65b-4530-ba6e-31082a059cb1@collabora.com>
+Date: Tue, 24 Oct 2023 10:54:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFT PATCH 13/17] ASoC: mediatek: mt8186: Handle component name
+Subject: Re: [RFT PATCH 12/17] ASoC: mediatek: mt8183: Handle component name
  prefix
 Content-Language: en-US
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
@@ -84,13 +84,13 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-tegra@vger.kernel.org
 References: <20231023095428.166563-1-krzysztof.kozlowski@linaro.org>
- <20231023095428.166563-14-krzysztof.kozlowski@linaro.org>
+ <20231023095428.166563-13-krzysztof.kozlowski@linaro.org>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20231023095428.166563-14-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20231023095428.166563-13-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: Y7KVDMDM3WHQMY5YXKHHE5UOF2OKKT6G
-X-Message-ID-Hash: Y7KVDMDM3WHQMY5YXKHHE5UOF2OKKT6G
+Message-ID-Hash: AETUJQTWYUXCRVUOO3CCAURAHX2PQCMR
+X-Message-ID-Hash: AETUJQTWYUXCRVUOO3CCAURAHX2PQCMR
 X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y7KVDMDM3WHQMY5YXKHHE5UOF2OKKT6G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AETUJQTWYUXCRVUOO3CCAURAHX2PQCMR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,5 +119,5 @@ Il 23/10/23 11:54, Krzysztof Kozlowski ha scritto:
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
 

@@ -2,112 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5819C7D56B8
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 17:42:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9486F7D56B9
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 17:43:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E2D41ED;
-	Tue, 24 Oct 2023 17:41:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E2D41ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3351E84A;
+	Tue, 24 Oct 2023 17:42:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3351E84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698162133;
-	bh=8xJTtk5SnUoXb46WK5pUEnLM/6wK8QowSM65zes46xM=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=WwdagWWd5UGUAdZn7uJ+298iRWHVNGp72d9VSYooeVZosS4XLKJiwjtYPSADASqfz
-	 CPEeVSUKcwwQhDMqyECQ1vWmgUf/mky5TDB2ndLhUkl4sQ7OsjWq4dTW3MiJk9L9rJ
-	 IEwrd2e+878tr6JWgpIv4Q0X46kkR3rDWLkHSwig=
+	s=default; t=1698162182;
+	bh=5CT+jCDMXiSQesCCMen8he00pW6Kvj+KOWSnVS42Z6o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=uekUG97toME+zdBBm/y104KS6dlQle2wiw94EB4D5/ah/Tac4acMjnjYGQcHTUxN0
+	 wURQ91jDbz3pd+sf9RB1sQatpxykPCtfUUVM12/B8evG6QBBjlQa8sHpscBUzXXQjy
+	 JEefOeyRYRiJbbwkZcKEkk/dnfvFBAi3raDeqEG4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09C95F80165; Tue, 24 Oct 2023 17:41:20 +0200 (CEST)
+	id 7C4AAF8056F; Tue, 24 Oct 2023 17:41:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35568F8014B;
-	Tue, 24 Oct 2023 17:41:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 732FBF8055A;
+	Tue, 24 Oct 2023 17:41:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8C84F80165; Tue, 24 Oct 2023 11:50:45 +0200 (CEST)
+	id 8F64BF80165; Tue, 24 Oct 2023 13:12:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16D68F8012B
-	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 11:50:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16D68F8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76440F8014B
+	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 13:12:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76440F8014B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=IB5Lq4wN
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2c50cd16f3bso61130251fa.2
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=S3VeLki8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1698145961;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C2lXPU4q4S6eFWPmbdstO3s/7qoi/uNTcNbWNU4XbWU=;
+	b=S3VeLki8ODV3x9/0RxnRX7oJjqnr1BygcEiV+zDzTczACXc1nSCV2o9u6wW48wuZYvx9bL
+	lkubtP3CNRf7iILE9MC6csOhDUQVqmgOqEXWsO7t4JZUVo2msGcCEMkC0QqhUi3XWsK4Zb
+	OfjsjkILAUJBXvNo6XWHKjzh+32lnck=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-623-c2FAWCnROaeikjgAVGNaRQ-1; Tue, 24 Oct 2023 07:12:40 -0400
+X-MC-Unique: c2FAWCnROaeikjgAVGNaRQ-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-41e1d05a5d7so20564111cf.2
         for <alsa-devel@alsa-project.org>;
- Tue, 24 Oct 2023 02:50:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1698141038; x=1698745838;
- darn=alsa-project.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vRcJgtOXzZCq78BJkOWm+e6iKA7h9pUUytY6k6Mj9iQ=;
-        b=IB5Lq4wNOpAFLrWQhE/gJg37n+3bV6a4ogvdZ/M6Lk1V8FnXpX7tEwydSF1LjKMslt
-         YlB/HLeRnmMl2MMEdEOPm/tEWAc56C1/QqPoI6eKPoA+oKffMQ9ZQC0lAwUbeossKlth
-         4xNH+7wutr+yyT1+kIVOCTcACwNSNkObxW+73mHlCBhUY/8lWp4kBAoO9QjddrsrMrOW
-         4DdwG9SPh6MEJK/HWkN33g2MzbDA3SlmCcS9HVKNmgQTszlsffORUTUk6+txUe9rWq65
-         WmM4KpxFawxRj8uVc6kSW9bls+xIoBBSZAmc4+FKCaf9cVkhkLlJc2GqWH89eG5LMCjI
-         Q0aw==
+ Tue, 24 Oct 2023 04:12:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698141038; x=1698745838;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vRcJgtOXzZCq78BJkOWm+e6iKA7h9pUUytY6k6Mj9iQ=;
-        b=IY7BW99/SbTtybvzvxz+eaTUNwI9/FzE5w/TfbLe7t3ORoqZ86ZuBuJ/pRCx6i9NdG
-         ieytR3yLoWqxgl7YcSeZlvzKAxwL6eiXHFMAE8H5WUKAfKxCqIj6D2zP0LMgZYnhNcLl
-         Xgw4+qohF+vMoARVkZjhihD2a2ovVppLxG/BJWva+waqmm8r50K0wwba0V/bQ0zs3JUm
-         0MgsSi2sZhU2wtPSvJ0diDyOXri0Bso19WEIDLb+uae28lf9UgYLK2DDep82S8Hod/Cq
-         2xbZzTI9cZzzMswBv5XsrH2K41tfxiHjdyeN4VjQVMme+7gitvnuo9dqEcE80prm8iSY
-         ShCA==
-X-Gm-Message-State: AOJu0Yxj/aveN3hkUsSahinqYEgW6i3/DVWgjHeUizxdhPElIwlOAaWU
-	Hq0bz4scM8aUT8r/Oaxaf7+lbg==
+        d=1e100.net; s=20230601; t=1698145960; x=1698750760;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C2lXPU4q4S6eFWPmbdstO3s/7qoi/uNTcNbWNU4XbWU=;
+        b=HCtLfWtXl7OXOxk3e47+hZ7lqMtys/28NsmZyqutO6tSm+zxYWvmRB4KXPIXKHUZjN
+         RXahw2n1GyEyL8OWx72MtVn/zFcoblKkET8JhM0aVXEklsuqWbvfe/O+mBZ6k1YgwXa2
+         4oFgZIl3DvmvFvkie2gX1Tt3Kl7FCRO4AYCGtafFskBY4lkFNGVdGytegte4yUd//QL2
+         CJfVaw+wF52Ztux8S2dLaNWcfjhGwjhtZrKFGBl2klXWL6RJX5DEGEBqFk6x65Pp+3pU
+         7FnmIrmU08RuQMGyn86M5thgbOWkp/k09qhxf4QIbvUhrewoFjkEqLYDGnqfSO7k6XOP
+         mEJg==
+X-Gm-Message-State: AOJu0Yx5QTQUVKk0YTEiuQ2g/wxsR+yN5UF666a7b6KdPve4vQciiT65
+	cth4qdiwcOD5EuEFOb0iw2bLDVbfTnFt2liOhOowTei2GdA4t40+7u0Saat4c1Nw6VcIuF5qQcD
+	VbPgbaj/XVKvvko2REIh3zIs=
+X-Received: by 2002:a05:622a:348:b0:41e:1d17:4ca1 with SMTP id
+ r8-20020a05622a034800b0041e1d174ca1mr5741165qtw.67.1698145960013;
+        Tue, 24 Oct 2023 04:12:40 -0700 (PDT)
 X-Google-Smtp-Source: 
- AGHT+IFiX19lnhtqPimlOxmYAB2b36pROe6pniV6FuuyFcIL6OHyN+w+nvbKah8C8imGEyU7/00BlQ==
-X-Received: by 2002:a2e:3c0f:0:b0:2c0:a99:68e7 with SMTP id
- j15-20020a2e3c0f000000b002c00a9968e7mr7945677lja.19.1698141038514;
-        Tue, 24 Oct 2023 02:50:38 -0700 (PDT)
-Received: from localhost ([102.36.222.112])
+ AGHT+IGgH9JWinTw/3VyBxR3NnKUHUrfU7r6j4m3KUt/L2niRCaXzILlLO+k91SaFhh6Nmg6pOHNdg==
+X-Received: by 2002:a05:622a:348:b0:41e:1d17:4ca1 with SMTP id
+ r8-20020a05622a034800b0041e1d174ca1mr5741142qtw.67.1698145959653;
+        Tue, 24 Oct 2023 04:12:39 -0700 (PDT)
+Received: from fedora ([2a01:e0a:257:8c60:80f1:cdf8:48d0:b0a1])
         by smtp.gmail.com with ESMTPSA id
- x17-20020a5d60d1000000b0032d8f075810sm9609616wrt.10.2023.10.24.02.50.37
+ z5-20020ac87ca5000000b00410ac0068d0sm3380879qtv.91.2023.10.24.04.12.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Oct 2023 02:50:38 -0700 (PDT)
-Date: Tue, 24 Oct 2023 12:50:33 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: xiazhengqiao@huaqin.corp-partner.google.com
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org
-Subject: [bug report] ASoC: mediatek: mt8186_mt6366_rt1019_rt5682s: add
- rt5650 support
-Message-ID: <de95f385-3eb0-44c0-bb71-c9bc993b55be@moroto.mountain>
+        Tue, 24 Oct 2023 04:12:39 -0700 (PDT)
+Date: Tue, 24 Oct 2023 13:12:35 +0200
+From: Matias Ezequiel Vara Larsen <mvaralar@redhat.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: anton.yakovlev@opensynergy.com, mst@redhat.com, perex@perex.cz,
+	tiwai@suse.com, virtualization@lists.linux-foundation.org,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	pbonzini@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+	manos.pitsidianakis@linaro.org, mripard@redhat.com
+Subject: Re: [PATCH v3] ALSA: virtio: use ack callback
+Message-ID: <ZTemo0P/kEcceK/O@fedora>
+References: <ZTaMEUZUTrRRUD6y@fedora>
+ <87edhlwd7b.wl-tiwai@suse.de>
 MIME-Version: 1.0
+In-Reply-To: <87edhlwd7b.wl-tiwai@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-MailFrom: dan.carpenter@linaro.org
+X-MailFrom: mvaralar@redhat.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: O3WLPLY4GRBFLCTSTSWNYM4GCCM5BRRZ
-X-Message-ID-Hash: O3WLPLY4GRBFLCTSTSWNYM4GCCM5BRRZ
-X-Mailman-Approved-At: Tue, 24 Oct 2023 15:41:15 +0000
+Message-ID-Hash: LKZESUSVLCMX4BOBKMNCWVSJCTOLV4L7
+X-Message-ID-Hash: LKZESUSVLCMX4BOBKMNCWVSJCTOLV4L7
+X-Mailman-Approved-At: Tue, 24 Oct 2023 15:41:16 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O3WLPLY4GRBFLCTSTSWNYM4GCCM5BRRZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LKZESUSVLCMX4BOBKMNCWVSJCTOLV4L7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,72 +132,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello xiazhengqiao,
+On Mon, Oct 23, 2023 at 05:50:00PM +0200, Takashi Iwai wrote:
+> On Mon, 23 Oct 2023 17:06:57 +0200,
+> Matias Ezequiel Vara Larsen wrote:
+> > 
+> > +static int virtsnd_pcm_ack(struct snd_pcm_substream *substream)
+> > +{
+> > +	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+> > +	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+> > +	unsigned long flags;
+> > +	struct snd_pcm_runtime *runtime = vss->substream->runtime;
+> > +	ssize_t appl_pos = frames_to_bytes(runtime, runtime->control->appl_ptr);
+> > +	ssize_t buf_size = frames_to_bytes(runtime, runtime->buffer_size);
+> > +	int rc;
+> > +
+> > +	spin_lock_irqsave(&queue->lock, flags);
+> > +	spin_lock(&vss->lock);
+> > +
+> > +	ssize_t bytes = (appl_pos - vss->appl_ptr) % buf_size;
+> 
+> The variable declaration should be moved to the beginning of the
+> function.
+> 
+> Also, there can be a overlap beyond runtime->boundary (which easily
+> happens for 32bit apps), so the calculation can be a bit more complex
+> with conditional.
+> 
 
-The patch d88c43383101: "ASoC: mediatek:
-mt8186_mt6366_rt1019_rt5682s: add rt5650 support" from Oct 19, 2023
-(linux-next), leads to the following Smatch static checker warning:
+Should I use as an example `cs46xx_playback/capture_transfer()` which relies on
+the `snd_pcm_indirect_playback/capture_transfer()`? It looks like it
+does already that calculation.
 
-	sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c:198 mt8186_rt5682s_init()
-	warn: does endianness matter for 'type'?
+Thanks, Matias.
 
-sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
-    161 static int mt8186_rt5682s_init(struct snd_soc_pcm_runtime *rtd)
-    162 {
-    163         struct snd_soc_component *cmpnt_afe =
-    164                 snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
-    165         struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt_afe);
-    166         struct mtk_soc_card_data *soc_card_data =
-    167                 snd_soc_card_get_drvdata(rtd->card);
-    168         struct mt8186_mt6366_rt1019_rt5682s_priv *priv = soc_card_data->mach_priv;
-    169         struct snd_soc_jack *jack = &priv->headset_jack;
-    170         struct snd_soc_component *cmpnt_codec =
-    171                 snd_soc_rtd_to_codec(rtd, 0)->component;
-    172         int ret;
-    173         int type;
-    174 
-    175         ret = mt8186_dai_i2s_set_share(afe, "I2S1", "I2S0");
-    176         if (ret) {
-    177                 dev_err(rtd->dev, "Failed to set up shared clocks\n");
-    178                 return ret;
-    179         }
-    180 
-    181         ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
-    182                                     SND_JACK_HEADSET | SND_JACK_BTN_0 |
-    183                                     SND_JACK_BTN_1 | SND_JACK_BTN_2 |
-    184                                     SND_JACK_BTN_3,
-    185                                     jack, mt8186_jack_pins,
-    186                                     ARRAY_SIZE(mt8186_jack_pins));
-    187         if (ret) {
-    188                 dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
-    189                 return ret;
-    190         }
-    191 
-    192         snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-    193         snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-    194         snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-    195         snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-    196 
-    197         type = SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2 | SND_JACK_BTN_3;
---> 198         return snd_soc_component_set_jack(cmpnt_codec, jack, (void *)&type);
-
-This is an unpublished Smatch check where I manually review casts to see
-if they are correct.  Quite often they aren't because of an endian bug
-or a 64 bit vs 32 bit issue.
-
-Here it's not clear to me what's happening.  Normally with this sort of
-pass a void pointer code, you can tie it very easily to the same driver.
-But in this case it's much more difficult.
-
-There are two functions which use the void *data pointer,
-rt5640_set_jack() and rt5645_component_set_jack().  One takes an int and
-the other takes a struct rt5640_set_jack_data pointer.  So presumably
-we know that the cmpnt_codec->driver->set_jack points to
-rt5645_component_set_jack().  But how do we know that?
-
-Is there a trick for me as a reviewer to use?
-
-    199 }
-
-regards,
-dan carpenter

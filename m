@@ -2,103 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2357D4ABA
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 10:44:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 389997D4B3A
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 10:55:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25BB085D;
-	Tue, 24 Oct 2023 10:44:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25BB085D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B75A84B;
+	Tue, 24 Oct 2023 10:54:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B75A84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698137091;
-	bh=fD909NFQ+rsorgxnWh4e3dLIPhy87UaBz6jSuTiAkDc=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ENvd/fvvFBuOj3P4yQZWdKCGcGPvi1etCvQYIAAkHl1v5IW7bCK8ZwPfZg9mX4Cny
-	 4U93IXKwoPbjhk6+jHgKYd7p8zm8hs5u9yOvMnOaLJxxVZ/JLNKWBG51qpNsFexPcs
-	 1SiPUzMre+sp2KNCTyiwaAA0QbcKl3wPpL6GqGO8=
+	s=default; t=1698137743;
+	bh=dr+lBL0FhFKWb9fkKS+Z6wsuWwCRxXkpjetaSpWWU+U=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=qzA0WTfoNR7kzu8bSEDlZ5nrY+nFZ1kzn+Ss/9lrZqH5PDpnJSNgGkWpVDjJOrhep
+	 cFIz5sCLDp5DFlZCigMpRwMSQMsOM+UyPIfKXJLFrjtfZyC3KV61Oi0ZqdpG5dmdso
+	 vQJqXmjSncEmieHlIbKNdYmjKG9Gp0KeNw12CzpU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F996F8024E; Tue, 24 Oct 2023 10:43:40 +0200 (CEST)
+	id CF45CF8024E; Tue, 24 Oct 2023 10:54:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5495EF8012B;
-	Tue, 24 Oct 2023 10:43:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4464AF80157;
+	Tue, 24 Oct 2023 10:54:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56A43F80165; Tue, 24 Oct 2023 10:43:36 +0200 (CEST)
+	id C2616F8024E; Tue, 24 Oct 2023 10:54:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [46.235.227.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0AE5DF8012B
-	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 10:43:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE5DF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id EA151F8012B
+	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 10:54:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA151F8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=klo3qsM2
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39O8M8ss000656;
-	Tue, 24 Oct 2023 03:43:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-transfer-encoding:in-reply-to; s=
-	PODMain02222019; bh=HY02qgiumNjSlbaPurNATKMmNJREQ0HiVkUwIgtcU8M=; b=
-	klo3qsM2mOcsqLIgR4RnE0eQN+TXkHzxShdV1PVw1LljU3poqLWHLeAgEfFuZsn2
-	tTUZ5piP6cst2WP5vcTQYKUqMCI8vAto7CrO8oQhStbRw0zGdA0nIkWpkAvBNeju
-	Kbn6pcrONAjzQEdLYIYZ8bFrlLlgJpqbmlfQmq5z43E1Q11n3hwKcnhDuGBGwjMj
-	G2p+rJ00uW38G0L5+9J8ULSW+Y9IgUKxetOvSmIVd2q3p3+OnOFKPcz0ptpRrR0F
-	V1ljQEUCkcsC6p8xnveU1cnuPpSDOMuK3yTmwdH9UZcLYF03zXeDrrhHzaVUEtJ1
-	C8g6pKzbeV2XlZhFi2qOEg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3tvb2j3fh5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 24 Oct 2023 03:43:29 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Tue, 24 Oct
- 2023 09:43:16 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.37 via Frontend Transport; Tue, 24 Oct 2023 09:43:16 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4301B2A1;
-	Tue, 24 Oct 2023 08:43:16 +0000 (UTC)
-Date: Tue, 24 Oct 2023 08:43:16 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        James Schulman <james.schulman@cirrus.com>,
-        David Rhodes
-	<david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <kernel@pengutronix.de>
-Subject: Re: [PATCH 2/7] ASoC: cs42l43: Convert to platform remove callback
- returning void
-Message-ID: <20231024084316.GV103419@ediswmail.ad.cirrus.com>
-References: <20231013221945.1489203-9-u.kleine-koenig@pengutronix.de>
- <20231013221945.1489203-11-u.kleine-koenig@pengutronix.de>
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=ifelwKcb
+Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
+ [2.237.20.237])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 95BE966072F6;
+	Tue, 24 Oct 2023 09:54:38 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1698137679;
+	bh=dr+lBL0FhFKWb9fkKS+Z6wsuWwCRxXkpjetaSpWWU+U=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=ifelwKcb3an0VpTpu9qbwzXJhr/WmrDR/RqxpI9+1u7spvHLHzIb1XvWnzbnHGoyQ
+	 t9/9M2BxRSPx+1wvGBXqDU6bSBl1SlNcL/lfixtdsfhpgmvb2whna8wyecEJUNw97m
+	 qseei79MZLdAdAQ7QYKhpXUQ2u8sOSBqv49lLhPDuJV7YiewnhS+HaESASEx/p3gjC
+	 u7u2L4q8HmvpRctEQ+Qvq+IZnTLWGrdEF3vhg1/lCSx1/WDSlK8aSgtKS8wuAP+5qp
+	 xIZTA0mLK2TVV5JhWmbxw7smn7UJ97OzQC8nHgDDZqdiGQqdecAb1X2WoTFs2hvCX2
+	 8jGQId2sfVldg==
+Message-ID: <46f21faa-7e67-4339-a75b-c5d531baf844@collabora.com>
+Date: Tue, 24 Oct 2023 10:54:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231013221945.1489203-11-u.kleine-koenig@pengutronix.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: CNiNGVfp2uYCF9yDk9bso4315t8UXLNO
-X-Proofpoint-ORIG-GUID: CNiNGVfp2uYCF9yDk9bso4315t8UXLNO
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: PZVHREUSWSHVHXXXUZGKYOMG5T6YECJZ
-X-Message-ID-Hash: PZVHREUSWSHVHXXXUZGKYOMG5T6YECJZ
-X-MailFrom: prvs=5661862d4a=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFT PATCH 15/17] ASoC: mediatek: mt8192: Handle component name
+ prefix
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Oder Chiou <oder_chiou@realtek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org
+References: <20231023095428.166563-1-krzysztof.kozlowski@linaro.org>
+ <20231023095428.166563-16-krzysztof.kozlowski@linaro.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20231023095428.166563-16-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: JJZWDHZJKRIENOHKUYHMVBPIDDQTWJ6N
+X-Message-ID-Hash: JJZWDHZJKRIENOHKUYHMVBPIDDQTWJ6N
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PZVHREUSWSHVHXXXUZGKYOMG5T6YECJZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JJZWDHZJKRIENOHKUYHMVBPIDDQTWJ6N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,24 +112,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Oct 14, 2023 at 12:19:48AM +0200, Uwe Kleine-König wrote:
-> The .remove() callback for a platform driver returns an int which makes
-> many driver authors wrongly assume it's possible to do error handling by
-> returning an error code. However the value returned is ignored (apart
-> from emitting a warning) and this typically results in resource leaks.
+Il 23/10/23 11:54, Krzysztof Kozlowski ha scritto:
+> Use snd_soc_dapm_widget_name_cmp() helper when comparing widget names,
+> to include also the component's name prefix.
 > 
-> To improve here there is a quest to make the remove callback return
-> void. In the first step of this quest all drivers are converted to
-> .remove_new(), which already returns void. Eventually after all drivers
-> are converted, .remove_new() will be renamed to .remove().
-> 
-> Trivially convert this driver from always returning zero in the remove
-> callback to the void returning variant.
-> 
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-> ---
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Thanks,
-Charles

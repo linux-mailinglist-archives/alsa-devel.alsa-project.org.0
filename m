@@ -2,107 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 432947D5363
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 15:57:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A33A77D535E
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 15:56:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF052DE5;
-	Tue, 24 Oct 2023 15:56:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF052DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8720857;
+	Tue, 24 Oct 2023 15:55:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8720857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698155833;
-	bh=cZbYI/PBQsT9LNq45eFs68cYG4oY4r/yIQ/LLW2m7RE=;
+	s=default; t=1698155798;
+	bh=ZwRGvdK1vLRyYCBNB8H0GmRZoD2LA6Gw+YOD+d7uvu0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aVraBDswbs4Nm//FMA4gck1gBNnabkSSfKV/m7qo2yjKjUcM4MF88qVeyVAkpZ5Nx
-	 grFaFZABpXcJLSIHJumo33h4oVMk8YRBaqbakQREWVHExH/5/LTTL0VD09WClLewdR
-	 DjckGyr6UzX6Xa7tDMpqKNUx/aROgTmBT0QmbE8w=
+	b=NVXKqzY+tt5geDiQw3QxNBjTyXvwQ893wQpxbI/8Ij7R+o/vX2DFIeN35iEhhI2Ua
+	 QyxcXBFM5b3bJqy1vQj3oFLV9B0pUk7ndk3aP4O1YlBkJI87pzRtlwZxIpAyy7SPcb
+	 nHdl3SKmMFjid5ouYN40h8NGePM2KlDF2VBTR4V4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D31FAF8057C; Tue, 24 Oct 2023 15:55:32 +0200 (CEST)
+	id 429B3F80165; Tue, 24 Oct 2023 15:55:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39127F80570;
-	Tue, 24 Oct 2023 15:55:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86AB8F8019B;
+	Tue, 24 Oct 2023 15:55:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C046CF80563; Tue, 24 Oct 2023 15:55:27 +0200 (CEST)
+	id 73757F80224; Tue, 24 Oct 2023 15:55:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 01181F80152
-	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 15:55:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01181F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1FDB5F8012B
+	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 15:55:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FDB5F8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=oNxsO5a8
+ header.s=k20201202 header.b=NxD9Ggy+
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id AC0E6CE2CB7;
-	Tue, 24 Oct 2023 13:55:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B571C433C8;
-	Tue, 24 Oct 2023 13:54:57 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id A30B8B82487;
+	Tue, 24 Oct 2023 13:55:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB6BC433D9;
+	Tue, 24 Oct 2023 13:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698155709;
-	bh=cZbYI/PBQsT9LNq45eFs68cYG4oY4r/yIQ/LLW2m7RE=;
+	s=k20201202; t=1698155712;
+	bh=ZwRGvdK1vLRyYCBNB8H0GmRZoD2LA6Gw+YOD+d7uvu0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=oNxsO5a8CMTvXpm1/o/piO8VDoB+uC2HKz4aC1VSOLtcKSLe7zJjF62UZ1UdQOHiJ
-	 lq1w2fiw7OJuKB9nVvJzokKdR8slxwZ8MEFaK08Wq1V8LYKG1qtpdRaa+4QZwoYVCI
-	 dbDYf7fX5SsfGJDj50CZ0lIoy85orJHuOlftSEeEHvbUMh2kWC2JoTgP8wB3DSEVR0
-	 qniPwOSKhe2zIcR8zflVLjQxdEZW8shUh4XfjGInVzNxFd89NeeDPiyybyShybjRip
-	 rjIJYAj9R8F1jlhwOZ2tNNovxUNjqjdbsGipx+XvMsjOO9rQbPMJ4YpV8tsWfXeo37
-	 SaomGAu4q3Z1A==
+	b=NxD9Ggy+9A7RNU1Bjgd9K1z8hWPbQi879G28Ip41uwiWe84uVlCmqllbF9PsZlh0d
+	 G2rydM2Pm8bPxq1DGXAswrBQZaiBbtD2nUQOq/dVx5Pe+M5aMmb3ce+hLcuhcpm99n
+	 IBA6YnK4LsJEuNRmBOYuEghoNzNXPErkIBxjHaPUOHv1v7qVBy0MthbcJ1+gwhZ8TN
+	 h9yAceinSkCQwzwPw8MHnSgTlhdJXuXwl97QknJRHl8UEhqKYWOP4McA0UZK58HDoH
+	 g4kDqFM2pCzLdXK7VuOeMRZCRt9fIJak9Q0FPTgpZp7THk5I2meWR09NCmKYrks+Ee
+	 5AhaJ8ROchJgQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- kernel@pengutronix.de, James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- patches@opensource.cirrus.com, Hal Feng <hal.feng@starfivetech.com>,
- Xingyu Wu <xingyu.wu@starfivetech.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Rob Herring <robh@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Wang Yufen <wangyufen@huawei.com>,
- Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Astrid Rost <astrid.rost@axis.com>,
- Robert Hancock <robert.hancock@calian.com>,
- Herve Codina <herve.codina@bootlin.com>, Sameer Pujar <spujar@nvidia.com>,
- linux-tegra@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>
-In-Reply-To: <20231013221945.1489203-9-u.kleine-koenig@pengutronix.de>
-References: <20231013221945.1489203-9-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH 0/7] ASoc: Another series to convert to struct
- platform_driver:remove_new()
-Message-Id: <169815569778.69390.11911007930896172841.b4-ty@kernel.org>
-Date: Tue, 24 Oct 2023 14:54:57 +0100
+To: shengjiu.wang@gmail.com, Zhang Shurong <zhang_shurong@foxmail.com>
+Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <tencent_C0D62E6D89818179A02A04A0C248F0DDC40A@qq.com>
+References: <tencent_C0D62E6D89818179A02A04A0C248F0DDC40A@qq.com>
+Subject: Re: [PATCH v2] ASoC: fsl: Fix PM disable depth imbalance in
+ fsl_easrc_probe
+Message-Id: <169815570943.69390.931793622764684694.b4-ty@kernel.org>
+Date: Tue, 24 Oct 2023 14:55:09 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: HEWSC2JQWBCPTPHGZG2KCJZFM6ZCS6JY
-X-Message-ID-Hash: HEWSC2JQWBCPTPHGZG2KCJZFM6ZCS6JY
+Message-ID-Hash: QKFISSQZ5467XFHS4W6LVLV3IVTUZ43R
+X-Message-ID-Hash: QKFISSQZ5467XFHS4W6LVLV3IVTUZ43R
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HEWSC2JQWBCPTPHGZG2KCJZFM6ZCS6JY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKFISSQZ5467XFHS4W6LVLV3IVTUZ43R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,17 +97,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 14 Oct 2023 00:19:46 +0200, Uwe Kleine-König wrote:
-> this is another series to convert ASoC drivers to use struct
-> platform_driver:remove_new(). The rockchip one was already send before
-> but with a wrong subject prefix, the cs42l43 driver is newer than the
-> last series. The remaining five patches are for driver combos that my
-> coccinelle patch failed to detect before.
+On Thu, 12 Oct 2023 21:03:15 +0800, Zhang Shurong wrote:
+> The pm_runtime_enable will increase power disable depth. Thus
+> a pairing decrement is needed on the error handling path to
+> keep it balanced according to context. We fix it by calling
+> pm_runtime_disable when error returns.
 > 
-> Best regards
-> Uwe
 > 
-> [...]
 
 Applied to
 
@@ -142,20 +111,8 @@ Applied to
 
 Thanks!
 
-[1/7] ASoC: rockchip: i2s_tdm: Convert to platform remove callback returning void
-      commit: 46dd58bef32dea55b663141858ca1659a85a1505
-[2/7] ASoC: cs42l43: Convert to platform remove callback returning void
-      commit: 491a1132f5cb77c8f1abb44d9928f8f184fc3df7
-[3/7] ASoC: starfive/jh7110-pwmdac: Convert to platform remove callback returning void
-      commit: 6b02f5a6f1853c6d5f73b000afbc177f5ee59d9e
-[4/7] ASoC: simple-card-utils: Make simple_util_remove() return void
-      commit: 393df6f321c757d164fa412b7eae527a8e2acb75
-[5/7] ASoC: meson: Make meson_card_remove() return void
-      commit: 8210f496c3e12410fa240c7fbc63f71ef78e253f
-[6/7] ASoC: qcom: lpass: Make asoc_qcom_lpass_cpu_platform_remove() return void
-      commit: d0cc676c426d1958989fac2a0d45179fb9992f0a
-[7/7] ASoC: uniphier: Make uniphier_aio_remove() return void
-      commit: 7242265213893e053457240f833d06ecd75b7ab3
+[1/1] ASoC: fsl: Fix PM disable depth imbalance in fsl_easrc_probe
+      commit: 9e630efb5a4af56fdb15aa10405f5cfd3f5f5b83
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

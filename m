@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C7B17D5AF5
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 20:54:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F4E7D5AF6
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Oct 2023 20:55:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 323371F2;
-	Tue, 24 Oct 2023 20:54:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323371F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73A5C1E7;
+	Tue, 24 Oct 2023 20:54:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73A5C1E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698173693;
-	bh=vNxqHm+60eB8KhMUh9Gts9QrJudWp0vLSzq/SyPgb9Q=;
+	s=default; t=1698173708;
+	bh=3tIsULG9clFoEJihk8khIpm9lSY2diH297dFAOUkrp0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Nfbr6QUQXr7wQEzuhgfcAK90IgL+WOCk5qwKvDSdB1kzc9pVCW5sxcRfcF6JP+C0e
-	 X+OajTWX+I4/jHDscvJY9pxXAK3svtzsiCJW1F+sOvi8N3OLzkB9qbo6xBeDOi/T2E
-	 W5VWvP5jXvqqZc2bSFfn6w53OA7o+XsTvQQN2UAw=
+	b=O/2UFESC5euLLCkGN5i5DLek5wFtPh7goD7fkq7mPiL8R6JpWF80I4tbPHbjLU40u
+	 JOCB3NMb/rY3BljHe0WAsQAfbCoSE0UWV/F7xH39rpF5f+f8uPRW98kZ9K6WzDG5SX
+	 m3zlFUXNsqn/LSQnv5WfbcfhKrBLzPSk2sbqsTeM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9711AF80224; Tue, 24 Oct 2023 20:53:42 +0200 (CEST)
+	id D423EF8012B; Tue, 24 Oct 2023 20:53:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D170BF8012B;
-	Tue, 24 Oct 2023 20:53:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62CDBF80557;
+	Tue, 24 Oct 2023 20:53:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91711F8014B; Tue, 24 Oct 2023 20:53:37 +0200 (CEST)
+	id 71D5AF80224; Tue, 24 Oct 2023 20:53:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 75DF4F8014B
-	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 20:53:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75DF4F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 108D1F8012B
+	for <alsa-devel@alsa-project.org>; Tue, 24 Oct 2023 20:53:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 108D1F8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Df/Mdjjt
+ header.s=k20201202 header.b=RBUDhfwN
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id B9E3D61470;
+	by sin.source.kernel.org (Postfix) with ESMTP id 51A07CE2AE0;
+	Tue, 24 Oct 2023 18:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79C4C433C9;
 	Tue, 24 Oct 2023 18:53:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A831C433C7;
-	Tue, 24 Oct 2023 18:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698173608;
-	bh=vNxqHm+60eB8KhMUh9Gts9QrJudWp0vLSzq/SyPgb9Q=;
+	s=k20201202; t=1698173610;
+	bh=3tIsULG9clFoEJihk8khIpm9lSY2diH297dFAOUkrp0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Df/MdjjtBjHXdzu8gyZCLR+qbzbJ+rtTSIZSmkxrJuNSpYBxu3WiD1mWua8jXuYTl
-	 S7MlswdBhgZxOABQlERluVoiEhG2s07j5PNOpBMxYOoD9nbxVq7o1qDiibw3k4DpGR
-	 HZ3JO/i5X2bIlX05gD/iuTNuCtnjJBEOZi8mSIIMvonMaRMXMtrfun5n3NpHHWYZhu
-	 2pzz/Dpnor4U42UfpytCXIDtPWsYHwlXLQZofYgmzSUs7WxmpY//QPr5Tk1J/3LkoP
-	 7hC2rPOa2Di7wY6jzEHP0m4LqhGYWzXOpXdgzYdg8uj8wk43SQmQqkC5dTfOeqaN9A
-	 dDPybsgpKbcAQ==
+	b=RBUDhfwN9muAxF9xHPSrmeWIBOMABgsoM5bUwNFdPaoV/H2b1RQNoQC94B2nLzDPH
+	 iiiyrSuMI3AoktCE5eXXlRiJfT0LYydLAygxJV7W1maa0ekfiYHVQIOgz/cRLIh02G
+	 1uweraEHM8DADam8IiLpeeNOvxvl9vyx+NLTtSHoDnY0V3BnMQ8Eo9V/pxWNef1s8D
+	 GQMud0ALBpvyxnytlpzWWDZjLOAFN1lrrI4YkWx4jGcmdtoiE8gkp29Ynsrh50gRLd
+	 dd/zzcVNeYQWPK5wXeqpeBrrg2/ikkfTPjrpnwAx8r3BRpW+eiX2LwFqIknxJ7bSdq
+	 hC25blxVAMseQ==
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20231008135601.542356-1-jmkrzyszt@gmail.com>
-References: <20231008135601.542356-1-jmkrzyszt@gmail.com>
-Subject: Re: [PATCH] ASoC: ti: ams-delta: Allow it to be test compiled
-Message-Id: <169817360687.82257.16546449649446463449.b4-ty@kernel.org>
-Date: Tue, 24 Oct 2023 19:53:26 +0100
+To: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20231023154917.671595-1-colin.i.king@gmail.com>
+References: <20231023154917.671595-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH][next] ASoC: codecs: rt298: remove redundant assignment
+ to d_len_code
+Message-Id: <169817360865.82257.4197167510702272746.b4-ty@kernel.org>
+Date: Tue, 24 Oct 2023 19:53:28 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: D3E2J6O77FTVWQPARIMIL2UNJL73KCVL
-X-Message-ID-Hash: D3E2J6O77FTVWQPARIMIL2UNJL73KCVL
+Message-ID-Hash: 2NQHIDVHXVCOBQGYVEKPVANAOFVA7KFJ
+X-Message-ID-Hash: 2NQHIDVHXVCOBQGYVEKPVANAOFVA7KFJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D3E2J6O77FTVWQPARIMIL2UNJL73KCVL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2NQHIDVHXVCOBQGYVEKPVANAOFVA7KFJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,16 +98,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 08 Oct 2023 15:53:10 +0200, Janusz Krzysztofik wrote:
-> The driver is now built only when MACH_AMS_DELTA is selected, which
-> requires a very specific selection of ARCH settings.  As a consequence, it
-> gets very little attention from build-bots, if not none.
+On Mon, 23 Oct 2023 16:49:17 +0100, Colin Ian King wrote:
+> Variable d_len_code is being initialized to zero and then re-assigned a
+> different value in all the valid cases in the following switch statement.
+> The only place it is not being assigned a value is on the return for
+> a default case and in this case it does not need to be assigned. The
+> initialization is redundant and can be removed.
 > 
-> Drop the driver dependency on <asm/mach-types.h>, no longer required since
-> conversion to snd_soc_register_card() and drop of machine_is_ams_delta().
-> With that in place, allow the driver to be built in any environment as
-> long as COMPILE_TEST is selected.  Take care of not selecting
-> SND_SOC_OMAP_MCBSP if COMMON_CLK is not selected.
 > 
 > [...]
 
@@ -115,8 +114,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: ti: ams-delta: Allow it to be test compiled
-      commit: 7790bccd7bac3af28bf044e188215041eb142d56
+[1/1] ASoC: codecs: rt298: remove redundant assignment to d_len_code
+      commit: 91e174fc04b1975b0e4d431a7020779635ff7c05
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

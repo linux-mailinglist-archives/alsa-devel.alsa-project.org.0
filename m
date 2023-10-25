@@ -2,133 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C50A97D6DB7
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Oct 2023 15:53:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3F337D6E94
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Oct 2023 16:21:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 057107F1;
-	Wed, 25 Oct 2023 15:52:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 057107F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8327E7F1;
+	Wed, 25 Oct 2023 16:20:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8327E7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698242005;
-	bh=hL8faD/dghsUf3CnbB2uNSzoMB+mjxFh9oemfPRK8z0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1698243675;
+	bh=YPxAOTUhUKwtwp1XXgLyfx0MtIYdqhU8AsvP6K/wWOA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nX5ojDx2i2MkuDD1xkOr22C4mN8heXk701g0NuABBVuUO2fKPx35V4JJtp2j++f1R
-	 YtGsdJUqCIT7d0ngXi9gUA4Fh/n3szw2YT8DTmrOjK45amlkR88O5LPNCEBhKrU9/R
-	 tWOff3G23q+59kVBFxht5Ws5ABtW1ad7EbMYEKMs=
+	b=qqaQz+ick52/QIJrNe+SlC8u+xw2a/edS7yUTUqV6g/NatdO+61TeT57LxXfTdgVk
+	 U5cadwu5yW0btvy6l/QeSslL22jI5+EdH+adOYHwELgqi0tVcOwRvVHsMVNr32fvJb
+	 s4suR+D2waBeIUuL94dbg6Sp/ajfTFHrcbqDtQsY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41639F80165; Wed, 25 Oct 2023 15:52:33 +0200 (CEST)
+	id DDC68F80165; Wed, 25 Oct 2023 16:20:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9C36F80157;
-	Wed, 25 Oct 2023 15:52:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3808BF80157;
+	Wed, 25 Oct 2023 16:20:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7EE24F80165; Wed, 25 Oct 2023 15:52:29 +0200 (CEST)
+	id 8EBCCF80165; Wed, 25 Oct 2023 16:20:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF25CF80152
-	for <alsa-devel@alsa-project.org>; Wed, 25 Oct 2023 15:52:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF25CF80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87779F80152
+	for <alsa-devel@alsa-project.org>; Wed, 25 Oct 2023 16:20:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87779F80152
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=F8SQL8Yo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=PYxvHGWU
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5A03121AED;
-	Wed, 25 Oct 2023 13:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1698241945;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bvAtfcFKPIhFq7yc9YeNmFko/t4QqEHM4fNQzPfIYN4=;
-	b=F8SQL8YooJ6MgVEfdR50GPqZsrzjznQEEJBduc3NIzwZmd7NFdQXpnpTmaIPwbV08LZjpe
-	z3MFiC3ZjmK3B7PeSwIyKUE27f8hRk5SoiO/6aAI2a95XkSDsTELlTbVYEvesh3b4fZuK9
-	jkINaGUMb7PzsQltbiLREUmKxxMjun4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1698241945;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bvAtfcFKPIhFq7yc9YeNmFko/t4QqEHM4fNQzPfIYN4=;
-	b=PYxvHGWUACgTryLc6vkgOvQn6mj8EJ3mOA+2QER1mYv3VlLD28S3DI72DFyOr2M+SURPyM
-	f017qDsd/hHeZ5AQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4808D13524;
-	Wed, 25 Oct 2023 13:52:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JQ4GEZkdOWX/CwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 25 Oct 2023 13:52:25 +0000
-Date: Wed, 25 Oct 2023 15:52:24 +0200
-Message-ID: <87o7gmx10n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	ALSA development <alsa-devel@alsa-project.org>,
-	Takashi Iwai <tiwai@suse.com>,
-	Mark Brown <broonie@kernel.org>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: ALSA: change mailing list to linux-sound on
- vger
-In-Reply-To: <20231025-unique-dingo-of-proficiency-fa998c@meerkat>
-References: <20231020071247.973909-1-perex@perex.cz>
-	<87wmvdwkxm.wl-tiwai@suse.de>
-	<87wmvax1is.wl-tiwai@suse.de>
-	<20231025-unique-dingo-of-proficiency-fa998c@meerkat>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-8.43 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 BAYES_HAM(-2.83)[99.27%];
-	 FROM_HAS_DN(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TAGGED_RCPT(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 RCPT_COUNT_FIVE(0.00)[6];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 TO_DN_ALL(0.00)[];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 SUSPICIOUS_RECIPS(1.50)[];
-	 FREEMAIL_CC(0.00)[perex.cz,alsa-project.org,suse.com,kernel.org,gmail.com]
-Message-ID-Hash: OA3YFL3SV76O6M5EUEZCPXCB7ECYTB63
-X-Message-ID-Hash: OA3YFL3SV76O6M5EUEZCPXCB7ECYTB63
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=UQl1EYu2
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-507bd19eac8so8456915e87.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 25 Oct 2023 07:20:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698243611; x=1698848411;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KXdFX0UY5tniJLRDcl1ufSs5c/hl+EfLWW5bDdsq8SA=;
+        b=UQl1EYu2e8LXVX+pLvdq17KPec7jGCeESj63ZZSM/qR904T3oDOWAnKcKFqCB2rJYh
+         7TMikIzSEKMzEAXoCUvvqyTtH+FksV9sx1ZYXS5Kx5sGqZpZtN1ODpAa2iLrAAsGO8Gj
+         3dD3GgFuQZ9r5VLhVi3uWpkVNjjw9wAovQkCYYzEwuCoZIkvc/TtSNaaeLw9U0CNBj1S
+         Y3xf0tm7IBnyhnsi/qjPZUsxDs2vKvWwNtocvIUXkbdCoMmTuCxqDcfFAzDJxQB6UZVx
+         RYV2EYjiJg0JU7SXaW4+dLQa9KLvFF7fkX0FQ7cxhdSPz0iXRkfKOlgOx51LgVhK3vd9
+         iq6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698243611; x=1698848411;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=KXdFX0UY5tniJLRDcl1ufSs5c/hl+EfLWW5bDdsq8SA=;
+        b=gjBOGK/zADO5sT4hWTa6lFv7ampGNd7+c/ACAPfJbbDzOHYgxW22jjiOHBhh6WSpgd
+         GsKyS2MFuE6ldz/s3W6E7iTWRiKyXUd1DKQ9XKhfH09g3Gji2WjWWvXOM/6xtAp1qMTm
+         4J3+1CKLlv6mxTCr7GwRkbM7DRIaHJXfe+EKw/0ynQCi/vlVecrdag62qh63kxgilLvq
+         9YYjkh29BxE//nis+i5ZGYzq3tDnfvHdEIvSAtFov6J+Sv1tp9IA9DuUlgxNc/dqkbpQ
+         VcDGLmrTxL6hXCm/0xsz9rLRGDa1gv3/zdqSJut4TMbJtt/BpXms6T7DxD5bSz/+tXPN
+         m00Q==
+X-Gm-Message-State: AOJu0YzohANFHtc9+G+IAFTVhD+MCL8Q2zj45QZ5JPffiahkPj3rplS8
+	BIizJjaNSv5ADmYtH6y4Omw=
+X-Google-Smtp-Source: 
+ AGHT+IHCJiQ2e6pDH3+U3/wVqmKSJcAM0uK7m8zA5flWq6iZTKh/qG9TOso4O1h1Ce74ljz0EvAsIw==
+X-Received: by 2002:ac2:5550:0:b0:503:258f:fd1b with SMTP id
+ l16-20020ac25550000000b00503258ffd1bmr11409838lfk.18.1698243610440;
+        Wed, 25 Oct 2023 07:20:10 -0700 (PDT)
+Received: from [192.168.76.157] (85-76-164-65-nat.elisa-mobile.fi.
+ [85.76.164.65])
+        by smtp.gmail.com with ESMTPSA id
+ x13-20020ac25dcd000000b005041ce44bbdsm2568600lfq.5.2023.10.25.07.20.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Oct 2023 07:20:09 -0700 (PDT)
+Message-ID: <a0db9dbb-df0e-406a-9a88-2a6968ec1469@gmail.com>
+Date: Wed, 25 Oct 2023 17:21:12 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] ASoC: ti: omap-mcbsp: Ignore errors for getting
+ fck_src
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Tony Lindgren <tony@atomide.com>, bcousson@baylibre.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ jarkko.nikula@bitmer.com, dmitry.torokhov@gmail.com,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+References: <20230705190324.355282-1-andreas@kemnade.info>
+ <20230705190324.355282-2-andreas@kemnade.info>
+ <7d58d52d-2087-45af-b29e-2515b63ead13@gmail.com>
+ <20230920063353.GQ5285@atomide.com>
+ <dac768d2-2c66-4d6b-b3d3-d1ef69103c76@gmail.com>
+ <20230921121626.GT5285@atomide.com> <20231006102348.GK34982@atomide.com>
+ <20231006213003.0fbac87a@aktux> <20231007062518.GM34982@atomide.com>
+ <20231007091156.588d7ba1@aktux>
+ <db511d14-f2fe-4b4e-bd13-223e7a33f933@gmail.com>
+ <20231013132503.25d63933@aktux>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+In-Reply-To: <20231013132503.25d63933@aktux>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: OL7CKS7EWBM5TM42ZUZQT2U4S3P2HTU5
+X-Message-ID-Hash: OL7CKS7EWBM5TM42ZUZQT2U4S3P2HTU5
+X-MailFrom: peter.ujfalusi@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -140,39 +129,55 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OA3YFL3SV76O6M5EUEZCPXCB7ECYTB63/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OL7CKS7EWBM5TM42ZUZQT2U4S3P2HTU5/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 25 Oct 2023 15:49:48 +0200,
-Konstantin Ryabitsev wrote:
+
+On 13/10/2023 14:25, Andreas Kemnade wrote:
+>> I guess it is because of the pm_runtime_put_sync() in the
+>> omap2_mcbsp_set_clks_src() around the fclk re-parenting.
+>> That is a bit dubious thing for sure. We need to disable the device to
+>> be able to re-parent the fclk but if we disable the device it is going
+>> to be powered down, right? I think we have appropriate context handling,
+>> so it might work, but it is certainly not a rock solid code... If you
+>> have a stream running already, you don't really want to kill the McBSP.
+>>
+> Ok, so if the device is powered of at omap2_mcbsp_set_clks_src() 
+> we get the usage count underflow, and the counter is incremented
+> immediately again in the runtime put function. So things get out of balance...
+> I'll check Tony's fix here.
 > 
-> On Wed, Oct 25, 2023 at 03:41:31PM +0200, Takashi Iwai wrote:
-> > ... and I tested posting patches to linux-sound ML:
-> >   https://lore.kernel.org/linux-sound/20231025132314.5878-1-tiwai@suse.de
-> > 
-> > I thought those are forwarded to alsa-devel, but apparently they
-> > aren't.
-> 
-> In case there was confusion, I meant that the patches sent to that list will
-> be automatically fed to the alsa-devel patchwork, which they were:
-> 
-> https://patchwork.kernel.org/project/alsa-devel/list/?series=796434
+>> The problem is that this mux is outside of the McBSP IP, so we need a
+>> system level (iow, clk API) way to change it runtime.
+>>
+>> What is the machine driver where this happens? If you set the sysclk in
+>> hw_params of the machine driver, it will be OK, but if you do that in
+>> probe time then it is likely going to fail as you experienced
+>>
+> As you see in the other patches of this series,
+> it is a simple-audio-card with a tlv320aic3x codec
+> in combination with the mcbsp.
 
-Ah I see.
+To be honest I would be happier if we can just remove the whole
+omap2_mcbsp_set_clks_src() and leave the CLKS source selection outside
+of the driver.
+But omap3pandora is selecting external clock as parent
+(OMAP_MCBSP_SYSCLK_CLKS_EXT - in hw_params, so it actually works) and I
+don't know what happens if this functionality is removed. Likely going
+to break Pandora.
+That is fixable, but what worries me is this comment and code:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/ti/omap-mcbsp.c#n388
 
-> > So we all devs need to subscribe this ML now?
-> 
-> Until we can do search-based pseudo-lists in the near future, that is indeed
-> what I would recommend. There is almost no other traffic on that list, so this
-> will not impact your inboxes in any meaningful way.
+Which is added by me a long time ago:
+e386615c01d37 ("ASoC: omap-mcbsp: When closing the port select PRCM
+source for CLKS signal")
 
-OK, thanks!
+I'm not sure if this is possible to do in any other way.
 
-
-Takashi
+-- 
+Péter

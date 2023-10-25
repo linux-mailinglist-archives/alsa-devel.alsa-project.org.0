@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F877D7084
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Oct 2023 17:15:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 404217D707C
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Oct 2023 17:14:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41C6A827;
-	Wed, 25 Oct 2023 17:14:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41C6A827
+	by alsa0.perex.cz (Postfix) with ESMTPS id B94C91E7;
+	Wed, 25 Oct 2023 17:13:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94C91E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698246903;
-	bh=xr4n31rJD52NyRm4bHFLlumfLPG97DcsrPmGLO2rBuc=;
+	s=default; t=1698246852;
+	bh=qG0Y2Ghox01DubYjKMylpuit6aghA5t5cZDXXmTDT/4=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=bMi0IvNyUuNqHh2Q2hardWZ5yZSM1gyxUE4H8JL84oPl0zS4wE87yIc7zwTs+LXpz
-	 xPOT/MmSAI1O3zMR1Pfpr1H+0Fn8uLXwrc/RQS4X4qiHDtHNx8mr7cf3MjLaUwKDYY
-	 VZgBQQmdBSoeAra4jYe1cgQtaQM54pAs3fU1WGUU=
+	b=WAG+ybxrQtQrdq9fYtDWKNPeOyk4XK3lRt8XHUxPawuK0oS/4SQXvtyL9P4L55yhI
+	 vEEtWTLWB1qBSYD6Ic1rMNXIXY3Bb/vtuvbDNd6YgEZ/BnJE5RYpqn2tbJdlE2Bl0A
+	 ujdJC7yb/54r1nVA8QZiJHcWvg6u6J9VVkgeEObg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5081FF80564; Wed, 25 Oct 2023 17:13:25 +0200 (CEST)
+	id 2C804F80165; Wed, 25 Oct 2023 17:13:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 758ABF80537;
-	Wed, 25 Oct 2023 17:13:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89212F80165;
+	Wed, 25 Oct 2023 17:13:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7DF5F80165; Wed, 25 Oct 2023 17:13:19 +0200 (CEST)
+	id 9258CF8010B; Wed, 25 Oct 2023 17:13:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,46 +35,46 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4ECBDF8012B
-	for <alsa-devel@alsa-project.org>; Wed, 25 Oct 2023 17:13:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ECBDF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 51BDFF8010B
+	for <alsa-devel@alsa-project.org>; Wed, 25 Oct 2023 17:13:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51BDFF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=L5yo9KA2
+ header.s=Intel header.b=I8LX7F7i
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698246799; x=1729782799;
+  t=1698246797; x=1729782797;
   h=message-id:date:mime-version:subject:to:references:from:
    in-reply-to:content-transfer-encoding;
-  bh=xr4n31rJD52NyRm4bHFLlumfLPG97DcsrPmGLO2rBuc=;
-  b=L5yo9KA2iwCSgOsVf159/SS1I74IHmllOtCk2NFubI3Ha+7szJwc5i0k
-   7bhip4SXqxII3IxMZpZREySADCqhzBnjwk4MWtaYS7b2im/eccuY2khDD
-   xHSkr9qhjh3Nj+m8VJzqBaoP1jzCsJV6blYYnvJbYHz+OIK4lZ6DL8LZU
-   mO2JmXoQ/C3SNM2oL7/RPg2ZxU81GL9PQOAiRtYjaSywIVsB3HEflvXSD
-   WDv/MQxJ06tlJFOyoSjIeIlA+8Kdl9tOBl66lw0p5BTJysDIkGAYNV9rF
-   Muz2NnuZgE3HxkC1Fnpj6jUR0AE/i/N4ucFomRNMUZ0PsGi3RlHBBQBMI
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="5943369"
+  bh=qG0Y2Ghox01DubYjKMylpuit6aghA5t5cZDXXmTDT/4=;
+  b=I8LX7F7i2t3CqT9QWxvFtsC1r4LkARnZ2XWdOv71PfsiKeCzYqXua2Eu
+   tIZxseuac2lUWsHe4vWZD++kN515bsWrf0XaSR2c6WDGeAH4blLd+Uk9H
+   yKl2OOFUQLonjhBwfAwbTlKMlveidtdJqe6/FjzqDjAMNJ2MjvtXJLiZS
+   hBqrNmoBeOgafyx+B4Zm4aRD6p31id3Ecx6g4uMDnARPnreEcqxwDQnfj
+   XHWX7WZBLptA3xuIDrTOWq5n2Q2ptSKgT1mxXvgA0+KPokVcTiLJ289P4
+   XEVeLcS+rHcreM2lFmG8ypTG4nzVqnB+9I/ivyNpSKbpbDDO5UHEJD9dV
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="5943363"
 X-IronPort-AV: E=Sophos;i="6.03,250,1694761200";
-   d="scan'208";a="5943369"
+   d="scan'208";a="5943363"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
   by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Oct 2023 08:13:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="829259467"
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="829259469"
 X-IronPort-AV: E=Sophos;i="6.03,250,1694761200";
-   d="scan'208";a="829259467"
+   d="scan'208";a="829259469"
 Received: from rswenton-mobl.amr.corp.intel.com (HELO [10.212.132.169])
  ([10.212.132.169])
   by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2023 08:13:05 -0700
-Message-ID: <8b9db87b-0f61-4824-acf1-6b5ebdf45e63@linux.intel.com>
-Date: Wed, 25 Oct 2023 10:03:09 -0500
+ 25 Oct 2023 08:13:06 -0700
+Message-ID: <3c6e3877-1bb6-403d-a67e-fdda0aef548e@linux.intel.com>
+Date: Wed, 25 Oct 2023 10:08:50 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] ASoC: codecs: wsa884x: check if set_stream is called
- for proper bus
+Subject: Re: [PATCH 2/3] soundwire: qcom: set owner device of runtime stream
+Content-Language: en-US
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
@@ -86,14 +86,13 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 References: <20231025144601.268645-1-krzysztof.kozlowski@linaro.org>
- <20231025144601.268645-3-krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
+ <20231025144601.268645-2-krzysztof.kozlowski@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231025144601.268645-3-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20231025144601.268645-2-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: POAVHRK7WMUJXENOWBA2FSHGXK5ZLIW2
-X-Message-ID-Hash: POAVHRK7WMUJXENOWBA2FSHGXK5ZLIW2
+Message-ID-Hash: F5RGG7YG44SJMBUU7RVE62V5O5YUK57Y
+X-Message-ID-Hash: F5RGG7YG44SJMBUU7RVE62V5O5YUK57Y
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POAVHRK7WMUJXENOWBA2FSHGXK5ZLIW2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F5RGG7YG44SJMBUU7RVE62V5O5YUK57Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,40 +119,57 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On 10/25/23 09:46, Krzysztof Kozlowski wrote:
 > From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 > 
-> If multiple WSA8840 speakers, from two separate Soundwire buses, are
-> used in one codec DAI link, the set_stream() should ignore calls for
-> setting stream from other Soundwire controller.
+> Store the pointer to struct device of Soundwire controller owning this
+> runtime stream.  This can be later used by Soundwire devices, to check
+> if their DAI prepare callback is called for the same bus, in cases where
+> multiple Soundwire buses are used in same soundcard codec list.
 > 
 > Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 > Co-developed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  sound/soc/codecs/wsa884x.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  drivers/soundwire/qcom.c      | 1 +
+>  include/linux/soundwire/sdw.h | 2 ++
+>  2 files changed, 3 insertions(+)
 > 
-> diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
-> index bee6e763c700..91205e8c96f1 100644
-> --- a/sound/soc/codecs/wsa884x.c
-> +++ b/sound/soc/codecs/wsa884x.c
-> @@ -1775,6 +1775,12 @@ static int wsa884x_set_stream(struct snd_soc_dai *dai,
->  			      void *stream, int direction)
->  {
->  	struct wsa884x_priv *wsa884x = dev_get_drvdata(dai->dev);
-> +	struct sdw_stream_runtime *sruntime = stream;
-> +	struct sdw_slave *sdw = dev_to_sdw_dev(dai->dev);
-> +
-> +	/* Check if this belongs to same bus */
-> +	if (sdw->bus->dev != sruntime->dev)
-> +		return 0;
-
-Sorry, maybe I am really thick or need coffee, but I can't figure out
-why this is necessary. Each amplifier has its own "wsa884x_priv" context
-and should have its own DAI, not following why the set_stream would
-mix-up the two dais?
-
-We've been using two buses for two amplifiers since CometLake (2019?)
-and I don't see what's different?
-
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index fe65c26c5281..a95f39563b47 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -1298,6 +1298,7 @@ static int qcom_swrm_startup(struct snd_pcm_substream *substream,
+>  		goto err_alloc;
+>  	}
 >  
->  	wsa884x->sruntime = stream;
+> +	sruntime->dev = ctrl->bus.dev;
+>  	ctrl->sruntime[dai->id] = sruntime;
 >  
+>  	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+> index 4f3d14bb1538..650334adc261 100644
+> --- a/include/linux/soundwire/sdw.h
+> +++ b/include/linux/soundwire/sdw.h
+> @@ -1023,6 +1023,7 @@ struct sdw_stream_params {
+>   * master_list can contain only one m_rt per Master instance
+>   * for a stream
+>   * @m_rt_count: Count of Master runtime(s) in this stream
+> + * @dev: SoundWire controller owning this runtime stream
+
+A stream connects multiple managers and multiple peripherals. The
+definition above does not make a lot of sense and doesn't work in
+general since there's no 'owner' really.
+
+And nothing prevents the use of multiple controllers, there are not
+restrictions in the MIPI DisCo spec that prevent a stream from relying
+on different controllers.
+
+>   */
+>  struct sdw_stream_runtime {
+>  	const char *name;
+> @@ -1031,6 +1032,7 @@ struct sdw_stream_runtime {
+>  	enum sdw_stream_type type;
+>  	struct list_head master_list;
+>  	int m_rt_count;
+> +	struct device *dev;
+>  };
+>  
+>  struct sdw_stream_runtime *sdw_alloc_stream(const char *stream_name);

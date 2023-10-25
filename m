@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7DE7D6D80
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Oct 2023 15:42:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C50A97D6DB7
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Oct 2023 15:53:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 701A17F1;
-	Wed, 25 Oct 2023 15:41:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 701A17F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 057107F1;
+	Wed, 25 Oct 2023 15:52:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 057107F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698241357;
-	bh=Am8IWDpQ5aBaB8L/fWKYeZWmXMyHLEfNF13gDT4vHms=;
+	s=default; t=1698242005;
+	bh=hL8faD/dghsUf3CnbB2uNSzoMB+mjxFh9oemfPRK8z0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VYDdYTlNcRAAOmAz08jOsGc+BNsn9FrdfOCjnnUIo6pOc9j4UG9u7LR33lVFZN3/t
-	 QzOReNb7ejfh0dMV6gMiJaGoJTf8wwJdMSF3CfEDngUhpoyEfqrwljVHJR8S9LgunL
-	 yNzdV+vUiKrN/vTGcq/U15bhuaj9stnQyUxqCK40=
+	b=nX5ojDx2i2MkuDD1xkOr22C4mN8heXk701g0NuABBVuUO2fKPx35V4JJtp2j++f1R
+	 YtGsdJUqCIT7d0ngXi9gUA4Fh/n3szw2YT8DTmrOjK45amlkR88O5LPNCEBhKrU9/R
+	 tWOff3G23q+59kVBFxht5Ws5ABtW1ad7EbMYEKMs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CBA8FF80537; Wed, 25 Oct 2023 15:41:46 +0200 (CEST)
+	id 41639F80165; Wed, 25 Oct 2023 15:52:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69CBDF80157;
-	Wed, 25 Oct 2023 15:41:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9C36F80157;
+	Wed, 25 Oct 2023 15:52:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4597FF80165; Wed, 25 Oct 2023 15:41:42 +0200 (CEST)
+	id 7EE24F80165; Wed, 25 Oct 2023 15:52:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,81 +38,84 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C419CF8012B
-	for <alsa-devel@alsa-project.org>; Wed, 25 Oct 2023 15:41:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C419CF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id CF25CF80152
+	for <alsa-devel@alsa-project.org>; Wed, 25 Oct 2023 15:52:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF25CF80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=kR/dRF1g;
+ header.s=susede2_rsa header.b=F8SQL8Yo;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=KHeCEYzl
+ header.s=susede2_ed25519 header.b=PYxvHGWU
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 58DC821DC7;
-	Wed, 25 Oct 2023 13:41:32 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5A03121AED;
+	Wed, 25 Oct 2023 13:52:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1698241292;
+	t=1698241945;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bwQTODhlamcgW+Q25NUqPOQBPGtcFSDsCCsgM0bk7Bw=;
-	b=kR/dRF1gb2L7Z0vOn9SbHI5+tqN8HzO1N92c5hJ8Y4JTusT9IVpnzS7MJR5fFIjKw30LZC
-	tHpmJj6ZKr3oHiOSCyqHY8gQIYOwB17gguCvVf5Mny0SbiT6uoDLi8sRdmzEHOe5oa4cR7
-	cJeoF+qi8OfMGye0Z7DFKYAjQ1VCWY8=
+	bh=bvAtfcFKPIhFq7yc9YeNmFko/t4QqEHM4fNQzPfIYN4=;
+	b=F8SQL8YooJ6MgVEfdR50GPqZsrzjznQEEJBduc3NIzwZmd7NFdQXpnpTmaIPwbV08LZjpe
+	z3MFiC3ZjmK3B7PeSwIyKUE27f8hRk5SoiO/6aAI2a95XkSDsTELlTbVYEvesh3b4fZuK9
+	jkINaGUMb7PzsQltbiLREUmKxxMjun4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1698241292;
+	s=susede2_ed25519; t=1698241945;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bwQTODhlamcgW+Q25NUqPOQBPGtcFSDsCCsgM0bk7Bw=;
-	b=KHeCEYzlFQCPbAzBbLA0khMQzFiSGcuZ0euPKPxISUA0r7ci9LcDWATUwYhvvU+WlLXfis
-	IPk3eNgKteSP0lAA==
+	bh=bvAtfcFKPIhFq7yc9YeNmFko/t4QqEHM4fNQzPfIYN4=;
+	b=PYxvHGWUACgTryLc6vkgOvQn6mj8EJ3mOA+2QER1mYv3VlLD28S3DI72DFyOr2M+SURPyM
+	f017qDsd/hHeZ5AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 44FF513524;
-	Wed, 25 Oct 2023 13:41:32 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4808D13524;
+	Wed, 25 Oct 2023 13:52:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id M+llEAwbOWVyBQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 25 Oct 2023 13:41:32 +0000
-Date: Wed, 25 Oct 2023 15:41:31 +0200
-Message-ID: <87wmvax1is.wl-tiwai@suse.de>
+	id JQ4GEZkdOWX/CwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 25 Oct 2023 13:52:25 +0000
+Date: Wed, 25 Oct 2023 15:52:24 +0200
+Message-ID: <87o7gmx10n.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	ALSA development <alsa-devel@alsa-project.org>,
 	Takashi Iwai <tiwai@suse.com>,
 	Mark Brown <broonie@kernel.org>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+	Ivan Orlov <ivan.orlov0322@gmail.com>
 Subject: Re: [PATCH] MAINTAINERS: ALSA: change mailing list to linux-sound on
  vger
-In-Reply-To: <87wmvdwkxm.wl-tiwai@suse.de>
+In-Reply-To: <20231025-unique-dingo-of-proficiency-fa998c@meerkat>
 References: <20231020071247.973909-1-perex@perex.cz>
 	<87wmvdwkxm.wl-tiwai@suse.de>
+	<87wmvax1is.wl-tiwai@suse.de>
+	<20231025-unique-dingo-of-proficiency-fa998c@meerkat>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spamd-Result: default: False [-4.59 / 50.00];
+X-Spamd-Result: default: False [-8.43 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 BAYES_HAM(-2.99)[99.96%];
+	 BAYES_HAM(-2.83)[99.27%];
 	 FROM_HAS_DN(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	 TAGGED_RCPT(0.00)[];
 	 MIME_GOOD(-0.10)[text/plain];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
+	 REPLY(-4.00)[];
 	 RCPT_COUNT_FIVE(0.00)[6];
+	 NEURAL_HAM_LONG(-3.00)[-1.000];
 	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	 TO_DN_ALL(0.00)[];
 	 NEURAL_HAM_SHORT(-1.00)[-1.000];
@@ -122,9 +125,9 @@ X-Spamd-Result: default: False [-4.59 / 50.00];
 	 RCVD_COUNT_TWO(0.00)[2];
 	 RCVD_TLS_ALL(0.00)[];
 	 SUSPICIOUS_RECIPS(1.50)[];
-	 FREEMAIL_CC(0.00)[alsa-project.org,suse.com,kernel.org,gmail.com,linuxfoundation.org]
-Message-ID-Hash: CEHXDYAA7IG65A3XUUKSMJIHAWLMQXXT
-X-Message-ID-Hash: CEHXDYAA7IG65A3XUUKSMJIHAWLMQXXT
+	 FREEMAIL_CC(0.00)[perex.cz,alsa-project.org,suse.com,kernel.org,gmail.com]
+Message-ID-Hash: OA3YFL3SV76O6M5EUEZCPXCB7ECYTB63
+X-Message-ID-Hash: OA3YFL3SV76O6M5EUEZCPXCB7ECYTB63
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -137,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CEHXDYAA7IG65A3XUUKSMJIHAWLMQXXT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OA3YFL3SV76O6M5EUEZCPXCB7ECYTB63/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,35 +149,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 23 Oct 2023 15:03:01 +0200,
-Takashi Iwai wrote:
+On Wed, 25 Oct 2023 15:49:48 +0200,
+Konstantin Ryabitsev wrote:
 > 
-> On Fri, 20 Oct 2023 09:12:47 +0200,
-> Jaroslav Kysela wrote:
+> On Wed, Oct 25, 2023 at 03:41:31PM +0200, Takashi Iwai wrote:
+> > ... and I tested posting patches to linux-sound ML:
+> >   https://lore.kernel.org/linux-sound/20231025132314.5878-1-tiwai@suse.de
 > > 
-> > As discussed on alsa-devel mailing list [1], it is useful to have an open
-> > mailing list to avoid moderation delays for the kernel patch work. Use
-> > linux-sound mailing list for kernel driver related threads.
-> > 
-> > In the first stage, change the list for the ALSA core, ASoC and tests.
-> > 
-> > [1] https://lore.kernel.org/alsa-devel/20231019-posture-cache-fe060b@meerkat/
-> > 
-> > Cc: Takashi Iwai <tiwai@suse.com>
-> > Cc: Mark Brown <broonie@kernel.org>
-> > Cc: Ivan Orlov <ivan.orlov0322@gmail.com>
-> > Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-> > Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> > I thought those are forwarded to alsa-devel, but apparently they
+> > aren't.
 > 
-> Applied to for-next branch now.  Thanks.
+> In case there was confusion, I meant that the patches sent to that list will
+> be automatically fed to the alsa-devel patchwork, which they were:
+> 
+> https://patchwork.kernel.org/project/alsa-devel/list/?series=796434
 
-... and I tested posting patches to linux-sound ML:
-  https://lore.kernel.org/linux-sound/20231025132314.5878-1-tiwai@suse.de
+Ah I see.
 
-I thought those are forwarded to alsa-devel, but apparently they
-aren't.  So we all devs need to subscribe this ML now?
+> > So we all devs need to subscribe this ML now?
+> 
+> Until we can do search-based pseudo-lists in the near future, that is indeed
+> what I would recommend. There is almost no other traffic on that list, so this
+> will not impact your inboxes in any meaningful way.
 
+OK, thanks!
 
-thanks,
 
 Takashi

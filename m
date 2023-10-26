@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C43E7D8808
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 20:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272127D880A
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 20:09:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE07FA4C;
-	Thu, 26 Oct 2023 20:06:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE07FA4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46A49868;
+	Thu, 26 Oct 2023 20:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46A49868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698343657;
-	bh=A7g++7MmHeakfIWdu8Bsiz3vVlF8JnKzBYBXufhHHPw=;
+	s=default; t=1698343769;
+	bh=UiOY2ygZAN8S9KIBqZTjjg+cyOItDiUqTFio6y9BouU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LNcV+goZATiMnShrDLs8odR50Mu+rIV7zflKf2m6eypW6VeXMcfY0Hn+qUGS3VrQ9
-	 +gfcyMN1IdukBATxPK+lQ+DDN+9i9rPrmeIT0w2R5hsToo9WcSE24poq43QCPBJGhZ
-	 mA9gO14v7AY8F80S58kprur4/Y8tB+i2ISc13yp4=
+	b=mCqPbadAP9FtDGXOGrIuNdDe9appPsJOT9MP4sSwW4t1qbl/6F6/o4nSvflC3TXq7
+	 00DewxSVpb4euh4gC7kzdR8ZLBON3Tex3BCbG3hmz9qkR4FBefzKu3/e8sLxi94KJS
+	 qQfRQpsujwIQyalg0iObIKdsQomftU+NEZG6gVvc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79DBFF80563; Thu, 26 Oct 2023 20:06:27 +0200 (CEST)
+	id 1C660F8014B; Thu, 26 Oct 2023 20:08:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D3DDF8055A;
-	Thu, 26 Oct 2023 20:06:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD8CCF80165;
+	Thu, 26 Oct 2023 20:08:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23813F8055B; Thu, 26 Oct 2023 20:06:23 +0200 (CEST)
+	id E1FE9F8019B; Thu, 26 Oct 2023 20:08:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -36,25 +36,24 @@ Received: from m.b4.vu (m.b4.vu [203.16.231.148])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 83138F8019B
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 20:06:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83138F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B55F8F8014B
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 20:08:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B55F8F8014B
 Received: by m.b4.vu (Postfix, from userid 1000)
-	id 854BC604F28E; Fri, 27 Oct 2023 04:36:16 +1030 (ACDT)
-Date: Fri, 27 Oct 2023 04:36:16 +1030
+	id CE860604F28E; Fri, 27 Oct 2023 04:38:26 +1030 (ACDT)
+Date: Fri, 27 Oct 2023 04:38:26 +1030
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org
-Subject: [PATCH 4/5] ALSA: scarlett2: Allow passing any output to
- line_out_remap()
-Message-ID: <3b70267931f5994628ab27306c73cddd17b93c8f.1698342632.git.g@b4.vu>
+Subject: [PATCH 5/5] ALSA: scarlett2: Remap Level Meter values
+Message-ID: <d437ace603eff685d2e0c3d0960589d7a09dd647.1698342632.git.g@b4.vu>
 References: <cover.1698342632.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1698342632.git.g@b4.vu>
-Message-ID-Hash: LQ34FDGOFLBZWMYORPPXOW6B4AO5XMTF
-X-Message-ID-Hash: LQ34FDGOFLBZWMYORPPXOW6B4AO5XMTF
+Message-ID-Hash: NMYGE2XB522XLTG6LOTUNDGBQVXG6OTO
+X-Message-ID-Hash: NMYGE2XB522XLTG6LOTUNDGBQVXG6OTO
 X-MailFrom: g@b4.vu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -67,7 +66,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LQ34FDGOFLBZWMYORPPXOW6B4AO5XMTF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NMYGE2XB522XLTG6LOTUNDGBQVXG6OTO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -76,73 +75,364 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Line outputs 3 & 4 on the Gen 3 18i8 are internally the analogue 7 and
-8 outputs, and this renumbering is hidden from the user by
-line_out_remap(). By allowing higher values (representing non-analogue
-outputs) to be passed to line_out_remap(), repeated code from
-scarlett2_mux_src_enum_ctl_get() and scarlett2_mux_src_enum_ctl_put()
-can be removed.
+The values previously returned by the Level Meter control were passed
+through from the interface without interpretation, but it has been
+discovered that the order of the values matches the mux assignment
+order (which is not presented to userspace). In addition, the values
+for disabled mux outputs, and mux outputs which share a source are
+invalid.
+
+This patch adds a per-device meter_map[], and a dynamic
+meter_level_map[] which is updated on routing changes. The meter level
+map gets used by scarlett2_meter_ctl_get() to both present the values
+in a standard order, and to fix up the invalid values by zeroing them
+(for disabled outputs) and copying them (for mux outputs which share a
+source).
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett2.c | 25 +++++++++----------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
+ sound/usb/mixer_scarlett2.c | 188 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 186 insertions(+), 2 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett2.c b/sound/usb/mixer_scarlett2.c
-index 9badb08177b5..48cd765cf36d 100644
+index 48cd765cf36d..f6d1fdfa88e1 100644
 --- a/sound/usb/mixer_scarlett2.c
 +++ b/sound/usb/mixer_scarlett2.c
-@@ -2026,9 +2026,16 @@ static int scarlett2_master_volume_ctl_get(struct snd_kcontrol *kctl,
- static int line_out_remap(struct scarlett2_data *private, int index)
- {
- 	const struct scarlett2_device_info *info = private->info;
+@@ -210,6 +210,9 @@ static const u16 scarlett2_mixer_values[SCARLETT2_MIXER_VALUE_COUNT] = {
+  */
+ #define SCARLETT2_MUX_MAX 77
+ 
++/* Maximum number of sources (sum of input port counts) */
++#define SCARLETT2_MAX_SRCS 52
++
+ /* Maximum number of meters (sum of output port counts) */
+ #define SCARLETT2_MAX_METERS 65
+ 
+@@ -328,6 +331,18 @@ struct scarlett2_mux_entry {
+ 	u8 count;
+ };
+ 
++/* Maximum number of entries in a mux table */
++#define SCARLETT2_MAX_METER_ENTRIES 9
++
++/* One entry within meter_assignment defines the range of mux outputs
++ * that consecutive meter entries are mapped to. The end of the list
++ * is marked with count == 0.
++ */
++struct scarlett2_meter_entry {
++	u8 start;
++	u8 count;
++};
++
+ struct scarlett2_device_info {
+ 	/* Gen 3 devices have an internal MSD mode switch that needs
+ 	 * to be disabled in order to access the full functionality of
+@@ -381,6 +396,7 @@ struct scarlett2_device_info {
+ 	 */
+ 	u8 line_out_remap_enable;
+ 	u8 line_out_remap[SCARLETT2_ANALOGUE_MAX];
++	u8 line_out_unmap[SCARLETT2_ANALOGUE_MAX];
+ 
+ 	/* additional description for the line out volume controls */
+ 	const char * const line_out_descrs[SCARLETT2_ANALOGUE_MAX];
+@@ -391,6 +407,12 @@ struct scarlett2_device_info {
+ 	/* layout/order of the entries in the set_mux message */
+ 	struct scarlett2_mux_entry mux_assignment[SCARLETT2_MUX_TABLES]
+ 						 [SCARLETT2_MAX_MUX_ENTRIES];
++
++	/* map from meter level order returned by
++	 * SCARLETT2_USB_GET_METER to index into mux[] entries (same
++	 * as the order returned by scarlett2_meter_ctl_get())
++	 */
++	struct scarlett2_meter_entry meter_map[SCARLETT2_MAX_METER_ENTRIES];
+ };
+ 
+ struct scarlett2_data {
+@@ -431,6 +453,7 @@ struct scarlett2_data {
+ 	u8 talkback_map[SCARLETT2_OUTPUT_MIX_MAX];
+ 	u8 msd_switch;
+ 	u8 standalone_switch;
++	u8 meter_level_map[SCARLETT2_MAX_METERS];
+ 	struct snd_kcontrol *sync_ctl;
+ 	struct snd_kcontrol *master_vol_ctl;
+ 	struct snd_kcontrol *vol_ctls[SCARLETT2_ANALOGUE_MAX];
+@@ -493,6 +516,12 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0,  8 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 24,  6 },
++		{  0, 24 },
++		{  0,  0 },
++	}
+ };
+ 
+ static const struct scarlett2_device_info s18i8_gen2_info = {
+@@ -540,6 +569,12 @@ static const struct scarlett2_device_info s18i8_gen2_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0,  4 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 26, 18 },
++		{  0, 26 },
++		{  0,  0 },
++	}
+ };
+ 
+ static const struct scarlett2_device_info s18i20_gen2_info = {
+@@ -592,6 +627,12 @@ static const struct scarlett2_device_info s18i20_gen2_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0,  6 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 38, 18 },
++		{  0, 38 },
++		{  0,  0 },
++	}
+ };
+ 
+ static const struct scarlett2_device_info solo_gen3_info = {
+@@ -657,6 +698,12 @@ static const struct scarlett2_device_info s4i4_gen3_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0, 16 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 12,  6 },
++		{  0, 12 },
++		{  0,  0 },
++	}
+ };
+ 
+ static const struct scarlett2_device_info s8i6_gen3_info = {
+@@ -708,6 +755,14 @@ static const struct scarlett2_device_info s8i6_gen3_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0, 18 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 14, 8 },
++		{  0, 6 },
++		{ 22, 2 },
++		{  6, 8 },
++		{  0, 0 },
++	}
+ };
+ 
+ static const struct scarlett2_device_info s18i8_gen3_info = {
+@@ -723,6 +778,7 @@ static const struct scarlett2_device_info s18i8_gen3_info = {
+ 
+ 	.line_out_remap_enable = 1,
+ 	.line_out_remap = { 0, 1, 6, 7, 2, 3, 4, 5 },
++	.line_out_unmap = { 0, 1, 4, 5, 6, 7, 2, 3 },
+ 
+ 	.line_out_descrs = {
+ 		"Monitor L",
+@@ -776,6 +832,18 @@ static const struct scarlett2_device_info s18i8_gen3_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,      0, 10 },
+ 		{ 0,                             0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 30, 10 },
++		{ 42,  8 },
++		{  0,  2 },
++		{  6,  2 },
++		{  2,  4 },
++		{  8,  2 },
++		{ 40,  2 },
++		{ 10, 20 },
++		{  0,  0 }
++	}
+ };
+ 
+ static const struct scarlett2_device_info s18i20_gen3_info = {
+@@ -839,6 +907,15 @@ static const struct scarlett2_device_info s18i20_gen3_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,      0, 24 },
+ 		{ 0,                             0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 45,  8 },
++		{ 55, 10 },
++		{  0, 20 },
++		{ 53,  2 },
++		{ 20, 25 },
++		{  0,  0 },
++	}
+ };
+ 
+ static const struct scarlett2_device_info clarett_2pre_info = {
+@@ -881,6 +958,12 @@ static const struct scarlett2_device_info clarett_2pre_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0, 26 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 22, 12 },
++		{  0, 22 },
++		{  0,  0 }
++	}
+ };
+ 
+ static const struct scarlett2_device_info clarett_4pre_info = {
+@@ -928,6 +1011,12 @@ static const struct scarlett2_device_info clarett_4pre_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0, 24 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 26, 18 },
++		{  0, 26 },
++		{  0,  0 }
++	}
+ };
+ 
+ static const struct scarlett2_device_info clarett_8pre_info = {
+@@ -981,6 +1070,12 @@ static const struct scarlett2_device_info clarett_8pre_info = {
+ 		{ SCARLETT2_PORT_TYPE_NONE,     0, 22 },
+ 		{ 0,                            0,  0 },
+ 	} },
++
++	.meter_map = {
++		{ 38, 18 },
++		{  0, 38 },
++		{  0,  0 }
++	}
+ };
+ 
+ struct scarlett2_device_entry {
+@@ -1688,6 +1783,79 @@ static void scarlett2_usb_populate_mux(struct scarlett2_data *private,
+ 	private->mux[dst_idx] = src_idx;
+ }
+ 
++/* Update the meter level map
++ *
++ * The meter level data from the interface (SCARLETT2_USB_GET_METER
++ * request) is returned in mux_assignment order, but to avoid exposing
++ * that to userspace, scarlett2_meter_ctl_get() rearranges the data
++ * into scarlett2_ports order using the meter_level_map[] array which
++ * is set up by this function.
++ *
++ * In addition, the meter level data values returned from the
++ * interface are invalid for destinations where:
++ *
++ * - the source is "Off"; therefore we set those values to zero (map
++ *   value of 255)
++ *
++ * - the source is assigned to a previous (with respect to the
++ *   mux_assignment order) destination; therefore we set those values
++ *   to the value previously reported for that source
++ */
++static void scarlett2_update_meter_level_map(struct scarlett2_data *private)
++{
++	const struct scarlett2_device_info *info = private->info;
 +	const int (*port_count)[SCARLETT2_PORT_DIRNS] = info->port_count;
 +	int line_out_count =
 +		port_count[SCARLETT2_PORT_TYPE_ANALOGUE][SCARLETT2_PORT_OUT];
++	const struct scarlett2_meter_entry *entry;
++
++	/* sources already assigned to a destination
++	 * value is 255 for None, otherwise the value of i
++	 * (index into array returned by
++	 * scarlett2_usb_get_meter_levels())
++	 */
++	u8 seen_src[SCARLETT2_MAX_SRCS] = { 1 };
++	u8 seen_src_value[SCARLETT2_MAX_SRCS] = { 255 };
++
++	/* index in meter_map[] order */
++	int i = 0;
++
++	/* go through the meter_map[] entries */
++	for (entry = info->meter_map;
++	     entry->count;
++	     entry++) {
++
++		/* fill in each meter_level_map[] entry */
++		int j, mux_idx;
++
++		for (j = 0, mux_idx = entry->start;
++		     j < entry->count;
++		     i++, j++, mux_idx++) {
++
++			/* convert mux_idx using line_out_unmap[] */
++			int map_mux_idx = (
++			    info->line_out_remap_enable &&
++			    mux_idx < line_out_count
++			) ? info->line_out_unmap[mux_idx]
++			  : mux_idx;
++
++			/* check which source is connected, and if
++			 * that source is already connected elsewhere,
++			 * use that existing connection's destination
++			 * for this meter entry instead
++			 */
++			int mux_src = private->mux[mux_idx];
++
++			if (!seen_src[mux_src]) {
++				seen_src[mux_src] = 1;
++				seen_src_value[mux_src] = i;
++			}
++			private->meter_level_map[map_mux_idx] =
++				seen_src_value[mux_src];
++		}
++	}
++}
++
+ /* Send USB message to get mux inputs and then populate private->mux[] */
+ static int scarlett2_usb_get_mux(struct usb_mixer_interface *mixer)
+ {
+@@ -1716,6 +1884,8 @@ static int scarlett2_usb_get_mux(struct usb_mixer_interface *mixer)
+ 	for (i = 0; i < count; i++)
+ 		scarlett2_usb_populate_mux(private, le32_to_cpu(data[i]));
  
- 	if (!info->line_out_remap_enable)
- 		return index;
++	scarlett2_update_meter_level_map(private);
 +
-+	if (index >= line_out_count)
-+		return index;
-+
- 	return info->line_out_remap[index];
+ 	return 0;
  }
  
-@@ -3513,14 +3520,7 @@ static int scarlett2_mux_src_enum_ctl_get(struct snd_kcontrol *kctl,
+@@ -1782,6 +1952,8 @@ static int scarlett2_usb_set_mux(struct usb_mixer_interface *mixer)
+ 			return err;
+ 	}
+ 
++	scarlett2_update_meter_level_map(private);
++
+ 	return 0;
+ }
+ 
+@@ -3619,6 +3791,8 @@ static int scarlett2_meter_ctl_get(struct snd_kcontrol *kctl,
+ 				   struct snd_ctl_elem_value *ucontrol)
+ {
  	struct usb_mixer_elem_info *elem = kctl->private_data;
- 	struct usb_mixer_interface *mixer = elem->head.mixer;
- 	struct scarlett2_data *private = mixer->private_data;
--	const struct scarlett2_device_info *info = private->info;
--	const int (*port_count)[SCARLETT2_PORT_DIRNS] = info->port_count;
--	int line_out_count =
--		port_count[SCARLETT2_PORT_TYPE_ANALOGUE][SCARLETT2_PORT_OUT];
--	int index = elem->control;
--
--	if (index < line_out_count)
--		index = line_out_remap(private, index);
-+	int index = line_out_remap(private, elem->control);
++	struct scarlett2_data *private = elem->head.mixer->private_data;
++	u8 *meter_level_map = private->meter_level_map;
+ 	u16 meter_levels[SCARLETT2_MAX_METERS];
+ 	int i, err;
  
- 	mutex_lock(&private->data_mutex);
- 	if (private->mux_updated)
-@@ -3537,16 +3537,9 @@ static int scarlett2_mux_src_enum_ctl_put(struct snd_kcontrol *kctl,
- 	struct usb_mixer_elem_info *elem = kctl->private_data;
- 	struct usb_mixer_interface *mixer = elem->head.mixer;
- 	struct scarlett2_data *private = mixer->private_data;
--	const struct scarlett2_device_info *info = private->info;
--	const int (*port_count)[SCARLETT2_PORT_DIRNS] = info->port_count;
--	int line_out_count =
--		port_count[SCARLETT2_PORT_TYPE_ANALOGUE][SCARLETT2_PORT_OUT];
--	int index = elem->control;
-+	int index = line_out_remap(private, elem->control);
- 	int oval, val, err = 0;
+@@ -3627,8 +3801,18 @@ static int scarlett2_meter_ctl_get(struct snd_kcontrol *kctl,
+ 	if (err < 0)
+ 		return err;
  
--	if (index < line_out_count)
--		index = line_out_remap(private, index);
--
- 	mutex_lock(&private->data_mutex);
+-	for (i = 0; i < elem->channels; i++)
+-		ucontrol->value.integer.value[i] = meter_levels[i];
++	/* copy & translate from meter_levels[] using meter_level_map[] */
++	for (i = 0; i < elem->channels; i++) {
++		int idx = meter_level_map[i];
++		int value;
++
++		if (idx == 255)
++			value = 0;
++		else
++			value = meter_levels[idx];
++
++		ucontrol->value.integer.value[i] = value;
++	}
  
- 	oval = private->mux[index];
+ 	return 0;
+ }
 -- 
 2.41.0
 

@@ -2,223 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0C17D7F5C
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 11:11:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837CE7D7FE9
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 11:45:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4584F828;
-	Thu, 26 Oct 2023 11:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4584F828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37FFE7F1;
+	Thu, 26 Oct 2023 11:44:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37FFE7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698311460;
-	bh=z/fRaKc/G1BGOGxbzmf5ZydLailnsCvfdzvK8iwEfGk=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=cbR4/jzl8p4FfblZlIFy40vVzjpWK40XjyZ0RgkTx32CBPDtu24T1Qm2dKTqCFp+j
-	 PjbCxm15qn2ytM4ku18vHYbWkkByCKhg9i8QB3bdntb5JlSJo0wac+J3ypUzp0mcb0
-	 GmKs0+SKtblT96SVod5XZ0g997uM94tdMOQd2YR0=
+	s=default; t=1698313543;
+	bh=sHP1MsGoiOE1Ixy6ZWs2wVTJP12mav0myPnZpN77W+w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=pdpjTbNN0IA168t0h9tC9WE1PAoTcXvjt/XyhULC2J0OzVpssHdKJRUi2LLEx+s+A
+	 ml3nA5hljrpTUELLxnDSsycra77MVfD2ldiSoJkxtjfzNqiQ3GVFXM2t9zI6JXyM97
+	 EvkzfjRz7ZD5a9IJzQXISiUebUpVbfJ42dRK7+KE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA5E4F80537; Thu, 26 Oct 2023 11:10:09 +0200 (CEST)
+	id 6F7C0F8028D; Thu, 26 Oct 2023 11:44:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40FF7F80165;
-	Thu, 26 Oct 2023 11:10:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10237F80165;
+	Thu, 26 Oct 2023 11:44:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A1B5F8019B; Thu, 26 Oct 2023 11:10:05 +0200 (CEST)
+	id 04AB8F8019B; Thu, 26 Oct 2023 11:44:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20624.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::624])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5E50EF8010B
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 11:09:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E50EF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5195FF8010B
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 11:44:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5195FF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=STZTp6Xn;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com
- header.b=WV61oX0q
-X-UUID: 682ad70c73df11ee8051498923ad61e6-20231026
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:To:From;
- bh=z/fRaKc/G1BGOGxbzmf5ZydLailnsCvfdzvK8iwEfGk=;
-	b=STZTp6XnHISNjH39Cpd3fhseqLcuRCSfIklVQ5hm81QNEQylhYtNmSHhlW+YU5X+QlXUQ0jy9O69xRWB/GZKk37yBOtiFUVh3uXf807+sr9gK19DH09j8ZJnhuoRTwtg2uW31oVoqBtnTgYFdk2MQnwA0PXR9zDdTxD8kNHldc4=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.32,REQID:9a059581-c0b8-42f2-a542-3b172c2750e4,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:5f78ec9,CLOUDID:0e38ec71-1bd3-4f48-b671-ada88705968c,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
-	DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 682ad70c73df11ee8051498923ad61e6-20231026
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 339983354; Thu, 26 Oct 2023 17:09:45 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Thu, 26 Oct 2023 17:09:43 +0800
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Thu, 26 Oct 2023 17:09:43 +0800
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=2LAx+rOK
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OR/09wtIucnGulZi1X7NR7zXuPc7D6FQCCc9NkH92Fvz6Qc7ca59NlBOpuFEvrXseZRyFwR9HXWpnvJMsaRkYac3iAYgZ3SUe5tamlqg1EaVxGG4YrzFzgXCXq8VGxK7wScEqfMYr1pDY2Xxm+LILbxf+DZGDU51X40mqdrvU6zioWVTh2Oz0hb6UMP+b9ueY7jxfLTaIHoYazVPv93S+6UZOeLe034EN7/PHrf7bf88Al4ZnStkFYSDsGOwjOUMrn4EU2fu0SR2+Sb44/k1mCE/89uea4sMEERodcTxzZGnezN5Q7irp5BYOV4eWtzt8P6TMt2HihrZC1wVDVr/mw==
+ b=Cn/MHnUzK2Hte0SsGthFFd6SA9P6y5XkXxz3GqheqSRaP2xS1kmzZ4zvHwEsa1K1eMDSQ7ZAoM1XqmkELTZyJrjtvY9Wa6wJhkOo0Cr08gy4H+miwMLglH8Znh4h+aYZTmodrAHcgNe136DgV1JmGlIHcYA19LYggf1JpVkRjTVchJY0/skySQRMDdWb4sFE984ETra8L3uQpGfuYxTQ4q5kaQi3f0X3ZUdpmszPbqIifvt6UJ6ub0FpEtMEnj6qRpdmbayqDGaMEtDbEnMyHE7UPMrazR1vDidyY/+B/YTPpdrVOX3xhI8SufRy0U973DrVYzKIKIieB5HqCE2+Cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z/fRaKc/G1BGOGxbzmf5ZydLailnsCvfdzvK8iwEfGk=;
- b=nXlad2JBr32jwFM8u+RB0zZZTQUSSEKNLEqFvaVXmSCq0Y5f6FLIjULmd/s9RclrX48d1R6Xul7JNRGO/pcfktQTlHa+jnLRcgbWpc+eEQ5uURYMaQthZA7YVO1NVx7KXaFPEKtoIhB/6fToc59+Io4/j4l6Wh5pElS6HNuWgORBJO9/20L+dkx6Sqa7ZDIoJ5BK5ws3EC8XAOMRvkm8Mtej+dfu2J/0kx2Awy/kWMiBDZIfYTaU2BvWk8icPE4mXrNgJZqGzhwmulTnFKdRiygCgbEpVTCmgEPByopiQ0+xnRBusRUWLD1oACcxhfSJEG1Uu18lsBa88UxHBNgsTA==
+ bh=sHP1MsGoiOE1Ixy6ZWs2wVTJP12mav0myPnZpN77W+w=;
+ b=lts9igrn9beNaSyQ5vF6lzQoFgQ1WC144ClRSr6Yo0AkLVME7NU8LImzcRlMrmRqHvteeExutgAin4jcfJa2FUc47ruE1BiWolGUp7je2m+EYkMddQS50L+p84voCzDemKX6xlStVqo6TVkQk8b7K7nM5MH38Vy6dkPDVSn6jXzU/OT42OyzrUxQ/ea+c5TuSLzwz619TY156r8qCMBZVFhAV4ZoE3b8HMx5Im4jEjRnQk2ipsBLR8ICkGjBPQxA/kIjBrq0+RRy5tAaOesyLEodYu7eIwUBo9feToBtqIrtyKMDffVhLlbU9Yf4FQvsB6JB2PNximhx/N2OHmrzAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z/fRaKc/G1BGOGxbzmf5ZydLailnsCvfdzvK8iwEfGk=;
- b=WV61oX0qiOJ9tLqErk5u+uz3kxxDgTiCXb0vZw/yu93Gvi6n2VqYEarL1lfSqbXIbuqt770NrNw9IcUvcZJBzMho4vEW3PIgRW8hdr3syUsQKB2AhXKi51zg0kg9MK99b+wUtFUkhrH5wFrOsBkE0AZPcEpjB3jk8mZRgD8POeY=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by PUZPR03MB6076.apcprd03.prod.outlook.com (2603:1096:301:b8::9) with
+ bh=sHP1MsGoiOE1Ixy6ZWs2wVTJP12mav0myPnZpN77W+w=;
+ b=2LAx+rOKD8FAkd9vEunTmrbTjptNQVo91Vyn3i44tZy3jbsZPlgwamw7MBSG55B/sOpRhuH23wOBkSp9FbFMLvLnaoSh08MQ5GxrKJgR6WRXy2JmLG++0keYOFWZ/cI1oFSlZg/PMCiCotYJjyJlXr30t57A/pxKIW9Kv3uhdxs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
+ by MW4PR12MB5643.namprd12.prod.outlook.com (2603:10b6:303:188::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Thu, 26 Oct
- 2023 09:09:41 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::a5d6:6ceb:3133:7f69]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::a5d6:6ceb:3133:7f69%5]) with mapi id 15.20.6907.032; Thu, 26 Oct 2023
- 09:09:41 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "lars@metafoo.de" <lars@metafoo.de>, "s.nawrocki@samsung.com"
-	<s.nawrocki@samsung.com>, "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
-	"broonie@kernel.org" <broonie@kernel.org>, "thierry.reding@gmail.com"
-	<thierry.reding@gmail.com>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>, "srinivas.kandagatla@linaro.org"
-	<srinivas.kandagatla@linaro.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, "patches@opensource.cirrus.com"
-	<patches@opensource.cirrus.com>, "perex@perex.cz" <perex@perex.cz>,
-	"bgoswami@quicinc.com" <bgoswami@quicinc.com>, "oder_chiou@realtek.com"
-	<oder_chiou@realtek.com>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>
-Subject: Re: [RFT PATCH 14/17] ASoC: mediatek: mt8188: Handle component name
- prefix
-Thread-Topic: [RFT PATCH 14/17] ASoC: mediatek: mt8188: Handle component name
- prefix
-Thread-Index: AQHaBZc/1Dulah1+8EawaTkNY+bzlLBbzR4A
-Date: Thu, 26 Oct 2023 09:09:41 +0000
-Message-ID: <237835475e8d6f56768620b4fc39cb659194dc8b.camel@mediatek.com>
-References: <20231023095428.166563-1-krzysztof.kozlowski@linaro.org>
-	 <20231023095428.166563-15-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20231023095428.166563-15-krzysztof.kozlowski@linaro.org>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.31; Thu, 26 Oct
+ 2023 09:44:33 +0000
+Received: from MN2PR12MB3661.namprd12.prod.outlook.com
+ ([fe80::7354:d327:ee4:dd79]) by MN2PR12MB3661.namprd12.prod.outlook.com
+ ([fe80::7354:d327:ee4:dd79%4]) with mapi id 15.20.6907.032; Thu, 26 Oct 2023
+ 09:44:32 +0000
+Message-ID: <7a88aa82-f352-443f-a103-b34d5c2b0904@amd.com>
+Date: Thu, 26 Oct 2023 15:14:21 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] ASoC: amd: acp: Add acp6.3 pci legacy driver
+ support
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|PUZPR03MB6076:EE_
-x-ms-office365-filtering-correlation-id: c4447b2a-81d1-4a99-669d-08dbd6034a06
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 1CI6zlO3cAslj3YUn3ipDr8LIJWuyx/T9rrdiL9gmDUdanF1BnfrrYbQAKcqeZM1vWxQnFGs/JxRP8x2k4kOYTnhwK8ZOzWNw4gDzSdmQiuTFNKxbsedhblTfS6U2loduG/UqqTIBo8ZoCpa6Cj5D3WT6eae33vblvvff5iLKZp2aqGlHywaoQcBT08kfwqsQ3HWqGyIw4uCU3DX3vq3ccpjyQ7NJCB4loKJjcH+VYgX49GkZ3GhpmF3mOP8WYLzMGbY2544+/8B/KHYlRuAO8MQc+KX3saBK1bujWBcLLqL7R7yRZrQtwOpTGTCnGYFgdqbHw0esu73/yxs83PK22rW3NRnR3t8S4Sb99YpM3hS3PSy9Eqegv8RS+rKam023kTOq8bUSl9lj7KBxlFaepFj+fV0q+yld488dBN74/W0HUO606ecN2v1LzYFniUM7kz6LasVrRsxqIEZ0H2e16Lfa6vOK0r7rpQeVw3cIUC2N4fCQE/B8YOk3u0uCWpfQpEGPa1QEahAQDgF+br73+YwgmjJE3TNxAfaTukuvP/KX0W3JuqOYa0xX70ZUZgl7nWSLayQs7WH3JraxHz+5zeVgVX/kkXVKrjwwyUgcRcpzO2RAMwHKUc4RUamKvT+Sgu97mBPYZYYp8RXQmdw7dFWYJimmtpoTjROlU8vWiaAeVUL5ZpQYWe3bqUTWtUGlawkvefrRE8SMDB51WtKhg==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB6686.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(366004)(376002)(39860400002)(396003)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(38070700009)(26005)(921008)(4001150100001)(41300700001)(38100700002)(2906002)(6506007)(36756003)(5660300002)(7416002)(85182001)(86362001)(8676002)(8936002)(558084003)(478600001)(2616005)(66556008)(71200400001)(122000001)(64756008)(76116006)(66446008)(91956017)(110136005)(66946007)(66476007)(6512007)(6486002)(316002)(99106002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?S3B0MWNsNnQzUnE5NFp5T2RBNGduRk90OWVMSkxoT1hmWGlwbFZXSTZDU2lB?=
- =?utf-8?B?Z2szWE5nYXN0Ull0eDViMHJFUkYvbTNTY1M2QmJGL3Q5ZXFOd2htY3VHdzhH?=
- =?utf-8?B?ZWRZTk5YZjJXNnZPTWJnNTk4bkt4VlE3OHFxNmdsWW9NVGZtT0FzSU5BTXNz?=
- =?utf-8?B?KytWUHhiYXZOWGdOVlNNc2c0YVhkQnI5bmx5SXVTb2x6ZkdZWFRUa2JVVVEv?=
- =?utf-8?B?YXdXM3MvUFUrZE9VamRrTGN2VXpjUHB0MUlqMENsczVVZnU3Lyt6cEhMK3ll?=
- =?utf-8?B?WS8xT1NiQjg5aG9mMGFTck91ZktxQUprRUF2QW1OcVYwS2crMjV5WEYxQXRo?=
- =?utf-8?B?a2poZ3l3ajlBM0ZxcU9QSStVRWdGMytSeWp6cFVzUUQ0a1c5UlJoWDdjVDhS?=
- =?utf-8?B?VXg1Snl0TExDUWt6eWEwNVE2cm9DemVSTjY0THhqallJUWdJa2krWU5CSEhh?=
- =?utf-8?B?UHBBdEk1dHRvRHlaUzR3S2dUbzFSM3FGbjhVL2hTSUdlcUlRbmlhcVM2S3JI?=
- =?utf-8?B?RjRFZmYwTUZFSG5YcjNoeks1T1RGSWR6RTA0OUlvRVJGV1NydVI1cDhoWC95?=
- =?utf-8?B?M2pqelg0MVp4Tm9yS0x3QUJQNjVncFpCYXlYVG5XUHRrelFHTlc5OHJEQWRx?=
- =?utf-8?B?cHJpbk9FNzdxTXk5UXdnclY3NDEzd25rVlZqYWp3SkhrM0tIRkozeU1wUE44?=
- =?utf-8?B?UE1abWlqaHIrV05kWEM0K3hlTnRqdk1oem1laFp6NWR5VjhxdElvK2RqQmNR?=
- =?utf-8?B?MHpCQWJMa245cE1mTUNGaEY2em9MYWR3T1A0M1o3NFlDNkU0ZU9TaGdsS1Qv?=
- =?utf-8?B?SE1ucnRCcjZzSW9semhWNEdwRnpFYmdsZHhOS2MyK05pT2o3NFBFd1gwcWVQ?=
- =?utf-8?B?RHk2dkNvSk5jeXRFV1hRNE1wVll5bkV5Z3hxQ1hiTTZDRmtVNmdWTHVMYytt?=
- =?utf-8?B?N25mTTcxeE10MlFHWlFHMGpnaXN5SVAxT2lWM3ZpekR2SnJlek1lb25OTm1Z?=
- =?utf-8?B?S3piWG5YampIcXIxQjU2WWhMS3o1TkRBTXdCTXltakxlUWE1U0g0QVBnUjNk?=
- =?utf-8?B?OWh1cU95ajlCUzhaRFBJb2o4bnZRMkVGNjJoNEwrVVhRMlRHbFpJS2JvT1Rv?=
- =?utf-8?B?SGRlL3ZJZXJYaDdvNnRVMHo3c0tNdmIzSXk4NWtKM2FXT1VWUXdzRDArYWpp?=
- =?utf-8?B?UHc1VmF0SDEreTJrUEFjMVloNGVSNzNZZ3BXUVdKRVZST1BQbjFQVW5MM2Vp?=
- =?utf-8?B?dWhLbmdWM2o4aFp0ODZMUEZZQkhCMlJqSDVnYjNWOEVLcnU4VUxWU3ZnSzBX?=
- =?utf-8?B?WnBMbHYwa3JjUmV2R0Y4dVFCNjduZ2JqcDlkMnpXdTRHQVlNcEwwcXhjK2lL?=
- =?utf-8?B?dHR6Wnk3K1huazhQUFVBRHk2bXpZM09idGdJUzA4TUl2NzVkcVZJbmt2aEFn?=
- =?utf-8?B?UU1MTmpHb2xHbnl0Y2tvOW1zQW9QNlF6KzZJNnhKZ2ZyRTRVSHZLSTlxbkFZ?=
- =?utf-8?B?VnhjLzdsU3FEK2lTRldMZU43M05lUUJJY0Y0NDEvbDdEbnBXQzFjZTREbDQy?=
- =?utf-8?B?bXJiRUtXMURMa1phUUpxYTlSQjZBS1prbm43VG0rbElJZUpBTEg4ZXJjNVVp?=
- =?utf-8?B?V2cxbms3WC9teVRtWWk3VC9GM0FsNFA0dnd6K3lnUUlXMTA1YXBpNWtYM0Vy?=
- =?utf-8?B?WGttcXZXY01PVjYrQ1pnOGdnWWZqTzM0MDBXT250SzlKbWo4UDR4V0FtcUNp?=
- =?utf-8?B?MzFlMWFKbjc4eW5MQURka0pySkw0Tkl3MjRTa1k3STc5R0ZVTUp1N3RqOWpD?=
- =?utf-8?B?azJHQi9OY0UvaHZQYXhOemxFQ3g5dEtwaG00RkpQSEtuMWpUTWxLbHJGdHNl?=
- =?utf-8?B?Q3llNGJvM0NNc2NvMVV6aXhJejdkOFhWWlUrQnhJT1JNQUxNZ3ByY2N5N1N5?=
- =?utf-8?B?U0dhM0hsV0ljY3NsZHdWMGJIUW42SlZSRjRMb203ZWpUTU10VWpEMkdBb2xr?=
- =?utf-8?B?UkhUWkcxeWxLM1NMMjhuVDNvVC8zRUVtMUxpNWh3SFFOUVYxQXVBRW5XajdR?=
- =?utf-8?B?UHJVTVZSZFRQeEgyU3o2R1UwdWtVTjAxM2s2Y29la0cvZjZIOXBqTDZoMlNM?=
- =?utf-8?B?SExTWGNyaE1nVzdFRjBhUFZ4a0l1RUM0eFBGNExwUSs4a0lPeFdlcDB6NXBo?=
- =?utf-8?B?T2c9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B2DBE0DE8DBC524A886F2FD36923509B@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+To: Mark Brown <broonie@kernel.org>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: alsa-devel@alsa-project.org, Vijendar.Mukunda@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ mario.limonciello@amd.com, venkataprasad.potturu@amd.com,
+ arungopal.kondaveeti@amd.com, mastan.katragadda@amd.com,
+ juan.martinez@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ V Sujith Kumar Reddy <vsujithkumar.reddy@amd.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Yang Li <yang.lee@linux.alibaba.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
+ <6737a19b-e7fe-4f71-8a78-bb6641ef067a@sirena.org.uk>
+From: syed saba kareem <ssabakar@amd.com>
+In-Reply-To: <6737a19b-e7fe-4f71-8a78-bb6641ef067a@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:27::21) To MN2PR12MB3661.namprd12.prod.outlook.com
+ (2603:10b6:208:169::31)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3661:EE_|MW4PR12MB5643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 082b4fee-5c5c-457d-0f85-08dbd60827f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	UppZ6ccluOPAKNwSG3dqbH3nMxdc9E6AGF5Aq4cvW41FKhzDNH4nl9cK2rCP+7soqzooMLPndRxv+H8TVWB+TFWmjrHOj7TnvuH8q5cqe+OYXlR/Hw/xbNMzsKdRccHwBsmXIiau1xYoO7Y4xrjf/IelxSnEo7Dfql93Ywm3m0h5eehrwEU3WlrosreUBNwrslzNA9HTq4foVgvCyrHws8I1ygrjIus9/lwRm57x3cYwr1Ng/8psU8rga2O8HYZhuiFPvEnBMll7IjzW/qWBzkWMbE5anQ0bBJtVQaFQ6WHiXZTyzWHZs55EaTsE9s8IDJo9Ev43mw0SVmx1qZuuKYQHo2nHBiIK6vicyM6ibtkB5okEDVZCWyqtVzevrGhXRKfQLI9YkQt8WixtW2fRpiFgmTNO+AWcLjvoh92gGDyVcQh3BIMMtr5qdzqlbdvXdKwXYFHHfMbGfsarfI4DUatROONIRS9j/aNpUShQ6ZgYTxEO9RkNtzB94e/d5JPLtYHax2EgxTcC3F5+qOGSpyEw3n2Cbv6Yqe1jv9JZikzS4qFDBW0K/un82qxQqFXCp6g/WgFN90UeUe1FG1tc3ktSGdl0vypDau6kes96pLGXwngVlszOX+IH0ViHPYAiaeBRmgutyHiaAKVw+aWsQw==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3661.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(39860400002)(366004)(136003)(346002)(376002)(230922051799003)(1800799009)(451199024)(64100799003)(186009)(31686004)(36756003)(26005)(6512007)(6506007)(6636002)(66476007)(66946007)(316002)(110136005)(66556008)(31696002)(38100700002)(54906003)(478600001)(6666004)(53546011)(2616005)(8676002)(2906002)(6486002)(4744005)(8936002)(7416002)(41300700001)(4326008)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?VXJOdlZDR096ODA5QWxUQjl6dWRqc1hZN1NVSFRJNXVhcmJEUjB0NldRTVl0?=
+ =?utf-8?B?ZzQvbXIrSXRTYUEyZnMwaVJiUGhBN1hjZGNtRnNLUHBJTFRjSUtYd0NHd0Zq?=
+ =?utf-8?B?QnFjMmMvdXdnME0vbC9QeGJXS2trcWdGY0xKTENxWXJvaktOUlhkcHRURUky?=
+ =?utf-8?B?UzdSK3VSU0Z0SThTRmVzYThCd1JlVTZzc2p5T3NEWm44TENoMHh6c21nUnNY?=
+ =?utf-8?B?cDM4eVBSYVQ1T3dPSnEvM01Hc1BRVlVxTjU5RjEyTDIwb0EwTTN5WWM5MWdk?=
+ =?utf-8?B?VDNtUTRxZDNYbXB5QWtHRUpsdmR5ZGJNSysrUGJhOXZ6c2F1Y3NPTURZMzJz?=
+ =?utf-8?B?cUlxZzJSSlh4Z2tLcTdkU3ZnSEhVZmpZU2gxcHIxdjY5UjZ0UzFHVFFuMEJp?=
+ =?utf-8?B?ZzZuQVBjVjJKcHRVenJDSWhqUFBML0NweTdrS0M1Mmk3TWpsM1RZdk5HaGgv?=
+ =?utf-8?B?WWF6UWVJUzhOYTZWZTcySWh3Zms3Zjh4Ym9Ga0hrNmdlbExmczBWNzJBL2ZC?=
+ =?utf-8?B?YUFLbnlIc0hKQ091SHhET3J4ak80R282UWFydzdtb2JvNTZDYUZYM1pIU3R3?=
+ =?utf-8?B?ZW1WRUg1dG1Lc0tldlZZN3ZPdXliM0RKcHhDa3VSRlVBWGc5ZVBtWFhrcWJ6?=
+ =?utf-8?B?SUtSd3F2YmpTUHQya21LbFN3aVh4ckNHVEwwOGwvY0dEcXdKQWJGSTQ1NEMx?=
+ =?utf-8?B?TXgyUTZOSGsxR0tna3pyYzMxT0JBTG5GNTBtZWh6OWR2NmN1TDhKZGhlVVlH?=
+ =?utf-8?B?aW03cnViV1R1ekhZN0FnSFJ6TjQ4bHNnUzhSY001Wm9MVDlyR0VpMGl2Wm5s?=
+ =?utf-8?B?bGNXcEVoS3NjYjlDTjgzR0kwMEY0QWdvQlNEOTBWTzduMitHSkF3RXg2STRZ?=
+ =?utf-8?B?N1Zva2hkdTl2bGdMR3RhTGNpMUNQK1JrZlhGOE5BK0FGSjBrT1huOExxYUJt?=
+ =?utf-8?B?MEpHcVM4S2VoUG9YTEsvT2JCRkRSNzFKSEhzVXAzdGVwUTQrQUhZN0l6Yk4v?=
+ =?utf-8?B?YjRJRTNvanZSOS8xWm9QRFg3V2xGOGhXMUlJQUc5ZFZFclVKekU0WHo1cEFG?=
+ =?utf-8?B?NFNHYWFUTjRGdHdvU2VCQnFRVHJmdEkyc2pzQ2hMYld0TGJDTmRIekhscy8w?=
+ =?utf-8?B?c2pQZmtKL2ZMcHIxNE1NM2I3b3Fvbyt6Nlllc1hKM3pGVmp1dDBPTGRGYlhP?=
+ =?utf-8?B?Y0g1MWdUeXNlV0lRWWpDcG84eXFUdXNWLzNPeG9ReTNOZVZyM2FoQ0E0bHFK?=
+ =?utf-8?B?QjlOMENDSWVqWjhpWHFMc2NrSkxGUW15UE1JS0wveWtHcFZkTlFiejZhbEcv?=
+ =?utf-8?B?Nzg0QkJXTUdvWnFNeTlTODBiVzZTMDdZOEJpQnVWOSs0OUlPaEduUnVveUNt?=
+ =?utf-8?B?K1lvUytWSDVEQm9NaGJXeDY2VEQrN212eWVBcnJwRFNGa2w0OGgrYUJ5ZXB0?=
+ =?utf-8?B?SWNKam9OMVRrV3ljL0Zoa0xwQTN1NnBsZ2xqN0YxK2dYdzRWSUpWWVVGdllZ?=
+ =?utf-8?B?aTcySmI4OE1SdTBKaEYrQUIxaFFBMUs2WWhCRFZvWHZDNld0MURYL1B5UkZQ?=
+ =?utf-8?B?ekhTTEZqT05sYVlraHlKdWJTT2VicG85WGdMUHZFL2lxelRWeGxja2dPVFRH?=
+ =?utf-8?B?K0JKSU1VaFNVTmZLeGZwSFhGL01laUdGNjBDd0FmR1J5aDBpenE2Y0xKNlZX?=
+ =?utf-8?B?Mnk5TXFGUjYrR3Y1SWJYZmVVNTNHbXBDUzU3bjRhUVoyVm1Ha0x0OE1QMkJF?=
+ =?utf-8?B?MVJSYmpVL0NMUWRWQTRrZ2NLdmZHYnlteXNWUFFEeG1FelNXdWZPaVJ2WGVS?=
+ =?utf-8?B?eFkxRHhSNVVRNDQ0dWJUdWppZWdCekVZNm8wUDUxU3F3NU9oak90OTgzSkN1?=
+ =?utf-8?B?UVdMWlV5dHRaak5qa3BEbFpoSnhpMng2dXZYc29uc0FDRUc1endtbUpFdnlo?=
+ =?utf-8?B?blZhNGE5WTVVODF2amFFTnhBT3B5WmxGQkt6YlNxc0hGWmhPTGFnSjdpUmNr?=
+ =?utf-8?B?cUpwajlvSWpSS3UvUjBRZXcrQUtDWEJMYXdld1RER1JEU0RESnFTMnVqRS8x?=
+ =?utf-8?B?cHlJcDE0dUJHTFdDYi9RVTAzQytSZ08zdjY0SXBzNVFGeVMvdDNsRlJMci9m?=
+ =?utf-8?Q?ja4Pcn1ZJ6utxsZZM53ujsuvg?=
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- c4447b2a-81d1-4a99-669d-08dbd6034a06
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2023 09:09:41.7974
+ 082b4fee-5c5c-457d-0f85-08dbd60827f0
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2023 09:44:32.4455
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- Cv7nUeD75SDQEUwPuOYVzMVPZxXxYW9qOs+oURJfGOpHQ/M6oqZ557o0im8RdebJUY/gaf3J+6M1dY5KTLddiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR03MB6076
-X-TM-AS-Product-Ver: SMEX-14.0.0.3152-9.1.1006-23728.005
-X-TM-AS-Result: No-10--1.024100-8.000000
-X-TMASE-MatchedRID: mIinBA9F1pzUL3YCMmnG4t7SWiiWSV/1jLOy13Cgb4+qvcIF1TcLYBzl
-	lv0af4rKZxoOZADPPXk1ZFc1oes3h3OErgCAgGZungIgpj8eDcDBa6VG2+9jFL8INwbAZ3yPFzV
-	VgJB1F8jkwjHXXC/4I8prJP8FBOIakF8vgtVQt5oad7k6IB/zoeX1Vum8nxef5x1uhQ8LcDlowG
-	kzVh34ieF4HqzEAOWEz0vgOhoETU0AZHD0Umiik5jMM3BUjj/HPJsRzsDlKro=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--1.024100-8.000000
-X-TMASE-Version: SMEX-14.0.0.3152-9.1.1006-23728.005
-X-TM-SNTS-SMTP: 
-	EE68E5C1793D8DC4C6D2E0889589E629291FAF2BC36F613978EA971497A471A82000:8
-X-MTK: N
-Message-ID-Hash: 4Q7ZFTJBGKIWXHSY3LSLKIE66KLOQ4KI
-X-Message-ID-Hash: 4Q7ZFTJBGKIWXHSY3LSLKIE66KLOQ4KI
-X-MailFrom: trevor.wu@mediatek.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 3VryA2CZpir3/fhZbKrEPFC3S2a8ADyIde3kV88R+CdettU2An3m3gpHGCWD4W6rHE/jr+7dyc7kpxVCiW6XRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5643
+Message-ID-Hash: VJGMWR32IDNKZITOG2A4LHRX4TBDLGQG
+X-Message-ID-Hash: VJGMWR32IDNKZITOG2A4LHRX4TBDLGQG
+X-MailFrom: Syed.SabaKareem@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -230,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4Q7ZFTJBGKIWXHSY3LSLKIE66KLOQ4KI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VJGMWR32IDNKZITOG2A4LHRX4TBDLGQG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -239,9 +185,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gTW9uLCAyMDIzLTEwLTIzIGF0IDExOjU0ICswMjAwLCBLcnp5c3p0b2YgS296bG93c2tpIHdy
-b3RlOg0KPiAgCSANCj4gIFVzZSBzbmRfc29jX2RhcG1fd2lkZ2V0X25hbWVfY21wKCkgaGVscGVy
-IHdoZW4gY29tcGFyaW5nIHdpZGdldA0KPiBuYW1lcywNCj4gdG8gaW5jbHVkZSBhbHNvIHRoZSBj
-b21wb25lbnQncyBuYW1lIHByZWZpeC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBL
-b3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4NCj4gDQoNClJldmlld2Vk
-LWJ5OiBUcmV2b3IgV3UgPHRyZXZvci53dUBtZWRpYXRlay5jb20+DQo=
+Will send the fixes as incremental patches.
+
+On 10/25/23 22:20, Mark Brown wrote:
+> On Sat, Oct 21, 2023 at 08:20:42PM +0530, Syed Saba Kareem wrote:
+>> Add pci legacy driver support and create platform driver for
+>> acp6.3 based platforms.
+> I've queued this series for CI - there were some valid concerns that
+> Amadeusz and Krzysztof raised but they're relatively minor, please send
+> incremental patches fixing these issues (assuming CI is fine).

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94BE17D8801
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 20:06:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C43E7D8808
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 20:07:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA848857;
-	Thu, 26 Oct 2023 20:05:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA848857
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE07FA4C;
+	Thu, 26 Oct 2023 20:06:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE07FA4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698343610;
-	bh=Gm5lKEdmAUzGHr5DsgvREl1eTfW1Ldc5Sao8k55pSbY=;
+	s=default; t=1698343657;
+	bh=A7g++7MmHeakfIWdu8Bsiz3vVlF8JnKzBYBXufhHHPw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lmSJMz6fLAUTt4/JMp/uSe0PEN4UHkyR1xYwP81qQvxaJ2JNEciJcm03FosBcZsOB
-	 WaHreCC0mMjnyok2uHspgHygOHvcvfKHdZ58dw84g6WMQ0HZV/7ggAJToGxByf4vNC
-	 mRLfKoJFFfXmP1uxVm4tBEoId8kQWv4hBmnmh/F4=
+	b=LNcV+goZATiMnShrDLs8odR50Mu+rIV7zflKf2m6eypW6VeXMcfY0Hn+qUGS3VrQ9
+	 +gfcyMN1IdukBATxPK+lQ+DDN+9i9rPrmeIT0w2R5hsToo9WcSE24poq43QCPBJGhZ
+	 mA9gO14v7AY8F80S58kprur4/Y8tB+i2ISc13yp4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24F70F80165; Thu, 26 Oct 2023 20:05:59 +0200 (CEST)
+	id 79DBFF80563; Thu, 26 Oct 2023 20:06:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDBFEF80165;
-	Thu, 26 Oct 2023 20:05:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D3DDF8055A;
+	Thu, 26 Oct 2023 20:06:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 553C6F8019B; Thu, 26 Oct 2023 20:05:55 +0200 (CEST)
+	id 23813F8055B; Thu, 26 Oct 2023 20:06:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -36,24 +36,25 @@ Received: from m.b4.vu (m.b4.vu [203.16.231.148])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 54B92F8014B
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 20:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54B92F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 83138F8019B
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 20:06:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83138F8019B
 Received: by m.b4.vu (Postfix, from userid 1000)
-	id B5525604F28E; Fri, 27 Oct 2023 04:35:46 +1030 (ACDT)
-Date: Fri, 27 Oct 2023 04:35:46 +1030
+	id 854BC604F28E; Fri, 27 Oct 2023 04:36:16 +1030 (ACDT)
+Date: Fri, 27 Oct 2023 04:36:16 +1030
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org
-Subject: [PATCH 3/5] ALSA: scarlett2: Add support for reading firmware version
-Message-ID: <e76cd80c3445769e60c95df12c4635fc8abfe5c7.1698342632.git.g@b4.vu>
+Subject: [PATCH 4/5] ALSA: scarlett2: Allow passing any output to
+ line_out_remap()
+Message-ID: <3b70267931f5994628ab27306c73cddd17b93c8f.1698342632.git.g@b4.vu>
 References: <cover.1698342632.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1698342632.git.g@b4.vu>
-Message-ID-Hash: JK7NWJIH52RYSMG4T6QN2ZFYV4GYZVZU
-X-Message-ID-Hash: JK7NWJIH52RYSMG4T6QN2ZFYV4GYZVZU
+Message-ID-Hash: LQ34FDGOFLBZWMYORPPXOW6B4AO5XMTF
+X-Message-ID-Hash: LQ34FDGOFLBZWMYORPPXOW6B4AO5XMTF
 X-MailFrom: g@b4.vu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -66,7 +67,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JK7NWJIH52RYSMG4T6QN2ZFYV4GYZVZU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LQ34FDGOFLBZWMYORPPXOW6B4AO5XMTF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -75,124 +76,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The 84 bytes read during initialisation step 2 were previously
-ignored. This patch retrieves the firmware version from bytes 8-11,
-stores it in the scarlett2_data struct, and makes it available
-through a new control "Firmware Version".
+Line outputs 3 & 4 on the Gen 3 18i8 are internally the analogue 7 and
+8 outputs, and this renumbering is hidden from the user by
+line_out_remap(). By allowing higher values (representing non-analogue
+outputs) to be passed to line_out_remap(), repeated code from
+scarlett2_mux_src_enum_ctl_get() and scarlett2_mux_src_enum_ctl_put()
+can be removed.
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett2.c | 62 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 59 insertions(+), 3 deletions(-)
+ sound/usb/mixer_scarlett2.c | 25 +++++++++----------------
+ 1 file changed, 9 insertions(+), 16 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett2.c b/sound/usb/mixer_scarlett2.c
-index 2f9619bc6d4f..9badb08177b5 100644
+index 9badb08177b5..48cd765cf36d 100644
 --- a/sound/usb/mixer_scarlett2.c
 +++ b/sound/usb/mixer_scarlett2.c
-@@ -406,6 +406,7 @@ struct scarlett2_data {
- 	__u8 bInterval;
- 	int num_mux_srcs;
- 	int num_mux_dsts;
-+	u32 firmware_version;
- 	u16 scarlett2_seq;
- 	u8 sync_updated;
- 	u8 vol_updated;
-@@ -1856,6 +1857,44 @@ static int scarlett2_add_new_ctl(struct usb_mixer_interface *mixer,
- 	return 0;
- }
- 
-+/*** Firmware Version Control ***/
-+
-+static int scarlett2_firmware_version_ctl_get(
-+	struct snd_kcontrol *kctl,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct usb_mixer_elem_info *elem = kctl->private_data;
-+	struct scarlett2_data *private = elem->head.mixer->private_data;
-+
-+	ucontrol->value.integer.value[0] = private->firmware_version;
-+
-+	return 0;
-+}
-+
-+static int scarlett2_firmware_version_ctl_info(
-+	struct snd_kcontrol *kctl,
-+	struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+
-+	return 0;
-+}
-+
-+static const struct snd_kcontrol_new scarlett2_firmware_version_ctl = {
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.access = SNDRV_CTL_ELEM_ACCESS_READ,
-+	.name = "",
-+	.info = scarlett2_firmware_version_ctl_info,
-+	.get  = scarlett2_firmware_version_ctl_get
-+};
-+
-+static int scarlett2_add_firmware_version_ctl(
-+	struct usb_mixer_interface *mixer)
-+{
-+	return scarlett2_add_new_ctl(mixer, &scarlett2_firmware_version_ctl,
-+				     0, 0, "Firmware Version", NULL);
-+}
- /*** Sync Control ***/
- 
- /* Update sync control after receiving notification that the status
-@@ -3854,7 +3893,8 @@ static int scarlett2_usb_init(struct usb_mixer_interface *mixer)
+@@ -2026,9 +2026,16 @@ static int scarlett2_master_volume_ctl_get(struct snd_kcontrol *kctl,
+ static int line_out_remap(struct scarlett2_data *private, int index)
  {
- 	struct usb_device *dev = mixer->chip->dev;
- 	struct scarlett2_data *private = mixer->private_data;
--	u8 buf[24];
-+	u8 step0_buf[24];
-+	u8 step2_buf[84];
- 	int err;
+ 	const struct scarlett2_device_info *info = private->info;
++	const int (*port_count)[SCARLETT2_PORT_DIRNS] = info->port_count;
++	int line_out_count =
++		port_count[SCARLETT2_PORT_TYPE_ANALOGUE][SCARLETT2_PORT_OUT];
  
- 	if (usb_pipe_type_check(dev, usb_sndctrlpipe(dev, 0)))
-@@ -3862,7 +3902,8 @@ static int scarlett2_usb_init(struct usb_mixer_interface *mixer)
- 
- 	/* step 0 */
- 	err = scarlett2_usb_rx(dev, private->bInterfaceNumber,
--			       SCARLETT2_USB_CMD_INIT, buf, sizeof(buf));
-+			       SCARLETT2_USB_CMD_INIT,
-+			       step0_buf, sizeof(step0_buf));
- 	if (err < 0)
- 		return err;
- 
-@@ -3874,7 +3915,19 @@ static int scarlett2_usb_init(struct usb_mixer_interface *mixer)
- 
- 	/* step 2 */
- 	private->scarlett2_seq = 1;
--	return scarlett2_usb(mixer, SCARLETT2_USB_INIT_2, NULL, 0, NULL, 84);
-+	err = scarlett2_usb(mixer, SCARLETT2_USB_INIT_2,
-+			    NULL, 0,
-+			    step2_buf, sizeof(step2_buf));
-+	if (err < 0)
-+		return err;
+ 	if (!info->line_out_remap_enable)
+ 		return index;
 +
-+	/* extract 4-byte firmware version from step2_buf[8] */
-+	private->firmware_version = le32_to_cpu(*(__le32 *)(step2_buf + 8));
-+	usb_audio_info(mixer->chip,
-+		       "Firmware version %d\n",
-+		       private->firmware_version);
++	if (index >= line_out_count)
++		return index;
 +
-+	return 0;
+ 	return info->line_out_remap[index];
  }
  
- /* Read configuration from the interface on start */
-@@ -4192,6 +4245,9 @@ static int snd_scarlett2_controls_create(
- 	if (err < 0)
- 		return err;
+@@ -3513,14 +3520,7 @@ static int scarlett2_mux_src_enum_ctl_get(struct snd_kcontrol *kctl,
+ 	struct usb_mixer_elem_info *elem = kctl->private_data;
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
+-	const int (*port_count)[SCARLETT2_PORT_DIRNS] = info->port_count;
+-	int line_out_count =
+-		port_count[SCARLETT2_PORT_TYPE_ANALOGUE][SCARLETT2_PORT_OUT];
+-	int index = elem->control;
+-
+-	if (index < line_out_count)
+-		index = line_out_remap(private, index);
++	int index = line_out_remap(private, elem->control);
  
-+	/* Add firmware version control */
-+	err = scarlett2_add_firmware_version_ctl(mixer);
-+
- 	/* Read volume levels and controls from the interface */
- 	err = scarlett2_read_configs(mixer);
- 	if (err < 0)
+ 	mutex_lock(&private->data_mutex);
+ 	if (private->mux_updated)
+@@ -3537,16 +3537,9 @@ static int scarlett2_mux_src_enum_ctl_put(struct snd_kcontrol *kctl,
+ 	struct usb_mixer_elem_info *elem = kctl->private_data;
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
+-	const int (*port_count)[SCARLETT2_PORT_DIRNS] = info->port_count;
+-	int line_out_count =
+-		port_count[SCARLETT2_PORT_TYPE_ANALOGUE][SCARLETT2_PORT_OUT];
+-	int index = elem->control;
++	int index = line_out_remap(private, elem->control);
+ 	int oval, val, err = 0;
+ 
+-	if (index < line_out_count)
+-		index = line_out_remap(private, index);
+-
+ 	mutex_lock(&private->data_mutex);
+ 
+ 	oval = private->mux[index];
 -- 
 2.41.0
 

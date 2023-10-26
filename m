@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52E217D85B7
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 17:14:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AC387D85C4
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 17:14:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97F18A4C;
-	Thu, 26 Oct 2023 17:13:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97F18A4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3723684B;
+	Thu, 26 Oct 2023 17:13:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3723684B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698333239;
-	bh=TI0/EViWn+QYi6nNh367rfBcGpgqIjH1+F4SEmPMVXo=;
+	s=default; t=1698333255;
+	bh=89zofsyGqaKGHkukw8q1uMvzNeWPZxdaR/ZVsXLlHds=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=eLQH2Krj42pNyE6fS+TLpUUwNhqcyWCuaj9snIppG0TIcE74YqwmRmKxnTdWNlTZk
-	 eHViDKfX5Npz6JHPKKNJrjuV1B2cwLPbM54Ga6j2K3+8gB1CF62/Egj2A1gwxPDJaV
-	 iXewrOLDjB6TcORUh0PRADpYBCWTKAs4k00XXk9k=
+	b=YpV7YOGkyb6M/hTk4BKbEPKI38HsrejDhc7oJjmgdv6b/VOg+ajuhNe5uJVyhBVWf
+	 6pwuJQcmr4p3r3hG4mCqRSF3paM9HKCK9CkasIdIw2SE2EqWEzD7vcXsR4tvVtU8H1
+	 +HUr7608k3bWDj2Lybei6SVGcir8qrdZrbFw9yTo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18662F80557; Thu, 26 Oct 2023 17:12:24 +0200 (CEST)
+	id 0EF32F8059F; Thu, 26 Oct 2023 17:12:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE233F8055A;
-	Thu, 26 Oct 2023 17:12:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A245FF8057F;
+	Thu, 26 Oct 2023 17:12:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1A6FF8055B; Thu, 26 Oct 2023 17:12:21 +0200 (CEST)
+	id 4DA6CF8056F; Thu, 26 Oct 2023 17:12:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 283A9F80558
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 17:12:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 283A9F80558
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7EFFEF80571
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 17:12:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EFFEF80571
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=RTAuC68C
+ header.s=k20201202 header.b=okgt+qV8
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 77BF6CE2102;
+	by sin.source.kernel.org (Postfix) with ESMTP id 3DE80CE40B5;
+	Thu, 26 Oct 2023 15:12:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B38C433C7;
 	Thu, 26 Oct 2023 15:12:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124EFC433C8;
-	Thu, 26 Oct 2023 15:12:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698333134;
-	bh=TI0/EViWn+QYi6nNh367rfBcGpgqIjH1+F4SEmPMVXo=;
+	s=k20201202; t=1698333137;
+	bh=89zofsyGqaKGHkukw8q1uMvzNeWPZxdaR/ZVsXLlHds=;
 	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=RTAuC68CAyw810g+HHd7082URkfHzlAoB7K9N0r+Ru9YrD3GfZgYCAnb6XW2kv0Nl
-	 BXYuEdJ8M29jGohBpmVqV51t8AOH5rnPTb3gNHsrmhniAOhAX62GKbtFZvnMh0X+m+
-	 B/vhsYa4vpxY8ZFXpb72NI8Gzj+S93tN0HBaeNeYhR6hKsR2UaxkZHROoCyYyNdc7T
-	 GkgknSV+M6F9Qrwv6i7qeaR0byCgDO4au34byi30hyUsnaCPeEpDCQzccf7Ha76P0r
-	 md14bdq0BeXcXp+kyqkKiyr6DNNnhtcTUW46CPP9yAV0POgj5yBH+LCp84yzkhIysM
-	 fbmsVEs1o6LTg==
+	b=okgt+qV890hd9IJu1o6LWqEtz5sJM6zuthGM8IFw02a+MC0aw2TUwfDeZYkHY1uoV
+	 3lfCAdR460MxaNYFKp3CsBXkdmU3A7EIRtgEYYIaP1I4/tqeRnL8LcGHWR/MGNHw3o
+	 ue83Z6Q1WAnfzNebj+cPquJoOJcRbWVNPwANvaAqv5tw8QTwWJH47dKfm4tLW23Whw
+	 LCUP3bg1UB/EDQxqgcDVV6ad1+AlS9dS0S5ZhB8EvcBY0ycttOzC8zJmmvQYpThOcf
+	 ShKQssP1gRVzgXPiOW9rXt9jNTBmefirG5VW7LkbFdXYIZo55/CvfCoMKYgcx+jHbP
+	 hM5yy+8nMdVgg==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20231019144108.42853-1-krzysztof.kozlowski@linaro.org>
-References: <20231019144108.42853-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: use defines for entries in
- snd_soc_dai_driver array
-Message-Id: <169833313276.133649.3664120134410239820.b4-ty@kernel.org>
-Date: Thu, 26 Oct 2023 16:12:12 +0100
+In-Reply-To: <20231017161429.431663-1-krzysztof.kozlowski@linaro.org>
+References: <20231017161429.431663-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: qcom: q6apm-lpass-dais: pass max number of
+ channels to Audioreach
+Message-Id: <169833313494.133649.12373491407224846679.b4-ty@kernel.org>
+Date: Thu, 26 Oct 2023 16:12:14 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: D5ACBHARGSMGIBZQFNTXEQWULCOAQJJY
-X-Message-ID-Hash: D5ACBHARGSMGIBZQFNTXEQWULCOAQJJY
+Message-ID-Hash: ZHYQQPXMM72I3PKLFIIESAOLHYP2M5AP
+X-Message-ID-Hash: ZHYQQPXMM72I3PKLFIIESAOLHYP2M5AP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D5ACBHARGSMGIBZQFNTXEQWULCOAQJJY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHYQQPXMM72I3PKLFIIESAOLHYP2M5AP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,13 +97,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 19 Oct 2023 16:41:08 +0200, Krzysztof Kozlowski wrote:
-> snd_soc_dai_driver array in wcd938x driver has two entries whose order
-> must match order of wcd938x->sdw_priv array.  The wcd938x_bind() and
-> wcd938x_codec_set_sdw_stream() rely on this order.  wcd938x->sdw_priv
-> array is indexed by enum with AIF1_PB and AIF1_CAP, so use the same
-> defines instead of raw numners for snd_soc_dai_driver array.
-> No functional impact.
+On Tue, 17 Oct 2023 18:14:29 +0200, Krzysztof Kozlowski wrote:
+> Using the params_channels() helper when setting hw_params, results in
+> passing to Audioreach minimum number of channels valid for given
+> hardware.  This is not valid for any hardware which sets minimum
+> channels to two and maximum to something bigger, like four channels.
+> 
+> Instead pass the maximum number of supported channels to allow playback
+> of multi-channel formats.
 > 
 > [...]
 
@@ -113,8 +114,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wcd938x: use defines for entries in snd_soc_dai_driver array
-      commit: 7618ab524935667699afed76fb83bc9bb38710ec
+[1/1] ASoC: qcom: q6apm-lpass-dais: pass max number of channels to Audioreach
+      commit: e29de7abdaf56f58141b01f74862b320191c9203
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD6D77D8750
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 19:11:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B21C7D875C
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 19:12:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E9397F1;
-	Thu, 26 Oct 2023 19:10:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E9397F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3737A4D;
+	Thu, 26 Oct 2023 19:11:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3737A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698340276;
-	bh=pqvW/M9c/cJz4WisDsMscjILqHNcIrUv585K29I0jkg=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=bmASJD+n5LPYJ5jFo55EbrGHhpGBZS88cUzmMAmXgUWtLeB7cbkytXhnilf3xdMih
-	 oBUI4SuB/vzMd1sYS4NOFuL1dpxENR6xk+iEIrPyfs2wk+73f9c4zhS/mcl9bwFKrJ
-	 LYKpHZ8wxo4niRM/+28KrJxHcE2joK4eaeTSUeK4=
+	s=default; t=1698340328;
+	bh=ROnw1ETWO4+Yv1/hxOfoQDoHWSLEjD5hUrVjntw2Wrw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=g/eBs/tvSrXIfMJVM44caRHhaiLbfsEb9rAJo1hopFRlYRUIPyD8fT80ANifwNNiw
+	 L7SggtugzJIvRJgvAkUGgZXwrSJxDBABynnjPQFRstmDE6Oj0ppBCwlWis8ytpjmtW
+	 daRd4PPLKomJYJL59uVwoiiL9zHEwDMli8nVy4Uc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62FBAF80152; Thu, 26 Oct 2023 19:10:25 +0200 (CEST)
+	id 5232EF80570; Thu, 26 Oct 2023 19:10:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE79AF80165;
-	Thu, 26 Oct 2023 19:10:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A766F8055A;
+	Thu, 26 Oct 2023 19:10:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7D23F8020D; Thu, 26 Oct 2023 19:10:19 +0200 (CEST)
+	id AFC72F8020D; Thu, 26 Oct 2023 19:10:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,53 +34,48 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 67481F80152
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 19:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67481F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9AB64F8014B
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 19:10:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AB64F8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=d/xlOY2A
+ header.s=k20201202 header.b=ClZmVxbv
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id C73356356A;
+	by dfw.source.kernel.org (Postfix) with ESMTP id BD99163577;
+	Thu, 26 Oct 2023 17:10:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34BABC433C9;
 	Thu, 26 Oct 2023 17:10:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B130C433C7;
-	Thu, 26 Oct 2023 17:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698340207;
-	bh=pqvW/M9c/cJz4WisDsMscjILqHNcIrUv585K29I0jkg=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=d/xlOY2AhSft2kmrsSnKiDZ/wg6TIZNY1bZnh9BJSrJE1AUj7RcQVO8qPkprWkB1l
-	 v6Va+mYta1jKeAKkscFHTrBBZ+Fqs0QtU+KO7N1NLU12YAE1fCpAH9kqN/CNZZ96Sn
-	 rT0twpAoojmMpTonQVJJvF3+vVYFLngZ1oJhbEHFvuUfcnwx+btLYfQK32v+UlLRlL
-	 FVVZbd6PYCtKqGE4YyrDEq6MmmrA1slmZVCoGSFK+/OtXSqCfwqur1yEF+ZfzSJEzU
-	 Al4Sk5Uh++Bu+eFs9rS9nTaegZfkFkxY1ir8x+VdEXJMwKbIRa+ffdTAI8ZitKARGM
-	 Kgsn7OKjJTanA==
+	s=k20201202; t=1698340210;
+	bh=ROnw1ETWO4+Yv1/hxOfoQDoHWSLEjD5hUrVjntw2Wrw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=ClZmVxbvE+B4s+7adpXdDoRAPsNb1okxaPWY//VHBJasUjQbrA/uGvHzj5RYWA5LZ
+	 YCz77XQAXruIi66kheT5l4mt9xwOqhaxtZhL3qyvskb0e5gAjaYM8ashxxnu+j8hl3
+	 Id+FQrDNQL29iCFmeHJfXtfNyA5OqwdedPUUwlqHFts/+XbENfKdZfMAU/yIMlrPF9
+	 wlYJHTttLIqTunptdM3CKGWJJT41wEUfVlRcnjc1MR+DWC4/CoRT53hLxBw+D4HLaX
+	 YkkEZrWjWp7g760nXERxANyELR1JWw1pGSaNtedeHKMzefNVUybZQa/c6G8v8tbLzW
+	 8QwH/lgjz3qbQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, perex@perex.cz,
- tiwai@suse.com, herve.codina@bootlin.com, shumingf@realtek.com,
- rf@opensource.cirrus.com, arnd@arndb.de, 13916275206@139.com,
- ryans.lee@analog.com, linus.walleij@linaro.org,
- ckeepax@opensource.cirrus.com, ajye_huang@compal.corp-partner.google.com,
- fido_max@inbox.ru, liweilei@awinic.com, yijiangtao@awinic.com,
- trix@redhat.com, colin.i.king@gmail.com, dan.carpenter@linaro.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, wangweidong.a@awinic.com
-In-Reply-To: <20231025112625.959587-1-wangweidong.a@awinic.com>
-References: <20231025112625.959587-1-wangweidong.a@awinic.com>
-Subject: Re: [PATCH V3 0/3] ASoC: codecs: Add aw88399 amplifier driver
-Message-Id: <169834020032.149939.13328235446947300369.b4-ty@kernel.org>
-Date: Thu, 26 Oct 2023 18:10:00 +0100
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>
+Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20231025143513.291753-1-hdegoede@redhat.com>
+References: <20231025143513.291753-1-hdegoede@redhat.com>
+Subject: Re: [PATCH v2 0/4] ASoC: Intel: bytcr_wm5102: add various quirks
+Message-Id: <169834020778.149939.14152329417197878922.b4-ty@kernel.org>
+Date: Thu, 26 Oct 2023 18:10:07 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: S2DMFSNFXR4ZCBGQEBEAFZILDHEZPYLI
-X-Message-ID-Hash: S2DMFSNFXR4ZCBGQEBEAFZILDHEZPYLI
+Message-ID-Hash: MGKLLTUT27DUMOD2IYBWM5VZG26IPFNJ
+X-Message-ID-Hash: MGKLLTUT27DUMOD2IYBWM5VZG26IPFNJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2DMFSNFXR4ZCBGQEBEAFZILDHEZPYLI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGKLLTUT27DUMOD2IYBWM5VZG26IPFNJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,13 +97,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 25 Oct 2023 19:26:22 +0800, wangweidong.a@awinic.com wrote:
-> Add the awinic,aw88399 property to the awinic,aw88395.yaml file.
+On Wed, 25 Oct 2023 16:35:09 +0200, Hans de Goede wrote:
+> As requested here is a v2 of my series to add various quirks
+> to the bytcr_wm5102 Intel board driver to make it more flexible.
 > 
-> Add i2c and amplifier registration for
-> aw88399 and their associated operation functions.
-> 
-> v2 -> v3: Generate patch based against for-6.7 of sound tree
+> Changes in v2:
+> - Dropped 2 already merged patches
+> - Rebased on top of broonie/sound/for-6.7
 > 
 > [...]
 
@@ -118,12 +113,14 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: dt-bindings: Add schema for "awinic,aw88399"
-      commit: debd9fa7bf17251c44a01ac1536d97566df45ca6
-[2/3] ASoC: codecs: Add code for bin parsing compatible with aw88399
-      commit: 725f3b967a507c515c5b14b4103840d22c217ef7
-[3/3] ASoC: codecs: Add aw88399 amplifier driver
-      commit: 926f192f005fe957ea1bfe4635af10219ba363a2
+[1/4] ASoC: Intel: bytcr_wm5102: Add BYT_WM5102_SSP2 quirk
+      commit: 95504218c688d286fb6bfd5f4dd394b74c80832f
+[2/4] ASoC: Intel: bytcr_wm5102: Add BYT_WM5102_MCLK_19_2MHZ quirk
+      commit: bce4b014cc215afd1eca06977dbe91a1eb63551c
+[3/4] ASoC: Intel: bytcr_wm5102: Add BYT_WM5102_OUT_MAP quirk
+      commit: c556d202bef1b74dbfa0369bf221ccd83dfa7a59
+[4/4] ASoC: Intel: bytcr_wm5102: Add BYT_WM5102_IN_MAP quirk
+      commit: 8619fd0e9026c10841e162ec403f4223fe1f3846
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

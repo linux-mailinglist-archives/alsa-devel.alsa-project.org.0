@@ -2,94 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27AC87D86A0
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 18:22:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2227D86A3
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 18:22:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C8EE868;
-	Thu, 26 Oct 2023 18:21:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C8EE868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31B57A4D;
+	Thu, 26 Oct 2023 18:21:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31B57A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698337333;
-	bh=+Si/CyTN/xSyWonXsNSbqEhocZV5OFh8GKcyX8YCavk=;
+	s=default; t=1698337350;
+	bh=PSBsHwPaPrIwGYV533W2QbyJ5sfH5vf3/0lxi8abbZI=;
 	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=marVFmnyc/OBUyGVnHoIHhD4y5oqxnITKpwiU38rgh6jaCgmUPxWHNi31OUG/FUCW
-	 nA6T3lPIxdsaZ5hTPoMnPcfKYP3ZSgFIY9e2GJV9ud1uQTcIRv19j8/5XkEmpVcdq8
-	 C7f4RSXvV/q5JDIKFRiOuQWL0K7q/Df64vWjsiyQ=
+	b=O4gTt8LkIHKhfBDNoF80bGCdnNhJb5lOOHshLfnJxwHAIyFXrV7rU7hEfIN7E+yvL
+	 g/kGt1x2ickkk6xx7ufjvjmQg6Khik0AAOiXUUSrx9J6v8O+krhwPUzTWleonJbW6Z
+	 cyMkuEr3RxJkSivB4DGc6RRiXkUA04xtJITcuyXA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD47CF80224; Thu, 26 Oct 2023 18:20:53 +0200 (CEST)
+	id D8039F8057B; Thu, 26 Oct 2023 18:20:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DED3DF80224;
-	Thu, 26 Oct 2023 18:20:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C224FF8024E;
+	Thu, 26 Oct 2023 18:20:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE52AF80165; Thu, 26 Oct 2023 07:17:46 +0200 (CEST)
+	id 45060F80165; Thu, 26 Oct 2023 07:21:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 89DDBF8014B
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 07:17:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89DDBF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76FD4F80152
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 07:20:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76FD4F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=gklcwgDd
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4084de32db5so4052555e9.0
+ header.s=google header.b=WWwtvS6h
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-32dff08bbdbso336239f8f.2
         for <alsa-devel@alsa-project.org>;
- Wed, 25 Oct 2023 22:17:22 -0700 (PDT)
+ Wed, 25 Oct 2023 22:20:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1698297437; x=1698902237;
+        d=linaro.org; s=google; t=1698297650; x=1698902450;
  darn=alsa-project.org;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sUQ+Vpna2x7DpdtAUScMRJOjws7VHwu7u1XHQ/05Dz4=;
-        b=gklcwgDd3AKdpXEfdGYEJcIyU3vKkc6+Z4l00FCe+MmDAuGRwChoF2xN4DcFaq3XeN
-         p3IJeIRTpqW0agRb48opJzh9zJgPWn05ZS79SlGmFnZAWcxyp7wSuTK0poFAnBb9Pght
-         9fu79+47MepOdzNGsEgVFD+pw8kepqFBxrCFpHli0gGm82RmYxGIlLpJoG4pwCr0wE8C
-         HvWE51Zmhf+CTJfD/FeUn3xIU1UPF/TGxOj72f80jX4ZRt8tnw90O9izhmXyT4TzIEHp
-         JRtowgq6I2VAD92ousKqA2h3+1VCGRo5hgfa8sNJ/o1cFw5kSUMOCMWXOainPqiq+gNG
-         Yh6g==
+        bh=hoP3vnLlfkIipbfKT/Q7LlQsP5Fq29mTmjFJg5eT+l0=;
+        b=WWwtvS6hIaPEaMKn33nWWDEYYirZtPjLur4H8yaKgaCI5MvI2iDhYB3R9y98F8kePL
+         /m1Zx5+Gq4hvzn1H9bvV9lmc3kzxPlFs2FGfH6Q9NKEgA3mwXeQoOFMqijTZ26/GXZW0
+         NtQste44SH3Wc/KX/FuoIL5fbO5biyV8UMptY+uIvPPwv+gc0r+2SNosawVb2AWvBfq1
+         jJ8T7yQxeDxdT2Ifx1CAWj7wA/XrQ2OEF81wPQ8MATDDA1UDghNaNBD6QJQO/FsN+vbf
+         mghpQnvKl3paesGxlVBBl2WFy7LdJUQqAbmKrWUOSUwK1abPQJZXtcZM1em7bNWLs0NO
+         ZOaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698297437; x=1698902237;
+        d=1e100.net; s=20230601; t=1698297650; x=1698902450;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sUQ+Vpna2x7DpdtAUScMRJOjws7VHwu7u1XHQ/05Dz4=;
-        b=FIM4GMAS/GMHEGCoS9IZ6Jnn2JO11Pr3v52jf2GhNu1wdLoN8wABj/GUZf9n3cHIiw
-         cTzxnYnQI4oDIxA1VfdtjlKTE7k6GITkPuTdwd6rKxDrczeTlsKlr/SaZelHx2jw5GmQ
-         bWi5U7xDF7bzi1BfHEmtTfygOtVtXIVOtBi6mPxhHzx86nws8YO4c1Hp8zwW12p0M4R3
-         4Yxb8xD6s3mKn4xHmNMB0EIFyXLoVYYwCnNDcqGl4yF7HnRU70H9HqshjJZ6I4PStw5G
-         a0nk/tT94GijMshZu9aIx3zpIIjMTy9qPZvNugWPcGbWrBldkIciOpB+A0FDhbPejYGx
-         Z5kg==
-X-Gm-Message-State: AOJu0Yw1hcIc3JNK6UsQ4BnJK1e/QUNzneSsqZOL3v5D2MfEBcPHK9Xp
-	iXy2DujQcxtD+/o4pe73iqWduA==
+        bh=hoP3vnLlfkIipbfKT/Q7LlQsP5Fq29mTmjFJg5eT+l0=;
+        b=Y2veYoe1UaSRKYGFJk4zyksC6OHiPfiGWP3ZvXjqiEkPqgO3XEoHQocTC21FfJL7P5
+         DNsy+TE2us42TOITQCGoUI3gGndvMefNfr5dDP2xUUc3Ody5F1ZTaxmPLM3HI/pDt+GE
+         /GlIXZOGQCUbaWh4fF2+3GmDpcClEwcorW0jXDRKOrpAgkA05SY18WZyF6EYmtu66LJn
+         qlNXOmKgjv1Idkfnmk5N65HMfAD2SC5LnQU4VR1ZqtDqlxVKHPYiCTKKfrj8t0NnbM9Z
+         Z8HcZO3eUuvaUvN/4gWrNcBWM0lnptS8DmYTTvkQ2rsLrAB6R40byPzeDv5fzvYLddHB
+         e/UA==
+X-Gm-Message-State: AOJu0YzFtaKXZWM/S+zLxqAFqxSOcPX6PNadG67sauVM+TB8qWPzj74Q
+	81xMqjH+T10SDA5P3AISYoec5dD9DEhRXkVv5LM=
 X-Google-Smtp-Source: 
- AGHT+IERqiX4xYl1Bkkzvu0acBzraatyda2+o48d0ur8eaxHldjVWx82dILfnQyP4fkISSy3SttH8g==
-X-Received: by 2002:a05:600c:1907:b0:408:6fae:1aae with SMTP id
- j7-20020a05600c190700b004086fae1aaemr10904585wmq.31.1698297436887;
-        Wed, 25 Oct 2023 22:17:16 -0700 (PDT)
+ AGHT+IHXMt3vZbSisgx5biH+EvaY333Dzg3s6Z4sBHgbE9UBgf/2nfyW5P6IRrjM1WM3X/OwmyZzxw==
+X-Received: by 2002:a05:6000:108:b0:32d:9b80:e2c6 with SMTP id
+ o8-20020a056000010800b0032d9b80e2c6mr11878546wrx.26.1698297650469;
+        Wed, 25 Oct 2023 22:20:50 -0700 (PDT)
 Received: from localhost ([102.36.222.112])
         by smtp.gmail.com with ESMTPSA id
- y1-20020a05600c20c100b0040648217f4fsm1458924wmm.39.2023.10.25.22.17.15
+ g17-20020a5d5551000000b0032cc35c2ef7sm13399642wrw.29.2023.10.25.22.20.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Oct 2023 22:17:16 -0700 (PDT)
-Date: Thu, 26 Oct 2023 08:17:11 +0300
+        Wed, 25 Oct 2023 22:20:50 -0700 (PDT)
+Date: Thu, 26 Oct 2023 08:20:45 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: s.nawrocki@samsung.com
+To: kuninori.morimoto.gx@renesas.com
 Cc: alsa-devel@alsa-project.org
-Subject: [bug report] ASoC: samsung: i2s: Fix multiple "IIS multi" devices
- initialization
-Message-ID: <9c6183d5-83b6-4ff8-8bc6-ab3a3e31a922@moroto.mountain>
+Subject: [bug report] ASoC: cx20442: replace codec to component
+Message-ID: <3e608474-e99a-4866-ae98-3054a4221f09@moroto.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -99,15 +98,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: W4YVZJNTOCKQOOEBU5W4B34M7A5IEGCA
-X-Message-ID-Hash: W4YVZJNTOCKQOOEBU5W4B34M7A5IEGCA
+Message-ID-Hash: 6FMQFODWO432KZEODVGSMIFM623L4NKZ
+X-Message-ID-Hash: 6FMQFODWO432KZEODVGSMIFM623L4NKZ
 X-Mailman-Approved-At: Thu, 26 Oct 2023 16:20:50 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W4YVZJNTOCKQOOEBU5W4B34M7A5IEGCA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6FMQFODWO432KZEODVGSMIFM623L4NKZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,68 +115,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Sylwester Nawrocki,
+[ I don't know why I am seeing warnings from 2018 today.  Also this
+  patch didn't really introduce the bug, it's just the variables were
+  renamed. -dan ]
 
-The patch c6bebefa2f06: "ASoC: samsung: i2s: Fix multiple "IIS multi"
-devices initialization" from Feb 19, 2019 (linux-next), leads to the
-following Smatch static checker warning:
+Hello Kuninori Morimoto,
 
-	sound/soc/samsung/i2s.c:1381 i2s_create_secondary_device()
-	info: return a literal instead of 'ret'
+This is a semi-automatic email about new static checker warnings.
 
-sound/soc/samsung/i2s.c
-    1350 static int i2s_create_secondary_device(struct samsung_i2s_priv *priv)
-    1351 {
-    1352         struct platform_device *pdev_sec;
-    1353         const char *devname;
-    1354         int ret;
-    1355 
-    1356         devname = devm_kasprintf(&priv->pdev->dev, GFP_KERNEL, "%s-sec",
-    1357                                  dev_name(&priv->pdev->dev));
-    1358         if (!devname)
-    1359                 return -ENOMEM;
-    1360 
-    1361         pdev_sec = platform_device_alloc(devname, -1);
-    1362         if (!pdev_sec)
-    1363                 return -ENOMEM;
-    1364 
-    1365         pdev_sec->driver_override = kstrdup("samsung-i2s", GFP_KERNEL);
-    1366         if (!pdev_sec->driver_override) {
-    1367                 platform_device_put(pdev_sec);
-    1368                 return -ENOMEM;
-    1369         }
-    1370 
-    1371         ret = platform_device_add(pdev_sec);
-    1372         if (ret < 0) {
-    1373                 platform_device_put(pdev_sec);
-    1374                 return ret;
-    1375         }
-    1376 
-    1377         ret = device_attach(&pdev_sec->dev);
-    1378         if (ret <= 0) {
+The patch d0fdfe34080c: "ASoC: cx20442: replace codec to component"
+from Jan 29, 2018, leads to the following Smatch complaint:
 
-Huh.  I'm not sure how device_attach() is supposed to be handled.
-Here are the return values.
+    sound/soc/ti/ams-delta.c:311 cx81801_close()
+    warn: variable dereferenced before check 'component' (see line 304)
 
- * Returns 1 if the device was bound to a driver;
- * 0 if no matching driver was found;
- * -ENODEV if the device is not registered.
+sound/soc/ti/ams-delta.c
+   303		struct snd_soc_component *component = tty->disc_data;
+   304		struct snd_soc_dapm_context *dapm = &component->card->dapm;
+                                                    ^^^^^^^^^^^^^^^^^^
+Dereference.
 
+   305	
+   306		del_timer_sync(&cx81801_timer);
+   307	
+   308		/* Prevent the hook switch from further changing the DAPM pins */
+   309		INIT_LIST_HEAD(&ams_delta_hook_switch.pins);
+   310	
+   311		if (!component)
+                    ^^^^^^^^^^
+Check for NULL is too late.
 
-    1379                 platform_device_unregister(priv->pdev_sec);
-    1380                 dev_info(&pdev_sec->dev, "device_attach() failed\n");
---> 1381                 return ret;
-
-So in this case we printing that "device_attach() failed\n" but we're
-returning success to the caller.  It might be correct, but if so then
-it should have a comment.
-
-    1382         }
-    1383 
-    1384         priv->pdev_sec = pdev_sec;
-    1385 
-    1386         return 0;
-    1387 }
+   312			return;
+   313	
 
 regards,
 dan carpenter

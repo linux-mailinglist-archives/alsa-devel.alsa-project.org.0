@@ -2,99 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF4067D8967
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 22:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C4E47D8A34
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 23:23:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0C3585D;
-	Thu, 26 Oct 2023 22:04:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0C3585D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0369868;
+	Thu, 26 Oct 2023 23:23:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0369868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698350692;
-	bh=+uMJoNr1drMyaV4vwEoxpe+493cdkpAVp/nhiLRli/U=;
+	s=default; t=1698355435;
+	bh=fGHcJ5hunsJbLlRf3KgeF/FKhgvAN6JanLqHYJ+agVY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bGtUIbrr1pr5cCmNvAbPKf3vkcQzfbudEGkXLyrZ1sv3dkcMsCE4p2UKRrH0kloFQ
-	 L/Rt7xDDGSY+E8SN/6QyWf/ravPcygZOR1iyWk99uorhyn9crx6fjcFk2LUG8aujLg
-	 rP1EMkdzwVH+nPP4Bw9bJIlyw8gPFklA2YvJghuw=
+	b=JyRpzfDUNNJ4ZPsPkqlhFaBYQtG6tA6vabmVMpg+rUp7EZsVJwXl/2KFT6V8XXcYx
+	 4+2sJVW9zRHB3b8ubImiayxmjAJ7M8cwkzEB8Q0zDOIienmQ66/wuE5DNtX3DpqCVL
+	 uMBQcco8sGdIdX4mPEppsOfgOwTU74wHIuU9/Pdo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 94BC7F80152; Thu, 26 Oct 2023 22:04:01 +0200 (CEST)
+	id 5DFB5F8014B; Thu, 26 Oct 2023 23:23:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6921FF80165;
-	Thu, 26 Oct 2023 22:04:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18A9BF80165;
+	Thu, 26 Oct 2023 23:23:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42D0CF8019B; Thu, 26 Oct 2023 22:03:58 +0200 (CEST)
+	id 71751F8019B; Thu, 26 Oct 2023 23:23:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3A98AF8010B
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 22:03:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A98AF8010B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=AuYiHXgK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698350630; x=1729886630;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+uMJoNr1drMyaV4vwEoxpe+493cdkpAVp/nhiLRli/U=;
-  b=AuYiHXgKFr44hGuH5H2rwbbjFn937GcCswKAfHW2MaKNWN256dH8Cn2e
-   ovoghC0IOTdvffe7ICqqVvq7zrVEBOy7rdVPdT89z+Qv9P1G45XTXnXs4
-   OFLs7UGLTCb5JHtam0LZ9eGK7gOKxVbftTl5s+m7/rZc99l5kAH/I5lpM
-   Wun/0aBvifOkVjKUcqQ2iQMU+0XAPzKlJpyBFHhcvRpFsQ/kkmchUOuog
-   nBcWe4SeDPQEtpSWi+8QHD+xTN5A6Nzls9fKxBexagqGoYWXVaf8iR9eB
-   4yT1MeHtp0DSnIzAlwbmPZDaRUINkOZhS8r0zWg+icammA6ywHdpnZ7CT
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="9180847"
-X-IronPort-AV: E=Sophos;i="6.03,254,1694761200";
-   d="scan'208";a="9180847"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2023 13:03:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="709194246"
-X-IronPort-AV: E=Sophos;i="6.03,254,1694761200";
-   d="scan'208";a="709194246"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
-  by orsmga003.jf.intel.com with ESMTP; 26 Oct 2023 13:03:40 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qw6Zt-000A6N-2p;
-	Thu, 26 Oct 2023 20:03:37 +0000
-Date: Fri, 27 Oct 2023 04:03:04 +0800
-From: kernel test robot <lkp@intel.com>
-To: Eberhard Stoll <estl@gmx.net>, Han Xu <han.xu@nxp.com>,
-	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Eberhard Stoll <eberhard.stoll@kontron.de>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
-	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
-	Michal Simek <monstr@monstr.eu>, Rob Herring <robh@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH 4/4] spi: spi-fsl-qspi: Add support for rx data sample
- point adjustment
-Message-ID: <202310270332.mcbckKCr-lkp@intel.com>
-References: <20231026152316.2729575-5-estl@gmx.net>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 607EDF80152
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 23:22:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 607EDF80152
+Received: by mail-ot1-f41.google.com with SMTP id
+ 46e09a7af769-6cd33d51852so895348a34.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 26 Oct 2023 14:22:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698355370; x=1698960170;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4152jFLYLD/MBewGGEPSHG844zUZQa9UTyIgToDxCiM=;
+        b=HXIh968bvmm5zYJqVKgRqKf3UJyCbWVN/s/w1tbIf7yTPpmjxUP9A1AhAxgjFpMxZf
+         1VMuLGKu9QhccIIYgGzRjytrOhU5dXJaQg8rd3rP3qrcd7DLePcNuefgpP0+pOBHS4bI
+         sHGlAmIXeQwMGPvbrg3PI1py/ZFOr5ciFwA6TWo0aqWS29okCnvcPtrd9HE6aKrHRHbL
+         EHRL8ObTl2YpLvBFRqHiGpOTIPLG4PWNSur6SdSDsHYK5Pk07GiE3ba+6T0M+cy2fzvt
+         hpMj/f09K4KIiIgR2+a4Rqjw2RdvKL8uAAycSZPw3QeW9QKc/sXXrM4SvMhS5YYxteC0
+         f43Q==
+X-Gm-Message-State: AOJu0Yx4PLIZIsVSt5X1DUN2OClaBsr/t2jic6LAqGQVEUrWgdyOqQmP
+	hxhNp4aNawWnNxq5aS7r8Q==
+X-Google-Smtp-Source: 
+ AGHT+IHabh59A6Iy4VEaSpR8/PFa9Dq+e6X0DG9ObnlWccTugNJclAbi3zd3YfIeAaa0IB54AvVS2A==
+X-Received: by 2002:a05:6830:14:b0:6cc:fff0:8ebd with SMTP id
+ c20-20020a056830001400b006ccfff08ebdmr612994otp.24.1698355370314;
+        Thu, 26 Oct 2023 14:22:50 -0700 (PDT)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107])
+        by smtp.gmail.com with ESMTPSA id
+ b8-20020a4a98c8000000b0057377b1c1c8sm36892ooj.24.2023.10.26.14.22.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Oct 2023 14:22:49 -0700 (PDT)
+Received: (nullmailer pid 420013 invoked by uid 1000);
+	Thu, 26 Oct 2023 21:22:48 -0000
+Date: Thu, 26 Oct 2023 16:22:48 -0500
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ bard.liao@intel.com, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 5/5] dt-bindings: audio-graph-port: add
+ channel-map-index property
+Message-ID: <20231026212248.GA383937-robh@kernel.org>
+References: <87fs1zbg2g.wl-kuninori.morimoto.gx@renesas.com>
+ <878r7rbg0v.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231026152316.2729575-5-estl@gmx.net>
-Message-ID-Hash: YOUI27Q4HKI467DWWG3V56N5KE4S44RJ
-X-Message-ID-Hash: YOUI27Q4HKI467DWWG3V56N5KE4S44RJ
-X-MailFrom: lkp@intel.com
+In-Reply-To: <878r7rbg0v.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID-Hash: B5YKLWDDFLFFYSD2GVCQDYIIWCDTRWWW
+X-Message-ID-Hash: B5YKLWDDFLFFYSD2GVCQDYIIWCDTRWWW
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOUI27Q4HKI467DWWG3V56N5KE4S44RJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B5YKLWDDFLFFYSD2GVCQDYIIWCDTRWWW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,92 +113,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Eberhard,
+On Wed, Oct 25, 2023 at 02:19:13AM +0000, Kuninori Morimoto wrote:
+> This patch adds channel-map-index property to enable handling
 
-kernel test robot noticed the following build warnings:
+Don't write commit messages with 'This patch' or 'This commit'. See the 
+documentation on writing patches.
 
-[auto build test WARNING on 05d3ef8bba77c1b5f98d941d8b2d4aeab8118ef1]
+> CPU:Codec = N:M connection.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Eberhard-Stoll/spi-Add-parameter-for-clock-to-rx-delay/20231026-232547
-base:   05d3ef8bba77c1b5f98d941d8b2d4aeab8118ef1
-patch link:    https://lore.kernel.org/r/20231026152316.2729575-5-estl%40gmx.net
-patch subject: [PATCH 4/4] spi: spi-fsl-qspi: Add support for rx data sample point adjustment
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20231027/202310270332.mcbckKCr-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231027/202310270332.mcbckKCr-lkp@intel.com/reproduce)
+This is not answering Why?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310270332.mcbckKCr-lkp@intel.com/
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  .../devicetree/bindings/sound/audio-graph-port.yaml | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> index 60b5e3fd1115..2a7e0784d591 100644
+> --- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> +++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> @@ -93,6 +93,19 @@ definitions:
+>                minimum: 1
+>                maximum: 64
+>  
+> +      channel-map-index:
+> +        description: It indicates CPU/Codec DAIs channel mapping index if number of
+> +          CPU(N) / Codec(M) were not same in one dai-link. channel-map-index is not
+> +          needed if the numbers were 1:M or N:1 or N==M. Same indexed CPU <-> Codec
+> +          will be paired. This is CPUx2 <-> Codecx3 sample.
+> +                                   CPUA   { ... .channel-map-index = <0>;   }
+> +          [0] CPUA <---> CodecA    CPUB   { ... .channel-map-index = <1 2>; }
+> +          [1] CPUB <-+-> CodecB
+> +          [2]        \-> CodecC    CodecA { ... .channel-map-index = <0>; }
+> +                                   CodecB { ... .channel-map-index = <1>; }
+> +                                   CodecC { ... .channel-map-index = <2>; }
 
-All warnings (new ones prefixed by >>):
+We have 2 different meanings for channel-map-index here. We have the 
+codecs defining "I am index N" and then the CPUs defining "I'm connected 
+to codec N". That's confusing to start with. Made-up indices are 
+something we try to avoid in DT. Are the numbers here (0, 1, 2) 
+significant? The normal way we link from one node to another is 
+phandles. Why not use phandles here:
 
-   drivers/spi/spi-fsl-qspi.c: In function 'fsl_qspi_select_mem':
->> drivers/spi/spi-fsl-qspi.c:558:38: warning: suggest parentheses around comparison in operand of '|' [-Wparentheses]
-     558 |         if (chip->rx_sample_delay_ns != spi->rx_sample_delay_ns |
-         |             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+CPUA   { ... .channel-map-index = <&CodecA>;   }
+CPUB   { ... .channel-map-index = <&CodecB &CodecC>; }
 
 
-vim +558 drivers/spi/spi-fsl-qspi.c
+However, we also have OF graph to define complex topologies/connections 
+AND we're already using it for this binding. So why not here? You can 
+always have more than 1 port and/or endpoint. Generally, multiple ports 
+are independent/simultaneous data connections and multiple endpoints are 
+either 1:N fanout or N:1 muxed connections.
 
-   550	
-   551	static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi)
-   552	{
-   553		unsigned long rate = spi->max_speed_hz;
-   554		int ret;
-   555		struct fsl_qspi_chip_data *chip = spi_get_ctldata(spi);
-   556		const char *sampling_ident = sampling_mode[0];
-   557	
- > 558		if (chip->rx_sample_delay_ns != spi->rx_sample_delay_ns |
-   559		    chip->rate != rate) {
-   560			chip->rx_sample_delay_ns = spi->rx_sample_delay_ns;
-   561			chip->rate = rate;
-   562	
-   563			chip->smpr_sampling =
-   564				(2 * spi->rx_sample_delay_ns * (rate >> 10)) / (1000000000 >> 10);
-   565			dev_dbg(q->dev, "smpr_sampling = %u (delay %u ns)\n",
-   566				chip->smpr_sampling, spi->rx_sample_delay_ns);
-   567	
-   568			if (chip->smpr_sampling > 3) {
-   569				dev_err(q->dev, "rx sample delay for device %s exceeds hw capabilities! Clamp value to maximum setting.\n",
-   570					dev_name(&spi->dev));
-   571				chip->smpr_sampling = 3;
-   572				sampling_ident = "(I2 clamped to max)";
-   573			} else {
-   574				sampling_ident = sampling_mode[chip->smpr_sampling];
-   575			}
-   576	
-   577			chip->smpr_sampling <<= 5;
-   578			dev_info(q->dev, "sampling point %s at %lu kHz used for device %s\n",
-   579				 sampling_ident, rate / 1000, dev_name(&spi->dev));
-   580			fsl_qspi_update_smpr_sampling(q, chip->smpr_sampling);
-   581		}
-   582	
-   583		if (q->selected == spi_get_chipselect(spi, 0))
-   584			return;
-   585	
-   586		fsl_qspi_update_smpr_sampling(q, chip->smpr_sampling);
-   587	
-   588		if (needs_4x_clock(q))
-   589			rate *= 4;
-   590	
-   591		fsl_qspi_clk_disable_unprep(q);
-   592	
-   593		ret = clk_set_rate(q->clk, rate);
-   594		if (ret)
-   595			return;
-   596	
-   597		ret = fsl_qspi_clk_prep_enable(q);
-   598		if (ret)
-   599			return;
-   600	
-   601		q->selected = spi_get_chipselect(spi, 0);
-   602	
-   603		fsl_qspi_invalidate(q);
-   604	}
-   605	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Rob

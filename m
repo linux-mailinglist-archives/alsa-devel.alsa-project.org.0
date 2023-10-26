@@ -2,107 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693497D8571
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 17:01:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9EA17D858D
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Oct 2023 17:07:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74596828;
-	Thu, 26 Oct 2023 17:01:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74596828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37359823;
+	Thu, 26 Oct 2023 17:06:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37359823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698332516;
-	bh=E3TbXSZFtJIGay/zBzgKcMrSIq3nyoCPzTNhBTttaRQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lRQ+v8gtJq0julbF78gS7Sdvk2yQJlFpDkvRblJSLaaFkxRz5RBqGHVQj3VsKz0Pl
-	 /fO8PCozATZcKY7/lBLBR6GONhE4/UTrSB8HAVTEmfVc0Nw4Ci8AcSxm6jI+07O3w7
-	 RU9MDHGspU6iWM6CF48+ZL8sfiWSfOf28Aig1Gs4=
+	s=default; t=1698332834;
+	bh=MEhN2Si2/Oagqxuuq5w2D22SEWnFIemuGqoAmnQ1v6Q=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=I88zaBR24rMQCKV4Bq1Y3Z1tybdxWRtNL4BR9yor2nTooNp4w66t0u1cZHH21yTow
+	 +4XI2ePYV1i67KiJAz0m4bXDfp8nodS1yLaOZj7o/SEYXXs7QYXAj+GS48l91ZMwRk
+	 htreYYOTQ951pPYfqaUF556RhRhBwz9RsMAWmJpA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5FB60F8010B; Thu, 26 Oct 2023 17:00:46 +0200 (CEST)
+	id E877CF80152; Thu, 26 Oct 2023 17:06:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBEC6F80165;
-	Thu, 26 Oct 2023 17:00:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7470F80557;
+	Thu, 26 Oct 2023 17:06:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9FB1F8019B; Thu, 26 Oct 2023 17:00:41 +0200 (CEST)
+	id 17F47F8028D; Thu, 26 Oct 2023 17:06:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 45A9AF8010B
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 17:00:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45A9AF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 660E4F8010B
+	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 17:06:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 660E4F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QbbYOA4A
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 4D457CE3920
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 15:00:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5950C433CC
-	for <alsa-devel@alsa-project.org>; Thu, 26 Oct 2023 15:00:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698332428;
-	bh=E3TbXSZFtJIGay/zBzgKcMrSIq3nyoCPzTNhBTttaRQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=QbbYOA4AIKe0PnNSEeCqrmoVWRqyCIz0kV0G4d9xPHm9AMTEJvReFhew+PSQx5nW0
-	 piNEx1+bAoU163+rZmDCr9/GnmZ2h4E2ZqRWuSrn+XMduMFGjU3qR+6O5A4oPitp0A
-	 2lwcnsvG7LKpQXXfanqUQzNfkTtuA48JTfJxEEarPf+Lr6dmRZkZDIJD69rWI9FFxh
-	 H3gm42BFLOIF7N2QdI8qoJ11HuWbMy5N9r8OcEKnWt2JOV3xC4tFiACns0PABq7PUh
-	 kamqIIbMFMSqf29fWWXj9WSasHJkN/V28DKdyzNzuFBIi5Qz17tNxYRjYaGttETWU8
-	 BPN/jZt/zyUkg==
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-27d425a2dd0so825942a91.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 26 Oct 2023 08:00:28 -0700 (PDT)
-X-Gm-Message-State: AOJu0YzbbmOoH8p33CE+SeFCRQTkzCwdGx4eH69eoEsci0VBBMkfNriB
-	l7jpKN0wfWi43zzDfDdLXGq9nZCD22ISkqXwTXU=
-X-Google-Smtp-Source: 
- AGHT+IFf/g3FdqTRlgRtfXQqdXPHTJRFWHub3LPFf7a501CHy+ga2wMn592H/yQa+gSLyAOqZ9Ydut0bLJAcDbwMk14=
-X-Received: by 2002:a17:90b:fd2:b0:27d:30d5:c0f8 with SMTP id
- gd18-20020a17090b0fd200b0027d30d5c0f8mr17665525pjb.43.1698332428375; Thu, 26
- Oct 2023 08:00:28 -0700 (PDT)
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=jrV7jYJA
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 39Q5GUrd011654;
+	Thu, 26 Oct 2023 10:06:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=6
+	OqnnMnxJr4U6WGGgQd0My1SNKbdKPtvtXT6+Ya2O+w=; b=jrV7jYJA47WRNbE0z
+	2BY5jlstA3CBlsRUt0M7HJK+kqW2d5enPocIEVmQzQ/OXDUkhTOI4RTkmbLe5/Y+
+	Q1Vn3uWbxHdLO4UrU+Njig4NwZ4Zf16WdL0Upi8y2WvbYmPGs1SZqbIlU+5465fW
+	KPL5bKr3HNYkpcEkE7HNVPTdT+FQIqy5kAvpeE9rEAz+tcddriRDIG3UaAf5Y0of
+	JcDD0I43BGMoevqtN1lOI+jg82mBQAQvsCYATLAv5ltchrcNAG3QfJUfoZzGRsfj
+	iVfzF5xSTKiDnmWnBtPFmYvXUsKJLrS1mM3Ah5gWigHGDq81/0RKQ2YCgYPLlzk4
+	LS5/A==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3tvc1x94k9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 26 Oct 2023 10:06:09 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.37; Thu, 26 Oct
+ 2023 16:06:07 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.37 via Frontend Transport; Thu, 26 Oct 2023 16:06:07 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.177])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1C75E2A1;
+	Thu, 26 Oct 2023 15:06:07 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        "Mark
+ Brown" <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Stefan
+ Binding" <sbinding@opensource.cirrus.com>
+Subject: [PATCH v1 0/8] System Suspend fixes and improvements for CS35L41 HDA
+Date: Thu, 26 Oct 2023 16:05:50 +0100
+Message-ID: <20231026150558.2105827-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
- <edeebfab-e26c-4c18-8126-190c3e834521@kernel.org>
- <12c8c0f3-8364-4f25-976e-8cca29b5e17f@amd.com>
-In-Reply-To: <12c8c0f3-8364-4f25-976e-8cca29b5e17f@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Thu, 26 Oct 2023 17:00:17 +0200
-X-Gmail-Original-Message-ID: 
- <CAJKOXPe+kSgxDFjrk+-ycsiyjp1r_SNNrFyy2B_-UDuqDV07XQ@mail.gmail.com>
-Message-ID: 
- <CAJKOXPe+kSgxDFjrk+-ycsiyjp1r_SNNrFyy2B_-UDuqDV07XQ@mail.gmail.com>
-Subject: Re: [PATCH 01/13] ASoC: amd: acp: Add acp6.3 pci legacy driver
- support
-To: syed saba kareem <ssabakar@amd.com>
-Cc: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
-	alsa-devel@alsa-project.org, Vijendar.Mukunda@amd.com,
-	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
-	mario.limonciello@amd.com, venkataprasad.potturu@amd.com,
-	arungopal.kondaveeti@amd.com, mastan.katragadda@amd.com,
-	juan.martinez@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	V Sujith Kumar Reddy <vsujithkumar.reddy@amd.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Yang Li <yang.lee@linux.alibaba.com>,
- Dan Carpenter <dan.carpenter@linaro.org>,
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: OKZ33FZYRXMQLDOOPZXQCWMXPTW2A2DU
-X-Message-ID-Hash: OKZ33FZYRXMQLDOOPZXQCWMXPTW2A2DU
-X-MailFrom: krzk@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: CwLOw8q_guIXhoM-B7Ilyqhyfv-NQ2Rm
+X-Proofpoint-ORIG-GUID: CwLOw8q_guIXhoM-B7Ilyqhyfv-NQ2Rm
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 6WIG5QT4JMT3W2CFC2OJ6XJ2EDD7SREI
+X-Message-ID-Hash: 6WIG5QT4JMT3W2CFC2OJ6XJ2EDD7SREI
+X-MailFrom: prvs=56633e4941=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OKZ33FZYRXMQLDOOPZXQCWMXPTW2A2DU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6WIG5QT4JMT3W2CFC2OJ6XJ2EDD7SREI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,23 +110,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 26 Oct 2023 at 12:09, syed saba kareem <ssabakar@amd.com> wrote:
-> +
-> +module_platform_driver(acp63_driver);
-> +
-> +MODULE_DESCRIPTION("AMD ACP acp63 Driver");
-> +MODULE_IMPORT_NS(SND_SOC_ACP_COMMON);
-> +MODULE_LICENSE("Dual BSD/GPL");
-> +MODULE_ALIAS("platform:" DRV_NAME);
->
-> You should not need MODULE_ALIAS() in normal cases. If you need it,
-> usually it means your device ID table is wrong.
->
-> It is platform driver ,for auto loading MODULE_ALIAS() is required.
+There is a report of a single laptop which uses CS35L41 HDA having an
+issue with System Suspend. This particular laptop uses S3 (Deep) Sleep.
+The reported issue states that when the laptop resumes from a system
+suspend, audio no longer works.
 
-Hm, not really. platform_driver does not need MODULE_ALIAS(). At least
-99% of them do not need it. Please help us understand what is broken
-here that this one platform driver needs alias.
+The root cause of this issue is due to the CS35L41 being returned to us
+in an unexpected state after a suspend/resume cycle.
+When the driver resumes, it expects the parts to have been reset, which
+leads to issues with audio and firmware loading.
 
-BR,
-Krzysztof
+To prevent this issue, and the possibility of similar issues, patches
+2-5 force the driver to reset during probe, system suspend, and system
+resume, which ensures that the part is always in the correct state.
+Patches 6-8 are improvements in the suspend and firmware loading code,
+which makes it easier to detect issues in the future, as well as
+simplifiying the suspend code.
+
+Patch 1 is a fix for an incorrect configuration for the HP Zbook Fury
+17, which is the laptop which had the original issue.
+
+Stefan Binding (8):
+  ALSA: hda: cs35l41: Use reset label to get GPIO for HP Zbook Fury 17
+    G9
+  ALSA: hda: cs35l41: Assert reset before system suspend
+  ALSA: hda: cs35l41: Assert Reset prior to de-asserting in probe and
+    system resume
+  ALSA: hda: cs35l41: Run boot process during resume callbacks
+  ALSA: hda: cs35l41: Force a software reset after hardware reset
+  ALSA: hda: cs35l41: Do not unload firmware before reset in system
+    suspend
+  ALSA: hda: cs35l41: Check CSPL state after loading firmware
+  ASoC: cs35l41: Detect CSPL errors when sending CSPL commands
+
+ include/sound/cs35l41.h              |   3 +
+ sound/pci/hda/cs35l41_hda.c          | 170 +++++++++++++++++----------
+ sound/pci/hda/cs35l41_hda_property.c |  11 +-
+ sound/soc/codecs/cs35l41-lib.c       |   6 +
+ 4 files changed, 124 insertions(+), 66 deletions(-)
+
+-- 
+2.34.1
+

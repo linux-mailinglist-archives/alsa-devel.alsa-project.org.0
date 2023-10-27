@@ -2,65 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22B5A7DADED
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Oct 2023 20:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234167E063E
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Nov 2023 17:18:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 497049F6;
-	Sun, 29 Oct 2023 20:18:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 497049F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id F26E0825;
+	Fri,  3 Nov 2023 17:18:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F26E0825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698607167;
-	bh=7I5OLuIkNXDkPFVH/uJQgPPb60UnXDLe9H59o8ZoUwk=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Fw/d0hY/zHm1tIJ6cFjZpO4okDlb1dPq2s4mNb98e7hV3DMfQyVEpfW0DQfpYoabu
-	 sOiWN7XIF7T0Ip7gPboJOQlpN+Q+5dPv6kiXyx/QC1sNBQJIaIwmoPFFMPQsPICCn7
-	 rNi6OtVAolRP+0aZjKIsxLVgplbzDL8MnJfH59I0=
+	s=default; t=1699028338;
+	bh=Xbndmf0YHZtHbgihlgFeAtlSxG6+gcLz/SED146ciUw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kItDe216MbkOVatKpaujtd1zTtQg7tKcZNNu7SzRcSlqlxkp/rCINOkFjHwjWs12x
+	 XyrijISPoZwgAXE7a9UfWdQJpxObWlSH0p7JyrmDanSGy3b3G8VMZ/dxoT9OsfdZHu
+	 9WPwoEoukTe1cZusTLRxNAfz7o+iskhR6S5/+9Gw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9217BF80557; Sun, 29 Oct 2023 20:18:27 +0100 (CET)
+	id 7981DF8055A; Fri,  3 Nov 2023 17:18:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78821F8016D;
-	Sun, 29 Oct 2023 20:18:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86657F8020D;
+	Fri,  3 Nov 2023 17:18:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C44C9F8020D; Sun, 29 Oct 2023 20:15:56 +0100 (CET)
+	id 38554F8019B; Fri, 27 Oct 2023 16:49:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FAB9F80166
-	for <alsa-devel@alsa-project.org>; Sun, 29 Oct 2023 20:15:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FAB9F80166
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36C45F8012B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 16:48:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36C45F8012B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
+ header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
+ header.b=bdifzZP1
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 93C729C3343;
+	Fri, 27 Oct 2023 10:48:33 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id jVSwdsYHtvBd; Fri, 27 Oct 2023 10:48:33 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id E2D5E9C3358;
+	Fri, 27 Oct 2023 10:48:32 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com E2D5E9C3358
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1698418112; bh=7kqjp328TkSpD1fPn6USaBZ8q2jA86DsTY2+9fl5Pd0=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=bdifzZP1J8nFyLoBOr3Y1BDWVbrwQlV70bAbjtf802fJDZQoDup5olklNmpciZMYQ
+	 20ALyt+k60LaPAe2IK1V9iqVOmcw90RG2JQf6eSQ5pEnKrs06NpOGc2pg/107whh4T
+	 m1x89IX3SYSl3uxOEmC7kWyBmaUV0wXmqu9DRwp4iY7Luq+7YK1bNQGfgLelp1Rgdb
+	 3vfrkdYmgaINVyNqdDmtsyUEQDeCxtrLO0tGYXmjcair/inPblPXLLxK1fkSLhitwG
+	 XXRqNy+A7jOGv6Cci8RglWWGADuI1ok0oPN+A7QQlHAAorW2c929qPQWjTP08J/1s9
+	 USMFqVV1/RMkQ==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id DtHiefBbywFW; Fri, 27 Oct 2023 10:48:32 -0400 (EDT)
+Received: from gerard.rennes.sfl
+ (lmontsouris-657-1-69-118.w80-15.abo.wanadoo.fr [80.15.101.118])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id F37379C3343;
+	Fri, 27 Oct 2023 10:48:31 -0400 (EDT)
+From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	broonie@kernel.org
+Cc: elinor.montmasson@savoirfairelinux.com,
+	alsa-devel@alsa-project.org,
+	philip-dylan.gleonec@savoirfairelinux.com
+Subject: [PATCHv2 00/10] ASoC: fsl-asoc-card: compatibility integration of a
+ generic codec use case for use with S/PDIF controller
+Date: Fri, 27 Oct 2023 16:47:24 +0200
+Message-Id: <20231027144734.3654829-1-elinor.montmasson@savoirfairelinux.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1698606951015890837-webhooks-bot@alsa-project.org>
-References: <1698606951015890837-webhooks-bot@alsa-project.org>
-Subject: SPDIF output of ASRock X670E with ALC4080 didnt work
-Message-Id: <20231029191556.C44C9F8020D@alsa1.perex.cz>
-Date: Sun, 29 Oct 2023 20:15:56 +0100 (CET)
-Message-ID-Hash: HHLCFV3GMANDLBLQOY77I6V3QOGJBNDZ
-X-Message-ID-Hash: HHLCFV3GMANDLBLQOY77I6V3QOGJBNDZ
-X-MailFrom: github@alsa-project.org
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: elinor.montmasson@savoirfairelinux.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 3BZSWBNL6Q2OGNQ76AAD4YWH6YTECSNV
+X-Message-ID-Hash: 3BZSWBNL6Q2OGNQ76AAD4YWH6YTECSNV
+X-Mailman-Approved-At: Fri, 03 Nov 2023 16:18:02 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HHLCFV3GMANDLBLQOY77I6V3QOGJBNDZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BZSWBNL6Q2OGNQ76AAD4YWH6YTECSNV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,9 +110,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #364 was opened from jonasdutra:
+Hello,
 
-http://alsa-project.org/db/?f=43bba1198f548f906c597d1f2e15ff5f6df58a60
+This is the v2 of the series of patch aiming to make the machine driver f=
+sl-asoc-card compatible with use cases where there is no real codec drive=
+r. It proposes to use the spdif_receiver and spdif_transmitter drivers in=
+stead of the dummy codec.
+This is a first step in using the S/PDIF controller with the ASRC.
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/364
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+The five first patches add compatibility with the pair of codecs spdif_re=
+ceiver and spdif_transmitter with a new compatible, "fsl,imx-audio-generi=
+c". Codec parameters are set with default values.
+
+The remaining patches add configuration options for the device tree. They=
+ configure the CPU DAI when using "fsl,imx-audio-generic". These are usua=
+lly hard-coded in fsl-asoc-card for each audio codec. Because the generic=
+ codec could be used with other CPU DAI than the S/PDIF controller, setti=
+ng these parameters could be required.
+
+This series of patch was successfully built for arm64 and x86 on top of t=
+he latest for-next branch of the ASoC git tree on the 24/10.
+These modifications have also been tested on an i.MX8MN evaluation board,=
+ with a linux kernel RT v6.1.26-rt8.
+
+We also have a few questions :
+
+* We named the compatible "fsl,imx-audio-generic" as, for the moment, it =
+could work with any CPU DAI, even if it uses S/PDIF codecs. Is it prefera=
+ble to keep these modifications specific to the S/PDIF, thus specifying "=
+spdif" in the compatible ? Or is it okay to keep the actual name of the c=
+ompatible, and the generic purpose of this compatible ?
+
+* Part of the dai_fmt variable hold information on the codec provider or =
+consumer status for bit/frame clocks. In patch 03/10, as we add compatibi=
+lity for multiple codecs, we make the test about bit/frame clock provider=
+ only check with codec[0]. That way we assure compatibility with all alre=
+ady existing compatibles. As it was never intended before to have multipl=
+e codecs for this test, is there a better way to handle it ? Should we ma=
+ke this test check if any codec is clock provider ? Or should we let code=
+c[0] be the default possibility ? That way, future compatibles that could=
+ encounter this specific case with multi-codecs should adapt the test for=
+ their needs.
+
+Best regards,
+Elinor Montmasson
+
+Changelog:
+v1 -> v2:
+* replace use of the dummy codec by the pair of codecs spdif_receiver / s=
+pdif_transmitter
+* adapt how dai links codecs are used to take into account the possibilit=
+y for multiple codecs per link
+* change compatible name
+* adapt driver to be able to register two codecs given in the device tree
+* v1 patch series at:
+https://lore.kernel.org/alsa-devel/20230901144550.520072-1-elinor.montmas=
+son@savoirfairelinux.com/
+
+Elinor Montmasson (10):
+  ASoC: fsl-asoc-card: add support for dai links with multiple codecs
+  ASoC: fsl-asoc-card: add second dai link component for codecs
+  ASoC: fsl-asoc-card: add compatibility to use 2 codecs from device
+    tree
+  ASoC: fsl-asoc-card: add new compatible for a generic codec use case
+  ASoC: fsl-asoc-card: set generic codec as clock provider
+  ASoC: fsl-asoc-card: add dts property "cpu-slot-width"
+  ASoC: fsl-asoc-card: add dts property "cpu-slot-num"
+  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-freq"
+  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-dir-out"
+  Documentation: fsl-asoc-card: add documentation for generic codec case
+
+ .../bindings/sound/fsl-asoc-card.txt          |  26 +++-
+ sound/soc/fsl/fsl-asoc-card.c                 | 128 ++++++++++++------
+ 2 files changed, 114 insertions(+), 40 deletions(-)
+
+--=20
+2.25.1

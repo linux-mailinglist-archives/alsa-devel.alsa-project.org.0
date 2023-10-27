@@ -2,108 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F90C7D8E31
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 07:36:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969B67D8EF7
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 08:53:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68AE8A4E;
-	Fri, 27 Oct 2023 07:35:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68AE8A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C2EB9F6;
+	Fri, 27 Oct 2023 08:52:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C2EB9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698384969;
-	bh=ksRkRFnnSD5BohIVR6ujtifPZvny8O4Y4m+QDyGIIhA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1698389592;
+	bh=SCNmXq7Ptie0LI3Yxb0UJJYwMBSju8ihHjTKPqLl07Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OVfvk88Xz84rB2EHyGRO22FCF0ZFz9CE1DvsOOaaCyvJY2N3QOjQh1PfoIPttAunv
-	 6Hl07I6CYJ9CcGJkqhmvkDToOeClMv2yS30WA5L6XQrBi/XsFHThdFQul1oNyA+Vfb
-	 z1zOza5YwGVHmpWYqckWuLo1P+SfLtAN3cCE1vW0=
+	b=aTD1+KrEXR/sea9hJPrHYWnQbeNnZfo7r6+EGpq9TDJXiHvj2ErhXef5J1noLW1iN
+	 86vVuTZb7DkUyzF7qMu6TYLWixhnQ0Wn2gKdOzcDqqhuxNImJeIiu+RAl/y/WEG6RP
+	 1tj219LOz1jaaCbFkA38TfZW6dkUwWV1VuEzMSRs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96C73F8019B; Fri, 27 Oct 2023 07:35:09 +0200 (CEST)
+	id 19587F8010B; Fri, 27 Oct 2023 08:52:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 257DFF80165;
-	Fri, 27 Oct 2023 07:35:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD0B7F80165;
+	Fri, 27 Oct 2023 08:52:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FD3FF8019B; Fri, 27 Oct 2023 07:30:14 +0200 (CEST)
+	id 58725F8019B; Fri, 27 Oct 2023 08:52:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20702.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7d00::702])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 398E3F8012B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 07:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 398E3F8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68596F8012B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 08:51:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68596F8012B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Vb8aI8Yd
-Received: by mail-pg1-x52d.google.com with SMTP id
- 41be03b00d2f7-564af0ac494so1446898a12.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 26 Oct 2023 22:27:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698384441; x=1698989241;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KSH6er1S/8VpTk0zK1LTJVVGU+rFN/elA5pOh6jUYKs=;
-        b=Vb8aI8Yd2UbPTXoTgg5YPZc6iyXlCjH0ecAdX1/j74sLsjEn3sIPhr0q1GiGBdhu9I
-         ePoo1LyxBo1TW0KGU+ffNaGTFKA4Cw98GhERbc5O7toSqNenWTnfdgGQUsbyz9lugoCj
-         tKg8hdFaVosESTarPCnFV6kaInI8AjAT4EMO9k8xHstOU68tio7KjvxGMKSgURULCq7o
-         wl1A9boKv4gABxENmiwDzm/S5ScIzEGf1yHICM++n2Fzh/WfYkTEi7WQSdFwl/YKBGH8
-         OiUf5iTTH5DG2VNZW76UWbtHFnlAO5JM84Y4+fLM40IcBN01uzyGDEUv8wYfsp7VRnwx
-         RiIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698384441; x=1698989241;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=KSH6er1S/8VpTk0zK1LTJVVGU+rFN/elA5pOh6jUYKs=;
-        b=SoCNLdd24hNC5el+RWo3jeL1JMbmnFIPxmw7jmDbatBsULM41skDIg4oZK9NbAqSjc
-         2jbnW+le3uadqMCTrggZiTrETchvFn7EEgtLA435zxD4YkBe2VeVZPbj99rPLJWn1Xms
-         +ZVe7M6jIZK/nF88QTbDMNPvpb5oFMzq/xkUptR5uSLxEkgstWXx8TqK8f4n6Ap4vvHT
-         a7A1r/sm7uCDuOOjz5ur7/VfladCwSaXfsLSmcsgRRx904qsS66l6EzJ0keWJzGQhWu2
-         Av1UvDF0zR/a1vW6p0GAx743BoQGuvy8O/K8D+9+XPETmFskPmLn4AMmG+214FL5mTXx
-         Cw6Q==
-X-Gm-Message-State: AOJu0Yz/OsC3ugmmgev+cA5tUnpG5EjIXU0vR7XygY9U42CwNYxiXnO7
-	IVS3PR38rSX3AtonKdTcJIdy7Fgnx50YspRU0FY=
-X-Google-Smtp-Source: 
- AGHT+IEnI8ab1+JdNF7ype3BwZWF15ZqPeMu0XQR0L+WWYyQ5mhuVfNxRleauDz1GPh94vZdw3ix9QMRKF9L/xPfAsI=
-X-Received: by 2002:a17:90a:6d02:b0:27d:21dd:258f with SMTP id
- z2-20020a17090a6d0200b0027d21dd258fmr1611815pjj.37.1698384441050; Thu, 26 Oct
- 2023 22:27:21 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mysnt.onmicrosoft.com header.i=@mysnt.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-mysnt-onmicrosoft-com
+ header.b=Nxgxyw8h
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l+MKFdhOT/Tk/BE3B+ErTYGY8dcKgGYw6Ex8xFZCuM1yWV75vb0euP3HRGqt0Od59y0KwvwdJdGY2KuRcQg/m9dgrGGtCvxzbgmAPmtE6XTHaiFX9D5yn39f+FpuCPvy8tmMuBuBJCMmRGc6kAMwfdpTQNcIWMzgEy7vfgiuYudwVF7fIGz903sQu63TVUXDu/lcpGqLk/8fUVsIG1Ln8lshV9/MVPKNpXSos/PWZ2JThlFdVQF6BZ8F+1mZPfYj3/Cdk8brT5BiWySdYHtRrTx2jlbU/LxitB9qrsru6/qbJ5NbTvu5xA3i7WkGr+euGBJhdfBTQ+6IjnRrPRqsPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b2MRnDrbb5KyElhHtjuWNn8Louiip72gKgPmSRe2XbQ=;
+ b=gU67u/0BVKyF0c0h8LWn/IA2enlxXQoLIzroDLnCOr2eADi4Qq2fqKr9ku2P505xIDeQnOvjGkiCkrXAxNQQZh03VNRCOu6aS3ZvDCJp9OZwSr6sl3CGQoIubJYVwwssm1pHwYld6zyufZ7gieucoURFMEW28NUrcojpfwUtb3nLIT3qyQyPwrvK4Q0BT5gM/gKZkfWDkSDbVLnOXcLO+Ra8ZDBK48hAFXqosJzek4N/gLViCbAKZmn/0ijRQiEOcvMLgFwOoCtN4HMNZCcmeXQ2lF9zMAtLF/b0BgvKSzMYW45E7ChbeP56PPVW/85O5DxRg+TjNMwJMiCEpeqgcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
+ dkim=pass header.d=kontron.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mysnt.onmicrosoft.com;
+ s=selector2-mysnt-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2MRnDrbb5KyElhHtjuWNn8Louiip72gKgPmSRe2XbQ=;
+ b=Nxgxyw8hjf2hj3NzAsvAqyDipssPhgQb2h8gF3D0Cly3SBIVgopzAhdeHMKjyTXs+a2Epu9zRlVTF6+/zGyuMGfj32tZ36wPRm0we8NT2WUfgo6G3zPt6o1fJPBtuPNZLyRw3HUpISAMN+88Rf2w+PIMM6bxjjfoP7CoUHCgrE8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kontron.de;
+Received: from PA4PR10MB5681.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:263::10)
+ by PA4PR10MB5513.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:26e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.22; Fri, 27 Oct
+ 2023 06:51:54 +0000
+Received: from PA4PR10MB5681.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::27ba:9922:8d12:7b3d]) by PA4PR10MB5681.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::27ba:9922:8d12:7b3d%5]) with mapi id 15.20.6933.022; Fri, 27 Oct 2023
+ 06:51:53 +0000
+Message-ID: <abf335aa-1366-4c66-80f1-86e273143702@kontron.de>
+Date: Fri, 27 Oct 2023 08:51:49 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] spi: spi-fsl-qspi: Add support for rx data sample
+ point adjustment
+To: kernel test robot <lkp@intel.com>, Eberhard Stoll <estl@gmx.net>,
+ Han Xu <han.xu@nxp.com>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Eberhard Stoll
+ <eberhard.stoll@kontron.de>,
+ Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+ Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+ Michal Simek <monstr@monstr.eu>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Yang Yingliang <yangyingliang@huawei.com>
+References: <20231026152316.2729575-5-estl@gmx.net>
+ <202310270332.mcbckKCr-lkp@intel.com>
+Content-Language: en-US, de-DE
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
+In-Reply-To: <202310270332.mcbckKCr-lkp@intel.com>
+Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: FR4P281CA0249.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f5::19) To PA4PR10MB5681.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:263::10)
 MIME-Version: 1.0
-References: <1697794232-2607-1-git-send-email-shengjiu.wang@nxp.com>
- <1697794232-2607-12-git-send-email-shengjiu.wang@nxp.com>
- <7929b801-63a4-4b30-9da7-e080e38a7e40@xs4all.nl>
-In-Reply-To: <7929b801-63a4-4b30-9da7-e080e38a7e40@xs4all.nl>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 27 Oct 2023 13:27:09 +0800
-Message-ID: 
- <CAA+D8APYcRvmscFcEx4bg5bpjUSmK7G7TZ8d3P-8-yZkvCrw8A@mail.gmail.com>
-Subject: Re: [RFC PATCH v7 11/13] media: uapi: Add audio rate controls support
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org,
-	m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: QGUWZC52QZGC4OX2JD6745W3KH2HHBWE
-X-Message-ID-Hash: QGUWZC52QZGC4OX2JD6745W3KH2HHBWE
-X-MailFrom: shengjiu.wang@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR10MB5681:EE_|PA4PR10MB5513:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89e8c010-b281-49f6-a471-08dbd6b93438
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	uK3TAe0YUJpkGvHufF6TO6BqQns6UsYdT574+u8LFlm9Pro83CWZcKLAuG2Vec8bZseIzKnlMHyTjlFXGUso9e8hn2HC9xwc92BqaU1RW5+yp/IiGVED0Xpt88zubXHw/gMu88YjDv1pE3y9AAq5IOtYvrPncjEZDfuwqkRauHOlD4/v3ZbWBIAQSJqcp2nrGSCWSnWLx1u2F0X1UlnDEMBeQ7YZL9OSbzQTrr24EdMyaRNAqhLBi2s/UfG7gD9zKNU2y+ECIRhNks8I6DW8bBYA9rcCj5o+uVOB18M0Ms+E+zF1wFb1ml3MWNnOvKzxH6LicD5fPBQTPZ8eW4f9qTlq29mklSg5NDuu1tTZLjVjTGUJEgqn+rhwMmF3zURAMNY4tWFaXmn/DT5fF4KuWcIIJ4tMELV2gDdtywz1K5wqHJL4YPeZpvBq9aEgjiR32MX3XGBeThyHcLSzCemyTqDUQWFRGlM3NqSJkB5Y1z7kDFq6swjcI2MWUpL0uTJ/XesCXW1HSYF3Ijke/9b+7W77G/D99bl37sCRBYPcH14qpbns7eMDeajV+ayki2K6Anq1KaPD6dChmuBF4cVIZ9m2RGnHHw1w/b3tf7G+ESkRou02WczulhIQmVZ9b8gCqZ0Epuj8l2WlWy+jXtnbEjLS9jpxAZcedpkOw67AYZP8RhGJDUAIsyL5Y6RupXot
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR10MB5681.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(136003)(376002)(396003)(39860400002)(230922051799003)(230273577357003)(230173577357003)(451199024)(186009)(1800799009)(64100799003)(53546011)(45080400002)(6666004)(6506007)(38100700002)(31696002)(86362001)(36756003)(83380400001)(2616005)(6512007)(26005)(7416002)(316002)(66946007)(54906003)(66556008)(66476007)(44832011)(41300700001)(31686004)(5660300002)(6486002)(110136005)(2906002)(966005)(478600001)(8676002)(4326008)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?dzZQRUJuZnZRc1JhVUlLL2Rqdms4SUlQOFh1UTBKcVRYTGFMaU5TQ0svMmRT?=
+ =?utf-8?B?K2NaV09tQ2laYnBIV1VZK0ViYUVhV2FiWGVzT3RzdU96U0lhV0RYNGVVRWZy?=
+ =?utf-8?B?d3ZJQ01YbTM3ZDhhK0p3azVvcnI5SU8zOE1IRjZiOHdyRlRBelJOWVJ1bGQ5?=
+ =?utf-8?B?WkJsMjJVMWIzVEE2aytEQjlITEI4QjlHZVJNM2tLL2lOTDM3dUVyeGNvL3Fa?=
+ =?utf-8?B?WXUvNlBmZFkxaHdOc0tYVUR4SVFzbW85V1pLQWd0TklRQVZNa3JSNC92aWQ1?=
+ =?utf-8?B?SFc4bHhBNlByV1hJeHRla1k1OWlLNnlqRmd2YVRuUHBUWVFIZ3ptOEZKQklu?=
+ =?utf-8?B?S1gwZ04vUzdxVzZyaHJwZkYzTEhlanFRTW5nSXdKdEFWb2lsYkhmQ3RoWmtv?=
+ =?utf-8?B?Qmg2eEhlWUFMQndqTVQyTURzYXJQWC94NHdiVGZoOWFOTVN2bDVVcDUrMTVm?=
+ =?utf-8?B?RlI4eFdDcUlMdjlZbkdQbzdTYW9udjZOcmQ4U3VVTmRxUEEyVmhIODMyZXBL?=
+ =?utf-8?B?c2cwcENNQm90N08xTTYyaG8zaXA0SU5ETnN2ek5PR1Z3NUZrUnQ4ZWVaYThJ?=
+ =?utf-8?B?OVRSL3ZKcGJVV3hYMEwxNlVGcVVEN2ZYSHFPUFh5TEtIVDFqVFZSWmp0UG96?=
+ =?utf-8?B?c1NGME81U3RlUThBWU1UUWhXWlBlN2VQZUNaZlNZSmZSeHlWVWNjWmxkK1ZF?=
+ =?utf-8?B?Wk1zTGlGVkVYMkZwd1dVVEM1b0xFMEhVYW1oekxnajV5alAyQUs4ckRnalhk?=
+ =?utf-8?B?bDQ1dk9uV1BHTUhXZHRPN09JdlhaREtJODMxaTdZdld2UWNLKy9yc1VVVFoz?=
+ =?utf-8?B?U2ZxVFYyamdyUTlBc0V4NlRldnZzWkJEY04zc2tDOXFpdGNMQmRoYnBWSFQ3?=
+ =?utf-8?B?U1cwalUrbGVia1NLQ3JBN0hISjh3b1BGazVVaWF5V0tkT3pjV0NzY3N3WmZS?=
+ =?utf-8?B?M3llaXA3M0Y3ZUFMQkZvVGtzN1VONURGS3B4UU9WcWc0ZDErVEw5RFc2UC9O?=
+ =?utf-8?B?OXlCbHhwdFJ5ZytlRlR5Vkxxc2NRakcwVXlmWTg4MUx1REEwVjJ5bmZ1Wk1I?=
+ =?utf-8?B?WjVDNVV0SmwxYk05b1lzcTNFVFlGVWJzSjlQa1BpUWhUWnlFcUROQWFkaG13?=
+ =?utf-8?B?THdwZGtyZk5VKzM5VTlmQnJCOUpNeE5hU29vMXc3QXBDM1BNUysxRExSc05Y?=
+ =?utf-8?B?aENQemVCaGIwNXRSWUNQN1NaVmtRVDZ3cm91LzAwTXpNOHZGS2t2N21RMFN6?=
+ =?utf-8?B?QVc4ek5BNkxEWURrbTJtNHhRV3c2ZmhGdzBUU1hJaG9BK1FRWmp6SDV3a0JZ?=
+ =?utf-8?B?V2tDTHNRajZ1ejNMS3M5cmZGVDJCVFVqZ3JEWnFGdDkycElZcldHenNna01W?=
+ =?utf-8?B?S0hFU0xlaUY1RUdwbjZhRWRNWS92UUxaSWRvZUwwSVZwYnVFS05vRUpPWnVa?=
+ =?utf-8?B?bjFRWWVYMEx4ZTg5L1g0Ui9CdjNWcTJvVVFnK3lwMEtkQXYzNVdqTmdpWHFp?=
+ =?utf-8?B?UVNsRGUwTlFaS0FOZzJVQTF5dGNtOTJ1T2Y5Q0U5Ulo3dG8yWVdUNVl0U2t3?=
+ =?utf-8?B?SGtzWDZjUkRyMmltdUZxSVNuNGVTK054TTFFaHhiMFFiOUEvWk84TFlWRmo5?=
+ =?utf-8?B?NnhwNUt4Mi9tMHdLRFplRXN6bUN5VzgzQVY3QjRaT2RnZ1Yzb0g0ZnNqbnBz?=
+ =?utf-8?B?OGhFa2k1QURFcFk3L2JKQk1SZ1NYM0srY2llUTQ2eTk5UmdtZ2ZCVlpDamZk?=
+ =?utf-8?B?ZjBiYmJDNy8zL05EZndaUWdUbUplaHcxbWdpT3VQYjNYZ1QvSmgxNWl6eFpN?=
+ =?utf-8?B?Y2pDVlNoUVFGTjZFK2dpZWRncmt0RmRBZmsvVWtSdCt5ckF5WmR4MDlTRHdS?=
+ =?utf-8?B?d3h5am1wVTdqakdwZXVpcndaaVc1UWQvOXJzMUJuTGNnaDJPZlhxcHVIMm1N?=
+ =?utf-8?B?MmNBNC9hTHVUODF5OUNRTHRFVFh1NjlNZWVwTSszOW9KZmxuLzd5UWQvcE1O?=
+ =?utf-8?B?UkFqK1lXbTVIUXdXZ2I1aXpOdWVYUEd3RTNxemhKM2NWZTROS3ZlcHo0WVpq?=
+ =?utf-8?B?SkRyeHd2QmxjcXBYSUtBRnF1K2o1TzRjbFovS0lQM3ZMdTRiUGZBVXFzeE1Y?=
+ =?utf-8?B?QUl3aWdGQ0JRc09LUnNQbDdlWUF6VVRFdUNPRmZoeUo2MHA5ZXFLSGtlaXR5?=
+ =?utf-8?B?M3c9PQ==?=
+X-OriginatorOrg: kontron.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 89e8c010-b281-49f6-a471-08dbd6b93438
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR10MB5681.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 06:51:53.8826
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ XG8nkqJB7hlRN0fqA5DbGmNMalfvhOkH6EkGiWYeI1dg1hxBLMhQqFKBt6gmJLQ/cVvVzUXZ5Q3gtgyE8wJolH9I919o2GEDhEamDInFkcA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR10MB5513
+Message-ID-Hash: OXFFPSOHHV27UPWCYZRLNHSJUNDRHWVT
+X-Message-ID-Hash: OXFFPSOHHV27UPWCYZRLNHSJUNDRHWVT
+X-MailFrom: frieder.schrempf@kontron.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +171,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGUWZC52QZGC4OX2JD6745W3KH2HHBWE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OXFFPSOHHV27UPWCYZRLNHSJUNDRHWVT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,147 +180,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Oct 25, 2023 at 6:47=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl> w=
-rote:
->
-> On 20/10/2023 11:30, Shengjiu Wang wrote:
-> > Add V4L2_CID_M2M_AUDIO_SOURCE_RATE and V4L2_CID_M2M_AUDIO_DEST_RATE
-> > new IDs for rate control.
-> >
-> > Add V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET and
-> > V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET for clock drift.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  .../media/v4l/ext-ctrls-audio-m2m.rst          | 18 ++++++++++++++++++
-> >  drivers/media/v4l2-core/v4l2-ctrls-defs.c      | 12 ++++++++++++
-> >  include/uapi/linux/v4l2-controls.h             |  5 +++++
-> >  3 files changed, 35 insertions(+)
-> >
-> > diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.=
-rst b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-> > index 82d2ecedbfee..e6972a2d3b17 100644
-> > --- a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-> > +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-> > @@ -19,3 +19,21 @@ Audio M2M Control IDs
-> >      The Audio M2M class descriptor. Calling
-> >      :ref:`VIDIOC_QUERYCTRL` for this control will
-> >      return a description of this control class.
-> > +
-> > +.. _v4l2-audio-asrc:
-> > +
-> > +``V4L2_CID_M2M_AUDIO_SOURCE_RATE``
->
-> Add ' (integer menu)' after the name.
->
-> > +    Sets the audio source rate, unit is (Hz)
->
-> (Hz) -> Hz.
->
-> General question: is 'rate' good enough or should it be 'sample rate'?
+On 26.10.23 22:03, kernel test robot wrote:
+> Hi Eberhard,
+> 
+> kernel test robot noticed the following build warnings:
+> 
+> [auto build test WARNING on 05d3ef8bba77c1b5f98d941d8b2d4aeab8118ef1]
+> 
+> url:    https://github.com/intel-lab-lkp/linux/commits/Eberhard-Stoll/spi-Add-parameter-for-clock-to-rx-delay/20231026-232547
+> base:   05d3ef8bba77c1b5f98d941d8b2d4aeab8118ef1
+> patch link:    https://lore.kernel.org/r/20231026152316.2729575-5-estl%40gmx.net
+> patch subject: [PATCH 4/4] spi: spi-fsl-qspi: Add support for rx data sample point adjustment
+> config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20231027/202310270332.mcbckKCr-lkp@intel.com/config)
+> compiler: m68k-linux-gcc (GCC) 13.2.0
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231027/202310270332.mcbckKCr-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202310270332.mcbckKCr-lkp@intel.com/
+> 
+> All warnings (new ones prefixed by >>):
+> 
+>    drivers/spi/spi-fsl-qspi.c: In function 'fsl_qspi_select_mem':
+>>> drivers/spi/spi-fsl-qspi.c:558:38: warning: suggest parentheses around comparison in operand of '|' [-Wparentheses]
+>      558 |         if (chip->rx_sample_delay_ns != spi->rx_sample_delay_ns |
+>          |             ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ok, will use 'sample rate'.
-
-Best regards
-Wang shengjiu
->
-> > +
-> > +``V4L2_CID_M2M_AUDIO_DEST_RATE``
-> > +    Sets the audio destination rate, unit is (Hz)
->
-> Ditto here.
->
-> > +
-> > +``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET``
->
-> Add ' (fixed point)' after the name.
->
-> > +    Sets the offset for audio source rate, unit is (Hz).
->
-> for -> from the
->
-> (Hz) -> Hz
->
-> > +    Offset expresses the drift of clock if there is. It is
-> > +    equal to real rate minus ideal rate.
->
-> How about:
->
-> The offset compensates for any clock drift. The actual source audio
-> rate is the ideal source audio rate from ``V4L2_CID_M2M_AUDIO_SOURCE_RATE=
-``
-> plus this fixed point offset.
->
-> > +
-> > +``V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET``
-> > +    Sets the offset for audio destination rate, unit is (Hz)
-> > +    Offset expresses the drift of clock if there is. It is
-> > +    equal to real rate minus ideal rate.
->
-> Same changes as for V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET.
->
-> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/=
-v4l2-core/v4l2-ctrls-defs.c
-> > index 2a85ea3dc92f..b695cbdd1f6e 100644
-> > --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> > @@ -1245,6 +1245,10 @@ const char *v4l2_ctrl_get_name(u32 id)
-> >
-> >       /* Audio M2M controls */
-> >       case V4L2_CID_M2M_AUDIO_CLASS:  return "Audio M2M Controls";
-> > +     case V4L2_CID_M2M_AUDIO_SOURCE_RATE:    return "Audio Source Samp=
-le Rate";
-> > +     case V4L2_CID_M2M_AUDIO_DEST_RATE:      return "Audio Dest Sample=
- Rate";
-> > +     case V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET:     return "Audio Sou=
-rce Sample Rate Offset";
-> > +     case V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET:       return "Audio Des=
-t Sample Rate Offset";
->
-> Related to my question above: "Sample Rate" or just "Rate"? Whatever we p=
-ick, it should
-> be consistent.
->
-> >       default:
-> >               return NULL;
-> >       }
-> > @@ -1606,6 +1610,14 @@ void v4l2_ctrl_fill(u32 id, const char **name, e=
-num v4l2_ctrl_type *type,
-> >       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
-> >               *type =3D V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
-> >               break;
-> > +     case V4L2_CID_M2M_AUDIO_SOURCE_RATE:
-> > +     case V4L2_CID_M2M_AUDIO_DEST_RATE:
-> > +             *type =3D V4L2_CTRL_TYPE_INTEGER_MENU;
-> > +             break;
-> > +     case V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET:
-> > +     case V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET:
-> > +             *type =3D V4L2_CTRL_TYPE_FIXED_POINT;
-> > +             break;
-> >       default:
-> >               *type =3D V4L2_CTRL_TYPE_INTEGER;
-> >               break;
-> > diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4=
-l2-controls.h
-> > index eb0f0a76f867..d433c6f0b533 100644
-> > --- a/include/uapi/linux/v4l2-controls.h
-> > +++ b/include/uapi/linux/v4l2-controls.h
-> > @@ -3498,4 +3498,9 @@ struct v4l2_ctrl_av1_film_grain {
-> >  #define V4L2_CID_M2M_AUDIO_CLASS_BASE  (V4L2_CTRL_CLASS_M2M_AUDIO | 0x=
-900)
-> >  #define V4L2_CID_M2M_AUDIO_CLASS       (V4L2_CTRL_CLASS_M2M_AUDIO | 1)
-> >
-> > +#define V4L2_CID_M2M_AUDIO_SOURCE_RATE       (V4L2_CID_M2M_AUDIO_CLASS=
-_BASE + 0)
-> > +#define V4L2_CID_M2M_AUDIO_DEST_RATE (V4L2_CID_M2M_AUDIO_CLASS_BASE + =
-1)
-> > +#define V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET        (V4L2_CID_M2M_AUD=
-IO_CLASS_BASE + 2)
-> > +#define V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET  (V4L2_CID_M2M_AUDIO_CLASS=
-_BASE + 3)
-> > +
-> >  #endif
->
-> Regards,
->
->         Hans
+IIRC, when I prepared the patches for sending "checkpatch.pl --strict"
+suggested to remove the parentheses here. Seems a bit inconsistent...

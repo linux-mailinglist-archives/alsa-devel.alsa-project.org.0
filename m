@@ -2,85 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B362B7D9CE2
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 17:26:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF5CC7D9CF7
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 17:30:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0661AE9;
-	Fri, 27 Oct 2023 17:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0661AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB21DAE8;
+	Fri, 27 Oct 2023 17:29:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB21DAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698420403;
-	bh=VROuko5K8q97+Xwgq8pAwl1aEf0SQdloFO2Kq63UPCM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=IAdPH+YjnTfp6Mggh7+m02Lzfs0q4iYFXNwbRkt90qETzluUfMfMji7UIhurMq3Ta
-	 gbKFJxHQmRq6cLHIo8YSW3jf5iY4zh+aRP1ijvNp7ufkSoK6AztyjySw8LBF0D1/oG
-	 O5CrmBXS+CpxESsP+AqR+qc01YWj+y9WOylihSa4=
+	s=default; t=1698420601;
+	bh=uE6Egw7wyUtXEoNuP/dOSh0yF2eHIVkyXBgY3o6DAYQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Hgrm9PiKTlucp47fJ5s2P097wrWO2XCcOYP2yNE5wt73igYqtYHWEjpF12FeLR0Rd
+	 rPVW5GclqumslZ6oFA0geDn2gfgfa0blp4zxUgML6dsWF8cyzibrgIELq/7rE6zz4+
+	 +8K6dOaavSulQQprnDcyFeScT3pLGFhsa3YDX42I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02FB4F8028D; Fri, 27 Oct 2023 17:25:32 +0200 (CEST)
+	id 4330CF8014B; Fri, 27 Oct 2023 17:29:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F915F80165;
-	Fri, 27 Oct 2023 17:25:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89C4BF8014B;
+	Fri, 27 Oct 2023 17:29:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E053DF8019B; Fri, 27 Oct 2023 17:25:27 +0200 (CEST)
+	id 28F75F8019B; Fri, 27 Oct 2023 17:29:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20622.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::622])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D21BEF8014B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 17:25:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D21BEF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 32A2DF8010B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 17:28:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32A2DF8010B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FS1BPOe8
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 9EF68B81CF7;
-	Fri, 27 Oct 2023 15:25:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D593C433C8;
-	Fri, 27 Oct 2023 15:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698420322;
-	bh=VROuko5K8q97+Xwgq8pAwl1aEf0SQdloFO2Kq63UPCM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=FS1BPOe8kPw9vWm002m0NPlWlCIzQa1WXJIZaqIy2w4KexEWvx+qvn1cN/AcCD72X
-	 m/x4GMIiYQFdhqiFVkaTWM8dV+W0SQPvw2BU2N6qiN63Ahf2yK7FpzKvOHqxTfV7pi
-	 5VWZkD0yM44aHrzcnQroEPD7HZZBuSYRhomHmLcy1IvicwMuqx5K17D8WVLAwsxioV
-	 O9EKb3U5m1MO7rye7UpD+SOQaacVopt5hR/qjwtVcfkeQR/nvc3R7q72d60xlO6EIb
-	 hm/zUZBhHLIkWkO0vvaA6I9gZB5fxWwtCMwlE9l0B9z+TSrTXu4OQOx2x/XvJA4fPR
-	 m5KEhVIbL6LWQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Mark Brown <broonie@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda: cs35l41: mark cs35l41_verify_id() static
-Date: Fri, 27 Oct 2023 17:25:09 +0200
-Message-Id: <20231027152515.482411-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=Lrdv3qU2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IzYd2vvcFeuVO4JK4qg/zKIeaU4s73T5WFIHDdg0Bxvw42hdMXXk7pzg6TaQE2/E49mkorC++jehGOuEFHZGrE6yRZMNmgRoFnVWHje6JWrNJ2jGVypdXLDfQdErdTFThllERKeQpyPjKw2lVLpskVelUga5u8OVQL5QE9l1XggyZi6e5MjI9Gt0WbUXUnvhr/BGdiEW3xGy46CyYqcsO/6/0MrMod4ymVCZbRLPxG7vI/RxONCwDjA6JG4K4sebA+6wS6/Hbaej57njUanvFUrBmzItNHz9QrgIqaBHWzGV8laCYrz/1XM9uMoeAW9uHDsYsNkru0xVK8kBD6blbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jtbOVlXbosrTtuuTZ7N8irtajcdeLKvZNATHCl8fr64=;
+ b=Z8LNMdUVfbBpkDt+yJAI/+0O1MmcEsHIM19/DAP914xu8cEIWHK7U+1VedSP7S1I4CgcQ4qouUnUk0Qr0dUXikfmqu7BbCKAGiHWAwizNmPjqoalPU1lJQmoE7IxfOhkj/jUTplmZ2R53OKUzbk1Asfo+pvAhZKy3WsxlMdIQIeBISotZkxx6sTkNd/9Ua9CqFfp/DosNttK5+GLdVHhBd5ckr4xAgXbPLtyrX1oPK3dtLMPI+/H6mv+CINKaIyKGpExl1SQokex5zCPkjMtpEaabhwmGBXsC4p4KXaLpU/Ejb9JogfD7YU67kJjpM5buu31qxQnFfy/Up8A8RZLuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jtbOVlXbosrTtuuTZ7N8irtajcdeLKvZNATHCl8fr64=;
+ b=Lrdv3qU2MloMZ6g/uLTqm6b3toSSmUkrry94/yJRjuy6JgqwNu3wMsXrftDfk8piKVQL/CeA4rx13YF/DpQDa9+WARJNzAZIwUNm3BVQDUNdLFl5EMbZDTVAmiHXwczwswb+zzIo2+bWpvn4M9yhewHQVKi73vMmdTQIMBXsna0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by PH0PR12MB8821.namprd12.prod.outlook.com (2603:10b6:510:28d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6907.33; Fri, 27 Oct
+ 2023 15:28:53 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.6933.024; Fri, 27 Oct 2023
+ 15:28:53 +0000
+Message-ID: <3ec97548-1f91-49d0-adfb-4f8051ca9a97@amd.com>
+Date: Fri, 27 Oct 2023 10:28:49 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/13] ASoC: amd: acp: add machine driver support for pdm
+ use case
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ arungopal.kondaveeti@amd.com, mastan.katragadda@amd.com,
+ juan.martinez@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Marian Postevca <posteuca@mutex.one>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Gaosheng Cui <cuigaosheng1@huawei.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
+ <20231021145110.478744-9-Syed.SabaKareem@amd.com>
+ <4d5a4c67-2f4b-4111-b98b-ef575543fa6e@kernel.org>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <4d5a4c67-2f4b-4111-b98b-ef575543fa6e@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7PR03CA0187.namprd03.prod.outlook.com
+ (2603:10b6:5:3b6::12) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2QMEP7CBOTS5P7ZMKRCQW73YUOCZ4PZH
-X-Message-ID-Hash: 2QMEP7CBOTS5P7ZMKRCQW73YUOCZ4PZH
-X-MailFrom: arnd@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH0PR12MB8821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fec81c8-1949-46e4-331f-08dbd7016d48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	43Q8tRZUaZSDFQ7gihyJ69+DIocLJJizfS/Cv9Mq8j0M6UYHHqbEUygRdNo2/sR+z1pZ+gD4WX9tYDIWFccibgsU/K/WR5CsPIZstVa4L1BAjhPUteXxDyKtMFdCEmmAD/oLMM8BPMRqAyuFuXS8o3tKtsw2LwCiQ/GxGhFSRmWCrdGZ8bQigsl8yyIqLfhg6ynE8JyyfJufriEAnpMsbcftoI03Y1O8nV+DtfTtfUSrGAsBJQNDOV18992+bbioLJjrSZTvWwjE6oCozwe2m1hGzqzhPmWi1AJsYClpWMu0r0ezLf0TYWRjxM4xiWhPAsGpQgPjnjeSWIqdMhfxsA5JCP+jNmqJ+XrcGFRAo7aGQdCN7bHpe4icu8yFTpKFuPqa5Ws1Sji0C2U5wqGZshObAiTjshUuWKtHX6kg81vSFW6w6/o30j3SbgUbNSEV594Ibh1Bii5V49zOTg3yiP3VfXtmibNMVE5V64gs2E4CRmjmFe2tXZFrpk/F2QdDRtcfQF6bjRdki6il27lYaLOHhpmf+Xdg09sP5QMbaMtvMvBZqErp/Z3Es7TLXgGfDnRQix6ZjTwzOszzpcT6qCJC0GyjIRUxdTtbLmvDiAJLJiNuId+mXylxP3GpK7YqIG7U9oHNR+85Qa+sn2EOAg==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(136003)(396003)(366004)(39860400002)(230922051799003)(64100799003)(186009)(1800799009)(451199024)(26005)(31686004)(41300700001)(38100700002)(2906002)(6506007)(44832011)(5660300002)(31696002)(7416002)(4326008)(36756003)(86362001)(8676002)(8936002)(478600001)(2616005)(54906003)(66946007)(110136005)(66556008)(6666004)(66476007)(83380400001)(6486002)(316002)(53546011)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?RzJQNzRkTEovZUlRbEEvL2pNK3BDRXMxTkp5Mml5aUU0cStWcVhjWDVUbXFB?=
+ =?utf-8?B?L0p5VnNyMk1pbnhMS2kzOXRlbFZQZzVuZkx3ODZ1d2JpUXl5Qi93QWw0aTVx?=
+ =?utf-8?B?alg2SFNQVlVTeDB6cU50aWFLZ21zWEw0Znk2VHkzaEpqVzNFbmpKdzRUK2NP?=
+ =?utf-8?B?ZEdmUkdqODR6RkxhZDd1YXVGU0o1WmdiSUE2MDJHR29wUXQxaWw2MExWUHFR?=
+ =?utf-8?B?ZXBjUkdzL2lBOENXTkY2bGcyVnJ6US93am05V2VtZ1pwNkdxUEI2SFhqRmhh?=
+ =?utf-8?B?R0FyT0NSS05jZHRSSklEcW05cGF0c3dFeldxSk56Rzdia0haLzk4ckxtMzhi?=
+ =?utf-8?B?bVZVVEh6S1VyMTNQdWtLU3B6VWJiUFhEaGFzWEpRYWRnNnFkUWVsa3hEUDhi?=
+ =?utf-8?B?ZHU0U2Uyd2MrZGthUnFGbHVWSjdKU0xTbFdVMTgweGt0Z2dRMFJEVlJWbER6?=
+ =?utf-8?B?bUVzMnFvSXdiN0tWNWp0UFRvQ2VaeVRvOVRGdHN4dlBPNTlYaklxbHY2NzlI?=
+ =?utf-8?B?SkJZK05UZzVaVmNVSFFDalpvU2FaYU93MnVLMW55eUlDcTFzM2tUMG9TMnNp?=
+ =?utf-8?B?SXdkK2czdllwazQxS3ZRMUYzUzNVM2ljbmRCSUhxOWdId3UrcnZXYnF1S3VJ?=
+ =?utf-8?B?UXh3UEJJMDRNTnhYYkpmeTNhbThKT3ZGaGh4NkZhRnhiV1QvOGd3dVcyWnNq?=
+ =?utf-8?B?UHU2TXF3Y1hsM2JGS29zVTBHenovcW9xV25tdjVDWFljWlZ4VjUreS9uczg0?=
+ =?utf-8?B?M2EvV3EvTThMQlZGUEN5UHJVUDJTSks2RThZUzJjQU5RUVJ3dWRJQWNTeEpH?=
+ =?utf-8?B?WVp1czhxM0txcWdhQTY1TGo4S3NDb0xSc2N6YlVYaXo2WjlzOVpEOXNHdExi?=
+ =?utf-8?B?ZUM4NXpMaWZqK2phdFlTWGRITTd6Tmw4MEt2c2JiUC9iVDE1WVZXemhkWWcy?=
+ =?utf-8?B?NWM1QlVWbnlDT3J2eWtjVFN2ZkY3QlducjR2WllqZGF3WXJSVEw0cmpoNUE5?=
+ =?utf-8?B?TXRURU90ZVRwR1N1VkthTm9hSmFvOEJ0aDhqaUdMMXk5Rmw5dkF0N08zeE1v?=
+ =?utf-8?B?N2VKQXRNSVQ3NUtrWnRUdnhhOUV4K1RhUnRGY0RBb2owc2JaOHV6Tzd5MnA1?=
+ =?utf-8?B?TkV5SG9BOUs3Y0krVmpaRFQ2RUFQZGY3ci8rUjlNTitlNDJuTWVFc1A0blpM?=
+ =?utf-8?B?NDl1QUZZcU9DUEQzbkt4ZUpUYTBJRWc2R0RGbnpxdzZIQm10M1Q3cTNzVmZG?=
+ =?utf-8?B?c3RQMkhRUVpiWWlyeHJHTm45TlJsUWVyWDdNbjJtS2s4cnh2UnBaSHdEc3RD?=
+ =?utf-8?B?Q1RMVVZBQml5dmFWQ3lMNDlpUjNTRHBTNGtvOWtuVGIvKytrMlB5bXM4TjQy?=
+ =?utf-8?B?bFpWYUI1Y0VhOGdEZ1kvb216OUdDNWt0Zk8yMHlCRitxMWVtNmUvaU4remR5?=
+ =?utf-8?B?Rll1eFpqLy9JQ1JJcVQ1dW00OTI0NXZjTG95UXpIak55SVd2U3BzampKVEJi?=
+ =?utf-8?B?UFhBRjNSUEVHMlloZ3JjZHNla1EydUorSjRMekI2bXJaVmxYMU04Tzk1cVJM?=
+ =?utf-8?B?eVNpNUdDRE5NTkEzWkUxUEVRWDRya1hyUjFKb3kwRXNPQ2FlTHJiUlNOTkZV?=
+ =?utf-8?B?VXduZDdYcUF3YWF3QjRVNHlVV3lEWkc1ZmR0aW43T05NS25rcksxNjVSTSt3?=
+ =?utf-8?B?NnhiaDdXcmkrQXRBaXJ5THpWUlptSUR1Y3kwL1h3SmJmNTRuZGl3aHZVYzlq?=
+ =?utf-8?B?ZkJMSnBtWEdkV0VNZ244R3dEckl1UDFYdHl5OG5qT0UwVnY1M2tYU05qbTRs?=
+ =?utf-8?B?SFQvVkJzeWYvZmNIR0tCV0FpeHBQZURNRVdSQXlsYkVaT2dYcFFHdTlRZzQr?=
+ =?utf-8?B?ZmVUMXkxczU4bklDNk5ueFd5YzI4bWhQZ1hQODljZXBLY21rNGt0WDhHSmpF?=
+ =?utf-8?B?YmtOZE05S1BSbkxUOXVSK2JDRGJQWFdNWVR1c0EzSEthRXBpeGVPQlpydGNW?=
+ =?utf-8?B?VFJiSzFiNWI2cmROQ3J0UlI1OU5Ram1qMkhKYVVvdE9MQjVSWm03TXc3eC8x?=
+ =?utf-8?B?aXVGa0VWR2RlUEZtazUzZWhkV2cySllhVHllcldWK0t2WG5BTWZTOVA4QWlu?=
+ =?utf-8?Q?8+B2PwqN0aVarbSoaV7zp/LuE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 2fec81c8-1949-46e4-331f-08dbd7016d48
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 15:28:53.3127
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ +GrzFqG411qxpjGQCpTZGC8L1+guKLUPppUbG4UhXGCD/0/0T0ZW9u58Ea6nGOenhm6s+G+FOwN8plmgErJ3qA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8821
+Message-ID-Hash: PAZSXS4DZBQWYWQ7BYPJJWMX4IAWO5VS
+X-Message-ID-Hash: PAZSXS4DZBQWYWQ7BYPJJWMX4IAWO5VS
+X-MailFrom: Mario.Limonciello@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2QMEP7CBOTS5P7ZMKRCQW73YUOCZ4PZH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PAZSXS4DZBQWYWQ7BYPJJWMX4IAWO5VS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,33 +184,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On 10/27/2023 03:49, Krzysztof Kozlowski wrote:
+> On 21/10/2023 16:50, Syed Saba Kareem wrote:
+>> add pdm use case machine driver support
+>>
+>> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+>> ---
+> 
+> 
+>>   	dmi_id = dmi_first_match(acp_quirk_table);
+>>   	if (dmi_id && dmi_id->driver_data)
+>> @@ -214,6 +221,10 @@ static const struct platform_device_id board_ids[] = {
+>>   		.name = "rmb-rt5682s-rt1019",
+>>   		.driver_data = (kernel_ulong_t)&rt5682s_rt1019_rmb_data,
+>>   	},
+>> +	{
+>> +		.name = "acp-pdm-mach",
+>> +		.driver_data = (kernel_ulong_t)&acp_dmic_data,
+>> +	},
+>>   	{ }
+>>   };
+>>   static struct platform_driver acp_asoc_audio = {
+>> @@ -235,4 +246,5 @@ MODULE_ALIAS("platform:acp3xalc5682s1019");
+>>   MODULE_ALIAS("platform:acp3x-es83xx");
+>>   MODULE_ALIAS("platform:rmb-nau8825-max");
+>>   MODULE_ALIAS("platform:rmb-rt5682s-rt1019");
+>> +MODULE_ALIAS("platform:acp-pdm-mach");
+> 
+> Please stop growing the aliases. Module alias is not a substitute for
+> missing MODULE_DEVICE_TABLE.
+> 
+> Best regards,
+> Krzysztof
+> 
 
-The newly introduced function is global but only called in this one
-file and has no extern prototype, so it should probably be static:
+I thought the way that this works is that top level ACP driver (IE 
+acp-pci.c) will have MODULE_DEVICE_TABLE.  This is how that module gets 
+loaded.
 
-sound/pci/hda/cs35l41_hda.c:733:5: error: no previous prototype for 'cs35l41_verify_id' [-Werror=missing-prototypes]
-  733 | int cs35l41_verify_id(struct cs35l41_hda *cs35l41, unsigned int *regid, unsigned int *reg_revid)
-
-Fixes: 881b7bce0c25 ("ALSA: hda: cs35l41: Run boot process during resume callbacks")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/pci/hda/cs35l41_hda.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 496ff6a9d300..98a5123e9f50 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -730,7 +730,7 @@ static int cs35l41_hda_channel_map(struct device *dev, unsigned int tx_num, unsi
- 				    rx_slot);
- }
- 
--int cs35l41_verify_id(struct cs35l41_hda *cs35l41, unsigned int *regid, unsigned int *reg_revid)
-+static int cs35l41_verify_id(struct cs35l41_hda *cs35l41, unsigned int *regid, unsigned int *reg_revid)
- {
- 	unsigned int mtl_revid, chipid;
- 	int ret;
--- 
-2.39.2
-
+Then it creates platform devices based on the detected needs for the 
+situation and the creation of those platform devices triggers a uevent 
+which due to MODULE_ALIAS will get appropriate other platform drivers 
+like this one loaded.

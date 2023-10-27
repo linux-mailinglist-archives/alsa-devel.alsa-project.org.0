@@ -2,53 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 433677D918E
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 10:30:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 333607D92A3
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 10:51:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5A9CA4E;
-	Fri, 27 Oct 2023 10:29:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5A9CA4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D966A4E;
+	Fri, 27 Oct 2023 10:50:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D966A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698395441;
-	bh=gwZFto1iq4csw6mgqin5Pbd6C7ndOCpcDoQBhjZSYNg=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=MZd6GV5L8Rnz+x3zefVW3/Cz3lqWDN7H6XBQe9m70lmvch8v9GSKo7L82t/cG13x0
-	 ggl55BhsB3Z+S9LLfqO1W182ofoikgcSqfOKnzR4beTGu8x7TCLvkkE4R8ggUAkw+/
-	 oNV82PsrKnuml5UCzY1SqsoqGUYwUjyIPd3rS7yc=
+	s=default; t=1698396669;
+	bh=r/XEoP5xabsr7W5IjvJfZyAKCFZBiRcab7tUjBCnzlI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=RLFnKjXfqDSferoma2UybLUnfykXRgiaw/3z69z8lMUlkjk5kIBCcserMen3cMx18
+	 LpIz7bvqXdTurjnc+S9EnUh8EzhuwhvR6fz/OJgIUrUH+jSDcQx9x16aEpni2t0nbT
+	 hNvfoUfIJyESK/8aizkfCit3SC9/ymXFVdsM6qXo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08D45F8014B; Fri, 27 Oct 2023 10:29:50 +0200 (CEST)
+	id CB75FF8019B; Fri, 27 Oct 2023 10:50:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82DD0F80165;
-	Fri, 27 Oct 2023 10:29:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EEF0F8014B;
+	Fri, 27 Oct 2023 10:50:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8559BF8019B; Fri, 27 Oct 2023 10:29:46 +0200 (CEST)
+	id 90B6BF80165; Fri, 27 Oct 2023 10:50:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id C66D0F8014B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 10:29:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C66D0F8014B
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7451F8012B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 10:50:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7451F8012B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MJNTU6Jt
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 6BE6DB81923;
+	Fri, 27 Oct 2023 08:50:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99858C433C8;
+	Fri, 27 Oct 2023 08:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1698396606;
+	bh=r/XEoP5xabsr7W5IjvJfZyAKCFZBiRcab7tUjBCnzlI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=MJNTU6JteHSTVDi4xI0pJl7Cr7R5Pz/yxZUr0kY9rpRtOy+3I9ZttOCi3uAJ3vaED
+	 yAjYtGFv0Tkl0ibJO7h0Cgsk/j+3Im6JD5et1VLryr/vrcQ/FHQQSuwj+jDkPtta5N
+	 mLOvsTlKQBRZ4woLldAXbB2ANhvENxlf8cokYyLB5vhtCHyLDR5/QYt+h42KVmiJv8
+	 rtNeLW8sSEHZvMTLYXr+LayBdQV3/4XTg37SX5i+F9cpi1NzSnkYa0q1WW4qyv1seS
+	 NxdM0E2cWswjCVPnY8N/GDeZk9UgbJdU03cbSwiANpKkToV1IMwVw2RTsSidVKaMlK
+	 DjQWQD6hHsf4A==
+Message-ID: <4d5a4c67-2f4b-4111-b98b-ef575543fa6e@kernel.org>
+Date: Fri, 27 Oct 2023 10:49:58 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/13] ASoC: amd: acp: add machine driver support for pdm
+ use case
+Content-Language: en-US
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com,
+ venkataprasad.potturu@amd.com, arungopal.kondaveeti@amd.com,
+ mastan.katragadda@amd.com, juan.martinez@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Marian Postevca <posteuca@mutex.one>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Gaosheng Cui <cuigaosheng1@huawei.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
+ <20231021145110.478744-9-Syed.SabaKareem@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20231021145110.478744-9-Syed.SabaKareem@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1698395380749572515-webhooks-bot@alsa-project.org>
-References: <1698395380749572515-webhooks-bot@alsa-project.org>
-Subject: ucm2: soundwire: add rt713 SDCA device
-Message-Id: <20231027082946.8559BF8019B@alsa1.perex.cz>
-Date: Fri, 27 Oct 2023 10:29:46 +0200 (CEST)
-Message-ID-Hash: CPWMAOYT55AONJTCANKEDQPVEGEH5BWB
-X-Message-ID-Hash: CPWMAOYT55AONJTCANKEDQPVEGEH5BWB
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: LSMLY6CSD6MMUET2FVR5WPYIFGJYB3DR
+X-Message-ID-Hash: LSMLY6CSD6MMUET2FVR5WPYIFGJYB3DR
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +141,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CPWMAOYT55AONJTCANKEDQPVEGEH5BWB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSMLY6CSD6MMUET2FVR5WPYIFGJYB3DR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,10 +150,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #363 was opened from shumingfan:
+On 21/10/2023 16:50, Syed Saba Kareem wrote:
+> add pdm use case machine driver support
+> 
+> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+> ---
 
-ucm2: soundwire: add rt713 SDCA device
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/363
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/363.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+>  	dmi_id = dmi_first_match(acp_quirk_table);
+>  	if (dmi_id && dmi_id->driver_data)
+> @@ -214,6 +221,10 @@ static const struct platform_device_id board_ids[] = {
+>  		.name = "rmb-rt5682s-rt1019",
+>  		.driver_data = (kernel_ulong_t)&rt5682s_rt1019_rmb_data,
+>  	},
+> +	{
+> +		.name = "acp-pdm-mach",
+> +		.driver_data = (kernel_ulong_t)&acp_dmic_data,
+> +	},
+>  	{ }
+>  };
+>  static struct platform_driver acp_asoc_audio = {
+> @@ -235,4 +246,5 @@ MODULE_ALIAS("platform:acp3xalc5682s1019");
+>  MODULE_ALIAS("platform:acp3x-es83xx");
+>  MODULE_ALIAS("platform:rmb-nau8825-max");
+>  MODULE_ALIAS("platform:rmb-rt5682s-rt1019");
+> +MODULE_ALIAS("platform:acp-pdm-mach");
+
+Please stop growing the aliases. Module alias is not a substitute for
+missing MODULE_DEVICE_TABLE.
+
+Best regards,
+Krzysztof
+

@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 059307D963F
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 13:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E82F7D9653
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 13:18:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C55A9E7C;
-	Fri, 27 Oct 2023 13:15:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C55A9E7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB5C0E97;
+	Fri, 27 Oct 2023 13:18:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB5C0E97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698405407;
-	bh=yeq/F9OsGZxcr22cwJqIc2CMirzjPl48jILVSruNNv8=;
+	s=default; t=1698405539;
+	bh=NZRW6tzTmDle8kSotz8FaxRCcE6d0Ym/4Gh5ibq+z7o=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=RG0e4NmfuiKxJ2pXuZr9585gMOjDRzd7lxLY3ILD2LzCtUuZ/9yQT/vhTILm9UGzH
-	 b44EaoxI113TTDdEudlZ7k1nZclrvb+mTg2CN+E6glVevCuJK8aGhG8oX+jaU1Dvc0
-	 rcWc2d7kkwrZywZkC+6rrMFFQCLeDmzVfxqX6dcw=
+	b=oSXdG+ePagpOA+WAPcnEu8E7JM3ng6h4P2vRV0a8x38JqYCjJST1gj/zivWa3EkFZ
+	 V9KfdYHT9vOm+cLGBqXToEi7GP0CzQZv58t/P7TiYRtcmAbXHNJF5KKQg0NyfW2o2r
+	 Kp4Kwow/Xy+XPEAyDoRZYnLgII+s5GaW6v8lfLTw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4166CF805AF; Fri, 27 Oct 2023 13:14:56 +0200 (CEST)
+	id 6BC16F8056F; Fri, 27 Oct 2023 13:17:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A766F805AF;
-	Fri, 27 Oct 2023 13:14:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF789F8019B;
+	Fri, 27 Oct 2023 13:17:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 781B4F8058C; Fri, 27 Oct 2023 13:14:51 +0200 (CEST)
+	id 17549F8055B; Fri, 27 Oct 2023 13:17:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 759EFF8012B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 13:14:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 759EFF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42F94F8019B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 13:14:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F94F8019B
 Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A4EAB201105;
-	Fri, 27 Oct 2023 13:14:35 +0200 (CEST)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D7C4B201102;
+	Fri, 27 Oct 2023 13:14:36 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1A552201102;
-	Fri, 27 Oct 2023 13:14:35 +0200 (CEST)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 8CE20201F9B;
+	Fri, 27 Oct 2023 13:14:36 +0200 (CEST)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id DF3A1180031E;
-	Fri, 27 Oct 2023 19:14:32 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5F278180327D;
+	Fri, 27 Oct 2023 19:14:34 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: hverkuil@xs4all.nl,
 	sakari.ailus@iki.fi,
@@ -66,16 +66,16 @@ To: hverkuil@xs4all.nl,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [RFC PATCH v8 02/13] ASoC: fsl_easrc: define functions for memory to
- memory usage
-Date: Fri, 27 Oct 2023 18:35:37 +0800
-Message-Id: <1698402948-10618-3-git-send-email-shengjiu.wang@nxp.com>
+Subject: [RFC PATCH v8 03/13] ASoC: fsl_asrc: move fsl_asrc_common.h to
+ include/sound
+Date: Fri, 27 Oct 2023 18:35:38 +0800
+Message-Id: <1698402948-10618-4-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1698402948-10618-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1698402948-10618-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: KRZGCFCNJF44W6YJRY5TSBYN5QTIZBFU
-X-Message-ID-Hash: KRZGCFCNJF44W6YJRY5TSBYN5QTIZBFU
+Message-ID-Hash: M74V4IQMKVVVLVUCWZQQZOP5R7AA57NS
+X-Message-ID-Hash: M74V4IQMKVVVLVUCWZQQZOP5R7AA57NS
 X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,8 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M74V4IQMKVVVLVUCWZQQZOP5R7AA57NS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,270 +97,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-ASRC can be used on memory to memory case, define several
-functions for m2m usage and export them as function pointer.
+Move fsl_asrc_common.h to include/sound that it can be
+included from other drivers.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 Acked-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_easrc.c | 214 ++++++++++++++++++++++++++++++++++++++
- sound/soc/fsl/fsl_easrc.h |   4 +
- 2 files changed, 218 insertions(+)
+ {sound/soc/fsl => include/sound}/fsl_asrc_common.h | 0
+ sound/soc/fsl/fsl_asrc.h                           | 2 +-
+ sound/soc/fsl/fsl_asrc_dma.c                       | 2 +-
+ sound/soc/fsl/fsl_easrc.h                          | 2 +-
+ 4 files changed, 3 insertions(+), 3 deletions(-)
+ rename {sound/soc/fsl => include/sound}/fsl_asrc_common.h (100%)
 
-diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-index ba62995c909a..0b9f3df8efc2 100644
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -1861,6 +1861,211 @@ static int fsl_easrc_get_fifo_addr(u8 dir, enum asrc_pair_index index)
- 	return REG_EASRC_FIFO(dir, index);
- }
+diff --git a/sound/soc/fsl/fsl_asrc_common.h b/include/sound/fsl_asrc_common.h
+similarity index 100%
+rename from sound/soc/fsl/fsl_asrc_common.h
+rename to include/sound/fsl_asrc_common.h
+diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
+index 1c492eb237f5..66544624de7b 100644
+--- a/sound/soc/fsl/fsl_asrc.h
++++ b/sound/soc/fsl/fsl_asrc.h
+@@ -10,7 +10,7 @@
+ #ifndef _FSL_ASRC_H
+ #define _FSL_ASRC_H
  
-+/* Get sample numbers in FIFO */
-+static unsigned int fsl_easrc_get_output_fifo_size(struct fsl_asrc_pair *pair)
-+{
-+	struct fsl_asrc *asrc = pair->asrc;
-+	enum asrc_pair_index index = pair->index;
-+	u32 val;
-+
-+	regmap_read(asrc->regmap, REG_EASRC_SFS(index), &val);
-+	val &= EASRC_SFS_NSGO_MASK;
-+
-+	return val >> EASRC_SFS_NSGO_SHIFT;
-+}
-+
-+static int fsl_easrc_m2m_prepare(struct fsl_asrc_pair *pair)
-+{
-+	struct fsl_easrc_ctx_priv *ctx_priv = pair->private;
-+	struct fsl_asrc *asrc = pair->asrc;
-+	struct device *dev = &asrc->pdev->dev;
-+	int ret;
-+
-+	ctx_priv->in_params.sample_rate = pair->rate[IN];
-+	ctx_priv->in_params.sample_format = pair->sample_format[IN];
-+	ctx_priv->out_params.sample_rate = pair->rate[OUT];
-+	ctx_priv->out_params.sample_format = pair->sample_format[OUT];
-+
-+	ctx_priv->in_params.fifo_wtmk = FSL_EASRC_INPUTFIFO_WML;
-+	ctx_priv->out_params.fifo_wtmk = FSL_EASRC_OUTPUTFIFO_WML;
-+	/* Fill the right half of the re-sampler with zeros */
-+	ctx_priv->rs_init_mode = 0x2;
-+	/* Zero fill the right half of the prefilter */
-+	ctx_priv->pf_init_mode = 0x2;
-+
-+	ret = fsl_easrc_set_ctx_format(pair,
-+				       &ctx_priv->in_params.sample_format,
-+				       &ctx_priv->out_params.sample_format);
-+	if (ret) {
-+		dev_err(dev, "failed to set context format: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = fsl_easrc_config_context(asrc, pair->index);
-+	if (ret) {
-+		dev_err(dev, "failed to config context %d\n", ret);
-+		return ret;
-+	}
-+
-+	ctx_priv->in_params.iterations = 1;
-+	ctx_priv->in_params.group_len = pair->channels;
-+	ctx_priv->in_params.access_len = pair->channels;
-+	ctx_priv->out_params.iterations = 1;
-+	ctx_priv->out_params.group_len = pair->channels;
-+	ctx_priv->out_params.access_len = pair->channels;
-+
-+	ret = fsl_easrc_set_ctx_organziation(pair);
-+	if (ret) {
-+		dev_err(dev, "failed to set fifo organization\n");
-+		return ret;
-+	}
-+
-+	/* The context start flag */
-+	pair->first_convert = 1;
-+	return 0;
-+}
-+
-+static int fsl_easrc_m2m_start(struct fsl_asrc_pair *pair)
-+{
-+	/* start context once */
-+	if (pair->first_convert) {
-+		fsl_easrc_start_context(pair);
-+		pair->first_convert = 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static int fsl_easrc_m2m_stop(struct fsl_asrc_pair *pair)
-+{
-+	/* Stop pair/context */
-+	if (!pair->first_convert) {
-+		fsl_easrc_stop_context(pair);
-+		pair->first_convert = 1;
-+	}
-+
-+	return 0;
-+}
-+
-+/* calculate capture data length according to output data length and sample rate */
-+static int fsl_easrc_m2m_calc_out_len(struct fsl_asrc_pair *pair, int input_buffer_length)
-+{
-+	struct fsl_asrc *easrc = pair->asrc;
-+	struct fsl_easrc_priv *easrc_priv = easrc->private;
-+	struct fsl_easrc_ctx_priv *ctx_priv = pair->private;
-+	unsigned int in_rate = ctx_priv->in_params.norm_rate;
-+	unsigned int out_rate = ctx_priv->out_params.norm_rate;
-+	unsigned int channels = pair->channels;
-+	unsigned int in_samples, out_samples;
-+	unsigned int in_width, out_width;
-+	unsigned int out_length;
-+	unsigned int frac_bits;
-+	u64 val1, val2;
-+
-+	switch (easrc_priv->rs_num_taps) {
-+	case EASRC_RS_32_TAPS:
-+		/* integer bits = 5; */
-+		frac_bits = 39;
-+		break;
-+	case EASRC_RS_64_TAPS:
-+		/* integer bits = 6; */
-+		frac_bits = 38;
-+		break;
-+	case EASRC_RS_128_TAPS:
-+		/* integer bits = 7; */
-+		frac_bits = 37;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	val1 = (u64)in_rate << frac_bits;
-+	do_div(val1, out_rate);
-+	val1 += (s64)ctx_priv->ratio_mod << (frac_bits - 31);
-+
-+	in_width = snd_pcm_format_physical_width(ctx_priv->in_params.sample_format) / 8;
-+	out_width = snd_pcm_format_physical_width(ctx_priv->out_params.sample_format) / 8;
-+
-+	ctx_priv->in_filled_len += input_buffer_length;
-+	if (ctx_priv->in_filled_len <= ctx_priv->in_filled_sample * in_width * channels) {
-+		out_length = 0;
-+	} else {
-+		in_samples = ctx_priv->in_filled_len / (in_width * channels) -
-+			     ctx_priv->in_filled_sample;
-+
-+		/* right shift 12 bit to make ratio in 32bit space */
-+		val2 = (u64)in_samples << (frac_bits - 12);
-+		val1 = val1 >> 12;
-+		do_div(val2, val1);
-+		out_samples = val2;
-+
-+		out_length = out_samples * out_width * channels;
-+		ctx_priv->in_filled_len = ctx_priv->in_filled_sample * in_width * channels;
-+	}
-+
-+	return out_length;
-+}
-+
-+static int fsl_easrc_m2m_get_maxburst(u8 dir, struct fsl_asrc_pair *pair)
-+{
-+	struct fsl_easrc_ctx_priv *ctx_priv = pair->private;
-+
-+	if (dir == IN)
-+		return ctx_priv->in_params.fifo_wtmk * pair->channels;
-+	else
-+		return ctx_priv->out_params.fifo_wtmk * pair->channels;
-+}
-+
-+static int fsl_easrc_m2m_pair_suspend(struct fsl_asrc_pair *pair)
-+{
-+	fsl_easrc_stop_context(pair);
-+
-+	return 0;
-+}
-+
-+static int fsl_easrc_m2m_pair_resume(struct fsl_asrc_pair *pair)
-+{
-+	struct fsl_easrc_ctx_priv *ctx_priv = pair->private;
-+
-+	pair->first_convert = 1;
-+	ctx_priv->in_filled_len = 0;
-+
-+	return 0;
-+}
-+
-+/* val is Q31 */
-+static int fsl_easrc_m2m_set_ratio_mod(struct fsl_asrc_pair *pair, int val)
-+{
-+	struct fsl_easrc_ctx_priv *ctx_priv = pair->private;
-+	struct fsl_asrc *easrc = pair->asrc;
-+	struct fsl_easrc_priv *easrc_priv = easrc->private;
-+	unsigned int frac_bits;
-+
-+	ctx_priv->ratio_mod += val;
-+
-+	switch (easrc_priv->rs_num_taps) {
-+	case EASRC_RS_32_TAPS:
-+		/* integer bits = 5; */
-+		frac_bits = 39;
-+		break;
-+	case EASRC_RS_64_TAPS:
-+		/* integer bits = 6; */
-+		frac_bits = 38;
-+		break;
-+	case EASRC_RS_128_TAPS:
-+		/* integer bits = 7; */
-+		frac_bits = 37;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	val <<= (frac_bits - 31);
-+	regmap_write(easrc->regmap, REG_EASRC_RUC(pair->index), EASRC_RSUC_RS_RM(val));
-+
-+	return 0;
-+}
-+
- static const struct of_device_id fsl_easrc_dt_ids[] = {
- 	{ .compatible = "fsl,imx8mn-easrc",},
- 	{}
-@@ -1926,6 +2131,15 @@ static int fsl_easrc_probe(struct platform_device *pdev)
- 	easrc->release_pair = fsl_easrc_release_context;
- 	easrc->get_fifo_addr = fsl_easrc_get_fifo_addr;
- 	easrc->pair_priv_size = sizeof(struct fsl_easrc_ctx_priv);
-+	easrc->m2m_prepare = fsl_easrc_m2m_prepare;
-+	easrc->m2m_start = fsl_easrc_m2m_start;
-+	easrc->m2m_stop = fsl_easrc_m2m_stop;
-+	easrc->get_output_fifo_size = fsl_easrc_get_output_fifo_size;
-+	easrc->m2m_calc_out_len = fsl_easrc_m2m_calc_out_len;
-+	easrc->m2m_get_maxburst = fsl_easrc_m2m_get_maxburst;
-+	easrc->m2m_pair_suspend = fsl_easrc_m2m_pair_suspend;
-+	easrc->m2m_pair_resume = fsl_easrc_m2m_pair_resume;
-+	easrc->m2m_set_ratio_mod = fsl_easrc_m2m_set_ratio_mod;
+-#include  "fsl_asrc_common.h"
++#include  <sound/fsl_asrc_common.h>
  
- 	easrc_priv->rs_num_taps = EASRC_RS_32_TAPS;
- 	easrc_priv->const_coeff = 0x3FF0000000000000;
+ #define ASRC_M2M_INPUTFIFO_WML		0x4
+ #define ASRC_M2M_OUTPUTFIFO_WML		0x2
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index f501f47242fb..f067bf1ecea7 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -12,7 +12,7 @@
+ #include <sound/dmaengine_pcm.h>
+ #include <sound/pcm_params.h>
+ 
+-#include "fsl_asrc_common.h"
++#include <sound/fsl_asrc_common.h>
+ 
+ #define FSL_ASRC_DMABUF_SIZE	(256 * 1024)
+ 
 diff --git a/sound/soc/fsl/fsl_easrc.h b/sound/soc/fsl/fsl_easrc.h
-index 7c70dac52713..c9f770862662 100644
+index c9f770862662..a24e540876a4 100644
 --- a/sound/soc/fsl/fsl_easrc.h
 +++ b/sound/soc/fsl/fsl_easrc.h
-@@ -601,6 +601,8 @@ struct fsl_easrc_slot {
-  * @out_missed_sample: sample missed in output
-  * @st1_addexp: exponent added for stage1
-  * @st2_addexp: exponent added for stage2
-+ * @ratio_mod: update ratio
-+ * @in_filled_len: input filled length
-  */
- struct fsl_easrc_ctx_priv {
- 	struct fsl_easrc_io_params in_params;
-@@ -618,6 +620,8 @@ struct fsl_easrc_ctx_priv {
- 	int out_missed_sample;
- 	int st1_addexp;
- 	int st2_addexp;
-+	int ratio_mod;
-+	unsigned int in_filled_len;
- };
+@@ -9,7 +9,7 @@
+ #include <sound/asound.h>
+ #include <linux/dma/imx-dma.h>
  
- /**
+-#include "fsl_asrc_common.h"
++#include <sound/fsl_asrc_common.h>
+ 
+ /* EASRC Register Map */
+ 
 -- 
 2.34.1
 

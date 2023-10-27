@@ -2,111 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456AF7D95D7
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 12:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42FA87D95F9
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 13:06:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E395BE0D;
-	Fri, 27 Oct 2023 12:59:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E395BE0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EAC8A4D;
+	Fri, 27 Oct 2023 13:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EAC8A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698404396;
-	bh=sF9D0JCTLYXdS4i8IZaSR3Q2EKQCyuGcuEHmOF/AsQI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lDkC1U1uy97TiXdMGVI8/STRUbzywLJZ905w3NDl4Y9GWpDo4cfFBwKSVOV9fF8iM
-	 8WoAXVoXiQOr/8A2Nzyq+jG57S3aOnz2ywM+j028u1Gzi82C1WndLH+YnQ+C3LkNE5
-	 7l/IlXzegZegdGWoruELZAL5xo2WcORWT/IowT6k=
+	s=default; t=1698404790;
+	bh=5WhEmsKf7FralyoMJxUWZggzvDbNaA86yLnvkXMcEow=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=SLPQpSbzqokhzGNhqETG5OpNqQiX1SPD9nMULHAg8eabp408FZ/tOUCQGAFQFGZF+
+	 pHLqxipmy+0pkoEsiEKea6z70ZoU/gh98ikp61aTCNmtVVhxub/f0Xam+Q+/3fuhuM
+	 r0rzUcVEunR6jweCCDP++tlsnBYxAxMWdwb8UHIw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF97BF8056F; Fri, 27 Oct 2023 12:58:16 +0200 (CEST)
+	id 63DCAF80224; Fri, 27 Oct 2023 13:05:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04F82F8055A;
-	Fri, 27 Oct 2023 12:58:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB72DF8019B;
+	Fri, 27 Oct 2023 13:05:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 70503F8020D; Fri, 27 Oct 2023 12:58:11 +0200 (CEST)
+	id 30FB5F8020D; Fri, 27 Oct 2023 13:05:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_SBL_CSS,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C465AF8012B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 12:58:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C465AF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2311AF8010B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 13:05:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2311AF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Fjb+XeaS
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4083cd39188so14030965e9.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 27 Oct 2023 03:58:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1698404288; x=1699009088;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bnRkBO9T7mpu/9qbQ4qd8eFU+MMR5Opxp/fD1o8ihl0=;
-        b=Fjb+XeaSn9gK203xRTnFPj5LfaWDZzkbkYoxPAsV9SuvbQpP0x7emy/E6VZ7VMcHoM
-         Tw++/2yiLenI+VWmQyzW63F1U7gP2eN+AgIITso45xsBeQSDtvvrAko12nLbxbe/K9Zw
-         kySCmvz+mAMPyVMGYWw1fxQnIKj+AP8N/M2z0S5nUZ/MYD2Yiacu/5kpYHimtMVWMPbR
-         flYQpXNQ6cSFJymEUwHux/dZwGlCb+gmc+sKpVA11FkTQnTmem+WHwVVpYAbxfNR1eYR
-         gJYGxSVGNcXu4Kkc9K1c1WPC1dSqdygN48E4zft1AMNCHqc6WQiAi40d6mnI+7SwFFe5
-         m94Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698404288; x=1699009088;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bnRkBO9T7mpu/9qbQ4qd8eFU+MMR5Opxp/fD1o8ihl0=;
-        b=KUUzUAdy08ebGvHxeSwH6pW5+Wcc2jy6cEVcmAD98RZWznXNwpmzT6B8YhrgL+9SFN
-         PVTxR46gnJSgiAPLDRFgETimIFVkvYUjjPqBw8//uOBBM9onQ/cbqqySLS4D/h3pQWCI
-         b1kfAAY8CLjLDPV1WiHuBqF/40YM2TQ7yUGXuDkf9g3S2FDGQ1FDix8LAds1nIu0cP19
-         Tz1chuB08R4qQBsmOgWpu5NsMzAj3SVTMZm7K21FQuXiMOT6WD1mHBqtMXiQrErzwpFU
-         yWOvS4cITElAbeNPYjeqMihhhYl9oyEIV4SiEY40Qs/9lid7v7cOjmjjV1krExvIuVAp
-         3W6A==
-X-Gm-Message-State: AOJu0Yzzf7mgZopSis9i+Nzrb0KTIL6iS0A6Odg4dUXWax74IAiEmDqR
-	tFN7ybzLpOGAQGm90UMYnDkbzg==
-X-Google-Smtp-Source: 
- AGHT+IGebDNbdDKX/IZobIxUnkODGsr9PdTVtrGQ1bCRfn1/ZgdLC1oMrxdvfJdXxEp3U1pvkCGVew==
-X-Received: by 2002:a05:600c:19d1:b0:405:3955:5881 with SMTP id
- u17-20020a05600c19d100b0040539555881mr1831887wmq.36.1698404287889;
-        Fri, 27 Oct 2023 03:58:07 -0700 (PDT)
-Received: from srini-hackbox.lan ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id
- ay32-20020a05600c1e2000b004065daba6casm4819626wmb.46.2023.10.27.03.58.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Oct 2023 03:58:06 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Cc: johan@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=fOC75Y9u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1698404732; x=1729940732;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5WhEmsKf7FralyoMJxUWZggzvDbNaA86yLnvkXMcEow=;
+  b=fOC75Y9uzHwoNj1Zj2EYjkB20CC7eZ5OEEmZeKFOwGB2gMo0ZJt88LCG
+   /Cy003mrXMrlldu8FMrzdJeT18SLQD5cEXZqlFfYuqKX343+8pZ1tZddM
+   jzOMmW5U+bbewT27/7hU70bH87vhsryU3bpEVMToZHXIKLSas/9p6Yr6S
+   uEe5OlOYYmYhtcaZHeqaQFYfdXNwDG+oL/UsMU5Iuy5gqUa/CGrqxTME2
+   Px+hx86uv7d2iVErhNqyxoqO17BQRk1rXK2SnSqUinCVJdf/3onYWWIhX
+   F11k9mB3nCzSGNaxy/8y2dCdpVtK8gVSEHrfGj6kuN1FVS/ARzp9vIkjx
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="418866463"
+X-IronPort-AV: E=Sophos;i="6.03,256,1694761200";
+   d="scan'208";a="418866463"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2023 04:05:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="736054979"
+X-IronPort-AV: E=Sophos;i="6.03,256,1694761200";
+   d="scan'208";a="736054979"
+Received: from dev2.igk.intel.com ([10.237.148.94])
+  by orsmga006.jf.intel.com with ESMTP; 27 Oct 2023 04:05:26 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
 	alsa-devel@alsa-project.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [RFC PATCH 2/2] ASoC: codecs: wsa883x: make use of new
- mute_unmute_on_trigger flag
-Date: Fri, 27 Oct 2023 11:57:47 +0100
-Message-Id: <20231027105747.32450-3-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20231027105747.32450-1-srinivas.kandagatla@linaro.org>
-References: <20231027105747.32450-1-srinivas.kandagatla@linaro.org>
+	linux-sound@vger.kernel.org,
+	=?UTF-8?q?=C5=81ukasz=20Majczak?= <lma@chromium.org>,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 0/2] ASoC: Intel: avs: Add support for rt5514 codec
+Date: Fri, 27 Oct 2023 13:05:35 +0200
+Message-Id: <20231027110537.2103712-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EONBUGGW4MJHNR5ZLU7R73HAGEXOBQXK
-X-Message-ID-Hash: EONBUGGW4MJHNR5ZLU7R73HAGEXOBQXK
-X-MailFrom: srinivas.kandagatla@linaro.org
+Message-ID-Hash: 56O5NTFQZM6XDB2MNJYDZYRKWP4BBCMP
+X-Message-ID-Hash: 56O5NTFQZM6XDB2MNJYDZYRKWP4BBCMP
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EONBUGGW4MJHNR5ZLU7R73HAGEXOBQXK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/56O5NTFQZM6XDB2MNJYDZYRKWP4BBCMP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,55 +107,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In the current setup the PA is left unmuted even when the
-Soundwire ports are not started streaming. This can lead to click
-and pop sounds during start.
-There is a same issue in the reverse order where in the PA is
-left unmute even after the data stream is stopped, the time
-between data stream stopping and port closing is long enough
-to accumulate DC on the line resulting in Click/Pop noise
-during end of stream.
+There are machines which use codec rt5514 as DMIC, add support for them.
 
-making use of new mute_unmute_on_trigger flag is helping a
-lot with this Click/Pop issues reported on this Codec
+Amadeusz Sławiński (2):
+  ASoC: Intel: avs: Add rt5514 machine board
+  ASoC: Intel: avs: Add rt5514 machine board
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/wsa883x.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ sound/soc/intel/avs/board_selection.c |   9 ++
+ sound/soc/intel/avs/boards/Kconfig    |  10 ++
+ sound/soc/intel/avs/boards/Makefile   |   2 +
+ sound/soc/intel/avs/boards/rt5514.c   | 187 ++++++++++++++++++++++++++
+ 4 files changed, 208 insertions(+)
+ create mode 100644 sound/soc/intel/avs/boards/rt5514.c
 
-diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
-index e40d583a1ce6..4ea550b0601b 100644
---- a/sound/soc/codecs/wsa883x.c
-+++ b/sound/soc/codecs/wsa883x.c
-@@ -1203,9 +1203,6 @@ static int wsa883x_spkr_event(struct snd_soc_dapm_widget *w,
- 			break;
- 		}
- 
--		snd_soc_component_write_field(component, WSA883X_DRE_CTL_1,
--					      WSA883X_DRE_GAIN_EN_MASK,
--					      WSA883X_DRE_GAIN_FROM_CSR);
- 		if (wsa883x->port_enable[WSA883X_PORT_COMP])
- 			snd_soc_component_write_field(component, WSA883X_DRE_CTL_0,
- 						      WSA883X_DRE_OFFSET_MASK,
-@@ -1218,9 +1215,6 @@ static int wsa883x_spkr_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_write_field(component, WSA883X_PDM_WD_CTL,
- 					      WSA883X_PDM_EN_MASK,
- 					      WSA883X_PDM_ENABLE);
--		snd_soc_component_write_field(component, WSA883X_PA_FSM_CTL,
--					      WSA883X_GLOBAL_PA_EN_MASK,
--					      WSA883X_GLOBAL_PA_ENABLE);
- 
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
-@@ -1346,6 +1340,7 @@ static const struct snd_soc_dai_ops wsa883x_dai_ops = {
- 	.hw_free = wsa883x_hw_free,
- 	.mute_stream = wsa883x_digital_mute,
- 	.set_stream = wsa883x_set_sdw_stream,
-+	.mute_unmute_on_trigger = true,
- };
- 
- static struct snd_soc_dai_driver wsa883x_dais[] = {
+
+base-commit: 00236a89602f7b67016bd1d9bc63079f2c0f0a8d
 -- 
-2.21.0
+2.34.1
 

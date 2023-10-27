@@ -2,80 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17C9B7D9D96
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 17:56:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F3F7D9DB3
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Oct 2023 17:58:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CC86A4A;
-	Fri, 27 Oct 2023 17:55:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CC86A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6315DED;
+	Fri, 27 Oct 2023 17:58:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6315DED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698422165;
-	bh=yBXJzGtA1b4OrnVsN3T1wml+dDeIpOnNaTVkdJAEQmQ=;
+	s=default; t=1698422335;
+	bh=5aHvOf/tPDGqmnSNEmdIU3zX9wqQNMOGtumjnNW/4ho=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FXuCyb66WQOuT3sdPTwZD2SnmzS0xgytk67iTeaREvNqOVvsDQ/gNEnf4nAE+ZaTA
-	 7I/5x9AGYnH+FifGoB3144gW4URIlTsFJ8vY6DP91V1HDVv82t7Wdl4kphiDIGVq0Q
-	 ilH7UrC4D/Td4BPsUU1WD/utqbCrc67EM0c4oZ8g=
+	b=fljuwKa7kyi41tuNiI32QsPgio7MM6MTaUxcFIXbC/cjl9SdB9MzATCxZugbV8ppk
+	 aCymEBz1mq1eKWaT868M9oLmICSXgi+kZ3jJZufdEtHKDfhfJo7p8ONW6/sCwNUXhK
+	 PMzRe6t3JAX69YbiOAsB237AEUkTF4BFE6n89UK4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62A8DF8028D; Fri, 27 Oct 2023 17:55:05 +0200 (CEST)
+	id 585C5F80537; Fri, 27 Oct 2023 17:57:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CACDCF80165;
-	Fri, 27 Oct 2023 17:55:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7942EF80165;
+	Fri, 27 Oct 2023 17:57:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 105DAF8019B; Fri, 27 Oct 2023 17:55:02 +0200 (CEST)
+	id 3089AF8019B; Fri, 27 Oct 2023 17:57:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20616.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::616])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2391F8014B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 17:54:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2391F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C5EFF8014B
+	for <alsa-devel@alsa-project.org>; Fri, 27 Oct 2023 17:57:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C5EFF8014B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=z/rYc145
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fANaP291v9SU3cnLBKONBUldwt/6O6HNmgd35EyvuLgeVPzgA/QcfijRfTqWwkG7sJRWc7aMTyEHmRqspc0PcTHjgwX44t32RGFPCyQYf2PtcsZ4AWN0yjQ/Uh10gbVbjLopyKrQxzCGYfPIN+3lNeJQKXXXfuQXnsWEVwTLGsaE/+zjkqbLVI7mRX74LZTaZ85sJoeOj2B0mcdLUsfWi4Q5LE0Fqr0/1EqgKyVi3kDO4eT3cn1J8gcQpVvvrid0UZUfssEQBOiRyjbRMFUt5OtiEWmKjUxle2fziutbpc/BZyzTQOFuFyYtAlOomHebNq3QVWw1eze9X82J+rUWsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KXOTjOCxJBAIm3MNGaN8Qj/QTCeVQCBNEs9WO+K0aIc=;
- b=Us9U7cpmRocdDWKEpcC/O10E/K4hDIMqep97UaTxv2bAmAgzFwRwHRK8oXw+vXTtBjGke3LJfhwsUM/EJTbJ4vHOqOsEQwO2dDMifZw0Lvgv70D+hoKyv6arGKMDTD4EzOwFRXGWBnYqTICvoalGk8uT3v/VdC+Mzia4kzowU6ryLkOZaH1zYekTPS/pEbf/rDO0XVwYRGp7ZC6GYXfYD2ZxHQAMFuKxoJHIS91/TuJ4SkpFcqfsCSPlNjPhjWDtXuKgLD+1FhpdVs4WQBpEjOnTaYx8UOTqUT3GYYWMihK/xTfijvBv8qIUcys0hevchyEUR3ies/ZlHYrPJkH3Ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KXOTjOCxJBAIm3MNGaN8Qj/QTCeVQCBNEs9WO+K0aIc=;
- b=z/rYc145upOE89J10/mpQhixUT0245BbKOxv3v7qMjFe/4ta+NrM5wVuxm1Gk3F+jTysH9HrMszBohNGLSItCeO+ATWn/V5VdmS+pmSuLwRhDvw6LK3T2fWAsBUiVhqi6esnJF7TnDdhyC0DnXtum8DgSPA1btwEFZXFOciUyqQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by BL1PR12MB5208.namprd12.prod.outlook.com (2603:10b6:208:311::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.24; Fri, 27 Oct
- 2023 15:54:51 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.6933.024; Fri, 27 Oct 2023
- 15:54:50 +0000
-Message-ID: <c0ea139c-9861-4ea1-b547-6e3c380301b3@amd.com>
-Date: Fri, 27 Oct 2023 10:54:47 -0500
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gFHt6fdO
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 34656CE3DA7;
+	Fri, 27 Oct 2023 15:57:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F7DC433C7;
+	Fri, 27 Oct 2023 15:57:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1698422253;
+	bh=5aHvOf/tPDGqmnSNEmdIU3zX9wqQNMOGtumjnNW/4ho=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gFHt6fdOWWMG2TsxZ3ZP6RfUP+obHXohj5L35F+DACm6plNeJUbrW5WWhtr2vcWb/
+	 Bo81e6lCaBK64uOYIDNNqPRZJ8vSiNrOmKuneRymRqYg6kZID32g5qRdiwj1r2jNit
+	 RlJkYSHIGfc+4kHqbCJXBQ24B8A4I9WImOgIoObpEEGeBe3hP8G8sUNB8tSTQ7/9HG
+	 7w4XIhIQLa2RwQDGKApwMng72Q6ufhRzAiX5t8EBEt6NaAE+4bbTdgu3d0c1SCDvy4
+	 2enM6cMM/iaRjS5L5NS4TKB7Zb+A94kOxukyvLIrdSqLJwQf4lWTMFxypxk9dY7GpT
+	 ehIqH3WGbHGcw==
+Message-ID: <db468c1c-fec9-46e7-b01f-413b539664fa@kernel.org>
+Date: Fri, 27 Oct 2023 17:57:25 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 09/13] ASoC: amd: acp: add machine driver support for pdm
  use case
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>,
+To: Mario Limonciello <mario.limonciello@amd.com>,
  Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
  alsa-devel@alsa-project.org
 Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
@@ -94,78 +85,57 @@ References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
  <4d5a4c67-2f4b-4111-b98b-ef575543fa6e@kernel.org>
  <3ec97548-1f91-49d0-adfb-4f8051ca9a97@amd.com>
  <f8f8017c-4e76-4d70-918f-d7cb45186184@kernel.org>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <f8f8017c-4e76-4d70-918f-d7cb45186184@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <c0ea139c-9861-4ea1-b547-6e3c380301b3@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <c0ea139c-9861-4ea1-b547-6e3c380301b3@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN6PR04CA0095.namprd04.prod.outlook.com
- (2603:10b6:805:f2::36) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|BL1PR12MB5208:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe905bf6-b083-456a-0fa0-08dbd7050dab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	txzPuIjBmFDD3FzbMcrrJnIQ00yvq3xEArp+H90zRVdmW5iHiJq2IMtr6cnGiPBFEPiTolacYNWYRGzQH6kYBMJGKbjWSOPGNryJfVnuSpjipQxFBCcy4pCGdXcVcubQS0tkKntXdrGEWfZC5No5omMARrUaAYMnPsJa3YjMkLHKH0i1ZSsaMznn8WP7LlmYGjWVix8GzymaiI97epzwJ7fp0XoA1JZr51rFk9RQfqgUKzEsDu3ko33g1zlbdmMvLT4ySLSPQHW9hqFTx1dn8a8KHnyMLzxXT0CW0cGmy7rKc27Rq8Ar/bRrhSIL24SdZbDkdiDxxduBmiSqby5Rqqys14E9BBTq6XYzVF8oThqVxUq+hVrSPkoJOz7oPRORxq//dl+1o3jEJrahwg46oBrqSSST0dE67hHb6je2k4tiBOF7Fk3TMFBTmzOc0hfeXE8dMYESFumYx5pjAFpK3Wx8xkOYMk/y3XiSdH5qKG++ujtEAGiGacQwy1d5jF4XYKxfSCR8zyg5M7RKkY5FJXQ0vlXqqhAfvG4XRLhdalKvjat+PBe/vpphdjyjQGP8UGa4o/4HkGBxqTwl4Ykn3i9IqiftU1cMjAKr/qFfpebh0sWpIdXAXPlI9fINW3j0NPLrd/yN6N5Rh4llWdc9ew==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(366004)(39860400002)(136003)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799009)(31686004)(38100700002)(86362001)(31696002)(36756003)(8936002)(4326008)(44832011)(8676002)(478600001)(6486002)(83380400001)(2616005)(6506007)(53546011)(6666004)(6512007)(110136005)(54906003)(66476007)(66946007)(66556008)(316002)(26005)(41300700001)(2906002)(7416002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?NlBra3NCd0NOdGRPRFNJSEZxTm1iMTZ4T1V5aGhzYWsvbjcyaTNtd0hNUjhJ?=
- =?utf-8?B?ckZaR3l2U21ZSGhJMTdoQmdMajdYMTd0bGVpdUpjTVRGZVV4NUdTM21FRUsz?=
- =?utf-8?B?cFMveThNb3VmaDF6UVNYK3EwZFJHS1hJdkpxSzE2SzRWbG12cFRMT05hUmpR?=
- =?utf-8?B?Tkk3TE45V0hGeWlBS054Mm5TSGNEVVExY1RjYWtnSVIyTjJYWWNyU01XWEs1?=
- =?utf-8?B?akpEUjRSRThTYWY0Tlp3WnRFbWVsT1FBbjZsN0orazV2Q0YvVjA1dHVJZzNE?=
- =?utf-8?B?TE85Mk8vZXJPYjB6UnhRQlk2Wk5HVlorNGR2SzNXYnI2NlNyMGhKN0s3VHJx?=
- =?utf-8?B?WVNTemF5RVNBd0Q4WmdTaFR4Ly9aM2s1enpsY3FHWkNUUkw2bDd6eGpuaWp6?=
- =?utf-8?B?TTNxMjVGS2dWSmtmd3lBekdFZlE5bm1SR2daZG5TRUtLaUJUL2dCVDlLd0F3?=
- =?utf-8?B?T2tvRWRWaVRET0xhQVUvbFJnUXhuOFI5WVNtMW9xVitwbFRhSzRxd01qMVRM?=
- =?utf-8?B?S1kycDdZTkI1TUZ2QjhmckEwV1hFR3dsL0N6UURwSHdGbUJ3eDlTSjF4UjZ3?=
- =?utf-8?B?YXZHRmc4ZEFEWFNYdmhrTzVvOG9BOUJLQjJVWkZNZjJ3enZxZEZYSVd4eml1?=
- =?utf-8?B?TklreWpIdE9TZkE4SGdKeDFaZFZDNDNiRzlVT0swdUVwSVhmKzFlVlFORnlX?=
- =?utf-8?B?eE04N2wwK2ZpNmNIcFNtdFpacDlRRko0QWo5ZHhyNFFJOFlmbUd1OXM2R0Yw?=
- =?utf-8?B?Mm1hWUJIVEJNakhRRkdJeWZFVnZqQks0S1pBZ281b3RvMUxNUHZEKytoOGVz?=
- =?utf-8?B?c3FHMjFUdUZvaGNYUlRQY3Fac0JNVFBLdjdrajl0bUp5WkFLSkNZWXJPQms0?=
- =?utf-8?B?ZUxOV2o1UktjaFk4K2xQRkZVbm5tdU4yNThVRUxKMk5qN1FiYkVISThRS3Zz?=
- =?utf-8?B?ZmJpenM4bGQ0NXBySXN2UlNxY2s1anlEeG1pZVdsendYRmxXTTg2LzdEMDQy?=
- =?utf-8?B?UnZxOCtQM00zNWZhMHkvQ1hLbm9BS1RVTVVkWWc4SDMyeTV0V1NINVc2Vjh4?=
- =?utf-8?B?a2d1dEkwbHlVZ0VqcFRScTYzcHRVRGxqTUFVZFF6SE9hUWFJS2xJUFgwTXlE?=
- =?utf-8?B?eUg3dVUrcE9ncVF6cERjWXNjc3RQOC9zQW1HdUg4ZXFWbXY2T3lLTVV5NDdS?=
- =?utf-8?B?QXNNc2NYSmJpeUJ6ajk2ZVJJM3M5bkoweCtIRTU2NEFiYmErUkRwSXJaZ0x1?=
- =?utf-8?B?SGsvWW1YT09lNG8xVXBLb3FYQVZWUTUwVDNQaFFSZDdnOFQ0dVc3M3RuVjN5?=
- =?utf-8?B?SW5iSGdHSDdienV4VkNiUmsyYVZTUGRGOUsxMG1ON0tIcXdYNnN4SXNhMWpN?=
- =?utf-8?B?c1F2N01qdTJZVHAwWFkxMjkwVnRpVFU2VjNMNXRqVjdwcUVoTmduMjB3aXpU?=
- =?utf-8?B?U09QZEZmRGpJNGpRNDl5eUZKek5ocmx2enEvWGZ6NURBTlBDTHdid1VJSHU4?=
- =?utf-8?B?NzBZbVFPdXNGK1MxNy9wWEY1Rnd5dkpTcEVBc3VNdHB3ZlhIZmFFaU1lOFJK?=
- =?utf-8?B?RFAyY0lQNHNhZCtlR2UrMEkrbTEvNmlmWmh1cG9pZ3laT2FydzRtejNUUkEx?=
- =?utf-8?B?azdHUG5WS1ZiOWJvNTNIV3Z2T21PYUh5ZzRKWURBUVhoTDhTaFkvVGZUdTFT?=
- =?utf-8?B?VTU2WDFvWGpsNk1xUm5jOUtWY1dROXdFNFB5ellDckpBRlpNNE5IOVdEQ2dt?=
- =?utf-8?B?TVZHNVZjMS9HSUlvUTdUTGsyTDdpWHZWa3dNL1JJcWh2clB5MzhNaWdtQnBY?=
- =?utf-8?B?bVFuVXYzVSttSmRxQlFIRk1pejh3aG5nazRsSCt6WCtBU0dNUnhzTFM0SzEw?=
- =?utf-8?B?N3Fqc2l2MDZON3dZQzQ3cXhRU0sxNElEbVlBOVBqdXhPZllFcGxzRmRJNXY5?=
- =?utf-8?B?dnV5M0dHank4aXNKUzVrZUdGYzhlVy9wUFNFSGVvMVNUUjMrcDlNemNXbnh3?=
- =?utf-8?B?UzQ3aUpqMDdFQWN6WmZwanpIVlFianVJRHBuL0VSRFFoc1N4YTM0QW12SGtL?=
- =?utf-8?B?MU84c1g4R3VHN1lFSkNDSGtKNC9NRCtVd3Zqek5oTldwc3h3Q2h1dXV6TjJY?=
- =?utf-8?Q?/xTNjTs3HnxfyuXdxUgGa3OB9?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- fe905bf6-b083-456a-0fa0-08dbd7050dab
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 15:54:50.8682
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- g/SuMr9PzGaetFxrY/xohODp+xpZZGZOW4nTbGddTICDSrszouu/sfXvfcpg2oz6I6fRafLXFZE4hCuwL+utwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5208
-Message-ID-Hash: FBVLKDTIIQIYRAQZPYPRRUO3UZ44T4XA
-X-Message-ID-Hash: FBVLKDTIIQIYRAQZPYPRRUO3UZ44T4XA
-X-MailFrom: Mario.Limonciello@amd.com
+Message-ID-Hash: 2A2QCCKGDPIYJZH6COIFYATXPJ253ENS
+X-Message-ID-Hash: 2A2QCCKGDPIYJZH6COIFYATXPJ253ENS
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -177,7 +147,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FBVLKDTIIQIYRAQZPYPRRUO3UZ44T4XA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2A2QCCKGDPIYJZH6COIFYATXPJ253ENS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -186,58 +156,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/27/2023 10:51, Krzysztof Kozlowski wrote:
-> On 27/10/2023 17:28, Mario Limonciello wrote:
->> On 10/27/2023 03:49, Krzysztof Kozlowski wrote:
->>> On 21/10/2023 16:50, Syed Saba Kareem wrote:
->>>> add pdm use case machine driver support
+On 27/10/2023 17:54, Mario Limonciello wrote:
+> On 10/27/2023 10:51, Krzysztof Kozlowski wrote:
+>> On 27/10/2023 17:28, Mario Limonciello wrote:
+>>> On 10/27/2023 03:49, Krzysztof Kozlowski wrote:
+>>>> On 21/10/2023 16:50, Syed Saba Kareem wrote:
+>>>>> add pdm use case machine driver support
+>>>>>
+>>>>> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+>>>>> ---
 >>>>
->>>> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
->>>> ---
+>>>>
+>>>>>    	dmi_id = dmi_first_match(acp_quirk_table);
+>>>>>    	if (dmi_id && dmi_id->driver_data)
+>>>>> @@ -214,6 +221,10 @@ static const struct platform_device_id board_ids[] = {
+>>>>>    		.name = "rmb-rt5682s-rt1019",
+>>>>>    		.driver_data = (kernel_ulong_t)&rt5682s_rt1019_rmb_data,
+>>>>>    	},
+>>>>> +	{
+>>>>> +		.name = "acp-pdm-mach",
+>>>>> +		.driver_data = (kernel_ulong_t)&acp_dmic_data,
+>>>>> +	},
+>>>>>    	{ }
+>>>>>    };
+>>>>>    static struct platform_driver acp_asoc_audio = {
+>>>>> @@ -235,4 +246,5 @@ MODULE_ALIAS("platform:acp3xalc5682s1019");
+>>>>>    MODULE_ALIAS("platform:acp3x-es83xx");
+>>>>>    MODULE_ALIAS("platform:rmb-nau8825-max");
+>>>>>    MODULE_ALIAS("platform:rmb-rt5682s-rt1019");
+>>>>> +MODULE_ALIAS("platform:acp-pdm-mach");
+>>>>
+>>>> Please stop growing the aliases. Module alias is not a substitute for
+>>>> missing MODULE_DEVICE_TABLE.
+>>>>
+>>>> Best regards,
+>>>> Krzysztof
+>>>>
 >>>
+>>> I thought the way that this works is that top level ACP driver (IE
+>>> acp-pci.c) will have MODULE_DEVICE_TABLE.  This is how that module gets
+>>> loaded.
 >>>
->>>>    	dmi_id = dmi_first_match(acp_quirk_table);
->>>>    	if (dmi_id && dmi_id->driver_data)
->>>> @@ -214,6 +221,10 @@ static const struct platform_device_id board_ids[] = {
->>>>    		.name = "rmb-rt5682s-rt1019",
->>>>    		.driver_data = (kernel_ulong_t)&rt5682s_rt1019_rmb_data,
->>>>    	},
->>>> +	{
->>>> +		.name = "acp-pdm-mach",
->>>> +		.driver_data = (kernel_ulong_t)&acp_dmic_data,
->>>> +	},
->>>>    	{ }
->>>>    };
->>>>    static struct platform_driver acp_asoc_audio = {
->>>> @@ -235,4 +246,5 @@ MODULE_ALIAS("platform:acp3xalc5682s1019");
->>>>    MODULE_ALIAS("platform:acp3x-es83xx");
->>>>    MODULE_ALIAS("platform:rmb-nau8825-max");
->>>>    MODULE_ALIAS("platform:rmb-rt5682s-rt1019");
->>>> +MODULE_ALIAS("platform:acp-pdm-mach");
->>>
->>> Please stop growing the aliases. Module alias is not a substitute for
->>> missing MODULE_DEVICE_TABLE.
->>>
->>> Best regards,
->>> Krzysztof
->>>
+>>> Then it creates platform devices based on the detected needs for the
+>>> situation and the creation of those platform devices triggers a uevent
+>>> which due to MODULE_ALIAS will get appropriate other platform drivers
+>>> like this one loaded.
 >>
->> I thought the way that this works is that top level ACP driver (IE
->> acp-pci.c) will have MODULE_DEVICE_TABLE.  This is how that module gets
->> loaded.
->>
->> Then it creates platform devices based on the detected needs for the
->> situation and the creation of those platform devices triggers a uevent
->> which due to MODULE_ALIAS will get appropriate other platform drivers
->> like this one loaded.
+>> And why you cannot use MODULE_DEVICE_TABLE here? IOW, why do you need to
+>> manually duplicate entire table and re-invent MODULE_DEVICE_TABLE with
+>> MODULE_ALIAS?
 > 
-> And why you cannot use MODULE_DEVICE_TABLE here? IOW, why do you need to
-> manually duplicate entire table and re-invent MODULE_DEVICE_TABLE with
-> MODULE_ALIAS?
+> What would actually go into MODULE_DEVICE_TABLE?
 
-What would actually go into MODULE_DEVICE_TABLE?
+The table you have few lines above aliases.
 
-The platform devices created are contingent upon what was found during 
-the top level ACP driver probe.  You don't want all the "child" platform 
-drivers to load unless they're needed.
+> 
+> The platform devices created are contingent upon what was found during 
+> the top level ACP driver probe.  You don't want all the "child" platform 
+> drivers to load unless they're needed.
+
+How static alias differs here from static device ID table? Both are
+built into the module and always there. I don't even understand what
+does it mean by "loading child platform drivers". Why would unneeded
+driver be loaded?
+
+Best regards,
+Krzysztof
 

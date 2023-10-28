@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 341477DA67D
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 12:38:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5E97DA702
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 14:40:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92386A4E;
-	Sat, 28 Oct 2023 12:37:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92386A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5349FA4C;
+	Sat, 28 Oct 2023 14:39:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5349FA4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698489522;
-	bh=0NrDMTYHBFhGooZBk+mj4ZxGd5f+rRCuvE7bmNmByVg=;
+	s=default; t=1698496817;
+	bh=5DFRZ4mkakyrajGVj24Y+ob1tJBbO+a6fJKY8wqF2+8=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=TLgzNMmWCvcuU9OeD08SWPEx+79SneUsKjGSyBLgvpC3vTBg5tkZavVVzErc426A3
-	 xrWIi1zEZZWs2Gisiw7xaKfkln/2l7pbnR+s2c+3lwJk95x+LqMxBwg+9+/gjSEp32
-	 JiqBVI2G4jjg7WAO4nK68G+bq550+5xYGrY2RWHA=
+	b=goqV6ibdYF8Cpg4Qi86xS4JrLOJE2Zk21t5zTWc4GRE083iGenkZmHLhvazaytJ2b
+	 g3+qsv0nbcFIi1x1lN1T2OuyXttuN18QzW+ZCobp2EG0DmoVG9X30bZa4ZfJ2wCgaR
+	 QsFW0uel40+TVFlNjOhkWRc2q5XiXWa3Vcpl3zKs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09948F80557; Sat, 28 Oct 2023 12:37:51 +0200 (CEST)
+	id 7F113F80558; Sat, 28 Oct 2023 14:38:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE6E7F80165;
-	Sat, 28 Oct 2023 12:37:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 034FBF80165;
+	Sat, 28 Oct 2023 14:38:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE5E7F8019B; Sat, 28 Oct 2023 12:37:46 +0200 (CEST)
+	id 5FE0DF8019B; Sat, 28 Oct 2023 14:38:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DC19F80152
-	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 12:37:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DC19F80152
+	by alsa1.perex.cz (Postfix) with ESMTP id 67830F80152
+	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 14:38:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67830F80152
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1698489460663124800-webhooks-bot@alsa-project.org>
-References: <1698489460663124800-webhooks-bot@alsa-project.org>
-Subject: Possible bug in snd_ends1371 on Debian 12 with KDE (Wayland and X11)
-Message-Id: <20231028103746.EE5E7F8019B@alsa1.perex.cz>
-Date: Sat, 28 Oct 2023 12:37:46 +0200 (CEST)
-Message-ID-Hash: 4O43VVJZNLBX5TCYT2LZNQRLJJK3QVBA
-X-Message-ID-Hash: 4O43VVJZNLBX5TCYT2LZNQRLJJK3QVBA
+In-Reply-To: <1698496731242286444-webhooks-bot@alsa-project.org>
+References: <1698496731242286444-webhooks-bot@alsa-project.org>
+Subject: mixer: simple: Support dB TLVs for CTL_SINGLE controls
+Message-Id: <20231028123855.5FE0DF8019B@alsa1.perex.cz>
+Date: Sat, 28 Oct 2023 14:38:55 +0200 (CEST)
+Message-ID-Hash: YIJOSIN2ZWNOATJWZOO5E267UJC7TXAI
+X-Message-ID-Hash: YIJOSIN2ZWNOATJWZOO5E267UJC7TXAI
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4O43VVJZNLBX5TCYT2LZNQRLJJK3QVBA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YIJOSIN2ZWNOATJWZOO5E267UJC7TXAI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,10 +69,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #357 was opened from wschadow:
+alsa-project/alsa-lib pull request #358 was opened from marcan:
 
-After installing Debian 12.2 running KDE I notice sveral crashes over night. There seems to be an issue with the screen locker and ALSA. Attached find the output of journalctl -p3 -r.
-[journalctl.txt](https://github.com/alsa-project/alsa-lib/files/13195520/journalctl.txt)
+dB mappings do not work for controls not named "* Volume", since we do not fall back to CTL_SINGLE in get_selem_ctl. Add that branch to make it work.
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/357
+Fixes dB ranges for e.g. controls named "* Gain".
+
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/358
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/358.patch
 Repository URL: https://github.com/alsa-project/alsa-lib

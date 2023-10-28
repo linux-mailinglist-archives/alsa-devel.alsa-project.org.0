@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2982E7DA794
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 16:41:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC4527DA852
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 19:58:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82A03850;
-	Sat, 28 Oct 2023 16:40:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82A03850
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB8E1868;
+	Sat, 28 Oct 2023 19:57:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB8E1868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698504082;
-	bh=gBoukgwbnv7kdvEE2dKfEoMAGNoyvArZrw3HanBJXC4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pKctjlgwybhjXwwYGda502ecdm7gdC00Syj+scQ29VibbpWxlLsdec8cRDDPVvv4k
-	 H98E4pEcYHcpf52B3C4ww0pg/7NeSktRQ//cXDcJk01JZQ22elEcuqR0FxtN4ezSok
-	 KWhQdKlrvcxdfxC05SJMIJi5B1TqfY+xXxzCqANI=
+	s=default; t=1698515921;
+	bh=AFsLwf98b+T6tdG9kTHblQKkbRc6qOMueaSvpCDcCOk=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=NS0rtntJP4lB+7liw9Jh/wtozfSOE1fHnZ26VNc+40vHtkJvpKnBMsGYd30ldAsNq
+	 wCPdRaCiC1Dg8mQ9fuiM/PcUKu7cQ9QQPPxI+/OMFpm/1ptkZ7uFmBEuck4EYQNoCL
+	 +aLc0hFWca8AWzCd47jHLx6cquG2iMpkHoINmA08=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03B2CF8010B; Sat, 28 Oct 2023 16:40:29 +0200 (CEST)
+	id 5E4E4F8020D; Sat, 28 Oct 2023 19:57:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44485F80165;
-	Sat, 28 Oct 2023 16:40:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1807CF80165;
+	Sat, 28 Oct 2023 19:57:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E704F8019B; Sat, 28 Oct 2023 16:40:23 +0200 (CEST)
+	id F0DEDF8019B; Sat, 28 Oct 2023 19:57:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp.smtpout.orange.fr (smtp-16.smtpout.orange.fr
- [80.12.242.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE9D9F80152
-	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 16:40:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE9D9F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 513E7F80152
+	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 19:57:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 513E7F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
- header.s=t20230301 header.b=frxD7G+C
-Received: from [192.168.1.18] ([86.243.2.178])
-	by smtp.orange.fr with ESMTPA
-	id wkTtqYVzL63GJwkTtqx2Mj; Sat, 28 Oct 2023 16:40:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1698504013;
-	bh=fZsYqi1cjBvv75ObEJzpj+1QWMKsFp+bnhc9R56akr0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=frxD7G+C3qIOVHy1swtNrmKpHX26yH7tcVm4x9ang1jSGycdJ9vJod9dSPU4l05/r
-	 lem+5u6EtByIJsEJwMs+sYX0VpU+KmhWH+JgaDaAICVITlNOJX04tl3oo8Bg7vViM8
-	 9KRKV2QSUODp0zAZUvecf7aQsdKNGJcF+FAmrACuSwlnBJEPVXvEw/FwwgCCr5qVs0
-	 1EKs9Jwakk7VwBzZWEmiOPbAAaKwg9Wpen2mtUTs67UEBamBCicfTm/vjqwY8+zumn
-	 K/WO6LY8ifMNf7Eidk1NRHUJvq3/7Lx2g/t3jK8rb+hup33mSG/O/Y7cDLzHfcQrQe
-	 OGexkDoFToFVw==
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 28 Oct 2023 16:40:13 +0200
-X-ME-IP: 86.243.2.178
-Message-ID: <62e7f3c6-5726-4c52-9e87-2694f5fe2fd8@wanadoo.fr>
-Date: Sat, 28 Oct 2023 16:40:04 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=gGIsrioS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1698515860; x=1730051860;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=AFsLwf98b+T6tdG9kTHblQKkbRc6qOMueaSvpCDcCOk=;
+  b=gGIsrioS8i2MnuuCOoqXOVudqT8BNYTZ9ReadOb248QUAObdYH6Vlikb
+   Shge0sAvZXWiID0LKMQU17iB6YPg7NdKHHJxDVattkedkPonfMELbYvPO
+   h5ggV6Q+y9x9rSYL0f3XlsOq1qOioiWDeT3M9tBFou5PjOFaYi2HTr9yL
+   wZUs2hmahPaRbjwSNmxdGMKUb2PWAqvmkfsA7qKBwel2szWL04wWzngDV
+   T2u0uFQgVMhQ3Ua+z+aTbA0yfW6y7AEeQYhF3GXmQKfSSihbCLQah87LA
+   fWpU/8nwEXS+eouhc5gje3rO5a+ibX46tah3YBoIlSUviKJM/IFigtiMD
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10877"; a="387724757"
+X-IronPort-AV: E=Sophos;i="6.03,259,1694761200";
+   d="scan'208";a="387724757"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2023 10:57:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.03,259,1694761200";
+   d="scan'208";a="7941199"
+Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 28 Oct 2023 10:57:19 -0700
+Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qwnYx-000ByB-1P;
+	Sat, 28 Oct 2023 17:57:31 +0000
+Date: Sun, 29 Oct 2023 01:57:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [tiwai-sound:for-next 90/101] sound/pci/hda/cs35l41_hda.c:733:5:
+ warning: no previous declaration for 'cs35l41_verify_id'
+Message-ID: <202310290100.edUObACr-lkp@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ASoC: tas2783: Add source files for tas2783 driver.
-To: Baojun Xu <baojun.xu@ti.com>, broonie@kernel.org, lgirdwood@gmail.com,
- perex@perex.cz
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, kevin-lu@ti.com, shenghao-ding@ti.com,
- peeyush@ti.com, navada@ti.com, tiwai@suse.de
-References: <20231028092409.96813-1-baojun.xu@ti.com>
-Content-Language: fr
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20231028092409.96813-1-baojun.xu@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VHRZZ5B45JJVPPMMYC33L63EWJJGJ5X5
-X-Message-ID-Hash: VHRZZ5B45JJVPPMMYC33L63EWJJGJ5X5
-X-MailFrom: christophe.jaillet@wanadoo.fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: MN3QNLSUSG2UTHW5PMG5YFTAYYURXXLZ
+X-Message-ID-Hash: MN3QNLSUSG2UTHW5PMG5YFTAYYURXXLZ
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VHRZZ5B45JJVPPMMYC33L63EWJJGJ5X5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MN3QNLSUSG2UTHW5PMG5YFTAYYURXXLZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,395 +102,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Le 28/10/2023 à 11:24, Baojun Xu a écrit :
-> Add source file and header file for tas2783 soundwire driver.
-> Also update Kconfig and Makefile for tas2783 driver.
-> 
-> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
-> ---
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+head:   a5901f27dcf13203e5b342b7e9439314a775bf32
+commit: 881b7bce0c250386680b49b637455d31238a4b30 [90/101] ALSA: hda: cs35l41: Run boot process during resume callbacks
+config: i386-buildonly-randconfig-003-20231028 (https://download.01.org/0day-ci/archive/20231029/202310290100.edUObACr-lkp@intel.com/config)
+compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231029/202310290100.edUObACr-lkp@intel.com/reproduce)
 
-Hi,
-some nit and on fix below.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310290100.edUObACr-lkp@intel.com/
 
-CJ
+All warnings (new ones prefixed by >>):
 
-...
+>> sound/pci/hda/cs35l41_hda.c:733:5: warning: no previous declaration for 'cs35l41_verify_id' [-Wmissing-declarations]
+    int cs35l41_verify_id(struct cs35l41_hda *cs35l41, unsigned int *regid, unsigned int *reg_revid)
+        ^~~~~~~~~~~~~~~~~
 
-> +static int tas2783_digital_getvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component
-> +		= snd_soc_kcontrol_component(kcontrol);
-> +	struct tasdevice_priv *tas_dev =
-> +		snd_soc_component_get_drvdata(component);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	struct regmap *map = tas_dev->regmap;
-> +	int val = 0, ret;
-> +
-> +	if (!map || !ucontrol) {
 
-'map' can't be NULL if the probe succeeds.
+vim +/cs35l41_verify_id +733 sound/pci/hda/cs35l41_hda.c
 
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +	/* Read current volume from the device. */
-> +	ret = regmap_read(map, mc->reg, &val);
-> +	if (ret) {
-> +		dev_err(tas_dev->dev, "%s, get digital vol error %x.\n",
-> +			__func__, ret);
-> +		return ret;
-> +	}
-> +	ucontrol->value.integer.value[0] =
-> +		tasdevice_clamp(val, mc->max, mc->invert);
-> +
-> +	return ret;
-> +}
-> +
-> +static int tas2783_digital_putvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component
-> +		= snd_soc_kcontrol_component(kcontrol);
-> +	struct tasdevice_priv *tas_dev =
-> +		snd_soc_component_get_drvdata(component);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	struct regmap *map = tas_dev->regmap;
-> +	int val, ret;
-> +
-> +	if (!map || !ucontrol) {
+   732	
+ > 733	int cs35l41_verify_id(struct cs35l41_hda *cs35l41, unsigned int *regid, unsigned int *reg_revid)
+   734	{
+   735		unsigned int mtl_revid, chipid;
+   736		int ret;
+   737	
+   738		ret = regmap_read(cs35l41->regmap, CS35L41_DEVID, regid);
+   739		if (ret) {
+   740			dev_err_probe(cs35l41->dev, ret, "Get Device ID failed\n");
+   741			return ret;
+   742		}
+   743	
+   744		ret = regmap_read(cs35l41->regmap, CS35L41_REVID, reg_revid);
+   745		if (ret) {
+   746			dev_err_probe(cs35l41->dev, ret, "Get Revision ID failed\n");
+   747			return ret;
+   748		}
+   749	
+   750		mtl_revid = *reg_revid & CS35L41_MTLREVID_MASK;
+   751	
+   752		chipid = (mtl_revid % 2) ? CS35L41R_CHIP_ID : CS35L41_CHIP_ID;
+   753		if (*regid != chipid) {
+   754			dev_err(cs35l41->dev, "CS35L41 Device ID (%X). Expected ID %X\n", *regid, chipid);
+   755			return -ENODEV;
+   756		}
+   757	
+   758		return 0;
+   759	}
+   760	
 
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +	val = tasdevice_clamp(ucontrol->value.integer.value[0],
-> +		mc->max, mc->invert);
-> +
-> +	ret = regmap_write(map, mc->reg, val);
-> +	if (ret != 0) {
-> +		dev_dbg(tas_dev->dev, "%s, Put vol %d into %x %x.\n",
-> +		__func__, val, mc->reg, ret);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component
-> +		= snd_soc_kcontrol_component(kcontrol);
-> +	struct tasdevice_priv *tas_dev =
-> +		snd_soc_component_get_drvdata(component);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	struct regmap *map = tas_dev->regmap;
-> +	unsigned char mask = 0;
-> +	int ret = 0, val = 0;
-
-Useless initialisation of ret.
-
-> +
-> +	if (!map || !ucontrol) {
-
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +	/* Read current volume from the device. */
-> +	ret = regmap_read(map, mc->reg, &val);
-> +	if (ret != 0) {
-> +		dev_err(tas_dev->dev, "%s get AMP vol from %x with %d.\n",
-> +			__func__, mc->reg, ret);
-> +		return ret;
-> +	}
-> +
-> +	mask = (1 << fls(mc->max)) - 1;
-> +	mask <<= mc->shift;
-> +	val = (val & mask) >> mc->shift;
-> +	ucontrol->value.integer.value[0] = tasdevice_clamp(val,	mc->max,
-> +		mc->invert);
-> +
-> +	return ret;
-> +}
-> +
-> +static int tas2783_amp_putvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component
-> +		= snd_soc_kcontrol_component(kcontrol);
-> +	struct tasdevice_priv *tas_dev =
-> +		snd_soc_component_get_drvdata(component);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	struct regmap *map = tas_dev->regmap;
-> +	unsigned char mask;
-> +	int val, ret;
-> +
-> +	if (!map || !ucontrol) {
-
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +	mask = (1 << fls(mc->max)) - 1;
-> +	mask <<= mc->shift;
-> +	val = tasdevice_clamp(ucontrol->value.integer.value[0], mc->max,
-> +		mc->invert);
-> +	ret = regmap_update_bits(map, mc->reg, mask, val << mc->shift);
-> +	if (ret != 0) {
-> +		dev_err(tas_dev->dev, "Write @%#x..%#x:%d\n",
-> +			mc->reg, val, ret);
-> +	}
-> +
-> +	return ret;
-> +}
-
-...
-
-> +static void tas2783_apply_calib(
-> +	struct tasdevice_priv *tas_dev, unsigned int *cali_data)
-> +{
-> +	struct regmap *map = tas_dev->regmap;
-> +	u8 *reg_start;
-> +	int ret;
-> +
-> +	if (!map) {
-
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		return;
-> +	}
-> +	if (!tas_dev->sdw_peripheral) {
-> +		dev_err(tas_dev->dev, "%s, slaver doesn't exist.\n",
-> +			__func__);
-> +		return;
-> +	}
-> +	if ((tas_dev->sdw_peripheral->id.unique_id < TAS2783_ID_MIN) ||
-> +		(tas_dev->sdw_peripheral->id.unique_id > TAS2783_ID_MAX))
-> +		return;
-> +	reg_start = (u8 *)(cali_data+(tas_dev->sdw_peripheral->id.unique_id
-> +		- TAS2783_ID_MIN)*sizeof(tas2783_cali_reg));
-> +	for (int i = 0; i < ARRAY_SIZE(tas2783_cali_reg); i++) {
-> +		ret = regmap_bulk_write(map, tas2783_cali_reg[i],
-> +			reg_start + i, 4);
-> +		if (ret != 0) {
-> +			dev_err(tas_dev->dev, "Cali failed %x:%d\n",
-> +			tas2783_cali_reg[i], ret);
-> +			break;
-> +		}
-> +	}
-> +}
-
-...
-
-> +static void tasdevice_rca_ready(const struct firmware *fmw, void *context)
-> +{
-> +	struct tasdevice_priv *tas_dev =
-> +		(struct tasdevice_priv *) context;
-> +	struct tas2783_firmware_node *p;
-> +	struct regmap *map = tas_dev->regmap;
-> +	unsigned char *buf = NULL;
-> +	int offset = 0, img_sz;
-> +	int ret, value_sdw;
-> +
-> +	mutex_lock(&tas_dev->codec_lock);
-> +
-> +	if (!map) {
-
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		ret = -EINVAL;
-> +		goto out;
-> +	}
-> +	if (!fmw || !fmw->data) {
-> +		/* No firmware binary, devices will work in ROM mode. */
-> +		dev_err(tas_dev->dev,
-> +		"Failed to read %s, no side-effect on driver running\n",
-> +		tas_dev->rca_binaryname);
-> +		ret = -EINVAL;
-> +		goto out;
-> +	}
-> +	buf = (unsigned char *)fmw->data;
-> +
-> +	img_sz = le32_to_cpup((__le32 *)&buf[offset]);
-> +	offset  += sizeof(img_sz);
-> +	if (img_sz != fmw->size) {
-> +		dev_err(tas_dev->dev, "Size not matching, %d %u",
-> +			(int)fmw->size, img_sz);
-> +		ret = -EINVAL;
-> +		goto out;
-> +	}
-> +
-> +	while (offset < img_sz) {
-> +		p = (struct tas2783_firmware_node *)(buf + offset);
-> +		if (p->length > 1) {
-> +			ret = regmap_bulk_write(map, p->download_addr,
-> +			buf + offset + sizeof(unsigned int)*5, p->length);
-> +		} else {
-> +			ret = regmap_write(map, p->download_addr,
-> +			*(buf + offset + sizeof(unsigned int)*5));
-> +		}
-> +		if (ret != 0) {
-> +			dev_dbg(tas_dev->dev, "Load FW fail: %d.\n", ret);
-> +			goto out;
-> +		}
-> +		offset += sizeof(unsigned int)*5 + p->length;
-> +	}
-> +	/* Select left-right channel based on unique id. */
-> +	value_sdw = 0x1a;
-> +	value_sdw += ((tas_dev->sdw_peripheral->id.unique_id & 1) << 4);
-> +	regmap_write(map, TASDEVICE_REG(0, 0, 0x0a), value_sdw);
-> +
-> +	tas2783_calibration(tas_dev);
-> +
-> +out:
-> +	mutex_unlock(&tas_dev->codec_lock);
-> +	if (fmw)
-> +		release_firmware(fmw);
-> +}
-
-...
-
-> +static int tasdevice_mute(struct snd_soc_dai *dai, int mute,
-> +	int direction)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct tasdevice_priv *tas_dev =
-> +		snd_soc_component_get_drvdata(component);
-> +	struct regmap *map = tas_dev->regmap;
-> +	int ret;
-> +
-> +	if (!map) {
-
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "%s, wrong regmap.\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (mute == 0) {/* Unmute. */
-> +		/* FU23 Unmute, 0x40400108. */
-> +		ret = regmap_write(map, SDW_SDCA_CTL(1, 2, 1, 0), 0);
-> +		ret += regmap_write(map, TASDEVICE_REG(0, 0, 0x02), 0x0);
-> +	} else {/* Mute */
-> +		/* FU23 mute */
-> +		ret = regmap_write(map, SDW_SDCA_CTL(1, 2, 1, 0), 1);
-> +		ret += regmap_write(map, TASDEVICE_REG(0, 0, 0x02), 0x1a);
-> +	}
-> +	if (ret) {
-> +		dev_err(tas_dev->dev, "Mute or unmute %d failed %d.\n",
-> +			mute, ret);
-> +	}
-> +
-> +	return ret;
-> +}
-
-...
-
-> +static void tas2783_reset(struct tasdevice_priv *tas_dev)
-> +{
-> +	struct regmap *map = tas_dev->regmap;
-> +	int ret;
-> +
-> +	if (!map) {
-
-'map' can't be NULL if the probe succeeds.
-
-> +		dev_err(tas_dev->dev, "Failed to load regmap.\n");
-> +		return;
-> +	}
-> +	ret = regmap_write(map, TAS2873_REG_SWRESET, 1);
-> +	if (ret) {
-> +		dev_err(tas_dev->dev, "Reset failed.\n");
-> +		return;
-> +	}
-> +	usleep_range(1000, 1050);
-> +}
-
-...
-
-> +static void tasdevice_remove(struct tasdevice_priv *tas_dev)
-> +{
-> +	snd_soc_unregister_component(tas_dev->dev);
-
-Is it needed?
-In tasdevice_init(), devm_snd_soc_register_component() is used.
-
-> +
-> +	mutex_destroy(&tas_dev->codec_lock);
-> +}
-> +
-> +static int tasdevice_sdw_probe(struct sdw_slave *peripheral,
-> +	const struct sdw_device_id *id)
-> +{
-> +	struct device *dev = &peripheral->dev;
-> +	struct tasdevice_priv *tas_dev;
-> +	int ret;
-> +
-> +	tas_dev = devm_kzalloc(dev, sizeof(*tas_dev), GFP_KERNEL);
-> +	if (!tas_dev) {
-> +		ret = -ENOMEM;
-
-A direct return -ENOMEM; would be cleaner IMHO...
-
-> +		goto out;
-> +	}
-> +	tas_dev->dev = dev;
-> +	tas_dev->chip_id = id->driver_data;
-> +	tas_dev->sdw_peripheral = peripheral;
-> +	tas_dev->hw_init = false;
-> +
-> +	dev_set_drvdata(dev, tas_dev);
-> +
-> +	tas_dev->regmap = devm_regmap_init_sdw(peripheral,
-> +		&tasdevice_regmap);
-> +	if (IS_ERR(tas_dev->regmap)) {
-> +		ret = PTR_ERR(tas_dev->regmap);
-> +		dev_err(dev, "Failed devm_regmap_init: %d\n", ret);
-
-Mater of taste, but dev_err_probe() could be used
-
-> +		goto out;
-> +	}
-> +	ret = tasdevice_init(tas_dev);
-> +
-> +out:
-> +	if (ret < 0 && tas_dev != NULL)
-
-... it would also save the "&& tas_dev != NULL" test here.
-
-> +		tasdevice_remove(tas_dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int tasdevice_sdw_remove(struct sdw_slave *peripheral)
-> +{
-> +	struct tasdevice_priv *tas_dev = dev_get_drvdata(&peripheral->dev);
-> +
-> +	if (tas_dev) {
-
-If I'm correct, 'tas_dev is known' to be not-NULL, if 
-tasdevice_sdw_remove() is called.
-
-This test can be removed.
-
-> +		pm_runtime_disable(tas_dev->dev);
-> +		tasdevice_remove(tas_dev);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-
-...
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

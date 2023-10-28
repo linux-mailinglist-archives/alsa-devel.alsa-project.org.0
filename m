@@ -2,76 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 343827DA5F8
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 10:51:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D11D97DA612
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 11:15:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B38F4A4C;
-	Sat, 28 Oct 2023 10:50:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B38F4A4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10F12AE8;
+	Sat, 28 Oct 2023 11:14:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10F12AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698483065;
-	bh=+5DSt9wHxLvQLygUWVX0VDmhoJIQ0W33QNNTdVhekRo=;
+	s=default; t=1698484515;
+	bh=x3+XeerKXC1QYo+48ZmmukiyMroE2wqwCTAK/8GxCMM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZNFv/29YB157jX17ppRXyPyOgDg/oZ7p9O2F4N0cFDVMuXTw7w94gtP7T++RGBfsc
-	 sFqGmdF/w34dn0aOLyLIFhINTZvPnyJ9FweGSvZvHsxQxmWMCI72rXzElBFSdSiWqM
-	 28qneniiPKv9AHPXi3/MAtEH4FSPSUzOqEQXcjJc=
+	b=OV9BIbwebpkoZ3pB+ITka3566F8E8TpSGajRYlPHodlPYboc+hOVelkVsvxpoiQiF
+	 rpvB0icVlVGl0he6X4wonYllBVcM0B6v8P/NDE7Vgiaw5rNaxlpUzmXlNxvaX8itQ/
+	 YINJMscNuzmufBEA9Ll86VFCWX0wNmANE5kFUgOY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23F8DF80558; Sat, 28 Oct 2023 10:50:15 +0200 (CEST)
+	id 88A0FF80558; Sat, 28 Oct 2023 11:14:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0CF0F80165;
-	Sat, 28 Oct 2023 10:50:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CCB3F80165;
+	Sat, 28 Oct 2023 11:14:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8189FF8019B; Sat, 28 Oct 2023 10:47:08 +0200 (CEST)
+	id B7135F8019B; Sat, 28 Oct 2023 11:14:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2BA7F80152
-	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 10:47:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2BA7F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 94F67F80152
+	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 11:14:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94F67F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=suMgm95S
+ header.s=k20201202 header.b=GFAUtHdY
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8024E60DF9;
-	Sat, 28 Oct 2023 08:46:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0C6C433C7;
-	Sat, 28 Oct 2023 08:46:55 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 2FA80B81625;
+	Sat, 28 Oct 2023 09:14:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14347C433C8;
+	Sat, 28 Oct 2023 09:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698482818;
-	bh=+5DSt9wHxLvQLygUWVX0VDmhoJIQ0W33QNNTdVhekRo=;
+	s=k20201202; t=1698484453;
+	bh=x3+XeerKXC1QYo+48ZmmukiyMroE2wqwCTAK/8GxCMM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=suMgm95Sc6S1/IPQNNtB9IUbE8SjfcdRsWhjl38LLXBNk2O1wYt27P2Y9EOLpmSqf
-	 FHBBJ4oG5/UOhcMrDmdX8fotupoTbE2GqnH9ABfVPYBV3kYKV277UR5DkWA1OQwBZD
-	 0gOycdzMPGl7sfWkYU8//bXPMn5XH0dqZRXbfokK4z5OIqRfwvzJxh1IniKrr76qd3
-	 wDuCL28zWmUKpe8PO1n5orkUwx+ms0qlIVxGXF4XLdVnptmye9iiZ2VX5zomFm+Nm0
-	 /GNJJJVRFSkhAlluDbIKgBlAxjv2B5JgPOBE0cWbi7bnIYbYB8n5tweMaAYvWvN30v
-	 pWaNnl0bofwGQ==
-Message-ID: <db8fb570-0532-45d2-b0dd-adfb8727f258@kernel.org>
-Date: Sat, 28 Oct 2023 10:46:55 +0200
+	b=GFAUtHdY0P6pdWUbQ+fD26QW1py6tjIXWVZLvuPA0opTjD0MnjYoLucK9kODr6nk9
+	 iJa+8k5qa0z6dxAA8XPhiT65tF0HHxgamdvh1wkDos01Ol5yEzK0f4Lem2a2QXmLdh
+	 YqJElx1SKaXZ1//NgYI9zSZb0wtx6Z6FuVgdKijBUeFTAU9QzTwXLCcGKt7xwm78uZ
+	 5vwh8Cqgeudn+wz2Wwy7Dna/YvTGb+/JnNjazce12LcJi0k1sMJgXP0f6pK7DMmi9m
+	 lscavt2AqEz3GPADK3O1hbscNNuxVrmUBZ3KfEJnfyXGgtMOmUJH7nPzJ7UEHiiUin
+	 1u2Uh1hfihkhw==
+Message-ID: <8d2d61b1-a273-4a7b-815b-9611a9823145@kernel.org>
+Date: Sat, 28 Oct 2023 11:14:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ASoC: Intel: avs: Add rt5514 machine board
+Subject: Re: [PATCH 09/13] ASoC: amd: acp: add machine driver support for pdm
+ use case
 Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai
- <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- =?UTF-8?Q?=C5=81ukasz_Majczak?= <lma@chromium.org>
-References: <20231027110537.2103712-1-amadeuszx.slawinski@linux.intel.com>
- <20231027110537.2103712-2-amadeuszx.slawinski@linux.intel.com>
+To: syed saba kareem <ssabakar@amd.com>, Mark Brown <broonie@kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Syed Saba Kareem <Syed.SabaKareem@amd.com>, alsa-devel@alsa-project.org,
+ Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ arungopal.kondaveeti@amd.com, mastan.katragadda@amd.com,
+ juan.martinez@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Marian Postevca <posteuca@mutex.one>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Gaosheng Cui <cuigaosheng1@huawei.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20231021145110.478744-1-Syed.SabaKareem@amd.com>
+ <20231021145110.478744-9-Syed.SabaKareem@amd.com>
+ <4d5a4c67-2f4b-4111-b98b-ef575543fa6e@kernel.org>
+ <3ec97548-1f91-49d0-adfb-4f8051ca9a97@amd.com>
+ <f8f8017c-4e76-4d70-918f-d7cb45186184@kernel.org>
+ <c0ea139c-9861-4ea1-b547-6e3c380301b3@amd.com>
+ <ZTvkCAYsrS62/82u@finisterre.sirena.org.uk>
+ <1f2943e2-f1f0-449d-a1f2-937bae6a0af9@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -116,11 +132,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20231027110537.2103712-2-amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <1f2943e2-f1f0-449d-a1f2-937bae6a0af9@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XHEW7UMZXGUH627KNKJDBLGZVUNVDZPQ
-X-Message-ID-Hash: XHEW7UMZXGUH627KNKJDBLGZVUNVDZPQ
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: IWHFIOGMFAKHNPDOAAWTJ3SKMND6V226
+X-Message-ID-Hash: IWHFIOGMFAKHNPDOAAWTJ3SKMND6V226
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -133,7 +149,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XHEW7UMZXGUH627KNKJDBLGZVUNVDZPQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWHFIOGMFAKHNPDOAAWTJ3SKMND6V226/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,36 +158,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27/10/2023 13:05, Amadeusz Sławiński wrote:
-> To support AVS-rt5514 configuration add machine board connecting AVS
-> platform component driver with rt5514 codec one.
+On 27/10/2023 19:32, syed saba kareem wrote:
 > 
-> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> ---
->  sound/soc/intel/avs/boards/Kconfig  |  10 ++
->  sound/soc/intel/avs/boards/Makefile |   2 +
->  sound/soc/intel/avs/boards/rt5514.c | 187 ++++++++++++++++++++++++++++
->  3 files changed, 199 insertions(+)
->  create mode 100644 sound/soc/intel/avs/boards/rt5514.c
+> On 10/27/23 21:53, Mark Brown wrote:
+>> On Fri, Oct 27, 2023 at 10:54:47AM -0500, Mario Limonciello wrote:
+>>
+>>> What would actually go into MODULE_DEVICE_TABLE?
+>>> The platform devices created are contingent upon what was found during the
+>>> top level ACP driver probe.  You don't want all the "child" platform drivers
+>>> to load unless they're needed.
+>> You want
+>>
+>> 	MODULE_DEVICE_TABLE(platform, board_ids);
+>>
+>> which is effectively the same as all the MODULE_ALIAS items you have
+>> there (which can be removed).
+> 
+> @krzk:as Mark Brown explained we can use platform device id table
+> 
+> instead of MODULE_ALIAS. As effectively there is no difference between
+> 
+> using platform device id table and MODULE_ALIAS.
 
-...
+There is a difference. MODULE_DEVICE_TABLE solves the problem and you do
+not need to spread aliases all over. This code is not equivalent. What's
+more, DEVICE_TABLE could be used for other purposes like dependency
+detection or ordering or whatever. ALIAS not.
 
-> +
-> +static struct platform_driver avs_rt5514_driver = {
-> +	.probe = avs_rt5514_probe,
-> +	.driver = {
-> +		.name = "avs_rt5514",
-> +		.pm = &snd_soc_pm_ops,
-> +	},
-> +};
-> +
-> +module_platform_driver(avs_rt5514_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("platform:avs_rt5514");
+> 
+> If you are still expecting us to use platform id table instead of 
+> MODULE_ALIAS
 
-You should not need MODULE_ALIAS() in normal cases. If you need it,
-usually it means your device ID table is wrong.
+Yes, I asked this first time.
+
+> 
+> we will provide the changes as an incremental patch.
+
+Fix existing driver before adding new aliases. Then don't add ALIAS, how
+I asked already two times before.
 
 Best regards,
 Krzysztof

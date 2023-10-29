@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17BF67E0653
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Nov 2023 17:23:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABDFF7E0659
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Nov 2023 17:24:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 371C6EAD;
-	Fri,  3 Nov 2023 17:22:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 371C6EAD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2FA6E87;
+	Fri,  3 Nov 2023 17:23:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2FA6E87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699028614;
+	s=default; t=1699028651;
 	bh=N0PTEvoQmQHIBIIRHAnAwLti98TWmJOaxmD05MI2XJE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=O13fvvUJlroxk/JyzFYbAVS8n/TVdK6YbQvqkMIHN9vVHU1hmeOE2YjffySoPAs/3
-	 rLvh87damaeiCrgyg1psB2SbOkGN55ssD9RTGQJtUus9xFW/90rWlDSEk/OtADiB0I
-	 hf2g30LIM4bVlZELFZU6DDL5hnAoFNZsUY09zR5s=
+	b=POyI1eiZ8PWgE4jEDBJ1v07+f7NLP4sVz1Vk3LVcbySL6GYoiVu6FLo1zeUcRBuWR
+	 WIZ0xmJ0okAUr3kc6xkXwJtbLXMb9/yIMmQoMjsFnFq92OECFSqvIkFnQmGBEjytgv
+	 bT3+dma9x0nqlwdT3Ius4py/EmLjr2RXPucPaUq0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 829B3F805AF; Fri,  3 Nov 2023 17:21:03 +0100 (CET)
+	id 8541CF80494; Fri,  3 Nov 2023 17:23:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13590F805AF;
-	Fri,  3 Nov 2023 17:21:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF115F80425;
+	Fri,  3 Nov 2023 17:23:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
 	id 03E84F8016D; Mon, 30 Oct 2023 00:26:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
@@ -110,7 +110,7 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1
 Message-ID-Hash: 5JFDRTMPHIIT54ZYB5SPD4UY5CNCWYBO
 X-Message-ID-Hash: 5JFDRTMPHIIT54ZYB5SPD4UY5CNCWYBO
-X-Mailman-Approved-At: Fri, 03 Nov 2023 16:20:56 +0000
+X-Mailman-Approved-At: Fri, 03 Nov 2023 16:23:17 +0000
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="UTF-8"
 X-Content-Filtered-By: Mailman/MimeDel 3.3.8

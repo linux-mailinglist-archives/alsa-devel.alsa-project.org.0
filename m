@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC6857DB013
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 00:02:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73F3F7DB020
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 00:03:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12466E7C;
-	Mon, 30 Oct 2023 00:01:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12466E7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 755C0DF6;
+	Mon, 30 Oct 2023 00:02:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 755C0DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698620568;
-	bh=14qvwJ5OEF695d7aSYKtMjFYvcJIUZMakdn/9PRiAc0=;
+	s=default; t=1698620602;
+	bh=UorGZaRu3pXU86xiJG3a+pN7P41s7nCtF42DcKfujvo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P2lVuZdo9JRkPD7+W0TyBhJjlobazdEP2RaZ8DpnygVy4WFhboFxYh4aX3WUg33g8
-	 9rBR3O9y0OY0+5foAVfGPJFEagiwvjVoCoeHldBe+vdkb7MvNgWdI8HsHI10gXH/N1
-	 BN6Ucsea5JgT0CijLZWrRSrOVZz/+Jg2RY75W7Ao=
+	b=AQsuMMShkdvHZlIS/WdCqmtpc/BSpnArJu9k/+XwiyNN9xxNnTl++4f50PnXBXotY
+	 b4C132Sjt5LINrQ+XzJqG/OGvXbuacQZHDDfbEVpmzMTZccBBXp00qGcCcppUYKm0p
+	 yNJIcQETibt4rX9jkooOiBzcW7yLA1uZtxx2QzT8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D309FF80567; Mon, 30 Oct 2023 00:01:57 +0100 (CET)
+	id 48C8DF8055A; Mon, 30 Oct 2023 00:02:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77BB4F80557;
-	Mon, 30 Oct 2023 00:01:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F010F8016D;
+	Mon, 30 Oct 2023 00:02:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DFBB0F8055C; Mon, 30 Oct 2023 00:01:53 +0100 (CET)
+	id 20034F80425; Mon, 30 Oct 2023 00:02:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,28 +35,28 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 490F2F8020D
-	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 00:01:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 490F2F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id E722FF8016D
+	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 00:02:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E722FF8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=odZe9lpL
+ header.s=k20201202 header.b=HN2LA5zL
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1F64B60F4B;
-	Sun, 29 Oct 2023 23:01:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CD7C43391;
-	Sun, 29 Oct 2023 23:01:46 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 4D25160E08;
+	Sun, 29 Oct 2023 23:02:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A78C116B5;
+	Sun, 29 Oct 2023 23:02:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698620507;
-	bh=14qvwJ5OEF695d7aSYKtMjFYvcJIUZMakdn/9PRiAc0=;
+	s=k20201202; t=1698620545;
+	bh=UorGZaRu3pXU86xiJG3a+pN7P41s7nCtF42DcKfujvo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=odZe9lpL0+qqwUsQIz7NOYzysgkRZeACIJlKV+2YFo9F+l+pXRPtSJPrRFla2Lj33
-	 EbneSfcUlhlLEdaXDt9ourzUCZazovkb5ket4pNmuWNrkXrR4OtCRe3bDOGKgfE+ha
-	 lr1PTTe1FJC8iUFp5HPbnCAYT7CeVntXeyAiJcs9TCh7xcnkpjaoqhCXW729fHkjjl
-	 eUQPBC0x1k6ym+DeD0vA8Nrv6VC2H/hvjpG/aI0SkaMiBuj3BisPMouxGYOofR2yRV
-	 RgwwjzORcwVGVCZlvDeYG9ULJSqiJbTRUj5YqCo9kjKh6gxmNYlZZd8pPJx0Sg3Ko9
-	 hl46y4BgYnP0A==
+	b=HN2LA5zL0qs0MCiMHtBWJG9F4O0mkVoy+vJC6ncnM5+61kVUXsqaZSjDhSXlEXY13
+	 /7ppLPfNqR8L24UoHJyPOIHirNaDhTXitarc4u9HHjVWU5CqYfYOO6YjRhsdfiYXKJ
+	 8bdCWcMbusal5ZyllPGBOaGpijsSVkr1Gdn75rUbqdzvWvUYO8LgYslROWqJIrp1fz
+	 Wurdi2DiTMiB0ueIHfZ90UMt4PHIQ3lRVo552MMScQs4FgbwJdCzaMxMznq7cB3lYl
+	 xjpk+coXzt7rniumH+KvgdGTGcFttqtGiTN+Cc1I2QI+eSYOB8TblelT+ZQqjhuqur
+	 5d98rrFvzHUHA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -68,20 +68,20 @@ Cc: Shuming Fan <shumingf@realtek.com>,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 4.19 06/12] ASoC: rt5650: fix the wrong result of key
+Subject: [PATCH AUTOSEL 4.14 06/11] ASoC: rt5650: fix the wrong result of key
  button
-Date: Sun, 29 Oct 2023 19:01:19 -0400
-Message-ID: <20231029230135.793281-6-sashal@kernel.org>
+Date: Sun, 29 Oct 2023 19:01:57 -0400
+Message-ID: <20231029230213.793581-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231029230135.793281-1-sashal@kernel.org>
-References: <20231029230135.793281-1-sashal@kernel.org>
+In-Reply-To: <20231029230213.793581-1-sashal@kernel.org>
+References: <20231029230213.793581-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.297
+X-stable-base: Linux 4.14.328
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: INITJMRYLHRRUYWXOD6JENXFADOM65HQ
-X-Message-ID-Hash: INITJMRYLHRRUYWXOD6JENXFADOM65HQ
+Message-ID-Hash: M5KADADXJEJQH67IAQRGL2HLAWZNUOX5
+X-Message-ID-Hash: M5KADADXJEJQH67IAQRGL2HLAWZNUOX5
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/INITJMRYLHRRUYWXOD6JENXFADOM65HQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M5KADADXJEJQH67IAQRGL2HLAWZNUOX5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,10 +118,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index d34000182f679..a713e9649b56b 100644
+index 01de25813c72b..822c42101c3f0 100644
 --- a/sound/soc/codecs/rt5645.c
 +++ b/sound/soc/codecs/rt5645.c
-@@ -3278,6 +3278,8 @@ int rt5645_set_jack_detect(struct snd_soc_component *component,
+@@ -3220,6 +3220,8 @@ int rt5645_set_jack_detect(struct snd_soc_codec *codec,
  				RT5645_GP1_PIN_IRQ, RT5645_GP1_PIN_IRQ);
  		regmap_update_bits(rt5645->regmap, RT5645_GEN_CTRL1,
  				RT5645_DIG_GATE_CTRL, RT5645_DIG_GATE_CTRL);

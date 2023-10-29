@@ -2,92 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EFA67DA95F
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Oct 2023 22:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D03BA7DAB8D
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Oct 2023 08:32:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADA53850;
-	Sat, 28 Oct 2023 22:57:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADA53850
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5A7E886;
+	Sun, 29 Oct 2023 08:32:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5A7E886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698526676;
-	bh=2xdmOX1+nYScj0V27GtRPbDInoXKHqK1zJN9coZYscc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1698564770;
+	bh=pZmRcSyWIwdWH5XbPdgPiDBtvggS9p2WDme0Pw91+JU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MBfj0htSDZy29Wx7tGCXQvxhWDVma0x18+2Ts4QwWyIIi7nmbPJ5HUaC7sDvT5PJv
-	 mDx8uX/HOuRpKgOUmMDzquaWg4X5BvhZcbAzQ59i80RmW8QOnbDZkMGmpnT1cpYFuw
-	 +NUva7CTgEkPHhqWDXX44HYagOwAq/Ge7jVkQ+9E=
+	b=vrxyeC2hJ5xJQ0pxxtLJSiIVvQZGauEi766UniTuWaHGRmpdFM6T2UgJ4xygDi8xj
+	 iUy6PPyfeju0iGoeQYIl98xdNjv2RtGVYI6ZfqiaSk/XaxL+JEbyhT5nGOcs3f6Aei
+	 KYLOc492mFxywOKHbDXrkgA4TTQ81hyl5B54YiB0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 046C2F8055B; Sat, 28 Oct 2023 22:57:05 +0200 (CEST)
+	id 305FCF8055B; Sun, 29 Oct 2023 08:31:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CB2DF80165;
-	Sat, 28 Oct 2023 22:57:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28851F80152;
+	Sun, 29 Oct 2023 08:31:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA5D1F8019B; Sat, 28 Oct 2023 22:56:57 +0200 (CEST)
+	id 8BED1F8020D; Sun, 29 Oct 2023 08:30:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 728F0F8012B
-	for <alsa-devel@alsa-project.org>; Sat, 28 Oct 2023 22:56:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728F0F8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4553F80152
+	for <alsa-devel@alsa-project.org>; Sun, 29 Oct 2023 08:29:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4553F80152
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=A+I3PLLN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698526608; x=1730062608;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2xdmOX1+nYScj0V27GtRPbDInoXKHqK1zJN9coZYscc=;
-  b=A+I3PLLN+ce4rD1CClwU/bLxFaSjJWEFyzGHYt4/9Z2imZ5dn+zojaaJ
-   KXZEjq4im8Y/cs6MQBnOdfIm+kQBrO6qMHlOtyNp3FUwO1XrJVmWllQDR
-   tKZpheMWaWj9xFiludDdGq79+aSPI61j7Vqh/FP1RUc0NUTMggygEUYqz
-   Ad2BUIwNxQ7Y5y0KU17RYCTy2NCnRDTYYc5ZplaaZV2sfyBlPCcri8aVM
-   Ziu2/biY6cqst4saehvwZnEJ8Dd2u5sN5WXURpRv5KM9CxgcqjmXQ3dfL
-   NBRNfGV2s8oWldy1TimBkwGjjb3h7M1CB5Se0u2/hMQuuJh1gP8bRrggZ
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10877"; a="452168108"
-X-IronPort-AV: E=Sophos;i="6.03,259,1694761200";
-   d="scan'208";a="452168108"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2023 13:56:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.03,259,1694761200";
-   d="scan'208";a="1106760"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 28 Oct 2023 13:56:02 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qwqMG-000C4y-38;
-	Sat, 28 Oct 2023 20:56:36 +0000
-Date: Sun, 29 Oct 2023 04:56:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: Baojun Xu <baojun.xu@ti.com>, broonie@kernel.org, lgirdwood@gmail.com,
-	perex@perex.cz
-Cc: oe-kbuild-all@lists.linux.dev, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	kevin-lu@ti.com, shenghao-ding@ti.com, baojun.xu@ti.com,
-	peeyush@ti.com, navada@ti.com, tiwai@suse.de
-Subject: Re: [PATCH v3] ASoC: tas2783: Add source files for tas2783 driver.
-Message-ID: <202310290433.ay15yHii-lkp@intel.com>
-References: <20231028092409.96813-1-baojun.xu@ti.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231028092409.96813-1-baojun.xu@ti.com>
-Message-ID-Hash: CJB52BQVMKDTQWUXUXWYX3MDUVF7B3HK
-X-Message-ID-Hash: CJB52BQVMKDTQWUXUXWYX3MDUVF7B3HK
-X-MailFrom: lkp@intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=CV0QAuEf;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=QIuZCeD1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A48AE21DF6;
+	Sun, 29 Oct 2023 07:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1698564583;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YKlPQOZMqX1kXG1v1K9DZaGEbhFjfcwnCk7POMQ9PC8=;
+	b=CV0QAuEf1j2xiugfpMnI4aDWwJzBj8FY0Og0pG3ijpJecIOU5LyRwoXcQK4qN8SsF30uUu
+	kbdV12kSHBne8RUn3SbMCgHvBQlanU5ENfBQ6ouumFrYxegPB1E5kLRVf6/2bJRoM5avfG
+	YNKfID3VgT4RmY5yuUdt5w35U+bf3Bo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1698564583;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YKlPQOZMqX1kXG1v1K9DZaGEbhFjfcwnCk7POMQ9PC8=;
+	b=QIuZCeD1McEssTywnSEnnr6ZFiWsBwM8T/ZXjJ/x9tIV+o1m6SGqCMuFXM08OMSHOhsPG6
+	bFbb0XjOSsv1VIAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4D9161391D;
+	Sun, 29 Oct 2023 07:29:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id BnA1EecJPmVdYgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 29 Oct 2023 07:29:43 +0000
+Date: Sun, 29 Oct 2023 08:29:42 +0100
+Message-ID: <87il6px4wp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: James Schulman <james.schulman@cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Mark Brown <broonie@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: cs35l41: mark cs35l41_verify_id() static
+In-Reply-To: <20231027152515.482411-1-arnd@kernel.org>
+References: <20231027152515.482411-1-arnd@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-6.10 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-3.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-1.00)[-1.000];
+	 RCPT_COUNT_TWELVE(0.00)[14];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[99.99%]
+Message-ID-Hash: XMQ3V3E24SODZ2EZGLSRMIR6DADPAXOI
+X-Message-ID-Hash: XMQ3V3E24SODZ2EZGLSRMIR6DADPAXOI
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +138,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CJB52BQVMKDTQWUXUXWYX3MDUVF7B3HK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XMQ3V3E24SODZ2EZGLSRMIR6DADPAXOI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,53 +147,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Baojun,
+On Fri, 27 Oct 2023 17:25:09 +0200,
+Arnd Bergmann wrote:
+> 
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The newly introduced function is global but only called in this one
+> file and has no extern prototype, so it should probably be static:
+> 
+> sound/pci/hda/cs35l41_hda.c:733:5: error: no previous prototype for 'cs35l41_verify_id' [-Werror=missing-prototypes]
+>   733 | int cs35l41_verify_id(struct cs35l41_hda *cs35l41, unsigned int *regid, unsigned int *reg_revid)
+> 
+> Fixes: 881b7bce0c25 ("ALSA: hda: cs35l41: Run boot process during resume callbacks")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-kernel test robot noticed the following build errors:
+Thanks, applied now.
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on linus/master v6.6-rc7 next-20231027]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Baojun-Xu/ASoC-tas2783-Add-source-files-for-tas2783-driver/20231028-172643
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20231028092409.96813-1-baojun.xu%40ti.com
-patch subject: [PATCH v3] ASoC: tas2783: Add source files for tas2783 driver.
-config: mips-allyesconfig (https://download.01.org/0day-ci/archive/20231029/202310290433.ay15yHii-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231029/202310290433.ay15yHii-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310290433.ay15yHii-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arch/mips/kernel/head.o: in function `__kernel_entry':
-   (.text+0x0): relocation truncated to fit: R_MIPS_26 against `kernel_entry'
-   arch/mips/kernel/head.o: in function `smp_bootstrap':
-   (.ref.text+0xd8): relocation truncated to fit: R_MIPS_26 against `start_secondary'
-   init/main.o: in function `set_reset_devices':
-   main.c:(.init.text+0x10): relocation truncated to fit: R_MIPS_26 against `_mcount'
-   main.c:(.init.text+0x18): relocation truncated to fit: R_MIPS_26 against `__sanitizer_cov_trace_pc'
-   init/main.o: in function `debug_kernel':
-   main.c:(.init.text+0x50): relocation truncated to fit: R_MIPS_26 against `_mcount'
-   main.c:(.init.text+0x58): relocation truncated to fit: R_MIPS_26 against `__sanitizer_cov_trace_pc'
-   init/main.o: in function `quiet_kernel':
-   main.c:(.init.text+0x90): relocation truncated to fit: R_MIPS_26 against `_mcount'
-   main.c:(.init.text+0x98): relocation truncated to fit: R_MIPS_26 against `__sanitizer_cov_trace_pc'
-   init/main.o: in function `warn_bootconfig':
-   main.c:(.init.text+0xd0): relocation truncated to fit: R_MIPS_26 against `_mcount'
-   main.c:(.init.text+0xd8): relocation truncated to fit: R_MIPS_26 against `__sanitizer_cov_trace_pc'
-   init/main.o: in function `init_setup':
-   main.c:(.init.text+0x108): additional relocation overflows omitted from the output
-   mips-linux-ld: sound/soc/codecs/tas2783-sdw.o: in function `tas2783_calibration.isra.0':
->> tas2783-sdw.c:(.text.tas2783_calibration.isra.0+0x50): undefined reference to `efi'
->> mips-linux-ld: tas2783-sdw.c:(.text.tas2783_calibration.isra.0+0x80): undefined reference to `efi'
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Takashi

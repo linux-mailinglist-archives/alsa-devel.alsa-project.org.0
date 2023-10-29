@@ -2,92 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 641067DACE4
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Oct 2023 15:56:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22B5A7DADED
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Oct 2023 20:19:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC689850;
-	Sun, 29 Oct 2023 15:55:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC689850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 497049F6;
+	Sun, 29 Oct 2023 20:18:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 497049F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698591410;
-	bh=btxD72lpMzY3aJxfuNT5EYXr6BbJvuWnHu3lPrgdVT8=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=gvE2IbFYRegbADe3GNELb2G/eWkRsmRU10jNN2yE3g9Wh2rQOvCwnqLBtnRDXDOOp
-	 Q9vN3nksZ9PCP64eAzg/EBOnt/XWCfK5cV2jeQ52F3h/FbLLdmSiO0oYae2yMi75Va
-	 YT5V8lJnu6KTKBVZIIDpQhVU3imKbWAOkdl8k+Kk=
+	s=default; t=1698607167;
+	bh=7I5OLuIkNXDkPFVH/uJQgPPb60UnXDLe9H59o8ZoUwk=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Fw/d0hY/zHm1tIJ6cFjZpO4okDlb1dPq2s4mNb98e7hV3DMfQyVEpfW0DQfpYoabu
+	 sOiWN7XIF7T0Ip7gPboJOQlpN+Q+5dPv6kiXyx/QC1sNBQJIaIwmoPFFMPQsPICCn7
+	 rNi6OtVAolRP+0aZjKIsxLVgplbzDL8MnJfH59I0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29569F80431; Sun, 29 Oct 2023 15:55:59 +0100 (CET)
+	id 9217BF80557; Sun, 29 Oct 2023 20:18:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87A87F8016D;
-	Sun, 29 Oct 2023 15:55:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78821F8016D;
+	Sun, 29 Oct 2023 20:18:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13A2BF8020D; Sun, 29 Oct 2023 15:51:41 +0100 (CET)
+	id C44C9F8020D; Sun, 29 Oct 2023 20:15:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50610F80152
-	for <alsa-devel@alsa-project.org>; Sun, 29 Oct 2023 15:50:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50610F80152
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=TSsL3SGm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1698591013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=mBc5E1xWYonXlxwl9lV0yPbwYoN0HhD73jZxdJzFetw=;
-	b=TSsL3SGmtzv9OKUyOgCeccaX9WPzCsKGDL4XruGkFM3lEmyyPzuWJfwJcH4qGbxmSlbHYi
-	jSFUqnm20zXqmcsbGMbnccrkf7uiGpOe8b2IQreYH49VDg0KrdMuEomJV9QmZTxj1gvRIW
-	7k0i2y9nsOYdsaFFkGkCdBRqRiT7D1U=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-564-CuUMr9cQO2KV8BFkLLGP1w-1; Sun, 29 Oct 2023 10:50:10 -0400
-X-MC-Unique: CuUMr9cQO2KV8BFkLLGP1w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D16B685CBE3;
-	Sun, 29 Oct 2023 14:50:09 +0000 (UTC)
-Received: from shalem.redhat.com (unknown [10.39.192.84])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BDF33502D;
-	Sun, 29 Oct 2023 14:50:08 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <bard.liao@intel.com>,
-	alsa-devel@alsa-project.org,
-	Hans de Goede <hdegoede@redhat.com>
-Subject: [PATCH alsa-ucm-conf] codecs/es8316: Fix mono speaker settings from
- previous boot getting applied
-Date: Sun, 29 Oct 2023 15:50:07 +0100
-Message-ID: <20231029145007.24106-1-hdegoede@redhat.com>
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FAB9F80166
+	for <alsa-devel@alsa-project.org>; Sun, 29 Oct 2023 20:15:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FAB9F80166
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Message-ID-Hash: HCR6XRPQQ2XK75T5EVIJBI2WLYL4JRSF
-X-Message-ID-Hash: HCR6XRPQQ2XK75T5EVIJBI2WLYL4JRSF
-X-MailFrom: hdegoede@redhat.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1698606951015890837-webhooks-bot@alsa-project.org>
+References: <1698606951015890837-webhooks-bot@alsa-project.org>
+Subject: SPDIF output of ASRock X670E with ALC4080 didnt work
+Message-Id: <20231029191556.C44C9F8020D@alsa1.perex.cz>
+Date: Sun, 29 Oct 2023 20:15:56 +0100 (CET)
+Message-ID-Hash: HHLCFV3GMANDLBLQOY77I6V3QOGJBNDZ
+X-Message-ID-Hash: HHLCFV3GMANDLBLQOY77I6V3QOGJBNDZ
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HCR6XRPQQ2XK75T5EVIJBI2WLYL4JRSF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HHLCFV3GMANDLBLQOY77I6V3QOGJBNDZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,37 +69,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When codecs/es8316/MonoSpeaker.conf's EnableSeq was run last before
-shutdown the 'Playback Polarity' and 'DAC Mono Mix Switch' controls for
-Mono Speaker output get saved and restored on the next boot.
+alsa-project/alsa-ucm-conf issue #364 was opened from jonasdutra:
 
-These settings are undone by the MonoSpeaker DisableSeq, but that never
-runs when an updated kernel switches from the default "cfg-spk:1" in
-components to "cfg-spk:2" for devices which do actually have 2 speakers,
-which causes the ucm profile to use codecs/es8316/Speaker.conf instead.
+http://alsa-project.org/db/?f=43bba1198f548f906c597d1f2e15ff5f6df58a60
 
-Set the 'Playback Polarity' and 'DAC Mono Mix Switch' controls to their
-defaults in codecs/es8316/EnableSeq.conf to avoid them getting stuck
-in Mono mix mode in this scenario.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- ucm2/codecs/es8316/EnableSeq.conf | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/ucm2/codecs/es8316/EnableSeq.conf b/ucm2/codecs/es8316/EnableSeq.conf
-index b6c81d8..b75c4a7 100644
---- a/ucm2/codecs/es8316/EnableSeq.conf
-+++ b/ucm2/codecs/es8316/EnableSeq.conf
-@@ -22,4 +22,8 @@ EnableSequence [
- 	# Setup muxes / switches
- 	cset "name='Left Headphone Mixer Left DAC Switch' on"
- 	cset "name='Right Headphone Mixer Right DAC Switch' on"
-+
-+	# Undo MonoSpeaker settings which may have been saved on shutdown
-+	cset "name='Playback Polarity' 0"
-+	cset "name='DAC Mono Mix Switch' off"
- ]
--- 
-2.41.0
-
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/364
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

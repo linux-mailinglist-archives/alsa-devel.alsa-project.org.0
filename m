@@ -2,94 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFAA57DC194
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 22:06:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D39D7DC1FA
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 22:33:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BEA993A;
-	Mon, 30 Oct 2023 22:05:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BEA993A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 100531DA;
+	Mon, 30 Oct 2023 22:32:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 100531DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698699978;
-	bh=LKLP6UEl/pkjGe0QKZIWac46a5g0E8T9ZC0+kHW1Z4g=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1698701616;
+	bh=3c+Ng71WVMssVVmhpNCGjEvoNbhVLKCdsWrjlOc9YOw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tuG8kh+JdOun/gF8cE5hY2rwjb8KO0gS/jdP/bn3EvwdbHxfqbk1rMcthN0NLrQ85
-	 Grn3aDuwAX5NnhzDcWKV8mN90WV5/qScXc9Xpc+9mPPVc8/dEYpJZ5CX8jGvWOIizY
-	 yKltLYomwvcLi2WW61PZE40bQ6l+BFGlnuH4Vpnw=
+	b=pZvijGDMv+mjt2wlz38QJYIReOeeln5DSd9IUkGh1o2NJrQT51Ll+rbADwiVcJdl9
+	 wDG74ODs3+Rsjskm19G6unafLT14Ysn685i8gsDopb+Gi4K1CFov8oswhW38idhrOy
+	 n64sFA1ZhTKbccBlHHRrAM3dUDnWDTBHc81uKsGY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8053F80425; Mon, 30 Oct 2023 22:05:27 +0100 (CET)
+	id 910EDF8020D; Mon, 30 Oct 2023 22:32:09 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80607F80166;
-	Mon, 30 Oct 2023 22:05:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9CD3F80166;
+	Mon, 30 Oct 2023 22:32:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03ECFF8016D; Mon, 30 Oct 2023 22:05:22 +0100 (CET)
+	id EA10EF8016D; Mon, 30 Oct 2023 22:32:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D06CF8014B
-	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 22:05:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D06CF8014B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bBc77gUB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698699917; x=1730235917;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=LKLP6UEl/pkjGe0QKZIWac46a5g0E8T9ZC0+kHW1Z4g=;
-  b=bBc77gUBGR+EnCUa5OtzYwQlcwp/vzNTZh2eKZ+H5YOftZEXV9h6uphB
-   vUkUSqWRceRqeq2VkguJwHshVRMRXNJf/vyMygIT4iRf1pLr2OM7Rdy1F
-   8DtAZ4JiduFI4df9xdpBR/DUD2Q/7MxFPxfRc4f+wVN2kcPP0IfGFsZ00
-   6nak27/UpGTb0dt1ExTgrxHfW8k5K/QC1eUAAIZ4EUa0zXoV+8phcVdSn
-   rasB9peCiVp7BnIsq75gWe4vSZcxvcmPklzHiYKdfSXmWqI4kjaRR0QXU
-   z7w7hjRBW8qDK5OWrsJUuJRQgWKgXF4cN4unO+M2EMG4lAdyYoX9/3CZH
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="9691832"
-X-IronPort-AV: E=Sophos;i="6.03,264,1694761200";
-   d="scan'208";a="9691832"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 14:05:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="795365560"
-X-IronPort-AV: E=Sophos;i="6.03,264,1694761200";
-   d="scan'208";a="795365560"
-Received: from wezedi-mobl1.amr.corp.intel.com (HELO [10.212.223.192])
- ([10.212.223.192])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 14:05:10 -0700
-Message-ID: <85890ed8-0ab3-4b14-879b-be9f0c760db8@linux.intel.com>
-Date: Mon, 30 Oct 2023 16:05:09 -0500
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3AA07F8014B
+	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 22:31:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AA07F8014B
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-3b40d5ea323so3087115b6e.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 30 Oct 2023 14:31:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698701508; x=1699306308;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OuBaURUuWJkEQpbZhWeSxspKPPb+Lr69ekE2ADTt8Wc=;
+        b=ABkSGxSD6ekDZaa9RkGWUaG8/JfAOHCZKv3gQoCGi0Oz+CzDUiWdGXHIPCqfMyXgPk
+         iVJkJw4VnAQ2SUNv9rBnTPIJDylQTn6WDwA0jDrjNypkP7oRIQ2hMxJqoc40pEyd+MLs
+         4IA0/bNzfYjXg7WAkb2XaIgdnHowA2dzXI+xon2hPt2D7AzobaOAkTN4VH+ahuwnv7mn
+         7kDJPktw9UjbdwANTNIOBpfsaUSE/+nVxl9S6F4FaiEBQZdoWk6eQkaCvT0I+hUHt3u1
+         f5ObtufjQKsfNtMUL+MEYL4R3+RcPWqemkM/uAxegfmsvcjflUY0/t5SbF0VUjSlgpO4
+         5XqA==
+X-Gm-Message-State: AOJu0YzUo7hPK+FxOPXN80/WXXBlqmzjYOd6wgwMMS+vKm9yZujly7JD
+	iW8W1ZKl8+t6PkNqSrVlIQ==
+X-Google-Smtp-Source: 
+ AGHT+IGKuby//PdBhTBpw28HsYfEui30ghahooRRo1gU9DZgJ7OM+SQsCkxRsIdIYwyzeeSbhBnk8w==
+X-Received: by 2002:a05:6808:1789:b0:3ae:554b:9c97 with SMTP id
+ bg9-20020a056808178900b003ae554b9c97mr14084990oib.37.1698701508322;
+        Mon, 30 Oct 2023 14:31:48 -0700 (PDT)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107])
+        by smtp.gmail.com with ESMTPSA id
+ e22-20020a05680809b600b003afc33bf048sm1518710oig.2.2023.10.30.14.31.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Oct 2023 14:31:47 -0700 (PDT)
+Received: (nullmailer pid 2495794 invoked by uid 1000);
+	Mon, 30 Oct 2023 21:31:46 -0000
+Date: Mon, 30 Oct 2023 16:31:46 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Li Yang <leoyang.li@nxp.com>, Herve Codina <herve.codina@bootlin.com>,
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+	Qiang Zhao <qiang.zhao@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Randy Dunlap <rdunlap@infradead.org>,
+	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v8 00/30] Add support for QMC HDLC, framer infrastructure
+ and PEF2256 framer
+Message-ID: <20231030213146.GA2490536-robh@kernel.org>
+References: <20231011061437.64213-1-herve.codina@bootlin.com>
+ <20231013164647.7855f09a@kernel.org>
+ <20231025170051.27dc83ea@bootlin.com>
+ <20231025123215.5caca7d4@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ASoC: tas2783: Add source files for tas2783 driver.
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Baojun Xu <baojun.xu@ti.com>, lgirdwood@gmail.com, perex@perex.cz,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, kevin-lu@ti.com,
- shenghao-ding@ti.com, peeyush@ti.com, navada@ti.com, tiwai@suse.de
-References: <20231028092409.96813-1-baojun.xu@ti.com>
- <7f4465c1-5e8e-4c5f-bbff-d2c930326986@linux.intel.com>
- <9d922584-288a-4b73-83ef-477d1bc58521@sirena.org.uk>
- <9b94488e-206d-419b-92ed-e70aab11907b@linux.intel.com>
-In-Reply-To: <9b94488e-206d-419b-92ed-e70aab11907b@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BABJHYJ627EXTQLSND6JPIYC5UET6YDF
-X-Message-ID-Hash: BABJHYJ627EXTQLSND6JPIYC5UET6YDF
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231025123215.5caca7d4@kernel.org>
+Message-ID-Hash: KY5XVSWYZMWXU2UHNH34327P6UQTLXBS
+X-Message-ID-Hash: KY5XVSWYZMWXU2UHNH34327P6UQTLXBS
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BABJHYJ627EXTQLSND6JPIYC5UET6YDF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KY5XVSWYZMWXU2UHNH34327P6UQTLXBS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,45 +128,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 10/30/23 12:40, Pierre-Louis Bossart wrote:
+On Wed, Oct 25, 2023 at 12:32:15PM -0700, Jakub Kicinski wrote:
+> On Wed, 25 Oct 2023 17:00:51 +0200 Herve Codina wrote:
+> > > Which way will those patches go? Via some FSL SoC tree?  
+> > 
+> > This series seems mature now.
+> > What is the plan next in order to have it applied ?
+> > 
+> > Don't hesitate to tell me if you prefer split series.
 > 
+> FWIW we are happy to take the drivers/net/ parts if there is no hard
+> dependency. But there's no point taking that unless the SoC bits
+> also go in for 6.7.
 > 
-> On 10/30/23 12:20, Mark Brown wrote:
->> On Mon, Oct 30, 2023 at 11:05:39AM -0500, Pierre-Louis Bossart wrote:
->>
->>>> +static bool tas2783_readable_register(struct device *dev, unsigned int reg)
->>>> +{
->>>> +	switch (reg) {
->>>> +	case 0x000 ... 0x080:	/* Data port 0. */
->>
->>> No, this is wrong. All the data port 'standard' registers are "owned" by
->>> the SoundWire core and handled during the port prepare/configure/bank
->>> switch routines. Do not use them for regmap.
->>
->>> In other words, you *shall* only define vendor-specific registers in
->>> this codec driver.
->>
->> This seems to come up a moderate amount and is an understandable thing
->> to do - could you (or someone else who knows SoundWire) perhaps send a
->> patch for the regmap SoundWire integration which does some validation
->> here during registration and at least prints a warning?
-> 
-> Good suggestion, we could indeed check that the registers are NOT in the
-> range [0,0xBF] for all ports - only the range [0xC0..FF] is allowed for
-> implementation-defined values. I'll try to cook something up.
+> Li Yang, what are your expectations WRT merging this series?
 
-After checking, the following ranges are invalid for codec drivers:
+I think it is too late for SoC stuff for 6.7. 
 
-for address < 0x1000
-LSB = 0x00 - 0xBF standard or reserved
+I picked up binding patches 6, 7, and 8 because 6 and 7 are the same as 
+an additionalProperties fix I have in my tree. As 8 depends on them, I 
+just picked it up too.
 
-0x1800 – 0x1FFF reserved
-0x48000000 - 0xFFFFFFFF reserved
-
-is the recommendation to check the regmap_config and its 'yes_ranges'?
-
-Presumably if the range_min or range_max is within the invalid values
-above then the configuration can be tagged as problematic in the dmesg
-log or rejected with an error code?
+Rob

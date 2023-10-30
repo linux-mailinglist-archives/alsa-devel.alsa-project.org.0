@@ -2,90 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3D07DB8FC
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 12:31:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 245D27DB913
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 12:37:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA0C8DE5;
-	Mon, 30 Oct 2023 12:30:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA0C8DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B0E2BC0;
+	Mon, 30 Oct 2023 12:36:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B0E2BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698665490;
-	bh=9KW1ryeBCpESKKmbGR2EzdR09efOy6RrSVRolR3kwW0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1698665830;
+	bh=csnOKH0S/yzTOhLnRQCy767OQRSbbASGrw4KMOOKM64=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r1EumANFAI+MXPYMHYzR21bxiQuWujy3x9Hd/HKbGXnUy/EHtYRW8DJzwqNzC63In
-	 gqZY3zLDHqrFGjB1vEx8Id1fHjn7pemE0ra3SiWtPhK8NvZ6ECm//EGQhJ74PcysXt
-	 +Y5aNNwsTMEn0qzk8aC5fAk6TD/M+hS2xeWc0QpE=
+	b=ffnQzsUjQzsxdhWsBZkBF91NriziQjHc5K9UrAIHXnThKiRrhu+kxcarw6D5TzuQ5
+	 cKRCgVloEupWdJxoiAjWaYV5qv0j83m5y7s/ZWksLTsYHlDBv1Z49nu8UpOSDTV5cM
+	 WsRh22vdZ0S5wkOZEJTWrOeSmc8VB4RVb2oE5BE0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57393F80494; Mon, 30 Oct 2023 12:30:10 +0100 (CET)
+	id D962EF80425; Mon, 30 Oct 2023 12:36:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D229F80166;
-	Mon, 30 Oct 2023 12:30:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96353F80166;
+	Mon, 30 Oct 2023 12:36:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAF83F8016D; Mon, 30 Oct 2023 12:30:04 +0100 (CET)
+	id 3915BF8016D; Mon, 30 Oct 2023 12:36:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A126F800FA
-	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 12:29:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A126F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44F62F8014B
+	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 12:36:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44F62F8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YIi/Ysdf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698665398; x=1730201398;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=9KW1ryeBCpESKKmbGR2EzdR09efOy6RrSVRolR3kwW0=;
-  b=YIi/YsdfVUOVDa1An8k4dtYqkwcadVf/g0x/iduvarZ3Ffbr5Evp8Nu8
-   8CIPyynfkikc9e2c/P9X/JlyjfvaJcOLH5hHWP7KgX8Y8pK1obtBScPy4
-   o5/jQGdQuDu3sl3DSPijOXKpJwVdZUmLVq4dRWQinPcF7PVmsJ4kbGYnH
-   B2ci+a4ppUnsM/XyJDwmEpuxQsDBHZLO6cteYhwuu9PGZdcMmP+9Xe8AQ
-   zdIPaSMCEYkl2UmYs75GK5d8a599cMkWh9RNW0T5BN2VpciuCjbJ8jWwY
-   lwqfUh1BegkevJZPRzna4x5hmdYWZui3jmUiiOswNQuEB9nJaDOTyGxK/
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10878"; a="918725"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200";
-   d="scan'208";a="918725"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 04:29:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10878"; a="883835297"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200";
-   d="scan'208";a="883835297"
-Received: from yungchua-mobl2.ccr.corp.intel.com (HELO [10.92.2.114])
- ([10.92.2.114])
-  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 04:29:45 -0700
-Message-ID: <610122ec-0b4b-46c4-a768-23cf07b0e48f@linux.intel.com>
-Date: Mon, 30 Oct 2023 19:29:35 +0800
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=Yc2kH68Y
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-9be02fcf268so648081166b.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 30 Oct 2023 04:36:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698665770; x=1699270570;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=csnOKH0S/yzTOhLnRQCy767OQRSbbASGrw4KMOOKM64=;
+        b=Yc2kH68YqDxMz6+iOLBfjKotPG9lKxvlk4Ly0BJ5auwOJ27YfqVD+Y0maoPYqruIRx
+         MV7lnjdD32QGMuQwPuEUP46+O6yOW/MBOrZoRDCVBncrFDvDu37B2EWFPFc8Wh/3rWsK
+         hdgn3MJ5FkTFyk0+d0a0GDByzO/iA5WVrtRNySojmDQRFr279ANrISwGNZSxTo/BNP2e
+         PsIyHFwaule6SZOVlMHWTgc5gdj8hzIa/eWeO/sUEQSYGDoVIyc2nwuhDxnuxe+vA8pV
+         0Av7TkWi8MK5ng9/TQrhdWjJGzKIw1nT3CRGTICN+OnUQ9CRJwZn+UYQRjPc6HBoOXId
+         PkWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698665770; x=1699270570;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=csnOKH0S/yzTOhLnRQCy767OQRSbbASGrw4KMOOKM64=;
+        b=HZNdIM4NVyKNtrm7ectOnhsQRj7kuS1qmDYn/WtAMHhEv4oFSiMaWA5lExe8FCDJcd
+         zfFE/ErWibQzCWxxh07YxIa1oC/CEm+LkaP/Jwhyh6vYfK6t1+7e2xr67r6I6M6biWPi
+         EG/43duhwNeSZVPn8zcx1eLA7O5NigTsEvIoflyZ/xkYYm1cDz83V0B5DNp3Boued/SK
+         qVYRD42KJjD8IblS2/Rt7BeTbF8JuSCr493rrtR+uPWOxQSrw2qL0GjwK8ALINYb6ODE
+         75kcRe0+vEEVlbbqwWciY/d8JcO6lFF9L80brsXAwiC3XkP/zysAOvCEaUrBimFutpHs
+         7F2g==
+X-Gm-Message-State: AOJu0Yw/9kaM5wyAFHr1BwYFoNikAhLxYzfQAPEIMblU1W7/IiAvb7nb
+	osK3FZJbg/nQk2hNZmgx1BsyY7UGWYeIQe+Jg7g=
+X-Google-Smtp-Source: 
+ AGHT+IHL/kCqmaB88Pd1lPonhz6Vn742Gqxb3ymqWLk7yKiz6eLcTFUoPUHkQCusca9qSLjjOQRPJZIMXFrM3pWF4XY=
+X-Received: by 2002:a17:907:608a:b0:9ae:74d1:4b45 with SMTP id
+ ht10-20020a170907608a00b009ae74d14b45mr8197615ejc.65.1698665769789; Mon, 30
+ Oct 2023 04:36:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: rt712-sdca: fix speaker route missing issue
-Content-Language: en-US
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- bard.liao@intel.com
-References: <20231030103644.1787948-1-shumingf@realtek.com>
-From: "Liao, Bard" <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20231030103644.1787948-1-shumingf@realtek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YJJ73ZYDY24TOS7P4P7FIHSCFAF4SDPV
-X-Message-ID-Hash: YJJ73ZYDY24TOS7P4P7FIHSCFAF4SDPV
-X-MailFrom: yung-chuan.liao@linux.intel.com
+References: <1698402948-10618-1-git-send-email-shengjiu.wang@nxp.com>
+ <c1cfa3e0-6e5d-4e1d-b6e0-4d1045196a11@xs4all.nl>
+ <CAA+D8AOCujL-eD2-chqHAW7UN7UmLrO6CWRd7d6wTCPP8=VyfA@mail.gmail.com>
+In-Reply-To: 
+ <CAA+D8AOCujL-eD2-chqHAW7UN7UmLrO6CWRd7d6wTCPP8=VyfA@mail.gmail.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Mon, 30 Oct 2023 13:35:56 +0200
+Message-ID: 
+ <CAEnQRZAGOTm=5j_9CStnKuZVPBK_Oxr50L8XLaFd7Czr7SLnWQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v8 00/13] Add audio support in v4l2 framework
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Hans Verkuil <hverkuil@xs4all.nl>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ sakari.ailus@iki.fi,
+	tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: WDQZNSVOQH5DVYRBJTSAK4PE5ZDWL6WV
+X-Message-ID-Hash: WDQZNSVOQH5DVYRBJTSAK4PE5ZDWL6WV
+X-MailFrom: daniel.baluta@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YJJ73ZYDY24TOS7P4P7FIHSCFAF4SDPV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WDQZNSVOQH5DVYRBJTSAK4PE5ZDWL6WV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,53 +125,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On 2023/10/30 下午 06:36, shumingf@realtek.com wrote:
-> From: Shuming Fan <shumingf@realtek.com>
+On Mon, Oct 30, 2023 at 3:56=E2=80=AFAM Shengjiu Wang <shengjiu.wang@gmail.=
+com> wrote:
 >
-> Sometimes the codec probe would be called earlier than the hardware initialization.
-> Therefore, the speaker route should be added before the the first_hw_init check.
+> On Fri, Oct 27, 2023 at 7:18=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl>=
+ wrote:
+> >
+> > Hi Shengjiu,
+> >
+> > Is there a reason why this series is still marked RFC?
+> >
+> > Just wondering about that.
 >
-> Signed-off-by: Shuming Fan <shumingf@realtek.com>
+> In the very beginning I started this series with RFC, So
+> I still use RFC now...
 
-Do we need
+I think we are way past the RFC stage so if there will be another
+version, it is better to remove the RFC tag.
 
-Fixes: f3da2ed110e2 ("ASoC: rt1712-sdca: enable pm_runtime in probe, 
-keep status as 'suspended'")?
+RFC means that this patch series is not ready to be merged but is
+merely in the incipient stages of development.
 
-> ---
->   sound/soc/codecs/rt712-sdca.c | 14 +++++++-------
->   1 file changed, 7 insertions(+), 7 deletions(-)
->
-> diff --git a/sound/soc/codecs/rt712-sdca.c b/sound/soc/codecs/rt712-sdca.c
-> index 7077ff6ba1f4..6954fbe7ec5f 100644
-> --- a/sound/soc/codecs/rt712-sdca.c
-> +++ b/sound/soc/codecs/rt712-sdca.c
-> @@ -963,13 +963,6 @@ static int rt712_sdca_probe(struct snd_soc_component *component)
->   	rt712_sdca_parse_dt(rt712, &rt712->slave->dev);
->   	rt712->component = component;
->   
-> -	if (!rt712->first_hw_init)
-> -		return 0;
-> -
-> -	ret = pm_runtime_resume(component->dev);
-> -	if (ret < 0 && ret != -EACCES)
-> -		return ret;
-> -
->   	/* add SPK route */
->   	if (rt712->hw_id != RT712_DEV_ID_713) {
->   		snd_soc_add_component_controls(component,
-> @@ -980,6 +973,13 @@ static int rt712_sdca_probe(struct snd_soc_component *component)
->   			rt712_sdca_spk_dapm_routes, ARRAY_SIZE(rt712_sdca_spk_dapm_routes));
->   	}
->   
-> +	if (!rt712->first_hw_init)
-> +		return 0;
-> +
-> +	ret = pm_runtime_resume(component->dev);
-> +	if (ret < 0 && ret != -EACCES)
-> +		return ret;
-> +
->   	return 0;
->   }
->   
+thanks,
+Daniel.

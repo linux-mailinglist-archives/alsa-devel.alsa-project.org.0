@@ -2,123 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88D27E0676
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Nov 2023 17:25:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFAA57DC194
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 22:06:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44A16ED8;
-	Fri,  3 Nov 2023 17:25:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44A16ED8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BEA993A;
+	Mon, 30 Oct 2023 22:05:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BEA993A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699028757;
-	bh=GHWL46G8NXkoKAdE2/pXu93JSdaBuXUlUxnrvTJOdOY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1698699978;
+	bh=LKLP6UEl/pkjGe0QKZIWac46a5g0E8T9ZC0+kHW1Z4g=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hSGUpmKzEmr5CYaaiOXhLU988YCWp8dF942W29n6BC1ZXH0plQvubHc09wzQFtHeY
-	 mLlYp3TcUfbtJ//2CZLPgRhKvx0awyOGlgmALlvVVekrOPcP3KS5umYS4E9DggnXa1
-	 Ya1Q9DlXknRG4Ske1iXxAJhytoxOPduvysiTr0MQ=
+	b=tuG8kh+JdOun/gF8cE5hY2rwjb8KO0gS/jdP/bn3EvwdbHxfqbk1rMcthN0NLrQ85
+	 Grn3aDuwAX5NnhzDcWKV8mN90WV5/qScXc9Xpc+9mPPVc8/dEYpJZ5CX8jGvWOIizY
+	 yKltLYomwvcLi2WW61PZE40bQ6l+BFGlnuH4Vpnw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03DEEF80564; Fri,  3 Nov 2023 17:25:06 +0100 (CET)
+	id B8053F80425; Mon, 30 Oct 2023 22:05:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FA8BF8020D;
-	Fri,  3 Nov 2023 17:25:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80607F80166;
+	Mon, 30 Oct 2023 22:05:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0BB6F8016D; Mon, 30 Oct 2023 21:46:27 +0100 (CET)
+	id 03ECFF8016D; Mon, 30 Oct 2023 22:05:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 14818F80152
-	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 21:46:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14818F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7D06CF8014B
+	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 22:05:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D06CF8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=nDlD/wpW
-Received: by mail-oi1-x229.google.com with SMTP id
- 5614622812f47-3b2e22f1937so2729974b6e.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 30 Oct 2023 13:46:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698698779; x=1699303579;
- darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=GHWL46G8NXkoKAdE2/pXu93JSdaBuXUlUxnrvTJOdOY=;
-        b=nDlD/wpWZ66dp83jF5QAZJv2elp4Z+K1dfMi45qBg+YYwV9pVtMgr8lc8f+KyxcKAN
-         HasMh+jEARnRWBUemVGhtMBp6NY1CZntM0fvM3MsLyI6K01g/66YjO81n1MY9hINrteL
-         WiWI3djYgcWdEp3Nh2sQZutvB+3SCsvp6Mw7Kxz6UXMmudzLokTM1KNIPywoKImdjSHq
-         4VrYPDxYg8dkAqhT7Oqv791or7gxbcr6FH9o4rIKOfO6FARkE7st0bxB1Bz4+06EdLDs
-         w26uteMQkfEbKMGcwHuCFuObjPYxdHaiPw6c7PYmmYwmDANyrGIrHCOezEHeEwsHlC/8
-         v+RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698698779; x=1699303579;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GHWL46G8NXkoKAdE2/pXu93JSdaBuXUlUxnrvTJOdOY=;
-        b=Flse2di5umVv3LL3/JKUK5szUjdm2WJcbZISfjxn4pk/xnH5Z9uWHguLs58O7boJrF
-         qRFab6CPc4+bKdNj+5Wzt6OC8rKjiCBRwyvFh8iOvNB8cELNciOPZNzJFP2wrWmHVN+s
-         /4elxvYCEGD+fnm8m/hD18tHGHvm146C0Sp6Z5NZng3eL28N1ASthYWZ8oUp1pbb4nps
-         oQqhCEcoGe3fd0inKSQ7tlvkvRhfrioTlPdrHr/5HvAJi/uemWtXe83EpYQHUaLNk+uw
-         WOuRT3GmS/Qdlbr/SS+Ky21EhRZc4zh5bfzo5kzg46g254mqgXq9tXFlDDLXqSWipNel
-         gpXA==
-X-Gm-Message-State: AOJu0YxAqAm2w+1Xh+nAlZ/q+fOyBz+W+BPcdmBQj4B3vrSmn8EocNvX
-	YEAAZK2gncdbqflSTkCEEQjYNcQNXztUhW9zO4Y=
-X-Google-Smtp-Source: 
- AGHT+IH7Dib57XvDiKMu/5BfJ4q/bfY6Uc5iK24QoDCMGMXOqPPDiJXdm5FbY1GzK8H6oKpjuiUed0mr05G7KpFVtas=
-X-Received: by 2002:a05:6808:8f6:b0:3ae:511e:179e with SMTP id
- d22-20020a05680808f600b003ae511e179emr10833202oic.54.1698698778622; Mon, 30
- Oct 2023 13:46:18 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bBc77gUB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1698699917; x=1730235917;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=LKLP6UEl/pkjGe0QKZIWac46a5g0E8T9ZC0+kHW1Z4g=;
+  b=bBc77gUBGR+EnCUa5OtzYwQlcwp/vzNTZh2eKZ+H5YOftZEXV9h6uphB
+   vUkUSqWRceRqeq2VkguJwHshVRMRXNJf/vyMygIT4iRf1pLr2OM7Rdy1F
+   8DtAZ4JiduFI4df9xdpBR/DUD2Q/7MxFPxfRc4f+wVN2kcPP0IfGFsZ00
+   6nak27/UpGTb0dt1ExTgrxHfW8k5K/QC1eUAAIZ4EUa0zXoV+8phcVdSn
+   rasB9peCiVp7BnIsq75gWe4vSZcxvcmPklzHiYKdfSXmWqI4kjaRR0QXU
+   z7w7hjRBW8qDK5OWrsJUuJRQgWKgXF4cN4unO+M2EMG4lAdyYoX9/3CZH
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="9691832"
+X-IronPort-AV: E=Sophos;i="6.03,264,1694761200";
+   d="scan'208";a="9691832"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2023 14:05:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="795365560"
+X-IronPort-AV: E=Sophos;i="6.03,264,1694761200";
+   d="scan'208";a="795365560"
+Received: from wezedi-mobl1.amr.corp.intel.com (HELO [10.212.223.192])
+ ([10.212.223.192])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2023 14:05:10 -0700
+Message-ID: <85890ed8-0ab3-4b14-879b-be9f0c760db8@linux.intel.com>
+Date: Mon, 30 Oct 2023 16:05:09 -0500
 MIME-Version: 1.0
-References: <20230913053343.119798-1-poseaydone@ya.ru>
- <c36c2c196670a36f32cc776869e91f710c237400.camel@gmail.com>
- <282881698597547@mail.yandex.ru>
-In-Reply-To: <282881698597547@mail.yandex.ru>
-From: Matthew Pisoni <mmpisoni@gmail.com>
-Date: Mon, 30 Oct 2023 15:46:07 -0500
-Message-ID: 
- <CAJgVWNfTO_8bcOnbNC4mXdignS5Z8beQUDxjQkQ+R7BfBiVnzQ@mail.gmail.com>
-Subject: Re: [PATCH] patch_realtek: Splitting the UX3402 into two separate
- models.
-To: =?UTF-8?B?0JDRgNGB0LXQvdC40Lkg0JrQvdGP0LfQtdCy?= <poseaydone@ya.ru>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- "Luke D. Jones" <luke@ljones.dev>,
-	Stefan Binding <sbinding@opensource.cirrus.com>,
- Andy Chi <andy.chi@canonical.com>,
-	Shenghao Ding <shenghao-ding@ti.com>,
- Matthew Anderson <ruinairas1992@gmail.com>,
-	Luka Guzenko <l.guzenko@web.de>, Yuchi Yang <yangyuchi66@gmail.com>,
-	Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
- Yang Yingliang <yangyingliang@huawei.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-MailFrom: mmpisoni@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ASoC: tas2783: Add source files for tas2783 driver.
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Baojun Xu <baojun.xu@ti.com>, lgirdwood@gmail.com, perex@perex.cz,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, kevin-lu@ti.com,
+ shenghao-ding@ti.com, peeyush@ti.com, navada@ti.com, tiwai@suse.de
+References: <20231028092409.96813-1-baojun.xu@ti.com>
+ <7f4465c1-5e8e-4c5f-bbff-d2c930326986@linux.intel.com>
+ <9d922584-288a-4b73-83ef-477d1bc58521@sirena.org.uk>
+ <9b94488e-206d-419b-92ed-e70aab11907b@linux.intel.com>
+In-Reply-To: <9b94488e-206d-419b-92ed-e70aab11907b@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: BABJHYJ627EXTQLSND6JPIYC5UET6YDF
+X-Message-ID-Hash: BABJHYJ627EXTQLSND6JPIYC5UET6YDF
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OFMWYFMSNA6GM47JGXVG2DHFHNNP4AR7
-X-Message-ID-Hash: OFMWYFMSNA6GM47JGXVG2DHFHNNP4AR7
-X-Mailman-Approved-At: Fri, 03 Nov 2023 16:25:00 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OFMWYFMSNA6GM47JGXVG2DHFHNNP4AR7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BABJHYJ627EXTQLSND6JPIYC5UET6YDF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,16 +110,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Okay so how would I go about getting the following line added to the
-patch_realtek file?
 
-SND_PCI_QUIRK(0x1043, 0x1f62, "ASUS UX7602ZM",
-ALC245_FIXUP_CS35L41_SPI_2)
 
-It works on my machine I own that model I would just like it added as
-other models have been so I don't need to continue to patch the kernel
-module when it's already been effectively fixed for others.
-This thread looked like you all were discussing modifications to that
-file for this issue so I thought it might be a good place to start.
+On 10/30/23 12:40, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 10/30/23 12:20, Mark Brown wrote:
+>> On Mon, Oct 30, 2023 at 11:05:39AM -0500, Pierre-Louis Bossart wrote:
+>>
+>>>> +static bool tas2783_readable_register(struct device *dev, unsigned int reg)
+>>>> +{
+>>>> +	switch (reg) {
+>>>> +	case 0x000 ... 0x080:	/* Data port 0. */
+>>
+>>> No, this is wrong. All the data port 'standard' registers are "owned" by
+>>> the SoundWire core and handled during the port prepare/configure/bank
+>>> switch routines. Do not use them for regmap.
+>>
+>>> In other words, you *shall* only define vendor-specific registers in
+>>> this codec driver.
+>>
+>> This seems to come up a moderate amount and is an understandable thing
+>> to do - could you (or someone else who knows SoundWire) perhaps send a
+>> patch for the regmap SoundWire integration which does some validation
+>> here during registration and at least prints a warning?
+> 
+> Good suggestion, we could indeed check that the registers are NOT in the
+> range [0,0xBF] for all ports - only the range [0xC0..FF] is allowed for
+> implementation-defined values. I'll try to cook something up.
 
-Thank you!
+After checking, the following ranges are invalid for codec drivers:
+
+for address < 0x1000
+LSB = 0x00 - 0xBF standard or reserved
+
+0x1800 – 0x1FFF reserved
+0x48000000 - 0xFFFFFFFF reserved
+
+is the recommendation to check the regmap_config and its 'yes_ranges'?
+
+Presumably if the range_min or range_max is within the invalid values
+above then the configuration can be tagged as problematic in the dmesg
+log or rejected with an error code?

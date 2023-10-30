@@ -2,122 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A2FE7E0675
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Nov 2023 17:25:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F6C7DC04D
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 20:21:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A10D6EC0;
-	Fri,  3 Nov 2023 17:25:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A10D6EC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ADEC93A;
+	Mon, 30 Oct 2023 20:20:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ADEC93A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699028754;
-	bh=seCUVWtCCcmJ/XTWam1et+aH6NGI2wbqVJrjcuwqBts=;
-	h=Date:To:Cc:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=oVkjDI1W7qo/w41Mta4cuQkBN3WjQzAzL4oSQjCHBi4KrYgfM9e+DdFu7+V4XYpYK
-	 A3MZC5R2L+coLq8GI4LeNaEehwOVX0xTCAXvJw/HOlvPZdwFJeU5u4VpVXyUwht2S4
-	 QSwxcD91PKtoD5QU+ApKQJTiQd58gerW6ivygwe8=
+	s=default; t=1698693692;
+	bh=2/AkVrexR/JZ05pQV2i1gYvGNuV3Dwqm9KVT5lmWsow=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=g4ZTyewoL4NI6NvuwihIUoXEMMyWdoMLpWWgJO4zV41CsogRBi6gDT4Hc1bHHG8yF
+	 aqHFvUEHB3aM7OFERaJqDQJsz9Acd4gleKeKmjVmKmo/GMQRIZdetnG8ZAQKLViTMa
+	 VMFAQVa/TmhABh4O4bSRfqKwiWOitilB47Fl5xyw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A632F80557; Fri,  3 Nov 2023 17:25:04 +0100 (CET)
+	id C6E35F8055A; Mon, 30 Oct 2023 20:20:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DD65F80290;
-	Fri,  3 Nov 2023 17:25:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 939D5F8016D;
+	Mon, 30 Oct 2023 20:20:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 988F7F8016D; Mon, 30 Oct 2023 19:59:05 +0100 (CET)
+	id 3AF4DF8020D; Mon, 30 Oct 2023 20:20:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4708F800FA
-	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 19:58:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4708F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5ABC9F8014B
+	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 20:20:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ABC9F8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Jm/se8vp
-Received: by mail-il1-x12d.google.com with SMTP id
- e9e14a558f8ab-351610727adso1827005ab.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 30 Oct 2023 11:58:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698692334; x=1699297134;
- darn=alsa-project.org;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ib4hWYqy3xNJl0QRkrHS+EQAyDQg24oqh98TyujegYM=;
-        b=Jm/se8vp9RAi1eId54E/ih1n4joXKI6YYsWkreMZCas2Z8yuIZZO86oc4X9r8TBy3P
-         aq+PGnqoU+Jq7t4egrylsQP0DHxrg/PqW4T0WAB4pYUI0hKrMN62oV0MNzGcWZJTgh6G
-         wrX3QdFWnlcH+UgmnfKShdAvpbrjBYmuyme3wFqBnvaJH+a3JqevWLdES9ierb1uZuDA
-         XVgDoLS2lo7k34P2hahi1glZFnxbz5nRrKNC0pq8dLLmqQB72qRBXNYGAKZX7mJ+Nmmw
-         Lhh1vAnNn/AMu3dJXZJpsnHKXJ3bXXH1ktkxmP/0ratxmSOTpuWa/+d9cXY/oGO7BhuK
-         Cbrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698692334; x=1699297134;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ib4hWYqy3xNJl0QRkrHS+EQAyDQg24oqh98TyujegYM=;
-        b=mn+z5u4PS5xtiSQkM/v/fAreIjNEO251yK4iyqCG/d9NRM/1PrpEajIzTkTZTs8nyi
-         0TmW2SlnvVcncpR4jNFMQ3pSR1oh/TipglKzI2YWMff3weQWwJXpWshAgcsyYtkat7wd
-         YoOKBnrh/aAyC5hkxCYooc0jNSYzHvcSqzKCWxBveIiNVq8NW7a/EJBNI4yjESU7Nz0L
-         9ZSI2KUEhaQz5XDmI/Bl7CFfcb2UkdTwro+lDw/RIjnD5I0PtT5e4oEbdMsu+nxkMMDd
-         XCxZ32I06HN+wonhgicLaYN/cLjyBKnmK9KvmQdQwXFlw5J/qV5nLne7PcSVU3HofGQ3
-         /peA==
-X-Gm-Message-State: AOJu0YykShyiBXtMSxXNq0MsqAELqgx4dBiaZkiCVUcnvMIa8goWllF7
-	Ogy1jnPtw3CbOG2PJoBKxW8=
-X-Google-Smtp-Source: 
- AGHT+IHTXBjdU2JVa1Y5xfA9ehT1aBnweJbHPmw18ifW40iqGSvqPI500VL4jLaKSM2ZPIWlYLhIhg==
-X-Received: by 2002:a5d:8b13:0:b0:79a:c487:2711 with SMTP id
- k19-20020a5d8b13000000b0079ac4872711mr10733086ion.0.1698692334159;
-        Mon, 30 Oct 2023 11:58:54 -0700 (PDT)
-Received: from [10.69.0.11] (c-68-55-100-39.hsd1.mi.comcast.net.
- [68.55.100.39])
-        by smtp.gmail.com with ESMTPSA id
- m38-20020a056638272600b0042b6940b793sm2317203jav.17.2023.10.30.11.58.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Oct 2023 11:58:53 -0700 (PDT)
-Message-ID: <2f5ffc3b-01be-413d-843e-8654d953f56f@gmail.com>
-Date: Mon, 30 Oct 2023 14:58:52 -0400
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MECrVJea
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 4341DCE0B26;
+	Mon, 30 Oct 2023 19:20:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D07C3C433C8;
+	Mon, 30 Oct 2023 19:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1698693625;
+	bh=2/AkVrexR/JZ05pQV2i1gYvGNuV3Dwqm9KVT5lmWsow=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=MECrVJeaJQC/0R+9DGzfSEbAPTwEj13FUBlJTrbfoq03rmpvluF9xyOpYxTFIQFmf
+	 eZ5R7l+BSqM+t0G/yW+R0PJbCbQV2sNHt9/hcaBwol1aYQJVBNfvIE4Fu69TE1/Rtv
+	 p0SgLcOqBmHTxfd1HHb6LS4p8kx/hwgFjZ4wUhxZXUzaWg/F/L2kV673C8CUEIgaZa
+	 3mwkUHVGXmWMlymc0FimQKyXBm1hYPvM+9cn/So0hYbyttNGTwsKTgLfkORrxWbRB1
+	 TJ5BwSLYVSgjF8M66mGnETfIi5iHzmv8zlr9EwuHKuwtFj4fl544bwH2CkfFWyElyN
+	 4LB1xzx2Hr2vA==
+From: Mark Brown <broonie@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Tony Lindgren <tony@atomide.com>
+Cc: Andreas Kemnade <andreas@kemnade.info>, alsa-devel@alsa-project.org,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20231030052340.13415-1-tony@atomide.com>
+References: <20231030052340.13415-1-tony@atomide.com>
+Subject: Re: [PATCH] ASoC: ti: omap-mcbsp: Fix runtime PM underflow
+ warnings
+Message-Id: <169869362256.44249.15039737144512154634.b4-ty@kernel.org>
+Date: Mon, 30 Oct 2023 19:20:22 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org
-Cc: linux-kernel@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>
-From: Brady Norander <bradynorander@gmail.com>
-Subject: [PATCH v2] ALSA: hda: intel-dsp-cfg: Use AVS driver on SKL/KBL/APL
- Chromebooks
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-MailFrom: bradynorander@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: NGTHFIC75P5L6UAREJNJEYMCI3CHMIRJ
+X-Message-ID-Hash: NGTHFIC75P5L6UAREJNJEYMCI3CHMIRJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: SNSE6ZQWHEQG262DSCCKPY2BCJH6UEY4
-X-Message-ID-Hash: SNSE6ZQWHEQG262DSCCKPY2BCJH6UEY4
-X-Mailman-Approved-At: Fri, 03 Nov 2023 16:25:00 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SNSE6ZQWHEQG262DSCCKPY2BCJH6UEY4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NGTHFIC75P5L6UAREJNJEYMCI3CHMIRJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,110 +99,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The legacy SKL driver no longer works properly on these Chromebook
-platforms. Use the new AVS driver by default instead.
+On Mon, 30 Oct 2023 07:23:38 +0200, Tony Lindgren wrote:
+> We need to check for an active device as otherwise we get warnings
+> for some mcbsp instances for "Runtime PM usage count underflow!".
+> 
+> 
 
-Signed-off-by: Brady Norander <bradynorander@gmail.com>
----
-v2: Only use quirk if AVS is enabled
-  sound/hda/intel-dsp-config.c | 26 +++++++++++++++++---------
-  1 file changed, 17 insertions(+), 9 deletions(-)
+Applied to
 
-diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
-index 756fa0aa69bb..e056aca01900 100644
---- a/sound/hda/intel-dsp-config.c
-+++ b/sound/hda/intel-dsp-config.c
-@@ -16,10 +16,11 @@
-  static int dsp_driver;
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-  module_param(dsp_driver, int, 0444);
--MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP 
-(0=auto, 1=legacy, 2=SST, 3=SOF)");
-+MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP 
-(0=auto, 1=legacy, 2=SST, 3=SOF, 4=AVS)");
+Thanks!
 
-  #define FLAG_SST			BIT(0)
-  #define FLAG_SOF			BIT(1)
-+#define FLAG_AVS			BIT(2)
-  #define FLAG_SST_ONLY_IF_DMIC		BIT(15)
-  #define FLAG_SOF_ONLY_IF_DMIC		BIT(16)
-  #define FLAG_SOF_ONLY_IF_SOUNDWIRE	BIT(17)
-@@ -56,7 +57,7 @@ static const struct config_entry config_table[] = {
-  /*
-   * Apollolake (Broxton-P)
-   * the legacy HDAudio driver is used except on Up Squared (SOF) and
-- * Chromebooks (SST), as well as devices based on the ES8336 codec
-+ * Chromebooks (AVS), as well as devices based on the ES8336 codec
-   */
-  #if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
-  	{
-@@ -79,9 +80,9 @@ static const struct config_entry config_table[] = {
-  		.codec_hid =  &essx_83x6,
-  	},
-  #endif
--#if IS_ENABLED(CONFIG_SND_SOC_INTEL_APL)
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_AVS)
-  	{
--		.flags = FLAG_SST,
-+		.flags = FLAG_AVS,
-  		.device = PCI_DEVICE_ID_INTEL_HDA_APL,
-  		.dmi_table = (const struct dmi_system_id []) {
-  			{
-@@ -96,13 +97,13 @@ static const struct config_entry config_table[] = {
-  #endif
-  /*
-   * Skylake and Kabylake use legacy HDAudio driver except for Google
-- * Chromebooks (SST)
-+ * Chromebooks (AVS)
-   */
+[1/1] ASoC: ti: omap-mcbsp: Fix runtime PM underflow warnings
+      commit: fbb74e56378d8306f214658e3d525a8b3f000c5a
 
-  /* Sunrise Point-LP */
--#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKL)
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_AVS)
-  	{
--		.flags = FLAG_SST,
-+		.flags = FLAG_AVS,
-  		.device = PCI_DEVICE_ID_INTEL_HDA_SKL_LP,
-  		.dmi_table = (const struct dmi_system_id []) {
-  			{
-@@ -114,15 +115,17 @@ static const struct config_entry config_table[] = {
-  			{}
-  		}
-  	},
-+#endif
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKL)
-  	{
-  		.flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
-  		.device = PCI_DEVICE_ID_INTEL_HDA_SKL_LP,
-  	},
-  #endif
-  /* Kabylake-LP */
--#if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_AVS)
-  	{
--		.flags = FLAG_SST,
-+		.flags = FLAG_AVS,
-  		.device = PCI_DEVICE_ID_INTEL_HDA_KBL_LP,
-  		.dmi_table = (const struct dmi_system_id []) {
-  			{
-@@ -134,6 +137,8 @@ static const struct config_entry config_table[] = {
-  			{}
-  		}
-  	},
-+#endif
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
-  	{
-  		.flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
-  		.device = PCI_DEVICE_ID_INTEL_HDA_KBL_LP,
-@@ -667,6 +672,9 @@ int snd_intel_dsp_driver_probe(struct pci_dev *pci)
-  		}
-  	}
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-+	if (cfg->flags & FLAG_AVS)
-+		return SND_INTEL_DSP_DRIVER_AVS;
-+
-  	return SND_INTEL_DSP_DRIVER_LEGACY;
-  }
-  EXPORT_SYMBOL_GPL(snd_intel_dsp_driver_probe);
--- 
-2.42.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,93 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3047E7DC7DC
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 09:06:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B0DD7DC7E6
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 09:10:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7705C1DD;
-	Tue, 31 Oct 2023 09:05:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7705C1DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20F07A4B;
+	Tue, 31 Oct 2023 09:09:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20F07A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698739599;
-	bh=m9HzkHN+a3dffHWvl67i7sYVqMG8y4ZI+aGmrtAzdYE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1698739841;
+	bh=It9hRsKk8BI+iwOvCMFCj9pEOsxAMirmqnEgUE2ihJg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aNQgVLWFDzZsOfzwZ4g+r+mWdZc0gQNXImIuWP7DFIagq87YvBL6G1mdct+uhVAyz
-	 WkZfP9HhevABjIta/cEHI/otdlK5sNDM94IceptuxYxjXRNgFvV8q5195iCt+gFbKd
-	 xfGOVsIlm/eeQ1cujEE5uQVCm5wO4WNKj2KLKDkY=
+	b=B8e3VwBitgo5QxcQoai590+BYjfbcevUSRzphBA9A/ilTs2MEKdSs0TIYYDu1uX2f
+	 jtrnshdHJYbasQ9i91ZkGsOlXWNEWetFqoqONfPmjSRINLeZdre1a2paQEijimlC4o
+	 OeCsbs+tc7NhvrCAey94dkRpkaqIpPBqmu74oWvc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E25CDF8055C; Tue, 31 Oct 2023 09:05:38 +0100 (CET)
+	id 09B93F8020D; Tue, 31 Oct 2023 09:09:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6BAEF8016D;
-	Tue, 31 Oct 2023 09:05:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48D4FF8016D;
+	Tue, 31 Oct 2023 09:09:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00D94F8020D; Tue, 31 Oct 2023 09:03:45 +0100 (CET)
+	id A5E7FF8020D; Tue, 31 Oct 2023 09:07:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04E8CF80166
-	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 09:03:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04E8CF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42F1FF80166
+	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 09:07:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F1FF80166
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Tscat4oj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1698739413; x=1730275413;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=m9HzkHN+a3dffHWvl67i7sYVqMG8y4ZI+aGmrtAzdYE=;
-  b=Tscat4ojjcc10pU0x6sw58KjYldX4zWBjeiujvOfOaTssZcSipH8lIfz
-   0uG7cIlWT/1LtjrY6HSNdETZz1if8bKYWrW3KsEIMJXEkV7GuVL3AkKcu
-   RkD4VZU6VvwoOvonC7yiCGS7TtCn9aBGRlA3u+wFLMBFt5theGVIPlB+2
-   6QezOW9WML0jZzxnvkf+fFnEbQ5PuU2nIzRZFlovon8G1Q9E8GegAJ+wV
-   e6qFyazgN+k/byxSNK87lH6N5SiFXedcZ0xcx9ulqxHOPUKfeRPHPyUek
-   7C+ELbjD5m45aEYKPq2MnNq/OR0cbvWPDY5q3QE/e04GsWe4pBjIPUNlH
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="392098648"
-X-IronPort-AV: E=Sophos;i="6.03,265,1694761200";
-   d="scan'208";a="392098648"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2023 01:03:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="754060678"
-X-IronPort-AV: E=Sophos;i="6.03,265,1694761200";
-   d="scan'208";a="754060678"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.91])
- ([10.94.0.91])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2023 01:03:12 -0700
-Message-ID: <3efaf177-f9f3-48c7-b5c9-d4530d350c0f@linux.intel.com>
-Date: Tue, 31 Oct 2023 09:03:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ASoC: codecs: ES8326: Add chip version flag
-Content-Language: en-US
-To: Zhu Ning <zhuning0077@gmail.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org
-Cc: tiwai@suse.com, yangxiaohua@everest-semi.com, zhuning@everest-semi.com,
- zhangyi@everest-semi.com
-References: <20231031033610.86433-1-zhuning0077@gmail.com>
- <20231031033610.86433-2-zhuning0077@gmail.com>
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20231031033610.86433-2-zhuning0077@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: FBYRNVAP6B73R3PUIXLBVBMRY3CG2XWV
-X-Message-ID-Hash: FBYRNVAP6B73R3PUIXLBVBMRY3CG2XWV
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=mmDqo67t;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=uDHlhELu
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9CC04212AE;
+	Tue, 31 Oct 2023 08:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1698739664;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1riz8bQeeXcvoXNgHyHNziY5KOCRb8jrTCklE5GZ+tw=;
+	b=mmDqo67t/Bz7m7dT2kTGng+H9/07qlxxJPQKLqc85yoxe+UkCBppy9zL4gNABnM3lIbytn
+	OiwTNJIaC04tIMrtFhMxT334fq+fsD/TF0xyoxDDo6V2FORNiG2X8pOufuX+A4h9qK5Ift
+	0fHcrak+j7cNddb1/NcmjAW1kExL5u4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1698739664;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1riz8bQeeXcvoXNgHyHNziY5KOCRb8jrTCklE5GZ+tw=;
+	b=uDHlhELuUaZkPgdStI0HajsAo5X75Art+8K6rif0DRHqkaPIWC3ubWWkGKxMQRORTDdZKV
+	0ogKidt4UsctkgBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 603391391B;
+	Tue, 31 Oct 2023 08:07:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id /a5mFtC1QGWfNAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 31 Oct 2023 08:07:44 +0000
+Date: Tue, 31 Oct 2023 09:07:43 +0100
+Message-ID: <87bkcfw6y8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Brady Norander <bradynorander@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Mark Brown <broonie@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2] ALSA: hda: intel-dsp-cfg: Use AVS driver on
+ SKL/KBL/APL Chromebooks
+In-Reply-To: <2f5ffc3b-01be-413d-843e-8654d953f56f@gmail.com>
+References: <2f5ffc3b-01be-413d-843e-8654d953f56f@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: K4AWBFW6X6KJWHCDIE6K2MXFDSGN6IAQ
+X-Message-ID-Hash: K4AWBFW6X6KJWHCDIE6K2MXFDSGN6IAQ
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FBYRNVAP6B73R3PUIXLBVBMRY3CG2XWV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K4AWBFW6X6KJWHCDIE6K2MXFDSGN6IAQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,229 +125,125 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/31/2023 4:36 AM, Zhu Ning wrote:
->      The new chip version requires the addition of a new clock table. A version flag is added
->      to differentiate the clock table from the old chip version. newer versions of the chip have
->      fewer processes to go through in the headset detection, so the version flag is used to skip them.
+On Mon, 30 Oct 2023 19:58:52 +0100,
+Brady Norander wrote:
 > 
-> Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
+> The legacy SKL driver no longer works properly on these Chromebook
+> platforms. Use the new AVS driver by default instead.
+> 
+> Signed-off-by: Brady Norander <bradynorander@gmail.com>
+
+It's fine to switch to the new and more maintained AVS (once after the
+topology is ready), but I wonder how the breakage of SKL happened.
+Was it our intentional breakage in the past?  If so, why can't we
+recover it?
+
+
+thanks,
+
+Takashi
+
 > ---
->   sound/soc/codecs/es8326.c | 163 ++++++++++++++++++++++----------------
->   1 file changed, 95 insertions(+), 68 deletions(-)
->   mode change 100644 => 100755 sound/soc/codecs/es8326.c
+> v2: Only use quirk if AVS is enabled
+>  sound/hda/intel-dsp-config.c | 26 +++++++++++++++++---------
+>  1 file changed, 17 insertions(+), 9 deletions(-)
 > 
-> diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-> old mode 100644
-> new mode 100755
-> index 6c263086c44d..b390e0b949cc
-> --- a/sound/soc/codecs/es8326.c
-> +++ b/sound/soc/codecs/es8326.c
-> @@ -183,6 +183,7 @@ static const struct regmap_config es8326_regmap_config = {
->   };
->   
->   struct _coeff_div {
-> +	int version;
->   	u16 fs;
->   	u32 rate;
->   	u32 mclk;
-> @@ -199,77 +200,103 @@ struct _coeff_div {
->   /* codec hifi mclk clock divider coefficients */
->   /* {ratio, LRCK, MCLK, REG04, REG05, REG06, REG07, REG08, REG09, REG10, REG11} */
->   static const struct _coeff_div coeff_div[] = {
-> -	{32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
-> -	{36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
-> -	{48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{64, 8000, 512000, 0x60, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
-> -
-> -	{64, 44100, 2822400, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{64, 48000, 3072000, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x23, 0x47},
-> -	{72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x23, 0x47},
-> -	{96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0x38, 0x08, 0x4f, 0x1f},
-> -	{125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
-> -	{128, 8000, 1024000, 0x60, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{128, 16000, 2048000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -
-> -	{128, 44100, 5644800, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{128, 48000, 6144000, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x23, 0x47},
-> -	{144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x23, 0x47},
-> -	{192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
-> -	{256, 8000, 2048000, 0x60, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -
-> -	{256, 44100, 11289600, 0x00, 0x00, 0x10, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{256, 48000, 12288000, 0x00, 0x00, 0x30, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x23, 0x47},
-> -	{384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{400, 48000, 19200000, 0x09, 0x04, 0x0f, 0x6d, 0x3a, 0x0A, 0x4F, 0x1F},
-> -	{500, 48000, 24000000, 0x18, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{512, 16000, 8192000, 0x20, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -
-> -	{512, 44100, 22579200, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{512, 48000, 24576000, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
-> -	{1024, 8000, 8192000, 0x60, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -
-> -	{1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> -	{1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
-> -	{1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
-> -	{2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x5F},
-> -	{3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> -	{3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
-> -
-> +	{3, 32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{3, 32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-> +	{3, 32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-> +	{3, 36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{3, 48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-> +	{0, 64, 8000, 512000, 0x60, 0x01, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-> +	{3, 64, 8000, 512000, 0x60, 0x00, 0x35, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{0, 64, 16000, 1024000, 0x20, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> +	{3, 64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
+> diff --git a/sound/hda/intel-dsp-config.c b/sound/hda/intel-dsp-config.c
+> index 756fa0aa69bb..e056aca01900 100644
+> --- a/sound/hda/intel-dsp-config.c
+> +++ b/sound/hda/intel-dsp-config.c
+> @@ -16,10 +16,11 @@
+>  static int dsp_driver;
+> 
+>  module_param(dsp_driver, int, 0444);
+> -MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP
+> (0=auto, 1=legacy, 2=SST, 3=SOF)");
+> +MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP
+> (0=auto, 1=legacy, 2=SST, 3=SOF, 4=AVS)");
+> 
+>  #define FLAG_SST			BIT(0)
+>  #define FLAG_SOF			BIT(1)
+> +#define FLAG_AVS			BIT(2)
+>  #define FLAG_SST_ONLY_IF_DMIC		BIT(15)
+>  #define FLAG_SOF_ONLY_IF_DMIC		BIT(16)
+>  #define FLAG_SOF_ONLY_IF_SOUNDWIRE	BIT(17)
+> @@ -56,7 +57,7 @@ static const struct config_entry config_table[] = {
+>  /*
+>   * Apollolake (Broxton-P)
+>   * the legacy HDAudio driver is used except on Up Squared (SOF) and
+> - * Chromebooks (SST), as well as devices based on the ES8336 codec
+> + * Chromebooks (AVS), as well as devices based on the ES8336 codec
+>   */
+>  #if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
+>  	{
+> @@ -79,9 +80,9 @@ static const struct config_entry config_table[] = {
+>  		.codec_hid =  &essx_83x6,
+>  	},
+>  #endif
+> -#if IS_ENABLED(CONFIG_SND_SOC_INTEL_APL)
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_AVS)
+>  	{
+> -		.flags = FLAG_SST,
+> +		.flags = FLAG_AVS,
+>  		.device = PCI_DEVICE_ID_INTEL_HDA_APL,
+>  		.dmi_table = (const struct dmi_system_id []) {
+>  			{
+> @@ -96,13 +97,13 @@ static const struct config_entry config_table[] = {
+>  #endif
+>  /*
+>   * Skylake and Kabylake use legacy HDAudio driver except for Google
+> - * Chromebooks (SST)
+> + * Chromebooks (AVS)
+>   */
+> 
+>  /* Sunrise Point-LP */
+> -#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKL)
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_AVS)
+>  	{
+> -		.flags = FLAG_SST,
+> +		.flags = FLAG_AVS,
+>  		.device = PCI_DEVICE_ID_INTEL_HDA_SKL_LP,
+>  		.dmi_table = (const struct dmi_system_id []) {
+>  			{
+> @@ -114,15 +115,17 @@ static const struct config_entry config_table[] = {
+>  			{}
+>  		}
+>  	},
+> +#endif
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKL)
+>  	{
+>  		.flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
+>  		.device = PCI_DEVICE_ID_INTEL_HDA_SKL_LP,
+>  	},
+>  #endif
+>  /* Kabylake-LP */
+> -#if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_AVS)
+>  	{
+> -		.flags = FLAG_SST,
+> +		.flags = FLAG_AVS,
+>  		.device = PCI_DEVICE_ID_INTEL_HDA_KBL_LP,
+>  		.dmi_table = (const struct dmi_system_id []) {
+>  			{
+> @@ -134,6 +137,8 @@ static const struct config_entry config_table[] = {
+>  			{}
+>  		}
+>  	},
+> +#endif
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
+>  	{
+>  		.flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
+>  		.device = PCI_DEVICE_ID_INTEL_HDA_KBL_LP,
+> @@ -667,6 +672,9 @@ int snd_intel_dsp_driver_probe(struct pci_dev *pci)
+>  		}
+>  	}
+> 
+> +	if (cfg->flags & FLAG_AVS)
+> +		return SND_INTEL_DSP_DRIVER_AVS;
 > +
-> +	{0, 64, 44100, 2822400, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 64, 44100, 2822400, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{0, 64, 48000, 3072000, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 64, 48000, 3072000, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{3, 100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0xB8, 0x08, 0x4f, 0x1f},
-> +	{3, 125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
-> +	{0, 128, 8000, 1024000, 0x60, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> +	{3, 128, 8000, 1024000, 0x60, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{0, 128, 16000, 2048000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> +	{3, 128, 16000, 2048000, 0x20, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +
-> +	{0, 128, 44100, 5644800, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 128, 44100, 5644800, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{0, 128, 48000, 6144000, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 128, 48000, 6144000, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{0, 192, 32000, 6144000, 0xE0, 0x02, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 192, 32000, 6144000, 0xE0, 0x02, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0xCA, 0x1B, 0x1F, 0x3F},
-> +	{3, 200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x27, 0x27},
-> +	{0, 256, 8000, 2048000, 0x60, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> +	{3, 256, 8000, 2048000, 0x60, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{0, 256, 16000, 4096000, 0x20, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> +	{3, 256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +
-> +	{0, 256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{0, 256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-> +	{3, 384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{0, 384, 32000, 12288000, 0xE0, 0x05, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 384, 32000, 12288000, 0xE0, 0x02, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-> +	{0, 400, 48000, 19200000, 0xE9, 0x04, 0x0F, 0x6d, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 400, 48000, 19200000, 0xE4, 0x04, 0x35, 0x6d, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{0, 500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{0, 512, 8000, 4096000, 0x60, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> +	{3, 512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{0, 512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> +	{3, 512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +
-> +	{0, 512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{0, 512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{0, 768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-> +	{3, 768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-> +	{3, 800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-> +	{0, 1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-> +	{3, 1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{0, 1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-> +	{3, 1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{3, 1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{3, 1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +
-> +	{3, 1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-> +	{3, 1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
-> +	{3, 1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
-> +	{3, 2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x5F},
-> +	{3, 3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-> +	{3, 3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
->   };
-
-That seems bit confusing, can't you just have something like 
-coeff_div_v0 and coeff_div_v3 and select one depending on target?
-
->   
-> -static inline int get_coeff(int mclk, int rate)
-> +static inline int get_coeff(int mclk, int rate, int version)
->   {
->   	int i;
->   
->   	for (i = 0; i < ARRAY_SIZE(coeff_div); i++) {
-> -		if (coeff_div[i].rate == rate && coeff_div[i].mclk == mclk)
-> +		if (coeff_div[i].version == version && coeff_div[i].rate == rate
-> +				&& coeff_div[i].mclk == mclk)
->   			return i;
->   	}
->   
-> @@ -337,7 +364,7 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
->   	u8 srate = 0;
->   	int coeff;
->   
-> -	coeff = get_coeff(es8326->sysclk, params_rate(params));
-> +	coeff = get_coeff(es8326->sysclk, params_rate(params), es8326->version);
->   	/* bit size */
->   	switch (params_format(params)) {
->   	case SNDRV_PCM_FORMAT_S16_LE:
-> @@ -594,7 +621,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
->   	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
->   	dev_dbg(comp->dev, "gpio flag %#04x", iface);
->   
-> -	if (es8326->jack_remove_retry == 1) {
-> +	if ((es8326->jack_remove_retry == 1) && (es8326->version != ES8326_VERSION_B)) {
->   		if (iface & ES8326_HPINSERT_FLAG)
->   			es8326->jack_remove_retry = 2;
->   		else
-> @@ -628,7 +655,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
->   		/*
->   		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
->   		 */
-> -		if (es8326->jack_remove_retry == 0) {
-> +		if ((es8326->jack_remove_retry == 0) && (es8326->version != ES8326_VERSION_B)) {
->   			es8326->jack_remove_retry = 1;
->   			dev_dbg(comp->dev, "remove event check, invert HPJACK_POL, cnt = %d\n",
->   					es8326->jack_remove_retry);
-
+>  	return SND_INTEL_DSP_DRIVER_LEGACY;
+>  }
+>  EXPORT_SYMBOL_GPL(snd_intel_dsp_driver_probe);
+> -- 
+> 2.42.0
+> 

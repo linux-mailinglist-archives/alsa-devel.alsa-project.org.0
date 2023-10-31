@@ -2,112 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D39D7DC1FA
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Oct 2023 22:33:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A215E7DC429
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 03:09:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 100531DA;
-	Mon, 30 Oct 2023 22:32:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 100531DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFEF393A;
+	Tue, 31 Oct 2023 03:08:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFEF393A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698701616;
-	bh=3c+Ng71WVMssVVmhpNCGjEvoNbhVLKCdsWrjlOc9YOw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pZvijGDMv+mjt2wlz38QJYIReOeeln5DSd9IUkGh1o2NJrQT51Ll+rbADwiVcJdl9
-	 wDG74ODs3+Rsjskm19G6unafLT14Ysn685i8gsDopb+Gi4K1CFov8oswhW38idhrOy
-	 n64sFA1ZhTKbccBlHHRrAM3dUDnWDTBHc81uKsGY=
+	s=default; t=1698718172;
+	bh=JkWyfxgOJZ6eUYFX2x8JkOgo+E0qPwSnVx0nnjTRoGU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=IRsv99GQqAz18oRxpCrEN6sdY5/Cnjay6b2Gt8+2cAw+nz5K2M1aXWpvlrmbuXUMn
+	 VEyHLP+X8CygMU3AoYiOESiXHTOlmYFjqpoTPjpZR3W3EtvIKUQ3P5WBG9W7FyX4M7
+	 IiqSjfN+EPBehO2a8dLuEzTFop5hL96JP73hYwQI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 910EDF8020D; Mon, 30 Oct 2023 22:32:09 +0100 (CET)
+	id 742F8F80152; Tue, 31 Oct 2023 03:08:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9CD3F80166;
-	Mon, 30 Oct 2023 22:32:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B74AF8016D;
+	Tue, 31 Oct 2023 03:08:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA10EF8016D; Mon, 30 Oct 2023 22:32:04 +0100 (CET)
+	id 437D0F8020D; Tue, 31 Oct 2023 03:08:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3AA07F8014B
-	for <alsa-devel@alsa-project.org>; Mon, 30 Oct 2023 22:31:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AA07F8014B
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-3b40d5ea323so3087115b6e.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 30 Oct 2023 14:31:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698701508; x=1699306308;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OuBaURUuWJkEQpbZhWeSxspKPPb+Lr69ekE2ADTt8Wc=;
-        b=ABkSGxSD6ekDZaa9RkGWUaG8/JfAOHCZKv3gQoCGi0Oz+CzDUiWdGXHIPCqfMyXgPk
-         iVJkJw4VnAQ2SUNv9rBnTPIJDylQTn6WDwA0jDrjNypkP7oRIQ2hMxJqoc40pEyd+MLs
-         4IA0/bNzfYjXg7WAkb2XaIgdnHowA2dzXI+xon2hPt2D7AzobaOAkTN4VH+ahuwnv7mn
-         7kDJPktw9UjbdwANTNIOBpfsaUSE/+nVxl9S6F4FaiEBQZdoWk6eQkaCvT0I+hUHt3u1
-         f5ObtufjQKsfNtMUL+MEYL4R3+RcPWqemkM/uAxegfmsvcjflUY0/t5SbF0VUjSlgpO4
-         5XqA==
-X-Gm-Message-State: AOJu0YzUo7hPK+FxOPXN80/WXXBlqmzjYOd6wgwMMS+vKm9yZujly7JD
-	iW8W1ZKl8+t6PkNqSrVlIQ==
-X-Google-Smtp-Source: 
- AGHT+IGKuby//PdBhTBpw28HsYfEui30ghahooRRo1gU9DZgJ7OM+SQsCkxRsIdIYwyzeeSbhBnk8w==
-X-Received: by 2002:a05:6808:1789:b0:3ae:554b:9c97 with SMTP id
- bg9-20020a056808178900b003ae554b9c97mr14084990oib.37.1698701508322;
-        Mon, 30 Oct 2023 14:31:48 -0700 (PDT)
-Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107])
-        by smtp.gmail.com with ESMTPSA id
- e22-20020a05680809b600b003afc33bf048sm1518710oig.2.2023.10.30.14.31.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Oct 2023 14:31:47 -0700 (PDT)
-Received: (nullmailer pid 2495794 invoked by uid 1000);
-	Mon, 30 Oct 2023 21:31:46 -0000
-Date: Mon, 30 Oct 2023 16:31:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Li Yang <leoyang.li@nxp.com>, Herve Codina <herve.codina@bootlin.com>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
-	Qiang Zhao <qiang.zhao@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
- Randy Dunlap <rdunlap@infradead.org>,
-	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	alsa-devel@alsa-project.org, Simon Horman <horms@kernel.org>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v8 00/30] Add support for QMC HDLC, framer infrastructure
- and PEF2256 framer
-Message-ID: <20231030213146.GA2490536-robh@kernel.org>
-References: <20231011061437.64213-1-herve.codina@bootlin.com>
- <20231013164647.7855f09a@kernel.org>
- <20231025170051.27dc83ea@bootlin.com>
- <20231025123215.5caca7d4@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6FEB3F80152
+	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 03:08:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FEB3F80152
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 39V28Bv743735186,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/2.93/5.92) with ESMTPS id 39V28Bv743735186
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 31 Oct 2023 10:08:11 +0800
+Received: from RTEXMBS02.realtek.com.tw (172.21.6.95) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.17; Tue, 31 Oct 2023 10:08:11 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Tue, 31 Oct 2023 10:08:10 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
+ RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
+ 15.01.2375.007; Tue, 31 Oct 2023 10:08:10 +0800
+Content-Type: multipart/mixed;
+	boundary="_000_496805f7ca084e9dbcf7140cbe83ed4brealtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>,
+        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
+	<shumingf@realtek.com>,
+        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
+	<derek.fang@realtek.com>,
+        Jack Yu <jack.yu@realtek.com>
+Subject: [PATCH] ASoC: rt5682s: Add LDO control for dacref
+Thread-Topic: [PATCH] ASoC: rt5682s: Add LDO control for dacref
+Thread-Index: AdoLnxfzq2sgR5TmTQSKtWXvf3qdiQ==
+Date: Tue, 31 Oct 2023 02:08:10 +0000
+Message-ID: <496805f7ca084e9dbcf7140cbe83ed4b@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-TNEF-Correlator: <496805f7ca084e9dbcf7140cbe83ed4b@realtek.com>
+x-originating-ip: [172.22.102.102]
+x-kse-serverinfo: RTEXMBS02.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231025123215.5caca7d4@kernel.org>
-Message-ID-Hash: KY5XVSWYZMWXU2UHNH34327P6UQTLXBS
-X-Message-ID-Hash: KY5XVSWYZMWXU2UHNH34327P6UQTLXBS
-X-MailFrom: robherring2@gmail.com
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: RZVKJBCJCNPGHFDQZRGHGJ7HKFOFJIYZ
+X-Message-ID-Hash: RZVKJBCJCNPGHFDQZRGHGJ7HKFOFJIYZ
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KY5XVSWYZMWXU2UHNH34327P6UQTLXBS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZVKJBCJCNPGHFDQZRGHGJ7HKFOFJIYZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,25 +107,153 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Oct 25, 2023 at 12:32:15PM -0700, Jakub Kicinski wrote:
-> On Wed, 25 Oct 2023 17:00:51 +0200 Herve Codina wrote:
-> > > Which way will those patches go? Via some FSL SoC tree?  
-> > 
-> > This series seems mature now.
-> > What is the plan next in order to have it applied ?
-> > 
-> > Don't hesitate to tell me if you prefer split series.
-> 
-> FWIW we are happy to take the drivers/net/ parts if there is no hard
-> dependency. But there's no point taking that unless the SoC bits
-> also go in for 6.7.
-> 
-> Li Yang, what are your expectations WRT merging this series?
+--_000_496805f7ca084e9dbcf7140cbe83ed4brealtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-I think it is too late for SoC stuff for 6.7. 
+QWRkIExETyBjb250cm9sIGZvciBkYWNyZWYuDQoNClNpZ25lZC1vZmYtYnk6IEphY2sgWXUgPGph
+Y2sueXVAcmVhbHRlay5jb20+DQotLS0NCiBzb3VuZC9zb2MvY29kZWNzL3J0NTY4MnMuYyB8IDEy
+ICsrKysrKysrKysrKw0KIHNvdW5kL3NvYy9jb2RlY3MvcnQ1Njgycy5oIHwgIDMgKysrDQogMiBm
+aWxlcyBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mv
+Y29kZWNzL3J0NTY4MnMuYyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1Njgycy5jDQppbmRleCBjMjYx
+YzMzYzRiZTcuLmMwNTk5NmU4ZmM1YSAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ1
+Njgycy5jDQorKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY4MnMuYw0KQEAgLTEwMTcsNiArMTAx
+NywxNSBAQCBzdGF0aWMgY29uc3QgREVDTEFSRV9UTFZfREJfU0NBTEUoYWRjX3ZvbF90bHYsIC0x
+NzI1LCA3NSwgMCk7DQogc3RhdGljIGNvbnN0IERFQ0xBUkVfVExWX0RCX1NDQUxFKGFkY19ic3Rf
+dGx2LCAwLCAxMjAwLCAwKTsNCiBzdGF0aWMgY29uc3QgREVDTEFSRV9UTFZfREJfU0NBTEUoY2Jq
+X2JzdF90bHYsIC0xMjAwLCAxNTAsIDApOw0KIA0KKy8qIExETyBvdXRwdXQgc2VsZWN0ICovDQor
+c3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBydDU2ODJzX2xkb19vdXRwdXRfc2VsZWN0W10gPSB7
+DQorCSIxLjYwN1YiLCAiMS41ViIsICIxLjQwNlYiLCAiMS43MzFWIg0KK307DQorDQorc3RhdGlj
+IFNPQ19FTlVNX1NJTkdMRV9ERUNMKHJ0NTY4MnNfbGRvX291dHB1dF9lbnVtLCBSVDU2ODJTX0JJ
+QVNfQ1VSX0NUUkxfNywNCisJCQkJUlQ1NjgyU19EVk9fTERPX0RBQ1JFRl9TRlQsIHJ0NTY4MnNf
+bGRvX291dHB1dF9zZWxlY3QpOw0KKw0KKw0KIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250
+cm9sX25ldyBydDU2ODJzX3NuZF9jb250cm9sc1tdID0gew0KIAkvKiBEQUMgRGlnaXRhbCBWb2x1
+bWUgKi8NCiAJU09DX0RPVUJMRV9UTFYoIkRBQzEgUGxheWJhY2sgVm9sdW1lIiwgUlQ1NjgyU19E
+QUMxX0RJR19WT0wsDQpAQCAtMTAzNSw2ICsxMDQ0LDkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBz
+bmRfa2NvbnRyb2xfbmV3IHJ0NTY4MnNfc25kX2NvbnRyb2xzW10gPSB7DQogCS8qIEFEQyBCb29z
+dCBWb2x1bWUgQ29udHJvbCAqLw0KIAlTT0NfRE9VQkxFX1RMVigiU1RPMSBBREMgQm9vc3QgR2Fp
+biBWb2x1bWUiLCBSVDU2ODJTX1NUTzFfQURDX0JPT1NULA0KIAkJUlQ1NjgyU19TVE8xX0FEQ19M
+X0JTVF9TRlQsIFJUNTY4MlNfU1RPMV9BRENfUl9CU1RfU0ZULCAzLCAwLCBhZGNfYnN0X3Rsdiks
+DQorDQorCS8qIExETyBPdXRwdXQgU2VsZWN0IENvbnRyb2wgKi8NCisJU09DX0VOVU0oIkxETyBP
+dXRwdXQgU2VsZWN0IiwgcnQ1Njgyc19sZG9fb3V0cHV0X2VudW0pLA0KIH07DQogDQogLyoqDQpk
+aWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9ydDU2ODJzLmggYi9zb3VuZC9zb2MvY29kZWNz
+L3J0NTY4MnMuaA0KaW5kZXggMWQ3OWQ0MzJkMGQ4Li4wYWU1YTM1ODI1ZjQgMTAwNjQ0DQotLS0g
+YS9zb3VuZC9zb2MvY29kZWNzL3J0NTY4MnMuaA0KKysrIGIvc291bmQvc29jL2NvZGVjcy9ydDU2
+ODJzLmgNCkBAIC0xMjYzLDYgKzEyNjMsOSBAQA0KICNkZWZpbmUgUlQ1NjgyU19KREhfTk9fUExV
+RwkJCSgweDEgPDwgNCkNCiAjZGVmaW5lIFJUNTY4MlNfSkRIX1BMVUcJCQkoMHgwIDw8IDQpDQog
+DQorLyogQmlhcyBjdXJyZW50IGNvbnRyb2wgNyAgKDB4MDExMCkgKi8NCisjZGVmaW5lIFJUNTY4
+MlNfRFZPX0xET19EQUNSRUZfU0ZUCQkJNA0KKw0KIC8qIENoYXJnZSBQdW1wIEludGVybmFsIFJl
+Z2lzdGVyMSAoMHgwMTI1KSAqLw0KICNkZWZpbmUgUlQ1NjgyU19DUF9DTEtfSFBfTUFTSwkJCSgw
+eDMgPDwgNCkNCiAjZGVmaW5lIFJUNTY4MlNfQ1BfQ0xLX0hQXzEwMEtIWgkJKDB4MCA8PCA0KQ0K
+LS0gDQoyLjM0LjENCg0K
 
-I picked up binding patches 6, 7, and 8 because 6 and 7 are the same as 
-an additionalProperties fix I have in my tree. As 8 depends on them, I 
-just picked it up too.
+--_000_496805f7ca084e9dbcf7140cbe83ed4brealtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-Rob
+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
+AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAJdAQAAACgAAABq
+AGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwDlXwEAAAAwAAAAcwBpAHAA
+OgBqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAaDAEAAAAQAAAASgBh
+AGMAawAgAFkAdQAAAB8AHwwBAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4A
+YwBvAG0AAAAfAB4MAQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAAAFoAAAAAAAAAgSsfpL6jEBmd
+bgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBjAGsALgB5AHUAQAByAGUA
+YQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBs
+AHQAZQBrAC4AYwBvAG0AAAALAEA6AQAAAB8AGgABAAAAEgAAAEkAUABNAC4ATgBvAHQAZQAAAAAA
+AwDxPwQEAAALAEA6AQAAAAMA/T+2AwAAAgELMAEAAAAQAAAAjvY3ZLI6D0+0u66EAo07LAMAFwAB
+AAAAQAA5AAAhhhifC9oBQAAIMKUtmxifC9oBCwApAAAAAAAfANk/AQAAAAACAABBAGQAZAAgAEwA
+RABPACAAYwBvAG4AdAByAG8AbAAgAGYAbwByACAAZABhAGMAcgBlAGYALgANAAoADQAKAFMAaQBn
+AG4AZQBkAC0AbwBmAGYALQBiAHkAOgAgAEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUA
+QAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgANAAoALQAtAC0ADQAKACAAcwBvAHUAbgBkAC8AcwBv
+AGMALwBjAG8AZABlAGMAcwAvAHIAdAA1ADYAOAAyAHMALgBjACAAfAAgADEAMgAgACsAKwArACsA
+KwArACsAKwArACsAKwArAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMALwBy
+AHQANQA2ADgAMgBzAC4AaAAgAHwAIAAgADMAIAArACsAKwANAAoAIAAyACAAZgBpAGwAZQBzACAA
+YwBoAGEAbgBnAGUAZAAsACAAMQA1ACAAaQBuAHMAZQByAHQAaQBvAG4AcwAoACsAKQANAAoADQAK
+AGQAaQBmAGYAIAAtAC0AZwBpAHQAIABhAC8AcwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABlAGMA
+cwAvAHIAdAA1ADYAOAAyAHMALgBjACAAYgAvAHMAbwB1AG4AZAAvAHMAbwAAAAsAAIAIIAYAAAAA
+AMAAAAAAAABGAAAAABSFAAABAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAHgAAAGEAYwBjAGUA
+cAB0AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAAABoAAAB6AGgALQBUAFcALAAgAGUAbgAtAFUAUwAA
+AAAAAwAAgAggBgAAAAAAwAAAAAAAAEYBAAAAMgAAAEUAeABjAGgAYQBuAGcAZQBBAHAAcABsAGkA
+YwBhAHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAgAAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAA
+AE4AZQB0AHcAbwByAGsATQBlAHMAcwBhAGcAZQBJAGQAAAAAAE9VrkEYnxFBF8wI29m2O0IfAACA
+E4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAACoAAABD
+AGwAaQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEAbgBnAGUAUgBQAEMAAAAAAB8A+j8BAAAAEAAAAEoA
+YQBjAGsAIABZAHUAAAAfADcAAQAAAGQAAABbAFAAQQBUAEMASABdACAAQQBTAG8AQwA6ACAAcgB0
+ADUANgA4ADIAcwA6ACAAQQBkAGQAIABMAEQATwAgAGMAbwBuAHQAcgBvAGwAIABmAG8AcgAgAGQA
+YQBjAHIAZQBmAAAAHwA9AAEAAAACAAAAAAAAAAMANgAAAAAAAgFxAAEAAAAWAAAAAdoLnxfzq2sg
+R5TmTQSKtWXvf3qdiQAAHwBwAAEAAABkAAAAWwBQAEEAVABDAEgAXQAgAEEAUwBvAEMAOgAgAHIA
+dAA1ADYAOAAyAHMAOgAgAEEAZABkACAATABEAE8AIABjAG8AbgB0AHIAbwBsACAAZgBvAHIAIABk
+AGEAYwByAGUAZgAAAB8ANRABAAAAXgAAADwANAA5ADYAOAAwADUAZgA3AGMAYQAwADgANABlADkA
+ZABiAGMAZgA3ADEANAAwAGMAYgBlADgAMwBlAGQANABiAEAAcgBlAGEAbAB0AGUAawAuAGMAbwBt
+AD4AAAAAAAMA3j+2AwAAAwATEgAAAAACAQCAE4/yQfSDFEGlhO7bWmsL/wEAAAAuAAAASABlAGEA
+ZABlAHIAQgBvAGQAeQBGAHIAYQBnAG0AZQBuAHQATABpAHMAdAAAAAAAAQAAACIAAAABAAoAAAAE
+AAAAAAAAABQAAAAAAAAAAAAAAP////8AAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAcAAAA
+SABhAHMAUQB1AG8AdABlAGQAVABlAHgAdAAAAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAo
+AAAASQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAQwBoAGEAbgBnAGUAZAAAAAAAAABAAAcwl+aNGJ8L
+2gECAQsAAQAAABAAAACO9jdksjoPT7S7roQCjTssAwAmAAAAAAALAAYMAAAAAAIBEDABAAAARgAA
+AAAAAADb6cRKJKDnQZMbKrsrs21MBwBMt30NVaF5RL5zhTli0AClAAAAaWD3AAAyrzgFSrBORoDH
+xzgiug9aAAAB17FLAAAAAAIBEzABAAAAEAAAAKtrIEeU5k0EirVl7396nYkCARQwAQAAAAwAAACp
+AAAAU+VMq0EAAAAfAPg/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAiQAEAAAAGAAAARQBYAAAA
+AAAfACNAAQAAALYAAAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAg
+AEEARABNAEkATgBJAFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8A
+SABGADIAMwBTAFAARABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBV
+AFMARQBSADUAOQA4ADYANQAxADAAOQAAAAAAHwAkQAEAAAAGAAAARQBYAAAAAAAfACVAAQAAALYA
+AAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJ
+AFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAA
+RABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4
+ADYANQAxADAAOQAAAAAAHwAwQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AMUABAAAAEAAAAEoA
+YQBjAGsAIABZAHUAAAAfADhAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA5QAEAAAAQAAAASgBh
+AGMAawAgAFkAdQAAAAMAWUAAAAAAAwBaQAAAAAADAAlZAQAAAB8ACl0BAAAAKAAAAGoAYQBjAGsA
+LgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAAtdAQAAACgAAABqAGEAYwBrAC4AeQB1
+AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAAgB+k6zOoei5Cvnt54amOVLMBAAAAOAAAAEMA
+bwBuAHYAZQByAHMAYQB0AGkAbwBuAEkAbgBkAGUAeABUAHIAYQBjAGsAaQBuAGcARQB4AAAAAQAA
+ACQBAABJAEkAPQBbAEMASQBEAD0ANAA3ADIAMAA2AGIAYQBiAC0AZQA2ADkANAAtADAANAA0AGQA
+LQA4AGEAYgA1AC0ANgA1AGUAZgA3AGYANwBhADkAZAA4ADkAOwBJAEQAWABIAEUAQQBEAD0ARABB
+ADAAQgA5AEYAMQA3AEYAMwA7AEkARABYAEMATwBVAE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBrAG4A
+bwB3AG4AOwBWAGUAcgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8AbgAgADEANQAuADEAIAAoAEIAdQBp
+AGwAZAAgADIAMwA3ADUALgAwACkALAAgAFMAdABhAGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7AEQA
+UAA9ADEAQwA1AAAACwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAADAA00/T8AAB8AAICG
+AwIAAAAAAMAAAAAAAABGAQAAACAAAAB4AC0AbQBzAC0AaABhAHMALQBhAHQAdABhAGMAaAAAAAEA
+AAACAAAAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AbwByAGkAZwBpAG4AYQB0
+AGkAbgBnAC0AaQBwAAAAAAABAAAAIgAAAFsAMQA3ADIALgAyADIALgAxADAAMgAuADEAMAAyAF0A
+AAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AawBzAGUALQBzAGUAcgB2AGUAcgBp
+AG4AZgBvAAAAAAABAAAAOAAAAFIAVABFAFgATQBCAFMAMAAyAC4AcgBlAGEAbAB0AGUAawAuAGMA
+bwBtAC4AdAB3ACwAIAA5AAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAQAAAAHgALQBrAHMAZQAt
+AGEAbgB0AGkAcwBwAGEAbQAtAGkAbgB0AGUAcgBjAGUAcAB0AG8AcgAtAGkAbgBmAG8AAAABAAAA
+EgAAAGYAYQBsAGwAYgBhAGMAawAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAQgAAAHgALQBr
+AHMAZQAtAGEAbgB0AGkAdgBpAHIAdQBzAC0AaQBuAHQAZQByAGMAZQBwAHQAbwByAC0AaQBuAGYA
+bwAAAAAAAQAAABIAAABmAGEAbABsAGIAYQBjAGsAAAAAAD9K
+
+--_000_496805f7ca084e9dbcf7140cbe83ed4brealtekcom_--

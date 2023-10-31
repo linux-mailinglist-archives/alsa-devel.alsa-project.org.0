@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFE5E7DC4E5
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 04:37:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49D1E7DC4E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 04:38:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8358741;
-	Tue, 31 Oct 2023 04:36:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8358741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85D3EAEA;
+	Tue, 31 Oct 2023 04:37:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85D3EAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698723447;
-	bh=/VOyVqf0tgJ2q13GdIHwSQgThxe2dIqstgcGE7oPopU=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=cWxeC/JZEyJp9R31xgVsPZ5FKbON8wyRCXLUqjf2a/i1B0QcT+mNkyLu9F7SHxzA2
-	 uHrjRaOj4eP8KDEwkTIiQ3zwU7YapdBNSrFsD2SCCDnRg070x8pQsA5g4ZjcUTcEMr
-	 n9qNJDLJIO7/gnUzdD8qVxUsFjdON1OjofF/eQPA=
+	s=default; t=1698723487;
+	bh=mqyWP/a3aWf8SI3QLFYwyXHPeBNJdFFJA30mYQ6N7Cw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=k+ImMNRc8HLrhpBRTIlvbIiGscfjKxON69WzLsNpeiIVcmT81Mbgx8p0SGY+kZ7Il
+	 SdgQVFzaclMkhI2VF10POoRijtvLdXMYB3RVTfqZmIMufEKFlx1Lj5+C/tqo/nopRz
+	 k5oOL0ctnWf87nMp12/6ONFoGcQ/hOsS66k63bl8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53E7AF80431; Tue, 31 Oct 2023 04:36:36 +0100 (CET)
+	id A6985F80564; Tue, 31 Oct 2023 04:36:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E19D8F8020D;
-	Tue, 31 Oct 2023 04:36:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76AEAF80567;
+	Tue, 31 Oct 2023 04:36:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2484AF8020D; Tue, 31 Oct 2023 04:36:31 +0100 (CET)
+	id 5B761F80567; Tue, 31 Oct 2023 04:36:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,SUBJ_ALL_CAPS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16F43F800FA
-	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 04:36:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16F43F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9F04F80166
+	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 04:36:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9F04F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=VeOXltWG
-Received: by mail-pl1-x62b.google.com with SMTP id
- d9443c01a7336-1cbf47fa563so40092955ad.2
+ header.s=20230601 header.b=mw4EaNTw
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-1cc3542e328so15514425ad.1
         for <alsa-devel@alsa-project.org>;
- Mon, 30 Oct 2023 20:36:24 -0700 (PDT)
+ Mon, 30 Oct 2023 20:36:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698723382; x=1699328182;
+        d=gmail.com; s=20230601; t=1698723390; x=1699328190;
  darn=alsa-project.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aWelqNZWri17XM8StlRIhzxP3znIHyPsyhbhAnfL98w=;
-        b=VeOXltWGBIgbKYJmgVlPG1MZaB5KXOhXWPrczbNgeCmzi+IDtGnKGm2f5Wh/9hNgo2
-         Dg+xIIUjXrPeE4u5udGD1fP6M8Kqr7AvPmVm7SAGhiD+ia6nRGwHENK87LwDlwPnRRhg
-         GcqON7l6bLonES+LZ6SdtczuTUJu9suW17F/a/LYR6RsAfwBj0Oo+4R/BflULrUXPzXZ
-         J0n7vsUrKqt4ZLqoIcKKK7LnlZrEcfbYHDzA4SsvKuh+gRobyc270Wpux7K8OzrrBuaL
-         N0wOZIRXs9NCpj/NzUAeYkK2TAcsr2IZE4ANZezgu8oGujRORQr+IIeL7HJB2WmaW0cb
-         GX1A==
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ktggobcwrRiz+vWG+/g+5WqejclA28ZT04TYbSsyZgw=;
+        b=mw4EaNTwN7KnZz72OWrPAI4I30GjyC5ZAFkbZX63gMDw25CtG21fQRrl6s0D82P8BV
+         9Mc2f7p/l1enUA6CaCKGcM/t29jq0+cbN56N1bdTzM/NiHS7R7H9ws+A0hJfAY/1+uri
+         K2Wk8dSXmmKGaPvhdUH/BppXncEeuDAjRr1VzGcnAOoJIl0toZbLwiPJHSlFG/gwXgTy
+         I6B2LQTTnA4mCy+6YjAzDuVMf97y4vRBDJbk5OHBq9X8KoXtSY8Iv/zwE66uXP6RFjrq
+         0LrQRl/wkbJu1aLDtYxBhAbWXQZpDgC6ZdSoOpWsXLK25BY19zGFFxiC5GA133r9Gt8L
+         Mg9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698723382; x=1699328182;
-        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aWelqNZWri17XM8StlRIhzxP3znIHyPsyhbhAnfL98w=;
-        b=VwEmHR9lF2oz//oVBDtn4RYq5B3O2vjRtbAXl3eNU7LK8IFXUP8RlS91AFR+q/xGh2
-         3SGIJTPdbv/hlZQrE55ZdqSLIjpWvMu3Q/tvpXgZ1vPFHuxpm1IrrjCT7JuCNwR6bfKQ
-         LbdHFsPHsEoF6X39CMNWy1ECUVCrCbV6Rod7lS5tiYnV6arjZbao4ATbiObvMs8uykIo
-         isk7bsKeX+g6qIMwH/nVcD1R3OB0Xn4XJlz9OEXffBN0FxlgbPpaUGatJXEhMIsXhnPL
-         cv+xqhUzAVduOf1BNoxajzmSp7nXSTUHket4nhiaDPpGO712i2wNP/uY9wuSFKVBNOFu
-         W/7Q==
-X-Gm-Message-State: AOJu0YwUbgjP+jtHM+cxR3bthar9SGGUAxln+ZgcOLPCJMjw6zLSQ/Wp
-	Mu5CMhsg9Yg52MK5KwK9q8LcViTJcqxS3g==
+        d=1e100.net; s=20230601; t=1698723390; x=1699328190;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ktggobcwrRiz+vWG+/g+5WqejclA28ZT04TYbSsyZgw=;
+        b=fi/wLQvNhJ0yzHNd5YAU/Gn2s4rTHsVCSTvbFMUu/RiJLVeO6iBjLdCVktGmmB9t3F
+         6UM3gfeYDA/X59OLQmSDCo6u+1qQcThx7sQflRwJloxN+blBMsoDIhcEYnjnvcuC3fBc
+         8xIrH+8zSsyfpLeF5KPj77XpXnue1NCfHnfzife28neN5ZtYAvvwn0/BoVhH/2Ia97YU
+         zJP7fVpJmUvp34/yt4EEtP1eDEbi6GA32l5T+WmH1n84Tw6Oj8KxIyJaoiaDXGUoxM+g
+         6ahTeBUYNJ5e/6D7hPpCXcmeWfkefrAW3yNxaUU1fyTLFsNvnqt8TFaZ5FqX5Xk7aitf
+         fT+A==
+X-Gm-Message-State: AOJu0YxAFwIeA/Eg4+WbP+a1GXtMYEWkKhrXVy71yrrgDPA5YZGB8Gje
+	AcHB+aoXxDgNfkmVwHdnANPBEfnbIIPi+g==
 X-Google-Smtp-Source: 
- AGHT+IEteBkCYUfJb34xIt8Nge+octGoUzj3yLMPRnzVn8bLXwUV0OSfxyGef9Hkqg3Ytf/7JrkW6w==
-X-Received: by 2002:a17:903:41c4:b0:1cc:4a84:27fc with SMTP id
- u4-20020a17090341c400b001cc4a8427fcmr3638326ple.52.1698723382202;
-        Mon, 30 Oct 2023 20:36:22 -0700 (PDT)
+ AGHT+IGgQO4p16F92ndJf35B/DCxvEe9xvSinpC86g8lkl9Wybt8NagEIpIBeLzXHkGmDZfBGUTE4w==
+X-Received: by 2002:a17:903:2905:b0:1cc:32b7:e5b9 with SMTP id
+ lh5-20020a170903290500b001cc32b7e5b9mr4386741plb.67.1698723390407;
+        Mon, 30 Oct 2023 20:36:30 -0700 (PDT)
 Received: from zy-virtual-machine.localdomain ([116.232.53.74])
         by smtp.gmail.com with ESMTPSA id
- i12-20020a170902eb4c00b001ca2484e87asm224586pli.262.2023.10.30.20.36.17
+ i12-20020a170902eb4c00b001ca2484e87asm224586pli.262.2023.10.30.20.36.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Oct 2023 20:36:21 -0700 (PDT)
+        Mon, 30 Oct 2023 20:36:29 -0700 (PDT)
 From: Zhu Ning <zhuning0077@gmail.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
@@ -92,12 +93,14 @@ Cc: tiwai@suse.com,
 	zhuning@everest-semi.com,
 	zhangyi@everest-semi.com,
 	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH 0/3] 
-Date: Tue, 31 Oct 2023 11:36:07 +0800
-Message-Id: <20231031033610.86433-1-zhuning0077@gmail.com>
+Subject: [PATCH 1/3] ASoC: codecs: ES8326: Add chip version flag
+Date: Tue, 31 Oct 2023 11:36:08 +0800
+Message-Id: <20231031033610.86433-2-zhuning0077@gmail.com>
 X-Mailer: git-send-email 2.17.1
-Message-ID-Hash: 7R2YMGEU5PTFITEZICTWH4EAKRYCEOAD
-X-Message-ID-Hash: 7R2YMGEU5PTFITEZICTWH4EAKRYCEOAD
+In-Reply-To: <20231031033610.86433-1-zhuning0077@gmail.com>
+References: <20231031033610.86433-1-zhuning0077@gmail.com>
+Message-ID-Hash: DKDUTZATL53W2NSPPF4JKPDWVSQUDKWL
+X-Message-ID-Hash: DKDUTZATL53W2NSPPF4JKPDWVSQUDKWL
 X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7R2YMGEU5PTFITEZICTWH4EAKRYCEOAD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DKDUTZATL53W2NSPPF4JKPDWVSQUDKWL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,27 +122,226 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-*** BLURB HERE ***
+    The new chip version requires the addition of a new clock table. A version flag is added
+    to differentiate the clock table from the old chip version. newer versions of the chip have
+    fewer processes to go through in the headset detection, so the version flag is used to skip them.
 
-Hi ,
-
-    3 patches here for the es8326 driver...
-    
-    We developed a new version of the chip. 3 Three patches are used for compatibility with the old and new versions of the chip.
-    The test results from the test department met our expectations
-
-Thanks,
-Zhuning.
-
-Zhu Ning (3):
-  ASoC: codecs: ES8326: Add chip version flag
-  ASoC: codecs: ES8326: Changing initialisation and broadcasting
-  ASoC: codecs: ES8326: Changing the headset detection time
-
- sound/soc/codecs/es8326.c | 219 ++++++++++++++++++++++----------------
- 1 file changed, 127 insertions(+), 92 deletions(-)
+Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
+---
+ sound/soc/codecs/es8326.c | 163 ++++++++++++++++++++++----------------
+ 1 file changed, 95 insertions(+), 68 deletions(-)
  mode change 100644 => 100755 sound/soc/codecs/es8326.c
 
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+old mode 100644
+new mode 100755
+index 6c263086c44d..b390e0b949cc
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -183,6 +183,7 @@ static const struct regmap_config es8326_regmap_config = {
+ };
+ 
+ struct _coeff_div {
++	int version;
+ 	u16 fs;
+ 	u32 rate;
+ 	u32 mclk;
+@@ -199,77 +200,103 @@ struct _coeff_div {
+ /* codec hifi mclk clock divider coefficients */
+ /* {ratio, LRCK, MCLK, REG04, REG05, REG06, REG07, REG08, REG09, REG10, REG11} */
+ static const struct _coeff_div coeff_div[] = {
+-	{32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
+-	{36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
+-	{48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{64, 8000, 512000, 0x60, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{64, 44100, 2822400, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{64, 48000, 3072000, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x23, 0x47},
+-	{96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0x38, 0x08, 0x4f, 0x1f},
+-	{125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{128, 8000, 1024000, 0x60, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{128, 16000, 2048000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{128, 44100, 5644800, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{128, 48000, 6144000, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{256, 8000, 2048000, 0x60, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{256, 44100, 11289600, 0x00, 0x00, 0x10, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{256, 48000, 12288000, 0x00, 0x00, 0x30, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{400, 48000, 19200000, 0x09, 0x04, 0x0f, 0x6d, 0x3a, 0x0A, 0x4F, 0x1F},
+-	{500, 48000, 24000000, 0x18, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{512, 16000, 8192000, 0x20, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{512, 44100, 22579200, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{512, 48000, 24576000, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{1024, 8000, 8192000, 0x60, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-
+-	{1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x5F},
+-	{3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-
++	{3, 32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{3, 32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{3, 32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{3, 36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{3, 48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{0, 64, 8000, 512000, 0x60, 0x01, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
++	{3, 64, 8000, 512000, 0x60, 0x00, 0x35, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{0, 64, 16000, 1024000, 0x20, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{3, 64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++
++	{0, 64, 44100, 2822400, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 64, 44100, 2822400, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{0, 64, 48000, 3072000, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 64, 48000, 3072000, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{3, 100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0xB8, 0x08, 0x4f, 0x1f},
++	{3, 125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
++	{0, 128, 8000, 1024000, 0x60, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{3, 128, 8000, 1024000, 0x60, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{0, 128, 16000, 2048000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{3, 128, 16000, 2048000, 0x20, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++
++	{0, 128, 44100, 5644800, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 128, 44100, 5644800, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{0, 128, 48000, 6144000, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 128, 48000, 6144000, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{0, 192, 32000, 6144000, 0xE0, 0x02, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 192, 32000, 6144000, 0xE0, 0x02, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0xCA, 0x1B, 0x1F, 0x3F},
++	{3, 200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x27, 0x27},
++	{0, 256, 8000, 2048000, 0x60, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{3, 256, 8000, 2048000, 0x60, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{0, 256, 16000, 4096000, 0x20, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{3, 256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++
++	{0, 256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{0, 256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{3, 384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{0, 384, 32000, 12288000, 0xE0, 0x05, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 384, 32000, 12288000, 0xE0, 0x02, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{0, 400, 48000, 19200000, 0xE9, 0x04, 0x0F, 0x6d, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 400, 48000, 19200000, 0xE4, 0x04, 0x35, 0x6d, 0xCA, 0x0A, 0x1F, 0x1F},
++	{0, 500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{0, 512, 8000, 4096000, 0x60, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{3, 512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{0, 512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{3, 512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++
++	{0, 512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{0, 512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{0, 768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{3, 768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{3, 800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{0, 1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{3, 1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{0, 1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{3, 1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{3, 1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{3, 1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++
++	{3, 1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{3, 1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
++	{3, 1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
++	{3, 2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x5F},
++	{3, 3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3, 3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
+ };
+ 
+-static inline int get_coeff(int mclk, int rate)
++static inline int get_coeff(int mclk, int rate, int version)
+ {
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(coeff_div); i++) {
+-		if (coeff_div[i].rate == rate && coeff_div[i].mclk == mclk)
++		if (coeff_div[i].version == version && coeff_div[i].rate == rate
++				&& coeff_div[i].mclk == mclk)
+ 			return i;
+ 	}
+ 
+@@ -337,7 +364,7 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	u8 srate = 0;
+ 	int coeff;
+ 
+-	coeff = get_coeff(es8326->sysclk, params_rate(params));
++	coeff = get_coeff(es8326->sysclk, params_rate(params), es8326->version);
+ 	/* bit size */
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_S16_LE:
+@@ -594,7 +621,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
+ 
+-	if (es8326->jack_remove_retry == 1) {
++	if ((es8326->jack_remove_retry == 1) && (es8326->version != ES8326_VERSION_B)) {
+ 		if (iface & ES8326_HPINSERT_FLAG)
+ 			es8326->jack_remove_retry = 2;
+ 		else
+@@ -628,7 +655,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 		/*
+ 		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
+ 		 */
+-		if (es8326->jack_remove_retry == 0) {
++		if ((es8326->jack_remove_retry == 0) && (es8326->version != ES8326_VERSION_B)) {
+ 			es8326->jack_remove_retry = 1;
+ 			dev_dbg(comp->dev, "remove event check, invert HPJACK_POL, cnt = %d\n",
+ 					es8326->jack_remove_retry);
 -- 
 2.17.1
 

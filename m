@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49D1E7DC4E8
-	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 04:38:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6E47DC4E9
+	for <lists+alsa-devel@lfdr.de>; Tue, 31 Oct 2023 04:38:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85D3EAEA;
-	Tue, 31 Oct 2023 04:37:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85D3EAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5CD9DF6;
+	Tue, 31 Oct 2023 04:37:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5CD9DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698723487;
-	bh=mqyWP/a3aWf8SI3QLFYwyXHPeBNJdFFJA30mYQ6N7Cw=;
+	s=default; t=1698723498;
+	bh=Pb+U6Acg9Qr2+woUyluur7gUK1QU5JgnT8U0eENtokI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=k+ImMNRc8HLrhpBRTIlvbIiGscfjKxON69WzLsNpeiIVcmT81Mbgx8p0SGY+kZ7Il
-	 SdgQVFzaclMkhI2VF10POoRijtvLdXMYB3RVTfqZmIMufEKFlx1Lj5+C/tqo/nopRz
-	 k5oOL0ctnWf87nMp12/6ONFoGcQ/hOsS66k63bl8=
+	b=vqDQJm3KTnInBzAH/shZEmcgxADu2AfrEvIuVyDu+bHjGSALT7FyZ2stKGkr4wgSX
+	 eK6DqvSdRD5YnmOaHm2IZ66OorqyB9wUmaSSw4RuQZOSSW3t3ws1lupbHBVYp1Zb/n
+	 h5Ijxme0aYRndzewgMucCXCLXlXa2sAko3h5aS/8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6985F80564; Tue, 31 Oct 2023 04:36:44 +0100 (CET)
+	id 3FFE6F80587; Tue, 31 Oct 2023 04:36:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76AEAF80567;
-	Tue, 31 Oct 2023 04:36:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8108F8055C;
+	Tue, 31 Oct 2023 04:36:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5B761F80567; Tue, 31 Oct 2023 04:36:41 +0100 (CET)
+	id 14070F8057D; Tue, 31 Oct 2023 04:36:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9F04F80166
-	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 04:36:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9F04F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9A22CF8055C
+	for <alsa-devel@alsa-project.org>; Tue, 31 Oct 2023 04:36:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A22CF8055C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=mw4EaNTw
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-1cc3542e328so15514425ad.1
+ header.s=20230601 header.b=JwgSCwpj
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1cc30bf9e22so21085805ad.1
         for <alsa-devel@alsa-project.org>;
- Mon, 30 Oct 2023 20:36:32 -0700 (PDT)
+ Mon, 30 Oct 2023 20:36:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698723390; x=1699328190;
+        d=gmail.com; s=20230601; t=1698723399; x=1699328199;
  darn=alsa-project.org;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ktggobcwrRiz+vWG+/g+5WqejclA28ZT04TYbSsyZgw=;
-        b=mw4EaNTwN7KnZz72OWrPAI4I30GjyC5ZAFkbZX63gMDw25CtG21fQRrl6s0D82P8BV
-         9Mc2f7p/l1enUA6CaCKGcM/t29jq0+cbN56N1bdTzM/NiHS7R7H9ws+A0hJfAY/1+uri
-         K2Wk8dSXmmKGaPvhdUH/BppXncEeuDAjRr1VzGcnAOoJIl0toZbLwiPJHSlFG/gwXgTy
-         I6B2LQTTnA4mCy+6YjAzDuVMf97y4vRBDJbk5OHBq9X8KoXtSY8Iv/zwE66uXP6RFjrq
-         0LrQRl/wkbJu1aLDtYxBhAbWXQZpDgC6ZdSoOpWsXLK25BY19zGFFxiC5GA133r9Gt8L
-         Mg9g==
+        bh=gpJJnIohFz6vEmYruDEgUewlWDQ8G1djEDuF3UHuYM8=;
+        b=JwgSCwpjZX4syLQNnvJ1pRgLtTzefarExwwuwxq88J1X104Wr0rBZgsVy+uCVrbRxC
+         t15q+SfXdt30XXL1twy8Etsmkap4Pl2wk+J9eBg8/zGSay/MBzyBy+8q0qheR35REzX1
+         IgJ/yftz0QRfI3Q1Ke2SV/BBW7NVPAHb9d7GxFF3vVICEnHzYyVQYyKfuGXef1Co722y
+         3WK3Il/bHRm0vp1KgzOQ6fkow7Zfa+XGT9nbsKy6aYpuQtmy1SgD69GMVBUoA7r3xF3U
+         W2SrBCvVPgJGD7RIfVW8OyTfGxpz+o79sy48eDrMyLMtgcwVTFDEtu4dYCCwcPkG0jDn
+         1CzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698723390; x=1699328190;
+        d=1e100.net; s=20230601; t=1698723399; x=1699328199;
         h=references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ktggobcwrRiz+vWG+/g+5WqejclA28ZT04TYbSsyZgw=;
-        b=fi/wLQvNhJ0yzHNd5YAU/Gn2s4rTHsVCSTvbFMUu/RiJLVeO6iBjLdCVktGmmB9t3F
-         6UM3gfeYDA/X59OLQmSDCo6u+1qQcThx7sQflRwJloxN+blBMsoDIhcEYnjnvcuC3fBc
-         8xIrH+8zSsyfpLeF5KPj77XpXnue1NCfHnfzife28neN5ZtYAvvwn0/BoVhH/2Ia97YU
-         zJP7fVpJmUvp34/yt4EEtP1eDEbi6GA32l5T+WmH1n84Tw6Oj8KxIyJaoiaDXGUoxM+g
-         6ahTeBUYNJ5e/6D7hPpCXcmeWfkefrAW3yNxaUU1fyTLFsNvnqt8TFaZ5FqX5Xk7aitf
-         fT+A==
-X-Gm-Message-State: AOJu0YxAFwIeA/Eg4+WbP+a1GXtMYEWkKhrXVy71yrrgDPA5YZGB8Gje
-	AcHB+aoXxDgNfkmVwHdnANPBEfnbIIPi+g==
+        bh=gpJJnIohFz6vEmYruDEgUewlWDQ8G1djEDuF3UHuYM8=;
+        b=OG2XvOUTBTw/PxBVnq7GVMSkxY0Sj2XUOT3U2En3GgU4RCd7++KzzdaCq2VkXySIqy
+         z0+N43rYoav6x0lAHYu9Tm2Fr2KbDcmSnJQUGeyBnUrt8jbXylmpmLTlXlYMpZkhEJ9Y
+         Z/mn6GvxNpEit4rU4pPS5e4dTr4k56DdFnWoddVrGm05TCozvKx1p+QuiuyRKiSPNa5A
+         zcO5JEkeSlT3GIfvY9f0Uts7C7K117mIaAtSjrb8gQADbqmyxYpVz45+8Xxp+YgjjRAC
+         quhfJOWKIs7sKIIKnRPRw5GxF8NKIt7kEW1qkluUiEvXAPAVNAxze66JwTSSOsF0tjw7
+         iuvw==
+X-Gm-Message-State: AOJu0YxZ4XIJ3OKN+jPKGRDNgD8m54XzKioIBnee49N939FiwEgOtSXR
+	M/jEKw1WsB4pX/MysKnF16qKCb+TmNWLYQ==
 X-Google-Smtp-Source: 
- AGHT+IGgQO4p16F92ndJf35B/DCxvEe9xvSinpC86g8lkl9Wybt8NagEIpIBeLzXHkGmDZfBGUTE4w==
-X-Received: by 2002:a17:903:2905:b0:1cc:32b7:e5b9 with SMTP id
- lh5-20020a170903290500b001cc32b7e5b9mr4386741plb.67.1698723390407;
-        Mon, 30 Oct 2023 20:36:30 -0700 (PDT)
+ AGHT+IGVB09iLs9VGIo2fy8bcpDw7dcF4zfpE0S1YtNfaWp+Px77EwXNe0eIiqoctw7HTnuW9fgIEQ==
+X-Received: by 2002:a17:902:cec4:b0:1cc:5c49:6af8 with SMTP id
+ d4-20020a170902cec400b001cc5c496af8mr2156984plg.25.1698723398830;
+        Mon, 30 Oct 2023 20:36:38 -0700 (PDT)
 Received: from zy-virtual-machine.localdomain ([116.232.53.74])
         by smtp.gmail.com with ESMTPSA id
- i12-20020a170902eb4c00b001ca2484e87asm224586pli.262.2023.10.30.20.36.24
+ i12-20020a170902eb4c00b001ca2484e87asm224586pli.262.2023.10.30.20.36.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Oct 2023 20:36:29 -0700 (PDT)
+        Mon, 30 Oct 2023 20:36:38 -0700 (PDT)
 From: Zhu Ning <zhuning0077@gmail.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
@@ -93,14 +93,15 @@ Cc: tiwai@suse.com,
 	zhuning@everest-semi.com,
 	zhangyi@everest-semi.com,
 	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH 1/3] ASoC: codecs: ES8326: Add chip version flag
-Date: Tue, 31 Oct 2023 11:36:08 +0800
-Message-Id: <20231031033610.86433-2-zhuning0077@gmail.com>
+Subject: [PATCH 2/3] ASoC: codecs: ES8326: Changing initialisation and
+ broadcasting
+Date: Tue, 31 Oct 2023 11:36:09 +0800
+Message-Id: <20231031033610.86433-3-zhuning0077@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20231031033610.86433-1-zhuning0077@gmail.com>
 References: <20231031033610.86433-1-zhuning0077@gmail.com>
-Message-ID-Hash: DKDUTZATL53W2NSPPF4JKPDWVSQUDKWL
-X-Message-ID-Hash: DKDUTZATL53W2NSPPF4JKPDWVSQUDKWL
+Message-ID-Hash: KZATHJYPSAS4HC7OQTP2VPRQGXFBP235
+X-Message-ID-Hash: KZATHJYPSAS4HC7OQTP2VPRQGXFBP235
 X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -113,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DKDUTZATL53W2NSPPF4JKPDWVSQUDKWL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KZATHJYPSAS4HC7OQTP2VPRQGXFBP235/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,226 +123,163 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-    The new chip version requires the addition of a new clock table. A version flag is added
-    to differentiate the clock table from the old chip version. newer versions of the chip have
-    fewer processes to go through in the headset detection, so the version flag is used to skip them.
+New chip versions require new initialisation and playback processes. Changing the initialisation and playback process for better results
 
 Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
 ---
- sound/soc/codecs/es8326.c | 163 ++++++++++++++++++++++----------------
- 1 file changed, 95 insertions(+), 68 deletions(-)
- mode change 100644 => 100755 sound/soc/codecs/es8326.c
+ sound/soc/codecs/es8326.c | 52 ++++++++++++++++++++++-----------------
+ 1 file changed, 29 insertions(+), 23 deletions(-)
 
 diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-old mode 100644
-new mode 100755
-index 6c263086c44d..b390e0b949cc
+index b390e0b949cc..22a797b27a3c 100755
 --- a/sound/soc/codecs/es8326.c
 +++ b/sound/soc/codecs/es8326.c
-@@ -183,6 +183,7 @@ static const struct regmap_config es8326_regmap_config = {
+@@ -132,6 +132,11 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
+ 	SND_SOC_DAPM_PGA("LHPMIX", ES8326_DAC2HPMIX, 7, 0, NULL, 0),
+ 	SND_SOC_DAPM_PGA("RHPMIX", ES8326_DAC2HPMIX, 3, 0, NULL, 0),
+ 
++	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOR Supply", ES8326_HP_CAL,
++			 4, 7, 0, 0),
++	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOL Supply", ES8326_HP_CAL,
++			 0, 7, 0, 0),
++
+ 	SND_SOC_DAPM_OUTPUT("HPOL"),
+ 	SND_SOC_DAPM_OUTPUT("HPOR"),
  };
+@@ -156,6 +161,9 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+ 	{"LHPMIX", NULL, "Left DAC"},
+ 	{"RHPMIX", NULL, "Right DAC"},
  
- struct _coeff_div {
-+	int version;
- 	u16 fs;
- 	u32 rate;
- 	u32 mclk;
-@@ -199,77 +200,103 @@ struct _coeff_div {
- /* codec hifi mclk clock divider coefficients */
- /* {ratio, LRCK, MCLK, REG04, REG05, REG06, REG07, REG08, REG09, REG10, REG11} */
- static const struct _coeff_div coeff_div[] = {
--	{32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
--	{32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
--	{32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
--	{36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
--	{48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
--	{48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
--	{48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{64, 8000, 512000, 0x60, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
--	{64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
--
--	{64, 44100, 2822400, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{64, 48000, 3072000, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x23, 0x47},
--	{72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x23, 0x47},
--	{96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
--	{96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
--	{100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0x38, 0x08, 0x4f, 0x1f},
--	{125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
--	{128, 8000, 1024000, 0x60, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{128, 16000, 2048000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--
--	{128, 44100, 5644800, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{128, 48000, 6144000, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x23, 0x47},
--	{144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x23, 0x47},
--	{192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
--	{192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
--	{200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
--	{256, 8000, 2048000, 0x60, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--
--	{256, 44100, 11289600, 0x00, 0x00, 0x10, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{256, 48000, 12288000, 0x00, 0x00, 0x30, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x23, 0x47},
--	{384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
--	{384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--	{384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{400, 48000, 19200000, 0x09, 0x04, 0x0f, 0x6d, 0x3a, 0x0A, 0x4F, 0x1F},
--	{500, 48000, 24000000, 0x18, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{512, 16000, 8192000, 0x20, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--
--	{512, 44100, 22579200, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{512, 48000, 24576000, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--	{800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
--	{1024, 8000, 8192000, 0x60, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--	{1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--	{1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--
--	{1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
--	{1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
--	{1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
--	{2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x5F},
--	{3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
--	{3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
--
-+	{3, 32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{3, 32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-+	{3, 32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-+	{3, 36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{3, 48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-+	{0, 64, 8000, 512000, 0x60, 0x01, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
-+	{3, 64, 8000, 512000, 0x60, 0x00, 0x35, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{0, 64, 16000, 1024000, 0x20, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-+	{3, 64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{"HPOR", NULL, "HPOR Supply"},
++	{"HPOL", NULL, "HPOL Supply"},
 +
-+	{0, 64, 44100, 2822400, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 64, 44100, 2822400, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{0, 64, 48000, 3072000, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 64, 48000, 3072000, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{3, 100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0xB8, 0x08, 0x4f, 0x1f},
-+	{3, 125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
-+	{0, 128, 8000, 1024000, 0x60, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-+	{3, 128, 8000, 1024000, 0x60, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{0, 128, 16000, 2048000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-+	{3, 128, 16000, 2048000, 0x20, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+
-+	{0, 128, 44100, 5644800, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 128, 44100, 5644800, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{0, 128, 48000, 6144000, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 128, 48000, 6144000, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{0, 192, 32000, 6144000, 0xE0, 0x02, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 192, 32000, 6144000, 0xE0, 0x02, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0xCA, 0x1B, 0x1F, 0x3F},
-+	{3, 200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x27, 0x27},
-+	{0, 256, 8000, 2048000, 0x60, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-+	{3, 256, 8000, 2048000, 0x60, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{0, 256, 16000, 4096000, 0x20, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-+	{3, 256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+
-+	{0, 256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{0, 256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x23, 0x47},
-+	{3, 384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{0, 384, 32000, 12288000, 0xE0, 0x05, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 384, 32000, 12288000, 0xE0, 0x02, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-+	{0, 400, 48000, 19200000, 0xE9, 0x04, 0x0F, 0x6d, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 400, 48000, 19200000, 0xE4, 0x04, 0x35, 0x6d, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{0, 500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{0, 512, 8000, 4096000, 0x60, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-+	{3, 512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{0, 512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-+	{3, 512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+
-+	{0, 512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{0, 512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{0, 768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
-+	{3, 768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
-+	{3, 800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
-+	{0, 1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
-+	{3, 1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{0, 1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
-+	{3, 1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{3, 1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{3, 1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+
-+	{3, 1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
-+	{3, 1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
-+	{3, 1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
-+	{3, 2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x5F},
-+	{3, 3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
-+	{3, 3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
+ 	{"HPOL", NULL, "LHPMIX"},
+ 	{"HPOR", NULL, "RHPMIX"},
  };
+@@ -436,8 +444,8 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
+ 			regmap_write(es8326->regmap, ES8326_HPR_OFFSET_INI, offset_r);
+ 			es8326->calibrated = true;
+ 		}
+-		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa0);
+-		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x80);
++		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
++		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x91);
+ 		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
+ 		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
+ 				ES8326_MUTE_MASK, ~(ES8326_MUTE));
+@@ -457,8 +465,6 @@ static int es8326_set_bias_level(struct snd_soc_component *codec,
+ 		if (ret)
+ 			return ret;
  
--static inline int get_coeff(int mclk, int rate)
-+static inline int get_coeff(int mclk, int rate, int version)
- {
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(coeff_div); i++) {
--		if (coeff_div[i].rate == rate && coeff_div[i].mclk == mclk)
-+		if (coeff_div[i].version == version && coeff_div[i].rate == rate
-+				&& coeff_div[i].mclk == mclk)
- 			return i;
+-		regmap_write(es8326->regmap, ES8326_RESET, 0x9f);
+-		msleep(20);
+ 		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
+ 		regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
+ 		regmap_write(es8326->regmap, ES8326_SDINOUT1_IO,
+@@ -467,19 +473,21 @@ static int es8326_set_bias_level(struct snd_soc_component *codec,
+ 		regmap_write(es8326->regmap, ES8326_PGA_PDN, 0x40);
+ 		regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x00);
+ 		regmap_update_bits(es8326->regmap,  ES8326_CLK_CTL, 0x20, 0x20);
+-		regmap_write(es8326->regmap, ES8326_RESET, ES8326_CSM_ON);
++
++		regmap_update_bits(es8326->regmap, ES8326_RESET,
++				ES8326_CSM_ON, ES8326_CSM_ON);
+ 		break;
+ 	case SND_SOC_BIAS_PREPARE:
+ 		break;
+ 	case SND_SOC_BIAS_STANDBY:
+-		break;
+-	case SND_SOC_BIAS_OFF:
+-		clk_disable_unprepare(es8326->mclk);
+ 		regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x3b);
+ 		regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x00);
+ 		regmap_update_bits(es8326->regmap, ES8326_CLK_CTL, 0x20, 0x00);
+ 		regmap_write(es8326->regmap, ES8326_SDINOUT1_IO, ES8326_IO_INPUT);
+ 		break;
++	case SND_SOC_BIAS_OFF:
++		clk_disable_unprepare(es8326->mclk);
++		break;
  	}
  
-@@ -337,7 +364,7 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
- 	u8 srate = 0;
- 	int coeff;
+ 	return 0;
+@@ -749,13 +757,15 @@ static int es8326_calibrate(struct snd_soc_component *component)
+ 		regmap_write(es8326->regmap, ES8326_CLK_DIV1, 0x01);
+ 		regmap_write(es8326->regmap, ES8326_CLK_DLL, 0x30);
+ 		regmap_write(es8326->regmap, ES8326_CLK_MUX, 0xed);
++		regmap_write(es8326->regmap, ES8326_CLK_DAC_SEL, 0x08);
+ 		regmap_write(es8326->regmap, ES8326_CLK_TRI, 0xc1);
+ 		regmap_write(es8326->regmap, ES8326_DAC_MUTE, 0x03);
+ 		regmap_write(es8326->regmap, ES8326_ANA_VSEL, 0x7f);
+-		regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x33);
++		regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x03);
+ 		regmap_write(es8326->regmap, ES8326_DAC2HPMIX, 0x88);
+-		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x80);
++		usleep_range(15000, 20000);
+ 		regmap_write(es8326->regmap, ES8326_HP_OFFSET_CAL, 0x8c);
++		usleep_range(15000, 20000);
+ 		regmap_write(es8326->regmap, ES8326_RESET, 0xc0);
+ 		usleep_range(15000, 20000);
  
--	coeff = get_coeff(es8326->sysclk, params_rate(params));
-+	coeff = get_coeff(es8326->sysclk, params_rate(params), es8326->version);
- 	/* bit size */
- 	switch (params_format(params)) {
- 	case SNDRV_PCM_FORMAT_S16_LE:
-@@ -594,7 +621,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
- 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
+@@ -788,32 +798,31 @@ static int es8326_resume(struct snd_soc_component *component)
  
--	if (es8326->jack_remove_retry == 1) {
-+	if ((es8326->jack_remove_retry == 1) && (es8326->version != ES8326_VERSION_B)) {
- 		if (iface & ES8326_HPINSERT_FLAG)
- 			es8326->jack_remove_retry = 2;
- 		else
-@@ -628,7 +655,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 		/*
- 		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
- 		 */
--		if (es8326->jack_remove_retry == 0) {
-+		if ((es8326->jack_remove_retry == 0) && (es8326->version != ES8326_VERSION_B)) {
- 			es8326->jack_remove_retry = 1;
- 			dev_dbg(comp->dev, "remove event check, invert HPJACK_POL, cnt = %d\n",
- 					es8326->jack_remove_retry);
+ 	regcache_cache_only(es8326->regmap, false);
+ 	regcache_sync(es8326->regmap);
+-
+ 	/* reset internal clock state */
+ 	regmap_write(es8326->regmap, ES8326_RESET, 0x1f);
+ 	regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x0E);
+ 	usleep_range(10000, 15000);
+-	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0x88);
++	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0xe9);
++	regmap_write(es8326->regmap, ES8326_ANA_MICBIAS, 0x4b);
+ 	/* set headphone default type and detect pin */
+-	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x81);
++	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x83);
+ 	regmap_write(es8326->regmap, ES8326_CLK_RESAMPLE, 0x05);
++	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x30);
+ 
+ 	/* set internal oscillator as clock source of headpone cp */
+-	regmap_write(es8326->regmap, ES8326_CLK_DIV_CPC, 0x84);
++	regmap_write(es8326->regmap, ES8326_CLK_DIV_CPC, 0x89);
+ 	regmap_write(es8326->regmap, ES8326_CLK_CTL, ES8326_CLK_ON);
+ 	/* clock manager reset release */
+ 	regmap_write(es8326->regmap, ES8326_RESET, 0x17);
+ 	/* set headphone detection as half scan mode */
+-	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x08);
++	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x30);
+ 	regmap_write(es8326->regmap, ES8326_PULLUP_CTL, 0x00);
+ 
+ 	/* enable headphone driver */
+ 	regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa7);
+ 	usleep_range(2000, 5000);
+-	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xab);
+-	usleep_range(2000, 5000);
+-	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xbb);
+-	usleep_range(2000, 5000);
++	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xa3);
++	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xb3);
+ 	regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
+ 
+ 	regmap_write(es8326->regmap, ES8326_CLK_INV, 0x00);
+@@ -827,9 +836,6 @@ static int es8326_resume(struct snd_soc_component *component)
+ 	/* set ADC and DAC in low power mode */
+ 	regmap_write(es8326->regmap, ES8326_ANA_LP, 0xf0);
+ 
+-	/* force micbias on */
+-	regmap_write(es8326->regmap, ES8326_ANA_MICBIAS, 0x4f);
+-	regmap_write(es8326->regmap, ES8326_SYS_BIAS, 0x08);
+ 	regmap_write(es8326->regmap, ES8326_ANA_VSEL, 0x7F);
+ 	/* select vdda as micbias source */
+ 	regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x23);
+@@ -857,7 +863,7 @@ static int es8326_resume(struct snd_soc_component *component)
+ 			((es8326->version == ES8326_VERSION_B) ?
+ 			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol) :
+ 			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol | 0x04)));
+-
++	regmap_write(es8326->regmap, ES8326_HP_VOL, 0x11);
+ 	es8326->jack_remove_retry = 0;
+ 	es8326->hp = 0;
+ 	return 0;
 -- 
 2.17.1
 

@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCD307DDD2F
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Nov 2023 08:28:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD767DDD30
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Nov 2023 08:29:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB539F6;
-	Wed,  1 Nov 2023 08:27:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB539F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED34CAE9;
+	Wed,  1 Nov 2023 08:28:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED34CAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698823723;
-	bh=c03BVXby9Pnffb5i10dbdyYNb+ETscQ/VWfHWacY8PU=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=RN5RfEIrRxVO1RV1/ztgijswDQUeBX8MnDM6MRVdZVF1CzzU1KU1AvnLDC7fR0rBk
-	 KbPKb51Adc+4o9ZEV/+BF/jKq4ayQEuoxRWOELidbm2rf1nnD6/3azuKi2nudcPlCD
-	 sCe/Pn5R7rP4jgAropM3wySjUazt8l4dtokGvaOM=
+	s=default; t=1698823754;
+	bh=hQ+ebmEqVvSsdw+XPwg5Sw3JnFosUHHdnYNGWk+uhWs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Rt3XrKCWB4yHCqEvSYpb3C9kBOTn7uYkWM/zgIt0AFygJUs4D01+wdWUJ/dgIqXwb
+	 BkUlS1bfwCsGoUwlbVVhhFVBC1gXp71Gi4ySeTlsBFCHmoPpR7tfiHZ7WrrgCVgvmj
+	 J44Pdl9hg8R5L4xzvxSv08SxdWXAzJdYdxy7FpQ8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B80EDF8014B; Wed,  1 Nov 2023 08:27:32 +0100 (CET)
+	id 21D7DF8055C; Wed,  1 Nov 2023 08:27:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54EFCF8020D;
-	Wed,  1 Nov 2023 08:27:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB725F8055A;
+	Wed,  1 Nov 2023 08:27:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13260F8020D; Wed,  1 Nov 2023 08:27:27 +0100 (CET)
+	id C7C9DF8055B; Wed,  1 Nov 2023 08:27:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 404EFF8014B
-	for <alsa-devel@alsa-project.org>; Wed,  1 Nov 2023 08:27:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 404EFF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5777EF80152
+	for <alsa-devel@alsa-project.org>; Wed,  1 Nov 2023 08:27:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5777EF80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Og+bjtVo
-Received: by mail-pf1-x42c.google.com with SMTP id
- d2e1a72fcca58-6c115026985so3140448b3a.1
+ header.s=20230601 header.b=Lg1VmMh3
+Received: by mail-pf1-x436.google.com with SMTP id
+ d2e1a72fcca58-6b497c8575aso6569885b3a.1
         for <alsa-devel@alsa-project.org>;
- Wed, 01 Nov 2023 00:27:20 -0700 (PDT)
+ Wed, 01 Nov 2023 00:27:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1698823638; x=1699428438;
+        d=gmail.com; s=20230601; t=1698823644; x=1699428444;
  darn=alsa-project.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DKwqo5h4s13sebhxnRbLoY1rW1jT2Dv7hIFO/iV2KV4=;
-        b=Og+bjtVoPPS9KGWyupAQb2UgyOHePfkGYZpUkVtMYKPYTgp7TlVAcMrILPyCPNL1yw
-         5FhZZbBOgOR2dxIbHbJUONGFtZKWw7RTGvQURcT3+z8uZuZkTf2kENJqV7aTVxM/naMW
-         oWtPGQKDAqpTaxk7To8TMJUbBmFIJU+OVTLDNNHoNydU24Mx0zD4HV8vwHI34N09JBli
-         MwovninjRQ6IKvWTbRrpK3/1Ir4iIHECfqSfAa7WCh8v0tSAdwS9KCp4PACh+P9H0L0N
-         5cS0PFBsF/yD9owLm7VgLtaxemXCQHFj1Nt+pS1sF4c6BfNWWe65MGrvEa3UEQvjTuVV
-         6QdA==
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yW1g4mJqbaVJT0L+szhwxxK5mfCCJlpYz5FkEXBjyKQ=;
+        b=Lg1VmMh3QAZfkYuLIVoOsrK2v06URtT8SN8KJERrjjjr9dgiDsGd3pgMW3+PY41cMH
+         x0ppv9VhgXdBsSWEewk/jx1Yr6/ZkkEqFsgnm1O1Am4FGfOT6fGhoxBo3TAHWpE2TnGo
+         S42rojHmUhA5q32l1Dk4sMe1M2czbYFi3CbxPOZnWlf3RxtQYWLzY6rxgIN0R+GQR1b0
+         6hwx1XjvQ2ZQO5TE86keRKSsFMSHfpBH4HNc5tdzLcxuPsMoyOZFnHeyJu7FamIU/fTs
+         koD04/RNcaaTN25CFXYw63dSzrVXwkA3SMJEyHmGQTrxHv1nrTE6RnwuwoqxwV264owp
+         6aiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698823638; x=1699428438;
-        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DKwqo5h4s13sebhxnRbLoY1rW1jT2Dv7hIFO/iV2KV4=;
-        b=rBeirXhvXW+k4YlN/N/oSCA8ydxTOqovE7H4C8hxjVRqzwqAiveVuL7FvMoMZbCd3c
-         TUKJKlrSd7RlFkTBUDDgp7xoJgyrtkZbgyu7lYlEyzOQqQx+Ry7nGuHw1SmSEjKpvMJe
-         CDOyump9iiwTFG6WVCRMDbe/MVfjUgHAPyDdoQy+T0WWUPmPkKqIV2Mj9/nXnB/GU7IP
-         JirkXS73nr5jeqv0OG/RU2gngFcHtj9g/W+pz0LfYzXqs4KROl5rLlg7xRpHBDZXph8t
-         77+Oenc/PlsWwQGg4bXuJCMy9X7KZML+sKY5E4dT4uzGTBr9DyO+awR71/yx6umOuNyR
-         525w==
-X-Gm-Message-State: AOJu0YxkFAxh/U06fxQccDLNwnpzoO8UmVoc68ttCTO25DQk9OwH5AaG
-	HwVJ1nz0cl/28bTwo42OggzbesNTJLkIig==
+        d=1e100.net; s=20230601; t=1698823644; x=1699428444;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yW1g4mJqbaVJT0L+szhwxxK5mfCCJlpYz5FkEXBjyKQ=;
+        b=L9K8yeb57ZodFYVIyDEhzQbT1agvyKrYyfMYJK5UBwUsEgaZ6M2/zgK3+oZF6LcJIh
+         BfEAh7Z2AmB4X8C5Q6kLlAIZqjalapVA694QnhFP2vn7PvzxCNBBnBC1qIELYimLqNop
+         Eqm23MM2XmyAiXzU/dlzJZQUNI4OfZrFH99Zr2IIs7Z0WYpA13/ZvXIkT6CcPNxmuF/g
+         IF8QBc1969aYS+OVvpgxbXIrwOYpyHzffQ8yrAS7blMdWCqMvfRUpoNR42cizxs55cUR
+         /BrcnCYGWgkeb5cxi2yK9HNCE8j+Pb9z+wvLKowAOJxTk0cHrUHLc+CPLKzinnHA5K6s
+         XDUw==
+X-Gm-Message-State: AOJu0YxPWYv5bHjEz6kxqy0KxTZ75NngQ82P9Bg6SDM7lHcWNAHSAmr3
+	uBvVBguTgDzPkoI2TGjlG9Qus0Im2lyJPg==
 X-Google-Smtp-Source: 
- AGHT+IHKD4QFEiYEKdIZJnzj/ef4E0Lt5Pjvt0dsZxp1Wa6LbTcfTdGdXLYmQLqpcpWKiA6Ka11cKA==
-X-Received: by 2002:a05:6a20:4924:b0:17b:2c56:70b8 with SMTP id
- ft36-20020a056a20492400b0017b2c5670b8mr13744016pzb.22.1698823636920;
-        Wed, 01 Nov 2023 00:27:16 -0700 (PDT)
+ AGHT+IHBeNaQViqYpCPOtP+wSUqD0tYfa5cpMCdJvK+uyVFgIm+XY9sQtiZrQly2z5nR77mxqC9Y5g==
+X-Received: by 2002:a05:6a00:218d:b0:6b2:5992:9e89 with SMTP id
+ h13-20020a056a00218d00b006b259929e89mr17599267pfi.9.1698823644254;
+        Wed, 01 Nov 2023 00:27:24 -0700 (PDT)
 Received: from zy-virtual-machine.localdomain ([116.232.53.74])
         by smtp.gmail.com with ESMTPSA id
- t23-20020aa78f97000000b0068ff0a633fdsm686124pfs.131.2023.11.01.00.27.08
+ t23-20020aa78f97000000b0068ff0a633fdsm686124pfs.131.2023.11.01.00.27.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Nov 2023 00:27:16 -0700 (PDT)
+        Wed, 01 Nov 2023 00:27:24 -0700 (PDT)
 From: Zhu Ning <zhuning0077@gmail.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
@@ -92,12 +93,14 @@ Cc: tiwai@suse.com,
 	zhuning@everest-semi.com,
 	zhangyi@everest-semi.com,
 	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH v1 0/3] ASoC: codecs: ES8326
-Date: Wed,  1 Nov 2023 15:26:59 +0800
-Message-Id: <20231101072702.91316-1-zhuning0077@gmail.com>
+Subject: [PATCH v1 1/3] ASoC: codecs: ES8326: Add chip version flag
+Date: Wed,  1 Nov 2023 15:27:00 +0800
+Message-Id: <20231101072702.91316-2-zhuning0077@gmail.com>
 X-Mailer: git-send-email 2.17.1
-Message-ID-Hash: PDSYWV6QFOF7FVL7TPDYRZG4RO6EIPAG
-X-Message-ID-Hash: PDSYWV6QFOF7FVL7TPDYRZG4RO6EIPAG
+In-Reply-To: <20231101072702.91316-1-zhuning0077@gmail.com>
+References: <20231101072702.91316-1-zhuning0077@gmail.com>
+Message-ID-Hash: YG27YQSQR4XYB63JKL5NLVRTJDSDSEVB
+X-Message-ID-Hash: YG27YQSQR4XYB63JKL5NLVRTJDSDSEVB
 X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PDSYWV6QFOF7FVL7TPDYRZG4RO6EIPAG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG27YQSQR4XYB63JKL5NLVRTJDSDSEVB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,28 +122,244 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi ,
+    The new chip version requires the addition of a new clock table.
+    We determine which clock table to choose based on the version.
+    Newer versions of the chip have fewer processes to go through
+    in the headset detection, so the version flag is used to skip them.
 
-    3 patches here for the es8326 driver...
-    
-    We developed a new version of the chip. 3 Three patches are used for 
-    compatibility with the old and new versions of the chip.We did tests 
-    with the new driver at version_v0 and version_v3.The test results
-    from the test department met our expectations.Both versions work well 
-    with the new drivers.
-
-Thanks,
-Zhuning.
-
-Zhu Ning (3):
-  ASoC: codecs: ES8326: Add chip version flag
-  ASoC: codecs: ES8326: Changing initialisation and broadcasting
-  ASoC: codecs: ES8326: Changing the headset detection time
-
- sound/soc/codecs/es8326.c | 231 +++++++++++++++++++++++---------------
- 1 file changed, 139 insertions(+), 92 deletions(-)
+Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
+---
+ sound/soc/codecs/es8326.c | 176 +++++++++++++++++++++++---------------
+ 1 file changed, 108 insertions(+), 68 deletions(-)
  mode change 100644 => 100755 sound/soc/codecs/es8326.c
 
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+old mode 100644
+new mode 100755
+index 6c263086c44d..7400c3d8af23
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -198,77 +198,108 @@ struct _coeff_div {
+ 
+ /* codec hifi mclk clock divider coefficients */
+ /* {ratio, LRCK, MCLK, REG04, REG05, REG06, REG07, REG08, REG09, REG10, REG11} */
+-static const struct _coeff_div coeff_div[] = {
+-	{32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
+-	{36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x23, 0x47},
+-	{48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{64, 8000, 512000, 0x60, 0x00, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{64, 44100, 2822400, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{64, 48000, 3072000, 0x00, 0x00, 0x11, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x0A, 0x1B, 0x23, 0x47},
+-	{96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0x38, 0x08, 0x4f, 0x1f},
+-	{125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{128, 8000, 1024000, 0x60, 0x00, 0x13, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{128, 16000, 2048000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{128, 44100, 5644800, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{128, 48000, 6144000, 0x00, 0x00, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{256, 8000, 2048000, 0x60, 0x00, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{256, 44100, 11289600, 0x00, 0x00, 0x10, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{256, 48000, 12288000, 0x00, 0x00, 0x30, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x23, 0x47},
+-	{384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{400, 48000, 19200000, 0x09, 0x04, 0x0f, 0x6d, 0x3a, 0x0A, 0x4F, 0x1F},
+-	{500, 48000, 24000000, 0x18, 0x04, 0x1F, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{512, 16000, 8192000, 0x20, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-
+-	{512, 44100, 22579200, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{512, 48000, 24576000, 0x00, 0x00, 0x00, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x0A, 0x0A, 0x1F, 0x1F},
+-	{1024, 8000, 8192000, 0x60, 0x00, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++static const struct _coeff_div coeff_div_v0[] = {
++	{64, 8000, 512000, 0x60, 0x01, 0x0F, 0x75, 0x0A, 0x1B, 0x1F, 0x7F},
++	{64, 16000, 1024000, 0x20, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{64, 44100, 2822400, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{64, 48000, 3072000, 0xE0, 0x00, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{128, 8000, 1024000, 0x60, 0x00, 0x33, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{128, 16000, 2048000, 0x20, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{128, 44100, 5644800, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{128, 48000, 6144000, 0xE0, 0x01, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++
++	{192, 32000, 6144000, 0xE0, 0x02, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{256, 8000, 2048000, 0x60, 0x00, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{256, 16000, 4096000, 0x20, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{384, 32000, 12288000, 0xE0, 0x05, 0x03, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{400, 48000, 19200000, 0xE9, 0x04, 0x0F, 0x6d, 0x4A, 0x0A, 0x1F, 0x1F},
++
++	{500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{512, 8000, 4096000, 0x60, 0x01, 0x03, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
++	{512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
++	{512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0x4A, 0x0A, 0x1F, 0x1F},
++	{1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+ 	{1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-
+-	{1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x3F},
+-	{1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
+-	{2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x5F},
+-	{3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x0A, 0x1B, 0x1F, 0x7F},
+-	{3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x0A, 0x0A, 0x27, 0x27},
++};
+ 
++static const struct _coeff_div coeff_div_v3[] = {
++	{32, 8000, 256000, 0x60, 0x00, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{32, 16000, 512000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{32, 44100, 1411200, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{32, 48000, 1536000, 0x00, 0x00, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++	{36, 8000, 288000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
++	{36, 16000, 576000, 0x20, 0x00, 0x0D, 0x75, 0x8A, 0x1B, 0x23, 0x47},
++	{48, 8000, 384000, 0x60, 0x02, 0x1F, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{48, 16000, 768000, 0x20, 0x02, 0x0F, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{48, 48000, 2304000, 0x00, 0x02, 0x0D, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++
++	{64, 8000, 512000, 0x60, 0x00, 0x35, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{64, 16000, 1024000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{64, 44100, 2822400, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{64, 48000, 3072000, 0xE0, 0x00, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{72, 8000, 576000, 0x20, 0x00, 0x13, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{72, 16000, 1152000, 0x20, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x23, 0x47},
++	{96, 8000, 768000, 0x60, 0x02, 0x1D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{96, 16000, 1536000, 0x20, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x3F},
++	{100, 48000, 4800000, 0x04, 0x04, 0x3F, 0x6D, 0xB8, 0x08, 0x4f, 0x1f},
++	{125, 48000, 6000000, 0x04, 0x04, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
++
++	{128, 8000, 1024000, 0x60, 0x00, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{128, 16000, 2048000, 0x20, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{128, 44100, 5644800, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{128, 48000, 6144000, 0xE0, 0x00, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{144, 8000, 1152000, 0x20, 0x00, 0x03, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{144, 16000, 2304000, 0x20, 0x00, 0x11, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{192, 8000, 1536000, 0x60, 0x02, 0x0D, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{192, 32000, 6144000, 0xE0, 0x02, 0x31, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{192, 16000, 3072000, 0x20, 0x02, 0x05, 0x75, 0xCA, 0x1B, 0x1F, 0x3F},
++
++	{200, 48000, 9600000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{250, 48000, 12000000, 0x04, 0x04, 0x0F, 0x2D, 0xCA, 0x0A, 0x27, 0x27},
++	{256, 8000, 2048000, 0x60, 0x00, 0x31, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{256, 16000, 4096000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{256, 44100, 11289600, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{256, 48000, 12288000, 0xE0, 0x00, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{288, 8000, 2304000, 0x20, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x23, 0x47},
++	{384, 8000, 3072000, 0x60, 0x02, 0x05, 0x75, 0x8A, 0x1B, 0x1F, 0x7F},
++	{384, 16000, 6144000, 0x20, 0x02, 0x03, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{384, 32000, 12288000, 0xE0, 0x02, 0x01, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{384, 48000, 18432000, 0x00, 0x02, 0x01, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++
++	{400, 48000, 19200000, 0xE4, 0x04, 0x35, 0x6d, 0xCA, 0x0A, 0x1F, 0x1F},
++	{500, 48000, 24000000, 0xF8, 0x04, 0x3F, 0x6D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{512, 8000, 4096000, 0x60, 0x00, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{512, 16000, 8192000, 0x20, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{512, 44100, 22579200, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{512, 48000, 24576000, 0xE0, 0x00, 0x00, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{768, 8000, 6144000, 0x60, 0x02, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{768, 16000, 12288000, 0x20, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{768, 32000, 24576000, 0xE0, 0x02, 0x30, 0x2D, 0xCA, 0x0A, 0x1F, 0x1F},
++	{800, 48000, 38400000, 0x00, 0x18, 0x13, 0x2D, 0x8A, 0x0A, 0x1F, 0x1F},
++
++	{1024, 8000, 8192000, 0x60, 0x00, 0x30, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{1024, 16000, 16384000, 0x20, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{1152, 16000, 18432000, 0x20, 0x08, 0x11, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{1536, 8000, 12288000, 0x60, 0x02, 0x01, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{1536, 16000, 24576000, 0x20, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x3F},
++	{1625, 8000, 13000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
++	{1625, 16000, 26000000, 0x0C, 0x18, 0x1F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
++	{2048, 8000, 16384000, 0x60, 0x00, 0x00, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{2304, 8000, 18432000, 0x40, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x5F},
++	{3072, 8000, 24576000, 0x60, 0x02, 0x10, 0x35, 0x8A, 0x1B, 0x1F, 0x7F},
++	{3250, 8000, 26000000, 0x0C, 0x18, 0x0F, 0x2D, 0x8A, 0x0A, 0x27, 0x27},
+ };
+ 
+-static inline int get_coeff(int mclk, int rate)
++static inline int get_coeff(int mclk, int rate, int array,
++				const struct _coeff_div *coeff_div)
+ {
+ 	int i;
+ 
+-	for (i = 0; i < ARRAY_SIZE(coeff_div); i++) {
++	for (i = 0; i < array; i++) {
+ 		if (coeff_div[i].rate == rate && coeff_div[i].mclk == mclk)
+ 			return i;
+ 	}
+@@ -276,6 +307,7 @@ static inline int get_coeff(int mclk, int rate)
+ 	return -EINVAL;
+ }
+ 
++
+ static int es8326_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+ 				 int clk_id, unsigned int freq, int dir)
+ {
+@@ -333,11 +365,19 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_soc_dai *dai)
+ {
+ 	struct snd_soc_component *component = dai->component;
++	const struct _coeff_div *coeff_div;
+ 	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
+ 	u8 srate = 0;
+-	int coeff;
++	int coeff, array;
+ 
+-	coeff = get_coeff(es8326->sysclk, params_rate(params));
++	if (es8326->version == 0) {
++		coeff_div =  coeff_div_v0;
++		array = ARRAY_SIZE(coeff_div_v0);
++	} else {
++		coeff_div =  coeff_div_v3;
++		array = ARRAY_SIZE(coeff_div_v3);
++	}
++	coeff = get_coeff(es8326->sysclk, params_rate(params), array, coeff_div);
+ 	/* bit size */
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_S16_LE:
+@@ -594,7 +634,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
+ 
+-	if (es8326->jack_remove_retry == 1) {
++	if ((es8326->jack_remove_retry == 1) && (es8326->version != ES8326_VERSION_B)) {
+ 		if (iface & ES8326_HPINSERT_FLAG)
+ 			es8326->jack_remove_retry = 2;
+ 		else
+@@ -628,7 +668,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 		/*
+ 		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
+ 		 */
+-		if (es8326->jack_remove_retry == 0) {
++		if ((es8326->jack_remove_retry == 0) && (es8326->version != ES8326_VERSION_B)) {
+ 			es8326->jack_remove_retry = 1;
+ 			dev_dbg(comp->dev, "remove event check, invert HPJACK_POL, cnt = %d\n",
+ 					es8326->jack_remove_retry);
 -- 
 2.17.1
 

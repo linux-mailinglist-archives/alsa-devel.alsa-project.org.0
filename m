@@ -2,138 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CFB17DDCC3
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Nov 2023 07:39:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCD307DDD2F
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Nov 2023 08:28:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0C18A4B;
-	Wed,  1 Nov 2023 07:38:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0C18A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB539F6;
+	Wed,  1 Nov 2023 08:27:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB539F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698820763;
-	bh=b72sSb1Y2+cwRAxYI0HPae0EzX7PnQVK/XPRNczEyfo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=D4QwnqPulq5w/pgD8XX+syBMBGNjbHVw4XLrxITI99tpSYUKDkdAcwvmnusQkpPvP
-	 q4VZ4OoNp7h1ZXRnGftEvh3JTNCGcfYM2Xp+tGuWhXRi5Tkbhjkw50Ga5kYP51L7gB
-	 Ax8wBO6DkXkzQ9fXtiVnyyKlckM53x758cxM8vdo=
+	s=default; t=1698823723;
+	bh=c03BVXby9Pnffb5i10dbdyYNb+ETscQ/VWfHWacY8PU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=RN5RfEIrRxVO1RV1/ztgijswDQUeBX8MnDM6MRVdZVF1CzzU1KU1AvnLDC7fR0rBk
+	 KbPKb51Adc+4o9ZEV/+BF/jKq4ayQEuoxRWOELidbm2rf1nnD6/3azuKi2nudcPlCD
+	 sCe/Pn5R7rP4jgAropM3wySjUazt8l4dtokGvaOM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 295E9F80563; Wed,  1 Nov 2023 07:37:49 +0100 (CET)
+	id B80EDF8014B; Wed,  1 Nov 2023 08:27:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC2ABF8055B;
-	Wed,  1 Nov 2023 07:37:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54EFCF8020D;
+	Wed,  1 Nov 2023 08:27:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DEFFCF80290; Wed,  1 Nov 2023 07:35:56 +0100 (CET)
+	id 13260F8020D; Wed,  1 Nov 2023 08:27:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01hn2228.outbound.protection.outlook.com [52.100.0.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E4788F8020D
-	for <alsa-devel@alsa-project.org>; Wed,  1 Nov 2023 07:35:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4788F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 404EFF8014B
+	for <alsa-devel@alsa-project.org>; Wed,  1 Nov 2023 08:27:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 404EFF8014B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
- header.s=selector1 header.b=TxIxzSzr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XFWDSO82lGqKvbtFWDXbIwlr5e0cpk0qawjzwiFZ0E72Wphb9NmvBbDkOmzTt+NoquODVR4F0x0QPkt1aacQ9Rbyk3euUCAZSDcmuugyDfiQ08FkFtOk0iKinB3G9PHdmgV1wNDexmxIyxxPJZyD1imJTMZPWCq9SI6tkvCUhEiyT4AK7G327KXzR/yrpzBeEbjiBiFjN1UajbHQ1xmv7PY3uaOe86UEnKw+ZiKznxquDf8Wo8TksKKdI436F9Nah8BEJVMvPypUPxvpg/NTUc/+NLKOqsI3Ndzjln+2Go5L1QNBr+wyNstzcH4FJnOvynKHHsqc6XbooPaYypu88Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VcaICetR5lyEKj6pIUQJ2asUqjV4ZwfHDhAFVDFV/yA=;
- b=ecMEr9RMVi9PbsoJp83TFiFTeNBX/lgp4/pxyYEBsanvhSTpcBKJzjmQkQfarHPSiIALdQwf5fp6liADdDJzL0iHKqVd7lFYRKfWyvJFKtY+3A7vWeV2raFA3X1v3Is+F+tq7k/y6DWoRp6V3bvBzKT2kthMHSWJ9UFafey0F7WBx/5siLpvssc30D4Pnq0/afftaXjI58UPEXvFzIv4fOhPwIOXAN3Ggj6RMIL67+bxdpOWSKDSOkvY1lSSnbsNnpS+kxhgoawJduJxew8fXg0iC232CmANxtt2smDj7P64J0qwmVBoGx170/T/1u8dU/500UU99nIwzPfC3G3j/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VcaICetR5lyEKj6pIUQJ2asUqjV4ZwfHDhAFVDFV/yA=;
- b=TxIxzSzrJvGMlRT0p1zwR6Ztt/DgVdUbqVg2MydSb99LBSnbd4ig8oEgKWFRsBFXWgEBvfegNwa5ebj24PQn7sO+Ai1V4riqKFSYXiycxU2bKUzYITIb+Ksfl8LtoAuOlI92DLMEpd/dG1aqYgRW7MXSdTu3lor59xljEo9VtCg=
-Received: from SG2PR06CA0205.apcprd06.prod.outlook.com (2603:1096:4:68::13) by
- SEZPR03MB8208.apcprd03.prod.outlook.com (2603:1096:101:19f::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6933.26; Wed, 1 Nov 2023 06:35:30 +0000
-Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
- (2603:1096:4:68:cafe::29) by SG2PR06CA0205.outlook.office365.com
- (2603:1096:4:68::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.29 via Frontend
- Transport; Wed, 1 Nov 2023 06:35:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
- smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nuvoton.com;
-Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
- 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
- client-ip=175.98.123.7; helo=NTHCCAS04.nuvoton.com; pr=C
-Received: from NTHCCAS04.nuvoton.com (175.98.123.7) by
- SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 06:35:30 +0000
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Wed, 1
- Nov 2023 14:35:18 +0800
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 1 Nov
- 2023 14:35:17 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 1 Nov 2023 14:35:17 +0800
-From: Seven Lee <wtli@nuvoton.com>
-To: <broonie@kernel.org>
-CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<robh+dt@kernel.org>, <conor+dt@kernel.org>, <YHCHuang@nuvoton.com>,
-	<KCHSU0@nuvoton.com>, <CTLIN0@nuvoton.com>, <SJLIN0@nuvoton.com>,
-	<wtli@nuvoton.com>, <scott6986@gmail.com>, <supercraig0719@gmail.com>,
-	<dardar923@gmail.com>
-Subject: [PATCH v3 2/2] ASoC: nau8821: Add slew rate controls.
-Date: Wed, 1 Nov 2023 14:35:14 +0800
-Message-ID: <20231101063514.666754-3-wtli@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231101063514.666754-1-wtli@nuvoton.com>
-References: <20231101063514.666754-1-wtli@nuvoton.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|SEZPR03MB8208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bc017f8-2af8-41fe-f523-08dbdaa4be51
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	+Wi2A7PkDZk815I4cc1xCinNu78xRMA72et1mHFXwHdHHbSRxiy4FWOabThFnszq5LX1saSGgAsdhu18B5fifYPwyL+LMw18LAPZ21ZrVnya4CU4N3aAShYUSRvyMFnxs6A/u9yzbXnpFZ0sM6LEM6PUnr4cccsdm/Vx49STrrokBm5rx6dHIHwomlurx9/kdMJhQ0V+CBlZ3LclTeMcZsiD5NTIAnvBisvhpxbxaqNiQboBaFew2KBGCvnpKuLV67ABEfpASge85EYgGF0BfFARti12mTxA4MhC6yD3544GBeKy+oQJRAKDw3ZZOYUYueK0WB1rk9e0Nmnqfhp4WGqdv7cgYUX8eJDxqe5jpiG8sRjdBlZSmW9k7jqBtfnoN36v+kuPaZ/j6Z7FfJDs6N6qeT5mNSruc2VdQpGlb6A1xm/mdM4zXXpbb4T8OM8/8I9KJOYOreEeTjgCvcHbmEU41g7Nmo3hrJPCUbznuz3g40PPYsG+5jJoA/Lpn/7MzPvtvWwVo/DJKf6yM4jjeduD5+rTQhKYCYOCt6fXZ1Ze1xNu9NONPxruB743n+N4E2VTwp/y3MdMx0EVQrfKkl/dGYlwbLfYdgBjYJOtz+9CVXnRxhch3zwqabonVRaQ/58E7YwRm2z5VonroZDDbRGdzVmP0ysuDQTKgUf1fhHDmi1mdWbZu1nqP83PptAMAoTEGwbLze7tqoHdFvsjEIvuGE9dWLYT5lOO3et6aoqx1s3PxlTfsmDMgrY0knGzAAGVifmvfmaAVOsFO0kodcMDlvw4b6Am+JlSDx7lEGlB63VZM2LW5Us7MdcnpTL58j0TXOEAq8/7ybs8PKRVFa0Pi/fP8fw/Q6jkaxmwJ+8=
-X-Forefront-Antispam-Report: 
-	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS04.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(136003)(376002)(346002)(230922051799003)(186009)(1800799009)(5400799018)(82310400011)(64100799003)(451199024)(46966006)(36840700001)(40470700004)(34020700004)(36860700001)(6916009)(54906003)(316002)(41300700001)(47076005)(8936002)(82740400003)(8676002)(86362001)(70586007)(70206006)(2906002)(4326008)(478600001)(40480700001)(81166007)(426003)(7416002)(336012)(5660300002)(356005)(36756003)(40460700003)(1076003)(83380400001)(26005)(2616005)(6666004)(12100799048);DIR:OUT;SFP:1501;
-X-OriginatorOrg: nuvoton.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 06:35:30.4341
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 2bc017f8-2af8-41fe-f523-08dbdaa4be51
-X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS04.nuvoton.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	SG2PEPF000B66D0.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB8208
-Message-ID-Hash: 5INDCD2ECEGNUBWAH6NFCAPKDMUSL4BZ
-X-Message-ID-Hash: 5INDCD2ECEGNUBWAH6NFCAPKDMUSL4BZ
-X-MailFrom: WTLI@nuvoton.com
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=Og+bjtVo
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-6c115026985so3140448b3a.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 01 Nov 2023 00:27:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698823638; x=1699428438;
+ darn=alsa-project.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DKwqo5h4s13sebhxnRbLoY1rW1jT2Dv7hIFO/iV2KV4=;
+        b=Og+bjtVoPPS9KGWyupAQb2UgyOHePfkGYZpUkVtMYKPYTgp7TlVAcMrILPyCPNL1yw
+         5FhZZbBOgOR2dxIbHbJUONGFtZKWw7RTGvQURcT3+z8uZuZkTf2kENJqV7aTVxM/naMW
+         oWtPGQKDAqpTaxk7To8TMJUbBmFIJU+OVTLDNNHoNydU24Mx0zD4HV8vwHI34N09JBli
+         MwovninjRQ6IKvWTbRrpK3/1Ir4iIHECfqSfAa7WCh8v0tSAdwS9KCp4PACh+P9H0L0N
+         5cS0PFBsF/yD9owLm7VgLtaxemXCQHFj1Nt+pS1sF4c6BfNWWe65MGrvEa3UEQvjTuVV
+         6QdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698823638; x=1699428438;
+        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DKwqo5h4s13sebhxnRbLoY1rW1jT2Dv7hIFO/iV2KV4=;
+        b=rBeirXhvXW+k4YlN/N/oSCA8ydxTOqovE7H4C8hxjVRqzwqAiveVuL7FvMoMZbCd3c
+         TUKJKlrSd7RlFkTBUDDgp7xoJgyrtkZbgyu7lYlEyzOQqQx+Ry7nGuHw1SmSEjKpvMJe
+         CDOyump9iiwTFG6WVCRMDbe/MVfjUgHAPyDdoQy+T0WWUPmPkKqIV2Mj9/nXnB/GU7IP
+         JirkXS73nr5jeqv0OG/RU2gngFcHtj9g/W+pz0LfYzXqs4KROl5rLlg7xRpHBDZXph8t
+         77+Oenc/PlsWwQGg4bXuJCMy9X7KZML+sKY5E4dT4uzGTBr9DyO+awR71/yx6umOuNyR
+         525w==
+X-Gm-Message-State: AOJu0YxkFAxh/U06fxQccDLNwnpzoO8UmVoc68ttCTO25DQk9OwH5AaG
+	HwVJ1nz0cl/28bTwo42OggzbesNTJLkIig==
+X-Google-Smtp-Source: 
+ AGHT+IHKD4QFEiYEKdIZJnzj/ef4E0Lt5Pjvt0dsZxp1Wa6LbTcfTdGdXLYmQLqpcpWKiA6Ka11cKA==
+X-Received: by 2002:a05:6a20:4924:b0:17b:2c56:70b8 with SMTP id
+ ft36-20020a056a20492400b0017b2c5670b8mr13744016pzb.22.1698823636920;
+        Wed, 01 Nov 2023 00:27:16 -0700 (PDT)
+Received: from zy-virtual-machine.localdomain ([116.232.53.74])
+        by smtp.gmail.com with ESMTPSA id
+ t23-20020aa78f97000000b0068ff0a633fdsm686124pfs.131.2023.11.01.00.27.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Nov 2023 00:27:16 -0700 (PDT)
+From: Zhu Ning <zhuning0077@gmail.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com,
+	zhangyi@everest-semi.com,
+	Zhu Ning <zhuning0077@gmail.com>
+Subject: [PATCH v1 0/3] ASoC: codecs: ES8326
+Date: Wed,  1 Nov 2023 15:26:59 +0800
+Message-Id: <20231101072702.91316-1-zhuning0077@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Message-ID-Hash: PDSYWV6QFOF7FVL7TPDYRZG4RO6EIPAG
+X-Message-ID-Hash: PDSYWV6QFOF7FVL7TPDYRZG4RO6EIPAG
+X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -145,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5INDCD2ECEGNUBWAH6NFCAPKDMUSL4BZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PDSYWV6QFOF7FVL7TPDYRZG4RO6EIPAG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,60 +119,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The patch supports DMIC clock slew rate controls.
+Hi ,
 
-Signed-off-by: Seven Lee <wtli@nuvoton.com>
----
- sound/soc/codecs/nau8821.c | 7 +++++++
- sound/soc/codecs/nau8821.h | 3 +++
- 2 files changed, 10 insertions(+)
+    3 patches here for the es8326 driver...
+    
+    We developed a new version of the chip. 3 Three patches are used for 
+    compatibility with the old and new versions of the chip.We did tests 
+    with the new driver at version_v0 and version_v3.The test results
+    from the test department met our expectations.Both versions work well 
+    with the new drivers.
 
-diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
-index 6e1b6b26298a..012e347e6391 100644
---- a/sound/soc/codecs/nau8821.c
-+++ b/sound/soc/codecs/nau8821.c
-@@ -1738,6 +1738,10 @@ static int nau8821_read_device_properties(struct device *dev,
- 		&nau8821->dmic_clk_threshold);
- 	if (ret)
- 		nau8821->dmic_clk_threshold = 3072000;
-+	ret = device_property_read_u32(dev, "nuvoton,dmic-slew-rate",
-+		&nau8821->dmic_slew_rate);
-+	if (ret)
-+		nau8821->dmic_slew_rate = 0;
- 
- 	return 0;
- }
-@@ -1797,6 +1801,9 @@ static void nau8821_init_regs(struct nau8821 *nau8821)
- 		NAU8821_ADC_SYNC_DOWN_MASK, NAU8821_ADC_SYNC_DOWN_64);
- 	regmap_update_bits(regmap, NAU8821_R2C_DAC_CTRL1,
- 		NAU8821_DAC_OVERSAMPLE_MASK, NAU8821_DAC_OVERSAMPLE_64);
-+	regmap_update_bits(regmap, NAU8821_R13_DMIC_CTRL,
-+		NAU8821_DMIC_SLEW_MASK, nau8821->dmic_slew_rate <<
-+		NAU8821_DMIC_SLEW_SFT);
- 	if (nau8821->left_input_single_end) {
- 		regmap_update_bits(regmap, NAU8821_R6B_PGA_MUTE,
- 			NAU8821_MUTE_MICNL_EN, NAU8821_MUTE_MICNL_EN);
-diff --git a/sound/soc/codecs/nau8821.h b/sound/soc/codecs/nau8821.h
-index 00a888ed07ce..62eaad130b2e 100644
---- a/sound/soc/codecs/nau8821.h
-+++ b/sound/soc/codecs/nau8821.h
-@@ -236,6 +236,8 @@
- #define NAU8821_DMIC_SRC_MASK	(0x3 << NAU8821_DMIC_SRC_SFT)
- #define NAU8821_CLK_DMIC_SRC	(0x2 << NAU8821_DMIC_SRC_SFT)
- #define NAU8821_DMIC_EN_SFT	0
-+#define NAU8821_DMIC_SLEW_SFT  8
-+#define NAU8821_DMIC_SLEW_MASK (0x7 << NAU8821_DMIC_SLEW_SFT)
- 
- /* GPIO12_CTRL (0x1a) */
- #define NAU8821_JKDET_PULL_UP	(0x1 << 11) /* 0 - pull down, 1 - pull up */
-@@ -573,6 +575,7 @@ struct nau8821 {
- 	int jack_eject_debounce;
- 	int fs;
- 	int dmic_clk_threshold;
-+	int dmic_slew_rate;
- 	int key_enable;
- };
- 
+Thanks,
+Zhuning.
+
+Zhu Ning (3):
+  ASoC: codecs: ES8326: Add chip version flag
+  ASoC: codecs: ES8326: Changing initialisation and broadcasting
+  ASoC: codecs: ES8326: Changing the headset detection time
+
+ sound/soc/codecs/es8326.c | 231 +++++++++++++++++++++++---------------
+ 1 file changed, 139 insertions(+), 92 deletions(-)
+ mode change 100644 => 100755 sound/soc/codecs/es8326.c
+
 -- 
-2.25.1
+2.17.1
 

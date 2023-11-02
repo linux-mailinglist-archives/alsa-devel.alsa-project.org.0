@@ -2,161 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C27A77E0697
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Nov 2023 17:30:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABBDB7DFC04
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Nov 2023 22:33:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 121FAE7D;
-	Fri,  3 Nov 2023 17:30:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 121FAE7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82174741;
+	Thu,  2 Nov 2023 22:32:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82174741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699029058;
-	bh=B4f9gfNCb0R3FOBzKEiBOAlW2H3Az9cyoly0CjbDIQA=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MdwBu30ZGmuvliTIvsFsc4WOgoLaaOROlY3h04apBoknJW7TYDlCKF34NeEbijEB4
-	 BDT1LaYFqsQFWwm4AmCOrP1i8XnLpTul3ZTlqen42XWtqceysiVvpP03LgWgoF/xmF
-	 9+AydgzMrjPuWJgdpqAaY5U5F393f8cCHw7adzfY=
+	s=default; t=1698960799;
+	bh=Q6RAt9WDoMmKifTz8osglDccZBx2+JeWzwRjjrF32hE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=qiB4FiidJNcTYiQioP9P5xMd4+lN5n4XCjkgia1oaYFsmZlZiOmNsy0j2XfDhZhSW
+	 sKncmUSiQI5Qsf2H1YdLlPJziyAR+U2sMm5ABqkVoS4HFsFt0Actu+PvQx4P72GxpT
+	 nzfbT8aQrLFPr+5+Wb1SMxhg4DWP85xId7DfvTs0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1B2AF8055A; Fri,  3 Nov 2023 17:27:18 +0100 (CET)
+	id F2594F80290; Thu,  2 Nov 2023 22:32:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32D65F8060C;
-	Fri,  3 Nov 2023 17:27:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F92DF8020D;
+	Thu,  2 Nov 2023 22:32:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D7DBF80290; Thu,  2 Nov 2023 20:03:58 +0100 (CET)
+	id CE731F80290; Thu,  2 Nov 2023 22:32:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mail.mutex.one (mail.mutex.one [62.77.152.124])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DB0E7F8014B
-	for <alsa-devel@alsa-project.org>; Thu,  2 Nov 2023 20:03:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB0E7F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id E84A3F80152
+	for <alsa-devel@alsa-project.org>; Thu,  2 Nov 2023 22:31:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E84A3F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=HBJ4spvI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1698951806;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=m+72lU2is0RjPg3Ej03EzBiDP42Tb65So4vdSCepZ9s=;
-	b=HBJ4spvI5WLl3FTgKWfkN4GE+RJNqyZDS91rnR9xdlYHlZLHBmuiG9YshKPQRVSwRp7YUN
-	phrm1RiyGhorPyUskqvUs8GjukgXCsh++87VNtZZMsEAZz5JZs2/nizZh2/mri9BfQh/Kx
-	7bJQrlQLGXnuxmMqaZ+5n93O9O1eBIs=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-166-DYCt1PSNO72-B89UGxujdA-1; Thu, 02 Nov 2023 15:03:23 -0400
-X-MC-Unique: DYCt1PSNO72-B89UGxujdA-1
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-32fabf96aa5so168095f8f.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 02 Nov 2023 12:03:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698951802; x=1699556602;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=m+72lU2is0RjPg3Ej03EzBiDP42Tb65So4vdSCepZ9s=;
-        b=GStM8BErItPR5y85rDFjKiOzpIXHotVlSwB/Mf1jhBYi8yYLnoBSVIOyOUe22Ey9fi
-         hMuK2pdVoaJVGy7BLFUVGh/hysYnJnvpui8U2SB8cXjBWDvDpGTzCMNsKFEKMZ6vrNBK
-         gnjVs24KUced4bpMzPnXepzOTlQvEHUsBvVlw1n1En8+zphe9ckb76C9h6KEeg4nMoe4
-         GShZFcQSppjvUczrv14yuWobJoQbfnUDYco7hJLggwor2H+dtDL1P2luV+gb1ptIOmxi
-         BGaw4lAMD/SZqdGO3dGhl7RigPDoL+I8bF+SuuFBDiDKHSkjFCrzqt83ci0J+9Oy8+i/
-         jnNg==
-X-Gm-Message-State: AOJu0YyLQAc6U+mBn5xcZhjjCMF5JpTvDRiCSkRjgUKQA4GVFoNqIVEX
-	s//IK5fEC5+C/hbkK54sBHePN4RD3RQorAf3dR5E54zcZv+GemcfKfyfuqAdAqss8zxuC112L3N
-	Jempb8Zz2rf2Tc4wp4fN5bzk=
-X-Received: by 2002:a5d:5c11:0:b0:32f:8a45:93a7 with SMTP id
- cc17-20020a5d5c11000000b0032f8a4593a7mr9124226wrb.0.1698951802590;
-        Thu, 02 Nov 2023 12:03:22 -0700 (PDT)
-X-Google-Smtp-Source: 
- AGHT+IFUPZRT8I8iw/CcEcUptKDDx7966nYE1/uugb6+QE4ZoKiWbmft1KG9gyqtzE1rFEHqmKpeCw==
-X-Received: by 2002:a5d:5c11:0:b0:32f:8a45:93a7 with SMTP id
- cc17-20020a5d5c11000000b0032f8a4593a7mr9124209wrb.0.1698951802240;
-        Thu, 02 Nov 2023 12:03:22 -0700 (PDT)
-Received: from pstanner-thinkpadt14sgen1.remote.csb
- ([2001:9e8:32c5:d600:227b:d2ff:fe26:2a7a])
-        by smtp.gmail.com with ESMTPSA id
- l22-20020adfa396000000b0032f7d1e2c7csm62660wrb.95.2023.11.02.12.03.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Nov 2023 12:03:21 -0700 (PDT)
-From: Philipp Stanner <pstanner@redhat.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Philipp Stanner <pstanner@redhat.com>,
-	Dave Airlie <airlied@redhat.com>
-Subject: [PATCH] sound/isa/wavefront: copy userspace array safely
-Date: Thu,  2 Nov 2023 20:03:10 +0100
-Message-ID: <20231102190309.50891-2-pstanner@redhat.com>
-X-Mailer: git-send-email 2.41.0
+ unprotected) header.d=mutex.one header.i=@mutex.one header.a=rsa-sha256
+ header.s=default header.b=fjJx7RCR
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.mutex.one (Postfix) with ESMTP id C716016C0059;
+	Thu,  2 Nov 2023 23:31:56 +0200 (EET)
+X-Virus-Scanned: Debian amavisd-new at mail.mutex.one
+Received: from mail.mutex.one ([127.0.0.1])
+	by localhost (mail.mutex.one [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id QGFwVGpa-qcb; Thu,  2 Nov 2023 23:31:51 +0200 (EET)
+From: Marian Postevca <posteuca@mutex.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mutex.one; s=default;
+	t=1698960711; bh=Q6RAt9WDoMmKifTz8osglDccZBx2+JeWzwRjjrF32hE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=fjJx7RCRxmL0vI4FsOD0Ut7IzvWscnPYs4ITJjcb1+QVmI7C/v8FgQjInLbQPGOy0
+	 kKzqNo2xwygkacxKxwuEEYsLBwpiXOzbqrKMYncfWtpdgMelM/OrdMtG2GMJ6uVJsb
+	 5S2KpcbnOGPnYKjNqz4DaOWp/n+WW8PEuDlOCt68=
+To: syed saba kareem <ssabakar@amd.com>
+Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
+ Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Yang Yingliang
+ <yangyingliang@huawei.com>, Venkata Prasad Potturu
+ <venkataprasad.potturu@amd.com>, V sujith kumar Reddy
+ <Vsujithkumar.Reddy@amd.com>, ye xingchen <ye.xingchen@zte.com.cn>,
+ linux-kernel@vger.kernel.org
+Subject: Re: Regression apparently caused by commit
+ 088a40980efbc2c449b72f0f2c7ebd82f71d08e2 "ASoC: amd: acp: add pm ops
+ support for acp pci driver"
+In-Reply-To: <fcb8f03e-bad1-966c-d454-b7ef7cb62454@amd.com>
+References: <87a5v8szhc.fsf@mutex.one>
+ <fcb8f03e-bad1-966c-d454-b7ef7cb62454@amd.com>
+Date: Thu, 02 Nov 2023 23:30:16 +0200
+Message-ID: <878r7f4zdj.fsf@mutex.one>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-X-MailFrom: pstanner@redhat.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+Message-ID-Hash: 76RI6ZZ3UVP4FWXM7QI2ZC2GCKXQS3X5
+X-Message-ID-Hash: 76RI6ZZ3UVP4FWXM7QI2ZC2GCKXQS3X5
+X-MailFrom: posteuca@mutex.one
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CUYXW7AWWZQR6X7I5UHSRD5IR4EM3PPE
-X-Message-ID-Hash: CUYXW7AWWZQR6X7I5UHSRD5IR4EM3PPE
-X-Mailman-Approved-At: Fri, 03 Nov 2023 16:27:07 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76RI6ZZ3UVP4FWXM7QI2ZC2GCKXQS3X5/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-wavefront_fx.c utilizes memdup_user() to copy a userspace array. This
-does not check for an overflow.
+syed saba kareem <ssabakar@amd.com> writes:
 
-Use the new wrapper memdup_array_user() to copy the array more safely.
+> We haven't up streamed pm ops for Renoir platform.
+>
+> That is the cause for the issue.
+>
+> Will upstream them in a week.
 
-Suggested-by: Dave Airlie <airlied@redhat.com>
-Signed-off-by: Philipp Stanner <pstanner@redhat.com>
----
- sound/isa/wavefront/wavefront_fx.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/sound/isa/wavefront/wavefront_fx.c b/sound/isa/wavefront/wavefront_fx.c
-index 3c21324b2a0e..0273b7dfaf12 100644
---- a/sound/isa/wavefront/wavefront_fx.c
-+++ b/sound/isa/wavefront/wavefront_fx.c
-@@ -191,9 +191,9 @@ snd_wavefront_fx_ioctl (struct snd_hwdep *sdev, struct file *file,
- 					    "> 512 bytes to FX\n");
- 				return -EIO;
- 			}
--			page_data = memdup_user((unsigned char __user *)
--						r.data[3],
--						r.data[2] * sizeof(short));
-+			page_data = memdup_array_user((unsigned char __user *)
-+						      r.data[3],
-+						      r.data[2], sizeof(short));
- 			if (IS_ERR(page_data))
- 				return PTR_ERR(page_data);
- 			pd = page_data;
--- 
-2.41.0
-
+Did you manage to upstream the pm ops for Renoir platform?
+I have checked the latest commit on the for-next branch
+( ed2232d49187cebc007ecf4e6374069b11ab3219 ) and the issue is still
+there.
+I still have to revert commit
+088a40980efbc2c449b72f0f2c7ebd82f71d08e2 to have my driver function
+properly.

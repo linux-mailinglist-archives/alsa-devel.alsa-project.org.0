@@ -2,102 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5EFE7DF662
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Nov 2023 16:28:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F002E7DF864
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Nov 2023 18:10:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8F2684D;
-	Thu,  2 Nov 2023 16:27:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8F2684D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1398C822;
+	Thu,  2 Nov 2023 18:10:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1398C822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1698938891;
-	bh=CLu2jh9OlzM/sGA794f8ZsBB8L94ScdqfEUVqcrrVuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=K/ZjeV78wCPGmga4GLl1bE68yP4GIJGhlgf7UZS3uFfZATMp8pVCgd3toAPr0Z5Ng
-	 UlXVW3ycsWgDUdG/SygMU3/z++3laNTZMyRyuD1VqS38G3C073cXNiPV80cyaXEg0i
-	 tV4hHU5z3Y5boSTD7fZOkzbfgX28kMD8VovVxoTU=
+	s=default; t=1698945055;
+	bh=CXIPzvC3FUKsfm3RbFiCNlRA6j0Y9/yLAH2lP0YZf/M=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=B2MxMAjv75VqoCAP1S4re+vi9k8Gnrs7RI/jQ4yA0nDx8uU7e5KfC6YzgSJOpPB5r
+	 zsAb9ciisMLX5AHNKYLsOpK+H6f+B188HfgHiPbff06E6eT8HTyQptte1aIC5x3TTN
+	 rIUmh4b1pgkGLPrTDfoIZIHXjI+81hw6GYGyusos=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9639F80290; Thu,  2 Nov 2023 16:26:52 +0100 (CET)
+	id 40818F8020D; Thu,  2 Nov 2023 18:10:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B55DF8020D;
-	Thu,  2 Nov 2023 16:26:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7823F8020D;
+	Thu,  2 Nov 2023 18:10:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71475F80290; Thu,  2 Nov 2023 16:26:48 +0100 (CET)
+	id 9456DF80290; Thu,  2 Nov 2023 18:09:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4616CF8014B
-	for <alsa-devel@alsa-project.org>; Thu,  2 Nov 2023 16:26:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4616CF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id F30BFF8003C
+	for <alsa-devel@alsa-project.org>; Thu,  2 Nov 2023 18:09:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F30BFF8003C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JbwrF7am
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id EC55BB81CC8;
-	Thu,  2 Nov 2023 15:26:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B019C433C9;
-	Thu,  2 Nov 2023 15:26:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1698938801;
-	bh=CLu2jh9OlzM/sGA794f8ZsBB8L94ScdqfEUVqcrrVuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JbwrF7amZPORQN6XEePLyXfiiZ8ycC5AP0VuVxJw9NDsMuXC8LQTkbBxCQY6r90nO
-	 Y+anNtIn/BjOUCJOXluLD5XHtZcNHtqL0nMw874GYI/GKuDFAI7dyJCxiTbWIZT09s
-	 zVD2KEkoT3mriuzjQCICRHzeKizPqwVcItVs71NcBLXPc6arxXaqfhWRpZyCVQpu6p
-	 bKa6n9rCnSVfhhbsmmrah+lRCyKqtmOOHtl1FDHQYv/Z0HBnN6eh+RXyd6Zae1CGfL
-	 HUtqS0EpBndyQy1GtXAvccj0WXis8wCarS/oJt9tUVRjxGDRisnaVa9qBoYPTw7Tp1
-	 fiNJ8wWO6pmlw==
-Date: Thu, 2 Nov 2023 15:26:31 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Duje =?utf-8?Q?Mihanovi=C4=87?= <duje.mihanovic@skole.hr>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tony Lindgren <tony@atomide.com>, Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Leo Yan <leoy@marvell.com>, Zhangfei Gao <zhangfei.gao@marvell.com>,
-	Lubomir Rintel <lkundrak@v3.sk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Kees Cook <keescook@chromium.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-hardening@vger.kernel.org,
-	phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
-	Karel Balej <balejk@matfyz.cz>, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v7 06/10] ASoC: pxa: Suppress SSPA on ARM64
-Message-ID: <dc7aaff0-f767-494e-9a3a-40fcacc1674e@sirena.org.uk>
-References: <20231102152033.5511-1-duje.mihanovic@skole.hr>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=LiTKNYjx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1698944990; x=1730480990;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=CXIPzvC3FUKsfm3RbFiCNlRA6j0Y9/yLAH2lP0YZf/M=;
+  b=LiTKNYjxfIa92J/hLEhpUPx74tE7xt4oShy/0kNOzOQK12aa4RaMDke9
+   k5p5idv/ld1XWzfo6rQsI9Sk4UqOV1fLGe+rG1bmYnT96k1419ddoZc/R
+   bYNRlVcXMv4bscyXjNy0aRX4a9zQx/0okK45Uztk1LEFM76M1lawXhvej
+   hMAQQbNibwyGwiK7VgnesMujwpMtkixbFv1lUtK/rHH6Qvtq6vQ7R3ECB
+   xSu1ExiypucYFhZU+pPqAMd7QYjnVMp55cWHfygSHvjjHD769+U1u1rIE
+   +XzXZqyleTOMWGZKrV7pAWDqH9bANTTTJxSUqiCUXnaV0GCOmegSvFUL6
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="455245388"
+X-IronPort-AV: E=Sophos;i="6.03,272,1694761200";
+   d="scan'208";a="455245388"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 10:09:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.03,272,1694761200";
+   d="scan'208";a="2613430"
+Received: from macchian-builder.itwn.intel.com ([10.5.253.188])
+  by fmviesa002.fm.intel.com with ESMTP; 02 Nov 2023 10:09:42 -0700
+From: Mac Chiang <mac.chiang@intel.com>
+To: alsa-devel@alsa-project.org
+Cc: cezary.rojewski@intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	mac.chiang@intel.com
+Subject: [PATCH v2] ASoC: Intel: sof_rt5682: add mtl_rt5650 support
+Date: Thu,  2 Nov 2023 12:48:44 -0400
+Message-Id: <20231102164844.6930-1-mac.chiang@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qOq/Mx9vNp7JTaIV"
-Content-Disposition: inline
-In-Reply-To: <20231102152033.5511-1-duje.mihanovic@skole.hr>
-X-Cookie: A is for Apple.
-Message-ID-Hash: HPTIQWB6NEFRTAOTK67CLTJFUYSSL6YC
-X-Message-ID-Hash: HPTIQWB6NEFRTAOTK67CLTJFUYSSL6YC
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: N47RRHO4G3WBKYLDLA6UTCEGTP4SZ7QF
+X-Message-ID-Hash: N47RRHO4G3WBKYLDLA6UTCEGTP4SZ7QF
+X-MailFrom: mac.chiang@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HPTIQWB6NEFRTAOTK67CLTJFUYSSL6YC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N47RRHO4G3WBKYLDLA6UTCEGTP4SZ7QF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,43 +104,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+RT5650 is I2S codec integrated with HP and SPK.
+The HW board connects SoC I2S to RT5650 codec as below:
 
---qOq/Mx9vNp7JTaIV
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I2S0: ALC5650 aif1 for Speaker
+I2S2: ALC5650 aif2 for Headphone
 
-On Thu, Nov 02, 2023 at 04:20:29PM +0100, Duje Mihanovi=C4=87 wrote:
-> The SSPA driver currently seems to generate ARM32 assembly, which causes
-> build errors when building a kernel for an ARM64 ARCH_MMP platform.
->=20
-> Fixes: fa375d42f0e5 ("ASoC: mmp: add sspa support")
-> Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Mac Chiang <mac.chiang@intel.com>
+---
+pick up from Link: https://github.com/thesofproject/linux/pull/4661
+for Chrome MTL projects.
 
->  	tristate "SoC Audio via MMP SSPA ports"
-> -	depends on ARCH_MMP
-> +	depends on ARCH_MMP && ARM
+Changes v2:
+  - regen format patch due to v1 from github remote
+---
+ sound/soc/intel/boards/sof_rt5682.c               |  9 +++++++++
+ sound/soc/intel/common/soc-acpi-intel-mtl-match.c | 12 ++++++++++++
+ 2 files changed, 21 insertions(+)
 
-This isn't a fix for the existing code, AFAICT the issue here is that
-ARCH_MMP is currently only available for arm and presumably something in
-the rest of your series makes it available for arm64.  This would be a
-prerequisite for that patch.
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 06ad15af46de..9723479f43da 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -1147,6 +1147,15 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_RT5682_SSP_AMP(0) |
+ 					SOF_RT5682_NUM_HDMIDEV(3)),
+ 	},
++	{
++		.name = "mtl_rt5650",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_SSP_CODEC(2) |
++					SOF_RT5682_SSP_AMP(0) |
++					SOF_RT5682_NUM_HDMIDEV(3) |
++					SOF_BT_OFFLOAD_SSP(1) |
++					SOF_SSP_BT_OFFLOAD_PRESENT),
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, board_ids);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
+index 301b8142d554..af4224bff718 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
+@@ -40,6 +40,11 @@ static const struct snd_soc_acpi_codecs mtl_lt6911_hdmi = {
+ 	.codecs = {"INTC10B0"}
+ };
+ 
++static const struct snd_soc_acpi_codecs mtl_rt5650_amp = {
++	.num_codecs = 1,
++	.codecs = {"10EC5650"}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[] = {
+ 	{
+ 		.comp_ids = &mtl_rt5682_rt5682s_hp,
+@@ -77,6 +82,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[] = {
+ 					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
+ 					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
+ 	},
++	{
++		.id = "10EC5650",
++		.drv_name = "mtl_rt5650",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &mtl_rt5650_amp,
++		.sof_tplg_filename = "sof-mtl-rt5650.tplg",
++	},
+ 	/* place amp-only boards in the end of table */
+ 	{
+ 		.id = "INTC10B0",
+-- 
+2.20.1
 
-Please don't just insert random fixes tags just because you can.
-
---qOq/Mx9vNp7JTaIV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVDv6YACgkQJNaLcl1U
-h9AOwQf/T1o3MmUT/AHCyzC1ybmn9jdutGNuOKe8pi9O3wXGrNVyx5Fkp1SK4nbc
-62A11OUzAZ0h9HETpVH8AdVGBkxF2J+yKKBX+JuqvzuzEKm03uXRhUElJmqfU+nK
-jDKPeW4JH7ebL94RYoy4P0IFywZIaS+PjdREKi5j5zTTvDKLxEVqppJPz30+UXz7
-QRoVMkJmqK4HrvzznNuiuhBuz96tooQLS1dIVzrBmNJ5YEbbjeVpXHcUEv+YanOL
-Qd6s2Onh6sZigqrrZlb5F2CIKw+AuHnLNL9XEyT2ZXyDY8ZdCF7ZgZ64acZz+39b
-21kilHuZZYaEZTKdul8WvivXsPffgA==
-=zsGC
------END PGP SIGNATURE-----
-
---qOq/Mx9vNp7JTaIV--

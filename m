@@ -2,93 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 319E07E167A
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Nov 2023 21:47:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B88F17E1EB3
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Nov 2023 11:43:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45EF084A;
-	Sun,  5 Nov 2023 21:46:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45EF084A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE3EF827;
+	Mon,  6 Nov 2023 11:42:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE3EF827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699217264;
-	bh=DFEnBoAZfjHsPxHG7Pn6/C8BILMOVrXxGrVVO4Ir0M0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jsdCE7Rbvv3iWZslfzb8hDziRy/vC4Lxn6al5epWXnD2AyQWioigih4nCG66SoPyW
-	 iIIWWCvB8h3ZFVQeCTcOL9HULDY2RJs3XwQaUHTY76vs8+E/7WbiD04TgN50ZV86Ki
-	 heFQjregCt0mZU0mbh94bVoHA5+LMWgsjp04AYYk=
+	s=default; t=1699267380;
+	bh=z8El7XnzsiVMEZRG8J2wsXjW2H7YOphx7Ff0K6YK5JA=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KRwicma1GaISbl49mEnGF0gMnhXRJgVRvc3uY5i9prS1DRA3TBI8l6DKaS08cKS24
+	 r9+RFeXFLpgiUP0jYT4pezsH27S+uLzOZWB1Pq0QItZ8uVrrQp0pfa5AJNxmzK/xkG
+	 K8Bm9UjBO2T9NWq9IvbHNpjGhfBaEdFOYnG8/v/o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3320F80100; Sun,  5 Nov 2023 21:46:25 +0100 (CET)
+	id 6208FF8056F; Mon,  6 Nov 2023 11:41:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47F10F80169;
-	Sun,  5 Nov 2023 21:46:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 853EDF80169;
+	Mon,  6 Nov 2023 11:41:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3EEB3F8016D; Sun,  5 Nov 2023 21:45:15 +0100 (CET)
+	id 5F476F8016D; Mon,  6 Nov 2023 11:37:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 458C1F80100
-	for <alsa-devel@alsa-project.org>; Sun,  5 Nov 2023 21:45:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 458C1F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1FFAAF80100
+	for <alsa-devel@alsa-project.org>; Mon,  6 Nov 2023 11:37:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FFAAF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OHdwYwwV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1699217105; x=1730753105;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DFEnBoAZfjHsPxHG7Pn6/C8BILMOVrXxGrVVO4Ir0M0=;
-  b=OHdwYwwVxKWirF88uhOktHHCxKMrYWboSd34niJTt6zwuIUugJF0E0aV
-   ldl5XiiDJ+jofvIWuHxnpyxKv51W0liaQi8v5LAIkiIoFbjOB8zN77mMk
-   NVlVFRD/zfEMzJQo8mGwlb0I12r76jqPzZFXNip3mhvS16N6hyglhQSwD
-   DrxUY7bJ04AMJclzMd5dDKjWC8zf1PobAkYE91Ov9l2lrOj8yP+dBbcq1
-   wd1RI7iqY5m8+0i9BgogoDHgWSESCBWDRfZdO7WDg9A1Siex38f1AAunt
-   0sO2g6YYDyu2lZ8FX+cqWV8cf6ebVqagyTelwVRH0mNFur4AQDlipIh3K
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="388991516"
-X-IronPort-AV: E=Sophos;i="6.03,279,1694761200";
-   d="scan'208";a="388991516"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2023 12:45:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="762133802"
-X-IronPort-AV: E=Sophos;i="6.03,279,1694761200";
-   d="scan'208";a="762133802"
-Received: from lkp-server01.sh.intel.com (HELO 17d9e85e5079) ([10.239.97.150])
-  by orsmga002.jf.intel.com with ESMTP; 05 Nov 2023 12:44:58 -0800
-Received: from kbuild by 17d9e85e5079 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qzjzL-0005mC-32;
-	Sun, 05 Nov 2023 20:44:55 +0000
-Date: Mon, 6 Nov 2023 04:44:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>, perex@perex.cz, tiwai@suse.com,
-	corbet@lwn.net
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Ivan Orlov <ivan.orlov0322@gmail.com>, alsa-devel@alsa-project.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org
-Subject: Re: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
-Message-ID: <202311060403.591giMV8-lkp@intel.com>
-References: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=m9V320iL
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-32fb1d757f7so2244491f8f.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 06 Nov 2023 02:37:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1699267048;
+ x=1699871848; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9kyxum5YNhiGFDrnxvukFQjBtUh2qLRYWx5QnJK2YXc=;
+        b=m9V320iLIVt7sI5Tc7qQPJTPfv2r4gVF7y0aEOXgXHD0kiVsVYKMyeCXmDsk0V2hUy
+         QdApE9onhUFDm+wZgvZhSM8JKRjB/dt1G+t71cK8PsL/RriOpfoccDkf40/LsMsPOXK5
+         hjbnoarK0bDH0v9+p4KEs7sE+/vQsTJnWoMaJOly8PUSXId9jHHugoEsttB66qAtu+yh
+         OyMvR0cfYdVPwhR8QA0mj18UBB07FKJQ3Ka73H7TuL/IgLYdR8zQ10l7kH8pTOKp5b9h
+         teYQcSMY9XvpF0vQFJufZ4iArscTZAjkKdzQscbTJS8Nd/c82TdXAlTqxCq5z0kjSFOW
+         dVEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699267048; x=1699871848;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9kyxum5YNhiGFDrnxvukFQjBtUh2qLRYWx5QnJK2YXc=;
+        b=qBAtbjrygJWxw75AIC3yBjAadODYmi0POIdqELgqC1eudUYm1DtzMbMC1xBBraAgpx
+         pHOhIOZY2Exww95wuzY695xQWHaTUs4nQW9/Leu/5sTd/4KijkgTUNCerEBEkOsSylL8
+         ZyeeKDrZPJEuRp5C90zdOElMHUkY9r1TyNsqWRq0tqqnT00ZLRMNYYFNX3IjUHb7bpAT
+         YJzrMTB4INmpPMbgp+K56H3LSqNjnlppBcSHXRVhuOq0az9sOsCQko08ekixn3Gcg31x
+         zIvTlmbFpXGQqfXYQGPE41zygsbNtG+MV5NJPO8uAAZabyK1w0f8fKOIcywQcUdrdjXw
+         8eTg==
+X-Gm-Message-State: AOJu0YxNf4qq8KjH6o9xqH4g8DBLGHWsVwsXsEFi4Khr8kgd4Q3HSoEJ
+	QtEAk37BHkvxdKmONyhTsJuExw==
+X-Google-Smtp-Source: 
+ AGHT+IHdcanmjp6niY0sMoZF7bwPXZ4XAjqJnCGHA2okTmCF7vPefs2OEigl43Ieu5XrrkMeoA4vXg==
+X-Received: by 2002:adf:eb0a:0:b0:32d:884b:7403 with SMTP id
+ s10-20020adfeb0a000000b0032d884b7403mr20244809wrn.66.1699267047784;
+        Mon, 06 Nov 2023 02:37:27 -0800 (PST)
+Received: from toaster.lan ([2a01:e0a:3c5:5fb1:fabf:ec8c:b644:5d3])
+        by smtp.googlemail.com with ESMTPSA id
+ h3-20020a5d5043000000b0032dba85ea1bsm9106950wrt.75.2023.11.06.02.37.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Nov 2023 02:37:27 -0800 (PST)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dapm: fix clock get name
+Date: Mon,  6 Nov 2023 11:37:09 +0100
+Message-ID: <20231106103712.703962-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230918181044.7257-2-ivan.orlov0322@gmail.com>
-Message-ID-Hash: SML4JE4B3UVFR6FTPIEIWXJPIVBFHPIG
-X-Message-ID-Hash: SML4JE4B3UVFR6FTPIEIWXJPIVBFHPIG
-X-MailFrom: lkp@intel.com
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LSNBGRKFWNUDYJBK2SF7NHDJN2QE3YGA
+X-Message-ID-Hash: LSNBGRKFWNUDYJBK2SF7NHDJN2QE3YGA
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SML4JE4B3UVFR6FTPIEIWXJPIVBFHPIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSNBGRKFWNUDYJBK2SF7NHDJN2QE3YGA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,99 +119,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Ivan,
+The name currently used to get the clock includes the dapm prefix.
+It should use the name as provided to the widget, without the prefix.
 
-kernel test robot noticed the following build warnings:
+Fixes: 3caac759681e ("ASoC: soc-dapm.c: fixup snd_soc_dapm_new_control_unlocked() error handling")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ sound/soc/soc-dapm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on tiwai-sound/for-linus linus/master v6.6 next-20231103]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Ivan-Orlov/ALSA-Add-new-driver-for-Marian-M2-sound-card/20230919-021236
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230918181044.7257-2-ivan.orlov0322%40gmail.com
-patch subject: [PATCH v2 2/2] ALSA: Add new driver for Marian M2 sound card
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20231106/202311060403.591giMV8-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231106/202311060403.591giMV8-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311060403.591giMV8-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   sound/pci/marianm2.c:466:6: warning: variable 'buffer_frames' set but not used [-Wunused-but-set-variable]
-           int buffer_frames;
-               ^
->> sound/pci/marianm2.c:472:11: warning: variable 'speedmode' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
-           else if (params_rate(params) < RATE_FAST)
-                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/marianm2.c:475:6: note: uninitialized use occurs here
-           if (speedmode > marian->desc->speedmode_max) {
-               ^~~~~~~~~
-   sound/pci/marianm2.c:472:7: note: remove the 'if' if its condition is always true
-           else if (params_rate(params) < RATE_FAST)
-                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/marianm2.c:465:24: note: initialize the variable 'speedmode' to silence this warning
-           unsigned int speedmode;
-                                 ^
-                                  = 0
-   2 warnings generated.
-
-
-vim +472 sound/pci/marianm2.c
-
-   460	
-   461	static int snd_marian_hw_params(struct snd_pcm_substream *substream,
-   462					struct snd_pcm_hw_params *params)
-   463	{
-   464		struct marian_card *marian = snd_pcm_substream_chip(substream);
-   465		unsigned int speedmode;
- > 466		int buffer_frames;
-   467	
-   468		buffer_frames = SUBSTREAM_BUF_SIZE / M2_FRAME_SIZE;
-   469	
-   470		if (params_rate(params) < RATE_SLOW)
-   471			speedmode = SPEEDMODE_SLOW;
- > 472		else if (params_rate(params) < RATE_FAST)
-   473			speedmode = SPEEDMODE_FAST;
-   474	
-   475		if (speedmode > marian->desc->speedmode_max) {
-   476			dev_err(marian->card->dev,
-   477				"Requested rate (%u Hz) higher than card's maximum\n",
-   478				params_rate(params));
-   479			_snd_pcm_hw_param_setempty(params, SNDRV_PCM_HW_PARAM_RATE);
-   480			return -EBUSY;
-   481		}
-   482	
-   483		spin_lock(&marian->reglock);
-   484		if (marian->desc->set_speedmode)
-   485			marian->desc->set_speedmode(marian, speedmode);
-   486		else
-   487			marian_generic_set_speedmode(marian, speedmode);
-   488	
-   489		marian->detune = 0;
-   490	
-   491		marian_generic_set_dco(marian, params_rate(params), 0);
-   492		spin_unlock(&marian->reglock);
-   493	
-   494		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-   495			snd_pcm_set_runtime_buffer(substream, &marian->playback_buf);
-   496		else
-   497			snd_pcm_set_runtime_buffer(substream, &marian->capture_buf);
-   498	
-   499		// apply optional card specific hw constraints
-   500		if (marian->desc->hw_constraints_func)
-   501			marian->desc->hw_constraints_func(marian, substream, params);
-   502	
-   503		return 0;
-   504	}
-   505	
-
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 4e2beda6f9bf..3844f777c87b 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3670,7 +3670,7 @@ snd_soc_dapm_new_control_unlocked(struct snd_soc_dapm_context *dapm,
+ 		dapm_pinctrl_event(w, NULL, SND_SOC_DAPM_POST_PMD);
+ 		break;
+ 	case snd_soc_dapm_clock_supply:
+-		w->clk = devm_clk_get(dapm->dev, w->name);
++		w->clk = devm_clk_get(dapm->dev, widget->name);
+ 		if (IS_ERR(w->clk)) {
+ 			ret = PTR_ERR(w->clk);
+ 			goto request_failed;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.42.0
+

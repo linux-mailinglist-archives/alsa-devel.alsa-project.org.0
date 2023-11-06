@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C18747E2747
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Nov 2023 15:42:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44A0B7E2999
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Nov 2023 17:20:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 626C2828;
-	Mon,  6 Nov 2023 15:41:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 626C2828
+	by alsa0.perex.cz (Postfix) with ESMTPS id D89C3210;
+	Mon,  6 Nov 2023 17:19:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D89C3210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699281767;
-	bh=wAJJnFYyygOv32pzjkLJc3Y5zmAhASZUt3ftsOJhb0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1699287604;
+	bh=5/JoVH/DpQVf1nsgfIy616JkRbU81JQs3Wfdt3CMyBU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dDuMsCiXosXrKmgpkthiOnllkAFnLVfmcgt6wv0NAXhsrRiBpqGiL80av+dKon8FO
-	 /iv0+rjP+Z2fehX7uedLCRSkOlakyFrQFb6XrwlQ8hg7fyraLoOJRQXjOTLS4IqoNf
-	 4J96Cuqnc8MTdBqxxXB9Wda0x1AVDNoUl59lPeGY=
+	b=GVEx59GlptCWWrN6ltpnDH1iN06ZAJbcexUinWBBXkRaQ0EkZyFgM2XUOw/JzLWdJ
+	 ljiiJGGcUkpt0ABvIglzj8WcO/+bzVNIRTRnJRgOe2t4gBt8yBDZYtDHN8kneF7JpA
+	 dLOaBD0w/oaFJ1+7OtfPeULe6C9Ph/PYLVHdeRqI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6421F801F5; Mon,  6 Nov 2023 15:41:56 +0100 (CET)
+	id 41794F80100; Mon,  6 Nov 2023 17:19:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A4E8F80169;
-	Mon,  6 Nov 2023 15:41:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8957F80169;
+	Mon,  6 Nov 2023 17:19:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49C26F8016D; Mon,  6 Nov 2023 15:41:51 +0100 (CET)
+	id 8FA1FF8016D; Mon,  6 Nov 2023 17:19:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36898F800ED
-	for <alsa-devel@alsa-project.org>; Mon,  6 Nov 2023 15:41:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36898F800ED
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-6ce2cf67be2so2869914a34.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 06 Nov 2023 06:41:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699281703; x=1699886503;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nKvqk5gir/9qqqDIfkQNJgvfbuZQ5kJzgHbwZKn9mQs=;
-        b=K3dhRox5Jgrbm6QJe7C80YnfIrd5ciCNLJT6v1vpgN2MyhRB2EGPsNSZLgbcDJRvqj
-         Lhbqu/jx4F8BmqZLXKfxEM4Ob90DKpH0Z+WHLbldy7XlcaahlVXz6VTA3SxlWcZ97Epw
-         wCWPMlqiRjto54vFzjaM/DAcX2YemfiVwZ5F7CHg644p2gyooMhie+4aZzvUt+eRlcxN
-         mess33yiVOquStY3f7+svD8VWVhd++XhrkDDNMtqe43hq3chkER7tUOiVXvvWnNjDaD6
-         enhvJEPsSjEJAW/cwJtlhhMX4pMxuitPG2oGs/Yp9DckvlmXklC3YNPxsAVOwfwWpeyV
-         NcuQ==
-X-Gm-Message-State: AOJu0YyVx5qgKyRXU8yp0Rf3zBOYJIflOVkX+WEFVdrsq1j+CEoOXhg2
-	SHnhaCthGpKC9Vk6PECTDg==
-X-Google-Smtp-Source: 
- AGHT+IFGLVSQjQpsvTCqqKZz/oXWb4ln1j9IpZTysYqr4mTbsYvnPvKbsLqX2dGlf/8Kr9A3o8iOgw==
-X-Received: by 2002:a05:6830:2085:b0:6ce:2733:f71b with SMTP id
- y5-20020a056830208500b006ce2733f71bmr31850416otq.26.1699281702959;
-        Mon, 06 Nov 2023 06:41:42 -0800 (PST)
-Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107])
-        by smtp.gmail.com with ESMTPSA id
- b24-20020a9d6b98000000b006bf0f95f702sm1268436otq.64.2023.11.06.06.41.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Nov 2023 06:41:42 -0800 (PST)
-Received: (nullmailer pid 314184 invoked by uid 1000);
-	Mon, 06 Nov 2023 14:41:41 -0000
-Date: Mon, 6 Nov 2023 08:41:41 -0600
-From: Rob Herring <robh@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- conor+dt@kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
- CTLIN0@nuvoton.com, SJLIN0@nuvoton.com, scott6986@gmail.com,
- supercraig0719@gmail.com, dardar923@gmail.com
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: nau8821: Add DMIC slew rate
-Message-ID: <20231106144141.GA312869-robh@kernel.org>
-References: <20231101063514.666754-1-wtli@nuvoton.com>
- <20231101063514.666754-2-wtli@nuvoton.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24C35F80125
+	for <alsa-devel@alsa-project.org>; Mon,  6 Nov 2023 17:19:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24C35F80125
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=FFkg3NDN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1699287542; x=1730823542;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=5/JoVH/DpQVf1nsgfIy616JkRbU81JQs3Wfdt3CMyBU=;
+  b=FFkg3NDNwwBvPYWckzBR4YEIr9eDk+qSW6xXBT/kH2Dy8cNFzj21oCFK
+   UsuZv2vBKzvBM6fmbC3Cu+dJmh1HddXnu6GuSkwF1nrbSARHxCsODrcvW
+   hsrMZezVP6898FCZuHVdc5lm7juEt/oHoWKxs2doHpb70tFsB7tPasm4v
+   9KqIDInY+nBlgaOCnh5u7B2ObRH5shLtCabC+9Fx9e7NFFu5lCfOfuWBY
+   MQIs0pP9Z7WE6DPxkEvoknV3TnbqJgs/OLHV/6Cd9gC6J6XhtgOTn5qnP
+   ZEewH1uVJke3zp9I95ReH/5FnFQYrNF2wXiX03wMNYovqCVvOZK9xpgEK
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="420420616"
+X-IronPort-AV: E=Sophos;i="6.03,282,1694761200";
+   d="scan'208";a="420420616"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 08:18:56 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="832764280"
+X-IronPort-AV: E=Sophos;i="6.03,282,1694761200";
+   d="scan'208";a="832764280"
+Received: from dpidwerb-mobl.amr.corp.intel.com (HELO [10.209.77.27])
+ ([10.209.77.27])
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 08:18:55 -0800
+Message-ID: <8f3ba9d6-6530-48d7-85d7-88579406c57a@linux.intel.com>
+Date: Mon, 6 Nov 2023 08:51:40 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231101063514.666754-2-wtli@nuvoton.com>
-Message-ID-Hash: 3HQTVPEPKTKVQMRSP5VPILFWVJ5O4SEJ
-X-Message-ID-Hash: 3HQTVPEPKTKVQMRSP5VPILFWVJ5O4SEJ
-X-MailFrom: robherring2@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] ASoC: Intel: bytcht_es8316: Determine quirks/routing
+ through ACPI DSM
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ David Yang <yangxiaohua@everest-semi.com>, alsa-devel@alsa-project.org
+References: <20231104142439.21983-1-hdegoede@redhat.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20231104142439.21983-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: F6KK5LACH456BQ4OPS62YXHYFE5L5FCL
+X-Message-ID-Hash: F6KK5LACH456BQ4OPS62YXHYFE5L5FCL
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3HQTVPEPKTKVQMRSP5VPILFWVJ5O4SEJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6KK5LACH456BQ4OPS62YXHYFE5L5FCL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,45 +112,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Nov 01, 2023 at 02:35:13PM +0800, Seven Lee wrote:
-> Add input with DMIC slew rate controls
-> 
-> Signed-off-by: Seven Lee <wtli@nuvoton.com>
-> ---
->  .../devicetree/bindings/sound/nuvoton,nau8821.yaml        | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> index 3e54abd4ca74..48c389276a15 100644
-> --- a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> @@ -89,6 +89,13 @@ properties:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      default: 3072000
->  
-> +  nuvoton,dmic-slew-rate:
-> +    description: The range 0 to 7 represents the speed of DMIC slew rate.
-> +        The lowest value 0 means the slowest rate and the highest value
-> +        7 means the fastest rate.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    default: 0
 
-Don't write constraints in prose:
-
-maximum: 7
-
-> +
->    nuvoton,left-input-single-end:
->      description: Enable left input with single-ended settings if set.
->          For the headset mic application, the single-ended control is
-> @@ -127,6 +134,7 @@ examples:
->              nuvoton,jack-insert-debounce = <7>;
->              nuvoton,jack-eject-debounce = <0>;
->              nuvoton,dmic-clk-threshold = <3072000>;
-> +            nuvoton,dmic-slew-rate= <0>;
->              #sound-dai-cells = <0>;
->          };
->      };
-> -- 
-> 2.25.1
+> This takes some of the work done to auto-configure quirks/routing for
+> ESS83xx codecs by getting the info from ACPI from:
+> https://github.com/thesofproject/linux/pull/4112
 > 
+> And then builds on top of this to add auto-configuration to
+> the bytcht_es8316 board driver.
+
+Sounds good, thanks for doing this Hans! I only have two minor
+questions, see below.
+> 
+> Note compared to the pull-request, which deals with the ES8336, this
+> series deals with the ES8316 (for which I have several devices to test
+> on) and this moves all handling from the codec driver to the board
+> driver where this IMHO belongs.
+
+The ACPI stuff is in theory not Intel-specific, so not sure why it would
+belong in sound/soc/intel/boards? I initially put the code in
+sound/soc/codecs since the _DSM method is in the scope of the codec
+device HID.
+
+> After this series audio now works properly on a CHT Chuwi Hi12 tablet
+> without needing to add an extra quirk for that model.
+> 
+> This has also been tested on the following devices, where things
+> are unchanged from before (the ACPI autoconfiguration gives the
+> same results as the old defaults) :
+> 
+> Onda V80 plus (CHT)
+> GP-electronic T701 (BYT)
+> 
+> I also tested this on a Nanote UMPC-01, here the _DSM result
+> for PLATFORM_SPK_TYPE_ARG wrongly returns 1 (mono) while
+> the device actually has 2 speakers, so this model needs to keep
+> its DMI quirk.
+
+What about the two others?
+
+/* Irbis NB41 */
+/* Teclast X98 Plus II */
+
+Are they part of your set of devices and could the quirks be removed?

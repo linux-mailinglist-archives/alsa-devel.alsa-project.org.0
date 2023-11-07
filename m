@@ -2,93 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D26FC7E4457
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Nov 2023 16:52:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D38E57E4CF3
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 00:24:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40EB0850;
-	Tue,  7 Nov 2023 16:51:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40EB0850
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7D7F7F8;
+	Wed,  8 Nov 2023 00:23:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7D7F7F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699372351;
-	bh=S9VN7vROyg1KWjNiEzHcQPYk/11RBEqo3DAyho01LOo=;
+	s=default; t=1699399476;
+	bh=Gl9SuUNgp53c9A2XY9WRzZmWHWKI1qzZxd2y9nAFbXU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TbC/O6L8ErC3wULfvkDz5DRPn4LoLwHDDnVb02oc5dQYpJUu6tT/1/aWayO/YCsAD
-	 7t7OflgzA3v+j/UMCkAy4+H6q4T1PPb027vKMfUWrJZYCABoD6am/Y7CWl+Cv3tFhc
-	 dbXptA50AApXIBk/RyVi716471TgXJb43ERM41pk=
+	b=PNX6l7T7/ThaPVOTYmOAWIAL4BAaMf4rxNCDYJEFCY2Izx4Jm1LDn5OZLCQUsGV2G
+	 zUSWoKoTEgHb7GGasOhL9Qy9JLsXcV1rp2ZWjaklv1IO2kNW4RTBxGAn3BB0VMrtoB
+	 cdGxVnSUj1H7b39yWCoYBUJsrYro9LYVNVV22QCA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB1ADF8016D; Tue,  7 Nov 2023 16:51:40 +0100 (CET)
+	id 6653DF8016D; Wed,  8 Nov 2023 00:23:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A288AF80169;
-	Tue,  7 Nov 2023 16:51:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8619F80169;
+	Wed,  8 Nov 2023 00:23:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BA91F8016D; Tue,  7 Nov 2023 16:51:37 +0100 (CET)
+	id D30F9F8016D; Wed,  8 Nov 2023 00:23:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5EA89F80169
-	for <alsa-devel@alsa-project.org>; Tue,  7 Nov 2023 16:51:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EA89F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64E32F800ED
+	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 00:23:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64E32F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Y+Abs4wp
+ header.s=k20201202 header.b=NSUPQZv1
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 235FA61222;
-	Tue,  7 Nov 2023 15:51:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6CCC433C7;
-	Tue,  7 Nov 2023 15:51:23 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id C39FE61468;
+	Tue,  7 Nov 2023 23:23:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE803C433CB;
+	Tue,  7 Nov 2023 23:22:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699372284;
-	bh=S9VN7vROyg1KWjNiEzHcQPYk/11RBEqo3DAyho01LOo=;
+	s=k20201202; t=1699399380;
+	bh=Gl9SuUNgp53c9A2XY9WRzZmWHWKI1qzZxd2y9nAFbXU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Y+Abs4wpqKcp7dYsdqEevS8zJK/E3T/p7NbVwcFIVaZ7kzlzS/6Gb0FN/yoJFSlGt
-	 HCXd/wBhGKSBMRg23huzi213AYsmoh/tOtuC3uzqcUC7ZOW0D2LsOBWaNhq4F8spue
-	 q9myEZwdRpanyg8ijTaUMqZmPI2BYAEjPhSCqsjTBY8HpbtOTtWIft2CzseLRWbob/
-	 00dUsG4NrikDs/yblmVJ2BH2jZHNaPUnTW/gfbCTzbFQHHdmd+XaubYJNrF7YchQ4K
-	 Ieyz1uwn3ne9Xk7ISt7ZoNWRCNy0QDjhX63AhIuQjB9H2JBMEnUoTppM9u5j8S0Upp
-	 0Rh0I06ISHjjA==
+	b=NSUPQZv1hQOa7emqytN3yQJRWompotoSDnJtSbDddxm0KWHDGtnFwRRLbnOtWpODx
+	 pr6W0AGTF1dcGTMHlmR3+Tytsuw6Sycj5hm/5zuXJdBdK9vXUQlv5PFlNPQkDgEjHK
+	 FQt3bWtZa1nj1cBRw8QW3Q74QQ/WaiXRY0FBtk3NZ9ydSTsEYiqsG3B3oIVG2cgaUN
+	 6eWg5XhoVSUGzBY5V2sI3a+N0wlHHy/4OCI2/RCjigN7sW1CIIupt5k1q2/a6eXf1X
+	 kqzhuCH3/LsLOCcatWc+IRDi5G+w5y1dN1KJy14Mb74p9Bwy6I3x5Mj0j1dEi4gwLq
+	 DLC7Al1k3i9SA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Hans de Goede <hdegoede@redhat.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	cezary.rojewski@intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 26/30] ASoC: Intel: soc-acpi-cht: Add Lenovo Yoga
- Tab 3 Pro YT3-X90 quirk
-Date: Tue,  7 Nov 2023 10:50:00 -0500
-Message-ID: <20231107155024.3766950-26-sashal@kernel.org>
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 6.6 12/18] soundwire: dmi-quirks: update HP Omen match
+Date: Tue,  7 Nov 2023 18:22:06 -0500
+Message-ID: <20231107232231.3775605-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231107155024.3766950-1-sashal@kernel.org>
-References: <20231107155024.3766950-1-sashal@kernel.org>
+In-Reply-To: <20231107232231.3775605-1-sashal@kernel.org>
+References: <20231107232231.3775605-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.61
+X-stable-base: Linux 6.6
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: P3M2OVI6RG25WZMLPLTJPZ7AO7OS2OWV
-X-Message-ID-Hash: P3M2OVI6RG25WZMLPLTJPZ7AO7OS2OWV
+Message-ID-Hash: B6ZQUKC66I7LFDMUBYI3YUIG7UWSHBZE
+X-Message-ID-Hash: B6ZQUKC66I7LFDMUBYI3YUIG7UWSHBZE
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P3M2OVI6RG25WZMLPLTJPZ7AO7OS2OWV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6ZQUKC66I7LFDMUBYI3YUIG7UWSHBZE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,88 +102,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 2cb54788393134d8174ee594002baae3ce52c61e ]
+[ Upstream commit 4ea2b6d3128ea4d502c4015df0dc16b7d1070954 ]
 
-The Lenovo Yoga Tab 3 Pro YT3-X90 x86 tablet, which ships with Android with
-a custom kernel as factory OS, does not list the used WM5102 codec inside
-its DSDT.
+New platforms have a slightly different DMI product name, remove
+trailing characters/digits to handle all cases
 
-Workaround this with a new snd_soc_acpi_intel_baytrail_machines[] entry
-which matches on the SST id instead of the codec id like nocodec does,
-combined with using a machine_quirk callback which returns NULL on
-other machines to skip the new entry on other machines.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20231021211534.114991-1-hdegoede@redhat.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Closes: https://github.com/thesofproject/linux/issues/4611
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20231013010833.114271-1-yung-chuan.liao@linux.intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../intel/common/soc-acpi-intel-cht-match.c   | 43 +++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ drivers/soundwire/dmi-quirks.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index cdcbf04b8832f..5e2ec60e2954b 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -75,6 +75,39 @@ static struct snd_soc_acpi_mach *cht_ess8316_quirk(void *arg)
- 	return arg;
- }
- 
-+/*
-+ * The Lenovo Yoga Tab 3 Pro YT3-X90, with Android factory OS has a buggy DSDT
-+ * with the coded not being listed at all.
-+ */
-+static const struct dmi_system_id lenovo_yoga_tab3_x90[] = {
-+	{
-+		/* Lenovo Yoga Tab 3 Pro YT3-X90, codec missing from DSDT */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "CHERRYVIEW D1 PLATFORM"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "Blade3-10A-001"),
-+		},
-+	},
-+	{ }
-+};
-+
-+static struct snd_soc_acpi_mach cht_lenovo_yoga_tab3_x90_mach = {
-+	.id = "10WM5102",
-+	.drv_name = "bytcr_wm5102",
-+	.fw_filename = "intel/fw_sst_22a8.bin",
-+	.board = "bytcr_wm5102",
-+	.sof_tplg_filename = "sof-cht-wm5102.tplg",
-+};
-+
-+static struct snd_soc_acpi_mach *lenovo_yt3_x90_quirk(void *arg)
-+{
-+	if (dmi_check_system(lenovo_yoga_tab3_x90))
-+		return &cht_lenovo_yoga_tab3_x90_mach;
-+
-+	/* Skip wildcard match snd_soc_acpi_intel_cherrytrail_machines[] entry */
-+	return NULL;
-+}
-+
- static const struct snd_soc_acpi_codecs rt5640_comp_ids = {
- 	.num_codecs = 2,
- 	.codecs = { "10EC5640", "10EC3276" },
-@@ -175,6 +208,16 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.drv_name = "sof_pcm512x",
- 		.sof_tplg_filename = "sof-cht-src-50khz-pcm512x.tplg",
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 2a1096dab63d3..9ebdd0cd0b1cf 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -141,7 +141,7 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "OMEN by HP Gaming Laptop 16-k0xxx"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "OMEN by HP Gaming Laptop 16"),
+ 		},
+ 		.driver_data = (void *)hp_omen_16,
  	},
-+	/*
-+	 * Special case for the Lenovo Yoga Tab 3 Pro YT3-X90 where the DSDT
-+	 * misses the codec. Match on the SST id instead, lenovo_yt3_x90_quirk()
-+	 * will return a YT3 specific mach or NULL when called on other hw,
-+	 * skipping this entry.
-+	 */
-+	{
-+		.id = "808622A8",
-+		.machine_quirk = lenovo_yt3_x90_quirk,
-+	},
- 
- #if IS_ENABLED(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH)
- 	/*
 -- 
 2.42.0
 

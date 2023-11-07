@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B6BD7E4432
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Nov 2023 16:50:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D26FC7E4457
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Nov 2023 16:52:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 536CF84A;
-	Tue,  7 Nov 2023 16:50:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536CF84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40EB0850;
+	Tue,  7 Nov 2023 16:51:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40EB0850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699372253;
+	s=default; t=1699372351;
 	bh=S9VN7vROyg1KWjNiEzHcQPYk/11RBEqo3DAyho01LOo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MfpZXwOqla8/dyyKy0fgDFSkX4tMYcpk4HozzgWqW0Fd2KSvrqQVe4C9lIDu2GPOv
-	 pDBK/KJxih3FfFdkAxi0k0knuJTv0Y1sq5IkT5YYPunnehdC7WsG5EwmB/F1Y0FlWR
-	 E28uStGTS3kB00ZmKigOr9AjZKUK72fG/L3Q7BMw=
+	b=TbC/O6L8ErC3wULfvkDz5DRPn4LoLwHDDnVb02oc5dQYpJUu6tT/1/aWayO/YCsAD
+	 7t7OflgzA3v+j/UMCkAy4+H6q4T1PPb027vKMfUWrJZYCABoD6am/Y7CWl+Cv3tFhc
+	 dbXptA50AApXIBk/RyVi716471TgXJb43ERM41pk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1507AF80558; Tue,  7 Nov 2023 16:50:03 +0100 (CET)
+	id DB1ADF8016D; Tue,  7 Nov 2023 16:51:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C71F3F80169;
-	Tue,  7 Nov 2023 16:50:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A288AF80169;
+	Tue,  7 Nov 2023 16:51:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75BF5F8016D; Tue,  7 Nov 2023 16:50:00 +0100 (CET)
+	id 5BA91F8016D; Tue,  7 Nov 2023 16:51:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A2EF0F800ED
-	for <alsa-devel@alsa-project.org>; Tue,  7 Nov 2023 16:49:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2EF0F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5EA89F80169
+	for <alsa-devel@alsa-project.org>; Tue,  7 Nov 2023 16:51:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EA89F80169
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cBJskdSp
+ header.s=k20201202 header.b=Y+Abs4wp
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 4A6F361171;
-	Tue,  7 Nov 2023 15:49:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66BADC433C9;
-	Tue,  7 Nov 2023 15:49:55 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 235FA61222;
+	Tue,  7 Nov 2023 15:51:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6CCC433C7;
+	Tue,  7 Nov 2023 15:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699372197;
+	s=k20201202; t=1699372284;
 	bh=S9VN7vROyg1KWjNiEzHcQPYk/11RBEqo3DAyho01LOo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cBJskdSp1tsQYA5qKgtua71+UE4amF7z44c2qwDvmMVfQ7MHsVTuIs06lewU0k8KN
-	 05VDbzSYGBGb4rvufR25tyVgtRJyHXhKeSX/dLbMxJ88pwYOIOwF9txA4JSKzzrbmi
-	 KSsJeXO9wEx2JuoEIMQ0E/muoBlqjlnsQlTljByunNt1cqm601mMP8R0fedzo/OOaW
-	 lL80+k1UsKZW6irErvHs6BUtha4KuyI79ZenFoGLkNsF8v10z52C4AjTAG7B18CPaw
-	 Il87fLEmu9vTh77+Chw47/R7eYYjwtLkHJpzeyTbqu28Q3zlbTEcbtqdG4xeJZyumb
-	 54cjyri0tEMuw==
+	b=Y+Abs4wpqKcp7dYsdqEevS8zJK/E3T/p7NbVwcFIVaZ7kzlzS/6Gb0FN/yoJFSlGt
+	 HCXd/wBhGKSBMRg23huzi213AYsmoh/tOtuC3uzqcUC7ZOW0D2LsOBWaNhq4F8spue
+	 q9myEZwdRpanyg8ijTaUMqZmPI2BYAEjPhSCqsjTBY8HpbtOTtWIft2CzseLRWbob/
+	 00dUsG4NrikDs/yblmVJ2BH2jZHNaPUnTW/gfbCTzbFQHHdmd+XaubYJNrF7YchQ4K
+	 Ieyz1uwn3ne9Xk7ISt7ZoNWRCNy0QDjhX63AhIuQjB9H2JBMEnUoTppM9u5j8S0Upp
+	 0Rh0I06ISHjjA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -76,20 +75,20 @@ Cc: Hans de Goede <hdegoede@redhat.com>,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.5 30/34] ASoC: Intel: soc-acpi-cht: Add Lenovo Yoga
+Subject: [PATCH AUTOSEL 6.1 26/30] ASoC: Intel: soc-acpi-cht: Add Lenovo Yoga
  Tab 3 Pro YT3-X90 quirk
-Date: Tue,  7 Nov 2023 10:48:10 -0500
-Message-ID: <20231107154846.3766119-30-sashal@kernel.org>
+Date: Tue,  7 Nov 2023 10:50:00 -0500
+Message-ID: <20231107155024.3766950-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231107154846.3766119-1-sashal@kernel.org>
-References: <20231107154846.3766119-1-sashal@kernel.org>
+In-Reply-To: <20231107155024.3766950-1-sashal@kernel.org>
+References: <20231107155024.3766950-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.5.10
+X-stable-base: Linux 6.1.61
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5ZJ3S4VUK3SU3DQW7RBG3VMTW3TYHJV2
-X-Message-ID-Hash: 5ZJ3S4VUK3SU3DQW7RBG3VMTW3TYHJV2
+Message-ID-Hash: P3M2OVI6RG25WZMLPLTJPZ7AO7OS2OWV
+X-Message-ID-Hash: P3M2OVI6RG25WZMLPLTJPZ7AO7OS2OWV
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZJ3S4VUK3SU3DQW7RBG3VMTW3TYHJV2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P3M2OVI6RG25WZMLPLTJPZ7AO7OS2OWV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

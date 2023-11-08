@@ -2,83 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3D457E5636
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 13:29:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 657EA7E566E
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 13:40:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95789850;
-	Wed,  8 Nov 2023 13:28:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95789850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AF3D846;
+	Wed,  8 Nov 2023 13:39:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AF3D846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699446562;
-	bh=XB3yqrhkhxeT9M0N0X8n+emnTmZjtkm9F39I+mshKDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1699447221;
+	bh=HYLBtaP4bsKUIGKNt2595IGi4v7RE6IV73g0i3oEkmQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vAYql16dhC1D1Q+V/wql/M68PUHtdRO7mhu7r1lCHoFdEdJEj4EfCZPUwDa0cyAhE
-	 A/zGokTLYk71myEs1OEyK41r/knCBL+ZgGcRDQxVxEoUyzwcHmCNElMNxqEB/eTxds
-	 DPOQL6bQedGD2uh+FBRHhXVWWvIUtQCcdRMv2k7s=
+	b=Ox6vBgPmzpP+J90aWYr7QNC5rq+ULGPJUkKmdMcS/z5YsY7O8+odbIKrSy7cbvDAT
+	 2jQbObldrKZ5ds9xINnvXss3OnVEgpjYQ/pXd6z98fF+x9qEdC4nn13we7NDuapRlL
+	 8MJVWE1pdP2uX81AUEgNdw1pLbMqDG1ULun17lnI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B96CF80549; Wed,  8 Nov 2023 13:28:31 +0100 (CET)
+	id BF15FF804DA; Wed,  8 Nov 2023 13:39:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83E8DF80169;
-	Wed,  8 Nov 2023 13:28:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DD84F80169;
+	Wed,  8 Nov 2023 13:39:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 123DFF8016D; Wed,  8 Nov 2023 13:28:27 +0100 (CET)
+	id 87F60F8016D; Wed,  8 Nov 2023 13:39:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AA98F80100
-	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 13:28:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AA98F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53F33F80100
+	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 13:39:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53F33F80100
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MvkHgjyl
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 9D5CECE1025;
-	Wed,  8 Nov 2023 12:28:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9872C433C7;
-	Wed,  8 Nov 2023 12:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699446490;
-	bh=XB3yqrhkhxeT9M0N0X8n+emnTmZjtkm9F39I+mshKDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MvkHgjyliiv31fmFx/H4c4rIscBXniiM2ppee2k8ZEHDPaZ4Q+UOGDC+SGcoVdbni
-	 NW9SEEjp3TKRoFbk9VqTbEN3iBh5EHbmJwDK7UrdwXCq8IhcjDFieIh0gYBwyUQ+X2
-	 Bl+fDoC85+fAY6LBRNdITZ/7wpGLi+zEgzSxXUXpNLXGbu4jad+5ki6oAEWdgmeXcA
-	 +IWYk4tacmWnNLmHvO2Wq6gPWj6gmSLbm2AaD3FKL2tbUO9XD5JBttWmDvZce5GzbZ
-	 4Rrd72OKCrebBj/erZTZ5+GFEZCb3OCvL1jTuhHo5IyZvfVn2RnlpPj3ZBFQYNulDC
-	 +2x2QOfE0A/Sw==
-Date: Wed, 8 Nov 2023 12:28:05 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
-	KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, SJLIN0@nuvoton.com,
-	scott6986@gmail.com, supercraig0719@gmail.com, dardar923@gmail.com
-Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: nau8821: Add DMIC slew rate.
-Message-ID: <20231108-ungraded-paddle-93f2102e4f61@spud>
-References: <20231107035230.1241683-1-wtli@nuvoton.com>
- <20231107035230.1241683-2-wtli@nuvoton.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="m+wVLMrEzhVYOsBg"
-Content-Disposition: inline
-In-Reply-To: <20231107035230.1241683-2-wtli@nuvoton.com>
-Message-ID-Hash: XXWFYDDWW2Y3XR35U3JFHGQQCNA2MGFV
-X-Message-ID-Hash: XXWFYDDWW2Y3XR35U3JFHGQQCNA2MGFV
-X-MailFrom: conor@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=lkHkclyr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=hRjTcE9k
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C0DB51F8AA;
+	Wed,  8 Nov 2023 12:39:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1699447162;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=caTSVkX7DWg9efIwdAHVnURh+gmnfRTacrd+wM1pTjM=;
+	b=lkHkclyrTqcppb3bmNISYV/4HMRWVr0q6mrsiyi5RaP8v5AA3TA2OMaUSzWbqZvKNy2lNj
+	Shj2UBQXu+r4wpRMdJWatUECk2AgqcnKDRAAaNaeaizjjIrrxR3mbxgZ9UQ2hkLwbn1t+h
+	Vaq40fzotu6sH+5ip7rG17cLW+AJe/k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1699447162;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=caTSVkX7DWg9efIwdAHVnURh+gmnfRTacrd+wM1pTjM=;
+	b=hRjTcE9kr7PNoeMS8E73MPUljlowzU67kn0PfSKxs6ytAHOvmKZ6ReM9+zkOcLfdMPsM/j
+	t0dOSm2+u2yp7RBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 97329133F5;
+	Wed,  8 Nov 2023 12:39:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id zQZoJHqBS2W4MAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 08 Nov 2023 12:39:22 +0000
+Date: Wed, 08 Nov 2023 13:39:22 +0100
+Message-ID: <87edh0ctc5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?EUC-KR?B?sK29xcf8?= <s47.kang@samsung.com>
+Cc: <kuninori.morimoto.gx@renesas.com>,
+	<alsa-devel@alsa-project.org>,
+	<lgirdwood@gmail.com>,
+	<pierre-louis.bossart@linux.intel.com>,
+	<broonie@kernel.org>,
+	<cpgs@samsung.com>,
+	<pilsun.jang@samsung.com>,
+	<seungbin.lee@samsung.com>,
+	<donghee.moon@samsung.com>
+Subject: Re: [PATCH] ALSA: core: Replace mutex_lock with mutex_trylock
+In-Reply-To: <1891546521.01699446601660.JavaMail.epsvc@epcpadp3>
+References: 
+ <CGME20231107081810epcas2p27a897426580fce6f0884cffb256b2aaf@epcas2p2.samsung.com>
+	<664457955.21699345385931.JavaMail.epsvc@epcpadp4>
+	<87y1f9r705.wl-tiwai@suse.de>
+	<1891546521.01699446601660.JavaMail.epsvc@epcpadp3>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=EUC-KR
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 2RZFDHSG4RDRXNR56W3JR5LK34QB4JZR
+X-Message-ID-Hash: 2RZFDHSG4RDRXNR56W3JR5LK34QB4JZR
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XXWFYDDWW2Y3XR35U3JFHGQQCNA2MGFV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2RZFDHSG4RDRXNR56W3JR5LK34QB4JZR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,67 +131,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 08 Nov 2023 13:14:15 +0100,
+°­½ÅÇü wrote:
+> 
+> > Thanks for the patch.  But this change may break the current working
+> > behavior; e.g. when two proc reads are running concurrently, one would
+> > be aborted unexpectedly.
+> > 
+> > IIUC, the problem is the call of proc_remove(), and this call itself
+> > can be outside the global mutex.
+> > 
+> > Could you check whether the patch below works instead?  (Note that
+> > it's only compile-tested.)  It makes the proc_remove() called at
+> > first, then clearing the internal entries.  The function was renamed
+> > accordingly for avoiding confusion, too.
+> > 
+> > 
+> > Takashi
+> 
+> You are right. My patch is just for avoiding the deadlock. 
+> It may lead to other problem instead the deadlock(e.g. USB sound card
+> registration failure)
+> Your patch works well without any problems.
+> But I can't confirm that the problem is solved or not.
+> because the issue has occurred only once until now.
+> (Test method: USB insertion / removal during a call)
 
---m+wVLMrEzhVYOsBg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Maybe you can reproduce it more easily by adding some delay
+(e.g. ssleep(2)) before mutex_lock() in snd_info_entry_open().
+Then it's easier to cause a race.
 
-On Tue, Nov 07, 2023 at 11:52:29AM +0800, Seven Lee wrote:
-> Add input with DMIC slew rate controls.
->=20
-> Signed-off-by: Seven Lee <wtli@nuvoton.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
-Thanks,
-Conor.
-
-> ---
->  .../devicetree/bindings/sound/nuvoton,nau8821.yaml       | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml=
- b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> index 3e54abd4ca74..3380b6aa9542 100644
-> --- a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
-> @@ -89,6 +89,14 @@ properties:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      default: 3072000
-> =20
-> +  nuvoton,dmic-slew-rate:
-> +    description: The range 0 to 7 represents the speed of DMIC slew rate.
-> +        The lowest value 0 means the slowest rate and the highest value
-> +        7 means the fastest rate.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    maximum: 7
-> +    default: 0
-> +
->    nuvoton,left-input-single-end:
->      description: Enable left input with single-ended settings if set.
->          For the headset mic application, the single-ended control is
-> @@ -127,6 +135,7 @@ examples:
->              nuvoton,jack-insert-debounce =3D <7>;
->              nuvoton,jack-eject-debounce =3D <0>;
->              nuvoton,dmic-clk-threshold =3D <3072000>;
-> +            nuvoton,dmic-slew-rate=3D <0>;
->              #sound-dai-cells =3D <0>;
->          };
->      };
-> --=20
-> 2.25.1
->=20
-
---m+wVLMrEzhVYOsBg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZUt+1QAKCRB4tDGHoIJi
-0utcAQCmLM7CTdSg8LB5s/+0Hp1lbmS88sg9SymaMSKjIRplmwEA0b08DRBNoeEJ
-iDhhK2QtHSMpHWkckynXbj6qbZyzpAo=
-=NnjE
------END PGP SIGNATURE-----
-
---m+wVLMrEzhVYOsBg--
+Takashi

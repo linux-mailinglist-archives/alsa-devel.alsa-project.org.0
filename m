@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F8B7E5457
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 11:47:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 457807E544E
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 11:47:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63B2DDEE;
-	Wed,  8 Nov 2023 11:46:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63B2DDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C805AE72;
+	Wed,  8 Nov 2023 11:46:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C805AE72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699440462;
-	bh=tvkXSaRpDx+LQn2Wp8WlC7XjtALFUXsDGz5cTqm/o5w=;
+	s=default; t=1699440438;
+	bh=oukpvjMJogNfgdHJA312lEp8JIXrG9+VFBzx8EHrZAg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ec2K7aavFzVNhvbEEldpLFKRzKhf41F0v4EqOwPLKc3CWcW7GPCLry48P0vXC+5LG
-	 9ILiYGszGLIgcP1hQe+nFRlpHP8Co73rvBB8e0+QYGM1OH0nUuMlUcWMa+DCIMlwKw
-	 QbJJ4OHTmWNHbwf/3K/j9F6Scd3k0CahTwQFH304=
+	b=HapxWhgSBUuUB8qKaMOcoV54tWT9RgwSL6zddetqpmHDev/tcGXREApjqdlpOn7hW
+	 KVJ37kW4mnXUDqXkmqFAJjLj5ydg/ZyVjoJPhzG+89oyLN5xhdYmxhn2WP9qk6WZeD
+	 RqvO6Qyjsc9bH1SonT0R0H/FZjX20QVvfcVZVUxU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AAC1F805DF; Wed,  8 Nov 2023 11:44:35 +0100 (CET)
+	id 87216F805BE; Wed,  8 Nov 2023 11:44:34 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29990F805D9;
-	Wed,  8 Nov 2023 11:44:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1DACF805CB;
+	Wed,  8 Nov 2023 11:44:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BAE6F805CB; Wed,  8 Nov 2023 11:44:31 +0100 (CET)
+	id 8FDB9F805D2; Wed,  8 Nov 2023 11:44:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07550F805BE
-	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 11:44:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07550F805BE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7FC64F805C8
+	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 11:44:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC64F805C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=VYa/ua1l
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2c501bd6ff1so94533611fa.3
+ header.s=google header.b=evhot+Sm
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4083f613272so57235305e9.1
         for <alsa-devel@alsa-project.org>;
- Wed, 08 Nov 2023 02:44:23 -0800 (PST)
+ Wed, 08 Nov 2023 02:44:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699440262; x=1700045062;
+        d=linaro.org; s=google; t=1699440265; x=1700045065;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=932+POzuiCpVd1FMO8emES7304xq1CZHsFhbsNym7D8=;
-        b=VYa/ua1lwRcS4amdN+U8DK/CjOEG8NGqjSNGbl1CkcuPfS4UW208LHbb6joLR97y2j
-         yVLJ0rSpUPnpA9/JZFmDvFGtdJnMVAxId+T4SFOD9ZVLTj6bs75XY+VXzfrSZqUjUAa6
-         Gi9OFq0IBNqLSFyxbavUadwidSFtqYbzlRFwn3Awp3uI2Pvu5m8fchFgrPPle8F/AUeT
-         6uShsekAGZSKkVm2vPeFtAaxIY6hzNTr4/+PBwc/gfqKVsVhctS3i5eF2c+yZ3QCbomg
-         bii73TWlFfLp6Q9OQrhe7mC2OrdYOLglT+KXtjbeWcJAa8KfIN0CsBuAl0xRjhP+LDvY
-         oqfw==
+        bh=PV5diolHzkDYNZO8WufyA3F1OzLH/Kn/j0r7E3RxmpI=;
+        b=evhot+SmItXuf5HreMahq1cauQoXEkxyYDcMfkAkUYCRwkxC2IUCxrS32RGGBg8qbM
+         i9ph9x6p8nONIu9c007ql97FXMsY1P3Xcnnr/ppN/I9+yWEB3N1jHVyVCkNZpdLJKmoy
+         bOr9ch5LEHBqgIzl6e2Vxno9YboltjPbjdu6X1ipNEO3g3uZzcsMrRm9wax/4NzsPX2U
+         bsZXLEkd3nlXGWpDhpwO0klfzoXexJI31WWmUMEy3pLIg9uCa+6cF5T9NmTt1N5vLNTG
+         QAiEpsWI+IiCethrTzufPE5PsvBrQDImNAyZ84v1h0G4C6a01bBNnG35zcvO050y91qW
+         kNBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699440262; x=1700045062;
+        d=1e100.net; s=20230601; t=1699440265; x=1700045065;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=932+POzuiCpVd1FMO8emES7304xq1CZHsFhbsNym7D8=;
-        b=mymqRTF88u5KzwV4jFTOJrOlLpOLwJFco3sAX8tEcWrHDKxvdGnffkc14ksQH5soJF
-         ucByB4HXdGIUYzLZCy/eqj3w4zc2uWVCv8lPSs3mxkTQBqWRlN3kZhcHjqbaqklJOzQC
-         SbwAuZ39NpdSVUvvH1HExI2bylYlLjgmCy7pskHkcI11zlhepuqFKkK1spV143jk/LEZ
-         a/ViSJgVdVwGOqkhwltj97yk+ChZ9W/e2iruSOBujRGc5uZTmYsAIOJfH4w5ATnInmjH
-         q+Dj8awURETxcDS+Hf9L84ImkYn4zDFoRgEoHlLiuM1anQwu26Xq23kMYR+7wVQunSD7
-         Y+ag==
-X-Gm-Message-State: AOJu0YxgEuNF7QJ3bbrCLwJvUi71bmbenbi6kA1rTtpa3PzuMtaD9ieo
-	PeJ+Fe2eZB00IUGmSbGMSMdXZA==
+        bh=PV5diolHzkDYNZO8WufyA3F1OzLH/Kn/j0r7E3RxmpI=;
+        b=ChEmEsf7Jg78Rlml9Ew8HCoE/GKAAON6q5rUYPQnVM89CLJF1ooCrKM/xEoL0apOid
+         /5P0brbIPr38YTSwpAxG+lujCjCDB7scMOMR6vGvCah6Wu2tEzJT58AzEWtxC5EYKTAs
+         9Is88O4u9wA7EUqX0A+41oJzRPqyQ8Lhk4Q0gmRC7GVfeRiAL8XSqh3t+V+9Tn8JW6hZ
+         iYkHABRANQOD/Pxcce7geimiT514uEULngZP1OfXbyeaCINZWq+DkHZsq6mZNJHjUBDd
+         /uLjBSbpq6KItvOCFX17mwuD2RaWFBr+qKDq1hHz9POdw5uD9fl3Ilgl4dvsGrUthRtC
+         nOXA==
+X-Gm-Message-State: AOJu0YxechVomEPef+dMdAL4XuxmPk2X4O3ifNQ+eeYGx80BILKYq6ZS
+	m5QdJ0go995LZenyBuKRtk7EIg==
 X-Google-Smtp-Source: 
- AGHT+IGCpSGI0CR0667rdoPAw+/9BwGIOQ5vf5WLNiqXBsw+h3xPKE36aRvV/bSi7NnLY3zOJHYzOg==
-X-Received: by 2002:a05:651c:504:b0:2c5:14e3:f1b8 with SMTP id
- o4-20020a05651c050400b002c514e3f1b8mr1507701ljp.7.1699440261813;
-        Wed, 08 Nov 2023 02:44:21 -0800 (PST)
+ AGHT+IE6LA57XGwizIDEYldEFclmufoWGtfeboQZQs5v6tX5jMVi5UnfB4CCXBaPubn6aW9Tzqj6ag==
+X-Received: by 2002:a05:600c:1f8f:b0:406:81e9:ad0c with SMTP id
+ je15-20020a05600c1f8f00b0040681e9ad0cmr1347385wmb.41.1699440265563;
+        Wed, 08 Nov 2023 02:44:25 -0800 (PST)
 Received: from krzk-bin.. ([178.197.218.126])
         by smtp.gmail.com with ESMTPSA id
- fj12-20020a05600c0c8c00b004094c5d92bdsm19377377wmb.31.2023.11.08.02.44.18
+ fj12-20020a05600c0c8c00b004094c5d92bdsm19377377wmb.31.2023.11.08.02.44.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Nov 2023 02:44:21 -0800 (PST)
+        Wed, 08 Nov 2023 02:44:25 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: David Airlie <airlied@gmail.com>,
 	Daniel Vetter <daniel@ffwll.ch>,
@@ -129,17 +129,17 @@ To: David Airlie <airlied@gmail.com>,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 07/17] dt-bindings: serial: samsung: add specific compatibles
- for existing SoC
-Date: Wed,  8 Nov 2023 11:43:33 +0100
-Message-Id: <20231108104343.24192-8-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 08/17] dt-bindings: samsung: exynos-pmu: add specific
+ compatibles for existing SoC
+Date: Wed,  8 Nov 2023 11:43:34 +0100
+Message-Id: <20231108104343.24192-9-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
 References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CBGVTZG735FCR33MUBUQF2Y2FF4SNXFD
-X-Message-ID-Hash: CBGVTZG735FCR33MUBUQF2Y2FF4SNXFD
+Message-ID-Hash: 52POKW2SCZ57GUQPSDNJDT6T7QWSWNIM
+X-Message-ID-Hash: 52POKW2SCZ57GUQPSDNJDT6T7QWSWNIM
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -152,7 +152,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CBGVTZG735FCR33MUBUQF2Y2FF4SNXFD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/52POKW2SCZ57GUQPSDNJDT6T7QWSWNIM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,9 +171,6 @@ Documentation/devicetree/bindings/writing-bindings.rst state that:
 Add compatibles specific to each SoC in front of all old-SoC-like
 compatibles.
 
-Re-shuffle also the entries in compatibles, so the one-compatible-enum
-is the first.
-
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
@@ -181,41 +178,26 @@ Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 I propose to take the patch through Samsung SoC (me). See cover letter
 for explanation.
 ---
- .../devicetree/bindings/serial/samsung_uart.yaml   | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/soc/samsung/exynos-pmu.yaml         | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/samsung_uart.yaml b/Documentation/devicetree/bindings/serial/samsung_uart.yaml
-index ac60ab1e35e3..0d0215b23ab7 100644
---- a/Documentation/devicetree/bindings/serial/samsung_uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/samsung_uart.yaml
-@@ -18,9 +18,6 @@ description: |+
- properties:
-   compatible:
-     oneOf:
--      - items:
--          - const: samsung,exynosautov9-uart
--          - const: samsung,exynos850-uart
-       - enum:
-           - apple,s5l-uart
-           - axis,artpec8-uart
-@@ -29,6 +26,17 @@ properties:
-           - samsung,exynos4210-uart
-           - samsung,exynos5433-uart
-           - samsung,exynos850-uart
+diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+index e1d716df5dfa..6492e92586d9 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+@@ -48,6 +48,12 @@ properties:
+               - samsung,exynos850-pmu
+               - samsung-s5pv210-pmu
+           - const: syscon
 +      - items:
 +          - enum:
-+              - samsung,exynos7-uart
-+          - const: samsung,exynos4210-uart
-+      - items:
-+          - enum:
-+              - samsung,exynos7885-uart
-+          - const: samsung,exynos5433-uart
-+      - items:
-+          - const: samsung,exynosautov9-uart
-+          - const: samsung,exynos850-uart
- 
-   reg:
-     maxItems: 1
++              - samsung,exynos7885-pmu
++              - samsung,exynosautov9-pmu
++          - const: samsung,exynos7-pmu
++          - const: syscon
+       - items:
+           - enum:
+               - samsung,exynos3250-pmu
 -- 
 2.34.1
 

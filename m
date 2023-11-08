@@ -2,112 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A881F7E5B98
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 17:42:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA147E5BF5
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 18:05:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C32B274C;
-	Wed,  8 Nov 2023 17:42:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C32B274C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 576F7827;
+	Wed,  8 Nov 2023 18:04:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 576F7827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699461775;
-	bh=mTSad6bJhZGA212S/cPdKprvVKPQ/Wzqui55Qdqk7Q0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1699463137;
+	bh=icA7wAOiE52buBN5YjDPeg/Ddu7n2zRTMxY6lXInsGo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cg8fuhtvLogVmzY3mNAza1+53BrrGvwZbDZ2ZdQIAOrNmQ64LZwTSUPkI4k6D9/Wu
-	 4BD4V84E6EdR2BHhs0nm1sohQOeM9YiMrtuisUfXDF5vyjQ6H2rfQaPG59AaxuLMaM
-	 /dx1cSAJHEwmNIoRWqFBodbU10N2BXX9iRhjsXYg=
+	b=Izx3RXIpqmG93zbNDMQIVfNfp6zdLkFciyGev22fvavYAMyBY56uW2er1MU3V295A
+	 /CfESuLefBs/IiBHPAswfBUYoL5dG1S4Z6ChTMFk+LhZbRwUaZ9k1hmLd6StF96Kva
+	 jR3QTARVy3mgbDDuhAg/cOzvD5y2ny0JuZBou/GQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87E7CF8055B; Wed,  8 Nov 2023 17:42:05 +0100 (CET)
+	id B6AF7F801F5; Wed,  8 Nov 2023 18:04:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 134B5F80100;
-	Wed,  8 Nov 2023 17:42:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 604EBF80169;
+	Wed,  8 Nov 2023 18:04:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDD85F8016D; Wed,  8 Nov 2023 17:42:01 +0100 (CET)
+	id 35E88F8016D; Wed,  8 Nov 2023 18:04:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41F38F80152
-	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 17:41:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41F38F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 168E2F80152
+	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 18:04:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 168E2F80152
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mHEkXpn0
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 807EB61696;
-	Wed,  8 Nov 2023 16:41:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3EFC433C9;
-	Wed,  8 Nov 2023 16:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699461714;
-	bh=mTSad6bJhZGA212S/cPdKprvVKPQ/Wzqui55Qdqk7Q0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mHEkXpn0YUGCi5tDa5stf8TWfMEbxcSgszu1XhzbVhTBRgxBnyU/PzKxof2V9XnaY
-	 zuYUA7lRdYFVNhIGuPpGjAzNGK9m6qjHSad5xZq9BXgyC7S8qhsGji0Ws70V9ECWQW
-	 jJoXZW/EGelR6dVh/x8jxbO2B5fARPBf47voCmN+SWIdg/iQeJBUS+Yd3MJoHVi6ab
-	 DGmxVQMHM/QW683mvTs3EjeZs6+grLIqhLcS5nMjoq9FdFM+A/2Cc4onYm75xzfDY4
-	 F/4s2fEWLVRP2PVf719XdVQKnBtekM8cBdJNMMOwLap8uCWbX1q7vDSzfyPAn2wgCM
-	 XZ+PJnY19Z6bg==
-Date: Wed, 8 Nov 2023 16:41:43 +0000
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Tomasz Figa <tomasz.figa@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Alessandro Zummo <a.zummo@towertech.it>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Sam Protsenko <semen.protsenko@linaro.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 11/17] ASoC: dt-bindings: samsung-i2s: add specific
- compatibles for existing SoC
-Message-ID: <20231108164143.GC8909@google.com>
-References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
- <20231108104343.24192-12-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231108104343.24192-12-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: BEPC7DMFY7FEZPGOX37OW426DE3ITIIG
-X-Message-ID-Hash: BEPC7DMFY7FEZPGOX37OW426DE3ITIIG
-X-MailFrom: lee@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=iiWeEyxy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=69QKNnB1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 001C31F45A;
+	Wed,  8 Nov 2023 17:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1699463074;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JY5ZB8S4Dnu1VwBQ8w5YcuhbRDfFSODC0a2bEoP75s4=;
+	b=iiWeEyxy8cwkfZibMY0/wJbEi5OUGpKHVF/osd9zYmBkePqKZpKEFADJzIl3B5gEbB31sZ
+	rCeIkKWyxj1b/rOr9paF1nkDgxWpc5JfZmGxtIOmleqOm0owO/sI71F57FYJJKnpihXcOY
+	8os/j+32o2+896tuPL4fYlPlSAO6Y14=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1699463074;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JY5ZB8S4Dnu1VwBQ8w5YcuhbRDfFSODC0a2bEoP75s4=;
+	b=69QKNnB1jl4PFyH0DwbMVqUTws+m0AGoVYacq4ztqfgNuVgxq/QO+P0ffgQzrJQAoBHjxj
+	8SKNOS/IHIxaWXBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D4322133F5;
+	Wed,  8 Nov 2023 17:04:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 20HkMqG/S2U0NAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 08 Nov 2023 17:04:33 +0000
+Date: Wed, 08 Nov 2023 18:04:33 +0100
+Message-ID: <87y1f8p466.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.7-merge-window
+In-Reply-To: <c4dc4d36e05e84071dfbaf0e1e1a172a.broonie@kernel.org>
+References: <c4dc4d36e05e84071dfbaf0e1e1a172a.broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: UUPVDQDPGXAHJ2UAEDPGI5ORR3XOER5T
+X-Message-ID-Hash: UUPVDQDPGXAHJ2UAEDPGI5ORR3XOER5T
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BEPC7DMFY7FEZPGOX37OW426DE3ITIIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UUPVDQDPGXAHJ2UAEDPGI5ORR3XOER5T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,30 +117,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 08 Nov 2023, Krzysztof Kozlowski wrote:
+On Wed, 08 Nov 2023 17:38:08 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit bdb7e1922052b1e7fcce63e2cfa195958ff97e05:
+> 
+>   ASoC: Merge up workaround for CODECs that play noise on stopped stream (2023-10-27 22:33:15 +0100)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.7-merge-window
+> 
+> for you to fetch changes up to 45f2f28bd498fb697d07a38775d55f0f50fee5ca:
+> 
+>   ASoC: SOF: sof-client: trivial: fix comment typo (2023-11-07 11:10:19 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.7
+> 
+> A collection of fixes that have come in during the merge window, the
+> majority of this is driver specific with one core fix for handling of
+> DAPM clock widgets when a name prefix is specified for the card - the
+> name should not be applied to the clock name we request from the clock
+> API.
 
-> Samsung Exynos SoC reuses several devices from older designs, thus
-> historically we kept the old (block's) compatible only.  This works fine
-> and there is no bug here, however guidelines expressed in
-> Documentation/devicetree/bindings/writing-bindings.rst state that:
-> 1. Compatibles should be specific.
-> 2. We should add new compatibles in case of bugs or features.
-> 
-> Add compatibles specific to each SoC in front of all old-SoC-like
-> compatibles.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> I propose to take the patch through Samsung SoC (me). See cover letter
-> for explanation.
-> ---
->  .../mfd/samsung,exynos5433-lpass.yaml         |  2 +-
->  .../bindings/sound/samsung-i2s.yaml           | 19 ++++++++++++-------
->  2 files changed, 13 insertions(+), 8 deletions(-)
+Pulled now.  Thanks.
 
-Acked-by: Lee Jones <lee@kernel.org>
 
--- 
-Lee Jones [李琼斯]
+Takashi

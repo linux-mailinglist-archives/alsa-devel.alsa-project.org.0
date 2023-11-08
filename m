@@ -2,34 +2,33 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55CB37E57CD
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 14:08:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DCB67E5B84
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Nov 2023 17:40:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80A70828;
-	Wed,  8 Nov 2023 14:07:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80A70828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EAC1844;
+	Wed,  8 Nov 2023 17:40:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EAC1844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699448902;
-	bh=oi5w46XUUj+5eCHt5HUP0e7A7OgjsfNv+uqws1harcw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=mj8FBGGQRc1o/gHK59PSLiHZw20oRlzJJwRLc3OD9Em02AIRjlF/3kfzYyR7XCBHh
-	 iEDeOBuRWGSAIBO3Nx4QjHyqtQ8cvDksAwRLw55UBTk9emeWFRewKzR1XNOt7z2+1T
-	 kJLadAZ716f7hxfqkRlrVQ/A3d/uUyq+HkObioBg=
+	s=default; t=1699461655;
+	bh=fjIN9zVPLMc/bPGiJA0dcLwDOVeX3TJnOWVJAAggkws=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=AeN2repFWJ9aAijCZbG1WkmmOYEIQ2W697qs4nHf4Tl3gvuiDBo6As3jLGLnKRCTR
+	 jY5Ri4mX3KjELc72vTg0TzgGcCgJv1Y4uEpSAlyurdIt4P7fQOkj1ltKavqynEf1df
+	 RyXtieK7jXaNzIrPRrAoqm8xdZPFcNGPW1Hz8cUo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5756F80549; Wed,  8 Nov 2023 14:07:31 +0100 (CET)
+	id C7CFFF80169; Wed,  8 Nov 2023 17:39:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61849F80169;
-	Wed,  8 Nov 2023 14:07:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2C8FF80169;
+	Wed,  8 Nov 2023 17:39:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24536F8016D; Wed,  8 Nov 2023 14:07:27 +0100 (CET)
+	id 59A80F8016D; Wed,  8 Nov 2023 17:39:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from ams.source.kernel.org (ams.source.kernel.org
@@ -38,75 +37,37 @@ Received: from ams.source.kernel.org (ams.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C1C23F80152
-	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 14:07:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1C23F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 15B44F80100
+	for <alsa-devel@alsa-project.org>; Wed,  8 Nov 2023 17:39:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15B44F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=USgbXuQE
+ header.s=k20201202 header.b=NO5xP0Wp
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 0B0B6B818EB;
-	Wed,  8 Nov 2023 13:07:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFAAEC433C8;
-	Wed,  8 Nov 2023 13:07:17 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id D064EB81DA4;
+	Wed,  8 Nov 2023 16:39:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647C4C433C8;
+	Wed,  8 Nov 2023 16:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699448838;
-	bh=oi5w46XUUj+5eCHt5HUP0e7A7OgjsfNv+uqws1harcw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=USgbXuQE+ahS0wMNzK3GZRWrt2o4EadreHpU54UrkxxsZTTz0+LAe6fX8RvlykKp3
-	 GnmJtzyZD1B5KT90EnuOrpS45Wn4Ug2QUbGzOlIaMw4h8TYxXniEVURlDAPEFofnAA
-	 iULsGnxGgZ2r3S/txUvuyAC4NfimqV7S5ugviXvv/bC9zlMCTAI9ifoFUl0qap50eK
-	 8xnqTE2LkaSAP45eLgiKG3jc+Tl0L9OlmfUcmBV78/c8SmRpnZH7a47rwrNZWy6prh
-	 1BOu/wADh/rVR70guv/oGFc/pjZ9rrdvWZkVYr2T0XYKkEeW2YWOsyGVWaKdWKHEcO
-	 jUDvq/YygN9Fw==
-Date: Wed, 8 Nov 2023 13:07:14 +0000
+	s=k20201202; t=1699461557;
+	bh=fjIN9zVPLMc/bPGiJA0dcLwDOVeX3TJnOWVJAAggkws=;
+	h=From:To:Cc:Subject:Date:From;
+	b=NO5xP0Wp7pLUr98exC3tkUokMXlf6Hl3jGP6oqr1inG07kx3F4Q0a2E6kA+rCys8f
+	 MtURB1lJI4eDZ4vQEFwCdanqulXT3BF1SEDZ2etkLvM4Bop4xs0h77iO8mb8MbmUp3
+	 y4GWWEDVBSdc/P5DU8wj6U3Xh0YEiffAAKVMqEmR34GPot2AGLm3I2xtjq/KYS/AR6
+	 HD95VeDFzOlFyDaIWpajvP67C5HxxyyREfgYwQ+kDt6u9fOz5+I7ycinxEX5e5eLVR
+	 toeZxNdfsWd15u/yXsvPt3QIpNoOMpXYccn0loMlnW6i3Lir/Q6whCqcTomwEYgar2
+	 wDkoagkyGXw3g==
+Message-ID: <c4dc4d36e05e84071dfbaf0e1e1a172a.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Tomasz Figa <tomasz.figa@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Alessandro Zummo <a.zummo@towertech.it>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Sam Protsenko <semen.protsenko@linaro.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 11/17] ASoC: dt-bindings: samsung-i2s: add specific
- compatibles for existing SoC
-Message-ID: <ZUuIAihzcOqkVsWG@finisterre.sirena.org.uk>
-References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
- <20231108104343.24192-12-krzysztof.kozlowski@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="X+QegD6ebh8cp8W3"
-Content-Disposition: inline
-In-Reply-To: <20231108104343.24192-12-krzysztof.kozlowski@linaro.org>
-X-Cookie: Slow day.  Practice crawling.
-Message-ID-Hash: 7SZOMRJSATUKOAHGDHHQV4TYWRQ63O6X
-X-Message-ID-Hash: 7SZOMRJSATUKOAHGDHHQV4TYWRQ63O6X
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.7-merge-window
+Date: Wed, 08 Nov 2023 16:38:08 +0000
+Message-ID-Hash: RYOAZQ2I3OQW4BEFXOH4PHKWXZSQZCP5
+X-Message-ID-Hash: RYOAZQ2I3OQW4BEFXOH4PHKWXZSQZCP5
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -119,7 +80,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7SZOMRJSATUKOAHGDHHQV4TYWRQ63O6X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RYOAZQ2I3OQW4BEFXOH4PHKWXZSQZCP5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,32 +89,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The following changes since commit bdb7e1922052b1e7fcce63e2cfa195958ff97e05:
 
---X+QegD6ebh8cp8W3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+  ASoC: Merge up workaround for CODECs that play noise on stopped stream (2023-10-27 22:33:15 +0100)
 
-On Wed, Nov 08, 2023 at 11:43:37AM +0100, Krzysztof Kozlowski wrote:
-> Samsung Exynos SoC reuses several devices from older designs, thus
-> historically we kept the old (block's) compatible only.  This works fine
-> and there is no bug here, however guidelines expressed in
-> Documentation/devicetree/bindings/writing-bindings.rst state that:
+are available in the Git repository at:
 
-Acked-by: Mark Brown <broonie@kernel.org>
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.7-merge-window
 
---X+QegD6ebh8cp8W3
-Content-Type: application/pgp-signature; name="signature.asc"
+for you to fetch changes up to 45f2f28bd498fb697d07a38775d55f0f50fee5ca:
 
------BEGIN PGP SIGNATURE-----
+  ASoC: SOF: sof-client: trivial: fix comment typo (2023-11-07 11:10:19 +0000)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVLh/wACgkQJNaLcl1U
-h9D+/Af+MyEPu0I4eqVGYfK3Bo/6Rvq3LXEhL2x1vksJCKJjNwBBvQHqRWRTBZXL
-VEhtg6O887bE4a7Hy4RErRnb978JM4kG0mM4qBPhwgv9YoqD9Ymr7jFfp8dRru28
-hGY35dYXNXlC3LMJ1CdSVnubfo0QPHIzRYwWO4xpz0/BqNtsJlELPaU2s1q0wDHO
-v/nMVrIE3Xzjp4iQEXcyfZa4k73XOYHmSqxR0H9xiDayBgMuUkypOeDs/qGpO+mW
-Bp4IbvvgVJr9ifLmpCMlZWSQryHbiOR3cpJHR6Tb3UhjJKUgccQLyGHgBfAgiSqJ
-x6Tc2OIcYB5l2yn9+JONwgLPLMiALg==
-=Ypqx
------END PGP SIGNATURE-----
+----------------------------------------------------------------
+ASoC: Fixes for v6.7
 
---X+QegD6ebh8cp8W3--
+A collection of fixes that have come in during the merge window, the
+majority of this is driver specific with one core fix for handling of
+DAPM clock widgets when a name prefix is specified for the card - the
+name should not be applied to the clock name we request from the clock
+API.
+
+----------------------------------------------------------------
+David Rau (1):
+      ASoC: da7219: Improve system suspend and resume handling
+
+Eugen Hristev (2):
+      ASoC: mediatek: mt8186_mt6366_rt1019_rt5682s: trivial: fix error messages
+      ASoC: SOF: sof-client: trivial: fix comment typo
+
+Jerome Brunet (2):
+      ASoC: hdmi-codec: register hpd callback on component probe
+      ASoC: dapm: fix clock get name
+
+Mark Brown (1):
+      ASoC: codecs: Modify some error codes
+
+Nathan Chancellor (1):
+      ASoC: codecs: aw88399: Fix -Wuninitialized in aw_dev_set_vcalb()
+
+Rob Herring (1):
+      ASoC: rockchip: Fix unused rockchip_i2s_tdm_match warning for !CONFIG_OF
+
+Shuming Fan (1):
+      ASoC: rt712-sdca: fix speaker route missing issue
+
+Syed Saba Kareem (1):
+      ASoC: amd: acp: fix for i2s mode register field update
+
+Tony Lindgren (1):
+      ASoC: ti: omap-mcbsp: Fix runtime PM underflow warnings
+
+Weidong Wang (3):
+      ASoC: codecs: Modify the maximum value of calib
+      ASoC: codecs: Modify the wrong judgment of re value
+      ASoC: codecs: Modify macro value error
+
+ sound/soc/amd/acp/acp-i2s.c                        |  4 ++--
+ sound/soc/codecs/aw88395/aw88395.c                 |  2 +-
+ sound/soc/codecs/aw88399.c                         |  8 +++----
+ sound/soc/codecs/aw88399.h                         |  2 +-
+ sound/soc/codecs/da7219-aad.c                      |  9 ++++++--
+ sound/soc/codecs/hdmi-codec.c                      | 27 +++++++++++++++-------
+ sound/soc/codecs/rt712-sdca.c                      | 14 +++++------
+ .../mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c |  4 ++--
+ sound/soc/rockchip/rockchip_i2s_tdm.c              |  2 +-
+ sound/soc/soc-dapm.c                               |  2 +-
+ sound/soc/sof/sof-client.c                         |  2 +-
+ sound/soc/ti/omap-mcbsp.c                          |  6 +++--
+ 12 files changed, 50 insertions(+), 32 deletions(-)

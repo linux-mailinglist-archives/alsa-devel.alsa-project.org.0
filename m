@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6117E723E
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Nov 2023 20:23:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8940F7E7240
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Nov 2023 20:23:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7592741;
-	Thu,  9 Nov 2023 20:22:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7592741
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAC0C829;
+	Thu,  9 Nov 2023 20:22:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAC0C829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699557791;
-	bh=NOFaAzXRPsXFUEQMmRunb/BDs129I651BfmvhqzQIb4=;
+	s=default; t=1699557817;
+	bh=omrfxaa+J/5nWgwxOCEybAtDNlYVqN5puZowfEYsMSk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ej9J3IYN+gkP7aNiO9kjrHZMR7kzrnfEB3P6aDu+LFIIEUJoipMB5UGJdCog4pi6H
-	 HZVcK7exxNqEYmqz9prtBMo4nV/RXQHTrEnD2bc2S7pY5kcRvsmdwxPODsgR1UWr6i
-	 YD6vksnQel0YdwfqJCk/StChMa1anhRTYQ/9pcQw=
+	b=t6mx1KX5h9RCD5uglxmKYhK07ByyNwGOiLGijLCr3IJK4tbI1rDA6YncVqatqDOHI
+	 YCjIWhdtZTNJMpdrGsq76NxKpqcLkmYfSY1+4h5JlNF/UomGCOWYx+0CioG8E+ePHr
+	 qlmAXG6b5wbWEyg4/AiYu8HNMsr02NYgoFWrVYo4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EF57F80125; Thu,  9 Nov 2023 20:21:59 +0100 (CET)
+	id 8C8FBF80567; Thu,  9 Nov 2023 20:22:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 715BBF80166;
-	Thu,  9 Nov 2023 20:21:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C7CFF80169;
+	Thu,  9 Nov 2023 20:22:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DF51F80169; Thu,  9 Nov 2023 20:21:55 +0100 (CET)
+	id EAB11F801F5; Thu,  9 Nov 2023 20:22:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AEF10F80152
-	for <alsa-devel@alsa-project.org>; Thu,  9 Nov 2023 20:21:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEF10F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F2D8F80166
+	for <alsa-devel@alsa-project.org>; Thu,  9 Nov 2023 20:22:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F2D8F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KGem5uOh
+ header.s=k20201202 header.b=YUeOjbHT
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 9946DCE1368;
-	Thu,  9 Nov 2023 19:21:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F375C433C7;
-	Thu,  9 Nov 2023 19:21:42 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 89D1160D14;
+	Thu,  9 Nov 2023 19:22:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F579C433C7;
+	Thu,  9 Nov 2023 19:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699557702;
-	bh=NOFaAzXRPsXFUEQMmRunb/BDs129I651BfmvhqzQIb4=;
+	s=k20201202; t=1699557753;
+	bh=omrfxaa+J/5nWgwxOCEybAtDNlYVqN5puZowfEYsMSk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KGem5uOheUBZxbJhdOLi8pJgDK9De/+b9Xu5kgo68hNOjo60ejNOIXxPIJZqp2oqW
-	 aMGxNX6ZzXXjN3tQF5U7IJHz/+PmVttZ7Ubal53P5Sac0fO0s0aEQy5om4IyQKZXGX
-	 SWdNT3d2yTpQk1T5matiNSWHAYDPEvrFNXbw9/xfFjL0qXi1b7VWWyHR9Q7ayGmSEQ
-	 kKz2KNrGCnu5o58/r1T0aywjEmFlEESNnRKX3pZ8Rrx6yi5ZG/V6C/OcCpSoLghvBQ
-	 jOCQa3tsfFMJT3JD9cCWTcfOtchmQW2vPKHAsVFJ+Pgkbok8VAdWdBqnC0MJhAbl6/
-	 EAlwNq3ZcLIGw==
-Date: Thu, 9 Nov 2023 20:21:39 +0100
+	b=YUeOjbHTod/exJRIzEO3Bc/EhP4cF4eBTgn1g7kTB0rpx5kqwcGVWt0RytI4KLnXh
+	 1APpsJe+a4/cr3mx7h7Uz1sxSfi3zFttR3D3cEAVA9q9NABSLncSenV2qHokN/JHUw
+	 gSDuYGjsG20CsTuJHqTtJrjS8lAkFUYCOUPtMH74/cndN/Cb2eOWLWNH3WMJ/zkDst
+	 Ayxcaa1lS5giHEtUhvmFVbQH4ZvllDtHkIcDRGrH0IrY+vl1v+qchyi4vOJamPRCCL
+	 5nqo52Z79ZMrWF/cdVmgNFZAf2rnclaOYArtQYoa3ajhP1rHjT5sn19VZkI8hrAyl3
+	 ox1+KO4roURAQ==
+Date: Thu, 9 Nov 2023 20:22:29 +0100
 From: Wolfram Sang <wsa@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -95,9 +95,9 @@ Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
 	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
 	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
 	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 02/17] dt-bindings: i2c: exynos5: add specific
- compatibles for existing SoC
-Message-ID: <ZU0xQ8cLfsO6fTHZ@shikoro>
+Subject: Re: [PATCH 03/17] dt-bindings: i2c: samsung,s3c2410-i2c: add
+ specific compatibles for existing SoC
+Message-ID: <ZU0xdeMX7g856J81@shikoro>
 Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
 	David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
@@ -133,14 +133,14 @@ Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
 	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
 	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
- <20231108104343.24192-3-krzysztof.kozlowski@linaro.org>
+ <20231108104343.24192-4-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RqL1AD8IYbm5aRkz"
+	protocol="application/pgp-signature"; boundary="W725bfiX4yCK58gL"
 Content-Disposition: inline
-In-Reply-To: <20231108104343.24192-3-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: IPYZPDDVN5TDPYTDH7PMLYOWB67UP25S
-X-Message-ID-Hash: IPYZPDDVN5TDPYTDH7PMLYOWB67UP25S
+In-Reply-To: <20231108104343.24192-4-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: SSMH3CUXP5XIXGB2TSZYIZ5Y7UB3ADA4
+X-Message-ID-Hash: SSMH3CUXP5XIXGB2TSZYIZ5Y7UB3ADA4
 X-MailFrom: wsa@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -153,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IPYZPDDVN5TDPYTDH7PMLYOWB67UP25S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSMH3CUXP5XIXGB2TSZYIZ5Y7UB3ADA4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,12 +163,12 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---RqL1AD8IYbm5aRkz
+--W725bfiX4yCK58gL
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 08, 2023 at 11:43:28AM +0100, Krzysztof Kozlowski wrote:
+On Wed, Nov 08, 2023 at 11:43:29AM +0100, Krzysztof Kozlowski wrote:
 > Samsung Exynos SoC reuses several devices from older designs, thus
 > historically we kept the old (block's) compatible only.  This works fine
 > and there is no bug here, however guidelines expressed in
@@ -192,24 +192,24 @@ that:
 Acked-by: Wolfram Sang <wsa@kernel.org>
 
 
---RqL1AD8IYbm5aRkz
+--W725bfiX4yCK58gL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmVNMT8ACgkQFA3kzBSg
-KbYy6w/+INLgZGYWBZpdxg6YnMaThvTKb1XWojfSRwQeP0OmuZox9H933vZm0ir2
-gfFKEobts0mXTAtmroUFRX7WFHzixph6b7kDwTjgJUXJvF+c///CRcVNhuFJtMrK
-OBhRHWpby2CGzt5cL/5Y9vjGcn/+EvPcSg58j1QcrjMuGjK3zK1SH2N+6SUTlUrg
-5ZwnB0XwwNd+tVkYKf7L8W+u/SMi9x9GCpR6aYv859VJOM/GeuklI6dlst7M4Osq
-pGt1Y9EfVxcNkgYoruNnqprFjAaM2kygx+fWElsbKwysw+Av8A430EHkT1Y11ybl
-VPpAwFbxBQiXgjvqmxdh0+vf0WlC/M/P2M3bBv2PcgvMFJkV78bQNcl37X7W7zOQ
-pJFIyGu6FvusCFsWUYQ22Kay3pH7CfLOZyFYCXgSH9byrjr+jDF5vbqYuxzoYouc
-JoUCeXD5FW+GvoIMUvolBiAkqrAdv20bG1vQobpesi6nMA+L3J11GVLruCif9PGB
-SlcTuar5+BOryhodPEal4SiQiXq1okwzwtoKySYHU8TKtKwjjfghXoRkirvqawWE
-uDhKHh8nZInAWrfyb7QlkW7zghJooADD3B9dp3EOcYpDB0rCRLQ7UboYKa7oBSYw
-m0nL87qA4TudPxD2cOkTyJnphBmvvFYQJmEE94fC5FdmayTDuqE=
-=0VXh
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmVNMXUACgkQFA3kzBSg
+Kbay9g//eXyEFLH18ObMaht1tYo+nQsZvUuCog4jMbrdmYAYGKemdGIdx9SYI5tz
+O8iW5KlaMLIKzUgzCpBLz6RDj18NG3D+MRTVThCprfw7snkHBj/34WRhtzC2LodT
+vZ4vxmCILUOJBZv8p1qdNkeTEHg9O1KiqBlldgEbns/vx5fYloMFBVwmFQygzpqa
+HoZz31DZ0p3V09kpaHoN4Wccv9VxT9vqFxsxsfzsXOoxlQuFTIr/szokmb2Or2N/
+IyjXeWc5XgS9Y+39ti58bW5dCMNaCy4B6VZTQi8eymjIZDAxb+P1Ljp7r8tFuc8p
+sVFUwmY5m0iELY9GSvqzCQeX16pzj/Jmg7hXNY8+JqGjVWBrPCXjgpr80e17tdeN
+4ESfEK5Rc/8EYZ7djg8DTaTM/gVS8A5tAbsQL4v4NUkIodzyJoZBYfAJ5DNKmUTG
++LuOhGjv8Ut1sdc/v2Mm2Nwz3L+J3Gixde0B9UmPIJ4gTQ56f/Q45wBaBuGAkD5n
+jIGqmIxgC1dg0M5hWoj/AC5WjYBtOMaKhK+FStBH9YuyvekZYq9v/0xFTnvl2emq
+iQ+bcHzNwIVk0NDGhVU3xUARyiRFZRJTYEjNe2gcTtBczA423vOOkPvyNou9hgXw
+uRQYM46Y2STJ5a4NuIcaLNyvbQNWa+LlKaohyW/FxFXW1tF9Z40=
+=0tv7
 -----END PGP SIGNATURE-----
 
---RqL1AD8IYbm5aRkz--
+--W725bfiX4yCK58gL--

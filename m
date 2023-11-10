@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A77337E7965
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Nov 2023 07:33:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 290A77E7968
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Nov 2023 07:34:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E555BE0D;
-	Fri, 10 Nov 2023 07:32:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E555BE0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 545CDDE5;
+	Fri, 10 Nov 2023 07:33:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 545CDDE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699598022;
-	bh=Uy1ivt/VHlrDGmYGkinH6T68GnqZh3IYi+wNQEKkm8g=;
+	s=default; t=1699598043;
+	bh=p5xbyPSCDonIbqd/cGPvbdgW5glws+YIZni6XXtLSKw=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=XB5v6lMzERDCMaU1iRgL+PXFeNIFNny1/BN/inSSPXnU4hvH1y4OZ717lYovZiTxp
-	 ICdyuaZz41I/BgTVUONsLdwYSr+/ijiixsK53ibJGqBCQQdjymMtVaKk5AXXmDyaec
-	 Qp67Ju+5dhikOYRjBeSgs1FyMc+SlfgXy0fOKI5M=
+	b=ZntK+KgsG5I0hde64J1h79RI+cDFeaOWEe8K0l11yW0J/Tutw6xD+XPn8zqEs35Cj
+	 oPN0xfkQcmaZY5ckrEyZVdklQ7QfQUZjiBeVdVaDw1wqT6i+26XXgDG3A6KbY50B4+
+	 UFRpP9i9KOPP3Y9Xje8SSkW0NQwTGxQgBT1Gthok=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FD65F805BF; Fri, 10 Nov 2023 07:31:27 +0100 (CET)
+	id 5ECC5F805D7; Fri, 10 Nov 2023 07:31:34 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56351F805C8;
-	Fri, 10 Nov 2023 07:31:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 820E2F801F5;
+	Fri, 10 Nov 2023 07:31:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9F29F80549; Fri, 10 Nov 2023 07:28:43 +0100 (CET)
+	id F1F47F80431; Fri, 10 Nov 2023 07:29:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -34,20 +34,20 @@ X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D2594F8055C
-	for <alsa-devel@alsa-project.org>; Fri, 10 Nov 2023 07:28:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2594F8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CDD9F8055A
+	for <alsa-devel@alsa-project.org>; Fri, 10 Nov 2023 07:28:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CDD9F8055A
 Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 731C9200AF3;
-	Fri, 10 Nov 2023 07:28:10 +0100 (CET)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id BA724200B18;
+	Fri, 10 Nov 2023 07:28:11 +0100 (CET)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0DCC4201C42;
-	Fri, 10 Nov 2023 07:28:10 +0100 (CET)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 81860201C40;
+	Fri, 10 Nov 2023 07:28:11 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 18AB9183AD44;
-	Fri, 10 Nov 2023 14:28:08 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 8BEC4180327D;
+	Fri, 10 Nov 2023 14:28:09 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: hverkuil@xs4all.nl,
 	sakari.ailus@iki.fi,
@@ -66,15 +66,15 @@ To: hverkuil@xs4all.nl,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v9 12/15] media: uapi: Declare interface types for Audio
-Date: Fri, 10 Nov 2023 13:48:06 +0800
-Message-Id: <1699595289-25773-13-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH v9 13/15] media: uapi: Add an entity type for audio resampler
+Date: Fri, 10 Nov 2023 13:48:07 +0800
+Message-Id: <1699595289-25773-14-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: FDISUFNSA2PHY7WDTAFWWIOW2NIBFGIK
-X-Message-ID-Hash: FDISUFNSA2PHY7WDTAFWWIOW2NIBFGIK
+Message-ID-Hash: CRMYRDLSGR2UZYNRR3BL7ZKXAIN57NR5
+X-Message-ID-Hash: CRMYRDLSGR2UZYNRR3BL7ZKXAIN57NR5
 X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FDISUFNSA2PHY7WDTAFWWIOW2NIBFGIK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CRMYRDLSGR2UZYNRR3BL7ZKXAIN57NR5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,83 +96,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Declare the interface types that will be used by Audio.
-The type is MEDIA_INTF_T_V4L_AUDIO.
+Add and document a media entity type for audio resampler.
+It is MEDIA_ENT_F_PROC_AUDIO_RESAMPLER.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- .../userspace-api/media/mediactl/media-types.rst    |  4 ++++
- drivers/media/v4l2-core/v4l2-dev.c                  |  4 ++++
- drivers/media/v4l2-core/v4l2-mem2mem.c              | 13 +++++++++----
- include/uapi/linux/media.h                          |  1 +
- 4 files changed, 18 insertions(+), 4 deletions(-)
+ Documentation/userspace-api/media/mediactl/media-types.rst | 5 +++++
+ include/uapi/linux/media.h                                 | 1 +
+ 2 files changed, 6 insertions(+)
 
 diff --git a/Documentation/userspace-api/media/mediactl/media-types.rst b/Documentation/userspace-api/media/mediactl/media-types.rst
-index 0ffeece1e0c8..3f0bcb18a5ca 100644
+index 3f0bcb18a5ca..2977d8723f11 100644
 --- a/Documentation/userspace-api/media/mediactl/media-types.rst
 +++ b/Documentation/userspace-api/media/mediactl/media-types.rst
-@@ -322,6 +322,10 @@ Types and flags used to represent the media graph elements
-        -  Device node interface for Touch device (V4L)
-        -  typically, /dev/v4l-touch?
+@@ -208,6 +208,11 @@ Types and flags used to represent the media graph elements
+ 	  combination of custom V4L2 controls and IOCTLs, and parameters
+ 	  supplied in a metadata buffer.
  
-+    *  -  ``MEDIA_INTF_T_V4L_AUDIO``
-+       -  Device node interface for Audio device (V4L)
-+       -  typically, /dev/v4l-audio?
++    *  -  ``MEDIA_ENT_F_PROC_AUDIO_RESAMPLER``
++       -  An Audio Resampler device. An entity capable of
++	  resampling a audio stream from one sample rate to another sample
++	  rate. Must have one sink pad and at least one source pad.
 +
-     *  -  ``MEDIA_INTF_T_ALSA_PCM_CAPTURE``
-        -  Device node interface for ALSA PCM Capture
-        -  typically, /dev/snd/pcmC?D?c
-diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-index b92c760b611a..c3a7d974db26 100644
---- a/drivers/media/v4l2-core/v4l2-dev.c
-+++ b/drivers/media/v4l2-core/v4l2-dev.c
-@@ -842,6 +842,10 @@ static int video_register_media_controller(struct video_device *vdev)
- 		intf_type = MEDIA_INTF_T_V4L_SUBDEV;
- 		/* Entity will be created via v4l2_device_register_subdev() */
- 		break;
-+	case VFL_TYPE_AUDIO:
-+		intf_type = MEDIA_INTF_T_V4L_AUDIO;
-+		/* Entity will be created via v4l2_device_register_subdev() */
-+		break;
- 	default:
- 		return 0;
- 	}
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index 0cc30397fbad..bf41d112b742 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -1134,10 +1134,15 @@ int v4l2_m2m_register_media_controller(struct v4l2_m2m_dev *m2m_dev,
- 	if (ret)
- 		goto err_rm_links0;
- 
--	/* Create video interface */
--	m2m_dev->intf_devnode = media_devnode_create(mdev,
--			MEDIA_INTF_T_V4L_VIDEO, 0,
--			VIDEO_MAJOR, vdev->minor);
-+	if (vdev->vfl_type == VFL_TYPE_AUDIO)
-+		m2m_dev->intf_devnode = media_devnode_create(mdev,
-+				MEDIA_INTF_T_V4L_AUDIO, 0,
-+				VIDEO_MAJOR, vdev->minor);
-+	else
-+		/* Create video interface */
-+		m2m_dev->intf_devnode = media_devnode_create(mdev,
-+				MEDIA_INTF_T_V4L_VIDEO, 0,
-+				VIDEO_MAJOR, vdev->minor);
- 	if (!m2m_dev->intf_devnode) {
- 		ret = -ENOMEM;
- 		goto err_rm_links1;
+     *  -  ``MEDIA_ENT_F_VID_MUX``
+        - Video multiplexer. An entity capable of multiplexing must have at
+          least two sink pads and one source pad, and must pass the video
 diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-index 1c80b1d6bbaf..9ff6dec7393a 100644
+index 9ff6dec7393a..a8266eaa8042 100644
 --- a/include/uapi/linux/media.h
 +++ b/include/uapi/linux/media.h
-@@ -260,6 +260,7 @@ struct media_links_enum {
- #define MEDIA_INTF_T_V4L_SUBDEV			(MEDIA_INTF_T_V4L_BASE + 3)
- #define MEDIA_INTF_T_V4L_SWRADIO		(MEDIA_INTF_T_V4L_BASE + 4)
- #define MEDIA_INTF_T_V4L_TOUCH			(MEDIA_INTF_T_V4L_BASE + 5)
-+#define MEDIA_INTF_T_V4L_AUDIO			(MEDIA_INTF_T_V4L_BASE + 6)
+@@ -125,6 +125,7 @@ struct media_device_info {
+ #define MEDIA_ENT_F_PROC_VIDEO_ENCODER		(MEDIA_ENT_F_BASE + 0x4007)
+ #define MEDIA_ENT_F_PROC_VIDEO_DECODER		(MEDIA_ENT_F_BASE + 0x4008)
+ #define MEDIA_ENT_F_PROC_VIDEO_ISP		(MEDIA_ENT_F_BASE + 0x4009)
++#define MEDIA_ENT_F_PROC_AUDIO_RESAMPLER	(MEDIA_ENT_F_BASE + 0x400a)
  
- #define MEDIA_INTF_T_ALSA_BASE			0x00000300
- #define MEDIA_INTF_T_ALSA_PCM_CAPTURE		(MEDIA_INTF_T_ALSA_BASE)
+ /*
+  * Switch and bridge entity functions
 -- 
 2.34.1
 

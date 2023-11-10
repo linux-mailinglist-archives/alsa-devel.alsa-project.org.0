@@ -2,85 +2,180 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3C87E79C6
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Nov 2023 08:35:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B92F7E79F0
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Nov 2023 08:59:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B8BE827;
-	Fri, 10 Nov 2023 08:34:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B8BE827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12B517F8;
+	Fri, 10 Nov 2023 08:58:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12B517F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699601719;
-	bh=odm21jGIpShMSnEUp7HcWW6KcAXZJM7Q/C5MUYbstFU=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VSTQC0GdRnV0kHr2bFP2+B64ek4FV3fkAS2AcNWYpLTHgkF9tVNcqCl9k7szRNDkN
-	 OCMBQvk3KLs5bGV3QqhRuFrVpJl2GWga7I2iOnNOgfnrzG0EVDeTJF7PUnPCRWxHuo
-	 ARIBrbZu/R8qTSLsubpaBSy3JqgzQ3xTRlkLHnlg=
+	s=default; t=1699603164;
+	bh=Wwa8caBSKWXQz6gohnyhLhA7TUQY9A2uJIMM5ckE99w=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=kFUyjfXwufQOCInL7/AB4l7HAZtgV2Y06OCwvRpam6UkhDKYjhWd/ARkjeB4Sa3Wu
+	 MCj2s2MhyNyt2bL/KgMF6bQWA1zC9nQULkzXuISPjqiTFkhs6Xbrrwy7qEYLZpg6Wj
+	 8JzFZr0J/BmgbPjpCe2OScpa2/mueOP9m2o2r1Mg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5CC2F80166; Fri, 10 Nov 2023 08:34:07 +0100 (CET)
+	id C234AF80431; Fri, 10 Nov 2023 08:58:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7AB9F80166;
-	Fri, 10 Nov 2023 08:34:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57FEAF80166;
+	Fri, 10 Nov 2023 08:58:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90CB3F80169; Fri, 10 Nov 2023 08:33:59 +0100 (CET)
+	id 2E8C0F80169; Fri, 10 Nov 2023 08:58:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 90FF4F800ED
-	for <alsa-devel@alsa-project.org>; Fri, 10 Nov 2023 08:33:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90FF4F800ED
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 3AA7XgqK62118474,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 3AA7XgqK62118474
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 10 Nov 2023 15:33:42 +0800
-Received: from RTEXMBS06.realtek.com.tw (172.21.6.99) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Fri, 10 Nov 2023 15:33:42 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Fri, 10 Nov 2023 15:33:42 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::540c:c8d6:1d0f:ab9f]) by
- RTEXMBS01.realtek.com.tw ([fe80::540c:c8d6:1d0f:ab9f%5]) with mapi id
- 15.01.2507.034; Fri, 10 Nov 2023 15:33:42 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Add Dell ALC295 to pin fall back table
-Thread-Topic: Add Dell ALC295 to pin fall back table
-Thread-Index: AdoTp6/Qv2t2gIsQSzm8iJsMKtzVxg==
-Date: Fri, 10 Nov 2023 07:33:42 +0000
-Message-ID: <7c1998e873834df98d59bd7e0d08c72e@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXMBS06.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: multipart/mixed;
-	boundary="_002_7c1998e873834df98d59bd7e0d08c72erealtekcom_"
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4D30AF80100
+	for <alsa-devel@alsa-project.org>; Fri, 10 Nov 2023 08:58:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D30AF80100
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=FJceSW2+
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40859c464daso12993925e9.1
+        for <alsa-devel@alsa-project.org>;
+ Thu, 09 Nov 2023 23:58:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1699603095; x=1700207895;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CmNsSkxGNQJ9Q4GP0q3MvT9no1MR/Ri0odVIQEptAvk=;
+        b=FJceSW2+/B3xhrkgC3kemxkKMYFTfWyF0B+AeevnvMXortI7liWQIF5dfyDYf7l0MF
+         DD2q9+vEZ7MdJIpggXVb+fGjZ7o39o5C1Qflvmcw4J0Dtk8/M0uhQSOQ+/KEsz7sz48t
+         iMWmfVNf5OpUzjgIOcKPt10OiJzIxcfhAaC+HOUcxVqFW3hqq7rZ9EWGYTXC6wn3mZIQ
+         kp2NvSHGng8SFtXNDcZxdpWIG9oAaw5wwEswTocKjEExGJRngvmT71TSdelEC3B9hmsF
+         HeAUKnh6nmVMu0jCjEszYSWLKkWzzkLnuDZBJTQxCvQB7fLyNyDJ0YH08LP0R+mkHm01
+         bhPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1699603095; x=1700207895;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CmNsSkxGNQJ9Q4GP0q3MvT9no1MR/Ri0odVIQEptAvk=;
+        b=BkYlPVRVGE6bt4p+k3JFhmZkhKiDXAG+8HJF9nqcZgUcpTFpV8S/e2GFDvWAZbFymz
+         s+KwCZ9oiJq0YBuDnYWn5wQKK1L5uSwJC9oFNYJqCECZ6DRuoGYIDk2Gp+VfXQWXu+Bq
+         bbhBWUGn8/4dfpk9o3WbPnzG4zJSKZA0+T0JvC7WmVkx5MbCccsQGC0mVkdhQGlj/P6B
+         WunBQd1MScq/SD7vit5O9OHwHcdgDTLaV0+SBIPnvv4D1hDYKeunazemJY3xFXbqdrbU
+         zHqki6VfnnGAHGjCBT7GS1kPJk/mNhgyv3/PHMUpuAnuWatShWegX+EqV3CRIjiGiztO
+         IhdQ==
+X-Gm-Message-State: AOJu0YxJt5kbgodOUYxc49Bys3AZ2J4nPr0VJYgLkjpuRK8VBG9fIrLA
+	W5eviro4QaeQSw9/Yhc20gGZ8g==
+X-Google-Smtp-Source: 
+ AGHT+IGZKQiVi/l3PE3rMUGuuZB9Ya3QDCrJYK8NJRwEd76ii8VtTRZDdWH3qx39UjTk9tcaifEFJA==
+X-Received: by 2002:a05:6000:188c:b0:32d:9850:9e01 with SMTP id
+ a12-20020a056000188c00b0032d98509e01mr4958052wri.61.1699603095075;
+        Thu, 09 Nov 2023 23:58:15 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.218.126])
+        by smtp.gmail.com with ESMTPSA id
+ j17-20020adfea51000000b0032d829e10c0sm1362413wrn.28.2023.11.09.23.58.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Nov 2023 23:58:14 -0800 (PST)
+Message-ID: <9db77625-8dc0-4963-b200-851c209ac238@linaro.org>
+Date: Fri, 10 Nov 2023 08:58:11 +0100
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: DDX7EIZ2LRDQ7M37SFOI6AZJFE7PP6S3
-X-Message-ID-Hash: DDX7EIZ2LRDQ7M37SFOI6AZJFE7PP6S3
-X-MailFrom: kailang@realtek.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/17] dt-bindings: i2c: exynos5: add specific compatibles
+ for existing SoC
+Content-Language: en-US
+To: Alim Akhtar <alim.akhtar@samsung.com>, 'David Airlie'
+ <airlied@gmail.com>, 'Daniel Vetter' <daniel@ffwll.ch>,
+ 'Maarten Lankhorst' <maarten.lankhorst@linux.intel.com>,
+ 'Maxime Ripard' <mripard@kernel.org>,
+ 'Thomas Zimmermann' <tzimmermann@suse.de>, 'Rob Herring'
+ <robh+dt@kernel.org>,
+ 'Krzysztof Kozlowski' <krzysztof.kozlowski+dt@linaro.org>,
+ 'Conor Dooley' <conor+dt@kernel.org>, 'Andi Shyti' <andi.shyti@kernel.org>,
+ 'Jonathan Cameron' <jic23@kernel.org>, 'Lars-Peter Clausen'
+ <lars@metafoo.de>, 'Lee Jones' <lee@kernel.org>,
+ 'Ulf Hansson' <ulf.hansson@linaro.org>, 'Tomasz Figa'
+ <tomasz.figa@gmail.com>, 'Sylwester Nawrocki' <s.nawrocki@samsung.com>,
+ 'Linus Walleij' <linus.walleij@linaro.org>,
+ 'Thierry Reding' <thierry.reding@gmail.com>,
+ =?UTF-8?Q?=27Uwe_Kleine-K=C3=B6nig=27?= <u.kleine-koenig@pengutronix.de>,
+ 'Alessandro Zummo' <a.zummo@towertech.it>,
+ 'Alexandre Belloni' <alexandre.belloni@bootlin.com>,
+ 'Greg Kroah-Hartman' <gregkh@linuxfoundation.org>,
+ 'Jiri Slaby' <jirislaby@kernel.org>, 'Liam Girdwood' <lgirdwood@gmail.com>,
+ 'Mark Brown' <broonie@kernel.org>, 'Jaehoon Chung' <jh80.chung@samsung.com>,
+ 'Sam Protsenko' <semen.protsenko@linaro.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
+ <CGME20231108104407epcas5p4c52f140b035727b6110ff7d3c0f81bc0@epcas5p4.samsung.com>
+ <20231108104343.24192-3-krzysztof.kozlowski@linaro.org>
+ <02bb01da1337$65caf5e0$3160e1a0$@samsung.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <02bb01da1337$65caf5e0$3160e1a0$@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: TACIXQ6FV4TL6NMD3FVNXPWNT6QMY6P3
+X-Message-ID-Hash: TACIXQ6FV4TL6NMD3FVNXPWNT6QMY6P3
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +187,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DDX7EIZ2LRDQ7M37SFOI6AZJFE7PP6S3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TACIXQ6FV4TL6NMD3FVNXPWNT6QMY6P3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,70 +196,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_7c1998e873834df98d59bd7e0d08c72erealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 09/11/2023 19:05, Alim Akhtar wrote:
 
-Hi Takashi,
+(...)
 
-To add alc295 for pin fall back table.
+Please trim unrelated parts of response/quote before and after your message.
 
-Remove 5 pin quirks for Dell ALC295.
-ALC295 was only support MIC2 for external MIC function.
+>> @@ -25,7 +25,15 @@ properties:
+>>            - samsung,exynos5250-hsi2c    # Exynos5250 and Exynos5420
+>>            - samsung,exynos5260-hsi2c    # Exynos5260
+>>            - samsung,exynos7-hsi2c       # Exynos7
+>> -          - samsung,exynosautov9-hsi2c  # ExynosAutoV9 and Exynos850
+>> +          - samsung,exynosautov9-hsi2c
+>> +      - items:
+>> +          - enum:
+>> +              - samsung,exynos5433-hsi2c
+>> +          - const: samsung,exynos7-hsi2c
+>> +      - items:
+>> +          - enum:
+>> +              - samsung,exynos850-hsi2c
+> Does this need an entry in allOf:? to indicate exynos850 also has 2 clocks?
+> 
 
-ALC295 assigned model "ALC269_FIXUP_DELL1_MIC_NO_PRESENCE" for pin fall bac=
-k table.
-It was assigned wrong model. So, let's remove it.
+No, autov9 is there already.
 
-BR,
-Kailang
+>> +          - const: samsung,exynosautov9-hsi2c
 
---_002_7c1998e873834df98d59bd7e0d08c72erealtekcom_
-Content-Type: application/octet-stream; name="0000-alc295-fallback.patch"
-Content-Description: 0000-alc295-fallback.patch
-Content-Disposition: attachment; filename="0000-alc295-fallback.patch";
-	size=2195; creation-date="Fri, 10 Nov 2023 07:17:21 GMT";
-	modification-date="Fri, 10 Nov 2023 07:33:17 GMT"
-Content-Transfer-Encoding: base64
 
-RnJvbSA0ZGIwNzU1MWM3ZThlMGMyMjk3YTk4NGEzZDMyODI1Y2JjNDA1NWIxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgMTAgTm92IDIwMjMgMTU6MTY6MDYgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEFkZCBEZWxsIEFMQzI5NSB0byBwaW4gZmFsbCBiYWNrIHRhYmxlCgpB
-ZGQgQUxDMjk1IHRvIHBpbiBmYWxsIGJhY2sgdGFibGUuClJlbW92ZSA1IHBpbiBxdWlya3MgZm9y
-IERlbGwgQUxDMjk1LgpBTEMyOTUgd2FzIG9ubHkgc3VwcG9ydCBNSUMyIGZvciBleHRlcm5hbCBN
-SUMgZnVuY3Rpb24uCkFMQzI5NSBhc3NpZ25lZCBtb2RlbCAiQUxDMjY5X0ZJWFVQX0RFTEwxX01J
-Q19OT19QUkVTRU5DRSIgZm9yIHBpbiBmYWxsIGJhY2sgdGFibGUuCkl0IHdhcyBhc3NpZ25lZCB3
-cm9uZyBtb2RlbC4gU28sIGxldCdzIHJlbW92ZSBpdC4KClNpZ25lZC1vZmYtYnk6IEthaWxhbmcg
-WWFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4KZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvcGF0
-Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5kZXggMGRmNDRi
-MTg3NmYzLi41MWFjZWY1ZmU3NWQgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVh
-bHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC0xMDgxNSwyMiAr
-MTA4MTUsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9oZGFfcGluX3F1aXJrIGFsYzI2OV9w
-aW5fZml4dXBfdGJsW10gPSB7CiAJCXsweDEyLCAweDkwYTYwMTMwfSwKIAkJezB4MTcsIDB4OTAx
-NzAxMTB9LAogCQl7MHgyMSwgMHgwMzIxMTAyMH0pLAotCVNORF9IREFfUElOX1FVSVJLKDB4MTBl
-YzAyOTUsIDB4MTAyOCwgIkRlbGwiLCBBTEMyNjlfRklYVVBfREVMTDRfTUlDX05PX1BSRVNFTkNF
-LAotCQl7MHgxNCwgMHg5MDE3MDExMH0sCi0JCXsweDIxLCAweDA0MjExMDIwfSksCi0JU05EX0hE
-QV9QSU5fUVVJUksoMHgxMGVjMDI5NSwgMHgxMDI4LCAiRGVsbCIsIEFMQzI2OV9GSVhVUF9ERUxM
-NF9NSUNfTk9fUFJFU0VOQ0UsCi0JCXsweDE0LCAweDkwMTcwMTEwfSwKLQkJezB4MjEsIDB4MDQy
-MTEwMzB9KSwKLQlTTkRfSERBX1BJTl9RVUlSSygweDEwZWMwMjk1LCAweDEwMjgsICJEZWxsIiwg
-QUxDMjY5X0ZJWFVQX0RFTEwxX01JQ19OT19QUkVTRU5DRSwKLQkJQUxDMjk1X1NUQU5EQVJEX1BJ
-TlMsCi0JCXsweDE3LCAweDIxMDE0MDIwfSwKLQkJezB4MTgsIDB4MjFhMTkwMzB9KSwKLQlTTkRf
-SERBX1BJTl9RVUlSSygweDEwZWMwMjk1LCAweDEwMjgsICJEZWxsIiwgQUxDMjY5X0ZJWFVQX0RF
-TEwxX01JQ19OT19QUkVTRU5DRSwKLQkJQUxDMjk1X1NUQU5EQVJEX1BJTlMsCi0JCXsweDE3LCAw
-eDIxMDE0MDQwfSwKLQkJezB4MTgsIDB4MjFhMTkwNTB9KSwKLQlTTkRfSERBX1BJTl9RVUlSSygw
-eDEwZWMwMjk1LCAweDEwMjgsICJEZWxsIiwgQUxDMjY5X0ZJWFVQX0RFTEwxX01JQ19OT19QUkVT
-RU5DRSwKLQkJQUxDMjk1X1NUQU5EQVJEX1BJTlMpLAogCVNORF9IREFfUElOX1FVSVJLKDB4MTBl
-YzAyOTgsIDB4MTAyOCwgIkRlbGwiLCBBTEMyOThfRklYVVBfREVMTDFfTUlDX05PX1BSRVNFTkNF
-LAogCQlBTEMyOThfU1RBTkRBUkRfUElOUywKIAkJezB4MTcsIDB4OTAxNzAxMTB9KSwKQEAgLTEw
-ODc0LDYgKzEwODU4LDkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfaGRhX3Bpbl9xdWlyayBh
-bGMyNjlfZmFsbGJhY2tfcGluX2ZpeHVwX3RibFtdID0gewogCVNORF9IREFfUElOX1FVSVJLKDB4
-MTBlYzAyODksIDB4MTAyOCwgIkRlbGwiLCBBTEMyNjlfRklYVVBfREVMTDRfTUlDX05PX1BSRVNF
-TkNFLAogCQl7MHgxOSwgMHg0MDAwMDAwMH0sCiAJCXsweDFiLCAweDQwMDAwMDAwfSksCisJU05E
-X0hEQV9QSU5fUVVJUksoMHgxMGVjMDI5NSwgMHgxMDI4LCAiRGVsbCIsIEFMQzI2OV9GSVhVUF9E
-RUxMNF9NSUNfTk9fUFJFU0VOQ0UsCisJCXsweDE5LCAweDQwMDAwMDAwfSwKKwkJezB4MWIsIDB4
-NDAwMDAwMDB9KSwKIAlTTkRfSERBX1BJTl9RVUlSSygweDEwZWMwMjU2LCAweDEwMjgsICJEZWxs
-IiwgQUxDMjU1X0ZJWFVQX0RFTEwxX01JQ19OT19QUkVTRU5DRSwKIAkJezB4MTksIDB4NDAwMDAw
-MDB9LAogCQl7MHgxYSwgMHg0MDAwMDAwMH0pLAo=
+Best regards,
+Krzysztof
 
---_002_7c1998e873834df98d59bd7e0d08c72erealtekcom_--

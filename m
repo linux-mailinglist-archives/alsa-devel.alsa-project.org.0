@@ -2,136 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60FDB7E7C4A
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Nov 2023 13:54:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0B17E7C7B
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Nov 2023 14:22:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A60D383A;
-	Fri, 10 Nov 2023 13:53:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A60D383A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D7847F8;
+	Fri, 10 Nov 2023 14:21:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D7847F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699620860;
-	bh=xkpO+nB31Q88k23Om91a2P16mirEb/DOnrFxtE79G88=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1699622523;
+	bh=RvOFZJ+kXIy9ADDvCaSAv9BrImETRRAPSl8fo9kT9Gk=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WUkdWWenOseTpaFJm9Y7hTXTXdEQLjNJ9BR6Hq8wHj+E1ilxPgrkUUrR8acH5fRb7
-	 yEyUT8+DEsZRP5Ykt6x2e/nuRBVUZRaNfepA0s2UTnV4+S4ul3VjLTYtg4lSbHmeKC
-	 2Z1dTUdONM4ke6X03YDfw54nzTGpXKH71HK2TUJw=
+	b=pntS9AwZRxRUlgof5NdlSrzVcC4Z+Bc1ACAbno0LqBUvVQ+zfBE9AuF+zKVh3dPsa
+	 T2+1vzgnIFlWoy1pJ1l96AY+r4FddsuqyOsdOCqf9B8JAMenW/98u8CKWQc6kC3/Bf
+	 q/R1rIIIrIRIT3WIzWCpynH8hFLVlkb1gZMg5KIw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 893B1F80166; Fri, 10 Nov 2023 13:52:54 +0100 (CET)
+	id 8D02BF80169; Fri, 10 Nov 2023 14:20:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AE6DF80557;
-	Fri, 10 Nov 2023 13:52:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBAFCF80166;
+	Fri, 10 Nov 2023 14:20:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5202EF80166; Fri, 10 Nov 2023 13:52:49 +0100 (CET)
+	id DD35EF80169; Fri, 10 Nov 2023 14:20:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::60c])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2F7BF80100
-	for <alsa-devel@alsa-project.org>; Fri, 10 Nov 2023 13:52:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2F7BF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4817F800ED
+	for <alsa-devel@alsa-project.org>; Fri, 10 Nov 2023 14:20:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4817F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=092XfZu0
+ header.s=selector1 header.b=AL93REv7
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TVqjCRRTQ/aZE/AE7sEZgkXV5EYaLOowDaGNgqNmgwBjQh8SbDwrqeutE0l8HMrRY33cieP0RSA3hCtz/CYeZGZcwDzamKLBxhlBqS54yJQNLst9CdOTAQed5tX00RthlCw8IxXGVGZj3ofIr6LUARkxQBtAs/ykwmcKU2soGfTRIY/SzZeUGxWK2RZyiBrIWfWaN9PdQBWVnHJ2PuIH2FoFsRF9c852ltH1Y1dU2mWmMr7j3t4gSPUvEfVKStbX6vUX15yh3bu3daOFuPtDVTZHUmlZbMz/tgfTcLem0/exZZKpoWh/0u4Z4Ope41ljkQJOrI8cOl2y2snmjJGlhA==
+ b=hTAnIFoZhTm05z2CWMJ3IAWgujKla33h0gK/L4GIFjZ2AA8biDZex3LmjiG+N1to+1ERRfzpAETCMW3wI3b7UGSqn3PZb1X72GaLcw4UL3C0tBzaQAqz5LnwWduW8+Dppu8cdAExisToHRYYY4D/oYNwW7aR46JgLP4ld5AEJOPSZ0j31s8v9CJNrNMFkmdt4aIVJfzh/3xRBAXlDkCKuzTCqRZvI/ZbgnUZ3MK1w2HdKMXNanA02v0/EMXL2GPkqghQOcnRtuKqoslv0TB2uWH6U266hiBmD7O2NlzoIsDH7MhsLop5ZwU5N6PKgZ+7XDdCBPrGM9X5nuUTsApO7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BJgBWxd8ddbsK/2qDi3AKF6y9TrH1VH4mGi8xJbb0I8=;
- b=etGdqammGWJzK/G9VcMWejFShsF1g6z8FlXvpN0unBulP4ayC9SOF5V4wdHjVGzDzE5gnnyeLQj0yePPkhSAhl44OFaTIwdcLzKQL834HaGGwkL8dUSo/EDj33cp+ybYrAtQtS9MhA35JC7OortSGmZRc8ku9mOnuPgpkC3/CEAI8fc7+nScYeUQLDz2R2EjumZL6nl42McatXvQ0b4tOUpsayXhEkSiHRyJZcWRKCHXIBpCJ9gg2M13RhtYU68CprL23L4wv/9pM7aouNChlGjYkHS5jn/0RGq8czVno/N7wB67HCbzOO8oz6lEHKX3Ily6AsJgpVlWqG9Pp7tmYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=cIXHyzPIG2j4pFlS5WF88h66Lq2gniCipARsVYEOcpc=;
+ b=AUh5oPw1JKkkPeIynVylzB6H1BLXn7GqNhW1rLyPQyyblcQUDexd0d2JP1Kl8GQbSU7d1ySJ9B0z0uRc93tF8yKdbAN6YqTHAu44QdCVDQ7IUKdDdwc368EGMA82bd0Wc8MPSbsx0UeKt+zs02hYuY2plJYLDNEwr7C+Kq4YR4FzeZCAvdiaomfoHRsu3ifKa7TxbiatVsdZw55C2HLUVpSVNQQSwIoAIsgZ6RPUXWEkKb8BuO6E7+VEeCGDs0V2MRx+/eBiE7+mjy0BmpZus5mCY82/zK0N6nUU0P0LiU+HRVz9uhqkXSsP5s7E7x/eORsxjxbpoE5qJUu3oliXZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BJgBWxd8ddbsK/2qDi3AKF6y9TrH1VH4mGi8xJbb0I8=;
- b=092XfZu0Y7HXcSXHqQVNfSZe8KUatsriIrGbKlWfYCCcza0QC9/1/qXbeKQ74vKLrpSNdYJ+7D03gjn6sS+ZUrmmy/Mw82TZYdu5VVwGyIopCFEEbDqeKjFcvHZF/PvciDLfwXsOcEIrz9l4nTy64pwK5NpRBFfjAs6bj+IwoUY=
-Received: from BL1P223CA0015.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::20)
- by DM6PR12MB4580.namprd12.prod.outlook.com (2603:10b6:5:2a8::18) with
+ bh=cIXHyzPIG2j4pFlS5WF88h66Lq2gniCipARsVYEOcpc=;
+ b=AL93REv7Vmg/LaaFeufj3p8ZU/jx7hP/ZzyTjznIEU5OVQUacVewYTE5BV1CnVKDMt+V/qb9JSVGMcE4gN95ibbBCFeOwDjkiI7Ge5vIKd2JtqiocCUN7Xn3+6MXKX1qz5AjXqut4wJ68bpLUbjD9K/DLRN/SPn3T2F37B2Ltko=
+Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
+ by LV3PR12MB9409.namprd12.prod.outlook.com (2603:10b6:408:21d::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.21; Fri, 10 Nov
- 2023 12:52:30 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:2c4:cafe::ef) by BL1P223CA0015.outlook.office365.com
- (2603:10b6:208:2c4::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.21 via Frontend
- Transport; Fri, 10 Nov 2023 12:52:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6977.16 via Frontend Transport; Fri, 10 Nov 2023 12:52:30 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Fri, 10 Nov
- 2023 06:52:29 -0600
-Received: from amd-B450M-DS3H.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Fri, 10 Nov 2023 06:52:25 -0600
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>,
-	<Richard.Gong@amd.com>, <posteuca@mutex.one>, Syed Saba Kareem
-	<Syed.SabaKareem@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, "Jaroslav
- Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, Nicolas Ferre
-	<nicolas.ferre@microchip.com>, =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@pengutronix.de>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ASoC: amd: acp: add pm ops support for renoir platform
- Add pm ops for renoir platform.
-Date: Fri, 10 Nov 2023 18:22:10 +0530
-Message-ID: <20231110125214.2127139-2-Syed.SabaKareem@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231110125214.2127139-1-Syed.SabaKareem@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.29; Fri, 10 Nov
+ 2023 13:20:33 +0000
+Received: from MN2PR12MB3661.namprd12.prod.outlook.com
+ ([fe80::6d62:cc7:cf1d:86eb]) by MN2PR12MB3661.namprd12.prod.outlook.com
+ ([fe80::6d62:cc7:cf1d:86eb%6]) with mapi id 15.20.6954.028; Fri, 10 Nov 2023
+ 13:20:32 +0000
+From: "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>
+To: "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>, "broonie@kernel.org"
+	<broonie@kernel.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>
+CC: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>, "Hiregoudar, Basavaraj"
+	<Basavaraj.Hiregoudar@amd.com>, "Dommati, Sunil-kumar"
+	<Sunil-kumar.Dommati@amd.com>, "Limonciello, Mario"
+	<Mario.Limonciello@amd.com>, "Gong, Richard" <Richard.Gong@amd.com>,
+	"posteuca@mutex.one" <posteuca@mutex.one>, Liam Girdwood
+	<lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	=?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>, open
+ list <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 2/2] ASoC: amd: acp: add pm ops support for renoir
+ platform Add pm ops for renoir platform.
+Thread-Topic: [PATCH 2/2] ASoC: amd: acp: add pm ops support for renoir
+ platform Add pm ops for renoir platform.
+Thread-Index: AQHaE9TJdn8rhslbRkCXpB1In+AjQrBziOQQ
+Date: Fri, 10 Nov 2023 13:20:32 +0000
+Message-ID: 
+ <MN2PR12MB3661D6802D9B91FE50FFE70FFCAEA@MN2PR12MB3661.namprd12.prod.outlook.com>
 References: <20231110125214.2127139-1-Syed.SabaKareem@amd.com>
+ <20231110125214.2127139-2-Syed.SabaKareem@amd.com>
+In-Reply-To: <20231110125214.2127139-2-Syed.SabaKareem@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b3084c24-50b3-41f2-baa2-de03b419d974;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-11-10T13:17:38Z;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR12MB3661:EE_|LV3PR12MB9409:EE_
+x-ms-office365-filtering-correlation-id: 0a02f816-4387-4cb8-714b-08dbe1efd12a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ MndbeUZhQdCFgph7qRaMkYU9WJ1bNpHWaBChL+hkvmjsy4xRgbUHcmNm8Nx9zrZvl7xni1iDzqNwQ6b3XNklSCsGWinp2tw3zaqfhj7dpqn4EdkErhkzHzFCt27LVCQYeImQ+X4BCKTHBdu2jc4Zl2Bj5pguL/nN9euW3Qxu6TMzCSalfL9FHkQEDI8Lq+aeBNpAKy7TzFIOHYCXQlETwcgg9esZDGmN5+CVn2/R5GF5MfmkZAi34OB11ExACzDtfjsDbFRsnd9rufeocviBREmHl13XNVrkxv1dKC60EpCESIba762W5xoI0zmZyeRx9D1DerVKAZsG1lzlLISEm9R7vUK2MYn2/v8PKvsJzeY/+BX9aTZsoFYkEyTIkhPPMSA4lJ8cbeotElnRJzC8r2nWEKz2nLJc+rJhS+Hfwz5DMMhn5vONYGZBZZnFsE2EwcRQmb0SsHrWagm+2NmU0BxeZQ+NxykPaBAeKWut0ky273d+aQedaIxUKxSa3Gr+o/cTuLgWduXvybmqWvzEjVF3ELmAAAg//pwpVyOd50A3OGCdHFV1GsSlVnvJVW/G0vNJWa4HTO26L90HkAT6G8BlseQOMnJPkNAqOmpwstOp3ZqOc/rFr3J5hqdZbCJ1
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3661.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(376002)(346002)(396003)(39860400002)(136003)(230922051799003)(451199024)(64100799003)(1800799009)(186009)(122000001)(110136005)(38070700009)(83380400001)(76116006)(66946007)(66574015)(66556008)(26005)(71200400001)(478600001)(7696005)(6506007)(9686003)(4326008)(66476007)(53546011)(7416002)(33656002)(8936002)(55016003)(8676002)(66446008)(41300700001)(52536014)(38100700002)(5660300002)(2906002)(64756008)(316002)(86362001)(54906003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?ppOkUUJmxYEtMcROOvHR70AgkoQlkcl3kOjJTSmGsarHO7XXMdudIO8M9w?=
+ =?iso-8859-1?Q?6Lvxfe1O7OcPv+x3W+nW8vL4CQNO7Vl8WU4/MG8yN5Rh45fci7QYTxqAn9?=
+ =?iso-8859-1?Q?QoTi7ObNIY2pqiu5lfJTEhA3ztk2eLT4ziogS5chn/eX/bj/64S3VRmgKR?=
+ =?iso-8859-1?Q?NXQuKB1loLf+/DLVbPrYvzoLIrW6O/3tGLXslEzmYKnjMVd3f1uizC4N8z?=
+ =?iso-8859-1?Q?EBgiVX8XWIQ4RXarMu5vACNoJBLxZsUVl16ReKkMD5ju3VEmPGPqDzkPQ3?=
+ =?iso-8859-1?Q?DLiyar6qnk8ssvW7rj6Q9/e0lF8n5yWi1zQRnyWXA1c8b4rF/WgiQdjd/j?=
+ =?iso-8859-1?Q?lZJsq8ME52nI6LTe+TB/dEagFecC06TVkYeSyDSzQlDATk23NDANdkhia5?=
+ =?iso-8859-1?Q?K9iaUVU4Kleu8BvMcvBasO4DQ6I4zrY+KNE8NN6Q+Jaw1ojDq2ApAyGlfJ?=
+ =?iso-8859-1?Q?z/Dv0K7H74Ujt74igrvMhgbmoXc/5BekNU4DRacvYnJeLC6Dz36HTu7B3/?=
+ =?iso-8859-1?Q?kC8P9/YVQVx+VVYBQT3czioTyK5qE4etPdHPV5QnfCHO+AMOKWE1mbmSOi?=
+ =?iso-8859-1?Q?ET8pCqypkslY9Ovjt/87b4oGlGFElOORKSVBaJOxwk0DCNngMSDndaiPe0?=
+ =?iso-8859-1?Q?DxDr31J+qNeOJlhkwKWFtYeBtsqo+p+r0D+IC0AbCn+v8veySp7zecKu9c?=
+ =?iso-8859-1?Q?K7lZtT/x9QkByzrHm402YdhyfdwwnUQPkdIPruEJG3+ZAFK6DlbsGH2asv?=
+ =?iso-8859-1?Q?BOU/6ES8RBnmPgpedslxs2CfV4S/CvkiSFtdJu/NQRP0hrSZfU+PaWc6NK?=
+ =?iso-8859-1?Q?b/Rz3f1NVkCowo8pSoDS8wSdlLPfAiJYtjAh8dzpqSwf4X0Y6sbhrqEc34?=
+ =?iso-8859-1?Q?uMw3pgP5NFBPQ20C3UpPHe/lOpjMLHqbQ93BvKMyVj1JT8B0FpZC6ef6sH?=
+ =?iso-8859-1?Q?pW8O2e/vXE6zhm8tJem1/0dwaTM1gTaSix6Va2eqBQAu+sk2y6KjiwP6c9?=
+ =?iso-8859-1?Q?ma9sRZrpLxEeoLX0g+XqUq1BW+F0+jbxW7BqguzI/FzZx3iOFMhqS0L+ir?=
+ =?iso-8859-1?Q?Bp+IOO6uNV4IM6viqqMzHvdwVOkcdaBGDDNAslSiTG32H0IkbhJD8lmLcd?=
+ =?iso-8859-1?Q?SvFIYAjtTKFY4MwLAT3hhdPU3ZbvW4OkkRkWiU700LEbPwpljkvgOqVJ8q?=
+ =?iso-8859-1?Q?GscShIP2ToPeG1qG1weLovreVFSqrQijy05xvis/EfGK7icJglkv6NnVex?=
+ =?iso-8859-1?Q?wG8Z5ofssO6hB+kwJeziS4LxsRptDWAfc1fnnv1/oILaidhtIxxkqGMEDb?=
+ =?iso-8859-1?Q?hTRZNRhHJ1Hq1QaLQLwzNlNWcegMwCU12j+O4jjV3zPHKO//P7K35Kw0gR?=
+ =?iso-8859-1?Q?3qaMZFMz1LYbLgyu6jlSdIVqwH7t+Pkqho45ghh9Fb/I8AhwbLZk6wYgRj?=
+ =?iso-8859-1?Q?GR9D0Fgmj4TVyK7KbvkCV5F71eG/UGGQPk4icVH43JXCG7xfN4tex1GjNI?=
+ =?iso-8859-1?Q?AmXjLM/wOa497ZCv9vuc8LUQg0c7jJH99Dmjn72lwMw52LGhI1ePJl5t/U?=
+ =?iso-8859-1?Q?MeeNYLSQjfAtD53HcnBNddAI+4RMf92ScCBYkwS7JB82kV5RoAjsuaZtVC?=
+ =?iso-8859-1?Q?Jn3pdc6h17ZjQ=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|DM6PR12MB4580:EE_
-X-MS-Office365-Filtering-Correlation-Id: d77caecf-9be5-49c5-7a45-08dbe1ebe667
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	+oEzr1/KJ66Mk0LvHaNeZuK85OP5Q6Q3tnLOkmttjmEH3kmg6sRXI/Qq6dJmcLVRWG4+8aUvThAZ9B9JLlUDAFY1Irjo3hA+/dgnD268Y1vz1DisaI8rxOqTeHPCjxpResZqp2dvQZyFuFqrZ2Z45bUDO4Lv+MvToYDrTrsWOCyA8nV+0d6Myf9g3EdySv+2Oz+GFoaXSFfya4dIkhgVcqsq/54YaMqrfjJe/HNTqZgKg7oBuikeDxg34UR4epTfNDBPpaUaFa4A1OwSjDZeZls5VksMU/l/fSJYBiKg6t49NEwq29q0gtm2dW1OXlsRCuc12YFRvjBSxxPrWfoUuFrSflxSr1bcZxoV3sjwWtbDbZRqQWM4mb1PebKDHUpnDrtO0kgRMV2Ee2eixuWySxGULfxQH7+ZkwMYuo5q7B1Vdb1DV1CJI2O5EgsdAqntC9z/OE7HX2io2/AZHs2asx3O0kz7gnWjWp8S5UoUDydzzNFJ7YWq+Z/780TF0yry86qXEqsADzwV9/uwFISfqVM6PsNvmPXzEKtGT3ZVw0VFzVac6gTwDvDcqHuGR3P+hzB6fYnRAKtSBDKfQs82+/Bhz3OprbZkr7/ygnnXTou4LJCeM+pcIfp85nuEeEgOGXcdGbWFKF01vdA2Eqdp09RiWRmHdJosUPNoyDSksEq7yBcSonSLEZiPaMjzk895/HgwCxPFVI7f3ZVOYmZeDnDpr4CPA85vj/q8/5wpim2bB/30rXQY4jOrEENImP6XfjzoZPU+yjTn52I3yv1YzQ==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(346002)(396003)(39860400002)(376002)(230922051799003)(186009)(1800799009)(451199024)(82310400011)(64100799003)(46966006)(36840700001)(40470700004)(70586007)(70206006)(110136005)(1076003)(2616005)(316002)(54906003)(40460700003)(86362001)(36860700001)(6666004)(36756003)(478600001)(7696005)(47076005)(41300700001)(7416002)(5660300002)(426003)(336012)(81166007)(356005)(82740400003)(8936002)(8676002)(4326008)(2906002)(83380400001)(26005)(40480700001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2023 12:52:30.1849
- (UTC)
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d77caecf-9be5-49c5-7a45-08dbe1ebe667
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	MN1PEPF0000ECD8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4580
-Message-ID-Hash: GJ3GUJ6ITV3EH746OPHABBHQGTOKVGCT
-X-Message-ID-Hash: GJ3GUJ6ITV3EH746OPHABBHQGTOKVGCT
+ 0a02f816-4387-4cb8-714b-08dbe1efd12a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2023 13:20:32.5307
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ DaTu27zxdUvrdqVaT2qJcWqDbJ2Bbxk/iaiyXAhurnoVmmqQut5ABN7rdwQgN/yl+/TU3khn58oqhynRg5GyaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9409
+Message-ID-Hash: HR73SF4WIIUFB6B5MH3MHFDJWRRBKCZH
+X-Message-ID-Hash: HR73SF4WIIUFB6B5MH3MHFDJWRRBKCZH
 X-MailFrom: Syed.SabaKareem@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -144,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GJ3GUJ6ITV3EH746OPHABBHQGTOKVGCT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O7PRHKSH6RLSJ2HUZTHD7TEKW7SQYS3E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,13 +179,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+[AMD Official Use Only - General]
+
+Commit message got mixed with commit title will resend the patch again.
+
+-----Original Message-----
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Sent: Friday, November 10, 2023 6:22 PM
+To: broonie@kernel.org; alsa-devel@alsa-project.org
+Cc: Mukunda, Vijendar <Vijendar.Mukunda@amd.com>; Hiregoudar, Basavaraj <Ba=
+savaraj.Hiregoudar@amd.com>; Dommati, Sunil-kumar <Sunil-kumar.Dommati@amd.=
+com>; Limonciello, Mario <Mario.Limonciello@amd.com>; Gong, Richard <Richar=
+d.Gong@amd.com>; posteuca@mutex.one; Saba Kareem, Syed <Syed.SabaKareem@amd=
+.com>; Liam Girdwood <lgirdwood@gmail.com>; Jaroslav Kysela <perex@perex.cz=
+>; Takashi Iwai <tiwai@suse.com>; Kuninori Morimoto <kuninori.morimoto.gx@r=
+enesas.com>; Nicolas Ferre <nicolas.ferre@microchip.com>; Uwe Kleine-K=F6ni=
+g <u.kleine-koenig@pengutronix.de>; open list <linux-kernel@vger.kernel.org=
+>
+Subject: [PATCH 2/2] ASoC: amd: acp: add pm ops support for renoir platform=
+ Add pm ops for renoir platform.
+
 Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 ---
  sound/soc/amd/acp/acp-renoir.c | 38 +++++++++++++++++++++++++++++++++-
  1 file changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/acp/acp-renoir.c b/sound/soc/amd/acp/acp-renoir.c
-index a591482a0726..8539fbacdf4c 100644
+diff --git a/sound/soc/amd/acp/acp-renoir.c b/sound/soc/amd/acp/acp-renoir.=
+c index a591482a0726..8539fbacdf4c 100644
 --- a/sound/soc/amd/acp/acp-renoir.c
 +++ b/sound/soc/amd/acp/acp-renoir.c
 @@ -20,6 +20,7 @@
@@ -167,65 +213,68 @@ index a591482a0726..8539fbacdf4c 100644
  #include <sound/soc-dai.h>
  #include <linux/dma-mapping.h>
 +#include <linux/pm_runtime.h>
- 
+
  #include "amd.h"
  #include "acp-mach.h"
-@@ -195,7 +196,11 @@ static int renoir_audio_probe(struct platform_device *pdev)
- 	dev_set_drvdata(dev, adata);
- 	acp_enable_interrupts(adata);
- 	acp_platform_register(dev);
+@@ -195,7 +196,11 @@ static int renoir_audio_probe(struct platform_device *=
+pdev)
+        dev_set_drvdata(dev, adata);
+        acp_enable_interrupts(adata);
+        acp_platform_register(dev);
 -
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
- 	return 0;
++       pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
++       pm_runtime_use_autosuspend(&pdev->dev);
++       pm_runtime_mark_last_busy(&pdev->dev);
++       pm_runtime_set_active(&pdev->dev);
++       pm_runtime_enable(&pdev->dev);
+        return 0;
  }
- 
-@@ -208,11 +213,42 @@ static void renoir_audio_remove(struct platform_device *pdev)
- 	acp_platform_unregister(dev);
+
+@@ -208,11 +213,42 @@ static void renoir_audio_remove(struct platform_devic=
+e *pdev)
+        acp_platform_unregister(dev);
  }
- 
-+static int __maybe_unused rn_pcm_resume(struct device *dev)
-+{
-+	struct acp_dev_data *adata = dev_get_drvdata(dev);
-+	struct acp_stream *stream;
-+	struct snd_pcm_substream *substream;
-+	snd_pcm_uframes_t buf_in_frames;
-+	u64 buf_size;
+
++static int __maybe_unused rn_pcm_resume(struct device *dev) {
++       struct acp_dev_data *adata =3D dev_get_drvdata(dev);
++       struct acp_stream *stream;
++       struct snd_pcm_substream *substream;
++       snd_pcm_uframes_t buf_in_frames;
++       u64 buf_size;
 +
-+	spin_lock(&adata->acp_lock);
-+	list_for_each_entry(stream, &adata->stream_list, list) {
-+		substream = stream->substream;
-+		if (substream && substream->runtime) {
-+			buf_in_frames = (substream->runtime->buffer_size);
-+			buf_size = frames_to_bytes(substream->runtime, buf_in_frames);
-+			config_pte_for_stream(adata, stream);
-+			config_acp_dma(adata, stream, buf_size);
-+			if (stream->dai_id)
-+				restore_acp_i2s_params(substream, adata, stream);
-+			else
-+				restore_acp_pdm_params(substream, adata);
-+		}
-+	}
-+	spin_unlock(&adata->acp_lock);
-+	return 0;
++       spin_lock(&adata->acp_lock);
++       list_for_each_entry(stream, &adata->stream_list, list) {
++               substream =3D stream->substream;
++               if (substream && substream->runtime) {
++                       buf_in_frames =3D (substream->runtime->buffer_size)=
+;
++                       buf_size =3D frames_to_bytes(substream->runtime, bu=
+f_in_frames);
++                       config_pte_for_stream(adata, stream);
++                       config_acp_dma(adata, stream, buf_size);
++                       if (stream->dai_id)
++                               restore_acp_i2s_params(substream, adata, st=
+ream);
++                       else
++                               restore_acp_pdm_params(substream, adata);
++               }
++       }
++       spin_unlock(&adata->acp_lock);
++       return 0;
 +}
 +
-+static const struct dev_pm_ops rn_dma_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(NULL, rn_pcm_resume)
-+};
++static const struct dev_pm_ops rn_dma_pm_ops =3D {
++       SET_SYSTEM_SLEEP_PM_OPS(NULL, rn_pcm_resume) };
 +
- static struct platform_driver renoir_driver = {
- 	.probe = renoir_audio_probe,
- 	.remove_new = renoir_audio_remove,
- 	.driver = {
- 		.name = "acp_asoc_renoir",
-+		.pm = &rn_dma_pm_ops,
- 	},
+ static struct platform_driver renoir_driver =3D {
+        .probe =3D renoir_audio_probe,
+        .remove_new =3D renoir_audio_remove,
+        .driver =3D {
+                .name =3D "acp_asoc_renoir",
++               .pm =3D &rn_dma_pm_ops,
+        },
  };
- 
--- 
+
+--
 2.25.1
 

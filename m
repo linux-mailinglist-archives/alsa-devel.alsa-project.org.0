@@ -2,178 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0B47E87F8
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Nov 2023 02:46:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57AEA7E89CE
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Nov 2023 09:22:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D59DF84B;
-	Sat, 11 Nov 2023 02:46:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D59DF84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DB5F84A;
+	Sat, 11 Nov 2023 09:21:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DB5F84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699667217;
-	bh=75ltiCwMMuWOIpuE4RyzxgJq0qZmP0gazvM0zBD3KTk=;
-	h=From:To:In-Reply-To:Subject:Date:References:List-Id:List-Archive:
+	s=default; t=1699690966;
+	bh=CfBn0ztwBcbAQ+Aptc89/YJJxdrHTqXSPn8w7Fsv678=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=XLmLHCWRmK+e1WubPahnYlsvRn2cQUeU0QJkRL+wPj/JHKrx23L6gadqXH0F1rdpI
-	 ijuyjZUb0jAy0BMeXX4A2wrsxFgrLP0kk8jstr47c5M0expqZ8oWv67DKDDnUNxJsz
-	 XFWmj+bob4RViijBiG8eG86RHepRESEqAS7YLtPc=
+	b=NM/AYB7nZtXpfdZNv5IE18qlNnQmxSe89H6GXvay1eQhZGLgcoMi2H1Y02fwqEqvh
+	 CrD0H3Oz0F1PjufPZ/mAyk047ydMADFkKjS8kv4dHCFuevRPaKhQ1Jr7+iG4OmJapB
+	 ZEV3iKm5s5810iGZiA8E487cThSA10ihqICj7jGs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32C96F800ED; Sat, 11 Nov 2023 02:46:07 +0100 (CET)
+	id 653C3F800ED; Sat, 11 Nov 2023 09:21:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D4A1F800ED;
-	Sat, 11 Nov 2023 02:46:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87355F80166;
+	Sat, 11 Nov 2023 09:21:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 561E0F804DA; Sat, 11 Nov 2023 02:46:02 +0100 (CET)
+	id C2667F80169; Sat, 11 Nov 2023 09:16:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1E197F80100
-	for <alsa-devel@alsa-project.org>; Sat, 11 Nov 2023 02:45:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E197F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 010EEF80125
+	for <alsa-devel@alsa-project.org>; Sat, 11 Nov 2023 09:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 010EEF80125
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=rk/Vnfhw
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20231111014554epoutp01fb86d2c6357c226f27098220f02060d0~WbkWh2cK-2782027820epoutp01j;
-	Sat, 11 Nov 2023 01:45:54 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20231111014554epoutp01fb86d2c6357c226f27098220f02060d0~WbkWh2cK-2782027820epoutp01j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1699667154;
-	bh=pmPCvpEQALsN2I+z2mdUOLAfesbaw0dmr1s6esTrmwM=;
-	h=From:To:In-Reply-To:Subject:Date:References:From;
-	b=rk/VnfhwOir17zh6etek14ytr7EuArzKJdnZPSXpap8K2N1CaYJ0yinihj9aqTD28
-	 p7iZJYobSFiBBoi4h7qZa4Oiz16cVCe7fGYAOwULdgIhE/pc2lq9QdBbBGIA0KKlRm
-	 DKJwy0WggijLlen+KSmEHzxq75+EKGe4FVgX4eIU=
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTP id
-	20231111014554epcas5p493bb28599928ed4789b47172fe7d1467~WbkWR5WD12395723957epcas5p4l;
-	Sat, 11 Nov 2023 01:45:54 +0000 (GMT)
-Received: from epsmgec5p1new.samsung.com (unknown [182.195.38.175]) by
-	epsnrtp3.localdomain (Postfix) with ESMTP id 4SRz6n28PJz4x9Pr; Sat, 11 Nov
-	2023 01:45:53 +0000 (GMT)
-Received: from epcas5p4.samsung.com ( [182.195.41.42]) by
-	epsmgec5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	B6.BE.08567.1DCDE456; Sat, 11 Nov 2023 10:45:53 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20231111014552epcas5p17256164fc9ca6ea2b575207f03919877~WbkUnwO9c2897028970epcas5p1I;
-	Sat, 11 Nov 2023 01:45:52 +0000 (GMT)
-Received: from epsmgmcp1.samsung.com (unknown [182.195.42.82]) by
-	epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
-	20231111014552epsmtrp1036115db57eb4aaba270dfbeb1040557~WbkUmN2lP3109231092epsmtrp1_;
-	Sat, 11 Nov 2023 01:45:52 +0000 (GMT)
-X-AuditID: b6c32a44-617fd70000002177-14-654edcd17e98
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
-	epsmgmcp1.samsung.com (Symantec Messaging Gateway) with SMTP id
-	79.73.18939.0DCDE456; Sat, 11 Nov 2023 10:45:52 +0900 (KST)
-Received: from INBRO000447 (unknown [107.122.12.5]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20231111014547epsmtip1027d013442d29eabc5f9d04f6fa045be~WbkPd9a2L2014520145epsmtip1F;
-	Sat, 11 Nov 2023 01:45:47 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@linaro.org>, "'David
- Airlie'" <airlied@gmail.com>, "'Daniel Vetter'" <daniel@ffwll.ch>, "'Maarten
- Lankhorst'" <maarten.lankhorst@linux.intel.com>, "'Maxime Ripard'"
-	<mripard@kernel.org>, "'Thomas Zimmermann'" <tzimmermann@suse.de>, "'Rob
- Herring'" <robh+dt@kernel.org>, "'Krzysztof Kozlowski'"
-	<krzysztof.kozlowski+dt@linaro.org>, "'Conor Dooley'" <conor+dt@kernel.org>,
-	"'Andi Shyti'" <andi.shyti@kernel.org>, "'Jonathan Cameron'"
-	<jic23@kernel.org>, "'Lars-Peter Clausen'" <lars@metafoo.de>, "'Lee Jones'"
-	<lee@kernel.org>, "'Ulf Hansson'" <ulf.hansson@linaro.org>, "'Tomasz	Figa'"
-	<tomasz.figa@gmail.com>, "'Sylwester Nawrocki'" <s.nawrocki@samsung.com>,
-	"'Linus Walleij'" <linus.walleij@linaro.org>, "'Thierry Reding'"
-	<thierry.reding@gmail.com>, =?utf-8?Q?'Uwe_Kleine-K=C3=B6nig'?=
-	<u.kleine-koenig@pengutronix.de>, "'Alessandro Zummo'"
-	<a.zummo@towertech.it>, "'Alexandre Belloni'"
-	<alexandre.belloni@bootlin.com>, "'Greg Kroah-Hartman'"
-	<gregkh@linuxfoundation.org>, "'Jiri Slaby'" <jirislaby@kernel.org>, "'Liam
- Girdwood'" <lgirdwood@gmail.com>, "'Mark Brown'" <broonie@kernel.org>,
-	"'Jaehoon	Chung'" <jh80.chung@samsung.com>, "'Sam Protsenko'"
-	<semen.protsenko@linaro.org>, <dri-devel@lists.freedesktop.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
-	<linux-i2c@vger.kernel.org>, <linux-iio@vger.kernel.org>,
-	<linux-mmc@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<linux-pwm@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
-	<linux-serial@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-	<linux-sound@vger.kernel.org>
-In-Reply-To: <20231108104343.24192-18-krzysztof.kozlowski@linaro.org>
-Subject: RE: [PATCH 17/17] arm64: dts: exynosautov9: add specific
- compatibles to several blocks
-Date: Sat, 11 Nov 2023 07:15:46 +0530
-Message-ID: <05ad01da1440$cdb40340$691c09c0$@samsung.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BjaNatcW
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9F374608C1;
+	Sat, 11 Nov 2023 08:16:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A37C433C8;
+	Sat, 11 Nov 2023 08:16:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1699690594;
+	bh=CfBn0ztwBcbAQ+Aptc89/YJJxdrHTqXSPn8w7Fsv678=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=BjaNatcW2RPEQ+GVpd14LiyS5SMDN0geyfUrcLXy7MKzGTni/7xjM91PXkUci9+L1
+	 BqmOzzrU53xt4scjZ8+LEaZRyItjTnp4hQKJtIADuv5PbUznepUN4TtLRVPc1cdg88
+	 FgZfIgmS78NS3R6SqgYj5LfaBw/iAshm85YrtR1allkESxd7cIeGbaiImAVRy5WMU1
+	 dG4QjhUVBSTiJMzpr5qhzam0mO/mk011tlbBTD0TPQR39vPMbqr2lWYRVyZhWXDg3S
+	 IskPEYD3daON9ay0mjYUEdSxJZyvGaYHabaxDevrcmsWaO2U7j2zgigJL8qhNyy3vi
+	 VzIDoWvNZKleA==
+Message-ID: <70821f4c-d0f8-4a35-b664-0823bf430816@kernel.org>
+Date: Sat, 11 Nov 2023 09:16:26 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGWJB6kbFUwx2+cGuz2YrV1SxstmQGBpPEAAjHDf/Cw3p3ngA==
-Content-Language: en-us
-X-Brightmail-Tracker: 
- H4sIAAAAAAAAA02Te0zTVxTHc3+P/qqu5mfFeYfGsDqzgQHaQbuLAUbk4U/nHM4EzLIFG/oL
-	EKB0LUzRJTIN5SUwBIM0tIAQwCrpVh7BMkSwWt1MeYqoMMZgysMxJ68JOFb4oeO/z/me77nn
-	nnNz+bhwmnLmxygTWbVSHifirScabrq6uXf2H2LFQzUUqui8T6E7Dy5hKG2ykkI9nW0YGpxJ
-	B+jC0AgPXW22Y2ipIQ9HJVY7iXpm/uKhs+UmHuqb15LotzNGDE3qt6Oc0SEcNU/UO47LLyFR
-	o7aMQLM96RgqWKzCkHm4l0S1JYsApb+aBshgnSRQt6WYh6xLuQANDBgBun2lh4cutl/H0L3y
-	bArpnxTgqOzvegJpMypJlNpspdDNZ2kkeprjsLy0GAhktDjOq3uWR6LHefkA2WrCA1yZH6bO
-	8BjD1VNM82wpwVzTDVCM2ZjBY/p7f3Lodw8zLfqrFDOYZcOY2orTTMWzNpLJfSVmcuqMgKn9
-	5RRTaHiJMVPmHaH0F7G+0axcwapdWGVkgiJGGeUn+uRIRGCEVCaWuEt80EciF6U8nvUTBR0M
-	dQ+JiXMsWOTyjTwuySGFyjUakae/rzohKZF1iU7QJPqJWJUiTuWt8tDI4zVJyigPJZu4RyIW
-	fyh1GI/FRleZRkjVz9SJB/qHvBRQzcsE6/iQ9oY3ZkpBJljPF9JNANptVowLXgBoy7SDN4HF
-	Mke+LjGabPgyC+lrAM4X7+RMowCaa8uw5QSPdoeN5VrecsKJbhLA7pbfieXEOjoYtkxdXGm+
-	mZbD9uE7YJkJehdsaC5a0QW0D3xeZyY53gTvFo2s1OL0blhZNoFzt3CBL/+oXPE40Xthy6/V
-	FOfZCsduWSnOU78eZlZ8znEQTKlOX9U3w3Fb3So7w7FcrYP5DmbgpUVnTo6Gf1aZAMcfwxs9
-	xcSyBaddocniyXXaCLMXRjCuUgDTtULOvQuenbxPcLwN5mVlra6Ngfey21aX2wVgdmsf/j1w
-	0a0ZUrdmSN2aYXT/dy4FhBG8w6o08VFspFQlUbLH37x3ZEK8Gax8P7egRtBX8q9HG8D4oA1A
-	Pi5yEnR4H2SFAoU8+SSrTohQJ8WxmjYgdWw+D3feEpng+L/KxAiJt4/YWyaTeft4ySSirYKJ
-	VL1CSEfJE9lYllWx6td1GH+dcwqWlFPW5Iqb97z942iHOrD6M6el925tmd5QSCpDzHcN1oD0
-	jufhngH/EPteiIZb9wkWQhvOdeiSR5vH9uffblQgVJNZKI3psi6UH02ztx8QvPXVC0PvuCaM
-	nN0uau3PzJdVzXVqv00tORmuHoncn/zoVIYBhg6K6wIPP9zUxL67d/5w5XeLlz3C7OrT3bnS
-	gglJCuX5WNpInbDprwhQ/MyY//gHipCva8b1T48xBxe2Dwrv9Xp4Wc77nrus22Caef9Lwhic
-	HdO64eTOUv+ijK4W+lP7bkXtdfORC4uPwrwsW9yG8p7MKe39O7Y5uctkHof6jup1llrT+bLW
-	4JSczfD4RhGhiZZL3HC1Rv4fd75WOwcFAAA=
-X-Brightmail-Tracker: 
- H4sIAAAAAAAAA02SfVDTdRzH/f6eh437NUi/B+XlujrDBDw8+9KlZw+cvz+6JLrq8o90wU8g
-	Gew2SHno8CDHwAJBPXC5DQSWzNVkPEjIWIxNwsnEQBYHSCMeJImwhd08HoLt6vjvdZ/3+/P6
-	fP/4MrjIRYYxqemZvDxdkiamgojWbvG2Xf2j7/LRFtNzqO7uPRr95L6MoaJ5PY0G79owNL6o
-	AuiCZ5JCRosLQ6ut5TjS2V0kGlz8k0KFtSYK/fJESaJfCwwYmtc8i0ofeHBkedhCo7pzOhK1
-	KWsI9HhQhaHzS99iyPzbEImadEsAqZb/BkhrnyfQQPslCtlXywAaGzMAdPPqIIWq7nRi6Hbt
-	1zTSTJ/HUc2jFgIpi/UkOm2x06h7rohEM6VrFV+7lkCG9jVf81w5iUbKzwHU891HB17mrnkL
-	KE5rzOUsj6sJ7gf1GM2ZDcUUNzrUsTbvfY+zaow0N36mB+Oa6vK5ujkbyZUtR3OlzQbANTlz
-	uUqtD+O85m3x7OGg15P4tNTPeXnU/qNBKQXFnUBmo09OfFmDnwLVVAkQMJDdAw2mHrwEBDEi
-	9jqA7TcekYEgHLobz9IBDoENKzN0oDQNoONmE1gPKHYXbKtV+k2h7LAQOkcPBUouAGe7m/2B
-	gI2DVm+Vn0PYI/DWjXFsnQn2RdhqueifC9lYuNBsJgP8NOy9OEmsM87uhFPDU/+zvuYhHnjR
-	89A3pScDh9+E1vtX6EBnK5x12OmzQKTeoFJvUKk3qNQbVqoBYQDP8DKFNFmaKNsdqZBIFVnp
-	yZGJGVIz8H+5iIQ2oDctR9oAxgAbgAwuDhX273mHFwmTJNk5vDzjiDwrjVfYQDhDiLcKX0gr
-	ThKxyZJM/jjPy3j5fynGCMJOYbkf7uvQdmmmszWfbg79xtm/4wt31HjfkGlTQ0XlVSA2h33S
-	EV72z2n7AZeuRHVicsJ2+3p0T19q9Bn3k6hjwbErR1/Ncg6Dsr2a/vQtVxKUbM5KYuHee6Uf
-	Gx0Vnre9M/eXJC2CRLVk561FacbCyI98+UFVzsktMfGz33flyQ3H4AlV6/xo8MQDq+791e3G
-	eIfzD3fvJoc179IbWfWH/2oM66yvGnFcrkyIrIqITSEm1R+4SuIG7qQUen4ufIXxRLxECroE
-	MXGVTwV/FRrjO76wL8874EvdfmHztfpDjXE7dH2CBl2XS0YU5U/nW2SN2ba3QjIXXjtI/P6Z
-	umKqY3F/p5hQpEh2R+ByheRf5sU5kOEDAAA=
-X-CMS-MailID: 20231111014552epcas5p17256164fc9ca6ea2b575207f03919877
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20231108104502epcas5p335e39d7cc94ca84aa4423ceee1a0a315
-References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
-	<CGME20231108104502epcas5p335e39d7cc94ca84aa4423ceee1a0a315@epcas5p3.samsung.com>
-	<20231108104343.24192-18-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: 5QVW3CK2VG22542KHMXYUG3ZWBR35IMN
-X-Message-ID-Hash: 5QVW3CK2VG22542KHMXYUG3ZWBR35IMN
-X-MailFrom: alim.akhtar@samsung.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 14/15] media: imx-asrc: Add memory to memory driver
+Content-Language: en-US
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, hverkuil@xs4all.nl,
+ sakari.ailus@iki.fi, tfiga@chromium.org, m.szyprowski@samsung.com,
+ mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
+ <1699595289-25773-15-git-send-email-shengjiu.wang@nxp.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <1699595289-25773-15-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: FNAEITT4DPZ7NCZL4MZZKGEUXGLGAQWA
+X-Message-ID-Hash: FNAEITT4DPZ7NCZL4MZZKGEUXGLGAQWA
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -185,40 +136,227 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5QVW3CK2VG22542KHMXYUG3ZWBR35IMN/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FNAEITT4DPZ7NCZL4MZZKGEUXGLGAQWA/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 10/11/2023 06:48, Shengjiu Wang wrote:
+> +static int asrc_m2m_probe(struct platform_device *pdev)
+> +{
+> +	struct fsl_asrc_m2m_pdata *data = pdev->dev.platform_data;
+> +	struct device *dev = &pdev->dev;
+> +	struct asrc_m2m *m2m;
+> +	int ret;
+> +
+> +	m2m = devm_kzalloc(dev, sizeof(struct asrc_m2m), GFP_KERNEL);
+
+sizeof(*)
+
+> +	if (!m2m)
+> +		return -ENOMEM;
+> +
+> +	m2m->pdata = *data;
+> +	m2m->pdev = pdev;
+> +
+> +	ret = v4l2_device_register(dev, &m2m->v4l2_dev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to register v4l2 device\n");
+> +		goto err_register;
+> +	}
+> +
+> +	m2m->m2m_dev = v4l2_m2m_init(&asrc_m2m_ops);
+> +	if (IS_ERR(m2m->m2m_dev)) {
+> +		dev_err(dev, "failed to register v4l2 device\n");
+
+Why aren't you using dev_err_probe() at all?
+
+> +		ret = PTR_ERR(m2m->m2m_dev);
+> +		goto err_m2m;
+> +	}
+> +
+> +	m2m->dec_vdev = video_device_alloc();
+> +	if (!m2m->dec_vdev) {
+> +		dev_err(dev, "failed to register v4l2 device\n");
+
+Why do you print errors on ENOMEM?
+
+Did you run coccinelle?
+
+> +		ret = -ENOMEM;
+> +		goto err_vdev_alloc;
+> +	}
+> +
+> +	mutex_init(&m2m->mlock);
+> +
+> +	m2m->dec_vdev->fops = &asrc_m2m_fops;
+> +	m2m->dec_vdev->ioctl_ops = &asrc_m2m_ioctl_ops;
+> +	m2m->dec_vdev->minor = -1;
+> +	m2m->dec_vdev->release = video_device_release;
+> +	m2m->dec_vdev->lock = &m2m->mlock; /* lock for ioctl serialization */
+> +	m2m->dec_vdev->v4l2_dev = &m2m->v4l2_dev;
+> +	m2m->dec_vdev->vfl_dir = VFL_DIR_M2M;
+> +	m2m->dec_vdev->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_AUDIO_M2M;
+> +
+> +#ifdef CONFIG_MEDIA_CONTROLLER
+> +	m2m->mdev.dev = &pdev->dev;
+> +	strscpy(m2m->mdev.model, M2M_DRV_NAME, sizeof(m2m->mdev.model));
+> +	snprintf(m2m->mdev.bus_info, sizeof(m2m->mdev.bus_info),
+> +		 "platform:%s", M2M_DRV_NAME);
+> +	media_device_init(&m2m->mdev);
+> +	m2m->mdev.ops = &asrc_m2m_media_ops;
+> +	m2m->v4l2_dev.mdev = &m2m->mdev;
+> +#endif
+> +
+> +	ret = video_register_device(m2m->dec_vdev, VFL_TYPE_AUDIO, -1);
+> +	if (ret) {
+> +		dev_err(dev, "failed to register video device\n");
+> +		goto err_vdev_register;
+> +	}
+> +
+> +#ifdef CONFIG_MEDIA_CONTROLLER
+> +	ret = v4l2_m2m_register_media_controller(m2m->m2m_dev, m2m->dec_vdev,
+> +						 MEDIA_ENT_F_PROC_AUDIO_RESAMPLER);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to init mem2mem media controller\n");
+> +		goto error_v4l2;
+> +	}
+> +
+> +	ret = media_device_register(&m2m->mdev);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register mem2mem media device\n");
+> +		goto error_m2m_mc;
+> +	}
+> +#endif
+> +
+> +	video_set_drvdata(m2m->dec_vdev, m2m);
+> +	platform_set_drvdata(pdev, m2m);
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	return 0;
+> +
+> +#ifdef CONFIG_MEDIA_CONTROLLER
+> +error_m2m_mc:
+> +	v4l2_m2m_unregister_media_controller(m2m->m2m_dev);
+> +#endif
+> +error_v4l2:
+> +	video_unregister_device(m2m->dec_vdev);
+> +err_vdev_register:
+> +	video_device_release(m2m->dec_vdev);
+> +err_vdev_alloc:
+> +	v4l2_m2m_release(m2m->m2m_dev);
+> +err_m2m:
+> +	v4l2_device_unregister(&m2m->v4l2_dev);
+> +err_register:
+> +	return ret;
+> +}
+> +
+> +static void asrc_m2m_remove(struct platform_device *pdev)
+> +{
+> +	struct asrc_m2m *m2m = platform_get_drvdata(pdev);
+> +
+> +	pm_runtime_disable(&pdev->dev);
+> +#ifdef CONFIG_MEDIA_CONTROLLER
+> +	media_device_unregister(&m2m->mdev);
+> +	v4l2_m2m_unregister_media_controller(m2m->m2m_dev);
+> +#endif
+> +	video_unregister_device(m2m->dec_vdev);
+> +	video_device_release(m2m->dec_vdev);
+> +	v4l2_m2m_release(m2m->m2m_dev);
+> +	v4l2_device_unregister(&m2m->v4l2_dev);
+> +}
+> +
+> +#ifdef CONFIG_PM_SLEEP
+> +/* suspend callback for m2m */
+> +static int asrc_m2m_suspend(struct device *dev)
+> +{
+> +	struct asrc_m2m *m2m = dev_get_drvdata(dev);
+> +	struct fsl_asrc *asrc = m2m->pdata.asrc;
+> +	struct fsl_asrc_pair *pair;
+> +	unsigned long lock_flags;
+> +	int i;
+> +
+> +	for (i = 0; i < PAIR_CTX_NUM; i++) {
+> +		spin_lock_irqsave(&asrc->lock, lock_flags);
+> +		pair = asrc->pair[i];
+> +		if (!pair || !pair->req_pair) {
+> +			spin_unlock_irqrestore(&asrc->lock, lock_flags);
+> +			continue;
+> +		}
+> +		if (!completion_done(&pair->complete[V4L_OUT])) {
+> +			if (pair->dma_chan[V4L_OUT])
+> +				dmaengine_terminate_all(pair->dma_chan[V4L_OUT]);
+> +			asrc_input_dma_callback((void *)pair);
+> +		}
+> +		if (!completion_done(&pair->complete[V4L_CAP])) {
+> +			if (pair->dma_chan[V4L_CAP])
+> +				dmaengine_terminate_all(pair->dma_chan[V4L_CAP]);
+> +			asrc_output_dma_callback((void *)pair);
+> +		}
+> +
+> +		if (asrc->m2m_pair_suspend)
+> +			asrc->m2m_pair_suspend(pair);
+> +
+> +		spin_unlock_irqrestore(&asrc->lock, lock_flags);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int asrc_m2m_resume(struct device *dev)
+> +{
+> +	struct asrc_m2m *m2m = dev_get_drvdata(dev);
+> +	struct fsl_asrc *asrc = m2m->pdata.asrc;
+> +	struct fsl_asrc_pair *pair;
+> +	unsigned long lock_flags;
+> +	int i;
+> +
+> +	for (i = 0; i < PAIR_CTX_NUM; i++) {
+> +		spin_lock_irqsave(&asrc->lock, lock_flags);
+> +		pair = asrc->pair[i];
+> +		if (!pair || !pair->req_pair) {
+> +			spin_unlock_irqrestore(&asrc->lock, lock_flags);
+> +			continue;
+> +		}
+> +		if (asrc->m2m_pair_resume)
+> +			asrc->m2m_pair_resume(pair);
+> +
+> +		spin_unlock_irqrestore(&asrc->lock, lock_flags);
+> +	}
+> +
+> +	return 0;
+> +}
+> +#endif
+> +
+> +static const struct dev_pm_ops asrc_m2m_pm_ops = {
+> +	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(asrc_m2m_suspend,
+> +				      asrc_m2m_resume)
+> +};
+> +
+> +static struct platform_driver asrc_m2m_driver = {
+> +	.probe  = asrc_m2m_probe,
+> +	.remove_new = asrc_m2m_remove,
+> +	.driver = {
+> +		.name = M2M_DRV_NAME,
+> +		.pm = &asrc_m2m_pm_ops,
+> +	},
+> +};
+> +module_platform_driver(asrc_m2m_driver);
+> +
+> +MODULE_DESCRIPTION("Freescale ASRC M2M driver");
+> +MODULE_ALIAS("platform:" M2M_DRV_NAME);
+
+You should not need MODULE_ALIAS() in normal cases. If you need it,
+usually it means your device ID table is wrong (e.g. misses either
+entries or MODULE_DEVICE_TABLE()). MODULE_ALIAS() is not a substitute
+for incomplete ID table.
 
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzysztof.kozlowski=40linaro.org>
-> ExynosAutov9 reuses several devices from older designs, thus historically=
- we
-> kept the old (block's) compatible only.  This works fine and there is no =
-bug
-> here, however guidelines expressed in
-> Documentation/devicetree/bindings/writing-bindings.rst state that:
-> 1. Compatibles should be specific.
-> 2. We should add new compatibles in case of bugs or features.
->=20
-> Add compatibles specific to ExynosAutov9 in front of all old-SoC-like
-> compatibles.  This will also help reviews of new code using existing DTS =
-as
-> template.  No functional impact on Linux drivers behavior.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski=40linaro.org>
-> ---
+> +MODULE_LICENSE("GPL");
 
-Reviewed-by: Alim Akhtar <alim.akhtar=40samsung.com>
-
->  arch/arm64/boot/dts/exynos/exynosautov9.dtsi =7C 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-(...)
+Best regards,
+Krzysztof
 

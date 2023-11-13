@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B49BC7E9B88
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 12:57:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC877E9BAA
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 12:59:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CED8852;
-	Mon, 13 Nov 2023 12:56:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CED8852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26B79E74;
+	Mon, 13 Nov 2023 12:58:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26B79E74
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699876626;
-	bh=yfUE3JjgApZWaOiPs5blNMrWF0xbq2o5lcQvO2GdSf4=;
+	s=default; t=1699876749;
+	bh=I/GNNmnd9KPAt/3KR9nGlyj4w6Z5obO7WVLloEcZzkc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jM5aSzuE3mN7n3IL3OCvat+oEokcNeR3wXLaC1GFyBAwHG5fRdDG2hJMbawd9Nsov
-	 sd/xkleTgp7VEn7xmC7QE+h6dbuxrD8qFmY9zl9jM2YrnoVcfJaZKZ/KH5YhCycwvA
-	 WvPJL9Iv6FwY34tRTNBT0Q1fv8crIkesBDPfKcj4=
+	b=VRVoMXhgZq7AOsO0/iEIn2qa3r/jhwg6xHVeh1lN0r/irCXst6LlhiBnLOgvrHVDa
+	 DaL9uneYPF5GToVdxUAceitViO1g+r0m9k5bQMBze2+VXx4hz1uO5VsUtC6XG/RS9j
+	 6+Syn0zX4rROu/3AvKCoua+RA1ELEK236Kwn4kqQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EFEEF805AC; Mon, 13 Nov 2023 12:54:56 +0100 (CET)
+	id B8F02F80093; Mon, 13 Nov 2023 12:57:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CC14F805AE;
-	Mon, 13 Nov 2023 12:54:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B50D2F8058C;
+	Mon, 13 Nov 2023 12:57:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B52AF801D5; Mon, 13 Nov 2023 11:20:42 +0100 (CET)
+	id DABF8F80249; Mon, 13 Nov 2023 11:23:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2D4E2F80152
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 11:20:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D4E2F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3BE4F80152
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 11:23:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3BE4F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=dAh3pQTD
-Received: by mail-qk1-x735.google.com with SMTP id
- af79cd13be357-77ba957043cso293167285a.2
+ header.s=20230601 header.b=cQvYjLgO
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-5a7d9d357faso46936707b3.0
         for <alsa-devel@alsa-project.org>;
- Mon, 13 Nov 2023 02:20:34 -0800 (PST)
+ Mon, 13 Nov 2023 02:23:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699870832; x=1700475632;
+        d=gmail.com; s=20230601; t=1699871012; x=1700475812;
  darn=alsa-project.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FB3t9eIHw+pKT3CBB8s0t2nQUBpXnYyol/A+bIoemXQ=;
-        b=dAh3pQTD5eU2YBL3k828EvgBPBiNLnSlQ9Z5c7h1JnQ00fjOpDUw0mM5qt9pJL7qba
-         95MbykHePMJbado605yxpT/ExoPoM+4W/x1jp8iQCgUFcVG6kQm0ZnR5pb+EbZ11G8JN
-         BrOwd7zuglaqsB089oF3sDfe3p9JyXdPg020PVwz4WWgPDuOsfMD3li7s6knMjmzNVmh
-         Py4bjbhnHn2vAcTLQjXhX9PEb9OOOvJ6+VwE7tmgp+95M4EPefcXDZaB0r1J0s3VNmXk
-         uO67vsoy+hfplzgr0ZEoobBKMbmsgglGnnIJWGEtwH54tTZg+h7RdmtofoBhOBJJPYpA
-         p35w==
+        bh=ISelrhUz+tUwTPOpVjAn5G1ABI4YmRZvCmOYJcKmy7Q=;
+        b=cQvYjLgO1WurBXuITM0zishMFc8WPIOD8lz83ptI5WAM84+2yI3pG39xb2v2WXeP25
+         ZO+/hkf93BBV5sqi2e1w07/CnmhpdzidcEGLRBkez5zqgQrHqe2dkqVTjWtOIZIREDYa
+         AT0BXxGqo3ALB/Gqq/uhRZOGQR5Stn0WFj/50uHS6QXXvO1ihsR0XV8+dYwZEsFKnenO
+         VMqJ92G3tkvaMczhxlOMGIuJeqi41nmxMFEbJk5fiy25+nI127zBNR1unX6SDevhbaIv
+         GxE5F4ao8dke97cGlWFlHIudUB9YFw7BdLhUVAI78jQh8sS+eWWPHAxbkxDirzxKRsDk
+         1D+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699870832; x=1700475632;
+        d=1e100.net; s=20230601; t=1699871012; x=1700475812;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=FB3t9eIHw+pKT3CBB8s0t2nQUBpXnYyol/A+bIoemXQ=;
-        b=NXl6wmylrspVe8KboW2PRUDw48ogMYZGKfcE++SvI1Ue1SVNdW0JLBjq3lRjIP1QKU
-         2/eZ0TgcYPhuAjzuhN4EUyS6zighWhkCJzlIZ5ZciNVU6FQJ9uSXkT9N1cj53hDsxSLI
-         L1Uhv+X42o6Pbtf32O7r8WvC53pB7AlSDCdiR3cAeh+cnsEKDU38QjIlYzyZr2WMGOoF
-         jwxaaeNUqQb+eeyXESFw4y18tVfoMjxe1hbypnbrms7x6sDTn9Kd56uAHSUTMVSare/Q
-         CvSiqacSinexsh/D21BnI6wgFNMVmrQe9bg7I2vZ7FBzfRn2eWrolqqVQw04og/1ScVO
-         viIQ==
-X-Gm-Message-State: AOJu0YykhKBIAalBcE//QOLqrS/YbZdp1E2K3+F3p3eyj6Jrx8UsDDkx
-	lfaHuNBXeuCxgT2QQly4rCfKQVl6X1kdRoS8teY=
+        bh=ISelrhUz+tUwTPOpVjAn5G1ABI4YmRZvCmOYJcKmy7Q=;
+        b=nh7Bv7kBm/nDY/Y8zT1PaMCYkAW9QIVmzG4XX3VCUWj5hghNv3+iFqP90DVvSf/P81
+         Kix/QdX2t7krxg4M+a+zG4TH/BwZQID1z2BhxUZMPabS8lKobtf2VwE7rskuEQ5xbtTm
+         V9fNN91HKoAIzqZ4h1cd1WUeB9cyNxswkUNF4oNieaX8tKKr9hh+/VuvgDdo0UThOAyp
+         pesxXoREuBsfh6bFyeFkIdAqZADmmpRigGY6kUUviEvwxNZhFUfm6MVng3Z4CxWD1kR5
+         Fn6rQWT+pvlN3s30ML8hdbt1t+b9v/6PnH4ElrZ1twqNpgwCV3/w3HWrZCp4poiFbMft
+         +jLw==
+X-Gm-Message-State: AOJu0Ywq03qmwP4uP1+P3aPN/4UNE/kFFrJ4+M2Ds4E7WB1r1efu6GLY
+	LmcMBFf6qCvZ8Na2LgHvUPW8xDz3cpQh5r/UxKU=
 X-Google-Smtp-Source: 
- AGHT+IHcamihKm+ziuVIZapYWw1ITNZRzLvq04tB/x59umIja9AF0bX8BVytW1nYcQa699XIK195qbQ3GDjcnycnRno=
-X-Received: by 2002:a05:6214:a90:b0:671:8630:f590 with SMTP id
- ev16-20020a0562140a9000b006718630f590mr5914012qvb.18.1699870832421; Mon, 13
- Nov 2023 02:20:32 -0800 (PST)
+ AGHT+IGeFMq6OPRYVFpLBqn7U8F7RLctOzbaeZinyDCceNJQA9yzq0afSM1d3lxBYSz248sE7pBipt1geSP2uWLF31w=
+X-Received: by 2002:a81:4782:0:b0:5a7:a817:be43 with SMTP id
+ u124-20020a814782000000b005a7a817be43mr6070415ywa.6.1699871011907; Mon, 13
+ Nov 2023 02:23:31 -0800 (PST)
 MIME-Version: 1.0
 References: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
- <20230605-ep93xx-v3-7-3d63a5f1103e@maquefel.me>
- <ZLqSo6B5cJXVRJS/@smile.fi.intel.com>
- <c49f77492cacc5a30079720af58a9f2fca761609.camel@gmail.com>
-In-Reply-To: <c49f77492cacc5a30079720af58a9f2fca761609.camel@gmail.com>
+ <20230605-ep93xx-v3-14-3d63a5f1103e@maquefel.me>
+ <ZLq0Z0QgBdCoDpV+@smile.fi.intel.com>
+ <fcfdc6f05926db494ea0105e5523cc21ecfdf4e7.camel@gmail.com>
+In-Reply-To: <fcfdc6f05926db494ea0105e5523cc21ecfdf4e7.camel@gmail.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 13 Nov 2023 12:19:56 +0200
+Date: Mon, 13 Nov 2023 12:22:56 +0200
 Message-ID: 
- <CAHp75VccVh+M444AAixVzSvM6-FsDm8jDYdakHhNFTAL8WOGMA@mail.gmail.com>
-Subject: Re: [PATCH v3 07/42] soc: Add SoC driver for Cirrus ep93xx
+ <CAHp75VcsF8GtmE2iDf2xPWi7U5WXhi1ZFUSeA_Y+TfHQn72Jrg@mail.gmail.com>
+Subject: Re: [PATCH v3 14/42] power: reset: Add a driver for the ep93xx reset
 To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 Cc: Andy Shevchenko <andy@kernel.org>, nikita.shubin@maquefel.me,
 	Hartley Sweeten <hsweeten@visionengravers.com>,
@@ -143,15 +143,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: RAXUE27FHFGTFFLM342IK4FZIG65TH4K
-X-Message-ID-Hash: RAXUE27FHFGTFFLM342IK4FZIG65TH4K
-X-Mailman-Approved-At: Mon, 13 Nov 2023 11:54:41 +0000
+Message-ID-Hash: EDICJNAC72CRYPC4TWCKXUVORILZGSNJ
+X-Message-ID-Hash: EDICJNAC72CRYPC4TWCKXUVORILZGSNJ
+X-Mailman-Approved-At: Mon, 13 Nov 2023 11:57:19 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RAXUE27FHFGTFFLM342IK4FZIG65TH4K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EDICJNAC72CRYPC4TWCKXUVORILZGSNJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -160,53 +160,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Nov 11, 2023 at 11:33=E2=80=AFPM Alexander Sverdlin
+On Mon, Nov 13, 2023 at 12:07=E2=80=AFPM Alexander Sverdlin
 <alexander.sverdlin@gmail.com> wrote:
-> On Fri, 2023-07-21 at 17:13 +0300, Andy Shevchenko wrote:
+> On Fri, 2023-07-21 at 19:37 +0300, Andy Shevchenko wrote:
+> > > +       /* Issue the reboot */
+>             ^^^^^^^^^^^^^^^^^^^^^^
+> This is the relevant comment, one can extend it, but looks already quite
+> informative considering EP93XX_SYSCON_DEVCFG_SWRST register name.
 
-...
+This does not explain the necessity of the mdelay() below.
 
-> > > +       spin_lock_irqsave(&ep93xx_swlock, flags);
-> > > +
-> > > +       regmap_read(map, EP93XX_SYSCON_DEVCFG, &val);
-> > > +       val &=3D ~clear_bits;
-> > > +       val |=3D set_bits;
-> > > +       regmap_write(map, EP93XX_SYSCON_SWLOCK, EP93XX_SWLOCK_MAGICK)=
-;
-> > > +       regmap_write(map, EP93XX_SYSCON_DEVCFG, val);
+> But Nikita would be able to include more verbose comment if
+> you'd have a suggestion.
+
+Please,add one.
+
+> > > +       ep93xx_devcfg_set_clear(priv->map, EP93XX_SYSCON_DEVCFG_SWRST=
+, 0x00);
+> > > +       ep93xx_devcfg_set_clear(priv->map, 0x00, EP93XX_SYSCON_DEVCFG=
+_SWRST);
 > >
-> > Is this sequence a must?
-> > I.o.w. can you first supply magic and then update devcfg?
 > >
-> > > +       spin_unlock_irqrestore(&ep93xx_swlock, flags);
+> > > +       mdelay(1000);
+> >
+> > Atomic?! Such a huge delay must be explained, esp. why it's atomic.
 
-...
-
-> > > +void ep93xx_swlocked_update_bits(struct regmap *map, unsigned int re=
-g,
-> > > +                                unsigned int mask, unsigned int val)
-
-> > Same Q as above.
->
-> EP93xx User Manual [1] has most verbose description of SWLock for ADC
-> block:
-> "Writing 0xAA to this register will unlock all locked registers until the
-> next block access. The ARM lock instruction prefix should be used for the
-> two consequtive write cycles when writing to locked chip registers."
->
-> One may conclude that RmW (two accesses to the particular block) sequence
-> is not appropriate.
-
-It's not obvious to me. The terms "block access" and "block cycle"
-occur only once in the very same section that describes ADCSWLock. The
-meaning of these terms is not fully understandable. So, assuming that
-you have tried it differently and it indeed doesn't work, let's go
-with this one.
-
-> [1] https://cdn.embeddedts.com/resource-attachments/ts-7000_ep9301-ug.pdf
-
-
-
---
+--=20
 With Best Regards,
 Andy Shevchenko

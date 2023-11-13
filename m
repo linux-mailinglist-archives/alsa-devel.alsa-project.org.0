@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 386167EA11A
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 17:16:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A72A7EA11C
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 17:17:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BCEDDEB;
-	Mon, 13 Nov 2023 17:15:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BCEDDEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9871C84B;
+	Mon, 13 Nov 2023 17:16:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9871C84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699892201;
-	bh=Wo5otqcyJKAOgLF2JvrplvCMcLhcQRTUClyysnN30PY=;
+	s=default; t=1699892221;
+	bh=WraYibxcFpwh29fu+H1LVMSLBqa+WIpRvlITsxKnioo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jzgad2PQ4d0URW5dbFaErixgqA4NYbsxbT9p3Sv6s7i47rlF1QH4G1Au9eZvMtKpb
-	 MCphPh2Mn3OY5v5kEVqx9hpBvHcU1oEcQUuFBhoCirDzmoJeEJLxJq1pm+9MvN+0Tx
-	 eb9fi5ajA3ySrIZ07bMUdAD6emOHQxbti4Z7t2ys=
+	b=nV9GoNLlHE45HSPjHEhxjYvADjZ9EoNg7486l3Gwbk+/rytP3gBILm17RNa4Ht2v0
+	 N7FmsJR/IcS4PNc3U2VC96y6Nbk/Ona+VtBDke/GJYuZLjVjou5MUC4PcTLLW1jdnM
+	 9paVBvJhrccFcQFDIW5xuBZ0vPYpmAI8oXLMoTUU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1FB3F805A0; Mon, 13 Nov 2023 17:15:03 +0100 (CET)
+	id 2F4ADF805A1; Mon, 13 Nov 2023 17:15:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA28DF8057C;
-	Mon, 13 Nov 2023 17:15:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF723F805A9;
+	Mon, 13 Nov 2023 17:15:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C568AF80579; Mon, 13 Nov 2023 17:14:57 +0100 (CET)
+	id 0ADC8F8056F; Mon, 13 Nov 2023 17:15:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6C195F800ED
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 17:14:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C195F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 717B1F80578
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 17:14:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 717B1F80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QBCN6bHy
+ header.s=k20201202 header.b=aLJ4RQ1V
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id E4C67CE1745;
+	by sin.source.kernel.org (Postfix) with ESMTP id 1EEBACE1751;
+	Mon, 13 Nov 2023 16:14:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDF1C433CB;
 	Mon, 13 Nov 2023 16:14:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0210C433C8;
-	Mon, 13 Nov 2023 16:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699892089;
-	bh=Wo5otqcyJKAOgLF2JvrplvCMcLhcQRTUClyysnN30PY=;
+	s=k20201202; t=1699892092;
+	bh=WraYibxcFpwh29fu+H1LVMSLBqa+WIpRvlITsxKnioo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=QBCN6bHyLufLzGNHunYTSxGt1yCYOhXVradn4REqoB/m4LPAo5evtxuAVuVLP3IOl
-	 AlZfMPifjMuvPIqUpy5Z3hhsTL40P8CeNTwtsc48UpMWIMuWIn/djlHO780yWF/Qt2
-	 f6cqFsw3EQaPLxytHq60PA8rgsH0MCEu6UWzG3ruQbZhUARlIYVQ4FGDIOj1YQabtW
-	 +l0CxSTsG7knD9SUrZSgEylwrxixpKxyiN+dI2Tqt278dv5GkuK3H2qcN7bKTnnBez
-	 DwSEt6x1dKrR5S9dXqPuk4a6iissCzdbRf0EhV3fB4hUyQckx1lNNSkmfkONVMN4ev
-	 mVVSH53jO33IQ==
+	b=aLJ4RQ1VqJTdzm9uRXmkVtqFcn8XCIOAUogY+EXoEj2Nh6AdF30lLc7FkV5x8R7Zt
+	 ZMCBqrixP6NxMn9PX2V7HmZq0xl6h1hqPADayrmD1LpYQxNHVycSgw6SbT1DnDwO4+
+	 pxyfgZIScbbemY6hPIpNSST+rbncKv66dFmZmcslUFrJJaB6LWIxtf1uhPZGXn8GDs
+	 0D/ivwj0bmKmSwSlSDw+FB/B8JuUzGmCq0eMmhd6IpQWv+6y0rmzPhwtH4KwIsqshV
+	 V7WdMBb5cXVvGGCodq9LpAN1gXaguGeX1SvPyDJz2L69dPDx9wQkAMI6fdHBsiDEZX
+	 oqFWNs3k/EELg==
 From: Mark Brown <broonie@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
- KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, SJLIN0@nuvoton.com,
- scott6986@gmail.com, supercraig0719@gmail.com, dardar923@gmail.com
-In-Reply-To: <20231107035230.1241683-1-wtli@nuvoton.com>
-References: <20231107035230.1241683-1-wtli@nuvoton.com>
-Subject: Re: [PATCH v4 0/2] Add DMIC slew rate controls
-Message-Id: <169989208519.3289099.6577549034579346529.b4-ty@kernel.org>
-Date: Mon, 13 Nov 2023 16:14:45 +0000
+To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
+Cc: pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@gmail.com,
+ kai.vehmanen@linux.intel.com, linux-imx@nxp.com, iuliana.prodan@nxp.com,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20231109135900.88310-1-daniel.baluta@oss.nxp.com>
+References: <20231109135900.88310-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 0/2] ASoC: SOF: Add support for MICFIL PDM interface
+Message-Id: <169989208903.3289099.3550583225886938735.b4-ty@kernel.org>
+Date: Mon, 13 Nov 2023 16:14:49 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: KQWFXTPSLNTX3HJOTKZBYSSPPA2MOHWZ
-X-Message-ID-Hash: KQWFXTPSLNTX3HJOTKZBYSSPPA2MOHWZ
+Message-ID-Hash: 6CCGRDAD2YCT3L3VLL4KGWZZG2SDHGYF
+X-Message-ID-Hash: 6CCGRDAD2YCT3L3VLL4KGWZZG2SDHGYF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQWFXTPSLNTX3HJOTKZBYSSPPA2MOHWZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6CCGRDAD2YCT3L3VLL4KGWZZG2SDHGYF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,17 +98,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 07 Nov 2023 11:52:28 +0800, Seven Lee wrote:
-> Determine DMIC slew rate via property setup.
+On Thu, 09 Nov 2023 15:58:58 +0200, Daniel Baluta wrote:
+> This is used for configuring MICFIL PDM with i.MX8MPlus. Tested
+> with 8MIC-RPI-MX8 microphone array.
 > 
-> Change:
-> V3 -> V4:
->  - add "maximum: 7" description.
-> 
-> V2 -> V3:
->  - Update description of DMIC slew rate and remove
->    "selection" key words from property name
->  - Corrected variable name of DMIC slew rate from c file
+> Daniel Baluta (2):
+>   ASoC: SOF: imx8m: Add DAI driver entry for MICFIL PDM
+>   ASoC: SOF: Add support for configuring PDM interface from topology
 > 
 > [...]
 
@@ -119,10 +114,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: nau8821: Add DMIC slew rate.
-      commit: 1fb1a7c4a6328aff97eeca513fe7239099c13016
-[2/2] ASoC: nau8821: Add slew rate controls.
-      commit: 91d1a18b6381abd7a0137449fe345924072e4a32
+[1/2] ASoC: SOF: imx8m: Add DAI driver entry for MICFIL PDM
+      commit: fc85d9d0b3ba8f8934963c760af98fc38029d9da
+[2/2] ASoC: SOF: Add support for configuring PDM interface from topology
+      commit: 89ef42088b3ba884a007ad10bd89ce8a81b9dedd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

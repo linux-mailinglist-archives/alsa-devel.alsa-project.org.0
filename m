@@ -2,123 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250C17E9BCF
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 13:06:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED71E7E9C39
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 13:35:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4AE1DEC;
-	Mon, 13 Nov 2023 13:05:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4AE1DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BDC282A;
+	Mon, 13 Nov 2023 13:34:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BDC282A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699877203;
-	bh=oO0lKHoxixpzVP0J10u//TsCe/v7agni7u+cYDmx2bU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=IXdUWXYBq981QI/SRTTOTAohEUPbK1T0FpmJuNdBmok6xHDSKMfTeuybOya0Fd6dI
-	 CUo+TMgovmbRYg06rfROcM536O75Bv/zmqyUcxMhm++Gro07B+0S4LR+TTFxb1XbWZ
-	 D0jx9pZXxKUrnA+0mucCrTvEIsbGMKxwmsD8Zjnc=
+	s=default; t=1699878915;
+	bh=S8FROjV+qGmS5HDqUIhTuLPvK40BG6qVYS2T3ZnveS0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=T5blszcluttssHHPMhpVVIomEa7VVhU3EfS9SMuL3/VRfdJC824q0kEvO54GSMfAx
+	 mwZhWZik2HYquyKVyCza1aNFsORyxJo3R6jm00PObyztoVOCP7L0mERwSyTUIgYUFx
+	 xRWugJslJR0Zp7b6yE5LBVpif6O0jl2Ou+/sy4ZQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5ADCF80249; Mon, 13 Nov 2023 13:05:33 +0100 (CET)
+	id CF10AF80549; Mon, 13 Nov 2023 13:34:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03232F8016E;
-	Mon, 13 Nov 2023 13:05:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A39FF8016E;
+	Mon, 13 Nov 2023 13:34:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6AD92F801D5; Mon, 13 Nov 2023 13:05:27 +0100 (CET)
+	id 1E1B5F8022B; Mon, 13 Nov 2023 13:34:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::62c])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2110F80093
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 13:05:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2110F80093
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 9A5F5B80B48;
-	Mon, 13 Nov 2023 12:05:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BA5C433C7;
-	Mon, 13 Nov 2023 12:05:14 +0000 (UTC)
-Message-ID: <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
-Date: Mon, 13 Nov 2023 13:05:12 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id C4908F800ED
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 13:34:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4908F800ED
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=1CbxlZn8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cOCNnfJT3wwXeJ5jTTXqcOnqN8+qwzWtwv9Uhqq4Uh+2wOXeK47PRc2Bn/+ALu4EsHyanItOT+D+jUCclMBgN0PBbFCe/dc0us6FeLxxRKVlkxwK70eNPOlRI3gXH8w/Y/6q8kW9eBDq9OgemJQKl86eniY7Z4zL8xGGBuogeSS9KwFs1t+WWKTgxstGIsiN01lI9+AcjkUrXDBhusvIuzIUCXtfzYkHiV2MOo/zzj+p/EGkEFNC7iRdJCra1+VYZIFZ4ANIpjAq5b9941Vj/xeD3yJn0jfcnlB5AmtLNd4GEDuBl0BtPQjzZ/QpAcFDCOZi/V9e1HJuFPncU6Flcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C5hRIGqPdqlVKEOaQgoebe4Lrt6607jyIbcOqCqoZ2w=;
+ b=OUZkdho+dKJ2xQJR4UNasonc68q+YWGxgwpHsec6dQ/bCh8twmUKqhk2L8/r6dwK1OVWT6B1oYV70iQs/V3LFJPoRwz1WKNpV0Kn1NClSwFqzCSwSlAVTtJWBeSVpWCwa5l6l5KrO/hLNdGowcUhZYFk8v1nSO3/IRuqiQfe1p0y+ebPp3JlOcr/b7X8ekHMU/gbsrC1QcEznNI3XZuZr54oyQufIBPjgggKiF7Aw8lj9UY3b7nhIEUSitdS4k5JEJMJIp1O4kPWT8pPU0om6o/WBmVhCNVKUJXCqW4BkuclxmGg+HKIb+Di99+VMFaY+qBf59dc1b0ZnkJNyZ5/ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C5hRIGqPdqlVKEOaQgoebe4Lrt6607jyIbcOqCqoZ2w=;
+ b=1CbxlZn8tIcyQBxOC4hct5oHIeWIdVpcm+BXwxaAbuP0c53cXW+ZMuRJwX8RdLqYHl7qx0eIPwQ/Vxi36M8heMsD0VEqo2alNIUhO6YxJqyonSxPhxWjJxoC75uU2olUVt3t7zS7uYinRPONVWr+3IuTIQlg1RzkrPkA+Hm6hKw=
+Received: from PH8PR05CA0006.namprd05.prod.outlook.com (2603:10b6:510:2cc::6)
+ by BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.31; Mon, 13 Nov
+ 2023 12:33:56 +0000
+Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::a6) by PH8PR05CA0006.outlook.office365.com
+ (2603:10b6:510:2cc::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17 via Frontend
+ Transport; Mon, 13 Nov 2023 12:33:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7002.13 via Frontend Transport; Mon, 13 Nov 2023 12:33:55 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
+ 2023 06:33:55 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
+ 2023 06:33:55 -0600
+Received: from amd-B450M-DS3H.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
+ Transport; Mon, 13 Nov 2023 06:33:51 -0600
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>,
+	<richgong@amd.com>, <posteuca@mutex.one>, Syed Saba Kareem
+	<Syed.SabaKareem@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, "Jaroslav
+ Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Arnd Bergmann
+	<arnd@arndb.de>, Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, open
+ list <linux-kernel@vger.kernel.org>
+Subject: [PATCH V2 1/2] ASoC: amd: acp: add Kconfig options for acp7.0 based
+ platform driver
+Date: Mon, 13 Nov 2023 18:03:42 +0530
+Message-ID: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
-Content-Language: en-US, nl
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@iki.fi>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, tfiga@chromium.org,
- m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
- <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
- <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
- <20231113104238.GA13981@pendragon.ideasonboard.com>
- <6a3e7eb9-505c-4cfb-8a86-a8947a2e44d5@xs4all.nl>
- <20231113110754.GB24338@pendragon.ideasonboard.com>
- <3e898664-cbfc-4892-9765-37b66891643b@xs4all.nl>
- <ZVIIc-fi32ZxIi-p@valkosipuli.retiisi.eu>
- <20231113114357.GD24338@pendragon.ideasonboard.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Autocrypt: addr=hverkuil@xs4all.nl; keydata=
- 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
-In-Reply-To: <20231113114357.GD24338@pendragon.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DYLEAQOYVFHRUU6OF2CIF34VKPJ5XQDS
-X-Message-ID-Hash: DYLEAQOYVFHRUU6OF2CIF34VKPJ5XQDS
-X-MailFrom: SRS0=oXme=G2=xs4all.nl=hverkuil@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|BN9PR12MB5356:EE_
+X-MS-Office365-Filtering-Correlation-Id: 450c71fd-5d67-4519-49ae-08dbe444cd8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	08VlRfZJVz4V3iqCtZSd6r9I0EinJt5LoOkIRI6lAzX2Tm4Byt0CtyxRrxkSIp03q4s1FxxSqJof/lj6i7cDUKlhMBCmTyv/zIGNE4VG4f281V5DEnyMLLhGqMzhNK6GgWVrZroPrLcMKAi+NuMXXqG+dqo2Iz0+G2x2jwzhNiWoN5InUULUS4YYLubnKV9bbNJxhHzEyR+HEeYvYxaY0r6hhiWixZxwpfYP5GZw004qeETHAbj3zuN+shV8RYw685es2mddH0jwxdwnI8oqVzHJH+DyIVYIPPbVOYo+5Fe+zU7e/wxFQA01H8a6V6zt+GRSgQNyRqx5ODmbCUrPvmOt2QZVuBfZjVRz9GxcluJyq2udOg8c5hhycOxZbQHodMWvQgYoNB99B0SMyJ9xy7wfVh/Onr2vgEuMK/2176PwB7PePfI4x3p7z4Uk+xKVT0xHIgGhRVUMrQp5kgGkJnYOZ9rlqpXiYtLbyuRQeVUL1CXaJsEflJDEpXLDZ1eKvfsEyAlJxrgcuZDppGMoJeaSu8SaqjB3Fm5yXahYnBfS2XG0wd43OUSDEsdsfum3O3Wj5ZWrqUgD4GhXBNAXWQa719oRP71TuB/HpUCBEpTjzoENusPvroa+UVMTd9IrPsEw7JPrMFBjWPLZ7T3GxGnHneStGa3Wb6xE5GW4ul6pfbuv5MenSVwPHvVVmTc/p6xkZBmtSbuFMkKlDfiyeqFRpHUe2z5ZIHpxGahHqK00kLwyEBOWgExXeOs4pGTtFFtS8CjJvZFh8f3Tp6zrvQ==
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(346002)(396003)(376002)(39860400002)(230922051799003)(1800799009)(82310400011)(186009)(64100799003)(451199024)(40470700004)(46966006)(36840700001)(81166007)(36756003)(36860700001)(356005)(426003)(336012)(83380400001)(41300700001)(40460700003)(47076005)(86362001)(8676002)(8936002)(4326008)(1076003)(40480700001)(110136005)(2616005)(5660300002)(7696005)(6666004)(316002)(82740400003)(26005)(2906002)(70206006)(54906003)(478600001)(70586007)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 12:33:55.9929
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 450c71fd-5d67-4519-49ae-08dbe444cd8d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	SN1PEPF0002BA4F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5356
+Message-ID-Hash: RTF6GO2BB3B5WOY3XMSQPPCDE6OA2SMY
+X-Message-ID-Hash: RTF6GO2BB3B5WOY3XMSQPPCDE6OA2SMY
+X-MailFrom: Syed.SabaKareem@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -130,7 +144,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYLEAQOYVFHRUU6OF2CIF34VKPJ5XQDS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTF6GO2BB3B5WOY3XMSQPPCDE6OA2SMY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,148 +153,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 13/11/2023 12:43, Laurent Pinchart wrote:
-> On Mon, Nov 13, 2023 at 11:28:51AM +0000, Sakari Ailus wrote:
->> Hi Hans,
->>
->> On Mon, Nov 13, 2023 at 12:24:14PM +0100, Hans Verkuil wrote:
->>> On 13/11/2023 12:07, Laurent Pinchart wrote:
->>>> On Mon, Nov 13, 2023 at 11:56:49AM +0100, Hans Verkuil wrote:
->>>>> On 13/11/2023 11:42, Laurent Pinchart wrote:
->>>>>> On Mon, Nov 13, 2023 at 11:29:09AM +0100, Hans Verkuil wrote:
->>>>>>> Hi Shengjiu,
->>>>>>>
->>>>>>> On 10/11/2023 06:48, Shengjiu Wang wrote:
->>>>>>>> Fixed point controls are used by the user to configure
->>>>>>>> a fixed point value in 64bits, which Q31.32 format.
->>>>>>>>
->>>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
->>>>>>>
->>>>>>> This patch adds a new control type. This is something that also needs to be
->>>>>>> tested by v4l2-compliance, and for that we need to add support for this to
->>>>>>> one of the media test-drivers. The best place for that is the vivid driver,
->>>>>>> since that has already a bunch of test controls for other control types.
->>>>>>>
->>>>>>> See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
->>>>>>>
->>>>>>> Can you add a patch adding a fixed point test control to vivid?
->>>>>>
->>>>>> I don't think V4L2_CTRL_TYPE_FIXED_POINT is a good idea. This seems to
->>>>>> relate more to units than control types. We have lots of fixed-point
->>>>>> values in controls already, using the 32-bit and 64-bit integer control
->>>>>> types. They use various locations for the decimal point, depending on
->>>>>> the control. If we want to make this more explicit to users, we should
->>>>>> work on adding unit support to the V4L2 controls.
->>>>>
->>>>> "Fixed Point" is not a unit, it's a type. 'Db', 'Hz' etc. are units.
->>>>
->>>> It's not a unit, but I think it's related to units. My point is that,
->>>> without units support, I don't see why we need a formal definition of
->>>> fixed-point types, and why this series couldn't just use
->>>> VIVID_CID_INTEGER64. Drivers already interpret VIVID_CID_INTEGER64
->>>> values as they see fit.
->>>
->>> They do? That's new to me. A quick grep for V4L2_CTRL_TYPE_INTEGER64
->>> (I assume you meant that rather than VIVID_CID_INTEGER64) shows that it
-> 
-> Yes, I meant V4L2_CTRL_TYPE_INTEGER64. Too hasty copy & paste :-)
-> 
->>> is always interpreted as a 64 bit integer and nothing else. As it should.
-> 
-> The most common case for control handling in drivers is taking the
-> integer value and converting it to a register value, using
-> device-specific encoding of the register value. It can be a fixed-point
-> format or something else, depending on the device. My point is that
-> drivers routinely convert a "plain" integer to something else, and that
-> has never been considered as a cause of concern. I don't see why it
-> would be different in this series.
-> 
->>> And while we do not have support for units (other than the documentation),
->>> we do have type support in the form of V4L2_CTRL_TYPE_*.
->>>
->>>>> A quick "git grep -i "fixed point" Documentation/userspace-api/media/'
->>>>> only shows a single driver specific control (dw100.rst).
->>>>>
->>>>> I'm not aware of other controls in mainline that use fixed point.
->>>>
->>>> The analog gain control for sensors for instance.
->>>
->>> Not really. The documentation is super vague:
->>>
->>> V4L2_CID_ANALOGUE_GAIN (integer)
->>>
->>> 	Analogue gain is gain affecting all colour components in the pixel matrix. The
->>> 	gain operation is performed in the analogue domain before A/D conversion.
->>>
->>> And the integer is just a range. Internally it might map to some fixed
->>> point value, but userspace won't see that, it's hidden in the driver AFAICT.
-> 
-> It's hidden so well that libcamera has a database of the sensor it
-> supports, with formulas to map a real gain value to the
-> V4L2_CID_ANALOGUE_GAIN control. The encoding of the integer value does
-> matter, and the kernel doesn't expose it. We may or may not consider
-> that as a shortcoming of the V4L2 control API, but in any case it's the
-> situation we have today.
-> 
->> I wonder if Laurent meant digital gain.
-> 
-> No, I meant analog. It applies to digital gain too though.
-> 
->> Those are often Q numbers. The practice there has been that the default
->> value yields gain of 1.
->>
->> There are probably many other examples in controls where something being
->> controlled isn't actually an integer while integer controls are still being
->> used for the purpose.
-> 
-> A good summary of my opinion :-)
+ACP7.0 based platform legacy drivers can be built by selecting
+necessary kernel config option. This patch enables build support
+of the same.
 
-And that works fine as long as userspace doesn't need to know what the value
-actually means.
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+changes since v1:
+     - added missing commit message.
 
-That's not the case here. The control is really a fractional Hz value:
+ sound/soc/amd/acp/Kconfig  | 12 ++++++++++++
+ sound/soc/amd/acp/Makefile |  2 ++
+ 2 files changed, 14 insertions(+)
 
-+``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
-+    Sets the offset from the audio source sample rate, unit is Hz.
-+    The offset compensates for any clock drift. The actual source audio sample
-+    rate is the ideal source audio sample rate from
-+    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
-
-> 
->> Instead of this patch, I'd prefer to have a way to express the meaning of
->> the control value, be it a Q number or something else, and do that
->> independently of the type of the control.
-
-Huh? How is that different from the type of the control? You have integers
-(one type) and fixed point (another type).
-
-Or do you want a more general V4L2_CTRL_TYPE_ that specifies the N.M values
-explicitly?
-
-I think the main reason why we use integer controls for gain is that we
-never had a fixed point control type and you could get away with that in
-user space for that particular use-case.
-
-Based on the V4L2_CID_NOTIFY_GAINS documentation the gain value can typically
-be calculated as (value / default_value), but that won't work for a rate offset
-control as above, or for e.g. CSC matrices for color converters.
-
-Regards,
-
-	Hans
-
-> 
-> Agreed.
-> 
->>> In the case of this particular series the control type is really a fixed point
->>> value with a documented unit (Hz). It really is not something you want to
->>> use type INTEGER64 for.
->>>
->>>>> Note that V4L2_CTRL_TYPE_FIXED_POINT is a Q31.32 format. By setting
->>>>> min/max/step you can easily map that to just about any QN.M format where
->>>>> N <= 31 and M <= 32.
->>>>>
->>>>> In the case of dw100 it is a bit different in that it is quite specialized
->>>>> and it had to fit in 16 bits.
-> 
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index 5fb322212938..c8ac0027f741 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -73,6 +73,18 @@ config SND_AMD_ASOC_ACP63
+ 	  Say Y if you want to enable AUDIO on ACP6.3
+ 	  If unsure select "N".
+ 
++config SND_AMD_ASOC_ACP70
++	tristate "AMD ACP ASOC Acp7.0 Support"
++	depends on X86 && PCI
++	depends on ACPI
++	select SND_SOC_AMD_ACP_PCM
++	select SND_SOC_AMD_ACP_I2S
++	select SND_SOC_AMD_ACP_PDM
++	help
++	This option enables Acp7.0 PDM support on AMD platform.
++	Say Y if you want to enable AUDIO on ACP7.0
++          If unsure select "N".
++
+ config SND_SOC_AMD_MACH_COMMON
+ 	tristate
+ 	depends on X86 && PCI && I2C
+diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
+index dd85700f1c5f..ff5f7893b81e 100644
+--- a/sound/soc/amd/acp/Makefile
++++ b/sound/soc/amd/acp/Makefile
+@@ -15,6 +15,7 @@ snd-acp-pci-objs     := acp-pci.o
+ snd-acp-renoir-objs     := acp-renoir.o
+ snd-acp-rembrandt-objs  := acp-rembrandt.o
+ snd-acp63-objs := acp63.o
++snd-acp70-objs := acp70.o
+ 
+ #machine specific driver
+ snd-acp-mach-objs     := acp-mach-common.o
+@@ -30,6 +31,7 @@ obj-$(CONFIG_SND_SOC_AMD_ACP_PCI) += snd-acp-pci.o
+ obj-$(CONFIG_SND_AMD_ASOC_RENOIR) += snd-acp-renoir.o
+ obj-$(CONFIG_SND_AMD_ASOC_REMBRANDT) += snd-acp-rembrandt.o
+ obj-$(CONFIG_SND_AMD_ASOC_ACP63) += snd-acp63.o
++obj-$(CONFIG_SND_AMD_ASOC_ACP70) += snd-acp70.o
+ 
+ obj-$(CONFIG_SND_SOC_AMD_MACH_COMMON) += snd-acp-mach.o
+ obj-$(CONFIG_SND_SOC_AMD_LEGACY_MACH) += snd-acp-legacy-mach.o
+-- 
+2.25.1
 

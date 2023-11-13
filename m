@@ -2,139 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 895447E9C3D
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 13:36:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C12A7E9C5C
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 13:45:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAA03850;
-	Mon, 13 Nov 2023 13:35:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAA03850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D033820;
+	Mon, 13 Nov 2023 13:44:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D033820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699878965;
-	bh=tC9dlfAED/D/kxIRK3SSd33QJQisP4WonVBGEzFPo/0=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1699879513;
+	bh=MQbkSDUiGthELij+clyy2MWBR01RgHz+P/tcMtA8zYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VVMJP/5RkKbj+Tnhak5jVY99u3ff3lNg2rHbN4l0EE+Jo78+OkHZ7qVDBQPoxR2gF
-	 0IiwgkV4shFRCq3GEQ5da946wYp2SXaDMaGv8+8B5UKIOcyqjbSaRt139yag51c7R6
-	 tRKw1IkjOIUcfYaB//1t0iAjp7XVxdqmmOJnDrCU=
+	b=jxEzGJwcAX+DURw5LnoLU8BGwfCsFk/PpU61UcyTU7wtR690s49UtsubOEKwNgG0Q
+	 AsOsGozsqTpzqNlzgcQl2f0B3c7nKOtSMyiCY17yGHZTLAxtgdC328bwVplBt3UV+J
+	 JtDgrP91VE2RoFnBheCVXTgoGJMpgBobgZ9MYQ94=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F6D9F8055B; Mon, 13 Nov 2023 13:34:28 +0100 (CET)
+	id 8600EF80152; Mon, 13 Nov 2023 13:44:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0A6AF80557;
-	Mon, 13 Nov 2023 13:34:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0708FF8016E;
+	Mon, 13 Nov 2023 13:44:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18FCEF801D5; Mon, 13 Nov 2023 13:34:24 +0100 (CET)
+	id 52FE7F801D5; Mon, 13 Nov 2023 13:44:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::606])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 156DFF8016E
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 13:34:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 156DFF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8B02F80152
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 13:44:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8B02F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Up+fcCtd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NIIUOD71hpIl5t0twZd2To5FL9/S1Wua4455zYdmIbZXX+s04Y4uJRQbAA2RaTPMlIOHfPNMOqXwpGfY1HhJk+wAqu5KSheYp+gato/8Obg9dl4saXHnZYh2paFIYUz0DURQtcxOPU1FwvrL+cNgmnerdgJWNikAVgcNC2hiz8w44JMHUKwYA2NFC0xYgWyrPBgXgasn89ziWdGfdWqPPPv/jnr2ygUYuhEoS+VHsQtj4bkB0FEy7ZSMLS71RyeBAV47IC4MQQ6L5VPuW6IAo4XjekEneCcOCUQbAVTUSyv8YJ1jzxKGpxNO63vjfQxZ97OPFqRnr9PyESQvuVEBTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2CffOFhm9RNlDoL102Kh1Mp+1iWlfp4u0HViuRPpfo8=;
- b=inq6bfP+br2Jr3z6v4t1jGWbvP3Cpp8vi4ZQP/NYCD6S5JbJNS6I7IKTlBWqyAQnJ3sM3lr+O3SSsic4qtJ3s55vrY+565DWR1rGNnNmnAVl3CRZAcg+58ABEq6oKA1aiaY1XYhgpNAkI4aq4mCJbaAC4Rou392bODQliqDcCtGXZskyiysgZcoKv4VDyqsOMA/Ur1eBAoCOM3/VgcauRgyvS0Tcrv8FJypvRhnLmcnlc5yclLSZVxkxZ4Cqa5b+deBGAWVEBctHMsHXUPLnTWyG+Dh+5VRE9F8DnhLmO5TgWFwUAMi1N0YraotYcTU1+wjYsT5B6+UDFxW04bqMuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2CffOFhm9RNlDoL102Kh1Mp+1iWlfp4u0HViuRPpfo8=;
- b=Up+fcCtdFUhLi+D5UjILBZISSoN4Iw4ooIROYeNT4t/0uDxoGjlsX/KDA12daAd0JeVfzJ+ajApypMivIMJSZCcGaAPlpDi7AQGWZ+NPbUuKpy/BJtwRLgGhDZMsjs4P3ldMPaw9QSWAdkfzK9Gku2N0I70sgWiRW0Y6bA5Kdj0=
-Received: from BYAPR01CA0030.prod.exchangelabs.com (2603:10b6:a02:80::43) by
- SJ0PR12MB6926.namprd12.prod.outlook.com (2603:10b6:a03:485::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6977.29; Mon, 13 Nov 2023 12:34:02 +0000
-Received: from CO1PEPF000042AC.namprd03.prod.outlook.com
- (2603:10b6:a02:80:cafe::5c) by BYAPR01CA0030.outlook.office365.com
- (2603:10b6:a02:80::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29 via Frontend
- Transport; Mon, 13 Nov 2023 12:34:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AC.mail.protection.outlook.com (10.167.243.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7002.13 via Frontend Transport; Mon, 13 Nov 2023 12:34:02 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
- 2023 06:34:01 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 13 Nov
- 2023 06:34:00 -0600
-Received: from amd-B450M-DS3H.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.32 via Frontend
- Transport; Mon, 13 Nov 2023 06:33:56 -0600
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>,
-	<richgong@amd.com>, <posteuca@mutex.one>, Syed Saba Kareem
-	<Syed.SabaKareem@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, "Jaroslav
- Kysela" <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, Nicolas Ferre
-	<nicolas.ferre@microchip.com>, =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@pengutronix.de>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH V2 2/2] ASoC: amd: acp: add pm ops support for renoir platform
-Date: Mon, 13 Nov 2023 18:03:43 +0530
-Message-ID: <20231113123345.2196504-2-Syed.SabaKareem@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
-References: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
+ unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com
+ header.a=rsa-sha256 header.s=mail header.b=vfWkWekB
+Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
+ [213.243.189.158])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0BB5929A;
+	Mon, 13 Nov 2023 13:43:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1699879421;
+	bh=MQbkSDUiGthELij+clyy2MWBR01RgHz+P/tcMtA8zYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vfWkWekBqKHGAaE2eWRBghtZn7r87P8gmzJ3gCNH3KusI8zILXP8XKUZY8v4E2PTc
+	 5IFHUrAbY8JOZlY+XfqGVIAcCFqZFcIjzHCpfo5u2CEtQeBkVEiq29O6631j55xJia
+	 hI8iiGTFkbTvLPZhfIdU6S+BaqhNgrDeMoyAPPeE=
+Date: Mon, 13 Nov 2023 14:44:12 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Sakari Ailus <sakari.ailus@iki.fi>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>, tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+Message-ID: <20231113124412.GA18974@pendragon.ideasonboard.com>
+References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
+ <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
+ <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
+ <20231113104238.GA13981@pendragon.ideasonboard.com>
+ <6a3e7eb9-505c-4cfb-8a86-a8947a2e44d5@xs4all.nl>
+ <20231113110754.GB24338@pendragon.ideasonboard.com>
+ <3e898664-cbfc-4892-9765-37b66891643b@xs4all.nl>
+ <ZVIIc-fi32ZxIi-p@valkosipuli.retiisi.eu>
+ <20231113114357.GD24338@pendragon.ideasonboard.com>
+ <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AC:EE_|SJ0PR12MB6926:EE_
-X-MS-Office365-Filtering-Correlation-Id: d401569e-14d5-4480-6336-08dbe444d153
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	Qq1jT+iHxFT/B3QRDMRD9/Ug/2B+aQBW8wkRs0vEGyahWW1qERkLktRfRs3/ELfLlwchGGR5AErNRolKEURI/0IiQf66sWK5+5cXL4hn9r6tTvlVVf3xWfGxakSaGnIGjP6qqsbwjNw1lD6o+rsLrvD65RljZftPRXV2QVakZTQRmkfyPW8UFeeIsFOV3GMVcISjM5EbWRv15mOyCGfbL7HC4vkOL/SKCIt+Q6P0Q1TEOPkCYEWXw3Ll6cvp3BXpeiQ2kyplzgziMyWYPC5DoaJjAoGPGjpOd3Wf1yOVzWbk9SXwDpGHM6arJKaobYDOUijEh0oejJaybLXmxnOAq6uZlkZ8DIHkDheP6y9DRsfJfY6Dgs1n2uL+q/5ylrMiUuwq/Ni/Nj0OzOv7FfeZVVnSrLSmzdmD3KmxtEkLWyP5jazwtCWrtKb4uPDMF3PgMORoCRbCYCg2xYjpRGtIiyfT6GojZZfJMgfejmjDe703rxhmnW/TiTgdWU+z0i8xsRJjZXyCT41dVpcdCqhQIyTQWEUVz/E7qO4XntqUQsjFA9LKTCFmwEDI4ODIzWlAn2SA3aupXeWpUbso+7gGXMv0m0dP+2OYGZInE0bbRArJf8AprN8YkbO/HCPr6SrKaxyEDVX1ifQKT2bjVRrJpzY09sYVSMDVcjGeaXSRKVz2Hn6ZR/yIbvCZYFqoxjcawJYKTI9IbTlpLPZLnWEoSTvL9KCR9LK70GIki9cLVqGSp702CiC69wHyqQZmJF1vRu7AP9HNGgDCxcbdZ2eO8A==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(136003)(39860400002)(376002)(346002)(230922051799003)(451199024)(1800799009)(186009)(82310400011)(64100799003)(46966006)(40470700004)(36840700001)(40460700003)(336012)(1076003)(26005)(6666004)(7696005)(2616005)(36860700001)(83380400001)(47076005)(5660300002)(7416002)(8676002)(8936002)(41300700001)(4326008)(2906002)(478600001)(316002)(110136005)(54906003)(70206006)(70586007)(86362001)(36756003)(82740400003)(356005)(81166007)(426003)(40480700001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 12:34:02.2150
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d401569e-14d5-4480-6336-08dbe444d153
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1PEPF000042AC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6926
-Message-ID-Hash: YJLSFH4OZWTU6J2BFUDGXFWNAIHC2G54
-X-Message-ID-Hash: YJLSFH4OZWTU6J2BFUDGXFWNAIHC2G54
-X-MailFrom: Syed.SabaKareem@amd.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
+Message-ID-Hash: TGJNYAKROZUJCACZCBXBS7QJWR4EDIHT
+X-Message-ID-Hash: TGJNYAKROZUJCACZCBXBS7QJWR4EDIHT
+X-MailFrom: laurent.pinchart@ideasonboard.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -146,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YJLSFH4OZWTU6J2BFUDGXFWNAIHC2G54/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TGJNYAKROZUJCACZCBXBS7QJWR4EDIHT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,81 +106,154 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add pm ops for renoir platform.
+Hi Hans,
 
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/acp-renoir.c | 38 +++++++++++++++++++++++++++++++++-
- 1 file changed, 37 insertions(+), 1 deletion(-)
+On Mon, Nov 13, 2023 at 01:05:12PM +0100, Hans Verkuil wrote:
+> On 13/11/2023 12:43, Laurent Pinchart wrote:
+> > On Mon, Nov 13, 2023 at 11:28:51AM +0000, Sakari Ailus wrote:
+> >> On Mon, Nov 13, 2023 at 12:24:14PM +0100, Hans Verkuil wrote:
+> >>> On 13/11/2023 12:07, Laurent Pinchart wrote:
+> >>>> On Mon, Nov 13, 2023 at 11:56:49AM +0100, Hans Verkuil wrote:
+> >>>>> On 13/11/2023 11:42, Laurent Pinchart wrote:
+> >>>>>> On Mon, Nov 13, 2023 at 11:29:09AM +0100, Hans Verkuil wrote:
+> >>>>>>> On 10/11/2023 06:48, Shengjiu Wang wrote:
+> >>>>>>>> Fixed point controls are used by the user to configure
+> >>>>>>>> a fixed point value in 64bits, which Q31.32 format.
+> >>>>>>>>
+> >>>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> >>>>>>>
+> >>>>>>> This patch adds a new control type. This is something that also needs to be
+> >>>>>>> tested by v4l2-compliance, and for that we need to add support for this to
+> >>>>>>> one of the media test-drivers. The best place for that is the vivid driver,
+> >>>>>>> since that has already a bunch of test controls for other control types.
+> >>>>>>>
+> >>>>>>> See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
+> >>>>>>>
+> >>>>>>> Can you add a patch adding a fixed point test control to vivid?
+> >>>>>>
+> >>>>>> I don't think V4L2_CTRL_TYPE_FIXED_POINT is a good idea. This seems to
+> >>>>>> relate more to units than control types. We have lots of fixed-point
+> >>>>>> values in controls already, using the 32-bit and 64-bit integer control
+> >>>>>> types. They use various locations for the decimal point, depending on
+> >>>>>> the control. If we want to make this more explicit to users, we should
+> >>>>>> work on adding unit support to the V4L2 controls.
+> >>>>>
+> >>>>> "Fixed Point" is not a unit, it's a type. 'Db', 'Hz' etc. are units.
+> >>>>
+> >>>> It's not a unit, but I think it's related to units. My point is that,
+> >>>> without units support, I don't see why we need a formal definition of
+> >>>> fixed-point types, and why this series couldn't just use
+> >>>> VIVID_CID_INTEGER64. Drivers already interpret VIVID_CID_INTEGER64
+> >>>> values as they see fit.
+> >>>
+> >>> They do? That's new to me. A quick grep for V4L2_CTRL_TYPE_INTEGER64
+> >>> (I assume you meant that rather than VIVID_CID_INTEGER64) shows that it
+> > 
+> > Yes, I meant V4L2_CTRL_TYPE_INTEGER64. Too hasty copy & paste :-)
+> > 
+> >>> is always interpreted as a 64 bit integer and nothing else. As it should.
+> > 
+> > The most common case for control handling in drivers is taking the
+> > integer value and converting it to a register value, using
+> > device-specific encoding of the register value. It can be a fixed-point
+> > format or something else, depending on the device. My point is that
+> > drivers routinely convert a "plain" integer to something else, and that
+> > has never been considered as a cause of concern. I don't see why it
+> > would be different in this series.
+> > 
+> >>> And while we do not have support for units (other than the documentation),
+> >>> we do have type support in the form of V4L2_CTRL_TYPE_*.
+> >>>
+> >>>>> A quick "git grep -i "fixed point" Documentation/userspace-api/media/'
+> >>>>> only shows a single driver specific control (dw100.rst).
+> >>>>>
+> >>>>> I'm not aware of other controls in mainline that use fixed point.
+> >>>>
+> >>>> The analog gain control for sensors for instance.
+> >>>
+> >>> Not really. The documentation is super vague:
+> >>>
+> >>> V4L2_CID_ANALOGUE_GAIN (integer)
+> >>>
+> >>> 	Analogue gain is gain affecting all colour components in the pixel matrix. The
+> >>> 	gain operation is performed in the analogue domain before A/D conversion.
+> >>>
+> >>> And the integer is just a range. Internally it might map to some fixed
+> >>> point value, but userspace won't see that, it's hidden in the driver AFAICT.
+> > 
+> > It's hidden so well that libcamera has a database of the sensor it
+> > supports, with formulas to map a real gain value to the
+> > V4L2_CID_ANALOGUE_GAIN control. The encoding of the integer value does
+> > matter, and the kernel doesn't expose it. We may or may not consider
+> > that as a shortcoming of the V4L2 control API, but in any case it's the
+> > situation we have today.
+> > 
+> >> I wonder if Laurent meant digital gain.
+> > 
+> > No, I meant analog. It applies to digital gain too though.
+> > 
+> >> Those are often Q numbers. The practice there has been that the default
+> >> value yields gain of 1.
+> >>
+> >> There are probably many other examples in controls where something being
+> >> controlled isn't actually an integer while integer controls are still being
+> >> used for the purpose.
+> > 
+> > A good summary of my opinion :-)
+> 
+> And that works fine as long as userspace doesn't need to know what the value
+> actually means.
+> 
+> That's not the case here. The control is really a fractional Hz value:
+> 
+> +``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
+> +    Sets the offset from the audio source sample rate, unit is Hz.
+> +    The offset compensates for any clock drift. The actual source audio sample
+> +    rate is the ideal source audio sample rate from
+> +    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
 
-diff --git a/sound/soc/amd/acp/acp-renoir.c b/sound/soc/amd/acp/acp-renoir.c
-index a591482a0726..8539fbacdf4c 100644
---- a/sound/soc/amd/acp/acp-renoir.c
-+++ b/sound/soc/amd/acp/acp-renoir.c
-@@ -20,6 +20,7 @@
- #include <sound/soc.h>
- #include <sound/soc-dai.h>
- #include <linux/dma-mapping.h>
-+#include <linux/pm_runtime.h>
- 
- #include "amd.h"
- #include "acp-mach.h"
-@@ -195,7 +196,11 @@ static int renoir_audio_probe(struct platform_device *pdev)
- 	dev_set_drvdata(dev, adata);
- 	acp_enable_interrupts(adata);
- 	acp_platform_register(dev);
--
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
- 	return 0;
- }
- 
-@@ -208,11 +213,42 @@ static void renoir_audio_remove(struct platform_device *pdev)
- 	acp_platform_unregister(dev);
- }
- 
-+static int __maybe_unused rn_pcm_resume(struct device *dev)
-+{
-+	struct acp_dev_data *adata = dev_get_drvdata(dev);
-+	struct acp_stream *stream;
-+	struct snd_pcm_substream *substream;
-+	snd_pcm_uframes_t buf_in_frames;
-+	u64 buf_size;
-+
-+	spin_lock(&adata->acp_lock);
-+	list_for_each_entry(stream, &adata->stream_list, list) {
-+		substream = stream->substream;
-+		if (substream && substream->runtime) {
-+			buf_in_frames = (substream->runtime->buffer_size);
-+			buf_size = frames_to_bytes(substream->runtime, buf_in_frames);
-+			config_pte_for_stream(adata, stream);
-+			config_acp_dma(adata, stream, buf_size);
-+			if (stream->dai_id)
-+				restore_acp_i2s_params(substream, adata, stream);
-+			else
-+				restore_acp_pdm_params(substream, adata);
-+		}
-+	}
-+	spin_unlock(&adata->acp_lock);
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops rn_dma_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(NULL, rn_pcm_resume)
-+};
-+
- static struct platform_driver renoir_driver = {
- 	.probe = renoir_audio_probe,
- 	.remove_new = renoir_audio_remove,
- 	.driver = {
- 		.name = "acp_asoc_renoir",
-+		.pm = &rn_dma_pm_ops,
- 	},
- };
- 
+I don't see why this would require a new type, you can use
+V4L2_CTRL_TYPE_INTEGER64, and document the control as containing
+fixed-point values in Q31.32 format.
+
+> >> Instead of this patch, I'd prefer to have a way to express the meaning of
+> >> the control value, be it a Q number or something else, and do that
+> >> independently of the type of the control.
+> 
+> Huh? How is that different from the type of the control? You have integers
+> (one type) and fixed point (another type).
+> 
+> Or do you want a more general V4L2_CTRL_TYPE_ that specifies the N.M values
+> explicitly?
+> 
+> I think the main reason why we use integer controls for gain is that we
+> never had a fixed point control type and you could get away with that in
+> user space for that particular use-case.
+> 
+> Based on the V4L2_CID_NOTIFY_GAINS documentation the gain value can typically
+> be calculated as (value / default_value),
+
+Typically, but not always. Some sensor have an exponential gain model,
+and some have weird gain representation, such as 1/x. That's getting out
+of scope though.
+
+> but that won't work for a rate offset
+> control as above, or for e.g. CSC matrices for color converters.
+> 
+> > Agreed.
+> > 
+> >>> In the case of this particular series the control type is really a fixed point
+> >>> value with a documented unit (Hz). It really is not something you want to
+> >>> use type INTEGER64 for.
+> >>>
+> >>>>> Note that V4L2_CTRL_TYPE_FIXED_POINT is a Q31.32 format. By setting
+> >>>>> min/max/step you can easily map that to just about any QN.M format where
+> >>>>> N <= 31 and M <= 32.
+> >>>>>
+> >>>>> In the case of dw100 it is a bit different in that it is quite specialized
+> >>>>> and it had to fit in 16 bits.
+
 -- 
-2.25.1
+Regards,
 
+Laurent Pinchart

@@ -2,160 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE687EA12C
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 17:21:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C7057EA164
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 17:41:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 267ED829;
-	Mon, 13 Nov 2023 17:20:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 267ED829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25D28829;
+	Mon, 13 Nov 2023 17:40:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25D28829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699892466;
-	bh=G7QXZBDdYGCAzBrzNOcA2ni7g+uSPl4cZ6m8mK8/gjA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MJZwi7HSSroKtXrRR3ynsMkmd9Pw9rZuMd09jXGnbQf4XM17zoP1SOn4MbS7yFahb
-	 fMyHHb9a2xSpzDxahECOV7hT7HuHUwoPQudiBEPiIglzniV14lI8PsJN/bgm0h6b7n
-	 sWjqmNB1szrQ+8hwM0SzWYrzfrcmqZCoBpP4j8AY=
+	s=default; t=1699893704;
+	bh=0ukNua8ATcr87S7Mj/tfUq8qS5fWkkUOik0pOHeRlEQ=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HeKjOPSxve0g5lIhxt9dYiQryoIetRYam4p2l+qCX0VLYEy5tJuECmTJKkQDlcKrS
+	 Kf1iD6CKBZ5jywO2UGZ9zuy7ulqK0dt4AqekmT14Ln6GE0WU65h07rVdb8dRVM6qGI
+	 WI0y2bzmiXjTug0G3jB5WTOoh1Jd0soyjk9bSzx0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6B11F8016E; Mon, 13 Nov 2023 17:20:15 +0100 (CET)
+	id 6AC83F802E8; Mon, 13 Nov 2023 17:40:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F7BEF8016E;
-	Mon, 13 Nov 2023 17:20:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0774CF8016E;
+	Mon, 13 Nov 2023 17:40:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24FCFF801D5; Mon, 13 Nov 2023 17:20:12 +0100 (CET)
+	id 458F8F801D5; Mon, 13 Nov 2023 17:40:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20602.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::602])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3B615F800ED
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 17:20:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B615F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id C584DF800ED
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 17:40:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C584DF800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Hyn22r4I
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S3eCLvSappk4acC0ZyG8F4cVxOX3m11MlIDhOELKRbrmDUkfXYiE9bE2aZ74gM3VTs1RQsBTG4ezHxf1SVpJKL4ylNfzEYWx3eIaE8w4cNz3CZpruhMpV795I1l6rvv76SlM7fFDhN5MRP66wDkQFzlUNQ2qcwZ8Fn0Y8UZgB4cnro/0easTNIOfRccp8kB/RZoOT1ikaa2C+Yj7fzt34UM+sfY4obgsWjkVASfKidHCFdcVWkUadffC8hgMvGRbF5xZOo1q2P8FykJyBwsXYa1D6nIlOK5cIHUm1O3mpMsig2Ojrfsd5KCb27zn7hd/ZiSyG2BOSHVtgJELFaVBCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kdhqCLcYZowqrk1t0RTyMfExIbtbJMa79TnPoyBKk84=;
- b=gSO9I5CMr7s276w4YmFmpBSBN/wU5nxb6h05S+e8LzolQC1TiW6R/iDRCRf0Jdxdap3gwgqXJ4tSy4zcghH51vAm1s/O96pN56NQVlrRz3yFf5mBoXW0D9PXrXS1UFmES6Bh+QIUYqBfMyGw7UBOEg0JoHcI1IhtC1X+mXm2bg7ZnKAF5sWwzC61hcM7S05e/TRO9QWZhzpw9U3u+Jg3808vO/u/bKR9Sh8lT1090Z9XXGILOSSFMuEq9bZTTPqB+RSkA6RbiigLVAURJCttpC2yqsdSs3sPnhtyWTiXxjdCn2TIlTINz2jkikC9nxwN4QS0BPxi+qHzL1Xyc3dHfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kdhqCLcYZowqrk1t0RTyMfExIbtbJMa79TnPoyBKk84=;
- b=Hyn22r4IkGqpChUfFZAXcx8xl18iFoDORicBPTLjWBUmrywNG6Xg9qp2vmDMO+yCQdQj1v1AcE55zJ0f6NpblwMKNHtkUBH1UPnZ7ABNIALg+VfCzZNfTgj+mj29eAgibo1WsPG8gY284EwfB22w6vmNYvPc8T/FbJ+obeKapvM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SN7PR12MB6816.namprd12.prod.outlook.com (2603:10b6:806:264::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.29; Mon, 13 Nov
- 2023 16:19:59 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.6977.029; Mon, 13 Nov 2023
- 16:19:59 +0000
-Message-ID: <b7ad6ca3-f706-409c-9f99-af05b2b63535@amd.com>
-Date: Mon, 13 Nov 2023 10:19:57 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 1/2] ASoC: amd: acp: add Kconfig options for acp7.0
- based platform driver
-To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, richgong@amd.com, posteuca@mutex.one,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9PR10CA0003.namprd10.prod.outlook.com
- (2603:10b6:806:a7::8) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=jLartDMU
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3ADFOIcM019092;
+	Mon, 13 Nov 2023 10:40:36 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=b
+	77U65NzPhkgOKHWlwkTamYPj/TOXrDCPIuZPvkXAr8=; b=jLartDMUDTXTK7sS6
+	fm93omS1OhekimiXA5nCpAISjucg604mgvCK7ZUyEgE+px2ai6Isel7PrisQD8pt
+	kMil41eUS964EUu3Tpc9H+qjiv4yBawG+A6/8qkHnB/MQ87FX6N2ua9kHmu/dj6D
+	aqS18dGmHS4KRoJIFuR5/h6DUMUcczU26kkoobzUTxTZ1wiurGUxGqNg2XG0eMQ9
+	5DqHlTNyOzO7qgv4P7hblv0wKTIho5RUlpBcQR8TExESMPJLeZ2m27WgLadx3Vbu
+	M9lABrTWY8nrma+MFsslZe/gn5681QUrMiZ6sk8WJ5u3mmJagtvhXHRLsDz+zz8y
+	gswyg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ua7w2j53c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Nov 2023 10:40:36 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Mon, 13 Nov
+ 2023 16:40:29 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.39 via Frontend
+ Transport; Mon, 13 Nov 2023 16:40:29 +0000
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.82])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4F98811A8;
+	Mon, 13 Nov 2023 16:40:29 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Simon
+ Trimmer" <simont@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>
+Subject: [PATCH RESEND] ALSA: hda: cs35l56: Enable low-power hibernation mode
+ on i2c
+Date: Mon, 13 Nov 2023 16:40:29 +0000
+Message-ID: <20231113164029.1156669-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SN7PR12MB6816:EE_
-X-MS-Office365-Filtering-Correlation-Id: b297ccef-fc5a-404b-8bc6-08dbe46461e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	V0IccjT0+jwJxQAS81ZPPOda+EfqPcWqKV2Y/qfADQLjZMeZZnjpa1X3ggsRTzY7fs01NUvE106tT68Qb+N04168ndX3dHJgjz/A6f5CUeUKFH2j/AxRecBKNhpHtYjYCPHUPPtXQoqV0xgYbkIYL2qQvxB9iCux3uafJY/ZTeWtv1n/j5foGD7Bog3W0cJfY7lXsz0RVuI1qkqyYSpwpPRC/PyAdpmV7g9H1wPAKGMDZNzrAbc9aQlAjKmAIzx/6WfWJcpHC1+D6gnkrEAsHmpvo6rdrVfKK7nIsvjl6GM3SCDvesebR+sbur+DiuHhQZ5aQj2laiQ7nyST4xPWyAcTh74x8ofQ8nzIT3srnqFMnDfMNlzhrB0nxbr9ZVsdnmELl8JcClsEsoitEczi3BcyYAoUhpg5L+l7Wn0pLLyrK4lmmx6Xk+94ZU4TPnngObI2m2x9/z4kZD5efL6shTS65VHdZoUutpKSLJFbgtLN7xCT6Hh/pJJAZW3zkmRhGMpCymj6ika8eOA5V24JPExDB2nozMytlxEAEdW8glj0d4oH0pdcFuHMeclDzDP2Px423ohbnNUGKRA7XE7Iz4YhQbuZk07X2V0KM/Fugcic7df/x1DiCSTZU28FxWYtxFZfwT0AduAs3in1G5tppg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(136003)(39860400002)(366004)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799009)(44832011)(31696002)(4326008)(8676002)(8936002)(26005)(2906002)(5660300002)(2616005)(86362001)(6506007)(53546011)(6486002)(36756003)(478600001)(41300700001)(31686004)(38100700002)(83380400001)(316002)(6512007)(66946007)(66556008)(66476007)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?dXBMSU4yc2drWTRwU3o4YWdKVHZzeHFDYUhqU2xDeVdra291bXJaWFN2L3FD?=
- =?utf-8?B?ZTVPcmMxRkU4WHhCZnJpUWdWK1FMLzlYUXZnemdGTmcwVUJ4c0RVUmpFdXlU?=
- =?utf-8?B?L0Ixd1lUNHRwMTRJei9KZWN1aTZ0M0JYYTBrSXMvYVJCc05HVjFXTktGZzR4?=
- =?utf-8?B?azhkSFF0aHhxaDUzMlZNRXRadERTTitHMmZNa1VwbXRyWkNQdDBZcG85RGdQ?=
- =?utf-8?B?U1VwZ1lSMWM5UDF5U20rNnNFU3FrL1IxUFN4NmNvNnlmTHVZK1VHT3ZBU05q?=
- =?utf-8?B?b3NEUXJhUHlwZkJmNmdYNU8yVGFsRTkwWTM0aHZxQlBzUW9vYnpjdnFzdEdY?=
- =?utf-8?B?RXF5RUpJYWlRUnB2OFp2bnZlL2p6WUlncTFMb3d4L2JNK2VtSnVlV3J5TGNG?=
- =?utf-8?B?WE90VXhzRnRDTzdzYmNlL3dJTis4RlR4SXQ4cTFKdGxrVHhsSFptYllFN0g5?=
- =?utf-8?B?cHhYeTY2MVVJek5DYnlSRktuZUJBMjR3bi9HTndza0dPczIxRUhXQXNxQzJk?=
- =?utf-8?B?M1UyenR3TFp6RlYvZTBYaHQvSmplenRGSWhwUmV4OFp0WTRmNkJnZ1lIVW5t?=
- =?utf-8?B?UEd1WVQ3ZkpmOHVkNjllaUJnSlFPTm5NK3lsS1RNcE53aklQcXFuOElFMHc1?=
- =?utf-8?B?d244WnlhZXdnbFJLRjZobEErVlgzQlRMUU5LS2ZHMk5oR1Y3d3pEWmdINVdx?=
- =?utf-8?B?ZGFad0ZMNmlrdml3OVdCei9ham02bVptb2o4YndxSFJ5T2c5YVdTbmRybUhF?=
- =?utf-8?B?TDFhZDlPeVBsWVZCRGhmeTJBWjYreWxCTEVnNFdjSGgrNGRjUk9ydFJ1ak53?=
- =?utf-8?B?VmtvWFRXaVU1VGt1ZHVwT2hVRFE1UUE0clNDandSU1FCN1dlSlozdEJicjNz?=
- =?utf-8?B?T2FNTmxiQkhsTG5PaUQxNG54S2tGeWZTTXJUUnd0MFZMVzRISmxHU0ZIQUtH?=
- =?utf-8?B?Rm1TYVFTVHJicGNmUmZ3Um9NdVVndkRwcTVYOEtVenVxZWJ5OGw3cEQzUkFK?=
- =?utf-8?B?dENVYVZHRGJyZHhuZjFwdGx1azJnSndnUHFPdUtFSUlKL0w3eG9rV0RJUVJZ?=
- =?utf-8?B?WnNZMUs1anhkTjF1U3VaMlBxWFNMaVNxRFFzU284ZzBOK3JnRXVOTmhkTUJG?=
- =?utf-8?B?TTBzYVI4dm1XWm96WlpGNmptMjRURkNoSitVUXRJUDlaeXFhYktxalJrMnJu?=
- =?utf-8?B?UHM0aG45RTdKalFnQ0JVVGxST0QzSElhUHBvcFFtaGh2UmZZR09sNStyRWor?=
- =?utf-8?B?alZ5TElaMVZNWHczcjVpT2QvYi9hMTBhNW5xaDZLTEd2OGg1L25HUzNhbzNK?=
- =?utf-8?B?OGtyOWdqZnBOT21hTmNQdFM2KzVSMFpWUTA5akJZaHk3c0p5bjQrRlZXOURL?=
- =?utf-8?B?K1pWUlZUb2kyVEFONTh0T2hrOGFkNDFQbTdxM0dIU3RmTTluN3dKYjJaN0w2?=
- =?utf-8?B?RkpDUW9EKzFuU096QnlIMExWMzdJRHdOSmVIeW1tNnkxQWlBMG5wTDNtbFBQ?=
- =?utf-8?B?eXF6QVhmMkhyRThLSk54dlBRVGN5TWczUHVhUTlYU0VVakFtclErb0tNd2pD?=
- =?utf-8?B?K29ubkcvT0ZtbU1ncTlNcUVYRWQzQU5jeXh6bDZKZkpScjE4QmlFbmZVMzZJ?=
- =?utf-8?B?YWtDeS9ydVBMU1RYSTdTSGhidDFGZnp2ZU9JMmpnbldMSFFaRkZYWEpRZDZS?=
- =?utf-8?B?ZHVyK1IrbTFFbzVLS1lqRFA2WUMvbGYzRzd2MHlRbUhFR0dYRFdQaTJibUZX?=
- =?utf-8?B?ZmxQdWlPVlowYlhCTEpEWm5La015MzFSTW1ia1c0TG03MlV0VjRYSkxZc0NO?=
- =?utf-8?B?YXgwcFh2UVlaSWEvSXZaME1WcnpaQm1LZ3NGeGt4ZDI2OHQ1d0QrM0RRVzI2?=
- =?utf-8?B?RzJ4L3NjQjF6RDc4YnBYNmhtR1ZMLytHMXU1VVl3NUJxQnFXY2NmUlhGTG9o?=
- =?utf-8?B?ZUk3dGF5U1Y2WFpBVTIwVy9adzFTSWR5TjVQTE1qYkNESWd6UG9nRFNnVDRt?=
- =?utf-8?B?VnErdXRqM3NISFlvV2FTVURSSHIvZmtoYTMwOVVvd2t0MUh3Z3IyMkJZaVVW?=
- =?utf-8?B?NkRoY1JSUTFMVU4rdTZBS0dZRHREdFo4d1F3SnAzaGUycHNPWGd2TVVBeER5?=
- =?utf-8?Q?0FT56yr5/iimTiwdZXFQ5G/7n?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b297ccef-fc5a-404b-8bc6-08dbe46461e6
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2023 16:19:59.5205
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- yD4bjCV7BTCvi3AJw1aPSXYMh4hpJgbc1NMdPe8MMm1mdkHZ/wgDuCJJARaJeYzyBCTRmZFazUolza5MJzHuAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6816
-Message-ID-Hash: U4QHS7A7JAEG66ZEQOSSPQWDHLPIKOM6
-X-Message-ID-Hash: U4QHS7A7JAEG66ZEQOSSPQWDHLPIKOM6
-X-MailFrom: Mario.Limonciello@amd.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: xPkX2Qqns_D4KVv73hnt8y1Hn9SBru9-
+X-Proofpoint-GUID: xPkX2Qqns_D4KVv73hnt8y1Hn9SBru9-
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: HJPVN5CUMNPBSY4ZKGESLPEDTDWETA22
+X-Message-ID-Hash: HJPVN5CUMNPBSY4ZKGESLPEDTDWETA22
+X-MailFrom: prvs=6681475e03=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -167,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U4QHS7A7JAEG66ZEQOSSPQWDHLPIKOM6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HJPVN5CUMNPBSY4ZKGESLPEDTDWETA22/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -176,68 +113,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 11/13/2023 06:33, Syed Saba Kareem wrote:
-> ACP7.0 based platform legacy drivers can be built by selecting
-> necessary kernel config option. This patch enables build support
-> of the same.
-> 
-> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-> ---
-> changes since v1:
->       - added missing commit message.
-> 
->   sound/soc/amd/acp/Kconfig  | 12 ++++++++++++
->   sound/soc/amd/acp/Makefile |  2 ++
->   2 files changed, 14 insertions(+)
-> 
-> diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-> index 5fb322212938..c8ac0027f741 100644
-> --- a/sound/soc/amd/acp/Kconfig
-> +++ b/sound/soc/amd/acp/Kconfig
-> @@ -73,6 +73,18 @@ config SND_AMD_ASOC_ACP63
->   	  Say Y if you want to enable AUDIO on ACP6.3
->   	  If unsure select "N".
->   
-> +config SND_AMD_ASOC_ACP70
-> +	tristate "AMD ACP ASOC Acp7.0 Support"
-> +	depends on X86 && PCI
-> +	depends on ACPI
-> +	select SND_SOC_AMD_ACP_PCM
-> +	select SND_SOC_AMD_ACP_I2S
-> +	select SND_SOC_AMD_ACP_PDM
+From: Simon Trimmer <simont@opensource.cirrus.com>
 
-Do you not need:
+This can now be re-enabled as the sequence to reliably wake the device
+has been implemented in the shared ASoC code.
 
-	select SND_SOC_AMD_ACP_LEGACY_COMMON
+This has a functional dependency on commit 3df761bdbc8b
+("ASoC: cs35l56: Wake transactions need to be issued twice")
 
-Like how ACP63, Rembrandt, and Renoir all select?
+To protect against this, enabling hibernation is conditional on
+CS35L56_WAKE_HOLD_TIME_US being defined, which indicates that the new
+hibernation sequences are available.
 
-> +	help
-> +	This option enables Acp7.0 PDM support on AMD platform.
-> +	Say Y if you want to enable AUDIO on ACP7.0
-> +          If unsure select "N".
-> +
->   config SND_SOC_AMD_MACH_COMMON
->   	tristate
->   	depends on X86 && PCI && I2C
-> diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
-> index dd85700f1c5f..ff5f7893b81e 100644
-> --- a/sound/soc/amd/acp/Makefile
-> +++ b/sound/soc/amd/acp/Makefile
-> @@ -15,6 +15,7 @@ snd-acp-pci-objs     := acp-pci.o
->   snd-acp-renoir-objs     := acp-renoir.o
->   snd-acp-rembrandt-objs  := acp-rembrandt.o
->   snd-acp63-objs := acp63.o
-> +snd-acp70-objs := acp70.o
->   
->   #machine specific driver
->   snd-acp-mach-objs     := acp-mach-common.o
-> @@ -30,6 +31,7 @@ obj-$(CONFIG_SND_SOC_AMD_ACP_PCI) += snd-acp-pci.o
->   obj-$(CONFIG_SND_AMD_ASOC_RENOIR) += snd-acp-renoir.o
->   obj-$(CONFIG_SND_AMD_ASOC_REMBRANDT) += snd-acp-rembrandt.o
->   obj-$(CONFIG_SND_AMD_ASOC_ACP63) += snd-acp63.o
-> +obj-$(CONFIG_SND_AMD_ASOC_ACP70) += snd-acp70.o
->   
->   obj-$(CONFIG_SND_SOC_AMD_MACH_COMMON) += snd-acp-mach.o
->   obj-$(CONFIG_SND_SOC_AMD_LEGACY_MACH) += snd-acp-legacy-mach.o
+Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/pci/hda/cs35l56_hda_i2c.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/pci/hda/cs35l56_hda_i2c.c b/sound/pci/hda/cs35l56_hda_i2c.c
+index 757a4d193e0f..a9ef6d86de83 100644
+--- a/sound/pci/hda/cs35l56_hda_i2c.c
++++ b/sound/pci/hda/cs35l56_hda_i2c.c
+@@ -21,6 +21,10 @@ static int cs35l56_hda_i2c_probe(struct i2c_client *clt)
+ 		return -ENOMEM;
+ 
+ 	cs35l56->base.dev = &clt->dev;
++
++#ifdef CS35L56_WAKE_HOLD_TIME_US
++	cs35l56->base.can_hibernate = true;
++#endif
+ 	cs35l56->base.regmap = devm_regmap_init_i2c(clt, &cs35l56_regmap_i2c);
+ 	if (IS_ERR(cs35l56->base.regmap)) {
+ 		ret = PTR_ERR(cs35l56->base.regmap);
+-- 
+2.30.2
 

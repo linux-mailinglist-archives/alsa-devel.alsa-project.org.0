@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16317E9A75
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 11:40:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6337E9A7C
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 11:43:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FAA97F4;
-	Mon, 13 Nov 2023 11:39:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FAA97F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 227E3209;
+	Mon, 13 Nov 2023 11:42:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 227E3209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699872018;
-	bh=8YbwGMWqxEsHaOI+g4HbHK72mY+EZICXeObcZYG/VXE=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=EG84nZY5JfxRl3SHfAE3xu6MpSEpv/vPkf01fr8CcBpsIp5bwg3jlGrhaKyBsrKxs
-	 IakUbmhMTjHm3o2KACzF5GZzdeHSG03e5dhrndD9mhb+Mc2oofb6VnmOKJMi6sNm9W
-	 3Gekx9DjBpI2j/mrztCzHxsau8uJ9+EaSjni0BQ4=
+	s=default; t=1699872213;
+	bh=6ihvpfxog/JlU6xFHC7s7/xfpVvhabzUKotPpV7QC2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=XBSaZV/iH0wOUm5ESrdS7YrsUZioE8a6VVIaxOJolXWaxij9IE9fryoz3DQhXc2sn
+	 HR0dxbwG/U9i26sS/hrDZMjT4+DGsM93azo4paQd6/WfYzUGtVDmSyqnFjk85AK3+E
+	 5Qs3IA4yk/9HvC2CNuaZQAhDjrrrptLjduR+MQa4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93DF4F801D5; Mon, 13 Nov 2023 11:39:27 +0100 (CET)
+	id 86A08F80152; Mon, 13 Nov 2023 11:42:42 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49291F8016E;
-	Mon, 13 Nov 2023 11:39:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4ABFCF8016E;
+	Mon, 13 Nov 2023 11:42:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65E72F801D5; Mon, 13 Nov 2023 11:37:33 +0100 (CET)
+	id 42881F801D5; Mon, 13 Nov 2023 11:42:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F19AF80093
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 11:37:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F19AF80093
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 3ADAbH7b94191848,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 3ADAbH7b94191848
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 13 Nov 2023 18:37:17 +0800
-Received: from RTEXMBS02.realtek.com.tw (172.21.6.95) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.17; Mon, 13 Nov 2023 18:37:17 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Mon, 13 Nov 2023 18:37:15 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::540c:c8d6:1d0f:ab9f]) by
- RTEXMBS01.realtek.com.tw ([fe80::540c:c8d6:1d0f:ab9f%5]) with mapi id
- 15.01.2507.034; Mon, 13 Nov 2023 18:37:15 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_62cad4e51c044108bad872ab349e36f8realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
-	<shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
-	<derek.fang@realtek.com>,
-        Jack Yu <jack.yu@realtek.com>
-Subject: [PATCH v2] ASoC: rt5682s: Add LDO output selection for dacref
-Thread-Topic: [PATCH v2] ASoC: rt5682s: Add LDO output selection for dacref
-Thread-Index: AdoWHV203LK1ytp9Qs2soUalUsvURg==
-Date: Mon, 13 Nov 2023 10:37:15 +0000
-Message-ID: <62cad4e51c044108bad872ab349e36f8@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <62cad4e51c044108bad872ab349e36f8@realtek.com>
-x-originating-ip: [172.22.102.102]
-x-kse-serverinfo: RTEXMBS02.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
+	by alsa1.perex.cz (Postfix) with ESMTPS id 31167F80152
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 11:42:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31167F80152
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com
+ header.a=rsa-sha256 header.s=mail header.b=iLwdtlyj
+Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
+ [213.243.189.158])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E34D510A;
+	Mon, 13 Nov 2023 11:42:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1699872127;
+	bh=6ihvpfxog/JlU6xFHC7s7/xfpVvhabzUKotPpV7QC2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iLwdtlyjr9XaJgEq3GIS+tAqup/UOKkw9CD7xt6h7DwcFk2Jy6GcqzMIv8i5b2nty
+	 YDM0eBQ9g6LgQ3Uiy6swYxkGgEHz9eKBgmI5tn7c0CpqziSP7wwwZNlU1vRvfyJlZM
+	 e9cfogzJJnOl+xLA4frg+PnYkyippD2ByhKc6H38=
+Date: Mon, 13 Nov 2023 12:42:38 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+	tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+Message-ID: <20231113104238.GA13981@pendragon.ideasonboard.com>
+References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
+ <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
+ <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: QXJAM2DKT23YLX4NPR3IEOZWV6GPLG6X
-X-Message-ID-Hash: QXJAM2DKT23YLX4NPR3IEOZWV6GPLG6X
-X-MailFrom: jack.yu@realtek.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
+Message-ID-Hash: 2JC2A4PDFJVYUDYO2F2UI47K5I6TPJMO
+X-Message-ID-Hash: 2JC2A4PDFJVYUDYO2F2UI47K5I6TPJMO
+X-MailFrom: laurent.pinchart@ideasonboard.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,193 +89,185 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QXJAM2DKT23YLX4NPR3IEOZWV6GPLG6X/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2JC2A4PDFJVYUDYO2F2UI47K5I6TPJMO/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_62cad4e51c044108bad872ab349e36f8realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On Mon, Nov 13, 2023 at 11:29:09AM +0100, Hans Verkuil wrote:
+> Hi Shengjiu,
+> 
+> On 10/11/2023 06:48, Shengjiu Wang wrote:
+> > Fixed point controls are used by the user to configure
+> > a fixed point value in 64bits, which Q31.32 format.
+> > 
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> This patch adds a new control type. This is something that also needs to be
+> tested by v4l2-compliance, and for that we need to add support for this to
+> one of the media test-drivers. The best place for that is the vivid driver,
+> since that has already a bunch of test controls for other control types.
+> 
+> See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
+> 
+> Can you add a patch adding a fixed point test control to vivid?
 
-QWRkIExETyBvdXRwdXQgc2VsZWN0aW9uIGZvciBkYWNyZWYuDQoNClNpZ25lZC1vZmYtYnk6IEph
-Y2sgWXUgPGphY2sueXVAcmVhbHRlay5jb20+DQotLS0NCiBpbmNsdWRlL3NvdW5kL3J0NTY4MnMu
-aCAgICB8ICA4ICsrKysrKysrDQogc291bmQvc29jL2NvZGVjcy9ydDU2ODJzLmMgfCAyMyArKysr
-KysrKysrKysrKysrKysrKysrKw0KIHNvdW5kL3NvYy9jb2RlY3MvcnQ1Njgycy5oIHwgIDcgKysr
-KysrKw0KIDMgZmlsZXMgY2hhbmdlZCwgMzggaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEv
-aW5jbHVkZS9zb3VuZC9ydDU2ODJzLmggYi9pbmNsdWRlL3NvdW5kL3J0NTY4MnMuaA0KaW5kZXgg
-NjZjYTBjNzViOTE0Li4wMDZlNjAwM2QxMWMgMTAwNjQ0DQotLS0gYS9pbmNsdWRlL3NvdW5kL3J0
-NTY4MnMuaA0KKysrIGIvaW5jbHVkZS9zb3VuZC9ydDU2ODJzLmgNCkBAIC0zMSw2ICszMSwxMyBA
-QCBlbnVtIHJ0NTY4MnNfZGFpX2Nsa3Mgew0KIAlSVDU2ODJTX0RBSV9OVU1fQ0xLUywNCiB9Ow0K
-IA0KK2VudW0gew0KKwlSVDU2ODJTX0xET18xXzYwN1YsDQorCVJUNTY4MlNfTERPXzFfNVYsDQor
-CVJUNTY4MlNfTERPXzFfNDA2ViwNCisJUlQ1NjgyU19MRE9fMV83MzFWLA0KK307DQorDQogc3Ry
-dWN0IHJ0NTY4MnNfcGxhdGZvcm1fZGF0YSB7DQogCWVudW0gcnQ1Njgyc19kbWljMV9kYXRhX3Bp
-biBkbWljMV9kYXRhX3BpbjsNCiAJZW51bSBydDU2ODJzX2RtaWMxX2Nsa19waW4gZG1pYzFfY2xr
-X3BpbjsNCkBAIC0zOCw2ICs0NSw3IEBAIHN0cnVjdCBydDU2ODJzX3BsYXRmb3JtX2RhdGEgew0K
-IAl1bnNpZ25lZCBpbnQgZG1pY19jbGtfcmF0ZTsNCiAJdW5zaWduZWQgaW50IGRtaWNfZGVsYXk7
-DQogCXVuc2lnbmVkIGludCBhbWljX2RlbGF5Ow0KKwl1bnNpZ25lZCBpbnQgbGRvX2RhY3JlZjsN
-CiAJYm9vbCBkbWljX2Nsa19kcml2aW5nX2hpZ2g7DQogDQogCWNvbnN0IGNoYXIgKmRhaV9jbGtf
-bmFtZXNbUlQ1NjgyU19EQUlfTlVNX0NMS1NdOw0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2Rl
-Y3MvcnQ1Njgycy5jIGIvc291bmQvc29jL2NvZGVjcy9ydDU2ODJzLmMNCmluZGV4IGMyNjFjMzNj
-NGJlNy4uMzMyMjA1NmJiYjNiIDEwMDY0NA0KLS0tIGEvc291bmQvc29jL2NvZGVjcy9ydDU2ODJz
-LmMNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1Njgycy5jDQpAQCAtMjk3MSw2ICsyOTcxLDgg
-QEAgc3RhdGljIGludCBydDU2ODJzX3BhcnNlX2R0KHN0cnVjdCBydDU2ODJzX3ByaXYgKnJ0NTY4
-MnMsIHN0cnVjdCBkZXZpY2UgKmRldikNCiAJCSZydDU2ODJzLT5wZGF0YS5kbWljX2RlbGF5KTsN
-CiAJZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyKGRldiwgInJlYWx0ZWssYW1pYy1kZWxheS1tcyIs
-DQogCQkmcnQ1Njgycy0+cGRhdGEuYW1pY19kZWxheSk7DQorCWRldmljZV9wcm9wZXJ0eV9yZWFk
-X3UzMihkZXYsICJyZWFsdGVrLGxkby1zZWwiLA0KKwkJJnJ0NTY4MnMtPnBkYXRhLmxkb19kYWNy
-ZWYpOw0KIA0KIAlpZiAoZGV2aWNlX3Byb3BlcnR5X3JlYWRfc3RyaW5nX2FycmF5KGRldiwgImNs
-b2NrLW91dHB1dC1uYW1lcyIsDQogCQkJCQkgICAgICBydDU2ODJzLT5wZGF0YS5kYWlfY2xrX25h
-bWVzLA0KQEAgLTMyNTAsNiArMzI1MiwyNyBAQCBzdGF0aWMgaW50IHJ0NTY4MnNfaTJjX3Byb2Jl
-KHN0cnVjdCBpMmNfY2xpZW50ICppMmMpDQogCQlicmVhazsNCiAJfQ0KIA0KKwkvKiBMRE8gb3V0
-cHV0IHZvbHRhZ2UgY29udHJvbCAqLw0KKwlzd2l0Y2ggKHJ0NTY4MnMtPnBkYXRhLmxkb19kYWNy
-ZWYpIHsNCisJY2FzZSBSVDU2ODJTX0xET18xXzYwN1Y6DQorCQlicmVhazsNCisJY2FzZSBSVDU2
-ODJTX0xET18xXzVWOg0KKwkJcmVnbWFwX3VwZGF0ZV9iaXRzKHJ0NTY4MnMtPnJlZ21hcCwgUlQ1
-NjgyU19CSUFTX0NVUl9DVFJMXzcsDQorCQkJUlQ1NjgyU19MRE9fREFDUkVGX01BU0ssIFJUNTY4
-MlNfTERPX0RBQ1JFRl8xXzVWKTsNCisJCWJyZWFrOw0KKwljYXNlIFJUNTY4MlNfTERPXzFfNDA2
-VjoNCisJCXJlZ21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfQklBU19D
-VVJfQ1RSTF83LA0KKwkJCVJUNTY4MlNfTERPX0RBQ1JFRl9NQVNLLCBSVDU2ODJTX0xET19EQUNS
-RUZfMV80MDZWKTsNCisJCWJyZWFrOw0KKwljYXNlIFJUNTY4MlNfTERPXzFfNzMxVjoNCisJCXJl
-Z21hcF91cGRhdGVfYml0cyhydDU2ODJzLT5yZWdtYXAsIFJUNTY4MlNfQklBU19DVVJfQ1RSTF83
-LA0KKwkJCVJUNTY4MlNfTERPX0RBQ1JFRl9NQVNLLCBSVDU2ODJTX0xET19EQUNSRUZfMV83MzFW
-KTsNCisJCWJyZWFrOw0KKwlkZWZhdWx0Og0KKwkJZGV2X3dhcm4oJmkyYy0+ZGV2LCAiaW52YWxp
-ZCBMRE8gb3V0cHV0IHNldHRpbmcuXG4iKTsNCisJCWJyZWFrOw0KKwl9DQorDQogCUlOSVRfREVM
-QVlFRF9XT1JLKCZydDU2ODJzLT5qYWNrX2RldGVjdF93b3JrLCBydDU2ODJzX2phY2tfZGV0ZWN0
-X2hhbmRsZXIpOw0KIAlJTklUX0RFTEFZRURfV09SSygmcnQ1Njgycy0+amRfY2hlY2tfd29yaywg
-cnQ1Njgyc19qZF9jaGVja19oYW5kbGVyKTsNCiANCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29k
-ZWNzL3J0NTY4MnMuaCBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1Njgycy5oDQppbmRleCAxZDc5ZDQz
-MmQwZDguLjY3ZjQyODk4ZGU5NiAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ1Njgy
-cy5oDQorKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY4MnMuaA0KQEAgLTEyNjMsNiArMTI2Mywx
-MyBAQA0KICNkZWZpbmUgUlQ1NjgyU19KREhfTk9fUExVRwkJCSgweDEgPDwgNCkNCiAjZGVmaW5l
-IFJUNTY4MlNfSkRIX1BMVUcJCQkoMHgwIDw8IDQpDQogDQorLyogQmlhcyBjdXJyZW50IGNvbnRy
-b2wgNyAgKDB4MDExMCkgKi8NCisjZGVmaW5lIFJUNTY4MlNfTERPX0RBQ1JFRl9NQVNLCQkJKDB4
-MyA8PCA0KQ0KKyNkZWZpbmUgUlQ1NjgyU19MRE9fREFDUkVGXzFfNjA3VgkJKDB4MCA8PCA0KQ0K
-KyNkZWZpbmUgUlQ1NjgyU19MRE9fREFDUkVGXzFfNVYJCQkoMHgxIDw8IDQpDQorI2RlZmluZSBS
-VDU2ODJTX0xET19EQUNSRUZfMV80MDZWCQkoMHgyIDw8IDQpDQorI2RlZmluZSBSVDU2ODJTX0xE
-T19EQUNSRUZfMV83MzFWCQkoMHgzIDw8IDQpDQorDQogLyogQ2hhcmdlIFB1bXAgSW50ZXJuYWwg
-UmVnaXN0ZXIxICgweDAxMjUpICovDQogI2RlZmluZSBSVDU2ODJTX0NQX0NMS19IUF9NQVNLCQkJ
-KDB4MyA8PCA0KQ0KICNkZWZpbmUgUlQ1NjgyU19DUF9DTEtfSFBfMTAwS0haCQkoMHgwIDw8IDQp
-DQotLSANCjIuMzQuMQ0KDQo=
+I don't think V4L2_CTRL_TYPE_FIXED_POINT is a good idea. This seems to
+relate more to units than control types. We have lots of fixed-point
+values in controls already, using the 32-bit and 64-bit integer control
+types. They use various locations for the decimal point, depending on
+the control. If we want to make this more explicit to users, we should
+work on adding unit support to the V4L2 controls.
 
---_000_62cad4e51c044108bad872ab349e36f8realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+> > ---
+> >  .../userspace-api/media/v4l/vidioc-g-ext-ctrls.rst  | 13 +++++++------
+> >  .../userspace-api/media/v4l/vidioc-queryctrl.rst    |  9 ++++++++-
+> >  .../userspace-api/media/videodev2.h.rst.exceptions  |  1 +
+> >  drivers/media/v4l2-core/v4l2-ctrls-api.c            |  5 ++++-
+> >  drivers/media/v4l2-core/v4l2-ctrls-core.c           |  2 ++
+> >  include/uapi/linux/videodev2.h                      |  1 +
+> >  6 files changed, 23 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > index e8475f9fd2cf..e7e5d78dc11e 100644
+> > --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> > @@ -162,13 +162,13 @@ still cause this situation.
+> >      * - __s32
+> >        - ``value``
+> >        - New value or current value. Valid if this control is not of type
+> > -	``V4L2_CTRL_TYPE_INTEGER64`` and ``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is
+> > -	not set.
+> > +	``V4L2_CTRL_TYPE_INTEGER64``, ``V4L2_CTRL_TYPE_FIXED_POINT`` and
+> > +	``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is not set.
+> >      * - __s64
+> >        - ``value64``
+> >        - New value or current value. Valid if this control is of type
+> > -	``V4L2_CTRL_TYPE_INTEGER64`` and ``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is
+> > -	not set.
+> > +	``V4L2_CTRL_TYPE_INTEGER64``, ``V4L2_CTRL_TYPE_FIXED_POINT`` and
+> > +	``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is not set.
+> >      * - char *
+> >        - ``string``
+> >        - A pointer to a string. Valid if this control is of type
+> > @@ -193,8 +193,9 @@ still cause this situation.
+> >      * - __s64 *
+> >        - ``p_s64``
+> >        - A pointer to a matrix control of signed 64-bit values. Valid if
+> > -        this control is of type ``V4L2_CTRL_TYPE_INTEGER64`` and
+> > -        ``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is set.
+> > +        this control is of type ``V4L2_CTRL_TYPE_INTEGER64``,
+> > +        ``V4L2_CTRL_TYPE_FIXED_POINT`` and ``V4L2_CTRL_FLAG_HAS_PAYLOAD``
+> > +        is set.
+> >      * - struct :c:type:`v4l2_area` *
+> >        - ``p_area``
+> >        - A pointer to a struct :c:type:`v4l2_area`. Valid if this control is
+> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > index 4d38acafe8e1..f3995ec57044 100644
+> > --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> > @@ -235,7 +235,8 @@ See also the examples in :ref:`control`.
+> >        - ``default_value``
+> >        - The default value of a ``V4L2_CTRL_TYPE_INTEGER``, ``_INTEGER64``,
+> >  	``_BOOLEAN``, ``_BITMASK``, ``_MENU``, ``_INTEGER_MENU``, ``_U8``
+> > -	or ``_U16`` control. Not valid for other types of controls.
+> > +	``_FIXED_POINT`` or ``_U16`` control. Not valid for other types of
+> > +	controls.
+> >  
+> >  	.. note::
+> >  
+> > @@ -549,6 +550,12 @@ See also the examples in :ref:`control`.
+> >        - n/a
+> >        - A struct :c:type:`v4l2_ctrl_av1_film_grain`, containing AV1 Film Grain
+> >          parameters for stateless video decoders.
+> > +    * - ``V4L2_CTRL_TYPE_FIXED_POINT``
+> > +      - any
+> > +      - any
+> > +      - any
+> > +      - A 64-bit integer valued control, containing parameter which is
+> > +        Q31.32 format.
+> >  
+> >  .. raw:: latex
+> >  
+> > diff --git a/Documentation/userspace-api/media/videodev2.h.rst.exceptions b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > index e61152bb80d1..2faa5a2015eb 100644
+> > --- a/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > +++ b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> > @@ -167,6 +167,7 @@ replace symbol V4L2_CTRL_TYPE_AV1_SEQUENCE :c:type:`v4l2_ctrl_type`
+> >  replace symbol V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY :c:type:`v4l2_ctrl_type`
+> >  replace symbol V4L2_CTRL_TYPE_AV1_FRAME :c:type:`v4l2_ctrl_type`
+> >  replace symbol V4L2_CTRL_TYPE_AV1_FILM_GRAIN :c:type:`v4l2_ctrl_type`
+> > +replace symbol V4L2_CTRL_TYPE_FIXED_POINT :c:type:`v4l2_ctrl_type`
+> >  
+> >  # V4L2 capability defines
+> >  replace define V4L2_CAP_VIDEO_CAPTURE device-capabilities
+> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> > index 002ea6588edf..e6a0fb8d6791 100644
+> > --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> > @@ -57,6 +57,7 @@ static int ptr_to_user(struct v4l2_ext_control *c,
+> >  		return copy_to_user(c->string, ptr.p_char, len + 1) ?
+> >  		       -EFAULT : 0;
+> >  	case V4L2_CTRL_TYPE_INTEGER64:
+> > +	case V4L2_CTRL_TYPE_FIXED_POINT:
+> >  		c->value64 = *ptr.p_s64;
+> >  		break;
+> >  	default:
+> > @@ -132,6 +133,7 @@ static int user_to_new(struct v4l2_ext_control *c, struct v4l2_ctrl *ctrl)
+> >  
+> >  	switch (ctrl->type) {
+> >  	case V4L2_CTRL_TYPE_INTEGER64:
+> > +	case V4L2_CTRL_TYPE_FIXED_POINT:
+> >  		*ctrl->p_new.p_s64 = c->value64;
+> >  		break;
+> >  	case V4L2_CTRL_TYPE_STRING:
+> > @@ -540,7 +542,8 @@ static int validate_ctrls(struct v4l2_ext_controls *cs,
+> >  		 */
+> >  		if (ctrl->is_ptr)
+> >  			continue;
+> > -		if (ctrl->type == V4L2_CTRL_TYPE_INTEGER64)
+> > +		if (ctrl->type == V4L2_CTRL_TYPE_INTEGER64 ||
+> > +		    ctrl->type == V4L2_CTRL_TYPE_FIXED_POINT)
+> >  			p_new.p_s64 = &cs->controls[i].value64;
+> >  		else
+> >  			p_new.p_s32 = &cs->controls[i].value;
+> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > index a662fb60f73f..9d50df0d9874 100644
+> > --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> > @@ -1187,6 +1187,7 @@ static int std_validate_elem(const struct v4l2_ctrl *ctrl, u32 idx,
+> >  	case V4L2_CTRL_TYPE_INTEGER:
+> >  		return ROUND_TO_RANGE(ptr.p_s32[idx], u32, ctrl);
+> >  	case V4L2_CTRL_TYPE_INTEGER64:
+> > +	case V4L2_CTRL_TYPE_FIXED_POINT:
+> >  		/*
+> >  		 * We can't use the ROUND_TO_RANGE define here due to
+> >  		 * the u64 divide that needs special care.
+> > @@ -1779,6 +1780,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+> >  	/* Prefill elem_size for all types handled by std_type_ops */
+> >  	switch ((u32)type) {
+> >  	case V4L2_CTRL_TYPE_INTEGER64:
+> > +	case V4L2_CTRL_TYPE_FIXED_POINT:
+> >  		elem_size = sizeof(s64);
+> >  		break;
+> >  	case V4L2_CTRL_TYPE_STRING:
+> > diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> > index cf8c44595a1d..9482ac66a675 100644
+> > --- a/include/uapi/linux/videodev2.h
+> > +++ b/include/uapi/linux/videodev2.h
+> > @@ -1903,6 +1903,7 @@ enum v4l2_ctrl_type {
+> >  	V4L2_CTRL_TYPE_STRING        = 7,
+> >  	V4L2_CTRL_TYPE_BITMASK       = 8,
+> >  	V4L2_CTRL_TYPE_INTEGER_MENU  = 9,
+> > +	V4L2_CTRL_TYPE_FIXED_POINT   = 10,
+> >  
+> >  	/* Compound types are >= 0x0100 */
+> >  	V4L2_CTRL_COMPOUND_TYPES     = 0x0100,
 
-eJ8+IlpzAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADJERjVFRDZD
-OTYyNjhGNDBCMjI3RDIwQzUxMTQ1NDhFACMHAQ2ABAACAAAAAgACAAEFgAMADgAAAOcHCwANAAoA
-JQAPAAEARQEBIIADAA4AAADnBwsADQAKACUADwABAEUBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAD4AAABbUEFUQ0ggdjJdIEFTb0M6IHJ0NTY4MnM6IEFkZCBMRE8gb3V0
-cHV0IHNlbGVjdGlvbiBmb3IgZGFjcmVmAOMTAQuAAQAhAAAAMkRGNUVENkM5NjI2OEY0MEIyMjdE
-MjBDNTExNDU0OEUAIwcBA5AGAGAXAABHAAAAAgF/AAEAAAAvAAAAPDYyY2FkNGU1MWMwNDQxMDhi
-YWQ4NzJhYjM0OWUzNmY4QHJlYWx0ZWsuY29tPgAACwAfDgAAAAACAQkQAQAAAH8GAAB7BgAApg8A
-AExaRnU+1r+LYQAKZmJpZAQAAGNjwHBnMTI1MgD+A0PwdGV4dAH3AqQD4wIABGNoCsBzZXQwIO8H
-bQKDAFARTTIKgAa0AoCWfQqACMg7CWIxOQ7AvwnDFnIKMhZxAoAVYioJsHMJ8ASQYXQFsg5QA2Bz
-om8BgCBFeBHBbhgwXQZSdgSQF7YCEHIAwHR9CFBuGjEQIAXABaAbZGSaIANSIBAiF7JcdgiQ5Hdr
-C4BkNR1TBPAHQA0XcDAKcRfyYmttawZzAZAAICBCTV9C4EVHSU59CvwB8QvxCCBBZBxgTERPIGkI
-YHRwIjAgEgAecGPcdGkCIBxwBbFkANAJcNBmLlxsC4BlCoEj9EhTaWcYUGQtGTBmQC1ieTogSgDQ
-a0AgWXUgPGolwS74eXVACXAHQBAgJnAFoLRtPiPlLSfwI+UgC4BWYwpAAQAvGSB1HcAvAQAgNTY4
-MnMuaIogKhF8KhA4ICsqpWcoJikkGSBjLwWgBYFz5Sl3YypBMjMqly4NKy93LD4qACpRNyqWKCYt
-gGbnAxAHkRmUZCwycCqAC4CHEgAAICLxcygrKSPsSw3gASAgJ/BnaQVAYfYvKK8ptWI2PymlI+Ud
-sREQMCA2Nh5QMGM3gDViOTE0Li4eoKg2ZTYeoDMWYDEtMPEekTY0NCeINh84zi6REze/OM5AQDWw
-MzEsdjYqkEFhMS2AQSEJ8HXLHLAphV8jcGlfP2AfUCcDMAAAKDVSVCmiU19AREFJX05VH9BDkExL
-UywoJlx9FiBvRbY+hUJTQ7crRFYh4V9kMV87QDdWRZZIPTW7SV9ItTQ7EErvSLU3QWDHTJhGKC8I
-dHJ1ItBCl38LUQAwGvFDEQGQQ6lCXG3/DlBJAFGSUPALgCNgU2tGR39Sj0kAQ2FT+VblRkZBIzjx
-QYI0NSwxcEEhUB9RL/8oUylAAJAk4iiRBUBTUlbTPRhxZUZHXE9DECKgYXkrXe9cw2FfXytee2xk
-fm9DESOSRkcG4AbwXQhkpwUQHWAZwF9oJNBoRk4vG9IfYDLyBcAqQyVfbtthQAeQW0RfRWFdRkY1
-ez8vnyy4PyBrbyy3OVtjMgI2O6AzM2M0YmW2Nzrgb/AyAdApoGJw8PwzYjvPaz9uHz7Gco9uTvFB
-IjI5N0Fzd0MqgFmjPxiADlBcw1pHEeJDEHQo/1neZWFnwCmFM3BZ1QEAHWCeYxngZ9B8gDSGICYp
-hagtPnBRki5fSClGR9N8dHsBb3AbgXldkCbQaGRfdXCQKHxxM3AiFSbFLGFCLV+TLW1z3iJFl32+
-YUh/Vyt//4EP24ITY0EtIpGDNyt9vmNI339YKCc1oIFyhk9fWdFlkrsKwBhweYF1P2B1YGslIP0i
-My1oY4M4kMR9zmf6RZabQSMOoDBBgw6hLDJZhfl4j2kyXUCGgXAwehaWErc/YAiQXOEqlhF9J2Im
-wU5rRkggQEZtLyoh2nY/BvABkBnRG+FZ4GSRKi/7PnYD4XQRwIxwia+Kt0eZ7x5QEgBER0jIOj52
-mKuf79dKo6FnCXBnAMBwh1B+Uvt50A3AdDRQfcektDNwaMaIQklBRLBDVVJFQHhUUkxOAEyvSMJE
-0EOgUkVGX02nkEum2P+peUqyhXih/6AuTGKkL6U//6ZPp1+ob6l/s7+rkkxiq///rQ9Ni67vr/+x
-D7Ifsy+0Px++n6uSThK234WnZmF1JybwoWd8cV93CsBuKN4mlhF+MIGEC4B2B0AN0I8h3AJAZZEj
-0FxuIsG/J053Tx4gIElURMBFTABBWUVEX1dPUv5LxLB9xyZCX4EQICLQxGBfBbCCQEKXy9oZoWQe
-cHL/f1jKH8sqh0ARwAWQVwDMnf/RFs4/ai9yXzB7dN8wiTlbwDFkNzlkNHCQCZAEZDg64DY3ZjQy
-6Dg5OAEAOUGQcV/VP5/YH3SP3R9AyA6QNjNBgnfhM0HzKCYjAQEkAURHSgxESEUASOBQTFVHECgw
-eDEmIDwgNH99J+Lf4+HkRRIw5NuaKUL/BzAy4QhwCXBc4ZwGMXCMcPvnMTuQMJ8wnIjlrr8d5IH/
-LYDk2uufqwtJIucv7q+rDe/kj/Hftc/z0TL0H/UvwOu37Z8vB5qhQxHRGdFQQnD+cM8wAjAEkQdA
-B/C6YAQAPxuh5LDqcw6g6unln0NQ+UVCX0gAMO1f/t//7B6RuEtIWvDPPLEj5TJwcB860BOQI/sV
-QgdQAB8AQgABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAGUAAQAAACgAAABqAGEAYwBrAC4AeQB1
-AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwBkAAEAAAAKAAAAUwBNAFQAUAAAAAAAAgFBAAEA
-AABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMATQBUAFAAAABq
-AGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAJdAQAAACgAAABqAGEA
-YwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwDlXwEAAAAwAAAAcwBpAHAAOgBq
-AGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAaDAEAAAAQAAAASgBhAGMA
-awAgAFkAdQAAAB8AHwwBAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBv
-AG0AAAAfAB4MAQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAAAFoAAAAAAAAAgSsfpL6jEBmdbgDd
-AQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBs
-AHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQA
-ZQBrAC4AYwBvAG0AAAALAEA6AQAAAB8AGgABAAAAEgAAAEkAUABNAC4ATgBvAHQAZQAAAAAAAwDx
-PwQEAAALAEA6AQAAAAMA/T+2AwAAAgELMAEAAAAQAAAALfXtbJYmj0CyJ9IMURRUjgMAFwABAAAA
-QAA5AID/IV4dFtoBQAAIML7gn14dFtoBCwApAAAAAAAfANk/AQAAAAACAABBAGQAZAAgAEwARABP
-ACAAbwB1AHQAcAB1AHQAIABzAGUAbABlAGMAdABpAG8AbgAgAGYAbwByACAAZABhAGMAcgBlAGYA
-LgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAgAEoAYQBjAGsAIABZAHUAIAA8
-AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgANAAoALQAtAC0ADQAKACAA
-aQBuAGMAbAB1AGQAZQAvAHMAbwB1AG4AZAAvAHIAdAA1ADYAOAAyAHMALgBoACAAIAAgACAAfAAg
-ACAAOAAgACsAKwArACsAKwArACsAKwANAAoAIABzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUA
-YwBzAC8AcgB0ADUANgA4ADIAcwAuAGMAIAB8ACAAMgAzACAAKwArACsAKwArACsAKwArACsAKwAr
-ACsAKwArACsAKwArACsAKwArACsAKwArAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQA
-ZQBjAHMALwByAHQANQA2ADgAMgBzAC4AaAAgAHwAIAAgADcAIAArACsAKwArACsAKwArAA0ACgAg
-ADMAIABmAGkAbABlAHMAIABjAGgAYQBuAGcAZQBkACwAIAAzADgAIAAAAAsAAIAIIAYAAAAAAMAA
-AAAAAABGAAAAABSFAAABAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAHgAAAGEAYwBjAGUAcAB0
-AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAAABoAAAB6AGgALQBUAFcALAAgAGUAbgAtAFUAUwAAAAAA
-AwAAgAggBgAAAAAAwAAAAAAAAEYBAAAAMgAAAEUAeABjAGgAYQBuAGcAZQBBAHAAcABsAGkAYwBh
-AHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAgAAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAAAE4A
-ZQB0AHcAbwByAGsATQBlAHMAcwBhAGcAZQBJAGQAAAAAAL8amWHPQbVOBNMI2+Q0gSIfAACAE4/y
-QfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAACoAAABDAGwA
-aQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEAbgBnAGUAUgBQAEMAAAAAAB8A+j8BAAAAEAAAAEoAYQBj
-AGsAIABZAHUAAAAfADcAAQAAAHwAAABbAFAAQQBUAEMASAAgAHYAMgBdACAAQQBTAG8AQwA6ACAA
-cgB0ADUANgA4ADIAcwA6ACAAQQBkAGQAIABMAEQATwAgAG8AdQB0AHAAdQB0ACAAcwBlAGwAZQBj
-AHQAaQBvAG4AIABmAG8AcgAgAGQAYQBjAHIAZQBmAAAAHwA9AAEAAAACAAAAAAAAAAMANgAAAAAA
-AgFxAAEAAAAWAAAAAdoWHV203LK1ytp9Qs2soUalUsvURgAAHwBwAAEAAAB8AAAAWwBQAEEAVABD
-AEgAIAB2ADIAXQAgAEEAUwBvAEMAOgAgAHIAdAA1ADYAOAAyAHMAOgAgAEEAZABkACAATABEAE8A
-IABvAHUAdABwAHUAdAAgAHMAZQBsAGUAYwB0AGkAbwBuACAAZgBvAHIAIABkAGEAYwByAGUAZgAA
-AB8ANRABAAAAXgAAADwANgAyAGMAYQBkADQAZQA1ADEAYwAwADQANAAxADAAOABiAGEAZAA4ADcA
-MgBhAGIAMwA0ADkAZQAzADYAZgA4AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4AAAAAAAMA3j+2
-AwAAAwATEgAAAAACAQCAE4/yQfSDFEGlhO7bWmsL/wEAAAAuAAAASABlAGEAZABlAHIAQgBvAGQA
-eQBGAHIAYQBnAG0AZQBuAHQATABpAHMAdAAAAAAAAQAAACIAAAABAAoAAAAEAAAAAAAAABQAAAAA
-AAAAAAAAAP////8AAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAcAAAASABhAHMAUQB1AG8A
-dABlAGQAVABlAHgAdAAAAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAoAAAASQBzAFEAdQBv
-AHQAZQBkAFQAZQB4AHQAQwBoAGEAbgBnAGUAZAAAAAAAAABAAAcw8LuLXh0W2gECAQsAAQAAABAA
-AAAt9e1sliaPQLIn0gxRFFSOAwAmAAAAAAALAAYMAAAAAAIBEDABAAAARgAAAAAAAADb6cRKJKDn
-QZMbKrsrs21MBwBMt30NVaF5RL5zhTli0AClAAAAaWD3AAAyrzgFSrBORoDHxzgiug9aAAAB17Fi
-AAAAAAIBEzABAAAAEAAAANyytcrafULNrKFGpVLL1EYCARQwAQAAAAwAAADgAAAAUtaHv0EAAAAf
-APg/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAiQAEAAAAGAAAARQBYAAAAAAAfACNAAQAAALYA
-AAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJ
-AFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAA
-RABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4
-ADYANQAxADAAOQAAAAAAHwAkQAEAAAAGAAAARQBYAAAAAAAfACVAAQAAALYAAAAvAE8APQBSAFQA
-RQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJ
-AFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMA
-TgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAA
-AAAAHwAwQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AMUABAAAAEAAAAEoAYQBjAGsAIABZAHUA
-AAAfADhAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA5QAEAAAAQAAAASgBhAGMAawAgAFkAdQAA
-AAMAWUAAAAAAAwBaQAAAAAADAAlZAQAAAB8ACl0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUA
-YQBsAHQAZQBrAC4AYwBvAG0AAAAfAAtdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0
-AGUAawAuAGMAbwBtAAAAHwAAgB+k6zOoei5Cvnt54amOVLMBAAAAOAAAAEMAbwBuAHYAZQByAHMA
-YQB0AGkAbwBuAEkAbgBkAGUAeABUAHIAYQBjAGsAaQBuAGcARQB4AAAAAQAAACQBAABJAEkAPQBb
-AEMASQBEAD0AYwBhAGIANQBiADIAZABjAC0ANwBkAGQAYQAtAGMAZAA0ADIALQBhAGMAYQAxAC0A
-NAA2AGEANQA1ADIAYwBiAGQANAA0ADYAOwBJAEQAWABIAEUAQQBEAD0ARABBADEANgAxAEQANQBE
-AEIANAA7AEkARABYAEMATwBVAE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBrAG4AbwB3AG4AOwBWAGUA
-cgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8AbgAgADEANQAuADEAIAAoAEIAdQBpAGwAZAAgADIANQAw
-ADcALgAwACkALAAgAFMAdABhAGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7AEQAUAA9ADEAQwA1AAAA
-CwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAADAA00/T8AAB8AAICGAwIAAAAAAMAAAAAA
-AABGAQAAACAAAAB4AC0AbQBzAC0AaABhAHMALQBhAHQAdABhAGMAaAAAAAEAAAACAAAAAAAAAB8A
-AICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AbwByAGkAZwBpAG4AYQB0AGkAbgBnAC0AaQBw
-AAAAAAABAAAAIgAAAFsAMQA3ADIALgAyADIALgAxADAAMgAuADEAMAAyAF0AAAAAAB8AAICGAwIA
-AAAAAMAAAAAAAABGAQAAACIAAAB4AC0AawBzAGUALQBzAGUAcgB2AGUAcgBpAG4AZgBvAAAAAAAB
-AAAAOAAAAFIAVABFAFgATQBCAFMAMAAyAC4AcgBlAGEAbAB0AGUAawAuAGMAbwBtAC4AdAB3ACwA
-IAA5AAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAQAAAAHgALQBrAHMAZQAtAGEAbgB0AGkAcwBw
-AGEAbQAtAGkAbgB0AGUAcgBjAGUAcAB0AG8AcgAtAGkAbgBmAG8AAAABAAAAEgAAAGYAYQBsAGwA
-YgBhAGMAawAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAQgAAAHgALQBrAHMAZQAtAGEAbgB0
-AGkAdgBpAHIAdQBzAC0AaQBuAHQAZQByAGMAZQBwAHQAbwByAC0AaQBuAGYAbwAAAAAAAQAAABIA
-AABmAGEAbABsAGIAYQBjAGsAAAAAAHgJ
+-- 
+Regards,
 
---_000_62cad4e51c044108bad872ab349e36f8realtekcom_--
+Laurent Pinchart

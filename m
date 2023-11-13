@@ -2,156 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC877E9BAA
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 12:59:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87EA67E9A4B
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 11:30:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26B79E74;
-	Mon, 13 Nov 2023 12:58:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26B79E74
+	by alsa0.perex.cz (Postfix) with ESMTPS id A67021F2;
+	Mon, 13 Nov 2023 11:29:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A67021F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699876749;
-	bh=I/GNNmnd9KPAt/3KR9nGlyj4w6Z5obO7WVLloEcZzkc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VRVoMXhgZq7AOsO0/iEIn2qa3r/jhwg6xHVeh1lN0r/irCXst6LlhiBnLOgvrHVDa
-	 DaL9uneYPF5GToVdxUAceitViO1g+r0m9k5bQMBze2+VXx4hz1uO5VsUtC6XG/RS9j
-	 6+Syn0zX4rROu/3AvKCoua+RA1ELEK236Kwn4kqQ=
+	s=default; t=1699871432;
+	bh=UZzdFAyqcP79zxZUp76T449VFhET1CzG+tJCEf4r1P4=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=unezX1eYlPoVwWSCWYatJk3CMf6VSEYNr0VMT4FXDmJd0aspf70sXJDhmN+K5qPjA
+	 x8y6XylBvPJ+kUDlYTbbfpUhPoANcPprk4ooFA78II52p8jOGoGbrwgxKJ5l6SGhAK
+	 LbAli46exH87q1nggeFUfR9ouC1GBMbAEINKzxVU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8F02F80093; Mon, 13 Nov 2023 12:57:35 +0100 (CET)
+	id E3B10F80249; Mon, 13 Nov 2023 11:29:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B50D2F8058C;
-	Mon, 13 Nov 2023 12:57:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41FD2F8016E;
+	Mon, 13 Nov 2023 11:29:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DABF8F80249; Mon, 13 Nov 2023 11:23:38 +0100 (CET)
+	id E434FF801D5; Mon, 13 Nov 2023 11:29:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
- [IPv6:2607:f8b0:4864:20::112c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F3BE4F80152
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 11:23:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3BE4F80152
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=cQvYjLgO
-Received: by mail-yw1-x112c.google.com with SMTP id
- 00721157ae682-5a7d9d357faso46936707b3.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 13 Nov 2023 02:23:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699871012; x=1700475812;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ISelrhUz+tUwTPOpVjAn5G1ABI4YmRZvCmOYJcKmy7Q=;
-        b=cQvYjLgO1WurBXuITM0zishMFc8WPIOD8lz83ptI5WAM84+2yI3pG39xb2v2WXeP25
-         ZO+/hkf93BBV5sqi2e1w07/CnmhpdzidcEGLRBkez5zqgQrHqe2dkqVTjWtOIZIREDYa
-         AT0BXxGqo3ALB/Gqq/uhRZOGQR5Stn0WFj/50uHS6QXXvO1ihsR0XV8+dYwZEsFKnenO
-         VMqJ92G3tkvaMczhxlOMGIuJeqi41nmxMFEbJk5fiy25+nI127zBNR1unX6SDevhbaIv
-         GxE5F4ao8dke97cGlWFlHIudUB9YFw7BdLhUVAI78jQh8sS+eWWPHAxbkxDirzxKRsDk
-         1D+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699871012; x=1700475812;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ISelrhUz+tUwTPOpVjAn5G1ABI4YmRZvCmOYJcKmy7Q=;
-        b=nh7Bv7kBm/nDY/Y8zT1PaMCYkAW9QIVmzG4XX3VCUWj5hghNv3+iFqP90DVvSf/P81
-         Kix/QdX2t7krxg4M+a+zG4TH/BwZQID1z2BhxUZMPabS8lKobtf2VwE7rskuEQ5xbtTm
-         V9fNN91HKoAIzqZ4h1cd1WUeB9cyNxswkUNF4oNieaX8tKKr9hh+/VuvgDdo0UThOAyp
-         pesxXoREuBsfh6bFyeFkIdAqZADmmpRigGY6kUUviEvwxNZhFUfm6MVng3Z4CxWD1kR5
-         Fn6rQWT+pvlN3s30ML8hdbt1t+b9v/6PnH4ElrZ1twqNpgwCV3/w3HWrZCp4poiFbMft
-         +jLw==
-X-Gm-Message-State: AOJu0Ywq03qmwP4uP1+P3aPN/4UNE/kFFrJ4+M2Ds4E7WB1r1efu6GLY
-	LmcMBFf6qCvZ8Na2LgHvUPW8xDz3cpQh5r/UxKU=
-X-Google-Smtp-Source: 
- AGHT+IGeFMq6OPRYVFpLBqn7U8F7RLctOzbaeZinyDCceNJQA9yzq0afSM1d3lxBYSz248sE7pBipt1geSP2uWLF31w=
-X-Received: by 2002:a81:4782:0:b0:5a7:a817:be43 with SMTP id
- u124-20020a814782000000b005a7a817be43mr6070415ywa.6.1699871011907; Mon, 13
- Nov 2023 02:23:31 -0800 (PST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B56EF80093
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 11:29:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B56EF80093
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id A0B51CE0FC0;
+	Mon, 13 Nov 2023 10:29:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F0A9C433C8;
+	Mon, 13 Nov 2023 10:29:10 +0000 (UTC)
+Message-ID: <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
+Date: Mon, 13 Nov 2023 11:29:09 +0100
 MIME-Version: 1.0
-References: <20230605-ep93xx-v3-0-3d63a5f1103e@maquefel.me>
- <20230605-ep93xx-v3-14-3d63a5f1103e@maquefel.me>
- <ZLq0Z0QgBdCoDpV+@smile.fi.intel.com>
- <fcfdc6f05926db494ea0105e5523cc21ecfdf4e7.camel@gmail.com>
-In-Reply-To: <fcfdc6f05926db494ea0105e5523cc21ecfdf4e7.camel@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 13 Nov 2023 12:22:56 +0200
-Message-ID: 
- <CAHp75VcsF8GtmE2iDf2xPWi7U5WXhi1ZFUSeA_Y+TfHQn72Jrg@mail.gmail.com>
-Subject: Re: [PATCH v3 14/42] power: reset: Add a driver for the ep93xx reset
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, nikita.shubin@maquefel.me,
-	Hartley Sweeten <hsweeten@visionengravers.com>,
- Lennert Buytenhek <kernel@wantstofly.org>,
-	Russell King <linux@armlinux.org.uk>, Lukasz Majewski <lukma@denx.de>,
-	Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>,
-	Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>,
-	Sebastian Reichel <sre@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Mark Brown <broonie@kernel.org>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
-	Vinod Koul <vkoul@kernel.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Damien Le Moal <dlemoal@kernel.org>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
- soc@kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
-	Michael Peters <mpeters@embeddedts.com>, Kris Bahnsen <kris@embeddedts.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-spi@vger.kernel.org, netdev@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linux-ide@vger.kernel.org, linux-input@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: andy.shevchenko@gmail.com
-X-Mailman-Rule-Hits: max-recipients
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
+ <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: BOV7YG4YPCILNJSSS3T53KRTQTMBBEWC
+X-Message-ID-Hash: BOV7YG4YPCILNJSSS3T53KRTQTMBBEWC
+X-MailFrom: SRS0=oXme=G2=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: EDICJNAC72CRYPC4TWCKXUVORILZGSNJ
-X-Message-ID-Hash: EDICJNAC72CRYPC4TWCKXUVORILZGSNJ
-X-Mailman-Approved-At: Mon, 13 Nov 2023 11:57:19 +0000
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EDICJNAC72CRYPC4TWCKXUVORILZGSNJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BOV7YG4YPCILNJSSS3T53KRTQTMBBEWC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -160,31 +131,169 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Nov 13, 2023 at 12:07=E2=80=AFPM Alexander Sverdlin
-<alexander.sverdlin@gmail.com> wrote:
-> On Fri, 2023-07-21 at 19:37 +0300, Andy Shevchenko wrote:
-> > > +       /* Issue the reboot */
->             ^^^^^^^^^^^^^^^^^^^^^^
-> This is the relevant comment, one can extend it, but looks already quite
-> informative considering EP93XX_SYSCON_DEVCFG_SWRST register name.
+Hi Shengjiu,
 
-This does not explain the necessity of the mdelay() below.
+On 10/11/2023 06:48, Shengjiu Wang wrote:
+> Fixed point controls are used by the user to configure
+> a fixed point value in 64bits, which Q31.32 format.
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-> But Nikita would be able to include more verbose comment if
-> you'd have a suggestion.
+This patch adds a new control type. This is something that also needs to be
+tested by v4l2-compliance, and for that we need to add support for this to
+one of the media test-drivers. The best place for that is the vivid driver,
+since that has already a bunch of test controls for other control types.
 
-Please,add one.
+See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
 
-> > > +       ep93xx_devcfg_set_clear(priv->map, EP93XX_SYSCON_DEVCFG_SWRST=
-, 0x00);
-> > > +       ep93xx_devcfg_set_clear(priv->map, 0x00, EP93XX_SYSCON_DEVCFG=
-_SWRST);
-> >
-> >
-> > > +       mdelay(1000);
-> >
-> > Atomic?! Such a huge delay must be explained, esp. why it's atomic.
+Can you add a patch adding a fixed point test control to vivid?
 
---=20
-With Best Regards,
-Andy Shevchenko
+Thanks!
+
+	Hans
+
+> ---
+>  .../userspace-api/media/v4l/vidioc-g-ext-ctrls.rst  | 13 +++++++------
+>  .../userspace-api/media/v4l/vidioc-queryctrl.rst    |  9 ++++++++-
+>  .../userspace-api/media/videodev2.h.rst.exceptions  |  1 +
+>  drivers/media/v4l2-core/v4l2-ctrls-api.c            |  5 ++++-
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c           |  2 ++
+>  include/uapi/linux/videodev2.h                      |  1 +
+>  6 files changed, 23 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> index e8475f9fd2cf..e7e5d78dc11e 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> @@ -162,13 +162,13 @@ still cause this situation.
+>      * - __s32
+>        - ``value``
+>        - New value or current value. Valid if this control is not of type
+> -	``V4L2_CTRL_TYPE_INTEGER64`` and ``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is
+> -	not set.
+> +	``V4L2_CTRL_TYPE_INTEGER64``, ``V4L2_CTRL_TYPE_FIXED_POINT`` and
+> +	``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is not set.
+>      * - __s64
+>        - ``value64``
+>        - New value or current value. Valid if this control is of type
+> -	``V4L2_CTRL_TYPE_INTEGER64`` and ``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is
+> -	not set.
+> +	``V4L2_CTRL_TYPE_INTEGER64``, ``V4L2_CTRL_TYPE_FIXED_POINT`` and
+> +	``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is not set.
+>      * - char *
+>        - ``string``
+>        - A pointer to a string. Valid if this control is of type
+> @@ -193,8 +193,9 @@ still cause this situation.
+>      * - __s64 *
+>        - ``p_s64``
+>        - A pointer to a matrix control of signed 64-bit values. Valid if
+> -        this control is of type ``V4L2_CTRL_TYPE_INTEGER64`` and
+> -        ``V4L2_CTRL_FLAG_HAS_PAYLOAD`` is set.
+> +        this control is of type ``V4L2_CTRL_TYPE_INTEGER64``,
+> +        ``V4L2_CTRL_TYPE_FIXED_POINT`` and ``V4L2_CTRL_FLAG_HAS_PAYLOAD``
+> +        is set.
+>      * - struct :c:type:`v4l2_area` *
+>        - ``p_area``
+>        - A pointer to a struct :c:type:`v4l2_area`. Valid if this control is
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> index 4d38acafe8e1..f3995ec57044 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> @@ -235,7 +235,8 @@ See also the examples in :ref:`control`.
+>        - ``default_value``
+>        - The default value of a ``V4L2_CTRL_TYPE_INTEGER``, ``_INTEGER64``,
+>  	``_BOOLEAN``, ``_BITMASK``, ``_MENU``, ``_INTEGER_MENU``, ``_U8``
+> -	or ``_U16`` control. Not valid for other types of controls.
+> +	``_FIXED_POINT`` or ``_U16`` control. Not valid for other types of
+> +	controls.
+>  
+>  	.. note::
+>  
+> @@ -549,6 +550,12 @@ See also the examples in :ref:`control`.
+>        - n/a
+>        - A struct :c:type:`v4l2_ctrl_av1_film_grain`, containing AV1 Film Grain
+>          parameters for stateless video decoders.
+> +    * - ``V4L2_CTRL_TYPE_FIXED_POINT``
+> +      - any
+> +      - any
+> +      - any
+> +      - A 64-bit integer valued control, containing parameter which is
+> +        Q31.32 format.
+>  
+>  .. raw:: latex
+>  
+> diff --git a/Documentation/userspace-api/media/videodev2.h.rst.exceptions b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> index e61152bb80d1..2faa5a2015eb 100644
+> --- a/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> +++ b/Documentation/userspace-api/media/videodev2.h.rst.exceptions
+> @@ -167,6 +167,7 @@ replace symbol V4L2_CTRL_TYPE_AV1_SEQUENCE :c:type:`v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY :c:type:`v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_AV1_FRAME :c:type:`v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_AV1_FILM_GRAIN :c:type:`v4l2_ctrl_type`
+> +replace symbol V4L2_CTRL_TYPE_FIXED_POINT :c:type:`v4l2_ctrl_type`
+>  
+>  # V4L2 capability defines
+>  replace define V4L2_CAP_VIDEO_CAPTURE device-capabilities
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> index 002ea6588edf..e6a0fb8d6791 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> @@ -57,6 +57,7 @@ static int ptr_to_user(struct v4l2_ext_control *c,
+>  		return copy_to_user(c->string, ptr.p_char, len + 1) ?
+>  		       -EFAULT : 0;
+>  	case V4L2_CTRL_TYPE_INTEGER64:
+> +	case V4L2_CTRL_TYPE_FIXED_POINT:
+>  		c->value64 = *ptr.p_s64;
+>  		break;
+>  	default:
+> @@ -132,6 +133,7 @@ static int user_to_new(struct v4l2_ext_control *c, struct v4l2_ctrl *ctrl)
+>  
+>  	switch (ctrl->type) {
+>  	case V4L2_CTRL_TYPE_INTEGER64:
+> +	case V4L2_CTRL_TYPE_FIXED_POINT:
+>  		*ctrl->p_new.p_s64 = c->value64;
+>  		break;
+>  	case V4L2_CTRL_TYPE_STRING:
+> @@ -540,7 +542,8 @@ static int validate_ctrls(struct v4l2_ext_controls *cs,
+>  		 */
+>  		if (ctrl->is_ptr)
+>  			continue;
+> -		if (ctrl->type == V4L2_CTRL_TYPE_INTEGER64)
+> +		if (ctrl->type == V4L2_CTRL_TYPE_INTEGER64 ||
+> +		    ctrl->type == V4L2_CTRL_TYPE_FIXED_POINT)
+>  			p_new.p_s64 = &cs->controls[i].value64;
+>  		else
+>  			p_new.p_s32 = &cs->controls[i].value;
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> index a662fb60f73f..9d50df0d9874 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -1187,6 +1187,7 @@ static int std_validate_elem(const struct v4l2_ctrl *ctrl, u32 idx,
+>  	case V4L2_CTRL_TYPE_INTEGER:
+>  		return ROUND_TO_RANGE(ptr.p_s32[idx], u32, ctrl);
+>  	case V4L2_CTRL_TYPE_INTEGER64:
+> +	case V4L2_CTRL_TYPE_FIXED_POINT:
+>  		/*
+>  		 * We can't use the ROUND_TO_RANGE define here due to
+>  		 * the u64 divide that needs special care.
+> @@ -1779,6 +1780,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>  	/* Prefill elem_size for all types handled by std_type_ops */
+>  	switch ((u32)type) {
+>  	case V4L2_CTRL_TYPE_INTEGER64:
+> +	case V4L2_CTRL_TYPE_FIXED_POINT:
+>  		elem_size = sizeof(s64);
+>  		break;
+>  	case V4L2_CTRL_TYPE_STRING:
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> index cf8c44595a1d..9482ac66a675 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -1903,6 +1903,7 @@ enum v4l2_ctrl_type {
+>  	V4L2_CTRL_TYPE_STRING        = 7,
+>  	V4L2_CTRL_TYPE_BITMASK       = 8,
+>  	V4L2_CTRL_TYPE_INTEGER_MENU  = 9,
+> +	V4L2_CTRL_TYPE_FIXED_POINT   = 10,
+>  
+>  	/* Compound types are >= 0x0100 */
+>  	V4L2_CTRL_COMPOUND_TYPES     = 0x0100,
+

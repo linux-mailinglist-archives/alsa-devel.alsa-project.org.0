@@ -2,92 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 315DD7E9C0B
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 13:21:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 250C17E9BCF
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Nov 2023 13:06:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1799E84D;
-	Mon, 13 Nov 2023 13:21:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1799E84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4AE1DEC;
+	Mon, 13 Nov 2023 13:05:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4AE1DEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699878112;
-	bh=r6NiGCRXME4/2Qr1nMwylX/MGOF9zGJYOZ6fLQgaWLY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=CtLDusoVP2SQnzsn96nV41CVUAA7dqBktV1IX+iDiUZVVsT2WyQ90I7LbOGcGSbTL
-	 dgEXzAsYLlwGIqzq1PMdHG+fF/gocT/HgvO+i9sB1VvcpBgn2zkveox8OmVpnPVn/h
-	 u7dztrHOmBMlpY7KtjX/9aROr2cffA+3FbSVnmPs=
+	s=default; t=1699877203;
+	bh=oO0lKHoxixpzVP0J10u//TsCe/v7agni7u+cYDmx2bU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=IXdUWXYBq981QI/SRTTOTAohEUPbK1T0FpmJuNdBmok6xHDSKMfTeuybOya0Fd6dI
+	 CUo+TMgovmbRYg06rfROcM536O75Bv/zmqyUcxMhm++Gro07B+0S4LR+TTFxb1XbWZ
+	 D0jx9pZXxKUrnA+0mucCrTvEIsbGMKxwmsD8Zjnc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8BDC5F802E8; Mon, 13 Nov 2023 13:20:34 +0100 (CET)
+	id B5ADCF80249; Mon, 13 Nov 2023 13:05:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99F7EF8016E;
-	Mon, 13 Nov 2023 13:20:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03232F8016E;
+	Mon, 13 Nov 2023 13:05:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14302F801D5; Mon, 13 Nov 2023 13:20:29 +0100 (CET)
+	id 6AD92F801D5; Mon, 13 Nov 2023 13:05:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 22DF0F800ED
-	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 13:20:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22DF0F800ED
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bWBk4K2k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1699878019; x=1731414019;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=r6NiGCRXME4/2Qr1nMwylX/MGOF9zGJYOZ6fLQgaWLY=;
-  b=bWBk4K2kBnpMs4eKdX6/bFMo71OKLXiaYaI57jF3P5gQL179NZvmZS7p
-   1XwWkSgGrPmt4mDpBYRvDNkX1PkHeGrf32FdwaeDdCG/LlZAbLsmUtcaj
-   7M1ZhDIgLur36rYZ9Oo50qzpiZKmHfxhLgrk2rfJ9HiRx37lDo/xOH+G0
-   n22goUkQF6ZSqSZxa86bIh9kAlOSuhLIp6KUlhTCsHiaUcN4LneUemOOw
-   EFR9/ooFts+Lf8PtvrqJzq6VPBd43k7UV4PNoyn8UPhx7NwwVZweJQA3g
-   MI7CY9LXxXgS+WeDTcVPI3iGqMqe5/8265mm1t40hLlTe7BqUcKNvLODg
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10892"; a="369762151"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200";
-   d="scan'208";a="369762151"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2023 04:20:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10892"; a="1095736584"
-X-IronPort-AV: E=Sophos;i="6.03,299,1694761200";
-   d="scan'208";a="1095736584"
-Received: from macchian-builder.itwn.intel.com ([10.5.253.188])
-  by fmsmga005.fm.intel.com with ESMTP; 13 Nov 2023 04:20:11 -0800
-From: Mac Chiang <mac.chiang@intel.com>
-To: alsa-devel@alsa-project.org
-Cc: cezary.rojewski@intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	mac.chiang@intel.com
-Subject: [RESEND,v3] ASoC: Intel: sof_rt5682: add mtl_rt5650 support
-Date: Mon, 13 Nov 2023 06:59:07 -0500
-Message-Id: <20231113115907.18539-1-mac.chiang@intel.com>
-X-Mailer: git-send-email 2.20.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id E2110F80093
+	for <alsa-devel@alsa-project.org>; Mon, 13 Nov 2023 13:05:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2110F80093
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 9A5F5B80B48;
+	Mon, 13 Nov 2023 12:05:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BA5C433C7;
+	Mon, 13 Nov 2023 12:05:14 +0000 (UTC)
+Message-ID: <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
+Date: Mon, 13 Nov 2023 13:05:12 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7EHRTX52IYWVGN4RUCEH36DEDAKLDY4V
-X-Message-ID-Hash: 7EHRTX52IYWVGN4RUCEH36DEDAKLDY4V
-X-MailFrom: mac.chiang@intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+Content-Language: en-US, nl
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@iki.fi>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, tfiga@chromium.org,
+ m.szyprowski@samsung.com, mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
+ <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
+ <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
+ <20231113104238.GA13981@pendragon.ideasonboard.com>
+ <6a3e7eb9-505c-4cfb-8a86-a8947a2e44d5@xs4all.nl>
+ <20231113110754.GB24338@pendragon.ideasonboard.com>
+ <3e898664-cbfc-4892-9765-37b66891643b@xs4all.nl>
+ <ZVIIc-fi32ZxIi-p@valkosipuli.retiisi.eu>
+ <20231113114357.GD24338@pendragon.ideasonboard.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <20231113114357.GD24338@pendragon.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: DYLEAQOYVFHRUU6OF2CIF34VKPJ5XQDS
+X-Message-ID-Hash: DYLEAQOYVFHRUU6OF2CIF34VKPJ5XQDS
+X-MailFrom: SRS0=oXme=G2=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7EHRTX52IYWVGN4RUCEH36DEDAKLDY4V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYLEAQOYVFHRUU6OF2CIF34VKPJ5XQDS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,76 +139,148 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-RT5650 is I2S codec integrated with HP and SPK.
-The HW board connects SoC I2S to RT5650 codec as below:
+On 13/11/2023 12:43, Laurent Pinchart wrote:
+> On Mon, Nov 13, 2023 at 11:28:51AM +0000, Sakari Ailus wrote:
+>> Hi Hans,
+>>
+>> On Mon, Nov 13, 2023 at 12:24:14PM +0100, Hans Verkuil wrote:
+>>> On 13/11/2023 12:07, Laurent Pinchart wrote:
+>>>> On Mon, Nov 13, 2023 at 11:56:49AM +0100, Hans Verkuil wrote:
+>>>>> On 13/11/2023 11:42, Laurent Pinchart wrote:
+>>>>>> On Mon, Nov 13, 2023 at 11:29:09AM +0100, Hans Verkuil wrote:
+>>>>>>> Hi Shengjiu,
+>>>>>>>
+>>>>>>> On 10/11/2023 06:48, Shengjiu Wang wrote:
+>>>>>>>> Fixed point controls are used by the user to configure
+>>>>>>>> a fixed point value in 64bits, which Q31.32 format.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+>>>>>>>
+>>>>>>> This patch adds a new control type. This is something that also needs to be
+>>>>>>> tested by v4l2-compliance, and for that we need to add support for this to
+>>>>>>> one of the media test-drivers. The best place for that is the vivid driver,
+>>>>>>> since that has already a bunch of test controls for other control types.
+>>>>>>>
+>>>>>>> See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
+>>>>>>>
+>>>>>>> Can you add a patch adding a fixed point test control to vivid?
+>>>>>>
+>>>>>> I don't think V4L2_CTRL_TYPE_FIXED_POINT is a good idea. This seems to
+>>>>>> relate more to units than control types. We have lots of fixed-point
+>>>>>> values in controls already, using the 32-bit and 64-bit integer control
+>>>>>> types. They use various locations for the decimal point, depending on
+>>>>>> the control. If we want to make this more explicit to users, we should
+>>>>>> work on adding unit support to the V4L2 controls.
+>>>>>
+>>>>> "Fixed Point" is not a unit, it's a type. 'Db', 'Hz' etc. are units.
+>>>>
+>>>> It's not a unit, but I think it's related to units. My point is that,
+>>>> without units support, I don't see why we need a formal definition of
+>>>> fixed-point types, and why this series couldn't just use
+>>>> VIVID_CID_INTEGER64. Drivers already interpret VIVID_CID_INTEGER64
+>>>> values as they see fit.
+>>>
+>>> They do? That's new to me. A quick grep for V4L2_CTRL_TYPE_INTEGER64
+>>> (I assume you meant that rather than VIVID_CID_INTEGER64) shows that it
+> 
+> Yes, I meant V4L2_CTRL_TYPE_INTEGER64. Too hasty copy & paste :-)
+> 
+>>> is always interpreted as a 64 bit integer and nothing else. As it should.
+> 
+> The most common case for control handling in drivers is taking the
+> integer value and converting it to a register value, using
+> device-specific encoding of the register value. It can be a fixed-point
+> format or something else, depending on the device. My point is that
+> drivers routinely convert a "plain" integer to something else, and that
+> has never been considered as a cause of concern. I don't see why it
+> would be different in this series.
+> 
+>>> And while we do not have support for units (other than the documentation),
+>>> we do have type support in the form of V4L2_CTRL_TYPE_*.
+>>>
+>>>>> A quick "git grep -i "fixed point" Documentation/userspace-api/media/'
+>>>>> only shows a single driver specific control (dw100.rst).
+>>>>>
+>>>>> I'm not aware of other controls in mainline that use fixed point.
+>>>>
+>>>> The analog gain control for sensors for instance.
+>>>
+>>> Not really. The documentation is super vague:
+>>>
+>>> V4L2_CID_ANALOGUE_GAIN (integer)
+>>>
+>>> 	Analogue gain is gain affecting all colour components in the pixel matrix. The
+>>> 	gain operation is performed in the analogue domain before A/D conversion.
+>>>
+>>> And the integer is just a range. Internally it might map to some fixed
+>>> point value, but userspace won't see that, it's hidden in the driver AFAICT.
+> 
+> It's hidden so well that libcamera has a database of the sensor it
+> supports, with formulas to map a real gain value to the
+> V4L2_CID_ANALOGUE_GAIN control. The encoding of the integer value does
+> matter, and the kernel doesn't expose it. We may or may not consider
+> that as a shortcoming of the V4L2 control API, but in any case it's the
+> situation we have today.
+> 
+>> I wonder if Laurent meant digital gain.
+> 
+> No, I meant analog. It applies to digital gain too though.
+> 
+>> Those are often Q numbers. The practice there has been that the default
+>> value yields gain of 1.
+>>
+>> There are probably many other examples in controls where something being
+>> controlled isn't actually an integer while integer controls are still being
+>> used for the purpose.
+> 
+> A good summary of my opinion :-)
 
-I2S0: ALC5650 aif1 for Speaker
-I2S2: ALC5650 aif2 for Headphone
+And that works fine as long as userspace doesn't need to know what the value
+actually means.
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
----
-Hi Pierre, I resend the patch for your review and cc maintainers. Thanks.
-Pick up for Chrome MTL projects support.
+That's not the case here. The control is really a fractional Hz value:
 
-Changes v3:
-  - missing Reviewed-by, add it.
----
++``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
++    Sets the offset from the audio source sample rate, unit is Hz.
++    The offset compensates for any clock drift. The actual source audio sample
++    rate is the ideal source audio sample rate from
++    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
 
- sound/soc/intel/boards/sof_rt5682.c               |  9 +++++++++
- sound/soc/intel/common/soc-acpi-intel-mtl-match.c | 12 ++++++++++++
- 2 files changed, 21 insertions(+)
+> 
+>> Instead of this patch, I'd prefer to have a way to express the meaning of
+>> the control value, be it a Q number or something else, and do that
+>> independently of the type of the control.
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 06ad15af46de..9723479f43da 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -1147,6 +1147,15 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(0) |
- 					SOF_RT5682_NUM_HDMIDEV(3)),
- 	},
-+	{
-+		.name = "mtl_rt5650",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_SSP_CODEC(2) |
-+					SOF_RT5682_SSP_AMP(0) |
-+					SOF_RT5682_NUM_HDMIDEV(3) |
-+					SOF_BT_OFFLOAD_SSP(1) |
-+					SOF_SSP_BT_OFFLOAD_PRESENT),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-index 301b8142d554..af4224bff718 100644
---- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-@@ -40,6 +40,11 @@ static const struct snd_soc_acpi_codecs mtl_lt6911_hdmi = {
- 	.codecs = {"INTC10B0"}
- };
- 
-+static const struct snd_soc_acpi_codecs mtl_rt5650_amp = {
-+	.num_codecs = 1,
-+	.codecs = {"10EC5650"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[] = {
- 	{
- 		.comp_ids = &mtl_rt5682_rt5682s_hp,
-@@ -77,6 +82,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[] = {
- 					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
- 					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
- 	},
-+	{
-+		.id = "10EC5650",
-+		.drv_name = "mtl_rt5650",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &mtl_rt5650_amp,
-+		.sof_tplg_filename = "sof-mtl-rt5650.tplg",
-+	},
- 	/* place amp-only boards in the end of table */
- 	{
- 		.id = "INTC10B0",
--- 
-2.20.1
+Huh? How is that different from the type of the control? You have integers
+(one type) and fixed point (another type).
+
+Or do you want a more general V4L2_CTRL_TYPE_ that specifies the N.M values
+explicitly?
+
+I think the main reason why we use integer controls for gain is that we
+never had a fixed point control type and you could get away with that in
+user space for that particular use-case.
+
+Based on the V4L2_CID_NOTIFY_GAINS documentation the gain value can typically
+be calculated as (value / default_value), but that won't work for a rate offset
+control as above, or for e.g. CSC matrices for color converters.
+
+Regards,
+
+	Hans
+
+> 
+> Agreed.
+> 
+>>> In the case of this particular series the control type is really a fixed point
+>>> value with a documented unit (Hz). It really is not something you want to
+>>> use type INTEGER64 for.
+>>>
+>>>>> Note that V4L2_CTRL_TYPE_FIXED_POINT is a Q31.32 format. By setting
+>>>>> min/max/step you can easily map that to just about any QN.M format where
+>>>>> N <= 31 and M <= 32.
+>>>>>
+>>>>> In the case of dw100 it is a bit different in that it is quite specialized
+>>>>> and it had to fit in 16 bits.
+> 
 

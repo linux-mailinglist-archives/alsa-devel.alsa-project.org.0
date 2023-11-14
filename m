@@ -2,138 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93787EB523
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Nov 2023 17:54:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E9C7EB57F
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Nov 2023 18:26:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B966E846;
-	Tue, 14 Nov 2023 17:53:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B966E846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BCF31ED;
+	Tue, 14 Nov 2023 18:25:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BCF31ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699980843;
-	bh=i36POMKB4J+nxRuHRnMjcJfbm2DtkJVIN7modo9tKsg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1699982769;
+	bh=IhJmPulxr/ycbBs+CqXg6pJzufI6ps1PzmIDiWD79MI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=T/9Ltf4U8Y8dW6GlUK8thj7pJj+XuUyQoP9l9I+xEJ0wbrZ2qmHu2/PVNNBcMl/JX
-	 t7xGFoIWJCctH2BqK08QWOfGkCcCV1APy6HWVjXHTE0eB3SiAnQZ3jA+dHGqgTARuL
-	 l4FI+0QyXWxMt21edeex7Pa/+mvqcJsuxQZPgiKQ=
+	b=u4Xp9owQ4ELhbb+RB4yL/omKxHLUUS2MMWHGfe9MoSjdeZyDO5JT9eIvf9xpWxb6z
+	 zTVZDsZ+V/WzpvXZP2FLrjzSvTV5zFhBYF22dg6Ke7IDN7uyvPd+buQ639jCTyGVz4
+	 LnNY4Z9hTJBLR/NSjzdjtHFTP9ZV9Vf5Z0MTA5Gs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3922CF8016E; Tue, 14 Nov 2023 17:52:52 +0100 (CET)
+	id 13EDAF80549; Tue, 14 Nov 2023 18:25:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C38DF8016E;
-	Tue, 14 Nov 2023 17:52:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73C93F8016E;
+	Tue, 14 Nov 2023 18:25:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A9BDF801D5; Tue, 14 Nov 2023 17:52:49 +0100 (CET)
+	id 61AD9F801D5; Tue, 14 Nov 2023 18:25:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9B3BF80152
-	for <alsa-devel@alsa-project.org>; Tue, 14 Nov 2023 17:52:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9B3BF80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9191AF80093
+	for <alsa-devel@alsa-project.org>; Tue, 14 Nov 2023 18:24:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9191AF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=SflG4PFW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=uO94e4zn
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 64E6220292;
-	Tue, 14 Nov 2023 16:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1699980761;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gJFN+3cmN4sk9HKTacJYVaiCfC/TQzS4P55b6FO8sB0=;
-	b=SflG4PFW9sRF+rwnVF1DJESgnG7Io87h0D+3rUdd59sjOl3p/Y2fG5B/XNa02XsxSArnPs
-	2KVcc0qqGAJbJ+JOKNXncK2dwnVg4OCW+KI/TEigtJWksXYZiyenzNnld6VNQ4BBUP9QPY
-	S+8+UFVwgRD/r7mETTwSMPNvXneguXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1699980761;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gJFN+3cmN4sk9HKTacJYVaiCfC/TQzS4P55b6FO8sB0=;
-	b=uO94e4znjDCTc6jQvSCIKiEfaD5qxGCU8cIURwI3OdHKtlypv41KZDI0tFBV9r6VzY74V5
-	alV0dp0LN4gqEVDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 304E313416;
-	Tue, 14 Nov 2023 16:52:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id KeLKCtmlU2XufQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 14 Nov 2023 16:52:41 +0000
-Date: Tue, 14 Nov 2023 17:52:40 +0100
-Message-ID: <87jzqkp99j.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Saarinen, Jani" <jani.saarinen@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,	Jani Nikula
- <jani.nikula@linux.intel.com>,	Ville =?ISO-8859-1?Q?Syrj=E4l=E4?=
- <ville.syrjala@linux.intel.com>,	"intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>,	"intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>,	"alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>,	"Kurmi, Suresh Kumar"
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=PwdCv2km
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1699982701; x=1731518701;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=IhJmPulxr/ycbBs+CqXg6pJzufI6ps1PzmIDiWD79MI=;
+  b=PwdCv2kmifcklro3qKSzAzW/ZNv7NfLNu1EveWgyyAkG9lzRg3XXWDVt
+   c7k0gEEDt1EfbodPb96cA4A12UH0tsbuNYAGjUy8imUDlFaZtGpsnDrCL
+   +QapOfXeMEn7NsSEy6b21baqi1cN7mY257Lb+eTfoDsA+3IWOE9nOMfT9
+   nvEvo7e1ZvdVgZF2qJeiJZbyrR6lV9INxndqmCRCwy1ktZiGGvypNIoeZ
+   wSr6Yfar9/AHhmQyTnHsbG6clVvS12Bi9ldDuVD4MxJv9vcBl2auWcgyv
+   +zybomuCYEIu848z9x12OjrocTOCojeYjvirYv9YkzTiJXTFCpiaQATHI
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10894"; a="381099049"
+X-IronPort-AV: E=Sophos;i="6.03,302,1694761200";
+   d="scan'208";a="381099049"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2023 09:24:56 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10894"; a="741154705"
+X-IronPort-AV: E=Sophos;i="6.03,302,1694761200";
+   d="scan'208";a="741154705"
+Received: from hatran1-mobl1.ccr.corp.intel.com (HELO localhost)
+ ([10.252.56.145])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Nov 2023 09:24:53 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>, "Saarinen, Jani" <jani.saarinen@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Ville
+ =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "Kurmi, Suresh Kumar"
  <suresh.kumar.kurmi@intel.com>
-Subject: Re: [Intel-xe] [PATCH 11/14] ALSA: hda/intel: Move snd_hdac_i915_init
- to before probe_work.
-In-Reply-To: 
- <DM8PR11MB5655518A6F21A2E4CA2E76D3E0B2A@DM8PR11MB5655.namprd11.prod.outlook.com>
+Subject: Re: [Intel-xe] [PATCH 11/14] ALSA: hda/intel: Move
+ snd_hdac_i915_init to before probe_work.
+In-Reply-To: <87jzqkp99j.wl-tiwai@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20231002193847.7134-1-maarten.lankhorst@linux.intel.com>
-	<20231002193847.7134-11-maarten.lankhorst@linux.intel.com>
-	<ZVNUxZzCGcxQzqJX@intel.com>
-	<87bkbwsebl.fsf@intel.com>
-	<569f8832-25f1-45be-bb60-50f5a76d8e44@linux.intel.com>
-	<DM8PR11MB5655518A6F21A2E4CA2E76D3E0B2A@DM8PR11MB5655.namprd11.prod.outlook.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-10.10 / 50.00];
-	 ARC_NA(0.00)[];
-	 TO_DN_EQ_ADDR_SOME(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-3.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-1.00)[-1.000];
-	 RCPT_COUNT_SEVEN(0.00)[8];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-Message-ID-Hash: 6WAITOF2YHRF4TCDQIC4FPYF5W4GND4M
-X-Message-ID-Hash: 6WAITOF2YHRF4TCDQIC4FPYF5W4GND4M
-X-MailFrom: tiwai@suse.de
+ <20231002193847.7134-11-maarten.lankhorst@linux.intel.com>
+ <ZVNUxZzCGcxQzqJX@intel.com> <87bkbwsebl.fsf@intel.com>
+ <569f8832-25f1-45be-bb60-50f5a76d8e44@linux.intel.com>
+ <DM8PR11MB5655518A6F21A2E4CA2E76D3E0B2A@DM8PR11MB5655.namprd11.prod.outlook.com>
+ <87jzqkp99j.wl-tiwai@suse.de>
+Date: Tue, 14 Nov 2023 19:24:51 +0200
+Message-ID: <874jhos0ws.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Message-ID-Hash: J7OSSL46FXH4RVOD6LSMI4WGV3FOBJFG
+X-Message-ID-Hash: J7OSSL46FXH4RVOD6LSMI4WGV3FOBJFG
+X-MailFrom: jani.nikula@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -145,64 +107,27 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6WAITOF2YHRF4TCDQIC4FPYF5W4GND4M/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J7OSSL46FXH4RVOD6LSMI4WGV3FOBJFG/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 14 Nov 2023 14:31:25 +0100,
-Saarinen, Jani wrote:
-> 
-> Hi, 
-> > -----Original Message-----
-> > From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Sent: Tuesday, November 14, 2023 3:30 PM
-> > To: Jani Nikula <jani.nikula@linux.intel.com>; Ville Syrjälä
-> > <ville.syrjala@linux.intel.com>
-> > Cc: Takashi Iwai <tiwai@suse.de>; intel-gfx@lists.freedesktop.org; intel-
-> > xe@lists.freedesktop.org; alsa-devel@alsa-project.org; Saarinen, Jani
-> > <jani.saarinen@intel.com>; Kurmi, Suresh Kumar
-> > <suresh.kumar.kurmi@intel.com>
-> > Subject: Re: [Intel-xe] [PATCH 11/14] ALSA: hda/intel: Move snd_hdac_i915_init
-> > to before probe_work.
-> > 
-> > Hey,
-> > 
-> > Den 2023-11-14 kl. 13:35, skrev Jani Nikula:
-> > > On Tue, 14 Nov 2023, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > >> On Mon, Oct 02, 2023 at 09:38:44PM +0200,
-> > maarten.lankhorst@linux.intel.com wrote:
-> > >>> From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > >>>
-> > >>> Now that we can use -EPROBE_DEFER, it's no longer required to spin
-> > >>> off the snd_hdac_i915_init into a workqueue.
-> > >>>
-> > >>> Use the -EPROBE_DEFER mechanism instead, which must be returned in
-> > >>> the probe function.
-> > >> This completely broke i915 audio!
-> > >>
-> > >> I also can't see any trace of this stuff ever being posted to
-> > >> intel-gfx so it never went through the CI.
-> > >>
-> > >> Please fix or revert ASAP.
-> > > Cc: Jani, Suresh
-> > >
-> > > Ville, please file a bug at gitlab so we can track this, thanks.
-> > 
-> > I've originally tested this on TGL and DG2, so can you be more specific on what
-> > broke?
-> Was this series tested on CI  ever as Ville saying no? How this got merged? 
+On Tue, 14 Nov 2023, Takashi Iwai <tiwai@suse.de> wrote:
+> (Also thought that drm-tip or whatever tree also drags the recent
+> changes from sound.git tree for relevant part.)
 
-Hm, I somehow believed that patches have been tested by intel people,
-as they came from intel.  (Also thought that drm-tip or whatever tree
-also drags the recent changes from sound.git tree for relevant part.)
-
-In anyway, the whole patches were touching only sound/* files and no
-changes in DRM side at all, hence they weren't sent to intel-gfx, I
-suppose.
+We've dropped the sound branches from drm-tip, mostly because they were
+repeatedly rebased on Linus' master (as opposed to tags) during the
+merge window.
 
 
-Takashi
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel

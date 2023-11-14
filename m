@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5957EAF57
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Nov 2023 12:41:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1390B7EAF54
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Nov 2023 12:40:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 234A584A;
-	Tue, 14 Nov 2023 12:40:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 234A584A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 309C31EC;
+	Tue, 14 Nov 2023 12:39:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 309C31EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699962072;
-	bh=whBGpcG47xVNRfzEEzDm3fJ5D0wWUem1/axCjyGCLGI=;
+	s=default; t=1699962013;
+	bh=g0oPD+JQhmkHM+G7fpv+l4lvJk0wjdQNT6IcGr/ZgGg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W5775iOhOZ2FCuRncdyxh5rQQmPgDQuDdVHr08ttdACVHspsFp3Z/UcQFyDNa/zDz
-	 8j+P76jkhTD+D163B9sh7jN5FHeOdugXd8niB+NARJuqcN0zJ8VYNCWuEcfdWcuqR7
-	 g2ACtbqHJN6d4T/7kpSmLUyowJ/DjhJyJCsphQMY=
+	b=bSkhgPrdkAPMjybWhVnoHjTm0nlJo+0Y4KOXK8ODkRBVZ2VlFjLpjey46fIIocFpW
+	 uTukneN0d7iAhdAfE2zDceDw/CwSRaFcIdgoSrO73QYsMceubh3FK4sHlQznsZMJyN
+	 fiCKN6R2vcp71+62Q5ZYQtbGpRfbx4xblxPDDz/M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75DA2F8057D; Tue, 14 Nov 2023 12:39:26 +0100 (CET)
+	id B5E32F80557; Tue, 14 Nov 2023 12:39:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D020DF80578;
-	Tue, 14 Nov 2023 12:39:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51D45F8016E;
+	Tue, 14 Nov 2023 12:39:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46CFCF8016E; Tue, 14 Nov 2023 12:39:21 +0100 (CET)
+	id EACB5F802E8; Tue, 14 Nov 2023 12:39:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C83AF801D5
-	for <alsa-devel@alsa-project.org>; Tue, 14 Nov 2023 12:39:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C83AF801D5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2AB53F80093
+	for <alsa-devel@alsa-project.org>; Tue, 14 Nov 2023 12:39:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AB53F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eJx97K7F
+ header.s=k20201202 header.b=YHKtrbLV
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 42A36B811D2;
+	by dfw.source.kernel.org (Postfix) with ESMTP id C5F946120E;
 	Tue, 14 Nov 2023 11:39:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE51C433C7;
-	Tue, 14 Nov 2023 11:39:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D299C433C8;
+	Tue, 14 Nov 2023 11:39:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1699961947;
-	bh=whBGpcG47xVNRfzEEzDm3fJ5D0wWUem1/axCjyGCLGI=;
+	s=k20201202; t=1699961948;
+	bh=g0oPD+JQhmkHM+G7fpv+l4lvJk0wjdQNT6IcGr/ZgGg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=eJx97K7FXBh/W6uOU3lXCslzPXCfkDabOUXMKzpdNQAet6sVCJoGaMnx6OuWkPCxA
-	 QTqWg3EvseZkQInBprXqqWFrEOXou56XHRuu+iZU1ZqAFT+5THj3U7d0yKAXCTLZp+
-	 3z6bjc1dgOXecF99Q2fQ2qDN+verUSjl/06p0VmSDGg3oBpQhq8g40K0wkrkhvSEni
-	 FNZih164O3iRJ+TIyFsQKpa5ncdfS9x2HuYo8poIxs56lsrQh9zbfxzUw14Nq5jlqJ
-	 1TuWDnWhaa3BAQvC6R4i17glDK00uGm6pqZ2OhnGx2tXbOfAVIOXV2/KJCaQUzFeU5
-	 0DfQnquWzpVvw==
+	b=YHKtrbLVIpDXUXSV3R+tDV46W16XW2BgCiD0jYbfywIyW/6uoaauuOPzpnHrftzap
+	 Q7EbVNDADGZXJKwDuvZz6ttJ77dc0lUYWbkoPYblC+7k/Dsz9yyjFwWjB9KgOYsjBc
+	 RlhFA1vIctsCNz3CF1Ns2pA+sOzXgQhP9rtbIqqX774KnImNRzolrD56ZCEDlpXmGZ
+	 QHUrRRkVoEDcA8LzBeNvSzsw1FKB+8AQDpFVKCqASo6V0+6CRH66x6Tisza9aL7Ewd
+	 bSh9nge0t5Jd1/qyRjLrJXrkY7DbXTDDKA/1RuG2uuP+IINbqoWHuUFeaA+m0kkCkV
+	 uFK+ui4AqW8FA==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com, richgong@amd.com,
- posteuca@mutex.one, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
-References: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH V2 1/2] ASoC: amd: acp: add Kconfig options for acp7.0
- based platform driver
-Message-Id: <169996194304.29934.12872019600831589638.b4-ty@kernel.org>
-Date: Tue, 14 Nov 2023 11:39:03 +0000
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com
+In-Reply-To: <20231113151429.1554139-1-ckeepax@opensource.cirrus.com>
+References: <20231113151429.1554139-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs42l43: Add missing static from runtime PM ops
+Message-Id: <169996194722.29934.15208349732373878385.b4-ty@kernel.org>
+Date: Tue, 14 Nov 2023 11:39:07 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: EMIHIEIORBZR3JYPL2YKSLFG5CF6KK4L
-X-Message-ID-Hash: EMIHIEIORBZR3JYPL2YKSLFG5CF6KK4L
+Message-ID-Hash: 2FZ2SGKUEIZUIHB7U6JP4BM7YKJ3YQCI
+X-Message-ID-Hash: 2FZ2SGKUEIZUIHB7U6JP4BM7YKJ3YQCI
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,21 +86,17 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EMIHIEIORBZR3JYPL2YKSLFG5CF6KK4L/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2FZ2SGKUEIZUIHB7U6JP4BM7YKJ3YQCI/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 13 Nov 2023 18:03:42 +0530, Syed Saba Kareem wrote:
-> ACP7.0 based platform legacy drivers can be built by selecting
-> necessary kernel config option. This patch enables build support
-> of the same.
+On Mon, 13 Nov 2023 15:14:29 +0000, Charles Keepax wrote:
 > 
-> 
+
 
 Applied to
 
@@ -114,10 +104,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: amd: acp: add Kconfig options for acp7.0 based platform driver
-      commit: d3534684ada99ef8c0899eb28c62b4462483ee19
-[2/2] ASoC: amd: acp: add pm ops support for renoir platform
-      (no commit info)
+[1/1] ASoC: cs42l43: Add missing static from runtime PM ops
+      commit: a1321811985bed1b110d224a6c7ce1b967ee7607
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

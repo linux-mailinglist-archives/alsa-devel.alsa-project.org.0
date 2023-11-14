@@ -2,128 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91AEB7EB088
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Nov 2023 14:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C43007EB098
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Nov 2023 14:11:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1DB47F4;
-	Tue, 14 Nov 2023 14:05:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1DB47F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2995274C;
+	Tue, 14 Nov 2023 14:10:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2995274C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1699967177;
-	bh=Ul4Q2ajwwOk1sH+FSHSJovO7XE8qb9+NLWE0XIEFQCU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1699967492;
+	bh=m2t4Fk2edOJevVKKr4YE7CtuM9i/6plOHjG4logDpBg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Eqs85Q/lh3TkHGCVXe6FVIFI51IczORF7K+6zGCORCYX3cqqN33II6qQg5PJYoCMN
-	 6RyjUbK1Je26aOB0vH7yj2JvrM4oucrtt9T0DJ4MoMOTq7QXM3BXdesa347bDMS4Tc
-	 9m3Y9/bnbsvWYA5yNv5I4qf1wSOzgc4zYNn0zvB8=
+	b=XcAmK6ot3KFQNpuk1SfJr422pcn3QoPSFus53kuaQcZgh8/Lp15jRypL3tz9Gpb4x
+	 kBTp11AI2CKL0EAFEMJ3WLz5QwiPvDOz2tOiHKPM9hA61Z980ygei3WaxM4qPg8aHj
+	 kubwAhpxypiFieUHczMTXK/DpJbEwSI4N9VZpMvc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71323F80551; Tue, 14 Nov 2023 14:05:26 +0100 (CET)
+	id 915D7F801D5; Tue, 14 Nov 2023 14:10:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1809F8016E;
-	Tue, 14 Nov 2023 14:05:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41447F8016E;
+	Tue, 14 Nov 2023 14:10:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A949F801D5; Tue, 14 Nov 2023 14:05:20 +0100 (CET)
+	id 71FF0F801D5; Tue, 14 Nov 2023 14:10:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
- [IPv6:2607:f8b0:4864:20::b36])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 76486F80093
-	for <alsa-devel@alsa-project.org>; Tue, 14 Nov 2023 14:05:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76486F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id C9811F80093
+	for <alsa-devel@alsa-project.org>; Tue, 14 Nov 2023 14:10:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9811F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=DiYuYvUN
-Received: by mail-yb1-xb36.google.com with SMTP id
- 3f1490d57ef6-d9a518d66a1so5689447276.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 14 Nov 2023 05:05:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1699967110; x=1700571910;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Y3kLet+ZFc4FiXhXyJTUcUEX1JsMDtWsRFc0PYkqxJM=;
-        b=DiYuYvUN62dn7Xchusg6rq0GRGwvO80bxxsQINPjDgVfjQ/bBjBhTQ9xb9Di7HiJzA
-         mNfqyIpfHjY9vCadBnuhMcUtZKBFYQlNRYhXLzB6mcPyrMd8k9n//VVyfelyi/0ylkke
-         Sne9WMU3zQi3T0vkiG3nJAtnYV8vEJYXhkwa0kTkfh9u0Mb+AcUjmz53QoxuKQ0uiRVM
-         fYBK+EzlHQKfhPeumwkrtKIIf81EyqNT8wsRhv9ZS46zq9meKh1TPmB8G7qfipLpgN01
-         clcjeXWXVTRdM7++pTH7C565H88eiw6bMt0kdXRdVZpz9/hZomyDlpD67vxOE+xv9qPA
-         4XtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699967110; x=1700571910;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Y3kLet+ZFc4FiXhXyJTUcUEX1JsMDtWsRFc0PYkqxJM=;
-        b=fZ3pZtADItXZu3q6TWTCPhaPqf0VRlUtAKrvIe6/eEORSvYkH2njqhWaDAWpMT3uSY
-         0VZsoiN92f6XLvmuCOuGv4mlmmJQV3GrtJd7gvwDcY/nsByIjNW0SQdQ19V+vuCRA5BN
-         qzxhYEqwzekj2sXg1k0oCA9IlJsFHoD6HhrLuXybeWbNfQulHVtUpiaZytO51k0SELso
-         euABa3zyOuWG6fiZwdr5hc6pzBzw5o3cg0Uh9ro+vpJOyfh97R4ocykp+nEDV8oxw/FA
-         8C7D944NCduhzaok7i8jEVD3xJ97BoNyfZqTVvux8tmJszxv3F3hwCMiQfkM0GbWF792
-         gqVA==
-X-Gm-Message-State: AOJu0YyWYzOazgBikXx4u4t4NkUF3VJMU3d8bl64FvlvJzLGju4jSjDO
-	M4KrWFpQIG4gE2qe+fsedsdEGhdt06CJpwMHMELwXA==
-X-Google-Smtp-Source: 
- AGHT+IHU/EMXoR/AsvwDR5tVM/hTfhag7Py4pB8zx2h4lfdu8R1hVWGA8wCYGXEvgGG4RCO6d/pEhnbc29+P4adFbGc=
-X-Received: by 2002:a25:35d6:0:b0:daf:66f9:cfab with SMTP id
- c205-20020a2535d6000000b00daf66f9cfabmr8292993yba.9.1699967110411; Tue, 14
- Nov 2023 05:05:10 -0800 (PST)
-MIME-Version: 1.0
-References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
- <20231108104343.24192-6-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20231108104343.24192-6-krzysztof.kozlowski@linaro.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 14 Nov 2023 14:04:59 +0100
-Message-ID: 
- <CACRpkdaSPTjjPA=TS-WbOb3E=TabtP6MFEx6Q+Dar-Mh=EtknQ@mail.gmail.com>
-Subject: Re: [PATCH 05/17] dt-bindings: pinctrl: samsung: add specific
- compatibles for existing SoC
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Lee Jones <lee@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
- Sam Protsenko <semen.protsenko@linaro.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: JHXDEE5CMEPZHNLMLYYHYIK6YCAT53L6
-X-Message-ID-Hash: JHXDEE5CMEPZHNLMLYYHYIK6YCAT53L6
-X-MailFrom: linus.walleij@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=pGL5QXsf;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=en1gL9Pq
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6BD0E1F86A;
+	Tue, 14 Nov 2023 13:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1699967409;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdKGYYZPHz9oLSF/GPQkv/zIiz3pCkDlwsJZ0EvwJbg=;
+	b=pGL5QXsf/7kDX/csv7iPatJ1hr20Ed7DP93tWdxUz9c0HRzODX0L8kKo8O2lfowVVYkOlQ
+	nXMWwt9f9EpC0WsNK1lJF9HjQKqASfQIRabPjeETRtF4VUWLTCHECDCZQ6dOyoiPqBjTr4
+	jV7hYDADDTyEKAVq5R+yP50+CFeozsw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1699967409;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UdKGYYZPHz9oLSF/GPQkv/zIiz3pCkDlwsJZ0EvwJbg=;
+	b=en1gL9PqCX6jpKmEy0HXVI/fVksJKcxwkpwHalI+ttO5VUlyvm74JxEJHY6PtG/kVX1zjo
+	lY5ul88kqei5LqDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F90B13460;
+	Tue, 14 Nov 2023 13:10:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id eX2dDrFxU2XeAwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 14 Nov 2023 13:10:09 +0000
+Date: Tue, 14 Nov 2023 14:10:08 +0100
+Message-ID: <87r0kstr9r.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>,
+	"Simon Trimmer" <simont@opensource.cirrus.com>
+Subject: Re: [PATCH RESEND] ALSA: hda: cs35l56: Enable low-power hibernation
+ mode on i2c
+In-Reply-To: <20231113164029.1156669-1-rf@opensource.cirrus.com>
+References: <20231113164029.1156669-1-rf@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [-3.12 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-3.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-1.00)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.02)[52.16%]
+Message-ID-Hash: PZ36YCZC2WS2DAD64ROFIHHXUPZ33GUA
+X-Message-ID-Hash: PZ36YCZC2WS2DAD64ROFIHHXUPZ33GUA
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHXDEE5CMEPZHNLMLYYHYIK6YCAT53L6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PZ36YCZC2WS2DAD64ROFIHHXUPZ33GUA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,23 +142,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Nov 8, 2023 at 11:44=E2=80=AFAM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
+On Mon, 13 Nov 2023 17:40:29 +0100,
+Richard Fitzgerald wrote:
+> 
+> From: Simon Trimmer <simont@opensource.cirrus.com>
+> 
+> This can now be re-enabled as the sequence to reliably wake the device
+> has been implemented in the shared ASoC code.
+> 
+> This has a functional dependency on commit 3df761bdbc8b
+> ("ASoC: cs35l56: Wake transactions need to be issued twice")
+> 
+> To protect against this, enabling hibernation is conditional on
+> CS35L56_WAKE_HOLD_TIME_US being defined, which indicates that the new
+> hibernation sequences are available.
+> 
+> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-> Samsung Exynos SoC reuses several devices from older designs, thus
-> historically we kept the old (block's) compatible only.  This works fine
-> and there is no bug here, however guidelines expressed in
-> Documentation/devicetree/bindings/writing-bindings.rst state that:
-> 1. Compatibles should be specific.
-> 2. We should add new compatibles in case of bugs or features.
->
-> Add compatibles specific to each SoC in front of all old-SoC-like
-> compatibles.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Thanks, applied.
 
-This is more formally correct indeed.
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Yours,
-Linus Walleij
+Takashi

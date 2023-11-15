@@ -2,89 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554347EC1AF
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 12:50:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E32A7EC2B6
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 13:44:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE3AA7F4;
-	Wed, 15 Nov 2023 12:49:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE3AA7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1E631ED;
+	Wed, 15 Nov 2023 13:43:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1E631ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700049041;
-	bh=OJIcr6eYA+mnRFGJCQcUiPn4xccTROL1dCXSKdHese0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1700052263;
+	bh=Go4rFN7PUAMn2XHcJGLv040ssEfG8/gAXkrIoFY6TMQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=D2u2FN7oL9/XrMbXc8zKKdTErUnZvhL77nCqaXa2J0gpp5S1eCTjHevm7cteX1frx
-	 oSFxVn8UN3X0gj8sJwV0zQkeRBkuvtkHD+KkWPVqAM5Qgwolv5Ts6k9G7RhL7HTDmK
-	 q1dB26ZgYZDF5dIkDaMT2AoHZSlbQKJCVa3Hovn0=
+	b=FjQKcBwj1RP7TswMk6Wb9DlgNn4XszRlo8eewpt0ux1KHvJ/lJsC+9huo4WkdNywB
+	 j6YxDE6h6MMhXlyFp7CzC+mu2vztC9XLnT8yytCOCngnhwilX7qUdPmc7/fN9O77S4
+	 gDLFOsR8eRU+kipiQ5baWwR504iO8rD3HcgtBT+Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4DC5DF80549; Wed, 15 Nov 2023 12:49:51 +0100 (CET)
+	id 5B51DF800ED; Wed, 15 Nov 2023 13:43:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDCF2F8016E;
-	Wed, 15 Nov 2023 12:49:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21DE6F8016E;
+	Wed, 15 Nov 2023 13:43:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCE22F801D5; Wed, 15 Nov 2023 12:49:43 +0100 (CET)
+	id 789EFF801D5; Wed, 15 Nov 2023 13:43:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B0B8CF80093
-	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 12:49:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0B8CF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id F26BCF800ED
+	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 13:43:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F26BCF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com
- header.a=rsa-sha256 header.s=mail header.b=i+Go663p
-Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
- [213.243.189.158])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E7EDB327;
-	Wed, 15 Nov 2023 12:48:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1700048939;
-	bh=OJIcr6eYA+mnRFGJCQcUiPn4xccTROL1dCXSKdHese0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i+Go663p3MGXbfc6pTiQAJdOljUGT4Ao+0U9s+2qy6u1ozOoChNc8LeJQyIMaBwG2
-	 kJ2byxZ7TXytsFqRxXHzmbwt+2jGxwmJbBJJxvgj1vMmkUdvXKm3maARBpjJAJMnAt
-	 uozlfsxIq86UQe1dG0LB6poc73HDpq/ASxPLy7IU=
-Date: Wed, 15 Nov 2023 13:49:31 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Cc: Sakari Ailus <sakari.ailus@iki.fi>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>, tfiga@chromium.org,
-	m.szyprowski@samsung.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
-Message-ID: <20231115114931.GE13826@pendragon.ideasonboard.com>
-References: <6a3e7eb9-505c-4cfb-8a86-a8947a2e44d5@xs4all.nl>
- <20231113110754.GB24338@pendragon.ideasonboard.com>
- <3e898664-cbfc-4892-9765-37b66891643b@xs4all.nl>
- <ZVIIc-fi32ZxIi-p@valkosipuli.retiisi.eu>
- <20231113114357.GD24338@pendragon.ideasonboard.com>
- <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
- <20231113124412.GA18974@pendragon.ideasonboard.com>
- <b35601f7-8bb2-4317-a8f7-6fbf81572943@xs4all.nl>
- <20231115105518.GD13826@pendragon.ideasonboard.com>
- <a67491c0-4fdf-4472-852c-e75f5e1d67af@xs4all.nl>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <a67491c0-4fdf-4472-852c-e75f5e1d67af@xs4all.nl>
-Message-ID-Hash: TUTYRY5KAAKKKNLOFU5QYLSW3X6UX4FA
-X-Message-ID-Hash: TUTYRY5KAAKKKNLOFU5QYLSW3X6UX4FA
-X-MailFrom: laurent.pinchart@ideasonboard.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=oAKnYGjG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=EtUnjFR6
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 197FA228E1;
+	Wed, 15 Nov 2023 12:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1700052203;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I3kP+FWiCjTFG4z5PsXOPa2z26/Vk2OryY4GARldTl8=;
+	b=oAKnYGjGugashDL9ZtHFzYBXcKIYL9hJgbithWWisoYQVe0KQTNzG5sTFuxNYs0XYPoz01
+	GKKKPREG2x/t1075mi/W1E4taHINRWl2yXN0KSoKPoBeC7IBdsNQ7HyJbWMbcaSiCtopSU
+	Xi6HWICEFpk2oYdtHswRP/KF80BlylM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1700052203;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I3kP+FWiCjTFG4z5PsXOPa2z26/Vk2OryY4GARldTl8=;
+	b=EtUnjFR6x6jIpMHZYaHyJK+aP7gcPrZOp3ToSN49umgGtDoV8SKCao/pvTRLPj9wwn+FIW
+	yf4mGLqv6UOsFFDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0008E13592;
+	Wed, 15 Nov 2023 12:43:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id XmSCOuq8VGX1IAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 15 Nov 2023 12:43:22 +0000
+Date: Wed, 15 Nov 2023 13:43:22 +0100
+Message-ID: <877cmjuqz9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: alsa-devel@alsa-project.org,	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,	Jani Nikula <jani.nikula@linux.intel.com>,
+	Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,	Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: i915: Alays handle -EPROBE_DEFER
+In-Reply-To: <20231115123625.74286-1-maarten.lankhorst@linux.intel.com>
+References: <20231115123625.74286-1-maarten.lankhorst@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-10.08 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-3.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 REPLY(-4.00)[];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-1.00)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-2.98)[99.90%]
+Message-ID-Hash: 5SBNTUCLN34S4K7WGDKEUQBFCTNTYHLP
+X-Message-ID-Hash: 5SBNTUCLN34S4K7WGDKEUQBFCTNTYHLP
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TUTYRY5KAAKKKNLOFU5QYLSW3X6UX4FA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5SBNTUCLN34S4K7WGDKEUQBFCTNTYHLP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,218 +144,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Hans,
-
-On Wed, Nov 15, 2023 at 12:19:31PM +0100, Hans Verkuil wrote:
-> On 11/15/23 11:55, Laurent Pinchart wrote:
-> > On Wed, Nov 15, 2023 at 09:09:42AM +0100, Hans Verkuil wrote:
-> >> On 13/11/2023 13:44, Laurent Pinchart wrote:
-> >>> On Mon, Nov 13, 2023 at 01:05:12PM +0100, Hans Verkuil wrote:
-> >>>> On 13/11/2023 12:43, Laurent Pinchart wrote:
-> >>>>> On Mon, Nov 13, 2023 at 11:28:51AM +0000, Sakari Ailus wrote:
-> >>>>>> On Mon, Nov 13, 2023 at 12:24:14PM +0100, Hans Verkuil wrote:
-> >>>>>>> On 13/11/2023 12:07, Laurent Pinchart wrote:
-> >>>>>>>> On Mon, Nov 13, 2023 at 11:56:49AM +0100, Hans Verkuil wrote:
-> >>>>>>>>> On 13/11/2023 11:42, Laurent Pinchart wrote:
-> >>>>>>>>>> On Mon, Nov 13, 2023 at 11:29:09AM +0100, Hans Verkuil wrote:
-> >>>>>>>>>>> On 10/11/2023 06:48, Shengjiu Wang wrote:
-> >>>>>>>>>>>> Fixed point controls are used by the user to configure
-> >>>>>>>>>>>> a fixed point value in 64bits, which Q31.32 format.
-> >>>>>>>>>>>>
-> >>>>>>>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> >>>>>>>>>>>
-> >>>>>>>>>>> This patch adds a new control type. This is something that also needs to be
-> >>>>>>>>>>> tested by v4l2-compliance, and for that we need to add support for this to
-> >>>>>>>>>>> one of the media test-drivers. The best place for that is the vivid driver,
-> >>>>>>>>>>> since that has already a bunch of test controls for other control types.
-> >>>>>>>>>>>
-> >>>>>>>>>>> See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
-> >>>>>>>>>>>
-> >>>>>>>>>>> Can you add a patch adding a fixed point test control to vivid?
-> >>>>>>>>>>
-> >>>>>>>>>> I don't think V4L2_CTRL_TYPE_FIXED_POINT is a good idea. This seems to
-> >>>>>>>>>> relate more to units than control types. We have lots of fixed-point
-> >>>>>>>>>> values in controls already, using the 32-bit and 64-bit integer control
-> >>>>>>>>>> types. They use various locations for the decimal point, depending on
-> >>>>>>>>>> the control. If we want to make this more explicit to users, we should
-> >>>>>>>>>> work on adding unit support to the V4L2 controls.
-> >>>>>>>>>
-> >>>>>>>>> "Fixed Point" is not a unit, it's a type. 'Db', 'Hz' etc. are units.
-> >>>>>>>>
-> >>>>>>>> It's not a unit, but I think it's related to units. My point is that,
-> >>>>>>>> without units support, I don't see why we need a formal definition of
-> >>>>>>>> fixed-point types, and why this series couldn't just use
-> >>>>>>>> VIVID_CID_INTEGER64. Drivers already interpret VIVID_CID_INTEGER64
-> >>>>>>>> values as they see fit.
-> >>>>>>>
-> >>>>>>> They do? That's new to me. A quick grep for V4L2_CTRL_TYPE_INTEGER64
-> >>>>>>> (I assume you meant that rather than VIVID_CID_INTEGER64) shows that it
-> >>>>>
-> >>>>> Yes, I meant V4L2_CTRL_TYPE_INTEGER64. Too hasty copy & paste :-)
-> >>>>>
-> >>>>>>> is always interpreted as a 64 bit integer and nothing else. As it should.
-> >>>>>
-> >>>>> The most common case for control handling in drivers is taking the
-> >>>>> integer value and converting it to a register value, using
-> >>>>> device-specific encoding of the register value. It can be a fixed-point
-> >>>>> format or something else, depending on the device. My point is that
-> >>>>> drivers routinely convert a "plain" integer to something else, and that
-> >>>>> has never been considered as a cause of concern. I don't see why it
-> >>>>> would be different in this series.
-> >>>>>
-> >>>>>>> And while we do not have support for units (other than the documentation),
-> >>>>>>> we do have type support in the form of V4L2_CTRL_TYPE_*.
-> >>>>>>>
-> >>>>>>>>> A quick "git grep -i "fixed point" Documentation/userspace-api/media/'
-> >>>>>>>>> only shows a single driver specific control (dw100.rst).
-> >>>>>>>>>
-> >>>>>>>>> I'm not aware of other controls in mainline that use fixed point.
-> >>>>>>>>
-> >>>>>>>> The analog gain control for sensors for instance.
-> >>>>>>>
-> >>>>>>> Not really. The documentation is super vague:
-> >>>>>>>
-> >>>>>>> V4L2_CID_ANALOGUE_GAIN (integer)
-> >>>>>>>
-> >>>>>>> 	Analogue gain is gain affecting all colour components in the pixel matrix. The
-> >>>>>>> 	gain operation is performed in the analogue domain before A/D conversion.
-> >>>>>>>
-> >>>>>>> And the integer is just a range. Internally it might map to some fixed
-> >>>>>>> point value, but userspace won't see that, it's hidden in the driver AFAICT.
-> >>>>>
-> >>>>> It's hidden so well that libcamera has a database of the sensor it
-> >>>>> supports, with formulas to map a real gain value to the
-> >>>>> V4L2_CID_ANALOGUE_GAIN control. The encoding of the integer value does
-> >>>>> matter, and the kernel doesn't expose it. We may or may not consider
-> >>>>> that as a shortcoming of the V4L2 control API, but in any case it's the
-> >>>>> situation we have today.
-> >>>>>
-> >>>>>> I wonder if Laurent meant digital gain.
-> >>>>>
-> >>>>> No, I meant analog. It applies to digital gain too though.
-> >>>>>
-> >>>>>> Those are often Q numbers. The practice there has been that the default
-> >>>>>> value yields gain of 1.
-> >>>>>>
-> >>>>>> There are probably many other examples in controls where something being
-> >>>>>> controlled isn't actually an integer while integer controls are still being
-> >>>>>> used for the purpose.
-> >>>>>
-> >>>>> A good summary of my opinion :-)
-> >>>>
-> >>>> And that works fine as long as userspace doesn't need to know what the value
-> >>>> actually means.
-> >>>>
-> >>>> That's not the case here. The control is really a fractional Hz value:
-> >>>>
-> >>>> +``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
-> >>>> +    Sets the offset from the audio source sample rate, unit is Hz.
-> >>>> +    The offset compensates for any clock drift. The actual source audio sample
-> >>>> +    rate is the ideal source audio sample rate from
-> >>>> +    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
-> >>>
-> >>> I don't see why this would require a new type, you can use
-> >>> V4L2_CTRL_TYPE_INTEGER64, and document the control as containing
-> >>> fixed-point values in Q31.32 format.
-> >>
-> >> Why would you want to do this? I can store a double in a long long int,
-> >> and just document that the variable is really a double, but why would you?
-> > 
-> > I'm happy we have no floating point control types ;-)
-> > 
-> >> The cost of adding a FIXED_POINT type is minimal, and having this type
-> >> makes it easy to work with fixed point controls (think about proper reporting
-> >> and setting of the value in v4l2-ctl and user applications in general that
-> >> deal with controls).
-> > 
-> > The next thing you know is that someone will want a FIXED_POINT_Q15_16
-> > type as 64-bit would be too large to store in a large array. And then
-> > Q7.8. And Q3.12. And a bunch of other type. I really don't see what
-> > added value they bring compared to using the 32-bit and 64-bit integer
-> > types we already have. Every new type that is added adds complexity to
-> > userspace that will need to deal with the type.
-> > 
-> >> If this would add a thousand lines of complex code, then this would be a
-> >> consideration, but this is just a few lines.
-> >>
-> >> Just to give an example, if you use 'v4l2-ctl -l' to list a int64 control
-> >> and it reports the value 13958643712, would you be able to see that that is
-> >> really 3.25 in fixed point format? With the right type it would be printed
-> >> like that. Much easier to work work.
-> > 
-> > The same is true for analog gains, where x1.23 or +12dB is nicer to read
-> > than raw values. If we care about printing values in command line tools
-> > (which is nice to have, but certainly not the majority of use cases),
-> > then I would recommand working on units support for V4L2 controls, to
-> > convey how values are encoded, and in what unit they are expressed.
+On Wed, 15 Nov 2023 13:36:25 +0100,
+Maarten Lankhorst wrote:
 > 
-> So you prefer to have a way to specify the N value in QM.N as part
-> of the control information?
+> It turns out that even if the comment says that the driver can load
+> fine, it's not really the case and no codecs are detected.
+> Specifically for -EPROBE_DEFER, always fail the probe.
 > 
-> E.g. add a '__u8 fraction_bits' field to structs v4l2_query_ext_ctrl
-> and v4l2_queryctrl. If 0, then it is an integer, otherwise it is the N
-> in QM.N.
+> This fixes a regression when HDA-intel is loaded before i915.
 > 
-> I can go along with that. This would be valid for INTEGER, INTEGER64,
-> U8, U16 and U32 controls (the last three are only used in control arrays).
-
-I think that would be nicer. Not only is it more flexible, but it also
-allows applications to ignore that information, and still operate on
-integer controls without any modification.
-
-> A better name for 'fraction_bits' is welcome, I took it from the wikipedia
-> article: https://en.wikipedia.org/wiki/Fixed-point_arithmetic
+> Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Tested-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Fixes: e6d0c13e9f46 ("ALSA: hda: i915: Remove extra argument from snd_hdac_i915_init")
+> Cc: Takashi Iwai <tiwai@suse.de>
 > 
-> Reporting unit names is certainly possible, but should perhaps be done
-> with a separate ioctl? E.g. VIDIOC_QUERY_CTRL_UNIT. It is not typically
-> needed for applications, unless they need to report values. In theory
-> it can also be reported through VIDIOC_QUERY_EXT_CTRL by using, say,
-> 4 of the reserved fields for a 'char unit[16];' field. But I feel a
-> bit uncomfortable taking reserved fields for something that is rarely
-> needed.
+> ---
+> Using Takashi's version, as I like the separate -EPROBE_DEFER if more.
 
-I would make the unit an enumerated integer value. If it's a string, it
-gets more difficult to operate on. Having to standardize a unit means
-that the unit will get reviewed.
+Applied now.  Thanks.
 
-> >>>>>> Instead of this patch, I'd prefer to have a way to express the meaning of
-> >>>>>> the control value, be it a Q number or something else, and do that
-> >>>>>> independently of the type of the control.
-> >>>>
-> >>>> Huh? How is that different from the type of the control? You have integers
-> >>>> (one type) and fixed point (another type).
-> >>>>
-> >>>> Or do you want a more general V4L2_CTRL_TYPE_ that specifies the N.M values
-> >>>> explicitly?
-> >>>>
-> >>>> I think the main reason why we use integer controls for gain is that we
-> >>>> never had a fixed point control type and you could get away with that in
-> >>>> user space for that particular use-case.
-> >>>>
-> >>>> Based on the V4L2_CID_NOTIFY_GAINS documentation the gain value can typically
-> >>>> be calculated as (value / default_value),
-> >>>
-> >>> Typically, but not always. Some sensor have an exponential gain model,
-> >>> and some have weird gain representation, such as 1/x. That's getting out
-> >>> of scope though.
-> >>>
-> >>>> but that won't work for a rate offset
-> >>>> control as above, or for e.g. CSC matrices for color converters.
-> >>>>
-> >>>>> Agreed.
-> >>>>>
-> >>>>>>> In the case of this particular series the control type is really a fixed point
-> >>>>>>> value with a documented unit (Hz). It really is not something you want to
-> >>>>>>> use type INTEGER64 for.
-> >>>>>>>
-> >>>>>>>>> Note that V4L2_CTRL_TYPE_FIXED_POINT is a Q31.32 format. By setting
-> >>>>>>>>> min/max/step you can easily map that to just about any QN.M format where
-> >>>>>>>>> N <= 31 and M <= 32.
-> >>>>>>>>>
-> >>>>>>>>> In the case of dw100 it is a bit different in that it is quite specialized
-> >>>>>>>>> and it had to fit in 16 bits.
 
--- 
-Regards,
-
-Laurent Pinchart
+Takashi

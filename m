@@ -2,61 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9609A7EC5FC
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 15:43:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEBD77EC609
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 15:43:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17985E0D;
-	Wed, 15 Nov 2023 15:42:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17985E0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66DBFDE5;
+	Wed, 15 Nov 2023 15:42:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66DBFDE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700059398;
-	bh=CA0RC/tND0GwE8+WvYJ65RMthSJyOJ9lryA4IFNzGgI=;
+	s=default; t=1700059420;
+	bh=QdLzlSLbbZ2nOkvmBOh2hC283zvOp936dbdInlTyhc0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hNMMg5EYYrhyW9/Ef2NbrqWyzMxEzTUilMRw58/EP6lsU0vo1jXjYs5XY17mkQhCj
-	 itIJslF3u6njFisoLekhXj1OpkBgXT2HVQevjjV3plANaH/EV/xzgiFpRxDilt/14j
-	 muHqxi30W4svO6YUKOx7HP8nUkD1okKQrFASDbZM=
+	b=KBws2pImJavDnc5edExsp0TGdOzD+AMVMnfntic5Q664uhdT1zKHqs9Cv6vibPY6F
+	 Z2ogWe9ZoijSW3P5d3zMA+ZZlgvvI81KVbaOAGoGPTr9PbnEi228UDwlcV7DhFL7OF
+	 PO1NwAMmgX9qtRW/QhT0PPUUV00pjeRPh5sXem1w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FB9AF805EB; Wed, 15 Nov 2023 15:40:56 +0100 (CET)
+	id E9E84F805F0; Wed, 15 Nov 2023 15:40:57 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80ECBF805CA;
-	Wed, 15 Nov 2023 15:40:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93951F805EC;
+	Wed, 15 Nov 2023 15:40:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C2B7F805CA; Wed, 15 Nov 2023 15:40:50 +0100 (CET)
+	id 6D7AAF805D2; Wed, 15 Nov 2023 15:40:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
+ [217.70.183.199])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C1AB6F80551
-	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 15:40:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1AB6F80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5A801F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 15:40:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A801F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=mgVCAJ61
-Received: by mail.gandi.net (Postfix) with ESMTPA id 1ED09FF806;
-	Wed, 15 Nov 2023 14:40:29 +0000 (UTC)
+ header.s=gm1 header.b=MqAj7FG/
+Received: by mail.gandi.net (Postfix) with ESMTPA id 98427FF80A;
+	Wed, 15 Nov 2023 14:40:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1700059230;
+	t=1700059232;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=daBaX2nOfcBqffmMooshUw4wUFqmDO5ms4CR0skya7c=;
-	b=mgVCAJ61AqFQIr6QF7RiXK3F6Cxg5EMIeCpU6X2gv8ZzhZmf98Hg4ERhvuQ3K26IuhY77O
-	ZruaKb44yCnT5dcdR29YFri3+bibE1spS21Q+X9SzqZ1QhqjgDBi84ke0p3FCw7tB25YNZ
-	qcJTZSUFwHHGl99GQhxK8xtPF+mP+F5YT0stnRyunVL5lunl/bvmdfHntKHrq2kbqlSA/U
-	B2jIPrMT8dwvUbH86ASqO9+aswVHDF+Rg2rxfIM5b6Ss97DvO9NOMAahArp09mAlXiz0Cr
-	SP32UQ4h4Wtn7oK6KDKOo/i6GvA8jGgeRkU2LI41x0V9omEijgzNrFT8RGQihg==
+	bh=UnNVtqzsvx8YN/aPRFQJh5hnsijIRzsSo6ed0hY90ck=;
+	b=MqAj7FG/dmRTWMkX8g74Grca6pT6vwiTj62/voktD4dTBfTO+FxuAaer6V0WOb9pQ6MvU9
+	i0sxL8NXfJP53T5twP777mI3hv+87Cz+xatfrbwchxTXiAnyza2U6yI18KxJrRl+1yU0N4
+	xmdCUzEv3UzfFsGNdtelBhrQM6ZoBSM4QKiTnSFlRRFNibTImAC/01mDcdVPUu21t5IeDT
+	Sf3SUn+JmHEWVcUrpBiDanoM2MbkN6dmfzsWpu9bjrCSdYwPTVpHDcfHx1v0nTr/WSHfMT
+	LxnKWTxERqIHGVTUDiKbJD2ODacvZQxy/vanRtui+2OPwMN+zap/7nt/m+yPXw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -91,18 +92,18 @@ Cc: netdev@vger.kernel.org,
 	Simon Horman <horms@kernel.org>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v9 09/27] soc: fsl: cpm1: qmc: Introduce available timeslots
- masks
-Date: Wed, 15 Nov 2023 15:39:45 +0100
-Message-ID: <20231115144007.478111-10-herve.codina@bootlin.com>
+Subject: [PATCH v9 10/27] soc: fsl: cpm1: qmc: Rename qmc_setup_tsa* to
+ qmc_init_tsa*
+Date: Wed, 15 Nov 2023 15:39:46 +0100
+Message-ID: <20231115144007.478111-11-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231115144007.478111-1-herve.codina@bootlin.com>
 References: <20231115144007.478111-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: WZVSU63UO6Z73XHHGKTKICTCHJKB7LL5
-X-Message-ID-Hash: WZVSU63UO6Z73XHHGKTKICTCHJKB7LL5
+Message-ID-Hash: 7RAAZUFIFQVPQZ3FSKEZMFXIG3W32FIV
+X-Message-ID-Hash: 7RAAZUFIFQVPQZ3FSKEZMFXIG3W32FIV
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZVSU63UO6Z73XHHGKTKICTCHJKB7LL5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7RAAZUFIFQVPQZ3FSKEZMFXIG3W32FIV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,54 +125,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Available timeslots masks define timeslots available for the related
-channel. These timeslots are defined by the QMC binding.
-
-Timeslots used are initialized to available timeslots but can be a
-subset of available timeslots.
-This prepares the dynamic timeslots management (ie. changing timeslots
-at runtime).
+qmc_setup_tsa* are called once at initialisation.
+They initialize the QMC TSA table.
+In order to introduce setup function later on for dynamic timeslots
+management, rename the function to avoid later confusion.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 ---
- drivers/soc/fsl/qe/qmc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/soc/fsl/qe/qmc.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
-index e716f13669a0..0413e25d4c67 100644
+index 0413e25d4c67..e3f2afb8fa4d 100644
 --- a/drivers/soc/fsl/qe/qmc.c
 +++ b/drivers/soc/fsl/qe/qmc.c
-@@ -177,7 +177,9 @@ struct qmc_chan {
- 	struct qmc *qmc;
- 	void __iomem *s_param;
- 	enum qmc_mode mode;
-+	u64	tx_ts_mask_avail;
- 	u64	tx_ts_mask;
-+	u64	rx_ts_mask_avail;
- 	u64	rx_ts_mask;
- 	bool is_reverse_data;
+@@ -919,7 +919,7 @@ static int qmc_of_parse_chans(struct qmc *qmc, struct device_node *np)
+ 	return qmc_check_chans(qmc);
+ }
  
-@@ -875,7 +877,8 @@ static int qmc_of_parse_chans(struct qmc *qmc, struct device_node *np)
- 			of_node_put(chan_np);
- 			return ret;
- 		}
--		chan->tx_ts_mask = ts_mask;
-+		chan->tx_ts_mask_avail = ts_mask;
-+		chan->tx_ts_mask = chan->tx_ts_mask_avail;
+-static int qmc_setup_tsa_64rxtx(struct qmc *qmc, const struct tsa_serial_info *info)
++static int qmc_init_tsa_64rxtx(struct qmc *qmc, const struct tsa_serial_info *info)
+ {
+ 	struct qmc_chan *chan;
+ 	unsigned int i;
+@@ -961,7 +961,7 @@ static int qmc_setup_tsa_64rxtx(struct qmc *qmc, const struct tsa_serial_info *i
+ 	return 0;
+ }
  
- 		ret = of_property_read_u64(chan_np, "fsl,rx-ts-mask", &ts_mask);
- 		if (ret) {
-@@ -884,7 +887,8 @@ static int qmc_of_parse_chans(struct qmc *qmc, struct device_node *np)
- 			of_node_put(chan_np);
- 			return ret;
- 		}
--		chan->rx_ts_mask = ts_mask;
-+		chan->rx_ts_mask_avail = ts_mask;
-+		chan->rx_ts_mask = chan->rx_ts_mask_avail;
+-static int qmc_setup_tsa_32rx_32tx(struct qmc *qmc, const struct tsa_serial_info *info)
++static int qmc_init_tsa_32rx_32tx(struct qmc *qmc, const struct tsa_serial_info *info)
+ {
+ 	struct qmc_chan *chan;
+ 	unsigned int i;
+@@ -1019,7 +1019,7 @@ static int qmc_setup_tsa_32rx_32tx(struct qmc *qmc, const struct tsa_serial_info
+ 	return 0;
+ }
  
- 		mode = "transparent";
- 		ret = of_property_read_string(chan_np, "fsl,operational-mode", &mode);
+-static int qmc_setup_tsa(struct qmc *qmc)
++static int qmc_init_tsa(struct qmc *qmc)
+ {
+ 	struct tsa_serial_info info;
+ 	int ret;
+@@ -1030,12 +1030,12 @@ static int qmc_setup_tsa(struct qmc *qmc)
+ 		return ret;
+ 
+ 	/*
+-	 * Setup one common 64 entries table or two 32 entries (one for Tx and
+-	 * one for Tx) according to assigned TS numbers.
++	 * Initialize one common 64 entries table or two 32 entries (one for Tx
++	 * and one for Tx) according to assigned TS numbers.
+ 	 */
+ 	return ((info.nb_tx_ts > 32) || (info.nb_rx_ts > 32)) ?
+-		qmc_setup_tsa_64rxtx(qmc, &info) :
+-		qmc_setup_tsa_32rx_32tx(qmc, &info);
++		qmc_init_tsa_64rxtx(qmc, &info) :
++		qmc_init_tsa_32rx_32tx(qmc, &info);
+ }
+ 
+ static int qmc_setup_chan_trnsync(struct qmc *qmc, struct qmc_chan *chan)
+@@ -1391,7 +1391,7 @@ static int qmc_probe(struct platform_device *pdev)
+ 	qmc_write32(qmc->scc_pram + QMC_GBL_C_MASK32, 0xDEBB20E3);
+ 	qmc_write16(qmc->scc_pram + QMC_GBL_C_MASK16, 0xF0B8);
+ 
+-	ret = qmc_setup_tsa(qmc);
++	ret = qmc_init_tsa(qmc);
+ 	if (ret)
+ 		goto err_tsa_serial_disconnect;
+ 
 -- 
 2.41.0
 

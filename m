@@ -2,159 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9437EC9B0
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 18:29:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 948347ECAF6
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 20:04:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AF03844;
-	Wed, 15 Nov 2023 18:28:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AF03844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 927D9820;
+	Wed, 15 Nov 2023 20:03:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927D9820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700069365;
-	bh=NEG/dFZFwuy+Spw5Poz2gimxKY6lG1Vlvyyp4gZeVPM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1700075048;
+	bh=4UhpOzZWuDpdh0MDayg65mRP3cwQMfYLuZwq2cqDE6U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OEMFQxxR4I4sEaO6fYDHZPv+3aDpl775gX8mD6faNO7NYcgP++s98JLBWjivF8YEk
-	 v2Sm5IIjCYY0y7ktojAfUjozuaLvKJPRHeJ2Kjv0CE98IMyHqSQiI7yuptPtJCtv+6
-	 5hDZcjIyB0iiskJ0+xZInm+LvelDQlCY43WP7sfQ=
+	b=KLnCAaIJxqpFtZMWkpMGK9KFP3XbTkRCEsD4JrC6L0grFyC8SBNQaPfW27It0/966
+	 xYoRMQKsVnBmGfS31qfrBNuUUBNtRsdRQwKLUsm0YtHpyWdyRmKrBLrWSqA+VpezcU
+	 V0rWe0SvdipikFY3HhJkNC6/NSoC/qzRjZ4HiOXg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60ED9F800ED; Wed, 15 Nov 2023 18:28:25 +0100 (CET)
+	id 8C2EEF80093; Wed, 15 Nov 2023 20:03:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98762F800ED;
-	Wed, 15 Nov 2023 18:28:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10F38F800ED;
+	Wed, 15 Nov 2023 20:03:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2084F801D5; Wed, 15 Nov 2023 18:28:14 +0100 (CET)
+	id 65B00F801D5; Wed, 15 Nov 2023 20:03:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::615])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4B4C0F800ED
-	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 18:28:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B4C0F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 115D9F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 20:02:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 115D9F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=stZtO3LN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PlZ2lNezt1F3ovWyYQDKDo7AOPOxaOjCEtk/xLKqdTOJCH3uT4hhce2WGVb/vUxrdT3SFMb1WZF0FiBXpzAzHjq/XrXdW/zmqs0lnnmVrTHtFEH66gi4WyP1a+K6sQnVwrZr7UuuFU+uvIp2HyXA9aYRKR6+mNnQ2m5JfVMnd7Y1JaZBlPmI+JhKKztj+ndUjcL5B4d2Lzm2PGCwwCaxhdaBpMTCpE3Oz4Hkdre+kCY5SAAmpM81V828QjMX0zFRqDuL9W0sBFd0Yzp++L3KNHIapYYThlEvklObw/8HdWqQdmUShxTqPZSWOetaJJATb2GinjpTNvvrw18zEdbogQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UUOzckBBgim9xTcASjcOFrZoTpwa+q6z3mFgf/3MhPY=;
- b=KTBkLIZsOadODdCO5p9Z3BYzS34oTbcgzQJ1BD08XpiBNMFyL5UYwZG3mLObUWrpUKpO+IMgau0elCw8iMecsV8pwQzFUz01ER2C2yJvIf3GEg4VnmKBA30Ds9dRoVlQMdiPtxUzpeu5JnS/ojvZtzibCcIrj4S2dOOsfXyddxqwAMJ9DS/wRYZWGWUm1EYP5kjZEgEUsAoCtFuLORv/ek1Nhu1tdPf7ZYfbt2ktWASUo5aRrpjPfaF8tzqxnYgxfilM3AKDdkll8wbdgUy9FY7FwAucafillZ+V+YE0EwDRJWrq6Ah5J3GYLN0OA3Daaz2avC7OIWdDQKE73meyOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UUOzckBBgim9xTcASjcOFrZoTpwa+q6z3mFgf/3MhPY=;
- b=stZtO3LN6Osf4yKndx/Gwf/GbMuNF017y3Dr6p4vBfbDGKojBBdpQCR6zMn3ZAgfUSGYHVpXL2trMKD+jbpqEQ8OLRsymzI9P54347QNZTp3rTGXGbM2FHEYNGdQ4CjwfCE6WNJw3eSPZgiGk6qRLhk428kjxSPTA1IfBcZRRws=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by PH7PR12MB9204.namprd12.prod.outlook.com (2603:10b6:510:2e7::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.17; Wed, 15 Nov
- 2023 17:27:57 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::59d1:c9f5:2c67:1da6]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::59d1:c9f5:2c67:1da6%4]) with mapi id 15.20.7002.019; Wed, 15 Nov 2023
- 17:27:57 +0000
-Message-ID: <5729c613-182b-43d2-a2ed-caff046b68e7@amd.com>
-Date: Wed, 15 Nov 2023 22:57:46 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: amd: add an error code check in
- amd_sdw_clock_stop_exit
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Su Hui <suhui@nfschina.com>, vkoul@kernel.org,
- yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com, nathan@kernel.org,
- ndesaulniers@google.com, trix@redhat.com
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, kernel-janitors@vger.kernel.org
-References: <20231115095407.1059704-1-suhui@nfschina.com>
- <3e461bb5-fa6b-4729-8ff5-ccc1d2887066@linux.intel.com>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <3e461bb5-fa6b-4729-8ff5-ccc1d2887066@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0094.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9b::18) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH7PR12MB9204:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd11c071-bc58-4898-2fbe-08dbe60034b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	OOIOwznjKquhW9/5dq1eYJnuso0k1AFDwB1wQKe+AuHh8fWmKk1srLxfMmO9ewgDnq0W6BdvT9vniTMUmbyXz9PxJhfJeLkmwuziDt2a4NvPewJtMOlJLFQZFcisBGKJ6eb1XwGTr3gPU9IEQjKUyh0/lMhiPQA9C0en1REgvq6LsAGkVKoZlPyzpurgDtAfxNnMkEGLA5W/n/qUuZwbiyKTB0mE05sbkzr6bfTUZQCZWAVCGkgxv3tRmntk2JYY4V9kQZOt0K2PBIkTL1G3fDsW1/u9lCbnMQP0wUU7dC4u/sGQ7Qs5U1VBtIAb6G6l39Ek7Xl9CPyIX4ILKR8zh/Uj43Qsu/joIWQORCZv/FyTEgp7gXTHwpIxl8b91T6BDMf4yjc7SA2GoFB9UegE4u7Zi0C2FARHcmf0QA9YAeFtovbS5vVK+IRNGyJd+3WC0JW4XvDB/DsspQ6M10ba5S5b4e/vpL0bnHTkfCldqOU7SQSAgm2Z9McwvETGUjOa1gJk8Z3i47LUfe00fqBTESF4RDEKl4h6nq8XgRZMX1FUAidPWCfN5M8M+gn39Iv3ql+14FRrsNlNuv+CDgpJ5Cm/2VEBoavywc++694uBL/1cTPjeV+GshYIjzEfsr4/V/+Kxhob6pWkOHK+8lgR5g==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(396003)(39860400002)(366004)(346002)(376002)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(31696002)(86362001)(110136005)(316002)(66946007)(66556008)(36756003)(66476007)(4326008)(8936002)(8676002)(83380400001)(6666004)(2906002)(26005)(53546011)(41300700001)(6512007)(2616005)(5660300002)(6506007)(31686004)(7416002)(6486002)(478600001)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?ak5PNm5WYXZ5YXdGb3JZUE85ODE5b3g3MjNjeC9MbVBPVWd3dXk3dFZ5Wmhj?=
- =?utf-8?B?MkV5L0lxeUlSY3N4UTFueVoyd0RFQS91QnJzK2JZZTJ0ODVOT2lKOXJGK0NJ?=
- =?utf-8?B?aG9LRDdQcGFxYmtxeGFjZ2hNb2NPWHVtUVF3aXdqdWY0UXliMHhaQVhrMUQ2?=
- =?utf-8?B?ZmRUT2tQcE1PdThmMTZHS2xDUzlFbUt0elhWSkdCQnl0U2taSkRnRHFuK3Ax?=
- =?utf-8?B?V2lnUDJPc2R6NXJCeWxTVlhJdlp3WDFuRzlTcXc2QXlIK1Z0ajNGc0VqOXlK?=
- =?utf-8?B?OThaVlJqYTgzZFNPVEZUTUc1TG0xeFl2NHNMdHhEelYyNVBDeFh5d0tuellU?=
- =?utf-8?B?Vzhjc2lJcTVOMW13NWlRMlhMVXQwU0FXZWFWMXdEMU1VeE9raVFHbFFvWmxB?=
- =?utf-8?B?M2JhSzVjUFVWUUVzYmkzRWJiYU54UUUxZXhzZHNIR1J4dFhDOU1GM1BnSXBs?=
- =?utf-8?B?eDRpV241dEpxUGdTOXAyQTk5RVBlN1JXT0hmcHVzejgwMHNPblp0Z1lXaERu?=
- =?utf-8?B?UUNQc0xlenpheXpJdmIxWFJ5RVE2ODRzdmpDeW13TFduYlB6VzNpKytrVzFv?=
- =?utf-8?B?SEhodTR6cXZFRlhodUMyenY3QjVRYmRKdmJ3dEtkdWlYb0ZUQS9hN3FSVTRn?=
- =?utf-8?B?Q3Q3ZWhPK1dwV1c2eUlhdnF1VlNjLzRNamFnMjNhNWRYdk5wQ1FEdXNnSVo2?=
- =?utf-8?B?KzRGdXA0akM2aG5iekdYYlhjM21NMVhreUl0WXovNktYbGlnUTlYTnhLeWd3?=
- =?utf-8?B?aUQzNmhmU2VKQVJ6bHYraDRmZXhEZ1VTMXAwYUZXYjFSWW9SUHQwR1YwdnF0?=
- =?utf-8?B?eDNDWWtld21LQ25XdnZiRTNnano3YUhBMm94SUQ5VktLWWk1ckZuZFZlaUN4?=
- =?utf-8?B?M1RFdS92K0FER1kwS2xBRlpSdTVDbElPNFJZOXFXWHovZ0dzSnExY3J3bnZB?=
- =?utf-8?B?WmJkTzMrYkpwaGFtZ3Y4THRmdyt3Tm4zOWFpaDdOSDVmVlVzbldTV3ZmZmJQ?=
- =?utf-8?B?K3RCRmRBS0svbmxRaG0yemNJWEJ2b0h2bDJLWU00Q1lRNlFDKzRUUUFnQjRH?=
- =?utf-8?B?TVJSZll4aEpNMUNpaUhnS0JwbURnSEZacVN0d2lLZEFzeGlxak5Scm1wd3Fz?=
- =?utf-8?B?TklESDJMNkhNVkRWdkpPMlVPNWVLTnJMTmdVSE9BSHNqbUlnR0NZODVPSkw3?=
- =?utf-8?B?TGtENU1WeFV6NEZ1ZEUyU3g5Wm1OZEM4d1FvSlB0a3dSYkErM0lKaS82QjlV?=
- =?utf-8?B?RnVWWW11Q0tNVlpaV3p5YlZNOXVOUTArYitWd0srR0s0eHVHWjlVM0VrWWxa?=
- =?utf-8?B?YVdqU1pXamVVUXNaYU9HaTFKakJzbEtLeXM2SjRRaVdXdjNpcUJuOERkeEF5?=
- =?utf-8?B?TklraW1lVUFDQm4vL0xOQnZDWVNDS0JSS3BNWmpid09EOXF6VElqQk1Jbzhv?=
- =?utf-8?B?NzJwSnhKOTlTUUpLYVBFb0tYbVhXeTk1T2Y3RGlaZ2FjVjQxMVdmOGdiSkli?=
- =?utf-8?B?NXEwamx4b2xaZUVQR2YzRjlHUzNJT1plcXNXdjQyZlBnSWFCamw0SUFkL0Za?=
- =?utf-8?B?MWRjRlhaRG9VdmpEclV1czJ6R2RacUVkaVhkVE1QcnA4U2tFY1ZvdUlKVUZ2?=
- =?utf-8?B?Y05UcUIrbGIvSTVXalkzYkJxVEJsMWhQZit4dklOa3J5b1JYTGJ5VDQ3K0Q2?=
- =?utf-8?B?bFdkTE5hQ3hpM2dzaG1kSWNyUzkvaCtLU1lnNllMSWZ6S20xbDI2STIxUVIx?=
- =?utf-8?B?elJ3VURKSDZsOE9QRVdDZXo3Qi92c1h0RTNpY3JTak9DRjJaUWVEcVVQR2V0?=
- =?utf-8?B?MGJDbC90cnh0THJqSW1rRFk2MklscVVCa1c4a3BEazZ6WFYrWVZUZkdkaWdp?=
- =?utf-8?B?Lzg2elY2NjJ0RUNZOUtsaXJpS0VpWjNoN3g5elNQYmlrUlNXNUs4TnNNeXZB?=
- =?utf-8?B?Y256WmxDZVJ0NjBtdGx3SVJBZ0loVWdmK0FPdjE0Rko1UVBGVVdYWVVQd3JR?=
- =?utf-8?B?d1Q3MWlqSHlYY0hBbncwQmc4S1hzbnNBS3hWanhPbmpwalo5bDlSd1pPTE1o?=
- =?utf-8?B?QmFaZVpaa1NNaGQ3QUVQMFdkWVkyVVNOdC80WjJ0bGZrWU50b01VQm52dlBz?=
- =?utf-8?Q?gDpkb9FlojE2nt5YsDZaJMvO/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- bd11c071-bc58-4898-2fbe-08dbe60034b3
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2023 17:27:57.3566
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- D46yoj4lJ39eDpcBrFyoDQxHooj8sZV/htvRvzpA0oCZZbjPH7u0M0U3lhWpQyV2gJz8LlTIBxE6adH3R5QLpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9204
-Message-ID-Hash: UBW5I6HJAD54PP5QRGH6R642GKNZGQFE
-X-Message-ID-Hash: UBW5I6HJAD54PP5QRGH6R642GKNZGQFE
-X-MailFrom: Vijendar.Mukunda@amd.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=MJ2lChUA;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Hr9i+MWw
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EA2872195F;
+	Wed, 15 Nov 2023 19:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1700074972;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yHUaLQmFnTSZQ33H8+KBUXpDcKdnO/Fy6i/07lPiI/0=;
+	b=MJ2lChUAPx4l6ptaLhagaMvw1t/jb4Sz2L+8BfCIHmj5HJgLS67p9TYfig6pZuyAjUejJS
+	F0aF/kxZXxmFD5neZC4f4V2g2IJJ08M3NfblpZncf5j/aUeRexQRGpddB4NrpK7ZYxyCaK
+	Q/7e1pWjREx61b3to+uXvMvkL/q+y+U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1700074972;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yHUaLQmFnTSZQ33H8+KBUXpDcKdnO/Fy6i/07lPiI/0=;
+	b=Hr9i+MWwsHR9q0Jo1vtng3PXg5GBW5nQdPNu9u5jbeLDn9xVyqUdmK2VtsSlCpjjFvnlVk
+	KjGu/MXc0Nrke5Ag==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ACD9E13592;
+	Wed, 15 Nov 2023 19:02:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id eKZVKdwVVWVjfAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 15 Nov 2023 19:02:52 +0000
+Date: Wed, 15 Nov 2023 20:02:52 +0100
+Message-ID: <8734x6q1pf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>,
+	<linux-sound@vger.kernel.org>
+Subject: Re: [PATCH v1 0/2] Add quirks for various HP and ASUS laptops
+In-Reply-To: <20231115162116.494968-1-sbinding@opensource.cirrus.com>
+References: <20231115162116.494968-1-sbinding@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-6.15 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 REPLY(-4.00)[];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-2.85)[99.37%]
+Message-ID-Hash: DOOJQTLMALKYS3JZXU52E5HJX3VTL5TT
+X-Message-ID-Hash: DOOJQTLMALKYS3JZXU52E5HJX3VTL5TT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,54 +133,25 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UBW5I6HJAD54PP5QRGH6R642GKNZGQFE/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DOOJQTLMALKYS3JZXU52E5HJX3VTL5TT/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 15/11/23 20:14, Pierre-Louis Bossart wrote:
->
-> On 11/15/23 03:54, Su Hui wrote:
->> Clang static analyzer complains that value stored to 'ret' is never read.
->> Add an error code check and print an error message if 'readl_poll_timeout'
->> failed.
->>
->> Signed-off-by: Su Hui <suhui@nfschina.com>
->> ---
->>  drivers/soundwire/amd_manager.c | 4 ++++
->>  1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
->> index 3a99f6dcdfaf..f391b541f4b7 100644
->> --- a/drivers/soundwire/amd_manager.c
->> +++ b/drivers/soundwire/amd_manager.c
->> @@ -1029,6 +1029,10 @@ static int amd_sdw_clock_stop_exit(struct amd_sdw_manager *amd_manager)
->>  		ret = readl_poll_timeout(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL, val,
->>  					 (val & AMD_SDW_CLK_RESUME_DONE), ACP_DELAY_US,
->>  					 AMD_SDW_TIMEOUT);
->> +		if (ret)
->> +			dev_err(amd_manager->dev, "%s: timed out: %pe\n", __func__,
->> +				ERR_PTR(ret));
-> Is this really the desired behavior?
->
-> This patch fixes the static analysis issue by logging the error code,
-> but does it make sense to continue resuming here and trying to exit from
-> the clock stop mode?
->
-> At this point a bus reset might be a more relevant behavior...
-As per earlier discussion, when we sent the initial patch series,
-It was communicated that even clock stop sequence fails,
-return '0' in suspend/resume callbacks that why we returned
-status as zero.
-In this scenario, it's not continuing resume when clock stop exit
-sequence fails. Even In Intel's case, if the clock stop sequence fails,
-just code is exiting from that sequence.
->
->>  		if (val & AMD_SDW_CLK_RESUME_DONE) {
->>  			writel(0, amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
->>  			ret = sdw_bus_exit_clk_stop(&amd_manager->bus);
+On Wed, 15 Nov 2023 17:21:14 +0100,
+Stefan Binding wrote:
+> 
+> Add support for CS35L41 HDA for ASUS Zenbook laptops and HP G11
+> laptops.
+> 
+> Stefan Binding (2):
+>   ALSA: hda/realtek: Add quirks for ASUS 2024 Zenbooks
+>   ALSA: hda/realtek: Add quirks for HP Laptops
 
+Applied both patches now.  Thanks.
+
+
+Takashi

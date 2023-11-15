@@ -2,132 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C477EBEDA
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 09:52:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75E217EBF37
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Nov 2023 10:13:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEBD6820;
-	Wed, 15 Nov 2023 09:51:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEBD6820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F47F820;
+	Wed, 15 Nov 2023 10:12:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F47F820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700038335;
-	bh=nKR9L8rv53doQLDL7vIkjw2pQwfnzn3IZHbSqmaOaW4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=BKTdH8XXOfJZtzCZQsQhQqXRjSBpqLW9aRr+hbmMhhbgt4KsP7OqUWvBprMYQQu3f
-	 2uTEBF+sStarnjs47Tbo/HwnPenfhjR/vS2lkAwjL0hT0SVpNOghHzhsqPR2nFHaB3
-	 tTBGerNrKzXtnHAeGstMCAN3uJOeDAB1G/8zG4SE=
+	s=default; t=1700039629;
+	bh=LoDzrhLmahUdb1kT/HgTd6XnM+P2NKDSYCP857Y0hxM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=nLu0T3RE3jpmfADN7GBd0I7zznQ2WFQQTV2gFqJsDkZlqDhq++gqK5MhcAV7W/UFL
+	 VhyptgFa5irURVW7a1dB1ct344rroj1vAacJt1YwxW30Wu9QfkOB1o9yq8PIWsJMcT
+	 q6c1udTHOwA/U2Twyz6hyaEA85s8plR92nwaluvA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4683FF8022B; Wed, 15 Nov 2023 09:51:25 +0100 (CET)
+	id BA526F80551; Wed, 15 Nov 2023 10:12:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8964F8016E;
-	Wed, 15 Nov 2023 09:51:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50D3EF8016E;
+	Wed, 15 Nov 2023 10:12:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD550F801D5; Wed, 15 Nov 2023 09:51:10 +0100 (CET)
+	id 8FBF1F801D5; Wed, 15 Nov 2023 10:12:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA033F80166
-	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 09:50:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA033F80166
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=aagAzZTO
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5435336ab0bso10123530a12.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 15 Nov 2023 00:50:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1700038254; x=1700643054;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ScG462Pjz3S9RYPZZUWzsM/PrLDXDWNPoYbAht/FuJE=;
-        b=aagAzZTO9zQktCB/hT/Kv5KdtTlR8z83QWeMg51JgAutSELwWA0J1iIa0XQ/agEobE
-         hgIwsjyuGh3EWJASetQWIW0NVrTL5YjLKflL7eQb0OdTbiVhB83GG1IUvuTx9fdCQXFb
-         ksGx9BIxofOAGCa2YGGHkoFKkzr9fk8UBV+WU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700038254; x=1700643054;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ScG462Pjz3S9RYPZZUWzsM/PrLDXDWNPoYbAht/FuJE=;
-        b=HAW1wn1icJ37Y3PmCrBP0u1C42AFmIZVkxQEQUpGKhoyg4uhiKx+SAW2sXZMQ/yQiU
-         vA4Sb67DFzH6awUQvHi6FitTFVspJIdox9h7gKhcssgAFUW4I471DSfv6UpuOX8+AMhE
-         /DvEhIXLyCIhP8p+tsAwmFhii2seMBGs876VYJz/C+pnYiFx4U7QOFHIHXX+4pez9Bma
-         4HrFedG1hGG7/R35Zyewd6i3fNc9xshrT0AeQRmD/SVqFFRwxIArM70WM/igVnSkWaNb
-         98MGLjlBb1pvxxFHjsIhgNmcACRIQhtxVdu/XVALRPEfDsueFK+xZUvZtwvSf/Tw+ZZ4
-         j+1g==
-X-Gm-Message-State: AOJu0YxcaBHEx5ZIc1npdb4pv1ns5YDE8jESv9jZYnH99lUuL7KB0cKS
-	gvx+6v9YYfgz+fptTQdl+F5NprdFtiDXBF0mFG037nhM
-X-Google-Smtp-Source: 
- AGHT+IESmC42xbVymVMTblj5FBA+2cdVX1VlHEMrO9duS7uK9t3qZtIWnXEI7PhwTZtOaZfS93pllg==
-X-Received: by 2002:a17:906:d96d:b0:9e6:59d5:7ad6 with SMTP id
- rp13-20020a170906d96d00b009e659d57ad6mr8979704ejb.23.1700038254319;
-        Wed, 15 Nov 2023 00:50:54 -0800 (PST)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
- [209.85.128.46])
-        by smtp.gmail.com with ESMTPSA id
- ga33-20020a1709070c2100b0099e12a49c8fsm6834510ejc.173.2023.11.15.00.50.54
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Nov 2023 00:50:54 -0800 (PST)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4094301d505so50934065e9.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 15 Nov 2023 00:50:54 -0800 (PST)
-X-Received: by 2002:a5d:45cb:0:b0:31f:f9a9:a742 with SMTP id
- b11-20020a5d45cb000000b0031ff9a9a742mr7969100wrs.23.1700037927479; Wed, 15
- Nov 2023 00:45:27 -0800 (PST)
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id E6D64F80093
+	for <alsa-devel@alsa-project.org>; Wed, 15 Nov 2023 10:12:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6D64F80093
 MIME-Version: 1.0
-References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
- <1699595289-25773-11-git-send-email-shengjiu.wang@nxp.com>
- <4cd6b593-2376-4cbc-a7c8-d3eb36a2f7a0@xs4all.nl>
- <20231113104238.GA13981@pendragon.ideasonboard.com>
- <6a3e7eb9-505c-4cfb-8a86-a8947a2e44d5@xs4all.nl>
- <20231113110754.GB24338@pendragon.ideasonboard.com>
- <3e898664-cbfc-4892-9765-37b66891643b@xs4all.nl>
- <ZVIIc-fi32ZxIi-p@valkosipuli.retiisi.eu>
- <20231113114357.GD24338@pendragon.ideasonboard.com>
- <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
- <20231113124412.GA18974@pendragon.ideasonboard.com>
- <b35601f7-8bb2-4317-a8f7-6fbf81572943@xs4all.nl>
-In-Reply-To: <b35601f7-8bb2-4317-a8f7-6fbf81572943@xs4all.nl>
-From: Tomasz Figa <tfiga@chromium.org>
-Date: Wed, 15 Nov 2023 17:45:07 +0900
-X-Gmail-Original-Message-ID: 
- <CAAFQd5CjnvDh1t9N+xbnQD4HuJoYwA0gtKUQPCy-6EF=Oy-rGA@mail.gmail.com>
-Message-ID: 
- <CAAFQd5CjnvDh1t9N+xbnQD4HuJoYwA0gtKUQPCy-6EF=Oy-rGA@mail.gmail.com>
-Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@iki.fi>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>, m.szyprowski@samsung.com,
- mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: BBIHDSBYQAKLJPAUCOU2ZIZP3V4XNWAB
-X-Message-ID-Hash: BBIHDSBYQAKLJPAUCOU2ZIZP3V4XNWAB
-X-MailFrom: tfiga@chromium.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1700039569007141590-webhooks-bot@alsa-project.org>
+References: <1700039569007141590-webhooks-bot@alsa-project.org>
+Subject: 90-alsa-restore.rules causes unwanted volume restore
+Message-Id: <20231115091254.8FBF1F801D5@alsa1.perex.cz>
+Date: Wed, 15 Nov 2023 10:12:54 +0100 (CET)
+Message-ID-Hash: BZD7VQHUAMGTJTYQBZSW2PI5WXLOO4WX
+X-Message-ID-Hash: BZD7VQHUAMGTJTYQBZSW2PI5WXLOO4WX
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -139,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BBIHDSBYQAKLJPAUCOU2ZIZP3V4XNWAB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BZD7VQHUAMGTJTYQBZSW2PI5WXLOO4WX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,233 +70,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Nov 15, 2023 at 5:09=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl> w=
-rote:
->
-> Hi Laurent,
->
-> On 13/11/2023 13:44, Laurent Pinchart wrote:
-> > Hi Hans,
-> >
-> > On Mon, Nov 13, 2023 at 01:05:12PM +0100, Hans Verkuil wrote:
-> >> On 13/11/2023 12:43, Laurent Pinchart wrote:
-> >>> On Mon, Nov 13, 2023 at 11:28:51AM +0000, Sakari Ailus wrote:
-> >>>> On Mon, Nov 13, 2023 at 12:24:14PM +0100, Hans Verkuil wrote:
-> >>>>> On 13/11/2023 12:07, Laurent Pinchart wrote:
-> >>>>>> On Mon, Nov 13, 2023 at 11:56:49AM +0100, Hans Verkuil wrote:
-> >>>>>>> On 13/11/2023 11:42, Laurent Pinchart wrote:
-> >>>>>>>> On Mon, Nov 13, 2023 at 11:29:09AM +0100, Hans Verkuil wrote:
-> >>>>>>>>> On 10/11/2023 06:48, Shengjiu Wang wrote:
-> >>>>>>>>>> Fixed point controls are used by the user to configure
-> >>>>>>>>>> a fixed point value in 64bits, which Q31.32 format.
-> >>>>>>>>>>
-> >>>>>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> >>>>>>>>>
-> >>>>>>>>> This patch adds a new control type. This is something that also=
- needs to be
-> >>>>>>>>> tested by v4l2-compliance, and for that we need to add support =
-for this to
-> >>>>>>>>> one of the media test-drivers. The best place for that is the v=
-ivid driver,
-> >>>>>>>>> since that has already a bunch of test controls for other contr=
-ol types.
-> >>>>>>>>>
-> >>>>>>>>> See e.g. VIVID_CID_INTEGER64 in vivid-ctrls.c.
-> >>>>>>>>>
-> >>>>>>>>> Can you add a patch adding a fixed point test control to vivid?
-> >>>>>>>>
-> >>>>>>>> I don't think V4L2_CTRL_TYPE_FIXED_POINT is a good idea. This se=
-ems to
-> >>>>>>>> relate more to units than control types. We have lots of fixed-p=
-oint
-> >>>>>>>> values in controls already, using the 32-bit and 64-bit integer =
-control
-> >>>>>>>> types. They use various locations for the decimal point, dependi=
-ng on
-> >>>>>>>> the control. If we want to make this more explicit to users, we =
-should
-> >>>>>>>> work on adding unit support to the V4L2 controls.
-> >>>>>>>
-> >>>>>>> "Fixed Point" is not a unit, it's a type. 'Db', 'Hz' etc. are uni=
-ts.
-> >>>>>>
-> >>>>>> It's not a unit, but I think it's related to units. My point is th=
-at,
-> >>>>>> without units support, I don't see why we need a formal definition=
- of
-> >>>>>> fixed-point types, and why this series couldn't just use
-> >>>>>> VIVID_CID_INTEGER64. Drivers already interpret VIVID_CID_INTEGER64
-> >>>>>> values as they see fit.
-> >>>>>
-> >>>>> They do? That's new to me. A quick grep for V4L2_CTRL_TYPE_INTEGER6=
-4
-> >>>>> (I assume you meant that rather than VIVID_CID_INTEGER64) shows tha=
-t it
-> >>>
-> >>> Yes, I meant V4L2_CTRL_TYPE_INTEGER64. Too hasty copy & paste :-)
-> >>>
-> >>>>> is always interpreted as a 64 bit integer and nothing else. As it s=
-hould.
-> >>>
-> >>> The most common case for control handling in drivers is taking the
-> >>> integer value and converting it to a register value, using
-> >>> device-specific encoding of the register value. It can be a fixed-poi=
-nt
-> >>> format or something else, depending on the device. My point is that
-> >>> drivers routinely convert a "plain" integer to something else, and th=
-at
-> >>> has never been considered as a cause of concern. I don't see why it
-> >>> would be different in this series.
-> >>>
-> >>>>> And while we do not have support for units (other than the document=
-ation),
-> >>>>> we do have type support in the form of V4L2_CTRL_TYPE_*.
-> >>>>>
-> >>>>>>> A quick "git grep -i "fixed point" Documentation/userspace-api/me=
-dia/'
-> >>>>>>> only shows a single driver specific control (dw100.rst).
-> >>>>>>>
-> >>>>>>> I'm not aware of other controls in mainline that use fixed point.
-> >>>>>>
-> >>>>>> The analog gain control for sensors for instance.
-> >>>>>
-> >>>>> Not really. The documentation is super vague:
-> >>>>>
-> >>>>> V4L2_CID_ANALOGUE_GAIN (integer)
-> >>>>>
-> >>>>>   Analogue gain is gain affecting all colour components in the pixe=
-l matrix. The
-> >>>>>   gain operation is performed in the analogue domain before A/D con=
-version.
-> >>>>>
-> >>>>> And the integer is just a range. Internally it might map to some fi=
-xed
-> >>>>> point value, but userspace won't see that, it's hidden in the drive=
-r AFAICT.
-> >>>
-> >>> It's hidden so well that libcamera has a database of the sensor it
-> >>> supports, with formulas to map a real gain value to the
-> >>> V4L2_CID_ANALOGUE_GAIN control. The encoding of the integer value doe=
-s
-> >>> matter, and the kernel doesn't expose it. We may or may not consider
-> >>> that as a shortcoming of the V4L2 control API, but in any case it's t=
-he
-> >>> situation we have today.
-> >>>
-> >>>> I wonder if Laurent meant digital gain.
-> >>>
-> >>> No, I meant analog. It applies to digital gain too though.
-> >>>
-> >>>> Those are often Q numbers. The practice there has been that the defa=
-ult
-> >>>> value yields gain of 1.
-> >>>>
-> >>>> There are probably many other examples in controls where something b=
-eing
-> >>>> controlled isn't actually an integer while integer controls are stil=
-l being
-> >>>> used for the purpose.
-> >>>
-> >>> A good summary of my opinion :-)
-> >>
-> >> And that works fine as long as userspace doesn't need to know what the=
- value
-> >> actually means.
-> >>
-> >> That's not the case here. The control is really a fractional Hz value:
-> >>
-> >> +``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
-> >> +    Sets the offset from the audio source sample rate, unit is Hz.
-> >> +    The offset compensates for any clock drift. The actual source aud=
-io sample
-> >> +    rate is the ideal source audio sample rate from
-> >> +    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
-> >
-> > I don't see why this would require a new type, you can use
-> > V4L2_CTRL_TYPE_INTEGER64, and document the control as containing
-> > fixed-point values in Q31.32 format.
->
-> Why would you want to do this? I can store a double in a long long int,
-> and just document that the variable is really a double, but why would you=
-?
->
-> The cost of adding a FIXED_POINT type is minimal, and having this type
-> makes it easy to work with fixed point controls (think about proper repor=
-ting
-> and setting of the value in v4l2-ctl and user applications in general tha=
-t
-> deal with controls).
+alsa-project/alsa-utils issue #244 was opened from hrdl-github:
 
-I can see one potential drawback of adding a new type - userspace
-would have to be made aware of it, although arguably with brand new
-controls, userspace would have to be aware of them anyway. Not sure if
-we have some kind of userspace that can handle any controls purely
-based on their type - if yes, they would not be able to handle the new
-controls.
+Since ef0e588c76fbad4112193d311e51a60d18b44282, `alsactl restore $attr{device/number}` has been used instead of `alsactl restore $attr{number}`. On my system this results in an empty expansion, causing unwanted changes in volume (see https://gitlab.freedesktop.org/pipewire/wireplumber/-/issues/516). The `card*` kernel does have a `number` attribute though:
 
->
-> If this would add a thousand lines of complex code, then this would be a
-> consideration, but this is just a few lines.
->
-> Just to give an example, if you use 'v4l2-ctl -l' to list a int64 control
-> and it reports the value 13958643712, would you be able to see that that =
-is
-> really 3.25 in fixed point format? With the right type it would be printe=
-d
-> like that. Much easier to work work.
->
-> Regards,
->
->         Hans
->
-> >
-> >>>> Instead of this patch, I'd prefer to have a way to express the meani=
-ng of
-> >>>> the control value, be it a Q number or something else, and do that
-> >>>> independently of the type of the control.
-> >>
-> >> Huh? How is that different from the type of the control? You have inte=
-gers
-> >> (one type) and fixed point (another type).
-> >>
-> >> Or do you want a more general V4L2_CTRL_TYPE_ that specifies the N.M v=
-alues
-> >> explicitly?
-> >>
-> >> I think the main reason why we use integer controls for gain is that w=
-e
-> >> never had a fixed point control type and you could get away with that =
-in
-> >> user space for that particular use-case.
-> >>
-> >> Based on the V4L2_CID_NOTIFY_GAINS documentation the gain value can ty=
-pically
-> >> be calculated as (value / default_value),
-> >
-> > Typically, but not always. Some sensor have an exponential gain model,
-> > and some have weird gain representation, such as 1/x. That's getting ou=
-t
-> > of scope though.
-> >
-> >> but that won't work for a rate offset
-> >> control as above, or for e.g. CSC matrices for color converters.
-> >>
-> >>> Agreed.
-> >>>
-> >>>>> In the case of this particular series the control type is really a =
-fixed point
-> >>>>> value with a documented unit (Hz). It really is not something you w=
-ant to
-> >>>>> use type INTEGER64 for.
-> >>>>>
-> >>>>>>> Note that V4L2_CTRL_TYPE_FIXED_POINT is a Q31.32 format. By setti=
-ng
-> >>>>>>> min/max/step you can easily map that to just about any QN.M forma=
-t where
-> >>>>>>> N <=3D 31 and M <=3D 32.
-> >>>>>>>
-> >>>>>>> In the case of dw100 it is a bit different in that it is quite sp=
-ecialized
-> >>>>>>> and it had to fit in 16 bits.
-> >
->
+```
+  looking at device '/devices/pci0000:00/0000:00:1f.3/sound/card1/controlC1':
+    KERNEL=="controlC1"
+    SUBSYSTEM=="sound"
+    DRIVER==""
+    ATTR{power/control}=="auto"
+    ATTR{power/runtime_active_time}=="0"
+    ATTR{power/runtime_status}=="unsupported"
+    ATTR{power/runtime_suspended_time}=="0"
+
+  looking at parent device '/devices/pci0000:00/0000:00:1f.3/sound/card1':
+    KERNELS=="card1"
+    SUBSYSTEMS=="sound"
+    DRIVERS==""
+    ATTRS{id}=="PCH"
+    ATTRS{number}=="1"
+    ATTRS{power/control}=="auto"
+    ATTRS{power/runtime_active_time}=="0"
+    ATTRS{power/runtime_status}=="unsupported"
+    ATTRS{power/runtime_suspended_time}=="0"
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/244
+Repository URL: https://github.com/alsa-project/alsa-utils

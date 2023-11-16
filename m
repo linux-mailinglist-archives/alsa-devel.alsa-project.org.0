@@ -2,120 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824A67EE59C
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Nov 2023 17:59:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E287C7EE3F2
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Nov 2023 16:12:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1DCB86F;
-	Thu, 16 Nov 2023 17:58:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1DCB86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBFD8828;
+	Thu, 16 Nov 2023 16:11:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBFD8828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700153965;
-	bh=NHkJarmeB71LLdtXtRJFlnynlRUZwhK3li3A7MBO+l8=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=kvry+ewlX32Rvei20ReWJCIoUohs3cmkQnp01L1cvd6EsaSUSB+orQjS3e6qFe0yV
-	 0grpHaYA3EPG7eGvG4fMRlaawJXIKHq6YKAFjUgBEfRV23uUOJs75c6Fv/NFqzCyLy
-	 21zUMPTHXZk+Tvxo0JsF0rv62ZLCYXCoGs3uV9fY=
+	s=default; t=1700147519;
+	bh=vpIk+d+EKb9VIhCyJQckunqyjoGDvOBXNDUHuPTMUaQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=BPyIOw9CLReO45n3qS2MtUZ3QZgOvmePucAm1Kdu4TksiRdVJYT1KhurUwYPPYA2T
+	 iGNXRjr5KxnYOX65PP5JAEf/MQCXIlFM9ULg63VRycCACw0FqMGmtlTBD+gIFe4Xe6
+	 oSqETpdfG4Mlf94464aceijHhB4JN0Ib8l7ZsOCU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2CE24F8055B; Thu, 16 Nov 2023 17:57:46 +0100 (CET)
+	id 1416AF80549; Thu, 16 Nov 2023 16:11:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EBE4F8055A;
-	Thu, 16 Nov 2023 17:57:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A008F801D5;
+	Thu, 16 Nov 2023 16:11:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA442F801D5; Thu, 16 Nov 2023 14:29:29 +0100 (CET)
+	id 0E40CF8022B; Thu, 16 Nov 2023 16:11:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id EFAE3F80152
+	for <alsa-devel@alsa-project.org>; Thu, 16 Nov 2023 16:10:51 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 132E411F6;
+	Thu, 16 Nov 2023 16:10:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 132E411F6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1700147450; bh=7WdWbjf263yw52YO6ov9rN5zrGwXG9WccfEl0WUj/HE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kngu/yTHBsmVfwrK3vREGq/0ogIjZ8IiOwPfQHUeOqMESNgS/Fw8iVFBecV7mKgXB
+	 FA8+jnYpgUEvaJAuCMZ8s1MHIYGhpn7iuQ/9YBmenyoeahGucyOauP+uK0Do1xTyMm
+	 EhdRE1PqpcC51CSjBLzfsO0JXcl16lM53OxDzs1A=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61BFEF80166
-	for <alsa-devel@alsa-project.org>; Thu, 16 Nov 2023 14:29:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61BFEF80166
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Fc1v3txi
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-9e2838bcb5eso120380966b.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 16 Nov 2023 05:29:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700141358; x=1700746158;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=phasBQ66hQbV8v95EjxNAAfUnHVV0YTsbzlRXy0LVJ8=;
-        b=Fc1v3txihWKncukNwgs39P5ZD+1R621FGhVPFAmppQjxmssKoHnSDJfxCBKcchr6Ry
-         2gloXxJpc25DaSFbEvYMxL18yg9zj1bt5gWE2CBxZ095t/SXz4krr9RyaE2qe/0P3HKk
-         DL5NhBpXPf+pUyPQ9/SzY470Kd7w5B9xr8mSN4OYlx88TBFUeq2Owl7SKXHs+QDy7L/0
-         USactnXL/uRqX+FbdqXLt4BP+ZMM4R47aWD5FpY1hTggZzXYMHGu+d4fziQJV55DSIeO
-         OVMgLuvGCVcijfERQXI5zqp436EXC02Vi8DbK6ZkMlb0sbkTrsi0OPW0PscbpILNONZr
-         KVaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700141358; x=1700746158;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=phasBQ66hQbV8v95EjxNAAfUnHVV0YTsbzlRXy0LVJ8=;
-        b=ON4j4/t+IjdDn/CpRZfQi2sfdGO0AB7EBJH6csnbbUEJSFsCemanrhroGGEdYHpIpH
-         qOfNqxSnjNx693FNpakKbGlgzdZbC8+FWdrEknHLnQ7frrzjzU+X7pbByfr4yGFW6ze5
-         +sphUteWFBxqsbYadguNF6PSny0RHljr8zvwSWGKqUV2eyRK9wXbjJF3Y+S2NWMP/PRQ
-         5nijYP9mIzLmhflv54MxadxgGL0QMVgraFGW96732B4Iqx3qCb5g9R0GR5j4fQSoLEwc
-         sGhBDGVqEc6mi6hryn5wS/yN4t798+GPeliazXgcx4iZaFq2pjxIaiUyvwGjOKfBo8rI
-         /izw==
-X-Gm-Message-State: AOJu0YzD/L4HV+vBdPYOokytaPoPHIfZZGkVMaaPl60+mE/gINu0YHcV
-	f9ulrgDJFIk1fZe87/fB73E=
-X-Google-Smtp-Source: 
- AGHT+IETQAqTtflawuPNOpNHdANLA92iBYVUDChkLW4axQQ8AlPTGr7K5HhSq87VLm7W3qwBnxwgPg==
-X-Received: by 2002:a17:906:ae91:b0:9a2:28dc:4166 with SMTP id
- md17-20020a170906ae9100b009a228dc4166mr12113941ejb.75.1700141358357;
-        Thu, 16 Nov 2023 05:29:18 -0800 (PST)
-Received: from IFM10N30752.intra.ifm (87-206-74-243.dynamic.chello.pl.
- [87.206.74.243])
-        by smtp.gmail.com with ESMTPSA id
- cw16-20020a170906c79000b00992e94bcfabsm8374529ejb.167.2023.11.16.05.29.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Nov 2023 05:29:18 -0800 (PST)
-From: Kamil Duljas <kamil.duljas@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
-	Kamil Duljas <kamil.duljas@gmail.com>
-Subject: [PATCH] ASoC: SOF: topology: Fix mem leak in sof_dai_load()
-Date: Thu, 16 Nov 2023 14:28:49 +0100
-Message-Id: <20231116132849.1534-1-kamil.duljas@gmail.com>
-X-Mailer: git-send-email 2.35.2.windows.1
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Thu, 16 Nov 2023 16:10:42 +0100 (CET)
+Message-ID: <25101e2a-58d0-423e-9983-f5df5ba16466@perex.cz>
+Date: Thu, 16 Nov 2023 16:10:41 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: kamil.duljas@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/16] ALSA: pcm: Introduce MSBITS subformat interface
+Content-Language: en-US
+To: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
+ tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ amadeuszx.slawinski@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ hdegoede@redhat.com
+References: <20231116112255.1584795-1-cezary.rojewski@intel.com>
+ <20231116112255.1584795-2-cezary.rojewski@intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <20231116112255.1584795-2-cezary.rojewski@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: FVHMUHECK3OO7VNEL3NKDBVVODKO3UG6
+X-Message-ID-Hash: FVHMUHECK3OO7VNEL3NKDBVVODKO3UG6
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: K7MZWVQ6IW7PILEDJOA7PO5IGKM22BXT
-X-Message-ID-Hash: K7MZWVQ6IW7PILEDJOA7PO5IGKM22BXT
-X-Mailman-Approved-At: Thu, 16 Nov 2023 16:57:41 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K7MZWVQ6IW7PILEDJOA7PO5IGKM22BXT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVHMUHECK3OO7VNEL3NKDBVVODKO3UG6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,71 +140,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The function has multiple return points at which it is not released
-previously allocated memory.
+On 16. 11. 23 12:22, Cezary Rojewski wrote:
+> From: Jaroslav Kysela <perex@perex.cz>
+> 
+> Improve granularity of format selection for S32/U32 formats by adding
+> constants representing 20, 24 and MAX most significant bit >
+> The MAX means the maximum number of significant bits which can
+> the physical format hold. For 32-bit formats, MAX is related
+> to 32 bits. For 8-bit formats, MAX is related to 8 bits etc.
+> 
+> The drivers may use snd_pcm_hw_constraint_subformats with
+> a simple format -> subformats table.
 
-Signed-off-by: Kamil Duljas <kamil.duljas@gmail.com>
----
- sound/soc/sof/topology.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+I am afraid, the above sentence is no more correct and the current code does 
+not follow my original idea. It's a bit step back to the initial code. But I 
+admit that from the API POV, it's workable now (with the added refine 
+mechanism for one format).
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index a3a3af252259..ef8f8991f025 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1736,8 +1736,10 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
- 	/* perform pcm set op */
- 	if (ipc_pcm_ops && ipc_pcm_ops->pcm_setup) {
- 		ret = ipc_pcm_ops->pcm_setup(sdev, spcm);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kfree(spcm);
- 			return ret;
-+		}
- 	}
- 
- 	dai_drv->dobj.private = spcm;
-@@ -1747,6 +1749,7 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
- 			       ARRAY_SIZE(stream_tokens), private->array,
- 			       le32_to_cpu(private->size));
- 	if (ret) {
-+		kfree(dai_drv->dobj.private);
- 		dev_err(scomp->dev, "error: parse stream tokens failed %d\n",
- 			le32_to_cpu(private->size));
- 		return ret;
-@@ -1764,9 +1767,9 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
- 	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, sdev->dev,
- 				  PAGE_SIZE, &spcm->stream[stream].page_table);
- 	if (ret < 0) {
-+		kfree(dai_drv->dobj.private);
- 		dev_err(scomp->dev, "error: can't alloc page table for %s %d\n",
- 			caps->name, ret);
--
- 		return ret;
- 	}
- 
-@@ -1782,9 +1785,10 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
- 	stream = SNDRV_PCM_STREAM_CAPTURE;
- 
- 	/* do we need to allocate capture PCM DMA pages */
--	if (!spcm->pcm.capture)
-+	if (!spcm->pcm.capture) {
-+		kfree(dai_drv->dobj.private);
- 		return ret;
--
-+	}
- 	caps = &spcm->pcm.caps[stream];
- 
- 	/* allocate capture page table buffer */
-@@ -1810,7 +1814,7 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
- free_playback_tables:
- 	if (spcm->pcm.playback)
- 		snd_dma_free_pages(&spcm->stream[SNDRV_PCM_STREAM_PLAYBACK].page_table);
--
-+	kfree(dai_drv->dobj.private);
- 	return ret;
- }
- 
+As noted several times, this is not my preferred implementation (I would keep 
+only the constraint function which will be called by drivers on demand in the 
+ALSA PCM core code). The latest proposed simplification may be applied in the 
+ASoC core (store S32_LE subformat mask in snd_soc_pcm_runtime and install this 
+intersected constraint for FE PCM - user space). Something like ASoC core does 
+for the msbits constraint.
+
+If nobody else thinks that it's a good direction, please, add a note to the 
+comment that this implementation (extend snd_pcm_hardware structure) is a 
+compromise for the ASoC code with details.
+
+> +		if (f == SNDRV_PCM_FORMAT_S32_LE)
+
+Missing mask check: (f == SNDRV_PCM_FORMAT_S32_LE && *subformats)
+
+Otherwise the MSBITS_MAX won't be set for S32_LE by default.
+
+> +			m.bits[0] |= *subformats;
+
+				Jaroslav
+
 -- 
-2.35.2.windows.1
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

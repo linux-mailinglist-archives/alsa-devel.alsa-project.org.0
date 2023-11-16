@@ -2,92 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37DFD7EDFC7
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Nov 2023 12:26:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A08ED7EE1E5
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Nov 2023 14:49:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3692EE10;
-	Thu, 16 Nov 2023 12:25:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3692EE10
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1EA5209;
+	Thu, 16 Nov 2023 14:48:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1EA5209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700133999;
-	bh=pZ8KkWlAC5FQ4sDN25COBS7V2ofaqlPLtHROUYObzCc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1700142553;
+	bh=jZX5UedwGiD0BJrRpmk8hFt7URJ/cC3cmoyLgPZt3jI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PRUE/XxkO6/8vbgBX6eVSL8gFVO1iJAnZxpwbw6wD6z8frTLcm+JfGurYh/RpO9jQ
-	 dBILjZblfBcGVrzesT+fUU5lW2R1uSCxhQMW8Kc0EESB3dGafh9Bft9dDz57PRev+N
-	 FO05LTBE/lP1QRCfAp/MY7cmuznfWzXQfD9r/iSE=
+	b=SueqaWa/MgiUM6X4oMiQrYElzU74WPh6j58rszfgw8cjZZdjDMK0veGeCcYdxOnJw
+	 /UthRrcw2aUs6fz+suYSh8kIRpIapFxJEYuZPdMLjbs9wJQ3PW8aYe9Pb78dlNL0rC
+	 x0yZXek+RiU+ifuleUNqIV842x5kvHntJHdU7sdE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FA99F805FB; Thu, 16 Nov 2023 12:22:59 +0100 (CET)
+	id 24E62F80551; Thu, 16 Nov 2023 14:48:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A4E3F80166;
-	Thu, 16 Nov 2023 12:22:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7665F8016E;
+	Thu, 16 Nov 2023 14:48:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 900E9F805F6; Thu, 16 Nov 2023 12:22:53 +0100 (CET)
+	id 94C6BF801D5; Thu, 16 Nov 2023 14:46:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 52B53F80557
-	for <alsa-devel@alsa-project.org>; Thu, 16 Nov 2023 12:22:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52B53F80557
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=euxEYWrR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1700133761; x=1731669761;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=pZ8KkWlAC5FQ4sDN25COBS7V2ofaqlPLtHROUYObzCc=;
-  b=euxEYWrRsmHc7mrvLMQnb2MtMgaemLh/qh30lcgJ0yWcpU71ixWwYXRk
-   Wu+TLu9yAgK8OfDXCLhgmvCsMQil7WXFWTH1KOrSXhdMSD6B2GPfGiH/1
-   Uv90jQfWMDN+UEJ+CWjP6rWrMX4R2S9PkdhSE2ihIryCfqkrXjQUyvTEm
-   lvbxaOpTOhH7DoaM/ehqK0+ejZ4d4WA1Nn0f9IscyUfjrzNPp4KscuIQi
-   QhlGlfu+fi6VIm1FeuZ7M9k4dYQfI4gopDz0u52dpyQWR/x297uaR+glS
-   SdAerPUMyKb3hmG+NPchs6tJbpwMSwg4+wGirO6Ra6o7PjkUV9ecfPLsD
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10895"; a="457562087"
-X-IronPort-AV: E=Sophos;i="6.04,308,1695711600";
-   d="scan'208";a="457562087"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 03:22:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.03,308,1694761200";
-   d="scan'208";a="6698275"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmviesa002.fm.intel.com with ESMTP; 16 Nov 2023 03:22:15 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	hdegoede@redhat.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v4 16/16] ASoC: Intel: avs: Unhardcode HDAudio BE DAI drivers
- description
-Date: Thu, 16 Nov 2023 12:22:55 +0100
-Message-Id: <20231116112255.1584795-17-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231116112255.1584795-1-cezary.rojewski@intel.com>
-References: <20231116112255.1584795-1-cezary.rojewski@intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9BDC4F80166
+	for <alsa-devel@alsa-project.org>; Thu, 16 Nov 2023 14:46:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BDC4F80166
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-5a7afd45199so9351857b3.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 16 Nov 2023 05:46:50 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700142408; x=1700747208;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZMksHTtyECe9fxBa+1TFlBB1X6sF0c8fgEakoogEF3w=;
+        b=v70LKQkEH+x9/eGZJX7lKNr0dQMg/M+t0I4fg3uPqRFr12kJBblatfXFG/J8aXwfhg
+         D9XO7R8Aemzm7UsmdlFHjVdW/atYyB9FQC7EHH2+wllEq9qTTWygWxdKUDdwl9QoeE4H
+         dZSSiHRjVklXlAR1qPZ5f0f7eOL865oo4EOfQXftXVdO7mq9bf5YifX7BJMKAbrXqiwW
+         wSqfpgVezTFRunO2RYmbTRFCU46H3nj1epbCdFcNIyaljVhsrXD7U/LCtIXj+SAUCks/
+         ZS0F0KlUZoiGCCsposupuGqeBSL/LcDzUuHhhkf6jdYugtvguR0T3YWz+ZdMTa+Jhslz
+         gQlA==
+X-Gm-Message-State: AOJu0YyikwUvIXLuTEGUWH+QKx1F4XMOv6jqeLNbGpQT80Urztl7IJuB
+	JLcMwmmgeY36d4U0TiA+IjRFh6/e77zzAw==
+X-Google-Smtp-Source: 
+ AGHT+IETxGUXoxYPP/TZRUfLEOaaLlwPz0mpo05T0glEsli4jB8Ug0rg/HSjqyUBNVMBz3PuEh9cAw==
+X-Received: by 2002:a0d:e28e:0:b0:586:9f6c:4215 with SMTP id
+ l136-20020a0de28e000000b005869f6c4215mr16771143ywe.33.1700142408581;
+        Thu, 16 Nov 2023 05:46:48 -0800 (PST)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com.
+ [209.85.128.174])
+        by smtp.gmail.com with ESMTPSA id
+ i6-20020a0ddf06000000b005a7a92a62besm1008198ywe.8.2023.11.16.05.46.48
+        for <alsa-devel@alsa-project.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Nov 2023 05:46:48 -0800 (PST)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-5a87ac9d245so9122247b3.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 16 Nov 2023 05:46:48 -0800 (PST)
+X-Received: by 2002:a25:b4b:0:b0:d9a:be79:c902 with SMTP id
+ 72-20020a250b4b000000b00d9abe79c902mr15874410ybl.53.1700142408226; Thu, 16
+ Nov 2023 05:46:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FZWQYBV2ANS5TTOBJGF5W47NUVM24RG4
-X-Message-ID-Hash: FZWQYBV2ANS5TTOBJGF5W47NUVM24RG4
-X-MailFrom: cezary.rojewski@intel.com
+References: <20231115213358.33400-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20231115213358.33400-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 16 Nov 2023 14:46:36 +0100
+X-Gmail-Original-Message-ID: 
+ <CAMuHMdVGL8-jpUV9M+J_EhcB7=XfyesreFBPf6Jtvg6Cq_2xTA@mail.gmail.com>
+Message-ID: 
+ <CAMuHMdVGL8-jpUV9M+J_EhcB7=XfyesreFBPf6Jtvg6Cq_2xTA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: renesas,rz-ssi: Document RZ/Five SoC
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: LI6KY3VJFLXKL6TMJM3OJJYLEI7RZOAG
+X-Message-ID-Hash: LI6KY3VJFLXKL6TMJM3OJJYLEI7RZOAG
+X-MailFrom: geert.uytterhoeven@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FZWQYBV2ANS5TTOBJGF5W47NUVM24RG4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LI6KY3VJFLXKL6TMJM3OJJYLEI7RZOAG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,63 +122,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To not expose more than in fact is supported by the codec, update CPU
-DAI initialization procedure to rely on codec capabilities instead of
-hardcoding them. This includes subformat which is currently ignored.
+On Wed, Nov 15, 2023 at 10:34=E2=80=AFPM Prabhakar <prabhakar.csengg@gmail.=
+com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The SSI block on the RZ/Five SoC is identical to one found on the RZ/G2UL
+> SoC. "renesas,r9a07g043-ssi" compatible string will be used on the RZ/Fiv=
+e
+> SoC so to make this clear and to keep this file consistent, update the
+> comment to include RZ/Five SoC.
+>
+> No driver changes are required as generic compatible string
+> "renesas,rz-ssi" will be used as a fallback on RZ/Five SoC.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-As capabilities for HDMI streams are initialized on PCM open, leave it
-as is for now.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Acked-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/pcm.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Gr{oetje,eeting}s,
 
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index 73f0fadb97b9..3e2c3f2f1d38 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -17,6 +17,7 @@
- #include "avs.h"
- #include "path.h"
- #include "topology.h"
-+#include "../../codecs/hda.h"
- 
- struct avs_dma_data {
- 	struct avs_tplg_path_template *template;
-@@ -1406,6 +1407,15 @@ static int avs_component_hda_probe(struct snd_soc_component *component)
- 				ret = -ENOMEM;
- 				goto exit;
- 			}
-+
-+			if (!hda_codec_is_display(codec)) {
-+				dais[i].playback.formats = pcm->stream[0].formats;
-+				dais[i].playback.subformats = pcm->stream[0].subformats;
-+				dais[i].playback.rates = pcm->stream[0].rates;
-+				dais[i].playback.channels_min = pcm->stream[0].channels_min;
-+				dais[i].playback.channels_max = pcm->stream[0].channels_max;
-+				dais[i].playback.sig_bits = pcm->stream[0].maxbps;
-+			}
- 		}
- 
- 		if (pcm->stream[1].substreams) {
-@@ -1416,6 +1426,15 @@ static int avs_component_hda_probe(struct snd_soc_component *component)
- 				ret = -ENOMEM;
- 				goto exit;
- 			}
-+
-+			if (!hda_codec_is_display(codec)) {
-+				dais[i].capture.formats = pcm->stream[1].formats;
-+				dais[i].capture.subformats = pcm->stream[1].subformats;
-+				dais[i].capture.rates = pcm->stream[1].rates;
-+				dais[i].capture.channels_min = pcm->stream[1].channels_min;
-+				dais[i].capture.channels_max = pcm->stream[1].channels_max;
-+				dais[i].capture.sig_bits = pcm->stream[1].maxbps;
-+			}
- 		}
- 
- 		dai = snd_soc_register_dai(component, &dais[i], false);
--- 
-2.25.1
+                        Geert
 
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds

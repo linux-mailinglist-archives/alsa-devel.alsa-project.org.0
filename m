@@ -2,108 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEF47EDF60
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Nov 2023 12:16:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1157EDF7C
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Nov 2023 12:19:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ACB983A;
-	Thu, 16 Nov 2023 12:15:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ACB983A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6F6B829;
+	Thu, 16 Nov 2023 12:18:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6F6B829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700133375;
-	bh=cXOMKrOjiSRFzoFl+mEaWigDRy/fKuMyatqcPbkBPcw=;
-	h=Date:To:Cc:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Zy0HqyQReAkA9v8zqh8W/yQmmk5GOyWxo2y7ccTAve4bmlpd5kBErnXElxh1+UFD7
-	 ozOkUUjMMi9VbcRe6wvgsR4pvqs03/RnURb7o8DiQqws/5XD2KpC+xm4owN9o7COpm
-	 7tk6PotfrwpPWTQW6baLVSqkYTmtE5U04UsAQ4Uw=
+	s=default; t=1700133555;
+	bh=PYuLWqWIvuzoTh9zLT3pDQjY0fceUqdyLBejuAD2FK4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=soyhlRpUjP1E27zmemxvUnSwzwqN92YW/DEfcPmI+P+/EPzeIRXUtsrk7847A1wK+
+	 lrZSYA0KICOt5kdbPBnwftqQ4ZVpiBpV7BOEzgriwmxsjoQSOaJDzxK1wGXqdkuhOF
+	 tBjFBpA8Lr2N8uVut/n6yR6fVxgWgfv24630/Yeo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B81A7F8022B; Thu, 16 Nov 2023 12:14:55 +0100 (CET)
+	id 58434F80549; Thu, 16 Nov 2023 12:18:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84FF5F8016E;
-	Thu, 16 Nov 2023 12:14:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD84AF8016E;
+	Thu, 16 Nov 2023 12:18:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18B6AF8016E; Thu, 16 Nov 2023 12:11:08 +0100 (CET)
+	id D5BBDF80549; Thu, 16 Nov 2023 12:15:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A594F800ED
-	for <alsa-devel@alsa-project.org>; Thu, 16 Nov 2023 12:10:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A594F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3D23FF8016E
+	for <alsa-devel@alsa-project.org>; Thu, 16 Nov 2023 12:15:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D23FF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=WC5+d8xw
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-1cc9b626a96so5972505ad.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 16 Nov 2023 03:10:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700133051; x=1700737851;
- darn=alsa-project.org;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mFz7+oVHI5NX8C0fnm8IRqMzIqbCT/WXK6LRYxJxeAE=;
-        b=WC5+d8xwSEZ+2/fpuDVpCuK9CCFpBU9LyNLTGTCQ3Ht8rqkUVxZRxmL0gy823LUJBf
-         o9VDMt9DM6/u9/96A0G378k+GMARHVt28gxA+rxlmpbbM/nXlShUiblz6Z0lE2sQ3yYW
-         1OpbbcMKlvFvQJeR3rgq5GhCnw1n2Q0v2G3XqFeFpvgdGCSPOmm1SkI5NE/SzjjC5yJD
-         AGyKgpzna0H/0Lzhxh73O3MC2oiTYxngDZxD+vygn9NpAdlPtAO/hqllp/n3zVx05eTX
-         kLl8UHL5Q2mABFiHtQ8w+6ssrIh07AgjOY/dpX6BkYjp+yjtd2KLCVRNszV43YST/mum
-         D79w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700133051; x=1700737851;
-        h=content-transfer-encoding:subject:from:cc:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mFz7+oVHI5NX8C0fnm8IRqMzIqbCT/WXK6LRYxJxeAE=;
-        b=LU6NJ1VI84fna1VeswKK/bzjoRGmOpgqyjAKVEFHAOE1EE3Qg2VAJvDTvA6wAEGJf2
-         uKqnpZTd1gwmzOo8XtTNhIfWeFQrds+O6y9SJDCW6Vke0myv9ho6b5pA7k+uzTvtXw+z
-         Iab+0+FjwedRYIPUGdex8wFqnqtX2y21f5Y48jtmisGSg9uXeB41n0m6gKizbx0s4Omj
-         //SSTuE2fGTNidQNOHsWgtr9AbB3NObKJwc8S2G+0G3oCLNmQulW01WBHMJJ+FIJjykz
-         L/CPMow64mE0rlzGZYitGe3zC1bpoll/vHPQntyrLpd2VbCHF/zrijCHp1ZH3Yq+y6sF
-         aOTA==
-X-Gm-Message-State: AOJu0YwPJL/u7PFE7CLw/ZDhC6p9ZrjAvoZEJG1kzNGSTRKgKqADZm4x
-	9gRASUla96Ee4ijUGf620uc=
-X-Google-Smtp-Source: 
- AGHT+IHdY0XUN3LIBMmFyQ/ijvMnft+nsGEUJv1hua8fnJIpPVmBnHfdyu9e06SELEggK2aJGRPBTA==
-X-Received: by 2002:a17:902:70c7:b0:1cc:32b7:e5b9 with SMTP id
- l7-20020a17090270c700b001cc32b7e5b9mr7088429plt.67.1700133051430;
-        Thu, 16 Nov 2023 03:10:51 -0800 (PST)
-Received: from [192.168.0.106] ([103.131.18.64])
-        by smtp.gmail.com with ESMTPSA id
- ja5-20020a170902efc500b001cc3a6813f8sm9025422plb.154.2023.11.16.03.10.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Nov 2023 03:10:51 -0800 (PST)
-Message-ID: <8bd0e77f-720b-4804-bbd8-477bd7df938e@gmail.com>
-Date: Thu, 16 Nov 2023 18:10:45 +0700
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=NURLVtFg
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id C2D0E61982;
+	Thu, 16 Nov 2023 11:15:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6D8C433C7;
+	Thu, 16 Nov 2023 11:15:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700133330;
+	bh=PYuLWqWIvuzoTh9zLT3pDQjY0fceUqdyLBejuAD2FK4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NURLVtFgFJIc4O32AKjINLEyPmXpbOm5VoIoTocP6FVkvw7UyoBnZTT/mJE07X9Yv
+	 TPoeK0s9WKGinXgkHWFLsAbxwxUWxDYykWgj8unq854qtBAxvTv0bJkFP9/CceN3s2
+	 t49DCPOGtPFbdT+1WjppKc2UGgEpJAHCAv8urdiXOQpH/Pf9rJX0+JvsgmqudV2vzX
+	 skfCmSulOrOT+cftBvSVL659PU+UHie3OK8i/FqS5PAOL3rCl9VUtjYW3OUlpBW43i
+	 IjOMcH0mQwZ5K5gHyt8Ot1wdUeGD3J9IVaefl11Frb5dnRBQNJ+CLTyOFlD3A2y2ad
+	 guoGpF/DnTCpA==
+Message-ID: <a6e39566-f872-4bae-83e4-212e75e705dc@kernel.org>
+Date: Thu, 16 Nov 2023 12:15:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 14/15] media: imx-asrc: Add memory to memory driver
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, hverkuil@xs4all.nl,
+ sakari.ailus@iki.fi, tfiga@chromium.org, m.szyprowski@samsung.com,
+ mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1699595289-25773-1-git-send-email-shengjiu.wang@nxp.com>
+ <1699595289-25773-15-git-send-email-shengjiu.wang@nxp.com>
+ <70821f4c-d0f8-4a35-b664-0823bf430816@kernel.org>
+ <CAA+D8ANiNr0DVNP4eiTGVzvYGxTJJBjJocW++x0A9GDEbNTqRA@mail.gmail.com>
 Content-Language: en-US
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Sound System <linux-sound@vger.kernel.org>,
- Linux ALSA Development <alsa-devel@alsa-project.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- ollisieber@gmail.com
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Fwd: acp3x: Missing product ID for Thinkpad T14s Gen2 AMD Ryzen 7 PRO
- 5850U
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
+ QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
+ gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
+ /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
+ iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
+ VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
+ 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
+ xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
+ eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
+ AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
+ MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
+ Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
+ ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
+ vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
+ oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
+ lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
+ t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
+ uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
+ 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
+ 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
+In-Reply-To: 
+ <CAA+D8ANiNr0DVNP4eiTGVzvYGxTJJBjJocW++x0A9GDEbNTqRA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: D2JZUHCB4HRBSJHRUYWDMMEJBP5HGDLF
-X-Message-ID-Hash: D2JZUHCB4HRBSJHRUYWDMMEJBP5HGDLF
-X-MailFrom: bagasdotme@gmail.com
+Message-ID-Hash: 6HQ3WOIXLHSL3KU2OVSVK2SGXSIQHDT5
+X-Message-ID-Hash: 6HQ3WOIXLHSL3KU2OVSVK2SGXSIQHDT5
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D2JZUHCB4HRBSJHRUYWDMMEJBP5HGDLF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6HQ3WOIXLHSL3KU2OVSVK2SGXSIQHDT5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,33 +149,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+On 16/11/2023 09:32, Shengjiu Wang wrote:
 
-I notice a bug report on Bugzilla [1]. Quoting from it:
-
-> Hey,sound/soc/amd/renoir/rn-pci-acp3x.c has a hard-coded list of quirks. It seems like some product IDs may be missing. In my case, I am using a Lenovo Thinkpad t14s gen2 with an AMD Ryzen 7 PRO 5850U. 
-> My audio output is fine but my internal microphone cannot be found.
-> 
-> Running `dmidecode` yields:
-> 
-> Handle 0x000F, DMI type 1, 27 bytes
-> System Information
-> 	Manufacturer: LENOVO
-> 	Product Name: 20XGS1KT02
-> 	Version: ThinkPad T14s Gen 2a
-> 
-> Could it be that one may have to add the product ID "20XGS1KT02" to the hard-coded list of quirks in rn-pci-acp3x.c?
+>>> +MODULE_DESCRIPTION("Freescale ASRC M2M driver");
+>>> +MODULE_ALIAS("platform:" M2M_DRV_NAME);
+>>
+>> You should not need MODULE_ALIAS() in normal cases. If you need it,
+>> usually it means your device ID table is wrong (e.g. misses either
+>> entries or MODULE_DEVICE_TABLE()). MODULE_ALIAS() is not a substitute
+>> for incomplete ID table.
 > 
 > 
-> It seems as there have been similar problems in the past, e.g. https://bugzilla.kernel.org/show_bug.cgi?id=216270.
+> This driver don't have MODULE_DEVICE_TABLE.  it is only registered
+> by platform_device_register_data().
 
-See Bugzilla for the full thread.
+Which is the problem. I thought I made myself clear but if it is not the
+case: drop MODULE_ALIAS.
 
-ollisieber, can you send the quirk patch?
+Best regards,
+Krzysztof
 
-Thanks.
-
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=218148
-
--- 
-An old man doll... just what I always wanted! - Clara

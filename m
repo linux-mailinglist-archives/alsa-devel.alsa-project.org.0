@@ -2,172 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38557EF345
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Nov 2023 14:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E63D57EF37C
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Nov 2023 14:08:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01B3A93A;
-	Fri, 17 Nov 2023 14:03:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01B3A93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A99D586F;
+	Fri, 17 Nov 2023 14:08:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A99D586F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700226230;
-	bh=dhTrDJeEomdAh5nZpmouV+FEVmzxXHiL/V270ItCRto=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1700226538;
+	bh=M6vI1RQ73EK2dJd86l2euVNviQZzRlgHxvurENMMv68=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RBJhhgdp6W74Okp2ImGWw83l1lYBmgnUAFwZ5nEOwC/j5ULBZqDxMOj97ZhTNyc8z
-	 ZUmI6n6Y7OQJk2h/Oy3plNC5jveGIadN9BgpAEjXVYgsVxToYzVGD+7yOfAUlQ6R7n
-	 QnMSaGBGlM0lsReyvwpYI9dQ57jT3Av3xVHGBf8w=
+	b=fwCFOoWgIAA3vI9W0G45ptorF0HcdKo9aSNYi930Dj5XAzeqj+FHVytgtugFHz2XY
+	 mNtdoahtk7QaRAl1DbKcxHVY657JpPrOmUJy/Z4f5+a/Iz7cA7l86qZXJEDncIS+GL
+	 lsiFKou/Jj1lpVTdLtEd4Z9x6U948o0sogBWlOZ0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADA21F80578; Fri, 17 Nov 2023 14:02:03 +0100 (CET)
+	id 0B7F0F80557; Fri, 17 Nov 2023 14:08:07 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5045DF80570;
-	Fri, 17 Nov 2023 14:02:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 720D1F80166;
+	Fri, 17 Nov 2023 14:08:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50055F801D5; Fri, 17 Nov 2023 08:18:04 +0100 (CET)
+	id F005AF8016E; Fri, 17 Nov 2023 14:08:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from meesny.iki.fi (meesny.iki.fi [IPv6:2001:67c:2b0:1c1::201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9596F80166
-	for <alsa-devel@alsa-project.org>; Fri, 17 Nov 2023 08:17:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9596F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4B03F80093
+	for <alsa-devel@alsa-project.org>; Fri, 17 Nov 2023 14:07:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4B03F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=m/1zWLAx
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4083cd3917eso13967105e9.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 16 Nov 2023 23:17:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700205471; x=1700810271;
- darn=alsa-project.org;
-        h=in-reply-to:autocrypt:from:references:cc:to:content-language
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=L543rvC1TPuwmAspDZo/xfuYvHE2Jev/LgUkzEAXV14=;
-        b=m/1zWLAxf0PBMoLJqR0YVlcXMK/oerXYHnFzV0qrYdjN0gMPv4yEIClFVw7SrXEpuS
-         we8NzuNjAtPkf4nLuGWCn0SaXCsRolp43vdu+WLY9R29wpPxcoYe8+/LivtNsdV3s1XX
-         ThQ+0X/UHf2w3ANFJPc/qgh/EyEKkZYVxnwCja8Bd0a2StV4jU27R+zQnc5j7j4gtM1o
-         a2oRAHH/XjApcAuP83pK2ck5ubF2Zvb+wjedeMXdy84T1YRMujcP3vv5nLEJLZKoSFUQ
-         1sYYdF8FVS0qbh4kESqZdvyn6iJ49Nop0BLnuLlG7RhTtUC2PtTOruDR1I6XAw4QHsfJ
-         ebQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700205471; x=1700810271;
-        h=in-reply-to:autocrypt:from:references:cc:to:content-language
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=L543rvC1TPuwmAspDZo/xfuYvHE2Jev/LgUkzEAXV14=;
-        b=a/FwVYOdrUXcgGRJmzLuH0KVjxuN0qOs6jo+Fb9mFRnSNe20fsVxCxNTDf7c+8dtlt
-         QUx8Nf1CV3LEs6Hbn3kduYI+YBQQUtOGgfMen/KdOD53UfhkmlU2RNuYgeWvOEtgmzKk
-         HFLYM54r3PBQudfHOv/YA4OK5diM8isaTJJJDJYW0/s190IVstlMtb1wBrdsuEgEjg4y
-         41skX2RNgt827a+oL9dJoszqK4cydV71EAjP0EmIiAwol6237YYgW3TaQ3soK/XuqrNA
-         tCBdvqHQE5V8JgGW08cWn1RiL/PY5fss97M/m7dXDmq5eHfoyaZLXrXl/FBoRlzCyIGg
-         KUYw==
-X-Gm-Message-State: AOJu0YwDhkzjFish0kYtZQHLbFCOFbttPxOQGlylV1Qv7Ykc5S445dto
-	rN0YOID4antCGE08gEgQoBY=
-X-Google-Smtp-Source: 
- AGHT+IE+nQ4FISV/OqSXe5yne8e3nN+UN8AUxq5YPcBumiEJMlA9Q2BpOz89LXR52pRVZPGRyr1aTw==
-X-Received: by 2002:a05:600c:230f:b0:408:3d91:8263 with SMTP id
- 15-20020a05600c230f00b004083d918263mr14060646wmo.13.1700205470724;
-        Thu, 16 Nov 2023 23:17:50 -0800 (PST)
-Received: from ?IPV6:2003:d3:8f2b:ca00:6797:299b:3e2c:2391?
- (p200300d38f2bca006797299b3e2c2391.dip0.t-ipconnect.de.
- [2003:d3:8f2b:ca00:6797:299b:3e2c:2391])
-        by smtp.gmail.com with ESMTPSA id
- y15-20020a05600c364f00b004060f0a0fd5sm1648753wmq.13.2023.11.16.23.17.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Nov 2023 23:17:50 -0800 (PST)
-Message-ID: <78149e00-12b5-459b-8754-a17dd974916d@gmail.com>
-Date: Fri, 17 Nov 2023 08:17:48 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256
+ header.s=meesny header.b=JycuFiMl
+Received: from hillosipuli.retiisi.eu (185-9-10-242.cust.suomicom.net
+ [185.9.10.242])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4SWxym4MQGzyT1;
+	Fri, 17 Nov 2023 15:07:41 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1700226466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j73TzZWkh4ztuF5gwXyULN3t9yKeHQn5nD1gjZf1ChI=;
+	b=JycuFiMl4abLaHyS9jy1KljuIGIssbLwEvAwRDpbkxHZpstmZgK5eqGmSVk7Nk7l3sONfB
+	iB315CarGishGDetMyjodUchW3lvHyVLsdYZvF7aYI+7dN1A++aPXmhY4YNwZqF6DI913W
+	X5SiJQg5pJjMyd+I+9ChltTTqQ5/blM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1700226466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j73TzZWkh4ztuF5gwXyULN3t9yKeHQn5nD1gjZf1ChI=;
+	b=lYy9thrgYSTkpSJTUBe4SHxgBwJIbJ8O2cw5N59MTj7oLFvmKInWHDPqrnisjgXqExncHI
+	OPxzTmQy17LFBiWt9RLpcSj3LTri5RXZ+nyLgh08eePvPmGBYnkyGs4icnqNrKJO3RNAzQ
+	EQDXpwJC1psWSAMZWbSB9zNeUD7u/FQ=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+ARC-Seal: i=1; s=meesny; d=iki.fi; t=1700226466; a=rsa-sha256; cv=none;
+	b=LUGwMCIUUuaunrg45mZ0lU60ivZQPf2iQXfGe9vRi95Fl+KZxW/P1+5XFMLr/J8dvA72/t
+	87TQRGifUPTg70D7hEC0157VdgajRsk55VvPht/xwVymz5G5KmZ8nwhZouM6UmZ3iOEnqE
+	dNLL2dyCq0IcYRQlheW1yf6STxEq0D8=
+Received: from valkosipuli.retiisi.eu (valkosipuli.localdomain [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id BAAAE634C94;
+	Fri, 17 Nov 2023 15:07:37 +0200 (EET)
+Date: Fri, 17 Nov 2023 13:07:37 +0000
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>, m.szyprowski@samsung.com,
+	mchehab@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com,
+	festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
+	broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	Tomasz Figa <tfiga@chromium.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+Message-ID: <ZVdlmRlpW7ebrjQO@valkosipuli.retiisi.eu>
+References: <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
+ <20231113124412.GA18974@pendragon.ideasonboard.com>
+ <b35601f7-8bb2-4317-a8f7-6fbf81572943@xs4all.nl>
+ <20231115105518.GD13826@pendragon.ideasonboard.com>
+ <a67491c0-4fdf-4472-852c-e75f5e1d67af@xs4all.nl>
+ <20231115114931.GE13826@pendragon.ideasonboard.com>
+ <CAAFQd5BkCR=tYvmfjkOeTnjnccmURt8kEtiRee9CYqcz+FGHfg@mail.gmail.com>
+ <7626e0f8-ce31-469e-b49c-f2fba664756f@xs4all.nl>
+ <CAA+D8ANb6A9eh=MQR9+7sZi5jet+7RSHt6TdZqPz5EK6pBs3mA@mail.gmail.com>
+ <6badc94c-c414-40d7-a9d7-8b3fc86d8d98@xs4all.nl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Fwd: acp3x: Missing product ID for Thinkpad T14s Gen2 AMD Ryzen 7
- PRO 5850U
-Content-Language: en-US
-To: Bagas Sanjaya <bagasdotme@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Sound System <linux-sound@vger.kernel.org>,
- Linux ALSA Development <alsa-devel@alsa-project.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <8bd0e77f-720b-4804-bbd8-477bd7df938e@gmail.com>
- <251c1bea-8250-40dd-bdea-1cd739d1e77a@gmail.com>
- <a75ce6e7-5012-43d8-a222-dd2639c5969c@gmail.com>
-From: Oliver Sieber <ollisieber@gmail.com>
-Autocrypt: addr=ollisieber@gmail.com; keydata=
- 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
- Mi8tCaN/OlNrmLQZ1vgYMQ==
-In-Reply-To: <a75ce6e7-5012-43d8-a222-dd2639c5969c@gmail.com>
-X-MailFrom: ollisieber@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6badc94c-c414-40d7-a9d7-8b3fc86d8d98@xs4all.nl>
+Message-ID-Hash: YCYSCY5ZB2QBJLURY7FGYJQVAETI6IYI
+X-Message-ID-Hash: YCYSCY5ZB2QBJLURY7FGYJQVAETI6IYI
+X-MailFrom: sakari.ailus@iki.fi
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MS6H3CG7E6SZH5DI3LRAVMI3LLIFVG2T
-X-Message-ID-Hash: MS6H3CG7E6SZH5DI3LRAVMI3LLIFVG2T
-X-Mailman-Approved-At: Fri, 17 Nov 2023 13:01:56 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MS6H3CG7E6SZH5DI3LRAVMI3LLIFVG2T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCYSCY5ZB2QBJLURY7FGYJQVAETI6IYI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -176,33 +136,321 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGksDQoNCmluIHRoZSBmb2xsb3dpbmcgSSBwcm92aWRlIG15IHByb3Bvc2VkIHBhdGNoIGZvciB0
-aGUgYnVnIHJlcG9ydCBvbiANCkJ1Z3ppbGxhIFsxXS4gTGV0IG1lIHF1b3RlIGZyb20gaXQ6DQo+
-IEhleSxzb3VuZC9zb2MvYW1kL3Jlbm9pci9ybi1wY2ktYWNwM3guYyBoYXMgYSBoYXJkLWNvZGVk
-IGxpc3Qgb2YgcXVpcmtzLiBJdCBzZWVtcyBsaWtlIHNvbWUgcHJvZHVjdCBJRHMgbWF5IGJlIG1p
-c3NpbmcuIEluIG15IGNhc2UsIEkgYW0gdXNpbmcgYSBMZW5vdm8gVGhpbmtwYWQgdDE0cyBnZW4y
-IHdpdGggYW4gQU1EIFJ5emVuIDcgUFJPIDU4NTBVLg0KPiBNeSBhdWRpbyBvdXRwdXQgaXMgZmlu
-ZSBidXQgbXkgaW50ZXJuYWwgbWljcm9waG9uZSBjYW5ub3QgYmUgZm91bmQuDQo+DQo+IFJ1bm5p
-bmcgYGRtaWRlY29kZWAgeWllbGRzOg0KPg0KPiBIYW5kbGUgMHgwMDBGLCBETUkgdHlwZSAxLCAy
-NyBieXRlcw0KPiBTeXN0ZW0gSW5mb3JtYXRpb24NCj4gCU1hbnVmYWN0dXJlcjogTEVOT1ZPDQo+
-IAlQcm9kdWN0IE5hbWU6IDIwWEdTMUtUMDINCj4gCVZlcnNpb246IFRoaW5rUGFkIFQxNHMgR2Vu
-IDJhDQo+DQo+IENvdWxkIGl0IGJlIHRoYXQgb25lIG1heSBoYXZlIHRvIGFkZCB0aGUgcHJvZHVj
-dCBJRCAiMjBYR1MxS1QwMiIgdG8gdGhlIGhhcmQtY29kZWQgbGlzdCBvZiBxdWlya3MgaW4gcm4t
-cGNpLWFjcDN4LmM/DQo+DQo+DQo+IEl0IHNlZW1zIGFzIHRoZXJlIGhhdmUgYmVlbiBzaW1pbGFy
-IHByb2JsZW1zIGluIHRoZSBwYXN0LCBlLmcuaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3No
-b3dfYnVnLmNnaT9pZD0yMTYyNzAuDQoNCg0KTXkgcHJvcG9zZWQgZGlmZiBsb29rcyBhcyBmb2xs
-b3dzOg0KDQpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2FtZC9yZW5vaXIvcm4tcGNpLWFjcDN4LmMg
-DQpiL3NvdW5kL3NvYy9hbWQvcmVub2lyL3JuLXBjaS1hY3AzeC5jDQppbmRleCBiMzgxMmI3MGY1
-ZjkuLjc1NGUyNGQ1NWU2ZiAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9hbWQvcmVub2lyL3JuLXBj
-aS1hY3AzeC5jDQorKysgYi9zb3VuZC9zb2MvYW1kL3Jlbm9pci9ybi1wY2ktYWNwM3guYw0KQEAg
-LTE5OSw2ICsxOTksMTMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWlfc3lzdGVtX2lkIA0Kcm5f
-YWNwX3F1aXJrX3RhYmxlW10gPSB7DQogwqDCoMKgwqAgwqDCoMKgIMKgwqDCoCBETUlfRVhBQ1Rf
-TUFUQ0goRE1JX0JPQVJEX05BTUUsICIyME5MQ1RPMVdXIiksDQogwqDCoMKgwqAgwqDCoMKgIH0N
-CiDCoMKgwqDCoCB9LA0KK8KgwqDCoCB7DQorwqDCoMKgIMKgwqDCoCAvKiBMZW5vdm8gVGhpbmtQ
-YWQgVDE0cyBHZW4gMiAqLw0KK8KgwqDCoCDCoMKgwqAgLm1hdGNoZXMgPSB7DQorwqDCoMKgIMKg
-wqDCoCDCoMKgwqAgRE1JX0VYQUNUX01BVENIKERNSV9CT0FSRF9WRU5ET1IsICJMRU5PVk8iKSwN
-CivCoMKgwqAgwqDCoMKgIMKgwqDCoCBETUlfRVhBQ1RfTUFUQ0goRE1JX0JPQVJEX05BTUUsICIy
-MFhHUzFLVDAyIiksDQorwqDCoMKgIMKgwqDCoCB9DQorwqDCoMKgIH0sDQogwqDCoMKgwqAge30N
-CiDCoH07DQoNCg0KUGxlYXNlIGhhdmUgaW4gbWluZCB0aGF0IHRoaXMgaXMgbXkgZmlyc3QgcGF0
-Y2ggZm9yIHRoZSBrZXJuZWwuDQoNClRoYW5rcyENClsxXTogaHR0cHM6Ly9idWd6aWxsYS5rZXJu
-ZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMTgxNDgNCg==
+Hi Hans,
+
+Thank you for the patch.
+
+On Fri, Nov 17, 2023 at 01:07:44PM +0100, Hans Verkuil wrote:
+> Here is an RFC patch adding support for 'fraction_bits'. It's lacking
+> documentation, but it can be used for testing.
+> 
+> It was rather a pain logging fixed point number in a reasonable format,
+> but I think it is OK.
+> 
+> In userspace (where you can use floating point) it is a lot easier:
+> 
+> printf("%.*g\n", fraction_bits, (double)v * (1.0 / (1ULL << fraction_bits)));
+
+I wonder if we could add a printk() format specifier for this. Doesn't need
+to be done right now though, just an idea.
+
+> 
+> I decided to only expose fraction_bits in struct v4l2_query_ext_ctrl.
+> I could add it to struct v4l2_queryctrl, but I did not think that was
+> necessary. Other opinions are welcome.
+> 
+> In the meantime, let me know if this works for your patch series. If it
+> does, then I can clean this up.
+> 
+> Regards,
+> 
+> 	Hans
+> 
+> Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> ---
+>  drivers/media/v4l2-core/v4l2-ctrls-api.c  |  1 +
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c | 72 +++++++++++++++++++----
+>  include/media/v4l2-ctrls.h                |  7 ++-
+>  include/uapi/linux/videodev2.h            | 20 ++++++-
+>  4 files changed, 85 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> index 002ea6588edf..3132df315b17 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> @@ -1101,6 +1101,7 @@ int v4l2_query_ext_ctrl(struct v4l2_ctrl_handler *hdl, struct v4l2_query_ext_ctr
+>  	qc->elems = ctrl->elems;
+>  	qc->nr_of_dims = ctrl->nr_of_dims;
+>  	memcpy(qc->dims, ctrl->dims, qc->nr_of_dims * sizeof(qc->dims[0]));
+> +	qc->fraction_bits = ctrl->fraction_bits;
+>  	qc->minimum = ctrl->minimum;
+>  	qc->maximum = ctrl->maximum;
+>  	qc->default_value = ctrl->default_value;
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> index a662fb60f73f..0e08a371af5c 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -252,12 +252,42 @@ void v4l2_ctrl_type_op_init(const struct v4l2_ctrl *ctrl, u32 from_idx,
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_type_op_init);
+> 
+> +static void v4l2_ctrl_log_fp(s64 v, unsigned int fraction_bits)
+> +{
+> +	s64 i = v4l2_fp_integer(v, fraction_bits);
+> +	s64 f = v4l2_fp_fraction(v, fraction_bits);
+> +
+> +	if (!f) {
+> +		pr_cont("%lld", i);
+> +	} else if (fraction_bits < 20) {
+> +		u64 div = 1ULL << fraction_bits;
+> +
+> +		if (!i && f < 0)
+> +			pr_cont("-%lld/%llu", -f, div);
+> +		else if (!i)
+> +			pr_cont("%lld/%llu", f, div);
+> +		else if (i < 0 || f < 0)
+> +			pr_cont("-%lld-%llu/%llu", -i, -f, div);
+> +		else
+> +			pr_cont("%lld+%llu/%llu", i, f, div);
+> +	} else {
+> +		if (!i && f < 0)
+> +			pr_cont("-%lld/(2^%u)", -f, fraction_bits);
+> +		else if (!i)
+> +			pr_cont("%lld/(2^%u)", f, fraction_bits);
+> +		else if (i < 0 || f < 0)
+> +			pr_cont("-%lld-%llu/(2^%u)", -i, -f, fraction_bits);
+> +		else
+> +			pr_cont("%lld+%llu/(2^%u)", i, f, fraction_bits);
+> +	}
+> +}
+> +
+>  void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>  {
+>  	union v4l2_ctrl_ptr ptr = ctrl->p_cur;
+> 
+>  	if (ctrl->is_array) {
+> -		unsigned i;
+> +		unsigned int i;
+> 
+>  		for (i = 0; i < ctrl->nr_of_dims; i++)
+>  			pr_cont("[%u]", ctrl->dims[i]);
+> @@ -266,7 +296,10 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+> 
+>  	switch (ctrl->type) {
+>  	case V4L2_CTRL_TYPE_INTEGER:
+> -		pr_cont("%d", *ptr.p_s32);
+> +		if (!ctrl->fraction_bits)
+> +			pr_cont("%d", *ptr.p_s32);
+> +		else
+> +			v4l2_ctrl_log_fp(*ptr.p_s32, ctrl->fraction_bits);
+>  		break;
+>  	case V4L2_CTRL_TYPE_BOOLEAN:
+>  		pr_cont("%s", *ptr.p_s32 ? "true" : "false");
+> @@ -281,19 +314,31 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>  		pr_cont("0x%08x", *ptr.p_s32);
+>  		break;
+>  	case V4L2_CTRL_TYPE_INTEGER64:
+> -		pr_cont("%lld", *ptr.p_s64);
+> +		if (!ctrl->fraction_bits)
+> +			pr_cont("%lld", *ptr.p_s64);
+> +		else
+> +			v4l2_ctrl_log_fp(*ptr.p_s64, ctrl->fraction_bits);
+>  		break;
+>  	case V4L2_CTRL_TYPE_STRING:
+>  		pr_cont("%s", ptr.p_char);
+>  		break;
+>  	case V4L2_CTRL_TYPE_U8:
+> -		pr_cont("%u", (unsigned)*ptr.p_u8);
+> +		if (!ctrl->fraction_bits)
+> +			pr_cont("%u", (unsigned int)*ptr.p_u8);
+> +		else
+> +			v4l2_ctrl_log_fp((unsigned int)*ptr.p_u8, ctrl->fraction_bits);
+>  		break;
+>  	case V4L2_CTRL_TYPE_U16:
+> -		pr_cont("%u", (unsigned)*ptr.p_u16);
+> +		if (!ctrl->fraction_bits)
+> +			pr_cont("%u", (unsigned int)*ptr.p_u16);
+> +		else
+> +			v4l2_ctrl_log_fp((unsigned int)*ptr.p_u16, ctrl->fraction_bits);
+>  		break;
+>  	case V4L2_CTRL_TYPE_U32:
+> -		pr_cont("%u", (unsigned)*ptr.p_u32);
+> +		if (!ctrl->fraction_bits)
+> +			pr_cont("%u", (unsigned int)*ptr.p_u32);
+> +		else
+> +			v4l2_ctrl_log_fp((unsigned int)*ptr.p_u32, ctrl->fraction_bits);
+>  		break;
+>  	case V4L2_CTRL_TYPE_H264_SPS:
+>  		pr_cont("H264_SPS");
+> @@ -1752,7 +1797,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>  			u32 id, const char *name, enum v4l2_ctrl_type type,
+>  			s64 min, s64 max, u64 step, s64 def,
+>  			const u32 dims[V4L2_CTRL_MAX_DIMS], u32 elem_size,
+> -			u32 flags, const char * const *qmenu,
+> +			u32 fraction_bits, u32 flags, const char * const *qmenu,
+>  			const s64 *qmenu_int, const union v4l2_ctrl_ptr p_def,
+>  			void *priv)
+>  {
+> @@ -1939,6 +1984,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>  	ctrl->name = name;
+>  	ctrl->type = type;
+>  	ctrl->flags = flags;
+> +	ctrl->fraction_bits = fraction_bits;
+>  	ctrl->minimum = min;
+>  	ctrl->maximum = max;
+>  	ctrl->step = step;
+> @@ -2037,7 +2083,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_custom(struct v4l2_ctrl_handler *hdl,
+>  	ctrl = v4l2_ctrl_new(hdl, cfg->ops, cfg->type_ops, cfg->id, name,
+>  			type, min, max,
+>  			is_menu ? cfg->menu_skip_mask : step, def,
+> -			cfg->dims, cfg->elem_size,
+> +			cfg->dims, cfg->elem_size, cfg->fraction_bits,
+>  			flags, qmenu, qmenu_int, cfg->p_def, priv);
+>  	if (ctrl)
+>  		ctrl->is_private = cfg->is_private;
+> @@ -2062,7 +2108,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std(struct v4l2_ctrl_handler *hdl,
+>  		return NULL;
+>  	}
+>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -			     min, max, step, def, NULL, 0,
+> +			     min, max, step, def, NULL, 0, 0,
+>  			     flags, NULL, NULL, ptr_null, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_std);
+> @@ -2095,7 +2141,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_menu(struct v4l2_ctrl_handler *hdl,
+>  		return NULL;
+>  	}
+>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -			     0, max, mask, def, NULL, 0,
+> +			     0, max, mask, def, NULL, 0, 0,
+>  			     flags, qmenu, qmenu_int, ptr_null, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_std_menu);
+> @@ -2127,7 +2173,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_menu_items(struct v4l2_ctrl_handler *hdl,
+>  		return NULL;
+>  	}
+>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -			     0, max, mask, def, NULL, 0,
+> +			     0, max, mask, def, NULL, 0, 0,
+>  			     flags, qmenu, NULL, ptr_null, NULL);
+> 
+>  }
+> @@ -2149,7 +2195,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_compound(struct v4l2_ctrl_handler *hdl,
+>  		return NULL;
+>  	}
+>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -			     min, max, step, def, NULL, 0,
+> +			     min, max, step, def, NULL, 0, 0,
+>  			     flags, NULL, NULL, p_def, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_std_compound);
+> @@ -2173,7 +2219,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_int_menu(struct v4l2_ctrl_handler *hdl,
+>  		return NULL;
+>  	}
+>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -			     0, max, 0, def, NULL, 0,
+> +			     0, max, 0, def, NULL, 0, 0,
+>  			     flags, NULL, qmenu_int, ptr_null, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_int_menu);
+> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+> index 59679a42b3e7..c35514c5bf88 100644
+> --- a/include/media/v4l2-ctrls.h
+> +++ b/include/media/v4l2-ctrls.h
+> @@ -211,7 +211,8 @@ typedef void (*v4l2_ctrl_notify_fnc)(struct v4l2_ctrl *ctrl, void *priv);
+>   *		except for dynamic arrays. In that case it is in the range of
+>   *		1 to @p_array_alloc_elems.
+>   * @dims:	The size of each dimension.
+> - * @nr_of_dims:The number of dimensions in @dims.
+> + * @nr_of_dims: The number of dimensions in @dims.
+> + * @fraction_bits: The number of fraction bits for fixed point values.
+>   * @menu_skip_mask: The control's skip mask for menu controls. This makes it
+>   *		easy to skip menu items that are not valid. If bit X is set,
+>   *		then menu item X is skipped. Of course, this only works for
+> @@ -228,6 +229,7 @@ typedef void (*v4l2_ctrl_notify_fnc)(struct v4l2_ctrl *ctrl, void *priv);
+>   *		:math:`ceil(\frac{maximum - minimum}{step}) + 1`.
+>   *		Used only if the @type is %V4L2_CTRL_TYPE_INTEGER_MENU.
+>   * @flags:	The control's flags.
+> + * @fraction_bits: The number of fraction bits for fixed point values.
+>   * @priv:	The control's private pointer. For use by the driver. It is
+>   *		untouched by the control framework. Note that this pointer is
+>   *		not freed when the control is deleted. Should this be needed
+> @@ -286,6 +288,7 @@ struct v4l2_ctrl {
+>  	u32 new_elems;
+>  	u32 dims[V4L2_CTRL_MAX_DIMS];
+>  	u32 nr_of_dims;
+> +	u32 fraction_bits;
+>  	union {
+>  		u64 step;
+>  		u64 menu_skip_mask;
+> @@ -426,6 +429,7 @@ struct v4l2_ctrl_handler {
+>   * @dims:	The size of each dimension.
+>   * @elem_size:	The size in bytes of the control.
+>   * @flags:	The control's flags.
+> + * @fraction_bits: The number of fraction bits for fixed point values.
+>   * @menu_skip_mask: The control's skip mask for menu controls. This makes it
+>   *		easy to skip menu items that are not valid. If bit X is set,
+>   *		then menu item X is skipped. Of course, this only works for
+> @@ -455,6 +459,7 @@ struct v4l2_ctrl_config {
+>  	u32 dims[V4L2_CTRL_MAX_DIMS];
+>  	u32 elem_size;
+>  	u32 flags;
+> +	u32 fraction_bits;
+>  	u64 menu_skip_mask;
+>  	const char * const *qmenu;
+>  	const s64 *qmenu_int;
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> index c3d4e490ce7c..26ecac19722a 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -1944,9 +1944,27 @@ struct v4l2_query_ext_ctrl {
+>  	__u32                elems;
+>  	__u32                nr_of_dims;
+>  	__u32                dims[V4L2_CTRL_MAX_DIMS];
+> -	__u32		     reserved[32];
+> +	__u32                fraction_bits;
+
+u8 would suffice. Not that we'd be short of space but still...
+
+> +	__u32		     reserved[31];
+>  };
+> 
+> +static inline __s64 v4l2_fp_compose(__s64 i, __s64 f, unsigned int fraction_bits)
+> +{
+> +	return (i << fraction_bits) + f;
+> +}
+> +
+> +static inline __s64 v4l2_fp_integer(__s64 v, unsigned int fraction_bits)
+> +{
+> +	return v / (1LL << fraction_bits);
+
+Why not just:
+
+	return v >> fraction_bits;
+
+I'd use macros so you could use whatever control types with this without
+casting. E.g.
+
+#define V4L2_FP_INTEGER(v, fraction_bits) ((v) >> fraction_bits)
+
+A more generic way to expose this could be to have base and exponent, the
+base being 2 in this case. Just an idea. This would of course be a little
+bit more difficult to use.
+
+> +}
+> +
+> +static inline __s64 v4l2_fp_fraction(__s64 v, unsigned int fraction_bits)
+> +{
+> +	__u64 mask = (1ULL << fraction_bits) - 1;
+> +
+> +	return v < 0 ? -((-v) & mask) : (v & mask);
+> +}
+> +
+>  /*  Used in the VIDIOC_QUERYMENU ioctl for querying menu items */
+>  struct v4l2_querymenu {
+>  	__u32		id;
+
+-- 
+Kind regards,
+
+Sakari Ailus

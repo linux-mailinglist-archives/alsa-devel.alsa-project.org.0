@@ -2,138 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 125B57EF3BA
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Nov 2023 14:33:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9277EF3FD
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Nov 2023 15:06:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90E1693A;
-	Fri, 17 Nov 2023 14:32:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90E1693A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28A9E852;
+	Fri, 17 Nov 2023 15:05:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28A9E852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700228013;
-	bh=7HxttN5iW1sVz431pUc244qDVisZYk+oJivYZl6+Ix4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1700229990;
+	bh=45U4h7tQ009FE8OA0oACt5b/otD3JwAqThkmZcV9sJw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OrzkdpMz1Xga/1Q8WvsSpOZdfvN1ISIpD1UDpH5caPRVjIbs06A5tpRdhd1zTN0gd
-	 9zoRAjyQ3sMM0GFutnxqKzOxqbqyTRgwz0GowVBTUN6zdPT22pRC3O4xGTjo5WBdLv
-	 lCCEiAshjpLuPSrUoFHWEg5hX+axvpHJP4zDnaZg=
+	b=V0wdYLkVxNiNC1qiJwbE2dpESjU3zsHm6q7tAGPWUdyFSvBaDMbt0l/5bz2sSZnxk
+	 tPGYFTydVi5YgQPjK9rM3pjh1qsx9StcZ8SkcARCZZd6MJl/TIfD2i1SZIVQ6dQ6bA
+	 LxWPBvVbVPTjvJMya0z7Yu5NKM1NU0upLou/igTs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C81A6F80093; Fri, 17 Nov 2023 14:32:32 +0100 (CET)
+	id AC62FF80551; Fri, 17 Nov 2023 15:05:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 573DAF8016E;
-	Fri, 17 Nov 2023 14:32:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43093F8016E;
+	Fri, 17 Nov 2023 15:05:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66044F801D5; Fri, 17 Nov 2023 14:32:28 +0100 (CET)
+	id 41929F801D5; Fri, 17 Nov 2023 15:05:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E3C69F80093
-	for <alsa-devel@alsa-project.org>; Fri, 17 Nov 2023 14:32:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3C69F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=CB6G0qkD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=TX4Q8KFN
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id AF30C1F38D;
-	Fri, 17 Nov 2023 13:32:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1700227934;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v9hbRLCFAF0MFU6V5KRjF2Qo9Ot751dxw2RqL6OaPeA=;
-	b=CB6G0qkDUwa00UbK3T+SjtyL7Lhu1yBHD3ws2DlrFL0KNhirbUaANdS3hP6AaxTjN+mKsj
-	5SH45CWTehWYkqMr92BXWXkvWGctxvo6w7VgZJkmHlXZ+uahkw4uxMuczexFisD8NGXVpt
-	/kJGaJCjkXsPiReKs+eu+WqgoGNNaHg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1700227934;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v9hbRLCFAF0MFU6V5KRjF2Qo9Ot751dxw2RqL6OaPeA=;
-	b=TX4Q8KFNL7ErbepzZMrKkeXSdejFmjVv0FnhTiJicd47aMqqQ0WFVnd7bLW2h4GY2v3Mlt
-	yADE7BR0lhkFjoAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 788A51341F;
-	Fri, 17 Nov 2023 13:32:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id OVWBHF5rV2WKWAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 17 Nov 2023 13:32:14 +0000
-Date: Fri, 17 Nov 2023 14:32:14 +0100
-Message-ID: <87sf54jyjl.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oliver Sieber <ollisieber@gmail.com>
-Cc: Bagas Sanjaya <bagasdotme@gmail.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Sound System <linux-sound@vger.kernel.org>,
-	Linux ALSA Development <alsa-devel@alsa-project.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: Re: Fwd: acp3x: Missing product ID for Thinkpad T14s Gen2 AMD Ryzen 7
- PRO 5850U
-In-Reply-To: <78149e00-12b5-459b-8754-a17dd974916d@gmail.com>
-References: <8bd0e77f-720b-4804-bbd8-477bd7df938e@gmail.com>
-	<251c1bea-8250-40dd-bdea-1cd739d1e77a@gmail.com>
-	<a75ce6e7-5012-43d8-a222-dd2639c5969c@gmail.com>
-	<78149e00-12b5-459b-8754-a17dd974916d@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-7.23 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%];
-	 FROM_HAS_DN(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 TO_DN_ALL(0.00)[];
-	 NEURAL_HAM_SHORT(-0.13)[-0.628];
-	 RCPT_COUNT_SEVEN(0.00)[9];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FREEMAIL_TO(0.00)[gmail.com];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,alsa-project.org,kernel.org,perex.cz,suse.com];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[]
-Message-ID-Hash: RATFVYJWCCI4RFK4KEZMQICDQUOT73OM
-X-Message-ID-Hash: RATFVYJWCCI4RFK4KEZMQICDQUOT73OM
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id B0491F80093
+	for <alsa-devel@alsa-project.org>; Fri, 17 Nov 2023 15:05:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0491F80093
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id F2198B81F9D;
+	Fri, 17 Nov 2023 14:05:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55397C433C7;
+	Fri, 17 Nov 2023 14:05:16 +0000 (UTC)
+Message-ID: <4e0e0e79-91a8-49b5-874d-784d51003021@xs4all.nl>
+Date: Fri, 17 Nov 2023 15:05:14 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+Content-Language: en-US, nl
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, m.szyprowski@samsung.com,
+ mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, Tomasz Figa <tfiga@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
+ <20231113124412.GA18974@pendragon.ideasonboard.com>
+ <b35601f7-8bb2-4317-a8f7-6fbf81572943@xs4all.nl>
+ <20231115105518.GD13826@pendragon.ideasonboard.com>
+ <a67491c0-4fdf-4472-852c-e75f5e1d67af@xs4all.nl>
+ <20231115114931.GE13826@pendragon.ideasonboard.com>
+ <CAAFQd5BkCR=tYvmfjkOeTnjnccmURt8kEtiRee9CYqcz+FGHfg@mail.gmail.com>
+ <7626e0f8-ce31-469e-b49c-f2fba664756f@xs4all.nl>
+ <CAA+D8ANb6A9eh=MQR9+7sZi5jet+7RSHt6TdZqPz5EK6pBs3mA@mail.gmail.com>
+ <6badc94c-c414-40d7-a9d7-8b3fc86d8d98@xs4all.nl>
+ <ZVdlmRlpW7ebrjQO@valkosipuli.retiisi.eu>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <ZVdlmRlpW7ebrjQO@valkosipuli.retiisi.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MFQWNRSSQXDDRPIEYYNC3LVKPBL7QV44
+X-Message-ID-Hash: MFQWNRSSQXDDRPIEYYNC3LVKPBL7QV44
+X-MailFrom: SRS0=P6zk=G6=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -145,7 +132,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RATFVYJWCCI4RFK4KEZMQICDQUOT73OM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MFQWNRSSQXDDRPIEYYNC3LVKPBL7QV44/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,66 +141,343 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 17 Nov 2023 08:17:48 +0100,
-Oliver Sieber wrote:
+On 17/11/2023 14:07, Sakari Ailus wrote:
+> Hi Hans,
 > 
+> Thank you for the patch.
 > 
-> Hi,
+> On Fri, Nov 17, 2023 at 01:07:44PM +0100, Hans Verkuil wrote:
+>> Here is an RFC patch adding support for 'fraction_bits'. It's lacking
+>> documentation, but it can be used for testing.
+>>
+>> It was rather a pain logging fixed point number in a reasonable format,
+>> but I think it is OK.
+>>
+>> In userspace (where you can use floating point) it is a lot easier:
+>>
+>> printf("%.*g\n", fraction_bits, (double)v * (1.0 / (1ULL << fraction_bits)));
 > 
-> in the following I provide my proposed patch for the bug report on Bugzilla
-> [1]. Let me quote from it:
+> I wonder if we could add a printk() format specifier for this. Doesn't need
+> to be done right now though, just an idea.
 > 
->     Hey,sound/soc/amd/renoir/rn-pci-acp3x.c has a hard-coded list of quirks. It seems like some product IDs may be missing. In my case, I am using a Lenovo Thinkpad t14s gen2 with an AMD Ryzen 7 PRO 5850U. 
->     My audio output is fine but my internal microphone cannot be found.
->     
->     Running `dmidecode` yields:
->     
->     Handle 0x000F, DMI type 1, 27 bytes
->     System Information
->                   Manufacturer: LENOVO
->                   Product Name: 20XGS1KT02
->                   Version: ThinkPad T14s Gen 2a
->     
->     Could it be that one may have to add the product ID "20XGS1KT02" to the hard-coded list of quirks in rn-pci-acp3x.c?
+>>
+>> I decided to only expose fraction_bits in struct v4l2_query_ext_ctrl.
+>> I could add it to struct v4l2_queryctrl, but I did not think that was
+>> necessary. Other opinions are welcome.
+>>
+>> In the meantime, let me know if this works for your patch series. If it
+>> does, then I can clean this up.
+>>
+>> Regards,
+>>
+>> 	Hans
+>>
+>> Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+>> ---
+>>  drivers/media/v4l2-core/v4l2-ctrls-api.c  |  1 +
+>>  drivers/media/v4l2-core/v4l2-ctrls-core.c | 72 +++++++++++++++++++----
+>>  include/media/v4l2-ctrls.h                |  7 ++-
+>>  include/uapi/linux/videodev2.h            | 20 ++++++-
+>>  4 files changed, 85 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+>> index 002ea6588edf..3132df315b17 100644
+>> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+>> @@ -1101,6 +1101,7 @@ int v4l2_query_ext_ctrl(struct v4l2_ctrl_handler *hdl, struct v4l2_query_ext_ctr
+>>  	qc->elems = ctrl->elems;
+>>  	qc->nr_of_dims = ctrl->nr_of_dims;
+>>  	memcpy(qc->dims, ctrl->dims, qc->nr_of_dims * sizeof(qc->dims[0]));
+>> +	qc->fraction_bits = ctrl->fraction_bits;
+>>  	qc->minimum = ctrl->minimum;
+>>  	qc->maximum = ctrl->maximum;
+>>  	qc->default_value = ctrl->default_value;
+>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+>> index a662fb60f73f..0e08a371af5c 100644
+>> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+>> @@ -252,12 +252,42 @@ void v4l2_ctrl_type_op_init(const struct v4l2_ctrl *ctrl, u32 from_idx,
+>>  }
+>>  EXPORT_SYMBOL(v4l2_ctrl_type_op_init);
+>>
+>> +static void v4l2_ctrl_log_fp(s64 v, unsigned int fraction_bits)
+>> +{
+>> +	s64 i = v4l2_fp_integer(v, fraction_bits);
+>> +	s64 f = v4l2_fp_fraction(v, fraction_bits);
+>> +
+>> +	if (!f) {
+>> +		pr_cont("%lld", i);
+>> +	} else if (fraction_bits < 20) {
+>> +		u64 div = 1ULL << fraction_bits;
+>> +
+>> +		if (!i && f < 0)
+>> +			pr_cont("-%lld/%llu", -f, div);
+>> +		else if (!i)
+>> +			pr_cont("%lld/%llu", f, div);
+>> +		else if (i < 0 || f < 0)
+>> +			pr_cont("-%lld-%llu/%llu", -i, -f, div);
+>> +		else
+>> +			pr_cont("%lld+%llu/%llu", i, f, div);
+>> +	} else {
+>> +		if (!i && f < 0)
+>> +			pr_cont("-%lld/(2^%u)", -f, fraction_bits);
+>> +		else if (!i)
+>> +			pr_cont("%lld/(2^%u)", f, fraction_bits);
+>> +		else if (i < 0 || f < 0)
+>> +			pr_cont("-%lld-%llu/(2^%u)", -i, -f, fraction_bits);
+>> +		else
+>> +			pr_cont("%lld+%llu/(2^%u)", i, f, fraction_bits);
+>> +	}
+>> +}
+>> +
+>>  void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>>  {
+>>  	union v4l2_ctrl_ptr ptr = ctrl->p_cur;
+>>
+>>  	if (ctrl->is_array) {
+>> -		unsigned i;
+>> +		unsigned int i;
+>>
+>>  		for (i = 0; i < ctrl->nr_of_dims; i++)
+>>  			pr_cont("[%u]", ctrl->dims[i]);
+>> @@ -266,7 +296,10 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>>
+>>  	switch (ctrl->type) {
+>>  	case V4L2_CTRL_TYPE_INTEGER:
+>> -		pr_cont("%d", *ptr.p_s32);
+>> +		if (!ctrl->fraction_bits)
+>> +			pr_cont("%d", *ptr.p_s32);
+>> +		else
+>> +			v4l2_ctrl_log_fp(*ptr.p_s32, ctrl->fraction_bits);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_BOOLEAN:
+>>  		pr_cont("%s", *ptr.p_s32 ? "true" : "false");
+>> @@ -281,19 +314,31 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>>  		pr_cont("0x%08x", *ptr.p_s32);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_INTEGER64:
+>> -		pr_cont("%lld", *ptr.p_s64);
+>> +		if (!ctrl->fraction_bits)
+>> +			pr_cont("%lld", *ptr.p_s64);
+>> +		else
+>> +			v4l2_ctrl_log_fp(*ptr.p_s64, ctrl->fraction_bits);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_STRING:
+>>  		pr_cont("%s", ptr.p_char);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_U8:
+>> -		pr_cont("%u", (unsigned)*ptr.p_u8);
+>> +		if (!ctrl->fraction_bits)
+>> +			pr_cont("%u", (unsigned int)*ptr.p_u8);
+>> +		else
+>> +			v4l2_ctrl_log_fp((unsigned int)*ptr.p_u8, ctrl->fraction_bits);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_U16:
+>> -		pr_cont("%u", (unsigned)*ptr.p_u16);
+>> +		if (!ctrl->fraction_bits)
+>> +			pr_cont("%u", (unsigned int)*ptr.p_u16);
+>> +		else
+>> +			v4l2_ctrl_log_fp((unsigned int)*ptr.p_u16, ctrl->fraction_bits);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_U32:
+>> -		pr_cont("%u", (unsigned)*ptr.p_u32);
+>> +		if (!ctrl->fraction_bits)
+>> +			pr_cont("%u", (unsigned int)*ptr.p_u32);
+>> +		else
+>> +			v4l2_ctrl_log_fp((unsigned int)*ptr.p_u32, ctrl->fraction_bits);
+>>  		break;
+>>  	case V4L2_CTRL_TYPE_H264_SPS:
+>>  		pr_cont("H264_SPS");
+>> @@ -1752,7 +1797,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>>  			u32 id, const char *name, enum v4l2_ctrl_type type,
+>>  			s64 min, s64 max, u64 step, s64 def,
+>>  			const u32 dims[V4L2_CTRL_MAX_DIMS], u32 elem_size,
+>> -			u32 flags, const char * const *qmenu,
+>> +			u32 fraction_bits, u32 flags, const char * const *qmenu,
+>>  			const s64 *qmenu_int, const union v4l2_ctrl_ptr p_def,
+>>  			void *priv)
+>>  {
+>> @@ -1939,6 +1984,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>>  	ctrl->name = name;
+>>  	ctrl->type = type;
+>>  	ctrl->flags = flags;
+>> +	ctrl->fraction_bits = fraction_bits;
+>>  	ctrl->minimum = min;
+>>  	ctrl->maximum = max;
+>>  	ctrl->step = step;
+>> @@ -2037,7 +2083,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_custom(struct v4l2_ctrl_handler *hdl,
+>>  	ctrl = v4l2_ctrl_new(hdl, cfg->ops, cfg->type_ops, cfg->id, name,
+>>  			type, min, max,
+>>  			is_menu ? cfg->menu_skip_mask : step, def,
+>> -			cfg->dims, cfg->elem_size,
+>> +			cfg->dims, cfg->elem_size, cfg->fraction_bits,
+>>  			flags, qmenu, qmenu_int, cfg->p_def, priv);
+>>  	if (ctrl)
+>>  		ctrl->is_private = cfg->is_private;
+>> @@ -2062,7 +2108,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std(struct v4l2_ctrl_handler *hdl,
+>>  		return NULL;
+>>  	}
+>>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+>> -			     min, max, step, def, NULL, 0,
+>> +			     min, max, step, def, NULL, 0, 0,
+>>  			     flags, NULL, NULL, ptr_null, NULL);
+>>  }
+>>  EXPORT_SYMBOL(v4l2_ctrl_new_std);
+>> @@ -2095,7 +2141,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_menu(struct v4l2_ctrl_handler *hdl,
+>>  		return NULL;
+>>  	}
+>>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+>> -			     0, max, mask, def, NULL, 0,
+>> +			     0, max, mask, def, NULL, 0, 0,
+>>  			     flags, qmenu, qmenu_int, ptr_null, NULL);
+>>  }
+>>  EXPORT_SYMBOL(v4l2_ctrl_new_std_menu);
+>> @@ -2127,7 +2173,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_menu_items(struct v4l2_ctrl_handler *hdl,
+>>  		return NULL;
+>>  	}
+>>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+>> -			     0, max, mask, def, NULL, 0,
+>> +			     0, max, mask, def, NULL, 0, 0,
+>>  			     flags, qmenu, NULL, ptr_null, NULL);
+>>
+>>  }
+>> @@ -2149,7 +2195,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_compound(struct v4l2_ctrl_handler *hdl,
+>>  		return NULL;
+>>  	}
+>>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+>> -			     min, max, step, def, NULL, 0,
+>> +			     min, max, step, def, NULL, 0, 0,
+>>  			     flags, NULL, NULL, p_def, NULL);
+>>  }
+>>  EXPORT_SYMBOL(v4l2_ctrl_new_std_compound);
+>> @@ -2173,7 +2219,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_int_menu(struct v4l2_ctrl_handler *hdl,
+>>  		return NULL;
+>>  	}
+>>  	return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+>> -			     0, max, 0, def, NULL, 0,
+>> +			     0, max, 0, def, NULL, 0, 0,
+>>  			     flags, NULL, qmenu_int, ptr_null, NULL);
+>>  }
+>>  EXPORT_SYMBOL(v4l2_ctrl_new_int_menu);
+>> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+>> index 59679a42b3e7..c35514c5bf88 100644
+>> --- a/include/media/v4l2-ctrls.h
+>> +++ b/include/media/v4l2-ctrls.h
+>> @@ -211,7 +211,8 @@ typedef void (*v4l2_ctrl_notify_fnc)(struct v4l2_ctrl *ctrl, void *priv);
+>>   *		except for dynamic arrays. In that case it is in the range of
+>>   *		1 to @p_array_alloc_elems.
+>>   * @dims:	The size of each dimension.
+>> - * @nr_of_dims:The number of dimensions in @dims.
+>> + * @nr_of_dims: The number of dimensions in @dims.
+>> + * @fraction_bits: The number of fraction bits for fixed point values.
+>>   * @menu_skip_mask: The control's skip mask for menu controls. This makes it
+>>   *		easy to skip menu items that are not valid. If bit X is set,
+>>   *		then menu item X is skipped. Of course, this only works for
+>> @@ -228,6 +229,7 @@ typedef void (*v4l2_ctrl_notify_fnc)(struct v4l2_ctrl *ctrl, void *priv);
+>>   *		:math:`ceil(\frac{maximum - minimum}{step}) + 1`.
+>>   *		Used only if the @type is %V4L2_CTRL_TYPE_INTEGER_MENU.
+>>   * @flags:	The control's flags.
+>> + * @fraction_bits: The number of fraction bits for fixed point values.
+>>   * @priv:	The control's private pointer. For use by the driver. It is
+>>   *		untouched by the control framework. Note that this pointer is
+>>   *		not freed when the control is deleted. Should this be needed
+>> @@ -286,6 +288,7 @@ struct v4l2_ctrl {
+>>  	u32 new_elems;
+>>  	u32 dims[V4L2_CTRL_MAX_DIMS];
+>>  	u32 nr_of_dims;
+>> +	u32 fraction_bits;
+>>  	union {
+>>  		u64 step;
+>>  		u64 menu_skip_mask;
+>> @@ -426,6 +429,7 @@ struct v4l2_ctrl_handler {
+>>   * @dims:	The size of each dimension.
+>>   * @elem_size:	The size in bytes of the control.
+>>   * @flags:	The control's flags.
+>> + * @fraction_bits: The number of fraction bits for fixed point values.
+>>   * @menu_skip_mask: The control's skip mask for menu controls. This makes it
+>>   *		easy to skip menu items that are not valid. If bit X is set,
+>>   *		then menu item X is skipped. Of course, this only works for
+>> @@ -455,6 +459,7 @@ struct v4l2_ctrl_config {
+>>  	u32 dims[V4L2_CTRL_MAX_DIMS];
+>>  	u32 elem_size;
+>>  	u32 flags;
+>> +	u32 fraction_bits;
+>>  	u64 menu_skip_mask;
+>>  	const char * const *qmenu;
+>>  	const s64 *qmenu_int;
+>> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+>> index c3d4e490ce7c..26ecac19722a 100644
+>> --- a/include/uapi/linux/videodev2.h
+>> +++ b/include/uapi/linux/videodev2.h
+>> @@ -1944,9 +1944,27 @@ struct v4l2_query_ext_ctrl {
+>>  	__u32                elems;
+>>  	__u32                nr_of_dims;
+>>  	__u32                dims[V4L2_CTRL_MAX_DIMS];
+>> -	__u32		     reserved[32];
+>> +	__u32                fraction_bits;
 > 
->     It seems as there have been similar problems in the past, e.g. https://bugzilla.kernel.org/show_bug.cgi?id=216270.
+> u8 would suffice. Not that we'd be short of space but still...
 > 
-> My proposed diff looks as follows:
+>> +	__u32		     reserved[31];
+>>  };
+>>
+>> +static inline __s64 v4l2_fp_compose(__s64 i, __s64 f, unsigned int fraction_bits)
+>> +{
+>> +	return (i << fraction_bits) + f;
+>> +}
+>> +
+>> +static inline __s64 v4l2_fp_integer(__s64 v, unsigned int fraction_bits)
+>> +{
+>> +	return v / (1LL << fraction_bits);
 > 
-> diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/
-> rn-pci-acp3x.c
-> index b3812b70f5f9..754e24d55e6f 100644
-> --- a/sound/soc/amd/renoir/rn-pci-acp3x.c
-> +++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
-> @@ -199,6 +199,13 @@ static const struct dmi_system_id rn_acp_quirk_table[] =
-> {
->              DMI_EXACT_MATCH(DMI_BOARD_NAME, "20NLCTO1WW"),
->          }
->      },
-> +    {
-> +        /* Lenovo ThinkPad T14s Gen 2 */
-> +        .matches = {
-> +            DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +            DMI_EXACT_MATCH(DMI_BOARD_NAME, "20XGS1KT02"),
-> +        }
-> +    },
->      {}
->  };
+> Why not just:
 > 
-> Please have in mind that this is my first patch for the kernel.
+> 	return v >> fraction_bits;
 
-The kernel patch should be in a proper format, so that it can be
-merged to the upstream.  e.g. The Subject line should have a brief
-description with the proper prefix for the corresponding subsystem (in
-your case, something like "ASoC: amd:").  It'll follow the patch
-description, as well as your proper Signed-off-by tag.
+That works if v >= 0, but not for v < 0. Getting this right for negative
+fixed point values was rather tricky. Actually, it is still wrong if
+fraction_bits == 63. This works:
 
-The details are found in 
-  https://docs.kernel.org/process/submitting-patches.html
+static inline long long v4l2_fp_integer(long long v, unsigned int fraction_bits)
+{
+        if (fraction_bits >= 63)
+                return v < 0 ? -1 : 0;
+        return v / (1ULL << fraction_bits);
+}
 
-Could you resubmit the patch in a proper format?
+> 
+> I'd use macros so you could use whatever control types with this without
+> casting. E.g.
+> 
+> #define V4L2_FP_INTEGER(v, fraction_bits) ((v) >> fraction_bits)
+> 
+> A more generic way to expose this could be to have base and exponent, the
+> base being 2 in this case. Just an idea. This would of course be a little
+> bit more difficult to use.
 
+To be honest, I am not at all certain this should be in a public header.
+I am inclined to drop it, especially since in userspace you can just use
+floating point operations which makes working with fixed point a lot easier.
 
-thanks,
+The code to extract the integer and fraction part is really only relevant
+when logging the fixed point value.
 
-Takashi
+Regards,
+
+	Hans
+
+> 
+>> +}
+>> +
+>> +static inline __s64 v4l2_fp_fraction(__s64 v, unsigned int fraction_bits)
+>> +{
+>> +	__u64 mask = (1ULL << fraction_bits) - 1;
+>> +
+>> +	return v < 0 ? -((-v) & mask) : (v & mask);
+>> +}
+>> +
+>>  /*  Used in the VIDIOC_QUERYMENU ioctl for querying menu items */
+>>  struct v4l2_querymenu {
+>>  	__u32		id;
+> 
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D1C7EF259
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Nov 2023 13:09:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21CA17EF25A
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Nov 2023 13:10:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3D80E7B;
-	Fri, 17 Nov 2023 13:08:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3D80E7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54E91E0F;
+	Fri, 17 Nov 2023 13:09:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54E91E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700222987;
-	bh=no2TM0O3AEn2g6UeUm/R1c/jdkTlCSH/JG52HRR65os=;
+	s=default; t=1700223000;
+	bh=yp5pSJ25K8fMCoRMvSnrIPsBYyqTeCF8/kMFhCLjnaE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Iapy4wvzXf3ZZu5UjeVPS79jslc3P5pyeOfQ+PV52YKbZwumzAitVBJa5mnCZhz3P
-	 UuNJAvZQTM7XNA78owjJ3oSgNiawQAqauYE4uk2MQztVSmrnShretl3VHId4IP9MGn
-	 /YCMexdnTuqRSuZhCttrIGuKRzorCOTJZwiBpxHQ=
+	b=pkSQ/sBDEwj7N57SNUs1il+UKCRhWKyM1A8AZ5Vfn2mArNAaRL48nh3Zt8JmxHSK3
+	 +qkI0uSc7Lq/IOvsIot9mAa0Q8G9GUtC2ZSMJKr6iNfNWolGAi+0icgQWpVNC4abZH
+	 hw6j8RlXz4qS6fsCyhqgsZ4M2b/6ZrZr+e3vTxPc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6B2CF80567; Fri, 17 Nov 2023 13:07:43 +0100 (CET)
+	id 44176F801D5; Fri, 17 Nov 2023 13:07:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54A67F801D5;
-	Fri, 17 Nov 2023 13:07:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DC31F801D5;
+	Fri, 17 Nov 2023 13:07:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13533F8055B; Fri, 17 Nov 2023 13:07:39 +0100 (CET)
+	id C9947F8055A; Fri, 17 Nov 2023 13:07:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,38 +36,38 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CBFDAF80166
-	for <alsa-devel@alsa-project.org>; Fri, 17 Nov 2023 13:04:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBFDAF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3BC65F80152
+	for <alsa-devel@alsa-project.org>; Fri, 17 Nov 2023 13:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BC65F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=CO4TxJPi
+ header.s=Intel header.b=dk1WNXL6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1700222661; x=1731758661;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=no2TM0O3AEn2g6UeUm/R1c/jdkTlCSH/JG52HRR65os=;
-  b=CO4TxJPiRL1Ez6oBKjpLoDghgPN+Hvnue0EoCe6jYaRcLg90b4f9Cw2H
-   ATh7HODrOIKxb3ts8YKcMJmmG5+nMkjrQ4xQV2uhpkucNdWF2NRj2SFUT
-   XOsb11uzSoqk2tKyb8EKeh3TLWn4jjVVQKuDV+V9YaA1Re4aSpNqDrJq0
-   3IOsdeKeDc1f9+UMzcJO16U5LB1f7i/dqGEvU6Fhcumci1C6hY1tV8d1R
-   bALAB7MYLkGpJIa0cngHBwkAd7sP2OMGOxBmEtD4z+u+UIggj+BXhA5s5
-   Nt6FfNz2Gm/RFcmFGQMuoPeEAPBbYaCiBw6EX6ZDch0HwF++NyZ6sY0xf
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="381675210"
+  bh=yp5pSJ25K8fMCoRMvSnrIPsBYyqTeCF8/kMFhCLjnaE=;
+  b=dk1WNXL6066pL1taPibQM3VDydX+/BKudf3zTkGmz8w7Ws/TqfqJmYMT
+   SBNHjflmCwqpcnZt74XeljMho3p0P0RMRERsvN/eCVNy65fgkWfFsdo9u
+   JCR/yt7MCwt0LLnI2Hq87RICoMRgb+K7fyTPuuCvx0fnErbMFW7OVsl1z
+   0stQhFPHrYJzCy+LS+P9JGPC25GZ5EBXELytx0h3TQsB4NT3paDjE0iqY
+   c++r6ETcZ8a0IX+hPH7EFdtYrKFxb7PZZYxCaxLm4My/wLP1n6wTR5uI5
+   /i65+Jqjwd2DL4Xs0a40D06bgfvoGZAzgxVzJPFaLf97k1YvquxWlQBQS
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="381675221"
 X-IronPort-AV: E=Sophos;i="6.04,206,1695711600";
-   d="scan'208";a="381675210"
+   d="scan'208";a="381675221"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2023 04:04:12 -0800
+ 17 Nov 2023 04:04:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="883110167"
+X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="883110173"
 X-IronPort-AV: E=Sophos;i="6.04,206,1695711600";
-   d="scan'208";a="883110167"
+   d="scan'208";a="883110173"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2023 04:04:10 -0800
+  by fmsmga002.fm.intel.com with ESMTP; 17 Nov 2023 04:04:12 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.com,
@@ -78,16 +78,16 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v5 04/16] ALSA: hda: Upgrade stream-format infrastructure
-Date: Fri, 17 Nov 2023 13:05:58 +0100
-Message-Id: <20231117120610.1755254-5-cezary.rojewski@intel.com>
+Subject: [PATCH v5 05/16] ALSA: hda: Switch to new stream-format interface
+Date: Fri, 17 Nov 2023 13:05:59 +0100
+Message-Id: <20231117120610.1755254-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231117120610.1755254-1-cezary.rojewski@intel.com>
 References: <20231117120610.1755254-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VI3BLJYESWBEOXP4FGTM7Y7PK7QU65YJ
-X-Message-ID-Hash: VI3BLJYESWBEOXP4FGTM7Y7PK7QU65YJ
+Message-ID-Hash: NL46PYPFPRVSE6NZNSEODMBYEQAAKGXM
+X-Message-ID-Hash: NL46PYPFPRVSE6NZNSEODMBYEQAAKGXM
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VI3BLJYESWBEOXP4FGTM7Y7PK7QU65YJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NL46PYPFPRVSE6NZNSEODMBYEQAAKGXM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,250 +109,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Introduce a set of functions that ultimately facilite SDxFMT-related
-calculations in atomic manner:
-
-First, introduce snd_pcm_subformat_width() and snd_pcm_hw_params_bits()
-helpers that separate the base functionality from the HDAudio-specific
-one.
-
-snd_hdac_format_normalize() - format converter. S20_LE, S24_LE and their
-unsigned and BE friends are invalid from HDAudio perspective but still
-can be specified as function argument due to compatibility reasons.
-
-snd_hdac_stream_format_bits() - obtain just the bits-per-sample value.
-Does not ignore subformat and msbits parameters.
-
-snd_hdac_stream_format() and snd_hdac_spdif_stream_format() - obtain the
-SDxFMT value given the audio format parameters. The former is stripped
-away of spdif-related information. Useful for users that do not care
-about them.
+To provide option for selecting different bit-per-sample than just the
+maximum one, use the new format calculation mechanism.
 
 Acked-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/sound/hdaudio.h    |   5 ++
- include/sound/pcm_params.h |   2 +
- sound/core/pcm_lib.c       |  34 ++++++++++
- sound/hda/hdac_device.c    | 124 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 165 insertions(+)
+ sound/pci/hda/hda_controller.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index 7cfea9e7f6e4..b00c631c4053 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -140,6 +140,11 @@ int snd_hdac_get_connections(struct hdac_device *codec, hda_nid_t nid,
- 			     hda_nid_t *conn_list, int max_conns);
- int snd_hdac_get_sub_nodes(struct hdac_device *codec, hda_nid_t nid,
- 			   hda_nid_t *start_id);
-+unsigned int snd_hdac_stream_format_bits(snd_pcm_format_t format, snd_pcm_subformat_t subformat,
-+					 unsigned int maxbits);
-+unsigned int snd_hdac_stream_format(unsigned int channels, unsigned int bits, unsigned int rate);
-+unsigned int snd_hdac_spdif_stream_format(unsigned int channels, unsigned int bits,
-+					  unsigned int rate, unsigned short spdif_ctls);
- unsigned int snd_hdac_calc_stream_format(unsigned int rate,
- 					 unsigned int channels,
- 					 snd_pcm_format_t format,
-diff --git a/include/sound/pcm_params.h b/include/sound/pcm_params.h
-index ba184f49f7e1..fbf35df6e5cf 100644
---- a/include/sound/pcm_params.h
-+++ b/include/sound/pcm_params.h
-@@ -362,6 +362,8 @@ static inline int params_physical_width(const struct snd_pcm_hw_params *p)
- 	return snd_pcm_format_physical_width(params_format(p));
- }
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index c42e9ffff9db..3e7bfeee84fd 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -151,7 +151,7 @@ static int azx_pcm_prepare(struct snd_pcm_substream *substream)
+ 	struct azx_dev *azx_dev = get_azx_dev(substream);
+ 	struct hda_pcm_stream *hinfo = to_hda_pcm_stream(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	unsigned int format_val, stream_tag;
++	unsigned int format_val, stream_tag, bits;
+ 	int err;
+ 	struct hda_spdif_out *spdif =
+ 		snd_hda_spdif_out_of_nid(apcm->codec, hinfo->nid);
+@@ -165,11 +165,9 @@ static int azx_pcm_prepare(struct snd_pcm_substream *substream)
+ 	}
  
-+int snd_pcm_hw_params_bits(const struct snd_pcm_hw_params *p);
+ 	snd_hdac_stream_reset(azx_stream(azx_dev));
+-	format_val = snd_hdac_calc_stream_format(runtime->rate,
+-						runtime->channels,
+-						runtime->format,
+-						hinfo->maxbps,
+-						ctls);
++	bits = snd_hdac_stream_format_bits(runtime->format, SNDRV_PCM_SUBFORMAT_STD, hinfo->maxbps);
 +
- static inline void
- params_set_format(struct snd_pcm_hw_params *p, snd_pcm_format_t fmt)
- {
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index a11cd7d6295f..41103e5c43ce 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1706,6 +1706,40 @@ int snd_pcm_hw_param_last(struct snd_pcm_substream *pcm,
- }
- EXPORT_SYMBOL(snd_pcm_hw_param_last);
- 
-+/**
-+ * snd_pcm_hw_params_bits - Get the number of bits per the sample.
-+ * @p: hardware parameters
-+ *
-+ * Return: The number of bits per sample based on the format,
-+ * subformat and msbits the specified hw params has.
-+ */
-+int snd_pcm_hw_params_bits(const struct snd_pcm_hw_params *p)
-+{
-+	snd_pcm_subformat_t subformat = params_subformat(p);
-+	snd_pcm_format_t format = params_format(p);
-+
-+	switch (format) {
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+	case SNDRV_PCM_FORMAT_U32_LE:
-+	case SNDRV_PCM_FORMAT_S32_BE:
-+	case SNDRV_PCM_FORMAT_U32_BE:
-+		switch (subformat) {
-+		case SNDRV_PCM_SUBFORMAT_MSBITS_20:
-+			return 20;
-+		case SNDRV_PCM_SUBFORMAT_MSBITS_24:
-+			return 24;
-+		case SNDRV_PCM_SUBFORMAT_MSBITS_MAX:
-+		case SNDRV_PCM_SUBFORMAT_STD:
-+		default:
-+			break;
-+		}
-+		fallthrough;
-+	default:
-+		return snd_pcm_format_width(format);
-+	}
-+}
-+EXPORT_SYMBOL(snd_pcm_hw_params_bits);
-+
- static int snd_pcm_lib_ioctl_reset(struct snd_pcm_substream *substream,
- 				   void *arg)
- {
-diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-index cde4d5c33771..556bd24f4014 100644
---- a/sound/hda/hdac_device.c
-+++ b/sound/hda/hdac_device.c
-@@ -13,6 +13,7 @@
- #include <sound/hdaudio.h>
- #include <sound/hda_regmap.h>
- #include <sound/pcm.h>
-+#include <sound/pcm_params.h>
- #include "local.h"
- 
- static void setup_fg_nodes(struct hdac_device *codec);
-@@ -725,6 +726,129 @@ static const struct hda_rate_tbl rate_bits[] = {
- 	{ 0 } /* terminator */
- };
- 
-+static snd_pcm_format_t snd_hdac_format_normalize(snd_pcm_format_t format)
-+{
-+	switch (format) {
-+	case SNDRV_PCM_FORMAT_S20_LE:
-+	case SNDRV_PCM_FORMAT_S24_LE:
-+		return SNDRV_PCM_FORMAT_S32_LE;
-+
-+	case SNDRV_PCM_FORMAT_U20_LE:
-+	case SNDRV_PCM_FORMAT_U24_LE:
-+		return SNDRV_PCM_FORMAT_U32_LE;
-+
-+	case SNDRV_PCM_FORMAT_S20_BE:
-+	case SNDRV_PCM_FORMAT_S24_BE:
-+		return SNDRV_PCM_FORMAT_S32_BE;
-+
-+	case SNDRV_PCM_FORMAT_U20_BE:
-+	case SNDRV_PCM_FORMAT_U24_BE:
-+		return SNDRV_PCM_FORMAT_U32_BE;
-+
-+	default:
-+		return format;
-+	}
-+}
-+
-+/**
-+ * snd_hdac_stream_format_bits - obtain bits per sample value.
-+ * @format:	the PCM format.
-+ * @subformat:	the PCM subformat.
-+ * @maxbits:	the maximum bits per sample.
-+ *
-+ * Return: The number of bits per sample.
-+ */
-+unsigned int snd_hdac_stream_format_bits(snd_pcm_format_t format, snd_pcm_subformat_t subformat,
-+					 unsigned int maxbits)
-+{
-+	struct snd_pcm_hw_params params;
-+	unsigned int bits;
-+
-+	memset(&params, 0, sizeof(params));
-+
-+	params_set_format(&params, snd_hdac_format_normalize(format));
-+	snd_mask_set(hw_param_mask(&params, SNDRV_PCM_HW_PARAM_SUBFORMAT),
-+		     (__force unsigned int)subformat);
-+
-+	bits = snd_pcm_hw_params_bits(&params);
-+	if (maxbits)
-+		return min(bits, maxbits);
-+	return bits;
-+}
-+EXPORT_SYMBOL_GPL(snd_hdac_stream_format_bits);
-+
-+/**
-+ * snd_hdac_stream_format - convert format parameters to SDxFMT value.
-+ * @channels:	the number of channels.
-+ * @bits:	bits per sample.
-+ * @rate:	the sample rate.
-+ *
-+ * Return: The format bitset or zero if invalid.
-+ */
-+unsigned int snd_hdac_stream_format(unsigned int channels, unsigned int bits, unsigned int rate)
-+{
-+	unsigned int val = 0;
-+	int i;
-+
-+	for (i = 0; rate_bits[i].hz; i++) {
-+		if (rate_bits[i].hz == rate) {
-+			val = rate_bits[i].hda_fmt;
-+			break;
-+		}
-+	}
-+
-+	if (!rate_bits[i].hz)
-+		return 0;
-+
-+	if (channels == 0 || channels > 8)
-+		return 0;
-+	val |= channels - 1;
-+
-+	switch (bits) {
-+	case 8:
-+		val |= AC_FMT_BITS_8;
-+		break;
-+	case 16:
-+		val |= AC_FMT_BITS_16;
-+		break;
-+	case 20:
-+		val |= AC_FMT_BITS_20;
-+		break;
-+	case 24:
-+		val |= AC_FMT_BITS_24;
-+		break;
-+	case 32:
-+		val |= AC_FMT_BITS_32;
-+		break;
-+	default:
-+		return 0;
-+	}
-+
-+	return val;
-+}
-+EXPORT_SYMBOL_GPL(snd_hdac_stream_format);
-+
-+/**
-+ * snd_hdac_spdif_stream_format - convert format parameters to SDxFMT value.
-+ * @channels:	the number of channels.
-+ * @bits:	bits per sample.
-+ * @rate:	the sample rate.
-+ * @spdif_ctls:	HD-audio SPDIF status bits (0 if irrelevant).
-+ *
-+ * Return: The format bitset or zero if invalid.
-+ */
-+unsigned int snd_hdac_spdif_stream_format(unsigned int channels, unsigned int bits,
-+					  unsigned int rate, unsigned short spdif_ctls)
-+{
-+	unsigned int val = snd_hdac_stream_format(channels, bits, rate);
-+
-+	if (val && spdif_ctls & AC_DIG1_NONAUDIO)
-+		val |= AC_FMT_TYPE_NON_PCM;
-+
-+	return val;
-+}
-+EXPORT_SYMBOL_GPL(snd_hdac_spdif_stream_format);
-+
- /**
-  * snd_hdac_calc_stream_format - calculate the format bitset
-  * @rate: the sample rate
++	format_val = snd_hdac_spdif_stream_format(runtime->channels, bits, runtime->rate, ctls);
+ 	if (!format_val) {
+ 		dev_err(chip->card->dev,
+ 			"invalid format_val, rate=%d, ch=%d, format=%d\n",
 -- 
 2.25.1
 

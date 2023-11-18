@@ -2,131 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DA97F186A
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 17:18:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E005A7F186C
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 17:19:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E051E74;
-	Mon, 20 Nov 2023 17:17:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E051E74
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DBB2E7C;
+	Mon, 20 Nov 2023 17:18:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DBB2E7C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700497126;
-	bh=tJmQqOQ9JthaexzNbKAtvsYq2RSg1QnwuHNN76E+htA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1700497141;
+	bh=JpJ9j3Rgf+MmL1x+LnpZ5rIj3NB2ZwiexLJ0+/VPyNs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OxZM5ebeeC24HYp1J9qucTRbNGhQjT9LxSIrSiIMyUzU+pdjSLJPv7XkMO2qlkHuc
-	 Ghm7K00pKzAJDCODFsj5n5X/MAUxBgoY6pZETUj2Vn/NF7k7JWA4RljjJ+Ms5G+lru
-	 J2BDmW5c9MDbrdwYZliAhRsPZmJec0RonCBKORTU=
+	b=GsYXO5xkenv6vlJIuaPVFR+CDsq0s6XvTjrPU8bYtr74Bdw0w+7BZP1o06KdC1GFz
+	 zjjTCmbzWQ+YcAP2i3t+JJmY0vZIMkZRX2pfbBGC3qgAReM2Szm4ufsjblirziPjAa
+	 LCU0yDbXum/Pj0VNbK5DU/PYCj5vfdHOP6hhapNw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18698F805B5; Mon, 20 Nov 2023 17:16:28 +0100 (CET)
+	id 1CEDEF805AF; Mon, 20 Nov 2023 17:16:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 058E8F805AF;
-	Mon, 20 Nov 2023 17:16:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13F88F805BA;
+	Mon, 20 Nov 2023 17:16:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5A972F801D5; Sat, 18 Nov 2023 16:52:00 +0100 (CET)
+	id 68621F801D5; Sat, 18 Nov 2023 17:19:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA933F80093
-	for <alsa-devel@alsa-project.org>; Sat, 18 Nov 2023 16:51:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA933F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=iFI79q4B
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-5ac376d311aso32139847b3.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70244F80152
+	for <alsa-devel@alsa-project.org>; Sat, 18 Nov 2023 17:19:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70244F80152
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-6cb66fbc63dso146047b3a.0
         for <alsa-devel@alsa-project.org>;
- Sat, 18 Nov 2023 07:51:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700322713; x=1700927513;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Pqvvn3jC6Vz8bzOhTQHPcM8ndCOZ4pDWuw3ZxWJvphM=;
-        b=iFI79q4BWQIp9TWtkqVNG9vMw1EMvWUK+j+58N1qJlbofx+ws+us1DraTyeSXwHqAD
-         Irl6GM64FpJAvGaMs7Bsf4URMOcQ275SmJ8bltroh74VCDXvrUHr5OfpyjULC6GcOpNF
-         kyfXFxGGrojxTQs5L/I/rccDQihJ1+C2fIOcNUfmTTX6FYcx+M7LaVqaDsImg8ykPNm3
-         SK87I5l86UipYJs47TPF5l+CLyArsAbVUQDQp8fLH4VZs+iTytQRr0cEWVpx48VxIM4o
-         qpVpYtd0Duh/QgXr7+zOk4KhmE9YWB95VZ9X+vPMTgOODGHdOC84ezTUhyb7gIhzcVen
-         Zqtw==
+ Sat, 18 Nov 2023 08:19:02 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700322713; x=1700927513;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Pqvvn3jC6Vz8bzOhTQHPcM8ndCOZ4pDWuw3ZxWJvphM=;
-        b=Q0kUdGPPoDLLIlMD+90zzKU1ksEEZDhcFkKHuZm0CkumSHYRMmSoVSLIK9uJhe5kzp
-         7y/UFfAkbiYoPqX9GA/Z+BmyWm3vD5Xf7tni3qW1xBY71TnOvsoVpit/A4kOdu/9aZNj
-         SpGF4kfsnreJWkq2Y8zHfZ7xX27ziwrKLARVO/Y+3iBLjfWM0aejJZptvCG3NyOabHeX
-         MPCOKrZSAnWorMBLvkjFi+RFB3fGvabLUTmG5MCKp+SP7AwAPR4lu33MjsEYoa6l2RqA
-         0AeHXCwb5TFmnNNEQMCb3ZOsaF5X3U5H0uhIkRBSaEm4+Gffjbk7F61YaCwYqAD8Ov7o
-         pWPQ==
-X-Gm-Message-State: AOJu0YwG0TPLBdAtqX+ZfBluek1wA5j2TYCvlc0mmYA+cfG1YoG2fbvz
-	5UqVrmGhGohnYxY7AAa4oBA=
+        d=1e100.net; s=20230601; t=1700324341; x=1700929141;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JpJ9j3Rgf+MmL1x+LnpZ5rIj3NB2ZwiexLJ0+/VPyNs=;
+        b=oQ8dgUjqlCj3T+w1JrQ0kgeEz0kUyQT6jx86BKJheOTzz5dryxGbHafhjawDzD28Jc
+         dC0f5y4iy/B/3vVCDq50FpwrjaoD82tUaIRKpgExACVE3KpXsrxWktMDh2S8O85NpeR+
+         DgjEi7ARSLwzf2m/JnAIpDNKbR1WQE+k86qWH+NxcVFXoDA7SJ38LaoyEwDlpUqDWwNm
+         4USbK/cXichGlTk36/cD1aLvB9NOvBPMzu+GizHNGHrpJZaP36OluWtr8QFd8OpLJage
+         Uy7c5/kQsm6XsGNirzHVN+UwVguTGw2WMdjSWMzbFAeOMpFPBdTcKTrhVmJ888rZ7kkm
+         bFHA==
+X-Gm-Message-State: AOJu0Yw2MDupMSODlPvIXdonhX5UBlL9lKhPToW/1yNQcysUqxlhVBWx
+	p7xa37wkJZDzVzBegTyxbPw=
 X-Google-Smtp-Source: 
- AGHT+IHi1UfS8eoFXkfozWsLdq/Iqyn0m7FQM2MTep2E1EPNYtNXp8LEwhBmcZHJxn/bgTZr34eiJg==
-X-Received: by 2002:a81:f202:0:b0:5c9:9097:6427 with SMTP id
- i2-20020a81f202000000b005c990976427mr546580ywm.44.1700322713616;
-        Sat, 18 Nov 2023 07:51:53 -0800 (PST)
-Received: from localhost ([2601:344:8301:57f0:48a9:bd4c:868d:dc97])
+ AGHT+IF6DbzE+IGBVmgkkIXDBMasM05P7fXL7OHqGPwzqI5VVbby0wYg1pwoRaacJDugZHa97idotg==
+X-Received: by 2002:a05:6a20:4326:b0:187:e3a5:b35d with SMTP id
+ h38-20020a056a20432600b00187e3a5b35dmr3138014pzk.13.1700324340672;
+        Sat, 18 Nov 2023 08:19:00 -0800 (PST)
+Received: from ?IPV6:2601:647:4d7e:54f3:667:4981:ffa1:7be1?
+ ([2601:647:4d7e:54f3:667:4981:ffa1:7be1])
         by smtp.gmail.com with ESMTPSA id
- b65-20020a0dd944000000b005a8c392f498sm1167875ywe.82.2023.11.18.07.51.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Nov 2023 07:51:52 -0800 (PST)
-From: Yury Norov <yury.norov@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Daniel Mack <zonque@gmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Kees Cook <keescook@chromium.org>,
-	linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Cc: Jan Kara <jack@suse.cz>,
-	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
-	Matthew Wilcox <willy@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
-	Alexey Klimov <klimov.linux@gmail.com>
-Subject: [PATCH 30/34] ALSA: use atomic find_bit() functions where applicable
-Date: Sat, 18 Nov 2023 07:51:01 -0800
-Message-Id: <20231118155105.25678-31-yury.norov@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231118155105.25678-1-yury.norov@gmail.com>
-References: <20231118155105.25678-1-yury.norov@gmail.com>
+ b9-20020a056a000a8900b006c7c6ae3755sm3179469pfl.80.2023.11.18.08.18.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 18 Nov 2023 08:19:00 -0800 (PST)
+Message-ID: <792fc3d8-6834-48f8-9737-f1531459d245@acm.org>
+Date: Sat, 18 Nov 2023 08:18:46 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: yury.norov@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/34] biops: add atomig find_bit() operations
+Content-Language: en-US
+To: Yury Norov <yury.norov@gmail.com>, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, "H. Peter Anvin" <hpa@zytor.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+ Akinobu Mita <akinobu.mita@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Christian Brauner <brauner@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, David Disseldorp <ddiss@suse.de>,
+ Edward Cree <ecree.xilinx@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Fenghua Yu <fenghua.yu@intel.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gregory Greenman <gregory.greenman@intel.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Hans de Goede <hdegoede@redhat.com>,
+ Hugh Dickins <hughd@google.com>, Ingo Molnar <mingo@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Jens Axboe <axboe@kernel.dk>,
+ Jiri Pirko <jiri@resnulli.us>, Jiri Slaby <jirislaby@kernel.org>,
+ Kalle Valo <kvalo@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
+ Karsten Keil <isdn@linux-pingi.de>, Kees Cook <keescook@chromium.org>,
+ Leon Romanovsky <leon@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Martin Habets <habetsm.xilinx@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, Michal Simek <monstr@monstr.eu>,
+ Nicholas Piggin <npiggin@gmail.com>, Oliver Neukum <oneukum@suse.com>,
+ Paolo Abeni <pabeni@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ping-Ke Shih <pkshih@realtek.com>,
+ Rich Felker <dalias@libc.org>, Rob Herring <robh@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Shuai Xue <xueshuai@linux.alibaba.com>, Stanislaw Gruszka <stf_xl@wp.pl>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Wenjia Zhang <wenjia@linux.ibm.com>,
+ Will Deacon <will@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ GR-QLogic-Storage-Upstream@marvell.com, alsa-devel@alsa-project.org,
+ ath10k@lists.infradead.org, dmaengine@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-net-drivers@amd.com, linux-pci@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, mpi3mr-linuxdrv.pdl@broadcom.com,
+ netdev@vger.kernel.org, sparclinux@vger.kernel.org, x86@kernel.org
+Cc: Jan Kara <jack@suse.cz>, Mirsad Todorovac
+ <mirsad.todorovac@alu.unizg.hr>, Matthew Wilcox <willy@infradead.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
+ Alexey Klimov <klimov.linux@gmail.com>
+References: <20231118155105.25678-1-yury.norov@gmail.com>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20231118155105.25678-1-yury.norov@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: bart.vanassche@gmail.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: KBUDORW3AAX4NLASHHPXO2RL2XISIZPB
-X-Message-ID-Hash: KBUDORW3AAX4NLASHHPXO2RL2XISIZPB
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: RTUENEHBNGYD6AUNHZBYLDSUJ6RCTEES
+X-Message-ID-Hash: RTUENEHBNGYD6AUNHZBYLDSUJ6RCTEES
 X-Mailman-Approved-At: Mon, 20 Nov 2023 16:16:23 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBUDORW3AAX4NLASHHPXO2RL2XISIZPB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTUENEHBNGYD6AUNHZBYLDSUJ6RCTEES/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,68 +167,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-ALSA code tests each bit in bitmaps in a for() loop. Switch it to
-dedicated atomic find_bit() API.
+On 11/18/23 07:50, Yury Norov wrote:
+> Add helpers around test_and_{set,clear}_bit() that allow to search for
+> clear or set bits and flip them atomically.
 
-Signed-off-by: Yury Norov <yury.norov@gmail.com>
----
- sound/pci/hda/hda_codec.c |  7 +++----
- sound/usb/caiaq/audio.c   | 13 +++++--------
- 2 files changed, 8 insertions(+), 12 deletions(-)
+There is a typo in the subject: shouldn't "atomig" be changed
+into "atomic"?
 
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index 01718b1fc9a7..29254005f394 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -3275,10 +3275,9 @@ static int get_empty_pcm_device(struct hda_bus *bus, unsigned int type)
- 
- #ifdef CONFIG_SND_DYNAMIC_MINORS
- 	/* non-fixed slots starting from 10 */
--	for (i = 10; i < 32; i++) {
--		if (!test_and_set_bit(i, bus->pcm_dev_bits))
--			return i;
--	}
-+	i = find_and_set_next_bit(bus->pcm_dev_bits, 32, 10);
-+	if (i < 32)
-+		return i;
- #endif
- 
- 	dev_warn(bus->card->dev, "Too many %s devices\n",
-diff --git a/sound/usb/caiaq/audio.c b/sound/usb/caiaq/audio.c
-index 4981753652a7..74dfcf32b439 100644
---- a/sound/usb/caiaq/audio.c
-+++ b/sound/usb/caiaq/audio.c
-@@ -610,7 +610,7 @@ static void read_completed(struct urb *urb)
- 	struct snd_usb_caiaq_cb_info *info = urb->context;
- 	struct snd_usb_caiaqdev *cdev;
- 	struct device *dev;
--	struct urb *out = NULL;
-+	struct urb *out;
- 	int i, frame, len, send_it = 0, outframe = 0;
- 	unsigned long flags;
- 	size_t offset = 0;
-@@ -625,17 +625,14 @@ static void read_completed(struct urb *urb)
- 		return;
- 
- 	/* find an unused output urb that is unused */
--	for (i = 0; i < N_URBS; i++)
--		if (test_and_set_bit(i, &cdev->outurb_active_mask) == 0) {
--			out = cdev->data_urbs_out[i];
--			break;
--		}
--
--	if (!out) {
-+	i = find_and_set_bit(&cdev->outurb_active_mask, N_URBS);
-+	if (i >= N_URBS) {
- 		dev_err(dev, "Unable to find an output urb to use\n");
- 		goto requeue;
- 	}
- 
-+	out = cdev->data_urbs_out[i];
-+
- 	/* read the recently received packet and send back one which has
- 	 * the same layout */
- 	for (frame = 0; frame < FRAMES_PER_URB; frame++) {
--- 
-2.39.2
+Thanks,
+
+Bart.
 

@@ -2,53 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 221FB7F0D8F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 09:30:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9EFF7F0D97
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 09:32:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D17D81EC;
-	Mon, 20 Nov 2023 09:30:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D17D81EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04C05A4B;
+	Mon, 20 Nov 2023 09:31:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04C05A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700469050;
-	bh=MKFLVR3yjRzHPa8Qmbh8woIpvuOTajnbGLekRF7lm0Q=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=fw+8VGkg8JEUIr5Txttq3ZLG9Kvn0DFIfjr0G76/0huG6rfuVXVjI6wDIxSlIFDa+
-	 ZoWDCp/fa902P0Wm+dD9erdzpUttk6LnAnBcXEM5nC4MFJ3xRdIOT2nuneAbuVwgJD
-	 mhPrDzUWFRBxDk9s3qrV507Cbp32ADEEmYoO3UBQ=
+	s=default; t=1700469124;
+	bh=1HOi08o8WW7iJGN2FObIg1iNgHfcUl89+mVlAZlZlzo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PLu7buMp2D9JLoRWlszNi05Uq0z+iF/zjXh6O4J9hvJHUKQaaBRTHRB8eZCz9joKf
+	 cr/nhjhK0xMbAKjsRp7MXzZ4ffSaFHw338k2rNCL/Ggs8Ab6U/DIBPFFkTqNypr1j/
+	 O/AoyOjB7MYj1s2/3EXPT2CUKBtaZPbxB1+N7V1I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15226F80571; Mon, 20 Nov 2023 08:50:56 +0100 (CET)
+	id C1228F80249; Mon, 20 Nov 2023 09:31:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD578F80563;
-	Mon, 20 Nov 2023 08:50:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63006F80249;
+	Mon, 20 Nov 2023 09:31:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB42AF8047D; Mon, 20 Nov 2023 08:47:24 +0100 (CET)
+	id 354B3F802E8; Mon, 20 Nov 2023 09:31:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCBDAF80246
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 08:47:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCBDAF80246
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id AF2A1F80246
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 09:30:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF2A1F80246
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=aJlsSPLa
+Received: by mail-pj1-x1029.google.com with SMTP id
+ 98e67ed59e1d1-285196556fcso790616a91.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 20 Nov 2023 00:30:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700469054; x=1701073854;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+8pLvrLgD2ZEhHiQ0cj5bgUPnbB4UjLNecxwJOC5wVk=;
+        b=aJlsSPLaLjQ5iywq3AuTEsPNuwa9VT8/n6topJlt2kwl6PSNT/U/wKbnL/mfciLqqk
+         k2zpvhQGaWgMz/0ldUbeCY/qMDHTfpaTf7r0m+ePoKpBIrhNM8WM94QfZkUrJzAAEoWe
+         PrD3MAMa6Vxox1/tLal9/3ncmSl6ba9kFiXpOWaXrsGSkiiExbnmpncxleOYUi7Pp2GL
+         b/RbtCQ9j5KAl0FVWV0YLHHJ+uJP0SREX+HNjPMR1HlJZLCv8ewwqt8xpAOa2+NGAurA
+         mlG5JZT7J1A0vn2axepKiZtjifdX388yxfNyJ7Uh4Gk2Frzu/5vz98mYAVtR3GVHyMCJ
+         vcZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700469054; x=1701073854;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+8pLvrLgD2ZEhHiQ0cj5bgUPnbB4UjLNecxwJOC5wVk=;
+        b=lWalJnElcJEpdWI2p31lyKu6lo4pX+hJyWc7WZyePOTWoxxN2S7N7eQ8O7zBYv+GGy
+         bsgvvUia//IFLf/DTcBlbbgYpaOSx5LOCDsgEPXedUTpYpqSC468hjLqUYQqHezoHWH1
+         hnUWcfTIKTipG6Kqje6QPdpJH9XAUsNflKFCYfnNm4gK3p8rn4vICfnkfFBrP321+c8q
+         nmkMrj+XTcQ9EdEcFjLvuRu81IY2+amtWIXlS1ZY0qaO4WlAmMnNyQg3CxAhEjVZBVGb
+         X1UoeEiVJZGtQVrQ/RaySwd3wIT3zJxkZEqy150lYGCd0BNv3WU83Lq4NWHw8T8YlMST
+         GvtQ==
+X-Gm-Message-State: AOJu0Yw5G3u5zRfInPcCHJAJ2CqQszOEodcC/+YkX1i5fbIkp2/5UNPi
+	KzY1d33E+mH1h+/dCBl+33BloVHt0UaheGHoTmE=
+X-Google-Smtp-Source: 
+ AGHT+IEntfnZrM2bVRFYTSrss3tnE305+o84BHnyJmsaKP/syGgR6XudGSoxXotVzzZaAkkEfPaMJel6jFwHZnGGwqY=
+X-Received: by 2002:a17:90b:3886:b0:283:2932:e912 with SMTP id
+ mu6-20020a17090b388600b002832932e912mr7800222pjb.28.1700469053767; Mon, 20
+ Nov 2023 00:30:53 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1700466442830705404-webhooks-bot@alsa-project.org>
-References: <1700466442830705404-webhooks-bot@alsa-project.org>
-Subject: snd_pcm_readn hangs at record & playback on same device
-Message-Id: <20231120074724.DB42AF8047D@alsa1.perex.cz>
-Date: Mon, 20 Nov 2023 08:47:24 +0100 (CET)
-Message-ID-Hash: ODJEZSGYRLSJL5ESDWZW2QZR7D4M27WL
-X-Message-ID-Hash: ODJEZSGYRLSJL5ESDWZW2QZR7D4M27WL
-X-MailFrom: github@alsa-project.org
+References: <6a3e7eb9-505c-4cfb-8a86-a8947a2e44d5@xs4all.nl>
+ <20231113110754.GB24338@pendragon.ideasonboard.com>
+ <3e898664-cbfc-4892-9765-37b66891643b@xs4all.nl>
+ <ZVIIc-fi32ZxIi-p@valkosipuli.retiisi.eu>
+ <20231113114357.GD24338@pendragon.ideasonboard.com>
+ <da6efe14-c00d-4bf4-bf61-dd4ed39c5c60@xs4all.nl>
+ <20231113124412.GA18974@pendragon.ideasonboard.com>
+ <b35601f7-8bb2-4317-a8f7-6fbf81572943@xs4all.nl>
+ <20231115105518.GD13826@pendragon.ideasonboard.com>
+ <a67491c0-4fdf-4472-852c-e75f5e1d67af@xs4all.nl>
+ <20231115114931.GE13826@pendragon.ideasonboard.com>
+ <CAAFQd5BkCR=tYvmfjkOeTnjnccmURt8kEtiRee9CYqcz+FGHfg@mail.gmail.com>
+ <7626e0f8-ce31-469e-b49c-f2fba664756f@xs4all.nl>
+ <CAA+D8ANb6A9eh=MQR9+7sZi5jet+7RSHt6TdZqPz5EK6pBs3mA@mail.gmail.com>
+ <6badc94c-c414-40d7-a9d7-8b3fc86d8d98@xs4all.nl>
+In-Reply-To: <6badc94c-c414-40d7-a9d7-8b3fc86d8d98@xs4all.nl>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 20 Nov 2023 16:30:42 +0800
+Message-ID: 
+ <CAA+D8ANeGmFz-bcfJAJbPFNVfH5T045ijLebm1c8hbtEKdTVfg@mail.gmail.com>
+Subject: Re: [PATCH v9 10/15] media: uapi: Add V4L2_CTRL_TYPE_FIXED_POINT
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, Sakari Ailus <sakari.ailus@iki.fi>,
+ m.szyprowski@samsung.com,
+	mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	Tomasz Figa <tfiga@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: C6PJLUYT2JRIZ76TPSG5D56T3X6XKFIW
+X-Message-ID-Hash: C6PJLUYT2JRIZ76TPSG5D56T3X6XKFIW
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ODJEZSGYRLSJL5ESDWZW2QZR7D4M27WL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C6PJLUYT2JRIZ76TPSG5D56T3X6XKFIW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,206 +138,347 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #368 was edited from nodemand:
+On Fri, Nov 17, 2023 at 8:07=E2=80=AFPM Hans Verkuil <hverkuil@xs4all.nl> w=
+rote:
+>
+> Here is an RFC patch adding support for 'fraction_bits'. It's lacking
+> documentation, but it can be used for testing.
+>
+> It was rather a pain logging fixed point number in a reasonable format,
+> but I think it is OK.
+>
+> In userspace (where you can use floating point) it is a lot easier:
+>
+> printf("%.*g\n", fraction_bits, (double)v * (1.0 / (1ULL << fraction_bits=
+)));
+>
+> I decided to only expose fraction_bits in struct v4l2_query_ext_ctrl.
+> I could add it to struct v4l2_queryctrl, but I did not think that was
+> necessary. Other opinions are welcome.
+>
+> In the meantime, let me know if this works for your patch series. If it
+> does, then I can clean this up.
 
-I'm on a RPi5 4GB running Raspberry Pi OS 64bit Bookworm and my application hangs on snd_pcm_readn when I try to read and write to the same device. This occurs on an IQAudio Codec Zero sound card and on a HifiBerry DAC+ADC Pro as well. When I select a USB sound card as the output and one of the others described for input everything works like it should. 
+Thanks.  It works for me.  What I have done are:
+1. drop FIXED_POINT
+2. use v4l2_ctrl_new_custom
 
-Here is my code:
+Best regards
+Wang shengjiu
 
-```
-#include <alsa/asoundlib.h>
-#include <alsa/control.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <algorithm>
-#include <iterator>
-
-typedef   signed short	drwav_int16;
-typedef   signed int	drwav_int32;
-
-#define PCM_DEVICE_IN "plughw:Zero,0"
-#define PCM_DEVICE_OUT "plughw:Zero,0" //"plughw:Device,0"
-
-int err, result, loops, n, t;
-unsigned int rate, pcm, tmp;
-
-snd_pcm_t			*play;
-snd_pcm_t			*record;
-snd_pcm_hw_params_t *playparams;
-snd_pcm_hw_params_t *recordparams;
-snd_pcm_uframes_t	frames;
-snd_pcm_sframes_t	recresult;
-snd_pcm_format_t	format = SND_PCM_FORMAT_S16_LE;
-int                 block = 0;//SND_PCM_NONBLOCK;
-
-int buffer_frames 			= 	1024;
-int bits_per_frame 			= 	16;
-const int bits_per_byte		= 	8;
-int channels				= 	2;
-
-int bytesize_per_channel  	= 	buffer_frames 
-								* bits_per_frame 
-								/ bits_per_byte;
-
-int main(int argc, char **argv) {
-	if (argc < 3) {
-		printf("Usage: %s <sample_rate> <frames>\n", argv[0]);
-		return -1;
-	}
-
-	rate			= atoi(argv[1]);
-	buffer_frames	= atoi(argv[2]);
-	
-	bytesize_per_channel  	= 	buffer_frames 
-								* snd_pcm_format_width(format)  
-								/ bits_per_byte;
-
-	drwav_int16 *buffer_in[channels];
-	
-	/* Open the PCM device in record mode */
-	if ((pcm = snd_pcm_open(&record, PCM_DEVICE_IN, SND_PCM_STREAM_CAPTURE, block)) < 0)
-		printf("ERROR: Can't open \"%s\" PCM device. %s\n", PCM_DEVICE_IN, snd_strerror(pcm));
-
-	/* Allocate parameters object and fill it with default values*/
-	if ((pcm = snd_pcm_hw_params_malloc(&recordparams)) < 0)
-		printf("ERROR: Can't allocate hardware parameter structure. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_any(record, recordparams)) < 0)
-		printf("ERROR: Can't initialize hardware parameter structure. %s\n", snd_strerror(pcm));
-
-	/* Set parameters */
-	if ((pcm = snd_pcm_hw_params_set_access(record, recordparams, SND_PCM_ACCESS_RW_NONINTERLEAVED )) < 0) 
-		printf("ERROR: Can't set interleaved mode. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_set_format(record, recordparams, format)) < 0)
-		printf("ERROR: Can't set format. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_set_channels(record, recordparams, channels)) < 0) 
-		printf("ERROR: Can't set channels number. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_set_rate_near(record, recordparams, &rate, 0)) < 0) 
-		printf("ERROR: Can't set sample rate. %s\n", snd_strerror(pcm));
-
-	/* Write parameters */
-	if ((pcm = snd_pcm_hw_params(record, recordparams)) < 0)
-		printf("ERROR: Can't set hardware parameters. %s\n", snd_strerror(pcm));
-		
-	if ((pcm = snd_pcm_prepare(record)) < 0)
-   	 	printf("ERROR: Can't prepare audio interface for use. %s\n", snd_strerror(pcm));
-	
-    if ((pcm = snd_pcm_start(record)) < 0)
-		printf("ERROR: Can't start hardware soundcard. %s\n", snd_strerror(pcm));
-		
-	/* Resume information */
-	printf("PCM name: '%s'\n", snd_pcm_name(record));
-
-	printf("PCM state: %s\n", snd_pcm_state_name(snd_pcm_state(record)));
-
-	snd_pcm_hw_params_get_channels(recordparams, &tmp);
-	printf("channels: %i ", tmp);
-
-	if (tmp == 1)
-		printf("(mono)\n");
-	else if (tmp == 2)
-		printf("(stereo)\n");
-
-	snd_pcm_hw_params_get_rate(recordparams, &tmp, 0);
-	printf("sample rate: %d bps\n", tmp);
-	
-	
-	
-	/* Open the PCM device in playback mode */
-	if ((pcm = snd_pcm_open(&play, PCM_DEVICE_OUT, SND_PCM_STREAM_PLAYBACK, block)) < 0)
-		printf("ERROR: Can't open \"%s\" PCM device. %s\n", PCM_DEVICE_OUT, snd_strerror(pcm));
-		
-	if ((pcm = snd_pcm_hw_params_malloc(&playparams)) < 0)
-		printf("ERROR: Can't allocate hardware parameter structure. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_any(play, playparams)) < 0)
-		printf("ERROR: Can't initialize hardware parameter structure. %s\n", snd_strerror(pcm));
-
-	/* Set parameters */
-	if ((pcm = snd_pcm_hw_params_set_access(play, playparams, SND_PCM_ACCESS_RW_NONINTERLEAVED )) < 0) 
-		printf("ERROR: Can't set interleaved mode. %s\n", snd_strerror(pcm));
-		
-	if ((pcm = snd_pcm_hw_params_set_format(play, playparams, format)) < 0)
-		printf("ERROR: Can't set format. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_set_channels(play, playparams, channels)) < 0) 
-		printf("ERROR: Can't set channels number. %s\n", snd_strerror(pcm));
-
-	if ((pcm = snd_pcm_hw_params_set_rate_near(play, playparams, &rate, 0)) < 0) 
-		printf("ERROR: Can't set sample rate. %s\n", snd_strerror(pcm));
-
-	/* Write parameters */
-	if ((pcm = snd_pcm_hw_params(play, playparams)) < 0)
-		printf("ERROR: Can't set hardware parameters. %s\n", snd_strerror(pcm));
-		
-	if ((pcm = snd_pcm_prepare(play)) < 0)
-   	 	printf("ERROR: Can't prepare audio interface for use. %s\n", snd_strerror(pcm));
-	
-    if ((pcm = snd_pcm_start(play)) < 0)
-		printf("ERROR: Can't start hardware soundcard. %s\n", snd_strerror(pcm));
-	
-	/* Resume information */
-	printf("PCM name: '%s'\n", snd_pcm_name(play));
-
-	printf("PCM state: %s\n", snd_pcm_state_name(snd_pcm_state(play)));
-
-	snd_pcm_hw_params_get_channels(playparams, &tmp);
-	printf("channels: %i ", tmp);
-
-	if (tmp == 1)
-		printf("(mono)\n");
-	else if (tmp == 2)
-		printf("(stereo)\n");
-
-	snd_pcm_hw_params_get_rate(playparams, &tmp, 0);
-	printf("sample rate: %d bps\n", tmp);
-	
-	buffer_in[0]	= (drwav_int16*) malloc(bytesize_per_channel);
-	buffer_in[1] 	= (drwav_int16*) malloc(bytesize_per_channel);
-	
-	printf("buffers allocated: %d bytes per channel\n", bytesize_per_channel);
-	
-	for (loops = 0; loops < 25000; loops++)
-	{
-
-        if ((recresult = snd_pcm_readn(record, (void**) buffer_in, buffer_frames)) < 0) {
-             printf ("ERROR. Read from audio interface failed. (%s)\n", snd_strerror(recresult));
-            exit(1);
-        }
-        n = (int) recresult;
-        printf("read %d done, %d frames\n", loops, n);
-		
-		if ((result = snd_pcm_writen(play, (void**) buffer_in, recresult)) == -EPIPE) {
-			printf("XRUN.\n");
-			snd_pcm_prepare(play);
-		} else if (result < 0) {
-			printf("ERROR. Can't write to playback device. %s\n", snd_strerror(result));
-			exit(1);
-		}
-		printf("write %d done\n", loops);
-	}
-
-	snd_pcm_hw_params_free(playparams);
-	snd_pcm_hw_params_free(recordparams);
-	printf("params freed\n");
-	
-	snd_pcm_drain(play);
-	snd_pcm_close(play);
-	snd_pcm_drain(record);
-	snd_pcm_close(record);
-	printf("audio interface closed\n");
-	
-	free(buffer_in[0]);
-	free(buffer_in[1]);
-	printf("buffers freed\n");
-
-	return 0;
-}
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/368
-Repository URL: https://github.com/alsa-project/alsa-lib
+>
+> Regards,
+>
+>         Hans
+>
+> Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> ---
+>  drivers/media/v4l2-core/v4l2-ctrls-api.c  |  1 +
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c | 72 +++++++++++++++++++----
+>  include/media/v4l2-ctrls.h                |  7 ++-
+>  include/uapi/linux/videodev2.h            | 20 ++++++-
+>  4 files changed, 85 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l=
+2-core/v4l2-ctrls-api.c
+> index 002ea6588edf..3132df315b17 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> @@ -1101,6 +1101,7 @@ int v4l2_query_ext_ctrl(struct v4l2_ctrl_handler *h=
+dl, struct v4l2_query_ext_ctr
+>         qc->elems =3D ctrl->elems;
+>         qc->nr_of_dims =3D ctrl->nr_of_dims;
+>         memcpy(qc->dims, ctrl->dims, qc->nr_of_dims * sizeof(qc->dims[0])=
+);
+> +       qc->fraction_bits =3D ctrl->fraction_bits;
+>         qc->minimum =3D ctrl->minimum;
+>         qc->maximum =3D ctrl->maximum;
+>         qc->default_value =3D ctrl->default_value;
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
+l2-core/v4l2-ctrls-core.c
+> index a662fb60f73f..0e08a371af5c 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -252,12 +252,42 @@ void v4l2_ctrl_type_op_init(const struct v4l2_ctrl =
+*ctrl, u32 from_idx,
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_type_op_init);
+>
+> +static void v4l2_ctrl_log_fp(s64 v, unsigned int fraction_bits)
+> +{
+> +       s64 i =3D v4l2_fp_integer(v, fraction_bits);
+> +       s64 f =3D v4l2_fp_fraction(v, fraction_bits);
+> +
+> +       if (!f) {
+> +               pr_cont("%lld", i);
+> +       } else if (fraction_bits < 20) {
+> +               u64 div =3D 1ULL << fraction_bits;
+> +
+> +               if (!i && f < 0)
+> +                       pr_cont("-%lld/%llu", -f, div);
+> +               else if (!i)
+> +                       pr_cont("%lld/%llu", f, div);
+> +               else if (i < 0 || f < 0)
+> +                       pr_cont("-%lld-%llu/%llu", -i, -f, div);
+> +               else
+> +                       pr_cont("%lld+%llu/%llu", i, f, div);
+> +       } else {
+> +               if (!i && f < 0)
+> +                       pr_cont("-%lld/(2^%u)", -f, fraction_bits);
+> +               else if (!i)
+> +                       pr_cont("%lld/(2^%u)", f, fraction_bits);
+> +               else if (i < 0 || f < 0)
+> +                       pr_cont("-%lld-%llu/(2^%u)", -i, -f, fraction_bit=
+s);
+> +               else
+> +                       pr_cont("%lld+%llu/(2^%u)", i, f, fraction_bits);
+> +       }
+> +}
+> +
+>  void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>  {
+>         union v4l2_ctrl_ptr ptr =3D ctrl->p_cur;
+>
+>         if (ctrl->is_array) {
+> -               unsigned i;
+> +               unsigned int i;
+>
+>                 for (i =3D 0; i < ctrl->nr_of_dims; i++)
+>                         pr_cont("[%u]", ctrl->dims[i]);
+> @@ -266,7 +296,10 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *c=
+trl)
+>
+>         switch (ctrl->type) {
+>         case V4L2_CTRL_TYPE_INTEGER:
+> -               pr_cont("%d", *ptr.p_s32);
+> +               if (!ctrl->fraction_bits)
+> +                       pr_cont("%d", *ptr.p_s32);
+> +               else
+> +                       v4l2_ctrl_log_fp(*ptr.p_s32, ctrl->fraction_bits)=
+;
+>                 break;
+>         case V4L2_CTRL_TYPE_BOOLEAN:
+>                 pr_cont("%s", *ptr.p_s32 ? "true" : "false");
+> @@ -281,19 +314,31 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *=
+ctrl)
+>                 pr_cont("0x%08x", *ptr.p_s32);
+>                 break;
+>         case V4L2_CTRL_TYPE_INTEGER64:
+> -               pr_cont("%lld", *ptr.p_s64);
+> +               if (!ctrl->fraction_bits)
+> +                       pr_cont("%lld", *ptr.p_s64);
+> +               else
+> +                       v4l2_ctrl_log_fp(*ptr.p_s64, ctrl->fraction_bits)=
+;
+>                 break;
+>         case V4L2_CTRL_TYPE_STRING:
+>                 pr_cont("%s", ptr.p_char);
+>                 break;
+>         case V4L2_CTRL_TYPE_U8:
+> -               pr_cont("%u", (unsigned)*ptr.p_u8);
+> +               if (!ctrl->fraction_bits)
+> +                       pr_cont("%u", (unsigned int)*ptr.p_u8);
+> +               else
+> +                       v4l2_ctrl_log_fp((unsigned int)*ptr.p_u8, ctrl->f=
+raction_bits);
+>                 break;
+>         case V4L2_CTRL_TYPE_U16:
+> -               pr_cont("%u", (unsigned)*ptr.p_u16);
+> +               if (!ctrl->fraction_bits)
+> +                       pr_cont("%u", (unsigned int)*ptr.p_u16);
+> +               else
+> +                       v4l2_ctrl_log_fp((unsigned int)*ptr.p_u16, ctrl->=
+fraction_bits);
+>                 break;
+>         case V4L2_CTRL_TYPE_U32:
+> -               pr_cont("%u", (unsigned)*ptr.p_u32);
+> +               if (!ctrl->fraction_bits)
+> +                       pr_cont("%u", (unsigned int)*ptr.p_u32);
+> +               else
+> +                       v4l2_ctrl_log_fp((unsigned int)*ptr.p_u32, ctrl->=
+fraction_bits);
+>                 break;
+>         case V4L2_CTRL_TYPE_H264_SPS:
+>                 pr_cont("H264_SPS");
+> @@ -1752,7 +1797,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_=
+ctrl_handler *hdl,
+>                         u32 id, const char *name, enum v4l2_ctrl_type typ=
+e,
+>                         s64 min, s64 max, u64 step, s64 def,
+>                         const u32 dims[V4L2_CTRL_MAX_DIMS], u32 elem_size=
+,
+> -                       u32 flags, const char * const *qmenu,
+> +                       u32 fraction_bits, u32 flags, const char * const =
+*qmenu,
+>                         const s64 *qmenu_int, const union v4l2_ctrl_ptr p=
+_def,
+>                         void *priv)
+>  {
+> @@ -1939,6 +1984,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_=
+ctrl_handler *hdl,
+>         ctrl->name =3D name;
+>         ctrl->type =3D type;
+>         ctrl->flags =3D flags;
+> +       ctrl->fraction_bits =3D fraction_bits;
+>         ctrl->minimum =3D min;
+>         ctrl->maximum =3D max;
+>         ctrl->step =3D step;
+> @@ -2037,7 +2083,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_custom(struct v4l2_=
+ctrl_handler *hdl,
+>         ctrl =3D v4l2_ctrl_new(hdl, cfg->ops, cfg->type_ops, cfg->id, nam=
+e,
+>                         type, min, max,
+>                         is_menu ? cfg->menu_skip_mask : step, def,
+> -                       cfg->dims, cfg->elem_size,
+> +                       cfg->dims, cfg->elem_size, cfg->fraction_bits,
+>                         flags, qmenu, qmenu_int, cfg->p_def, priv);
+>         if (ctrl)
+>                 ctrl->is_private =3D cfg->is_private;
+> @@ -2062,7 +2108,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std(struct v4l2_ctr=
+l_handler *hdl,
+>                 return NULL;
+>         }
+>         return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -                            min, max, step, def, NULL, 0,
+> +                            min, max, step, def, NULL, 0, 0,
+>                              flags, NULL, NULL, ptr_null, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_std);
+> @@ -2095,7 +2141,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_menu(struct v4l=
+2_ctrl_handler *hdl,
+>                 return NULL;
+>         }
+>         return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -                            0, max, mask, def, NULL, 0,
+> +                            0, max, mask, def, NULL, 0, 0,
+>                              flags, qmenu, qmenu_int, ptr_null, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_std_menu);
+> @@ -2127,7 +2173,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_menu_items(stru=
+ct v4l2_ctrl_handler *hdl,
+>                 return NULL;
+>         }
+>         return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -                            0, max, mask, def, NULL, 0,
+> +                            0, max, mask, def, NULL, 0, 0,
+>                              flags, qmenu, NULL, ptr_null, NULL);
+>
+>  }
+> @@ -2149,7 +2195,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_std_compound(struct=
+ v4l2_ctrl_handler *hdl,
+>                 return NULL;
+>         }
+>         return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -                            min, max, step, def, NULL, 0,
+> +                            min, max, step, def, NULL, 0, 0,
+>                              flags, NULL, NULL, p_def, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_std_compound);
+> @@ -2173,7 +2219,7 @@ struct v4l2_ctrl *v4l2_ctrl_new_int_menu(struct v4l=
+2_ctrl_handler *hdl,
+>                 return NULL;
+>         }
+>         return v4l2_ctrl_new(hdl, ops, NULL, id, name, type,
+> -                            0, max, 0, def, NULL, 0,
+> +                            0, max, 0, def, NULL, 0, 0,
+>                              flags, NULL, qmenu_int, ptr_null, NULL);
+>  }
+>  EXPORT_SYMBOL(v4l2_ctrl_new_int_menu);
+> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+> index 59679a42b3e7..c35514c5bf88 100644
+> --- a/include/media/v4l2-ctrls.h
+> +++ b/include/media/v4l2-ctrls.h
+> @@ -211,7 +211,8 @@ typedef void (*v4l2_ctrl_notify_fnc)(struct v4l2_ctrl=
+ *ctrl, void *priv);
+>   *             except for dynamic arrays. In that case it is in the rang=
+e of
+>   *             1 to @p_array_alloc_elems.
+>   * @dims:      The size of each dimension.
+> - * @nr_of_dims:The number of dimensions in @dims.
+> + * @nr_of_dims: The number of dimensions in @dims.
+> + * @fraction_bits: The number of fraction bits for fixed point values.
+>   * @menu_skip_mask: The control's skip mask for menu controls. This make=
+s it
+>   *             easy to skip menu items that are not valid. If bit X is s=
+et,
+>   *             then menu item X is skipped. Of course, this only works f=
+or
+> @@ -228,6 +229,7 @@ typedef void (*v4l2_ctrl_notify_fnc)(struct v4l2_ctrl=
+ *ctrl, void *priv);
+>   *             :math:`ceil(\frac{maximum - minimum}{step}) + 1`.
+>   *             Used only if the @type is %V4L2_CTRL_TYPE_INTEGER_MENU.
+>   * @flags:     The control's flags.
+> + * @fraction_bits: The number of fraction bits for fixed point values.
+>   * @priv:      The control's private pointer. For use by the driver. It =
+is
+>   *             untouched by the control framework. Note that this pointe=
+r is
+>   *             not freed when the control is deleted. Should this be nee=
+ded
+> @@ -286,6 +288,7 @@ struct v4l2_ctrl {
+>         u32 new_elems;
+>         u32 dims[V4L2_CTRL_MAX_DIMS];
+>         u32 nr_of_dims;
+> +       u32 fraction_bits;
+>         union {
+>                 u64 step;
+>                 u64 menu_skip_mask;
+> @@ -426,6 +429,7 @@ struct v4l2_ctrl_handler {
+>   * @dims:      The size of each dimension.
+>   * @elem_size: The size in bytes of the control.
+>   * @flags:     The control's flags.
+> + * @fraction_bits: The number of fraction bits for fixed point values.
+>   * @menu_skip_mask: The control's skip mask for menu controls. This make=
+s it
+>   *             easy to skip menu items that are not valid. If bit X is s=
+et,
+>   *             then menu item X is skipped. Of course, this only works f=
+or
+> @@ -455,6 +459,7 @@ struct v4l2_ctrl_config {
+>         u32 dims[V4L2_CTRL_MAX_DIMS];
+>         u32 elem_size;
+>         u32 flags;
+> +       u32 fraction_bits;
+>         u64 menu_skip_mask;
+>         const char * const *qmenu;
+>         const s64 *qmenu_int;
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
+2.h
+> index c3d4e490ce7c..26ecac19722a 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -1944,9 +1944,27 @@ struct v4l2_query_ext_ctrl {
+>         __u32                elems;
+>         __u32                nr_of_dims;
+>         __u32                dims[V4L2_CTRL_MAX_DIMS];
+> -       __u32                reserved[32];
+> +       __u32                fraction_bits;
+> +       __u32                reserved[31];
+>  };
+>
+> +static inline __s64 v4l2_fp_compose(__s64 i, __s64 f, unsigned int fract=
+ion_bits)
+> +{
+> +       return (i << fraction_bits) + f;
+> +}
+> +
+> +static inline __s64 v4l2_fp_integer(__s64 v, unsigned int fraction_bits)
+> +{
+> +       return v / (1LL << fraction_bits);
+> +}
+> +
+> +static inline __s64 v4l2_fp_fraction(__s64 v, unsigned int fraction_bits=
+)
+> +{
+> +       __u64 mask =3D (1ULL << fraction_bits) - 1;
+> +
+> +       return v < 0 ? -((-v) & mask) : (v & mask);
+> +}
+> +
+>  /*  Used in the VIDIOC_QUERYMENU ioctl for querying menu items */
+>  struct v4l2_querymenu {
+>         __u32           id;
+> --
+> 2.42.0
+>
+>

@@ -2,154 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 073B17F17FA
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 16:58:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A29F7F1877
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 17:20:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F26E2850;
-	Mon, 20 Nov 2023 16:57:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F26E2850
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCDCEDE5;
+	Mon, 20 Nov 2023 17:20:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCDCEDE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700495890;
-	bh=s0UiQxWIxM5lhZVOwYVf/nk6rknPjJKXTITqwxtE3r8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1700497251;
+	bh=UdovXj9eRG/y3npf2/dSirveIPiB9jm8ntA/K6kRWGw=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nh7u5KA2x7ZSuS32rz8c7U4kExwXU2vTbIdzXQqiu2c/G2lmE7R2DxcYlnGUYZ0Fs
-	 F08MhdLXOGm30nlAMoJgH7jthryz2bw6a8SL4iyrwJNVJhrQ9KGm0sG9c+5+FDB9wh
-	 JJQSuTIZL0R+nlSbjaUEGT7tLm7DTdaHf0NMBf+k=
+	b=DvdRv3aQAvQU9FQuhcUzezuuOvoK2CdQFFbEknV44HVtdmxGI9duyS1sODrRLzYNk
+	 GYhPyudQhzKyfjbIgf7N8Tyr/acm/nunKTyv+HcaHGOUyGYzbBimrifPinWbM5NVi/
+	 V5QtNm+oThInU14WFm1EizUUuwmXwxsRmuvN7rpg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87EA9F8047D; Mon, 20 Nov 2023 16:57:19 +0100 (CET)
+	id 1CBC9F80578; Mon, 20 Nov 2023 17:17:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F2E0F80249;
-	Mon, 20 Nov 2023 16:57:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DE13F8057B;
+	Mon, 20 Nov 2023 17:17:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37036F80254; Mon, 20 Nov 2023 16:57:16 +0100 (CET)
+	id 7BB09F805E5; Mon, 20 Nov 2023 17:16:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 944C6F80114
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 16:57:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 944C6F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6983F805D8
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 17:16:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6983F805D8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=w587o13F;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=T0YT1AJB
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B65E721910;
-	Mon, 20 Nov 2023 15:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1700495830;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F7PHDpnVy2lTG03bseJP/V2+jncktgxQQFaSuIPkBLk=;
-	b=w587o13FK81/QgJpA3yBbGce9j7RBg0tucqm7mquwIwtcAZKcXRZsRTx+xfohbeXVQMjol
-	5rRx1mMOTTrdhQxw2cqFJvSV6na1ofukBnpgBDH/R6mnLLAmUi/ZBwaCsPedCdz96Z9fJ4
-	N+K2sO2TnX3T00B7UzkiVdDSvhX+yAg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1700495830;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F7PHDpnVy2lTG03bseJP/V2+jncktgxQQFaSuIPkBLk=;
-	b=T0YT1AJBtw9kX1YM4GoSpd7lH71ue+bwhpIBHLhaseE00YMdulNbNahoIZAeNDv5JIFSuJ
-	eqXrUidF0/NL8sDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 518D4134AD;
-	Mon, 20 Nov 2023 15:57:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id bR32EtaBW2XmWQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 20 Nov 2023 15:57:10 +0000
-Date: Mon, 20 Nov 2023 16:57:09 +0100
-Message-ID: <877cmcpgdm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yury Norov <yury.norov@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Daniel Mack <zonque@gmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Kees Cook <keescook@chromium.org>,
-	linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	Jan Kara <jack@suse.cz>,
-	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
-	Matthew Wilcox <willy@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
-	Alexey Klimov <klimov.linux@gmail.com>
-Subject: Re: [PATCH 30/34] ALSA: use atomic find_bit() functions where
- applicable
-In-Reply-To: <20231118155105.25678-31-yury.norov@gmail.com>
-References: <20231118155105.25678-1-yury.norov@gmail.com>
-	<20231118155105.25678-31-yury.norov@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [1.20 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 RCVD_TLS_ALL(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 TAGGED_RCPT(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 BAYES_HAM(-0.00)[21.87%];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCPT_COUNT_TWELVE(0.00)[17];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FREEMAIL_TO(0.00)[gmail.com];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[vger.kernel.org,perex.cz,suse.com,gmail.com,intel.com,linux.intel.com,chromium.org,alsa-project.org,suse.cz,alu.unizg.hr,infradead.org,rasmusvillemoes.dk,linaro.org];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 SUSPICIOUS_RECIPS(1.50)[]
-Message-ID-Hash: RJ6QL4CRAQSBIEF6RONR2TLNDPKJTB4E
-X-Message-ID-Hash: RJ6QL4CRAQSBIEF6RONR2TLNDPKJTB4E
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=I0W+9Ho3
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3AK6oXeG014560;
+	Mon, 20 Nov 2023 10:16:40 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-transfer-encoding:in-reply-to; s=
+	PODMain02222019; bh=Ywj1kdPjKsuou2fy1TtXc2Xqs1GoaBvw35slxNV/7EU=; b=
+	I0W+9Ho3GB8GYvDBtlhm2uf1mZEPslXeitaQMajmsf12ZhhLVOpVQUHGBrJupnJp
+	Dz2oWe61n9xMvfXJgupn5XGhizv14uUkV6mXyz5GSJ/fg3NLIxmBi0V8UYS6Ychp
+	R6iF3xeMArWUgFMJK76c49zRKWe80FJLl6igniopbKC6FbGNTscgcbQvUqEojx9o
+	I60+yu+5fZwSc2ecVz1fA34acwQ0Rvs+fhuK0ozUTIODJVQl7RnFDkN0x1Sb+QhX
+	7BvzroAn+AKFyRnnBA6VtcrptqcrG48m3MJ7pP2rN3TwHM1+A8ej7R+p0uSQlgZv
+	hvJ//3d1Lo4LcB+zD8VGZA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ueuj2a1e2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 20 Nov 2023 10:16:40 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Mon, 20 Nov
+ 2023 16:16:38 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.39 via Frontend Transport; Mon, 20 Nov 2023 16:16:38 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 31900357F;
+	Mon, 20 Nov 2023 16:16:38 +0000 (UTC)
+Date: Mon, 20 Nov 2023 16:16:38 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        James Schulman
+	<james.schulman@cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        "Liam
+ Girdwood" <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] ASoC: cs43130: Allow driver to work without IRQ
+ connection
+Message-ID: <20231120161638.GJ32655@ediswmail.ad.cirrus.com>
+References: <20231120141734.76679-1-mstrozek@opensource.cirrus.com>
+ <7248897a-0b59-4cdc-9915-d3297f2d6efe@sirena.org.uk>
+ <261e118d-529b-0ce0-5524-d24d767fa92f@opensource.cirrus.com>
+ <c031657a-a1ec-44eb-8885-afee68d7523b@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c031657a-a1ec-44eb-8885-afee68d7523b@sirena.org.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: o5eMkHLJNbnn67w0gTWh6TXQS7nIHgxj
+X-Proofpoint-GUID: o5eMkHLJNbnn67w0gTWh6TXQS7nIHgxj
+X-Proofpoint-Spam-Reason: safe
+X-MailFrom: prvs=66884bf062=ckeepax@opensource.cirrus.com
+X-Mailman-Rule-Hits: implicit-dest
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: PV5XQP6XXWTA6Y7SKAYFYJRM6DX63PLC
+X-Message-ID-Hash: PV5XQP6XXWTA6Y7SKAYFYJRM6DX63PLC
+X-Mailman-Approved-At: Mon, 20 Nov 2023 16:17:30 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RJ6QL4CRAQSBIEF6RONR2TLNDPKJTB4E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PV5XQP6XXWTA6Y7SKAYFYJRM6DX63PLC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -158,20 +124,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 18 Nov 2023 16:51:01 +0100,
-Yury Norov wrote:
+On Mon, Nov 20, 2023 at 03:54:14PM +0000, Mark Brown wrote:
+> On Mon, Nov 20, 2023 at 03:46:26PM +0000, Maciej Strozek wrote:
+> > W dniu 20/11/2023 o 14:40, Mark Brown pisze:
 > 
-> ALSA code tests each bit in bitmaps in a for() loop. Switch it to
-> dedicated atomic find_bit() API.
+> > > > +		} else {
+> > > > +			return 0;
+> > > > +		}
 > 
-> Signed-off-by: Yury Norov <yury.norov@gmail.com>
+> > > Is it a bug to call this function without to_poll set to something
+> > > known?  This will just silently ignore it which seems wrong and is
+> > > inconsitent with the handling in the interrupt case which will wait for
+> > > the the completion to be signalled and report a timeout on error.
+> 
+> > In interrupt case 0 means timeout (and calling function should expect 0 as
+> > error/timeout), so the only inconsistency I see is in not waiting before
+> > returning a timeout, but that would be needlessly wasting time?
+> > Do you think adding a debug print or a comment would help here?
+> 
+> It seems like a clear code bug if this is ever called with an unknown
+> completion, I'd expect a WARN_ON_ONCE() there.  The lack of a delay is
+> potentially going to affect how any error handling works which doesn't
+> feel ideal though the users look fine right now.
 
-Through a quick glance, both changes look OK.
-Feel free to take my ack
+I guess perhaps another option might be to not stick so strictly
+to the wait_for_completion_timeout API. This function could
+return an -EINVAL here and a -ETIMEDOUT for a timeout then the
+callers could be updated accordingly.
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
-
-
-thanks,
-
-Takashi
+Thanks,
+Charles

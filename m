@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1997F0D73
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 09:26:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 221FB7F0D8F
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 09:30:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77B4E9F6;
-	Mon, 20 Nov 2023 09:25:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77B4E9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D17D81EC;
+	Mon, 20 Nov 2023 09:30:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D17D81EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700468761;
-	bh=xjwOl+EiL520bbqvnqkBS8lF8XypGRF08JMu1eGSpnY=;
+	s=default; t=1700469050;
+	bh=MKFLVR3yjRzHPa8Qmbh8woIpvuOTajnbGLekRF7lm0Q=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=TOkFuI11tAKtfguwpCsi7pnKXZlw/1bRembHajn+dZy8S/Svhl3NHCpjjkeFFYzki
-	 i9j4sHbraO6OUJ0AVs/8ASQJAa4y7Axh+eOO1sRjuaJbS41uKJvKmWxC0nYfjYy/9N
-	 CEeYIBc8+DzBAm0Eo5FDZw+1WRyFitjRnUgRQIL8=
+	b=fw+8VGkg8JEUIr5Txttq3ZLG9Kvn0DFIfjr0G76/0huG6rfuVXVjI6wDIxSlIFDa+
+	 ZoWDCp/fa902P0Wm+dD9erdzpUttk6LnAnBcXEM5nC4MFJ3xRdIOT2nuneAbuVwgJD
+	 mhPrDzUWFRBxDk9s3qrV507Cbp32ADEEmYoO3UBQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6019F80549; Mon, 20 Nov 2023 08:49:06 +0100 (CET)
+	id 15226F80571; Mon, 20 Nov 2023 08:50:56 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA725F802E8;
-	Mon, 20 Nov 2023 08:49:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD578F80563;
+	Mon, 20 Nov 2023 08:50:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6CD1F80310; Mon, 20 Nov 2023 08:46:51 +0100 (CET)
+	id DB42AF8047D; Mon, 20 Nov 2023 08:47:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id D25DDF80254
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 08:46:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D25DDF80254
+	by alsa1.perex.cz (Postfix) with ESMTP id DCBDAF80246
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 08:47:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCBDAF80246
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1700466401577362776-webhooks-bot@alsa-project.org>
-References: <1700466401577362776-webhooks-bot@alsa-project.org>
+In-Reply-To: <1700466442830705404-webhooks-bot@alsa-project.org>
+References: <1700466442830705404-webhooks-bot@alsa-project.org>
 Subject: snd_pcm_readn hangs at record & playback on same device
-Message-Id: <20231120074651.A6CD1F80310@alsa1.perex.cz>
-Date: Mon, 20 Nov 2023 08:46:51 +0100 (CET)
-Message-ID-Hash: TUP2KSOBC6ZUA5EYILNRTB4RA3VHLM25
-X-Message-ID-Hash: TUP2KSOBC6ZUA5EYILNRTB4RA3VHLM25
+Message-Id: <20231120074724.DB42AF8047D@alsa1.perex.cz>
+Date: Mon, 20 Nov 2023 08:47:24 +0100 (CET)
+Message-ID-Hash: ODJEZSGYRLSJL5ESDWZW2QZR7D4M27WL
+X-Message-ID-Hash: ODJEZSGYRLSJL5ESDWZW2QZR7D4M27WL
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TUP2KSOBC6ZUA5EYILNRTB4RA3VHLM25/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ODJEZSGYRLSJL5ESDWZW2QZR7D4M27WL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,12 +69,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #368 was opened from nodemand:
+alsa-project/alsa-lib issue #368 was edited from nodemand:
 
 I'm on a RPi5 4GB running Raspberry Pi OS 64bit Bookworm and my application hangs on snd_pcm_readn when I try to read and write to the same device. This occurs on an IQAudio Codec Zero sound card and on a HifiBerry DAC+ADC Pro as well. When I select a USB sound card as the output and one of the others described for input everything works like it should. 
 
 Here is my code:
-`
+
+```
 #include <alsa/asoundlib.h>
 #include <alsa/control.h>
 #include <stdio.h>
@@ -267,7 +268,7 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
-`
+```
 
 Issue URL     : https://github.com/alsa-project/alsa-lib/issues/368
 Repository URL: https://github.com/alsa-project/alsa-lib

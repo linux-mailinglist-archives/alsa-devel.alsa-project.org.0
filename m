@@ -2,138 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 227167F0DD1
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 09:43:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8539B7F0EB1
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 10:12:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF4D784B;
-	Mon, 20 Nov 2023 09:43:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF4D784B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 067AA950;
+	Mon, 20 Nov 2023 10:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 067AA950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700469832;
-	bh=KASfXVHsVHwsB00Aw7SpHRXmZUsoz5CDj60HMS1T6Ic=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1700471569;
+	bh=+GLMO6xtcAueZmROXDAqUtCANvMLLt4JB1WUo9hlNdI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qEsr9xLyyuCbL1sBLyckr5W9cEcrsEDOkPO5PYeSkQ9hGm+jus4gMYlVJaiQN1936
-	 DdayvKFdbezc9iGAVvvZPPV8Pd/Bts3SylU4C2ACWMUgBetep1zobtRX9GtIJXdG4T
-	 jnTUckzsZHPtqTvmeMnz591j1xk6gNYDKdazVc9Y=
+	b=Uh1CwpBOPoyrGOiUwChOKS0vaupoAlgtP2d9jXTqaTqEwu0occHlPYUKYjxPky2OW
+	 bxNShXFJT/S8XOSYuBuolCe434+TpZTK8gIynNjeprEKs3XjHjyU0dDNMvqTtfk4qH
+	 8rSRxSM5Nw+SCbxY1rDiKexBp9E5tEK6A3Tbuc7U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C668F80254; Mon, 20 Nov 2023 09:43:01 +0100 (CET)
+	id 87D98F8055A; Mon, 20 Nov 2023 10:11:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6FB6F80249;
-	Mon, 20 Nov 2023 09:43:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44777F80254;
+	Mon, 20 Nov 2023 10:11:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 117CBF80254; Mon, 20 Nov 2023 09:42:56 +0100 (CET)
+	id F285DF802E8; Mon, 20 Nov 2023 10:11:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on20605.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feae::605])
+X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20611.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7d00::611])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 10708F80114
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 09:42:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10708F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8958F80114
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 10:11:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8958F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
- header.s=selector1 header.b=Y/RcFwMB
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=GjBxv+KF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iYh51Kdq8dbVHfdvT6XQYg/rXb4D7COgy5kMy4BtT+roYNOo8oWrRmSC9HksKoeTxXligQL759Qyi9TGdHG2ZgqF1UuR1dGtABBRC0mGpDfCBB6k9zbv5qWlESY2L7JezaU9Mw/TJpk2R6eS6B74ewo2Xc4mTQWegjeiAHbn9x7wa3eEnTaHs5591l08ZVxzQAOF/ok9DA9L40gcZ6v/aVl7QKLxXV51Kpy1L8IEajX8hyrCFDuTAsFnEcgxICCnvKVubvavBl8tv/WLGruKF/gpBOAYEHoWIIYyNYyZJbJ/r7gy1v6cub/O49G/pqR6kIKw6I+dkiahjSL9EDNMkA==
+ b=Jw1lZB9MCrxCfSW64/nfIT7wRNprz/o8eRwoggh9aLU8oem4nmBbORQsKlfeF0kcJFOj/dHWRH1pAqxnc9YQd0UGRFuoHp74CDngHfDNkFTDNmGrl5OX7nYhKptuBQQgEQKTKDyUTkJ3yRkFddxl2bFnowPoIgyc0Dy+2uXqhPOJ6F9tAUqMFmz8DvfiI5+ujNy4pMSdwEaC579Ntshw4FHkTFtax3sEQ3pfOPpkZTLbWz0AjPKUBl95ewnb0Py686PIF+50s8A9gnu0jt07PedNMNyGuFOOLYgpawf/PwdECqd2XdipSkxqvi8nPb0b1uu4qmOhKcYaqXwd8xdlmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6YloAyrHeqiFQCYPgB54RyN9YXaSTPxicYoJEzNs2lo=;
- b=Jq44Pg/V0AioUXbXstRIBVhoquprCkS14gKjgnecJVaeZoJr97v4LGeOHxCH6z3n+vj7+oJjUkgf4hzFLC//Qgu/e9azJSFF/zEzdyn0djWIlhNZmZu5njbQDk159HnawjX6p5r8xyrdoRoWqZc/Hx5D8rpfM+Z/yIEyt2vDUKFOLYsYCtMa9oL+sEc6oYli5Kbrf3jKV2lFl/s98g/GsdxyQflhR5qUiJx7ipglzODYXNFtABmrgSmvb050uwfnFeVpLSMZUBYSFgGM85Am+NKvdkAQp86SOVNZoAu+Wfs8MG9rP8tMJNlYdWpYvvj5MGqRQg71oDl6mmWA35okKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
- s=selector1;
+ bh=Y5Zm9WgaTMly3B/H6hzO3V4scDXzTxTOzR0Fy0s91A8=;
+ b=kXazTQQ6wBs/XDxtwKi2rUB1TYfCsoSSDbpsqgUFSjZ+w53WAQQ/4lXpaRolSxqDlZw2QJSwHMbYSINp6Un6KGCujb64eKXeuFQJ1+3x1l/mmJa4moIYWrqgArOSNEqGz8dGJT1eTStMNJDcB9M3aK40vTsioXYAWHfkVQMCS2DUho/XnSWkr5dtGp4gb6v0ulkmZ5EhUzlAV2fk8FQTMp80fnPy7d09QsvDGE2Ui0fp4MlWOm3ow+yToqhBhfKSgSDVkA9+DRtxV+XBPaRrc41u9abqy68eMFyiE+mFeSIKEWyrs/HFLdjPng95jNUMxGhg2JM/Cdq8FtkZn/Nd5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6YloAyrHeqiFQCYPgB54RyN9YXaSTPxicYoJEzNs2lo=;
- b=Y/RcFwMB2NyJ1pQanBS50w0GjLFPVAb9hA7/9Dsn1FJvL08dir5B+yMRHWSRzCvk3ks2zx+uI3pcXbkBoE3nkE4nsdHuvQ455JI2NONJainOg67/GPgd5AN989//T32zm6DDbhBZv8TGgHJ4yLHVhAerltpjKNHF15tDx1VZGIU=
-Received: from PS2PR01CA0013.apcprd01.prod.exchangelabs.com
- (2603:1096:300:2d::25) by SEYPR03MB6649.apcprd03.prod.outlook.com
- (2603:1096:101:83::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.26; Mon, 20 Nov
- 2023 08:42:40 +0000
-Received: from HK3PEPF0000021D.apcprd03.prod.outlook.com
- (2603:1096:300:2d:cafe::41) by PS2PR01CA0013.outlook.office365.com
- (2603:1096:300:2d::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27 via Frontend
- Transport; Mon, 20 Nov 2023 08:42:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
- smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nuvoton.com;
-Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
- 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
- client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
-Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
- HK3PEPF0000021D.mail.protection.outlook.com (10.167.8.39) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7025.12 via Frontend Transport; Mon, 20 Nov 2023 08:42:39 +0000
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Nov
- 2023 16:42:37 +0800
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 20 Nov
- 2023 16:42:37 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 20 Nov 2023 16:42:37 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>, <YHCHuang@nuvoton.com>, <KCHSU0@nuvoton.com>,
-	<WTLI@nuvoton.com>, <SJLIN0@nuvoton.com>, <ctlin0.linux@gmail.com>, David Lin
-	<CTLIN0@nuvoton.com>
-Subject: [PATCH] ASoC: nau8810: Fix incorrect type in assignment and cast to
- restricted __be16
-Date: Mon, 20 Nov 2023 16:42:28 +0800
-Message-ID: <20231120084227.1766633-1-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ bh=Y5Zm9WgaTMly3B/H6hzO3V4scDXzTxTOzR0Fy0s91A8=;
+ b=GjBxv+KFtFXV7h5YuC2prapKiFn6RtHs3aQMt0dkqcu+R0cNnNmb2YEfP0zxRr8vNWIIa3D+qYXzCn6xkYThxq8myHAiTtalxwvEHnyywWn1SUeAlaEy3nhKP+syv2ACvpJA04MY3CLutEzhQ4jtp4UhdTcUkHHPMCk+jCgJ81Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
+ by PAXPR04MB9399.eurprd04.prod.outlook.com (2603:10a6:102:2b3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.16; Mon, 20 Nov
+ 2023 09:11:45 +0000
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::dffc:1d:4398:7768]) by DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::dffc:1d:4398:7768%6]) with mapi id 15.20.7025.015; Mon, 20 Nov 2023
+ 09:11:45 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	shawnguo@kernel.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	linux-imx@nxp.com,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Chancel Liu <chancel.liu@nxp.com>
+Subject: [RESEND v2 0/3] Add audio device nodes for i.MX93 platform
+Date: Mon, 20 Nov 2023 16:49:02 +0800
+Message-Id: <20231120084905.664-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.17.1
 Content-Type: text/plain
-X-NotSetDelaration: True
-X-EOPAttributedMessage: 0
-X-MS-Exchange-SkipListedInternetSender: 
- ip=[211.75.126.7];domain=NTHCCAS01.nuvoton.com
+X-ClientProxiedBy: AS4P190CA0052.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:656::24) To DB9PR04MB9498.eurprd04.prod.outlook.com
+ (2603:10a6:10:360::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: HK3PEPF0000021D:EE_|SEYPR03MB6649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e8fedd4-34be-4a01-9d23-08dbe9a4a797
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|PAXPR04MB9399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 488667e5-85ac-4423-398b-08dbe9a8b783
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	m+H2Km29IRob3Cu7ThfBogZg3sgLVnks04CsOXPI2BY4c193M2U1MzkcEBv0bI05QtpVVVSa34av+9elrfkHT/tza6AsBQ1tU/xXpBn7CDdwNa5Z/Ix3WZikt7qdNqaTY3ZdAAVoBzB2gERMfGR9Rk9j/GQDkXTyt62aqs+RA9EocdW1wpn/VFcx7Dj2miCtTHEFOCGtv7Slns5a77bmqVXKiE5eJKx1E06xoWz0N5N8ADGIqbYtuSWY2uYWezhMIiDntBDzQJm4sXQhGEee+l8RtFRbvDrKjmRUgqXQ/EmnMV9wkeXUxRBpzPzctGmdr1uQ84V4288HiaFqzObwdhvQYAyIpj8Py22lDnc7D6l30hw+HNu4FCZBUTi4NgDYZekmeNfs4OYFpcGWIUHp9dSsX3dMHMh0P+K3kVEtZVXRTY7uGjZmkAoc5ZMVr2DGb3YR0itidR5mtMXCQU2zFoIktKt8I0tZimjhWBE+pKBrzMcygAzdwl8TINPbKc9m2BIKE2+3c6zXsn+yatwrKP1wxrXUfFaxK07SL7L7rTNr/cIWy45gMNMJ/aM+HDQ0/PBSBNxYn0yQN5f3cb8hGxzmPduF/tM1sYfq+HCih2pKP9iWViN1nq1EBlkIlOZ47YbCruvIHd6neSaTNdvDqsn9nDxp33FzbbsaOF1ir01X6OQ9z6AWcPRrV40oEi4qkrV9Bmu/N5oDljOgJfG5tZA/jWl/gictczDkdWrSJuqUWYya76Pvz6ocXvWqnnyLUa9dEBW6zvtld4SQahKs4XHnBzPj6A4cxuKZVDQCsOu+jL5hY5KIDhHVafVHKYeHOErGScfoLG1L0tHMG/fmyA==
+	TBch4hNu7ij9+0EzCUfz5szYVxXwZPRyf0nbEDaFkAdp9/uhPeRVp7biEvtyInTsM1MENv9uHLUnk9t2M2rkTN+LcE/Vd3JB2wqDI07/AxKvZl6LJf6vw2GdZqPjuKnqZcn5/nRY+KH9mola/+mCLRvo2wkUiYZay6XxElLOmwNCGFEkmRqkDauspgBO2nLOQj8ybvwr2zPTe208ohVDFeE05G/t9JjlSh2j1gXC7se8lSpl96tS3sYwINCAOFn+6cp0i+EdeqaRBuDh1Q5ctVlV2H1Z8ugyVzL2V9l36xTvRpw8obBge3IJxOz2S5mtk5319iBGLg5ErgtvFfRDIaOwX+3L1xHTKSqEmH5v7ywv8k9R+DIl8xz1uUbsbaLZxBzqlDS4lxRpi8yA8/Rxeu2TMt6ezzKgqKTeGbxRCzVjwCpoIrj5oVDtyDE7ISkKnAhu+7or3g9YOmO0mO3j1eXL0Tj1eZyJjc+nylGrrK9pysjZD8Jr+MkM49/xVxMBN+D7ZDfsaH6psz5zhdvrk1SYc+h0sHAwt6JUx95hQRctHQZ2S1JGdRJED8zxnmikI3bnywSJFpvtWKcGliVWVpwo2891K7GU0EafWNkdjEOqf8tE/7aUlW8Z/z4SCeQ9sfYkUrRdwWvs1XrbAfJysE3iqlIkNWddwSxxK+MNrhc=
 X-Forefront-Antispam-Report: 
-	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(4636009)(376002)(346002)(136003)(396003)(39860400002)(230922051799003)(230173577357003)(230273577357003)(451199024)(64100799003)(1800799012)(186009)(82310400011)(36840700001)(46966006)(40470700004)(82740400003)(336012)(426003)(83380400001)(107886003)(2616005)(26005)(6666004)(40460700003)(1076003)(54906003)(70586007)(70206006)(36756003)(316002)(6916009)(40480700001)(5660300002)(86362001)(33656002)(2906002)(41300700001)(4326008)(8676002)(8936002)(478600001)(47076005)(81166007)(356005)(36860700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: nuvoton.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 08:42:39.7915
- (UTC)
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(396003)(376002)(39860400002)(136003)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(41300700001)(36756003)(5660300002)(86362001)(7416002)(44832011)(4744005)(2013699003)(2906002)(38350700005)(921008)(6512007)(6506007)(52116002)(2616005)(1076003)(26005)(83380400001)(6486002)(478600001)(6666004)(4326008)(8676002)(8936002)(38100700002)(316002)(66946007)(66556008)(66476007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?0F4p7b9Adpr42sqpyAU3wCvqkNL6vur2VHXVFUyOcclTXG3mahno/nn54VxW?=
+ =?us-ascii?Q?lr5dBwFqFL6V0XWHJDDRRpgj5H4W/CHylC7tCPEqs4KP8JJBZ2iFvSfSrM2T?=
+ =?us-ascii?Q?fJuQEEx/CA/tFtHlks3ZZaVkeZuFU9hRfZXkz4lUFCV48MXXbLw780jngPqi?=
+ =?us-ascii?Q?IvvzUSfM4PuIEAe9OlUljAdwYZPePN2qA0dgo9/yu0E0TGLANx0pEp8zp/bI?=
+ =?us-ascii?Q?MKaiHJraCwbUsXeS7NsJRI5abKhLFzHieKAWWOmYccb/oCEHHRpoc0Zxro0E?=
+ =?us-ascii?Q?IOjst3SG/Npo90QInUmYMDFnupUvDLPLZHrKQ6UP+C3LCN55CAaHG0QEDpIT?=
+ =?us-ascii?Q?SQbqydOSccIjF4PwCpEwN5uS/nNUYz6JIJOKnJU6fk+2Qpxz8IsycQC0GFQV?=
+ =?us-ascii?Q?X845pYHvs2PLkp4ZvT6u4XO9jr2HJ8ZbvOqofLlUwJLAYaeCjo+xUFzPM4BY?=
+ =?us-ascii?Q?JbYf4J18rn4tjWSH2t+WGpUMY2IJAj+hE/tYguztu+e+Bv4xC+r6FzAWOAcR?=
+ =?us-ascii?Q?KxiesUnmQWgibxjl5tgvjQToQ1voVN5HYiKhf41MLHRukf+qBYOHtdgH3tvG?=
+ =?us-ascii?Q?YKPFQp0hW9TBv1ak/Obp7/61QdUgvGi9Zsfjg/xGn1VX/4dTBX3diOLyvpdz?=
+ =?us-ascii?Q?x05Uc40QzQaSEKaN9lDDDGAjC7LvyUZLcdQBnGATs3fNFcoUdxYwamdIvJnS?=
+ =?us-ascii?Q?Cath0Nkzw/ICEZG5CHChURIXFCqHbs0Vj/gL28UlDyRwKyhwbAUlJosC0uwq?=
+ =?us-ascii?Q?S4e+hsx8Pl3BlvDpNI9TM1xfNlL6BVYoH0t/qO2WSkG27Rih5jrG37G3V4lQ?=
+ =?us-ascii?Q?vSs5qRPX0Ie6m0OpYkM/NCcmnLjAxUN50xI37Qqc4Q0gc2KInoM4HSQeH2Ao?=
+ =?us-ascii?Q?dydpjV8Bo1LAYdOOe+SdOnpUhaixiEPc8z1dl9ibcEq5CI/mzVPiKNMH1yuh?=
+ =?us-ascii?Q?SK8wTch/WGbs3ByiWGZE9qiS+491O40WZLXhLoIxqZc0EcG/I9kIrK7FamDS?=
+ =?us-ascii?Q?neY+R2kQ3mJtlMejZVtbKvzslN0Bjz0+gfi27yDF0soJPlHlrF6E6Xg5x2B+?=
+ =?us-ascii?Q?2HVKDb4F38Equ3K+m9prSpUuemVa7T+gf6dEb56QLkA4USmI8YxhFWrPSs8Z?=
+ =?us-ascii?Q?sRZOa3vN5Hm8eSi4p+dLrUOFJk1qeLBO8NaAnxLwHOh81qouwNE34hjcJ1qq?=
+ =?us-ascii?Q?bZBzPfMbbTRDo9iEwgx2bhnKBD0prL2xI3vYNycMPvYvqjgcwuOO+L03a0A9?=
+ =?us-ascii?Q?Sfc2+RhwrkDSuf9RpE/M3vcIXKZGmYgbVhniulXkTMEB85QmBTH+ClxItlHM?=
+ =?us-ascii?Q?+NzaKrVwGswCcLRa0seluUQHJCtd+L+fwBVdMC4wcuwq1QMOGSevQLrZDxu3?=
+ =?us-ascii?Q?dtsId9e59KkQFofq4zs1zvp5SNc3gyJ/oMVNzPJ7LWd/Z0RdofWzPueNDU2/?=
+ =?us-ascii?Q?RMgJZ9711fx4fRNiw0MCHD5y7488vCvO6vZ7a7dwZeFpExOOV2ZElplBXk54?=
+ =?us-ascii?Q?UgqqD2yXrrDrAFIfleAdqwRAKniRsdMJvS9rDtyhUEll3zkm3chhrJobZzZH?=
+ =?us-ascii?Q?R/20rhiZUW7pdSYNTYHHtVau9CkBWBBl2NWoMq41?=
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 9e8fedd4-34be-4a01-9d23-08dbe9a4a797
-X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	HK3PEPF0000021D.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6649
-Message-ID-Hash: RKVXDOC6SUE2TEORBBDY4ZN6AKNFNLCJ
-X-Message-ID-Hash: RKVXDOC6SUE2TEORBBDY4ZN6AKNFNLCJ
-X-MailFrom: CTLIN0@nuvoton.com
+ 488667e5-85ac-4423-398b-08dbe9a8b783
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 09:11:45.0934
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Ig9vPCLhojaMayweUX7s9iwLaNNA1D1VzJR/vYifUSfnnTZ32txX2ePsl2ASpT6fjODhuA+nodu4lgoCqRcilg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9399
+Message-ID-Hash: EG3YEA6NUQVBCRNL2X5IAPIEPO7DMRKL
+X-Message-ID-Hash: EG3YEA6NUQVBCRNL2X5IAPIEPO7DMRKL
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -145,7 +159,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RKVXDOC6SUE2TEORBBDY4ZN6AKNFNLCJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EG3YEA6NUQVBCRNL2X5IAPIEPO7DMRKL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,66 +168,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This issue is reproduced when W=1 build in compiler gcc-12.
-The following are sparse warnings:
+changes in v2
+- Move MQS device node under "/" root node
+- Convert fsl,mqs.txt to yaml
 
-sound/soc/codecs/nau8810.c:183:25: sparse: warning: incorrect type in assignment
-sound/soc/codecs/nau8810.c:183:25: sparse: expected int
-sound/soc/codecs/nau8810.c:183:25: sparse: got restricted __be16
-sound/soc/codecs/nau8810.c:219:25: sparse: warning: cast to restricted __be16
-sound/soc/codecs/nau8810.c:219:25: sparse: warning: cast to restricted __be16
-sound/soc/codecs/nau8810.c:219:25: sparse: warning: cast to restricted __be16
-sound/soc/codecs/nau8810.c:219:25: sparse: warning: cast to restricted __be16
+Tests pass based on broonie-sound/for-next.
 
-This issue is not still actively checked by kernel test robot.
-Actually, it is same with nau8822's sparse warnings issue.
+Chancel Liu (3):
+  arm64: dts: imx93: Add audio device nodes
+  arm64: dts: imx93: Configure clock rate for audio PLL
+  ASoC: dt-bindings: fsl,mqs: Convert format to json-schema
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
----
- sound/soc/codecs/nau8810.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/sound/fsl,mqs.txt     |  36 ------
+ .../devicetree/bindings/sound/fsl,mqs.yaml    | 113 ++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx93.dtsi      |  89 ++++++++++++++
+ 3 files changed, 202 insertions(+), 36 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.yaml
 
-diff --git a/sound/soc/codecs/nau8810.c b/sound/soc/codecs/nau8810.c
-index 47f000cd4d99..97a54059474c 100644
---- a/sound/soc/codecs/nau8810.c
-+++ b/sound/soc/codecs/nau8810.c
-@@ -169,6 +169,7 @@ static int nau8810_eq_get(struct snd_kcontrol *kcontrol,
- 	struct soc_bytes_ext *params = (void *)kcontrol->private_value;
- 	int i, reg, reg_val;
- 	u16 *val;
-+	__be16 tmp;
- 
- 	val = (u16 *)ucontrol->value.bytes.data;
- 	reg = NAU8810_REG_EQ1;
-@@ -177,8 +178,8 @@ static int nau8810_eq_get(struct snd_kcontrol *kcontrol,
- 		/* conversion of 16-bit integers between native CPU format
- 		 * and big endian format
- 		 */
--		reg_val = cpu_to_be16(reg_val);
--		memcpy(val + i, &reg_val, sizeof(reg_val));
-+		tmp = cpu_to_be16(reg_val);
-+		memcpy(val + i, &tmp, sizeof(tmp));
- 	}
- 
- 	return 0;
-@@ -201,6 +202,7 @@ static int nau8810_eq_put(struct snd_kcontrol *kcontrol,
- 	void *data;
- 	u16 *val, value;
- 	int i, reg, ret;
-+	__be16 *tmp;
- 
- 	data = kmemdup(ucontrol->value.bytes.data,
- 		params->max, GFP_KERNEL | GFP_DMA);
-@@ -213,7 +215,8 @@ static int nau8810_eq_put(struct snd_kcontrol *kcontrol,
- 		/* conversion of 16-bit integers between native CPU format
- 		 * and big endian format
- 		 */
--		value = be16_to_cpu(*(val + i));
-+		tmp = (__be16 *)(val + i);
-+		value = be16_to_cpup(tmp);
- 		ret = regmap_write(nau8810->regmap, reg + i, value);
- 		if (ret) {
- 			dev_err(component->dev, "EQ configuration fail, register: %x ret: %d\n",
--- 
-2.25.1
+--
+2.42.0
 

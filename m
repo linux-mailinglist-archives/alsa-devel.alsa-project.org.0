@@ -2,89 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6FA7F1878
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 17:21:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05BE67F18AC
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 17:33:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19A88EA4;
-	Mon, 20 Nov 2023 17:20:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A88EA4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F17E839;
+	Mon, 20 Nov 2023 17:32:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F17E839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700497263;
-	bh=zPI+e21nyYjzMEzKo0SN9jHwcF4lz+sz54brvdC2b8U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1700498012;
+	bh=Eg3tImi0mkQCJ6HTRCQEvLgTbOvveHdT1JhyGy7bH0s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A+WyMFbdyNshq54RORy2XEdVXw18TswXPN6D75qec0CaGIPrcSJPbmmqzlEQLZxOu
-	 wX+0sDn6VJ8ONCqnlfENWz7q7o8AyHWAIZEXdPWPenwJ2yQTByFlHSR2TIqpkjUust
-	 ub/sBzTsM9AxTAmb/SuTmZvCU7bpT0uQVrndTgZ4=
+	b=tIF/kbXwJz3X8as4+tRDSchvDADlEjFndTlR9jl9jvcLyvX6ZwuSnhKU3gfGObF5+
+	 ThkdVk9c5Az+SzKMBcBjo/Lz/aTUw/bNJXwCarI0OIR/xrhiVWv2DK7Qdw2tYG3/6D
+	 VGQoE9H6HumSnjWX0eK9cw8VYcev1AJW0LHyT1Zg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F439F80580; Mon, 20 Nov 2023 17:20:01 +0100 (CET)
+	id B040EF8055A; Mon, 20 Nov 2023 17:32:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66ECCF80567;
-	Mon, 20 Nov 2023 17:20:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3570EF80249;
+	Mon, 20 Nov 2023 17:32:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1D35F80567; Mon, 20 Nov 2023 17:19:57 +0100 (CET)
+	id C392DF80254; Mon, 20 Nov 2023 17:32:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 31C81F8057D
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 17:19:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31C81F8057D
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD7C9F80093
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 17:32:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD7C9F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qVfwlp5S
+ header.s=k20201202 header.b=HUHEghF6
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 15688CE140E;
-	Mon, 20 Nov 2023 16:19:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A59DC433C7;
-	Mon, 20 Nov 2023 16:19:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 899B56131B;
+	Mon, 20 Nov 2023 16:32:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E810C433C7;
+	Mon, 20 Nov 2023 16:32:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700497154;
-	bh=zPI+e21nyYjzMEzKo0SN9jHwcF4lz+sz54brvdC2b8U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qVfwlp5SdtqhwP0I976PJXdYckjEzGyjN+RE3ELyFK7teO6jAbhxVTrCooKQB9nng
-	 zCfdh+UNzp9UCbPlQY9B/BCMD+iD9ioAll3bUx6eMkBbImbnJBwA84uOMZwzUox+Be
-	 WZ+Ah2o2yJAc5A+WiBCz2abU+qU/N3HEPgh3c2NVY0Z7gNnxVTN8I0n4Z0HU4oRQ8+
-	 zcOK6BnRK9ERuCnol1itwwR4wKHne7OGHiIvuNZn2bTCuITKekA8fLKlMRLRniMSGQ
-	 Aud55stw529Z91f2S4F2Qai/Ss8MkHxxETyz69isFfiXRx0F7uH/xIYDTKcmcth/1j
-	 Mz2x3yEeSc72Q==
-Date: Mon, 20 Nov 2023 16:19:09 +0000
+	s=k20201202; t=1700497945;
+	bh=Eg3tImi0mkQCJ6HTRCQEvLgTbOvveHdT1JhyGy7bH0s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=HUHEghF6E+qzSd15aJUyYWeSJUKsr1IzS9i9+xZxN4m8pOdmEhBkgF/ISiGsBlND+
+	 dCcapm+e1iIIJnU51NzBR3P2CPc1AO2o08miWDdxmUJikvKrUFmPlioKQXTKcFuayc
+	 cKOxL4Rqeg22g3QB+syVToGk/e9mVk0uTjfnjWXTqGIuOhodjPLJGcKNEfpO/QUm6B
+	 +3tMTN4WAErI05g0qQzuQvCJVjmtRgAiCreuUUVcb0DTKKB5xLdkjVXMdOBzhm92QT
+	 Tp54ztVpTQ3lXxbn6EGSAXN3XJK8wX26PYZzvO79/IgAIlcDEV9scCG9r0BYNo1PZd
+	 3emMAV6c/euTA==
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Maciej Strozek <mstrozek@opensource.cirrus.com>,
-	James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ASoC: cs43130: Allow driver to work without IRQ
- connection
-Message-ID: <d13f5857-f386-46b0-9bdd-d832b35617c0@sirena.org.uk>
-References: <20231120141734.76679-1-mstrozek@opensource.cirrus.com>
- <7248897a-0b59-4cdc-9915-d3297f2d6efe@sirena.org.uk>
- <261e118d-529b-0ce0-5524-d24d767fa92f@opensource.cirrus.com>
- <c031657a-a1ec-44eb-8885-afee68d7523b@sirena.org.uk>
- <20231120161638.GJ32655@ediswmail.ad.cirrus.com>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ shengjiu.wang@gmail.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, alsa-devel@alsa-project.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+In-Reply-To: <1700474735-3863-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1700474735-3863-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Fix no frame sync clock issue on
+ i.MX8MP
+Message-Id: <170049794283.439381.10112729019532929436.b4-ty@kernel.org>
+Date: Mon, 20 Nov 2023 16:32:22 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rzS+1eaHwgk3+pb4"
-Content-Disposition: inline
-In-Reply-To: <20231120161638.GJ32655@ediswmail.ad.cirrus.com>
-X-Cookie: <Manoj> I *like* the chicken
-Message-ID-Hash: A2NZBYRQJZFZJLCRAB4EBF732KOVLMAN
-X-Message-ID-Hash: A2NZBYRQJZFZJLCRAB4EBF732KOVLMAN
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: LKLMHLMEZSYARERNQ5IPWSXCCEHM5W5V
+X-Message-ID-Hash: LKLMHLMEZSYARERNQ5IPWSXCCEHM5W5V
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2NZBYRQJZFZJLCRAB4EBF732KOVLMAN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LKLMHLMEZSYARERNQ5IPWSXCCEHM5W5V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,40 +98,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, 20 Nov 2023 18:05:35 +0800, Shengjiu Wang wrote:
+> On i.MX8MP, when the TERE and FSD_MSTR enabled before configuring
+> the word width, there will be no frame sync clock issue, because
+> old word width impact the generation of frame sync.
+> 
+> TERE enabled earlier only for i.MX8MP case for the hardware limitation,
+> So need to disable FSD_MSTR before configuring word width, then enable
+> FSD_MSTR bit for this specific case.
+> 
+> [...]
 
---rzS+1eaHwgk3+pb4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Mon, Nov 20, 2023 at 04:16:38PM +0000, Charles Keepax wrote:
-> On Mon, Nov 20, 2023 at 03:54:14PM +0000, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > It seems like a clear code bug if this is ever called with an unknown
-> > completion, I'd expect a WARN_ON_ONCE() there.  The lack of a delay is
-> > potentially going to affect how any error handling works which doesn't
-> > feel ideal though the users look fine right now.
+Thanks!
 
-> I guess perhaps another option might be to not stick so strictly
-> to the wait_for_completion_timeout API. This function could
-> return an -EINVAL here and a -ETIMEDOUT for a timeout then the
-> callers could be updated accordingly.
+[1/1] ASoC: fsl_sai: Fix no frame sync clock issue on i.MX8MP
+      commit: 14e8442e0789598514f3c9de014950de9feda7a4
 
-Yes, that'd help with clarity in terms of the interface - the completion
-API is a bit non-standard here.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---rzS+1eaHwgk3+pb4
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVbhvwACgkQJNaLcl1U
-h9DTugf/Xo+maNejN5Jyb9v31+Y+fHdHGg1J8zN/OqLLyg4DRlqQvEHLQ0Z4gc2O
-bFjezKAU1O/mblEtNuyzjXwdnSIsDlEs0eeISe+iaHEJo9OLpvObin3ChBrVbT4o
-lmFIYeP5eWNcNlAKZd9y+tr+S9puRpVPZASSH0/QUOtfQYpO5vmlNZyynqqSUhdg
-NKi2XzdLK3xLKDM55bP2RTS4TDhOe4O5VJWdVRDu59m+6Und1K1rIubf0GRaIpHQ
-h9SycOlh0X2BRRBBQEqoCgE2R/vWBS9NhCban4yRN2ZOfdlfAqsEFvEWJ5utLkpR
-yAEkAerxrkLam35ISNijLA4euRO1Uw==
-=Qcqi
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---rzS+1eaHwgk3+pb4--
+Thanks,
+Mark
+

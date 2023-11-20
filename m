@@ -2,156 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69B967F0EB6
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 10:14:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EA587F0ECF
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 10:17:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E485839;
-	Mon, 20 Nov 2023 10:13:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E485839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F576839;
+	Mon, 20 Nov 2023 10:16:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F576839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700471646;
-	bh=5NlhS/ORVPq4o+OkxufgZyPIzcE5Ie2k9zGrXetplFI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1700471852;
+	bh=NvotHLfVBduGKQUCC9ZYr1A959aByqhymkfjEWG51Vk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y+qd3z4TEwTTTUB7Di8rnZca6lMs5ym6MyqyAitFIcZ25H98ubGc8Pmpb6m4nZznl
-	 fYPyospQ8mHtthtr5gYOfFQv4ahtmn62ZczjslP4GK3fP7iTZA3MxO4dFxvaEPhgeS
-	 e4vrMHeyuLJud+CRyzuClUwq/Hf6yVah//qCkziI=
+	b=GJJucAT2qtEMCymjg8+HUbR3lno3ytjNn307Qa7qrtlDm5yMSk4mCNtXFtP2eAL/x
+	 9vRMKVzLUmCuK6xqLg6zQyRfZ9hqi/sEQrkhTOz6Kv3C45AjjbfGZXRIliFjw3v4sk
+	 WDSmR/dwRQHEikt8WQjKtmdYBqsnqrb5y+JE77Y4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8E66F805AD; Mon, 20 Nov 2023 10:12:27 +0100 (CET)
+	id 6297EF80249; Mon, 20 Nov 2023 10:16:15 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AB0DF8059F;
-	Mon, 20 Nov 2023 10:12:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB09EF80249;
+	Mon, 20 Nov 2023 10:16:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C18BAF805A1; Mon, 20 Nov 2023 10:12:23 +0100 (CET)
+	id C47FCF80254; Mon, 20 Nov 2023 10:16:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0631.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe1f::631])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3BD70F8057C
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 10:12:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BD70F8057C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4BEBAF80114
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 10:16:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BEBAF80114
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=qm7JjqlG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cF0mE4ae0bzJhmsxUpVNo6CBy7OrDacxyQZobDhQBlQC7WmcdhIPnwL7QVl/CIjL57qnEGmumrS/fDl05zg1p23CdOcjeacdilrYWz2CYfx4bYQv2f8vWTNAMNX8Yi7VH83iQiwhiFI0yKJClJmf2pZ2H3RnXUdcTMIkdF9l1hUt7RPlBLuFjuHMcZipK1hIwkGwS5qy8YuR10EJfhIRGyc+/+EoDDk8dYvRpsefvTfKP7WtSrfgw0U33Bk4b5e1DsLn5jP9ceGqUqNJRsq8y0xy7H6FAux+BbqITbIZbRGEkMzXKLRyPxFQiIuvKkf0X3aemLTShgqxDd0tHBNwsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=luGc91YIHm7PJu1Sq2eBjN9Ud/issUKfZURg3+bsFtU=;
- b=f6XSBH9BmM2mlRcQYv/cZL0M0cfAr6rU05JxQ8LycmNGmU/2ZhAnrsi0hhTPWQh9tko6DKwPz/wUTwELQ9QVNwF5dsD3NPiRSiCpnBVfqr5tmDfDYRyzvk05BpdHlKHuWMvCp6MGULL3ZoXuMsC3LkIjlY188AaX7Y/F3WvRGna0WWMUv0k32jZomuXN3ERMo7hYbysRyLGwmLmocxxLxv0hB8qNOyXJ9SOeB735wb17CYC60U82BnX3BYWuqeYVNSkMpOmXNtdj7EAJL95bfoY41Pwjc5z/QlHpmXlaK48WT40wYR9baksgllrEw3A9uklmy8ik4/pQ5klew4y5nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=luGc91YIHm7PJu1Sq2eBjN9Ud/issUKfZURg3+bsFtU=;
- b=qm7JjqlGIGYskyWQMtrvBul9vw+uzPQZmYUyUzvA0XoKrLAQIHQNouXOT3+JS3UdE7K4J02r/ST8TrNo7ws2zJCfOSPzrPVOO0td9cQQjuvUrDR3iDlKk7iungAAKndG06MQTPshxEQpFMBWMELureFlJF6AQRUmyTJTTCMNirc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by DBBPR04MB7563.eurprd04.prod.outlook.com (2603:10a6:10:206::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.16; Mon, 20 Nov
- 2023 09:12:14 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::dffc:1d:4398:7768]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::dffc:1d:4398:7768%6]) with mapi id 15.20.7025.015; Mon, 20 Nov 2023
- 09:12:14 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	shawnguo@kernel.org,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	linux-imx@nxp.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [RESEND v2 3/3] ASoC: dt-bindings: fsl,mqs: Convert format to
- json-schema
-Date: Mon, 20 Nov 2023 16:49:05 +0800
-Message-Id: <20231120084905.664-4-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20231120084905.664-1-chancel.liu@nxp.com>
-References: <20231120084905.664-1-chancel.liu@nxp.com>
-Content-Type: text/plain
-X-ClientProxiedBy: AS4P190CA0052.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:656::24) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=IqbPVQBx
+Received: by mail-yb1-xb2d.google.com with SMTP id
+ 3f1490d57ef6-db3a09e96daso640915276.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 20 Nov 2023 01:16:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700471764; x=1701076564;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vpwOvzzEhozZ00SFHXEpmejOMEaeMFuJw7NXLVeDvN0=;
+        b=IqbPVQBxENrviNzX2U0R+QAh/2Br62KejfKU/TvoGjnznE5/fEakM/tdI9B3W2zrqz
+         yLaWzixPv67uZZEONmhcZZEkmcdSiuFjbr0C1UZa9weWZkpF4RSSP3gzlvPp8UZvW4H3
+         pf+d3oDkdc1++y59tmoMintye/L3XRKoSuspP7xugK+CBin6+mZWmXraQWtC/qa0GXlV
+         3rtSVxubT9EL2to+HfpfqDtcPB8HaKJrMnN84SzGGyxrM3G8WOK/QA9ZuyKB5Lpqjak2
+         h/2iOJul/RSuWea83vSOdm+U3CgZxqxOiH9gRLmLcO8OAwsSEm3ly/rtNr5qQDQD36CC
+         G5gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700471764; x=1701076564;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=vpwOvzzEhozZ00SFHXEpmejOMEaeMFuJw7NXLVeDvN0=;
+        b=cTLiwHXFnwKHLsxpBaj/EBFZgB4G0B70rTtkMFA2Sys+WnPte9rWDMK7ftlh10LvWf
+         6lXmLlPFx3L8cJpQy8e2USrFa14VEvS3YsG9g2mTWTZ5IfAdZVEYM5voWc6f5lJAvVI3
+         Tm3d26KnnPfCBzQBMB2jFeS9+PDgiHhwzdBA8PSv84sg4sVdTOOASupdUxq/S6bVoUPT
+         CWklD2c4Sot2cPVVer8/w8B6/6OuqvlTGLKaDCyc4eI3brVrN49n+D6fe4bFmTUWloyD
+         miacr7HpajX/Ptb4+++ESqjoLxVXA0SwJ30zHHWyRT4Zf71o8o7yDJJHrPcwt9wnXhHv
+         OUKg==
+X-Gm-Message-State: AOJu0YwCoKHkAP3eZJ5oRVDCwsV+3VE9TDPUKwDFY/OFAw10FIEO2sYJ
+	YS5sruW9A0eLf0JBDisiFJgTyjLkpM/Ehnd8JN0=
+X-Google-Smtp-Source: 
+ AGHT+IHQZdFmExncdM9w92IhRdz9hY7vAbs09uTd8RTDMHe6yfQhLY+Jt6pDbPzwWpTI/d6kO1raiNKHVl+oY27Gx6U=
+X-Received: by 2002:a05:6902:4e6:b0:da3:b87b:5b7c with SMTP id
+ w6-20020a05690204e600b00da3b87b5b7cmr5863456ybs.38.1700471764148; Mon, 20 Nov
+ 2023 01:16:04 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DBBPR04MB7563:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa2d3cf2-bb1d-4f83-7ef8-08dbe9a8c94f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	VxpOcp3PnzCGwGBxCZL2v5/ElSjMoRtUHZiC9LfeAm5VkCZ2p71R9iAXWy/cwLtc2m1bqtXTQc+geMXAGuSjf5auxNJLuvPHD80r5MT//dUJDabbOFHXAmAbkj39jBcNs4ZS/QyWM6r73/uKqQ9GL+Sx6lXaxDeu9YIRk64QFH2r4nN76NKpQXFpS1yxX5BAXjbSf7B1GuuDYyrUPGyg2yzUsu9YiqyEEqYNPRyUnKtzzDmt5wx3TURBT8+j/y1jIv/v448JUVcs7TNSMdPnJ2eS1TdSkyXC7VsTLs98q5FcTPcmwyNZCFxQW04//g/cIMVp2Q78/hH4WUXbGwS7K6cghcLsf5ayuhGHVui3aZawBZ6e4/uAchOdB2DwGaRA4QlzcuNAN6j3NhfaKzOm7YnoTuD3HPAw29mRWTgmEANvMlIpe7bAtTSwHgNViPymmRlHOF7W3e1WBTKTyhWjgfxhmiHdIA2vsJMS7KYHYxmHU5AnUypoCaXmRwvbEg+1LxmBjW3et+dDU6bApsnT1DnCojCnqYDAKMaOPBvfASl0oRSsHcsQk4keC1ssgVcngB53DmOIMgN6EW4clsUTjJFLTTOpdUnLcah6rN+e/3VbBHFEjEOjeXh+V5nAwIy8
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(39860400002)(366004)(396003)(376002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(7416002)(5660300002)(1076003)(2906002)(26005)(2616005)(4326008)(8676002)(8936002)(41300700001)(86362001)(44832011)(38350700005)(921008)(83380400001)(36756003)(66946007)(52116002)(66556008)(66476007)(6506007)(316002)(478600001)(966005)(6486002)(6512007)(38100700002)(6666004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?/xB7TFDSLhrwawEQMw1LUTzfxiisCWIHhOf340Bv58ZtWUXDBIS88qHN+SH0?=
- =?us-ascii?Q?Su0QzruPbK5VVd2MF3frDIUFGQM0+En4wYb00Epb6eNCRxODhQ+OhHUqEFoC?=
- =?us-ascii?Q?X7l/JGjV8dFpxqt/iqumwZWTXKS5bnxont4fs/+MtseopSZDaJgOWC82Zl+H?=
- =?us-ascii?Q?+5hQuQW5Wr95mB843+Prxct28RLwhHUy6YoYwEDf/wiGAizLw0FIWn8kX2jE?=
- =?us-ascii?Q?lvIyfCFXPAYz1wHImYPmAaZzN/6oyTVXrb+fhLiPj3rNHNkYONB6lFOusgnC?=
- =?us-ascii?Q?jeFpukXCxz4IgqDWAwDPq1QPb60+UxNRw7+dhRLCrKqcf1wKbEfrFeHPiDcU?=
- =?us-ascii?Q?fvJzqTlouAuNFtdFe4awPDKi+wgS0vLXcm94NZiOopkRNcoCm+jLOMEmqb9k?=
- =?us-ascii?Q?2Q+HMra/d8U3nBscvhc4OymI4jdtz9ceG/Joyxgig/DHjPgUKDkaykMykh71?=
- =?us-ascii?Q?toDENTUttCwDztFFe+Xp7AZXCmGXByOGpQqPHc31jbOyqQ9pn06yphEk8eRZ?=
- =?us-ascii?Q?KpLuxptCgcudbGs/j0GQ0qh1G0GIAIY1f3A288VqFxWcNUsIUWBXhkT6EpjX?=
- =?us-ascii?Q?eAywzEe6jU2eRGsH3ilIb17nGdrVcPfEnMrAGAjD+2rNCjqvdHc4ohsVIO+l?=
- =?us-ascii?Q?fkTaiLgRvLamiVtXb4xk1lajHV7MzaTu2CBVryeVCqzG1nfhOC4x4C90nboo?=
- =?us-ascii?Q?Dq6m4oL61y5Szn7LcF9s74fXB7FRIOzMDdwOeAXDjXp0cPrLqRLSveLAQVK7?=
- =?us-ascii?Q?fV7ytptNpAhx1sGMhpTHsG7jYHzQC7YhwfxOQsDNyaEknHQlruTwdoBXMuin?=
- =?us-ascii?Q?/X7t0O81BOfdEL63S0uSfe0Zi8FVoCgjAVcl9Cdrh+2X29RMcJbu9b7VNpXB?=
- =?us-ascii?Q?YJmWeqSEfEadOOl7x7fN6D4HOEP8/Jtjih24aiFEodiJyxFrnW+itccc/J86?=
- =?us-ascii?Q?EQ4/epPG6F053Ee/t3yigcyB3uAjXR89WnHt0nMq+zcjTs8DFt5/5wB0USp/?=
- =?us-ascii?Q?ooVVWGUuCq8nlFrpJcsE60KZVMbu63eegKWDmPZ1wIbHXjS/w2viLp27aYqt?=
- =?us-ascii?Q?wKm0xH4LYJftpnyl3j2NLv5GKq7j+7uU/phvo+9zpEReH6EHB9uVTcwcSgWp?=
- =?us-ascii?Q?7pD4tfFj4V+Ay8CIpcL0hO9ul/m50oAbufRBVhnSarccTeu27eH0Q7hVT8Z3?=
- =?us-ascii?Q?YdimM3wXRM5E19Z8CV11ecfWEERYBEnIoiw3pL0811OH6wMbhRt+ZoCdotjj?=
- =?us-ascii?Q?AkWXMz0mXWgcT/rReTaLSM+J0FgMQ++bsSQqVY1nY8W7PhwCA4SyKdrfvNox?=
- =?us-ascii?Q?FlwmWTIdq0+QoZCcxpDJR28KX5UZW3/w0WvTDwJ7/MtGU43vgIgRyfs6KGyv?=
- =?us-ascii?Q?IPnBddPqASOWNTkEyuqFI5t+0rhenDKfPGc6ByTn6I7H59exgQtBAbrUOKj9?=
- =?us-ascii?Q?iTHPEYcKi67gKns9Oc7TJwEwYiufaXNpnY9uzikbEvC6WBP0BtuReaZipw82?=
- =?us-ascii?Q?3YffKyUIrXZe1YxfaH1Kkgi5etnb4Fx+lizsCK/KaDktos+cLyJK4cohYC+Q?=
- =?us-ascii?Q?AB5J7y4XGzuWmgURg1OhOcikchcM53HiEx38LJzY?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- aa2d3cf2-bb1d-4f83-7ef8-08dbe9a8c94f
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2023 09:12:14.8812
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- lbuohfoKZ3rnPwhvsYgNiEyDgJuHciPCuZh7Fhy2wBk7P8iaYGqRnmGiXK7amz2uOqF4tsFeafnUNd6JGVwxlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7563
-Message-ID-Hash: HKFGHHLKKCVX6E4Z3UA7LDQGMUM6PFAM
-X-Message-ID-Hash: HKFGHHLKKCVX6E4Z3UA7LDQGMUM6PFAM
-X-MailFrom: chancel.liu@nxp.com
+References: <20231119104514.25536-1-tanure@linux.com>
+In-Reply-To: <20231119104514.25536-1-tanure@linux.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 20 Nov 2023 17:15:52 +0800
+Message-ID: 
+ <CAA+D8ANMZd1xT2nyNskaroz-X0pDTv2fCSPxKc+H4R2RS3FRCw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_mqs: Remove duplicate linux/of.h header
+To: Lucas Tanure <tanure@linux.com>
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: S2Q36KH4BPR5MZE2P6RDRHWKZVI553RM
+X-Message-ID-Hash: S2Q36KH4BPR5MZE2P6RDRHWKZVI553RM
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HKFGHHLKKCVX6E4Z3UA7LDQGMUM6PFAM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2Q36KH4BPR5MZE2P6RDRHWKZVI553RM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,179 +121,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert NXP medium quality sound (MQS) device tree binding
-documentation to json-schema.
+On Sun, Nov 19, 2023 at 6:45=E2=80=AFPM Lucas Tanure <tanure@linux.com> wro=
+te:
+>
+> Remove linux/of.h as is included more than once.
+> Reported by make includecheck.
+>
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
----
- .../devicetree/bindings/sound/fsl,mqs.txt     |  36 ------
- .../devicetree/bindings/sound/fsl,mqs.yaml    | 113 ++++++++++++++++++
- 2 files changed, 113 insertions(+), 36 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.txt
- create mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.yaml
+Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl,mqs.txt b/Documentation/devicetree/bindings/sound/fsl,mqs.txt
-deleted file mode 100644
-index d66284b8bef2..000000000000
---- a/Documentation/devicetree/bindings/sound/fsl,mqs.txt
-+++ /dev/null
-@@ -1,36 +0,0 @@
--fsl,mqs audio CODEC
--
--Required properties:
--  - compatible : Must contain one of "fsl,imx6sx-mqs", "fsl,codec-mqs"
--		"fsl,imx8qm-mqs", "fsl,imx8qxp-mqs", "fsl,imx93-mqs".
--  - clocks : A list of phandles + clock-specifiers, one for each entry in
--	     clock-names
--  - clock-names : "mclk" - must required.
--		  "core" - required if compatible is "fsl,imx8qm-mqs", it
--		           is for register access.
--  - gpr : A phandle of General Purpose Registers in IOMUX Controller.
--	  Required if compatible is "fsl,imx6sx-mqs".
--
--Required if compatible is "fsl,imx8qm-mqs":
--  - power-domains: A phandle of PM domain provider node.
--  - reg: Offset and length of the register set for the device.
--
--Example:
--
--mqs: mqs {
--	compatible = "fsl,imx6sx-mqs";
--	gpr = <&gpr>;
--	clocks = <&clks IMX6SX_CLK_SAI1>;
--	clock-names = "mclk";
--	status = "disabled";
--};
--
--mqs: mqs@59850000 {
--	compatible = "fsl,imx8qm-mqs";
--	reg = <0x59850000 0x10000>;
--	clocks = <&clk IMX8QM_AUD_MQS_IPG>,
--		 <&clk IMX8QM_AUD_MQS_HMCLK>;
--	clock-names = "core", "mclk";
--	power-domains = <&pd_mqs0>;
--	status = "disabled";
--};
-diff --git a/Documentation/devicetree/bindings/sound/fsl,mqs.yaml b/Documentation/devicetree/bindings/sound/fsl,mqs.yaml
-new file mode 100644
-index 000000000000..c697b97f888e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/fsl,mqs.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/fsl,mqs.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP Medium Quality Sound (MQS)
-+
-+maintainers:
-+  - Shengjiu Wang <shengjiu.wang@nxp.com>
-+  - Chancel Liu <chancel.liu@nxp.com>
-+
-+description: |
-+  Medium quality sound (MQS) is used to generate medium quality audio
-+  via a standard GPIO in the pinmux, allowing the user to connect
-+  stereo speakers or headphones to a power amplifier without an
-+  additional DAC chip.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - fsl,imx6sx-mqs
-+      - fsl,codec-mqs
-+      - fsl,imx8qm-mqs
-+      - fsl,imx8qxp-mqs
-+      - fsl,imx93-mqs
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    minItems: 1
-+    maxItems: 2
-+
-+  gpr:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle to the General Purpose Register (GPR) node
-+
-+  reg:
-+    maxItems: 1
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - clocks
-+  - clock-names
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: fsl,imx8qm-mqs
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: Master clock
-+            - description: Clock for register access
-+        clock-names:
-+          items:
-+            - const: mclk
-+            - const: core
-+      required:
-+        - reg
-+        - power-domains
-+    else:
-+      properties:
-+        clocks:
-+          items:
-+            - description: Master clock
-+        clock-names:
-+          items:
-+            - const: mclk
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - fsl,imx6sx-mqs
-+              - fsl,imx93-mqs
-+    then:
-+      required:
-+        - gpr
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/imx6sx-clock.h>
-+    mqs0: mqs {
-+        compatible = "fsl,imx6sx-mqs";
-+        gpr = <&gpr>;
-+        clocks = <&clks IMX6SX_CLK_SAI1>;
-+        clock-names = "mclk";
-+    };
-+
-+  - |
-+    #include <dt-bindings/firmware/imx/rsrc.h>
-+    mqs1: mqs@59850000 {
-+        compatible = "fsl,imx8qm-mqs";
-+        reg = <0x59850000 0x10000>;
-+        clocks = <&mqs0_lpcg 0>, <&mqs0_lpcg 1>;
-+        clock-names = "mclk", "core";
-+        power-domains = <&pd IMX_SC_R_MQS_0>;
-+    };
--- 
-2.42.0
-
+best regards
+Wang shengjiu
+> ---
+>  sound/soc/fsl/fsl_mqs.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
+> index f2d74ec05cdf..86704ba5f6f0 100644
+> --- a/sound/soc/fsl/fsl_mqs.c
+> +++ b/sound/soc/fsl/fsl_mqs.c
+> @@ -10,7 +10,6 @@
+>  #include <linux/moduleparam.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/mfd/syscon/imx6q-iomuxc-gpr.h>
+> -#include <linux/of.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/of.h>
+>  #include <linux/pm.h>
+> --
+> 2.42.1
+>

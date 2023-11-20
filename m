@@ -2,103 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2237F0F99
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 10:59:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070837F10B7
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 11:46:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D615A4A;
-	Mon, 20 Nov 2023 10:58:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D615A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C207A4D;
+	Mon, 20 Nov 2023 11:45:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C207A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700474352;
-	bh=5P4iX1pCt4fNCoExnayWFUozY5cibqaJikimPWI2k6Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MpsEEaDZRvSUVgCg7Oz/iy+Pcp7lr9Y8lzEKFZOke/CjK7iYXehnvNCW/FZAA3L46
-	 51E6yezhq2FKxglezLzfWGhKeMPJKtcBsB6njkP9jth+x4CU2NwfIgsguJaOo4gx+G
-	 Ym92VEKaDQlKLdSjXcSu5ozAccDpDXQmYTtDyVpI=
+	s=default; t=1700477189;
+	bh=4YacgHpWoFm1TTR4Bfb8AIVrWUbD+9qbt8YY841WMLo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=g+cCEisps49zyEsTq/9anFupN2AUpQ0Bcd1mmZLVvK3nsSZOseIaSVf5hv19kolDh
+	 s7JJj/6tA54T8d+uG8gKOpxVzn3N9WioA6IZI0Aax0B6rYfmqZjAzLRMcnSrzeR08/
+	 2DOvRiSaj2GIiOx3eXolywjciHltViyFxkMQc0WM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8D60F8047D; Mon, 20 Nov 2023 10:58:21 +0100 (CET)
+	id DC231F80310; Mon, 20 Nov 2023 11:45:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A975F80249;
-	Mon, 20 Nov 2023 10:58:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65CABF80114;
+	Mon, 20 Nov 2023 11:45:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4722BF80254; Mon, 20 Nov 2023 10:58:18 +0100 (CET)
+	id 05145F802E8; Mon, 20 Nov 2023 11:45:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1681F80114
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 10:58:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1681F80114
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=kH3EchnJ
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-548d1f8b388so600411a12.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 20 Nov 2023 01:58:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700474289; x=1701079089;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kx8KGcst8hZnUB0atywBnApo9bOB5kKeKwi0TRtSy2w=;
-        b=kH3EchnJe++N0Hoo0JOEANSX/lqqSLsDawOSpBTQwDzJ5m7e2OOvFbKQXZoNwQByxx
-         cvnew8Fxw0wDW2DCtfZUu62poKUL16qY9k1kzx6O7xPgAJnssCYq3GnqFigsHwm32T9G
-         iuY5dm8IEZGX4aZ6wYwzcX4lsH33csvEMjozNI70mgFspMf2GPUtI9jE0dk9+fQE7D4P
-         w4zcj97ZaF2TfNW8bbFVlTBmynWX9T2fxALI9/TPizvVd/60kygTEXOv2w07ta4Rd90t
-         SH5fW8LDJ8AA1Gc3KzN0NVU3lWrM4pmstYs/ZV31uhTjN2MJkf5Z+w6FReSL2j/kwwhq
-         33jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700474289; x=1701079089;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kx8KGcst8hZnUB0atywBnApo9bOB5kKeKwi0TRtSy2w=;
-        b=LKIu13xgABs7WSXY7VGgykGMeSxVJqpQbEJyNRIRrAHD+Ul0vtRi1KzI935fNe8u3c
-         iEz0j7UF8usmEEc4942Og8oAgRHwlDmPoiEVgsXwVy9FBF3c74F2T+sbJelof6dEI+7p
-         KlVNj8nb+jVsLr0NCMallECuBBPoEo5kA+oMPYzJnJOkAiDxrPJsJOiTu9iU0y4++QOj
-         33vWoF38/wbUIdNXl1BKu+nSXmbbEwxnneXu3zHA4Zy0XcVuokNVjZlgKAaeH3yuvnSS
-         gwKQxmlB6S1/QkeGaLNsLCChHltwhMe0xfujwDq+Mt4p7lRp9kT3Fr//6ohrdyhb4zFv
-         qZ2w==
-X-Gm-Message-State: AOJu0YxMyrrHBCPInR7hxxDRIH0MzkIEg+6I/06v5U3FejR0WxjF2XtC
-	WwQSTaE9IZboxA6f1e2G4LFXDz61QZv4/JIjZG4=
-X-Google-Smtp-Source: 
- AGHT+IGE1+uZH2w9ZEXVg+Vvn0R0pdA5KZgF+DVi3C22NcbI+PLG2Hwpgza/u8FK/NadtggaoT3ouXzwkHgGuamnAQU=
-X-Received: by 2002:a50:fb0c:0:b0:53d:eca9:742e with SMTP id
- d12-20020a50fb0c000000b0053deca9742emr4790550edq.9.1700474289055; Mon, 20 Nov
- 2023 01:58:09 -0800 (PST)
-MIME-Version: 1.0
-References: <20231117163900.766996-1-daniel.baluta@oss.nxp.com>
- <874jhh2g8s.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <874jhh2g8s.wl-kuninori.morimoto.gx@renesas.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 20 Nov 2023 11:57:56 +0200
-Message-ID: 
- <CAEnQRZBb0ZJk7aTaji-xH2jEs7QiTaoXTuS5_K-ruSaxpEnWdw@mail.gmail.com>
-Subject: Re: [RFC PATCH] ASoC: simple-card: Use dai_id from node description
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Daniel Baluta <daniel.baluta@oss.nxp.com>, broonie@kernel.org,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	iuliana.prodan@nxp.com, shengjiu.wang@nxp.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: LNKYB7KBVVSYNAQOOHIHSM454D3RK6NO
-X-Message-ID-Hash: LNKYB7KBVVSYNAQOOHIHSM454D3RK6NO
-X-MailFrom: daniel.baluta@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id 80C94F80114
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 11:45:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80C94F80114
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id C70501A0CB9;
+	Mon, 20 Nov 2023 11:45:28 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 907641A0C96;
+	Mon, 20 Nov 2023 11:45:28 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 11B72180222F;
+	Mon, 20 Nov 2023 18:45:27 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	shengjiu.wang@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl_sai: Fix no frame sync clock issue on i.MX8MP
+Date: Mon, 20 Nov 2023 18:05:35 +0800
+Message-Id: <1700474735-3863-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: 72U5OWDKGEW6K72VOXJFVKXJUXOXX6JF
+X-Message-ID-Hash: 72U5OWDKGEW6K72VOXJFVKXJUXOXX6JF
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +78,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LNKYB7KBVVSYNAQOOHIHSM454D3RK6NO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72U5OWDKGEW6K72VOXJFVKXJUXOXX6JF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,74 +87,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Morimoto-san,
+On i.MX8MP, when the TERE and FSD_MSTR enabled before configuring
+the word width, there will be no frame sync clock issue, because
+old word width impact the generation of frame sync.
 
-On Mon, Nov 20, 2023 at 6:36=E2=80=AFAM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi Daniel, Mark
->
-> > We can specify DAI id using reg property. When dts
-> > node has only 1 DAI simple-card always assumes that DAI id is 0.
-> >
-> > But this is not correct in the case of SOF for example which adds DAIs
-> > staticaly (See definition of snd_soc_dai_driver in sound/soc/sof/imx/im=
-x8m.c)
-> (snip)
-> > -     args.args_count =3D (of_graph_get_endpoint_count(node) > 1);
-> > +     args.args_count =3D (of_graph_get_endpoint_count(node) >=3D 1);
->
-> If my understanding was correct, for example you want to use 2nd DAI
-> but your DT has only 1 port (thus, it is using reg property) ?
+TERE enabled earlier only for i.MX8MP case for the hardware limitation,
+So need to disable FSD_MSTR before configuring word width, then enable
+FSD_MSTR bit for this specific case.
 
-Yes.
+Fixes: 3e4a82612998 ("ASoC: fsl_sai: MCLK bind with TX/RX enable bit")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_sai.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
->
-> Current simple utils is assuming (1) DT has all DAI settings, (2) having
-> reg property is option.
->
-> But current DT requests reg property.
-> So maybe it is good time to remove non-reg-property support ?
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 79e7c6b98a75..32bbe5056a63 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -673,6 +673,20 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 			   FSL_SAI_CR3_TRCE_MASK,
+ 			   FSL_SAI_CR3_TRCE((dl_cfg[dl_cfg_idx].mask[tx] & trce_mask)));
+ 
++	/*
++	 * When the TERE and FSD_MSTR enabled before configuring the word width
++	 * There will be no frame sync clock issue, because word width impact
++	 * the generation of frame sync clock.
++	 *
++	 * TERE enabled earlier only for i.MX8MP case for the hardware limitation,
++	 * We need to disable FSD_MSTR before configuring word width, then enable
++	 * FSD_MSTR bit for this specific case.
++	 */
++	if (sai->soc_data->mclk_with_tere && sai->mclk_direction_output &&
++	    !sai->is_consumer_mode)
++		regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
++				   FSL_SAI_CR4_FSD_MSTR, 0);
++
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
+ 			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
+ 			   FSL_SAI_CR4_CHMOD_MASK,
+@@ -680,6 +694,13 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR5(tx, ofs),
+ 			   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
+ 			   FSL_SAI_CR5_FBT_MASK, val_cr5);
++
++	/* Enable FSD_MSTR after configuring word width */
++	if (sai->soc_data->mclk_with_tere && sai->mclk_direction_output &&
++	    !sai->is_consumer_mode)
++		regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
++				   FSL_SAI_CR4_FSD_MSTR, FSL_SAI_CR4_FSD_MSTR);
++
+ 	regmap_write(sai->regmap, FSL_SAI_xMR(tx),
+ 		     ~0UL - ((1 << min(channels, slots)) - 1));
+ 
+-- 
+2.34.1
 
-I have no problem removing non-reg-property support. This will work
-for me. Will later send a patch.
-
-I want to understand how current non-reg-property support works.
-
-I'm looking at commit 73b17f1a65c881fc ("SoC: simple-card-utils:
-support snd_soc_get_dai_id()").
-
-So, the reg property was introduced for cases where we can have ports
-of different types? E.g
-In the case of HDMI we can have Audio ports and Video ports? And we
-need reg property in order
-to get the correct DAI id?
-
-I don't understand how DAI id is currently computed if we don't  have
-the reg property and also
-we have Non HDMI sound case:
-
-Here is the code:
-
-=C2=BB       /*
-=C2=BB        * Non HDMI sound case, counting port/endpoint on its DT
-=C2=BB        * is enough. Let's count it.
-=C2=BB        */
-=C2=BB       i =3D 0;
-=C2=BB       id =3D -1;
-=C2=BB       for_each_endpoint_of_node(node, endpoint) {
-=C2=BB       =C2=BB       if (endpoint =3D=3D ep)
-=C2=BB       =C2=BB       =C2=BB       id =3D i;
-=C2=BB       =C2=BB       i++;
-=C2=BB       }
-
-=C2=BB       of_node_put(node);
-
-
-So, this code assumes that the DAI id is exactly the number of the port, ri=
-ght?
-But this is wrong if we have a component (port) with multiple DAIs attached=
-.
-
-Daniel.

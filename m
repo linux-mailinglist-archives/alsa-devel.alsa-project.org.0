@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05BE67F18AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 17:33:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55CCA7F19B9
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Nov 2023 18:20:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F17E839;
-	Mon, 20 Nov 2023 17:32:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F17E839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 703B1A4A;
+	Mon, 20 Nov 2023 18:19:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 703B1A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700498012;
-	bh=Eg3tImi0mkQCJ6HTRCQEvLgTbOvveHdT1JhyGy7bH0s=;
+	s=default; t=1700500812;
+	bh=KdMpAjwTLabg6HzVjLeUzYXEVS5h+SXTPQxdrCJRAIs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tIF/kbXwJz3X8as4+tRDSchvDADlEjFndTlR9jl9jvcLyvX6ZwuSnhKU3gfGObF5+
-	 ThkdVk9c5Az+SzKMBcBjo/Lz/aTUw/bNJXwCarI0OIR/xrhiVWv2DK7Qdw2tYG3/6D
-	 VGQoE9H6HumSnjWX0eK9cw8VYcev1AJW0LHyT1Zg=
+	b=Cw8qiPGW0pNPCSpExK+r5S/FtwFebMhTsh+629rel/d3JtYtW4DJNtqO2LGRKWDv4
+	 0I8oRzQLdtXq6FNiVCUSZGFZjeNkYaSq0WuI5jAMJrRekLU4z6DGFYPaRSVeVXUha/
+	 LF2YzVfEO1mmn5S+RP1kbpiVzsk7spvvc0rNLK0w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B040EF8055A; Mon, 20 Nov 2023 17:32:41 +0100 (CET)
+	id CED0DF80310; Mon, 20 Nov 2023 18:19:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3570EF80249;
-	Mon, 20 Nov 2023 17:32:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45C7DF80249;
+	Mon, 20 Nov 2023 18:19:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C392DF80254; Mon, 20 Nov 2023 17:32:36 +0100 (CET)
+	id 77872F80254; Mon, 20 Nov 2023 18:19:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,46 +37,46 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD7C9F80093
-	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 17:32:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD7C9F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3202F80246
+	for <alsa-devel@alsa-project.org>; Mon, 20 Nov 2023 18:19:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3202F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HUHEghF6
+ header.s=k20201202 header.b=MbkZ/8v3
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 899B56131B;
-	Mon, 20 Nov 2023 16:32:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E810C433C7;
-	Mon, 20 Nov 2023 16:32:22 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0B0146130B;
+	Mon, 20 Nov 2023 17:19:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2594FC433C8;
+	Mon, 20 Nov 2023 17:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700497945;
-	bh=Eg3tImi0mkQCJ6HTRCQEvLgTbOvveHdT1JhyGy7bH0s=;
+	s=k20201202; t=1700500743;
+	bh=KdMpAjwTLabg6HzVjLeUzYXEVS5h+SXTPQxdrCJRAIs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=HUHEghF6E+qzSd15aJUyYWeSJUKsr1IzS9i9+xZxN4m8pOdmEhBkgF/ISiGsBlND+
-	 dCcapm+e1iIIJnU51NzBR3P2CPc1AO2o08miWDdxmUJikvKrUFmPlioKQXTKcFuayc
-	 cKOxL4Rqeg22g3QB+syVToGk/e9mVk0uTjfnjWXTqGIuOhodjPLJGcKNEfpO/QUm6B
-	 +3tMTN4WAErI05g0qQzuQvCJVjmtRgAiCreuUUVcb0DTKKB5xLdkjVXMdOBzhm92QT
-	 Tp54ztVpTQ3lXxbn6EGSAXN3XJK8wX26PYZzvO79/IgAIlcDEV9scCG9r0BYNo1PZd
-	 3emMAV6c/euTA==
+	b=MbkZ/8v3f6a4IWq1LjYkb+LgMt02kowAVS4nSrzE3iP4nIvKyGcF5Aseln0UQCdVG
+	 sWYH2Oe2W5tuV5Uxby/rzX6qgpbQ7xvJfwS/EK3x/MU/taTzrn3GZzVXtjKcOWTEa7
+	 dBrwGbPRqPBrCWhFmbTPQlIFgaoSrd9TSG9NSrIsZ/9pxa6ZyK6m7TXqQ0tBGo4m7M
+	 fxJ4mbBHxdsFtzdwK1+RiMbOEXyGziBFdujaUDUw9fXliyQKwUF73SUIBCp9xli9lH
+	 hnHTC60SSv02klKw4X15blN2kdL738A0y8NFEjSxqcLl7Oz7H1BUUojHS2b7VVLU8P
+	 8RMyaod0Hr2Nw==
 From: Mark Brown <broonie@kernel.org>
-To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- shengjiu.wang@gmail.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-In-Reply-To: <1700474735-3863-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1700474735-3863-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Fix no frame sync clock issue on
- i.MX8MP
-Message-Id: <170049794283.439381.10112729019532929436.b4-ty@kernel.org>
-Date: Mon, 20 Nov 2023 16:32:22 +0000
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Lucas Tanure <tanure@linux.com>
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20231119104514.25536-1-tanure@linux.com>
+References: <20231119104514.25536-1-tanure@linux.com>
+Subject: Re: [PATCH] ASoC: fsl_mqs: Remove duplicate linux/of.h header
+Message-Id: <170050074083.869901.16484540368376230648.b4-ty@kernel.org>
+Date: Mon, 20 Nov 2023 17:19:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: LKLMHLMEZSYARERNQ5IPWSXCCEHM5W5V
-X-Message-ID-Hash: LKLMHLMEZSYARERNQ5IPWSXCCEHM5W5V
+Message-ID-Hash: D3MFV564JRRNJ2NXVNWOER25MVJHTWME
+X-Message-ID-Hash: D3MFV564JRRNJ2NXVNWOER25MVJHTWME
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LKLMHLMEZSYARERNQ5IPWSXCCEHM5W5V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D3MFV564JRRNJ2NXVNWOER25MVJHTWME/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,16 +98,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 20 Nov 2023 18:05:35 +0800, Shengjiu Wang wrote:
-> On i.MX8MP, when the TERE and FSD_MSTR enabled before configuring
-> the word width, there will be no frame sync clock issue, because
-> old word width impact the generation of frame sync.
+On Sun, 19 Nov 2023 10:45:14 +0000, Lucas Tanure wrote:
+> Remove linux/of.h as is included more than once.
+> Reported by make includecheck.
 > 
-> TERE enabled earlier only for i.MX8MP case for the hardware limitation,
-> So need to disable FSD_MSTR before configuring word width, then enable
-> FSD_MSTR bit for this specific case.
 > 
-> [...]
 
 Applied to
 
@@ -115,8 +110,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_sai: Fix no frame sync clock issue on i.MX8MP
-      commit: 14e8442e0789598514f3c9de014950de9feda7a4
+[1/1] ASoC: fsl_mqs: Remove duplicate linux/of.h header
+      commit: cac15dc25f416972f8dd0b6a8d74daa79dc3a998
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

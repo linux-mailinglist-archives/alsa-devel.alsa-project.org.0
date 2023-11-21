@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E1C7F274A
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 09:20:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CDA17F2745
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 09:20:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EECEDED;
-	Tue, 21 Nov 2023 09:20:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EECEDED
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA648DF8;
+	Tue, 21 Nov 2023 09:19:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA648DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700554855;
-	bh=7X9Bd1opLuXj+GGluY7cbJpqNijaZVO8ojsOVPmhCNA=;
+	s=default; t=1700554802;
+	bh=4jfmCWfsN+gPBmZpA48jy2CqSButzNc6fMTAWhZhERs=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=hJbI0dVWUyprQI/JFz/os3qxI0d/Za8D9X+Z7p7kduNSpbJMRQ+pb/lehyfAtR9ym
-	 ClSRjLn7Gdj+cfD0O2gzzwz6D2SY2saKsDF/VNUJCYe2VpJERoX0R7IsH9F49sTQpB
-	 8J8mYNuGQFeqZF7wHfFS18Ryv3E1ieLrjqgYgc84=
+	b=m/R/L6jgGDnz8OIdn1kWtLPhbPj8flZCW9qpIGdM1DGCF1AsrhMOZxR5a9PNfu09d
+	 0qU7tHZQg2otYI2Gzk+hq9U7j3T07anVboEXwuYdmLxmCgDNJvmEi33iRzUboiNkBb
+	 jwmYmr7NfMODBxQh0o+p6y5RkPd9sZr0P1ivJajw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A57E2F80688; Tue, 21 Nov 2023 09:18:48 +0100 (CET)
+	id 46DD5F80655; Tue, 21 Nov 2023 09:18:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07E87F80685;
-	Tue, 21 Nov 2023 09:18:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93435F8064F;
+	Tue, 21 Nov 2023 09:18:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F23E4F80558; Tue, 21 Nov 2023 09:18:12 +0100 (CET)
+	id A30FCF80558; Tue, 21 Nov 2023 09:18:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A5D9DF8055A
-	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 09:17:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5D9DF8055A
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 602991A03F5;
-	Tue, 21 Nov 2023 09:17:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3A448F805A0
+	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 09:17:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A448F805A0
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E3A71200EDA;
+	Tue, 21 Nov 2023 09:17:45 +0100 (CET)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id F1ED31A036B;
-	Tue, 21 Nov 2023 09:17:43 +0100 (CET)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 751AD20005B;
+	Tue, 21 Nov 2023 09:17:45 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 08CA71802201;
-	Tue, 21 Nov 2023 16:17:41 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 7E6AB183AD24;
+	Tue, 21 Nov 2023 16:17:43 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: hverkuil@xs4all.nl,
 	sakari.ailus@iki.fi,
@@ -66,15 +66,15 @@ To: hverkuil@xs4all.nl,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v10 09/14] media: uapi: Add V4L2_CTRL_CLASS_M2M_AUDIO
-Date: Tue, 21 Nov 2023 15:37:30 +0800
-Message-Id: <1700552255-5364-10-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH v10 10/14] media: uapi: Add audio rate controls support
+Date: Tue, 21 Nov 2023 15:37:31 +0800
+Message-Id: <1700552255-5364-11-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1700552255-5364-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1700552255-5364-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: PMUKQQ4NQC6RNWFDE4VCM4CPKENLV7XB
-X-Message-ID-Hash: PMUKQQ4NQC6RNWFDE4VCM4CPKENLV7XB
+Message-ID-Hash: HBP3LLGGF3HXGHFCXJ7IU523SIBORCE6
+X-Message-ID-Hash: HBP3LLGGF3HXGHFCXJ7IU523SIBORCE6
 X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PMUKQQ4NQC6RNWFDE4VCM4CPKENLV7XB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HBP3LLGGF3HXGHFCXJ7IU523SIBORCE6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,114 +96,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Audio M2M class includes controls for audio memory-to-memory
-use cases. The controls can be used for audio codecs, audio
-preprocessing, audio postprocessing.
+Add V4L2_CID_M2M_AUDIO_SOURCE_RATE and V4L2_CID_M2M_AUDIO_DEST_RATE
+new IDs for rate control.
+
+Add V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET and
+V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET for clock drift.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- .../userspace-api/media/v4l/common.rst        |  1 +
- .../media/v4l/ext-ctrls-audio-m2m.rst         | 21 +++++++++++++++++++
- .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 ++++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  4 ++++
- include/uapi/linux/v4l2-controls.h            |  4 ++++
- 5 files changed, 34 insertions(+)
- create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+ .../media/v4l/ext-ctrls-audio-m2m.rst         | 20 +++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  6 ++++++
+ include/uapi/linux/v4l2-controls.h            |  5 +++++
+ 3 files changed, 31 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/common.rst b/Documentation/userspace-api/media/v4l/common.rst
-index ea0435182e44..d5366e96a596 100644
---- a/Documentation/userspace-api/media/v4l/common.rst
-+++ b/Documentation/userspace-api/media/v4l/common.rst
-@@ -52,6 +52,7 @@ applicable to all devices.
-     ext-ctrls-fm-rx
-     ext-ctrls-detect
-     ext-ctrls-colorimetry
-+    ext-ctrls-audio-m2m
-     fourcc
-     format
-     planar-apis
 diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-new file mode 100644
-index 000000000000..82d2ecedbfee
---- /dev/null
+index 82d2ecedbfee..a3c06fbb91b9 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
 +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-@@ -0,0 +1,21 @@
-+.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+@@ -19,3 +19,23 @@ Audio M2M Control IDs
+     The Audio M2M class descriptor. Calling
+     :ref:`VIDIOC_QUERYCTRL` for this control will
+     return a description of this control class.
 +
-+.. _audiom2m-controls:
++.. _v4l2-audio-asrc:
 +
-+***************************
-+Audio M2M Control Reference
-+***************************
++``V4L2_CID_M2M_AUDIO_SOURCE_RATE (integer menu)``
++    Sets the audio source sample rate, unit is Hz
 +
-+The Audio M2M class includes controls for audio memory-to-memory
-+use cases. The controls can be used for audio codecs, audio
-+preprocessing, audio postprocessing.
++``V4L2_CID_M2M_AUDIO_DEST_RATE (integer menu)``
++    Sets the audio destination sample rate, unit is Hz
 +
-+Audio M2M Control IDs
-+-----------------------
++``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
++    Sets the offset from the audio source sample rate, unit is Hz.
++    The offset compensates for any clock drift. The actual source audio sample
++    rate is the ideal source audio sample rate from
++    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
 +
-+.. _audiom2m-control-id:
-+
-+``V4L2_CID_M2M_AUDIO_CLASS (class)``
-+    The Audio M2M class descriptor. Calling
-+    :ref:`VIDIOC_QUERYCTRL` for this control will
-+    return a description of this control class.
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-index f9f73530a6be..e8475f9fd2cf 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-@@ -480,6 +480,10 @@ still cause this situation.
-       - 0xa50000
-       - The class containing colorimetry controls. These controls are
- 	described in :ref:`colorimetry-controls`.
-+    * - ``V4L2_CTRL_CLASS_M2M_AUDIO``
-+      - 0xa60000
-+      - The class containing audio m2m controls. These controls are
-+	described in :ref:`audiom2m-controls`.
- 
- Return Value
- ============
++``V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET (fixed point)``
++    Sets the offset from the audio dest sample rate, unit is Hz.
++    The offset compensates for any clock drift. The actual dest audio sample
++    rate is the ideal source audio sample rate from
++    ``V4L2_CID_M2M_AUDIO_DEST_RATE`` plus this fixed point offset.
 diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index 8696eb1cdd61..2a85ea3dc92f 100644
+index 2a85ea3dc92f..4e606d7fd971 100644
 --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
 +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-@@ -1242,6 +1242,9 @@ const char *v4l2_ctrl_get_name(u32 id)
- 	case V4L2_CID_COLORIMETRY_CLASS:	return "Colorimetry Controls";
- 	case V4L2_CID_COLORIMETRY_HDR10_CLL_INFO:		return "HDR10 Content Light Info";
- 	case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:	return "HDR10 Mastering Display";
-+
-+	/* Audio M2M controls */
-+	case V4L2_CID_M2M_AUDIO_CLASS:  return "Audio M2M Controls";
+@@ -1245,6 +1245,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 
+ 	/* Audio M2M controls */
+ 	case V4L2_CID_M2M_AUDIO_CLASS:  return "Audio M2M Controls";
++	case V4L2_CID_M2M_AUDIO_SOURCE_RATE:	return "Audio Source Sample Rate";
++	case V4L2_CID_M2M_AUDIO_DEST_RATE:	return "Audio Dest Sample Rate";
  	default:
  		return NULL;
  	}
-@@ -1451,6 +1454,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
- 	case V4L2_CID_DETECT_CLASS:
- 	case V4L2_CID_CODEC_STATELESS_CLASS:
- 	case V4L2_CID_COLORIMETRY_CLASS:
-+	case V4L2_CID_M2M_AUDIO_CLASS:
- 		*type = V4L2_CTRL_TYPE_CTRL_CLASS;
- 		/* You can neither read nor write these */
- 		*flags |= V4L2_CTRL_FLAG_READ_ONLY | V4L2_CTRL_FLAG_WRITE_ONLY;
+@@ -1606,6 +1608,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 	case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
+ 		*type = V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
+ 		break;
++	case V4L2_CID_M2M_AUDIO_SOURCE_RATE:
++	case V4L2_CID_M2M_AUDIO_DEST_RATE:
++		*type = V4L2_CTRL_TYPE_INTEGER_MENU;
++		break;
+ 	default:
+ 		*type = V4L2_CTRL_TYPE_INTEGER;
+ 		break;
 diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index 68db66d4aae8..7d318065a33d 100644
+index 7d318065a33d..493b59f20a35 100644
 --- a/include/uapi/linux/v4l2-controls.h
 +++ b/include/uapi/linux/v4l2-controls.h
-@@ -30,6 +30,7 @@
- #define V4L2_CTRL_CLASS_DETECT		0x00a30000	/* Detection controls */
- #define V4L2_CTRL_CLASS_CODEC_STATELESS 0x00a40000	/* Stateless codecs controls */
- #define V4L2_CTRL_CLASS_COLORIMETRY	0x00a50000	/* Colorimetry controls */
-+#define V4L2_CTRL_CLASS_M2M_AUDIO	0x00a60000	/* Audio M2M controls */
+@@ -3489,6 +3489,11 @@ struct v4l2_ctrl_av1_film_grain {
+ #define V4L2_CID_M2M_AUDIO_CLASS_BASE  (V4L2_CTRL_CLASS_M2M_AUDIO | 0x900)
+ #define V4L2_CID_M2M_AUDIO_CLASS       (V4L2_CTRL_CLASS_M2M_AUDIO | 1)
  
- /* User-class control IDs */
- 
-@@ -3485,6 +3486,9 @@ struct v4l2_ctrl_av1_film_grain {
- 	__u8 reserved[4];
- };
- 
-+#define V4L2_CID_M2M_AUDIO_CLASS_BASE  (V4L2_CTRL_CLASS_M2M_AUDIO | 0x900)
-+#define V4L2_CID_M2M_AUDIO_CLASS       (V4L2_CTRL_CLASS_M2M_AUDIO | 1)
++#define V4L2_CID_M2M_AUDIO_SOURCE_RATE	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 0)
++#define V4L2_CID_M2M_AUDIO_DEST_RATE	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 1)
++#define V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 2)
++#define V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 3)
 +
  /* MPEG-compression definitions kept for backwards compatibility */
  #ifndef __KERNEL__

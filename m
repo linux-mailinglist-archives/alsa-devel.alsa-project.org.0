@@ -2,109 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1737F3026
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 15:03:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19F77F329E
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 16:45:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EDE8DEF;
-	Tue, 21 Nov 2023 15:03:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EDE8DEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B62FDF1;
+	Tue, 21 Nov 2023 16:45:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B62FDF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700575421;
-	bh=076XLaGHctr4AHjATC8e5T6y2t2kocB2KdlQ8WYgjnk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VcM2re+3o3IIdNeJn2uf8jFrdiTE69UEUrcTc1uPQO9NBgvZQcnHRZAE7DV8sOfzx
-	 nIXN2VKLjiJw6z2Nz88+g23SDKaAlX+Fq6yyzmjgeFgdQZU6GtvGO3GuB6PG+ys8WQ
-	 I6Dops+bD4Aji006i5v3yHBQ0mt/zcOoxFstRG/o=
+	s=default; t=1700581547;
+	bh=Ks9SSmlWMFi+zi1UZ7y8FCPLHvbjGvxAxQcc5jvl+co=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fOb9uhbN7g7WjLaef0rkgU4L53o77HoA8GbHOroiCrQFDGaUFeWYj3cGLDWcmu60O
+	 iZcXWApGplRrDnB0IYumObIR95Pc2G5y+TQAYqZ1yil1HJ/tzXwy5w1IfbWeqmbZTk
+	 wH1J8mqkTtdbCUHZA9K+TINowCn+rwCyjfJR7E9M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC5AEF80564; Tue, 21 Nov 2023 15:03:09 +0100 (CET)
+	id 65DF8F80588; Tue, 21 Nov 2023 16:45:15 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 260A8F8055A;
-	Tue, 21 Nov 2023 15:03:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA28AF80166;
+	Tue, 21 Nov 2023 16:45:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17EC8F802E8; Tue, 21 Nov 2023 15:03:04 +0100 (CET)
+	id 5504FF802E8; Tue, 21 Nov 2023 16:44:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0546CF80166
-	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 15:02:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0546CF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 71EEAF80249
+	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 16:44:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71EEAF80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=QVBT/new
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5437d60fb7aso8118627a12.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 21 Nov 2023 06:02:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700575376; x=1701180176;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3Okt0Vk7fLF6tTfkiXuwS51yIO92AetNhg7I/Fs4g5s=;
-        b=QVBT/newvEArdU6Sg5djApigeeyS9jRvrEXsyDfYZYvNFL7YqvHlkSYaJ39PxNF+j+
-         Emy1O8UWRw9OdPPrz6A99pJPHtBcNJpvhSg7f2wwvn7RX0whGutJrX7ZELQOe2iwBIK6
-         v0jVC6RKlKxrQH52xLt+oY6MVXfqQfnef+jzN0JiZkat20aiWN5MB10QGHLpJIsBR8pl
-         6y/WZZWeiLMzcX083bhycl1hNXMRdw36ZctQWO6vnMaqW+Ije4LdwrylvnO+PcQR3uy+
-         tnR20ox1iXGli3TGK9LVRO58XU6Xngr9noXiVyGSy36rmAUzgoDn8iyv70aJFk3daD4/
-         BeAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700575376; x=1701180176;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3Okt0Vk7fLF6tTfkiXuwS51yIO92AetNhg7I/Fs4g5s=;
-        b=SI/2eIxldN3coKrOp9MuZT5pKfHOXnTqhzvmNunTYc1e+N8LSaC115iyPFW5HL5fWa
-         hKYmyJZjv0XgxZ4M3xXkJHo9ojRDR+vFu5WUXvrtR+LjxOgoKE96IlIOCnUXl4bXETHl
-         5WKRjqoak7LPlxe9cfGm/hnPfdTQ5fK4+y+grA396p6JXyc5+LG5terzBtVDLoRGbTl4
-         lt3lSRP7jFOtsRelM+P3d7VZavmukLlY/ROUWykvwv5raTGAN9R5VCPTAvY/qlU2ZC5L
-         +9wYlikTS+KRTCT4W1X1z1Caff+URS1pRRijGf98oy/7l1Z/SVvOzhH+55Em+kYLinfT
-         cuDg==
-X-Gm-Message-State: AOJu0YxKrUbveimCuo0X3o91Gioi3MoQIR95mYe+UnVUl/1EshgwH7u0
-	4+9JnlQY5Vxx1XPqiJIud1WlPRRbAi7AH1/Q4ew=
-X-Google-Smtp-Source: 
- AGHT+IEzLuupufRrOkNgN2ws6o5MMFZCEg2Qwce2Gcw9cxG7jatiU0cWqzY9M+OaDjl4qFC7NDP8LqLiVwpcn/S+8L0=
-X-Received: by 2002:a17:907:5095:b0:a00:8706:c82e with SMTP id
- fv21-20020a170907509500b00a008706c82emr3109200ejc.18.1700575375887; Tue, 21
- Nov 2023 06:02:55 -0800 (PST)
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=lelqUOS2
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3AL50Bcw022405;
+	Tue, 21 Nov 2023 09:44:25 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=t
+	f4vV/JGXrNZcmaJSXi5sFq5mqc/1CJfPKpZ9T2m2+c=; b=lelqUOS2eeAEi2KwN
+	a1Ml983FjtjOJX78sgho9xMQYWqz+83e258nyndiR/eDl3x/sQ61Pi1Ouwal0K05
+	JyIK6rEaSzcPtwYzNUA2SfELMiwk+gO2lzP5uESRo6EyIJYUdwZ6H1xnOWq7cMTM
+	XBa0zEBaQGddDLzqAIhedHTBOrX0VghWYElZcZEEgrLIv88GjxKWT/rgHGard253
+	x72o/4zv9y4gwCOuN2M2VcBwQHaIrnitf/GEYimFGXnkvezjD7PTvJfgq8l6uVxp
+	FWOnrljYsk4A2B2BOgQotjFh9MeLQ4TvfJAHrjbcoURPtDPpjAqWRYx35714BEwI
+	YubJQ==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3uetjpbc77-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 Nov 2023 09:44:25 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Tue, 21 Nov
+ 2023 15:44:23 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.39 via Frontend
+ Transport; Tue, 21 Nov 2023 15:44:23 +0000
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.65.98])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6E158B12;
+	Tue, 21 Nov 2023 15:44:23 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>
+Subject: [PATCH] ALSA: hda: cs35l56: Enable low-power hibernation mode on SPI
+Date: Tue, 21 Nov 2023 15:44:19 +0000
+Message-ID: <20231121154419.19435-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20231117163900.766996-1-daniel.baluta@oss.nxp.com>
- <874jhh2g8s.wl-kuninori.morimoto.gx@renesas.com>
- <CAEnQRZBb0ZJk7aTaji-xH2jEs7QiTaoXTuS5_K-ruSaxpEnWdw@mail.gmail.com>
- <TYCPR01MB109142FEC8F77CFFE3930456CD4B4A@TYCPR01MB10914.jpnprd01.prod.outlook.com>
-In-Reply-To: 
- <TYCPR01MB109142FEC8F77CFFE3930456CD4B4A@TYCPR01MB10914.jpnprd01.prod.outlook.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Tue, 21 Nov 2023 16:02:43 +0200
-Message-ID: 
- <CAEnQRZD8zbgRzBrx+iHTbDqG5tOedNLyJByNNtSHTRtxFsgyGw@mail.gmail.com>
-Subject: Re: [RFC PATCH] ASoC: simple-card: Use dai_id from node description
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Daniel Baluta <daniel.baluta@oss.nxp.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"iuliana.prodan@nxp.com" <iuliana.prodan@nxp.com>,
- "shengjiu.wang@nxp.com" <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: K4QBV3M7TJQRJ5ART66WD67RJ4WYIL2R
-X-Message-ID-Hash: K4QBV3M7TJQRJ5ART66WD67RJ4WYIL2R
-X-MailFrom: daniel.baluta@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: IDFertXpDvP9COE2sNlOkT0gzg_1l1BG
+X-Proofpoint-ORIG-GUID: IDFertXpDvP9COE2sNlOkT0gzg_1l1BG
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: IC2G6N4LR77VM3PX4WEZ5HYYCCYC6IK4
+X-Message-ID-Hash: IC2G6N4LR77VM3PX4WEZ5HYYCCYC6IK4
+X-MailFrom: prvs=6689bcd181=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K4QBV3M7TJQRJ5ART66WD67RJ4WYIL2R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IC2G6N4LR77VM3PX4WEZ5HYYCCYC6IK4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,82 +110,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Nov 21, 2023 at 1:04=E2=80=AFAM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
-> Hi Daniel, Mark
->
-> > > > -     args.args_count =3D (of_graph_get_endpoint_count(node) > 1);
-> > > > +     args.args_count =3D (of_graph_get_endpoint_count(node) >=3D 1=
-);
-> > >
-> > > If my understanding was correct, for example you want to use 2nd DAI
-> > > but your DT has only 1 port (thus, it is using reg property) ?
-> >
-> > Yes.
->
-> But hmm... in your case, you need to setup 2ports, and use 2nd port
-> is assumed approach.
-> Why you don't setup full port ? Do you have some reason ??
+SPI hibernation is now supported with the latest hibernation/wake
+sequences in the shared ASoC code.
 
-I'm not sure I understand what is a full port setup. But let me
-describe my scenario so that we have a common ground.
+This has a functional dependency on two commits:
 
-I want to use audio-graph-card2 machine driver to setup Sound Open
-Firrmware cards.
+commit 3df761bdbc8b ("ASoC: cs35l56: Wake transactions need to be issued
+twice")
 
-Here we start with a normal link with the following components:
+commit a47cf4dac7dc ("ASoC: cs35l56: Change hibernate sequence to use
+allow auto hibernate")
 
-Component 0 (DAI) : 3b6e8000.dsp (See sound/soc/sof/core.c: 280)
-                                  -> for imx8m this has 3 statically
-defined DAIs
-See sound/soc/sof/imx/imx8m.c:
+To protect against this, enabling hibernation is conditional on
+CS35L56_WAKE_HOLD_TIME_US being defined, which indicates that the new
+hibernation sequences are available.
 
-static struct snd_soc_dai_driver imx8m_dai[] =3D {
-{     // DAI with index 0
-=C2=BB       .name =3D "sai1",
-},
-{      // DAI with index 1
-=C2=BB       .name =3D "sai3",
-},
-{ /   // DAI with index 2
-=C2=BB       .name =3D "micfil",
-},
-};
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/pci/hda/cs35l56_hda_spi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Component 1 (Codec): wm8960-hifi
-                                    -> with 1 DAI
+diff --git a/sound/pci/hda/cs35l56_hda_spi.c b/sound/pci/hda/cs35l56_hda_spi.c
+index 756aec342eab..27d7fbc56b4c 100644
+--- a/sound/pci/hda/cs35l56_hda_spi.c
++++ b/sound/pci/hda/cs35l56_hda_spi.c
+@@ -21,6 +21,10 @@ static int cs35l56_hda_spi_probe(struct spi_device *spi)
+ 		return -ENOMEM;
+ 
+ 	cs35l56->base.dev = &spi->dev;
++
++#ifdef CS35L56_WAKE_HOLD_TIME_US
++	cs35l56->base.can_hibernate = true;
++#endif
+ 	cs35l56->base.regmap = devm_regmap_init_spi(spi, &cs35l56_regmap_spi);
+ 	if (IS_ERR(cs35l56->base.regmap)) {
+ 		ret = PTR_ERR(cs35l56->base.regmap);
+-- 
+2.30.2
 
-static struct snd_soc_dai_driver wm8960_dai =3D {
-=C2=BB       .name =3D "wm8960-hifi",
-};
-
-Now, I want to write a DTS description where my DAI link uses
-Component 0 (CPU) (with its DAI index 1) connected with Component 1
-(codec) (with its DAI index 0).
-
-So, for this I use the following dts snippet:
-
-sof-sound-wm8960 {
-=C2=BB       =C2=BB       compatible =3D "audio-graph-card2";
-=C2=BB       =C2=BB       links =3D <&cpu>;
-}
-
-dsp: dsp@3b6e8000 {
-    cpu: port@1 {
-=C2=BB       =C2=BB       reg =3D <1>;
-=C2=BB       =C2=BB       cpu_ep: endpoint { remote-endpoint =3D <&codec_ep=
->; };
-=C2=BB       };
-}
-
-wm8960 {
-
-=C2=BB       port {
-=C2=BB       =C2=BB       codec_ep: endpoint { remote-endpoint =3D <&cpu_ep=
->; };
-=C2=BB       };
-}
-
-So, property reg =3D <1> refferes to DAI with index 1 associated with
-component DSP.

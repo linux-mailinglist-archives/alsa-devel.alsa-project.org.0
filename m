@@ -2,85 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD9F7F366D
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 19:46:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6DF07F3794
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 21:36:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C5AADF0;
-	Tue, 21 Nov 2023 19:46:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C5AADF0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C68A2AEA;
+	Tue, 21 Nov 2023 21:36:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C68A2AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700592402;
-	bh=EO6luDaoUXzK9d1/iYTv3zcFJV469noLg8l0rjIvJ60=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=rVWOIvLf2kPABPhPG9DghK/huhQ3/JLdFJJPbd7UD9RVqcn1OdsRuBvV5YF8/XmkD
-	 dueucJLWXsc2p8GOQqcJnFfbSJaxoBlex6E615xvEkX9e5uR8z6z2SRRWeQ72VpMZw
-	 6Ti9bdLlzVGGn4VSlLiXiCiuOam/dzw7/nFDPkOI=
+	s=default; t=1700599001;
+	bh=/cR8swiuChQE8W/6ASPwL+h7wHv7gPdPjnGPUSUxLL8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Fw4iKT4nm9OC0sPMjOg+8FkVIHzAOh+Ug6hG2brcerqK9rbsB9Oo3Ec+oFnDsCczw
+	 gxdsagGOEC2FNieX2cACBDZfN4GVq9mEmUa56cS99RLQqW8ZXqNHxro4moBCLyOTT+
+	 /MJobV43eL+eABZxJMWM2kRLAu2Tk67oTtSCJVh8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1274FF80589; Tue, 21 Nov 2023 19:46:11 +0100 (CET)
+	id 9CF7DF8056F; Tue, 21 Nov 2023 21:36:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21DC0F80568;
-	Tue, 21 Nov 2023 19:46:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A9E2F80551;
+	Tue, 21 Nov 2023 21:36:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23087F802E8; Tue, 21 Nov 2023 19:46:06 +0100 (CET)
+	id 0D3C8F802E8; Tue, 21 Nov 2023 21:36:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 623A6F80166
-	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 19:45:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 623A6F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56DACF80166
+	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 21:36:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56DACF80166
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HSACHcHs
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id D1DA361AAD;
-	Tue, 21 Nov 2023 18:45:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DACC433C7;
-	Tue, 21 Nov 2023 18:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700592354;
-	bh=EO6luDaoUXzK9d1/iYTv3zcFJV469noLg8l0rjIvJ60=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=HSACHcHsqFmT/I15b1ugu5nNPev/5uP+Z7IWJBd4FR7SWsVV8y4+sKfyqB0uxEFlc
-	 bfx15Z7Xh3V0+Ck9GMq7pzGksECDUE3tiIpl+/TCsoQaLV3ZBIxyVRKnpv2qaVxiNc
-	 dAwa8Gz3b1R8VkdC3Bkcvo5nlaCXsVNfgS5zWjfx9d7splSvkdU/lTJUQb16nVtI+u
-	 MlQtuVhbqq03mDxdedDyKVK72cZ1nJnQTlPnn65iAewwP3VaFT70jCQb0/udPPsAtv
-	 1d3Ss7ZXVxFSJWXQIe98HTwaUFhcMMpnQOJCoslosDGb51wWmeEkcWzSWZs6sv0VYA
-	 zYoDS6q8+ERcA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com, shawnguo@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Chancel Liu <chancel.liu@nxp.com>
-In-Reply-To: <20231121052512.20235-1-chancel.liu@nxp.com>
-References: <20231121052512.20235-1-chancel.liu@nxp.com>
-Subject: Re: [PATCH v5 1/2] ASoC: dt-bindings: sound-card-common: List
- sound widgets ignoring system suspend
-Message-Id: <170059235006.1901021.2131981423033331673.b4-ty@kernel.org>
-Date: Tue, 21 Nov 2023 18:45:50 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: PTECIMGYI32TJWOGGYQQLJQOM6DWPVFF
-X-Message-ID-Hash: PTECIMGYI32TJWOGGYQQLJQOM6DWPVFF
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=j0eEAAa1;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=nxZ38h43
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4A33321983;
+	Tue, 21 Nov 2023 20:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1700598964;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k+ruGARSLlvvYgIq0vMNTbnXxDWEq0hWruIbgbcfbEw=;
+	b=j0eEAAa1q5OFbGKC0qhw+W/IRbb+z9H92G1grmLXyGokRsPQTN/qx8zYqQQIReMO+QhoME
+	MrEXqLdK2siX9vk3hkOAnvcb19kQ4zktmEYESRD/fGuwfpn+u/PUkvVzjRVEvbSiMHB6TY
+	q9C4UQAHI6Q5zRyHr1f8oD7OFRxPMLw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1700598964;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k+ruGARSLlvvYgIq0vMNTbnXxDWEq0hWruIbgbcfbEw=;
+	b=nxZ38h43dJg7eI9+TkXrPsMdzA6IuWAit6d3wf2v9NMnMD29jya91I1cMd+13q/LZTCEev
+	+LxfjV5tDBXNc4Dg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0BB49139FD;
+	Tue, 21 Nov 2023 20:36:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id +tfjAbQUXWW0BgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 21 Nov 2023 20:36:04 +0000
+Date: Tue, 21 Nov 2023 21:36:03 +0100
+Message-ID: <87h6lealos.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <tiwai@suse.com>,
+	<linux-sound@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH] ALSA: hda: cs35l56: Enable low-power hibernation mode on
+ SPI
+In-Reply-To: <20231121154419.19435-1-rf@opensource.cirrus.com>
+References: <20231121154419.19435-1-rf@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-4.31 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 REPLY(-4.00)[];
+	 RCPT_COUNT_FIVE(0.00)[6];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-0.12)[-0.608];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.09)[64.79%]
+Message-ID-Hash: OEYNZYBSZKSQ7PJSA4FUPICJVMCLGL2J
+X-Message-ID-Hash: OEYNZYBSZKSQ7PJSA4FUPICJVMCLGL2J
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +134,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PTECIMGYI32TJWOGGYQQLJQOM6DWPVFF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OEYNZYBSZKSQ7PJSA4FUPICJVMCLGL2J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,41 +143,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 21 Nov 2023 13:25:11 +0800, Chancel Liu wrote:
-> Add a property to list audio sound widgets which are marked ignoring
-> system suspend. Paths between these endpoints are still active over
-> suspend of the main application processor that the current operating
-> system is running.
+On Tue, 21 Nov 2023 16:44:19 +0100,
+Richard Fitzgerald wrote:
 > 
+> SPI hibernation is now supported with the latest hibernation/wake
+> sequences in the shared ASoC code.
 > 
+> This has a functional dependency on two commits:
+> 
+> commit 3df761bdbc8b ("ASoC: cs35l56: Wake transactions need to be issued
+> twice")
+> 
+> commit a47cf4dac7dc ("ASoC: cs35l56: Change hibernate sequence to use
+> allow auto hibernate")
+> 
+> To protect against this, enabling hibernation is conditional on
+> CS35L56_WAKE_HOLD_TIME_US being defined, which indicates that the new
+> hibernation sequences are available.
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-Applied to
+Is this expected to be merged for 6.7?  Or it can be post 6.7?
+I guess the former, but just to make sure.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+thanks,
 
-[1/2] ASoC: dt-bindings: sound-card-common: List sound widgets ignoring system suspend
-      commit: 27c69d7da1084af0b8b3a20ef9ff01e9eda5270c
-[2/2] ASoC: imx-rpmsg: Force codec power on in low power audio mode
-      commit: 5d9f746ca64c3ebfba3b650dbc4b0de705c83f3b
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Takashi

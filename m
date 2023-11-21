@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CDA17F2745
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 09:20:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D09B37F2747
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 09:20:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA648DF8;
-	Tue, 21 Nov 2023 09:19:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA648DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72F85E7A;
+	Tue, 21 Nov 2023 09:20:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72F85E7A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700554802;
-	bh=4jfmCWfsN+gPBmZpA48jy2CqSButzNc6fMTAWhZhERs=;
+	s=default; t=1700554823;
+	bh=VaXRAskkFkAJw41Tn/lspCXQ8BIFl4AFIBp+GzUUtiM=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=m/R/L6jgGDnz8OIdn1kWtLPhbPj8flZCW9qpIGdM1DGCF1AsrhMOZxR5a9PNfu09d
-	 0qU7tHZQg2otYI2Gzk+hq9U7j3T07anVboEXwuYdmLxmCgDNJvmEi33iRzUboiNkBb
-	 jwmYmr7NfMODBxQh0o+p6y5RkPd9sZr0P1ivJajw=
+	b=K8lJ552RGr+pu11JhVpZn8pdf+jzWNHNWb5+eA2tCfaxCP+4v7DKIbYXxlpPJgSmT
+	 uNLgtLJB2GstHHV+YdiCMAu0AIQ4GaD2mwsvYbmA/BJXcOkdoEDR7okyt8YDDqtj1G
+	 66BPuqNTvMNx2tKesQGZCplRqQutoqtyqZ+j5K3Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46DD5F80655; Tue, 21 Nov 2023 09:18:41 +0100 (CET)
+	id 71A59F8069C; Tue, 21 Nov 2023 09:18:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93435F8064F;
-	Tue, 21 Nov 2023 09:18:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A65C0F8067D;
+	Tue, 21 Nov 2023 09:18:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A30FCF80558; Tue, 21 Nov 2023 09:18:04 +0100 (CET)
+	id B03D1F80249; Tue, 21 Nov 2023 09:18:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3A448F805A0
-	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 09:17:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A448F805A0
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E3A71200EDA;
-	Tue, 21 Nov 2023 09:17:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 911D3F805AC
+	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 09:17:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 911D3F805AC
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 47ACF1A1466;
+	Tue, 21 Nov 2023 09:17:47 +0100 (CET)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 751AD20005B;
-	Tue, 21 Nov 2023 09:17:45 +0100 (CET)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E32571A03FC;
+	Tue, 21 Nov 2023 09:17:46 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 7E6AB183AD24;
-	Tue, 21 Nov 2023 16:17:43 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id F11501802201;
+	Tue, 21 Nov 2023 16:17:44 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: hverkuil@xs4all.nl,
 	sakari.ailus@iki.fi,
@@ -66,15 +66,15 @@ To: hverkuil@xs4all.nl,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v10 10/14] media: uapi: Add audio rate controls support
-Date: Tue, 21 Nov 2023 15:37:31 +0800
-Message-Id: <1700552255-5364-11-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH v10 11/14] media: uapi: Declare interface types for Audio
+Date: Tue, 21 Nov 2023 15:37:32 +0800
+Message-Id: <1700552255-5364-12-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1700552255-5364-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1700552255-5364-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: HBP3LLGGF3HXGHFCXJ7IU523SIBORCE6
-X-Message-ID-Hash: HBP3LLGGF3HXGHFCXJ7IU523SIBORCE6
+Message-ID-Hash: OHDGQKRT5DJM5TSQSPZ6JZKOXZ7J2MRO
+X-Message-ID-Hash: OHDGQKRT5DJM5TSQSPZ6JZKOXZ7J2MRO
 X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HBP3LLGGF3HXGHFCXJ7IU523SIBORCE6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OHDGQKRT5DJM5TSQSPZ6JZKOXZ7J2MRO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,87 +96,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add V4L2_CID_M2M_AUDIO_SOURCE_RATE and V4L2_CID_M2M_AUDIO_DEST_RATE
-new IDs for rate control.
-
-Add V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET and
-V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET for clock drift.
+Declare the interface types that will be used by Audio.
+The type is MEDIA_INTF_T_V4L_AUDIO.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- .../media/v4l/ext-ctrls-audio-m2m.rst         | 20 +++++++++++++++++++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  6 ++++++
- include/uapi/linux/v4l2-controls.h            |  5 +++++
- 3 files changed, 31 insertions(+)
+ .../userspace-api/media/mediactl/media-types.rst    |  5 +++++
+ drivers/media/v4l2-core/v4l2-dev.c                  |  4 ++++
+ drivers/media/v4l2-core/v4l2-mem2mem.c              | 13 +++++++++----
+ include/uapi/linux/media.h                          |  1 +
+ 4 files changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-index 82d2ecedbfee..a3c06fbb91b9 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
-@@ -19,3 +19,23 @@ Audio M2M Control IDs
-     The Audio M2M class descriptor. Calling
-     :ref:`VIDIOC_QUERYCTRL` for this control will
-     return a description of this control class.
-+
-+.. _v4l2-audio-asrc:
-+
-+``V4L2_CID_M2M_AUDIO_SOURCE_RATE (integer menu)``
-+    Sets the audio source sample rate, unit is Hz
-+
-+``V4L2_CID_M2M_AUDIO_DEST_RATE (integer menu)``
-+    Sets the audio destination sample rate, unit is Hz
-+
-+``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
-+    Sets the offset from the audio source sample rate, unit is Hz.
-+    The offset compensates for any clock drift. The actual source audio sample
-+    rate is the ideal source audio sample rate from
-+    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
-+
-+``V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET (fixed point)``
-+    Sets the offset from the audio dest sample rate, unit is Hz.
-+    The offset compensates for any clock drift. The actual dest audio sample
-+    rate is the ideal source audio sample rate from
-+    ``V4L2_CID_M2M_AUDIO_DEST_RATE`` plus this fixed point offset.
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index 2a85ea3dc92f..4e606d7fd971 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-@@ -1245,6 +1245,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+diff --git a/Documentation/userspace-api/media/mediactl/media-types.rst b/Documentation/userspace-api/media/mediactl/media-types.rst
+index 0ffeece1e0c8..f0880aea41d6 100644
+--- a/Documentation/userspace-api/media/mediactl/media-types.rst
++++ b/Documentation/userspace-api/media/mediactl/media-types.rst
+@@ -265,6 +265,7 @@ Types and flags used to represent the media graph elements
+ .. _MEDIA-INTF-T-V4L-SUBDEV:
+ .. _MEDIA-INTF-T-V4L-SWRADIO:
+ .. _MEDIA-INTF-T-V4L-TOUCH:
++.. _MEDIA-INTF-T-V4L-AUDIO:
+ .. _MEDIA-INTF-T-ALSA-PCM-CAPTURE:
+ .. _MEDIA-INTF-T-ALSA-PCM-PLAYBACK:
+ .. _MEDIA-INTF-T-ALSA-CONTROL:
+@@ -322,6 +323,10 @@ Types and flags used to represent the media graph elements
+        -  Device node interface for Touch device (V4L)
+        -  typically, /dev/v4l-touch?
  
- 	/* Audio M2M controls */
- 	case V4L2_CID_M2M_AUDIO_CLASS:  return "Audio M2M Controls";
-+	case V4L2_CID_M2M_AUDIO_SOURCE_RATE:	return "Audio Source Sample Rate";
-+	case V4L2_CID_M2M_AUDIO_DEST_RATE:	return "Audio Dest Sample Rate";
- 	default:
- 		return NULL;
- 	}
-@@ -1606,6 +1608,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
- 	case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
- 		*type = V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
++    *  -  ``MEDIA_INTF_T_V4L_AUDIO``
++       -  Device node interface for Audio device (V4L)
++       -  typically, /dev/v4l-audio?
++
+     *  -  ``MEDIA_INTF_T_ALSA_PCM_CAPTURE``
+        -  Device node interface for ALSA PCM Capture
+        -  typically, /dev/snd/pcmC?D?c
+diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
+index b92c760b611a..c3a7d974db26 100644
+--- a/drivers/media/v4l2-core/v4l2-dev.c
++++ b/drivers/media/v4l2-core/v4l2-dev.c
+@@ -842,6 +842,10 @@ static int video_register_media_controller(struct video_device *vdev)
+ 		intf_type = MEDIA_INTF_T_V4L_SUBDEV;
+ 		/* Entity will be created via v4l2_device_register_subdev() */
  		break;
-+	case V4L2_CID_M2M_AUDIO_SOURCE_RATE:
-+	case V4L2_CID_M2M_AUDIO_DEST_RATE:
-+		*type = V4L2_CTRL_TYPE_INTEGER_MENU;
++	case VFL_TYPE_AUDIO:
++		intf_type = MEDIA_INTF_T_V4L_AUDIO;
++		/* Entity will be created via v4l2_device_register_subdev() */
 +		break;
  	default:
- 		*type = V4L2_CTRL_TYPE_INTEGER;
- 		break;
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index 7d318065a33d..493b59f20a35 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -3489,6 +3489,11 @@ struct v4l2_ctrl_av1_film_grain {
- #define V4L2_CID_M2M_AUDIO_CLASS_BASE  (V4L2_CTRL_CLASS_M2M_AUDIO | 0x900)
- #define V4L2_CID_M2M_AUDIO_CLASS       (V4L2_CTRL_CLASS_M2M_AUDIO | 1)
+ 		return 0;
+ 	}
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index 0cc30397fbad..bf41d112b742 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -1134,10 +1134,15 @@ int v4l2_m2m_register_media_controller(struct v4l2_m2m_dev *m2m_dev,
+ 	if (ret)
+ 		goto err_rm_links0;
  
-+#define V4L2_CID_M2M_AUDIO_SOURCE_RATE	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 0)
-+#define V4L2_CID_M2M_AUDIO_DEST_RATE	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 1)
-+#define V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 2)
-+#define V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET	(V4L2_CID_M2M_AUDIO_CLASS_BASE + 3)
-+
- /* MPEG-compression definitions kept for backwards compatibility */
- #ifndef __KERNEL__
- #define V4L2_CTRL_CLASS_MPEG            V4L2_CTRL_CLASS_CODEC
+-	/* Create video interface */
+-	m2m_dev->intf_devnode = media_devnode_create(mdev,
+-			MEDIA_INTF_T_V4L_VIDEO, 0,
+-			VIDEO_MAJOR, vdev->minor);
++	if (vdev->vfl_type == VFL_TYPE_AUDIO)
++		m2m_dev->intf_devnode = media_devnode_create(mdev,
++				MEDIA_INTF_T_V4L_AUDIO, 0,
++				VIDEO_MAJOR, vdev->minor);
++	else
++		/* Create video interface */
++		m2m_dev->intf_devnode = media_devnode_create(mdev,
++				MEDIA_INTF_T_V4L_VIDEO, 0,
++				VIDEO_MAJOR, vdev->minor);
+ 	if (!m2m_dev->intf_devnode) {
+ 		ret = -ENOMEM;
+ 		goto err_rm_links1;
+diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
+index 1c80b1d6bbaf..9ff6dec7393a 100644
+--- a/include/uapi/linux/media.h
++++ b/include/uapi/linux/media.h
+@@ -260,6 +260,7 @@ struct media_links_enum {
+ #define MEDIA_INTF_T_V4L_SUBDEV			(MEDIA_INTF_T_V4L_BASE + 3)
+ #define MEDIA_INTF_T_V4L_SWRADIO		(MEDIA_INTF_T_V4L_BASE + 4)
+ #define MEDIA_INTF_T_V4L_TOUCH			(MEDIA_INTF_T_V4L_BASE + 5)
++#define MEDIA_INTF_T_V4L_AUDIO			(MEDIA_INTF_T_V4L_BASE + 6)
+ 
+ #define MEDIA_INTF_T_ALSA_BASE			0x00000300
+ #define MEDIA_INTF_T_ALSA_PCM_CAPTURE		(MEDIA_INTF_T_ALSA_BASE)
 -- 
 2.34.1
 

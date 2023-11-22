@@ -2,127 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6DF07F3794
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Nov 2023 21:36:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 848457F3BBC
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 03:23:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C68A2AEA;
-	Tue, 21 Nov 2023 21:36:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C68A2AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7388FAE9;
+	Wed, 22 Nov 2023 03:23:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7388FAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700599001;
-	bh=/cR8swiuChQE8W/6ASPwL+h7wHv7gPdPjnGPUSUxLL8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Fw4iKT4nm9OC0sPMjOg+8FkVIHzAOh+Ug6hG2brcerqK9rbsB9Oo3Ec+oFnDsCczw
-	 gxdsagGOEC2FNieX2cACBDZfN4GVq9mEmUa56cS99RLQqW8ZXqNHxro4moBCLyOTT+
-	 /MJobV43eL+eABZxJMWM2kRLAu2Tk67oTtSCJVh8=
+	s=default; t=1700619811;
+	bh=FITl0MzjAWpo2oo3qRu7KCm1KgqcgjpHKrDk4SPWI1s=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=BuhWRhTFkZea22Yb0dzoHbp+BJRqTfcwCIIvCsuBK5uNldxlACZGiG35afsG4sZkV
+	 3Ihbw7qvrEfUfUNZGpJYnYw948CffXNWqDaSvCOWxCxhpTDOfiiUsWqdDb4+ZqNVWN
+	 SiRkIu/eet+wUnYHGTFlVq3P8h2U2/dBMAcR7wVA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CF7DF8056F; Tue, 21 Nov 2023 21:36:19 +0100 (CET)
+	id 3C57CF8056F; Wed, 22 Nov 2023 03:23:00 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A9E2F80551;
-	Tue, 21 Nov 2023 21:36:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A08F1F80579;
+	Wed, 22 Nov 2023 03:22:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D3C8F802E8; Tue, 21 Nov 2023 21:36:14 +0100 (CET)
+	id E6F98F802E8; Wed, 22 Nov 2023 03:22:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56DACF80166
-	for <alsa-devel@alsa-project.org>; Tue, 21 Nov 2023 21:36:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56DACF80166
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=j0eEAAa1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=nxZ38h43
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4A33321983;
-	Tue, 21 Nov 2023 20:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1700598964;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k+ruGARSLlvvYgIq0vMNTbnXxDWEq0hWruIbgbcfbEw=;
-	b=j0eEAAa1q5OFbGKC0qhw+W/IRbb+z9H92G1grmLXyGokRsPQTN/qx8zYqQQIReMO+QhoME
-	MrEXqLdK2siX9vk3hkOAnvcb19kQ4zktmEYESRD/fGuwfpn+u/PUkvVzjRVEvbSiMHB6TY
-	q9C4UQAHI6Q5zRyHr1f8oD7OFRxPMLw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1700598964;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k+ruGARSLlvvYgIq0vMNTbnXxDWEq0hWruIbgbcfbEw=;
-	b=nxZ38h43dJg7eI9+TkXrPsMdzA6IuWAit6d3wf2v9NMnMD29jya91I1cMd+13q/LZTCEev
-	+LxfjV5tDBXNc4Dg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0BB49139FD;
-	Tue, 21 Nov 2023 20:36:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +tfjAbQUXWW0BgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 21 Nov 2023 20:36:04 +0000
-Date: Tue, 21 Nov 2023 21:36:03 +0100
-Message-ID: <87h6lealos.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH] ALSA: hda: cs35l56: Enable low-power hibernation mode on
- SPI
-In-Reply-To: <20231121154419.19435-1-rf@opensource.cirrus.com>
-References: <20231121154419.19435-1-rf@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-4.31 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 RCPT_COUNT_FIVE(0.00)[6];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-0.12)[-0.608];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_COUNT_TWO(0.00)[2];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.09)[64.79%]
-Message-ID-Hash: OEYNZYBSZKSQ7PJSA4FUPICJVMCLGL2J
-X-Message-ID-Hash: OEYNZYBSZKSQ7PJSA4FUPICJVMCLGL2J
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 79E06F80246
+	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 03:22:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E06F80246
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 478091A0F04;
+	Wed, 22 Nov 2023 03:22:44 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 0FB5A1A0D38;
+	Wed, 22 Nov 2023 03:22:44 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 76E58183AD45;
+	Wed, 22 Nov 2023 10:22:42 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: nicoleotsuka@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	shengjiu.wang@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl_xcvr: Enable 2 * TX bit clock for spdif only case
+Date: Wed, 22 Nov 2023 09:42:53 +0800
+Message-Id: <1700617373-6472-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: 3O7GDKRO2PK7FELOHN4BKFORE62KJBUB
+X-Message-ID-Hash: 3O7GDKRO2PK7FELOHN4BKFORE62KJBUB
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -134,7 +78,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OEYNZYBSZKSQ7PJSA4FUPICJVMCLGL2J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3O7GDKRO2PK7FELOHN4BKFORE62KJBUB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,30 +87,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 21 Nov 2023 16:44:19 +0100,
-Richard Fitzgerald wrote:
-> 
-> SPI hibernation is now supported with the latest hibernation/wake
-> sequences in the shared ASoC code.
-> 
-> This has a functional dependency on two commits:
-> 
-> commit 3df761bdbc8b ("ASoC: cs35l56: Wake transactions need to be issued
-> twice")
-> 
-> commit a47cf4dac7dc ("ASoC: cs35l56: Change hibernate sequence to use
-> allow auto hibernate")
-> 
-> To protect against this, enabling hibernation is conditional on
-> CS35L56_WAKE_HOLD_TIME_US being defined, which indicates that the new
-> hibernation sequences are available.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+The bit 10 in TX_DPTH_CTRL register controls the TX clock rate.
+If this bit is set, TX datapath clock should be = 2* TX bit rate.
+If this bit is not set, TX datapath clock should be 10* TX bit rate.
 
-Is this expected to be merged for 6.7?  Or it can be post 6.7?
-I guess the former, but just to make sure.
+As the spdif only case, we always use 2 * TX bit clock, so
+this bit need to be set.
 
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_xcvr.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-thanks,
+diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
+index fa0a15263c66..77f8e2394bf9 100644
+--- a/sound/soc/fsl/fsl_xcvr.c
++++ b/sound/soc/fsl/fsl_xcvr.c
+@@ -414,6 +414,16 @@ static int fsl_xcvr_prepare(struct snd_pcm_substream *substream,
+ 
+ 	switch (xcvr->mode) {
+ 	case FSL_XCVR_MODE_SPDIF:
++		if (xcvr->soc_data->spdif_only && tx) {
++			ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_TX_DPTH_CTRL_SET,
++						 FSL_XCVR_TX_DPTH_CTRL_BYPASS_FEM,
++						 FSL_XCVR_TX_DPTH_CTRL_BYPASS_FEM);
++			if (ret < 0) {
++				dev_err(dai->dev, "Failed to set bypass fem: %d\n", ret);
++				return ret;
++			}
++		}
++		fallthrough;
+ 	case FSL_XCVR_MODE_ARC:
+ 		if (tx) {
+ 			ret = fsl_xcvr_en_aud_pll(xcvr, fout);
+-- 
+2.34.1
 
-Takashi

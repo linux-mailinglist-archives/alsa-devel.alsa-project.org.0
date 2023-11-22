@@ -2,82 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0DA7F4E6D
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 18:32:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E91C37F50F7
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 20:57:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CB2DAE9;
-	Wed, 22 Nov 2023 18:32:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CB2DAE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EFF6DEE;
+	Wed, 22 Nov 2023 20:57:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EFF6DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700674353;
-	bh=b3bPrHVvEfkj5yHIcwFXP8t5jf2bdOaikqngl5P4eqA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Av4g9f4FtiEMhVhPFs2qP+kfqfrJKE4qw7h3diBCky6L0ulXiSj70QDogWplQVCLJ
-	 ouchAI6Bg+djiUIBmtMdmhi5sZwSxS5k4ljbtNx6hH8JqiLBvxksl2m8IZWq4M2fzr
-	 Z8dGvD9YZ2Cobrc+PIucQBC2ozdYxQMF3u7rkN80=
+	s=default; t=1700683076;
+	bh=na0CHeU/iXRHI2W8bRm/a0dCgDYe6MckkHoHqoMu9NA=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=MiXKqIo09Zn1+B9KP02BmGmKsSn+AodtAM2nyb2h/dm+oxxz9xkDr/FWFfI/uGeiL
+	 KnfgwWd40QRqGH5s5iC+NFsqflYITJHqgzN3qiOk95oqA8OvRn+xKcVJIubWX+XWk9
+	 QWpqac8+3y2rxXm1sFp0YhSFFVHy+jbtLal6hQQE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C979F80587; Wed, 22 Nov 2023 18:32:01 +0100 (CET)
+	id 86B6CF80579; Wed, 22 Nov 2023 20:57:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31741F80579;
-	Wed, 22 Nov 2023 18:32:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6AF6F80579;
+	Wed, 22 Nov 2023 20:57:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2DDDF802E8; Wed, 22 Nov 2023 18:31:55 +0100 (CET)
+	id AF7D6F802E8; Wed, 22 Nov 2023 20:57:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EAF06F80093
-	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 18:31:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAF06F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3A9D6F80093
+	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 20:57:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A9D6F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eIvJnsMS
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 5498CCE2534;
-	Wed, 22 Nov 2023 17:31:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6AAC433CA;
-	Wed, 22 Nov 2023 17:31:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700674301;
-	bh=b3bPrHVvEfkj5yHIcwFXP8t5jf2bdOaikqngl5P4eqA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=eIvJnsMSKRo0Sxw8ALRT2YlbDfHrwaCl4YEAwMm986k4Dg9IwdqWMGtbGBHsKJKzZ
-	 f6v1eyWxzKyoWRxoOlHO3W+boQ4GKyXb/fjK29H5IDuMwhkyYKykD7Bk8xISP1YIyP
-	 O6riwcErC+giYU07cCtlZiU+hCJ8hMG1JldyNvUPl5Za7DGJrhRy+1ivpxDzpJ1CEw
-	 SEApaVSTVEFhF3WswP7cG7HuOSHV0KvVUGsLtS/C/DTBK7C/uvDFut0UPmxifb6/hG
-	 rf9FnGbbYI2mlAVDOIlZkA8lNN/k74pCRL5RJq4SJMLE5TLFh7fucTK4DGvIsNPKs+
-	 bzfVfx0hiHHow==
-From: Mark Brown <broonie@kernel.org>
-To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- shengjiu.wang@gmail.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-In-Reply-To: <1700617373-6472-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1700617373-6472-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_xcvr: Enable 2 * TX bit clock for spdif only
- case
-Message-Id: <170067429848.2197522.15067671352238530085.b4-ty@kernel.org>
-Date: Wed, 22 Nov 2023 17:31:38 +0000
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ZLUHAS9p
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-50797cf5b69so110365e87.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 22 Nov 2023 11:57:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1700683033; x=1701287833;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=z3eKzYiaUPur0IhJyaSZpFt+RCAlVJJsNbMkeIZr53A=;
+        b=ZLUHAS9pl1YS8PS2mNGurfqufi9+TnPp/pbn6TI9SQ8C7BHyBLHn67M+7CMICPBte7
+         d9d3oHSsPHFXimGPGs3ieQ17mtO7lt2//+gjkSLKPcNh69qNX2B4mfa9GgRcI5OyloPv
+         L465gHb+TZgYSdPxkVaIBxvWu50TEMrPwIlB4VBIoe3hmSQM3+qAcaL8EpILaTd78yaf
+         zfupLY66H1nm5DSNoOfvQRyaofUGMt5M+UNjPIvA957kDGChjeYK66hHVifamMoXhnkS
+         RF6i/1LDnThCNuWBNDe7cgE3weazcLbisXbfN28EbXtO0vSaGYHc3D0roTjGOZKZ9vPt
+         W1pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700683033; x=1701287833;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=z3eKzYiaUPur0IhJyaSZpFt+RCAlVJJsNbMkeIZr53A=;
+        b=KNWE26ZZ3kKMhG8eqnOsqZV03eImlBavowjCcugqheEEhPanpIyA7DKmRYRbw01fuP
+         5N9tovLFhP6SZZVgxUig5gcrDbFe/VNm+PhW1dsArPaAobpIEiqGzQVsgSibbPcip6oh
+         ImDE2zii4HEzNCX63tPzi/Nai6SzAhpQmSaI9Wnp4ANXeFHPtlbiPpFuvOy97hwBSqEF
+         nhhSSqWxP3JfHRiVTLzGhTOelm5F9aVdjJo4PNJWBG8gthto74d9QEa6rcRQgQOl9V77
+         Z20psjVyt+P/mYXzixgfw6xEhTofVNe1mDv69gW+myS0UfQ90UuB6OickfkpKQEdOPNk
+         +GAQ==
+X-Gm-Message-State: AOJu0Yx920Essv0N5P0vKnOZYFQ9ox922FvPR7RhL1DtWrw0vi7+smTb
+	o1AxFaGi/k6GOVNye0AdvmuDbQ==
+X-Google-Smtp-Source: 
+ AGHT+IFXLsNjyGl1aWYWlgDu4MftGSAqzRIBwU82aj9LRkzZJs8EcwuYv+qq3oVWL6RWFELs3lHO0Q==
+X-Received: by 2002:a05:6512:3254:b0:50a:a571:88 with SMTP id
+ c20-20020a056512325400b0050aa5710088mr2424023lfr.61.1700683033496;
+        Wed, 22 Nov 2023 11:57:13 -0800 (PST)
+Received: from [172.30.204.74] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129])
+        by smtp.gmail.com with ESMTPSA id
+ u19-20020a05651220d300b0050300e013f3sm1935876lfr.254.2023.11.22.11.57.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Nov 2023 11:57:13 -0800 (PST)
+Message-ID: <4fe84f86-b7e8-4f71-8a01-dabb835959c3@linaro.org>
+Date: Wed, 22 Nov 2023 20:57:10 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] soundwire: qcom: drop unneeded
+ qcom_swrm_stream_alloc_ports() cleanup
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20231120190740.339350-1-krzysztof.kozlowski@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20231120190740.339350-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: IAK2HT3Z4HENWAPZB3AOMFU3SFKT23XG
-X-Message-ID-Hash: IAK2HT3Z4HENWAPZB3AOMFU3SFKT23XG
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: PQLYEWI54GXEGXAHFFGPJ4M2HE2MYW23
+X-Message-ID-Hash: PQLYEWI54GXEGXAHFFGPJ4M2HE2MYW23
+X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IAK2HT3Z4HENWAPZB3AOMFU3SFKT23XG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PQLYEWI54GXEGXAHFFGPJ4M2HE2MYW23/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,41 +128,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 22 Nov 2023 09:42:53 +0800, Shengjiu Wang wrote:
-> The bit 10 in TX_DPTH_CTRL register controls the TX clock rate.
-> If this bit is set, TX datapath clock should be = 2* TX bit rate.
-> If this bit is not set, TX datapath clock should be 10* TX bit rate.
+
+
+On 11/20/23 20:07, Krzysztof Kozlowski wrote:
+> The cleanup in "err" goto label clears bits from pconfig array which is
+> a local variable.  This does not have any effect outside of this
+> function, so drop this useless code.
 > 
-> As the spdif only case, we always use 2 * TX bit clock, so
-> this bit need to be set.
-> 
-> [...]
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: fsl_xcvr: Enable 2 * TX bit clock for spdif only case
-      commit: c33fd110424dfcb544cf55a1b312f43fe1918235
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Konrad

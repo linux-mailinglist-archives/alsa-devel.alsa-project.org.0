@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9B07F442A
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 11:43:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21BBC7F4430
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 11:43:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D32A950;
-	Wed, 22 Nov 2023 11:43:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D32A950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 912D183E;
+	Wed, 22 Nov 2023 11:43:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 912D183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700649813;
-	bh=z7JCud6svPNddad5+yYsCcg0vSxaAPs9fQcHBDElE0E=;
+	s=default; t=1700649830;
+	bh=3zJRgY6sNtzDRSuEdvzIi+q1Zv5efL5+j0oQWe0KuBM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P5h36uN5qBYDlIA/lkTsQZ2eSjqvo3MbmDYGyhVfcuXf6ZGSPWtDsAZFTLJu1NEMu
-	 NzMZBZ2xutecC1zBNwQ/l6KfG6VnjjySGLsOAzwa3qejhnHtI/o4gzqrQZvASFA9SO
-	 5M+hUBgPeNEUNlDbqlJUcH6ReblvdGAcO2KKNoco=
+	b=mvbjGXBn7F7ZgfiQrGrrE5tk2cBczREBjHh4OEGrAPZtbskIcJhCadr+fnp1MrhOY
+	 4q+oEQchQtYqI8gxisXGYl1GxlemlU0zaRrVKJKoy2x8ZTCkoZY0xC21s79M+/6NN9
+	 rAesEYfTPgftYBjmPjH87x2gByGn4xFbdkVYgcRQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B02EF805E2; Wed, 22 Nov 2023 11:42:37 +0100 (CET)
+	id 86869F80606; Wed, 22 Nov 2023 11:42:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92CB0F805F0;
-	Wed, 22 Nov 2023 11:42:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9139DF80603;
+	Wed, 22 Nov 2023 11:42:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C39DF805A8; Wed, 22 Nov 2023 11:42:31 +0100 (CET)
+	id F079EF8055C; Wed, 22 Nov 2023 11:42:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
 	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0618.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0e::618])
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0605.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0d::605])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 275D1F80246
-	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 11:42:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 275D1F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id D9C51F805AC
+	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 11:42:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9C51F805AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=jOqNy5HT
+ header.s=selector2 header.b=KcGVyZQu
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A+2Pi0/8lUTKP5mfSjrCAC8cRtAeupzWuWmg6J81D79ORtpLRamuwtVt2m6TOoerLwfNCurKwollZ8cj+i/7tVoaxhnxPLvcwxBsj4begXWGx3+mcVY5uH2PSy2PVy5MPG6kvEdjp/ulL8Rm3iHKOeP10ggGmDSr9lHLp15eSYXXlCOQ5/yTO3oSgsanNZH8z3NMk4LUtODSFGk872QGVhX4vpgYM2F0gypY4EkqyjFKwufXA6Sq3lzbSKRrpSDzI/FLioJwO45D93BnOIgzH4VlNBjTCaKa+rCYdI2hiYpSJH/1woi2v279lJso7fc2ECJJPWfhRsl0zTMjtLqRpg==
+ b=K3AR7lwBs5WbKm5onKP1zMUs/1vVy+xbeqxF54zj2dfel2Gh4fMq6Sh7XxnLPKTkTvM1uD/Eh352528P0NdEJ+aoIf1pBEUAU0obfP74woehXMXUla6Lg4FuygkG6EGcTA/ioWsE2MTuFTHV7HONeRbTNuJEqTsLkipmaYtOh73PN1GGsOF7CdHcFXelBZruhvTHHu6oxiEMcEYgZCtc+E2tZ0dJBHCqjBCBCqLModgNMbgtXH8ZGQUyfSAUF+afCJosJczEuC8ZsOr2CQemqJkTFC4wYWtJ0zSHtGUFll6ey3Z9oQB65BDr81zf7/gY2nO80Vr4cFvt6eIXuYCNlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fv1lp8KFh/WzeG+M9inHOlXHZqAlVQy7rT3f0Uzw1yc=;
- b=cxKYNDem4Y/bHiPda552HT43EVOBBUGr1V6pbFEcTCImRn0J1nNxbd59I8pF+hmnMzBwabin+fbbqmLO4moJMstf9kjHDtO2K6EP6+5eG7jsNj/jeoHfVZOhnIrmdxNhqTTtQ+wkOvfh2zjnwtlbV2V8eAPQaQQ106H1RJoM3QmApdj7zCnb3eYyhuzZ94NULFBouIeIvVLMQ1HdXsto4YGIH4HfQXXqTVwUu/FN0gjUHUZP8lVyV0cYsuV1Z7bPuMJR0GZVPII/uSdpy2aXP4uub8Xpx7WSH/gHbKqzXT5VGw8kV8AMnALGkoWE3CzmJhU8UR6F9Afx+0Fs8PIWjw==
+ bh=gKO81IDu5hS4rxZyDV+Z+W/4AfsALN9cBXBa0q56iwI=;
+ b=jfoSG6iB0nfAt1TFWU/rEJk3tK6x3CBuDftZmexTR5cmvhAmqRsMCIIeV7kq77ButPY8qmJRRLnFwLuD9Xro0Vab3KDht1hlaw9EiPwX0NeV4e+CI15kpnjRzkfiArf1L1U5DQX0Z1pxlyOsGHomwcnbirkJxrllK+xCmcu/DTcpGwhVolv/QvYk63fYEV73Wkbs1wCqChtd9JVN20mZA9Er8GT0/I0vEuTzMaMyUF3cEDYxL+OTKvQQAWmcOh3Nj+Ucfu14bBVV29Jcb6iw0BKj5Sz0o2uMWpiOWhoX2NLgUSlf9xuru/Rl8NiY1ygbd4DW4LdkE0seSnCqRW4hSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fv1lp8KFh/WzeG+M9inHOlXHZqAlVQy7rT3f0Uzw1yc=;
- b=jOqNy5HTqRt9esKl9tmEYAK46xY6tUf5C7EAZAjfg8cwX96V0n8OwHvUYzl0TFSH5C2Bwpqn12SzfBOjQFzHdwwPwVduuvmmFCmBJ8a5+bKZy6jpQwBVUg5SVmUw5WAhrke910WHRk5DFs6Zhd9JO1Fve+EzrUMsQHi2hN8i9aY=
+ bh=gKO81IDu5hS4rxZyDV+Z+W/4AfsALN9cBXBa0q56iwI=;
+ b=KcGVyZQu/FVNk6CEckB9lfSbD5x7MBS5FrmVfXgSUItXmFyVdsp86XBO3fTMM7BreJEnbddj2zjFEddBB91JrSELUGFbMrno4RtgbhzLq+Yd5+uouJH6nF3P2vnFIxSrDB2bO7mbUxHWHILtKOKE+qNirMvd1G4SCTo5SpioGHg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by PAXPR04MB9328.eurprd04.prod.outlook.com (2603:10a6:102:2b6::15) with
+ by DBBPR04MB7577.eurprd04.prod.outlook.com (2603:10a6:10:206::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.17; Wed, 22 Nov
- 2023 10:42:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Wed, 22 Nov
+ 2023 10:42:28 +0000
 Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
  ([fe80::dffc:1d:4398:7768]) by DB9PR04MB9498.eurprd04.prod.outlook.com
  ([fe80::dffc:1d:4398:7768%6]) with mapi id 15.20.7025.019; Wed, 22 Nov 2023
- 10:42:22 +0000
+ 10:42:28 +0000
 From: Chancel Liu <chancel.liu@nxp.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -85,9 +85,10 @@ To: lgirdwood@gmail.com,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org
 Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [PATCH v3 2/3] arm64: dts: imx93: Configure clock rate for audio PLL
-Date: Wed, 22 Nov 2023 18:19:58 +0800
-Message-Id: <20231122101959.30264-3-chancel.liu@nxp.com>
+Subject: [PATCH v3 3/3] ASoC: dt-bindings: fsl,mqs: Convert format to
+ json-schema
+Date: Wed, 22 Nov 2023 18:19:59 +0800
+Message-Id: <20231122101959.30264-4-chancel.liu@nxp.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20231122101959.30264-1-chancel.liu@nxp.com>
 References: <20231122101959.30264-1-chancel.liu@nxp.com>
@@ -97,59 +98,59 @@ X-ClientProxiedBy: AM0PR03CA0074.eurprd03.prod.outlook.com
  (2603:10a6:10:360::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|PAXPR04MB9328:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fb8372c-0d25-429d-cf96-08dbeb47b58e
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DBBPR04MB7577:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5e93007-0548-4cfc-af04-08dbeb47b8b4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	tv+7P8fG3XU9+9xpnqdV3CmDfuS1k61Ffuv4TiywMQEMbLeN15b0JMLsUw2mRsi1+JFoenybFH/Mz0BQJ8ilUwNkWCSTRqVqwqG9qeE6Rw6L+10heSlhQNLHDTb0A+9RlTZgWjOy+bS3rmYChDzU1M7BoCSdISmgNNZpolJ98/F19CvbVzCraRPtMYVbp79dxRFcbG6CkH49pSoQbKqtPBxfz/Q4aHflbbvYPvY01QBR/grGpQKxxjXXORhjkzb72e73txndXsV0nYUM98594gXo6xrbGY48G2qb3DZrLM35huYoGQxdp5pMc72rdYCxiEhiEn3pQmbI5wXORdFpRnyssT38Zkn5TY3BCe9Ivv3zUjHlvXSk47JWNnKjgyCltSGKRnUPNU11C/0HVE9kSPRO+9JpjSkG0fEiYrZjcRDsK9qsdoP2nBQChBzl7EeEskVvDlx2dT9xHu47k/Dnn9ZfsvpaKPpXBM8ioYi+kedJQUbmBUOBvx1yFSn1lkS1QW45p8/drDxwqBHHtZeK9gk8GDwzahd70htKFPzL2JjwBwCzIpB7Yn1HRpBunXoyxJn8Tuxa66rDS7C3MaTLUlwK8XXwGPeftGRKTuSqajUjh4TqfafFZyu6r2vOvqou5KgU8vbS2ua1Pqp7XOnp14ba0aX1Q/3hQ2X2+Id/XXo=
+	HuskfYUGlWYm57+dG6wOO6AgmNo0UEaDqGL9wY7Zcku+Jy3YDc6IxrGHfP4x3K+GrN9Vrw2xV1MnNKaAmc6c58np48hEYd9wJ4vGCZk7fQIDW/8nN8GeXCHzwp/Ex0stzdWJlPrf0yzmKBH8KrE35+wgaHAeRx1n2Eg0IJDVckeMr4uFIzeZBdYtd0aE3HL7uCnqJVFDAaK/sb3VXay98ce5KgxKX3a0mgt15VuU3SWf/C4n0XcvsS3yYRDmGfhiIRTFI6iJFo44Y1IZt3CMvJPiWddAtDqggCK47mZQuub/mGNatdJqJgWV6+4U4fPLolE0/kNCrd89cFUpa11IC6bG6NccmEGiVRFxao/mxf7/0vkpFq42q9dnfpDuFZ1UOAcoROBMl0ULx7aO+lvQYw/p2tPTvN+vmtLIFh7TnLEKPtfh/rpBTWqH1uIPzezFz7sIHak2c+FbHFGuj2wnyd6gEgOrgP2YHWAgL1b1oado5gsBzXu+TKSh+dqMFiymjI/+wgQXcPxvgsqGHYZMujA4I9HiH6G1UFJGBUYh7ua3MBSL277zDUfruVvBvsIa8EFFz4aRIijtatO/SMkpuqHXaiJPvwbEyPWlOrbNXXYHbBchpDTh718eaSLKk5WV
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(346002)(396003)(366004)(39860400002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(83380400001)(6486002)(6506007)(478600001)(6512007)(26005)(6666004)(1076003)(52116002)(2616005)(38100700002)(66946007)(66476007)(316002)(66556008)(44832011)(86362001)(5660300002)(7416002)(2906002)(4744005)(2013699003)(921008)(38350700005)(41300700001)(8936002)(4326008)(8676002)(36756003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(136003)(39860400002)(376002)(346002)(396003)(230922051799003)(451199024)(186009)(64100799003)(1800799012)(8676002)(66476007)(1076003)(8936002)(966005)(6486002)(38100700002)(4326008)(52116002)(6506007)(478600001)(66946007)(6666004)(66556008)(83380400001)(6512007)(316002)(44832011)(26005)(5660300002)(2616005)(2906002)(36756003)(41300700001)(7416002)(86362001)(38350700005)(921008);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?U1JvJONG1UeHZMRA1ETMYMSmttFoKHJ7Qw1y4bu6iqBEIJ6EFUp63ufPlRjK?=
- =?us-ascii?Q?cMiWbKDygEiRiFwfwExd9/kuJoLI5gccSc3gv9Yx4HkMoc3cezkfVvv14Pho?=
- =?us-ascii?Q?7KC9Gz1wa2shd26G5lPKxROT8V9liVC1otfqbGq8nUXHBi3ZE8HKow4FHVPq?=
- =?us-ascii?Q?OR7LsS+tQWokwRhcWdz4JDYwxP2fE768qoam/cXuDkdJqQwN92aYHZRzuGPl?=
- =?us-ascii?Q?VumKcRXBlHsFPeWm8TISerfRZGNwdI69v2d686tQ1dOuRpvkc0pmslxAYpKz?=
- =?us-ascii?Q?df/MImC115s1Febf59w3iSarYKQgrnQgy25CVd5brBrxiAZ2qRYw3+XWmZKX?=
- =?us-ascii?Q?Zl07WUuiUWYtqyxPDgA/3Wy8QetYlEUq/uloP9YmRY/VT2bHzw0g+vxS56MH?=
- =?us-ascii?Q?NGTQWaPElXL8g1nHqfqdkQutXN9xX1EAXtCXIJuLdEoRXBxV54yvrPgPZlps?=
- =?us-ascii?Q?eLWHe8e4vkpmZ8S2Rzq/yKDOO1uKpl6Z5/eA0EadzNo8Zi5VGbKmcpnh63e5?=
- =?us-ascii?Q?RF7Q0qOgNh6i6IwsvxkDLUvrZ6ZWvM4AVhMi3v3eO7EsmL4Gjy94AjZiKU27?=
- =?us-ascii?Q?A25hkr92+CfDwVOhyPMrLf6SjZ5c+LPQP5694s7IX2UO9PhK5WwtgPmiDeWj?=
- =?us-ascii?Q?aWGrn0+hF1TmPiWDGs1HkNr868NYwucyhfiHAHHgPhMLQ9typx3IH4uKaohA?=
- =?us-ascii?Q?Jh9vRZLMrJH8vv6RW6+ejezHPrpaVpi4RLqpokGcs5oOZ4JLszI2/QXRIUjO?=
- =?us-ascii?Q?J1bkLaIDDqiZq/82n6fO0a4sLXGqQdAoVf+5+t+X8deCH02YU3aijQj1jyH5?=
- =?us-ascii?Q?xgNyy/x6QRyPRufT01V8S9IWa4ZgtVSoAQd42Q8jJq7heVnEnRQe5Nc8J+6+?=
- =?us-ascii?Q?woh+E8PkA3e6NkgVS11+q8zGtYN5QygODhRyE4HCSyntVUziEOXouG5FqPsC?=
- =?us-ascii?Q?tRvQltGKnNGSKNuN4+9qxuq5+4HOtgAFp7Tc5WNsJesVdOZDkx+527lKv/gV?=
- =?us-ascii?Q?/Wy0x8oRaHclx+gVMaf0I7isy84wqu3Vp0g8bSdHmPoVWOZOQn6SZ3L2o+xG?=
- =?us-ascii?Q?0+1+BgpyaZyFFCo3HQsCn88qk4h1CwTKANiSpXumozwZXPGwSh2erldzamo4?=
- =?us-ascii?Q?HWo6U+w26n7C2cKGIj7B4xy9hVVz/Wb85FmlBqNDPnclLSQQO5Wk6A0P7iFi?=
- =?us-ascii?Q?hOE5OopAuecnBxGlRnmTL4ydHil/5BQlBoBPUEGMEwme8vT+HO0Kjfpu9+by?=
- =?us-ascii?Q?cyZ9OjMvHlK99DNdb24QG3mSAhUt0wGCMUi6AOv0jseH246jVZ6TL3hjGwFD?=
- =?us-ascii?Q?gil9TZspdtSlkdf0hfAmi58FPYfzdwVR8TkJwKzVwfzYVcXUuaz6WkJtPKJn?=
- =?us-ascii?Q?cyYvRN8SB1nAxrW3Y34r9crXFvu5VzXNwLuKKQHUGto+Jsfg2STxAXWrimaS?=
- =?us-ascii?Q?TCazqCtV5rOlua6Y1TVS7WNGrs9rmEhZER4ngYkKKGTYRUZm5WDeKW/UWXmO?=
- =?us-ascii?Q?f/+otr97FTzinNKAVYvj6EzlVyMEiUa20ogbkvXWi/fta84AHWOxm2HKWfkm?=
- =?us-ascii?Q?UfcJqbfuLFKOZ3gNHI5KLW1mrg8kf2E3zsV7MeyS?=
+	=?us-ascii?Q?gMkOExz2WWRjcxOn0EBPR5wXqKowVk2qoQa9fTAy2kwdB3ooutLUW76jM5Zk?=
+ =?us-ascii?Q?SjbrIHAsTSBO02ag4IFdHz4yL9rxu0mtRw+plrmBMGZc3lywgr5TxFoEURmm?=
+ =?us-ascii?Q?RGKGb7l+sH7oLho3tlxtJ2enn8/A9UU6SwJNtC0g83PAH7pqxriFFEw/i++c?=
+ =?us-ascii?Q?LYzQjRsrdXwo8TOjjILtojl3TopfINLMrxAhom8Tye+qHHpDN6dphwKXEzi3?=
+ =?us-ascii?Q?uk4hGahkHH1k9Ajp19fBsuQRAKgYgB7Bdrvav87o+n3+9Cf8lgD4pSATnXGQ?=
+ =?us-ascii?Q?N4BVll2tnzFgojuDy/ao+TV6B9zIs37fkEh8jccN/0ZoALOnZ4GJD2UvUFu3?=
+ =?us-ascii?Q?5ddXQpwdVHXdd9nxOkgihCy0F6ZsrZMNZUKswIWDqyZH1LjI8LmnUj5CtCOf?=
+ =?us-ascii?Q?VjT9Rl/o+D8F/nDaZuZr4qHYW1S0zZh+HPyrLvINx5vNeKVIbHJK6w/8Y0ix?=
+ =?us-ascii?Q?eQYQuM+r3fEZtb/isMC67xwuUURgJHUmvK6uTfANm1FOGuanBPy4OTE30Xz+?=
+ =?us-ascii?Q?5LoUbsbgZyhMHtTTW1r87gpaeYjr0RJj/FoY0Oh+yH4e688w4BfK7YZt2Glk?=
+ =?us-ascii?Q?eLkY0R+1/2lYgDkMCjdcbgTK6ixso+GT1u+njeSeyOachO62R6XfhH/SvALp?=
+ =?us-ascii?Q?O5YlaJAei991fv6EpjbQpotF0Syyx0/4hyim673e1X46CccE4XSa0EvkNKmP?=
+ =?us-ascii?Q?prIMBmBNAc9bT24izvR9OshK12puuWIbtmycHqfQZ4OHXbx7jVbLUQxSQ5o9?=
+ =?us-ascii?Q?cqZEpwi7Dq/kJ+uhhOYyWkN8/1TE+lZv+/0jwS8okpitreCmKF7boL0KqXYR?=
+ =?us-ascii?Q?V6rOeJf1zKgXVgVJ4KVPK/wZpZ4gJ7iInJk5oKmUwvUN4poLppjf+A2+hAZN?=
+ =?us-ascii?Q?H6l+roJTPHbsw8Eams68+9noXCpxl5VBePkwFAhl8bpaHx0uF0wIMYZ2OBuG?=
+ =?us-ascii?Q?jITGurXPrtfRa1P7IEGxI3tCC1KqiURUUppWoSkg7BpOqWKBkdWavMEj5HJ5?=
+ =?us-ascii?Q?F7gYbQ4+I5RyBJUJBDj6isayTaAw9hXo7Gly8ysmdBMOTxgsk0u8qY1P/mjH?=
+ =?us-ascii?Q?u9fOWg0GHBB2qJzX9RERHdWEqBQwqwQ39lhC8yrJghYoqASl5R0PK3tvjZHq?=
+ =?us-ascii?Q?ukLHTbFim4o4mR1tr7Ilu/aAlZV5qhusBcuY2OklIZebmH1aG5LReKJT6jjf?=
+ =?us-ascii?Q?wULlh511gSdOwCDMTuNnGExb94NvG43rIF8R1TpZkUD2IVbT2Mm/f2AvCN/z?=
+ =?us-ascii?Q?8sghlImeDtTHjaYVZdRYHN1P1zrq/RisYlHAjzi37uZ6jMpLMpDAc3rvA0qm?=
+ =?us-ascii?Q?0kwO6yHGTkU0uKntBSBenhXUaVWlyjxBKcxJ/0XU8Qdi6l8n2rHTo/iTAAB3?=
+ =?us-ascii?Q?5erRd8DQTQxrFIGlSNmQxTYOSb/vaXieZ0seWkAeDwFMWCCyBcuw0JS6P8Jn?=
+ =?us-ascii?Q?d4PGJ0EgrnqccPvP+bQB35IPZyLdFiqOWjGV9t5Aqq0brrp26+DMZGnEBQCM?=
+ =?us-ascii?Q?qcOVmL9M7Sqh0DziiM//xiSGmQlwp0kfsaC9I2jQ2F80ysa3KCL0dDkyRCO3?=
+ =?us-ascii?Q?dHxUfsWs5tLxRG6DeaFfoB7oNY7cvMdLQYpYrvOY?=
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 0fb8372c-0d25-429d-cf96-08dbeb47b58e
+ c5e93007-0548-4cfc-af04-08dbeb47b8b4
 X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 10:42:22.7925
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 10:42:28.0597
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- F/Mwj6SDHvC4XHTV7QQwKUvlebhtdGbfhgW3qgDJHLBvxoFqq0wmGgV16V3uLdyTb8+tfaLHyoWoUAb9itsozA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9328
-Message-ID-Hash: 22PY5PDSFNQRZB4LGMU7M2Y4TQ46IEBE
-X-Message-ID-Hash: 22PY5PDSFNQRZB4LGMU7M2Y4TQ46IEBE
+ seKb4RU+pR1jsYekqynPSv+yj8KegFl/LN2A3eGOE7VUf/FHg6CULGOGBEa82E5zelMU2EsV4suLbllGoF3kVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7577
+Message-ID-Hash: 3VQAEDREIQOZRYDDFHWK4V63ZDVGPC4U
+X-Message-ID-Hash: 3VQAEDREIQOZRYDDFHWK4V63ZDVGPC4U
 X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -161,7 +162,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3VQAEDREIQOZRYDDFHWK4V63ZDVGPC4U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -170,27 +172,171 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Configure clock rate for audio PLL. There's one audio PLL on i.MX93. It
-is used as parent clock for clocks that are multiple of 8kHz.
+Convert NXP medium quality sound (MQS) device tree binding
+documentation to json-schema.
 
 Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx93.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/sound/fsl,mqs.txt     |  36 ------
+ .../devicetree/bindings/sound/fsl,mqs.yaml    | 105 ++++++++++++++++++
+ 2 files changed, 105 insertions(+), 36 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.yaml
 
-diff --git a/arch/arm64/boot/dts/freescale/imx93.dtsi b/arch/arm64/boot/dts/freescale/imx93.dtsi
-index 9a7bff39519c..e6745801308e 100644
---- a/arch/arm64/boot/dts/freescale/imx93.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx93.dtsi
-@@ -420,6 +420,8 @@ clk: clock-controller@44450000 {
- 				#clock-cells = <1>;
- 				clocks = <&osc_32k>, <&osc_24m>, <&clk_ext1>;
- 				clock-names = "osc_32k", "osc_24m", "clk_ext1";
-+				assigned-clocks = <&clk IMX93_CLK_AUDIO_PLL>;
-+				assigned-clock-rates = <393216000>;
- 				status = "okay";
- 			};
- 
+diff --git a/Documentation/devicetree/bindings/sound/fsl,mqs.txt b/Documentation/devicetree/bindings/sound/fsl,mqs.txt
+deleted file mode 100644
+index d66284b8bef2..000000000000
+--- a/Documentation/devicetree/bindings/sound/fsl,mqs.txt
++++ /dev/null
+@@ -1,36 +0,0 @@
+-fsl,mqs audio CODEC
+-
+-Required properties:
+-  - compatible : Must contain one of "fsl,imx6sx-mqs", "fsl,codec-mqs"
+-		"fsl,imx8qm-mqs", "fsl,imx8qxp-mqs", "fsl,imx93-mqs".
+-  - clocks : A list of phandles + clock-specifiers, one for each entry in
+-	     clock-names
+-  - clock-names : "mclk" - must required.
+-		  "core" - required if compatible is "fsl,imx8qm-mqs", it
+-		           is for register access.
+-  - gpr : A phandle of General Purpose Registers in IOMUX Controller.
+-	  Required if compatible is "fsl,imx6sx-mqs".
+-
+-Required if compatible is "fsl,imx8qm-mqs":
+-  - power-domains: A phandle of PM domain provider node.
+-  - reg: Offset and length of the register set for the device.
+-
+-Example:
+-
+-mqs: mqs {
+-	compatible = "fsl,imx6sx-mqs";
+-	gpr = <&gpr>;
+-	clocks = <&clks IMX6SX_CLK_SAI1>;
+-	clock-names = "mclk";
+-	status = "disabled";
+-};
+-
+-mqs: mqs@59850000 {
+-	compatible = "fsl,imx8qm-mqs";
+-	reg = <0x59850000 0x10000>;
+-	clocks = <&clk IMX8QM_AUD_MQS_IPG>,
+-		 <&clk IMX8QM_AUD_MQS_HMCLK>;
+-	clock-names = "core", "mclk";
+-	power-domains = <&pd_mqs0>;
+-	status = "disabled";
+-};
+diff --git a/Documentation/devicetree/bindings/sound/fsl,mqs.yaml b/Documentation/devicetree/bindings/sound/fsl,mqs.yaml
+new file mode 100644
+index 000000000000..8b33353a80ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/fsl,mqs.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/fsl,mqs.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP Medium Quality Sound (MQS)
++
++maintainers:
++  - Shengjiu Wang <shengjiu.wang@nxp.com>
++  - Chancel Liu <chancel.liu@nxp.com>
++
++description: |
++  Medium quality sound (MQS) is used to generate medium quality audio
++  via a standard GPIO in the pinmux, allowing the user to connect
++  stereo speakers or headphones to a power amplifier without an
++  additional DAC chip.
++
++properties:
++  compatible:
++    enum:
++      - fsl,imx6sx-mqs
++      - fsl,imx8qm-mqs
++      - fsl,imx8qxp-mqs
++      - fsl,imx93-mqs
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++
++  clock-names:
++    minItems: 1
++    maxItems: 2
++
++  gpr:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle to the General Purpose Register (GPR) node
++
++  reg:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - clocks
++  - clock-names
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - fsl,imx8qm-mqs
++              - fsl,imx8qxp-mqs
++    then:
++      properties:
++        clocks:
++          items:
++            - description: Master clock
++            - description: Clock for register access
++        clock-names:
++          items:
++            - const: mclk
++            - const: core
++      required:
++        - reg
++        - power-domains
++    else:
++      properties:
++        clocks:
++          items:
++            - description: Master clock
++        clock-names:
++          items:
++            - const: mclk
++      required:
++        - gpr
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/imx6sx-clock.h>
++    mqs0: mqs {
++        compatible = "fsl,imx6sx-mqs";
++        gpr = <&gpr>;
++        clocks = <&clks IMX6SX_CLK_SAI1>;
++        clock-names = "mclk";
++    };
++
++  - |
++    #include <dt-bindings/firmware/imx/rsrc.h>
++    mqs1: mqs@59850000 {
++        compatible = "fsl,imx8qm-mqs";
++        reg = <0x59850000 0x10000>;
++        clocks = <&mqs0_lpcg 0>, <&mqs0_lpcg 1>;
++        clock-names = "mclk", "core";
++        power-domains = <&pd IMX_SC_R_MQS_0>;
++    };
 -- 
 2.42.0
 

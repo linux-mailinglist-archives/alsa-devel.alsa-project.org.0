@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 787D77F3FD3
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 09:12:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D8C7F3FD4
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 09:12:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2C76E73;
-	Wed, 22 Nov 2023 09:12:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2C76E73
+	by alsa0.perex.cz (Postfix) with ESMTPS id 023F1E74;
+	Wed, 22 Nov 2023 09:12:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 023F1E74
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700640772;
-	bh=GsdVaK/6w2I+hshcMAEiTvWs5rldiATWBoHOnpkmn0s=;
+	s=default; t=1700640777;
+	bh=1/vy8yc0RAEw02wOPocJO4TrS5C92I8rPyJDiAY9dNI=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=KuhwW/oRFQjqtAi+o01kxr+um6LPwqL30e6E+xZuMNGHIjM5gMaPKAXpoP0dR8Q1/
-	 wBtnlZ86EXQ2XT++7MZWEPJrmPlZxTVGXgZ5GQNNPrKLtiLiIb+EXeEMUV8KRAdoGN
-	 uvfccIgAKavuPo6qQGi9NcisOGh8OdHzNmtwZxHw=
+	b=WdtSZJ5BZwFj8mMb27fR/EJBfWAmT5u8mQIKeuWFYBbbpvyJgoboKPeglUOdc4p3v
+	 Gkrpkz06wOMRHR00drw5EsTHMhegbkkCXLrSWClkq8i//fTy9ZslbJ1OqabQcbrU1w
+	 AuYf+SfUIouwyAoUjhRUANm/KUw/ShyaRRpKgI/I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88D8DF80697; Wed, 22 Nov 2023 09:11:37 +0100 (CET)
+	id D815AF806AE; Wed, 22 Nov 2023 09:11:37 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B519F8061C;
+	by alsa1.perex.cz (Postfix) with ESMTP id D0710F80689;
 	Wed, 22 Nov 2023 09:11:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2504F8055A; Wed, 22 Nov 2023 09:04:37 +0100 (CET)
+	id 61588F8055B; Wed, 22 Nov 2023 09:04:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 770A7F8055B
-	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 09:04:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 770A7F8055B
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1D77E201748;
-	Wed, 22 Nov 2023 09:04:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 111D1F80567
+	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 09:04:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 111D1F80567
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id BB0611A10DB;
+	Wed, 22 Nov 2023 09:04:13 +0100 (CET)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id D795F20173D;
-	Wed, 22 Nov 2023 09:04:11 +0100 (CET)
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 576D91A1662;
+	Wed, 22 Nov 2023 09:04:13 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id D80C8183AD46;
-	Wed, 22 Nov 2023 16:04:09 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5DC45181D0E2;
+	Wed, 22 Nov 2023 16:04:11 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: hverkuil@xs4all.nl,
 	sakari.ailus@iki.fi,
@@ -66,15 +66,15 @@ To: hverkuil@xs4all.nl,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v11 12/15] media: uapi: Add an entity type for audio resampler
-Date: Wed, 22 Nov 2023 15:23:55 +0800
-Message-Id: <1700637838-6743-13-git-send-email-shengjiu.wang@nxp.com>
+Subject: [PATCH v11 13/15] media: vivid: add fixed point test controls
+Date: Wed, 22 Nov 2023 15:23:56 +0800
+Message-Id: <1700637838-6743-14-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1700637838-6743-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1700637838-6743-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: NPKHMQMLR24GS63PES2XAZDBB3SNYD5Y
-X-Message-ID-Hash: NPKHMQMLR24GS63PES2XAZDBB3SNYD5Y
+Message-ID-Hash: 5TGFSP3HK624ABLGZ35FDUMD34JJNQQA
+X-Message-ID-Hash: 5TGFSP3HK624ABLGZ35FDUMD34JJNQQA
 X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPKHMQMLR24GS63PES2XAZDBB3SNYD5Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5TGFSP3HK624ABLGZ35FDUMD34JJNQQA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,51 +96,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add and document a media entity type for audio resampler.
-It is MEDIA_ENT_F_PROC_AUDIO_RESAMPLER.
+Add fixed point test controls, one is for Q4.16 format
+another one is for Q63 format.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- Documentation/userspace-api/media/mediactl/media-types.rst | 6 ++++++
- include/uapi/linux/media.h                                 | 1 +
- 2 files changed, 7 insertions(+)
+ drivers/media/test-drivers/vivid/vivid-core.h |  2 ++
+ .../media/test-drivers/vivid/vivid-ctrls.c    | 26 +++++++++++++++++++
+ include/media/v4l2-ctrls.h                    |  3 +++
+ 3 files changed, 31 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/mediactl/media-types.rst b/Documentation/userspace-api/media/mediactl/media-types.rst
-index f0880aea41d6..abbe515dad76 100644
---- a/Documentation/userspace-api/media/mediactl/media-types.rst
-+++ b/Documentation/userspace-api/media/mediactl/media-types.rst
-@@ -40,6 +40,7 @@ Types and flags used to represent the media graph elements
- .. _MEDIA-ENT-F-PROC-VIDEO-ENCODER:
- .. _MEDIA-ENT-F-PROC-VIDEO-DECODER:
- .. _MEDIA-ENT-F-PROC-VIDEO-ISP:
-+.. _MEDIA-ENT-F-PROC-AUDIO-RESAMPLER:
- .. _MEDIA-ENT-F-VID-MUX:
- .. _MEDIA-ENT-F-VID-IF-BRIDGE:
- .. _MEDIA-ENT-F-DV-DECODER:
-@@ -208,6 +209,11 @@ Types and flags used to represent the media graph elements
- 	  combination of custom V4L2 controls and IOCTLs, and parameters
- 	  supplied in a metadata buffer.
+diff --git a/drivers/media/test-drivers/vivid/vivid-core.h b/drivers/media/test-drivers/vivid/vivid-core.h
+index cfb8e66083f6..f65465191bc9 100644
+--- a/drivers/media/test-drivers/vivid/vivid-core.h
++++ b/drivers/media/test-drivers/vivid/vivid-core.h
+@@ -222,6 +222,8 @@ struct vivid_dev {
+ 	struct v4l2_ctrl		*boolean;
+ 	struct v4l2_ctrl		*int32;
+ 	struct v4l2_ctrl		*int64;
++	struct v4l2_ctrl		*int32_q16;
++	struct v4l2_ctrl		*int64_q63;
+ 	struct v4l2_ctrl		*menu;
+ 	struct v4l2_ctrl		*string;
+ 	struct v4l2_ctrl		*bitmask;
+diff --git a/drivers/media/test-drivers/vivid/vivid-ctrls.c b/drivers/media/test-drivers/vivid/vivid-ctrls.c
+index f2b20e25a7a4..2444ea95b285 100644
+--- a/drivers/media/test-drivers/vivid/vivid-ctrls.c
++++ b/drivers/media/test-drivers/vivid/vivid-ctrls.c
+@@ -38,6 +38,8 @@
+ #define VIVID_CID_U8_PIXEL_ARRAY	(VIVID_CID_CUSTOM_BASE + 14)
+ #define VIVID_CID_S32_ARRAY		(VIVID_CID_CUSTOM_BASE + 15)
+ #define VIVID_CID_S64_ARRAY		(VIVID_CID_CUSTOM_BASE + 16)
++#define VIVID_CID_INT_Q4_16		(VIVID_CID_CUSTOM_BASE + 17)
++#define VIVID_CID_INT64_Q63		(VIVID_CID_CUSTOM_BASE + 18)
  
-+    *  -  ``MEDIA_ENT_F_PROC_AUDIO_RESAMPLER``
-+       -  An Audio Resampler device. An entity capable of
-+	  resampling a audio stream from one sample rate to another sample
-+	  rate. Must have one sink pad and at least one source pad.
+ #define VIVID_CID_VIVID_BASE		(0x00f00000 | 0xf000)
+ #define VIVID_CID_VIVID_CLASS		(0x00f00000 | 1)
+@@ -182,6 +184,28 @@ static const struct v4l2_ctrl_config vivid_ctrl_int64 = {
+ 	.step = 1,
+ };
+ 
++static const struct v4l2_ctrl_config vivid_ctrl_int32_q16 = {
++	.ops = &vivid_user_gen_ctrl_ops,
++	.id = VIVID_CID_INT_Q4_16,
++	.name = "Integer 32 Bits Q4.16",
++	.type = V4L2_CTRL_TYPE_INTEGER,
++	.min = v4l2_ctrl_fp_compose(-16, 0, 16),
++	.max = v4l2_ctrl_fp_compose(15, 0xffff, 16),
++	.step = 1,
++	.fraction_bits = 16,
++};
 +
-     *  -  ``MEDIA_ENT_F_VID_MUX``
-        - Video multiplexer. An entity capable of multiplexing must have at
-          least two sink pads and one source pad, and must pass the video
-diff --git a/include/uapi/linux/media.h b/include/uapi/linux/media.h
-index 9ff6dec7393a..a8266eaa8042 100644
---- a/include/uapi/linux/media.h
-+++ b/include/uapi/linux/media.h
-@@ -125,6 +125,7 @@ struct media_device_info {
- #define MEDIA_ENT_F_PROC_VIDEO_ENCODER		(MEDIA_ENT_F_BASE + 0x4007)
- #define MEDIA_ENT_F_PROC_VIDEO_DECODER		(MEDIA_ENT_F_BASE + 0x4008)
- #define MEDIA_ENT_F_PROC_VIDEO_ISP		(MEDIA_ENT_F_BASE + 0x4009)
-+#define MEDIA_ENT_F_PROC_AUDIO_RESAMPLER	(MEDIA_ENT_F_BASE + 0x400a)
++static const struct v4l2_ctrl_config vivid_ctrl_int64_q63 = {
++	.ops = &vivid_user_gen_ctrl_ops,
++	.id = VIVID_CID_INT64_Q63,
++	.name = "Integer 64 Bits Q63",
++	.type = V4L2_CTRL_TYPE_INTEGER64,
++	.min = v4l2_ctrl_fp_compose(-1, 0, 63),
++	.max = v4l2_ctrl_fp_compose(0, LLONG_MAX, 63),
++	.step = 1,
++	.fraction_bits = 63,
++};
++
+ static const struct v4l2_ctrl_config vivid_ctrl_u32_array = {
+ 	.ops = &vivid_user_gen_ctrl_ops,
+ 	.id = VIVID_CID_U32_ARRAY,
+@@ -1670,6 +1694,8 @@ int vivid_create_controls(struct vivid_dev *dev, bool show_ccs_cap,
+ 	dev->button = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_button, NULL);
+ 	dev->int32 = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_int32, NULL);
+ 	dev->int64 = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_int64, NULL);
++	dev->int32_q16 = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_int32_q16, NULL);
++	dev->int64_q63 = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_int64_q63, NULL);
+ 	dev->boolean = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_boolean, NULL);
+ 	dev->menu = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_menu, NULL);
+ 	dev->string = v4l2_ctrl_new_custom(hdl_user_gen, &vivid_ctrl_string, NULL);
+diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+index c35514c5bf88..d18fd116238b 100644
+--- a/include/media/v4l2-ctrls.h
++++ b/include/media/v4l2-ctrls.h
+@@ -1593,4 +1593,7 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl);
+  */
+ int v4l2_ctrl_type_op_validate(const struct v4l2_ctrl *ctrl, union v4l2_ctrl_ptr ptr);
  
- /*
-  * Switch and bridge entity functions
++/* Composite function for integer and fractional bits */
++#define v4l2_ctrl_fp_compose(i, f, fraction_bits) (((s64)(i) << fraction_bits) + (f))
++
+ #endif
 -- 
 2.34.1
 

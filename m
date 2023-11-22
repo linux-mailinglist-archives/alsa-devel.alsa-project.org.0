@@ -2,110 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F7077F4374
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 11:17:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4C57F4427
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Nov 2023 11:42:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5D791EC;
-	Wed, 22 Nov 2023 11:17:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5D791EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B34BF844;
+	Wed, 22 Nov 2023 11:42:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B34BF844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700648253;
-	bh=SfMfIn6cGJ/3tiv0g8Ia2y4dY1dc2SCJf6LIUSGgQJU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DGQmARmBu3le2ygBnJ0TGuqiMPCyUIoSKFivUuhjO6pYEkWG88gTAg80mTlHulcyR
-	 Mmx/pe5N3X57aXIxuitXLhEdRbNuQpjssfeCB//2KiwMWqFwrazJqzjGunIguwhBEJ
-	 mGLs+2AzYxzfaUp0Q01XCIZxDSZeG4OvXD5ZgVT4=
+	s=default; t=1700649771;
+	bh=Oc2FHc5uyVgJCOZodFWmt3CdpWdzmxEfDxMwi/FcYLQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=NCFoi5lUsTu19Gpi6j5G/B4285le/s23EP8b4mcMuLiyN534mRv17KoK9t8WFI0ia
+	 z2OQIq0CPvjXLFYSDWHsK5xHBBReBkjjtFHmGnEnENXIjlVTxLODPsTbmtQFQT86/R
+	 y11BGfsxaZ2Yty64CFJT4xowd3Lux3/rzskZwSow=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47BF6F80558; Wed, 22 Nov 2023 11:17:01 +0100 (CET)
+	id 832AFF8055B; Wed, 22 Nov 2023 11:42:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B18BF80579;
-	Wed, 22 Nov 2023 11:17:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6985F8057C;
+	Wed, 22 Nov 2023 11:42:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42AE3F802E8; Wed, 22 Nov 2023 11:16:57 +0100 (CET)
+	id 555FFF80310; Wed, 22 Nov 2023 11:42:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0e::62f])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3868BF80246
-	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 11:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3868BF80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A00CF80246
+	for <alsa-devel@alsa-project.org>; Wed, 22 Nov 2023 11:42:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A00CF80246
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Z9y1a8SN
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-543c3756521so8993383a12.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 22 Nov 2023 02:16:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700648207; x=1701253007;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6rLc9eoJnMu6ltPbT1jIbts/TAhvqm1awxCFreB1Q6k=;
-        b=Z9y1a8SNRyitbB07/HL+scubEosiQGmEQKCfLurfNoiU5za7Z7V5FuBMEA7+NJ6J/2
-         rNYfgFHl46fTVd2zsqSvLja/EkmMiyBQNAEoIvl/WCApiqVnigZK0Bbh3heb4uJqAuHZ
-         IEPt2rtLJo5A3ypaDddbm5HUMamqbxapqqCaMn8D9eTKdg3Ka+QbuYIiXMrzJzF5/bje
-         63IHshpKIaEQCcQv6xN9hXR1kWNoM/knwEaDXT+XIU1Ep55P53j8jsnI3xrY3xKeOguo
-         fU4SLH7s/jzCXFDYCdK//8TNmpGT2w4EX5sqlmHVS6RzAWb/nmjC3gAxDIpZDmhZMenJ
-         S7Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700648207; x=1701253007;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6rLc9eoJnMu6ltPbT1jIbts/TAhvqm1awxCFreB1Q6k=;
-        b=qLMiTWMpPC7Yn2g2ccZde9Ng6cGAlqUbe5ECnEdACSVmztaDXXT+g/K0qWOw3YUaKR
-         9ZlYrkmaXHcjsIuvWrDzdAty+QaOLnZaSralSJ+PmG+wYv2blwCdkMTSyrrfTFCLKkYm
-         3orBXVFbxQq5+BxnV/Uj4xBqKRs9kTJJK5hGLmoktwEpYEeOn1arK3xQuRKbLUY9SCG6
-         5rIkWkjsH8R0Pa9jNj4IUjl1CTs9DrFParnMlzldNrpUlg77XGUsvSW0HeylY1nAGHmh
-         9crRk0CtMtZNjWo0Xwvy5HzqR+CNqMHt4IiPe/hp6kR7jTtmvHowrbqybof2ebCVi1Wf
-         yD3w==
-X-Gm-Message-State: AOJu0YwHwuMNfC4+d3aduSuV/GKhD9utfdZhTKO+K4gGKstTOzBKP34r
-	qVBhhmxhihtIhLSrZrICuhi4Q9hMDyZOQOIC64A=
-X-Google-Smtp-Source: 
- AGHT+IH/nwieVeaKbZx03znmMuIeYwKqQartp3JyCE9X3wGV4XSH5V/OVoP2++RCu/gWdT9pwIyQQOxwFkTbOpIvhy0=
-X-Received: by 2002:a17:907:9543:b0:a00:4d7e:4825 with SMTP id
- ex3-20020a170907954300b00a004d7e4825mr966199ejc.35.1700648206932; Wed, 22 Nov
- 2023 02:16:46 -0800 (PST)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=NyVmDO8j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i2jvSzonDyXhrRqiA+MuDdO7B38XlL+3aULOKI/kx1NqGN7FWR/l9DpxnTZ+Ouij71lfIcvfVxmbrBm0yVUMqc1sLaOUDVX3e5HMdkM4lX3doBfpCr1WMc/l/ThpOvPRxwX6UjAc3ySIDP/scWywD92TF85QipZHdNrdKFZbztp3gUfEj4Wdb9+N+/Hoc791jV4k5T+ixCt0MSHNsYiks6ICmnNVowW/PMcC+esWPlnzY+6R/5qIotgdDHr7aHwZ4/Ljp0Bmebj3cRvnsvBJql0d76F/fPoV2lITQ2j9EKwT7q8DfA3qqEj8Hn3s5zeR7egjVbty50dSOt08dRRz8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vLQ2D/cm34I9dF8w36I3wzb9U6Bs5fpsAZ8NcgBV4NQ=;
+ b=Becb9z6Fkhx2NgTKalZvmB2YTP49guLRKsGwu/9LQBJgfOhdQ66zqkc8bLbYeLV1iSsoXCHDgYMuQBoqTgLlstV7w22kJBSbylZH53TjQvalIKs1v5UMHqcpyGR+Vl4SdRk9odsfqzR3dd/Dm+ns43eEVEkFXRt+Z11f9ILdjWJaVPsl/E0Mk/+LqX4QMA+TUk4OQe9K/XIpj/qH+PCx1247sZYw9oV8NFdVfratAYylIeqvdi0+YoAVVBxb4Ne2O9WckGu4tAW28JHCZlwSLqcPasLbH8xlp2BHrBkoopZddT3/VtZCMW315kpzUJOvQLF0qpDxzNB8zayO8M85/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vLQ2D/cm34I9dF8w36I3wzb9U6Bs5fpsAZ8NcgBV4NQ=;
+ b=NyVmDO8jimZobOOPhtxKCQeEToxQEgnBXdkTZwVBggbprZEy460SBCSxbN1tp6S+CpjUc6YR03YTl1YG2umSuCJkisOqHFK80VFze1LPXmitbzibLz7XXWyCX99yk4oRoYHfhEQJfcuyqcRfFsD5iiH8R2QPjeDVp6K1HD43KtQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
+ by PAXPR04MB9328.eurprd04.prod.outlook.com (2603:10a6:102:2b6::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.17; Wed, 22 Nov
+ 2023 10:42:11 +0000
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::dffc:1d:4398:7768]) by DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::dffc:1d:4398:7768%6]) with mapi id 15.20.7025.019; Wed, 22 Nov 2023
+ 10:42:11 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	shawnguo@kernel.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	linux-imx@nxp.com,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Chancel Liu <chancel.liu@nxp.com>
+Subject: [PATCH v3 0/3] Add audio device nodes for i.MX93 platform
+Date: Wed, 22 Nov 2023 18:19:56 +0800
+Message-Id: <20231122101959.30264-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: AM0PR03CA0074.eurprd03.prod.outlook.com
+ (2603:10a6:208:69::15) To DB9PR04MB9498.eurprd04.prod.outlook.com
+ (2603:10a6:10:360::21)
 MIME-Version: 1.0
-References: <20231117163900.766996-1-daniel.baluta@oss.nxp.com>
- <874jhh2g8s.wl-kuninori.morimoto.gx@renesas.com>
- <CAEnQRZBb0ZJk7aTaji-xH2jEs7QiTaoXTuS5_K-ruSaxpEnWdw@mail.gmail.com>
- <TYCPR01MB109142FEC8F77CFFE3930456CD4B4A@TYCPR01MB10914.jpnprd01.prod.outlook.com>
- <CAEnQRZD8zbgRzBrx+iHTbDqG5tOedNLyJByNNtSHTRtxFsgyGw@mail.gmail.com>
- <878r6qh2y1.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <878r6qh2y1.wl-kuninori.morimoto.gx@renesas.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 22 Nov 2023 12:16:34 +0200
-Message-ID: 
- <CAEnQRZAVM6=2udYg0jY8dD_uVE8yGQgsoZ14K1MBiCP+dCqLNQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] ASoC: simple-card: Use dai_id from node description
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Daniel Baluta <daniel.baluta@oss.nxp.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"iuliana.prodan@nxp.com" <iuliana.prodan@nxp.com>,
- "shengjiu.wang@nxp.com" <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: KB5NV4YUZ2QX7WAAESN42WSQAHFCRBIX
-X-Message-ID-Hash: KB5NV4YUZ2QX7WAAESN42WSQAHFCRBIX
-X-MailFrom: daniel.baluta@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|PAXPR04MB9328:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43fe542d-5cb3-42f1-2931-08dbeb47aeda
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Xb1v0yUDH6spTZKusVd7RTLsAsQOcP7MpHnQWSYNFEZDqV09/s46BLQH4Ned91gbsFEWR6OmIh5JJmDIlf0wP6gm9OL5GqZP+PWPKtOwrOw2aGQVSa+GVx3fUu5XeEhdTtFKLcQkFjdg7Wd/bW5NWQhQv38KNQc4ZpyFOjVZMMYvmG8iuu/X/+3YD5BRuux9sxo55wlH+Jhd+9LmSedicIuaKXtK7/Bd25wXzxLkOQNnMTK/EmtqNj5VWoxmS7zJiAr6mGAl8wVOw9e/9u4m8lbGzMeK9NhSGJQel5ByVvrsPZDWnAtKY0rFTrRI3GaWNdTe96kmqlmnkxB6H+CJdChbnlg5M+JiBceM3iMhrTqbusZmoxtdV2MTX1NPxn7/QQdx/vXFfebFTj967RZADc0nGjUPQ7eWCcPkd6zbionhkTj2HXDlUfVbAGx3TUstCk1SHDrDQHNT/ZbZMHYdjYl2mKyE15Vg218L/gHOWwzCX2Wk9FHctsFF3bsAtoJM9JlyNlOTbxa/n1TnW0I3MWulpNwFkCiQlxcc2eavBQEZP78Q9v53SQ81JVED8/9ys6zGbiChzPnlNlKHNckN4+8bp5fONaDYdZwsZq2+kICzXgc72uKwganVcfR7cyqveZ99l3BpHLVLa72S+sdtAyiJJrSZSnTv2v8+aaarkvs=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(346002)(396003)(366004)(39860400002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(83380400001)(6486002)(6506007)(478600001)(6512007)(26005)(6666004)(1076003)(52116002)(2616005)(38100700002)(66946007)(66476007)(316002)(66556008)(44832011)(86362001)(5660300002)(7416002)(2906002)(4744005)(2013699003)(921008)(38350700005)(41300700001)(8936002)(4326008)(8676002)(36756003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?rhVEe85yeM2i9OTM/eWhNJCTdM+iaRRQmTjk5USLq4az+ovrfvhgwJIGHWRt?=
+ =?us-ascii?Q?luupa4bioOTN55IPSM4YkZK6w/ueV9fCurw0gkF9qbh3Q2+sExv3ohSbSQA8?=
+ =?us-ascii?Q?j6YDivRiGMWgQ+JHpljHJtCZGdrDb9uQJ8bF+uD/hlykHEFW5Gzg3AvKJtlF?=
+ =?us-ascii?Q?OOjIWum27Eu/+hHDBmnpBW7e+10+1n7ZatzFUVwkYLIkyB+GVRCgFWYq8czU?=
+ =?us-ascii?Q?MOnRmRSDfIwffr0lphUQp8UHdTMGzorq6GFaqecb/rG+u4WyjnQvQvaPVLD9?=
+ =?us-ascii?Q?1bejM6lm/2jAMMXI33BRxI1663Kis8o/aKBpdjADMN925LVDGzowF3aezmVE?=
+ =?us-ascii?Q?7/3FUpBLv/S6hqBcfj5ZJsL/rsyZHbqxpkQKGjQYnypA0WyBKnAH1BN9ixbJ?=
+ =?us-ascii?Q?QmDfP4AWFZjoro/EHlCCY0J/++/EFBnYtzIbHO/QI6oOoToNMiUTxR4Q2yV8?=
+ =?us-ascii?Q?2Wx35I+hkiBdq/84i+dgmZDQ/f518TDLFkE7naCWwGvpnjYTgEjOEG3MtUyL?=
+ =?us-ascii?Q?vXoRdrpZgl/MfxCcpwrXSgq1ccwlINGeydqnbvLDVh1WKPZeY92jGIZOpR5t?=
+ =?us-ascii?Q?0YGxrjIl/i3O+d9udIVI4VbL5YPF/FsiOO0HJscN/3TK3toOFjk470WUWjmX?=
+ =?us-ascii?Q?CYL2wp81SgwnzdNv7zkAa9E9zhuh7hEntKlGzP5j0oUxJjo4m6hwsyCf/gGj?=
+ =?us-ascii?Q?/40X+QnYRaZtjo2LW5g/g8A4xV5C0jGT3BtUwVm38wvlTNitZAr7Z8Oqi9Nl?=
+ =?us-ascii?Q?5IqCHeMl9GyoAaWDgPQgqkgfmyGaIvLvdMVrDRkRsrNdDy/Qo2U8i6xio4/6?=
+ =?us-ascii?Q?kYKV9q7obY/F0sMI3aABWZeKV16Bl7zzPjGIvsDfrDELkAWbkEEgOMY0xCgw?=
+ =?us-ascii?Q?Sq1GEDke7G0JXPkliLtwx3Xy+Ic7rVnsEXIPFb4C5/rB1XkOYd4OTlcTsyw4?=
+ =?us-ascii?Q?FlI0et7A5qRiZwXM23Nauj/1eGw0gO6aKxMeG+2lOMf7ZbRwR6OHLIJX7wqV?=
+ =?us-ascii?Q?onAUDee1B7K2q4+MZ+FvVId4c2P728Fcck7L8nbXpiCE1/atr9N30GfqXmx0?=
+ =?us-ascii?Q?jGlDfKfK9iwY+ljvE1pHSkb73I+py2ETdqNxlHvEzNMpaXBdK4OWM4oeSyeO?=
+ =?us-ascii?Q?t7PHQkHzjEOgCU90KXvy9f0UnWljqWYnYK09/dvrYYS+3eInYGpz8vra2tfu?=
+ =?us-ascii?Q?eJVwyrst0dhHUESepn9JKGddlNEApSiBGbhvvfozSxmTlw4HlYlMrTXwB2/p?=
+ =?us-ascii?Q?Zf54Zhu5EBSN4YDT8a4lyFi74r44R40ZuXz39T3k+s+wByr6hY05hYOZuzZn?=
+ =?us-ascii?Q?DwxQDRB+NWpUfGpH1qzmhq9GNHtGAf0iErV+8q7cSYZJnItOT/VnddyCvUpL?=
+ =?us-ascii?Q?rnz9cqRYHucLn/Yp19rbqcM8UaGsq3G4T92J8Db+UEPTcw8ERt3VHrPv6QRI?=
+ =?us-ascii?Q?IutioL6Rw6lMFLCri2NZ3pIuzk06secW0PKrtMymnW/kclIfSNDQTrFsEplW?=
+ =?us-ascii?Q?j/6b/xfD6SN5vwPTBU5jBucPz5HSuUTU7VNibBIuyTLK/BunMg9P1CDY12hu?=
+ =?us-ascii?Q?E/FpzyoteHh4ecaVrnTWxUTpJAtMWg0IcURBzzno?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 43fe542d-5cb3-42f1-2931-08dbeb47aeda
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 10:42:11.5949
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ qCwJgeflJaLkO4AvC5YLSNfa4JaSiRlVBmqRPaBVrhkEaYPx/0w7GPbCeNfIyTJ5pOrtzKImQscatnInNXceFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9328
+Message-ID-Hash: DGSQK2WJ4HJBI7ZIIRHJETCEVP57PBNO
+X-Message-ID-Hash: DGSQK2WJ4HJBI7ZIIRHJETCEVP57PBNO
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +159,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KB5NV4YUZ2QX7WAAESN42WSQAHFCRBIX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DGSQK2WJ4HJBI7ZIIRHJETCEVP57PBNO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,38 +168,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Nov 22, 2023 at 5:39=E2=80=AFAM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi Daniel
->
-> > > But hmm... in your case, you need to setup 2ports, and use 2nd port
-> > > is assumed approach.
-> > > Why you don't setup full port ? Do you have some reason ??
-> (snip)
-> > Now, I want to write a DTS description where my DAI link uses
-> > Component 0 (CPU) (with its DAI index 1) connected with Component 1
-> > (codec) (with its DAI index 0).
->
-> Thank you for indicating your DTS.
->
-> So in imx8m_dai case, it has total 3 DAIs, and you want to use reg =3D 1.
-> In such case, your DTS need to have like below, if my understanding was
-> correct.
->
->         dsp: dsp@3b6e8000 {
->                 ports {
->                              port@0 { reg =3D <0>;         endpoint { /* =
-not used */ };  };
->                         cpu: port@1 { reg =3D <1>; cpu_ep: endpoint { rem=
-ote-endpoint =3D <xxx>; }; };
->                              port@2 { reg =3D <2>;         endpoint { /* =
-not used */ };  };
->                 };
->         };
->
+changes in v3
+- drop unused compatible string in fsl,mqs.yaml
 
-This works! Thanks. I didn't know that you can leave an endpoint unused :).
+changes in v2
+- Move MQS device node under "/" root node
+- Convert fsl,mqs.txt to yaml
 
-So please ignore my initial patch then.
+Chancel Liu (3):
+  arm64: dts: imx93: Add audio device nodes
+  arm64: dts: imx93: Configure clock rate for audio PLL
+  ASoC: dt-bindings: fsl,mqs: Convert format to json-schema
+
+ .../devicetree/bindings/sound/fsl,mqs.txt     |  36 ------
+ .../devicetree/bindings/sound/fsl,mqs.yaml    | 105 ++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx93.dtsi      |  89 +++++++++++++++
+ 3 files changed, 194 insertions(+), 36 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,mqs.yaml
+
+--
+2.42.0
+

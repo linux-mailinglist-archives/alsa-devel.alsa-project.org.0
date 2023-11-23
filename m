@@ -2,96 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C243F7F6322
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Nov 2023 16:38:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DBAF7F639C
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Nov 2023 17:07:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFA5CE0F;
-	Thu, 23 Nov 2023 16:37:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFA5CE0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93CC2DF4;
+	Thu, 23 Nov 2023 17:07:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93CC2DF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700753887;
-	bh=pAE0IXNMhHsGWU0+8hFk9Uwf1vqlCzEPqOKEWcrI6Xw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=i1lrapKpF7tkEn6H7Vv+1YKN6aJy1W+rE+QGbZ7/nfsqL2J9JCtinwfxJYmJNnB1d
-	 WTWXbDIZveN0Ptmky/wTsVf6z5nyGu39SHIqMh3Enhec4LAkqwXjD0RDbmdBjb6XOa
-	 hfqH9PgPIapLG7IiOf44eaf0NsAv8AphJaVyCup0=
+	s=default; t=1700755678;
+	bh=glOYMbA97Lnh+WhSsjgu2KL7WA9x66UnSGl4pschxk8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fqsS1W/ciuCZPOTO03uf4OLeB2ApTEQecvH2whW6outUHPNq1xPsZ3lZUCTRZNsx7
+	 8xVWuc2aeG5PD6o6qjHuMXNdL3pbHPMeG2CUvGwJebE34Z2ruug1cQkuLr4xNCVxH1
+	 3HvQDeTPhJmUcf8ZAvuMetk0NOyygccPcNtMFJ8Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B85BF80571; Thu, 23 Nov 2023 16:37:34 +0100 (CET)
+	id 25F04F8057E; Thu, 23 Nov 2023 17:07:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ADDFF8057E;
-	Thu, 23 Nov 2023 16:37:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E63CAF80579;
+	Thu, 23 Nov 2023 17:07:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8543F802E8; Thu, 23 Nov 2023 16:37:29 +0100 (CET)
+	id 886C2F8047D; Thu, 23 Nov 2023 17:07:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,
+	T_SPF_PERMERROR shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20620.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e1a::620])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23E70F80249
-	for <alsa-devel@alsa-project.org>; Thu, 23 Nov 2023 16:37:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E70F80249
-Received: by mail-io1-f49.google.com with SMTP id
- ca18e2360f4ac-7b37508cc31so7305839f.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 23 Nov 2023 07:37:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700753839; x=1701358639;
-        h=date:subject:message-id:references:in-reply-to:cc:to:from
-         :mime-version:content-transfer-encoding:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=aLt1KUAUGHRqUvPHJLf1zcCoicLrr1OYvZT4WwBuoZE=;
-        b=O2wMr4hSVewEiRKp3Hzmx+fCrm1qyqnMFb73KwUrVlWZ0Yfl7lERzYxFbfpXEa6xcY
-         1cFek36DpVamOTEjVa6uUQW6jp6YRb5rdIVZj7K49hkK9qcbZAEVyY/2Zh1Hl+6z60rx
-         ZrDvi2JZF800sUPPskfq9AlgRqNDUEoAL2q21dJSIUL9hCKKpSPSOT9jgX8cJsQ3KRdI
-         uXZ2fpANET1TK7I5G4zDnab+WjxZo92GVnqLe/8IuTIhzWWtdJDzXE8Y+Ht7/05uOFmZ
-         APGNDtFoTsPZuSDq6dnARUz7TeL8wLkf6CCQLswEIpsJVRNSymugcS6w3qPhB8ZMBOXc
-         Yw2Q==
-X-Gm-Message-State: AOJu0Yw8s+Hpvt48ID9z71mNYDRTlaEVNtGPlsdRd/E7oI6hKdjLRYK9
-	87Eu18yFLfmqSAG0IRkBJA==
-X-Google-Smtp-Source: 
- AGHT+IHxmIHckVPvE9RTOm5DMneEAqIyAk45FUNpf3d8xViwnKcBica9KXjhnjw12dR++i/1riIIUA==
-X-Received: by 2002:a6b:d107:0:b0:7b3:4b1a:e414 with SMTP id
- l7-20020a6bd107000000b007b34b1ae414mr5939092iob.11.1700753838621;
-        Thu, 23 Nov 2023 07:37:18 -0800 (PST)
-Received: from herring.priv ([64.188.179.252])
-        by smtp.gmail.com with ESMTPSA id
- q10-20020a0566380eca00b004668fb951e8sm360236jas.84.2023.11.23.07.37.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Nov 2023 07:37:18 -0800 (PST)
-Received: (nullmailer pid 1407026 invoked by uid 1000);
-	Thu, 23 Nov 2023 15:37:16 -0000
-Content-Type: text/plain; charset="utf-8"
+	by alsa1.perex.cz (Postfix) with ESMTPS id 89842F80249
+	for <alsa-devel@alsa-project.org>; Thu, 23 Nov 2023 17:07:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89842F80249
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-NXP1-onmicrosoft-com header.b=AGmjghRv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g4kJB2zLSjzL7Y7rfeWfP5ZtOEcCzA70+pwz8gK4dDPOP6RQa+OG7/6m/z3LKSHzZ5fBVAMYwYgSVsIdJt+ccEHT5Pp8op7s9qHIwXfH1NA+Fyhk5TjV2Uth2ftA1obiYBZT9OOtu+upEa/RLuoXSM3cDKzb8b0D4m1f7tm+rCTPECz1uPjU2w4p7JTS/LgbHh3nB4fCB/njeqeohRGm3fE1aQPdUvLgM/BVYYGZgXECK1SWSCFGMxvEAyhXtejKedcbzogR/Jd3EHB8dhE+jlA7jYHJ59kXTWYH655m7iHkqbyIBc5v2N+x4bohV18eTcmXRsg9zlwBYq+j0M43xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QhjWgvpRqPIw197O1BVyscMYE+fR6uHKf58OhssfnWM=;
+ b=e2CRne3PIcDovwoQrK4kTWsJB48HsiVAmbf137hu7jkPHLtIxx8IkZXMlAWNxO/kQlJbZNospmhppRycAcGEcMmwXnh1oeugZbw5gC0OholQEsnIsELZd5AflVjojyw9uFpzb061l2w6f4byW085JgaKtpVOW+XLyD5RGFKPFBt3sA96ozKEOyR8DHN64uCZSAK1XNm8GtdkSuCuWz2IPP98QX8gyLM6ywQ599vUx6i62g7pb/aPZ4No1avwVMleRpxhVYE2lI2PKfSVhMh3YTnDSamGqIET1vwHTYQq8u9TontOjgi0ZvzQxQMlYVB6vgXMoUW1YjRHxBSkvHnfhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QhjWgvpRqPIw197O1BVyscMYE+fR6uHKf58OhssfnWM=;
+ b=AGmjghRvgTJHC8gN/kkIjgulzVMsT75tHc7n6HLk9Gr63eY+osJDdHrbOHfUfjJ+m5fgejV1hzdSBo/IXHHXb6ccsZRbsQ4jQ2Zg6yEPjJIW15bjn1+4/yF2cG+47b0ODqgYoDY+UK6oCgw/fhJmvpBgaymzhTlmHhAPVe1bmDI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
+ by PAXPR04MB9399.eurprd04.prod.outlook.com (2603:10a6:102:2b3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.12; Thu, 23 Nov
+ 2023 16:07:12 +0000
+Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::c688:1f14:2ab1:c78a]) by VI1PR04MB5151.eurprd04.prod.outlook.com
+ ([fe80::c688:1f14:2ab1:c78a%4]) with mapi id 15.20.7025.019; Thu, 23 Nov 2023
+ 16:07:12 +0000
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+To: broonie@kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	kuninori.morimoto.gx@renesas.com,
+	daniel.baluta@gmail.com,
+	robh+dt@kernel.org,
+	iuliana.prodan@nxp.com,
+	shengjiu.wang@nxp.com,
+	linux-imx@nxp.com
+Subject: [PATCH v3 0/2]  Introduce playback-only/capture-only DAI link flags
+Date: Thu, 23 Nov 2023 18:06:53 +0200
+Message-Id: <20231123160655.188428-1-daniel.baluta@oss.nxp.com>
+X-Mailer: git-send-email 2.25.1
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MR1P264CA0146.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:54::7) To VI1PR04MB5151.eurprd04.prod.outlook.com
+ (2603:10a6:803:61::28)
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Daniel Baluta <daniel.baluta@oss.nxp.com>
-Cc: linux-imx@nxp.com, shengjiu.wang@nxp.com, linux-kernel@vger.kernel.org,
- daniel.baluta@gmail.com, iuliana.prodan@nxp.com,
- kuninori.morimoto.gx@renesas.com, broonie@kernel.org, robh+dt@kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org
-In-Reply-To: <20231123150012.154096-3-daniel.baluta@oss.nxp.com>
-References: <20231123150012.154096-1-daniel.baluta@oss.nxp.com>
- <20231123150012.154096-3-daniel.baluta@oss.nxp.com>
-Message-Id: <170075383625.1407009.6277919043530213618.robh@kernel.org>
-Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: audio-graph-port: Document
- new DAI link flags playback-only/capture-only
-Date: Thu, 23 Nov 2023 08:37:16 -0700
-Message-ID-Hash: DHUC5R27EDIY6J3MDN2QK47JH33PA4TR
-X-Message-ID-Hash: DHUC5R27EDIY6J3MDN2QK47JH33PA4TR
-X-MailFrom: robherring2@gmail.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5151:EE_|PAXPR04MB9399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d4a172d-1d50-4f1e-d45a-08dbec3e40c4
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	YigpExdFweg//cABIr7iq6lPzrino/Vcz5tLUCjRcxdkdwrEmy0SKMEnzjcpGuTW1Xw3wJf51lCbIHxogIRllg4QDPVkopcQ7FB6bS1Eb+BhEAud++rn7zIhfnnoQmXJ36/Ngv4r1L448QduW1pfaLlE1TJ9RJlzv8W+KQQB9R3615PQALlhtiXuUoX/lGwINQyOQSFi82hnLFfnHj692h8N/URyYDBzAr8U422fMPeiNIzAOSEFBe08nJxfWgBtxqY+OTZMcouffCw7z0RE8OXAs9hkXbqyWADu3K6kZUYQ3fE/2B6o/VL9vB5GUrjZNX+blcGErMyrM69PpTHIBR+1d+JvUYGeCWsl0yaZ1Ar8HcVHicx2+7yk8SsfoTp0jm3sOhxViD5aRhSgBwAadVri/HWIfcHqo03g269lS8sx2ZewyMTO7i8gjpZE0vdF3kJLbjetbwd2gCwGjcaKF6JyEktBQoXejAuKY3Q72nlTZ/rwKmJuEx5B8Lw16tzljbztkG9yju9CWM5SLbS5gkUV8kuK5wyJ5Ul1QENodAJPeF+SP8oTzPKnSVOPgJRRWA+JUb6d060p08ggKkz4M8Wl0kmpjhruaoyrgQrndSE=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5151.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(346002)(376002)(136003)(366004)(396003)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(86362001)(44832011)(4744005)(5660300002)(38100700002)(1076003)(26005)(6666004)(6506007)(316002)(52116002)(6512007)(2616005)(4326008)(66476007)(66556008)(66946007)(8676002)(8936002)(38350700005)(41300700001)(966005)(6486002)(478600001)(2906002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?ezLiZ6u6NxY2ec1iBfP0uqW+QsFhNeyxb/hFC5ji8kE/sfPqGyURs88r4SJ1?=
+ =?us-ascii?Q?KWpGXw4YVUYC7gJbM/V5cS+QpkhNqA1D4Nw+JJR/8DKcHACKRwVeQQxDWafB?=
+ =?us-ascii?Q?z7kFiOgQ1FZ2QUNMPPCexsLY+82tfGPRI9MUXl+imcA3YYz9UN0iP3p2qnWo?=
+ =?us-ascii?Q?FMgvxoun+poWaqnPdpFvcY27JJOtouv/z/pkNfc8exOnmcxtDJVbjj82IkxV?=
+ =?us-ascii?Q?jpxlWufNfeVqF4mHiw/O3sYVDvl/cJzauyMdmPMoz8JbedvJeIghwJRZJr7G?=
+ =?us-ascii?Q?RAoQIPM0Y3rWRcypL//ZsctAZjxHyJuKhktUgJ3PdUKphWipPhz3QYjhZN8J?=
+ =?us-ascii?Q?I+oCo1fbVGbcRRp7dK+z04CeRuiaxQaY/Ga+A3Lz3T56W/OQlxcK6/JXMggG?=
+ =?us-ascii?Q?TcVaasi9kdfxYEBxz+Lt7ERjI2c3KYxvCIBYP2vRa39kycrDzPQvHBnnt6KA?=
+ =?us-ascii?Q?T5NaYYrwFgqkqIlmmMNbhG1AhK/akboPaC/RJsADlu47qrGYiketnM7VDD6r?=
+ =?us-ascii?Q?jYqYgw6fWY+K5JHaqXPAZsTLq2K8sPC1r+df8EgFqkX0kXyqTkHyeYX6M+vV?=
+ =?us-ascii?Q?NM2eEa8+YQC0LEbJ7InJ/sgDZfhs3hmlN6UzyMv66QDnhAFhxxrCJWRArUGE?=
+ =?us-ascii?Q?jCPDzwwyqvUW2PLI/NMGFiQbXjlJaNVY8ZmUkABLYFqMxZZXEyuTT9kkddnu?=
+ =?us-ascii?Q?joEnyuJarIlLSiuLfzQScuvVrRfiVSfDV0ADW+h7pHIQknh7GBAExnXmcVAF?=
+ =?us-ascii?Q?DK+s/BVFb4IDiEvMD70E+dcoMcoSox/nPa/q8ZAZPPTDSPZdOObST3aP7a5/?=
+ =?us-ascii?Q?vGFlDwmBtnNs0gb3Hyc5RyyB8BXhBk5vmkeCaXYqbpyEALKUoSZb4QAEF8EN?=
+ =?us-ascii?Q?8Rue6EwSi3W5gGeKMTUN+GRO8pkCv/grP7jfNNyQMeJqsR+6bguuhNiVvf17?=
+ =?us-ascii?Q?g5Q/HOQDefldz45nQhY0KSWyp34GvU78WadVE1sO/9/o3j4ZoCwkXUJKwFdx?=
+ =?us-ascii?Q?/CJdAvMPUfUo2xycUDIlBBOj4n9V0PH0EqPSvRiwbXBjtvLdGZpOFh+3KvLu?=
+ =?us-ascii?Q?kXb/M7N+l6MCIFp6jV0+WC4H5AFDqp7OZmrNCDqgUeYNLX2WiL6oR4JOIheg?=
+ =?us-ascii?Q?LDBBBQ5OwQH2ESqLaH7dZQNLFmRIBrwDE7ER3pE+xpokbpE1ZlgloBPjJP0o?=
+ =?us-ascii?Q?HXi1Hzqgasf1AlF15OQsKT5gYxYJiKXQjRlLn7Nky9sy6Relf/L2X0cmPk64?=
+ =?us-ascii?Q?1u/zXrx4zamt0VpmCtkGKoZP4RPzGM7SEpOv6E69ikToLZQToqZosLRb1K6S?=
+ =?us-ascii?Q?V3vR9QV5khazlwbTtYXjvfMNQiwNyI1T3YqjPrlB9cn9j+qTf486dgbhRE6K?=
+ =?us-ascii?Q?5uZCvz/vfvdd8+77ndaa5rMCCZUqCaDnwQkbwnMvMrrA1X4UFBismdgTyaHH?=
+ =?us-ascii?Q?pX0j9mIBG10L2AZ4JLdp6fksjscKK6rkq0h8gTzRtOtu6m0mwimkoENWEXu7?=
+ =?us-ascii?Q?PclbDZy46uUbs+ZhCfNKnMauyM0zh1pHrBuUOu0nZ9JHqHcz+yI+hmY2bl7i?=
+ =?us-ascii?Q?mFo8naxjpiuAq4sacOVhm8qzWDfvWQQmBae0VEao?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 8d4a172d-1d50-4f1e-d45a-08dbec3e40c4
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 16:07:12.4819
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 7DfaBCQRz5WMjCEMrC3asUbxF/lNZ9ghrGzVCVyTAgpoMKkyqcTld9wcDoDQrxf3OgutOcktaj1WW4gRjwV91Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9399
+Message-ID-Hash: PXWDMGPCVMAJBTPHIXRKGIQU2627AGRY
+X-Message-ID-Hash: PXWDMGPCVMAJBTPHIXRKGIQU2627AGRY
+X-MailFrom: daniel.baluta@oss.nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +159,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DHUC5R27EDIY6J3MDN2QK47JH33PA4TR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PXWDMGPCVMAJBTPHIXRKGIQU2627AGRY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,127 +168,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Daniel Baluta <daniel.baluta@nxp.com>
 
-On Thu, 23 Nov 2023 17:00:12 +0200, Daniel Baluta wrote:
-> From: Daniel Baluta <daniel.baluta@nxp.com>
-> 
-> Document new playback-only and capture-only flags which can be used
-> when dai link can only support just one direction: playback or capture
-> but not both.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> ---
->  .../devicetree/bindings/sound/audio-graph-port.yaml         | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
+This patchseries allows users to specify a link only direction with
+audio-graph-card2.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Changes since v1 - https://lore.kernel.org/lkml/20230801082433.548206-1-daniel.baluta@oss.nxp.com/T/
+     - used audio-graph-card2 instead of simple-card as we are deprecting simple-card.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/sound/audio-graph-port.yaml:22:6: [error] syntax error: expected <block end>, but found '<block mapping start>' (syntax)
-./Documentation/devicetree/bindings/sound/audio-graph-port.yaml:23:9: [warning] wrong indentation: expected 7 but found 8 (indentation)
-./Documentation/devicetree/bindings/sound/audio-graph-port.yaml:26:9: [warning] wrong indentation: expected 7 but found 8 (indentation)
+Changes since v2:
+     - Fix device tree binding error reported by Rob
 
-dtschema/dtc warnings/errors:
-make[2]: *** Deleting file 'Documentation/devicetree/bindings/sound/audio-graph-port.example.dts'
-Documentation/devicetree/bindings/sound/audio-graph-port.yaml:22:6: did not find expected key
-make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/sound/audio-graph-port.example.dts] Error 1
-make[2]: *** Waiting for unfinished jobs....
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/socionext,uniphier-evea.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/cirrus,cs42l51.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/ak4613.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/rockchip-i2s.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/sgtl5000.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/wlf,wm8962.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/socionext,uniphier-aio.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/everest,es8316.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-./Documentation/devicetree/bindings/sound/audio-graph-port.yaml:22:6: did not find expected key
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml:
-while parsing a block mapping
-  in "<unicode string>", line 16, column 5
-did not find expected key
-  in "<unicode string>", line 22, column 6
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/audio-graph-port.yaml: ignoring, error parsing file
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1424: dt_binding_check] Error 2
-make: *** [Makefile:234: __sub-make] Error 2
+Daniel Baluta (2):
+  ASoC: audio-graph-card2: Introduce playback-only/capture only DAI link
+    flags
+  ASoC: dt-bindings: audio-graph-port: Document new DAI link flags
+    playback-only/capture-only
 
-doc reference errors (make refcheckdocs):
+ .../bindings/sound/audio-graph-port.yaml      |  6 ++++++
+ include/sound/simple_card_utils.h             |  3 +++
+ sound/soc/generic/audio-graph-card2.c         |  6 ++++++
+ sound/soc/generic/simple-card-utils.c         | 19 +++++++++++++++++++
+ 4 files changed, 34 insertions(+)
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231123150012.154096-3-daniel.baluta@oss.nxp.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+-- 
+2.25.1
 

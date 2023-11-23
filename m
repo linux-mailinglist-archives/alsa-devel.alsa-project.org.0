@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B0317F659F
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Nov 2023 18:39:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C4D47F65B3
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Nov 2023 18:44:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A459B209;
-	Thu, 23 Nov 2023 18:39:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A459B209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F01BDEC;
+	Thu, 23 Nov 2023 18:44:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F01BDEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700761163;
-	bh=Yw6Y36ErXAJIavqLBexXl3lguY2vTWpO+ADAlK9isC4=;
+	s=default; t=1700761473;
+	bh=1GRk6pF6ONArbuEDYzf53o3CAsRNhMgYXX01fUitKEQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ITvepGy0dplQDVVRVsI37DHMTHp35GcOFAkyoAr1gneV16mtZ5eyMaT015fivUFxo
-	 suH0t6MUEfQlQQymuoMeMkEZa7OzNAGTJLjnDXPZBuym8f9NbjSdq6sUDADgrJvIig
-	 j9GubWkxMydSHCth8iOVM5IOuTw+T52pHT88AHOU=
+	b=RbLXaxEBGPddpWmWsfBIRLJQzlIPhGWgHI1p8nmpdP3RY36TnZDE1MG/uFJIqYMsr
+	 VgraoRhBNJdeui56r71nss83Be57XbuWVts1D1Trui8Q9wEBZC4TeHTn9mZriyhIGY
+	 AYFYSVtzx+mUnXccDcbkbrCh013Tj83oZ+yA2LLo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0AEDF805A1; Thu, 23 Nov 2023 18:38:51 +0100 (CET)
+	id 54EA0F80579; Thu, 23 Nov 2023 18:44:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DA16F8057A;
-	Thu, 23 Nov 2023 18:38:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DF05F80249;
+	Thu, 23 Nov 2023 18:44:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09121F80254; Thu, 23 Nov 2023 18:38:37 +0100 (CET)
+	id CC5F9F80254; Thu, 23 Nov 2023 18:43:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,31 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9FBCF80093
-	for <alsa-devel@alsa-project.org>; Thu, 23 Nov 2023 18:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9FBCF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id BCAC9F80166
+	for <alsa-devel@alsa-project.org>; Thu, 23 Nov 2023 18:43:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCAC9F80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=S3dFS4mk
+ header.s=k20201202 header.b=EUK/QVte
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 362C4623C9;
-	Thu, 23 Nov 2023 17:38:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32238C433D9;
-	Thu, 23 Nov 2023 17:38:23 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 04A7662162;
+	Thu, 23 Nov 2023 17:43:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8729C433C8;
+	Thu, 23 Nov 2023 17:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1700761104;
-	bh=Yw6Y36ErXAJIavqLBexXl3lguY2vTWpO+ADAlK9isC4=;
+	s=k20201202; t=1700761427;
+	bh=1GRk6pF6ONArbuEDYzf53o3CAsRNhMgYXX01fUitKEQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S3dFS4mk9+zqoMSDzNRYX4a7q0zN2SB+nJXO53+w3a+g9Hjmc5PF3JytQHH+okqDe
-	 OKdoDF2lSatcZdn4fOZom7H2C/OJ6jpgoWOYexLTXRt2iYpdU2kyt0OgJyECkY5EB3
-	 1QUubQpzlv5VJu/Tdqdtbk7+e/4PJAZzUU4b4Zo1cKPTnGJB/3SXrnPnEjLAlghs/3
-	 btsfc3dxxGMxsQLEJ8Pj7dG74en7eo7GTTGmP3tg7hxuTLWgfDErgFGy0MAZMOUa2K
-	 sE5bJRtTerrBgxq/PWfZSfFON6od6oWddYy9kxyonTBoAP4hiqt2BQz0CXLogFZAUx
-	 W3qlONMHoBSJQ==
-Date: Thu, 23 Nov 2023 17:38:21 +0000
+	b=EUK/QVte4vbuMVsB7J0ZDQXQPfx5ZzqhBZOhhYXYl+f0qLTL1oOdCbPQ8soI+D9Ee
+	 lLr90oOKzn2mI92pdKjbW39eFkQ0GSOJjcyT6adnMdiDnhRB3xMjBD5TgAH4bV6NWh
+	 zUYM5BmACPrvUX0Thlj/wUOp31f3cOuJrbJejyUoKR2etkkH1ile+WN036EMVW2DqT
+	 u6oOAbS5e4UkOdxtE5rqKgQ0AqfTWN7qYbgnZsGCaXYUVB0crrskCXVWkx/q9UsmMf
+	 cZPM91apJKntl3C6x/aRusganoJT+ab/o4O+hbp3yxgKP8ous4VJPWd+HHW8z9aZlX
+	 c6tMeQ7jEcPyQ==
+Date: Thu, 23 Nov 2023 17:43:43 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -75,21 +74,20 @@ Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] ASoC: codec: wcd-mbhc-v2: add support when connected
- behind an USB-C audio mux
-Message-ID: <ZV+ODbskjFe5louc@finisterre.sirena.org.uk>
+Subject: Re: [PATCH 4/5] ASoC: codecs: Add WCD939x Soundwire slave driver
+Message-ID: <ZV+PTynfbRmF0trU@finisterre.sirena.org.uk>
 References: 
  <20231123-topic-sm8650-upstream-wcd939x-codec-v1-0-21d4ad9276de@linaro.org>
- <20231123-topic-sm8650-upstream-wcd939x-codec-v1-3-21d4ad9276de@linaro.org>
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-4-21d4ad9276de@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zYYvbpAWCNy9mneV"
+	protocol="application/pgp-signature"; boundary="42Lt/E9P87lWIhco"
 Content-Disposition: inline
 In-Reply-To: 
- <20231123-topic-sm8650-upstream-wcd939x-codec-v1-3-21d4ad9276de@linaro.org>
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-4-21d4ad9276de@linaro.org>
 X-Cookie: Slow day.  Practice crawling.
-Message-ID-Hash: I6K437XBN2VWOETGDXCETIJOILARMY65
-X-Message-ID-Hash: I6K437XBN2VWOETGDXCETIJOILARMY65
+Message-ID-Hash: XI3UHFAPT3LO4GOF2EW5P6VWSH3CQJWN
+X-Message-ID-Hash: XI3UHFAPT3LO4GOF2EW5P6VWSH3CQJWN
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I6K437XBN2VWOETGDXCETIJOILARMY65/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XI3UHFAPT3LO4GOF2EW5P6VWSH3CQJWN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,32 +110,84 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---zYYvbpAWCNy9mneV
+--42Lt/E9P87lWIhco
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Nov 23, 2023 at 03:49:13PM +0100, Neil Armstrong wrote:
+On Thu, Nov 23, 2023 at 03:49:14PM +0100, Neil Armstrong wrote:
+> Add Soundwire Slave driver for the WCD9390/WCD9395 Audio Codec.
 
+> The WCD9390/WCD9395 Soundwire Slaves will be used by the
+
+Please avoid using outdated terminology, "device" is probably a good
+alternative here.  There are some usages in APIs that need to be updated
+but still, good to avoid where possible.
+
+> +static struct wcd939x_sdw_ch_info wcd939x_sdw_tx_ch_info[] = {
+> +	WCD_SDW_CH(WCD939X_ADC1, WCD939X_ADC_1_4_PORT, BIT(0)),
+> +	WCD_SDW_CH(WCD939X_ADC2, WCD939X_ADC_1_4_PORT, BIT(1)),
+> +	WCD_SDW_CH(WCD939X_ADC3, WCD939X_ADC_1_4_PORT, BIT(2)),
+> +	WCD_SDW_CH(WCD939X_ADC4, WCD939X_ADC_1_4_PORT, BIT(3)),
+> +	// TOFIX support ADC3/4 & DMIC0/1 on port 2
+> +	//WCD_SDW_CH(WCD939X_ADC3, WCD939X_ADC_DMIC_1_2_PORT, BIT(0)),
+> +	//WCD_SDW_CH(WCD939X_ADC4, WCD939X_ADC_DMIC_1_2_PORT, BIT(1)),
+> +	//WCD_SDW_CH(WCD939X_DMIC0, WCD939X_ADC_DMIC_1_2_PORT, BIT(2)),
+> +	//WCD_SDW_CH(WCD939X_DMIC1, WCD939X_ADC_DMIC_1_2_PORT, BIT(3)),
+
+Why are these commented out?
+
+> +static int wcd9390_interrupt_callback(struct sdw_slave *slave,
+> +				      struct sdw_slave_intr_status *status)
+> +{
+> +	struct wcd939x_sdw_priv *wcd = dev_get_drvdata(&slave->dev);
+> +	struct irq_domain *slave_irq = wcd->slave_irq;
+> +	u32 sts1, sts2, sts3;
 > +
+> +	do {
+> +		handle_nested_irq(irq_find_mapping(slave_irq, 0));
+> +		regmap_read(wcd->regmap, WCD939X_DIGITAL_INTR_STATUS_0, &sts1);
+> +		regmap_read(wcd->regmap, WCD939X_DIGITAL_INTR_STATUS_1, &sts2);
+> +		regmap_read(wcd->regmap, WCD939X_DIGITAL_INTR_STATUS_2, &sts3);
+> +
+> +	} while (sts1 || sts2 || sts3);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+We do this in the other Qualcomm drivers but it doesn't seem ideal to
+just ignore the interrupts.
+
+> +static int wcd939x_sdw_component_bind(struct device *dev, struct device *master,
+> +				      void *data)
+> +{
 > +	return 0;
 > +}
-> +EXPORT_SYMBOL(wcd_mbhc_typec_report_unplug);
+> +
+> +static void wcd939x_sdw_component_unbind(struct device *dev,
+> +					 struct device *master, void *data)
+> +{
+> +}
+> +
+> +static const struct component_ops wcd939x_sdw_component_ops = {
+> +	.bind = wcd939x_sdw_component_bind,
+> +	.unbind = wcd939x_sdw_component_unbind,
+> +};
 
-ASoC is generally EXPORT_SYMBOL_GPL.
+Do these need to be provided if they can legitimately be empty?
 
---zYYvbpAWCNy9mneV
+--42Lt/E9P87lWIhco
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVfjgwACgkQJNaLcl1U
-h9Borgf/WCcOu17PlfQEP8LcwwF7WliMIbDFpt7Sn3t6UjtZ4dG8lxo/wdWm3/zC
-9a4IqCgD7yJT+N6iGTEzfXw4G9ql6x0QKA3eJhLPlcDHPUhm7K0Hk0NJZUltNSve
-FScbROkncl72dzXhp3xmED1Xx+S+9lcLgQBE+LS8cYH6ifUPIe2zY2PLdzw1XQT7
-jajx1PGVE7trmzx9cymbbNAGbL2At5yqdR/biX3O6ckzY3kkNThWIwAdPedZdn/S
-kr/daf4kTS0ciuGI2RdeI6ZxhXt+BDEeW3Nf2pOF1ezaSnPm89GeoufjrkE3uIQm
-XvoszEBrtSkSv7oM0ASB2XyrRjkH1w==
-=aPTl
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVfj08ACgkQJNaLcl1U
+h9AbPQf9HwduNNNq58Fi9Zk4pDIkhiO6nVd+QB5hkOPoAqoUexbSojnNREgdQUy/
+S5Ek1XNG04jXfE7MYvLpIEO6bhwa6uv/Zn7UM3i0EDIzd2qXT4vH6Ce4/pl2+IsK
+3bcbiKFHCpSQRCbzay9Fm4DUdMXbEIpBeZmMznljBtZmF7UIj1xVLJQEsEiwWJ7G
+8NTb1aJ9QauPhZgkcuizCmNrZkQseSioyDmFZPZlD6TmofHqz2A8MiI5oLQVQr7s
+zvFENMqhOHPxwb9b/orlGQqf0tKdoZZDO66P0b3g242Z2KItP/Aasq4FiQTJ24LP
+/69tGglcrDDBrHEBUmmx6ULgLVUoCw==
+=YBBq
 -----END PGP SIGNATURE-----
 
---zYYvbpAWCNy9mneV--
+--42Lt/E9P87lWIhco--

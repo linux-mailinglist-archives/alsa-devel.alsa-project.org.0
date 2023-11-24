@@ -2,91 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EE77F73F2
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Nov 2023 13:40:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 407607F7563
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Nov 2023 14:40:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BC2FE7B;
-	Fri, 24 Nov 2023 13:40:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BC2FE7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D48AE8;
+	Fri, 24 Nov 2023 14:40:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D48AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700829650;
-	bh=woKsYxqA2S88S98VVn5QxVC44in9IgDwqXqe0NroGIs=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=c1W9vPWXNok98pu68t3BPIKsoK2gTi/NSPTJrbgayJtT7WsVtdwVouSxp2yhD/czm
-	 S0SOIb7G9YAs5RPF5RFA9hPB93ZvjfeRgHmcVgouicHu3sLoNgAI0ImrDlMuTHwJF/
-	 TB8bRpsFXuHydOAxBjE+yPsv+hznHNEkBLiKr2GQ=
+	s=default; t=1700833222;
+	bh=rCFXfoehlNk3vMTlGhCyClVOAyRIFRNIYv27MUstVbM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=NpNVIuLapxxxEsJqFNLess+3N7sUPkr4nY6Q9e9iU5EeoyaXRkwrXLpLFpFYYzLR6
+	 jfcZsWhyF1ROziGgJu3dvrlhDAOFR8uKT+wUxqxHvJ7U0+iQxIE3cVX5lHerrEKLHc
+	 adoBXJC5Yi8Z65+VJtm0rni4ko2GKRR36yH4mBEs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7891F805B4; Fri, 24 Nov 2023 13:40:13 +0100 (CET)
+	id D428EF8059F; Fri, 24 Nov 2023 14:39:43 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2379FF805B4;
-	Fri, 24 Nov 2023 13:40:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A6A7F80579;
+	Fri, 24 Nov 2023 14:39:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FDF8F805A8; Fri, 24 Nov 2023 13:40:10 +0100 (CET)
+	id 7CB0BF802E8; Fri, 24 Nov 2023 14:39:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65F96F80246
-	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 13:40:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65F96F80246
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ntoZJFn3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1700829606; x=1732365606;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=woKsYxqA2S88S98VVn5QxVC44in9IgDwqXqe0NroGIs=;
-  b=ntoZJFn3jH2uBZ9D0i+xBt5WhZYv3b3qVph8FOptfkWQzu21kkVK6ykR
-   MXlNgvCp3p3BQTLYVW0D+cVYYq4vjTk6tSFekzIXC6i327zcUbNybn6/h
-   ZVrfvzylvn/Il7lniTLaGf9+JM9ihAic9ug62byy6Y62MW+eqJPDR24gq
-   3WoAnjIc5Ml29GmwG5U/XjmHHAOLp+T883qKAUmi9UV9+MPOKKTtIkakE
-   NRXIjfwUzhI3llTgA7zwjM0iyZ7hVDf3MlMzErm2MGGq8m3+Mf9/wGhWh
-   C/iCG5fBoYx//h79UUk3dStklxBNwEEQsuu1cfVfP7r95f+Ne45/fAck8
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="5572886"
-X-IronPort-AV: E=Sophos;i="6.04,224,1695711600";
-   d="scan'208";a="5572886"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 04:40:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="885268815"
-X-IronPort-AV: E=Sophos;i="6.04,224,1695711600";
-   d="scan'208";a="885268815"
-Received: from barumuga-mobl1.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.58.182])
-  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 04:39:58 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	cezary.rojewski@intel.com,
-	ranjani.sridharan@linux.intel.com
-Subject: [PATCH] ASoC: Intel: sof_sdw: Always register the HDMI dai links
-Date: Fri, 24 Nov 2023 14:40:32 +0200
-Message-ID: <20231124124032.15946-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.42.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PBTRTSTE7JN7ZYDM5KVZKNJW3TJRK6SD
-X-Message-ID-Hash: PBTRTSTE7JN7ZYDM5KVZKNJW3TJRK6SD
-X-MailFrom: peter.ujfalusi@linux.intel.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6BE1DF80166
+	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 14:39:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE1DF80166
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8714C1FDB0;
+	Fri, 24 Nov 2023 13:39:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C3C913A98;
+	Fri, 24 Nov 2023 13:39:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +nc1FY+nYGXkNgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 24 Nov 2023 13:39:27 +0000
+Date: Fri, 24 Nov 2023 14:39:26 +0100
+Message-ID: <871qcfqnht.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH RFC v2] ALSA: scarlett2: Add ioctls for user-space access
+In-Reply-To: <ZVpHX33vfzdjpH0z@m.b4.vu>
+References: <ZSqehHhedJQY9h/1@m.b4.vu>
+	<76c1526d-78be-92d2-cf2b-148278394575@perex.cz>
+	<ZS0tajzKr68CZ5uA@m.b4.vu>
+	<123242ed-c343-dab8-fed1-9f5d2da44d7a@perex.cz>
+	<ZS1asqF0cXRUzBwb@m.b4.vu>
+	<87edhtn0r2.wl-tiwai@suse.de>
+	<ZVpHX33vfzdjpH0z@m.b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Bar: ++++++++++++++
+Authentication-Results: smtp-out2.suse.de;
+	dkim=none;
+	dmarc=fail reason="No valid SPF,
+ No valid DKIM" header.from=suse.de (policy=none);
+	spf=softfail (smtp-out2.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
+ permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [14.29 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 ARC_NA(0.00)[];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_SPAM_SHORT(3.00)[1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 R_SPF_SOFTFAIL(4.60)[~all];
+	 RCPT_COUNT_FIVE(0.00)[5];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 MX_GOOD(-0.01)[];
+	 NEURAL_SPAM_LONG(3.50)[1.000];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.00)[10.34%];
+	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
+X-Rspamd-Queue-Id: 8714C1FDB0
+Message-ID-Hash: 7TRQB24YFJKMF5WSKKYMDA4T43OIOWG5
+X-Message-ID-Hash: 7TRQB24YFJKMF5WSKKYMDA4T43OIOWG5
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PBTRTSTE7JN7ZYDM5KVZKNJW3TJRK6SD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TRQB24YFJKMF5WSKKYMDA4T43OIOWG5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,75 +132,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The topology files for SDW devices require HDMI dai links to be present and
-this is granted under normal conditions but in case of special use cases
-the display (i915) driver might not be enabled due to deny-listing,
-booting with nomodeset or just not compiled at all.
+On Sun, 19 Nov 2023 18:35:27 +0100,
+Geoffrey D. Bennett wrote:
+> 
+> Hi Jaroslav, Takashi,
+> 
+> I took your feedback onboard about not providing generic access to the
+> scarlett2_usb() function from user-space.
+> 
+> After a few iterations, I've come up with this hwdep interface to
+> support reset-to-factory-defaults, reset-to-factory-firmware, and
+> firmware-update in a safe way:
+> 
+> -----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----
+> 
+> /* Get protocol version */
+> #define SCARLETT2_IOCTL_PVERSION _IOR('S', 0x60, int)
+> 
+> /* Reboot */
+> #define SCARLETT2_IOCTL_REBOOT _IO('S', 0x61)
+> 
+> /* Select flash segment */
+> #define SCARLETT2_SEGMENT_ID_SETTINGS 0
+> #define SCARLETT2_SEGMENT_ID_FIRMWARE 1
+> #define SCARLETT2_SEGMENT_ID_COUNT 2
+> 
+> #define SCARLETT2_IOCTL_SELECT_FLASH_SEGMENT _IOW('S', 0x62, int)
+> 
+> /* Erase selected flash segment */
+> #define SCARLETT2_IOCTL_ERASE_FLASH_SEGMENT _IO('S', 0x63)
+> 
+> /* Get selected flash segment erase progress
+>  * 1 through to num_blocks, or 255 for complete
+>  */
+> struct scarlett2_flash_segment_erase_progress {
+>         unsigned char progress;
+>         unsigned char num_blocks;
+> };
+> #define SCARLETT2_IOCTL_GET_ERASE_PROGRESS \
+>         _IOR('S', 0x64, struct scarlett2_flash_segment_erase_progress)
+> 
+> -----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----
+> 
+> Does that look reasonable to you?
+> 
+> Broadly, it's used like this:
+> 
+> Reset to factory default configuration:
+> 
+> - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_SETTINGS
+> - ioctl erase_flash_segment
+> - ioctl get_erase_progress (optional)
 
-This should not block the non HDMI audio to be usable so register the dai
-links unconditionally. The code has been prepared for this and in case of
-no HDMI audio the link is created with dummy codec.
+So the erase operation is asynchronous?  This sounds a bit dangerous.
+Will the driver block further conflicting operations until the erase
+finishes?
 
-Closes: https://github.com/thesofproject/linux/issues/4594
-Closes: https://github.com/thesofproject/linux/issues/4648
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/sof_sdw.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+> Erase firmware (reverts to factory firmware which is stored in a
+> different flash segment, inaccessible from these ioctls):
+> 
+> - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_FIRMWARE
+> - ioctl erase_flash_segment
+> - ioctl get_erase_progress (optional)
+> 
+> Upload new firmware:
+> 
+> - write() <- a bunch of these, only permitted after the previous erase
+>   step was completed
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 3312ad8a563b..4e4284729773 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1546,7 +1546,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- {
- 	struct device *dev = card->dev;
- 	struct snd_soc_acpi_mach *mach = dev_get_platdata(card->dev);
--	int sdw_be_num = 0, ssp_num = 0, dmic_num = 0, hdmi_num = 0, bt_num = 0;
-+	int sdw_be_num = 0, ssp_num = 0, dmic_num = 0, bt_num = 0;
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
- 	struct snd_soc_acpi_mach_params *mach_params = &mach->mach_params;
- 	const struct snd_soc_acpi_link_adr *adr_link = mach_params->links;
-@@ -1564,6 +1564,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 	char *codec_name, *codec_dai_name;
- 	int i, j, be_id = 0;
- 	int codec_index;
-+	int hdmi_num;
- 	int ret;
- 
- 	ret = get_dailink_info(dev, adr_link, &sdw_be_num, &codec_conf_num);
-@@ -1584,14 +1585,13 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		ssp_num = hweight_long(ssp_mask);
- 	}
- 
--	if (mach_params->codec_mask & IDISP_CODEC_MASK) {
-+	if (mach_params->codec_mask & IDISP_CODEC_MASK)
- 		ctx->hdmi.idisp_codec = true;
- 
--		if (sof_sdw_quirk & SOF_SDW_TGL_HDMI)
--			hdmi_num = SOF_TGL_HDMI_COUNT;
--		else
--			hdmi_num = SOF_PRE_TGL_HDMI_COUNT;
--	}
-+	if (sof_sdw_quirk & SOF_SDW_TGL_HDMI)
-+		hdmi_num = SOF_TGL_HDMI_COUNT;
-+	else
-+		hdmi_num = SOF_PRE_TGL_HDMI_COUNT;
- 
- 	/* enable dmic01 & dmic16k */
- 	if (sof_sdw_quirk & SOF_SDW_PCH_DMIC || mach_params->dmic_num)
-@@ -1601,7 +1601,8 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		bt_num = 1;
- 
- 	dev_dbg(dev, "sdw %d, ssp %d, dmic %d, hdmi %d, bt: %d\n",
--		sdw_be_num, ssp_num, dmic_num, hdmi_num, bt_num);
-+		sdw_be_num, ssp_num, dmic_num,
-+		ctx->hdmi.idisp_codec ? hdmi_num : 0, bt_num);
- 
- 	/* allocate BE dailinks */
- 	num_links = sdw_be_num + ssp_num + dmic_num + hdmi_num + bt_num;
--- 
-2.42.1
+The write op must accept partial writes, and it becomes cumbersome.
+Can it be a one-shot ioctl, too?
 
+> On completion:
+> 
+> - ioctl reboot
+> 
+> To confirm that this interface is sufficient, I have implemented it in
+> the scarlett2 driver and written a user-space utility which can
+> perform all the above operations.
+> 
+> I will clean up the implementation a bit and then submit for review;
+> just wanted to share the interface first in case you have any comments
+> at this point.
+
+IMO, from the user POV, it's easier to have per-purpose ioctls,
+instead of combining multiple ioctl sequences.  Of course, it won't
+scale too much, but for the limited number of operations, it's
+clearer.
+
+That is, we can provide just a few ioctls for reset-to-factory,
+reset-to-something-else, and update.
+
+But, if you need asynchronous operations inevitably by some reason,
+it's a different story, though.
+
+
+thanks,
+
+Takashi

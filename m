@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D147F7750
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Nov 2023 16:09:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D917F7755
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Nov 2023 16:09:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27FE2E8B;
-	Fri, 24 Nov 2023 16:09:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27FE2E8B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DB15E7F;
+	Fri, 24 Nov 2023 16:09:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DB15E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700838566;
-	bh=sAbL/9fT4i9PcgRw+oqz5zY9NBNgphu0jOWdBEs6aj0=;
+	s=default; t=1700838585;
+	bh=HE+HVflr/dMP7+v5zO2JHf1ebjW2yG0wUiLxBbEGi5M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XYGOt3pc8Ofomz1AsBrYg0RUTMMiU0XLiXYbIunOH6giRp7YN8N+8Rd5u5YkIF3oS
-	 9M0ppe98wO7MqpcaDfw9yaBRfCE5YBnhQpeg16UJzLffConerLql44iAa3kSLO+vLE
-	 3VySs81v00CR0J0aNSPq73sNmskRrNQYgv3ynaCc=
+	b=am8fukR9m4RzcZW4BI8sEACAoQdYOvswidLqLS0gP/X/3AeeQcu3U8rbd8yaxSeWD
+	 FLPcU68fW5scxe4F6HFqaNVrEMeTiS7Zs0FWPBYyK6OpmrzLDpkZPJNLrEUxdpD9m5
+	 ugAKgASk0fUwtZGZf1y75XaSpts8KR1CrF8Urspg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B296F805BB; Fri, 24 Nov 2023 16:08:45 +0100 (CET)
+	id EF75DF805E4; Fri, 24 Nov 2023 16:08:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 373FCF805BA;
-	Fri, 24 Nov 2023 16:08:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 222F7F805E7;
+	Fri, 24 Nov 2023 16:08:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E620BF80549; Fri, 24 Nov 2023 16:08:39 +0100 (CET)
+	id 7750AF8057B; Fri, 24 Nov 2023 16:08:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2659AF80166
-	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 16:08:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2659AF80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3764DF80254
+	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 16:08:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3764DF80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=HEsW1Adl
+ header.s=Intel header.b=Kwb5muR8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1700838513; x=1732374513;
+  t=1700838514; x=1732374514;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=sAbL/9fT4i9PcgRw+oqz5zY9NBNgphu0jOWdBEs6aj0=;
-  b=HEsW1Adlr2q+bqRLz+3eTzYI6RZG9f4pFaIYJOfUmKWXlmWiGO/36//j
-   X+7BZGzcHiGgAUqbWLaJhQkNImwWSZy6mxM2Xqc4EzM/zcrlRjETkHm89
-   zLHsckMmA3Z60QOee6gKRPxhFPYeXyZFb5fcI/5U+MJNBdJ+IrRAc4u/y
-   zMEj7c0ma5upQVfCSSSQC+14epgRVwEuukb9ab/Tnj7PKNSnAQZdTBN4V
-   m78vYU4+4WCwO2bC1qqME1al4zg/oRQAhpYcKpFRok1//EFgoFe4zXgFU
-   fSwMGo7JOCbq+LXSebnUte4JhBy3yWJnfLnKz0NvKDV3pntEwkL+EWdqO
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="377477036"
+  bh=HE+HVflr/dMP7+v5zO2JHf1ebjW2yG0wUiLxBbEGi5M=;
+  b=Kwb5muR8parz5c68kPNvQUyet0bQpQSA3I7pM+uvbrPiOzWeU9/QZEgb
+   uHsIByA2bO1OgtXxvwkE3osFVEsZ3kHmbh7icHpcirNwEK/kSEmfv4RkP
+   +MQTqKkbeDUNYvVmiTcWzLK4u2JDorYcsCaekZUz5bVIOw5shsWdQ9uvZ
+   aUjPPn0zl5EAlYsf38LdpPz1Krs0YI1lwyNBW11bAb6KXazMrpvd0yTjV
+   vcCZU7Zg6gkA4AY0qZXvMTBPDuH/0+a81Nx20bzY1WQ4aqnsZaPinS8tR
+   gIrC8fUYKZlP26fMYIzQbyKNFfSmwydjkLu4HkyFUxgC/k8w23WGpPDpr
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="377477056"
 X-IronPort-AV: E=Sophos;i="6.04,224,1695711600";
-   d="scan'208";a="377477036"
+   d="scan'208";a="377477056"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
   by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 07:08:25 -0800
+ 24 Nov 2023 07:08:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="743915676"
+X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="743915678"
 X-IronPort-AV: E=Sophos;i="6.04,224,1695711600";
-   d="scan'208";a="743915676"
+   d="scan'208";a="743915678"
 Received: from barumuga-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.58.182])
   by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 07:08:23 -0800
+ 24 Nov 2023 07:08:25 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -78,17 +78,17 @@ Cc: alsa-devel@alsa-project.org,
 	kai.vehmanen@linux.intel.com,
 	ranjani.sridharan@linux.intel.com,
 	seppo.ingalsuo@linux.intel.com
-Subject: [PATCH 1/4] ASoC: SOF: ipc4-topology: Helper to find an swidget by
- module/instance id
-Date: Fri, 24 Nov 2023 17:08:50 +0200
-Message-ID: <20231124150853.18648-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 2/4] ASoC: SOF: ipc4: Add data struct for module notification
+ message from firmware
+Date: Fri, 24 Nov 2023 17:08:51 +0200
+Message-ID: <20231124150853.18648-3-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <20231124150853.18648-1-peter.ujfalusi@linux.intel.com>
 References: <20231124150853.18648-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EJKK52O6WNENOTWQCJN5WLOD37J6QFI2
-X-Message-ID-Hash: EJKK52O6WNENOTWQCJN5WLOD37J6QFI2
+Message-ID-Hash: YXEBPJSMBKFLPM4Z43AF3E56FIHDTAK7
+X-Message-ID-Hash: YXEBPJSMBKFLPM4Z43AF3E56FIHDTAK7
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EJKK52O6WNENOTWQCJN5WLOD37J6QFI2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YXEBPJSMBKFLPM4Z43AF3E56FIHDTAK7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,63 +110,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The sof_ipc4_find_swidget_by_ids() can be used to find the swidget of a
-module instance.
-The lookup parameters are the module_id and the instance_id.
+With the module notification message the information about the notification
+is provided via the mailbox with the sof_ipc4_notify_module_data struct.
+
+It contains the module and instance id of the sender of the notification,
+the event_id and optionally additional data which is module and event
+specific.
+
+At the same time add definitions to identify ALSA kcontrol change
+notification.
+These notifications use standardized event_id, modules must follow this if
+they support such notifications:
+upper 16 bit: 0xA15A as a magic identification value
+lower 16 bit: param_id of the changed control
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc4-priv.h     |  3 +++
- sound/soc/sof/ipc4-topology.c | 20 ++++++++++++++++++++
- 2 files changed, 23 insertions(+)
+ include/sound/sof/ipc4/header.h | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index 9e69b7c29117..fea93b693f4d 100644
---- a/sound/soc/sof/ipc4-priv.h
-+++ b/sound/soc/sof/ipc4-priv.h
-@@ -115,6 +115,9 @@ int sof_ipc4_reload_fw_libraries(struct snd_sof_dev *sdev);
- struct sof_ipc4_fw_module *sof_ipc4_find_module_by_uuid(struct snd_sof_dev *sdev,
- 							const guid_t *uuid);
+diff --git a/include/sound/sof/ipc4/header.h b/include/sound/sof/ipc4/header.h
+index 574a9d581f88..2c81d6dde577 100644
+--- a/include/sound/sof/ipc4/header.h
++++ b/include/sound/sof/ipc4/header.h
+@@ -532,6 +532,35 @@ struct sof_ipc4_notify_resource_data {
+ #define SOF_IPC4_DEBUG_SLOT_TELEMETRY		0x4c455400
+ #define SOF_IPC4_DEBUG_SLOT_BROKEN		0x44414544
  
-+struct snd_sof_widget *sof_ipc4_find_swidget_by_ids(struct snd_sof_dev *sdev,
-+						    u32 module_id, int instance_id);
++/**
++ * struct sof_ipc4_notify_module_data - payload for module notification
++ * @instance_id: instance ID of the originator module of the notification
++ * @module_id: module ID of the originator of the notification
++ * @event_id: module specific event id
++ * @event_data_size: Size of the @event_data (if any) in bytes
++ * @event_data: Optional notification data, module and notification dependent
++ */
++struct sof_ipc4_notify_module_data {
++	uint16_t instance_id;
++	uint16_t module_id;
++	uint32_t event_id;
++	uint32_t event_data_size;
++	uint8_t event_data[];
++} __packed __aligned(4);
 +
- struct sof_ipc4_base_module_cfg;
- void sof_ipc4_update_cpc_from_manifest(struct snd_sof_dev *sdev,
- 				       struct sof_ipc4_fw_module *fw_module,
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index b24a64377f68..8ab9c42069ee 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -167,6 +167,26 @@ static const struct sof_token_info ipc4_token_list[SOF_TOKEN_COUNT] = {
- 	[SOF_SRC_TOKENS] = {"SRC tokens", src_tokens, ARRAY_SIZE(src_tokens)},
- };
++/*
++ * ALSA kcontrol change notification
++ *
++ * The event_id of struct sof_ipc4_notify_module_data is divided into two u16:
++ *  upper u16: magic number for ALSA kcontrol types: 0xA15A
++ *  lower u16: param_id of the control, which is the type of the control
++ * The event_data contains the struct sof_ipc4_control_msg_payload of the control
++ * which sent the notification.
++ */
++#define SOF_IPC4_NOTIFY_MODULE_EVENTID_ALSA_MAGIC_MASK		GENMASK(31, 16)
++#define SOF_IPC4_NOTIFY_MODULE_EVENTID_ALSA_MAGIC_VAL		0xA15A0000
++#define SOF_IPC4_NOTIFY_MODULE_EVENTID_ALSA_PARAMID_MASK	GENMASK(15, 0)
++
+ /** @}*/
  
-+struct snd_sof_widget *sof_ipc4_find_swidget_by_ids(struct snd_sof_dev *sdev,
-+						    u32 module_id, int instance_id)
-+{
-+	struct snd_sof_widget *swidget;
-+
-+	list_for_each_entry(swidget, &sdev->widget_list, list) {
-+		struct sof_ipc4_fw_module *fw_module = swidget->module_info;
-+
-+		/* Only active module instances have valid instance_id */
-+		if (!swidget->use_count)
-+			continue;
-+
-+		if (fw_module && fw_module->man4_module_entry.id == module_id &&
-+		    swidget->instance_id == instance_id)
-+			return swidget;
-+	}
-+
-+	return NULL;
-+}
-+
- static void sof_ipc4_dbg_audio_format(struct device *dev, struct sof_ipc4_pin_format *pin_fmt,
- 				      int num_formats)
- {
+ #endif
 -- 
 2.42.1
 

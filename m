@@ -2,99 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA3087F708C
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Nov 2023 10:51:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8BFF7F714B
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Nov 2023 11:19:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D086CDFA;
-	Fri, 24 Nov 2023 10:51:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D086CDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 586B4DF4;
+	Fri, 24 Nov 2023 11:19:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 586B4DF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1700819502;
-	bh=29Z7FXuo6ezswH/rP81Aelxg/2GhZvhns0FAw0YmeOo=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=CLi13lxMhUDkRzyft5Ars7pXdrCD8+Z8tkOaBFetT7FS598K+2hxOfLd8fxZHyVcP
-	 nz/t+4TceMD1nnpwNluNKV3HLltGv6aZ+h5orE82X2ln6goAWQy8OCNZj531LFF01C
-	 uJrhnc3hjjFeQjhYEQDQ3UivgmKR+I2VxpTLHLtg=
+	s=default; t=1700821195;
+	bh=OEZjeJvaa0W7vSTE88cnpZau4Nam/6qChCui4cXBaN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=kQGnZ/LZdmnJYKUMn5LAEBoWFOwcqQmBY9kUqCu8oSdqA6u2WNn5g/Njz2cOC+AxX
+	 5z+0aAUdLt0ICiUKoPtpYiqU0iHEixP1ys1Of05yGIkbKnnstOU+8EkBr/zLQl2Sfm
+	 NargeKqxXBzwFp0fV/+qlX1uyOSo7Cr1EEyoddmA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DC17F8057D; Fri, 24 Nov 2023 10:51:11 +0100 (CET)
+	id 6A43DF8055B; Fri, 24 Nov 2023 11:19:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E103F80568;
-	Fri, 24 Nov 2023 10:51:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5463F80254;
+	Fri, 24 Nov 2023 11:19:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A331AF802E8; Fri, 24 Nov 2023 10:50:45 +0100 (CET)
+	id D5093F802E8; Fri, 24 Nov 2023 11:19:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94A2FF80249
-	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 10:50:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94A2FF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B669F80249
+	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 11:19:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B669F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Jyxy9nFX
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3AO6xNTZ010106;
-	Fri, 24 Nov 2023 03:50:34 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=0
-	BSvJ7usnWbGiPGf6UjTYXjzO1zlA/tY5Les5VqpUOI=; b=Jyxy9nFX8iQChZ0cS
-	0BqOsuaBamyyKCpuiVvHH0G92KfBp30rU7A9qdkw1LoGX1T6v9uYQO7Ap0VKWIua
-	NXr64i11q6N++FXaQNvAX57YThBAFwkwQiH8uLXk/r4l6ZcpGgdpC1Vc84fRAlGv
-	/XbelQ3KhDkuLUiLXg4gK4lawpm5ZoyaM8BNn+y4t+kgSRSetrR3EC42tTx0pqMw
-	hXQ0i4Re7FpDedcfAimsvCCLb1+u/w9bzrErIPvF/pQbmeHUQ0SmmTKC9jmE27rX
-	2Nkn8C4/VPQI9D68je5kuPDvy15Yk2AC1XVMyWE7WVc4/MekNCiXWovdXBRyvn2c
-	YYnHg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3uetjpem55-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 24 Nov 2023 03:50:34 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Fri, 24 Nov
- 2023 09:50:32 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.39 via Frontend Transport; Fri, 24 Nov 2023 09:50:32 +0000
-Received: from upx-tgl-008-ubuntu.ad.cirrus.com
- (upx-tgl-008-ubuntu.ad.cirrus.com [198.90.251.167])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 64696357F;
-	Fri, 24 Nov 2023 09:50:32 +0000 (UTC)
-From: Maciej Strozek <mstrozek@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-CC: James Schulman <james.schulman@cirrus.com>,
-        David Rhodes
-	<david.rhodes@cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Maciej Strozek
-	<mstrozek@opensource.cirrus.com>
-Subject: [RESEND] ASoC: cs43130: Allow configuration of bit clock and frame
- inversion
-Date: Fri, 24 Nov 2023 09:50:30 +0000
-Message-ID: <20231124095030.24539-1-mstrozek@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EIQvHAcW
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 5D6FBB83006;
+	Fri, 24 Nov 2023 10:19:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD8AC433C8;
+	Fri, 24 Nov 2023 10:19:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1700821150;
+	bh=OEZjeJvaa0W7vSTE88cnpZau4Nam/6qChCui4cXBaN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EIQvHAcWdH+aWdppBQyEJjgBwjnj5PnnQhO+8xHsqSeB6JHVnW6G1hVn2zzCxm480
+	 H5bD3Fi5C1IuNoVzMIG9SgfodwjThbhDJjL0fgsXBSA5YCYGM1T0QVnzvKjJSkfVcC
+	 PvGPze6kTiRqJHjygRYv9msfNlebGeRIyr9LPvNKLPrmKxODAccrpw463vn+mwFbUC
+	 umgQVa122MGu4N+Yb3ab54opcbQZ+YXPTMLDqnfbqRgk4ic+347sp+IYJ5s9us5mZB
+	 6eYz6vPGdNc2JP4GhfqOrjurYebJVCs8OIu2U0SIUxn1IXKANYUGg1cXvQsN6R319N
+	 vXJKMdOHPjiDw==
+Date: Fri, 24 Nov 2023 10:19:07 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] ASoC: codecs: Add WCD939x Codec driver
+Message-ID: <ZWB4myckLrpBYLm+@finisterre.sirena.org.uk>
+References: 
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-0-21d4ad9276de@linaro.org>
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-5-21d4ad9276de@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: UevVvw5fily_5khQIm2O0txDPIJE2xNH
-X-Proofpoint-ORIG-GUID: UevVvw5fily_5khQIm2O0txDPIJE2xNH
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: V6SDJ6QFFMQWNWE5PKF3DQ52NF4K6IXL
-X-Message-ID-Hash: V6SDJ6QFFMQWNWE5PKF3DQ52NF4K6IXL
-X-MailFrom: prvs=6692789af5=mstrozek@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VQ2nRTjyMlGPMvXH"
+Content-Disposition: inline
+In-Reply-To: 
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-5-21d4ad9276de@linaro.org>
+X-Cookie: Slow day.  Practice crawling.
+Message-ID-Hash: EERUMFTB5TDDJ5L37N7T7NIOYEDL7IC2
+X-Message-ID-Hash: EERUMFTB5TDDJ5L37N7T7NIOYEDL7IC2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V6SDJ6QFFMQWNWE5PKF3DQ52NF4K6IXL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EERUMFTB5TDDJ5L37N7T7NIOYEDL7IC2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,96 +111,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
----
-Resending patch which previously broke x86 allmodconfig [1], now rebased on
-for-next branch
 
-[1]: https://lore.kernel.org/all/ZVfLMIbCpShVAYBf@finisterre.sirena.org.uk/
+--VQ2nRTjyMlGPMvXH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
- sound/soc/codecs/cs43130.c | 42 ++++++++++++++++++++++++++++++++++++--
- sound/soc/codecs/cs43130.h |  1 +
- 2 files changed, 41 insertions(+), 2 deletions(-)
+On Thu, Nov 23, 2023 at 03:49:15PM +0100, Neil Armstrong wrote:
 
-diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
-index 4f16baf4eafb..0f3ead84665f 100644
---- a/sound/soc/codecs/cs43130.c
-+++ b/sound/soc/codecs/cs43130.c
-@@ -620,6 +620,27 @@ static int cs43130_set_sp_fmt(int dai_id, unsigned int bitwidth_sclk,
- 		return -EINVAL;
- 	}
+> +	if (wcd939x->variant == WCD9390) {
+> +		if (mode_val == CLS_H_HIFI || mode_val == CLS_AB_HIFI) {
+> +			dev_info(component->dev, "%s: Invalid HPH Mode, default to CLS_H_ULP\n",
+> +				 __func__);
+> +			mode_val = CLS_H_ULP;
+> +		}
+> +	}
+> +	if (mode_val == CLS_H_NORMAL) {
+> +		dev_info(component->dev, "%s: Invalid HPH Mode, default to class_AB\n",
+> +			 __func__);
+> +		mode_val = CLS_H_ULP;
+> +	}
 
-+	switch (cs43130->dais[dai_id].dai_invert) {
-+	case SND_SOC_DAIFMT_NB_NF:
-+		sclk_edge = 1;
-+		lrck_edge = 0;
-+		break;
-+	case SND_SOC_DAIFMT_IB_NF:
-+		sclk_edge = 0;
-+		lrck_edge = 0;
-+		break;
-+	case SND_SOC_DAIFMT_NB_IF:
-+		sclk_edge = 1;
-+		lrck_edge = 1;
-+		break;
-+	case SND_SOC_DAIFMT_IB_IF:
-+		sclk_edge = 0;
-+		lrck_edge = 1;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
- 	switch (cs43130->dais[dai_id].dai_mode) {
- 	case SND_SOC_DAIFMT_CBS_CFS:
- 		dai_mode_val = 0;
-@@ -632,8 +653,6 @@ static int cs43130_set_sp_fmt(int dai_id, unsigned int bitwidth_sclk,
- 	}
+This lets people spam the logs from userspace, why not just return an
+error?
 
- 	frm_size = bitwidth_sclk * params_channels(params);
--	sclk_edge = 1;
--	lrck_edge = 0;
- 	loc_ch1 = 0;
- 	loc_ch2 = bitwidth_sclk * (params_channels(params) - 1);
+> +	if (hphr)
+> +		wcd939x->comp2_enable = value;
+> +	else
+> +		wcd939x->comp1_enable = value;
 
-@@ -1516,6 +1535,25 @@ static int cs43130_pcm_set_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- 		return -EINVAL;
- 	}
+Are there really no constraints on the values for these things?
 
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_NF:
-+		cs43130->dais[codec_dai->id].dai_invert = SND_SOC_DAIFMT_NB_NF;
-+		break;
-+	case SND_SOC_DAIFMT_IB_NF:
-+		cs43130->dais[codec_dai->id].dai_invert = SND_SOC_DAIFMT_IB_NF;
-+		break;
-+	case SND_SOC_DAIFMT_NB_IF:
-+		cs43130->dais[codec_dai->id].dai_invert = SND_SOC_DAIFMT_NB_IF;
-+		break;
-+	case SND_SOC_DAIFMT_IB_IF:
-+		cs43130->dais[codec_dai->id].dai_invert = SND_SOC_DAIFMT_IB_IF;
-+		break;
-+	default:
-+		dev_err(cs43130->dev, "Unsupported invert mode 0x%x\n",
-+			fmt & SND_SOC_DAIFMT_INV_MASK);
-+		return -EINVAL;
-+	}
-+
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
- 		cs43130->dais[codec_dai->id].dai_format = SND_SOC_DAIFMT_I2S;
-diff --git a/sound/soc/codecs/cs43130.h b/sound/soc/codecs/cs43130.h
-index 694286b78d03..dbdb5b262f1b 100644
---- a/sound/soc/codecs/cs43130.h
-+++ b/sound/soc/codecs/cs43130.h
-@@ -497,6 +497,7 @@ struct cs43130_dai {
- 	unsigned int			sclk;
- 	unsigned int			dai_format;
- 	unsigned int			dai_mode;
-+	unsigned int			dai_invert;
- };
+> +static const struct snd_kcontrol_new wcd9390_snd_controls[] = {
+> +	SOC_ENUM_EXT("EAR PA GAIN", wcd939x_ear_pa_gain_enum,
+> +		     wcd939x_ear_pa_gain_get, wcd939x_ear_pa_gain_put),
 
- struct	cs43130_private {
---
-2.34.1
+Gains should be be named Volume.  Is there no TLV information?
 
+> +static irqreturn_t wcd939x_wd_handle_irq(int irq, void *data)
+> +{
+> +	return IRQ_HANDLED;
+> +}
+
+Why even request the interrupt if it's just going to be ignored?
+
+--VQ2nRTjyMlGPMvXH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVgeJoACgkQJNaLcl1U
+h9AZqgf9ER6M6fjDX85XA+DwqPsutTqM7mFbCjQypc4RvoCAFr404QMv94Pqj49B
+yVWWJEJ450NwalztnrIUsq8eTs9Fs/KpIhqEh202WlqHHd2EKGoAyHh6IEqF/yni
+F1YbWwejYTdL+16hOhMCtr0AtdhxEOe74omNJNcePl/yWCLx14CAA/snSAgVObjQ
+NO1Uhh1AgnAEO+S1jOvuGb3BzIor2UpcFNqhvKa6jkgRpEk/ZEUQjzJ/1bGdOF5r
+ny1HRvZgIcwIKyioGRREjdPmIGHFg+gLe3+LESxVy32YhpKkWaqYa4UT2wcVgtTp
+ej3yYYHUfeYQ6XtbWTd/o/wtzwlIWQ==
+=IuYR
+-----END PGP SIGNATURE-----
+
+--VQ2nRTjyMlGPMvXH--

@@ -2,115 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9638B7F94A2
-	for <lists+alsa-devel@lfdr.de>; Sun, 26 Nov 2023 18:38:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 114057F94A3
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Nov 2023 18:39:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FC0683B;
-	Sun, 26 Nov 2023 18:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FC0683B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84260844;
+	Sun, 26 Nov 2023 18:38:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84260844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701020318;
-	bh=GFjYrTCfkrcNlzy76CnGX/PrYanNuFlmv/Z3zWIO/Dg=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KMhPzkE+clrJ7Udo+ogwQkBa2MbyNC04b1FczFbL3ZCvQ76nDC9CefJy0h1TyVBqK
-	 l1ibQnVo7ubs4Xr7Q6Sfu7AbgWCpMmLqc++QpUpCUYBIMNhcZX6sY0nBMu29gl5Nvk
-	 GQUl/jkhFpq+WuDH7Vwt4wSTAdP0C1B/oXManT7U=
+	s=default; t=1701020348;
+	bh=9+o0/xoDfV6h/LjYJYSzg2LoLBT1F7N2G9X5nJ0csOk=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=I3NEd4JSJkb5TobQPkXhgTTqZY5gWmaAOcdQt/7FdjVi8l0qgaygA5HSVOSV8izG3
+	 K2XcbzLcW1hHJ4txLdKsego9pAVUO/BRMju91Z86zKrw8lEObYnD7qF62158n9OpwM
+	 bkAS2O3kVHfanJxVAe1QHVJy0ldcOJR/7ITTNxxQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F6C6F805A1; Sun, 26 Nov 2023 18:38:17 +0100 (CET)
+	id 86ACBF805BF; Sun, 26 Nov 2023 18:38:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77606F8057A;
-	Sun, 26 Nov 2023 18:38:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC174F805BE;
+	Sun, 26 Nov 2023 18:38:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89EDCF802E8; Fri, 24 Nov 2023 11:27:15 +0100 (CET)
+	id 322BEF802E8; Fri, 24 Nov 2023 17:18:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2A7C9F80249
-	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 11:27:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A7C9F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53B52F80246
+	for <alsa-devel@alsa-project.org>; Fri, 24 Nov 2023 17:18:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53B52F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=o9eawzzl
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3AO6SOAQ004050;
-	Fri, 24 Nov 2023 04:27:09 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=GFjYrTCfkrcNlzy
-	76CnGX/PrYanNuFlmv/Z3zWIO/Dg=; b=o9eawzzl9C1r6i65S18DgOGn2eUvokm
-	KI2jLX6DmjQagDcrUFfNL/jWaCMZX49ndZaP12wGyGFOqIS9QM+uxul0/P/5iyrK
-	DcWBqO7N4OAJn/opM9J+9vg3gt8LYuquMupkZgnn3gepZmMZgcMl1YmaxIoT+2rp
-	GCv6aN3om7dPAcXL99I2ivmNb1pfTQTrRClY4JWyG1kzrpilTRT9apoR7AQSTOQG
-	4pHzZkfRJ+s6jNFuFwbIMGvcwLE2zrBD+g/0rXE2bNUpz6qkAf9vBhw8wkATJVU2
-	+CZqAdXu+jb8YWT9X3O/BkCC2V+4bw+beWj+Mf2JUQNewBnwPPLrvvg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3uetjpen7k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 24 Nov 2023 04:27:09 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Fri, 24 Nov
- 2023 10:27:08 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.39 via Frontend Transport; Fri, 24 Nov 2023 10:27:07 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B349215B6;
-	Fri, 24 Nov 2023 10:27:07 +0000 (UTC)
-Date: Fri, 24 Nov 2023 10:27:07 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Maciej Strozek <mstrozek@opensource.cirrus.com>
-CC: Mark Brown <broonie@kernel.org>,
-        James Schulman
-	<james.schulman@cirrus.com>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        "Liam
- Girdwood" <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [RESEND] ASoC: cs43130: Allow configuration of bit clock and
- frame inversion
-Message-ID: <20231124102707.GR32655@ediswmail.ad.cirrus.com>
-References: <20231124095030.24539-1-mstrozek@opensource.cirrus.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=IQUsIo99
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2c88b7e69dfso25745901fa.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 24 Nov 2023 08:18:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700842723; x=1701447523;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=9+o0/xoDfV6h/LjYJYSzg2LoLBT1F7N2G9X5nJ0csOk=;
+        b=IQUsIo99+aAXW7sjEBVUMA1VLRuZP3WLDWbJ6h4lbef+kKDgIMP+DalBfxhQJqYVzS
+         aqVtqzevgBDvwS35G7hPYODOxMe0oScCDqajLDyFCG02jEcPwWgpn58PxcfFibwRc+ha
+         6UhqGngAgZ0OVT9YRvKQmp3pKD/AIOx0SqFkQRCbCQd1YbNtEiyAwdK/lm39SO5UBy/C
+         bRzI2CdGwZPt+E0TfNEmLkTtxE8hekJUhNdag5PinxOu2TKIKitJ+bnohLA7IeQsDIJU
+         +2hstK55k2zrrDualYR36PNFNuovwrlEweApKfSWPmkVoaJX3Th18AIrx9iaf4unlWm9
+         kBTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1700842723; x=1701447523;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9+o0/xoDfV6h/LjYJYSzg2LoLBT1F7N2G9X5nJ0csOk=;
+        b=HJXIi/pBEThAFPEF8LoCaTpXC18hGDfKrgZ7dDjUQ1Ii4T9F9SjxxNmGiLbGBuYhm4
+         lWmv5HB17bl+ULW4tI2VLoYtlnztMzAc3MejTxWw/Lzt9Y+RK/u7+dYk9oIIkNxHmtIV
+         UcRMPzOobo3rgkevMb1nMTzqriUkK4D3yZjYaoaEqYgMDVJjt7CeHi8a0X+lwHO/zz7h
+         czvh2i0t7xDU8sQ+ZNDDGs4UGpr4pQ/rDj9rTOs9S/EcxUo97p7EcX+XkWdXmyHZTO6+
+         97MzvlrOhqcOLyYU5BdZOQk8KKVU4hXRGYly/vuqsH6bczsKrOqW0dpACzfShhhE2U8x
+         HrYw==
+X-Gm-Message-State: AOJu0Yyrjc3jT19cH/5X3RI8ULKE2ei3bPgQzS82jBQzObff+U8f4h6t
+	LoVgOO2d7MlJ1Amuti93Y1KUzeyeiW1QdFlk5n6V9VbePv1MlA==
+X-Google-Smtp-Source: 
+ AGHT+IG20Aot1/rtWXbDlpweKP0XuMMpqBgQ8ty/3/j+VDtm4Un/JvEA4Yxsxth333okxYAUiTbql3hl1njOQfgSPkI=
+X-Received: by 2002:a2e:9793:0:b0:2c5:ee7:b322 with SMTP id
+ y19-20020a2e9793000000b002c50ee7b322mr2712089lji.18.1700842723319; Fri, 24
+ Nov 2023 08:18:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20231124095030.24539-1-mstrozek@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: fx8UwrWDODrje-Twg2iLTFxL51XwNoX4
-X-Proofpoint-ORIG-GUID: fx8UwrWDODrje-Twg2iLTFxL51XwNoX4
-X-Proofpoint-Spam-Reason: safe
-X-MailFrom: prvs=6692f2b4fb=ckeepax@opensource.cirrus.com
-X-Mailman-Rule-Hits: implicit-dest
+From: Yevhen Hrubiian <grubian.euhen@gmail.com>
+Date: Fri, 24 Nov 2023 18:18:31 +0200
+Message-ID: 
+ <CAGGk=CRRQ1L9p771HsXTN_ebZP41Qj+3gw35Gezurn+nokRewg@mail.gmail.com>
+Subject: Bass speaker fixup for Lenovo Yoga Pro 7 14APH8
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+X-MailFrom: grubian.euhen@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; max-recipients; max-size; news-moderation; no-subject;
- digests; suspicious-header
-Message-ID-Hash: AYDZOJ5WY4V64662CKK5NUZSLOG7HTNQ
-X-Message-ID-Hash: AYDZOJ5WY4V64662CKK5NUZSLOG7HTNQ
-X-Mailman-Approved-At: Sun, 26 Nov 2023 17:36:43 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: DITROTQ63NVZGNGRVARXNMPK6COPILLH
+X-Message-ID-Hash: DITROTQ63NVZGNGRVARXNMPK6COPILLH
+X-Mailman-Approved-At: Sun, 26 Nov 2023 17:36:54 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AYDZOJ5WY4V64662CKK5NUZSLOG7HTNQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DITROTQ63NVZGNGRVARXNMPK6COPILLH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,11 +109,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Nov 24, 2023 at 09:50:30AM +0000, Maciej Strozek wrote:
-> Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
-> ---
+Hello !
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+I've seen a few patches fixing bass speaker problem for new Lenovo
+(written by Philipp Jungkamp and later by Pascal Gross), for example
+this line in linux/sound/pci/hda/patch_realtek.c:
 
-Thanks,
-Charles
+SND_PCI_QUIRK(0x17aa, 0x3801, "Lenovo Yoga9 14IAP7",
+ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN)
+
+Could you please add this line for a similar model with the same Problem?
+
+SND_PCI_QUIRK(0x17aa, 0x3882, "Lenovo Yoga Pro 7 14APH8",
+ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+
+I do not have experience in writing kernel patches so I hope I will
+not irritate you with this letter.
+
+Thanks!
+
+Yevhen Hrubiian

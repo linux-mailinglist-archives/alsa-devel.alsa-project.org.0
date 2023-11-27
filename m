@@ -2,97 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 978747FA12B
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 14:37:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 053A77FA13C
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 14:42:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E908E832;
-	Mon, 27 Nov 2023 14:37:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E908E832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 178F4836;
+	Mon, 27 Nov 2023 14:42:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 178F4836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701092249;
-	bh=mJesEuzPrGuDLW8lzbIbz3ZHGfHLQu0+NnuIRJyxKts=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1701092547;
+	bh=f3BQHuMYi7jlc3CvTz+C/tQdYT/Mcv85re4DWN0keTU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V72H0Sfuryqk6ggMOOfe3bVzJULyvir77pdER/ZK65qAa1nKbNqZeRXHBOOj8MB17
-	 jDoZ0dkK5jbf1fX60Y917M0LF60Lflju9/sx/R9Se7D7RtKC5GCV3sRCtHUVYlbr5G
-	 HDcSH479NwHiey2IM6xDXq6Jg91HcqGJj7Cyd4I0=
+	b=IxN40CoTbRT6C3k4kmWii/ynHPWnUnyd+eK0gjR93ybS8y4Xlxd5hCaY6y+PbAkJR
+	 2RuzSjCTmKBm1ZZE9vhxHHt+5kgqNDDq3tZ7CDFxgMlnNL0stq74nTzhzVRt4Z09O6
+	 1iQgVM/UxZapqxiNupBi8rRPTbcBtcQ9C7a2yj/I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E501BF80606; Mon, 27 Nov 2023 14:36:17 +0100 (CET)
+	id B1F05F80571; Mon, 27 Nov 2023 14:41:55 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8241F80609;
-	Mon, 27 Nov 2023 14:36:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7D04F8055C;
+	Mon, 27 Nov 2023 14:41:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B42E3F80254; Mon, 27 Nov 2023 14:36:08 +0100 (CET)
+	id D000AF801D5; Mon, 27 Nov 2023 14:41:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4023F80104
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 14:36:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4023F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9B394F800F5
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 14:41:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B394F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XpYuxRkb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701092164; x=1732628164;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=mJesEuzPrGuDLW8lzbIbz3ZHGfHLQu0+NnuIRJyxKts=;
-  b=XpYuxRkbOHYz+xOWqCqcgO+iKMZKL5Uf0dgxug+8Dn7a8g22qtTgcgHo
-   6uEZMhGBsOPm/4/eraJwtWlVrS1BXBxssqGtDDFcaO3Nlly0LlzYLiW3s
-   y5N+os7Z6USUPL6efuCNIcSbbvhaBmuTLANgwkJ2/nqADtrhy2ztjA+9f
-   jmTcbUDDEeUvISrD1CxYHnwN5QUTIdoG9rkeU072emQDOcIP3nvxiYOmF
-   Y1Wa7nWxh/wyeVvjvQOQSQBuxMqwKN0TUrR9PvDtHm8pSWIAYmougsirX
-   b5yju7eHekWt6185WXC24NW/cjuZoEMrvwmLiwCVhpHOIvx2t5UsEBSJA
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10906"; a="391578600"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="391578600"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 05:34:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10906"; a="891743786"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="891743786"
-Received: from acornagl-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.58.144])
-  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 05:34:39 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	cezary.rojewski@intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ckeepax@opensource.cirrus.com,
-	yong.zhi@intel.com,
-	chao.song@linux.intel.com
-Subject: [PATCH 7/7] ASoC: Intel: soc-acpi-intel-mtl-match: Add rt722 support
-Date: Mon, 27 Nov 2023 15:34:48 +0200
-Message-ID: <20231127133448.18449-8-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231127133448.18449-1-peter.ujfalusi@linux.intel.com>
-References: <20231127133448.18449-1-peter.ujfalusi@linux.intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=PpqEIMdl
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 72208CE0C48;
+	Mon, 27 Nov 2023 13:41:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B674C433C8;
+	Mon, 27 Nov 2023 13:41:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701092501;
+	bh=f3BQHuMYi7jlc3CvTz+C/tQdYT/Mcv85re4DWN0keTU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PpqEIMdln6ZmmiZtmAWKq/siGwB3UxlsVq7rZTD+fWjb7rC97XFbYgpQrjb2krMIq
+	 8Sy00hO4zsqDYcRRTVkw01jSdozpS2oSA2o/FPwRrEC4sBJH7FE1rqZnEqziJgFgVm
+	 T99Gl31xIRII/AwJFUIWTZbRHnVWkuqgKyVF5mpeBGB/iQ2jgnHfIqsmbezzQz6E5c
+	 lUrAMVx8nwxXypNLP0/hrW5VAvXKMXknPgH2eGsA7aj6pIuN7sEM3Rw4tVvOw2VoL1
+	 Ib6v8nnM6Iuy2mguXAcMElJgwomBPccDetFEVnxxT490vHUfSaaCvPsXnuLseio6S3
+	 W//aHq0/6gJYQ==
+Date: Mon, 27 Nov 2023 13:41:36 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Malcolm Hart <malcolm@5harts.com>
+Cc: Sven Frotscher <sven.frotscher@gmail.com>, git@augustwikerfors.se,
+	alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org, mario.limonciello@amd.com,
+	regressions@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: ASoC: amd: yc: Fix non-functional mic on ASUS E1504FA
+Message-ID: <ZWSckMPyqJl4Ebib@finisterre.sirena.org.uk>
+References: <b9dd23931ee8709a63d884e4bd012723c9563f39.camel@5harts.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AUMQWO4A3B7YEVQ4PIG2WTLH6IMNCYUR
-X-Message-ID-Hash: AUMQWO4A3B7YEVQ4PIG2WTLH6IMNCYUR
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="g8U18o2ouH88KqKG"
+Content-Disposition: inline
+In-Reply-To: <b9dd23931ee8709a63d884e4bd012723c9563f39.camel@5harts.com>
+X-Cookie: Slow day.  Practice crawling.
+Message-ID-Hash: BLEVDKUJRORNNJOCGP26WR5DRGOW2JVW
+X-Message-ID-Hash: BLEVDKUJRORNNJOCGP26WR5DRGOW2JVW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AUMQWO4A3B7YEVQ4PIG2WTLH6IMNCYUR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BLEVDKUJRORNNJOCGP26WR5DRGOW2JVW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,102 +99,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Chao Song <chao.song@linux.intel.com>
 
-This patch adds match table for rt722 codec on link 0.
+--g8U18o2ouH88KqKG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-RT722 is a multi-function codec, three endpoints are
-created for its headset, amp and dmic functions.
+On Mon, Nov 27, 2023 at 12:24:59PM +0000, Malcolm Hart wrote:
+> Like other ASUS models the Asus Vivobook E1504FA requires an entry in
+> the quirk list to enable the internal microphone.
+>=20
+> Showing
+> with 7 additions and 0 deletions.
+> 7 changes: 7 additions & 0 deletions 7
+> sound/soc/amd/yc/acp6x-mach.c
+> @@ -283,6 +283,13 @@ static const struct dmi_system_id
+> yc_acp_quirk_table[] =3D {
 
-Signed-off-by: Chao Song <chao.song@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- .../intel/common/soc-acpi-intel-mtl-match.c   | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+The patch appears to have been unusably corrupted by your e-mail
+software and is also missing a Signed-off-by.  See email-cleints.rst for
+some suggestions on configuring things, or it might be worth looking
+into b4 and it's web submission endpoint:
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-index 2035f561ca50..f2c17cee1a5d 100644
---- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-@@ -135,6 +135,31 @@ static const struct snd_soc_acpi_endpoint rt712_endpoints[] = {
- 	},
- };
- 
-+/*
-+ * RT722 is a multi-function codec, three endpoints are created for
-+ * its headset, amp and dmic functions.
-+ */
-+static const struct snd_soc_acpi_endpoint rt722_endpoints[] = {
-+	{
-+		.num = 0,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	{
-+		.num = 1,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	{
-+		.num = 2,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+};
-+
- static const struct snd_soc_acpi_endpoint spk_2_endpoint = {
- 	.num = 0,
- 	.aggregated = 1,
-@@ -176,6 +201,15 @@ static const struct snd_soc_acpi_adr_device rt1712_3_single_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt722_0_single_adr[] = {
-+	{
-+		.adr = 0x000030025d072201ull,
-+		.num_endpoints = ARRAY_SIZE(rt722_endpoints),
-+		.endpoints = rt722_endpoints,
-+		.name_prefix = "rt722"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt713_0_single_adr[] = {
- 	{
- 		.adr = 0x000031025D071301ull,
-@@ -367,6 +401,15 @@ static const struct snd_soc_acpi_link_adr mtl_rvp[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_link_adr mtl_rt722_only[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt722_0_single_adr),
-+		.adr_d = rt722_0_single_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_link_adr mtl_3_in_1_sdca[] = {
- 	{
- 		.mask = BIT(0),
-@@ -568,6 +611,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-mtl-rt711-l0-rt1316-l23-rt714-l1.tplg",
- 	},
-+	{
-+		.link_mask = BIT(0),
-+		.links = mtl_rt722_only,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-mtl-rt722-l0.tplg",
-+	},
- 	{
- 		.link_mask = BIT(0),
- 		.links = mtl_rvp,
--- 
-2.43.0
+   https://b4.docs.kernel.org/en/latest/
 
+--g8U18o2ouH88KqKG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVknI8ACgkQJNaLcl1U
+h9DEbQf/VOKtiPwxU5ySd49oW4bpnDNSU118nM6uQupgCYR/yaVImX1SSm0oLZjg
+BKYm5jaj1zChar2emI33Jev2ffjqGLOn2XHM9eyn2APjiQtB8stIHZIi1qj5Pkeu
+iApaUpc1g4Esia9606uptwLk/YDydl1P5qWs/0guseaJISnU76hIxQ4E96R4uB7z
+HCMDac9KRvihvI9eD7GoJ4fNiOhAJZe+9BJfx3JBsR8ctnjHdeq8sjwOWeeg3lNZ
+VxSzoyf8IjQLlJZ1wC0lB3MAUsmPEqvSD4t2yFGEuMULbaGeOtn2gcemHxLm9uKd
+K9XEZ4NPqhBzUi8+qn9V1I0UxTDsqw==
+=DBJx
+-----END PGP SIGNATURE-----
+
+--g8U18o2ouH88KqKG--

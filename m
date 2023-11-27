@@ -2,97 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D7897FA356
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 15:46:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDEC37FA44C
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:20:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0F00820;
-	Mon, 27 Nov 2023 15:45:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0F00820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11638950;
+	Mon, 27 Nov 2023 16:20:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11638950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701096366;
-	bh=k++rS4KJjI7oQEUM44rtMMAlNIs0/JrY4n1kXW7APuE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1701098455;
+	bh=Q14qUmINB0YLha7YH9/BHWsNnpnrLxNXjQjXuBYZPGM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lIv4jIr3B0/OyaRdiZuvpVYRjrLeOuC3/V8tgjKeteEzgcnagfjg4WmM6/1cBdYj5
-	 xT95uTi3CFhx6c3o/0XfO9WMdPAu11xIOYSLloc03mWLU65/wdpK9HkQ3giMu7nB9g
-	 Hd0Kppl0RPpLNLwNQ/OxBSuZgwHzytX9UKGXBx6c=
+	b=uKxM+ievX0XsRMrNUtMwzczdlqxEgCn1/S0fpxH5ADHkXo/ofbRg7NH/E7GIa/QA9
+	 +osbtx04aFDw5PFI4hNqWxypbB7T+1LZ9FGGRPfUXUL38xxGM21Q2+3wPYwhlDXAWE
+	 2q3h8WvZKro0WmI9QBhkCzFTVpW65TvfiSkm1MFM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A7C0F8057D; Mon, 27 Nov 2023 15:45:34 +0100 (CET)
+	id CAD81F80578; Mon, 27 Nov 2023 16:20:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47E7AF802BE;
-	Mon, 27 Nov 2023 15:45:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 102F5F8057A;
+	Mon, 27 Nov 2023 16:20:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 628BBF801D5; Mon, 27 Nov 2023 15:45:30 +0100 (CET)
+	id CCB73F801D5; Mon, 27 Nov 2023 16:20:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 530A9F8007E
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 15:45:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 530A9F8007E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fAiI2/XI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701096326; x=1732632326;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=k++rS4KJjI7oQEUM44rtMMAlNIs0/JrY4n1kXW7APuE=;
-  b=fAiI2/XIH6+U4BuuvV+iYMCiIuels12s7vu3Eg2Tiw3Npw+BYANkSFNN
-   Os0LtA3ln5UujN0omqd7OvoLTPQhROxHZUN1/CstHoMG6TOvSh+49C9jO
-   EMLsQbYLzGwenW+4BZnUsTHrSNxjI+XJ2DWF1+JFKJEv3o2FoqeDP7t+R
-   O1Mpd78XxYb/tga53ALVflvxCzEIaCFZmGHN9wBoL9HwNi3unx/5hgoR6
-   2wv2yAey5e7DPaAur+W/NZr9hi/gtHDDNNA0EGk4+9NgGSzVLoEp77kx8
-   P9Ls++LXYmqZyO2VHhADu2OmQ0A3g/z9khJUKMjav1ierWAHTdlrsbwPj
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="457048482"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="457048482"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 06:45:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="768192520"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="768192520"
-Received: from acornagl-mobl.ger.corp.intel.com (HELO [10.252.58.144])
- ([10.252.58.144])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 06:45:20 -0800
-Message-ID: <8ede931b-8c9c-4b95-83e5-5f0db9819e8e@linux.intel.com>
-Date: Mon, 27 Nov 2023 16:45:54 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26701F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 16:20:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26701F8007E
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DEF731FCFD;
+	Mon, 27 Nov 2023 15:20:06 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88F481367B;
+	Mon, 27 Nov 2023 15:20:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id tI3MH6azZGVbQQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 27 Nov 2023 15:20:06 +0000
+Date: Mon, 27 Nov 2023 16:20:06 +0100
+Message-ID: <878r6jp6jd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	ranjani.sridharan@linux.intel.com
 Subject: Re: [PATCH 1/2] ALSA: hda/hdmi: Add helper function to check if a
  device is HDMI codec
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
+In-Reply-To: <8ede931b-8c9c-4b95-83e5-5f0db9819e8e@linux.intel.com>
 References: <20231127130245.24295-1-peter.ujfalusi@linux.intel.com>
- <20231127130245.24295-2-peter.ujfalusi@linux.intel.com>
- <87jzq3pc6r.wl-tiwai@suse.de>
- <d2fff7cd-ea4b-41b9-992b-fab6ba6549ec@linux.intel.com>
- <87cyvvp8t6.wl-tiwai@suse.de>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <87cyvvp8t6.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
+	<20231127130245.24295-2-peter.ujfalusi@linux.intel.com>
+	<87jzq3pc6r.wl-tiwai@suse.de>
+	<d2fff7cd-ea4b-41b9-992b-fab6ba6549ec@linux.intel.com>
+	<87cyvvp8t6.wl-tiwai@suse.de>
+	<8ede931b-8c9c-4b95-83e5-5f0db9819e8e@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3KY422P67AGTPWYBAI7RE5W764L5FNQU
-X-Message-ID-Hash: 3KY422P67AGTPWYBAI7RE5W764L5FNQU
-X-MailFrom: peter.ujfalusi@linux.intel.com
+X-Rspamd-Server: rspamd1
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Rspamd-Queue-Id: DEF731FCFD
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	 REPLY(-4.00)[]
+Message-ID-Hash: QCM2C6YAAY4BAQ24K54UHLFRB77ZY6J4
+X-Message-ID-Hash: QCM2C6YAAY4BAQ24K54UHLFRB77ZY6J4
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KY422P67AGTPWYBAI7RE5W764L5FNQU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QCM2C6YAAY4BAQ24K54UHLFRB77ZY6J4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,42 +114,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 27/11/2023 16:31, Takashi Iwai wrote:
-> On Mon, 27 Nov 2023 15:12:51 +0100,
-> PÃ©ter Ujfalusi wrote:
->>
->>
->>
->> On 27/11/2023 15:18, Takashi Iwai wrote:
->>>> +bool snd_hda_device_is_hdmi(struct hdac_device *hdev)
->>>> +{
->>>> +	int i;
->>>> +
->>>> +	for (i = 0; i < ARRAY_SIZE(snd_hda_id_hdmi); i++) {
->>>> +		if (snd_hda_id_hdmi[i].vendor_id == hdev->vendor_id)
->>>> +			return true;
->>>> +	}
->>>> +
->>>> +	return false;
->>>> +}
->>>> +EXPORT_SYMBOL_GPL(snd_hda_device_is_hdmi);
->>>
->>> I'm afraid that this will bring unnecessary dependency on HDMI codec
->>> driver.
->>
->> For HDMI support we anyways need HDMI code?
+On Mon, 27 Nov 2023 15:45:54 +0100,
+Péter Ujfalusi wrote:
 > 
-> But the ASoC hdac-hda driver isn't specifically bound with HDMI, I
-> thought?
 > 
-> With your patch, now it becomes a hard-dependency.  It'll be even
-> build failure when HDMI codec driver isn't enabled in Kconfig.
+> 
+> On 27/11/2023 16:31, Takashi Iwai wrote:
+> > On Mon, 27 Nov 2023 15:12:51 +0100,
+> > Péter Ujfalusi wrote:
+> >>
+> >>
+> >>
+> >> On 27/11/2023 15:18, Takashi Iwai wrote:
+> >>>> +bool snd_hda_device_is_hdmi(struct hdac_device *hdev)
+> >>>> +{
+> >>>> +	int i;
+> >>>> +
+> >>>> +	for (i = 0; i < ARRAY_SIZE(snd_hda_id_hdmi); i++) {
+> >>>> +		if (snd_hda_id_hdmi[i].vendor_id == hdev->vendor_id)
+> >>>> +			return true;
+> >>>> +	}
+> >>>> +
+> >>>> +	return false;
+> >>>> +}
+> >>>> +EXPORT_SYMBOL_GPL(snd_hda_device_is_hdmi);
+> >>>
+> >>> I'm afraid that this will bring unnecessary dependency on HDMI codec
+> >>> driver.
+> >>
+> >> For HDMI support we anyways need HDMI code?
+> > 
+> > But the ASoC hdac-hda driver isn't specifically bound with HDMI, I
+> > thought?
+> > 
+> > With your patch, now it becomes a hard-dependency.  It'll be even
+> > build failure when HDMI codec driver isn't enabled in Kconfig.
+> 
+> The change in hdaudio.h handles the config dependency, if
+> CONFIG_SND_HDA_CODEC_HDMI is not enabled in Kconfig then
+> snd_hda_device_is_hdmi() will return false.
 
-The change in hdaudio.h handles the config dependency, if
-CONFIG_SND_HDA_CODEC_HDMI is not enabled in Kconfig then
-snd_hda_device_is_hdmi() will return false.
+OK, that's at least good.
+But I still find it not ideal to bring the hard dependency there
+unnecessarily.
 
--- 
-PÃ©ter
+With the introduction of a flag in hdac_device, the necessary change
+would be even smaller like below.
+
+
+Takashi
+
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -95,6 +95,7 @@ struct hdac_device {
+ 	bool lazy_cache:1;	/* don't wake up for writes */
+ 	bool caps_overwriting:1; /* caps overwrite being in process */
+ 	bool cache_coef:1;	/* cache COEF read/write too */
++	bool is_hdmi:1;		/* a HDMI/DP codec */
+ 	unsigned int registered:1; /* codec was registered */
+ };
+ 
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2597,6 +2597,7 @@ static int patch_generic_hdmi(struct hda_codec *codec)
+ 	}
+ 
+ 	generic_hdmi_init_per_pins(codec);
++	codec->core.is_hdmi = true;
+ 	return 0;
+ }
+ 
+@@ -3472,6 +3473,7 @@ static int patch_simple_hdmi(struct hda_codec *codec,
+ 	spec->pcm_playback = simple_pcm_playback;
+ 
+ 	codec->patch_ops = simple_hdmi_patch_ops;
++	codec->core.is_hdmi = true;
+ 
+ 	return 0;
+ }

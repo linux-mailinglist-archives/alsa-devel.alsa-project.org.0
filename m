@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B656A7F9C87
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 10:22:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24F7B7F9CD1
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 10:38:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45A531E9;
-	Mon, 27 Nov 2023 10:22:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45A531E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC7AD84D;
+	Mon, 27 Nov 2023 10:38:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC7AD84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701076952;
-	bh=bYWHvpIohRF58uQ5bmLZMazd3VvI3mTPzaklnKBNM00=;
+	s=default; t=1701077923;
+	bh=JWtKJkDoc/ei7BMVCwqYvyqzNHOvuUtot2C810by7l0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Fospu/aDQMrwvwxUvyXPgabodxJKSuvLes8KtSQEaBDHJDbLUuEa1Q+KiWBh/M/0w
-	 ZcqbUUb9VLhsZ6YQoTqY1L3ee8xG2/I59NYcsL4vG+NUjYc2do3FLjnYrIYom7pijL
-	 AIy4BR589xB567JjSTXaPmh98KWekRaoGmjs94mA=
+	b=jE+fqK0uIogIk+eqsr8+CeeW/Juf5Gf5cpXZo9h60v45Je2UAkLIX7yr/E+lX7pvJ
+	 65kaIE5uI5FYBsOEjDQ2jAsjzEdp8YwY2wiyee4pTvEtYVEzWDpd31eGySvx8OSWSi
+	 69JybWXajhLTHbHgjWkaW694RY2Xt8s1BsfSQ3qY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F747F8057A; Mon, 27 Nov 2023 10:21:59 +0100 (CET)
+	id E4923F80587; Mon, 27 Nov 2023 10:38:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18092F80104;
-	Mon, 27 Nov 2023 10:21:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8276F80571;
+	Mon, 27 Nov 2023 10:38:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 186F7F801D5; Mon, 27 Nov 2023 10:21:55 +0100 (CET)
+	id 752EDF801D5; Mon, 27 Nov 2023 10:38:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,93 +37,93 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 115E3F800F5
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 10:21:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 115E3F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 905A6F80104
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 10:37:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 905A6F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=mAilhSTj;
+ header.s=susede2_rsa header.b=Tpc9ICiv;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UhCwFNoK
+ header.s=susede2_ed25519 header.b=HQKEiiZn
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3AE2A202CB;
-	Mon, 27 Nov 2023 09:21:49 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2E63C20127;
+	Mon, 27 Nov 2023 09:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1701076909;
+	t=1701077869;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J40GjO5fTp7CxgfWZ9x3no/nnERaM9YKO3wZIscBgCg=;
-	b=mAilhSTj0AOWvAHBUFMxcAwmdms1nLB/JfzQX+P3+/ZgaPpJRJvIU+N19DyoGGfHFuWf/q
-	nVS6l83fUaMez/69sm62NgDBbENgDCGhqPqcVTjG3AJTLIvdWlvXPgY51aTgpl00oj6ArK
-	f2FmMQG5xqgE3dtkQVicUKrA6OwzmgQ=
+	bh=fhcx4H15kvG3el0b2VrCwe4+o2JrhZEvX+Pb94sy4rw=;
+	b=Tpc9ICiv77P3nCJmgNcpsSAOLvxjQGb+ixQ2h5Gv1UJDTwNO/JLf0uideG1dng8zSFnLdR
+	suhbRXN2VDASCEsf11Cqii4gM7v35OfAvaKW+wK111ePO3xR1kwItwbC7rAsceyTQezMed
+	0h85Mk9PUzRZqEHdZw7mie/THI0DjIg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1701076909;
+	s=susede2_ed25519; t=1701077869;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J40GjO5fTp7CxgfWZ9x3no/nnERaM9YKO3wZIscBgCg=;
-	b=UhCwFNoKp79Ojk5jFizvNj0+aWqYzSk/JuDz0eznlUs3I9HORaGxGEYiI8godI/WkDtywe
-	puSd8JGeUw1jQ2Aw==
+	bh=fhcx4H15kvG3el0b2VrCwe4+o2JrhZEvX+Pb94sy4rw=;
+	b=HQKEiiZnTgtitVJI52SanYcgNJE7RVlp9rgkWU7ofZ5osfHXP3ZIcObtJSk8OzNPtgXrab
+	6srcTABbtWOB0GDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B5F91367B;
-	Mon, 27 Nov 2023 09:21:49 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CFBFB1379A;
+	Mon, 27 Nov 2023 09:37:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OlSpBK1fZGW7PAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 27 Nov 2023 09:21:49 +0000
-Date: Mon, 27 Nov 2023 10:21:48 +0100
-Message-ID: <87v89no8k3.wl-tiwai@suse.de>
+	id 0EJ1MGxjZGWJRAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 27 Nov 2023 09:37:48 +0000
+Date: Mon, 27 Nov 2023 10:37:48 +0100
+Message-ID: <871qcbr0yb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Julian Sikorski <belegdol@gmail.com>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>
-Subject: Re: Yamaha YIT-W12TX not working
-In-Reply-To: <0fbebd11-cbcc-4595-b9b0-fff2bba937e6@gmail.com>
-References: <47549112-b2c6-1957-9055-888a4191c6ab@gmail.com>
-	<204b6079-7348-418e-8d97-82d798a28d69@gmail.com>
-	<98d10b80-40cb-4511-898e-c287663f0882@gmail.com>
-	<877cm3pqd3.wl-tiwai@suse.de>
-	<0fbebd11-cbcc-4595-b9b0-fff2bba937e6@gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: broonie@kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	amadeuszx.slawinski@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	hdegoede@redhat.com
+Subject: Re: [PATCH v5 00/16] ALSA/ASoC: hda: Address format selection
+ limitations and ambiguity
+In-Reply-To: <20231117120610.1755254-1-cezary.rojewski@intel.com>
+References: <20231117120610.1755254-1-cezary.rojewski@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 Authentication-Results: smtp-out2.suse.de;
 	none
-X-Spamd-Result: default: False [-7.25 / 50.00];
+X-Spamd-Result: default: False [-3.26 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 FROM_HAS_DN(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_DN_SOME(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
 	 MIME_GOOD(-0.10)[text/plain];
-	 REPLY(-4.00)[];
-	 NEURAL_HAM_LONG(-0.95)[-0.946];
 	 RCVD_COUNT_THREE(0.00)[3];
 	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 TO_DN_ALL(0.00)[];
-	 RCPT_COUNT_TWO(0.00)[2];
+	 NEURAL_HAM_SHORT(-0.16)[-0.781];
+	 RCPT_COUNT_SEVEN(0.00)[9];
 	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[yamaha.com:url];
-	 FREEMAIL_TO(0.00)[gmail.com];
 	 FUZZY_BLOCKED(0.00)[rspamd.com];
 	 FROM_EQ_ENVFROM(0.00)[];
 	 MIME_TRACE(0.00)[0:+];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
 	 RCVD_TLS_ALL(0.00)[];
 	 BAYES_HAM(-3.00)[100.00%]
-Message-ID-Hash: EWPWIQOX23WQ2QO5VOXPDOIZ54GUJ3HF
-X-Message-ID-Hash: EWPWIQOX23WQ2QO5VOXPDOIZ54GUJ3HF
+Message-ID-Hash: YI36IG2L5XTWSXPXBI2D3WFBGOQZFKZX
+X-Message-ID-Hash: YI36IG2L5XTWSXPXBI2D3WFBGOQZFKZX
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -136,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EWPWIQOX23WQ2QO5VOXPDOIZ54GUJ3HF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YI36IG2L5XTWSXPXBI2D3WFBGOQZFKZX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,220 +145,137 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 27 Nov 2023 10:15:05 +0100,
-Julian Sikorski wrote:
+On Fri, 17 Nov 2023 13:05:54 +0100,
+Cezary Rojewski wrote:
 > 
-> Am 27.11.23 um 09:11 schrieb Takashi Iwai:
-> > On Sun, 26 Nov 2023 10:12:56 +0100,
-> > Julian Sikorski wrote:
-> >> 
-> >> Am 17.11.23 um 15:31 schrieb Julian Sikorski:
-> >>> Am 13.12.2020 um 10:51 schrieb Julian Sikorski:
-> >>>> Hi list,
-> >>>> 
-> >>>> Yamaha YIT-W12TX is a USB dongle which allows to transmit audio
-> >>>> from PC to the YSP-4300 sound bar [1][2]. While it is quite old and
-> >>>> no longer sold, I recently tried to make it work under
-> >>>> linux. Unfortunately, it did not work:
-> >>>> 
-> >>>> [ 3676.366404] usb 2-1.1: new full-speed USB device number 5 using
-> >>>> ehci-pci
-> >>>> [ 3676.445995] usb 2-1.1: config 1 has an invalid interface number:
-> >>>> 4 but max is 3
-> >>>> [ 3676.446001] usb 2-1.1: config 1 has no interface number 2
-> >>>> [ 3676.446664] usb 2-1.1: New USB device found, idVendor=0499,
-> >>>> idProduct=3108, bcdDevice= 1.00
-> >>>> [ 3676.446666] usb 2-1.1: New USB device strings: Mfr=2, Product=1,
-> >>>> SerialNumber=0
-> >>>> [ 3676.446679] usb 2-1.1: Product: YIT-W12TX
-> >>>> [ 3676.446683] usb 2-1.1: Manufacturer: YAMAHA Corp.
-> >>>> [ 3676.449508] hid-generic 0003:0499:3108.0001: hiddev96,hidraw0:
-> >>>> USB HID v0.01 Device [YAMAHA Corp. YIT-W12TX] on
-> >>>> usb-0000:00:1d.0-1.1/input3
-> >>>> [ 3676.450846] input: YAMAHA Corp. YIT-W12TX as
-> >>>> /devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.1/2-1.1:1.4/0003:0499:3108.0002/input/input34
-> >>>> [ 3676.503844] hid-generic 0003:0499:3108.0002: input,hidraw1: USB
-> >>>> HID v1.00 Device [YAMAHA Corp. YIT-W12TX] on
-> >>>> usb-0000:00:1d.0-1.1/input4
-> >>>> [ 3676.671641] usb 2-1.1: 1:1: cannot get freq at ep 0x1
-> >>>> [ 3676.675786] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.676476] usbcore: registered new interface driver snd-usb-audio
-> >>>> [ 3676.731911] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.735658] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.739399] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.743131] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.746920] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.750648] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.754445] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.758524] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.762274] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>> control 2 (id 5)
-> >>>> [ 3676.789671] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.790049] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.790414] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.790773] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.791169] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.792134] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.792547] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.792899] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.793254] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.793634] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.794900] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.795255] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.795634] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.796008] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.796384] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.797543] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.797879] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.798254] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.798634] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.799007] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.813819] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.814281] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.814686] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.815281] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.815929] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.817807] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.818155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.818592] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.819165] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.819801] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.822163] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.822802] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.823284] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.824161] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.824907] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.827683] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.828159] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.828675] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.829415] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.830157] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.841801] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.842155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.842551] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.843158] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.843785] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.844909] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.845283] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.845673] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.846156] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.846800] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.848287] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.848799] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.849280] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.850031] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.850799] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.852677] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.853154] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.853674] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.854429] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.855155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.858916] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.859277] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.859672] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.860280] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.860909] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.862033] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.862418] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.862797] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.863279] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.863923] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.865471] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.866033] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.866590] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.867410] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.868157] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.870162] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.870674] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.871155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.871908] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.872676] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> [ 3676.900672] usb 2-1.1: USB disconnect, device number 5
-> >>>> [ 3676.900688] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>> 
-> >>>> This is with kernel-5.9.13-200.fc33.x86_64 and
-> >>>> alsa-lib-1.2.4-5.fc33.x86_64 on Fedora 33. Under Windows 10 the
-> >>>> dongle works without any special drivers from Yamaha, everything
-> >>>> appears to be downloaded by Windows automatically, so I was hoping
-> >>>> the device could be made to work under Linux relatively easily.
-> >>>> 
-> >>>> Best regards,
-> >>>> Julian
-> >>>> 
-> >>>> [1]
-> >>>> https://europe.yamaha.com/en/products/audio_visual/accessories/yit-w12/downloads.html#product-tabs
-> >>>> [2]
-> >>>> https://europe.yamaha.com/en/products/audio_visual/sound_bar/ysp-4300/downloads.html#product-tabs
-> >>> 
-> >>> Hello,
-> >>> 
-> >>> 3 years later I am still hoping for getting the device working. I am
-> >>> on 6.5 kernel and Fedora 39.
-> >>> I am attaching Windows' driver details screenshot as well as the inf
-> >>> file used.
-> >>> Does USB audio driver under linux have any parameters I could try?
-> >>> 
-> >>> Best regards,
-> >>> Julian
-> >> 
-> >> Hi again,
-> >> 
-> >> turns out that getting the sound out was easier than expected:
-> >> 
-> >> options snd-usb-audio quirk_flags=0x1
-> > 
-> > And this alone helps to get the card working?
-> > Once after confirmation, we can add the quirk to the static table.
-> > 
+> Patchset aims to address format selection restrictions present currently
+> in the HDAudio library. Formats which we are concerned about are 20 and
+> 24 valid bits per sample within 32 bit depth container. One may identify
+> them as S20_LE and S24_LE except that those, according to comments found
+> in include/uapi/sound/asound.h, are for LSB-aligned scenarios. HDAudio
+> streams expect MSB-aligned data, no matter if we are speaking of HOST
+> (SDxFMT) or LINK (PPLCxFMT) side - chapter 4.5.1 of the public HDAudio
+> specification. In short, S20_LE and S24_LE are invalid options.
 > 
-> Yes, no other changes were needed. I am on kernel 6.6.2 now. I have
-> been listening to music via the dongle for several hours yesterday and
-> today. Even s2idle is working.
-
-OK, then it's easy to apply the quirk.
-
-> >> One cosmetic issue remains: in pavucontrol I can see 3 configuration
-> >> options:
-> >> - Analog Stereo output
-> >> - Digital Stereo (IEC958) output
-> >> - Pro Audio
-> >> The first and the third one work normally whereas digital stereo
-> >> output very quiet audio only.
-> >> By contrast, both my built-in audio cards (AMD Renoir HDMI and analog
-> >> output) only have two options:
-> >> - Play HiFi quality Music
-> >> - Pro Audio
-> >> Is this expected?
-> > 
-> > When the device provides multiple outputs, yes, it's a sort of default
-> > setup.  Different boards may have different own UCM configs to
-> > override the default.
-> > Check each output and verify what actual I/O they correspond.
-> > 
+> Right now, given the implementation of snd_hdac_query_supported_pcm() 
+> within sound/hda/hdac_device.c, even if a codec responds with: "I
+> support all possible formats specified within HDAudio specification",
+> there will be no option to open a 20/32 or 24/32 stream. The kernel will
+> force the stream to be opened using the highest available bit depth.
 > 
-> Well, the dongle does not have any physical outputs. Input-wise, it
-> can be connected to a PC via USB or to an old iPod/iPhone via the
-> 30-pin dock connector.
-> As far as output is concerned, the dongle connects wirelessly, via a
-> proprietary AirWired protocol, to the Yamaha sound bar and its
-> accompanying wireless subwoofer. Analog and pro output selection
-> produce reasonably loud sound on the soundbar, in line with other
-> inputs like FM radio, analog input or HDMI. Digital output, on the
-> other hand, produces barely audible volume level. While it can be
-> adjusted with the volume setting on the sound bar, the level needs to
-> be so high that it would be unbearably loud for other inputs.
+> After discussing subject initially with Jaroslav and Takashi, suggestion
+> was made to utilize 'subformat' option to address the problem. The
+> eye-opening discussion begun much earlier though, in 2019 [1].
+> 
+> Paired with PRs for alsa-utils [2] and alsa-lib [3].
+> 
+> 
+> Flow of changes:
+> 
+> The very first patch adds MSBITS subformat options to allow for granular
+> 20/32, 24/32 and 32/32 format selection. The next two make sure
+> subformat is actually honored during runtime. Most of that code is based
+> on format-related API.
+> 
+> Follow up is upgrade to the hda stream-format interface - several
+> functions are added to make the granular format selection simple in the
+> HDAudio world. Core of the implementation is based on the existing
+> snd_hdac_calc_stream_format(). The next ten patches are straightforward
+> switch from one interface to another with cleanup of now-unsed function
+> as a finishing touch.
+> 
+> Last but not least - the avs-driver, on which the problem analyzed and
+> debugged, is updated to no longer acknowledge S24_LE as a valid format
+> option.
+> 
+> Results with skylake-driver and snd_hda_intel show status quo on our
+> RVPs. PR filed on SOF github shows promising results too [4].
+> 
+> 
+> Changes in v5:
+> - reworded 'bps' to 'bits' in all occurrences.
+> - fixed an issue of MSBITS_MAX not being reported for S32_LE as reported
+>   by Jaroslav
+> - snd_pcm_subformat_width() has been inlined into its only user:
+>   snd_pcm_hw_params_bits() as suggested by Jaroslav.
+> - updated commit messege for patch 01 as it was out of date given the
+>   recent updates.
+> 
+> Changes in v4:
+> - fixed compilation issues in sof-driver, patch 12/16, reported by ikp
+> - fixed sparse warnings in patch 01/16, reported by ikp
+> - updated commit message for patch 03: "ASoC pcm: Honor subformat when
+>   configuring runtime", as snd_pcm_hw_copy() is gone since revision v3.
+> 
+> Changes in v3:
+> - merged the first two patches as suggested by Jaroslav
+> - re-authored patch 01 to Jaroslav, added my Co-developed-by.
+> - added Jaroslav' Co-developed-by to patch 02.
+> - 'subformats' field now S32_LE-specific. Given the fact that it is the
+>   only format currently requiring subformat-intervention, functionality
+>   is narrowed to reduce amount of memory allocations and cleanup.
+>   Suggested by Jaroslav.
+> - note to the above: the hdaudio part converted 1:1 as requested, patch
+>   02/16
+> - note #2: alsa part converted to S32_LE-specific yet without addition
+>   of the chicken bit. Instead, struct snd_pcm_hardware is updated with
+>   u32 subformat mask to do the job.
+> - ALSA-core additions in form of snd_pcm_subformat_width() and
+>   snd_pcm_hw_params_bps() relocated from 01/16 to the user, patch 05.
+> 
+> Changes in v2:
+> - patch 01/17, introduced struct snd_pcm_subformat which task is to
+>   represent subformat-mask on per format basis. Expectation is that
+>   manipulated arrays of subformats always end with a sentinel entry
+> - patch 01/17, added snd_pcm_hw_copy() as the copying snd_pcm_hardware
+>   becomes non-trivial
+> - patch 02/17, added hw_rule that produces final subformat mask
+>   based on provided formats as suggested by Jaroslav
+> - patch 04/17, soc_pcm_hw_update_subformat() refactored as the subformat
+>   intersection becomes non-trivial
+> - relevant functions releasing resources occupied by hda_pcm and
+>   snd_pcm_runtime updated to also kfree() subformats
+> - except for 16/17, no changes to patches past 04/17, retaining acks for
+>   these
+> 
+> Changes in v1:
+> - fixed UBSAN due to missing snd_pcm_subformat_names[] entries for new
+>   subformats
+> - as HDMI stream capabilities are assigned on PCM open, patch 16/17 has
+>   been updated to ignore such codecs for now. A separate patchset will
+>   take care of this case
+> - params_bps() reworded to snd_pcm_hw_params_bps()
+> - fixed compilation issues in sof-driver, patch 13/17
+> 
+> 
+> [1]: https://lore.kernel.org/alsa-devel/20190905053302.9262-1-pawel.harlozinski@linux.intel.com/
+> [2]: https://github.com/alsa-project/alsa-utils/pull/228
+> [3]: https://github.com/alsa-project/alsa-lib/pull/342
+> [4]: https://github.com/thesofproject/linux/pull/4539
+> 
+> Cezary Rojewski (15):
+>   ALSA: hda: Honor subformat when querying PCMs
+>   ASoC: pcm: Honor subformat when configuring runtime
+>   ALSA: hda: Upgrade stream-format infrastructure
+>   ALSA: hda: Switch to new stream-format interface
+>   ALSA: hda/hdmi: Switch to new stream-format interface
+>   ALSA: hda/ca0132: Switch to new stream-format interface
+>   ASoC: codecs: hda: Switch to new stream-format interface
+>   ASoC: codecs: hdac_hda: Switch to new stream-format interface
+>   ASoC: codecs: hdac_hdmi: Switch to new stream-format interface
+>   ASoC: Intel Skylake: Switch to new stream-format interface
+>   ASoC: SOF: Intel: Switch to new stream-format interface
+>   ASoC: Intel: avs: Switch to new stream-format interface
+>   ALSA: hda: Drop snd_hdac_calc_stream_format()
+>   ASoC: Intel: avs: Kill S24_LE format
+>   ASoC: Intel: avs: Unhardcode HDAudio BE DAI drivers description
+> 
+> Jaroslav Kysela (1):
+>   ALSA: pcm: Introduce MSBITS subformat interface
 
-Could you give alsa-info.sh outputs?  The device may have multiple I/O
-endpoints that end up with multiple PCM streams for som purpose.
+Now the patch 1 became the one from Jaroslav, it's a good move.
+Jaroslav, could you take a look at the rest patches?
+I'm going to merge this in this week unless any objection comes up.
 
 
 thanks,

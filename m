@@ -2,113 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DF177FA62D
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 17:20:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84DC77FA63D
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 17:22:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1707DBC0;
-	Mon, 27 Nov 2023 17:20:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1707DBC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA008832;
+	Mon, 27 Nov 2023 17:22:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA008832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701102043;
-	bh=czuPkOTltZyZXFU7U1QGAZGp5+go177r8rLGsH2tB4k=;
+	s=default; t=1701102132;
+	bh=d0hfk6ggxJROj7Nk12gdiGlwJhNqr7RjKiRUrRDBdGA=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uSBwimtBae9suR+/N0l2/CdSobI8AmL6e4fpHG6HYFYsNnZhmmDaGR9PhY5UDSp3+
-	 T9j1wrXLp106vc6lsY9qYoFbzkc4cqFjMlH+92n4q3aHh01gwpyxypW3W0cLbluV6f
-	 MbT5KQxAtqqSL4ah14af5LgWsdTgcNfWAqexoU3w=
+	b=JjlyZjCHGbC6umRNBZiuV+pya9UATPkU8s2fJTqwl6699a3wXs/A6vOpm7ytBS66W
+	 +XortxBPrtrmCepTtfsvZF5nmvUEWAY3QWn6av3RsjplwRAJ6TYd1WTPRRF0tM7Zg6
+	 94+7Ku86TBAZjBQgvuKGetmahwYP6fjlvOVWBeoQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08A36F8057A; Mon, 27 Nov 2023 17:20:11 +0100 (CET)
+	id 94398F8057B; Mon, 27 Nov 2023 17:21:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 051DFF80564;
-	Mon, 27 Nov 2023 17:20:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05FAAF80236;
+	Mon, 27 Nov 2023 17:21:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FB16F8016E; Mon, 27 Nov 2023 17:20:05 +0100 (CET)
+	id 4B4A1F8016E; Mon, 27 Nov 2023 17:21:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1D9C1F800F5
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 17:19:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D9C1F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 852E4F800F5
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 17:21:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 852E4F800F5
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4E9D921AE4;
-	Mon, 27 Nov 2023 16:19:44 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DD2D81FC07;
+	Mon, 27 Nov 2023 16:21:40 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C6871379A;
-	Mon, 27 Nov 2023 16:19:44 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9AFCB1379A;
+	Mon, 27 Nov 2023 16:21:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9RBDCaDBZGXMWAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 27 Nov 2023 16:19:44 +0000
-Date: Mon, 27 Nov 2023 17:19:43 +0100
-Message-ID: <87sf4rnp7k.wl-tiwai@suse.de>
+	id 1m9kJBTCZGWDWQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 27 Nov 2023 16:21:40 +0000
+Date: Mon, 27 Nov 2023 17:21:40 +0100
+Message-ID: <87r0kbnp4b.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Julian Sikorski <belegdol@gmail.com>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>
-Subject: Re: Yamaha YIT-W12TX not working
-In-Reply-To: <a4208a2e-b284-49c8-855b-3346045d6ecf@gmail.com>
-References: <47549112-b2c6-1957-9055-888a4191c6ab@gmail.com>
-	<204b6079-7348-418e-8d97-82d798a28d69@gmail.com>
-	<98d10b80-40cb-4511-898e-c287663f0882@gmail.com>
-	<877cm3pqd3.wl-tiwai@suse.de>
-	<0fbebd11-cbcc-4595-b9b0-fff2bba937e6@gmail.com>
-	<87v89no8k3.wl-tiwai@suse.de>
-	<a4208a2e-b284-49c8-855b-3346045d6ecf@gmail.com>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	ranjani.sridharan@linux.intel.com
+Subject: Re: [PATCH] ALSA: hda: intel-nhlt: Ignore vbps when looking for DMIC
+ 32 bps format
+In-Reply-To: <20231127111658.17275-1-peter.ujfalusi@linux.intel.com>
+References: <20231127111658.17275-1-peter.ujfalusi@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Bar: ++++
-Authentication-Results: smtp-out1.suse.de;
-	dkim=none;
-	dmarc=fail reason="No valid SPF,
- No valid DKIM" header.from=suse.de (policy=none);
-	spf=softfail (smtp-out1.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
- permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
+Authentication-Results: smtp-out2.suse.de;
+	none
 X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [4.79 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 MIME_GOOD(-0.10)[text/plain];
-	 R_SPF_SOFTFAIL(4.60)[~all:c];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 TO_DN_ALL(0.00)[];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_TWO(0.00)[2];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FREEMAIL_TO(0.00)[gmail.com];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 R_DKIM_NA(2.20)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%];
-	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
-X-Rspamd-Queue-Id: 4E9D921AE4
-Message-ID-Hash: 4MVSVYREOQP7NX4JJCFWUJ3FQJIRY5SD
-X-Message-ID-Hash: 4MVSVYREOQP7NX4JJCFWUJ3FQJIRY5SD
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	 REPLY(-4.00)[]
+X-Rspamd-Queue-Id: DD2D81FC07
+Message-ID-Hash: J4ATAAWKN6PO4LD7CTA6GMNYNVKS2S3A
+X-Message-ID-Hash: J4ATAAWKN6PO4LD7CTA6GMNYNVKS2S3A
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -121,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MVSVYREOQP7NX4JJCFWUJ3FQJIRY5SD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J4ATAAWKN6PO4LD7CTA6GMNYNVKS2S3A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,236 +106,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 27 Nov 2023 11:57:42 +0100,
-Julian Sikorski wrote:
+On Mon, 27 Nov 2023 12:16:58 +0100,
+Peter Ujfalusi wrote:
 > 
+> When looking up DMIC blob from the NHLT table and the format is 32 bits,
+> ignore the vbps matching for 32 bps for DMIC since some NHLT table have
+> the vbps as 24, some have it as 32.
+> The DMIC hardware supports only one type of 32 bit sample size, which is
+> 24 bit sampling on the MSB side and bits[1:0] is used for indicating the
+> channel number.
 > 
-> 
-> Am 27.11.23 um 10:21 schrieb Takashi Iwai:
-> > On Mon, 27 Nov 2023 10:15:05 +0100,
-> > Julian Sikorski wrote:
-> >> 
-> >> Am 27.11.23 um 09:11 schrieb Takashi Iwai:
-> >>> On Sun, 26 Nov 2023 10:12:56 +0100,
-> >>> Julian Sikorski wrote:
-> >>>> 
-> >>>> Am 17.11.23 um 15:31 schrieb Julian Sikorski:
-> >>>>> Am 13.12.2020 um 10:51 schrieb Julian Sikorski:
-> >>>>>> Hi list,
-> >>>>>> 
-> >>>>>> Yamaha YIT-W12TX is a USB dongle which allows to transmit audio
-> >>>>>> from PC to the YSP-4300 sound bar [1][2]. While it is quite old and
-> >>>>>> no longer sold, I recently tried to make it work under
-> >>>>>> linux. Unfortunately, it did not work:
-> >>>>>> 
-> >>>>>> [ 3676.366404] usb 2-1.1: new full-speed USB device number 5 using
-> >>>>>> ehci-pci
-> >>>>>> [ 3676.445995] usb 2-1.1: config 1 has an invalid interface number:
-> >>>>>> 4 but max is 3
-> >>>>>> [ 3676.446001] usb 2-1.1: config 1 has no interface number 2
-> >>>>>> [ 3676.446664] usb 2-1.1: New USB device found, idVendor=0499,
-> >>>>>> idProduct=3108, bcdDevice= 1.00
-> >>>>>> [ 3676.446666] usb 2-1.1: New USB device strings: Mfr=2, Product=1,
-> >>>>>> SerialNumber=0
-> >>>>>> [ 3676.446679] usb 2-1.1: Product: YIT-W12TX
-> >>>>>> [ 3676.446683] usb 2-1.1: Manufacturer: YAMAHA Corp.
-> >>>>>> [ 3676.449508] hid-generic 0003:0499:3108.0001: hiddev96,hidraw0:
-> >>>>>> USB HID v0.01 Device [YAMAHA Corp. YIT-W12TX] on
-> >>>>>> usb-0000:00:1d.0-1.1/input3
-> >>>>>> [ 3676.450846] input: YAMAHA Corp. YIT-W12TX as
-> >>>>>> /devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.1/2-1.1:1.4/0003:0499:3108.0002/input/input34
-> >>>>>> [ 3676.503844] hid-generic 0003:0499:3108.0002: input,hidraw1: USB
-> >>>>>> HID v1.00 Device [YAMAHA Corp. YIT-W12TX] on
-> >>>>>> usb-0000:00:1d.0-1.1/input4
-> >>>>>> [ 3676.671641] usb 2-1.1: 1:1: cannot get freq at ep 0x1
-> >>>>>> [ 3676.675786] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.676476] usbcore: registered new interface driver snd-usb-audio
-> >>>>>> [ 3676.731911] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.735658] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.739399] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.743131] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.746920] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.750648] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.754445] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.758524] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.762274] usb 2-1.1: 5:0: cannot get min/max values for
-> >>>>>> control 2 (id 5)
-> >>>>>> [ 3676.789671] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.790049] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.790414] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.790773] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.791169] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.792134] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.792547] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.792899] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.793254] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.793634] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.794900] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.795255] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.795634] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.796008] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.796384] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.797543] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.797879] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.798254] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.798634] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.799007] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.813819] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.814281] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.814686] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.815281] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.815929] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.817807] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.818155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.818592] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.819165] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.819801] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.822163] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.822802] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.823284] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.824161] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.824907] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.827683] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.828159] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.828675] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.829415] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.830157] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.841801] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.842155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.842551] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.843158] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.843785] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.844909] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.845283] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.845673] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.846156] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.846800] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.848287] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.848799] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.849280] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.850031] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.850799] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.852677] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.853154] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.853674] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.854429] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.855155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.858916] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.859277] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.859672] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.860280] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.860909] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.862033] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.862418] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.862797] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.863279] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.863923] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.865471] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.866033] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.866590] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.867410] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.868157] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.870162] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.870674] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.871155] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.871908] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.872676] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> [ 3676.900672] usb 2-1.1: USB disconnect, device number 5
-> >>>>>> [ 3676.900688] usb 2-1.1: 1:1: cannot set freq 44100 to ep 0x1
-> >>>>>> 
-> >>>>>> This is with kernel-5.9.13-200.fc33.x86_64 and
-> >>>>>> alsa-lib-1.2.4-5.fc33.x86_64 on Fedora 33. Under Windows 10 the
-> >>>>>> dongle works without any special drivers from Yamaha, everything
-> >>>>>> appears to be downloaded by Windows automatically, so I was hoping
-> >>>>>> the device could be made to work under Linux relatively easily.
-> >>>>>> 
-> >>>>>> Best regards,
-> >>>>>> Julian
-> >>>>>> 
-> >>>>>> [1]
-> >>>>>> https://europe.yamaha.com/en/products/audio_visual/accessories/yit-w12/downloads.html#product-tabs
-> >>>>>> [2]
-> >>>>>> https://europe.yamaha.com/en/products/audio_visual/sound_bar/ysp-4300/downloads.html#product-tabs
-> >>>>> 
-> >>>>> Hello,
-> >>>>> 
-> >>>>> 3 years later I am still hoping for getting the device working. I am
-> >>>>> on 6.5 kernel and Fedora 39.
-> >>>>> I am attaching Windows' driver details screenshot as well as the inf
-> >>>>> file used.
-> >>>>> Does USB audio driver under linux have any parameters I could try?
-> >>>>> 
-> >>>>> Best regards,
-> >>>>> Julian
-> >>>> 
-> >>>> Hi again,
-> >>>> 
-> >>>> turns out that getting the sound out was easier than expected:
-> >>>> 
-> >>>> options snd-usb-audio quirk_flags=0x1
-> >>> 
-> >>> And this alone helps to get the card working?
-> >>> Once after confirmation, we can add the quirk to the static table.
-> >>> 
-> >> 
-> >> Yes, no other changes were needed. I am on kernel 6.6.2 now. I have
-> >> been listening to music via the dongle for several hours yesterday and
-> >> today. Even s2idle is working.
-> > 
-> > OK, then it's easy to apply the quirk.
-> > 
-> >>>> One cosmetic issue remains: in pavucontrol I can see 3 configuration
-> >>>> options:
-> >>>> - Analog Stereo output
-> >>>> - Digital Stereo (IEC958) output
-> >>>> - Pro Audio
-> >>>> The first and the third one work normally whereas digital stereo
-> >>>> output very quiet audio only.
-> >>>> By contrast, both my built-in audio cards (AMD Renoir HDMI and analog
-> >>>> output) only have two options:
-> >>>> - Play HiFi quality Music
-> >>>> - Pro Audio
-> >>>> Is this expected?
-> >>> 
-> >>> When the device provides multiple outputs, yes, it's a sort of default
-> >>> setup.  Different boards may have different own UCM configs to
-> >>> override the default.
-> >>> Check each output and verify what actual I/O they correspond.
-> >>> 
-> >> 
-> >> Well, the dongle does not have any physical outputs. Input-wise, it
-> >> can be connected to a PC via USB or to an old iPod/iPhone via the
-> >> 30-pin dock connector.
-> >> As far as output is concerned, the dongle connects wirelessly, via a
-> >> proprietary AirWired protocol, to the Yamaha sound bar and its
-> >> accompanying wireless subwoofer. Analog and pro output selection
-> >> produce reasonably loud sound on the soundbar, in line with other
-> >> inputs like FM radio, analog input or HDMI. Digital output, on the
-> >> other hand, produces barely audible volume level. While it can be
-> >> adjusted with the volume setting on the sound bar, the level needs to
-> >> be so high that it would be unbearably loud for other inputs.
-> > 
-> > Could you give alsa-info.sh outputs?  The device may have multiple I/O
-> > endpoints that end up with multiple PCM streams for som purpose.
-> > 
-> 
-> Sure:
-> http://alsa-project.org/db/?f=f746a30850445f70e0879e273e5bcd87763014f9
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Thanks.  So it has only one playback device, and certainly the SPDIF
-option is superfluous.
-
-Does "aplay -L" show any iec958 option for the card?  And, what does
-actually happen when you choose IEC958 on pipewire for this card?
+Thanks, applied now to for-linus branch.
 
 
 Takashi
